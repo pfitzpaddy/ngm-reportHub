@@ -13,6 +13,7 @@
 		<!-- endbower -->
 		<!-- endbuild -->
 		<!-- build:css(.tmp) styles/main.css -->
+		<link rel="icon" href="images/favicon.png" sizes="32x32">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="styles/main.css">
 		<!-- endbuild -->
@@ -25,7 +26,7 @@
 		<!-- Add your site or application content here -->
 		<div style="background: {{ ngm.style.darkPrimaryColor }}; height:20px;"></div>
 		<nav style="background: {{ ngm.style.defaultPrimaryColor }};" role="navigation">
-			<div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><img src="images/{{ ngm.logo }}" width="64px"></a>
+			<div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><img ng-src="images/{{ ngm.logo }}" width="64px"></a>
 
 			<!--      
 				<ul class="right hide-on-med-and-down">
@@ -89,7 +90,9 @@
 
 		<!-- build:js({.tmp,app}) scripts/scripts.js -->
 		<script src="scripts/app.js"></script>
+		<script src="scripts/services/ngmAuthentication.js"></script>
 		<script src="scripts/controllers/login.js"></script>
+		<script src="scripts/controllers/dashboard.js"></script>
 		<!-- endbuild -->
 
 	</body>

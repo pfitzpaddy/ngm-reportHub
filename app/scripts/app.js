@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 angular
-	.module('ngmReportHub', [
+	.module( 'ngmReportHub', [
 		'ngAnimate',
 		'ngCookies',
 		'ngResource',
@@ -17,17 +17,56 @@ angular
 		'ngSanitize',
 		'ngTouch'
   	])
-	.config(['$routeProvider', function ($routeProvider) {
+	.config([ '$routeProvider', function ( $routeProvider ) {
+
+		//
 		$routeProvider
-			.when('/', {
+			.when( '/login', {
 				templateUrl: 'views/login.html',
-				controller: 'LoginCtrl'
+				controller: 'LoginCtrl',
+				resolve: {
+					access: [ 'ngmAccess', function( ngmAccess ) { 
+						if ( ngmAccess.TOKEN ) {
+							return ngmAccess.isAnonymous();
+						}
+					}],
+				}
 			})
+			.when( '/dashboard', {
+				templateUrl: 'views/dashboard.html',
+				controller: 'DashboardCtrl',				
+				resolve: {
+					access: [ 'ngmAccess', function( ngmAccess ) {
+						if ( ngmAccess.TOKEN ) {
+							return ngmAccess.isAuthenticated(); 
+						}
+					}],
+				}
+			})
+			.when( '/forbidden', {
+				templateUrl: 'views/forbidden.html',
+			})			
 			.otherwise({
-				redirectTo: '/'
+				redirectTo: '/dashboard'
 			});
 	}])
-	.controller('ngmReportHubCrtl', ['$scope', function ($scope) {
+	.run([ '$rootScope', 'ngmAccess', '$location', function( $rootScope, ngmAccess, $location ) {
+
+		//
+		$rootScope.$on( '$routeChangeError' , function( event, current, previous, rejection ) {
+
+			// 
+			if ( rejection === ngmAccess.UNAUTHORIZED ) {
+				$location.path( '/login' );
+			} else if (ngmAccess.OK) {
+				$location.path( '/dashboard' );
+			} else if ( rejection === ngmAccess.FORBIDDEN ) {
+				$location.path( '/forbidden' );
+			}
+		});
+
+	}])	
+	.controller( 'ngmReportHubCrtl', [ '$scope', function ( $scope ) {
 
 		// ngm object
 		$scope.ngm = {
@@ -43,6 +82,6 @@ angular
 				secondaryTextColor: '#727272',
 				dividerColor: '#B6B6B6'
 			}
-		}
+		};
 
 	}]);
