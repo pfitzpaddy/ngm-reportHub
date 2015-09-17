@@ -11,6 +11,11 @@ body {
 	background-position: center;
 }
 
+/* fixed container (for now) */
+.container {
+	width: 80%;
+}
+
 /* card profile */
 .card .card-profile {
 	position:relative;

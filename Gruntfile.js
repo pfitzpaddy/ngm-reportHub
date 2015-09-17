@@ -9,15 +9,18 @@
 
 module.exports = function (grunt) {
 
+  // Load grunt tasks automatically
+  require('load-grunt-tasks')(grunt);
+
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
   // Automatically load required Grunt tasks
-  require('jit-grunt')(grunt, {
-    useminPrepare: 'grunt-usemin',
-    ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
-  });
+  // require('jit-grunt')(grunt, {
+  //   useminPrepare: 'grunt-usemin',
+  //   ngtemplates: 'grunt-angular-templates',
+  //   cdnify: 'grunt-google-cdn'
+  // });
 
   // Configurable paths for the application
   var appConfig = {
@@ -213,7 +216,7 @@ module.exports = function (grunt) {
           '<%= yeoman.dist %>/styles/fonts/*'
         ]
       }
-    },
+    }, 
 
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
@@ -255,27 +258,30 @@ module.exports = function (grunt) {
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
     // minification. These next options are pre-configured if you do not wish
     // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/styles/main.css': [
-    //         '.tmp/styles/{,*/}*.css'
-    //       ]
-    //     }
-    //   }
-    // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/scripts/scripts.js': [
-    //         '<%= yeoman.dist %>/scripts/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
-    // concat: {
-    //   dist: {}
-    // },
+    cssmin: {
+      dist: {
+        files: {
+          '<%= yeoman.dist %>/styles/main.css': [
+            '.tmp/styles/{,*/}*.css'
+          ]
+        }
+      }
+    },
+    uglify: {
+      options: {
+        mangle: false
+      },      
+      dist: {
+        files: {
+          '<%= yeoman.dist %>/scripts/scripts.js': [
+            '<%= yeoman.dist %>/scripts/scripts.js'
+          ]
+        }
+      }
+    },
+    concat: {
+      dist: {}
+    },
 
     imagemin: {
       dist: {
@@ -313,6 +319,24 @@ module.exports = function (grunt) {
           src: ['*.html'],
           dest: '<%= yeoman.dist %>'
         }]
+      }
+    },
+
+    // ngconstant use to determine environment variables for application 
+    ngconstant: {
+      options: {
+        name: 'appConfig',
+        wrap: '"use strict";\n\n{%= __ngModule %}',
+        space: '  '
+      },
+       // Environment targets
+      development: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js',
+        },
+        constants: {
+          appConfig: grunt.file.readJSON('dev.enviroment.json')
+        }
       }
     },
 
@@ -437,6 +461,7 @@ module.exports = function (grunt) {
     'clean:dist',
     'wiredep',
     'useminPrepare',
+    'ngconstant:development',
     'concurrent:dist',
     'autoprefixer',
     'ngtemplates',

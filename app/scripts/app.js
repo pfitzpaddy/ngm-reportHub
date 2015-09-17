@@ -9,37 +9,37 @@
  * Main module of the application.
  */
 angular
-	.module( 'ngmReportHub', [
+	.module('ngmReportHub', [
+		'appConfig',
 		'ngAnimate',
 		'ngCookies',
 		'ngResource',
 		'ngRoute',
 		'ngSanitize',
-		'ngTouch'
+		'ngTouch',
+		'ngm',
+		'ngm.widget.stats',
+		'countTo'
   	])
 	.config([ '$routeProvider', function ( $routeProvider ) {
 
-		//
+		// app routes with access rights
 		$routeProvider
 			.when( '/login', {
 				templateUrl: 'views/login.html',
 				controller: 'LoginCtrl',
 				resolve: {
-					access: [ 'ngmAccess', function( ngmAccess ) { 
-						if ( ngmAccess.TOKEN ) {
-							return ngmAccess.isAnonymous();
-						}
+					access: [ 'ngmAuth', function( ngmAuth ) { 
+							return ngmAuth.isAnonymous();
 					}],
 				}
 			})
 			.when( '/dashboard', {
 				templateUrl: 'views/dashboard.html',
-				controller: 'DashboardCtrl',				
+				controller: 'DashboardDewsCtrl',				
 				resolve: {
-					access: [ 'ngmAccess', function( ngmAccess ) {
-						if ( ngmAccess.TOKEN ) {
-							return ngmAccess.isAuthenticated(); 
-						}
+					access: [ 'ngmAuth', function( ngmAuth ) {
+						return ngmAuth.isAuthenticated(); 
 					}],
 				}
 			})
@@ -50,26 +50,24 @@ angular
 				redirectTo: '/dashboard'
 			});
 	}])
-	.run([ '$rootScope', 'ngmAccess', '$location', function( $rootScope, ngmAccess, $location ) {
+	.run(['$rootScope', 'ngmAuth', '$location', function($rootScope, ngmAuth, $location) {
 
-		//
-		$rootScope.$on( '$routeChangeError' , function( event, current, previous, rejection ) {
-
-			// 
-			if ( rejection === ngmAccess.UNAUTHORIZED ) {
+		// when error on route update redirect
+		$rootScope.$on('$routeChangeError' , function(event, current, previous, rejection) {
+			if ( rejection === ngmAuth.UNAUTHORIZED ) {
 				$location.path( '/login' );
-			} else if (ngmAccess.OK) {
-				$location.path( '/dashboard' );
-			} else if ( rejection === ngmAccess.FORBIDDEN ) {
+			} else if ( rejection === ngmAuth.FORBIDDEN ) {
 				$location.path( '/forbidden' );
 			}
 		});
 
 	}])	
-	.controller( 'ngmReportHubCrtl', [ '$scope', function ( $scope ) {
+	.controller('ngmReportHubCrtl', ['$scope', 'ngmAuth', 'ngmUser', function ($scope, ngmAuth, ngmUser) {
 
 		// ngm object
 		$scope.ngm = {
+			
+			// app properties
 			title: 'WHO Afghanistan',
 			logo: 'logo-who.png',
 			style: {
@@ -81,7 +79,31 @@ angular
 				primaryTextColor: '#212121',
 				secondaryTextColor: '#727272',
 				dividerColor: '#B6B6B6'
-			}
+			},
+
+			// app functions
+			logout: function() {
+				ngmAuth.logout();
+			},
+
+			// user
+			getUserName: function() {
+				if (ngmUser.getUser()) {
+					return ngmUser.getUser().username;
+				} else {
+					return false;
+				}
+			},
+
+			// user email
+			getUserEmail: function() {
+				if (ngmUser.getUser()) {
+					return ngmUser.getUser().email;
+				} else {
+					return false;
+				}
+			}			
+
 		};
 
 	}]);
