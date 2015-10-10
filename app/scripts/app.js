@@ -17,11 +17,14 @@ angular
 		'ngRoute',
 		'ngSanitize',
 		'ngTouch',
+		'countTo',
+		'leaflet-directive',
 		'ngm',
 		'ngm.widget.stats',
-		'countTo'
+		'ngm.widget.leaflet',
+		'ngm.widget.calHeatmap'
   	])
-	.config([ '$routeProvider', function ( $routeProvider ) {
+	.config([ '$routeProvider', function ($routeProvider) {
 
 		// app routes with access rights
 		$routeProvider
@@ -29,7 +32,7 @@ angular
 				templateUrl: 'views/login.html',
 				controller: 'LoginCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function( ngmAuth ) { 
+					access: [ 'ngmAuth', function(ngmAuth) { 
 							return ngmAuth.isAnonymous();
 					}],
 				}
@@ -38,7 +41,7 @@ angular
 				templateUrl: 'views/dashboard.html',
 				controller: 'DashboardDewsCtrl',				
 				resolve: {
-					access: [ 'ngmAuth', function( ngmAuth ) {
+					access: [ 'ngmAuth', function(ngmAuth) {
 						return ngmAuth.isAuthenticated(); 
 					}],
 				}

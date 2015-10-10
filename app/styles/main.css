@@ -11,6 +11,10 @@ body {
 	background-position: center;
 }
 
+.row {
+	margin-bottom: 0px;
+}
+
 /* fixed container (for now) */
 .container {
 	width: 80%;

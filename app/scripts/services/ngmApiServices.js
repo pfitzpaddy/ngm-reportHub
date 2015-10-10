@@ -11,15 +11,21 @@ angular.module('ngmReportHub')
 
 		// json endpoints
 		var ngmApiServices = {
+			
+			// Execute and return a $http request
+			getData: function(request){
+				var deferred = $q.defer();
+				$http(request)
+					.success(function(data){
+						deferred.resolve(data);
+					})
+					.error(function(){
+						deferred.reject();
+					});
 
-		};
-		
-		// Get running list
-		// calculonAPI.getUserCredentials = function(){
-		// 	return $http({
-		// 		url: 'api/api/UserCredentials/get'
-		// 	});
-		// };
+				return deferred.promise;
+			}
+		}
 
 		return ngmApiServices;
 
