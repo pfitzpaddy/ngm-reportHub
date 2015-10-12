@@ -5,19 +5,144 @@
  *
  */
 
-body {
+/* AngularJS cloaking of loading elements */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+/* side navigation */
+.side-nav .collapsible-header {
+	margin: 0px;
+	padding-left: 1rem;
+}
+
+.side-nav {
+	width: 180px;
+}
+
+.side-nav.fixed a {
+	width: 100%;
+}
+
+.side-nav .collapsible-body li a {
+	margin-left:0px;
+	padding-left: 2rem;
+}
+
+/* nav-user profile/navigation */
+.side-nav.fixed .nav-user {
+	width: 100%;
+	margin-top: 10px;
+}
+
+.side-nav.fixed .nav-user i.right {
+	padding-left: 1px;
+	margin-right: 10px;
+}
+
+.side-nav.fixed .nav-user a {
+	font-size: 1rem;
+  color: #fff;
+  display: block;
+  background-color: transparent;
+}
+
+.side-nav .collapsible-header {
+	padding-left: 1rem;
+}
+
+.side-nav li.active {
+	background-color: rgba(0,150,136, 0.6);
+}
+
+.side-nav .collapsible-body li.active a, .side-nav.fixed .collapsible-body li.active a {
+	color: #616161;
+	background-color: rgba(0,0,0, 0.1);
+}
+
+.side-nav.fixed .collapsible-body li.active {
+  background-color: rgba(0,0,0, 0.005);
+}
+
+.side-menu li.active {
+	background-color: rgba(0,0,0, 0.01);		
+}
+
+
+/********************
+  Index Page Styles
+********************/
+ul.side-nav.fixed li.logo {
+  text-align: right;
+  margin-top: 32px;
+  margin-bottom: 80px; 
+}
+
+ul.side-nav.fixed li.logo:hover {
+  background-color: transparent; 
+}
+
+ul.side-nav.fixed {
+  overflow: hidden; 
+}
+ul.side-nav.fixed li {
+	width: 100%;
+  line-height: 44px; 
+}
+
+ul.side-nav.fixed li a {
+  font-size: 13px;
+  line-height: 44px;
+  height: 44px; 
+	}
+ul.side-nav.fixed ul.collapsible-accordion {
+  background-color: #FFF; 
+}
+ul.side-nav.fixed:hover {
+  overflow-y: auto; 
+}
+.bold > a {
+	font-weight: bold; 
+}
+
+main {
+	padding-left: 180px;
+}
+
+@media #{$medium-and-down} {
+  main {
+    padding-left: 0;
+  }
+}
+
+.container {
+	width: 90%;
 	background-image: url("../images/worldmap.svg");
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: center;	
+}
+
+.report-header {
+	height: 160px;
+	padding-top: 20px;
+}
+
+.report-header h2 {
+	margin-top: 0px;
+	padding-top: 20px;
+	font-weight: 100;
+}
+
+.report-subtitle {
+	color: #616161;
+}
+
+.report-download {
+
 }
 
 .row {
 	margin-bottom: 0px;
-}
-
-/* fixed container (for now) */
-.container {
-	width: 80%;
 }
 
 /* card profile */
@@ -38,12 +163,3 @@ body {
 .icon-block .material-icons {
   font-size: inherit;
 }
-
-nav .brand-logo {
-  padding-left:18px;
-}
-
-.page-footer .container {
-  min-height: 50px;
-}
-

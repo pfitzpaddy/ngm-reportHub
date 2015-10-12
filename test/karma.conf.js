@@ -23,6 +23,7 @@ module.exports = function(config) {
     files: [
       // bower:js
       'bower_components/jquery/dist/jquery.js',
+      'bower_components/materialize/bin/materialize.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-cookies/angular-cookies.js',
@@ -36,7 +37,6 @@ module.exports = function(config) {
       'bower_components/angular-touch/angular-touch.js',
       'bower_components/d3/d3.js',
       'bower_components/cal-heatmap/cal-heatmap.js',
-      'bower_components/materialize/bin/materialize.js',
       'bower_components/moment/moment.js',
       'bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.js',
       'bower_components/angular-mocks/angular-mocks.js',

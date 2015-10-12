@@ -8,9 +8,9 @@
 		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 		<!-- build:css(.) styles/vendor.css -->
 		<!-- bower:css -->
+		<link rel="stylesheet" href="bower_components/materialize/bin/materialize.css" />
 		<link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
 		<link rel="stylesheet" href="bower_components/cal-heatmap/cal-heatmap.css" />
-		<link rel="stylesheet" href="bower_components/materialize/bin/materialize.css" />
 		<link rel="stylesheet" href="bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.css" />
 		<!-- endbower -->
 		<!-- endbuild -->
@@ -25,7 +25,65 @@
 			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
 
-		<!-- Add your site or application content here -->
+		<div>
+			<ul id="nav-mobile" class="side-nav fixed">
+				<div style="background: {{ ngm.style.darkPrimaryColor }}; height:20px;"></div>
+				<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:140px;">
+					<div>
+						<a href="#">
+							<div align="right">
+								<img ng-src="images/{{ ngm.logo }}" width="72px" style="padding-top:10px;">
+							</div>
+						</a>
+					</div>
+					<div>
+						<div class="nav-user">
+							<a class="btn-flat waves-effect waves-white dropdown-button" 
+									style="text-align:right;text-transform:lowercase"
+									data-activates="userProfileDropdown">
+								<i class="material-icons right">account_circle</i>{{ ngm.getUserName() }}
+							</a>
+						</div>
+						<ul id="userProfileDropdown" class="dropdown-content" style="margin-top:64px;">
+						  <li>
+						  	<a ng-click="ngm.logout()">
+						  	<i class="material-icons left">lock_open</i>Logout</a>
+						  </li>
+						</ul>
+					</div>
+				</div>
+
+        <li class="no-padding">
+          <ul class="collapsible collapsible-accordion" ng-repeat="list in ngm.dashboard.menu">
+            <li class="bold" ngm-menu>
+            	<a class="{{ list.class }}" ng-cloak>{{ list.title }}</a>
+              <div class="collapsible-body" style="display: none">
+                <ul class="side-menu">
+
+									<li class="{{ row.class  }}" 
+										ng-repeat="row in list.rows" 
+                		ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }" ng-cloak>
+                		<a href="{{ row.href }}" ng-cloak>{{ row.title }}</a>
+                	</li>
+
+                </ul>
+            	</div>
+            </li>
+          </ul>
+        </li>
+	    </ul>
+	  </div>
+
+    <main>
+			<div class="container">
+			<div class="row row-centered"  style="height:100%">
+				<div ng-view=""></div>
+				</div>
+			</div>
+    </main>
+
+
+		<!-- Add your site or application content here
 		<header>
 			<div style="background: {{ ngm.style.darkPrimaryColor }}; height:20px;"></div>
 			<nav style="background: {{ ngm.style.defaultPrimaryColor }};" role="navigation">
@@ -50,7 +108,7 @@
 					  </li>
 					</ul>				
 
-				<!--      
+				<!--
 					<ul class="right hide-on-med-and-down">
 						<li><a href="#">Navbar Link</a></li>
 					</ul>
@@ -60,6 +118,8 @@
 					</ul>
 					<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
 				-->
+
+				<!--
 
 				</div>
 			</nav>
@@ -85,6 +145,8 @@
 			</div>
 		</footer>
 
+		-->
+
 		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 		 <script>
 			!function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
@@ -99,6 +161,7 @@
 		<!-- build:js(.) scripts/vendor.js -->
 		<!-- bower:js -->
 		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/materialize/bin/materialize.js"></script>
 		<script src="bower_components/angular/angular.js"></script>
 		<script src="bower_components/angular-animate/angular-animate.js"></script>
 		<script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -112,7 +175,6 @@
 		<script src="bower_components/angular-touch/angular-touch.js"></script>
 		<script src="bower_components/d3/d3.js"></script>
 		<script src="bower_components/cal-heatmap/cal-heatmap.js"></script>
-		<script src="bower_components/materialize/bin/materialize.js"></script>
 		<script src="bower_components/moment/moment.js"></script>
 		<script src="bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.js"></script>
 		<!-- endbower -->
