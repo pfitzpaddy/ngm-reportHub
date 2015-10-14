@@ -8,15 +8,20 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardDewsCtrl', ['$scope', '$http', '$route', 'appConfig', function ($scope, $http, $route, appConfig) {
+	.controller('DashboardDewsCtrl', ['$scope', '$http', '$location', '$route', 'appConfig', 'ngmUser', function ($scope, $http, $location, $route, appConfig, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
 			'Karma'
 		];
 
+		// dews object
 		$scope.dews = {
 
+			// current user
+			user: ngmUser.getUser(),
+
+			// data lookup
 			data: {
 				'avh': 'Acute Viral Hepatitis',
 				'cchf': 'CCHF',
@@ -54,35 +59,53 @@ angular.module('ngmReportHub')
 			}
 		}
 
+		// dews dashboard model
 		var model = {
-			title: {
-				
-				// div style
-				divClass: 'report-header',
-				divStyle: 'border-bottom: 3px ' + $scope.$parent.ngm.style.defaultPrimaryColor + ' solid;',
-				
-				// title style
-				title: $scope.dews.data[$route.current.params.disease],
-				titleStyle: 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
-				
-				// subtitle
-				subtitle: 'Disease Early Warning System Key Indicators for ' + $scope.dews.data[$route.current.params.disease],
-				subtitleClass: 'report-subtitle',
-				
-				// downloads
-				downloadClass: 'report-download',
-				// downloads: [{
-				//  	title: 'Download ' + $scope.dews.data[$route.current.params.disease] +  ' Report as CSV',
-				//  	color: 'grey',
-				// 	icon: 'ic_assignment_returned',
-				// 	url: appConfig.host + ':1337/dews/map?disease=' + $scope.dews.data[$route.current.params.disease]
-				// }]
+			header: {
+				div: {
+					'class': 'report-header',
+					style: 'border-bottom: 3px ' + $scope.$parent.ngm.style.defaultPrimaryColor + ' solid;'
+				},
+				title: {
+					title: $scope.dews.data[$route.current.params.disease],
+					style: 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
+				},
+				subtitle: {
+					'class': 'report-subtitle',
+					title: 'Disease Early Warning System Key Indicators for ' + $scope.dews.data[$route.current.params.disease],
+				},
+				download: {
+					'class': 'report-download',
+					downloads:[{
+						icon: {
+							color: '#616161'
+						},
+						filename: $route.current.params.disease + '-' + moment().format(),
+						hover: 'Download ' + $scope.dews.data[$route.current.params.disease] +  ' Report as CSV',
+						request: {
+							method: 'GET',
+							url: appConfig.host + ':1337/dews/data?disease=' + $scope.dews.data[$route.current.params.disease]
+						},
+						metrics: {
+							method: 'POST',
+							url: appConfig.host + ':1337/metrics/set',
+							data: {
+								organisation: $scope.dews.user.organisation,
+								username: $scope.dews.user.username,
+								email: $scope.dews.user.email,
+								dashboard: 'dews',
+								theme: $route.current.params.disease,
+								format: 'csv',
+								url: $location.$$path
+							}
+						}
+					}]
+				}
 			},
-			subtitle: 'MoPH Disease Early Warning System Key Indicators',
 			menu: [{
-				'title': 'Disease',
-				'class': 'collapsible-header waves-effect waves-teal',
-				'rows': $scope.dews.getRows()
+				title: 'Disease',
+				class: 'collapsible-header waves-effect waves-teal',
+				rows: $scope.dews.getRows()
 			}],
 			rows: [{
 				columns: [{

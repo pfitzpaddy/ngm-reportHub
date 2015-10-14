@@ -8,9 +8,9 @@
 		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 		<!-- build:css(.) styles/vendor.css -->
 		<!-- bower:css -->
-		<link rel="stylesheet" href="bower_components/materialize/bin/materialize.css" />
 		<link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
 		<link rel="stylesheet" href="bower_components/cal-heatmap/cal-heatmap.css" />
+		<link rel="stylesheet" href="bower_components/materialize/bin/materialize.css" />
 		<link rel="stylesheet" href="bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.css" />
 		<!-- endbower -->
 		<!-- endbuild -->
@@ -161,7 +161,6 @@
 		<!-- build:js(.) scripts/vendor.js -->
 		<!-- bower:js -->
 		<script src="bower_components/jquery/dist/jquery.js"></script>
-		<script src="bower_components/materialize/bin/materialize.js"></script>
 		<script src="bower_components/angular/angular.js"></script>
 		<script src="bower_components/angular-animate/angular-animate.js"></script>
 		<script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -175,6 +174,8 @@
 		<script src="bower_components/angular-touch/angular-touch.js"></script>
 		<script src="bower_components/d3/d3.js"></script>
 		<script src="bower_components/cal-heatmap/cal-heatmap.js"></script>
+		<script src="bower_components/html2canvas/build/html2canvas.js"></script>
+		<script src="bower_components/materialize/bin/materialize.js"></script>
 		<script src="bower_components/moment/moment.js"></script>
 		<script src="bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.js"></script>
 		<!-- endbower -->
@@ -183,9 +184,8 @@
 		<!-- build:js({.tmp,app}) scripts/scripts.js -->
 		<script src="scripts/app.js"></script>
 		<script src="scripts/config.js"></script>
-		<!-- controllers -->			
+		<!-- services -->			
 		<script src="scripts/services/ngmAuthentication.js"></script>
-		<script src="scripts/services/ngmApiServices.js"></script>
 		<!-- controllers -->
 		<script src="scripts/controllers/loginCtrl.js"></script>
 		<!-- dashboards -->

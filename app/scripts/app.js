@@ -23,7 +23,7 @@ angular
 		'ngm.widget.stats',
 		'ngm.widget.leaflet',
 		'ngm.widget.calHeatmap'
-  	])
+  ])
 	.config([ '$routeProvider', function ($routeProvider) {
 
 		// app routes with access rights
@@ -50,10 +50,10 @@ angular
 				templateUrl: 'views/forbidden.html',
 			})			
 			.otherwise({
-				redirectTo: '/dashboard'
+				redirectTo: '/dashboard/avh'
 			});
 	}])
-	.run(['$rootScope', 'ngmAuth', '$location', function($rootScope, ngmAuth, $location) {
+	.run(['$rootScope', '$location', 'ngmAuth', function($rootScope, $location, ngmAuth) {
 
 		// when error on route update redirect
 		$rootScope.$on('$routeChangeError' , function(event, current, previous, rejection) {
@@ -67,64 +67,6 @@ angular
 		});
 
 	}])
-	
-	// toggles accordian classes for 
-	.directive('ngmMenu', function() {
-		return {
-	    
-	    // Restrict it to be an attribute in this case
-	    restrict: 'A',
-	    
-	    // responsible for registering DOM listeners as well as updating the DOM
-	    link: function(scope, el, attr) {
-
-	    	// set initial menu style
-	    	setTimeout(function(){
-
-	    		// For all itmes
-	    		$('.side-menu').find('li').each(function(i, d) {
-
-	    			// find the row that is active
-	    			if ($(d).attr('class').search('active') > 0) {
-
-	    				// set list header
-	    				$(d).closest('.bold').attr('class', 'bold active');
-	    				
-	    				// set z-depth-1
-	    				$(d).closest('.bold').find('a').attr('class', 
-	    						$(d).closest('.bold').find('a').attr('class') + ' z-depth-1' );
-
-	    				// slide down list
-	    				$(d).closest('.collapsible-body').slideDown();
-	    				$(d).closest('.collapsible-body').attr('class',
-	    					$(d).closest('.collapsible-body').attr('class') + ' active');
-	    			}
-	    		});
-
-	    	}, 0);
-
-	    	// on element click
-	    	el.bind( 'click', function( $event ) {
-	    		
-	    		// toggle list 
-	    		el.toggleClass('active');
-	    		// toggle list 
-	    		el.find('.collapsible-header').toggleClass('z-depth-1');
-
-	    		// toggle list rows active
-					el.find('.collapsible-body').toggleClass('active');
-
-					// toggle list rows animation
-					if (el.find('.collapsible-body').hasClass('active')) {
-						el.find('.collapsible-body').slideDown();
-					} else {
-						el.find('.collapsible-body').slideUp();
-					}
-	    		
-	    	});
-	    }
-	   };
-	 })
 	.controller('ngmReportHubCrtl', ['$scope', '$route', 'ngmAuth', 'ngmUser', function ($scope, $route, ngmAuth, ngmUser) {
 
 		// ngm object
@@ -156,7 +98,7 @@ angular
 				if (ngmUser.getUser()) {
 					return ngmUser.getUser().username;
 				} else {
-					return false;
+					return 'welcome';
 				}
 			},
 
