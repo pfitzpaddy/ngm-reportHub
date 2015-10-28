@@ -60,7 +60,7 @@ angular.module('ngmReportHub')
 				'afghanistan': {'id':35,'name':'Afghanistan'},
 			},
 
-			// 'etur' 'ows for floodRisk menu
+			// rows for floodRisk menu
 			getRows: function() {
 				
 				// menu rows
@@ -105,14 +105,15 @@ angular.module('ngmReportHub')
 			}],
 			rows: [{
 				columns: [{
-					styleClass: 's12 m12 l5',
+					styleClass: 's12 m12 l6',
 					widgets: [{
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
 							title: 'Total Population',
 							display: {
-								icon: 'accessibility'
+								// icon: 'accessibility',
+								// iconClass: 'light-blue-text light-blue-lighten-4'
 							},
 							request: {
 								method: 'POST',
@@ -124,24 +125,14 @@ angular.module('ngmReportHub')
 								}
 							}
 						}
-					}]					
+					}]
 				},{
-					styleClass: 's12 m12 l2',
-					widgets: [{
-						type: 'html',
-						card: 'card-panel stats-card white grey-text text-darken-2',
-						style: 'height:101px',
-						config: {
-							content: '<div class="card-title" align="center">&<div>'
-						}
-					}]					
-				},{
-					styleClass: 's12 m12 l5',
+					styleClass: 's12 m12 l6',
 					widgets: [{
 						type: 'stats',
 						card: 'card-panel stats-card white light-blue-text light-blue-lighten-4',
 						config: {
-							title: 'of total popn at Flood Risk',
+							title: 'at Flood Risk',
 							display: {
 								postFix: '%',
 								fractionSize: 2,
@@ -156,6 +147,193 @@ angular.module('ngmReportHub')
 									prov_code: $scope.floodRisk.data[$route.current.params.province].id
 								}
 							}
+						}
+					}]	
+				}]
+			},{
+				columns: [{
+					styleClass: 's12 m12 l4',
+					widgets: [{
+						type: 'highchart',
+						style: 'height: 180px;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Low Flood Risk Population',
+							display: {
+								label: true,
+								x: 106,
+								y: 72,
+								color:'#616161',
+								labelColor: 'silver',
+								fontSize: '2.1rem',
+								labelSize: '1.2rem'
+							},
+							chartConfig: {
+								options: {
+									chart: {
+										type: 'pie',
+										height: 140
+									},
+									exporting: {
+										enabled: false
+									},
+									tooltip: {
+										enabled: false
+									}				
+								},
+								title: {
+										text: '',
+										margin: 0
+								},
+								plotOptions: {
+										pie: {
+												shadow: false
+										}
+								},
+								series: [{
+										name: 'Flood Risk',
+										request: {
+											method: 'POST',
+											url: appConfig.host + ':1337/flood/risk/chart',
+											data: {
+												indicator: 'low',
+												metric: 'popn',
+												prov_code: $scope.floodRisk.data[$route.current.params.province].id,
+												name: 'Low Flood Risk Population'
+											}											
+										},
+										size: '100%',
+										innerSize: '80%',
+										showInLegend:false,
+										dataLabels: {
+												enabled: false
+										}
+								}]												
+							}
+						}
+					}]					
+				},{
+					styleClass: 's12 m12 l4',
+					widgets: [{
+						type: 'highchart',
+						style: 'height: 180px;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Moderate Flood Risk Population',
+							display: {
+								label: true,
+								x: 106,
+								y: 72,
+								color:'#616161',
+								labelColor: 'silver',
+								fontSize: '2.1rem',
+								labelSize: '1.2rem'
+							},						
+							chartConfig: {
+								options: {
+									chart: {
+										type: 'pie',
+										height: 140
+									},
+									exporting: {
+										enabled: false
+									},
+									tooltip: {
+										enabled: false
+									}
+								},
+								title: {
+										text: '',
+										margin: 0
+								},
+								plotOptions: {
+										pie: {
+												shadow: false
+										}
+								},								
+								series: [{
+										name: 'Flood Risk',
+										request: {
+											method: 'POST',
+											url: appConfig.host + ':1337/flood/risk/chart',
+											data: {
+												indicator: 'moderate',
+												metric: 'popn',
+												prov_code: $scope.floodRisk.data[$route.current.params.province].id,
+												name: 'Moderate Flood Risk Population',
+												color: '#ffea00'
+											}											
+										},
+										size: '100%',
+										innerSize: '80%',
+										showInLegend:false,
+										dataLabels: {
+												enabled: false
+										}
+								}]								
+							}							
+						}
+					}]					
+				},{
+					styleClass: 's12 m12 l4',
+					widgets: [{
+						type: 'highchart',
+						style: 'height: 180px;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'High Flood Risk Population',
+							display: {
+								label: true,
+								x: 106,
+								y: 72,
+								color:'#616161',
+								labelColor: 'silver',
+								fontSize: '2.1rem',
+								labelSize: '1.2rem'
+							},					
+							chartConfig: {
+								options: {
+									chart: {
+										type: 'pie',
+										height: 140
+									},
+									exporting: {
+										enabled: false
+									},
+									tooltip: {
+										enabled: false
+									}									
+								},
+								title: {
+									text: '',
+									margin: 0
+								},
+								plotOptions: {
+										pie: {
+												shadow: false
+										}
+								},							
+								series: [{
+										name: 'Flood Risk',
+										request: {
+											method: 'POST',
+											url: appConfig.host + ':1337/flood/risk/chart',
+											data: {
+												indicator: 'high',
+												metric: 'popn',
+												prov_code: $scope.floodRisk.data[$route.current.params.province].id,
+												name: 'High Flood Risk Population',
+												color: '#dd2c00'
+											}	
+										},
+										size: '100%',
+										innerSize: '80%',
+										showInLegend:false,
+										dataLabels: {
+												enabled: false
+										}
+								}]								
+							}							
 						}
 					}]	
 				}]

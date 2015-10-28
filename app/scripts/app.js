@@ -18,11 +18,13 @@ angular
 		'ngSanitize',
 		'ngTouch',
 		'countTo',
+		'highcharts-ng',
 		'leaflet-directive',
 		'ngm',
 		'ngm.widget.html',
 		'ngm.widget.stats',
 		'ngm.widget.leaflet',
+		'ngm.widget.highchart',
 		'ngm.widget.calHeatmap'
   ])
 	.config([ '$routeProvider', function ($routeProvider) {
