@@ -20,6 +20,7 @@ angular
 		'countTo',
 		'leaflet-directive',
 		'ngm',
+		'ngm.widget.html',
 		'ngm.widget.stats',
 		'ngm.widget.leaflet',
 		'ngm.widget.calHeatmap'
@@ -37,7 +38,7 @@ angular
 					}],
 				}
 			})
-			.when( '/dashboard/:disease', {
+			.when( '/who/dews/:disease', {
 				templateUrl: 'views/dashboard.html',
 				controller: 'DashboardDewsCtrl',				
 				resolve: {
@@ -46,11 +47,20 @@ angular
 					}],
 				}
 			})
+			.when( '/drr/flood/:province', {
+				templateUrl: 'views/dashboard.html',
+				controller: 'DashboardFloodRiskCtrl',				
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) {
+						return ngmAuth.isAuthenticated(); 
+					}],
+				}
+			})			
 			.when( '/forbidden', {
 				templateUrl: 'views/forbidden.html',
 			})			
 			.otherwise({
-				redirectTo: '/dashboard/avh'
+				redirectTo: '/who/dews/avh'
 			});
 	}])
 	.run(['$rootScope', '$location', 'ngmAuth', function($rootScope, $location, ngmAuth) {
@@ -75,9 +85,9 @@ angular
 			// app properties
 			route: $route,
 			title: 'WHO Afghanistan',
-			logo: 'logo-who.png',
 			dashboard: false,
 			style: {
+				logo: 'logo-who.png',
 				darkPrimaryColor: '#1976D2', // '#DE696E',
 				defaultPrimaryColor: '#2196F3', // '#EE6E73',
 				lightPrimaryColor: '#BBDEFB', //'#EF9A9A'
@@ -87,6 +97,8 @@ angular
 				secondaryTextColor: '#727272',
 				dividerColor: '#B6B6B6'
 			},
+
+
 
 			// app functions
 			logout: function() {

@@ -51,7 +51,7 @@ angular.module('ngmReportHub')
 						'class': 'waves-effect waves-teal',
 						'param': 'disease',
 						'active': key,
-						'href': '#/dashboard/' + key
+						'href': '#/who/dews/' + key
 					});
 				});
 
