@@ -23,41 +23,104 @@ angular.module('ngmReportHub')
 
 			// data lookup
 			data: {
-				'avh': 'Acute Viral Hepatitis',
-				'cchf': 'CCHF',
-				'chickenpox': 'Chickenpox',
-				'cholera': 'Cholera',
-				'conjunctivitis': 'Conjunctivitis',
-				'rabies': 'Dog bites/Rabies',
-				'food-poisoning': 'Food poisoning',
-				'psychogenic': 'Mass psychogenic',
-				'measles': 'Measles',
-				'mumps': 'Mumps',
-				'pertussis': 'Pertussis',
-				'pneumonia': 'Pneumonia',
-				'scabies': 'Scabies'
+				disease: {
+					'all': { id:'*', name:'All'},
+					'avh': { id:'avh', name:'Acute Viral Hepatitis'},
+					'cchf': { id:'cchf', name:'CCHF'},
+					'chickenpox': { id:'chickenpox', name:'Chickenpox'},
+					'cholera': { id:'cholera', name:'Cholera'},
+					'conjunctivitis': { id:'conjunctivitis', name:'Conjunctivitis'},
+					'rabies': { id:'rabies', name:'Dog bites/Rabies'},
+					'food-poisoning': { id:'food-poisoning', name:'Food Poisoning'},
+					'psychogenic': { id:'psychogenic', name:'Mass Psychogenic'},
+					'measles': { id:'measles', name:'Measles'},
+					'mumps': { id:'mumps', name:'Mumps'},
+					'pertussis': { id:'pertussis', name:'Pertussis'},
+					'pneumonia': { id:'pneumonia', name:'Pneumonia'},
+					'scabies': { id:'scabies', name:'Scabies'}
+				},
+				location: {
+					'afghanistan': {'id':'*','name':'Afghanistan'},
+					'nimroz': {'id':34,'name':'Nimroz'},
+					'farah': {'id':31,'name':'Farah'},
+					'hilmand': {'id':32,'name':'Hilmand'},
+					'jawzjan': {'id':27,'name':'Jawzjan'},
+					'kandahar': {'id':33,'name':'Kandahar'},
+					'ghazni': {'id':11,'name':'Ghazni'},
+					'paktika': {'id':25,'name':'Paktika'},
+					'paktya': {'id':12,'name':'Paktya'},
+					'kunduz': {'id':17,'name':'Kunduz'},
+					'logar': {'id':5,'name':'Logar'},
+					'hirat': {'id':30,'name':'Hirat'},
+					'baghlan': {'id':9,'name':'Baghlan'},
+					'kunar': {'id':13,'name':'Kunar'},
+					'nangarhar': {'id':6,'name':'Nangarhar'},
+					'uruzgan': {'id':23,'name':'Uruzgan'},
+					'laghman': {'id':7,'name':'Laghman'},
+					'balkh': {'id':18,'name':'Balkh'},
+					'khost': {'id':26,'name':'Khost'},
+					'kapisa': {'id':2,'name':'Kapisa'},
+					'sar-e-pul': {'id':20,'name':'Sar-e-Pul'},
+					'takhar': {'id':16,'name':'Takhar'},
+					'badghis': {'id':29,'name':'Badghis'},
+					'zabul': {'id':24,'name':'Zabul'},
+					'wardak': {'id':4,'name':'Wardak'},
+					'faryab': {'id':28,'name':'Faryab'},
+					'bamyan': {'id':10,"name":'Bamyan'},
+					'samangan': {'id':19,'name':'Samangan'},
+					'panjsher': {'id':8,'name':'Panjsher'},
+					'parwan': {'id':3,'name':'Parwan'},
+					'ghor': {'id':21,'name':'Ghor'},
+					'daykundi': {'id':22,'name':'Daykundi'},
+					'nuristan': {'id':14,'name':'Nuristan'},
+					'badakhshan': {'id':15,'name':'Badakhshan'},
+					'kabul': {'id':1,'name':'Kabul'}
+				},
 			},
 
 			// return rows for DEWS menu
-			getRows: function() {
+			getRows: function(list) {
 				
 				// menu rows
 				var rows = [];
 
-				// for each disease
-				angular.forEach($scope.dews.data, function(d, key){
-					rows.push({
-						'title': d,
-						'class': 'waves-effect waves-teal',
-						'param': 'disease',
-						'active': key,
-						'href': '#/who/dews/' + key
-					});
-				});
+				if(list === 'disease'){
+					// for each disease
+					angular.forEach($scope.dews.data.disease, function(d, key){
+						
+						//
+						rows.push({
+							'title': d.name,
+							'class': 'waves-effect waves-teal',
+							'param': 'disease',
+							'active': d.id,
+							'href': '#/who/dews/' + $route.current.params.location + '/' + key
+						});
+					});					
+				} else {
+					// for each disease
+					angular.forEach($scope.dews.data.location, function(d, key){
+						
+						//
+						rows.push({
+							'title': d.name,
+							'class': 'waves-effect waves-teal',
+							'param': 'location',
+							'active': key,
+							'href': '#/who/dews/' + key + '/' + $route.current.params.disease
+						});
+					});						
+				}
 
 				return rows;
 			}
 		}
+
+		// set dashboard params
+		$scope.dews.location = $scope.dews.data.location[$route.current.params.location];
+		$scope.dews.disease = $scope.dews.data.disease[$route.current.params.disease];
+		$scope.dews.title = $scope.dews.location.name + ' | ' + $scope.dews.disease.name;
+		$scope.dews.subtitle = $scope.dews.disease.name + ' Disease Early Warning System Key Indicators ' + $scope.dews.location.name;
 
 		// dews dashboard model
 		var model = {
@@ -67,12 +130,12 @@ angular.module('ngmReportHub')
 					style: 'border-bottom: 3px ' + $scope.$parent.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
-					title: $scope.dews.data[$route.current.params.disease],
+					title: $scope.dews.title,
 					style: 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
 				},
 				subtitle: {
 					'class': 'report-subtitle',
-					title: 'Disease Early Warning System Key Indicators for ' + $scope.dews.data[$route.current.params.disease],
+					title: $scope.dews.subtitle,
 				},
 				download: {
 					'class': 'report-download',
@@ -81,10 +144,14 @@ angular.module('ngmReportHub')
 							color: '#616161'
 						},
 						filename: $route.current.params.disease + '-' + moment().format(),
-						hover: 'Download ' + $scope.dews.data[$route.current.params.disease] +  ' Report as CSV',
+						hover: 'Download ' + $scope.dews.disease.name +  ' Report as CSV',
 						request: {
-							method: 'GET',
-							url: appConfig.host + ':1337/dews/data?disease=' + $scope.dews.data[$route.current.params.disease]
+							method: 'POST',
+							url: appConfig.host + ':1337/dews/data',
+							data: {	
+								disease: $scope.dews.disease.id,
+								prov_code: $scope.dews.location.id
+							}
 						},
 						metrics: {
 							method: 'POST',
@@ -105,7 +172,11 @@ angular.module('ngmReportHub')
 			menu: [{
 				title: 'Disease',
 				class: 'collapsible-header waves-effect waves-teal',
-				rows: $scope.dews.getRows()
+				rows: $scope.dews.getRows('disease')
+			},{
+				title: 'Province',
+				class: 'collapsible-header waves-effect waves-teal',
+				rows: $scope.dews.getRows('province')				
 			}],
 			rows: [{
 				columns: [{
@@ -117,10 +188,11 @@ angular.module('ngmReportHub')
 							title: 'Outbreaks',
 							request: {
 								method: 'POST',
-								url: appConfig.host + ':1337/dews/outbreaks',
+								url: appConfig.host + ':1337/dews/indicator',
 								data: {
-									indicator: 'total',
-									disease: $scope.dews.data[$route.current.params.disease]
+									indicator: '*',
+									disease: $scope.dews.disease.id,
+									prov_code: $scope.dews.location.id
 								}
 							}
 						}
@@ -134,11 +206,11 @@ angular.module('ngmReportHub')
 							title: 'Individual Cases',
 							request: {
 								method: 'POST',
-								url: appConfig.host + ':1337/dews/incidents',
+								url: appConfig.host + ':1337/dews/indicator',
 								data: {
-									type: 'incidents',
-									indicator: 'total',
-									disease: $scope.dews.data[$route.current.params.disease]
+									indicator: 'u5male + u5female + o5male + o5female',
+									disease: $scope.dews.disease.id,
+									prov_code: $scope.dews.location.id
 								}
 							}
 						}
@@ -152,11 +224,11 @@ angular.module('ngmReportHub')
 							title: 'Deaths',							
 							request: {
 								method: 'POST',
-								url: appConfig.host + ':1337/dews/incidents',
+								url: appConfig.host + ':1337/dews/indicator',
 								data: {
-									type: 'deaths',
-									indicator: 'total',
-									disease: $scope.dews.data[$route.current.params.disease]
+									indicator: 'u5death + o5death',
+									disease: $scope.dews.disease.id,
+									prov_code: $scope.dews.location.id
 								}
 							}
 						}
@@ -171,8 +243,12 @@ angular.module('ngmReportHub')
 						style: 'padding-top:5px;',
 						config: {
 							request: {
-								method: 'GET',
-								url: appConfig.host + ':1337/dews/calendar?disease=' + $scope.dews.data[$route.current.params.disease]
+								method: 'POST',
+								url: appConfig.host + ':1337/dews/calendar',
+								data: {
+									disease: $scope.dews.disease.id,
+									prov_code: $scope.dews.location.id
+								}
 							}					
 						}
 					}]
@@ -189,8 +265,12 @@ angular.module('ngmReportHub')
 								type: 'marker'
 							},
 							request: {
-								method: 'GET',
-								url: appConfig.host + ':1337/dews/map?disease=' + $scope.dews.data[$route.current.params.disease]
+								method: 'POST',
+								url: appConfig.host + ':1337/dews/map',
+								data: {
+									disease: $scope.dews.disease.id,
+									prov_code: $scope.dews.location.id
+								}
 							}							
 						}
 					}]
