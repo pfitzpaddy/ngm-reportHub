@@ -1,0 +1,60 @@
+
+<style>
+  svg { 
+    max-width:100%;
+  }
+  .graph-primary-label {
+    fill: #000;
+    font-size: 14px;
+  }
+  .graph-secondary-label {
+    fill: #ccc;
+    font-size: 9px;
+  }  
+  .graph-rect{
+    cursor:pointer;
+  }
+  .graph-title {
+    font-size: 12px;
+  }
+  .ch-tooltip .count {
+    font-weight:100;
+    font-size:3rem;
+    line-height:3rem;
+  }
+  .ch-tooltip {
+    padding: 10px;
+    background: #fff;
+    color: #616161;
+    font-size: 12px;
+    line-height: 1.4;
+    width: 140px;
+    position: absolute;
+    z-index: 99999;
+    text-align: center;
+    border-radius: 2px;
+    box-shadow: 1px 2px 2px 2px rgba(0,0,0,0.2);
+    display: none;
+    box-sizing: border-box;
+  }
+  .ch-tooltip::after{
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    content: "";
+    padding: 0;
+    display: block;
+    /*bottom: -6px;*/
+    bottom: 0px;
+    left: 50%;
+    margin-left: -6px;
+      border-width: 6px 6px 0;
+      border-top-color: #fff;
+  }  
+</style>
+
+<div align="center">
+  <div id="cal-heatmap" style="margin-top:5px;"></div>
+</div>
