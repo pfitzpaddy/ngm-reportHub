@@ -17,23 +17,19 @@ angular.module('ngmReportHub')
 
 		return {
 
-			get: function(key) {
-				return localStorage.getItem(key);
-			},
-
-			set: function(key, val) {
-				return localStorage.setItem(key, val);
-			},
-
-			unset: function(key) {
-				return localStorage.removeItem(key);
-			},
-
-			getUser: function(key) {
+			get: function() {
 				return angular.fromJson(localStorage.auth_token);
+			},
+
+			set: function(val) {
+				return localStorage.setItem('auth_token', val);
+			},
+
+			unset: function() {
+				return localStorage.removeItem('auth_token');
 			},			
 
-			hasRole: function( role ) {
+			hasRole: function(role) {
 				var user = angular.fromJson(localStorage.auth_token);
 				return angular.uppercase(user.roles).indexOf(angular.uppercase(role)) >= 0;
 			},
@@ -65,7 +61,7 @@ angular.module('ngmReportHub')
 
 				// on success store in localStorage
 				login.success(function(result) {
-					ngmUser.set('auth_token', JSON.stringify(result));
+					ngmUser.set(JSON.stringify(result));
 				});
 
 				return login;
@@ -73,7 +69,7 @@ angular.module('ngmReportHub')
 
 			register: function(user) {
 
-				ngmUser.unset('auth_token');
+				ngmUser.unset();
 
 				var register = $http({
 					method: 'POST',
@@ -82,7 +78,7 @@ angular.module('ngmReportHub')
 				});
 
 				register.success(function(result) {
-				  ngmUser.set('auth_token', JSON.stringify(result));
+					ngmUser.set(JSON.stringify(result));
 				});
 
 				return register;
@@ -155,34 +151,28 @@ angular.module('ngmReportHub')
 		return ngmAuth;
 
 	}])
-  .factory('ngmAuthInterceptor', ['$q', '$injector', function($q, $injector) {
-    var ngmUser = $injector.get('ngmUser');
+	.factory('ngmAuthInterceptor', ['$q', '$injector', function($q, $injector) {
+			
+		// get user
+		var ngmUser = $injector.get('ngmUser');
 
-    return {
+		return {
+			request: function(config) {
 
-      request: function(config) {
+				var token
 
-        var token;
+				if (ngmUser.get()) {
+					token = ngmUser.get().token;
+				}
+				if (token) {
+					config.headers.Authorization = 'Bearer ' + token;
+				}
 
-        if (ngmUser.get('auth_token')) {
-          token = angular.fromJson(ngmUser.get('auth_token')).token;
-        }
-        if (token) {
-          config.headers.Authorization = 'Bearer ' + token;
-        }
+				return config;
+			}
+		};
 
-        return config;
-      },
-
-      responseError: function(response) {
-
-        if (response.status === 401 || response.status === 403) {
-          ngmUser.unset('auth_token');
-          $injector.get('$state').go('anon.login');
-        }
-
-        return $q.reject(response);
-      }
-    };
-
-  }]);
+	}])
+	.config(function($httpProvider) {
+		$httpProvider.interceptors.push('ngmAuthInterceptor');
+	});

@@ -30,7 +30,7 @@ angular.module('ngmReportHub')
 					if (Object.keys($scope.login.user).length !== 0) {
 						
 						ngmAuth.login($scope.login.user).success(function(result) {
-							$location.path( '/dashboard' );
+							$location.path( '/' + $scope.ngm.style.home );
 						}).error(function(err) {
 							// 
 						});
@@ -42,7 +42,7 @@ angular.module('ngmReportHub')
 					if (Object.keys($scope.login.register).length !== 0) {
 
 						ngmAuth.register($scope.login.register).success(function(result) {
-							$location.path( '/dashboard' );
+							$location.path( '/' + $scope.ngm.style.home );
 						}).error(function(err) {
 							// 
 						});

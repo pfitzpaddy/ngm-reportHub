@@ -117,10 +117,12 @@ angular.module('ngmReportHub')
 							request: {
 								method: 'POST',
 								url: appConfig.host + ':1337/flood/risk',
+								// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 								data: {
 									indicator: 'total-popn',
 									metric: 'popn',
-									prov_code: $scope.floodRisk.data[$route.current.params.province].id
+									prov_code: $scope.floodRisk.data[$route.current.params.province].id //,
+									//headers: {'Authorization': 'Bearer ' + token}									
 								}
 							}
 						}
@@ -140,6 +142,7 @@ angular.module('ngmReportHub')
 							request: {
 								method: 'POST',
 								url: appConfig.host + ':1337/flood/risk',
+								// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 								data: {
 									indicator: 'total',
 									metric: 'popn',
@@ -193,6 +196,7 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: appConfig.host + ':1337/flood/risk/type',
+											// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 											data: {
 												indicator: 'low',
 												metric: 'popn',
@@ -253,6 +257,7 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: appConfig.host + ':1337/flood/risk/type',
+											// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 											data: {
 												indicator: 'moderate',
 												metric: 'popn',
@@ -314,6 +319,7 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: appConfig.host + ':1337/flood/risk/type',
+											// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 											data: {
 												indicator: 'high',
 												metric: 'popn',
@@ -380,6 +386,7 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: appConfig.host + ':1337/flood/risk/area',
+											// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 											data: {
 												indicator: 'total',
 												prov_code: $scope.floodRisk.data[$route.current.params.province].id,
@@ -391,6 +398,7 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: appConfig.host + ':1337/flood/risk/area',
+											// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 											data: {
 												indicator: 'floodRisk',
 												prov_code: $scope.floodRisk.data[$route.current.params.province].id,

@@ -178,8 +178,8 @@ angular
 
 			// user
 			getUserName: function() {
-				if (ngmUser.getUser()) {
-					return ngmUser.getUser().username;
+				if (ngmUser.get()) {
+					return ngmUser.get().username;
 				} else {
 					return 'welcome';
 				}
@@ -187,8 +187,8 @@ angular
 
 			// user email
 			getUserEmail: function() {
-				if (ngmUser.getUser()) {
-					return ngmUser.getUser().email;
+				if (ngmUser.get()) {
+					return ngmUser.get().email;
 				} else {
 					return false;
 				}

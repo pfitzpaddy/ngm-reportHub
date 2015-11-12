@@ -19,7 +19,7 @@ angular.module('ngmReportHub')
 		$scope.dews = {
 
 			// current user
-			user: ngmUser.getUser(),
+			user: ngmUser.get(),
 
 			// data lookup
 			data: {
@@ -249,7 +249,7 @@ angular.module('ngmReportHub')
 									disease: $scope.dews.disease.id,
 									prov_code: $scope.dews.location.id
 								}
-							}					
+							}
 						}
 					}]
 				}]
@@ -271,7 +271,7 @@ angular.module('ngmReportHub')
 									disease: $scope.dews.disease.id,
 									prov_code: $scope.dews.location.id
 								}
-							}							
+							}
 						}
 					}]
 				}]
