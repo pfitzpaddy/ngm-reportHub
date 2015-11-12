@@ -1,0 +1,69 @@
+  <style>
+
+  /*
+   stats card
+  */
+  .stats-card {
+    display:block;
+    position:relative;
+    overflow:hidden;
+  }
+  .stats-card i{
+    position:absolute;
+    font-size:6rem;
+    right:0;
+    bottom:-1rem;
+  }
+  .stats-card .count{
+    position:relative;
+    font-weight:100;
+    font-size:2.1rem;
+    line-height:2.1rem;
+  }
+  .stats-card .label {
+    position:relative;
+    font-weight:100;
+    font-size:1.2rem;
+    line-height:1.2rem;
+    color:silver;
+  }  
+  .stats-card .name {
+    position:relative;
+    font-weight:300;
+    font-size:1.1rem;
+    line-height:1.1rem;
+  }
+
+</style>
+
+  <div id="{{highchart.id}}" ng-if="highchart.chartConfig">
+    <div ng-if="highchart.title">{{ highchart.title }}</div>
+    <highchart config="highchart.chartConfig"></highchart>
+    <div id="label-{{highchart.id}}" ng-if="highchart.display.label" class="count" style="text-align:center; margin-left:{{ highchart.display.left }}; width:{{ highchart.display.width }}; position: absolute; top:{{ highchart.display.top }};">
+      <span style="padding-left:5px;"
+          value="0" 
+          count-to="{{ highchart.display.label }}" 
+          duration="{{ highchart.display.duration }}"
+          filter="{{ highchart.display.filter }}"
+          params="{{ highchart.display.params }}"
+          fraction-size="{{ highchart.display.fractionSize }}">
+      </span>{{ highchart.display.postFix }}
+    </div>
+    <div id="subLabel-{{highchart.id}}" ng-if="highchart.display.subLabel" class="count" style="text-align:center; margin-left:{{ highchart.display.left }}; width:{{ highchart.display.width }}; position: absolute; top:{{ highchart.display.subLabelTop }};">
+      <span class="label"
+          value="0" 
+          count-to="{{ highchart.display.subLabel }}" 
+          duration="{{ highchart.display.duration }}"
+          filter="{{ highchart.display.filter }}"
+          params="{{ highchart.display.params }}"
+          fraction-size="{{ highchart.display.subLabelFractionSize }}">
+      </span>   
+     </div>
+  </div>
+
+
+
+
+
+
+
