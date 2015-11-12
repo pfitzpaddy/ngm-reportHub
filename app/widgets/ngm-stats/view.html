@@ -1,0 +1,83 @@
+<style>
+
+  /*
+   stats card
+  */
+  .stats-card {
+    display:block;
+    position:relative;
+    overflow:hidden;
+  }
+  .stats-card i{
+    position:absolute;
+    font-size:6rem;
+    right:0;
+    bottom:-1rem;
+  }
+  .stats-card .count{
+    position:relative;
+    font-weight:100;
+    font-size:3rem;
+    line-height:3rem;
+  }
+  .stats-card .name{
+    position:relative;
+    font-weight:300;
+    font-size:1.1rem;
+    line-height:1.1rem;
+  }
+  .stats-card .graph{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+  }
+  .progress.tiny {
+    height: 2px;
+  }
+  .stats-card .progress{
+    position:absolute;
+    border-radius:0;
+    margin:0;
+    bottom:0;
+    left:0;
+    right:0;
+    box-shadow:none;
+  }
+  .stats-card .progress.top{
+    bottom:auto;
+    top:0;
+  }
+  .stats-card .progress.background{
+    top:0;
+    height:100%;
+  }
+  .stats-card .progress.background div {
+    height:100%;
+  }
+
+  /*
+   stats card large
+  */
+  .stats-card.large{
+    padding:1.6rem;
+  }
+  .stats-card.large>i{
+    font-size:8rem;
+    bottom:-1.3rem;
+  }
+  .stats-card.large .count{
+    font-size:3rem;
+    line-height:3rem;
+  }
+  .stats-card.large .name{
+    font-size:1.2rem;
+    line-height:1.2rem;
+  }
+
+</style>
+
+<div class="slide-animate" ng-include="stats.template"></div>
+
+
+

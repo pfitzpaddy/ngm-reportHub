@@ -1,0 +1,24 @@
+
+  <!-- display flood risk stats -->
+  <i class="material-icons {{ stats.display.iconClass }}">{{ stats.display.icon }}</i>
+	<span class="count">
+		<span
+			value="0" 
+			count-to="{{ stats.data.value }}" 
+			duration="{{ stats.display.duration }}"
+			filter="{{ stats.display.filter }}"
+			params="{{ stats.display.params }}"
+			fraction-size="{{ stats.display.fractionSize }}">
+		</span>{{ stats.display.postFix }}</span>
+
+	<div ng-if="stats.display.simpleTitle" class="grey-text text-darken-2">{{ stats.title }}</div>
+
+	<div ng-if="!stats.display.simpleTitle" class="grey-text text-darken-2">{{ stats.title }} 
+	  ( <span class="name"
+		      value="0" 
+		      count-to="{{ stats.data.value_total }}" 
+		      duration="{{ stats.display.duration }}"
+		      filter="{{ stats.display.filter }}"
+		      params="{{ stats.display.params }}">
+	   </span> )
+	</div>
