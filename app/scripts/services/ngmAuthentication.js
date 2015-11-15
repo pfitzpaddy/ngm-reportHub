@@ -61,6 +61,7 @@ angular.module('ngmReportHub')
 
 				// on success store in localStorage
 				login.success(function(result) {
+					console.log(result)
 					ngmUser.set(JSON.stringify(result));
 				});
 
@@ -73,7 +74,7 @@ angular.module('ngmReportHub')
 
 				var register = $http({
 					method: 'POST',
-					url: appConfig.host + '/register',
+					url: appConfig.host + '/create',
 					data: user
 				});
 
