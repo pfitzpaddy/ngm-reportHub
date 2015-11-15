@@ -157,7 +157,7 @@ angular.module('ngmReportHub')
 						hover: 'Download ' + $scope.dews.disease.name +  ' Report as CSV',
 						request: {
 							method: 'POST',
-							url: appConfig.host + ':1337/dews/data',
+							url: appConfig.host + '/dews/data',
 							data: {	
 								disease: $scope.dews.disease.id,
 								prov_code: $scope.dews.location.id
@@ -165,7 +165,7 @@ angular.module('ngmReportHub')
 						},
 						metrics: {
 							method: 'POST',
-							url: appConfig.host + ':1337/metrics/set',
+							url: appConfig.host + '/metrics/set',
 							data: {
 								organisation: $scope.dews.user.organisation,
 								username: $scope.dews.user.username,
@@ -198,7 +198,7 @@ angular.module('ngmReportHub')
 							title: 'Outbreaks',
 							request: {
 								method: 'POST',
-								url: appConfig.host + ':1337/dews/indicator',
+								url: appConfig.host + '/dews/indicator',
 								data: {
 									indicator: '*',
 									disease: $scope.dews.disease.id,
@@ -216,7 +216,7 @@ angular.module('ngmReportHub')
 							title: 'Individual Cases',
 							request: {
 								method: 'POST',
-								url: appConfig.host + ':1337/dews/indicator',
+								url: appConfig.host + '/dews/indicator',
 								data: {
 									indicator: 'u5male + u5female + o5male + o5female',
 									disease: $scope.dews.disease.id,
@@ -234,7 +234,7 @@ angular.module('ngmReportHub')
 							title: 'Deaths',							
 							request: {
 								method: 'POST',
-								url: appConfig.host + ':1337/dews/indicator',
+								url: appConfig.host + '/dews/indicator',
 								data: {
 									indicator: 'u5death + o5death',
 									disease: $scope.dews.disease.id,
@@ -254,7 +254,7 @@ angular.module('ngmReportHub')
 						config: {
 							request: {
 								method: 'POST',
-								url: appConfig.host + ':1337/dews/calendar',
+								url: appConfig.host + '/dews/calendar',
 								data: {
 									disease: $scope.dews.disease.id,
 									prov_code: $scope.dews.location.id
@@ -277,7 +277,7 @@ angular.module('ngmReportHub')
 							},
 							request: {
 								method: 'POST',
-								url: appConfig.host + ':1337/dews/map',
+								url: appConfig.host + '/dews/map',
 								data: {
 									disease: $scope.dews.disease.id,
 									prov_code: $scope.dews.location.id

@@ -337,7 +337,15 @@ module.exports = function (grunt) {
         constants: {
           appConfig: grunt.file.readJSON('dev.enviroment.json')
         }
-      }
+      },
+      production: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js',
+        },
+        constants: {
+          appConfig: grunt.file.readJSON('prod.enviroment.json')
+        }
+      }      
     },
 
     ngtemplates: {
@@ -475,6 +483,25 @@ module.exports = function (grunt) {
     'usemin',
     'htmlmin'
   ]);
+
+  grunt.registerTask('prod', [
+    'clean:dist',
+    'wiredep',
+    'useminPrepare',
+    'ngconstant:production',
+    'concurrent:dist',
+    'autoprefixer',
+    'ngtemplates',
+    'concat',
+    'ngAnnotate',
+    'copy:dist',
+    'cdnify',
+    'cssmin',
+    'uglify',
+    'filerev',
+    'usemin',
+    'htmlmin'
+  ]);  
 
   grunt.registerTask('default', [
     'newer:jshint',

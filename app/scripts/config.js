@@ -2,6 +2,6 @@
 
 angular.module('appConfig', [])
 
-.constant('appConfig', {host:'http://localhost'})
+.constant('appConfig', {host:'http://localhost:1337'})
 
 ;

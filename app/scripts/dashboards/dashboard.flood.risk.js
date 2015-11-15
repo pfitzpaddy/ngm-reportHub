@@ -126,7 +126,7 @@ angular.module('ngmReportHub')
 							},
 							request: {
 								method: 'POST',
-								url: appConfig.host + ':1337/flood/risk',
+								url: appConfig.host + '/flood/risk',
 								// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 								data: {
 									indicator: 'total-popn',
@@ -151,7 +151,7 @@ angular.module('ngmReportHub')
 							},
 							request: {
 								method: 'POST',
-								url: appConfig.host + ':1337/flood/risk',
+								url: appConfig.host + '/flood/risk',
 								// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 								data: {
 									indicator: 'total',
@@ -205,7 +205,7 @@ angular.module('ngmReportHub')
 										name: 'Flood Risk',
 										request: {
 											method: 'POST',
-											url: appConfig.host + ':1337/flood/risk/type',
+											url: appConfig.host + '/flood/risk/type',
 											// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 											data: {
 												indicator: 'low',
@@ -266,7 +266,7 @@ angular.module('ngmReportHub')
 										name: 'Flood Risk',
 										request: {
 											method: 'POST',
-											url: appConfig.host + ':1337/flood/risk/type',
+											url: appConfig.host + '/flood/risk/type',
 											// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 											data: {
 												indicator: 'moderate',
@@ -328,7 +328,7 @@ angular.module('ngmReportHub')
 										name: 'Flood Risk',
 										request: {
 											method: 'POST',
-											url: appConfig.host + ':1337/flood/risk/type',
+											url: appConfig.host + '/flood/risk/type',
 											// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 											data: {
 												indicator: 'high',
@@ -395,7 +395,7 @@ angular.module('ngmReportHub')
 				            color: '#78909c',
 										request: {
 											method: 'POST',
-											url: appConfig.host + ':1337/flood/risk/area',
+											url: appConfig.host + '/flood/risk/area',
 											// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 											data: {
 												indicator: 'total',
@@ -407,7 +407,7 @@ angular.module('ngmReportHub')
 				            color: '#7cb5ec',
 										request: {
 											method: 'POST',
-											url: appConfig.host + ':1337/flood/risk/area',
+											url: appConfig.host + '/flood/risk/area',
 											// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 											data: {
 												indicator: 'floodRisk',

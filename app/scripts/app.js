@@ -107,13 +107,17 @@ angular
 			
 			// app properties
 			route: $route,
+
 			title: 'WHO Afghanistan',
+
 			dashboard: false,
+
 			menu: {
 				search: true,
 				focused: false,
 				query: ''
 			},
+
 			style: {
 				logo: 'logo-who.png',
 				home: '#/who',
