@@ -41,20 +41,24 @@ angular.module('ngm.widget.html', ['ngm.provider'])
         }
       });
   }).controller('htmlCtrl', [
-    '$scope', 
+    '$scope',
+    '$sce', 
     '$element',
     'data', 
     'config',
-    function($scope, $element, data, config){
+    function($scope, $sce, $element, data, config){
     
       // statistics widget default config
-      $scope.html = {
-        content: '<h1>ngm</h1>',
+      $scope.panel = {
+        html: '<p>welcome to ngm</p>',
         template: 'widgets/ngm-html/template/default.html'
       };
 
       // Merge defaults with config
-      $scope.html = angular.merge({}, $scope.html, config);
+      $scope.panel = angular.merge({}, $scope.panel, config);
+
+      // trust html
+      $scope.panel.html = $sce.trustAsHtml($scope.panel.html);
 
   }
 ]);

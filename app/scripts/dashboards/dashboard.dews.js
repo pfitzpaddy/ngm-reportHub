@@ -18,6 +18,9 @@ angular.module('ngmReportHub')
 		// dews object
 		$scope.dews = {
 
+			// parent
+			ngm: $scope.$parent.ngm,
+
 			// current user
 			user: ngmUser.get(),
 
@@ -75,7 +78,7 @@ angular.module('ngmReportHub')
 					'nuristan': {'id':14,'name':'Nuristan'},
 					'badakhshan': {'id':15,'name':'Badakhshan'},
 					'kabul': {'id':1,'name':'Kabul'}
-				},
+				}
 			},
 
 			// return rows for DEWS menu
@@ -115,6 +118,13 @@ angular.module('ngmReportHub')
 				return rows;
 			}
 		}
+
+		// footer
+		$scope.dews.footer = '<div style="background-color: #FFF; height:220px;"></div>'
+							+ '<div style="background-color: ' + $scope.dews.ngm.style.lightPrimaryColor + '; height:20px;"></div>'
+						   	+ '<div style="background-color: ' + $scope.dews.ngm.style.defaultPrimaryColor  + '; height:80px; padding: 10px 0px 0px 20px;">'
+							+ 	'<p style="color: white;font-weight:100;">Made by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>'
+						   	+ '</div>';
 
 		// set dashboard params
 		$scope.dews.location = $scope.dews.data.location[$route.current.params.location];
@@ -261,6 +271,7 @@ angular.module('ngmReportHub')
 						card: 'card-panel',
 						style: 'padding:0px;',
 						config: {
+							height: '520px',
 							display: {
 								type: 'marker'
 							},
@@ -272,6 +283,18 @@ angular.module('ngmReportHub')
 									prov_code: $scope.dews.location.id
 								}
 							}
+						}
+					}]
+				}]
+			},{
+				columns: [{
+					styleClass: 's12 m12 l12',
+					widgets: [{
+						type: 'html',
+						card: 'card-panel',
+						style: 'padding:0px; height: 320px;',
+						config: {
+							html: $scope.dews.footer
 						}
 					}]
 				}]

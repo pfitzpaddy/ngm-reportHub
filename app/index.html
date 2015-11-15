@@ -64,9 +64,10 @@
 				</div>
 				
 				<li class="search" 
+						ng-show="ngm.getUserName() !== 'welcome' "
 						ng-if="ngm.menu.search" 
 						ng-click="ngm.toggleSearch()">
-          <div class="search-wrapper card z-depth-0" 
+          	<div class="search-wrapper card z-depth-0" 
           			ng-class="{'focused':ngm.menu.focused===true || ngm.menu.query }">
             <input id="search" 
             		ng-model="ngm.menu.query" 

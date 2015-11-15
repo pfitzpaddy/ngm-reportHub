@@ -18,8 +18,11 @@ angular.module('ngmReportHub')
 		// floodRisk object
 		$scope.floodRisk = {
 
+			// parent
+			ngm: $scope.$parent.ngm,			
+
 			// current user
-			user: ngmUser.getUser(),
+			user: ngmUser.get(),
 
 			// data lookup
 			data: {
@@ -80,6 +83,13 @@ angular.module('ngmReportHub')
 				return rows;
 			}
 		}
+
+		// footer
+		$scope.floodRisk.footer = '<div style="background-color: #FFF; height:220px;"></div>'
+							+ '<div style="background-color: ' + $scope.floodRisk.ngm.style.lightPrimaryColor + '; height:20px;"></div>'
+						   	+ '<div style="background-color: ' + $scope.floodRisk.ngm.style.defaultPrimaryColor  + '; height:80px; padding: 10px 0px 0px 20px;">'
+							+ 	'<p style="color: white;font-weight:100;">Made by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>'
+						   	+ '</div>';		
 
 		// FloodRisk dashboard model
 		var model = {
@@ -406,6 +416,18 @@ angular.module('ngmReportHub')
 										}
 				        }]
 							}
+						}
+					}]
+				}]
+			},{
+				columns: [{
+					styleClass: 's12 m12 l12',
+					widgets: [{
+						type: 'html',
+						card: 'card-panel',
+						style: 'padding:0px; height: 320px;',
+						config: {
+							html: $scope.floodRisk.footer
 						}
 					}]
 				}]
