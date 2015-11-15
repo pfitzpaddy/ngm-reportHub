@@ -167,7 +167,7 @@ angular.module('ngmReportHub')
 							method: 'POST',
 							url: appConfig.host + '/metrics/set',
 							data: {
-								organisation: $scope.dews.user.organisation,
+								organization: $scope.dews.user.organization,
 								username: $scope.dews.user.username,
 								email: $scope.dews.user.email,
 								dashboard: 'dews',
