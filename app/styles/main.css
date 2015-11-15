@@ -176,8 +176,8 @@ ul.side-nav.fixed li {
 ul.side-nav.fixed li a {
 	text-align: left;
   font-size: 12px;
+  height: 41px;
   line-height: 41px;
-  height: 41px; 
 }
 ul.side-nav.fixed ul.collapsible-accordion {
   background-color: #FFF; 
