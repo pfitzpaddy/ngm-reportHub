@@ -132,6 +132,10 @@ angular.module('ngmReportHub')
 		$scope.dews.title = $scope.dews.location.name + ' | ' + $scope.dews.disease.name;
 		$scope.dews.subtitle = $scope.dews.disease.name + ' Disease Early Warning System Key Indicators ' + $scope.dews.location.name;
 
+
+		console.log($location);
+
+
 		// dews dashboard model
 		var model = {
 			header: {
