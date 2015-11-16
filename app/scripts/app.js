@@ -32,8 +32,10 @@ angular
 		// app routes with access rights
 		$routeProvider
 			.when( '/login', {
-				templateUrl: 'views/login.html',
-				controller: 'LoginCtrl',
+				// templateUrl: 'views/login.html',
+				// controller: 'loginCtrl',
+				templateUrl: 'views/dashboard.html',
+				controller: 'DashboardLoginCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 							return ngmAuth.isAnonymous();
@@ -49,6 +51,7 @@ angular
 					}],
 				}
 			})
+			// immap
 			.when( '/immap/drr/flood/:province', {
 				templateUrl: 'views/dashboard.html',
 				controller: 'DashboardFloodRiskCtrl',				
@@ -58,7 +61,6 @@ angular
 					}],
 				}
 			})
-			// immap
 			.when( '/immap', {
 				redirectTo: '/immap/drr/flood/afghanistan'
 			})
@@ -108,10 +110,19 @@ angular
 			// app properties
 			route: $route,
 
-			title: 'WHO Afghanistan',
+			// app name
+			title: 'Welcome',
 
+			// active dashboard placeholder
 			dashboard: false,
 
+			// page height
+			height: $(window).height(),
+
+			// dashboard footer
+			footer: false,
+
+			// left menu
 			menu: {
 				search: true,
 				focused: false,
@@ -157,6 +168,13 @@ angular
 							lightPrimaryColor: '#BBDEFB'
 						}
 				}
+
+				// create footer
+				$scope.ngm.footer = '<div class="footer header" style="background-color: ' + $scope.ngm.style.lightPrimaryColor + ';"></div>'
+													+ '<div class="footer body" style="background-color: ' + $scope.ngm.style.defaultPrimaryColor  + ';">'
+													+ 	'<p style="color: white;font-weight:100;">Made by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>'
+													+ '</div>';		
+
 			},
 
 	    // Detect touch screen and enable scrollbar if necessary

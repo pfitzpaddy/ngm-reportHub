@@ -1,0 +1,49 @@
+
+<!-- bind html -->
+<div class="row">
+	<div class="login title">
+		<h3 style="font-weight:100;">Report Hub</h3>
+	</div>
+	<div class="col s12 m4 offset-m4">
+		<div class="card" style="padding:40px;">
+			<form ng-submit="panel.submit()">
+				<input
+					id="ngmName" 
+					type="text" 
+					autofocus=""
+					ng-model="panel.user.name"
+					placeholder="Username or Email"
+					required>
+				<p></p>
+				<input
+					id="ngmPassword" 
+					type="password"
+					ng-model="panel.user.password"
+					placeholder="Password" 
+					required>
+				<!-- submit on enter events -->
+				<input type="submit" style="display:none;">
+			</form>
+		</div>
+		<p ng-if="panel.error.msg"
+			style="text-align:center; color: #ef5350;">{{ panel.error.msg }}<p>
+		<button 
+			style="width: 100%;" 
+			class="btn btn-large waves-effect waves-teal" 
+			type="submit"
+			ng-click="panel.submit()">
+					Sign in
+		</button>
+		<div style="text-align:right;">
+			<label>
+				<!-- <p style="font-size: 1.2rem;"><a href="#"> Sign Up</a></p> -->
+			</label>
+		</div>
+	</div>
+</div>
+
+<div style="background-color: rgba(0,0,0,0); height: 44px;"></div>
+<div class="footer header" style="background-color: {{ panel.style.lightPrimaryColor }};"></div>
+<div class="footer body" style="background-color: {{ panel.style.defaultPrimaryColor }};">
+	<p style="color: white;font-weight:100;">Made by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>
+</div>

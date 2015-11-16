@@ -82,14 +82,7 @@ angular.module('ngmReportHub')
 
 				return rows;
 			}
-		}
-
-		// footer
-		$scope.floodRisk.footer = '<div style="background-color: #FFF; height:220px;"></div>'
-							+ '<div style="background-color: ' + $scope.floodRisk.ngm.style.lightPrimaryColor + '; height:20px;"></div>'
-						   	+ '<div style="background-color: ' + $scope.floodRisk.ngm.style.defaultPrimaryColor  + '; height:80px; padding: 10px 0px 0px 20px;">'
-							+ 	'<p style="color: white;font-weight:100;">Made by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>'
-						   	+ '</div>';		
+		}	
 
 		// FloodRisk dashboard model
 		var model = {
@@ -182,11 +175,11 @@ angular.module('ngmReportHub')
 									chart: {
 										type: 'pie',
 										height: 140,
-			              margin: [0, 0, 0, 0],
-			              spacingTop: 0,
-			              spacingBottom: 0,
-			              spacingLeft: 0,
-			              spacingRight: 0
+										margin: [0, 0, 0, 0],
+										spacingTop: 0,
+										spacingBottom: 0,
+										spacingLeft: 0,
+										spacingRight: 0
 									},
 									tooltip: {
 										enabled: false
@@ -243,11 +236,11 @@ angular.module('ngmReportHub')
 									chart: {
 										type: 'pie',
 										height: 140,
-			              margin: [0, 0, 0, 0],
-			              spacingTop: 0,
-			              spacingBottom: 0,
-			              spacingLeft: 0,
-			              spacingRight: 0
+										margin: [0, 0, 0, 0],
+										spacingTop: 0,
+										spacingBottom: 0,
+										spacingLeft: 0,
+										spacingRight: 0
 									},
 									tooltip: {
 										enabled: false
@@ -305,11 +298,11 @@ angular.module('ngmReportHub')
 									chart: {
 										type: 'pie',
 										height: 140,
-			              margin: [0, 0, 0, 0],
-			              spacingTop: 0,
-			              spacingBottom: 0,
-			              spacingLeft: 0,
-			              spacingRight: 0
+										margin: [0, 0, 0, 0],
+										spacingTop: 0,
+										spacingBottom: 0,
+										spacingLeft: 0,
+										spacingRight: 0
 									},
 									tooltip: {
 										enabled: false
@@ -329,7 +322,6 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: appConfig.host + '/flood/risk/type',
-											// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 											data: {
 												indicator: 'high',
 												metric: 'popn',
@@ -367,54 +359,52 @@ angular.module('ngmReportHub')
 									tooltip: {
 										pointFormat: '<b>{point.y:,.0f} km sq</b>'
 									},
-					        legend: {
-					            enabled: false
-					        }																	
+									legend: {
+											enabled: false
+									}																	
 								},
 								title: {
 									text: ''
 								},
-        				xAxis: {
-            			type: 'category',
-            			labels: {
-                		rotation: 0,
-                		style: {
-                    	fontSize: '12px',
-                    	fontFamily: 'Roboto, sans-serif'
-                		}
-            			}
-        				},
-				        yAxis: {
-				            min: 0,
-				            title: {
-				                text: 'Area (km sq)'
-				            }
-				        },
-				        series: [{
-				            name: 'totalArea',
-				            color: '#78909c',
+								xAxis: {
+										type: 'category',
+										labels: {
+												rotation: 0,
+												style: {
+														fontSize: '12px',
+														fontFamily: 'Roboto, sans-serif'
+												}
+										}
+								},
+								yAxis: {
+										min: 0,
+										title: {
+												text: 'Area (km sq)'
+										}
+								},
+								series: [{
+										name: 'totalArea',
+										color: '#78909c',
 										request: {
 											method: 'POST',
 											url: appConfig.host + '/flood/risk/area',
-											// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 											data: {
 												indicator: 'total',
 												prov_code: $scope.floodRisk.data[$route.current.params.province].id,
 											}	
 										}
-				        },{
-				            name: 'floodRiskArea',
-				            color: '#7cb5ec',
+								},{
+										name: 'floodRiskArea',
+										color: '#7cb5ec',
 										request: {
 											method: 'POST',
 											url: appConfig.host + '/flood/risk/area',
-											// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
 											data: {
 												indicator: 'floodRisk',
 												prov_code: $scope.floodRisk.data[$route.current.params.province].id,
 											}	
 										}
-				        }]
+								}]
 							}
 						}
 					}]
@@ -425,9 +415,9 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'html',
 						card: 'card-panel',
-						style: 'padding:0px; height: 320px;',
+						style: 'padding:0px; height: 220px;',
 						config: {
-							html: $scope.floodRisk.footer
+							html: '<div style="background-color: #FFF; height: 100px;"></div>' + $scope.floodRisk.ngm.footer
 						}
 					}]
 				}]

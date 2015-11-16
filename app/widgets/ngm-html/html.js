@@ -42,16 +42,33 @@ angular.module('ngm.widget.html', ['ngm.provider'])
       });
   }).controller('htmlCtrl', [
     '$scope',
-    '$sce', 
+    '$sce',
     '$element',
+    '$location',
+    'ngmAuth',
     'data', 
     'config',
-    function($scope, $sce, $element, data, config){
+    function($scope, $sce, $element, $location, ngmAuth, data, config){
     
       // statistics widget default config
       $scope.panel = {
-        html: '<p>welcome to ngm</p>',
-        template: 'widgets/ngm-html/template/default.html'
+        
+        html: '',
+        
+        template: 'widgets/ngm-html/template/default.html',
+
+        // 
+        submit: function(){
+          ngmAuth.login($scope.panel.user).success(function(result) {
+            $location.path( '/' + $scope.panel.style.home );
+          }).error(function(err) {
+            // update 
+            $scope.panel.error = {
+              msg: 'The email and password you entered is not correct'
+            }
+          });
+        }
+
       };
 
       // Merge defaults with config

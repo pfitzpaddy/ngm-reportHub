@@ -44,40 +44,40 @@ angular.module('ngmReportHub')
 				},
 				location: {
 					'afghanistan': {'id':'*','name':'Afghanistan'},
-					'nimroz': {'id':34,'name':'Nimroz'},
+					'badakhshan': {'id':15,'name':'Badakhshan'},
+					'badghis': {'id':29,'name':'Badghis'},
+					'baghlan': {'id':9,'name':'Baghlan'},
+					'balkh': {'id':18,'name':'Balkh'},
+					'bamyan': {'id':10,"name":'Bamyan'},
+					'daykundi': {'id':22,'name':'Daykundi'},
 					'farah': {'id':31,'name':'Farah'},
-					'hilmand': {'id':32,'name':'Hilmand'},
-					'jawzjan': {'id':27,'name':'Jawzjan'},
-					'kandahar': {'id':33,'name':'Kandahar'},
+					'faryab': {'id':28,'name':'Faryab'},
 					'ghazni': {'id':11,'name':'Ghazni'},
+					'ghor': {'id':21,'name':'Ghor'},
+					'hilmand': {'id':32,'name':'Hilmand'},
+					'hirat': {'id':30,'name':'Hirat'},
+					'jawzjan': {'id':27,'name':'Jawzjan'},
+					'kabul': {'id':1,'name':'Kabul'},
+					'kandahar': {'id':33,'name':'Kandahar'},
+					'kapisa': {'id':2,'name':'Kapisa'},
+					'khost': {'id':26,'name':'Khost'},
+					'kunar': {'id':13,'name':'Kunar'},
+					'kunduz': {'id':17,'name':'Kunduz'},
+					'laghman': {'id':7,'name':'Laghman'},
+					'logar': {'id':5,'name':'Logar'},
+					'nangarhar': {'id':6,'name':'Nangarhar'},
+					'nimroz': {'id':34,'name':'Nimroz'},
+					'nuristan': {'id':14,'name':'Nuristan'},
 					'paktika': {'id':25,'name':'Paktika'},
 					'paktya': {'id':12,'name':'Paktya'},
-					'kunduz': {'id':17,'name':'Kunduz'},
-					'logar': {'id':5,'name':'Logar'},
-					'hirat': {'id':30,'name':'Hirat'},
-					'baghlan': {'id':9,'name':'Baghlan'},
-					'kunar': {'id':13,'name':'Kunar'},
-					'nangarhar': {'id':6,'name':'Nangarhar'},
-					'uruzgan': {'id':23,'name':'Uruzgan'},
-					'laghman': {'id':7,'name':'Laghman'},
-					'balkh': {'id':18,'name':'Balkh'},
-					'khost': {'id':26,'name':'Khost'},
-					'kapisa': {'id':2,'name':'Kapisa'},
-					'sar-e-pul': {'id':20,'name':'Sar-e-Pul'},
-					'takhar': {'id':16,'name':'Takhar'},
-					'badghis': {'id':29,'name':'Badghis'},
-					'zabul': {'id':24,'name':'Zabul'},
-					'wardak': {'id':4,'name':'Wardak'},
-					'faryab': {'id':28,'name':'Faryab'},
-					'bamyan': {'id':10,"name":'Bamyan'},
-					'samangan': {'id':19,'name':'Samangan'},
 					'panjsher': {'id':8,'name':'Panjsher'},
 					'parwan': {'id':3,'name':'Parwan'},
-					'ghor': {'id':21,'name':'Ghor'},
-					'daykundi': {'id':22,'name':'Daykundi'},
-					'nuristan': {'id':14,'name':'Nuristan'},
-					'badakhshan': {'id':15,'name':'Badakhshan'},
-					'kabul': {'id':1,'name':'Kabul'}
+					'samangan': {'id':19,'name':'Samangan'},
+					'sar-e-pul': {'id':20,'name':'Sar-e-Pul'},
+					'takhar': {'id':16,'name':'Takhar'},
+					'uruzgan': {'id':23,'name':'Uruzgan'},
+					'wardak': {'id':4,'name':'Wardak'},
+					'zabul': {'id':24,'name':'Zabul'}
 				}
 			},
 
@@ -119,22 +119,11 @@ angular.module('ngmReportHub')
 			}
 		}
 
-		// footer
-		$scope.dews.footer = '<div style="background-color: #FFF; height:220px;"></div>'
-							+ '<div style="background-color: ' + $scope.dews.ngm.style.lightPrimaryColor + '; height:20px;"></div>'
-						   	+ '<div style="background-color: ' + $scope.dews.ngm.style.defaultPrimaryColor  + '; height:80px; padding: 10px 0px 0px 20px;">'
-							+ 	'<p style="color: white;font-weight:100;">Made by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>'
-						   	+ '</div>';
-
 		// set dashboard params
 		$scope.dews.location = $scope.dews.data.location[$route.current.params.location];
 		$scope.dews.disease = $scope.dews.data.disease[$route.current.params.disease];
 		$scope.dews.title = $scope.dews.location.name + ' | ' + $scope.dews.disease.name;
 		$scope.dews.subtitle = $scope.dews.disease.name + ' Disease Early Warning System Key Indicators ' + $scope.dews.location.name;
-
-
-		console.log($location);
-
 
 		// dews dashboard model
 		var model = {
@@ -296,9 +285,9 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'html',
 						card: 'card-panel',
-						style: 'padding:0px; height: 320px;',
+						style: 'padding:0px; height: 220px;',
 						config: {
-							html: $scope.dews.footer
+							html: '<div style="background-color: #FFF; height: 100px;"></div>' + $scope.dews.ngm.footer
 						}
 					}]
 				}]

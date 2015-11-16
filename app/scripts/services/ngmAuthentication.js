@@ -61,7 +61,6 @@ angular.module('ngmReportHub')
 
 				// on success store in localStorage
 				login.success(function(result) {
-					console.log(result)
 					ngmUser.set(JSON.stringify(result));
 				});
 

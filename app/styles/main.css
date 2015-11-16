@@ -53,13 +53,11 @@ a.button-collapse.top-nav.full {
 
 
 #nav-mobile li.search {
-  /*position: absolute;*/
-  /*top: 159px;*/
   left: 0;
   right: 0;
-  /*margin-top: 1px;*/
-  padding: 1px 0 0 0;
-  z-index: 2;
+  padding: 0;
+  overflow:hidden;
+  z-index: 1;
 }
 #nav-mobile li.search:hover {
   background-color: #fff; 
@@ -118,6 +116,13 @@ a.button-collapse.top-nav.full {
 .side-nav.fixed a {
 	width: 100%;
 }
+.side-nav.fixed.brand {
+	position:fixed;
+	overflow:hidden;
+}
+.side-nav.fixed.menu {
+	margin-top:206px;	
+}
 .side-nav .collapsible-body li a {
 	margin-left:0px;
 	padding-left: 2rem;
@@ -167,7 +172,7 @@ ul.side-nav.fixed li.logo:hover {
   background-color: transparent; 
 }
 ul.side-nav.fixed {
-  overflow: hidden; 
+  overflow: hidden;
 }
 ul.side-nav.fixed li {
 	width: 100%;
@@ -176,14 +181,14 @@ ul.side-nav.fixed li {
 ul.side-nav.fixed li a {
 	text-align: left;
   font-size: 12px;
-  height: 41px;
+  height: 40px;
   line-height: 41px;
 }
 ul.side-nav.fixed ul.collapsible-accordion {
   background-color: #FFF; 
 }
 ul.side-nav.fixed:hover {
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 .bold > a {
 	font-weight: bold; 
@@ -253,3 +258,25 @@ ul.side-nav.fixed:hover {
 .icon-block .material-icons {
   font-size: inherit;
 }
+
+.login.title { 
+	padding-top: 15px;
+	text-align: center;
+}
+
+/* footer */
+.footer.menu {
+	width:190px;
+	bottom: 0px;
+	position:fixed;
+}
+.footer.header {
+	height:20px;
+}
+.footer.body {
+	height:80px; 
+	padding: 10px 0px 0px 20px;
+}
+
+
+

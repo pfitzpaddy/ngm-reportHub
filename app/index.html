@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>ngmReportHub</title>
+		<title>ReportHub</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width">
 		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -36,7 +36,7 @@
 
 			<!-- <a class='dropdown-button btn' href='#' data-activates='nav-mobile'>Drop Me!</a> -->
 
-			<ul id="nav-mobile" class="side-nav fixed">
+			<ul id="nav-mobile" class="side-nav fixed brand">
 				<div style="background: {{ ngm.style.darkPrimaryColor }}; height:20px;"></div>
 				<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:140px;">
 					<div>
@@ -48,13 +48,14 @@
 					</div>
 					<div>
 						<div class="nav-user">
-							<a class="btn-flat waves-effect waves-white dropdown-button" 
-									style="text-align:right;text-transform:lowercase"
+							<!-- <a class="btn-flat waves-effect waves-white dropdown-button"  -->
+							<a class="btn-flat dropdown-button"
+									style="text-align:right;text-transform:lowercase;"
 									data-activates="user-profile-dropdown">
 								<i class="material-icons right">account_circle</i>{{ ngm.getUserName() }}
 							</a>
 						</div>
-						<ul id="user-profile-dropdown" class="dropdown-content" style="margin-top:64px;">
+						<ul id="user-profile-dropdown" class="dropdown-content" style="margin-top:64px;"ng-show="ngm.getUserName() !== 'welcome' ">
 						  <li>
 						  	<a ng-click="ngm.logout()">
 						  	<i class="material-icons left">lock_open</i>Logout</a>
@@ -63,21 +64,29 @@
 					</div>
 				</div>
 				
-				<li class="search" 
+				<li class="search"
 						ng-show="ngm.getUserName() !== 'welcome' "
 						ng-if="ngm.menu.search" 
 						ng-click="ngm.toggleSearch()">
-          	<div class="search-wrapper card z-depth-0" 
-          			ng-class="{'focused':ngm.menu.focused===true || ngm.menu.query }">
-            <input id="search" 
-            		ng-model="ngm.menu.query" 
-            		ng-focus="ngm.menu.focused=true"  
-            		ng-blur="ngm.menu.focused=false">
-            	<i class="material-icons">search</i>
-            <div class="search-results"></div>
-          </div>
-        </li>
+	          		<div class="search-wrapper card z-depth-0" 
+	          				ng-class="{'focused':ngm.menu.focused===true || ngm.menu.query }">
+	            		<input id="search" 
+		            		ng-model="ngm.menu.query" 
+		            		ng-focus="ngm.menu.focused=true"  
+		            		ng-blur="ngm.menu.focused=false">
+	            		<i class="material-icons">search</i>
+	            		<div class="search-results"></div>
+	          		</div>
+	         	</li>
 
+	         	<div class="footer menu">
+					<div class="footer header" style="background: {{ ngm.style.lightPrimaryColor }};"></div>
+					<div class="footer body" style="background: {{ ngm.style.defaultPrimaryColor }};"></div>
+				</div>
+
+	         </ul>
+
+		<ul id="nav-mobile" class="side-nav fixed menu" ng-show="ngm.getUserName() !== 'welcome' ">
         <li class="no-padding">
           <ul class="collapsible collapsible-accordion" ng-repeat="list in ngm.dashboard.menu">
             <li class="bold" ngm-menu>
@@ -153,6 +162,7 @@
 		<!-- controllers -->
 		<script src="scripts/controllers/loginCtrl.js"></script>
 		<!-- dashboards -->
+		<script src="scripts/dashboards/dashboard.login.js"></script>
 		<script src="scripts/dashboards/dashboard.dews.js"></script>
 		<script src="scripts/dashboards/dashboard.flood.risk.js"></script>
 		<!-- widgets -->
