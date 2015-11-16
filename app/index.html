@@ -93,10 +93,9 @@
             	<a class="{{ list.class }}" ng-cloak>{{ list.title }}</a>
               <div class="collapsible-body" style="display: none">
                 <ul class="side-menu">
-
-									<li class="{{ row.class  }}" 
-										ng-repeat="row in list.rows | filter:ngm.menu.query track by $index" 
-                		ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }" ng-cloak>
+							<li class="{{ row.class  }}" 
+								ng-repeat="row in list.rows | filter:ngm.menu.query track by $index" 
+                				ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }" ng-cloak>
                 		<a href="{{ row.href }}" ng-cloak>{{ row.title }}</a>
                 	</li>
 
@@ -109,11 +108,11 @@
 	  </header>
 
     <main>
-			<div class="container">
-			<div class="row row-centered"  style="height:100%">
-				<div ng-view=""></div>
-				</div>
+		<div class="container">
+		<div class="row row-centered"  style="height:100%">
+			<div ng-view=""></div>
 			</div>
+		</div>
     </main>
 
 		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -160,7 +159,7 @@
 		<!-- services -->			
 		<script src="scripts/services/ngmAuthentication.js"></script>
 		<!-- controllers -->
-		<script src="scripts/controllers/loginCtrl.js"></script>
+		<!--  -->
 		<!-- dashboards -->
 		<script src="scripts/dashboards/dashboard.login.js"></script>
 		<script src="scripts/dashboards/dashboard.dews.js"></script>

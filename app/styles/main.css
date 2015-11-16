@@ -271,9 +271,11 @@ ul.side-nav.fixed:hover {
 	position:fixed;
 }
 .footer.header {
+	bottom: 0px;
 	height:20px;
 }
 .footer.body {
+	bottom: 0px;
 	height:80px; 
 	padding: 10px 0px 0px 20px;
 }
