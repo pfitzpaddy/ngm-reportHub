@@ -415,7 +415,7 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'html',
 						card: 'card-panel',
-						style: 'padding:0px; height: 220px;',
+						style: 'padding:0px; height: 120px;',
 						config: {
 							html: '<div style="background-color: #FFF; height: 100px;"></div>' + $scope.floodRisk.ngm.footer
 						}

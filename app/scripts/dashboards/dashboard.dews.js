@@ -287,7 +287,7 @@ angular.module('ngmReportHub')
 						card: 'card-panel',
 						style: 'padding:0px; height: 220px;',
 						config: {
-							html: '<div style="background-color: #FFF; height: 100px;"></div>' + $scope.dews.ngm.footer
+							html: '<div style="background-color: #FFF; height: 120px;"></div>' + $scope.dews.ngm.footer
 						}
 					}]
 				}]
