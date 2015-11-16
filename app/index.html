@@ -79,32 +79,34 @@
 	          		</div>
 	         	</li>
 
-	         	<div class="footer menu">
+	         </ul>
+
+			<ul id="nav-mobile" style="padding-bottom:365px;" class="side-nav fixed menu" ng-show="ngm.getUserName() !== 'welcome' ">
+		        <li class="no-padding">
+		          <ul class="collapsible collapsible-accordion" ng-repeat="list in ngm.dashboard.menu">
+		            <li class="bold" ngm-menu>
+		            	<a class="{{ list.class }}" ng-cloak>{{ list.title }}</a>
+		              <div class="collapsible-body" style="display: none">
+		                <ul class="side-menu">
+									<li class="{{ row.class  }}" 
+										ng-repeat="row in list.rows | filter:ngm.menu.query track by $index" 
+		                				ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }" ng-cloak>
+		                		<a href="{{ row.href }}" ng-cloak>{{ row.title }}</a>
+		                	</li>
+
+		                </ul>
+		            	</div>
+		            </li>
+		          </ul>
+		        </li>
+
+				<div class="footer menu z-depth-0">
 					<div class="footer header" style="background: {{ ngm.style.lightPrimaryColor }};"></div>
 					<div class="footer body" style="background: {{ ngm.style.defaultPrimaryColor }};"></div>
 				</div>
 
-	         </ul>
+		    </ul>
 
-		<ul id="nav-mobile" class="side-nav fixed menu" ng-show="ngm.getUserName() !== 'welcome' ">
-        <li class="no-padding">
-          <ul class="collapsible collapsible-accordion" ng-repeat="list in ngm.dashboard.menu">
-            <li class="bold" ngm-menu>
-            	<a class="{{ list.class }}" ng-cloak>{{ list.title }}</a>
-              <div class="collapsible-body" style="display: none">
-                <ul class="side-menu">
-							<li class="{{ row.class  }}" 
-								ng-repeat="row in list.rows | filter:ngm.menu.query track by $index" 
-                				ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }" ng-cloak>
-                		<a href="{{ row.href }}" ng-cloak>{{ row.title }}</a>
-                	</li>
-
-                </ul>
-            	</div>
-            </li>
-          </ul>
-        </li>
-	    </ul>
 	  </header>
 
     <main>

@@ -16,6 +16,7 @@ header, main, footer {
 @media only screen and (max-width : 992px) {
   header, main, footer {
     padding-left: 0;
+    position:relative;
   }
 }
 
@@ -119,6 +120,7 @@ a.button-collapse.top-nav.full {
 .side-nav.fixed.brand {
 	position:fixed;
 	overflow:hidden;
+	z-index: 9;
 }
 .side-nav.fixed.menu {
 	margin-top:206px;	
@@ -161,12 +163,12 @@ a.button-collapse.top-nav.full {
 }
 
 /********************
-  Index Page Styles
+  Menu Page Styles
 ********************/
 ul.side-nav.fixed li.logo {
   text-align: right;
   margin-top: 32px;
-  margin-bottom: 80px; 
+  margin-bottom: 80px;
 }
 ul.side-nav.fixed li.logo:hover {
   background-color: transparent; 
@@ -176,7 +178,7 @@ ul.side-nav.fixed {
 }
 ul.side-nav.fixed li {
 	width: 100%;
-  line-height: 41px; 
+  line-height: 41px;
 }
 ul.side-nav.fixed li a {
 	text-align: left;
@@ -194,12 +196,6 @@ ul.side-nav.fixed:hover {
 	font-weight: bold; 
 }
 
-.container {
-	width: 90%;
-	background-image: url("../images/worldmap.svg");
-	background-repeat: no-repeat;
-	background-position: center;	
-}
 .report-header {
 	height: 160px;
 	padding-top: 20px;
@@ -216,6 +212,13 @@ ul.side-nav.fixed:hover {
 	cursor: pointer;
 	text-align: right;
   margin-top: -40px;	
+}
+
+.container {
+	width: 90%;
+	background-image: url("../images/worldmap.svg");
+	background-repeat: no-repeat;
+	background-position: center;	
 }
 
 .material-tooltip {
@@ -267,18 +270,16 @@ ul.side-nav.fixed:hover {
 /* footer */
 .footer.menu {
 	width:190px;
-	bottom: 0px;
+	bottom:0px;
 	position:fixed;
+	z-index: 9999;
 }
 .footer.header {
-	bottom: 0px;
 	height:20px;
 }
 .footer.body {
-	bottom: 0px;
 	height:80px; 
-	padding: 10px 0px 0px 20px;
+	padding:10px 0px 0px 20px;
 }
-
 
 

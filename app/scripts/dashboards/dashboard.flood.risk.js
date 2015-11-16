@@ -92,7 +92,7 @@ angular.module('ngmReportHub')
 					style: 'border-bottom: 3px ' + $scope.$parent.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
-					title: $scope.floodRisk.data[$route.current.params.province].name,
+					title: 'iMMAP | ' + $scope.floodRisk.data[$route.current.params.province].name,
 					style: 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
 				},
 				subtitle: {
