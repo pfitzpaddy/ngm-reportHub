@@ -145,6 +145,14 @@ a.button-collapse.top-nav.full {
   display: block;
   background-color: transparent;
 }
+.side-nav.fixed .nav-user ul li a {
+	font-size: 1rem;
+  color: #616161;
+  height: 49px;
+  display: block;
+  padding-top: 5px;
+  background-color: transparent;
+}
 .side-nav .collapsible-header {
 	padding-left: 1rem;
 }
@@ -278,7 +286,11 @@ ul.side-nav.fixed:hover {
 	height:20px;
 }
 .footer.body {
-	height:80px; 
+	height:60px; 
+	padding:10px 0px 0px 20px;
+}
+.footer-menu.body {
+	height:40px; 
 	padding:10px 0px 0px 20px;
 }
 

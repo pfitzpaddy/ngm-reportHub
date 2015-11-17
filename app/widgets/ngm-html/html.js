@@ -58,9 +58,10 @@ angular.module('ngm.widget.html', ['ngm.provider'])
         template: 'widgets/ngm-html/template/default.html',
 
         // 
-        submit: function(){
-          ngmAuth.login($scope.panel.user).success(function(result) {
-            $location.path( '/' + $scope.panel.style.home );
+        login: function(){
+          ngmAuth.login($scope.panel.user).success(function(result) { 
+            // go to default org page 
+            $location.path( '/' + $location.$$url.split('/')[1] );
           }).error(function(err) {
             // update 
             $scope.panel.error = {

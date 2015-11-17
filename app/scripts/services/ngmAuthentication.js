@@ -87,7 +87,7 @@ angular.module('ngmReportHub')
 			logout: function() {
 				// unset token, backend dosnt care about logouts 
 				ngmUser.unset('auth_token');
-				$location.path( '/login' );
+				$location.path( '/' + $location.$$path.split('/')[1] + '/login' );
 			},
 
 			hasRole: function( role ) {

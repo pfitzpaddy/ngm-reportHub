@@ -21,6 +21,7 @@
 		<!-- endbuild -->
 	</head>
  	<body ng-app="ngmReportHub" ng-controller="ngmReportHubCrtl" style="height:100%">
+		
 		<!--[if lte IE 8]>
 			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
@@ -54,16 +55,21 @@
 									data-activates="user-profile-dropdown">
 								<i class="material-icons right">account_circle</i>{{ ngm.getUserName() }}
 							</a>
+					        <!-- user options over menu -->
+							<ul id="user-profile-dropdown" 
+								class="dropdown-content" 
+								style="margin-top:64px;"
+								ng-show="ngm.getUserName() !== 'welcome' ">
+							  <li class="z-depth-5">
+							  	<a ng-click="ngm.logout()">
+							  	<i class="material-icons left">lock_open</i>Logout</a>
+							  </li>
+							</ul>							
 						</div>
-						<ul id="user-profile-dropdown" class="dropdown-content" style="margin-top:64px;"ng-show="ngm.getUserName() !== 'welcome' ">
-						  <li>
-						  	<a ng-click="ngm.logout()">
-						  	<i class="material-icons left">lock_open</i>Logout</a>
-						  </li>
-						</ul>
 					</div>
-				</div>
+				</div>			
 				
+				<!-- menu search -->
 				<li class="search"
 						ng-show="ngm.getUserName() !== 'welcome' "
 						ng-if="ngm.menu.search" 
@@ -79,9 +85,15 @@
 	          		</div>
 	         	</li>
 
+		        <!-- include footer when no menu  -->
+				<div class="footer menu z-depth-0" style="text-align:right;">
+					<div class="footer header" style="background: {{ ngm.style.lightPrimaryColor }}; margin-top:10px;"></div>
+					<div class="footer-menu body" style="background: {{ ngm.style.defaultPrimaryColor }};"></div>
+				</div>	         	
+
 	         </ul>
 
-			<ul id="nav-mobile" style="padding-bottom:365px;" class="side-nav fixed menu" ng-show="ngm.getUserName() !== 'welcome' ">
+			<ul id="nav-mobile" style="padding-bottom:326px;" class="side-nav fixed menu" ng-show="ngm.getUserName() !== 'welcome' ">
 		        <li class="no-padding">
 		          <ul class="collapsible collapsible-accordion" ng-repeat="list in ngm.dashboard.menu">
 		            <li class="bold" ngm-menu>
@@ -98,24 +110,25 @@
 		            	</div>
 		            </li>
 		          </ul>
-		        </li>
+		        </li>	        
 
-				<div class="footer menu z-depth-0">
-					<div class="footer header" style="background: {{ ngm.style.lightPrimaryColor }};"></div>
-					<div class="footer body" style="background: {{ ngm.style.defaultPrimaryColor }};"></div>
+		        <!-- make footer visible when menu visibile -->
+				<div class="footer menu z-depth-0" style="text-align:right;">
+					<div class="footer header" style="background: {{ ngm.style.lightPrimaryColor }}; margin-top:10px;"></div>
+					<div class="footer-menu body" style="background: {{ ngm.style.defaultPrimaryColor }};"></div>
 				</div>
 
 		    </ul>
 
-	  </header>
+	  	</header>
 
-    <main>
-		<div class="container">
-		<div class="row row-centered"  style="height:100%">
-			<div ng-view=""></div>
+		<main>
+			<div class="container">
+				<div class="row row-centered"  style="height:100%">
+					<div ng-view=""></div>
+				</div>
 			</div>
-		</div>
-    </main>
+		</main>
 
 		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 		 <script>
@@ -164,6 +177,7 @@
 		<!--  -->
 		<!-- dashboards -->
 		<script src="scripts/dashboards/dashboard.login.js"></script>
+		<script src="scripts/dashboards/dashboard.forbidden.js"></script>
 		<script src="scripts/dashboards/dashboard.dews.js"></script>
 		<script src="scripts/dashboards/dashboard.flood.risk.js"></script>
 		<!-- widgets -->

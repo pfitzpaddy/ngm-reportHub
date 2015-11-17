@@ -32,8 +32,9 @@ angular
 		// app routes with access rights
 		$routeProvider
 			.when( '/login', {
-				// templateUrl: 'views/login.html',
-				// controller: 'loginCtrl',
+				redirectTo: '/who/login'
+			})		
+			.when( '/who/login', {
 				templateUrl: 'views/dashboard.html',
 				controller: 'DashboardLoginCtrl',
 				resolve: {
@@ -41,7 +42,7 @@ angular
 							return ngmAuth.isAnonymous();
 					}],
 				}
-			})
+			})			
 			.when( '/who/dews/:location/:disease', {
 				templateUrl: 'views/dashboard.html',
 				controller: 'DashboardDewsCtrl',				
@@ -51,7 +52,26 @@ angular
 					}],
 				}
 			})
-			// immap
+			// forbidden
+			.when( '/who/forbidden', {
+				templateUrl: 'views/dashboard.html',
+				controller: 'DashboardForbiddenCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+							return !ngmAuth.isAuthenticated();
+					}],
+				}
+			})		
+			/*** immap */
+			.when( '/immap/login', {
+				templateUrl: 'views/dashboard.html',
+				controller: 'DashboardLoginCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+							return ngmAuth.isAnonymous();
+					}],
+				}
+			})			
 			.when( '/immap/drr/flood/:province', {
 				templateUrl: 'views/dashboard.html',
 				controller: 'DashboardFloodRiskCtrl',				
@@ -60,7 +80,7 @@ angular
 						return ngmAuth.isAuthenticated(); 
 					}],
 				}
-			})
+			})			
 			.when( '/immap', {
 				redirectTo: '/immap/drr/flood/afghanistan'
 			})
@@ -71,9 +91,15 @@ angular
 				redirectTo: '/immap/drr/flood/afghanistan'
 			})
 			// forbidden
-			.when( '/forbidden', {
-				templateUrl: 'views/forbidden.html',
-			})
+			.when( '/immap/forbidden', {
+				templateUrl: 'views/dashboard.html',
+				controller: 'DashboardForbiddenCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+							return !ngmAuth.isAuthenticated();
+					}],
+				}
+			})	
 			// default
 			.otherwise({
 				redirectTo: '/who/dews/afghanistan/all'
@@ -83,11 +109,14 @@ angular
 
 		// when error on route update redirect
 		$rootScope.$on('$routeChangeError' , function(event, current, previous, rejection) {
+
+			// get app name
+			var app = current.$$route.originalPath.split('/')[1];
 			
 			if ( rejection === ngmAuth.UNAUTHORIZED ) {
-				$location.path( '/login' );
+				$location.path( '/' + app + '/login' );
 			} else if ( rejection === ngmAuth.FORBIDDEN ) {
-				$location.path( '/forbidden' );
+				$location.path( '/' + app + '/forbidden' );
 			}
 
 		});
@@ -106,9 +135,6 @@ angular
 
 		// ngm object
 		$scope.ngm = {
-			
-			// app properties
-			route: $route,
 
 			// app name
 			title: 'Welcome',
@@ -143,7 +169,7 @@ angular
 			},
 
 			// paint application
-			setApplication: function(route) {				
+			setApplication: function(route) {
 
 				// set app colors based on 
 				switch(route){
@@ -157,9 +183,8 @@ angular
 							lightPrimaryColor: '#EF9A9A'
 						}
 						break;
-
-					default:
-						// default
+					case 'who':
+						// set style obj
 						$scope.ngm.style = {
 							logo: 'logo-who.png',
 							home: '#/who',
@@ -167,13 +192,23 @@ angular
 							defaultPrimaryColor: '#2196F3',
 							lightPrimaryColor: '#BBDEFB'
 						}
+						break;
+					default:
+						// default
+						$scope.ngm.style = {
+							logo: 'logo-ngm.png',
+							home: '#/ngm',
+							darkPrimaryColor: '#0288D1',
+							defaultPrimaryColor: '#03A9F4',
+							lightPrimaryColor: '#B3E5FC'
+						}
 				}
 
 				// create footer
 				$scope.ngm.footer = '<div class="footer header" style="background-color: ' + $scope.ngm.style.lightPrimaryColor + ';"></div>'
 													+ '<div class="footer body" style="background-color: ' + $scope.ngm.style.defaultPrimaryColor  + ';">'
 													+ 	'<p style="color: white;font-weight:100;">Made by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>'
-													+ '</div>';		
+													+ '</div>';
 
 			},
 

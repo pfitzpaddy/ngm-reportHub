@@ -1,12 +1,12 @@
 
 <!-- bind html -->
-<div class="row">
+<div id="ngmLoginPanel" class="row">
 	<div class="login title">
 		<h3 style="font-weight:100;">Report Hub</h3>
 	</div>
 	<div class="col s12 m4 offset-m4">
 		<div class="card" style="padding:40px;">
-			<form ng-submit="panel.submit()">
+			<form ng-submit="panel.login()">
 				<input
 					id="ngmName" 
 					type="text" 
@@ -31,7 +31,7 @@
 			style="width: 100%;" 
 			class="btn btn-large waves-effect waves-teal" 
 			type="submit"
-			ng-click="panel.submit()">
+			ng-click="panel.login()">
 					Sign in
 		</button>
 		<div style="text-align:right;">
@@ -42,7 +42,7 @@
 	</div>
 </div>
 
-<div style="background-color: rgba(0,0,0,0); height: 44px;"></div>
+<div style="background-color:rgba(0,0,0,0); height:{{ panel.style.paddingHeight }}px;"></div>
 <div class="footer header" style="background-color: {{ panel.style.lightPrimaryColor }};"></div>
 <div class="footer body" style="background-color: {{ panel.style.defaultPrimaryColor }};">
 	<p style="color: white;font-weight:100;">Made by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>

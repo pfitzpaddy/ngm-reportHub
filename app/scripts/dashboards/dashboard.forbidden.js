@@ -8,7 +8,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardLoginCtrl', ['$scope', function ($scope) {
+	.controller('DashboardForbiddenCtrl', ['$scope', 'ngmUser', function ($scope, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -16,7 +16,7 @@ angular.module('ngmReportHub')
 		];
 
 		// login object
-		$scope.login = {
+		$scope.forbidden = {
 
 			// parent
 			ngm: $scope.$parent.ngm
@@ -24,9 +24,11 @@ angular.module('ngmReportHub')
 		}
 
 		// panel height = window height - header - padding
-		$scope.login.ngm.style.height = $scope.login.ngm.height - 160 - 10;
+		$scope.forbidden.ngm.style.height = $scope.forbidden.ngm.height - 160 - 10;
 		// panel padding = panel height - form height - footer - padding
-		$scope.login.ngm.style.paddingHeight = ($scope.login.ngm.style.height - 410 - 60 - 20) < 10 ? 10 : ($scope.login.ngm.style.height - 410 - 60 - 20);
+		$scope.forbidden.ngm.style.paddingHeight = ($scope.forbidden.ngm.style.height - 391 - 60 - 20) < 10 ? 10 : ($scope.forbidden.ngm.style.height - 391 - 60 - 20);
+		// get username (if available)
+		$scope.forbidden.username = ngmUser.get() ? ' ' + ngmUser.get().username : '';
 
 		// dews dashboard model
 		var model = {
@@ -36,12 +38,12 @@ angular.module('ngmReportHub')
 					style: 'border-bottom: 3px ' + $scope.$parent.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
-					title: 'Welcome',
+					title: 'Forbidden!',
 					style: 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
 				},
 				subtitle: {
 					'class': 'report-subtitle',
-					title: 'Welcome to Report Hub, please login to continue data entry tasks or navigate to the report pages to view the latest key indicators',
+					title: 'Sorry' + $scope.forbidden.username + ' you are not authorized to access this page, please contact the administrator',
 				}
 			},
 			rows: [{
@@ -50,17 +52,17 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'html',
 						card: 'card-panel',
-						style: 'padding:0px; height: ' + $scope.login.ngm.style.height + 'px;',
+						style: 'padding:0px; height: ' + $scope.forbidden.ngm.style.height + 'px;',
 						config: {
-							style: $scope.login.ngm.style,
-							template: 'widgets/ngm-html/template/login.html'
+							style: $scope.forbidden.ngm.style,
+							template: 'widgets/ngm-html/template/forbidden.html'
 						}
 					}]
 				}]
 			}]
 		};
 
-		$scope.name = 'login';
+		$scope.name = 'forbidden';
 		$scope.model = model;
 
 		// assign to ngm app scope

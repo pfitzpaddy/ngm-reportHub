@@ -334,7 +334,7 @@ angular.module('ngmReportHub')
 										innerSize: '80%',
 										showInLegend:false,
 										dataLabels: {
-												enabled: false
+											enabled: false
 										}
 								}]
 							}
@@ -417,7 +417,7 @@ angular.module('ngmReportHub')
 						card: 'card-panel',
 						style: 'padding:0px; height: 120px;',
 						config: {
-							html: '<div style="background-color: #FFF; height: 100px;"></div>' + $scope.floodRisk.ngm.footer
+							html: '<div style="background-color: #FFF; height: 140px;"></div>' + $scope.floodRisk.ngm.footer
 						}
 					}]
 				}]
