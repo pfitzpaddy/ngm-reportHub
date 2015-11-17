@@ -26,7 +26,7 @@ angular.module('ngmReportHub')
 		// panel height = window height - header - padding
 		$scope.forbidden.ngm.style.height = $scope.forbidden.ngm.height - 160 - 10;
 		// panel padding = panel height - form height - footer - padding
-		$scope.forbidden.ngm.style.paddingHeight = ($scope.forbidden.ngm.style.height - 391 - 60 - 20) < 10 ? 10 : ($scope.forbidden.ngm.style.height - 391 - 60 - 20);
+		$scope.forbidden.ngm.style.paddingHeight = ($scope.forbidden.ngm.style.height - 347 - 60 - 20) < 10 ? 10 : ($scope.forbidden.ngm.style.height - 347 - 60 - 20);
 		// get username (if available)
 		$scope.forbidden.username = ngmUser.get() ? ' ' + ngmUser.get().username : '';
 
