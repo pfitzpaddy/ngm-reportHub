@@ -35,11 +35,11 @@ angular.module('ngmReportHub')
 			header: {
 				div: {
 					'class': 'report-header',
-					style: 'border-bottom: 3px ' + $scope.$parent.ngm.style.defaultPrimaryColor + ' solid;'
+					style: 'border-bottom: 3px ' + $scope.forbidden.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
 					title: 'Forbidden!',
-					style: 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
+					style: 'color: ' + $scope.forbidden.ngm.style.defaultPrimaryColor,
 				},
 				subtitle: {
 					'class': 'report-subtitle',

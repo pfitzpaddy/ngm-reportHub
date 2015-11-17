@@ -22,6 +22,7 @@ angular
 		'leaflet-directive',
 		'ngm',
 		'ngm.widget.html',
+		'ngm.widget.iframe',
 		'ngm.widget.stats',
 		'ngm.widget.leaflet',
 		'ngm.widget.highchart',
@@ -43,6 +44,15 @@ angular
 					}],
 				}
 			})			
+			.when( '/who/dews/report', {
+				templateUrl: 'views/dashboard.html',
+				controller: 'ReportiFrameCtrl',				
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) {
+						return ngmAuth.isAuthenticated(); 
+					}],
+				}
+			})
 			.when( '/who/dews/:location/:disease', {
 				templateUrl: 'views/dashboard.html',
 				controller: 'DashboardDewsCtrl',				

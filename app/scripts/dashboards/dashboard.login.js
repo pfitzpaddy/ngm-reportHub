@@ -33,11 +33,11 @@ angular.module('ngmReportHub')
 			header: {
 				div: {
 					'class': 'report-header',
-					style: 'border-bottom: 3px ' + $scope.$parent.ngm.style.defaultPrimaryColor + ' solid;'
+					style: 'border-bottom: 3px ' + $scope.login.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
 					title: 'Welcome',
-					style: 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
+					style: 'color: ' + $scope.login.ngm.style.defaultPrimaryColor,
 				},
 				subtitle: {
 					'class': 'report-subtitle',
