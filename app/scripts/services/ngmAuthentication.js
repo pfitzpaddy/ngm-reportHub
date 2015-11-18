@@ -64,6 +64,9 @@ angular.module('ngmReportHub')
 					ngmUser.set(JSON.stringify(result));
 				});
 
+				// unset user after 6 hours
+				
+
 				return login;
 			},
 
