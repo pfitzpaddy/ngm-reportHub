@@ -118,7 +118,7 @@ angular
 	.run(['$rootScope', '$location', '$interval', 'ngmAuth', function($rootScope, $location, $interval, ngmAuth) {
 
 		// 1 hour
-		var minute = 1000*60*60;
+		var hour = 1000*60*60;
 
 		// unset local storage
 		$interval( function(){
