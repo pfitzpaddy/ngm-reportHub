@@ -143,7 +143,7 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
           // zoom to bounds
           if($scope.leaflet.defaults.zoomToBounds){
             // $scope.leaflet.map.fitBounds($scope.leaflet.markers.getBounds());
-            $scope.leaflet.map.fitBounds([ [40.712, -74.227], [40.774, -74.125] ]);
+            // $scope.leaflet.map.fitBounds([ [40.712, -74.227], [40.774, -74.125] ]);
           }
 
         });

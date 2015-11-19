@@ -158,6 +158,8 @@ angular
 			// app name
 			title: 'Welcome',
 
+			route: $route,
+
 			// active dashboard placeholder
 			dashboard: false,
 

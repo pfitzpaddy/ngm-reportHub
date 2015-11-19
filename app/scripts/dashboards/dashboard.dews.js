@@ -43,41 +43,41 @@ angular.module('ngmReportHub')
 					'scabies': { id:'scabies', name:'Scabies'}
 				},
 				location: {
-					'afghanistan': {'id':'*','name':'Afghanistan'},
-					'badakhshan': {'id':15,'name':'Badakhshan'},
-					'badghis': {'id':29,'name':'Badghis'},
-					'baghlan': {'id':9,'name':'Baghlan'},
-					'balkh': {'id':18,'name':'Balkh'},
-					'bamyan': {'id':10,"name":'Bamyan'},
-					'daykundi': {'id':22,'name':'Daykundi'},
-					'farah': {'id':31,'name':'Farah'},
-					'faryab': {'id':28,'name':'Faryab'},
-					'ghazni': {'id':11,'name':'Ghazni'},
-					'ghor': {'id':21,'name':'Ghor'},
-					'hilmand': {'id':32,'name':'Hilmand'},
-					'hirat': {'id':30,'name':'Hirat'},
-					'jawzjan': {'id':27,'name':'Jawzjan'},
-					'kabul': {'id':1,'name':'Kabul'},
-					'kandahar': {'id':33,'name':'Kandahar'},
-					'kapisa': {'id':2,'name':'Kapisa'},
-					'khost': {'id':26,'name':'Khost'},
-					'kunar': {'id':13,'name':'Kunar'},
-					'kunduz': {'id':17,'name':'Kunduz'},
-					'laghman': {'id':7,'name':'Laghman'},
-					'logar': {'id':5,'name':'Logar'},
-					'nangarhar': {'id':6,'name':'Nangarhar'},
-					'nimroz': {'id':34,'name':'Nimroz'},
-					'nuristan': {'id':14,'name':'Nuristan'},
-					'paktika': {'id':25,'name':'Paktika'},
-					'paktya': {'id':12,'name':'Paktya'},
-					'panjsher': {'id':8,'name':'Panjsher'},
-					'parwan': {'id':3,'name':'Parwan'},
-					'samangan': {'id':19,'name':'Samangan'},
-					'sar-e-pul': {'id':20,'name':'Sar-e-Pul'},
-					'takhar': {'id':16,'name':'Takhar'},
-					'uruzgan': {'id':23,'name':'Uruzgan'},
-					'wardak': {'id':4,'name':'Wardak'},
-					'zabul': {'id':24,'name':'Zabul'}
+					'afghanistan': { id:'*', name:'Afghanistan'},
+					'badakhshan': { id:15, name:'Badakhshan'},
+					'badghis': { id:29, name:'Badghis'},
+					'baghlan': { id:9, name:'Baghlan'},
+					'balkh': { id:18, name:'Balkh'},
+					'bamyan': { id:10,"name":'Bamyan'},
+					'daykundi': { id:22, name:'Daykundi'},
+					'farah': { id:31, name:'Farah'},
+					'faryab': { id:28, name:'Faryab'},
+					'ghazni': { id:11, name:'Ghazni'},
+					'ghor': { id:21, name:'Ghor'},
+					'hilmand': { id:32, name:'Hilmand'},
+					'hirat': { id:30, name:'Hirat'},
+					'jawzjan': { id:27, name:'Jawzjan'},
+					'kabul': { id:1, name:'Kabul'},
+					'kandahar': { id:33, name:'Kandahar'},
+					'kapisa': { id:2, name:'Kapisa'},
+					'khost': { id:26, name:'Khost'},
+					'kunar': { id:13, name:'Kunar'},
+					'kunduz': { id:17, name:'Kunduz'},
+					'laghman': { id:7, name:'Laghman'},
+					'logar': { id:5, name:'Logar'},
+					'nangarhar': { id:6, name:'Nangarhar'},
+					'nimroz': { id:34, name:'Nimroz'},
+					'nuristan': { id:14, name:'Nuristan'},
+					'paktika': { id:25, name:'Paktika'},
+					'paktya': { id:12, name:'Paktya'},
+					'panjsher': { id:8, name:'Panjsher'},
+					'parwan': { id:3, name:'Parwan'},
+					'samangan': { id:19, name:'Samangan'},
+					'sar-e-pul': { id:20, name:'Sar-e-Pul'},
+					'takhar': { id:16, name:'Takhar'},
+					'uruzgan': { id:23, name:'Uruzgan'},
+					'wardak': { id:4, name:'Wardak'},
+					'zabul': { id:24, name:'Zabul'}
 				}
 			},
 
@@ -85,7 +85,8 @@ angular.module('ngmReportHub')
 			getRows: function(list) {
 				
 				// menu rows
-				var rows = [];
+				var active,
+					rows = [];
 
 				if(list === 'disease'){
 					// for each disease
@@ -96,10 +97,11 @@ angular.module('ngmReportHub')
 							'title': d.name,
 							'class': 'waves-effect waves-teal',
 							'param': 'disease',
-							'active': d.id,
+							'active': key,
 							'href': '#/who/dews/' + $route.current.params.location + '/' + key
 						});
-					});					
+					});
+
 				} else {
 					// for each disease
 					angular.forEach($scope.dews.data.location, function(d, key){
@@ -112,7 +114,7 @@ angular.module('ngmReportHub')
 							'active': key,
 							'href': '#/who/dews/' + key + '/' + $route.current.params.disease
 						});
-					});						
+					});
 				}
 
 				return rows;
