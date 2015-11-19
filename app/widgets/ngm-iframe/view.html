@@ -1,7 +1,23 @@
 
-<iframe
-	style="padding:2px"
-	width="{{ iframe.width }}px" 
-	height="{{ iframe.height }}px" 
-	ng-src="{{ iframe.url }}" 
-	align="middle"></iframe>
+<style>
+#outerdiv {
+   width:95%;
+   height:100%;
+   overflow:hidden;
+   position:relative;
+}
+
+#inneriframe {
+   position:absolute;
+   top:-136px;
+}
+</style>
+<div id="{{ iframe.container }}">
+    <iframe
+    	id="{{ iframe.id }}"
+		style="padding:2px"
+		width="{{ iframe.width }}px" 
+		height="{{ iframe.height }}px" 
+		ng-src="{{ iframe.url }}" 
+		align="middle"></iframe>
+</div>

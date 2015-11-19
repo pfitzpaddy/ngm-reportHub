@@ -45,11 +45,17 @@ angular.module('ngm.widget.iframe', ['ngm.provider'])
       // statistics widget default config
       $scope.iframe = {
 
+        container: 'outerdiv', 
+
+        id: 'inneriframe',
+
         height: angular.element($element).height(),
 
         width: angular.element($element).width(),
-        
-        url: config.url
+
+        url: config.url,
+
+        div: config.div        
 
       };
 
