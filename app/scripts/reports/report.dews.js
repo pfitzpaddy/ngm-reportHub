@@ -51,7 +51,7 @@ angular.module('ngmReportHub')
 						// style: 'padding:0px; height: ' + $scope.report.ngm.style.height + 'px;',
 						style: 'padding:0px; height: 800px;',
 						config: {
-							url: 'http://52.24.183.157:3000/_/#YYYP',
+							url: 'http://52.24.183.157:3000/_/#YYYz',
 						}
 					}]
 				}]
