@@ -34,7 +34,7 @@ angular.module('ngmReportHub')
 					style: 'border-bottom: 3px ' + $scope.report.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
-					title: 'DEWS',
+					title: 'WHO | DEWS | Outbreak Report',
 					style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
 				},
 				subtitle: {
@@ -48,9 +48,10 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'iframe',
 						card: 'card-panel',
-						style: 'padding:0px; height: ' + $scope.report.ngm.style.height + 'px;',
+						// style: 'padding:0px; height: ' + $scope.report.ngm.style.height + 'px;',
+						style: 'padding:0px; height: 800px;',
 						config: {
-							url: 'http://materializecss.com/color.html',
+							url: 'http://52.24.183.157:3000/_/#YYYP',
 						}
 					}]
 				}]

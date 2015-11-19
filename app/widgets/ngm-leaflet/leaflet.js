@@ -43,12 +43,18 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
   }).controller('leafletCtrl', [
     '$scope', 
     '$element',
+    'leafletData',
     'data', 
     'config',
-    function($scope, $element, data, config){
+    function($scope, $element, leafletData, data, config){
+
+      $scope.$on('leafletDirectiveMap.load', function(event){
+        //
+      });      
     
       // statistics widget default config
       $scope.leaflet = {
+        id: 'ngm-leaflet-' + Math.floor((Math.random()*1000000)),
         height: '320px',
         display: {
           type: 'default',
@@ -61,11 +67,19 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
           attributionControl: false,          
           tileLayer: 'https://api.mapbox.com/v4/fitzpaddy.b207f20f/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZml0enBhZGR5IiwiYSI6ImNpZW1vcXZiaTAwMXBzdGtrYmp0cDlkdnEifQ.NCI7rTR3PvN4iPZpt6hgKA',
         },
+        events: {
+          map: {
+            enable: ['load'],
+            logic: 'emit'
+          }
+        },
+
         getMarkerMessage: function(m, feature){
           
           // form marker message 
           var message = '',
               messageArray = m.split('__');
+          
           angular.forEach(messageArray, function(d, i){
             // evaluate html from features
             if( d.search('value') > 0 ){
@@ -78,6 +92,7 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
           return message;
 
         },
+
         setDisplay: function(){
 
           // Add geojson to map as markers
@@ -111,9 +126,29 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
                 data: data
               }
           }
+
         }
 
       }
+
+      // assign map to leaflet widget
+      setTimeout(function(){
+        
+        // perform map actions once map promise retrned
+        leafletData.getMap().then(function(map) {
+          
+          // map $scope
+          $scope.leaflet.map = map;
+
+          // zoom to bounds
+          if($scope.leaflet.defaults.zoomToBounds){
+            // $scope.leaflet.map.fitBounds($scope.leaflet.markers.getBounds());
+            $scope.leaflet.map.fitBounds([ [40.712, -74.227], [40.774, -74.125] ]);
+          }
+
+        });
+
+      })
 
       // Merge defaults with config
       $scope.leaflet = angular.merge({}, $scope.leaflet, config);
