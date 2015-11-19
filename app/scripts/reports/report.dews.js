@@ -47,9 +47,8 @@ angular.module('ngmReportHub')
 					styleClass: 's12 m12 l12',
 					widgets: [{
 						type: 'iframe',
-						card: 'card-panel',
-						// style: 'padding:0px; height: ' + $scope.report.ngm.style.height + 'px;',
-						style: 'padding:0px; height: 800px;',
+						card: '',
+						style: 'padding-top: 30px; height: 800px;',
 						config: {
 							div: '.paper',
 							url: 'http://52.24.183.157:3000/_/#YYYz',
