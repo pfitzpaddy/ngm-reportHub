@@ -17,6 +17,7 @@ angular
 		'ngRoute',
 		'ngSanitize',
 		'ngTouch',
+		'ui.materialize',
 		'countTo',
 		'highcharts-ng',
 		'leaflet-directive',

@@ -142,13 +142,82 @@ angular.module('ngmReportHub')
 					'class': 'report-subtitle',
 					title: $scope.dews.subtitle,
 				},
+				datePicker: {
+					dates: [{
+						label: 'from',
+						currentTime: new Date(),
+						'class': 'ngm-date',
+						style: 'margin-top:-58px;margin-left:50%;width:100px;',					
+						month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+						monthShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+						weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+						weekdaysLetter: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+						disable: [false, 1, 7],
+						today: 'Today',
+						clear: 'Clear',
+						close: 'Close',
+						minDate: (new Date(new Date().getTime() - ( 1000 * 60 * 60 * 24 * 15 ))).toISOString(),
+						maxDate: (new Date(new Date().getTime() + ( 1000 * 60 * 60 ))).toISOString(),
+						onStart: function () {
+								console.log('onStart');
+						},
+						onRender: function () {
+								console.log('onRender');
+						},
+						onOpen: function () {
+								console.log('onOpen');
+						},
+						onClose: function () {
+								console.log('onClose');
+						},
+						onSet: function () {
+								console.log('onSet');
+						},
+						onStop: function () {
+								console.log('onStop');
+						}
+					},{
+						label: 'to',
+						currentTime: new Date(),
+						'class': 'ngm-date',
+						style: 'margin-top:-47px;margin-left:60%;width:100px;',					
+						month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+						monthShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+						weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+						weekdaysLetter: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+						disable: [false, 1, 7],
+						today: 'Today',
+						clear: 'Clear',
+						close: 'Close',
+						minDate: (new Date(new Date().getTime() - ( 1000 * 60 * 60 * 24 * 15 ))).toISOString(),
+						maxDate: (new Date(new Date().getTime() + ( 1000 * 60 * 60 ))).toISOString(),
+						onStart: function () {
+								console.log('onStart');
+						},
+						onRender: function () {
+								console.log('onRender');
+						},
+						onOpen: function () {
+								console.log('onOpen');
+						},
+						onClose: function () {
+								console.log('onClose');
+						},
+						onSet: function () {
+								console.log('onSet');
+						},
+						onStop: function () {
+								console.log('onStop');
+						}
+					}]
+				},				
 				download: {
 					'class': 'report-download',
 					downloads:[{
 						icon: {
 							color: '#616161'
 						},
-						filename: $route.current.params.disease + '-' + moment().format(),
+						filename: $route.current.params.location + '-' + $route.current.params.disease + '-' + moment().format(),
 						hover: 'Download ' + $scope.dews.disease.name +  ' Report as CSV',
 						request: {
 							method: 'POST',
@@ -180,7 +249,7 @@ angular.module('ngmReportHub')
 				rows: $scope.dews.getRows('disease')
 			},{
 				title: 'Province',
-				class: 'collapsible-header waves-effect waves-teal',
+				'class': 'collapsible-header waves-effect waves-teal',
 				rows: $scope.dews.getRows('province')				
 			}],
 			rows: [{

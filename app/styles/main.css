@@ -222,6 +222,12 @@ ul.side-nav.fixed:hover {
   margin-top: -40px;	
 }
 
+.ngm-date input[type=text] {
+	height: 1rem;
+	border-bottom: 0px;
+	margin-bottom: 10px;
+}
+
 .container {
 	width: 90%;
 	background-image: url("../images/worldmap.svg");
@@ -262,14 +268,12 @@ ul.side-nav.fixed:hover {
 	-webkit-box-shadow:0 -3px 3px rgba(0,0,0,.2);
 	box-shadow:0 -3px 3px rgba(0,0,0,.2);
 }
-
 .icon-block {
   padding: 0 15px;
 }
 .icon-block .material-icons {
   font-size: inherit;
 }
-
 .login.title { 
 	padding-top: 15px;
 	text-align: center;
