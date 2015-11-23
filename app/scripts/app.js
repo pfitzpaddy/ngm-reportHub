@@ -277,6 +277,6 @@ angular
 		// nav menu
     if ($scope.ngm.isTouchDevice()) {
       $('#nav-mobile').css({ overflow: 'auto'});
-    }		
+    }	
 
 	}]);

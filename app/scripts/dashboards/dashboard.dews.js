@@ -24,6 +24,10 @@ angular.module('ngmReportHub')
 			// current user
 			user: ngmUser.get(),
 
+			startDate: new Date(new Date().setMonth(new Date().getMonth() - 6)),
+
+			endDate: new Date(),
+
 			// data lookup
 			data: {
 				disease: {
@@ -131,25 +135,46 @@ angular.module('ngmReportHub')
 		var model = {
 			header: {
 				div: {
-					'class': 'report-header',
-					style: 'border-bottom: 3px ' + $scope.$parent.ngm.style.defaultPrimaryColor + ' solid;'
+					'class': 'col s12 m12 l12 report-header',
+					'style': 'border-bottom: 3px ' + $scope.$parent.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
-					title: $scope.dews.title,
-					style: 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
+					'class': 'col s12 m9 l9 report-title',
+					'style': 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
+					'title': $scope.dews.title,
 				},
 				subtitle: {
-					'class': 'report-subtitle',
+					'class': 'col s12 m9 l9 report-subtitle',
 					title: $scope.dews.subtitle,
 				},
+				datePicker: {
+					'class': 'col s12 m3 l3',
+					dates: [{
+						'class': 'ngm-date',
+						style: 'float:left',
+						label: 'from',						
+						// style: 'margin-top:-58px;margin-left:76%;width:150px;',
+						// style: 'margin-top:-58px;width:150px;right:14.55rem;',
+						max: $scope.dews.endDate,
+						time: $scope.dews.startDate
+					},{
+						'class': 'ngm-date',
+						style: 'float:right',
+						label: 'to',						
+						// style: 'margin-top:-48px;margin-left:86%;width:150px;',
+						// style: 'margin-top:-58px;width:150px;right:3.55rem;',
+						min: $scope.dews.startDate,
+						time: $scope.dews.endDate
+					}]
+				},				
 				download: {
-					'class': 'report-download',
+					'class': 'col s12 m3 l3 report-download',
 					downloads:[{
 						icon: {
 							color: '#616161'
 						},
-						filename: $route.current.params.disease + '-' + moment().format(),
-						hover: 'Download ' + $scope.dews.disease.name +  ' Report as CSV',
+						filename: $scope.dews.location.name + '-' + $scope.dews.disease.name + '-' + moment().format(),
+						hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as CSV',
 						request: {
 							method: 'POST',
 							url: appConfig.host + '/dews/data',
@@ -180,7 +205,7 @@ angular.module('ngmReportHub')
 				rows: $scope.dews.getRows('disease')
 			},{
 				title: 'Province',
-				class: 'collapsible-header waves-effect waves-teal',
+				'class': 'collapsible-header waves-effect waves-teal',
 				rows: $scope.dews.getRows('province')				
 			}],
 			rows: [{
@@ -304,5 +329,12 @@ angular.module('ngmReportHub')
 
 		// assign to ngm app scope
 		$scope.$parent.ngm.dashboard = $scope.model;
+
+		setTimeout(function(){		
+		
+			console.log($scope.dews.startDate);
+			console.log($scope.model.header.datePicker.dates[0].time);
+
+		}, 10000)
 		
 	}]);

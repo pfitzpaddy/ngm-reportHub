@@ -204,22 +204,32 @@ ul.side-nav.fixed:hover {
 	font-weight: bold; 
 }
 
+/* HEADER */
 .report-header {
 	height: 160px;
-	padding-top: 20px;
 }
-.report-header h2 {
-	margin-top: 0px;
-	padding-top: 20px;
+.report-title {
+	margin-top: 40px;
 	font-weight: 100;
 }
 .report-subtitle {
+	margin-top: 0px;
 	color: #616161;
 }
 .report-download {
+	margin-top: 41px;
+	align: right;
 	cursor: pointer;
-	text-align: right;
-  margin-top: -40px;	
+}
+.ngm-date {
+	margin-top: -10px;
+	width: 135px;
+	z-index: 999;
+}
+.ngm-date input[type=text] {
+	color: #616161;
+	height: 1.1rem;
+	border-bottom: 0px;
 }
 
 .container {
@@ -262,14 +272,12 @@ ul.side-nav.fixed:hover {
 	-webkit-box-shadow:0 -3px 3px rgba(0,0,0,.2);
 	box-shadow:0 -3px 3px rgba(0,0,0,.2);
 }
-
 .icon-block {
   padding: 0 15px;
 }
 .icon-block .material-icons {
   font-size: inherit;
 }
-
 .login.title { 
 	padding-top: 15px;
 	text-align: center;
