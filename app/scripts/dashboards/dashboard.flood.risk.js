@@ -88,15 +88,16 @@ angular.module('ngmReportHub')
 		var model = {
 			header: {
 				div: {
-					'class': 'report-header',
+					'class': 'col s12 m12 l12 report-header',
 					style: 'border-bottom: 3px ' + $scope.$parent.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
+					'class': 'col s12 m12 l12 report-title',
 					title: 'iMMAP | ' + $scope.floodRisk.data[$route.current.params.province].name,
 					style: 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
 				},
 				subtitle: {
-					'class': 'report-subtitle',
+					'class': 'col s12 m12 l12 report-subtitle',
 					title: 'Flood Risk Key Indicators for ' + $scope.floodRisk.data[$route.current.params.province].name,
 				},
 			},
