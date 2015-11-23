@@ -34,7 +34,6 @@ module.exports = function(config) {
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-touch/angular-touch.js',
-      'bower_components/angular-materialize/src/angular-materialize.js',
       'bower_components/d3/d3.js',
       'bower_components/cal-heatmap/cal-heatmap.js',
       'bower_components/highcharts/highcharts.js',

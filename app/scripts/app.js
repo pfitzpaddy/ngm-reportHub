@@ -17,7 +17,6 @@ angular
 		'ngRoute',
 		'ngSanitize',
 		'ngTouch',
-		'ui.materialize',
 		'countTo',
 		'highcharts-ng',
 		'leaflet-directive',
@@ -278,6 +277,6 @@ angular
 		// nav menu
     if ($scope.ngm.isTouchDevice()) {
       $('#nav-mobile').css({ overflow: 'auto'});
-    }		
+    }	
 
 	}]);
