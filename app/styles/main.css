@@ -222,8 +222,9 @@ ul.side-nav.fixed:hover {
 	cursor: pointer;
 }
 .ngm-date {
-	margin-top: -10px;
-	width: 135px;
+	margin-top: -12px;
+	width: 90px;
+	padding: 0px;
 	z-index: 999;
 }
 .ngm-date input[type=text] {

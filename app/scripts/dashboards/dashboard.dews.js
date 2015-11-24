@@ -139,36 +139,34 @@ angular.module('ngmReportHub')
 					'style': 'border-bottom: 3px ' + $scope.$parent.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
-					'class': 'col s12 m9 l9 report-title',
+					'class': 'col s12 m8 l9 report-title',
 					'style': 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
 					'title': $scope.dews.title,
 				},
 				subtitle: {
-					'class': 'col s12 m9 l9 report-subtitle',
+					'class': 'col s12 m8 l9 report-subtitle',
 					title: $scope.dews.subtitle,
 				},
 				datePicker: {
-					'class': 'col s12 m3 l3',
+					'class': 'col s12 m4 l3',
 					dates: [{
 						'class': 'ngm-date',
-						style: 'float:left',
-						label: 'from',						
-						// style: 'margin-top:-58px;margin-left:76%;width:150px;',
-						// style: 'margin-top:-58px;width:150px;right:14.55rem;',
+						style: 'float:left;',
+						label: 'from',
+						format: 'd mmm, yyyy',
 						max: $scope.dews.endDate,
 						time: $scope.dews.startDate
 					},{
 						'class': 'ngm-date',
 						style: 'float:right',
-						label: 'to',						
-						// style: 'margin-top:-48px;margin-left:86%;width:150px;',
-						// style: 'margin-top:-58px;width:150px;right:3.55rem;',
+						label: 'to',
+						format: 'd mmm, yyyy',
 						min: $scope.dews.startDate,
 						time: $scope.dews.endDate
 					}]
 				},				
 				download: {
-					'class': 'col s12 m3 l3 report-download',
+					'class': 'col s12 m4 l3 report-download',
 					downloads:[{
 						icon: {
 							color: '#616161'
