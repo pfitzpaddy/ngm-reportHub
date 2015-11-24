@@ -36,8 +36,9 @@ angular.module('ngmReportHub')
 					style: 'border-bottom: 3px ' + $scope.login.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
-					title: 'Welcome',
+					'class': 'report-title',
 					style: 'color: ' + $scope.login.ngm.style.defaultPrimaryColor,
+					title: 'Welcome'
 				},
 				subtitle: {
 					'class': 'report-subtitle',

@@ -38,6 +38,7 @@ angular.module('ngmReportHub')
 					style: 'border-bottom: 3px ' + $scope.forbidden.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
+					'class': 'report-title',
 					title: 'Forbidden!',
 					style: 'color: ' + $scope.forbidden.ngm.style.defaultPrimaryColor,
 				},
