@@ -155,14 +155,26 @@ angular.module('ngmReportHub')
 						label: 'from',
 						format: 'd mmm, yyyy',
 						max: $scope.dews.endDate,
-						time: $scope.dews.startDate
+						time: $scope.dews.startDate,
+						onSelection: function(){
+							// set date
+							$scope.dews.startDate = new Date(this.time);
+							// 
+							// update widgets 
+						}
 					},{
 						'class': 'ngm-date',
 						style: 'float:right',
 						label: 'to',
 						format: 'd mmm, yyyy',
 						min: $scope.dews.startDate,
-						time: $scope.dews.endDate
+						time: $scope.dews.endDate,
+						onSelection: function(){
+							// set date
+							$scope.dews.endDate = new Date(this.time);
+							// 
+							// update widgets							
+						}
 					}]
 				},				
 				download: {
@@ -328,11 +340,10 @@ angular.module('ngmReportHub')
 		// assign to ngm app scope
 		$scope.$parent.ngm.dashboard = $scope.model;
 
-		setTimeout(function(){		
-		
-			console.log($scope.dews.startDate);
-			console.log($scope.model.header.datePicker.dates[0].time);
+		// setTimeout(function(){
 
-		}, 10000)
+		// 	console.log($scope.model.header.datePicker.dates[0].time);
+
+		// }, 10000);
 		
 	}]);
