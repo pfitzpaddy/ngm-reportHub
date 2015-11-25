@@ -34,16 +34,16 @@ angular.module('ngmReportHub')
 		var model = {
 			header: {
 				div: {
-					'class': 'report-header',
+					'class': 'col s12 m12 l12 report-header',
 					style: 'border-bottom: 3px ' + $scope.forbidden.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
-					'class': 'report-title',
+					'class': 'col s12 m12 l12 report-title',
 					title: 'Forbidden!',
 					style: 'color: ' + $scope.forbidden.ngm.style.defaultPrimaryColor,
 				},
 				subtitle: {
-					'class': 'report-subtitle',
+					'class': 'col s12 m12 l12 report-subtitle',
 					title: 'Sorry' + $scope.forbidden.username + ' you are not authorized to access this page, please contact the administrator',
 				}
 			},

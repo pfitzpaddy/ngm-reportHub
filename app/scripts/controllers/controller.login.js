@@ -32,16 +32,16 @@ angular.module('ngmReportHub')
 		var model = {
 			header: {
 				div: {
-					'class': 'report-header',
+					'class': 'col s12 m12 l12 report-header',
 					style: 'border-bottom: 3px ' + $scope.login.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
-					'class': 'report-title',
+					'class': 'col s12 m12 l12 report-title',
 					style: 'color: ' + $scope.login.ngm.style.defaultPrimaryColor,
 					title: 'Welcome'
 				},
 				subtitle: {
-					'class': 'report-subtitle',
+					'class': 'col s12 m12 l12 report-subtitle',
 					title: 'Welcome to Report Hub, please login to continue data entry tasks or navigate to the report pages to view the latest key indicators',
 				}
 			},
