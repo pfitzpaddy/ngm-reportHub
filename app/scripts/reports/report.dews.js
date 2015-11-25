@@ -30,15 +30,16 @@ angular.module('ngmReportHub')
 		var model = {
 			header: {
 				div: {
-					'class': 'report-header',
+					'class': 'col s12 m12 l12 report-header',
 					style: 'border-bottom: 3px ' + $scope.report.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
+					'class': 'col s12 m12 l12 report-title',
 					title: 'WHO | DEWS | Outbreak Report',
 					style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
 				},
 				subtitle: {
-					'class': 'report-subtitle',
+					'class': 'col s12 m12 l12 report-subtitle',
 					title: 'DEWS outbreak report',
 				}
 			},
