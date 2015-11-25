@@ -159,8 +159,8 @@ angular.module('ngmReportHub')
 						onSelection: function(){
 							// set date
 							$scope.dews.startDate = new Date(this.time);
-							// 
-							// update widgets 
+							// updated config
+							$scope.model.updateWidgets( { 'broadcast': 'dateChange', 'config' : { 'request': { 'start_date': $scope.dews.startDate } } } );
 						}
 					},{
 						'class': 'ngm-date',
@@ -242,6 +242,7 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
+						broadcast: 'dateChange',
 						config: {
 							title: 'Individual Cases',
 							request: {
