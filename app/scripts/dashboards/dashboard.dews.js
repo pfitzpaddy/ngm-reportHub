@@ -157,10 +157,21 @@ angular.module('ngmReportHub')
 						max: $scope.dews.endDate,
 						time: $scope.dews.startDate,
 						onSelection: function(){
+							
 							// set date
 							$scope.dews.startDate = new Date(this.time);
+
+							console.log($scope.dews.startDate);
+							
 							// updated config
-							$scope.model.updateWidgets( { 'broadcast': 'dateChange', 'config' : { 'request': { 'start_date': $scope.dews.startDate } } } );
+							var update = { 
+								'broadcast': 'dateChange', 
+								'config' : { 'request': { 'data': { 'start_date': $scope.dews.startDate } } } 
+							};
+
+							// update widget
+							$scope.model.updateWidgets(update);
+
 						}
 					},{
 						'class': 'ngm-date',
@@ -170,10 +181,19 @@ angular.module('ngmReportHub')
 						min: $scope.dews.startDate,
 						time: $scope.dews.endDate,
 						onSelection: function(){
+							
 							// set date
 							$scope.dews.endDate = new Date(this.time);
-							// 
-							// update widgets							
+
+							// updated config
+							var update = { 
+								'broadcast': 'dateChange', 
+								'config' : { 'request': { 'data': { 'end_date': $scope.dews.endDate } } } 
+							};
+
+							// update widget								
+							$scope.model.updateWidgets(update);
+
 						}
 					}]
 				},				
@@ -188,7 +208,9 @@ angular.module('ngmReportHub')
 						request: {
 							method: 'POST',
 							url: appConfig.host + '/dews/data',
-							data: {	
+							data: {
+								start_date: $scope.dews.startDate,
+								end_date: $scope.dews.endDate,
 								disease: $scope.dews.disease.id,
 								prov_code: $scope.dews.location.id
 							}
@@ -224,12 +246,15 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
+						broadcast: 'dateChange',
 						config: {
 							title: 'Outbreaks',
 							request: {
 								method: 'POST',
 								url: appConfig.host + '/dews/indicator',
 								data: {
+									start_date: $scope.dews.startDate,
+									end_date: $scope.dews.endDate,									
 									indicator: '*',
 									disease: $scope.dews.disease.id,
 									prov_code: $scope.dews.location.id
@@ -249,6 +274,8 @@ angular.module('ngmReportHub')
 								method: 'POST',
 								url: appConfig.host + '/dews/indicator',
 								data: {
+									start_date: $scope.dews.startDate,
+									end_date: $scope.dews.endDate,									
 									indicator: 'u5male + u5female + o5male + o5female',
 									disease: $scope.dews.disease.id,
 									prov_code: $scope.dews.location.id
@@ -261,12 +288,15 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
+						broadcast: 'dateChange',
 						config: {
 							title: 'Deaths',							
 							request: {
 								method: 'POST',
 								url: appConfig.host + '/dews/indicator',
 								data: {
+									start_date: $scope.dews.startDate,
+									end_date: $scope.dews.endDate,									
 									indicator: 'u5death + o5death',
 									disease: $scope.dews.disease.id,
 									prov_code: $scope.dews.location.id
@@ -282,11 +312,14 @@ angular.module('ngmReportHub')
 						type: 'calHeatmap',
 						card: 'card-panel',
 						style: 'padding-top:5px;',
+						broadcast: 'dateChange',
 						config: {
 							request: {
 								method: 'POST',
 								url: appConfig.host + '/dews/calendar',
 								data: {
+									start_date: $scope.dews.startDate,
+									end_date: $scope.dews.endDate,									
 									disease: $scope.dews.disease.id,
 									prov_code: $scope.dews.location.id
 								}
@@ -301,6 +334,7 @@ angular.module('ngmReportHub')
 						type: 'leaflet',
 						card: 'card-panel',
 						style: 'padding:0px;',
+						broadcast: 'dateChange',
 						config: {
 							height: '520px',
 							display: {
@@ -313,6 +347,8 @@ angular.module('ngmReportHub')
 								method: 'POST',
 								url: appConfig.host + '/dews/map',
 								data: {
+									start_date: $scope.dews.startDate,
+									end_date: $scope.dews.endDate,									
 									disease: $scope.dews.disease.id,
 									prov_code: $scope.dews.location.id
 								}
