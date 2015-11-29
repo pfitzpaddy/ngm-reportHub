@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>ReportHub</title>
+		<!-- <base href="/"> -->
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width">
 		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -10,6 +11,8 @@
 		<!-- bower:css -->
 		<link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
 		<link rel="stylesheet" href="bower_components/cal-heatmap/cal-heatmap.css" />
+		<link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.css" />
+		<link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css" />
 		<link rel="stylesheet" href="bower_components/materialize/bin/materialize.css" />
 		<link rel="stylesheet" href="bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.css" />
 		<!-- endbower -->
@@ -95,7 +98,7 @@
 
 			<ul id="nav-mobile" style="padding-bottom:326px;" class="side-nav fixed menu" ng-show="ngm.getUserName() !== 'welcome' ">
 		        <li class="no-padding">
-		          <ul class="collapsible collapsible-accordion" ng-repeat="list in ngm.dashboard.menu">
+		          <ul class="collapsible collapsible-accordion" ng-repeat="list in ngm.dashboard.model.menu">
 		            <li class="bold" ngm-menu>
 		            	<a class="{{ list.class }}" ng-cloak>{{ list.title }}</a>
 		              <div class="collapsible-body" style="display: none">
@@ -110,7 +113,7 @@
 		            	</div>
 		            </li>
 		          </ul>
-		        </li>	        
+		        </li>
 
 		        <!-- make footer visible when menu visibile -->
 				<div class="footer menu z-depth-0" style="text-align:right;">
@@ -163,9 +166,11 @@
 		<script src="bower_components/highcharts/modules/exporting.js"></script>
 		<script src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
 		<script src="bower_components/html2canvas/build/html2canvas.js"></script>
+		<script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
 		<script src="bower_components/materialize/bin/materialize.js"></script>
 		<script src="bower_components/moment/moment.js"></script>
 		<script src="bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.js"></script>
+		<script src="bower_components/angular-location-update/angular-location-update.js"></script>
 		<!-- endbower -->
 		<!-- endbuild -->
 

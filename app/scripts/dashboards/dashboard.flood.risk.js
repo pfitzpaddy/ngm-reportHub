@@ -85,7 +85,8 @@ angular.module('ngmReportHub')
 		}	
 
 		// FloodRisk dashboard model
-		var model = {
+		$scope.model = {
+			name: 'floodRisk_dashboard',
 			header: {
 				div: {
 					'class': 'col s12 m12 l12 report-header',
@@ -317,7 +318,7 @@ angular.module('ngmReportHub')
 										pie: {
 												shadow: false
 										}
-								},							
+								},
 								series: [{
 										name: 'Flood Risk',
 										request: {
@@ -425,10 +426,8 @@ angular.module('ngmReportHub')
 			}]
 		};
 
-		$scope.name = 'floodRisk_dashboard';
-		$scope.model = model;
-
 		// assign to ngm app scope
-		$scope.$parent.ngm.dashboard = $scope.model;
+		$scope.$parent.ngm.dashboard.config = $scope.floodRisk;
+		$scope.$parent.ngm.dashboard.model = $scope.model;
 		
 	}]);

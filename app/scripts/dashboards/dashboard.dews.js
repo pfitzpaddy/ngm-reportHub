@@ -14,114 +14,173 @@ angular.module('ngmReportHub')
 			'AngularJS',
 			'Karma'
 		];
+		
+		if ($scope.$parent.ngm.dashboard.model.name === 'who_dews_dashboard') {
+			// set dashboard local $scope from $parent
+			$scope.dews = $scope.$parent.ngm.dashboard.config;
+			$scope.model = $scope.$parent.ngm.dashboard.model;
+		} else {
+			// create dews object
+			$scope.dews = {
 
-		// dews object
-		$scope.dews = {
+				// parent
+				ngm: $scope.$parent.ngm,
 
-			// parent
-			ngm: $scope.$parent.ngm,
+				// current user
+				user: ngmUser.get(),
 
-			// current user
-			user: ngmUser.get(),
-
-			startDate: new Date(new Date().setMonth(new Date().getMonth() - 6)),
-
-			endDate: new Date(),
-
-			// data lookup
-			data: {
-				disease: {
-					'all': { id:'*', name:'All'},
-					'avh': { id:'avh', name:'Acute Viral Hepatitis'},
-					'cchf': { id:'cchf', name:'CCHF'},
-					'chickenpox': { id:'chickenpox', name:'Chickenpox'},
-					'cholera': { id:'cholera', name:'Cholera'},
-					'conjunctivitis': { id:'conjunctivitis', name:'Conjunctivitis'},
-					'rabies': { id:'rabies', name:'Dog bites/Rabies'},
-					'food-poisoning': { id:'food-poisoning', name:'Food Poisoning'},
-					'psychogenic': { id:'psychogenic', name:'Mass Psychogenic'},
-					'measles': { id:'measles', name:'Measles'},
-					'mumps': { id:'mumps', name:'Mumps'},
-					'pertussis': { id:'pertussis', name:'Pertussis'},
-					'pneumonia': { id:'pneumonia', name:'Pneumonia'},
-					'scabies': { id:'scabies', name:'Scabies'}
-				},
-				location: {
-					'afghanistan': { id:'*', name:'Afghanistan'},
-					'badakhshan': { id:15, name:'Badakhshan'},
-					'badghis': { id:29, name:'Badghis'},
-					'baghlan': { id:9, name:'Baghlan'},
-					'balkh': { id:18, name:'Balkh'},
-					'bamyan': { id:10,"name":'Bamyan'},
-					'daykundi': { id:22, name:'Daykundi'},
-					'farah': { id:31, name:'Farah'},
-					'faryab': { id:28, name:'Faryab'},
-					'ghazni': { id:11, name:'Ghazni'},
-					'ghor': { id:21, name:'Ghor'},
-					'hilmand': { id:32, name:'Hilmand'},
-					'hirat': { id:30, name:'Hirat'},
-					'jawzjan': { id:27, name:'Jawzjan'},
-					'kabul': { id:1, name:'Kabul'},
-					'kandahar': { id:33, name:'Kandahar'},
-					'kapisa': { id:2, name:'Kapisa'},
-					'khost': { id:26, name:'Khost'},
-					'kunar': { id:13, name:'Kunar'},
-					'kunduz': { id:17, name:'Kunduz'},
-					'laghman': { id:7, name:'Laghman'},
-					'logar': { id:5, name:'Logar'},
-					'nangarhar': { id:6, name:'Nangarhar'},
-					'nimroz': { id:34, name:'Nimroz'},
-					'nuristan': { id:14, name:'Nuristan'},
-					'paktika': { id:25, name:'Paktika'},
-					'paktya': { id:12, name:'Paktya'},
-					'panjsher': { id:8, name:'Panjsher'},
-					'parwan': { id:3, name:'Parwan'},
-					'samangan': { id:19, name:'Samangan'},
-					'sar-e-pul': { id:20, name:'Sar-e-Pul'},
-					'takhar': { id:16, name:'Takhar'},
-					'uruzgan': { id:23, name:'Uruzgan'},
-					'wardak': { id:4, name:'Wardak'},
-					'zabul': { id:24, name:'Zabul'}
-				}
-			},
-
-			// return rows for DEWS menu
-			getRows: function(list) {
+				// start date = now - 6 months
+				startDate: new Date(new Date().setMonth(new Date().getMonth() - 6)),
 				
-				// menu rows
-				var active,
-					rows = [];
+				// end date = now
+				endDate: new Date(),
 
-				if(list === 'disease'){
-					// for each disease
-					angular.forEach($scope.dews.data.disease, function(d, key){
-						
-						//
-						rows.push({
-							'title': d.name,
-							'class': 'waves-effect waves-teal',
-							'param': 'disease',
-							'active': key,
-							'href': '#/who/dews/' + $route.current.params.location + '/' + key
-						});
-					});
+				// data lookup
+				data: {
+					disease: {
+						'all': { id:'*', name:'All'},
+						'avh': { id:'avh', name:'Acute Viral Hepatitis'},
+						'cchf': { id:'cchf', name:'CCHF'},
+						'chickenpox': { id:'chickenpox', name:'Chickenpox'},
+						'cholera': { id:'cholera', name:'Cholera'},
+						'conjunctivitis': { id:'conjunctivitis', name:'Conjunctivitis'},
+						'rabies': { id:'rabies', name:'Dog bites/Rabies'},
+						'food-poisoning': { id:'food-poisoning', name:'Food Poisoning'},
+						'psychogenic': { id:'psychogenic', name:'Mass Psychogenic'},
+						'measles': { id:'measles', name:'Measles'},
+						'mumps': { id:'mumps', name:'Mumps'},
+						'pertussis': { id:'pertussis', name:'Pertussis'},
+						'pneumonia': { id:'pneumonia', name:'Pneumonia'},
+						'scabies': { id:'scabies', name:'Scabies'}
+					},
+					location: {
+						'afghanistan': { id:'*', name:'Afghanistan'},
+						'badakhshan': { id:15, name:'Badakhshan'},
+						'badghis': { id:29, name:'Badghis'},
+						'baghlan': { id:9, name:'Baghlan'},
+						'balkh': { id:18, name:'Balkh'},
+						'bamyan': { id:10,"name":'Bamyan'},
+						'daykundi': { id:22, name:'Daykundi'},
+						'farah': { id:31, name:'Farah'},
+						'faryab': { id:28, name:'Faryab'},
+						'ghazni': { id:11, name:'Ghazni'},
+						'ghor': { id:21, name:'Ghor'},
+						'hilmand': { id:32, name:'Hilmand'},
+						'hirat': { id:30, name:'Hirat'},
+						'jawzjan': { id:27, name:'Jawzjan'},
+						'kabul': { id:1, name:'Kabul'},
+						'kandahar': { id:33, name:'Kandahar'},
+						'kapisa': { id:2, name:'Kapisa'},
+						'khost': { id:26, name:'Khost'},
+						'kunar': { id:13, name:'Kunar'},
+						'kunduz': { id:17, name:'Kunduz'},
+						'laghman': { id:7, name:'Laghman'},
+						'logar': { id:5, name:'Logar'},
+						'nangarhar': { id:6, name:'Nangarhar'},
+						'nimroz': { id:34, name:'Nimroz'},
+						'nuristan': { id:14, name:'Nuristan'},
+						'paktika': { id:25, name:'Paktika'},
+						'paktya': { id:12, name:'Paktya'},
+						'panjsher': { id:8, name:'Panjsher'},
+						'parwan': { id:3, name:'Parwan'},
+						'samangan': { id:19, name:'Samangan'},
+						'sar-e-pul': { id:20, name:'Sar-e-Pul'},
+						'takhar': { id:16, name:'Takhar'},
+						'uruzgan': { id:23, name:'Uruzgan'},
+						'wardak': { id:4, name:'Wardak'},
+						'zabul': { id:24, name:'Zabul'}
+					}
+				},
 
-				} else {
-					// for each disease
-					angular.forEach($scope.dews.data.location, function(d, key){
-						
-						//
-						rows.push({
-							'title': d.name,
-							'class': 'waves-effect waves-teal',
-							'param': 'location',
-							'active': key,
-							'href': '#/who/dews/' + key + '/' + $route.current.params.disease
+				getDownloadMenu: function() {
+
+					// return download object
+					return {
+						'class': 'col s12 m4 l3 report-download',
+						downloads:[{
+							icon: {
+								color: '#616161'
+							},
+							filename: $scope.dews.location.name + '-' + $scope.dews.disease.name + '-extracted-' + moment().format(),
+							hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as CSV',
+							request: {
+								method: 'POST',
+								url: appConfig.host + '/dews/data',
+								data: {
+									start_date: $scope.dews.startDate,
+									end_date: $scope.dews.endDate,
+									disease: $scope.dews.disease.id,
+									prov_code: $scope.dews.location.id
+								}
+							},
+							metrics: {
+								method: 'POST',
+								url: appConfig.host + '/metrics/set',
+								data: {
+									organization: $scope.dews.user.organization,
+									username: $scope.dews.user.username,
+									email: $scope.dews.user.email,
+									dashboard: 'dews',
+									theme: $route.current.params.disease,
+									format: 'csv',
+									url: $location.$$path
+								}
+							}
+						}]
+					}
+				},
+
+				getMenu: function() {
+					
+					// 
+					return [{
+						title: 'Disease',
+						class: 'collapsible-header waves-effect waves-teal',
+						rows: $scope.dews.getRows('disease')
+					},{
+						title: 'Province',
+						'class': 'collapsible-header waves-effect waves-teal',
+						rows: $scope.dews.getRows('province')				
+					}];
+
+				},
+
+				// return rows for DEWS menu
+				getRows: function(list) {
+					
+					// menu rows
+					var active,
+						rows = [];
+
+					if(list === 'disease'){
+						// for each disease
+						angular.forEach($scope.dews.data.disease, function(d, key){
+							//
+							rows.push({
+								'title': d.name,
+								'class': 'waves-effect waves-teal',
+								'param': 'disease',
+								'active': key,
+								'href': '#/who/dews/' + $route.current.params.location + '/' + key
+							});
 						});
-					});
+
+					} else {
+						// for each disease
+						angular.forEach($scope.dews.data.location, function(d, key){
+							//
+							rows.push({
+								'title': d.name,
+								'class': 'waves-effect waves-teal',
+								'param': 'location',
+								'active': key,
+								'href': '#/who/dews/' + key + '/' + $route.current.params.disease
+							});
+						});
+					}
+
+					return rows;
 				}
-
-				return rows;
 			}
 		}
 
@@ -132,7 +191,8 @@ angular.module('ngmReportHub')
 		$scope.dews.subtitle = $scope.dews.disease.name + ' Disease Early Warning System Key Indicators ' + $scope.dews.location.name;
 
 		// dews dashboard model
-		var model = {
+		$scope.model = {
+			name: 'who_dews_dashboard',
 			header: {
 				div: {
 					'class': 'col s12 m12 l12 report-header',
@@ -160,14 +220,9 @@ angular.module('ngmReportHub')
 							
 							// set date
 							$scope.dews.startDate = new Date(this.time);
-
-							console.log($scope.dews.startDate);
 							
 							// updated config
-							var update = { 
-								'broadcast': 'dateChange', 
-								'config' : { 'request': { 'data': { 'start_date': $scope.dews.startDate } } } 
-							};
+							var update = { 'broadcast': 'dateChange', 'config' : { 'request': { 'data': { 'start_date': $scope.dews.startDate } } } };
 
 							// update widget
 							$scope.model.updateWidgets(update);
@@ -186,10 +241,7 @@ angular.module('ngmReportHub')
 							$scope.dews.endDate = new Date(this.time);
 
 							// updated config
-							var update = { 
-								'broadcast': 'dateChange', 
-								'config' : { 'request': { 'data': { 'end_date': $scope.dews.endDate } } } 
-							};
+							var update = { 'broadcast': 'dateChange', 'config' : { 'request': { 'data': { 'end_date': $scope.dews.endDate } } } };
 
 							// update widget								
 							$scope.model.updateWidgets(update);
@@ -197,49 +249,9 @@ angular.module('ngmReportHub')
 						}
 					}]
 				},				
-				download: {
-					'class': 'col s12 m4 l3 report-download',
-					downloads:[{
-						icon: {
-							color: '#616161'
-						},
-						filename: $scope.dews.location.name + '-' + $scope.dews.disease.name + '-' + moment().format(),
-						hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as CSV',
-						request: {
-							method: 'POST',
-							url: appConfig.host + '/dews/data',
-							data: {
-								start_date: $scope.dews.startDate,
-								end_date: $scope.dews.endDate,
-								disease: $scope.dews.disease.id,
-								prov_code: $scope.dews.location.id
-							}
-						},
-						metrics: {
-							method: 'POST',
-							url: appConfig.host + '/metrics/set',
-							data: {
-								organization: $scope.dews.user.organization,
-								username: $scope.dews.user.username,
-								email: $scope.dews.user.email,
-								dashboard: 'dews',
-								theme: $route.current.params.disease,
-								format: 'csv',
-								url: $location.$$path
-							}
-						}
-					}]
-				}
+				download: $scope.dews.getDownloadMenu()
 			},
-			menu: [{
-				title: 'Disease',
-				class: 'collapsible-header waves-effect waves-teal',
-				rows: $scope.dews.getRows('disease')
-			},{
-				title: 'Province',
-				'class': 'collapsible-header waves-effect waves-teal',
-				rows: $scope.dews.getRows('province')				
-			}],
+			menu: $scope.dews.getMenu(),
 			rows: [{
 				columns: [{
 					styleClass: 's12 m12 l4',
@@ -371,16 +383,8 @@ angular.module('ngmReportHub')
 			}]
 		};
 
-		$scope.name = 'dews_dashboard';
-		$scope.model = model;
-
 		// assign to ngm app scope
-		$scope.$parent.ngm.dashboard = $scope.model;
-
-		// setTimeout(function(){
-
-		// 	console.log($scope.model.header.datePicker.dates[0].time);
-
-		// }, 10000);
+		$scope.$parent.ngm.dashboard.config = $scope.dews;
+		$scope.$parent.ngm.dashboard.model = $scope.model;
 		
 	}]);

@@ -41,9 +41,11 @@ module.exports = function(config) {
       'bower_components/highcharts/modules/exporting.js',
       'bower_components/highcharts-ng/dist/highcharts-ng.js',
       'bower_components/html2canvas/build/html2canvas.js',
+      'bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js',
       'bower_components/materialize/bin/materialize.js',
       'bower_components/moment/moment.js',
       'bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.js',
+      'bower_components/angular-location-update/angular-location-update.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

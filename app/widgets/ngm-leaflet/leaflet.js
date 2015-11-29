@@ -43,19 +43,23 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
   }).controller('leafletCtrl', [
     '$scope', 
     '$element',
+    'leafletMarkersHelpers',
     'leafletData',
     'data', 
     'config',
-    function($scope, $element, leafletData, data, config){
+    function($scope, $element, leafletMarkersHelpers, leafletData, data, config){
 
-      $scope.$on('leafletDirectiveMap.load', function(event){
-        //
+      // resets markers to avoid error
+      //  https://github.com/tombatossals/angular-leaflet-directive/issues/381
+      $scope.$on('$destroy', function () {
+        leafletMarkersHelpers.resetMarkerGroups();
       });      
     
       // statistics widget default config
       $scope.leaflet = {
         id: 'ngm-leaflet-' + Math.floor((Math.random()*1000000)),
         height: '320px',
+        markers: {},
         display: {
           type: 'default',
           // special format required
@@ -66,6 +70,10 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
           scrollWheelZoom: false,
           attributionControl: false,          
           tileLayer: 'https://api.mapbox.com/v4/fitzpaddy.b207f20f/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZml0enBhZGR5IiwiYSI6ImNpZW1vcXZiaTAwMXBzdGtrYmp0cDlkdnEifQ.NCI7rTR3PvN4iPZpt6hgKA',
+        },
+        options:{
+          group: 'overlay',
+          zoomToBounds: true
         },
         events: {
           map: {
@@ -93,32 +101,34 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
 
         },
 
-        setDisplay: function(){
+        setMap: function(){
 
           // Add geojson to map as markers
           switch ($scope.leaflet.display.type) {
             // type marker
             case 'marker':
-              // if markers are not already provided
-              if (!$scope.leaflet.markers) {
                 
+              // store markers 
+              $scope.leaflet.bounds = [];
+
+              // for each feature
+              angular.forEach(data.features, function(feature, key) {
+
+                // markers
+                $scope.leaflet.bounds.push([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]);
+
                 // create markers
-                $scope.leaflet.markers = [];
+                $scope.leaflet.markers['marker' + key] = {
+                  group: $scope.leaflet.options.group,
+                  lat: feature.geometry.coordinates[1],
+                  lng: feature.geometry.coordinates[0],
+                  message: $scope.leaflet.getMarkerMessage($scope.leaflet.display.message, feature)
+                };
 
-                // for each feature
-                angular.forEach(data.features, function(feature, key) {
-
-                  // push marker to markers
-                  $scope.leaflet.markers['marker' + key] = {
-                    lat: feature.geometry.coordinates[1],
-                    lng: feature.geometry.coordinates[0],
-                    message: $scope.leaflet.getMarkerMessage($scope.leaflet.display.message, feature)
-                  }
-
-                });
-              }
+              });
 
               break;
+
             default:
               
               // default is geojson
@@ -131,6 +141,9 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
 
       }
 
+      // Merge defaults with config
+      $scope.leaflet = angular.merge({}, $scope.leaflet, config);      
+
       // assign map to leaflet widget
       setTimeout(function(){
         
@@ -140,23 +153,23 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
           // map $scope
           $scope.leaflet.map = map;
 
+          // Set display by display type
+          $scope.leaflet.setMap();
+
           // zoom to bounds
-          if($scope.leaflet.defaults.zoomToBounds){
-            // $scope.leaflet.map.fitBounds($scope.leaflet.markers.getBounds());
-            // $scope.leaflet.map.fitBounds([ [40.712, -74.227], [40.774, -74.125] ]);
+          if($scope.leaflet.options.zoomToBounds && Object.keys($scope.leaflet.markers).length > 0){
+
+            // fit bounds of markers
+            $scope.leaflet.map.fitBounds($scope.leaflet.bounds);
+
           }
 
         });
 
-      })
-
-      // Merge defaults with config
-      $scope.leaflet = angular.merge({}, $scope.leaflet, config);
-
-      // Set display by display type
-      $scope.leaflet.setDisplay();
+      });
 
     }
+
   ]);
 
 

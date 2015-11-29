@@ -17,6 +17,7 @@ angular
 		'ngRoute',
 		'ngSanitize',
 		'ngTouch',
+		'ngLocationUpdate',
 		'countTo',
 		'highcharts-ng',
 		'leaflet-directive',
@@ -28,7 +29,10 @@ angular
 		'ngm.widget.highchart',
 		'ngm.widget.calHeatmap'
   ])
-	.config([ '$routeProvider', function ($routeProvider) {
+	.config([ '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+
+		// from http://mysite.com/#/notes/1 to http://mysite.com/notes/1
+		// $locationProvider.html5Mode(true);
 
 		// app routes with access rights
 		$routeProvider
@@ -54,6 +58,7 @@ angular
 				}
 			})
 			.when( '/who/dews/:location/:disease', {
+				reloadOnSearch: false,
 				templateUrl: 'views/dashboard.html',
 				controller: 'DashboardDewsCtrl',				
 				resolve: {
@@ -129,7 +134,7 @@ angular
 		// when error on route update redirect
 		$rootScope.$on('$routeChangeError' , function(event, current, previous, rejection) {
 
-			// get app name
+			// get app
 			var app = current.$$route.originalPath.split('/')[1];
 			
 			if ( rejection === ngmAuth.UNAUTHORIZED ) {
@@ -158,10 +163,14 @@ angular
 			// app name
 			title: 'Welcome',
 
+			// current route
 			route: $route,
 
 			// active dashboard placeholder
-			dashboard: false,
+			dashboard: {
+				config: false,
+				model: false
+			},
 
 			// page height
 			height: $(window).height(),
