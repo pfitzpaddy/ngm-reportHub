@@ -20,7 +20,7 @@
     "leaflet.markercluster": "0.4.0-hotfix.1",
     "materialize": "~0.97.0",
     "moment": "~2.10.6",
-    "ngm-dashboard-framework": "~0.0.20",
+    "ngm-dashboard-framework": "~0.0.21",
     "angular-location-update": "~0.0.2"
   },
   "devDependencies": {
