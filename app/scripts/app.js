@@ -178,7 +178,9 @@ angular
 			// active dashboard placeholder
 			dashboard: {
 				config: false,
-				model: false
+				model: {
+					name: false
+				}
 			},
 
 			// page height
