@@ -220,6 +220,7 @@ ul.side-nav.fixed:hover {
 	margin-top: 41px;
 	align: right;
 	cursor: pointer;
+	display: inline;
 }
 .ngm-date {
 	margin-top: -12px;
@@ -282,6 +283,11 @@ ul.side-nav.fixed:hover {
 .login.title { 
 	padding-top: 15px;
 	text-align: center;
+}
+
+/* pagination */ 
+.pagination li.active {
+	background-color: #26a69a;
 }
 
 /* footer */

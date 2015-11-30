@@ -1,0 +1,17 @@
+
+<!-- bind html -->
+<div>
+	<ul class="collection with-header">
+		<li class="collection-header" ng-bind-html="panel.title"></li>
+		<li class="collection-item avatar" ng-repeat="list in panel.list track by $index" ng-bind-html="list.report"></li>
+	</ul>
+	<ul class="pagination" ng-if="panel.page">
+		<li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
+		<li class="active"><a>1</a></li>
+		<li class="waves-effect"><a>2</a></li>
+		<li class="waves-effect"><a>3</a></li>
+		<li class="waves-effect"><a>4</a></li>
+		<li class="waves-effect"><a>5</a></li>
+		<li class="waves-effect"><a><i class="material-icons">chevron_right</i></a></li>
+	</ul>
+</div>

@@ -30,7 +30,7 @@ angular.module('ngmReportHub')
 				user: ngmUser.get(),
 
 				// start date = now - 6 months
-				startDate: new Date(new Date().setMonth(new Date().getMonth() - 6)),
+				startDate: new Date('January 1, 2015'),// new Date(new Date().setMonth(new Date().getMonth() - 6)),
 				
 				// end date = now
 				endDate: new Date(),
@@ -92,15 +92,103 @@ angular.module('ngmReportHub')
 					}
 				},
 
+				getDownloadPdf: function() {
+					return {
+						'class': 'col s12 m4 l2 report-download',
+						downloads:[{
+							title: 'PDF',
+							type: 'pdf',
+							icon: 'download_cloud',
+							filename: $scope.dews.location.name + '-' + $scope.dews.disease.name + '-extracted-' + moment().format(),
+							hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as PDF',
+							request: {
+								method: 'GET',
+								url: appConfig.host + '/downloads/who-afghanistan-measles-extracted-2015-11-30T15-17-37+04-30.pdf',
+							},
+							metrics: {
+								method: 'POST',
+								url: appConfig.host + '/metrics/set',
+								data: {
+									organization: $scope.dews.user.organization,
+									username: $scope.dews.user.username,
+									email: $scope.dews.user.email,
+									dashboard: 'dews',
+									theme: $route.current.params.disease,
+									format: 'pdf',
+									url: $location.$$path
+								}
+							}
+						}]
+					}
+				},
+
+				getDownloadCsv: function() {
+					return {
+						'class': 'col s12 m4 l2 report-download',
+						downloads:[{
+							title: 'CSV',
+							icon: 'download_cloud',
+							filename: $scope.dews.location.name + '-' + $scope.dews.disease.name + '-extracted-' + moment().format(),
+							hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as CSV',
+							request: {
+								method: 'POST',
+								url: appConfig.host + '/dews/data',
+								data: {
+									start_date: $scope.dews.startDate,
+									end_date: $scope.dews.endDate,
+									disease: $scope.dews.disease.id,
+									prov_code: $scope.dews.location.id
+								}
+							},
+							metrics: {
+								method: 'POST',
+								url: appConfig.host + '/metrics/set',
+								data: {
+									organization: $scope.dews.user.organization,
+									username: $scope.dews.user.username,
+									email: $scope.dews.user.email,
+									dashboard: 'dews',
+									theme: $route.current.params.disease,
+									format: 'csv',
+									url: $location.$$path
+								}
+							}
+						}]
+					}
+				},				
+
 				getDownloadMenu: function() {
 
 					// return download object
 					return {
 						'class': 'col s12 m4 l3 report-download',
 						downloads:[{
-							icon: {
-								color: '#616161'
+							icon: 'cloud',
+							filename: $scope.dews.location.name + '-' + $scope.dews.disease.name + '-extracted-' + moment().format(),
+							hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as PDF',
+							style: 'width: 50%;',
+							title: 'PDF',
+							request: {
+								method: 'GET',
+								url: appConfig.host + '/downloads/who-afghanistan-measles-extracted-2015-11-30T15-17-37+04-30.pdf',
 							},
+							metrics: {
+								method: 'POST',
+								url: appConfig.host + '/metrics/set',
+								data: {
+									organization: $scope.dews.user.organization,
+									username: $scope.dews.user.username,
+									email: $scope.dews.user.email,
+									dashboard: 'dews',
+									theme: $route.current.params.disease,
+									format: 'pdf',
+									url: $location.$$path
+								}
+							}
+						},{
+							icon: 'cloud',
+							style: 'width: 50%;',
+							title: 'Download CSV',
 							filename: $scope.dews.location.name + '-' + $scope.dews.disease.name + '-extracted-' + moment().format(),
 							hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as CSV',
 							request: {
@@ -199,7 +287,7 @@ angular.module('ngmReportHub')
 					'style': 'border-bottom: 3px ' + $scope.$parent.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
-					'class': 'col s12 m8 l9 report-title',
+					'class': 'col s12 m8 l8 report-title',
 					'style': 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
 					'title': $scope.dews.title,
 				},
@@ -248,8 +336,10 @@ angular.module('ngmReportHub')
 
 						}
 					}]
-				},				
-				download: $scope.dews.getDownloadMenu()
+				},
+				pdf: $scope.dews.getDownloadPdf(),
+				csv: $scope.dews.getDownloadCsv(),
+				// download: $scope.dews.getDownloadMenu()
 			},
 			menu: $scope.dews.getMenu(),
 			rows: [{

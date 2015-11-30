@@ -50,13 +50,22 @@ angular
 			})			
 			.when( '/who/dews/report', {
 				templateUrl: 'views/dashboard.html',
-				controller: 'ReportiFrameCtrl',				
+				controller: 'ReportMenuCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
 						return ngmAuth.isAuthenticated(); 
 					}],
 				}
 			})
+			.when( '/who/dews/report/:active', {
+				templateUrl: 'views/dashboard.html',
+				controller: 'ReportiFrameCtrl',				
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) {
+						return ngmAuth.isAuthenticated(); 
+					}],
+				}
+			})			
 			.when( '/who/dews/:location/:disease', {
 				reloadOnSearch: false,
 				templateUrl: 'views/dashboard.html',
