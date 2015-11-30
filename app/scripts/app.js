@@ -28,7 +28,7 @@ angular
 		'ngm.widget.leaflet',
 		'ngm.widget.highchart',
 		'ngm.widget.calHeatmap'
-  ])
+	])
 	.config([ '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
 		// from http://mysite.com/#/notes/1 to http://mysite.com/notes/1
@@ -177,6 +177,7 @@ angular
 
 			// active dashboard placeholder
 			dashboard: {
+				set: false,
 				config: false,
 				model: {
 					name: 'default'
@@ -253,15 +254,15 @@ angular
 
 			},
 
-	    // Detect touch screen and enable scrollbar if necessary
-	    isTouchDevice: function () {
-	      try {
-	        document.createEvent('TouchEvent');
-	        return true;
-	      } catch (e) {
-	        return false;
-	      }
-	    },	
+			// Detect touch screen and enable scrollbar if necessary
+			isTouchDevice: function () {
+				try {
+					document.createEvent('TouchEvent');
+					return true;
+				} catch (e) {
+					return false;
+				}
+			},	
 
 			// toggle search active
 			toggleSearch: function() {
@@ -295,8 +296,8 @@ angular
 		};
 
 		// nav menu
-    if ($scope.ngm.isTouchDevice()) {
-      $('#nav-mobile').css({ overflow: 'auto'});
-    }	
+		if ($scope.ngm.isTouchDevice()) {
+			$('#nav-mobile').css({ overflow: 'auto'});
+		}	
 
 	}]);

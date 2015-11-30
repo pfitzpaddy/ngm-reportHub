@@ -14,8 +14,8 @@ angular.module('ngmReportHub')
 			'AngularJS',
 			'Karma'
 		];
-		
-		if ($scope.$parent.ngm.dashboard.model.name === 'who_dews_dashboard') {
+
+		if ($scope.$parent.ngm.dashboard.model && $scope.$parent.ngm.dashboard.model.name === 'who_dews_dashboard') {
 			// set dashboard local $scope from $parent
 			$scope.dews = $scope.$parent.ngm.dashboard.config;
 			$scope.model = $scope.$parent.ngm.dashboard.model;
