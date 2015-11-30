@@ -179,7 +179,7 @@ angular
 			dashboard: {
 				config: false,
 				model: {
-					name: false
+					name: ''
 				}
 			},
 
