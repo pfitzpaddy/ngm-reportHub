@@ -212,6 +212,10 @@ ul.side-nav.fixed:hover {
 	margin-top: 40px;
 	font-weight: 100;
 }
+.report-work-title {
+	margin-top: 20px;
+	font-weight: 100;	
+}
 .report-subtitle {
 	margin-top: 0px;
 	color: #616161;

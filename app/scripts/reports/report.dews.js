@@ -23,23 +23,23 @@ angular.module('ngmReportHub')
 
 			// todo
 			todo: [{
-				report: '<i class="material-icons circle teal">insert_chart</i><span class="title">Week 14</span><p>Disease Outbreaks</p><a href="#/who/dews/report/active" title="Review Week 14" class="secondary-content"><i class="material-icons">send</i></a>'
+				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Complete Week 14"><i class="material-icons circle teal">insert_chart</i><span class="title">Week 14</span><p>Disease Outbreaks</p><a href="#/who/dews/report/active" title="Complete Week 14" class="secondary-content"><i class="material-icons">send</i></a></a>'
 			}], 
 
 			// pending
 			pending: [{
-				report: '<i class="material-icons circle white teal-text">thumb_up</i><span class="title">Disease Outbreaks</span><p>No pending reports!</p><a class="secondary-content"></a>'
+				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="All reivews complete!"><i class="material-icons circle white teal-text">thumb_up</i><span class="title">Disease Outbreaks</span><p>No pending reports!</p><a class="secondary-content"></a></a>'
 			}],			
 
 			// complete
 			complete: [{
-				report: '<i class="material-icons circle white teal-text">done</i><span class="title">Week 1</span><p>Disease Outbreaks</p><a href="" title="Review Week 1" class="secondary-content"><i class="material-icons">send</i></a>'
+				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 1"><i class="material-icons circle white teal-text">done</i><span class="title">Week 1</span><p>Disease Outbreaks</p><a href="" title="Review Week 1" class="secondary-content"><i class="material-icons">send</i></a></a>'
 			},{
-				report: '<i class="material-icons circle white teal-text">done</i><span class="title">Week 2</span><p>Disease Outbreaks</p><a href="" title="Review Week 2" class="secondary-content"><i class="material-icons">send</i></a>'
+				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 2"><i class="material-icons circle white teal-text">done</i><span class="title">Week 2</span><p>Disease Outbreaks</p><a href="" title="Review Week 2" class="secondary-content"><i class="material-icons">send</i></a></a>'
 			},{
-				report: '<i class="material-icons circle white teal-text">done</i><span class="title">Week 3</span><p>Disease Outbreaks</p><a href="" title="Review Week 3" class="secondary-content"><i class="material-icons">send</i></a>'
+				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 3"><i class="material-icons circle white teal-text">done</i><span class="title">Week 3</span><p>Disease Outbreaks</p><a href="" title="Review Week 3" class="secondary-content"><i class="material-icons">send</i></a></a>'
 			},{
-				report: '<i class="material-icons circle white teal-text">done</i><span class="title">Week 4</span><p>Disease Outbreaks</p><a href="" title="Review Week 4" class="secondary-content"><i class="material-icons">send</i></a>'
+				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 4"><i class="material-icons circle white teal-text">done</i><span class="title">Week 4</span><p>Disease Outbreaks</p><a href="" title="Review Week 4" class="secondary-content"><i class="material-icons">send</i></a></a>'
 			}]
 
 		}
@@ -101,7 +101,7 @@ angular.module('ngmReportHub')
 						type: 'html',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: '<h2 class="report-title">ToDo</h2>',
+							title: '<h4 class="report-work-title" style="margin-top:20px;">ToDo</h4>',
 							template: 'widgets/ngm-html/template/dews_report.html',
 							list: $scope.report.todo
 						}
@@ -114,7 +114,7 @@ angular.module('ngmReportHub')
 						type: 'html',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: '<h2 class="report-title">Pending</h2>',
+							title: '<h4 class="report-work-title">Pending</h4>',
 							template: 'widgets/ngm-html/template/dews_report.html',
 							list: $scope.report.pending
 						}
@@ -126,27 +126,15 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'html',
 						card: 'card-panel stats-card white grey-text text-darken-2',
-						style: 'padding-bottom: 60px;',
+						style: 'padding-bottom: 50px;',
 						config: {
-							title: '<h2 class="report-title">Complete</h2>',
+							title: '<h4 class="report-work-title" style="margin-top:20px;">Complete</h4>',
 							template: 'widgets/ngm-html/template/dews_report.html',
 							list: $scope.report.complete,
 							page: true
 						}
 					}]
-				}]				
-				// columns: [{
-				// 	styleClass: 's12 m12 l12',
-				// 	widgets: [{
-				// 		type: 'iframe',
-				// 		card: '',
-				// 		style: 'padding-top: 30px; height: 1425px;',
-				// 		config: {
-				// 			div: '.paper',
-				// 			url: 'http://52.24.183.157:3000/_/#YYYz',
-				// 		}
-				// 	}]
-				// }]
+				}]
 			},{
 				columns: [{
 					styleClass: 's12 m12 l12',

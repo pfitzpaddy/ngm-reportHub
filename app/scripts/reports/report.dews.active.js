@@ -79,10 +79,10 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'iframe',
 						card: '',
-						style: 'padding-top: 30px; height: 1425px;',
+						style: 'padding-top: 30px; height: 1825px;',
 						config: {
 							div: '.paper',
-							url: 'http://52.24.183.157:3000/_/#YYYz',
+							url: 'http://52.24.183.157:3000/_/#YYYK',
 						}
 					}]
 				}]

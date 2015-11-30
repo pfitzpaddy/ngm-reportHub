@@ -40,8 +40,6 @@ angular.module('ngm.widget.iframe', ['ngm.provider'])
     'config',
     function($scope, $sce, $element, config){
 
-      // update
-    
       // statistics widget default config
       $scope.iframe = {
 
