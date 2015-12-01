@@ -23,23 +23,25 @@ angular.module('ngmReportHub')
 
 			// todo
 			todo: [{
+				//report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="All ToDo complete!"><i class="material-icons circle white teal-text">thumb_up</i><span class="title">Disease Outbreaks</span><p>No pending ToDos!</p><a class="secondary-content"></a></a>'
 				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Complete Week 14"><i class="material-icons circle teal">insert_chart</i><span class="title">Week 14</span><p>Disease Outbreaks</p><a href="#/who/dews/report/active" title="Complete Week 14" class="secondary-content"><i class="material-icons">send</i></a></a>'
 			}], 
 
 			// pending
 			pending: [{
+				//report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 14"><i class="material-icons circle teal">insert_chart</i><span class="title">Week 14</span><p>Disease Outbreaks</p><a href="#/who/dews/report/active" title="Review Week 14" class="secondary-content"><i class="material-icons">send</i></a></a>'
 				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="All reivews complete!"><i class="material-icons circle white teal-text">thumb_up</i><span class="title">Disease Outbreaks</span><p>No pending reports!</p><a class="secondary-content"></a></a>'
 			}],			
 
 			// complete
 			complete: [{
-				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 1"><i class="material-icons circle white teal-text">done</i><span class="title">Week 1</span><p>Disease Outbreaks</p><a href="" title="Review Week 1" class="secondary-content"><i class="material-icons">send</i></a></a>'
+				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 1"><i class="material-icons circle white teal-text">done</i><span class="title">Week 1</span><p>Disease Outbreaks</p><a href="" title="Download Week 1" class="secondary-content"><i class="material-icons">send</i></a></a>'
 			},{
-				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 2"><i class="material-icons circle white teal-text">done</i><span class="title">Week 2</span><p>Disease Outbreaks</p><a href="" title="Review Week 2" class="secondary-content"><i class="material-icons">send</i></a></a>'
+				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 2"><i class="material-icons circle white teal-text">done</i><span class="title">Week 2</span><p>Disease Outbreaks</p><a href="" title="Download Week 2" class="secondary-content"><i class="material-icons">send</i></a></a>'
 			},{
-				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 3"><i class="material-icons circle white teal-text">done</i><span class="title">Week 3</span><p>Disease Outbreaks</p><a href="" title="Review Week 3" class="secondary-content"><i class="material-icons">send</i></a></a>'
+				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 3"><i class="material-icons circle white teal-text">done</i><span class="title">Week 3</span><p>Disease Outbreaks</p><a href="" title="Download Week 3" class="secondary-content"><i class="material-icons">send</i></a></a>'
 			},{
-				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 4"><i class="material-icons circle white teal-text">done</i><span class="title">Week 4</span><p>Disease Outbreaks</p><a href="" title="Review Week 4" class="secondary-content"><i class="material-icons">send</i></a></a>'
+				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 4"><i class="material-icons circle white teal-text">done</i><span class="title">Week 4</span><p>Disease Outbreaks</p><a href="" title="Download Week 4" class="secondary-content"><i class="material-icons">send</i></a></a>'
 			}]
 
 		}

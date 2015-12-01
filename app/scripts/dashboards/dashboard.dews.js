@@ -337,9 +337,58 @@ angular.module('ngmReportHub')
 						}
 					}]
 				},
-				pdf: $scope.dews.getDownloadPdf(),
-				csv: $scope.dews.getDownloadCsv(),
-				// download: $scope.dews.getDownloadMenu()
+				download: {
+					'class': 'col s12 m4 l4',
+					downloads: [{
+						type: 'pdf',
+						color: 'blue',
+						icon: 'picture_as_pdf',
+						hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as PDF',
+						filename: 'http://reporthub.immap.org/downloads/who-afghanistan-measles-extracted-2015-11-30T15-17-37+04-30.pdf',
+						metrics: {
+							method: 'POST',
+							url: appConfig.host + '/metrics/set',
+							data: {
+								organization: $scope.dews.user.organization,
+								username: $scope.dews.user.username,
+								email: $scope.dews.user.email,
+								dashboard: 'dews',
+								theme: $route.current.params.disease,
+								format: 'pdf',
+								url: $location.$$path
+							}
+						}
+					},{
+						type: 'csv',
+						color: 'blue',
+						icon: 'library_books',
+						hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as CSV',
+						filename: $scope.dews.location.name.toLowerCase() + '-' + $scope.dews.disease.name.toLowerCase() + '-extracted-' + moment().format(),
+						request: {
+							method: 'POST',
+							url: appConfig.host + '/dews/data',
+							data: {
+								start_date: $scope.dews.startDate,
+								end_date: $scope.dews.endDate,
+								disease: $scope.dews.disease.id,
+								prov_code: $scope.dews.location.id
+							}
+						},
+						metrics: {
+							method: 'POST',
+							url: appConfig.host + '/metrics/set',
+							data: {
+								organization: $scope.dews.user.organization,
+								username: $scope.dews.user.username,
+								email: $scope.dews.user.email,
+								dashboard: 'dews',
+								theme: $route.current.params.disease,
+								format: 'csv',
+								url: $location.$$path
+							}
+						}						
+					}]
+				}
 			},
 			menu: $scope.dews.getMenu(),
 			rows: [{
