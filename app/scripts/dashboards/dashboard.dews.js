@@ -494,14 +494,28 @@ angular.module('ngmReportHub')
 							defaults: {
 								zoomToBounds: true
 							},
+							layers: {
+								overlays: {
+									outbreaks: {
+										name: 'Outbreaks',
+										type: 'markercluster',
+										visible: true,
+										layerOptions: {
+												maxClusterRadius: 90
+										}
+									}
+								}
+							},				
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/dews/map',
+								url: appConfig.host + '/dews/markers',
 								data: {
+									layer: 'outbreaks',
 									start_date: $scope.dews.startDate,
 									end_date: $scope.dews.endDate,									
 									disease: $scope.dews.disease.id,
-									prov_code: $scope.dews.location.id
+									prov_code: $scope.dews.location.id,
+									message: '<div class="count" style="text-align:center">__{ "value": feature.properties.incidents }__</div> cases in __{ "value": feature.properties.district }__'
 								}
 							}
 						}

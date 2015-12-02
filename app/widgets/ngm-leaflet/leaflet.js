@@ -60,14 +60,7 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
         height: '320px',
         display: {
           type: 'default',
-          message: '<div class="count" style="text-align:center">__{ "value": feature.properties.incidents }__</div> cases in __{ "value": feature.properties.district }__' // special format required
-
         },
-        options: {
-          group: 'outbreaks',
-          zoomToBounds: true
-
-        },        
         defaults: {
           center: { lat: 34.5, lng: 66, zoom: 6 },
           scrollWheelZoom: false,
@@ -86,106 +79,27 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
                     continuousWorld: true
                 }
             }
-          },          
-          overlays: {
-            outbreaks: {
-                name: 'Outbreaks',
-                type: 'markercluster',
-                visible: true,
-                layerOptions: {
-                    maxClusterRadius: 90
-                }
-            }
-          }          
-        },
-        getMarkerMessage: function(m, feature){
-          
-          // form marker message 
-          var message = '',
-              messageArray = m.split('__');
-          
-          // parse markermessage to set html
-          angular.forEach(messageArray, function(d, i){
-            // evaluate html from features
-            if( d.search('value') > 0 ){
-              message += (eval('(' + d + ')').value);
-            } else {
-              message += d;
-            }
-          });
-
-          // return html formatted msg
-          return message;
-
-        },
-
-        setMap: function(){
-
-          // Add geojson to map as markers
-          switch ($scope.leaflet.display.type) {
-            
-            // type marker
-            case 'marker':
-                
-              // store markers 
-              $scope.leaflet.bounds = [];
-
-              // for each feature
-              angular.forEach(data.features, function(feature, key) {
-
-                // markers
-                $scope.leaflet.bounds.push([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]);
-
-                // create markers
-                $scope.leaflet.markers['marker' + key] = {
-                  layer: $scope.leaflet.options.group,
-                  // group: $scope.leaflet.options.group,
-                  lat: feature.geometry.coordinates[1],
-                  lng: feature.geometry.coordinates[0],
-                  message: $scope.leaflet.getMarkerMessage($scope.leaflet.display.message, feature)
-                };
-
-              });
-
-              break;
-
-            default:
-              
-              // default is geojson
-              $scope.leaflet.geojson = {
-                data: data
-              }
-          }
-
+          }         
         }
 
       }
 
       // Merge defaults with config
-      $scope.leaflet = angular.merge({}, $scope.leaflet, config);      
+      $scope.leaflet = angular.merge({}, $scope.leaflet, config);
+
+      if ($scope.leaflet.display === 'default') {
+        $scope.leaflet.geojson = data;
+      } else {
+        $scope.leaflet.markers = data;
+      }
 
       // set timeout to get map
       setTimeout(function(){
-        
         // perform map actions once map promise retrned
         leafletData.getMap().then(function(map) {
-          
           // map $scope
           $scope.leaflet.map = map;
-
-          // Set display by display type
-          $scope.leaflet.setMap();
-
-          // zoom to bounds
-          if($scope.leaflet.options.zoomToBounds && Object.keys($scope.leaflet.markers).length > 0){
-
-            // fit bounds of markers
-            $scope.leaflet.map.fitBounds($scope.leaflet.bounds);
-
-          }
-
         });
-
       });
 
     }
