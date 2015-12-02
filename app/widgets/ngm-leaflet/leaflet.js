@@ -49,45 +49,62 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
     'config',
     function($scope, $element, leafletMarkersHelpers, leafletData, data, config){
 
-      // resets markers to avoid error
-      //  https://github.com/tombatossals/angular-leaflet-directive/issues/381
+      // resets markers to avoid error - https://github.com/tombatossals/angular-leaflet-directive/issues/381
       $scope.$on('$destroy', function () {
         leafletMarkersHelpers.resetMarkerGroups();
-      });      
+      });
     
-      // statistics widget default config
+      // leaflet widget default config
       $scope.leaflet = {
         id: 'ngm-leaflet-' + Math.floor((Math.random()*1000000)),
         height: '320px',
-        markers: {},
         display: {
           type: 'default',
-          // special format required
-          message: '<div class="count" style="text-align:center">__{ "value": feature.properties.incidents }__</div> cases in __{ "value": feature.properties.district }__'
+          message: '<div class="count" style="text-align:center">__{ "value": feature.properties.incidents }__</div> cases in __{ "value": feature.properties.district }__' // special format required
+
         },
+        options: {
+          group: 'outbreaks',
+          zoomToBounds: true
+
+        },        
         defaults: {
           center: { lat: 34.5, lng: 66, zoom: 6 },
           scrollWheelZoom: false,
-          attributionControl: false,          
+          attributionControl: false,
           tileLayer: 'https://api.mapbox.com/v4/fitzpaddy.b207f20f/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZml0enBhZGR5IiwiYSI6ImNpZW1vcXZiaTAwMXBzdGtrYmp0cDlkdnEifQ.NCI7rTR3PvN4iPZpt6hgKA',
-        },
-        options:{
-          group: 'overlay',
-          zoomToBounds: true
-        },
-        events: {
-          map: {
-            enable: ['load'],
-            logic: 'emit'
-          }
-        },
 
+        },
+        markers: {},
+        layers: {
+          baselayers: {
+            osm: {
+                name: 'Afghanistan',
+                type: 'xyz',
+                url: 'https://api.mapbox.com/v4/fitzpaddy.b207f20f/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZml0enBhZGR5IiwiYSI6ImNpZW1vcXZiaTAwMXBzdGtrYmp0cDlkdnEifQ.NCI7rTR3PvN4iPZpt6hgKA',
+                layerOptions: {
+                    continuousWorld: true
+                }
+            }
+          },          
+          overlays: {
+            outbreaks: {
+                name: 'Outbreaks',
+                type: 'markercluster',
+                visible: true,
+                layerOptions: {
+                    maxClusterRadius: 90
+                }
+            }
+          }          
+        },
         getMarkerMessage: function(m, feature){
           
           // form marker message 
           var message = '',
               messageArray = m.split('__');
           
+          // parse markermessage to set html
           angular.forEach(messageArray, function(d, i){
             // evaluate html from features
             if( d.search('value') > 0 ){
@@ -97,6 +114,7 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
             }
           });
 
+          // return html formatted msg
           return message;
 
         },
@@ -105,6 +123,7 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
 
           // Add geojson to map as markers
           switch ($scope.leaflet.display.type) {
+            
             // type marker
             case 'marker':
                 
@@ -119,7 +138,8 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
 
                 // create markers
                 $scope.leaflet.markers['marker' + key] = {
-                  group: $scope.leaflet.options.group,
+                  layer: $scope.leaflet.options.group,
+                  // group: $scope.leaflet.options.group,
                   lat: feature.geometry.coordinates[1],
                   lng: feature.geometry.coordinates[0],
                   message: $scope.leaflet.getMarkerMessage($scope.leaflet.display.message, feature)
@@ -144,7 +164,7 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
       // Merge defaults with config
       $scope.leaflet = angular.merge({}, $scope.leaflet, config);      
 
-      // assign map to leaflet widget
+      // set timeout to get map
       setTimeout(function(){
         
         // perform map actions once map promise retrned

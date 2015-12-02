@@ -341,7 +341,7 @@ angular.module('ngmReportHub')
 					'class': 'col s12 m4 l4',
 					downloads: [{
 						type: 'pdf',
-						color: 'blue',
+						color: 'blue lighten-1',
 						icon: 'picture_as_pdf',
 						hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as PDF',
 						filename: 'http://reporthub.immap.org/downloads/who-afghanistan-measles-extracted-2015-11-30T15-17-37+04-30.pdf',
@@ -360,7 +360,7 @@ angular.module('ngmReportHub')
 						}
 					},{
 						type: 'csv',
-						color: 'blue',
+						color: 'blue lighten-1',
 						icon: 'library_books',
 						hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as CSV',
 						filename: $scope.dews.location.name.toLowerCase() + '-' + $scope.dews.disease.name.toLowerCase() + '-extracted-' + moment().format(),
