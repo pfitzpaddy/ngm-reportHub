@@ -87,7 +87,7 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
       // Merge defaults with config
       $scope.leaflet = angular.merge({}, $scope.leaflet, config);
 
-      if ($scope.leaflet.display === 'default') {
+      if ($scope.leaflet.display.type === 'default') {
         $scope.leaflet.geojson = data;
       } else {
         $scope.leaflet.markers = data;
