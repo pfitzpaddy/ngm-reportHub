@@ -17,11 +17,11 @@ angular.module('ngmReportHub')
 
 		if ($scope.$parent.ngm.dashboard.model && $scope.$parent.ngm.dashboard.model.name === 'who_dews_dashboard') {
 			// set dashboard local $scope from $parent
-			$scope.dews = $scope.$parent.ngm.dashboard.config;
+			$scope.dashboard = $scope.$parent.ngm.dashboard.config;
 			$scope.model = $scope.$parent.ngm.dashboard.model;
 		} else {
 			// create dews object
-			$scope.dews = {
+			$scope.dashboard = {
 
 				// parent
 				ngm: $scope.$parent.ngm,
@@ -99,8 +99,8 @@ angular.module('ngmReportHub')
 							title: 'PDF',
 							type: 'pdf',
 							icon: 'download_cloud',
-							filename: $scope.dews.location.name + '-' + $scope.dews.disease.name + '-extracted-' + moment().format(),
-							hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as PDF',
+							filename: $scope.dashboard.location.name + '-' + $scope.dashboard.disease.name + '-extracted-' + moment().format(),
+							hover: 'Download ' + $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name +  ' Report as PDF',
 							request: {
 								method: 'GET',
 								url: appConfig.host + '/downloads/who-afghanistan-measles-extracted-2015-11-30T15-17-37+04-30.pdf',
@@ -109,9 +109,9 @@ angular.module('ngmReportHub')
 								method: 'POST',
 								url: appConfig.host + '/metrics/set',
 								data: {
-									organization: $scope.dews.user.organization,
-									username: $scope.dews.user.username,
-									email: $scope.dews.user.email,
+									organization: $scope.dashboard.user.organization,
+									username: $scope.dashboard.user.username,
+									email: $scope.dashboard.user.email,
 									dashboard: 'dews',
 									theme: $route.current.params.disease,
 									format: 'pdf',
@@ -128,25 +128,25 @@ angular.module('ngmReportHub')
 						downloads:[{
 							title: 'CSV',
 							icon: 'download_cloud',
-							filename: $scope.dews.location.name + '-' + $scope.dews.disease.name + '-extracted-' + moment().format(),
-							hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as CSV',
+							filename: $scope.dashboard.location.name + '-' + $scope.dashboard.disease.name + '-extracted-' + moment().format(),
+							hover: 'Download ' + $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name +  ' Report as CSV',
 							request: {
 								method: 'POST',
 								url: appConfig.host + '/dews/data',
 								data: {
-									start_date: $scope.dews.startDate,
-									end_date: $scope.dews.endDate,
-									disease: $scope.dews.disease.id,
-									prov_code: $scope.dews.location.id
+									start_date: $scope.dashboard.startDate,
+									end_date: $scope.dashboard.endDate,
+									disease: $scope.dashboard.disease.id,
+									prov_code: $scope.dashboard.location.id
 								}
 							},
 							metrics: {
 								method: 'POST',
 								url: appConfig.host + '/metrics/set',
 								data: {
-									organization: $scope.dews.user.organization,
-									username: $scope.dews.user.username,
-									email: $scope.dews.user.email,
+									organization: $scope.dashboard.user.organization,
+									username: $scope.dashboard.user.username,
+									email: $scope.dashboard.user.email,
 									dashboard: 'dews',
 									theme: $route.current.params.disease,
 									format: 'csv',
@@ -164,8 +164,8 @@ angular.module('ngmReportHub')
 						'class': 'col s12 m4 l3 report-download',
 						downloads:[{
 							icon: 'cloud',
-							filename: $scope.dews.location.name + '-' + $scope.dews.disease.name + '-extracted-' + moment().format(),
-							hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as PDF',
+							filename: $scope.dashboard.location.name + '-' + $scope.dashboard.disease.name + '-extracted-' + moment().format(),
+							hover: 'Download ' + $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name +  ' Report as PDF',
 							style: 'width: 50%;',
 							title: 'PDF',
 							request: {
@@ -176,9 +176,9 @@ angular.module('ngmReportHub')
 								method: 'POST',
 								url: appConfig.host + '/metrics/set',
 								data: {
-									organization: $scope.dews.user.organization,
-									username: $scope.dews.user.username,
-									email: $scope.dews.user.email,
+									organization: $scope.dashboard.user.organization,
+									username: $scope.dashboard.user.username,
+									email: $scope.dashboard.user.email,
 									dashboard: 'dews',
 									theme: $route.current.params.disease,
 									format: 'pdf',
@@ -189,25 +189,25 @@ angular.module('ngmReportHub')
 							icon: 'cloud',
 							style: 'width: 50%;',
 							title: 'Download CSV',
-							filename: $scope.dews.location.name + '-' + $scope.dews.disease.name + '-extracted-' + moment().format(),
-							hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as CSV',
+							filename: $scope.dashboard.location.name + '-' + $scope.dashboard.disease.name + '-extracted-' + moment().format(),
+							hover: 'Download ' + $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name +  ' Report as CSV',
 							request: {
 								method: 'POST',
 								url: appConfig.host + '/dews/data',
 								data: {
-									start_date: $scope.dews.startDate,
-									end_date: $scope.dews.endDate,
-									disease: $scope.dews.disease.id,
-									prov_code: $scope.dews.location.id
+									start_date: $scope.dashboard.startDate,
+									end_date: $scope.dashboard.endDate,
+									disease: $scope.dashboard.disease.id,
+									prov_code: $scope.dashboard.location.id
 								}
 							},
 							metrics: {
 								method: 'POST',
 								url: appConfig.host + '/metrics/set',
 								data: {
-									organization: $scope.dews.user.organization,
-									username: $scope.dews.user.username,
-									email: $scope.dews.user.email,
+									organization: $scope.dashboard.user.organization,
+									username: $scope.dashboard.user.username,
+									email: $scope.dashboard.user.email,
 									dashboard: 'dews',
 									theme: $route.current.params.disease,
 									format: 'csv',
@@ -222,13 +222,13 @@ angular.module('ngmReportHub')
 					
 					// 
 					return [{
-						title: 'Disease',
-						class: 'collapsible-header waves-effect waves-teal',
-						rows: $scope.dews.getRows('disease')
+						'title': 'Disease',
+						'class': 'collapsible-header waves-effect waves-teal z-depth-1',
+						'rows': $scope.dashboard.getRows('disease')
 					},{
-						title: 'Province',
-						'class': 'collapsible-header waves-effect waves-teal',
-						rows: $scope.dews.getRows('province')				
+						'title': 'Province',
+						'class': 'collapsible-header waves-effect waves-teal z-depth-1',
+						'rows': $scope.dashboard.getRows('province')				
 					}];
 
 				},
@@ -242,7 +242,7 @@ angular.module('ngmReportHub')
 
 					if(list === 'disease'){
 						// for each disease
-						angular.forEach($scope.dews.data.disease, function(d, key){
+						angular.forEach($scope.dashboard.data.disease, function(d, key){
 							//
 							rows.push({
 								'title': d.name,
@@ -255,7 +255,7 @@ angular.module('ngmReportHub')
 
 					} else {
 						// for each disease
-						angular.forEach($scope.dews.data.location, function(d, key){
+						angular.forEach($scope.dashboard.data.location, function(d, key){
 							//
 							rows.push({
 								'title': d.name,
@@ -273,10 +273,10 @@ angular.module('ngmReportHub')
 		}
 
 		// set dashboard params
-		$scope.dews.location = $scope.dews.data.location[$route.current.params.location];
-		$scope.dews.disease = $scope.dews.data.disease[$route.current.params.disease];
-		$scope.dews.title = 'WHO | ' + $scope.dews.location.name + ' | ' + $scope.dews.disease.name;
-		$scope.dews.subtitle = $scope.dews.disease.name + ' Disease Early Warning System Key Indicators ' + $scope.dews.location.name;
+		$scope.dashboard.location = $scope.dashboard.data.location[$route.current.params.location];
+		$scope.dashboard.disease = $scope.dashboard.data.disease[$route.current.params.disease];
+		$scope.dashboard.title = 'WHO | ' + $scope.dashboard.location.name + ' | ' + $scope.dashboard.disease.name;
+		$scope.dashboard.subtitle = $scope.dashboard.disease.name + ' Disease Early Warning System Key Indicators ' + $scope.dashboard.location.name;
 
 		// dews dashboard model
 		$scope.model = {
@@ -289,11 +289,11 @@ angular.module('ngmReportHub')
 				title: {
 					'class': 'col s12 m8 l8 report-title',
 					'style': 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
-					'title': $scope.dews.title,
+					'title': $scope.dashboard.title,
 				},
 				subtitle: {
-					'class': 'col s12 m8 l9 report-subtitle',
-					title: $scope.dews.subtitle,
+					'class': 'col hide-on-small-only m8 l9 report-subtitle',
+					title: $scope.dashboard.subtitle,
 				},
 				datePicker: {
 					'class': 'col s12 m4 l3',
@@ -302,15 +302,15 @@ angular.module('ngmReportHub')
 						style: 'float:left;',
 						label: 'from',
 						format: 'd mmm, yyyy',
-						max: $scope.dews.endDate,
-						time: $scope.dews.startDate,
+						max: $scope.dashboard.endDate,
+						time: $scope.dashboard.startDate,
 						onSelection: function(){
 							
 							// set date
-							$scope.dews.startDate = new Date(this.time);
+							$scope.dashboard.startDate = new Date(this.time);
 							
 							// updated config
-							var update = { 'broadcast': 'dateChange', 'config' : { 'request': { 'data': { 'start_date': $scope.dews.startDate } } } };
+							var update = { 'broadcast': 'dateChange', 'config' : { 'request': { 'data': { 'start_date': $scope.dashboard.startDate } } } };
 
 							// update widget
 							$scope.model.updateWidgets(update);
@@ -321,15 +321,15 @@ angular.module('ngmReportHub')
 						style: 'float:right',
 						label: 'to',
 						format: 'd mmm, yyyy',
-						min: $scope.dews.startDate,
-						time: $scope.dews.endDate,
+						min: $scope.dashboard.startDate,
+						time: $scope.dashboard.endDate,
 						onSelection: function(){
 							
 							// set date
-							$scope.dews.endDate = new Date(this.time);
+							$scope.dashboard.endDate = new Date(this.time);
 
 							// updated config
-							var update = { 'broadcast': 'dateChange', 'config' : { 'request': { 'data': { 'end_date': $scope.dews.endDate } } } };
+							var update = { 'broadcast': 'dateChange', 'config' : { 'request': { 'data': { 'end_date': $scope.dashboard.endDate } } } };
 
 							// update widget								
 							$scope.model.updateWidgets(update);
@@ -340,57 +340,57 @@ angular.module('ngmReportHub')
 				download: {
 					'class': 'col s12 m4 l4',
 					downloads: [{
-						type: 'pdf',
-						color: 'blue lighten-1',
-						icon: 'picture_as_pdf',
-						hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as PDF',
-						filename: 'http://reporthub.immap.org/downloads/who-afghanistan-measles-extracted-2015-11-30T15-17-37+04-30.pdf',
-						metrics: {
-							method: 'POST',
-							url: appConfig.host + '/metrics/set',
-							data: {
-								organization: $scope.dews.user.organization,
-								username: $scope.dews.user.username,
-								email: $scope.dews.user.email,
-								dashboard: 'dews',
-								theme: $route.current.params.disease,
-								format: 'pdf',
-								url: $location.$$path
-							}
-						}
-					},{
 						type: 'csv',
 						color: 'blue lighten-1',
 						icon: 'library_books',
-						hover: 'Download ' + $scope.dews.location.name + ', ' + $scope.dews.disease.name +  ' Report as CSV',
-						filename: $scope.dews.location.name.toLowerCase() + '-' + $scope.dews.disease.name.toLowerCase() + '-extracted-' + moment().format(),
+						hover: 'Download ' + $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name +  ' Report as CSV',
+						filename: $scope.dashboard.location.name.toLowerCase() + '-' + $scope.dashboard.disease.name.toLowerCase() + '-extracted-' + moment().format(),
 						request: {
 							method: 'POST',
 							url: appConfig.host + '/dews/data',
 							data: {
-								start_date: $scope.dews.startDate,
-								end_date: $scope.dews.endDate,
-								disease: $scope.dews.disease.id,
-								prov_code: $scope.dews.location.id
+								start_date: $scope.dashboard.startDate,
+								end_date: $scope.dashboard.endDate,
+								disease: $scope.dashboard.disease.id,
+								prov_code: $scope.dashboard.location.id
 							}
 						},
 						metrics: {
 							method: 'POST',
 							url: appConfig.host + '/metrics/set',
 							data: {
-								organization: $scope.dews.user.organization,
-								username: $scope.dews.user.username,
-								email: $scope.dews.user.email,
+								organization: $scope.dashboard.user.organization,
+								username: $scope.dashboard.user.username,
+								email: $scope.dashboard.user.email,
 								dashboard: 'dews',
 								theme: $route.current.params.disease,
 								format: 'csv',
 								url: $location.$$path
 							}
 						}						
+					},{
+						type: 'pdf',
+						color: 'blue lighten-1',
+						icon: 'picture_as_pdf',
+						hover: 'Download ' + $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name +  ' Report as PDF',
+						filename: 'http://reporthub.immap.org/downloads/who-afghanistan-measles-extracted-2015-11-30T15-17-37+04-30.pdf',
+						metrics: {
+							method: 'POST',
+							url: appConfig.host + '/metrics/set',
+							data: {
+								organization: $scope.dashboard.user.organization,
+								username: $scope.dashboard.user.username,
+								email: $scope.dashboard.user.email,
+								dashboard: 'dews',
+								theme: $route.current.params.disease,
+								format: 'pdf',
+								url: $location.$$path
+							}
+						}
 					}]
 				}
 			},
-			menu: $scope.dews.getMenu(),
+			menu: $scope.dashboard.getMenu(),
 			rows: [{
 				columns: [{
 					styleClass: 's12 m12 l4',
@@ -404,11 +404,11 @@ angular.module('ngmReportHub')
 								method: 'POST',
 								url: appConfig.host + '/dews/indicator',
 								data: {
-									start_date: $scope.dews.startDate,
-									end_date: $scope.dews.endDate,									
+									start_date: $scope.dashboard.startDate,
+									end_date: $scope.dashboard.endDate,									
 									indicator: '*',
-									disease: $scope.dews.disease.id,
-									prov_code: $scope.dews.location.id
+									disease: $scope.dashboard.disease.id,
+									prov_code: $scope.dashboard.location.id
 								}
 							}
 						}
@@ -425,11 +425,11 @@ angular.module('ngmReportHub')
 								method: 'POST',
 								url: appConfig.host + '/dews/indicator',
 								data: {
-									start_date: $scope.dews.startDate,
-									end_date: $scope.dews.endDate,									
+									start_date: $scope.dashboard.startDate,
+									end_date: $scope.dashboard.endDate,									
 									indicator: 'u5male + u5female + o5male + o5female',
-									disease: $scope.dews.disease.id,
-									prov_code: $scope.dews.location.id
+									disease: $scope.dashboard.disease.id,
+									prov_code: $scope.dashboard.location.id
 								}
 							}
 						}
@@ -446,11 +446,11 @@ angular.module('ngmReportHub')
 								method: 'POST',
 								url: appConfig.host + '/dews/indicator',
 								data: {
-									start_date: $scope.dews.startDate,
-									end_date: $scope.dews.endDate,									
+									start_date: $scope.dashboard.startDate,
+									end_date: $scope.dashboard.endDate,									
 									indicator: 'u5death + o5death',
-									disease: $scope.dews.disease.id,
-									prov_code: $scope.dews.location.id
+									disease: $scope.dashboard.disease.id,
+									prov_code: $scope.dashboard.location.id
 								}
 							}
 						}
@@ -469,10 +469,10 @@ angular.module('ngmReportHub')
 								method: 'POST',
 								url: appConfig.host + '/dews/calendar',
 								data: {
-									start_date: $scope.dews.startDate,
-									end_date: $scope.dews.endDate,									
-									disease: $scope.dews.disease.id,
-									prov_code: $scope.dews.location.id
+									start_date: $scope.dashboard.startDate,
+									end_date: $scope.dashboard.endDate,									
+									disease: $scope.dashboard.disease.id,
+									prov_code: $scope.dashboard.location.id
 								}
 							}
 						}
@@ -511,10 +511,10 @@ angular.module('ngmReportHub')
 								url: appConfig.host + '/dews/markers',
 								data: {
 									layer: 'outbreaks',
-									start_date: $scope.dews.startDate,
-									end_date: $scope.dews.endDate,									
-									disease: $scope.dews.disease.id,
-									prov_code: $scope.dews.location.id,
+									start_date: $scope.dashboard.startDate,
+									end_date: $scope.dashboard.endDate,									
+									disease: $scope.dashboard.disease.id,
+									prov_code: $scope.dashboard.location.id,
 									message: '<div class="count" style="text-align:center">__{ "value": feature.properties.incidents }__</div> cases in __{ "value": feature.properties.district }__'
 								}
 							}
@@ -529,7 +529,7 @@ angular.module('ngmReportHub')
 						card: 'card-panel',
 						style: 'padding:0px; height: 220px;',
 						config: {
-							html: '<div style="background-color: #FFF; height: 140px;"></div>' + $scope.dews.ngm.footer
+							html: '<div style="background-color: #FFF; height: 140px;"></div>' + $scope.dashboard.ngm.footer
 						}
 					}]
 				}]
@@ -537,7 +537,7 @@ angular.module('ngmReportHub')
 		};
 
 		// assign to ngm app scope
-		$scope.$parent.ngm.dashboard.config = $scope.dews;
+		$scope.$parent.ngm.dashboard.config = $scope.dashboard;
 		$scope.$parent.ngm.dashboard.model = $scope.model;
 		
 	}]);

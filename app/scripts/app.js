@@ -101,13 +101,34 @@ angular
 				controller: 'DashboardFloodRiskCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+			.when( '/immap/watchkeeper/:country', {
+				templateUrl: 'views/dashboard.html',
+				controller: 'DashboardWatchkeeperCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
 						return ngmAuth.isAuthenticated(); 
 					}],
 				}
-			})			
-			.when( '/immap', {
-				redirectTo: '/immap/drr/flood/afghanistan'
 			})
+			.when( '/immap/watchkeeper/:country/:county', {
+				templateUrl: 'views/dashboard.html',
+				controller: 'DashboardWatchkeeperCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated(); 
+					}],
+				}
+			})				
+			.when( '/immap', {
+				redirectTo: '/immap/watchkeeper/africa'
+			})
+			.when( '/immap/watchkeeper', {
+				redirectTo: '/immap/watchkeeper/africa'
+			})			
 			.when( '/immap/drr', {
 				redirectTo: '/immap/drr/flood/afghanistan'
 			})

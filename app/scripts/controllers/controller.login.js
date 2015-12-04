@@ -23,10 +23,8 @@ angular.module('ngmReportHub')
 
 		}
 
-		// panel height = window height - header - padding
-		$scope.login.ngm.style.height = $scope.login.ngm.height - 160 - 10;
-		// panel padding = panel height - form height - footer - padding
-		$scope.login.ngm.style.paddingHeight = ($scope.login.ngm.style.height - 410 - 60 - 20) < 10 ? 10 : ($scope.login.ngm.style.height - 410 - 60 - 20);
+		// 
+		$scope.login.ngm.style.paddingHeight = 20;
 
 		// dews dashboard model
 		var model = {

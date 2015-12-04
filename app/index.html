@@ -23,7 +23,7 @@
 		<link rel="stylesheet" href="styles/main.css">
 		<!-- endbuild -->
 	</head>
- 	<body ng-app="ngmReportHub" ng-controller="ngmReportHubCrtl" style="height:100%">
+	<body ng-app="ngmReportHub" ng-controller="ngmReportHubCrtl" style="height:100%">
 		
 		<!--[if lte IE 8]>
 			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -58,14 +58,14 @@
 									data-activates="user-profile-dropdown">
 								<i class="material-icons right">account_circle</i>{{ ngm.getUserName() }}
 							</a>
-					        <!-- user options over menu -->
+							<!-- user options over menu -->
 							<ul id="user-profile-dropdown" 
 								class="dropdown-content" 
 								style="margin-top:64px;"
 								ng-show="ngm.getUserName() !== 'welcome' ">
 							  <li class="teal">
-							  	<a class="white-text" ng-click="ngm.logout()">
-							  	<i class="material-icons left">lock_open</i>Logout</a>
+								<a class="white-text" ng-click="ngm.logout()">
+								<i class="material-icons left">lock_open</i>Logout</a>
 							  </li>							  
 							</ul>							
 						</div>
@@ -77,53 +77,52 @@
 						ng-show="ngm.getUserName() !== 'welcome' "
 						ng-if="ngm.menu.search" 
 						ng-click="ngm.toggleSearch()">
-	          		<div class="search-wrapper card z-depth-0" 
-	          				ng-class="{'focused':ngm.menu.focused===true || ngm.menu.query }">
-	            		<input id="search" 
-		            		ng-model="ngm.menu.query" 
-		            		ng-focus="ngm.menu.focused=true"  
-		            		ng-blur="ngm.menu.focused=false">
-	            		<i class="material-icons">search</i>
-	            		<div class="search-results"></div>
-	          		</div>
-	         	</li>
+					<div class="search-wrapper card z-depth-0" 
+							ng-class="{'focused':ngm.menu.focused===true || ngm.menu.query }">
+						<input id="search" 
+							ng-model="ngm.menu.query" 
+							ng-focus="ngm.menu.focused=true"  
+							ng-blur="ngm.menu.focused=false">
+						<i class="material-icons">search</i>
+						<div class="search-results"></div>
+					</div>
+				</li>
 
-		        <!-- include footer when no menu  -->
+				<!-- include footer when no menu  -->
 				<div class="footer menu z-depth-0" style="text-align:right;">
 					<div class="footer header" style="background: {{ ngm.style.lightPrimaryColor }}; margin-top:10px;"></div>
 					<div class="footer-menu body" style="background: {{ ngm.style.defaultPrimaryColor }};"></div>
 				</div>	         	
 
-	         </ul>
+			 </ul>
 
 			<ul id="nav-mobile" style="padding-bottom:326px;" class="side-nav fixed menu" ng-show="ngm.getUserName() !== 'welcome' ">
-		        <li class="no-padding">
-		          <ul class="collapsible collapsible-accordion" ng-repeat="list in ngm.dashboard.model.menu">
-		            <li class="bold" ngm-menu>
-		            	<a class="{{ list.class }}" ng-cloak>{{ list.title }}</a>
-		              <div class="collapsible-body" style="display: none">
-		                <ul class="side-menu">
-									<li class="{{ row.class  }}" 
-										ng-repeat="row in list.rows | filter:ngm.menu.query track by $index" 
-		                				ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }" ng-cloak>
-		                		<a href="{{ row.href }}" ng-cloak>{{ row.title }}</a>
-		                	</li>
+				<li class="no-padding">
+				  <ul class="collapsible collapsible-accordion" ng-repeat="list in ngm.dashboard.model.menu">
+					<li class="bold" ngm-menu>
+						<a class="{{ list.class }}" ng-cloak>{{ list.title }}</a>
+						<div class="collapsible-body" style="display: none">
+							<ul class="side-menu">
+								<li class="{{ row.class  }}" 
+									ng-repeat="row in list.rows | filter:ngm.menu.query track by $index" 
+									ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }" ng-cloak>
+									<a href="{{ row.href }}" ng-cloak>{{ row.title }}</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				  </ul>
+				</li>
 
-		                </ul>
-		            	</div>
-		            </li>
-		          </ul>
-		        </li>
-
-		        <!-- make footer visible when menu visibile -->
+				<!-- make footer visible when menu visibile -->
 				<div class="footer menu z-depth-0" style="text-align:right;">
 					<div class="footer header" style="background: {{ ngm.style.lightPrimaryColor }}; margin-top:10px;"></div>
 					<div class="footer-menu body" style="background: {{ ngm.style.defaultPrimaryColor }};"></div>
 				</div>
 
-		    </ul>
+			</ul>
 
-	  	</header>
+		</header>
 
 		<main>
 			<div class="container">
@@ -188,6 +187,7 @@
 		<!-- dashboards -->
 		<script src="scripts/dashboards/dashboard.dews.js"></script>
 		<script src="scripts/dashboards/dashboard.flood.risk.js"></script>
+		<script src="scripts/dashboards/dashboard.watchkeeper.js"></script>
 		<!-- widgets -->
 		<script src="widgets/ngm-html/html.js"></script>
 		<script src="widgets/ngm-iframe/iframe.js"></script>

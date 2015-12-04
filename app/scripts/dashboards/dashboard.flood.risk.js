@@ -16,7 +16,7 @@ angular.module('ngmReportHub')
 		];
 
 		// floodRisk object
-		$scope.floodRisk = {
+		$scope.dashboard = {
 
 			// parent
 			ngm: $scope.$parent.ngm,			
@@ -70,7 +70,7 @@ angular.module('ngmReportHub')
 				var rows = [];
 
 				// for each disease
-				angular.forEach($scope.floodRisk.data, function(d, key){
+				angular.forEach($scope.dashboard.data, function(d, key){
 					rows.push({
 						'title': d.name,
 						'class': 'waves-effect waves-teal',
@@ -94,18 +94,18 @@ angular.module('ngmReportHub')
 				},
 				title: {
 					'class': 'col s12 m12 l12 report-title',
-					title: 'iMMAP | ' + $scope.floodRisk.data[$route.current.params.province].name,
+					title: 'iMMAP | ' + $scope.dashboard.data[$route.current.params.province].name,
 					style: 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
 				},
 				subtitle: {
 					'class': 'col s12 m12 l12 report-subtitle',
-					title: 'Flood Risk Key Indicators for ' + $scope.floodRisk.data[$route.current.params.province].name,
+					title: 'Flood Risk Key Indicators for ' + $scope.dashboard.data[$route.current.params.province].name,
 				},
 			},
 			menu: [{
 				title: 'Flood Risk',
 				class: 'collapsible-header waves-effect waves-teal',
-				rows: $scope.floodRisk.getRows()
+				rows: $scope.dashboard.getRows()
 			}],
 			rows: [{
 				columns: [{
@@ -122,11 +122,11 @@ angular.module('ngmReportHub')
 							request: {
 								method: 'POST',
 								url: appConfig.host + '/flood/risk',
-								// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
+								// headers: { 'Authorization': 'Bearer ' + $scope.dashboard.user.token },
 								data: {
 									indicator: 'total-popn',
 									metric: 'popn',
-									prov_code: $scope.floodRisk.data[$route.current.params.province].id //,
+									prov_code: $scope.dashboard.data[$route.current.params.province].id //,
 									//headers: {'Authorization': 'Bearer ' + token}									
 								}
 							}
@@ -147,11 +147,11 @@ angular.module('ngmReportHub')
 							request: {
 								method: 'POST',
 								url: appConfig.host + '/flood/risk',
-								// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
+								// headers: { 'Authorization': 'Bearer ' + $scope.dashboard.user.token },
 								data: {
 									indicator: 'total',
 									metric: 'popn',
-									prov_code: $scope.floodRisk.data[$route.current.params.province].id
+									prov_code: $scope.dashboard.data[$route.current.params.province].id
 								}
 							}
 						}
@@ -201,11 +201,11 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: appConfig.host + '/flood/risk/type',
-											// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
+											// headers: { 'Authorization': 'Bearer ' + $scope.dashboard.user.token },
 											data: {
 												indicator: 'low',
 												metric: 'popn',
-												prov_code: $scope.floodRisk.data[$route.current.params.province].id,
+												prov_code: $scope.dashboard.data[$route.current.params.province].id,
 												name: 'Low Flood Risk Population'
 											}											
 										},
@@ -262,11 +262,11 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: appConfig.host + '/flood/risk/type',
-											// headers: { 'Authorization': 'Bearer ' + $scope.floodRisk.user.token },
+											// headers: { 'Authorization': 'Bearer ' + $scope.dashboard.user.token },
 											data: {
 												indicator: 'moderate',
 												metric: 'popn',
-												prov_code: $scope.floodRisk.data[$route.current.params.province].id,
+												prov_code: $scope.dashboard.data[$route.current.params.province].id,
 												name: 'Moderate Flood Risk Population',
 												// color: '#ffea00'
 											}											
@@ -327,7 +327,7 @@ angular.module('ngmReportHub')
 											data: {
 												indicator: 'high',
 												metric: 'popn',
-												prov_code: $scope.floodRisk.data[$route.current.params.province].id,
+												prov_code: $scope.dashboard.data[$route.current.params.province].id,
 												name: 'High Flood Risk Population',
 												// color: '#dd2c00'
 											}	
@@ -392,7 +392,7 @@ angular.module('ngmReportHub')
 											url: appConfig.host + '/flood/risk/area',
 											data: {
 												indicator: 'total',
-												prov_code: $scope.floodRisk.data[$route.current.params.province].id,
+												prov_code: $scope.dashboard.data[$route.current.params.province].id,
 											}	
 										}
 								},{
@@ -403,7 +403,7 @@ angular.module('ngmReportHub')
 											url: appConfig.host + '/flood/risk/area',
 											data: {
 												indicator: 'floodRisk',
-												prov_code: $scope.floodRisk.data[$route.current.params.province].id,
+												prov_code: $scope.dashboard.data[$route.current.params.province].id,
 											}	
 										}
 								}]
@@ -419,7 +419,7 @@ angular.module('ngmReportHub')
 						card: 'card-panel',
 						style: 'padding:0px; height: 120px;',
 						config: {
-							html: '<div style="background-color: #FFF; height: 140px;"></div>' + $scope.floodRisk.ngm.footer
+							html: '<div style="background-color: #FFF; height: 140px;"></div>' + $scope.dashboard.ngm.footer
 						}
 					}]
 				}]
@@ -427,7 +427,7 @@ angular.module('ngmReportHub')
 		};
 
 		// assign to ngm app scope
-		$scope.$parent.ngm.dashboard.config = $scope.floodRisk;
+		$scope.$parent.ngm.dashboard.config = $scope.dashboard;
 		$scope.$parent.ngm.dashboard.model = $scope.model;
 		
 	}]);
