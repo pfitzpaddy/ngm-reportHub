@@ -72,6 +72,9 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
           tileLayer: 'https://api.mapbox.com/v4/fitzpaddy.b207f20f/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZml0enBhZGR5IiwiYSI6ImNpZW1vcXZiaTAwMXBzdGtrYmp0cDlkdnEifQ.NCI7rTR3PvN4iPZpt6hgKA',
 
         },
+        controls: {
+          custom: new L.Control.geocoder()
+        },
         markers: {},
         layers: {
           baselayers: {
@@ -115,7 +118,7 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
 
           // geocode
           if ($scope.leaflet.display.geocoder) {
-            L.Control.geocoder().addTo($scope.leaflet.map);
+            // L.Control.geocoder().addTo($scope.leaflet.map);
           }
 
           // zoomToBounds
