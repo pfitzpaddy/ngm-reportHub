@@ -60,11 +60,15 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
         height: '320px',
         display: {
           type: 'default',
+          geocoder: true,
         },
         defaults: {
+          map: {
+            fullscreenControl: true,
+            scrollWheelZoom: false,
+            attributionControl: false         
+          },          
           center: { lat: 34.5, lng: 66, zoom: 6 },
-          scrollWheelZoom: false,
-          attributionControl: false,
           tileLayer: 'https://api.mapbox.com/v4/fitzpaddy.b207f20f/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZml0enBhZGR5IiwiYSI6ImNpZW1vcXZiaTAwMXBzdGtrYmp0cDlkdnEifQ.NCI7rTR3PvN4iPZpt6hgKA',
 
         },
@@ -109,6 +113,12 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
           // map $scope
           $scope.leaflet.map = map;
 
+          // geocode
+          if ($scope.leaflet.display.geocoder) {
+            L.Control.geocoder().addTo($scope.leaflet.map);
+          }
+
+          // zoomToBounds
           if ($scope.leaflet.display.zoomToBounds) {
             // zoom here!
             $scope.leaflet.map.fitBounds($scope.leaflet.bounds);

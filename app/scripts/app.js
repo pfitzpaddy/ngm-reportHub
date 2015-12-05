@@ -17,7 +17,6 @@ angular
 		'ngRoute',
 		'ngSanitize',
 		'ngTouch',
-		'ngLocationUpdate',
 		'countTo',
 		'highcharts-ng',
 		'leaflet-directive',
@@ -106,6 +105,7 @@ angular
 				}
 			})
 			.when( '/immap/watchkeeper/:country', {
+				reloadOnSearch: false,
 				templateUrl: 'views/dashboard.html',
 				controller: 'DashboardWatchkeeperCtrl',
 				resolve: {
@@ -115,6 +115,7 @@ angular
 				}
 			})
 			.when( '/immap/watchkeeper/:country/:county', {
+				reloadOnSearch: false,
 				templateUrl: 'views/dashboard.html',
 				controller: 'DashboardWatchkeeperCtrl',
 				resolve: {
