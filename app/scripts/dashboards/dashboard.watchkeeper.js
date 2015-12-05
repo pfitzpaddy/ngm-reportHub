@@ -363,20 +363,7 @@ angular.module('ngmReportHub')
 										gridLineColor: '#fff',
 										minTickInterval: 1
 								},
-								series: [{
-										name: 'Incidents',
-										color: '#7cb5ec',
-										request: {
-											method: 'POST',
-											url: appConfig.host + '/wk/chart',
-											data: {
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
-												country: $scope.dashboard.country.id,
-												indicator: 'incident'
-											}	
-										}
-								},,{
+								series: [{																			
 										name: 'Deaths',
 										color: '#78909c',
 										request: {
@@ -387,6 +374,19 @@ angular.module('ngmReportHub')
 												end_date: $scope.dashboard.endDate,
 												country: $scope.dashboard.country.id,
 												indicator: 'death'
+											}	
+										}
+								},{
+										name: 'Incidents',
+										color: '#7cb5ec',
+										request: {
+											method: 'POST',
+											url: appConfig.host + '/wk/chart',
+											data: {
+												start_date: $scope.dashboard.startDate,
+												end_date: $scope.dashboard.endDate,
+												country: $scope.dashboard.country.id,
+												indicator: 'incident'
 											}	
 										}
 								}]
