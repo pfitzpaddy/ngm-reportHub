@@ -124,10 +124,10 @@ angular
 				}
 			})				
 			.when( '/immap', {
-				redirectTo: '/immap/watchkeeper/africa'
+				redirectTo: '/immap/watchkeeper/kenya'
 			})
 			.when( '/immap/watchkeeper', {
-				redirectTo: '/immap/watchkeeper/africa'
+				redirectTo: '/immap/watchkeeper/kenya'
 			})			
 			.when( '/immap/drr', {
 				redirectTo: '/immap/drr/flood/afghanistan'

@@ -140,7 +140,7 @@ angular.module('ngmReportHub')
 						config: {
 							title: 'at Flood Risk',
 							display: {
-								postFix: '%',
+								postfix: '%',
 								fractionSize: 2,
 								simpleTitle: false
 							},
@@ -170,7 +170,7 @@ angular.module('ngmReportHub')
 								label: true,
 								fractionSize: 1,
 								subLabelfractionSize: 0,
-								postFix: '%'
+								postfix: '%'
 							},
 							chartConfig: {
 								options: {
@@ -231,7 +231,7 @@ angular.module('ngmReportHub')
 								label: true,
 								fractionSize: 1,
 								subLabelfractionSize: 0,
-								postFix: '%'
+								postfix: '%'
 							},
 							chartConfig: {
 								options: {
@@ -293,7 +293,7 @@ angular.module('ngmReportHub')
 								label: true,
 								fractionSize: 1,
 								subLabelfractionSize: 0,
-								postFix: '%'
+								postfix: '%'
 							},	
 							chartConfig: {
 								options: {

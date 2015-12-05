@@ -15,7 +15,8 @@ angular.module('ngmReportHub')
 			'Karma'
 		];
 
-		if ($scope.$parent.ngm.dashboard.model && $scope.$parent.ngm.dashboard.model.name === 'who_dews_dashboard') {
+		if ($scope.$parent.ngm.dashboard.model 
+				&& $scope.$parent.ngm.dashboard.model.name === 'who_dews_dashboard') {
 			// set dashboard local $scope from $parent
 			$scope.dashboard = $scope.$parent.ngm.dashboard.config;
 			$scope.model = $scope.$parent.ngm.dashboard.model;
@@ -447,7 +448,7 @@ angular.module('ngmReportHub')
 								url: appConfig.host + '/dews/indicator',
 								data: {
 									start_date: $scope.dashboard.startDate,
-									end_date: $scope.dashboard.endDate,									
+									end_date: $scope.dashboard.endDate,
 									indicator: 'u5death + o5death',
 									disease: $scope.dashboard.disease.id,
 									prov_code: $scope.dashboard.location.id
@@ -470,7 +471,7 @@ angular.module('ngmReportHub')
 								url: appConfig.host + '/dews/calendar',
 								data: {
 									start_date: $scope.dashboard.startDate,
-									end_date: $scope.dashboard.endDate,									
+									end_date: $scope.dashboard.endDate,
 									disease: $scope.dashboard.disease.id,
 									prov_code: $scope.dashboard.location.id
 								}

@@ -90,15 +90,30 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
       if ($scope.leaflet.display.type === 'default') {
         $scope.leaflet.geojson = data;
       } else {
+          
+        // bounds and marker layer
+        $scope.leaflet.bounds = [];
         $scope.leaflet.markers = data;
+
+        // get array of bounds
+        angular.forEach($scope.leaflet.markers, function(d, key){
+          $scope.leaflet.bounds.push([d.lat, d.lng]);
+        });
       }
 
       // set timeout to get map
       setTimeout(function(){
         // perform map actions once map promise retrned
         leafletData.getMap().then(function(map) {
+          
           // map $scope
           $scope.leaflet.map = map;
+
+          if ($scope.leaflet.display.zoomToBounds) {
+            // zoom here!
+            $scope.leaflet.map.fitBounds($scope.leaflet.bounds);
+          }
+
         });
       });
 

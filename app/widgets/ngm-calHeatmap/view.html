@@ -55,6 +55,9 @@
   }  
 </style>
 
-<div align="center">
-  <div id="cal-heatmap" style="margin-top:5px;"></div>
+<div>
+  <div ng-if="calHeatmap.title" class="grey-text text-darken-2" style="{{ calHeatmap.title.style }}">{{ calHeatmap.title.name }}</div>
+  <div align="center" style="{{ calHeatmap.style }}">
+    <div id="cal-heatmap" style="margin-top:5px;"></div>
+  </div>
 </div>
