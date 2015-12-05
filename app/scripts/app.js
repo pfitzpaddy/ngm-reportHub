@@ -32,7 +32,7 @@ angular
 	.config([ '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
 		// from http://mysite.com/#/notes/1 to http://mysite.com/notes/1
-		$locationProvider.html5Mode(true);
+		// $locationProvider.html5Mode(true);
 
 		// app routes with access rights
 		$routeProvider
