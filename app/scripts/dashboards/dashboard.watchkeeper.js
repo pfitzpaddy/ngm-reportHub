@@ -303,7 +303,7 @@ angular.module('ngmReportHub')
 								name: $scope.dashboard.country.name + ' - 1 Year Timeline'
 							},
 							options: {
-								start: new Date(moment($scope.dashboard.startDate).subtract(1, 'years').format()),
+								start: new Date(moment($scope.dashboard.endDate).subtract(11, 'M').format()),
 								itemName: 'incident',
 								legend: $scope.dashboard.legend
 							},
@@ -311,7 +311,7 @@ angular.module('ngmReportHub')
 								method: 'POST',
 								url: appConfig.host + '/wk/calendar',
 								data: {
-									start_date: new Date(moment($scope.dashboard.startDate).subtract(1, 'years').format()),
+									start_date: new Date(moment($scope.dashboard.endDate).subtract(11, 'M').format()),
 									end_date: $scope.dashboard.endDate,
 									country: $scope.dashboard.country.id
 								}
