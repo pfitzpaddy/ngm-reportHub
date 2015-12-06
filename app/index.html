@@ -15,6 +15,7 @@
 		<link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css" />
 		<link rel="stylesheet" href="bower_components/materialize/bin/materialize.css" />
 		<link rel="stylesheet" href="bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.css" />
+		<link rel="stylesheet" href="bower_components/ngm-leaflet-control-geocoder/Control.Geocoder.css" />
 		<!-- endbower -->
 		<!-- endbuild -->
 		<!-- build:css(.tmp) styles/main.css -->
@@ -147,37 +148,35 @@
 
 		<!-- build:js(.) scripts/vendor.js -->
 		<!-- bower:js -->
-		<script src="bower_components/jquery/dist/jquery.js"></script>
-		<script src="bower_components/angular/angular.js"></script>
-		<script src="bower_components/angular-animate/angular-animate.js"></script>
-		<script src="bower_components/angular-cookies/angular-cookies.js"></script>
-		<script src="bower_components/angular-filter-count-to/dist/angular-filter-count-to.min.js"></script>
-		<script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
-		<script src="bower_components/leaflet/dist/leaflet-src.js"></script>
-		<script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
-		<script src="bower_components/angular-resource/angular-resource.js"></script>
-		<script src="bower_components/angular-route/angular-route.js"></script>
-		<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-		<script src="bower_components/angular-touch/angular-touch.js"></script>
-		<script src="bower_components/d3/d3.js"></script>
-		<script src="bower_components/cal-heatmap/cal-heatmap.js"></script>
-		<script src="bower_components/highcharts/highcharts.js"></script>
-		<script src="bower_components/highcharts/highcharts-more.js"></script>
-		<script src="bower_components/highcharts/modules/exporting.js"></script>
-		<script src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
-		<script src="bower_components/html2canvas/build/html2canvas.js"></script>
-		<script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
-		<script src="bower_components/materialize/bin/materialize.js"></script>
-		<script src="bower_components/moment/moment.js"></script>
-		<script src="bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.js"></script>
+		<script src='bower_components/jquery/dist/jquery.js'></script>
+		<script src='bower_components/angular/angular.js'></script>
+		<script src='bower_components/angular-animate/angular-animate.js'></script>
+		<script src='bower_components/angular-cookies/angular-cookies.js'></script>
+		<script src='bower_components/angular-filter-count-to/dist/angular-filter-count-to.min.js'></script>
+		<script src='bower_components/angular-simple-logger/dist/angular-simple-logger.js'></script>
+		<script src='bower_components/leaflet/dist/leaflet-src.js'></script>
+		<script src='bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js'></script>
+		<script src='bower_components/angular-resource/angular-resource.js'></script>
+		<script src='bower_components/angular-route/angular-route.js'></script>
+		<script src='bower_components/angular-sanitize/angular-sanitize.js'></script>
+		<script src='bower_components/angular-touch/angular-touch.js'></script>
+		<script src='bower_components/d3/d3.js'></script>
+		<script src='bower_components/cal-heatmap/cal-heatmap.js'></script>
+		<script src='bower_components/highcharts/highcharts.js'></script>
+		<script src='bower_components/highcharts/highcharts-more.js'></script>
+		<script src='bower_components/highcharts/modules/exporting.js'></script>
+		<script src='bower_components/highcharts-ng/dist/highcharts-ng.js'></script>
+		<script src='bower_components/html2canvas/build/html2canvas.js'></script>
+		<script src='bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js'></script>
+		<script src='bower_components/materialize/bin/materialize.js'></script>
+		<script src='bower_components/moment/moment.js'></script>
+		<script src='bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.js'></script>
+		<script src='bower_components/ngm-leaflet-control-geocoder/Control.Geocoder.js'></script>
 		<!-- endbower -->
 		<!-- endbuild -->
 
 		<!-- build:js({.tmp,app}) scripts/scripts.js -->
-		
-		<!-- leaflet-fullscreen -->
-		<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.2/Leaflet.fullscreen.min.js'></script>
-		
+
 		<!-- app -->
 		<script src="scripts/app.js"></script>
 		<script src="scripts/config.js"></script>
@@ -200,6 +199,9 @@
 		<script src="widgets/ngm-leaflet/leaflet.js"></script>
 		<script src="widgets/ngm-highchart/highchart.js"></script>
 		<script src="widgets/ngm-calHeatmap/calHeatmap.js"></script>
+
+		<!-- leaflet-fullscreen -->
+		<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.2/Leaflet.fullscreen.min.js'></script>		
 		<!-- endbuild -->
 
 	</body>

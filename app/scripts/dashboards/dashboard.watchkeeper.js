@@ -419,7 +419,7 @@ angular.module('ngmReportHub')
 			                type: 'xyz',
 			                url: 'https://b.tiles.mapbox.com/v4/aj.um7z9lus/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IlhHVkZmaW8ifQ.hAMX5hSW-QnTeRCMAy9A8Q',
 			                layerOptions: {
-			                    continuousWorld: true
+			                  continuousWorld: true
 			                }
 			            }
 			          },

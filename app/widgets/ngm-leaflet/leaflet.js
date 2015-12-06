@@ -60,21 +60,23 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
         height: '320px',
         display: {
           type: 'default',
-          geocoder: true,
+          geocoder: {
+            position: 'topright'
+          }
         },
         defaults: {
+          controls: {
+            layers: {}
+          },
           map: {
             fullscreenControl: true,
             scrollWheelZoom: false,
-            attributionControl: false         
+            attributionControl: false
           },          
           center: { lat: 34.5, lng: 66, zoom: 6 },
           tileLayer: 'https://api.mapbox.com/v4/fitzpaddy.b207f20f/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZml0enBhZGR5IiwiYSI6ImNpZW1vcXZiaTAwMXBzdGtrYmp0cDlkdnEifQ.NCI7rTR3PvN4iPZpt6hgKA',
 
         },
-        // controls: {
-        //   custom: new L.Control.geocoder()
-        // },
         markers: {},
         layers: {
           baselayers: {
@@ -86,7 +88,7 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
                     continuousWorld: true
                 }
             }
-          }         
+          }
         }
 
       }
@@ -118,7 +120,8 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
 
           // geocode
           if ($scope.leaflet.display.geocoder) {
-            // L.Control.geocoder().addTo($scope.leaflet.map);
+            // geocoder (Nominatim by default)
+            $scope.leaflet.map.addControl(new L.Control.Geocoder({ position: $scope.leaflet.display.geocoder.position }));
           }
 
           // zoomToBounds
