@@ -334,4 +334,11 @@ ul.side-nav.fixed:hover {
 	background-color: rgba(241, 128, 23, 0.6);
 	}
 
+.toast {
+	margin-top: -30px;
+	margin-right: -50px;
+	color: #fff;
+  background-color: #ff8a80;
+}
+
 

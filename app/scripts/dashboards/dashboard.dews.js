@@ -303,18 +303,24 @@ angular.module('ngmReportHub')
 						style: 'float:left;',
 						label: 'from',
 						format: 'd mmm, yyyy',
-						max: $scope.dashboard.endDate,
 						time: $scope.dashboard.startDate,
 						onSelection: function(){
 							
 							// set date
 							$scope.dashboard.startDate = new Date(this.time);
-							
-							// updated config
-							var update = { 'broadcast': 'dateChange', 'config' : { 'request': { 'data': { 'start_date': $scope.dashboard.startDate } } } };
 
-							// update widget
-							$scope.model.updateWidgets(update);
+							// check dates
+							if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
+								// Materialize.toast('<i class="material-icons">error_outline</i>Please check the dates and try again!', 4000);
+								Materialize.toast('Please check the dates and try again!', 4000);
+							} else {
+							
+								// updated config
+								var update = { 'broadcast': 'dateChange', 'config' : { 'request': { 'data': { 'start_date': $scope.dashboard.startDate } } } };
+
+								// update widget
+								$scope.model.updateWidgets(update);
+							}
 
 						}
 					},{
@@ -322,18 +328,24 @@ angular.module('ngmReportHub')
 						style: 'float:right',
 						label: 'to',
 						format: 'd mmm, yyyy',
-						min: $scope.dashboard.startDate,
 						time: $scope.dashboard.endDate,
 						onSelection: function(){
 							
 							// set date
 							$scope.dashboard.endDate = new Date(this.time);
 
-							// updated config
-							var update = { 'broadcast': 'dateChange', 'config' : { 'request': { 'data': { 'end_date': $scope.dashboard.endDate } } } };
+							// check dates
+							if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
+								// Materialize.toast('<i class="material-icons">error_outline</i>Please check the dates and try again!', 4000);
+								Materialize.toast('Please check the dates and try again!', 4000);
+							} else {							
 
-							// update widget								
-							$scope.model.updateWidgets(update);
+								// updated config
+								var update = { 'broadcast': 'dateChange', 'config' : { 'request': { 'data': { 'end_date': $scope.dashboard.endDate } } } };
+
+								// update widget
+								$scope.model.updateWidgets(update);
+							}
 
 						}
 					}]

@@ -127,6 +127,8 @@ angular.module('ngmReportHub')
 		// calendar heatmap legend (colors) 
 		if ($scope.dashboard.country.id === '*') {
 			$scope.dashboard.legend = [20,40,60,80,100];
+		} else if ($scope.dashboard.country.id === 'somalia') {
+			$scope.dashboard.legend = [4,8,12,16,20];
 		} else {
 			$scope.dashboard.legend = [2,4,6,8,10];
 		}
@@ -155,49 +157,99 @@ angular.module('ngmReportHub')
 						style: 'float:left;',
 						label: 'from',
 						format: 'd mmm, yyyy',
-						max: $scope.dashboard.endDate,
 						time: $scope.dashboard.startDate,
 						onSelection: function(){
-							
-							// for calendar
-							var startDateYear;
 
 							// set date
 							$scope.dashboard.startDate = new Date(this.time);
-							startDateYear = new Date(moment($scope.dashboard.startDate).subtract(1, 'years').format());
-							
-							// updated config
-							var update = { 'broadcast': 'dateChange', 'config' : { 
-								'request': { 'data': { 'start_date': $scope.dashboard.startDate } } 
-							} };
-							var updateYear = { 'broadcast': 'dateChangeYear', 'config' : { 
-								'options': { 'start': startDateYear },
-								'request': { 'data': { 'start_date': startDateYear } }
-							} };
 
-							// update widget
-							$scope.model.updateWidgets(update);
-							$scope.model.updateWidgets(updateYear);
+							// check dates
+							if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
+								// Materialize.toast('<i class="material-icons">error_outline</i>Please check the dates and try again!', 4000);
+								Materialize.toast('Please check the dates and try again!', 4000);
+							} else {
+								// updated config
+								var update = { 'broadcast': 'dateChange', 'config' : { 
+									'request': { 'data': { 'start_date': $scope.dashboard.startDate } } 
+								} };
+								var updateChart = { 
+									'broadcast': 'updateChart', 
+									'config' : {
+										'chartConfig': {
+											'series': [{ 
+												'request': { 
+													'data': { 
+														'start_date': $scope.dashboard.startDate
+													}
+												}
+											},{
+												'request': { 
+													'data': { 
+														'start_date': $scope.dashboard.startDate
+													}
+												}
+											}]
+										}
+									}
+								};
 
+								// // update widget
+								$scope.model.updateWidgets(update);
+								$scope.model.updateWidgets(updateChart);		
+							}
 						}
 					},{
 						'class': 'ngm-date',
 						style: 'float:right',
 						label: 'to',
 						format: 'd mmm, yyyy',
-						min: $scope.dashboard.startDate,
 						time: $scope.dashboard.endDate,
 						onSelection: function(){
-							
+
 							// set date
 							$scope.dashboard.endDate = new Date(this.time);
 
-							// updated config
-							var update = { 'broadcast': 'dateChange', 'config' : { 'request': { 'data': { 'end_date': $scope.dashboard.endDate } } } };
+							// check dates
+							if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
+								// Materialize.toast('<i class="material-icons">error_outline</i>Please check the dates and try again!', 4000);
+								Materialize.toast('Please check the dates and try again!', 4000);
+							} else {
+								var startDateYear = new Date(moment($scope.dashboard.startDate).subtract(11, 'M').format());
 
-							// update widget								
-							$scope.model.updateWidgets(update);
+								// // updated config
+								var update = { 'broadcast': 'dateChange', 'config' : {
+									'request': { 'data': { 'end_date': $scope.dashboard.endDate } } 
+								} };
+								var updateCalendar = { 'broadcast': 'updateCalendar', 'config' : { 
+									'options': { 'start': startDateYear },
+									'request': { 'data': { 'start_date': startDateYear } }
+								} };							
+								var updateChart = { 
+									'broadcast': 'updateChart', 
+									'config' : {
+										'chartConfig': { 
+											'series': [{
+												'request': { 
+													'data': { 
+														'end_date': $scope.dashboard.endDate 
+													}
+												}
+											},{
+												'request': { 
+													'data': { 
+														'end_date': $scope.dashboard.endDate 
+													}													
+												}
+											}]
+										}
+									}
+								};
 
+								// // update widget								
+								$scope.model.updateWidgets(update);
+								$scope.model.updateWidgets(updateChart);
+								$scope.model.updateWidgets(updateCalendar);
+							}
 						}
 					}]
 				}
@@ -211,7 +263,7 @@ angular.module('ngmReportHub')
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						broadcast: 'dateChange',
 						config: {
-							title: 'Incident Velocity',
+							title: 'Incident % Increase / Decrease',
 							display: {
 								postfix: '%',
 								fractionSize: 2
@@ -295,7 +347,7 @@ angular.module('ngmReportHub')
 						type: 'calHeatmap',
 						card: 'card-panel',
 						style: 'padding-top:5px;',
-						broadcast: 'dateChangeYear',
+						broadcast: 'updateCalendar',
 						config: {
 							style: 'margin-top: -12px;',
 							title: {
@@ -326,6 +378,7 @@ angular.module('ngmReportHub')
 						type: 'highchart',
 						style: 'height: 190px;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
+						broadcast: 'updateChart',
 						config: {
 							title: 'Top 5 Incident Locations',
 							chartConfig: {
@@ -363,32 +416,32 @@ angular.module('ngmReportHub')
 										gridLineColor: '#fff',
 										minTickInterval: 1
 								},
-								series: [{																			
-										name: 'Deaths',
-										color: '#78909c',
-										request: {
-											method: 'POST',
-											url: appConfig.host + '/wk/chart',
-											data: {
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
-												country: $scope.dashboard.country.id,
-												indicator: 'death'
-											}	
-										}
+								series: [{
+									name: 'Deaths',
+									color: '#78909c',
+									request: {
+										method: 'POST',
+										url: appConfig.host + '/wk/chart',
+										data: {
+											start_date: $scope.dashboard.startDate,
+											end_date: $scope.dashboard.endDate,
+											country: $scope.dashboard.country.id,
+											indicator: 'death'
+										}	
+									}
 								},{
-										name: 'Incidents',
-										color: '#7cb5ec',
-										request: {
-											method: 'POST',
-											url: appConfig.host + '/wk/chart',
-											data: {
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
-												country: $scope.dashboard.country.id,
-												indicator: 'incident'
-											}	
-										}
+									name: 'Incidents',
+									color: '#7cb5ec',
+									request: {
+										method: 'POST',
+										url: appConfig.host + '/wk/chart',
+										data: {
+											start_date: $scope.dashboard.startDate,
+											end_date: $scope.dashboard.endDate,
+											country: $scope.dashboard.country.id,
+											indicator: 'incident'
+										}	
+									}
 								}]
 							}
 						}

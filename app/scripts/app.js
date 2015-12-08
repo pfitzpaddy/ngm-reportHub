@@ -271,7 +271,7 @@ angular
 				// create footer
 				$scope.ngm.footer = '<div class="footer header" style="background-color: ' + $scope.ngm.style.lightPrimaryColor + ';"></div>'
 													+ '<div class="footer body" style="background-color: ' + $scope.ngm.style.defaultPrimaryColor  + ';">'
-													+ 	'<p style="color: white;font-weight:100;">Made by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>'
+													+ 	'<p style="color: white;font-weight:100;">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>'
 													+ '</div>';
 
 			},
