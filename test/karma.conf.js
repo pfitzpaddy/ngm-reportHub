@@ -46,6 +46,8 @@ module.exports = function(config) {
       'bower_components/moment/moment.js',
       'bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.js',
       'bower_components/ngm-leaflet-control-geocoder/Control.Geocoder.js',
+      'bower_components/dropzone/downloads/dropzone.min.js',
+      'bower_components/angular-dropzone/lib/angular-dropzone.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

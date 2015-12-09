@@ -17,11 +17,13 @@ angular
 		'ngRoute',
 		'ngSanitize',
 		'ngTouch',
+		'ngDropzone',
 		'countTo',
 		'highcharts-ng',
 		'leaflet-directive',
 		'ngm',
 		'ngm.widget.html',
+		'ngm.widget.dropzone',
 		'ngm.widget.iframe',
 		'ngm.widget.stats',
 		'ngm.widget.leaflet',
@@ -64,7 +66,16 @@ angular
 						return ngmAuth.isAuthenticated(); 
 					}],
 				}
-			})			
+			})
+			.when( '/who/dews/upload', {
+				templateUrl: 'views/dashboard.html',
+				controller: 'UpdateDewsCtrl',				
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) {
+						return ngmAuth.isAuthenticated(); 
+					}],
+				}
+			})						
 			.when( '/who/dews/:location/:disease', {
 				reloadOnSearch: false,
 				templateUrl: 'views/dashboard.html',

@@ -351,7 +351,7 @@ angular.module('ngmReportHub')
 					}]
 				},
 				download: {
-					'class': 'col s12 m4 l4',
+					'class': 'col s12 m4 l4 hide-on-small-only',
 					downloads: [{
 						type: 'csv',
 						color: 'blue lighten-1',

@@ -252,6 +252,38 @@ angular.module('ngmReportHub')
 							}
 						}
 					}]
+				},
+				download: {
+					'class': 'col s12 m4 l4 hide-on-small-only',
+					downloads: [{
+						type: 'csv',
+						color: 'blue lighten-1',
+						icon: 'library_books',
+						hover: 'Download ' + $scope.dashboard.country.name + ' Report as CSV',
+						filename: $scope.dashboard.country.name.toLowerCase() + '-extracted-' + moment().format(),
+						request: {
+							method: 'POST',
+							url: appConfig.host + '/wk/data',
+							data: {
+								start_date: $scope.dashboard.startDate,
+								end_date: $scope.dashboard.endDate,
+								country: $scope.dashboard.country.id
+							}
+						},
+						metrics: {
+							method: 'POST',
+							url: appConfig.host + '/metrics/set',
+							data: {
+								organization: $scope.dashboard.user.organization,
+								username: $scope.dashboard.user.username,
+								email: $scope.dashboard.user.email,
+								dashboard: 'watchkeeper',
+								theme: $scope.dashboard.country.name,
+								format: 'csv',
+								url: $location.$$path
+							}
+						}
+					}]
 				}
 			},
 			menu: $scope.dashboard.getMenu(),
