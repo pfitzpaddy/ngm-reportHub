@@ -35,21 +35,90 @@ angular.module('ngm.widget.dropzone', ['ngm.provider'])
       });
   }).controller('dropzoneCtrl', [
     '$scope',
+    '$sce',
     '$element',
+    '$location',
+    '$interval',
+    'ngmData',
     'config',
-    function($scope, $element, config){
+    function($scope, $sce, $element, $location, $interval, ngmData, config){
     
       // statistics widget default config
       $scope.dropzoneConfig = {
-        
-        //
+
+        // params
+        url: '/upload-file',
         parallelUploads: 3,
-
-        //
         maxFileSize: 30,
+        
+        // interface display/user messages
+        template: 'widgets/ngm-dropzone/template/default.html',        
+        dictDefaultMessage: '<i class="medium material-icons" style="color:#009688">cloud_upload</i><br/>Drag files here or click to upload',
+        previewTemplate: '<div id="dropzone-message" align="center"><h5 style="font-weight:300;color:#616161;">Uploading...</h5><br/><h5 style="font-weight:100;color:#616161;"><div class="dz-filename"><span data-dz-name></span></div></h5><br/><div class="progress"><div class="determinate" data-dz-uploadprogress></div></div></div>',
+        processingMessage: '<h5 style="font-weight:300;color:#616161;">Processing...</h5><br/><h5 style="font-weight:100;color:#616161;"><div class="dz-filename"><span data-dz-name></span></div></h5><br/><div class="progress"><div class="indeterminate"></div></div>',
+        completeMessage: '<i class="medium material-icons" style="color:#009688">cloud_done</i><br/><h5 style="font-weight:300;color:#616161;">Complete!</h5><br/><h5 style="font-weight:100;color:#616161;">Re-directing to dashboard...(<span id="counter"></span>)</h5></div>',
+        process: {
+          redirect: '/who',
+          interval: 4
+        },
+
+        setRedirect: function() {
+          // redirect
+          $interval(function() {
+            // set interval
+            $('#counter').html($scope.dropzoneConfig.process.interval--);
+            // redirect when 0
+            if ($scope.dropzoneConfig.process.interval === 0) {
+              $location.path($scope.dropzoneConfig.process.redirect);
+            }
+          }, 1000);          
+        },
 
         //
-        template: 'widgets/ngm-dropzone/template/default.html',
+        error: function(file, errorMessage, xhr) {
+          // set errormsg
+          $('#dropzone-message').html('<i class="medium material-icons" style="color:#009688">error_outline</i><br/><h5 style="font-weight:300;color:#616161;">' + errorMessage + '</h5></div>');
+        },
+
+        //
+        success: function(file, xhr) {
+          
+          // if no process
+          if (!$scope.dropzoneConfig.process.request) {
+              // success message
+              $('#dropzone-message').html($scope.dropzoneConfig.completeMessage);
+              // redirect
+              $scope.dropzoneConfig.setRedirect();
+
+          } else if ($scope.dropzoneConfig.process.request) {
+
+            // processing message
+            $('#dropzone-message').html($scope.dropzoneConfig.processingMessage);
+            
+            // include file name to request
+            $scope.dropzoneConfig.process.request.data.file = xhr.file[0].fd;
+            
+            // request process
+            ngmData.get($scope.dropzoneConfig.process.request).then(function(res) {
+              
+              // completed message
+              $('#dropzone-message').html($scope.dropzoneConfig.completeMessage);
+              // counter
+              $('#counter').html($scope.dropzoneConfig.process.interval);
+              // set redirect
+              $scope.dropzoneConfig.setRedirect();
+              
+            },
+            function(data) {
+              //
+              $('#dropzone-message').html('<i class="medium material-icons" style="color:#009688">error_outline</i><br/><h5 style="font-weight:300;color:#616161;">Data processing error, please check the ' + $scope.dropzoneConfig.process.request.data.type.toUpperCase() + ' and try again!</h5></div>');
+            });
+          }
+
+        },
+
+        //
+        complete: function(file, xhr) {},
 
       };
 

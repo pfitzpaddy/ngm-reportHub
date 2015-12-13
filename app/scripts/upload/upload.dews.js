@@ -8,7 +8,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('UpdateDewsCtrl', ['$scope', function ($scope) {
+	.controller('UpdateDewsCtrl', ['$scope', 'appConfig', 'ngmUser', function ($scope, appConfig, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -49,9 +49,27 @@ angular.module('ngmReportHub')
 					styleClass: 's12 m12 l12',
 					widgets: [{
 						type: 'dropzone',
-						style: 'height: 400px;',
+						style: 'height: 296px;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
-						config: {}
+						config: {
+							url: appConfig.host + '/upload-file',
+							acceptedFiles: '.xlsx',
+							headers: { 'Authorization': 'Bearer ' + ngmUser.get().token },
+							successMessage: false,
+							process: {
+								request: {
+									method: 'POST',
+									url: appConfig.host + '/process',
+									data: {
+										type: 'xlsx',
+										schema: 'dews',
+										table: 'moph_afg_dews_outbreaks_import',
+										importScript: 'dewsxlsx2pgsql.py',
+										processScript: 'moph_afg_dews_outbreaks_upload.sh'
+									}
+								}
+							}
+						}
 					}]
 				}]
 			},{

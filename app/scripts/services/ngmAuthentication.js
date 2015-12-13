@@ -162,7 +162,7 @@ angular.module('ngmReportHub')
 		return {
 			request: function(config) {
 
-				var token
+				var token;
 
 				if (ngmUser.get()) {
 					token = ngmUser.get().token;
