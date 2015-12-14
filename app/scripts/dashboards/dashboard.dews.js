@@ -39,20 +39,24 @@ angular.module('ngmReportHub')
 				// data lookup
 				data: {
 					disease: {
-						'all': { id:'*', name:'All'},
-						'avh': { id:'avh', name:'Acute Viral Hepatitis'},
-						'cchf': { id:'cchf', name:'CCHF'},
-						'chickenpox': { id:'chickenpox', name:'Chickenpox'},
-						'cholera': { id:'cholera', name:'Cholera'},
-						'conjunctivitis': { id:'conjunctivitis', name:'Conjunctivitis'},
-						'rabies': { id:'rabies', name:'Dog bites/Rabies'},
-						'food-poisoning': { id:'food-poisoning', name:'Food Poisoning'},
-						'psychogenic': { id:'psychogenic', name:'Mass Psychogenic'},
-						'measles': { id:'measles', name:'Measles'},
-						'mumps': { id:'mumps', name:'Mumps'},
-						'pertussis': { id:'pertussis', name:'Pertussis'},
-						'pneumonia': { id:'pneumonia', name:'Pneumonia'},
-						'scabies': { id:'scabies', name:'Scabies'}
+						'all': { id: '*', name:'All'},
+						'awd': { id: 1, name: 'AWD' },
+						'avh': { id: 2, name:'AVH'},
+						'anthrax': { id: 3, name:'Anthrax'},
+						'cchf': { id: 4, name:'CCHF'},
+						'chickenpox': { id: 5, name:'Chickenpox'},
+						'cholera': { id: 6, name:'Cholera'},
+						'conjunctivitis': { id: 7, name:'Conjunctivitis'},
+						'rabies': { id: 8, name:'Dog Bites/Rabies'},
+						'food-poisoning': { id: 9, name:'Food Poisoning'},
+						'leishmaniasis': { id: 10, name:'Leishmaniasis'},
+						'malaria': { id: 11, name:'Malaria'},
+						'psychogenic': { id: 12, name:'Mass Psychogenic'},
+						'measles': { id: 13, name:'Measles'},
+						'mumps': { id: 14, name:'Mumps'},
+						'pertussis': { id: 15, name:'Pertussis'},
+						'pneumonia': { id: 16, name:'Pneumonia'},
+						'scabies': { id: 17, name:'Scabies'}
 					},
 					location: {
 						'afghanistan': { id:'*', name:'Afghanistan'},
