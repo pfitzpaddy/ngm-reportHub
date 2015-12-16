@@ -25,9 +25,6 @@
     "grunt-usemin": "^3.0.0",
     "grunt-wiredep": "^2.0.0",
     "jshint-stylish": "^1.0.0",
-    "jasmine": "^2.4.1",
-    "karma": "^0.13.15",
-    "phantomjs": "^1.9.19",
     "grunt-karma": "*",
     "karma-jasmine": "*",
     "karma-phantomjs-launcher": "*",
@@ -41,6 +38,10 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "grunt-ng-constant": "^1.1.0"
+    "grunt-ng-constant": "^1.1.0",
+    "untildify": "^2.1.0",
+    "jasmine": "^2.4.1",
+    "karma": "^0.13.15",
+    "phantomjs": "^1.9.19"    
   }
 }
