@@ -97,132 +97,6 @@ angular.module('ngmReportHub')
 					}
 				},
 
-				getDownloadPdf: function() {
-					return {
-						'class': 'col s12 m4 l2 report-download',
-						downloads:[{
-							title: 'PDF',
-							type: 'pdf',
-							icon: 'download_cloud',
-							filename: $scope.dashboard.location.name + '-' + $scope.dashboard.disease.name + '-extracted-' + moment().format(),
-							hover: 'Download ' + $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name +  ' Report as PDF',
-							request: {
-								method: 'GET',
-								url: appConfig.host + '/downloads/who-afghanistan-measles-extracted-2015-11-30T15-17-37+04-30.pdf',
-							},
-							metrics: {
-								method: 'POST',
-								url: appConfig.host + '/metrics/set',
-								data: {
-									organization: $scope.dashboard.user.organization,
-									username: $scope.dashboard.user.username,
-									email: $scope.dashboard.user.email,
-									dashboard: 'dews',
-									theme: $route.current.params.disease,
-									format: 'pdf',
-									url: $location.$$path
-								}
-							}
-						}]
-					}
-				},
-
-				getDownloadCsv: function() {
-					return {
-						'class': 'col s12 m4 l2 report-download',
-						downloads:[{
-							title: 'CSV',
-							icon: 'download_cloud',
-							filename: $scope.dashboard.location.name + '-' + $scope.dashboard.disease.name + '-extracted-' + moment().format(),
-							hover: 'Download ' + $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name +  ' Report as CSV',
-							request: {
-								method: 'POST',
-								url: appConfig.host + '/dews/data',
-								data: {
-									start_date: $scope.dashboard.startDate,
-									end_date: $scope.dashboard.endDate,
-									disease: $scope.dashboard.disease.id,
-									prov_code: $scope.dashboard.location.id
-								}
-							},
-							metrics: {
-								method: 'POST',
-								url: appConfig.host + '/metrics/set',
-								data: {
-									organization: $scope.dashboard.user.organization,
-									username: $scope.dashboard.user.username,
-									email: $scope.dashboard.user.email,
-									dashboard: 'dews',
-									theme: $route.current.params.disease,
-									format: 'csv',
-									url: $location.$$path
-								}
-							}
-						}]
-					}
-				},				
-
-				getDownloadMenu: function() {
-
-					// return download object
-					return {
-						'class': 'col s12 m4 l3 report-download',
-						downloads:[{
-							icon: 'cloud',
-							filename: $scope.dashboard.location.name + '-' + $scope.dashboard.disease.name + '-extracted-' + moment().format(),
-							hover: 'Download ' + $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name +  ' Report as PDF',
-							style: 'width: 50%;',
-							title: 'PDF',
-							request: {
-								method: 'GET',
-								url: appConfig.host + '/downloads/who-afghanistan-measles-extracted-2015-11-30T15-17-37+04-30.pdf',
-							},
-							metrics: {
-								method: 'POST',
-								url: appConfig.host + '/metrics/set',
-								data: {
-									organization: $scope.dashboard.user.organization,
-									username: $scope.dashboard.user.username,
-									email: $scope.dashboard.user.email,
-									dashboard: 'dews',
-									theme: $route.current.params.disease,
-									format: 'pdf',
-									url: $location.$$path
-								}
-							}
-						},{
-							icon: 'cloud',
-							style: 'width: 50%;',
-							title: 'Download CSV',
-							filename: $scope.dashboard.location.name + '-' + $scope.dashboard.disease.name + '-extracted-' + moment().format(),
-							hover: 'Download ' + $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name +  ' Report as CSV',
-							request: {
-								method: 'POST',
-								url: appConfig.host + '/dews/data',
-								data: {
-									start_date: $scope.dashboard.startDate,
-									end_date: $scope.dashboard.endDate,
-									disease: $scope.dashboard.disease.id,
-									prov_code: $scope.dashboard.location.id
-								}
-							},
-							metrics: {
-								method: 'POST',
-								url: appConfig.host + '/metrics/set',
-								data: {
-									organization: $scope.dashboard.user.organization,
-									username: $scope.dashboard.user.username,
-									email: $scope.dashboard.user.email,
-									dashboard: 'dews',
-									theme: $route.current.params.disease,
-									format: 'csv',
-									url: $location.$$path
-								}
-							}
-						}]
-					}
-				},
-
 				getMenu: function() {
 					
 					// 
@@ -357,6 +231,21 @@ angular.module('ngmReportHub')
 				download: {
 					'class': 'col s12 m4 l4 hide-on-small-only',
 					downloads: [{
+						icon: 'data_usage',
+						color: 'red lighten-1',
+						hover: 'Restore DEWS from backup',
+						title: 'PDF',
+						request: {
+							method: 'POST',
+							url: appConfig.host + '/dews/data',
+							data: {
+								start_date: $scope.dashboard.startDate,
+								end_date: $scope.dashboard.endDate,
+								disease: $scope.dashboard.disease.id,
+								prov_code: $scope.dashboard.location.id
+							}
+						}
+					},{
 						type: 'csv',
 						color: 'blue lighten-1',
 						icon: 'library_books',
