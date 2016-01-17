@@ -82,7 +82,7 @@ angular.module('ngmReportHub')
 
 				return rows;
 			}
-		}	
+		};
 
 		// FloodRisk dashboard model
 		$scope.model = {
@@ -417,9 +417,9 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'html',
 						card: 'card-panel',
-						style: 'padding:0px; height: 120px;',
+						style: 'padding:0px; height: 90px; padding-top:10px;',
 						config: {
-							html: '<div style="background-color: #FFF; height: 140px;"></div>' + $scope.dashboard.ngm.footer
+							html: $scope.dashboard.ngm.footer
 						}
 					}]
 				}]

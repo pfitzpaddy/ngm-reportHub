@@ -14,108 +14,101 @@ angular.module('ngmReportHub')
 			'AngularJS',
 			'Karma'
 		];
-		if ($scope.$parent.ngm.dashboard.model 
-				&& $scope.$parent.ngm.dashboard.model.name === 'immap_watchkeeper_dashboard') {
-			// set dashboard local $scope from $parent
-			$scope.dashboard = $scope.$parent.ngm.dashboard.config;
-			$scope.model = $scope.$parent.ngm.dashboard.model;
-		} else {
-			// create dews object
-			$scope.dashboard = {
 
-				// parent
-				ngm: $scope.$parent.ngm,
+		// create dews object
+		$scope.dashboard = {
 
-				// current user
-				user: ngmUser.get(),
+			// parent
+			ngm: $scope.$parent.ngm,
 
-				// start date = now - 1 month
-				startDate: new Date('1 November, 2015'),
-				
-				// end date = now
-				endDate: new Date('30 November, 2015'),
+			// current user
+			user: ngmUser.get(),
 
-				// data lookup
-				data: {
-					country: {
-						africa: {'id':'*','name':'Africa'},
-						algeria: {'id':'Algeria','name':'Algeria'},
-						angola: {'id':'Angola','name':'Angola'},
-						benin: {'id':'Benin','name':'Benin'},
-						botswana: {'id':'Botswana','name':'Botswana'},
-						'burkina-faso': {'id':'Burkina Faso','name':'Burkina Faso'},
-						burundi: {'id':'Burundi','name':'Burundi'},
-						cameroon: {'id':'Cameroon','name':'Cameroon'},
-						car: {'id':'Central African Republic','name':'Central African Republic'},
-						chad: {'id':'Chad','name':'Chad'},
-						drc: {'id':'Democratic Republic of Congo','name':'Democratic Republic of Congo'},
-						djibouti: {'id':'Djibouti','name':'Djibouti'},
-						egypt: {'id':'Egypt','name':'Egypt'},
-						'equatorial-guinea': {'id':'Equatorial Guinea','name':'Equatorial Guinea'},
-						eritrea: {'id':'Eritrea','name':'Eritrea'},
-						ethiopia: {'id':'Ethiopia','name':'Ethiopia'},
-						gabon: {'id':'Gabon','name':'Gabon'},
-						gambia: {'id':'Gambia','name':'Gambia'},
-						ghana: {'id':'Ghana','name':'Ghana'},
-						guinea: {'id':'Guinea','name':'Guinea'},
-						'guinea-bissau': {'id':'Guinea-Bissau','name':'Guinea-Bissau'},
-						'ivory-coast': {'id':'Ivory Coast','name':'Ivory Coast'},
-						kenya: {'id':'Kenya','name':'Kenya'},
-						lesotho: {'id':'Lesotho','name':'Lesotho'},
-						liberia: {'id':'Liberia','name':'Liberia'},
-						libya: {'id':'Libya','name':'Libya'},
-						madagascar: {'id':'Madagascar','name':'Madagascar'},
-						malawi: {'id':'Malawi','name':'Malawi'},
-						mali: {'id':'Mali','name':'Mali'},
-						mauritania: {'id':'Mauritania','name':'Mauritania'},
-						morocco: {'id':'Morocco','name':'Morocco'},
-						mozambique: {'id':'Mozambique','name':'Mozambique'},
-						namibia: {'id':'Namibia','name':'Namibia'},
-						niger: {'id':'Niger','name':'Niger'},
-						nigeria: {'id':'Nigeria','name':'Nigeria'},
-						congo: {'id':'Republic of Congo','name':'Republic of Congo'},
-						rwanda: {'id':'Rwanda','name':'Rwanda'},
-						senegal: {'id':'Senegal','name':'Senegal'},
-						'sierra-leone': {'id':'Sierra Leone','name':'Sierra Leone'},
-						somalia: {'id':'Somalia','name':'Somalia'},
-						'south-africa': {'id':'South Africa','name':'South Africa'},
-						'south-sudan': {'id':'South Sudan','name':'South Sudan'},
-						sudan: {'id':'Sudan','name':'Sudan'},
-						swaziland: {'id':'Swaziland','name':'Swaziland'},
-						tanzania: {'id':'Tanzania','name':'Tanzania'},
-						togo: {'id':'Togo','name':'Togo'},
-						tunisia: {'id':'Tunisia','name':'Tunisia'},
-						uganda: {'id':'Uganda','name':'Uganda'},
-						zambia: {'id':'Zambia','name':'Zambia'},
-						zimbabwe: {'id':'Zimbabwe','name':'Zimbabwe'}
-					}
-				}, 
+			// used in print report
+			report: 'report' + $location.$$path.replace(/\//g, '_'),
 
-				getMenu: function(){
-					var rows = [],
-						menu = [{
-						'title': 'Location',
-						'class': 'collapsible-header waves-effect waves-teal z-depth-1',
-						'rows': []
-					}];
+			// start date = now - 1 month
+			startDate: moment($route.current.params.start).format('YYYY-MM-DD'),
+			
+			// end date = now
+			endDate: moment($route.current.params.end).format('YYYY-MM-DD'),
 
-					//
-					angular.forEach($scope.dashboard.data.country, function(d, key){
-						//
-						rows.push({
-							'title': d.name,
-							'class': 'waves-effect waves-teal',
-							'param': 'country',
-							'active': key,
-							'href': '#/immap/watchkeeper/' + key
-						});
-					});
-
-					// assign
-					menu[0].rows = rows;			
-
-					return menu;
+			// data lookup
+			data: {
+				country: {
+					africa: {'id':'*','name':'Africa'},
+					algeria: {'id':'Algeria','name':'Algeria'},
+					angola: {'id':'Angola','name':'Angola'},
+					benin: {'id':'Benin','name':'Benin'},
+					botswana: {'id':'Botswana','name':'Botswana'},
+					'burkina-faso': {'id':'Burkina Faso','name':'Burkina Faso'},
+					burundi: {'id':'Burundi','name':'Burundi'},
+					cameroon: {'id':'Cameroon','name':'Cameroon'},
+					car: {'id':'Central African Republic','name':'Central African Republic'},
+					chad: {'id':'Chad','name':'Chad'},
+					drc: {'id':'Democratic Republic of Congo','name':'Democratic Republic of Congo'},
+					djibouti: {'id':'Djibouti','name':'Djibouti'},
+					egypt: {'id':'Egypt','name':'Egypt'},
+					'equatorial-guinea': {'id':'Equatorial Guinea','name':'Equatorial Guinea'},
+					eritrea: {'id':'Eritrea','name':'Eritrea'},
+					ethiopia: {'id':'Ethiopia','name':'Ethiopia'},
+					gabon: {'id':'Gabon','name':'Gabon'},
+					gambia: {'id':'Gambia','name':'Gambia'},
+					ghana: {'id':'Ghana','name':'Ghana'},
+					guinea: {'id':'Guinea','name':'Guinea'},
+					'guinea-bissau': {'id':'Guinea-Bissau','name':'Guinea-Bissau'},
+					'ivory-coast': {'id':'Ivory Coast','name':'Ivory Coast'},
+					kenya: {'id':'Kenya','name':'Kenya'},
+					lesotho: {'id':'Lesotho','name':'Lesotho'},
+					liberia: {'id':'Liberia','name':'Liberia'},
+					libya: {'id':'Libya','name':'Libya'},
+					madagascar: {'id':'Madagascar','name':'Madagascar'},
+					malawi: {'id':'Malawi','name':'Malawi'},
+					mali: {'id':'Mali','name':'Mali'},
+					mauritania: {'id':'Mauritania','name':'Mauritania'},
+					morocco: {'id':'Morocco','name':'Morocco'},
+					mozambique: {'id':'Mozambique','name':'Mozambique'},
+					namibia: {'id':'Namibia','name':'Namibia'},
+					niger: {'id':'Niger','name':'Niger'},
+					nigeria: {'id':'Nigeria','name':'Nigeria'},
+					congo: {'id':'Republic of Congo','name':'Republic of Congo'},
+					rwanda: {'id':'Rwanda','name':'Rwanda'},
+					senegal: {'id':'Senegal','name':'Senegal'},
+					'sierra-leone': {'id':'Sierra Leone','name':'Sierra Leone'},
+					somalia: {'id':'Somalia','name':'Somalia'},
+					'south-africa': {'id':'South Africa','name':'South Africa'},
+					'south-sudan': {'id':'South Sudan','name':'South Sudan'},
+					sudan: {'id':'Sudan','name':'Sudan'},
+					swaziland: {'id':'Swaziland','name':'Swaziland'},
+					tanzania: {'id':'Tanzania','name':'Tanzania'},
+					togo: {'id':'Togo','name':'Togo'},
+					tunisia: {'id':'Tunisia','name':'Tunisia'},
+					uganda: {'id':'Uganda','name':'Uganda'},
+					zambia: {'id':'Zambia','name':'Zambia'},
+					zimbabwe: {'id':'Zimbabwe','name':'Zimbabwe'}
 				}
+			}, 
+
+			getMenu: function(){
+				var menu = [{
+					'title': 'Location',
+					'class': 'collapsible-header waves-effect waves-teal z-depth-1',
+					'rows': []
+				}];
+
+				//
+				angular.forEach($scope.dashboard.data.country, function(d, key){
+					//
+					menu[0].rows.push({
+						'title': d.name,
+						'class': 'waves-effect waves-teal',
+						'param': 'country',
+						'active': key,
+						'href': '#/immap/watchkeeper/' + key + '/' + $route.current.params.start + '/' + $route.current.params.end
+					});
+				});		
+
+				return menu;
 			}
 		}
 
@@ -161,42 +154,16 @@ angular.module('ngmReportHub')
 						onSelection: function(){
 
 							// set date
-							$scope.dashboard.startDate = new Date(this.time);
+							$scope.dashboard.startDate = moment(this.time).format('YYYY-MM-DD');
 
 							// check dates
 							if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
-								// Materialize.toast('<i class="material-icons">error_outline</i>Please check the dates and try again!', 4000);
 								Materialize.toast('Please check the dates and try again!', 4000);
 							} else {
-								// updated config
-								var update = { 'broadcast': 'dateChange', 'config' : { 
-									'request': { 'data': { 'start_date': $scope.dashboard.startDate } } 
-								} };
-								var updateChart = { 
-									'broadcast': 'updateChart', 
-									'config' : {
-										'chartConfig': {
-											'series': [{ 
-												'request': { 
-													'data': { 
-														'start_date': $scope.dashboard.startDate
-													}
-												}
-											},{
-												'request': { 
-													'data': { 
-														'start_date': $scope.dashboard.startDate
-													}
-												}
-											}]
-										}
-									}
-								};
-
-								// // update widget
-								$scope.model.updateWidgets(update);
-								$scope.model.updateWidgets(updateChart);		
+								// update path
+								$location.path('/immap/watchkeeper/' + $route.current.params.country + '/' + $scope.dashboard.startDate + '/' + $scope.dashboard.endDate);
 							}
+
 						}
 					},{
 						'class': 'ngm-date',
@@ -207,49 +174,16 @@ angular.module('ngmReportHub')
 						onSelection: function(){
 
 							// set date
-							$scope.dashboard.endDate = new Date(this.time);
+							$scope.dashboard.endDate = moment(this.time).format('YYYY-MM-DD');
 
 							// check dates
 							if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
-								// Materialize.toast('<i class="material-icons">error_outline</i>Please check the dates and try again!', 4000);
 								Materialize.toast('Please check the dates and try again!', 4000);
 							} else {
-								var startDateYear = new Date(moment($scope.dashboard.startDate).subtract(11, 'M').format());
-
-								// // updated config
-								var update = { 'broadcast': 'dateChange', 'config' : {
-									'request': { 'data': { 'end_date': $scope.dashboard.endDate } } 
-								} };
-								var updateCalendar = { 'broadcast': 'updateCalendar', 'config' : { 
-									'options': { 'start': startDateYear },
-									'request': { 'data': { 'start_date': startDateYear } }
-								} };							
-								var updateChart = { 
-									'broadcast': 'updateChart', 
-									'config' : {
-										'chartConfig': { 
-											'series': [{
-												'request': { 
-													'data': { 
-														'end_date': $scope.dashboard.endDate 
-													}
-												}
-											},{
-												'request': { 
-													'data': { 
-														'end_date': $scope.dashboard.endDate 
-													}													
-												}
-											}]
-										}
-									}
-								};
-
-								// // update widget								
-								$scope.model.updateWidgets(update);
-								$scope.model.updateWidgets(updateChart);
-								$scope.model.updateWidgets(updateCalendar);
+								// update path
+								$location.path('/immap/watchkeeper/' + $route.current.params.country + '/' + $scope.dashboard.startDate + '/' + $scope.dashboard.endDate);
 							}
+
 						}
 					}]
 				},
@@ -260,11 +194,11 @@ angular.module('ngmReportHub')
 						color: 'blue lighten-1',
 						icon: 'library_books',
 						hover: 'Download ' + $scope.dashboard.country.name + ' Report as CSV',
-						filename: $scope.dashboard.country.name.toLowerCase() + '-extracted-' + moment().format(),
 						request: {
 							method: 'POST',
 							url: appConfig.host + '/wk/data',
 							data: {
+								report: $scope.dashboard.report,
 								start_date: $scope.dashboard.startDate,
 								end_date: $scope.dashboard.endDate,
 								country: $scope.dashboard.country.id
@@ -283,6 +217,35 @@ angular.module('ngmReportHub')
 								url: $location.$$path
 							}
 						}
+					},{
+						type: 'pdf',
+						color: 'blue lighten-1',
+						icon: 'picture_as_pdf',
+						hover: 'Download ' + $scope.dashboard.country.name + ' Report as PDF',
+						request: {
+							method: 'POST',
+							url: appConfig.host + '/print',
+							data: {
+								report: $scope.dashboard.report,
+								printUrl: $location.absUrl(),
+								downloadUrl: 'http://' + $location.host() + '/report/',
+								token: $scope.dashboard.user.token,
+								pageLoadTime: 7600
+							}
+						},						
+						metrics: {
+							method: 'POST',
+							url: appConfig.host + '/metrics/set',
+							data: {
+								organization: $scope.dashboard.user.organization,
+								username: $scope.dashboard.user.username,
+								email: $scope.dashboard.user.email,
+								dashboard: 'dews',
+								theme: $scope.dashboard.country.name,
+								format: 'pdf',
+								url: $location.$$path
+							}
+						}
 					}]
 				}
 			},
@@ -295,7 +258,7 @@ angular.module('ngmReportHub')
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						broadcast: 'dateChange',
 						config: {
-							title: 'Incident % Increase / Decrease',
+							title: 'Incident Difference',
 							display: {
 								postfix: '%',
 								fractionSize: 2
@@ -502,7 +465,7 @@ angular.module('ngmReportHub')
 			            osm: {
 			                name: 'Mapbox',
 			                type: 'xyz',
-			                url: 'https://b.tiles.mapbox.com/v4/aj.um7z9lus/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IlhHVkZmaW8ifQ.hAMX5hSW-QnTeRCMAy9A8Q',
+			                url: 'https://b.tiles.mapbox.com/v3/aj.um7z9lus/{z}/{x}/{y}.png?',
 			                layerOptions: {
 			                  continuousWorld: true
 			                }
@@ -539,9 +502,9 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'html',
 						card: 'card-panel',
-						style: 'padding:0px; height: 220px;',
+						style: 'padding:0px; height: 90px; padding-top:10px;',
 						config: {
-							html: '<div style="background-color: #FFF; height: 140px;"></div>' + $scope.dashboard.ngm.footer
+							html: $scope.dashboard.ngm.footer
 						}
 					}]
 				}]
@@ -549,7 +512,6 @@ angular.module('ngmReportHub')
 		};
 
 		// assign to ngm app scope
-		$scope.$parent.ngm.dashboard.config = $scope.dashboard;
 		$scope.$parent.ngm.dashboard.model = $scope.model;
 		
 	}]);

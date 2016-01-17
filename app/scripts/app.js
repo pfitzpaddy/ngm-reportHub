@@ -45,7 +45,7 @@ angular
 				controller: 'DashboardLoginCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
-							return ngmAuth.isAnonymous();
+						return ngmAuth.isAnonymous();
 					}],
 				}
 			})			
@@ -75,14 +75,14 @@ angular
 						return ngmAuth.isAuthenticated(); 
 					}],
 				}
-			})						
-			.when( '/who/dews/:location/:disease', {
+			})
+			.when( '/who/dews/:location/:disease/:start/:end', {
 				reloadOnSearch: false,
 				templateUrl: 'views/dashboard.html',
-				controller: 'DashboardDewsCtrl',				
+				controller: 'DashboardDewsCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.isAuthenticated(); 
+						return ngmAuth.isAuthenticated();
 					}],
 				}
 			})
@@ -92,7 +92,7 @@ angular
 				controller: 'DashboardForbiddenCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
-							return !ngmAuth.isAuthenticated();
+						return !ngmAuth.isAuthenticated();
 					}],
 				}
 			})		
@@ -115,17 +115,7 @@ angular
 					}],
 				}
 			})
-			.when( '/immap/watchkeeper/:country', {
-				reloadOnSearch: false,
-				templateUrl: 'views/dashboard.html',
-				controller: 'DashboardWatchkeeperCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAuthenticated(); 
-					}],
-				}
-			})
-			.when( '/immap/watchkeeper/:country/:county', {
+			.when( '/immap/watchkeeper/:country/:start/:end', {
 				reloadOnSearch: false,
 				templateUrl: 'views/dashboard.html',
 				controller: 'DashboardWatchkeeperCtrl',
@@ -136,10 +126,10 @@ angular
 				}
 			})				
 			.when( '/immap', {
-				redirectTo: '/immap/watchkeeper/kenya'
+				redirectTo: '/immap/watchkeeper/kenya/2015-11-01/2015-11-30'
 			})
 			.when( '/immap/watchkeeper', {
-				redirectTo: '/immap/watchkeeper/kenya'
+				redirectTo: '/immap/watchkeeper/kenya/2015-11-01/2015-11-30'
 			})			
 			.when( '/immap/drr', {
 				redirectTo: '/immap/drr/flood/afghanistan'
@@ -159,7 +149,7 @@ angular
 			})	
 			// default
 			.otherwise({
-				redirectTo: '/who/dews/afghanistan/all'
+				redirectTo: 'who/dews/afghanistan/all/2015-01-01/' + moment(new Date()).format('YYYY-DD-MM')
 			});
 	}])
 	.run(['$rootScope', '$location', '$interval', 'ngmAuth', function($rootScope, $location, $interval, ngmAuth) {
@@ -210,11 +200,7 @@ angular
 
 			// active dashboard placeholder
 			dashboard: {
-				set: false,
-				config: false,
-				model: {
-					name: 'default'
-				}
+				model: {}
 			},
 
 			// page height
@@ -230,6 +216,7 @@ angular
 				query: ''
 			},
 
+			// app style
 			style: {
 				logo: 'logo-who.png',
 				home: '#/who',
@@ -281,9 +268,11 @@ angular
 
 				// create footer
 				$scope.ngm.footer = '<div class="footer header" style="background-color: ' + $scope.ngm.style.lightPrimaryColor + ';"></div>'
-													+ '<div class="footer body" style="background-color: ' + $scope.ngm.style.defaultPrimaryColor  + ';">'
-													+ 	'<p style="color: white;font-weight:100;">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>'
-													+ '</div>';
+									+ '<div class="footer body" style="background-color: ' + $scope.ngm.style.defaultPrimaryColor  + ';">'
+									+ 	'<p style="color: white;font-weight:100; float:left">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>'
+									// + 	'<p id="ngm-report-extracted" style="display: none; color:white; font-weight:100; float:right; padding-right:20px;">' +moment(new Date()).format('d MMM, YYYY') + ' @ ' + moment(new Date()).format('HH:MM') + '</p>'
+									+ 	'<p id="ngm-report-extracted" style="display: none; color:white; font-weight:100; float:right; padding-right:20px;">' +moment(new Date()).format('DD MMM, YYYY') + '</p>'
+									+ '</div>';
 
 			},
 

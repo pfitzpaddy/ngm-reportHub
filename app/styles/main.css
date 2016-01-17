@@ -20,6 +20,10 @@ header, main, footer {
   }
 }
 
+.lean-overlay {
+	background-color: #fff;
+}
+
 nav.top-nav {
   height: 122px;
   box-shadow: none; 
@@ -240,7 +244,7 @@ ul.side-nav.fixed:hover {
 
 .container {
 	width: 90%;
-	background-image: url("../images/worldmap.svg");
+	/*background-image: url("../images/worldmap.svg");*/
 	background-repeat: no-repeat;
 	background-position: center;	
 }
@@ -253,7 +257,7 @@ ul.side-nav.fixed:hover {
   line-height: 1.4;
   width: 140px;
   position: absolute;
-  z-index: 99999;
+  z-index: 9999;
   text-align: center;
   border-radius: 2px;
   box-shadow: 1px 2px 2px 2px rgba(0,0,0,0.2);	
@@ -308,6 +312,10 @@ ul.side-nav.fixed:hover {
 .footer.body {
 	height:60px; 
 	padding:10px 0px 0px 20px;
+}
+.footer-menu.header {
+	height:20px;
+	margin-top:10px;
 }
 .footer-menu.body {
 	height:40px; 

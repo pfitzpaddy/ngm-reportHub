@@ -22,7 +22,8 @@ angular.module('ngmReportHub')
 			},
 
 			set: function(val) {
-				return localStorage.setItem('auth_token', val);
+				// JSON stringify result
+				return localStorage.setItem('auth_token', JSON.stringify(val));
 			},
 
 			unset: function() {
@@ -56,12 +57,12 @@ angular.module('ngmReportHub')
 				// set the $http object
 				var login = $http({
 					method: 'GET',
-					url: appConfig.host + '/login?name=' + user.name + '&password=' + user.password
+					url: appConfig.host + '/login?username=' + user.username + '&password=' + user.password
 				});
 
 				// on success store in localStorage
 				login.success(function(result) {
-					ngmUser.set(JSON.stringify(result));
+					ngmUser.set(result);
 				});
 
 				// unset user after 6 hours
@@ -81,7 +82,7 @@ angular.module('ngmReportHub')
 				});
 
 				register.success(function(result) {
-					ngmUser.set(JSON.stringify(result));
+					ngmUser.set(result);
 				});
 
 				return register;

@@ -9,18 +9,17 @@
 		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 		<!-- build:css(.) styles/vendor.css -->
 		<!-- bower:css -->
-		<link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
-		<link rel="stylesheet" href="bower_components/cal-heatmap/cal-heatmap.css" />
-		<link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.css" />
-		<link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css" />
-		<link rel="stylesheet" href="bower_components/materialize/bin/materialize.css" />
-		<link rel="stylesheet" href="bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.css" />
-		<link rel="stylesheet" href="bower_components/ngm-leaflet-control-geocoder/Control.Geocoder.css" />
-		<link rel="stylesheet" href="bower_components/dropzone/dist/min/dropzone.min.css" />
+		<link rel='stylesheet' href='bower_components/leaflet/dist/leaflet.css' />
+		<link rel='stylesheet' href='bower_components/cal-heatmap/cal-heatmap.css' />
+		<link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.css' />
+		<link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css' />
+		<link rel='stylesheet' href='bower_components/materialize/bin/materialize.css' />
+		<link rel='stylesheet' href='bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.css' />
+		<link rel='stylesheet' href='bower_components/ngm-leaflet-control-geocoder/Control.Geocoder.css' />
+		<link rel='stylesheet' href='bower_components/dropzone/dist/min/dropzone.min.css' />
 		<!-- endbower -->
 		<!-- endbuild -->
 		<!-- build:css(.tmp) styles/main.css -->
-		<link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.2/leaflet.fullscreen.css' rel='stylesheet' />
 		<link rel="icon" href="images/favicon.ico" sizes="32x32">
     	<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
     	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -28,6 +27,16 @@
 		<!-- endbuild -->
 	</head>
 	<body ng-app="ngmReportHub" ng-controller="ngmReportHubCrtl" style="height:100%">
+
+		<!-- <div class="ngm-screen-mask"></div> -->
+		<div id="ngm-loading-modal" class="modal" style="margin-top: 70px;">
+			<div class="modal-content">
+				<div align="center" ng-include src="'views/loading.html'"></div>
+				<h5 align="center" style="font-weight:300;color:#616161;">Loading...</h5>
+			</div>
+<!-- 			<div class="modal-footer">
+			</div> -->
+		</div>
 		
 		<!--[if lte IE 8]>
 			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -36,10 +45,27 @@
 		<header>
 
 			<div class="container">
+
+	            <!-- print avatar -->
+	            <ul id="ngm-print-avatar" 
+	            	class="collection" 
+	            	style="display:none; position: absolute; top:40px; left:40px;">
+				    <li class="collection-item avatar">
+				      <i class="material-icons circle red">play_arrow</i>
+				      <span class="title">Title</span>
+				      <p>First Line <br>
+				         Second Line
+				      </p>
+				      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+				    </li>
+	            </ul>
+	            
+	            <!-- mobile menu -->
 				<a class="button-collapse top-nav waves-effect waves-teal circle hide-on-large-only"
 						data-activates="nav-mobile" title="Menu">
 					<i class="mdi-navigation-menu"></i>
 				</a>
+
 			</div>
 
 			<!-- <a class='dropdown-button btn' href='#' data-activates='nav-mobile'>Drop Me!</a> -->
@@ -93,7 +119,7 @@
 				</li>
 
 				<!-- include footer when no menu  -->
-				<div class="footer menu z-depth-0" style="text-align:right;">
+				<div id="ngm-menu-footer-1" class="footer menu z-depth-0" style="text-align:right;">
 					<div class="footer header" style="background: {{ ngm.style.lightPrimaryColor }}; margin-top:10px;"></div>
 					<div class="footer-menu body" style="background: {{ ngm.style.defaultPrimaryColor }};"></div>
 				</div>	         	
@@ -119,8 +145,8 @@
 				</li>
 
 				<!-- make footer visible when menu visibile -->
-				<div class="footer menu z-depth-0" style="text-align:right;">
-					<div class="footer header" style="background: {{ ngm.style.lightPrimaryColor }}; margin-top:10px;"></div>
+				<div id="ngm-menu-footer-2" class="footer menu z-depth-0" style="text-align:right;">
+					<div class="footer-menu header" style="background: {{ ngm.style.lightPrimaryColor }};"></div>
 					<div class="footer-menu body" style="background: {{ ngm.style.defaultPrimaryColor }};"></div>
 				</div>
 
@@ -128,9 +154,9 @@
 
 		</header>
 
-		<main>
+		<main id="ngm-report">
 			<div class="container">
-				<div class="row row-centered"  style="height:100%">
+				<div id="print" class="row row-centered"  style="height:100%">
 					<div ng-view=""></div>
 				</div>
 			</div>
@@ -164,6 +190,9 @@
 		<script src="bower_components/angular-touch/angular-touch.js"></script>
 		<script src="bower_components/d3/d3.js"></script>
 		<script src="bower_components/cal-heatmap/cal-heatmap.js"></script>
+		<script src="bower_components/highcharts/highcharts.js"></script>
+		<script src="bower_components/highcharts/highcharts-more.js"></script>
+		<script src="bower_components/highcharts/modules/exporting.js"></script>
 		<script src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
 		<script src="bower_components/html2canvas/build/html2canvas.js"></script>
 		<script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
@@ -175,6 +204,10 @@
 		<script src="bower_components/ngm-angular-dropzone/lib/angular-dropzone.js"></script>
 		<!-- endbower -->
 		<!-- endbuild -->
+
+		<!-- leaflet fullscreen -->
+		<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+		<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />		
 
 		<!-- build:js({.tmp,app}) scripts/scripts.js -->
 
@@ -203,10 +236,6 @@
 		<script src="widgets/ngm-leaflet/leaflet.js"></script>
 		<script src="widgets/ngm-highchart/highchart.js"></script>
 		<script src="widgets/ngm-calHeatmap/calHeatmap.js"></script>
-
-		<!-- leaflet-fullscreen -->
-		<script src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.2/Leaflet.fullscreen.min.js"></script>		
-		<!-- endbuild -->
 
 	</body>
 </html>
