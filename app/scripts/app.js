@@ -152,16 +152,7 @@ angular
 				redirectTo: 'who/dews/afghanistan/all/2015-01-01/' + moment(new Date()).format('YYYY-DD-MM')
 			});
 	}])
-	.run(['$rootScope', '$location', '$interval', 'ngmAuth', function($rootScope, $location, $interval, ngmAuth) {
-
-		// 1 hour
-		var hour = 1000*60*60;
-
-		// unset local storage
-		$interval( function(){
-			// logout user after 6 hours
-			ngmAuth.logout();
-		}, hour * 6);
+	.run(['$rootScope', '$location', 'ngmAuth', function($rootScope, $location, ngmAuth) {
 
 		// when error on route update redirect
 		$rootScope.$on('$routeChangeError' , function(event, current, previous, rejection) {

@@ -43,9 +43,10 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
   }).controller('calHeatmapCtrl', [
     '$scope', 
     '$element',
+    '$timeout',
     'data', 
     'config',
-    function($scope, $element, data, config){
+    function($scope, $element, $timeout, data, config){
 
       // statistics widget default config
       $scope.calHeatmap = {
@@ -82,7 +83,7 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
             // Set 'year' labels for calendar heatmap
             if($scope.calHeatmap.display.yearLabel) {
               $scope.calHeatmap.display.setYearLabel();
-            }  
+            }
           }
         },
         display: {
@@ -98,7 +99,7 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
             var offset = $scope.calHeatmap.options.cellSize + $scope.calHeatmap.options.cellPadding;
 
             // enables rendering
-            setTimeout(function(){
+            $timeout(function(){
 
               // Update container width
               d3.select('.cal-heatmap-container')
@@ -154,7 +155,7 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
             var offset = $scope.calHeatmap.options.cellSize + $scope.calHeatmap.options.cellPadding;
 
             // enable rendering
-            setTimeout(function(){
+            $timeout(function(){
 
               // Select all the calendar elements
               d3.select('.graph').selectAll('.graph-domain').each(function(d,i) { 

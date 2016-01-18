@@ -92,13 +92,6 @@ module.exports = function (grunt) {
                 '/app/styles',
                 connect.static('./app/styles')
               ),
-              connect().use(
-                function (req, res, next) {
-                  // res.setHeader('Access-Control-Allow-Origin', '*');
-                  // res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Orgin,XMLHttpRequest,Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With');
-                  // next();
-                }
-              ),
               connect.static(appConfig.app)
             ];
           }

@@ -22,7 +22,7 @@ angular.module('ngmReportHub')
 			},
 
 			set: function(val) {
-				// JSON stringify result
+				// JSON stringify result				
 				return localStorage.setItem('auth_token', JSON.stringify(val));
 			},
 
@@ -64,9 +64,6 @@ angular.module('ngmReportHub')
 				login.success(function(result) {
 					ngmUser.set(result);
 				});
-
-				// unset user after 6 hours
-				
 
 				return login;
 			},

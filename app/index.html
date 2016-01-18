@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<title>ReportHub</title>
 		<base href="/">
-		<meta name="description" content="">
+		<meta name="description" content="Dashboard reporting on key business indicators">
 		<meta name="viewport" content="width=device-width">
 		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 		<!-- build:css(.) styles/vendor.css -->
@@ -32,7 +32,6 @@
 		<div id="ngm-loading-modal" class="modal" style="margin-top: 70px;">
 			<div class="modal-content">
 				<div align="center" ng-include src="'views/loading.html'"></div>
-				<h5 align="center" style="font-weight:300;color:#616161;">Loading...</h5>
 			</div>
 <!-- 			<div class="modal-footer">
 			</div> -->
@@ -82,22 +81,21 @@
 					</div>
 					<div>
 						<div class="nav-user">
-							<!-- <a class="btn-flat waves-effect waves-white dropdown-button"  -->
 							<a class="dropdown-button btn-flat"
 									style="text-align:right;text-transform:lowercase;"
+									data-beloworigin="true"
 									data-activates="user-profile-dropdown">
 								<i class="material-icons right">account_circle</i>{{ ngm.getUserName() }}
 							</a>
 							<!-- user options over menu -->
 							<ul id="user-profile-dropdown" 
 								class="dropdown-content" 
-								style="margin-top:64px;"
 								ng-show="ngm.getUserName() !== 'welcome' ">
 							  <li class="teal">
 								<a class="white-text" ng-click="ngm.logout()">
 								<i class="material-icons left">lock_open</i>Logout</a>
-							  </li>							  
-							</ul>							
+							  </li>
+							</ul>
 						</div>
 					</div>
 				</div>			
