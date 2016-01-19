@@ -52,7 +52,7 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
       $scope.calHeatmap = {
         options: {
           itemName: 'case',
-          start: new Date(moment().subtract(1, 'years').format()),
+          start: new Date(moment().subtract(1, 'years')),
           maxDate: new Date(),
           range: 12,
           domain: 'month',
@@ -205,7 +205,7 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
 
       // Assign data to calHeatmap
       var cal = new CalHeatMap();
-      cal.init($scope.calHeatmap.options);    
+      cal.init($scope.calHeatmap.options);
 
     }
 ]);

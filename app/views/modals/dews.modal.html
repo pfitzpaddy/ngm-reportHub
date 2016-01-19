@@ -1,6 +1,6 @@
 <div id="{{ modal.id }}" style="{{ modal.style }}" class="modal modal-fixed-footer">
 	<div class="modal-content">
-		<h5 class="report-title" style="color: #2196F3">DEWS Daily Summary, {{ modal.date }}</h5>
+		<h5 class="report-title" style="color: #2196F3">DEWS Daily Summary of Incidents - {{ modal.date }}</h5>
 		<div align="center" ng-if="modal.loading" ng-include src="'views/loading.html'"></div>
 		<div ng-if="!modal.loading">
 	    	<table class="highlight" ng-table="modal.tableParams">
