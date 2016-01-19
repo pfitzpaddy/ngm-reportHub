@@ -137,7 +137,7 @@ angular.module('ngmReportHub')
 		$scope.dashboard.location = $scope.dashboard.data.location[$route.current.params.location];
 		$scope.dashboard.disease = $scope.dashboard.data.disease[$route.current.params.disease];
 		$scope.dashboard.title = 'WHO | ' + $scope.dashboard.location.name + ' | ' + $scope.dashboard.disease.name;
-		$scope.dashboard.subtitle = $scope.dashboard.disease.name + ' Disease Early Warning System Key Indicators ' + $scope.dashboard.location.name;	
+		$scope.dashboard.subtitle = $scope.dashboard.disease.name + ' Disease Early Warning System Key Indicators ' + $scope.dashboard.location.name;
 
 		// dews dashboard model
 		$scope.model = {

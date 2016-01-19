@@ -40,7 +40,10 @@ angular
 		$routeProvider
 			.when( '/login', {
 				redirectTo: '/who/login'
-			})		
+			})
+			.when( '/who', {
+				redirectTo: 'who/dews/afghanistan/all/2015-01-01/2016-01-01'
+			})			
 			.when( '/who/login', {
 				templateUrl: 'views/dashboard.html',
 				controller: 'DashboardLoginCtrl',
@@ -150,7 +153,7 @@ angular
 			})	
 			// default
 			.otherwise({
-				redirectTo: 'who/dews/afghanistan/all/2015-01-01/' + moment(new Date()).format('YYYY-DD-MM')
+				redirectTo: 'who/dews/afghanistan/all/2015-01-01/2016-01-01'
 			});
 	}])
 	.run(['$rootScope', '$location', 'ngmAuth', function($rootScope, $location, ngmAuth) {
