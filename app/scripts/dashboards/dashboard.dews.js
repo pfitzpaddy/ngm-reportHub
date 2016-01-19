@@ -8,7 +8,8 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardDewsCtrl', ['$scope', '$http', '$location', '$route', '$window', '$timeout', 'appConfig', 'ngmUser', function ($scope, $http, $location, $route, $window, $timeout, appConfig, ngmUser) {
+	.controller('DashboardDewsCtrl', ['$scope', '$http', '$location', '$route', '$window', '$timeout', 'appConfig', 'ngmUser', 'ngmModal', 
+		function ($scope, $http, $location, $route, $window, $timeout, appConfig, ngmUser, ngmModal) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -341,6 +342,32 @@ angular.module('ngmReportHub')
 						card: 'card-panel',
 						style: 'padding-top:5px;',
 						config: {
+							options: {
+								// on click popup
+								onClick: function(date, nb) {
+									if(nb){
+										ngmModal.open({
+											type: 'table',
+											style: 'top-padding:70px; width:70%;',
+											template: "'views/modals/dews.modal.html'",
+											date: moment(date).format('DD MMMM, YYYY'),
+											loading: true,
+											materialize: {
+												dismissible: false
+											},
+											request: {
+												method: 'POST',
+												url: appConfig.host + '/dews/summary',
+												data: {
+													date: moment(date).format('YYYY-MM-DD'),
+													disease: $scope.dashboard.disease.id,
+													prov_code: $scope.dashboard.location.id
+												}
+											}
+										});
+									}
+								}
+							},
 							request: {
 								method: 'POST',
 								url: appConfig.host + '/dews/calendar',

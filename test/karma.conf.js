@@ -48,6 +48,7 @@ module.exports = function(config) {
       'bower_components/ngm-leaflet-control-geocoder/Control.Geocoder.js',
       'bower_components/dropzone/dist/min/dropzone.min.js',
       'bower_components/ngm-angular-dropzone/lib/angular-dropzone.js',
+      'bower_components/ng-table/dist/ng-table.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

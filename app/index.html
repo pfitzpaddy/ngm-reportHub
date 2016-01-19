@@ -17,6 +17,7 @@
 		<link rel='stylesheet' href='bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.css' />
 		<link rel='stylesheet' href='bower_components/ngm-leaflet-control-geocoder/Control.Geocoder.css' />
 		<link rel='stylesheet' href='bower_components/dropzone/dist/min/dropzone.min.css' />
+		<link rel='stylesheet' href='bower_components/ng-table/dist/ng-table.min.css' />
 		<!-- endbower -->
 		<!-- endbuild -->
 		<!-- build:css(.tmp) styles/main.css -->
@@ -27,8 +28,7 @@
 		<!-- endbuild -->
 	</head>
 	<body ng-app="ngmReportHub" ng-controller="ngmReportHubCrtl" style="height:100%">
-
-		<!-- <div class="ngm-screen-mask"></div> -->
+		
 		<div id="ngm-loading-modal" class="modal" style="margin-top: 70px;">
 			<div class="modal-content">
 				<div align="center" ng-include src="'views/loading.html'"></div>
@@ -200,6 +200,7 @@
 		<script src="bower_components/ngm-leaflet-control-geocoder/Control.Geocoder.js"></script>
 		<script src="bower_components/dropzone/dist/min/dropzone.min.js"></script>
 		<script src="bower_components/ngm-angular-dropzone/lib/angular-dropzone.js"></script>
+		<script src="bower_components/ng-table/dist/ng-table.min.js"></script>
 		<!-- endbower -->
 		<!-- endbuild -->
 
@@ -214,6 +215,7 @@
 		<script src="scripts/config.js"></script>
 		<!-- services -->			
 		<script src="scripts/services/ngmAuthentication.js"></script>
+		<script src="scripts/services/ngmModal.js"></script>
 		<!-- controllers -->
 		<script src="scripts/controllers/controller.login.js"></script>
 		<script src="scripts/controllers/controller.forbidden.js"></script>
