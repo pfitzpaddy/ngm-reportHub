@@ -66,6 +66,7 @@ angular.module('ngmReportHub')
     			// set ng-table params
     			table: function(data){
     				// modal data
+    				console.log(data);
     				$scope.modal.data = data;
     				// set $scope
 						$scope.modal.tableParams = new NgTableParams({
@@ -96,7 +97,7 @@ angular.module('ngmReportHub')
     		// open modal after render
     		$timeout(function(){
     			$scope.modal.open();
-    		}, 400);
+    		}, 200);
 
     		// send request to fetch data
     		if($scope.modal.request){
