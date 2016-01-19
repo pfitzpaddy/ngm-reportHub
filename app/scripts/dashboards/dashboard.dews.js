@@ -348,7 +348,7 @@ angular.module('ngmReportHub')
 									if(nb){
 										ngmModal.open({
 											type: 'table',
-											style: 'top-padding:70px; width:70%;',
+											style: 'width:70%;',
 											template: "'views/modals/dews.modal.html'",
 											date: moment(date).format('DD MMMM, YYYY'),
 											loading: true,

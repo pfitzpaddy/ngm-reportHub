@@ -97,7 +97,7 @@ angular.module('ngmReportHub')
     		// open modal after render
     		$timeout(function(){
     			$scope.modal.open();
-    		}, 200);
+    		}, 600);
 
     		// send request to fetch data
     		if($scope.modal.request){
