@@ -53,76 +53,73 @@ angular.module('ngmReportHub')
     	'NgTableParams',
     	function($scope, $timeout, ngmData, NgTableParams){
 
-
-    		consoe.log('here');
-
     		//
-    	// 	$scope.modal = {
-    	// 		// modal id
-    	// 		id: 'ngm-dews-modal-' + Math.floor((Math.random()*1000000)),
+    		$scope.modal = {
+    			// modal id
+    			id: 'ngm-dews-modal-' + Math.floor((Math.random()*1000000)),
     			
-    	// 		// open modal
-    	// 		open: function(){
-    	// 			$('#' + $scope.modal.id).openModal($scope.modal.materialize);
-    	// 		},
+    			// open modal
+    			open: function(){
+    				$('#' + $scope.modal.id).openModal($scope.modal.materialize);
+    			},
 
-    	// 		// set ng-table params
-    	// 		table: function(data){
-    	// 			// modal data
-    	// 			console.log(data);
-    	// 			$scope.modal.data = data;
-    	// 			// set $scope
-					// 	$scope.modal.tableParams = new NgTableParams({
-					// 			page: 1,
-					// 			count: 10,
-					// 		}, { 
-					// 			total: data.length, 
-					// 			counts: [], 
-					// 			data: data 
-					// 	});
-    	// 		},
+    			// set ng-table params
+    			table: function(data){
+    				// modal data
+    				console.log(data);
+    				$scope.modal.data = data;
+    				// set $scope
+						$scope.modal.tableParams = new NgTableParams({
+								page: 1,
+								count: 10,
+							}, { 
+								total: data.length, 
+								counts: [], 
+								data: data 
+						});
+    			},
 
-    	// 		// close modal
-					// close: function(){
-					// 	// materialize
-					// 	$('#' + $scope.modal.id).closeModal();
-					// 	// remove element
-					// 	$timeout(function(){
-					// 		$('#ngm-modal-container').remove();
-					// 	}, 400);
-					// }
+    			// close modal
+					close: function(){
+						// materialize
+						$('#' + $scope.modal.id).closeModal();
+						// remove element
+						$timeout(function(){
+							$('#ngm-modal-container').remove();
+						}, 400);
+					}
 
-    	// 	}
+    		}
 
-     //  	// Merge defaults with config
-     //  	$scope.modal = angular.merge({}, $scope.modal, $scope.config);
+      	// Merge defaults with config
+      	$scope.modal = angular.merge({}, $scope.modal, $scope.config);
 
-    	// 	// open modal after render
-    	// 	$timeout(function(){
-    	// 		$scope.modal.open();
-    	// 	}, 200);
+    		// open modal after render
+    		$timeout(function(){
+    			$scope.modal.open();
+    		}, 200);
 
-    	// 	// send request to fetch data
-    	// 	if($scope.modal.request){
-    	// 		ngmData.get($scope.modal.request).then(function(response) {
+    		// send request to fetch data
+    		if($scope.modal.request){
+    			ngmData.get($scope.modal.request).then(function(response) {
     				 
-    	// 			// turn off loading
-    	// 			$scope.modal.loading = false;
+    				// turn off loading
+    				$scope.modal.loading = false;
 
-    	// 			// switch the type
-    	// 			switch($scope.modal.type){
-    	// 				case 'table':
-    	// 					$scope.modal.table(response.data);
-    	// 					break;
-    	// 				default: 
-					// 			$scope.modal.table(response.data);
-    	// 			}
+    				// switch the type
+    				switch($scope.modal.type){
+    					case 'table':
+    						$scope.modal.table(response.data);
+    						break;
+    					default: 
+								$scope.modal.table(response.data);
+    				}
 
-    	// 		}, function(){
-    	// 			// error
-    	// 			$scope.modal.error = true;
-    	// 		});
-    	// 	}	
+    			}, function(){
+    				// error
+    				$scope.modal.error = true;
+    			});
+    		}	
 
     	}
     ]);
