@@ -39,9 +39,9 @@
   },
   "dependencies": {
     "grunt-ng-constant": "^1.1.0",
-    "untildify": "^2.1.0",
     "jasmine": "^2.4.1",
     "karma": "^0.13.15",
-    "phantomjs": "^1.9.19"    
+    "phantomjs": "^1.9.19",
+    "untildify": "^2.1.0"
   }
 }

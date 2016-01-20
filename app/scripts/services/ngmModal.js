@@ -49,14 +49,19 @@ angular.module('ngmReportHub')
 	.controller('ngmModalCtrl', [
     	'$scope',
     	'$timeout',
+    	'$location',
     	'ngmData',
     	'NgTableParams',
-    	function($scope, $timeout, ngmData, NgTableParams){
+    	function($scope, $timeout, $location, ngmData, NgTableParams){
 
     		//
     		$scope.modal = {
+    			
     			// modal id
     			id: 'ngm-dews-modal-' + Math.floor((Math.random()*1000000)),
+
+    			// filename
+    			filename: 'daily-summary-' + $scope.config.date.replace(' ', '_').replace(', ', '_') + '-for-' + $location.$$path.replace(/\//g, '_').slice(1, -22) + '-extracted-' + moment().format() + '.csv',
     			
     			// open modal
     			open: function(){
@@ -66,7 +71,6 @@ angular.module('ngmReportHub')
     			// set ng-table params
     			table: function(data){
     				// modal data
-    				console.log(data);
     				$scope.modal.data = data;
     				// set $scope
 						$scope.modal.tableParams = new NgTableParams({

@@ -41,5 +41,9 @@
 	</div>
 	<div class="modal-footer">
 		<a class="modal-action waves-effect waves-teal btn-flat" ng-click="modal.close({{ modal.id }})">Close</a>
+		<a class="modal-action waves-effect waves-teal btn-flat" 
+			ng-csv="modal.data" 
+			csv-header="['Disease', 'u5male', 'u5female', 'o5male', 'o5female', 'u5death', 'o5death', 'Clinic Confirmed', 'Province', 'District', 'Village']" 
+			filename="{{ modal.filename }}">Download</a>
 	</div>
 </div>

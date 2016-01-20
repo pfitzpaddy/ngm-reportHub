@@ -18,6 +18,7 @@ angular
 		'ngSanitize',
 		'ngTouch',
 		'ngTable',
+		'ngCsv',
 		'ngDropzone',
 		'countTo',
 		'highcharts-ng',
