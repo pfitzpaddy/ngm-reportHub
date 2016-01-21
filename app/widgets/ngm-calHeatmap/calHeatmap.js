@@ -48,9 +48,14 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
     'config',
     function($scope, $element, $timeout, data, config){
 
+      // unique id
+      var id = 'ngm-cal-heatmap-' + Math.floor((Math.random()*1000000));
+
       // statistics widget default config
       $scope.calHeatmap = {
+        id: id,
         options: {
+          itemSelector: '#' + id,
           itemName: 'case',
           start: new Date(moment().subtract(1, 'years')),
           maxDate: new Date(),
@@ -94,19 +99,24 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
 
           setDayLabel: function(){
 
+            // select svg
+            var svg = d3.select($scope.calHeatmap.options.itemSelector);
+
             // offset to cater for year labels
-            var yOffset = parseFloat(d3.select('.graph').select('.graph-subdomain-group').attr('y')) + 5;
+            var yOffset = parseFloat(svg.select('.graph').select('.graph-subdomain-group').attr('y')) + 5;
             var offset = $scope.calHeatmap.options.cellSize + $scope.calHeatmap.options.cellPadding;
 
             // enables rendering
             $timeout(function(){
 
               // Update container width
-              d3.select('.cal-heatmap-container')
-                .attr('width', parseFloat(d3.select('.cal-heatmap-container').attr('width')) + offset);
+              svg
+                .select('.cal-heatmap-container')
+                .attr('width', parseFloat(svg.select('.cal-heatmap-container').attr('width')) + offset);
 
               // Monday
-              d3.select('.graph')
+              svg
+                .select('.graph')
                 .append('text')
                   .attr('class', 'graph-secondary-label')
                   .attr('y', yOffset + offset)
@@ -115,7 +125,8 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
                   .text('M');
 
               // Wednesday
-              d3.select('.graph')   
+              svg
+                .select('.graph')   
                 .append('text')
                   .attr('class', 'graph-secondary-label')
                   .attr('y', yOffset + (offset)*3)
@@ -124,7 +135,8 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
                   .text('W');
 
               // Friday
-              d3.select('.graph')   
+              svg
+                .select('.graph')   
                 .append('text')
                   .attr('class', 'graph-secondary-label')
                   .attr('y', yOffset + (offset)*5)
@@ -133,16 +145,20 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
                   .text('F');
 
               // Select and update all calendar blocks to allow for day labels
-              d3.select('.graph').selectAll('.graph-domain').each(function(d,i) {
-                // select svg calendar block
-                var svg = d3.select(this);
-                svg.attr('x', parseFloat(svg.attr('x')) +  offset);
-                svg.attr('width', parseFloat(svg.attr('width')) +  offset);
-              });
+              svg
+                .select('.graph')
+                .selectAll('.graph-domain').each(function(d,i) {
+                
+                  // select svg calendar block
+                  var graph = d3.select(this);
+                      graph.attr('x', parseFloat(graph.attr('x')) +  offset);
+                      graph.attr('width', parseFloat(graph.attr('width')) +  offset);
+                });
 
               // update cal graph legend
-              d3.select('.graph-legend')
-                .attr('x', parseInt(d3.select('.graph-legend').attr('x')) + offset);              
+              svg
+                .select('.graph-legend')
+                .attr('x', parseInt(svg.select('.graph-legend').attr('x')) + offset);              
 
             }, 500);
 
@@ -152,42 +168,47 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
           setYearLabel: function(){
 
             // offset to cater for year labels
+            var svg = d3.select($scope.calHeatmap.options.itemSelector);
             var offset = $scope.calHeatmap.options.cellSize + $scope.calHeatmap.options.cellPadding;
 
             // enable rendering
             $timeout(function(){
 
               // Select all the calendar elements
-              d3.select('.graph').selectAll('.graph-domain').each(function(d,i) { 
+              svg
+                .select('.graph').selectAll('.graph-domain').each(function(d,i) { 
 
                 // select svg calendar block
-                var svg = d3.select(this);
+                var graph = d3.select(this);
 
                 // if its the first month of the year append year label
-                if( svg.attr('class').search(' m_1 ') !=-1 ){
+                if( graph.attr('class').search(' m_1 ') !=-1 ){
 
                   // Highlight month of Jan label
-                  svg.select('.graph-label').attr('class', 'graph-title');
+                  graph.select('.graph-label').attr('class', 'graph-title');
 
                   // update cal graph position
-                  d3.select('.graph')
+                  svg
+                    .select('.graph')
                     .attr('y', offset);
 
                   // update cal graph legend
-                  d3.select('.graph-legend')
+                  svg
+                    .select('.graph-legend')
                     .attr('y', parseInt(d3.select('.graph-legend').attr('y')) + offset);
 
                   // update year label
-                  d3.select('.cal-heatmap-container')
+                  svg
+                    .select('.cal-heatmap-container')
                     .attr('height', parseInt(d3.select('.cal-heatmap-container').attr('height')) + offset)
                       .append('text')
                       .attr('class', 'graph-primary-label')
                       .attr('width', 100)
                       .attr('height', 100)
                       .attr('y', 10)
-                      .attr('x', parseFloat(svg.attr('x')) + (parseFloat(svg.attr('width')/4)) )
+                      .attr('x', parseFloat(graph.attr('x')) + (parseFloat(graph.attr('width')/4)) )
                       .attr('dominant-baseline', 'middle')
-                      .text(svg.attr('class').substr(-4));
+                      .text(graph.attr('class').substr(-4));
 
                 }
 
@@ -205,7 +226,9 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
 
       // Assign data to calHeatmap
       var cal = new CalHeatMap();
-      cal.init($scope.calHeatmap.options);
+      $timeout(function() {
+        cal.init($scope.calHeatmap.options);  
+      }, 10);
 
     }
 ]);

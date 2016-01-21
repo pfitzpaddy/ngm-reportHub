@@ -306,7 +306,7 @@ angular.module('ngmReportHub')
 								data: {
 									start_date: $scope.dashboard.startDate,
 									end_date: $scope.dashboard.endDate,									
-									indicator: 'u5male + u5female + o5male + o5female',
+									indicator: 'u5male + u5female + o5male + o5female + u5death + o5death',
 									disease: $scope.dashboard.disease.id,
 									prov_code: $scope.dashboard.location.id
 								}
@@ -319,7 +319,7 @@ angular.module('ngmReportHub')
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Deaths',							
+							title: 'Deaths',
 							request: {
 								method: 'POST',
 								url: appConfig.host + '/dews/indicator',
@@ -334,6 +334,53 @@ angular.module('ngmReportHub')
 						}
 					}]
 				}],
+			},{
+				columns: [{
+					styleClass: 's12 m12 l12',
+					widgets: [{
+						type: 'calHeatmap',
+						card: 'card-panel',
+						style: 'padding-top:5px;',
+						config: {
+							options: {
+								// on click popup
+								onClick: function(date, nb) {
+									if(nb){
+										ngmModal.open({
+											type: 'table',
+											style: 'width:70%;',
+											template: "'views/modals/dews.modal.html'",
+											date: moment(date).format('DD MMMM, YYYY'),
+											loading: true,
+											materialize: {
+												dismissible: false
+											},
+											request: {
+												method: 'POST',
+												url: appConfig.host + '/dews/summary',
+												data: {
+													date: moment(date).format('YYYY-MM-DD'),
+													disease: $scope.dashboard.disease.id,
+													prov_code: $scope.dashboard.location.id
+												}
+											}
+										});
+									}
+								}
+							},
+							request: {
+								method: 'POST',
+								url: appConfig.host + '/dews/calendar',
+								data: {
+									start_date: $scope.dashboard.startDate,
+									end_date: $scope.dashboard.endDate,
+									disease: $scope.dashboard.disease.id,
+									prov_code: $scope.dashboard.location.id
+								}
+							}
+						}
+					}]
+				}]
 			},{
 				columns: [{
 					styleClass: 's12 m12 l12',

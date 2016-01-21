@@ -53,10 +53,10 @@ angular.module('ngm.widget.dropzone', ['ngm.provider'])
         
         // interface display/user messages
         template: 'widgets/ngm-dropzone/template/default.html',        
-        dictDefaultMessage: '<i class="medium material-icons" style="color:#009688">cloud_upload</i><br/>Drag files here or click to upload',
+        dictDefaultMessage: '<i class="medium material-icons" style="color:#009688;">cloud_upload</i><br/>Drag files here or click to upload',
         previewTemplate: '<div id="dropzone-message" align="center"><h5 style="font-weight:300;">Uploading...</h5><br/><h5 style="font-weight:100;"><div class="dz-filename"><span data-dz-name></span></div></h5><br/><div class="progress"><div class="determinate" data-dz-uploadprogress></div></div></div>',
         processingMessage: '<h5 style="font-weight:300;">Processing...</h5><br/><h5 style="font-weight:100;"><div class="dz-filename"><span data-dz-name></span></div></h5><br/><div class="progress"><div class="indeterminate"></div></div>',
-        completeMessage: '<i class="medium material-icons" style="color:#009688">cloud_done</i><br/><h5 style="font-weight:300;">Complete!</h5><br/><h5 style="font-weight:100;">Re-directing to dashboard...(<span id="counter"></span>)</h5></div>',
+        completeMessage: '<i class="medium material-icons" style="color:#009688;">cloud_done</i><br/><h5 style="font-weight:300;">Complete!</h5><br/><h5 style="font-weight:100;">Re-directing to dashboard...(<span id="counter"></span>)</h5></div>',
         process: {
           redirect: '/who',
           interval: 4
