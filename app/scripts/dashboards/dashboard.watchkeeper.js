@@ -256,7 +256,6 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
-						broadcast: 'dateChange',
 						config: {
 							title: 'Incident Difference',
 							display: {
@@ -279,7 +278,6 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
-						broadcast: 'dateChange',
 						config: {
 							title: 'Riots / Protests',
 							request: {
@@ -299,7 +297,6 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
-						broadcast: 'dateChange',
 						config: {
 							title: 'Other',
 							request: {
@@ -319,7 +316,6 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
-						broadcast: 'dateChange',
 						config: {
 							title: 'Deaths',
 							request: {
@@ -342,7 +338,6 @@ angular.module('ngmReportHub')
 						type: 'calHeatmap',
 						card: 'card-panel',
 						style: 'padding-top:5px;',
-						broadcast: 'updateCalendar',
 						config: {
 							style: 'margin-top: -12px;',
 							title: {
@@ -373,7 +368,6 @@ angular.module('ngmReportHub')
 						type: 'highchart',
 						style: 'height: 190px;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
-						broadcast: 'updateChart',
 						config: {
 							title: 'Top 5 Incident Locations',
 							chartConfig: {
@@ -449,7 +443,6 @@ angular.module('ngmReportHub')
 						type: 'leaflet',
 						card: 'card-panel',
 						style: 'padding:0px;',
-						broadcast: 'dateChange',
 						config: {
 							height: '520px',
 							display: {

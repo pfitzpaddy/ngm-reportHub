@@ -385,45 +385,50 @@ angular.module('ngmReportHub')
 				columns: [{
 					styleClass: 's12 m12 l12',
 					widgets: [{
-						type: 'calHeatmap',
-						card: 'card-panel',
-						style: 'padding-top:5px;',
+						type: 'highchart',
+						style: 'height: 160px;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							options: {
-								// on click popup
-								onClick: function(date, nb) {
-									if(nb){
-										ngmModal.open({
-											type: 'table',
-											style: 'width:70%;',
-											template: "'views/modals/dews.modal.html'",
-											date: moment(date).format('DD MMMM, YYYY'),
-											loading: true,
-											materialize: {
-												dismissible: false
-											},
-											request: {
-												method: 'POST',
-												url: appConfig.host + '/dews/summary',
-												data: {
-													date: moment(date).format('YYYY-MM-DD'),
-													disease: $scope.dashboard.disease.id,
-													prov_code: $scope.dashboard.location.id
-												}
-											}
-										});
+							title: 'Outbreaks - Trend',
+							chartConfig: {
+								options: {
+									chart: {
+										type: 'line',
+										height: 120,
+										width: 764
+									},
+									legend: {
+										enabled: false
+									}																	
+								},
+								title: {
+									text: ''
+								},
+								xAxis: {
+									type: 'category',
+									tickInterval: 30
+								},
+								yAxis: {
+									min: 0,
+									title: {
+										text: ' '
+									},
+									gridLineColor: '#fff'
+								},
+								series: [{
+									name: 'Incidents',
+									color: '#7cb5ec',
+									request: {
+										method: 'POST',
+										url: appConfig.host + '/dews/chart',
+										data: {
+											start_date: $scope.dashboard.startDate,
+											end_date: $scope.dashboard.endDate,
+											disease: $scope.dashboard.disease.id,
+											prov_code: $scope.dashboard.location.id
+										}
 									}
-								}
-							},
-							request: {
-								method: 'POST',
-								url: appConfig.host + '/dews/calendar',
-								data: {
-									start_date: $scope.dashboard.startDate,
-									end_date: $scope.dashboard.endDate,
-									disease: $scope.dashboard.disease.id,
-									prov_code: $scope.dashboard.location.id
-								}
+								}]
 							}
 						}
 					}]
