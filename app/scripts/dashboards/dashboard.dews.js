@@ -390,12 +390,13 @@ angular.module('ngmReportHub')
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
 							title: 'Outbreaks - Trend',
+							align: 'middle',
 							chartConfig: {
 								options: {
 									chart: {
 										type: 'line',
 										height: 120,
-										width: 764
+										width: 794
 									},
 									legend: {
 										enabled: false
@@ -406,7 +407,7 @@ angular.module('ngmReportHub')
 								},
 								xAxis: {
 									type: 'category',
-									tickInterval: 30
+									tickInterval: 60
 								},
 								yAxis: {
 									min: 0,

@@ -37,7 +37,7 @@
 </style>
 
 <div>
-  <div id="{{highchart.id}}" ng-if="highchart.chartConfig">
+  <div id="{{highchart.id}}" align="{{ highchart.align }}"ng-if="highchart.chartConfig">
     <div ng-if="highchart.title">{{ highchart.title }}</div>
     <highchart config="highchart.chartConfig"></highchart>
     <div id="label-{{highchart.id}}" ng-if="highchart.display.label" class="count" style="text-align:center; margin-left:{{ highchart.display.left }}; width:{{ highchart.display.width }}; position: absolute; top:{{ highchart.display.top }};">
