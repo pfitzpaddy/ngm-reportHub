@@ -390,7 +390,9 @@ angular.module('ngmReportHub')
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
 							title: 'Outbreaks - Trend',
-							align: 'middle',
+							titleAlign: 'left',
+							titleStyle: 'margin-left:20%',
+							chartAlign: 'middle',
 							chartConfig: {
 								options: {
 									chart: {
