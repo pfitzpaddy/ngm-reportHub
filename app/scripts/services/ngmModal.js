@@ -23,7 +23,7 @@ angular.module('ngmReportHub')
 			open: function(modal){
 
 				// set modal id
-				modal.id = 'ngm-dews-modal-' + Math.floor((Math.random()*1000000));        
+				modal.id = 'ngm-dews-modal-' + Math.floor((Math.random()*1000000));     
 
 				// modal element to be added
 				var $div = $('<div id="ngm-modal-container" ng-controller="ngmModalCtrl" ng-include src="' + modal.template + '"></div>');
@@ -43,7 +43,7 @@ angular.module('ngmReportHub')
 					// open modal
 					$timeout(function(){
 						$('#' + $scope.config.id).openModal($scope.config.materialize);
-					}, 400);
+					}, 1200);
 				});
 
 			}
@@ -91,7 +91,7 @@ angular.module('ngmReportHub')
 						// remove element
 						$timeout(function(){
 							$('#ngm-modal-container').remove();
-						}, 400);
+						}, 1200);
 					}
 
 				}

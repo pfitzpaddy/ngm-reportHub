@@ -1,7 +1,7 @@
 
 <!-- bind html -->
 <div id="ngmLoginPanel" class="row">
-	<div class="login title">
+	<div class="ngm-login-title">
 		<h3 style="font-weight:100;">Report Hub</h3>
 	</div>
 	<div class="col s12 m4 offset-m4">
@@ -44,8 +44,9 @@
 	</div>
 </div>
 
-<div style="background-color:rgba(0,0,0,0); height:{{ panel.style.paddingHeight }}px;"></div>
-<div class="footer header" style="background-color: {{ panel.style.lightPrimaryColor }};"></div>
-<div class="footer body" style="background-color: {{ panel.style.defaultPrimaryColor }};">
-	<p style="color: white;font-weight:100;">Made by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>
+<div>
+	<div style="background: {{ panel.style.lightPrimaryColor }}; height:20px;"></div>
+	<div style="background: {{ panel.style.defaultPrimaryColor }}; height:60px;">
+		<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>
+	</div>
 </div>
