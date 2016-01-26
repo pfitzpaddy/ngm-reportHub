@@ -293,6 +293,7 @@ angular
 														+	'<div style="background: ' + $scope.ngm.style.lightPrimaryColor + '; height:20px;"></div>'
 														+	'<div style="background: ' + $scope.ngm.style.defaultPrimaryColor + '; height:60px;">'
 															+	'<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>'
+															+ '<p id="ngm-report-extracted" style="display: none; color:white; font-weight:100; float:right; padding-right:20px;">' +moment(new Date()).format('DD MMM, YYYY') + '</p>'															
 														+	'</div>';
 													+	'</div>';
 

@@ -1,6 +1,6 @@
 
 <style>
-	
+
 	.breadcrumb:before {
 		color: teal;
 	}
@@ -9,9 +9,9 @@
 
 <div class="slide-animate">
 	
-  <nav>
+  <nav id="ngm-breadcrumb">
     <div class="nav-wrapper white">
-      <div class="col s12">
+      <div class="col s12" style="padding-left: 30px;">
       	<a ng-repeat="list in breadcrumb.list" href="{{ list.href }}" class="breadcrumb" style="color: {{ breadcrumb.color }}">
       		{{ list.title }}
       	</a>
