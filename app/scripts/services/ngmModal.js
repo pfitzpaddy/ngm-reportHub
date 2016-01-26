@@ -43,7 +43,7 @@ angular.module('ngmReportHub')
 					// open modal
 					$timeout(function(){
 						$('#' + $scope.config.id).openModal($scope.config.materialize);
-					}, 1200);
+					}, 400);
 				});
 
 			}
