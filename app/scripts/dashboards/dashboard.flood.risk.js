@@ -73,9 +73,9 @@ angular.module('ngmReportHub')
 				angular.forEach($scope.dashboard.data, function(d, key){
 					rows.push({
 						'title': d.name,
-						'class': 'waves-effect waves-teal',
 						'param': 'province',
 						'active': key,
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '#/immap/drr/flood/' + key
 					});
 				});
@@ -102,10 +102,27 @@ angular.module('ngmReportHub')
 					title: 'Flood Risk Key Indicators for ' + $scope.dashboard.data[$route.current.params.province].name,
 				},
 			},
+			navigationMenu:[{
+				'icon': 'zoom_in',
+				'liClass': 'teal z-depth-2',
+				'aClass': 'white-text',
+				'iClass': 'medium material-icons',
+				'href': '#/immap/watchkeeper/kenya/2015-11-01/2015-11-30',
+				'title': 'WATCHKEEPER'
+			},{
+				'icon': 'info_outline',
+				'liClass': 'teal z-depth-2',
+				'aClass': 'white-text',
+				'iClass': 'medium material-icons',
+				'href': '#/immap/drr/flood/afghanistan',
+				'title': 'DRR'
+			}],
 			menu: [{
-				title: 'Flood Risk',
-				class: 'collapsible-header waves-effect waves-teal',
-				rows: $scope.dashboard.getRows()
+				'id': 'search-flood-place',
+				'icon': 'place',
+				'title': 'Flood Risk',
+				'class': 'teal lighten-1 white-text',
+				'rows': $scope.dashboard.getRows()
 			}],
 			rows: [{
 				columns: [{

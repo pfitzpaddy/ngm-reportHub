@@ -1,0 +1,88 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ */
+
+/* NGM MENU */
+.ngm-menu {
+	width: 280px;
+	height: calc(100% - 60px);
+	position:fixed;
+	overflow: auto;
+	left: 0px;
+
+}
+.ngm-search {
+	height: 52px;
+	line-height: 52px;
+	display:none;
+}
+.ngm-search .nav-wrapper i {
+	height: 52px;
+	line-height: 52px;
+}
+.ngm-search .input-field input[type=search] {
+	color: #616161;
+	font-weight: 300;
+}
+.ngm-logo {
+	margin-top:-10px;
+	padding-right:20px;
+}
+.ngm-profile {
+	width:100%;
+	height:52px;
+	padding-top:20px;
+	padding-right:50px;
+	text-align:right; 
+	text-transform:lowercase;
+	pointer-events:none;
+}
+.ngm-profile-btn {
+	position:absolute; 
+	top:95px;
+	z-index:9999;
+}
+.ngm-profile-icon {
+	-moz-transition: all 0.2s linear;
+	-webkit-transition: all 0.2s linear;
+	transition: all 0.2s linear;	
+}
+.ngm-profile-icon.rotate {
+	-ms-transform:rotate(180deg);
+	-moz-transform:rotate(180deg);
+	-webkit-transform:rotate(180deg);
+	transform:rotate(180deg);	
+}
+.ngm-profile-menu-content {
+	display: none;
+  width: 280px;
+  position: absolute;
+  top: 158.667px;
+  left: 0px;
+  opacity: 1;
+}
+.ngm-profile-menu-content li {
+	padding-top: 15px;
+	height: 100px;
+	text-align: center;	
+}
+.collection .collection-item {
+	font-weight: 300;
+	/*border-bottom: none;*/
+}
+.collection .collection-item.active {
+  background-color: #b2dfdb;
+}
+.collapsible-header {
+	font-weight: 300;
+	font-size: 1.1rem; 
+	margin-top: 5px;
+	border-bottom: none;
+}
+.collapsible-body{
+	overflow: auto;
+	max-height: 260px !important;
+}

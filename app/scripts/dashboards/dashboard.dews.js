@@ -95,6 +95,37 @@ angular.module('ngmReportHub')
 				}
 			},
 
+			// simple navigation object
+			getBreadcrumb: function() {
+
+				// bradcrumb, default home
+				var breadcrumb = [{
+							title: 'DEWS',
+							href: '#/who/dews/afghanistan/all/' + $route.current.params.start + '/' + $route.current.params.end
+						},{
+							title: 'Afghanistan',
+							href: '#/who/dews/afghanistan/' + $route.current.params.disease + '/' + $route.current.params.start + '/' + $route.current.params.end
+						}];
+
+				// push location if not Afghanistan
+				if ($scope.dashboard.location.id !== '*' ) {
+					breadcrumb.push({
+							title: $scope.dashboard.location.name,
+							href: '#/who/dews/' + $route.current.params.location + '/all/' + $route.current.params.start + '/' + $route.current.params.end
+						});
+				}
+
+				// push disease
+				breadcrumb.push({
+						title: $scope.dashboard.disease.name,
+						href: '#/who/dews/' + $route.current.params.location + '/' + $route.current.params.disease + '/' + $route.current.params.start + '/' + $route.current.params.end
+					});
+
+				// return object
+				return breadcrumb;
+
+			},
+
 			// return rows for DEWS menu
 			getRows: function(list) {
 				
@@ -108,9 +139,9 @@ angular.module('ngmReportHub')
 						//
 						rows.push({
 							'title': d.name,
-							'class': 'waves-effect waves-teal',
 							'param': 'disease',
 							'active': key,
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 							'href': '#/who/dews/' + $route.current.params.location + '/' + key + '/' + $route.current.params.start + '/' + $route.current.params.end
 						});
 					});
@@ -121,9 +152,9 @@ angular.module('ngmReportHub')
 						//
 						rows.push({
 							'title': d.name,
-							'class': 'waves-effect waves-teal',
 							'param': 'location',
 							'active': key,
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 							'href': '#/who/dews/' + key + '/' + $route.current.params.disease + '/' + $route.current.params.start + '/' + $route.current.params.end
 						});
 					});
@@ -136,7 +167,7 @@ angular.module('ngmReportHub')
 		// set dashboard params
 		$scope.dashboard.location = $scope.dashboard.data.location[$route.current.params.location];
 		$scope.dashboard.disease = $scope.dashboard.data.disease[$route.current.params.disease];
-		$scope.dashboard.title = 'WHO | ' + $scope.dashboard.location.name + ' | ' + $scope.dashboard.disease.name;
+		$scope.dashboard.title = 'DEWS | ' + $scope.dashboard.location.name + ' | ' + $scope.dashboard.disease.name;
 		$scope.dashboard.subtitle = $scope.dashboard.disease.name + ' Disease Early Warning System Key Indicators ' + $scope.dashboard.location.name;
 
 		// dews dashboard model
@@ -263,16 +294,47 @@ angular.module('ngmReportHub')
 					}]
 				}
 			},
+			navigationMenu:[{
+				'icon': 'zoom_in',
+				'liClass': 'teal z-depth-2',
+				'aClass': 'white-text',
+				'iClass': 'medium material-icons',
+				'href': '#/who',
+				'title': 'EHA'
+			},{
+				'icon': 'info_outline',
+				'liClass': 'teal z-depth-2',
+				'aClass': 'white-text',
+				'iClass': 'medium material-icons',
+				'href': '#/who',
+				'title': 'DEWS'
+			}],			
 			menu: [{
+				'id': 'search-dews-disease',
+				'icon': 'group_work',
 				'title': 'Disease',
-				'class': 'collapsible-header waves-effect waves-teal z-depth-1',
+				'class': 'teal lighten-1 white-text',
 				'rows': $scope.dashboard.getRows('disease')
 			},{
+				'id': 'search-dews-province',
+				'icon': 'place',
 				'title': 'Province',
-				'class': 'collapsible-header waves-effect waves-teal z-depth-1',
-				'rows': $scope.dashboard.getRows('province')				
+				'class': 'teal lighten-1 white-text',
+				'rows': $scope.dashboard.getRows('province')
 			}],
 			rows: [{
+				columns: [{
+					styleClass: 's12 m12 l12',
+					widgets: [{
+						type: 'breadcrumb',
+						'style': 'padding-top: 10px;',
+						config: {
+							color: $scope.dashboard.ngm.style.darkPrimaryColor,
+							list: $scope.dashboard.getBreadcrumb()
+						}
+					}]
+				}]
+			},{
 				columns: [{
 					styleClass: 's12 m12 l4',
 					widgets: [{

@@ -1,0 +1,25 @@
+
+<style>
+	
+	.breadcrumb:before {
+		color: teal;
+	}
+
+</style>
+
+<div class="slide-animate">
+	
+  <nav>
+    <div class="nav-wrapper white">
+      <div class="col s12">
+      	<a ng-repeat="list in breadcrumb.list" href="{{ list.href }}" class="breadcrumb" style="color: {{ breadcrumb.color }}">
+      		{{ list.title }}
+      	</a>
+      </div>
+    </div>
+  </nav>
+
+</div>
+
+
+

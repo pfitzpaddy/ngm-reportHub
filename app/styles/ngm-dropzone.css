@@ -1,0 +1,36 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ */
+ 
+/* DROPZONE */
+.dropzone { 
+	padding-top:4%; 
+	border: 2px dashed #0087F7; 
+	border-radius: 5px; 
+	background: white; 
+	min-height:250px;
+}
+.dropzone .dz-message {
+	color:#616161;
+	font-size: 1.64rem;
+	font-weight: 300;
+	line-height: 110%;
+	margin: 1.14rem 0 0.912rem 0;
+}
+.dropzone .dz-message .note { 
+	font-size: 0.8em; 
+	font-weight: 200; 
+	display: block; 
+	margin-top: 1.4rem;
+}
+.dropzone .dz-preview .dz-details {
+	background: #fff !important;
+}
+.dropzone .dz-preview.dz-error .dz-progress .dz-upload,
+.dropzone-previews .dz-preview.dz-error .dz-progress .dz-upload {
+	margin-top: 2px !important;
+	height: 2px !important;	
+}

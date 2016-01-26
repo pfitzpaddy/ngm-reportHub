@@ -91,8 +91,10 @@ angular.module('ngmReportHub')
 
 			getMenu: function(){
 				var menu = [{
+					'id': 'search-wk-location',
+					'icon': 'place',
 					'title': 'Location',
-					'class': 'collapsible-header waves-effect waves-teal z-depth-1',
+					'class': 'teal lighten-1 white-text',
 					'rows': []
 				}];
 
@@ -101,9 +103,9 @@ angular.module('ngmReportHub')
 					//
 					menu[0].rows.push({
 						'title': d.name,
-						'class': 'waves-effect waves-teal',
 						'param': 'country',
 						'active': key,
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '#/immap/watchkeeper/' + key + '/' + $route.current.params.start + '/' + $route.current.params.end
 					});
 				});		
@@ -249,6 +251,21 @@ angular.module('ngmReportHub')
 					}]
 				}
 			},
+			navigationMenu:[{
+				'icon': 'zoom_in',
+				'liClass': 'teal z-depth-2',
+				'aClass': 'white-text',
+				'iClass': 'medium material-icons',
+				'href': '#/immap/watchkeeper/kenya/2015-11-01/2015-11-30',
+				'title': 'WATCHKEEPER'
+			},{
+				'icon': 'info_outline',
+				'liClass': 'teal z-depth-2',
+				'aClass': 'white-text',
+				'iClass': 'medium material-icons',
+				'href': '#/immap/drr/flood/afghanistan',
+				'title': 'DRR'
+			}],		
 			menu: $scope.dashboard.getMenu(),
 			rows: [{
 				columns: [{
@@ -454,16 +471,16 @@ angular.module('ngmReportHub')
 								center: { lat: 0, lng: 20, zoom: 4 },
 							},
 							layers: {
-			          baselayers: {
-			            osm: {
-			                name: 'Mapbox',
-			                type: 'xyz',
-			                url: 'https://b.tiles.mapbox.com/v3/aj.um7z9lus/{z}/{x}/{y}.png?',
-			                layerOptions: {
-			                  continuousWorld: true
-			                }
-			            }
-			          },
+								baselayers: {
+									osm: {
+										name: 'Mapbox',
+										type: 'xyz',
+										url: 'https://b.tiles.mapbox.com/v3/aj.um7z9lus/{z}/{x}/{y}.png?',
+										layerOptions: {
+											continuousWorld: true
+										}
+									}
+								},
 								overlays: {
 									incidents: {
 										name: 'Incidents',

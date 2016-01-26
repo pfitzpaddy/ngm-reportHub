@@ -22,9 +22,11 @@
 		<!-- endbuild -->
 		<!-- build:css(.tmp) styles/main.css -->
 		<link rel="icon" href="images/favicon.ico" sizes="32x32">
-    	<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
-    	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="styles/main.css">	
+		<link rel="stylesheet" href="styles/ngm-menu.css">
+		<link rel="stylesheet" href="styles/ngm-dropzone.css">
 		<!-- endbuild -->
 	</head>
 	<body ng-app="ngmReportHub" ng-controller="ngmReportHubCrtl" style="height:100%">
@@ -42,112 +44,99 @@
 
 		<header>
 
-			<div class="container">
+			<!-- side navigation -->
+			<div class="ngm-menu z-depth-1 hide-on-med-and-down">
+				
+				<!-- profile menu -->
+				<div class="ngm-brand">
+					
+					<div style="background: {{ ngm.style.darkPrimaryColor }}; height:20px;"></div>
+					<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:140px;">
+		
+						<!-- logo -->
+						<a href="{{ ngm.style.home }}">
+							<img class="ngm-logo" ng-src="images/{{ ngm.style.logo }}" height="97" align="right"></img>
+						</a>
 
-	            <!-- print avatar -->
-	            <ul id="ngm-print-avatar" 
-	            	class="collection" 
-	            	style="display:none; position: absolute; top:40px; left:40px;">
-				    <li class="collection-item avatar">
-				      <i class="material-icons circle red">play_arrow</i>
-				      <span class="title">Title</span>
-				      <p>First Line <br>
-				         Second Line
-				      </p>
-				      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-				    </li>
-	            </ul>
-	            
-	            <!-- mobile menu -->
-				<a class="button-collapse top-nav waves-effect waves-teal circle hide-on-large-only"
-						data-activates="nav-mobile" title="Menu">
-					<i class="mdi-navigation-menu"></i>
-				</a>
+						<!-- profile menu -->
+						<!-- profile menu btn (implementing jQuery slideToggle() )-->
+						<div class="ngm-profile-menu">
+							<div class="ngm-profile-btn fixed-action-btn" 
+										align="right">
+								<a class="btn-floating btn-large waves-effect waves-teal waves-teal-lighten-4"
+										style="background: {{ ngm.style.defaultPrimaryColor }};">
+									<i class="ngm-profile-icon material-icons right">add</i>
+								</a>
+							</div>
+							<!-- profile menu dropdown -->
+							<a class="ngm-profile white-text right">
+								<i class="material-icons right">add</i>{{ ngm.getUserName() }}
+							</a>
+							<!-- profile menu dropdown list -->
+							<ul class="ngm-profile-menu-content dropdown-content z-depth-2"
+									ng-show=" ngm.getUserName() !== 'welcome' ">
+
+									<!-- user logout -->
+									<li  align="center" class="teal z-depth-2">
+										<a class="white-text" ng-click="ngm.logout()">
+										<i class="medium material-icons">lock_open</i>
+										<br/>Logout</a>
+									</li>
+
+									<!-- navigation options repeat -->
+									<li ng-repeat="option in ngm.dashboard.model.navigationMenu" class="{{ option.liClass }}">
+										<a class="{{ option.aClass }}" href="{{ option.href }}">
+										<i class="{{ option.iClass }}">{{ option.icon }}</i>
+										<br/>{{ option.title }}</a>
+								  </li>
+
+							</ul>
+						</div>
+					</div>
+				</div>
+
+		    <!-- navigation menu -->
+			  <ul class="ngm-navigation-menu collapsible popout" 
+			  		data-collapsible="expandable"
+			  		ng-show="ngm.dashboard.model.menu">
+
+			  	<li id="li-{{ list.id }}" ng-repeat="list in ngm.dashboard.model.menu">
+			  		<div class="collapsible-header {{ list.class }}" ng-click="ngm.toggleSearch(list.id)" ng-cloak>
+			  			<i class="material-icons">{{ list.icon }}</i>{{ list.title }}
+			  		</div>
+
+			  		<!-- search list options (navClass toggles search) -->
+			  		<nav id="nav-{{ list.id }}" class="ngm-search">
+					    <div class="nav-wrapper white">
+								<div class="input-field">
+									<input id="search"
+										type="search"
+										class="ngm-form-search"
+										ng-model="ngm.menu.query[list.id]">
+									<label for="search"><i class="material-icons teal-text">search</i></label>
+								</div>
+							</div>
+						</nav>
+
+						<!-- list options -->
+			  		<div class="collapsible-body">
+				      <div class="collection" ng-repeat="row in list.rows | filter:ngm.menu.query[list.id] track by $index">
+				      	<a href="{{ row.href }}" 
+				      		class="collection-item {{ row.class }}"
+				      		ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }" ng-cloak>{{ row.title }}</a>
+				      </div>
+			  		</div>
+
+			  	</li>
+			  </ul>
 
 			</div>
 
-			<!-- <a class='dropdown-button btn' href='#' data-activates='nav-mobile'>Drop Me!</a> -->
-
-			<ul id="nav-mobile" class="side-nav fixed brand">
-				<div style="background: {{ ngm.style.darkPrimaryColor }}; height:20px;"></div>
-				<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:140px;">
-					<div>
-						<a href="{{ ngm.style.home }}">
-							<div align="right">
-								<img ng-src="images/{{ ngm.style.logo }}" width="72px" style="padding-top:10px;">
-							</div>
-						</a>
-					</div>
-					<div>
-						<div class="nav-user">
-							<a class="dropdown-button btn-flat"
-									style="text-align:right;text-transform:lowercase;"
-									data-beloworigin="true"
-									data-activates="user-profile-dropdown">
-								<i class="material-icons right">account_circle</i>{{ ngm.getUserName() }}
-							</a>
-							<!-- user options over menu -->
-							<ul id="user-profile-dropdown" 
-								class="dropdown-content" 
-								ng-show="ngm.getUserName() !== 'welcome' ">
-							  <li class="teal">
-								<a class="white-text" ng-click="ngm.logout()">
-								<i class="material-icons left">lock_open</i>Logout</a>
-							  </li>
-							</ul>
-						</div>
-					</div>
-				</div>			
-				
-				<!-- menu search -->
-				<li class="search"
-						ng-show="ngm.dashboard.model.menu"
-						ng-if="ngm.menu.search" 
-						ng-click="ngm.toggleSearch()">
-					<div class="search-wrapper card z-depth-0" 
-							ng-class="{'focused':ngm.menu.focused===true || ngm.menu.query }">
-						<input id="search" 
-							ng-model="ngm.menu.query" 
-							ng-focus="ngm.menu.focused=true"  
-							ng-blur="ngm.menu.focused=false">
-						<i class="material-icons">search</i>
-						<div class="search-results"></div>
-					</div>
-				</li>
-
-				<!-- include footer when no menu  -->
-				<div id="ngm-menu-footer-1" class="footer menu z-depth-0" style="text-align:right;">
-					<div class="footer header" style="background: {{ ngm.style.lightPrimaryColor }}; margin-top:10px;"></div>
-					<div class="footer-menu body" style="background: {{ ngm.style.defaultPrimaryColor }};"></div>
-				</div>	         	
-
-			 </ul>
-
-			<ul id="nav-mobile" style="padding-bottom:326px;" class="side-nav fixed menu" ng-show="ngm.dashboard.model.menu">
-				<li class="no-padding">
-				  <ul class="collapsible collapsible-accordion" ng-repeat="list in ngm.dashboard.model.menu">
-					<li class="bold" ngm-menu>
-						<a class="{{ list.class }}" ng-cloak>{{ list.title }}</a>
-						<div class="collapsible-body" style="display: none">
-							<ul class="side-menu">
-								<li class="{{ row.class  }}" 
-									ng-repeat="row in list.rows | filter:ngm.menu.query track by $index" 
-									ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }" ng-cloak>
-									<a href="{{ row.href }}" ng-cloak>{{ row.title }}</a>
-								</li>
-							</ul>
-						</div>
-					</li>
-				  </ul>
-				</li>
-
-				<!-- make footer visible when menu visibile -->
-				<div id="ngm-menu-footer-2" class="footer menu z-depth-0" style="text-align:right;">
-					<div class="footer-menu header" style="background: {{ ngm.style.lightPrimaryColor }};"></div>
-					<div class="footer-menu body" style="background: {{ ngm.style.defaultPrimaryColor }};"></div>
-				</div>
-
-			</ul>
+			<!-- make footer visible when menu visibile  -->
+			<div class="ngm-menu-footer">
+				<div style="background: {{ ngm.style.lightPrimaryColor }}; height:20px;"></div>
+				<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:40px;"></div>
+			</div>			
 
 		</header>
 
@@ -229,13 +218,14 @@
 		<!-- upload -->
 		<script src="scripts/upload/upload.dews.js"></script>		
 		<!-- widgets -->
-		<script src="widgets/ngm-html/html.js"></script>
+		<script src="widgets/ngm-breadcrumb/breadcrumb.js"></script>
+		<script src="widgets/ngm-calHeatmap/calHeatmap.js"></script>		
 		<script src="widgets/ngm-dropzone/dropzone.js"></script>
+		<script src="widgets/ngm-highchart/highchart.js"></script>		
+		<script src="widgets/ngm-html/html.js"></script>
 		<script src="widgets/ngm-iframe/iframe.js"></script>
-		<script src="widgets/ngm-stats/stats.js"></script>
 		<script src="widgets/ngm-leaflet/leaflet.js"></script>
-		<script src="widgets/ngm-highchart/highchart.js"></script>
-		<script src="widgets/ngm-calHeatmap/calHeatmap.js"></script>
+		<script src="widgets/ngm-stats/stats.js"></script>
 
 	</body>
 </html>

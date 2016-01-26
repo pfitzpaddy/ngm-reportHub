@@ -24,13 +24,14 @@ angular
 		'highcharts-ng',
 		'leaflet-directive',
 		'ngm',
-		'ngm.widget.html',
+		'ngm.widget.breadcrumb',
+		'ngm.widget.calHeatmap',
 		'ngm.widget.dropzone',
-		'ngm.widget.iframe',
-		'ngm.widget.stats',
-		'ngm.widget.leaflet',
 		'ngm.widget.highchart',
-		'ngm.widget.calHeatmap'
+		'ngm.widget.html',
+		'ngm.widget.iframe',
+		'ngm.widget.leaflet',
+		'ngm.widget.stats'
 	])
 	.config([ '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
@@ -159,6 +160,17 @@ angular
 	}])
 	.run(['$rootScope', '$location', 'ngmAuth', function($rootScope, $location, ngmAuth) {
 
+		// profile menu dropdown click
+		$('.ngm-profile-icon').click(function(){
+			// rotate icon
+			$(this).toggleClass('rotate');
+			// set class
+    	$('.ngm-profile').toggleClass('active');
+    	$('.ngm-profile-menu-content').toggleClass('active');
+    	// toggle menu dropdown
+			$('.ngm-profile-menu-content').slideToggle();
+		});
+
 		// when error on route update redirect
 		$rootScope.$on('$routeChangeError' , function(event, current, previous, rejection) {
 
@@ -223,7 +235,7 @@ angular
 			menu: {
 				search: true,
 				focused: false,
-				query: ''
+				query: []
 			},
 
 			// app style
@@ -276,13 +288,13 @@ angular
 						}
 				}
 
-				// create footer
-				$scope.ngm.footer = '<div class="footer header" style="background-color: ' + $scope.ngm.style.lightPrimaryColor + ';"></div>'
-									+ '<div class="footer body" style="background-color: ' + $scope.ngm.style.defaultPrimaryColor  + ';">'
-									+ 	'<p style="color: white;font-weight:100; float:left">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>'
-									// + 	'<p id="ngm-report-extracted" style="display: none; color:white; font-weight:100; float:right; padding-right:20px;">' +moment(new Date()).format('d MMM, YYYY') + ' @ ' + moment(new Date()).format('HH:MM') + '</p>'
-									+ 	'<p id="ngm-report-extracted" style="display: none; color:white; font-weight:100; float:right; padding-right:20px;">' +moment(new Date()).format('DD MMM, YYYY') + '</p>'
-									+ '</div>';
+				// body footer
+				$scope.ngm.footer = '<div>'
+														+	'<div style="background: ' + $scope.ngm.style.lightPrimaryColor + '; height:20px;"></div>'
+														+	'<div style="background: ' + $scope.ngm.style.defaultPrimaryColor + '; height:60px;">'
+															+	'<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>'
+														+	'</div>';
+													+	'</div>';
 
 			},
 
@@ -297,9 +309,10 @@ angular
 			},	
 
 			// toggle search active
-			toggleSearch: function() {
-				$('#search').focus();
-				$scope.ngm.searchFocused = $scope.ngm.searchFocused ? false : true;
+			toggleSearch: function(selector) {
+				
+				// toggle search input
+				$('#nav-' + selector).slideToggle();
 			},
 
 			// app functions
