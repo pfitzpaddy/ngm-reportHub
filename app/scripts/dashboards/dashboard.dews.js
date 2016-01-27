@@ -299,7 +299,7 @@ angular.module('ngmReportHub')
 				'liClass': 'teal z-depth-2',
 				'aClass': 'white-text',
 				'iClass': 'medium material-icons',
-				'href': '#/who',
+				'href': '#/who/eha/monitoring',
 				'title': 'EHA'
 			},{
 				'icon': 'info_outline',
@@ -311,12 +311,14 @@ angular.module('ngmReportHub')
 			}],			
 			menu: [{
 				'id': 'search-dews-disease',
+				'search': true,
 				'icon': 'group_work',
 				'title': 'Disease',
 				'class': 'teal lighten-1 white-text',
 				'rows': $scope.dashboard.getRows('disease')
 			},{
 				'id': 'search-dews-province',
+				'search': true,
 				'icon': 'place',
 				'title': 'Province',
 				'class': 'teal lighten-1 white-text',
@@ -347,7 +349,7 @@ angular.module('ngmReportHub')
 								url: appConfig.host + '/dews/indicator',
 								data: {
 									start_date: $scope.dashboard.startDate,
-									end_date: $scope.dashboard.endDate,									
+									end_date: $scope.dashboard.endDate,
 									indicator: '*',
 									disease: $scope.dashboard.disease.id,
 									prov_code: $scope.dashboard.location.id

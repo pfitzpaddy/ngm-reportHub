@@ -1,0 +1,41 @@
+
+<style>
+
+#po_number {
+  width: 10%;
+}
+
+#project_title {
+  width: 30%;
+}
+
+.ng-table th.sortable .sort-indicator {
+  color: #2196F3;
+  font-weight: 400;
+}
+
+.pagination li.active {
+    background-color: #009688;
+}
+
+</style>
+
+<!-- ngTable -->
+		<a class="waves-effect waves-teal btn right" 
+			ng-csv="table.data" 
+			csv-header="['PO Number', 'Donor', 'Organization', 'Start Date', 'End Date', 'Project', 'Facility', 'HFs', 'Province', 'Province', 'District']" 
+			filename="{{ table.filename }}"><i class="material-icons left">cloud</i>Download</a>
+  	<table class="centered highlight responsive-table" ng-table="table.tableParams">
+        <tr ng-repeat="row in $data">
+          <td id="po_number" data-title="'PO Number'" sortable="'po_number'">{{row.po_number}}</td>
+          <td data-title="'Donor'" sortable="'donor'">{{row.donor}}</td>
+          <td data-title="'Organization'" sortable="'organization'">{{row.organization}}</td>
+          <td data-title="'Start'" sortable="'start_date'">{{row.start_date | date:'yyyy-MM-dd' }}</td>
+          <td data-title="'End'" sortable="'end_date'">{{row.end_date | date:'yyyy-MM-dd' }}</td>
+          <td id="project_title" data-title="'Project'" sortable="'project_title'">{{row.project_title}}</td>
+          <td data-title="'Facility'" sortable="'facility_type'">{{row.facility_type}}</td>
+          <td data-title="'HFs'" sortable="'implementing_hfs'">{{row.implementing_hfs}}</td>
+          <td data-title="'Province'" sortable="'prov_na_en'">{{row.prov_na_en}}</td>
+          <td data-title="'District'" sortable="'dist_na_en'">{{row.dist_na_en}}</td>
+        </tr>
+  	</table>

@@ -104,6 +104,7 @@ angular.module('ngmReportHub')
 			},
 			navigationMenu:[{
 				'icon': 'zoom_in',
+				'search': true,
 				'liClass': 'teal z-depth-2',
 				'aClass': 'white-text',
 				'iClass': 'medium material-icons',
@@ -139,12 +140,10 @@ angular.module('ngmReportHub')
 							request: {
 								method: 'POST',
 								url: appConfig.host + '/flood/risk',
-								// headers: { 'Authorization': 'Bearer ' + $scope.dashboard.user.token },
 								data: {
 									indicator: 'total-popn',
 									metric: 'popn',
-									prov_code: $scope.dashboard.data[$route.current.params.province].id //,
-									//headers: {'Authorization': 'Bearer ' + token}									
+									prov_code: $scope.dashboard.data[$route.current.params.province].id						
 								}
 							}
 						}
@@ -172,7 +171,7 @@ angular.module('ngmReportHub')
 								}
 							}
 						}
-					}]	
+					}]
 				}]
 			},{
 				columns: [{
@@ -180,7 +179,7 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'highchart',
 						style: 'height: 180px;',
-						card: 'card-panel stats-card white grey-text text-darken-2',
+						card: 'card-panel chart-stats-card white grey-text text-darken-2',
 						config: {
 							title: 'Low Flood Risk Population',
 							display: {
@@ -218,7 +217,6 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: appConfig.host + '/flood/risk/type',
-											// headers: { 'Authorization': 'Bearer ' + $scope.dashboard.user.token },
 											data: {
 												indicator: 'low',
 												metric: 'popn',
@@ -235,13 +233,13 @@ angular.module('ngmReportHub')
 								}]												
 							}
 						}
-					}]					
+					}]
 				},{
 					styleClass: 's12 m12 l4',
 					widgets: [{
 						type: 'highchart',
 						style: 'height: 180px;',
-						card: 'card-panel stats-card white grey-text text-darken-2',
+						card: 'card-panel chart-stats-card white grey-text text-darken-2',
 						config: {
 							title: 'Moderate Flood Risk Population',
 							display: {
@@ -303,7 +301,7 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'highchart',
 						style: 'height: 180px;',
-						card: 'card-panel stats-card white grey-text text-darken-2',
+						card: 'card-panel chart-stats-card white grey-text text-darken-2',
 						config: {
 							title: 'High Flood Risk Population',
 							display: {

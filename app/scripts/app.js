@@ -31,7 +31,8 @@ angular
 		'ngm.widget.html',
 		'ngm.widget.iframe',
 		'ngm.widget.leaflet',
-		'ngm.widget.stats'
+		'ngm.widget.stats',
+		'ngm.widget.table'
 	])
 	.config([ '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
@@ -92,6 +93,46 @@ angular
 					}],
 				}
 			})
+			.when( '/who/eha/monitoring', {
+				reloadOnSearch: false,
+				templateUrl: 'views/dashboard.html',
+				controller: 'DashboardEhaCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) {
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+			.when( '/who/eha/monitoring/:donor', {
+				reloadOnSearch: false,
+				templateUrl: 'views/dashboard.html',
+				controller: 'DashboardEhaCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) {
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+			.when( '/who/eha/monitoring/:donor/:organization', {
+				reloadOnSearch: false,
+				templateUrl: 'views/dashboard.html',
+				controller: 'DashboardEhaCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) {
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})	
+			.when( '/who/eha/monitoring/:donor/:organization/:project', {
+				reloadOnSearch: false,
+				templateUrl: 'views/dashboard.html',
+				controller: 'DashboardEhaCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) {
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})			
 			// forbidden
 			.when( '/who/forbidden', {
 				templateUrl: 'views/dashboard.html',
@@ -101,7 +142,8 @@ angular
 						return !ngmAuth.isAuthenticated();
 					}],
 				}
-			})		
+			})
+
 			/*** immap */
 			.when( '/immap/login', {
 				templateUrl: 'views/dashboard.html',
@@ -117,7 +159,7 @@ angular
 				controller: 'DashboardFloodRiskCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.isAuthenticated();
+						return true;
 					}],
 				}
 			})
@@ -311,9 +353,19 @@ angular
 
 			// toggle search active
 			toggleSearch: function(selector) {
-				
 				// toggle search input
 				$('#nav-' + selector).slideToggle();
+			},
+
+			//
+			toggleNavidationMenu: function() {
+				// rotate icon
+				$('.ngm-profile-icon').toggleClass('rotate');
+				// set class
+	    	$('.ngm-profile').toggleClass('active');
+	    	$('.ngm-profile-menu-content').toggleClass('active');
+	    	// toggle menu dropdown
+				$('.ngm-profile-menu-content').slideToggle();
 			},
 
 			// app functions

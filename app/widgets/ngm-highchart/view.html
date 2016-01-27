@@ -3,31 +3,31 @@
   /*
    stats card
   */
-  .stats-card {
+  .chart-stats-card {
     display:block;
     position:relative;
     overflow:hidden;
   }
-  .stats-card i{
+  .chart-stats-card i{
     position:absolute;
     font-size:6rem;
     right:0;
     bottom:-1rem;
   }
-  .stats-card .count{
+  .chart-stats-card .count{
     position:relative;
     font-weight:100;
     font-size:2.1rem;
     line-height:2.1rem;
   }
-  .stats-card .label {
+  .chart-stats-card .label {
     position:relative;
     font-weight:100;
     font-size:1.2rem;
     line-height:1.2rem;
     color:silver;
   }  
-  .stats-card .name {
+  .chart-stats-card .name {
     position:relative;
     font-weight:300;
     font-size:1.1rem;
@@ -50,15 +50,16 @@
           fraction-size="{{ highchart.display.fractionSize }}">
       </span>{{ highchart.display.postfix }}
     </div>
-    <div id="subLabel-{{highchart.id}}" ng-if="highchart.display.subLabel" class="count" style="text-align:center; margin-left:{{ highchart.display.left }}; width:{{ highchart.display.width }}; position: absolute; top:{{ highchart.display.subLabelTop }};">
-      <span class="label"
+    <div id="subLabel-{{highchart.id}}" ng-if="highchart.display.subLabel" class="label" style="text-align:center; margin-left:{{ highchart.display.left }}; width:{{ highchart.display.width }}; position: absolute; top:{{ highchart.display.subLabelTop }};">
+        {{ highchart.display.subLabelPrefix }}
+      <span
           value="0" 
           count-to="{{ highchart.display.subLabel }}" 
           duration="{{ highchart.display.duration }}"
           filter="{{ highchart.display.filter }}"
           params="{{ highchart.display.params }}"
           fraction-size="{{ highchart.display.subLabelFractionSize }}">
-      </span>   
+      </span>
      </div>
   </div>
 </div>

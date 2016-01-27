@@ -53,7 +53,7 @@ angular.module('ngm.widget.highchart', ['ngm.provider'])
           width: angular.element($element).parent().width() + 'px',
           top: '90px',
           left: '-'+$('.card-panel').css('padding'),
-          subLabelTop: '108px',
+          subLabelTop: '120px',
           filter: 'number',
           duration: 1,          
         },

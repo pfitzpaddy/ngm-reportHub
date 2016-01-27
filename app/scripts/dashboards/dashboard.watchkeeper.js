@@ -92,6 +92,7 @@ angular.module('ngmReportHub')
 			getMenu: function(){
 				var menu = [{
 					'id': 'search-wk-location',
+					'search': true,
 					'icon': 'place',
 					'title': 'Location',
 					'class': 'teal lighten-1 white-text',

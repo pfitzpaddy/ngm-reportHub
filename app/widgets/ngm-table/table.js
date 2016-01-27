@@ -24,27 +24,61 @@
 
 'use strict';
 
-angular.module('ngm.widget.breadcrumb', ['ngm.provider'])
+angular.module('ngm.widget.table', ['ngm.provider'])
   .config(function(dashboardProvider){
     dashboardProvider
-      .widget('breadcrumb', {
-        title: 'Breadcrumb Panel',
-        description: 'Display Navigation Breadcrumb',
-        controller: 'breadcrumbCtrl',
-        templateUrl: 'widgets/ngm-breadcrumb/view.html'
+      .widget('table', {
+        title: 'Table Panel',
+        description: 'Display ngTable widget',
+        controller: 'tableCtrl',
+        templateUrl: 'widgets/ngm-table/view.html',
+        resolve: {
+          data: function(ngmData, config){
+            if (config.request){
+              return ngmData.get(config.request);
+            }
+          }
+        }
       });
-  }).controller('breadcrumbCtrl', [
+  }).controller('tableCtrl', [
     '$scope',
-    '$element',
     '$location',
+    '$element',
+    'data', 
     'config',
-    function($scope, $element, $location, config){
+    'NgTableParams',
+    function($scope, $location, $element, data, config, NgTableParams){
+    
+      // table config
+      $scope.table = {
 
-      // statistics widget default config
-      $scope.breadcrumb = {};
+        // filename
+        filename: $location.$$path.replace(/\//g, '_').slice(1) + '-extracted-' + moment().format() + '.csv',
+
+        // ngTable params
+        tableOptions: {
+          page: 1,
+          count: 10,
+        },
+
+        tableSettings: {
+          counts: []
+        }
+
+      };
 
       // Merge defaults with config
-      $scope.breadcrumb = angular.merge({}, $scope.breadcrumb, config);
+      $scope.table = angular.merge({}, $scope.table, config);
+
+      // global data
+      $scope.data = data.data;
+
+      // update settings based on data
+      $scope.table.tableSettings.total = $scope.data.length;
+      $scope.table.tableSettings.data = $scope.data;
+
+      // ngTable
+      $scope.table.tableParams = new NgTableParams($scope.table.tableOptions, $scope.table.tableSettings);
 
   }
 ]);

@@ -85,7 +85,7 @@
 
 									<!-- navigation options repeat -->
 									<li ng-repeat="option in ngm.dashboard.model.navigationMenu" class="{{ option.liClass }}">
-										<a class="{{ option.aClass }}" href="{{ option.href }}">
+										<a class="{{ option.aClass }}" href="{{ option.href }}" ng-click="ngm.toggleNavidationMenu()">
 										<i class="{{ option.iClass }}">{{ option.icon }}</i>
 										<br/>{{ option.title }}</a>
 								  </li>
@@ -106,7 +106,7 @@
 			  		</div>
 
 			  		<!-- search list options (navClass toggles search) -->
-			  		<nav id="nav-{{ list.id }}" class="ngm-search">
+			  		<nav id="nav-{{ list.id }}" class="ngm-search" ng-show="list.search">
 					    <div class="nav-wrapper white">
 								<div class="input-field">
 									<input id="search"
@@ -212,6 +212,7 @@
 		<script src="scripts/reports/report.dews.js"></script>
 		<script src="scripts/reports/report.dews.active.js"></script>
 		<!-- dashboards -->
+		<script src="scripts/dashboards/dashboard.eha.js"></script>
 		<script src="scripts/dashboards/dashboard.dews.js"></script>
 		<script src="scripts/dashboards/dashboard.flood.risk.js"></script>
 		<script src="scripts/dashboards/dashboard.watchkeeper.js"></script>
@@ -226,6 +227,7 @@
 		<script src="widgets/ngm-iframe/iframe.js"></script>
 		<script src="widgets/ngm-leaflet/leaflet.js"></script>
 		<script src="widgets/ngm-stats/stats.js"></script>
+		<script src="widgets/ngm-table/table.js"></script>
 
 	</body>
 </html>
