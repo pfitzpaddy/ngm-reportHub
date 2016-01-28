@@ -36,6 +36,22 @@ angular.module('ngmReportHub')
 					'cerf': { id: 'cerf', name: 'CERF' },
 					'echo': { id: 'echo', name: 'ECHO' }			
 				},
+				donorList: {
+					'chf': [{ id:'ahds', name: 'AHDS' },
+									{ id:'emergency', name: 'Emergency' },
+									{ id:'mrca', name: 'MRCA' },
+									{ id:'nbb', name: 'National Blood Bank' },
+									{ id:'nca', name: 'NCA' },
+									{ id:'pphd', name: 'PPHD' },
+									{ id:'puami', name: 'PUAMI' },
+									{ id:'shrdo', name: 'SHRDO' }],
+					'usaid': [{ id:'emergency', name: 'Emergency' },
+										{ id:'hpro', name: 'HPRO' }],
+					'cerf': [{ id:'imc', name: 'IMC' }],
+					'echo': [{ id:'hntpo', name: 'HNTPO' },
+									{ id:'mrca', name: 'MRCA' },
+									{ id:'nbb', name: 'National Blood Bank' }]
+				},
 				organization: {
 					'ahds': { id:'ahds', name: 'AHDS' },
 					'emergency': { id:'emergency', name: 'Emergency' },
@@ -47,7 +63,7 @@ angular.module('ngmReportHub')
 					'nca': { id:'nca', name: 'NCA' },
 					'pphd': { id:'pphd', name: 'PPHD' },
 					'puami': { id:'puami', name: 'PUAMI' },
-					'shrdo': { id:'shrdo', name: 'SHRDO' }
+					'shrdo': { id:'shrdo', name: 'SHRDO' }					
 				}
 			},
 
@@ -89,6 +105,31 @@ angular.module('ngmReportHub')
 
 			},
 
+			getMenu: function(){
+
+				var menu = [{
+					'id': 'search-dews-donor',
+					'search': false,
+					'icon': 'account_circle',
+					'title': 'Donor',
+					'class': 'teal lighten-1 white-text',
+					'rows': $scope.dashboard.getRows('donor')
+				}];
+
+				if ($route.current.params.donor) {
+					menu.push({
+						'id': 'search-dews-organization',
+						'icon': 'touch_app',
+						'title': 'Organization',
+						'class': 'teal lighten-1 white-text',
+						'rows': $scope.dashboard.getRows('organization')
+					});
+				}
+
+				return menu;
+
+			},
+
 			// return rows for DEWS menu
 			getRows: function(list) {
 				
@@ -112,15 +153,15 @@ angular.module('ngmReportHub')
 
 				} else {
 					// for each disease
-					angular.forEach($scope.dashboard.data.organization, function(d, key){
+					angular.forEach($scope.dashboard.data.donorList[$route.current.params.donor], function(d, key){
 						
 						//
 						rows.push({
 							'title': d.name,
 							'param': 'organization',
-							'active': key,
+							'active': d.id,
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/who/eha/monitoring/' + $route.current.params.donor + '/' + key
+							'href': '#/who/eha/monitoring/' + $route.current.params.donor + '/' + d.id
 						});
 					});
 				}
@@ -200,20 +241,7 @@ angular.module('ngmReportHub')
 				'href': '#/who',
 				'title': 'DEWS'
 			}],			
-			menu: [{
-				'id': 'search-dews-donor',
-				'search': false,
-				'icon': 'account_circle',
-				'title': 'Donor',
-				'class': 'teal lighten-1 white-text',
-				'rows': $scope.dashboard.getRows('donor')
-			// },{
-			// 	'id': 'search-dews-organization',
-			// 	'icon': 'touch_app',
-			// 	'title': 'Organization',
-			// 	'class': 'teal lighten-1 white-text',
-			// 	'rows': $scope.dashboard.getRows('organization')
-			}],
+			menu: $scope.dashboard.getMenu(),
 			rows: [{
 				columns: [{
 					styleClass: 's12 m12 l12',
@@ -348,6 +376,46 @@ angular.module('ngmReportHub')
 						}
 					}]
 				}]
+			},{
+				columns: [{
+					styleClass: 's12 m12 l12',
+					widgets: [{
+						type: 'leaflet',
+						card: 'card-panel',
+						style: 'padding:0px;',
+						config: {
+							height: '520px',
+							display: {
+								type: 'marker',
+								// zoomToBounds: true
+							},
+							defaults: {
+								zoomToBounds: true
+							},
+							layers: {
+								overlays: {
+									eha_monitoring: {
+										name: 'Projects',
+										type: 'markercluster',
+										visible: true,
+										layerOptions: {
+												maxClusterRadius: 90
+										}
+									}
+								}
+							},				
+							request: {
+								method: 'POST',
+								url: appConfig.host + '/eha/markers',
+								data: {
+									layer: 'eha_monitoring',
+									donor: $scope.dashboard.donor.id,
+									organization: $scope.dashboard.organization.id
+								}
+							}
+						}
+					}]
+				}]				
 			},{
 				columns: [{
 					styleClass: 's12 m12 l12',

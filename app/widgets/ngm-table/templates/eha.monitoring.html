@@ -4,9 +4,11 @@
 #po_number {
   width: 10%;
 }
-
 #project_title {
   width: 30%;
+}
+#hfs {
+  width: 5%;
 }
 
 .ng-table th.sortable .sort-indicator {
@@ -34,7 +36,7 @@
           <td data-title="'End'" sortable="'end_date'">{{row.end_date | date:'yyyy-MM-dd' }}</td>
           <td id="project_title" data-title="'Project'" sortable="'project_title'">{{row.project_title}}</td>
           <td data-title="'Facility'" sortable="'facility_type'">{{row.facility_type}}</td>
-          <td data-title="'HFs'" sortable="'implementing_hfs'">{{row.implementing_hfs}}</td>
+          <td id="hfs" data-title="'HFs'" sortable="'implementing_hfs'">{{row.implementing_hfs}}</td>
           <td data-title="'Province'" sortable="'prov_na_en'">{{row.prov_na_en}}</td>
           <td data-title="'District'" sortable="'dist_na_en'">{{row.dist_na_en}}</td>
         </tr>

@@ -102,7 +102,7 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
           
         // bounds and marker layer
         $scope.leaflet.bounds = [];
-        $scope.leaflet.markers = data;
+        $scope.leaflet.markers = data.data;
 
         // get array of bounds
         angular.forEach($scope.leaflet.markers, function(d, key){
