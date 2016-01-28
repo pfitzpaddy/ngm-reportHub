@@ -30,6 +30,10 @@ h1, h2, h3, h4, h5, p {
 	color: #616161;
 }
 
+#ngmStartDate, #ngmEndDate, .ngm-date {
+	cursor: pointer; cursor: hand;
+}
+
 /* ROW SPACING */
 .row {
 	margin-bottom: 0px;
