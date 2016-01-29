@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @name ngmReportHubApp.factory:ngmUser
  * @description
@@ -86,6 +84,19 @@ angular.module('ngmReportHub')
 			},
 
 			logout: function() {
+
+				// ngm?
+
+				// rotate icon
+				$('.ngm-profile-icon').toggleClass('rotate');
+				// set class
+	    	$('.ngm-profile').toggleClass('active');
+	    	$('.ngm-profile-menu-content').toggleClass('active');
+	    	// toggle menu dropdown
+				$('.ngm-profile-menu-content').slideToggle();
+
+
+
 				// unset token, backend dosnt care about logouts 
 				ngmUser.unset('auth_token');
 				$location.path( '/' + $location.$$path.split('/')[1] + '/login' );

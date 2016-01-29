@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc function
  * @name ngmReportHubApp.controller:DashboardFloodRiskCtrl
@@ -119,6 +117,7 @@ angular.module('ngmReportHub')
 				'title': 'DRR'
 			}],
 			menu: [{
+				'search': true,
 				'id': 'search-flood-place',
 				'icon': 'place',
 				'title': 'Flood Risk',

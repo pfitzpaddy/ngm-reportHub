@@ -22,8 +22,6 @@
  * THE SOFTWARE.
  */
 
-'use strict';
-
 angular.module('ngm.widget.table', ['ngm.provider'])
   .config(function(dashboardProvider){
     dashboardProvider

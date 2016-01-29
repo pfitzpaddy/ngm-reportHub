@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc overview
  * @name ngmReportHubApp
@@ -45,7 +43,7 @@ angular
 				redirectTo: '/who/login'
 			})
 			.when( '/who', {
-				redirectTo: 'who/dews/afghanistan/all/2015-01-01/2016-01-01'
+				redirectTo: 'who/dews/afghanistan/all/2015-01-01/2015-12-31'
 			})			
 			.when( '/who/login', {
 				templateUrl: 'views/dashboard.html',

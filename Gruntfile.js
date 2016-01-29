@@ -1,5 +1,4 @@
 // Generated on 2015-08-29 using generator-angular 0.12.1
-'use strict';
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -470,7 +469,7 @@ module.exports = function (grunt) {
     'wiredep',
     'useminPrepare',
     'ngconstant:development',
-    // 'concurrent:dist',
+    'concurrent:dist',
     'autoprefixer',
     'ngtemplates',
     'concat',
@@ -489,7 +488,7 @@ module.exports = function (grunt) {
     'wiredep',
     'useminPrepare',
     'ngconstant:production',
-    // 'concurrent:dist',
+    'concurrent:dist',
     'autoprefixer',
     'ngtemplates',
     'concat',

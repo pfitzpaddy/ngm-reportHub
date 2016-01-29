@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc function
  * @name ngmReportHubApp.controller:DashboardDewsCtrl
@@ -466,7 +464,14 @@ angular.module('ngmReportHub')
 									},
 									legend: {
 										enabled: false
-									}																	
+									},
+									plotOptions: {
+										series: {
+											marker: {
+												enabled: false
+											}
+										}
+									}
 								},
 								title: {
 									text: ''
