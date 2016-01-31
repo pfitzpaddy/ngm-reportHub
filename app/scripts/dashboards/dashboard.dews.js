@@ -195,14 +195,14 @@ angular.module('ngmReportHub')
 						time: $scope.dashboard.startDate,
 						onSelection: function(){
 
-							// // set date
-							$scope.dashboard.startDate = moment(this.time).format('YYYY-MM-DD');
+							// set date
+							$scope.dashboard.startDate = moment(new Date(this.time)).format('YYYY-MM-DD');
 
 							// check dates
 							if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
 								Materialize.toast('Please check the dates and try again!', 4000);
 							} else {
-								// update path
+								// update new date
 								$location.path('/who/dews/' + $route.current.params.location + '/' + $route.current.params.disease + '/' + $scope.dashboard.startDate + '/' + $scope.dashboard.endDate);
 							}
 
@@ -216,13 +216,13 @@ angular.module('ngmReportHub')
 						onSelection: function(){
 							
 							// set date
-							$scope.dashboard.endDate = moment(this.time).format('YYYY-MM-DD');
+							$scope.dashboard.endDate = moment(new Date(this.time)).format('YYYY-MM-DD');
 
 							// check dates
 							if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
 								Materialize.toast('Please check the dates and try again!', 4000);
 							} else {
-								// update path
+								// update new date
 								$location.path('/who/dews/' + $route.current.params.location + '/' + $route.current.params.disease + '/' + $scope.dashboard.startDate + '/' + $scope.dashboard.endDate);
 							}
 

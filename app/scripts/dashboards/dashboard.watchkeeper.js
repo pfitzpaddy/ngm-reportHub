@@ -155,7 +155,7 @@ angular.module('ngmReportHub')
 						onSelection: function(){
 
 							// set date
-							$scope.dashboard.startDate = moment(this.time).format('YYYY-MM-DD');
+							$scope.dashboard.startDate = moment(new Date(this.time)).format('YYYY-MM-DD');
 
 							// check dates
 							if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
@@ -175,7 +175,7 @@ angular.module('ngmReportHub')
 						onSelection: function(){
 
 							// set date
-							$scope.dashboard.endDate = moment(this.time).format('YYYY-MM-DD');
+							$scope.dashboard.endDate = moment(new Date(this.time)).format('YYYY-MM-DD');
 
 							// check dates
 							if ($scope.dashboard.startDate > $scope.dashboard.endDate) {

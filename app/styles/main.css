@@ -30,10 +30,6 @@ h1, h2, h3, h4, h5, p {
 	color: #616161;
 }
 
-#ngmStartDate, #ngmEndDate, .ngm-date {
-	cursor: pointer; cursor: hand;
-}
-
 /* ROW SPACING */
 .row {
 	margin-bottom: 0px;
@@ -113,15 +109,20 @@ h1, h2, h3, h4, h5, p {
 	display: inline;
 }
 .ngm-date {
+	cursor: pointer; cursor: hand;
 	margin-top: -12px;
 	width: 90px;
 	padding: 0px;
 	z-index: 999999999;
 }
 .ngm-date input[type=text] {
+	cursor: pointer; cursor: hand;
 	color: #616161;
 	height: 1.1rem;
 	border-bottom: 0px;
+}
+.picker__wrap {
+	width: 120%;
 }
 
 /* CARD PROFILE */
