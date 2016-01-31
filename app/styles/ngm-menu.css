@@ -8,7 +8,7 @@
 /* NGM MENU */
 .ngm-menu {
 	width: 280px;
-	height: calc(100% - 60px);
+	height: 100%;
 	position:fixed;
 	overflow: auto;
 	left: 0px;
