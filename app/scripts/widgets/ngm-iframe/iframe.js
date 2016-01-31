@@ -29,7 +29,7 @@ angular.module('ngm.widget.iframe', ['ngm.provider'])
         title: 'iFrame Panel',
         description: 'Display iFrame',
         controller: 'iframeCtrl',
-        templateUrl: 'widgets/ngm-iframe/view.html'
+        templateUrl: '/scripts/widgets/ngm-iframe/view.html'
       });
   }).controller('iframeCtrl', [
     '$scope',

@@ -21,28 +21,60 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
- 
-angular.module('ngm.widget.breadcrumb', ['ngm.provider'])
+
+angular.module('ngm.widget.html', ['ngm.provider'])
   .config(function(dashboardProvider){
     dashboardProvider
-      .widget('breadcrumb', {
-        title: 'Breadcrumb Panel',
-        description: 'Display Navigation Breadcrumb',
-        controller: 'breadcrumbCtrl',
-        templateUrl: 'widgets/ngm-breadcrumb/view.html'
+      .widget('html', {
+        title: 'HTML Panel',
+        description: 'Display HTML template',
+        controller: 'htmlCtrl',
+        templateUrl: '/scripts/widgets/ngm-html/view.html',
+        resolve: {
+          data: function(ngmData, config){
+            if (config.request){
+              return ngmData.get(config.request);
+            }
+          }
+        }
       });
-  }).controller('breadcrumbCtrl', [
+  }).controller('htmlCtrl', [
     '$scope',
+    '$sce',
     '$element',
     '$location',
+    'ngmAuth',
+    'data', 
     'config',
-    function($scope, $element, $location, config){
-
+    function($scope, $sce, $element, $location, ngmAuth, data, config){
+    
       // statistics widget default config
-      $scope.breadcrumb = {};
+      $scope.panel = {
+        
+        html: '',
+        
+        template: '/scripts/widgets/ngm-html/template/default.html',
+
+        // 
+        login: function(){
+          ngmAuth.login($scope.panel.user).success(function(result) { 
+            // go to default org page 
+            $location.path( '/' + $location.$$url.split('/')[1] );
+          }).error(function(err) {
+            // update 
+            $scope.panel.error = {
+              msg: 'The email and password you entered is not correct'
+            }
+          });
+        }
+
+      };
 
       // Merge defaults with config
-      $scope.breadcrumb = angular.merge({}, $scope.breadcrumb, config);
+      $scope.panel = angular.merge({}, $scope.panel, config);
+
+      // trust html
+      $scope.panel.html = $sce.trustAsHtml($scope.panel.html);
 
   }
 ]);

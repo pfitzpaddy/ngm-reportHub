@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardFloodRiskCtrl', ['$scope', '$http', '$route', 'appConfig', 'ngmUser', function ($scope, $http, $route, appConfig, ngmUser) {
+	.controller('DashboardFloodRiskCtrl', ['$scope', '$http', '$route', 'ngmUser', function ($scope, $http, $route, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -88,12 +88,12 @@ angular.module('ngmReportHub')
 			header: {
 				div: {
 					'class': 'col s12 m12 l12 report-header',
-					style: 'border-bottom: 3px ' + $scope.$parent.ngm.style.defaultPrimaryColor + ' solid;'
+					style: 'border-bottom: 3px ' + $scope.dashboard.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
 					'class': 'col s12 m12 l12 report-title',
 					title: 'iMMAP | ' + $scope.dashboard.data[$route.current.params.province].name,
-					style: 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
+					style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 				},
 				subtitle: {
 					'class': 'col s12 m12 l12 report-subtitle',
@@ -138,7 +138,7 @@ angular.module('ngmReportHub')
 							},
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/flood/risk',
+								url: 'http://' + $location.host() + '/api/flood/risk',
 								data: {
 									indicator: 'total-popn',
 									metric: 'popn',
@@ -161,8 +161,7 @@ angular.module('ngmReportHub')
 							},
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/flood/risk',
-								// headers: { 'Authorization': 'Bearer ' + $scope.dashboard.user.token },
+								url: 'http://' + $location.host() + '/api/flood/risk',
 								data: {
 									indicator: 'total',
 									metric: 'popn',
@@ -215,7 +214,7 @@ angular.module('ngmReportHub')
 										name: 'Flood Risk',
 										request: {
 											method: 'POST',
-											url: appConfig.host + '/flood/risk/type',
+											url: 'http://' + $location.host() + '/api/flood/risk/type',
 											data: {
 												indicator: 'low',
 												metric: 'popn',
@@ -275,8 +274,7 @@ angular.module('ngmReportHub')
 										name: 'Flood Risk',
 										request: {
 											method: 'POST',
-											url: appConfig.host + '/flood/risk/type',
-											// headers: { 'Authorization': 'Bearer ' + $scope.dashboard.user.token },
+											url: 'http://' + $location.host() + '/api/flood/risk/type',
 											data: {
 												indicator: 'moderate',
 												metric: 'popn',
@@ -337,7 +335,7 @@ angular.module('ngmReportHub')
 										name: 'Flood Risk',
 										request: {
 											method: 'POST',
-											url: appConfig.host + '/flood/risk/type',
+											url: 'http://' + $location.host() + '/api/flood/risk/type',
 											data: {
 												indicator: 'high',
 												metric: 'popn',
@@ -403,7 +401,7 @@ angular.module('ngmReportHub')
 										color: '#78909c',
 										request: {
 											method: 'POST',
-											url: appConfig.host + '/flood/risk/area',
+											url: 'http://' + $location.host() + '/api/flood/risk/area',
 											data: {
 												indicator: 'total',
 												prov_code: $scope.dashboard.data[$route.current.params.province].id,
@@ -414,7 +412,7 @@ angular.module('ngmReportHub')
 										color: '#7cb5ec',
 										request: {
 											method: 'POST',
-											url: appConfig.host + '/flood/risk/area',
+											url: 'http://' + $location.host() + '/api/flood/risk/area',
 											data: {
 												indicator: 'floodRisk',
 												prov_code: $scope.dashboard.data[$route.current.params.province].id,
@@ -441,7 +439,6 @@ angular.module('ngmReportHub')
 		};
 
 		// assign to ngm app scope
-		$scope.$parent.ngm.dashboard.config = $scope.dashboard;
-		$scope.$parent.ngm.dashboard.model = $scope.model;
+		$scope.dashboard.ngm.dashboard.model = $scope.model;
 		
 	}]);

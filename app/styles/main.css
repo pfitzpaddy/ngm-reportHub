@@ -5,7 +5,7 @@
  *
  */
 
-/* AngularJS cloaking of loading elements */
+/* AngularJS cloaking of loading elements */]
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
@@ -116,7 +116,7 @@ h1, h2, h3, h4, h5, p {
 	margin-top: -12px;
 	width: 90px;
 	padding: 0px;
-	z-index: 999;
+	z-index: 999999999;
 }
 .ngm-date input[type=text] {
 	color: #616161;

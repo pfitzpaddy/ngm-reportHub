@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardWatchkeeperCtrl', ['$scope', '$http', '$location', '$route', 'appConfig', 'ngmUser', function ($scope, $http, $location, $route, appConfig, ngmUser) {
+	.controller('DashboardWatchkeeperCtrl', ['$scope', '$http', '$location', '$route', 'ngmUser', function ($scope, $http, $location, $route, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -133,11 +133,11 @@ angular.module('ngmReportHub')
 			header: {
 				div: {
 					'class': 'col s12 m12 l12 report-header',
-					'style': 'border-bottom: 3px ' + $scope.$parent.ngm.style.defaultPrimaryColor + ' solid;'
+					'style': 'border-bottom: 3px ' + $scope.dashboard.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
 					'class': 'col s12 m8 l8 report-title',
-					'style': 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
+					'style': 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 					'title': $scope.dashboard.title,
 				},
 				subtitle: {
@@ -197,7 +197,7 @@ angular.module('ngmReportHub')
 						hover: 'Download ' + $scope.dashboard.country.name + ' Report as CSV',
 						request: {
 							method: 'POST',
-							url: appConfig.host + '/wk/data',
+							url: 'http://' + $location.host() + '/api/wk/data',
 							data: {
 								report: $scope.dashboard.report,
 								start_date: $scope.dashboard.startDate,
@@ -207,7 +207,7 @@ angular.module('ngmReportHub')
 						},
 						metrics: {
 							method: 'POST',
-							url: appConfig.host + '/metrics/set',
+							url: 'http://' + $location.host() + '/api/metrics/set',
 							data: {
 								organization: $scope.dashboard.user.organization,
 								username: $scope.dashboard.user.username,
@@ -225,7 +225,7 @@ angular.module('ngmReportHub')
 						hover: 'Download ' + $scope.dashboard.country.name + ' Report as PDF',
 						request: {
 							method: 'POST',
-							url: appConfig.host + '/print',
+							url: 'http://' + $location.host() + '/api/print',
 							data: {
 								report: $scope.dashboard.report,
 								printUrl: $location.absUrl(),
@@ -236,7 +236,7 @@ angular.module('ngmReportHub')
 						},						
 						metrics: {
 							method: 'POST',
-							url: appConfig.host + '/metrics/set',
+							url: 'http://' + $location.host() + '/api/metrics/set',
 							data: {
 								organization: $scope.dashboard.user.organization,
 								username: $scope.dashboard.user.username,
@@ -280,7 +280,7 @@ angular.module('ngmReportHub')
 							},
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/wk/difference',
+								url: 'http://' + $location.host() + '/api/wk/difference',
 								data: {
 									start_date: $scope.dashboard.startDate,
 									end_date: $scope.dashboard.endDate,
@@ -298,7 +298,7 @@ angular.module('ngmReportHub')
 							title: 'Riots / Protests',
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/wk/indicator',
+								url: 'http://' + $location.host() + '/api/wk/indicator',
 								data: {
 									start_date: $scope.dashboard.startDate,
 									end_date: $scope.dashboard.endDate,
@@ -317,7 +317,7 @@ angular.module('ngmReportHub')
 							title: 'Other',
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/wk/indicator',
+								url: 'http://' + $location.host() + '/api/wk/indicator',
 								data: {
 									start_date: $scope.dashboard.startDate,
 									end_date: $scope.dashboard.endDate,
@@ -336,7 +336,7 @@ angular.module('ngmReportHub')
 							title: 'Deaths',
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/wk/indicator',
+								url: 'http://' + $location.host() + '/api/wk/indicator',
 								data: {
 									start_date: $scope.dashboard.startDate,
 									end_date: $scope.dashboard.endDate,
@@ -367,7 +367,7 @@ angular.module('ngmReportHub')
 							},
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/wk/calendar',
+								url: 'http://' + $location.host() + '/api/wk/calendar',
 								data: {
 									start_date: new Date(moment($scope.dashboard.endDate).subtract(11, 'M').format()),
 									end_date: $scope.dashboard.endDate,
@@ -426,7 +426,7 @@ angular.module('ngmReportHub')
 									color: '#78909c',
 									request: {
 										method: 'POST',
-										url: appConfig.host + '/wk/chart',
+										url: 'http://' + $location.host() + '/api/wk/chart',
 										data: {
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
@@ -439,7 +439,7 @@ angular.module('ngmReportHub')
 									color: '#7cb5ec',
 									request: {
 										method: 'POST',
-										url: appConfig.host + '/wk/chart',
+										url: 'http://' + $location.host() + '/api/wk/chart',
 										data: {
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
@@ -493,7 +493,7 @@ angular.module('ngmReportHub')
 							},				
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/wk/markers',
+								url: 'http://' + $location.host() + '/api/wk/markers',
 								data: {
 									layer: 'incidents',
 									start_date: $scope.dashboard.startDate,
@@ -521,6 +521,6 @@ angular.module('ngmReportHub')
 		};
 
 		// assign to ngm app scope
-		$scope.$parent.ngm.dashboard.model = $scope.model;
+		$scope.dashboard.ngm.dashboard.model = $scope.model;
 		
 	}]);

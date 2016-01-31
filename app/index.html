@@ -6,7 +6,13 @@
 		<base href="/">
 		<meta name="description" content="Dashboard reporting on key business indicators">
 		<meta name="viewport" content="width=device-width">
-		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+		<!-- favicon -->
+		<link rel="icon" href="images/favicon.ico" sizes="32x32">
+		<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+		<!-- vendor css -->
 		<!-- build:css(.) styles/vendor.css -->
 		<!-- bower:css -->
 		<link rel='stylesheet' href='bower_components/leaflet/dist/leaflet.css' />
@@ -14,20 +20,19 @@
 		<link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.css' />
 		<link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css' />
 		<link rel='stylesheet' href='bower_components/materialize/bin/materialize.css' />
-		<link rel='stylesheet' href='bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.css' />
 		<link rel='stylesheet' href='bower_components/ngm-leaflet-control-geocoder/Control.Geocoder.css' />
 		<link rel='stylesheet' href='bower_components/dropzone/dist/min/dropzone.min.css' />
 		<link rel='stylesheet' href='bower_components/ng-table/dist/ng-table.min.css' />
 		<!-- endbower -->
 		<!-- endbuild -->
+
+		<!-- ngm css -->
 		<!-- build:css(.tmp) styles/main.css -->
-		<link rel="icon" href="images/favicon.ico" sizes="32x32">
-		<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
-		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="styles/main.css">	
 		<link rel="stylesheet" href="styles/ngm-menu.css">
 		<link rel="stylesheet" href="styles/ngm-dropzone.css">
 		<!-- endbuild -->
+
 	</head>
 	<body ng-app="ngmReportHub" ng-controller="ngmReportHubCrtl" style="height:100%">
 		
@@ -160,6 +165,7 @@
 
 		</script>		
 
+		<!-- vendor -->
 		<!-- build:js(.) scripts/vendor.js -->
 		<!-- bower:js -->
 		<script src="bower_components/jquery/dist/jquery.js"></script>
@@ -195,13 +201,12 @@
 
 		<!-- leaflet fullscreen -->
 		<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
-		<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />		
+		<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 
+		<!-- ngmapp -->
 		<!-- build:js({.tmp,app}) scripts/scripts.js -->
-
 		<!-- app -->
 		<script src="scripts/app.js"></script>
-		<script src="scripts/config.js"></script>
 		<!-- services -->			
 		<script src="scripts/services/ngmAuthentication.js"></script>
 		<script src="scripts/services/ngmModal.js"></script>
@@ -218,16 +223,18 @@
 		<script src="scripts/dashboards/dashboard.watchkeeper.js"></script>
 		<!-- upload -->
 		<script src="scripts/upload/upload.dews.js"></script>		
+		<!-- endbuild -->
+
 		<!-- widgets -->
-		<script src="widgets/ngm-breadcrumb/breadcrumb.js"></script>
-		<script src="widgets/ngm-calHeatmap/calHeatmap.js"></script>		
-		<script src="widgets/ngm-dropzone/dropzone.js"></script>
-		<script src="widgets/ngm-highchart/highchart.js"></script>		
-		<script src="widgets/ngm-html/html.js"></script>
-		<script src="widgets/ngm-iframe/iframe.js"></script>
-		<script src="widgets/ngm-leaflet/leaflet.js"></script>
-		<script src="widgets/ngm-stats/stats.js"></script>
-		<script src="widgets/ngm-table/table.js"></script>
+		<script src="scripts/widgets/ngm-breadcrumb/breadcrumb.js"></script>
+		<script src="scripts/widgets/ngm-calHeatmap/calHeatmap.js"></script>		
+		<script src="scripts/widgets/ngm-dropzone/dropzone.js"></script>
+		<script src="scripts/widgets/ngm-highchart/highchart.js"></script>		
+		<script src="scripts/widgets/ngm-html/html.js"></script>
+		<script src="scripts/widgets/ngm-iframe/iframe.js"></script>
+		<script src="scripts/widgets/ngm-leaflet/leaflet.js"></script>
+		<script src="scripts/widgets/ngm-stats/stats.js"></script>
+		<script src="scripts/widgets/ngm-table/table.js"></script>
 
 	</body>
 </html>

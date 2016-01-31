@@ -8,7 +8,6 @@
  */
 angular
 	.module('ngmReportHub', [
-		'appConfig',
 		'ngAnimate',
 		'ngCookies',
 		'ngResource',
@@ -43,10 +42,10 @@ angular
 				redirectTo: '/who/login'
 			})
 			.when( '/who', {
-				redirectTo: 'who/dews/afghanistan/all/2015-01-01/2015-12-31'
+				redirectTo: '/who/dews/afghanistan/all/2015-01-01/2015-12-31'
 			})			
 			.when( '/who/login', {
-				templateUrl: 'views/dashboard.html',
+				templateUrl: '/views/dashboard.html',
 				controller: 'DashboardLoginCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -55,7 +54,7 @@ angular
 				}
 			})			
 			.when( '/who/dews/report', {
-				templateUrl: 'views/dashboard.html',
+				templateUrl: '/views/dashboard.html',
 				controller: 'ReportMenuCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
@@ -64,7 +63,7 @@ angular
 				}
 			})
 			.when( '/who/dews/report/:active', {
-				templateUrl: 'views/dashboard.html',
+				templateUrl: '/views/dashboard.html',
 				controller: 'ReportiFrameCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
@@ -73,7 +72,7 @@ angular
 				}
 			})
 			.when( '/who/dews/upload', {
-				templateUrl: 'views/dashboard.html',
+				templateUrl: '/views/dashboard.html',
 				controller: 'UpdateDewsCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
@@ -83,7 +82,7 @@ angular
 			})
 			.when( '/who/dews/:location/:disease/:start/:end', {
 				reloadOnSearch: false,
-				templateUrl: 'views/dashboard.html',
+				templateUrl: '/views/dashboard.html',
 				controller: 'DashboardDewsCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
@@ -93,7 +92,7 @@ angular
 			})
 			.when( '/who/eha/monitoring', {
 				reloadOnSearch: false,
-				templateUrl: 'views/dashboard.html',
+				templateUrl: '/views/dashboard.html',
 				controller: 'DashboardEhaCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
@@ -103,7 +102,7 @@ angular
 			})
 			.when( '/who/eha/monitoring/:donor', {
 				reloadOnSearch: false,
-				templateUrl: 'views/dashboard.html',
+				templateUrl: '/views/dashboard.html',
 				controller: 'DashboardEhaCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
@@ -113,7 +112,7 @@ angular
 			})
 			.when( '/who/eha/monitoring/:donor/:organization', {
 				reloadOnSearch: false,
-				templateUrl: 'views/dashboard.html',
+				templateUrl: '/views/dashboard.html',
 				controller: 'DashboardEhaCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
@@ -123,7 +122,7 @@ angular
 			})	
 			.when( '/who/eha/monitoring/:donor/:organization/:project', {
 				reloadOnSearch: false,
-				templateUrl: 'views/dashboard.html',
+				templateUrl: '/views/dashboard.html',
 				controller: 'DashboardEhaCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
@@ -133,7 +132,7 @@ angular
 			})			
 			// forbidden
 			.when( '/who/forbidden', {
-				templateUrl: 'views/dashboard.html',
+				templateUrl: '/views/dashboard.html',
 				controller: 'DashboardForbiddenCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -144,7 +143,7 @@ angular
 
 			/*** immap */
 			.when( '/immap/login', {
-				templateUrl: 'views/dashboard.html',
+				templateUrl: '/views/dashboard.html',
 				controller: 'DashboardLoginCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -153,7 +152,7 @@ angular
 				}
 			})			
 			.when( '/immap/drr/flood/:province', {
-				templateUrl: 'views/dashboard.html',
+				templateUrl: '/views/dashboard.html',
 				controller: 'DashboardFloodRiskCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
@@ -163,7 +162,7 @@ angular
 			})
 			.when( '/immap/watchkeeper/:country/:start/:end', {
 				reloadOnSearch: false,
-				templateUrl: 'views/dashboard.html',
+				templateUrl: '/views/dashboard.html',
 				controller: 'DashboardWatchkeeperCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -185,7 +184,7 @@ angular
 			})
 			// forbidden
 			.when( '/immap/forbidden', {
-				templateUrl: 'views/dashboard.html',
+				templateUrl: '/views/dashboard.html',
 				controller: 'DashboardForbiddenCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -195,7 +194,7 @@ angular
 			})	
 			// default
 			.otherwise({
-				redirectTo: 'who/dews/afghanistan/all/2015-01-01/2016-01-01'
+				redirectTo: '/who/dews/afghanistan/all/2015-01-01/2016-01-01'
 			});
 	}])
 	.run(['$rootScope', '$location', 'ngmAuth', function($rootScope, $location, ngmAuth) {

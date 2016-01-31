@@ -6,8 +6,8 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardEhaCtrl', ['$scope', '$http', '$location', '$route', '$window', '$timeout', 'appConfig', 'ngmUser', 'ngmModal', 
-		function ($scope, $http, $location, $route, $window, $timeout, appConfig, ngmUser, ngmModal) {
+	.controller('DashboardEhaCtrl', ['$scope', '$http', '$location', '$route', '$window', '$timeout', 'ngmUser', 'ngmModal', 
+		function ($scope, $http, $location, $route, $window, $timeout, ngmUser, ngmModal) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -180,11 +180,11 @@ angular.module('ngmReportHub')
 			header: {
 				div: {
 					'class': 'col s12 m12 l12 report-header',
-					'style': 'border-bottom: 3px ' + $scope.$parent.ngm.style.defaultPrimaryColor + ' solid;'
+					'style': 'border-bottom: 3px ' + $scope.dashboard.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
 					'class': 'col s12 m8 l8 report-title',
-					'style': 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
+					'style': 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 					'title': $scope.dashboard.title,
 				},
 				subtitle: {
@@ -200,7 +200,7 @@ angular.module('ngmReportHub')
 						hover: 'Download EHA Report as PDF',
 						request: {
 							method: 'POST',
-							url: appConfig.host + '/print',
+							url: 'http://' + $location.host() + '/api/print',
 							data: {
 								report: $scope.dashboard.report,
 								printUrl: $location.absUrl(),
@@ -211,7 +211,7 @@ angular.module('ngmReportHub')
 						},						
 						metrics: {
 							method: 'POST',
-							url: appConfig.host + '/metrics/set',
+							url: 'http://' + $location.host() + '/api/metrics/set',
 							data: {
 								organization: $scope.dashboard.user.organization,
 								username: $scope.dashboard.user.username,
@@ -296,7 +296,7 @@ angular.module('ngmReportHub')
 										name: 'Budget Summary',
 										request: {
 											method: 'POST',
-											url: appConfig.host + '/eha/summary',
+											url: 'http://' + $location.host() + '/api/eha/summary',
 											data: {
 												metric: 'amount',
 												donor: $scope.dashboard.donor.id,
@@ -323,7 +323,7 @@ angular.module('ngmReportHub')
 							title: 'No. of Projects',
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/eha/indicator',
+								url: 'http://' + $location.host() + '/api/eha/indicator',
 								data: {
 									metric: 'projects',
 									donor: $scope.dashboard.donor.id,
@@ -342,7 +342,7 @@ angular.module('ngmReportHub')
 							title: 'No. of Provinces',
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/eha/indicator',
+								url: 'http://' + $location.host() + '/api/eha/indicator',
 								data: {
 									metric: 'provinces',
 									donor: $scope.dashboard.donor.id,
@@ -359,13 +359,13 @@ angular.module('ngmReportHub')
 						type: 'table',
 						card: 'card-panel',
 						config: {
-							template: 'widgets/ngm-table/templates/eha.monitoring.html',
+							template: 'scripts/widgets/ngm-table/templates/eha.monitoring.html',
 							tableOptions:{
 								count: 5
 							},
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/eha/table',
+								url: 'http://' + $location.host() + '/api/eha/table',
 								data: {
 									donor: $scope.dashboard.donor.id,
 									organization: $scope.dashboard.organization.id
@@ -404,7 +404,7 @@ angular.module('ngmReportHub')
 							},				
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/eha/markers',
+								url: 'http://' + $location.host() + '/api/eha/markers',
 								data: {
 									layer: 'eha_monitoring',
 									donor: $scope.dashboard.donor.id,
@@ -430,6 +430,6 @@ angular.module('ngmReportHub')
 		};
 
 		// assign to ngm app scope (for menu)
-		$scope.$parent.ngm.dashboard.model = $scope.model;
+		$scope.dashboard.ngm.dashboard.model = $scope.model;
 		
 	}]);

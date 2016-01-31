@@ -100,6 +100,6 @@ angular.module('ngmReportHub')
 		};
 
 		// assign to ngm app scope
-		$scope.$parent.ngm.dashboard.model = $scope.model;
+		$scope.dashboard.ngm.dashboard.model = $scope.model;
 		
 	}]);

@@ -21,48 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-angular.module('ngm.widget.stats', ['ngm.provider'])
+ 
+angular.module('ngm.widget.breadcrumb', ['ngm.provider'])
   .config(function(dashboardProvider){
     dashboardProvider
-      .widget('stats', {
-        title: 'Statistics Panel',
-        description: 'Displays a Key Statistical Indicator',
-        controller: 'statsCtrl',
-        templateUrl: 'widgets/ngm-stats/view.html',
-        resolve: {
-          // pass in ngmData for $http requests
-          data: function(ngmData, config){
-            if (config.request){
-              return ngmData.get(config.request);
-            }
-          }
-        }
+      .widget('breadcrumb', {
+        title: 'Breadcrumb Panel',
+        description: 'Display Navigation Breadcrumb',
+        controller: 'breadcrumbCtrl',
+        templateUrl: '/scripts/widgets/ngm-breadcrumb/view.html'
       });
-  })
-  .controller('statsCtrl', [
-    '$scope', 
+  }).controller('breadcrumbCtrl', [
+    '$scope',
     '$element',
-    'data', 
+    '$location',
     'config',
-    function($scope, $element, data, config){
-    
+    function($scope, $element, $location, config){
+
       // statistics widget default config
-      $scope.stats = {
-        title: 'Incidents',
-        template: 'widgets/ngm-stats/template/default.html',
-        element: $element,
-        display: {
-          iconClass: 'grey-text text-lighten-1',
-          filter: 'number',
-          duration: 1,
-          simpleTitle: true
-        },
-        data: data
-      };
+      $scope.breadcrumb = {};
 
       // Merge defaults with config
-      $scope.stats = angular.merge({}, $scope.stats, config);
+      $scope.breadcrumb = angular.merge({}, $scope.breadcrumb, config);
 
   }
 ]);

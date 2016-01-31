@@ -42,7 +42,7 @@ angular.module('ngmReportHub')
 
 		};
 	})
-	.factory('ngmAuth', ['$q', '$http', '$location', 'ngmUser', 'appConfig', function($q, $http, $location, ngmUser, appConfig) {
+	.factory('ngmAuth', ['$q', '$http', '$location', 'ngmUser', function($q, $http, $location, ngmUser) {
 
 		var ngmAuth = {
 

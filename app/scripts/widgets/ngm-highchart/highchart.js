@@ -29,7 +29,7 @@ angular.module('ngm.widget.highchart', ['ngm.provider'])
         title: 'Highcharts Panel',
         description: 'Displays a Highcharts chart',
         controller: 'highchartCtrl',
-        templateUrl: 'widgets/ngm-highchart/view.html'
+        templateUrl: '/scripts/widgets/ngm-highchart/view.html'
       });
   }).controller('highchartCtrl', [
     '$scope',

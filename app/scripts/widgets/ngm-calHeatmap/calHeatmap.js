@@ -29,7 +29,7 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
         title: 'Calendar Heatmap Panel',
         description: 'Displays a Calendar of Indicators',
         controller: 'calHeatmapCtrl',
-        templateUrl: 'widgets/ngm-calHeatmap/view.html',
+        templateUrl: '/scripts/widgets/ngm-calHeatmap/view.html',
         resolve: {
           data: function(ngmData, config){
             if (config.request){

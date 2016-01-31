@@ -54,7 +54,7 @@ angular.module('ngmReportHub')
 						style: 'padding:0px; height: ' + $scope.forbidden.ngm.style.height + 'px;',
 						config: {
 							style: $scope.forbidden.ngm.style,
-							template: 'widgets/ngm-html/template/forbidden.html'
+							template: 'scripts/widgets/ngm-html/template/forbidden.html'
 						}
 					}]
 				}]
@@ -65,6 +65,6 @@ angular.module('ngmReportHub')
 		$scope.model = model;
 
 		// assign to ngm app scope
-		$scope.$parent.ngm.dashboard = $scope.model;
+		$scope.dashboard.ngm.dashboard = $scope.model;
 		
 	}]);

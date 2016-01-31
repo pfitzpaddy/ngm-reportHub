@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('UpdateDewsCtrl', ['$scope', 'appConfig', 'ngmUser', function ($scope, appConfig, ngmUser) {
+	.controller('UpdateDewsCtrl', ['$scope', 'ngmUser', function ($scope, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -50,14 +50,14 @@ angular.module('ngmReportHub')
 						style: 'height: 296px;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							url: appConfig.host + '/upload-file',
+							url: 'http://' + $location.host() + '/api/upload-file',
 							acceptedFiles: '.xlsx',
 							headers: { 'Authorization': 'Bearer ' + ngmUser.get().token },
 							successMessage: false,
 							process: {
 								request: {
 									method: 'POST',
-									url: appConfig.host + '/process',
+									url: 'http://' + $location.host() + '/api/process',
 									data: {
 										type: 'xlsx',
 										schema: 'dews',
@@ -86,6 +86,6 @@ angular.module('ngmReportHub')
 		};
 
 		// assign to ngm app scope
-		$scope.$parent.ngm.dashboard.model = $scope.model;
+		$scope.dashboard.ngm.dashboard.model = $scope.model;
 		
 	}]);

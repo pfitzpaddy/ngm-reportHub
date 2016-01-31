@@ -29,7 +29,7 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
         title: 'Leaflet',
         description: 'Displays a Leaflet Map',
         controller: 'leafletCtrl',
-        templateUrl: 'widgets/ngm-leaflet/view.html',
+        templateUrl: '/scripts/widgets/ngm-leaflet/view.html',
         resolve: {
           data: function(ngmData, config){
             if (config.request){

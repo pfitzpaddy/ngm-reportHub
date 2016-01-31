@@ -29,7 +29,7 @@ angular.module('ngm.widget.table', ['ngm.provider'])
         title: 'Table Panel',
         description: 'Display ngTable widget',
         controller: 'tableCtrl',
-        templateUrl: 'widgets/ngm-table/view.html',
+        templateUrl: '/scripts/widgets/ngm-table/view.html',
         resolve: {
           data: function(ngmData, config){
             if (config.request){

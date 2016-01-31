@@ -22,15 +22,16 @@
  * THE SOFTWARE.
  */
 
-angular.module('ngm.widget.html', ['ngm.provider'])
+angular.module('ngm.widget.stats', ['ngm.provider'])
   .config(function(dashboardProvider){
     dashboardProvider
-      .widget('html', {
-        title: 'HTML Panel',
-        description: 'Display HTML template',
-        controller: 'htmlCtrl',
-        templateUrl: 'widgets/ngm-html/view.html',
+      .widget('stats', {
+        title: 'Statistics Panel',
+        description: 'Displays a Key Statistical Indicator',
+        controller: 'statsCtrl',
+        templateUrl: '/scripts/widgets/ngm-stats/view.html',
         resolve: {
+          // pass in ngmData for $http requests
           data: function(ngmData, config){
             if (config.request){
               return ngmData.get(config.request);
@@ -38,43 +39,30 @@ angular.module('ngm.widget.html', ['ngm.provider'])
           }
         }
       });
-  }).controller('htmlCtrl', [
-    '$scope',
-    '$sce',
+  })
+  .controller('statsCtrl', [
+    '$scope', 
     '$element',
-    '$location',
-    'ngmAuth',
     'data', 
     'config',
-    function($scope, $sce, $element, $location, ngmAuth, data, config){
+    function($scope, $element, data, config){
     
       // statistics widget default config
-      $scope.panel = {
-        
-        html: '',
-        
-        template: 'widgets/ngm-html/template/default.html',
-
-        // 
-        login: function(){
-          ngmAuth.login($scope.panel.user).success(function(result) { 
-            // go to default org page 
-            $location.path( '/' + $location.$$url.split('/')[1] );
-          }).error(function(err) {
-            // update 
-            $scope.panel.error = {
-              msg: 'The email and password you entered is not correct'
-            }
-          });
-        }
-
+      $scope.stats = {
+        title: 'Incidents',
+        template: 'scripts/widgets/ngm-stats/template/default.html',
+        element: $element,
+        display: {
+          iconClass: 'grey-text text-lighten-1',
+          filter: 'number',
+          duration: 1,
+          simpleTitle: true
+        },
+        data: data
       };
 
       // Merge defaults with config
-      $scope.panel = angular.merge({}, $scope.panel, config);
-
-      // trust html
-      $scope.panel.html = $sce.trustAsHtml($scope.panel.html);
+      $scope.stats = angular.merge({}, $scope.stats, config);
 
   }
 ]);

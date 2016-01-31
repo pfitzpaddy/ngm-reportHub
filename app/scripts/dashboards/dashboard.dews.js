@@ -6,8 +6,8 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardDewsCtrl', ['$scope', '$http', '$location', '$route', '$window', '$timeout', 'appConfig', 'ngmUser', 'ngmModal', 
-		function ($scope, $http, $location, $route, $window, $timeout, appConfig, ngmUser, ngmModal) {
+	.controller('DashboardDewsCtrl', ['$scope', '$http', '$location', '$route', '$window', '$timeout', 'ngmUser', 'ngmModal', 
+		function ($scope, $http, $location, $route, $window, $timeout, ngmUser, ngmModal) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -174,11 +174,11 @@ angular.module('ngmReportHub')
 			header: {
 				div: {
 					'class': 'col s12 m12 l12 report-header',
-					'style': 'border-bottom: 3px ' + $scope.$parent.ngm.style.defaultPrimaryColor + ' solid;'
+					'style': 'border-bottom: 3px ' + $scope.dashboard.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
 					'class': 'col s12 m8 l8 report-title',
-					'style': 'color: ' + $scope.$parent.ngm.style.defaultPrimaryColor,
+					'style': 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 					'title': $scope.dashboard.title,
 				},
 				subtitle: {
@@ -238,7 +238,7 @@ angular.module('ngmReportHub')
 						hover: 'Download ' + $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name +  ' Report as CSV',
 						request: {
 							method: 'POST',
-							url: appConfig.host + '/dews/data',
+							url: 'http://' + $location.host() + '/api/dews/data',
 							data: {
 								report: $scope.dashboard.report,
 								start_date: $scope.dashboard.startDate,
@@ -249,7 +249,7 @@ angular.module('ngmReportHub')
 						},
 						metrics: {
 							method: 'POST',
-							url: appConfig.host + '/metrics/set',
+							url: 'http://' + $location.host() + '/api/metrics/set',
 							data: {
 								organization: $scope.dashboard.user.organization,
 								username: $scope.dashboard.user.username,
@@ -267,7 +267,7 @@ angular.module('ngmReportHub')
 						hover: 'Download ' + $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name +  ' Report as PDF',
 						request: {
 							method: 'POST',
-							url: appConfig.host + '/print',
+							url: 'http://' + $location.host() + '/api/print',
 							data: {
 								report: $scope.dashboard.report,
 								printUrl: $location.absUrl(),
@@ -278,7 +278,7 @@ angular.module('ngmReportHub')
 						},						
 						metrics: {
 							method: 'POST',
-							url: appConfig.host + '/metrics/set',
+							url: 'http://' + $location.host() + '/api/metrics/set',
 							data: {
 								organization: $scope.dashboard.user.organization,
 								username: $scope.dashboard.user.username,
@@ -344,7 +344,7 @@ angular.module('ngmReportHub')
 							title: 'Outbreaks',
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/dews/indicator',
+								url: 'http://' + $location.host() + '/api/dews/indicator',
 								data: {
 									start_date: $scope.dashboard.startDate,
 									end_date: $scope.dashboard.endDate,
@@ -364,7 +364,7 @@ angular.module('ngmReportHub')
 							title: 'Individual Cases',
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/dews/indicator',
+								url: 'http://' + $location.host() + '/api/dews/indicator',
 								data: {
 									start_date: $scope.dashboard.startDate,
 									end_date: $scope.dashboard.endDate,									
@@ -384,7 +384,7 @@ angular.module('ngmReportHub')
 							title: 'Deaths',
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/dews/indicator',
+								url: 'http://' + $location.host() + '/api/dews/indicator',
 								data: {
 									start_date: $scope.dashboard.startDate,
 									end_date: $scope.dashboard.endDate,
@@ -411,7 +411,7 @@ angular.module('ngmReportHub')
 										ngmModal.open({
 											type: 'table',
 											style: 'width:70%;',
-											template: "'views/modals/dews.modal.html'",
+											template: "'/views/modals/dews.modal.html'",
 											date: moment(date).format('DD MMMM, YYYY'),
 											loading: true,
 											materialize: {
@@ -419,7 +419,7 @@ angular.module('ngmReportHub')
 											},
 											request: {
 												method: 'POST',
-												url: appConfig.host + '/dews/summary',
+												url: 'http://' + $location.host() + '/api/dews/summary',
 												data: {
 													date: moment(date).format('YYYY-MM-DD'),
 													disease: $scope.dashboard.disease.id,
@@ -432,7 +432,7 @@ angular.module('ngmReportHub')
 							},
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/dews/calendar',
+								url: 'http://' + $location.host() + '/api/dews/calendar',
 								data: {
 									start_date: $scope.dashboard.startDate,
 									end_date: $scope.dashboard.endDate,
@@ -492,7 +492,7 @@ angular.module('ngmReportHub')
 									color: '#7cb5ec',
 									request: {
 										method: 'POST',
-										url: appConfig.host + '/dews/chart',
+										url: 'http://' + $location.host() + '/api/dews/chart',
 										data: {
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
@@ -534,7 +534,7 @@ angular.module('ngmReportHub')
 							},				
 							request: {
 								method: 'POST',
-								url: appConfig.host + '/dews/markers',
+								url: 'http://' + $location.host() + '/api/dews/markers',
 								data: {
 									layer: 'outbreaks',
 									start_date: $scope.dashboard.startDate,
@@ -563,6 +563,6 @@ angular.module('ngmReportHub')
 		};
 
 		// assign to ngm app scope (for menu)
-		$scope.$parent.ngm.dashboard.model = $scope.model;
+		$scope.dashboard.ngm.dashboard.model = $scope.model;
 		
 	}]);
