@@ -43,8 +43,9 @@ angular.module('ngmReportHub')
 				}
 			},
 			menu: [{
-				title: 'DEWS Report',
-				'class': 'collapsible-header waves-effect waves-teal',
+				'icon': 'zoom_in',
+				'title': 'DEWS Report',
+				'class': 'teal lighten-1 white-text',
 				rows: [{
 					'title': 'Active Report',
 					'class': 'waves-effect waves-teal',
@@ -90,9 +91,9 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'html',
 						card: 'card-panel',
-						style: 'padding:0px; height: 120px;',
+						style: 'padding:0px; height: 90px; padding-top:10px;',
 						config: {
-							html: '<div style="background-color: #FFF; height: 140px;"></div>' + $scope.report.ngm.footer
+							html: $scope.report.ngm.footer
 						}
 					}]
 				}]
@@ -100,6 +101,6 @@ angular.module('ngmReportHub')
 		};
 
 		// assign to ngm app scope
-		$scope.dashboard.ngm.dashboard.model = $scope.model;
+		$scope.report.ngm.dashboard.model = $scope.model;
 		
 	}]);

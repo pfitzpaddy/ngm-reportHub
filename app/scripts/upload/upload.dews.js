@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('UpdateDewsCtrl', ['$scope', 'ngmUser', function ($scope, ngmUser) {
+	.controller('UpdateDewsCtrl', ['$scope', '$location', 'ngmUser', function ($scope, $location, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -76,9 +76,9 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'html',
 						card: 'card-panel',
-						style: 'padding:0px; height: 120px;',
+						style: 'padding:0px; height: 90px; padding-top:10px;',
 						config: {
-							html: '<div style="background-color: #FFF; height: 140px;"></div>' + $scope.upload.ngm.footer
+							html: $scope.upload.ngm.footer
 						}
 					}]
 				}]
@@ -86,6 +86,6 @@ angular.module('ngmReportHub')
 		};
 
 		// assign to ngm app scope
-		$scope.dashboard.ngm.dashboard.model = $scope.model;
+		$scope.upload.ngm.dashboard.model = $scope.model;
 		
 	}]);
