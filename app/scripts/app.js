@@ -241,15 +241,6 @@ angular
   })	
 	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', 'ngmAuth', 'ngmUser', function ($scope, $route, $location, ngmAuth, ngmUser) {
 
-		// paint application
-		$scope.$on('$routeChangeStart', function(next, current) { 
-			// get application
-			var route = $location.$$path.split('/')[1];
-			// set application
-			$scope.ngm.setApplication(route);
-
-		});
-
 		// ngm object
 		$scope.ngm = {
 
@@ -394,5 +385,14 @@ angular
 		if ($scope.ngm.isTouchDevice()) {
 			$('#nav-mobile').css({ overflow: 'auto'});
 		}	
+
+		// paint application
+		$scope.$on('$routeChangeStart', function(next, current) { 
+			// get application
+			var route = $location.$$path.split('/')[1];
+			// set application
+			$scope.ngm.setApplication(route);
+
+		});
 
 	}]);

@@ -51,11 +51,13 @@ angular.module('ngm.widget.html', ['ngm.provider'])
       // statistics widget default config
       $scope.panel = {
         
+        // html template
         html: '',
         
-        template: '/scripts/widgets/ngm-html/template/default.html',
+        // src template
+        templateUrl: '/scripts/widgets/ngm-html/template/default.html',
 
-        // 
+        // login fn
         login: function(){
           ngmAuth.login($scope.panel.user).success(function(result) { 
             // go to default org page 

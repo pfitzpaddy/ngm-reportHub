@@ -14,7 +14,7 @@ angular.module('ngmReportHub')
 		];
 
 		// login object
-		$scope.login = {
+		$scope.dashboard = {
 
 			// parent
 			ngm: $scope.$parent.ngm
@@ -22,18 +22,19 @@ angular.module('ngmReportHub')
 		}
 
 		// 
-		$scope.login.ngm.style.paddingHeight = 20;
+		$scope.dashboard.ngm.style.paddingHeight = 20;
 
 		// dews dashboard model
 		var model = {
+			name: 'dashboard_login',
 			header: {
 				div: {
 					'class': 'col s12 m12 l12 report-header',
-					style: 'border-bottom: 3px ' + $scope.login.ngm.style.defaultPrimaryColor + ' solid;'
+					style: 'border-bottom: 3px ' + $scope.dashboard.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
 					'class': 'col s12 m12 l12 report-title',
-					style: 'color: ' + $scope.login.ngm.style.defaultPrimaryColor,
+					style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 					title: 'Welcome'
 				},
 				subtitle: {
@@ -48,17 +49,17 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'html',
 						card: 'card-panel',
-						style: 'padding:0px; height: ' + $scope.login.ngm.style.height + 'px;',
+						style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
 						config: {
-							style: $scope.login.ngm.style,
-							template: 'scripts/widgets/ngm-html/template/login.html'
+							style: $scope.dashboard.ngm.style,
+							templateUrl: '/scripts/widgets/ngm-html/template/login.html'
 						}
 					}]
 				}]
 			}]
 		};
 
-		$scope.name = 'login';
+		// assign model to scope
 		$scope.model = model;
 
 		// assign to ngm app scope

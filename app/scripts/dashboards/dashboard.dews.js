@@ -538,7 +538,7 @@ angular.module('ngmReportHub')
 								data: {
 									layer: 'outbreaks',
 									start_date: $scope.dashboard.startDate,
-									end_date: $scope.dashboard.endDate,									
+									end_date: $scope.dashboard.endDate,
 									disease: $scope.dashboard.disease.id,
 									prov_code: $scope.dashboard.location.id,
 									message: '<div class="count" style="text-align:center">__{ "value": feature.properties.incidents }__</div> cases in __{ "value": feature.properties.district }__'

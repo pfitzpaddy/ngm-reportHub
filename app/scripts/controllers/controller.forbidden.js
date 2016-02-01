@@ -54,7 +54,7 @@ angular.module('ngmReportHub')
 						style: 'padding:0px; height: ' + $scope.forbidden.ngm.style.height + 'px;',
 						config: {
 							style: $scope.forbidden.ngm.style,
-							template: 'scripts/widgets/ngm-html/template/forbidden.html'
+							template: '/scripts/widgets/ngm-html/template/forbidden.html'
 						}
 					}]
 				}]
