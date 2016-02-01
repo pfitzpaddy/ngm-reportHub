@@ -408,10 +408,11 @@ angular.module('ngmReportHub')
 								// on click popup
 								onClick: function(date, nb) {
 									if(nb){
+										// open modal service
 										ngmModal.open({
 											type: 'table',
 											style: 'width:70%;',
-											template: "'/views/modals/dews.modal.html'",
+											templateUrl: "'/views/modals/dews.modal.html'",
 											date: moment(date).format('DD MMMM, YYYY'),
 											loading: true,
 											materialize: {

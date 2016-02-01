@@ -50,7 +50,7 @@ angular.module('ngm.widget.stats', ['ngm.provider'])
       // statistics widget default config
       $scope.stats = {
         title: 'Incidents',
-        template: '/scripts/widgets/ngm-stats/template/default.html',
+        templateUrl: '/scripts/widgets/ngm-stats/template/default.html',
         element: $element,
         display: {
           iconClass: 'grey-text text-lighten-1',

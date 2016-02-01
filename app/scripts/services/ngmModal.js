@@ -1,18 +1,17 @@
 /**
- * @name ngmReportHubApp.factory:ngmUser
+ * @name ngmReportHubApp.factory:ngmModal
  * @description
  * # ngmAccess
  * Manages browser local storage
  *
- * @name ngmReportHubApp.factory:ngmUser
+ * @name ngmReportHubApp.factory:ngmModal
  * @description
  * # ngmAccess
  * Manages browser local storage
  *
  */
 angular.module('ngmReportHub')
-	.factory('ngmModal', ['$document', '$templateRequest', '$compile', '$timeout',
-		function($document, $templateRequest, $compile, $timeout) {
+	.factory('ngmModal', ['$templateRequest', '$compile', '$timeout', function($templateRequest, $compile, $timeout) {
 
 		// ngmModal
 		var ngmModal = {
@@ -21,16 +20,15 @@ angular.module('ngmReportHub')
 			open: function(modal){
 
 				// set modal id
-				modal.id = 'ngm-dews-modal-' + Math.floor((Math.random()*1000000));     
-
+				modal.id = 'ngm-dews-modal-' + Math.floor((Math.random()*1000000));
 				// modal element to be added
-				var $div = $('<div id="ngm-modal-container" ng-controller="ngmModalCtrl" ng-include src="' + modal.template + '"></div>');
-
+				var $div = $('<div id="ngm-modal-container" ng-controller="ngmModalCtrl" ng-include="' + modal.templateUrl + '"></div>');
 				// target is body
 				var $target = angular.element(document.body);
 
 				// inject element and compile
-				angular.element($target).injector().invoke(function($compile) {
+				angular.element($target).injector().invoke(function() {
+					// get $target $scope
 					var $scope = angular.element($target).scope();
 					// set scope config
 					$scope.config = modal;

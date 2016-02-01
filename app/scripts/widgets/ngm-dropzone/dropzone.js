@@ -50,7 +50,7 @@ angular.module('ngm.widget.dropzone', ['ngm.provider'])
         maxFileSize: 30,
         
         // interface display/user messages
-        template: '/scripts/widgets/ngm-dropzone/template/default.html',
+        templateUrl: '/scripts/widgets/ngm-dropzone/template/default.html',
 
         dictDefaultMessage: '<i class="medium material-icons" style="color:#009688;">cloud_upload</i><br/>Drag files here or click to upload',
         

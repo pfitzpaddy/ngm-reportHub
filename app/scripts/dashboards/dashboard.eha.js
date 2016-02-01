@@ -359,7 +359,7 @@ angular.module('ngmReportHub')
 						type: 'table',
 						card: 'card-panel',
 						config: {
-							template: '/scripts/widgets/ngm-table/templates/eha.monitoring.html',
+							templateUrl: '/scripts/widgets/ngm-table/templates/eha.monitoring.html',
 							tableOptions:{
 								count: 5
 							},
