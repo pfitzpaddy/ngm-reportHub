@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardFloodRiskCtrl', ['$scope', '$http', '$route', 'ngmUser', function ($scope, $http, $route, ngmUser) {
+	.controller('DashboardFloodRiskCtrl', ['$scope', '$http', '$route', '$location', 'ngmUser', function ($scope, $http, $route, $location, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
