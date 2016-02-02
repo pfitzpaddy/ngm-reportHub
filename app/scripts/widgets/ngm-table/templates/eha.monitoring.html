@@ -28,7 +28,7 @@
 			csv-header="['PO Number', 'Donor', 'Organization', 'Start Date', 'End Date', 'Project', 'Facility', 'HFs', 'Province', 'Province', 'District']" 
 			filename="{{ table.filename }}"><i class="material-icons left">cloud</i>Download</a>
   	<table class="centered highlight responsive-table" ng-table="table.tableParams">
-        <tr ng-repeat="row in $data">
+        <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;" ng-click="table.rowClick('/who/eha/monitoring/{{row.donor_id}}/{{row.organization_id}}/{{row.po_number}}')">
           <td id="po_number" data-title="'PO Number'" sortable="'po_number'">{{row.po_number}}</td>
           <td data-title="'Donor'" sortable="'donor'">{{row.donor}}</td>
           <td data-title="'Organization'" sortable="'organization'">{{row.organization}}</td>

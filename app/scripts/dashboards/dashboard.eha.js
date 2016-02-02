@@ -62,7 +62,28 @@ angular.module('ngmReportHub')
 					'pphd': { id:'pphd', name: 'PPHD' },
 					'puami': { id:'puami', name: 'PUAMI' },
 					'shrdo': { id:'shrdo', name: 'SHRDO' }					
-				}
+				},
+				project: {
+					'2011': { id: '2011', name: '2011', donor: 'chf', organization: 'puami'},
+					'201130004': {id: '201130004', name: '201130004', donor: 'usaid', organization: 'hpro'},
+					'201145751': {id: '201145751', name: '201145751', donor: 'chf', organization: 'shrdo'},
+					'201149254': {id: '201149254', name: '201149254', donor: 'cerf', organization: 'imc'},
+					'201167400': {id: '201167400', name: '201167400', donor: 'chf', organization: 'emergency'},
+					'201179423': {id: '201179423', name: '201179423', donor: 'chf', organization: 'shrdo'},
+					'201191108': {id: '201191108', name: '201191108', donor: 'chf', organization: 'pphd'},
+					'201199535': {id: '201199535', name: '201199535', donor: 'echo', organization: 'nbb'},
+					'201210600': {id: '201210600', name: '201210600', donor: 'chf', organization: 'mrca'},
+					'201213043': {id: '201213043', name: '201213043', donor: 'chf', organization: 'ahds'},
+					'201218338': {id: '201218338', name: '201218338', donor: 'chf', organization: 'nca'},
+					'201229953': {id: '201229953', name: '201229953', donor: 'chf', organization: 'shrdo'},
+					'201230161': {id: '201230161', name: '201230161', donor: 'chf', organization: 'emergency'},
+					'201266005': {id: '201266005', name: '201266005', donor: 'echo', organization: 'hntpo'},
+					'201271106': {id: '201271106', name: '201271106', donor: 'chf', organization: 'shrdo'},
+					'201303427': {id: '201303427', name: '201303427', donor: 'chf', organization: 'ahds'},
+					'201310458': {id: '201310458', name: '201310458', donor: 'echo', organization: 'mrca'},
+					'201312486': {id: '201312486', name: '201312486', donor: 'chf', organization: 'nbb'},
+					'201313004': {id: '201313004', name: '201313004', donor: 'usaid', organization: 'emergency'}
+				}				
 			},
 
 			// simple navigation object
@@ -93,7 +114,7 @@ angular.module('ngmReportHub')
 				// push project
 				if ($route.current.params.project) {
 					breadcrumb.push({
-							title: $route.current.params.project,
+							title: $scope.dashboard.project.name,
 							href: '#/who/eha/monitoring/' + $route.current.params.donor + '/' + $route.current.params.organization + '/' + $route.current.params.project
 						});
 				}				
@@ -117,12 +138,21 @@ angular.module('ngmReportHub')
 				if ($route.current.params.donor) {
 					menu.push({
 						'id': 'search-dews-organization',
-						'icon': 'touch_app',
+						'icon': 'supervisor_account',
 						'title': 'Organization',
 						'class': 'teal lighten-1 white-text',
 						'rows': $scope.dashboard.getRows('organization')
 					});
 				}
+
+				menu.push({
+					'search': true,
+					'id': 'search-po-number',
+					'icon': 'touch_app',
+					'title': 'PO Number',
+					'class': 'teal lighten-1 white-text',
+					'rows': $scope.dashboard.getRows('project')
+				});				
 
 				return menu;
 
@@ -135,42 +165,269 @@ angular.module('ngmReportHub')
 				var active,
 					rows = [];
 
-				if(list === 'donor'){
-					// for each disease
-					angular.forEach($scope.dashboard.data.donor, function(d, key){
-
-						//
-						rows.push({
-							'title': d.name,
-							'param': 'donor',
-							'active': key,
-							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/who/eha/monitoring/' + key
-						});
-					});
-
-				} else {
-					// for each disease
-					angular.forEach($scope.dashboard.data.donorList[$route.current.params.donor], function(d, key){
+				switch (list) {
+					case 'organization':
 						
-						//
-						rows.push({
-							'title': d.name,
-							'param': 'organization',
-							'active': d.id,
-							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/who/eha/monitoring/' + $route.current.params.donor + '/' + d.id
+						// for each disease
+						angular.forEach($scope.dashboard.data.donorList[$route.current.params.donor], function(d, key){
+							// push row
+							rows.push({
+								'title': d.name,
+								'param': 'organization',
+								'active': d.id,
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '#/who/eha/monitoring/' + $route.current.params.donor + '/' + d.id
+							});
 						});
-					});
-				}
+
+						break;
+
+					case 'project':
+						
+						// for each disease
+						angular.forEach($scope.dashboard.data.project, function(d, key){
+
+							if(!$route.current.params.donor){
+								// push row
+								rows.push({
+									'title': d.name,
+									'param': 'project',
+									'active': d.id,
+									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+									'href': '#/who/eha/monitoring/' + d.donor + '/' + d.organization + '/' + d.id
+								});							
+							} else if ($route.current.params.donor && !$route.current.params.organization) {
+								if ($route.current.params.donor === d.donor) {
+									// push row
+									rows.push({
+										'title': d.name,
+										'param': 'project',
+										'active': d.id,
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '#/who/eha/monitoring/' + d.donor + '/' + d.organization + '/' + d.id
+									});	
+								}
+							} else if ($route.current.params.donor && $route.current.params.organization) {
+								if ($route.current.params.donor === d.donor && $route.current.params.organization === d.organization) {
+									// push row
+									rows.push({
+										'title': d.name,
+										'param': 'project',
+										'active': d.id,
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '#/who/eha/monitoring/' + d.donor + '/' + d.organization + '/' + d.id
+									});	
+								}							
+							} else {
+								if ($route.current.params.project === d.id) {
+									// push row
+									rows.push({
+										'title': d.name,
+										'param': 'project',
+										'active': d.id,
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '#/who/eha/monitoring/' + d.donor + '/' + d.organization + '/' + d.id
+									});	
+								}
+							}
+						});
+
+						break;
+
+					default:
+						
+						// for each disease
+						angular.forEach($scope.dashboard.data.donor, function(d, key){
+							// push row
+							rows.push({
+								'title': d.name,
+								'param': 'donor',
+								'active': key,
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '#/who/eha/monitoring/' + key
+							});
+						});
+
+					}
 
 				return rows;
-			}
+
+			},
+
+			getFirstRow: function(){
+
+				var row = [{
+					styleClass: 's12 m12 l4',
+					widgets: [{
+						type: 'highchart',
+						style: 'height: 180px;',
+						card: 'card-panel chart-stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Budget Summary - Spent',
+							display: {
+								label: true,
+								fractionSize: 1,
+								subLabelfractionSize: 0,
+								postfix: '%',
+								subLabelPrefix: '$'
+							},
+							chartConfig: {
+								options: {
+									chart: {
+										type: 'pie',
+										height: 140,
+										margin: [0, 0, 0, 0],
+										spacingTop: 0,
+										spacingBottom: 0,
+										spacingLeft: 0,
+										spacingRight: 0
+									},
+									tooltip: {
+										enabled: false
+									}				
+								},
+								title: {
+										text: '',
+										margin: 0
+								},
+								plotOptions: {
+										pie: {
+												shadow: false
+										}
+								},
+								series: [{
+										name: 'Budget Summary',
+										request: {
+											method: 'POST',
+											url: 'http://' + $location.host() + '/api/eha/summary',
+											data: {
+												metric: 'amount',
+												donor: $scope.dashboard.donor.id,
+												organization: $scope.dashboard.organization.id,
+												project: $scope.dashboard.project.id
+											}		
+										},
+										size: '100%',
+										innerSize: '80%',
+										showInLegend:false,
+										dataLabels: {
+												enabled: false
+										}
+								}]												
+							}
+						}
+					}]					
+				}]
+
+				if ($route.current.params.project) {
+
+					var col1 = {
+						styleClass: 's12 m12 l4',
+						widgets: [{
+							type: 'html',
+							style: 'height:180px; padding-top: 60px;',
+							card: 'card-panel stats-card white grey-text text-darken-2',
+							config: {
+								title: 'Start Date',
+								display: 'start',
+								templateUrl: '/scripts/widgets/ngm-html/template/eha.date.html',
+								request: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/eha/table',
+									data: {
+										donor: $scope.dashboard.donor.id,
+										organization: $scope.dashboard.organization.id,
+										project: $scope.dashboard.project.id
+									}
+								}
+							}
+						}]
+					};
+
+					var col2 = {
+						styleClass: 's12 m12 l4',
+						widgets: [{
+							type: 'html',
+							style: 'height:180px; padding-top: 60px;',
+							card: 'card-panel stats-card white grey-text text-darken-2',
+							config: {
+								title: 'End Date',
+								display: 'end',
+								templateUrl: '/scripts/widgets/ngm-html/template/eha.date.html',
+								request: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/eha/table',
+									data: {
+										donor: $scope.dashboard.donor.id,
+										organization: $scope.dashboard.organization.id,
+										project: $scope.dashboard.project.id
+									}
+								}
+							}
+						}]
+					};
+
+				} else {
+
+					var col1 = {
+						styleClass: 's12 m12 l4',
+						widgets: [{
+							type: 'stats',
+							style: 'height:180px; padding-top: 60px;',
+							card: 'card-panel stats-card white grey-text text-darken-2',
+							config: {
+								title: 'No. of Projects',
+								request: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/eha/indicator',
+									data: {
+										metric: 'projects',
+										donor: $scope.dashboard.donor.id,
+										organization: $scope.dashboard.organization.id,
+										project: $scope.dashboard.project.id
+									}
+								}
+							}
+						}]
+					};
+
+					var col2 = {
+						styleClass: 's12 m12 l4',
+						widgets: [{
+							type: 'stats',
+							style: 'height:180px; padding-top: 60px;',
+							card: 'card-panel stats-card white grey-text text-darken-2',
+							config: {
+								title: 'No. of Provinces',
+								request: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/eha/indicator',
+									data: {
+										metric: 'provinces',
+										donor: $scope.dashboard.donor.id,
+										organization: $scope.dashboard.organization.id,
+										project: $scope.dashboard.project.id
+									}
+								}
+							}
+						}]
+					};
+
+				}
+
+				// add columns
+				row.push(col1);
+				row.push(col2);
+
+				return row;
+
+			}			
 		}
 
 		// set dashboard params
 		$scope.dashboard.donor = $route.current.params.donor ? $scope.dashboard.data.donor[$route.current.params.donor] : { id: '*', name: 'EHA' };
 		$scope.dashboard.organization = $route.current.params.organization ? $scope.dashboard.data.organization[$route.current.params.organization] : { id: '*', name: 'All' };
+		$scope.dashboard.project = $route.current.params.project ? $scope.dashboard.data.project[$route.current.params.project] : { id: '*', name: 'All' };
 		$scope.dashboard.title = 'EHA';
 		$scope.dashboard.subtitle = 'Emergency Humanitarian Action NGO projects for Afghanistan';
 
@@ -253,105 +510,7 @@ angular.module('ngmReportHub')
 					}]
 				}]
 			},{
-				columns: [{
-					styleClass: 's12 m12 l4',
-					widgets: [{
-						type: 'highchart',
-						style: 'height: 180px;',
-						card: 'card-panel chart-stats-card white grey-text text-darken-2',
-						config: {
-							title: 'Budget Summary - Spent',
-							display: {
-								label: true,
-								fractionSize: 1,
-								subLabelfractionSize: 0,
-								postfix: '%',
-								subLabelPrefix: '$'
-							},
-							chartConfig: {
-								options: {
-									chart: {
-										type: 'pie',
-										height: 140,
-										margin: [0, 0, 0, 0],
-										spacingTop: 0,
-										spacingBottom: 0,
-										spacingLeft: 0,
-										spacingRight: 0
-									},
-									tooltip: {
-										enabled: false
-									}				
-								},
-								title: {
-										text: '',
-										margin: 0
-								},
-								plotOptions: {
-										pie: {
-												shadow: false
-										}
-								},
-								series: [{
-										name: 'Budget Summary',
-										request: {
-											method: 'POST',
-											url: 'http://' + $location.host() + '/api/eha/summary',
-											data: {
-												metric: 'amount',
-												donor: $scope.dashboard.donor.id,
-												organization: $scope.dashboard.organization.id
-											}		
-										},
-										size: '100%',
-										innerSize: '80%',
-										showInLegend:false,
-										dataLabels: {
-												enabled: false
-										}
-								}]												
-							}
-						}
-					}]					
-				},{
-					styleClass: 's12 m12 l4',
-					widgets: [{
-						type: 'stats',
-						style: 'height:180px; padding-top: 60px;',
-						card: 'card-panel stats-card white grey-text text-darken-2',
-						config: {
-							title: 'No. of Projects',
-							request: {
-								method: 'POST',
-								url: 'http://' + $location.host() + '/api/eha/indicator',
-								data: {
-									metric: 'projects',
-									donor: $scope.dashboard.donor.id,
-									organization: $scope.dashboard.organization.id
-								}
-							}
-						}
-					}]
-				},{
-					styleClass: 's12 m12 l4',
-					widgets: [{
-						type: 'stats',
-						style: 'height:180px; padding-top: 60px;',
-						card: 'card-panel stats-card white grey-text text-darken-2',
-						config: {
-							title: 'No. of Provinces',
-							request: {
-								method: 'POST',
-								url: 'http://' + $location.host() + '/api/eha/indicator',
-								data: {
-									metric: 'provinces',
-									donor: $scope.dashboard.donor.id,
-									organization: $scope.dashboard.organization.id
-								}
-							}
-						}
-					}]
-				}]
+				columns: $scope.dashboard.getFirstRow()
 			},{
 				columns: [{
 					styleClass: 's12 m12 l12',
@@ -368,7 +527,8 @@ angular.module('ngmReportHub')
 								url: 'http://' + $location.host() + '/api/eha/table',
 								data: {
 									donor: $scope.dashboard.donor.id,
-									organization: $scope.dashboard.organization.id
+									organization: $scope.dashboard.organization.id,
+									project: $scope.dashboard.project.id
 								}
 							}
 						}
@@ -408,7 +568,8 @@ angular.module('ngmReportHub')
 								data: {
 									layer: 'eha_monitoring',
 									donor: $scope.dashboard.donor.id,
-									organization: $scope.dashboard.organization.id
+									organization: $scope.dashboard.organization.id,
+									project: $scope.dashboard.project.id
 								}
 							}
 						}

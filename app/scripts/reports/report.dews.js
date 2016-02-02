@@ -103,7 +103,7 @@ angular.module('ngmReportHub')
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
 							title: '<h4 class="report-work-title" style="margin-top:20px;">ToDo</h4>',
-							templateUrl: '/scripts/widgets/ngm-html/template/dews_report.html',
+							templateUrl: '/scripts/widgets/ngm-html/template/dews.report.html',
 							list: $scope.report.todo
 						}
 					}]
@@ -116,7 +116,7 @@ angular.module('ngmReportHub')
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
 							title: '<h4 class="report-work-title">Pending</h4>',
-							templateUrl: '/scripts/widgets/ngm-html/template/dews_report.html',
+							templateUrl: '/scripts/widgets/ngm-html/template/dews.report.html',
 							list: $scope.report.pending
 						}
 					}]
@@ -130,7 +130,7 @@ angular.module('ngmReportHub')
 						style: 'padding-bottom: 50px;',
 						config: {
 							title: '<h4 class="report-work-title" style="margin-top:20px;">Complete</h4>',
-							templateUrl: '/scripts/widgets/ngm-html/template/dews_report.html',
+							templateUrl: '/scripts/widgets/ngm-html/template/dews.report.html',
 							list: $scope.report.complete,
 							page: true
 						}

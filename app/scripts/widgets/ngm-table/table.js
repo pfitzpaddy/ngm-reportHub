@@ -61,6 +61,10 @@ angular.module('ngm.widget.table', ['ngm.provider'])
 
         tableSettings: {
           counts: []
+        },
+
+        rowClick: function(href){
+          $location.path(href);
         }
 
       };

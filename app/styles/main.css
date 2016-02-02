@@ -29,9 +29,6 @@ header, main, footer {
 h1, h2, h3, h4, h5, p {
 	color: #616161;
 }
-.pagination li.active {
-    background-color: #009688;
-}
 
 /* ROW SPACING */
 .row {

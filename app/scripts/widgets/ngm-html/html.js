@@ -72,6 +72,8 @@ angular.module('ngm.widget.html', ['ngm.provider'])
 
       };
 
+      $scope.panel.data = data ? data.data : false;
+
       // Merge defaults with config
       $scope.panel = angular.merge({}, $scope.panel, config);
 
