@@ -291,22 +291,7 @@ angular.module('ngmReportHub')
 						}
 					}]
 				}
-			},
-			navigationMenu:[{
-				'icon': 'zoom_in',
-				'liClass': 'teal z-depth-2',
-				'aClass': 'white-text',
-				'iClass': 'medium material-icons',
-				'href': '#/who/eha/monitoring',
-				'title': 'EHA'
-			},{
-				'icon': 'info_outline',
-				'liClass': 'teal z-depth-2',
-				'aClass': 'white-text',
-				'iClass': 'medium material-icons',
-				'href': '#/who',
-				'title': 'DEWS'
-			}],			
+			},		
 			menu: [{
 				'id': 'search-dews-disease',
 				'search': true,

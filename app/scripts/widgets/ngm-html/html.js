@@ -43,10 +43,11 @@ angular.module('ngm.widget.html', ['ngm.provider'])
     '$sce',
     '$element',
     '$location',
+    '$timeout',
     'ngmAuth',
     'data', 
     'config',
-    function($scope, $sce, $element, $location, ngmAuth, data, config){
+    function($scope, $sce, $element, $location, $timeout, ngmAuth, data, config){
     
       // statistics widget default config
       $scope.panel = {
@@ -60,12 +61,39 @@ angular.module('ngm.widget.html', ['ngm.provider'])
         // login fn
         login: function(){
           ngmAuth.login($scope.panel.user).success(function(result) { 
+            
             // go to default org page 
-            $location.path( '/' + $location.$$url.split('/')[1] );
+            $location.path( '/' + result.app_home );
+
+            // user toast msg
+            $timeout(function(){
+              Materialize.toast('Welcome back ' + result.username + '!', 4000);
+            }, 2000);
+
           }).error(function(err) {
             // update 
             $scope.panel.error = {
               msg: 'The email and password you entered is not correct'
+            }
+          });
+        },
+
+        // register fn
+        register: function(){
+          ngmAuth.register($scope.panel.user).success(function(result) { 
+            
+            // go to default org page
+            $location.path( '/' + result.app_home );
+
+            // user toast msg
+            $timeout(function(){
+              Materialize.toast('Welcome ' + result.username + ', time to create a Project!', 4000);
+            }, 2000);
+
+          }).error(function(err) {
+            // update 
+            $scope.panel.error = {
+              msg: 'There has been a registration issue, please contact the administrator!'
             }
           });
         }

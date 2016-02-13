@@ -4,44 +4,52 @@
 	<div class="ngm-login-title">
 		<h3 style="font-weight:100;">Report Hub</h3>
 	</div>
-	<div class="col s12 m4 offset-m4">
-		<div class="card" style="padding:40px;">
-			<form id="ngm-login-form" ng-submit="panel.login()">
-				<input
-					id="ngm-username"
-					type="text" 
-					autofocus=""
-					ng-model="panel.user.username"
-					placeholder="Username or Email"
-					required>
-				<p></p>
-				<input
-					id="ngm-password"
-					type="password"
-					ng-model="panel.user.password"
-					placeholder="Password" 
-					required>
-				<!-- submit on enter events -->
-				<input 
-					id="ngm-login-submit"
-					type="submit" style="display:none;">
-			</form>
-		</div>
-		<p ng-if="panel.error.msg"
-			style="text-align:center; color: #ef5350;">{{ panel.error.msg }}<p>
-		<button
-			style="width: 100%;" 
-			class="btn btn-large waves-effect waves-teal" 
-			type="submit"
-			ng-click="panel.login()">
-					Sign in
-		</button>
-		<div style="text-align:right;">
-			<label>
-				<!-- <p style="font-size: 1.2rem;"><a href="#"> Sign Up</a></p> -->
-			</label>
-		</div>
+  <div class="row">
+    
+    <form class="col s12 m4 offset-m4" style="padding-bottom:20px;">
+    	
+    	<div class="card" style="padding:40px;">
+	      
+	      <div class="row">
+	        <div class="input-field col s12">
+	          <input id="ngm-username" type="text" class="validate"
+							autofocus=""
+							ng-model="panel.user.username"
+							required>
+	          <label for="ngm-username">Username</label>
+	        </div>
+	      </div>
+	      
+	      <div class="row">
+	        <div class="input-field col s12">
+	          <input id="ngm-password" type="password" class="validate"
+							ng-model="panel.user.password"
+							required>
+	          <label for="ngm-password">Password</label>
+	        </div>
+	      </div>
+
+	    </div>
+
+			<p ng-if="panel.error.msg"
+				style="text-align:center; color: #ef5350;">{{ panel.error.msg }}<p>
+
+			<p class="right" style="font-size: 1.3rem;margin-top:0px;padding-bottom:4px;">
+				<a href="#/health/register"> Sign Up!</a>
+			</p>
+
+			<button
+				style="width: 100%;" 
+				class="btn btn-large waves-effect waves-teal" 
+				type="submit"
+				ng-click="panel.login()">
+						Sign in
+			</button>
+	    
+	   </form>
+
 	</div>
+
 </div>
 
 <div>

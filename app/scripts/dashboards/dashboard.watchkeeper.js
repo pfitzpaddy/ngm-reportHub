@@ -250,21 +250,6 @@ angular.module('ngmReportHub')
 					}]
 				}
 			},
-			navigationMenu:[{
-				'icon': 'zoom_in',
-				'liClass': 'teal z-depth-2',
-				'aClass': 'white-text',
-				'iClass': 'medium material-icons',
-				'href': '#/immap/watchkeeper/kenya/2015-11-01/2015-11-30',
-				'title': 'WATCHKEEPER'
-			},{
-				'icon': 'info_outline',
-				'liClass': 'teal z-depth-2',
-				'aClass': 'white-text',
-				'iClass': 'medium material-icons',
-				'href': '#/immap/drr/flood/afghanistan',
-				'title': 'DRR'
-			}],		
 			menu: $scope.dashboard.getMenu(),
 			rows: [{
 				columns: [{

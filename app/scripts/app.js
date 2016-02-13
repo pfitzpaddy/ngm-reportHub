@@ -52,7 +52,30 @@ angular
 						return ngmAuth.isAnonymous();
 					}],
 				}
+			})
+
+			.when( '/health/login', {
+				templateUrl: '/views/dashboard.html',
+				controller: 'DashboardLoginCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAnonymous();
+					}],
+				}
 			})			
+
+			.when( '/health/register', {
+				templateUrl: '/views/dashboard.html',
+				controller: 'DashboardRegisterCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAnonymous();
+					}],
+				}
+			})			
+
+
+
 			.when( '/who/dews/report', {
 				templateUrl: '/views/dashboard.html',
 				controller: 'ReportMenuCtrl',				
@@ -197,7 +220,7 @@ angular
 				redirectTo: '/who/dews/afghanistan/all/2015-01-01/2016-01-01'
 			});
 	}])
-	.run(['$rootScope', '$location', 'ngmAuth', function($rootScope, $location, ngmAuth) {
+	.run(['$rootScope', '$location', 'ngmAuth', 'ngmUser', function($rootScope, $location, ngmAuth, ngmUser) {
 
 		// profile menu dropdown click
 		$('.ngm-profile-icon').click(function(){
@@ -208,7 +231,7 @@ angular
     	$('.ngm-profile-menu-content').toggleClass('active');
     	// toggle menu dropdown
 			$('.ngm-profile-menu-content').slideToggle();
-		});
+		});		
 
 		// when error on route update redirect
 		$rootScope.$on('$routeChangeError' , function(event, current, previous, rejection) {
@@ -307,6 +330,16 @@ angular
 							lightPrimaryColor: '#BBDEFB'
 						}
 						break;
+					case 'health':
+						// set style obj
+						$scope.ngm.style = {
+							logo: 'logo-who.png',
+							home: '#/health',
+							darkPrimaryColor: '#1976D2',
+							defaultPrimaryColor: '#2196F3',
+							lightPrimaryColor: '#BBDEFB'
+						}
+						break;						
 					default:
 						// default
 						$scope.ngm.style = {
@@ -329,38 +362,6 @@ angular
 
 			},
 
-			// Detect touch screen and enable scrollbar if necessary
-			isTouchDevice: function () {
-				try {
-					document.createEvent('TouchEvent');
-					return true;
-				} catch (e) {
-					return false;
-				}
-			},	
-
-			// toggle search active
-			toggleSearch: function(selector) {
-				// toggle search input
-				$('#nav-' + selector).slideToggle();
-			},
-
-			//
-			toggleNavidationMenu: function() {
-				// rotate icon
-				$('.ngm-profile-icon').toggleClass('rotate');
-				// set class
-	    	$('.ngm-profile').toggleClass('active');
-	    	$('.ngm-profile-menu-content').toggleClass('active');
-	    	// toggle menu dropdown
-				$('.ngm-profile-menu-content').slideToggle();
-			},
-
-			// app functions
-			logout: function() {
-				ngmAuth.logout();
-			},
-
 			// user
 			getUserName: function() {
 				if (ngmUser.get()) {
@@ -370,21 +371,53 @@ angular
 				}
 			},
 
-			// user email
-			getUserEmail: function() {
+			// menu
+			getUserMenu: function() {
 				if (ngmUser.get()) {
-					return ngmUser.get().email;
+					return ngmUser.get().menu;
 				} else {
 					return false;
 				}
-			}			
+			},
+
+			// app functions
+			logout: function() {
+				ngmAuth.logout();
+			},						
+
+			// Detect touch screen and enable scrollbar if necessary
+			isTouchDevice: function () {
+				try {
+					document.createEvent('TouchEvent');
+					return true;
+				} catch (e) {
+					return false;
+				}
+			},
+
+			// toggle search active
+			toggleSearch: function(selector) {
+				// toggle search input
+				$('#nav-' + selector).slideToggle();
+			},
+
+			//
+			toggleNavigationMenu: function() {
+				// rotate icon
+				$('.ngm-profile-icon').toggleClass('rotate');
+				// set class
+	    	$('.ngm-profile').toggleClass('active');
+	    	$('.ngm-profile-menu-content').toggleClass('active');
+	    	// toggle menu dropdown
+				$('.ngm-profile-menu-content').slideToggle();
+			}		
 
 		};
 
 		// nav menu
 		if ($scope.ngm.isTouchDevice()) {
 			$('#nav-mobile').css({ overflow: 'auto'});
-		}	
+		}
 
 		// paint application
 		$scope.$on('$routeChangeStart', function(next, current) { 

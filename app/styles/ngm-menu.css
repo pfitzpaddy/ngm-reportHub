@@ -63,6 +63,7 @@
   top: 158.667px;
   left: 0px;
   opacity: 1;
+  overflow: hidden;
 }
 .ngm-profile-menu-content li {
 	padding-top: 15px;

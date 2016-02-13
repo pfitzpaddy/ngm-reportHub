@@ -65,10 +65,10 @@ h1, h2, h3, h4, h5, p {
 
 /* TOAST */
 .toast {
-	margin-top: -30px;
+	margin-top: 105px;
 	margin-right: -50px;
-	color: #fff;
-	background-color: #ff8a80;
+	color: #26a69a;
+	background-color: #e0f2f1;
 }
 
 /* TOOLTIP */

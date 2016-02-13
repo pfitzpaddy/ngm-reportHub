@@ -100,22 +100,6 @@ angular.module('ngmReportHub')
 					title: 'Flood Risk Key Indicators for ' + $scope.dashboard.data[$route.current.params.province].name,
 				},
 			},
-			navigationMenu:[{
-				'icon': 'zoom_in',
-				'search': true,
-				'liClass': 'teal z-depth-2',
-				'aClass': 'white-text',
-				'iClass': 'medium material-icons',
-				'href': '#/immap/watchkeeper/kenya/2015-11-01/2015-11-30',
-				'title': 'WATCHKEEPER'
-			},{
-				'icon': 'info_outline',
-				'liClass': 'teal z-depth-2',
-				'aClass': 'white-text',
-				'iClass': 'medium material-icons',
-				'href': '#/immap/drr/flood/afghanistan',
-				'title': 'DRR'
-			}],
 			menu: [{
 				'search': true,
 				'id': 'search-flood-place',

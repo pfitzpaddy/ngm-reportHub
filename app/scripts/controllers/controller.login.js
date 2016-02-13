@@ -40,7 +40,7 @@ angular.module('ngmReportHub')
 				subtitle: {
 					'class': 'col s12 m12 l12 report-subtitle',
 					html: true,
-					title: 'Welcome to Report Hub<span class="hide-on-small-only">, please login to continue data entry tasks or navigate to the report pages to view the latest key indicators</span>',
+					title: 'Welcome to ReportHub<span class="hide-on-small-only">, please login to continue data entry tasks or navigate to the report pages to view the latest key indicators</span>',
 				}
 			},
 			rows: [{
