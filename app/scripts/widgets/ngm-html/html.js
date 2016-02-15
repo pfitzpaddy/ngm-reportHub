@@ -67,7 +67,7 @@ angular.module('ngm.widget.html', ['ngm.provider'])
 
             // user toast msg
             $timeout(function(){
-              Materialize.toast('Welcome back ' + result.username + '!', 4000);
+              Materialize.toast('Welcome back ' + result.username + '!', 3000, 'note');
             }, 2000);
 
           }).error(function(err) {
@@ -87,7 +87,7 @@ angular.module('ngm.widget.html', ['ngm.provider'])
 
             // user toast msg
             $timeout(function(){
-              Materialize.toast('Welcome ' + result.username + ', time to create a Project!', 4000);
+              Materialize.toast('Welcome ' + result.username + ', time to create a Project!', 3000, 'success');
             }, 2000);
 
           }).error(function(err) {
@@ -100,7 +100,8 @@ angular.module('ngm.widget.html', ['ngm.provider'])
 
       };
 
-      $scope.panel.data = data ? data.data : false;
+      // assign data
+      $scope.panel.data = data ? data : false;
 
       // Merge defaults with config
       $scope.panel = angular.merge({}, $scope.panel, config);

@@ -42,7 +42,7 @@
 			<div class="modal-content">
 				<div align="center" ng-include src="'views/loading.html'"></div>
 			</div>
-		</div>
+		</div>		
 		
 		<!--[if lte IE 8]>
 			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -129,9 +129,17 @@
 						<!-- list options -->
 			  		<div class="collapsible-body">
 				      <div class="collection" ng-repeat="row in list.rows | filter:ngm.menu.query[list.id] track by $index">
-				      	<a href="{{ row.href }}" 
+				      	
+				      	<a ng-if="row.href" href="{{ row.href }}"
+				      		id="{{ row.id }}"
 				      		class="collection-item {{ row.class }}"
 				      		ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }" ng-cloak>{{ row.title }}</a>
+				      		
+				      	<a ng-if="!row.href"
+				      		id="{{ row.id }}"
+				      		class="collection-item {{ row.class }}"
+				      		ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }" ng-cloak>{{ row.title }}</a>
+
 				      </div>
 			  		</div>
 
@@ -215,6 +223,9 @@
 		<script src="scripts/controllers/controller.login.js"></script>
 		<script src="scripts/controllers/controller.forbidden.js"></script>
 		<!-- reports -->
+		<script src="scripts/reports/report.health.projects.js"></script>
+		<script src="scripts/reports/report.health.project.detail.js"></script>
+
 		<script src="scripts/reports/report.dews.js"></script>
 		<script src="scripts/reports/report.dews.active.js"></script>
 		<!-- dashboards -->
@@ -234,6 +245,7 @@
 		<script src="scripts/widgets/ngm-html/html.js"></script>
 		<script src="scripts/widgets/ngm-iframe/iframe.js"></script>
 		<script src="scripts/widgets/ngm-leaflet/leaflet.js"></script>
+		<script src="scripts/widgets/ngm-project/project.js"></script>
 		<script src="scripts/widgets/ngm-stats/stats.js"></script>
 		<script src="scripts/widgets/ngm-table/table.js"></script>
 

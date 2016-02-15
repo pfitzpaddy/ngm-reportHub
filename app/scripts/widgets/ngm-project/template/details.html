@@ -1,0 +1,74 @@
+
+<!-- bind html -->
+<div class="row">
+	<div class="col s12 m12 l12">
+		<div class="card">
+			<ul class="collection with-header">
+				<li class="collection-header"><h5 class="report-work-title">Project Details</h5></li>
+				<li class="collection-item avatar" >
+					
+					<!-- form -->
+
+		      <div class="row">
+		        <div class="input-field col s12 m4">
+		          <input id="ngm-project-name" type="text" class="validate"
+								autofocus=""
+								ng-model="project.details.project_name"
+								ng-disabled="project.details.project_status !== 'new'"
+								required>
+		          <label for="ngm-project-name">Project Title</label>
+		        </div>
+		        
+		        <div class="input-field col s12 m4">
+		          <input id="ngm-start-date" type="text" class="datepicker"
+		          	ng-disabled="project.details.project_status === 'complete'"
+								required>
+		          <label for="ngm-start-date">Start Date</label>
+		        </div>
+
+		        <div class="input-field col s12 m4">
+		          <input id="ngm-end-date" type="text" class="datepicker"
+		          	ng-disabled="project.details.project_status === 'complete'"
+								required>
+		          <label for="ngm-end-date">End Date</label>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="input-field col s12 m4">
+					    <select id="ngm-project-donor" class="validate"
+					    	ng-model="project.details.project_donor" 
+					    	ng-disabled="project.details.project_status !== 'new'" required>
+					      <option value="" disabled selected>Select Donor</option>
+					      <option value="chf">CHF</option>
+					      <option value="echo">ECHO</option>
+					      <option value="usaid">USAID</option>
+					    </select>
+					    <label for="ngm-project-donor">Project Donor</label>
+		        </div>
+
+		        <div class="input-field col s12 m8">
+		          <input id="ngm-project-budget" type="number" class="validate" min="0"
+		          	ng-model="project.details.project_budget"
+		          	ng-disabled="project.details.project_status !== 'new'"
+								required>
+		          <label for="ngm-project-budget">Project Budget</label>
+		        </div>
+		      </div>		      
+
+					<div class="row">
+		        <div class="input-field col s12 m12 l12">
+		          <input id="ngm-project-description" type="text" class="validate"
+								ng-model="project.details.project_description"
+								ng-disabled="project.details.project_status !== 'new'"
+								required>
+		          <label for="ngm-project-description">Project Description</label>
+		        </div>
+		      </div>
+
+				</li>
+			</ul>
+
+		</div>
+	</div>
+</div>

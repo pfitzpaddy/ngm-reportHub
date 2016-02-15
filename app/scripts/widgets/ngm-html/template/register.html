@@ -1,0 +1,105 @@
+
+<!-- bind html -->
+<div id="ngmRegisterPanel" class="row">
+
+	<div class="ngm-login-title">
+		<h3 style="font-weight:100;">Report Hub</h3>
+	</div>
+
+  <div class="row">
+    
+    <form class="col s12 m4 offset-m4" style="padding-bottom:20px;">
+    	
+    	<div class="card" style="padding:40px;">
+	      
+	      <div class="row">
+	        <div class="input-field col s12">
+	          <input id="ngm-username" type="text" class="validate"
+							autofocus=""
+							ng-model="panel.user.username"
+							required>
+	          <label for="ngm-username">Username</label>
+	        </div>
+	      </div>
+	      
+	      <div class="row">
+	        <div class="input-field col s12">
+	          <input id="ngm-password" type="password" class="validate"
+							ng-model="panel.user.password"
+							required>
+	          <label for="ngm-password">Password</label>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	          <input id="ngm-organization" type="text" class="validate"
+							ng-model="panel.user.organization"
+							required>
+	          <label for="ngm-organization">Organization</label>
+	        </div>
+	      </div> 
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	          <input id="ngm-fullname" type="text" class="validate"
+							ng-model="panel.user.name"
+							required>
+	          <label for="ngm-fullname">Full Name</label>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	          <input id="ngm-position" type="text" class="validate"
+							ng-model="panel.user.position"
+							required>
+	          <label for="ngm-position">Position</label>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	          <input id="ngm-phone" type="number" class="validate"
+							ng-model="panel.user.phone"
+							required>
+	          <label for="ngm-phone">Phone</label>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	          <input id="ngm-email" type="email" class="validate"
+							ng-model="panel.user.email"
+							required>
+	          <label for="ngm-email">Email</label>
+	        </div>
+	      </div>
+
+	    </div>
+
+			<p ng-if="panel.error.msg"
+				style="text-align:center; color: #ef5350;">{{ panel.error.msg }}<p>
+
+			<button
+				style="width: 100%;" 
+				class="btn btn-large waves-effect waves-teal" 
+				type="submit"
+				ng-click="panel.register()">
+						Register
+			</button>
+
+	   </form>
+
+	  </div>
+
+  </div>
+
+</div>
+
+<div>
+	<div style="background: {{ panel.style.lightPrimaryColor }}; height:20px;"></div>
+	<div style="background: {{ panel.style.defaultPrimaryColor }}; height:60px;">
+		<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>
+	</div>
+</div>

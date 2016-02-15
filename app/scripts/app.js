@@ -28,6 +28,7 @@ angular
 		'ngm.widget.html',
 		'ngm.widget.iframe',
 		'ngm.widget.leaflet',
+		'ngm.widget.project',
 		'ngm.widget.stats',
 		'ngm.widget.table'
 	])
@@ -53,7 +54,7 @@ angular
 					}],
 				}
 			})
-
+			// health
 			.when( '/health/login', {
 				templateUrl: '/views/dashboard.html',
 				controller: 'DashboardLoginCtrl',
@@ -62,8 +63,8 @@ angular
 						return ngmAuth.isAnonymous();
 					}],
 				}
-			})			
-
+			})
+			// health register
 			.when( '/health/register', {
 				templateUrl: '/views/dashboard.html',
 				controller: 'DashboardRegisterCtrl',
@@ -72,8 +73,27 @@ angular
 						return ngmAuth.isAnonymous();
 					}],
 				}
+			})
+			// health project list
+			.when( '/health/projects', {
+				templateUrl: '/views/dashboard.html',
+				controller: 'ReportHealthProjectsCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+			// health project details
+			.when( '/health/projects/:project', {
+				templateUrl: '/views/dashboard.html',
+				controller: 'ReportHealthProjectDetailCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
 			})			
-
 
 
 			.when( '/who/dews/report', {
@@ -81,7 +101,7 @@ angular
 				controller: 'ReportMenuCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.isAuthenticated(); 
+						return ngmAuth.isAuthenticated();
 					}],
 				}
 			})
@@ -113,46 +133,7 @@ angular
 					}],
 				}
 			})
-			.when( '/who/eha/monitoring', {
-				reloadOnSearch: false,
-				templateUrl: '/views/dashboard.html',
-				controller: 'DashboardEhaCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.isAuthenticated();
-					}],
-				}
-			})
-			.when( '/who/eha/monitoring/:donor', {
-				reloadOnSearch: false,
-				templateUrl: '/views/dashboard.html',
-				controller: 'DashboardEhaCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.isAuthenticated();
-					}],
-				}
-			})
-			.when( '/who/eha/monitoring/:donor/:organization', {
-				reloadOnSearch: false,
-				templateUrl: '/views/dashboard.html',
-				controller: 'DashboardEhaCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.isAuthenticated();
-					}],
-				}
-			})	
-			.when( '/who/eha/monitoring/:donor/:organization/:project', {
-				reloadOnSearch: false,
-				templateUrl: '/views/dashboard.html',
-				controller: 'DashboardEhaCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.isAuthenticated();
-					}],
-				}
-			})			
+
 			// forbidden
 			.when( '/who/forbidden', {
 				templateUrl: '/views/dashboard.html',
@@ -217,7 +198,8 @@ angular
 			})	
 			// default
 			.otherwise({
-				redirectTo: '/who/dews/afghanistan/all/2015-01-01/2016-01-01'
+				// redirectTo: '/who/dews/afghanistan/all/2015-01-01/2016-01-01'
+				redirectTo: '/health/projects'
 			});
 	}])
 	.run(['$rootScope', '$location', 'ngmAuth', 'ngmUser', function($rootScope, $location, ngmAuth, ngmUser) {
