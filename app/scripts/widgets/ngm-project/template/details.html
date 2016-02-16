@@ -35,16 +35,18 @@
 		      </div>
 
 		      <div class="row">
-		        <div class="input-field col s12 m4">
-					    <select id="ngm-project-donor" class="validate"
+		        <div class="input-field col s12 m4"
+		        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.details.project_donor }">
+					    <select class="validate"
 					    	ng-model="project.details.project_donor" 
-					    	ng-disabled="project.details.project_status !== 'new'" required>
+					    	ng-disabled="project.details.project_status !== 'new'" 
+					    	required>
 					      <option value="" disabled selected>Select Donor</option>
 					      <option value="chf">CHF</option>
 					      <option value="echo">ECHO</option>
 					      <option value="usaid">USAID</option>
 					    </select>
-					    <label for="ngm-project-donor">Project Donor</label>
+					    <label>Project Donor</label>
 		        </div>
 
 		        <div class="input-field col s12 m8">
@@ -65,6 +67,38 @@
 		          <label for="ngm-project-description">Project Description</label>
 		        </div>
 		      </div>
+
+				</li>
+			</ul>
+
+		</div>
+	</div>
+</div>
+
+<div class="row" ng-if="project.details.project_status !== 'new'">
+	<div class="col s12 m12 l12">
+		<div class="card">
+			<ul class="collection with-header">
+				<li class="collection-header"><h5 class="report-work-title">Project Progress</h5></li>
+				<li class="collection-item avatar" >
+					
+					<!-- form -->
+
+		      <div class="row">
+		        <div class="input-field col s12 m4">
+
+					    <p class="range-field">
+					      <input type="range" id="test5" min="0" max="100" />
+					    </p>
+
+<!-- 		          <input id="ngm-project-name" type="text" class="validate"
+								autofocus=""
+								ng-model="project.details.project_budget_progress"
+								ng-disabled="project.details.project_status === 'active'"
+								required>
+		          <label for="ngm-project-name">Project Title</label> -->
+
+		        </div>
 
 				</li>
 			</ul>

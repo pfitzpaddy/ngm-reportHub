@@ -24,23 +24,7 @@ angular.module('ngmReportHub')
 			// parent
 			ngm: $scope.$parent.ngm
 
-		};		
-
-		// query for project list
-		ngmData.get({
-			method: 'POST',
-			url: 'http://' + $location.host() + '/api/health/getProjectList',
-			data: {
-				organization_id: ngmUser.get().organization_id,
-				project_status: 'active'
-			}
-		}).then(function(data){
-			
-			// $scope.report.setProject = function(data){
-
-			// }
-
-		});
+		};
 
 
 		// report object

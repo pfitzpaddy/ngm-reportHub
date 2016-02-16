@@ -35,24 +35,20 @@ angular.module('ngm.widget.project', ['ngm.provider'])
     '$scope',
     '$location',
     '$timeout',
+    '$filter',
     'ngmData',
     'config',
-    function($scope, $location, $timeout, ngmData, config){
+    function($scope, $location, $timeout, $filter, ngmData, config){
 
       // get activities
 
-      // get locations
-
-      // get prov
-
-      // get dist
-
-      // get types
-
-      // get HFs
-    
+      // get locations 
+      
       // project
       $scope.project = {
+
+        // parent
+        style: config.style,
 
         // project
         details: config.project,
@@ -60,8 +56,24 @@ angular.module('ngm.widget.project', ['ngm.provider'])
         // activities
         activities: [{
           organization_id: config.project.organization_id,
-          project_id: config.project.id
+          project_id: config.project.id,
         }],
+
+        // indicators
+        indicators: [],
+
+        // locations
+        locations:[],
+
+        // holder for UI options
+        options: {
+          select: {}
+        },
+
+        // holder for user selections
+        selection: {
+          location: {}
+        },
 
         // details template
         detailsUrl: '/scripts/widgets/ngm-project/template/details.html',
@@ -76,7 +88,8 @@ angular.module('ngm.widget.project', ['ngm.provider'])
 
           // Test current activity
           if ($scope.project.activities[length-1].activity_type
-              && $scope.project.activities[length-1].activity_description){
+              && $scope.project.activities[length-1].activity_description
+              && $scope.project.locations.length){
             
             // Add empty activities obj
             $scope.project.activities.push([{
@@ -94,6 +107,115 @@ angular.module('ngm.widget.project', ['ngm.provider'])
             Materialize.toast( 'Complete the current activity section first!', 3000, 'note' );
           }
 
+        },
+
+        // remoce activity
+        removeActivity: function(i) {
+          
+          // remove location at i
+          $scope.project.activities.splice(i, 1);
+
+        },        
+
+        // add location
+        addLocation: function(){
+
+          // push location to locations
+          $scope.project.locations.push({
+            organization_id: config.project.organization_id,
+            project_id: config.project.id,
+            activity_id: 16,
+            prov_code: $scope.project.selection.location.province.prov_code,
+            prov_name: $scope.project.selection.location.province.prov_name,
+            dist_code: $scope.project.selection.location.district.dist_code,
+            dist_name: $scope.project.selection.location.district.dist_name,
+            hf_id: $scope.project.selection.location.hf_name.fac_id,
+            hf_type: $scope.project.selection.location.hf_name.fac_type,
+            hf_name: $scope.project.selection.location.hf_name.fac_name,
+            lat: $scope.project.selection.location.hf_name.lat,
+            lng: $scope.project.selection.location.hf_name.lng
+          });
+
+          // refresh dropdown options
+          $scope.project.resetLocation(true, true, true);
+
+        },
+
+        // remove location from location list
+        removeLocation: function(i) {
+          
+          // remove location at i
+          $scope.project.locations.splice(i, 1);
+        },       
+
+        // apply location dropdowns
+        locationDropdowns: function(id, select) {
+
+          var disabled;
+
+          switch(select) {
+            case 'district':
+              // disabled
+              disabled = !$scope.project.selection.location.province;
+              // filter
+              $scope.project.options.select.districts = $filter('filter')($scope.project.options.districts, { prov_code: $scope.project.selection.location.province.prov_code }, true);
+              // refresh dropdown options
+              $scope.project.resetLocation(false, true, true);
+              break;
+            case 'hf_type':
+              // disabled
+              disabled = !$scope.project.selection.location.district;
+              // refresh dropdown options
+              $scope.project.resetLocation(false, false, true);
+              break;
+            case 'hf_name':
+              // disabled
+              disabled = !$scope.project.selection.location.hf_type;
+              // filter
+              var provFilter = $filter('filter')($scope.project.options.hf_name, { prov_code: $scope.project.selection.location.province.prov_code }, true);
+              var distFilter = $filter('filter')(provFilter, { dist_code: $scope.project.selection.location.district.dist_code }, true);
+              var typeFilter = $filter('filter')(distFilter, { fac_type: $scope.project.selection.location.hf_type.fac_type }, true);
+              $scope.project.options.select.hf_name = typeFilter;
+              break;      
+          }
+
+          // update dropdown
+          $timeout(function(){
+            $(id).prop('disabled', disabled);
+            $(id).material_select('update');            
+          }, 400);
+
+        },
+
+        // refresh dropdown options
+        resetLocation: function(province, district, hf){
+
+          // reset province
+          if(province){
+            $('#ngm-project-province').prop('selectedIndex',0);
+          }
+
+          if(district){
+            // refresh all location 'select'
+            $('#ngm-project-district').prop('selectedIndex',0);
+            $('#ngm-project-district').prop('disabled', true);
+          }
+
+          if(hf){
+            $('#ngm-project-hf_type').prop('selectedIndex',0);
+            $('#ngm-project-hf_type').prop('disabled', true);
+          }
+
+          // default
+          $('#ngm-project-hf_name').prop('selectedIndex',0);
+          $('#ngm-project-hf_name').prop('disabled', true);
+
+          // update
+          $('#ngm-project-province').material_select('update');
+          $('#ngm-project-district').material_select('update');
+          $('#ngm-project-hf_type').material_select('update');
+          $('#ngm-project-hf_name').material_select('update');
+        
         },
 
         // 
@@ -172,9 +294,16 @@ angular.module('ngm.widget.project', ['ngm.provider'])
             $timeout(function() {
               $location.path( '/health/projects' );
               Materialize.toast( 'Project update cancelled!', 3000, 'note' );
-            }, 200);
+            }, 100);
 
           }
+
+        },
+
+        // uiSlider project budget progress
+        setProgress: function() {
+
+          //
 
         },
 
@@ -296,7 +425,51 @@ angular.module('ngm.widget.project', ['ngm.provider'])
           
         }
 
-      };
+      }     
+
+      // get provinces
+      if(!$scope.project.options.provinces) {
+        ngmData.get({
+          method: 'POST',
+          url: 'http://' + $location.host() + '/api/health/getProvincesList'
+        }).then(function(data){
+          $scope.project.options.provinces = data;
+          $('#ngm-project-province').material_select('update');
+        });
+      }  
+
+      // get provinces
+      if(!$scope.project.options.districts) {
+        ngmData.get({
+          method: 'POST',
+          url: 'http://' + $location.host() + '/api/health/getDistrictsList'
+        }).then(function(data){
+          $scope.project.options.districts = data;
+          // $('#ngm-project-district').material_select('update');
+        });
+      } 
+
+      // get hf_types
+      if(!$scope.project.options.hf_type) {
+        ngmData.get({
+          method: 'POST',
+          url: 'http://' + $location.host() + '/api/health/getFacilityTypeList'
+        }).then(function(data){
+          $scope.project.options.hf_type = data;
+          $('#ngm-project-hf_type').material_select('update');
+        });
+      }  
+
+      // get hf_name
+      if(!$scope.project.options.hf_name) {
+        ngmData.get({
+          method: 'POST',
+          url: 'http://' + $location.host() + '/api/health/getFacilityList'
+        }).then(function(data){
+          $scope.project.options.hf_name = data;
+          $('#ngm-project-hf_name').material_select('update');
+        });
+      }                      
       
       // initalize 
       $timeout(function() {
@@ -304,20 +477,23 @@ angular.module('ngm.widget.project', ['ngm.provider'])
         // modals
         $('.modal-trigger').leanModal();
 
+        // menu return to list
+        $('#go-to-project-list').click(function(){
+          $scope.project.cancel();
+        });        
+
         // selects
         $('select').material_select();
 
-        $('#go-to-project-list').click(function(){
-          $scope.project.cancel();
-        });
+        // set budget progress
+        // $scope.project.setProgress();
 
-        // initiate date picker
+        // initiate date pickers
         $scope.project.setStartTime();
         $scope.project.setEndTime();
 
       }, 400);
   }
 
-])  ;
-
+]);
 

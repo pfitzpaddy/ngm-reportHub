@@ -134,7 +134,7 @@
 				      		id="{{ row.id }}"
 				      		class="collection-item {{ row.class }}"
 				      		ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }" ng-cloak>{{ row.title }}</a>
-				      		
+
 				      	<a ng-if="!row.href"
 				      		id="{{ row.id }}"
 				      		class="collection-item {{ row.class }}"
@@ -213,6 +213,7 @@
 
 		<!-- ngmapp -->
 		<!-- build:js({.tmp,app}) scripts/scripts.js -->
+		<!-- materialize extras -->
 		<!-- app -->
 		<script src="scripts/app.js"></script>
 		<!-- services -->			

@@ -4,29 +4,31 @@
 	<div class="col s12 m12 l12">
 		<div class="card">
 			<ul class="collection with-header">
-				<li class="collection-header"><h5 class="report-work-title">Project Activities</h5></li>
-				<li class="collection-item avatar" style="min-height:60px;">
-
-					<!-- add -->
-		      <div class="row">
-		      	<a class="waves-effect waves-light btn" ng-click="project.addActivity()"><i class="material-icons left">add_circle_outline</i>Add New Activity</a>
-		      </div>
-
+				<li class="collection-header">
+					<h5 class="report-work-title" style="display:inline-block;" align="left">Project Activities</h5>
+		      <a class="waves-effect waves-light btn right" style="margin-top:12px;" ng-click="project.addActivity()"><i class="material-icons left">add_circle_outline</i>Add New Activity</a>
 				</li>
+
 				<li class="collection-item avatar" ng-repeat="activity in project.activities track by $index">
 					
 					<!-- form -->
 
+		      <div class="row" ng-if="$index > 0">
+		      	<a class="waves-effect waves-light btn red lighten-2 right" style="margin-top:12px;" ng-click="project.removeActivity($index)"><i class="material-icons left">remove_circle_outline</i>Remove Activity</a>
+		      </div>
+
 		      <div class="row">
+
 		        <div class="input-field col s12 m4">
 					    <select id="ngm-activity-type" class="validate"
 					    	ng-model="activity.activity_type" 
 					    	ng-disabled="project.details.project_status !== 'new'" required>
 					      <option value="" disabled selected>Select Activity</option>
 					      <option value="bphs">BPHS</option>
-					      <option value="routine">Routine PHC</option>
+								<option value="conflict">Conflict/IDPs</option>
 					      <option value="emergency">Emergency</option>
-					      <option value="conflict">Conflict/IDPs</option>
+					      <option value="outbreaks">Outbreak</option>
+					      <option value="routine">Routine PHC</option>
 					      <option value="training">Training</option>
 					    </select>
 					    <label for="ngm-activity-type">Activity Type</label>
@@ -39,18 +41,102 @@
 								required>
 		          <label for="ngm-activity-description">Activity Descritpion</label>
 		        </div>
-		      </div>
+
+			    </div>
+
+	      	<div class="row">
+	      		<div class="card" style="padding: 20px;">
+	      			<h5 class="report-work-title" style="font-size:1.4rem;">Beneficaries/Indicators</h5>
+	      		</div>
+	      	</div>
 
 		      <div class="row">
-		      	<!-- row for indicators by type -->
-		      	<!-- row for indicators by type -->
-		      	<!-- row for indicators by type -->
-		      	<!-- row for indicators by type -->
-		      	<!-- row for indicators by type -->
-		      </div>
 
-		      <div class="row">
-		      	<!-- table for location -->
+		      	<div class="card" style="padding: 20px;">
+
+			      	<h5 class="report-work-title" style="font-size:1.4rem;">Activity Locations</h5>
+
+			      	<div class="row">
+
+			      		<div class="input-field col s12 m3"
+			      			ng-class="{ 'error-label': healthProjectForm.$submitted 
+							  								&& !project.selection.location.province 
+							  								&& project.locations.length == 0 }">
+			      			<select id="ngm-project-province" class="validate"
+							    	ng-model="project.selection.location.province"
+							    	ng-change="project.locationDropdowns('#ngm-project-district', 'district')"
+			      				ng-options="item as item.prov_name for item in project.options.provinces track by item.prov_code"
+							    	required>
+			      				<option value="" disabled selected>Choose Province</option>
+			      			</select>
+			      			<label>Province</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m3"
+			      			ng-class="{ 'error-label': healthProjectForm.$submitted 
+							  								&& !project.selection.location.district 
+							  								&& project.locations.length == 0 }">
+			      			<select id="ngm-project-district" class="validate"
+							    	ng-model="project.selection.location.district"
+							    	ng-change="project.locationDropdowns('#ngm-project-hf_type', 'hf_type')"
+			      				ng-options="item as item.dist_name for item in project.options.select.districts track by item.dist_code"
+			      				disabled
+							    	required>
+			      				<option value="" disabled selected>Choose District</option>
+			      			</select>
+			      			<label>District</label>
+			      		</div>
+
+							  <div class="input-field col s12 m3"
+							  	ng-class="{ 'error-label': healthProjectForm.$submitted 
+							  								&& !project.selection.location.hf_type 
+							  								&& project.locations.length == 0 }">
+							    <select id="ngm-project-hf_type" class="validate"
+							    	ng-model="project.selection.location.hf_type"
+							    	ng-change="project.locationDropdowns('#ngm-project-hf_name', 'hf_name')"
+							    	ng-options="item as item.fac_type for item in project.options.hf_type track by item.id"
+							    	disabled
+							    	required>
+							      <option value="" disabled selected>Choose facility type</option>
+							    </select>
+							    <label>Facility Type</label>
+							  </div>
+
+							  <div class="input-field col s12 m3"
+							  	ng-class="{ 'error-label': healthProjectForm.$submitted 
+							  								&& !project.selection.location.hf_name 
+							  								&& project.locations.length == 0 }">
+							    <select id="ngm-project-hf_name"  class="validate"
+							    	ng-model="project.selection.location.hf_name"
+							    	ng-change="project.addLocation()"
+							    	ng-options="item as item.fac_name for item in project.options.select.hf_name track by item.fac_id"
+							    	disabled
+							    	required>
+							      <option value="" disabled selected>Choose facility name</option>
+							    </select>
+							    <label>Facility Name</label>
+							  </div>
+
+							</div>
+
+						  <h5 class="report-work-title" style="font-size:1.1rem;">{{ project.locations.length }} Selected Locations</h5>
+
+				      	<!-- table for location -->
+					      <table class="centered" style="margin-left:10px; width:98%">
+					        <tbody>
+					          <tr ng-repeat="location in project.locations track by $locationIndex">
+					          	<td width="5%"><i class="material-icons" style="color: teal;">location_on</i></td>
+					            <td width="22%">{{ location.prov_name }}</td>
+					            <td width="22%">{{ location.dist_name }}</td>
+					            <td width="22%">{{ location.hf_type }}</td>
+					            <td width="22%">{{ location.hf_name }}</td>
+					            <td width="5%"><a class="waves-effect waves-light btn red lighten-2" ng-click="project.removeLocation($locationIndex)"><i class="material-icons">cancel</i></a></td>
+					          </tr>
+					        </tbody>
+					      </table>
+
+				    </div>
+
 		      </div>
 
 				</li>

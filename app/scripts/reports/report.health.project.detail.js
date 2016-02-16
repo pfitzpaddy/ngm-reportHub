@@ -102,6 +102,7 @@ angular.module('ngmReportHub')
 							type: 'project',
 							// card: '',
 							config: {
+								style: $scope.$parent.ngm.style,
 								project: $scope.report.project
 							}
 						}]
