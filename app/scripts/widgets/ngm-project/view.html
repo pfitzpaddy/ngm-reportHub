@@ -59,7 +59,7 @@
     <p>Your project has been saved with ID {{ project.definition.details.id }}</p>
   </div>
   <div class="modal-footer">
-    <a ng-click="project.save()" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+    <a ng-click="project.redirect()" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
   </div>
 </div>
 
@@ -84,7 +84,7 @@
   </div>
   <div class="modal-footer">
   	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="project.save(true)" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, project complete!</a>
+    <a ng-click="project.saveComplete()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, project complete!</a>
   </div>
 </div>
 
@@ -105,7 +105,7 @@
 				<!-- submission -->
 				<div align="center">
 					<button data-target="save-modal" class="waves-effect waves-light btn"
-						ng-click="project.submit()"
+						ng-click="project.save()"
 						ng-disabled="healthProjectForm.$submitted 
 								&& healthProjectForm.$invalid 
 								&& project.definition.activities[0].locations.length == 0"

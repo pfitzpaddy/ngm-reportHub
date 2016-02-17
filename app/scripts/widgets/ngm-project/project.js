@@ -40,8 +40,6 @@ angular.module('ngm.widget.project', ['ngm.provider'])
     'config',
     function($scope, $location, $timeout, $filter, ngmData, config){
 
-      console.log(config.project);
-
       // project
       $scope.project = {
 
@@ -79,7 +77,7 @@ angular.module('ngm.widget.project', ['ngm.provider'])
               && $scope.project.definition.activities[length-1].locations.length){
 
             // toast msg
-            Materialize.toast( 'Adding new Activity!', 2000, 'note' );
+            Materialize.toast( 'New Activity Added!', 2000, 'note' );
 
             // create activity in db
             $scope.project.createActivity();
@@ -253,12 +251,23 @@ angular.module('ngm.widget.project', ['ngm.provider'])
         },
 
         // 
-        submit: function(){
+        save: function(){
 
           // open success modal if valid form
           if($scope.healthProjectForm.$valid){
-            // save modal
-            $('#save-modal').openModal({dismissible: false});
+
+            // Submit project for save
+            ngmData.get({
+              method: 'POST',
+              url: 'http://' + $location.host() + '/api/health/project/setProject',
+              data: {
+                project: $scope.project.definition
+              }
+            }).then(function(data){
+              // notification modal
+              $('#save-modal').openModal({dismissible: false});
+            });
+
           } else {
             // form validation takes over
             $scope.healthProjectForm.$setSubmitted();
@@ -266,27 +275,36 @@ angular.module('ngm.widget.project', ['ngm.provider'])
             Materialize.toast('Please review the form for errors and try again!', 3000);            
           }
 
-        },        
+        },
 
-        // run submit
-        save: function(markComplete){
-
-          // User msg (new, active, complete)
+        // re-direct on save
+        redirect: function(){
+            
           var msg;
-
-          // if true, becomes complete!
-          if( markComplete ){
-            msg = $scope.project.definition.details.project_name + ' complete, congratulations!';
-            $scope.project.definition.details.project_status = 'complete';
-          } else {
-            // update
-            msg = $scope.project.definition.details.project_name + ' updated!';
-          }
 
           // new becomes active!
           if( $scope.project.definition.details.project_status === 'new' ) {
             msg = $scope.project.definition.details.project_name + ' created!';
-          }          
+          } else {
+            msg = $scope.project.definition.details.project_name + ' updated!';
+          }
+
+          // redirect on success
+          $timeout(function(){
+            $location.path( '/health/projects' );
+            Materialize.toast( msg, 3000, 'success');
+          }, 200)
+
+        },               
+
+        // run submit
+        saveComplete: function(){
+
+          // User msg
+          var msg;
+
+          // mark project complete
+          $scope.project.definition.details.project_status = 'complete';       
 
           // Submit project for save
           ngmData.get({

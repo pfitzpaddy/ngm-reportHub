@@ -1,4 +1,56 @@
 
+<style>
+
+	/* overflow for dropdown */
+	.collection {
+		overflow: visible !important;
+	}
+
+	/* input label */
+	.input-field label,
+	.input-field input:disabled + label {
+		color: #26a69a;
+	}
+	/* valid input */
+	.input-field input.valid {
+		border-bottom: 1px solid #26a69a;
+		box-shadow: 0 1px 0 0 #26a69a;		
+	}
+	/* valid input on focus */
+	.input-field input:focus.valid {
+		border-bottom: 1px solid #4dd0e1;
+		box-shadow: 0 1px 0 0 #4dd0e1;
+	}
+	/* invalid input on focus */
+	.input-field input:focus.invalid {
+		border-bottom: 1px solid #e57373;
+		box-shadow: 0 1px 0 0 #e57373;
+	}
+	/* border for disabled */
+	.input-field input:disabled, .select-wrapper input.select-dropdown:disabled {
+		color: #616161;
+		box-shadow: none !important;
+		border-bottom: 1px dotted rgba(0, 0, 0, 0.26) !important;
+	}
+
+	/* form validation on submit */
+	.ng-submitted .input-field input[type='text'].ng-invalid + label,
+		.ng-submitted .input-field input[type='number'].ng-invalid + label,
+		.ng-submitted .input-field input[type='email'].ng-invalid + label,
+		.ng-submitted .input-field input[type='password'].ng-invalid + label {
+		color: #e57373;
+		font-weight: 400;
+	}
+
+	/* manual class for label error */
+	.input-field.error-label label {
+		color: #e57373;
+		font-weight: 400;		
+	}
+
+
+</style>
+
 <!-- bind html -->
 <div id="ngmLoginPanel" class="row">
 	<div class="ngm-login-title">
@@ -6,7 +58,7 @@
 	</div>
   <div class="row">
     
-    <form class="col s12 m4 offset-m4" style="padding-bottom:20px;">
+    <form name="ngmLoginForm" class="col s12 m4 offset-m4" style="padding-bottom:20px;" novalidate>
     	
     	<div class="card" style="padding:40px;">
 	      
@@ -42,7 +94,9 @@
 				style="width: 100%;" 
 				class="btn btn-large waves-effect waves-teal" 
 				type="submit"
-				ng-click="panel.login()">
+				ng-disabled="ngmLoginForm.$submitted 
+						&& ngmLoginForm.$invalid"				
+				ng-click="panel.login(ngmLoginForm)">
 						Sign in
 			</button>
 	    

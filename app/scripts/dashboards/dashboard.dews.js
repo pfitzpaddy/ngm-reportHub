@@ -183,7 +183,7 @@ angular.module('ngmReportHub')
 				},
 				subtitle: {
 					'class': 'col hide-on-small-only m8 l9 report-subtitle',
-					title: $scope.dashboard.subtitle,
+					'title': $scope.dashboard.subtitle,
 				},
 				datePicker: {
 					'class': 'col s12 m4 l3',

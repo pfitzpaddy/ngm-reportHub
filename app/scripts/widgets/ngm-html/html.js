@@ -59,43 +59,59 @@ angular.module('ngm.widget.html', ['ngm.provider'])
         templateUrl: '/scripts/widgets/ngm-html/template/default.html',
 
         // login fn
-        login: function(){
-          ngmAuth.login($scope.panel.user).success(function(result) { 
-            
-            // go to default org page 
-            $location.path( '/' + result.app_home );
+        login: function(ngmLoginForm){
 
-            // user toast msg
-            $timeout(function(){
-              Materialize.toast('Welcome back ' + result.username + '!', 3000, 'note');
-            }, 2000);
+          // if invalid
+          if(ngmLoginForm.$invalid){
+            // set submitted for validation
+            ngmLoginForm.$setSubmitted();
+          } else {
+            // login
+            ngmAuth.login($scope.panel.user).success(function(result) { 
+              
+              // go to default org page 
+              $location.path( '/' + result.app_home );
 
-          }).error(function(err) {
-            // update 
-            $scope.panel.error = {
-              msg: 'The email and password you entered is not correct'
-            }
-          });
+              // user toast msg
+              $timeout(function(){
+                Materialize.toast('Welcome back ' + result.username + '!', 3000, 'note');
+              }, 2000);
+
+            }).error(function(err) {
+              // update 
+              $scope.panel.error = {
+                msg: 'The email and password you entered is not correct'
+              }
+            });
+          }
         },
 
         // register fn
-        register: function(){
-          ngmAuth.register($scope.panel.user).success(function(result) { 
-            
-            // go to default org page
-            $location.path( '/' + result.app_home );
+        register: function(ngmRegisterForm){
 
-            // user toast msg
-            $timeout(function(){
-              Materialize.toast('Welcome ' + result.username + ', time to create a Project!', 3000, 'success');
-            }, 2000);
+          // if $invalid
+          if(ngmRegisterForm.$invalid){
+            // set submitted for validation
+            ngmRegisterForm.$setSubmitted();
+          } else {
+            // register
+            ngmAuth.register($scope.panel.user).success(function(result) {
+              
+              // go to default org page
+              $location.path( '/' + result.app_home );
 
-          }).error(function(err) {
-            // update 
-            $scope.panel.error = {
-              msg: 'There has been a registration issue, please contact the administrator!'
-            }
-          });
+              // user toast msg
+              $timeout(function(){
+                Materialize.toast('Welcome ' + result.username + ', time to create a Project!', 3000, 'success');
+              }, 2000);
+
+            }).error(function(err) {
+              // update 
+              $scope.panel.error = {
+                msg: 'There has been a registration issue, please contact the administrator!'
+              }
+            });            
+          }
         }
 
       };
