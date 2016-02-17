@@ -93,6 +93,16 @@ angular
 						return ngmAuth.isAuthenticated();
 					}],
 				}
+			})
+			// health dashboard
+			.when( '/health/3w', {
+				templateUrl: '/views/dashboard.html',
+				controller: 'DashboardHealthProjectsCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
 			})			
 
 
