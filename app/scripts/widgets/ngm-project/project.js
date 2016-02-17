@@ -40,39 +40,25 @@ angular.module('ngm.widget.project', ['ngm.provider'])
     'config',
     function($scope, $location, $timeout, $filter, ngmData, config){
 
-      // get activities
+      console.log(config.project);
 
-      // get locations 
-      
       // project
       $scope.project = {
 
         // parent
         style: config.style,
 
-        // project
-        details: config.project,
-
-        // activities
-        activities: [{
-          organization_id: config.project.organization_id,
-          project_id: config.project.id,
-        }],
-
-        // indicators
-        indicators: [],
-
-        // locations
-        locations:[],
+        // project descritpion
+        definition: {
+          // project
+          details: config.project.details,
+          // activities
+          activities: config.project.activities
+        },
 
         // holder for UI options
         options: {
           select: {}
-        },
-
-        // holder for user selections
-        selection: {
-          location: {}
         },
 
         // details template
@@ -84,23 +70,19 @@ angular.module('ngm.widget.project', ['ngm.provider'])
         // add activity
         addActivity: function(){
 
-          var length = $scope.project.activities.length;
+          var length = $scope.project.definition.activities.length;
 
           // Test current activity
-          if ($scope.project.activities[length-1].activity_type
-              && $scope.project.activities[length-1].activity_description
-              && $scope.project.locations.length){
-            
-            // Add empty activities obj
-            $scope.project.activities.push([{
-              organization_id: config.project.organization_id,
-              project_id: config.project.id              
-            }]);
-            
-            // Init select
-            $timeout(function(){
-              $('select').material_select();
-            }, 400);
+          if ($scope.project.definition.activities[length-1].activity_type
+              && $scope.project.definition.activities[length-1].activity_description
+              && $scope.project.definition.activities[length-1].beneficiaries
+              && $scope.project.definition.activities[length-1].locations.length){
+
+            // toast msg
+            Materialize.toast( 'Adding new Activity!', 2000, 'note' );
+
+            // create activity in db
+            $scope.project.createActivity();
 
           } else {
             // user msg
@@ -109,72 +91,110 @@ angular.module('ngm.widget.project', ['ngm.provider'])
 
         },
 
+        createActivity: function() {
+
+          // create new activity
+          ngmData.get({
+            method: 'POST',
+            url: 'http://' + $location.host() + '/api/health/activity/create',
+            data:{
+              organization_id: config.project.details.organization_id,
+              project_id: config.project.details.id
+            }
+          }).then(function(data){
+            // Add empty activities obj
+            $scope.project.definition.activities.push({
+              // default
+              organization_id: config.project.details.organization_id,
+              project_id: config.project.details.id,
+              id: data.id,
+              // beneficiaries
+              beneficiaries: {
+                organization_id: config.project.details.organization_id,
+                project_id: config.project.details.id,                
+                activity_id: data.id
+              },
+              // locations
+              locations:[]
+            });
+
+            // Init select
+            $timeout(function(){
+              $('select').material_select();
+            }, 400);
+
+          });
+
+        } ,       
+
         // remoce activity
         removeActivity: function(i) {
           
           // remove location at i
-          $scope.project.activities.splice(i, 1);
+          $scope.project.definition.activities.splice(i, 1);
 
         },        
 
         // add location
-        addLocation: function(){
+        addLocation: function(i){
 
           // push location to locations
-          $scope.project.locations.push({
-            organization_id: config.project.organization_id,
-            project_id: config.project.id,
-            activity_id: 16,
-            prov_code: $scope.project.selection.location.province.prov_code,
-            prov_name: $scope.project.selection.location.province.prov_name,
-            dist_code: $scope.project.selection.location.district.dist_code,
-            dist_name: $scope.project.selection.location.district.dist_name,
-            hf_id: $scope.project.selection.location.hf_name.fac_id,
-            hf_type: $scope.project.selection.location.hf_name.fac_type,
-            hf_name: $scope.project.selection.location.hf_name.fac_name,
-            lat: $scope.project.selection.location.hf_name.lat,
-            lng: $scope.project.selection.location.hf_name.lng
+          $scope.project.definition.activities[i].locations.push({
+            organization_id: config.project.details.organization_id,
+            project_id: config.project.details.id,
+            activity_id: $scope.project.definition.activities[i].id,
+            prov_code: $scope.project.definition.activities[i].selection.province.prov_code,
+            prov_name: $scope.project.definition.activities[i].selection.province.prov_name,
+            dist_code: $scope.project.definition.activities[i].selection.district.dist_code,
+            dist_name: $scope.project.definition.activities[i].selection.district.dist_name,
+            fac_id: $scope.project.definition.activities[i].selection.hf_name.fac_id,
+            fac_type: $scope.project.definition.activities[i].selection.hf_name.fac_type,
+            fac_name: $scope.project.definition.activities[i].selection.hf_name.fac_name,
+            lat: $scope.project.definition.activities[i].selection.hf_name.lat,
+            lng: $scope.project.definition.activities[i].selection.hf_name.lng
           });
 
           // refresh dropdown options
-          $scope.project.resetLocation(true, true, true);
+          $scope.project.resetLocation(true, true, true, true);
 
         },
 
         // remove location from location list
-        removeLocation: function(i) {
+        removeLocation: function($index, $locationIndex) {
           
           // remove location at i
-          $scope.project.locations.splice(i, 1);
+          $scope.project.definition.activities[$index].locations.splice($locationIndex, 1);
+          // refresh dropdown options
+          $scope.project.resetLocation(true, true, true, true);
         },       
 
         // apply location dropdowns
-        locationDropdowns: function(id, select) {
+        locationDropdowns: function(i, id, select) {
 
           var disabled;
 
           switch(select) {
             case 'district':
               // disabled
-              disabled = !$scope.project.selection.location.province;
+              disabled = !$scope.project.definition.activities[i].selection.province;
               // filter
-              $scope.project.options.select.districts = $filter('filter')($scope.project.options.districts, { prov_code: $scope.project.selection.location.province.prov_code }, true);
+              $scope.project.options.select.districts = $filter('filter')($scope.project.options.districts, { prov_code: $scope.project.definition.activities[i].selection.province.prov_code }, true);
               // refresh dropdown options
-              $scope.project.resetLocation(false, true, true);
+              $scope.project.resetLocation(false, true, true, false);
               break;
             case 'hf_type':
               // disabled
-              disabled = !$scope.project.selection.location.district;
+              disabled = !$scope.project.definition.activities[i].selection.district;
               // refresh dropdown options
-              $scope.project.resetLocation(false, false, true);
+              $scope.project.resetLocation(false, false, true, false);
               break;
             case 'hf_name':
               // disabled
-              disabled = !$scope.project.selection.location.hf_type;
+              disabled = !$scope.project.definition.activities[i].selection.hf_type;
               // filter
-              var provFilter = $filter('filter')($scope.project.options.hf_name, { prov_code: $scope.project.selection.location.province.prov_code }, true);
-              var distFilter = $filter('filter')(provFilter, { dist_code: $scope.project.selection.location.district.dist_code }, true);
-              var typeFilter = $filter('filter')(distFilter, { fac_type: $scope.project.selection.location.hf_type.fac_type }, true);
+              var provFilter = $filter('filter')($scope.project.options.hf_name, { prov_code: $scope.project.definition.activities[i].selection.province.prov_code }, true);
+              var distFilter = $filter('filter')(provFilter, { dist_code: $scope.project.definition.activities[i].selection.district.dist_code }, true);
+              var typeFilter = $filter('filter')(distFilter, { fac_type: $scope.project.definition.activities[i].selection.hf_type.fac_type }, true);
               $scope.project.options.select.hf_name = typeFilter;
               break;      
           }
@@ -188,45 +208,62 @@ angular.module('ngm.widget.project', ['ngm.provider'])
         },
 
         // refresh dropdown options
-        resetLocation: function(province, district, hf){
+        resetLocation: function(province, district, hf, reset){
 
-          // reset province
-          if(province){
-            $('#ngm-project-province').prop('selectedIndex',0);
-          }
+          // for each activity option
+          angular.forEach($scope.project.definition.activities, function(d, i){
+            // reset province
+            if(province){
+              $('#ngm-project-province-' + i).prop('selectedIndex',0);
+            }
 
-          if(district){
-            // refresh all location 'select'
-            $('#ngm-project-district').prop('selectedIndex',0);
-            $('#ngm-project-district').prop('disabled', true);
-          }
+            if(district){
+              // refresh all location 'select'
+              $('#ngm-project-district-' + i).prop('selectedIndex',0);
+              $('#ngm-project-district-' + i).prop('disabled', true);
+            }
 
-          if(hf){
-            $('#ngm-project-hf_type').prop('selectedIndex',0);
-            $('#ngm-project-hf_type').prop('disabled', true);
-          }
+            if(hf){
+              $('#ngm-project-hf_type-' + i).prop('selectedIndex',0);
+              $('#ngm-project-hf_type-' + i).prop('disabled', true);
+            }
 
-          // default
-          $('#ngm-project-hf_name').prop('selectedIndex',0);
-          $('#ngm-project-hf_name').prop('disabled', true);
+            // default
+            $('#ngm-project-hf_name-' + i).prop('selectedIndex',0);
+            $('#ngm-project-hf_name-' + i).prop('disabled', true);
 
-          // update
-          $('#ngm-project-province').material_select('update');
-          $('#ngm-project-district').material_select('update');
-          $('#ngm-project-hf_type').material_select('update');
-          $('#ngm-project-hf_name').material_select('update');
+            // update
+            $('#ngm-project-province-' + i).material_select('update');
+            $('#ngm-project-district-' + i).material_select('update');
+            $('#ngm-project-hf_type-' + i).material_select('update');
+            $('#ngm-project-hf_name-' + i).material_select('update');
+
+            if(reset){
+              // reset selection
+              $scope.project.definition.activities[i].selection = {
+                province: {},
+                district: {},
+                hf_type: {},
+                hf_name: {}
+              };
+            }
+
+          });
         
         },
 
         // 
         submit: function(){
-          
+
           // open success modal if valid form
           if($scope.healthProjectForm.$valid){
+            // save modal
             $('#save-modal').openModal({dismissible: false});
           } else {
             // form validation takes over
             $scope.healthProjectForm.$setSubmitted();
+            // inform
+            Materialize.toast('Please review the form for errors and try again!', 3000);            
           }
 
         },        
@@ -239,32 +276,29 @@ angular.module('ngm.widget.project', ['ngm.provider'])
 
           // if true, becomes complete!
           if( markComplete ){
-            msg = $scope.project.details.project_name + ' complete, congratulations!';
-            $scope.project.details.project_status = 'complete';
+            msg = $scope.project.definition.details.project_name + ' complete, congratulations!';
+            $scope.project.definition.details.project_status = 'complete';
           } else {
             // update
-            msg = $scope.project.details.project_name + ' updated!';
+            msg = $scope.project.definition.details.project_name + ' updated!';
           }
 
           // new becomes active!
-          if( $scope.project.details.project_status === 'new' ) {
-            msg = $scope.project.details.project_name + ' created!';
-            $scope.project.details.project_status = 'active';
+          if( $scope.project.definition.details.project_status === 'new' ) {
+            msg = $scope.project.definition.details.project_name + ' created!';
           }          
 
           // Submit project for save
           ngmData.get({
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/health/setProject',
+            url: 'http://' + $location.host() + '/api/health/project/setProject',
             data: {
-              project: $scope.project.details
+              project: $scope.project.definition
             }
           }).then(function(data){
-            
+            // redirect on success
             $location.path( '/health/projects' );
-
             Materialize.toast( msg, 3000, 'success');
-
           });
 
         },
@@ -273,14 +307,14 @@ angular.module('ngm.widget.project', ['ngm.provider'])
         cancel: function() {
 
           // if new project, delete
-          if( $scope.project.details.project_status === 'new' ) {
+          if( $scope.project.definition.details.project_status === 'new' ) {
 
             // project for delete
             ngmData.get({
               method: 'POST',
-              url: 'http://' + $location.host() + '/api/health/deleteProject',
+              url: 'http://' + $location.host() + '/api/health/project/deleteProject',
               data: {
-                id: $scope.project.details.id
+                id: $scope.project.definition.details.id
               }
             }).then(function(data){
               
@@ -319,7 +353,7 @@ angular.module('ngm.widget.project', ['ngm.provider'])
               $timeout(function(){
                 
                 // set time
-                var date = moment($scope.project.details.project_start_date).format('YYYY-MM-DD');
+                var date = moment($scope.project.definition.details.project_start_date).format('YYYY-MM-DD');
 
                 $scope.project.startPicker.set('select', date, { format: 'yyyy-mm-dd' } );
 
@@ -333,17 +367,17 @@ angular.module('ngm.widget.project', ['ngm.provider'])
                 var selectedDate = moment(event.select);
 
                 // check dates
-                if ( (selectedDate).isAfter($scope.project.details.project_end_date) ) {
+                if ( (selectedDate).isAfter($scope.project.definition.details.project_end_date) ) {
                   
                   // inform
                   Materialize.toast('Please check the dates and try again!', 3000);
 
                   // reset time
-                  $scope.project.startPicker.set('select', moment($scope.project.details.project_start_date).format('X'))
+                  $scope.project.startPicker.set('select', moment($scope.project.definition.details.project_start_date).format('X'))
 
                 } else {
                   // set date
-                  $scope.project.details.project_start_date = moment(selectedDate).format('YYYY-MM-DD');
+                  $scope.project.definition.details.project_start_date = moment(selectedDate).format('YYYY-MM-DD');
                 }
 
                 $scope.project.startPicker.close();
@@ -378,7 +412,7 @@ angular.module('ngm.widget.project', ['ngm.provider'])
               $timeout(function(){
                 
                 // set time
-                var date = moment($scope.project.details.project_end_date).format('YYYY-MM-DD');
+                var date = moment($scope.project.definition.details.project_end_date).format('YYYY-MM-DD');
 
                 $scope.project.endPicker.set('select', date, { format: 'yyyy-mm-dd' } );
 
@@ -392,17 +426,17 @@ angular.module('ngm.widget.project', ['ngm.provider'])
                 var selectedDate = moment(event.select);
 
                 // check dates
-                if ( selectedDate && (selectedDate).isBefore($scope.project.details.project_start_date) ) {
+                if ( selectedDate && (selectedDate).isBefore($scope.project.definition.details.project_start_date) ) {
                   
                   // inform
                   Materialize.toast('Please check the dates and try again!', 3000);
 
                   // reset time
-                  $scope.project.endPicker.set('select', moment($scope.project.details.project_end_date).format('X'))
+                  $scope.project.endPicker.set('select', moment($scope.project.definition.details.project_end_date).format('X'))
 
                 } else {
                   // set date
-                  $scope.project.details.project_end_date = moment(selectedDate).format('YYYY-MM-DD');
+                  $scope.project.definition.details.project_end_date = moment(selectedDate).format('YYYY-MM-DD');
                 }
 
                 $scope.project.endPicker.close();
@@ -425,7 +459,7 @@ angular.module('ngm.widget.project', ['ngm.provider'])
           
         }
 
-      }     
+      }
 
       // get provinces
       if(!$scope.project.options.provinces) {
@@ -445,7 +479,6 @@ angular.module('ngm.widget.project', ['ngm.provider'])
           url: 'http://' + $location.host() + '/api/health/getDistrictsList'
         }).then(function(data){
           $scope.project.options.districts = data;
-          // $('#ngm-project-district').material_select('update');
         });
       } 
 
@@ -496,4 +529,3 @@ angular.module('ngm.widget.project', ['ngm.provider'])
   }
 
 ]);
-

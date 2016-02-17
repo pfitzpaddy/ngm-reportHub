@@ -32,7 +32,7 @@ angular.module('ngmReportHub')
 			// create and return empty project
 			ngmData.get({
 				method: 'POST',
-				url: 'http://' + $location.host() + '/api/health/create',
+				url: 'http://' + $location.host() + '/api/health/project/create',
 				data: {
 					organization_id: ngmUser.get().organization_id
 				}
@@ -45,7 +45,7 @@ angular.module('ngmReportHub')
 			// return project
 			ngmData.get({
 				method: 'POST',
-				url: 'http://' + $location.host() + '/api/health/getProject',
+				url: 'http://' + $location.host() + '/api/health/project/getProject',
 				data: {
 					id: $route.current.params.project
 				}
@@ -114,7 +114,6 @@ angular.module('ngmReportHub')
 			$scope.report.ngm.dashboard.model = $scope.model;
 
 		}
-
 		
 	}]);
 

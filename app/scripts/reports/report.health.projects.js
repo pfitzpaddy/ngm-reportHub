@@ -18,31 +18,11 @@ angular.module('ngmReportHub')
 			rows: [{}]			
 		}
 
-		// empty Project
-		$scope.report = {
-			
-			// parent
-			ngm: $scope.$parent.ngm
-
-		};
-
-
 		// report object
 		$scope.report = {
 
 			// parent
-			ngm: $scope.$parent.ngm,
-
-			// complete
-			complete: [{
-				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 1"><i class="material-icons circle white teal-text">done</i><span class="title">Week 1</span><p>Disease Outbreaks</p><a href="" title="Download Week 1" class="secondary-content"><i class="material-icons">send</i></a></a>'
-			},{
-				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 2"><i class="material-icons circle white teal-text">done</i><span class="title">Week 2</span><p>Disease Outbreaks</p><a href="" title="Download Week 2" class="secondary-content"><i class="material-icons">send</i></a></a>'
-			},{
-				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 3"><i class="material-icons circle white teal-text">done</i><span class="title">Week 3</span><p>Disease Outbreaks</p><a href="" title="Download Week 3" class="secondary-content"><i class="material-icons">send</i></a></a>'
-			},{
-				report: '<a class="tooltipped" data-position="left" data-delay="50" data-tooltip="Review Week 4"><i class="material-icons circle white teal-text">done</i><span class="title">Week 4</span><p>Disease Outbreaks</p><a href="" title="Download Week 4" class="secondary-content"><i class="material-icons">send</i></a></a>'
-			}]
+			ngm: $scope.$parent.ngm
 
 		}
 
@@ -100,7 +80,7 @@ angular.module('ngmReportHub')
 							templateUrl: '/scripts/widgets/ngm-html/template/health.project.list.html',							
 							request: {
 								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/getProjectList',
+								url: 'http://' + $location.host() + '/api/health/project/getProjectList',
 								data: {
 									organization_id: ngmUser.get().organization_id,
 									project_status: 'active'
@@ -123,7 +103,7 @@ angular.module('ngmReportHub')
 							templateUrl: '/scripts/widgets/ngm-html/template/health.project.list.html',							
 							request: {
 								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/getProjectList',
+								url: 'http://' + $location.host() + '/api/health/project/getProjectList',
 								data: {
 									organization_id: ngmUser.get().organization_id,
 									project_status: 'complete'
