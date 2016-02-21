@@ -67,7 +67,7 @@ angular.module('ngm.widget.html', ['ngm.provider'])
             ngmLoginForm.$setSubmitted();
           } else {
             // login
-            ngmAuth.login($scope.panel.user).success(function(result) { 
+            ngmAuth.login({ user: $scope.panel.user }).success(function(result) { 
               
               // go to default org page 
               $location.path( '/' + result.app_home );
@@ -95,7 +95,7 @@ angular.module('ngm.widget.html', ['ngm.provider'])
             ngmRegisterForm.$setSubmitted();
           } else {
             // register
-            ngmAuth.register($scope.panel.user).success(function(result) {
+            ngmAuth.register({ user: $scope.panel.user }).success(function(result) {
               
               // go to default org page
               $location.path( '/' + result.app_home );

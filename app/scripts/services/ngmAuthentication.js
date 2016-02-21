@@ -54,8 +54,9 @@ angular.module('ngmReportHub')
 				
 				// set the $http object
 				var login = $http({
-					method: 'GET',
-					url: 'http://' + $location.host() + '/api/login?username=' + user.username + '&password=' + user.password
+					method: 'POST',
+					url: 'http://' + $location.host() + '/api/login',
+					data: user
 				});
 
 				// on success store in localStorage

@@ -2,6 +2,11 @@
 
 <style>
 
+	/* list padding right */
+	.collection-item.avatar {
+		padding-right: 50px;
+	}
+
 	/* overflow for dropdown */
 	.collection {
 		overflow: visible !important;
@@ -122,14 +127,14 @@
 			</div>
 		</div>
 	</div>
-
+	
 </form>
 
 <div class="row">
 	<div class="col s12 m12 l12">
 		<div class="card">
-			<div style="background: {{ project.style.lightPrimaryColor }}; height:20px; "></div>
-			<div style="background: {{ project.style.defaultPrimaryColor }}; height:60px;">
+			<div style="background: {{ project.ngm.style.lightPrimaryColor }}; height:20px; "></div>
+			<div style="background: {{ project.ngm.style.defaultPrimaryColor }}; height:60px;">
 				<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>
 			</div>
 		</div>

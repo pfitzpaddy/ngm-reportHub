@@ -40,7 +40,7 @@ angular.module('ngmReportHub')
 
 		// dews dashboard model
 		$scope.model = {
-			name: 'who_dews_dashboard',
+			name: 'health_3w_dews_dashboard',
 			header: {
 				div: {
 					'class': 'col s12 m12 l12 report-header',
@@ -223,6 +223,51 @@ angular.module('ngmReportHub')
 						}
 					}]
 				}]
+			},{
+				columns: [{
+					styleClass: 's12 m12 l12',
+					widgets: [{
+						type: 'leaflet',
+						card: 'card-panel',
+						style: 'padding:0px;',
+						config: {
+							height: '520px',
+							display: {
+								type: 'marker',
+							},
+							defaults: {
+								zoomToBounds: true
+							},
+							layers: {
+								baselayers: {
+									osm: {
+										name: 'Mapbox',
+										type: 'xyz',
+										url: 'https://b.tiles.mapbox.com/v3/aj.um7z9lus/{z}/{x}/{y}.png?',
+										layerOptions: {
+											continuousWorld: true
+										}
+									}
+								},								
+								overlays: {
+									health: {
+										name: 'Health',
+										type: 'markercluster',
+										visible: true,
+										layerOptions: {
+												maxClusterRadius: 90
+										}
+									}
+								}
+							},				
+							request: {
+								method: 'POST',
+								url: 'http://' + $location.host() + '/api/health/markers',
+								data: {}
+							}
+						}
+					}]
+				}]				
 			}]
 		};
 

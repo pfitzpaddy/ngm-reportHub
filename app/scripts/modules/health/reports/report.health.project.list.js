@@ -6,29 +6,27 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ReportHealthProjectsCtrl', ['$scope', '$location', 'ngmData', 'ngmUser', function ($scope, $location, ngmData, ngmUser) {
+	.controller('ReportHealthProjectListCtrl', ['$scope', '$location', 'ngmData', 'ngmUser', function ($scope, $location, ngmData, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
 			'Karma'
 		];
 
-		// 
-		$scope.model = {
-			rows: [{}]			
-		}
-
 		// report object
 		$scope.report = {
 
-			// parent
-			ngm: $scope.$parent.ngm
+			// ngm
+			ngm: $scope.$parent.ngm,
+
+			// form to add new project
+			newProjectUrl: '#/health/projects/details/new'
 
 		}
 
 		// report dashboard model
 		$scope.model = {
-			name: 'report_health_overview',
+			name: 'report_health_list',
 			header: {
 				div: {
 					'class': 'col s12 m12 l12 report-header',
@@ -47,14 +45,13 @@ angular.module('ngmReportHub')
 			menu: [{
 				'icon': 'location_on',
 				'title': 'Projects',
-				// 'class': 'teal lighten-1 white-text',
 				'class': 'teal-text',
 				rows: [{
 					'title': 'Create New Project',
 					'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 					'param': 'project',
 					'active': 'active',
-					'href': '#/health/projects/new'
+					'href': $scope.report.newProjectUrl
 				}]
 			}],
 			rows: [{
@@ -64,7 +61,7 @@ angular.module('ngmReportHub')
 						type: 'html',
 						card: 'card-panel white grey-text text-darken-2',
 						config: {
-							html: '<a class="waves-effect waves-light btn" href="#/health/projects/new"><i class="material-icons left">add_circle_outline</i>Add New Project</a>'
+							html: '<a class="waves-effect waves-light btn" href="' + $scope.report.newProjectUrl + '"><i class="material-icons left">add_circle_outline</i>Add New Project</a>'
 						}
 					}]
 				}]
@@ -77,7 +74,8 @@ angular.module('ngmReportHub')
 						config: {
 							title: 'Active',
 							icon: 'edit',
-							templateUrl: '/scripts/widgets/ngm-html/template/health.project.list.html',							
+							newProjectUrl: $scope.report.newProjectUrl,
+							templateUrl: '/scripts/widgets/ngm-html/template/health/health.project.list.html',							
 							request: {
 								method: 'POST',
 								url: 'http://' + $location.host() + '/api/health/project/getProjectList',
@@ -100,7 +98,8 @@ angular.module('ngmReportHub')
 							title: 'Complete',
 							icon: 'done',
 							// page: true,
-							templateUrl: '/scripts/widgets/ngm-html/template/health.project.list.html',							
+							newProjectUrl: $scope.report.newProjectUrl,
+							templateUrl: '/scripts/widgets/ngm-html/template/health/health.project.list.html',							
 							request: {
 								method: 'POST',
 								url: 'http://' + $location.host() + '/api/health/project/getProjectList',
