@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ReportHealthProjectDetailsCtrl', ['$scope', '$location', 'ngmData', 'ngmUser', function ($scope, $location, ngmData, ngmUser) {
+	.controller('ReportHealthProjectDetailsCtrl', ['$scope', '$route', '$location', 'ngmData', 'ngmUser', function ($scope, $route, $location, ngmData, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -27,7 +27,7 @@ angular.module('ngmReportHub')
 				}
 			}).then(function(data){
 				// assign data
-				$scope.report.project = data;
+				$scope.report.setProjectDetails(data);
 			});
 
 		} else {
@@ -35,80 +35,95 @@ angular.module('ngmReportHub')
 			// return project
 			ngmData.get({
 				method: 'POST',
-				url: 'http://' + $location.host() + '/api/health/project/getProject',
+				url: 'http://' + $location.host() + '/api/health/project/getProjectDetails',
 				data: {
 					id: $route.current.params.project
 				}
 			}).then(function(data){
 				// assign data
-				$scope.report.project = data;
+				$scope.report.setProjectDetails(data);
 			});
 
+		}
+
+		// init empty model
+		$scope.model = {
+			rows: [{}]
 		}
 
 		// empty Project
 		$scope.report = {
 			
 			// parent
-			ngm: $scope.$parent.ngm
+			ngm: $scope.$parent.ngm,
+
+			// set project details form
+			setProjectDetails: function(data){
+
+				// assign data
+				$scope.report.project = data;
+
+				// report dashboard model
+				$scope.model = {
+					name: 'report_health_summary',
+					header: {
+						div: {
+							'class': 'col s12 m12 l12 report-header',
+							style: 'border-bottom: 3px ' + $scope.report.ngm.style.defaultPrimaryColor + ' solid;'
+						},
+						title: {
+							'class': 'col s12 m12 l12 report-title',
+							style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
+							title: ngmUser.get().organization + ' | ' + $scope.report.project.details.project_name
+						},
+						subtitle: {
+							'class': 'col s12 m12 l12 report-subtitle',
+							'title': $scope.report.project.details.project_description
+						}
+					},
+					menu: [{
+						'icon': 'location_on',
+						'title': 'Projects',
+						'class': 'teal-text',
+						rows: [{
+							'title': 'Project List',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'param': 'project',
+							'active': 'active',
+							'href': '#/health/projects'
+						},{
+							'title': 'Create New Project',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'param': 'project',
+							'active': 'active',
+							'href': $scope.report.newProjectUrl
+						}]
+					}],
+					rows: [{
+						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'project.details',
+								config: {
+									style: $scope.report.ngm.style,
+									project: $scope.report.project
+								}
+							}]
+						}]
+					}]
+				}
+
+				// set model to null
+				if($route.current.params.project === 'new'){
+					$scope.report.project.details.project_name = '';
+					$scope.report.project.details.project_description = '';
+				} 
+
+				// assign to ngm app scope
+				$scope.report.ngm.dashboard.model = $scope.model;
+
+			}
 
 		};
-
-		// title/subtitle
-		$scope.report.title = $scope.report.project.details.project_name ? ngmUser.get().organization + ' | ' + $scope.report.project.details.project_name : ngmUser.get().organization + ' | New Project';
-		$scope.report.subtitle = $scope.report.project.details.project_description ? $scope.report.project.details.project_description : 'Complete the project details to register a new project';
-
-		// report dashboard model
-		$scope.model = {
-			name: 'report_health_summary',
-			header: {
-				div: {
-					'class': 'col s12 m12 l12 report-header',
-					style: 'border-bottom: 3px ' + $scope.report.ngm.style.defaultPrimaryColor + ' solid;'
-				},
-				title: {
-					'class': 'col s12 m12 l12 report-title',
-					style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-					title: $scope.report.title
-				},
-				subtitle: {
-					'class': 'col s12 m12 l12 report-subtitle',
-					'title': $scope.report.subtitle
-				}
-			},
-			menu: [{
-				'icon': 'location_on',
-				'title': 'Projects',
-				'class': 'teal-text',
-				rows: [{
-					'title': 'Project List',
-					'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-					'param': 'project',
-					'active': 'active',
-					'href': '#/health/projects'
-				},{
-					'title': 'Create New Project',
-					'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-					'param': 'project',
-					'active': 'active',
-					'href': $scope.report.newProjectUrl
-				}]
-			}],
-			rows: [{
-				columns: [{
-					styleClass: 's12 m12 l12',
-					widgets: [{
-						type: 'project.details',
-						card: 'card-panel white grey-text text-darken-2',
-						config: {
-							project: $scope.report.project
-						}
-					}]
-				}]
-			}]
-		}
-
-		// assign to ngm app scope
-		$scope.report.ngm.dashboard.model = $scope.model;
 		
 	}]);

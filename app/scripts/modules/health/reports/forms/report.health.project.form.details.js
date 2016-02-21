@@ -13,7 +13,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         title: 'Health Project Details Form',
         description: 'Display Health Project Details Form',
         controller: 'ProjectDetailsCtrl',
-        templateUrl: '/scripts/modules/health/reports/views/details/form.html'
+        templateUrl: '/scripts/modules/health/reports/forms/views/details/form.html'
       });
   })
   .controller('ProjectDetailsCtrl', [
@@ -22,19 +22,477 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
     '$timeout',
     '$filter',
     'ngmData',
-    'config'
+    'config',
     function($scope, $location, $timeout, $filter, ngmData, config){
 
       // project
       $scope.project = {
 
-        // ngm
-        ngm: $scope.$parent.ngm,
+        // app style
+        style: config.style,
+
+        // project
+        definition: config.project,    
+
+        // holder for UI options
+        options: {
+          list: {
+            beneficiaries: [{
+              beneficiary_name: 'Conflict Displaced',
+              beneficiary_category: 'conflict_displaced'
+            },{
+              beneficiary_name: 'Health Affected by Conflict',
+              beneficiary_category: 'health_affected_conflict'
+            },{
+              beneficiary_name: 'Refugees & Returnees',
+              beneficiary_category: 'refugees_returnees'
+            },{
+              beneficiary_name: 'Natural Disaster Affected',
+              beneficiary_category: 'natural_disaster_affected'
+            },{
+              beneficiary_name: 'Public Health at Risk',
+              beneficiary_category: 'public_health'
+            }]
+          },
+          selection: {}
+        },
 
         // details template
-        detailsUrl: '/scripts/modules/health/reports/views/details/details.html',
+        detailsUrl: '/scripts/modules/health/reports/forms/views/details/details.html',
+
+        // details template
+        locationsUrl: '/scripts/modules/health/reports/forms/views/details/locations.html',
+
+        // details template
+        beneficiariesUrl: '/scripts/modules/health/reports/forms/views/details/beneficiaries.html',
+
+        // apply location dropdowns
+        locationDropdowns: function(id, select) {
+
+          var disabled;
+
+          switch(select) {
+            case 'district':
+              // disabled
+              disabled = !$scope.project.options.selection.province;
+              // filter
+              $scope.project.options.list.districts = $filter('filter')($scope.project.options.list.districts, { prov_code: $scope.project.options.selection.province.prov_code }, true);
+              break;
+
+            case 'hf_type':
+              // disabled
+              disabled = !$scope.project.options.selection.district;
+              // refresh dropdown options
+              $scope.project.resetLocation(false, false, true, false);
+              break;
+
+            case 'hf_name':
+              // disabled
+              disabled = !$scope.project.options.selection.hf_type;
+              // filter
+              var provFilter = $filter('filter')($scope.project.options.list.hf_name, { prov_code: $scope.project.options.selection.province.prov_code }, true);
+              var distFilter = $filter('filter')(provFilter, { dist_code: $scope.project.options.selection.district.dist_code }, true);
+              var typeFilter = $filter('filter')(distFilter, { fac_type: $scope.project.options.selection.hf_type.fac_type }, true);
+
+              // if null (fix location!)
+              if(typeFilter.length===0){
+                // add 'Other' and exit
+                $scope.project.options.selection.hf_name ={
+                  fac_id: 111112,
+                  fac_type: $scope.project.options.selection.hf_type.fac_type,
+                  fac_name: 'Other',
+                  lng: $scope.project.options.selection.district.lng,
+                  lat: $scope.project.options.selection.district.lat
+                }
+                // 
+                Materialize.toast('No facility exists of that type in ' + $scope.project.options.selection.province.prov_name + ", added as 'Other'", 3000, 'note');
+                $scope.project.addLocation();
+
+              } else {
+                $scope.project.options.selection.hf_name = typeFilter;
+              }
+
+              break;      
+          }
+
+          // update dropdown
+          $timeout(function(){
+            $(id).prop('disabled', disabled);
+            $(id).material_select('update');            
+          }, 10);
+
+        },
+
+        // add location
+        addLocation: function(){
+
+          // push location to locations
+          $scope.project.definition.locations.push({
+            organization_id: config.project.details.organization_id,
+            project_id: config.project.details.id,
+            prov_code: $scope.project.options.selection.province.prov_code,
+            prov_name: $scope.project.options.selection.province.prov_name,
+            dist_code: $scope.project.options.selection.district.dist_code,
+            dist_name: $scope.project.options.selection.district.dist_name,
+            fac_id: $scope.project.options.selection.hf_name.fac_id,
+            fac_type: $scope.project.options.selection.hf_name.fac_type,
+            fac_name: $scope.project.options.selection.hf_name.fac_name,
+            lng: $scope.project.options.selection.hf_name.lng,
+            lat: $scope.project.options.selection.hf_name.lat
+          });
+
+          // refresh dropdown options
+          $scope.project.resetLocation(true, true, true, true);
+
+        },
+
+        // remove location from location list
+        removeLocation: function($index) {
+          // remove location at i
+          $scope.project.definition.locations.splice($index, 1);
+          // refresh dropdown options
+          $scope.project.resetLocation(true, true, true, true);
+
+        },
+
+        // refresh dropdown options
+        resetLocation: function(province, district, hf, reset){
+
+          // reset province
+          if(province){
+            $('#ngm-project-province').prop('selectedIndex',0);
+          }
+
+          if(district){
+            // refresh all location 'select'
+            $('#ngm-project-district').prop('selectedIndex',0);
+            $('#ngm-project-district').prop('disabled', true);
+          }
+
+          if(hf){
+            $('#ngm-project-hf_type').prop('selectedIndex',0);
+            $('#ngm-project-hf_type').prop('disabled', true);
+          }
+
+          // default
+          $('#ngm-project-hf_name').prop('selectedIndex',0);
+          $('#ngm-project-hf_name').prop('disabled', true);
+
+          // update
+          $('#ngm-project-province').material_select('update');
+          $('#ngm-project-district').material_select('update');
+          $('#ngm-project-hf_type').material_select('update');
+          $('#ngm-project-hf_name').material_select('update');
+
+          if(reset){
+            // reset selection
+            $scope.project.options.selection = {
+              province: {},
+              district: {},
+              hf_type: {},
+              hf_name: {}
+            };
+          }
+        
+        },
+
+        // 
+        addBeneficiary: function() {
+
+          // Put in check here!
+
+          // copy selection
+          var beneficiary = angular.copy($scope.project.options.selection.beneficiary);
+
+          // push to beneficiaries
+          $scope.project.definition.beneficiaries.push({
+            organization_id: config.project.details.organization_id,
+            project_id: config.project.details.id,
+            beneficiary_name: beneficiary.beneficiary_name,
+            beneficiary_category: beneficiary.beneficiary_category
+          });
+          console.log($scope.project.definition.beneficiaries)
+
+          // reset selection
+          $scope.project.options.selection.beneficiary = {}
+
+          // filter list
+          $scope.project.options.list.beneficiaries = $filter('filter')($scope.project.options.list.beneficiaries, { beneficiary_category: '!' + beneficiary.beneficiary_category }, true);
+          
+          // update dropdown
+          $timeout(function(){
+            // filter
+            $('#ngm-beneficiary-category').material_select('update');            
+          }, 10);
+
+        },
+
+        // 
+        save: function(){
+
+          // open success modal if valid form
+          if($scope.healthProjectForm.$valid){
+
+            // Submit project for save
+            ngmData.get({
+              method: 'POST',
+              url: 'http://' + $location.host() + '/api/health/project/setProjectDetails',
+              data: {
+                project: $scope.project.definition
+              }
+            }).then(function(data){
+              // notification modal
+              $('#save-modal').openModal({dismissible: false});
+            });
+
+          } else {
+            // form validation takes over
+            $scope.healthProjectForm.$setSubmitted();
+            // inform
+            Materialize.toast('Please review the form for errors and try again!', 3000);
+          }
+
+        },
+
+        // re-direct on save
+        redirect: function(){
+            
+          var msg;
+
+          // new becomes active!
+          if( $scope.project.definition.details.project_status === 'new' ) {
+            msg = $scope.project.definition.details.project_name + ' created!';
+          } else {
+            msg = $scope.project.definition.details.project_name + ' updated!';
+          }
+
+          // redirect on success
+          $timeout(function(){
+            $location.path( '/health/projects/summary/' + $scope.project.definition.details.id );
+            Materialize.toast( msg, 3000, 'success');
+          }, 200)
+
+        },               
+
+        // // run submit
+        // saveComplete: function(){
+
+        //   // User msg
+        //   var msg;
+
+        //   // mark project complete
+        //   $scope.project.definition.details.project_status = 'complete';       
+
+        //   // Submit project for save
+        //   ngmData.get({
+        //     method: 'POST',
+        //     url: 'http://' + $location.host() + '/api/health/project/setProject',
+        //     data: {
+        //       project: $scope.project.definition
+        //     }
+        //   }).then(function(data){
+        //     // redirect on success
+        //     $location.path( '/health/projects/summary/' + data.details.id );
+        //     Materialize.toast( msg, 3000, 'success');
+        //   });
+
+        // },
+
+        // cancel and delete empty project
+        cancel: function() {
+
+          // if new project, delete
+          if( $scope.project.definition.details.project_status === 'new' ) {
+            // project for delete
+            ngmData.get({
+              method: 'POST',
+              url: 'http://' + $location.host() + '/api/health/project/deleteProject',
+              data: {
+                id: $scope.project.definition.details.id
+              }
+            }).then(function(data){
+              // 
+              $location.path( '/health/projects' );
+              Materialize.toast( 'Create Project cancelled!', 3000, 'note' );
+
+            });
+
+          } else {
+            // update
+            $timeout(function() {
+              $location.path( '/health/projects' );
+              Materialize.toast( 'Project update cancelled!', 3000, 'note' );
+            }, 100);
+
+          }
+
+        },
+
+        // set start datepicker
+        setStartTime: function() {
+            
+          // set element
+          $scope.$input = $('#ngm-start-date').pickadate({
+            selectMonths: true,
+            selectYears: 15,
+            format: 'dd mmm, yyyy',
+            onStart: function(){
+              $timeout(function(){
+                // set time
+                var date = moment($scope.project.definition.details.project_start_date).format('YYYY-MM-DD');
+                $scope.project.startPicker.set('select', date, { format: 'yyyy-mm-dd' } );
+
+              }, 0)
+            },          
+            onSet: function(event){
+              // close on date select
+              if(event.select){
+                // get date
+                var selectedDate = moment(event.select);
+                // check dates
+                if ( (selectedDate).isAfter($scope.project.definition.details.project_end_date) ) {
+                  // inform
+                  Materialize.toast('Please check the dates and try again!', 3000);
+                  // reset time
+                  $scope.project.startPicker.set('select', moment($scope.project.definition.details.project_start_date).format('X'))
+
+                } else {
+                  // set date
+                  $scope.project.definition.details.project_start_date = moment(selectedDate).format('YYYY-MM-DD');
+                }
+                // close
+                $scope.project.startPicker.close();
+
+              }
+
+            }
+
+          });        
+
+          //pickadate api
+          $scope.project.startPicker = $scope.$input.pickadate('picker');
+          // on click
+          $('#ngm-start-date').bind('click', function($e) {
+            // open
+            $scope.project.startPicker.open();
+          });
+
+        },
+
+        // set end datepicker
+        setEndTime: function() {
+            
+          // set element
+          $scope.$input = $('#ngm-end-date').pickadate({
+            selectMonths: true,
+            selectYears: 15,
+            format: 'dd mmm, yyyy',
+            onStart: function(){
+              $timeout(function(){
+                // set time
+                var date = moment($scope.project.definition.details.project_end_date).format('YYYY-MM-DD');
+                $scope.project.endPicker.set('select', date, { format: 'yyyy-mm-dd' } );
+
+              }, 0)
+            },           
+            onSet: function(event){
+              // close on date select
+              if(event.select){
+                // get date
+                var selectedDate = moment(event.select);
+
+                // check dates
+                if ( selectedDate && (selectedDate).isBefore($scope.project.definition.details.project_start_date) ) {
+                  // inform
+                  Materialize.toast('Please check the dates and try again!', 3000);
+                  // reset time
+                  $scope.project.endPicker.set('select', moment($scope.project.definition.details.project_end_date).format('X'))
+
+                } else {
+                  // set date
+                  $scope.project.definition.details.project_end_date = moment(selectedDate).format('YYYY-MM-DD');
+                }
+                // close
+                $scope.project.endPicker.close();
+
+              }
+
+            }
+
+          });        
+
+          //pickadate api
+          $scope.project.endPicker = $scope.$input.pickadate('picker');
+          // on click
+          $('#ngm-end-date').bind('click', function($e) {
+            //open
+            $scope.project.endPicker.open();
+          });
+          
+        }    
 
       }
+
+      // get provinces
+      if(!$scope.project.options.list.provinces) {
+        ngmData.get({
+          method: 'POST',
+          url: 'http://' + $location.host() + '/api/health/getProvincesList'
+        }).then(function(data){
+          $scope.project.options.list.provinces = data;
+          $('#ngm-project-province').material_select('update');
+        });
+      }  
+
+      // get provinces
+      if(!$scope.project.options.list.districts) {
+        ngmData.get({
+          method: 'POST',
+          url: 'http://' + $location.host() + '/api/health/getDistrictsList'
+        }).then(function(data){
+          $scope.project.options.list.districts = data;
+        });
+      } 
+
+      // get hf_types
+      if(!$scope.project.options.list.hf_type) {
+        ngmData.get({
+          method: 'POST',
+          url: 'http://' + $location.host() + '/api/health/getFacilityTypeList'
+        }).then(function(data){
+          $scope.project.options.list.hf_type = data;
+        });
+      }  
+
+      // get hf_name
+      if(!$scope.project.options.list.hf_name) {
+        ngmData.get({
+          method: 'POST',
+          url: 'http://' + $location.host() + '/api/health/getFacilityList'
+        }).then(function(data){
+          $scope.project.options.list.hf_name = data;
+        });
+      }
+
+      // initalize 
+      $timeout(function() {
+
+        // modals
+        $('.modal-trigger').leanModal();
+
+        // menu return to list
+        $('#go-to-project-list').click(function(){
+          $scope.project.cancel();
+        });        
+
+        // selects
+        $('select').material_select();
+
+        // initiate date pickers
+        $scope.project.setStartTime();
+        $scope.project.setEndTime();
+
+      }, 400);
 
 
   //     // project

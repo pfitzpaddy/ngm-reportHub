@@ -28,6 +28,7 @@ angular
 		'ngm.widget.html',
 		'ngm.widget.iframe',
 		'ngm.widget.leaflet',
+		'ngm.widget.project.details',
 		'ngm.widget.stats',
 		'ngm.widget.table'
 	])
