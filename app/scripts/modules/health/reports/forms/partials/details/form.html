@@ -61,7 +61,7 @@
 <div id="save-modal" class="modal">
   <div class="modal-content">
     <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">done</i>Save Project</h4>
-    <p>Your project has been saved with ID {{ project.details.id }}</p>
+    <p>Your project has been saved with ID {{ project.definition.details.id }}</p>
   </div>
   <div class="modal-footer">
     <a ng-click="project.redirect()" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
@@ -81,6 +81,32 @@
   </div>
 </div>
 
+<!-- list modal -->
+<div id="list-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Cancel New Project</h4>
+    <p>Are you sure you want to return to Projects?</p>
+    <p>All edits will be lost...</p>
+  </div>
+  <div class="modal-footer">
+  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, abandon changes!</a>
+  </div>
+</div>
+
+<!-- list modal -->
+<div id="summary-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Cancel Project Update</h4>
+    <p>Are you sure you want to return to Project Summary?</p>
+    <p>All edits will be lost...</p>
+  </div>
+  <div class="modal-footer">
+  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, abandon changes!</a>
+  </div>
+</div>
+
 <!-- complete modal -->
 <div id="complete-modal" class="modal">
   <div class="modal-content">
@@ -91,6 +117,33 @@
   	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
     <a ng-click="project.saveComplete()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, project complete!</a>
   </div>
+</div>
+
+<!-- list/cancel btn -->
+<div class="row" ng-if="project.definition.details.project_status === 'new'">
+	<div class="col s12 m12 l12">
+		<div class="card" style="padding:20px;">
+			
+			<!--  -->
+			<button data-target="list-modal" class="waves-effect waves-light btn modal-trigger">
+				<i class="material-icons left">keyboard_return</i>Back to Projects
+			</button>
+
+		</div>
+	</div>
+</div>
+
+<div class="row" ng-if="project.definition.details.project_status !== 'new'">
+	<div class="col s12 m12 l12">
+		<div class="card" style="padding:20px;">
+			
+			<!--  -->
+			<button data-target="summary-modal" class="waves-effect waves-light btn modal-trigger">
+				<i class="material-icons left">keyboard_return</i>Back to Project Summary
+			</button>
+
+		</div>
+	</div>
 </div>
 
 <!-- Project form -->
@@ -112,6 +165,7 @@
 				
 				<!-- submission -->
 				<div align="center">
+					
 					<button data-target="save-modal" class="waves-effect waves-light btn"
 						ng-click="project.save()"
 						ng-disabled="healthProjectForm.$submitted 
@@ -119,12 +173,9 @@
 								&& ( project.definition.locations.length === 0 || project.definition.beneficiaries.length === 0 )"
 						ng-cloak><i class="material-icons right">send</i>Save</button>
 
-					<button data-target="complete-modal" class="waves-effect waves-light btn modal-trigger blue"
-						ng-if="project.definition.details.project_status === 'active'" 
-						ng-cloak><i class="material-icons left">assignment_turned_in</i>Mark Project Complete</button>
-
 					<button data-target="cancel-modal" class="waves-effect waves-light btn modal-trigger grey"
-						ng-if="project.definition.details.project_status !== 'complete' " ng-cloak>Cancel</button>						
+						ng-if="project.definition.details.project_status !== 'complete' " ng-cloak>Cancel</button>
+
 				</div>
 
 			</div>

@@ -17,9 +17,8 @@
 					  								&& project.definition.locations.length === 0 }">
 	      			<select id="ngm-project-province" class="validate"
 					    	ng-model="project.options.selection.province"
-					    	ng-change="project.locationDropdowns('#ngm-project-district', 'district')"
-	      				ng-options="item as item.prov_name for item in project.options.list.provinces track by item.prov_code"
-					    	required>
+					    	ng-change="project.locationSelect('#ngm-project-district', 'district')"
+	      				ng-options="item as item.prov_name for item in project.options.select.provinces track by item.prov_code">
 	      				<option value="" disabled selected>Choose Province</option>
 	      			</select>
 	      			<label>Province</label>
@@ -31,10 +30,9 @@
 					  								&& project.definition.locations.length === 0 }">
 	      			<select id="ngm-project-district" class="validate"
 					    	ng-model="project.options.selection.district"
-					    	ng-change="project.locationDropdowns('#ngm-project-hf_type', 'hf_type')"
-	      				ng-options="item as item.dist_name for item in project.options.list.districts track by item.dist_code"
-	      				disabled
-					    	required>
+					    	ng-change="project.locationSelect('#ngm-project-hf_type', 'hf_type')"
+	      				ng-options="item as item.dist_name for item in project.options.select.districts track by item.dist_code"
+	      				disabled>
 	      				<option value="" disabled selected>Choose District</option>
 	      			</select>
 	      			<label>District</label>
@@ -46,10 +44,9 @@
 					  								&& project.definition.locations.length === 0 }">
 					    <select id="ngm-project-hf_type" class="validate"
 					    	ng-model="project.options.selection.hf_type"
-					    	ng-change="project.locationDropdowns('#ngm-project-hf_name', 'hf_name')"
-					    	ng-options="item as item.fac_type for item in project.options.list.hf_type track by item.id"
-					    	disabled
-					    	required>
+					    	ng-change="project.locationSelect('#ngm-project-hf_name', 'hf_name')"
+					    	ng-options="item as item.fac_type for item in project.options.select.hf_type track by item.id"
+					    	disabled>
 					      <option value="" disabled selected>Choose facility type</option>
 					    </select>
 					    <label>Facility Type</label>
@@ -62,9 +59,8 @@
 					    <select id="ngm-project-hf_name"  class="validate"
 					    	ng-model="project.options.selection.hf_name"
 					    	ng-change="project.addLocation()"
-					    	ng-options="item as item.fac_name for item in project.options.list.hf_name track by item.fac_id"
-					    	disabled
-					    	required>
+					    	ng-options="item as item.fac_name for item in project.options.select.hf_name track by item.fac_id"
+					    	disabled>
 					      <option value="" disabled selected>Choose facility name</option>
 					    </select>
 					    <label>Facility Name</label>
@@ -86,7 +82,7 @@
 				            <td width="22%">{{ location.fac_type }}</td>
 				            <td width="22%">{{ location.fac_name }}</td>
 				            <td width="5%"><a class="waves-effect waves-light btn red lighten-2" 
-				            	ng-if="project.definition.details.project_status === 'new'"
+				            	ng-if="project.definition.details.project_status !== 'complete'"
 				            	ng-click="project.removeLocation($index)"><i class="material-icons">cancel</i></a></td>
 				          </tr>
 				        </tbody>

@@ -51,6 +51,9 @@ angular.module('ngm.widget.html', ['ngm.provider'])
     
       // statistics widget default config
       $scope.panel = {
+
+        // display card
+        display: true,
         
         // html template
         html: '',

@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ReportHealthProjectSummaryCtrl', ['$scope', '$location', 'ngmData', 'ngmUser', function ($scope, $location, ngmData, ngmUser) {
+	.controller('ReportHealthProjectSummaryCtrl', ['$scope', '$route', '$location', 'ngmData', 'ngmUser', function ($scope, $route, $location, ngmData, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -100,31 +100,51 @@ angular.module('ngmReportHub')
 								card: 'card-panel white grey-text text-darken-2',
 								style: 'padding-bottom: 50px;',
 								config: {
+									project: $scope.report.project,
+									templateUrl: '/scripts/modules/health/reports/views/health.project.summary.html',									
 									forms:[{
 										icon: 'edit',
 										location: 'details',
 										title: 'Project Details',
 										subtitle: 'Project Details, Location and Beneficiaries',
-										description: 'Define the project details, locations and beneficiaries for project'
+										description: 'Define the project details, locations and beneficiaries for '
 									},{
 										icon: 'attach_money',
 										location: 'financials',
 										title: 'Project Financials',
 										subtitle: 'Project Financial Line Items',
-										description: 'Track the project spending against financial line items for project'
+										description: 'Track the project spending against financial line items for ',
 									},{
 										icon: 'done_all',
 										location: 'objectives',
 										title: 'Project Objectives',
 										subtitle: 'Project Strategic Objective Indicators',
-										description: 'Update the strategic health objective indicators for project'
+										description: 'Update the strategic health objective indicators for ',
 									}],
-									project_id: $scope.report.project_id,
-									templateUrl: '/scripts/widgets/ngm-html/template/health/health.project.summary.html'
+					        // run submit
+					        saveComplete: function(project){
+
+					          // mark project complete
+					          project.details.project_status = 'complete';       
+
+					          // Submit project for save
+					          ngmData.get({
+					            method: 'POST',
+					            url: 'http://' + $location.host() + '/api/health/project/setProjectDetails',
+					            data: {
+					              project: project
+					            }
+					          }).then(function(data){
+					            // redirect on success
+					            $location.path( '/health/projects' );
+					            Materialize.toast( 'Project "' + project.details.project_name + '" completed, congratulations!', 3000, 'success');
+					          });
+
+					        }
 								}
 							}]
 						}]
-					},{		
+					},{
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
