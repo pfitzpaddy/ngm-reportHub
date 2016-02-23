@@ -75,7 +75,7 @@ angular.module('ngmReportHub')
 							title: 'Active',
 							icon: 'edit',
 							newProjectUrl: $scope.report.newProjectUrl,
-							templateUrl: '/scripts/modules/health/reports/views/health.project.list.html',							
+							templateUrl: '/views/modules/health/views/health.project.list.html',							
 							request: {
 								method: 'POST',
 								url: 'http://' + $location.host() + '/api/health/project/getProjectList',
@@ -99,7 +99,7 @@ angular.module('ngmReportHub')
 							icon: 'done',
 							// page: true,
 							newProjectUrl: $scope.report.newProjectUrl,
-							templateUrl: '/scripts/modules/health/reports/views/health.project.list.html',							
+							templateUrl: '/views/modules/health/views/health.project.list.html',							
 							request: {
 								method: 'POST',
 								url: 'http://' + $location.host() + '/api/health/project/getProjectList',

@@ -13,7 +13,7 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
         title: 'Health Project Financials Form',
         description: 'Display Health Project Financials Form',
         controller: 'ProjectFinancialsCtrl',
-        templateUrl: '/scripts/modules/health/reports/forms/financials/partials/form.html'
+        templateUrl: '/views/modules/health/forms/financials/form.html'
       });
   })
   .controller('ProjectFinancialsCtrl', [
@@ -86,7 +86,7 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
         },        
 
         // details template
-        financialsUrl: '/scripts/modules/health/reports/forms/financials/partials/financials.html',
+        financialsUrl: '/views/modules/health/forms/financials/financials.html',
 
         // 
         addFinancialItem: function() {

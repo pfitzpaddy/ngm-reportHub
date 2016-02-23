@@ -8,7 +8,7 @@
 				<li class="collection-item avatar" >
 					
 					<!-- form -->
-	      	<div class="row">
+	      	<div class="row" ng-if="project.definition.details.project_status !== 'complete'">
 
 		        <div class="input-field col s12 m3"
 							ng-class="{ 'error-label': healthProjectForm.$submitted 

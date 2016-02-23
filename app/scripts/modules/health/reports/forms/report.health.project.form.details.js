@@ -13,7 +13,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         title: 'Health Project Details Form',
         description: 'Display Health Project Details Form',
         controller: 'ProjectDetailsCtrl',
-        templateUrl: '/scripts/modules/health/reports/forms/details/partials/form.html'
+        templateUrl: '/views/modules/health/forms/details/form.html'
       });
   })
   .controller('ProjectDetailsCtrl', [
@@ -62,13 +62,13 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         },
 
         // details template
-        detailsUrl: '/scripts/modules/health/reports/forms/details/partials/details.html',
+        detailsUrl: '/views/modules/health/forms/details/details.html',
 
         // details template
-        locationsUrl: '/scripts/modules/health/reports/forms/details/partials/locations.html',
+        locationsUrl: '/views/modules/health/forms/details/locations.html',
 
         // details template
-        beneficiariesUrl: '/scripts/modules/health/reports/forms/details/partials/beneficiaries.html',
+        beneficiariesUrl: '/views/modules/health/forms/details/beneficiaries.html',
 
         // add location
         addLocation: function(){

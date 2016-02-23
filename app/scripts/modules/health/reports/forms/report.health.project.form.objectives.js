@@ -13,7 +13,7 @@ angular.module('ngm.widget.project.objectives', ['ngm.provider'])
         title: 'Health Project Objectives Form',
         description: 'Display Health Project Objectives Form',
         controller: 'ProjectObjectivesCtrl',
-        templateUrl: '/scripts/modules/health/reports/forms/objectives/partials/form.html'
+        templateUrl: '/views/modules/health/forms/objectives/form.html'
       });
   })
   .controller('ProjectObjectivesCtrl', [
@@ -48,13 +48,13 @@ angular.module('ngm.widget.project.objectives', ['ngm.provider'])
         definition: config.project,
 
         // details template
-        objectiveOneUrl: '/scripts/modules/health/reports/forms/objectives/partials/objectiveOne.html',
+        objectiveOneUrl: '/views/modules/health/forms/objectives/objectiveOne.html',
 
         // details template
-        objectiveTwoUrl: '/scripts/modules/health/reports/forms/objectives/partials/objectiveTwo.html',
+        objectiveTwoUrl: '/views/modules/health/forms/objectives/objectiveTwo.html',
 
         // details template
-        objectiveThreeUrl: '/scripts/modules/health/reports/forms/objectives/partials/objectiveThree.html',                
+        objectiveThreeUrl: '/views/modules/health/forms/objectives/objectiveThree.html',                
 
         // holder for UI options
         options: {
