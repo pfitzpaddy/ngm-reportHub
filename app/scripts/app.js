@@ -29,6 +29,8 @@ angular
 		'ngm.widget.iframe',
 		'ngm.widget.leaflet',
 		'ngm.widget.project.details',
+		'ngm.widget.project.financials',
+		'ngm.widget.project.objectives',
 		'ngm.widget.stats',
 		'ngm.widget.table'
 	])
@@ -94,7 +96,7 @@ angular
 					}],
 				}
 			})
-			// health project summary
+			// health project details
 			.when( '/health/projects/details/:project', {
 				templateUrl: '/views/dashboard.html',
 				controller: 'ReportHealthProjectDetailsCtrl',
@@ -103,37 +105,27 @@ angular
 						return ngmAuth.isAuthenticated();
 					}],
 				}
-			})			
-			// health project details
-			// .when( '/health/projects/details/:project', {
-			// 	templateUrl: '/scripts/modules/health/reports/views/details/form.html',
-			// 	controller: 'ReportHealthProjectFormDetailsCtrl',
-			// 	resolve: {
-			// 		access: [ 'ngmAuth', function(ngmAuth) { 
-			// 			return ngmAuth.isAuthenticated();
-			// 		}],
-			// 	}
-			// })
-			// // health project financial
-			// .when( '/health/projects/financial/:project', {
-			// 	templateUrl: '/scripts/modules/health/reports/views/financial/form.html',
-			// 	controller: 'ReportHealthProjectFormFinancialsCtrl',
-			// 	resolve: {
-			// 		access: [ 'ngmAuth', function(ngmAuth) { 
-			// 			return ngmAuth.isAuthenticated();
-			// 		}],
-			// 	}
-			// })
-			// // health project objectives
-			// .when( '/health/projects/objectives/:project', {
-			// 	templateUrl: '/scripts/modules/health/reports/views/objectives/form.html',
-			// 	controller: 'ReportHealthProjectFormObjectivesCtrl',
-			// 	resolve: {
-			// 		access: [ 'ngmAuth', function(ngmAuth) { 
-			// 			return ngmAuth.isAuthenticated();
-			// 		}],
-			// 	}
-			// })
+			})	
+			// health project financials
+			.when( '/health/projects/financials/:project', {
+				templateUrl: '/views/dashboard.html',
+				controller: 'ReportHealthProjectFinancialsCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+			// health project objectives
+			.when( '/health/projects/objectives/:project', {
+				templateUrl: '/views/dashboard.html',
+				controller: 'ReportHealthProjectObjectivesCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
 			// health dashboard
 			.when( '/health/3w', {
 				templateUrl: '/views/dashboard.html',

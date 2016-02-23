@@ -1,0 +1,37 @@
+
+<!-- bind html -->
+<div class="row">
+	<div class="col s12 m12 l12">
+		<div class="card">
+			<ul class="collection with-header">
+				<li class="collection-header">
+					<h5 class="report-work-title">Health Objective 2</h5>
+					<p style="font-weight:300;">* Ensure access of displaced populations, refugees, returnees and people residing in white conflict areas to emergency health services</p>
+				</li>
+
+				<li class="collection-item avatar">
+					
+					<!-- form -->
+		      <div class="row">
+
+		      	<div class="row">
+			      	<p style="font-weight:300;padding:10px;">2.1) Number of conflict affected people in white areas served by emergency PHC/Mobile services by your project</p>
+			      </div>
+
+			      <div class="row">
+		      		<div class="input-field col s12 m12" style="margin-top:-5px;">
+			          <input id="ngm-project-people-conflict" type="number" class="validate" min="0"
+			          	ng-model="project.definition.objectives.indicator_two"
+			          	ng-disabled="project.definition.details.project_status === 'complete'"
+									required>
+		      		</div>
+		      	</div>
+
+		      </div>
+
+				</li>
+			</ul>
+
+		</div>
+	</div>
+</div>

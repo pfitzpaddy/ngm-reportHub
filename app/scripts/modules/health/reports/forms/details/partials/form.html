@@ -1,0 +1,196 @@
+
+
+<style>
+
+	/* solve dropdown bug */
+	.dropdown-content {
+		max-height: 450px;
+	}
+
+	/* list padding right */
+	.collection-item.avatar {
+		padding-right: 50px;
+	}
+
+	/* overflow for dropdown */
+	.collection {
+		overflow: visible !important;
+	}
+
+	/* input label */
+	.input-field label,
+	.input-field input:disabled + label {
+		color: #26a69a;
+	}
+	/* valid input */
+	.input-field input.valid {
+		border-bottom: 1px solid #26a69a;
+		box-shadow: 0 1px 0 0 #26a69a;		
+	}
+	/* valid input on focus */
+	.input-field input:focus.valid {
+		border-bottom: 1px solid #4dd0e1;
+		box-shadow: 0 1px 0 0 #4dd0e1;
+	}
+	/* invalid input on focus */
+	.input-field input:focus.invalid {
+		border-bottom: 1px solid #e57373;
+		box-shadow: 0 1px 0 0 #e57373;
+	}
+	/* border for disabled */
+	.input-field input:disabled, .select-wrapper input.select-dropdown:disabled {
+		color: #616161;
+		box-shadow: none !important;
+		border-bottom: 1px dotted rgba(0, 0, 0, 0.26) !important;
+	}
+
+	/* form validation on submit */
+	.ng-submitted .input-field input[type='text'].ng-invalid + label,
+		.ng-submitted .input-field input[type='number'].ng-invalid + label,
+		.ng-submitted .input-field input[type='email'].ng-invalid + label,
+		.ng-submitted .input-field input[type='password'].ng-invalid + label {
+		color: #e57373;
+		font-weight: 400;
+	}
+
+	/* manual class for label error */
+	.input-field.error-label label {
+		color: #e57373;
+		font-weight: 400;		
+	}
+
+
+</style>
+
+<!-- cancel modal -->
+<div id="save-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">done</i>Save Project</h4>
+    <p>Your project has been saved with ID {{ project.definition.details.id }}</p>
+  </div>
+  <div class="modal-footer">
+    <a ng-click="project.redirect()" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+  </div>
+</div>
+
+<!-- list modal -->
+<div id="list-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Cancel New Project</h4>
+    <p>Are you sure you want to return to Projects?</p>
+    <p>All edits will be lost...</p>
+  </div>
+  <div class="modal-footer">
+  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, abandon changes!</a>
+  </div>
+</div>
+
+<!-- list modal -->
+<div id="summary-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Cancel Project Update</h4>
+    <p>Are you sure you want to return to Project Summary?</p>
+    <p>All edits will be lost...</p>
+  </div>
+  <div class="modal-footer">
+  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, abandon changes!</a>
+  </div>
+</div>
+
+<!-- complete modal -->
+<div id="complete-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Mark Project as Complete</h4>
+    <p>Are you sure you want to mark this project as completed?</p>
+  </div>
+  <div class="modal-footer">
+  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="project.saveComplete()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, project complete!</a>
+  </div>
+</div>
+
+<!-- list/cancel btn -->
+<div class="row" ng-if="project.definition.details.project_status === 'new'">
+	<div class="col s12 m12 l12">
+		<div class="card" style="padding:20px;">
+			
+			<!--  -->
+			<button class="waves-effect waves-light btn" ng-click="project.modalConfirm('list-modal')">
+				<i class="material-icons left">keyboard_return</i>Back to Projects
+			</button>
+
+		</div>
+	</div>
+</div>
+
+<div class="row" ng-if="project.definition.details.project_status !== 'new'">
+	<div class="col s12 m12 l12">
+		<div class="card" style="padding:20px;">
+			
+			<!--  -->
+			<button class="waves-effect waves-light btn" ng-click="project.modalConfirm('summary-modal')">
+				<i class="material-icons left">keyboard_return</i>Back to Project Summary
+			</button>
+
+		</div>
+	</div>
+</div>
+
+<!-- Project form -->
+<form name="healthProjectForm" class="col s12 m12 l12" novalidate>
+
+	<!-- Project details -->
+	<div class="slide-animate" ng-include="project.detailsUrl"></div>
+
+	<!-- Project location details -->
+	<div class="slide-animate" ng-include="project.locationsUrl"></div>	
+
+	<!-- Project beneficiaries details -->
+	<div class="slide-animate" ng-include="project.beneficiariesUrl"></div>		
+
+	<!-- form submission -->
+	<div class="row" ng-if="project.definition.details.project_status !== 'complete'">
+		<div class="col s12 m12 l12">
+			<div class="widget card-panel white grey-text text-darken-2">
+				
+				<!-- submission -->
+				<div align="center">
+					
+					<button data-target="save-modal" class="waves-effect waves-light btn"
+						ng-click="project.save()"
+						ng-disabled="healthProjectForm.$submitted || healthProjectForm.$pristine
+								&& healthProjectForm.$invalid
+								&& ( project.definition.locations.length === 0 || project.definition.beneficiaries.length === 0 )"
+						ng-cloak><i class="material-icons right">send</i>Save</button>
+
+					<!-- cancel new -->
+					<button class="waves-effect waves-light btn grey" ng-click="project.modalConfirm('list-modal')"
+						ng-if="project.definition.details.project_status === 'new' ">Cancel
+					</button>
+
+					<!-- cancel update -->
+					<button class="waves-effect waves-light btn grey" ng-click="project.modalConfirm('summary-modal')"
+						ng-if="project.definition.details.project_status === 'active' ">Cancel
+					</button>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
+</form>
+
+<div class="row">
+	<div class="col s12 m12 l12">
+		<div class="card">
+			<div style="background: {{ project.style.lightPrimaryColor }}; height:20px; "></div>
+			<div style="background: {{ project.style.defaultPrimaryColor }}; height:60px;">
+				<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -117,7 +117,7 @@ angular.module('ngmReportHub')
 									},{
 										icon: 'done_all',
 										location: 'objectives',
-										title: 'Project Objectives',
+										title: 'Project Health Objectives',
 										subtitle: 'Project Strategic Objective Indicators',
 										description: 'Update the strategic health objective indicators for ',
 									}],

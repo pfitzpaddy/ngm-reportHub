@@ -13,7 +13,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         title: 'Health Project Details Form',
         description: 'Display Health Project Details Form',
         controller: 'ProjectDetailsCtrl',
-        templateUrl: '/scripts/modules/health/reports/forms/partials/details/form.html'
+        templateUrl: '/scripts/modules/health/reports/forms/details/partials/form.html'
       });
   })
   .controller('ProjectDetailsCtrl', [
@@ -23,9 +23,10 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
     '$filter',
     '$q',
     '$http',
+    'ngmUser',
     'ngmData',
     'config',
-    function($scope, $location, $timeout, $filter, $q, $http, ngmData, config){
+    function($scope, $location, $timeout, $filter, $q, $http, ngmUser, ngmData, config){
 
       // project
       $scope.project = {
@@ -61,19 +62,20 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         },
 
         // details template
-        detailsUrl: '/scripts/modules/health/reports/forms/partials/details/details.html',
+        detailsUrl: '/scripts/modules/health/reports/forms/details/partials/details.html',
 
         // details template
-        locationsUrl: '/scripts/modules/health/reports/forms/partials/details/locations.html',
+        locationsUrl: '/scripts/modules/health/reports/forms/details/partials/locations.html',
 
         // details template
-        beneficiariesUrl: '/scripts/modules/health/reports/forms/partials/details/beneficiaries.html',
+        beneficiariesUrl: '/scripts/modules/health/reports/forms/details/partials/beneficiaries.html',
 
         // add location
         addLocation: function(){
 
           // push location to locations
           $scope.project.definition.locations.push({
+            username: ngmUser.get().username,
             organization_id: config.project.details.organization_id,
             project_id: config.project.details.id,
             prov_code: $scope.project.options.selection.province.prov_code,
@@ -221,6 +223,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           // push to beneficiaries
           $scope.project.definition.beneficiaries.push({
+            username: ngmUser.get().username,
             organization_id: config.project.details.organization_id,
             project_id: config.project.details.id,
             beneficiary_name: beneficiary.beneficiary_name,
@@ -236,8 +239,20 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // update dropdown
           $timeout(function(){
             // filter
-            $('#ngm-beneficiary-category').material_select('update');            
+            $('#ngm-beneficiary-category').material_select('update');
           }, 10);
+
+        },
+
+        // cofirm exit if changes
+        modalConfirm: function(modal){
+
+          // if dirty, warn on exit
+          if($scope.healthProjectForm.$dirty){
+            $('#' + modal).openModal({dismissible: false});
+          } else{
+            $scope.project.cancel();
+          }
 
         },
 
@@ -263,7 +278,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
               data: {
                 project: $scope.project.definition
               }
-            });            
+            });
 
             // beneficiaries update
             var beneficiaries = $http({
@@ -291,21 +306,19 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
         // re-direct on save
         redirect: function(){
-            
-          var msg;
 
           // new becomes active!
           if( $scope.project.definition.details.project_status === 'new' ) {
-            msg = $scope.project.definition.details.project_name + ' created!';
+            var msg = $scope.project.definition.details.project_name + ' created!';
           } else {
-            msg = $scope.project.definition.details.project_name + ' updated!';
+            var msg = $scope.project.definition.details.project_name + ' updated!';
           }
 
           // redirect on success
           $timeout(function(){
             $location.path( '/health/projects/summary/' + $scope.project.definition.details.id );
             Materialize.toast( msg, 3000, 'success');
-          }, 200)
+          }, 200);
 
         },
 
@@ -332,7 +345,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             // update
             $timeout(function() {
               $location.path( '/health/projects/summary/' + $scope.project.definition.details.id );
-              Materialize.toast( 'Project update cancelled!', 3000, 'note' );
+              if( $scope.project.definition.details.project_status !== 'complete' ) {
+                Materialize.toast( 'Project update cancelled!', 3000, 'note' );
+              }
             }, 100);
 
           }
@@ -446,8 +461,8 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
       // filter beneficiaries
       angular.forEach($scope.project.definition.beneficiaries, function(d, i){
-          // filter list
-          $scope.project.options.list.beneficiaries = $filter('filter')($scope.project.options.list.beneficiaries, { beneficiary_category: '!' + d.beneficiary_category }, true);
+        // filter list
+        $scope.project.options.list.beneficiaries = $filter('filter')($scope.project.options.list.beneficiaries, { beneficiary_category: '!' + d.beneficiary_category }, true);
       });
 
       // get provinces
