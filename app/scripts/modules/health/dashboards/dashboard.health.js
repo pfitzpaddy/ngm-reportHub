@@ -69,7 +69,7 @@ angular.module('ngmReportHub')
 								report: $scope.dashboard.report,
 								printUrl: $location.absUrl(),
 								downloadUrl: 'http://' + $location.host() + '/report/',
-								token: $scope.dashboard.user.token,
+								token: 'public',
 								pageLoadTime: 4600
 							}
 						},						
@@ -77,9 +77,9 @@ angular.module('ngmReportHub')
 							method: 'POST',
 							url: 'http://' + $location.host() + '/api/metrics/set',
 							data: {
-								organization: $scope.dashboard.user.organization,
-								username: $scope.dashboard.user.username,
-								email: $scope.dashboard.user.email,
+								organization: 'public',
+								username: 'public',
+								email: 'public',
 								dashboard: 'health_3w',
 								theme: 'health_3w',
 								format: 'pdf',

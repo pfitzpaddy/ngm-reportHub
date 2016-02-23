@@ -132,7 +132,7 @@ angular
 				controller: 'DashboardHealthProjectsCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAuthenticated();
+						return ngmAuth.isPublic();
 					}],
 				}
 			})			

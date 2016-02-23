@@ -103,6 +103,21 @@ angular.module('ngmReportHub')
 				$location.path( '/' + $location.$$path.split('/')[1] + '/login' );
 			},
 
+			isPublic: function( role ) {
+				
+				var deferred = $q.defer();
+
+				if ( true ) {
+					deferred.resolve(ngmAuth.OK );
+				} else if ( !ngmUser.get('auth_token') ) {
+					deferred.reject( ngmAuth.UNAUTHORIZED );
+				} else {
+					deferred.reject(ngmAuth.FORBIDDEN);
+				}
+
+				return deferred.promise;
+			},
+
 			hasRole: function( role ) {
 				
 				var deferred = $q.defer();
