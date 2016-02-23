@@ -74,14 +74,24 @@ angular.module('ngmReportHub')
 						style: 'border-bottom: 3px ' + $scope.report.ngm.style.defaultPrimaryColor + ' solid;'
 					},
 					title: {
-						'class': 'col s12 m12 l12 report-title',
+						'class': 'col s12 m9 l9 report-title',
 						style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
 						title: ngmUser.get().organization + ' | ' + $scope.report.project.details.project_name
 					},
 					subtitle: {
 						'class': 'col s12 m12 l12 report-subtitle',
 						'title': $scope.report.project.details.project_description
-					}
+					},
+					download: {
+						'class': 'col s12 m3 l3 hide-on-small-only',
+						downloads: [{
+							type: 'pdf',
+							color: 'blue lighten-1',
+							icon: 'picture_as_pdf',
+							hover: 'Download Project Details Form as PDF',
+							url: 'http://' + $location.host() + '/report/health_project_details.pdf'
+						}]
+					}					
 				},
 				menu: [{
 					'icon': 'location_on',

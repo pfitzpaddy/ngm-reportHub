@@ -20,7 +20,7 @@
     "leaflet.markercluster": "0.4.0-hotfix.1",
     "materialize": "0.97.3",
     "moment": "~2.10.6",
-    "ngm-dashboard-framework": "~0.2.2",
+    "ngm-dashboard-framework": "~0.2.3",
     "ngm-angular-dropzone": "~0.1.3",
     "ngm-leaflet-control-geocoder": "~1.3.5",
     "ngm-leaflet-fullscreen": "~1.0.1",
