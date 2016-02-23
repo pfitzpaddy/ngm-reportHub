@@ -202,7 +202,7 @@ angular
 				controller: 'DashboardFloodRiskCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
-						return true;
+						return ngmAuth.isPublic();
 					}],
 				}
 			})
