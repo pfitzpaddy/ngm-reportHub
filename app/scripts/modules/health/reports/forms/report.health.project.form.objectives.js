@@ -219,7 +219,10 @@ angular.module('ngm.widget.project.objectives', ['ngm.provider'])
           // this will not be filtered
           $scope.project.options.list.provinces = data;
           $scope.project.options.select.provinces = $scope.project.options.list.provinces;
+          // selects
+          $('select').material_select();          
           $('#ngm-project-province').material_select('update');
+
         });
       }  
 
@@ -231,6 +234,8 @@ angular.module('ngm.widget.project.objectives', ['ngm.provider'])
         }).then(function(data){
           // this is full list that will be filtered
           $scope.project.options.list.districts = data;
+          // selects
+          $('select').material_select();          
         });
       }
 

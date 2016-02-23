@@ -474,6 +474,8 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // this will not be filtered
           $scope.project.options.list.provinces = data;
           $scope.project.options.select.provinces = $scope.project.options.list.provinces;
+          // selects
+          $('select').material_select();          
           $('#ngm-project-province').material_select('update');
         });
       }  
@@ -486,6 +488,8 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         }).then(function(data){
           // this is full list that will be filtered
           $scope.project.options.list.districts = data;
+          // selects
+          $('select').material_select();          
         });
       } 
 
@@ -497,6 +501,8 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         }).then(function(data){
           // this will not be filtered
           $scope.project.options.list.hf_type = data;
+          // selects
+          $('select').material_select();          
         });
       }  
 
@@ -508,6 +514,8 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         }).then(function(data){
           // this is full list that will be filtered
           $scope.project.options.list.hf_name = data;
+          // selects
+          $('select').material_select();
         });
       }
 
@@ -520,10 +528,10 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         // menu return to list
         $('#go-to-project-list').click(function(){
           $scope.project.cancel();
-        });        
+        });
 
         // selects
-        $('select').material_select();
+        $('select').material_select();        
 
         // initiate date pickers
         $scope.project.setStartTime();
