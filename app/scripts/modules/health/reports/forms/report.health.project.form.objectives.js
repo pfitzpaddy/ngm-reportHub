@@ -116,6 +116,7 @@ angular.module('ngm.widget.project.objectives', ['ngm.provider'])
           // reset province
           if(province){
             // reset select option
+            $scope.project.options.selection.province = {};
             $scope.project.options.select.provinces = $scope.project.options.list.provinces;
             // refresh dropdown
             $('#ngm-project-province').prop('selectedIndex',0);
@@ -125,6 +126,7 @@ angular.module('ngm.widget.project.objectives', ['ngm.provider'])
           // reset district
           if(district){
             // reset select option
+            $scope.project.options.selection.district = {};
             $scope.project.options.select.districts = $scope.project.options.list.districts;
             // refresh dropdown
             $('#ngm-project-district').prop('selectedIndex',0);
@@ -220,9 +222,9 @@ angular.module('ngm.widget.project.objectives', ['ngm.provider'])
           $scope.project.options.list.provinces = data;
           $scope.project.options.select.provinces = $scope.project.options.list.provinces;
           // selects
-          $('select').material_select();          
-          $('#ngm-project-province').material_select('update');
-
+          $timeout(function(){
+            $('#ngm-project-province').material_select('update');
+          }, 10)
         });
       }  
 
@@ -235,7 +237,9 @@ angular.module('ngm.widget.project.objectives', ['ngm.provider'])
           // filter by conflict
           $scope.project.options.list.districts = $filter('filter')(data, { conflict: true }, true);
           // selects
-          $('select').material_select();          
+          $timeout(function(){
+            $('#ngm-project-district').material_select('update');
+          }, 10)       
         });
       }
 

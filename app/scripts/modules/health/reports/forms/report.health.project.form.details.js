@@ -70,39 +70,6 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         // details template
         beneficiariesUrl: '/views/modules/health/forms/details/beneficiaries.html',
 
-        // add location
-        addLocation: function(){
-
-          // push location to locations
-          $scope.project.definition.locations.push({
-            username: ngmUser.get().username,
-            organization_id: config.project.details.organization_id,
-            project_id: config.project.details.id,
-            prov_code: $scope.project.options.selection.province.prov_code,
-            prov_name: $scope.project.options.selection.province.prov_name,
-            dist_code: $scope.project.options.selection.district.dist_code,
-            dist_name: $scope.project.options.selection.district.dist_name,
-            fac_id: $scope.project.options.selection.hf_name.fac_id,
-            fac_type: $scope.project.options.selection.hf_name.fac_type,
-            fac_name: $scope.project.options.selection.hf_name.fac_name,
-            lng: $scope.project.options.selection.hf_name.lng,
-            lat: $scope.project.options.selection.hf_name.lat
-          });
-
-          // refresh dropdown options
-          $scope.project.resetLocationSelect(true, true, true, true);
-
-        },
-
-        // remove location from location list
-        removeLocation: function($index) {
-          // remove location at i
-          $scope.project.definition.locations.splice($index, 1);
-          // refresh dropdown options
-          $scope.project.resetLocationSelect(true, true, true, true);
-
-        },
-
         // apply location dropdowns
         locationSelect: function(id, select) {
 
@@ -162,9 +129,11 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
                   lng: $scope.project.options.selection.district.lng,
                   lat: $scope.project.options.selection.district.lat
                 }
-                // 
+                //
+                // disable/enable
+                $(id).prop('disabled', true);
+                $scope.project.addLocation();
                 Materialize.toast('No facility exists of that type in ' + $scope.project.options.selection.province.prov_name + ", added as 'Other'", 3000, 'note');
-                $scope.project.addLocation();                
               }
 
           }
@@ -177,7 +146,40 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             $(id).material_select('update');
           }, 200);
 
-        },   
+        },
+
+        // add location
+        addLocation: function(){
+
+          // push location to locations
+          $scope.project.definition.locations.push({
+            username: ngmUser.get().username,
+            organization_id: config.project.details.organization_id,
+            project_id: config.project.details.id,
+            prov_code: $scope.project.options.selection.province.prov_code,
+            prov_name: $scope.project.options.selection.province.prov_name,
+            dist_code: $scope.project.options.selection.district.dist_code,
+            dist_name: $scope.project.options.selection.district.dist_name,
+            fac_id: $scope.project.options.selection.hf_name.fac_id,
+            fac_type: $scope.project.options.selection.hf_name.fac_type,
+            fac_name: $scope.project.options.selection.hf_name.fac_name,
+            lng: $scope.project.options.selection.hf_name.lng,
+            lat: $scope.project.options.selection.hf_name.lat
+          });
+
+          // refresh dropdown options
+          $scope.project.resetLocationSelect(true, true, true, true);
+
+        },
+
+        // remove location from location list
+        removeLocation: function($index) {
+          // remove location at i
+          $scope.project.definition.locations.splice($index, 1);
+          // refresh dropdown options
+          $scope.project.resetLocationSelect(true, true, true, true);
+
+        },        
 
         // refresh dropdown options
         resetLocationSelect: function(province, district, hf_type, hf_name){
@@ -185,6 +187,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // reset province
           if(province){
             // reset select option
+            $scope.project.options.selection.province = {};
             $scope.project.options.select.provinces = $scope.project.options.list.provinces;
             // refresh dropdown
             $('#ngm-project-province').prop('selectedIndex',0);
@@ -194,27 +197,33 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // reset district
           if(district){
             // reset select option
+            $scope.project.options.selection.district = {};
             $scope.project.options.select.districts = $scope.project.options.list.districts;
             // refresh dropdown
             $('#ngm-project-district').prop('selectedIndex',0);
+            $('#ngm-project-district').prop('disabled', true);
             $('#ngm-project-district').material_select('update');
           }
 
           // reset district
           if(hf_type){
             // reset select option
+            $scope.project.options.selection.hf_type = {};
             $scope.project.options.select.hf_type = $scope.project.options.list.hf_type;
             // refresh dropdown
             $('#ngm-project-hf_type').prop('selectedIndex',0);
+            $('#ngm-project-hf_type').prop('disabled', true);
             $('#ngm-project-hf_type').material_select('update');
           }
 
           // reset district
           if(hf_name){
             // reset select option
+            $scope.project.options.selection.hf_name = {};
             $scope.project.options.select.hf_name = $scope.project.options.list.hf_name;
             // refresh dropdown
             $('#ngm-project-hf_name').prop('selectedIndex',0);
+            $('#ngm-project-hf_name').prop('disabled', true);
             $('#ngm-project-hf_name').material_select('update');
           }
 
@@ -480,8 +489,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           $scope.project.options.list.provinces = data;
           $scope.project.options.select.provinces = $scope.project.options.list.provinces;
           // selects
-          $('select').material_select();          
-          $('#ngm-project-province').material_select('update');
+          $timeout(function(){
+            $('#ngm-project-province').material_select('update');
+          }, 10);
         });
       }  
 
@@ -494,7 +504,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // this is full list that will be filtered
           $scope.project.options.list.districts = data;
           // selects
-          $('select').material_select();          
+          $timeout(function(){
+            $('#ngm-project-district').material_select('update');
+          }, 10);;          
         });
       } 
 
@@ -507,7 +519,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // this will not be filtered
           $scope.project.options.list.hf_type = data;
           // selects
-          $('select').material_select();          
+          $timeout(function(){
+            $('#ngm-project-hf_type').material_select('update');
+          }, 10);      
         });
       }  
 
@@ -520,7 +534,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // this is full list that will be filtered
           $scope.project.options.list.hf_name = data;
           // selects
-          $('select').material_select();
+          $timeout(function(){
+            $('#ngm-project-hf_name').material_select('update');
+          }, 10);
         });
       }
 
