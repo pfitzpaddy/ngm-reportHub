@@ -106,7 +106,8 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
           // update dropdown
           $timeout(function(){
             // selects
-            $('#ngm-expenditure-item-' + $scope.project.definition.financials.length - 1).material_select();
+            $('select').material_select();
+            $('#ngm-expenditure-item-' + $scope.project.definition.financials.length - 1).material_select('update');
             // date picker
             $scope.project.setStartTime();
             $scope.project.setEndTime();
@@ -317,7 +318,7 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
 
         // selects
         $('select').material_select();
-        $('#ngm-beneficiary-category').material_select();
+        $('#ngm-beneficiary-category').material_select('update');
 
         // initiate date pickers
         $scope.project.setStartTime();
