@@ -111,7 +111,7 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
             // date picker
             $scope.project.setStartTime();
             $scope.project.setEndTime();
-          }, 10);
+          }, 200);
 
         },
 
