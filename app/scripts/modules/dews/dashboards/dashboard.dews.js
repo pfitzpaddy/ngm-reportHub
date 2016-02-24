@@ -30,7 +30,7 @@ angular.module('ngmReportHub')
 			endDate: moment($route.current.params.end).format('YYYY-MM-DD'),
 			
 			// current report
-			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHH'),
+			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
 
 			// data lookup
 			data: {

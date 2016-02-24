@@ -24,7 +24,7 @@ angular.module('ngmReportHub')
 			user: ngmUser.get(),
 			
 			// current report
-			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHH'),
+			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
 
 		}
 

@@ -23,7 +23,7 @@ angular.module('ngmReportHub')
 			user: ngmUser.get(),
 
 			// used in print report
-			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHH'),
+			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
 
 			// start date = now - 1 month
 			startDate: moment($route.current.params.start).format('YYYY-MM-DD'),
