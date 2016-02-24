@@ -316,6 +316,7 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
         });        
 
         // selects
+        $('select').material_select();
         $('#ngm-beneficiary-category').material_select();
 
         // initiate date pickers
