@@ -223,6 +223,7 @@ angular.module('ngm.widget.project.objectives', ['ngm.provider'])
           $scope.project.options.select.provinces = $scope.project.options.list.provinces;
           // selects
           $timeout(function(){
+            $('select').material_select();
             $('#ngm-project-province').material_select('update');
           }, 10)
         });
@@ -238,6 +239,7 @@ angular.module('ngm.widget.project.objectives', ['ngm.provider'])
           $scope.project.options.list.districts = $filter('filter')(data, { conflict: true }, true);
           // selects
           $timeout(function(){
+            $('select').material_select();
             $('#ngm-project-district').material_select('update');
           }, 10)       
         });
