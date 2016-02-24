@@ -486,13 +486,13 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           url: 'http://' + $location.host() + '/api/health/getProvincesList'
         }).then(function(data){
           // this will not be filtered
+          $('select').material_select();
           $scope.project.options.list.provinces = data;
           $scope.project.options.select.provinces = $scope.project.options.list.provinces;
           // selects
           $timeout(function(){
-            $('select').material_select();
             $('#ngm-project-province').material_select('update');
-          }, 400);
+          }, 10);
         });
       }  
 
@@ -503,10 +503,10 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           url: 'http://' + $location.host() + '/api/health/getDistrictsList'
         }).then(function(data){
           // this is full list that will be filtered
+          $('select').material_select();
           $scope.project.options.list.districts = data;
           // selects
           $timeout(function(){
-            $('select').material_select();
             $('#ngm-project-district').material_select('update');
           }, 10);;          
         });
@@ -519,10 +519,10 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           url: 'http://' + $location.host() + '/api/health/getFacilityTypeList'
         }).then(function(data){
           // this will not be filtered
+          $('select').material_select();
           $scope.project.options.list.hf_type = data;
           // selects
           $timeout(function(){
-            $('select').material_select();
             $('#ngm-project-hf_type').material_select('update');
           }, 10);      
         });
@@ -535,10 +535,10 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           url: 'http://' + $location.host() + '/api/health/getFacilityList'
         }).then(function(data){
           // this is full list that will be filtered
+          $('select').material_select();
           $scope.project.options.list.hf_name = data;
           // selects
           $timeout(function(){
-            $('select').material_select();
             $('#ngm-project-hf_name').material_select('update');
           }, 10);
         });
