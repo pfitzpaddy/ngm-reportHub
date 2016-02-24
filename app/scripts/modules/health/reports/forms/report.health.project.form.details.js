@@ -492,7 +492,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           $timeout(function(){
             $('select').material_select();
             $('#ngm-project-province').material_select('update');
-          }, 10);
+          }, 400);
         });
       }  
 
