@@ -261,7 +261,19 @@ angular.module('ngmReportHub')
 							}
 						}
 					}]
-				}]				
+				}]
+			},{
+				columns: [{
+					styleClass: 's12 m12 l12',
+					widgets: [{
+						type: 'html',
+						card: 'card-panel',
+						style: 'padding:0px; height: 90px; padding-top:10px;',
+						config: {
+							html: $scope.dashboard.ngm.footer
+						}
+					}]
+				}]						
 			}]
 		};
 
