@@ -121,9 +121,7 @@
 					
 					<button data-target="save-modal" class="waves-effect waves-light btn"
 						ng-click="project.save()"
-						ng-disabled="healthProjectObjectivesForm.$pristine
-								|| healthProjectObjectivesForm.$invalid
-								|| project.definition.objectiveLocations.length === 0"
+						ng-disabled="healthProjectObjectivesForm.$pristine"
 						ng-cloak><i class="material-icons right">send</i>Save</button>
 
 					<!-- cancel update -->
