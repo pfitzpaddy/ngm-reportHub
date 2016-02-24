@@ -18,14 +18,41 @@
 			      	<p style="font-weight:300;padding:10px;">2.1) Number of conflict affected people in white areas served by emergency PHC/Mobile services by your project</p>
 			      </div>
 
-			      <div class="row">
-		      		<div class="input-field col s12 m12" style="margin-top:-5px;">
-			          <input id="ngm-project-people-conflict" type="number" class="validate" min="0"
-			          	ng-model="project.definition.objectives.indicator_two"
+	      		<div class="row">
+	      		
+		      		<div class="input-field col s12 m3">
+			          <input id="ngm-project-two-under5male" type="number" class="validate" min="0"
+			          	ng-model="project.definition.objectives.indicator_two_under5male"
 			          	ng-disabled="project.definition.details.project_status === 'complete'"
 									required>
+			          <label for="ngm-project-two-under5male">Under 5 Male</label>
 		      		</div>
-		      	</div>
+
+		      		<div class="input-field col s12 m3">
+			          <input id="ngm-project-two-under5female" type="number" class="validate" min="0"
+			          	ng-model="project.definition.objectives.indicator_two_under5female"
+			          	ng-disabled="project.definition.details.project_status === 'complete'"
+									required>
+			          <label for="ngm-project-two-under5female">Under 5 Female</label>			      		
+		      		</div>
+
+		      		<div class="input-field col s12 m3">
+			          <input id="ngm-project-two-over5male" type="number" class="validate" min="0"
+			          	ng-model="project.definition.objectives.indicator_two_over5male"
+			          	ng-disabled="project.definition.details.project_status === 'complete'"
+									required>
+			          <label for="ngm-project-two-over5male">Over 5 Male</label>			      		
+		      		</div>
+
+		      		<div class="input-field col s12 m3">
+			          <input id="ngm-project-two-over5female" type="number" class="validate" min="0"
+			          	ng-model="project.definition.objectives.indicator_two_over5female"
+			          	ng-disabled="project.definition.details.project_status === 'complete'"
+									required>
+			          <label for="ngm-project-two-over5female">Over 5 Female</label>			      		
+		      		</div>
+
+	      		</div>
 
 		      </div>
 

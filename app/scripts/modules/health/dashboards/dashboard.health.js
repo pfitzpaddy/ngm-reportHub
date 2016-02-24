@@ -23,12 +23,6 @@ angular.module('ngmReportHub')
 			// current user
 			user: ngmUser.get(),
 			
-			// report start
-			// startDate: moment($route.current.params.start).format('YYYY-MM-DD'),
-
-			// report end
-			// endDate: moment($route.current.params.end).format('YYYY-MM-DD'),
-			
 			// current report
 			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHH'),
 
