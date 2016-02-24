@@ -106,7 +106,7 @@
 		    <!-- navigation menu -->
 			  <ul class="ngm-navigation-menu collapsible popout" 
 			  		data-collapsible="expandable"
-			  		ng-show="ngm.dashboard.model.menu">
+			  		ng-show="ngm.dashboard.model.menu" ng-cloak>
 
 			  	<li id="li-{{ list.id }}" ng-repeat="list in ngm.dashboard.model.menu" ng-cloak>
 			  		<div class="collapsible-header {{ list.class }}" ng-click="ngm.toggleSearch(list.id)" ng-cloak>
@@ -114,7 +114,7 @@
 			  		</div>
 
 			  		<!-- search list options (navClass toggles search) -->
-			  		<nav id="nav-{{ list.id }}" class="ngm-search" ng-show="list.search">
+			  		<nav id="nav-{{ list.id }}" class="ngm-search" ng-show="list.search" ng-cloak>
 					    <div class="nav-wrapper white">
 								<div class="input-field">
 									<input id="search"
