@@ -232,8 +232,8 @@ angular.module('ngm.widget.project.objectives', ['ngm.provider'])
           method: 'POST',
           url: 'http://' + $location.host() + '/api/health/getDistrictsList'
         }).then(function(data){
-          // this is full list that will be filtered
-          $scope.project.options.list.districts = data;
+          // filter by conflict
+          $scope.project.options.list.districts = $filter('filter')(data, { conflict: true }, true);
           // selects
           $('select').material_select();          
         });
