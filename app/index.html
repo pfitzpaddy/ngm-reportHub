@@ -69,13 +69,15 @@
 						<div class="ngm-profile-menu">
 							<div class="ngm-profile-btn fixed-action-btn" 
 										align="right">
-								<a class="btn-floating btn-large waves-effect waves-teal waves-teal-lighten-4"
+								<a class="btn-floating btn-large"
+										ng-class="{ 'waves-effect waves-teal waves-teal-lighten-4' : ngm.getUserName() !== 'welcome' }"
 										style="background: {{ ngm.style.defaultPrimaryColor }};" >
 									<i class="ngm-profile-icon material-icons right">add</i>
 								</a>
 							</div>
 							<!-- profile menu dropdown -->
-							<a class="ngm-profile white-text right">
+							<a class="ngm-profile white-text right"
+								ng-onclick="ngm.setNavMenu()">
 								<i class="material-icons right">add</i>{{ ngm.getUserName() }}
 							</a>
 							<!-- profile menu dropdown list -->
@@ -90,13 +92,13 @@
 									</li>
 
 									<!-- navigation options repeat -->
-									<div ng-init="$menu = ngm.getUserMenu()">
-										<li ng-repeat="option in $menu" class="{{ option.liClass }}">
+									<!-- <div ng-init="$menu = ngm.getUserMenu()"> -->
+										<li ng-repeat="option in ngm.navigationMenu" class="{{ option.liClass }}">
 											<a class="{{ option.aClass }}" href="{{ option.href }}" ng-click="ngm.toggleNavigationMenu()">
 											<i class="{{ option.iClass }}">{{ option.icon }}</i>
 											<br/>{{ option.title }}</a>
 									  </li>
-								  </div>
+								  <!-- </div> -->
 
 							</ul>
 						</div>

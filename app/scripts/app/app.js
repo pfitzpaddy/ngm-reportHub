@@ -246,17 +246,6 @@ angular
 	}])
 	.run(['$rootScope', '$location', 'ngmAuth', 'ngmUser', function($rootScope, $location, ngmAuth, ngmUser) {
 
-		// profile menu dropdown click
-		$('.ngm-profile-icon').click(function(){
-			// rotate icon
-			$(this).toggleClass('rotate');
-			// set class
-    	$('.ngm-profile').toggleClass('active');
-    	$('.ngm-profile-menu-content').toggleClass('active');
-    	// toggle menu dropdown
-			$('.ngm-profile-menu-content').slideToggle();
-		});		
-
 		// when error on route update redirect
 		$rootScope.$on('$routeChangeError' , function(event, current, previous, rejection) {
 
@@ -302,11 +291,8 @@ angular
 				model: {}
 			},
 
-			// page height
-			height: $(window).height(),
-
-			// dashboard footer
-			footer: false,
+			// 
+			navigationMenu: false,
 
 			// left menu
 			menu: {
@@ -314,6 +300,12 @@ angular
 				focused: false,
 				query: []
 			},
+
+			// page height
+			height: $(window).height(),
+
+			// dashboard footer
+			footer: false,
 
 			// app style
 			style: {
@@ -395,15 +387,6 @@ angular
 				}
 			},
 
-			// menu
-			getUserMenu: function() {
-				if (ngmUser.get()) {
-					return ngmUser.get().menu;
-				} else {
-					return false;
-				}
-			},
-
 			// app functions
 			logout: function() {
 				ngmAuth.logout();
@@ -443,8 +426,25 @@ angular
 			$('#nav-mobile').css({ overflow: 'auto'});
 		}
 
+		// profile menu dropdown click
+		$('.ngm-profile-icon').click(function(){
+			if (ngmUser.get()) {
+				// on app load, toggle menu on click
+				$scope.ngm.toggleNavigationMenu();
+			}
+
+		});
+
 		// paint application
-		$scope.$on('$routeChangeStart', function(next, current) { 
+		$scope.$on('$routeChangeStart', function(next, current) {
+
+			// set navigation menu
+			if (ngmUser.get()) {
+				$scope.ngm.navigationMenu = ngmUser.get().menu;
+			} else {
+				$scope.ngm.navigationMenu = false;
+			}
+
 			// get application
 			var route = $location.$$path.split('/')[1];
 			// set application

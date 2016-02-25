@@ -20,7 +20,7 @@ angular.module('ngmReportHub')
 			},
 
 			set: function(val) {
-				// JSON stringify result				
+				// JSON stringify result
 				return localStorage.setItem('auth_token', JSON.stringify(val));
 			},
 
