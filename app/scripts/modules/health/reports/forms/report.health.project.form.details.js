@@ -479,20 +479,44 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         $scope.project.options.list.beneficiaries = $filter('filter')($scope.project.options.list.beneficiaries, { beneficiary_category: '!' + d.beneficiary_category }, true);
       });
 
+      // $q all dropdowns
+      var provinceList = $http({
+        method: 'POST',
+        url: 'http://' + $location.host() + '/api/health/getProvincesList'
+      });
+
+      var districtList = $http({
+        method: 'POST',
+        url: 'http://' + $location.host() + '/api/health/getDistrictsList'
+      });
+
+      var hf_typeList = $http({
+        method: 'POST',
+        url: 'http://' + $location.host() + '/api/health/getFacilityTypeList'
+      });
+
+      var hf_nameList = $http({
+        method: 'POST',
+        url: 'http://' + $location.host() + '/api/health/getFacilityList'
+      });
+
+
+      $q.all([provinceList, districtList, hf_typeList, hf_nameList]).then(function(results) {
+        // notification modal
+        $('#save-modal').openModal({dismissible: false});
+      });
+
       // get provinces
       if(!$scope.project.options.list.provinces) {
-        ngmData.get({
-          method: 'POST',
-          url: 'http://' + $location.host() + '/api/health/getProvincesList'
-        }).then(function(data){
+        ngmData.get().then(function(data){
           // this will not be filtered
-          $('select').material_select();
+          // $('select').material_select();
           $scope.project.options.list.provinces = data;
           $scope.project.options.select.provinces = $scope.project.options.list.provinces;
           // selects
-          $timeout(function(){
-            $('#ngm-project-province').material_select('update');
-          }, 10);
+          // $timeout(function(){
+          //   $('#ngm-project-province').material_select('update');
+          // }, 10);
         });
       }  
 
@@ -503,12 +527,12 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           url: 'http://' + $location.host() + '/api/health/getDistrictsList'
         }).then(function(data){
           // this is full list that will be filtered
-          $('select').material_select();
+          // $('select').material_select();
           $scope.project.options.list.districts = data;
           // selects
-          $timeout(function(){
-            $('#ngm-project-district').material_select('update');
-          }, 10);;          
+          // $timeout(function(){
+          //   $('#ngm-project-district').material_select('update');
+          // }, 10); 
         });
       } 
 
@@ -519,12 +543,12 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           url: 'http://' + $location.host() + '/api/health/getFacilityTypeList'
         }).then(function(data){
           // this will not be filtered
-          $('select').material_select();
+          // $('select').material_select();
           $scope.project.options.list.hf_type = data;
           // selects
-          $timeout(function(){
-            $('#ngm-project-hf_type').material_select('update');
-          }, 10);      
+          // $timeout(function(){
+          //   $('#ngm-project-hf_type').material_select('update');
+          // }, 10);
         });
       }  
 
@@ -535,35 +559,44 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           url: 'http://' + $location.host() + '/api/health/getFacilityList'
         }).then(function(data){
           // this is full list that will be filtered
-          $('select').material_select();
+          // $('select').material_select();
           $scope.project.options.list.hf_name = data;
           // selects
-          $timeout(function(){
-            $('#ngm-project-hf_name').material_select('update');
-          }, 10);
+          // $timeout(function(){
+          //   $('#ngm-project-hf_name').material_select('update');
+          // }, 10);
         });
       }
 
-      // initalize 
-      $timeout(function() {
+      angular.element(document).ready(function () {
 
-        // modals
-        $('.modal-trigger').leanModal();
+        // give a few seconds to render
+        $timeout(function() {
 
-        // menu return to list
-        $('#go-to-project-list').click(function(){
-          $scope.project.cancel();
-        });
+          //
+          console.log('angular.element on ready');          
 
-        // selects
-        $('select').material_select();        
+          // menu return to list
+          $('#go-to-project-list').click(function(){
+            $scope.project.cancel();
+          });
 
-        // initiate date pickers
-        $scope.project.setStartTime();
-        $scope.project.setEndTime();
+          // modals
+          $('.modal-trigger').leanModal();
 
-      }, 400);
-  
+          // selects
+          $('select').material_select();
+
+          // refresh dropdown options
+          $scope.project.resetLocationSelect(true, true, true, true);          
+
+          // initiate date pickers
+          $scope.project.setStartTime();
+          $scope.project.setEndTime();  
+
+        }, 10);      
+
+      });
   }
 
 ]);
