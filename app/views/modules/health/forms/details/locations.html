@@ -19,7 +19,7 @@
 					    	ng-model="project.options.selection.province"
 					    	ng-change="project.locationSelect('#ngm-project-district', 'district')"
 					    	ng-disabled="project.definition.details.project_status === 'complete'"
-	      				ng-options="item as item.prov_name for item in project.options.select.provinces track by item.prov_code">
+	      				ng-options="item as item.prov_name for item in project.options.list.provinces track by item.prov_code">
 	      				<option value="" disabled selected>Choose Province</option>
 	      			</select>
 	      			<label>Province</label>
@@ -32,7 +32,7 @@
 	      			<select id="ngm-project-district" class="validate"
 					    	ng-model="project.options.selection.district"
 					    	ng-change="project.locationSelect('#ngm-project-hf_type', 'hf_type')"
-	      				ng-options="item as item.dist_name for item in project.options.select.districts track by item.dist_code"
+	      				ng-options="item as item.dist_name for item in project.options.filter.districts track by item.dist_code"
 	      				disabled>
 	      				<option value="" disabled selected>Choose District</option>
 	      			</select>
@@ -46,7 +46,7 @@
 					    <select id="ngm-project-hf_type" class="validate"
 					    	ng-model="project.options.selection.hf_type"
 					    	ng-change="project.locationSelect('#ngm-project-hf_name', 'hf_name')"
-					    	ng-options="item as item.fac_type for item in project.options.select.hf_type track by item.id"
+					    	ng-options="item as item.fac_type for item in project.options.filter.hf_type track by item.id"
 					    	disabled>
 					      <option value="" disabled selected>Choose facility type</option>
 					    </select>
@@ -60,7 +60,7 @@
 					    <select id="ngm-project-hf_name"  class="validate"
 					    	ng-model="project.options.selection.hf_name"
 					    	ng-change="project.addLocation()"
-					    	ng-options="item as item.fac_name for item in project.options.select.hf_name track by item.fac_id"
+					    	ng-options="item as item.fac_name for item in project.options.filter.hf_name track by item.fac_id"
 					    	disabled>
 					      <option value="" disabled selected>Choose facility name</option>
 					    </select>

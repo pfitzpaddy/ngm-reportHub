@@ -110,7 +110,7 @@
 			  		data-collapsible="expandable"
 			  		ng-show="ngm.dashboard.model.menu" ng-cloak>
 
-			  	<li id="li-{{ list.id }}" ng-repeat="list in ngm.dashboard.model.menu" ng-cloak>
+			  	<li id="li-{{ list.id }}" ng-if="ngm.dashboard.model.menu" ng-repeat="list in ngm.dashboard.model.menu" ng-cloak>
 			  		<div class="collapsible-header {{ list.class }}" ng-click="ngm.toggleSearch(list.id)" ng-cloak>
 			  			<i class="material-icons" ng-cloak>{{ list.icon }}</i>{{ list.title }}
 			  		</div>
@@ -225,11 +225,10 @@
 		<script src="scripts/app/controllers/controller.register.js"></script>
 		<script src="scripts/app/controllers/controller.login.js"></script>
 		<script src="scripts/app/controllers/controller.forbidden.js"></script>
-		
 		<!-- modules -->
 		<!-- health -->
 		<!-- health report controllers -->
-		<script src="scripts/modules/health/reports/controllers/report.health.project.list.js"></script>
+		<script src="scripts/modules/health/reports/controllers/report.health.project.app.js"></script>
 		<script src="scripts/modules/health/reports/controllers/report.health.project.summary.js"></script>
 		<script src="scripts/modules/health/reports/controllers/report.health.project.details.js"></script>
 		<script src="scripts/modules/health/reports/controllers/report.health.project.financials.js"></script>
@@ -238,20 +237,17 @@
 		<script src="scripts/modules/health/reports/forms/report.health.project.form.details.js"></script>
 		<script src="scripts/modules/health/reports/forms/report.health.project.form.financials.js"></script>
 		<script src="scripts/modules/health/reports/forms/report.health.project.form.objectives.js"></script>
-
 		<!-- health dashboard -->
 		<script src="scripts/modules/health/dashboards/dashboard.health.js"></script>		
-		
 		<!-- dews -->
 		<script src="scripts/modules/dews/upload/upload.dews.js"></script>
 		<script src="scripts/modules/dews/dashboards/dashboard.dews.js"></script>
-
 		<!-- drr -->
 		<script src="scripts/modules/drr/dashboards/dashboard.flood.risk.js"></script>
-
 		<!-- watchkeeper -->
 		<script src="scripts/modules/watchkeeper/dashboards/dashboard.watchkeeper.js"></script>
 		<!-- endbuild -->
+
 
 		<!-- widgets -->
 		<script src="scripts/widgets/ngm-breadcrumb/breadcrumb.js"></script>

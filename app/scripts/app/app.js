@@ -79,7 +79,7 @@ angular
 			// health project list
 			.when( '/health/projects', {
 				templateUrl: '/views/dashboard.html',
-				controller: 'ReportHealthProjectListCtrl',
+				controller: 'ReportHealthProjectAppCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 						return ngmAuth.isAuthenticated();

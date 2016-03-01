@@ -105,13 +105,15 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
           
           // update dropdown
           $timeout(function(){
-            // selects
+            // init select
             $('select').material_select();
-            $('#ngm-expenditure-item-' + $scope.project.definition.financials.length - 1).material_select('update');
-            // date picker
+            // start date
             $scope.project.setStartTime();
+            // end date
             $scope.project.setEndTime();
-          }, 200);
+            // update list
+            $('#ngm-expenditure-item-' + $scope.project.definition.financials.length - 1).material_select('update');
+          }, 10);
 
         },
 
@@ -308,23 +310,32 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
 
       }
 
-      // initalize 
-      $timeout(function() {
+      // on page load
+      angular.element(document).ready(function () {
 
-        // menu return to list
-        $('#go-to-project-list').click(function(){
-          $scope.project.cancel();
-        });        
+        // give a few seconds to render
+        $timeout(function() {
 
-        // selects
-        $('select').material_select();
-        $('#ngm-beneficiary-category').material_select('update');
+          // selects
+          $('select').material_select();
 
-        // initiate date pickers
-        $scope.project.setStartTime();
-        $scope.project.setEndTime();
+          // init start date
+          $scope.project.setStartTime();
 
-      }, 400);
+          // init end date
+          $scope.project.setEndTime();          
+
+          // select
+          $('#ngm-beneficiary-category').material_select('update');
+
+          // menu return to list
+          $('#go-to-project-list').click(function(){
+            $scope.project.cancel();
+          });
+
+        }, 1000);
+
+      });
   
   }
 

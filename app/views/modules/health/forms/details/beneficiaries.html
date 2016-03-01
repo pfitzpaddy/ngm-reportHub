@@ -16,7 +16,7 @@
 					    <select id="ngm-beneficiary-category"  class="validate"
 					    	ng-model="project.options.selection.beneficiary"
 					    	ng-change="project.addBeneficiary()"
-					    	ng-options="item as item.beneficiary_name for item in project.options.list.beneficiaries track by item.beneficiary_category">
+					    	ng-options="item as item.beneficiary_name for item in project.options.filter.beneficiaries track by item.beneficiary_category">
 					      <option value="" disabled selected>Select Category</option>
 					    </select>
 					    <label>Beneficiary Category</label>

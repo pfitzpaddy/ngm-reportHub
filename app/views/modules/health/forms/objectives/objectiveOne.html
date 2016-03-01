@@ -69,7 +69,7 @@
 		      			<select id="ngm-project-province" class="validate"
 						    	ng-model="project.options.selection.province"
 						    	ng-change="project.locationSelect('#ngm-project-district', 'district')"
-		      				ng-options="item as item.prov_name for item in project.options.select.provinces track by item.prov_code">
+		      				ng-options="item as item.prov_name for item in project.options.list.provinces track by item.prov_code">
 		      				<option value="" disabled selected>Choose Province</option>
 		      			</select>
 		      			<label>Province</label>
@@ -82,7 +82,7 @@
 		      			<select id="ngm-project-district" class="validate"
 						    	ng-model="project.options.selection.district"
 						    	ng-change="project.addLocation()"
-		      				ng-options="item as item.dist_name for item in project.options.select.districts track by item.dist_code"
+		      				ng-options="item as item.dist_name for item in project.options.filter.districts track by item.dist_code"
 		      				disabled>
 		      				<option value="" disabled selected>Choose District</option>
 		      			</select>
