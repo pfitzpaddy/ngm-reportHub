@@ -234,7 +234,7 @@ angular.module('ngm.widget.project.objectives', ['ngm.provider'])
             $scope.project.cancel();
           });    
 
-        }, 1000);
+        }, 900);
 
       });
     

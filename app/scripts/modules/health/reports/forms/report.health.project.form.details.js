@@ -531,7 +531,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             $('#ngm-beneficiary-category').material_select('update');
           }, 10);          
 
-        }, 1000);
+        }, 900);
 
       });
   }

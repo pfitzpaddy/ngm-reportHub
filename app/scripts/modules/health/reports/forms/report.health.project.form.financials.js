@@ -333,7 +333,7 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
             $scope.project.cancel();
           });
 
-        }, 1000);
+        }, 900);
 
       });
   
