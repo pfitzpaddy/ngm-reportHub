@@ -143,7 +143,6 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           // update dropdown
           $timeout(function(){
-            console.log(id);
             $(id).material_select('update');
           }, 200);
 
@@ -531,7 +530,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             $('#ngm-beneficiary-category').material_select('update');
           }, 10);          
 
-        }, 900);
+        }, 1000);
 
       });
   }
