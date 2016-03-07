@@ -108,7 +108,7 @@
 		    <!-- navigation menu -->
 			  <ul class="ngm-navigation-menu collapsible popout" 
 			  		data-collapsible="expandable"
-			  		ng-if="ngm.dashboard.model.menu" ng-cloak>
+			  		ng-show="ngm.dashboard.model.menu" ng-cloak>
 
 			  	<li id="li-{{ list.id }}" ng-if="ngm.dashboard.model.menu" ng-repeat="list in ngm.dashboard.model.menu" ng-cloak>
 			  		<div class="collapsible-header {{ list.class }}" ng-click="ngm.toggleSearch(list.id)" ng-cloak>
