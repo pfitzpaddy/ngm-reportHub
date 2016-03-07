@@ -45,8 +45,8 @@ angular
 				redirectTo: '/who/login'
 			})
 			.when( '/who', {
-				redirectTo: '/who/dews/afghanistan/all/2015-01-01/2015-12-31'
-			})			
+				redirectTo: '/who/dews/afghanistan/all/2015-03-01/2016-02-29'
+			})
 			.when( '/who/login', {
 				templateUrl: '/views/dashboard.html',
 				controller: 'DashboardLoginCtrl',

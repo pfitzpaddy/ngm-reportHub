@@ -36,23 +36,42 @@ angular.module('ngmReportHub')
 			data: {
 				disease: {
 					'all': { id: '*', name:'All'},
-					'awd': { id: 1, name: 'AWD' },
-					'avh': { id: 2, name:'AVH'},
-					'anthrax': { id: 3, name:'Anthrax'},
-					'cchf': { id: 4, name:'CCHF'},
-					'chickenpox': { id: 5, name:'Chickenpox'},
-					'cholera': { id: 6, name:'Cholera'},
-					'conjunctivitis': { id: 7, name:'Conjunctivitis'},
-					'rabies': { id: 8, name:'Dog Bites/Rabies'},
-					'food-poisoning': { id: 9, name:'Food Poisoning'},
-					'leishmaniasis': { id: 10, name:'Leishmaniasis'},
-					'malaria': { id: 11, name:'Malaria'},
-					'psychogenic': { id: 12, name:'Mass Psychogenic'},
-					'measles': { id: 13, name:'Measles'},
-					'mumps': { id: 14, name:'Mumps'},
-					'pertussis': { id: 15, name:'Pertussis'},
-					'pneumonia': { id: 16, name:'Pneumonia'},
-					'scabies': { id: 17, name:'Scabies'}
+					'abd': { id: 1, name: 'ABD' },
+					'h1n1': { id: 2, name: 'A/H1N1' },
+					'ai': { id: 3, name: 'AI' },
+					'anthrax': { id: 4, name:'Anthrax'},
+					'pneumonia': { id: 5, name:'ARI/Pneumonia'},
+					'avh': { id: 6, name:'AVH'},
+					'awd': { id: 7, name: 'AWD' },
+					'brucellosis': { id: 8, name: 'Brucellosis' },
+					'cchf': { id: 9, name:'CCHF'},
+					'chickenpox': { id: 10, name:'Chickenpox'},
+					'cholera': { id: 11, name:'Cholera'},
+					'conjunctivitis': { id: 12, name:'Conjunctivitis'},
+					'dengue': { id: 13, name:'Dengue'},
+					'dermatitis': { id: 14, name:'Dermatitis'},
+					'diphtheria': { id: 15, name:'Diphtheria'},
+					'rabies': { id: 16, name:'Dog Bite/Rabies'},
+					'encephalopathy': { id: 17, name:'Encephalopathy'},
+					'furanclosis': { id: 18, name:'Furanclosis'},
+					'leishmaniasis': { id: 19, name:'Leishmaniasis'},
+					'malaria': { id: 20, name:'Malaria'},
+					'faintings': { id: 21, name:'Mass Faintings'},
+					'psychogenic': { id: 22, name:'Mass Psychogenic'},
+					'measles': { id: 23, name:'Measles'},
+					'meningitis': { id: 24, name:'Meningitis'},
+					'mumps': { id: 25, name:'Mumps'},
+					'pertussis': { id: 26, name:'Pertussis'},
+					'poisoning': { id: 27, name:'Poisoning'},
+					'vaccin': { id: 28, name:'Post Vaccin Side Effect'},
+					'poultry-death': { id: 29, name:'Poultry Death Report'},
+					'scabies': { id: 30, name:'Scabies'},
+					'tb': { id: 31, name:'TB'},
+					'tinea': { id: 32, name:'Tinea'},
+					'typhoid': { id: 33, name:'Typhoid'},
+					'unknown': { id: 34, name:'Unknown'},
+					'vod': { id: 35, name:'VOD (Gulran Disease)'},
+					'xerosis': { id: 36, name:'Xerosis'}
 				},
 				location: {
 					'afghanistan': { id:'*', name:'Afghanistan'},
@@ -273,7 +292,7 @@ angular.module('ngmReportHub')
 								printUrl: $location.absUrl(),
 								downloadUrl: 'http://' + $location.host() + '/report/',
 								token: $scope.dashboard.user.token,
-								pageLoadTime: 7600
+								pageLoadTime: 6400
 							}
 						},						
 						metrics: {
@@ -353,7 +372,8 @@ angular.module('ngmReportHub')
 								data: {
 									start_date: $scope.dashboard.startDate,
 									end_date: $scope.dashboard.endDate,									
-									indicator: 'u5male + u5female + o5male + o5female + u5death + o5death',
+									// indicator: 'u5male + u5female + o5male + o5female + u5death + o5death',
+									indicator: 'total_cases + total_deaths',
 									disease: $scope.dashboard.disease.id,
 									prov_code: $scope.dashboard.location.id
 								}
@@ -373,7 +393,8 @@ angular.module('ngmReportHub')
 								data: {
 									start_date: $scope.dashboard.startDate,
 									end_date: $scope.dashboard.endDate,
-									indicator: 'u5death + o5death',
+									// indicator: 'u5death + o5death',
+									indicator: 'total_deaths',
 									disease: $scope.dashboard.disease.id,
 									prov_code: $scope.dashboard.location.id
 								}
@@ -390,6 +411,8 @@ angular.module('ngmReportHub')
 						style: 'padding-top:5px;',
 						config: {
 							options: {
+								// calendar start date
+								start: new Date($scope.dashboard.startDate),
 								// on click popup
 								onClick: function(date, nb) {
 									if(nb){
@@ -444,9 +467,9 @@ angular.module('ngmReportHub')
 							chartConfig: {
 								options: {
 									chart: {
-										type: 'line',
 										height: 120,
-										width: 794
+										width: 794,
+										type: 'line'
 									},
 									legend: {
 										enabled: false
@@ -476,6 +499,7 @@ angular.module('ngmReportHub')
 								series: [{
 									name: 'Incidents',
 									color: '#7cb5ec',
+									turboThreshold: 0,
 									request: {
 										method: 'POST',
 										url: 'http://' + $location.host() + '/api/dews/chart',

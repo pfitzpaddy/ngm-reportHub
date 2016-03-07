@@ -56,7 +56,6 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
           itemSelector: '#' + id,
           itemName: 'case',
           start: new Date(moment().subtract(1, 'years')),
-          maxDate: new Date(),
           range: 12,
           domain: 'month',
           subDomain: 'day',
