@@ -531,6 +531,16 @@ angular.module('ngmReportHub')
 								zoomToBounds: true
 							},
 							layers: {
+								baselayers: {
+									osm: {
+										name: 'Mapbox',
+										type: 'xyz',
+										url: 'https://b.tiles.mapbox.com/v3/aj.um7z9lus/{z}/{x}/{y}.png?',
+										layerOptions: {
+											continuousWorld: true
+										}
+									}
+								},
 								overlays: {
 									outbreaks: {
 										name: 'Outbreaks',
