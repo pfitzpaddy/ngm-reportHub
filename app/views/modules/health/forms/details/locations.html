@@ -12,8 +12,7 @@
 		      <div class="row" ng-if="project.definition.details.project_status !== 'complete'">
 
 	      		<div class="input-field col s12 m3"
-	      			ng-class="{ 'error-label': healthProjectForm.$submitted 
-					  								&& !project.options.selection.province 
+	      			ng-class="{ 'error-label': healthProjectForm.$submitted
 					  								&& project.definition.locations.length === 0 }">
 	      			<select id="ngm-project-province" class="validate"
 					    	ng-model="project.options.selection.province"
@@ -26,8 +25,7 @@
 	      		</div>
 
 	      		<div class="input-field col s12 m3"
-	      			ng-class="{ 'error-label': healthProjectForm.$submitted 
-					  								&& !project.options.selection.district 
+	      			ng-class="{ 'error-label': healthProjectForm.$submitted
 					  								&& project.definition.locations.length === 0 }">
 	      			<select id="ngm-project-district" class="validate"
 					    	ng-model="project.options.selection.district"
@@ -40,8 +38,7 @@
 	      		</div>
 
 					  <div class="input-field col s12 m3"
-					  	ng-class="{ 'error-label': healthProjectForm.$submitted 
-					  								&& !project.options.selection.hf_type
+					  	ng-class="{ 'error-label': healthProjectForm.$submitted
 					  								&& project.definition.locations.length === 0 }">
 					    <select id="ngm-project-hf_type" class="validate"
 					    	ng-model="project.options.selection.hf_type"
@@ -54,8 +51,7 @@
 					  </div>
 
 					  <div class="input-field col s12 m3"
-					  	ng-class="{ 'error-label': healthProjectForm.$submitted 
-					  								&& !project.options.selection.hf_name
+					  	ng-class="{ 'error-label': healthProjectForm.$submitted
 					  								&& project.definition.locations.length === 0 }">
 					    <select id="ngm-project-hf_name"  class="validate"
 					    	ng-model="project.options.selection.hf_name"

@@ -100,7 +100,8 @@ angular.module('ngmReportHub')
 					styleClass: 's12 m12 l12',
 					widgets: [{
 						type: 'html',
-						card: 'card-panel white grey-text text-darken-2',
+						card: 'white grey-text text-darken-2',
+						style: 'padding: 20px;',
 						config: {
 							html: '<a class="waves-effect waves-light btn" href="' + $scope.report.newProjectUrl + '"><i class="material-icons left">add_circle_outline</i>Add New Project</a>'
 						}

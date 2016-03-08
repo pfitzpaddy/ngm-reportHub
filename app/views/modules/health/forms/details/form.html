@@ -127,7 +127,7 @@
 
 <div class="row" ng-if="project.definition.details.project_status !== 'new'">
 	<div class="col s12 m12 l12">
-		<div class="card" style="padding:20px;">
+		<div style="padding:20px;">
 			
 			<!--  -->
 			<button class="waves-effect waves-light btn" ng-click="project.modalConfirm('summary-modal')">
@@ -160,9 +160,10 @@
 					
 					<button data-target="save-modal" class="waves-effect waves-light btn"
 						ng-click="project.save()"
-						ng-disabled="healthProjectForm.$submitted || healthProjectForm.$pristine
-								&& healthProjectForm.$invalid
-								&& ( project.definition.locations.length === 0 || project.definition.beneficiaries.length === 0 )"
+						ng-disabled="
+								( healthProjectForm.$pristine ) || 
+								( healthProjectForm.$submitted && healthProjectForm.$invalid ) ||
+								( healthProjectForm.$submitted && ( project.definition.locations.length === 0 || project.definition.beneficiaries.length === 0 ) )"
 						ng-cloak><i class="material-icons right">send</i>Save</button>
 
 					<!-- cancel new -->

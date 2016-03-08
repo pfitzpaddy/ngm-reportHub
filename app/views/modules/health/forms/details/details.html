@@ -36,10 +36,12 @@
 
 		      <div class="row">
 
-		        <div class="input-field col s12 m4">
-					    <select id="ngm-project-type" class="validate"
+		        <div class="input-field col s12 m4"
+		        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.details.project_type }">
+					    <select class="validate"
 					    	ng-model="project.definition.details.project_type" 
-					    	ng-disabled="project.definition.details.project_status !== 'new'" required>
+					    	ng-disabled="project.definition.details.project_status !== 'new'" 
+					    	required>
 					      <option value="" disabled selected>Select Project</option>
 					      <option value="awareness_campaign">Awareness Campaign</option>
 								<option value="health_education">Health Education</option>
@@ -51,7 +53,7 @@
 					      <option value="phc_conflict_area">PHC in White Areas</option>
 					      <option value="trauma_care">Trauma Care</option>
 					    </select>
-					    <label for="ngm-project-type">Project Type</label>
+					    <label>Project Type</label>
 		        </div>
 
 		        <div class="input-field col s12 m4"

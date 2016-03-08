@@ -13,7 +13,7 @@
 		        <div class="input-field col s12 m3"
 							ng-class="{ 'error-label': healthProjectForm.$submitted 
 					  								&& project.definition.beneficiaries.length === 0 }">
-					    <select id="ngm-beneficiary-category"  class="validate"
+					    <select id="ngm-beneficiary-category" class="validate"
 					    	ng-model="project.options.selection.beneficiary"
 					    	ng-change="project.addBeneficiary()"
 					    	ng-options="item as item.beneficiary_name for item in project.options.filter.beneficiaries track by item.beneficiary_category">
