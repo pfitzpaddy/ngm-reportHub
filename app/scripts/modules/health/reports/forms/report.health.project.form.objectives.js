@@ -197,7 +197,7 @@ angular.module('ngm.widget.project.objectives', ['ngm.provider'])
           // redirect on success
           $timeout(function(){
             $location.path( '/health/projects/summary/' + $scope.project.definition.details.id );
-            Materialize.toast( $scope.project.definition.details.project_name + ' Financials updated!', 3000, 'success');
+            Materialize.toast( $scope.project.definition.details.project_title + ' Financials updated!', 3000, 'success');
           }, 200)
 
         },

@@ -76,7 +76,7 @@ angular.module('ngmReportHub')
 					title: {
 						'class': 'col s12 m9 l9 report-title',
 						style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-						title: ngmUser.get().organization + ' | ' + $scope.report.project.details.project_name
+						title: ngmUser.get().organization + ' | ' + $scope.report.project.details.project_title
 					},
 					subtitle: {
 						'class': 'col s12 m12 l12 report-subtitle',
@@ -121,7 +121,7 @@ angular.module('ngmReportHub')
 
 			// set model to null
 			if($route.current.params.project === 'new'){
-				$scope.report.project.details.project_name = '';
+				$scope.report.project.details.project_title = '';
 				$scope.report.project.details.project_description = '';
 			} 
 

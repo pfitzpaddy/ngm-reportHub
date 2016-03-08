@@ -153,9 +153,11 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           // push location to locations
           $scope.project.definition.locations.push({
-            username: ngmUser.get().username,
             organization_id: config.project.details.organization_id,
             project_id: config.project.details.id,
+            user_id: ngmUser.get().id,
+            username: ngmUser.get().username,
+            project_title: config.project.details.project_title,
             prov_code: $scope.project.options.selection.province.prov_code,
             prov_name: $scope.project.options.selection.province.prov_name,
             dist_code: $scope.project.options.selection.district.dist_code,
@@ -336,9 +338,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           // new becomes active!
           if( $scope.project.definition.details.project_status === 'new' ) {
-            var msg = $scope.project.definition.details.project_name + ' created!';
+            var msg = $scope.project.definition.details.project_title + ' created!';
           } else {
-            var msg = $scope.project.definition.details.project_name + ' updated!';
+            var msg = $scope.project.definition.details.project_title + ' updated!';
           }
 
           // redirect on success

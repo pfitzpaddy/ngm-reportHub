@@ -56,7 +56,7 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m12 l12 report-title',
 							style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: ngmUser.get().organization + ' | ' + $scope.report.project.details.project_name
+							title: ngmUser.get().organization + ' | ' + $scope.report.project.details.project_title
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle',
@@ -86,7 +86,8 @@ angular.module('ngmReportHub')
 							styleClass: 's12 m12 l12',
 							widgets: [{
 								type: 'html',
-								card: 'card-panel white grey-text text-darken-2',
+								card: 'white grey-text text-darken-2',
+								style: 'padding: 20px;',
 								config: {
 									html: '<a class="waves-effect waves-light btn" href="#/health/projects"><i class="material-icons left">keyboard_return</i>Back to Projects</a>'
 								}
@@ -137,7 +138,7 @@ angular.module('ngmReportHub')
 					          }).then(function(data){
 					            // redirect on success
 					            $location.path( '/health/projects' );
-					            Materialize.toast( 'Project "' + project.details.project_name + '" completed, congratulations!', 3000, 'success');
+					            Materialize.toast( 'Project "' + project.details.project_title + '" completed, congratulations!', 3000, 'success');
 					          });
 
 					        }

@@ -59,7 +59,7 @@ angular.module('ngmReportHub')
 					},
 					subtitle: {
 						'class': 'col s12 m12 l12 report-subtitle',
-						'title': 'Complete the relevant Expenditure Items for ' + $scope.report.project.details.project_name
+						'title': 'Complete the relevant Expenditure Items for ' + $scope.report.project.details.project_title
 					},
 					download: {
 						'class': 'col s12 m3 l3 hide-on-small-only',

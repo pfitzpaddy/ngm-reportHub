@@ -18,7 +18,7 @@
 		<li ng-if="panel.data.length" class="collection-item avatar" ng-repeat="project in panel.data track by $index">
 			<a href="#/health/projects/summary/{{ project.id }}" title="Update project {{ project.id }}">
 				<i class="material-icons circle white teal-text">{{ panel.icon }}</i>
-				<span class="title">{{ project.project_name }}</span>
+				<span class="title">{{ project.project_title }}</span>
 				<p>{{ project.project_description }}</p>
 				<a href="#/health/projects/summary/{{ project.id }}" title="Update project {{ project.id }}" class="secondary-content">
 					<i class="material-icons">send</i>
