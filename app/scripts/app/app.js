@@ -135,27 +135,9 @@ angular
 						return ngmAuth.isPublic();
 					}],
 				}
-			})			
-
-
-			.when( '/who/dews/report', {
-				templateUrl: '/views/dashboard.html',
-				controller: 'ReportMenuCtrl',				
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.isAuthenticated();
-					}],
-				}
 			})
-			.when( '/who/dews/report/:active', {
-				templateUrl: '/views/dashboard.html',
-				controller: 'ReportiFrameCtrl',				
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.isAuthenticated(); 
-					}],
-				}
-			})
+
+			// Dews
 			.when( '/who/dews/upload', {
 				templateUrl: '/views/dashboard.html',
 				controller: 'UpdateDewsCtrl',				
@@ -187,7 +169,7 @@ angular
 				}
 			})
 
-			/*** immap */
+			// iMMAP
 			.when( '/immap/login', {
 				templateUrl: '/views/dashboard.html',
 				controller: 'DashboardLoginCtrl',
@@ -196,16 +178,18 @@ angular
 							return ngmAuth.isAnonymous();
 					}],
 				}
-			})			
-			.when( '/immap/drr/flood/:province', {
+			})
+			// DRR
+			.when( '/immap/drr/baseline/:province', {
 				templateUrl: '/views/dashboard.html',
-				controller: 'DashboardFloodRiskCtrl',				
+				controller: 'DashboardBaselineCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
 						return ngmAuth.isPublic();
 					}],
 				}
 			})
+			// Watchkeeper
 			.when( '/immap/watchkeeper/:country/:start/:end', {
 				reloadOnSearch: false,
 				templateUrl: '/views/dashboard.html',
@@ -223,11 +207,12 @@ angular
 				redirectTo: '/immap/watchkeeper/kenya/2015-11-01/2015-11-30'
 			})			
 			.when( '/immap/drr', {
-				redirectTo: '/immap/drr/flood/afghanistan'
+				redirectTo: '/immap/drr/baseline/afghanistan'
 			})
-			.when( '/immap/drr/flood', {
-				redirectTo: '/immap/drr/flood/afghanistan'
-			})
+			.when( '/immap/drr/baseline', {
+				redirectTo: '/immap/drr/baseline/afghanistan'
+			})			
+
 			// forbidden
 			.when( '/immap/forbidden', {
 				templateUrl: '/views/dashboard.html',
@@ -237,10 +222,10 @@ angular
 							return !ngmAuth.isAuthenticated();
 					}],
 				}
-			})	
+			})
+
 			// default
 			.otherwise({
-				// redirectTo: '/who/dews/afghanistan/all/2015-01-01/2016-01-01'
 				redirectTo: '/health/projects'
 			});
 	}])

@@ -359,26 +359,26 @@ angular.module('ngmReportHub')
 									},
 									legend: {
 											enabled: false
-									}																	
+									}
 								},
 								title: {
 									text: ''
 								},
 								xAxis: {
-										type: 'category',
-										labels: {
-												rotation: 0,
-												style: {
-														fontSize: '12px',
-														fontFamily: 'Roboto, sans-serif'
-												}
+									type: 'category',
+									labels: {
+										rotation: 0,
+										style: {
+											fontSize: '12px',
+											fontFamily: 'Roboto, sans-serif'
 										}
+									}
 								},
 								yAxis: {
-										min: 0,
-										title: {
-												text: 'Area (km sq)'
-										}
+									min: 0,
+									title: {
+										text: 'Area (km sq)'
+									}
 								},
 								series: [{
 										name: 'totalArea',

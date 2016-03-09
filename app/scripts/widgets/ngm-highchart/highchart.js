@@ -110,7 +110,7 @@ angular.module('ngm.widget.highchart', ['ngm.provider'])
 
               });
             } else {
-
+              
               // set labels
               if ($scope.highchart.display.label) {
                   $scope.highchart.display.label = series.data[0].y.toFixed(1);
