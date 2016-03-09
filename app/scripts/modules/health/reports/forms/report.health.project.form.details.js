@@ -494,8 +494,6 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         // give a few seconds to render
         $timeout(function() {
 
-          console.log('loaded!');
-
           // selects
           $('select').material_select();
 
