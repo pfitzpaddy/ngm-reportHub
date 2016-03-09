@@ -52,10 +52,35 @@ angular.module('ngmReportHub')
 				download: {
 					'class': 'col s12 m4 l4 hide-on-small-only',
 					downloads: [{
+						type: 'csv',
+						color: 'blue lighten-1',
+						icon: 'assignment',
+						hover: 'Download Health 3W Project Details as PDF',
+						request: {
+							method: 'POST',
+							url: 'http://' + $location.host() + '/api/health/data/details',
+							data: {
+								report: $scope.dashboard.report
+							}
+						},
+						metrics: {
+							method: 'POST',
+							url: 'http://' + $location.host() + '/api/metrics/set',
+							data: {
+								organization: $scope.dashboard.user ? $scope.dashboard.organization | 'public',
+								username: $scope.dashboard.user ? $scope.dashboard.username | 'public',
+								email: $scope.dashboard.user ? $scope.dashboard.email | 'public',
+								dashboard: 'health_3w',
+								theme: 'health_details',
+								format: 'csv',
+								url: $location.$$path
+							}
+						}
+					},{
 						type: 'pdf',
 						color: 'blue lighten-1',
 						icon: 'picture_as_pdf',
-						hover: 'Download Report as PDF',
+						hover: 'Download Health 3W as PDF',
 						request: {
 							method: 'POST',
 							url: 'http://' + $location.host() + '/api/print',
@@ -71,9 +96,9 @@ angular.module('ngmReportHub')
 							method: 'POST',
 							url: 'http://' + $location.host() + '/api/metrics/set',
 							data: {
-								organization: 'public',
-								username: 'public',
-								email: 'public',
+								organization: $scope.dashboard.user ? $scope.dashboard.organization | 'public',
+								username: $scope.dashboard.user ? $scope.dashboard.username | 'public',
+								email: $scope.dashboard.user ? $scope.dashboard.email | 'public',
 								dashboard: 'health_3w',
 								theme: 'health_3w',
 								format: 'pdf',
