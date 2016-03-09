@@ -189,7 +189,7 @@ angular.module('ngmReportHub')
 												height: 260,
 											},
 											tooltip: {
-												pointFormat: '<b>{point.y:,.0f} km sq</b>'
+												pointFormat: '<b>{point.y:,.0f}</b>'
 											},
 											legend: {
 												enabled: false
