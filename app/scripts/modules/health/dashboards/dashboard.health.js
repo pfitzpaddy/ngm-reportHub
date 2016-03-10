@@ -53,14 +53,64 @@ angular.module('ngmReportHub')
 					'class': 'col s12 m4 l4 hide-on-small-only',
 					downloads: [{
 						type: 'csv',
-						color: 'blue lighten-1',
-						icon: 'assignment',
-						hover: 'Download Health 3W Project Details as PDF',
+						color: 'blue lighten-2',
+						icon: 'account_circle',
+						hover: 'Download Health 3W Project Beneficiaries as CSV',
 						request: {
+							method: 'GET',
+							url: 'http://' + $location.host() + '/api/health/data/beneficiaries',
+							data: {
+								report: 'beneficiaries_' + $scope.dashboard.report
+							}
+						},
+						metrics: {
 							method: 'POST',
+							url: 'http://' + $location.host() + '/api/metrics/set',
+							data: {
+								organization: $scope.dashboard.user ? $scope.dashboard.organization : 'public',
+								username: $scope.dashboard.user ? $scope.dashboard.username : 'public',
+								email: $scope.dashboard.user ? $scope.dashboard.email : 'public',
+								dashboard: 'health_3w',
+								theme: 'health_beneficiaries',
+								format: 'csv',
+								url: $location.$$path
+							}
+						}
+					},{
+						type: 'csv',
+						color: 'blue lighten-2',
+						icon: 'location_on',
+						hover: 'Download Health 3W Project Locations as CSV',
+						request: {
+							method: 'GET',
+							url: 'http://' + $location.host() + '/api/health/data/locations',
+							data: {
+								report: 'locations_' + $scope.dashboard.report
+							}
+						},
+						metrics: {
+							method: 'POST',
+							url: 'http://' + $location.host() + '/api/metrics/set',
+							data: {
+								organization: $scope.dashboard.user ? $scope.dashboard.organization : 'public',
+								username: $scope.dashboard.user ? $scope.dashboard.username : 'public',
+								email: $scope.dashboard.user ? $scope.dashboard.email : 'public',
+								dashboard: 'health_3w',
+								theme: 'health_locations',
+								format: 'csv',
+								url: $location.$$path
+							}
+						}
+					},{
+						type: 'csv',
+						color: 'blue lighten-2',
+						icon: 'assignment',
+						hover: 'Download Health 3W Project Details as CSV',
+						request: {
+							method: 'GET',
 							url: 'http://' + $location.host() + '/api/health/data/details',
 							data: {
-								report: $scope.dashboard.report
+								report: 'details_' + $scope.dashboard.report
 							}
 						},
 						metrics: {
@@ -75,10 +125,10 @@ angular.module('ngmReportHub')
 								format: 'csv',
 								url: $location.$$path
 							}
-						}
+						}						
 					},{
 						type: 'pdf',
-						color: 'blue lighten-1',
+						color: 'blue',
 						icon: 'picture_as_pdf',
 						hover: 'Download Health 3W as PDF',
 						request: {

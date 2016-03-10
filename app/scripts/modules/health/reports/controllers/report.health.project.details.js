@@ -34,9 +34,12 @@ angular.module('ngmReportHub')
 				method: 'POST',
 				url: 'http://' + $location.host() + '/api/health/project/create',
 				data: {
-					organization_id: ngmUser.get().organization_id,
-					user_id: ngmUser.get().id,
-					username: ngmUser.get().username
+					project: {
+						organization_id: ngmUser.get().organization_id,
+						organization: ngmUser.get().organization,
+						username: ngmUser.get().username,
+						email: ngmUser.get().email
+					}
 				}
 			}).then(function(data){
 				// assign data

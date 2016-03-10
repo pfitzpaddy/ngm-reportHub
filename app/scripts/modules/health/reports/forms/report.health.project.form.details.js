@@ -154,9 +154,10 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // push location to locations
           $scope.project.definition.locations.push({
             organization_id: config.project.details.organization_id,
+            organization: config.project.details.organization,
             project_id: config.project.details.id,
-            user_id: ngmUser.get().id,
             username: ngmUser.get().username,
+            email: ngmUser.get().email,
             project_title: config.project.details.project_title,
             prov_code: $scope.project.options.selection.province.prov_code,
             prov_name: $scope.project.options.selection.province.prov_name,
@@ -252,9 +253,12 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           // push to beneficiaries
           $scope.project.definition.beneficiaries.push({
-            username: ngmUser.get().username,
             organization_id: config.project.details.organization_id,
+            organization: config.project.details.organization,
             project_id: config.project.details.id,
+            project_title: config.project.details.project_title,
+            username: ngmUser.get().username,
+            email: ngmUser.get().email,
             beneficiary_name: beneficiary.beneficiary_name,
             beneficiary_category: beneficiary.beneficiary_category
           });

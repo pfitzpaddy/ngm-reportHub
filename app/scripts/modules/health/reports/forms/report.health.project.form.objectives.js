@@ -32,9 +32,11 @@ angular.module('ngm.widget.project.objectives', ['ngm.provider'])
       if(!config.project.objectives){
         // add project details
         config.project.objectives = {
-          username: ngmUser.get().username,
           organization_id: config.project.details.organization_id,
-          project_id: config.project.details.id
+          organization: config.project.details.organization,
+          project_id: config.project.details.id,
+          username: ngmUser.get().username,
+          email: ngmUser.get().email
         }
       }
 
