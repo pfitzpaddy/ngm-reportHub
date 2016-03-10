@@ -276,7 +276,7 @@ angular
 				model: {}
 			},
 
-			// 
+			// top navigation page menu
 			navigationMenu: false,
 
 			// left menu

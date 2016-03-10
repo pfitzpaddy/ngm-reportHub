@@ -110,7 +110,7 @@
 			  		data-collapsible="expandable"
 			  		ng-show="ngm.dashboard.model.menu" ng-cloak>
 
-			  	<li id="li-{{ list.id }}" ng-if="ngm.dashboard.model.menu" ng-repeat="list in ngm.dashboard.model.menu" ng-cloak>
+			  	<li ng-show="ngm.dashboard.model.menu" id="li-{{ list.id }}" ng-repeat="list in ngm.dashboard.model.menu" ng-cloak>
 			  		<div class="collapsible-header {{ list.class }}" ng-click="ngm.toggleSearch(list.id)" ng-cloak>
 			  			<i class="material-icons" ng-cloak>{{ list.icon }}</i>{{ list.title }}
 			  		</div>
@@ -215,7 +215,7 @@
 
 		<!-- ngmapp -->
 		<!-- build:js({.tmp,app}) scripts/scripts.js -->
-		<!-- materialize extras -->
+		<!-- lib extras -->
 		<!-- app -->
 		<script src="scripts/app/app.js"></script>
 		<!-- services -->			

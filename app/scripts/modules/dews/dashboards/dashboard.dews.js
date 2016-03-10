@@ -412,7 +412,7 @@ angular.module('ngmReportHub')
 						config: {
 							options: {
 								// calendar start date
-								start: new Date($scope.dashboard.startDate),
+								start: new Date( moment($scope.dashboard.endDate).subtract(11, 'M').format('YYYY-MM-DD') ),
 								// on click popup
 								onClick: function(date, nb) {
 									if(nb){
@@ -469,7 +469,25 @@ angular.module('ngmReportHub')
 									chart: {
 										height: 120,
 										width: 794,
-										type: 'line'
+										type: 'line',
+										zoomType: 'x',
+										events: {
+											selection: function(event){
+												// if xaxis udpate
+												if(event.xAxis) {
+													// calculate date changes
+													var start = moment($scope.dashboard.startDate).add( event.xAxis[0].min, 'd' ).format('YYYY-MM-DD');
+													var end = moment($scope.dashboard.startDate).add( event.xAxis[0].max, 'd' ).format('YYYY-MM-DD');
+													var path = '/who/dews/' + $route.current.params.location + '/' + $route.current.params.disease + '/' + start + '/' + end;
+													// update
+													$timeout(function() {
+														$location.path(path);
+														$scope.$apply()
+													}, 100);
+
+												}
+											}
+										}
 									},
 									legend: {
 										enabled: false
@@ -486,6 +504,7 @@ angular.module('ngmReportHub')
 									text: ''
 								},
 								xAxis: {
+									// min: Highcharts.dateFormat('%Y-%m-%d', $scope.dashboard.startDate),
 									type: 'category',
 									tickInterval: 60
 								},
