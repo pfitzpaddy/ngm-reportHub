@@ -13,9 +13,17 @@ angular.module('ngmReportHub')
 			'Karma'
 		];
 
+		// loading
+		$('#ngm-loading-modal').openModal({dismissible: false});
+
+		// hide left menu options
+		$('.ngm-profile').css('display', 'none');
+		$('.ngm-profile-btn').css('display', 'none');
+
 		// hide left menu branding
-		$('.ngm-brand').css('display', 'none');
-		$('.ngm-menu-footer').css('display', 'none');
+		// $('.ngm-brand').css('display', 'none');
+		// $('.ngm-navigation-menu').css('margin-top', '160px');
+		// $('.ngm-menu-footer').css('display', 'none');
 
 		// init empty model
 		$scope.model = {
@@ -102,14 +110,47 @@ angular.module('ngmReportHub')
 							style: 'border-bottom: 3px ' + $scope.dashboard.ngm.style.defaultPrimaryColor + ' solid;'
 						},
 						title: {
-							'class': 'col s12 m12 l12 report-title',
+							'class': 'col s12 m8 l8 report-title',
 							title: 'iMMAP | Baseline | ' + $scope.dashboard.data[$route.current.params.province].name,
 							style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 						},
 						subtitle: {
-							'class': 'col s12 m12 l12 report-subtitle',
+							'class': 'col hide-on-small-only m8 l9 report-subtitle',
 							title: 'Baseline Key Indicators for ' + $scope.dashboard.data[$route.current.params.province].name,
 						},
+						download: {
+							'class': 'col s12 m4 l4 hide-on-small-only',
+							downloads: [{
+								type: 'pdf',
+								color: 'blue lighten-1',
+								icon: 'picture_as_pdf',
+								hover: 'Download ' + $scope.dashboard.data[$route.current.params.province].name + ' Report as PDF',
+								request: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/print',
+									data: {
+										report: 'immap-drr-baseline-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
+										printUrl: $location.absUrl(),
+										downloadUrl: 'http://' + $location.host() + '/report/',
+										token: $scope.dashboard.user.token,
+										pageLoadTime: 8400
+									}
+								},						
+								metrics: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/metrics/set',
+									data: {
+										organization: $scope.dashboard.user.organization,
+										username: $scope.dashboard.user.username,
+										email: $scope.dashboard.user.email,
+										dashboard: 'drr',
+										theme: 'baseline',
+										format: 'pdf',
+										url: $location.$$path
+									}
+								}
+							}]
+						}						
 					},
 					menu: [{
 						'search': true,
@@ -360,6 +401,7 @@ angular.module('ngmReportHub')
 		}).then(function(data){
 			// assign data
 			$scope.dashboard.setDashboard(data);
+			$('#ngm-loading-modal').closeModal();
 		});
 		
 	}]);

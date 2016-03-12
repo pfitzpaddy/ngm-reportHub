@@ -1,0 +1,147 @@
+
+<style>
+
+	/* overflow for dropdown */
+	.collection {
+		overflow: visible !important;
+	}
+
+	/* input label */
+	.input-field label,
+	.input-field input:disabled + label {
+		color: #26a69a;
+	}
+	/* valid input */
+	.input-field input.valid {
+		border-bottom: 1px solid #26a69a;
+		box-shadow: 0 1px 0 0 #26a69a;		
+	}
+	/* valid input on focus */
+	.input-field input:focus.valid {
+		border-bottom: 1px solid #4dd0e1;
+		box-shadow: 0 1px 0 0 #4dd0e1;
+	}
+	/* invalid input on focus */
+	.input-field input:focus.invalid {
+		border-bottom: 1px solid #e57373;
+		box-shadow: 0 1px 0 0 #e57373;
+	}
+	/* border for disabled */
+	.input-field input:disabled, .select-wrapper input.select-dropdown:disabled {
+		color: #616161;
+		box-shadow: none !important;
+		border-bottom: 1px dotted rgba(0, 0, 0, 0.26) !important;
+	}
+
+	/* form validation on submit */
+	.ng-submitted .input-field input[type='text'].ng-invalid + label,
+		.ng-submitted .input-field input[type='number'].ng-invalid + label,
+		.ng-submitted .input-field input[type='email'].ng-invalid + label,
+		.ng-submitted .input-field input[type='password'].ng-invalid + label {
+		color: #e57373;
+		font-weight: 400;
+	}
+
+	/* manual class for label error */
+	.input-field.error-label label {
+		color: #e57373;
+		font-weight: 400;		
+	}
+
+
+</style>
+
+<!-- bind html -->
+<div id="ngmResetPanel" class="row">
+	
+	<div class="col l4 m4 s12">
+	 
+	 <div class="ngm-login-title">
+			
+			<h3 style="font-weight:100;padding-left:20px;">Report Hub</h3>
+
+			<div class="card">
+
+				<!-- reset form -->
+		    <div ng-if="!panel.reset">
+		    	
+		    	<form name="ngmResetForm" class="col s12" style="padding:20px;" novalidate>
+			      
+			      <div class="row">
+			        <div class="input-field col s12">
+			        	<i class="material-icons prefix">email</i>
+			          <input id="ngm-email" type="email" class="validate"
+									autofocus=""
+									ng-model="panel.user.email"
+									required>
+			          <label for="ngm-email">Email</label>
+			        </div>
+			      </div>
+
+						<p class="left" style="font-size: 1.3rem;margin-top:0px;padding-bottom:4px;">
+							<a style="color: #;" href="#/health/login"><i class="material-icons prefix">arrow_back</i> Back to login</a>
+						</p>   
+
+						<button
+							style="width: 100%;" 
+							class="btn btn-large waves-effect waves-teal" 
+							type="submit"
+							ng-disabled="!panel.user.email || ngmResetForm.$invalid"
+							ng-click="panel.passwordResetSend(ngmResetForm)">
+									Send me a reminder!
+						</button>
+			    
+			  	</form>	
+
+			  </div>				
+
+
+			  <!-- email sent -->
+				<div ng-if="panel.reset">
+
+					<div class="col s12" style="padding:0px;">
+				   	
+				   	<!-- success -->
+				   	<h5 ng-if="!panel.error.msg" style="font-weight:100;">Reminder Sent!</h5>
+				   	<p ng-if="!panel.error.msg" style="font-weight:300;">
+				   		If we found an account associated with <b style="font-weight:500;">{{ panel.user.email }}</b> you will recieve and email from us shortly
+				   	</p>
+
+				   	<!-- error -->
+						<h5 ng-if="panel.error.msg" style="font-weight:100;">Account Not Found!</h5>
+				   	<p ng-if="panel.error.msg" style="font-weight:300;">
+				   		We couldnt find an account associated with <b style="font-weight:500;">{{ panel.user.email }}</b>
+				   	</p>
+
+				   	<!-- default -->
+				   	<p style="font-weight:300;">
+				   		Having trouble finding your account? Contact <a href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a>
+				   	</p>
+				   	<p align="center" class"font-size:0.6rem;" style="font-weight:300;margin-top:20px;">
+				   		(you can probably close this window now)
+				   	</p>
+			  	</div>
+
+			  </div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="col l8 m8 hide-on-small-only"> 
+		<div class="card center promo blue-grey darken-1" style="height: 456px; padding-top: 10%;">
+			<img ng-if="!panel.reset" title="Search for your account using your ReportHub email" src="images/find-account.png" height="324px"/>
+			<img ng-if="panel.reset" title="Check your ReportHub email account" src="images/invite-sent.png" height="324px"/>
+		</div>
+	</div>
+
+</div>
+
+<div>
+	<div style="background: {{ panel.style.lightPrimaryColor }}; height:20px;"></div>
+	<div style="background: {{ panel.style.defaultPrimaryColor }}; height:60px;">
+		<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>
+	</div>
+</div>

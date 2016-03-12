@@ -115,6 +115,74 @@ angular.module('ngm.widget.html', ['ngm.provider'])
               }
             });            
           }
+        },
+
+        // register fn
+        passwordResetSend: function(ngmResetForm){
+
+          // if $invalid
+          if(ngmResetForm.$invalid){
+            // set submitted for validation
+            ngmResetForm.$setSubmitted();
+          } else {
+            // register
+            ngmAuth.passwordResetSend({ user: $scope.panel.user, url: 'http://' + $location.host() + '/#/health/find/' }).success(function(result) {
+              
+              // go to default org page
+              $scope.panel.reset = true;
+
+              // user toast msg
+              $timeout(function(){
+                Materialize.toast('Email sent!', 3000, 'success');
+              }, 400);
+
+            }).error(function(err) {
+
+              // go to default org page
+              $scope.panel.reset = true;
+
+              // user toast msg
+              $timeout(function(){
+                Materialize.toast('Account not found!', 3000);
+              }, 400);              
+
+              // update 
+              $scope.panel.error = {
+                msg: 'There has been a reset issue, please contact the administrator!'
+              }
+            });
+          }
+
+        },
+
+        // register fn
+        passwordReset: function(ngmResetPasswordForm, token){
+
+          // if $invalid
+          if(ngmResetPasswordForm.$invalid){
+            // set submitted for validation
+            ngmResetPasswordForm.$setSubmitted();
+          } else {
+            // register
+            ngmAuth.passwordReset({ reset: $scope.panel.user, token: token }).success(function(result) {
+
+              // go to default org page 
+              $location.path( '/' + result.app_home );
+
+              // user toast msg
+              $timeout(function(){
+                Materialize.toast('Welcome back ' + result.username + '!', 3000, 'note');
+              }, 2000);
+
+
+            }).error(function(err) {
+              // update 
+              $scope.panel.error = {
+                msg: 'There has been an error, please contact <a href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a>'
+              }
+            });
+          }
+
         }
 
       };

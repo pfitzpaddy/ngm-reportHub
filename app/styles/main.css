@@ -28,6 +28,7 @@ header, main, footer {
 }
 h1, h2, h3, h4, h5, p {
 	color: #616161;
+	font-weight: 300;
 }
 
 /* ROW SPACING */
@@ -47,8 +48,8 @@ h1, h2, h3, h4, h5, p {
 }
 .ngm-login-title {
 	color:#616161;
-	padding-top: 15px;
-	text-align: center;
+	padding: 15px;
+	/*text-align: center;*/
 }
 .ngm-menu-footer {
 	width: 280px;

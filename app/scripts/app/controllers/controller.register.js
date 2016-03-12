@@ -35,7 +35,7 @@ angular.module('ngmReportHub')
 				title: {
 					'class': 'col s12 m12 l12 report-title',
 					style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
-					title: 'Welcome'
+					title: 'Register'
 				},
 				subtitle: {
 					'class': 'col s12 m12 l12 report-subtitle',

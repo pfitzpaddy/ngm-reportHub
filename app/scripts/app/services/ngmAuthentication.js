@@ -84,9 +84,35 @@ angular.module('ngmReportHub')
 				return register;
 			},
 
-			logout: function() {
+			passwordResetSend: function(user) {
 
-				// ngm?
+				var reset = $http({
+					method: 'POST',
+					url: 'http://' + $location.host() + '/api/send-email',
+					data: user
+				});		
+
+				return reset;
+			},
+
+			passwordReset: function(user) {
+				
+				// set the $http object
+				var reset = $http({
+					method: 'POST',
+					url: 'http://' + $location.host() + '/api/password-reset',
+					data: user
+				});
+
+				// on success store in localStorage
+				reset.success(function(result) {
+					ngmUser.set(result);
+				});
+
+				return reset;
+			},
+
+			logout: function() {
 
 				// rotate icon
 				$('.ngm-profile-icon').toggleClass('rotate');
@@ -96,11 +122,10 @@ angular.module('ngmReportHub')
 	    	// toggle menu dropdown
 				$('.ngm-profile-menu-content').slideToggle();
 
-
-
 				// unset token, backend dosnt care about logouts 
 				ngmUser.unset('auth_token');
 				$location.path( '/' + $location.$$path.split('/')[1] + '/login' );
+
 			},
 
 			isPublic: function( role ) {

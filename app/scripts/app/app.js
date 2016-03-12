@@ -76,6 +76,27 @@ angular
 					}],
 				}
 			})
+			// health reset
+			.when( '/health/find', {
+				templateUrl: '/views/dashboard.html',
+				controller: 'DashboardResetCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAnonymous();
+					}],
+				}
+			})
+			// health reset with token
+			.when( '/health/find/:token', {
+				templateUrl: '/views/dashboard.html',
+				controller: 'DashboardResetCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAnonymous();
+					}],
+				}
+			})			
+
 			// health project list
 			.when( '/health/projects', {
 				templateUrl: '/views/dashboard.html',
@@ -259,7 +280,21 @@ angular
 
           return sum;
       };
-  })	
+  })
+  .directive('pwCheck', [function () {
+    return {
+      require: 'ngModel',
+      link: function (scope, elem, attrs, ctrl) {
+        var firstPassword = '#' + attrs.pwCheck;
+        elem.add(firstPassword).on('keyup', function () {
+          scope.$apply(function () {
+            var v = elem.val()===$(firstPassword).val();
+            ctrl.$setValidity('pwmatch', v);
+          });
+        });
+      }
+    }
+  }])
 	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', 'ngmAuth', 'ngmUser', function ($scope, $route, $location, ngmAuth, ngmUser) {
 
 		// ngm object
