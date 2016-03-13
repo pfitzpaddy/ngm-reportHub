@@ -140,9 +140,9 @@ angular.module('ngmReportHub')
 									method: 'POST',
 									url: 'http://' + $location.host() + '/api/metrics/set',
 									data: {
-										organization: $scope.dashboard.user.organization,
-										username: $scope.dashboard.user.username,
-										email: $scope.dashboard.user.email,
+										organization: $scope.dashboard.user ? $scope.dashboard.organization : 'public',
+										username: $scope.dashboard.user ? $scope.dashboard.username : 'public',
+										email: $scope.dashboard.user ? $scope.dashboard.email : 'public',
 										dashboard: 'drr',
 										theme: 'baseline',
 										format: 'pdf',
