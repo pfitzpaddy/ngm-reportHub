@@ -1,0 +1,27 @@
+
+<style>
+
+	.tabs .tab a {
+		color: #26a69a;
+	}
+
+  .tabs .tab a:hover {
+    color: #b2dfdb;
+  };
+
+</style>
+
+<div class="slide-animate">
+
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li ng-repeat="item in tabs.list" class="tab col {{ item.col }}"><a href="{{ item.href }}">{{ item.title }}</a></li>
+      </ul>
+    </div>
+  </div>  
+
+</div>
+
+
+

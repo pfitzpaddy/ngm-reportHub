@@ -192,6 +192,22 @@ angular.module('ngmReportHub')
 					}],
 					rows: [{
 						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'tabs',
+								'style': 'padding-top: 10px;',
+								config: {
+									color: $scope.dashboard.ngm.style.darkPrimaryColor,
+									list: [{
+										col: 's12',
+										title: 'Baseline',
+										href: '#/immap/drr/baseline/afghanistan'
+									}]
+								}
+							}]
+						}]
+					},{
+						columns: [{
 							styleClass: 's12 m12 l3',
 							widgets: [{
 								type: 'stats',

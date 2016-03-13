@@ -12,8 +12,8 @@
   <nav id="ngm-breadcrumb">
     <div class="nav-wrapper white">
       <div class="col s12" style="padding-left: 30px;">
-      	<a ng-repeat="list in breadcrumb.list" href="{{ list.href }}" class="breadcrumb" style="color: {{ breadcrumb.color }}">
-      		{{ list.title }}
+      	<a ng-repeat="item in breadcrumb.list" href="{{ item.href }}" class="breadcrumb" style="color: {{ breadcrumb.color }}">
+      		{{ item.title }}
       	</a>
       </div>
     </div>

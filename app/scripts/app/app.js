@@ -32,7 +32,8 @@ angular
 		'ngm.widget.project.financials',
 		'ngm.widget.project.objectives',
 		'ngm.widget.stats',
-		'ngm.widget.table'
+		'ngm.widget.table',
+		'ngm.widget.tabs'
 	])
 	.config([ '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
