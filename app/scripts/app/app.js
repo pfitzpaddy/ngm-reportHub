@@ -210,6 +210,16 @@ angular
 					}],
 				}
 			})
+			.when( '/immap/drr/baseline/:province/:district', {
+				templateUrl: '/views/dashboard.html',
+				controller: 'DashboardBaselineCtrl',				
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) {
+						return ngmAuth.isPublic();
+					}],
+				}
+			})
+
 			// Watchkeeper
 			.when( '/immap/watchkeeper/:country/:start/:end', {
 				reloadOnSearch: false,

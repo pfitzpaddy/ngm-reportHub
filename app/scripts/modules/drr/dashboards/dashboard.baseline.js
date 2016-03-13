@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardBaselineCtrl', ['$scope', '$http', '$route', '$location', 'ngmUser', 'ngmData', function ($scope, $http, $route, $location, ngmUser, ngmData) {
+	.controller('DashboardBaselineCtrl', ['$scope', '$http', '$route', '$location', '$filter', '$timeout', 'ngmUser', 'ngmData', function ($scope, $http, $route, $location, $filter, $timeout, ngmUser, ngmData) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -79,7 +79,7 @@ angular.module('ngmReportHub')
 			},
 
 			// rows for floodRisk menu
-			getRows: function() {
+			getProvinceRows: function() {
 				
 				// menu rows
 				var rows = [];
@@ -98,8 +98,38 @@ angular.module('ngmReportHub')
 				return rows;
 			},
 
+			// rows for floodRisk menu
+			getDistrictRows: function() {
+				
+				// menu rows
+				var rows = [];
+
+				// for each disease
+				angular.forEach($scope.dashboard.districts, function(d, key){
+					rows.push({
+						'title': d.name,
+						'param': 'district',
+						'active': key,
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '#/immap/drr/baseline/' + $route.current.params.province + '/' + key
+					});
+				});
+
+				return rows;
+			},
+
 			// set dashboards
 			setDashboard: function(data) {
+
+				// title
+				var title = 'iMMAP | Baseline | ' + $scope.dashboard.data[$route.current.params.province].name;
+				var subtitle = 'Baseline Key Indicators for ' + $scope.dashboard.data[$route.current.params.province].name;
+
+				// add district to title
+				if ($route.current.params.district) {
+					title += ' | ' + $scope.dashboard.districts[$route.current.params.district].name;
+					subtitle += ', ' + $scope.dashboard.districts[$route.current.params.district].name;
+				}
 
 				// FloodRisk dashboard model
 				$scope.model = {
@@ -111,12 +141,12 @@ angular.module('ngmReportHub')
 						},
 						title: {
 							'class': 'col s12 m8 l8 report-title',
-							title: 'iMMAP | Baseline | ' + $scope.dashboard.data[$route.current.params.province].name,
+							title:  title,
 							style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 						},
 						subtitle: {
 							'class': 'col hide-on-small-only m8 l9 report-subtitle',
-							title: 'Baseline Key Indicators for ' + $scope.dashboard.data[$route.current.params.province].name,
+							title: subtitle,
 						},
 						download: {
 							'class': 'col s12 m4 l4 hide-on-small-only',
@@ -154,11 +184,11 @@ angular.module('ngmReportHub')
 					},
 					menu: [{
 						'search': true,
-						'id': 'search-flood-place',
+						'id': 'search-baseline-privince',
 						'icon': 'place',
 						'title': 'Province',
 						'class': 'teal lighten-1 white-text',
-						'rows': $scope.dashboard.getRows()
+						'rows': $scope.dashboard.getProvinceRows()
 					}],
 					rows: [{
 						columns: [{
@@ -378,6 +408,17 @@ angular.module('ngmReportHub')
 
 				};
 
+				if ($scope.dashboard.flag === 'currentProvince') {
+					$scope.model.menu[1] = {
+						'search': true,
+						'id': 'search-baseline-district',
+						'icon': 'place',
+						'title': 'District',
+						'class': 'teal lighten-1 white-text',
+						'rows': $scope.dashboard.getDistrictRows()
+					};
+				}
+
 				// assign to ngm app scope
 				$scope.dashboard.ngm.dashboard.model = $scope.model;				
 
@@ -387,6 +428,33 @@ angular.module('ngmReportHub')
 
 		// flag for geonode API
 		$scope.dashboard.flag = $scope.dashboard.data[$route.current.params.province].id === '*' ? 'entireAfg' : 'currentProvince';
+
+		// if province selected, get districts
+		if($scope.dashboard.flag === 'currentProvince'){
+
+			// request data
+			ngmData.get({
+				method: 'GET',
+				url: 'http://' + $location.host() + '/api/health/getDistrictsList'
+			}).then(function(data){
+				
+				// set $scope districts
+				$scope.dashboard.districts = {}
+				// filter districts by province
+				var districts = $filter('filter')(data, { prov_code: $scope.dashboard.data[$route.current.params.province].id }, true);;
+				// format data
+				angular.forEach(districts, function(d, i){
+
+					// url key
+					var key = d.dist_name.toLowerCase().replace(' ', '-');
+
+					// create object
+					$scope.dashboard.districts[key] = { id: d.dist_code, name: d.dist_name }
+
+				});
+			});
+
+		}
 
 		// request data
 		ngmData.get({
@@ -401,6 +469,9 @@ angular.module('ngmReportHub')
 		}).then(function(data){
 			// assign data
 			$scope.dashboard.setDashboard(data);
+			$timeout(function() {
+				$('#ngm-report-title').css('font-size', '2.56rem');
+			}, 200);
 			$('#ngm-loading-modal').closeModal();
 		});
 		
