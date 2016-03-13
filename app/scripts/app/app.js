@@ -252,6 +252,11 @@ angular
 	}])
 	.run(['$rootScope', '$location', 'ngmAuth', 'ngmUser', function($rootScope, $location, ngmAuth, ngmUser) {
 
+		// check minutes since last login
+		if (ngmUser.get()) {
+			ngmAuth.setSessionTimeout(ngmUser.get());
+		}
+
 		// when error on route update redirect
 		$rootScope.$on('$routeChangeError' , function(event, current, previous, rejection) {
 
@@ -295,7 +300,7 @@ angular
       }
     }
   }])
-	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', 'ngmAuth', 'ngmUser', function ($scope, $route, $location, ngmAuth, ngmUser) {
+	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', '$http', '$timeout', 'ngmAuth', 'ngmUser', function ($scope, $route, $location, $http, $timeout, ngmAuth, ngmUser) {
 
 		// ngm object
 		$scope.ngm = {
@@ -411,7 +416,34 @@ angular
 			// app functions
 			logout: function() {
 				ngmAuth.logout();
-			},	
+			},
+
+			//
+			updateSession: function(){
+
+				// close modal
+				$('#ngm-session-modal').closeModal();
+
+				// set the $http object
+				var update = $http({
+					method: 'POST',
+					url: 'http://' + $location.host() + '/api/update',
+					data: { user: ngmUser.get() }
+				});
+
+				// on success store in localStorage
+				update.success(function(user) {
+					// update user/session
+					ngmUser.set(user);
+					ngmAuth.setSessionTimeout(user);
+
+          // user toast msg
+          $timeout(function(){
+            Materialize.toast('Your session is now updated!', 3000, 'success');
+          }, 2000);
+
+				});
+			},
 
 			// open contact modal
 			contact: function() {

@@ -44,9 +44,14 @@
 			</div>
 		</div>	
 
-		<!-- export loading modal -->
+		<!-- contact modal -->
 		<div id="ngm-contact-modal" class="modal">
 			<div align="center" ng-include src="'views/modals/contact.html'"></div>
+		</div>
+
+		<!-- session expire modal -->
+		<div id="ngm-session-modal" class="modal">
+			<div align="center" ng-include src="'views/modals/session.html'"></div>
 		</div>
 		
 		<!--[if lte IE 8]>
@@ -163,7 +168,7 @@
 			</div>
 
 			<!-- make footer visible when menu visibile  -->
-			<div class="ngm-menu-footer">
+			<div class="ngm-menu-footer hide-on-small-only">
 				<div style="background: {{ ngm.style.lightPrimaryColor }}; height:20px;"></div>
 				<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:40px;"></div>
 			</div>			
