@@ -39,6 +39,9 @@ angular.module('ngmReportHub')
 			// current user
 			user: ngmUser.get(),
 
+			// current report
+			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
+
 			// data lookup
 			data: {
 				'afghanistan': {'id':'*','name':'Afghanistan'},
@@ -159,7 +162,7 @@ angular.module('ngmReportHub')
 									method: 'POST',
 									url: 'http://' + $location.host() + '/api/print',
 									data: {
-										report: 'immap-drr-baseline-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
+										report: $scope.dashboard.report,
 										printUrl: $location.absUrl(),
 										downloadUrl: 'http://' + $location.host() + '/report/',
 										token: 'public',
