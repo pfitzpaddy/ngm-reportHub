@@ -132,7 +132,7 @@ angular.module('ngmReportHub')
 										report: 'immap-drr-baseline-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
 										printUrl: $location.absUrl(),
 										downloadUrl: 'http://' + $location.host() + '/report/',
-										token: $scope.dashboard.user.token,
+										token: 'public',
 										pageLoadTime: 8400
 									}
 								},						
