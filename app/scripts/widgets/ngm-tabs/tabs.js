@@ -44,11 +44,6 @@ angular.module('ngm.widget.tabs', ['ngm.provider'])
 
       // Merge defaults with config
       $scope.tabs = angular.merge({}, $scope.tabs, config);
-      
-      // init tabs
-      // $timeout(function(){
-      //   $('ul.tabs').tabs();
-      // }, 200);
 
   }
 ]);
