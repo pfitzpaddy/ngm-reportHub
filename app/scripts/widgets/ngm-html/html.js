@@ -125,7 +125,13 @@ angular.module('ngm.widget.html', ['ngm.provider'])
             // set submitted for validation
             ngmResetForm.$setSubmitted();
           } else {
-            // register
+
+            // user toast msg
+            $timeout(function(){
+              Materialize.toast('Your email is being prepared!', 3000, 'note');
+            }, 1000);            
+
+            // resend password email
             ngmAuth.passwordResetSend({ user: $scope.panel.user, url: 'http://' + $location.host() + '/#/health/find/' }).success(function(result) {
               
               // go to default org page

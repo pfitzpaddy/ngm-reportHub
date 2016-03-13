@@ -392,8 +392,9 @@ angular
 														+	'<div style="background: ' + $scope.ngm.style.lightPrimaryColor + '; height:20px;"></div>'
 														+	'<div style="background: ' + $scope.ngm.style.defaultPrimaryColor + '; height:60px;">'
 															+	'<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>'
-															+ '<p id="ngm-report-extracted" style="display: none; color:white; font-weight:100; float:right; padding-right:20px;">' +moment(new Date()).format('DD MMM, YYYY') + '</p>'															
-														+	'</div>';
+															+ '<p id="ngm-contact" style="display: block; float:right; padding-right:20px;"><a class="waves-effect waves-teal btn-flat" style="color:white;" onclick="contact()"><i class="material-icons left" style="color:white;">perm_contact_calendar</i>Contact</a></p>'
+															+ '<p id="ngm-report-extracted" style="display: none; color:white; font-weight:100; float:right; padding-right:20px;">' +moment(new Date()).format('DD MMM, YYYY') + '</p>'													
+														+	'</div>'
 													+	'</div>';
 
 			},
@@ -410,7 +411,13 @@ angular
 			// app functions
 			logout: function() {
 				ngmAuth.logout();
-			},						
+			},	
+
+			// open contact modal
+			contact: function() {
+				// open modal
+				$('#ngm-contact-modal').openModal({dismissible: false});
+			},
 
 			// Detect touch screen and enable scrollbar if necessary
 			isTouchDevice: function () {

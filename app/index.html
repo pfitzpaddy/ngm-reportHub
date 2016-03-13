@@ -40,9 +40,14 @@
 		<!-- export loading modal -->
 		<div id="ngm-loading-modal" class="modal">
 			<div class="modal-content">
-				<div align="center" ng-include src="'views/loading.html'"></div>
+				<div align="center" ng-include src="'views/modals/loading.html'"></div>
 			</div>
-		</div>		
+		</div>	
+
+		<!-- export loading modal -->
+		<div id="ngm-contact-modal" class="modal">
+			<div align="center" ng-include src="'views/modals/contact.html'"></div>
+		</div>
 		
 		<!--[if lte IE 8]>
 			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -90,6 +95,13 @@
 										<i class="medium material-icons">lock_open</i>
 										<br/>LOGOUT</a>
 									</li>
+
+									<!-- contact modal -->
+									<li  align="center" class="teal z-depth-2">
+										<a class="white-text" ng-click="ngm.contact()">
+										<i class="medium material-icons">perm_contact_calendar</i>
+										<br/>CONTACT REPORTHUB</a>
+									</li>									
 
 									<!-- navigation options repeat -->
 									<!-- <div ng-init="$menu = ngm.getUserMenu()"> -->
@@ -176,7 +188,14 @@
 		  ga('create', 'UA-70463271-1', 'auto');
 		  ga('send', 'pageview');
 
-		</script>		
+		</script>
+
+		<script>
+			// open contact modal from footer
+			function contact(){
+				$('#ngm-contact-modal').openModal({dismissible: false});
+			}
+		</script
 
 		<!-- vendor -->
 		<!-- build:js(.) scripts/vendor.js -->
