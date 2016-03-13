@@ -39,6 +39,8 @@ angular.module('ngmReportHub')
 			// current user
 			user: ngmUser.get(),
 
+			pdfPrintPageLoadTime: 8400, 
+
 			// current report
 			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
 
@@ -130,9 +132,19 @@ angular.module('ngmReportHub')
 
 				// add district to title
 				if ($route.current.params.district) {
+					// pdf print load
+					$scope.dashboard.pdfPrintPageLoadTime = 6400;
+					// title
 					title += ' | ' + $scope.dashboard.districts[$route.current.params.district].name;
 					subtitle += ', ' + $scope.dashboard.districts[$route.current.params.district].name;
+				} else {
+					// pdf print load
+					if ($route.current.params.province === 'afghanistan') {
+						$scope.dashboard.pdfPrintPageLoadTime = 10400;
+					}
 				}
+
+				console.log($scope.dashboard.pdfPrintPageLoadTime)
 
 				// FloodRisk dashboard model
 				$scope.model = {
@@ -153,9 +165,10 @@ angular.module('ngmReportHub')
 						},
 						download: {
 							'class': 'col s12 m4 l4 hide-on-small-only',
+							btnColor: 'blue',
 							downloads: [{
 								type: 'pdf',
-								color: 'blue lighten-1',
+								color: 'blue lighten-2',
 								icon: 'picture_as_pdf',
 								hover: 'Download ' + $scope.dashboard.data[$route.current.params.province].name + ' Report as PDF',
 								request: {
@@ -166,7 +179,7 @@ angular.module('ngmReportHub')
 										printUrl: $location.absUrl(),
 										downloadUrl: 'http://' + $location.host() + '/report/',
 										token: 'public',
-										pageLoadTime: 8400
+										pageLoadTime: $scope.dashboard.pdfPrintPageLoadTime
 									}
 								},						
 								metrics: {
@@ -190,7 +203,7 @@ angular.module('ngmReportHub')
 						'id': 'search-baseline-privince',
 						'icon': 'place',
 						'title': 'Province',
-						'class': 'teal lighten-1 white-text',
+						'class': 'blue white-text',
 						'rows': $scope.dashboard.getProvinceRows()
 					}],
 					rows: [{
@@ -433,7 +446,7 @@ angular.module('ngmReportHub')
 						'id': 'search-baseline-district',
 						'icon': 'place',
 						'title': 'District',
-						'class': 'teal lighten-1 white-text',
+						'class': 'blue white-text',
 						'rows': $scope.dashboard.getDistrictRows()
 					};
 				}

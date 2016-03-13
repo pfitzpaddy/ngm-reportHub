@@ -233,7 +233,7 @@ angular
 				}
 			})				
 			.when( '/immap', {
-				redirectTo: '/immap/watchkeeper/kenya/2015-11-01/2015-11-30'
+				redirectTo: '/immap/drr/baseline/afghanistan'
 			})
 			.when( '/immap/watchkeeper', {
 				redirectTo: '/immap/watchkeeper/kenya/2015-11-01/2015-11-30'
