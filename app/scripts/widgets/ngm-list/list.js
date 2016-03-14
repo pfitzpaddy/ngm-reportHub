@@ -55,11 +55,25 @@ angular.module('ngm.widget.list', ['ngm.provider'])
         // paginate id
         id: config.id ? config.id : 'ngm-paginate-' + Math.floor((Math.random()*1000000)),
 
+        // search
+        search: {
+          filter: '',
+          focused: false
+        },
+
         // default params
         itemsPerPage: 5,
         
         // src template
         templateUrl: '/scripts/widgets/ngm-list/template/default.html',
+
+        // expand search box
+        toggleSearch: function($event) {;
+          // focus search
+          $('#search_' + $scope.list.id).focus();
+          $scope.list.search.focused = $scope.list.search.focused ? false : true;
+
+        }
 
       };
 
