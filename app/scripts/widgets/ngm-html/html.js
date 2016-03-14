@@ -83,7 +83,7 @@ angular.module('ngm.widget.html', ['ngm.provider'])
             }).error(function(err) {
               // update 
               $scope.panel.error = {
-                msg: 'The email and password you entered is not correct'
+                msg: 'Email/password is not correct'
               }
             });
           }

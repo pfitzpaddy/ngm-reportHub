@@ -148,12 +148,12 @@
 	<div class="slide-animate" ng-include="project.locationsUrl"></div>	
 
 	<!-- Project beneficiaries details -->
-	<div class="slide-animate" ng-include="project.beneficiariesUrl"></div>		
+	<div class="slide-animate" ng-include="project.beneficiariesUrl"></div>	
 
 	<!-- form submission -->
 	<div class="row" ng-if="project.definition.details.project_status !== 'complete'">
 		<div class="col s12 m12 l12">
-			<div class="widget card-panel white grey-text text-darken-2">
+			<div class="widget card-panel white grey-text text-darken-2">			
 				
 				<!-- submission -->
 				<div align="center">
@@ -161,12 +161,19 @@
 					<button data-target="save-modal" class="waves-effect waves-light btn"
 						ng-click="project.save()"
 						ng-disabled="
-								( healthProjectForm.$pristine ) ||
-								( healthProjectForm.$invalid ) || 
-								( project.definition.locations.length === 0 ) || 
-								( project.definition.beneficiaries.length === 0 ) ||
-								( healthProjectForm.$submitted && healthProjectForm.$invalid ) ||
-								( healthProjectForm.$submitted && ( project.definition.locations.length === 0 || project.definition.beneficiaries.length === 0 ) )"
+								project.definition.details.project_status === 'new' && (
+									( healthProjectForm.$pristine ) ||
+									( healthProjectForm.$invalid ) || 
+									( project.definition.locations.length === 0 ) || 
+									( project.definition.beneficiaries.length === 0 ) ||
+									( healthProjectForm.$submitted && healthProjectForm.$invalid ) ||
+									( healthProjectForm.$submitted && ( project.definition.locations.length === 0 || project.definition.beneficiaries.length === 0 ) )
+								) ||
+								project.definition.details.project_status === 'active' && (	
+									( healthProjectForm.$invalid ) || 
+									( project.definition.locations.length === 0 ) || 
+									( project.definition.beneficiaries.length === 0 ) 
+								)"
 						ng-cloak><i class="material-icons right">send</i>Save</button>
 
 					<!-- cancel new -->

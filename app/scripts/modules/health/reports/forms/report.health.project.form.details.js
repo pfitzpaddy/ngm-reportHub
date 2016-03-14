@@ -245,7 +245,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
         },
 
-        // 
+        // add beneficiary
         addBeneficiary: function() {
 
           // copy selection
@@ -275,6 +275,12 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             $('#ngm-beneficiary-category').material_select('update');
           }, 10);
 
+        },
+
+        // remove beneficiary
+        removeBeneficiary: function($index) {
+          // remove location at i
+          $scope.project.definition.beneficiaries.splice($index, 1);
         },
 
         // cofirm exit if changes

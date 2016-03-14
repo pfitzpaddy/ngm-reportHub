@@ -70,7 +70,7 @@
 						<h5 class="report-work-title" style="font-size:1.1rem;">{{ project.definition.locations.length }} Selected Locations</h5>
 
 						<!-- table for location -->
-						<table class="centered" style="margin-left:10px; width:98%">
+						<table class="responsive-table centered" style="margin-left:10px; width:98%">
 						  <tbody>
 						    <tr ng-repeat="location in project.definition.locations track by $index">
 						    	<td width="5%"><i class="material-icons" style="color: teal;">location_on</i></td>
@@ -78,7 +78,8 @@
 						      <td width="22%">{{ location.dist_name }}</td>
 						      <td width="22%">{{ location.fac_type }}</td>
 						      <td width="22%">{{ location.fac_name }}</td>
-						      <td width="5%"><a class="waves-effect waves-light btn red lighten-2" 
+						      <td width="5%"><a class="waves-effect waves-light btn red lighten-2"
+						      	title="Remove Location {{ location.fac_name }}"
 						      	ng-if="project.definition.details.project_status !== 'complete'"
 						      	ng-click="project.removeLocation($index)"><i class="material-icons">cancel</i></a></td>
 						    </tr>

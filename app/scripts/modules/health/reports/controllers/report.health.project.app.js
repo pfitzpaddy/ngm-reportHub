@@ -111,13 +111,12 @@ angular.module('ngmReportHub')
 				columns: [{
 					styleClass: 's12 m12 l12',
 					widgets: [{
-						type: 'html',
+						type: 'list',
 						card: 'card-panel white grey-text text-darken-2',
 						config: {
 							title: 'Active',
 							icon: 'edit',
 							newProjectUrl: $scope.report.newProjectUrl,
-							templateUrl: '/views/modules/health/views/health.project.list.html',							
 							request: {
 								method: 'POST',
 								url: 'http://' + $location.host() + '/api/health/project/getProjectList',
@@ -133,15 +132,13 @@ angular.module('ngmReportHub')
 				columns: [{
 					styleClass: 's12 m12 l12',
 					widgets: [{
-						type: 'html',
+						type: 'list',
 						card: 'card-panel white grey-text text-darken-2',
 						style: 'padding-bottom: 50px;',
 						config: {
 							title: 'Complete',
 							icon: 'done',
-							// page: true,
 							newProjectUrl: $scope.report.newProjectUrl,
-							templateUrl: '/views/modules/health/views/health.project.list.html',							
 							request: {
 								method: 'POST',
 								url: 'http://' + $location.host() + '/api/health/project/getProjectList',

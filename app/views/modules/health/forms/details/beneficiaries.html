@@ -32,12 +32,19 @@
 
 			      	<div class="row">
 
-			      		<div class="input-field col s12">
+			      		<div class="input-field col s12 m11">
 				          <input id="ngm-project-category-{{$index}}" type="text" class="validate"
 				          	ng-model="beneficiary.beneficiary_name"
 				          	disabled>
 				          <label for="ngm-project-category-{{$index}}">Beneficaries</label>
 			      		</div>
+
+			      		<div class="col s12 m1">
+									<a class="waves-effect waves-light btn red lighten-2 right"
+											title="Remove Beneficiary {{ beneficiary.beneficiary_name }}"
+							      	ng-if="project.definition.details.project_status !== 'complete'"
+							      	ng-click="project.removeBeneficiary($index)"><i class="material-icons">cancel</i></a>
+							   </div>
 
 			      	</div>
 

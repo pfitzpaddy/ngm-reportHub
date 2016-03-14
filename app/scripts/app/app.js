@@ -28,6 +28,8 @@ angular
 		'ngm.widget.html',
 		'ngm.widget.iframe',
 		'ngm.widget.leaflet',
+		'ngm.widget.list',
+		'angularUtils.directives.dirPagination',
 		'ngm.widget.project.details',
 		'ngm.widget.project.financials',
 		'ngm.widget.project.objectives',
