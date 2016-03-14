@@ -211,11 +211,12 @@ angular.module('ngmReportHub')
 									tabs: [{
 										col: 's12 m6',
 										title: 'Baseline',
-										href: '#/immap/drr/baseline/afghanistan'
+										'class': 'active',
+										href: '/immap/drr/baseline/afghanistan'
 									},{
 										col: 's12 m6',
 										title: 'Flood Risk',
-										href: '#/immap/drr/flood-risk/afghanistan'
+										href: '/immap/drr/flood-risk/afghanistan'
 									}]
 								}
 							}]

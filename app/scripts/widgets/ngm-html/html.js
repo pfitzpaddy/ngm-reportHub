@@ -59,7 +59,18 @@ angular.module('ngm.widget.html', ['ngm.provider'])
         html: '',
         
         // src template
-        templateUrl: '/scripts/widgets/ngm-html/template/default.html'
+        templateUrl: '/scripts/widgets/ngm-html/template/default.html',
+
+        // toggle tab
+        toggleTab: function(href){
+
+          // update location
+          $timeout(function() {
+            $location.path(href);
+            $scope.$apply();
+          }, 400);
+
+        }
 
       };
 
@@ -72,6 +83,12 @@ angular.module('ngm.widget.html', ['ngm.provider'])
       // trust html
       $scope.panel.html = $sce.trustAsHtml($scope.panel.html);
 
+      // init tabs
+      if ($scope.panel.tabs) {
+        $timeout(function() {
+          $('ul.tabs').tabs();
+        }, 400);
+      }
   }
 ]);
 

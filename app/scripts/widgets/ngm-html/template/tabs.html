@@ -7,21 +7,27 @@
 
   .tabs .tab a:hover {
     color: #81d4fa;
-  };
+  }
+
+  .tabs .indicator {
+    background-color: #2196f3;
+  }
 
 </style>
 
 <div class="slide-animate">
 
-<div id="ngm-tabs">
-  <div class="row">
-    <div class="col s12">
-      <ul class="tabs">
-        <li ng-repeat="item in panel.tabs" class="tab col {{ item.col }}"><a href="{{ item.href }}">{{ item.title }}</a></li>
-      </ul>
+  <div id="ngm-tabs">
+    <div class="row">
+      <div class="col s12">
+        <ul class="tabs">
+          <li ng-repeat="item in panel.tabs" class="tab col {{ item.col }}">
+            <a class="{{ item.class }}" style="cursor: pointer;" ng-click="panel.toggleTab(item.href)">{{ item.title }}</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</div> 
+  </div> 
 
 </div>
 
