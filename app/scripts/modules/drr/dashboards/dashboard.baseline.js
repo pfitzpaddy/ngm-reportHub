@@ -20,17 +20,12 @@ angular.module('ngmReportHub')
 		$('.ngm-profile').css('display', 'none');
 		$('.ngm-profile-btn').css('display', 'none');
 
-		// hide left menu branding
-		// $('.ngm-brand').css('display', 'none');
-		// $('.ngm-navigation-menu').css('margin-top', '160px');
-		// $('.ngm-menu-footer').css('display', 'none');
-
 		// init empty model
 		$scope.model = {
 			rows: [{}]
 		};
 
-		// floodRisk object
+		// baseline object
 		$scope.dashboard = {
 
 			// parent
@@ -144,9 +139,7 @@ angular.module('ngmReportHub')
 					}
 				}
 
-				console.log($scope.dashboard.pdfPrintPageLoadTime)
-
-				// FloodRisk dashboard model
+				// baseline dashboard model
 				$scope.model = {
 					name: 'drr_baseline_dashboard',
 					header: {
@@ -181,7 +174,7 @@ angular.module('ngmReportHub')
 										token: 'public',
 										pageLoadTime: $scope.dashboard.pdfPrintPageLoadTime
 									}
-								},						
+								},
 								metrics: {
 									method: 'POST',
 									url: 'http://' + $location.host() + '/api/metrics/set',
@@ -215,9 +208,13 @@ angular.module('ngmReportHub')
 								config: {
 									color: $scope.dashboard.ngm.style.darkPrimaryColor,
 									list: [{
-										col: 's12',
+										col: 's12 m6',
 										title: 'Baseline',
 										href: '#/immap/drr/baseline/afghanistan'
+									},{
+										col: 's12 m6',
+										title: 'Flood Risk',
+										href: '#/immap/drr/flood-risk/afghanistan'
 									}]
 								}
 							}]
@@ -452,7 +449,7 @@ angular.module('ngmReportHub')
 				}
 
 				// assign to ngm app scope
-				$scope.dashboard.ngm.dashboard.model = $scope.model;				
+				$scope.dashboard.ngm.dashboard.model = $scope.model;
 
 			}
 

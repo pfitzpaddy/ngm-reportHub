@@ -222,6 +222,25 @@ angular
 					}],
 				}
 			})
+			// DRR FLOOD-RISK
+			.when( '/immap/drr/flood-risk/:province', {
+				templateUrl: '/views/dashboard.html',
+				controller: 'DashboardFloodRiskCtrl',				
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) {
+						return ngmAuth.isPublic();
+					}],
+				}
+			})
+			.when( '/immap/drr/flood-risk/:province/:district', {
+				templateUrl: '/views/dashboard.html',
+				controller: 'DashboardFloodRiskCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) {
+						return ngmAuth.isPublic();
+					}],
+				}
+			})			
 
 			// Watchkeeper
 			.when( '/immap/watchkeeper/:country/:start/:end', {

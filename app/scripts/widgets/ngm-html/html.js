@@ -83,7 +83,7 @@ angular.module('ngm.widget.html', ['ngm.provider'])
             }).error(function(err) {
               // update 
               $scope.panel.error = {
-                msg: 'Email/password is not correct'
+                msg: 'Email/password incorrect!'
               }
             });
           }
@@ -111,7 +111,7 @@ angular.module('ngm.widget.html', ['ngm.provider'])
             }).error(function(err) {
               // update 
               $scope.panel.error = {
-                msg: 'There has been a registration issue, please contact the administrator!'
+                msg: 'There has been an error, please contact <a href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a>'
               }
             });            
           }
@@ -154,7 +154,7 @@ angular.module('ngm.widget.html', ['ngm.provider'])
 
               // update 
               $scope.panel.error = {
-                msg: 'There has been a reset issue, please contact the administrator!'
+                msg: 'There has been a error, please contact <a href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a>'
               }
             });
           }
