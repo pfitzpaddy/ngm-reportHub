@@ -134,20 +134,19 @@
 		          <label for="ngm-email">Email</label>
 		        </div>
 		      </div>
-
-					<p class="left" style="font-size: 1.3rem;margin-top:0px;padding-bottom:4px;">
-						<a style="color: #;" href="#/health/login"><i class="material-icons prefix">arrow_back</i> Back to login</a>
-					</p>
-
-					<br/>
-					
-					<p ng-if="panel.error.msg" style="text-align:center; color: #ef5350;">
-						{{ panel.error.msg }}
-					<p>
+						
+					<!-- error -->
 			   	<p ng-if="panel.error.msg" style="font-weight:300;">
+			   		<span style="color: #ef5350;">{{ panel.error.msg }}</span>
 			   		Having trouble Registering? Contact <a href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a>
 			   	</p>
 
+			   	<!-- login -->
+					<p class="left" style="font-size: 1.3rem;margin-top:0px;padding-bottom:4px;">
+						<a style="color: #;" href="#/health/login"><i class="material-icons prefix">arrow_back</i> Back to login</a>
+					</p>			   	
+
+					<!-- btn -->
 					<button
 						style="width: 100%;" 
 						class="btn btn-large waves-effect waves-teal" 

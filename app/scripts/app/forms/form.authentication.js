@@ -29,6 +29,11 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
       // project
       $scope.panel = {
 
+        // error
+        error:{
+          msg: ''
+        },
+
         // login fn
         login: function(ngmLoginForm){
 
@@ -79,7 +84,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             }).error(function(err) {
               // update 
               $scope.panel.error = {
-                msg: 'There has been an error, please contact <a href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a>'
+                msg: 'There has been an error!'
               }
             });            
           }
@@ -122,7 +127,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
               // update 
               $scope.panel.error = {
-                msg: 'There has been a error, please contact <a href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a>'
+                msg: 'There has been a error!'
               }
             });
           }
@@ -152,7 +157,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             }).error(function(err) {
               // update 
               $scope.panel.error = {
-                msg: 'There has been an error, please contact <a href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a>'
+                msg: 'There has been an error!'
               }
             });
           }
@@ -163,8 +168,6 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
       // Merge defaults with config
       $scope.panel = angular.merge({}, $scope.panel, config);
-
-      console.log($scope)
 
     }
 
