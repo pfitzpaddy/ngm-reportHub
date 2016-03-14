@@ -25,7 +25,7 @@ angular.module('ngmReportHub')
 			rows: [{}]
 		};
 
-		// baseline object
+		// flood-risk object
 		$scope.dashboard = {
 
 			// parent
@@ -91,7 +91,7 @@ angular.module('ngmReportHub')
 						'param': 'province',
 						'active': key,
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '#/immap/drr/baseline/' + key
+						'href': '#/immap/drr/flood-risk/' + key
 					});
 				});
 
@@ -111,7 +111,7 @@ angular.module('ngmReportHub')
 						'param': 'district',
 						'active': key,
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '#/immap/drr/baseline/' + $route.current.params.province + '/' + key
+						'href': '#/immap/drr/flood-risk/' + $route.current.params.province + '/' + key
 					});
 				});
 
@@ -123,7 +123,7 @@ angular.module('ngmReportHub')
 
 				// title
 				var title = 'iMMAP | Flood Risk | ' + $scope.dashboard.data[$route.current.params.province].name;
-				var subtitle = 'Baseline Key Indicators for ' + $scope.dashboard.data[$route.current.params.province].name;
+				var subtitle = 'Flood Risk Key Indicators for ' + $scope.dashboard.data[$route.current.params.province].name;
 
 				// add district to title
 				if ($route.current.params.district) {
@@ -141,7 +141,7 @@ angular.module('ngmReportHub')
 
 				// FloodRisk dashboard model
 				$scope.model = {
-					name: 'drr_baseline_dashboard',
+					name: 'drr_flood_risk_dashboard',
 					header: {
 						div: {
 							'class': 'col s12 m12 l12 report-header',
@@ -183,7 +183,7 @@ angular.module('ngmReportHub')
 										username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
 										email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public',
 										dashboard: 'drr',
-										theme: 'baseline',
+										theme: 'flood_risk',
 										format: 'pdf',
 										url: $location.$$path
 									}
@@ -193,7 +193,7 @@ angular.module('ngmReportHub')
 					},
 					menu: [{
 						'search': true,
-						'id': 'search-baseline-privince',
+						'id': 'search-flood-risk-privince',
 						'icon': 'place',
 						'title': 'Province',
 						'class': 'blue white-text',
@@ -603,7 +603,7 @@ angular.module('ngmReportHub')
 				if ($scope.dashboard.flag === 'currentProvince') {
 					$scope.model.menu[1] = {
 						'search': true,
-						'id': 'search-baseline-district',
+						'id': 'search-flood-risk-district',
 						'icon': 'place',
 						'title': 'District',
 						'class': 'blue white-text',
