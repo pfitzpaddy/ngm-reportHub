@@ -203,11 +203,12 @@ angular.module('ngmReportHub')
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
-								type: 'tabs',
+								type: 'html',
 								'style': 'padding-top: 10px;',
 								config: {
 									color: $scope.dashboard.ngm.style.darkPrimaryColor,
-									list: [{
+									templateUrl: '/scripts/widgets/ngm-html/template/tabs.html',
+									tabs: [{
 										col: 's12 m6',
 										title: 'Baseline',
 										href: '#/immap/drr/baseline/afghanistan'

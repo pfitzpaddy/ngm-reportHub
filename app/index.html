@@ -123,7 +123,8 @@
 				</div>
 
 		    <!-- navigation menu -->
-			  <ul class="ngm-navigation-menu collapsible popout" 
+			  <ul class="ngm-navigation-menu collapsible popout"
+			  		style="display: none;"
 			  		data-collapsible="expandable"
 			  		ng-show="ngm.dashboard.model.menu" ng-cloak>
 
@@ -243,6 +244,7 @@
 		<!-- lib extras -->
 		<!-- app -->
 		<script src="scripts/app/app.js"></script>
+		<script src="scripts/app/forms/form.authentication.js"></script>
 		<!-- services -->			
 		<script src="scripts/app/services/ngmAuthentication.js"></script>
 		<script src="scripts/app/services/ngmModal.js"></script>
@@ -277,7 +279,6 @@
 
 
 		<!-- widgets -->
-		<script src="scripts/widgets/ngm-breadcrumb/breadcrumb.js"></script>
 		<script src="scripts/widgets/ngm-calHeatmap/calHeatmap.js"></script>		
 		<script src="scripts/widgets/ngm-dropzone/dropzone.js"></script>
 		<script src="scripts/widgets/ngm-highchart/highchart.js"></script>		
@@ -287,7 +288,6 @@
 		<script src="scripts/widgets/ngm-list/list.js"></script>
 		<script src="scripts/widgets/ngm-stats/stats.js"></script>
 		<script src="scripts/widgets/ngm-table/table.js"></script>
-		<script src="scripts/widgets/ngm-tabs/tabs.js"></script>
 
 	</body>
 </html>

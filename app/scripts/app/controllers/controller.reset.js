@@ -53,13 +53,13 @@ angular.module('ngmReportHub')
 					columns: [{
 						styleClass: 's12 m12 l12',
 						widgets: [{
-							type: 'html',
+							type: 'form.authentication',
 							card: 'card-panel',
 							style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
 							config: {
 								reset: false,
 								style: $scope.dashboard.ngm.style,
-								templateUrl: '/scripts/widgets/ngm-html/template/reset.html'
+								templateUrl: '/views/app/authentication/reset.html'
 							}
 						}]
 					}]
@@ -91,13 +91,13 @@ angular.module('ngmReportHub')
 					columns: [{
 						styleClass: 's12 m12 l12',
 						widgets: [{
-							type: 'html',
+							type: 'form.authentication',
 							card: 'card-panel',
 							style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
 							config: {
 								token: $scope.dashboard.token,
 								style: $scope.dashboard.ngm.style,
-								templateUrl: '/scripts/widgets/ngm-html/template/password-reset.html'
+								templateUrl: '/views/app/authentication/password-reset.html'
 							}
 						}]
 					}]

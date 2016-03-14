@@ -21,7 +21,7 @@ angular
 		'highcharts-ng',
 		'leaflet-directive',
 		'ngm',
-		'ngm.widget.breadcrumb',
+		'ngm.widget.form.authentication',
 		'ngm.widget.calHeatmap',
 		'ngm.widget.dropzone',
 		'ngm.widget.highchart',
@@ -34,8 +34,7 @@ angular
 		'ngm.widget.project.financials',
 		'ngm.widget.project.objectives',
 		'ngm.widget.stats',
-		'ngm.widget.table',
-		'ngm.widget.tabs'
+		'ngm.widget.table'
 	])
 	.config([ '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
@@ -51,7 +50,7 @@ angular
 				redirectTo: '/who/dews/afghanistan/all/2015-03-01/2016-02-29'
 			})
 			.when( '/who/login', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardLoginCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -61,7 +60,7 @@ angular
 			})
 			// health
 			.when( '/health/login', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardLoginCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -71,7 +70,7 @@ angular
 			})
 			// health register
 			.when( '/health/register', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardRegisterCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -81,7 +80,7 @@ angular
 			})
 			// health reset
 			.when( '/health/find', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardResetCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -91,7 +90,7 @@ angular
 			})
 			// health reset with token
 			.when( '/health/find/:token', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardResetCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -102,7 +101,7 @@ angular
 
 			// health project list
 			.when( '/health/projects', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'ReportHealthProjectAppCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -112,7 +111,7 @@ angular
 			})
 			// health project summary
 			.when( '/health/projects/summary/:project', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'ReportHealthProjectSummaryCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -122,7 +121,7 @@ angular
 			})
 			// health project details
 			.when( '/health/projects/details/:project', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'ReportHealthProjectDetailsCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -132,7 +131,7 @@ angular
 			})	
 			// health project financials
 			.when( '/health/projects/financials/:project', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'ReportHealthProjectFinancialsCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -142,7 +141,7 @@ angular
 			})
 			// health project objectives
 			.when( '/health/projects/objectives/:project', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'ReportHealthProjectObjectivesCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -152,7 +151,7 @@ angular
 			})
 			// health dashboard
 			.when( '/health/3w', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardHealthProjectsCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -163,7 +162,7 @@ angular
 
 			// Dews
 			.when( '/who/dews/upload', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'UpdateDewsCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
@@ -173,7 +172,7 @@ angular
 			})
 			.when( '/who/dews/:location/:disease/:start/:end', {
 				reloadOnSearch: false,
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardDewsCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
@@ -184,7 +183,7 @@ angular
 
 			// forbidden
 			.when( '/who/forbidden', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardForbiddenCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -195,7 +194,7 @@ angular
 
 			// iMMAP
 			.when( '/immap/login', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardLoginCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -205,7 +204,7 @@ angular
 			})
 			// DRR
 			.when( '/immap/drr/baseline/:province', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardBaselineCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
@@ -214,7 +213,7 @@ angular
 				}
 			})
 			.when( '/immap/drr/baseline/:province/:district', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardBaselineCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
@@ -224,7 +223,7 @@ angular
 			})
 			// DRR FLOOD-RISK
 			.when( '/immap/drr/flood-risk/:province', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardFloodRiskCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
@@ -233,7 +232,7 @@ angular
 				}
 			})
 			.when( '/immap/drr/flood-risk/:province/:district', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardFloodRiskCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
@@ -245,7 +244,7 @@ angular
 			// Watchkeeper
 			.when( '/immap/watchkeeper/:country/:start/:end', {
 				reloadOnSearch: false,
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardWatchkeeperCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -268,7 +267,7 @@ angular
 
 			// forbidden
 			.when( '/immap/forbidden', {
-				templateUrl: '/views/dashboard.html',
+				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardForbiddenCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
@@ -542,5 +541,13 @@ angular
 			$scope.ngm.setApplication(route);
 
 		});
+
+		// annoying loading artifacts of left menu
+    angular.element(document).ready(function () {
+      // give a few seconds to render
+      $timeout(function() {
+				$('.ngm-navigation-menu').css({ 'display': 'block' });
+			}, 1000 );
+    });
 
 	}]);

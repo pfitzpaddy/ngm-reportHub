@@ -330,11 +330,12 @@ angular.module('ngmReportHub')
 				columns: [{
 					styleClass: 's12 m12 l12',
 					widgets: [{
-						type: 'breadcrumb',
+						type: 'html',
 						'style': 'padding-top: 10px;',
 						config: {
 							color: $scope.dashboard.ngm.style.darkPrimaryColor,
-							list: $scope.dashboard.getBreadcrumb()
+							templateUrl: '/scripts/widgets/ngm-html/template/breadcrumb.html',
+							breadcrumb: $scope.dashboard.getBreadcrumb()
 						}
 					}]
 				}]

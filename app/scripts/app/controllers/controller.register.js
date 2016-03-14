@@ -47,12 +47,12 @@ angular.module('ngmReportHub')
 				columns: [{
 					styleClass: 's12 m12 l12',
 					widgets: [{
-						type: 'html',
+						type: 'form.authentication',
 						card: 'card-panel',
 						style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
 						config: {
 							style: $scope.dashboard.ngm.style,
-							templateUrl: '/scripts/widgets/ngm-html/template/register.html'
+							templateUrl: '/views/app/authentication/register.html'
 						}
 					}]
 				}]

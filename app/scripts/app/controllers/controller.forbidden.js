@@ -39,19 +39,19 @@ angular.module('ngmReportHub')
 				},
 				subtitle: {
 					'class': 'col s12 m12 l12 report-subtitle',
-					title: 'Sorry' + $scope.dashboard.username + ', you are not authorized to access this page, please contact the administrator!',
+					title: 'Sorry' + $scope.dashboard.username + ', you are not authorized to access this page<span class="hide-on-small-only">, please contact <a href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a></span>',
 				}
 			},
 			rows: [{
 				columns: [{
 					styleClass: 's12 m12 l12',
 					widgets: [{
-						type: 'html',
+						type: 'form.authentication',
 						card: 'card-panel',
 						style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
 						config: {
 							style: $scope.dashboard.ngm.style,
-							templateUrl: '/scripts/widgets/ngm-html/template/forbidden.html'
+							templateUrl: '/views/app/authentication/forbidden.html'
 						}
 					}]
 				}]
