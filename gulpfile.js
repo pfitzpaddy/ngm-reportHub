@@ -162,6 +162,11 @@ gulp.task('fullscreen:images', function () {
     .pipe(gulp.dest(yeoman.dist + '/styles'));
 });
 
+gulp.task('copy:static', function () {
+  return gulp.src(yeoman.app + '/static/**/*')
+    .pipe(gulp.dest(yeoman.dist + '/static'));
+});
+
 gulp.task('copy:extras', function () {
   return gulp.src(yeoman.app + '/*/.*', { dot: true })
     .pipe(gulp.dest(yeoman.dist));
@@ -187,7 +192,7 @@ gulp.task('copy:mfonts', function () {
 });
 
 gulp.task('build', ['clean:dist'], function () {
-  runSequence(['ngm:images', 'bower:images', 'fullscreen:images', 'copy:extras', 'copy:widgets', 'copy:fonts', 'copy:mfonts', 'client:build'], 'rename:index');
+  runSequence(['ngm:images', 'bower:images', 'fullscreen:images', 'copy:static', 'copy:extras', 'copy:widgets', 'copy:fonts', 'copy:mfonts', 'client:build'], 'rename:index');
 });
 
 gulp.task('default', ['build']);

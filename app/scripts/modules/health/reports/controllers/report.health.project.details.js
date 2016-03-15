@@ -92,7 +92,7 @@ angular.module('ngmReportHub')
 							color: 'blue lighten-1',
 							icon: 'picture_as_pdf',
 							hover: 'Download Project Details Form as PDF',
-							url: 'http://' + $location.host() + '/report/health_project_details.pdf'
+							url: 'http://' + $location.host() + '/static/health/health_project_details.pdf'
 						}]
 					}					
 				},

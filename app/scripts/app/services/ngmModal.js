@@ -19,6 +19,11 @@ angular.module('ngmReportHub')
 			// create modal div and inject with $compile
 			open: function(modal){
 
+      	// user toast msg
+        $timeout(function(){
+          Materialize.toast('Preparing Daily Summary', 600, 'success');
+        }, 100);				
+
 				// set modal id
 				modal.id = 'ngm-dews-modal-' + Math.floor((Math.random()*1000000));
 				// modal element to be added
@@ -39,7 +44,7 @@ angular.module('ngmReportHub')
 					// open modal
 					$timeout(function(){
 						$('#' + $scope.config.id).openModal($scope.config.materialize);
-					}, 400);
+					}, 600);
 				});
 
 			}

@@ -44,19 +44,7 @@ angular
 		// app routes with access rights
 		$routeProvider
 			.when( '/login', {
-				redirectTo: '/who/login'
-			})
-			.when( '/who', {
-				redirectTo: '/who/dews/afghanistan/all/2015-03-01/2016-02-29'
-			})
-			.when( '/who/login', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardLoginCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAnonymous();
-					}],
-				}
+				redirectTo: '/health/login'
 			})
 			// health
 			.when( '/health/login', {
@@ -97,8 +85,27 @@ angular
 						return ngmAuth.isAnonymous();
 					}],
 				}
-			})			
-
+			})
+			// forbidden
+			.when( '/health/forbidden', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardForbiddenCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+							return !ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+			// admin
+			.when( '/health/admin', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardAdminCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+							return ngmAuth.hasRole('ADMIN');
+					}],
+				}
+			})		
 			// health project list
 			.when( '/health/projects', {
 				templateUrl: '/views/app/dashboard.html',
@@ -161,6 +168,18 @@ angular
 			})
 
 			// Dews
+			.when( '/who', {
+				redirectTo: '/who/dews/afghanistan/all/2015-03-01/2016-02-29'
+			})
+			.when( '/who/login', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardLoginCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAnonymous();
+					}],
+				}
+			})
 			.when( '/who/dews/upload', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'UpdateDewsCtrl',				
@@ -180,7 +199,6 @@ angular
 					}],
 				}
 			})
-
 			// forbidden
 			.when( '/who/forbidden', {
 				templateUrl: '/views/app/dashboard.html',
@@ -239,8 +257,7 @@ angular
 						return ngmAuth.isPublic();
 					}],
 				}
-			})			
-
+			})
 			// Watchkeeper
 			.when( '/immap/watchkeeper/:country/:start/:end', {
 				reloadOnSearch: false,
@@ -263,8 +280,7 @@ angular
 			})
 			.when( '/immap/drr/baseline', {
 				redirectTo: '/immap/drr/baseline/afghanistan'
-			})			
-
+			})
 			// forbidden
 			.when( '/immap/forbidden', {
 				templateUrl: '/views/app/dashboard.html',

@@ -68,7 +68,7 @@ angular.module('ngmReportHub')
 							color: 'blue lighten-1',
 							icon: 'picture_as_pdf',
 							hover: 'Download Project Financials Form as PDF',
-							url: 'http://' + $location.host() + '/report/health_project_expenditure.pdf'
+							url: 'http://' + $location.host() + '/static/health/health_project_expenditure.pdf'
 						}]
 					}
 				},
