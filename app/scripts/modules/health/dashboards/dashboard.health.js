@@ -52,17 +52,21 @@ angular.module('ngmReportHub')
 				download: {
 					'class': 'col s12 m4 l4 hide-on-small-only',
 					downloads: [{
-						type: 'csv',
-						color: 'blue lighten-2',
-						icon: 'account_circle',
-						hover: 'Download Health 3W Project Beneficiaries as CSV',
+						type: 'pdf',
+						color: 'blue',
+						icon: 'picture_as_pdf',
+						hover: 'Download Health 3W as PDF',
 						request: {
-							method: 'GET',
-							url: 'http://' + $location.host() + '/api/health/data/beneficiaries',
+							method: 'POST',
+							url: 'http://' + $location.host() + '/api/print',
 							data: {
-								report: 'beneficiaries_' + $scope.dashboard.report
+								report: $scope.dashboard.report,
+								printUrl: $location.absUrl(),
+								downloadUrl: 'http://' + $location.host() + '/report/',
+								token: 'public',
+								pageLoadTime: 4800
 							}
-						},
+						},						
 						metrics: {
 							method: 'POST',
 							url: 'http://' + $location.host() + '/api/metrics/set',
@@ -71,7 +75,32 @@ angular.module('ngmReportHub')
 								username: $scope.dashboard.user ? $scope.dashboard.username : 'public',
 								email: $scope.dashboard.user ? $scope.dashboard.email : 'public',
 								dashboard: 'health_3w',
-								theme: 'health_beneficiaries',
+								theme: 'health_3w',
+								format: 'pdf',
+								url: $location.$$path
+							}
+						}						
+					},{
+						type: 'csv',
+						color: 'blue lighten-2',
+						icon: 'assignment',
+						hover: 'Download Health 3W Project Details as CSV',
+						request: {
+							method: 'GET',
+							url: 'http://' + $location.host() + '/api/health/data/details',
+							data: {
+								report: 'details_' + $scope.dashboard.report
+							}
+						},
+						metrics: {
+							method: 'POST',
+							url: 'http://' + $location.host() + '/api/metrics/set',
+							data: {
+								organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
+								username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
+								email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public',
+								dashboard: 'health_3w',
+								theme: 'health_details',
 								format: 'csv',
 								url: $location.$$path
 							}
@@ -104,44 +133,15 @@ angular.module('ngmReportHub')
 					},{
 						type: 'csv',
 						color: 'blue lighten-2',
-						icon: 'assignment',
-						hover: 'Download Health 3W Project Details as CSV',
+						icon: 'account_circle',
+						hover: 'Download Health 3W Project Beneficiaries as CSV',
 						request: {
 							method: 'GET',
-							url: 'http://' + $location.host() + '/api/health/data/details',
+							url: 'http://' + $location.host() + '/api/health/data/beneficiaries',
 							data: {
-								report: 'details_' + $scope.dashboard.report
+								report: 'beneficiaries_' + $scope.dashboard.report
 							}
 						},
-						metrics: {
-							method: 'POST',
-							url: 'http://' + $location.host() + '/api/metrics/set',
-							data: {
-								organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
-								username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
-								email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public',
-								dashboard: 'health_3w',
-								theme: 'health_details',
-								format: 'csv',
-								url: $location.$$path
-							}
-						}						
-					},{
-						type: 'pdf',
-						color: 'blue',
-						icon: 'picture_as_pdf',
-						hover: 'Download Health 3W as PDF',
-						request: {
-							method: 'POST',
-							url: 'http://' + $location.host() + '/api/print',
-							data: {
-								report: $scope.dashboard.report,
-								printUrl: $location.absUrl(),
-								downloadUrl: 'http://' + $location.host() + '/report/',
-								token: 'public',
-								pageLoadTime: 4600
-							}
-						},						
 						metrics: {
 							method: 'POST',
 							url: 'http://' + $location.host() + '/api/metrics/set',
@@ -150,8 +150,8 @@ angular.module('ngmReportHub')
 								username: $scope.dashboard.user ? $scope.dashboard.username : 'public',
 								email: $scope.dashboard.user ? $scope.dashboard.email : 'public',
 								dashboard: 'health_3w',
-								theme: 'health_3w',
-								format: 'pdf',
+								theme: 'health_beneficiaries',
+								format: 'csv',
 								url: $location.$$path
 							}
 						}

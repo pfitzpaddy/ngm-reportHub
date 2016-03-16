@@ -118,12 +118,19 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
                 // filter
                 $scope.project.options.filter.hf_name = typeFilter;
+                $scope.project.options.filter.hf_name.push({
+                  fac_id: 112233,
+                  fac_type: $scope.project.options.selection.hf_type.fac_type,
+                  fac_name: 'Other',
+                  lng: $scope.project.options.selection.district.lng,
+                  lat: $scope.project.options.selection.district.lat                  
+                });
 
               } else {
 
                 // add 'Other' and exit
                 $scope.project.options.selection.hf_name ={
-                  fac_id: 111112,
+                  fac_id: 112244,
                   fac_type: $scope.project.options.selection.hf_type.fac_type,
                   fac_name: 'Other',
                   lng: $scope.project.options.selection.district.lng,

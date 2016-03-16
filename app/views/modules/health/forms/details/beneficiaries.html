@@ -50,37 +50,54 @@
 
 		      		<div class="row">
 		      		
-			      		<div class="input-field col s12 m3">
-				          <input id="ngm-project-under5male-{{$index}}" type="number" class="validate" min="0"
-				          	ng-model="beneficiary.under5male"
+			      		<div class="input-field col s12 m2">
+				          <input id="ngm-project-under18male-{{$index}}" type="number" class="validate" min="0"
+				          	ng-model="beneficiary.under18male"
 				          	ng-disabled="project.definition.details.project_status === 'complete'"
 										required>
-				          <label for="ngm-project-under5male-{{$index}}">Under 5 Male</label>
+				          <label for="ngm-project-under18male-{{$index}}">Under 18 Male</label>
 			      		</div>
 
-			      		<div class="input-field col s12 m3">
-				          <input id="ngm-project-under5female-{{$index}}" type="number" class="validate" min="0"
-				          	ng-model="beneficiary.under5female"
+			      		<div class="input-field col s12 m2">
+				          <input id="ngm-project-under18female-{{$index}}" type="number" class="validate" min="0"
+				          	ng-model="beneficiary.under18female"
 				          	ng-disabled="project.definition.details.project_status === 'complete'"
 										required>
-				          <label for="ngm-project-under5female-{{$index}}">Under 5 Female</label>			      		
+				          <label for="ngm-project-under18female-{{$index}}">Under 18 Female</label>			      		
 			      		</div>
 
-			      		<div class="input-field col s12 m3">
-				          <input id="ngm-project-over5male-{{$index}}" type="number" class="validate" min="0"
-				          	ng-model="beneficiary.over5male"
+			      		<div class="input-field col s12 m2">
+				          <input id="ngm-project-over18male-{{$index}}" type="number" class="validate" min="0"
+				          	ng-model="beneficiary.over18male"
 				          	ng-disabled="project.definition.details.project_status === 'complete'"
 										required>
-				          <label for="ngm-project-over5male-{{$index}}">Over 5 Male</label>			      		
+				          <label for="ngm-project-over18male-{{$index}}">Male 18 to 59</label>			      		
 			      		</div>
 
-			      		<div class="input-field col s12 m3">
-				          <input id="ngm-project-over5female-{{$index}}" type="number" class="validate" min="0"
-				          	ng-model="beneficiary.over5female"
+			      		<div class="input-field col s12 m2">
+				          <input id="ngm-project-over18female-{{$index}}" type="number" class="validate" min="0"
+				          	ng-model="beneficiary.over18female"
 				          	ng-disabled="project.definition.details.project_status === 'complete'"
 										required>
-				          <label for="ngm-project-over5female-{{$index}}">Over 5 Female</label>			      		
+				          <label for="ngm-project-over18female-{{$index}}">Female 18 to 59</label>			      		
 			      		</div>
+
+			      		<div class="input-field col s12 m2">
+				          <input id="ngm-project-over59male-{{$index}}" type="number" class="validate" min="0"
+				          	ng-model="beneficiary.over59male"
+				          	ng-disabled="project.definition.details.project_status === 'complete'"
+										required>
+				          <label for="ngm-project-over59male-{{$index}}">Over 59 Male</label>			      		
+			      		</div>
+
+			      		<div class="input-field col s12 m2">
+				          <input id="ngm-project-over59female-{{$index}}" type="number" class="validate" min="0"
+				          	ng-model="beneficiary.over59female"
+				          	ng-disabled="project.definition.details.project_status === 'complete'"
+										required>
+				          <label for="ngm-project-over59female-{{$index}}">Over 59 Female</label>			      		
+			      		</div>
+
 
 		      		</div>
 
