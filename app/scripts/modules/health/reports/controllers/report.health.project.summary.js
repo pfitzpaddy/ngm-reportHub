@@ -112,15 +112,15 @@ angular.module('ngmReportHub')
 									},{
 										icon: 'attach_money',
 										location: 'financials',
-										title: 'Project Financials',
+										title: 'Project Expenditure',
 										subtitle: 'Project Financial Line Items',
 										description: 'Track the project spending against financial line items for ',
-									},{
-										icon: 'done_all',
-										location: 'objectives',
-										title: 'Project Health Objectives',
-										subtitle: 'Project Strategic Objective Indicators',
-										description: 'Update the strategic health objective indicators for ',
+									// },{
+									// 	icon: 'done_all',
+									// 	location: 'objectives',
+									// 	title: 'Project Health Objectives',
+									// 	subtitle: 'Project Strategic Objective Indicators',
+									// 	description: 'Update the strategic health objective indicators for ',
 									}],
 					        // run submit
 					        saveComplete: function(project){

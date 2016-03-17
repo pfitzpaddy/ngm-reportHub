@@ -18,6 +18,7 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
   })
   .controller('ProjectFinancialsCtrl', [
     '$scope',
+    '$window',
     '$location',
     '$timeout',
     '$filter',
@@ -26,7 +27,7 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
     'ngmUser',
     'ngmData',
     'config',
-    function($scope, $location, $timeout, $filter, $q, $http, ngmUser, ngmData, config){
+    function($scope, $window, $location, $timeout, $filter, $q, $http, ngmUser, ngmData, config){
 
       // project
       $scope.project = {
@@ -176,10 +177,9 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
 
         // re-direct on save
         redirect: function(){
-
           // redirect on success
           $timeout(function(){
-            $location.path( '/health/projects/summary/' + $scope.project.definition.details.id );
+            $window.location.reload();
             Materialize.toast( $scope.project.definition.details.project_title + ' Financials updated!', 3000, 'success');
           }, 200)
 

@@ -157,7 +157,11 @@ angular
 				}
 			})
 			// health dashboard
-			.when( '/health/3w', {
+			.when( '/health/4w', {
+				redirectTo: '/health/4w/afghanistan/all/2016-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			// health dashboard
+			.when( '/health/4w/:province/:project/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardHealthProjectsCtrl',
 				resolve: {
@@ -165,7 +169,7 @@ angular
 						return ngmAuth.isPublic();
 					}],
 				}
-			})
+			})			
 
 			// Dews
 			.when( '/who', {

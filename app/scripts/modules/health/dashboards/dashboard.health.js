@@ -22,6 +22,12 @@ angular.module('ngmReportHub')
 			
 			// current user
 			user: ngmUser.get(),
+
+			// report start
+			startDate: moment($route.current.params.start).format('YYYY-MM-DD'),
+
+			// report end
+			endDate: moment($route.current.params.end).format('YYYY-MM-DD'),			
 			
 			// current report
 			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
@@ -29,12 +35,12 @@ angular.module('ngmReportHub')
 		}
 
 		// set dashboard params
-		$scope.dashboard.title = 'Health Cluster 3W';
-		$scope.dashboard.subtitle = 'Health Cluster 3W dashboard for all health projects in Afghanistan';
+		$scope.dashboard.title = 'Health Cluster 4W';
+		$scope.dashboard.subtitle = 'Health Cluster 4W dashboard for all health projects in Afghanistan';
 
 		// dews dashboard model
 		$scope.model = {
-			name: 'health_3w_dews_dashboard',
+			name: 'health_4w_dews_dashboard',
 			header: {
 				div: {
 					'class': 'col s12 m12 l12 report-header',
@@ -49,13 +55,57 @@ angular.module('ngmReportHub')
 					'class': 'col hide-on-small-only m8 l9 report-subtitle',
 					'title': $scope.dashboard.subtitle,
 				},
+				datePicker: {
+					'class': 'col s12 m4 l3',
+					dates: [{
+						'class': 'ngm-date',
+						style: 'float:left;',
+						label: 'from',
+						format: 'd mmm, yyyy',
+						time: $scope.dashboard.startDate,
+						onSelection: function(){
+
+							// set date
+							$scope.dashboard.startDate = moment(new Date(this.time)).format('YYYY-MM-DD');
+
+							// check dates
+							if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
+								Materialize.toast('Please check the dates and try again!', 4000);
+							} else {
+								// update new date
+								// $location.path('/who/dews/' + $route.current.params.location + '/' + $route.current.params.disease + '/' + $scope.dashboard.startDate + '/' + $scope.dashboard.endDate);
+							}
+
+						}
+					},{
+						'class': 'ngm-date',
+						style: 'float:right',
+						label: 'to',
+						format: 'd mmm, yyyy',
+						time: $scope.dashboard.endDate,
+						onSelection: function(){
+							
+							// set date
+							$scope.dashboard.endDate = moment(new Date(this.time)).format('YYYY-MM-DD');
+
+							// check dates
+							if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
+								Materialize.toast('Please check the dates and try again!', 4000);
+							} else {
+								// update new date
+								// $location.path('/who/dews/' + $route.current.params.location + '/' + $route.current.params.disease + '/' + $scope.dashboard.startDate + '/' + $scope.dashboard.endDate);
+							}
+
+						}
+					}]
+				},				
 				download: {
 					'class': 'col s12 m4 l4 hide-on-small-only',
 					downloads: [{
 						type: 'pdf',
 						color: 'blue',
 						icon: 'picture_as_pdf',
-						hover: 'Download Health 3W as PDF',
+						hover: 'Download Health 4W as PDF',
 						request: {
 							method: 'POST',
 							url: 'http://' + $location.host() + '/api/print',
@@ -74,8 +124,8 @@ angular.module('ngmReportHub')
 								organization: $scope.dashboard.user ? $scope.dashboard.organization : 'public',
 								username: $scope.dashboard.user ? $scope.dashboard.username : 'public',
 								email: $scope.dashboard.user ? $scope.dashboard.email : 'public',
-								dashboard: 'health_3w',
-								theme: 'health_3w',
+								dashboard: 'health_4w',
+								theme: 'health_4w',
 								format: 'pdf',
 								url: $location.$$path
 							}
@@ -84,7 +134,7 @@ angular.module('ngmReportHub')
 						type: 'csv',
 						color: 'blue lighten-2',
 						icon: 'assignment',
-						hover: 'Download Health 3W Project Details as CSV',
+						hover: 'Download Health 4W Project Details as CSV',
 						request: {
 							method: 'GET',
 							url: 'http://' + $location.host() + '/api/health/data/details',
@@ -99,7 +149,7 @@ angular.module('ngmReportHub')
 								organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
 								username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
 								email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public',
-								dashboard: 'health_3w',
+								dashboard: 'health_4w',
 								theme: 'health_details',
 								format: 'csv',
 								url: $location.$$path
@@ -109,7 +159,7 @@ angular.module('ngmReportHub')
 						type: 'csv',
 						color: 'blue lighten-2',
 						icon: 'location_on',
-						hover: 'Download Health 3W Project Locations as CSV',
+						hover: 'Download Health 4W Project Locations as CSV',
 						request: {
 							method: 'GET',
 							url: 'http://' + $location.host() + '/api/health/data/locations',
@@ -124,7 +174,7 @@ angular.module('ngmReportHub')
 								organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
 								username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
 								email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public',
-								dashboard: 'health_3w',
+								dashboard: 'health_4w',
 								theme: 'health_locations',
 								format: 'csv',
 								url: $location.$$path
@@ -134,7 +184,7 @@ angular.module('ngmReportHub')
 						type: 'csv',
 						color: 'blue lighten-2',
 						icon: 'account_circle',
-						hover: 'Download Health 3W Project Beneficiaries as CSV',
+						hover: 'Download Health 4W Project Beneficiaries as CSV',
 						request: {
 							method: 'GET',
 							url: 'http://' + $location.host() + '/api/health/data/beneficiaries',
@@ -149,7 +199,7 @@ angular.module('ngmReportHub')
 								organization: $scope.dashboard.user ? $scope.dashboard.organization : 'public',
 								username: $scope.dashboard.user ? $scope.dashboard.username : 'public',
 								email: $scope.dashboard.user ? $scope.dashboard.email : 'public',
-								dashboard: 'health_3w',
+								dashboard: 'health_4w',
 								theme: 'health_beneficiaries',
 								format: 'csv',
 								url: $location.$$path
@@ -160,7 +210,7 @@ angular.module('ngmReportHub')
 			},
 			rows: [{
 				columns: [{
-					styleClass: 's12 m12 l4',
+					styleClass: 's12 m12 l6',
 					widgets: [{
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
@@ -176,7 +226,7 @@ angular.module('ngmReportHub')
 						}
 					}]
 				},{
-					styleClass: 's12 m12 l4',
+					styleClass: 's12 m12 l6',
 					widgets: [{
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
@@ -191,8 +241,10 @@ angular.module('ngmReportHub')
 							}
 						}
 					}]
-				},{
-					styleClass: 's12 m12 l4',
+				}]
+			},{
+				columns: [{
+					styleClass: 's12 m12 l6',
 					widgets: [{
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
@@ -203,6 +255,24 @@ angular.module('ngmReportHub')
 								url: 'http://' + $location.host() + '/api/health/total',
 								data: {
 									indicator: 'locations',
+									conflict: false
+								}
+							}
+						}
+					}]
+				},{
+					styleClass: 's12 m12 l6',
+					widgets: [{
+						type: 'stats',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Conflict Locations',
+							request: {
+								method: 'POST',
+								url: 'http://' + $location.host() + '/api/health/total',
+								data: {
+									indicator: 'locations',
+									conflict: true
 								}
 							}
 						}
@@ -228,65 +298,49 @@ angular.module('ngmReportHub')
 				}]
 			},{
 				columns: [{
-					styleClass: 's12 m12 l3',
+					styleClass: 's12 m12 l4',
 					widgets: [{
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Under 5 Male',
+							title: 'Children (Under 18)',
 							request: {
 								method: 'POST',
 								url: 'http://' + $location.host() + '/api/health/total',
 								data: {
-									indicator: 'under5male',
+									indicator: ['under18male', 'under18female'],
 								}
 							}
 						}
 					}]
 				},{
-					styleClass: 's12 m12 l3',
+					styleClass: 's12 m12 l4',
 					widgets: [{
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Under 5 Female',
+							title: 'Adult (18 to 59)',
 							request: {
 								method: 'POST',
 								url: 'http://' + $location.host() + '/api/health/total',
 								data: {
-									indicator: 'under5female',
+									indicator: ['over18male', 'over18female'],
 								}
 							}
 						}
 					}]
 				},{
-					styleClass: 's12 m12 l3',
+					styleClass: 's12 m12 l4',
 					widgets: [{
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Over 5 Male',
+							title: 'Elderly (Over 59)',
 							request: {
 								method: 'POST',
 								url: 'http://' + $location.host() + '/api/health/total',
 								data: {
-									indicator: 'over5male',
-								}
-							}
-						}
-					}]
-				},{
-					styleClass: 's12 m12 l3',
-					widgets: [{
-						type: 'stats',
-						card: 'card-panel stats-card white grey-text text-darken-2',
-						config: {
-							title: 'Over 5 Female',
-							request: {
-								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/total',
-								data: {
-									indicator: 'over5female',
+									indicator: ['over59male', 'over59female'],
 								}
 							}
 						}
