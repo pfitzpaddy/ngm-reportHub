@@ -161,7 +161,7 @@ angular
 				redirectTo: '/health/4w/afghanistan/all/2016-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// health dashboard
-			.when( '/health/4w/:province/:project/:start/:end', {
+			.when( '/health/4w/:location/:project/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardHealthProjectsCtrl',
 				resolve: {

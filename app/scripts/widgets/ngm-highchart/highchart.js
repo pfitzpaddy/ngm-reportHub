@@ -45,15 +45,44 @@ angular.module('ngm.widget.highchart', ['ngm.provider'])
         chart: {},
         title: 'Incidents',
         element: $element,
-        display: {
-          label: false,
-          subLabel: false,
-          width: angular.element($element).parent().width() + 'px',
-          top: '90px',
-          left: '-'+$('.card-panel').css('padding'),
-          subLabelTop: '120px',
-          filter: 'number',
-          duration: 1,          
+        label: {
+          defaults: {
+            duration: 1,
+            filter: 'number',
+            fractionSize: 0,
+            postfix: '',
+            prefix: ''
+          },
+          left: {
+            label: {
+              label: false,
+              style: 'text-align:left; margin-left:' + $('.card-panel').css('padding') + '; width:' + angular.element($element).parent().width() + 'px' + '; position:absolute; top:90px;'
+            },
+            subLabel: {
+              label: false,
+              style: 'text-align:left; margin-left:' + $('.card-panel').css('padding') + '; width:' + angular.element($element).parent().width() + 'px' + '; position:absolute; top:120px;'
+            }
+          },
+          center: {
+            label: {
+              label: false,
+              style: 'text-align:center; margin-left:-' + $('.card-panel').css('padding') + '; width:' + angular.element($element).parent().width() + 'px' + '; position:absolute; top:90px;'
+            },
+            subLabel: {
+              label: false,            
+              style: 'text-align:center; margin-left:-' + $('.card-panel').css('padding') + '; width:' + angular.element($element).parent().width() + 'px' + '; position:absolute; top:120px;'
+            }
+          },
+          right: {
+            label: {
+              label: false,
+              style: 'text-align:right; padding-right:60px; width:' + angular.element($element).parent().width() + 'px' + '; position:absolute; top:90px;'
+            },
+            subLabel: {
+              label: false,
+              style: 'text-align:right; padding-right:60px; width:' + angular.element($element).parent().width() + 'px' + '; position:absolute; top:120px;'
+            }
+          }
         },
         chartConfig: {
           options: {
@@ -85,37 +114,37 @@ angular.module('ngm.widget.highchart', ['ngm.provider'])
         // make a request for each HighChart series
         update: function(){
 
-          // values for labels
-          var val,
-              label;
-
           // For each series, make request
           angular.forEach($scope.highchart.chartConfig.series, function(series, key){
+
+            // merge label defaults
+            // left
+            $scope.highchart.label.left.label = angular.merge({}, $scope.highchart.label.left.label, $scope.highchart.label.defaults);
+            $scope.highchart.label.left.subLabel = angular.merge({}, $scope.highchart.label.left.subLabel, $scope.highchart.label.defaults);
+            // center
+            $scope.highchart.label.center.label = angular.merge({}, $scope.highchart.label.center.label, $scope.highchart.label.defaults);
+            $scope.highchart.label.center.subLabel = angular.merge({}, $scope.highchart.label.center.subLabel, $scope.highchart.label.defaults);
+            // right
+            $scope.highchart.label.right.label = angular.merge({}, $scope.highchart.label.right.label, $scope.highchart.label.defaults);
+            $scope.highchart.label.right.subLabel = angular.merge({}, $scope.highchart.label.right.subLabel, $scope.highchart.label.defaults);
             
             // if no request object, treat as static chart
             if ( !$.isEmptyObject(series.request) ) {
               ngmData.get(series.request).then(function(data) {
 
                 // set data with options.foo to enable animation
-                $scope.highchart.chartConfig.series[key].data = data;
+                $scope.highchart.chartConfig.series[key].data = data.data;
                 $scope.highchart.chartConfig.options.foo = Math.random();
-                // redraw
-                // $scope.highchart.chart.redraw();
 
                 // set labels
-                if ($scope.highchart.display.label) {
-                  $scope.highchart.display.label = data[0].y.toFixed(1);
-                  $scope.highchart.display.subLabel = data[0].label;
-                }
+                $scope.highchart.label = angular.merge({}, $scope.highchart.label, data.label);
 
               });
             } else {
-              
-              // set labels
-              if ($scope.highchart.display.label) {
-                  $scope.highchart.display.label = series.data[0].y.toFixed(1);
-                  $scope.highchart.display.subLabel = series.data[0].label;
-              }
+
+              // set labels & data
+              $scope.highchart.label = angular.merge({}, $scope.highchart.label, series.data.label);
+              $scope.highchart.chartConfig.series[key].data = series.data.data;
 
             }
 
@@ -132,12 +161,23 @@ angular.module('ngm.widget.highchart', ['ngm.provider'])
       $scope.highchart.update();
 
       // capture resize event
-      if ($scope.highchart.display.label) {
+      if ($('#label-center-' + $scope.highchart.id)) {
         angular.element($(window)).bind('resize', function() {
+          
           // resize label
           $scope.highchart.display.width = angular.element($element).parent().width() + 'px';
-          $('#label-' + $scope.highchart.id).css('width', $scope.highchart.display.width);
-          $('#subLabel-' + $scope.highchart.id).css('width', $scope.highchart.display.width);
+
+          // left
+          $('#label-left-' + $scope.highchart.id).css('width', $scope.highchart.display.width);
+          $('#subLabel-left-' + $scope.highchart.id).css('width', $scope.highchart.display.width);
+          // center
+          $('#label-center-' + $scope.highchart.id).css('width', $scope.highchart.display.width);
+          $('#subLabel-center-' + $scope.highchart.id).css('width', $scope.highchart.display.width);
+          // right
+          $('#label-right-' + $scope.highchart.id).css('width', $scope.highchart.display.width);
+          $('#subLabel-right-' + $scope.highchart.id).css('width', $scope.highchart.display.width);
+
+
         });
       }
 

@@ -329,8 +329,9 @@ angular.module('ngmReportHub')
 											}
 										},
 				            series: [{
-				                name: 'Population',
-				                color: '#7cb5ec',
+			                name: 'Population',
+			                color: '#7cb5ec',
+											data: {
 												data: [ 
 													data.barren_land_pop,
 												  data.built_up_pop,
@@ -344,6 +345,7 @@ angular.module('ngmReportHub')
 												  data.vineyards_pop,
 												  data.water_body_pop
 												]
+											}
 				            }]
 									}
 								}
@@ -403,8 +405,9 @@ angular.module('ngmReportHub')
 											}
 										},
 				            series: [{
-				                name: 'Population',
-				                color: '#78909c',
+			                name: 'Population',
+			                color: '#78909c',
+			                data : {
 												data: [ 
 													data.barren_land_area,
 												  data.built_up_area,
@@ -418,6 +421,7 @@ angular.module('ngmReportHub')
 												  data.vineyards_area,
 												  data.water_body_area
 												]
+											}
 				            }]
 									}
 								}

@@ -32,11 +32,78 @@ angular.module('ngmReportHub')
 			// current report
 			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
 
+			data: {
+				location: {
+					'afghanistan': { id:'*', name:'Afghanistan'},
+					'badakhshan': { id:15, name:'Badakhshan'},
+					'badghis': { id:29, name:'Badghis'},
+					'baghlan': { id:9, name:'Baghlan'},
+					'balkh': { id:18, name:'Balkh'},
+					'bamyan': { id:10,"name":'Bamyan'},
+					'daykundi': { id:22, name:'Daykundi'},
+					'farah': { id:31, name:'Farah'},
+					'faryab': { id:28, name:'Faryab'},
+					'ghazni': { id:11, name:'Ghazni'},
+					'ghor': { id:21, name:'Ghor'},
+					'hilmand': { id:32, name:'Hilmand'},
+					'hirat': { id:30, name:'Hirat'},
+					'jawzjan': { id:27, name:'Jawzjan'},
+					'kabul': { id:1, name:'Kabul'},
+					'kandahar': { id:33, name:'Kandahar'},
+					'kapisa': { id:2, name:'Kapisa'},
+					'khost': { id:26, name:'Khost'},
+					'kunar': { id:13, name:'Kunar'},
+					'kunduz': { id:17, name:'Kunduz'},
+					'laghman': { id:7, name:'Laghman'},
+					'logar': { id:5, name:'Logar'},
+					'nangarhar': { id:6, name:'Nangarhar'},
+					'nimroz': { id:34, name:'Nimroz'},
+					'nuristan': { id:14, name:'Nuristan'},
+					'paktika': { id:25, name:'Paktika'},
+					'paktya': { id:12, name:'Paktya'},
+					'panjsher': { id:8, name:'Panjsher'},
+					'parwan': { id:3, name:'Parwan'},
+					'samangan': { id:19, name:'Samangan'},
+					'sar-e-pul': { id:20, name:'Sar-e-Pul'},
+					'takhar': { id:16, name:'Takhar'},
+					'uruzgan': { id:23, name:'Uruzgan'},
+					'wardak': { id:4, name:'Wardak'},
+					'zabul': { id:24, name:'Zabul'}
+				}
+			},
+
+			// return rows for DEWS menu
+			getRows: function(list) {
+				
+				// menu rows
+				var active,
+						rows = [];
+						
+				// for each disease
+				angular.forEach($scope.dashboard.data.location, function(d, key){
+					//
+					rows.push({
+						'title': d.name,
+						'param': 'location',
+						'active': key,
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '#/health/4w/' + key + '/' + $route.current.params.project + '/' + $route.current.params.start + '/' + $route.current.params.end
+					});
+				});
+
+				return rows;
+			}			
+
 		}
 
+		// get project_type
+		// get beneficiary_type
+
 		// set dashboard params
-		$scope.dashboard.title = 'Health Cluster 4W';
-		$scope.dashboard.subtitle = 'Health Cluster 4W dashboard for all health projects in Afghanistan';
+		$scope.dashboard.location = $scope.dashboard.data.location[$route.current.params.location];
+		$scope.dashboard.project = $route.current.params.project
+		$scope.dashboard.title = 'Health 4W | ' + $scope.dashboard.location.name;
+		$scope.dashboard.subtitle = 'Health Cluster 4W dashboard for ' + $scope.dashboard.project + ' health projects in ' + $scope.dashboard.location.name;
 
 		// dews dashboard model
 		$scope.model = {
@@ -208,11 +275,20 @@ angular.module('ngmReportHub')
 					}]
 				}
 			},
+			menu: [{
+				'id': 'search-health-province',
+				'search': true,
+				'icon': 'place',
+				'title': 'Province',
+				'class': 'teal lighten-1 white-text',
+				'rows': $scope.dashboard.getRows('province')
+			}],			
 			rows: [{
 				columns: [{
 					styleClass: 's12 m12 l6',
 					widgets: [{
 						type: 'stats',
+						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
 							title: 'Organizations',
@@ -229,6 +305,7 @@ angular.module('ngmReportHub')
 					styleClass: 's12 m12 l6',
 					widgets: [{
 						type: 'stats',
+						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
 							title: 'Projects',
@@ -247,6 +324,7 @@ angular.module('ngmReportHub')
 					styleClass: 's12 m12 l6',
 					widgets: [{
 						type: 'stats',
+						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
 							title: 'Locations',
@@ -264,6 +342,7 @@ angular.module('ngmReportHub')
 					styleClass: 's12 m12 l6',
 					widgets: [{
 						type: 'stats',
+						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
 							title: 'Conflict Locations',
@@ -283,6 +362,7 @@ angular.module('ngmReportHub')
 					styleClass: 's12 m12 l12',
 					widgets: [{
 						type: 'stats',
+						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
 							title: 'Total Beneficiaries',
@@ -300,48 +380,304 @@ angular.module('ngmReportHub')
 				columns: [{
 					styleClass: 's12 m12 l4',
 					widgets: [{
-						type: 'stats',
-						card: 'card-panel stats-card white grey-text text-darken-2',
+						type: 'highchart',
+						style: 'height: 180px;',
+						card: 'card-panel chart-stats-card white grey-text text-darken-2',
 						config: {
 							title: 'Children (Under 18)',
-							request: {
-								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/total',
-								data: {
-									indicator: ['under18male', 'under18female'],
-								}
+							display: {
+								label: true,
+								fractionSize: 1,
+								subLabelfractionSize: 0,
+								postfix: '%'
+							},
+							chartConfig: {
+								options: {
+									chart: {
+										type: 'pie',
+										height: 140,
+										margin: [0, 0, 0, 0],
+										spacingTop: 0,
+										spacingBottom: 0,
+										spacingLeft: 0,
+										spacingRight: 0
+									},
+									tooltip: {
+										enabled: false
+									}				
+								},
+								title: {
+										text: '',
+										margin: 0
+								},
+								plotOptions: {
+										pie: {
+												shadow: false
+										}
+								},
+								series: [{
+									name: 'Children (Under 18)',
+									size: '100%',
+									innerSize: '80%',
+									showInLegend:false,
+									dataLabels: {
+										enabled: false
+									},
+									data: {
+										label: {
+											left: {
+												label: {
+													label: 'M',
+													type: 'text'
+												},
+												subLabel: {
+													label: 102000
+												}
+											},										
+											center: {
+												label: {
+													label: 22,
+													postfix: '%'
+												},
+												subLabel: {
+													label: 200036
+												}
+											},
+											right: {
+												label: {
+													label: 'F',
+													type: 'text'
+												},
+												subLabel: {
+													label: 102000
+												}
+											},
+										},										
+										data:[{
+					            'y': 58.2,
+					            'color': '#90caf9',
+					            'name': 'Male',
+					            'label': 102000,
+					          },{
+					            'y': 100 - 58.2,
+					            'color': '#f48fb1',
+					            'name': 'Female',
+					            'label': 102000,
+					          }]
+					        }
+								}]
 							}
 						}
 					}]
 				},{
 					styleClass: 's12 m12 l4',
+					// widgets: [{
+					// 	type: 'stats',
+					// 	card: 'card-panel stats-card white grey-text text-darken-2',
+					// 	config: {
+					// 		title: 'Adult (18 to 59)',
+					// 		request: {
+					// 			method: 'POST',
+					// 			url: 'http://' + $location.host() + '/api/health/total',
+					// 			data: {
+					// 				indicator: ['over18male', 'over18female'],
+					// 			}
+					// 		}
+					// 	}
+					// }]
 					widgets: [{
-						type: 'stats',
-						card: 'card-panel stats-card white grey-text text-darken-2',
+						type: 'highchart',
+						style: 'height: 180px;',
+						card: 'card-panel chart-stats-card white grey-text text-darken-2',
 						config: {
 							title: 'Adult (18 to 59)',
-							request: {
-								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/total',
-								data: {
-									indicator: ['over18male', 'over18female'],
-								}
+							display: {
+								label: true,
+								fractionSize: 1,
+								subLabelfractionSize: 0,
+								postfix: '%'
+							},
+							chartConfig: {
+								options: {
+									chart: {
+										type: 'pie',
+										height: 140,
+										margin: [0, 0, 0, 0],
+										spacingTop: 0,
+										spacingBottom: 0,
+										spacingLeft: 0,
+										spacingRight: 0
+									},
+									tooltip: {
+										enabled: false
+									}				
+								},
+								title: {
+										text: '',
+										margin: 0
+								},
+								plotOptions: {
+										pie: {
+												shadow: false
+										}
+								},
+								series: [{
+									name: 'Adult (18 to 59)',
+									size: '100%',
+									innerSize: '80%',
+									showInLegend:false,
+									dataLabels: {
+										enabled: false
+									},
+									data: {
+										label: {
+											left: {
+												label: {
+													label: 'M',
+													type: 'text'
+												},
+												subLabel: {
+													label: 102000
+												}
+											},										
+											center: {
+												label: {
+													label: 22,
+													postfix: '%'
+												},
+												subLabel: {
+													label: 200036
+												}
+											},
+											right: {
+												label: {
+													label: 'F',
+													type: 'text'
+												},
+												subLabel: {
+													label: 102000
+												}
+											},
+										},										
+										data:[{
+					            'y': 58.2,
+					            'color': '#90caf9',
+					            'name': 'Male',
+					            'label': 102000,
+					          },{
+					            'y': 100 - 58.2,
+					            'color': '#f48fb1',
+					            'name': 'Female',
+					            'label': 102000,
+					          }]
+					        }
+								}]
 							}
 						}
-					}]
+					}]			
 				},{
 					styleClass: 's12 m12 l4',
+					// widgets: [{
+					// 	type: 'stats',
+					// 	card: 'card-panel stats-card white grey-text text-darken-2',
+					// 	config: {
+					// 		title: 'Elderly (Over 59)',
+					// 		request: {
+					// 			method: 'POST',
+					// 			url: 'http://' + $location.host() + '/api/health/total',
+					// 			data: {
+					// 				indicator: ['over59male', 'over59female'],
+					// 			}
+					// 		}
+					// 	}
+					// }]
 					widgets: [{
-						type: 'stats',
-						card: 'card-panel stats-card white grey-text text-darken-2',
+						type: 'highchart',
+						style: 'height: 180px;',
+						card: 'card-panel chart-stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Elderly (Over 59)',
-							request: {
-								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/total',
-								data: {
-									indicator: ['over59male', 'over59female'],
-								}
+							title: 'Eldery (Over 59)',
+							display: {
+								label: true,
+								fractionSize: 1,
+								subLabelfractionSize: 0,
+								postfix: '%'
+							},
+							chartConfig: {
+								options: {
+									chart: {
+										type: 'pie',
+										height: 140,
+										margin: [0, 0, 0, 0],
+										spacingTop: 0,
+										spacingBottom: 0,
+										spacingLeft: 0,
+										spacingRight: 0
+									},
+									tooltip: {
+										enabled: false
+									}				
+								},
+								title: {
+										text: '',
+										margin: 0
+								},
+								plotOptions: {
+										pie: {
+												shadow: false
+										}
+								},
+								series: [{
+									name: 'Eldery (Over 59)',
+									size: '100%',
+									innerSize: '80%',
+									showInLegend:false,
+									dataLabels: {
+										enabled: false
+									},
+									data: {
+										label: {
+											left: {
+												label: {
+													label: 'M',
+													type: 'text'
+												},
+												subLabel: {
+													label: 102000
+												}
+											},										
+											center: {
+												label: {
+													label: 22,
+													postfix: '%'
+												},
+												subLabel: {
+													label: 200036
+												}
+											},
+											right: {
+												label: {
+													label: 'F',
+													type: 'text'
+												},
+												subLabel: {
+													label: 102000
+												}
+											},
+										},										
+										data:[{
+					            'y': 58.2,
+					            'color': '#90caf9',
+					            'name': 'Male',
+					            'label': 102000,
+					          },{
+					            'y': 100 - 58.2,
+					            'color': '#f48fb1',
+					            'name': 'Female',
+					            'label': 102000,
+					          }]
+					        }
+								}]
 							}
 						}
 					}]

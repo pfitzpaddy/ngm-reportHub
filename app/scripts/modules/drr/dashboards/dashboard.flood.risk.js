@@ -123,7 +123,7 @@ angular.module('ngmReportHub')
 
 				// title
 				var title = 'iMMAP | Flood Risk | ' + $scope.dashboard.data[$route.current.params.province].name;
-				var subtitle = 'Flood Risk Key Indicators for ' + $scope.dashboard.data[$route.current.params.province].name;
+				var subtitle = 'Flood Risk Key Indicators for ' + $scope.dashboard.data[$route.current.params.province].name + ' Province';
 
 				// add district to title
 				if ($route.current.params.district) {
@@ -294,25 +294,38 @@ angular.module('ngmReportHub')
 												}
 										},
 										series: [{
-												name: 'Flood Risk',
+											name: 'Low Flood Risk Popn',
+											size: '100%',
+											innerSize: '80%',
+											showInLegend:false,
+											dataLabels: {
+												enabled: false
+											},
+											data: {
+												label: {
+													center: {
+														label: {
+															label: data.percent_low_risk_population,
+															postfix: '%'
+														},
+														subLabel: {
+															label: data.low_risk_population
+														}
+													}
+												},
 												data: [{
-							            'y': data.percent_low_risk_population,
-							            'color': '#7cb5ec',
-							            'name': 'Low Flood Risk Popn',
-							            'label': data.low_risk_population,
-							          },{
-							            'y': 100 - data.percent_low_risk_population,
-							            'color': 'rgba(0,0,0,0.05)',
-							            'name': 'Flood Risk Popn',
-							            'label': data.low_risk_population,
-							          }],
-												size: '100%',
-												innerSize: '80%',
-												showInLegend:false,
-												dataLabels: {
-													enabled: false
-												}
-										}]												
+													'y': data.percent_low_risk_population,
+													'color': '#7cb5ec',
+													'name': 'Low Flood Risk Popn',
+													'label': data.low_risk_population,
+												},{
+													'y': 100 - data.percent_low_risk_population,
+													'color': 'rgba(0,0,0,0.05)',
+													'name': 'Flood Risk Popn',
+													'label': data.low_risk_population,
+												}]
+											}
+										}]
 									}
 								}
 							}]
@@ -355,28 +368,41 @@ angular.module('ngmReportHub')
 												}
 										},								
 										series: [{
-												name: 'Flood Risk',
+											name: 'Moderate Flood Risk Popn',
+											size: '100%',
+											innerSize: '80%',
+											showInLegend:false,
+											dataLabels: {
+												enabled: false
+											},
+											data: {
+												label: {
+													center: {
+														label: {
+															label: data.percent_med_risk_population,
+															postfix: '%'
+														},
+														subLabel: {
+															label: data.med_risk_population
+														}
+													}
+												},
 												data: [{
-							            'y': data.percent_med_risk_population,
-							            'color': '#7cb5ec',
-							            'name': 'Moderate Flood Risk Popn',
-							            'label': data.med_risk_population,
-							          },{
-							            'y': 100 - data.percent_med_risk_population,
-							            'color': 'rgba(0,0,0,0.05)',
-							            'name': 'Moderate Risk Popn',
-							            'label': data.med_risk_population,
-							          }],
-												size: '100%',
-												innerSize: '80%',
-												showInLegend:false,
-												dataLabels: {
-													enabled: false
-												}
-										}]								
-									}							
+													'y': data.percent_med_risk_population,
+													'color': '#7cb5ec',
+													'name': 'Moderate Flood Risk Popn',
+													'label': data.med_risk_population,
+												},{
+													'y': 100 - data.percent_med_risk_population,
+													'color': 'rgba(0,0,0,0.05)',
+													'name': 'Moderate Risk Popn',
+													'label': data.med_risk_population,
+												}]
+											}
+										}]
+									}
 								}
-							}]					
+							}]
 						},{
 							styleClass: 's12 m12 l4',
 							widgets: [{
@@ -416,24 +442,37 @@ angular.module('ngmReportHub')
 												}
 										},
 										series: [{
-												name: 'Flood Risk',
+											name: 'High Flood Risk Popn',
+											size: '100%',
+											innerSize: '80%',
+											showInLegend:false,
+											dataLabels: {
+												enabled: false
+											},
+											data: {
+												label: {
+													center: {
+														label: {
+															label: data.percent_high_risk_population,
+															postfix: '%'
+														},
+														subLabel: {
+															label: data.high_risk_population
+														}
+													}
+												},
 												data: [{
-							            'y': data.percent_high_risk_population,
-							            'color': '#7cb5ec',
-							            'name': 'High Flood Risk Popn',
-							            'label': data.high_risk_population,
-							          },{
-							            'y': 100 - data.percent_high_risk_population,
-							            'color': 'rgba(0,0,0,0.05)',
-							            'name': 'High Risk Popn',
-							            'label': data.high_risk_population,
-							          }],
-												size: '100%',
-												innerSize: '80%',
-												showInLegend:false,
-												dataLabels: {
-													enabled: false
-												}
+													'y': data.percent_high_risk_population,
+													'color': '#7cb5ec',
+													'name': 'High Flood Risk Popn',
+													'label': data.high_risk_population,
+												},{
+													'y': 100 - data.percent_high_risk_population,
+													'color': 'rgba(0,0,0,0.05)',
+													'name': 'High Risk Popn',
+													'label': data.high_risk_population,
+												}]
+											}
 										}]
 									}
 								}
@@ -465,19 +504,19 @@ angular.module('ngmReportHub')
 											text: ''
 										},
 										xAxis: {
-			                categories: [
-			                	'Barren Land', 
-			                	'Built-Up', 
-			                	'Forest & Shrubs',
-			                	'Fruit Trees',
-			                	'Irrigated Agg Land',
-			                	'Permanent Snow',
-			                	'Rainfeld Agg Land',
-			                	'Rangeland',
-			                	'Sand Cover',
-			                	'Vineyards',
-			                	'Water Body & Marshland'
-			                ],
+											categories: [
+												'Barren Land', 
+												'Built-Up', 
+												'Forest & Shrubs',
+												'Fruit Trees',
+												'Irrigated Agg Land',
+												'Permanent Snow',
+												'Rainfeld Agg Land',
+												'Rangeland',
+												'Sand Cover',
+												'Vineyards',
+												'Water Body & Marshland'
+											],
 											labels: {
 												rotation: 0,
 												style: {
@@ -492,23 +531,25 @@ angular.module('ngmReportHub')
 												text: 'Population'
 											}
 										},
-				            series: [{
-				                name: 'Population',
-				                color: '#7cb5ec',
+										series: [{
+											name: 'Population',
+											color: '#7cb5ec',
+											data: {
 												data: [ 
 													data.barren_land_pop_risk,
-												  data.built_up_pop_risk,
-												  data.forest_pop_risk,
-												  data.fruit_trees_pop_risk,
-												  data.irrigated_agricultural_land_pop_risk,
-												  data.permanent_snow_pop_risk,
-												  data.rainfed_agricultural_land_pop_risk,
-												  data.rangeland_pop_risk,
-												  data.sandcover_pop_risk,
-												  data.vineyards_pop_risk,
-												  data.water_body_pop_risk
+													data.built_up_pop_risk,
+													data.forest_pop_risk,
+													data.fruit_trees_pop_risk,
+													data.irrigated_agricultural_land_pop_risk,
+													data.permanent_snow_pop_risk,
+													data.rainfed_agricultural_land_pop_risk,
+													data.rangeland_pop_risk,
+													data.sandcover_pop_risk,
+													data.vineyards_pop_risk,
+													data.water_body_pop_risk
 												]
-				            }]
+											}
+										}]
 									}
 								}
 							}]
@@ -539,19 +580,19 @@ angular.module('ngmReportHub')
 											text: ''
 										},
 										xAxis: {
-			                categories: [
-			                	'Barren Land', 
-			                	'Built-Up', 
-			                	'Forest & Shrubs',
-			                	'Fruit Trees',
-			                	'Irrigated Agg Land',
-			                	'Permanent Snow',
-			                	'Rainfeld Agg Land',
-			                	'Rangeland',
-			                	'Sand Cover',
-			                	'Vineyards',
-			                	'Water Body & Marshland'
-			                ],
+											categories: [
+												'Barren Land', 
+												'Built-Up', 
+												'Forest & Shrubs',
+												'Fruit Trees',
+												'Irrigated Agg Land',
+												'Permanent Snow',
+												'Rainfeld Agg Land',
+												'Rangeland',
+												'Sand Cover',
+												'Vineyards',
+												'Water Body & Marshland'
+											],
 											labels: {
 												rotation: 0,
 												style: {
@@ -566,23 +607,25 @@ angular.module('ngmReportHub')
 												text: 'Area (sqKm)'
 											}
 										},
-				            series: [{
-				                name: 'Population',
-				                color: '#78909c',
+										series: [{
+											name: 'Population',
+											color: '#78909c',
+											data: { 
 												data: [ 
 													data.barren_land_area_risk,
-												  data.built_up_area_risk,
-												  data.forest_area_risk,
-												  data.fruit_trees_area_risk,
-												  data.irrigated_agricultural_land_area_risk,
-												  data.permanent_snow_area_risk,
-												  data.rainfed_agricultural_land_area_risk,
-												  data.rangeland_area_risk,
-												  data.sandcover_area_risk,
-												  data.vineyards_area_risk,
-												  data.water_body_area_risk
+													data.built_up_area_risk,
+													data.forest_area_risk,
+													data.fruit_trees_area_risk,
+													data.irrigated_agricultural_land_area_risk,
+													data.permanent_snow_area_risk,
+													data.rainfed_agricultural_land_area_risk,
+													data.rangeland_area_risk,
+													data.sandcover_area_risk,
+													data.vineyards_area_risk,
+													data.water_body_area_risk
 												]
-				            }]
+											}
+										}]
 									}
 								}
 							}]

@@ -174,6 +174,9 @@ angular.module('ngmReportHub')
 				  	// 2 minutes to reset session
 				  	$interval(function(){
 
+				  	// close modal
+				  	$('#ngm-session-modal').closeModal();
+
 					    // unset localStorage
 					    ngmUser.unset();
 
