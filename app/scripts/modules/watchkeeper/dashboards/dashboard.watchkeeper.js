@@ -23,7 +23,7 @@ angular.module('ngmReportHub')
 			user: ngmUser.get(),
 
 			// used in print report
-			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
+			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
 
 			// start date = now - 1 month
 			startDate: moment($route.current.params.start).format('YYYY-MM-DD'),
@@ -112,6 +112,9 @@ angular.module('ngmReportHub')
 				return menu;
 			}
 		}
+
+		// report
+		$scope.dashboard.report += moment().format('YYYY-MM-DDTHHmm');
 
 		// set dashboard params
 		$scope.dashboard.country = $scope.dashboard.data.country[$route.current.params.country];
@@ -370,7 +373,9 @@ angular.module('ngmReportHub')
 						style: 'height: 190px;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Top 5 Incident Locations',
+							title: {
+								text: 'Top 5 Incident Locations'
+							},
 							chartConfig: {
 								options: {
 									chart: {

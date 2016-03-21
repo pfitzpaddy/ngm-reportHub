@@ -1,0 +1,11 @@
+<div>
+  <div id="{{highchart.id}}" align="{{ highchart.align }}" ng-if="highchart.chartConfig">
+    <div ng-if="highchart.title.text" 
+    		align="{{ highchart.title.align }}" 
+    		style="{{ highchart.title.style }}">{{ highchart.title.text }}</div>
+    
+    <highchart config="highchart.chartConfig"></highchart>
+
+  </div>
+
+</div>

@@ -30,7 +30,7 @@ angular.module('ngmReportHub')
 			endDate: moment($route.current.params.end).format('YYYY-MM-DD'),
 			
 			// current report
-			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
+			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
 
 			// data lookup
 			data: {
@@ -181,6 +181,9 @@ angular.module('ngmReportHub')
 			}
 		}
 
+		// report
+		$scope.dashboard.report += moment().format('YYYY-MM-DDTHHmm');
+
 		// set dashboard params
 		$scope.dashboard.location = $scope.dashboard.data.location[$route.current.params.location];
 		$scope.dashboard.disease = $scope.dashboard.data.disease[$route.current.params.disease];
@@ -251,6 +254,35 @@ angular.module('ngmReportHub')
 				download: {
 					'class': 'col s12 m4 l4 hide-on-small-only',
 					downloads: [{
+						type: 'pdf',
+						color: 'blue lighten-1',
+						icon: 'picture_as_pdf',
+						hover: 'Download ' + $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name +  ' Report as PDF',
+						request: {
+							method: 'POST',
+							url: 'http://' + $location.host() + '/api/print',
+							data: {
+								report: $scope.dashboard.report,
+								printUrl: $location.absUrl(),
+								downloadUrl: 'http://' + $location.host() + '/report/',
+								token: $scope.dashboard.user.token,
+								pageLoadTime: 6400
+							}
+						},
+						metrics: {
+							method: 'POST',
+							url: 'http://' + $location.host() + '/api/metrics/set',
+							data: {
+								organization: $scope.dashboard.user.organization,
+								username: $scope.dashboard.user.username,
+								email: $scope.dashboard.user.email,
+								dashboard: 'dews',
+								theme: $scope.dashboard.disease.name,
+								format: 'pdf',
+								url: $location.$$path
+							}
+						}
+					},{
 						type: 'csv',
 						color: 'blue lighten-1',
 						icon: 'library_books',
@@ -276,35 +308,6 @@ angular.module('ngmReportHub')
 								dashboard: 'dews',
 								theme: $scope.dashboard.disease.name,
 								format: 'csv',
-								url: $location.$$path
-							}
-						}						
-					},{
-						type: 'pdf',
-						color: 'blue lighten-1',
-						icon: 'picture_as_pdf',
-						hover: 'Download ' + $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name +  ' Report as PDF',
-						request: {
-							method: 'POST',
-							url: 'http://' + $location.host() + '/api/print',
-							data: {
-								report: $scope.dashboard.report,
-								printUrl: $location.absUrl(),
-								downloadUrl: 'http://' + $location.host() + '/report/',
-								token: $scope.dashboard.user.token,
-								pageLoadTime: 6400
-							}
-						},						
-						metrics: {
-							method: 'POST',
-							url: 'http://' + $location.host() + '/api/metrics/set',
-							data: {
-								organization: $scope.dashboard.user.organization,
-								username: $scope.dashboard.user.username,
-								email: $scope.dashboard.user.email,
-								dashboard: 'dews',
-								theme: $scope.dashboard.disease.name,
-								format: 'pdf',
 								url: $location.$$path
 							}
 						}
@@ -411,6 +414,10 @@ angular.module('ngmReportHub')
 						card: 'card-panel',
 						style: 'padding-top:5px;',
 						config: {
+							title: {
+								style: 'padding-top: 10px;',
+								name: $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name + ' - 1 Year Timeline'
+							},							
 							options: {
 								// calendar start date
 								start: new Date( moment($scope.dashboard.endDate).subtract(11, 'M').format('YYYY-MM-DD') ),
@@ -461,10 +468,9 @@ angular.module('ngmReportHub')
 						style: 'height: 160px;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Outbreaks - Trend',
-							titleAlign: 'left',
-							titleStyle: 'margin-left:20%',
-							chartAlign: 'middle',
+							title: {
+								text: 'Outbreaks - Trend',
+							},
 							chartConfig: {
 								options: {
 									chart: {

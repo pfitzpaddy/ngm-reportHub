@@ -6,8 +6,8 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardHealthProjectsCtrl', ['$scope', '$http', '$location', '$route', '$window', '$timeout', 'ngmUser', 'ngmModal', 
-		function ($scope, $http, $location, $route, $window, $timeout, ngmUser, ngmModal) {
+	.controller('DashboardHealthProjectsCtrl', ['$scope', '$http', '$location', '$route', '$window', '$timeout', '$filter', 'ngmUser', 'ngmModal', 'ngmData', 
+		function ($scope, $http, $location, $route, $window, $timeout, $filter, ngmUser, ngmModal, ngmData) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -30,10 +30,30 @@ angular.module('ngmReportHub')
 			endDate: moment($route.current.params.end).format('YYYY-MM-DD'),			
 			
 			// current report
-			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
+			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
 
 			data: {
-				location: {
+				project:{
+					'all': 'All Projects',
+					'awareness_campaign': 'Awareness Campaign',
+					'health_education': 'Health Education',
+					'outbreak_response': 'Outbreak Response',
+					'phc_idps': 'PHC IDPs',
+					'phc_natural_disaster': 'PHC Natural Disaster',
+					'phc_refugees': 'PHC Refugees',
+					'phc_conflict_area': 'PHC Conflict Area',
+					'phc_white_area': 'PHC White Area',
+					'trauma_care': 'Trauma Care'
+				},
+				beneficiaries: {
+					'all': 'Total Beneficiaries',
+					'conflict_displaced': 'Conflict Displaced',
+					'health_affected_conflict': 'Health Affected by Conflict', 
+					'refugees_returnees': 'Refugees Returnees',
+					'natural_disaster_affected': 'Natural Disaster Affected',
+					'public_health': 'Public Health'
+				},
+				province: {
 					'afghanistan': { id:'*', name:'Afghanistan'},
 					'badakhshan': { id:15, name:'Badakhshan'},
 					'badghis': { id:29, name:'Badghis'},
@@ -72,677 +92,888 @@ angular.module('ngmReportHub')
 				}
 			},
 
-			// return rows for DEWS menu
-			getRows: function(list) {
+			// return rows for menu
+			getProvinceRows: function() {
 				
 				// menu rows
 				var active,
 						rows = [];
 						
-				// for each disease
-				angular.forEach($scope.dashboard.data.location, function(d, key){
+				// for each province
+				angular.forEach($scope.dashboard.data.province, function(d, key){
 					//
 					rows.push({
 						'title': d.name,
 						'param': 'location',
 						'active': key,
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '#/health/4w/' + key + '/' + $route.current.params.project + '/' + $route.current.params.start + '/' + $route.current.params.end
+						'href': '#/health/4w/' + key + '/all/' + $route.current.params.project + '/'  + $route.current.params.beneficiaries + '/' + $route.current.params.start + '/' + $route.current.params.end
 					});
 				});
 
 				return rows;
-			}			
+			},
+
+			// return rows for menu
+			getDistrictRows: function() {
+				
+				// menu rows
+				var active,
+						rows = [];
+						
+				// for each district
+				angular.forEach($scope.dashboard.data.district, function(d, key){
+					//
+					rows.push({
+						'title': d.name,
+						'param': 'location',
+						'active': key,
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '#/health/4w/' + $route.current.params.province + '/' + key + '/' + $route.current.params.project + '/'  + $route.current.params.beneficiaries + '/' + $route.current.params.start + '/' + $route.current.params.end
+					});
+				});
+
+				return rows;
+			},
+
+			// set district list
+			setDistrictList: function(list){
+
+				// set $scope districts
+				$scope.dashboard.data.district = {}
+				// filter districts by province
+				var districts = $filter('filter')(list, { prov_code: $scope.dashboard.data.province[$route.current.params.province].id }, true);;
+				// format list
+				angular.forEach(districts, function(d, i){
+					// url key
+					var key = d.dist_name.toLowerCase().replace(' ', '-');
+					// create object
+					$scope.dashboard.data.district[key] = { id: d.dist_code, name: d.dist_name }
+
+				});
+
+			},
+
+			// 
+			setDashboard: function(){
+
+				// set dashboard params
+				$scope.dashboard.province = $scope.dashboard.data.province[$route.current.params.province];
+				$scope.dashboard.district = $route.current.params.district !== 'all' ? $scope.dashboard.data.district[$route.current.params.district] : { id: '*', name: 'All' };
+				$scope.dashboard.project = $route.current.params.project.split('+');
+				$scope.dashboard.beneficiaries = $route.current.params.beneficiaries.split('+');
+
+				// report
+				$scope.dashboard.report += moment().format('YYYY-MM-DDTHHmm');
+
+				// title
+				$scope.dashboard.title = 'Health 4W | ' + $scope.dashboard.province.name;
+				$scope.dashboard.title += $scope.dashboard.district.id !== '*' ? ' | ' + $scope.dashboard.district.name : '';
+				// $scope.dashboard.subtitle = 'Health Cluster 4W dashboard for ' + $scope.dashboard.project + ' health projects in ' + $scope.dashboard.province.name + ' Province';
+
+				// subtitle
+				$scope.dashboard.subtitle = 'Health Cluster 4W dashboard for health projects in ' + $scope.dashboard.province.name;
+				$scope.dashboard.subtitle += $route.current.params.province !== 'afghanistan' ? ' Province' : '';
+				$scope.dashboard.subtitle += $scope.dashboard.district.id !== '*' ? ', ' + $scope.dashboard.district.name : '';
+
+				// projects stats title
+				$scope.dashboard.projectTitle = '';				
+				angular.forEach($scope.dashboard.project, function(d, i){
+					// title
+					$scope.dashboard.projectTitle += $scope.dashboard.data.project[d] + ', ';
+				});
+				// remove last 2 characters
+				$scope.dashboard.projectTitle = $scope.dashboard.projectTitle.slice(0, -2);
+
+				// beneficaries stats title
+				$scope.dashboard.beneficiariesTitle = '';				
+				angular.forEach($scope.dashboard.beneficiaries, function(d, i){
+					// title
+					$scope.dashboard.beneficiariesTitle += $scope.dashboard.data.beneficiaries[d] + ', ';
+				});
+				// remove last 2 characters
+				$scope.dashboard.beneficiariesTitle = $scope.dashboard.beneficiariesTitle.slice(0, -2);
+
+				// set model
+				$scope.model = {
+					name: 'health_4w_dews_dashboard',
+					header: {
+						div: {
+							'class': 'col s12 m12 l12 report-header',
+							'style': 'border-bottom: 3px ' + $scope.dashboard.ngm.style.defaultPrimaryColor + ' solid;'
+						},
+						title: {
+							'class': 'col s12 m8 l8 report-title',
+							'style': 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
+							'title': $scope.dashboard.title,
+						},
+						subtitle: {
+							'class': 'col hide-on-small-only m8 l9 report-subtitle',
+							'title': $scope.dashboard.subtitle,
+						},
+						datePicker: {
+							'class': 'col s12 m4 l3',
+							dates: [{
+								'class': 'ngm-date',
+								style: 'float:left;',
+								label: 'from',
+								format: 'd mmm, yyyy',
+								time: $scope.dashboard.startDate,
+								onSelection: function(){
+
+									// set date
+									$scope.dashboard.startDate = moment(new Date(this.time)).format('YYYY-MM-DD');
+
+									// check dates
+									if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
+										Materialize.toast('Please check the dates and try again!', 4000);
+									} else {
+										// update new date
+										// $location.path('/who/dews/' + $route.current.params.location + '/' + $route.current.params.disease + '/' + $scope.dashboard.startDate + '/' + $scope.dashboard.endDate);
+									}
+
+								}
+							},{
+								'class': 'ngm-date',
+								style: 'float:right',
+								label: 'to',
+								format: 'd mmm, yyyy',
+								time: $scope.dashboard.endDate,
+								onSelection: function(){
+									
+									// set date
+									$scope.dashboard.endDate = moment(new Date(this.time)).format('YYYY-MM-DD');
+
+									// check dates
+									if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
+										Materialize.toast('Please check the dates and try again!', 4000);
+									} else {
+										// update new date
+										// $location.path('/who/dews/' + $route.current.params.location + '/' + $route.current.params.disease + '/' + $scope.dashboard.startDate + '/' + $scope.dashboard.endDate);
+									}
+
+								}
+							}]
+						},				
+						download: {
+							'class': 'col s12 m4 l4 hide-on-small-only',
+							downloads: [{
+								type: 'pdf',
+								color: 'blue',
+								icon: 'picture_as_pdf',
+								hover: 'Download Health 4W as PDF',
+								request: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/print',
+									data: {
+										report: $scope.dashboard.report,
+										printUrl: $location.absUrl(),
+										downloadUrl: 'http://' + $location.host() + '/report/',
+										token: 'public',
+										pageLoadTime: 5400
+									}
+								},						
+								metrics: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/metrics/set',
+									data: {
+										organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
+										username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
+										email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public',
+										dashboard: 'health_4w',
+										theme: 'health_4w',
+										format: 'pdf',
+										url: $location.$$path
+									}
+								}						
+							},{
+								type: 'csv',
+								color: 'blue lighten-2',
+								icon: 'account_circle',
+								hover: 'Download Health Cluster Contact List as CSV',
+								request: {
+									method: 'GET',
+									url: 'http://' + $location.host() + '/api/health/data/contacts',
+									data: {
+										report: 'details_' + $scope.dashboard.report
+									}
+								},
+								metrics: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/metrics/set',
+									data: {
+										organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
+										username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
+										email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public',
+										dashboard: 'health_4w',
+										theme: 'health_contacts',
+										format: 'csv',
+										url: $location.$$path
+									}
+								}
+							},{
+								type: 'csv',
+								color: 'blue lighten-2',
+								icon: 'assignment',
+								hover: 'Download Health 4W Project Details as CSV',
+								request: {
+									method: 'GET',
+									url: 'http://' + $location.host() + '/api/health/data/details',
+									data: {
+										report: 'details_' + $scope.dashboard.report
+									}
+								},
+								metrics: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/metrics/set',
+									data: {
+										organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
+										username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
+										email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public',
+										dashboard: 'health_4w',
+										theme: 'health_details',
+										format: 'csv',
+										url: $location.$$path
+									}
+								}
+							},{
+								type: 'csv',
+								color: 'blue lighten-2',
+								icon: 'location_on',
+								hover: 'Download Health 4W Project Locations as CSV',
+								request: {
+									method: 'GET',
+									url: 'http://' + $location.host() + '/api/health/data/locations',
+									data: {
+										report: 'locations_' + $scope.dashboard.report
+									}
+								},
+								metrics: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/metrics/set',
+									data: {
+										organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
+										username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
+										email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public',
+										dashboard: 'health_4w',
+										theme: 'health_locations',
+										format: 'csv',
+										url: $location.$$path
+									}
+								}
+							},{
+								type: 'csv',
+								color: 'blue lighten-2',
+								icon: 'group',
+								hover: 'Download Health 4W Project Beneficiaries as CSV',
+								request: {
+									method: 'GET',
+									url: 'http://' + $location.host() + '/api/health/data/beneficiaries',
+									data: {
+										report: 'beneficiaries_' + $scope.dashboard.report
+									}
+								},
+								metrics: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/metrics/set',
+									data: {
+										organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
+										username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
+										email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public',
+										dashboard: 'health_4w',
+										theme: 'health_beneficiaries',
+										format: 'csv',
+										url: $location.$$path
+									}
+								}
+							}]
+						}
+					},
+					menu: [{
+						'id': 'search-health-province',
+						'search': true,
+						'icon': 'place',
+						'title': 'Province',
+						'class': 'teal lighten-1 white-text',
+						'rows': $scope.dashboard.getProvinceRows()
+					}],			
+					rows: [{
+						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'html',
+								card: 'white grey-text text-darken-2',
+								style: 'padding:20px;',
+								config: {
+									id: 'dashboard-btn',
+									html: '<a class="waves-effect waves-light btn" href="#/health/4w"><i class="material-icons left">cached</i>Reset</a>'
+								}
+							}]
+						}]
+					},{
+						columns: [{
+							styleClass: 's12 m12 l6',
+							widgets: [{
+								type: 'stats',
+								style: 'text-align: center;',
+								card: 'card-panel stats-card white grey-text text-darken-2',
+								config: {
+									title: 'Active Organizations',
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/health/total',
+										data: {
+											indicator: 'organizations',
+											start_date: $scope.dashboard.startDate,
+											end_date: $scope.dashboard.endDate,
+											project: $scope.dashboard.project,
+											beneficiaries: $scope.dashboard.beneficiaries
+										}
+									}
+								}
+							}]
+						},{
+							styleClass: 's12 m12 l6',
+							widgets: [{
+								type: 'stats',
+								style: 'text-align: center;',
+								card: 'card-panel stats-card white grey-text text-darken-2',
+								config: {
+									title: 'Active Projects for (' + $scope.dashboard.projectTitle + ')',
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/health/total',
+										data: {
+											indicator: 'projects',
+											start_date: $scope.dashboard.startDate,
+											end_date: $scope.dashboard.endDate,
+											project: $scope.dashboard.project,
+											beneficiaries: $scope.dashboard.beneficiaries
+										}
+									}
+								}
+							}]
+						}]
+					},{
+						columns: [{
+							styleClass: 's12 m12 l4',
+							widgets: [{
+								type: 'stats',
+								style: 'text-align: center;',
+								card: 'card-panel stats-card white grey-text text-darken-2',
+								config: {
+									title: 'Locations',
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/health/total',
+										data: {
+											indicator: 'locations',
+											start_date: $scope.dashboard.startDate,
+											end_date: $scope.dashboard.endDate,
+											project: $scope.dashboard.project,
+											beneficiaries: $scope.dashboard.beneficiaries,
+											conflict: false
+										}
+									}
+								}
+							}]
+						},{
+							styleClass: 's12 m12 l4',
+							widgets: [{
+								type: 'stats',
+								style: 'text-align: center;',
+								card: 'card-panel stats-card white grey-text text-darken-2',
+								config: {
+									title: 'in Conflict Districts',
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/health/total',
+										data: {
+											indicator: 'locations',
+											start_date: $scope.dashboard.startDate,
+											end_date: $scope.dashboard.endDate,
+											project: $scope.dashboard.project,
+											beneficiaries: $scope.dashboard.beneficiaries,
+											conflict: true
+										}
+									}
+								}
+							}]
+						},{
+							styleClass: 's12 m12 l4',
+							widgets: [{
+								type: 'stats',
+								style: 'text-align: center;',
+								card: 'card-panel stats-card white grey-text text-darken-2',
+								config: {
+									title: 'Conflict Districts with FATP/HF for Trauma',
+									data: {
+										value: 92,
+										value_total: 388
+									},
+									display: {
+										postfix: '%',
+										fractionSize: 0,
+										simpleTitle: false
+									}
+								}
+							}]
+						}]
+					},{
+						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'stats',
+								style: 'text-align: center;',
+								card: 'card-panel stats-card white grey-text text-darken-2',
+								config: {
+									title: $scope.dashboard.beneficiariesTitle,
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/health/total',
+										data: {
+											indicator: 'beneficiaries',
+											start_date: $scope.dashboard.startDate,
+											end_date: $scope.dashboard.endDate,
+											project: $scope.dashboard.project,
+											beneficiaries: $scope.dashboard.beneficiaries,
+										}
+									}
+								}
+							}]					
+						}]
+					},{
+						columns: [{
+							styleClass: 's12 m12 l4',
+							widgets: [{
+								type: 'highchart',
+								style: 'height: 180px;',
+								card: 'card-panel chart-stats-card white grey-text text-darken-2',
+								config: {
+									title: {
+										text: 'Children (Under 18)'
+									},
+									display: {
+										label: true,
+										fractionSize: 1,
+										subLabelfractionSize: 0,
+										postfix: '%'
+									},
+									templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
+									style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
+									chartConfig: {
+										options: {
+											chart: {
+												type: 'pie',
+												height: 140,
+												margin: [0,0,0,0],
+												spacing: [0,0,0,0]
+											},
+											tooltip: {
+												enabled: false
+											}				
+										},
+										title: {
+												text: '',
+												margin: 0
+										},
+										plotOptions: {
+												pie: {
+														shadow: false
+												}
+										},
+										series: [{
+											name: 'Children (Under 18)',
+											size: '100%',
+											innerSize: '80%',
+											showInLegend:false,
+											dataLabels: {
+												enabled: false
+											},
+											data: {
+												label: {
+													left: {
+														label: {
+															prefix: 'F',
+															label: 58,
+															postfix: '%'
+														},
+														subLabel: {
+															label: 102000
+														}
+													},										
+													center: {
+														label: {
+															label: 22,
+															postfix: '%'
+														},
+														subLabel: {
+															label: 200036
+														}
+													},
+													right: {
+														label: {
+															prefix: 'M',
+															label: 52,
+															postfix: '%'
+														},
+														subLabel: {
+															label: 102000
+														}
+													},
+												},										
+												data:[{
+							            'y': 58.2,
+							            'color': '#90caf9',
+							            'name': 'Male',
+							            'label': 102000,
+							          },{
+							            'y': 100 - 58.2,
+							            'color': '#f48fb1',
+							            'name': 'Female',
+							            'label': 102000,
+							          }]
+							        }
+										}]
+									}
+								}
+							}]
+						},{
+							styleClass: 's12 m12 l4',
+							// widgets: [{
+							// 	type: 'stats',
+							// 	card: 'card-panel stats-card white grey-text text-darken-2',
+							// 	config: {
+							// 		title: 'Adult (18 to 59)',
+							// 		request: {
+							// 			method: 'POST',
+							// 			url: 'http://' + $location.host() + '/api/health/total',
+							// 			data: {
+							// 				indicator: ['over18male', 'over18female'],
+							// 			}
+							// 		}
+							// 	}
+							// }]
+							widgets: [{
+								type: 'highchart',
+								style: 'height: 180px;',
+								card: 'card-panel chart-stats-card white grey-text text-darken-2',
+								config: {
+									title: {
+										text: 'Adult (18 to 59)'
+									},
+									display: {
+										label: true,
+										fractionSize: 1,
+										subLabelfractionSize: 0,
+										postfix: '%'
+									},
+									templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
+									style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
+									chartConfig: {
+										options: {
+											chart: {
+												type: 'pie',
+												height: 140,
+												margin: [0,0,0,0],
+												spacing: [0,0,0,0]
+											},
+											tooltip: {
+												enabled: false
+											}				
+										},
+										title: {
+												text: '',
+												margin: 0
+										},
+										plotOptions: {
+												pie: {
+														shadow: false
+												}
+										},
+										series: [{
+											name: 'Adult (18 to 59)',
+											size: '100%',
+											innerSize: '80%',
+											showInLegend:false,
+											dataLabels: {
+												enabled: false
+											},
+											data: {
+												label: {
+													left: {
+														label: {
+															prefix: 'F',
+															label: 58,
+															postfix: '%'
+														},
+														subLabel: {
+															label: 102000
+														}
+													},										
+													center: {
+														label: {
+															label: 22,
+															postfix: '%'
+														},
+														subLabel: {
+															label: 200036
+														}
+													},
+													right: {
+														label: {
+															prefix: 'M',
+															label: 52,
+															postfix: '%'
+														},
+														subLabel: {
+															label: 102000
+														}
+													},
+												},									
+												data:[{
+							            'y': 58.2,
+							            'color': '#90caf9',
+							            'name': 'Male',
+							            'label': 102000,
+							          },{
+							            'y': 100 - 58.2,
+							            'color': '#f48fb1',
+							            'name': 'Female',
+							            'label': 102000,
+							          }]
+							        }
+										}]
+									}
+								}
+							}]			
+						},{
+							styleClass: 's12 m12 l4',
+							// widgets: [{
+							// 	type: 'stats',
+							// 	card: 'card-panel stats-card white grey-text text-darken-2',
+							// 	config: {
+							// 		title: 'Elderly (Over 59)',
+							// 		request: {
+							// 			method: 'POST',
+							// 			url: 'http://' + $location.host() + '/api/health/total',
+							// 			data: {
+							// 				indicator: ['over59male', 'over59female'],
+							// 			}
+							// 		}
+							// 	}
+							// }]
+							widgets: [{
+								type: 'highchart',
+								style: 'height: 180px;',
+								card: 'card-panel chart-stats-card white grey-text text-darken-2',
+								config: {
+									title: {
+										text: 'Eldery (Over 59)'
+									},
+									display: {
+										label: true,
+										fractionSize: 1,
+										subLabelfractionSize: 0,
+										postfix: '%'
+									},
+									templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
+									style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
+									chartConfig: {
+										options: {
+											chart: {
+												type: 'pie',
+												height: 140,
+												margin: [0,0,0,0],
+												spacing: [0,0,0,0]
+											},
+											tooltip: {
+												enabled: false
+											}				
+										},
+										title: {
+												text: '',
+												margin: 0
+										},
+										plotOptions: {
+												pie: {
+														shadow: false
+												}
+										},
+										series: [{
+											name: 'Eldery (Over 59)',
+											size: '100%',
+											innerSize: '80%',
+											showInLegend:false,
+											dataLabels: {
+												enabled: false
+											},
+											data: {
+												label: {
+													left: {
+														label: {
+															prefix: 'F',
+															label: 58,
+															postfix: '%'
+														},
+														subLabel: {
+															label: 102000
+														}
+													},										
+													center: {
+														label: {
+															label: 22,
+															postfix: '%'
+														},
+														subLabel: {
+															label: 200036
+														}
+													},
+													right: {
+														label: {
+															prefix: 'M',
+															label: 52,
+															postfix: '%'
+														},
+														subLabel: {
+															label: 102000
+														}
+													},
+												},									
+												data:[{
+							            'y': 58.2,
+							            'color': '#90caf9',
+							            'name': 'Male',
+							            'label': 102000,
+							          },{
+							            'y': 100 - 58.2,
+							            'color': '#f48fb1',
+							            'name': 'Female',
+							            'label': 102000,
+							          }]
+							        }
+										}]
+									}
+								}
+							}]
+						}]
+					},{
+						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'leaflet',
+								card: 'card-panel',
+								style: 'padding:0px;',
+								config: {
+									height: '520px',
+									display: {
+										type: 'marker',
+									},
+									defaults: {
+										zoomToBounds: true
+									},
+									layers: {
+										baselayers: {
+											osm: {
+												name: 'Mapbox',
+												type: 'xyz',
+												url: 'https://b.tiles.mapbox.com/v3/aj.um7z9lus/{z}/{x}/{y}.png?',
+												layerOptions: {
+													continuousWorld: true
+												}
+											}
+										},								
+										overlays: {
+											health: {
+												name: 'Health',
+												type: 'markercluster',
+												visible: true,
+												layerOptions: {
+														maxClusterRadius: 90
+												}
+											}
+										}
+									},				
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/health/markers',
+										data: {}
+									}
+								}
+							}]
+						}]
+					},{
+						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'html',
+								card: 'card-panel',
+								style: 'padding:0px; height: 90px; padding-top:10px;',
+								config: {
+									html: $scope.dashboard.ngm.footer
+								}
+							}]
+						}]						
+					}]
+				};		
+
+				// if province selected add district
+				if($route.current.params.province !== 'afghanistan'){
+					$scope.model.menu[1] = {
+						'search': true,
+						'id': 'search-health-district',
+						'icon': 'place',
+						'title': 'District',
+						'class': 'teal lighten-1 white-text',
+						'rows': $scope.dashboard.getDistrictRows()
+					};
+				}
+
+				// assign to ngm app scope (for menu)
+				$scope.dashboard.ngm.dashboard.model = $scope.model;						
+
+			}
 
 		}
 
-		// get project_type
-		// get beneficiary_type
+		// load dashboard!
+		if($route.current.params.province === 'afghanistan'){
+			
+			// dews dashboard model
+			$scope.dashboard.setDashboard();
 
-		// set dashboard params
-		$scope.dashboard.location = $scope.dashboard.data.location[$route.current.params.location];
-		$scope.dashboard.project = $route.current.params.project
-		$scope.dashboard.title = 'Health 4W | ' + $scope.dashboard.location.name;
-		$scope.dashboard.subtitle = 'Health Cluster 4W dashboard for ' + $scope.dashboard.project + ' health projects in ' + $scope.dashboard.location.name;
+		} else {
 
-		// dews dashboard model
-		$scope.model = {
-			name: 'health_4w_dews_dashboard',
-			header: {
-				div: {
-					'class': 'col s12 m12 l12 report-header',
-					'style': 'border-bottom: 3px ' + $scope.dashboard.ngm.style.defaultPrimaryColor + ' solid;'
-				},
-				title: {
-					'class': 'col s12 m8 l8 report-title',
-					'style': 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
-					'title': $scope.dashboard.title,
-				},
-				subtitle: {
-					'class': 'col hide-on-small-only m8 l9 report-subtitle',
-					'title': $scope.dashboard.subtitle,
-				},
-				datePicker: {
-					'class': 'col s12 m4 l3',
-					dates: [{
-						'class': 'ngm-date',
-						style: 'float:left;',
-						label: 'from',
-						format: 'd mmm, yyyy',
-						time: $scope.dashboard.startDate,
-						onSelection: function(){
+			// if in storage
+			if( localStorage.getItem('districtList') ){
 
-							// set date
-							$scope.dashboard.startDate = moment(new Date(this.time)).format('YYYY-MM-DD');
+				// get list from storage
+				$scope.dashboard.setDistrictList(angular.fromJson(localStorage.getItem('districtList')));
 
-							// check dates
-							if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
-								Materialize.toast('Please check the dates and try again!', 4000);
-							} else {
-								// update new date
-								// $location.path('/who/dews/' + $route.current.params.location + '/' + $route.current.params.disease + '/' + $scope.dashboard.startDate + '/' + $scope.dashboard.endDate);
-							}
+				// dews dashboard model
+				$scope.dashboard.setDashboard();
 
-						}
-					},{
-						'class': 'ngm-date',
-						style: 'float:right',
-						label: 'to',
-						format: 'd mmm, yyyy',
-						time: $scope.dashboard.endDate,
-						onSelection: function(){
-							
-							// set date
-							$scope.dashboard.endDate = moment(new Date(this.time)).format('YYYY-MM-DD');
+			} else {
 
-							// check dates
-							if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
-								Materialize.toast('Please check the dates and try again!', 4000);
-							} else {
-								// update new date
-								// $location.path('/who/dews/' + $route.current.params.location + '/' + $route.current.params.disease + '/' + $scope.dashboard.startDate + '/' + $scope.dashboard.endDate);
-							}
+				// request data
+				ngmData.get({
+					method: 'GET',
+					url: 'http://' + $location.host() + '/api/health/getDistrictsList'
+				}).then(function(data){
 
-						}
-					}]
-				},				
-				download: {
-					'class': 'col s12 m4 l4 hide-on-small-only',
-					downloads: [{
-						type: 'pdf',
-						color: 'blue',
-						icon: 'picture_as_pdf',
-						hover: 'Download Health 4W as PDF',
-						request: {
-							method: 'POST',
-							url: 'http://' + $location.host() + '/api/print',
-							data: {
-								report: $scope.dashboard.report,
-								printUrl: $location.absUrl(),
-								downloadUrl: 'http://' + $location.host() + '/report/',
-								token: 'public',
-								pageLoadTime: 4800
-							}
-						},						
-						metrics: {
-							method: 'POST',
-							url: 'http://' + $location.host() + '/api/metrics/set',
-							data: {
-								organization: $scope.dashboard.user ? $scope.dashboard.organization : 'public',
-								username: $scope.dashboard.user ? $scope.dashboard.username : 'public',
-								email: $scope.dashboard.user ? $scope.dashboard.email : 'public',
-								dashboard: 'health_4w',
-								theme: 'health_4w',
-								format: 'pdf',
-								url: $location.$$path
-							}
-						}						
-					},{
-						type: 'csv',
-						color: 'blue lighten-2',
-						icon: 'assignment',
-						hover: 'Download Health 4W Project Details as CSV',
-						request: {
-							method: 'GET',
-							url: 'http://' + $location.host() + '/api/health/data/details',
-							data: {
-								report: 'details_' + $scope.dashboard.report
-							}
-						},
-						metrics: {
-							method: 'POST',
-							url: 'http://' + $location.host() + '/api/metrics/set',
-							data: {
-								organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
-								username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
-								email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public',
-								dashboard: 'health_4w',
-								theme: 'health_details',
-								format: 'csv',
-								url: $location.$$path
-							}
-						}
-					},{
-						type: 'csv',
-						color: 'blue lighten-2',
-						icon: 'location_on',
-						hover: 'Download Health 4W Project Locations as CSV',
-						request: {
-							method: 'GET',
-							url: 'http://' + $location.host() + '/api/health/data/locations',
-							data: {
-								report: 'locations_' + $scope.dashboard.report
-							}
-						},
-						metrics: {
-							method: 'POST',
-							url: 'http://' + $location.host() + '/api/metrics/set',
-							data: {
-								organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
-								username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
-								email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public',
-								dashboard: 'health_4w',
-								theme: 'health_locations',
-								format: 'csv',
-								url: $location.$$path
-							}
-						}
-					},{
-						type: 'csv',
-						color: 'blue lighten-2',
-						icon: 'account_circle',
-						hover: 'Download Health 4W Project Beneficiaries as CSV',
-						request: {
-							method: 'GET',
-							url: 'http://' + $location.host() + '/api/health/data/beneficiaries',
-							data: {
-								report: 'beneficiaries_' + $scope.dashboard.report
-							}
-						},
-						metrics: {
-							method: 'POST',
-							url: 'http://' + $location.host() + '/api/metrics/set',
-							data: {
-								organization: $scope.dashboard.user ? $scope.dashboard.organization : 'public',
-								username: $scope.dashboard.user ? $scope.dashboard.username : 'public',
-								email: $scope.dashboard.user ? $scope.dashboard.email : 'public',
-								dashboard: 'health_4w',
-								theme: 'health_beneficiaries',
-								format: 'csv',
-								url: $location.$$path
-							}
-						}
-					}]
-				}
-			},
-			menu: [{
-				'id': 'search-health-province',
-				'search': true,
-				'icon': 'place',
-				'title': 'Province',
-				'class': 'teal lighten-1 white-text',
-				'rows': $scope.dashboard.getRows('province')
-			}],			
-			rows: [{
-				columns: [{
-					styleClass: 's12 m12 l6',
-					widgets: [{
-						type: 'stats',
-						style: 'text-align: center;',
-						card: 'card-panel stats-card white grey-text text-darken-2',
-						config: {
-							title: 'Organizations',
-							request: {
-								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/total',
-								data: {
-									indicator: 'organizations',
-								}
-							}
-						}
-					}]
-				},{
-					styleClass: 's12 m12 l6',
-					widgets: [{
-						type: 'stats',
-						style: 'text-align: center;',
-						card: 'card-panel stats-card white grey-text text-darken-2',
-						config: {
-							title: 'Projects',
-							request: {
-								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/total',
-								data: {
-									indicator: 'projects',
-								}
-							}
-						}
-					}]
-				}]
-			},{
-				columns: [{
-					styleClass: 's12 m12 l6',
-					widgets: [{
-						type: 'stats',
-						style: 'text-align: center;',
-						card: 'card-panel stats-card white grey-text text-darken-2',
-						config: {
-							title: 'Locations',
-							request: {
-								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/total',
-								data: {
-									indicator: 'locations',
-									conflict: false
-								}
-							}
-						}
-					}]
-				},{
-					styleClass: 's12 m12 l6',
-					widgets: [{
-						type: 'stats',
-						style: 'text-align: center;',
-						card: 'card-panel stats-card white grey-text text-darken-2',
-						config: {
-							title: 'Conflict Locations',
-							request: {
-								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/total',
-								data: {
-									indicator: 'locations',
-									conflict: true
-								}
-							}
-						}
-					}]
-				}]
-			},{
-				columns: [{
-					styleClass: 's12 m12 l12',
-					widgets: [{
-						type: 'stats',
-						style: 'text-align: center;',
-						card: 'card-panel stats-card white grey-text text-darken-2',
-						config: {
-							title: 'Total Beneficiaries',
-							request: {
-								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/total',
-								data: {
-									indicator: 'beneficiaries',
-								}
-							}
-						}
-					}]					
-				}]
-			},{
-				columns: [{
-					styleClass: 's12 m12 l4',
-					widgets: [{
-						type: 'highchart',
-						style: 'height: 180px;',
-						card: 'card-panel chart-stats-card white grey-text text-darken-2',
-						config: {
-							title: 'Children (Under 18)',
-							display: {
-								label: true,
-								fractionSize: 1,
-								subLabelfractionSize: 0,
-								postfix: '%'
-							},
-							chartConfig: {
-								options: {
-									chart: {
-										type: 'pie',
-										height: 140,
-										margin: [0, 0, 0, 0],
-										spacingTop: 0,
-										spacingBottom: 0,
-										spacingLeft: 0,
-										spacingRight: 0
-									},
-									tooltip: {
-										enabled: false
-									}				
-								},
-								title: {
-										text: '',
-										margin: 0
-								},
-								plotOptions: {
-										pie: {
-												shadow: false
-										}
-								},
-								series: [{
-									name: 'Children (Under 18)',
-									size: '100%',
-									innerSize: '80%',
-									showInLegend:false,
-									dataLabels: {
-										enabled: false
-									},
-									data: {
-										label: {
-											left: {
-												label: {
-													label: 'M',
-													type: 'text'
-												},
-												subLabel: {
-													label: 102000
-												}
-											},										
-											center: {
-												label: {
-													label: 22,
-													postfix: '%'
-												},
-												subLabel: {
-													label: 200036
-												}
-											},
-											right: {
-												label: {
-													label: 'F',
-													type: 'text'
-												},
-												subLabel: {
-													label: 102000
-												}
-											},
-										},										
-										data:[{
-					            'y': 58.2,
-					            'color': '#90caf9',
-					            'name': 'Male',
-					            'label': 102000,
-					          },{
-					            'y': 100 - 58.2,
-					            'color': '#f48fb1',
-					            'name': 'Female',
-					            'label': 102000,
-					          }]
-					        }
-								}]
-							}
-						}
-					}]
-				},{
-					styleClass: 's12 m12 l4',
-					// widgets: [{
-					// 	type: 'stats',
-					// 	card: 'card-panel stats-card white grey-text text-darken-2',
-					// 	config: {
-					// 		title: 'Adult (18 to 59)',
-					// 		request: {
-					// 			method: 'POST',
-					// 			url: 'http://' + $location.host() + '/api/health/total',
-					// 			data: {
-					// 				indicator: ['over18male', 'over18female'],
-					// 			}
-					// 		}
-					// 	}
-					// }]
-					widgets: [{
-						type: 'highchart',
-						style: 'height: 180px;',
-						card: 'card-panel chart-stats-card white grey-text text-darken-2',
-						config: {
-							title: 'Adult (18 to 59)',
-							display: {
-								label: true,
-								fractionSize: 1,
-								subLabelfractionSize: 0,
-								postfix: '%'
-							},
-							chartConfig: {
-								options: {
-									chart: {
-										type: 'pie',
-										height: 140,
-										margin: [0, 0, 0, 0],
-										spacingTop: 0,
-										spacingBottom: 0,
-										spacingLeft: 0,
-										spacingRight: 0
-									},
-									tooltip: {
-										enabled: false
-									}				
-								},
-								title: {
-										text: '',
-										margin: 0
-								},
-								plotOptions: {
-										pie: {
-												shadow: false
-										}
-								},
-								series: [{
-									name: 'Adult (18 to 59)',
-									size: '100%',
-									innerSize: '80%',
-									showInLegend:false,
-									dataLabels: {
-										enabled: false
-									},
-									data: {
-										label: {
-											left: {
-												label: {
-													label: 'M',
-													type: 'text'
-												},
-												subLabel: {
-													label: 102000
-												}
-											},										
-											center: {
-												label: {
-													label: 22,
-													postfix: '%'
-												},
-												subLabel: {
-													label: 200036
-												}
-											},
-											right: {
-												label: {
-													label: 'F',
-													type: 'text'
-												},
-												subLabel: {
-													label: 102000
-												}
-											},
-										},										
-										data:[{
-					            'y': 58.2,
-					            'color': '#90caf9',
-					            'name': 'Male',
-					            'label': 102000,
-					          },{
-					            'y': 100 - 58.2,
-					            'color': '#f48fb1',
-					            'name': 'Female',
-					            'label': 102000,
-					          }]
-					        }
-								}]
-							}
-						}
-					}]			
-				},{
-					styleClass: 's12 m12 l4',
-					// widgets: [{
-					// 	type: 'stats',
-					// 	card: 'card-panel stats-card white grey-text text-darken-2',
-					// 	config: {
-					// 		title: 'Elderly (Over 59)',
-					// 		request: {
-					// 			method: 'POST',
-					// 			url: 'http://' + $location.host() + '/api/health/total',
-					// 			data: {
-					// 				indicator: ['over59male', 'over59female'],
-					// 			}
-					// 		}
-					// 	}
-					// }]
-					widgets: [{
-						type: 'highchart',
-						style: 'height: 180px;',
-						card: 'card-panel chart-stats-card white grey-text text-darken-2',
-						config: {
-							title: 'Eldery (Over 59)',
-							display: {
-								label: true,
-								fractionSize: 1,
-								subLabelfractionSize: 0,
-								postfix: '%'
-							},
-							chartConfig: {
-								options: {
-									chart: {
-										type: 'pie',
-										height: 140,
-										margin: [0, 0, 0, 0],
-										spacingTop: 0,
-										spacingBottom: 0,
-										spacingLeft: 0,
-										spacingRight: 0
-									},
-									tooltip: {
-										enabled: false
-									}				
-								},
-								title: {
-										text: '',
-										margin: 0
-								},
-								plotOptions: {
-										pie: {
-												shadow: false
-										}
-								},
-								series: [{
-									name: 'Eldery (Over 59)',
-									size: '100%',
-									innerSize: '80%',
-									showInLegend:false,
-									dataLabels: {
-										enabled: false
-									},
-									data: {
-										label: {
-											left: {
-												label: {
-													label: 'M',
-													type: 'text'
-												},
-												subLabel: {
-													label: 102000
-												}
-											},										
-											center: {
-												label: {
-													label: 22,
-													postfix: '%'
-												},
-												subLabel: {
-													label: 200036
-												}
-											},
-											right: {
-												label: {
-													label: 'F',
-													type: 'text'
-												},
-												subLabel: {
-													label: 102000
-												}
-											},
-										},										
-										data:[{
-					            'y': 58.2,
-					            'color': '#90caf9',
-					            'name': 'Male',
-					            'label': 102000,
-					          },{
-					            'y': 100 - 58.2,
-					            'color': '#f48fb1',
-					            'name': 'Female',
-					            'label': 102000,
-					          }]
-					        }
-								}]
-							}
-						}
-					}]
-				}]
-			},{
-				columns: [{
-					styleClass: 's12 m12 l12',
-					widgets: [{
-						type: 'leaflet',
-						card: 'card-panel',
-						style: 'padding:0px;',
-						config: {
-							height: '520px',
-							display: {
-								type: 'marker',
-							},
-							defaults: {
-								zoomToBounds: true
-							},
-							layers: {
-								baselayers: {
-									osm: {
-										name: 'Mapbox',
-										type: 'xyz',
-										url: 'https://b.tiles.mapbox.com/v3/aj.um7z9lus/{z}/{x}/{y}.png?',
-										layerOptions: {
-											continuousWorld: true
-										}
-									}
-								},								
-								overlays: {
-									health: {
-										name: 'Health',
-										type: 'markercluster',
-										visible: true,
-										layerOptions: {
-												maxClusterRadius: 90
-										}
-									}
-								}
-							},				
-							request: {
-								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/markers',
-								data: {}
-							}
-						}
-					}]
-				}]
-			},{
-				columns: [{
-					styleClass: 's12 m12 l12',
-					widgets: [{
-						type: 'html',
-						card: 'card-panel',
-						style: 'padding:0px; height: 90px; padding-top:10px;',
-						config: {
-							html: $scope.dashboard.ngm.footer
-						}
-					}]
-				}]						
-			}]
-		};
+					// set list from storage
+					localStorage.setItem('districtList', JSON.stringify(data));
 
-		// assign to ngm app scope (for menu)
-		$scope.dashboard.ngm.dashboard.model = $scope.model;
+					// get list from storage
+					$scope.dashboard.setDistrictList(data);
+
+					// dews dashboard model
+					$scope.dashboard.setDashboard();
+
+				});
+
+			}
+
+		}
 		
 	}]);

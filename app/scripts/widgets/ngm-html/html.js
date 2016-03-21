@@ -52,6 +52,9 @@ angular.module('ngm.widget.html', ['ngm.provider'])
       // statistics widget default config
       $scope.panel = {
 
+        // html container id
+        id: config.id ? config.id : 'ngm-html-' + Math.floor((Math.random()*1000000)),
+
         // display card
         display: true,
         

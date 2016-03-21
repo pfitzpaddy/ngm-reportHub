@@ -37,7 +37,7 @@ angular.module('ngmReportHub')
 			pdfPrintPageLoadTime: 8400, 
 
 			// current report
-			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
+			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
 
 			// data lookup
 			data: {
@@ -120,6 +120,9 @@ angular.module('ngmReportHub')
 
 			// set dashboards
 			setDashboard: function(data) {
+
+				// report
+				$scope.dashboard.report += moment().format('YYYY-MM-DDTHHmm');				
 
 				// title
 				var title = 'iMMAP | Baseline | ' + $scope.dashboard.data[$route.current.params.province].name;

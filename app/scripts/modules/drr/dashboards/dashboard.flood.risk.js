@@ -37,7 +37,7 @@ angular.module('ngmReportHub')
 			pdfPrintPageLoadTime: 8400, 
 
 			// current report
-			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
+			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
 
 			// data lookup
 			data: {
@@ -120,6 +120,9 @@ angular.module('ngmReportHub')
 
 			// set dashboards
 			setDashboard: function(data) {
+
+				// report
+				$scope.dashboard.report += moment().format('YYYY-MM-DDTHHmm');
 
 				// title
 				var title = 'iMMAP | Flood Risk | ' + $scope.dashboard.data[$route.current.params.province].name;
@@ -242,7 +245,7 @@ angular.module('ngmReportHub')
 								card: 'card-panel stats-card white light-blue-text light-blue-lighten-4',
 								config: {
 									title: 'at Flood Risk',
-									data: { 
+									data: {
 										value: data.percent_total_risk_population,
 										value_total: data.total_risk_population
 									},
@@ -262,23 +265,23 @@ angular.module('ngmReportHub')
 								style: 'height: 180px;',
 								card: 'card-panel chart-stats-card white grey-text text-darken-2',
 								config: {
-									title: 'Low Flood Risk Popn',
+									title: {
+										text: 'Low Flood Risk Popn'
+									},
 									display: {
 										label: true,
 										fractionSize: 1,
 										subLabelfractionSize: 0,
 										postfix: '%'
 									},
+									templateUrl: '/scripts/widgets/ngm-highchart/template/center.html',
 									chartConfig: {
 										options: {
 											chart: {
 												type: 'pie',
 												height: 140,
 												margin: [0, 0, 0, 0],
-												spacingTop: 0,
-												spacingBottom: 0,
-												spacingLeft: 0,
-												spacingRight: 0
+												spacing: [0, 0, 0, 0]
 											},
 											tooltip: {
 												enabled: false
@@ -336,23 +339,23 @@ angular.module('ngmReportHub')
 								style: 'height: 180px;',
 								card: 'card-panel chart-stats-card white grey-text text-darken-2',
 								config: {
-									title: 'Moderate Flood Risk Popn',
+									title: {
+										text: 'Moderate Flood Risk Popn'
+									},
 									display: {
 										label: true,
 										fractionSize: 1,
 										subLabelfractionSize: 0,
 										postfix: '%'
 									},
+									templateUrl: '/scripts/widgets/ngm-highchart/template/center.html',
 									chartConfig: {
 										options: {
 											chart: {
 												type: 'pie',
 												height: 140,
 												margin: [0, 0, 0, 0],
-												spacingTop: 0,
-												spacingBottom: 0,
-												spacingLeft: 0,
-												spacingRight: 0
+												spacing: [0, 0, 0, 0]
 											},
 											tooltip: {
 												enabled: false
@@ -410,23 +413,23 @@ angular.module('ngmReportHub')
 								style: 'height: 180px;',
 								card: 'card-panel chart-stats-card white grey-text text-darken-2',
 								config: {
-									title: 'High Flood Risk Popn',
+									title: {
+										text: 'High Flood Risk Popn'
+									},
 									display: {
 										label: true,
 										fractionSize: 1,
 										subLabelfractionSize: 0,
 										postfix: '%'
-									},	
+									},
+									templateUrl: '/scripts/widgets/ngm-highchart/template/center.html',
 									chartConfig: {
 										options: {
 											chart: {
 												type: 'pie',
 												height: 140,
 												margin: [0, 0, 0, 0],
-												spacingTop: 0,
-												spacingBottom: 0,
-												spacingLeft: 0,
-												spacingRight: 0
+												spacing: [0, 0, 0, 0]
 											},
 											tooltip: {
 												enabled: false
@@ -486,7 +489,9 @@ angular.module('ngmReportHub')
 								style: 'height: 310px;',
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
-									title: 'Population At Flood Risk by Land Type',
+									title: {
+										text: 'Population At Flood Risk by Land Type'
+									},
 									chartConfig: {
 										options: {
 											chart: {
@@ -562,7 +567,9 @@ angular.module('ngmReportHub')
 								style: 'height: 310px;',
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
-									title: 'Area (sqKm) At Flood Risk by Land Type',
+									title: {
+										text: 'Area (sqKm) At Flood Risk by Land Type'
+									},
 									chartConfig: {
 										options: {
 											chart: {

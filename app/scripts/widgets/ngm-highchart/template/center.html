@@ -1,0 +1,88 @@
+  <style>
+
+  /*
+   stats card
+  */
+  .count, .label {
+    z-index: 1 !important;
+  }
+  .chart-stats-card {
+    display:block;
+    position:relative;
+    overflow:hidden;
+  }
+  .chart-stats-card i {
+    position:absolute;
+    font-size:6rem;
+    right:0;
+    bottom:-1rem;
+  }
+  .chart-stats-card .count {
+    position:relative;
+    font-weight:100;
+    font-size:2.1rem;
+    line-height:2.1rem;
+  }
+  .chart-stats-card .label {
+    position:relative;
+    font-weight:100;
+    font-size:1.2rem;
+    line-height:1.2rem;
+    color:silver;
+  }  
+  .chart-stats-card .name {
+    position:relative;
+    font-weight:300;
+    font-size:1.1rem;
+    line-height:1.1rem;
+  }
+
+</style>
+
+
+<div>
+  <div id="{{highchart.id}}" align="{{ highchart.align }}" ng-if="highchart.chartConfig">
+    <div ng-if="highchart.title.text" 
+        align="{{ highchart.title.align }}" 
+        style="{{ highchart.title.style }}">{{ highchart.title.text }}</div>
+
+
+    <!-- label -->
+    <div id="label-center-{{highchart.id}}" class="count" 
+        style="text-align:center; width: 100%; height: 100%; position:absolute; top:90px; left:0;">
+      {{ highchart.label.center.label.prefix }}
+      <span
+          value="{{ highchart.label.center.label.from }}" 
+          count-to="{{ highchart.label.center.label.label }}" 
+          duration="{{ highchart.label.center.label.duration }}"
+          filter="{{ highchart.label.center.label.filter }}"
+          params="{{ highchart.label.center.label.params }}"
+          fraction-size="{{ highchart.label.center.label.fractionSize }}">
+      </span>{{ highchart.label.center.label.postfix }}
+    </div>
+
+    <!-- sublabel -->
+    <div id="subLabel-center-{{highchart.id}}" class="label"
+        style="text-align:center; width:100%; height:100%; position:absolute; top:120px; left:0;">
+      {{ highchart.label.center.subLabel.prefix }}
+      <span
+          value="{{ highchart.label.center.label.from }}"
+          count-to="{{ highchart.label.center.subLabel.label }}" 
+          duration="{{ highchart.label.center.subLabel.duration }}"
+          filter="{{ highchart.label.center.subLabel.filter }}"
+          params="{{ highchart.label.center.subLabel.params }}"
+          fraction-size="{{ highchart.label.center.subLabel.fractionSize }}">
+      </span>{{ highchart.label.center.subLabel.postfix }}
+     </div>
+
+     <highchart config="highchart.chartConfig" 
+                style="text-align:center; width:100%; height:100%; position:absolute; top:40px; left:0;"></highchart>
+
+
+</div>
+
+
+
+
+
+
