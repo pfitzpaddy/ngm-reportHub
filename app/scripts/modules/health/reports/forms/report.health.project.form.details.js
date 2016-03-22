@@ -274,11 +274,11 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           $scope.project.options.selection.beneficiary = {}
 
           // filter list
-          $scope.project.options.list.beneficiaries = $filter('filter')($scope.project.options.list.beneficiaries, { beneficiary_category: '!' + beneficiary.beneficiary_category }, true);
-          
+          $scope.project.options.filter.beneficiaries = $filter('filter')($scope.project.options.filter.beneficiaries, { beneficiary_category: '!' + beneficiary.beneficiary_category }, true);
+
           // update dropdown
           $timeout(function(){
-            // filter
+            // apply filter
             $('#ngm-beneficiary-category').material_select('update');
           }, 10);
 
@@ -286,8 +286,24 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
         // remove beneficiary
         removeBeneficiary: function($index) {
+          
+          // add option to selection
+          $scope.project.options.filter.beneficiaries.push({
+            'beneficiary_category': $scope.project.definition.beneficiaries[$index].beneficiary_category,
+            'beneficiary_name': $scope.project.definition.beneficiaries[$index].beneficiary_name,
+          });
+          
           // remove location at i
           $scope.project.definition.beneficiaries.splice($index, 1);
+
+          // sort
+          $filter('orderBy')($scope.project.options.filter.beneficiaries, '-beneficiary_category');
+          
+          // update dropdown
+          $timeout(function(){
+            // apply filter
+            $('#ngm-beneficiary-category').material_select('update');
+          }, 10);          
         },
 
         // cofirm exit if changes

@@ -427,7 +427,9 @@ angular.module('ngmReportHub')
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
 											project: $scope.dashboard.project,
-											beneficiaries: $scope.dashboard.beneficiaries
+											beneficiaries: $scope.dashboard.beneficiaries,
+											prov_code: $scope.dashboard.province.id,
+											dist_code: $scope.dashboard.district.id
 										}
 									}
 								}
@@ -448,7 +450,9 @@ angular.module('ngmReportHub')
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
 											project: $scope.dashboard.project,
-											beneficiaries: $scope.dashboard.beneficiaries
+											beneficiaries: $scope.dashboard.beneficiaries,
+											prov_code: $scope.dashboard.province.id,
+											dist_code: $scope.dashboard.district.id
 										}
 									}
 								}
@@ -472,6 +476,8 @@ angular.module('ngmReportHub')
 											end_date: $scope.dashboard.endDate,
 											project: $scope.dashboard.project,
 											beneficiaries: $scope.dashboard.beneficiaries,
+											prov_code: $scope.dashboard.province.id,
+											dist_code: $scope.dashboard.district.id,
 											conflict: false
 										}
 									}
@@ -494,6 +500,8 @@ angular.module('ngmReportHub')
 											end_date: $scope.dashboard.endDate,
 											project: $scope.dashboard.project,
 											beneficiaries: $scope.dashboard.beneficiaries,
+											prov_code: $scope.dashboard.province.id,
+											dist_code: $scope.dashboard.district.id,
 											conflict: true
 										}
 									}
@@ -537,6 +545,8 @@ angular.module('ngmReportHub')
 											end_date: $scope.dashboard.endDate,
 											project: $scope.dashboard.project,
 											beneficiaries: $scope.dashboard.beneficiaries,
+											prov_code: $scope.dashboard.province.id,
+											dist_code: $scope.dashboard.district.id
 										}
 									}
 								}
@@ -590,70 +600,25 @@ angular.module('ngmReportHub')
 											dataLabels: {
 												enabled: false
 											},
-											data: {
-												label: {
-													left: {
-														label: {
-															prefix: 'F',
-															label: 58,
-															postfix: '%'
-														},
-														subLabel: {
-															label: 102000
-														}
-													},										
-													center: {
-														label: {
-															label: 22,
-															postfix: '%'
-														},
-														subLabel: {
-															label: 200036
-														}
-													},
-													right: {
-														label: {
-															prefix: 'M',
-															label: 52,
-															postfix: '%'
-														},
-														subLabel: {
-															label: 102000
-														}
-													},
-												},										
-												data:[{
-							            'y': 58.2,
-							            'color': '#90caf9',
-							            'name': 'Male',
-							            'label': 102000,
-							          },{
-							            'y': 100 - 58.2,
-							            'color': '#f48fb1',
-							            'name': 'Female',
-							            'label': 102000,
-							          }]
-							        }
+											request: {
+												method: 'POST',
+												url: 'http://' + $location.host() + '/api/health/total',
+												data: {
+													indicator: 'under18',
+													start_date: $scope.dashboard.startDate,
+													end_date: $scope.dashboard.endDate,
+													project: $scope.dashboard.project,
+													beneficiaries: $scope.dashboard.beneficiaries,
+													prov_code: $scope.dashboard.province.id,
+													dist_code: $scope.dashboard.district.id
+												}
+											}
 										}]
 									}
 								}
 							}]
 						},{
 							styleClass: 's12 m12 l4',
-							// widgets: [{
-							// 	type: 'stats',
-							// 	card: 'card-panel stats-card white grey-text text-darken-2',
-							// 	config: {
-							// 		title: 'Adult (18 to 59)',
-							// 		request: {
-							// 			method: 'POST',
-							// 			url: 'http://' + $location.host() + '/api/health/total',
-							// 			data: {
-							// 				indicator: ['over18male', 'over18female'],
-							// 			}
-							// 		}
-							// 	}
-							// }]
 							widgets: [{
 								type: 'highchart',
 								style: 'height: 180px;',
@@ -699,70 +664,25 @@ angular.module('ngmReportHub')
 											dataLabels: {
 												enabled: false
 											},
-											data: {
-												label: {
-													left: {
-														label: {
-															prefix: 'F',
-															label: 58,
-															postfix: '%'
-														},
-														subLabel: {
-															label: 102000
-														}
-													},										
-													center: {
-														label: {
-															label: 22,
-															postfix: '%'
-														},
-														subLabel: {
-															label: 200036
-														}
-													},
-													right: {
-														label: {
-															prefix: 'M',
-															label: 52,
-															postfix: '%'
-														},
-														subLabel: {
-															label: 102000
-														}
-													},
-												},									
-												data:[{
-							            'y': 58.2,
-							            'color': '#90caf9',
-							            'name': 'Male',
-							            'label': 102000,
-							          },{
-							            'y': 100 - 58.2,
-							            'color': '#f48fb1',
-							            'name': 'Female',
-							            'label': 102000,
-							          }]
-							        }
+											request: {
+												method: 'POST',
+												url: 'http://' + $location.host() + '/api/health/total',
+												data: {
+													indicator: 'over18',
+													start_date: $scope.dashboard.startDate,
+													end_date: $scope.dashboard.endDate,
+													project: $scope.dashboard.project,
+													beneficiaries: $scope.dashboard.beneficiaries,
+													prov_code: $scope.dashboard.province.id,
+													dist_code: $scope.dashboard.district.id
+												}
+											}
 										}]
 									}
 								}
 							}]			
 						},{
 							styleClass: 's12 m12 l4',
-							// widgets: [{
-							// 	type: 'stats',
-							// 	card: 'card-panel stats-card white grey-text text-darken-2',
-							// 	config: {
-							// 		title: 'Elderly (Over 59)',
-							// 		request: {
-							// 			method: 'POST',
-							// 			url: 'http://' + $location.host() + '/api/health/total',
-							// 			data: {
-							// 				indicator: ['over59male', 'over59female'],
-							// 			}
-							// 		}
-							// 	}
-							// }]
 							widgets: [{
 								type: 'highchart',
 								style: 'height: 180px;',
@@ -808,50 +728,19 @@ angular.module('ngmReportHub')
 											dataLabels: {
 												enabled: false
 											},
-											data: {
-												label: {
-													left: {
-														label: {
-															prefix: 'F',
-															label: 58,
-															postfix: '%'
-														},
-														subLabel: {
-															label: 102000
-														}
-													},										
-													center: {
-														label: {
-															label: 22,
-															postfix: '%'
-														},
-														subLabel: {
-															label: 200036
-														}
-													},
-													right: {
-														label: {
-															prefix: 'M',
-															label: 52,
-															postfix: '%'
-														},
-														subLabel: {
-															label: 102000
-														}
-													},
-												},									
-												data:[{
-							            'y': 58.2,
-							            'color': '#90caf9',
-							            'name': 'Male',
-							            'label': 102000,
-							          },{
-							            'y': 100 - 58.2,
-							            'color': '#f48fb1',
-							            'name': 'Female',
-							            'label': 102000,
-							          }]
-							        }
+											request: {
+												method: 'POST',
+												url: 'http://' + $location.host() + '/api/health/total',
+												data: {
+													indicator: 'over59',
+													start_date: $scope.dashboard.startDate,
+													end_date: $scope.dashboard.endDate,
+													project: $scope.dashboard.project,
+													beneficiaries: $scope.dashboard.beneficiaries,
+													prov_code: $scope.dashboard.province.id,
+													dist_code: $scope.dashboard.district.id
+												}
+											}
 										}]
 									}
 								}
@@ -896,8 +785,16 @@ angular.module('ngmReportHub')
 									},				
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/markers',
-										data: {}
+										url: 'http://' + $location.host() + '/api/health/total',
+										data: {
+											indicator: 'markers',
+											start_date: $scope.dashboard.startDate,
+											end_date: $scope.dashboard.endDate,
+											project: $scope.dashboard.project,
+											beneficiaries: $scope.dashboard.beneficiaries,
+											prov_code: $scope.dashboard.province.id,
+											dist_code: $scope.dashboard.district.id
+										}
 									}
 								}
 							}]
