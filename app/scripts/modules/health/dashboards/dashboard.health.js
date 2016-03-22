@@ -460,7 +460,7 @@ angular.module('ngmReportHub')
 						}]
 					},{
 						columns: [{
-							styleClass: 's12 m12 l4',
+							styleClass: 's12 m12 l6',
 							widgets: [{
 								type: 'stats',
 								style: 'text-align: center;',
@@ -484,13 +484,19 @@ angular.module('ngmReportHub')
 								}
 							}]
 						},{
-							styleClass: 's12 m12 l4',
+							styleClass: 's12 m12 l6',
 							widgets: [{
 								type: 'stats',
 								style: 'text-align: center;',
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
 									title: 'in Conflict Districts',
+									display: {
+										fractionSize: 0,
+										simpleTitle: false,
+										subTitlePrefix: 'from a Total of ',
+										subTitlePostfix: ' conflict districts'
+									},
 									request: {
 										method: 'POST',
 										url: 'http://' + $location.host() + '/api/health/total',
@@ -507,25 +513,25 @@ angular.module('ngmReportHub')
 									}
 								}
 							}]
-						},{
-							styleClass: 's12 m12 l4',
-							widgets: [{
-								type: 'stats',
-								style: 'text-align: center;',
-								card: 'card-panel stats-card white grey-text text-darken-2',
-								config: {
-									title: 'Conflict Districts with FATP/HF for Trauma',
-									data: {
-										value: 92,
-										value_total: 388
-									},
-									display: {
-										postfix: '%',
-										fractionSize: 0,
-										simpleTitle: false
-									}
-								}
-							}]
+						// },{
+						// 	styleClass: 's12 m12 l4',
+						// 	widgets: [{
+						// 		type: 'stats',
+						// 		style: 'text-align: center;',
+						// 		card: 'card-panel stats-card white grey-text text-darken-2',
+						// 		config: {
+						// 			title: 'Conflict Districts with FATP/HF for Trauma',
+						// 			data: {
+						// 				value: 92,
+						// 				value_total: 388
+						// 			},
+						// 			display: {
+						// 				postfix: '%',
+						// 				fractionSize: 0,
+						// 				simpleTitle: false
+						// 			}
+						// 		}
+						// 	}]
 						}]
 					},{
 						columns: [{
