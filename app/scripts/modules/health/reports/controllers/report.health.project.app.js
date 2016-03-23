@@ -119,7 +119,7 @@ angular.module('ngmReportHub')
 							newProjectUrl: $scope.report.newProjectUrl,
 							request: {
 								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/project/getProjectList',
+								url: 'http://' + $location.host() + '/api/health/project/getProjectsList',
 								data: {
 									organization_id: ngmUser.get().organization_id,
 									project_status: 'active'
@@ -141,7 +141,7 @@ angular.module('ngmReportHub')
 							newProjectUrl: $scope.report.newProjectUrl,
 							request: {
 								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/project/getProjectList',
+								url: 'http://' + $location.host() + '/api/health/project/getProjectsList',
 								data: {
 									organization_id: ngmUser.get().organization_id,
 									project_status: 'complete'

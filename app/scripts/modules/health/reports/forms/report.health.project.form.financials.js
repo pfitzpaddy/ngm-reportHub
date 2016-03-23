@@ -35,8 +35,27 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
         // app style
         style: config.style,
 
+        // search
+        search: {
+          filter: '',
+          focused: false
+        },
+
+        // expand search box
+        toggleSearch: function($event) {;
+          // focus search
+          $('#search_ngm-financial-list').focus();
+          $scope.project.search.focused = $scope.project.search.focused ? false : true;
+        },
+
         // project
         definition: config.project,
+
+        // start picker
+        startPicker: [],
+
+        // end picker
+        endPicker: [],
 
         // holder for UI options
         options: {
@@ -93,27 +112,32 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
         addFinancialItem: function() {
 
           // push to financials
-          $scope.project.definition.financials.push({
+          $scope.project.definition.financials.unshift({
+            organization_id: $scope.project.definition.organization_id,            
             username: ngmUser.get().username,
-            organization_id: $scope.project.definition.details.organization_id,
-            project_id: $scope.project.definition.details.id,
             status: 'new',
             expenditure_item: $scope.project.options.selection.expenditure.expenditure_item,
             expenditure_name: $scope.project.options.selection.expenditure.expenditure_name,
             expenditure_start_date: moment().format('YYYY-MM-DD'),
-            expenditure_end_date: moment().add(1, 'months').format('YYYY-MM-DD')
-          });
+            expenditure_end_date: moment().add(1, 'months').format('YYYY-MM-DD'),
+            timestamp: moment().format('x')
+          }); 
+
+          // reset selection
+          $scope.project.options.selection.expenditure = {}
           
           // update dropdown
           $timeout(function(){
             // init select
             $('select').material_select();
-            // start date
-            $scope.project.setStartTime();
-            // end date
-            $scope.project.setEndTime();
             // update list
-            $('#ngm-expenditure-item-' + $scope.project.definition.financials.length - 1).material_select('update');
+            $('#ngm-expenditure-item-' + $scope.project.definition.financials.length - 1).material_select('update');            
+            // set start/end
+            angular.forEach($scope.project.definition.financials, function(d, i){
+              //
+              $scope.project.setStartTime(d);
+              $scope.project.setEndTime(d);
+            }); 
           }, 10);
 
         },
@@ -128,11 +152,11 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
         modalConfirm: function(modal){
 
           // if dirty, warn on exit
-          if($scope.healthProjectFinancialsForm.$dirty){
-            $('#' + modal).openModal({dismissible: false});
-          } else{
+          // if($scope.healthProjectFinancialsForm.$dirty){
+            // $('#' + modal).openModal({dismissible: false});
+          // } else{
             $scope.project.cancel();
-          }
+          // }
 
         },
 
@@ -142,28 +166,20 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
           // open success modal if valid form
           if($scope.healthProjectFinancialsForm.$valid){
 
-           // details update
-            var details = $http({
+            // details update
+            ngmData.get({
               method: 'POST',
-              url: 'http://' + $location.host() + '/api/health/project/setProjectDetails',
+              url: 'http://' + $location.host() + '/api/health/project/setProject',
               data: {
                 project: $scope.project.definition
               }
-            });
+            }).then(function(project){
 
-            // financials update
-            var financials = $http({
-              method: 'POST',
-              url: 'http://' + $location.host() + '/api/health/project/setProjectFinancials',
-              data: {
-                project: $scope.project.definition
-              }
-            });
+              // add id to client json
+              $scope.project.definition.id = project.id;
 
-            // request all 
-            $q.all([details, financials]).then(function(results) {
               // notification modal
-              $('#save-modal').openModal({dismissible: false});
+              $('#save-modal').openModal({ dismissible: false });
             });
 
           } else {
@@ -177,11 +193,10 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
 
         // re-direct on save
         redirect: function(){
-          // redirect on success
+          // redirect on success          
           $timeout(function(){
-            $window.location.reload();
-            Materialize.toast( $scope.project.definition.details.project_title + ' Financials updated!', 3000, 'success');
-          }, 200)
+            Materialize.toast( $scope.project.definition.project_title + ' Financials updated!', 3000, 'success');
+          }, 200);
 
         },
 
@@ -190,128 +205,126 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
           
           // update
           $timeout(function() {
-            $location.path( '/health/projects/summary/' + $scope.project.definition.details.id );
-            if( $scope.project.definition.details.project_status !== 'complete' ) {
-              Materialize.toast( 'Project update cancelled!', 3000, 'note' );
+            $location.path( '/health/projects/summary/' + $scope.project.definition.id );
+            if( $scope.project.definition.project_status !== 'complete' ) {
+              // Materialize.toast( 'Project update cancelled!', 3000, 'note' );
             }
           }, 100);
 
         },
 
         // set start datepicker
-        setStartTime: function() {
+        setStartTime: function(d, i) {
+            
+          // set element
+          var $input = $( '#ngm-expenditure-start-date-' + d.timestamp ).pickadate({
+            selectMonths: true,
+            selectYears: 15,
+            format: 'dd mmm, yyyy',
+            onStart: function(){
+              $timeout(function(){
+                // set time
+                var date = moment(d.expenditure_start_date).format('YYYY-MM-DD');
+                $input.pickadate('picker').set('select', date, { format: 'yyyy-mm-dd' } );
 
-          // for each financial item
-          angular.forEach($scope.project.definition.financials, function(d, i){
+              }, 0)
+            },          
+            onSet: function(event){
+              // close on date select
+              if(event.select){
+                // get date
+                var selectedDate = moment(event.select);
+                // check dates
+                if ( (selectedDate).isAfter(d.expenditure_end_date) ) {
+                  // inform
+                  Materialize.toast('Please check the dates and try again!', 3000);
+                  // reset time
+                  $input.pickadate('picker').set('select', moment(d.expenditure_start_date).format('X'))
 
-            // set element
-            $scope.$input = $('#ngm-expenditure-start-date-' + i).pickadate({
-              selectMonths: true,
-              selectYears: 15,
-              format: 'dd mmm, yyyy',
-              onStart: function(){
-                $timeout(function(){
-                  // set time
-                  $scope.project.startPicker.set('select', d.expenditure_start_date, { format: 'yyyy-mm-dd' } );
-
-                }, 10)
-              },          
-              onSet: function(event){
-                // close on date select
-                if(event.select){
-                  // get date
-                  var selectedDate = moment(event.select);
-                  // check dates
-                  if ( (selectedDate).isAfter(d.expenditure_end_date) ) {
-                    // inform
-                    Materialize.toast('Please check the dates and try again!', 3000);
-                    // reset time
-                    $scope.project.startPicker.set('select', moment(d.expenditure_start_date).format('X'));
-
-                  } else {
-                    // set date
-                    $scope.project.definition.financials[i].expenditure_start_date = moment(selectedDate).format('YYYY-MM-DD');
-                  }
-                  // close
-                  $scope.project.startPicker.close();
-
+                } else {
+                  // set date
+                  $scope.project.definition.financials[i].expenditure_start_date = moment(selectedDate).format('YYYY-MM-DD');
                 }
+                // close
+                $input.pickadate('picker').close();
 
               }
 
-            });
+            }
 
-            //pickadate api
-            $scope.project.startPicker = $scope.$input.pickadate('picker');
-            // on click
-            $('#ngm-expenditure-start-date-' + i).bind('click', function($e) {
-              // open
-              $scope.project.startPicker.open();
-            });            
+          });        
 
+          //pickadate api
+          // on click
+          $( '#ngm-expenditure-start-date-' + d.timestamp ).bind('click', function($e) {
+            // set form dirty
+            $scope.healthProjectFinancialsForm.$setPristine();
+            // open
+            $input.pickadate('picker').open();
           });
 
         },
 
         // set end datepicker
-        setEndTime: function() {
-
-          // for each financial item
-          angular.forEach($scope.project.definition.financials, function(d, i){
+        setEndTime: function(d, i) {
             
-            // set element
-            $scope.$input = $('#ngm-expenditure-end-date-' + i).pickadate({
-              selectMonths: true,
-              selectYears: 15,
-              format: 'dd mmm, yyyy',
-              onStart: function(){
-                $timeout(function(){
-                  // set time
-                  $scope.project.endPicker.set('select', d.expenditure_end_date, { format: 'yyyy-mm-dd' } );
+          // set element
+          var $input = $( '#ngm-expenditure-end-date-' + d.timestamp ).pickadate({
+            selectMonths: true,
+            selectYears: 15,
+            format: 'dd mmm, yyyy',
+            onStart: function(){
+              $timeout(function(){
+                // set time
+                var date = moment(d.expenditure_end_date).format('YYYY-MM-DD');
+                $input.pickadate('picker').set('select', date, { format: 'yyyy-mm-dd' } );
 
-                }, 10)
-              },          
-              onSet: function(event){
-                // close on date select
-                if(event.select){
-                  // get date
-                  var selectedDate = moment(event.select);
-                  // check dates
-                  if ( (selectedDate).isBefore(d.expenditure_start_date) ) {
-                    // inform
-                    Materialize.toast('Please check the dates and try again!', 3000);
-                    // reset time
-                    $scope.project.endPicker.set('select', moment(d.expenditure_end_date).format('X'))
+              }, 0)
+            },           
+            onSet: function(event){
+              // close on date select
+              if(event.select){
+                // get date
+                var selectedDate = moment(event.select);
 
-                  } else {
-                    // set date
-                    $scope.project.definition.financials[i].expenditure_end_date = moment(selectedDate).format('YYYY-MM-DD');
-                  }
-                  // close
-                  $scope.project.endPicker.close();
+                // check dates
+                if ( selectedDate && (selectedDate).isBefore(d.expenditure_start_date) ) {
+                  // inform
+                  Materialize.toast('Please check the dates and try again!', 3000);
+                  // reset time
+                  $input.pickadate('picker').set('select', moment(d.expenditure_end_date).format('X'))
 
+                } else {
+                  // set date
+                  $scope.project.definition.financials[i].expenditure_end_date = moment(selectedDate).format('YYYY-MM-DD');
                 }
+                // close
+                $input.pickadate('picker').close();
 
               }
 
-            });        
+            }
 
-            //pickadate api
-            $scope.project.endPicker = $scope.$input.pickadate('picker');
-            // on click
-            $('#ngm-expenditure-end-date-' + i).bind('click', function($e) {
-              // open
-              $scope.project.endPicker.open();
-            });         
+          });        
 
+          //pickadate api
+          // on click
+          $( '#ngm-expenditure-end-date-' + d.timestamp ).bind('click', function($e) {
+            // set form dirty
+            $scope.healthProjectFinancialsForm.$setPristine();
+            //open
+            $input.pickadate('picker').open();
           });
-
-        }        
+          
+        }
 
       }
 
       // on page load
       angular.element(document).ready(function () {
+
+        // order locations by latest updated
+        $scope.project.definition.financials = $filter('orderBy')($scope.project.definition.financials, '-createdAt');
 
         // give a few seconds to render
         $timeout(function() {
@@ -319,14 +332,16 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
           // selects
           $('select').material_select();
 
-          // init start date
-          $scope.project.setStartTime();
-
-          // init end date
-          $scope.project.setEndTime();          
-
           // select
           $('#ngm-beneficiary-category').material_select('update');
+
+          // set start/end
+          angular.forEach($scope.project.definition.financials, function(d, i){
+            //
+            $scope.project.setStartTime(d, i);
+            $scope.project.setEndTime(d, i);
+
+          });
 
           // menu return to list
           $('#go-to-project-list').click(function(){

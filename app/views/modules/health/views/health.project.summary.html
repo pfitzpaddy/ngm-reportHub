@@ -30,11 +30,11 @@
 		
 		<!-- list of project forms -->
 		<li class="collection-item avatar" class="collection-item avatar" ng-repeat="form in panel.forms track by $index">
-			<a href="#/health/projects/{{ form.location }}/{{ panel.project.details.id }}" title="Update project {{ panel.project.details.id }} details">
+			<a href="#/health/projects/{{ form.location }}/{{ panel.project.id }}" title="Update project {{ panel.project.id }} details">
 				<i class="material-icons circle white teal-text" style="font-size:40px;">{{ form.icon }}</i>
 				<span class="title">{{ form.title }}</span>
-				<p>{{ form.description }} {{ panel.project.details.project_title }}</p>
-				<a href="#/health/projects/{{ form.location }}/{{ panel.project.details.id }}" title="Update project {{ panel.project.details.id }} details" class="secondary-content">
+				<p>{{ form.description }} {{ panel.project.project_title }}</p>
+				<a href="#/health/projects/{{ form.location }}/{{ panel.project.id }}" title="Update project {{ panel.project.id }} details" class="secondary-content">
 					<i class="material-icons">send</i>
 				</a>
 			</a>
@@ -43,7 +43,7 @@
 	</ul>
 
 	<!-- form submission -->
-	<div class="row" ng-if="panel.project.details.project_status === 'active'">
+	<div class="row" ng-if="panel.project.project_status === 'active'">
 		<div class="col s12 m12 l12">
 			<div class="widget card-panel white grey-text text-darken-2">
 				

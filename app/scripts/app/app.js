@@ -32,7 +32,6 @@ angular
 		'angularUtils.directives.dirPagination',
 		'ngm.widget.project.details',
 		'ngm.widget.project.financials',
-		'ngm.widget.project.objectives',
 		'ngm.widget.stats',
 		'ngm.widget.table'
 	])
@@ -140,16 +139,6 @@ angular
 			.when( '/health/projects/financials/:project', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ReportHealthProjectFinancialsCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAuthenticated();
-					}],
-				}
-			})
-			// health project objectives
-			.when( '/health/projects/objectives/:project', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'ReportHealthProjectObjectivesCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 						return ngmAuth.isAuthenticated();

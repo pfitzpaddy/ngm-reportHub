@@ -16,7 +16,7 @@ angular.module('ngmReportHub')
 		// return project
 		ngmData.get({
 			method: 'POST',
-			url: 'http://' + $location.host() + '/api/health/project/getProjectDetails',
+			url: 'http://' + $location.host() + '/api/health/project/getProject',
 			data: {
 				id: $route.current.params.project
 			}
@@ -56,11 +56,11 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m12 l12 report-title',
 							style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: ngmUser.get().organization + ' | ' + $scope.report.project.details.project_title
+							title: ngmUser.get().organization + ' | ' + $scope.report.project.project_title
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle',
-							'title': $scope.report.project.details.project_description
+							'title': $scope.report.project.project_description
 						}
 					},
 					menu: [{
@@ -114,31 +114,25 @@ angular.module('ngmReportHub')
 										location: 'financials',
 										title: 'Project Expenditure',
 										subtitle: 'Project Financial Line Items',
-										description: 'Track the project spending against financial line items for ',
-									// },{
-									// 	icon: 'done_all',
-									// 	location: 'objectives',
-									// 	title: 'Project Health Objectives',
-									// 	subtitle: 'Project Strategic Objective Indicators',
-									// 	description: 'Update the strategic health objective indicators for ',
+										description: 'Track the project spending against financial line items for '
 									}],
 					        // run submit
 					        saveComplete: function(project){
 
 					          // mark project complete
-					          project.details.project_status = 'complete';       
+					          project.project_status = 'complete';       
 
 					          // Submit project for save
 					          ngmData.get({
 					            method: 'POST',
-					            url: 'http://' + $location.host() + '/api/health/project/setProjectDetails',
+					            url: 'http://' + $location.host() + '/api/health/project/setProject',
 					            data: {
 					              project: project
 					            }
 					          }).then(function(data){
 					            // redirect on success
 					            $location.path( '/health/projects' );
-					            Materialize.toast( 'Project "' + project.details.project_title + '" completed, congratulations!', 3000, 'success');
+					            Materialize.toast( 'Project "' + project.project_title + '" completed, congratulations!', 3000, 'success');
 					          });
 
 					        }

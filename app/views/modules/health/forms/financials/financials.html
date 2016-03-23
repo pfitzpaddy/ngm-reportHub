@@ -1,10 +1,66 @@
+<style>
+
+	.nav-list-search {
+		margin-right: 10px;
+		margin-top: -53px;
+		background-color: white;
+		width:72px;
+		-webkit-transition: width 1s ease;
+		-moz-transition: width 1s ease;
+		-o-transition: width 1s ease;
+		-ms-transition: width 1s ease;
+		transition: width 1s ease;		
+	}
+	.nav-list-search.focused {
+		margin-right: 10px;
+		margin-top: -53px;
+		width: 100%;
+		-webkit-transition: width 1s ease;
+		-moz-transition: width 1s ease;
+		-o-transition: width 1s ease;
+		-ms-transition: width 1s ease;
+		transition: width 1s ease;
+	}
+
+	.input-field input[type=search] {
+		font-weight:300;
+	}	
+
+  /* remove border bottom */
+	input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=text]:valid {
+		border-bottom: none !important;
+		box-shadow: none !important;
+	}
+
+	.pagination li.active {
+	  background-color: #009688;
+	}
+
+</style>
 
 <!-- bind html -->
 <div class="row">
 	<div class="col s12 m12 l12">
 		<div class="card">
 			<ul class="collection with-header">
-				<li class="collection-header"><h5 class="report-work-title">Project Financial Tracking</h5></li>
+				<li class="collection-header">
+					<h5 class="report-work-title">Project Financial Tracking</h5>
+					<div ng-if="project.definition.financials.length > 3" class="col s12 m4 right">
+					  <nav class="nav-list-search right" ng-class="{'focused':project.search.focused===true || project.search.filter }">
+					    <div class="nav-wrapper" ng-click="project.toggleSearch()">
+					      <form>
+					        <div class="input-field">
+					          <input id="search_ngm-financial-list" type="search"
+					          	ng-model="project.search.filter"
+					          	ng-focus="project.search.focused=true"  
+				            	ng-blur="project.search.focused=false">
+					          <label for="search_ngm-financial-list"><i class="material-icons" style="color: teal; padding-left:5px;">search</i></label>
+					        </div>
+					      </form>
+					    </div>
+					  </nav>
+			    </div>					
+				</li>			
 				<li class="collection-item avatar" >
 					
 					<!-- form -->
@@ -25,9 +81,9 @@
 
 	      	</div>
 
-	      	<div ng-repeat="item in project.definition.financials track by $index">
-
-	      	<div class="row">
+	      	<div class="row" 
+	      			dir-paginate="item in project.definition.financials | filter: project.search.filter | itemsPerPage: 5" 
+	      			pagination-id="ngm-financial-list">
 
 	      		<div class="card" style="padding: 20px;">
 
@@ -70,17 +126,17 @@
 			      		</div>		      		
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-expenditure-start-date-{{$index}}" type="text" class="datepicker"
+				          <input id="ngm-expenditure-start-date-{{ item.timestamp }}" type="text" class="datepicker"
 				          	ng-disabled="project.definition.details.project_status === 'complete'"
 										required>
-				          <label for="ngm-expenditure-start-date-{{$index}}">Start Date</label>      		
+				          <label for="ngm-expenditure-start-date-{{ item.timestamp }}">Start Date</label>      		
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-expenditure-end-date-{{$index}}" type="text" class="datepicker"
+				          <input id="ngm-expenditure-end-date-{{ item.timestamp }}" type="text" class="datepicker"
 				          	ng-disabled="project.definition.details.project_status === 'complete'"
 										required>
-				          <label for="ngm-expenditure-end-date-{{$index}}">End Date</label>	      		
+				          <label for="ngm-expenditure-end-date-{{ item.timestamp }}">End Date</label>	      		
 			      		</div>
 
 		      		</div>
@@ -88,6 +144,8 @@
 		      	</div>
 
 		      </div>
+
+		      <dir-pagination-controls pagination-id="ngm-financial-list"></dir-pagination-controls>
 
 				</li>
 			</ul>

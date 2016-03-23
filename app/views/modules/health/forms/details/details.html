@@ -13,22 +13,22 @@
 		        <div class="input-field col s12 m4">
 		          <input id="ngm-project-name" type="text" class="validate"
 								autofocus=""
-								ng-model="project.definition.details.project_title"
-								ng-disabled="project.definition.details.project_status !== 'new'"
+								ng-model="project.definition.project_title"
+								ng-disabled="project.definition.project_status !== 'new'"
 								required>
 		          <label for="ngm-project-name">Project Title</label>
 		        </div>
 		        
 		        <div class="input-field col s12 m4">
 		          <input id="ngm-start-date" type="text" class="datepicker"
-		          	ng-disabled="project.definition.details.project_status !== 'new'"
+		          	ng-disabled="project.definition.project_status !== 'new'"
 								required>
 		          <label for="ngm-start-date">Start Date</label>
 		        </div>
 
 		        <div class="input-field col s12 m4">
 		          <input id="ngm-end-date" type="text" class="datepicker"
-		          	ng-disabled="project.definition.details.project_status === 'complete'"
+		          	ng-disabled="project.definition.project_status === 'complete'"
 								required>
 		          <label for="ngm-end-date">End Date</label>
 		        </div>
@@ -37,10 +37,10 @@
 		      <div class="row">
 
 		        <div class="input-field col s12 m4"
-		        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.details.project_type }">
+		        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_type }">
 					    <select class="validate"
-					    	ng-model="project.definition.details.project_type" 
-					    	ng-disabled="project.definition.details.project_status !== 'new'" 
+					    	ng-model="project.definition.project_type" 
+					    	ng-disabled="project.definition.project_status !== 'new'" 
 					    	required>
 					      <option value="" disabled selected>Select Project</option>
 					      <option value="awareness_campaign">Awareness Campaign</option>
@@ -57,10 +57,10 @@
 		        </div>
 
 		        <div class="input-field col s12 m4"
-		        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.details.project_donor }">
+		        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_donor }">
 					    <select class="validate"
-					    	ng-model="project.definition.details.project_donor" 
-					    	ng-disabled="project.definition.details.project_status !== 'new'" 
+					    	ng-model="project.definition.project_donor" 
+					    	ng-disabled="project.definition.project_status !== 'new'" 
 					    	required>
 					      <option value="" disabled selected>Select Donor</option>
 					      <option value="chf">CHF</option>
@@ -71,9 +71,9 @@
 		        </div>
 
 		        <div class="input-field col s12 m4">
-		          <input id="ngm-project-budget" type="number" class="validate" min="0"
-		          	ng-model="project.definition.details.project_budget"
-		          	ng-disabled="project.definition.details.project_status !== 'new'"
+		          <input id="ngm-project-budget" type="number" class="validate" min="1"
+		          	ng-model="project.definition.project_budget"
+		          	ng-disabled="project.definition.project_status !== 'new'"
 								required>
 		          <label for="ngm-project-budget">Project Budget (USD)</label>
 		        </div>
@@ -82,8 +82,8 @@
 					<div class="row">
 		        <div class="input-field col s12 m12 l12">
 		          <input id="ngm-project-description" type="text" class="validate"
-								ng-model="project.definition.details.project_description"
-								ng-disabled="project.definition.details.project_status !== 'new'"
+								ng-model="project.definition.project_description"
+								ng-disabled="project.definition.project_status !== 'new'"
 								required>
 		          <label for="ngm-project-description">Project Description</label>
 		        </div>

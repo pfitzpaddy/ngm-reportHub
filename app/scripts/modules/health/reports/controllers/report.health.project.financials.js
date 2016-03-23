@@ -59,18 +59,18 @@ angular.module('ngmReportHub')
 					},
 					subtitle: {
 						'class': 'col s12 m12 l12 report-subtitle',
-						'title': 'Complete the relevant Expenditure Items for ' + $scope.report.project.details.project_title
+						'title': 'Complete the relevant Expenditure Items for ' + $scope.report.project.project_title
 					},
-					download: {
-						'class': 'col s12 m3 l3 hide-on-small-only',
-						downloads: [{
-							type: 'pdf',
-							color: 'blue lighten-1',
-							icon: 'picture_as_pdf',
-							hover: 'Download Project Financials Form as PDF',
-							url: 'http://' + $location.host() + '/static/health/health_project_expenditure.pdf'
-						}]
-					}
+					// download: {
+					// 	'class': 'col s12 m3 l3 hide-on-small-only',
+					// 	downloads: [{
+					// 		type: 'pdf',
+					// 		color: 'blue lighten-1',
+					// 		icon: 'picture_as_pdf',
+					// 		hover: 'Download Project Financials Form as PDF',
+					// 		url: 'http://' + $location.host() + '/static/health/health_project_expenditure.pdf'
+					// 	}]
+					// }
 				},
 				menu: [{
 					'icon': 'location_on',

@@ -1,113 +1,96 @@
 
-<!-- bind html -->
-<div class="row">
-	<div class="col s12 m12 l12">
-		<div class="card">
-			<ul class="collection with-header">
-				<li class="collection-header"><h5 class="report-work-title">Project Beneficiaries</h5></li>
-				<li class="collection-item avatar" >
-					
-					<!-- form -->
-	      	<div class="row" ng-if="project.definition.details.project_status !== 'complete'">
+							<!-- form -->
+			      	<div class="row" style="padding-left: 40px;" ng-show="project.definition.project_status !== 'complete'">
+				        <div class="input-field col s12 m3"
+									ng-class="{ 'error-label': healthProjectForm.$submitted 
+							  								&& project.definition.locations[$index].beneficiaries.length === 0 }">
+							    <select id="ngm-beneficiary-category-{{ location.timestamp }}" class="validate"
+							    	ng-model="project.options.selection.beneficiaries[$index]"
+							    	ng-change="project.addBeneficiary($index)"
+							    	ng-options="item as item.beneficiary_name for item in project.options.filter.beneficiaries[$index] track by item.beneficiary_category">
+							      <option value="" disabled selected>Select Category</option>
+							    </select>
+							    <label>Beneficiary Category</label>
+				        </div>
+			      	</div>	
 
-		        <div class="input-field col s12 m3"
-							ng-class="{ 'error-label': healthProjectForm.$submitted 
-					  								&& project.definition.beneficiaries.length === 0 }">
-					    <select id="ngm-beneficiary-category" class="validate"
-					    	ng-model="project.options.selection.beneficiary"
-					    	ng-change="project.addBeneficiary()"
-					    	ng-options="item as item.beneficiary_name for item in project.options.filter.beneficiaries track by item.beneficiary_category">
-					      <option value="" disabled selected>Select Category</option>
-					    </select>
-					    <label>Beneficiary Category</label>
-		        </div>
+			      	<div class="row" style="padding-left: 40px;" 
+			      				ng-repeat="beneficiary in project.definition.locations[$index].beneficiaries track by $index">
 
-	      	</div>
+			      		<div class="card" style="padding: 20px;">
 
-	      	<div ng-repeat="beneficiary in project.definition.beneficiaries track by $index">
+					      	<div class="row">
 
-	      	<div class="row">
+					      		<div class="input-field col s12 m11">
+						          <input id="ngm-project-category-{{ $parent.$index }}-{{ $index }}" type="text" class="validate"
+						          	ng-model="beneficiary.beneficiary_name"
+						          	disabled>
+						          <label for="ngm-project-category-{{ $parent.$index }}-{{ $index }}">Beneficaries</label>
+					      		</div>
 
-	      		<div class="card" style="padding: 20px;">
+					      		<div class="col s12 m1">
+					      			<div class="btn waves-effect waves-light red lighten-2 right" 
+					      					title="Remove Beneficiary {{ beneficiary.beneficiary_name }}"
+					      					ng-show="project.definition.project_status !== 'complete'"
+					      					ng-click="project.removeBeneficiary( $parent.$index, $index )">
+					      					<i class="material-icons">cancel</i>
+					      			</div>
+									   </div>
 
-			      	<div class="row">
+					      	</div>
 
-			      		<div class="input-field col s12 m11">
-				          <input id="ngm-project-category-{{$index}}" type="text" class="validate"
-				          	ng-model="beneficiary.beneficiary_name"
-				          	disabled>
-				          <label for="ngm-project-category-{{$index}}">Beneficaries</label>
-			      		</div>
+				      		<div class="row">
+				      		
+					      		<div class="input-field col s12 m2">
+						          <input id="ngm-project-under18male-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
+						          	ng-model="beneficiary.under18male"
+						          	ng-disabled="project.definition.project_status === 'complete'"
+												required>
+						          <label for="ngm-project-under18male-{{ $parent.$index }}-{{ $index }}">Under 18 Male</label>
+					      		</div>
 
-			      		<div class="col s12 m1">
-									<a class="waves-effect waves-light btn red lighten-2 right"
-											title="Remove Beneficiary {{ beneficiary.beneficiary_name }}"
-							      	ng-if="project.definition.details.project_status !== 'complete'"
-							      	ng-click="project.removeBeneficiary($index)"><i class="material-icons">cancel</i></a>
-							   </div>
+					      		<div class="input-field col s12 m2">
+						          <input id="ngm-project-under18female-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
+						          	ng-model="beneficiary.under18female"
+						          	ng-disabled="project.definition.project_status === 'complete'"
+												required>
+						          <label for="ngm-project-under18female-{{ $parent.$index }}-{{ $index }}">Under 18 Female</label>			      		
+					      		</div>
 
-			      	</div>
+					      		<div class="input-field col s12 m2">
+						          <input id="ngm-project-over18male-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
+						          	ng-model="beneficiary.over18male"
+						          	ng-disabled="project.definition.project_status === 'complete'"
+												required>
+						          <label for="ngm-project-over18male-{{ $parent.$index }}-{{ $index }}">Male 18 to 59</label>			      		
+					      		</div>
 
-		      		<div class="row">
-		      		
-			      		<div class="input-field col s12 m2">
-				          <input id="ngm-project-under18male-{{$index}}" type="number" class="validate" min="0"
-				          	ng-model="beneficiary.under18male"
-				          	ng-disabled="project.definition.details.project_status === 'complete'"
-										required>
-				          <label for="ngm-project-under18male-{{$index}}">Under 18 Male</label>
-			      		</div>
+					      		<div class="input-field col s12 m2">
+						          <input id="ngm-project-over18female-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
+						          	ng-model="beneficiary.over18female"
+						          	ng-disabled="project.definition.project_status === 'complete'"
+												required>
+						          <label for="ngm-project-over18female-{{ $parent.$index }}-{{ $index }}">Female 18 to 59</label>			      		
+					      		</div>
 
-			      		<div class="input-field col s12 m2">
-				          <input id="ngm-project-under18female-{{$index}}" type="number" class="validate" min="0"
-				          	ng-model="beneficiary.under18female"
-				          	ng-disabled="project.definition.details.project_status === 'complete'"
-										required>
-				          <label for="ngm-project-under18female-{{$index}}">Under 18 Female</label>			      		
-			      		</div>
+					      		<div class="input-field col s12 m2">
+						          <input id="ngm-project-over59male-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
+						          	ng-model="beneficiary.over59male"
+						          	ng-disabled="project.definition.project_status === 'complete'"
+												required>
+						          <label for="ngm-project-over59male-{{ $parent.$index }}-{{ $index }}">Over 59 Male</label>			      		
+					      		</div>
 
-			      		<div class="input-field col s12 m2">
-				          <input id="ngm-project-over18male-{{$index}}" type="number" class="validate" min="0"
-				          	ng-model="beneficiary.over18male"
-				          	ng-disabled="project.definition.details.project_status === 'complete'"
-										required>
-				          <label for="ngm-project-over18male-{{$index}}">Male 18 to 59</label>			      		
-			      		</div>
+					      		<div class="input-field col s12 m2">
+						          <input id="ngm-project-over59female-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
+						          	ng-model="beneficiary.over59female"
+						          	ng-disabled="project.definition.project_status === 'complete'"
+												required>
+						          <label for="ngm-project-over59female-{{ $parent.$index }}-{{ $index }}">Over 59 Female</label>			      		
+					      		</div>
 
-			      		<div class="input-field col s12 m2">
-				          <input id="ngm-project-over18female-{{$index}}" type="number" class="validate" min="0"
-				          	ng-model="beneficiary.over18female"
-				          	ng-disabled="project.definition.details.project_status === 'complete'"
-										required>
-				          <label for="ngm-project-over18female-{{$index}}">Female 18 to 59</label>			      		
-			      		</div>
+				      		</div>
 
-			      		<div class="input-field col s12 m2">
-				          <input id="ngm-project-over59male-{{$index}}" type="number" class="validate" min="0"
-				          	ng-model="beneficiary.over59male"
-				          	ng-disabled="project.definition.details.project_status === 'complete'"
-										required>
-				          <label for="ngm-project-over59male-{{$index}}">Over 59 Male</label>			      		
-			      		</div>
+				      	</div>
 
-			      		<div class="input-field col s12 m2">
-				          <input id="ngm-project-over59female-{{$index}}" type="number" class="validate" min="0"
-				          	ng-model="beneficiary.over59female"
-				          	ng-disabled="project.definition.details.project_status === 'complete'"
-										required>
-				          <label for="ngm-project-over59female-{{$index}}">Over 59 Female</label>			      		
-			      		</div>
-
-
-		      		</div>
-
-		      	</div>
-
-		      </div>
-
-				</li>
-			</ul>
-
-		</div>
-	</div>
-</div>
+				      </div>
