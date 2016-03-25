@@ -107,7 +107,11 @@ angular
 					}],
 				}
 			})
-			// admin
+			// screencasts
+			.when( '/health/guide', {
+				redirectTo: '/health/guide/screens'
+			})
+			// screencasts
 			.when( '/health/guide/screens', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardScreenCtrl',

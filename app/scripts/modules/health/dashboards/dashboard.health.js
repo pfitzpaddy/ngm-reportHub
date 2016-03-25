@@ -295,7 +295,7 @@ angular.module('ngmReportHub')
 									method: 'POST',
 									url: 'http://' + $location.host() + '/api/health/data/contacts',
 									data: {
-										report: 'details_' + $scope.dashboard.report,
+										report: 'projects_' + $scope.dashboard.report,
 									}
 								},
 								metrics: {
@@ -320,7 +320,7 @@ angular.module('ngmReportHub')
 									method: 'POST',
 									url: 'http://' + $location.host() + '/api/health/indicator',
 									data: {
-										report: 'details_' + $scope.dashboard.report,
+										report: 'projects_' + $scope.dashboard.report,
 										details: 'projects',
 										start_date: $scope.dashboard.startDate,
 										end_date: $scope.dashboard.endDate,

@@ -22,7 +22,13 @@ angular.module('ngmReportHub')
 		$scope.report = {
 			
 			// parent
-			ngm: $scope.$parent.ngm
+			ngm: $scope.$parent.ngm,
+
+			// current user
+			user: ngmUser.get(),
+
+			//
+			report: 'financials',
 
 		}		
 
@@ -44,6 +50,9 @@ angular.module('ngmReportHub')
 			// assign data
 			$scope.report.project = data;
 
+			// report file name
+			$scope.report.report = data.project_title.replace(/\//g, '_') + '_financials_extracted-' + moment().format('YYYY-MM-DDTHHmm');
+
 			// report dashboard model
 			$scope.model = {
 				name: 'report_health_financials',
@@ -55,22 +64,42 @@ angular.module('ngmReportHub')
 					title: {
 						'class': 'col s12 m9 l9 report-title',
 						style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-						title: ngmUser.get().organization + ' | Expenditure Items'
+						title: ngmUser.get().organization + ' | Financial Items'
 					},
 					subtitle: {
 						'class': 'col s12 m12 l12 report-subtitle',
-						'title': 'Complete the relevant Expenditure Items for ' + $scope.report.project.project_title
+						'title': 'Complete the relevant Financial Items for ' + $scope.report.project.project_title
 					},
-					// download: {
-					// 	'class': 'col s12 m3 l3 hide-on-small-only',
-					// 	downloads: [{
-					// 		type: 'pdf',
-					// 		color: 'blue lighten-1',
-					// 		icon: 'picture_as_pdf',
-					// 		hover: 'Download Project Financials Form as PDF',
-					// 		url: 'http://' + $location.host() + '/static/health/health_project_expenditure.pdf'
-					// 	}]
-					// }
+					download: {
+						'class': 'col s12 m3 l3 hide-on-small-only',
+						downloads: [{		
+							type: 'csv',
+							color: 'blue lighten-2',
+							icon: 'attach_money',
+							hover: 'Download Financial Summary as CSV',
+							request: {
+								method: 'POST',
+								url: 'http://' + $location.host() + '/api/health/data/financials',
+								data: {
+									report: 'projects_' + $scope.report.report,
+									project: $scope.report.project
+								}
+							},
+							metrics: {
+								method: 'POST',
+								url: 'http://' + $location.host() + '/api/metrics/set',
+								data: {
+									organization: $scope.report.user ? $scope.report.user.organization : 'public',
+									username: $scope.report.user ? $scope.report.user.username : 'public',
+									email: $scope.report.user ? $scope.report.user.email : 'public',
+									dashboard: 'health_4w',
+									theme: 'health_financials',
+									format: 'csv',
+									url: $location.$$path
+								}
+							}
+						}]
+					}
 				},
 				menu: [{
 					'icon': 'location_on',

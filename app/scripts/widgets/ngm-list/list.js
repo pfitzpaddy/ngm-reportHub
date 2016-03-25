@@ -61,6 +61,9 @@ angular.module('ngm.widget.list', ['ngm.provider'])
           focused: false
         },
 
+        // display list update
+        updatedAt: moment(data.updateAt).format('DD MMMM, YYYY @ h:mm:ss a'),
+
         // default params
         itemsPerPage: 5,
         

@@ -51,7 +51,34 @@ angular.module('ngmReportHub')
 						style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
 						config: {
 							style: $scope.dashboard.ngm.style,
-							templateUrl: '/views/app/authentication/video.html'
+							title: 'Registration',
+							url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/afg_health_cluster_project_details.mp4'
+						}
+					}]
+				}]
+			},{
+				columns: [{
+					styleClass: 's12 m12 l12',
+					widgets: [{
+						type: 'form.video',
+						card: 'card-panel',
+						style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
+						config: {
+							style: $scope.dashboard.ngm.style,
+							title: 'Password Reset',
+							url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/afg_health_cluster_project_details.mp4'
+						}
+					}]
+				}]
+			},{				
+				columns: [{
+					styleClass: 's12 m12 l12',
+					widgets: [{
+						type: 'html',
+						card: 'card-panel',
+						style: 'padding:0px; height: 90px; padding-top:10px;',
+						config: {
+							html: $scope.dashboard.ngm.footer
 						}
 					}]
 				}]

@@ -89,7 +89,7 @@ angular.module('ngmReportHub')
 								card: 'white grey-text text-darken-2',
 								style: 'padding: 20px;',
 								config: {
-									html: '<a class="waves-effect waves-light btn" href="#/health/projects"><i class="material-icons left">keyboard_return</i>Back to Projects</a>'
+									html: '<a class="waves-effect waves-light btn left" href="#/health/projects"><i class="material-icons left">keyboard_return</i>Back to Projects</a><span class="right">Last Updated: ' + moment($scope.report.project.updatedAt).format('DD MMMM, YYYY @ h:mm:ss a') + '</span>'
 								}
 							}]
 						}]
@@ -112,7 +112,7 @@ angular.module('ngmReportHub')
 									},{
 										icon: 'attach_money',
 										location: 'financials',
-										title: 'Project Expenditure',
+										title: 'Project Financial Items',
 										subtitle: 'Project Financial Line Items',
 										description: 'Track the project spending against financial line items for '
 									}],

@@ -67,20 +67,23 @@
 			<a href="#/health/projects/summary/{{ item.id }}" title="Update project {{ item.id }}">
 				<i class="material-icons circle white teal-text">{{ list.icon }}</i>
 				<span class="title">{{ item.project_title }}</span>
-				<p>{{ item.project_description }}</p>
+				<p>
+					<span class="left">{{ item.project_description }}</span>
+					<span class="right" style="margin-top:-13px; padding-right:30px;">Last Updated: {{ list.updatedAt }}</span>
+				</p>
 				<a href="#/health/projects/summary/{{ item.id }}" title="Update project {{ item.id }}" class="secondary-content">
-					<i class="material-icons">send</i>
+					<i class="material-icons right">send</i>
 				</a>
 			</a>
     </li>
 
  		<!-- no data -->
 		<li ng-if="!list.data.length" class="collection-item avatar">
-			<a href="{{ list.newProjectUrl }}" title="Create new project!">
+			<a>
 				<i class="material-icons circle white teal-text">{{ list.icon }}</i>
 				<span class="title">{{ list.title }} Projects</span>
 				<p>You have 0 {{ list.title }} Projects</p>
-				<a href="{{ list.newProjectUrl }}" title="Create new project!" class="secondary-content">
+				<a class="secondary-content">
 					<i class="material-icons">send</i>
 				</a>
 			</a>

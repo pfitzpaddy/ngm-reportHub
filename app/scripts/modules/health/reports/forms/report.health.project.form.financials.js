@@ -41,6 +41,9 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
           focused: false
         },
 
+        // last update
+        updatedAt: moment(config.project.updatedAt).format('DD MMMM, YYYY @ h:mm:ss a'),        
+
         // expand search box
         toggleSearch: function($event) {;
           // focus search

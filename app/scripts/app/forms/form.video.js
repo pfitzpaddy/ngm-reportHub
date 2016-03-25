@@ -28,13 +28,23 @@ angular.module('ngm.widget.form.video', ['ngm.provider'])
     function($scope, $location, $timeout, video, ngmAuth, ngmUser, ngmData, config){
 
       // project
-      $scope.panel = {}
+      $scope.panel = {
 
-      // add video
-      video.addSource('mp4', 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/afg_health_cluster_project_details.mp4');
+        templateUrl: '/views/app/authentication/video.html',
+
+        title: 'Registration',
+
+        format: 'mp4',
+
+        url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/afg_health_cluster_project_details.mp4'
+
+      }
 
       // Merge defaults with config
       $scope.panel = angular.merge({}, $scope.panel, config);
+      
+      // video type and location
+      video.addSource($scope.panel.format, $scope.panel.url);
 
     }
 

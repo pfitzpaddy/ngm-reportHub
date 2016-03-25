@@ -37,6 +37,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         // project
         definition: config.project,
 
+        // last update
+        updatedAt: moment(config.project.updatedAt).format('DD MMMM, YYYY @ h:mm:ss a'),
+
         // holder for UI options
         options: {
           list: {
@@ -133,7 +136,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
               } else {
 
                 // add 'Other' and exit
-                $scope.project.options.selection.hf_name ={
+                $scope.project.options.selection.hf_name = {
                   fac_id: 112244,
                   fac_type: $scope.project.options.selection.hf_type.fac_type,
                   fac_name: 'Other',
@@ -141,9 +144,17 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
                   lat: $scope.project.options.selection.district.lat
                 }
                 
-                // add location
-                $scope.project.addLocation();
-                Materialize.toast('No facility exists of that type in ' + $scope.project.options.selection.province.prov_name + ", added as 'Other'", 3000, 'note');
+                // disable/enable
+                $(id).prop('disabled', disabled);
+
+                // update dropdown
+                $timeout(function(){
+                  $(id).material_select('update');
+                  // add location
+                  $scope.project.addLocation();
+                  Materialize.toast('No facility exists of that type in ' + $scope.project.options.selection.province.prov_name + ", added as 'Other'", 3000, 'note');                  
+                }, 100);
+
               }
 
           }
@@ -190,8 +201,11 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           // update dropdown
           $timeout(function(){
+            // selects
+            $('select').material_select();
+            // update            
             $( '#ngm-beneficiary-category-' + $scope.project.definition.locations[0].timestamp ).material_select('update');
-          }, 100);
+          }, 200);
 
         },
 
@@ -278,6 +292,12 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             email: ngmUser.get().email,
             beneficiary_name: beneficiary.beneficiary_name,
             beneficiary_category: beneficiary.beneficiary_category,
+            under18male: 0,
+            under18female: 0,
+            over18male: 0,
+            over18female: 0,
+            over59male: 0,
+            over59female: 0,
             prov_code: $scope.project.definition.locations[$index].prov_code,
             prov_name: $scope.project.definition.locations[$index].prov_name,
             dist_code: $scope.project.definition.locations[$index].dist_code,
@@ -554,6 +574,33 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           // selects
           $('select').material_select();
+
+            // little fix for materialize, update select multiple
+            var donor_display = '';
+            var donor_select = $( '#ngm-project-donor' ).parent().find('.select-dropdown');
+
+            // get display value
+            angular.forEach( $scope.project.definition.project_donor, function(d){
+              donor_display += d.toUpperCase() + ', '
+            });
+            // slice last 2 
+            donor_display = donor_display.slice(0, -2);
+            // set display value
+            donor_select.val(donor_display);
+
+            // update dropdown UI
+            // donor_select.find('li').each(function(i, el){
+            //   var donor = $(el).text();
+            //   // update class
+            //   angular.forEach( $scope.project.definition.project_donor, function(d){
+            //     if (d.toUpperCase() === donor ) {
+            //       $(el).addClass('active');
+            //       $(el).find('input').prop( 'checked', true );
+            //     }
+            //   });
+            // });
+
+
 
           // modals
           $('.modal-trigger').leanModal();
