@@ -392,10 +392,10 @@ angular.module('ngmReportHub')
 							widgets: [{
 								type: 'html',
 								card: 'white grey-text text-darken-2',
-								style: 'padding:20px;',
+								style: 'margin:15px; padding-bottom:30px;',
 								config: {
 									id: 'dashboard-btn',
-									html: '<a class="waves-effect waves-light btn" href="#/health/4w"><i class="material-icons left">cached</i>Reset</a>'
+									html: '<a class="waves-effect waves-light btn left" href="#/health/projects"><i class="material-icons left">keyboard_return</i>Back to Projects</a><a class="waves-effect waves-light btn right" href="#/health/4w"><i class="material-icons right">cached</i>Reset Dashboard</a>'
 								}
 							}]
 						}]
