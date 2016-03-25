@@ -17,11 +17,13 @@ angular
 		'ngTable',
 		'ngCsv',
 		'ngDropzone',
+		'ngVideo',
 		'countTo',
 		'highcharts-ng',
 		'leaflet-directive',
 		'ngm',
 		'ngm.widget.form.authentication',
+		'ngm.widget.form.video',
 		'ngm.widget.calHeatmap',
 		'ngm.widget.dropzone',
 		'ngm.widget.highchart',
@@ -104,7 +106,17 @@ angular
 							return ngmAuth.hasRole('ADMIN');
 					}],
 				}
-			})		
+			})
+			// admin
+			.when( '/health/guide/screens', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardScreenCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+							return ngmAuth.isPublic();
+					}],
+				}
+			})
 			// health project list
 			.when( '/health/projects', {
 				templateUrl: '/views/app/dashboard.html',

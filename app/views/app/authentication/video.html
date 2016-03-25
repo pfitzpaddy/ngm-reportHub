@@ -1,0 +1,73 @@
+
+<style>
+
+  /* overflow for dropdown */
+  .collection {
+    overflow: visible !important;
+  }
+
+  /* input label */
+  .input-field label,
+  .input-field input:disabled + label {
+    color: #26a69a;
+  }
+  /* valid input */
+  .input-field input.valid {
+    border-bottom: 1px solid #26a69a;
+    box-shadow: 0 1px 0 0 #26a69a;    
+  }
+  /* valid input on focus */
+  .input-field input:focus.valid {
+    border-bottom: 1px solid #4dd0e1;
+    box-shadow: 0 1px 0 0 #4dd0e1;
+  }
+  /* invalid input on focus */
+  .input-field input:focus.invalid {
+    border-bottom: 1px solid #e57373;
+    box-shadow: 0 1px 0 0 #e57373;
+  }
+  /* border for disabled */
+  .input-field input:disabled, .select-wrapper input.select-dropdown:disabled {
+    color: #616161;
+    box-shadow: none !important;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.26) !important;
+  }
+
+  /* form validation on submit */
+  .ng-submitted .input-field input[type='text'].ng-invalid + label,
+    .ng-submitted .input-field input[type='number'].ng-invalid + label,
+    .ng-submitted .input-field input[type='email'].ng-invalid + label,
+    .ng-submitted .input-field input[type='password'].ng-invalid + label {
+    color: #e57373;
+    font-weight: 400;
+  }
+
+  /* manual class for label error */
+  .input-field.error-label label {
+    color: #e57373;
+    font-weight: 400;   
+  }
+
+
+</style>
+
+<!-- bind html -->
+<div>
+  <div>
+
+  <h5
+
+    <div class="card" align="center" style="padding:20px;">
+    
+      <section class="video" ng-video>
+        <video vi-screen style="width:800px;"></video>
+        <section vi-controls>
+            <a vi-controls-play>Play</a>
+            <a vi-controls-pause>Pause</a>
+        </section>        
+      </section>
+
+    </div>
+  </div>
+</div>
+
