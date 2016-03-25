@@ -33,7 +33,7 @@ angular.module('ngmReportHub')
 			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
 
 			data: {
-				project:{
+				project_type: {
 					'all': 'All Projects',
 					'awareness_campaign': 'Awareness Campaign',
 					'health_education': 'Health Education',
@@ -45,7 +45,7 @@ angular.module('ngmReportHub')
 					'phc_white_area': 'PHC White Area',
 					'trauma_care': 'Trauma Care'
 				},
-				beneficiaries: {
+				beneficiary_category: {
 					'all': 'Total Beneficiaries',
 					'conflict_displaced': 'Conflict Displaced',
 					'health_affected_conflict': 'Health Affected by Conflict', 
@@ -160,8 +160,8 @@ angular.module('ngmReportHub')
 				// set dashboard params
 				$scope.dashboard.province = $scope.dashboard.data.province[$route.current.params.province];
 				$scope.dashboard.district = $route.current.params.district !== 'all' ? $scope.dashboard.data.district[$route.current.params.district] : { id: '*', name: 'All' };
-				$scope.dashboard.project = $route.current.params.project.split('+');
-				$scope.dashboard.beneficiaries = $route.current.params.beneficiaries.split('+');
+				$scope.dashboard.project_type = $route.current.params.project.split('+');
+				$scope.dashboard.beneficiary_category = $route.current.params.beneficiaries.split('+');
 
 				// report
 				$scope.dashboard.report += moment().format('YYYY-MM-DDTHHmm');
@@ -178,18 +178,18 @@ angular.module('ngmReportHub')
 
 				// projects stats title
 				$scope.dashboard.projectTitle = '';				
-				angular.forEach($scope.dashboard.project, function(d, i){
+				angular.forEach($scope.dashboard.project_type, function(d, i){
 					// title
-					$scope.dashboard.projectTitle += $scope.dashboard.data.project[d] + ', ';
+					$scope.dashboard.projectTitle += $scope.dashboard.data.project_type[d] + ', ';
 				});
 				// remove last 2 characters
 				$scope.dashboard.projectTitle = $scope.dashboard.projectTitle.slice(0, -2);
 
 				// beneficaries stats title
 				$scope.dashboard.beneficiariesTitle = '';				
-				angular.forEach($scope.dashboard.beneficiaries, function(d, i){
+				angular.forEach($scope.dashboard.beneficiary_category, function(d, i){
 					// title
-					$scope.dashboard.beneficiariesTitle += $scope.dashboard.data.beneficiaries[d] + ', ';
+					$scope.dashboard.beneficiariesTitle += $scope.dashboard.data.beneficiary_category[d] + ', ';
 				});
 				// remove last 2 characters
 				$scope.dashboard.beneficiariesTitle = $scope.dashboard.beneficiariesTitle.slice(0, -2);
@@ -289,13 +289,13 @@ angular.module('ngmReportHub')
 							},{
 								type: 'csv',
 								color: 'blue lighten-2',
-								icon: 'account_circle',
+								icon: 'group',
 								hover: 'Download Health Cluster Contact List as CSV',
 								request: {
-									method: 'GET',
+									method: 'POST',
 									url: 'http://' + $location.host() + '/api/health/data/contacts',
 									data: {
-										report: 'details_' + $scope.dashboard.report
+										report: 'details_' + $scope.dashboard.report,
 									}
 								},
 								metrics: {
@@ -315,12 +315,19 @@ angular.module('ngmReportHub')
 								type: 'csv',
 								color: 'blue lighten-2',
 								icon: 'assignment',
-								hover: 'Download Health 4W Project Details as CSV',
+								hover: 'Download Health 4W by Project as CSV',
 								request: {
-									method: 'GET',
-									url: 'http://' + $location.host() + '/api/health/data/details',
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/health/indicator',
 									data: {
-										report: 'details_' + $scope.dashboard.report
+										report: 'details_' + $scope.dashboard.report,
+										details: 'projects',
+										start_date: $scope.dashboard.startDate,
+										end_date: $scope.dashboard.endDate,
+										project_type: $scope.dashboard.project_type,
+										beneficiary_category: $scope.dashboard.beneficiary_category,
+										prov_code: $scope.dashboard.province.id,
+										dist_code: $scope.dashboard.district.id										
 									}
 								},
 								metrics: {
@@ -340,12 +347,19 @@ angular.module('ngmReportHub')
 								type: 'csv',
 								color: 'blue lighten-2',
 								icon: 'location_on',
-								hover: 'Download Health 4W Project Locations as CSV',
+								hover: 'Download Health 4W by Location as CSV',
 								request: {
-									method: 'GET',
-									url: 'http://' + $location.host() + '/api/health/data/locations',
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/health/indicator',
 									data: {
-										report: 'locations_' + $scope.dashboard.report
+										report: 'locations_' + $scope.dashboard.report,
+										details: 'locations',
+										start_date: $scope.dashboard.startDate,
+										end_date: $scope.dashboard.endDate,
+										project_type: $scope.dashboard.project_type,
+										beneficiary_category: $scope.dashboard.beneficiary_category,
+										prov_code: $scope.dashboard.province.id,
+										dist_code: $scope.dashboard.district.id
 									}
 								},
 								metrics: {
@@ -357,31 +371,6 @@ angular.module('ngmReportHub')
 										email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public',
 										dashboard: 'health_4w',
 										theme: 'health_locations',
-										format: 'csv',
-										url: $location.$$path
-									}
-								}
-							},{
-								type: 'csv',
-								color: 'blue lighten-2',
-								icon: 'group',
-								hover: 'Download Health 4W Project Beneficiaries as CSV',
-								request: {
-									method: 'GET',
-									url: 'http://' + $location.host() + '/api/health/data/beneficiaries',
-									data: {
-										report: 'beneficiaries_' + $scope.dashboard.report
-									}
-								},
-								metrics: {
-									method: 'POST',
-									url: 'http://' + $location.host() + '/api/metrics/set',
-									data: {
-										organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
-										username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
-										email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public',
-										dashboard: 'health_4w',
-										theme: 'health_beneficiaries',
 										format: 'csv',
 										url: $location.$$path
 									}
@@ -412,7 +401,7 @@ angular.module('ngmReportHub')
 						}]
 					},{
 						columns: [{
-							styleClass: 's12 m12 l6',
+							styleClass: 's12 m12 l4',
 							widgets: [{
 								type: 'stats',
 								style: 'text-align: center;',
@@ -421,13 +410,13 @@ angular.module('ngmReportHub')
 									title: 'Active Organizations',
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/total',
+										url: 'http://' + $location.host() + '/api/health/indicator',
 										data: {
 											indicator: 'organizations',
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
-											project: $scope.dashboard.project,
-											beneficiaries: $scope.dashboard.beneficiaries,
+											project_type: $scope.dashboard.project_type,
+											beneficiary_category: $scope.dashboard.beneficiary_category,
 											prov_code: $scope.dashboard.province.id,
 											dist_code: $scope.dashboard.district.id
 										}
@@ -435,7 +424,7 @@ angular.module('ngmReportHub')
 								}
 							}]
 						},{
-							styleClass: 's12 m12 l6',
+							styleClass: 's12 m12 l4',
 							widgets: [{
 								type: 'stats',
 								style: 'text-align: center;',
@@ -444,13 +433,38 @@ angular.module('ngmReportHub')
 									title: 'Active Projects for (' + $scope.dashboard.projectTitle + ')',
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/total',
+										url: 'http://' + $location.host() + '/api/health/indicator',
 										data: {
 											indicator: 'projects',
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
-											project: $scope.dashboard.project,
-											beneficiaries: $scope.dashboard.beneficiaries,
+											project_status: 'active',
+											project_type: $scope.dashboard.project_type,
+											beneficiary_category: $scope.dashboard.beneficiary_category,
+											prov_code: $scope.dashboard.province.id,
+											dist_code: $scope.dashboard.district.id
+										}
+									}
+								}
+							}]
+						},{
+							styleClass: 's12 m12 l4',
+							widgets: [{
+								type: 'stats',
+								style: 'text-align: center;',
+								card: 'card-panel stats-card white grey-text text-darken-2',
+								config: {
+									title: 'Complete Projects for (' + $scope.dashboard.projectTitle + ')',
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/health/indicator',
+										data: {
+											indicator: 'projects',
+											start_date: $scope.dashboard.startDate,
+											end_date: $scope.dashboard.endDate,
+											project_status: 'complete',
+											project_type: $scope.dashboard.project_type,
+											beneficiary_category: $scope.dashboard.beneficiary_category,
 											prov_code: $scope.dashboard.province.id,
 											dist_code: $scope.dashboard.district.id
 										}
@@ -469,13 +483,13 @@ angular.module('ngmReportHub')
 									title: 'Locations',
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/total',
+										url: 'http://' + $location.host() + '/api/health/indicator',
 										data: {
 											indicator: 'locations',
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
-											project: $scope.dashboard.project,
-											beneficiaries: $scope.dashboard.beneficiaries,
+											project_type: $scope.dashboard.project_type,
+											beneficiary_category: $scope.dashboard.beneficiary_category,
 											prov_code: $scope.dashboard.province.id,
 											dist_code: $scope.dashboard.district.id,
 											conflict: false
@@ -499,13 +513,13 @@ angular.module('ngmReportHub')
 									},
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/total',
+										url: 'http://' + $location.host() + '/api/health/indicator',
 										data: {
 											indicator: 'locations',
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
-											project: $scope.dashboard.project,
-											beneficiaries: $scope.dashboard.beneficiaries,
+											project_type: $scope.dashboard.project_type,
+											beneficiary_category: $scope.dashboard.beneficiary_category,
 											prov_code: $scope.dashboard.province.id,
 											dist_code: $scope.dashboard.district.id,
 											conflict: true
@@ -544,13 +558,13 @@ angular.module('ngmReportHub')
 									title: $scope.dashboard.beneficiariesTitle,
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/total',
+										url: 'http://' + $location.host() + '/api/health/indicator',
 										data: {
 											indicator: 'beneficiaries',
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
-											project: $scope.dashboard.project,
-											beneficiaries: $scope.dashboard.beneficiaries,
+											project_type: $scope.dashboard.project_type,
+											beneficiary_category: $scope.dashboard.beneficiary_category,
 											prov_code: $scope.dashboard.province.id,
 											dist_code: $scope.dashboard.district.id
 										}
@@ -608,13 +622,13 @@ angular.module('ngmReportHub')
 											},
 											request: {
 												method: 'POST',
-												url: 'http://' + $location.host() + '/api/health/total',
+												url: 'http://' + $location.host() + '/api/health/indicator',
 												data: {
 													indicator: 'under18',
 													start_date: $scope.dashboard.startDate,
 													end_date: $scope.dashboard.endDate,
-													project: $scope.dashboard.project,
-													beneficiaries: $scope.dashboard.beneficiaries,
+													project_type: $scope.dashboard.project_type,
+													beneficiary_category: $scope.dashboard.beneficiary_category,
 													prov_code: $scope.dashboard.province.id,
 													dist_code: $scope.dashboard.district.id
 												}
@@ -672,13 +686,13 @@ angular.module('ngmReportHub')
 											},
 											request: {
 												method: 'POST',
-												url: 'http://' + $location.host() + '/api/health/total',
+												url: 'http://' + $location.host() + '/api/health/indicator',
 												data: {
 													indicator: 'over18',
 													start_date: $scope.dashboard.startDate,
 													end_date: $scope.dashboard.endDate,
-													project: $scope.dashboard.project,
-													beneficiaries: $scope.dashboard.beneficiaries,
+													project_type: $scope.dashboard.project_type,
+													beneficiary_category: $scope.dashboard.beneficiary_category,
 													prov_code: $scope.dashboard.province.id,
 													dist_code: $scope.dashboard.district.id
 												}
@@ -736,13 +750,13 @@ angular.module('ngmReportHub')
 											},
 											request: {
 												method: 'POST',
-												url: 'http://' + $location.host() + '/api/health/total',
+												url: 'http://' + $location.host() + '/api/health/indicator',
 												data: {
 													indicator: 'over59',
 													start_date: $scope.dashboard.startDate,
 													end_date: $scope.dashboard.endDate,
-													project: $scope.dashboard.project,
-													beneficiaries: $scope.dashboard.beneficiaries,
+													project_type: $scope.dashboard.project_type,
+													beneficiary_category: $scope.dashboard.beneficiary_category,
 													prov_code: $scope.dashboard.province.id,
 													dist_code: $scope.dashboard.district.id
 												}
@@ -763,6 +777,8 @@ angular.module('ngmReportHub')
 									height: '520px',
 									display: {
 										type: 'marker',
+										zoomToBounds: true,
+										// zoomCorrection: -3
 									},
 									defaults: {
 										zoomToBounds: true
@@ -791,13 +807,13 @@ angular.module('ngmReportHub')
 									},				
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/total',
+										url: 'http://' + $location.host() + '/api/health/indicator',
 										data: {
 											indicator: 'markers',
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
-											project: $scope.dashboard.project,
-											beneficiaries: $scope.dashboard.beneficiaries,
+											project_type: $scope.dashboard.project_type,
+											beneficiary_category: $scope.dashboard.beneficiary_category,
 											prov_code: $scope.dashboard.province.id,
 											dist_code: $scope.dashboard.district.id
 										}

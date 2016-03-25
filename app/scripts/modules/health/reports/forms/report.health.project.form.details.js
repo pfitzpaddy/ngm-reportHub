@@ -104,7 +104,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
               $scope.project.resetLocationSelect(false, false, true, false);
               
               // assign select options
-              $scope.project.options.filter.hf_type = $scope.project.options.list.hf_type;
+              $scope.project.options.filter.hf_type = $filter('filter')($scope.project.options.list.hf_type, { fac_type: '!!' } );
 
               break;
 
@@ -154,7 +154,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // update dropdown
           $timeout(function(){
             $(id).material_select('update');
-          }, 200);
+          }, 100);
 
         },
 
@@ -350,6 +350,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // add attributes to projects to ensure simple filters
           angular.forEach($scope.project.definition.locations, function(l, i){
 
+            // set location
+            $scope.project.definition.locations[i].beneficiary_category = [];
+
             // push location ids to project
             $scope.project.definition.prov_code.push(l.prov_code);
             $scope.project.definition.dist_code.push(l.dist_code);
@@ -357,8 +360,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             // for each beneficiaries
             angular.forEach(l.beneficiaries, function(b, j){
 
-              // push beneficiary ids
+              // push beneficiary ids to project, location
               $scope.project.definition.beneficiary_category.push(b.beneficiary_category);
+              $scope.project.definition.locations[i].beneficiary_category.push(b.beneficiary_category);
 
             });
           });
@@ -451,7 +455,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
                 var date = moment($scope.project.definition.project_start_date).format('YYYY-MM-DD');
                 $scope.project.startPicker.set('select', date, { format: 'yyyy-mm-dd' } );
 
-              }, 0)
+              }, 10)
             },          
             onSet: function(event){
               // close on date select
@@ -502,7 +506,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
                 var date = moment($scope.project.definition.project_end_date).format('YYYY-MM-DD');
                 $scope.project.endPicker.set('select', date, { format: 'yyyy-mm-dd' } );
 
-              }, 0)
+              }, 10)
             },           
             onSet: function(event){
               // close on date select

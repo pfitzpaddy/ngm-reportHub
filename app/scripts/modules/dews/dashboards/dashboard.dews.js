@@ -551,7 +551,7 @@ angular.module('ngmReportHub')
 						config: {
 							height: '520px',
 							display: {
-								type: 'marker',
+								type: 'marker'
 							},
 							defaults: {
 								zoomToBounds: true

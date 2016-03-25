@@ -51,12 +51,6 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
         // project
         definition: config.project,
 
-        // start picker
-        startPicker: [],
-
-        // end picker
-        endPicker: [],
-
         // holder for UI options
         options: {
           selection: {},

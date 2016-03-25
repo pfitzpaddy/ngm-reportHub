@@ -126,6 +126,9 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
           if ($scope.leaflet.display.zoomToBounds) {
             // zoom here!
             $scope.leaflet.map.fitBounds($scope.leaflet.bounds);
+            if ($scope.leaflet.display.zoomCorrection) {
+              $scope.leaflet.map.setZoom($scope.leaflet.map.getZoom() + $scope.leaflet.display.zoomCorrection)
+            }
           }
 
         });
