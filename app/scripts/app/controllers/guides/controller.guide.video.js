@@ -64,10 +64,14 @@ angular.module('ngmReportHub')
 						config: {
 							style: $scope.dashboard.ngm.style,
 							video:[{
+								id: 'registration',
 								title: 'Registration',
+								description: 'ReportHub registration is easy!',
 								url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/afg_health_cluster_project_details.mp4'							
 							},{
+								id: 'password_reset',
 								title: 'Password Reset',
+								description: 'Forgot your password?',
 								url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/afg_health_cluster_project_details.mp4'								
 							}]
 						}

@@ -96,7 +96,7 @@
 									<!-- user logout -->
 									<li align="center" class="teal z-depth-2"
 											ng-show="ngm.getUserName() !== 'welcome'">
-										<a class="white-text" ng-click="ngm.logout(); ngm.toggleNavigationMenu()">
+										<a class="white-text" ng-click="ngm.logout();">
 										<i class="medium material-icons">lock_open</i>
 										<br/>LOGOUT</a>
 									</li>	
@@ -112,7 +112,7 @@
 									<!-- navigation options repeat -->
 									<!-- <div ng-init="$menu = ngm.getUserMenu()"> -->
 										<li ng-repeat="option in ngm.navigationMenu" class="{{ option.liClass }}">
-											<a class="{{ option.aClass }}" href="{{ option.href }}" ng-click="ngm.toggleNavigationMenu()">
+											<a class="{{ option.aClass }}" href="{{ option.href }}" ng-click="ngm.toggleNavigationMenu();">
 											<i class="{{ option.iClass }}">{{ option.icon }}</i>
 											<br/>{{ option.title }}</a>
 									  </li>
