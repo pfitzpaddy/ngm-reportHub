@@ -44,7 +44,7 @@ angular.module('ngm.widget.video', ['ngm.provider'])
 
           title: 'Registration',
 
-          format: 'mp4',
+          format: 'mov',
 
           url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/afg_health_cluster_project_details.mp4'
 

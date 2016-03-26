@@ -67,12 +67,42 @@ angular.module('ngmReportHub')
 								id: 'registration',
 								title: 'Registration',
 								description: 'ReportHub registration is easy!',
-								url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/afg_health_cluster_project_details.mp4'							
+								url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/health_cluster_ReportHub_registration.mov'
 							},{
 								id: 'password_reset',
 								title: 'Password Reset',
 								description: 'Forgot your password?',
-								url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/afg_health_cluster_project_details.mp4'								
+								url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/health_cluster_ReportHub_reset_password.mov'
+							},{
+								id: 'navigation',
+								title: 'Navigation',
+								description: 'Explore ReportHub using the Navigation Menu',
+								url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/health_cluster_ReportHub_navigation.mov'
+							},{
+								id: 'new_project',
+								title: 'New Project',
+								description: 'Create a new health project in ReportHub',
+								url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/health_cluster_ReportHub_new_project.mov'
+							},{
+								id: 'project_financials',
+								title: 'Project Financials',
+								description: 'Track your projects financial items',
+								url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/health_cluster_ReportHub_financial_summary.mov'
+							},{
+								id: 'updated_project',
+								title: 'Update Project',
+								description: 'Its possible to update your project and include new locations',
+								url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/health_cluster_ReportHub_edit_project.mov'
+							},{
+								id: 'complete_project',
+								title: 'Complete Project',
+								description: 'Finished your project? Mark it as complete',
+								url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/health_cluster_ReportHub_complete_project.mov'
+							},{
+								id: 'dashboard',
+								title: 'Project 4W Dashboard',
+								description: 'See the progress of your Health Cluster and filter projects on the 4W dashboard',
+								url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/health_cluster_ReportHub_dashboard.mov'
 							}]
 						}
 					}]
