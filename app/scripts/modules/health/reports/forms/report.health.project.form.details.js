@@ -575,6 +575,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // selects
           $('select').material_select();
 
+          if ( $scope.project.definition.project_donor ) {
             // little fix for materialize, update select multiple
             var donor_display = '';
             var donor_select = $( '#ngm-project-donor' ).parent().find('.select-dropdown');
@@ -594,12 +595,12 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             //   // update class
             //   angular.forEach( $scope.project.definition.project_donor, function(d){
             //     if (d.toUpperCase() === donor ) {
-            //       $(el).addClass('active');
+            //       $(el).toggleClass('active');
             //       $(el).find('input').prop( 'checked', true );
             //     }
             //   });
             // });
-
+          }
 
 
           // modals
