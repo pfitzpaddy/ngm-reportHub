@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardScreenCtrl', ['$scope', 'ngmUser', function ($scope, ngmUser) {
+	.controller('DashboardGuidesMenuCtrl', ['$scope', 'ngmUser', function ($scope, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -34,51 +34,24 @@ angular.module('ngmReportHub')
 				},
 				title: {
 					'class': 'col s12 m12 l12 report-title',
-					title: 'ReportHub | User Guide | Screencasts',
+					title: 'ReportHub',
 					style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 				},
 				subtitle: {
 					'class': 'col s12 m12 l12 report-subtitle',
-					title: 'View screencasts on how to use the ReportHub',
+					title: 'Select from the available options for ReportHub tips & usage guides',
 				}
 			},
 			rows: [{
 				columns: [{
 					styleClass: 's12 m12 l12',
 					widgets: [{
-						type: 'form.video',
+						type: 'form.authentication',
 						card: 'card-panel',
 						style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
 						config: {
 							style: $scope.dashboard.ngm.style,
-							title: 'Registration',
-							url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/afg_health_cluster_project_details.mp4'
-						}
-					}]
-				}]
-			},{
-				columns: [{
-					styleClass: 's12 m12 l12',
-					widgets: [{
-						type: 'form.video',
-						card: 'card-panel',
-						style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
-						config: {
-							style: $scope.dashboard.ngm.style,
-							title: 'Password Reset',
-							url: 'https://dl.dropboxusercontent.com/u/67905790/ReportHub/HealthCluster/afg_health_cluster_project_details.mp4'
-						}
-					}]
-				}]
-			},{				
-				columns: [{
-					styleClass: 's12 m12 l12',
-					widgets: [{
-						type: 'html',
-						card: 'card-panel',
-						style: 'padding:0px; height: 90px; padding-top:10px;',
-						config: {
-							html: $scope.dashboard.ngm.footer
+							templateUrl: '/views/app/guides/menu.html'
 						}
 					}]
 				}]

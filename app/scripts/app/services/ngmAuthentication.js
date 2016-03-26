@@ -190,18 +190,14 @@ angular.module('ngmReportHub')
 
 			},
 
-			isPublic: function( role ) {
+			grantPublicAccess: function( role ) {
 				
 				var deferred = $q.defer();
 
-				if ( true ) {
-					deferred.resolve(ngmAuth.OK );
-				} else if ( !ngmUser.get('auth_token') ) {
-					deferred.reject( ngmAuth.UNAUTHORIZED );
-				} else {
-					deferred.reject(ngmAuth.FORBIDDEN);
-				}
+				// make public
+				deferred.resolve( ngmAuth.OK );
 
+				// return 200 OK
 				return deferred.promise;
 			},
 

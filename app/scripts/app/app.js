@@ -23,7 +23,7 @@ angular
 		'leaflet-directive',
 		'ngm',
 		'ngm.widget.form.authentication',
-		'ngm.widget.form.video',
+		'ngm.widget.video',
 		'ngm.widget.calHeatmap',
 		'ngm.widget.dropzone',
 		'ngm.widget.highchart',
@@ -107,20 +107,36 @@ angular
 					}],
 				}
 			})
-			// screencasts
-			.when( '/health/guide', {
-				redirectTo: '/health/guide/screens'
-			})
-			// screencasts
-			.when( '/health/guide/screens', {
+			// guides
+			.when( '/health/guides', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardScreenCtrl',
+				controller: 'DashboardGuidesMenuCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
-							return ngmAuth.isPublic();
+							return ngmAuth.grantPublicAccess();
 					}],
 				}
 			})
+			// feedback
+			.when( '/health/guides/feedback', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardGuidesFeedbackCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+							return ngmAuth.grantPublicAccess();
+					}],
+				}
+			})
+			// screencasts
+			.when( '/health/guides/screens', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardGuidesScreenCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+							return ngmAuth.grantPublicAccess();
+					}],
+				}
+			})			
 			// health project list
 			.when( '/health/projects', {
 				templateUrl: '/views/app/dashboard.html',
@@ -171,7 +187,7 @@ angular
 				controller: 'DashboardHealthProjectsCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isPublic();
+						return ngmAuth.grantPublicAccess();
 					}],
 				}
 			})			
@@ -235,7 +251,7 @@ angular
 				controller: 'DashboardBaselineCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.isPublic();
+						return ngmAuth.grantPublicAccess();
 					}],
 				}
 			})
@@ -244,7 +260,7 @@ angular
 				controller: 'DashboardBaselineCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.isPublic();
+						return ngmAuth.grantPublicAccess();
 					}],
 				}
 			})
@@ -254,7 +270,7 @@ angular
 				controller: 'DashboardFloodRiskCtrl',				
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.isPublic();
+						return ngmAuth.grantPublicAccess();
 					}],
 				}
 			})
@@ -263,7 +279,7 @@ angular
 				controller: 'DashboardFloodRiskCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.isPublic();
+						return ngmAuth.grantPublicAccess();
 					}],
 				}
 			})
@@ -543,10 +559,10 @@ angular
 
 		// profile menu dropdown click
 		$('.ngm-profile-icon').click(function(){
-			if (ngmUser.get()) {
+			// if (ngmUser.get()) {
 				// on app load, toggle menu on click
 				$scope.ngm.toggleNavigationMenu();
-			}
+			// }
 
 		});
 

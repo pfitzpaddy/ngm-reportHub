@@ -91,15 +91,23 @@
 								<i class="material-icons right">add</i>{{ ngm.getUserName() }}
 							</a>
 							<!-- profile menu dropdown list -->
-							<ul class="ngm-profile-menu-content dropdown-content z-depth-2"
-									ng-show=" ngm.getUserName() !== 'welcome' ">
+							<ul class="ngm-profile-menu-content dropdown-content z-depth-2">
 
 									<!-- user logout -->
-									<li  align="center" class="teal z-depth-2">
-										<a class="white-text" ng-click="ngm.logout()">
+									<li align="center" class="teal z-depth-2"
+											ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text" ng-click="ngm.logout(); ngm.toggleNavigationMenu()">
 										<i class="medium material-icons">lock_open</i>
 										<br/>LOGOUT</a>
-									</li>								
+									</li>	
+
+									<!-- user logout -->
+									<li align="center" class="teal z-depth-2"
+											ng-show="ngm.getUserName() === 'welcome'">
+										<a class="white-text" href="#/health/login" ng-click="ngm.toggleNavigationMenu();">
+										<i class="medium material-icons">lock_outline</i>
+										<br/>LOGIN</a>
+									</li>
 
 									<!-- navigation options repeat -->
 									<!-- <div ng-init="$menu = ngm.getUserMenu()"> -->
@@ -112,7 +120,14 @@
 
 									<!-- contact modal -->
 									<li  align="center" class="teal z-depth-2">
-										<a class="white-text" ng-click="ngm.contact()">
+										<a class="white-text" href="#/health/guides" ng-click="ngm.toggleNavigationMenu();">
+										<i class="medium material-icons">help_outline</i>
+										<br/>USER GUIDES</a>
+									</li>
+
+									<!-- contact modal -->
+									<li  align="center" class="teal z-depth-2">
+										<a class="white-text" ng-click="ngm.contact(); ngm.toggleNavigationMenu()">
 										<i class="medium material-icons">group</i>
 										<br/>CONTACT REPORTHUB</a>
 									</li>
@@ -246,7 +261,6 @@
 		<!-- app -->
 		<script src="scripts/app/app.js"></script>
 		<script src="scripts/app/forms/form.authentication.js"></script>
-		<script src="scripts/app/forms/form.video.js"></script>
 		<!-- services -->			
 		<script src="scripts/app/services/ngmAuthentication.js"></script>
 		<script src="scripts/app/services/ngmModal.js"></script>
@@ -256,7 +270,11 @@
 		<script src="scripts/app/controllers/controller.register.js"></script>
 		<script src="scripts/app/controllers/controller.reset.js"></script>
 		<script src="scripts/app/controllers/controller.forbidden.js"></script>
-		<script src="scripts/app/controllers/controller.video.js"></script>
+		<!-- help guide -->
+		<script src="scripts/app/controllers/guides/controller.guide.menu.js"></script>
+		<script src="scripts/app/controllers/guides/controller.guide.feedback.js"></script>
+		<script src="scripts/app/controllers/guides/controller.guide.video.js"></script>
+		<script src="scripts/app/controllers/guides/ngm-video.js"></script>
 		<!-- modules -->
 		<!-- health -->
 		<!-- health report controllers -->
