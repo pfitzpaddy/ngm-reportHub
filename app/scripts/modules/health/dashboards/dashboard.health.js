@@ -295,7 +295,7 @@ angular.module('ngmReportHub')
 									method: 'POST',
 									url: 'http://' + $location.host() + '/api/health/data/contacts',
 									data: {
-										report: 'projects_' + $scope.dashboard.report,
+										report: 'contacts_' + $scope.dashboard.report,
 									}
 								},
 								metrics: {
