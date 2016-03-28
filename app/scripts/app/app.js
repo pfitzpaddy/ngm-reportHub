@@ -329,6 +329,8 @@ angular
 			ngmAuth.setSessionTimeout(ngmUser.get());
 		}
 
+		console.log(ngmUser.get());
+
 		// when error on route update redirect
 		$rootScope.$on('$routeChangeError' , function(event, current, previous, rejection) {
 
@@ -477,6 +479,15 @@ angular
 			},
 
 			// user
+			getUser: function() {
+				if (ngmUser.get()) {
+					return ngmUser.get();
+				} else {
+					return 'welcome';
+				}
+			},
+
+			// username
 			getUserName: function() {
 				if (ngmUser.get()) {
 					return ngmUser.get().username;

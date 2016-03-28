@@ -119,7 +119,8 @@
 								  <!-- </div> -->
 
 									<!-- contact modal -->
-									<li  align="center" class="teal z-depth-2">
+									<li  align="center" class="teal z-depth-2" 
+										ng-show="ngm.getUser() && ngm.getUser().organization.toLowerCase() === 'who' || ngm.getUser().organization.toLowerCase() === 'dews'">
 										<a class="white-text" href="#/health/4w" ng-click="ngm.toggleNavigationMenu();">
 										<i class="medium material-icons">info_outline</i>
 										<br/>DEWS DASHBOARD</a>
