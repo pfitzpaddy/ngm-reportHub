@@ -448,7 +448,7 @@ angular
 					case 'health':
 						// set style obj
 						$scope.ngm.style = {
-							logo: 'logo-who.png',
+							logo: 'logo-health_cluster.png',
 							home: '#/health',
 							darkPrimaryColor: '#1976D2',
 							defaultPrimaryColor: '#2196F3',
