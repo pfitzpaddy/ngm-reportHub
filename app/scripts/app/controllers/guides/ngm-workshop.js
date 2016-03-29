@@ -53,22 +53,28 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
           angular.forEach($scope.panel.data, function(d, i){
             angular.forEach(d.workshops, function(w, j){
               angular.forEach(w.participants, function(p, k){
-                if ( $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].email === p.email ){
-                  count++;
+                if ( $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].email ) {
+                  if ( $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].email === p.email ){
+                    count++;
+                  }
                 }
               });
             });
           });
+
+          console.log(count);
 
           // if not
           if ( count === 1 ) {
             
             // seat taken
             $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].taken = true;
-            $('#ngm-workshop-dutystation-' + $grand$parent + '-' + $parent ).prop('disabled', true);
+
+            // set displabled
+            $('#ngm-workshop-dutystation-' + $grand$parent + '-' + $parent + '-' + $index ).prop('disabled', true);
             // update dropdown
             $timeout(function(){
-              $( '#ngm-workshop-dutystation-' + $grand$parent + '-' + $parent ).material_select('update');
+              $( '#ngm-workshop-dutystation-' + $grand$parent + '-' + $parent + '-' + $index ).material_select('update');
             }, 100);            
 
             // return project
@@ -80,14 +86,11 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
               }
             }).then(function(data){
 
-              //
-              console.log(data);
-
               // assign data
               Materialize.toast( $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].name + ', you are now registered for the ' + $scope.panel.data[$grand$parent].workshops[$parent].time + ' session ', 3000, 'note');
             });
 
-          } else if ( count !== 16) {
+          } else {
 
             // exists!
             Materialize.toast( $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].name + ', already registered?', 3000 );
@@ -102,7 +105,6 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
       $scope.panel = angular.merge( {}, $scope.panel, config );
 
       // data
-      console.log(data);
       $scope.panel.data = data ? angular.merge( {}, $scope.panel.data, data ) : $scope.panel.data;
 
       // on page load
