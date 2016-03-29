@@ -14,14 +14,6 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
         description: 'ReportHub Workshop Form',
         controller: 'WorkshopFormCtrl',
         templateUrl: '/views/app/authentication/view.html',
-        resolve: {
-          // pass in ngmData for $http requests
-          data: function(ngmData, config){
-            if (config.request){
-              return ngmData.get(config.request);
-            }
-          }
-        }
       });
   })
   .controller('WorkshopFormCtrl', [
@@ -31,9 +23,8 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
     '$location',
     'ngmAuth',
     'ngmUser',
-    'data', 
     'config',
-    function($scope, $timeout, $http, $location, ngmAuth, ngmUser, data, config){
+    function($scope, $timeout, $http, $location, ngmAuth, ngmUser, config){
 
       // project
       $scope.panel = {
@@ -61,8 +52,6 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
               });
             });
           });
-
-          console.log(count);
 
           // if not
           if ( count === 1 ) {
@@ -105,7 +94,7 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
       $scope.panel = angular.merge( {}, $scope.panel, config );
 
       // data
-      $scope.panel.data = data ? angular.merge( {}, $scope.panel.data, data ) : $scope.panel.data;
+      $scope.panel.data = config.data.data ? angular.merge( {}, $scope.panel.data, config.data.data ) : $scope.panel.data;
 
       // on page load
       angular.element(document).ready(function () {
