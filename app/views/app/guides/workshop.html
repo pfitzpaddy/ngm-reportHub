@@ -103,7 +103,7 @@
 
 <div class="row"  ng-repeat="data in panel.data track by $index">
 
-  <ul class="collection with-header" ng-repeat="workshop in data.workshops | orderBy:workshop_id track by $index" style="padding-bottom:70px;">
+  <ul class="collection with-header" ng-repeat="workshop in data.workshops | orderBy:title track by $index" style="padding-bottom:70px;">
 
     <!-- header -->
     <li class="collection-header {{ workshop.theme }}" style="padding-top:20px;">
