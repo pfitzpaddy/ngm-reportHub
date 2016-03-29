@@ -23,6 +23,7 @@ angular
 		'leaflet-directive',
 		'ngm',
 		'ngm.widget.form.authentication',
+		'ngm.widget.workshop',
 		'ngm.widget.video',
 		'ngm.widget.calHeatmap',
 		'ngm.widget.dropzone',
@@ -117,6 +118,16 @@ angular
 					}],
 				}
 			})
+			// workshop
+			.when( '/health/guides/workshop', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardWorkshopCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+							return ngmAuth.grantPublicAccess();
+					}],
+				}
+			})			
 			// feedback
 			.when( '/health/guides/feedback', {
 				templateUrl: '/views/app/dashboard.html',
@@ -329,8 +340,6 @@ angular
 			ngmAuth.setSessionTimeout(ngmUser.get());
 		}
 
-		console.log(ngmUser.get());
-
 		// when error on route update redirect
 		$rootScope.$on('$routeChangeError' , function(event, current, previous, rejection) {
 
@@ -448,6 +457,7 @@ angular
 					case 'health':
 						// set style obj
 						$scope.ngm.style = {
+							style: 'margin-right:-3px;',
 							logo: 'logo-health_cluster.png',
 							home: '#/health',
 							darkPrimaryColor: '#1976D2',

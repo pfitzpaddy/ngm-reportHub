@@ -18,26 +18,32 @@
 	}
 
 	/* input label */
+	textarea.materialize-textarea label,
 	.input-field label,
 	.input-field input:disabled + label {
 		color: #26a69a;
 	}
 	/* valid input */
+	textarea.materialize-textarea.valid,
 	.input-field input.valid {
 		border-bottom: 1px solid #26a69a;
 		box-shadow: 0 1px 0 0 #26a69a;		
 	}
 	/* valid input on focus */
+	textarea.materialize-textarea.valid, 
+	textarea.materialize-textarea:focus.valid,
 	.input-field input:focus.valid {
 		border-bottom: 1px solid #4dd0e1;
 		box-shadow: 0 1px 0 0 #4dd0e1;
 	}
 	/* invalid input on focus */
+	textarea.materialize-textarea:focus.invalid,
 	.input-field input:focus.invalid {
 		border-bottom: 1px solid #e57373;
 		box-shadow: 0 1px 0 0 #e57373;
 	}
 	/* border for disabled */
+	textarea.materialize-textarea:disabled,
 	.input-field input:disabled, .select-wrapper input.select-dropdown:disabled {
 		color: #616161;
 		box-shadow: none !important;

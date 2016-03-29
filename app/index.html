@@ -70,8 +70,8 @@
 					<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:140px;">
 		
 						<!-- logo -->
-						<a href="{{ ngm.style.home }}">
-							<img class="ngm-logo" ng-src="images/{{ ngm.style.logo }}" height="97" align="right"></img>
+						<a href="{{ ngm.style.home }}" title="HOME">
+							<img class="ngm-logo" style="{{ ngm.style.style }}" ng-src="images/{{ ngm.style.logo }}" height="97" align="right"></img>
 						</a>
 
 						<!-- profile menu -->
@@ -280,15 +280,17 @@
 		<script src="scripts/app/services/ngmAuthentication.js"></script>
 		<script src="scripts/app/services/ngmModal.js"></script>
 		<!-- controllers -->
-		<script src="scripts/app/controllers/controller.admin.js"></script>
-		<script src="scripts/app/controllers/controller.login.js"></script>
-		<script src="scripts/app/controllers/controller.register.js"></script>
-		<script src="scripts/app/controllers/controller.reset.js"></script>
-		<script src="scripts/app/controllers/controller.forbidden.js"></script>
+		<script src="scripts/app/controllers/admin/controller.admin.js"></script>
+		<script src="scripts/app/controllers/admin/controller.login.js"></script>
+		<script src="scripts/app/controllers/admin/controller.register.js"></script>
+		<script src="scripts/app/controllers/admin/controller.reset.js"></script>
+		<script src="scripts/app/controllers/admin/controller.forbidden.js"></script>
 		<!-- help guide -->
 		<script src="scripts/app/controllers/guides/controller.guide.menu.js"></script>
+		<script src="scripts/app/controllers/guides/controller.guide.workshop.js"></script>
 		<script src="scripts/app/controllers/guides/controller.guide.feedback.js"></script>
 		<script src="scripts/app/controllers/guides/controller.guide.video.js"></script>
+		<script src="scripts/app/controllers/guides/ngm-workshop.js"></script>
 		<script src="scripts/app/controllers/guides/ngm-video.js"></script>
 		<!-- modules -->
 		<!-- health -->

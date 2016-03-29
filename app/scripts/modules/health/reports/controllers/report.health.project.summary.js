@@ -103,19 +103,19 @@ angular.module('ngmReportHub')
 								config: {
 									project: $scope.report.project,
 									templateUrl: '/views/modules/health/views/health.project.summary.html',									
-									forms:[{
-										icon: 'edit',
-										location: 'details',
-										title: 'Project Details',
-										subtitle: 'Project Details, Location and Beneficiaries',
-										description: 'Define the project details, locations and beneficiaries for '
-									},{
-										icon: 'attach_money',
-										location: 'financials',
-										title: 'Project Financial Items',
-										subtitle: 'Project Financial Line Items',
-										description: 'Track the project spending against financial line items for '
-									}],
+									// forms:[{
+									// 	icon: 'edit',
+									// 	location: 'details',
+									// 	title: 'Project Details',
+									// 	subtitle: 'Project Details, Location and Beneficiaries',
+									// 	description: 'Define the project details, locations and beneficiaries for '
+									// },{
+									// 	icon: 'attach_money',
+									// 	location: 'financials',
+									// 	title: 'Project Financial Items',
+									// 	subtitle: 'Project Financial Line Items',
+									// 	description: 'Track the project spending against financial line items for '
+									// }],
 					        // run submit
 					        saveComplete: function(project){
 
