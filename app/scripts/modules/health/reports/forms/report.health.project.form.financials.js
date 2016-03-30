@@ -29,11 +29,28 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
     'config',
     function($scope, $window, $location, $timeout, $filter, $q, $http, ngmUser, ngmData, config){
 
+      ngmData.get({
+        method: 'GET',
+        externalApi: true,
+        url: 'http://www.apilayer.net/api/live?access_key=1106b426ad52b3fefced5ee9ac6beabc&currencies=USD,AFN&format=1'
+      }).then(function(data){
+
+        // set live exchange
+        $scope.project.exchange = data.quotes;
+
+      });
+
       // project
       $scope.project = {
 
         // app style
         style: config.style,
+
+        // exchange rate
+        exchange: {
+          'USDUSD':1,
+          'USDAFN':68.61          
+        },
 
         // search
         search: {
@@ -110,7 +127,8 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
 
           // push to financials
           $scope.project.definition.financials.unshift({
-            organization_id: $scope.project.definition.organization_id,            
+            organization_id: $scope.project.definition.organization_id, 
+            organization: $scope.project.definition.organization,
             username: ngmUser.get().username,
             status: 'new',
             expenditure_item: $scope.project.options.selection.expenditure.expenditure_item,

@@ -272,7 +272,8 @@ angular.module('ngmReportHub')
 
 				var token;
 
-				if (ngmUser.get()) {
+				// cover external APIs
+				if (ngmUser.get() && !config.externalApi ) {
 					token = ngmUser.get().token;
 				}
 				if (token) {

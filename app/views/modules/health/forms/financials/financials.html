@@ -43,7 +43,7 @@
 	<div class="col s12 m12 l12">
 		<div class="card">
 			<ul class="collection with-header">
-				<li class="collection-header">
+				<li class="collection-header light-blue lighten-4">
 					<h5 class="report-work-title">Project Financial Tracking</h5>
 					<div ng-if="project.definition.financials.length > 3" class="col s12 m4 right">
 					  <nav class="nav-list-search right" ng-class="{'focused':project.search.focused===true || project.search.filter }">
@@ -104,7 +104,7 @@
 
 		      		<div class="row">
 
-			      		<div class="input-field col s12 m3"
+			      		<div class="input-field col s12 m4"
 			      			ng-class="{ 'error-label': healthProjectFinancialsForm.$submitted && !item.expenditure_status }">
 							    <select id="ngm-expenditure-status-{{$index}}" class="validate"
 							    	ng-model="item.expenditure_status" 
@@ -117,22 +117,30 @@
 						    	<label for="ngm-expenditure-status-{{$index}}">Expenditure Status</label>
 		      			</div>
 
-			      		<div class="input-field col s12 m3">
+			      		<div class="input-field col s12 m2">
 				          <input id="ngm-expenditure-budget-{{$index}}" type="number" class="validate" min="0"
-				          	ng-model="item.expenditure_budget"
+				          	ng-model="item.expenditure_budget_afn"
+				          	ng-disabled="project.definition.details.project_status === 'complete'"
+										required>
+				          <label for="ngm-expenditure-budget-{{$index}}">Value (AFN)</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m2">
+				          <input id="ngm-expenditure-budget-{{$index}}" type="number" class="validate" min="0"
+				          	ng-model="item.expenditure_budget_usd"
 				          	ng-disabled="project.definition.details.project_status === 'complete'"
 										required>
 				          <label for="ngm-expenditure-budget-{{$index}}">Value (USD)</label>
-			      		</div>		      		
+			      		</div>
 
-			      		<div class="input-field col s12 m3">
+			      		<div class="input-field col s12 m2">
 				          <input id="ngm-expenditure-start-date-{{ item.timestamp }}" type="text" class="datepicker"
 				          	ng-disabled="project.definition.details.project_status === 'complete'"
 										required>
 				          <label for="ngm-expenditure-start-date-{{ item.timestamp }}">Start Date</label>      		
 			      		</div>
 
-			      		<div class="input-field col s12 m3">
+			      		<div class="input-field col s12 m2">
 				          <input id="ngm-expenditure-end-date-{{ item.timestamp }}" type="text" class="datepicker"
 				          	ng-disabled="project.definition.details.project_status === 'complete'"
 										required>

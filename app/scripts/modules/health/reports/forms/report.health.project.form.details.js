@@ -64,18 +64,81 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             beneficiaries: []
           },
           selection: {
-            beneficiaries: []
+            beneficiaries: [],
+            target_beneficiaries: [],
           }
         },
 
         // details template
         detailsUrl: '/views/modules/health/forms/details/details.html',
 
+        // target beneficiaries
+        targetBeneficiariesUrl: '/views/modules/health/forms/details/target-beneficiaries.html',
+
         // details template
         locationsUrl: '/views/modules/health/forms/details/locations.html',
 
         // details template
         beneficiariesUrl: '/views/modules/health/forms/details/beneficiaries.html',
+
+        // add target benficiaries
+        addTargetBeneficiary: function() {
+
+          // copy selection
+          var target_beneficiary = angular.copy($scope.project.options.selection.target_beneficiaries);
+
+          // push to beneficiaries
+          $scope.project.definition.target_beneficiaries.unshift({
+            organization_id: config.project.organization_id,
+            organization: config.project.organization,
+            username: ngmUser.get().username,
+            email: ngmUser.get().email,
+            beneficiary_name: target_beneficiary.beneficiary_name,
+            beneficiary_category: target_beneficiary.beneficiary_category,
+            under5male: 0,
+            under5female: 0,
+            over5male: 0,
+            over5female: 0,
+            target_cba: 0,
+            target_pla: 0
+          });
+
+          // clear selection
+          $scope.project.options.selection.target_beneficiaries = {};
+
+          // filter list
+          $scope.project.options.filter.target_beneficiaries = $filter('filter')($scope.project.options.filter.target_beneficiaries, { beneficiary_category: '!' + target_beneficiary.beneficiary_category }, true);
+
+          // update dropdown
+          $timeout(function(){
+            // apply filter
+            $( '#ngm-target_beneficiary-category' ).material_select('update');
+          }, 10);
+
+        },
+
+        // remove target beneficiary
+        removeTargetBeneficiary: function( $index ) {
+
+          // add option to selection
+          $scope.project.options.filter.target_beneficiaries.push({
+            'beneficiary_category': $scope.project.definition.target_beneficiaries[$index].beneficiary_category,
+            'beneficiary_name': $scope.project.definition.target_beneficiaries[$index].beneficiary_name,
+          });
+
+          // remove location at i
+          $scope.project.definition.target_beneficiaries.splice( $index, 1 );
+
+          // sort
+          $filter('orderBy')($scope.project.options.filter.target_beneficiaries, '-beneficiary_category');
+          
+          // update dropdown
+          $timeout(function(){
+            // apply filter
+            $( '#ngm-target_beneficiary-category' ).material_select('update');
+          }, 10);
+
+        }, 
 
         // apply location dropdowns
         locationSelect: function(id, select) {
@@ -167,7 +230,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             $(id).material_select('update');
           }, 100);
 
-        },
+        },       
 
         // add location
         addLocation: function(){
@@ -292,12 +355,12 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             email: ngmUser.get().email,
             beneficiary_name: beneficiary.beneficiary_name,
             beneficiary_category: beneficiary.beneficiary_category,
-            under18male: 0,
-            under18female: 0,
-            over18male: 0,
-            over18female: 0,
-            over59male: 0,
-            over59female: 0,
+            under5male: 0,
+            under5female: 0,
+            over5male: 0,
+            over5female: 0,
+            cba: 0,
+            pla: 0,
             prov_code: $scope.project.definition.locations[$index].prov_code,
             prov_name: $scope.project.definition.locations[$index].prov_name,
             dist_code: $scope.project.definition.locations[$index].dist_code,
@@ -622,6 +685,15 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           // order locations by latest updated
           $scope.project.definition.locations = $filter('orderBy')($scope.project.definition.locations, '-createdAt');
+
+          // set list
+          $scope.project.options.filter.target_beneficiaries = $scope.project.options.list.beneficiaries;
+          // // filter list
+          // $scope.project.options.filter.target_beneficiaries = $filter('filter')($scope.project.options.filter.target_beneficiaries, { beneficiary_category: '!' + beneficiary_category }, true);
+          // // update dropdown
+          $timeout(function(){
+            $( '#ngm-target_beneficiary-category' ).material_select('update');
+          }, 10);
 
           // filter beneficiaries
           angular.forEach($scope.project.definition.locations, function(l, i) {

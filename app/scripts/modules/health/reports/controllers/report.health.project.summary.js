@@ -98,8 +98,8 @@ angular.module('ngmReportHub')
 							styleClass: 's12 m12 l12',
 							widgets: [{
 								type: 'html',
-								card: 'card-panel white grey-text text-darken-2',
-								style: 'padding-bottom: 50px;',
+								card: 'white grey-text text-darken-2',
+								style: 'padding: 0px;',
 								config: {
 									project: $scope.report.project,
 									templateUrl: '/views/modules/health/views/health.project.summary.html',									

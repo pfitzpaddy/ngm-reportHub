@@ -84,11 +84,11 @@ angular.module('ngmReportHub')
 				}
 			},
 			menu: [{
-				'icon': 'location_on',
+				'icon': 'add_circle_outline',
 				'title': 'Projects',
-				'class': 'teal-text',
+				'class': 'teal lighten-4 teal-text',
 				rows: [{
-					'title': 'Create New Project',
+					'title': 'Add New Project',
 					'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 					'param': 'project',
 					'active': 'active',
@@ -112,8 +112,10 @@ angular.module('ngmReportHub')
 					styleClass: 's12 m12 l12',
 					widgets: [{
 						type: 'list',
-						card: 'card-panel white grey-text text-darken-2',
+						card: 'white grey-text text-darken-2',
 						config: {
+							color: 'blue-grey darken-1',
+							textColor: 'white-text',
 							title: 'Active',
 							icon: 'edit',
 							newProjectUrl: $scope.report.newProjectUrl,
@@ -133,9 +135,9 @@ angular.module('ngmReportHub')
 					styleClass: 's12 m12 l12',
 					widgets: [{
 						type: 'list',
-						card: 'card-panel white grey-text text-darken-2',
-						style: 'padding-bottom: 50px;',
+						card: 'white grey-text text-darken-2',
 						config: {
+							color: 'cyan lighten-3',
 							title: 'Complete',
 							icon: 'done',
 							newProjectUrl: $scope.report.newProjectUrl,

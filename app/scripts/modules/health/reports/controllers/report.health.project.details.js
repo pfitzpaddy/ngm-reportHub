@@ -59,11 +59,11 @@ angular.module('ngmReportHub')
 						// }
 					},
 					menu: [{
-						'icon': 'location_on',
+						'icon': 'keyboard_return',
 						'title': 'Projects',
-						'class': 'teal-text',
+						'class': 'teal lighten-4 teal-text',
 						rows: [{
-							'title': 'Project List',
+							'title': 'Back to Projects',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 							'param': 'project',
 							'active': 'active',
