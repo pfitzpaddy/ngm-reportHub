@@ -138,7 +138,7 @@ angular.module('ngmReportHub')
 						type: 'list',
 						card: 'white grey-text text-darken-2',
 						config: {
-							color: 'cyan lighten-3',
+							color: 'lime lighten-4',
 							title: 'Complete',
 							icon: 'done',
 							newProjectUrl: $scope.report.newProjectUrl,
