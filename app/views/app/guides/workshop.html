@@ -109,7 +109,7 @@
 
   <div class="col s12">
 
-    <ul class="collection with-header" ng-repeat="workshop in data.workshops | orderBy:order track by $index" style="padding-bottom:70px;">
+    <ul class="collection with-header" ng-repeat="workshop in data.workshops | orderBy:'order' track by $index" style="padding-bottom:70px;">
 
       <!-- header -->
       <li class="collection-header {{ workshop.theme }}" style="padding-top:20px;">
@@ -117,7 +117,7 @@
         <p class="right" style="margin-top:-45px;font-size:1.3rem;"><i class="material-icons left">date_range</i>{{ workshop.date }} - {{ workshop.time }}</p>
       </li>
 
-      <li class="collection-item avatar" class="collection-item avatar" ng-repeat="participant in workshop.participants | orderBy:item track by $index">
+      <li class="collection-item avatar" class="collection-item avatar" ng-repeat="participant in workshop.participants | orderBy:'item' track by $index">
         <div class="row">
           <form name="ngm-workshop-{{ $parent.$parent.$index }}-{{ $parent.$index }}-{{ $index }}-form" class="col s12 m12 l12" novalidate>
             <div class="input-field col s12 m2">
