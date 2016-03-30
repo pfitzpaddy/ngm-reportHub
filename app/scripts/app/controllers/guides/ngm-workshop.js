@@ -104,6 +104,7 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
 
           // selects
           $('select').material_select();
+          $('select').material_select('update');
 
         }, 400);
       });
