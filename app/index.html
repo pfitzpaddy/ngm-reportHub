@@ -153,10 +153,11 @@
 				</div>
 
 		    <!-- navigation menu -->
-			  <ul class="ngm-navigation-menu collapsible popout"
-			  		style="display: none;"
-			  		data-collapsible="expandable"
-			  		ng-show="ngm.dashboard.model.menu" ng-cloak>
+		  	<a href="{{ ngm.dashboard.model.menu[0].href }}">
+		  	<ul class="ngm-navigation-menu collapsible popout"
+		  		style="display: none;"
+		  		data-collapsible="expandable"
+		  		ng-show="ngm.dashboard.model.menu" ng-cloak>
 
 			  	<li ng-show="ngm.dashboard.model.menu" id="li-{{ list.id }}" ng-repeat="list in ngm.dashboard.model.menu" ng-cloak>
 			  		<div class="collapsible-header {{ list.class }}" ng-click="ngm.toggleSearch(list.id)" ng-cloak>
@@ -195,6 +196,7 @@
 
 			  	</li>
 			  </ul>
+			  </a>
 
 			</div>
 

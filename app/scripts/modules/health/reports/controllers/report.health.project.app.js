@@ -85,15 +85,16 @@ angular.module('ngmReportHub')
 			},
 			menu: [{
 				'icon': 'add_circle_outline',
-				'title': 'Projects',
-				'class': 'teal lighten-4 teal-text',
-				rows: [{
-					'title': 'Add New Project',
-					'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-					'param': 'project',
-					'active': 'active',
-					'href': $scope.report.newProjectUrl
-				}]
+				'title': 'Add New Project',
+				'class': 'teal-text',
+				'href': $scope.report.newProjectUrl
+				// rows: [{
+				// 	'title': 'Add New Project',
+				// 	'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+				// 	'param': 'project',
+				// 	'active': 'active',
+				// 	'href': $scope.report.newProjectUrl
+				// }]
 			}],
 			rows: [{
 				columns: [{

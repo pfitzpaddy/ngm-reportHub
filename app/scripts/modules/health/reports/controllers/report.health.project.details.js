@@ -60,15 +60,16 @@ angular.module('ngmReportHub')
 					},
 					menu: [{
 						'icon': 'keyboard_return',
-						'title': 'Projects',
-						'class': 'teal lighten-4 teal-text',
-						rows: [{
-							'title': 'Back to Projects',
-							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'param': 'project',
-							'active': 'active',
-							'href': '#/health/projects'
-						}]
+						'title': 'Back to Projects',
+						'class': 'teal-text',
+						'href': '#/health/projects'
+						// rows: [{
+						// 	'title': 'Back to Projects',
+						// 	'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						// 	'param': 'project',
+						// 	'active': 'active',
+						// 	'href': '#/health/projects'
+						// }]
 					}],
 					rows: [{				
 						columns: [{
