@@ -104,7 +104,13 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
 
           // selects
           $('select').material_select();
-          $('select').material_select('update');
+          angular.forEach($scope.panel.data, function(d, i){
+            angular.forEach(d.workshops, function(w, j){
+              angular.forEach(w.participants, function(p, k){
+                 $('#ngm-workshop-dutystation-' + i + '-' + j + '-' + k).material_select('update');
+              });
+            });
+          });
 
         }, 400);
       });
