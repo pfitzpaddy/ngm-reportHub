@@ -76,7 +76,7 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
             }).then(function(data){
 
               // assign data
-              Materialize.toast( $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].name + ', you are now registered for the ' + $scope.panel.data[$grand$parent].workshops[$parent].time + ' session ', 3000, 'note');
+              Materialize.toast( $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].name + ', you are now registered for the ' + $scope.panel.data[$grand$parent].workshops[$parent].date + ' session ', 3000, 'note');
             });
 
           } else {
