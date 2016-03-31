@@ -6,8 +6,9 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardDewsCtrl', ['$scope', '$http', '$location', '$route', '$window', '$timeout', 'ngmUser', 'ngmModal', 
-		function ($scope, $http, $location, $route, $window, $timeout, ngmUser, ngmModal) {
+	// modal controller
+	.controller('DashboardDewsCtrl', ['$rootScope', '$scope', '$http', '$location', '$route', '$window', '$timeout', 'ngmUser', 
+		function ($rootScope, $scope, $http, $location, $route, $window, $timeout, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -333,6 +334,19 @@ angular.module('ngmReportHub')
 				columns: [{
 					styleClass: 's12 m12 l12',
 					widgets: [{
+						type: 'modal',
+						config: {
+							id: 'ngm-dews-modal',
+							materialize: {
+								dismissible: false
+							}
+						}
+					}]
+				}]
+			},{
+				columns: [{
+					styleClass: 's12 m12 l12',
+					widgets: [{
 						type: 'html',
 						'style': 'padding-top: 10px;',
 						config: {
@@ -419,21 +433,19 @@ angular.module('ngmReportHub')
 								name: $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name + ' - 1 Year Timeline'
 							},							
 							options: {
+								
 								// calendar start date
 								start: new Date( moment($scope.dashboard.endDate).subtract(11, 'M').format('YYYY-MM-DD') ),
-								// on click popup
+
+								// onclick modal
 								onClick: function(date, nb) {
-									if(nb){
-										// open modal service
-										ngmModal.open({
-											type: 'table',
-											style: 'width:70%;',
-											templateUrl: "'/views/modals/dews.modal.html'",
-											date: moment(date).format('DD MMMM, YYYY'),
-											loading: true,
-											materialize: {
-												dismissible: false
-											},
+
+									// broadcast calendar click
+									if ( nb ) {
+
+										// params for modal
+										var params = {
+											date: date,
 											request: {
 												method: 'POST',
 												url: 'http://' + $location.host() + '/api/dews/summary',
@@ -442,10 +454,15 @@ angular.module('ngmReportHub')
 													disease: $scope.dashboard.disease.id,
 													prov_code: $scope.dashboard.location.id
 												}
-											}
-										});
+											}											
+										}
+
+										// fire modal open event
+										$rootScope.$broadcast( 'ngm-dews-modal', params );
 									}
+
 								}
+
 							},
 							request: {
 								method: 'POST',
@@ -586,8 +603,7 @@ angular.module('ngmReportHub')
 									start_date: $scope.dashboard.startDate,
 									end_date: $scope.dashboard.endDate,
 									disease: $scope.dashboard.disease.id,
-									prov_code: $scope.dashboard.location.id,
-									message: '<div class="count" style="text-align:center">__{ "value": feature.properties.incidents }__</div> cases in __{ "value": feature.properties.district }__'
+									prov_code: $scope.dashboard.location.id
 								}
 							}
 						}

@@ -8,6 +8,7 @@
  */
 angular
 	.module('ngmReportHub', [
+		// vendor
 		'ngAnimate',
 		'ngCookies',
 		'ngResource',
@@ -22,19 +23,22 @@ angular
 		'highcharts-ng',
 		'leaflet-directive',
 		'ngm',
+		// pages
 		'ngm.widget.form.authentication',
+		'ngm.widget.project.details',
+		'ngm.widget.project.financials',		
 		'ngm.widget.workshop',
 		'ngm.widget.video',
+		// utils
+		'angularUtils.directives.dirPagination',
+		// widgets
 		'ngm.widget.calHeatmap',
 		'ngm.widget.dropzone',
 		'ngm.widget.highchart',
 		'ngm.widget.html',
-		'ngm.widget.iframe',
 		'ngm.widget.leaflet',
 		'ngm.widget.list',
-		'angularUtils.directives.dirPagination',
-		'ngm.widget.project.details',
-		'ngm.widget.project.financials',
+		'ngm.widget.modal',
 		'ngm.widget.stats',
 		'ngm.widget.table'
 	])

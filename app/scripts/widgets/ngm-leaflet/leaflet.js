@@ -112,6 +112,11 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
       setTimeout(function(){
         // perform map actions once map promise retrned
         leafletData.getMap().then(function(map) {
+
+          // 
+          $('#ngm-leaflet-modal-pop').click(function(){
+            console.log('popup!');
+          })          
           
           // map $scope
           $scope.leaflet.map = map;

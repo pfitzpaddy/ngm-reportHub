@@ -1,0 +1,55 @@
+
+
+	<!--  -->
+	<div id="{{ modal.id }}" style="width: 80%;" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<h5 class="report-title" style="color: #2196F3;">DEWS Daily Summary of Incidents - {{ modal.date }}</h5>
+			<div align="center" ng-if="modal.loading" ng-include src="'views/modals/loading.html'"></div>
+			<div ng-if="!modal.loading">
+		    	<table class="centered highlight responsive-table" ng-table="modal.tableParams">
+			        <tr ng-repeat="row in $data">
+			          <td data-title="'Disease'" sortable="'disease'">{{row.disease}}</td>
+			          <td data-title="'u5male'" sortable="'u5male'">{{row.u5male}}</td>
+			          <td data-title="'u5female'" sortable="'u5female'">{{row.u5female}}</td>
+			          <td data-title="'o5male'" sortable="'o5male'">{{row.o5male}}</td>
+			          <td data-title="'o5female'" sortable="'o5female'">{{row.o5female}}</td>
+			          <td data-title="'u5death'" sortable="'u5death'">{{row.u5death}}</td>
+			          <td data-title="'o5death'" sortable="'o5death'">{{row.o5death}}</td>
+			          <td data-title="'Total'" sortable="'total'">{{row.total}}</td>
+			          <td data-title="'Clinic Confirmed'" sortable="'clinic_confirmed'">{{row.clinic_confirmed}}</td>
+			          <td data-title="'Province'" sortable="'province'">{{row.province}}</td>
+			          <td data-title="'District'" sortable="'district'">{{row.district}}</td>
+			          <td data-title="'Village'" sortable="'village'">{{row.village}}</td>
+			        </tr>
+			        <tr>
+			        </tr>
+			        <tr>
+			        	<td><b>Totals</b></td>
+			        	<td><b>{{ modal.data|sumByKey:'u5male' }}</b></td>
+			        	<td><b>{{ modal.data|sumByKey:'u5female' }}</b></td>
+			        	<td><b>{{ modal.data|sumByKey:'o5male' }}</b></td>
+			        	<td><b>{{ modal.data|sumByKey:'o5female' }}</b></td>
+			        	<td><b>{{ modal.data|sumByKey:'u5death' }}</b></td>
+			        	<td><b>{{ modal.data|sumByKey:'o5death' }}</b></td>
+			        	<td><b>{{ modal.data|sumByKey:'total' }}</b></td>
+			        	<td>---</td>
+			        	<td>---</td>
+			        	<td>---</td>
+			        	<td>---</td>
+			        </tr>
+		    	</table>
+	            
+			</div>
+			<div ng-if="modal.error">
+				<i class="medium material-icons" style="color:#009688">error_outline</i><br/><h5 style="font-weight:300;">There has been an error, please try again!</h5>
+		    </div>
+		</div>
+		<div class="modal-footer">
+			<a class="modal-action modal-close waves-effect waves-teal btn-flat">Close</a>
+			<a class="modal-action waves-effect waves-teal btn-flat" 
+				ng-csv="modal.data" 
+				csv-header="['Disease', 'u5male', 'u5female', 'o5male', 'o5female', 'u5death', 'o5death', 'Total Incidents', 'Clinic Confirmed', 'Province', 'District', 'Village']" 
+				filename="{{ modal.filename }}">Download</a>
+		</div>
+	</div>
+</div>
