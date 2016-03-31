@@ -69,6 +69,9 @@ angular.module('ngm.widget.modal', ['ngm.provider'])
         // close modal
         open: function( params ){
 
+          // turn off loading
+          $scope.modal.loading = true;
+
           // set date
           $scope.modal.date = moment( params.date ).format( 'DD MMMM, YYYY' ),
 
