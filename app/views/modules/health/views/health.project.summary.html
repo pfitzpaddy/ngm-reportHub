@@ -25,13 +25,13 @@
 
 		<!-- header -->
 		<li class="collection-header blue-grey darken-1">
-			<h4 class="report-work-title white-text" style="margin-top:20px; font-size:2.1rem;">Project Summary</h4>
+			<h4 class="report-work-title white-text" style="margin-top:20px; font-size:2.1rem;"><i class="material-icons left">list</i>Project Summary</h4>
 		</li>
 
 		<!-- project details -->
 		<li class="collection-item avatar" class="collection-item avatar">
 			<a href="#/health/projects/details/{{ panel.project.id }}" title="Update project {{ panel.project.id }} details">
-				<i class="material-icons circle white teal-text" style="font-size:40px;">edit</i>
+				<i class="material-icons circle white teal-text">edit</i>
 				<span class="title">Project Details</span>
 				<p style="margin-top:5px;">Define the project details, locations and beneficiaries for {{ panel.project.project_title }}</p>
 				<a href="#/health/projects/details/{{ panel.project.id }}" title="Update project {{ panel.project.id }} details" class="secondary-content">
@@ -43,7 +43,7 @@
 		<!-- financial tracking for WHO projects -->
 		<li class="collection-item avatar" class="collection-item avatar" ng-show="panel.project.project_donor.indexOf('who')!=-1">
 			<a href="#/health/projects/financials/{{ panel.project.id }}" title="Update project {{ panel.project.id }} details">
-				<i class="material-icons circle white teal-text" style="font-size:40px;">attach_money</i>
+				<i class="material-icons circle white teal-text">attach_money</i>
 				<span class="title">Project Financial Items</span>
 				<p>Track the project spending against financial line items for {{ panel.project.project_title }}</p>
 				<a href="#/health/projects/financials/{{ panel.project.id }}" title="Update project {{ panel.project.id }} details" class="secondary-content">
