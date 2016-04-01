@@ -4,12 +4,12 @@
 	<div class="col s12 m12 l12">
 		<div class="card">
 			<ul class="collection with-header">
-				<li class="collection-header blue-grey darken-1"><h5 class="report-work-title white-text">Project Details</h5></li>
+				<li class="collection-header blue-grey darken-1"><h5 class="report-work-title white-text"><i class="material-icons left">playlist_add</i>Project Details</h5></li>
 				<li class="collection-item avatar" >
 					
 					<!-- form -->
 
-		      <div class="row">
+		      <div class="row" style="padding-top:20px;">
 		        <div class="input-field col s12 m4">
 		          <input id="ngm-project-name" type="text" class="validate"
 								autofocus=""
@@ -36,7 +36,7 @@
 
 		      <div class="row">
 
-		        <div class="input-field col s12 m4"
+		        <div class="input-field col s12 m6"
 		        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_type }">
 					    <select multiple class="validate"
 					    	ng-model="project.definition.project_type" 
@@ -58,7 +58,7 @@
 					    <label>Project Type</label>
 		        </div>
 
-		        <div class="input-field col s12 m4"
+		        <div class="input-field col s12 m6"
 		        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_donor }">
 					    <select multiple 
 					    	id="ngm-project-donor"
@@ -79,15 +79,22 @@
 					    </select>
 					    <label>Project Donor</label>
 		        </div>
-
-		        <div class="input-field col s12 m4">
-		          <input id="ngm-project-budget" type="number" class="validate" min="1"
-		          	ng-model="project.definition.project_budget"
-		          	ng-disabled="project.definition.project_status === 'complete'"
-								required>
-		          <label for="ngm-project-budget">Project Budget (USD)</label>
-		        </div>
 		      </div>		      
+
+					<div class="row">
+		        <div class="input-field col s12 m4 l4" style="padding-bottom:38px;">
+		        	<input type="checkbox" id="ngm-project-other_partbers"
+		        		ng-model="project.definition.implementing_partners_checked" />
+		          <label for="ngm-project-other_partbers">Other Implementing Partners?</label>
+		        </div>
+
+		        <div class="input-field col s12 m8 l8">
+		          <input id="ngm-project-implementing_partners" type="text" class="validate"
+								ng-model="project.definition.implementing_partners"
+								ng-disabled="!project.definition.implementing_partners_checked || project.definition.project_status === 'complete'">
+		          <label for="ngm-project-implementing_partners">List Partners</label>
+		        </div>
+		      </div>
 
 					<div class="row">
 		        <div class="input-field col s12 m12 l12">

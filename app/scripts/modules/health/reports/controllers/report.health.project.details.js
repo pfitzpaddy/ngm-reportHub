@@ -117,6 +117,7 @@ angular.module('ngmReportHub')
 				project_description: 'Complete the project details to register a new project',
 				project_start_date: new Date(),
 				project_end_date: new Date(d.getFullYear(), d.getMonth() + 1, d.getDate()),
+				target_beneficiaries: [],
 				prov_code: [],
 				dist_code: [],
 				beneficiary_category: [],

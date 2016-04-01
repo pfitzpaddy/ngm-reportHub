@@ -6,8 +6,8 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardHealthProjectsCtrl', ['$scope', '$http', '$location', '$route', '$window', '$timeout', '$filter', 'ngmUser', 'ngmModal', 'ngmData', 
-		function ($scope, $http, $location, $route, $window, $timeout, $filter, ngmUser, ngmModal, ngmData) {
+	.controller('DashboardHealthProjectsCtrl', ['$scope', '$http', '$location', '$route', '$window', '$timeout', '$filter', 'ngmUser', 'ngmData', 
+		function ($scope, $http, $location, $route, $window, $timeout, $filter, ngmUser, ngmData) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -574,14 +574,14 @@ angular.module('ngmReportHub')
 						}]
 					},{
 						columns: [{
-							styleClass: 's12 m12 l4',
+							styleClass: 's12 m12 l6',
 							widgets: [{
 								type: 'highchart',
 								style: 'height: 180px;',
 								card: 'card-panel chart-stats-card white grey-text text-darken-2',
 								config: {
 									title: {
-										text: 'Children (Under 18)'
+										text: 'Children (Under 5)'
 									},
 									display: {
 										label: true,
@@ -613,7 +613,7 @@ angular.module('ngmReportHub')
 												}
 										},
 										series: [{
-											name: 'Children (Under 18)',
+											name: 'Children (Under 5)',
 											size: '100%',
 											innerSize: '80%',
 											showInLegend:false,
@@ -624,7 +624,7 @@ angular.module('ngmReportHub')
 												method: 'POST',
 												url: 'http://' + $location.host() + '/api/health/indicator',
 												data: {
-													indicator: 'under18',
+													indicator: 'under5',
 													start_date: $scope.dashboard.startDate,
 													end_date: $scope.dashboard.endDate,
 													project_type: $scope.dashboard.project_type,
@@ -638,14 +638,14 @@ angular.module('ngmReportHub')
 								}
 							}]
 						},{
-							styleClass: 's12 m12 l4',
+							styleClass: 's12 m12 l6',
 							widgets: [{
 								type: 'highchart',
 								style: 'height: 180px;',
 								card: 'card-panel chart-stats-card white grey-text text-darken-2',
 								config: {
 									title: {
-										text: 'Adult (18 to 59)'
+										text: 'Adult (Over 5)'
 									},
 									display: {
 										label: true,
@@ -677,7 +677,7 @@ angular.module('ngmReportHub')
 												}
 										},
 										series: [{
-											name: 'Adult (18 to 59)',
+											name: 'Adult (Over 5)',
 											size: '100%',
 											innerSize: '80%',
 											showInLegend:false,
@@ -688,7 +688,7 @@ angular.module('ngmReportHub')
 												method: 'POST',
 												url: 'http://' + $location.host() + '/api/health/indicator',
 												data: {
-													indicator: 'over18',
+													indicator: 'over5',
 													start_date: $scope.dashboard.startDate,
 													end_date: $scope.dashboard.endDate,
 													project_type: $scope.dashboard.project_type,
@@ -701,70 +701,70 @@ angular.module('ngmReportHub')
 									}
 								}
 							}]			
-						},{
-							styleClass: 's12 m12 l4',
-							widgets: [{
-								type: 'highchart',
-								style: 'height: 180px;',
-								card: 'card-panel chart-stats-card white grey-text text-darken-2',
-								config: {
-									title: {
-										text: 'Eldery (Over 59)'
-									},
-									display: {
-										label: true,
-										fractionSize: 1,
-										subLabelfractionSize: 0,
-										postfix: '%'
-									},
-									templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
-									style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
-									chartConfig: {
-										options: {
-											chart: {
-												type: 'pie',
-												height: 140,
-												margin: [0,0,0,0],
-												spacing: [0,0,0,0]
-											},
-											tooltip: {
-												enabled: false
-											}				
-										},
-										title: {
-												text: '',
-												margin: 0
-										},
-										plotOptions: {
-												pie: {
-														shadow: false
-												}
-										},
-										series: [{
-											name: 'Eldery (Over 59)',
-											size: '100%',
-											innerSize: '80%',
-											showInLegend:false,
-											dataLabels: {
-												enabled: false
-											},
-											request: {
-												method: 'POST',
-												url: 'http://' + $location.host() + '/api/health/indicator',
-												data: {
-													indicator: 'over59',
-													start_date: $scope.dashboard.startDate,
-													end_date: $scope.dashboard.endDate,
-													project_type: $scope.dashboard.project_type,
-													beneficiary_category: $scope.dashboard.beneficiary_category,
-													prov_code: $scope.dashboard.province.id,
-													dist_code: $scope.dashboard.district.id
-												}
-											}
-										}]
-									}
-								}
-							}]
+						// },{
+						// 	styleClass: 's12 m12 l4',
+						// 	widgets: [{
+						// 		type: 'highchart',
+						// 		style: 'height: 180px;',
+						// 		card: 'card-panel chart-stats-card white grey-text text-darken-2',
+						// 		config: {
+						// 			title: {
+						// 				text: 'Eldery (Over 59)'
+						// 			},
+						// 			display: {
+						// 				label: true,
+						// 				fractionSize: 1,
+						// 				subLabelfractionSize: 0,
+						// 				postfix: '%'
+						// 			},
+						// 			templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
+						// 			style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
+						// 			chartConfig: {
+						// 				options: {
+						// 					chart: {
+						// 						type: 'pie',
+						// 						height: 140,
+						// 						margin: [0,0,0,0],
+						// 						spacing: [0,0,0,0]
+						// 					},
+						// 					tooltip: {
+						// 						enabled: false
+						// 					}				
+						// 				},
+						// 				title: {
+						// 						text: '',
+						// 						margin: 0
+						// 				},
+						// 				plotOptions: {
+						// 						pie: {
+						// 								shadow: false
+						// 						}
+						// 				},
+						// 				series: [{
+						// 					name: 'Eldery (Over 59)',
+						// 					size: '100%',
+						// 					innerSize: '80%',
+						// 					showInLegend:false,
+						// 					dataLabels: {
+						// 						enabled: false
+						// 					},
+						// 					request: {
+						// 						method: 'POST',
+						// 						url: 'http://' + $location.host() + '/api/health/indicator',
+						// 						data: {
+						// 							indicator: 'over59',
+						// 							start_date: $scope.dashboard.startDate,
+						// 							end_date: $scope.dashboard.endDate,
+						// 							project_type: $scope.dashboard.project_type,
+						// 							beneficiary_category: $scope.dashboard.beneficiary_category,
+						// 							prov_code: $scope.dashboard.province.id,
+						// 							dist_code: $scope.dashboard.district.id
+						// 						}
+						// 					}
+						// 				}]
+						// 			}
+						// 		}
+						// 	}]
 						}]
 					},{
 						columns: [{

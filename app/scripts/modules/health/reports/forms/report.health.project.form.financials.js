@@ -29,6 +29,7 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
     'config',
     function($scope, $window, $location, $timeout, $filter, $q, $http, ngmUser, ngmData, config){
 
+      // get currency exchange
       ngmData.get({
         method: 'GET',
         externalApi: true,

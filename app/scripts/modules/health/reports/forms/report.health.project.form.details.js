@@ -28,11 +28,29 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
     'config',
     function($scope, $location, $timeout, $filter, $q, $http, ngmUser, ngmData, config){
 
+      // get currency exchange
+      ngmData.get({
+        method: 'GET',
+        externalApi: true,
+        url: 'http://www.apilayer.net/api/live?access_key=1106b426ad52b3fefced5ee9ac6beabc&currencies=USD,AFN&format=1'
+      }).then(function(data){
+
+        // set live exchange
+        $scope.project.exchange = data.quotes;
+
+      });      
+
       // project
       $scope.project = {
 
         // app style
         style: config.style,
+
+        // exchange rate
+        exchange: {
+          USDUSD: 1,
+          USDAFN: 68.61          
+        },
 
         // project
         definition: config.project,
@@ -72,6 +90,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         // details template
         detailsUrl: '/views/modules/health/forms/details/details.html',
 
+        // budget
+        budgetUrl: '/views/modules/health/forms/details/budget.html',
+
         // target beneficiaries
         targetBeneficiariesUrl: '/views/modules/health/forms/details/target-beneficiaries.html',
 
@@ -80,6 +101,43 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
         // details template
         beneficiariesUrl: '/views/modules/health/forms/details/beneficiaries.html',
+
+        // currency on budget exchange
+        budgetKeyUp: function( update ){
+
+          // if usd
+          if ( update === 'usd' ) {
+            // update afn with currency
+            var exchange = parseInt( ( $scope.project.definition.project_budget_usd * $scope.project.exchange.USDAFN ).toFixed(0) );
+            $scope.project.definition.project_budget_afn = exchange;
+          }
+
+          // if afn
+          if ( update === 'afn' ) {
+            // update afn with currency
+            var exchange = parseInt( ( $scope.project.definition.project_budget_afn / $scope.project.exchange.USDAFN ).toFixed(0) );
+            $scope.project.definition.project_budget_usd = exchange;
+          }
+
+        },
+ 
+        //
+        budgetProgressKeyUp: function( update ){
+          
+          // if usd
+          if ( update === 'usd' ) {
+            // update afn with currency
+            var exchange = parseInt( ( $scope.project.definition.project_budget_progress_usd * $scope.project.exchange.USDAFN ).toFixed(0) );
+            $scope.project.definition.project_budget_progress_afn = exchange;
+          }
+
+          // if afn
+          if ( update === 'afn' ) {
+            // update afn with currency
+            var exchange = parseInt( ( $scope.project.definition.project_budget_progress_afn / $scope.project.exchange.USDAFN ).toFixed(0) )
+            $scope.project.definition.project_budget_progress_usd = exchange;
+          }
+        },
 
         // add target benficiaries
         addTargetBeneficiary: function() {
@@ -638,6 +696,29 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // selects
           $('select').material_select();
 
+          // modals
+          $('.modal-trigger').leanModal();
+
+          // init start date
+          $scope.project.setStartTime();
+
+          // init end date
+          $scope.project.setEndTime();
+
+          // menu return to list
+          $('#go-to-project-list').click(function(){
+            $scope.project.cancel();
+          });
+
+          // refresh dropdown options
+          $scope.project.resetLocationSelect(true, true, true, true);
+
+          // order locations by latest updated
+          $scope.project.definition.locations = $filter('orderBy')($scope.project.definition.locations, '-createdAt');
+
+
+
+          // fix multiple select 
           if ( $scope.project.definition.project_donor ) {
             // little fix for materialize, update select multiple
             var donor_display = '';
@@ -665,26 +746,6 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             // });
           }
 
-
-          // modals
-          $('.modal-trigger').leanModal();
-
-          // init start date
-          $scope.project.setStartTime();
-
-          // init end date
-          $scope.project.setEndTime();
-
-          // menu return to list
-          $('#go-to-project-list').click(function(){
-            $scope.project.cancel();
-          });
-
-          // refresh dropdown options
-          $scope.project.resetLocationSelect(true, true, true, true);
-
-          // order locations by latest updated
-          $scope.project.definition.locations = $filter('orderBy')($scope.project.definition.locations, '-createdAt');
 
           // set list
           $scope.project.options.filter.target_beneficiaries = $scope.project.options.list.beneficiaries;

@@ -4,7 +4,7 @@
 
 	/* solve dropdown bug */
 	.dropdown-content {
-		max-height: 350px;
+		max-height: 450px;
 	}
 
 	/* list padding right */
@@ -19,26 +19,31 @@
 
 	/* input label */
 	.input-field label,
-	.input-field input:disabled + label {
+		.input-field input:disabled + label,
+		textarea.materialize-textarea label {
 		color: #26a69a;
 	}
 	/* valid input */
-	.input-field input.valid {
+	.input-field input.valid,
+		textarea.materialize-textarea.valid {
 		border-bottom: 1px solid #26a69a;
 		box-shadow: 0 1px 0 0 #26a69a;		
 	}
 	/* valid input on focus */
-	.input-field input:focus.valid {
+	.input-field input:focus.valid,
+		textarea.materialize-textarea:focus.valid {
 		border-bottom: 1px solid #4dd0e1;
 		box-shadow: 0 1px 0 0 #4dd0e1;
 	}
 	/* invalid input on focus */
-	.input-field input:focus.invalid {
+	.input-field input:focus.invalid,
+		textarea.materialize-textarea:focus.invalid {
 		border-bottom: 1px solid #e57373;
 		box-shadow: 0 1px 0 0 #e57373;
 	}
 	/* border for disabled */
-	.input-field input:disabled, .select-wrapper input.select-dropdown:disabled {
+	.input-field input:disabled, .select-wrapper input.select-dropdown:disabled,
+		textarea.materialize-textarea:disabled {
 		color: #616161;
 		box-shadow: none !important;
 		border-bottom: 1px dotted rgba(0, 0, 0, 0.26) !important;
@@ -58,8 +63,7 @@
 		color: #e57373;
 		font-weight: 400;		
 	}
-
-
+	
 </style>
 
 <!-- cancel modal -->
