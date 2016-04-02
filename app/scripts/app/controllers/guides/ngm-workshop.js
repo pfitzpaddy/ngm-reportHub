@@ -44,6 +44,9 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
           angular.forEach($scope.panel.data, function(d, i){
             angular.forEach(d.workshops, function(w, j){
               angular.forEach(w.participants, function(p, k){
+                console.log('------loop---------');
+                console.log($scope.panel.data[$grand$parent].workshops[$parent].participants[$index].email);
+                console.log(p.email);
                 if ( $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].email ) {
                   if ( $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].email === p.email ){
                     count++;
