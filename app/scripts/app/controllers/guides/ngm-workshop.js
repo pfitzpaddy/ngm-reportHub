@@ -53,6 +53,8 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
             });
           });
 
+          console.log(count);
+
           // if not
           if ( count === 1 ) {
             
@@ -80,6 +82,8 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
             });
 
           } else {
+
+            console.log($scope.panel.data[$grand$parent].workshops[$parent]);
 
             // exists!
             Materialize.toast( $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].name + ', already registered?', 3000 );
