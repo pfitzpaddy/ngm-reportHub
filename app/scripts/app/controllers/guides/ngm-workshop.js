@@ -40,10 +40,10 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
         register: function($grand$parent, $parent, $index){
 
 
-        // move array position
-        $scope.panel.data[$grand$parent].workshops[$parent].participants[1] = $scope.panel.data[$grand$parent].workshops[$parent].participants[0]
-        $scope.panel.data[$grand$parent].workshops[$parent].participants[3] = $scope.panel.data[$grand$parent].workshops[$parent].participants[1]
-        $scope.panel.data[$grand$parent].workshops[$parent].participants[2] = $scope.panel.data[$grand$parent].workshops[$parent].participants[3];
+          // move array position
+          $scope.panel.data[$grand$parent].workshops[$parent].participants[1] = $scope.panel.data[$grand$parent].workshops[$parent].participants[0];
+          $scope.panel.data[$grand$parent].workshops[$parent].participants[0] = $scope.panel.data[$grand$parent].workshops[$parent].participants[3];
+          $scope.panel.data[$grand$parent].workshops[$parent].participants[3] = $scope.panel.data[$grand$parent].workshops[$parent].participants[2];
 
 
           // exists?
@@ -54,7 +54,7 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
                 if ( $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].email ) {
                   if ( $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].email === p.email ){
                     count++;
-                  }`
+                  }
                 }
               });
             });
