@@ -39,20 +39,22 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
         // register for workshop
         register: function($grand$parent, $parent, $index){
 
+
+        // move array position
+        $scope.panel.data[$grand$parent].workshops[$parent].participants[1] = $scope.panel.data[$grand$parent].workshops[$parent].participants[0]
+        $scope.panel.data[$grand$parent].workshops[$parent].participants[3] = $scope.panel.data[$grand$parent].workshops[$parent].participants[1]
+        $scope.panel.data[$grand$parent].workshops[$parent].participants[2] = $scope.panel.data[$grand$parent].workshops[$parent].participants[3];
+
+
           // exists?
           var count = 0;
           angular.forEach($scope.panel.data, function(d, i){
             angular.forEach(d.workshops, function(w, j){
               angular.forEach(w.participants, function(p, k){
-                console.log('------loop---------');
-                console.log($index);
-                console.log($scope.panel.data[$grand$parent].workshops[$parent].participants);
-                console.log($scope.panel.data[$grand$parent].workshops[$parent].participants[$index].email);
-                console.log(p.email);
                 if ( $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].email ) {
                   if ( $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].email === p.email ){
                     count++;
-                  }
+                  }`
                 }
               });
             });
