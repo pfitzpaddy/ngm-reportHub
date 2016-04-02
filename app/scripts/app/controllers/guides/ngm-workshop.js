@@ -39,13 +39,6 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
         // register for workshop
         register: function($grand$parent, $parent, $index){
 
-
-          // move array position
-          $scope.panel.data[$grand$parent].workshops[$parent].participants[1] = $scope.panel.data[$grand$parent].workshops[$parent].participants[0];
-          $scope.panel.data[$grand$parent].workshops[$parent].participants[0] = $scope.panel.data[$grand$parent].workshops[$parent].participants[3];
-          $scope.panel.data[$grand$parent].workshops[$parent].participants[3] = $scope.panel.data[$grand$parent].workshops[$parent].participants[2];
-
-
           // exists?
           var count = 0;
           angular.forEach($scope.panel.data, function(d, i){
@@ -59,8 +52,6 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
               });
             });
           });
-
-          console.log(count);
 
           // if not
           if ( count === 1 ) {
@@ -89,8 +80,6 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
             });
 
           } else {
-
-            console.log($scope.panel.data[$grand$parent].workshops[$parent]);
 
             // exists!
             Materialize.toast( $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].name + ', already registered?', 3000 );
