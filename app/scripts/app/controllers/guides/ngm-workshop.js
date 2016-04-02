@@ -45,6 +45,8 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
             angular.forEach(d.workshops, function(w, j){
               angular.forEach(w.participants, function(p, k){
                 console.log('------loop---------');
+                console.log($index);
+                console.log(console.log($scope.panel.data[$grand$parent].workshops[$parent].participants);
                 console.log($scope.panel.data[$grand$parent].workshops[$parent].participants[$index].email);
                 console.log(p.email);
                 if ( $scope.panel.data[$grand$parent].workshops[$parent].participants[$index].email ) {
