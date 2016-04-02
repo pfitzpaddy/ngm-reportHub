@@ -88,10 +88,17 @@
 		          <label for="ngm-project-other_partbers">Other Implementing Partners?</label>
 		        </div>
 
-		        <div class="input-field col s12 m8 l8">
-		          <input id="ngm-project-implementing_partners" type="text" class="validate"
-								ng-model="project.definition.implementing_partners"
-								ng-disabled="!project.definition.implementing_partners_checked || project.definition.project_status === 'complete'">
+		        <!-- ng-pattern="project.regex" -->
+
+		        <div class="input-field col s12 m8 l8"
+		        		ng-class="{ 'has-error' : healthProjectForm.implementing_partners_list.$error.pattern }">
+		          <input 
+		          		id="ngm-project-implementing_partners" 
+		          		type="text" 
+		          		class="validate"
+		          		name="implementing_partners_list"
+									ng-model="project.definition.implementing_partners"
+									ng-disabled="!project.definition.implementing_partners_checked || project.definition.project_status === 'complete'">
 		          <label for="ngm-project-implementing_partners">List Partners</label>
 		        </div>
 		      </div>

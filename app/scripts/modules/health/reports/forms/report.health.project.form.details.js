@@ -100,7 +100,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         locationsUrl: '/views/modules/health/forms/details/locations.html',
 
         // details template
-        beneficiariesUrl: '/views/modules/health/forms/details/beneficiaries.html',
+        beneficiariesUrl: '/views/modules/health/forms/details/beneficiaries.html',      
 
         // currency on budget exchange
         budgetKeyUp: function( update ){
@@ -157,8 +157,8 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             under5female: 0,
             over5male: 0,
             over5female: 0,
-            target_cba: 0,
-            target_pla: 0
+            cba: 0,
+            pla: 0
           });
 
           // clear selection
@@ -487,6 +487,10 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           $scope.project.definition.prov_code = [];
           $scope.project.definition.dist_code = [];
           $scope.project.definition.beneficiary_category = [];
+          // explode by ","
+          // $scope.project.definition.implementing_partners = $scope.project.definition.implementing_partners.split(',');
+
+          console.log($scope.project.definition.implementing_partners);
 
           // add attributes to projects to ensure simple filters
           angular.forEach($scope.project.definition.locations, function(l, i){

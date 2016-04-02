@@ -60,17 +60,13 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
         },
 
         // last update
-        updatedAt: moment(config.project.updatedAt).format('DD MMMM, YYYY @ h:mm:ss a'),        
-
-        // expand search box
-        toggleSearch: function($event) {;
-          // focus search
-          $('#search_ngm-financial-list').focus();
-          $scope.project.search.focused = $scope.project.search.focused ? false : true;
-        },
+        updatedAt: moment(config.project.updatedAt).format('DD MMMM, YYYY @ h:mm:ss a'),
 
         // project
         definition: config.project,
+
+        // details template
+        financialsUrl: '/views/modules/health/forms/financials/financials.html',
 
         // holder for UI options
         options: {
@@ -118,10 +114,33 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
               expenditure_item: 'travel',
               expenditure_name: 'Travel'
           }]
-        },        
+        },
 
-        // details template
-        financialsUrl: '/views/modules/health/forms/financials/financials.html',
+        // expand search box
+        toggleSearch: function($event) {;
+          // focus search
+          $('#search_ngm-financial-list').focus();
+          $scope.project.search.focused = $scope.project.search.focused ? false : true;
+        },
+
+        // currency on budget exchange
+        budgetKeyUp: function( $index, update ){
+
+          // if usd
+          if ( update === 'usd' ) {
+            // update afn with currency
+            var exchange = parseInt( ( $scope.project.definition.financials[$index].expenditure_budget_usd * $scope.project.exchange.USDAFN ).toFixed(0) );
+            $scope.project.definition.financials[$index].expenditure_budget_afn = exchange;
+          }
+
+          // if afn
+          if ( update === 'afn' ) {
+            // update afn with currency
+            var exchange = parseInt( ( $scope.project.definition.financials[$index].expenditure_budget_afn / $scope.project.exchange.USDAFN ).toFixed(0) );
+            $scope.project.definition.financials[$index].expenditure_budget_usd = exchange;
+          }
+
+        },        
 
         // 
         addFinancialItem: function() {

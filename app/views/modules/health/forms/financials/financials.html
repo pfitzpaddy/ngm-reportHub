@@ -119,18 +119,20 @@
 
 			      		<div class="input-field col s12 m2">
 				          <input id="ngm-expenditure-budget-{{$index}}" type="number" class="validate" min="0"
-				          	ng-model="item.expenditure_budget_afn"
+				          	ng-model="item.expenditure_budget_usd"
 				          	ng-disabled="project.definition.details.project_status === 'complete'"
+				          	ng-keyup="project.budgetKeyUp( $index, 'usd' )"
 										required>
-				          <label for="ngm-expenditure-budget-{{$index}}">Value (AFN)</label>
+				          <label for="ngm-expenditure-budget-{{$index}}">Value (USD)</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m2">
 				          <input id="ngm-expenditure-budget-{{$index}}" type="number" class="validate" min="0"
-				          	ng-model="item.expenditure_budget_usd"
+				          	ng-model="item.expenditure_budget_afn"
 				          	ng-disabled="project.definition.details.project_status === 'complete'"
+				          	ng-keyup="project.budgetKeyUp( $index, 'afn' )"
 										required>
-				          <label for="ngm-expenditure-budget-{{$index}}">Value (USD)</label>
+				          <label for="ngm-expenditure-budget-{{$index}}">Value (AFN)</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m2">
