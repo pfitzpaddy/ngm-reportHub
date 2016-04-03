@@ -76,6 +76,9 @@
 				</a>
 			</a>
     </li>
+    <li class="collection-item avatar" ng-if="list.data.length > list.itemsPerPage" style="padding:20px 20px 0px 50px;">
+    	<dir-pagination-controls pagination-id="list.id"></dir-pagination-controls>
+    </li>
 
  		<!-- no data -->
 		<li ng-if="!list.data.length" class="collection-item avatar">
@@ -90,7 +93,5 @@
 		</li>
 
 	</ul>
-
-	<dir-pagination-controls pagination-id="list.id"></dir-pagination-controls>
 
 </div>
