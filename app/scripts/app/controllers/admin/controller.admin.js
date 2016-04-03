@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardAdminCtrl', ['$scope', 'ngmUser', function ($scope, ngmUser) {
+	.controller('DashboardAdminCtrl', ['$scope', '$location', 'ngmUser', function ( $scope, $location, ngmUser ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -34,24 +34,34 @@ angular.module('ngmReportHub')
 				},
 				title: {
 					'class': 'col s12 m12 l12 report-title',
-					title: 'Admin Console',
+					title: 'Admin Console - Projects',
 					style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 				},
 				subtitle: {
 					'class': 'col s12 m12 l12 report-subtitle',
-					title: 'Back up databases and review usage statistics',
+					title: 'All health projects for Afghanistan',
 				}
 			},
 			rows: [{
 				columns: [{
 					styleClass: 's12 m12 l12',
 					widgets: [{
-						type: 'form.authentication',
-						card: 'card-panel',
+						type: 'table',
+						card: 'panel',
 						style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
 						config: {
 							style: $scope.dashboard.ngm.style,
-							templateUrl: '/views/app/authentication/admin.html'
+							templateUrl: '/scripts/widgets/ngm-table/templates/admin.project.list.html',
+							tableOptions:{
+								count: 10
+							},
+							request: {
+								method: 'POST',
+								url: 'http://' + $location.host() + '/api/health/project/getProjectsList',
+								data: {
+									filter: {}
+								}
+							}
 						}
 					}]
 				}]

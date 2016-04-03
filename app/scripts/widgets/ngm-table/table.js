@@ -59,12 +59,47 @@ angular.module('ngm.widget.table', ['ngm.provider'])
           count: 10,
         },
 
+        // ngTable settings
         tableSettings: {
           counts: []
         },
 
-        rowClick: function(href){
-          $location.path(href);
+        // on row click
+        rowClick: function( href, row ){
+
+          // in new tab
+          window.open( href , '_blank');
+        },
+
+        // get data for csv
+        getCsv: function() {
+
+          // copy data
+          var data = angular.copy( $scope.table.tableSettings.data );
+
+          // forEach
+          angular.forEach( data, function( d,i ){
+
+            // remove unwanted keys
+            delete data[i].id;
+            delete data[i].organization_id;
+            delete data[i].implementing_partners_checked;
+            delete data[i].createdAt;
+            delete data[i].updatedAt;
+            // to string
+            data[i].prov_code = data[i].prov_code.toString();
+            data[i].dist_code = data[i].dist_code.toString();
+            // to string
+            data[i].beneficiary_category = data[i].beneficiary_category.toString();
+            // to string
+            data[i].project_type = data[i].project_type.toString();
+            // to string
+            data[i].project_donor = data[i].project_donor.toString();
+
+          });
+
+          return data;
+
         }
 
       };
@@ -73,7 +108,7 @@ angular.module('ngm.widget.table', ['ngm.provider'])
       $scope.table = angular.merge({}, $scope.table, config);
 
       // global data
-      $scope.data = data.data;
+      $scope.data = data;
 
       // update settings based on data
       $scope.table.tableSettings.total = $scope.data.length;

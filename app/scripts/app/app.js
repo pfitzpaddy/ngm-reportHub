@@ -103,7 +103,7 @@ angular
 				}
 			})
 			// admin
-			.when( '/health/admin', {
+			.when( '/health/admin/projects', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardAdminCtrl',
 				resolve: {

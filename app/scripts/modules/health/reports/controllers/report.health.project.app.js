@@ -125,9 +125,11 @@ angular.module('ngmReportHub')
 								method: 'POST',
 								url: 'http://' + $location.host() + '/api/health/project/getProjectsList',
 								data: {
-									organization_id: ngmUser.get().organization_id,
-									project_status: 'active'
-								}
+									filter: { 
+										organization_id: ngmUser.get().organization_id,
+										project_status: 'active'
+									}
+						    }
 							}
 						}
 					}]
@@ -148,9 +150,11 @@ angular.module('ngmReportHub')
 								method: 'POST',
 								url: 'http://' + $location.host() + '/api/health/project/getProjectsList',
 								data: {
-									organization_id: ngmUser.get().organization_id,
-									project_status: 'complete'
-								}
+									filter: { 
+										organization_id: ngmUser.get().organization_id,
+										project_status: 'complete'
+									}
+						    }
 							}
 						}
 					}]
