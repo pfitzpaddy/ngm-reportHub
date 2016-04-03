@@ -38,10 +38,13 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         // set live exchange
         $scope.project.exchange = data.quotes;
 
-      });      
+      });
 
       // project
       $scope.project = {
+
+        // user
+        user: ngmUser.get(),
 
         // app style
         style: config.style,

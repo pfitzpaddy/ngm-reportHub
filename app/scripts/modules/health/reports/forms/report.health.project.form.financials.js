@@ -44,6 +44,9 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
       // project
       $scope.project = {
 
+        // user
+        user: ngmUser.get(),
+
         // app style
         style: config.style,
 

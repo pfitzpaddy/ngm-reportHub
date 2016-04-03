@@ -108,33 +108,38 @@
 <!-- Project form -->
 <form name="healthProjectFinancialsForm" class="col s12 m12 l12" novalidate>
 
-	<!-- Project financials details -->
-	<div class="slide-animate" ng-include="project.financialsUrl"></div>
+	<!-- disabled -->
+	<fieldset ng-disabled="project.definition.organization !== project.user.organization ">
 
-	<!-- form submission -->
-	<div class="row" ng-if="project.definition.project_status !== 'complete'">
-		<div class="col s12 m12 l12">
-			<div class="widget card-panel white grey-text text-darken-2">
-				
-				<!-- submission -->
-				<div align="center">
+		<!-- Project financials details -->
+		<div class="slide-animate" ng-include="project.financialsUrl"></div>
+
+		<!-- form submission -->
+		<div class="row" ng-if="project.definition.project_status !== 'complete'">
+			<div class="col s12 m12 l12">
+				<div class="widget card-panel white grey-text text-darken-2">
 					
-					<button data-target="save-modal" class="waves-effect waves-light btn"
-						ng-click="project.save()"
-						ng-disabled="healthProjectFinancialsForm.$invalid
-								|| project.definition.financials.length === 0"
-						ng-cloak><i class="material-icons right">send</i>Save</button>
+					<!-- submission -->
+					<div align="center">
+						
+						<button data-target="save-modal" class="waves-effect waves-light btn"
+							ng-click="project.save()"
+							ng-disabled="healthProjectFinancialsForm.$invalid
+									|| project.definition.financials.length === 0"
+							ng-cloak><i class="material-icons right">send</i>Save</button>
 
-					<!-- cancel update -->
-					<button class="waves-effect waves-light btn grey" ng-click="project.modalConfirm('summary-modal')"
-						ng-if="project.definition.project_status === 'active' ">Cancel
-					</button>
+						<!-- cancel update -->
+						<button class="waves-effect waves-light btn grey" ng-click="project.modalConfirm('summary-modal')"
+							ng-if="project.definition.project_status === 'active' ">Cancel
+						</button>
+
+					</div>
 
 				</div>
-
 			</div>
 		</div>
-	</div>
+
+	</fieldset>
 	
 </form>
 

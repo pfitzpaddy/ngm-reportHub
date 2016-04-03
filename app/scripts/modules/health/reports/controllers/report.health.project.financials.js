@@ -64,7 +64,7 @@ angular.module('ngmReportHub')
 					title: {
 						'class': 'col s12 m9 l9 report-title',
 						style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-						title: ngmUser.get().organization + ' | Financial Items'
+						title: $scope.report.project.organization + ' | Financial Items'
 					},
 					subtitle: {
 						'class': 'col s12 m12 l12 report-subtitle',

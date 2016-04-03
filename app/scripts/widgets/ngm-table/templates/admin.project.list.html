@@ -41,8 +41,8 @@
       <ul class="collection with-header">
         <li class="collection-header blue-grey darken-1"><h5 class="report-work-title white-text"><i class="material-icons left">playlist_add</i>Health Projects</h5></li>
         <li class="collection-item avatar" style="padding:10px;">
-          <table class="centered highlight responsive-table" ng-table="table.tableParams">
-            <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;" ng-click="table.rowClick( '/#/health/projects/details/{{ row.id }}', row )">
+          <table class="centered highlight striped responsive-table" ng-table="table.tableParams">
+            <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;" ng-click="table.rowClick( '/#/health/projects/summary/{{ row.id }}', row )">
               <td data-title="'Organization'" sortable="'organization'">{{ row.organization }}</td>
               <td data-title="'User'" sortable="'username'">{{ row.username }}</td>
               <td data-title="'Donor'" sortable="'project_donor'">{{ row.project_donor.toString() }}</td>
