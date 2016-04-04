@@ -476,8 +476,6 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // explode by ","
           // $scope.project.definition.implementing_partners = $scope.project.definition.implementing_partners.split(',');
 
-          console.log($scope.project.definition.implementing_partners);
-
           // add attributes to projects to ensure simple filters
           angular.forEach($scope.project.definition.locations, function(l, i){
 

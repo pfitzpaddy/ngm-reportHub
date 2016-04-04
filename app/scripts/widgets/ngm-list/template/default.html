@@ -67,11 +67,11 @@
 			<a href="#/health/projects/summary/{{ item.id }}" title="Update project {{ item.id }}">
 				<i class="material-icons circle white teal-text">{{ list.icon }}</i>
 				<span class="title">{{ item.project_title }}</span>
-				<p>
-					<span class="left">{{ item.project_description }}</span>
-					<span class="right" style="margin-top:-13px; padding-right:30px;">Last Updated: {{ list.updatedAt }}</span>
+				<span class="right" style="margin-top:0px; padding-right:30px; color:#616161;">Last Updated: {{ list.updatedAt }}</span>
+				<p align="justify" style="padding-top:10px;">
+					{{ item.project_description }}
 				</p>
-				<a href="#/health/projects/summary/{{ item.id }}" title="Update project {{ item.id }}" class="secondary-content">
+				<a href="#/health/projects/summary/{{ item.id }}" title="Update project {{ item.id }}" class="secondary-content" style="margin-top:-10px;">
 					<i class="material-icons right">send</i>
 				</a>
 			</a>
