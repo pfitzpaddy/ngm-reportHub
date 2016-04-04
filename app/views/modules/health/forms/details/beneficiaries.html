@@ -21,12 +21,19 @@
 
 					      	<div class="row">
 
-					      		<div class="input-field col s12 m11">
+					      		<div class="input-field col s12 m4">
 						          <input id="ngm-project-category-{{ $parent.$index }}-{{ $index }}" type="text" class="validate"
 						          	ng-model="beneficiary.beneficiary_name"
 						          	disabled>
 						          <label for="ngm-project-category-{{ $parent.$index }}-{{ $index }}">Beneficaries</label>
 					      		</div>
+
+					      		<div class="col s12 m7">
+					      			<div class="count right">
+					      				<span style="font-size:1.4rem;">Actual Total</span>
+					      					{{ beneficiary.under5male + beneficiary.under5female + beneficiary.over5male + beneficiary.over5female + beneficiary.cba + beneficiary.pla | number }}
+					      			</div>
+									  </div>					      		
 
 					      		<div class="col s12 m1">
 					      			<div class="btn waves-effect waves-light red lighten-2 right" 

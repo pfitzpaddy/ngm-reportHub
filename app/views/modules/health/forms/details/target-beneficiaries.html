@@ -1,4 +1,16 @@
 
+<style>
+
+	.count{
+	  position:relative;
+	  font-weight:100;
+	  font-size:3rem;
+	  line-height:3rem;
+	}
+
+
+</style>
+
 <!-- bind html -->
 <div class="row">
 	<div class="col s12 m12 l12">
@@ -30,12 +42,19 @@
 
 					      	<div class="row">
 
-					      		<div class="input-field col s12 m11">
+					      		<div class="input-field col s12 m4">
 						          <input id="ngm-target_beneficiary-category-{{ $index }}" type="text" class="validate"
 						          	ng-model="target_beneficiary.beneficiary_name"
 						          	disabled>
 						          <label for="ngm-target_beneficiary-category-{{ $index }}">Target Beneficaries</label>
 					      		</div>
+
+					      		<div class="col s12 m7">
+					      			<div class="count right">
+					      				<span style="font-size:1.4rem;">Target Total</span>
+					      					{{ target_beneficiary.under5male + target_beneficiary.under5female + target_beneficiary.over5male + target_beneficiary.over5female + target_beneficiary.cba + target_beneficiary.pla | number }}
+					      			</div>
+									  </div>
 
 					      		<div class="col s12 m1">
 					      			<div class="btn waves-effect waves-light red lighten-2 right" 
