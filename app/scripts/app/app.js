@@ -103,9 +103,19 @@ angular
 				}
 			})
 			// admin
-			.when( '/health/admin/projects', {
+			.when( '/health/admin', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardAdminCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+							return ngmAuth.hasRole('ADMIN');
+					}],
+				}
+			})
+			// admin
+			.when( '/health/admin/projects', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardAdminProjectsCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 							return ngmAuth.hasRole('ADMIN');

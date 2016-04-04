@@ -26,12 +26,14 @@
 
 <div class="row" style="padding: 20px;">
   <div class="col s12 m12 l12">
+    <a class="waves-effect waves-light btn" href="#/health/admin">
+      <i class="material-icons left">keyboard_return</i>Back to Admin Menu</a>    
+
     <a class="waves-effect waves-teal btn right" 
       ng-csv="table.getCsv()" 
       csv-header="[ 'Organization', 'User', 'Email', 'Project Status', 'Project Title', 'Project Description', 'Project Start Date', 'Project End Date', 'Province Code', 'District Code', 'Beneficiary Category', 'Project Type', 'Project Donors', 'Implementing Partners', 'Project Budget (USD)', 'Project Budget (AFN)' ]" 
       filename="{{ table.filename }}"><i class="material-icons left">file_download</i>Download
-    </a> 
-
+    </a>
   </div>
 </div>
 

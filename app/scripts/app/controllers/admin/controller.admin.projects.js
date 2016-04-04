@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardAdminCtrl', ['$scope', '$location', 'ngmUser', function ( $scope, $location, ngmUser ) {
+	.controller('DashboardAdminProjectsCtrl', ['$scope', '$location', 'ngmUser', function ( $scope, $location, ngmUser ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -26,7 +26,7 @@ angular.module('ngmReportHub')
 
 		// dews dashboard model
 		var model = {
-			name: 'dashboard_admin',
+			name: 'dashboard_admin_projects',
 			header: {
 				div: {
 					'class': 'col s12 m12 l12 report-header',
@@ -34,24 +34,34 @@ angular.module('ngmReportHub')
 				},
 				title: {
 					'class': 'col s12 m12 l12 report-title',
-					title: 'Admin Console',
+					title: 'Admin Console - Projects',
 					style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 				},
 				subtitle: {
 					'class': 'col s12 m12 l12 report-subtitle',
-					title: 'Select from the options below...',
+					title: 'All health projects for Afghanistan',
 				}
 			},
 			rows: [{
 				columns: [{
 					styleClass: 's12 m12 l12',
 					widgets: [{
-						type: 'html',
-						card: 'card-panel',
+						type: 'table',
+						card: 'panel',
 						style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
 						config: {
 							style: $scope.dashboard.ngm.style,
-							templateUrl: '/views/app/authentication/admin.html'
+							templateUrl: '/scripts/widgets/ngm-table/templates/admin.project.list.html',
+							tableOptions:{
+								count: 10
+							},
+							request: {
+								method: 'POST',
+								url: 'http://' + $location.host() + '/api/health/project/getProjectsList',
+								data: {
+									filter: {}
+								}
+							}
 						}
 					}]
 				}]
