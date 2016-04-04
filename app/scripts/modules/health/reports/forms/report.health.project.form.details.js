@@ -444,7 +444,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           $timeout(function(){
             // apply filter
             $( '#ngm-beneficiary-category-' + $scope.project.definition.locations[$index].timestamp ).material_select('update');
-          }, 10);
+          }, 600);
 
         },
 
