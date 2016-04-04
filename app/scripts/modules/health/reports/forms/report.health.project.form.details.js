@@ -303,7 +303,8 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           // new beneficiaries
           $scope.project.options.selection.beneficiaries[0] = {};
-          $scope.project.options.filter.beneficiaries[0] = $scope.project.options.list.beneficiaries;
+          $scope.project.options.filter.beneficiaries.unshift($scope.project.options.list.beneficiaries);
+          
 
           // update dropdown
           $timeout(function(){
