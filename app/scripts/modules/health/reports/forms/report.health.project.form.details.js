@@ -123,24 +123,6 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           }
 
         },
- 
-        //
-        budgetProgressKeyUp: function( update ){
-          
-          // if usd
-          if ( update === 'usd' ) {
-            // update afn with currency
-            var exchange = parseInt( ( $scope.project.definition.project_budget_progress_usd * $scope.project.exchange.USDAFN ).toFixed(0) );
-            $scope.project.definition.project_budget_progress_afn = exchange;
-          }
-
-          // if afn
-          if ( update === 'afn' ) {
-            // update afn with currency
-            var exchange = parseInt( ( $scope.project.definition.project_budget_progress_afn / $scope.project.exchange.USDAFN ).toFixed(0) )
-            $scope.project.definition.project_budget_progress_usd = exchange;
-          }
-        },
 
         // add target benficiaries
         addTargetBeneficiary: function() {

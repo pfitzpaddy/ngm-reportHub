@@ -42,19 +42,11 @@
 		          <label for="ngm-project-budget_afn">AFN</label>
 		        </div>		        
 
-		        <div class="input-field col s12 m3">
-		          <input id="ngm-project-budget_progress_usd" type="number" class="validate" min="1"
-		          	ng-model="project.definition.project_budget_progress_usd"
-		          	ng-disabled="project.definition.project_status === 'complete'"
-		          	ng-keyup="project.budgetProgressKeyUp( 'usd' )">
-		          <label for="ngm-project-budget_progress_usd">Budget Spent (USD)</label>
-		        </div>
-		        <div class="input-field col s12 m3">
-		          <input id="ngm-project-budget_progress_afn" type="number" class="validate" min="1"
-		          	ng-model="project.definition.project_budget_progress_afn"
-		          	ng-disabled="project.definition.project_status === 'complete'"
-		          	ng-keyup="project.budgetProgressKeyUp( 'afn' )">
-		          <label for="ngm-project-budget_progress_afn">Budget Spent (AFN)</label>
+		        <div class="input-field col s12 m6">
+		          <input id="ngm-project-budget_progress_usd" type="number" class="validate" min="0" max="100"
+		          	ng-model="project.definition.project_budget_progress"
+		          	ng-disabled="project.definition.project_status === 'complete'">
+		          <label for="ngm-project-budget_progress_usd">Budget Spent (%)</label>
 		        </div>
 		      </div>
 
