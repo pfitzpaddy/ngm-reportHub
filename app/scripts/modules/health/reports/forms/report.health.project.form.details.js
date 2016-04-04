@@ -304,7 +304,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // new beneficiaries
           $scope.project.options.selection.beneficiaries[0] = {};
           $scope.project.options.filter.beneficiaries.unshift($scope.project.options.list.beneficiaries);
-          
+
 
           // update dropdown
           $timeout(function(){
@@ -706,6 +706,34 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // order locations by latest updated
           $scope.project.definition.locations = $filter('orderBy')($scope.project.definition.locations, '-createdAt');
 
+
+          // fix multiple select 
+          if ( $scope.project.definition.project_type ) {
+            // little fix for materialize, update select multiple
+            var type_display = '';
+            var type_select = $( '#ngm-project-type' ).parent().find('.select-dropdown');
+
+            // get display value
+            angular.forEach( $scope.project.definition.project_type, function(d){
+              type_display += d.toUpperCase().replace('_', ' ') + ', '
+            });
+            // slice last 2 
+            type_display = type_display.slice(0, -2);
+            // set display value
+            type_select.val(type_display);
+
+            // update dropdown UI
+            // type_select.find('li').each(function(i, el){
+            //   var type = $(el).text();
+            //   // update class
+            //   angular.forEach( $scope.project.definition.project_type, function(d){
+            //     if (d.toUpperCase() === type ) {
+            //       $(el).toggleClass('active');
+            //       $(el).find('input').prop( 'checked', true );
+            //     }
+            //   });
+            // });
+          }
 
 
           // fix multiple select 

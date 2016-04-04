@@ -39,6 +39,7 @@
 		        <div class="input-field col s12 m6"
 		        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_type }">
 					    <select multiple class="validate"
+					    	id="ngm-project-type"
 					    	ng-model="project.definition.project_type" 
 					    	ng-disabled="project.definition.project_status === 'complete'" 
 					    	required>
@@ -56,7 +57,7 @@
 					      <option value="trauma_care">Trauma Care</option>
 					      <option value="other">Other</option>
 					    </select>
-					    <label>Project Type</label>
+					    <label for="ngm-project-type">Project Type</label>
 		        </div>
 
 		        <div class="input-field col s12 m6"
