@@ -44,7 +44,7 @@ angular.module('ngmReportHub')
 							title: $scope.report.project.organization + ' | ' + $scope.report.project.project_title
 						},
 						subtitle: {
-							'class': 'col s12 m12 l12 report-subtitle',
+							'class': 'col s12 m12 l12 report-subtitle truncate',
 							'title': $scope.report.project.project_description
 						},
 						// download: {
