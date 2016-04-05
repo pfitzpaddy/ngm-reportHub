@@ -23,6 +23,12 @@ angular.module('ngmReportHub')
 			
 			// parent
 			ngm: $scope.$parent.ngm,
+			
+			// current user
+			user: ngmUser.get(),
+
+			// current report
+			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),			
 
 			// set project details
 			setProjectDetails: function(data){
@@ -47,16 +53,67 @@ angular.module('ngmReportHub')
 							'class': 'col s12 m12 l12 report-subtitle truncate',
 							'title': $scope.report.project.project_description
 						},
-						// download: {
-						// 	'class': 'col s12 m3 l3 hide-on-small-only',
-						// 	downloads: [{
-						// 		type: 'pdf',
-						// 		color: 'blue lighten-1',
-						// 		icon: 'picture_as_pdf',
-						// 		hover: 'Download Project Details Form as PDF',
-						// 		url: 'http://' + $location.host() + '/static/health/health_project_details.pdf'
-						// 	}]
-						// }
+						download: {
+							'class': 'col s12 m3 l3 hide-on-small-only',
+							downloads: [{
+								type: 'pdf',
+								color: 'blue',
+								icon: 'picture_as_pdf',
+								hover: 'Download ' + $scope.report.project.project_title + ' as PDF',
+								request: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/print',
+									data: {
+										report: $scope.report.report,
+										printUrl: $location.absUrl(),
+										downloadUrl: 'http://' + $location.host() + '/report/',
+										token: $scope.report.user.token,
+										viewportWidth: 1480,
+										pageLoadTime: 3200
+									}
+								},						
+								metrics: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/metrics/set',
+									data: {
+										organization: $scope.report.user.organization,
+										username: $scope.report.user.username,
+										email: $scope.report.user.email,
+										dashboard: $scope.report.project.project_title,
+										theme: 'health_project_details',
+										format: 'pdf',
+										url: $location.$$path
+									}
+								}						
+							},{
+								type: 'csv',
+								color: 'blue lighten-2',
+								icon: 'assignment',
+								hover: 'Download ' + $scope.report.project.project_title + ' as CSV',
+								request: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/health/indicator',
+									data: {
+										report: 'projects_' + $scope.report.report,
+										details: 'projects',
+										project_id: $scope.report.project.id
+									}
+								},
+								metrics: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/metrics/set',
+									data: {
+										organization: $scope.report.user.organization,
+										username: $scope.report.user.username,
+										email: $scope.report.user.email,
+										dashboard: $scope.report.project.project_title,
+										theme: 'health_project_details',
+										format: 'csv',
+										url: $location.$$path
+									}
+								}
+							}]
+						}
 					},
 					menu: [{
 						'icon': 'keyboard_return',

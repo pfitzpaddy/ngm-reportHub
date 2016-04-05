@@ -435,7 +435,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         removeBeneficiary: function($parent, $index) {
 
           // add option to selection
-          $scope.project.options.filter.beneficiaries[$parent].push({
+          $scope.project.options.filter.beneficiaries[$index].push({
             'beneficiary_category': $scope.project.definition.locations[$parent].beneficiaries[$index].beneficiary_category,
             'beneficiary_name': $scope.project.definition.locations[$parent].beneficiaries[$index].beneficiary_name,
           });

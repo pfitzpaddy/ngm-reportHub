@@ -13,7 +13,7 @@
 
 		      <div class="row" ng-if="project.definition.project_status !== 'complete'">
 
-	      		<div class="input-field col s12 m3"
+	      		<div class="input-field col s12 m3 remove"
 	      			ng-class="{ 'error-label': healthProjectForm.$submitted
 					  								&& project.definition.locations.length === 0 }">
 	      			<select id="ngm-project-province" class="validate"
@@ -26,7 +26,7 @@
 	      			<label>Province</label>
 	      		</div>
 
-	      		<div class="input-field col s12 m3"
+	      		<div class="input-field col s12 m3 remove"
 	      			ng-class="{ 'error-label': healthProjectForm.$submitted
 					  								&& project.definition.locations.length === 0 }">
 	      			<select id="ngm-project-district" class="validate"
@@ -39,7 +39,7 @@
 	      			<label>District</label>
 	      		</div>
 
-					  <div class="input-field col s12 m3"
+					  <div class="input-field col s12 m3 remove"
 					  	ng-class="{ 'error-label': healthProjectForm.$submitted
 					  								&& project.definition.locations.length === 0 }">
 					    <select id="ngm-project-hf_type" class="validate"
@@ -52,7 +52,7 @@
 					    <label>Facility Type</label>
 					  </div>
 
-					  <div class="input-field col s12 m3"
+					  <div class="input-field col s12 m3 remove"
 					  	ng-class="{ 'error-label': healthProjectForm.$submitted
 					  								&& project.definition.locations.length === 0 }">
 					    <select id="ngm-project-hf_name"  class="validate"

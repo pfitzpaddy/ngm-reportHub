@@ -34,7 +34,7 @@ angular.module('ngmReportHub')
 		}
 
 		// report
-		$scope.dashboard.report += moment().format('YYYY-MM-DDTHHmm');		
+		$scope.dashboard.report += moment().format('YYYY-MM-DDTHHmm');
 
 		// dews dashboard model
 		var model = {

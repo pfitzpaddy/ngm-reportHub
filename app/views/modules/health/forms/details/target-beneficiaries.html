@@ -21,7 +21,7 @@
 
 
 							<!-- form -->
-			      	<div class="row" ng-show="project.definition.project_status !== 'complete'">
+			      	<div class="row remove" ng-show="project.definition.project_status !== 'complete'">
 				        <div class="input-field col s12 m3"
 									ng-class="{ 'error-label': healthProjectForm.$submitted 
 							  								&& project.definition.target_beneficiaries.length === 0 }">
@@ -56,7 +56,7 @@
 					      			</div>
 									  </div>
 
-					      		<div class="col s12 m1">
+					      		<div class="col s12 m1" style="padding-top:3px;">
 					      			<div class="btn waves-effect waves-light red lighten-2 right" 
 					      					title="Remove Beneficiary {{ target_beneficiary.beneficiary_name }}"
 					      					ng-show="project.definition.project_status !== 'complete'"
