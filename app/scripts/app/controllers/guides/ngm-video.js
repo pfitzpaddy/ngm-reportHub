@@ -72,6 +72,7 @@ angular.module('ngm.widget.video', ['ngm.provider'])
       // Merge defaults with config
       $scope.panel = angular.merge({}, $scope.panel, config);      
       // video type and location
+      console.log(video)
       video.addSource($scope.panel.video[0].format, $scope.panel.video[0].url);
 
     }

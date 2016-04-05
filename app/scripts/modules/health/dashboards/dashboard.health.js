@@ -27,7 +27,7 @@ angular.module('ngmReportHub')
 			startDate: moment($route.current.params.start).format('YYYY-MM-DD'),
 
 			// report end
-			endDate: moment($route.current.params.end).format('YYYY-MM-DD'),			
+			endDate: moment($route.current.params.end).format('YYYY-MM-DD'),
 			
 			// current report
 			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
@@ -254,7 +254,7 @@ angular.module('ngmReportHub')
 
 								}
 							}]
-						},				
+						},
 						download: {
 							'class': 'col s12 m4 l4 hide-on-small-only',
 							downloads: [{
