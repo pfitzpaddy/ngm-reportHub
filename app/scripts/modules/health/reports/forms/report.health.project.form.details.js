@@ -145,8 +145,10 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             under5female: 0,
             over5male: 0,
             over5female: 0,
-            cba: 0,
-            pla: 0
+            penta3_vacc_male_under1: 0,
+            penta3_vacc_female_under1: 0,
+            skilled_birth_attendant: 0,
+            conflict_trauma_treated: 0
           });
 
           // clear selection
@@ -406,8 +408,10 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             under5female: 0,
             over5male: 0,
             over5female: 0,
-            cba: 0,
-            pla: 0,
+            penta3_vacc_male_under1: 0,
+            penta3_vacc_female_under1: 0,
+            skilled_birth_attendant: 0,
+            conflict_trauma_treated: 0,
             prov_code: $scope.project.definition.locations[$index].prov_code,
             prov_name: $scope.project.definition.locations[$index].prov_name,
             dist_code: $scope.project.definition.locations[$index].dist_code,

@@ -24,27 +24,27 @@ angular.module('ngmReportHub')
 
 			// province lists
 			provinceListRequest: $http({
-        method: 'GET',
-        url: 'http://' + $location.host() + '/api/health/getProvincesList'
-      }),
+				method: 'GET',
+				url: 'http://' + $location.host() + '/api/health/getProvincesList'
+			}),
 
 			// district lists
 			districtListRequest: $http({
-        method: 'GET',
-        url: 'http://' + $location.host() + '/api/health/getDistrictsList'
-      }),
+				method: 'GET',
+				url: 'http://' + $location.host() + '/api/health/getDistrictsList'
+			}),
 
 			// hf type lists
 			hfTypeListRequest: $http({
-        method: 'GET',
-        url: 'http://' + $location.host() + '/api/health/getFacilityTypeList'
-      }),
+				method: 'GET',
+				url: 'http://' + $location.host() + '/api/health/getFacilityTypeList'
+			}),
 
 			// hf lists
 			hfListRequest: $http({
-        method: 'GET',
-        url: 'http://' + $location.host() + '/api/health/getFacilityList'
-      }),
+				method: 'GET',
+				url: 'http://' + $location.host() + '/api/health/getFacilityList'
+			}),
 
 		}
 
@@ -129,7 +129,7 @@ angular.module('ngmReportHub')
 										organization_id: ngmUser.get().organization_id,
 										project_status: 'active'
 									}
-						    }
+								}
 							}
 						}
 					}]
@@ -154,7 +154,7 @@ angular.module('ngmReportHub')
 										organization_id: ngmUser.get().organization_id,
 										project_status: 'complete'
 									}
-						    }
+								}
 							}
 						}
 					}]

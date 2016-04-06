@@ -48,7 +48,7 @@
 
 				      		<div class="row">
 				      		
-					      		<div class="input-field col s12 m2">
+					      		<div class="input-field col s12 m3">
 						          <input id="ngm-project-under5male-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
 						          	ng-model="beneficiary.under5male"
 						          	ng-disabled="project.definition.project_status === 'complete'"
@@ -56,7 +56,7 @@
 						          <label for="ngm-project-under5male-{{ $parent.$index }}-{{ $index }}" class="active">Under 5 Male</label>
 					      		</div>
 
-					      		<div class="input-field col s12 m2">
+					      		<div class="input-field col s12 m3">
 						          <input id="ngm-project-under5female-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
 						          	ng-model="beneficiary.under5female"
 						          	ng-disabled="project.definition.project_status === 'complete'"
@@ -64,7 +64,7 @@
 						          <label for="ngm-project-under5female-{{ $parent.$index }}-{{ $index }}" class="active">Under 5 Female</label>			      		
 					      		</div>
 
-					      		<div class="input-field col s12 m2">
+					      		<div class="input-field col s12 m3">
 						          <input id="ngm-project-over5male-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
 						          	ng-model="beneficiary.over5male"
 						          	ng-disabled="project.definition.project_status === 'complete'"
@@ -72,7 +72,7 @@
 						          <label for="ngm-project-over5male-{{ $parent.$index }}-{{ $index }}" class="active">Over 5 Male</label>			      		
 					      		</div>
 
-					      		<div class="input-field col s12 m2">
+					      		<div class="input-field col s12 m3">
 						          <input id="ngm-project-over5female-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
 						          	ng-model="beneficiary.over5female"
 						          	ng-disabled="project.definition.project_status === 'complete'"
@@ -80,20 +80,42 @@
 						          <label for="ngm-project-over5female-{{ $parent.$index }}-{{ $index }}" class="active">Over 5 Female</label>			      		
 					      		</div>
 
-					      		<div class="input-field col s12 m2">
-						          <input id="ngm-project-cba-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
-						          	ng-model="beneficiary.cba"
+					      	</div>
+
+					      	<br/>
+					      	
+									<div class="row">
+
+					      		<div class="input-field col s12 m3">
+						          <input id="ngm-project-penta3_vacc_male_under1-{{ $index }}" type="number" class="validate" min="0"
+						          	ng-model="beneficiary.penta3_vacc_male_under1"
 						          	ng-disabled="project.definition.project_status === 'complete'"
 												required>
-						          <label for="ngm-project-cba-{{ $parent.$index }}-{{ $index }}" class="active">CBA</label>			      		
+						          <label for="ngm-project-penta3_vacc_male_under1-{{ $index }}" class="active">PENTA3 VACC Male (Under 1yrs)</label>
 					      		</div>
 
-					      		<div class="input-field col s12 m2">
-						          <input id="ngm-project-pla-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
-						          	ng-model="beneficiary.pla"
+					      		<div class="input-field col s12 m3">
+						          <input id="ngm-project-penta3_vacc_female_under1-{{ $index }}" type="number" class="validate" min="0"
+						          	ng-model="beneficiary.penta3_vacc_female_under1"
 						          	ng-disabled="project.definition.project_status === 'complete'"
 												required>
-						          <label for="ngm-project-pla-{{ $parent.$index }}-{{ $index }}" class="active">PLA</label>			      		
+						          <label for="ngm-project-penta3_vacc_female_under1-{{ $index }}" class="active">PENTA3 VACC Female (Under 1yrs)</label>
+					      		</div>
+
+					      		<div class="input-field col s12 m3">
+						          <input id="ngm-project-skilled_birth_attendant-{{ $index }}" type="number" class="validate" min="0"
+						          	ng-model="beneficiary.skilled_birth_attendant"
+						          	ng-disabled="project.definition.project_status === 'complete'"
+												required>
+						          <label for="ngm-project-skilled_birth_attendant-{{ $index }}" class="active">Skilled Birth Attendants</label>
+					      		</div>
+
+					      		<div class="input-field col s12 m3">
+						          <input id="ngm-project-conflict_trauma_treated-{{ $index }}" type="number" class="validate" min="0"
+						          	ng-model="beneficiary.conflict_trauma_treated"
+						          	ng-disabled="project.definition.project_status === 'complete'"
+												required>
+						          <label for="ngm-project-conflict_trauma_treated-{{ $index }}" class="active">Conflict Trauma Treated</label>			      		
 					      		</div>
 
 				      		</div>

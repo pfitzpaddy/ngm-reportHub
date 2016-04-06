@@ -117,7 +117,7 @@ angular.module('ngmReportHub')
 									// 	description: 'Track the project spending against financial line items for '
 									// }],
 					        // run submit
-					        saveComplete: function(project){
+					        markComplete: function(project){
 
 					          // mark project complete
 					          project.project_status = 'complete';       
