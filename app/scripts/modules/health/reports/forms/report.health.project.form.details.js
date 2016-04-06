@@ -79,6 +79,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             },{
               beneficiary_name: 'Public Health at Risk',
               beneficiary_category: 'public_health'
+            },{
+              beneficiary_name: 'White Area Population',
+              beneficiary_category: 'white_area_population'
             }]
           },
           filter: {
