@@ -788,7 +788,7 @@ angular.module('ngmReportHub')
 											osm: {
 												name: 'Mapbox',
 												type: 'xyz',
-												url: 'https://b.tiles.mapbox.com/v3/aj.um7z9lus/{z}/{x}/{y}.png?',
+												url: 'https://api.tiles.mapbox.com/v4/fitzpaddy.b207f20f/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZml0enBhZGR5IiwiYSI6ImNpZW1vcXZiaTAwMXBzdGtrYmp0cDlkdnEifQ.NCI7rTR3PvN4iPZpt6hgKA',
 												layerOptions: {
 													continuousWorld: true
 												}

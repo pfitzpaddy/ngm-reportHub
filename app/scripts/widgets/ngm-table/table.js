@@ -50,6 +50,9 @@ angular.module('ngm.widget.table', ['ngm.provider'])
       // table config
       $scope.table = {
 
+        // html container id
+        id: config.id ? config.id : 'ngm-table-' + Math.floor((Math.random()*1000000)),
+
         // search replace "," global
         regex: new RegExp(',', 'g'),
 
@@ -77,7 +80,7 @@ angular.module('ngm.widget.table', ['ngm.provider'])
       $scope.table = angular.merge({}, $scope.table, config);
 
       // global data
-      $scope.data = data;
+      $scope.data = config.data ? config.data : data;
 
       // update settings based on data
       $scope.table.tableSettings.total = $scope.data.length;

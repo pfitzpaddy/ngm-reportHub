@@ -308,6 +308,26 @@ angular
 					}],
 				}
 			})
+			// DRR FLOOD-FORECAST
+			.when( '/immap/drr/flood-forecast/:province', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardFloodForecastCtrl',				
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) {
+						return ngmAuth.grantPublicAccess();
+					}],
+				}
+			})
+			.when( '/immap/drr/flood-forecast/:province/:district', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardFloodForecastCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) {
+						return ngmAuth.grantPublicAccess();
+					}],
+				}
+			})
+
 			// Watchkeeper
 			.when( '/immap/watchkeeper/:country/:start/:end', {
 				reloadOnSearch: false,
@@ -494,8 +514,8 @@ angular
 				$scope.ngm.footer = '<div>'
 														+	'<div style="background: ' + $scope.ngm.style.lightPrimaryColor + '; height:20px;"></div>'
 														+	'<div style="background: ' + $scope.ngm.style.defaultPrimaryColor + '; height:60px;">'
-															+	'<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>'
-															+ '<p id="ngm-contact" style="display: block; float:right; padding-right:20px;"><a class="waves-effect waves-teal btn-flat" style="color:white;" onclick="contact()"><i class="material-icons left" style="color:white;">perm_contact_calendar</i>Contact</a></p>'
+															+	'<p class="ngm-menu-footer-body" style="font-weight:300;">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>'
+															+ '<p id="ngm-contact" class="remove" style="display: block; float:right; padding-right:20px;"><a class="waves-effect waves-teal btn-flat" style="color:white;" onclick="contact()"><i class="material-icons left" style="color:white;">perm_contact_calendar</i>Contact</a></p>'
 															+ '<p id="ngm-report-extracted" style="display: none; color:white; font-weight:100; float:right; padding-right:20px;">' +moment(new Date()).format('DD MMM, YYYY') + '</p>'													
 														+	'</div>'
 													+	'</div>';

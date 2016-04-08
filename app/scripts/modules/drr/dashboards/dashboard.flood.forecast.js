@@ -1,12 +1,12 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:DashboardFloodRiskCtrl
+ * @name ngmReportHubApp.controller:DashboardFloodForecastCtrl
  * @description
  * # LoginCtrl
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardFloodRiskCtrl', ['$scope', '$http', '$route', '$location', '$filter', '$timeout', 'ngmUser', 'ngmData', function ($scope, $http, $route, $location, $filter, $timeout, ngmUser, ngmData) {
+	.controller('DashboardFloodForecastCtrl', ['$scope', '$http', '$route', '$location', '$filter', '$timeout', 'ngmUser', 'ngmData', function ($scope, $http, $route, $location, $filter, $timeout, ngmUser, ngmData) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -25,7 +25,7 @@ angular.module('ngmReportHub')
 			rows: [{}]
 		};
 
-		// flood-risk object
+		// flood-forecast object
 		$scope.dashboard = {
 
 			// parent
@@ -33,7 +33,7 @@ angular.module('ngmReportHub')
 
 			// current user
 			user: ngmUser.get(),
-
+			
 			// tab links
 			baselineHref: '/immap/drr/baseline/' + $route.current.params.province,
 			floodRiskHref: '/immap/drr/flood-risk/' + $route.current.params.province,
@@ -97,7 +97,7 @@ angular.module('ngmReportHub')
 						'param': 'province',
 						'active': key,
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '#/immap/drr/flood-risk/' + key
+						'href': '#/immap/drr/flood-forecast/' + key
 					});
 				});
 
@@ -117,7 +117,7 @@ angular.module('ngmReportHub')
 						'param': 'district',
 						'active': key,
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '#/immap/drr/flood-risk/' + $route.current.params.province + '/' + key
+						'href': '#/immap/drr/flood-forecast/' + $route.current.params.province + '/' + key
 					});
 				});
 
@@ -131,8 +131,8 @@ angular.module('ngmReportHub')
 				$scope.dashboard.report += moment().format('YYYY-MM-DDTHHmm');
 
 				// title
-				var title = 'iMMAP | Flood Risk | ' + $scope.dashboard.data[$route.current.params.province].name;
-				var subtitle = 'Flood Risk Key Indicators for ' + $scope.dashboard.data[$route.current.params.province].name + ' Province';
+				var title = 'iMMAP | Flood Forecast | ' + $scope.dashboard.data[$route.current.params.province].name;
+				var subtitle = 'Flood Forecast Key Indicators for ' + $scope.dashboard.data[$route.current.params.province].name + ' Province';
 
 				// add district to title
 				if ($route.current.params.district) {
@@ -140,7 +140,7 @@ angular.module('ngmReportHub')
 					// title
 					title += ' | ' + $scope.dashboard.districts[$route.current.params.district].name;
 					subtitle += ', ' + $scope.dashboard.districts[$route.current.params.district].name;
-					
+
 					// tab href
 					$scope.dashboard.baselineHref += '/' + $route.current.params.district;
 					$scope.dashboard.floodRiskHref += '/' + $route.current.params.district;
@@ -153,9 +153,28 @@ angular.module('ngmReportHub')
 					}
 				}
 
+
+
+				// flash flood river forecast
+				$scope.dashboard.flashFloodRiskTotal = 0 +															
+																data.flashflood_forecast_extreme_pop + 
+																data.flashflood_forecast_veryhigh_pop +
+																data.flashflood_forecast_high_pop +
+																data.flashflood_forecast_med_pop +
+																data.flashflood_forecast_low_pop;
+
+				// river flood
+				$scope.dashboard.riverFloodRiskTotal = 0 +
+																data.riverflood_forecast_extreme_pop + 
+																data.riverflood_forecast_veryhigh_pop +
+																data.riverflood_forecast_high_pop +
+																data.riverflood_forecast_med_pop +
+																data.riverflood_forecast_low_pop;
+
+
 				// FloodRisk dashboard model
 				$scope.model = {
-					name: 'drr_flood_risk_dashboard',
+					name: 'drr_flood_forecast_dashboard',
 					header: {
 						div: {
 							'class': 'col s12 m12 l12 report-header',
@@ -197,7 +216,7 @@ angular.module('ngmReportHub')
 										username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
 										email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public',
 										dashboard: 'drr',
-										theme: 'flood_risk',
+										theme: 'flood_forecast',
 										format: 'pdf',
 										url: $location.$$path
 									}
@@ -207,7 +226,7 @@ angular.module('ngmReportHub')
 					},
 					menu: [{
 						'search': true,
-						'id': 'search-flood-risk-privince',
+						'id': 'search-flood-forecast-privince',
 						'icon': 'place',
 						'title': 'Province',
 						'class': 'blue white-text',
@@ -229,11 +248,11 @@ angular.module('ngmReportHub')
 									},{
 										col: 's12 m4',
 										title: 'Flood Risk',
-										'class': 'active',
 										href: $scope.dashboard.floodRiskHref
 									},{
 										col: 's12 m4',
 										title: 'Flood Forecast',
+										'class': 'active',
 										href: $scope.dashboard.floodForecastHref
 									}]
 								}
@@ -241,47 +260,35 @@ angular.module('ngmReportHub')
 						}]
 					},{
 						columns: [{
-							styleClass: 's12 m12 l6',
+							styleClass: 's12 m12 l3',
 							widgets: [{
-								type: 'stats',
-								card: 'card-panel stats-card white grey-text text-darken-2',
-								config: {
-									title: 'Total Population',
-									data: { value: data.Population },
-									display: { 
-										fractionSize: 0
-									}
-								}
-							}]
-						},{
-							styleClass: 's12 m12 l6',
-							widgets: [{
-								type: 'stats',
-								card: 'card-panel stats-card white light-blue-text light-blue-lighten-4',
-								config: {
-									title: 'at Flood Risk',
-									data: {
-										value: data.percent_total_risk_population,
-										value_total: data.total_risk_population
-									},
-									display: {
-										postfix: '%',
-										fractionSize: 0,
-										simpleTitle: false
-									}
-								}
-							}]
-						}]
-					},{
-						columns: [{
-							styleClass: 's12 m12 l4',
-							widgets: [{
-								type: 'highchart',
-								style: 'height: 180px;',
+								type: 'table',
+								'style': 'height: 200px; padding-top: 10px;',
 								card: 'card-panel chart-stats-card white grey-text text-darken-2',
 								config: {
 									title: {
-										text: 'Low Flood Risk Popn'
+										style: 'padding-top: 10px;',
+										name: 'FLASH FLOOD FORECAST'
+									},
+									templateUrl: '/scripts/widgets/ngm-table/templates/drr.flood.forecast.html',
+									data: [
+										{ value: data.flashflood_forecast_extreme_pop, color: '#E2070E', name: 'Extreme' },
+										{ value: data.flashflood_forecast_veryhigh_pop, color: '#F96D09', name: 'Very High' },
+										{ value: data.flashflood_forecast_high_pop, color: '#FCED15', name: 'High' },
+										{ value: data.flashflood_forecast_med_pop, color: '#0FC87B', name: 'Medium' },
+										{ value: data.flashflood_forecast_low_pop, color: '#92E7FA', name: 'Low' }
+									]
+								}
+							}]
+						},{
+							styleClass: 's12 m12 l3',
+							widgets: [{
+								type: 'highchart',
+								style: 'height: 200px;',
+								card: 'card-panel chart-stats-card white grey-text text-darken-2',
+								config: {
+									title: {
+										text: 'Flash Flood'
 									},
 									display: {
 										label: true,
@@ -289,14 +296,15 @@ angular.module('ngmReportHub')
 										subLabelfractionSize: 0,
 										postfix: '%'
 									},
-									templateUrl: '/scripts/widgets/ngm-highchart/template/center.html',
+									templateUrl: '/scripts/widgets/ngm-highchart/template/flood-forecast.html',
+									style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
 									chartConfig: {
 										options: {
 											chart: {
 												type: 'pie',
 												height: 140,
-												margin: [0, 0, 0, 0],
-												spacing: [0, 0, 0, 0]
+												margin: [-20,0,0,0],
+												spacing: [0,0,0,0]
 											},
 											tooltip: {
 												enabled: false
@@ -312,7 +320,7 @@ angular.module('ngmReportHub')
 												}
 										},
 										series: [{
-											name: 'Low Flood Risk Popn',
+											name: 'Flash Flood',
 											size: '100%',
 											innerSize: '80%',
 											showInLegend:false,
@@ -321,41 +329,54 @@ angular.module('ngmReportHub')
 											},
 											data: {
 												label: {
-													center: {
+													center: { 
 														label: {
-															label: data.percent_low_risk_population,
-															postfix: '%'
-														},
-														subLabel: {
-															label: data.low_risk_population
+															label: $scope.dashboard.flashFloodRiskTotal
 														}
 													}
 												},
-												data: [{
-													'y': data.percent_low_risk_population,
-													'color': '#7cb5ec',
-													'name': 'Low Flood Risk Popn',
-													'label': data.low_risk_population,
-												},{
-													'y': 100 - data.percent_low_risk_population,
-													'color': 'rgba(0,0,0,0.05)',
-													'name': 'Flood Risk Popn',
-													'label': data.low_risk_population,
-												}]
+												data:[
+													{ y: data.flashflood_forecast_extreme_pop, color: '#E2070E', name: 'Extreme' },
+													{ y: data.flashflood_forecast_veryhigh_pop, color: '#F96D09', name: 'Very High' },
+													{ y: data.flashflood_forecast_high_pop, color: '#FCED15', name: 'High' },
+													{ y: data.flashflood_forecast_med_pop, color: '#0FC87B', name: 'Medium' },
+													{ y: data.flashflood_forecast_low_pop, color: '#92E7FA', name: 'Low' }
+												]
 											}
 										}]
 									}
 								}
 							}]
 						},{
-							styleClass: 's12 m12 l4',
+							styleClass: 's12 m12 l3',
 							widgets: [{
-								type: 'highchart',
-								style: 'height: 180px;',
+								type: 'table',
+								'style': 'height: 200px; padding-top: 10px;',
 								card: 'card-panel chart-stats-card white grey-text text-darken-2',
 								config: {
 									title: {
-										text: 'Moderate Flood Risk Popn'
+										style: 'padding-top: 10px;',
+										name: 'RIVER FLOOD FORECAST'
+									},
+									templateUrl: '/scripts/widgets/ngm-table/templates/drr.flood.forecast.html',
+									data: [													
+										{ value: data.riverflood_forecast_extreme_pop, color: '#E2070E', name: 'Extreme' },
+										{ value: data.riverflood_forecast_veryhigh_pop, color: '#F96D09', name: 'Very High' },
+										{ value: data.riverflood_forecast_high_pop, color: '#FCED15', name: 'High' },
+										{ value: data.riverflood_forecast_med_pop, color: '#0FC87B', name: 'Medium' },
+										{ value: data.riverflood_forecast_low_pop, color: '#92E7FA', name: 'Low' }
+									]
+								}
+							}]
+						},{							
+							styleClass: 's12 m12 l3',
+							widgets: [{
+								type: 'highchart',
+								style: 'height: 200px;',
+								card: 'card-panel chart-stats-card white grey-text text-darken-2',
+								config: {
+									title: {
+										text: false
 									},
 									display: {
 										label: true,
@@ -363,18 +384,19 @@ angular.module('ngmReportHub')
 										subLabelfractionSize: 0,
 										postfix: '%'
 									},
-									templateUrl: '/scripts/widgets/ngm-highchart/template/center.html',
+									templateUrl: '/scripts/widgets/ngm-highchart/template/flood-forecast.html',
+									style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
 									chartConfig: {
 										options: {
 											chart: {
 												type: 'pie',
 												height: 140,
-												margin: [0, 0, 0, 0],
-												spacing: [0, 0, 0, 0]
+												margin: [0,0,0,0],
+												spacing: [0,0,0,0]
 											},
 											tooltip: {
 												enabled: false
-											}
+											}				
 										},
 										title: {
 												text: '',
@@ -384,10 +406,10 @@ angular.module('ngmReportHub')
 												pie: {
 														shadow: false
 												}
-										},								
+										},
 										series: [{
-											name: 'Moderate Flood Risk Popn',
-											size: '100%',
+											name: 'River Flood',
+											size: '120%',
 											innerSize: '80%',
 											showInLegend:false,
 											dataLabels: {
@@ -395,259 +417,75 @@ angular.module('ngmReportHub')
 											},
 											data: {
 												label: {
-													center: {
-														label: {
-															label: data.percent_med_risk_population,
-															postfix: '%'
+													center: { 
+														label: { 
+															label: $scope.dashboard.riverFloodRiskTotal
 														},
 														subLabel: {
-															label: data.med_risk_population
+															label: 'TOTAL'
 														}
 													}
 												},
-												data: [{
-													'y': data.percent_med_risk_population,
-													'color': '#7cb5ec',
-													'name': 'Moderate Flood Risk Popn',
-													'label': data.med_risk_population,
-												},{
-													'y': 100 - data.percent_med_risk_population,
-													'color': 'rgba(0,0,0,0.05)',
-													'name': 'Moderate Risk Popn',
-													'label': data.med_risk_population,
-												}]
+												data:[
+													{ y: data.riverflood_forecast_extreme_pop, color: '#E2070E', name: 'Extreme' },
+													{ y: data.riverflood_forecast_veryhigh_pop, color: '#F96D09', name: 'Very High' },
+													{ y: data.riverflood_forecast_high_pop, color: '#FCED15', name: 'High' },
+													{ y: data.riverflood_forecast_med_pop, color: '#0FC87B', name: 'Medium' },
+													{ y: data.riverflood_forecast_low_pop, color: '#92E7FA', name: 'Low' }
+												]
 											}
 										}]
 									}
 								}
 							}]
+						}]
+					},{						
+						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'html',
+								card: '',
+								style: 'position:relative;height:0px;top:160px;left:30px;z-index:9; pointer-events:none;',
+								config: {
+									html: '<p style="font-weight:500;margin-bottom:0px;">Rivers (width in meters)</p><img src="http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=30&height=30&layer=geonode:afg_riv&transparent=true&format=image%2Fpng&legend_options=fontAntiAliasing%3Atrue%3BfontSize%3A11%3BfontName%3AArial&SCALE=8735642.90291195"></img> <br/> <p style="font-weight:500;margin-bottom:0px;">Flood Forecast</p><img src="http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=30&height=30&layer=geonode:current_flood_forecasted_villages_basin&transparent=true&format=image%2Fpng&legend_options=fontAntiAliasing%3Atrue%3BfontSize%3A11%3BfontName%3AArial&SCALE=8735642.90291195"></img>'
+								}
+							}]							
 						},{
-							styleClass: 's12 m12 l4',
-							widgets: [{
-								type: 'highchart',
-								style: 'height: 180px;',
-								card: 'card-panel chart-stats-card white grey-text text-darken-2',
-								config: {
-									title: {
-										text: 'High Flood Risk Popn'
-									},
-									display: {
-										label: true,
-										fractionSize: 1,
-										subLabelfractionSize: 0,
-										postfix: '%'
-									},
-									templateUrl: '/scripts/widgets/ngm-highchart/template/center.html',
-									chartConfig: {
-										options: {
-											chart: {
-												type: 'pie',
-												height: 140,
-												margin: [0, 0, 0, 0],
-												spacing: [0, 0, 0, 0]
-											},
-											tooltip: {
-												enabled: false
-											}									
-										},
-										title: {
-											text: '',
-											margin: 0
-										},
-										plotOptions: {
-												pie: {
-														shadow: false
-												}
-										},
-										series: [{
-											name: 'High Flood Risk Popn',
-											size: '100%',
-											innerSize: '80%',
-											showInLegend:false,
-											dataLabels: {
-												enabled: false
-											},
-											data: {
-												label: {
-													center: {
-														label: {
-															label: data.percent_high_risk_population,
-															postfix: '%'
-														},
-														subLabel: {
-															label: data.high_risk_population
-														}
-													}
-												},
-												data: [{
-													'y': data.percent_high_risk_population,
-													'color': '#7cb5ec',
-													'name': 'High Flood Risk Popn',
-													'label': data.high_risk_population,
-												},{
-													'y': 100 - data.percent_high_risk_population,
-													'color': 'rgba(0,0,0,0.05)',
-													'name': 'High Risk Popn',
-													'label': data.high_risk_population,
-												}]
-											}
-										}]
-									}
-								}
-							}]	
-						}]
-					},{
-						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
-								type: 'highchart',
-								style: 'height: 310px;',
-								card: 'card-panel stats-card white grey-text text-darken-2',
+								type: 'leaflet',
+								card: 'card-panel',
+								style: 'padding:0px;',
 								config: {
-									title: {
-										text: 'Population At Flood Risk by Land Type'
+									height: '520px',
+									defaults: {
+										zoomToBounds: true
 									},
-									chartConfig: {
-										options: {
-											chart: {
-												type: 'bar',
-												height: 260,
-											},
-											tooltip: {
-												pointFormat: '<b>{point.y:,.0f}</b>'
-											},
-											legend: {
-												enabled: false
-											}																	
-										},
-										title: {
-											text: ''
-										},
-										xAxis: {
-											categories: [
-												'Barren Land', 
-												'Built-Up', 
-												'Forest & Shrubs',
-												'Fruit Trees',
-												'Irrigated Agg Land',
-												'Permanent Snow',
-												'Rainfeld Agg Land',
-												'Rangeland',
-												'Sand Cover',
-												'Vineyards',
-												'Water Body & Marshland'
-											],
-											labels: {
-												rotation: 0,
-												style: {
-													fontSize: '12px',
-													fontFamily: 'Roboto, sans-serif'
+									layers: {
+										baselayers: {
+											osm: {
+												name: 'Mapbox',
+												type: 'xyz',
+												url: 'https://api.tiles.mapbox.com/v4/fitzpaddy.b207f20f/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZml0enBhZGR5IiwiYSI6ImNpZW1vcXZiaTAwMXBzdGtrYmp0cDlkdnEifQ.NCI7rTR3PvN4iPZpt6hgKA',
+												layerOptions: {
+													continuousWorld: true
 												}
 											}
 										},
-										yAxis: {
-											min: 0,
-											title: {
-												text: 'Population'
-											}
-										},
-										series: [{
-											name: 'Population',
-											color: '#7cb5ec',
-											data: {
-												data: [ 
-													data.barren_land_pop_risk,
-													data.built_up_pop_risk,
-													data.forest_pop_risk,
-													data.fruit_trees_pop_risk,
-													data.irrigated_agricultural_land_pop_risk,
-													data.permanent_snow_pop_risk,
-													data.rainfed_agricultural_land_pop_risk,
-													data.rangeland_pop_risk,
-													data.sandcover_pop_risk,
-													data.vineyards_pop_risk,
-													data.water_body_pop_risk
-												]
-											}
-										}]
-									}
-								}
-							}]
-						}]
-					},{
-						columns: [{
-							styleClass: 's12 m12 l12',
-							widgets: [{
-								type: 'highchart',
-								style: 'height: 310px;',
-								card: 'card-panel stats-card white grey-text text-darken-2',
-								config: {
-									title: {
-										text: 'Area (sqKm) At Flood Risk by Land Type'
-									},
-									chartConfig: {
-										options: {
-											chart: {
-												type: 'bar',
-												height: 260,
-											},
-											tooltip: {
-												pointFormat: '<b>{point.y:,.0f} km sq</b>'
-											},
-											legend: {
-												enabled: false
-											}																	
-										},
-										title: {
-											text: ''
-										},
-										xAxis: {
-											categories: [
-												'Barren Land', 
-												'Built-Up', 
-												'Forest & Shrubs',
-												'Fruit Trees',
-												'Irrigated Agg Land',
-												'Permanent Snow',
-												'Rainfeld Agg Land',
-												'Rangeland',
-												'Sand Cover',
-												'Vineyards',
-												'Water Body & Marshland'
-											],
-											labels: {
-												rotation: 0,
-												style: {
-													fontSize: '12px',
-													fontFamily: 'Roboto, sans-serif'
-												}
-											}
-										},
-										yAxis: {
-											min: 0,
-											title: {
-												text: 'Area (sqKm)'
-											}
-										},
-										series: [{
-											name: 'Population',
-											color: '#78909c',
-											data: { 
-												data: [ 
-													data.barren_land_area_risk,
-													data.built_up_area_risk,
-													data.forest_area_risk,
-													data.fruit_trees_area_risk,
-													data.irrigated_agricultural_land_area_risk,
-													data.permanent_snow_area_risk,
-													data.rainfed_agricultural_land_area_risk,
-													data.rangeland_area_risk,
-													data.sandcover_area_risk,
-													data.vineyards_area_risk,
-													data.water_body_area_risk
-												]
-											}
-										}]
+                    overlays: {
+                      wms: {
+                        name: 'Flood Forecast',
+                        type: 'wms',
+                        visible: true,
+                        url: 'http://asdc.immap.org/geoserver/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&TILED=true&WIDTH=256&HEIGHT=256',
+                        layerParams: {
+                        	srs: 'epsg:900913',
+                        	layers: 'geonode:current_flood_forecasted_villages_basin,geonode:afg_riv',
+                          format: 'image/png',
+                          transparent: true
+                        }
+                      }
+                    }
 									}
 								}
 							}]
@@ -663,14 +501,14 @@ angular.module('ngmReportHub')
 									html: $scope.dashboard.ngm.footer
 								}
 							}]
-						}]
+						}]						
 					}]
 				};
 
 				if ($scope.dashboard.flag === 'currentProvince') {
 					$scope.model.menu[1] = {
 						'search': true,
-						'id': 'search-flood-risk-district',
+						'id': 'search-flood-forecast-district',
 						'icon': 'place',
 						'title': 'District',
 						'class': 'blue white-text',
@@ -714,6 +552,8 @@ angular.module('ngmReportHub')
 			});
 
 		}
+
+		// http://asdc.immap.org/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&propertyName=prov_code,prov_na_en,flood_forecasted_verylow,flood_forecasted_low,flood_forecasted_med,flood_forecasted_high,flood_forecasted_veryhigh,flood_forecasted_extreme&typeName=geonode:current_flood_forecasted_provinces&maxFeatures=50&outputFormat=application%2Fjson
 
 		// request data
 		ngmData.get({

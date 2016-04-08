@@ -34,7 +34,13 @@ angular.module('ngmReportHub')
 			// current user
 			user: ngmUser.get(),
 
-			pdfPrintPageLoadTime: 8400, 
+			// tab links
+			baselineHref: '/immap/drr/baseline/' + $route.current.params.province,
+			floodRiskHref: '/immap/drr/flood-risk/' + $route.current.params.province,
+			floodForecastHref: '/immap/drr/flood-forecast/' + $route.current.params.province,
+
+			// pdf print load time
+			pdfPrintPageLoadTime: 6200, 
 
 			// current report
 			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
@@ -130,15 +136,20 @@ angular.module('ngmReportHub')
 
 				// add district to title
 				if ($route.current.params.district) {
-					// pdf print load
-					$scope.dashboard.pdfPrintPageLoadTime = 6400;
+					
 					// title
 					title += ' | ' + $scope.dashboard.districts[$route.current.params.district].name;
 					subtitle += ', ' + $scope.dashboard.districts[$route.current.params.district].name;
+
+					// tab href
+					$scope.dashboard.baselineHref += '/' + $route.current.params.district;
+					$scope.dashboard.floodRiskHref += '/' + $route.current.params.district;
+					$scope.dashboard.floodForecastHref += '/' + $route.current.params.district;
+
 				} else {
 					// pdf print load
 					if ($route.current.params.province === 'afghanistan') {
-						$scope.dashboard.pdfPrintPageLoadTime = 10400;
+						$scope.dashboard.pdfPrintPageLoadTime = 7200;
 					}
 				}
 
@@ -212,14 +223,18 @@ angular.module('ngmReportHub')
 									color: $scope.dashboard.ngm.style.darkPrimaryColor,
 									templateUrl: '/scripts/widgets/ngm-html/template/tabs.html',
 									tabs: [{
-										col: 's12 m6',
+										col: 's12 m4',
 										title: 'Baseline',
 										'class': 'active',
-										href: '/immap/drr/baseline/afghanistan'
+										href: $scope.dashboard.baselineHref
 									},{
-										col: 's12 m6',
+										col: 's12 m4',
 										title: 'Flood Risk',
-										href: '/immap/drr/flood-risk/afghanistan'
+										href: $scope.dashboard.floodRiskHref
+									},{
+										col: 's12 m4',
+										title: 'Flood Forecast',
+										href: $scope.dashboard.floodForecastHref
 									}]
 								}
 							}]
@@ -258,7 +273,9 @@ angular.module('ngmReportHub')
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
 									title: 'Health Facilities',
-									data: { value: 0 },
+									data: { 
+										value: data.total_health_base 
+									},
 									display: { 
 										fractionSize: 0
 									}
@@ -271,7 +288,7 @@ angular.module('ngmReportHub')
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
 									title: 'Road (KM)',
-									data: { value: 0 },
+									data: { value: data.total_road_base },
 									display: { 
 										fractionSize: 0
 									}
