@@ -339,11 +339,12 @@ angular.module('ngmReportHub')
 													}
 												},
 												data:[
-													{ y: data.flashflood_forecast_extreme_pop, color: '#E2070E', name: 'Extreme' },
-													{ y: data.flashflood_forecast_veryhigh_pop, color: '#F96D09', name: 'Very High' },
-													{ y: data.flashflood_forecast_high_pop, color: '#FCED15', name: 'High' },
+													{ y: data.flashflood_forecast_low_pop, color: '#92E7FA', name: 'Low' },
 													{ y: data.flashflood_forecast_med_pop, color: '#0FC87B', name: 'Medium' },
-													{ y: data.flashflood_forecast_low_pop, color: '#92E7FA', name: 'Low' }
+													{ y: data.flashflood_forecast_high_pop, color: '#FCED15', name: 'High' },
+													{ y: data.flashflood_forecast_veryhigh_pop, color: '#F96D09', name: 'Very High' },
+													{ y: data.flashflood_forecast_extreme_pop, color: '#E2070E', name: 'Extreme' }
+													
 												]
 											}
 										}]
@@ -430,11 +431,11 @@ angular.module('ngmReportHub')
 													}
 												},
 												data:[
-													{ y: data.riverflood_forecast_extreme_pop, color: '#E2070E', name: 'Extreme' },
-													{ y: data.riverflood_forecast_veryhigh_pop, color: '#F96D09', name: 'Very High' },
-													{ y: data.riverflood_forecast_high_pop, color: '#FCED15', name: 'High' },
+													{ y: data.riverflood_forecast_low_pop, color: '#92E7FA', name: 'Low' },
 													{ y: data.riverflood_forecast_med_pop, color: '#0FC87B', name: 'Medium' },
-													{ y: data.riverflood_forecast_low_pop, color: '#92E7FA', name: 'Low' }
+													{ y: data.riverflood_forecast_high_pop, color: '#FCED15', name: 'High' },
+													{ y: data.riverflood_forecast_veryhigh_pop, color: '#F96D09', name: 'Very High' },
+													{ y: data.riverflood_forecast_extreme_pop, color: '#E2070E', name: 'Extreme' }
 												]
 											}
 										}]
