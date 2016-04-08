@@ -34,7 +34,7 @@ td {
     <div ng-if="table.title" class="grey-text text-darken-2" style="{{ table.title.style }}">{{ table.title.name }}</div>
 
     <div class="col s12">
-      <table class="highlight responsive-table" ng-table="table.tableParams" 
+      <table class="highlight" ng-table="table.tableParams" 
           style="margin-top: -20px; margin-left: -10px;" height="120px;">
         <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
           <td style="background-color:{{ row.color }};" width="10%"> </td>

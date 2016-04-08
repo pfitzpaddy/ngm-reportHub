@@ -288,7 +288,7 @@ angular.module('ngmReportHub')
 								card: 'card-panel chart-stats-card white grey-text text-darken-2',
 								config: {
 									title: {
-										text: 'Flash Flood'
+										text: ''
 									},
 									display: {
 										label: true,
@@ -303,7 +303,7 @@ angular.module('ngmReportHub')
 											chart: {
 												type: 'pie',
 												height: 140,
-												margin: [-20,0,0,0],
+												margin: [0,0,0,0],
 												spacing: [0,0,0,0]
 											},
 											tooltip: {
@@ -321,7 +321,7 @@ angular.module('ngmReportHub')
 										},
 										series: [{
 											name: 'Flash Flood',
-											size: '100%',
+											size: '120%',
 											innerSize: '80%',
 											showInLegend:false,
 											dataLabels: {
@@ -332,6 +332,9 @@ angular.module('ngmReportHub')
 													center: { 
 														label: {
 															label: $scope.dashboard.flashFloodRiskTotal
+														},
+														subLabel: {
+															label: 'TOTAL'
 														}
 													}
 												},
