@@ -228,7 +228,7 @@ angular.module('ngmReportHub')
 									data: {
 										organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
 										username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
-										email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public',
+										email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public@gmail.com',
 										dashboard: 'drr',
 										theme: 'baseline',
 										format: 'pdf',
