@@ -268,7 +268,8 @@ angular.module('ngmReportHub')
 										printUrl: $location.absUrl(),
 										downloadUrl: 'http://' + $location.host() + '/report/',
 										token: 'public',
-										pageLoadTime: $scope.dashboard.pdfPrintPageLoadTime
+										pageLoadTime: $scope.dashboard.pdfPrintPageLoadTime,
+										viewportWidth: 1370
 									}
 								},						
 								metrics: {
