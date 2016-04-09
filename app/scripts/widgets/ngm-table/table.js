@@ -68,10 +68,14 @@ angular.module('ngm.widget.table', ['ngm.provider'])
         },
 
         // on row click
-        rowClick: function( href, row ){
+        rowClick: function( newTab, href ){
 
           // in new tab
-          window.open( href , '_blank');
+          if ( newTab ) {
+            window.open( href , '_blank');
+          } else {
+            $location.path( href );
+          }
         }
 
       };

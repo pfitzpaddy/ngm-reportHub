@@ -24,7 +24,7 @@ table.flood-forecast-list td {
     <div ng-show="table.province">
 
       <table class="centered highlight responsive-table flood-forecast-list" ng-table="table.tableParams">
-        <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
+        <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;" ng-click="table.rowClick( false, '/immap/drr/flood-forecast/{{ row.properties.prov_na_en | lowercase }}' )">
           <td data-title="'Province Name'" sortable="'properties.prov_na_en'">{{ row.properties.prov_na_en }}</td>
           <td data-title="'Extreme'" sortable="'properties.flood_forecasted_extreme'">{{ row.properties.flood_forecasted_extreme }}</td>
           <td data-title="'Very High'" sortable="'properties.flood_forecasted_veryhigh'">{{ row.properties.flood_forecasted_veryhigh }}</td>
@@ -39,7 +39,7 @@ table.flood-forecast-list td {
     <div ng-show="!table.province">
 
       <table class="centered highlight responsive-table" ng-table="table.tableParams">
-        <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
+        <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;" ng-click="table.rowClick( false, '/immap/drr/flood-forecast/{{ row.properties.prov_na_en | lowercase }}/{{ row.properties.dist_na_en | lowercase }}' )">
           <td data-title="'District Name'" sortable="'properties.prov_na_en'">{{ row.properties.dist_na_en }}</td>
           <td data-title="'Extreme'" sortable="'properties.flood_forecasted_extreme'">{{ row.properties.flood_forecasted_extreme }}</td>
           <td data-title="'Very High'" sortable="'properties.flood_forecasted_veryhigh'">{{ row.properties.flood_forecasted_veryhigh }}</td>
