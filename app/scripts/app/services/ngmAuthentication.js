@@ -150,11 +150,11 @@ angular.module('ngmReportHub')
 				var session = 1000 * 60 * 60 * 8;
 
 				// compare last_logged_in with now
-				var log_in = moment(user.last_logged_in),
+				var log_in = moment(user.updatedAt),
 						now = moment(new Date()),
 						duration = moment.duration(now.diff(log_in)),
 						milliSeconds = session - duration.asMilliseconds();
-
+						
 				// session expired
 				if (milliSeconds < 0) {
 			    

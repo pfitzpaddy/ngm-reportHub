@@ -23,6 +23,18 @@ angular.module('ngmReportHub')
 			// current user
 			user: ngmUser.get(),
 
+			// province lists
+			provinceMenuRequest: $http({
+				method: 'GET',
+				url: 'http://' + $location.host() + '/api/location/getProvinceMenu'
+			}),
+
+			// province lists
+			districtListRequest: $http({
+				method: 'GET',
+				url: 'http://' + $location.host() + '/api/location/getDistrictList'
+			}),
+
 			// report start
 			startDate: moment($route.current.params.start).format('YYYY-MM-DD'),
 
@@ -52,43 +64,6 @@ angular.module('ngmReportHub')
 					'refugees_returnees': 'Refugees Returnees',
 					'natural_disaster_affected': 'Natural Disaster Affected',
 					'public_health': 'Public Health'
-				},
-				province: {
-					'afghanistan': { id:'*', name:'Afghanistan'},
-					'badakhshan': { id:15, name:'Badakhshan'},
-					'badghis': { id:29, name:'Badghis'},
-					'baghlan': { id:9, name:'Baghlan'},
-					'balkh': { id:18, name:'Balkh'},
-					'bamyan': { id:10,"name":'Bamyan'},
-					'daykundi': { id:22, name:'Daykundi'},
-					'farah': { id:31, name:'Farah'},
-					'faryab': { id:28, name:'Faryab'},
-					'ghazni': { id:11, name:'Ghazni'},
-					'ghor': { id:21, name:'Ghor'},
-					'hilmand': { id:32, name:'Hilmand'},
-					'hirat': { id:30, name:'Hirat'},
-					'jawzjan': { id:27, name:'Jawzjan'},
-					'kabul': { id:1, name:'Kabul'},
-					'kandahar': { id:33, name:'Kandahar'},
-					'kapisa': { id:2, name:'Kapisa'},
-					'khost': { id:26, name:'Khost'},
-					'kunar': { id:13, name:'Kunar'},
-					'kunduz': { id:17, name:'Kunduz'},
-					'laghman': { id:7, name:'Laghman'},
-					'logar': { id:5, name:'Logar'},
-					'nangarhar': { id:6, name:'Nangarhar'},
-					'nimroz': { id:34, name:'Nimroz'},
-					'nuristan': { id:14, name:'Nuristan'},
-					'paktika': { id:25, name:'Paktika'},
-					'paktya': { id:12, name:'Paktya'},
-					'panjsher': { id:8, name:'Panjsher'},
-					'parwan': { id:3, name:'Parwan'},
-					'samangan': { id:19, name:'Samangan'},
-					'sar-e-pul': { id:20, name:'Sar-e-Pul'},
-					'takhar': { id:16, name:'Takhar'},
-					'uruzgan': { id:23, name:'Uruzgan'},
-					'wardak': { id:4, name:'Wardak'},
-					'zabul': { id:24, name:'Zabul'}
 				}
 			},
 
@@ -103,7 +78,7 @@ angular.module('ngmReportHub')
 				angular.forEach($scope.dashboard.data.province, function(d, key){
 					//
 					rows.push({
-						'title': d.name,
+						'title': d.province_name,
 						'param': 'location',
 						'active': key,
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
@@ -125,7 +100,7 @@ angular.module('ngmReportHub')
 				angular.forEach($scope.dashboard.data.district, function(d, key){
 					//
 					rows.push({
-						'title': d.name,
+						'title': d.district_name,
 						'param': 'location',
 						'active': key,
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
@@ -137,20 +112,36 @@ angular.module('ngmReportHub')
 			},
 
 			// set district list
-			setDistrictList: function(list){
+			setDistrictList: function( data ){
 
-				// set $scope districts
-				$scope.dashboard.data.district = {}
-				// filter districts by province
-				var districts = $filter('filter')(list, { prov_code: $scope.dashboard.data.province[$route.current.params.province].id }, true);;
-				// format list
-				angular.forEach(districts, function(d, i){
-					// url key
-					var key = d.dist_name.toLowerCase().replace(' ', '-');
-					// create object
-					$scope.dashboard.data.district[key] = { id: d.dist_code, name: d.dist_name }
+					// set $scope districts
+					$scope.dashboard.data.district = {}
+					// filter districts by province
+					var districts = $filter('filter')( data , { prov_code: $scope.dashboard.data.province[$route.current.params.province].prov_code }, true);;
+					// format list
+					angular.forEach(districts, function(d, i){
+						// url key
+						var key = d.dist_name.toLowerCase().replace(' ', '-');
 
-				});
+						// create object
+						$scope.dashboard.data.district[key] = { dist_code: d.dist_code, dist_name: d.dist_name, lat:d.lat, lng:d.lng, zoom: d.zoom };
+
+					});
+
+			},
+
+			// getData
+			getData: function(){
+
+				// set province menu
+				$scope.dashboard.data.province = angular.fromJson( localStorage.getItem( 'provinceMenu' ) );
+
+				// if province selected, get districts
+				if( $scope.dashboard.data[$route.current.params.province].prov_code !== '*' ){
+						
+					// district
+					$scope.dashboard.setDistrictList( angular.fromJson( localStorage.getItem( 'districtList' ) ) );
+				}		
 
 			},
 
@@ -855,43 +846,25 @@ angular.module('ngmReportHub')
 
 		}
 
-		// load dashboard!
-		if($route.current.params.province === 'afghanistan'){
-			
-			// dews dashboard model
-			$scope.dashboard.setDashboard();
+		// get all lists 
+		if ( !localStorage.getItem( 'provinceMenu' ) ) {
+
+			// send request
+			$q.all([ $scope.dashboard.provinceMenuRequest, $scope.dashboard.districtListRequest ]).then( function( results ){
+
+				// set lists to local storage
+				localStorage.setItem( 'provinceMenu', JSON.stringify( results[0].data ));
+				localStorage.setItem( 'districtList', JSON.stringify( results[1].data ));
+
+				// getData
+				$scope.dashboard.getData();
+
+			});
 
 		} else {
-
-			// if in storage
-			if( localStorage.getItem('districtList') ){
-
-				// get list from storage
-				$scope.dashboard.setDistrictList(angular.fromJson(localStorage.getItem('districtList')));
-
-				// dews dashboard model
-				$scope.dashboard.setDashboard();
-
-			} else {
-
-				// request data
-				ngmData.get({
-					method: 'GET',
-					url: 'http://' + $location.host() + '/api/health/getDistrictsList'
-				}).then(function(data){
-
-					// set list from storage
-					localStorage.setItem('districtList', JSON.stringify(data));
-
-					// get list from storage
-					$scope.dashboard.setDistrictList(data);
-
-					// dews dashboard model
-					$scope.dashboard.setDashboard();
-
-				});
-
-			}
+			
+			// getData
+			$scope.dashboard.getData();
 
 		}
 		

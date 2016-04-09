@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardBaselineCtrl', ['$scope', '$http', '$route', '$location', '$filter', '$timeout', 'ngmUser', 'ngmData', function ($scope, $http, $route, $location, $filter, $timeout, ngmUser, ngmData) {
+	.controller('DashboardBaselineCtrl', ['$scope', '$http', '$route', '$location', '$q', '$filter', '$timeout', 'ngmUser', 'ngmData', function ($scope, $http, $route, $location, $q, $filter, $timeout, ngmUser, ngmData) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -34,6 +34,18 @@ angular.module('ngmReportHub')
 			// current user
 			user: ngmUser.get(),
 
+			// province lists
+			provinceMenuRequest: $http({
+				method: 'GET',
+				url: 'http://' + $location.host() + '/api/location/getProvinceMenu'
+			}),
+
+			// province lists
+			districtListRequest: $http({
+				method: 'GET',
+				url: 'http://' + $location.host() + '/api/location/getDistrictList'
+			}),
+
 			// tab links
 			baselineHref: '/immap/drr/baseline/' + $route.current.params.province,
 			floodRiskHref: '/immap/drr/flood-risk/' + $route.current.params.province,
@@ -45,45 +57,6 @@ angular.module('ngmReportHub')
 			// current report
 			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
 
-			// data lookup
-			data: {
-				'afghanistan': {'id':'*','name':'Afghanistan'},
-				'badakhshan': { id:15, name:'Badakhshan'},
-				'badghis': { id:29, name:'Badghis'},
-				'baghlan': { id:9, name:'Baghlan'},
-				'balkh': { id:18, name:'Balkh'},
-				'bamyan': { id:10,'name':'Bamyan'},
-				'daykundi': { id:22, name:'Daykundi'},
-				'farah': { id:31, name:'Farah'},
-				'faryab': { id:28, name:'Faryab'},
-				'ghazni': { id:11, name:'Ghazni'},
-				'ghor': { id:21, name:'Ghor'},
-				'hilmand': { id:32, name:'Hilmand'},
-				'hirat': { id:30, name:'Hirat'},
-				'jawzjan': { id:27, name:'Jawzjan'},
-				'kabul': { id:1, name:'Kabul'},
-				'kandahar': { id:33, name:'Kandahar'},
-				'kapisa': { id:2, name:'Kapisa'},
-				'khost': { id:26, name:'Khost'},
-				'kunar': { id:13, name:'Kunar'},
-				'kunduz': { id:17, name:'Kunduz'},
-				'laghman': { id:7, name:'Laghman'},
-				'logar': { id:5, name:'Logar'},
-				'nangarhar': { id:6, name:'Nangarhar'},
-				'nimroz': { id:34, name:'Nimroz'},
-				'nuristan': { id:14, name:'Nuristan'},
-				'paktika': { id:25, name:'Paktika'},
-				'paktya': { id:12, name:'Paktya'},
-				'panjsher': { id:8, name:'Panjsher'},
-				'parwan': { id:3, name:'Parwan'},
-				'samangan': { id:19, name:'Samangan'},
-				'sar-e-pul': { id:20, name:'Sar-e-Pul'},
-				'takhar': { id:16, name:'Takhar'},
-				'uruzgan': { id:23, name:'Uruzgan'},
-				'wardak': { id:4, name:'Wardak'},
-				'zabul': { id:24, name:'Zabul'}
-			},
-
 			// rows for floodRisk menu
 			getProvinceRows: function() {
 				
@@ -93,7 +66,7 @@ angular.module('ngmReportHub')
 				// for each disease
 				angular.forEach($scope.dashboard.data, function(d, key){
 					rows.push({
-						'title': d.name,
+						'title': d.prov_name,
 						'param': 'province',
 						'active': key,
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
@@ -113,7 +86,7 @@ angular.module('ngmReportHub')
 				// for each disease
 				angular.forEach($scope.dashboard.districts, function(d, key){
 					rows.push({
-						'title': d.name,
+						'title': d.dist_name,
 						'param': 'district',
 						'active': key,
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
@@ -124,6 +97,66 @@ angular.module('ngmReportHub')
 				return rows;
 			},
 
+			// set districts
+			setDistrictList: function( data ) {
+
+				// set $scope districts
+				$scope.dashboard.districts = {}
+				
+				// filter districts by province
+				districts = $filter('filter')( data, { prov_code: $scope.dashboard.data[$route.current.params.province].prov_code }, true);
+				
+				// format data
+				angular.forEach( districts, function( d, i ){
+
+					// url key
+					var key = d.dist_name.toLowerCase().replace(' ', '-');
+
+					// create object
+					$scope.dashboard.districts[key] = { dist_code: d.dist_code, dist_name: d.dist_name, lat:d.lat, lng:d.lng, zoom: d.zoom };
+
+				});
+
+			},
+
+			// getData
+			getData: function(){
+
+				// set province menu
+				$scope.dashboard.data = angular.fromJson( localStorage.getItem( 'provinceMenu' ) );
+
+				// flag for geonode API
+				$scope.dashboard.flag = $scope.dashboard.data[$route.current.params.province].prov_code === '*' ? 'entireAfg' : 'currentProvince';
+
+				// if province selected, get districts
+				if($scope.dashboard.flag === 'currentProvince'){
+
+					// districts
+					$scope.dashboard.setDistrictList( angular.fromJson( localStorage.getItem( 'districtList' ) ) );
+
+				}		
+
+				// request data
+				ngmData.get({
+					method: 'POST',
+					url: 'http://asdc.immap.org/geoapi/floodrisk/',
+					headers: { 'Content-Type': 'application/json' },
+					data: {
+						spatialfilter: [],
+						flag: $scope.dashboard.flag,
+						code: $scope.dashboard.data[$route.current.params.province].prov_code
+					}
+				}).then(function(data){
+					// assign data
+					$scope.dashboard.setDashboard(data);
+					$timeout(function() {
+						$('#ngm-report-title').css('font-size', '2.56rem');
+					}, 200);
+					$('#ngm-loading-modal').closeModal();
+				});			
+
+			},		
+
 			// set dashboards
 			setDashboard: function(data) {
 
@@ -131,15 +164,15 @@ angular.module('ngmReportHub')
 				$scope.dashboard.report += moment().format('YYYY-MM-DDTHHmm');				
 
 				// title
-				var title = 'iMMAP | Baseline | ' + $scope.dashboard.data[$route.current.params.province].name;
-				var subtitle = 'Baseline Key Indicators for ' + $scope.dashboard.data[$route.current.params.province].name;
+				var title = 'iMMAP | Baseline | ' + $scope.dashboard.data[$route.current.params.province].prov_name;
+				var subtitle = 'Baseline Key Indicators for ' + $scope.dashboard.data[$route.current.params.province].prov_name;
 
 				// add district to title
 				if ($route.current.params.district) {
 					
 					// title
-					title += ' | ' + $scope.dashboard.districts[$route.current.params.district].name;
-					subtitle += ', ' + $scope.dashboard.districts[$route.current.params.district].name;
+					title += ' | ' + $scope.dashboard.districts[$route.current.params.district].dist_name;
+					subtitle += ', ' + $scope.dashboard.districts[$route.current.params.district].dist_name;
 
 					// tab href
 					$scope.dashboard.baselineHref += '/' + $route.current.params.district;
@@ -177,7 +210,7 @@ angular.module('ngmReportHub')
 								type: 'pdf',
 								color: 'blue lighten-2',
 								icon: 'picture_as_pdf',
-								hover: 'Download ' + $scope.dashboard.data[$route.current.params.province].name + ' Report as PDF',
+								hover: 'Download ' + $scope.dashboard.data[$route.current.params.province].prov_name + ' Report as PDF',
 								request: {
 									method: 'POST',
 									url: 'http://' + $location.host() + '/api/print',
@@ -481,53 +514,29 @@ angular.module('ngmReportHub')
 
 		};
 
-		// flag for geonode API
-		$scope.dashboard.flag = $scope.dashboard.data[$route.current.params.province].id === '*' ? 'entireAfg' : 'currentProvince';
+		localStorage.removeItem( 'provinceMenu' );
+		localStorage.removeItem( 'districtList' );
 
-		// if province selected, get districts
-		if($scope.dashboard.flag === 'currentProvince'){
+		// get all lists 
+		if ( !localStorage.getItem( 'provinceMenu' ) ) {
 
-			// request data
-			ngmData.get({
-				method: 'GET',
-				url: 'http://' + $location.host() + '/api/health/getDistrictsList'
-			}).then(function(data){
-				
-				// set $scope districts
-				$scope.dashboard.districts = {}
-				// filter districts by province
-				var districts = $filter('filter')(data, { prov_code: $scope.dashboard.data[$route.current.params.province].id }, true);;
-				// format data
-				angular.forEach(districts, function(d, i){
+			// send request
+			$q.all([ $scope.dashboard.provinceMenuRequest, $scope.dashboard.districtListRequest ]).then( function( results ){
 
-					// url key
-					var key = d.dist_name.toLowerCase().replace(' ', '-');
+				// set lists to local storage
+				localStorage.setItem( 'provinceMenu', JSON.stringify( results[0].data ));
+				localStorage.setItem( 'districtList', JSON.stringify( results[1].data ));
 
-					// create object
-					$scope.dashboard.districts[key] = { id: d.dist_code, name: d.dist_name }
+				// getData
+				$scope.dashboard.getData();
 
-				});
 			});
 
-		}
+		} else {
+			
+			// getData
+			$scope.dashboard.getData();
 
-		// request data
-		ngmData.get({
-			method: 'POST',
-			url: 'http://asdc.immap.org/geoapi/floodrisk/',
-			headers: { 'Content-Type': 'application/json' },
-			data: {
-				spatialfilter: [],
-				flag: $scope.dashboard.flag,
-				code: $scope.dashboard.data[$route.current.params.province].id
-			}
-		}).then(function(data){
-			// assign data
-			$scope.dashboard.setDashboard(data);
-			$timeout(function() {
-				$('#ngm-report-title').css('font-size', '2.56rem');
-			}, 200);
-			$('#ngm-loading-modal').closeModal();
-		});
+		}
 		
 	}]);

@@ -25,13 +25,13 @@ angular.module('ngmReportHub')
 			// province lists
 			provinceListRequest: $http({
 				method: 'GET',
-				url: 'http://' + $location.host() + '/api/health/getProvincesList'
+				url: 'http://' + $location.host() + '/api/location/getProvinceList'
 			}),
 
 			// district lists
 			districtListRequest: $http({
 				method: 'GET',
-				url: 'http://' + $location.host() + '/api/health/getDistrictsList'
+				url: 'http://' + $location.host() + '/api/location/getDistrictList'
 			}),
 
 			// hf type lists
