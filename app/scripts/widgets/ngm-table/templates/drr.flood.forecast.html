@@ -1,16 +1,6 @@
 
 <style>
 
-#po_number {
-  width: 10%;
-}
-#project_title {
-  width: 30%;
-}
-#hfs {
-  width: 5%;
-}
-
 .ng-table th.sortable .sort-indicator {
   color: #2196F3;
   font-weight: 400;
@@ -20,10 +10,11 @@
     background-color: #009688;
 }
 
-thead {
+table.flood-forecast-chart-legend thead {
   border-bottom: none;
 }
-td {
+
+table.flood-forecast-chart-legend td {
   padding: 5px;
 }
 
@@ -34,7 +25,7 @@ td {
     <div ng-if="table.title" class="grey-text text-darken-2" style="{{ table.title.style }}">{{ table.title.name }}</div>
 
     <div class="col s12">
-      <table class="highlight" ng-table="table.tableParams" 
+      <table class="highlight flood-forecast-chart-legend" ng-table="table.tableParams" 
           style="margin-top: -20px; margin-left: -10px;" height="120px;">
         <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
           <td style="background-color:{{ row.color }};" width="10%"> </td>

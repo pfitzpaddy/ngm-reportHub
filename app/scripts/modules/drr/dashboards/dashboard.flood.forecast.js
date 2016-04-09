@@ -520,7 +520,13 @@ angular.module('ngmReportHub')
 									},
 									tableOptions:{
 										count: 10,
-										sorting: { 'properties.flood_forecasted_high': 'desc' } 
+										sorting: { 
+											'properties.flood_forecasted_extreme': 'desc',
+											'properties.flood_forecasted_veryhigh': 'desc',
+											'properties.flood_forecasted_high': 'desc',
+											'properties.flood_forecasted_med': 'desc',
+											'properties.flood_forecasted_low': 'desc'
+										} 
 									},
 									request: {
 										method: 'GET',

@@ -10,6 +10,10 @@
     background-color: #009688;
 }
 
+table.flood-forecast-list td {
+  padding: 6px;
+}
+
 </style>
 
 <!-- ngTable -->
@@ -19,7 +23,7 @@
 
     <div ng-show="table.province">
 
-      <table class="centered highlight responsive-table" ng-table="table.tableParams">
+      <table class="centered highlight responsive-table flood-forecast-list" ng-table="table.tableParams">
         <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
           <td data-title="'Province Name'" sortable="'properties.prov_na_en'">{{ row.properties.prov_na_en }}</td>
           <td data-title="'Extreme'" sortable="'properties.flood_forecasted_extreme'">{{ row.properties.flood_forecasted_extreme }}</td>
