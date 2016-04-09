@@ -1,0 +1,51 @@
+
+<style>
+
+.ng-table th.sortable .sort-indicator {
+  color: #2196F3;
+  font-weight: 400;
+}
+
+.pagination li.active {
+    background-color: #009688;
+}
+
+</style>
+
+<!-- ngTable -->
+
+<div class="row">
+  <div class="col s12 m12 l12">
+
+    <div ng-show="table.province">
+
+      <table class="centered highlight responsive-table" ng-table="table.tableParams">
+        <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
+          <td data-title="'Province Name'" sortable="'properties.prov_na_en'">{{ row.properties.prov_na_en }}</td>
+          <td data-title="'Extreme'" sortable="'properties.flood_forecasted_extreme'">{{ row.properties.flood_forecasted_extreme }}</td>
+          <td data-title="'Very High'" sortable="'properties.flood_forecasted_veryhigh'">{{ row.properties.flood_forecasted_veryhigh }}</td>
+          <td data-title="'High'" sortable="'properties.flood_forecasted_high'">{{ row.properties.flood_forecasted_high }}</td>
+          <td data-title="'Medum'" sortable="'properties.flood_forecasted_med'">{{ row.properties.flood_forecasted_med }}</td>
+          <td data-title="'Low'" sortable="'properties.flood_forecasted_low'">{{ row.properties.flood_forecasted_low }}</td>
+        </tr>
+      </table>
+
+    </div>
+
+    <div ng-show="!table.province">
+
+      <table class="centered highlight responsive-table" ng-table="table.tableParams">
+        <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
+          <td data-title="'District Name'" sortable="'properties.prov_na_en'">{{ row.properties.dist_na_en }}</td>
+          <td data-title="'Extreme'" sortable="'properties.flood_forecasted_extreme'">{{ row.properties.flood_forecasted_extreme }}</td>
+          <td data-title="'Very High'" sortable="'properties.flood_forecasted_veryhigh'">{{ row.properties.flood_forecasted_veryhigh }}</td>
+          <td data-title="'High'" sortable="'properties.flood_forecasted_high'">{{ row.properties.flood_forecasted_high }}</td>
+          <td data-title="'Medum'" sortable="'properties.flood_forecasted_med'">{{ row.properties.flood_forecasted_med }}</td>
+          <td data-title="'Low'" sortable="'properties.flood_forecasted_low'">{{ row.properties.flood_forecasted_low }}</td>
+        </tr>
+      </table>
+
+    </div>    
+
+  </div>
+</div>

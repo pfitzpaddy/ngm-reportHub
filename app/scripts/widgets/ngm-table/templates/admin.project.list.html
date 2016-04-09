@@ -54,7 +54,7 @@
               <td data-title="'Start'" sortable="'project_start_date'">{{ row.project_start_date | date: 'yyyy-MM-dd' }}</td>
               <td data-title="'End'" sortable="'project_end_date'">{{ row.project_end_date | date: 'yyyy-MM-dd' }}</td>
               <td data-title="'Budget (USD)'" sortable="'project_budget_usd'">${{ row.project_budget_usd | number }}
-              <td data-title="'Beneficiary Category'" sortable="'beneficiary_category'">{{ row.beneficiary_category.toString().replace(table.regex, ', ' ) }}
+              <td data-title="'Beneficiary Category'" sortable="'beneficiary_category'">{{ row.beneficiary_category.toString().replace(table.regex, ', ' ) }}</td>
             </tr>
           </table>
         </li>

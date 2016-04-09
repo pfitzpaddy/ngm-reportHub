@@ -79,8 +79,13 @@ angular.module('ngm.widget.table', ['ngm.provider'])
       // Merge defaults with config
       $scope.table = angular.merge({}, $scope.table, config);
 
-      // global data
+      // data
       $scope.data = config.data ? config.data : data;
+
+      // check if features
+      if ( data && data.features ) {
+        $scope.data = data.features;
+      }
 
       // update settings based on data
       $scope.table.tableSettings.total = $scope.data.length;

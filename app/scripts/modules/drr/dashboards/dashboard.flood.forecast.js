@@ -133,7 +133,7 @@ angular.module('ngmReportHub')
 				$scope.dashboard.flag = $scope.dashboard.data[$route.current.params.province].prov_code === '*' ? 'entireAfg' : 'currentProvince';
 
 				// if province selected, get districts
-				if($scope.dashboard.flag === 'currentProvince'){
+				if( $scope.dashboard.flag === 'currentProvince' ){
 
 					// districts
 					$scope.dashboard.setDistrictList( angular.fromJson( localStorage.getItem( 'districtList' ) ) );
@@ -179,7 +179,21 @@ angular.module('ngmReportHub')
 				}
 
 				// add district to title
-				if ( $route.current.params.district ) {
+				if ( !$route.current.params.district ) {
+
+					// pdf print load
+					if ($route.current.params.province === 'afghanistan') {
+						$scope.dashboard.pdfPrintPageLoadTime = 7200;
+						
+						// table url
+						$scope.dashboard.tableUrl = "http://asdc.immap.org/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&propertyName=prov_code,prov_na_en,flood_forecasted_verylow,flood_forecasted_low,flood_forecasted_med,flood_forecasted_high,flood_forecasted_veryhigh,flood_forecasted_extreme&typeName=geonode:current_flood_forecasted_provinces&maxFeatures=50&outputFormat=application/json";
+					} else{
+
+						// get table
+						$scope.dashboard.tableUrl = "http://asdc.immap.org/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&cql_filter=prov_na_en='" + $scope.dashboard.data[$route.current.params.province].prov_name + "'&propertyName=prov_na_en,dist_code,dist_na_en,flood_forecasted_verylow,flood_forecasted_low,flood_forecasted_med,flood_forecasted_high,flood_forecasted_veryhigh,flood_forecasted_extreme&typeName=geonode:current_flood_forecasted_districts&maxFeatures=50&outputFormat=application/json";
+					}
+
+				} else {
 					
 					// title
 					title += ' | ' + $scope.dashboard.districts[$route.current.params.district].dist_name;
@@ -190,18 +204,16 @@ angular.module('ngmReportHub')
 					$scope.dashboard.floodRiskHref += '/' + $route.current.params.district;
 					$scope.dashboard.floodForecastHref += '/' + $route.current.params.district;
 
+						// get table
+						$scope.dashboard.tableUrl = "http://asdc.immap.org/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&cql_filter=dist_code='" + $scope.dashboard.districts[$route.current.params.district].dist_code + "'&propertyName=prov_na_en,dist_code,dist_na_en,flood_forecasted_verylow,flood_forecasted_low,flood_forecasted_med,flood_forecasted_high,flood_forecasted_veryhigh,flood_forecasted_extreme&typeName=geonode:current_flood_forecasted_districts&maxFeatures=50&outputFormat=application/json";
+
 					// map center
 					$scope.dashboard.center = {
 						lat: $scope.dashboard.districts[ $route.current.params.district ].lat,
 						lng: $scope.dashboard.districts[ $route.current.params.district ].lng,
 						zoom: $scope.dashboard.districts[ $route.current.params.district ].zoom,
-					}					
-
-				} else {
-					// pdf print load
-					if ($route.current.params.province === 'afghanistan') {
-						$scope.dashboard.pdfPrintPageLoadTime = 7200;
 					}
+
 				}
 
 
@@ -232,12 +244,12 @@ angular.module('ngmReportHub')
 							style: 'border-bottom: 3px ' + $scope.dashboard.ngm.style.defaultPrimaryColor + ' solid;'
 						},
 						title: {
-							'class': 'col s12 m8 l8 report-title',
+							'class': 'col s12 m8 l8 report-title truncate',
 							title:  title,
 							style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 						},
 						subtitle: {
-							'class': 'col hide-on-small-only m8 l9 report-subtitle',
+							'class': 'col hide-on-small-only m8 l9 report-subtitle truncate',
 							title: subtitle,
 						},
 						download: {
@@ -494,7 +506,31 @@ angular.module('ngmReportHub')
 								}
 							}]
 						}]
-					},{						
+					},{
+						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'table',
+								card: 'card-panel',
+								config:{
+									province: $scope.dashboard.flag === 'currentProvince' ? false : true,
+									title: {
+										style: 'padding-top: 10px;',
+										name: 'FLOOD FORECAST POPULATION'
+									},
+									tableOptions:{
+										count: 10,
+										sorting: { 'properties.flood_forecasted_high': 'desc' } 
+									},
+									request: {
+										method: 'GET',
+										url: $scope.dashboard.tableUrl
+									},
+									templateUrl: '/scripts/widgets/ngm-table/templates/drr.flood.forecast.list.html'
+								}
+							}]
+						}]
+					},{
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
