@@ -109,8 +109,11 @@ angular.module('ngm.widget.highchart', ['ngm.provider'])
 
           // For each series, make request
           angular.forEach($scope.highchart.chartConfig.series, function(series, key){
+            
             // if no request object, treat as static chart
             if ( !$.isEmptyObject(series.request) ) {
+
+              // make request
               ngmData.get(series.request).then(function(data) {
 
                 // set data with options.foo to enable animation
@@ -121,7 +124,8 @@ angular.module('ngm.widget.highchart', ['ngm.provider'])
                 $scope.highchart.label = angular.merge({}, $scope.highchart.label, data.label);
 
               });
-            } else {
+
+            } else if ( series.data.label ) {
 
               // set labels & data
               $scope.highchart.label = angular.merge({}, $scope.highchart.label, series.data.label);

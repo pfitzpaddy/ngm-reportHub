@@ -92,7 +92,7 @@ angular.module('ngm.widget.table', ['ngm.provider'])
       }
 
       // update settings based on data
-      $scope.table.tableSettings.total = $scope.data.length;
+      $scope.table.tableSettings.total = config.total ? config.total : $scope.data.length;
       $scope.table.tableSettings.data = $scope.data;
 
       // ngTable
