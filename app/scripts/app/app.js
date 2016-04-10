@@ -221,6 +221,12 @@ angular
 			.when( '/who', {
 				redirectTo: '/who/dews/afghanistan/all/2015-03-01/2016-02-29'
 			})
+			.when( '/who/dews', {
+				redirectTo: '/who/dews/afghanistan/all/2015-03-01/2016-02-29'
+			})
+			.when( '/who/dews/afghanistan', {
+				redirectTo: '/who/dews/afghanistan/all/2015-03-01/2016-02-29'
+			})			
 			.when( '/who/login', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardLoginCtrl',
