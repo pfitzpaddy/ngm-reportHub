@@ -24,10 +24,10 @@ table.flood-forecast-chart-legend td {
 
     <div ng-if="table.title" class="grey-text text-darken-2">FLASH FLOOD BY RISK</div>
 
-    <div class="col s12" style="padding-bottom:20px;">
+    <div class="col s12">
       <table class="highlight flood-forecast-chart-legend" ng-table="table.tableParams" 
           style="margin-top: -20px; margin-left: -10px;" height="120px;">
-        <tr ng-repeat="row in table.tableSettings.data.flash" style="cursor: pointer; cursor: hand;">
+        <tr ng-repeat="row in table.flash" style="cursor: pointer; cursor: hand;">
           <td style="background-color:{{ row.color }};" width="10%"> </td>
           <td style="padding-left: 20px;">{{ row.name }}</td>
           <td ng-if="row.value">{{ row.value | number }}</td>
@@ -40,7 +40,7 @@ table.flood-forecast-chart-legend td {
     <div class="col s12">
       <table class="highlight flood-forecast-chart-legend" ng-table="table.tableParams" 
           style="margin-top: -20px; margin-left: -10px;" height="120px;">
-        <tr ng-repeat="row in table.tableSettings.data.river" style="cursor: pointer; cursor: hand;">
+        <tr ng-repeat="row in table.river" style="cursor: pointer; cursor: hand;">
           <td style="background-color:{{ row.color }};" width="10%"> </td>
           <td style="padding-left: 20px;">{{ row.name }}</td>
           <td ng-if="row.value">{{ row.value | number }}</td>
