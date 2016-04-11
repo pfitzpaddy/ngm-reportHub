@@ -49,75 +49,83 @@
 </style>
 
 
-<!-- row -->
-<div class="row">
+  <!-- row -->
+  <div class="row" ng-show="highchart.label.center.label.label === 0">
 
-  <div ng-if="highchart.title.text" 
-      align="{{ highchart.title.align }}" 
-      style="{{ highchart.title.style }}">{{ highchart.title.text }}</div>
+    <div class="col s6">
 
-  <!-- column -->
-  <div class="col s4" style="padding-left:40px;">
-
-    <!-- table -->
-    <table class="highlight flood-forecast-chart-legend" height="120px;">
-      <tr ng-repeat="row in highchart.table.data" style="cursor: pointer; cursor: hand;">
-        <td style="background-color:{{ row.color }};" width="10%"> </td>
-        <td style="padding-left: 20px;">{{ row.name }}</td>
-        <td>{{ row.value | number }}</td>
-      </tr>
-    </table>  
-  </div>
-
-  <!-- column -->
-  <div class="col s2">
-
-    <!-- chart with zero -->
-    <div ng-show="highchart.label.center.label.label === 0 ">
-      <div class="count" style="text-align:center; width:70%; height:100%; position:absolute; top:70px; padding-top:6%; font-size:5.6rem;">
-        0
-      </div>
-      <div id="subLabel-center-{{highchart.id}}" class="label"
-          style="text-align:center; width:70%; height:100%; position:absolute; top:140px; padding-top:6%;">
-        <span>ZERO FLOOD FORECAST</span>
-      </div>    
-    </div>
-
-    <!-- chart with data -->
-    <div ng-show="highchart.label.center.label.label !==0 ">
-      <div id="{{highchart.id}}" align="{{ highchart.align }}" ng-if="highchart.chartConfig">
-
-        <!-- label -->
-        <div id="label-center-{{highchart.id}}" class="count" 
-            style="text-align:center; width: 70%; height: 100%; position:absolute; top:85px; padding-top:6%;">
-          {{ highchart.label.center.label.prefix }}
-          <span
-              value="{{ highchart.label.center.label.from }}" 
-              count-to="{{ highchart.label.center.label.label }}" 
-              duration="{{ highchart.label.center.label.duration }}"
-              filter="{{ highchart.label.center.label.filter }}"
-              params="{{ highchart.label.center.label.params }}"
-              fraction-size="{{ highchart.label.center.label.fractionSize }}">
-          </span>{{ highchart.label.center.label.postfix }}
+      <!-- chart with zero -->
+      <div ng-show="highchart.label.center.label.label === 0">
+        <div class="count" style="text-align:center; width:100%; height:100%; position:absolute; top:70px; padding-top:6%; font-size:5.6rem;">
+          0
         </div>
-
-        <!-- sublabel -->
         <div id="subLabel-center-{{highchart.id}}" class="label"
-            style="text-align:center; width:70%; height:100%; position:absolute; top:120px; padding-top:6%;">
-          <span>{{ highchart.label.center.subLabel.label }}</span>
-        </div>
-
-         <highchart config="highchart.chartConfig" 
-                  style="text-align:center; width:70%; height:100%; position:absolute; top:30px; padding-top:6%;"></highchart>
-
-
+            style="text-align:center; width:100%; height:100%; position:absolute; top:140px; padding-top:6%;">
+          <span>ZERO {{ highchart.title.text }}</span>
+        </div>    
       </div>
 
     </div>
-  
+
   </div>
 
-</div>
+  <div class="row" ng-show="highchart.label.center.label.label !== 0">
+
+    <!-- title -->
+    <div ng-if="highchart.title.text" 
+        align="{{ highchart.title.align }}" 
+        style="{{ highchart.title.style }}">{{ highchart.title.text }}</div>
+
+    <!-- column -->
+    <div class="col s4" style="padding-left:40px;">
+
+      <!-- table -->
+      <table class="highlight flood-forecast-chart-legend" height="120px;">
+        <tr ng-repeat="row in highchart.table.data" style="cursor: pointer; cursor: hand;">
+          <td style="background-color:{{ row.color }};" width="10%"> </td>
+          <td style="padding-left: 20px;">{{ row.name }}</td>
+          <td>{{ row.value | number }}</td>
+        </tr>
+      </table>  
+    </div>
+
+    <!-- column -->
+    <div class="col s2">
+
+      <!-- chart with data -->
+      <div ng-show="highchart.label.center.label.label !==0 ">
+        <div id="{{highchart.id}}" align="{{ highchart.align }}" ng-if="highchart.chartConfig">
+
+          <!-- label -->
+          <div id="label-center-{{highchart.id}}" class="count" 
+              style="text-align:center; width: 70%; height: 100%; position:absolute; top:85px; padding-top:6%;">
+            {{ highchart.label.center.label.prefix }}
+            <span
+                value="{{ highchart.label.center.label.from }}" 
+                count-to="{{ highchart.label.center.label.label }}" 
+                duration="{{ highchart.label.center.label.duration }}"
+                filter="{{ highchart.label.center.label.filter }}"
+                params="{{ highchart.label.center.label.params }}"
+                fraction-size="{{ highchart.label.center.label.fractionSize }}">
+            </span>{{ highchart.label.center.label.postfix }}
+          </div>
+
+          <!-- sublabel -->
+          <div id="subLabel-center-{{highchart.id}}" class="label"
+              style="text-align:center; width:70%; height:100%; position:absolute; top:120px; padding-top:6%;">
+            <span>{{ highchart.label.center.subLabel.label }}</span>
+          </div>
+
+           <highchart config="highchart.chartConfig" 
+                    style="text-align:center; width:70%; height:100%; position:absolute; top:30px; padding-top:6%;"></highchart>
+
+        </div>
+
+      </div>
+    
+    </div>
+
+  </div>
 
 
 

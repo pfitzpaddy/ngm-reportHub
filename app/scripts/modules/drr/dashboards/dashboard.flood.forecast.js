@@ -148,7 +148,7 @@ angular.module('ngmReportHub')
 					data: {
 						spatialfilter: [],
 						flag: $scope.dashboard.flag,
-						code: $scope.dashboard.data[$route.current.params.province].prov_code
+						code: $route.current.params.district ? $scope.dashboard.districts[$route.current.params.district].dist_code : $scope.dashboard.data[$route.current.params.province].prov_code
 					}
 				}).then(function(data){
 					// assign data
@@ -555,15 +555,33 @@ angular.module('ngmReportHub')
 										},
 										series: [{
 											name: 'HIGH',
+											color: '#ff8a65',
+											stack: 'flashflood',
+											data: [ data.flashflood_forecast_extreme_risk_high_pop, data.flashflood_forecast_veryhigh_risk_high_pop, data.flashflood_forecast_high_risk_high_pop, data.flashflood_forecast_med_risk_high_pop, data.flashflood_forecast_low_risk_high_pop ]
+										}, {
+											name: 'MEDIUM',
+											color: '#ffab91',
+											stack: 'flashflood',
+											data: [ data.flashflood_forecast_extreme_risk_med_pop, data.flashflood_forecast_veryhigh_risk_med_pop, data.flashflood_forecast_high_risk_med_pop, data.flashflood_forecast_med_risk_med_pop, data.flashflood_forecast_low_risk_med_pop ]
+										}, {
+											name: 'LOW',
+											color: '#ffccbc',
+											stack: 'flashflood',
+											data: [ data.flashflood_forecast_extreme_risk_low_pop, data.flashflood_forecast_veryhigh_risk_low_pop, data.flashflood_forecast_high_risk_low_pop, data.flashflood_forecast_med_risk_low_pop, data.flashflood_forecast_low_risk_low_pop ]
+										},{
+											name: 'HIGH',
 											color: '#1565c0',
+											stack: 'riverflood',
 											data: [ data.riverflood_forecast_extreme_risk_high_pop, data.riverflood_forecast_veryhigh_risk_high_pop, data.riverflood_forecast_high_risk_high_pop, data.riverflood_forecast_med_risk_high_pop, data.riverflood_forecast_low_risk_high_pop ]
 										}, {
 											name: 'MEDIUM',
 											color: '#64b5f6',
+											stack: 'riverflood',
 											data: [ data.riverflood_forecast_extreme_risk_med_pop, data.riverflood_forecast_veryhigh_risk_med_pop, data.riverflood_forecast_high_risk_med_pop, data.riverflood_forecast_med_risk_med_pop, data.riverflood_forecast_low_risk_med_pop ]
 										}, {
 											name: 'LOW',
 											color: '#bbdefb',
+											stack: 'riverflood',
 											data: [ data.riverflood_forecast_extreme_risk_low_pop, data.riverflood_forecast_veryhigh_risk_low_pop, data.riverflood_forecast_high_risk_low_pop, data.riverflood_forecast_med_risk_low_pop, data.riverflood_forecast_low_risk_low_pop ]
 										}]
 									}
