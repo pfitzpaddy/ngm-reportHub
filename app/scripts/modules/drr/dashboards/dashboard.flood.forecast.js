@@ -500,14 +500,14 @@ angular.module('ngmReportHub')
 									templateUrl: '/scripts/widgets/ngm-table/templates/drr.flood.forecast.html',
 									data: [{}],
 									flash:[
-										{ value: data.flashflood_forecast_extreme_risk_high_pop + data.flashflood_forecast_veryhigh_risk_high_pop + data.flashflood_forecast_high_risk_high_pop + data.flashflood_forecast_med_risk_high_pop + data.flashflood_forecast_low_risk_high_pop, color: '#ff8a65', name: 'High' },
-										{ value: data.flashflood_forecast_extreme_risk_med_pop + data.flashflood_forecast_veryhigh_risk_med_pop + data.flashflood_forecast_high_risk_med_pop + data.flashflood_forecast_med_risk_med_pop + data.flashflood_forecast_low_risk_med_pop, color: '#ffab91', name: 'Medium' },
-										{ value: data.flashflood_forecast_extreme_risk_low_pop + data.flashflood_forecast_veryhigh_risk_low_pop + data.flashflood_forecast_high_risk_low_pop + data.flashflood_forecast_med_risk_low_pop + data.flashflood_forecast_low_risk_low_pop, color: '#ffccbc', name: 'Low' }
+										{ value: 0 + data.flashflood_forecast_extreme_risk_high_pop + data.flashflood_forecast_veryhigh_risk_high_pop + data.flashflood_forecast_high_risk_high_pop + data.flashflood_forecast_med_risk_high_pop + data.flashflood_forecast_low_risk_high_pop, color: '#ff8a65', name: 'High' },
+										{ value: 0 + data.flashflood_forecast_extreme_risk_med_pop + data.flashflood_forecast_veryhigh_risk_med_pop + data.flashflood_forecast_high_risk_med_pop + data.flashflood_forecast_med_risk_med_pop + data.flashflood_forecast_low_risk_med_pop, color: '#ffab91', name: 'Medium' },
+										{ value: 0 + data.flashflood_forecast_extreme_risk_low_pop + data.flashflood_forecast_veryhigh_risk_low_pop + data.flashflood_forecast_high_risk_low_pop + data.flashflood_forecast_med_risk_low_pop + data.flashflood_forecast_low_risk_low_pop, color: '#ffccbc', name: 'Low' }
 									],
 									river:[
-										{ value: data.riverflood_forecast_extreme_risk_high_pop + data.riverflood_forecast_veryhigh_risk_high_pop + data.riverflood_forecast_high_risk_high_pop + data.riverflood_forecast_med_risk_high_pop + data.riverflood_forecast_low_risk_high_pop, color: '#1565c0', name: 'High' },
-										{ value: data.riverflood_forecast_extreme_risk_med_pop + data.riverflood_forecast_veryhigh_risk_med_pop + data.riverflood_forecast_high_risk_med_pop + data.riverflood_forecast_med_risk_med_pop + data.riverflood_forecast_low_risk_med_pop, color: '#64b5f6', name: 'Medium' },
-										{ value: data.riverflood_forecast_extreme_risk_low_pop + data.riverflood_forecast_veryhigh_risk_low_pop + data.riverflood_forecast_high_risk_low_pop + data.riverflood_forecast_med_risk_low_pop + data.riverflood_forecast_low_risk_low_pop, color: '#bbdefb', name: 'Low' }
+										{ value: 0 + data.riverflood_forecast_extreme_risk_high_pop + data.riverflood_forecast_veryhigh_risk_high_pop + data.riverflood_forecast_high_risk_high_pop + data.riverflood_forecast_med_risk_high_pop + data.riverflood_forecast_low_risk_high_pop, color: '#1565c0', name: 'High' },
+										{ value: 0 + data.riverflood_forecast_extreme_risk_med_pop + data.riverflood_forecast_veryhigh_risk_med_pop + data.riverflood_forecast_high_risk_med_pop + data.riverflood_forecast_med_risk_med_pop + data.riverflood_forecast_low_risk_med_pop, color: '#64b5f6', name: 'Medium' },
+										{ value: 0 + data.riverflood_forecast_extreme_risk_low_pop + data.riverflood_forecast_veryhigh_risk_low_pop + data.riverflood_forecast_high_risk_low_pop + data.riverflood_forecast_med_risk_low_pop + data.riverflood_forecast_low_risk_low_pop, color: '#bbdefb', name: 'Low' }
 									]
 								}
 							}]

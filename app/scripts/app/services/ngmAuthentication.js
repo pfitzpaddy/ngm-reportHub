@@ -156,7 +156,7 @@ angular.module('ngmReportHub')
 						milliSeconds = session - duration.asMilliseconds();
 						
 				// session expired
-				if (milliSeconds < 0) {
+				if ( milliSeconds < 0 ) {
 			    
 			    // unset localStorage
 			    ngmUser.unset();
