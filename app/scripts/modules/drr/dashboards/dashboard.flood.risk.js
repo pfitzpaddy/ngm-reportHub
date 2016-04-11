@@ -144,7 +144,7 @@ angular.module('ngmReportHub')
 					data: {
 						spatialfilter: [],
 						flag: $scope.dashboard.flag,
-						code: $scope.dashboard.data[$route.current.params.province].prov_code
+						code: $route.current.params.district ? $scope.dashboard.districts[$route.current.params.district].dist_code : $scope.dashboard.data[$route.current.params.province].prov_code
 					}
 				}).then(function(data){
 					// assign data
@@ -586,21 +586,19 @@ angular.module('ngmReportHub')
 										series: [{
 											name: 'Population',
 											color: '#7cb5ec',
-											data: {
-												data: [ 
-													data.barren_land_pop_risk,
-													data.built_up_pop_risk,
-													data.forest_pop_risk,
-													data.fruit_trees_pop_risk,
-													data.irrigated_agricultural_land_pop_risk,
-													data.permanent_snow_pop_risk,
-													data.rainfed_agricultural_land_pop_risk,
-													data.rangeland_pop_risk,
-													data.sandcover_pop_risk,
-													data.vineyards_pop_risk,
-													data.water_body_pop_risk
-												]
-											}
+											data: [ 
+												data.barren_land_pop_risk,
+												data.built_up_pop_risk,
+												data.forest_pop_risk,
+												data.fruit_trees_pop_risk,
+												data.irrigated_agricultural_land_pop_risk,
+												data.permanent_snow_pop_risk,
+												data.rainfed_agricultural_land_pop_risk,
+												data.rangeland_pop_risk,
+												data.sandcover_pop_risk,
+												data.vineyards_pop_risk,
+												data.water_body_pop_risk
+											]
 										}]
 									}
 								}
@@ -664,21 +662,19 @@ angular.module('ngmReportHub')
 										series: [{
 											name: 'Population',
 											color: '#78909c',
-											data: { 
-												data: [ 
-													data.barren_land_area_risk,
-													data.built_up_area_risk,
-													data.forest_area_risk,
-													data.fruit_trees_area_risk,
-													data.irrigated_agricultural_land_area_risk,
-													data.permanent_snow_area_risk,
-													data.rainfed_agricultural_land_area_risk,
-													data.rangeland_area_risk,
-													data.sandcover_area_risk,
-													data.vineyards_area_risk,
-													data.water_body_area_risk
-												]
-											}
+											data: [ 
+												data.barren_land_area_risk,
+												data.built_up_area_risk,
+												data.forest_area_risk,
+												data.fruit_trees_area_risk,
+												data.irrigated_agricultural_land_area_risk,
+												data.permanent_snow_area_risk,
+												data.rainfed_agricultural_land_area_risk,
+												data.rangeland_area_risk,
+												data.sandcover_area_risk,
+												data.vineyards_area_risk,
+												data.water_body_area_risk
+											]
 										}]
 									}
 								}

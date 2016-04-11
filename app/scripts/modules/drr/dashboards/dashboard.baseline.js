@@ -144,7 +144,7 @@ angular.module('ngmReportHub')
 					data: {
 						spatialfilter: [],
 						flag: $scope.dashboard.flag,
-						code: $scope.dashboard.data[$route.current.params.province].prov_code
+						code: $route.current.params.district ? $scope.dashboard.districts[$route.current.params.district].dist_code : $scope.dashboard.data[$route.current.params.province].prov_code
 					}
 				}).then(function(data){
 					// assign data
@@ -384,21 +384,19 @@ angular.module('ngmReportHub')
 				            series: [{
 			                name: 'Population',
 			                color: '#7cb5ec',
-											data: {
-												data: [ 
-													data.barren_land_pop,
-												  data.built_up_pop,
-												  data.forest_pop,
-												  data.fruit_trees_pop,
-												  data.irrigated_agricultural_land_pop,
-												  data.permanent_snow_pop,
-												  data.rainfed_agricultural_land_pop,
-												  data.rangeland_pop,
-												  data.sandcover_pop,
-												  data.vineyards_pop,
-												  data.water_body_pop
-												]
-											}
+											data: [ 
+												data.barren_land_pop,
+											  data.built_up_pop,
+											  data.forest_pop,
+											  data.fruit_trees_pop,
+											  data.irrigated_agricultural_land_pop,
+											  data.permanent_snow_pop,
+											  data.rainfed_agricultural_land_pop,
+											  data.rangeland_pop,
+											  data.sandcover_pop,
+											  data.vineyards_pop,
+											  data.water_body_pop
+											]
 				            }]
 									}
 								}
@@ -460,21 +458,19 @@ angular.module('ngmReportHub')
 				            series: [{
 			                name: 'Population',
 			                color: '#78909c',
-			                data : {
-												data: [ 
-													data.barren_land_area,
-												  data.built_up_area,
-												  data.forest_area,
-												  data.fruit_trees_area,
-												  data.irrigated_agricultural_land_area,
-												  data.permanent_snow_area,
-												  data.rainfed_agricultural_land_area,
-												  data.rangeland_area,
-												  data.sandcover_area,
-												  data.vineyards_area,
-												  data.water_body_area
-												]
-											}
+											data: [ 
+												data.barren_land_area,
+											  data.built_up_area,
+											  data.forest_area,
+											  data.fruit_trees_area,
+											  data.irrigated_agricultural_land_area,
+											  data.permanent_snow_area,
+											  data.rainfed_agricultural_land_area,
+											  data.rangeland_area,
+											  data.sandcover_area,
+											  data.vineyards_area,
+											  data.water_body_area
+											]
 				            }]
 									}
 								}

@@ -612,6 +612,7 @@ angular.module('ngmReportHub')
 									},
 									request: {
 										method: 'GET',
+										headers: { 'Authorization': 'Basic cGZpdHpnZXJhbGQ6UEB0cmljazc=' },
 										url: $scope.dashboard.tableUrl
 									},
 									templateUrl: '/scripts/widgets/ngm-table/templates/drr.flood.forecast.list.html'
