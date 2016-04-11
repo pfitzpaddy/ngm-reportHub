@@ -705,6 +705,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             $scope.project.cancel();
           });
 
+          // maximise text area
+          $('textarea').height($('textarea')[0].scrollHeight);
+
           // refresh dropdown options
           $scope.project.resetLocationSelect(true, true, true, true);
 
