@@ -666,7 +666,7 @@ angular.module('ngmReportHub')
 												url: 'http://asdc.immap.org/geoserver/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&TILED=true&WIDTH=256&HEIGHT=256',
 												layerParams: {
 													srs: 'epsg:900913',
-													layers: 'geonode:current_flood_forecasted_villages_basin,geonode:afg_riv',
+													layers: 'geonode:current_flood_forecasted_villages_basin,geonode:afg_riv,geonode:sfg_pplp',
 													format: 'image/png',
 													transparent: true
 												}
