@@ -119,7 +119,7 @@ angular.module('ngmReportHub')
 						'id': 'keyboard_return_menu_option',
 						'icon': 'keyboard_return',
 						'title': 'Back to Projects',
-						'class': '',
+						'class': 'teal-text',
 						'href': '#/health/projects'
 						// rows: [{
 						// 	'title': 'Back to Projects',

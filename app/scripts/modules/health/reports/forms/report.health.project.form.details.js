@@ -152,23 +152,23 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         // beneficiariesUrl: '/views/modules/health/forms/details/beneficiaries.html',      
 
         // currency on budget exchange
-        budgetKeyUp: function( update ){
+        // budgetKeyUp: function( update ){
 
-          // if usd
-          if ( update === 'usd' ) {
-            // update afn with currency
-            var exchange = parseInt( ( $scope.project.definition.project_budget_usd * $scope.project.exchange.USDAFN ).toFixed(0) );
-            $scope.project.definition.project_budget_afn = exchange;
-          }
+        //   // if usd
+        //   if ( update === 'usd' ) {
+        //     // update afn with currency
+        //     var exchange = parseInt( ( $scope.project.definition.project_budget_usd * $scope.project.exchange.USDAFN ).toFixed(0) );
+        //     $scope.project.definition.project_budget_afn = exchange;
+        //   }
 
-          // if afn
-          if ( update === 'afn' ) {
-            // update afn with currency
-            var exchange = parseInt( ( $scope.project.definition.project_budget_afn / $scope.project.exchange.USDAFN ).toFixed(0) );
-            $scope.project.definition.project_budget_usd = exchange;
-          }
+        //   // if afn
+        //   if ( update === 'afn' ) {
+        //     // update afn with currency
+        //     var exchange = parseInt( ( $scope.project.definition.project_budget_afn / $scope.project.exchange.USDAFN ).toFixed(0) );
+        //     $scope.project.definition.project_budget_usd = exchange;
+        //   }
 
-        },
+        // },
 
         // add target benficiaries
         addTargetBeneficiary: function() {
