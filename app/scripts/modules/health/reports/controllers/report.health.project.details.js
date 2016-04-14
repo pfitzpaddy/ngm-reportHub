@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ReportHealthProjectDetailsCtrl', ['$scope', '$route', '$location', 'ngmData', 'ngmUser', function ($scope, $route, $location, ngmData, ngmUser) {
+	.controller('ReportHealthProjectDetailsCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmData', 'ngmUser', function ($scope, $route, $location, $anchorScroll, $timeout, ngmData, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -116,9 +116,10 @@ angular.module('ngmReportHub')
 						}
 					},
 					menu: [{
+						'id': 'keyboard_return_menu_option',
 						'icon': 'keyboard_return',
 						'title': 'Back to Projects',
-						'class': 'teal-text',
+						'class': '',
 						'href': '#/health/projects'
 						// rows: [{
 						// 	'title': 'Back to Projects',
@@ -127,6 +128,22 @@ angular.module('ngmReportHub')
 						// 	'active': 'active',
 						// 	'href': '#/health/projects'
 						// }]
+					// },{
+					// 	'id': 'project_details_menu_option',
+					// 	'icon': 'playlist_add',
+					// 	'title': 'Project Details',
+					// 	'class': 'blue-grey darken-1 white-text',
+					// },{
+					// 	'id': 'project_beneficiaries_menu_option',
+					// 	'icon': 'group',
+					// 	'title': 'Beneficiaries',
+					// 	'class': 'light-blue lighten-4 grey-text text-darken-2',
+					// },{
+					// 	'id': 'project_locations_menu_option',
+					// 	'icon': 'location_on',
+					// 	'title': 'Locations',
+					// 	'class': 'teal lighten-4 grey-text text-darken-2',
+					// }],
 					}],
 					rows: [{				
 						columns: [{
@@ -146,10 +163,39 @@ angular.module('ngmReportHub')
 				if($route.current.params.project === 'new'){
 					$scope.report.project.project_title = '';
 					$scope.report.project.project_description = '';
-				} 
+				}
 
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;
+
+
+				// // add click events
+				// $timeout(function() {
+
+				// 	// back to projects
+				// 	$( '#keyboard_return_menu_option' ).click(function(){
+				// 		$location.path( '/health/projects' );
+				// 	});
+				// 	$( '#li-keyboard_return_menu_option' ).click(function(){
+				// 		$location.path( '/health/projects' );
+				// 	});
+
+				// 	// scroll to details
+				// 	$( '#li-project_details_menu_option' ).click(function(){
+				// 		// div item
+				// 		$location.hash('project_details_form');
+				// 		// call $anchorScroll()
+				// 		$anchorScroll();
+				// 	});
+
+				// 	$( '#li-project_beneficiaries_menu_option' ).click(function(){
+				// 		// div item
+				// 		$location.hash( 'project_beneficiaries_form' );
+				// 		// call $anchorScroll()
+				// 		$anchorScroll();
+				// 	});
+
+				// }, 1000);
 
 			}			
 

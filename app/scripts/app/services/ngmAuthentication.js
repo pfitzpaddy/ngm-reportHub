@@ -68,7 +68,7 @@ angular.module('ngmReportHub')
 					ngmUser.set(result);
 
 					// manage session
-					ngmAuth.setSessionTimeout(result);
+					ngmAuth.setSessionTimeout( true, result );
 
 				});
 
@@ -92,7 +92,7 @@ angular.module('ngmReportHub')
 					ngmUser.set(result);
 
 					// manage session
-					ngmAuth.setSessionTimeout(result);
+					ngmAuth.setSessionTimeout( true, result );
 
 				});
 
@@ -144,17 +144,19 @@ angular.module('ngmReportHub')
 			},
 
 			// Manages client session timeout
-			setSessionTimeout: function( user ) {
+			setSessionTimeout: function( newSession, user ) {
 
-				// 8 hour session with 2 min window to reset
+				// 8 hour session
 				var session = 1000 * 60 * 60 * 8;
 
-				// compare last_logged_in with now
-				var log_in = moment(user.updatedAt),
-						now = moment(new Date()),
-						duration = moment.duration(now.diff(log_in)),
-						milliSeconds = session - duration.asMilliseconds();
-						
+				// compare last login with now
+				var log_in = moment( user.updatedAt ),
+						now = moment( new Date() ),
+						duration = moment.duration( now.diff( log_in ) );
+				
+				// set timeout
+				var milliSeconds = newSession ? session : session - duration.asMilliseconds();
+
 				// session expired
 				if ( milliSeconds < 0 ) {
 			    
@@ -165,6 +167,7 @@ angular.module('ngmReportHub')
 			    $location.path( '/' + ngmAuth.APP + '/login' );
 
 				} else {
+					
 					// interval since last login
 				  $interval(function(){
 

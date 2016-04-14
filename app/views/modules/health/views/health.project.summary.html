@@ -25,31 +25,28 @@
 
 		<!-- header -->
 		<li class="collection-header blue-grey darken-1">
-			<h4 class="report-work-title white-text" style="margin-top:20px; font-size:2.1rem;"><i class="material-icons left">list</i>Project Summary</h4>
+			<h4 class="report-work-title white-text" style="margin-top:20px; font-size:2.1rem;"><i class="material-icons left">assignment</i>Project</h4>
 		</li>
 
 		<!-- project details -->
 		<li class="collection-item avatar" class="collection-item avatar">
-			<a href="#/health/projects/details/{{ panel.project.id }}" title="Update project {{ panel.project.id }} details">
-				<i class="material-icons circle white teal-text">edit</i>
-				<span class="title">Project Details</span>
-				<p style="margin-top:5px;">Define the project details, locations and beneficiaries for {{ panel.project.project_title }}</p>
-				<a href="#/health/projects/details/{{ panel.project.id }}" title="Update project {{ panel.project.id }} details" class="secondary-content">
-					<i class="material-icons">send</i>
-				</a>
-			</a>
-		</li>									
-		
-		<!-- financial tracking for WHO projects -->
-		<li class="collection-item avatar" class="collection-item avatar" ng-show="panel.project.project_donor.indexOf('who')!=-1">
-			<a href="#/health/projects/financials/{{ panel.project.id }}" title="Update project {{ panel.project.id }} details">
-				<i class="material-icons circle white teal-text">attach_money</i>
-				<span class="title">Project Financial Items</span>
-				<p>Track the project spending against financial line items for {{ panel.project.project_title }}</p>
-				<a href="#/health/projects/financials/{{ panel.project.id }}" title="Update project {{ panel.project.id }} details" class="secondary-content">
-					<i class="material-icons">send</i>
-				</a>
-			</a>
+			
+			<div class="row" ng-if="panel.project">
+				<div class="col s12 m6">
+					<a href="#/health/projects/details/{{ panel.project.id }}" title="GoTo project Details">
+						<div class="card hoverable" style="height:200px;">
+						</div>
+					</a>
+				</div>
+
+				<div class="col s12 m6">
+					<a href="#/health/projects/summary/{{ panel.project.id }}" title="GoTo project Summary">
+						<div class="card hoverable" style="height:200px;">
+						</div>
+					</a>
+				</div>
+			</div>
+
 		</li>
 
 	</ul>

@@ -161,7 +161,7 @@
 		<div class="slide-animate" ng-include="project.detailsUrl"></div>
 
 		<!-- Project budget details -->
-		<div class="slide-animate" ng-include="project.budgetUrl"></div>		
+		<!-- <div class="slide-animate" ng-include="project.budgetUrl"></div>		 -->
 
 		<!-- Project beneficiaries details -->
 		<div class="slide-animate" ng-include="project.targetBeneficiariesUrl"></div>	
@@ -188,15 +188,12 @@
 										( healthProjectForm.$invalid ) || 
 										( project.definition.target_beneficiaries.length === 0 ) ||
 										( project.definition.locations.length === 0 ) || 
-										( project.definition.locations[0].beneficiaries.length === 0 ) ||
-										( healthProjectForm.$submitted && healthProjectForm.$invalid ) ||
-										( healthProjectForm.$submitted && ( project.definition.locations.length === 0 || project.definition.locations[0].beneficiaries.length === 0 ) )
+										( healthProjectForm.$submitted && healthProjectForm.$invalid )
 									) ||
 									project.definition.project_status === 'active' && (
 										( healthProjectForm.$invalid ) || 
 										( project.definition.target_beneficiaries.length === 0 ) ||
-										( project.definition.locations.length === 0 ) || 
-										( project.definition.locations[0].beneficiaries.length === 0 ) 
+										( project.definition.locations.length === 0 )
 									)"
 							ng-cloak><i class="material-icons right">send</i>Save</button>
 

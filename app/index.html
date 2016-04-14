@@ -153,14 +153,13 @@
 				</div>
 
 		    <!-- navigation menu -->
-		  	<a ng-show="ngm.dashboard.model.menu[0].href" href="{{ ngm.dashboard.model.menu[0].href }}">
 		  	<ul class="ngm-navigation-menu collapsible popout"
 		  		style="display: none;"
 		  		data-collapsible="expandable"
 		  		ng-show="ngm.dashboard.model.menu" ng-cloak>
 
 			  	<li ng-show="ngm.dashboard.model.menu" id="li-{{ list.id }}" ng-repeat="list in ngm.dashboard.model.menu" ng-cloak>
-			  		<div class="collapsible-header {{ list.class }}" ng-click="ngm.toggleSearch(list.id)" ng-cloak>
+			  		<div id="{{ list.id }}" class="collapsible-header {{ list.class }}" ng-click="ngm.toggleSearch(list.id)" ng-cloak>
 			  			<i class="material-icons" ng-cloak>{{ list.icon }}</i>{{ list.title }}
 			  		</div>
 
@@ -196,50 +195,6 @@
 
 			  	</li>
 			  </ul>
-			  </a>
-
-		  	<ul ng-show="!ngm.dashboard.model.menu[0].href" class="ngm-navigation-menu collapsible popout"
-		  		style="display: none;"
-		  		data-collapsible="expandable"
-		  		ng-show="ngm.dashboard.model.menu" ng-cloak>
-
-			  	<li ng-show="ngm.dashboard.model.menu" id="li-{{ list.id }}" ng-repeat="list in ngm.dashboard.model.menu" ng-cloak>
-			  		<div class="collapsible-header {{ list.class }}" ng-click="ngm.toggleSearch(list.id)" ng-cloak>
-			  			<i class="material-icons" ng-cloak>{{ list.icon }}</i>{{ list.title }}
-			  		</div>
-
-			  		<!-- search list options (navClass toggles search) -->
-			  		<nav id="nav-{{ list.id }}" class="ngm-search" ng-show="list.search" ng-cloak>
-					    <div class="nav-wrapper white">
-								<div class="input-field">
-									<input id="search"
-										type="search"
-										class="ngm-form-search"
-										ng-model="ngm.menu.query[list.id]">
-									<label for="search"><i class="material-icons teal-text">search</i></label>
-								</div>
-							</div>
-						</nav>
-
-						<!-- list options -->
-			  		<div class="collapsible-body">
-				      <div class="collection" ng-repeat="row in list.rows | filter:ngm.menu.query[list.id] track by $index">
-				      	
-				      	<a ng-if="row.href" href="{{ row.href }}"
-				      		id="{{ row.id }}"
-				      		class="collection-item {{ row.class }}"
-				      		ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }" ng-cloak>{{ row.title }}</a>
-
-				      	<a ng-if="!row.href"
-				      		id="{{ row.id }}"
-				      		class="collection-item {{ row.class }}"
-				      		ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }" ng-cloak>{{ row.title }}</a>
-
-				      </div>
-			  		</div>
-
-			  	</li>
-			  </ul>  
 
 			</div>
 
