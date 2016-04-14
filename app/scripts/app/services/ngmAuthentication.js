@@ -42,7 +42,7 @@ angular.module('ngmReportHub')
 
 		};
 	})
-	.factory('ngmAuth', ['$q', '$http', '$location', '$interval', 'ngmUser', function($q, $http, $location, $interval, ngmUser) {
+	.factory('ngmAuth', ['$q', '$route', '$http', '$location', '$interval', 'ngmUser', function($q, $route, $http, $location, $interval, ngmUser) {
 
 		var ngmAuth = {
 
@@ -65,10 +65,10 @@ angular.module('ngmReportHub')
 				register.success(function(result) {
 					
 					// set localStorage
-					ngmUser.set(result);
+					ngmUser.set( result );
 
 					// manage session
-					ngmAuth.setSessionTimeout(result);
+					ngmAuth.setSessionTimeout( true, result );
 
 				});
 
@@ -89,10 +89,10 @@ angular.module('ngmReportHub')
 				login.success(function(result) {
 					
 					// set localStorage
-					ngmUser.set(result);
+					ngmUser.set( result );
 
 					// manage session
-					ngmAuth.setSessionTimeout(result);
+					ngmAuth.setSessionTimeout( true, result );
 
 				});
 
@@ -132,9 +132,9 @@ angular.module('ngmReportHub')
 				// rotate icon
 				$('.ngm-profile-icon').toggleClass('rotate');
 				// set class
-	    	$('.ngm-profile').toggleClass('active');
-	    	$('.ngm-profile-menu-content').toggleClass('active');
-	    	// toggle menu dropdown
+				$('.ngm-profile').toggleClass('active');
+				$('.ngm-profile-menu-content').toggleClass('active');
+				// toggle menu dropdown
 				$('.ngm-profile-menu-content').slideToggle();
 
 				// unset token, backend dosnt care about logouts 
@@ -144,7 +144,7 @@ angular.module('ngmReportHub')
 			},
 
 			// Manages client session timeout
-			setSessionTimeout: function( user ) {
+			setSessionTimeout: function( newSession, user ) {
 
 				// 8 hour session with 2 min window to reset
 				var session = 1000 * 60 * 60 * 8;
@@ -152,40 +152,42 @@ angular.module('ngmReportHub')
 				// compare last_logged_in with now
 				var log_in = moment(user.updatedAt),
 						now = moment(new Date()),
-						duration = moment.duration(now.diff(log_in)),
-						milliSeconds = session - duration.asMilliseconds();
+						duration = moment.duration(now.diff(log_in));
+
+				// set timeout
+				var milliSeconds = newSession ? session : session - duration.asMilliseconds();
 						
 				// session expired
 				if ( milliSeconds < 0 ) {
-			    
-			    // unset localStorage
-			    ngmUser.unset();
+					
+					// unset localStorage
+					ngmUser.unset();
 
-			    // redirect to login
-			    $location.path( '/' + ngmAuth.APP + '/login' );
+					// redirect to login
+					$location.path( '/' + ngmAuth.APP + '/login' );
 
 				} else {
 					// interval since last login
-				  $interval(function(){
+					$interval(function(){
 
-				  	// open session confirm modal
-				  	$('#ngm-session-modal').openModal({dismissible: false});
+						// open session confirm modal
+						$('#ngm-session-modal').openModal( { dismissible: false } );
 
-				  	// 2 minutes to reset session
-				  	$interval(function(){
+						// 2 minutes to reset session
+						$interval(function(){
 
-				  	// close modal
-				  	$('#ngm-session-modal').closeModal();
+							// close modal
+							$('#ngm-session-modal').closeModal();
 
-					    // unset localStorage
-					    ngmUser.unset();
+							// unset localStorage
+							ngmUser.unset();
 
-					    // redirect to login
-					    $location.path( '/' + ngmAuth.APP + '/login' );
+							// re-direct
+							$location.path( '/' + ngmAuth.APP + '/login' );
 
-				  	}, 1000 * 60 * 2);
+						}, 1000 * 60 * 2);
 
-				  }, milliSeconds);
+					}, milliSeconds);
 				}		
 
 			},

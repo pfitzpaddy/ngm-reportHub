@@ -376,8 +376,8 @@ angular
 	.run(['$rootScope', '$location', 'ngmAuth', 'ngmUser', function($rootScope, $location, ngmAuth, ngmUser) {
 
 		// check minutes since last login
-		if (ngmUser.get()) {
-			ngmAuth.setSessionTimeout(ngmUser.get());
+		if ( ngmUser.get() ) {
+			ngmAuth.setSessionTimeout( false, ngmUser.get() );
 		}
 
 		// when error on route update redirect
@@ -565,10 +565,11 @@ angular
 				});
 
 				// on success store in localStorage
-				update.success(function(user) {
+				update.success(function( user ) {
+					
 					// update user/session
-					ngmUser.set(user);
-					ngmAuth.setSessionTimeout(user);
+					ngmUser.set( user );
+					ngmAuth.setSessionTimeout( true, user );
 
           // user toast msg
           $timeout(function(){
