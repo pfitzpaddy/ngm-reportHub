@@ -152,7 +152,7 @@
 </div>
 
 <!-- Project form -->
-<form name="healthProjectForm" class="col s12 m12 l12" novalidate>
+<form name="healthProjectForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
 		
 	<!-- disabled -->
 	<fieldset ng-disabled="project.definition.organization !== project.user.organization ">
@@ -216,15 +216,4 @@
 	</fieldset>
 
 </form>
-
-<div class="row">
-	<div class="col s12 m12 l12">
-		<div class="card">
-			<div style="background: {{ project.style.lightPrimaryColor }}; height:20px; "></div>
-			<div style="background: {{ project.style.defaultPrimaryColor }}; height:60px;">
-				<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>
-			</div>
-		</div>
-	</div>
-</div>
 

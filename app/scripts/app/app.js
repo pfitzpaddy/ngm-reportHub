@@ -26,7 +26,9 @@ angular
 		// pages
 		'ngm.widget.form.authentication',
 		'ngm.widget.project.details',
-		'ngm.widget.project.financials',		
+		'ngm.widget.project.reports.list',
+		'ngm.widget.project.report',
+		'ngm.widget.project.financials',
 		'ngm.widget.workshop',
 		'ngm.widget.video',
 		// utils
@@ -191,7 +193,27 @@ angular
 						return ngmAuth.isAuthenticated();
 					}],
 				}
-			})	
+			})
+			// health project reports
+			.when( '/health/projects/reports/:project', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ReportHealthProjectReportsListCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+			// health project reports
+			.when( '/health/projects/report/:project/:report', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ReportHealthProjectReportCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})			
 			// health project financials
 			.when( '/health/projects/financials/:project', {
 				templateUrl: '/views/app/dashboard.html',

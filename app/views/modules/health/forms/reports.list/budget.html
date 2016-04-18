@@ -1,0 +1,57 @@
+
+<!-- bind html -->
+<div class="row">
+	<div class="col s12">
+		<div class="card">
+			<ul class="collection with-header">
+				<li class="collection-header teal lighten-4">
+					<h5 class="report-work-title"><i class="material-icons left">attach_money</i>Project Budget Progress</h5>
+				</li>
+				<li class="collection-item avatar">
+					
+	      	<!-- budget input -->
+					<div class="row">
+		        
+		        <div class="input-field col s12 m4">
+		          <input id="ngm-project-budget-currency_monthly" type="number" class="validate" min="1"
+		          	ng-model="project.definition.project_budget"
+		          	ng-disabled="project.definition.project_status === 'complete'"
+								required>
+		          <label for="ngm-project-budget-currency_monthly">Project Budget ({{ project.definition.project_budget_currency | uppercase }})</label>
+		        </div>	        
+
+		        <div class="input-field col s12 m4">
+		          <input id="ngm-project-budget_progress_usd" type="number" class="validate" min="0" max="100"
+		          	ng-model="project.definition.project_budget_recieved"
+		          	ng-disabled="project.definition.project_status === 'complete'">
+		          <label for="ngm-project-budget_progress_usd">Budget Recieved (%)</label>
+		        </div>
+
+		        <div class="input-field col s12 m4">
+		          <input id="ngm-project-budget_progress_usd" type="number" class="validate" min="0" max="100"
+		          	ng-model="project.definition.project_budget_spent"
+		          	ng-disabled="project.definition.project_status === 'complete'">
+		          <label for="ngm-project-budget_progress_usd">Budget Spent (%)</label>
+		        </div>
+
+		      </div>
+
+			<!-- submission -->
+			<div align="center">
+				
+				<button data-target="save-modal" class="waves-effect waves-light btn remove"
+					ng-click="project.save()"
+					ng-disabled="
+								( healthReportsForm.$pristine ) ||
+								( healthReportsForm.$invalid ) ||
+								( healthReportsForm.$submitted && healthReportsForm.$invalid )"
+					ng-cloak><i class="material-icons right">send</i>Save</button>
+
+			</div>		      
+
+				</li>
+
+			</ul>
+		</div>
+	</div>
+</div>

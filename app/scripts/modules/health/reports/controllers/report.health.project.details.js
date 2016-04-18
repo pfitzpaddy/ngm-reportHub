@@ -145,7 +145,7 @@ angular.module('ngmReportHub')
 					// 	'class': 'teal lighten-4 grey-text text-darken-2',
 					// }],
 					}],
-					rows: [{				
+					rows: [{		
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
@@ -153,6 +153,18 @@ angular.module('ngmReportHub')
 								config: {
 									style: $scope.report.ngm.style,
 									project: $scope.report.project
+								}
+							}]
+						}]
+					},{
+						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'html',
+								card: 'card-panel',
+								style: 'padding:0px; height: 90px; padding-top:10px;',
+								config: {
+									html: $scope.report.ngm.footer
 								}
 							}]
 						}]
@@ -219,12 +231,12 @@ angular.module('ngmReportHub')
 				project_title: 'New Project',
 				project_description: 'Complete the project details to register a new project',
 				project_start_date: new Date(),
-				project_end_date: new Date(d.getFullYear(), d.getMonth() + 1, d.getDate()),
+				project_end_date: new Date(d.getFullYear(), d.getMonth() + 6, d.getDate()),
 				target_beneficiaries: [],
+				beneficiary_type: [],
+				target_locations: [],
 				prov_code: [],
-				dist_code: [],
-				beneficiary_category: [],
-				locations: []
+				dist_code: []
 			}
 
 			// set summary

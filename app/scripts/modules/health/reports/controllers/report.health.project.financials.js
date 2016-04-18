@@ -113,7 +113,7 @@ angular.module('ngmReportHub')
 						'href': '#/health/projects'
 					}]
 				}],
-				rows: [{				
+				rows: [{		
 					columns: [{
 						styleClass: 's12 m12 l12',
 						widgets: [{
@@ -121,6 +121,18 @@ angular.module('ngmReportHub')
 							config: {
 								style: $scope.report.ngm.style,
 								project: $scope.report.project
+							}
+						}]
+					}]
+				},{
+					columns: [{
+						styleClass: 's12 m12 l12',
+						widgets: [{
+							type: 'html',
+							card: 'card-panel',
+							style: 'padding:0px; height: 90px; padding-top:10px;',
+							config: {
+								html: $scope.report.ngm.footer
 							}
 						}]
 					}]

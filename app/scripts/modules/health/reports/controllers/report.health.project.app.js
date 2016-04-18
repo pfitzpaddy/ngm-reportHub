@@ -32,34 +32,20 @@ angular.module('ngmReportHub')
 			districtListRequest: $http({
 				method: 'GET',
 				url: 'http://' + $location.host() + '/api/location/getDistrictList'
-			}),
-
-			// hf type lists
-			hfTypeListRequest: $http({
-				method: 'GET',
-				url: 'http://' + $location.host() + '/api/health/getFacilityTypeList'
-			}),
-
-			// hf lists
-			hfListRequest: $http({
-				method: 'GET',
-				url: 'http://' + $location.host() + '/api/health/getFacilityList'
-			}),
+			})
 
 		}
 
 		// get all lists 
-		if ( !localStorage.getItem('lists') ) {
+		if ( !localStorage.getItem( 'lists' ) ) {
 
 			// send request
-			$q.all([$scope.report.provinceListRequest, $scope.report.districtListRequest, $scope.report.hfTypeListRequest, $scope.report.hfListRequest]).then(function(results){
+			$q.all([ $scope.report.provinceListRequest, $scope.report.districtListRequest ]).then( function( results ){
 
 				// set lists to local storage
 				localStorage.setItem('lists', true);
 				localStorage.setItem('provinceList', JSON.stringify(results[0].data));
 				localStorage.setItem('districtList', JSON.stringify(results[1].data));
-				localStorage.setItem('hfTypeList', JSON.stringify(results[2].data));
-				localStorage.setItem('hfList', JSON.stringify(results[3].data));
 
 			});
 

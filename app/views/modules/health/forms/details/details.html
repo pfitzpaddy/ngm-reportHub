@@ -10,7 +10,7 @@
 					<!-- form -->
 
 		      <div class="row" style="padding-top:20px;">
-		        <div class="input-field col s12 m4">
+		        <div class="input-field col s12 m6">
 		          <input id="ngm-project-name" type="text" class="validate"
 								autofocus=""
 								ng-model="project.definition.project_title"
@@ -19,14 +19,14 @@
 		          <label for="ngm-project-name">Project Title</label>
 		        </div>
 		        
-		        <div class="input-field col s12 m4">
+		        <div class="input-field col s12 m3">
 		          <input id="ngm-start-date" type="text" class="datepicker"
 		          	ng-disabled="project.definition.project_status === 'complete'"
 								required>
 		          <label for="ngm-start-date">Start Date</label>
 		        </div>
 
-		        <div class="input-field col s12 m4">
+		        <div class="input-field col s12 m3">
 		          <input id="ngm-end-date" type="text" class="datepicker"
 		          	ng-disabled="project.definition.project_status === 'complete'"
 								required>
@@ -36,7 +36,7 @@
 
 		      <div class="row">
 
-		        <div class="input-field col s12 m4"
+		        <div class="input-field col s12 m6"
 		        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_type }">
 					    <select multiple class="validate"
 					    	id="ngm-project-type"
@@ -59,22 +59,7 @@
 					    <label for="ngm-project-type">Project Type</label>
 		        </div>
 
-		        <div class="input-field col s12 m2">
-		          <input id="ngm-project-budget_usd" type="number" class="validate" min="1"
-		          	ng-model="project.definition.project_budget_usd"
-		          	ng-disabled="project.definition.project_status === 'complete'"
-		          	ng-keyup="project.budgetKeyUp( 'usd' )">
-		          <label for="ngm-project-budget_usd">Budget ( USD )</label>
-		        </div>
-		        <div class="input-field col s12 m2">
-		          <input id="ngm-project-budget_afn" type="number" class="validate" min="1"
-		          	ng-model="project.definition.project_budget_afn"
-		          	ng-disabled="project.definition.project_status === 'complete'"
-		          	ng-keyup="project.budgetKeyUp( 'afn' )">
-		          <label for="ngm-project-budget_afn">Budget ( AFN )</label>
-		        </div>
-
-		        <div class="input-field col s12 m4"
+		        <div class="input-field col s12 m6"
 		        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_donor }">
 					    <select multiple 
 					    	id="ngm-project-donor"
@@ -98,7 +83,33 @@
 					    </select>
 					    <label>Project Donor</label>
 		        </div>
-		      </div>		      
+		      </div>
+
+		      <div class="row">
+
+		        <div class="input-field col s12 m6">
+		          <input id="ngm-project-budget_afn" type="number" class="validate" min="1"
+		          	ng-model="project.definition.project_budget"
+		          	ng-disabled="project.definition.project_status === 'complete'"
+		          	required>
+		          <label for="ngm-project-budget_afn">Project Budget ( ${{ project.definition.project_budget_currency | uppercase }} )</label>
+		        </div>
+
+		        <div class="input-field col s12 m6"
+		        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }">
+					    <select class="validate"
+					    	id="ngm-project-budget-currency"
+					    	ng-model="project.definition.project_budget_currency" 
+					    	ng-disabled="project.definition.project_status === 'complete'" 
+					    	required>
+					      <option value="" disabled selected>Select Project Budget Currency</option>
+					      <option value="usd">USD</option>
+					      <option value="afn">AFN</option>
+					    </select>
+					    <label for="ngm-project-budget-currency">Project Budget Currency</label>
+		        </div>
+
+		      </div>
 
 					<div class="row">
 		        <div class="input-field col s12 m4 l4" style="padding-bottom:38px;">
@@ -129,7 +140,7 @@
 								ng-disabled="project.definition.project_status === 'complete'"
 								required>
 							</textarea>
-		          <label for="ngm-project-description">Project Description</label>
+		          <label for="ngm-project-description">Project Proposal Description</label>
 		        </div>
 		      </div>
 

@@ -28,14 +28,14 @@
 						          <label for="ngm-project-category-{{ $parent.$index }}-{{ $index }}">Beneficaries</label>
 					      		</div>
 
-					      		<div class="col s12 m7">
+					      		<div class="col s12 m6">
 					      			<div class="count right">
 					      				<span style="font-size:1.4rem;">Actual Total</span>
-					      					{{ beneficiary.under5male + beneficiary.under5female + beneficiary.over5male + beneficiary.over5female + beneficiary.cba + beneficiary.pla | number }}
+					      					{{ beneficiary.under5male + beneficiary.under5female + beneficiary.over5male + beneficiary.over5female + beneficiary.penta3_vacc_male_under1 + beneficiary.penta3_vacc_female_under1 + beneficiary.skilled_birth_attendant + beneficiary.conflict_trauma_treated | number }}
 					      			</div>
 									  </div>					      		
 
-					      		<div class="col s12 m1" style="padding-top:3px;">
+					      		<div class="col s12 m2" style="padding-top:3px;">
 					      			<div class="btn waves-effect waves-light red lighten-2 right" 
 					      					title="Remove Beneficiary {{ beneficiary.beneficiary_name }}"
 					      					ng-show="project.definition.project_status !== 'complete'"

@@ -1,37 +1,5 @@
 <style>
 
-	.nav-list-search {
-		margin-right: 10px;
-		margin-top: -53px;
-		background-color: white;
-		width:72px;
-		-webkit-transition: width 1s ease;
-		-moz-transition: width 1s ease;
-		-o-transition: width 1s ease;
-		-ms-transition: width 1s ease;
-		transition: width 1s ease;		
-	}
-	.nav-list-search.focused {
-		margin-right: 10px;
-		margin-top: -53px;
-		width: 100%;
-		-webkit-transition: width 1s ease;
-		-moz-transition: width 1s ease;
-		-o-transition: width 1s ease;
-		-ms-transition: width 1s ease;
-		transition: width 1s ease;
-	}
-
-	.input-field input[type=search] {
-		font-weight:300;
-	}	
-
-  /* remove border bottom */
-	input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=text]:valid {
-		border-bottom: none !important;
-		box-shadow: none !important;
-	}
-
 	.pagination li.active {
 	  background-color: #009688;
 	}
@@ -120,18 +88,14 @@
 			      		<div class="input-field col s12 m2">
 				          <input id="ngm-expenditure-budget-{{$index}}" type="number" class="validate" min="0"
 				          	ng-model="item.expenditure_budget_usd"
-				          	ng-disabled="project.definition.details.project_status === 'complete'"
-				          	ng-keyup="project.budgetKeyUp( $index, 'usd' )"
-										required>
+				          	ng-disabled="project.definition.details.project_status === 'complete'">
 				          <label for="ngm-expenditure-budget-{{$index}}">Value (USD)</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m2">
 				          <input id="ngm-expenditure-budget-{{$index}}" type="number" class="validate" min="0"
 				          	ng-model="item.expenditure_budget_afn"
-				          	ng-disabled="project.definition.details.project_status === 'complete'"
-				          	ng-keyup="project.budgetKeyUp( $index, 'afn' )"
-										required>
+				          	ng-disabled="project.definition.details.project_status === 'complete'">
 				          <label for="ngm-expenditure-budget-{{$index}}">Value (AFN)</label>
 			      		</div>
 

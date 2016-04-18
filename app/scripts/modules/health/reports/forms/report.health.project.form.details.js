@@ -59,7 +59,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         definition: config.project,
 
         // last update
-        updatedAt: moment(config.project.updatedAt).format('DD MMMM, YYYY @ h:mm:ss a'),
+        updatedAt: moment( config.project.updatedAt ).format('DD MMMM, YYYY @ h:mm:ss a'),
 
         // holder for UI options
         options: {
@@ -146,7 +146,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         targetBeneficiariesUrl: '/views/modules/health/forms/details/target-beneficiaries.html',
 
         // details template
-        locationsUrl: '/views/modules/health/forms/details/locations.html',
+        locationsUrl: '/views/modules/health/forms/details/target-locations.html',
 
         // details template
         // beneficiariesUrl: '/views/modules/health/forms/details/beneficiaries.html',      
@@ -296,12 +296,14 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         // add location
         addLocation: function(){
 
-          // push location to locations
-          $scope.project.definition.locations.unshift({
+          // push location to target_locations
+          $scope.project.definition.target_locations.unshift({
             organization_id: config.project.organization_id,
             organization: config.project.organization,
             username: ngmUser.get().username,
             email: ngmUser.get().email,
+            project_title: $scope.project.definition.project_title,
+            project_type: $scope.project.definition.project_type,
             prov_code: $scope.project.options.selection.province.prov_code,
             prov_name: $scope.project.options.selection.province.prov_name,
             dist_code: $scope.project.options.selection.district.dist_code,
@@ -310,9 +312,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             fac_type: $scope.project.options.selection.hf_type.fac_type,
             fac_name: $scope.project.options.selection.hf_name,
             lng: $scope.project.options.selection.district.lng,
-            lat: $scope.project.options.selection.district.lat,
-            timestamp: moment().format('x'),
-            beneficiaries: []
+            lat: $scope.project.options.selection.district.lat
           });
 
           // refresh dropdown options
@@ -323,7 +323,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         // remove location from location list
         removeLocation: function($index) {
           // remove location at i
-          $scope.project.definition.locations.splice($index, 1);
+          $scope.project.definition.target_locations.splice($index, 1);
           // refresh dropdown options
           $scope.project.resetLocationSelect( true, true, true, true );
 
@@ -388,9 +388,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         // cofirm exit if changes
         modalConfirm: function(modal){
 
-          // if dirty, confirm exit
-          if($scope.healthProjectForm.$dirty){
-            $('#' + modal).openModal({dismissible: false});
+          // if not pristine, confirm exit
+          if( $scope.healthProjectForm.$dirty ){
+            $( '#' + modal ).openModal( { dismissible: false } );
           } else{
             $scope.project.cancel();
           }
@@ -403,18 +403,26 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // reset to cover updates
           $scope.project.definition.prov_code = [];
           $scope.project.definition.dist_code = [];
-          
+          $scope.project.definition.beneficiary_type = [];
           // explode by ","
           // $scope.project.definition.implementing_partners = $scope.project.definition.implementing_partners.split(',');
 
-          // add attributes to projects to ensure simple filters
-          angular.forEach($scope.project.definition.locations, function(l, i){
+          // add target_beneficiaries to projects to ensure simple filters
+          angular.forEach( $scope.project.definition.target_beneficiaries, function( b, i ){
+
+            // push location ids to project
+            $scope.project.definition.beneficiary_type.push( b.beneficiary_type );
+
+          });           
+
+          // add target_locations to projects to ensure simple filters
+          angular.forEach( $scope.project.definition.target_locations, function( l, i ){
 
             // push location ids to project
             $scope.project.definition.prov_code.push(l.prov_code);
             $scope.project.definition.dist_code.push(l.dist_code);
 
-          });
+          });         
 
           // open success modal if valid form
           if ( $scope.healthProjectForm.$valid ) {
@@ -626,8 +634,8 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // refresh dropdown options
           $scope.project.resetLocationSelect( true, true, true, true );
 
-          // order locations by latest updated
-          $scope.project.definition.locations = $filter( 'orderBy' )( $scope.project.definition.locations, '-createdAt' );
+          // order target_locations by latest updated
+          $scope.project.definition.target_locations = $filter( 'orderBy' )( $scope.project.definition.target_locations, '-createdAt' );
 
 
           // fix multiple select 

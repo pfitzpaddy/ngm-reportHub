@@ -16,7 +16,7 @@
 	<div class="col s12 m12 l12">
 		<div class="card">
 			<ul id="project_beneficiaries_form" class="collection with-header">
-				<li class="collection-header light-blue lighten-4"><h5 class="report-work-title"><i class="material-icons left">group</i>Project Target Beneficiaries</h5></li>
+				<li class="collection-header teal lighten-4"><h5 class="report-work-title"><i class="material-icons left">group</i>Project Target Beneficiaries</h5></li>
 				<li class="collection-item avatar">
 
 					<!-- form -->
@@ -47,14 +47,14 @@
 				          <label for="ngm-target_beneficiary-category-{{ $index }}">Target Beneficaries</label>
 			      		</div>
 
-			      		<div class="col s12 m7">
+			      		<div class="col s12 m6">
 			      			<div class="count right">
 			      				<span style="font-size:1.4rem;"><i class="material-icons" style="padding-right:20px; padding-top:10px;">group</i>Target Total</span>
-			      					{{ target_beneficiary.under5male + target_beneficiary.under5female + target_beneficiary.over5male + target_beneficiary.over5female + target_beneficiary.cba + target_beneficiary.pla | number }}
+			      					{{ target_beneficiary.under5male + target_beneficiary.under5female + target_beneficiary.over5male + target_beneficiary.over5female + target_beneficiary.penta3_vacc_male_under1 + target_beneficiary.penta3_vacc_female_under1 + target_beneficiary.skilled_birth_attendant + target_beneficiary.conflict_trauma_treated | number }}
 			      			</div>
 							  </div>
 
-			      		<div class="col s12 m1 remove" style="padding-top:3px;">
+			      		<div class="col s12 m2 remove" style="padding-top:3px;">
 			      			<div class="btn waves-effect waves-light red lighten-2 right" 
 			      					title="Remove Beneficiary {{ target_beneficiary.beneficiary_name }}"
 			      					ng-show="project.definition.project_status !== 'complete'"
