@@ -195,7 +195,7 @@ angular
 				}
 			})
 			// health project reports
-			.when( '/health/projects/reports/:project', {
+			.when( '/health/projects/report/:project', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ReportHealthProjectReportsListCtrl',
 				resolve: {

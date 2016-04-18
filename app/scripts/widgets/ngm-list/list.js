@@ -85,6 +85,18 @@ angular.module('ngm.widget.list', ['ngm.provider'])
           return moment( date ).format('DD MMMM, YYYY');
         },
 
+        // description
+        reportFormat: function( report ) {
+
+          // return list description
+          if( report.report_status === 'complete' ) {
+            return 'Report Submitted: ' + $scope.list.dueFormat( report.report_submitted );
+          } else {
+            return 'Report Due Date: ' + $scope.list.dueFormat( report.reporting_due_date );
+          }
+
+        },
+
         // expand search box
         toggleSearch: function($event) {
           // focus search

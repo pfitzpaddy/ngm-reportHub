@@ -69,9 +69,9 @@
 				<a href="#/health/projects/report/{{ item.project_id }}/{{ item.id }}" title="Update report {{ list.titleFormat( item.reporting_period ) }}">
 					<i class="material-icons circle white teal-text">{{ list.icon }}</i>
 					<span class="title">{{ list.titleFormat( item.reporting_period ) }}</span>
-					<span class="right" style="padding-top:20px; color:#616161;">Report Due Date: {{ list.dueFormat( item.reporting_due_date ) }}</span>
+					<span class="right" style="padding-top:20px; color:#616161;">{{ list.reportFormat( item ) }}</span>
 					<p align="justify" style="padding:10px 0px 10px 0px;">
-						Monthly Beneficiaries Report for {{ list.titleFormat( item.reporting_period ) }}
+						Monthly Beneficiaries Report for {{ list.titleFormat( item.report_status ) }}
 					</p>
 					<a href="#/health/projects/report/{{ item.project_id }}/{{ item.id }}" title="Update report {{ list.dueFormat( item.reporting_period ) }}" class="secondary-content">
 						<i class="material-icons right" style="padding-top:20px;">{{ list.rightIcon }}</i>

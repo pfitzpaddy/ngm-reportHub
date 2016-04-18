@@ -119,7 +119,7 @@ angular.module('ngmReportHub')
 									templateUrl: '/scripts/widgets/ngm-list/template/report.html',
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/reports/getReportsList',
+										url: 'http://' + $location.host() + '/api/health/report/getReportsList',
 										data: {
 											filter: { 
 												project_id: $scope.report.project.id,
@@ -146,7 +146,7 @@ angular.module('ngmReportHub')
 									templateUrl: '/scripts/widgets/ngm-list/template/report.html',
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/reports/getReportsList',
+										url: 'http://' + $location.host() + '/api/health/report/getReportsList',
 										data: {
 											filter: { 
 												project_id: $scope.report.project.id,

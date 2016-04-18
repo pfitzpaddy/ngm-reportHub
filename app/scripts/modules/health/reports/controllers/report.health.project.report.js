@@ -59,7 +59,7 @@ angular.module('ngmReportHub')
 			// get report
 			getReport: $http({
 				method: 'POST',
-				url: 'http://' + $location.host() + '/api/health/reports/getReport',
+				url: 'http://' + $location.host() + '/api/health/report/getReport',
 				data: {
 					id: $route.current.params.report
 				}
@@ -130,7 +130,7 @@ angular.module('ngmReportHub')
 						'icon': 'keyboard_return',
 						'title': 'Back to Reports',
 						'class': 'teal-text',
-						'href': '#/health/projects/reports/' + $scope.report.project.id
+						'href': '#/health/projects/report/' + $scope.report.project.id
 					}],
 					rows: [{		
 						columns: [{

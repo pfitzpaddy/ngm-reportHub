@@ -89,11 +89,11 @@
 <div id="complete-modal" class="modal">
   <div class="modal-content">
     <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Submit Monthly Report for {{ project.titleFormat }}</h4>
-    <p>Are you sure you want to mark this project as completed?</p>
+    <p>Are you sure you want to submit this monthly report for {{ project.titleFormat }}?</p>
   </div>
   <div class="modal-footer">
   	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="panel.markComplete({{ panel.project }})" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, project complete!</a>
+    <a ng-click="project.save( true )" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, project complete!</a>
   </div>
 </div>
 
@@ -120,7 +120,7 @@
 		<div class="slide-animate" ng-include="project.locationsUrl"></div>
 
 		<!-- form submission -->
-		<div class="row remove" ng-if="project.definition.project_status !== 'complete'">
+		<div class="row remove" ng-if="project.report.report_status !== 'complete'">
 			<div class="col s12 m12 l12">
 				<div class="widget card-panel white grey-text text-darken-2">			
 					
@@ -128,10 +128,11 @@
 					<div align="center">
 						
 						<button data-target="save-modal" class="waves-effect waves-light btn"
-							ng-click="project.save()"
+							ng-click="project.save( false )"
 							ng-disabled="
 										( healthReportForm.$pristine ) ||
 										( healthReportForm.$invalid ) ||
+										( project.report.locations[0].beneficiaries.length === 0 ) ||
 										( healthReportForm.$submitted && healthReportForm.$invalid )"
 							ng-cloak><i class="material-icons right">send</i>Save</button>
 

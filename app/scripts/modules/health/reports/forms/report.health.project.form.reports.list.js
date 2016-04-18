@@ -68,11 +68,17 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
         // save project
         save: function() {
 
-          // update details
-
-          // make little message too
-
-          console.log( 'save' );
+          // Submit project for save
+          ngmData.get({
+            method: 'POST',
+            url: 'http://' + $location.host() + '/api/health/project/setProject',
+            data: {
+              project: $scope.project.definition
+            }
+          }).then(function(data){
+            // on success
+            Materialize.toast( 'Project "' + $scope.project.definition.project_title + '" updated!', 3000, 'success');
+          });
 
         }
 
