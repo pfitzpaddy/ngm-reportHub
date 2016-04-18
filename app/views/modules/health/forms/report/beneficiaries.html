@@ -3,7 +3,7 @@
 			      	<div class="row remove" style="padding-left: 40px;" ng-show="project.definition.project_status !== 'complete'">
 				        <div class="input-field col s12 m3"
 									ng-class="{ 'error-label': healthProjectForm.$submitted 
-							  								&& project.definition.locations[$index].beneficiaries.length === 0 }">
+							  								&& project.report.locations[$index].beneficiaries.length === 0 }">
 							    <select id="ngm-beneficiary-category-{{ location.timestamp }}" class="validate"
 							    	ng-model="project.options.selection.beneficiaries[$index]"
 							    	ng-change="project.addBeneficiary($index)"
@@ -15,7 +15,7 @@
 			      	</div>	
 
 			      	<div class="row" style="padding-left: 40px;" 
-			      				ng-repeat="beneficiary in project.definition.locations[$index].beneficiaries track by $index">
+			      				ng-repeat="beneficiary in project.report.locations[$index].beneficiaries track by $index">
 
 			      		<div class="card" style="padding: 20px;">
 
@@ -28,21 +28,21 @@
 						          <label for="ngm-project-category-{{ $parent.$index }}-{{ $index }}">Beneficaries</label>
 					      		</div>
 
-					      		<div class="col s12 m6">
+					      		<div class="col s12 m7">
 					      			<div class="count right">
 					      				<span style="font-size:1.4rem;">Actual Total</span>
-					      					{{ beneficiary.under5male + beneficiary.under5female + beneficiary.over5male + beneficiary.over5female + beneficiary.penta3_vacc_male_under1 + beneficiary.penta3_vacc_female_under1 + beneficiary.skilled_birth_attendant + beneficiary.conflict_trauma_treated | number }}
+					      					{{ beneficiary.under5male + beneficiary.under5female + beneficiary.over5male + beneficiary.over5female + beneficiary.cba + beneficiary.pla | number }}
 					      			</div>
 									  </div>					      		
 
-					      		<div class="col s12 m2" style="padding-top:3px;">
+					      		<div class="col s12 m1" style="padding-top:3px;">
 					      			<div class="btn waves-effect waves-light red lighten-2 right" 
 					      					title="Remove Beneficiary {{ beneficiary.beneficiary_name }}"
 					      					ng-show="project.definition.project_status !== 'complete'"
 					      					ng-click="project.removeBeneficiary( $parent.$index, $index )">
 					      					<i class="material-icons">cancel</i>
 					      			</div>
-									  </div>
+									   </div>
 
 					      	</div>
 

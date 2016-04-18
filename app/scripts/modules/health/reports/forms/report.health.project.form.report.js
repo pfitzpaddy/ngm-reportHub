@@ -52,8 +52,46 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         // last update
         updatedAt: moment( config.report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ),
 
+        // last update
+        titleFormat: moment( config.report.reporting_period ).format('MMMM, YYYY'),
+
+        // locations
+        locationsUrl: '/views/modules/health/forms/report/locations.html',
+
         // beneficiaries
         beneficiariesUrl: '/views/modules/health/forms/report/beneficiaries.html',
+
+        // holder for UI options
+        options: {
+          list: {
+            // beneficiaries
+            beneficiaries: [{
+              beneficiary_type: 'conflict_displaced',
+              beneficiary_name: 'Conflict Displaced'
+            },{
+              beneficiary_type: 'health_affected_conflict',
+              beneficiary_name: 'Health Affected by Conflict'
+              
+            },{
+              beneficiary_type: 'refugees_returnees',
+              beneficiary_name: 'Refugees & Returnees'
+              
+            },{
+              beneficiary_type: 'natural_disaster_affected',
+              beneficiary_name: 'Natural Disaster Affected'
+            },{
+              beneficiary_type: 'public_health',
+              beneficiary_name: 'Public Health at Risk'
+            },{
+              beneficiary_type: 'white_area_population',
+              beneficiary_name: 'White Area Population'
+            }]
+          },
+          filter: {},
+          selection: {
+            beneficiaries: [],
+          }
+        },
 
         // cofirm exit if changes
         modalConfirm: function(modal){
@@ -99,7 +137,21 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         // give a few seconds to render
         $timeout(function() {
 
-        });
+          // selects
+          $('select').material_select();
+
+          // modals
+          $('.modal-trigger').leanModal();
+
+          // set list
+          $scope.project.options.filter.beneficiaries = $scope.project.options.list.beneficiaries;
+
+          // // update dropdown
+          $timeout(function(){
+            $( '#ngm-beneficiary-category' ).material_select('update');
+          }, 10);
+
+        }, 1000);
 
       });
   }
