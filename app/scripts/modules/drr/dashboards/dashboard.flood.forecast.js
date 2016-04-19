@@ -186,11 +186,11 @@ angular.module('ngmReportHub')
 						$scope.dashboard.pdfPrintPageLoadTime = 10200;
 						
 						// table url
-						$scope.dashboard.tableUrl = "http://asdc.immap.org/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&propertyName=prov_code,prov_na_en,flood_forecasted_verylow,flood_forecasted_low,flood_forecasted_med,flood_forecasted_high,flood_forecasted_veryhigh,flood_forecasted_extreme&typeName=geonode:current_flood_forecasted_provinces&maxFeatures=50&outputFormat=application/json";
+						$scope.dashboard.tableUrl = "http://asdc.immap.org/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&propertyName=prov_code,prov_na_en,flood_forecasted_verylow,flood_forecasted_low,flood_forecasted_med,flood_forecasted_high,flood_forecasted_veryhigh,flood_forecasted_extreme&typeName=geonode:current_flood_forecasted_provinces&maxFeatures=50&outputFormat=application/json";
 					} else{
 
 						// get table
-						$scope.dashboard.tableUrl = "http://asdc.immap.org/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&cql_filter=prov_na_en='" + $scope.dashboard.data[$route.current.params.province].prov_name + "'&propertyName=prov_na_en,dist_code,dist_na_en,flood_forecasted_verylow,flood_forecasted_low,flood_forecasted_med,flood_forecasted_high,flood_forecasted_veryhigh,flood_forecasted_extreme&typeName=geonode:current_flood_forecasted_districts&maxFeatures=50&outputFormat=application/json";
+						$scope.dashboard.tableUrl = "http://asdc.immap.org/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&cql_filter=prov_na_en='" + $scope.dashboard.data[$route.current.params.province].prov_name + "'&propertyName=prov_na_en,dist_code,dist_na_en,flood_forecasted_verylow,flood_forecasted_low,flood_forecasted_med,flood_forecasted_high,flood_forecasted_veryhigh,flood_forecasted_extreme&typeName=geonode:current_flood_forecasted_districts&maxFeatures=50&outputFormat=application/json";
 					}
 
 				} else {
@@ -205,7 +205,7 @@ angular.module('ngmReportHub')
 					$scope.dashboard.floodForecastHref += '/' + $route.current.params.district;
 
 						// get table
-						$scope.dashboard.tableUrl = "http://asdc.immap.org/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&cql_filter=dist_code='" + $scope.dashboard.districts[$route.current.params.district].dist_code + "'&propertyName=prov_na_en,dist_code,dist_na_en,flood_forecasted_verylow,flood_forecasted_low,flood_forecasted_med,flood_forecasted_high,flood_forecasted_veryhigh,flood_forecasted_extreme&typeName=geonode:current_flood_forecasted_districts&maxFeatures=50&outputFormat=application/json";
+						$scope.dashboard.tableUrl = "http://asdc.immap.org/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&cql_filter=dist_code='" + $scope.dashboard.districts[$route.current.params.district].dist_code + "'&propertyName=prov_na_en,dist_code,dist_na_en,flood_forecasted_verylow,flood_forecasted_low,flood_forecasted_med,flood_forecasted_high,flood_forecasted_veryhigh,flood_forecasted_extreme&typeName=geonode:current_flood_forecasted_districts&maxFeatures=50&outputFormat=application/json";
 
 					// map center
 					$scope.dashboard.center = {
