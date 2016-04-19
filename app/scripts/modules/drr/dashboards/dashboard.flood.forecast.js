@@ -52,7 +52,7 @@ angular.module('ngmReportHub')
 			floodForecastHref: '/immap/drr/flood-forecast/' + $route.current.params.province,
 
 			// pdf print load time
-			pdfPrintPageLoadTime: 8200, 
+			pdfPrintPageLoadTime: 10200, 
 
 			// current report
 			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
@@ -183,12 +183,11 @@ angular.module('ngmReportHub')
 
 					// pdf print load
 					if ($route.current.params.province === 'afghanistan') {
-						$scope.dashboard.pdfPrintPageLoadTime = 10200;
 						
 						// table url
 						$scope.dashboard.tableUrl = "http://asdc.immap.org/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&propertyName=prov_code,prov_na_en,flood_forecasted_verylow,flood_forecasted_low,flood_forecasted_med,flood_forecasted_high,flood_forecasted_veryhigh,flood_forecasted_extreme&typeName=geonode:current_flood_forecasted_provinces&maxFeatures=50&outputFormat=application/json";
 					} else{
-
+						
 						// get table
 						$scope.dashboard.tableUrl = "http://asdc.immap.org/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&cql_filter=prov_na_en='" + $scope.dashboard.data[$route.current.params.province].prov_name + "'&propertyName=prov_na_en,dist_code,dist_na_en,flood_forecasted_verylow,flood_forecasted_low,flood_forecasted_med,flood_forecasted_high,flood_forecasted_veryhigh,flood_forecasted_extreme&typeName=geonode:current_flood_forecasted_districts&maxFeatures=50&outputFormat=application/json";
 					}

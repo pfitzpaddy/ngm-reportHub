@@ -52,7 +52,7 @@ angular.module('ngmReportHub')
 			floodForecastHref: '/immap/drr/flood-forecast/' + $route.current.params.province,
 
 			// pdf print load time
-			pdfPrintPageLoadTime: 8200, 
+			pdfPrintPageLoadTime: 10200, 
 
 			// current report
 			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
@@ -179,11 +179,6 @@ angular.module('ngmReportHub')
 					$scope.dashboard.floodRiskHref += '/' + $route.current.params.district;
 					$scope.dashboard.floodForecastHref += '/' + $route.current.params.district;
 
-				} else {
-					// pdf print load
-					if ($route.current.params.province === 'afghanistan') {
-						$scope.dashboard.pdfPrintPageLoadTime = 10200;
-					}
 				}
 
 				// baseline dashboard model
