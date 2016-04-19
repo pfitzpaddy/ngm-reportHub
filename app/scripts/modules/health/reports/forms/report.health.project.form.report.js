@@ -204,7 +204,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           $scope.project.report.report_status = complete ? 'complete' : 'todo';
 
           // submitted
-          $scope.project.report.report_submitted = moment().format('YYYY-DD-MM');
+          $scope.project.report.report_submitted = moment().format();
 
           // Submit project for save
           ngmData.get({

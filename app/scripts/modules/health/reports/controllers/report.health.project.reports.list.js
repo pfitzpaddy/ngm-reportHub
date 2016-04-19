@@ -111,8 +111,8 @@ angular.module('ngmReportHub')
 								card: 'white grey-text text-darken-2',
 								config: {
 									titleIcon: 'alarm_on',
-									color: 'blue-grey darken-1',
-									textColor: 'white-text',
+									color: 'blue lighten-4',
+									// textColor: 'white-text',
 									title: 'ToDo',
 									icon: 'edit',
 									rightIcon: 'watch_later',
@@ -139,7 +139,7 @@ angular.module('ngmReportHub')
 								card: 'white grey-text text-darken-2',
 								config: {
 									titleIcon: 'done_all',
-									color: 'lime lighten-4',
+									color: 'blue lighten-4',
 									title: 'Complete',
 									icon: 'done',
 									rightIcon: 'send',
