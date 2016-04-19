@@ -243,11 +243,8 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             // set list
             $scope.project.options.filter.beneficiaries[i] = $scope.project.options.list.beneficiaries;
 
-            //
-            console.log( l.beneficiaries );
-
             // if beneficiaries
-            if ( l.beneficiaries ) {
+            if ( l.beneficiaries.length ) {
 
               // for each beneficiaries
               angular.forEach( l.beneficiaries, function( d, j ){

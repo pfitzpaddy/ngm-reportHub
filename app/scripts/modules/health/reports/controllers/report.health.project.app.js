@@ -102,8 +102,8 @@ angular.module('ngmReportHub')
 						card: 'white grey-text text-darken-2',
 						config: {
 							titleIcon: 'alarm_on',
-							color: 'blue-grey darken-1',
-							textColor: 'white-text',
+							color: 'teal lighten-4',
+							// textColor: 'white-text',
 							title: 'Active',
 							icon: 'edit',
 							newProjectUrl: $scope.report.newProjectUrl,
