@@ -702,10 +702,18 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // set list
           $scope.project.options.filter.target_beneficiaries = $scope.project.options.list.beneficiaries;
 
-          // // update dropdown
-          $timeout(function(){
-            $( '#ngm-target_beneficiary-category' ).material_select('update');
-          }, 10);
+          // for each beneficiaries
+          angular.forEach( $scope.project.definition.target_beneficiaries, function(d, i){
+            
+            // filter
+            $scope.project.options.filter.target_beneficiaries = $filter( 'filter' )( $scope.project.options.filter.target_beneficiaries, { beneficiary_type: '!' + d.beneficiary_type }, true);
+
+            // // update dropdown
+            $timeout(function(){
+              $( '#ngm-target_beneficiary-category' ).material_select('update');
+            }, 10);
+
+          });
 
         }, 1000);
 
