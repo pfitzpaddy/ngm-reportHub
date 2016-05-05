@@ -187,13 +187,13 @@
 										( healthProjectForm.$pristine ) ||
 										( healthProjectForm.$invalid ) || 
 										( project.definition.target_beneficiaries.length === 0 ) ||
-										( project.definition.locations.length === 0 ) || 
+										( project.definition.target_locations.length === 0 ) || 
 										( healthProjectForm.$submitted && healthProjectForm.$invalid )
 									) ||
 									project.definition.project_status === 'active' && (
 										( healthProjectForm.$invalid ) || 
 										( project.definition.target_beneficiaries.length === 0 ) ||
-										( project.definition.locations.length === 0 )
+										( project.definition.target_locations.length === 0 )
 									)"
 							ng-cloak><i class="material-icons right">send</i>Save</button>
 

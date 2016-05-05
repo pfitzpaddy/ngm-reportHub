@@ -708,12 +708,12 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             // filter
             $scope.project.options.filter.target_beneficiaries = $filter( 'filter' )( $scope.project.options.filter.target_beneficiaries, { beneficiary_type: '!' + d.beneficiary_type }, true);
 
-            // // update dropdown
-            $timeout(function(){
-              $( '#ngm-target_beneficiary-category' ).material_select('update');
-            }, 10);
-
           });
+
+          // update dropdown
+          $timeout(function(){
+            $( '#ngm-target_beneficiary-category' ).material_select('update');
+          }, 10);          
 
         }, 1000);
 
