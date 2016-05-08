@@ -207,11 +207,15 @@ angular.module('ngmReportHub')
 
 		} else {
 			
-			// diff between dates
-			var month = 12 / moment.duration( moment( $scope.dashboard.endDate ).diff( $scope.dashboard.startDate ) ).asMonths().toFixed(0) - 2;
+			// diff between dates in months
+			var month = parseInt( moment.duration( moment( $scope.dashboard.endDate ).diff( $scope.dashboard.startDate ) ).asMonths().toFixed(0) );
+
+			// divide by 12 months
+			month = ( month === 1 ) ? 12 / 2 : 12 / month;
 
 			// set start date
-			$scope.dashboard.heatmapStartDate = new Date( moment( $scope.dashboard.startDate ).month( month ).format( 'YYYY-MM-DD' ) );
+			$scope.dashboard.heatmapStartDate = new Date( moment( $scope.dashboard.startDate ).subtract( month, 'M' ).format( 'YYYY-MM-DD' ) );
+			
 		}
 
 		// store for future use to determine user direction of query
