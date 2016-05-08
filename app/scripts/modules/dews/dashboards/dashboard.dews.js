@@ -191,6 +191,33 @@ angular.module('ngmReportHub')
 		$scope.dashboard.title = 'DEWS | ' + $scope.dashboard.location.name + ' | ' + $scope.dashboard.disease.name;
 		$scope.dashboard.subtitle = $scope.dashboard.disease.name + ' Disease Early Warning System Key Indicators ' + $scope.dashboard.location.name;
 
+		// get funky with the calendar heatmap dates
+		if ( moment.duration( moment( $scope.dashboard.endDate ).diff( $scope.dashboard.startDate ) ).asMonths() > 11  ) {
+
+			// start date
+			var date = moment( $scope.dashboard.startDate );
+
+			// if the end dates differ from storage, 
+			if ( localStorage.getItem('dewsEndDate') && localStorage.getItem('dewsEndDate') !== $scope.dashboard.endDate ) {
+				date = moment( $scope.dashboard.endDate ).subtract( 11, 'M' );
+			}
+			
+			// manipulate heatmap date
+			$scope.dashboard.heatmapStartDate = new Date( date.format('YYYY-MM-DD') );
+
+		} else {
+			
+			// diff between dates
+			var month = 12 / moment.duration( moment( $scope.dashboard.endDate ).diff( $scope.dashboard.startDate ) ).asMonths().toFixed(0) - 2;
+
+			// set start date
+			$scope.dashboard.heatmapStartDate = new Date( moment( $scope.dashboard.startDate ).month( month ).format( 'YYYY-MM-DD' ) );
+		}
+
+		// store for future use to determine user direction of query
+		localStorage.setItem( 'dewsStartDate', $scope.dashboard.startDate );
+		localStorage.setItem( 'dewsEndDate', $scope.dashboard.endDate );
+
 		// dews dashboard model
 		$scope.model = {
 			name: 'who_dews_dashboard',
@@ -435,7 +462,7 @@ angular.module('ngmReportHub')
 							options: {
 								
 								// calendar start date
-								start: new Date( moment($scope.dashboard.endDate).subtract(11, 'M').format('YYYY-MM-DD') ),
+								start: $scope.dashboard.heatmapStartDate,
 
 								// onclick modal
 								onClick: function(date, nb) {
