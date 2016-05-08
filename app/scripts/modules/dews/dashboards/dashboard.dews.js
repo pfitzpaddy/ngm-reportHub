@@ -214,8 +214,8 @@ angular.module('ngmReportHub')
 			month = ( month === 1 ) ? 12 / 2 : 12 / month;
 
 			// set start date
-			$scope.dashboard.heatmapStartDate = new Date( moment( $scope.dashboard.startDate ).subtract( month, 'M' ).format( 'YYYY-MM-DD' ) );
-			
+			$scope.dashboard.heatmapStartDate = new Date( moment( $scope.dashboard.startDate ).subtract( month+1, 'M' ).format( 'YYYY-MM-DD' ) );
+
 		}
 
 		// store for future use to determine user direction of query
@@ -528,12 +528,18 @@ angular.module('ngmReportHub')
 										zoomType: 'x',
 										events: {
 											selection: function(event){
+												
 												// if xaxis udpate
 												if(event.xAxis) {
+
 													// calculate date changes
 													var start = moment($scope.dashboard.startDate).add( event.xAxis[0].min, 'd' ).format('YYYY-MM-DD');
 													var end = moment($scope.dashboard.startDate).add( event.xAxis[0].max, 'd' ).format('YYYY-MM-DD');
 													var path = '/who/dews/' + $route.current.params.location + '/' + $route.current.params.disease + '/' + start + '/' + end;
+
+													// toast
+													Materialize.toast('Updating Dashboard!', 3000, 'success');
+													
 													// update
 													$timeout(function() {
 														$location.path(path);
