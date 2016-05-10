@@ -61,6 +61,12 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         // beneficiaries
         beneficiariesUrl: '/views/modules/health/forms/report/beneficiaries.html',
 
+        // default
+        beneficiariesDefaultUrl: '/views/modules/health/forms/report/beneficiaries/beneficiaries-default.html',
+
+        // training
+        beneficiariesTrainingUrl: '/views/modules/health/forms/report/beneficiaries/beneficiaries-training.html',        
+
         // holder for UI options
         options: {
           list: {
@@ -71,15 +77,16 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             },{
               beneficiary_type: 'health_affected_conflict',
               beneficiary_name: 'Health Affected by Conflict'
-              
             },{
               beneficiary_type: 'refugees_returnees',
               beneficiary_name: 'Refugees & Returnees'
-              
             },{
               beneficiary_type: 'natural_disaster_affected',
               beneficiary_name: 'Natural Disaster Affected'
             },{
+              beneficiary_type: 'training',
+              beneficiary_name: 'Training & Capacity Building'
+            },{              
               beneficiary_type: 'public_health',
               beneficiary_name: 'Public Health at Risk'
             },{
@@ -118,6 +125,14 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             penta3_vacc_female_under1: 0,
             skilled_birth_attendant: 0,
             conflict_trauma_treated: 0,
+            education_sessions: 0,
+            education_male: 0,
+            education_female: 0,
+            capacity_building_sessions: 0,
+            capacity_building_male: 0,
+            capacity_building_female: 0,
+            capacity_building_doctors: 0,
+            capacity_building_nurses: 0,            
             prov_code: $scope.project.report.locations[$index].prov_code,
             prov_name: $scope.project.report.locations[$index].prov_name,
             dist_code: $scope.project.report.locations[$index].dist_code,
@@ -194,8 +209,11 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         // save project
         save: function( complete ) {
 
+          // disable btn
+          $scope.project.report.submit = true;          
+
           // user msg
-          var msg = 'Project Report for  "' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + '" ';
+          var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
 
           // user msg
           msg += complete ? 'Submitted!' : 'Saved!';
@@ -214,6 +232,9 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
               report: $scope.project.report
             }
           }).then(function( data ){
+
+            // enable
+            $scope.project.report.submit = false;
 
             // Re-direct to summary
             $location.path( '/health/projects/report/' + $scope.project.definition.id );

@@ -71,14 +71,15 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             },{
               beneficiary_type: 'health_affected_conflict',
               beneficiary_name: 'Health Affected by Conflict'
-              
             },{
               beneficiary_type: 'refugees_returnees',
               beneficiary_name: 'Refugees & Returnees'
-              
             },{
               beneficiary_type: 'natural_disaster_affected',
               beneficiary_name: 'Natural Disaster Affected'
+            },{
+              beneficiary_type: 'training',
+              beneficiary_name: 'Training & Capacity Building'
             },{
               beneficiary_type: 'public_health',
               beneficiary_name: 'Public Health at Risk'
@@ -145,6 +146,12 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         // target beneficiaries
         targetBeneficiariesUrl: '/views/modules/health/forms/details/target-beneficiaries.html',
 
+        // default
+        targetBeneficiariesDefaultUrl: '/views/modules/health/forms/details/target-beneficiaries/target-beneficiaries-default.html',
+
+        // training
+        targetBeneficiariesTrainingUrl: '/views/modules/health/forms/details/target-beneficiaries/target-beneficiaries-training.html',
+
         // details template
         locationsUrl: '/views/modules/health/forms/details/target-locations.html',
 
@@ -170,6 +177,46 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
         // },
 
+        // validate project type
+        project_type_valid: function () {
+          
+          // valid
+          var valid = false;
+
+          // compile project_type
+          angular.forEach( $scope.project.definition.project_type_check, function( t, i ) {
+            // check if selected
+            if ( t ){
+              valid = true;
+
+            }
+
+          });
+
+          return valid;
+
+        },
+
+        // validate project donor
+        project_donor_valid: function () {
+          
+          // valid
+          var valid = false;
+
+          // compile project_type
+          angular.forEach( $scope.project.definition.project_donor_check, function( d, i ){
+            // check if selected
+            if ( d ){
+              valid = true;
+
+            }
+
+          });
+
+          return valid;
+
+        },        
+
         // add target benficiaries
         addTargetBeneficiary: function() {
 
@@ -191,7 +238,15 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             penta3_vacc_male_under1: 0,
             penta3_vacc_female_under1: 0,
             skilled_birth_attendant: 0,
-            conflict_trauma_treated: 0
+            conflict_trauma_treated: 0,
+            capacity_building_sessions: 0,
+            capacity_building_male: 0,
+            capacity_building_female: 0,
+            capacity_building_doctors: 0,
+            capacity_building_nurses: 0,
+            education_sessions: 0,
+            education_male: 0,
+            education_female: 0,
           });
 
           // clear selection
@@ -227,9 +282,28 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           $timeout(function(){
             // apply filter
             $( '#ngm-target_beneficiary-category' ).material_select('update');
+
           }, 10);
 
-        }, 
+        },
+
+        // remove all beneficiaries
+        removeTargetBeneficiaries: function(){
+
+          // set to zero
+          $scope.project.definition.target_beneficiaries = []
+
+          // reset dropdown
+          $scope.project.options.filter.target_beneficiaries = $scope.project.options.list.beneficiaries;
+
+          // update dropdown
+          $timeout(function(){
+            // apply filter
+            $( '#ngm-target_beneficiary-category' ).material_select('update');
+
+          }, 10);
+
+        },
 
         // apply location dropdowns
         locationSelect: function(id, select) {
@@ -401,11 +475,33 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         save: function(){
 
           // reset to cover updates
+          $scope.project.definition.project_type = [];
+          $scope.project.definition.project_donor = [];
           $scope.project.definition.prov_code = [];
           $scope.project.definition.dist_code = [];
           $scope.project.definition.beneficiary_type = [];
           // explode by ","
           // $scope.project.definition.implementing_partners = $scope.project.definition.implementing_partners.split(',');
+
+          // compile project_type
+          angular.forEach( $scope.project.definition.project_type_check, function( t, key ){
+
+            // push keys to project_type
+            if ( t ) {
+              $scope.project.definition.project_type.push( key );
+            }
+
+          });
+
+          // compile project_donor
+          angular.forEach( $scope.project.definition.project_donor_check, function( d, key ){
+
+            // push keys to project_donor
+            if ( d ) {
+              $scope.project.definition.project_donor.push( key );
+            }
+
+          });
 
           // add target_beneficiaries to projects to ensure simple filters
           angular.forEach( $scope.project.definition.target_beneficiaries, function( b, i ){
@@ -413,19 +509,25 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             // push location ids to project
             $scope.project.definition.beneficiary_type.push( b.beneficiary_type );
 
-          });           
+          });
 
           // add target_locations to projects to ensure simple filters
           angular.forEach( $scope.project.definition.target_locations, function( l, i ){
 
             // push location ids to project
-            $scope.project.definition.prov_code.push(l.prov_code);
-            $scope.project.definition.dist_code.push(l.dist_code);
+            $scope.project.definition.prov_code.push( l.prov_code );
+            $scope.project.definition.dist_code.push( l.dist_code );
 
-          });         
+          });
 
           // open success modal if valid form
           if ( $scope.healthProjectForm.$valid ) {
+
+            // disable btn
+            $scope.project.submit = true;
+
+            // inform
+            Materialize.toast('Processing...', 3000, 'note');
 
             // details update
             ngmData.get({
@@ -435,6 +537,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
                 project: $scope.project.definition
               }
             }).then(function(project){
+
+              // enable
+              $scope.project.submit = false;
 
               // add id to client json
               $scope.project.definition.id = project.id;
@@ -621,98 +726,69 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // init end date
           $scope.project.setEndTime();
 
+          // refresh dropdown options
+          $scope.project.resetLocationSelect( true, true, true, true );          
+
           // menu return to list
           $('#go-to-project-list').click(function(){
             $scope.project.cancel();
+
           });
 
           // maximise text area
           if ( $scope.project.definition.project_description ) {
             $( 'textarea' ).height( $('textarea')[0].scrollHeight );
-          }
 
-          // refresh dropdown options
-          $scope.project.resetLocationSelect( true, true, true, true );
+          }
 
           // order target_locations by latest updated
           $scope.project.definition.target_locations = $filter( 'orderBy' )( $scope.project.definition.target_locations, '-createdAt' );
 
-
-          // fix multiple select 
+          // add project type check
           if ( $scope.project.definition.project_type ) {
-            
-            // little fix for materialize, update select multiple
-            var type_display = '';
-            var type_select = $( '#ngm-project-type' ).parent().find( '.select-dropdown' );
+            // set object
+            $scope.project.definition.project_type_check = {};
+            // set checkboxes
+            angular.forEach( $scope.project.definition.project_type, function( t, i ){
+              // push keys to project_type
+              if ( t ){
+                $scope.project.definition.project_type_check[ t ] = true;
+              }
 
-            // get display value
-            angular.forEach( $scope.project.definition.project_type, function( d ){
-              type_display += d.toUpperCase().replace( '_', ' ' ) + ', '
-            });
-            
-            // slice last 2 
-            type_display = type_display.slice( 0, -2 );
-            
-            // set display value
-            type_select.val( type_display );
+            });           
 
-            // update dropdown UI
-            // type_select.find('li').each(function(i, el){
-            //   var type = $(el).text();
-            //   // update class
-            //   angular.forEach( $scope.project.definition.project_type, function(d){
-            //     if (d.toUpperCase() === type ) {
-            //       $(el).toggleClass('active');
-            //       $(el).find('input').prop( 'checked', true );
-            //     }
-            //   });
-            // });
           }
 
-
-          // fix multiple select 
+          // add project donor check
           if ( $scope.project.definition.project_donor ) {
-            // little fix for materialize, update select multiple
-            var donor_display = '';
-            var donor_select = $( '#ngm-project-donor' ).parent().find('.select-dropdown');
+            // set object
+            $scope.project.definition.project_donor_check = {};
+            // set checkboxes
+            angular.forEach( $scope.project.definition.project_donor, function( d, i ){
+              // push keys to project_type
+              if ( d ){
+                $scope.project.definition.project_donor_check[ d ] = true;
+              }
 
-            // get display value
-            angular.forEach( $scope.project.definition.project_donor, function(d){
-              donor_display += d.toUpperCase() + ', '
             });
-            // slice last 2 
-            donor_display = donor_display.slice(0, -2);
-            // set display value
-            donor_select.val(donor_display);
 
-            // update dropdown UI
-            // donor_select.find('li').each(function(i, el){
-            //   var donor = $(el).text();
-            //   // update class
-            //   angular.forEach( $scope.project.definition.project_donor, function(d){
-            //     if (d.toUpperCase() === donor ) {
-            //       $(el).toggleClass('active');
-            //       $(el).find('input').prop( 'checked', true );
-            //     }
-            //   });
-            // });
           }
 
 
           // set list
           $scope.project.options.filter.target_beneficiaries = $scope.project.options.list.beneficiaries;
-
           // for each beneficiaries
           angular.forEach( $scope.project.definition.target_beneficiaries, function(d, i){
-            
             // filter
             $scope.project.options.filter.target_beneficiaries = $filter( 'filter' )( $scope.project.options.filter.target_beneficiaries, { beneficiary_type: '!' + d.beneficiary_type }, true);
 
           });
 
+
           // update dropdown
           $timeout(function(){
             $( '#ngm-target_beneficiary-category' ).material_select('update');
+
           }, 10);          
 
         }, 1000);

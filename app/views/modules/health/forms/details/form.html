@@ -186,14 +186,20 @@
 									project.definition.project_status === 'new' && (
 										( healthProjectForm.$pristine ) ||
 										( healthProjectForm.$invalid ) || 
+										( !project.project_type_valid() ) ||
+										( !project.project_donor_valid() ) ||
 										( project.definition.target_beneficiaries.length === 0 ) ||
 										( project.definition.target_locations.length === 0 ) || 
-										( healthProjectForm.$submitted && healthProjectForm.$invalid )
+										( healthProjectForm.$submitted && healthProjectForm.$invalid ) ||
+										( project.submit )
 									) ||
 									project.definition.project_status === 'active' && (
 										( healthProjectForm.$invalid ) || 
+										( !project.project_type_valid() ) ||
+										( !project.project_donor_valid() ) ||
 										( project.definition.target_beneficiaries.length === 0 ) ||
-										( project.definition.target_locations.length === 0 )
+										( project.definition.target_locations.length === 0 ) ||
+										( project.submit )
 									)"
 							ng-cloak><i class="material-icons right">send</i>Save</button>
 

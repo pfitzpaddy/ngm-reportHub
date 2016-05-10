@@ -1,0 +1,91 @@
+
+<style>
+
+	.count{
+	  position:relative;
+	  font-weight:100;
+	  font-size:3rem;
+	  line-height:3rem;
+	}
+
+
+</style>
+
+
+
+		      		<div class="row">
+		      		
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-target_beneficiary-under5male-{{ $index }}" type="number" class="validate" min="0"
+				          	ng-model="target_beneficiary.under5male"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-target_beneficiary-under5male-{{ $index }}" class="active">Under 5 Male</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-target_beneficiary-under5female-{{ $index }}" type="number" class="validate" min="0"
+				          	ng-model="target_beneficiary.under5female"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-target_beneficiary-under5female-{{ $index }}" class="active">Under 5 Female</label>    		
+			      		</div>
+
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-target_beneficiary-over5male-{{ $index }}" type="number" class="validate" min="0"
+				          	ng-model="target_beneficiary.over5male"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-target_beneficiary-over5male-{{ $index }}" class="active">Over 5 Male</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-target_beneficiary-over5female-{{ $index }}" type="number" class="validate" min="0"
+				          	ng-model="target_beneficiary.over5female"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-target_beneficiary-over5female-{{ $index }}" class="active">Over 5 Female</label>
+			      		</div>
+
+							</div>
+							
+							<br/>
+
+							<div class="row">
+
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-target_beneficiary-penta3_vacc_male_under1-{{ $index }}" type="number" class="validate" min="0"
+				          	ng-model="target_beneficiary.penta3_vacc_male_under1"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-target_beneficiary-penta3_vacc_male_under1-{{ $index }}" class="active">PENTA3 VACC Male (Under 1yrs)</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-target_beneficiary-penta3_vacc_female_under1-{{ $index }}" type="number" class="validate" min="0"
+				          	ng-model="target_beneficiary.penta3_vacc_female_under1"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-target_beneficiary-penta3_vacc_female_under1-{{ $index }}" class="active">PENTA3 VACC Female (Under 1yrs)</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-target_beneficiary-skilled_birth_attendant-{{ $index }}" type="number" class="validate" min="0"
+				          	ng-model="target_beneficiary.skilled_birth_attendant"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-target_beneficiary-skilled_birth_attendant-{{ $index }}" class="active">Skilled Birth Attendants</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-target_beneficiary-conflict_trauma_treated-{{ $index }}" type="number" class="validate" min="0"
+				          	ng-model="target_beneficiary.conflict_trauma_treated"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-target_beneficiary-conflict_trauma_treated-{{ $index }}" class="active">Conflict Trauma Treated</label>
+			      		</div>
+
+		      		</div>
+
+							<br/>
+							<br/>

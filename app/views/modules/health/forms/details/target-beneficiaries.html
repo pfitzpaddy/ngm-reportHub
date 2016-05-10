@@ -50,7 +50,7 @@
 			      		<div class="col s12 m6">
 			      			<div class="count right">
 			      				<span style="font-size:1.4rem;"><i class="material-icons" style="padding-right:20px; padding-top:10px;">group</i>Target Total</span>
-			      					{{ target_beneficiary.under5male + target_beneficiary.under5female + target_beneficiary.over5male + target_beneficiary.over5female + target_beneficiary.penta3_vacc_male_under1 + target_beneficiary.penta3_vacc_female_under1 + target_beneficiary.skilled_birth_attendant + target_beneficiary.conflict_trauma_treated | number }}
+			      					{{ target_beneficiary.under5male + target_beneficiary.under5female + target_beneficiary.over5male + target_beneficiary.over5female + target_beneficiary.penta3_vacc_male_under1 + target_beneficiary.penta3_vacc_female_under1 + target_beneficiary.skilled_birth_attendant + target_beneficiary.conflict_trauma_treated + target_beneficiary.education_male + target_beneficiary.education_female + target_beneficiary.capacity_building_male + target_beneficiary.capacity_building_female | number }}
 			      			</div>
 							  </div>
 
@@ -64,79 +64,25 @@
 							   </div>
 			      	</div>
 
-		      		<div class="row">
-		      		
-			      		<div class="input-field col s12 m3">
-				          <input id="ngm-target_beneficiary-under5male-{{ $index }}" type="number" class="validate" min="0"
-				          	ng-model="target_beneficiary.under5male"
-				          	ng-disabled="project.definition.project_status === 'complete'"
-										required>
-				          <label for="ngm-target_beneficiary-under5male-{{ $index }}" class="active">Under 5 Male</label>
-			      		</div>
-
-			      		<div class="input-field col s12 m3">
-				          <input id="ngm-target_beneficiary-under5female-{{ $index }}" type="number" class="validate" min="0"
-				          	ng-model="target_beneficiary.under5female"
-				          	ng-disabled="project.definition.project_status === 'complete'"
-										required>
-				          <label for="ngm-target_beneficiary-under5female-{{ $index }}" class="active">Under 5 Female</label>    		
-			      		</div>
-
-			      		<div class="input-field col s12 m3">
-				          <input id="ngm-target_beneficiary-over5male-{{ $index }}" type="number" class="validate" min="0"
-				          	ng-model="target_beneficiary.over5male"
-				          	ng-disabled="project.definition.project_status === 'complete'"
-										required>
-				          <label for="ngm-target_beneficiary-over5male-{{ $index }}" class="active">Over 5 Male</label>
-			      		</div>
-
-			      		<div class="input-field col s12 m3">
-				          <input id="ngm-target_beneficiary-over5female-{{ $index }}" type="number" class="validate" min="0"
-				          	ng-model="target_beneficiary.over5female"
-				          	ng-disabled="project.definition.project_status === 'complete'"
-										required>
-				          <label for="ngm-target_beneficiary-over5female-{{ $index }}" class="active">Over 5 Female</label>
-			      		</div>
-
+			      	<!-- Target beneficiaries default -->
+			      	<div ng-if="project.definition.project_type_check.cardio_health || 
+			      							project.definition.project_type_check.community_health || 
+			      							project.definition.project_type_check.donation || 
+			      							project.definition.project_type_check.outbreak_response || 
+			      							project.definition.project_type_check.phc || 
+			      							project.definition.project_type_check.physical_rehabilitation || 
+			      							project.definition.project_type_check.psycho_social || 
+			      							project.definition.project_type_check.trauma_care || 
+			      							project.definition.project_type_check.project_type_other">
+								<div class="slide-animate" ng-include="project.targetBeneficiariesDefaultUrl"></div>								
 							</div>
-							
-							<br/>
 
-							<div class="row">
 
-			      		<div class="input-field col s12 m3">
-				          <input id="ngm-target_beneficiary-penta3_vacc_male_under1-{{ $index }}" type="number" class="validate" min="0"
-				          	ng-model="target_beneficiary.penta3_vacc_male_under1"
-				          	ng-disabled="project.definition.project_status === 'complete'"
-										required>
-				          <label for="ngm-target_beneficiary-penta3_vacc_male_under1-{{ $index }}" class="active">PENTA3 VACC Male (Under 1yrs)</label>
-			      		</div>
-
-			      		<div class="input-field col s12 m3">
-				          <input id="ngm-target_beneficiary-penta3_vacc_female_under1-{{ $index }}" type="number" class="validate" min="0"
-				          	ng-model="target_beneficiary.penta3_vacc_female_under1"
-				          	ng-disabled="project.definition.project_status === 'complete'"
-										required>
-				          <label for="ngm-target_beneficiary-penta3_vacc_female_under1-{{ $index }}" class="active">PENTA3 VACC Female (Under 1yrs)</label>
-			      		</div>
-
-			      		<div class="input-field col s12 m3">
-				          <input id="ngm-target_beneficiary-skilled_birth_attendant-{{ $index }}" type="number" class="validate" min="0"
-				          	ng-model="target_beneficiary.skilled_birth_attendant"
-				          	ng-disabled="project.definition.project_status === 'complete'"
-										required>
-				          <label for="ngm-target_beneficiary-skilled_birth_attendant-{{ $index }}" class="active">Skilled Birth Attendants</label>
-			      		</div>
-
-			      		<div class="input-field col s12 m3">
-				          <input id="ngm-target_beneficiary-conflict_trauma_treated-{{ $index }}" type="number" class="validate" min="0"
-				          	ng-model="target_beneficiary.conflict_trauma_treated"
-				          	ng-disabled="project.definition.project_status === 'complete'"
-										required>
-				          <label for="ngm-target_beneficiary-conflict_trauma_treated-{{ $index }}" class="active">Conflict Trauma Treated</label>
-			      		</div>
-
-		      		</div>
+			      	<!-- Target beneficiaries trainings -->
+			      	<div ng-if="project.definition.project_type_check.capacity_building || 
+			      							project.definition.project_type_check.health_education">
+								<div class="slide-animate" ng-include="project.targetBeneficiariesTrainingUrl"></div>
+							</div>
 
 		      	</div>
 

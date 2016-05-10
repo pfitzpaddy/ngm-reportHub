@@ -42,9 +42,9 @@
 					      		<div class="col s12 m7">
 					      			<div class="count right">
 					      				<span style="font-size:1.4rem;"><i class="material-icons" style="padding-right:20px; padding-top:10px;">group</i>Actual Total</span>
-					      					{{ beneficiary.under5male + beneficiary.under5female + beneficiary.over5male + beneficiary.over5female + beneficiary.penta3_vacc_male_under1 + beneficiary.penta3_vacc_female_under1 + beneficiary.skilled_birth_attendant + beneficiary.conflict_trauma_treated | number }}
+					      					{{ beneficiary.under5male + beneficiary.under5female + beneficiary.over5male + beneficiary.over5female + beneficiary.penta3_vacc_male_under1 + beneficiary.penta3_vacc_female_under1 + beneficiary.skilled_birth_attendant + beneficiary.conflict_trauma_treated + beneficiary.education_male + beneficiary.education_female + beneficiary.capacity_building_male + beneficiary.capacity_building_female | number }}
 					      			</div>
-									  </div>					      		
+									  </div>
 
 					      		<div class="col s12 m1" style="padding-top:3px;">
 					      			<div class="btn waves-effect waves-light red lighten-2 right" 
@@ -57,79 +57,25 @@
 
 					      	</div>
 
-				      		<div class="row">
-				      		
-					      		<div class="input-field col s12 m3">
-						          <input id="ngm-project-under5male-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
-						          	ng-model="beneficiary.under5male"
-						          	ng-disabled="project.report.report_status === 'complete'"
-												required>
-						          <label for="ngm-project-under5male-{{ $parent.$index }}-{{ $index }}" class="active">Under 5 Male</label>
-					      		</div>
+					      	<!-- Target beneficiaries default -->
+					      	<div ng-if="project.definition.project_type.indexOf('cardio_health') !== -1 || 
+					      							project.definition.project_type.indexOf('community_health') !== -1 || 
+					      							project.definition.project_type.indexOf('donation') !== -1 || 
+					      							project.definition.project_type.indexOf('outbreak_response') !== -1 || 
+					      							project.definition.project_type.indexOf('phc') !== -1 || 
+					      							project.definition.project_type.indexOf('physical_rehabilitation') !== -1 || 
+					      							project.definition.project_type.indexOf('psycho_social') !== -1 || 
+					      							project.definition.project_type.indexOf('trauma_care') !== -1 || 
+					      							project.definition.project_type.indexOf('project_type_other') !== -1">
+										<div class="slide-animate" ng-include="project.beneficiariesDefaultUrl"></div>								
+									</div>
 
-					      		<div class="input-field col s12 m3">
-						          <input id="ngm-project-under5female-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
-						          	ng-model="beneficiary.under5female"
-						          	ng-disabled="project.report.report_status === 'complete'"
-												required>
-						          <label for="ngm-project-under5female-{{ $parent.$index }}-{{ $index }}" class="active">Under 5 Female</label>			      		
-					      		</div>
 
-					      		<div class="input-field col s12 m3">
-						          <input id="ngm-project-over5male-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
-						          	ng-model="beneficiary.over5male"
-						          	ng-disabled="project.report.report_status === 'complete'"
-												required>
-						          <label for="ngm-project-over5male-{{ $parent.$index }}-{{ $index }}" class="active">Over 5 Male</label>			      		
-					      		</div>
-
-					      		<div class="input-field col s12 m3">
-						          <input id="ngm-project-over5female-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
-						          	ng-model="beneficiary.over5female"
-						          	ng-disabled="project.report.report_status === 'complete'"
-												required>
-						          <label for="ngm-project-over5female-{{ $parent.$index }}-{{ $index }}" class="active">Over 5 Female</label>			      		
-					      		</div>
-
-					      	</div>
-
-					      	<br/>
-					      	
-									<div class="row">
-
-					      		<div class="input-field col s12 m3">
-						          <input id="ngm-project-penta3_vacc_male_under1-{{ $index }}" type="number" class="validate" min="0"
-						          	ng-model="beneficiary.penta3_vacc_male_under1"
-						          	ng-disabled="project.report.report_status === 'complete'"
-												required>
-						          <label for="ngm-project-penta3_vacc_male_under1-{{ $index }}" class="active">PENTA3 VACC Male (Under 1yrs)</label>
-					      		</div>
-
-					      		<div class="input-field col s12 m3">
-						          <input id="ngm-project-penta3_vacc_female_under1-{{ $index }}" type="number" class="validate" min="0"
-						          	ng-model="beneficiary.penta3_vacc_female_under1"
-						          	ng-disabled="project.report.report_status === 'complete'"
-												required>
-						          <label for="ngm-project-penta3_vacc_female_under1-{{ $index }}" class="active">PENTA3 VACC Female (Under 1yrs)</label>
-					      		</div>
-
-					      		<div class="input-field col s12 m3">
-						          <input id="ngm-project-skilled_birth_attendant-{{ $index }}" type="number" class="validate" min="0"
-						          	ng-model="beneficiary.skilled_birth_attendant"
-						          	ng-disabled="project.report.report_status === 'complete'"
-												required>
-						          <label for="ngm-project-skilled_birth_attendant-{{ $index }}" class="active">Skilled Birth Attendants</label>
-					      		</div>
-
-					      		<div class="input-field col s12 m3">
-						          <input id="ngm-project-conflict_trauma_treated-{{ $index }}" type="number" class="validate" min="0"
-						          	ng-model="beneficiary.conflict_trauma_treated"
-						          	ng-disabled="project.report.report_status === 'complete'"
-												required>
-						          <label for="ngm-project-conflict_trauma_treated-{{ $index }}" class="active">Conflict Trauma Treated</label>			      		
-					      		</div>
-
-				      		</div>
+					      	<!-- Target beneficiaries trainings -->
+					      	<div ng-if="project.definition.project_type.indexOf('capacity_building') !== -1 || 
+					      							project.definition.project_type.indexOf('health_education') !== -1">
+										<div class="slide-animate" ng-include="project.beneficiariesTrainingUrl"></div>
+									</div>
 
 				      	</div>
 
