@@ -63,24 +63,24 @@ angular.module('ngmReportHub')
 							'title': $scope.report.project.project_description
 						}
 					},
-					menu: [{
-						'icon': 'location_on',
-						'title': 'Projects',
-						'class': 'teal-text',
-						rows: [{
-							'title': 'Project List',
-							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'param': 'project',
-							'active': 'active',
-							'href': '#/health/projects'
-						},{
-							'title': 'Create New Project',
-							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'param': 'project',
-							'active': 'active',
-							'href': $scope.report.newProjectUrl
-						}]
-					}],
+					// menu: [{
+					// 	'icon': 'location_on',
+					// 	'title': 'Projects',
+					// 	'class': 'teal-text',
+					// 	rows: [{
+					// 		'title': 'Project List',
+					// 		'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+					// 		'param': 'project',
+					// 		'active': 'active',
+					// 		'href': '#/health/projects'
+					// 	},{
+					// 		'title': 'Create New Project',
+					// 		'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+					// 		'param': 'project',
+					// 		'active': 'active',
+					// 		'href': $scope.report.newProjectUrl
+					// 	}]
+					// }],
 					rows: [{
 						columns: [{
 							styleClass: 's12 m12 l12',

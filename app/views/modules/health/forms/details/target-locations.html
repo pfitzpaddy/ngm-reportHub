@@ -15,9 +15,9 @@
 
 							<!-- form -->
 
-				      <div class="row" ng-if="project.definition.project_status !== 'complete'">
+				      <div class="row remove" ng-if="project.definition.project_status !== 'complete'">
 
-			      		<div class="input-field col s12 m3 remove"
+			      		<div class="input-field col s12 m3"
 			      			ng-class="{ 'error-label': healthProjectForm.$submitted
 							  								&& project.definition.locations.length === 0 }">
 			      			<select id="ngm-project-province" class="validate"
@@ -30,7 +30,7 @@
 			      			<label>Province</label>
 			      		</div>
 
-			      		<div class="input-field col s12 m3 remove"
+			      		<div class="input-field col s12 m3"
 			      			ng-class="{ 'error-label': healthProjectForm.$submitted
 							  								&& project.definition.locations.length === 0 }">
 			      			<select id="ngm-project-district" class="validate"
@@ -43,7 +43,7 @@
 			      			<label>District</label>
 			      		</div>
 
-							  <div class="input-field col s12 m2 remove"
+							  <div class="input-field col s12 m2"
 							  	ng-class="{ 'error-label': healthProjectForm.$submitted
 							  								&& project.definition.locations.length === 0 }">
 							    <select id="ngm-project-hf_type" class="validate"
@@ -56,14 +56,14 @@
 							    <label>Facility Type</label>
 							  </div>
 
-							  <div class="input-field col s12 m3 remove">
+							  <div class="input-field col s12 m3">
 							    <input id="ngm-project-hf_name" type="text" class="validate"
 							    	ng-model="project.options.selection.hf_name"
 							    	disabled>
 							    <label for="ngm-project-hf_name">Facility Name</label>
 							  </div>
 
-			      		<div class="col s12 m1 remove" style="padding-top:15px;">
+			      		<div class="col s12 m1" style="padding-top:15px;">
 			      			<button class="waves-effect waves-light btn green lighten-2 right" 
 			      					title="Add Location {{ project.options.selection.hf_name }}"
 			      					ng-show="project.definition.project_status !== 'complete'"
@@ -78,7 +78,7 @@
 							 <div class="row">
 
 							 	<div class="row">
-									<h5 class="report-work-title" style="font-size:1.1rem; padding-left:20px;">{{ project.definition.locations.length }} Selected Locations</h5>
+									<h5 class="report-work-title" style="font-size:1.1rem; padding-left:20px;">{{ project.definition.target_locations.length }} Selected Locations</h5>
 								</div>
 
 								<div class="row" ng-repeat="location in project.definition.target_locations track by $index">

@@ -126,12 +126,12 @@ angular.module('ngmReportHub')
 							}]
 						}
 					},
-					menu: [{
-						'icon': 'keyboard_return',
-						'title': 'Back to Reports',
-						'class': 'teal-text',
-						'href': '#/health/projects/report/' + $scope.report.project.id
-					}],
+					// menu: [{
+					// 	'icon': 'keyboard_return',
+					// 	'title': 'Back to Reports',
+					// 	'class': 'teal-text',
+					// 	'href': '#/health/projects/report/' + $scope.report.project.id
+					// }],
 					rows: [{		
 						columns: [{
 							styleClass: 's12 m12 l12',

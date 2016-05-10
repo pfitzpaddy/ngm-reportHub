@@ -85,13 +85,13 @@ angular.module('ngmReportHub')
 							}]
 						}
 					},
-					menu: [{
-						'id': 'keyboard_return_menu_option',
-						'icon': 'keyboard_return',
-						'title': 'Back to Projects',
-						'class': 'teal-text',
-						'href': '#/health/projects'
-					}],
+					// menu: [{
+					// 	'id': 'keyboard_return_menu_option',
+					// 	'icon': 'keyboard_return',
+					// 	'title': 'Back to Projects',
+					// 	'class': 'teal-text',
+					// 	'href': '#/health/projects'
+					// }],
 					rows: [{				
 						columns: [{
 							styleClass: 's12 m12 l12',

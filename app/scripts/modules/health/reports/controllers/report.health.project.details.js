@@ -115,12 +115,12 @@ angular.module('ngmReportHub')
 							}]
 						}
 					},
-					menu: [{
-						'id': 'keyboard_return_menu_option',
-						'icon': 'keyboard_return',
-						'title': 'Back to Projects',
-						'class': 'teal-text',
-						'href': '#/health/projects'
+					// menu: [{
+					// 	'id': 'keyboard_return_menu_option',
+					// 	'icon': 'keyboard_return',
+					// 	'title': 'Back to Projects',
+					// 	'class': 'teal-text',
+					// 	'href': '#/health/projects'
 						// rows: [{
 						// 	'title': 'Back to Projects',
 						// 	'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
@@ -144,7 +144,7 @@ angular.module('ngmReportHub')
 					// 	'title': 'Locations',
 					// 	'class': 'teal lighten-4 grey-text text-darken-2',
 					// }],
-					}],
+					// }],
 					rows: [{		
 						columns: [{
 							styleClass: 's12 m12 l12',

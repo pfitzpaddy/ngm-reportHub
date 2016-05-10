@@ -69,19 +69,19 @@ angular.module('ngmReportHub')
 					title: 'Health projects for ' + ngmUser.get().organization,
 				}
 			},
-			menu: [{
-				'icon': 'add_circle_outline',
-				'title': 'Add New Project',
-				'class': 'teal-text',
-				'href': $scope.report.newProjectUrl
-				// rows: [{
-				// 	'title': 'Add New Project',
-				// 	'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-				// 	'param': 'project',
-				// 	'active': 'active',
-				// 	'href': $scope.report.newProjectUrl
-				// }]
-			}],
+			// menu: [{
+			// 	'icon': 'add_circle_outline',
+			// 	'title': 'Add New Project',
+			// 	'class': 'teal-text',
+			// 	'href': $scope.report.newProjectUrl
+			// 	// rows: [{
+			// 	// 	'title': 'Add New Project',
+			// 	// 	'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+			// 	// 	'param': 'project',
+			// 	// 	'active': 'active',
+			// 	// 	'href': $scope.report.newProjectUrl
+			// 	// }]
+			// }],
 			rows: [{
 				columns: [{
 					styleClass: 's12 m12 l12',
