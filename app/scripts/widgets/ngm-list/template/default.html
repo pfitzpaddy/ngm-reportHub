@@ -67,7 +67,7 @@
     	style="padding-top:20px;">
 			<a href="#/health/projects/summary/{{ item.id }}" title="Update project {{ item.id }}">
 				<i class="material-icons circle white teal-text">{{ list.icon }}</i>
-				<span class="title">{{ item.project_title }}</span>
+				<span class="title truncate">{{ item.project_title }}</span>
 				<span class="right" style="padding:0px 30px 0px 0px; color:#616161;">Last Updated: {{ list.updatedAt( item.updatedAt ) }}</span>
 				<p align="justify" style="padding:10px 0px 10px 0px;">
 					{{ item.project_description }}

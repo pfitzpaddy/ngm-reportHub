@@ -553,7 +553,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             // form validation takes over
             $scope.healthProjectForm.$setSubmitted();
             // inform
-            Materialize.toast('Please review the form for errors and try again!', 3000);
+            Materialize.toast( 'Please review the form for errors and try again!', 3000);
 
           }
 
@@ -564,9 +564,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           // new becomes active!
           if( $scope.project.definition.project_status === 'new' ) {
-            var msg = $scope.project.definition.project_title + ' created!';
+            var msg = 'Project Created!';
           } else {
-            var msg = $scope.project.definition.project_title + ' updated!';
+            var msg = 'Project Updated!';
           }
 
           // redirect on success
@@ -588,14 +588,14 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
               
               // Re-direct to list
               $location.path( '/health/projects' );
-              Materialize.toast( 'Create Project cancelled!', 3000, 'note' );
+              Materialize.toast( 'Create Project Cancelled!', 3000, 'note' );
 
             } else {
 
               // Re-direct to summary
               $location.path( '/health/projects/summary/' + $scope.project.definition.id );
               if( $scope.project.definition.project_status !== 'complete' ) {
-                Materialize.toast( 'Project update cancelled!', 3000, 'note' );
+                Materialize.toast( 'Project Update Cancelled!', 3000, 'note' );
               }
             }
 
