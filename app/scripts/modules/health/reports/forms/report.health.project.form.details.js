@@ -79,7 +79,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
               beneficiary_name: 'Natural Disaster Affected'
             },{
               beneficiary_type: 'training',
-              beneficiary_name: 'Training & Capacity Building'
+              beneficiary_name: 'Health Education & Capacity Building'
             },{
               beneficiary_type: 'public_health',
               beneficiary_name: 'Public Health at Risk'
@@ -242,8 +242,6 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             capacity_building_sessions: 0,
             capacity_building_male: 0,
             capacity_building_female: 0,
-            capacity_building_doctors: 0,
-            capacity_building_nurses: 0,
             education_sessions: 0,
             education_male: 0,
             education_female: 0,

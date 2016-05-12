@@ -131,8 +131,6 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             capacity_building_sessions: 0,
             capacity_building_male: 0,
             capacity_building_female: 0,
-            capacity_building_doctors: 0,
-            capacity_building_nurses: 0,            
             prov_code: $scope.project.report.locations[$index].prov_code,
             prov_name: $scope.project.report.locations[$index].prov_name,
             dist_code: $scope.project.report.locations[$index].dist_code,

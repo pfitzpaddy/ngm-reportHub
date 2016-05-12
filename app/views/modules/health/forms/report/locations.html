@@ -25,12 +25,8 @@
 								  <tbody>
 								    <tr>
 								    	<td width="10%" style="text-align:center;"><i class="material-icons" style="color: teal;">location_on</i></td>
-								    	<td width="80%" align="left"><h5 class="report-work-title" 
+								    	<td width="90%" align="left"><h5 class="report-work-title" 
 																					style="font-size:1.2rem; font-weight:300;text-align:left;margin-top:0px;">{{ location.prov_name }}, {{ location.dist_name }}, {{ location.fac_type }}, {{ location.fac_name }}</h5></td>
-								      <td width="10%" style="text-align:right;"><a class="waves-effect waves-light btn red lighten-2"
-								      	title="Remove {{ location.prov_name }} Location {{ location.fac_name }}"
-								      	ng-if="project.report.report_status !== 'complete'"
-								      	ng-click="project.removeLocation( $index )"><i class="material-icons">cancel</i></a></td>
 								    </tr>
 								  </tbody>
 								</table>

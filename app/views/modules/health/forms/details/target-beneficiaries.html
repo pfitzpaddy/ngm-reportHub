@@ -65,22 +65,13 @@
 			      	</div>
 
 			      	<!-- Target beneficiaries default -->
-			      	<div ng-if="project.definition.project_type_check.cardio_health || 
-			      							project.definition.project_type_check.community_health || 
-			      							project.definition.project_type_check.donation || 
-			      							project.definition.project_type_check.outbreak_response || 
-			      							project.definition.project_type_check.phc || 
-			      							project.definition.project_type_check.physical_rehabilitation || 
-			      							project.definition.project_type_check.psycho_social || 
-			      							project.definition.project_type_check.trauma_care || 
-			      							project.definition.project_type_check.project_type_other">
+			      	<div ng-if="target_beneficiary.beneficiary_type !== 'training'">
 								<div class="slide-animate" ng-include="project.targetBeneficiariesDefaultUrl"></div>								
 							</div>
 
 
 			      	<!-- Target beneficiaries trainings -->
-			      	<div ng-if="project.definition.project_type_check.capacity_building || 
-			      							project.definition.project_type_check.health_education">
+			      	<div ng-if="target_beneficiary.beneficiary_type === 'training'">
 								<div class="slide-animate" ng-include="project.targetBeneficiariesTrainingUrl"></div>
 							</div>
 
