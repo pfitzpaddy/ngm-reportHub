@@ -85,7 +85,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
               beneficiary_name: 'Natural Disaster Affected'
             },{
               beneficiary_type: 'training',
-              beneficiary_name: 'Training & Capacity Building'
+              beneficiary_name: 'Health Education & Capacity Building'
             },{              
               beneficiary_type: 'public_health',
               beneficiary_name: 'Public Health at Risk'

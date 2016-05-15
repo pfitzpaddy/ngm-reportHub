@@ -37,19 +37,19 @@ angular.module('ngmReportHub')
 		}
 
 		// get all lists 
-		if ( !localStorage.getItem( 'lists' ) ) {
+		// if ( localStorage.getItem( 'lists' ) ) {
 
 			// send request
 			$q.all([ $scope.report.provinceListRequest, $scope.report.districtListRequest ]).then( function( results ){
 
 				// set lists to local storage
-				localStorage.setItem('lists', true);
-				localStorage.setItem('provinceList', JSON.stringify(results[0].data));
-				localStorage.setItem('districtList', JSON.stringify(results[1].data));
+				localStorage.setItem( 'lists', true );
+				localStorage.setItem( 'provinceList', JSON.stringify(results[0].data) );
+				localStorage.setItem( 'districtList', JSON.stringify(results[1].data) );
 
 			});
 
-		}
+		// }
 
 		// report dashboard model
 		$scope.model = {

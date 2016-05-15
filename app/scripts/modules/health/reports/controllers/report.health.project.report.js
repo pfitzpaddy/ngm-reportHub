@@ -86,13 +86,13 @@ angular.module('ngmReportHub')
 							style: 'border-bottom: 3px ' + $scope.report.ngm.style.defaultPrimaryColor + ' solid;'
 						},
 						title: {
-							'class': 'col s12 m9 l9 report-title',
+							'class': 'col s12 m9 l9 report-title truncate',
 							style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
 							title: $scope.report.project.organization + ' | ' + $scope.report.project.project_title
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate',
-							'title': 'Monthly Beneficiaries Report for ' + moment( $scope.report.definition.reporting_period ).format('MMMM, YYYY')
+							'title': 'Actual Monthly Beneficiaries Report for ' + moment( $scope.report.definition.reporting_period ).format('MMMM, YYYY')
 						},
 						download: {
 							'class': 'col s12 m3 l3 hide-on-small-only',

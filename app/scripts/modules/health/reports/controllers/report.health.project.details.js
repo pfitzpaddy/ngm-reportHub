@@ -179,8 +179,7 @@ angular.module('ngmReportHub')
 
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;
-
-
+				
 				// // add click events
 				// $timeout(function() {
 
@@ -216,7 +215,7 @@ angular.module('ngmReportHub')
 		// Run page
 
 		// if 'new' create empty project
-		if($route.current.params.project === 'new') {
+		if( $route.current.params.project === 'new' ) {
 
 			// current date
 			var d = new Date();
@@ -240,7 +239,7 @@ angular.module('ngmReportHub')
 			}
 
 			// set summary
-			$scope.report.setProjectDetails(project);
+			$scope.report.setProjectDetails( project );
 
 		} else {
 

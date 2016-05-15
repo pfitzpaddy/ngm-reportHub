@@ -45,13 +45,13 @@ angular.module('ngmReportHub')
 							style: 'border-bottom: 3px ' + $scope.report.ngm.style.defaultPrimaryColor + ' solid;'
 						},
 						title: {
-							'class': 'col s12 m9 l9 report-title',
+							'class': 'col s12 m9 l9 report-title truncate',
 							style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: $scope.report.project.organization + ' | ' + $scope.report.project.project_title
+							title: $scope.report.project.organization + ' | Monthly Reports | ' + $scope.report.project.project_title
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate',
-							'title': 'Monthly reports for ' + $scope.report.project.project_title
+							'title': 'Actual Monthly Beneficiaries Reports for ' + $scope.report.project.project_title
 						},
 						download: {
 							'class': 'col s12 m3 l3 hide-on-small-only',
@@ -141,7 +141,7 @@ angular.module('ngmReportHub')
 								config: {
 									titleIcon: 'done_all',
 									color: 'blue lighten-4',
-									title: 'Report Complete',
+									title: 'Reports Complete',
 									hoverTitle: 'View',
 									icon: 'done',
 									rightIcon: 'send',

@@ -77,7 +77,7 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
             }
           }).then(function(data){
             // on success
-            Materialize.toast( 'Project "' + $scope.project.definition.project_title + '" Budget Updated!', 3000, 'success');
+            Materialize.toast( 'Project Budget Updated!', 3000, 'success');
           });
 
         }

@@ -285,24 +285,6 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
         },
 
-        // remove all beneficiaries
-        removeTargetBeneficiaries: function(){
-
-          // set to zero
-          $scope.project.definition.target_beneficiaries = []
-
-          // reset dropdown
-          $scope.project.options.filter.target_beneficiaries = $scope.project.options.list.beneficiaries;
-
-          // update dropdown
-          $timeout(function(){
-            // apply filter
-            $( '#ngm-target_beneficiary-category' ).material_select('update');
-
-          }, 10);
-
-        },
-
         // apply location dropdowns
         locationSelect: function(id, select) {
 
@@ -408,13 +390,13 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           if ( province ){
             // reset select option
             $scope.project.options.selection.province = {};
-            $scope.project.options.list.provinces = angular.fromJson(localStorage.getItem('provinceList'));
+            $scope.project.options.list.provinces = angular.fromJson( localStorage.getItem( 'provinceList' ) );
             // reset dropdown
-            $('#ngm-project-province').prop('selectedIndex',0);
+            $( '#ngm-project-province' ).prop( 'selectedIndex', 0 );
             $timeout(function() {
               // update
-              $('#ngm-project-province').material_select('update');
-            }, 10);
+              $( '#ngm-project-province' ).material_select( 'update' );
+            }, 10 );
           }
 
           // reset district
