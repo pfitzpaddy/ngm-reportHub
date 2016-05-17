@@ -11,44 +11,71 @@
 					
 	      	<!-- budget input -->
 					<div class="row">
-		        
+						
+						<!-- project budget -->		        
 		        <div class="input-field col s12 m4">
-		          <input id="ngm-project-budget-currency_monthly" type="number" class="validate" min="1"
+		          <input id="ngm-project-budget-currency_monthly" type="number" class="validate"
 		          	ng-model="project.definition.project_budget"
-		          	ng-disabled="project.definition.project_status === 'complete'"
-								required>
+		          	disabled>
 		          <label for="ngm-project-budget-currency_monthly">Project Budget ({{ project.definition.project_budget_currency | uppercase }})</label>
 		        </div>	        
 
+		        <!-- budget recieved -->
 		        <div class="input-field col s12 m4">
-		          <input id="ngm-project-budget_progress_usd" type="number" class="validate" min="0" max="100"
-		          	ng-model="project.definition.project_budget_recieved"
+		          <input id="ngm-project-budget_progress_usd" type="number" class="validate" min="0"
+		          	ng-model="project.project_budget_amount_recieved"
 		          	ng-disabled="project.definition.project_status === 'complete'">
-		          <label for="ngm-project-budget_progress_usd">Budget Recieved (%)</label>
+		          <label for="ngm-project-budget_progress_usd" class="active">Budget Recieved Amount ({{ project.definition.project_budget_currency | uppercase }})</label>
 		        </div>
 
-		        <div class="input-field col s12 m4">
-		          <input id="ngm-project-budget_progress_usd" type="number" class="validate" min="0" max="100"
-		          	ng-model="project.definition.project_budget_spent"
+		        <!-- start date -->
+		        <div class="input-field col s12 m3">
+		          <input id="ngm-budget-recieved-date" type="text" class="datepicker"
 		          	ng-disabled="project.definition.project_status === 'complete'">
-		          <label for="ngm-project-budget_progress_usd">Budget Spent (%)</label>
+		          <label for="ngm-budget-recieved-date">Budget Recieved Date</label>
 		        </div>
+
+		        <!-- add circle -->
+	      		<div class="col s12 m1" style="padding-top:15px;">
+	      			<button class="waves-effect waves-light btn green lighten-2 right" 
+	      					title="Add Budget Recieved Date"
+	      					ng-show="project.definition.project_status !== 'complete'"
+	      					ng-click="project.saveBudgetLine()"
+	      					ng-disabled="project.project_budget_amount_recieved < 1">
+	      					<i class="material-icons">add_circle</i>
+	      			</button>
+					  </div>
 
 		      </div>
 
-			<!-- submission -->
-			<div align="center">
-				
-				<button data-target="save-modal" class="waves-effect waves-light btn remove"
-					ng-click="project.save()"
-					ng-show="project.definition.project_status !== 'complete'"
-					ng-disabled="
-								( healthReportsForm.$pristine ) ||
-								( healthReportsForm.$invalid ) ||
-								( healthReportsForm.$submitted && healthReportsForm.$invalid )"
-					ng-cloak><i class="material-icons right">send</i>Save</button>
+		      <div class="row">
 
-			</div>		      
+					 	<div class="row" ng-show="project.definition.project_budget_progress.length">
+							<h5 class="report-work-title" style="font-size:1.1rem; padding-left:20px;">{{ project.definition.project_budget_progress.length }} Budget Progress Updates</h5>
+						</div>
+
+						<div class="row" ng-repeat="budget in project.definition.project_budget_progress track by $index">
+
+							<div class="row" id="ngm-project-budget-progress-{{ $index }}">
+								
+								<table class="responsive-table centered" style="margin-left:10px; width:98%">
+								  <tbody>
+								    <tr>
+								    	<td width="10%" style="text-align:center;"><i class="material-icons" style="color: teal;">date_range</i></td>
+								    	<td width="80%" align="left"><h5 class="report-work-title" 
+																					style="font-size:1.2rem; font-weight:300;text-align:left;margin-top:0px;">{{ budget.project_budget_amount_recieved }}% of Budget Recieved on {{ budget.project_budget_date_recieved | date:'longDate' }}</h5></td>
+								      <td width="10%" style="padding-left:22px;"><a class="waves-effect waves-light btn red lighten-2 left"
+								      	title="Remove budget item for {{ budget.project_budget_date_recieved | date:'longDate' }}"
+								      	ng-if="project.definition.project_status !== 'complete'"
+								      	ng-click="project.removeBudgetItem( $index )"><i class="material-icons">cancel</i></a></td>
+								    </tr>
+								  </tbody>
+								</table>
+							</div>
+
+						</div>
+
+					</div>
 
 				</li>
 

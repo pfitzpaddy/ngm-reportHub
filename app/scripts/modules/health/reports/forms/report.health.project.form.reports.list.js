@@ -43,6 +43,12 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
           USDAFN: 68.61          
         },
 
+        // budget
+        project_budget_amount_recieved: 0,
+
+        // date
+        project_budget_date_recieved: moment().format('YYYY-MM-DD'),
+
         // project
         definition: config.project,
 
@@ -66,18 +72,102 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
         },
 
         // save project
-        save: function() {
+        saveBudgetLine: function() {
 
-          // Submit project for save
+          // if no progress reporting
+          if ( !$scope.project.definition.project_budget_progress ) {
+            $scope.project.definition.project_budget_progress = []
+          }
+
+          // create project budget progress object
+          $scope.project.definition.project_budget_progress.unshift({
+            organization_id: config.project.organization_id,
+            organization: config.project.organization,
+            project_title: $scope.project.definition.project_title,
+            project_budget: $scope.project.definition.project_budget,
+            project_budget_currency: $scope.project.definition.project_budget_currency,
+            project_budget_amount_recieved: $scope.project.project_budget_amount_recieved,
+            project_budget_date_recieved: $scope.project.project_budget_date_recieved
+          });
+
+          // Update 
           ngmData.get({
             method: 'POST',
             url: 'http://' + $location.host() + '/api/health/project/setProject',
             data: {
               project: $scope.project.definition
             }
-          }).then(function(data){
+          }).then( function( project ){
             // on success
-            Materialize.toast( 'Project Budget Updated!', 3000, 'success');
+            Materialize.toast( 'Project Budget Progress Updated!', 3000, 'success');
+          });
+
+        },
+
+        // remove budget item
+        removeBudgetItem: function( $index ) {
+
+          // remove from
+          $scope.project.definition.project_budget_progress.splice( $index, 1 );
+
+          // Update 
+          ngmData.get({
+            method: 'POST',
+            url: 'http://' + $location.host() + '/api/health/project/setProject',
+            data: {
+              project: $scope.project.definition
+            }
+          }).then( function( project ){
+            // on success
+            Materialize.toast( 'Project Budget Progress Updated!', 3000, 'success');
+          });
+
+        },
+
+        // set start datepicker
+        setBudgetTime: function() {
+            
+          // set element
+          $scope.$input = $('#ngm-budget-recieved-date').pickadate({
+            selectMonths: true,
+            selectYears: 15,
+            format: 'dd mmm, yyyy',
+            onStart: function(){
+              
+              $timeout(function(){
+                
+                // set time
+                $scope.project.startPicker.set('select', $scope.project.project_budget_date_recieved, { format: 'yyyy-mm-dd' } );
+
+              }, 10)
+            },          
+            onSet: function( event ){
+              
+              // close on date select
+              if( event.select ){
+                
+                // get date
+                var selectedDate = moment( event.select );
+
+                // set date
+                $scope.project.project_budget_date_recieved = moment( selectedDate ).format( 'YYYY-MM-DD' );
+                
+                // close
+                $scope.project.startPicker.close();
+
+              }
+
+            }
+
+          });        
+
+          //pickadate api
+          $scope.project.startPicker = $scope.$input.pickadate( 'picker' );
+
+          // on click
+          $( '#ngm-budget-recieved-date' ).bind( 'click', function( $e ) {
+            // open
+            $scope.project.startPicker.open();
           });
 
         }
@@ -90,7 +180,10 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
         // give a few seconds to render
         $timeout(function() {
 
-        });
+          // init start date
+          $scope.project.setBudgetTime();
+
+        }, 1000 );
 
       });
   }
