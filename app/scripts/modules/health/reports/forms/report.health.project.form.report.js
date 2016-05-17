@@ -73,22 +73,19 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             // beneficiaries
             beneficiaries: [{
               beneficiary_type: 'conflict_displaced',
-              beneficiary_name: 'Conflict Displaced'
+              beneficiary_name: 'Conflict IDPs'
             },{
               beneficiary_type: 'health_affected_conflict',
               beneficiary_name: 'Health Affected by Conflict'
             },{
-              beneficiary_type: 'refugees_returnees',
-              beneficiary_name: 'Refugees & Returnees'
-            },{
-              beneficiary_type: 'natural_disaster_affected',
-              beneficiary_name: 'Natural Disaster Affected'
-            },{
               beneficiary_type: 'training',
               beneficiary_name: 'Health Education & Capacity Building'
-            },{              
-              beneficiary_type: 'public_health',
-              beneficiary_name: 'Public Health at Risk'
+            },{
+              beneficiary_type: 'natural_disaster_affected',
+              beneficiary_name: 'Natural Disaster IDPs'
+            },{
+              beneficiary_type: 'refugees_returnees',
+              beneficiary_name: 'Refugees & Returnees'
             },{
               beneficiary_type: 'white_area_population',
               beneficiary_name: 'White Area Population'
