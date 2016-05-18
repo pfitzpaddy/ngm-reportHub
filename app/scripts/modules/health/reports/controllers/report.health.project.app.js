@@ -32,38 +32,24 @@ angular.module('ngmReportHub')
 			districtListRequest: $http({
 				method: 'GET',
 				url: 'http://' + $location.host() + '/api/location/getDistrictList'
-			}),
-
-			// hf type lists
-			hfTypeListRequest: $http({
-				method: 'GET',
-				url: 'http://' + $location.host() + '/api/health/getFacilityTypeList'
-			}),
-
-			// hf lists
-			hfListRequest: $http({
-				method: 'GET',
-				url: 'http://' + $location.host() + '/api/health/getFacilityList'
-			}),
+			})
 
 		}
 
 		// get all lists 
-		if ( !localStorage.getItem('lists') ) {
+		// if ( localStorage.getItem( 'lists' ) ) {
 
 			// send request
-			$q.all([$scope.report.provinceListRequest, $scope.report.districtListRequest, $scope.report.hfTypeListRequest, $scope.report.hfListRequest]).then(function(results){
+			$q.all([ $scope.report.provinceListRequest, $scope.report.districtListRequest ]).then( function( results ){
 
 				// set lists to local storage
-				localStorage.setItem('lists', true);
-				localStorage.setItem('provinceList', JSON.stringify(results[0].data));
-				localStorage.setItem('districtList', JSON.stringify(results[1].data));
-				localStorage.setItem('hfTypeList', JSON.stringify(results[2].data));
-				localStorage.setItem('hfList', JSON.stringify(results[3].data));
+				localStorage.setItem( 'lists', true );
+				localStorage.setItem( 'provinceList', JSON.stringify(results[0].data) );
+				localStorage.setItem( 'districtList', JSON.stringify(results[1].data) );
 
 			});
 
-		}
+		// }
 
 		// report dashboard model
 		$scope.model = {
@@ -83,19 +69,19 @@ angular.module('ngmReportHub')
 					title: 'Health projects for ' + ngmUser.get().organization,
 				}
 			},
-			menu: [{
-				'icon': 'add_circle_outline',
-				'title': 'Add New Project',
-				'class': 'teal-text',
-				'href': $scope.report.newProjectUrl
-				// rows: [{
-				// 	'title': 'Add New Project',
-				// 	'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-				// 	'param': 'project',
-				// 	'active': 'active',
-				// 	'href': $scope.report.newProjectUrl
-				// }]
-			}],
+			// menu: [{
+			// 	'icon': 'add_circle_outline',
+			// 	'title': 'Add New Project',
+			// 	'class': 'teal-text',
+			// 	'href': $scope.report.newProjectUrl
+			// 	// rows: [{
+			// 	// 	'title': 'Add New Project',
+			// 	// 	'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+			// 	// 	'param': 'project',
+			// 	// 	'active': 'active',
+			// 	// 	'href': $scope.report.newProjectUrl
+			// 	// }]
+			// }],
 			rows: [{
 				columns: [{
 					styleClass: 's12 m12 l12',
@@ -116,8 +102,9 @@ angular.module('ngmReportHub')
 						card: 'white grey-text text-darken-2',
 						config: {
 							titleIcon: 'alarm_on',
-							color: 'blue-grey darken-1',
-							textColor: 'white-text',
+							// color: 'teal lighten-4',
+							color: 'blue lighten-4',
+							// textColor: 'white-text',
 							title: 'Active',
 							icon: 'edit',
 							newProjectUrl: $scope.report.newProjectUrl,
@@ -142,7 +129,8 @@ angular.module('ngmReportHub')
 						card: 'white grey-text text-darken-2',
 						config: {
 							titleIcon: 'done_all',
-							color: 'lime lighten-4',
+							// color: 'lime lighten-4',
+							color: 'blue lighten-4',
 							title: 'Complete',
 							icon: 'done',
 							newProjectUrl: $scope.report.newProjectUrl,

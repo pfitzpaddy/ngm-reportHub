@@ -16,13 +16,13 @@
 	.collection {
 		overflow: visible !important;
 	}
-
+		
 	/* fieldset for blocking edits */
 	fieldset {
     border: 0;
     margin: 0;
     padding: 0;
-	}	
+	}
 
 	/* input label */
 	.input-field label,
@@ -70,26 +70,14 @@
 		color: #e57373;
 		font-weight: 400;		
 	}
-	
+
 </style>
 
-<!-- cancel modal -->
-<div id="save-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">done</i>Save Project Financials</h4>
-    <!-- <p>Your project financial items have been saved for '{{ project.definition.project_title }}'</p> -->
-    <p>Your project financial items have been saved!</p>
-  </div>
-  <div class="modal-footer">
-    <a ng-click="project.redirect()" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
-  </div>
-</div>
-
 <!-- list modal -->
-<div id="summary-modal" class="modal">
+<div id="list-modal" class="modal">
   <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Cancel Project Update</h4>
-    <p>Are you sure you want to return to Project Summary?</p>
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Cancel Monthly Report</h4>
+    <p>Are you sure you want to return to Reports List?</p>
     <p>All edits will be lost...</p>
   </div>
   <div class="modal-footer">
@@ -98,13 +86,25 @@
   </div>
 </div>
 
+<div id="complete-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Submit Monthly Report for {{ project.titleFormat }}</h4>
+    <p>Are you sure you want to submit this monthly report for {{ project.titleFormat }}?</p>
+  </div>
+  <div class="modal-footer">
+  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="project.save( true )" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, submit report!</a>
+  </div>
+</div>
+
+<!--  -->
 <div class="row">
 	<div class="col s12 m12 l12">
 		<div style="padding:20px;">
 			
 			<!--  -->
-			<button class="waves-effect waves-light btn" ng-click="project.modalConfirm('summary-modal')">
-				<i class="material-icons left">keyboard_return</i>Back to Project Summary
+			<button class="waves-effect waves-light btn" ng-click="project.modalConfirm( 'list-modal' )">
+				<i class="material-icons left">keyboard_return</i>Back to Project Reports
 			</button>
 
 			<span class="right" style="padding-top:8px;">Last Updated: {{ project.updatedAt }}</span>
@@ -114,40 +114,47 @@
 </div>
 
 <!-- Project form -->
-<form name="healthProjectFinancialsForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
-
-	<!-- disabled -->
-	<fieldset ng-disabled="project.definition.organization !== project.user.organization ">
-
-		<!-- Project financials details -->
-		<div class="slide-animate" ng-include="project.financialsUrl"></div>
+<form name="healthReportForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
+		
+		<!-- Project beneficiaries details -->
+		<div class="slide-animate" ng-include="project.locationsUrl"></div>
 
 		<!-- form submission -->
-		<div class="row" ng-if="project.definition.project_status !== 'complete'">
+		<div class="row remove" ng-if="project.definition.project_status !== 'complete'">
 			<div class="col s12 m12 l12">
-				<div class="widget card-panel white grey-text text-darken-2">
+				<div class="widget card-panel white grey-text text-darken-2">			
 					
 					<!-- submission -->
-					<div align="center">
+					<div align="center" >
 						
 						<button data-target="save-modal" class="waves-effect waves-light btn"
-							ng-click="project.save()"
-							ng-disabled="healthProjectFinancialsForm.$invalid
-									|| project.definition.financials.length === 0"
+							ng-click="project.save( false )"
+							ng-disabled="
+										( healthReportForm.$pristine ) ||
+										( healthReportForm.$invalid ) ||
+										( project.report.locations[0].beneficiaries.length === 0 ) ||
+										( project.report.submit ) ||
+										( healthReportForm.$submitted && healthReportForm.$invalid )"
 							ng-cloak><i class="material-icons right">send</i>Save</button>
 
-						<!-- cancel update -->
-						<button class="waves-effect waves-light btn grey" ng-click="project.modalConfirm('summary-modal')"
-							ng-if="project.definition.project_status === 'active' ">Cancel
+						<!-- cancel new -->
+						<button class="waves-effect waves-light btn grey" ng-click="project.modalConfirm( 'list-modal' )">
+							Cancel
 						</button>
+
+						<br/>
+						<br/>
+
+						<button data-target="complete-modal" class="waves-effect waves-light btn modal-trigger blue"
+							ng-cloak><i class="material-icons left">assignment_turned_in</i>Submit Monthly Report</button>
 
 					</div>
 
 				</div>
 			</div>
 		</div>
-
+		
 	</fieldset>
-	
+
 </form>
 

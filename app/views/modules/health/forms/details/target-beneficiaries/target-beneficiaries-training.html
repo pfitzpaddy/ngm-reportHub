@@ -1,0 +1,88 @@
+
+<style>
+
+	.count{
+	  position:relative;
+	  font-weight:100;
+	  font-size:3rem;
+	  line-height:3rem;
+	}
+
+
+</style>
+		      		
+		      		<!-- education -->
+		      		<div class="row">		      					
+		      		
+			      		<div class="input-field col s12 m6">
+				          <input id="ngm-target_beneficiary-education_topic-{{ $index }}" type="text" class="validate"
+				          	ng-model="target_beneficiary.education_topic"
+				          	ng-disabled="project.definition.project_status === 'complete'">
+				          <label for="ngm-target_beneficiary-education_topic-{{ $index }}" class="active">Health Education Training Topic</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m6">
+				          <input id="ngm-target_beneficiary-education_sessions-{{ $index }}" type="number" class="validate" min="0"
+				          	ng-model="target_beneficiary.education_sessions"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-target_beneficiary-education_sessions-{{ $index }}" class="active">No. of Sessions</label>    		
+			      		</div>
+
+			      		<div class="input-field col s12 m6">
+				          <input id="ngm-target_beneficiary-education_male-{{ $index }}" type="number" class="validate" min="0"
+				          	ng-model="target_beneficiary.education_male"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-target_beneficiary-education_male-{{ $index }}" class="active">No. of Male</label>    		
+			      		</div>
+
+			      		<div class="input-field col s12 m6">
+				          <input id="ngm-target_beneficiary-education_female-{{ $index }}" type="number" class="validate" min="0"
+				          	ng-model="target_beneficiary.education_female"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-target_beneficiary-education_female-{{ $index }}" class="active">No. of Female</label>    		
+			      		</div>
+
+			      	</div>
+
+							<!-- add nice space -->
+							<br/>
+							<br/>
+
+							<!-- training -->
+		      		<div class="row">
+		      			
+			      		<div class="input-field col s12 m6">
+				          <input id="ngm-target_beneficiary-capacity_building_topic-{{ $index }}" type="text" class="validate"
+				          	ng-model="target_beneficiary.capacity_building_topic"
+				          	ng-disabled="project.definition.project_status === 'complete'">
+				          <label for="ngm-target_beneficiary-capacity_building_topic-{{ $index }}" class="active">Capacity Building Training Topic</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m6">
+				          <input id="ngm-target_beneficiary-capacity_building_sessions-{{ $index }}" type="number" class="validate" min="0"
+				          	ng-model="target_beneficiary.capacity_building_sessions"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-target_beneficiary-capacity_building_sessions-{{ $index }}" class="active">No. of Sessions</label>    		
+			      		</div>
+
+			      		<div class="input-field col s12 m6">
+				          <input id="ngm-target_beneficiary-capacity_building_male-{{ $index }}" type="number" class="validate" min="0"
+				          	ng-model="target_beneficiary.capacity_building_male"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-target_beneficiary-capacity_building_male-{{ $index }}" class="active">No. of Male</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m6">
+				          <input id="ngm-target_beneficiary-capacity_building_female-{{ $index }}" type="number" class="validate" min="0"
+				          	ng-model="target_beneficiary.capacity_building_female"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-target_beneficiary-capacity_building_female-{{ $index }}" class="active">No. of Female</label>
+			      		</div>
+
+							</div>

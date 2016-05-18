@@ -127,23 +127,23 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
         },
 
         // currency on budget exchange
-        budgetKeyUp: function( $index, update ){
+        // budgetKeyUp: function( $index, update ){
 
-          // if usd
-          if ( update === 'usd' ) {
-            // update afn with currency
-            var exchange = parseInt( ( $scope.project.definition.financials[$index].expenditure_budget_usd * $scope.project.exchange.USDAFN ).toFixed(0) );
-            $scope.project.definition.financials[$index].expenditure_budget_afn = exchange;
-          }
+        //   // if usd
+        //   if ( update === 'usd' ) {
+        //     // update afn with currency
+        //     var exchange = parseInt( ( $scope.project.definition.financials[$index].expenditure_budget_usd * $scope.project.exchange.USDAFN ).toFixed(0) );
+        //     $scope.project.definition.financials[$index].expenditure_budget_afn = exchange;
+        //   }
 
-          // if afn
-          if ( update === 'afn' ) {
-            // update afn with currency
-            var exchange = parseInt( ( $scope.project.definition.financials[$index].expenditure_budget_afn / $scope.project.exchange.USDAFN ).toFixed(0) );
-            $scope.project.definition.financials[$index].expenditure_budget_usd = exchange;
-          }
+        //   // if afn
+        //   if ( update === 'afn' ) {
+        //     // update afn with currency
+        //     var exchange = parseInt( ( $scope.project.definition.financials[$index].expenditure_budget_afn / $scope.project.exchange.USDAFN ).toFixed(0) );
+        //     $scope.project.definition.financials[$index].expenditure_budget_usd = exchange;
+        //   }
 
-        },        
+        // },
 
         // 
         addFinancialItem: function() {

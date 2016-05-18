@@ -6,8 +6,18 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardHealthProjectsCtrl', ['$scope', '$http', '$location', '$route', '$window', '$timeout', '$filter', 'ngmUser', 'ngmData', 
-		function ($scope, $http, $location, $route, $window, $timeout, $filter, ngmUser, ngmData) {
+	.controller('DashboardHealthProjectsCtrl', [
+			'$scope', 
+			'$q', 
+			'$http', 
+			'$location', 
+			'$route', 
+			'$window', 
+			'$timeout', 
+			'$filter', 
+			'ngmUser', 
+			'ngmData', 
+		function ( $scope, $q, $http, $location, $route, $window, $timeout, $filter, ngmUser, ngmData ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',

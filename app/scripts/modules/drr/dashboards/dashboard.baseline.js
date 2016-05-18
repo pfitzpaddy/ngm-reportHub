@@ -505,9 +505,6 @@ angular.module('ngmReportHub')
 
 		};
 
-		localStorage.removeItem( 'provinceMenu' );
-		localStorage.removeItem( 'districtList' );
-
 		// get all lists 
 		if ( !localStorage.getItem( 'provinceMenu' ) ) {
 

@@ -62,12 +62,12 @@ angular.module('ngmReportHub')
 						style: 'border-bottom: 3px ' + $scope.report.ngm.style.defaultPrimaryColor + ' solid;'
 					},
 					title: {
-						'class': 'col s12 m9 l9 report-title',
+						'class': 'col s12 m9 l9 report-title truncate',
 						style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-						title: $scope.report.project.organization + ' | Financial Items'
+						title: $scope.report.project.organization + ' | Financial Tracking | ' + $scope.report.project.project_title
 					},
 					subtitle: {
-						'class': 'col s12 m12 l12 report-subtitle',
+						'class': 'col s12 m12 l12 report-subtitle truncate',
 						'title': 'Complete the relevant Financial Items for ' + $scope.report.project.project_title
 					},
 					download: {
@@ -101,19 +101,19 @@ angular.module('ngmReportHub')
 						}]
 					}
 				},
-				menu: [{
-					'icon': 'location_on',
-					'title': 'Projects',
-					'class': 'teal-text',
-					rows: [{
-						'title': 'Project List',
-						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'param': 'project',
-						'active': 'active',
-						'href': '#/health/projects'
-					}]
-				}],
-				rows: [{				
+				// menu: [{
+				// 	'icon': 'location_on',
+				// 	'title': 'Projects',
+				// 	'class': 'teal-text',
+				// 	rows: [{
+				// 		'title': 'Project List',
+				// 		'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+				// 		'param': 'project',
+				// 		'active': 'active',
+				// 		'href': '#/health/projects'
+				// 	}]
+				// }],
+				rows: [{		
 					columns: [{
 						styleClass: 's12 m12 l12',
 						widgets: [{
@@ -121,6 +121,18 @@ angular.module('ngmReportHub')
 							config: {
 								style: $scope.report.ngm.style,
 								project: $scope.report.project
+							}
+						}]
+					}]
+				},{
+					columns: [{
+						styleClass: 's12 m12 l12',
+						widgets: [{
+							type: 'html',
+							card: 'card-panel',
+							style: 'padding:0px; height: 90px; padding-top:10px;',
+							config: {
+								html: $scope.report.ngm.footer
 							}
 						}]
 					}]

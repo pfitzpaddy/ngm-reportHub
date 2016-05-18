@@ -1,121 +1,299 @@
 
+
 <!-- bind html -->
 <div class="row">
 	<div class="col s12 m12 l12">
 		<div class="card">
-			<ul class="collection with-header">
-				<li class="collection-header blue-grey darken-1"><h5 class="report-work-title white-text"><i class="material-icons left">playlist_add</i>Project Details</h5></li>
+			<ul id="project_details_form" class="collection with-header">
+				<li class="collection-header blue lighten-4"><h5 class="report-work-title"><i class="material-icons left">playlist_add</i>Project Details</h5></li>
 				<li class="collection-item avatar" >
 					
 					<!-- form -->
 
-		      <div class="row" style="padding-top:20px;">
-		        <div class="input-field col s12 m4">
-		          <input id="ngm-project-name" type="text" class="validate"
-								autofocus=""
-								ng-model="project.definition.project_title"
-								ng-disabled="project.definition.project_status === 'complete'"
-								required>
-		          <label for="ngm-project-name">Project Title</label>
-		        </div>
-		        
-		        <div class="input-field col s12 m4">
-		          <input id="ngm-start-date" type="text" class="datepicker"
-		          	ng-disabled="project.definition.project_status === 'complete'"
-								required>
-		          <label for="ngm-start-date">Start Date</label>
-		        </div>
+					<div class="row"> 
 
-		        <div class="input-field col s12 m4">
-		          <input id="ngm-end-date" type="text" class="datepicker"
-		          	ng-disabled="project.definition.project_status === 'complete'"
-								required>
-		          <label for="ngm-end-date">End Date</label>
-		        </div>
-		      </div>
+						<div class="card" style="padding:20px;">
 
-		      <div class="row">
+						<!-- project details -->
+				      <div class="row">
+				        <div class="input-field col s12 m6">
+				          <input id="ngm-project-name" type="text" class="validate"
+										autofocus=""
+										ng-model="project.definition.project_title"
+										ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-project-name">Project Title</label>
+				        </div>
+				        
+				        <div class="input-field col s12 m3">
+				          <input id="ngm-start-date" type="text" class="datepicker"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-start-date">Start Date</label>
+				        </div>
 
-		        <div class="input-field col s12 m6"
-		        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_type }">
-					    <select multiple class="validate"
-					    	id="ngm-project-type"
-					    	ng-model="project.definition.project_type" 
-					    	ng-disabled="project.definition.project_status === 'complete'" 
-					    	required>
-					      <option value="" disabled selected>Select Project</option>
-					      <option value="capacity_building">Capacity Building</option>
-					      <option value="cardio_health">Cardio Health</option>
-					      <option value="community_health">Community Health</option>
-					      <option value="donation">Donation</option>
-								<option value="health_education">Health Education</option>
-					      <option value="outbreak_response">Outbreak Response</option>
-					      <option value="phc">PHC</option>
-								<option value="physical_rehabilitation">Physical Rehabilitation</option>
-					      <option value="psycho_social">Psycho-Social Support</option>
-					      <option value="trauma_care">Trauma Care</option>
-					      <option value="other">Other</option>
-					    </select>
-					    <label for="ngm-project-type">Project Type</label>
-		        </div>
+				        <div class="input-field col s12 m3">
+				          <input id="ngm-end-date" type="text" class="datepicker"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										required>
+				          <label for="ngm-end-date">End Date</label>
+				        </div>
+				      </div>
 
-		        <div class="input-field col s12 m6"
-		        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_donor }">
-					    <select multiple 
-					    	id="ngm-project-donor"
-					    	class="validate"
-					    	ng-model="project.definition.project_donor"
-					    	ng-disabled="project.definition.project_status === 'complete'"
-					    	required>
-					      <option value="" disabled selected>Select Donor</option>
-					      <option value="dfid">DFID</option>
-					      <option value="chf">CHF</option>
-					      <option value="echo">ECHO</option>
-					      <option value="global_fund">Global Fund</option>
-					      <option value="icrc">ICRC</option>
-					      <option value="ifrc">IFRC</option>
-					      <option value="qatar_red_crescent">Qatar Red Crescent</option>
-					      <option value="save_the_children">Save the Children</option>
-					      <option value="usaid">USAID</option>
-					      <option value="unicef">UNICEF</option>
-					      <option value="who">WHO</option>
-					      <option value="other">Other</option>
-					    </select>
-					    <label>Project Donor</label>
-		        </div>
-		      </div>		      
+				      <!-- project budget -->
+				      <div class="row">
 
-					<div class="row">
-		        <div class="input-field col s12 m4 l4" style="padding-bottom:38px;">
-		        	<input type="checkbox" id="ngm-project-other_partbers"
-		        		ng-model="project.definition.implementing_partners_checked" />
-		          <label for="ngm-project-other_partbers">Other Implementing Partners?</label>
-		        </div>
+				        <div class="input-field col s12 m6">
+				          <input id="ngm-project-code" type="text" class="validate"
+				          	ng-model="project.definition.project_code"
+				          	ng-disabled="project.definition.project_status === 'complete'">
+				          <label for="ngm-project-code">Project Code</label>
+				        </div>
 
-		        <!-- ng-pattern="project.regex" -->
+				        <div class="input-field col s12 m3">
+				          <input id="ngm-project-budget_afn" type="number" class="validate" min="1"
+				          	ng-model="project.definition.project_budget"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+				          	required>
+				          <label for="ngm-project-budget_afn">Project Budget ( ${{ project.definition.project_budget_currency | uppercase }} )</label>
+				        </div>
 
-		        <div class="input-field col s12 m8 l8"
-		        		ng-class="{ 'has-error' : healthProjectForm.implementing_partners_list.$error.pattern }">
-		          <input 
-		          		id="ngm-project-implementing_partners" 
-		          		type="text" 
-		          		class="validate"
-		          		name="implementing_partners_list"
-									ng-model="project.definition.implementing_partners"
-									ng-disabled="!project.definition.implementing_partners_checked || project.definition.project_status === 'complete'">
-		          <label for="ngm-project-implementing_partners">List Partners</label>
-		        </div>
-		      </div>
+				        <div class="input-field col s12 m3"
+				        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }">
+							    <select class="validate"
+							    	id="ngm-project-budget-currency"
+							    	ng-model="project.definition.project_budget_currency" 
+							    	ng-disabled="project.definition.project_status === 'complete'" 
+							    	required>
+							      <option value="" disabled selected>Select Project Budget Currency</option>
+							      <option value="usd">USD</option>
+							      <option value="afn">AFN</option>
+							    </select>
+							    <label for="ngm-project-budget-currency">Project Budget Currency</label>
+				        </div>
 
-					<div class="row">
-		        <div class="input-field col s12 m12 l12">
-		          <textarea id="ngm-project-description" type="text" class="validate materialize-textarea"
-								ng-model="project.definition.project_description"
-								ng-disabled="project.definition.project_status === 'complete'"
-								required>
-							</textarea>
-		          <label for="ngm-project-description">Project Description</label>
-		        </div>
+				      </div>
+
+				      <!-- project type  -->
+				      <div class="row">
+				      	<div class="input-field col s12 m6" 
+				      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.project_type_valid() }"
+				      		style="padding-bottom:15px;">
+				      		<label>Project Type</label>
+				      		<br/>
+							    <p style="padding-top:10px;">
+							      <input type="checkbox" id="capacity_building" 
+							      ng-model="project.definition.project_type_check.capacity_building"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="capacity_building">Capacity Building of Health Staff</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="cardio_health" 
+							      ng-model="project.definition.project_type_check.cardio_health"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="cardio_health">Cardio Health</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="community_health" 
+							      ng-model="project.definition.project_type_check.community_health"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="community_health">Community Health</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="donation" 
+							      ng-model="project.definition.project_type_check.donation"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="donation">Donation</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="health_education" 
+							      ng-model="project.definition.project_type_check.health_education"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="health_education">Health Education</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="outbreak_response" 
+							      ng-model="project.definition.project_type_check.outbreak_response"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="outbreak_response">Outbreak Response</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="phc" 
+							      ng-model="project.definition.project_type_check.phc"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="phc">PHC</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="physical_rehabilitation" 
+							      ng-model="project.definition.project_type_check.physical_rehabilitation"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="phc">Physical Rehabilitation</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="psycho_social" 
+							      ng-model="project.definition.project_type_check.psycho_social"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="psycho_social">Psycho Social</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="trauma_care" 
+							      ng-model="project.definition.project_type_check.trauma_care"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="trauma_care">Trauma Care</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="project_type_other" 
+							      ng-model="project.definition.project_type_check.other"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="project_type_other">Other</label>
+							    </p>
+							  </div>	  
+
+							  <!-- project donor -->
+				      	<div class="input-field col s12 m6" 
+				      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.project_donor_valid() }"
+				      		style="padding-bottom:15px;">
+				      		<label>Project Donor</label>
+				      		<br/>
+							    <p style="padding-top:10px;">
+							      <input type="checkbox" id="dfid" 
+							      ng-model="project.definition.project_donor_check.dfid"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="dfid">DFID</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="chf" 
+							      ng-model="project.definition.project_donor_check.chf"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="chf">CHF</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="echo" 
+							      ng-model="project.definition.project_donor_check.echo"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="echo">ECHO</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="global_fund" 
+							      ng-model="project.definition.project_donor_check.global_fund"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="global_fund">Global Fund</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="icrc" 
+							      ng-model="project.definition.project_donor_check.icrc"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="icrc">ICRC</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="ifrc" 
+							      ng-model="project.definition.project_donor_check.ifrc"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="ifrc">IFRC</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="qatar_red_crescent" 
+							      ng-model="project.definition.project_donor_check.qatar_red_crescent"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="qatar_red_crescent">Qatar Red Crescent</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="save_the_children" 
+							      ng-model="project.definition.project_donor_check.save_the_children"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="save_the_children">Save the Children</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="usaid" 
+							      ng-model="project.definition.project_donor_check.usaid"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="usaid">USAID</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="unicef"
+							      ng-model="project.definition.project_donor_check.unicef"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="unicef">UNICEF</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="who" 
+							      ng-model="project.definition.project_donor_check.who"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="who">WHO</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="project_donor_other" 
+								      ng-model="project.definition.project_donor_check.other"
+								      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="project_donor_other">Other</label>
+							    </p>
+							  </div>
+
+							  <!--  Other Types -->
+								<div class="input-field col s12 m6"
+											ng-show="project.definition.project_type_check.other">
+				          <input 
+				          		id="ngm-project-project_type_other" type="text"
+											ng-model="project.definition.project_type_other"
+				        			ng-class="{ 'valid' : project.definition.project_type_other }"
+											ng-disabled="!project.definition.project_type_check.other || project.definition.project_status === 'complete'">
+				          <label for="ngm-project-project_type_other">List Other Project Type</label>
+								</div>
+
+								<!--  Other Donors -->
+								<div class="input-field col s12 m6"
+											ng-show="project.definition.project_donor_check.other && !project.definition.project_type_check.other">
+									<p></p>
+								</div>								
+
+				        <div class="input-field col s12 m6"
+				        			ng-show="project.definition.project_donor_check.other">
+				          <input 
+				          		id="ngm-project-project_donor_other" type="text"
+											ng-model="project.definition.project_donor_other"
+				        			ng-class="{ 'valid' : project.definition.project_donor_other }"
+											ng-disabled="!project.definition.project_donor_check.other || project.definition.project_status === 'complete'">
+				          <label for="ngm-project-project_donor_other">List Other Donors</label>
+				       	</div>							  
+
+				      </div>
+
+							<!-- other partners -->
+							<div class="row">
+							
+				        <div class="input-field col s12 m6" style="padding-bottom:38px;">
+				        	<input type="checkbox" id="ngm-project-other_partbers"
+				        		ng-model="project.definition.implementing_partners_checked"
+				        		ng-disabled="project.definition.project_status === 'complete'"/>
+				          <label for="ngm-project-other_partbers">Other Implementing Partners?</label>
+				        </div>
+
+				        <div class="input-field col s12 m6"
+				        		ng-class="{ 'has-error' : healthProjectForm.implementing_partners_list.$error.pattern }">
+				          <input 
+				          		id="ngm-project-implementing_partners" 
+				          		type="text" 
+				          		class="validate"
+				          		name="implementing_partners_list"
+											ng-model="project.definition.implementing_partners"
+											ng-disabled="!project.definition.implementing_partners_checked || project.definition.project_status === 'complete'">
+				          <label for="ngm-project-implementing_partners">List Project Partners</label>
+				        </div>
+				      </div>
+
+				      <!-- project description -->
+							<div class="row">
+				        <div class="input-field col s12 m12 l12">
+				          <textarea id="ngm-project-description" type="text" class="validate materialize-textarea"
+										ng-model="project.definition.project_description"
+										ng-disabled="project.definition.project_status === 'complete'"
+										required>
+									</textarea>
+				          <label for="ngm-project-description">Project Description & Objectives</label>
+				        </div>
+				      </div>
+
+			      </div>
 		      </div>
 
 				</li>

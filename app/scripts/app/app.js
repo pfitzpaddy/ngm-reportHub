@@ -26,7 +26,9 @@ angular
 		// pages
 		'ngm.widget.form.authentication',
 		'ngm.widget.project.details',
-		'ngm.widget.project.financials',		
+		'ngm.widget.project.reports.list',
+		'ngm.widget.project.report',
+		'ngm.widget.project.financials',
 		'ngm.widget.workshop',
 		'ngm.widget.video',
 		// utils
@@ -42,10 +44,13 @@ angular
 		'ngm.widget.stats',
 		'ngm.widget.table'
 	])
-	.config([ '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+	.config([ '$routeProvider', '$locationProvider', '$compileProvider', function ( $routeProvider, $locationProvider, $compileProvider ) {
 
 		// from http://mysite.com/#/notes/1 to http://mysite.com/notes/1
 		// $locationProvider.html5Mode(true);
+
+		// https://medium.com/swlh/improving-angular-performance-with-1-line-of-code-a1fb814a6476#.ufea9sjt1
+		$compileProvider.debugInfoEnabled( false )
 
 		// app routes with access rights
 		$routeProvider
@@ -191,7 +196,27 @@ angular
 						return ngmAuth.isAuthenticated();
 					}],
 				}
-			})	
+			})
+			// health project reports
+			.when( '/health/projects/report/:project', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ReportHealthProjectReportsListCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+			// health project reports
+			.when( '/health/projects/report/:project/:report', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ReportHealthProjectReportCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})			
 			// health project financials
 			.when( '/health/projects/financials/:project', {
 				templateUrl: '/views/app/dashboard.html',
@@ -381,7 +406,7 @@ angular
 		}
 
 		// when error on route update redirect
-		$rootScope.$on('$routeChangeError' , function(event, current, previous, rejection) {
+		$rootScope.$on( '$routeChangeError', function( event, current, previous, rejection ) {
 
 			// get app
 			var app = current.$$route.originalPath.split('/')[1];
@@ -565,7 +590,7 @@ angular
 				});
 
 				// on success store in localStorage
-				update.success(function( user ) {
+				update.success( function( user ) {
 					
 					// update user/session
 					ngmUser.set( user );

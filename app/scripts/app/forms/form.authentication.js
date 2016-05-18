@@ -42,8 +42,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             // set submitted for validation
             ngmLoginForm.$setSubmitted();
           } else {
+            
             // login
-            ngmAuth.login({ user: $scope.panel.user }).success(function(result) { 
+            ngmAuth.login({ user: $scope.panel.user }).success(function(result) {
               
               // go to default org page 
               $location.path( '/' + result.app_home );

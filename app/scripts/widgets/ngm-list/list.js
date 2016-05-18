@@ -61,17 +61,44 @@ angular.module('ngm.widget.list', ['ngm.provider'])
           focused: false
         },
 
-        // display list update
-        updatedAt: moment(data.updateAt).format('DD MMMM, YYYY @ h:mm:ss a'),
-
         // default params
         itemsPerPage: 5,
         
         // src template
         templateUrl: '/scripts/widgets/ngm-list/template/default.html',
 
+        // format date
+        updatedAt: function( date ) {
+          // return moment
+          return moment( date ).format('DD MMMM, YYYY @ h:mm:ss a');
+        },
+
+        // format date
+        titleFormat: function( date ) {
+          // return moment
+          return moment( date ).format('MMMM, YYYY');
+        },
+
+        // format date
+        dueFormat: function( date ) {
+          // return moment
+          return moment( date ).format('DD MMMM, YYYY');
+        },
+
+        // description
+        reportFormat: function( report ) {
+
+          // return list description
+          if( report.report_status === 'complete' ) {
+            return 'Report Submitted: ' + $scope.list.dueFormat( report.report_submitted );
+          } else {
+            return 'Report Due Date: ' + $scope.list.dueFormat( report.reporting_due_date );
+          }
+
+        },
+
         // expand search box
-        toggleSearch: function($event) {;
+        toggleSearch: function($event) {
           // focus search
           $('#search_' + $scope.list.id).focus();
           $scope.list.search.focused = $scope.list.search.focused ? false : true;

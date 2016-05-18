@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ReportHealthProjectDetailsCtrl', ['$scope', '$route', '$location', 'ngmData', 'ngmUser', function ($scope, $route, $location, ngmData, ngmUser) {
+	.controller('ReportHealthProjectDetailsCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmData', 'ngmUser', function ($scope, $route, $location, $anchorScroll, $timeout, ngmData, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -45,7 +45,7 @@ angular.module('ngmReportHub')
 							style: 'border-bottom: 3px ' + $scope.report.ngm.style.defaultPrimaryColor + ' solid;'
 						},
 						title: {
-							'class': 'col s12 m9 l9 report-title',
+							'class': 'col s12 m9 l9 report-title truncate',
 							style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
 							title: $scope.report.project.organization + ' | ' + $scope.report.project.project_title
 						},
@@ -115,11 +115,12 @@ angular.module('ngmReportHub')
 							}]
 						}
 					},
-					menu: [{
-						'icon': 'keyboard_return',
-						'title': 'Back to Projects',
-						'class': 'teal-text',
-						'href': '#/health/projects'
+					// menu: [{
+					// 	'id': 'keyboard_return_menu_option',
+					// 	'icon': 'keyboard_return',
+					// 	'title': 'Back to Projects',
+					// 	'class': 'teal-text',
+					// 	'href': '#/health/projects'
 						// rows: [{
 						// 	'title': 'Back to Projects',
 						// 	'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
@@ -127,8 +128,24 @@ angular.module('ngmReportHub')
 						// 	'active': 'active',
 						// 	'href': '#/health/projects'
 						// }]
-					}],
-					rows: [{				
+					// },{
+					// 	'id': 'project_details_menu_option',
+					// 	'icon': 'playlist_add',
+					// 	'title': 'Project Details',
+					// 	'class': 'blue-grey darken-1 white-text',
+					// },{
+					// 	'id': 'project_beneficiaries_menu_option',
+					// 	'icon': 'group',
+					// 	'title': 'Beneficiaries',
+					// 	'class': 'light-blue lighten-4 grey-text text-darken-2',
+					// },{
+					// 	'id': 'project_locations_menu_option',
+					// 	'icon': 'location_on',
+					// 	'title': 'Locations',
+					// 	'class': 'teal lighten-4 grey-text text-darken-2',
+					// }],
+					// }],
+					rows: [{		
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
@@ -139,6 +156,18 @@ angular.module('ngmReportHub')
 								}
 							}]
 						}]
+					},{
+						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'html',
+								card: 'card-panel',
+								style: 'padding:0px; height: 90px; padding-top:10px;',
+								config: {
+									html: $scope.report.ngm.footer
+								}
+							}]
+						}]
 					}]
 				}
 
@@ -146,10 +175,38 @@ angular.module('ngmReportHub')
 				if($route.current.params.project === 'new'){
 					$scope.report.project.project_title = '';
 					$scope.report.project.project_description = '';
-				} 
+				}
 
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;
+				
+				// // add click events
+				// $timeout(function() {
+
+				// 	// back to projects
+				// 	$( '#keyboard_return_menu_option' ).click(function(){
+				// 		$location.path( '/health/projects' );
+				// 	});
+				// 	$( '#li-keyboard_return_menu_option' ).click(function(){
+				// 		$location.path( '/health/projects' );
+				// 	});
+
+				// 	// scroll to details
+				// 	$( '#li-project_details_menu_option' ).click(function(){
+				// 		// div item
+				// 		$location.hash('project_details_form');
+				// 		// call $anchorScroll()
+				// 		$anchorScroll();
+				// 	});
+
+				// 	$( '#li-project_beneficiaries_menu_option' ).click(function(){
+				// 		// div item
+				// 		$location.hash( 'project_beneficiaries_form' );
+				// 		// call $anchorScroll()
+				// 		$anchorScroll();
+				// 	});
+
+				// }, 1000);
 
 			}			
 
@@ -158,7 +215,7 @@ angular.module('ngmReportHub')
 		// Run page
 
 		// if 'new' create empty project
-		if($route.current.params.project === 'new') {
+		if( $route.current.params.project === 'new' ) {
 
 			// current date
 			var d = new Date();
@@ -173,16 +230,16 @@ angular.module('ngmReportHub')
 				project_title: 'New Project',
 				project_description: 'Complete the project details to register a new project',
 				project_start_date: new Date(),
-				project_end_date: new Date(d.getFullYear(), d.getMonth() + 1, d.getDate()),
+				project_end_date: new Date(d.getFullYear(), d.getMonth() + 6, d.getDate()),
 				target_beneficiaries: [],
+				beneficiary_type: [],
+				target_locations: [],
 				prov_code: [],
-				dist_code: [],
-				beneficiary_category: [],
-				locations: []
+				dist_code: []
 			}
 
 			// set summary
-			$scope.report.setProjectDetails(project);
+			$scope.report.setProjectDetails( project );
 
 		} else {
 
