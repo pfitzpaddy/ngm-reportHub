@@ -166,7 +166,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           $scope.project.report.locations[$parent].beneficiaries.splice($index, 1);          
 
           // sort
-          $filter('orderBy')($scope.project.options.filter.beneficiaries[$index], '-beneficiary_type');
+          $filter( 'orderBy' )( $scope.project.options.filter.beneficiaries[ $index ], '-beneficiary_name' );
 
           // update dropdown
           $timeout(function(){
@@ -273,7 +273,11 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
                   $( '#ngm-beneficiary-category-' + l.id ).material_select( 'update' );
                 }, 10);                
 
-              });              
+              });
+
+              // sort
+              $filter( 'orderBy' )( $scope.project.options.filter.beneficiaries[i], '-beneficiary_name' );
+
             } else {
 
               // set empty

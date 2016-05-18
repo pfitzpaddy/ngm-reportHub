@@ -271,7 +271,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           $scope.project.definition.target_beneficiaries.splice( $index, 1 );
 
           // sort
-          $filter('orderBy')($scope.project.options.filter.target_beneficiaries, '-beneficiary_type');
+          $filter( 'orderBy' )( $scope.project.options.filter.target_beneficiaries, '-beneficiary_name' );
           
           // update dropdown
           $timeout(function(){
@@ -754,12 +754,16 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           // set list
           $scope.project.options.filter.target_beneficiaries = $scope.project.options.list.beneficiaries;
+
           // for each beneficiaries
           angular.forEach( $scope.project.definition.target_beneficiaries, function(d, i){
             // filter
             $scope.project.options.filter.target_beneficiaries = $filter( 'filter' )( $scope.project.options.filter.target_beneficiaries, { beneficiary_type: '!' + d.beneficiary_type }, true);
 
           });
+
+          // sort
+          $filter( 'orderBy' )( $scope.project.options.filter.target_beneficiaries, '-beneficiary_name' );
 
 
           // update dropdown

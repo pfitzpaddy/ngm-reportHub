@@ -63,7 +63,7 @@
 								    <tr>
 								    	<td width="10%" style="text-align:center;"><i class="material-icons" style="color: teal;">date_range</i></td>
 								    	<td width="80%" align="left"><h5 class="report-work-title" 
-																					style="font-size:1.2rem; font-weight:300;text-align:left;margin-top:0px;">${{ budget.project_budget_amount_recieved }} {{ project.definition.project_budget_currency | uppercase }} of Budget Recieved on {{ budget.project_budget_date_recieved | date:'longDate' }}</h5></td>
+																					style="font-size:1.2rem; font-weight:300;text-align:left;margin-top:0px;">${{ budget.project_budget_amount_recieved | number }} {{ project.definition.project_budget_currency | uppercase }} of Budget Recieved on {{ budget.project_budget_date_recieved | date:'longDate' }}</h5></td>
 								      <td width="10%" style="padding-left:22px;"><a class="waves-effect waves-light btn red lighten-2 left"
 								      	title="Remove budget item for {{ budget.project_budget_date_recieved | date:'longDate' }}"
 								      	ng-if="project.definition.project_status !== 'complete'"
