@@ -278,7 +278,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             // apply filter
             $( '#ngm-target_beneficiary-category' ).material_select('update');
 
-          }, 10);m
+          }, 10);
 
         },
 
