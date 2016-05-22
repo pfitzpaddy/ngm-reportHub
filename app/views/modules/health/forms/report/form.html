@@ -146,6 +146,12 @@
 						<br/>
 
 						<button data-target="complete-modal" class="waves-effect waves-light btn modal-trigger blue"
+							ng-disabled="
+										( healthReportForm.$pristine ) ||
+										( healthReportForm.$invalid ) ||
+										( project.report.locations[0].beneficiaries.length === 0 ) ||
+										( project.report.submit ) ||
+										( healthReportForm.$submitted && healthReportForm.$invalid )"						
 							ng-cloak><i class="material-icons left">assignment_turned_in</i>Submit Monthly Report</button>
 
 					</div>
