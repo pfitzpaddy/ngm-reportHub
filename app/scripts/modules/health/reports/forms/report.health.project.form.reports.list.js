@@ -131,6 +131,7 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
           $scope.$input = $('#ngm-budget-recieved-date').pickadate({
             selectMonths: true,
             selectYears: 15,
+            max: new Date(),
             format: 'dd mmm, yyyy',
             onStart: function(){
               

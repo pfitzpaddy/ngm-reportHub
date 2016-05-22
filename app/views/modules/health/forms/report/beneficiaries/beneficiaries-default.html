@@ -77,7 +77,7 @@
 				          <label for="ngm-beneficiary-skilled_birth_attendant-{{ $index }}" class="active">Skilled Birth Attendants</label>
 			      		</div>
 
-			      		<div class="input-field col s12 m3">
+			      		<div class="input-field col s12 m3" ng-show="location.fac_type !== 'FATP'">
 				          <input id="ngm-beneficiary-conflict_trauma_treated-{{ $index }}" type="number" class="validate" min="0"
 				          	ng-model="beneficiary.conflict_trauma_treated"
 				          	ng-disabled="project.report.report_status === 'complete'"
