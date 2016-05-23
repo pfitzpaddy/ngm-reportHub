@@ -74,7 +74,7 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
         // save project
         saveBudgetLine: function() {
 
-          // if no progress reporting
+          // if no progress reporting exists
           if ( !$scope.project.definition.project_budget_progress ) {
             $scope.project.definition.project_budget_progress = []
           }
@@ -89,6 +89,10 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
             project_budget_amount_recieved: $scope.project.project_budget_amount_recieved,
             project_budget_date_recieved: $scope.project.project_budget_date_recieved
           });
+
+          // reset form
+          $scope.project.project_budget_amount_recieved = 0;
+
 
           // Update 
           ngmData.get({

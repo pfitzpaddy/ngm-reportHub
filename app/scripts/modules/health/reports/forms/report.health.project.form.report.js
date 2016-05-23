@@ -58,6 +58,9 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         // locations
         locationsUrl: '/views/modules/health/forms/report/locations.html',
 
+        // locations
+        notesUrl: '/views/modules/health/forms/report/notes.html',
+
         // beneficiaries
         beneficiariesUrl: '/views/modules/health/forms/report/beneficiaries.html',
 
@@ -185,6 +188,29 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           } else{
             $scope.project.cancel();
           }
+
+        },
+
+        // determine if all locations containt at least one beneficiaries details 
+        formComplete: function() {
+
+          var valid = true;
+
+          // for each locations
+          angular.forEach( $scope.project.report.locations, function( l, i ){
+
+            console.log( l.beneficiaries.length )
+
+            // check beneficiaries length
+            if ( !l.beneficiaries.length ) {
+              // if no beneficiaries for one loaction then not valid
+              valid = false;
+
+            }
+
+          });
+
+          return valid;
 
         },
 

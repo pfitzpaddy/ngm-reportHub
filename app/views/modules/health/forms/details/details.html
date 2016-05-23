@@ -76,9 +76,8 @@
 
 				      <!-- project type  -->
 				      <div class="row">
-				      	<div class="input-field col s12 m6" 
-				      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.project_type_valid() }"
-				      		style="padding-bottom:15px;">
+				      	<div class="input-field col s12 m6" style="padding-bottom:15px;"
+				      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.project_type_valid() }">
 				      		<label>Project Type</label>
 				      		<br/>
 							    <p style="padding-top:10px;">
@@ -150,9 +149,8 @@
 							  </div>	  
 
 							  <!-- project donor -->
-				      	<div class="input-field col s12 m6" 
-				      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.project_donor_valid() }"
-				      		style="padding-bottom:15px;">
+				      	<div class="input-field col s12 m6" style="padding-bottom:15px;"
+				      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.project_donor_valid() }">
 				      		<label>Project Donor</label>
 				      		<br/>
 							    <p style="padding-top:10px;">
@@ -197,12 +195,12 @@
 							      ng-disabled="project.definition.project_status === 'complete'"/>
 							      <label for="qatar_red_crescent">Qatar Red Crescent</label>
 							    </p>
-							    <p>
+<!-- 							    <p>
 							      <input type="checkbox" id="save_the_children" 
 							      ng-model="project.definition.project_donor_check.save_the_children"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
 							      <label for="save_the_children">Save the Children</label>
-							    </p>
+							    </p> -->
 							    <p>
 							      <input type="checkbox" id="usaid" 
 							      ng-model="project.definition.project_donor_check.usaid"
@@ -261,24 +259,30 @@
 							<!-- other partners -->
 							<div class="row">
 							
-				        <div class="input-field col s12 m6" style="padding-bottom:38px;">
-				        	<input type="checkbox" id="ngm-project-other_partbers"
-				        		ng-model="project.definition.implementing_partners_checked"
-				        		ng-disabled="project.definition.project_status === 'complete'"/>
-				          <label for="ngm-project-other_partbers">Other Implementing Partners?</label>
+				        <div class="input-field col s12 m6" style="padding-bottom:15px;">
+				        	<label>Project Partners</label>
+				        	<br/>
+				        	<p style="padding-top:10px;">
+					        	<input type="checkbox" id="ngm-project-other_partbers"
+					        		ng-model="project.definition.implementing_partners_checked"
+					        		ng-disabled="project.definition.project_status === 'complete'"/>
+					          <label for="ngm-project-other_partbers">Other Implementing Partners?</label>
+					        </p>
 				        </div>
 
-				        <div class="input-field col s12 m6"
-				        		ng-class="{ 'has-error' : healthProjectForm.implementing_partners_list.$error.pattern }">
-				          <input 
-				          		id="ngm-project-implementing_partners" 
-				          		type="text" 
-				          		class="validate"
-				          		name="implementing_partners_list"
-											ng-model="project.definition.implementing_partners"
-											ng-disabled="!project.definition.implementing_partners_checked || project.definition.project_status === 'complete'">
-				          <label for="ngm-project-implementing_partners">List Project Partners</label>
-				        </div>
+				        <div style="padding-top:25px;">
+					        <div class="input-field col s12 m6"
+					        		ng-class="{ 'has-error' : healthProjectForm.implementing_partners_list.$error.pattern }"
+					        		ng-show="project.definition.implementing_partners_checked">
+					          <input 
+					          		id="ngm-project-implementing_partners" 
+					          		type="text" 
+					          		class="validate"
+					          		name="implementing_partners_list"
+												ng-model="project.definition.implementing_partners">
+					          <label for="ngm-project-implementing_partners">List Project Partners</label>
+					        </div>
+					       </div>
 				      </div>
 
 				      <!-- project description -->

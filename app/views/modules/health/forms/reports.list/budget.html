@@ -54,24 +54,34 @@
 							<h5 class="report-work-title" style="font-size:1.1rem; padding-left:20px;">{{ project.definition.project_budget_progress.length }} Budget Progress Updates</h5>
 						</div>
 
-						<div class="row" ng-repeat="budget in project.definition.project_budget_progress track by $index">
+						<div class="row">
 
-							<div class="row" id="ngm-project-budget-progress-{{ $index }}">
+							<!-- <div class="row" id="ngm-project-budget-progress-{{ $index }}"> -->
 								
 								<table class="responsive-table centered" style="margin-left:10px; width:98%">
 								  <tbody>
-								    <tr>
+								    <tr ng-repeat="budget in project.definition.project_budget_progress track by $index">
 								    	<td width="10%" style="text-align:center;"><i class="material-icons" style="color: teal;">date_range</i></td>
-								    	<td width="80%" align="left"><h5 class="report-work-title" 
+								    	<td width="80%" align="left"><h5 class="report-work-title"
 																					style="font-size:1.2rem; font-weight:300;text-align:left;margin-top:0px;">${{ budget.project_budget_amount_recieved | number }} {{ project.definition.project_budget_currency | uppercase }} of Budget Recieved on {{ budget.project_budget_date_recieved | date:'longDate' }}</h5></td>
-								      <td width="10%" style="padding-left:22px;"><a class="waves-effect waves-light btn red lighten-2 left"
+								      <td width="10%" style="position:absolute; right:10px;">
+								      	<a class="waves-effect waves-light btn red lighten-2 left"
 								      	title="Remove budget item for {{ budget.project_budget_date_recieved | date:'longDate' }}"
 								      	ng-if="project.definition.project_status !== 'complete'"
-								      	ng-click="project.removeBudgetItem( $index )"><i class="material-icons">cancel</i></a></td>
+								      	ng-click="project.removeBudgetItem( $index )"><i class="material-icons">cancel</i></a>
+								      </td>
+								    </tr>
+								    <tr style="border-top: 1px solid #e0e0e0;">
+								    	<td width="10%" style="text-align:center;"><i class="material-icons" style="color: teal;">attach_money</i></td>
+								    	<td width="90%" align="left">
+								    		<h5 class="report-work-title"
+																					style="font-size:1.2rem; font-weight:300;text-align:left;margin-top:0px;">${{ project.definition.project_budget_progress | sumByKey:'project_budget_amount_recieved' | number  }} {{ project.definition.project_budget_currency | uppercase }} of Budget Recieved Total
+												</h5>
 								    </tr>
 								  </tbody>
 								</table>
-							</div>
+
+							<!-- </div> -->
 
 						</div>
 

@@ -59,7 +59,7 @@ angular.module('ngmReportHub')
 								type: 'pdf',
 								color: 'blue',
 								icon: 'picture_as_pdf',
-								hover: 'Download ' + $scope.report.project.project_title + ' as PDF',
+								hover: 'Download Project Details as PDF',
 								request: {
 									method: 'POST',
 									url: 'http://' + $location.host() + '/api/print',

@@ -72,6 +72,7 @@ h1, h2, h3, h4, h5, p {
 	/*margin-top: 85px;*/
 	margin-right: -50px;
 	min-width: 300px;
+	max-width: 600px;
 	color: #fff;
 	background-color: #ff8a80;
 }

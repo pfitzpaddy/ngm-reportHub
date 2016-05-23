@@ -314,7 +314,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
               // alert user if conflict district selected
               if( $scope.project.options.selection.district.conflict ){
-                Materialize.toast('Alert! ' + $scope.project.options.selection.district.dist_name + ' is listed as a conflict district', 3000);
+                Materialize.toast('Alert! ' + $scope.project.options.selection.district.dist_name + ' is listed as a conflict district', 'note', 3000);
               }
 
               // reset dropdowns

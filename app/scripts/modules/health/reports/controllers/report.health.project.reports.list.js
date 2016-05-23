@@ -59,7 +59,7 @@ angular.module('ngmReportHub')
 								type: 'csv',
 								color: 'blue lighten-2',
 								icon: 'assignment',
-								hover: 'Download ' + $scope.report.project.project_title + ' as CSV',
+								hover: 'Download Monthly Reports as CSV',
 								request: {
 									method: 'POST',
 									url: 'http://' + $location.host() + '/api/health/indicator',

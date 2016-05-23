@@ -119,6 +119,9 @@
 		<!-- Project beneficiaries details -->
 		<div class="slide-animate" ng-include="project.locationsUrl"></div>
 
+		<!-- Project beneficiaries details -->
+		<div class="slide-animate" ng-include="project.notesUrl"></div>
+
 		<!-- form submission -->
 		<div class="row remove" ng-if="project.report.report_status !== 'complete'">
 			<div class="col s12 m12 l12">
@@ -132,7 +135,7 @@
 							ng-disabled="
 										( healthReportForm.$pristine ) ||
 										( healthReportForm.$invalid ) ||
-										( project.report.locations[0].beneficiaries.length === 0 ) ||
+										( !project.formComplete() ) ||
 										( project.report.submit ) ||
 										( healthReportForm.$submitted && healthReportForm.$invalid )"
 							ng-cloak><i class="material-icons right">send</i>Save</button>
@@ -147,11 +150,7 @@
 
 						<button data-target="complete-modal" class="waves-effect waves-light btn modal-trigger blue"
 							ng-disabled="
-										( healthReportForm.$pristine ) ||
-										( healthReportForm.$invalid ) ||
-										( project.report.locations[0].beneficiaries.length === 0 ) ||
-										( project.report.submit ) ||
-										( healthReportForm.$submitted && healthReportForm.$invalid )"						
+										( !project.formComplete() ) "
 							ng-cloak><i class="material-icons left">assignment_turned_in</i>Submit Monthly Report</button>
 
 					</div>
