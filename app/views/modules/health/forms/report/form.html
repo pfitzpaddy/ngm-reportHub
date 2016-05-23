@@ -141,17 +141,19 @@
 							ng-cloak><i class="material-icons right">send</i>Save</button>
 
 						<!-- cancel new -->
-						<button class="waves-effect waves-light btn grey" ng-click="project.modalConfirm( 'list-modal' )">
+						<button class="waves-effect waves-light btn grey" 
+							ng-click="project.modalConfirm( 'list-modal' )">
 							Cancel
 						</button>
 
 						<br/>
 						<br/>
 
-						<button data-target="complete-modal" class="waves-effect waves-light btn modal-trigger blue"
-							ng-disabled="
-										( !project.formComplete() ) "
-							ng-cloak><i class="material-icons left">assignment_turned_in</i>Submit Monthly Report</button>
+						<button class="waves-effect waves-light btn blue"
+							ng-click="project.modalConfirm( 'complete-modal' )"
+							ng-disabled="!project.formComplete()"
+							ng-cloak><i class="material-icons left">assignment_turned_in</i>Submit Monthly Report
+						</button>
 
 					</div>
 

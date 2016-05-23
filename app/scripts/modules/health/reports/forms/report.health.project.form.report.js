@@ -180,13 +180,17 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         },
 
         // cofirm exit if changes
-        modalConfirm: function(modal){
+        modalConfirm: function( modal ){
 
           // if not pristine, confirm exit
-          if( $scope.healthReportForm.$dirty ){
+          if ( modal === 'complete-modal' ) {
             $( '#' + modal ).openModal( { dismissible: false } );
-          } else{
-            $scope.project.cancel();
+          } else {
+            if ( $scope.healthReportForm.$dirty ) {
+              $( '#' + modal ).openModal( { dismissible: false } );
+            } else{
+              $scope.project.cancel();
+            }
           }
 
         },
@@ -198,8 +202,6 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
 
           // for each locations
           angular.forEach( $scope.project.report.locations, function( l, i ){
-
-            console.log( l.beneficiaries.length )
 
             // check beneficiaries length
             if ( !l.beneficiaries.length ) {
@@ -239,7 +241,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           // user msg
           msg += complete ? 'Submitted!' : 'Saved!';
 
-          // set to complete if 'mark as complete
+          // set to complete if "mark as complete"
           $scope.project.report.report_status = complete ? 'complete' : 'todo';
 
           // submitted
