@@ -71,7 +71,7 @@
 								      	ng-click="project.removeBudgetItem( $index )"><i class="material-icons">cancel</i></a>
 								      </td>
 								    </tr>
-								    <tr style="border-top: 1px solid #e0e0e0;">
+								    <tr style="border-top: 1px solid #e0e0e0;" ng-show="project.definition.project_budget_progress.length">
 								    	<td width="10%" style="text-align:center;"><i class="material-icons" style="color: teal;">attach_money</i></td>
 								    	<td width="90%" align="left">
 								    		<h5 class="report-work-title"
