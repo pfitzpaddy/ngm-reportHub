@@ -186,11 +186,11 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           if ( modal === 'complete-modal' ) {
             $( '#' + modal ).openModal( { dismissible: false } );
           } else {
-            if ( $scope.healthReportForm.$dirty ) {
-              $( '#' + modal ).openModal( { dismissible: false } );
-            } else{
+            // if ( $scope.healthReportForm.$dirty ) {
+            //   $( '#' + modal ).openModal( { dismissible: false } );
+            // } else{
               $scope.project.cancel();
-            }
+            // }
           }
 
         },
@@ -260,7 +260,10 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             $scope.project.report.submit = false;
 
             // Re-direct to summary
-            $location.path( '/health/projects/report/' + $scope.project.definition.id );
+            if ( $scope.project.report.report_status === 'complete' ) {
+              $location.path( '/health/projects/report/' + $scope.project.definition.id );  
+            }
+            // msg
             Materialize.toast( msg , 3000, 'success');
 
           });

@@ -314,7 +314,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
               // alert user if conflict district selected
               if( $scope.project.options.selection.district.conflict ){
-                Materialize.toast('Alert! ' + $scope.project.options.selection.district.dist_name + ' is listed as a conflict district', 3000, 'note');
+                Materialize.toast('Alert! ' + $scope.project.options.selection.district.dist_name + ' is listed as a conflict district', 3000, 'success');
               }
 
               // reset dropdowns
@@ -690,6 +690,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
         // give a few seconds to render
         $timeout(function() {
+
+          // autofocus
+          $('#ngm-project-name').focus()
 
           // selects
           $('select').material_select();
