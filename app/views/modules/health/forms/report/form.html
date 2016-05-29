@@ -115,6 +115,10 @@
 
 <!-- Project form -->
 <form name="healthReportForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
+
+	<fieldset ng-disabled="
+		project.definition.organization !== project.user.organization && project.user.roles.indexOf('ADMIN') === -1
+	">
 		
 		<!-- Project beneficiaries details -->
 		<div class="slide-animate" ng-include="project.locationsUrl"></div>
