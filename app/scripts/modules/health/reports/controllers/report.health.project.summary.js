@@ -56,7 +56,7 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m12 l12 report-title truncate',
 							style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: ngmUser.get().organization + ' | ' + $scope.report.project.project_title
+							title: $scope.report.project.organization + ' | ' + $scope.report.project.project_title
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate',
