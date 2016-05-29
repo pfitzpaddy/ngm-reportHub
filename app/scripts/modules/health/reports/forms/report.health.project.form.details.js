@@ -372,13 +372,27 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         },
 
         // remove location from location list
-        removeLocation: function($index) {
+        removeLocationModal: function( $index ) {
+
+          // set location index
+          $scope.project.locationIndex = $index;
+
+          // open confirmation modal
+          $('#location-modal').openModal({
+            dismissible: false
+          });
+
+        },
+
+        // confirm locaiton remove
+        removeLocation: function() {
+
           // remove location at i
-          $scope.project.definition.target_locations.splice($index, 1);
+          $scope.project.definition.target_locations.splice( $scope.project.locationIndex, 1 );
           // refresh dropdown options
           $scope.project.resetLocationSelect( true, true, true, true );
 
-        },        
+        },
 
         // refresh dropdown options
         resetLocationSelect: function( province, district, hf_type, hf_name ){
@@ -437,7 +451,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         },
 
         // cofirm exit if changes
-        modalConfirm: function(modal){
+        modalConfirm: function( modal ){
 
           // if not pristine, confirm exit
           if( $scope.healthProjectForm.$dirty ){
