@@ -36,7 +36,7 @@
 			      			<select id="ngm-project-district" class="validate"
 							    	ng-model="project.options.selection.district"
 							    	ng-change="project.locationSelect('#ngm-project-hf_type', 'hf_type')"
-			      				ng-options="item as item.dist_name for item in project.options.filter.districts track by item.dist_code"
+			      				ng-options="item as item.dist_name for item in project.options.filter.districts track by item.id"
 			      				disabled>
 			      				<option value="" disabled selected>Choose District</option>
 			      			</select>

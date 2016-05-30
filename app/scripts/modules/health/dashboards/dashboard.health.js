@@ -46,10 +46,10 @@ angular.module('ngmReportHub')
 			}),
 
 			// report start
-			startDate: moment($route.current.params.start).format('YYYY-MM-DD'),
+			startDate: moment( $route.current.params.start) .format( 'YYYY-MM-DD' ),
 
 			// report end
-			endDate: moment($route.current.params.end).format('YYYY-MM-DD'),
+			endDate: moment( $route.current.params.end ).format( 'YYYY-MM-DD' ),
 			
 			// current report
 			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
@@ -85,10 +85,10 @@ angular.module('ngmReportHub')
 						rows = [];
 						
 				// for each province
-				angular.forEach($scope.dashboard.data.province, function(d, key){
+				angular.forEach( $scope.dashboard.data.province, function( d, key ){
 					//
 					rows.push({
-						'title': d.province_name,
+						'title': d.prov_name,
 						'param': 'location',
 						'active': key,
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
@@ -147,7 +147,7 @@ angular.module('ngmReportHub')
 				$scope.dashboard.data.province = angular.fromJson( localStorage.getItem( 'provinceMenu' ) );
 
 				// if province selected, get districts
-				if( $scope.dashboard.data[$route.current.params.province].prov_code !== '*' ){
+				if( $scope.dashboard.data.province[$route.current.params.province].prov_code !== '*' ){
 						
 					// district
 					$scope.dashboard.setDistrictList( angular.fromJson( localStorage.getItem( 'districtList' ) ) );
@@ -168,12 +168,12 @@ angular.module('ngmReportHub')
 				$scope.dashboard.report += moment().format('YYYY-MM-DDTHHmm');
 
 				// title
-				$scope.dashboard.title = 'Health 4W | ' + $scope.dashboard.province.name;
+				$scope.dashboard.title = 'Health 4W | ' + $scope.dashboard.province.prov_name;
 				$scope.dashboard.title += $scope.dashboard.district.id !== '*' ? ' | ' + $scope.dashboard.district.name : '';
 				// $scope.dashboard.subtitle = 'Health Cluster 4W dashboard for ' + $scope.dashboard.project + ' health projects in ' + $scope.dashboard.province.name + ' Province';
 
 				// subtitle
-				$scope.dashboard.subtitle = 'Health Cluster 4W dashboard for health projects in ' + $scope.dashboard.province.name;
+				$scope.dashboard.subtitle = 'Health Cluster 4W dashboard for health projects in ' + $scope.dashboard.province.prov_name;
 				$scope.dashboard.subtitle += $route.current.params.province !== 'afghanistan' ? ' Province' : '';
 				$scope.dashboard.subtitle += $scope.dashboard.district.id !== '*' ? ', ' + $scope.dashboard.district.name : '';
 
@@ -549,159 +549,159 @@ angular.module('ngmReportHub')
 						// 	}]
 						}]
 					},{
-						columns: [{
-							styleClass: 's12 m12 l12',
-							widgets: [{
-								type: 'stats',
-								style: 'text-align: center;',
-								card: 'card-panel stats-card white grey-text text-darken-2',
-								config: {
-									title: $scope.dashboard.beneficiariesTitle,
-									request: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/indicator',
-										data: {
-											indicator: 'beneficiaries',
-											start_date: $scope.dashboard.startDate,
-											end_date: $scope.dashboard.endDate,
-											project_type: $scope.dashboard.project_type,
-											beneficiary_category: $scope.dashboard.beneficiary_category,
-											prov_code: $scope.dashboard.province.id,
-											dist_code: $scope.dashboard.district.id
-										}
-									}
-								}
-							}]					
-						}]
-					},{
-						columns: [{
-							styleClass: 's12 m12 l6',
-							widgets: [{
-								type: 'highchart',
-								style: 'height: 180px;',
-								card: 'card-panel chart-stats-card white grey-text text-darken-2',
-								config: {
-									title: {
-										text: 'Children (Under 5)'
-									},
-									display: {
-										label: true,
-										fractionSize: 1,
-										subLabelfractionSize: 0,
-										postfix: '%'
-									},
-									templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
-									style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
-									chartConfig: {
-										options: {
-											chart: {
-												type: 'pie',
-												height: 140,
-												margin: [0,0,0,0],
-												spacing: [0,0,0,0]
-											},
-											tooltip: {
-												enabled: false
-											}				
-										},
-										title: {
-												text: '',
-												margin: 0
-										},
-										plotOptions: {
-												pie: {
-														shadow: false
-												}
-										},
-										series: [{
-											name: 'Children (Under 5)',
-											size: '100%',
-											innerSize: '80%',
-											showInLegend:false,
-											dataLabels: {
-												enabled: false
-											},
-											request: {
-												method: 'POST',
-												url: 'http://' + $location.host() + '/api/health/indicator',
-												data: {
-													indicator: 'under5',
-													start_date: $scope.dashboard.startDate,
-													end_date: $scope.dashboard.endDate,
-													project_type: $scope.dashboard.project_type,
-													beneficiary_category: $scope.dashboard.beneficiary_category,
-													prov_code: $scope.dashboard.province.id,
-													dist_code: $scope.dashboard.district.id
-												}
-											}
-										}]
-									}
-								}
-							}]
-						},{
-							styleClass: 's12 m12 l6',
-							widgets: [{
-								type: 'highchart',
-								style: 'height: 180px;',
-								card: 'card-panel chart-stats-card white grey-text text-darken-2',
-								config: {
-									title: {
-										text: 'Adult (Over 5)'
-									},
-									display: {
-										label: true,
-										fractionSize: 1,
-										subLabelfractionSize: 0,
-										postfix: '%'
-									},
-									templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
-									style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
-									chartConfig: {
-										options: {
-											chart: {
-												type: 'pie',
-												height: 140,
-												margin: [0,0,0,0],
-												spacing: [0,0,0,0]
-											},
-											tooltip: {
-												enabled: false
-											}				
-										},
-										title: {
-												text: '',
-												margin: 0
-										},
-										plotOptions: {
-												pie: {
-														shadow: false
-												}
-										},
-										series: [{
-											name: 'Adult (Over 5)',
-											size: '100%',
-											innerSize: '80%',
-											showInLegend:false,
-											dataLabels: {
-												enabled: false
-											},
-											request: {
-												method: 'POST',
-												url: 'http://' + $location.host() + '/api/health/indicator',
-												data: {
-													indicator: 'over5',
-													start_date: $scope.dashboard.startDate,
-													end_date: $scope.dashboard.endDate,
-													project_type: $scope.dashboard.project_type,
-													beneficiary_category: $scope.dashboard.beneficiary_category,
-													prov_code: $scope.dashboard.province.id,
-													dist_code: $scope.dashboard.district.id
-												}
-											}
-										}]
-									}
-								}
-							}]			
+					// 	columns: [{
+					// 		styleClass: 's12 m12 l12',
+					// 		widgets: [{
+					// 			type: 'stats',
+					// 			style: 'text-align: center;',
+					// 			card: 'card-panel stats-card white grey-text text-darken-2',
+					// 			config: {
+					// 				title: $scope.dashboard.beneficiariesTitle,
+					// 				request: {
+					// 					method: 'POST',
+					// 					url: 'http://' + $location.host() + '/api/health/indicator',
+					// 					data: {
+					// 						indicator: 'beneficiaries',
+					// 						start_date: $scope.dashboard.startDate,
+					// 						end_date: $scope.dashboard.endDate,
+					// 						project_type: $scope.dashboard.project_type,
+					// 						beneficiary_category: $scope.dashboard.beneficiary_category,
+					// 						prov_code: $scope.dashboard.province.id,
+					// 						dist_code: $scope.dashboard.district.id
+					// 					}
+					// 				}
+					// 			}
+					// 		}]
+					// 	}]
+					// },{
+						// columns: [{
+						// 	styleClass: 's12 m12 l6',
+						// 	widgets: [{
+						// 		type: 'highchart',
+						// 		style: 'height: 180px;',
+						// 		card: 'card-panel chart-stats-card white grey-text text-darken-2',
+						// 		config: {
+						// 			title: {
+						// 				text: 'Children (Under 5)'
+						// 			},
+						// 			display: {
+						// 				label: true,
+						// 				fractionSize: 1,
+						// 				subLabelfractionSize: 0,
+						// 				postfix: '%'
+						// 			},
+						// 			templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
+						// 			style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
+						// 			chartConfig: {
+						// 				options: {
+						// 					chart: {
+						// 						type: 'pie',
+						// 						height: 140,
+						// 						margin: [0,0,0,0],
+						// 						spacing: [0,0,0,0]
+						// 					},
+						// 					tooltip: {
+						// 						enabled: false
+						// 					}				
+						// 				},
+						// 				title: {
+						// 						text: '',
+						// 						margin: 0
+						// 				},
+						// 				plotOptions: {
+						// 						pie: {
+						// 								shadow: false
+						// 						}
+						// 				},
+						// 				series: [{
+						// 					name: 'Children (Under 5)',
+						// 					size: '100%',
+						// 					innerSize: '80%',
+						// 					showInLegend:false,
+						// 					dataLabels: {
+						// 						enabled: false
+						// 					},
+						// 					request: {
+						// 						method: 'POST',
+						// 						url: 'http://' + $location.host() + '/api/health/indicator',
+						// 						data: {
+						// 							indicator: 'under5',
+						// 							start_date: $scope.dashboard.startDate,
+						// 							end_date: $scope.dashboard.endDate,
+						// 							project_type: $scope.dashboard.project_type,
+						// 							beneficiary_category: $scope.dashboard.beneficiary_category,
+						// 							prov_code: $scope.dashboard.province.id,
+						// 							dist_code: $scope.dashboard.district.id
+						// 						}
+						// 					}
+						// 				}]
+						// 			}
+						// 		}
+						// 	}]
+						// },{
+						// 	styleClass: 's12 m12 l6',
+						// 	widgets: [{
+						// 		type: 'highchart',
+						// 		style: 'height: 180px;',
+						// 		card: 'card-panel chart-stats-card white grey-text text-darken-2',
+						// 		config: {
+						// 			title: {
+						// 				text: 'Adult (Over 5)'
+						// 			},
+						// 			display: {
+						// 				label: true,
+						// 				fractionSize: 1,
+						// 				subLabelfractionSize: 0,
+						// 				postfix: '%'
+						// 			},
+						// 			templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
+						// 			style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
+						// 			chartConfig: {
+						// 				options: {
+						// 					chart: {
+						// 						type: 'pie',
+						// 						height: 140,
+						// 						margin: [0,0,0,0],
+						// 						spacing: [0,0,0,0]
+						// 					},
+						// 					tooltip: {
+						// 						enabled: false
+						// 					}				
+						// 				},
+						// 				title: {
+						// 						text: '',
+						// 						margin: 0
+						// 				},
+						// 				plotOptions: {
+						// 						pie: {
+						// 								shadow: false
+						// 						}
+						// 				},
+						// 				series: [{
+						// 					name: 'Adult (Over 5)',
+						// 					size: '100%',
+						// 					innerSize: '80%',
+						// 					showInLegend:false,
+						// 					dataLabels: {
+						// 						enabled: false
+						// 					},
+						// 					request: {
+						// 						method: 'POST',
+						// 						url: 'http://' + $location.host() + '/api/health/indicator',
+						// 						data: {
+						// 							indicator: 'over5',
+						// 							start_date: $scope.dashboard.startDate,
+						// 							end_date: $scope.dashboard.endDate,
+						// 							project_type: $scope.dashboard.project_type,
+						// 							beneficiary_category: $scope.dashboard.beneficiary_category,
+						// 							prov_code: $scope.dashboard.province.id,
+						// 							dist_code: $scope.dashboard.district.id
+						// 						}
+						// 					}
+						// 				}]
+						// 			}
+						// 		}
+						// 	}]			
 						// },{
 						// 	styleClass: 's12 m12 l4',
 						// 	widgets: [{
@@ -766,7 +766,7 @@ angular.module('ngmReportHub')
 						// 			}
 						// 		}
 						// 	}]
-						}]
+						// }]
 					},{
 						columns: [{
 							styleClass: 's12 m12 l12',
@@ -868,6 +868,8 @@ angular.module('ngmReportHub')
 
 				// getData
 				$scope.dashboard.getData();
+				// set dashboard
+				$scope.dashboard.setDashboard();
 
 			});
 
@@ -875,6 +877,8 @@ angular.module('ngmReportHub')
 			
 			// getData
 			$scope.dashboard.getData();
+			// set dashboard
+			$scope.dashboard.setDashboard();
 
 		}
 		
