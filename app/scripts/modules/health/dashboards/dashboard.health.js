@@ -33,6 +33,12 @@ angular.module('ngmReportHub')
 			// current user
 			user: ngmUser.get(),
 
+			// report start
+			startDate: moment( $route.current.params.start) .format( 'YYYY-MM-DD' ),
+
+			// report end
+			endDate: moment( $route.current.params.end ).format( 'YYYY-MM-DD' ),
+
 			// province lists
 			provinceMenuRequest: $http({
 				method: 'GET',
@@ -44,12 +50,6 @@ angular.module('ngmReportHub')
 				method: 'GET',
 				url: 'http://' + $location.host() + '/api/location/getDistrictList'
 			}),
-
-			// report start
-			startDate: moment( $route.current.params.start) .format( 'YYYY-MM-DD' ),
-
-			// report end
-			endDate: moment( $route.current.params.end ).format( 'YYYY-MM-DD' ),
 			
 			// current report
 			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
@@ -165,12 +165,11 @@ angular.module('ngmReportHub')
 				$scope.dashboard.beneficiary_category = $route.current.params.beneficiaries.split('+');
 
 				// report
-				$scope.dashboard.report += moment().format('YYYY-MM-DDTHHmm');
+				$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
 
 				// title
 				$scope.dashboard.title = 'Health 4W | ' + $scope.dashboard.province.prov_name;
 				$scope.dashboard.title += $scope.dashboard.district.id !== '*' ? ' | ' + $scope.dashboard.district.name : '';
-				// $scope.dashboard.subtitle = 'Health Cluster 4W dashboard for ' + $scope.dashboard.project + ' health projects in ' + $scope.dashboard.province.name + ' Province';
 
 				// subtitle
 				$scope.dashboard.subtitle = 'Health Cluster 4W dashboard for health projects in ' + $scope.dashboard.province.prov_name;
@@ -204,12 +203,12 @@ angular.module('ngmReportHub')
 							'style': 'border-bottom: 3px ' + $scope.dashboard.ngm.style.defaultPrimaryColor + ' solid;'
 						},
 						title: {
-							'class': 'col s12 m8 l8 report-title',
+							'class': 'col s12 m8 l8 report-title truncate',
 							'style': 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 							'title': $scope.dashboard.title,
 						},
 						subtitle: {
-							'class': 'col hide-on-small-only m8 l9 report-subtitle',
+							'class': 'col hide-on-small-only m8 l9 report-subtitle truncate',
 							'title': $scope.dashboard.subtitle,
 						},
 						datePicker: {
@@ -408,12 +407,12 @@ angular.module('ngmReportHub')
 								style: 'text-align: center;',
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
-									title: 'Active Organizations',
+									title: 'Active Partners',
 									request: {
 										method: 'POST',
 										url: 'http://' + $location.host() + '/api/health/indicator',
 										data: {
-											indicator: 'organizations',
+											indicator: 'partners',
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
 											project_type: $scope.dashboard.project_type,
@@ -789,7 +788,8 @@ angular.module('ngmReportHub')
 											osm: {
 												name: 'Mapbox',
 												type: 'xyz',
-												url: 'https://api.tiles.mapbox.com/v4/fitzpaddy.b207f20f/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZml0enBhZGR5IiwiYSI6ImNpZW1vcXZiaTAwMXBzdGtrYmp0cDlkdnEifQ.NCI7rTR3PvN4iPZpt6hgKA',
+												url: 'https://b.tiles.mapbox.com/v4/aj.um7z9lus/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZml0enBhZGR5IiwiYSI6ImNpZW1vcXZiaTAwMXBzdGtrYmp0cDlkdnEifQ.NCI7rTR3PvN4iPZpt6hgKA',
+												// url: 'https://api.tiles.mapbox.com/v4/fitzpaddy.b207f20f/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZml0enBhZGR5IiwiYSI6ImNpZW1vcXZiaTAwMXBzdGtrYmp0cDlkdnEifQ.NCI7rTR3PvN4iPZpt6hgKA',
 												layerOptions: {
 													continuousWorld: true
 												}
