@@ -57,23 +57,26 @@ angular.module('ngmReportHub')
 			data: {
 				project_type: {
 					'all': 'All Projects',
-					'awareness_campaign': 'Awareness Campaign',
+					'capacity_building': 'Capacity Building of Health Staff',
+					'cardio_health': 'Cardio Health',
+					'community_health': 'Community Health',
+					'donation': 'Donation',
 					'health_education': 'Health Education',
 					'outbreak_response': 'Outbreak Response',
-					'phc_idps': 'PHC IDPs',
-					'phc_natural_disaster': 'PHC Natural Disaster',
-					'phc_refugees': 'PHC Refugees',
-					'phc_conflict_area': 'PHC Conflict Area',
-					'phc_white_area': 'PHC White Area',
-					'trauma_care': 'Trauma Care'
+					'phc': 'PHC',
+					'physical_rehabilitation': 'Physical Rehabilitation',
+					'psycho_social': 'Psycho Social',
+					'trauma_care': 'Trauma Care',
+					'other': 'Other'
 				},
 				beneficiary_category: {
 					'all': 'Total Beneficiaries',
-					'conflict_displaced': 'Conflict Displaced',
-					'health_affected_conflict': 'Health Affected by Conflict', 
-					'refugees_returnees': 'Refugees Returnees',
-					'natural_disaster_affected': 'Natural Disaster Affected',
-					'public_health': 'Public Health'
+					'conflict_displaced': 'Conflict IDPs',
+          'health_affected_conflict': 'Health Affected by Conflict',
+          'training': 'Health Education & Capacity Building',
+          'natural_disaster_affected': 'Natural Disaster IDPs',
+          'refugees_returnees': 'Refugees & Returnees',
+          'white_area_population': 'White Area Population'
 				}
 			},
 
@@ -289,7 +292,7 @@ angular.module('ngmReportHub')
 							},{
 								type: 'csv',
 								color: 'blue lighten-2',
-								icon: 'group',
+								icon: 'call',
 								hover: 'Download Health Cluster Contact List as CSV',
 								request: {
 									method: 'POST',
@@ -314,13 +317,13 @@ angular.module('ngmReportHub')
 							},{
 								type: 'csv',
 								color: 'blue lighten-2',
-								icon: 'assignment',
-								hover: 'Download Health 4W by Project as CSV',
+								icon: 'assignment_turned_in',
+								hover: 'Download Health 4W Project Progress Report as CSV',
 								request: {
 									method: 'POST',
 									url: 'http://' + $location.host() + '/api/health/indicator',
 									data: {
-										report: 'projects_' + $scope.dashboard.report,
+										report: 'health_project_progress_' + $scope.dashboard.report,
 										details: 'projects',
 										start_date: $scope.dashboard.startDate,
 										end_date: $scope.dashboard.endDate,

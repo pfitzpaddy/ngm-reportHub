@@ -311,9 +311,6 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
               
               // disabled
               disabled = !$scope.project.options.selection.district;
-
-              console.log( $scope.project.options.selection.district );
-
               // alert user if conflict district selected
               if( $scope.project.options.selection.district.conflict ){
                 Materialize.toast('Alert! ' + $scope.project.options.selection.district.dist_name + ' is listed as a conflict district', 3000, 'success');
@@ -349,9 +346,6 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         // add location
         addLocation: function(){
 
-          // 
-          console.log( $scope.project.options.selection.district );
-
           // push location to target_locations
           $scope.project.definition.target_locations.unshift({
             organization_id: config.project.organization_id,
@@ -367,8 +361,10 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             conflict: $scope.project.options.selection.district.conflict,
             fac_type: $scope.project.options.selection.hf_type.fac_type,
             fac_name: $scope.project.options.selection.hf_name,
-            lng: $scope.project.options.selection.district.lng,
-            lat: $scope.project.options.selection.district.lat
+            prov_lng: $scope.project.options.selection.province.lng,
+            prov_lat: $scope.project.options.selection.province.lat,         
+            dist_lng: $scope.project.options.selection.district.lng,
+            dist_lat: $scope.project.options.selection.district.lat
           });
 
           // refresh dropdown options

@@ -84,6 +84,8 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
             organization_id: config.project.organization_id,
             organization: config.project.organization,
             project_title: $scope.project.definition.project_title,
+            project_code: $scope.project.definition.project_code,
+            project_donor: $scope.project.definition.project_donor,
             project_budget: $scope.project.definition.project_budget,
             project_budget_currency: $scope.project.definition.project_budget_currency,
             project_budget_amount_recieved: $scope.project.project_budget_amount_recieved,
