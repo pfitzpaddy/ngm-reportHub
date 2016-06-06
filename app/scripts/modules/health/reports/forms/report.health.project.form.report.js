@@ -138,8 +138,10 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             conflict: $scope.project.report.locations[$index].conflict,
             fac_type: $scope.project.report.locations[$index].fac_type,
             fac_name: $scope.project.report.locations[$index].fac_name,
-            lng: $scope.project.report.locations[$index].lng,
-            lat: $scope.project.report.locations[$index].lat,
+            prov_lng: $scope.project.report.locations[$index].prov_lng,
+            prov_lat: $scope.project.report.locations[$index].prov_lat,         
+            dist_lng: $scope.project.report.locations[$index].dist_lng,
+            dist_lat: $scope.project.report.locations[$index].dist_lat
           });
 
           // clear selection
