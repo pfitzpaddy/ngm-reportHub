@@ -69,7 +69,7 @@ angular.module('ngmReportHub')
 					'trauma_care': 'Trauma Care',
 					'other': 'Other'
 				},
-				beneficiary_category: {
+				beneficiary_type: {
 					'all': 'Total Beneficiaries',
 					'conflict_displaced': 'Conflict IDPs',
           'health_affected_conflict': 'Health Affected by Conflict',
@@ -165,7 +165,7 @@ angular.module('ngmReportHub')
 				$scope.dashboard.province = $scope.dashboard.data.province[$route.current.params.province];
 				$scope.dashboard.district = $route.current.params.district !== 'all' ? $scope.dashboard.data.district[$route.current.params.district] : { id: '*', name: 'All' };
 				$scope.dashboard.project_type = $route.current.params.project.split('+');
-				$scope.dashboard.beneficiary_category = $route.current.params.beneficiaries.split('+');
+				$scope.dashboard.beneficiary_type = $route.current.params.beneficiaries.split('+');
 
 				// report
 				$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
@@ -190,9 +190,9 @@ angular.module('ngmReportHub')
 
 				// beneficaries stats title
 				$scope.dashboard.beneficiariesTitle = '';				
-				angular.forEach($scope.dashboard.beneficiary_category, function(d, i){
+				angular.forEach($scope.dashboard.beneficiary_type, function(d, i){
 					// title
-					$scope.dashboard.beneficiariesTitle += $scope.dashboard.data.beneficiary_category[d] + ', ';
+					$scope.dashboard.beneficiariesTitle += $scope.dashboard.data.beneficiary_type[d] + ', ';
 				});
 				// remove last 2 characters
 				$scope.dashboard.beneficiariesTitle = $scope.dashboard.beneficiariesTitle.slice(0, -2);
@@ -329,7 +329,7 @@ angular.module('ngmReportHub')
 										start_date: $scope.dashboard.startDate,
 										end_date: $scope.dashboard.endDate,
 										project_type: $scope.dashboard.project_type,
-										beneficiary_category: $scope.dashboard.beneficiary_category,
+										beneficiary_type: $scope.dashboard.beneficiary_type,
 										prov_code: $scope.dashboard.province.prov_code,
 										dist_code: $scope.dashboard.district.dist_code
 									}
@@ -361,7 +361,7 @@ angular.module('ngmReportHub')
 										start_date: $scope.dashboard.startDate,
 										end_date: $scope.dashboard.endDate,
 										project_type: $scope.dashboard.project_type,
-										beneficiary_category: $scope.dashboard.beneficiary_category,
+										beneficiary_type: $scope.dashboard.beneficiary_type,
 										prov_code: $scope.dashboard.province.prov_code,
 										dist_code: $scope.dashboard.district.dist_code
 									}
@@ -393,7 +393,7 @@ angular.module('ngmReportHub')
 										start_date: $scope.dashboard.startDate,
 										end_date: $scope.dashboard.endDate,
 										project_type: $scope.dashboard.project_type,
-										beneficiary_category: $scope.dashboard.beneficiary_category,
+										beneficiary_type: $scope.dashboard.beneficiary_type,
 										prov_code: $scope.dashboard.province.prov_code,
 										dist_code: $scope.dashboard.district.dist_code
 									}
@@ -452,7 +452,7 @@ angular.module('ngmReportHub')
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
 											project_type: $scope.dashboard.project_type,
-											beneficiary_category: $scope.dashboard.beneficiary_category,
+											beneficiary_type: $scope.dashboard.beneficiary_type,
 											prov_code: $scope.dashboard.province.prov_code,
 											dist_code: $scope.dashboard.district.dist_code
 										}
@@ -476,7 +476,7 @@ angular.module('ngmReportHub')
 											end_date: $scope.dashboard.endDate,
 											project_status: 'active',
 											project_type: $scope.dashboard.project_type,
-											beneficiary_category: $scope.dashboard.beneficiary_category,
+											beneficiary_type: $scope.dashboard.beneficiary_type,
 											prov_code: $scope.dashboard.province.prov_code,
 											dist_code: $scope.dashboard.district.dist_code
 										}
@@ -500,7 +500,7 @@ angular.module('ngmReportHub')
 											end_date: $scope.dashboard.endDate,
 											project_status: 'complete',
 											project_type: $scope.dashboard.project_type,
-											beneficiary_category: $scope.dashboard.beneficiary_category,
+											beneficiary_type: $scope.dashboard.beneficiary_type,
 											prov_code: $scope.dashboard.province.prov_code,
 											dist_code: $scope.dashboard.district.dist_code
 										}
@@ -525,7 +525,7 @@ angular.module('ngmReportHub')
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
 											project_type: $scope.dashboard.project_type,
-											beneficiary_category: $scope.dashboard.beneficiary_category,
+											beneficiary_type: $scope.dashboard.beneficiary_type,
 											prov_code: $scope.dashboard.province.prov_code,
 											dist_code: $scope.dashboard.district.dist_code,
 											conflict: false
@@ -555,7 +555,7 @@ angular.module('ngmReportHub')
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
 											project_type: $scope.dashboard.project_type,
-											beneficiary_category: $scope.dashboard.beneficiary_category,
+											beneficiary_type: $scope.dashboard.beneficiary_type,
 											prov_code: $scope.dashboard.province.prov_code,
 											dist_code: $scope.dashboard.district.dist_code,
 											conflict: true
@@ -600,7 +600,7 @@ angular.module('ngmReportHub')
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
 											project_type: $scope.dashboard.project_type,
-											beneficiary_category: $scope.dashboard.beneficiary_category,
+											beneficiary_type: $scope.dashboard.beneficiary_type,
 											prov_code: $scope.dashboard.province.prov_code,
 											dist_code: $scope.dashboard.district.dist_code
 										}
@@ -664,7 +664,7 @@ angular.module('ngmReportHub')
 													start_date: $scope.dashboard.startDate,
 													end_date: $scope.dashboard.endDate,
 													project_type: $scope.dashboard.project_type,
-													beneficiary_category: $scope.dashboard.beneficiary_category,
+													beneficiary_type: $scope.dashboard.beneficiary_type,
 													prov_code: $scope.dashboard.province.prov_code,
 													dist_code: $scope.dashboard.district.dist_code
 												}
@@ -728,7 +728,7 @@ angular.module('ngmReportHub')
 													start_date: $scope.dashboard.startDate,
 													end_date: $scope.dashboard.endDate,
 													project_type: $scope.dashboard.project_type,
-													beneficiary_category: $scope.dashboard.beneficiary_category,
+													beneficiary_type: $scope.dashboard.beneficiary_type,
 													prov_code: $scope.dashboard.province.prov_code,
 													dist_code: $scope.dashboard.district.dist_code
 												}
@@ -786,7 +786,7 @@ angular.module('ngmReportHub')
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
 											project_type: $scope.dashboard.project_type,
-											beneficiary_category: $scope.dashboard.beneficiary_category,
+											beneficiary_type: $scope.dashboard.beneficiary_type,
 											prov_code: $scope.dashboard.province.prov_code,
 											dist_code: $scope.dashboard.district.dist_code
 										}

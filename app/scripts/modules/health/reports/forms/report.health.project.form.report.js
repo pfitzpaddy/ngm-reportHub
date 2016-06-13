@@ -237,40 +237,89 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         save: function( complete ) {
 
           // disable btn
-          $scope.project.report.submit = true;          
-
-          // user msg
-          var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
-
-          // user msg
-          msg += complete ? 'Submitted!' : 'Saved!';
+          $scope.project.report.submit = true;
 
           // set to complete if "mark as complete"
           $scope.project.report.report_status = complete ? 'complete' : 'todo';
 
-          // submitted
+          // time submitted
           $scope.project.report.report_submitted = moment().format();
 
-          // Submit project for save
-          ngmData.get({
+          // each location
+          var beneficiary_type = [];
+          angular.forEach( $scope.project.report.locations, function( l, i ){
+            // each beneficiary
+            angular.forEach( l.beneficiaries, function( b, j ){
+              // if new type, add to project discription
+              beneficiary_type.push( b.beneficiary_type );
+            });
+          });
+
+          // update project beneficiaries
+          $scope.project.definition.beneficiary_type = angular.extend( [], $scope.project.definition.beneficiary_type, beneficiary_type );
+
+          // setProjectRequest
+          var setProjectRequest = $http({
+            method: 'POST',
+            url: 'http://' + $location.host() + '/api/health/project/setProject',
+            data: {
+              project: $scope.project.definition
+            }
+          });
+
+          // setReportRequest
+          var setReportRequest = $http({
             method: 'POST',
             url: 'http://' + $location.host() + '/api/health/report/setReport',
             data: {
               report: $scope.project.report
             }
-          }).then(function( data ){
+          });
 
+          // send update
+          $q.all([ setProjectRequest, setReportRequest ]).then( function( results ){
+            
             // enable
             $scope.project.report.submit = false;
+          
+            // user msg
+            var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
+                msg += complete ? 'Submitted!' : 'Saved!';
+
+            // msg
+            Materialize.toast( msg , 3000, 'success');                
 
             // Re-direct to summary
             if ( $scope.project.report.report_status === 'complete' ) {
               $location.path( '/health/projects/report/' + $scope.project.definition.id );  
             }
-            // msg
-            Materialize.toast( msg , 3000, 'success');
 
           });
+
+          // Submit project for save
+          // ngmData.get({
+          //   method: 'POST',
+          //   url: 'http://' + $location.host() + '/api/health/report/setReport',
+          //   data: {
+          //     report: $scope.project.report
+          //   }
+          // }).then(function( data ){
+
+          //   // enable
+          //   $scope.project.report.submit = false;
+          
+          //   // user msg
+          //   var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
+          //       msg += complete ? 'Submitted!' : 'Saved!';
+
+          //   // Re-direct to summary
+          //   if ( $scope.project.report.report_status === 'complete' ) {
+          //     $location.path( '/health/projects/report/' + $scope.project.definition.id );  
+          //   }
+          //   // msg
+          //   Materialize.toast( msg , 3000, 'success');
+
+          // });
 
         }
 
