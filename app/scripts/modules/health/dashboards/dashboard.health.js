@@ -540,7 +540,7 @@ angular.module('ngmReportHub')
 								style: 'text-align: center;',
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
-									title: 'in Conflict Districts',
+									title: 'Conflict Districts Served',
 									display: {
 										fractionSize: 0,
 										simpleTitle: false,
