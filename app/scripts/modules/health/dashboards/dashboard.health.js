@@ -273,6 +273,7 @@ angular.module('ngmReportHub')
 										printUrl: $location.absUrl(),
 										downloadUrl: 'http://' + $location.host() + '/report/',
 										token: 'public',
+										viewportWidth: 1280,
 										pageLoadTime: 5400
 									}
 								},						
@@ -318,7 +319,7 @@ angular.module('ngmReportHub')
 								type: 'csv',
 								color: 'blue lighten-2',
 								icon: 'assignment_turned_in',
-								hover: 'Download Health 4W Project Progress Report as CSV',
+								hover: 'Download Health Project Progress Report as CSV',
 								request: {
 									method: 'POST',
 									url: 'http://' + $location.host() + '/api/health/indicator',
@@ -350,7 +351,7 @@ angular.module('ngmReportHub')
 								type: 'csv',
 								color: 'blue lighten-2',
 								icon: 'attach_money',
-								hover: 'Download Health 4W Financial Report CSV',
+								hover: 'Download Health Financial Report CSV',
 								request: {
 									method: 'POST',
 									url: 'http://' + $location.host() + '/api/health/indicator',
@@ -377,39 +378,39 @@ angular.module('ngmReportHub')
 										format: 'csv',
 										url: $location.$$path
 									}
-								}								
-							// },{
-							// 	type: 'csv',
-							// 	color: 'blue lighten-2',
-							// 	icon: 'location_on',
-							// 	hover: 'Download Health 4W by Location as CSV',
-							// 	request: {
-							// 		method: 'POST',
-							// 		url: 'http://' + $location.host() + '/api/health/indicator',
-							// 		data: {
-							// 			report: 'locations_' + $scope.dashboard.report,
-							// 			details: 'locations',
-							// 			start_date: $scope.dashboard.startDate,
-							// 			end_date: $scope.dashboard.endDate,
-							// 			project_type: $scope.dashboard.project_type,
-							// 			beneficiary_category: $scope.dashboard.beneficiary_category,
-							// 			prov_code: $scope.dashboard.province.id,
-							// 			dist_code: $scope.dashboard.district.id
-							// 		}
-							// 	},
-							// 	metrics: {
-							// 		method: 'POST',
-							// 		url: 'http://' + $location.host() + '/api/metrics/set',
-							// 		data: {
-							// 			organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
-							// 			username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
-							// 			email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public@gmail.com',
-							// 			dashboard: 'health_4w',
-							// 			theme: 'health_locations',
-							// 			format: 'csv',
-							// 			url: $location.$$path
-							// 		}
-							// 	}
+								}
+							},{
+								type: 'csv',
+								color: 'blue lighten-2',
+								icon: 'location_on',
+								hover: 'Download Health Beneficiaries by District as CSV',
+								request: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/health/indicator',
+									data: {
+										report: 'health_locations_' + $scope.dashboard.report,
+										details: 'locations',
+										start_date: $scope.dashboard.startDate,
+										end_date: $scope.dashboard.endDate,
+										project_type: $scope.dashboard.project_type,
+										beneficiary_category: $scope.dashboard.beneficiary_category,
+										prov_code: $scope.dashboard.province.prov_code,
+										dist_code: $scope.dashboard.district.dist_code
+									}
+								},
+								metrics: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/metrics/set',
+									data: {
+										organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
+										username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
+										email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public@gmail.com',
+										dashboard: 'health_4w',
+										theme: 'health_locations',
+										format: 'csv',
+										url: $location.$$path
+									}
+								}
 							}]
 						}
 					},
