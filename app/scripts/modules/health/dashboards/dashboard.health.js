@@ -544,7 +544,7 @@ angular.module('ngmReportHub')
 										fractionSize: 0,
 										simpleTitle: false,
 										subTitlePrefix: 'out of ',
-										subTitlePostfix: ' conflict districts'
+										// subTitlePostfix: ' conflict districts'
 									},
 									request: {
 										method: 'POST',
