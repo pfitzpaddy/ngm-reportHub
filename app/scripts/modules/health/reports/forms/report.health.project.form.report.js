@@ -139,6 +139,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             dist_name: $scope.project.report.locations[$index].dist_name,
             conflict: $scope.project.report.locations[$index].conflict,
             fac_type: $scope.project.report.locations[$index].fac_type,
+            fac_type_name: $scope.project.report.locations[$index].fac_type_name,
             fac_name: $scope.project.report.locations[$index].fac_name,
             prov_lng: $scope.project.report.locations[$index].prov_lng,
             prov_lat: $scope.project.report.locations[$index].prov_lat,         

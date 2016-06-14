@@ -360,6 +360,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             dist_name: $scope.project.options.selection.district.dist_name,
             conflict: $scope.project.options.selection.district.conflict,
             fac_type: $scope.project.options.selection.hf_type.fac_type,
+            fac_type_name: $scope.project.options.selection.hf_type.fac_name,
             fac_name: $scope.project.options.selection.hf_name,
             prov_lng: $scope.project.options.selection.province.lng,
             prov_lat: $scope.project.options.selection.province.lat,         
