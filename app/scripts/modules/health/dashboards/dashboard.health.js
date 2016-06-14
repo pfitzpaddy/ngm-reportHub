@@ -443,7 +443,30 @@ angular.module('ngmReportHub')
 								style: 'text-align: center;',
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
-									title: 'Active Partners',
+									title: 'Total Health Cluster Partners',
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/health/indicator',
+										data: {
+											indicator: 'partners',
+											start_date: $scope.dashboard.startDate,
+											end_date: $scope.dashboard.endDate,
+											project_type: $scope.dashboard.project_type,
+											beneficiary_type: $scope.dashboard.beneficiary_type,
+											prov_code: $scope.dashboard.province.prov_code,
+											dist_code: $scope.dashboard.district.dist_code
+										}
+									}
+								}
+							}]
+						},{							
+							styleClass: 's12 m12 l4',
+							widgets: [{
+								type: 'stats',
+								style: 'text-align: center;',
+								card: 'card-panel stats-card white grey-text text-darken-2',
+								config: {
+									title: 'Active Health Cluster Partners',
 									request: {
 										method: 'POST',
 										url: 'http://' + $location.host() + '/api/health/indicator',
@@ -483,34 +506,10 @@ angular.module('ngmReportHub')
 									}
 								}
 							}]
-						},{
-							styleClass: 's12 m12 l4',
-							widgets: [{
-								type: 'stats',
-								style: 'text-align: center;',
-								card: 'card-panel stats-card white grey-text text-darken-2',
-								config: {
-									title: 'Complete Projects for (' + $scope.dashboard.projectTitle + ')',
-									request: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/indicator',
-										data: {
-											indicator: 'projects',
-											start_date: $scope.dashboard.startDate,
-											end_date: $scope.dashboard.endDate,
-											project_status: 'complete',
-											project_type: $scope.dashboard.project_type,
-											beneficiary_type: $scope.dashboard.beneficiary_type,
-											prov_code: $scope.dashboard.province.prov_code,
-											dist_code: $scope.dashboard.district.dist_code
-										}
-									}
-								}
-							}]
 						}]
 					},{
 						columns: [{
-							styleClass: 's12 m12 l6',
+							styleClass: 's12 m12 l4',
 							widgets: [{
 								type: 'stats',
 								style: 'text-align: center;',
@@ -534,7 +533,7 @@ angular.module('ngmReportHub')
 								}
 							}]
 						},{
-							styleClass: 's12 m12 l6',
+							styleClass: 's12 m12 l4',
 							widgets: [{
 								type: 'stats',
 								style: 'text-align: center;',
@@ -544,7 +543,7 @@ angular.module('ngmReportHub')
 									display: {
 										fractionSize: 0,
 										simpleTitle: false,
-										subTitlePrefix: 'from a Total of ',
+										subTitlePrefix: 'out of ',
 										subTitlePostfix: ' conflict districts'
 									},
 									request: {
@@ -559,6 +558,29 @@ angular.module('ngmReportHub')
 											prov_code: $scope.dashboard.province.prov_code,
 											dist_code: $scope.dashboard.district.dist_code,
 											conflict: true
+										}
+									}
+								}
+							}]
+						},{
+							styleClass: 's12 m12 l4',
+							widgets: [{
+								type: 'stats',
+								style: 'text-align: center;',
+								card: 'card-panel stats-card white grey-text text-darken-2',
+								config: {
+									title: $scope.dashboard.beneficiariesTitle,
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/health/indicator',
+										data: {
+											indicator: 'beneficiaries',
+											start_date: $scope.dashboard.startDate,
+											end_date: $scope.dashboard.endDate,
+											project_type: $scope.dashboard.project_type,
+											beneficiary_type: $scope.dashboard.beneficiary_type,
+											prov_code: $scope.dashboard.province.prov_code,
+											dist_code: $scope.dashboard.district.dist_code
 										}
 									}
 								}
@@ -585,31 +607,6 @@ angular.module('ngmReportHub')
 						}]
 					},{
 						columns: [{
-							styleClass: 's12 m12 l12',
-							widgets: [{
-								type: 'stats',
-								style: 'text-align: center;',
-								card: 'card-panel stats-card white grey-text text-darken-2',
-								config: {
-									title: $scope.dashboard.beneficiariesTitle,
-									request: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/indicator',
-										data: {
-											indicator: 'beneficiaries',
-											start_date: $scope.dashboard.startDate,
-											end_date: $scope.dashboard.endDate,
-											project_type: $scope.dashboard.project_type,
-											beneficiary_type: $scope.dashboard.beneficiary_type,
-											prov_code: $scope.dashboard.province.prov_code,
-											dist_code: $scope.dashboard.district.dist_code
-										}
-									}
-								}
-							}]
-						}]
-					},{
-						columns: [{
 							styleClass: 's12 m12 l6',
 							widgets: [{
 								type: 'highchart',
@@ -617,7 +614,7 @@ angular.module('ngmReportHub')
 								card: 'card-panel chart-stats-card white grey-text text-darken-2',
 								config: {
 									title: {
-										text: 'Children (Under 5)'
+										text: 'Children ( Under 5 )'
 									},
 									display: {
 										label: true,
@@ -681,7 +678,7 @@ angular.module('ngmReportHub')
 								card: 'card-panel chart-stats-card white grey-text text-darken-2',
 								config: {
 									title: {
-										text: 'Adult (Over 5)'
+										text: 'Adult ( Over 5 )'
 									},
 									display: {
 										label: true,
