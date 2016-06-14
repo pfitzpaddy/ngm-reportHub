@@ -15,34 +15,34 @@
 		      		<div class="row">
 		      		
 			      		<div class="input-field col s12 m6">
-				          <input id="ngm-beneficiary-education_topic-{{ $index }}" type="text" class="validate"
+				          <input id="ngm-beneficiary-education_topic-{{ $parent.$index }}-{{ $index }}" type="text" class="validate"
 				          	ng-model="beneficiary.education_topic"
 				          	ng-disabled="project.report.report_status === 'complete'">
-				          <label for="ngm-beneficiary-education_topic-{{ $index }}" class="active">Health Education Training Topic</label>
+				          <label for="ngm-beneficiary-education_topic-{{ $parent.$index }}-{{ $index }}" class="active">Health Education Training Topic</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m6">
-				          <input id="ngm-beneficiary-education_sessions-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-education_sessions-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
 				          	ng-model="beneficiary.education_sessions"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-education_sessions-{{ $index }}" class="active">No. of Sessions</label>    		
+				          <label for="ngm-beneficiary-education_sessions-{{ $parent.$index }}-{{ $index }}" class="active">No. of Sessions</label>    		
 			      		</div>
 
 			      		<div class="input-field col s12 m6">
-				          <input id="ngm-beneficiary-education_male-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-education_male-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
 				          	ng-model="beneficiary.education_male"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-education_male-{{ $index }}" class="active">No. of Male</label>    		
+				          <label for="ngm-beneficiary-education_male-{{ $parent.$index }}-{{ $index }}" class="active">No. of Male</label>    		
 			      		</div>
 
 			      		<div class="input-field col s12 m6">
-				          <input id="ngm-beneficiary-education_female-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-education_female-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
 				          	ng-model="beneficiary.education_female"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-education_female-{{ $index }}" class="active">No. of Female</label>    		
+				          <label for="ngm-beneficiary-education_female-{{ $parent.$index }}-{{ $index }}" class="active">No. of Female</label>    		
 			      		</div>
 
 			      	</div>
@@ -55,34 +55,34 @@
 		      		<div class="row">
 		      			
 			      		<div class="input-field col s12 m6">
-				          <input id="ngm-beneficiary-capacity_building_topic-{{ $index }}" type="text" class="validate"
+				          <input id="ngm-beneficiary-capacity_building_topic-{{ $parent.$index }}-{{ $index }}" type="text" class="validate"
 				          	ng-model="beneficiary.capacity_building_topic"
 				          	ng-disabled="project.report.report_status === 'complete'">
-				          <label for="ngm-beneficiary-capacity_building_topic-{{ $index }}" class="active">Capacity Building Training Topic</label>
+				          <label for="ngm-beneficiary-capacity_building_topic-{{ $parent.$index }}-{{ $index }}" class="active">Capacity Building Training Topic</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m6">
-				          <input id="ngm-beneficiary-capacity_building_sessions-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-capacity_building_sessions-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
 				          	ng-model="beneficiary.capacity_building_sessions"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-capacity_building_sessions-{{ $index }}" class="active">No. of Sessions</label>    		
+				          <label for="ngm-beneficiary-capacity_building_sessions-{{ $parent.$index }}-{{ $index }}" class="active">No. of Sessions</label>    		
 			      		</div>
 
 			      		<div class="input-field col s12 m6">
-				          <input id="ngm-beneficiary-capacity_building_male-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-capacity_building_male-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
 				          	ng-model="beneficiary.capacity_building_male"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-capacity_building_male-{{ $index }}" class="active">No. of Male</label>
+				          <label for="ngm-beneficiary-capacity_building_male-{{ $parent.$index }}-{{ $index }}" class="active">No. of Male</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m6">
-				          <input id="ngm-beneficiary-capacity_building_female-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-capacity_building_female-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
 				          	ng-model="beneficiary.capacity_building_female"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-capacity_building_female-{{ $index }}" class="active">No. of Female</label>
+				          <label for="ngm-beneficiary-capacity_building_female-{{ $parent.$index }}-{{ $index }}" class="active">No. of Female</label>
 			      		</div>
 
 							</div>
