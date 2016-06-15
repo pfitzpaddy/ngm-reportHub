@@ -16,35 +16,35 @@
 		      		<div class="row">
 		      		
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-under5male-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-under5male-{{ location.id }}-{{ $index }}" type="number" class="validate" min="0"
 				          	ng-model="beneficiary.under5male"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-under5male-{{ $parent.$index }}-{{ $index }}" class="active">Under 5 Male</label>
+				          <label for="ngm-beneficiary-under5male-{{ location.id }}-{{ $index }}" class="active">Under 5 Male</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-under5female-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-under5female-{{ location.id }}-{{ $index }}" type="number" class="validate" min="0"
 				          	ng-model="beneficiary.under5female"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-under5female-{{ $parent.$index }}-{{ $index }}" class="active">Under 5 Female</label>    		
+				          <label for="ngm-beneficiary-under5female-{{ location.id }}-{{ $index }}" class="active">Under 5 Female</label>    		
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-over5male-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-over5male-{{ location.id }}-{{ $index }}" type="number" class="validate" min="0"
 				          	ng-model="beneficiary.over5male"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-over5male-{{ $parent.$index }}-{{ $index }}" class="active">Over 5 Male</label>
+				          <label for="ngm-beneficiary-over5male-{{ location.id }}-{{ $index }}" class="active">Over 5 Male</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-over5female-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-over5female-{{ location.id }}-{{ $index }}" type="number" class="validate" min="0"
 				          	ng-model="beneficiary.over5female"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-over5female-{{ $parent.$index }}-{{ $index }}" class="active">Over 5 Female</label>
+				          <label for="ngm-beneficiary-over5female-{{ location.id }}-{{ $index }}" class="active">Over 5 Female</label>
 			      		</div>
 
 							</div>
@@ -54,35 +54,35 @@
 							<div class="row">
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-penta3_vacc_male_under1-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-penta3_vacc_male_under1-{{ location.id }}-{{ $index }}" type="number" class="validate" min="0"
 				          	ng-model="beneficiary.penta3_vacc_male_under1"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-penta3_vacc_male_under1-{{ $parent.$index }}-{{ $index }}" class="active">PENTA3 VACC Male (Under 1yrs)</label>
+				          <label for="ngm-beneficiary-penta3_vacc_male_under1-{{ location.id }}-{{ $index }}" class="active">PENTA3 VACC Male (Under 1yrs)</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-penta3_vacc_female_under1-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-penta3_vacc_female_under1-{{ location.id }}-{{ $index }}" type="number" class="validate" min="0"
 				          	ng-model="beneficiary.penta3_vacc_female_under1"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-penta3_vacc_female_under1-{{ $parent.$index }}-{{ $index }}" class="active">PENTA3 VACC Female (Under 1yrs)</label>
+				          <label for="ngm-beneficiary-penta3_vacc_female_under1-{{ location.id }}-{{ $index }}" class="active">PENTA3 VACC Female (Under 1yrs)</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-skilled_birth_attendant-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-skilled_birth_attendant-{{ location.id }}-{{ $index }}" type="number" class="validate" min="0"
 				          	ng-model="beneficiary.skilled_birth_attendant"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-skilled_birth_attendant-{{ $parent.$index }}-{{ $index }}" class="active">Skilled Birth Attendants</label>
+				          <label for="ngm-beneficiary-skilled_birth_attendant-{{ location.id }}-{{ $index }}" class="active">Skilled Birth Attendants</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m3" ng-show="location.fac_type !== 'FATP'">
-				          <input id="ngm-beneficiary-conflict_trauma_treated-{{ $parent.$index }}-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-conflict_trauma_treated-{{ location.id }}-{{ $index }}" type="number" class="validate" min="0"
 				          	ng-model="beneficiary.conflict_trauma_treated"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-conflict_trauma_treated-{{ $parent.$index }}-{{ $index }}" class="active">Conflict Trauma Treated</label>
+				          <label for="ngm-beneficiary-conflict_trauma_treated-{{ location.id }}-{{ $index }}" class="active">Conflict Trauma Treated</label>
 			      		</div>
 
 		      		</div>
