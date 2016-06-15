@@ -511,7 +511,7 @@ angular.module('ngmReportHub')
 								style: 'text-align: center;',
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
-									title: 'Active Projects for (' + $scope.dashboard.projectTitle + ')',
+									title: 'Active Projects for ( ' + $scope.dashboard.projectTitle + ' )',
 									request: {
 										method: 'POST',
 										url: 'http://' + $location.host() + '/api/health/indicator',
@@ -591,7 +591,7 @@ angular.module('ngmReportHub')
 								style: 'text-align: center;',
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
-									title: $scope.dashboard.beneficiariesTitle,
+									title: 'Beneficiaries ( ' + $scope.dashboard.beneficiariesTitle + ' )',
 									request: {
 										method: 'POST',
 										url: 'http://' + $location.host() + '/api/health/indicator',
