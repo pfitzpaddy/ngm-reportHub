@@ -70,10 +70,10 @@ angular.module('ngmReportHub')
 					'other': 'Other'
 				},
 				beneficiary_type: {
-					'all': 'Total Beneficiaries',
+					'all': 'All',
 					'conflict_displaced': 'Conflict IDPs',
           'health_affected_conflict': 'Health Affected by Conflict',
-          'training': 'Health Education & Capacity Building',
+          'training': 'Health Education',
           'natural_disaster_affected': 'Natural Disaster IDPs',
           'refugees_returnees': 'Refugees & Returnees',
           'white_area_population': 'White Area Population'
@@ -92,7 +92,7 @@ angular.module('ngmReportHub')
 					//
 					rows.push({
 						'title': d.prov_name,
-						'param': 'location',
+						'param': 'province',
 						'active': key,
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '#/health/4w/' + key + '/all/' + $route.current.params.project + '/'  + $route.current.params.beneficiaries + '/' + $route.current.params.start + '/' + $route.current.params.end
@@ -113,8 +113,8 @@ angular.module('ngmReportHub')
 				angular.forEach($scope.dashboard.data.district, function(d, key){
 					//
 					rows.push({
-						'title': d.district_name,
-						'param': 'location',
+						'title': d.dist_name,
+						'param': 'district',
 						'active': key,
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '#/health/4w/' + $route.current.params.province + '/' + key + '/' + $route.current.params.project + '/'  + $route.current.params.beneficiaries + '/' + $route.current.params.start + '/' + $route.current.params.end
@@ -122,6 +122,28 @@ angular.module('ngmReportHub')
 				});
 
 				return rows;
+			},
+
+			// return row of beneficiaries
+			getBeneficiariesRows: function() {
+				
+				// menu rows
+				var active,
+						rows = [];
+						
+				// for each district
+				angular.forEach($scope.dashboard.data.beneficiary_type, function(d, key){
+					//
+					rows.push({
+						'title': d,
+						'param': 'beneficiaries',
+						'active': key,
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '#/health/4w/' + $route.current.params.province + '/' + $route.current.params.district + '/' + $route.current.params.project + '/'  + key + '/' + $route.current.params.start + '/' + $route.current.params.end
+					});
+				});
+
+				return rows;				
 			},
 
 			// set district list
@@ -172,12 +194,12 @@ angular.module('ngmReportHub')
 
 				// title
 				$scope.dashboard.title = 'Health 4W | ' + $scope.dashboard.province.prov_name;
-				$scope.dashboard.title += $scope.dashboard.district.id !== '*' ? ' | ' + $scope.dashboard.district.name : '';
+				$scope.dashboard.title += $scope.dashboard.district.id !== '*' ? ' | ' + $scope.dashboard.district.dist_name : '';
 
 				// subtitle
 				$scope.dashboard.subtitle = 'Health Cluster 4W dashboard for health projects in ' + $scope.dashboard.province.prov_name;
 				$scope.dashboard.subtitle += $route.current.params.province !== 'afghanistan' ? ' Province' : '';
-				$scope.dashboard.subtitle += $scope.dashboard.district.id !== '*' ? ', ' + $scope.dashboard.district.name : '';
+				$scope.dashboard.subtitle += $scope.dashboard.district.id !== '*' ? ', ' + $scope.dashboard.district.dist_name : '';
 
 				// projects stats title
 				$scope.dashboard.projectTitle = '';				
@@ -808,15 +830,24 @@ angular.module('ngmReportHub')
 
 				// if province selected add district
 				if($route.current.params.province !== 'afghanistan'){
-					$scope.model.menu[1] = {
+					$scope.model.menu.push({
 						'search': true,
 						'id': 'search-health-district',
 						'icon': 'place',
 						'title': 'District',
 						'class': 'teal lighten-1 white-text',
 						'rows': $scope.dashboard.getDistrictRows()
-					};
+					});
 				}
+
+				// add menu for beneficiaries
+				$scope.model.menu.push({
+					'search': false,
+					'icon': 'group',
+					'title': 'Beneficiaries',
+					'class': 'teal lighten-1 white-text',
+					'rows': $scope.dashboard.getBeneficiariesRows()
+				});
 
 				// assign to ngm app scope (for menu)
 				$scope.dashboard.ngm.dashboard.model = $scope.model;						
