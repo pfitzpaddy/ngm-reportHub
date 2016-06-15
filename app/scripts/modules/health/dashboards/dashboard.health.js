@@ -197,7 +197,7 @@ angular.module('ngmReportHub')
 				$scope.dashboard.title += $scope.dashboard.district.id !== '*' ? ' | ' + $scope.dashboard.district.dist_name : '';
 
 				// subtitle
-				$scope.dashboard.subtitle = 'Health Cluster 4W dashboard for health projects in ' + $scope.dashboard.province.prov_name;
+				$scope.dashboard.subtitle = 'Health Cluster 4W dashboard for ' + String( $scope.dashboard.data.beneficiary_type[ $scope.dashboard.beneficiary_type ] ).toUpperCase() + ' BENEFICIARIES in ' + $scope.dashboard.province.prov_name;
 				$scope.dashboard.subtitle += $route.current.params.province !== 'afghanistan' ? ' Province' : '';
 				$scope.dashboard.subtitle += $scope.dashboard.district.id !== '*' ? ', ' + $scope.dashboard.district.dist_name : '';
 
