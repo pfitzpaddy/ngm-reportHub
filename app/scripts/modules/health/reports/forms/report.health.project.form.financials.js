@@ -152,7 +152,7 @@ angular.module('ngm.widget.project.financials', ['ngm.provider'])
           $scope.project.definition.financials.unshift({
             organization_id: $scope.project.definition.organization_id, 
             organization: $scope.project.definition.organization,
-            username: ngmUser.get().username,
+            username: $scope.project.definition.username,
             status: 'new',
             expenditure_item: $scope.project.options.selection.expenditure.expenditure_item,
             expenditure_name: $scope.project.options.selection.expenditure.expenditure_name,

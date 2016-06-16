@@ -224,8 +224,8 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           $scope.project.definition.target_beneficiaries.unshift({
             organization_id: config.project.organization_id,
             organization: config.project.organization,
-            username: ngmUser.get().username,
-            email: ngmUser.get().email,
+            username: config.project.username,
+            email: config.project.email,
             beneficiary_name: target_beneficiary.beneficiary_name,
             beneficiary_type: target_beneficiary.beneficiary_type,
             under5male: 0,
@@ -350,8 +350,8 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           $scope.project.definition.target_locations.unshift({
             organization_id: config.project.organization_id,
             organization: config.project.organization,
-            username: ngmUser.get().username,
-            email: ngmUser.get().email,
+            username: config.project.username,
+            email: config.project.email,
             project_title: $scope.project.definition.project_title,
             project_type: $scope.project.definition.project_type,
             prov_code: $scope.project.options.selection.province.prov_code,
