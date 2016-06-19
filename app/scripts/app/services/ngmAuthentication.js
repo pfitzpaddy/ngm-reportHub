@@ -157,6 +157,13 @@ angular.module('ngmReportHub')
 				// set timeout
 				var milliSeconds = newSession ? session : session - duration.asMilliseconds();
 
+				//
+				// console.log( 'newSession: ' + newSession );
+				// console.log( 'log_in: ' + log_in );
+				// console.log( 'now: ' + log_in );
+				// console.log( 'duration: ' + duration );
+				// console.log( 'milliSeconds: ' + milliSeconds );
+
 				// session expired
 				if ( milliSeconds < 0 ) {
 					
