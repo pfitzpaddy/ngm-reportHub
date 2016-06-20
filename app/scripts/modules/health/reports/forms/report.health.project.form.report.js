@@ -252,12 +252,11 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             // each beneficiary
             angular.forEach( l.beneficiaries, function( b, j ){
               // if new type, add to project discription
-              beneficiary_type.push( b.beneficiary_type );
+              if ( $scope.project.definition.beneficiary_type.indexOf( b.beneficiary_type ) < 0 ) {
+                $scope.project.definition.beneficiary_type.push( b.beneficiary_type );
+              }
             });
           });
-
-          // update project beneficiaries
-          $scope.project.definition.beneficiary_type = angular.extend( [], $scope.project.definition.beneficiary_type, beneficiary_type );
 
           // setProjectRequest
           var setProjectRequest = $http({
@@ -296,31 +295,6 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             }
 
           });
-
-          // Submit project for save
-          // ngmData.get({
-          //   method: 'POST',
-          //   url: 'http://' + $location.host() + '/api/health/report/setReport',
-          //   data: {
-          //     report: $scope.project.report
-          //   }
-          // }).then(function( data ){
-
-          //   // enable
-          //   $scope.project.report.submit = false;
-          
-          //   // user msg
-          //   var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
-          //       msg += complete ? 'Submitted!' : 'Saved!';
-
-          //   // Re-direct to summary
-          //   if ( $scope.project.report.report_status === 'complete' ) {
-          //     $location.path( '/health/projects/report/' + $scope.project.definition.id );  
-          //   }
-          //   // msg
-          //   Materialize.toast( msg , 3000, 'success');
-
-          // });
 
         }
 
