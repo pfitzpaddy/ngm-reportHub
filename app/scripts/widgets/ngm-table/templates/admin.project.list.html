@@ -53,7 +53,7 @@
               <td data-title="'Status'" sortable="'project_status'">{{ row.project_status }}</td>
               <td data-title="'Start'" sortable="'project_start_date'">{{ row.project_start_date | date: 'yyyy-MM-dd' }}</td>
               <td data-title="'End'" sortable="'project_end_date'">{{ row.project_end_date | date: 'yyyy-MM-dd' }}</td>
-              <td data-title="'Budget'" sortable="'project_budget_usd'">${{ row.project_budget | number }} {{ row.project_budget_currency }}
+              <td data-title="'Budget'" sortable="'project_budget_usd'">${{ row.project_budget | number }} {{ row.project_budget_currency | uppercase }}
               <td data-title="'Beneficiary Category'" sortable="'beneficiary_category'">{{ row.beneficiary_type.toString().replace(table.regex, ', ' ) }}</td>
             </tr>
           </table>
