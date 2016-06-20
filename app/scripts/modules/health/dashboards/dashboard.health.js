@@ -496,6 +496,7 @@ angular.module('ngmReportHub')
 											indicator: 'partners',
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
+											project_status: 'active',
 											project_type: $scope.dashboard.project_type,
 											beneficiary_type: $scope.dashboard.beneficiary_type,
 											prov_code: $scope.dashboard.province.prov_code,
