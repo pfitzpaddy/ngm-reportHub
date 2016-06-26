@@ -248,6 +248,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
 
           // each location
           var beneficiary_type = [];
+          var length = $scope.project.definition.beneficiary_type.length;
           angular.forEach( $scope.project.report.locations, function( l, i ){
             // each beneficiary
             angular.forEach( l.beneficiaries, function( b, j ){
@@ -276,8 +277,14 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             }
           });
 
+          // if project updated, add update project
+          var request = [ setReportRequest ];
+          if ( length !== $scope.project.definition.beneficiary_type.length ) {
+            request.push( setProjectRequest );
+          }
+
           // send update
-          $q.all([ setReportRequest, setProjectRequest ]).then( function( results ){
+          $q.all( request ).then( function( results ){
             
             // enable
             $scope.project.report.submit = false;
