@@ -734,7 +734,6 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // maximise text area
           if ( $scope.project.definition.project_description ) {
             $( 'textarea' ).height( $('textarea')[0].scrollHeight );
-
           }
 
           // order target_locations by latest updated

@@ -247,7 +247,6 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           $scope.project.report.report_submitted = moment().format();
 
           // each location
-          var beneficiary_type = [];
           var length = $scope.project.definition.beneficiary_type.length;
           angular.forEach( $scope.project.report.locations, function( l, i ){
             // each beneficiary
@@ -318,6 +317,11 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
 
           // modals
           $( '.modal-trigger' ).leanModal();
+
+          // maximise text area
+          if ( $scope.project.report.notes ) {
+            $( 'textarea' ).height( $('textarea')[0].scrollHeight );
+          }
 
           // filter beneficiaries
           angular.forEach($scope.project.report.locations, function(l, i) {
