@@ -165,38 +165,38 @@ angular.module('ngmReportHub')
 				// console.log( 'milliSeconds: ' + milliSeconds );
 
 				// session expired
-				if ( milliSeconds < 0 ) {
+				// if ( milliSeconds < 0 ) {
 					
-					// unset localStorage
-					ngmUser.unset();
+				// 	// unset localStorage
+				// 	ngmUser.unset();
 
-					// redirect to login
-					$location.path( '/' + ngmAuth.APP + '/login' );
+				// 	// redirect to login
+				// 	$location.path( '/' + ngmAuth.APP + '/login' );
 
-				} else {
+				// } else {
 					
-					// interval since last login
-					$interval(function(){
+				// 	// interval since last login
+				// 	$interval(function(){
 
-						// open session confirm modal
-						$('#ngm-session-modal').openModal( { dismissible: false } );
+				// 		// open session confirm modal
+				// 		$('#ngm-session-modal').openModal( { dismissible: false } );
 
-						// 2 minutes to reset session
-						$interval(function(){
+				// 		// 2 minutes to reset session
+				// 		$interval(function(){
 
-							// close modal
-							$('#ngm-session-modal').closeModal();
+				// 			// close modal
+				// 			$('#ngm-session-modal').closeModal();
 
-							// unset localStorage
-							ngmUser.unset();
+				// 			// unset localStorage
+				// 			ngmUser.unset();
 
-							// re-direct
-							$location.path( '/' + ngmAuth.APP + '/login' );
+				// 			// re-direct
+				// 			$location.path( '/' + ngmAuth.APP + '/login' );
 
-						}, 1000 * 60 * 2);
+				// 		}, 1000 * 60 * 2);
 
-					}, milliSeconds);
-				}		
+				// 	}, milliSeconds);
+				// }
 
 			},
 
