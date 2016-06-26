@@ -164,13 +164,5 @@ angular.module('ngmReportHub')
 
 		// assign to ngm app scope
 		$scope.report.ngm.dashboard.model = $scope.model;
-
-		console.log('here!');
-
-		if ( ngmUser.get().username === 'Dr.Faizi' ) {
-
-			$('#ngm-maintenance-modal').openModal({dismissible: false});
-
-		}
 		
 	}]);
