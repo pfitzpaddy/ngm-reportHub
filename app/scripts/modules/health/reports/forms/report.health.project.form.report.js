@@ -258,15 +258,6 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             });
           });
 
-          // setProjectRequest
-          var setProjectRequest = $http({
-            method: 'POST',
-            url: 'http://' + $location.host() + '/api/health/project/setProject',
-            data: {
-              project: $scope.project.definition
-            }
-          });
-
           // setReportRequest
           var setReportRequest = $http({
             method: 'POST',
@@ -276,8 +267,17 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             }
           });
 
+          // setProjectRequest
+          var setProjectRequest = $http({
+            method: 'POST',
+            url: 'http://' + $location.host() + '/api/health/project/setProject',
+            data: {
+              project: $scope.project.definition
+            }
+          });
+
           // send update
-          $q.all([ setProjectRequest, setReportRequest ]).then( function( results ){
+          $q.all([ setReportRequest, setProjectRequest ]).then( function( results ){
             
             // enable
             $scope.project.report.submit = false;
