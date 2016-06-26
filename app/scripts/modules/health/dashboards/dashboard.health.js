@@ -296,7 +296,7 @@ angular.module('ngmReportHub')
 										downloadUrl: 'http://' + $location.host() + '/report/',
 										token: 'public',
 										viewportWidth: 1280,
-										pageLoadTime: 7600
+										pageLoadTime: 9600
 									}
 								},						
 								metrics: {
