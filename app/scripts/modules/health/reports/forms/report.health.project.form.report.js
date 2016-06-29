@@ -259,50 +259,96 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           });
 
           // setReportRequest
-          var setReportRequest = $http({
+          var setReportRequest = {
             method: 'POST',
             url: 'http://' + $location.host() + '/api/health/report/setReport',
             data: {
               report: $scope.project.report
             }
-          });
+          };
 
           // setProjectRequest
-          var setProjectRequest = $http({
+          var setProjectRequest = {
             method: 'POST',
             url: 'http://' + $location.host() + '/api/health/project/setProject',
             data: {
               project: $scope.project.definition
             }
+          }          
+
+          // set report
+          ngmData.get( setReportRequest ).then( function( report, complete ){
+
+            // if no project update
+            if ( length === $scope.project.definition.beneficiary_type.length ) {
+              $scope.project.updateUser( report );
+            } else {
+              
+              // set project
+              ngmData.get( setProjectRequest ).then( function( project, complete ){
+                $scope.project.updateUser( report );
+              });
+
+            }         
+
           });
 
-          // if project updated, add update project
-          var request = [ setReportRequest ];
-          if ( length !== $scope.project.definition.beneficiary_type.length ) {
-            request.push( setProjectRequest );
+          // // setProjectRequest
+          // var setProjectRequest = $http({
+          //   method: 'POST',
+          //   url: 'http://' + $location.host() + '/api/health/project/setProject',
+          //   data: {
+          //     project: $scope.project.definition
+          //   }
+          // });
+
+          // // if project updated, add update project
+          // var request = [ setReportRequest ];
+          // if ( length !== $scope.project.definition.beneficiary_type.length ) {
+          //   request.push( setProjectRequest );
+          // }
+
+          // // send update
+          // $q.all( request ).then( function( results ){
+            
+          //   // enable
+          //   $scope.project.report.submit = false;
+          
+          //   // user msg
+          //   var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
+          //       msg += complete ? 'Submitted!' : 'Saved!';
+
+          //   // msg
+          //   Materialize.toast( msg , 3000, 'success');                
+
+          //   // Re-direct to summary
+          //   if ( $scope.project.report.report_status === 'complete' ) {
+          //     $location.path( '/health/projects/report/' + $scope.project.definition.id );  
+          //   }
+
+          // });
+
+        },
+
+        // update user 
+        updateUser: function( results, complete ){
+          
+          // enable
+          $scope.project.report.submit = false;
+
+          // user msg
+          var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
+              msg += complete ? 'Submitted!' : 'Saved!';
+
+          // msg
+          Materialize.toast( msg , 3000, 'success');                
+
+          // Re-direct to summary
+          if ( $scope.project.report.report_status === 'complete' ) {
+            $location.path( '/health/projects/report/' + $scope.project.definition.id );  
           }
 
-          // send update
-          $q.all( request ).then( function( results ){
-            
-            // enable
-            $scope.project.report.submit = false;
-          
-            // user msg
-            var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
-                msg += complete ? 'Submitted!' : 'Saved!';
-
-            // msg
-            Materialize.toast( msg , 3000, 'success');                
-
-            // Re-direct to summary
-            if ( $scope.project.report.report_status === 'complete' ) {
-              $location.path( '/health/projects/report/' + $scope.project.definition.id );  
-            }
-
-          });
-
-        }
+        }        
 
       }
 
