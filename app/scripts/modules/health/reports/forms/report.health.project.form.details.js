@@ -102,6 +102,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
               fac_type: 'BHC',
               fac_name: 'BHC'
             },{
+              fac_type: 'FHH',
+              fac_name: 'FHH'
+            },{
               fac_type: 'SHC',
               fac_name: 'SHC'
             },{
