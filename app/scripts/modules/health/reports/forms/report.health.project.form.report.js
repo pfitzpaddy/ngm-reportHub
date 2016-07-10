@@ -113,6 +113,8 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             project_id: config.project.id,
             report_id: $scope.project.report.id,
             report_month: $scope.project.report.report_month,
+            report_year: $scope.project.report.report_year,
+            reporting_period: $scope.project.report.reporting_period,
             organization_id: config.project.organization_id,
             organization: config.project.organization,
             username: config.project.username,
