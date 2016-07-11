@@ -144,7 +144,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             fac_type_name: $scope.project.report.locations[$index].fac_type_name,
             fac_name: $scope.project.report.locations[$index].fac_name,
             prov_lng: $scope.project.report.locations[$index].prov_lng,
-            prov_lat: $scope.project.report.locations[$index].prov_lat,         
+            prov_lat: $scope.project.report.locations[$index].prov_lat,
             dist_lng: $scope.project.report.locations[$index].dist_lng,
             dist_lat: $scope.project.report.locations[$index].dist_lat
           });
