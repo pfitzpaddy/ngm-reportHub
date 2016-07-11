@@ -13,7 +13,7 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
         title: 'Health Reports Form',
         description: 'Health Reports Form',
         controller: 'ProjectReportsListCtrl',
-        templateUrl: '/views/modules/health/forms/reports.list/form.html'
+        templateUrl: '/scripts/modules/health/views/forms/reports.list/form.html'
       });
   })
   .controller('ProjectReportsListCtrl', [
@@ -56,7 +56,7 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
         updatedAt: moment( config.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ),
 
         // budget
-        budgetUrl: '/views/modules/health/forms/reports.list/budget.html',
+        budgetUrl: '/scripts/modules/health/views/forms/reports.list/budget.html',
 
         // cancel and delete empty project
         cancel: function() {

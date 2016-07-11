@@ -51,7 +51,7 @@ angular.module('ngmReportHub')
 						style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
 						config: {
 							style: $scope.dashboard.ngm.style,
-							templateUrl: '/views/app/guides/menu.html'
+							templateUrl: '/scripts/app/views/guides/menu.html'
 						}
 					}]
 				}]

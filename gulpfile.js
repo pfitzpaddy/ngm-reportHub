@@ -54,7 +54,7 @@ var paths = {
   karma: 'karma.conf.js',
   views: {
     main: yeoman.app + '/index.html',
-    files: [yeoman.app + '/views/**/*.html']
+    files: [ yeoman.app + '/views/**/*.html' ]
   }
 };
 
@@ -102,6 +102,21 @@ gulp.task('bower', function () {
   .pipe(gulp.dest(yeoman.app + '/views'));
 });
 
+gulp.task('html', function () {
+  return gulp.src(yeoman.app + '/views/**/*')
+    .pipe(gulp.dest(yeoman.dist + '/views'));
+});
+
+gulp.task('html:app', function () {
+  return gulp.src(yeoman.app + '/scripts/app/views/**/*.html')
+    .pipe(gulp.dest(yeoman.dist + '/scripts/app/views'));
+});
+
+gulp.task('html:health', function () {
+  return gulp.src(yeoman.app + '/scripts/modules/health/views/**/*.html')
+    .pipe(gulp.dest(yeoman.dist + '/scripts/modules/health/views'));
+});
+
 ///////////
 // Build //
 ///////////
@@ -110,7 +125,7 @@ gulp.task('clean:dist', function (cb) {
   rimraf('./dist', cb);
 });
 
-gulp.task('client:build', ['html', 'styles'], function () {
+gulp.task('client:build', [ 'html', 'html:app', 'html:health', 'styles' ], function () {
   var jsFilter = $.filter('**/*.js', {restore: true});
   var cssFilter = $.filter('**/*.css', {restore: true});
 
@@ -134,11 +149,6 @@ gulp.task('rename:index', function () {
   return gulp.src(yeoman.dist + '/*.html')
     .pipe($.rename('/index.html'))
     .pipe(gulp.dest(yeoman.dist));
-});
-
-gulp.task('html', function () {
-  return gulp.src(yeoman.app + '/views/**/*')
-    .pipe(gulp.dest(yeoman.dist + '/views'));
 });
 
 gulp.task('ngm:images', function () {

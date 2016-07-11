@@ -61,7 +61,7 @@ angular.module('ngmReportHub')
 						type: 'html',
 						config: {
 							style: $scope.dashboard.ngm.style,
-							templateUrl: '/views/app/guides/feedback.html',
+							templateUrl: '/scripts/app/views/guides/feedback.html',
 						}
 					}]
 				}]

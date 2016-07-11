@@ -59,7 +59,7 @@ angular.module('ngmReportHub')
 							config: {
 								reset: false,
 								style: $scope.dashboard.ngm.style,
-								templateUrl: '/views/app/authentication/reset.html'
+								templateUrl: '/scripts/app/views/authentication/reset.html'
 							}
 						}]
 					}]

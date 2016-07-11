@@ -13,7 +13,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         title: 'ReportHub Authentication Form',
         description: 'ReportHub Authentication Form',
         controller: 'AuthenticationFormCtrl',
-        templateUrl: '/views/app/authentication/view.html'
+        templateUrl: '/scripts/app/views/authentication/view.html'
       });
   })
   .controller('AuthenticationFormCtrl', [

@@ -23,7 +23,7 @@ angular
 		'highcharts-ng',
 		'leaflet-directive',
 		'ngm',
-		// pages
+		// ngm
 		'ngm.widget.form.authentication',
 		'ngm.widget.project.details',
 		'ngm.widget.project.reports.list',
@@ -31,6 +31,11 @@ angular
 		'ngm.widget.project.financials',
 		'ngm.widget.workshop',
 		'ngm.widget.video',
+		// modules
+		'ngmHealth',
+		'ngmDews',
+		'ngmDrr',
+		'ngmWatchkeeper',
 		// utils
 		'angularUtils.directives.dirPagination',
 		// widgets
@@ -52,12 +57,13 @@ angular
 		// https://medium.com/swlh/improving-angular-performance-with-1-line-of-code-a1fb814a6476#.ufea9sjt1
 		$compileProvider.debugInfoEnabled( false )
 
-		// app routes with access rights
+		// all routes prescribed within specific module app.js files
 		$routeProvider
+			// LOGIN
 			.when( '/login', {
 				redirectTo: '/health/login'
 			})
-			// health
+			// HEALTH
 			.when( '/health/login', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardLoginCtrl',
@@ -67,333 +73,7 @@ angular
 					}],
 				}
 			})
-			// health register
-			.when( '/health/register', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardRegisterCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAnonymous();
-					}],
-				}
-			})
-			// health reset
-			.when( '/health/find', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardResetCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAnonymous();
-					}],
-				}
-			})
-			// health reset with token
-			.when( '/health/find/:token', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardResetCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAnonymous();
-					}],
-				}
-			})
-			// forbidden
-			.when( '/health/forbidden', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardForbiddenCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-							return !ngmAuth.isAuthenticated();
-					}],
-				}
-			})
-			// admin
-			.when( '/health/admin', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardAdminCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-							return ngmAuth.hasRole('ADMIN');
-					}],
-				}
-			})
-			// admin
-			.when( '/health/admin/projects', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardAdminProjectsCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-							return ngmAuth.hasRole('ADMIN');
-					}],
-				}
-			})
-			// guides
-			.when( '/health/guides', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardGuidesMenuCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-							return ngmAuth.grantPublicAccess();
-					}],
-				}
-			})
-			// workshop
-			.when( '/health/guides/workshop', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardWorkshopCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-							return ngmAuth.grantPublicAccess();
-					}],
-				}
-			})			
-			// feedback
-			.when( '/health/guides/feedback', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardGuidesFeedbackCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-							return ngmAuth.grantPublicAccess();
-					}],
-				}
-			})
-			// screencasts
-			.when( '/health/guides/screens', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardGuidesScreenCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-							return ngmAuth.grantPublicAccess();
-					}],
-				}
-			})			
-			// health project list
-			.when( '/health/projects', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'ReportHealthProjectAppCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAuthenticated();
-					}],
-				}
-			})
-			// health project summary
-			.when( '/health/projects/summary/:project', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'ReportHealthProjectSummaryCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAuthenticated();
-					}],
-				}
-			})
-			// health project details
-			.when( '/health/projects/details/:project', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'ReportHealthProjectDetailsCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAuthenticated();
-					}],
-				}
-			})
-			// health project reports
-			.when( '/health/projects/report/:project', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'ReportHealthProjectReportsListCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAuthenticated();
-					}],
-				}
-			})
-			// health project reports
-			.when( '/health/projects/report/:project/:report', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'ReportHealthProjectReportCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAuthenticated();
-					}],
-				}
-			})			
-			// health project financials
-			.when( '/health/projects/financials/:project', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'ReportHealthProjectFinancialsCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAuthenticated();
-					}],
-				}
-			})
-			// health dashboard
-			.when( '/health/4w', {
-				redirectTo: '/health/4w/afghanistan/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
-			})
-			// health dashboard
-			.when( '/health/4w/:province/:district/:project/:beneficiaries/:start/:end', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardHealthProjectsCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.grantPublicAccess();
-					}],
-				}
-			})			
-
-			// Dews
-			.when( '/who', {
-				redirectTo: '/who/dews/afghanistan/all/2015-03-01/2016-02-29'
-			})
-			.when( '/who/dews', {
-				redirectTo: '/who/dews/afghanistan/all/2015-03-01/2016-02-29'
-			})
-			.when( '/who/dews/afghanistan', {
-				redirectTo: '/who/dews/afghanistan/all/2015-03-01/2016-02-29'
-			})			
-			.when( '/who/login', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardLoginCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAnonymous();
-					}],
-				}
-			})
-			.when( '/who/dews/upload', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'UpdateDewsCtrl',				
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.isAuthenticated(); 
-					}],
-				}
-			})
-			.when( '/who/dews/:location/:disease/:start/:end', {
-				reloadOnSearch: false,
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardDewsCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.isAuthenticated();
-					}],
-				}
-			})
-			// forbidden
-			.when( '/who/forbidden', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardForbiddenCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return !ngmAuth.isAuthenticated();
-					}],
-				}
-			})
-
-			// iMMAP
-			.when( '/immap/login', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardLoginCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-							return ngmAuth.isAnonymous();
-					}],
-				}
-			})
-			// DRR
-			.when( '/immap/drr/baseline/:province', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardBaselineCtrl',				
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.grantPublicAccess();
-					}],
-				}
-			})
-			.when( '/immap/drr/baseline/:province/:district', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardBaselineCtrl',				
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.grantPublicAccess();
-					}],
-				}
-			})
-			// DRR FLOOD-RISK
-			.when( '/immap/drr/flood-risk/:province', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardFloodRiskCtrl',				
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.grantPublicAccess();
-					}],
-				}
-			})
-			.when( '/immap/drr/flood-risk/:province/:district', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardFloodRiskCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.grantPublicAccess();
-					}],
-				}
-			})
-			// DRR FLOOD-FORECAST
-			.when( '/immap/drr/flood-forecast/:province', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardFloodForecastCtrl',				
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.grantPublicAccess();
-					}],
-				}
-			})
-			.when( '/immap/drr/flood-forecast/:province/:district', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardFloodForecastCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.grantPublicAccess();
-					}],
-				}
-			})
-
-			// Watchkeeper
-			.when( '/immap/watchkeeper/:country/:start/:end', {
-				reloadOnSearch: false,
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardWatchkeeperCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAuthenticated(); 
-					}],
-				}
-			})				
-			.when( '/immap', {
-				redirectTo: '/immap/drr/baseline/afghanistan'
-			})
-			.when( '/immap/watchkeeper', {
-				redirectTo: '/immap/watchkeeper/kenya/2015-11-01/2015-11-30'
-			})			
-			.when( '/immap/drr', {
-				redirectTo: '/immap/drr/baseline/afghanistan'
-			})
-			.when( '/immap/drr/baseline', {
-				redirectTo: '/immap/drr/baseline/afghanistan'
-			})
-			// forbidden
-			.when( '/immap/forbidden', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardForbiddenCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-							return !ngmAuth.isAuthenticated();
-					}],
-				}
-			})
-
-			// default
+			// DEFAULT
 			.otherwise({
 				redirectTo: '/health/projects'
 			});

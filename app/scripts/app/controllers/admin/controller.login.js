@@ -52,7 +52,7 @@ angular.module('ngmReportHub')
 						style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
 						config: {
 							style: $scope.dashboard.ngm.style,
-							templateUrl: '/views/app/authentication/login.html'
+							templateUrl: '/scripts/app/views/authentication/login.html'
 						}
 					}]
 				}]

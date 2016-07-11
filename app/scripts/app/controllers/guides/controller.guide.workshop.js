@@ -53,7 +53,7 @@ angular.module('ngmReportHub')
 								type: 'ngm.workshop',
 								config: {
 									style: $scope.dashboard.ngm.style,
-									templateUrl: '/views/app/guides/workshop.html',
+									templateUrl: '/scripts/app/views/guides/workshop.html',
 									data: data
 								}
 							}]

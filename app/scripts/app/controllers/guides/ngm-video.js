@@ -37,7 +37,7 @@ angular.module('ngm.widget.video', ['ngm.provider'])
           focused: false
         },
 
-        templateUrl: '/views/app/guides/video.html',
+        templateUrl: '/scripts/app/views/guides/video.html',
 
         // video panel
         video:[{

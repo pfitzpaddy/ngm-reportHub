@@ -13,7 +13,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         title: 'Health Project Details Form',
         description: 'Display Health Project Details Form',
         controller: 'ProjectDetailsCtrl',
-        templateUrl: '/views/modules/health/forms/details/form.html'
+        templateUrl: '/scripts/modules/health/views/forms/details/form.html'
       });
   })
   .controller('ProjectDetailsCtrl', [
@@ -138,25 +138,25 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         },
 
         // details template
-        detailsUrl: '/views/modules/health/forms/details/details.html',
+        detailsUrl: '/scripts/modules/health/views/forms/details/details.html',
 
         // budget
-        budgetUrl: '/views/modules/health/forms/details/budget.html',
+        budgetUrl: '/scripts/modules/health/views/forms/details/budget.html',
 
         // target beneficiaries
-        targetBeneficiariesUrl: '/views/modules/health/forms/details/target-beneficiaries.html',
+        targetBeneficiariesUrl: '/scripts/modules/health/views/forms/details/target-beneficiaries.html',
 
         // default
-        targetBeneficiariesDefaultUrl: '/views/modules/health/forms/details/target-beneficiaries/target-beneficiaries-default.html',
+        targetBeneficiariesDefaultUrl: '/scripts/modules/health/views/forms/details/target-beneficiaries/target-beneficiaries-default.html',
 
         // training
-        targetBeneficiariesTrainingUrl: '/views/modules/health/forms/details/target-beneficiaries/target-beneficiaries-training.html',
+        targetBeneficiariesTrainingUrl: '/scripts/modules/health/views/forms/details/target-beneficiaries/target-beneficiaries-training.html',
 
         // details template
-        locationsUrl: '/views/modules/health/forms/details/target-locations.html',
+        locationsUrl: '/scripts/modules/health/views/forms/details/target-locations.html',
 
         // details template
-        // beneficiariesUrl: '/views/modules/health/forms/details/beneficiaries.html',      
+        // beneficiariesUrl: '/scripts/modules/health/views/forms/details/beneficiaries.html',      
 
         // currency on budget exchange
         // budgetKeyUp: function( update ){

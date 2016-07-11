@@ -13,7 +13,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         title: 'Health Reports Form',
         description: 'Health Reports Form',
         controller: 'ProjectReportCtrl',
-        templateUrl: '/views/modules/health/forms/report/form.html'
+        templateUrl: '/scripts/modules/health/views/forms/report/form.html'
       });
   })
   .controller('ProjectReportCtrl', [
@@ -56,19 +56,19 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         titleFormat: moment( config.report.reporting_period ).format('MMMM, YYYY'),
 
         // locations
-        locationsUrl: '/views/modules/health/forms/report/locations.html',
+        locationsUrl: '/scripts/modules/health/views/forms/report/locations.html',
 
         // locations
-        notesUrl: '/views/modules/health/forms/report/notes.html',
+        notesUrl: '/scripts/modules/health/views/forms/report/notes.html',
 
         // beneficiaries
-        beneficiariesUrl: '/views/modules/health/forms/report/beneficiaries.html',
+        beneficiariesUrl: '/scripts/modules/health/views/forms/report/beneficiaries.html',
 
         // default
-        beneficiariesDefaultUrl: '/views/modules/health/forms/report/beneficiaries/beneficiaries-default.html',
+        beneficiariesDefaultUrl: '/scripts/modules/health/views/forms/report/beneficiaries/beneficiaries-default.html',
 
         // training
-        beneficiariesTrainingUrl: '/views/modules/health/forms/report/beneficiaries/beneficiaries-training.html',        
+        beneficiariesTrainingUrl: '/scripts/modules/health/views/forms/report/beneficiaries/beneficiaries-training.html',        
 
         // holder for UI options
         options: {

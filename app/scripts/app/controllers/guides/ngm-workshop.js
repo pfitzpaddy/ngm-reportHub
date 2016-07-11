@@ -30,7 +30,7 @@ angular.module('ngm.widget.workshop', ['ngm.provider'])
       $scope.panel = {
 
         // template
-        templateUrl: '/views/app/guides/workshop.html',
+        templateUrl: '/scripts/app/views/guides/workshop.html',
 
         data: [{
           workshops: []

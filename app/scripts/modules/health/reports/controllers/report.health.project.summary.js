@@ -102,7 +102,7 @@ angular.module('ngmReportHub')
 								style: 'padding: 0px;',
 								config: {
 									project: $scope.report.project,
-									templateUrl: '/views/modules/health/views/health.project.summary.html',									
+									templateUrl: '/scripts/modules/health/views/health.project.summary.html',									
 									// forms:[{
 									// 	icon: 'edit',
 									// 	location: 'details',
