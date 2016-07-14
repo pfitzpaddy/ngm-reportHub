@@ -28,7 +28,6 @@ angular
 		'ngm.widget.project.details',
 		'ngm.widget.project.reports.list',
 		'ngm.widget.project.report',
-		'ngm.widget.project.financials',
 		'ngm.widget.workshop',
 		'ngm.widget.video',
 		// modules

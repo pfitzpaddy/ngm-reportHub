@@ -48,6 +48,14 @@
 		font-weight: 400;		
 	}
 
+	/*  */
+	.select-wrapper {
+		color: #26a69a;
+	  margin-left: 3rem;
+	  width: 92%;
+	  width: calc(100% - 3rem);
+	}
+
 
 </style>
 
@@ -84,6 +92,22 @@
 		          <label for="ngm-password">Password</label>
 		        </div>
 		      </div>
+
+		      <div class="row">
+		        <div class="input-field col s12">
+		        	<i class="material-icons prefix location_on">location_on</i>
+						    <select class="validate"
+						    	id="ngm-country"
+						    	ng-model="panel.user.admin0pcode"
+						    	required>
+						      <option value="" disabled selected>Select Country</option>
+						      <option value="AF">Afghanistan</option>
+						      <option value="ET">Ethiopia</option>
+						      <option value="IQ">Iraq</option>
+						      <option value="KE">Kenya</option>
+						    </select>
+		        </div>
+		      </div>		      
 
 		      <div class="row">
 		        <div class="input-field col s12">

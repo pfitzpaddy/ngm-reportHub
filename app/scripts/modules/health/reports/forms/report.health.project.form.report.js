@@ -110,6 +110,10 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
 
           // push to beneficiaries
           $scope.project.report.locations[$index].beneficiaries.unshift({
+            adminRpcode: config.project.adminRpcode,
+            adminRname: config.project.adminRname,
+            admin0pcode: config.project.admin0pcode,
+            admin0name: config.project.admin0name,
             project_id: config.project.id,
             report_id: $scope.project.report.id,
             report_month: $scope.project.report.report_month,

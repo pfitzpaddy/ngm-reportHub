@@ -47,7 +47,7 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m9 l9 report-title truncate',
 							style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: $scope.report.project.organization + ' | ' + $scope.report.project.project_title
+							title: ngmUser.get().admin0name + ' | ' + $scope.report.project.organization + ' | ' + $scope.report.project.project_title
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate',
@@ -222,6 +222,10 @@ angular.module('ngmReportHub')
 
 			// create empty project
 			var project = {
+    		adminRpcode: ngmUser.get().adminRpcode,
+    		adminRname: ngmUser.get().adminRname,
+    		admin0pcode: ngmUser.get().admin0pcode,
+    		admin0name: ngmUser.get().admin0name,
 				organization_id: ngmUser.get().organization_id,
 				organization: ngmUser.get().organization,
 				username: ngmUser.get().username,

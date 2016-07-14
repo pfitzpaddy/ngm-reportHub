@@ -95,7 +95,7 @@ angular.module('ngmReportHub')
 						'param': 'province',
 						'active': key,
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '#/health/4w/' + key + '/all/' + $route.current.params.project + '/'  + $route.current.params.beneficiaries + '/' + $route.current.params.start + '/' + $route.current.params.end
+						'href': '#/health/4w/' + $route.current.params.country_iso_a2 + '/' + key + '/all/' + $route.current.params.project + '/'  + $route.current.params.beneficiaries + '/' + $route.current.params.start + '/' + $route.current.params.end
 					});
 				});
 
@@ -117,7 +117,7 @@ angular.module('ngmReportHub')
 						'param': 'district',
 						'active': key,
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '#/health/4w/' + $route.current.params.province + '/' + key + '/' + $route.current.params.project + '/'  + $route.current.params.beneficiaries + '/' + $route.current.params.start + '/' + $route.current.params.end
+						'href': '#/health/4w/' + $route.current.params.country_iso_a2 + '/' + $route.current.params.province + '/' + key + '/' + $route.current.params.project + '/'  + $route.current.params.beneficiaries + '/' + $route.current.params.start + '/' + $route.current.params.end
 					});
 				});
 
@@ -139,7 +139,7 @@ angular.module('ngmReportHub')
 						'param': 'beneficiaries',
 						'active': key,
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '#/health/4w/' + $route.current.params.province + '/' + $route.current.params.district + '/' + $route.current.params.project + '/'  + key + '/' + $route.current.params.start + '/' + $route.current.params.end
+						'href': '#/health/4w/' + $route.current.params.country_iso_a2 + '/' + $route.current.params.province + '/' + $route.current.params.district + '/' + $route.current.params.project + '/'  + key + '/' + $route.current.params.start + '/' + $route.current.params.end
 					});
 				});
 
@@ -184,6 +184,7 @@ angular.module('ngmReportHub')
 			setDashboard: function(){
 
 				// set dashboard params
+				$scope.dashboard.country_iso_a2 = $route.current.params.country_iso_a2 ? $route.current.params.country_iso_a2 : 'af';
 				$scope.dashboard.province = $scope.dashboard.data.province[$route.current.params.province];
 				$scope.dashboard.district = $route.current.params.district !== 'all' ? $scope.dashboard.data.district[$route.current.params.district] : { id: '*', name: 'All' };
 				$scope.dashboard.project_type = $route.current.params.project.split('+');
@@ -475,6 +476,7 @@ angular.module('ngmReportHub')
 											end_date: $scope.dashboard.endDate,
 											project_type: $scope.dashboard.project_type,
 											beneficiary_type: $scope.dashboard.beneficiary_type,
+											country_iso_a2: $scope.dashboard.country_iso_a2,
 											prov_code: $scope.dashboard.province.prov_code,
 											dist_code: $scope.dashboard.district.dist_code
 										}
@@ -499,6 +501,7 @@ angular.module('ngmReportHub')
 											project_status: 'active',
 											project_type: $scope.dashboard.project_type,
 											beneficiary_type: $scope.dashboard.beneficiary_type,
+											country_iso_a2: $scope.dashboard.country_iso_a2,
 											prov_code: $scope.dashboard.province.prov_code,
 											dist_code: $scope.dashboard.district.dist_code
 										}
@@ -523,6 +526,7 @@ angular.module('ngmReportHub')
 											project_status: 'active',
 											project_type: $scope.dashboard.project_type,
 											beneficiary_type: $scope.dashboard.beneficiary_type,
+											country_iso_a2: $scope.dashboard.country_iso_a2,
 											prov_code: $scope.dashboard.province.prov_code,
 											dist_code: $scope.dashboard.district.dist_code
 										}
@@ -548,6 +552,7 @@ angular.module('ngmReportHub')
 											end_date: $scope.dashboard.endDate,
 											project_type: $scope.dashboard.project_type,
 											beneficiary_type: $scope.dashboard.beneficiary_type,
+											country_iso_a2: $scope.dashboard.country_iso_a2,
 											prov_code: $scope.dashboard.province.prov_code,
 											dist_code: $scope.dashboard.district.dist_code,
 											conflict: false
@@ -573,11 +578,12 @@ angular.module('ngmReportHub')
 										method: 'POST',
 										url: 'http://' + $location.host() + '/api/health/indicator',
 										data: {
-											indicator: 'locations',
+											indicator: 'locations',											
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
 											project_type: $scope.dashboard.project_type,
 											beneficiary_type: $scope.dashboard.beneficiary_type,
+											country_iso_a2: $scope.dashboard.country_iso_a2,
 											prov_code: $scope.dashboard.province.prov_code,
 											dist_code: $scope.dashboard.district.dist_code,
 											conflict: true
@@ -602,6 +608,7 @@ angular.module('ngmReportHub')
 											end_date: $scope.dashboard.endDate,
 											project_type: $scope.dashboard.project_type,
 											beneficiary_type: $scope.dashboard.beneficiary_type,
+											country_iso_a2: $scope.dashboard.country_iso_a2,
 											prov_code: $scope.dashboard.province.prov_code,
 											dist_code: $scope.dashboard.district.dist_code
 										}
@@ -685,6 +692,7 @@ angular.module('ngmReportHub')
 													end_date: $scope.dashboard.endDate,
 													project_type: $scope.dashboard.project_type,
 													beneficiary_type: $scope.dashboard.beneficiary_type,
+													country_iso_a2: $scope.dashboard.country_iso_a2,
 													prov_code: $scope.dashboard.province.prov_code,
 													dist_code: $scope.dashboard.district.dist_code
 												}
@@ -749,6 +757,7 @@ angular.module('ngmReportHub')
 													end_date: $scope.dashboard.endDate,
 													project_type: $scope.dashboard.project_type,
 													beneficiary_type: $scope.dashboard.beneficiary_type,
+													country_iso_a2: $scope.dashboard.country_iso_a2,
 													prov_code: $scope.dashboard.province.prov_code,
 													dist_code: $scope.dashboard.district.dist_code
 												}
@@ -807,6 +816,7 @@ angular.module('ngmReportHub')
 											end_date: $scope.dashboard.endDate,
 											project_type: $scope.dashboard.project_type,
 											beneficiary_type: $scope.dashboard.beneficiary_type,
+											country_iso_a2: $scope.dashboard.country_iso_a2,
 											prov_code: $scope.dashboard.province.prov_code,
 											dist_code: $scope.dashboard.district.dist_code
 										}

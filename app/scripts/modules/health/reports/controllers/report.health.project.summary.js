@@ -22,7 +22,7 @@ angular.module('ngmReportHub')
 			}
 		}).then(function(data){
 			// assign data
-			$scope.report.setProjectSummary(data);
+			$scope.report.setProjectSummary( data );
 		});
 
 		// init empty model
@@ -56,31 +56,13 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m12 l12 report-title truncate',
 							style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: $scope.report.project.organization + ' | ' + $scope.report.project.project_title
+							title: $scope.report.project.admin0name + ' | ' + $scope.report.project.organization + ' | ' + $scope.report.project.project_title
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate',
 							'title': $scope.report.project.project_description
 						}
 					},
-					// menu: [{
-					// 	'icon': 'location_on',
-					// 	'title': 'Projects',
-					// 	'class': 'teal-text',
-					// 	rows: [{
-					// 		'title': 'Project List',
-					// 		'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-					// 		'param': 'project',
-					// 		'active': 'active',
-					// 		'href': '#/health/projects'
-					// 	},{
-					// 		'title': 'Create New Project',
-					// 		'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-					// 		'param': 'project',
-					// 		'active': 'active',
-					// 		'href': $scope.report.newProjectUrl
-					// 	}]
-					// }],
 					rows: [{
 						columns: [{
 							styleClass: 's12 m12 l12',

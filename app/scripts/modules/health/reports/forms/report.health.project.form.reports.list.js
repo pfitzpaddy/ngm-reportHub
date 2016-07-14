@@ -81,6 +81,10 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
 
           // create project budget progress object
           $scope.project.definition.project_budget_progress.unshift({
+            adminRpcode: config.project.adminRpcode,
+            adminRname: config.project.adminRname,
+            admin0pcode: config.project.admin0pcode,
+            admin0name: config.project.admin0name,
             organization_id: config.project.organization_id,
             organization: config.project.organization,
             project_title: $scope.project.definition.project_title,

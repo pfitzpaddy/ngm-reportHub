@@ -225,6 +225,10 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           // push to beneficiaries
           $scope.project.definition.target_beneficiaries.unshift({
+            adminRpcode: config.project.adminRpcode,
+            adminRname: config.project.adminRname,
+            admin0pcode: config.project.admin0pcode,
+            admin0name: config.project.admin0name,
             organization_id: config.project.organization_id,
             organization: config.project.organization,
             username: config.project.username,
@@ -351,6 +355,10 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           // push location to target_locations
           $scope.project.definition.target_locations.unshift({
+            adminRpcode: config.project.adminRpcode,
+            adminRname: config.project.adminRname,
+            admin0pcode: config.project.admin0pcode,
+            admin0name: config.project.admin0name,       
             organization_id: config.project.organization_id,
             organization: config.project.organization,
             username: config.project.username,
@@ -520,7 +528,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           if ( $scope.healthProjectForm.$valid ) {
 
             // disable btn
-            $scope.project.submit = true;
+            // $scope.project.submit = true;
 
             // inform
             Materialize.toast('Processing...', 3000, 'note');

@@ -23,24 +23,26 @@ angular.module('ngmReportHub')
 			newProjectUrl: '#/health/projects/details/new',
 
 			// province lists
-			provinceListRequest: $http({
+			provinceListRequest: {
 				method: 'GET',
 				url: 'http://' + $location.host() + '/api/location/getProvinceList'
-			}),
+			},
 
 			// district lists
-			districtListRequest: $http({
+			districtListRequest: {
 				method: 'GET',
 				url: 'http://' + $location.host() + '/api/location/getDistrictList'
-			})
+			}
 
 		}
+
+		// localStorage.removeItem( 'provinceList' );
 
 		// get all lists 
 		// if ( localStorage.getItem( 'lists' ) ) {
 
 			// send request
-			$q.all([ $scope.report.provinceListRequest, $scope.report.districtListRequest ]).then( function( results ){
+			$q.all([ $http( $scope.report.provinceListRequest ), $http( $scope.report.districtListRequest ) ]).then( function( results ){
 
 				// set lists to local storage
 				localStorage.setItem( 'lists', true );
@@ -61,12 +63,12 @@ angular.module('ngmReportHub')
 				},
 				title: {
 					'class': 'col s12 m12 l12 report-title',
-					title: ngmUser.get().organization + ' | Health Projects',
+					title: ngmUser.get().admin0name + ' | ' + ngmUser.get().organization + ' | Health Projects',
 					style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
 				},
 				subtitle: {
 					'class': 'col s12 m12 l12 report-subtitle',
-					title: 'Health projects for ' + ngmUser.get().organization,
+					title: 'Health projects for ' + ngmUser.get().organization + ' ' + ngmUser.get().admin0name,
 				}
 			},
 			// menu: [{

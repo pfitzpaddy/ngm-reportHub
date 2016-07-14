@@ -35,7 +35,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         },
 
         // login fn
-        login: function(ngmLoginForm){
+        login: function( ngmLoginForm ){
 
           // if invalid
           if(ngmLoginForm.$invalid){
@@ -45,13 +45,16 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             
             // login
             ngmAuth.login({ user: $scope.panel.user }).success(function(result) {
+
+              //
+              console.log( result.app_home );              
               
               // go to default org page 
               $location.path( '/' + result.app_home );
 
               // user toast msg
               $timeout(function(){
-                Materialize.toast('Welcome back ' + result.username + '!', 3000, 'note');
+                Materialize.toast( 'Welcome back ' + result.username + '!', 3000, 'note' );
               }, 2000);
 
             }).error(function(err) {
@@ -64,7 +67,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         },
 
         // register fn
-        register: function(ngmRegisterForm){
+        register: function( ngmRegisterForm ){
 
           // if $invalid
           if(ngmRegisterForm.$invalid){
@@ -72,14 +75,14 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             ngmRegisterForm.$setSubmitted();
           } else {
             // register
-            ngmAuth.register({ user: $scope.panel.user }).success(function(result) {
+            ngmAuth.register({ user: $scope.panel.user }).success(function( result ) {
               
               // go to default org page
-              $location.path( '/' + result.app_home );
+              $location.path( result.app_home );
 
               // user toast msg
               $timeout(function(){
-                Materialize.toast('Welcome ' + result.username + ', time to create a Project!', 3000, 'success');
+                Materialize.toast( 'Welcome ' + result.username + ', time to create a Project!', 3000, 'success' );
               }, 2000);
 
             }).error(function(err) {
@@ -92,7 +95,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         },
 
         // register fn
-        passwordResetSend: function(ngmResetForm){
+        passwordResetSend: function( ngmResetForm ){
 
           // if $invalid
           if(ngmResetForm.$invalid){
@@ -136,7 +139,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         },
 
         // register fn
-        passwordReset: function(ngmResetPasswordForm, token){
+        passwordReset: function( ngmResetPasswordForm, token ){
 
           // if $invalid
           if(ngmResetPasswordForm.$invalid){
@@ -169,6 +172,39 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
       // Merge defaults with config
       $scope.panel = angular.merge({}, $scope.panel, config);
+
+      // on page load
+      angular.element(document).ready(function () {
+
+        // give a few seconds to render
+        $timeout(function() {
+
+          // activate selects
+          $( 'select' ).material_select();
+
+          // on change
+          $( 'select' ).on( 'change', function() {
+
+            var adminRegion = {
+              'AF': { adminRpcode: 'EMRO', adminRname: 'EMRO' },
+              'ET': { adminRpcode: 'AFRO', adminRname: 'AFRO' },
+              'IQ': { adminRpcode: 'EMRO', adminRname: 'EMRO' },
+              'KE': { adminRpcode: 'AFRO', adminRname: 'AFRO' }
+            }            
+
+            // update icon color
+            $( '.location_on' ).css({ 'color': '#26a69a' });
+            
+            // add country display name
+            $scope.panel.user.adminRpcode = adminRegion[$scope.panel.user.admin0pcode].adminRpcode;
+            $scope.panel.user.adminRname = adminRegion[$scope.panel.user.admin0pcode].adminRname;            
+            $scope.panel.user.admin0name = $( this ).find( 'option:selected' ).text();
+
+          });
+
+        }, 1000 );
+
+      });      
 
     }
 
