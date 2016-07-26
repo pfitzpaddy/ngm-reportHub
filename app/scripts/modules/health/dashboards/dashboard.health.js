@@ -411,7 +411,7 @@ angular.module('ngmReportHub')
 									method: 'POST',
 									url: 'http://' + $location.host() + '/api/health/indicator',
 									data: {
-										report: 'health_locations_' + $scope.dashboard.report,
+										report: 'health_beneficiaries_by_district_' + $scope.dashboard.report,
 										details: 'locations',
 										start_date: $scope.dashboard.startDate,
 										end_date: $scope.dashboard.endDate,
@@ -430,6 +430,38 @@ angular.module('ngmReportHub')
 										email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public@gmail.com',
 										dashboard: 'health_4w',
 										theme: 'health_locations',
+										format: 'csv',
+										url: $location.$$path
+									}
+								}
+							},{
+								type: 'csv',
+								color: 'blue lighten-2',
+								icon: 'local_hospital',
+								hover: 'Download Health Beneficiaries by Health Facility as CSV',
+								request: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/health/indicator',
+									data: {
+										report: 'health_beneficiaries_by_facility_' + $scope.dashboard.report,
+										details: 'health_facility',
+										start_date: $scope.dashboard.startDate,
+										end_date: $scope.dashboard.endDate,
+										project_type: $scope.dashboard.project_type,
+										beneficiary_type: $scope.dashboard.beneficiary_type,
+										prov_code: $scope.dashboard.province.prov_code,
+										dist_code: $scope.dashboard.district.dist_code
+									}
+								},
+								metrics: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/metrics/set',
+									data: {
+										organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
+										username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',
+										email: $scope.dashboard.user ? $scope.dashboard.user.email : 'public@gmail.com',
+										dashboard: 'health_4w',
+										theme: 'health_facility',
 										format: 'csv',
 										url: $location.$$path
 									}
