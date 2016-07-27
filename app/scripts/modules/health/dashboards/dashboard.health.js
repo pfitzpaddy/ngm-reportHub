@@ -486,7 +486,7 @@ angular.module('ngmReportHub')
 								style: 'margin:15px; padding-bottom:30px;',
 								config: {
 									id: 'dashboard-btn',
-									html: '<a class="waves-effect waves-light btn left hide-on-small-only" href="#/health/projects"><i class="material-icons left">keyboard_return</i>Back to Projects</a><a class="waves-effect waves-light btn right" href="#/health/4w"><i class="material-icons right">cached</i>Reset Dashboard</a>'
+									html: '<a class="waves-effect waves-light btn left hide-on-small-only" href="#/health/projects"><i class="material-icons left">keyboard_return</i>Back to Projects</a><a class="waves-effect waves-light btn right" href="#/health/4w"><i class="material-icons left">cached</i>Reset Dashboard</a>'
 								}
 							}]
 						}]

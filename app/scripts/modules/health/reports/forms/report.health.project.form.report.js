@@ -115,6 +115,8 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             admin0pcode: config.project.admin0pcode,
             admin0name: config.project.admin0name,
             project_id: config.project.id,
+            project_title: config.project.project_title,
+            project_type: config.project.project_type,
             report_id: $scope.project.report.id,
             report_month: $scope.project.report.report_month,
             report_year: $scope.project.report.report_year,

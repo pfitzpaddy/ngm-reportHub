@@ -23,15 +23,21 @@ angular.module('ngmReportHub')
 			newProjectUrl: '#/health/projects/details/new',
 
 			// province lists
-			provinceListRequest: {
-				method: 'GET',
-				url: 'http://' + $location.host() + '/api/location/getProvinceList'
+			admin1ListRequest: {
+				method: 'POST',
+				url: 'http://' + $location.host() + '/api/location/getAdmin1List',
+				data: {
+					'admin0pcode': 'AF'
+				}
 			},
 
 			// district lists
-			districtListRequest: {
-				method: 'GET',
-				url: 'http://' + $location.host() + '/api/location/getDistrictList'
+			admin2ListRequest: {
+				method: 'POST',
+				url: 'http://' + $location.host() + '/api/location/getAdmin2List',
+				data: {
+					'admin0pcode': 'AF'
+				}				
 			}
 
 		}
@@ -42,12 +48,12 @@ angular.module('ngmReportHub')
 		// if ( localStorage.getItem( 'lists' ) ) {
 
 			// send request
-			$q.all([ $http( $scope.report.provinceListRequest ), $http( $scope.report.districtListRequest ) ]).then( function( results ){
+			$q.all([ $http( $scope.report.admin1ListRequest ), $http( $scope.report.admin2ListRequest ) ]).then( function( results ){
 
 				// set lists to local storage
 				localStorage.setItem( 'lists', true );
-				localStorage.setItem( 'provinceList', JSON.stringify(results[0].data) );
-				localStorage.setItem( 'districtList', JSON.stringify(results[1].data) );
+				localStorage.setItem( 'admin1List', JSON.stringify(results[0].data) );
+				localStorage.setItem( 'admin2List', JSON.stringify(results[1].data) );
 
 			});
 

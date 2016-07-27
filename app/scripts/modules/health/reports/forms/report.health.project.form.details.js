@@ -233,6 +233,8 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             organization: config.project.organization,
             username: config.project.username,
             email: config.project.email,
+            project_title: $scope.project.definition.project_title,
+            project_type: $scope.project.definition.project_type,
             beneficiary_name: target_beneficiary.beneficiary_name,
             beneficiary_type: target_beneficiary.beneficiary_type,
             under5male: 0,
@@ -294,15 +296,15 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           var disabled;
 
-          switch(select) {
+          switch( select ) {
 
-            case 'district':
+            case 'admin2':
               
               // disabled
-              disabled = !$scope.project.options.selection.province;
+              disabled = !$scope.project.options.selection.admin1;
 
-              // filter districts
-              $scope.project.options.filter.districts = $filter('filter')( $scope.project.options.list.districts, { prov_code: $scope.project.options.selection.province.prov_code }, true );
+              // filter admin2
+              $scope.project.options.filter.admin2 = $filter('filter')( $scope.project.options.list.admin2, { admin1pcode: $scope.project.options.selection.admin1.admin1pcode }, true );
 
               // disable/enable
               $( id ).prop( 'disabled', disabled );
@@ -317,10 +319,10 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             case 'hf_type':
               
               // disabled
-              disabled = !$scope.project.options.selection.district;
-              // alert user if conflict district selected
-              if( $scope.project.options.selection.district.conflict ){
-                Materialize.toast('Alert! ' + $scope.project.options.selection.district.dist_name + ' is listed as a conflict district', 3000, 'success');
+              disabled = !$scope.project.options.selection.admin2;
+              // alert user if conflict admin2 selected
+              if( $scope.project.options.selection.admin2.conflict ){
+                Materialize.toast('Alert! ' + $scope.project.options.selection.admin2.admin2name + ' is listed as a conflict ' + $scope.project.options.list.admin2[0].admin2type_name, 3000, 'success');
               }
 
               // reset dropdowns
@@ -365,18 +367,18 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             email: config.project.email,
             project_title: $scope.project.definition.project_title,
             project_type: $scope.project.definition.project_type,
-            prov_code: $scope.project.options.selection.province.prov_code,
-            prov_name: $scope.project.options.selection.province.prov_name,
-            dist_code: $scope.project.options.selection.district.dist_code,
-            dist_name: $scope.project.options.selection.district.dist_name,
-            conflict: $scope.project.options.selection.district.conflict,
+            admin1pcode: $scope.project.options.selection.admin1.admin1pcode,
+            admin1name: $scope.project.options.selection.admin1.admin1name,
+            admin2pcode: $scope.project.options.selection.admin2.admin2pcode,
+            admin2name: $scope.project.options.selection.admin2.admin2name,
+            conflict: $scope.project.options.selection.admin2.conflict,
             fac_type: $scope.project.options.selection.hf_type.fac_type,
             fac_type_name: $scope.project.options.selection.hf_type.fac_name,
             fac_name: $scope.project.options.selection.hf_name,
-            prov_lng: $scope.project.options.selection.province.lng,
-            prov_lat: $scope.project.options.selection.province.lat,         
-            dist_lng: $scope.project.options.selection.district.lng,
-            dist_lat: $scope.project.options.selection.district.lat
+            admin1lng: $scope.project.options.selection.admin1.admin1lng,
+            admin1lat: $scope.project.options.selection.admin1.admin1lat,         
+            admin2lng: $scope.project.options.selection.admin2.admin2lng,
+            admin2lat: $scope.project.options.selection.admin2.admin2lat
           });
 
           // refresh dropdown options
@@ -408,32 +410,32 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         },
 
         // refresh dropdown options
-        resetLocationSelect: function( province, district, hf_type, hf_name ){
+        resetLocationSelect: function( admin1, admin2, hf_type, hf_name ){
 
-          // reset province
-          if ( province ){
+          // reset admin1
+          if ( admin1 ){
             // reset select option
-            $scope.project.options.selection.province = {};
-            $scope.project.options.list.provinces = angular.fromJson( localStorage.getItem( 'provinceList' ) );
+            $scope.project.options.selection.admin1 = {};
+            $scope.project.options.list.admin1 = angular.fromJson( localStorage.getItem( 'admin1List' ) );
             // reset dropdown
-            $( '#ngm-project-province' ).prop( 'selectedIndex', 0 );
+            $( '#ngm-project-admin1' ).prop( 'selectedIndex', 0 );
             $timeout(function() {
               // update
-              $( '#ngm-project-province' ).material_select( 'update' );
+              $( '#ngm-project-admin1' ).material_select( 'update' );
             }, 10 );
           }
 
-          // reset district
-          if ( district ){
+          // reset admin2
+          if ( admin2 ){
             // reset select option
-            $scope.project.options.selection.district = {};
-            $scope.project.options.list.districts = angular.fromJson( localStorage.getItem( 'districtList' ) );
+            $scope.project.options.selection.admin2 = {};
+            $scope.project.options.list.admin2 = angular.fromJson( localStorage.getItem( 'admin2List' ) );
             // refresh dropdown
-            $('#ngm-project-district').prop( 'selectedIndex', 0 );
-            $('#ngm-project-district').prop( 'disabled', true );
+            $('#ngm-project-admin2').prop( 'selectedIndex', 0 );
+            $('#ngm-project-admin2').prop( 'disabled', true );
             $timeout(function() {
               // update
-              $('#ngm-project-district').material_select('update');
+              $('#ngm-project-admin2').material_select('update');
             }, 10);
           }
 
@@ -481,8 +483,8 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // reset to cover updates
           $scope.project.definition.project_type = [];
           $scope.project.definition.project_donor = [];
-          $scope.project.definition.prov_code = [];
-          $scope.project.definition.dist_code = [];
+          $scope.project.definition.admin1pcode = [];
+          $scope.project.definition.admin2pcode = [];
           $scope.project.definition.beneficiary_type = [];
           // explode by ","
           // $scope.project.definition.implementing_partners = $scope.project.definition.implementing_partners.split(',');
@@ -511,6 +513,8 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           angular.forEach( $scope.project.definition.target_beneficiaries, function( b, i ){
 
             // push location ids to project
+            $scope.project.definition.target_beneficiaries[i].project_title = $scope.project.definition.project_title;
+            $scope.project.definition.target_beneficiaries[i].project_type = $scope.project.definition.project_type;
             $scope.project.definition.beneficiary_type.push( b.beneficiary_type );
 
           });
@@ -519,8 +523,10 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           angular.forEach( $scope.project.definition.target_locations, function( l, i ){
 
             // push location ids to project
-            $scope.project.definition.prov_code.push( l.prov_code );
-            $scope.project.definition.dist_code.push( l.dist_code );
+            $scope.project.definition.target_locations[i].project_title = $scope.project.definition.project_title;
+            $scope.project.definition.target_locations[i].project_type = $scope.project.definition.project_type;
+            $scope.project.definition.admin1pcode.push( l.admin1pcode );
+            $scope.project.definition.admin2pcode.push( l.admin2pcode );
 
           });
 
@@ -528,7 +534,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           if ( $scope.healthProjectForm.$valid ) {
 
             // disable btn
-            // $scope.project.submit = true;
+            $scope.project.submit = true;
 
             // inform
             Materialize.toast('Processing...', 3000, 'note');

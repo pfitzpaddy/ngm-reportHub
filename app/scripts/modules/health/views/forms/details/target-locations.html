@@ -20,27 +20,27 @@
 			      		<div class="input-field col s12 m3"
 			      			ng-class="{ 'error-label': healthProjectForm.$submitted
 							  								&& project.definition.locations.length === 0 }">
-			      			<select id="ngm-project-province" class="validate"
-							    	ng-model="project.options.selection.province"
-							    	ng-change="project.locationSelect('#ngm-project-district', 'district')"
+			      			<select id="ngm-project-admin1" class="validate"
+							    	ng-model="project.options.selection.admin1"
+							    	ng-change="project.locationSelect('#ngm-project-admin2', 'admin2')"
 							    	ng-disabled="project.definition.project_status === 'complete'"
-			      				ng-options="item as item.prov_name for item in project.options.list.provinces track by item.prov_code">
-			      				<option value="" disabled selected>Choose Province</option>
+			      				ng-options="item as item.admin1name for item in project.options.list.admin1 track by item.admin1pcode">
+			      				<option value="" disabled selected>Choose {{ project.options.list.admin1[0].admin1type_name }}</option>
 			      			</select>
-			      			<label>Province</label>
+			      			<label>{{ project.options.list.admin1[0].admin1type_name }}</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m3"
 			      			ng-class="{ 'error-label': healthProjectForm.$submitted
 							  								&& project.definition.locations.length === 0 }">
-			      			<select id="ngm-project-district" class="validate"
-							    	ng-model="project.options.selection.district"
+			      			<select id="ngm-project-admin2" class="validate"
+							    	ng-model="project.options.selection.admin2"
 							    	ng-change="project.locationSelect('#ngm-project-hf_type', 'hf_type')"
-			      				ng-options="item as item.dist_name for item in project.options.filter.districts track by item.id"
+			      				ng-options="item as item.admin2name for item in project.options.filter.admin2 track by item.id"
 			      				disabled>
-			      				<option value="" disabled selected>Choose District</option>
+			      				<option value="" disabled selected>Choose {{ project.options.list.admin2[0].admin2type_name }}</option>
 			      			</select>
-			      			<label>District</label>
+			      			<label>{{ project.options.list.admin2[0].admin2type_name }}</label>
 			      		</div>
 
 							  <div class="input-field col s12 m2"
@@ -90,9 +90,9 @@
 										    <tr>
 										    	<td width="10%" style="text-align:center;"><i class="material-icons" style="color: teal;">location_on</i></td>
 										    	<td width="80%" align="left"><h5 class="report-work-title" 
-																							style="font-size:1.2rem; font-weight:300;text-align:left;margin-top:0px;">{{ location.prov_name }}, {{ location.dist_name }}, {{ location.fac_type_name }}, {{ location.fac_name }}</h5></td>
+																							style="font-size:1.2rem; font-weight:300;text-align:left;margin-top:0px;">{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_type_name }}, {{ location.fac_name }}</h5></td>
 										      <td width="10%" style="padding-left:15px;"><a class="waves-effect waves-light btn red lighten-2 left"
-										      	title="Remove {{ location.prov_name }} Location {{ location.fac_name }}"
+										      	title="Remove {{ location.admin1name }} Location {{ location.fac_name }}"
 										      	ng-if="project.definition.project_status !== 'complete'"
 										      	ng-click="project.removeLocationModal( $index )"><i class="material-icons">cancel</i></a></td>
 										    </tr>
