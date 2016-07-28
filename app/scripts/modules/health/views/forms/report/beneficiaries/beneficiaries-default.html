@@ -16,7 +16,11 @@
 		      		<div class="row">
 		      		
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-under5male-{{ location.id }}-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-under5male-{{ location.id }}-{{ $index }}" 
+				          	name="under5male"
+				          	type="number" 
+				          	class="validate"
+				          	min="0"
 				          	ng-model="beneficiary.under5male"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
@@ -24,7 +28,11 @@
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-under5female-{{ location.id }}-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-under5female-{{ location.id }}-{{ $index }}" 
+				          	name="under5female"
+				          	type="number" 
+				          	class="validate" 
+				          	min="0"
 				          	ng-model="beneficiary.under5female"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
@@ -32,7 +40,11 @@
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-over5male-{{ location.id }}-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-over5male-{{ location.id }}-{{ $index }}" 
+				          	name="over5male"
+				          	type="number" 
+				          	class="validate" 
+				          	min="0"
 				          	ng-model="beneficiary.over5male"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
@@ -40,7 +52,11 @@
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-over5female-{{ location.id }}-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-over5female-{{ location.id }}-{{ $index }}" 
+				          	name="over5female"
+				          	type="number" 
+				          	class="validate" 
+				          	min="0"
 				          	ng-model="beneficiary.over5female"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
@@ -54,7 +70,11 @@
 							<div class="row">
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-penta3_vacc_male_under1-{{ location.id }}-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-penta3_vacc_male_under1-{{ location.id }}-{{ $index }}"
+				          	name="pentaMale"
+				          	type="number"
+				          	class="validate"
+				          	min="0"
 				          	ng-model="beneficiary.penta3_vacc_male_under1"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
@@ -62,7 +82,11 @@
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-penta3_vacc_female_under1-{{ location.id }}-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-penta3_vacc_female_under1-{{ location.id }}-{{ $index }}"
+				          	name="pentaFemale"
+				          	type="number"
+				          	class="validate"
+				          	min="0"
 				          	ng-model="beneficiary.penta3_vacc_female_under1"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
@@ -70,7 +94,11 @@
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-skilled_birth_attendant-{{ location.id }}-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-skilled_birth_attendant-{{ location.id }}-{{ $index }}"
+				          	name="sba"
+				          	type="number"
+				          	class="validate"
+				          	min="0"
 				          	ng-model="beneficiary.skilled_birth_attendant"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
@@ -78,7 +106,11 @@
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-conflict_trauma_treated-{{ location.id }}-{{ $index }}" type="number" class="validate" min="0"
+				          <input id="ngm-beneficiary-conflict_trauma_treated-{{ location.id }}-{{ $index }}" 
+				          	name="conflictTrauma"
+				          	type="number"
+				          	class="validate"
+				          	min="0"
 				          	ng-model="beneficiary.conflict_trauma_treated"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>

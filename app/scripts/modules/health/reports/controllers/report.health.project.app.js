@@ -27,7 +27,7 @@ angular.module('ngmReportHub')
 				method: 'POST',
 				url: 'http://' + $location.host() + '/api/location/getAdmin1List',
 				data: {
-					'admin0pcode': 'AF'
+					'admin0pcode': ngmUser.get().admin0pcode
 				}
 			},
 
@@ -36,7 +36,7 @@ angular.module('ngmReportHub')
 				method: 'POST',
 				url: 'http://' + $location.host() + '/api/location/getAdmin2List',
 				data: {
-					'admin0pcode': 'AF'
+					'admin0pcode': ngmUser.get().admin0pcode
 				}				
 			}
 

@@ -70,6 +70,41 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         // training
         beneficiariesTrainingUrl: '/scripts/modules/health/views/forms/report/beneficiaries/beneficiaries-training.html',        
 
+        //
+        formNames: [{
+          name: 'under5male'
+        },{
+          name: 'under5female'
+        },{
+          name: 'over5male'
+        },{
+          name: 'over5female'
+        },{
+          name: 'pentaMale'
+        },{
+          name: 'pentaFemale'
+        },{
+          name: 'sba'
+        },{
+          name: 'conflictTrauma'
+        },{
+          name: 'educationTopic'
+        },{
+          name: 'educationSessions'
+        },{
+          name: 'educationMale'
+        },{
+          name: 'educationFemale'
+        },{
+          name: 'capacityTopic'
+        },{
+          name: 'capacitySessions'
+        },{
+          name: 'capacityMale'
+        },{
+          name: 'capacityFemale'
+        }],
+
         // holder for UI options
         options: {
           list: {
@@ -141,18 +176,18 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             capacity_building_sessions: 0,
             capacity_building_male: 0,
             capacity_building_female: 0,
-            prov_code: $scope.project.report.locations[$index].prov_code,
-            prov_name: $scope.project.report.locations[$index].prov_name,
-            dist_code: $scope.project.report.locations[$index].dist_code,
-            dist_name: $scope.project.report.locations[$index].dist_name,
+            admin1pcode: $scope.project.report.locations[$index].admin1pcode,
+            admin1name: $scope.project.report.locations[$index].admin1name,
+            admin2pcode: $scope.project.report.locations[$index].admin2pcode,
+            admin2name: $scope.project.report.locations[$index].admin2name,
             conflict: $scope.project.report.locations[$index].conflict,
             fac_type: $scope.project.report.locations[$index].fac_type,
             fac_type_name: $scope.project.report.locations[$index].fac_type_name,
             fac_name: $scope.project.report.locations[$index].fac_name,
-            prov_lng: $scope.project.report.locations[$index].prov_lng,
-            prov_lat: $scope.project.report.locations[$index].prov_lat,
-            dist_lng: $scope.project.report.locations[$index].dist_lng,
-            dist_lat: $scope.project.report.locations[$index].dist_lat
+            admin1lng: $scope.project.report.locations[$index].admin1lng,
+            admin1lat: $scope.project.report.locations[$index].admin1lat,
+            admin2lng: $scope.project.report.locations[$index].admin2lng,
+            admin2lat: $scope.project.report.locations[$index].admin2lat
           });
 
           // clear selection
@@ -189,6 +224,21 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             // apply filter
             $( '#ngm-beneficiary-category-' + $scope.project.report.locations[$index].id ).material_select('update');
           }, 10);
+
+        },
+
+        // when the user wishes to update form
+        editReport: function(){
+
+          // set report to 'todo'
+          $scope.project.report.report_status = 'todo';
+
+          // using jquery to combat Materialize
+          angular.forEach( $scope.project.formNames, function( d, i ){
+            // update classes
+            $( 'input[name="' + d.name + '"]' ).removeClass('ng-untouched').addClass('ng-touched');
+            $( 'input[name="' + d.name + '"]' ).removeClass('invalid').addClass('valid');            
+          });
 
         },
 
