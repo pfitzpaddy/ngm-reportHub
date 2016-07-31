@@ -49,6 +49,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               // go to default org page 
               $location.path( '/' + result.app_home );
 
+              // remove any 'guest' location storage
+              localStorage.removeItem( 'guest' );
+
               // user toast msg
               $timeout(function(){
                 Materialize.toast( 'Welcome back ' + result.username + '!', 3000, 'note' );
@@ -76,6 +79,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               
               // go to default org page
               $location.path( result.app_home );
+
+              // remove any 'guest' location storage
+              localStorage.removeItem( 'guest' );
 
               // user toast msg
               $timeout(function(){
@@ -143,11 +149,15 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             // set submitted for validation
             ngmResetPasswordForm.$setSubmitted();
           } else {
+            
             // register
             ngmAuth.passwordReset({ reset: $scope.panel.user, token: token }).success(function(result) {
 
               // go to default org page 
               $location.path( '/' + result.app_home );
+
+              // remove any 'guest' location storage
+              localStorage.removeItem( 'guest' );
 
               // user toast msg
               $timeout(function(){
