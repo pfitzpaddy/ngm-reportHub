@@ -45,9 +45,6 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             
             // login
             ngmAuth.login({ user: $scope.panel.user }).success(function(result) {
-
-              //
-              console.log( result.app_home );              
               
               // go to default org page 
               $location.path( '/' + result.app_home );

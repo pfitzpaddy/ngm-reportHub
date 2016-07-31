@@ -190,10 +190,10 @@ angular
 			})
 			// health dashboard
 			.when( '/health/4w', {
-				redirectTo: '/health/4w/afghanistan/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/health/4w/hq/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// health dashboard
-			.when( '/health/4w/:province/:district/:project/:beneficiaries/:start/:end', {
+			.when( '/health/4w/:adminR/:admin0/:admin1/:admin2/:project/:beneficiaries/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardHealthProjectsCtrl',
 				resolve: {

@@ -23,10 +23,11 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
     '$filter',
     '$q',
     '$http',
+    '$route',
     'ngmUser',
     'ngmData',
     'config',
-    function($scope, $location, $timeout, $filter, $q, $http, ngmUser, ngmData, config){
+    function($scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmData, config){
 
       // project
       $scope.project = {
@@ -149,6 +150,10 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             adminRname: config.project.adminRname,
             admin0pcode: config.project.admin0pcode,
             admin0name: config.project.admin0name,
+            organization_id: config.project.organization_id,
+            organization: config.project.organization,
+            username: config.project.username,
+            email: config.project.email,
             project_id: config.project.id,
             project_title: config.project.project_title,
             project_type: config.project.project_type,
@@ -156,10 +161,6 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             report_month: $scope.project.report.report_month,
             report_year: $scope.project.report.report_year,
             reporting_period: $scope.project.report.reporting_period,
-            organization_id: config.project.organization_id,
-            organization: config.project.organization,
-            username: config.project.username,
-            email: config.project.email,
             beneficiary_name: beneficiary.beneficiary_name,
             beneficiary_type: beneficiary.beneficiary_type,
             under5male: 0,
@@ -298,13 +299,13 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           // disable btn
           $scope.project.report.submit = true;
 
-          // set to complete if "mark as complete"
+          // set to complete if "submit monthly report"
           $scope.project.report.report_status = complete ? 'complete' : 'todo';
 
           // time submitted
           $scope.project.report.report_submitted = moment().format();
 
-          // each location
+          // if new beneficiary type, add to project discription
           var length = $scope.project.definition.beneficiary_type.length;
           angular.forEach( $scope.project.report.locations, function( l, i ){
             // each beneficiary
@@ -335,74 +336,42 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           }          
 
           // set report
-          ngmData.get( setReportRequest ).then( function( report, complete ){
+          ngmData.get( setReportRequest ).then( function( report, complete ){     
 
             // if no project update
             if ( length === $scope.project.definition.beneficiary_type.length ) {
-              $scope.project.updateUser( report );
+              $scope.project.refreshReport( report );
             } else {
               
               // set project
               ngmData.get( setProjectRequest ).then( function( project, complete ){
-                $scope.project.updateUser( report );
+                $scope.project.refreshReport( report );
               });
 
             }         
 
           });
 
-          // // setProjectRequest
-          // var setProjectRequest = $http({
-          //   method: 'POST',
-          //   url: 'http://' + $location.host() + '/api/health/project/setProject',
-          //   data: {
-          //     project: $scope.project.definition
-          //   }
-          // });
-
-          // // if project updated, add update project
-          // var request = [ setReportRequest ];
-          // if ( length !== $scope.project.definition.beneficiary_type.length ) {
-          //   request.push( setProjectRequest );
-          // }
-
-          // // send update
-          // $q.all( request ).then( function( results ){
-            
-          //   // enable
-          //   $scope.project.report.submit = false;
-          
-          //   // user msg
-          //   var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
-          //       msg += complete ? 'Submitted!' : 'Saved!';
-
-          //   // msg
-          //   Materialize.toast( msg , 3000, 'success');                
-
-          //   // Re-direct to summary
-          //   if ( $scope.project.report.report_status === 'complete' ) {
-          //     $location.path( '/health/projects/report/' + $scope.project.definition.id );  
-          //   }
-
-          // });
-
         },
 
         // update user 
-        updateUser: function( results, complete ){
-          
+        refreshReport: function( results, complete ){
+
           // enable
-          $scope.project.report.submit = false;
+          $scope.project.report.submit = false;  
 
           // user msg
           var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
               msg += complete ? 'Submitted!' : 'Saved!';
 
           // msg
-          Materialize.toast( msg , 3000, 'success');                
+          Materialize.toast( msg , 3000, 'success');
 
           // Re-direct to summary
-          if ( $scope.project.report.report_status === 'complete' ) {
+          if ( $scope.project.report.report_status !== 'complete' ) {
+            // avoids duplicate beneficiaries ( if 'save' and then 'submit' is submited without a refresh in between )
+            $route.reload();            
+          } else {
             $location.path( '/health/projects/report/' + $scope.project.definition.id );  
           }
 
