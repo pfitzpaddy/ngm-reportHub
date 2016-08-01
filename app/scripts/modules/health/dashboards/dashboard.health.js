@@ -383,9 +383,6 @@ angular.module('ngmReportHub')
 						// for each admin1
 						angular.forEach( admin2, function( d, key ){
 
-							// filter
-							$scope.dashboard.data.admin2 = $filter('filter')( admin2, { admin1pcode: $route.current.params.admin1 }, true );
-
 							// set object
 							$scope.dashboard.data.admin2[ d.admin2pcode ] = { admin2pcode: d.admin2pcode, admin2name: d.admin2name, admin2type_name: d.admin2type_name, admin2lat: d.admin2lat, admin2lng: d.admin2lng, admin2zoom: d.admin2zoom };
 
@@ -422,7 +419,6 @@ angular.module('ngmReportHub')
 
 						// add beneficiaries to side menu
 						$scope.dashboard.getBeneficiariesRows();
-
 						// update model TITLE/SUBTITLE
 						$scope.model.header.title.title += ' | ' + $scope.dashboard.data.admin2[ $route.current.params.admin2 ].admin2name;
 						$scope.model.header.subtitle.title += ', ' + $scope.dashboard.data.admin2[ $route.current.params.admin2 ].admin2name + ' ' + $scope.dashboard.data.admin2[ $route.current.params.admin2 ].admin2type_name;
@@ -451,7 +447,7 @@ angular.module('ngmReportHub')
 															 '/' + $scope.dashboard.startDate + 
 															 '/' + $scope.dashboard.endDate;
 						
-						//
+						// rows
 						rows.push({
 							'title': d,
 							'param': 'beneficiaries',
@@ -613,7 +609,202 @@ angular.module('ngmReportHub')
 
 									}
 								}]
-							}
+							},
+							download: {
+								'class': 'col s12 m4 l4 hide-on-small-only',
+								downloads: [{
+									type: 'pdf',
+									color: 'blue',
+									icon: 'picture_as_pdf',
+									hover: 'Download Health 4W as PDF',
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/print',
+										data: {
+											report: $scope.dashboard.report,
+											printUrl: $location.absUrl(),
+											downloadUrl: 'http://' + $location.host() + '/report/',
+											token: 'public',
+											viewportWidth: 1280,
+											pageLoadTime: 7200
+										}
+									},						
+									metrics: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/metrics/set',
+										data: {
+											organization: $scope.dashboard.user.organization,
+											username: $scope.dashboard.user.username,
+											email: $scope.dashboard.user.email,
+											dashboard: 'health_4w',
+											theme: 'health_4w',
+											format: 'pdf',
+											url: $location.$$path
+										}
+									}						
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'call',
+									hover: 'Download Health Cluster Contact List as CSV',
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/health/data/contacts',
+										data: {
+											report: 'contacts_' + $scope.dashboard.report,
+										}
+									},
+									metrics: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/metrics/set',
+										data: {
+											organization: $scope.dashboard.user.organization,
+											username: $scope.dashboard.user.username,
+											email: $scope.dashboard.user.email,
+											dashboard: 'health_4w',
+											theme: 'health_contacts',
+											format: 'csv',
+											url: $location.$$path
+										}
+									}
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'assignment_turned_in',
+									hover: 'Download Health Project Progress Report as CSV',
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/health/indicator',
+										data: {
+											report: 'health_projects_progress_' + $scope.dashboard.report,
+											details: 'projects',
+											start_date: $scope.dashboard.startDate,
+											end_date: $scope.dashboard.endDate,
+											adminRpcode: $scope.dashboard.adminRpcode,
+											admin0pcode: $scope.dashboard.admin0pcode,
+											admin1pcode: $scope.dashboard.admin1pcode,
+											admin2pcode: $scope.dashboard.admin2pcode,
+											project_type: $scope.dashboard.project_type,
+											beneficiary_type: $scope.dashboard.beneficiary_type
+										}
+									},
+									metrics: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/metrics/set',
+										data: {
+											organization: $scope.dashboard.user.organization,
+											username: $scope.dashboard.user.username,
+											email: $scope.dashboard.user.email,
+											dashboard: 'health_4w',
+											theme: 'health_details',
+											format: 'csv',
+											url: $location.$$path
+										}
+									}
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'attach_money',
+									hover: 'Download Health Financial Report CSV',
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/health/indicator',
+										data: {
+											report: 'health_financial_' + $scope.dashboard.report,
+											details: 'financial',
+											start_date: $scope.dashboard.startDate,
+											end_date: $scope.dashboard.endDate,
+											adminRpcode: $scope.dashboard.adminRpcode,
+											admin0pcode: $scope.dashboard.admin0pcode,
+											admin1pcode: $scope.dashboard.admin1pcode,
+											admin2pcode: $scope.dashboard.admin2pcode,
+											project_type: $scope.dashboard.project_type,
+											beneficiary_type: $scope.dashboard.beneficiary_type
+										}
+									},
+									metrics: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/metrics/set',
+										data: {
+											organization: $scope.dashboard.user.organization,
+											username: $scope.dashboard.user.username,
+											email: $scope.dashboard.user.email,
+											dashboard: 'health_4w',
+											theme: 'health_financial',
+											format: 'csv',
+											url: $location.$$path
+										}
+									}
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'location_on',
+									hover: 'Download Health Beneficiaries by District as CSV',
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/health/indicator',
+										data: {
+											report: 'health_beneficiaries_by_district_' + $scope.dashboard.report,
+											details: 'locations',
+											start_date: $scope.dashboard.startDate,
+											end_date: $scope.dashboard.endDate,
+											adminRpcode: $scope.dashboard.adminRpcode,
+											admin0pcode: $scope.dashboard.admin0pcode,
+											admin1pcode: $scope.dashboard.admin1pcode,
+											admin2pcode: $scope.dashboard.admin2pcode,
+											project_type: $scope.dashboard.project_type,
+											beneficiary_type: $scope.dashboard.beneficiary_type
+										}
+									},
+									metrics: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/metrics/set',
+										data: {
+											organization: $scope.dashboard.user.organization,
+											username: $scope.dashboard.user.username,
+											email: $scope.dashboard.user.email,
+											dashboard: 'health_4w',
+											theme: 'health_locations',
+											format: 'csv',
+											url: $location.$$path
+										}
+									}
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'local_hospital',
+									hover: 'Download Health Beneficiaries by Health Facility as CSV',
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/health/indicator',
+										data: {
+											report: 'health_beneficiaries_by_facility_' + $scope.dashboard.report,
+											details: 'health_facility',
+											start_date: $scope.dashboard.startDate,
+											end_date: $scope.dashboard.endDate,
+											adminRpcode: $scope.dashboard.adminRpcode,
+											admin0pcode: $scope.dashboard.admin0pcode,
+											admin1pcode: $scope.dashboard.admin1pcode,
+											admin2pcode: $scope.dashboard.admin2pcode,
+											project_type: $scope.dashboard.project_type,
+											beneficiary_type: $scope.dashboard.beneficiary_type
+										}
+									},
+									metrics: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/metrics/set',
+										data: {
+											organization: $scope.dashboard.user.organization,
+											username: $scope.dashboard.user.username,
+											email: $scope.dashboard.user.email,
+											dashboard: 'health_4w',
+											theme: 'health_facility',
+											format: 'csv',
+											url: $location.$$path
+										}
+									}
+								}]
+							}							
 						},
 						menu: [],
 						rows: [{
@@ -1041,7 +1232,7 @@ angular.module('ngmReportHub')
 					}).then( function( results ){
 
 						// default is global
-						$scope.dashboard.user = { adminRpcode: 'HQ', adminRname: 'Global', admin0pcode: 'ALL', admin0name: 'All', guest: true },
+						$scope.dashboard.user = { adminRpcode: 'HQ', adminRname: 'Global', admin0pcode: 'ALL', admin0name: 'All', guest: true, organization: 'public', username: 'public', email: 'public@gmail.com' },
 
 						// set guest location
 						angular.merge( $scope.dashboard.user, $scope.dashboard.data.admin_region[ results.countryCode ] );
