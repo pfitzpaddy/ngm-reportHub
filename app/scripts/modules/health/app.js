@@ -203,6 +203,11 @@ angular
 				}
 			})
 
+			// tmp
+			.when( '/health/4w/afghanistan/all/all/all/2016-01-01/2016-07-20', {
+				redirectTo: '/health/4w/hq/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
+			})
+
 			// DEFAULT
 			.otherwise({
 				redirectTo: '/health/projects'
