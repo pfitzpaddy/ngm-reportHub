@@ -62,7 +62,7 @@ angular.module('ngmReportHub')
 				});
 
 				// register success
-				register.success(function(result) {
+				register.success( function( result ) {
 					
 					// set localStorage
 					ngmUser.set( result );
@@ -86,7 +86,7 @@ angular.module('ngmReportHub')
 				});
 
 				// on success store in localStorage
-				login.success(function(result) {
+				login.success( function( result ) {
 					
 					// set localStorage
 					ngmUser.set( result );
@@ -99,7 +99,7 @@ angular.module('ngmReportHub')
 				return login;
 			},
 
-			passwordResetSend: function(user) {
+			passwordResetSend: function( user ) {
 
 				var reset = $http({
 					method: 'POST',
@@ -120,8 +120,8 @@ angular.module('ngmReportHub')
 				});
 
 				// on success store in localStorage
-				reset.success(function(result) {
-					ngmUser.set(result);
+				reset.success( function( result ) {
+					ngmUser.set( result );
 				});
 
 				return reset;
@@ -153,10 +153,7 @@ angular.module('ngmReportHub')
 
 				// new session
 				var minutes = newSession ? 0 : duration.asMinutes();
-
-				// console.log
-				console.log( minutes );
-
+				
 				// 24 hours * 60 minutes ( 1440 )
 				if ( minutes > ( 24 * 60 ) ){
 					
