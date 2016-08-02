@@ -340,12 +340,15 @@ angular.module('ngmReportHub')
 
 						// add beneficiaries to side menu
 						if ( $route.current.params.admin1 === 'all' ) {
+							// beneficiaries
 							$scope.dashboard.getBeneficiariesRows();
-						}
 
-						// update model TITLE/SUBTITLE
-						$scope.model.header.title.title += ' | ' + $scope.dashboard.data.admin1[ $route.current.params.admin1 ].admin1name;
-						$scope.model.header.subtitle.title += ', ' + $scope.dashboard.data.admin1[ $route.current.params.admin1 ].admin1name + ' ' + $scope.dashboard.data.admin1[ $route.current.params.admin1 ].admin1type_name;
+						} else {
+							// update model TITLE/SUBTITLE
+							$scope.model.header.title.title += ' | ' + $scope.dashboard.data.admin1[ $route.current.params.admin1 ].admin1name;
+							$scope.model.header.subtitle.title += ', ' + $scope.dashboard.data.admin1[ $route.current.params.admin1 ].admin1name + ' ' + $scope.dashboard.data.admin1[ $route.current.params.admin1 ].admin1type_name;
+
+						}
 
 					});
 
@@ -411,11 +414,16 @@ angular.module('ngmReportHub')
 							'rows': rows
 						});
 
+						// beneficiaries
+						$scope.dashboard.getBeneficiariesRows();						
+
 						// add beneficiaries to side menu
-						$scope.dashboard.getBeneficiariesRows();
-						// update model TITLE/SUBTITLE
-						$scope.model.header.title.title += ' | ' + $scope.dashboard.data.admin2[ $route.current.params.admin2 ].admin2name;
-						$scope.model.header.subtitle.title += ', ' + $scope.dashboard.data.admin2[ $route.current.params.admin2 ].admin2name + ' ' + $scope.dashboard.data.admin2[ $route.current.params.admin2 ].admin2type_name;
+						if ( $route.current.params.admin2 !== 'all' ) {
+							// update model TITLE/SUBTITLE
+							$scope.model.header.title.title += ' | ' + $scope.dashboard.data.admin2[ $route.current.params.admin2 ].admin2name;
+							$scope.model.header.subtitle.title += ', ' + $scope.dashboard.data.admin2[ $route.current.params.admin2 ].admin2name + ' ' + $scope.dashboard.data.admin2[ $route.current.params.admin2 ].admin2type_name;
+
+						}
 
 					});
 
