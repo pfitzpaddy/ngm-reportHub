@@ -25,12 +25,6 @@ angular.module('ngmReportHub')
 				'Karma'
 			];
 
-			//
-			// $scope.$on('$locationChangeStart', function( e, currentLocation, previousLocation ){
-			// 	console.log( currentLocation )
-			// 	console.log( previousLocation )
-			// });
-
 			// empty model
 			$scope.model = {
 				rows: [{}]
@@ -520,7 +514,9 @@ angular.module('ngmReportHub')
 					$scope.dashboard.admin1pcode = $route.current.params.admin1;
 					$scope.dashboard.admin2pcode = $route.current.params.admin2;
 					$scope.dashboard.project_type = $route.current.params.project.split('+');
-					$scope.dashboard.beneficiary_type = $route.current.params.beneficiaries.split('+');					
+					$scope.dashboard.beneficiary_type = $route.current.params.beneficiaries.split('+');
+					// report name
+					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
 				
 					// set dashboard URL
 					$scope.dashboard.setUrl();

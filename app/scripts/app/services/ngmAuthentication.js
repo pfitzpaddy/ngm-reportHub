@@ -146,16 +146,38 @@ angular.module('ngmReportHub')
 			// Manages client session timeout
 			setSessionTimeout: function( newSession, user ) {
 
-				// 8 hour session
-				var session = 1000 * 60 * 60 * 8;
-				
 				// compare last login with now
 				var log_in = moment( user.updatedAt ),
 						now = moment( new Date() ),
 						duration = moment.duration( now.diff( log_in ) );
+
+				// new session
+				var minutes = newSession ? 0 : duration.asMinutes();
+
+				// console.log
+				console.log( minutes );
+
+				// 24 hours * 60 minutes ( 1440 )
+				if ( minutes > ( 24 * 60 ) ){
+					
+					// unset localStorage
+					ngmUser.unset();
+
+					// redirect to login
+					$location.path( '/' + ngmAuth.APP + '/login' );
+
+				}
+
+				// // 8 hour session
+				// var session = 1000 * 60 * 60 * 8;
 				
-				// set timeout
-				var milliSeconds = newSession ? session : session - duration.asMilliseconds();
+				// // compare last login with now
+				// var log_in = moment( user.updatedAt ),
+				// 		now = moment( new Date() ),
+				// 		duration = moment.duration( now.diff( log_in ) );
+				
+				// // set timeout
+				// var milliSeconds = newSession ? session : session - duration.asMilliseconds();
 
 				//
 				// console.log( 'newSession: ' + newSession );
