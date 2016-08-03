@@ -131,7 +131,7 @@ angular.module('ngmReportHub')
 					$scope.dashboard.title = 'H4W | ' + $scope.dashboard.user.adminRname;
 
 					// admin0
-					if ( $scope.dashboard.user.admin0pcode !== 'ALL' ) {
+					if ( $route.current.params.admin0 !== 'all' ) {
 						$scope.dashboard.title += ' | ' + $scope.dashboard.user.admin0name;
 					}
 
@@ -260,7 +260,7 @@ angular.module('ngmReportHub')
 							rows.push({
 								'title': d.admin0name,
 								'param': 'admin0',
-								'active': d.admin0pcode,
+								'active': d.admin0pcode.toLowerCase(),
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 								'href': path
 							});
@@ -269,7 +269,7 @@ angular.module('ngmReportHub')
 							rows.push({
 								'title': d.admin0name,
 								'param': 'admin0',
-								'active': d.admin0pcode,
+								'active': d.admin0pcode.toLowerCase(),
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 								'href': path
 							});							
