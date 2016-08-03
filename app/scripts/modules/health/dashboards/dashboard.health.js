@@ -494,12 +494,18 @@ angular.module('ngmReportHub')
 							'class': 'teal lighten-1 white-text',
 							'rows': $scope.dashboard.getCountryRows()
 						});
+					} else {
+						// beneficiaries
+						$scope.dashboard.getBeneficiariesRows();						
 					}
 
 					// admin levels
 					if( $route.current.params.admin0 !== 'all' ){
 						// makes request and sets rows & TITLES
 						$scope.dashboard.setAdmin1Rows();
+					} else {
+						// beneficiaries
+						$scope.dashboard.getBeneficiariesRows();						
 					}
 
 					// admin levels
