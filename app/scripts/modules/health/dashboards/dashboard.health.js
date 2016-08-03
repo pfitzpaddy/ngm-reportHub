@@ -587,8 +587,19 @@ angular.module('ngmReportHub')
 											// start date
 											$scope.dashboard.startDate = date;
 
+											// URL
+											var path = '/health/4w/' + $route.current.params.adminR + 
+																					 '/' + $route.current.params.admin0 + 
+																					 '/' + $route.current.params.admin1 + 
+																					 '/' + $route.current.params.admin2 + 
+																					 '/' + $route.current.params.project + 
+																					 '/' + $route.current.params.beneficiaries + 
+																					 '/' + $scope.dashboard.startDate + 
+																					 '/' + $scope.dashboard.endDate;
+
 											// update new date
-											$location.path( '/health/4w/' + $route.current.params.province + '/' + $route.current.params.district + '/' + $route.current.params.project + '/' + $route.current.params.beneficiaries + '/' +  $scope.dashboard.startDate + '/' + $scope.dashboard.endDate );
+											$location.path( path );
+
 										}
 
 									}
@@ -613,8 +624,19 @@ angular.module('ngmReportHub')
 											// start date
 											$scope.dashboard.endDate = date;
 
+											// URL
+											var path = '/health/4w/' + $route.current.params.adminR + 
+																					 '/' + $route.current.params.admin0 + 
+																					 '/' + $route.current.params.admin1 + 
+																					 '/' + $route.current.params.admin2 + 
+																					 '/' + $route.current.params.project + 
+																					 '/' + $route.current.params.beneficiaries + 
+																					 '/' + $scope.dashboard.startDate + 
+																					 '/' + $scope.dashboard.endDate;
+
 											// update new date
-											$location.path( '/health/4w/' + $route.current.params.province + '/' + $route.current.params.district + '/' + $route.current.params.project + '/' + $route.current.params.beneficiaries + '/' +  $scope.dashboard.startDate + '/' + $scope.dashboard.endDate );
+											$location.path( path );
+											
 										}								
 
 									}
