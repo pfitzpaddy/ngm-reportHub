@@ -656,7 +656,7 @@ angular.module('ngmReportHub')
 											report: $scope.dashboard.report,
 											printUrl: $location.absUrl(),
 											downloadUrl: 'http://' + $location.host() + '/report/',
-											token: 'public',
+											token: $scope.dashboard.user.token ? $scope.dashboard.user.token : 'public',
 											viewportWidth: 1280,
 											pageLoadTime: 7200
 										}

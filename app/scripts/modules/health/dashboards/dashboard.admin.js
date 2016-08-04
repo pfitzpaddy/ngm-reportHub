@@ -205,7 +205,7 @@ angular.module('ngmReportHub')
 											report: $scope.dashboard.report,
 											printUrl: $location.absUrl(),
 											downloadUrl: 'http://' + $location.host() + '/report/',
-											token: 'public',
+											token: $scope.dashboard.user.token,
 											viewportWidth: 1280,
 											pageLoadTime: 6200
 										}
@@ -374,7 +374,7 @@ angular.module('ngmReportHub')
 								styleClass: 's12 m12 l12',
 								widgets: [{
 									type: 'table',
-									card: 'panel',
+									card: 'panel remove',
 									style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
 									config: {
 										style: $scope.dashboard.ngm.style,
