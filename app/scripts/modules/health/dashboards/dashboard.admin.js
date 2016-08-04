@@ -315,6 +315,7 @@ angular.module('ngmReportHub')
 									config: {
 										style: $scope.dashboard.ngm.style,
 										headerClass: 'collection-header red lighten-2',
+										headerText: 'white-text',
 										headerIcon: 'assignment_late',
 										headerTitle: 'Reports Due',
 										templateUrl: '/scripts/widgets/ngm-table/templates/admin.project.list.html',
@@ -346,6 +347,7 @@ angular.module('ngmReportHub')
 									config: {
 										style: $scope.dashboard.ngm.style,
 										headerClass: 'collection-header teal lighten-2',
+										headerText: 'white-text',
 										headerIcon: 'assignment_turned_in',
 										headerTitle: 'Reports Completed',
 										templateUrl: '/scripts/widgets/ngm-table/templates/admin.project.list.html',
@@ -358,6 +360,38 @@ angular.module('ngmReportHub')
 											data: {
 												table: true,
 												indicator: 'reports_complete',
+												start_date: $scope.dashboard.startDate,
+												end_date: $scope.dashboard.endDate,
+												adminRpcode: $scope.dashboard.adminRpcode,
+												admin0pcode: $scope.dashboard.admin0pcode
+											}
+										}
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'table',
+									card: 'panel',
+									style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
+									config: {
+										style: $scope.dashboard.ngm.style,
+										headerClass: 'collection-header blue lighten-4',
+										headerText: 'grey-text text-darken-2',
+										headerIcon: 'assignment',
+										headerTitle: 'All Reports',
+										templateUrl: '/scripts/widgets/ngm-table/templates/admin.project.list.html',
+										tableOptions:{
+											count: 10
+										},
+										request: {
+											method: 'POST',
+											url: 'http://' + $location.host() + '/api/health/admin/indicator',
+											data: {
+												table: true,
+												indicator: 'reports_total',
 												start_date: $scope.dashboard.startDate,
 												end_date: $scope.dashboard.endDate,
 												adminRpcode: $scope.dashboard.adminRpcode,
@@ -393,6 +427,8 @@ angular.module('ngmReportHub')
 				$scope.dashboard.setDashboard();
 
 			} else {
+
+				// redirect
 				$location.path('/health/forbidden');
 			}
 

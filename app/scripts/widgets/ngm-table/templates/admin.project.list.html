@@ -1,6 +1,9 @@
 
 <style>
 
+.count, .label {
+  z-index: 1 !important;
+}
 
 .ng-table th.sortable .sort-indicator {
   color: #2196F3;
@@ -14,18 +17,22 @@
 </style>
 
 <!-- ngTable -->
-
 <div class="row">
   <div class="col s12 m12 l12">
     <div class="card">
       <ul class="collection with-header">
-        <li class="{{ table.headerClass }}"><h5 class="report-work-title white-text"><i class="material-icons left">{{ table.headerIcon }}</i>{{ table.headerTitle }}</h5></li>
+        <li class="{{ table.headerClass }}"><h5 class="report-work-title {{ table.headerText }}"><i class="material-icons left">{{ table.headerIcon }}</i>{{ table.headerTitle }}</h5></li>
         <li class="collection-item avatar" style="padding:10px;">
           
-          <div ng-if="!data.length">
-
+          <!-- if no data -->
+          <div ng-if="data.length === 0">
+            <div class="label"
+                style="text-align:center; padding-top:20px;">
+              <span>No {{ table.headerTitle }}!</span>
+            </div>
           </div>
 
+          <!-- if data -->
           <div ng-if="data.length">
             <table class="centered highlight responsive-table" ng-table="table.tableParams">
               <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;" ng-click="table.rowClick( true, '/#/health/projects/report/{{ row.project_id }}/{{ row.id }}' )">
@@ -33,11 +40,12 @@
                 <td data-title="'User'" sortable="'username'">{{ row.username }}</td>
                 <td data-title="'Email'" sortable="'username'">{{ row.email }}</td>
                 <td data-title="'Title'" sortable="'project_title'">{{ row.project_title }}</td>
-                <td data-title="'Month'" sortable="'reporting_period'">{{ row.reporting_period | date: 'MMMM' }}</td>
+                <td data-title="'Report Month'" sortable="'reporting_period'">{{ row.reporting_period | date: 'MMMM' }}</td>
                 <td data-title="'Status'"><i class="material-icons" style="color: {{ row.status }}">fiber_manual_record</i></td>
               </tr>
             </table>
           </div>
+
         </li>
       </ul>
     </div>
