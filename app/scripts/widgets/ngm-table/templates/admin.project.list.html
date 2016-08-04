@@ -1,15 +1,6 @@
 
 <style>
 
-#po_number {
-  width: 10%;
-}
-#project_title {
-  width: 30%;
-}
-#hfs {
-  width: 5%;
-}
 
 .ng-table th.sortable .sort-indicator {
   color: #2196F3;
@@ -24,39 +15,29 @@
 
 <!-- ngTable -->
 
-<div class="row" style="padding: 20px;">
-  <div class="col s12 m12 l12">
-    <a class="waves-effect waves-light btn" href="#/health/admin">
-      <i class="material-icons left">keyboard_return</i>Back to Admin Menu</a>    
-
-<!--     <a class="waves-effect waves-teal btn right" 
-      ng-csv="table.getCsv()" 
-      csv-header="[ 'Organization', 'User', 'Email', 'Project Status', 'Project Title', 'Project Description', 'Project Start Date', 'Project End Date', 'Province Code', 'District Code', 'Beneficiary Category', 'Project Type', 'Project Donors', 'Implementing Partners', 'Project Budget (USD)', 'Project Budget (AFN)' ]" 
-      filename="{{ table.filename }}"><i class="material-icons left">file_download</i>Download
-    </a> -->
-  </div>
-</div>
-
 <div class="row">
   <div class="col s12 m12 l12">
     <div class="card">
       <ul class="collection with-header">
-        <li class="collection-header blue-grey darken-1"><h5 class="report-work-title white-text"><i class="material-icons left">playlist_add</i>Health Projects</h5></li>
+        <li class="{{ table.headerClass }}"><h5 class="report-work-title white-text"><i class="material-icons left">{{ table.headerIcon }}</i>{{ table.headerTitle }}</h5></li>
         <li class="collection-item avatar" style="padding:10px;">
-          <table class="centered highlight responsive-table" ng-table="table.tableParams">
-            <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;" ng-click="table.rowClick( true, '/#/health/projects/summary/{{ row.id }}' )">
-              <td data-title="'Organization'" sortable="'organization'">{{ row.organization }}</td>
-              <td data-title="'User'" sortable="'username'">{{ row.username }}</td>
-              <td data-title="'Donor'" sortable="'project_donor'">{{ row.project_donor.toString().replace(table.regex, ', ' ) }}</td>
-              <td data-title="'Type'" sortable="'project_type'">{{ row.project_type.toString().replace(table.regex, ', ' ) }}</td>
-              <td data-title="'Title'" sortable="'project_title'">{{ row.project_title }}</td>
-              <td data-title="'Status'" sortable="'project_status'">{{ row.project_status }}</td>
-              <td data-title="'Start'" sortable="'project_start_date'">{{ row.project_start_date | date: 'yyyy-MM-dd' }}</td>
-              <td data-title="'End'" sortable="'project_end_date'">{{ row.project_end_date | date: 'yyyy-MM-dd' }}</td>
-              <td data-title="'Budget'" sortable="'project_budget_usd'">${{ row.project_budget | number }} {{ row.project_budget_currency | uppercase }}
-              <td data-title="'Beneficiary Category'" sortable="'beneficiary_category'">{{ row.beneficiary_type.toString().replace(table.regex, ', ' ) }}</td>
-            </tr>
-          </table>
+          
+          <div ng-if="!data.length">
+
+          </div>
+
+          <div ng-if="data.length">
+            <table class="centered highlight responsive-table" ng-table="table.tableParams">
+              <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;" ng-click="table.rowClick( true, '/#/health/projects/report/{{ row.project_id }}/{{ row.id }}' )">
+                <td data-title="'Organization'" sortable="'organization'">{{ row.organization }}</td>
+                <td data-title="'User'" sortable="'username'">{{ row.username }}</td>
+                <td data-title="'Email'" sortable="'username'">{{ row.email }}</td>
+                <td data-title="'Title'" sortable="'project_title'">{{ row.project_title }}</td>
+                <td data-title="'Month'" sortable="'reporting_period'">{{ row.reporting_period | date: 'MMMM' }}</td>
+                <td data-title="'Status'"><i class="material-icons" style="color: {{ row.status }}">fiber_manual_record</i></td>
+              </tr>
+            </table>
+          </div>
         </li>
       </ul>
     </div>

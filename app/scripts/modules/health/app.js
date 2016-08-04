@@ -68,26 +68,6 @@ angular
 					}],
 				}
 			})
-			// admin
-			.when( '/health/admin', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardAdminCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-							return ngmAuth.hasRole('ADMIN');
-					}],
-				}
-			})
-			// admin
-			.when( '/health/admin/projects', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardAdminProjectsCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-							return ngmAuth.hasRole('ADMIN');
-					}],
-				}
-			})
 			// guides
 			.when( '/health/guides', {
 				templateUrl: '/views/app/dashboard.html',
@@ -188,6 +168,21 @@ angular
 					}],
 				}
 			})
+			// health admin
+			.when( '/health/admin', {
+				redirectTo: '/health/admin/hq/all/' + moment().subtract( 1, 'M').startOf( 'M' ).format('YYYY-MM-DD') + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+			})
+			// health admin
+			.when( '/health/admin/:adminR/:admin0/:start/:end', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardHealthAdminCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.hasRole( 'ADMIN' );
+					}],
+				}
+			})
+
 			// health dashboard
 			.when( '/health/4w', {
 				redirectTo: '/health/4w/hq/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')

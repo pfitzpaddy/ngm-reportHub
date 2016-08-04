@@ -58,7 +58,8 @@
 				        </div>
 
 				        <div class="input-field col s12 m3"
-				        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }">
+				        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }"
+				        	ng-if="project.definition.admin0pcode === 'AF'">
 							    <select class="validate"
 							    	id="ngm-project-budget-currency"
 							    	ng-model="project.definition.project_budget_currency" 
@@ -67,6 +68,51 @@
 							      <option value="" disabled selected>Select Project Budget Currency</option>
 							      <option value="usd">USD</option>
 							      <option value="afn">AFN</option>
+							    </select>
+							    <label for="ngm-project-budget-currency">Project Budget Currency</label>
+				        </div>
+
+				        <div class="input-field col s12 m3"
+				        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }"
+				        	ng-if="project.definition.admin0pcode === 'ET'">
+							    <select class="validate"
+							    	id="ngm-project-budget-currency"
+							    	ng-model="project.definition.project_budget_currency" 
+							    	ng-disabled="project.definition.project_status === 'complete'" 
+							    	required>
+							      <option value="" disabled selected>Select Project Budget Currency</option>
+							      <option value="usd">USD</option>
+							      <option value="etb">ETB</option>
+							    </select>
+							    <label for="ngm-project-budget-currency">Project Budget Currency</label>
+				        </div>
+
+								<div class="input-field col s12 m3"
+				        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }"
+				        	ng-if="project.definition.admin0pcode === 'IQ'">
+							    <select class="validate"
+							    	id="ngm-project-budget-currency"
+							    	ng-model="project.definition.project_budget_currency" 
+							    	ng-disabled="project.definition.project_status === 'complete'" 
+							    	required>
+							      <option value="" disabled selected>Select Project Budget Currency</option>
+							      <option value="usd">USD</option>
+							      <option value="iqd">IQD</option>
+							    </select>
+							    <label for="ngm-project-budget-currency">Project Budget Currency</label>
+				        </div>	
+
+								<div class="input-field col s12 m3"
+				        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }"
+				        	ng-if="project.definition.admin0pcode === 'KE'">
+							    <select class="validate"
+							    	id="ngm-project-budget-currency"
+							    	ng-model="project.definition.project_budget_currency" 
+							    	ng-disabled="project.definition.project_status === 'complete'" 
+							    	required>
+							      <option value="" disabled selected>Select Project Budget Currency</option>
+							      <option value="usd">USD</option>
+							      <option value="kes">KES</option>
 							    </select>
 							    <label for="ngm-project-budget-currency">Project Budget Currency</label>
 				        </div>

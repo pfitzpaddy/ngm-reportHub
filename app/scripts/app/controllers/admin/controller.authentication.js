@@ -47,7 +47,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             ngmAuth.login({ user: $scope.panel.user }).success(function(result) {
               
               // go to default org page 
-              $location.path( '/' + result.app_home );
+              $location.path( result.app_home );
 
               // remove any 'guest' location storage
               localStorage.removeItem( 'guest' );
