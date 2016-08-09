@@ -229,7 +229,7 @@ angular.module('ngmReportHub')
 						menu: [],
 						rows: [{
 							columns: [{
-								styleClass: 's12 m12 l12',
+								styleClass: 's12 m12 l12 remove',
 								widgets: [{
 									type: 'html',
 									card: 'white grey-text text-darken-2',
@@ -339,7 +339,7 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m12 l12',
+								styleClass: 's12 m12 l12 remove',
 								widgets: [{
 									type: 'table',
 									card: 'panel',
@@ -371,10 +371,10 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m12 l12',
+								styleClass: 's12 m12 l12 remove',
 								widgets: [{
 									type: 'table',
-									card: 'panel remove',
+									card: 'panel',
 									style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
 									config: {
 										style: $scope.dashboard.ngm.style,

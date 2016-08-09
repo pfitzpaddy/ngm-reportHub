@@ -75,6 +75,7 @@
 					<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:140px;">
 		
 						<!-- logo -->
+						<!-- add logic here for homepage -->
 						<a href="{{ ngm.style.home }}" title="HOME">
 							<img class="ngm-logo" style="{{ ngm.style.style }}" ng-src="images/{{ ngm.style.logo }}" height="97" align="right"></img>
 						</a>
@@ -132,10 +133,17 @@
 									</li>
 
 									<!-- contact modal -->
+									<li  align="center" class="teal z-depth-2"
+										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().roles.indexOf( 'ADMIN' ) !== -1 ">
+										<a class="white-text" href="#/health/admin" ng-click="ngm.toggleNavigationMenu();">
+										<i class="medium material-icons">assignment_ind</i>
+										<br/>ADMIN DASHBOARD</a>
+									</li>
+
 									<li  align="center" class="teal z-depth-2">
 										<a class="white-text" href="#/health/4w" ng-click="ngm.toggleNavigationMenu();">
 										<i class="medium material-icons">assessment</i>
-										<br/>HEALTH 4W DASHBOARD</a>
+										<br/>H4W DASHBOARD</a>
 									</li>
 
 									<!-- contact modal -->
@@ -216,6 +224,7 @@
 		<main id="ngm-report">
 			<div class="container">
 				<div id="print" class="row row-centered"  style="height:100%">
+						{{ ngm.getUser().roles.indexOf( 'ADMIN' ) }}
 					<div ng-view=""></div>
 				</div>
 			</div>
