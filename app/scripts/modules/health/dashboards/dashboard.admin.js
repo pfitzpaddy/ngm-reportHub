@@ -111,6 +111,12 @@ angular.module('ngmReportHub')
 						// filter
 						organizations = $filter( 'orderBy' )( organizations, 'organization' );
 
+						// add all
+						organizations.unshift({
+							organization_id: 'all',
+							organization: 'All',
+						})
+
 						// for each
 						organizations.forEach(function( d, i ){
 
