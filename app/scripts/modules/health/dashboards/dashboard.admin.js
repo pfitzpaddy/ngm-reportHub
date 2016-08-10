@@ -99,6 +99,9 @@ angular.module('ngmReportHub')
 					// fetch org list
 					ngmData.get( request ).then( function( organizations  ){
 
+						// filter
+						organizations = $filter( 'orderBy' )( organizations, '-organization' );
+
 						// for each
 						organizations.forEach(function( d, i ){
 
