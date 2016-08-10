@@ -87,7 +87,7 @@ angular.module('ngmReportHub')
 						},
 						title: {
 							'class': 'col s12 m9 l9 report-title truncate',
-							style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
+							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
 							title: ngmUser.get().admin0name + ' | ' + $scope.report.project.organization + ' | ' + $scope.report.project.project_title
 						},
 						subtitle: {
