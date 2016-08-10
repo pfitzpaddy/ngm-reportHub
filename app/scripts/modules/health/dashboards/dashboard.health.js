@@ -1034,7 +1034,6 @@ angular.module('ngmReportHub')
 				                	'CHC + FATP',
 				                ],
 												labels: {
-													rotation: 0,
 													style: {
 														fontSize: '12px',
 														fontFamily: 'Roboto, sans-serif'
