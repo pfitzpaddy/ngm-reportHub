@@ -100,7 +100,7 @@ angular.module('ngmReportHub')
 					ngmData.get( request ).then( function( organizations  ){
 
 						// filter
-						organizations = $filter( 'orderBy' )( organizations, '-organization' );
+						organizations = $filter( 'orderBy' )( organizations, 'organization' );
 
 						// for each
 						organizations.forEach(function( d, i ){
