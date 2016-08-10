@@ -149,9 +149,6 @@ angular.module('ngmReportHub')
 				}).then(function(data){
 					// assign data
 					$scope.dashboard.setDashboard(data);
-					$timeout(function() {
-						$('#ngm-report-title').css('font-size', '2.56rem');
-					}, 200);
 					$('#ngm-loading-modal').closeModal();
 				});			
 
@@ -191,8 +188,8 @@ angular.module('ngmReportHub')
 						},
 						title: {
 							'class': 'col s12 m8 l8 report-title truncate',
+							style: 'font-size: 2.56rem; color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 							title:  title,
-							style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 						},
 						subtitle: {
 							'class': 'col hide-on-small-only m8 l9 report-subtitle truncate',

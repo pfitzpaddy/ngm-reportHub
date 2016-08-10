@@ -557,7 +557,7 @@ angular.module('ngmReportHub')
 							},
 							title: {
 								'class': 'col s12 m8 l8 report-title truncate',
-								'style': 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
+								'style': 'font-size: 3.4rem; color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 								'title': $scope.dashboard.title,
 							},
 							subtitle: {
@@ -933,7 +933,7 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m12 l4',
+								styleClass: 's12 m12 l6',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
@@ -959,7 +959,7 @@ angular.module('ngmReportHub')
 									}
 								}]
 							},{
-								styleClass: 's12 m12 l4',
+								styleClass: 's12 m12 l6',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
@@ -990,8 +990,89 @@ angular.module('ngmReportHub')
 										}
 									}
 								}]
-							},{
-								styleClass: 's12 m12 l4',
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 290px;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: 'Facility Type by Location',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'bar',
+													height: 260,
+												},
+												tooltip: {
+													pointFormat: '<b>{point.y:,.0f}</b>'
+												},
+												legend: {
+													enabled: false
+												}																	
+											},
+											title: {
+												text: ''
+											},
+											xAxis: {
+				                categories: [
+				                	'RH', 
+				                	'PH', 
+				                	'DH',
+				                	'CHC',
+				                	'BHC',
+				                	'FHH',
+				                	'SHC',
+				                	'MHT',
+				                	'FATP',
+				                	'DATC',
+				                	'Rehabilitation Center',
+				                	'Special Hospital',
+				                	'BHC + FATP',
+				                	'CHC + FATP',
+				                ],
+												labels: {
+													rotation: 0,
+													style: {
+														fontSize: '12px',
+														fontFamily: 'Roboto, sans-serif'
+													}
+												}
+											},
+											yAxis: {
+												min: 0,
+												title: {
+													text: 'No. of Facilities'
+												}
+											},
+					            series: [{
+				                name: 'Facilities',
+				                color: '#7cb5ec',
+				                request: {
+													method: 'POST',
+													url: 'http://' + $location.host() + '/api/health/indicator',
+													data: {				                	
+														indicator: 'facilities',
+														start_date: $scope.dashboard.startDate,
+														end_date: $scope.dashboard.endDate,
+														adminRpcode: $scope.dashboard.adminRpcode,
+														admin0pcode: $scope.dashboard.admin0pcode,
+														admin1pcode: $scope.dashboard.admin1pcode,
+														admin2pcode: $scope.dashboard.admin2pcode,
+														project_type: $scope.dashboard.project_type,
+														beneficiary_type: $scope.dashboard.beneficiary_type
+													}
+				                }
+					            }]
+										}
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l12',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
