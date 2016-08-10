@@ -93,8 +93,10 @@ angular.module('ngmReportHub')
 					var rows = [],
 							request = {
 								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/admin/organizations',
+								url: 'http://' + $location.host() + '/api/health/admin/indicator',
 								data: {
+									list: true,
+									indicator: 'organizations',
 									adminRpcode: $scope.dashboard.adminRpcode,
 									admin0pcode: $scope.dashboard.admin0pcode,
 									start_date: $scope.dashboard.startDate,
@@ -300,7 +302,28 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m12 l4',
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: 'Organizations',
+										request: {
+											method: 'POST',
+											url: 'http://' + $location.host() + '/api/health/admin/indicator',
+											data: {
+												indicator: 'organizations',
+												start_date: $scope.dashboard.startDate,
+												end_date: $scope.dashboard.endDate,
+												adminRpcode: $scope.dashboard.adminRpcode,
+												admin0pcode: $scope.dashboard.admin0pcode
+											}
+										}
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l3',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
@@ -321,7 +344,7 @@ angular.module('ngmReportHub')
 									}
 								}]
 							},{
-								styleClass: 's12 m12 l4',
+								styleClass: 's12 m12 l3',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
@@ -342,7 +365,7 @@ angular.module('ngmReportHub')
 									}
 								}]
 							},{
-								styleClass: 's12 m12 l4',
+								styleClass: 's12 m12 l3',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
@@ -384,7 +407,7 @@ angular.module('ngmReportHub')
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/health/admin/indicator',
 											data: {
-												table: true,
+												list: true,
 												indicator: 'reports_due',
 												start_date: $scope.dashboard.startDate,
 												end_date: $scope.dashboard.endDate,
@@ -416,7 +439,7 @@ angular.module('ngmReportHub')
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/health/admin/indicator',
 											data: {
-												table: true,
+												list: true,
 												indicator: 'reports_complete',
 												start_date: $scope.dashboard.startDate,
 												end_date: $scope.dashboard.endDate,
@@ -448,7 +471,7 @@ angular.module('ngmReportHub')
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/health/admin/indicator',
 											data: {
-												table: true,
+												list: true,
 												indicator: 'reports_total',
 												start_date: $scope.dashboard.startDate,
 												end_date: $scope.dashboard.endDate,
