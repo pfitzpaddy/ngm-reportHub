@@ -97,6 +97,7 @@ angular.module('ngmReportHub')
 								data: {
 									list: true,
 									indicator: 'organizations',
+									organization: $scope.dashboard.organization, 
 									adminRpcode: $scope.dashboard.adminRpcode,
 									admin0pcode: $scope.dashboard.admin0pcode,
 									start_date: $scope.dashboard.startDate,
@@ -148,8 +149,10 @@ angular.module('ngmReportHub')
 				setDashboard: function(){
 
 					// variables
+					$scope.dashboard.organization = $route.current.params.organization;
 					$scope.dashboard.adminRpcode = $route.current.params.adminR;
 					$scope.dashboard.admin0pcode = $route.current.params.admin0;
+
 					// report name
 					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
 				
@@ -314,10 +317,11 @@ angular.module('ngmReportHub')
 											url: 'http://' + $location.host() + '/api/health/admin/indicator',
 											data: {
 												indicator: 'organizations',
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
+												organization: $scope.dashboard.organization,
 												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode
+												admin0pcode: $scope.dashboard.admin0pcode,
+												start_date: $scope.dashboard.startDate,
+												end_date: $scope.dashboard.endDate
 											}
 										}
 									}
@@ -335,10 +339,11 @@ angular.module('ngmReportHub')
 											url: 'http://' + $location.host() + '/api/health/admin/indicator',
 											data: {
 												indicator: 'reports_total',
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
+												organization: $scope.dashboard.organization,
 												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode
+												admin0pcode: $scope.dashboard.admin0pcode,
+												start_date: $scope.dashboard.startDate,
+												end_date: $scope.dashboard.endDate
 											}
 										}
 									}
@@ -356,10 +361,11 @@ angular.module('ngmReportHub')
 											url: 'http://' + $location.host() + '/api/health/admin/indicator',
 											data: {
 												indicator: 'reports_complete',
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
+												organization: $scope.dashboard.organization,
 												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode
+												admin0pcode: $scope.dashboard.admin0pcode,
+												start_date: $scope.dashboard.startDate,
+												end_date: $scope.dashboard.endDate
 											}
 										}
 									}
@@ -377,10 +383,11 @@ angular.module('ngmReportHub')
 											url: 'http://' + $location.host() + '/api/health/admin/indicator',
 											data: {
 												indicator: 'reports_due',
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
+												organization: $scope.dashboard.organization,
 												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode
+												admin0pcode: $scope.dashboard.admin0pcode,
+												start_date: $scope.dashboard.startDate,
+												end_date: $scope.dashboard.endDate
 											}
 										}
 									}
@@ -409,10 +416,11 @@ angular.module('ngmReportHub')
 											data: {
 												list: true,
 												indicator: 'reports_due',
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
+												organization: $scope.dashboard.organization,
 												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode
+												admin0pcode: $scope.dashboard.admin0pcode,
+												start_date: $scope.dashboard.startDate,
+												end_date: $scope.dashboard.endDate
 											}
 										}
 									}
@@ -441,10 +449,11 @@ angular.module('ngmReportHub')
 											data: {
 												list: true,
 												indicator: 'reports_complete',
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
+												organization: $scope.dashboard.organization,
 												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode
+												admin0pcode: $scope.dashboard.admin0pcode,
+												start_date: $scope.dashboard.startDate,
+												end_date: $scope.dashboard.endDate
 											}
 										}
 									}
@@ -473,10 +482,11 @@ angular.module('ngmReportHub')
 											data: {
 												list: true,
 												indicator: 'reports_total',
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
+												organization: $scope.dashboard.organization,
 												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode
+												admin0pcode: $scope.dashboard.admin0pcode,
+												start_date: $scope.dashboard.startDate,
+												end_date: $scope.dashboard.endDate
 											}
 										}
 									}
