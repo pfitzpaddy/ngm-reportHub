@@ -121,6 +121,12 @@ angular.module('ngmReportHub')
 																			 '/' + $scope.dashboard.startDate + 
 																			 '/' + $scope.dashboard.endDate;
 
+							// update title to organization
+							if ( $route.current.params.organization === d.organization_id ) {
+								$scope.model.header.title.title += ' | ' + d.organization;
+								$scope.model.header.subtitle.title += ', ' + d.organization + ' organization';
+							}
+
 							// menu rows
 							rows.push({
 								'title': d.organization,
