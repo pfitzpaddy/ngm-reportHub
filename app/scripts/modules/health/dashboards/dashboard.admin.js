@@ -329,7 +329,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Total Reports',
+										title: 'Total Reports Due',
 										request: {
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/health/admin/indicator',
@@ -371,7 +371,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Reports Due',
+										title: 'Reports Pending',
 										request: {
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/health/admin/indicator',
