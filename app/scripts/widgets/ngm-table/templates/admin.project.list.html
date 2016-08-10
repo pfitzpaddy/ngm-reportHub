@@ -35,13 +35,29 @@
           <!-- if data -->
           <div ng-if="data.length">
             <table class="centered highlight responsive-table" ng-table="table.tableParams">
-              <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;" ng-click="table.rowClick( true, '/#/health/projects/report/{{ row.project_id }}/{{ row.id }}' )">
-                <td data-title="'Organization'" sortable="'organization'">{{ row.organization }}</td>
-                <td data-title="'User'" sortable="'username'">{{ row.username }}</td>
-                <td data-title="'Email'" sortable="'username'">{{ row.email }}</td>
-                <td data-title="'Title'" sortable="'project_title'">{{ row.project_title }}</td>
-                <td data-title="'Report Month'" sortable="'reporting_period'">{{ row.reporting_period | date: 'MMMM' }}</td>
-                <td data-title="'Status'" sortable="'status'"><i class="material-icons" style="color: {{ row.status }}">fiber_manual_record</i></td>
+              <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
+                <td data-title="'Organization'" sortable="'organization'"
+                  ng-click="table.rowClick( true, '/#/health/projects/report/{{ row.project_id }}/{{ row.id }}' )">
+                  {{ row.organization }}
+                </td>
+                <td data-title="'User'" sortable="'username'"
+                  ng-click="table.rowClick( true, '/#/health/projects/report/{{ row.project_id }}/{{ row.id }}' )">
+                  {{ row.username }}
+                </td>
+                <td data-title="'Email'" sortable="'username'"
+                  ng-click="table.rowClick( true, '/#/health/projects/report/{{ row.project_id }}/{{ row.id }}' )">
+                  {{ row.email }}
+                </td>
+                <td data-title="'Title'" sortable="'project_title'">
+                  <a target="_blank" href="#/health/projects/summary/{{ row.project_id }}" title="GoTo Project Summary">{{ row.project_title }}</a>
+                </td>
+                <td data-title="'Report Month'" sortable="'reporting_period'"
+                  ng-click="table.rowClick( true, '/#/health/projects/report/{{ row.project_id }}/{{ row.id }}' )">
+                    {{ row.reporting_period | date: 'MMMM' }}
+                </td>
+                <td data-title="'Status'" sortable="'status'"
+                  ng-click="table.rowClick( true, '/#/health/projects/report/{{ row.project_id }}/{{ row.id }}' )">
+                  <i class="material-icons" style="color: {{ row.status }}">fiber_manual_record</i></td>
               </tr>
             </table>
           </div>
