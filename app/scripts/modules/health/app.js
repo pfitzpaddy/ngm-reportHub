@@ -170,10 +170,10 @@ angular
 			})
 			// health admin
 			.when( '/health/admin', {
-				redirectTo: '/health/admin/hq/all/' + moment().subtract( 1, 'M').startOf( 'M' ).format('YYYY-MM-DD') + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/health/admin/hq/all/all/' + moment().subtract( 1, 'M').startOf( 'M' ).format('YYYY-MM-DD') + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			// health admin
-			.when( '/health/admin/:adminR/:admin0/:start/:end', {
+			.when( '/health/admin/:adminR/:admin0/:organization/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardHealthAdminCtrl',
 				resolve: {

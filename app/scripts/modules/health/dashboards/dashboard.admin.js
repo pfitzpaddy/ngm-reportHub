@@ -54,6 +54,7 @@ angular.module('ngmReportHub')
 					// user URL
 					var path = '/health/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
 															 '/' + $scope.dashboard.user.admin0pcode.toLowerCase() +
+															 '/' + $route.current.params.organization + 
 															 '/' + $scope.dashboard.startDate + 
 															 '/' + $scope.dashboard.endDate;
 					
@@ -83,6 +84,51 @@ angular.module('ngmReportHub')
 					
 					// default
 					$scope.dashboard.subtitle = 'Health Cluster admin dashboard for ' + $scope.dashboard.user.adminRname + ' ' + $scope.dashboard.user.admin0name;
+
+				},
+
+				setMenu: function(){
+
+					// menu rows
+					var rows = [],
+							request = {
+								method: 'GET',
+								url: 'http://' + $location.host() + '/api/health/admin/organizations',
+							};
+
+					// fetch org list
+					ngmData.get( request ).then( function( organizations  ){
+
+						// for each
+						organizations.forEach(function( d, i ){
+
+							// path
+							var path = '#/health/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
+																			 '/' + $scope.dashboard.user.admin0pcode.toLowerCase() +
+																			 '/' + d.organization_id + 
+																			 '/' + $scope.dashboard.startDate + 
+																			 '/' + $scope.dashboard.endDate;
+
+							rows.push({
+								'title': d.organization,
+								'param': 'organization',
+								'active': d.organization_id,
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': path
+							})
+
+						});
+
+						// menu
+						$scope.model.menu.push({
+							'id': 'search-health-organization',
+							'icon': 'supervisor_account',
+							'title': 'Organization',
+							'class': 'teal lighten-1 white-text',
+							'rows': rows
+						});						
+
+					});
 
 				},
 
@@ -147,6 +193,7 @@ angular.module('ngmReportHub')
 											// URL
 											var path = '/health/admin/' + $route.current.params.adminR + 
 																					 '/' + $route.current.params.admin0 +
+																					 '/' + $route.current.params.organization +
 																					 '/' + $scope.dashboard.startDate + 
 																					 '/' + $scope.dashboard.endDate;
 
@@ -180,6 +227,7 @@ angular.module('ngmReportHub')
 											// URL
 											var path = '/health/admin/' + $route.current.params.adminR + 
 																					 '/' + $route.current.params.admin0 +
+																					 '/' + $route.current.params.organization +
 																					 '/' + $scope.dashboard.startDate + 
 																					 '/' + $scope.dashboard.endDate;
 
@@ -425,6 +473,9 @@ angular.module('ngmReportHub')
 
 				// set dashboard
 				$scope.dashboard.setDashboard();
+
+				// set dashboard menu
+				$scope.dashboard.setMenu();
 
 			} else {
 
