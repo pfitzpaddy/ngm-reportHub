@@ -92,8 +92,14 @@ angular.module('ngmReportHub')
 					// menu rows
 					var rows = [],
 							request = {
-								method: 'GET',
+								method: 'POST',
 								url: 'http://' + $location.host() + '/api/health/admin/organizations',
+								data: {
+									adminRpcode: $scope.dashboard.adminRpcode,
+									admin0pcode: $scope.dashboard.admin0pcode,
+									start_date: $scope.dashboard.startDate,
+									end_date: $scope.dashboard.endDate,
+								}
 							};
 
 					// fetch org list
@@ -112,6 +118,7 @@ angular.module('ngmReportHub')
 																			 '/' + $scope.dashboard.startDate + 
 																			 '/' + $scope.dashboard.endDate;
 
+							// menu rows
 							rows.push({
 								'title': d.organization,
 								'param': 'organization',
