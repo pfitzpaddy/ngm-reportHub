@@ -1011,6 +1011,7 @@ angular.module('ngmReportHub')
 												admin0pcode: $scope.dashboard.admin0pcode,
 												admin1pcode: $scope.dashboard.admin1pcode,
 												admin2pcode: $scope.dashboard.admin2pcode,
+												unique: true,
 												conflict: true,
 												project_type: $scope.dashboard.project_type,
 												beneficiary_type: $scope.dashboard.beneficiary_type
