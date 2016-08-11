@@ -966,7 +966,13 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Unique Districts Served',
+										title: 'Districts Served',
+										display: {
+											fractionSize: 0,
+											simpleTitle: false,
+											subTitlePrefix: 'out of ',
+											// subTitlePostfix: ' conflict districts'
+										},
 										request: {
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/health/indicator',
