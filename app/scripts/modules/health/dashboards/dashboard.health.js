@@ -933,13 +933,13 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m12 l6',
+								styleClass: 's12 m12 l4',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Unique Project Locations',
+										title: 'Total Project Locations',
 										request: {
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/health/indicator',
@@ -951,6 +951,7 @@ angular.module('ngmReportHub')
 												admin0pcode: $scope.dashboard.admin0pcode,
 												admin1pcode: $scope.dashboard.admin1pcode,
 												admin2pcode: $scope.dashboard.admin2pcode,
+												unique: false,
 												conflict: false,
 												project_type: $scope.dashboard.project_type,
 												beneficiary_type: $scope.dashboard.beneficiary_type
@@ -959,7 +960,34 @@ angular.module('ngmReportHub')
 									}
 								}]
 							},{
-								styleClass: 's12 m12 l6',
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: 'Unique Districts Served',
+										request: {
+											method: 'POST',
+											url: 'http://' + $location.host() + '/api/health/indicator',
+											data: {
+												indicator: 'locations',
+												start_date: $scope.dashboard.startDate,
+												end_date: $scope.dashboard.endDate,
+												adminRpcode: $scope.dashboard.adminRpcode,
+												admin0pcode: $scope.dashboard.admin0pcode,
+												admin1pcode: $scope.dashboard.admin1pcode,
+												admin2pcode: $scope.dashboard.admin2pcode,
+												unique: true,
+												conflict: false,
+												project_type: $scope.dashboard.project_type,
+												beneficiary_type: $scope.dashboard.beneficiary_type
+											}
+										}
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
