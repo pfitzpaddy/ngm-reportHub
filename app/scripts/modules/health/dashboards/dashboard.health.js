@@ -939,7 +939,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Total Project Locations',
+										title: 'Total Health Facilities',
 										request: {
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/health/indicator',
