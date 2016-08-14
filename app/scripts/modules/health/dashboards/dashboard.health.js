@@ -132,7 +132,7 @@ angular.module('ngmReportHub')
 
 					// admin0
 					if ( $route.current.params.admin0 !== 'all' ) {
-						$scope.dashboard.title += ' | ' + $scope.dashboard.user.admin0name;
+						$scope.dashboard.title += ' | ' + $scope.dashboard.user.admin0name.toUpperCase().substring(0, 3);
 					}
 
 					// admin1
@@ -933,6 +933,179 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: 'Beneficiaries ( ' + $scope.dashboard.beneficiariesTitle + ' )',
+										request: {
+											method: 'POST',
+											url: 'http://' + $location.host() + '/api/health/indicator',
+											data: {
+												indicator: 'beneficiaries',
+												start_date: $scope.dashboard.startDate,
+												end_date: $scope.dashboard.endDate,
+												adminRpcode: $scope.dashboard.adminRpcode,
+												admin0pcode: $scope.dashboard.admin0pcode,
+												admin1pcode: $scope.dashboard.admin1pcode,
+												admin2pcode: $scope.dashboard.admin2pcode,
+												project_type: $scope.dashboard.project_type,
+												beneficiary_type: $scope.dashboard.beneficiary_type
+											}
+										}
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l6',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 180px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											text: 'Children ( Under 5 )'
+										},
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'pie',
+													height: 140,
+													margin: [0,0,0,0],
+													spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: false
+												}				
+											},
+											title: {
+													text: '',
+													margin: 0
+											},
+											plotOptions: {
+													pie: {
+															shadow: false
+													}
+											},
+											series: [{
+												name: 'Children (Under 5)',
+												size: '100%',
+												innerSize: '80%',
+												showInLegend:false,
+												dataLabels: {
+													enabled: false
+												},
+												request: {
+													method: 'POST',
+													url: 'http://' + $location.host() + '/api/health/indicator',
+													data: {
+														indicator: 'under5',
+														start_date: $scope.dashboard.startDate,
+														end_date: $scope.dashboard.endDate,
+														adminRpcode: $scope.dashboard.adminRpcode,
+														admin0pcode: $scope.dashboard.admin0pcode,
+														admin1pcode: $scope.dashboard.admin1pcode,
+														admin2pcode: $scope.dashboard.admin2pcode,
+														project_type: $scope.dashboard.project_type,
+														beneficiary_type: $scope.dashboard.beneficiary_type
+													}
+												}
+											}]
+										}
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l6',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 180px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											text: 'Adult ( Over 5 )'
+										},
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'pie',
+													height: 140,
+													margin: [0,0,0,0],
+													spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: false
+												}				
+											},
+											title: {
+													text: '',
+													margin: 0
+											},
+											plotOptions: {
+													pie: {
+															shadow: false
+													}
+											},
+											series: [{
+												name: 'Adult (Over 5)',
+												size: '100%',
+												innerSize: '80%',
+												showInLegend:false,
+												dataLabels: {
+													enabled: false
+												},
+												request: {
+													method: 'POST',
+													url: 'http://' + $location.host() + '/api/health/indicator',
+													data: {
+														indicator: 'over5',
+														start_date: $scope.dashboard.startDate,
+														end_date: $scope.dashboard.endDate,
+														adminRpcode: $scope.dashboard.adminRpcode,
+														admin0pcode: $scope.dashboard.admin0pcode,
+														admin1pcode: $scope.dashboard.admin1pcode,
+														admin2pcode: $scope.dashboard.admin2pcode,
+														project_type: $scope.dashboard.project_type,
+														beneficiary_type: $scope.dashboard.beneficiary_type
+													}
+												}
+											}]
+										}
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: '<h2 class="col s12 report-title" style="margin-top: 20px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">LOCATIONS</h2>'
+									}
+								}]
+							}]							
+						},{
+							columns: [{
 								styleClass: 's12 m12 l4',
 								widgets: [{
 									type: 'stats',
@@ -1100,167 +1273,6 @@ angular.module('ngmReportHub')
 													}
 				                }
 					            }]
-										}
-									}
-								}]
-							}]
-						},{
-							columns: [{
-								styleClass: 's12 m12 l12',
-								widgets: [{
-									type: 'stats',
-									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
-									config: {
-										title: 'Beneficiaries ( ' + $scope.dashboard.beneficiariesTitle + ' )',
-										request: {
-											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/indicator',
-											data: {
-												indicator: 'beneficiaries',
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												admin1pcode: $scope.dashboard.admin1pcode,
-												admin2pcode: $scope.dashboard.admin2pcode,
-												project_type: $scope.dashboard.project_type,
-												beneficiary_type: $scope.dashboard.beneficiary_type
-											}
-										}
-									}
-								}]
-							}]
-						},{
-							columns: [{
-								styleClass: 's12 m12 l6',
-								widgets: [{
-									type: 'highchart',
-									style: 'height: 180px;',
-									card: 'card-panel chart-stats-card white grey-text text-darken-2',
-									config: {
-										title: {
-											text: 'Children ( Under 5 )'
-										},
-										display: {
-											label: true,
-											fractionSize: 1,
-											subLabelfractionSize: 0,
-											postfix: '%'
-										},
-										templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
-										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
-										chartConfig: {
-											options: {
-												chart: {
-													type: 'pie',
-													height: 140,
-													margin: [0,0,0,0],
-													spacing: [0,0,0,0]
-												},
-												tooltip: {
-													enabled: false
-												}				
-											},
-											title: {
-													text: '',
-													margin: 0
-											},
-											plotOptions: {
-													pie: {
-															shadow: false
-													}
-											},
-											series: [{
-												name: 'Children (Under 5)',
-												size: '100%',
-												innerSize: '80%',
-												showInLegend:false,
-												dataLabels: {
-													enabled: false
-												},
-												request: {
-													method: 'POST',
-													url: 'http://' + $location.host() + '/api/health/indicator',
-													data: {
-														indicator: 'under5',
-														start_date: $scope.dashboard.startDate,
-														end_date: $scope.dashboard.endDate,
-														adminRpcode: $scope.dashboard.adminRpcode,
-														admin0pcode: $scope.dashboard.admin0pcode,
-														admin1pcode: $scope.dashboard.admin1pcode,
-														admin2pcode: $scope.dashboard.admin2pcode,
-														project_type: $scope.dashboard.project_type,
-														beneficiary_type: $scope.dashboard.beneficiary_type
-													}
-												}
-											}]
-										}
-									}
-								}]
-							},{
-								styleClass: 's12 m12 l6',
-								widgets: [{
-									type: 'highchart',
-									style: 'height: 180px;',
-									card: 'card-panel chart-stats-card white grey-text text-darken-2',
-									config: {
-										title: {
-											text: 'Adult ( Over 5 )'
-										},
-										display: {
-											label: true,
-											fractionSize: 1,
-											subLabelfractionSize: 0,
-											postfix: '%'
-										},
-										templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
-										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
-										chartConfig: {
-											options: {
-												chart: {
-													type: 'pie',
-													height: 140,
-													margin: [0,0,0,0],
-													spacing: [0,0,0,0]
-												},
-												tooltip: {
-													enabled: false
-												}				
-											},
-											title: {
-													text: '',
-													margin: 0
-											},
-											plotOptions: {
-													pie: {
-															shadow: false
-													}
-											},
-											series: [{
-												name: 'Adult (Over 5)',
-												size: '100%',
-												innerSize: '80%',
-												showInLegend:false,
-												dataLabels: {
-													enabled: false
-												},
-												request: {
-													method: 'POST',
-													url: 'http://' + $location.host() + '/api/health/indicator',
-													data: {
-														indicator: 'over5',
-														start_date: $scope.dashboard.startDate,
-														end_date: $scope.dashboard.endDate,
-														adminRpcode: $scope.dashboard.adminRpcode,
-														admin0pcode: $scope.dashboard.admin0pcode,
-														admin1pcode: $scope.dashboard.admin1pcode,
-														admin2pcode: $scope.dashboard.admin2pcode,
-														project_type: $scope.dashboard.project_type,
-														beneficiary_type: $scope.dashboard.beneficiary_type
-													}
-												}
-											}]
 										}
 									}
 								}]

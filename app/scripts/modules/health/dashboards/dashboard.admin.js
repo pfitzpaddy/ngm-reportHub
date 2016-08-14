@@ -146,6 +146,7 @@ angular.module('ngmReportHub')
 
 						// menu
 						$scope.model.menu.push({
+							'search': true,
 							'id': 'search-health-organization',
 							'icon': 'supervisor_account',
 							'title': 'Organization',

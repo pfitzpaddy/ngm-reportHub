@@ -70,7 +70,7 @@ angular.module('ngmReportHub')
 				title: {
 					'class': 'col s12 m12 l12 report-title',
 					style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-					title: ngmUser.get().admin0name + ' | ' + ngmUser.get().organization + ' | Health Projects'
+					title: ngmUser.get().adminRname + ' | ' + ngmUser.get().admin0name.toUpperCase().substring(0, 3) + ' | ' + ngmUser.get().organization + ' | Health Projects'
 				},
 				subtitle: {
 					'class': 'col s12 m12 l12 report-subtitle',
