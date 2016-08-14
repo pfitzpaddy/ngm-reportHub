@@ -472,39 +472,39 @@ angular.module('ngmReportHub')
 									}
 								}]
 							}]
-						},{
-							columns: [{
-								styleClass: 's12 m12 l12 remove',
-								widgets: [{
-									type: 'table',
-									card: 'panel',
-									style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
-									config: {
-										style: $scope.dashboard.ngm.style,
-										headerClass: 'collection-header blue lighten-4',
-										headerText: 'grey-text text-darken-2',
-										headerIcon: 'assignment',
-										headerTitle: 'All Reports',
-										templateUrl: '/scripts/widgets/ngm-table/templates/admin.project.list.html',
-										tableOptions:{
-											count: 10
-										},
-										request: {
-											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/admin/indicator',
-											data: {
-												list: true,
-												indicator: 'reports_total',
-												organization: $scope.dashboard.organization,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate
-											}
-										}
-									}
-								}]
-							}]
+						// },{
+						// 	columns: [{
+						// 		styleClass: 's12 m12 l12 remove',
+						// 		widgets: [{
+						// 			type: 'table',
+						// 			card: 'panel',
+						// 			style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
+						// 			config: {
+						// 				style: $scope.dashboard.ngm.style,
+						// 				headerClass: 'collection-header blue lighten-4',
+						// 				headerText: 'grey-text text-darken-2',
+						// 				headerIcon: 'assignment',
+						// 				headerTitle: 'All Reports',
+						// 				templateUrl: '/scripts/widgets/ngm-table/templates/admin.project.list.html',
+						// 				tableOptions:{
+						// 					count: 10
+						// 				},
+						// 				request: {
+						// 					method: 'POST',
+						// 					url: 'http://' + $location.host() + '/api/health/admin/indicator',
+						// 					data: {
+						// 						list: true,
+						// 						indicator: 'reports_total',
+						// 						organization: $scope.dashboard.organization,
+						// 						adminRpcode: $scope.dashboard.adminRpcode,
+						// 						admin0pcode: $scope.dashboard.admin0pcode,
+						// 						start_date: $scope.dashboard.startDate,
+						// 						end_date: $scope.dashboard.endDate
+						// 					}
+						// 				}
+						// 			}
+						// 		}]
+						// 	}]
 						},{
 							columns: [{
 								styleClass: 's12 m12 l12',
