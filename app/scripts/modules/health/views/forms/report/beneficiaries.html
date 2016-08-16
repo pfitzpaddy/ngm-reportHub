@@ -14,10 +14,10 @@
 			      	<div class="row remove" style="padding-left: 40px;" ng-show="project.report.report_status !== 'complete'">
 				        <div class="input-field col s12 m3"
 									ng-class="{ 'error-label': healthProjectForm.$submitted 
-							  								&& project.report.locations[$index].beneficiaries.length === 0 }">
+							  								&& project.report.locations[ $index ].beneficiaries.length === 0 }">
 							    <select id="ngm-beneficiary-category-{{ location.id }}" class="validate"
 							    	ng-model="project.options.selection.beneficiaries[$index]"
-							    	ng-change="project.addBeneficiary($index)"
+							    	ng-change="project.addBeneficiary( $index )"
 							    	ng-options="item as item.beneficiary_name for item in project.options.filter.beneficiaries[$index] track by item.beneficiary_type">
 							      <option value="" disabled selected>Select Category</option>
 							    </select>

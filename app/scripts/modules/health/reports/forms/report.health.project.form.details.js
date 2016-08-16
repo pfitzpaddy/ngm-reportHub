@@ -262,7 +262,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // update dropdown
           $timeout(function(){
             // apply filter
-            $( '#ngm-target_beneficiary-category' ).material_select( 'update' );
+            $( 'select' ).material_select();
           }, 10);
 
         },
@@ -280,12 +280,12 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           $scope.project.definition.target_beneficiaries.splice( $index, 1 );
 
           // sort
-          $filter( 'orderBy' )( $scope.project.options.filter.target_beneficiaries, '-beneficiary_name' );
+          $scope.project.options.filter.target_beneficiaries = $filter( 'orderBy' )( $scope.project.options.filter.target_beneficiaries, 'beneficiary_name' );
           
           // update dropdown
           $timeout(function(){
             // apply filter
-            $( '#ngm-target_beneficiary-category' ).material_select('update');
+            $( 'select' ).material_select();
 
           }, 10);
 
@@ -311,7 +311,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
               // update dropdown
               $timeout(function(){
-                $( id ).material_select( 'update' );
+                $( 'select' ).material_select();
               }, 100);
 
               break;
@@ -333,7 +333,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
               // update dropdown
               $timeout(function(){
-                $( id ).material_select( 'update' );
+                $( 'select' ).material_select();
               }, 100);              
 
               break;
@@ -421,7 +421,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             $( '#ngm-project-admin1' ).prop( 'selectedIndex', 0 );
             $timeout(function() {
               // update
-              $( '#ngm-project-admin1' ).material_select( 'update' );
+              $( 'select' ).material_select();
             }, 10 );
           }
 
@@ -435,7 +435,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             $('#ngm-project-admin2').prop( 'disabled', true );
             $timeout(function() {
               // update
-              $('#ngm-project-admin2').material_select('update');
+              $('select').material_select();
             }, 10);
           }
 
@@ -449,7 +449,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             $( '#ngm-project-hf_type' ).prop( 'disabled', true );
             $timeout(function() {
               // update
-              $( '#ngm-project-hf_type' ).material_select( 'update' );
+              $( 'select' ).material_select();
             }, 10);
             
           }
@@ -798,12 +798,12 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           });
 
           // sort
-          $filter( 'orderBy' )( $scope.project.options.filter.target_beneficiaries, '-beneficiary_name' );
+          $scope.project.options.filter.target_beneficiaries = $filter( 'orderBy' )( $scope.project.options.filter.target_beneficiaries, 'beneficiary_name' );
 
 
           // update dropdown
           $timeout(function(){
-            $( '#ngm-target_beneficiary-category' ).material_select('update');
+            $( 'select' ).material_select();
 
           }, 10);          
 
