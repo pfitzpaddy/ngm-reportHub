@@ -117,6 +117,21 @@
 							    <label for="ngm-project-budget-currency">Project Budget Currency</label>
 				        </div>
 
+								<div class="input-field col s12 m3"
+				        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }"
+				        	ng-if="project.definition.admin0pcode === 'SO'">
+							    <select class="validate"
+							    	id="ngm-project-budget-currency"
+							    	ng-model="project.definition.project_budget_currency" 
+							    	ng-disabled="project.definition.project_status === 'complete'" 
+							    	required>
+							      <option value="" disabled selected>Select Project Budget Currency</option>
+							      <option value="usd">USD</option>
+							      <option value="sos">SOS</option>
+							    </select>
+							    <label for="ngm-project-budget-currency">Project Budget Currency</label>
+				        </div>
+
 				      </div>
 
 				      <!-- project type  -->

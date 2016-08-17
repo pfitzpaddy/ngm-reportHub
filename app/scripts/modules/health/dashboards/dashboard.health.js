@@ -62,18 +62,21 @@ angular.module('ngmReportHub')
 	          'ET': { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0pcode: 'ET', admin0name: 'Ethiopia', admin1type_name: 'Region', admin2type_name: 'Wordea' },
 	          'IQ': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'IQ', admin0name: 'Iraq', admin1type_name: 'Governate', admin2type_name: 'District' },
 	          'KE': { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0pcode: 'KE', admin0name: 'Kenya', admin1type_name: 'County', admin2type_name: 'Constituency' },
+	          'SO': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'SO', admin0name: 'Somalia', admin1type_name: 'Region', admin2type_name: 'District' },
 	        },
 	        country_regions: {
 						'afro': [{ 
 		        		admin0pcode: 'ET', admin0name: 'Ethiopia', admin1type_name: 'Region', admin2type_name: 'Wordea'
 		        	},{
 		        		admin0pcode: 'KE', admin0name: 'Kenya', admin1type_name: 'County', admin2type_name: 'Constituency'
-		        }],
+		        	}],
 	        	'emro': [{ 
 		        		admin0pcode: 'AF', admin0name: 'Afghanistan', admin1type_name: 'Province', admin2type_name: 'District'
 		        	},{
 		        		admin0pcode: 'IQ', admin0name: 'Iraq', admin1type_name: 'Governate', admin2type_name: 'District'
-		        }]
+		        	},{
+		        		admin0pcode: 'SO', admin0name: 'Somalia', admin1type_name: 'Region', admin2type_name: 'District'
+		        	}]
 	        },
 	        admin1: {},
 	        // project					
