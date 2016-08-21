@@ -51,7 +51,7 @@
                 <td data-title="'Title'" sortable="'project_title'">
                   <a target="_blank" href="#/health/projects/summary/{{ row.project_id }}" title="GoTo Project Summary">{{ row.project_title }}</a>
                 </td>
-                <td data-title="'Report Month'" sortable="'reporting_period'"
+                <td data-title="'Month'" sortable="'reporting_period'"
                   ng-click="table.rowClick( true, '/#/health/projects/report/{{ row.project_id }}/{{ row.id }}' )">
                     {{ row.reporting_period | date: 'MMMM' }}
                 </td>
