@@ -52,7 +52,7 @@ angular.module('ngmReportHub')
 				data: {
 					// menu
 					menu_regions: {
-						'hq': 'Global',
+						'hq': 'GLOBAL',
 						'afro': 'AFRO',
 						'emro': 'EMRO',
 					},
@@ -131,7 +131,7 @@ angular.module('ngmReportHub')
 				setTitle: function() {
 					
 					// default
-					$scope.dashboard.title = 'H4W | ' + $scope.dashboard.user.adminRname;
+					$scope.dashboard.title = 'H4W | ' + $scope.dashboard.user.adminRname.toUpperCase();
 
 					// admin0
 					if ( $route.current.params.admin0 !== 'all' ) {
