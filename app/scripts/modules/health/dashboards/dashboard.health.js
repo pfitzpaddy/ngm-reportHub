@@ -1358,7 +1358,7 @@ angular.module('ngmReportHub')
 			};
 
 			// if user
-			if ( $scope.dashboard.user ) {
+			if ( $scope.dashboard.user && $scope.dashboard.user.adminRpcode ) {
 
 				// set dashboard
 				$scope.dashboard.setDashboard();
@@ -1383,7 +1383,7 @@ angular.module('ngmReportHub')
 					$scope.dashboard.setDashboard();
 
 					// set dashboard menu
-					$scope.dashboard.setMenu();					
+					$scope.dashboard.setMenu();
 
 				} else {
 				
@@ -1392,6 +1392,8 @@ angular.module('ngmReportHub')
 						method: 'GET',
 						url: 'http://ip-api.com/json'
 					}).then( function( results ){
+
+						$scope.dashboard.title += ' | GUEST FROM REQUEST';
 
 						// default is global
 						$scope.dashboard.user = { adminRpcode: 'HQ', adminRname: 'Global', admin0pcode: 'ALL', admin0name: 'All', guest: true, organization: 'public', username: 'public', email: 'public@gmail.com' },
