@@ -37,6 +37,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         // login fn
         login: function( ngmLoginForm ){
 
+          // reset msg each attempt
+          $scope.panel.error.msg = '';
+
           // if invalid
           if(ngmLoginForm.$invalid){
             // set submitted for validation
