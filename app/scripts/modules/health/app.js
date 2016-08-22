@@ -177,7 +177,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardHealthAdminCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 						return ngmAuth.hasRole( 'ADMIN' );
 					}],
 				}

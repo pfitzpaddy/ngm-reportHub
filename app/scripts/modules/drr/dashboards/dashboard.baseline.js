@@ -35,16 +35,22 @@ angular.module('ngmReportHub')
 			user: ngmUser.get(),
 
 			// province lists
-			provinceMenuRequest: $http({
-				method: 'GET',
-				url: 'http://' + $location.host() + '/api/location/getProvinceMenu'
-			}),
+			provinceMenuRequest: {
+				method: 'POST',
+				url: 'http://' + $location.host() + '/api/location/getAdmin1List',
+				data: {
+					admin0pcode: 'AF'
+				}
+			},
 
 			// province lists
-			districtListRequest: $http({
-				method: 'GET',
-				url: 'http://' + $location.host() + '/api/location/getDistrictList'
-			}),
+			districtListRequest: {
+				method: 'POST',
+				url: 'http://' + $location.host() + '/api/location/getAdmin2List',
+				data: {
+					admin0pcode: 'AF'
+				}
+			},
 
 			// tab links
 			baselineHref: '/immap/drr/baseline/' + $route.current.params.province,
@@ -210,7 +216,7 @@ angular.module('ngmReportHub')
 										report: $scope.dashboard.report,
 										printUrl: $location.absUrl(),
 										downloadUrl: 'http://' + $location.host() + '/report/',
-										token: 'public',
+										user: $scope.dashboard.user,
 										pageLoadTime: $scope.dashboard.pdfPrintPageLoadTime
 									}
 								},
@@ -506,7 +512,7 @@ angular.module('ngmReportHub')
 		if ( !localStorage.getItem( 'provinceMenu' ) ) {
 
 			// send request
-			$q.all([ $scope.dashboard.provinceMenuRequest, $scope.dashboard.districtListRequest ]).then( function( results ){
+			$q.all([ $http( $scope.dashboard.provinceMenuRequest ), $http( $scope.dashboard.districtListRequest ) ]).then( function( results ){
 
 				// set lists to local storage
 				localStorage.setItem( 'provinceMenu', JSON.stringify( results[0].data ));

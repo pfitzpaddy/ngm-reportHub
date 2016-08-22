@@ -21,15 +21,19 @@ angular.module('ngmReportHub')
 
 			set: function(val) {
 				// JSON stringify result
-				return localStorage.setItem('auth_token', JSON.stringify(val));
+				return localStorage.setItem( 'auth_token', JSON.stringify( val ) );
 			},
 
 			unset: function() {
-				return localStorage.removeItem('auth_token');
+				return localStorage.removeItem( 'auth_token' );
 			},			
 
 			hasRole: function(role) {
-				var user = angular.fromJson(localStorage.auth_token);
+				// get from storage
+				var user = angular.fromJson( localStorage.auth_token );
+				// if no user
+				if ( !user ) return false; 
+				// else has role?
 				return angular.uppercase(user.roles).indexOf(angular.uppercase(role)) >= 0;
 			},
 

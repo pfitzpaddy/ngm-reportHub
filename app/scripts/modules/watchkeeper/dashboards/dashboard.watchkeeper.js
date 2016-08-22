@@ -194,6 +194,35 @@ angular.module('ngmReportHub')
 				download: {
 					'class': 'col s12 m4 l4 hide-on-small-only',
 					downloads: [{
+						type: 'pdf',
+						color: 'blue lighten-1',
+						icon: 'picture_as_pdf',
+						hover: 'Download ' + $scope.dashboard.country.name + ' Report as PDF',
+						request: {
+							method: 'POST',
+							url: 'http://' + $location.host() + '/api/print',
+							data: {
+								report: $scope.dashboard.report,
+								printUrl: $location.absUrl(),
+								downloadUrl: 'http://' + $location.host() + '/report/',
+								user: $scope.dashboard.user,
+								pageLoadTime: 7600
+							}
+						},						
+						metrics: {
+							method: 'POST',
+							url: 'http://' + $location.host() + '/api/metrics/set',
+							data: {
+								organization: $scope.dashboard.user.organization,
+								username: $scope.dashboard.user.username,
+								email: $scope.dashboard.user.email,
+								dashboard: 'dews',
+								theme: $scope.dashboard.country.name,
+								format: 'pdf',
+								url: $location.$$path
+							}
+						}
+					},{
 						type: 'csv',
 						color: 'blue lighten-1',
 						icon: 'library_books',
@@ -218,35 +247,6 @@ angular.module('ngmReportHub')
 								dashboard: 'watchkeeper',
 								theme: $scope.dashboard.country.name,
 								format: 'csv',
-								url: $location.$$path
-							}
-						}
-					},{
-						type: 'pdf',
-						color: 'blue lighten-1',
-						icon: 'picture_as_pdf',
-						hover: 'Download ' + $scope.dashboard.country.name + ' Report as PDF',
-						request: {
-							method: 'POST',
-							url: 'http://' + $location.host() + '/api/print',
-							data: {
-								report: $scope.dashboard.report,
-								printUrl: $location.absUrl(),
-								downloadUrl: 'http://' + $location.host() + '/report/',
-								token: $scope.dashboard.user.token,
-								pageLoadTime: 7600
-							}
-						},						
-						metrics: {
-							method: 'POST',
-							url: 'http://' + $location.host() + '/api/metrics/set',
-							data: {
-								organization: $scope.dashboard.user.organization,
-								username: $scope.dashboard.user.username,
-								email: $scope.dashboard.user.email,
-								dashboard: 'dews',
-								theme: $scope.dashboard.country.name,
-								format: 'pdf',
 								url: $location.$$path
 							}
 						}

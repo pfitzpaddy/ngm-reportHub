@@ -294,7 +294,7 @@ angular.module('ngmReportHub')
 								method: 'POST',
 								url: 'http://' + $location.host() + '/api/location/getAdmin1List',
 								data: {
-									'admin0pcode': $route.current.params.admin0
+									admin0pcode: $route.current.params.admin0
 								}
 							};
 
@@ -367,7 +367,7 @@ angular.module('ngmReportHub')
 								method: 'POST',
 								url: 'http://' + $location.host() + '/api/location/getAdmin2List',
 								data: {
-									'admin0pcode': $route.current.params.admin0
+									admin0pcode: $route.current.params.admin0
 								}
 							};
 
@@ -659,7 +659,7 @@ angular.module('ngmReportHub')
 											report: $scope.dashboard.report,
 											printUrl: $location.absUrl(),
 											downloadUrl: 'http://' + $location.host() + '/report/',
-											token: $scope.dashboard.user.token ? $scope.dashboard.user.token : 'public',
+											user: $scope.dashboard.user,
 											viewportWidth: 1280,
 											pageLoadTime: 7200
 										}
@@ -1392,8 +1392,6 @@ angular.module('ngmReportHub')
 						method: 'GET',
 						url: 'http://ip-api.com/json'
 					}).then( function( results ){
-
-						$scope.dashboard.title += ' | GUEST FROM REQUEST';
 
 						// default is global
 						$scope.dashboard.user = { adminRpcode: 'HQ', adminRname: 'Global', admin0pcode: 'ALL', admin0name: 'All', guest: true, organization: 'public', username: 'public', email: 'public@gmail.com' },

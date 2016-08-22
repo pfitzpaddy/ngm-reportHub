@@ -28,7 +28,7 @@ angular.module('ngmReportHub')
 			// empty model
 			$scope.model = {
 				rows: [{}]
-			};		
+			};
 
 			// create dews object
 			$scope.dashboard = {
@@ -281,7 +281,7 @@ angular.module('ngmReportHub')
 											report: $scope.dashboard.report,
 											printUrl: $location.absUrl(),
 											downloadUrl: 'http://' + $location.host() + '/report/',
-											token: $scope.dashboard.user.token,
+											user: $scope.dashboard.user,
 											viewportWidth: 1280,
 											pageLoadTime: 6200
 										}
@@ -524,20 +524,11 @@ angular.module('ngmReportHub')
 
 			};
 
-			// if user
-			if ( $scope.dashboard.user ) {
+			// set dashboard
+			$scope.dashboard.setDashboard();
 
-				// set dashboard
-				$scope.dashboard.setDashboard();
-
-				// set dashboard menu
-				$scope.dashboard.setMenu();
-
-			} else {
-
-				// redirect
-				$location.path('/health/forbidden');
-			}
+			// set dashboard menu
+			$scope.dashboard.setMenu();
 
 			// assign to ngm app scope ( for menu )
 			$scope.dashboard.ngm.dashboard.model = $scope.model;

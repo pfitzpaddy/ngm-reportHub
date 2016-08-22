@@ -297,7 +297,7 @@ angular.module('ngmReportHub')
 								report: $scope.dashboard.report,
 								printUrl: $location.absUrl(),
 								downloadUrl: 'http://' + $location.host() + '/report/',
-								token: $scope.dashboard.user.token,
+								user: $scope.dashboard.user,
 								pageLoadTime: 6400
 							}
 						},
