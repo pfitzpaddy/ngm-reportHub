@@ -283,7 +283,7 @@ angular.module('ngmReportHub')
 											downloadUrl: 'http://' + $location.host() + '/report/',
 											user: $scope.dashboard.user,
 											pageLoadTime: 6200,
-											viewportWidth: 1320
+											viewportWidth: 1360
 										}
 									},						
 									metrics: {
