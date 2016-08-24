@@ -99,8 +99,14 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
               fac_type: 'CHC',
               fac_name: 'CHC'
             },{
+              fac_type: 'CHC+FATP',
+              fac_name: 'CHC + FATP'
+            },{
               fac_type: 'BHC',
               fac_name: 'BHC'
+            },{
+              fac_type: 'BHC+FATP',
+              fac_name: 'BHC + FATP'
             },{
               fac_type: 'FHH',
               fac_name: 'FHH'
@@ -123,11 +129,8 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
               fac_type: 'special_hospital',
               fac_name: 'Special Hospital'
             },{
-              fac_type: 'BHC+FATP',
-              fac_name: 'BHC + FATP'
-            },{
-              fac_type: 'CHC+FATP',
-              fac_name: 'CHC + FATP'
+              fac_type: 'local_committee',
+              fac_name: 'Local Committee'
             }]
 
           },
