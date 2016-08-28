@@ -51,12 +51,24 @@ angular.module('ngmReportHub')
         // set URL based on user rights
 				setUrl: function(){
 
-					// user URL
-					var path = '/health/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
-															 '/' + $scope.dashboard.user.admin0pcode.toLowerCase() +
-															 '/' + $route.current.params.organization + 
-															 '/' + $scope.dashboard.startDate + 
-															 '/' + $scope.dashboard.endDate;
+					// if not admin - set organization
+					if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
+						
+						// user URL
+						var path = '/health/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
+																 '/' + $scope.dashboard.user.admin0pcode.toLowerCase() +
+																 '/' + $route.current.params.organization + 
+																 '/' + $scope.dashboard.startDate + 
+																 '/' + $scope.dashboard.endDate;
+					} else {
+						
+						// user URL
+						var path = '/health/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
+																 '/' + $scope.dashboard.user.admin0pcode.toLowerCase() +
+																 '/' + $scope.dashboard.user.organization_id + 
+																 '/' + $scope.dashboard.startDate + 
+																 '/' + $scope.dashboard.endDate;
+					}
 					
 					// if current location is not equal to path 
 					if ( path !== $location.$$path ) {
@@ -70,11 +82,18 @@ angular.module('ngmReportHub')
 				setTitle: function() {
 					
 					// default
-					$scope.dashboard.title = 'ADMIN | ' + $scope.dashboard.user.adminRname;
+					$scope.dashboard.title = $scope.dashboard.user.adminRname;
 
 					// admin0
 					if ( $route.current.params.admin0 !== 'all' ) {
 						$scope.dashboard.title += ' | ' + $scope.dashboard.user.admin0name.toUpperCase().substring(0, 3);
+					}
+
+					// title ( if no admin )
+					if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
+						$scope.dashboard.title += ' | ADMIN';
+					} else {
+						$scope.dashboard.title += ' | ' + $scope.dashboard.user.organization;
 					}
 
 				},
@@ -528,7 +547,10 @@ angular.module('ngmReportHub')
 			$scope.dashboard.setDashboard();
 
 			// set dashboard menu
-			$scope.dashboard.setMenu();
+			// if not admin - set organization
+			if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
+				$scope.dashboard.setMenu();
+			}
 
 			// assign to ngm app scope ( for menu )
 			$scope.dashboard.ngm.dashboard.model = $scope.model;

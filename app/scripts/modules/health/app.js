@@ -178,7 +178,8 @@ angular
 				controller: 'DashboardHealthAdminCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.hasRole( 'ADMIN' );
+						// return ngmAuth.hasRole( 'ADMIN' );
+						return ngmAuth.isAuthenticated();
 					}],
 				}
 			})

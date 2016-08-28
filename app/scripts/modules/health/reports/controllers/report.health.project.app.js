@@ -115,7 +115,6 @@ angular.module('ngmReportHub')
 							// textColor: 'white-text',
 							title: 'Active',
 							icon: 'edit',
-							newProjectUrl: $scope.report.newProjectUrl,
 							request: {
 								method: 'POST',
 								url: 'http://' + $location.host() + '/api/health/project/getProjectsList',
@@ -141,7 +140,6 @@ angular.module('ngmReportHub')
 							color: 'blue lighten-4',
 							title: 'Complete',
 							icon: 'done',
-							newProjectUrl: $scope.report.newProjectUrl,
 							request: {
 								method: 'POST',
 								url: 'http://' + $location.host() + '/api/health/project/getProjectsList',

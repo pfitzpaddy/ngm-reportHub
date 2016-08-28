@@ -36,8 +36,8 @@ angular.module('ngmReportHub')
 			// ngm
 			ngm: $scope.$parent.ngm,
 
-			// form to add new project
-			newProjectUrl: '#/health/projects/details/new',
+			// current user
+			user: ngmUser.get(),
 
 			// set summary
 			setProjectSummary: function(data){
@@ -84,6 +84,8 @@ angular.module('ngmReportHub')
 								style: 'padding: 0px;',
 								config: {
 									project: $scope.report.project,
+									user: $scope.report.user,
+									report_date: moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD'),
 									templateUrl: '/scripts/modules/health/views/health.project.summary.html',									
 									// forms:[{
 									// 	icon: 'edit',
