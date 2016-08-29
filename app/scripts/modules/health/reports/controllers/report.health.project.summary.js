@@ -101,7 +101,30 @@ angular.module('ngmReportHub')
 									// 	description: 'Track the project spending against financial line items for '
 									// }],
 					        // run submit
-					        markComplete: function(project){
+
+					        // mark project active
+					        markActive: function( project ){
+
+					          // mark project active
+					          project.project_status = 'active';       
+
+					          // Submit project for save
+					          ngmData.get({
+					            method: 'POST',
+					            url: 'http://' + $location.host() + '/api/health/project/setProject',
+					            data: {
+					              project: project
+					            }
+					          }).then(function(data){
+					            // redirect on success
+					            $location.path( '/health/projects' );
+					            Materialize.toast( 'Project moved to Active!', 3000, 'success');
+					          });
+
+					        },
+
+					        // mark poject complete
+					        markComplete: function( project ){
 
 					          // mark project complete
 					          project.project_status = 'complete';       
@@ -116,10 +139,10 @@ angular.module('ngmReportHub')
 					          }).then(function(data){
 					            // redirect on success
 					            $location.path( '/health/projects' );
-					            Materialize.toast( 'Project Marked as Complete, Congratulations!', 3000, 'success');
+					            Materialize.toast( 'Project marked as Complete, Congratulations!', 3000, 'success');
 					          });
 
-					        }
+					        }					        
 								}
 							}]
 						}]
