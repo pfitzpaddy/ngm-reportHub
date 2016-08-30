@@ -36,9 +36,9 @@
           <div ng-if="data.length">
             <table class="centered highlight responsive-table" ng-table="table.tableParams">
               <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
-                <td data-title="'Organization'" sortable="'organization'"
-                  ng-click="table.rowClick( true, '/#/health/projects/report/{{ row.project_id }}/{{ row.id }}' )">
-                  {{ row.organization }}
+                <td data-title="'Organization'" sortable="'organization'">
+                  <a target="_blank" href="#/health/projects/{{ row.organization_id }}" title="GoTo Organizaiton Projects List">
+                  {{ row.organization }}</a>
                 </td>
                 <td data-title="'User'" sortable="'username'"
                   ng-click="table.rowClick( true, '/#/health/projects/report/{{ row.project_id }}/{{ row.id }}' )">

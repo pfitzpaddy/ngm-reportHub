@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ReportHealthProjectAppCtrl', ['$scope', '$location', '$q', '$http', 'ngmData', 'ngmUser', function ($scope, $location, $q, $http, ngmData, ngmUser) {
+	.controller('ReportHealthProjectAppCtrl', ['$scope', '$location', '$q', '$http', '$route', 'ngmData', 'ngmUser', function ( $scope, $location, $q, $http, $route, ngmData, ngmUser ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -21,6 +21,15 @@ angular.module('ngmReportHub')
 
 			// form to add new project
 			newProjectUrl: '#/health/projects/details/new',
+
+			// get organization
+			getOrganization: {
+				method: 'POST',
+				url: 'http://' + $location.host() + '/api/getOrganization',
+				data: {
+					'organization_id': $route.current.params.organization_id
+				}
+			},
 
 			// province lists
 			admin1ListRequest: {
@@ -59,6 +68,35 @@ angular.module('ngmReportHub')
 
 		// }
 
+		// Set organization either from params ( admin ) or from user ( user )
+		if ( !$route.current.params.organization_id ) {
+			
+			// id
+			$scope.report.organization_id = ngmUser.get().organization_id;
+			// title
+			$scope.report.title = ngmUser.get().adminRname + ' | ' + ngmUser.get().admin0name.toUpperCase().substring(0, 3) + ' | ' + ngmUser.get().organization + ' | Health Projects';
+			$scope.report.subtitle = 'Health projects for ' + ngmUser.get().organization + ' ' + ngmUser.get().admin0name;
+
+		} else {
+
+			// set organization_id
+			$scope.report.organization_id = $route.current.params.organization_id;
+
+			// get data
+			ngmData.get( $scope.report.getOrganization ).then( function( organization ){
+				
+				// title
+				$scope.report.title = organization.adminRname + ' | ' + organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + organization.organization_display_name + ' | Health Projects';
+				$scope.report.subtitle = 'Health projects for ' + organization.organization_display_name + ' ' + organization.admin0name;
+
+				// set model
+				$scope.model.header.title.title = $scope.report.title;
+				$scope.model.header.subtitle.title = $scope.report.subtitle;
+
+			});
+
+		}
+
 		// report dashboard model
 		$scope.model = {
 			name: 'report_health_list',
@@ -70,26 +108,13 @@ angular.module('ngmReportHub')
 				title: {
 					'class': 'col s12 m12 l12 report-title',
 					style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-					title: ngmUser.get().adminRname + ' | ' + ngmUser.get().admin0name.toUpperCase().substring(0, 3) + ' | ' + ngmUser.get().organization + ' | Health Projects'
+					title: $scope.report.title
 				},
 				subtitle: {
 					'class': 'col s12 m12 l12 report-subtitle',
-					title: 'Health projects for ' + ngmUser.get().organization + ' ' + ngmUser.get().admin0name,
+					title: $scope.report.subtitle
 				}
 			},
-			// menu: [{
-			// 	'icon': 'add_circle_outline',
-			// 	'title': 'Add New Project',
-			// 	'class': 'teal-text',
-			// 	'href': $scope.report.newProjectUrl
-			// 	// rows: [{
-			// 	// 	'title': 'Add New Project',
-			// 	// 	'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-			// 	// 	'param': 'project',
-			// 	// 	'active': 'active',
-			// 	// 	'href': $scope.report.newProjectUrl
-			// 	// }]
-			// }],
 			rows: [{
 				columns: [{
 					styleClass: 's12 m12 l12',
@@ -120,7 +145,7 @@ angular.module('ngmReportHub')
 								url: 'http://' + $location.host() + '/api/health/project/getProjectsList',
 								data: {
 									filter: { 
-										organization_id: ngmUser.get().organization_id,
+										organization_id: $scope.report.organization_id,
 										project_status: 'active'
 									}
 								}
@@ -145,7 +170,7 @@ angular.module('ngmReportHub')
 								url: 'http://' + $location.host() + '/api/health/project/getProjectsList',
 								data: {
 									filter: { 
-										organization_id: ngmUser.get().organization_id,
+										organization_id: $scope.report.organization_id,
 										project_status: 'complete'
 									}
 								}

@@ -118,6 +118,16 @@ angular
 					}],
 				}
 			})
+			// health project list by organization
+			.when( '/health/projects/:organization_id', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ReportHealthProjectAppCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.hasRole( 'ADMIN' );
+					}],
+				}
+			})			
 			// health project summary
 			.when( '/health/projects/summary/:project', {
 				templateUrl: '/views/app/dashboard.html',
