@@ -112,6 +112,7 @@ angular.module('ngmReportHub')
 					// user URL
 					var path = '/health/4w/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
 															 '/' + $scope.dashboard.user.admin0pcode.toLowerCase() + 
+															 '/' + $route.current.params.organization_id + 
 															 '/' + $route.current.params.admin1 + 
 															 '/' + $route.current.params.admin2 + 
 															 '/' + $route.current.params.project + 
@@ -216,7 +217,8 @@ angular.module('ngmReportHub')
 
 						// URL path
 						var path = '#/health/4w/' + key + 
-															 '/all' + 
+															 '/all' +
+															 '/' + $route.current.params.organization_id +  
 															 '/all' + 
 															 '/all' +
 															 '/' + $route.current.params.project + 
@@ -251,6 +253,7 @@ angular.module('ngmReportHub')
 						// URL path
 						var path = '#/health/4w/' + $route.current.params.adminR + 
 															 '/' + d.admin0pcode +
+															 '/' + $route.current.params.organization_id + 
 															 '/all' + 
 															 '/all' +
 															 '/' + $route.current.params.project + 
@@ -284,6 +287,74 @@ angular.module('ngmReportHub')
 
 				},
 
+				// get country rows
+				getOrganizationRows: function(){
+
+					// menu rows
+					var rows = [],
+							request = {
+								method: 'POST',
+								url: 'http://' + $location.host() + '/api/health/admin/indicator',
+								data: {
+									list: true,
+									indicator: 'organizations',
+									organization: 'all', 
+									adminRpcode: $route.current.params.adminR,
+									admin0pcode: $route.current.params.admin0,
+									start_date: $scope.dashboard.startDate,
+									end_date: $scope.dashboard.endDate,
+								}
+							};
+
+					// fetch org list
+					ngmData.get( request ).then( function( organizations  ){
+
+						// filter
+						organizations = $filter( 'orderBy' )( organizations, 'organization' );
+
+						// add all
+						organizations.unshift({
+							organization_id: 'all',
+							organization: 'ALL',
+						})
+
+						// for each
+						organizations.forEach(function( d, i ){
+
+						// URL path
+						var path = '#/health/4w/' + $route.current.params.adminR + 
+															 '/' + $route.current.params.admin0 +
+															 '/' + d.organization_id +
+															 '/' + $route.current.params.admin1 +
+															 '/' + $route.current.params.admin2 +
+															 '/' + $route.current.params.project + 
+															 '/' + $route.current.params.beneficiaries + 
+															 '/' + $scope.dashboard.startDate + 
+															 '/' + $scope.dashboard.endDate;
+
+							// update title to organization
+							if ( $route.current.params.organization === d.organization_id && d.organization_id !== 'all' ) {
+								$scope.model.header.title.title += ' | ' + d.organization;
+								$scope.model.header.subtitle.title += ', ' + d.organization + ' organization';
+							}
+
+							// menu rows
+							rows.push({
+								'title': d.organization,
+								'param': 'organization_id',
+								'active': d.organization_id,
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': path
+							});
+
+						});
+
+					});
+					
+					return rows;
+
+				},
+
 				// get admin1 rows
 				setAdmin1Rows: function(){
 
@@ -313,6 +384,7 @@ angular.module('ngmReportHub')
 							// URL path
 							var path = '#/health/4w/' + $route.current.params.adminR + 
 																 '/' + $route.current.params.admin0 +
+																 '/' + $route.current.params.organization_id + 
 																 '/' + d.admin1pcode +
 																 '/all' +
 																 '/' + $route.current.params.project + 
@@ -389,6 +461,7 @@ angular.module('ngmReportHub')
 							// URL path
 							var path = '#/health/4w/' + $route.current.params.adminR + 
 																 '/' + $route.current.params.admin0 +
+																 '/' + $route.current.params.organization_id + 
 																 '/' + $route.current.params.admin1 +
 																 '/' + d.admin2pcode + 
 																 '/' + $route.current.params.project + 
@@ -445,6 +518,7 @@ angular.module('ngmReportHub')
 						// URL path
 						var path = '#/health/4w/' + $route.current.params.adminR + 
 															 '/' + $route.current.params.admin0 +
+															 '/' + $route.current.params.organization_id + 
 															 '/' + $route.current.params.admin1 +
 															 '/' + $route.current.params.admin2 +
 															 '/' + $route.current.params.project + 
@@ -465,7 +539,7 @@ angular.module('ngmReportHub')
 					// add menu for beneficiaries
 					$scope.model.menu.push({
 						'search': false,
-						'icon': 'group',
+						'icon': 'person_pin_circle',
 						'title': 'Beneficiaries',
 						'class': 'teal lighten-1 white-text',
 						'rows': rows
@@ -479,7 +553,7 @@ angular.module('ngmReportHub')
 					if( $scope.dashboard.user.guest ){
 						$scope.model.menu.push({
 							// 'search': true,
-							'id': 'search-health-region',
+							'id': 'search-health-adminR',
 							'icon': 'language',
 							'title': 'Region',
 							'class': 'teal lighten-1 white-text',
@@ -489,29 +563,42 @@ angular.module('ngmReportHub')
 
 					// country level
 					if( $route.current.params.adminR !== 'hq' ){
+						// country
 						$scope.model.menu.push({
 							// 'search': true,
-							'id': 'search-health-region',
+							'id': 'search-health-admin0',
 							'icon': 'public',
 							'title': 'Country',
 							'class': 'teal lighten-1 white-text',
 							'rows': $scope.dashboard.getCountryRows()
-						});
+						});						
 					} else {
 						// beneficiaries
 						$scope.dashboard.getBeneficiariesRows();						
 					}
 
-					// admin levels
+					// admin1 levels
 					if( $route.current.params.admin0 !== 'all' ){
+
+						// get organizations
+						$scope.model.menu.push({
+							'search': true,
+							'id': 'search-health-organization',
+							'icon': 'group',
+							'title': 'Organization',
+							'class': 'teal lighten-1 white-text',
+							'rows': $scope.dashboard.getOrganizationRows()
+						});
+
 						// makes request and sets rows & TITLES
 						$scope.dashboard.setAdmin1Rows();
+
 					} else {
 						// beneficiaries
 						$scope.dashboard.getBeneficiariesRows();						
 					}
 
-					// admin levels
+					// admin2 levels
 					if( $route.current.params.admin1 !== 'all' ){
 						// makes request and sets rows & TITLES
 						$scope.dashboard.setAdmin2Rows();
@@ -528,6 +615,7 @@ angular.module('ngmReportHub')
 					// variables
 					$scope.dashboard.adminRpcode = $route.current.params.adminR;
 					$scope.dashboard.admin0pcode = $route.current.params.admin0;
+					$scope.dashboard.organization_id = $route.current.params.organization_id;
 					$scope.dashboard.admin1pcode = $route.current.params.admin1;
 					$scope.dashboard.admin2pcode = $route.current.params.admin2;
 					$scope.dashboard.project_type = $route.current.params.project.split('+');
@@ -593,6 +681,7 @@ angular.module('ngmReportHub')
 											// URL
 											var path = '/health/4w/' + $route.current.params.adminR + 
 																					 '/' + $route.current.params.admin0 + 
+																					 '/' + $route.current.params.organization_id + 
 																					 '/' + $route.current.params.admin1 + 
 																					 '/' + $route.current.params.admin2 + 
 																					 '/' + $route.current.params.project + 
@@ -630,6 +719,7 @@ angular.module('ngmReportHub')
 											// URL
 											var path = '/health/4w/' + $route.current.params.adminR + 
 																					 '/' + $route.current.params.admin0 + 
+																					 '/' + $route.current.params.organization_id + 
 																					 '/' + $route.current.params.admin1 + 
 																					 '/' + $route.current.params.admin2 + 
 																					 '/' + $route.current.params.project + 
@@ -717,6 +807,7 @@ angular.module('ngmReportHub')
 											end_date: $scope.dashboard.endDate,
 											adminRpcode: $scope.dashboard.adminRpcode,
 											admin0pcode: $scope.dashboard.admin0pcode,
+											organization_id: $scope.dashboard.organization_id,
 											admin1pcode: $scope.dashboard.admin1pcode,
 											admin2pcode: $scope.dashboard.admin2pcode,
 											project_type: $scope.dashboard.project_type,
@@ -751,6 +842,7 @@ angular.module('ngmReportHub')
 											end_date: $scope.dashboard.endDate,
 											adminRpcode: $scope.dashboard.adminRpcode,
 											admin0pcode: $scope.dashboard.admin0pcode,
+											organization_id: $scope.dashboard.organization_id,
 											admin1pcode: $scope.dashboard.admin1pcode,
 											admin2pcode: $scope.dashboard.admin2pcode,
 											project_type: $scope.dashboard.project_type,
@@ -785,6 +877,7 @@ angular.module('ngmReportHub')
 											end_date: $scope.dashboard.endDate,
 											adminRpcode: $scope.dashboard.adminRpcode,
 											admin0pcode: $scope.dashboard.admin0pcode,
+											organization_id: $scope.dashboard.organization_id,
 											admin1pcode: $scope.dashboard.admin1pcode,
 											admin2pcode: $scope.dashboard.admin2pcode,
 											project_type: $scope.dashboard.project_type,
@@ -819,6 +912,7 @@ angular.module('ngmReportHub')
 											end_date: $scope.dashboard.endDate,
 											adminRpcode: $scope.dashboard.adminRpcode,
 											admin0pcode: $scope.dashboard.admin0pcode,
+											organization_id: $scope.dashboard.organization_id,
 											admin1pcode: $scope.dashboard.admin1pcode,
 											admin2pcode: $scope.dashboard.admin2pcode,
 											project_type: $scope.dashboard.project_type,
@@ -873,6 +967,7 @@ angular.module('ngmReportHub')
 												end_date: $scope.dashboard.endDate,
 												adminRpcode: $scope.dashboard.adminRpcode,
 												admin0pcode: $scope.dashboard.admin0pcode,
+												organization_id: $scope.dashboard.organization_id,
 												admin1pcode: $scope.dashboard.admin1pcode,
 												admin2pcode: $scope.dashboard.admin2pcode,
 												project_type: $scope.dashboard.project_type,
@@ -898,6 +993,7 @@ angular.module('ngmReportHub')
 												end_date: $scope.dashboard.endDate,
 												adminRpcode: $scope.dashboard.adminRpcode,
 												admin0pcode: $scope.dashboard.admin0pcode,
+												organization_id: $scope.dashboard.organization_id,
 												admin1pcode: $scope.dashboard.admin1pcode,
 												admin2pcode: $scope.dashboard.admin2pcode,
 												project_status: 'active',
@@ -924,6 +1020,7 @@ angular.module('ngmReportHub')
 												end_date: $scope.dashboard.endDate,
 												adminRpcode: $scope.dashboard.adminRpcode,
 												admin0pcode: $scope.dashboard.admin0pcode,
+												organization_id: $scope.dashboard.organization_id,
 												admin1pcode: $scope.dashboard.admin1pcode,
 												admin2pcode: $scope.dashboard.admin2pcode,
 												project_status: 'active',
@@ -952,6 +1049,7 @@ angular.module('ngmReportHub')
 												end_date: $scope.dashboard.endDate,
 												adminRpcode: $scope.dashboard.adminRpcode,
 												admin0pcode: $scope.dashboard.admin0pcode,
+												organization_id: $scope.dashboard.organization_id,
 												admin1pcode: $scope.dashboard.admin1pcode,
 												admin2pcode: $scope.dashboard.admin2pcode,
 												project_type: $scope.dashboard.project_type,
@@ -1018,6 +1116,7 @@ angular.module('ngmReportHub')
 														end_date: $scope.dashboard.endDate,
 														adminRpcode: $scope.dashboard.adminRpcode,
 														admin0pcode: $scope.dashboard.admin0pcode,
+														organization_id: $scope.dashboard.organization_id,
 														admin1pcode: $scope.dashboard.admin1pcode,
 														admin2pcode: $scope.dashboard.admin2pcode,
 														project_type: $scope.dashboard.project_type,
@@ -1084,6 +1183,7 @@ angular.module('ngmReportHub')
 														end_date: $scope.dashboard.endDate,
 														adminRpcode: $scope.dashboard.adminRpcode,
 														admin0pcode: $scope.dashboard.admin0pcode,
+														organization_id: $scope.dashboard.organization_id,
 														admin1pcode: $scope.dashboard.admin1pcode,
 														admin2pcode: $scope.dashboard.admin2pcode,
 														project_type: $scope.dashboard.project_type,
@@ -1125,6 +1225,7 @@ angular.module('ngmReportHub')
 												end_date: $scope.dashboard.endDate,
 												adminRpcode: $scope.dashboard.adminRpcode,
 												admin0pcode: $scope.dashboard.admin0pcode,
+												organization_id: $scope.dashboard.organization_id,
 												admin1pcode: $scope.dashboard.admin1pcode,
 												admin2pcode: $scope.dashboard.admin2pcode,
 												unique: false,
@@ -1158,6 +1259,7 @@ angular.module('ngmReportHub')
 												end_date: $scope.dashboard.endDate,
 												adminRpcode: $scope.dashboard.adminRpcode,
 												admin0pcode: $scope.dashboard.admin0pcode,
+												organization_id: $scope.dashboard.organization_id,
 												admin1pcode: $scope.dashboard.admin1pcode,
 												admin2pcode: $scope.dashboard.admin2pcode,
 												unique: true,
@@ -1191,6 +1293,7 @@ angular.module('ngmReportHub')
 												end_date: $scope.dashboard.endDate,
 												adminRpcode: $scope.dashboard.adminRpcode,
 												admin0pcode: $scope.dashboard.admin0pcode,
+												organization_id: $scope.dashboard.organization_id,
 												admin1pcode: $scope.dashboard.admin1pcode,
 												admin2pcode: $scope.dashboard.admin2pcode,
 												unique: true,
@@ -1269,6 +1372,7 @@ angular.module('ngmReportHub')
 														end_date: $scope.dashboard.endDate,
 														adminRpcode: $scope.dashboard.adminRpcode,
 														admin0pcode: $scope.dashboard.admin0pcode,
+														organization_id: $scope.dashboard.organization_id,
 														admin1pcode: $scope.dashboard.admin1pcode,
 														admin2pcode: $scope.dashboard.admin2pcode,
 														project_type: $scope.dashboard.project_type,
@@ -1329,6 +1433,7 @@ angular.module('ngmReportHub')
 												end_date: $scope.dashboard.endDate,
 												adminRpcode: $scope.dashboard.adminRpcode,
 												admin0pcode: $scope.dashboard.admin0pcode,
+												organization_id: $scope.dashboard.organization_id,
 												admin1pcode: $scope.dashboard.admin1pcode,
 												admin2pcode: $scope.dashboard.admin2pcode,
 												project_type: $scope.dashboard.project_type,

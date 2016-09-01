@@ -183,7 +183,7 @@ angular
 				redirectTo: '/health/admin/hq/all/all/' + moment().subtract( 1, 'M').startOf( 'M' ).format('YYYY-MM-DD') + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			// health admin
-			.when( '/health/admin/:adminR/:admin0/:organization/:start/:end', {
+			.when( '/health/admin/:adminR/:admin0/:organization_id/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardHealthAdminCtrl',
 				resolve: {
@@ -196,10 +196,10 @@ angular
 
 			// health dashboard
 			.when( '/health/4w', {
-				redirectTo: '/health/4w/hq/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/health/4w/hq/all/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// health dashboard
-			.when( '/health/4w/:adminR/:admin0/:admin1/:admin2/:project/:beneficiaries/:start/:end', {
+			.when( '/health/4w/:adminR/:admin0/:organization_id/:admin1/:admin2/:project/:beneficiaries/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardHealthProjectsCtrl',
 				resolve: {
@@ -211,7 +211,7 @@ angular
 
 			// tmp
 			.when( '/health/4w/afghanistan/all/all/all/2016-01-01/2016-07-20', {
-				redirectTo: '/health/4w/hq/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/health/4w/hq/all/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
 			})
 
 			// DEFAULT

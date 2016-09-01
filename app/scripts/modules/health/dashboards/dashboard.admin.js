@@ -57,7 +57,7 @@ angular.module('ngmReportHub')
 						// user URL
 						var path = '/health/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
 																 '/' + $scope.dashboard.user.admin0pcode.toLowerCase() +
-																 '/' + $route.current.params.organization + 
+																 '/' + $route.current.params.organization_id + 
 																 '/' + $scope.dashboard.startDate + 
 																 '/' + $scope.dashboard.endDate;
 					} else {
@@ -133,7 +133,7 @@ angular.module('ngmReportHub')
 						// add all
 						organizations.unshift({
 							organization_id: 'all',
-							organization: 'All',
+							organization: 'ALL',
 						})
 
 						// for each
@@ -147,7 +147,7 @@ angular.module('ngmReportHub')
 																			 '/' + $scope.dashboard.endDate;
 
 							// update title to organization
-							if ( $route.current.params.organization === d.organization_id && d.organization_id !== 'all' ) {
+							if ( $route.current.params.organization_id === d.organization_id && d.organization_id !== 'all' ) {
 								$scope.model.header.title.title += ' | ' + d.organization;
 								$scope.model.header.subtitle.title += ', ' + d.organization + ' organization';
 							}
@@ -155,7 +155,7 @@ angular.module('ngmReportHub')
 							// menu rows
 							rows.push({
 								'title': d.organization,
-								'param': 'organization',
+								'param': 'organization_id',
 								'active': d.organization_id,
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 								'href': path
@@ -181,7 +181,7 @@ angular.module('ngmReportHub')
 				setDashboard: function(){
 
 					// variables
-					$scope.dashboard.organization = $route.current.params.organization;
+					$scope.dashboard.organization = $route.current.params.organization_id;
 					$scope.dashboard.adminRpcode = $route.current.params.adminR;
 					$scope.dashboard.admin0pcode = $route.current.params.admin0;
 
@@ -240,7 +240,7 @@ angular.module('ngmReportHub')
 											// URL
 											var path = '/health/admin/' + $route.current.params.adminR + 
 																					 '/' + $route.current.params.admin0 +
-																					 '/' + $route.current.params.organization +
+																					 '/' + $route.current.params.organization_id +
 																					 '/' + $scope.dashboard.startDate + 
 																					 '/' + $scope.dashboard.endDate;
 
@@ -274,7 +274,7 @@ angular.module('ngmReportHub')
 											// URL
 											var path = '/health/admin/' + $route.current.params.adminR + 
 																					 '/' + $route.current.params.admin0 +
-																					 '/' + $route.current.params.organization +
+																					 '/' + $route.current.params.organization_id +
 																					 '/' + $scope.dashboard.startDate + 
 																					 '/' + $scope.dashboard.endDate;
 
