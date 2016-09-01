@@ -288,7 +288,7 @@ angular.module('ngmReportHub')
 				},
 
 				// get country rows
-				getOrganizationRows: function(){
+				setOrganizationRows: function(){
 
 					// menu rows
 					var rows = [],
@@ -350,8 +350,16 @@ angular.module('ngmReportHub')
 						});
 
 					});
-					
-					return rows;
+	
+					// add to menu
+					$scope.model.menu.push({
+						'search': true,
+						'id': 'search-health-organization',
+						'icon': 'group',
+						'title': 'Organization',
+						'class': 'teal lighten-1 white-text',
+						'rows': rows
+					});
 
 				},
 
@@ -581,14 +589,7 @@ angular.module('ngmReportHub')
 					if( $route.current.params.admin0 !== 'all' ){
 
 						// get organizations
-						$scope.model.menu.push({
-							'search': true,
-							'id': 'search-health-organization',
-							'icon': 'group',
-							'title': 'Organization',
-							'class': 'teal lighten-1 white-text',
-							'rows': $scope.dashboard.getOrganizationRows()
-						});
+						$scope.dashboard.setOrganizationRows();
 
 						// makes request and sets rows & TITLES
 						$scope.dashboard.setAdmin1Rows();
