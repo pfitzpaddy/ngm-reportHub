@@ -18,7 +18,6 @@ angular
 		'ngTable',
 		'ngCsv',
 		'ngDropzone',
-		'ngVideo',
 		'countTo',
 		'highcharts-ng',
 		'leaflet-directive',
@@ -29,7 +28,6 @@ angular
 		'ngm.widget.project.reports.list',
 		'ngm.widget.project.report',
 		'ngm.widget.workshop',
-		'ngm.widget.video',
 		// modules
 		'ngmHealth',
 		'ngmDews',
