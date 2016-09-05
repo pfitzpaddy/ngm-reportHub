@@ -52,7 +52,7 @@ angular
 		// $locationProvider.html5Mode(true);
 
 		// https://medium.com/swlh/improving-angular-performance-with-1-line-of-code-a1fb814a6476#.ufea9sjt1
-		$compileProvider.debugInfoEnabled( false )
+		$compileProvider.debugInfoEnabled( false );
 
 		// all routes prescribed within specific module app.js files
 		$routeProvider

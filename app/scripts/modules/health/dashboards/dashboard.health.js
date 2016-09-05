@@ -1311,7 +1311,7 @@ angular.module('ngmReportHub')
 								styleClass: 's12 m12 l12',
 								widgets: [{
 									type: 'highchart',
-									style: 'height: 290px;',
+									style: 'height: 280px;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Facility Type by Location',
@@ -1393,7 +1393,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px;',
 									config: {
-										height: '520px',
+										height: '490px',
 										display: {
 											type: 'marker',
 											zoomToBounds: true,
