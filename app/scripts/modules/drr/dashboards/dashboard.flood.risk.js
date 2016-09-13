@@ -36,20 +36,14 @@ angular.module('ngmReportHub')
 
 			// province lists
 			provinceMenuRequest: {
-				method: 'POST',
-				url: 'http://' + $location.host() + '/api/location/getAdmin1List',
-				data: {
-					admin0pcode: 'AF'
-				}
+				method: 'GET',
+				url: 'http://' + $location.host() + '/api/location/getProvinceMenu'
 			},
 
 			// province lists
 			districtListRequest: {
-				method: 'POST',
-				url: 'http://' + $location.host() + '/api/location/getAdmin2List',
-				data: {
-					admin0pcode: 'AF'
-				}
+				method: 'GET',
+				url: 'http://' + $location.host() + '/api/location/getDistrictList'
 			},
 
 			// tab links
@@ -129,7 +123,7 @@ angular.module('ngmReportHub')
 			getData: function(){
 
 				// set province menu
-				$scope.dashboard.data = angular.fromJson( localStorage.getItem( 'provinceMenu' ) );
+				$scope.dashboard.data = angular.fromJson( localStorage.getItem( 'drrprovinceMenu' ) );
 
 				// flag for geonode API
 				$scope.dashboard.flag = $scope.dashboard.data[$route.current.params.province].prov_code === '*' ? 'entireAfg' : 'currentProvince';
@@ -138,7 +132,7 @@ angular.module('ngmReportHub')
 				if($scope.dashboard.flag === 'currentProvince'){
 
 					// districts
-					$scope.dashboard.setDistrictList( angular.fromJson( localStorage.getItem( 'districtList' ) ) );
+					$scope.dashboard.setDistrictList( angular.fromJson( localStorage.getItem( 'drrdistrictList' ) ) );
 
 				}	
 
@@ -716,14 +710,14 @@ angular.module('ngmReportHub')
 		};
 
 		// get all lists 
-		if ( !localStorage.getItem( 'provinceMenu' ) ) {
+		if ( !localStorage.getItem( 'drrprovinceMenu' ) ) {
 
 			// send request
 			$q.all([ $http( $scope.dashboard.provinceMenuRequest ), $http( $scope.dashboard.districtListRequest ) ]).then( function( results ){
 
 				// set lists to local storage
-				localStorage.setItem( 'provinceMenu', JSON.stringify( results[0].data ));
-				localStorage.setItem( 'districtList', JSON.stringify( results[1].data ));
+				localStorage.setItem( 'drrprovinceMenu', JSON.stringify( results[0].data ));
+				localStorage.setItem( 'drrdistrictList', JSON.stringify( results[1].data ));
 
 				// getData
 				$scope.dashboard.getData();
