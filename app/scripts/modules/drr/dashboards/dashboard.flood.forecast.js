@@ -130,7 +130,7 @@ angular.module('ngmReportHub')
 				$scope.dashboard.data = angular.fromJson( localStorage.getItem( 'drrprovinceMenu' ) );
 
 				// flag for geonode API
-				$scope.dashboard.flag = $scope.dashboard.data[$route.current.params.province].prov_code === '*' ? 'entireAfg' : 'currentProvince';
+				$scope.dashboard.flag = $scope.dashboard.data[$route.current.params.province].prov_code === 'all' ? 'entireAfg' : 'currentProvince';
 
 				// if province selected, get districts
 				if( $scope.dashboard.flag === 'currentProvince' ){
