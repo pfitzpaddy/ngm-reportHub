@@ -197,8 +197,8 @@ gulp.task('copy:fonts', function () {
 });
 
 gulp.task('copy:mfonts', function () {
-  return gulp.src(yeoman.app + '/../bower_components/materialize/font/**/*')
-    .pipe(gulp.dest(yeoman.dist + '/font'));
+  return gulp.src(yeoman.app + '/../bower_components/materialize/fonts/**/*')
+    .pipe(gulp.dest(yeoman.dist + '/fonts'));
 });
 
 gulp.task('build', ['clean:dist'], function () {
