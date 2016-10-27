@@ -78,29 +78,26 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
           if ( !$scope.project.definition.project_budget_progress ) {
             $scope.project.definition.project_budget_progress = []
           }
-
-          // create project budget progress object
-          $scope.project.definition.project_budget_progress.unshift({
-            adminRpcode: config.project.adminRpcode,
-            adminRname: config.project.adminRname,
-            admin0pcode: config.project.admin0pcode,
-            admin0name: config.project.admin0name,
-            organization_id: config.project.organization_id,
-            organization: config.project.organization,
-            project_title: $scope.project.definition.project_title,
-            project_code: $scope.project.definition.project_code,
-            project_donor: $scope.project.definition.project_donor,
-            project_budget: $scope.project.definition.project_budget,
-            project_budget_currency: $scope.project.definition.project_budget_currency,
+  
+          // budget + username
+          var b = {
+            username: ngmUser.get().username,
+            email: ngmUser.get().email,
             project_budget_amount_recieved: $scope.project.project_budget_amount_recieved,
             project_budget_date_recieved: $scope.project.project_budget_date_recieved
-          });
+          }
+
+          // project definition + config
+          var p = angular.merge( {}, config.project, $scope.project.definition );
+          delete p.id;
+  
+          // extend targets with projectn ngmData details & push
+          $scope.project.definition.project_budget_progress.unshift( angular.merge( {}, p, b ) );
 
           // reset form
           $scope.project.project_budget_amount_recieved = 0;
 
-
-          // Update 
+          // Update Project (as project_budget_progress is an association)
           ngmData.get({
             method: 'POST',
             url: 'http://' + $location.host() + '/api/health/project/setProject',
@@ -134,53 +131,13 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
 
         },
 
-        // set start datepicker
-        setBudgetTime: function() {
-            
-          // set element
-          $scope.$input = $('#ngm-budget-recieved-date').pickadate({
-            selectMonths: true,
-            selectYears: 15,
-            max: new Date(),
-            format: 'dd mmm, yyyy',
-            onStart: function(){
-              
-              $timeout(function(){
-                
-                // set time
-                $scope.project.startPicker.set('select', $scope.project.project_budget_date_recieved, { format: 'yyyy-mm-dd' } );
-
-              }, 10)
-            },          
-            onSet: function( event ){
-              
-              // close on date select
-              if( event.select ){
-                
-                // get date
-                var selectedDate = moment( event.select );
-
-                // set date
-                $scope.project.project_budget_date_recieved = moment( selectedDate ).format( 'YYYY-MM-DD' );
-                
-                // close
-                $scope.project.startPicker.close();
-
-              }
-
-            }
-
-          });        
-
-          //pickadate api
-          $scope.project.startPicker = $scope.$input.pickadate( 'picker' );
-
-          // on click
-          $( '#ngm-budget-recieved-date' ).bind( 'click', function( $e ) {
-            // open
-            $scope.project.startPicker.open();
-          });
-
+        // set budget date on datepicker close
+        datepicker: {
+          maxDate: moment().format('YYYY-MM-DD'),
+          onClose: function() {
+            // format date
+            $scope.project.project_budget_date_recieved = moment( new Date( $scope.project.project_budget_date_recieved ) ).format('YYYY-MM-DD');
+          }
         }
 
       }
@@ -190,9 +147,6 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
 
         // give a few seconds to render
         $timeout(function() {
-
-          // init start date
-          $scope.project.setBudgetTime();
 
         }, 1000 );
 

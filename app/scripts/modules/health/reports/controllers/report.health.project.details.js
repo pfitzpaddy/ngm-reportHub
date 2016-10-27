@@ -222,14 +222,6 @@ angular.module('ngmReportHub')
 
 			// create empty project
 			var project = {
-    		adminRpcode: ngmUser.get().adminRpcode,
-    		adminRname: ngmUser.get().adminRname,
-    		admin0pcode: ngmUser.get().admin0pcode,
-    		admin0name: ngmUser.get().admin0name,
-				organization_id: ngmUser.get().organization_id,
-				organization: ngmUser.get().organization,
-				username: ngmUser.get().username,
-				email: ngmUser.get().email,
 				project_status: 'new',
 				project_title: 'New Project',
 				project_description: 'Complete the project details to register a new project',
@@ -241,6 +233,12 @@ angular.module('ngmReportHub')
 				prov_code: [],
 				dist_code: []
 			}
+
+			// extend defaults with ngmUser details
+			project = angular.merge( {}, ngmUser.get(), project );
+			
+			// remove id of ngmUser to avoid conflict with new project
+			delete project.id;
 
 			// set summary
 			$scope.report.setProjectDetails( project );

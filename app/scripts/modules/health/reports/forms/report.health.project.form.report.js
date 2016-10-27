@@ -44,6 +44,24 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           USDAFN: 68.61          
         },
 
+        // default indicators
+        indicators: {
+          under5male: 0,
+          under5female: 0,
+          over5male: 0,
+          over5female: 0,
+          penta3_vacc_male_under1: 0,
+          penta3_vacc_female_under1: 0,
+          skilled_birth_attendant: 0,
+          conflict_trauma_treated: 0,
+          capacity_building_sessions: 0,
+          capacity_building_male: 0,
+          capacity_building_female: 0,
+          education_sessions: 0,
+          education_male: 0,
+          education_female: 0          
+        },
+
         // project
         definition: config.project,
 
@@ -144,39 +162,12 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           // copy selection
           var beneficiary = angular.copy( $scope.project.options.selection.beneficiaries[ $index ] );
 
-          // push to beneficiaries
-          $scope.project.report.locations[ $index ].beneficiaries.unshift({
-            adminRpcode: config.project.adminRpcode,
-            adminRname: config.project.adminRname,
-            admin0pcode: config.project.admin0pcode,
-            admin0name: config.project.admin0name,
-            organization_id: config.project.organization_id,
-            organization: config.project.organization,
-            username: config.project.username,
-            email: config.project.email,
-            project_id: config.project.id,
-            project_title: config.project.project_title,
-            project_type: config.project.project_type,
-            report_id: $scope.project.report.id,
-            report_month: $scope.project.report.report_month,
-            report_year: $scope.project.report.report_year,
-            reporting_period: $scope.project.report.reporting_period,
+          // b
+          var b = {
+            // beneficiaries
             beneficiary_name: beneficiary.beneficiary_name,
             beneficiary_type: beneficiary.beneficiary_type,
-            under5male: 0,
-            under5female: 0,
-            over5male: 0,
-            over5female: 0,
-            penta3_vacc_male_under1: 0,
-            penta3_vacc_female_under1: 0,
-            skilled_birth_attendant: 0,
-            conflict_trauma_treated: 0,
-            education_sessions: 0,
-            education_male: 0,
-            education_female: 0,
-            capacity_building_sessions: 0,
-            capacity_building_male: 0,
-            capacity_building_female: 0,
+            // location
             admin1pcode: $scope.project.report.locations[$index].admin1pcode,
             admin1name: $scope.project.report.locations[$index].admin1name,
             admin2pcode: $scope.project.report.locations[$index].admin2pcode,
@@ -189,7 +180,23 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             admin1lat: $scope.project.report.locations[$index].admin1lat,
             admin2lng: $scope.project.report.locations[$index].admin2lng,
             admin2lat: $scope.project.report.locations[$index].admin2lat
-          });
+          }
+
+          // beneficiaries + location + indicators
+          b = angular.merge( {}, b, $scope.project.indicators );
+
+          // beneficiaries + location + indicators + project
+          b = angular.merge( {}, b, config.project );
+          b.project_id = config.project.id;
+          delete b.id;
+
+          // beneficiaries + location + indicators + project + report
+          b = angular.merge( {}, b, $scope.project.report );
+          b.report_id = $scope.project.report.id;
+          delete b.id;
+
+          // push to beneficiaries
+          $scope.project.report.locations[ $index ].beneficiaries.unshift( b );
 
           // clear selection
           $scope.project.options.selection.beneficiaries[ $index ] = {};

@@ -61,6 +61,24 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         // last update
         updatedAt: moment( config.project.updatedAt ).format('DD MMMM, YYYY @ h:mm:ss a'),
 
+        // default indicators
+        indicators: {
+          under5male: 0,
+          under5female: 0,
+          over5male: 0,
+          over5female: 0,
+          penta3_vacc_male_under1: 0,
+          penta3_vacc_female_under1: 0,
+          skilled_birth_attendant: 0,
+          conflict_trauma_treated: 0,
+          capacity_building_sessions: 0,
+          capacity_building_male: 0,
+          capacity_building_female: 0,
+          education_sessions: 0,
+          education_male: 0,
+          education_female: 0
+        },
+
         // holder for UI options
         options: {
           list: {
@@ -158,27 +176,13 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         // details template
         locationsUrl: '/scripts/modules/health/views/forms/details/target-locations.html',
 
-        // details template
-        // beneficiariesUrl: '/scripts/modules/health/views/forms/details/beneficiaries.html',      
-
-        // currency on budget exchange
-        // budgetKeyUp: function( update ){
-
-        //   // if usd
-        //   if ( update === 'usd' ) {
-        //     // update afn with currency
-        //     var exchange = parseInt( ( $scope.project.definition.project_budget_usd * $scope.project.exchange.USDAFN ).toFixed(0) );
-        //     $scope.project.definition.project_budget_afn = exchange;
-        //   }
-
-        //   // if afn
-        //   if ( update === 'afn' ) {
-        //     // update afn with currency
-        //     var exchange = parseInt( ( $scope.project.definition.project_budget_afn / $scope.project.exchange.USDAFN ).toFixed(0) );
-        //     $scope.project.definition.project_budget_usd = exchange;
-        //   }
-
-        // },
+        // datepicker
+        datepicker: {
+          onClose: function(){
+            $scope.project.definition.project_start_date = moment( new Date( $scope.project.definition.project_start_date ) ).format('YYYY-MM-DD');
+            $scope.project.definition.project_end_date = moment( new Date( $scope.project.definition.project_end_date ) ).format('YYYY-MM-DD');
+          }
+        },
 
         // validate project type
         project_type_valid: function () {
@@ -224,43 +228,25 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         addTargetBeneficiary: function() {
 
           // copy selection
-          var target_beneficiary = angular.copy( $scope.project.options.selection.target_beneficiaries );
+          var target_beneficiaries = angular.copy( $scope.project.options.selection.target_beneficiaries ); 
 
-          // push to beneficiaries
-          $scope.project.definition.target_beneficiaries.unshift({
-            adminRpcode: config.project.adminRpcode,
-            adminRname: config.project.adminRname,
-            admin0pcode: config.project.admin0pcode,
-            admin0name: config.project.admin0name,
-            organization_id: config.project.organization_id,
-            organization: config.project.organization,
-            username: config.project.username,
-            email: config.project.email,
-            project_title: $scope.project.definition.project_title,
-            project_type: $scope.project.definition.project_type,
-            beneficiary_name: target_beneficiary.beneficiary_name,
-            beneficiary_type: target_beneficiary.beneficiary_type,
-            under5male: 0,
-            under5female: 0,
-            over5male: 0,
-            over5female: 0,
-            penta3_vacc_male_under1: 0,
-            penta3_vacc_female_under1: 0,
-            skilled_birth_attendant: 0,
-            conflict_trauma_treated: 0,
-            capacity_building_sessions: 0,
-            capacity_building_male: 0,
-            capacity_building_female: 0,
-            education_sessions: 0,
-            education_male: 0,
-            education_female: 0,
-          });
+          // beneficiary definition
+          var b = {
+            beneficiary_name: target_beneficiaries.beneficiary_name,
+            beneficiary_type: target_beneficiaries.beneficiary_type,
+          };
+
+          // beneficiaries + indicators
+          var b = angular.merge( {}, b, $scope.project.indicators );
+  
+          // extend targets with projectn ngmData details & push
+          $scope.project.definition.target_beneficiaries.unshift( angular.merge( {}, config.project, b ) );
 
           // clear selection
           $scope.project.options.selection.target_beneficiaries = {};
 
           // filter list
-          $scope.project.options.filter.target_beneficiaries = $filter( 'filter' )( $scope.project.options.filter.target_beneficiaries, { beneficiary_type: '!' + target_beneficiary.beneficiary_type }, true);
+          $scope.project.options.filter.target_beneficiaries = $filter( 'filter' )( $scope.project.options.filter.target_beneficiaries, { beneficiary_type: '!' + target_beneficiaries.beneficiary_type }, true);
 
           // update dropdown
           $timeout(function(){
@@ -358,31 +344,27 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         // add location
         addLocation: function(){
 
-          // push location to target_locations
-          $scope.project.definition.target_locations.unshift({
-            adminRpcode: config.project.adminRpcode,
-            adminRname: config.project.adminRname,
-            admin0pcode: config.project.admin0pcode,
-            admin0name: config.project.admin0name,       
-            organization_id: config.project.organization_id,
-            organization: config.project.organization,
-            username: config.project.username,
-            email: config.project.email,
-            project_title: $scope.project.definition.project_title,
-            project_type: $scope.project.definition.project_type,
-            admin1pcode: $scope.project.options.selection.admin1.admin1pcode,
-            admin1name: $scope.project.options.selection.admin1.admin1name,
-            admin2pcode: $scope.project.options.selection.admin2.admin2pcode,
-            admin2name: $scope.project.options.selection.admin2.admin2name,
-            conflict: $scope.project.options.selection.admin2.conflict,
-            fac_type: $scope.project.options.selection.hf_type.fac_type,
-            fac_type_name: $scope.project.options.selection.hf_type.fac_name,
-            fac_name: $scope.project.options.selection.hf_name,
-            admin1lng: $scope.project.options.selection.admin1.admin1lng,
-            admin1lat: $scope.project.options.selection.admin1.admin1lat,         
-            admin2lng: $scope.project.options.selection.admin2.admin2lng,
-            admin2lat: $scope.project.options.selection.admin2.admin2lat
-          });
+          // copy selection
+          var location = angular.copy( $scope.project.options.selection );
+
+          // target location definition
+          var l = {
+            admin1pcode: location.admin1.admin1pcode,
+            admin1name: location.admin1.admin1name,
+            admin2pcode: location.admin2.admin2pcode,
+            admin2name: location.admin2.admin2name,
+            conflict: location.admin2.conflict,
+            fac_type: location.hf_type.fac_type,
+            fac_type_name: location.hf_type.fac_name,
+            fac_name: location.hf_name,
+            admin1lng: location.admin1.admin1lng,
+            admin1lat: location.admin1.admin1lat,         
+            admin2lng: location.admin2.admin2lng,
+            admin2lat: location.admin2.admin2lat
+          };
+  
+          // extend targets with project, ngmData details & push
+          $scope.project.definition.target_locations.unshift( angular.merge( {}, config.project, l ) );
 
           // refresh dropdown options
           $scope.project.resetLocationSelect( true, true, true, true );
@@ -549,16 +531,17 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
               data: {
                 project: $scope.project.definition
               }
-            }).then(function(project){
+            }).then( function( project ){
 
               // enable
               $scope.project.submit = false;
 
               // add id to client json
-              $scope.project.definition.id = project.id;
+              $scope.project.definition = project;
 
               // notification modal
               $('#save-modal').openModal({ dismissible: false });
+              
             });
 
           } else {
@@ -614,110 +597,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           }, 100);
 
-        },
-
-        // set start datepicker
-        setStartTime: function() {
-            
-          // set element
-          $scope.$input = $('#ngm-start-date').pickadate({
-            selectMonths: true,
-            selectYears: 15,
-            format: 'dd mmm, yyyy',
-            onStart: function(){
-              $timeout(function(){
-                // set time
-                var date = moment($scope.project.definition.project_start_date).format('YYYY-MM-DD');
-                $scope.project.startPicker.set('select', date, { format: 'yyyy-mm-dd' } );
-
-              }, 10)
-            },          
-            onSet: function(event){
-              // close on date select
-              if(event.select){
-                // get date
-                var selectedDate = moment(event.select);
-                // check dates
-                if ( (selectedDate).isAfter($scope.project.definition.project_end_date) ) {
-                  // inform
-                  Materialize.toast('Please check the dates and try again!', 3000);
-                  // reset time
-                  $scope.project.startPicker.set('select', moment($scope.project.definition.project_start_date).format('X'))
-
-                } else {
-                  // set date
-                  $scope.project.definition.project_start_date = moment(selectedDate).format('YYYY-MM-DD');
-                }
-                // close
-                $scope.project.startPicker.close();
-
-              }
-
-            }
-
-          });        
-
-          //pickadate api
-          $scope.project.startPicker = $scope.$input.pickadate('picker');
-          // on click
-          $('#ngm-start-date').bind('click', function($e) {
-            // open
-            $scope.project.startPicker.open();
-          });
-
-        },
-
-        // set end datepicker
-        setEndTime: function() {
-            
-          // set element
-          $scope.$input = $('#ngm-end-date').pickadate({
-            selectMonths: true,
-            selectYears: 15,
-            format: 'dd mmm, yyyy',
-            onStart: function(){
-              $timeout(function(){
-                // set time
-                var date = moment($scope.project.definition.project_end_date).format('YYYY-MM-DD');
-                $scope.project.endPicker.set('select', date, { format: 'yyyy-mm-dd' } );
-
-              }, 10)
-            },           
-            onSet: function(event){
-              // close on date select
-              if(event.select){
-                // get date
-                var selectedDate = moment(event.select);
-
-                // check dates
-                if ( selectedDate && (selectedDate).isBefore($scope.project.definition.project_start_date) ) {
-                  // inform
-                  Materialize.toast('Please check the dates and try again!', 3000);
-                  // reset time
-                  $scope.project.endPicker.set('select', moment($scope.project.definition.project_end_date).format('X'))
-
-                } else {
-                  // set date
-                  $scope.project.definition.project_end_date = moment(selectedDate).format('YYYY-MM-DD');
-                }
-                // close
-                $scope.project.endPicker.close();
-
-              }
-
-            }
-
-          });        
-
-          //pickadate api
-          $scope.project.endPicker = $scope.$input.pickadate('picker');
-          // on click
-          $('#ngm-end-date').bind('click', function($e) {
-            //open
-            $scope.project.endPicker.open();
-          });
-          
-        }    
+        }   
 
       }
 
@@ -735,12 +615,6 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           // modals
           $('.modal-trigger').leanModal();
-
-          // init start date
-          $scope.project.setStartTime();
-
-          // init end date
-          $scope.project.setEndTime();
 
           // refresh dropdown options
           $scope.project.resetLocationSelect( true, true, true, true );          
@@ -803,11 +677,9 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // sort
           $scope.project.options.filter.target_beneficiaries = $filter( 'orderBy' )( $scope.project.options.filter.target_beneficiaries, 'beneficiary_name' );
 
-
           // update dropdown
           $timeout(function(){
             $( 'select' ).material_select();
-
           }, 10);          
 
         }, 1000);
