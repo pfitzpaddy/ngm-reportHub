@@ -82,7 +82,7 @@
 								    	<td width="10%" style="text-align:center;"><i class="material-icons" style="color: teal;">attach_money</i></td>
 								    	<td width="90%" align="left">
 								    		<h5 class="report-work-title"
-																					style="font-size:1.2rem; font-weight:300;text-align:left;margin-top:0px;">${{ project.definition.project_budget_progress | sumByKey:'project_budget_amount_recieved' | number  }} {{ project.definition.project_budget_currency | uppercase }} of Budget Recieved Total
+																					style="font-size:1.2rem; font-weight:300;text-align:left;margin-top:0px;">${{ project.definition.project_budget_progress | sumByKey:'project_budget_amount_recieved' | number  }} {{ project.definition.project_budget_currency | uppercase }} Recieved of <span style="font-weight: 400">${{ project.definition.project_budget | number  }} {{ project.definition.project_budget_currency | uppercase }}</span> Budget Total
 												</h5>
 								    </tr>
 								  </tbody>
