@@ -162,25 +162,14 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           // copy selection
           var beneficiary = angular.copy( $scope.project.options.selection.beneficiaries[ $index ] );
 
-          // b
+          // beneficiaries
           var b = {
-            // beneficiaries
             beneficiary_name: beneficiary.beneficiary_name,
-            beneficiary_type: beneficiary.beneficiary_type,
-            // location
-            admin1pcode: $scope.project.report.locations[$index].admin1pcode,
-            admin1name: $scope.project.report.locations[$index].admin1name,
-            admin2pcode: $scope.project.report.locations[$index].admin2pcode,
-            admin2name: $scope.project.report.locations[$index].admin2name,
-            conflict: $scope.project.report.locations[$index].conflict,
-            fac_type: $scope.project.report.locations[$index].fac_type,
-            fac_type_name: $scope.project.report.locations[$index].fac_type_name,
-            fac_name: $scope.project.report.locations[$index].fac_name,
-            admin1lng: $scope.project.report.locations[$index].admin1lng,
-            admin1lat: $scope.project.report.locations[$index].admin1lat,
-            admin2lng: $scope.project.report.locations[$index].admin2lng,
-            admin2lat: $scope.project.report.locations[$index].admin2lat
+            beneficiary_type: beneficiary.beneficiary_type
           }
+
+          // beneficiaries + location
+          b = angular.merge( {}, b, $scope.project.report.locations[$index] );
 
           // beneficiaries + location + indicators
           b = angular.merge( {}, b, $scope.project.indicators );

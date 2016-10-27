@@ -345,26 +345,27 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         addLocation: function(){
 
           // copy selection
-          var location = angular.copy( $scope.project.options.selection );
+          var selection = angular.copy( $scope.project.options.selection );
 
           // target location definition
-          var l = {
-            admin1pcode: location.admin1.admin1pcode,
-            admin1name: location.admin1.admin1name,
-            admin2pcode: location.admin2.admin2pcode,
-            admin2name: location.admin2.admin2name,
-            conflict: location.admin2.conflict,
-            fac_type: location.hf_type.fac_type,
-            fac_type_name: location.hf_type.fac_name,
-            fac_name: location.hf_name,
-            admin1lng: location.admin1.admin1lng,
-            admin1lat: location.admin1.admin1lat,         
-            admin2lng: location.admin2.admin2lng,
-            admin2lat: location.admin2.admin2lat
+          var fac = {
+            fac_type: selection.hf_type.fac_type,
+            fac_type_name: selection.hf_type.fac_name,
+            fac_name: selection.hf_name
           };
+
+          // admin1 + admin2 selection 
+          var l = angular.merge( {}, selection.admin1, selection.admin2 );
+
+          // admin1 + admin2 + facility
+          l = angular.merge( {}, l, fac );
+
+          // location
+          var location = angular.merge( {}, config.project, l );
+          delete location.id;
   
           // extend targets with project, ngmData details & push
-          $scope.project.definition.target_locations.unshift( angular.merge( {}, config.project, l ) );
+          $scope.project.definition.target_locations.unshift( location );
 
           // refresh dropdown options
           $scope.project.resetLocationSelect( true, true, true, true );
