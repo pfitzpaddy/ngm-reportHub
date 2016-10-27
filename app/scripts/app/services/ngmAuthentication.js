@@ -152,14 +152,15 @@ angular.module('ngmReportHub')
 
 				// compare last login with now
 				var log_in = moment( user.updatedAt ),
-						now = moment( new Date() ),
+						now = moment(),
 						duration = moment.duration( now.diff( log_in ) );
 
 				// new session
 				var minutes = newSession ? 0 : duration.asMinutes();
 				
 				// 24 hours * 60 minutes ( 1440 )
-				if ( minutes > ( 24 * 60 ) ){
+				// if ( minutes > ( 24 * 60 ) ){
+				if ( log_in.day() !== now.day() ) {
 					
 					// unset localStorage
 					ngmUser.unset();
