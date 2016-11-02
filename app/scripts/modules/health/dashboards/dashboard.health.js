@@ -952,32 +952,32 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m12 l4',
-								widgets: [{
-									type: 'stats',
-									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
-									config: {
-										title: 'Total Health Cluster Partners',
-										request: {
-											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/indicator',
-											data: {
-												indicator: 'partners',
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												organization_id: $scope.dashboard.organization_id,
-												admin1pcode: $scope.dashboard.admin1pcode,
-												admin2pcode: $scope.dashboard.admin2pcode,
-												project_type: $scope.dashboard.project_type,
-												beneficiary_type: $scope.dashboard.beneficiary_type
-											}
-										}
-									}
-								}]
-							},{
+							// 	styleClass: 's12 m12 l4',
+							// 	widgets: [{
+							// 		type: 'stats',
+							// 		style: 'text-align: center;',
+							// 		card: 'card-panel stats-card white grey-text text-darken-2',
+							// 		config: {
+							// 			title: 'Total Health Cluster Partners',
+							// 			request: {
+							// 				method: 'POST',
+							// 				url: 'http://' + $location.host() + '/api/health/indicator',
+							// 				data: {
+							// 					indicator: 'partners',
+							// 					start_date: $scope.dashboard.startDate,
+							// 					end_date: $scope.dashboard.endDate,
+							// 					adminRpcode: $scope.dashboard.adminRpcode,
+							// 					admin0pcode: $scope.dashboard.admin0pcode,
+							// 					organization_id: $scope.dashboard.organization_id,
+							// 					admin1pcode: $scope.dashboard.admin1pcode,
+							// 					admin2pcode: $scope.dashboard.admin2pcode,
+							// 					project_type: $scope.dashboard.project_type,
+							// 					beneficiary_type: $scope.dashboard.beneficiary_type
+							// 				}
+							// 			}
+							// 		}
+							// 	}]
+							// },{
 								styleClass: 's12 m12 l4',
 								widgets: [{
 									type: 'stats',
@@ -1025,6 +1025,33 @@ angular.module('ngmReportHub')
 												admin1pcode: $scope.dashboard.admin1pcode,
 												admin2pcode: $scope.dashboard.admin2pcode,
 												project_status: 'active',
+												project_type: $scope.dashboard.project_type,
+												beneficiary_type: $scope.dashboard.beneficiary_type
+											}
+										}
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: 'Scheduled to Complete for ( ' + $scope.dashboard.projectTitle + ' )',
+										request: {
+											method: 'POST',
+											url: 'http://' + $location.host() + '/api/health/indicator',
+											data: {
+												indicator: 'projects',
+												start_date: $scope.dashboard.startDate,
+												end_date: $scope.dashboard.endDate,
+												adminRpcode: $scope.dashboard.adminRpcode,
+												admin0pcode: $scope.dashboard.admin0pcode,
+												organization_id: $scope.dashboard.organization_id,
+												admin1pcode: $scope.dashboard.admin1pcode,
+												admin2pcode: $scope.dashboard.admin2pcode,
+												project_status: 'complete',
 												project_type: $scope.dashboard.project_type,
 												beneficiary_type: $scope.dashboard.beneficiary_type
 											}

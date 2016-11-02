@@ -64,5 +64,14 @@ angular.module('ngmReportHub')
 
 		// assign to ngm app scope
 		$scope.dashboard.ngm.dashboard = $scope.model;
+
+		// on page load
+    angular.element(document).ready(function () {
+
+			setTimeout(function(){ 
+				$('.carousel.carousel-slider').carousel({full_width: true});
+			}, 2000);
+
+		});
 		
 	}]);
