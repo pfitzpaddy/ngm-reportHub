@@ -1,0 +1,58 @@
+
+<style>
+
+.count, .label {
+  z-index: 1 !important;
+}
+
+.ng-table th.sortable .sort-indicator {
+  color: #2196F3;
+  font-weight: 400;
+}
+
+.pagination li.active {
+    background-color: #009688;
+}
+
+</style>
+
+
+<!-- ngTable -->
+<div class="row" ng-if="data.length">
+  <div class="col s12 m12 l12">
+    <div class="card">
+      <ul class="collection with-header">
+        <li class="{{ table.headerClass }}"><h5 class="report-work-title {{ table.headerText }}"><i class="material-icons left">{{ table.headerIcon }}</i>{{ table.headerTitle }}</h5></li>
+        <li class="collection-item avatar" style="padding:10px;">
+
+          <!-- if data -->
+          <div ng-if="data.length">
+            <table class="centered highlight responsive-table" ng-table="table.tableParams">
+              <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
+                <td data-title="'Week'" sortable="'reporting_week'">
+                    W{{ row.reporting_week }}
+                </td>
+                <td data-title="'Focal Point'" sortable="'focal_point_name'">
+                  {{ row.focal_point_name }}
+                </td>
+                <td data-title="'Email'" sortable="'focal_point_email'">
+                  {{ row.focal_point_email }}
+                </td>
+                <td data-title="'Region'" sortable="'reporting_region_name'">
+                    {{ row.reporting_region_name }}
+                </td>
+                <td data-title="'Province'" sortable="'reporting_province_name'">
+                    {{ row.reporting_province_name }}
+                </td>
+                <td data-title="'Submitted'" sortable="'_submission_time'">
+                    {{ row._submission_time }}
+                </td>
+              </tr>
+            </table>
+          </div>
+
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

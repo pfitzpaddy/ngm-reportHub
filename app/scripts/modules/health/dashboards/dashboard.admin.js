@@ -438,7 +438,7 @@ angular.module('ngmReportHub')
 										headerText: 'white-text',
 										headerIcon: 'assignment_late',
 										headerTitle: 'Reports Due',
-										templateUrl: '/scripts/widgets/ngm-table/templates/admin.project.list.html',
+										templateUrl: '/scripts/widgets/ngm-table/templates/health/admin.project.list.html',
 										tableOptions:{
 											count: 10
 										},
@@ -471,7 +471,7 @@ angular.module('ngmReportHub')
 										headerText: 'white-text',
 										headerIcon: 'assignment_turned_in',
 										headerTitle: 'Reports Completed',
-										templateUrl: '/scripts/widgets/ngm-table/templates/admin.project.list.html',
+										templateUrl: '/scripts/widgets/ngm-table/templates/health/admin.project.list.html',
 										tableOptions:{
 											count: 10
 										},

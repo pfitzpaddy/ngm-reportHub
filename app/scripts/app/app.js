@@ -29,9 +29,10 @@ angular
 		'ngm.widget.project.report',
 		'ngm.widget.workshop',
 		// modules
-		'ngmHealth',
 		'ngmDews',
 		'ngmDrr',
+    'ngmHealth',
+    'ngmEpr',
 		'ngmWatchkeeper',
 		// utils
 		'angularUtils.directives.dirPagination',
@@ -206,7 +207,18 @@ angular
 							defaultPrimaryColor: '#2196F3',
 							lightPrimaryColor: '#BBDEFB'
 						}
-						break;						
+						break;
+          case 'epr':
+            // set style obj
+            $scope.ngm.style = {
+              style: 'margin-right:-3px;',
+              logo: 'logo-health_cluster.png',
+              home: '#/health',
+              darkPrimaryColor: '#1976D2',
+              defaultPrimaryColor: '#2196F3',
+              lightPrimaryColor: '#BBDEFB'
+            }
+            break;
 					default:
 						// default
 						$scope.ngm.style = {

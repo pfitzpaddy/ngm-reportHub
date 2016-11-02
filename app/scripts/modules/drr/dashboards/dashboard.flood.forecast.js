@@ -496,7 +496,7 @@ angular.module('ngmReportHub')
 										style: 'padding-top: 10px; padding-bottom:10px;',
 										name: 'FLOOD RISK BY CATEGORIES'
 									},
-									templateUrl: '/scripts/widgets/ngm-table/templates/drr.flood.forecast.html',
+									templateUrl: '/scripts/widgets/ngm-table/templates/drr/drr.flood.forecast.html',
 									data: [{}],
 									flash:[
 										{ value: 0 + data.flashflood_forecast_extreme_risk_high_pop + data.flashflood_forecast_veryhigh_risk_high_pop + data.flashflood_forecast_high_risk_high_pop + data.flashflood_forecast_med_risk_high_pop + data.flashflood_forecast_low_risk_high_pop, color: '#ff8a65', name: 'High' },
@@ -619,7 +619,7 @@ angular.module('ngmReportHub')
 											url: $scope.dashboard.tableUrl	
 										}
 									},
-									templateUrl: '/scripts/widgets/ngm-table/templates/drr.flood.forecast.list.html'
+									templateUrl: '/scripts/widgets/ngm-table/templates/drr/drr.flood.forecast.list.html'
 								}
 							}]
 						}]
