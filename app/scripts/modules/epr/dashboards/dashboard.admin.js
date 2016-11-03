@@ -120,13 +120,14 @@ angular.module('ngmReportHub')
 				},
 
 				// get http request
-				getRequest: function( indicator ){
+				getRequest: function( indicator, list ){
 					// 
 					return {
 						method: 'POST',
-						url: 'http://' + $location.host() + '/api/epr/admin/indicator',
+						url: 'http://' + $location.host() + '/api/epr/indicator',
 						data: {
 							indicator: indicator,
+							list: list,
 							year: $scope.dashboard.year,
 							region: $scope.dashboard.region,
 							province: $scope.dashboard.province,
@@ -360,7 +361,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Total Reports Due',
-										request: $scope.dashboard.getRequest('total')
+										request: $scope.dashboard.getRequest( 'total', false )
 									}
 								}]
 							},{
@@ -371,7 +372,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Submitted Reports',
-										request: $scope.dashboard.getRequest('submitted_reports')
+										request: $scope.dashboard.getRequest( 'submitted_reports', false )
 									}
 								}]
 							},{
@@ -382,7 +383,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Outstanding Reports',
-										request: $scope.dashboard.getRequest('outstanding_reports')
+										request: $scope.dashboard.getRequest( 'outstanding_reports', false )
 									}
 								}]
 							},{
@@ -393,7 +394,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Duplicate Reports',
-										request: $scope.dashboard.getRequest('duplicate_reports')
+										request: $scope.dashboard.getRequest( 'duplicate_reports', false )
 									}
 								}]
 							}]
@@ -414,18 +415,7 @@ angular.module('ngmReportHub')
 										tableOptions:{
 											count: 10
 										},
-										request: {
-											method: 'POST',
-											url: 'http://' + $location.host() + '/api/epr/admin/indicator',
-											data: {
-												list: true,
-												indicator: 'duplicate_reports',
-												year: $scope.dashboard.year,
-												region: $scope.dashboard.region,
-												province: $scope.dashboard.province,
-												week: $scope.dashboard.week
-											}
-										}
+										request: $scope.dashboard.getRequest( 'duplicate_reports', true )
 									}
 								}]
 							}]
@@ -446,7 +436,7 @@ angular.module('ngmReportHub')
 										tableOptions:{
 											count: 10
 										},
-										request: $scope.dashboard.getRequest('reports_submitted')
+										request: $scope.dashboard.getRequest( 'reports_submitted', true )
 									}
 								}]
 							}]

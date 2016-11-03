@@ -120,17 +120,36 @@ angular.module('ngmReportHub')
 				},
 
 				// get http request
-				getRequest: function( indicator ){
+				getRequest: function( indicator, list ){
 					// 
 					return {
 						method: 'POST',
-						url: 'http://' + $location.host() + '/api/epr/admin/indicator',
+						url: 'http://' + $location.host() + '/api/epr/indicator',
 						data: {
 							indicator: indicator,
+							list: list,
 							year: $scope.dashboard.year,
 							region: $scope.dashboard.region,
 							province: $scope.dashboard.province,
 							week: $scope.dashboard.week
+						}
+					}
+				},
+
+				// get http request
+				getMetrics: function( theme, format ){
+					// 
+					return {
+						method: 'POST',
+						url: 'http://' + $location.host() + '/api/metrics/set',
+						data: {
+							organization: $scope.dashboard.user.organization,
+							username: $scope.dashboard.user.username,
+							email: $scope.dashboard.user.email,
+							dashboard: 'epr_admin',
+							theme: theme,
+							format: format,
+							url: $location.$$path
 						}
 					}
 				},
@@ -161,13 +180,13 @@ angular.module('ngmReportHub')
 							'param': 'year',
 							'active': '2017',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/epr/admin/2017/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/' + $scope.dashboard.week
+							'href': '#/epr/2017/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/' + $scope.dashboard.week
 						},{
 							'title': '2016',
 							'param': 'year',
 							'active': '2016',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/epr/admin/2016/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/' + $scope.dashboard.week
+							'href': '#/epr/2016/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/' + $scope.dashboard.week
 						}]
 					},{
 						'id': 'epr-admin-region',
@@ -194,7 +213,7 @@ angular.module('ngmReportHub')
 							'param': 'province',
 							'active': d,
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/epr/admin/' + $scope.dashboard.year + '/' + $scope.dashboard.region + '/' + d + '/' + $scope.dashboard.week
+							'href': '#/epr/' + $scope.dashboard.year + '/' + $scope.dashboard.region + '/' + d + '/' + $scope.dashboard.week
 						});
 					});
 
@@ -218,7 +237,7 @@ angular.module('ngmReportHub')
 						'param': 'week',
 						'active': 'all',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '#/epr/admin/' + $scope.dashboard.year + '/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/all'
+						'href': '#/epr/' + $scope.dashboard.year + '/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/all'
 					}];
 
 					// for each week
@@ -228,7 +247,7 @@ angular.module('ngmReportHub')
 							'param': 'week',
 							'active': i,
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/epr/admin/' + $scope.dashboard.year + '/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/' + i
+							'href': '#/epr/' + $scope.dashboard.year + '/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/' + i
 						});
 					}
 
@@ -251,6 +270,8 @@ angular.module('ngmReportHub')
 					$scope.dashboard.region = $route.current.params.region;
 					$scope.dashboard.province = $route.current.params.province;
 					$scope.dashboard.week = $route.current.params.week;
+					// report name
+					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
 
 					// add menu
 					$scope.dashboard.menu = $scope.dashboard.getMenu();
@@ -308,7 +329,7 @@ angular.module('ngmReportHub')
 									type: 'pdf',
 									color: 'blue',
 									icon: 'picture_as_pdf',
-									hover: 'Download Admin as PDF',
+									hover: 'Download EPR as PDF',
 									request: {
 										method: 'POST',
 										url: 'http://' + $location.host() + '/api/print',
@@ -320,20 +341,51 @@ angular.module('ngmReportHub')
 											pageLoadTime: 6200,
 											viewportWidth: 1400
 										}
-									},						
-									metrics: {
+									},
+									metrics: $scope.dashboard.getMetrics( 'epr_print', 'pdf' )
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'assignment',
+									hover: 'Download EPR Data as CSV',
+									request: angular.merge({}, $scope.dashboard.getRequest( 'data', false ), { data: { report: $scope.dashboard.report } } ),
+									metrics: $scope.dashboard.getMetrics( 'epr_data', 'csv' )
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'assignment_late',
+									hover: 'Download Alerts as CSV',
+									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/metrics/set',
+										url: 'http://' + $location.host() + '/api/epr/alerts/data',
 										data: {
-											organization: $scope.dashboard.user.organization,
-											username: $scope.dashboard.user.username,
-											email: $scope.dashboard.user.email,
-											dashboard: 'epr_admin',
-											theme: 'epr_admin',
-											format: 'pdf',
-											url: $location.$$path
+											indicator: 'data',
+											report: $scope.dashboard.report,
+											year: $scope.dashboard.year,
+											region: $scope.dashboard.region,
+											province: $scope.dashboard.province,
+											week: $scope.dashboard.week
 										}
-									}
+									},
+									metrics: $scope.dashboard.getMetrics( 'epr_alerts', 'csv' )
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'invert_colors',
+									hover: 'Download Disasters as CSV',
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/epr/disasters/data',
+										data: {
+											indicator: 'data',
+											report: $scope.dashboard.report,
+											year: $scope.dashboard.year,
+											region: $scope.dashboard.region,
+											province: $scope.dashboard.province,
+											week: $scope.dashboard.week
+										}
+									},
+									metrics: $scope.dashboard.getMetrics( 'epr_disasters', 'csv' )
 								}]
 							}							
 						},
@@ -353,47 +405,14 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m12 l3',
+								styleClass: 's12 m12 l12',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Total Reports Due',
-										request: $scope.dashboard.getRequest('total')
-									}
-								}]
-							},{
-								styleClass: 's12 m12 l3',
-								widgets: [{
-									type: 'stats',
-									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
-									config: {
-										title: 'Submitted Reports',
-										request: $scope.dashboard.getRequest('submitted_reports')
-									}
-								}]
-							},{
-								styleClass: 's12 m12 l3',
-								widgets: [{
-									type: 'stats',
-									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
-									config: {
-										title: 'Outstanding Reports',
-										request: $scope.dashboard.getRequest('outstanding_reports')
-									}
-								}]
-							},{
-								styleClass: 's12 m12 l3',
-								widgets: [{
-									type: 'stats',
-									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
-									config: {
-										title: 'Duplicate Reports',
-										request: $scope.dashboard.getRequest('duplicate_reports')
+										title: 'Sentinel Sites',
+										request: $scope.dashboard.getRequest( 'total', false )
 									}
 								}]
 							}]
@@ -401,52 +420,49 @@ angular.module('ngmReportHub')
 							columns: [{
 								styleClass: 's12 m12 l12',
 								widgets: [{
-									type: 'table',
-									card: 'panel',
-									style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
 									config: {
-										style: $scope.dashboard.ngm.style,
-										headerClass: 'collection-header red lighten-2',
-										headerText: 'white-text',
-										headerIcon: 'assignment_late',
-										headerTitle: 'Duplicate Reports',
-										templateUrl: '/scripts/widgets/ngm-table/templates/epr/epr.list.html',
-										tableOptions:{
-											count: 10
-										},
-										request: {
-											method: 'POST',
-											url: 'http://' + $location.host() + '/api/epr/admin/indicator',
-											data: {
-												list: true,
-												indicator: 'duplicate_reports',
-												year: $scope.dashboard.year,
-												region: $scope.dashboard.region,
-												province: $scope.dashboard.province,
-												week: $scope.dashboard.week
-											}
-										}
+										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">ALERTS</h2>'
 									}
 								}]
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m12 l12 remove',
+								styleClass: 's12 m12 l12',
 								widgets: [{
-									type: 'table',
-									card: 'panel',
-									style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										style: $scope.dashboard.ngm.style,
-										headerClass: 'collection-header teal lighten-2',
-										headerText: 'white-text',
-										headerIcon: 'assignment_turned_in',
-										headerTitle: 'Reports Submitted',
-										templateUrl: '/scripts/widgets/ngm-table/templates/epr/epr.list.html',
-										tableOptions:{
-											count: 10
-										},
-										request: $scope.dashboard.getRequest('reports_submitted')
+										title: 'Alerts',
+										request: $scope.dashboard.getRequest( 'submitted_reports', false )
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">DISASTERS</h2>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: 'Disasters',
+										request: $scope.dashboard.getRequest( 'submitted_reports', false )
 									}
 								}]
 							}]

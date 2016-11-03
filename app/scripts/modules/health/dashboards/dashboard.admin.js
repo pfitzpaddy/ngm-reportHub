@@ -217,26 +217,17 @@ angular.module('ngmReportHub')
 							datePicker: {
 								'class': 'col s12 m4 l3',
 								dates: [{
-									'class': 'ngm-date',
 									style: 'float:left;',
 									label: 'from',
 									format: 'd mmm, yyyy',
-									time: $scope.dashboard.startDate,
-									onSelection: function(){
-
+									max: $scope.dashboard.endDate,
+									currentTime: $scope.dashboard.startDate,
+									onClose: function(){
 										// set date
-										var date = moment( new Date( this.time ) ).format( 'YYYY-MM-DD' );
-
-										// if not valid
-										if ( date > $scope.dashboard.endDate ) {
-											Materialize.toast('Please check the dates and try again!', 4000);
-
-										// if updated
-										} else if ( $scope.dashboard.startDate !== date ) {
-
-											// start date
+										var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
+										if ( date !== $scope.dashboard.startDate ) {
+											// set new date
 											$scope.dashboard.startDate = date;
-
 											// URL
 											var path = '/health/admin/' + $route.current.params.adminR + 
 																					 '/' + $route.current.params.admin0 +
@@ -248,29 +239,19 @@ angular.module('ngmReportHub')
 											$location.path( path );
 
 										}
-
 									}
 								},{
-									'class': 'ngm-date',
 									style: 'float:right',
 									label: 'to',
 									format: 'd mmm, yyyy',
-									time: $scope.dashboard.endDate,
-									onSelection: function(){
-										
+									min: $scope.dashboard.startDate,
+									currentTime: $scope.dashboard.endDate,
+									onClose: function(){
 										// set date
-										var date = moment( new Date( this.time ) ).format( 'YYYY-MM-DD' );
-
-										// if not valid
-										if ( $scope.dashboard.startDate > date ) {
-											Materialize.toast('Please check the dates and try again!', 4000);
-
-										// if updated
-										} else if ( $scope.dashboard.endDate !== date ) {
-
-											// start date
-											$scope.dashboard.endDate = date;
-
+										var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
+										if ( date !== $scope.dashboard.startDate ) {
+											// set new date
+											$scope.dashboard.startDate = date;
 											// URL
 											var path = '/health/admin/' + $route.current.params.adminR + 
 																					 '/' + $route.current.params.admin0 +
@@ -280,9 +261,8 @@ angular.module('ngmReportHub')
 
 											// update new date
 											$location.path( path );
-											
-										}								
 
+										}
 									}
 								}]
 							},

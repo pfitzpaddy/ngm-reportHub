@@ -242,40 +242,34 @@ angular.module('ngmReportHub')
 				datePicker: {
 					'class': 'col s12 m4 l3',
 					dates: [{
-						'class': 'ngm-date',
 						style: 'float:left;',
 						label: 'from',
 						format: 'd mmm, yyyy',
-						time: $scope.dashboard.startDate,
-						onSelection: function(){
-
+						max: $scope.dashboard.endDate,
+						currentTime: $scope.dashboard.startDate,
+						onClose: function(){
 							// set date
-							$scope.dashboard.startDate = moment(new Date(this.time)).format('YYYY-MM-DD');
-
-							// check dates
-							if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
-								Materialize.toast('Please check the dates and try again!', 4000);
-							} else {
+							var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
+							if ( date !== $scope.dashboard.startDate ) {
+								// set new date
+								$scope.dashboard.startDate = date;
 								// update new date
 								$location.path('/who/dews/' + $route.current.params.location + '/' + $route.current.params.disease + '/' + $scope.dashboard.startDate + '/' + $scope.dashboard.endDate);
 							}
 
 						}
 					},{
-						'class': 'ngm-date',
 						style: 'float:right',
 						label: 'to',
 						format: 'd mmm, yyyy',
-						time: $scope.dashboard.endDate,
-						onSelection: function(){
-							
+						min: $scope.dashboard.startDate,
+						currentTime: $scope.dashboard.endDate,
+						onClose: function(){
 							// set date
-							$scope.dashboard.endDate = moment(new Date(this.time)).format('YYYY-MM-DD');
-
-							// check dates
-							if ($scope.dashboard.startDate > $scope.dashboard.endDate) {
-								Materialize.toast('Please check the dates and try again!', 4000);
-							} else {
+							var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
+							if ( date !== $scope.dashboard.endDate ) {
+								// set new date
+								$scope.dashboard.endDate = date;
 								// update new date
 								$location.path('/who/dews/' + $route.current.params.location + '/' + $route.current.params.disease + '/' + $scope.dashboard.startDate + '/' + $scope.dashboard.endDate);
 							}
