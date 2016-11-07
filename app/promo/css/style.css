@@ -1,0 +1,131 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+nav ul a,
+nav .brand-logo {
+  color: #fff;
+  font-weight: 100;
+}
+
+p {
+  line-height: 2rem;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 100 !important;
+}
+
+h2 {
+  font-size: 24px; 
+}
+
+.promo {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2196f3+8,1976d2+99 */
+  height: 400px;
+  background: #2196f3; /* Old browsers */
+  background: -moz-linear-gradient(-45deg,  #2196f3 8%, #1976d2 99%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg,  #2196f3 8%,#1976d2 99%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg,  #2196f3 8%,#1976d2 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2196f3', endColorstr='#1976d2',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.promo h1 {
+  margin: 0px;
+  padding-top: 80px;
+}
+
+.feature {
+  min-height: 400px;
+}
+
+.feature .row {
+  padding: 20px;
+  margin-bottom: 0px;
+}
+
+.feature .detail h1 {
+  font-size: 30px;
+}
+
+.feature .detail h2 {
+  font-size: 18px;
+}
+
+.feature .detail p {
+  font-weight: 300;
+}
+
+.feature .toolbox img {
+  position: relative;
+  top: -49px;
+  margin: -60px;
+  width: 180px;
+}
+
+.feature .count {
+  position:relative;
+  font-weight:100;
+  font-size:3rem;
+  line-height:3rem;
+} 
+
+.feature .name {
+  font-weight:300;
+  font-size:1.1rem;
+  line-height:1.1rem;
+}
+
+.feature .circle {
+  width: 150px;
+  height: 150px;
+  padding-top: 50px;
+  border-radius: 50% !important;
+  margin: 10px auto;
+}
+
+.icon-block h5 {
+  font-weight: 400 !important;
+}
+
+.button-collapse {
+  color: #26a69a;
+}
+
+.parallax-container {
+  min-height: 400px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
+}
+  .parallax-container .section {
+    width: 100%;
+  }
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+  #index-banner .section {
+    top: 10%;
+  }
+}
+
+@media only screen and (max-width : 600px) {
+  #index-banner .section {
+    top: 0;
+  }
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+
+footer.page-footer {
+  margin: 0;
+}
