@@ -115,7 +115,7 @@
 									<!-- navigation options repeat -->
 									<!-- <div ng-init="$menu = ngm.getUserMenu()"> -->
 										<li ng-repeat="option in ngm.navigationMenu" class="{{ option.liClass }}">
-											<a class="{{ option.aClass }}" href="{{ option.href }}" ng-click="ngm.toggleNavigationMenu();">
+											<a class="{{ option.aClass }}" href="/desk/#/{{ option.href }}" ng-click="ngm.toggleNavigationMenu();">
 											<i class="{{ option.iClass }}">{{ option.icon }}</i>
 											<br/>{{ option.title }}</a>
 									  </li>
