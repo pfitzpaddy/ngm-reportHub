@@ -24,6 +24,11 @@ h2 {
   font-size: 24px; 
 }
 
+.logo {
+  width: 210px;
+  cursor: pointer;
+}
+
 .promo {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2196f3+8,1976d2+99 */
   height: 400px;

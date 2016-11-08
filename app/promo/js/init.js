@@ -9,6 +9,13 @@
 		// materialize components
   	$('.parallax').parallax();
 
+  	// logo
+		$('.logo').click(function() {
+			$('html, body').animate({
+				scrollTop: $('.navbar-fixed').offset().top
+			}, 1000);
+		});
+
   	// jQuery requests for metric data
 		$.get( 'http://192.168.33.16/api/metrics/getUsers', function( data ) {
 		  users = data.value;
