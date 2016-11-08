@@ -15,9 +15,6 @@ angular
 
 		// app routes with access rights
 		$routeProvider
-			.when( '/login', {
-				redirectTo: '/health/login'
-			})
 			// health
 			.when( '/health/login', {
 				templateUrl: '/views/app/dashboard.html',

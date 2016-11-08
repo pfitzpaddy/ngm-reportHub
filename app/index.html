@@ -91,7 +91,7 @@
 							<!-- profile menu dropdown -->
 							<a class="ngm-profile white-text right"
 								ng-onclick="ngm.setNavMenu()">
-								<i class="material-icons right">add</i>{{ ngm.getUserName() }}
+								{{ ngm.getUserName() }}
 							</a>
 							<!-- profile menu dropdown list -->
 							<ul class="ngm-profile-menu-content dropdown-content z-depth-2">
@@ -209,11 +209,9 @@
 			</div>
 
 			<!-- make footer visible when menu visibile  -->
-			<div class="hide-on-small-only">
-				<div class="ngm-menu-footer">
-					<div style="background: {{ ngm.style.lightPrimaryColor }}; height:20px;"></div>
-					<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:40px;"></div>
-				</div>
+			<div class="ngm-menu-footer hide-on-med-and-down">
+				<div style="background: {{ ngm.style.lightPrimaryColor }}; height:20px;"></div>
+				<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:40px;"></div>
 			</div>
 
 		</header>

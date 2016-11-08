@@ -40,16 +40,16 @@ angular.module('ngmReportHub')
 				subtitle: {
 					'class': 'col s12 m12 l12 report-subtitle',
 					html: true,
-					title: 'Welcome to ReportHub<span class="hide-on-small-only">, please login to continue data entry tasks or navigate to the dashboard pages to view the latest key indicators</span>',
+					title: 'Welcome to ReportHub<span class="hide-on-med-and-down">, please login to continue data entry tasks or navigate to the dashboard pages to view the latest key indicators</span>',
 				}
 			},
 			rows: [{
 				columns: [{
-					styleClass: 's12 m12 l12',
+					styleClass: 's12 m12 l8 offset-l2',
 					widgets: [{
 						type: 'form.authentication',
-						card: 'card-panel',
-						style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
+						card: 'card-panel z-depth-2',
+						style: 'margin:20px;',
 						config: {
 							style: $scope.dashboard.ngm.style,
 							templateUrl: '/scripts/app/views/authentication/login.html'

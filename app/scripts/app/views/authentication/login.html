@@ -1,12 +1,189 @@
 
+<style>
+
+.carousel {
+	min-height: 460px;
+}
+
+.icon {
+	padding-top:10px;
+}
+
+.title {
+	margin:10px 0px;
+	font-weight:100;
+}
+
+form {
+	padding: 0px 15% !important;
+}
+
+.input-field .prefix {
+	padding-top: 8px;
+	color: #616161;
+}
+
+.helpers {
+	font-size:1.3rem !important;
+	margin-top:0px;
+	padding-bottom:4px;
+	cursor: pointer;
+}
+
+.action {
+	padding-top: 50px;
+}
+
+</style>
+
+
+  <div class="carousel carousel-slider">
+
+    <div class="carousel-item one" href="#one!">
+
+    	<div class="one" style="display: none;">
+				
+				<div class="icon center">
+					<i class="large material-icons" style="color: teal;">search</i>
+					<h5 class="title">RESET PASSWORD</h5>
+				</div>
+
+				<form name="ngmResetForm" class="col s12" novalidate>
+
+		      <div class="row">
+		        <div class="input-field">
+		        	<i class="material-icons prefix">email</i>
+		          <input id="ngm-reset-email" type="email" class="validate"
+								autofocus=""
+								ng-model="panel.user.reset.email"
+								required>
+		          <label for="ngm-reset-email" class="left">EMAIL</label>
+		        </div>
+		      </div>
+
+					<p class="helpers right">
+						<a id="login">BACK TO LOGIN ></a>
+					</p>
+
+					<div class="action center">
+						<button
+							class="btn btn-large waves-effect waves-teal" 
+							type="submit"
+							ng-disabled="!panel.user.reset.email || ngmResetForm.$invalid"
+							ng-click="panel.passwordResetSend( ngmResetForm )">
+									Send Me a Reminder!
+						</button>
+					</div>
+
+		    </form>
+
+	    </div>
+
+    </div>
+
+    <!-- login -->
+    <div class="carousel-item" href="#two!">
+			
+			<div class="icon center">
+				<i class="large material-icons" style="color: teal;">account_circle</i>
+				<h5 class="title">LOGIN</h5>
+			</div>
+
+			<form name="ngmLoginForm" class="col s12" novalidate>
+
+	      <div class="row">
+	        <div class="input-field">
+	        	<i class="material-icons prefix">account_circle</i>
+	          <input id="ngm-username" type="text" class="validate"
+							autofocus=""
+							ng-model="panel.user.username"
+							required>
+	          <label for="ngm-username" class="left">USERNAME</label>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field">
+	        	<i class="material-icons prefix">lock_outline</i>
+	          <input id="ngm-password" type="password" class="validate"
+							ng-model="panel.user.password"
+							required>
+	          <label for="ngm-password">PASSWORD</label>
+	        </div>
+	      </div>
+
+				<p class="helpers left">
+					<a style="color: #ffab40;" id="forgot">FORGOT PASSWORD?</a>
+				</p>
+				<p class="helpers right">
+					<a href="#/health/register">REGISTER!</a>
+				</p>
+
+				<div class="action center">
+					<button
+						class="btn btn-large waves-effect waves-teal" 
+						type="submit"
+						ng-disabled="ngmLoginForm.$invalid"
+						ng-click="panel.login(ngmLoginForm)">
+								Sign in
+					</button>
+				</div>
+
+	    </form>
+
+    </div>
+
+   </div>
+
+
 <!-- bind html -->
-<div id="ngmLoginPanel" class="row">
+<!-- <div class="row">
+
+	<div class="icon center">
+		<i class="large material-icons" style="color: teal; padding-top:10px;">account_circle</i>
+		<h5 class="header">LOGIN</h5>
+	</div>
+
+</div> -->
+
+<script>
+
+	// init
+	$( '.carousel.carousel-slider' ).carousel({ full_width: true });
+
+	// set login page
+	$( '.carousel' ).carousel('next');
+
+	// hidden to start
+	setTimeout( function(){
+		$('.one').css({display: 'block'});
+	}, 1000);
+
+	// go to login
+	$( '#login' ).click( function(){
+		// set login page
+		$( '.carousel' ).carousel( 'next' );
+	});
+
+	// forgot password
+	$( '#forgot' ).click( function(){
+		// set login page
+		$( '.carousel' ).carousel( 'prev' );
+	});
+
+</script>
+
+
+<!-- 
 	
-	<div class="col l4 m4 s12">
+	
 	 
 	 <div class="ngm-login-title">
-			
-			<h3 style="font-weight:100;padding-left:20px;">ReportHub</h3>
+    
+    <div class="icon center">
+        <i class="large material-icons" style="color: teal">account_circle</i>
+        <div class="header"> LOGIN </div>
+    </div>
 
 			<div class="card">
 		    	
@@ -62,12 +239,6 @@
 
 	</div>
 
-	<div class="col l8 m8 hide-on-small-only"> 
-		<div class="card center promo blue-grey darken-1" style="height: 456px; padding-top: 10%;">
-			<img title="Log-in to ReportHub" src="images/log-in.png" width="572px"/>
-		</div>
-	</div>
-
 </div>
 
 <div>
@@ -76,3 +247,4 @@
 		<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>
 	</div>
 </div>
+ -->

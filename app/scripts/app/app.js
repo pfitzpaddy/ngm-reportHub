@@ -59,7 +59,13 @@ angular
 		$routeProvider
 			// LOGIN
 			.when( '/login', {
-				redirectTo: '/health/login'
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardLoginCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAnonymous();
+					}],
+				}
 			})
 			// HEALTH
 			.when( '/health/login', {
@@ -222,11 +228,12 @@ angular
 					default:
 						// default
 						$scope.ngm.style = {
-							logo: 'logo-ngm.png',
-							home: '#/ngm',
-							darkPrimaryColor: '#0288D1',
-							defaultPrimaryColor: '#03A9F4',
-							lightPrimaryColor: '#B3E5FC'
+							style: 'margin-right:3px;',
+							logo: 'logo-l.png',
+							home: '#/health',
+							darkPrimaryColor: '#1976D2',
+							defaultPrimaryColor: '#2196F3',
+							lightPrimaryColor: '#BBDEFB'
 						}
 				}
 

@@ -37,9 +37,6 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         // login fn
         login: function( ngmLoginForm ){
 
-          // reset msg each attempt
-          $scope.panel.error.msg = '';
-
           // if invalid
           if(ngmLoginForm.$invalid){
             // set submitted for validation
@@ -61,10 +58,11 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               }, 2000);
 
             }).error(function(err) {
-              // update 
-              $scope.panel.error = {
-                msg: 'Email/password incorrect!'
-              }
+
+              // update
+              $timeout(function(){
+                Materialize.toast( 'Email/password incorrect!', 3000, 'error' );
+              }, 1000);
             });
           }
         },
@@ -92,10 +90,10 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               }, 2000);
 
             }).error(function(err) {
-              // update 
-              $scope.panel.error = {
-                msg: 'There has been an error!'
-              }
+              // update
+              $timeout(function(){
+                Materialize.toast( 'Email/password incorrect!', 3000, 'error' );
+              }, 1000);
             });            
           }
         },
@@ -135,10 +133,10 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                 Materialize.toast('Account not found!', 3000);
               }, 400);              
 
-              // update 
-              $scope.panel.error = {
-                msg: 'There has been a error!'
-              }
+              // update
+              $timeout(function(){
+                Materialize.toast( 'Email/password incorrect!', 3000, 'error' );
+              }, 1000);
             });
           }
 
@@ -169,10 +167,10 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
 
             }).error(function(err) {
-              // update 
-              $scope.panel.error = {
-                msg: 'There has been an error!'
-              }
+              // update
+              $timeout(function(){
+                Materialize.toast( 'Email/password incorrect!', 3000, 'error' );
+              }, 1000);
             });
           }
 
