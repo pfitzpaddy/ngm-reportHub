@@ -21,13 +21,12 @@ angular
 		'countTo',
 		'highcharts-ng',
 		'leaflet-directive',
-		'ngm',
 		// ngm
+		'ngm',
 		'ngm.widget.form.authentication',
 		'ngm.widget.project.details',
 		'ngm.widget.project.reports.list',
 		'ngm.widget.project.report',
-		'ngm.widget.workshop',
 		// modules
 		'ngmDews',
 		'ngmDrr',

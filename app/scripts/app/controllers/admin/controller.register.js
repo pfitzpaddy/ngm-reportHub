@@ -45,11 +45,11 @@ angular.module('ngmReportHub')
 			},
 			rows: [{
 				columns: [{
-					styleClass: 's12 m12 l12',
+					styleClass: 's12 m12 l8 offset-l2',
 					widgets: [{
 						type: 'form.authentication',
-						card: 'card-panel',
-						style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
+						card: 'card-panel z-depth-2',
+						style: 'padding:0px;',
 						config: {
 							style: $scope.dashboard.ngm.style,
 							templateUrl: '/scripts/app/views/authentication/register.html'
@@ -64,14 +64,5 @@ angular.module('ngmReportHub')
 
 		// assign to ngm app scope
 		$scope.dashboard.ngm.dashboard = $scope.model;
-
-		// on page load
-    angular.element(document).ready(function () {
-
-			setTimeout(function(){ 
-				$('.carousel.carousel-slider').carousel({full_width: true});
-			}, 2000);
-
-		});
 		
 	}]);

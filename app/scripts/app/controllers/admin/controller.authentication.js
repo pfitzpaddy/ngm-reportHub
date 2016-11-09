@@ -13,7 +13,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         title: 'ReportHub Authentication Form',
         description: 'ReportHub Authentication Form',
         controller: 'AuthenticationFormCtrl',
-        templateUrl: '/scripts/app/views/authentication/view.html'
+        templateUrl: '/scripts/app/views/view.html'
       });
   })
   .controller('AuthenticationFormCtrl', [
@@ -29,10 +29,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
       // project
       $scope.panel = {
 
-        // error
-        error:{
-          msg: ''
-        },
+        err: false,
 
         // login fn
         login: function( ngmLoginForm ){
@@ -61,8 +58,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
               // update
               $timeout(function(){
-                Materialize.toast( 'Email/password incorrect!', 3000, 'error' );
-              }, 1000);
+                Materialize.toast( err.msg, 3000, 'error' );
+              }, 400);
             });
           }
         },
@@ -71,10 +68,11 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         register: function( ngmRegisterForm ){
 
           // if $invalid
-          if(ngmRegisterForm.$invalid){
-            // set submitted for validation
-            ngmRegisterForm.$setSubmitted();
-          } else {
+          // if(ngmRegisterForm.$invalid){
+          //   // set submitted for validation
+          //   ngmRegisterForm.$setSubmitted();
+          // } else {
+
             // register
             ngmAuth.register({ user: $scope.panel.user }).success(function( result ) {
               
@@ -89,13 +87,14 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                 Materialize.toast( 'Welcome ' + result.username + ', time to create a Project!', 3000, 'success' );
               }, 2000);
 
-            }).error(function(err) {
+            }).error(function( err ) {
               // update
               $timeout(function(){
-                Materialize.toast( 'Email/password incorrect!', 3000, 'error' );
+                Materialize.toast( err.msg, 3000, 'error' );
               }, 1000);
-            });            
-          }
+            });
+
+          // }
         },
 
         // register fn
@@ -109,35 +108,33 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
             // user toast msg
             $timeout(function(){
-              Materialize.toast('Your email is being prepared!', 3000, 'note');
-            }, 1000);            
+              Materialize.toast('Your Email Is Being Prepared!', 3000, 'note');
+            }, 400);            
 
             // resend password email
-            ngmAuth.passwordResetSend({ user: $scope.panel.user, url: 'http://' + $location.host() + '/#/health/find/' }).success(function(result) {
+            ngmAuth.passwordResetSend({ 
+                user: $scope.panel.user, 
+                url: 'http://' + $location.host() + '/desk/#/health/find/' 
+              }).success(function(result) {
               
-              // go to default org page
-              $scope.panel.reset = true;
+                // go to password reset page
+                $( '.carousel' ).carousel( 'prev' );
 
-              // user toast msg
-              $timeout(function(){
-                Materialize.toast('Email sent!', 3000, 'success');
-              }, 400);
+                // user toast msg
+                $timeout(function(){
+                  Materialize.toast('Email Sent! Please Check Your Inbox', 3000, 'success');
+                }, 400);
 
-            }).error(function(err) {
+              }).error(function( err ) {
 
-              // go to default org page
-              $scope.panel.reset = true;
+                // set err
+                $scope.panel.err = err;
 
-              // user toast msg
-              $timeout(function(){
-                Materialize.toast('Account not found!', 3000);
-              }, 400);              
-
-              // update
-              $timeout(function(){
-                Materialize.toast( 'Email/password incorrect!', 3000, 'error' );
-              }, 1000);
-            });
+                // update
+                $timeout(function(){
+                  Materialize.toast( err.msg, 3000, 'error' );
+                }, 400);
+              });
           }
 
         },
@@ -169,7 +166,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             }).error(function(err) {
               // update
               $timeout(function(){
-                Materialize.toast( 'Email/password incorrect!', 3000, 'error' );
+                Materialize.toast( err.msg, 3000, 'error' );
               }, 1000);
             });
           }
@@ -187,11 +184,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         // give a few seconds to render
         $timeout(function() {
 
-          // activate selects
-          $( 'select' ).material_select();
-
           // on change
-          $( 'select' ).on( 'change', function() {
+          $( '#ngm-country' ).on( 'change', function() {
 
             var adminRegion = {
               'AF': { adminRpcode: 'EMRO', adminRname: 'EMRO' },
@@ -205,13 +199,13 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             $( '.location_on' ).css({ 'color': '#26a69a' });
             
             // add country display name
-            $scope.panel.user.adminRpcode = adminRegion[$scope.panel.user.admin0pcode].adminRpcode;
-            $scope.panel.user.adminRname = adminRegion[$scope.panel.user.admin0pcode].adminRname;            
+            $scope.panel.user.adminRpcode = adminRegion[ $scope.panel.user.admin0pcode ].adminRpcode;
+            $scope.panel.user.adminRname = adminRegion[ $scope.panel.user.admin0pcode ].adminRname;            
             $scope.panel.user.admin0name = $( this ).find( 'option:selected' ).text();
 
           });
 
-        }, 1000 );
+        }, 400 );
 
       });      
 

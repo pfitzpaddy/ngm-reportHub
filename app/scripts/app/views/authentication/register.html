@@ -1,145 +1,309 @@
 
-<!-- bind html -->
-<div id="ngmRegisterPanel" class="row">
+<style>
 
-	<div class="col l4 m4 s12">
-	 
-	 <div class="ngm-login-title">
-			
-			<h3 style="font-weight:100;">Report Hub</h3>
+.dropdown-content {
+	max-height: 300px;
+}
 
-			<div class="card">
-		    	
-	    	<form name="ngmRegisterForm" class="col s12" style="padding:20px;" novalidate>
+.carousel {
+	min-height: 640px;
+}
 
-		      <div class="row">
-		        <div class="input-field col s12">
-		        	<i class="material-icons prefix">account_circle</i>
-		          <input id="ngm-username" type="text" class="validate"
-								autofocus=""
-								ng-model="panel.user.username"
-								required>
-		          <label for="ngm-username">Username</label>
-		        </div>
-		      </div>
-		      
-		      <div class="row">
-		        <div class="input-field col s12">
-		        	<i class="material-icons prefix">lock_outline</i>
-		          <input id="ngm-password" type="password" class="validate"
-								ng-model="panel.user.password"
-								required>
-		          <label for="ngm-password">Password</label>
-		        </div>
-		      </div>
+.carousel .indicators .indicator-item {
+	background-color: rgba( 187, 222, 251, 0.5 );
+}
 
-		      <div class="row">
-		        <div class="input-field col s12">
-		        	<i class="material-icons prefix location_on">location_on</i>
-						    <select class="validate"
-						    	id="ngm-country"
-						    	ng-model="panel.user.admin0pcode"
-						    	required>
-						      <option value="" disabled selected>Select Country</option>
-						      <option value="AF">Afghanistan</option>
-						      <option value="ET">Ethiopia</option>
-						      <option value="IQ">Iraq</option>
-						      <option value="KE">Kenya</option>
-						      <option value="SO">Somalia</option>
-						    </select>
-		        </div>
-		      </div>		      
+.carousel .indicators .indicator-item.active {
+	background-color: #2196F3;
+}
 
-		      <div class="row">
-		        <div class="input-field col s12">
-		        	<i class="material-icons prefix">supervisor_account</i>
-		          <input id="ngm-organization" type="text" class="validate"
-								ng-model="panel.user.organization"
-								required>
-		          <label for="ngm-organization">Organization</label>
-		        </div>
-		      </div> 
+.icon {
+	padding-top:10px;
+}
 
-		      <div class="row">
-		        <div class="input-field col s12">
-		        	<i class="material-icons prefix">accessibility</i>
-		          <input id="ngm-fullname" type="text" class="validate"
-								ng-model="panel.user.name"
-								required>
-		          <label for="ngm-fullname">Full Name</label>
-		        </div>
-		      </div>
+.icon .card {
+  width: 150px;
+  height: 150px;
+  padding: 30px 0px 0px;
+  border-radius: 50% !important;
+  margin: 10px auto;	
+}
 
-		      <div class="row">
-		        <div class="input-field col s12">
-		        	<i class="material-icons prefix">personal_video</i>
-		          <input id="ngm-position" type="text" class="validate"
-								ng-model="panel.user.position"
-								required>
-		          <label for="ngm-position">Position</label>
-		        </div>
-		      </div>
+.title {
+	margin:20px 0px 10px;
+	font-weight:100;
+}
 
-		      <div class="row">
-		        <div class="input-field col s12">
-		        	<i class="material-icons prefix">phone</i>
-		          <input id="ngm-phone" type="tel" class="validate"
-								ng-model="panel.user.phone"
-								required>
-		          <label for="ngm-phone">Phone</label>
-		        </div>
-		      </div>
+form {
+	padding: 0px 20% !important;
+}
 
-		      <div class="row">
-		        <div class="input-field col s12">
-		        	<i class="material-icons prefix">email</i>
-		          <input id="ngm-email" type="email" class="validate"
-								ng-model="panel.user.email"
-								required>
-		          <label for="ngm-email">Email</label>
-		        </div>
-		      </div>
-						
-					<!-- error -->
-			   	<p ng-if="panel.error.msg" style="font-weight:300;">
-			   		<span style="color: #ef5350;">{{ panel.error.msg }}</span>
-			   		Having trouble Registering? Contact <a href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a>
-			   	</p>
+li {
+	padding-bottom:10px;
+}
 
-			   	<!-- login -->
-					<p class="left" style="font-size: 1.3rem;margin-top:0px;padding-bottom:4px;">
-						<a style="color: #;" href="#/health/login"><i class="material-icons prefix">arrow_back</i> Back to login</a>
-					</p>			   	
+.input-field .prefix {
+	padding-top: 8px;
+	color: #616161;
+}
 
-					<!-- btn -->
-					<button
-						style="width: 100%;" 
-						class="btn btn-large waves-effect waves-teal" 
-						type="submit"
-						ng-disabled="ngmRegisterForm.$invalid"
-						ng-click="panel.register(ngmRegisterForm)">
-								Register
-					</button>			      
-				    
-		  	</form>
+.helpers {
+	font-size:1.3rem !important;
+	margin-top:0px;
+	padding-bottom:4px;
+	cursor: pointer;
+}
 
+.action {
+	padding-top: 20px;
+}
+
+</style>
+
+
+  <div class="carousel carousel-slider">
+
+    <!-- organization -->
+    <div class="carousel-item" href="#one!">
+
+			<div class="icon center">
+				<!-- make it a circle -->
+				<div class="card">
+					<img title="Check your ReportHub email account" src="images/registration.png"/>
+				</div>
+				<h5 class="title">ORGANIZATION</h5>
 			</div>
 
+			<form name="ngmOrganizationForm" class="col s12" novalidate>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">person_pin</i>
+					    <select class="validate"
+					    	id="ngm-country"
+					    	ng-model="panel.user.admin0pcode"
+					    	required>
+					      <option value="" disabled selected>Select Country</option>
+					      <option value="AF">Afghanistan</option>
+					      <option value="ET">Ethiopia</option>
+					      <option value="IQ">Iraq</option>
+					      <option value="KE">Kenya</option>
+					      <option value="SO">Somalia</option>
+					    </select>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">donut_large</i>
+					    <select class="validate"
+					    	id="ngm-cluster"
+					    	ng-model="panel.user.cluster"
+					    	required>
+					      <option value="" disabled selected>Select Cluster</option>
+					      <option value="health">Health</option>
+					      <option value="fsac">FSAC</option>
+					      <option value="nutrition">Nutrition</option>
+					      <option value="Protection">Protection</option>
+					      <option value="shelter">Shelter</option>
+					      <option value="wash">WASH</option>
+					    </select>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">supervisor_account</i>
+	          <input id="ngm-organization" type="text" class="validate"
+							ng-model="panel.user.organization"
+							required>
+	          <label for="ngm-organization">Organization</label>
+	        </div>
+	      </div>
+
+				<div class="action center">
+					<button
+						id="organization-next"
+						class="btn btn-large waves-effect waves-teal" 
+						ng-disabled="ngmOrganizationForm.$invalid">
+							<i class="material-icons right">keyboard_arrow_right</i>
+							Next
+					</button>
+				</div>
+
+	    </form>
+
+    </div>
+
+    <!-- contact -->
+    <div class="carousel-item" href="#two!">
+
+			<div class="icon center">
+				<!-- make it a circle -->
+				<div class="card">
+					<img title="Check your ReportHub email account" src="images/registration.png"/>
+				</div>
+				<h5 class="title">CONTACT</h5>
+			</div>
+
+			<form name="ngmContactForm" class="col s12" novalidate>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">accessibility</i>
+	          <input id="ngm-fullname" type="text" class="validate"
+							ng-model="panel.user.name"
+							required>
+	          <label for="ngm-fullname">Full Name</label>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">personal_video</i>
+	          <input id="ngm-position" type="text" class="validate"
+							ng-model="panel.user.position"
+							required>
+	          <label for="ngm-position">Position</label>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">phone</i>
+	          <input id="ngm-phone" type="tel" class="validate"
+							ng-model="panel.user.phone"
+							required>
+	          <label for="ngm-phone">Phone</label>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">email</i>
+	          <input id="ngm-email" type="email" class="validate"
+							ng-model="panel.user.email"
+							required>
+	          <label for="ngm-email">Email</label>
+	        </div>
+	      </div>
+
+				<div class="action center">
+					<button
+						id="contact-back"
+						class="btn btn-large waves-effect waves-teal" >
+							<i class="material-icons left">keyboard_arrow_left</i>
+							Back
+					</button>
+					<button
+						id="contact-next"
+						class="btn btn-large waves-effect waves-teal"
+						ng-disabled="ngmContactForm.$invalid">
+							<i class="material-icons right">keyboard_arrow_right</i>
+							Next
+					</button>
+				</div>
+
+	    </form>
+
+    </div>
+
+    <!-- contact -->
+    <div class="carousel-item" href="#two!">
+
+			<div class="icon center">
+				<!-- make it a circle -->
+				<div class="card">
+					<img title="Check your ReportHub email account" src="images/registration.png"/>
+				</div>
+				<h5 class="title">LOGIN DETAILS</h5>
+			</div>
+
+			<form name="ngmLoginForm" class="col s12" novalidate>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">account_circle</i>
+	          <input id="ngm-username" type="text" class="validate"
+							autofocus=""
+							ng-model="panel.user.username"
+							required>
+	          <label for="ngm-username">Username</label>
+	        </div>
+	      </div>
+	      
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">lock_outline</i>
+	          <input id="ngm-password" type="password" class="validate"
+							ng-model="panel.user.password"
+							required>
+	          <label for="ngm-password">Password</label>
+	        </div>
+	      </div>
+
+				<div class="action center">
+					<button
+						id="login-back"
+						class="btn btn-large waves-effect waves-teal">
+							<i class="material-icons left">keyboard_arrow_left</i>
+							Back
+					</button>
+					<button
+						type="submit"
+						class="btn btn-large waves-effect waves-teal"
+						ng-disabled="ngmLoginForm.$invalid"
+						ng-click="panel.register()">
+							<i class="material-icons right">keyboard_arrow_right</i>
+							Register!
+					</button>
+				</div>
+
+	    </form>
+
+    </div>
+
+
+  </div>
+
+	<div>
+		<!-- footer -->
+		<div style="background: {{ panel.style.lightPrimaryColor }}; height:20px;"></div>
+		<div style="background: {{ panel.style.defaultPrimaryColor }}; height:60px;">
+			<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>
 		</div>
-
 	</div>
 
-	<div class="col l8 m8 hide-on-small-only"> 
-		<div class="card center promo blue-grey darken-1" style="height: 800px; padding-top: 20%;">
-			<img title="Register to ReportHub" src="images/registration.png"/>
-		</div>
-	</div>
+<script>
 
-</div>
+	// init carousel
+	$( '.carousel.carousel-slider' ).carousel({ full_width: true });
 
-<div>
-	<div style="background: {{ panel.style.lightPrimaryColor }}; height:20px;"></div>
-	<div style="background: {{ panel.style.defaultPrimaryColor }}; height:60px;">
-		<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>
-	</div>
-</div>
+	// init select
+	$( 'select' ).material_select();
+
+	// goto next
+	$( '#organization-next' ).click( function(){
+		// set login page
+		$( '.carousel' ).carousel( 'next' );
+	});
+
+	// go back
+	$( '#contact-back' ).click( function(){
+		// set login page
+		$( '.carousel' ).carousel( 'prev' );
+	});
+
+	// go back
+	$( '#contact-next' ).click( function(){
+		// set login page
+		$( '.carousel' ).carousel( 'next' );
+	});
+
+	// go back
+	$( '#login-back' ).click( function(){
+		// set login page
+		$( '.carousel' ).carousel( 'prev' );
+	});
+
+</script>

@@ -1,95 +1,132 @@
 
-<!-- bind html -->
-<div id="ngmResetPanel" class="row">
-	
-	<div class="col l4 m4 s12">
-	 
-	 <div class="ngm-login-title">
-			
-			<h3 style="font-weight:100;padding-left:20px;">Report Hub</h3>
+<style>
 
-			<div class="card">
+.carousel {
+	min-height: 540px;
+}
 
-				<!-- reset form -->
-		    <div ng-if="!panel.reset">
-		    	
-		    	<form name="ngmResetForm" class="col s12" style="padding:20px;" novalidate>
-			      
-			      <div class="row">
-			        <div class="input-field col s12">
-			        	<i class="material-icons prefix">email</i>
-			          <input id="ngm-email" type="email" class="validate"
-									autofocus=""
-									ng-model="panel.user.email"
-									required>
-			          <label for="ngm-email">Email</label>
-			        </div>
-			      </div>
+.icon {
+	padding-top:10px;
+}
 
-						<p class="left" style="font-size: 1.3rem;margin-top:0px;padding-bottom:4px;">
-							<a style="color: #;" href="#/health/login"><i class="material-icons prefix">arrow_back</i> Back to login</a>
-						</p>   
+.icon .card {
+  width: 150px;
+  height: 150px;
+  padding: 30px 0px 30px 20px;
+  border-radius: 50% !important;
+  margin: 10px auto;	
+}
 
+.title {
+	margin:20px 0px 10px;
+	font-weight:100;
+}
+
+form {
+	padding: 0px 20% !important;
+}
+
+li {
+	padding-bottom:10px;
+}
+
+.input-field .prefix {
+	padding-top: 8px;
+	color: #616161;
+}
+
+.helpers {
+	font-size:1.3rem !important;
+	margin-top:0px;
+	padding-bottom:4px;
+	cursor: pointer;
+}
+
+.action {
+	padding-top: 20px;
+}
+
+</style>
+
+
+  <div class="carousel carousel-slider">
+
+  	<!-- reset password -->
+    <div class="carousel-item" href="#one!">
+
+    </div>
+
+    <!-- reset password -->
+    <div class="carousel-item" href="#two!">
+				
+				<div class="icon center">
+					<!-- make it a circle -->
+					<div class="card" style="padding:20px 0px;">
+						<img title="Reset you ReportHub password" 
+							src="images/password-reset.png"/>
+					</div>
+					<h5 class="title">RESET PASSWORD</h5>
+				</div>
+
+				<p ng-if="ngmResetPasswordForm.pwConfirm.$error.pwmatch"
+					style="text-align:center; color: #ef5350;">
+					Passwords do not match!
+				<p>				
+
+	    	<form name="ngmResetPasswordForm" class="col s12" novalidate>
+
+		      <div class="row">
+		        <div class="input-field col s12">
+		        	<i class="material-icons prefix">lock_outline</i>
+		          <input id="ngm-password-new" type="password" class="validate"
+								ng-model="panel.user.newPassword"
+								required>
+		          <label for="ngm-password-new">NEW PASSWORD</label>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="input-field col s12">
+		        	<i class="material-icons prefix">lock_outline</i>
+		          <input id="ngm-password-confirm" type="password" class="validate"
+		          	name="pwConfirm"
+								ng-model="panel.user.confirmPassword"
+								pw-check="ngm-password-new"
+								required>
+		          <label for="ngm-password-confirm">CONFIRM PASSWORD</label>
+		        </div>
+		      </div>
+
+					<div class="action center">
 						<button
-							style="width: 100%;" 
 							class="btn btn-large waves-effect waves-teal" 
 							type="submit"
-							ng-disabled="!panel.user.email || ngmResetForm.$invalid"
-							ng-click="panel.passwordResetSend(ngmResetForm)">
-									Send me a reminder!
+							ng-disabled="ngmResetPasswordForm.$invalid"
+							ng-click="panel.passwordReset( ngmResetPasswordForm, panel.token )">
+								Update Password!
 						</button>
-			    
-			  	</form>	
+					</div>
+		    
+		  	</form>
 
-			  </div>				
+    </div>
 
+  </div>
 
-			  <!-- email sent -->
-				<div ng-if="panel.reset">
-
-					<div class="col s12" style="padding-left:30px;">
-				   	
-				   	<!-- success -->
-				   	<h5 ng-if="!panel.error.msg" style="font-weight:100;">Reminder Sent!</h5>
-				   	<p ng-if="!panel.error.msg" style="font-weight:300;">
-				   		If we found an account associated with <b style="font-weight:500;">{{ panel.user.email }}</b> you will recieve and email from us shortly
-				   	</p>
-
-				   	<!-- error -->
-						<h5 ng-if="panel.error.msg" style="font-weight:100;">Account Not Found!</h5>
-				   	<p ng-if="panel.error.msg" style="font-weight:300;">
-				   		We couldnt find an account associated with <b style="font-weight:500;">{{ panel.user.email }}</b>
-				   	</p>
-
-				   	<!-- default -->
-				   	<p style="font-weight:300;">
-				   		Having trouble finding your account? Contact <a href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a>
-				   	</p>
-				   	<p align="center" class"font-size:0.6rem;" style="font-weight:300;margin-top:20px;">
-				   		(you can probably close this window now)
-				   	</p>
-			  	</div>
-
-			  </div>
-
-			</div>
-
-		</div>
-
-	</div>
-
-	<div class="col l8 m8 hide-on-small-only"> 
-		<div class="card center promo blue-grey darken-1" style="height: 456px; padding-top: 10%;">
-			<img ng-if="!panel.reset" title="Search for your account using your ReportHub email" src="images/find-account.png" height="324px"/>
-			<img ng-if="panel.reset" title="Check your ReportHub email account" src="images/invite-sent.png" height="324px"/>
+	<div>
+		<!-- footer -->
+		<div style="background: {{ panel.style.lightPrimaryColor }}; height:20px;"></div>
+		<div style="background: {{ panel.style.defaultPrimaryColor }}; height:60px;">
+			<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>
 		</div>
 	</div>
 
-</div>
+<script>
 
-<div>
-	<div style="background: {{ panel.style.lightPrimaryColor }}; height:20px;"></div>
-	<div style="background: {{ panel.style.defaultPrimaryColor }}; height:60px;">
-		<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>
-	</div>
-</div>
+	// init
+	$( '.carousel.carousel-slider' ).carousel({ full_width: true });
+
+	// goTo login page
+	$( '.carousel' ).carousel( 'next' );	
+
+</script>

@@ -35,16 +35,6 @@ angular
 					}],
 				}
 			})
-			// health reset
-			.when( '/health/find', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardResetCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAnonymous();
-					}],
-				}
-			})
 			// health reset with token
 			.when( '/health/find/:token', {
 				templateUrl: '/views/app/dashboard.html',

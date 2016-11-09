@@ -49,7 +49,7 @@ angular.module('ngmReportHub')
 					widgets: [{
 						type: 'form.authentication',
 						card: 'card-panel z-depth-2',
-						style: 'margin:20px;',
+						style: 'padding:0px;',
 						config: {
 							style: $scope.dashboard.ngm.style,
 							templateUrl: '/scripts/app/views/authentication/login.html'
