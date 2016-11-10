@@ -91,7 +91,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
               beneficiary_name: 'Health Affected by Conflict'
             },{
               beneficiary_type: 'training',
-              beneficiary_name: 'Health Education & Capacity Building'
+              beneficiary_name: 'Education & Capacity Building'
             },{
               beneficiary_type: 'natural_disaster_affected',
               beneficiary_name: 'Natural Disaster IDPs'
@@ -603,7 +603,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
       }
 
       // on page load
-      angular.element(document).ready(function () {
+      angular.element( document ).ready(function () {
 
         // give a few seconds to render
         $timeout(function() {

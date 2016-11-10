@@ -88,14 +88,15 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
           }
 
           // project definition + config
-          var p = angular.merge( {}, config.project, $scope.project.definition );
+          var p = angular.merge( {}, $scope.project.definition, b );
           delete p.id;
+          // remove duplication from merge
+          delete p.project_budget_progress;
+          delete p.target_beneficiaries;
+          delete p.target_locations;
   
           // extend targets with projectn ngmData details & push
-          $scope.project.definition.project_budget_progress.unshift( angular.merge( {}, p, b ) );
-
-          // reset form
-          $scope.project.project_budget_amount_recieved = 0;
+          $scope.project.definition.project_budget_progress.unshift( p );
 
           // Update Project (as project_budget_progress is an association)
           ngmData.get({
@@ -105,8 +106,12 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
               project: $scope.project.definition
             }
           }).then( function( project ){
+
+            // reset form
+            $scope.project.project_budget_amount_recieved = 0;            
             // on success
             Materialize.toast( 'Project Budget Progress Updated!', 3000, 'success');
+
           });
 
         },

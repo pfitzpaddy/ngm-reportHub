@@ -78,7 +78,7 @@ li {
 
 	      <div class="row">
 	        <div class="input-field col s12">
-	        	<i class="material-icons prefix">person_pin</i>
+	        	<i class="material-icons prefix country">person_pin</i>
 					    <select class="validate"
 					    	id="ngm-country"
 					    	ng-model="panel.user.admin0pcode"
@@ -95,10 +95,10 @@ li {
 
 	      <div class="row">
 	        <div class="input-field col s12">
-	        	<i class="material-icons prefix">donut_large</i>
+	        	<i class="material-icons prefix cluster">donut_large</i>
 					    <select class="validate"
 					    	id="ngm-cluster"
-					    	ng-model="panel.user.cluster"
+					    	ng-model="panel.user.cluster_id"
 					    	required>
 					      <option value="" disabled selected>Select Cluster</option>
 					      <option value="health">Health</option>
@@ -298,6 +298,10 @@ li {
 	$( '#contact-next' ).click( function(){
 		// set login page
 		$( '.carousel' ).carousel( 'next' );
+		// toast msg!
+		setTimeout(function(){
+			Materialize.toast( 'Almost Complete! Now to set your LOGIN details', 3400, 'success' );
+		}, 400)
 	});
 
 	// go back

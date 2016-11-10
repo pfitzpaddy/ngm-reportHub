@@ -89,7 +89,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         // training
         beneficiariesTrainingUrl: '/scripts/modules/health/views/forms/report/beneficiaries/beneficiaries-training.html',        
 
-        //
+        // something to do with formatting of forms!?
         formNames: [{
           name: 'under5male'
         },{
@@ -136,7 +136,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
               beneficiary_name: 'Health Affected by Conflict'
             },{
               beneficiary_type: 'training',
-              beneficiary_name: 'Health Education & Capacity Building'
+              beneficiary_name: 'Education & Capacity Building'
             },{
               beneficiary_type: 'natural_disaster_affected',
               beneficiary_name: 'Natural Disaster IDPs'
@@ -183,6 +183,11 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           b = angular.merge( {}, b, $scope.project.report );
           b.report_id = $scope.project.report.id;
           delete b.id;
+          // remove duplication from merge
+          delete b.project_budget_progress;
+          delete b.target_beneficiaries;
+          delete b.target_locations;
+          delete b.locations;
 
           // push to beneficiaries
           $scope.project.report.locations[ $index ].beneficiaries.unshift( b );
@@ -197,7 +202,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           $timeout(function(){
             // apply filter
             $( 'select' ).material_select();
-          }, 600);
+          }, 0);
 
         },
 
@@ -220,7 +225,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           $timeout(function(){
             // apply filter
             $( 'select' ).material_select();
-          }, 10);
+          }, 0);
 
         },
 
@@ -285,7 +290,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             // Re-direct to summary
             $location.path( '/health/projects/report/' + $scope.project.definition.id );
 
-          }, 100);
+          }, 200);
 
         },
 
@@ -329,16 +334,16 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             data: {
               project: $scope.project.definition
             }
-          }          
+          }
 
           // set report
-          ngmData.get( setReportRequest ).then( function( report, complete ){     
+          ngmData.get( setReportRequest ).then( function( report, complete ){  
 
             // if no project update
             if ( length === $scope.project.definition.beneficiary_type.length ) {
               $scope.project.refreshReport( report );
             } else {
-              
+
               // set project
               ngmData.get( setProjectRequest ).then( function( project, complete ){
                 $scope.project.refreshReport( report );
@@ -376,7 +381,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
       }
 
       // on page load
-      angular.element(document).ready(function () {
+      angular.element( document ).ready(function () {
 
         // give a few seconds to render
         $timeout(function() {
@@ -393,7 +398,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           }
 
           // filter beneficiaries
-          angular.forEach($scope.project.report.locations, function(l, i) {
+          angular.forEach( $scope.project.report.locations, function( l, i ) {
             
             // set list
             $scope.project.options.filter.beneficiaries[i] = angular.copy( $scope.project.options.list.beneficiaries );
@@ -410,26 +415,16 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
               });
 
               // sort
-              $scope.project.options.filter.beneficiaries[ i ] = $filter( 'orderBy' )( $scope.project.options.filter.beneficiaries[ i ], 'beneficiary_name' );
-
-              // update dropdown
-              $timeout( function(){
-                $( 'select' ).material_select();
-              }, 10 );              
-
-            } else {
-
-              // set empty
-              $scope.project.report.locations[i].beneficiaries = []
-
-              // update dropdown
-              $timeout(function(){
-                $( 'select' ).material_select();
-              }, 10);
+              $scope.project.options.filter.beneficiaries[ i ] = $filter( 'orderBy' )( $scope.project.options.filter.beneficiaries[ i ], 'beneficiary_name' );        
 
             }
 
           }); 
+
+          // update dropdown
+          $timeout(function(){
+            $( 'select' ).material_select();
+          }, 10);
 
         }, 1000);
 

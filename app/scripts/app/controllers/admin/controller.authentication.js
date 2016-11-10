@@ -196,12 +196,23 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             }            
 
             // update icon color
-            $( '.location_on' ).css({ 'color': '#26a69a' });
+            $( '.country' ).css({ 'color': 'teal' });
             
             // add country display name
-            $scope.panel.user.adminRpcode = adminRegion[ $scope.panel.user.admin0pcode ].adminRpcode;
-            $scope.panel.user.adminRname = adminRegion[ $scope.panel.user.admin0pcode ].adminRname;            
             $scope.panel.user.admin0name = $( this ).find( 'option:selected' ).text();
+            // add regions
+            $scope.panel.user = angular.merge( {}, $scope.panel.user, adminRegion[ $scope.panel.user.admin0pcode ] );
+
+          });
+
+          // cluster
+          $( '#ngm-cluster' ).on( 'change', function() {
+
+            // update icon color
+            $( '.cluster' ).css({ 'color': 'teal' });
+            
+            // add country display name
+            $scope.panel.user.cluster = $( this ).find( 'option:selected' ).text();
 
           });
 
