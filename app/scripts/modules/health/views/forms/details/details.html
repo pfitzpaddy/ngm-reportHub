@@ -151,74 +151,74 @@
 				      <!-- project type  -->
 				      <div class="row">
 				      	<div class="input-field col s12 m6" style="padding-bottom:15px;"
-				      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.project_type_valid() }">
-				      		<label>Project Type</label>
+				      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.activity_description_valid() }">
+				      		<label>Activity Description</label>
 				      		<br/>
 							    <p style="padding-top:10px;">
 							      <input type="checkbox" id="capacity_building" 
-							      ng-model="project.definition.project_type_check.capacity_building"
+							      ng-model="project.definition.activity_description_check.capacity_building"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
 							      <label for="capacity_building">Capacity Building of Health Staff</label>
 							    </p>
 							    <p>
 							      <input type="checkbox" id="cardio_health" 
-							      ng-model="project.definition.project_type_check.cardio_health"
+							      ng-model="project.definition.activity_description_check.cardio_health"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
 							      <label for="cardio_health">Cardio Health</label>
 							    </p>
 							    <p>
 							      <input type="checkbox" id="community_health" 
-							      ng-model="project.definition.project_type_check.community_health"
+							      ng-model="project.definition.activity_description_check.community_health"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
 							      <label for="community_health">Community Health</label>
 							    </p>
 							    <p>
 							      <input type="checkbox" id="donation" 
-							      ng-model="project.definition.project_type_check.donation"
+							      ng-model="project.definition.activity_description_check.donation"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
 							      <label for="donation">Donation</label>
 							    </p>
 							    <p>
 							      <input type="checkbox" id="health_education" 
-							      ng-model="project.definition.project_type_check.health_education"
+							      ng-model="project.definition.activity_description_check.health_education"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
 							      <label for="health_education">Health Education</label>
 							    </p>
 							    <p>
 							      <input type="checkbox" id="outbreak_response" 
-							      ng-model="project.definition.project_type_check.outbreak_response"
+							      ng-model="project.definition.activity_description_check.outbreak_response"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
 							      <label for="outbreak_response">Outbreak Response</label>
 							    </p>
 							    <p>
 							      <input type="checkbox" id="phc" 
-							      ng-model="project.definition.project_type_check.phc"
+							      ng-model="project.definition.activity_description_check.phc"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
 							      <label for="phc">PHC</label>
 							    </p>
 							    <p>
 							      <input type="checkbox" id="physical_rehabilitation" 
-							      ng-model="project.definition.project_type_check.physical_rehabilitation"
+							      ng-model="project.definition.activity_description_check.physical_rehabilitation"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
 							      <label for="physical_rehabilitation">Physical Rehabilitation</label>
 							    </p>
 							    <p>
 							      <input type="checkbox" id="psycho_social" 
-							      ng-model="project.definition.project_type_check.psycho_social"
+							      ng-model="project.definition.activity_description_check.psycho_social"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
 							      <label for="psycho_social">Psycho Social</label>
 							    </p>
 							    <p>
 							      <input type="checkbox" id="trauma_care" 
-							      ng-model="project.definition.project_type_check.trauma_care"
+							      ng-model="project.definition.activity_description_check.trauma_care"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
 							      <label for="trauma_care">Trauma Care</label>
 							    </p>
 							    <p>
-							      <input type="checkbox" id="project_type_other" 
-							      ng-model="project.definition.project_type_check.other"
+							      <input type="checkbox" id="activity_description_other" 
+							      ng-model="project.definition.activity_description_check.other"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="project_type_other">Other</label>
+							      <label for="activity_description_other">Other</label>
 							    </p>
 							  </div>	  
 
@@ -303,18 +303,18 @@
 
 							  <!--  Other Types -->
 								<div class="input-field col s12 m6"
-											ng-show="project.definition.project_type_check.other">
+											ng-show="project.definition.activity_description_check.other">
 				          <input 
-				          		id="ngm-project-project_type_other" type="text"
-											ng-model="project.definition.project_type_other"
-				        			ng-class="{ 'valid' : project.definition.project_type_other }"
-											ng-disabled="!project.definition.project_type_check.other || project.definition.project_status === 'complete'">
-				          <label for="ngm-project-project_type_other">List Other Project Type</label>
+				          		id="ngm-project-activity_description_other" type="text"
+											ng-model="project.definition.activity_description_other"
+				        			ng-class="{ 'valid' : project.definition.activity_description_other }"
+											ng-disabled="!project.definition.activity_description_check.other || project.definition.project_status === 'complete'">
+				          <label for="ngm-project-activity_description_other">List Other Project Type</label>
 								</div>
 
 								<!--  Other Donors -->
 								<div class="input-field col s12 m6"
-											ng-show="project.definition.project_donor_check.other && !project.definition.project_type_check.other">
+											ng-show="project.definition.project_donor_check.other && !project.definition.activity_description_check.other">
 									<p></p>
 								</div>								
 

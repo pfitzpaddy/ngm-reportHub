@@ -16,6 +16,21 @@
 			}, 1000);
 		});
 
+		// if screen size is >= 600px, animate immediately
+		if ( $( window ).height() >= 600 ) {
+			setTimeout( function(){
+				$( '.dashboard' ).css( 'display', 'block' );	
+			}, 400 );
+		}
+
+  	// animate dashboard image on scroll
+		var dashboard = new Waypoint({
+		  element: document.getElementById( 'promo-title' ),
+		  handler: function() {
+		    $( '.dashboard' ).css( 'display', 'block' );
+		  }
+		});
+
   	// jQuery requests for metric data
 		$.get( 'http://192.168.33.16/api/metrics/getUsers', function( data ) {
 		  users = data.value;
@@ -30,14 +45,6 @@
 		$.get( 'http://192.168.33.16/api/metrics/getReports', function( data ) {
 		  reports = data.value;
 		  $( '.reports' ).html( reports );
-		});
-
-  	// animate dashboard image on scroll
-		var dashboard = new Waypoint({
-		  element: document.getElementById('promo-title'),
-		  handler: function() {
-		    $('.dashboard').css( 'display', 'block' );
-		  }
 		});
 
   	// animate metrics on scroll
@@ -64,4 +71,4 @@
 		});
 
   }); // end of document ready
-})(jQuery); // end of jQuery name space
+})( jQuery ); // end of jQuery name space
