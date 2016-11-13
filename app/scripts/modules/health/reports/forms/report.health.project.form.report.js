@@ -89,15 +89,15 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         // training
         beneficiariesTrainingUrl: '/scripts/modules/health/views/forms/report/beneficiaries/beneficiaries-training.html',        
 
-        // something to do with formatting of forms!?
+        // something to do with formatting of forms with editiing a selected form!?
         formNames: [{
-          name: 'under5male'
+          name: 'boys'
         },{
-          name: 'under5female'
+          name: 'girls'
         },{
-          name: 'over5male'
+          name: 'men'
         },{
-          name: 'over5female'
+          name: 'women'
         },{
           name: 'pentaMale'
         },{
