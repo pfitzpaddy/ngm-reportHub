@@ -1,12 +1,12 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:ReportHealthProjectsCtrl
+ * @name ngmReportHubApp.controller:ClusterProjectDetailsCtrl
  * @description
- * # ReportHealthProjectsCtrl
+ * # ClusterProjectDetailsCtrl
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ReportHealthProjectDetailsCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmData', 'ngmUser', function ($scope, $route, $location, $anchorScroll, $timeout, ngmData, ngmUser) {
+	.controller('ClusterProjectDetailsCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmData', 'ngmUser', function ($scope, $route, $location, $anchorScroll, $timeout, ngmData, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -38,7 +38,7 @@ angular.module('ngmReportHub')
 
 				// report dashboard model
 				$scope.model = {
-					name: 'report_health_details',
+					name: 'cluster_project_details',
 					header: {
 						div: {
 							'class': 'col s12 m12 l12 report-header',
@@ -80,7 +80,7 @@ angular.module('ngmReportHub')
 										username: $scope.report.user.username,
 										email: $scope.report.user.email,
 										dashboard: $scope.report.project.project_title,
-										theme: 'health_project_details',
+										theme: 'cluster_project_details',
 										format: 'pdf',
 										url: $location.$$path
 									}
@@ -107,7 +107,7 @@ angular.module('ngmReportHub')
 										username: $scope.report.user.username,
 										email: $scope.report.user.email,
 										dashboard: $scope.report.project.project_title,
-										theme: 'health_project_details',
+										theme: 'cluster_project_details',
 										format: 'csv',
 										url: $location.$$path
 									}
@@ -188,7 +188,7 @@ angular.module('ngmReportHub')
 			// return project
 			ngmData.get({
 				method: 'POST',
-				url: 'http://' + $location.host() + '/api/health/project/getProject',
+				url: 'http://' + $location.host() + '/api/cluster/project/getProject',
 				data: {
 					id: $route.current.params.project
 				}

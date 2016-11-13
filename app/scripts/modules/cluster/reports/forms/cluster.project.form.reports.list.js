@@ -1,22 +1,22 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:ReportHealthProjectFormDetailsCtrl
+ * @name ngmReportHubApp.controller:ClusterProjectFormReportsListCtrl
  * @description
- * # ReportHealthProjectFormDetailsCtrl
+ * # ClusterProjectFormReportsListCtrl
  * Controller of the ngmReportHub
  */
 
-angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
-  .config(function(dashboardProvider){
+angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
+  .config( function( dashboardProvider ){
     dashboardProvider
       .widget('project.reports.list', {
-        title: 'Health Reports Form',
-        description: 'Health Reports Form',
-        controller: 'ProjectReportsListCtrl',
-        templateUrl: '/scripts/modules/health/views/forms/reports.list/form.html'
+        title: 'Cluster Reports List',
+        description: 'Cluster Reports List',
+        controller: 'ClusterProjectFormReportsListCtrl',
+        templateUrl: '/scripts/modules/cluster/views/forms/reports.list/form.html'
       });
   })
-  .controller('ProjectReportsListCtrl', [
+  .controller( 'ClusterProjectFormReportsListCtrl', [
     '$scope',
     '$location',
     '$timeout',
@@ -56,7 +56,7 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
         updatedAt: moment( config.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ),
 
         // budget
-        budgetUrl: '/scripts/modules/health/views/forms/reports.list/budget.html',
+        budgetUrl: '/scripts/modules/cluster/views/forms/reports.list/budget.html',
 
         // cancel and delete empty project
         cancel: function() {
@@ -65,7 +65,7 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
           $timeout(function() {
 
             // Re-direct to summary
-            $location.path( '/health/projects/summary/' + $scope.project.definition.id );
+            $location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
 
           }, 100);
 
@@ -101,7 +101,7 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
           // Update Project (as project_budget_progress is an association)
           ngmData.get({
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/health/project/setProject',
+            url: 'http://' + $location.host() + '/api/cluster/project/setProject',
             data: {
               project: $scope.project.definition
             }
@@ -125,7 +125,7 @@ angular.module('ngm.widget.project.reports.list', ['ngm.provider'])
           // Update 
           ngmData.get({
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/health/project/setProject',
+            url: 'http://' + $location.host() + '/api/cluster/project/setProject',
             data: {
               project: $scope.project.definition
             }

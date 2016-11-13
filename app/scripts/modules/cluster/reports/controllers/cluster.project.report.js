@@ -1,12 +1,12 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:ReportHealthProjectsCtrl
+ * @name ngmReportHubApp.controller:ClusterProjectReportCtrl
  * @description
- * # ReportHealthProjectsCtrl
+ * # ClusterProjectReportCtrl
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ReportHealthProjectReportCtrl', [
+	.controller('ClusterProjectReportCtrl', [
 			'$scope', 
 			'$route', 
 			'$q', 
@@ -50,7 +50,7 @@ angular.module('ngmReportHub')
 			// get project
 			getProject: $http({
 				method: 'POST',
-				url: 'http://' + $location.host() + '/api/health/project/getProject',
+				url: 'http://' + $location.host() + '/api/cluster/project/getProject',
 				data: {
 					id: $route.current.params.project
 				}
@@ -59,7 +59,7 @@ angular.module('ngmReportHub')
 			// get report
 			getReport: $http({
 				method: 'POST',
-				url: 'http://' + $location.host() + '/api/health/report/getReport',
+				url: 'http://' + $location.host() + '/api/cluster/report/getReport',
 				data: {
 					id: $route.current.params.report
 				}
@@ -79,7 +79,7 @@ angular.module('ngmReportHub')
 
 				// report dashboard model
 				$scope.model = {
-					name: 'report_health',
+					name: 'cluster_project_report',
 					header: {
 						div: {
 							'class': 'col s12 m12 l12 report-header',
@@ -118,7 +118,7 @@ angular.module('ngmReportHub')
 										username: $scope.report.user.username,
 										email: $scope.report.user.email,
 										dashboard: $scope.report.project.project_title,
-										theme: 'health_project_report',
+										theme: 'cluster_project_report',
 										format: 'csv',
 										url: $location.$$path
 									}
@@ -126,12 +126,6 @@ angular.module('ngmReportHub')
 							}]
 						}
 					},
-					// menu: [{
-					// 	'icon': 'keyboard_return',
-					// 	'title': 'Back to Reports',
-					// 	'class': 'teal-text',
-					// 	'href': '#/health/projects/report/' + $scope.report.project.id
-					// }],
 					rows: [{		
 						columns: [{
 							styleClass: 's12 m12 l12',

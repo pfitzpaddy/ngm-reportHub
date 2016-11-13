@@ -26,11 +26,10 @@
 .ngm-search .input-field input[type=search] {
 	color: #616161;
 	font-weight: 300;
-	padding-top: 16px;
+	padding-top: 0px;
 }
 .ngm-logo {
 	margin-top:-10px;
-	margin-right:20px;
 }
 .ngm-profile {
 	width:100%;

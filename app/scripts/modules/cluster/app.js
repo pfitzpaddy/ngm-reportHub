@@ -7,7 +7,7 @@
  * Main module of the application.
  */
 angular
-	.module('ngmHealth', [])
+	.module('ngmCluster', [])
 	.config([ '$routeProvider', '$compileProvider', function ( $routeProvider, $compileProvider ) {
 
 		// https://medium.com/swlh/improving-angular-performance-with-1-line-of-code-a1fb814a6476#.ufea9sjt1
@@ -15,8 +15,8 @@ angular
 
 		// app routes with access rights
 		$routeProvider
-			// health
-			.when( '/health/login', {
+			// login
+			.when( '/cluster/login', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardLoginCtrl',
 				resolve: {
@@ -25,8 +25,8 @@ angular
 					}],
 				}
 			})
-			// health register
-			.when( '/health/register', {
+			// register
+			.when( '/cluster/register', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardRegisterCtrl',
 				resolve: {
@@ -35,8 +35,8 @@ angular
 					}],
 				}
 			})
-			// health reset with token
-			.when( '/health/find/:token', {
+			// reset with token
+			.when( '/cluster/find/:token', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardResetCtrl',
 				resolve: {
@@ -46,7 +46,7 @@ angular
 				}
 			})
 			// forbidden
-			.when( '/health/forbidden', {
+			.when( '/cluster/forbidden', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardForbiddenCtrl',
 				resolve: {
@@ -56,7 +56,7 @@ angular
 				}
 			})
 			// guides
-			.when( '/health/guides', {
+			.when( '/cluster/guides', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardGuidesMenuCtrl',
 				resolve: {
@@ -64,19 +64,9 @@ angular
 							return ngmAuth.grantPublicAccess();
 					}],
 				}
-			})
-			// workshop
-			.when( '/health/guides/workshop', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardWorkshopCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-							return ngmAuth.grantPublicAccess();
-					}],
-				}
-			})			
+			})		
 			// feedback
-			.when( '/health/guides/feedback', {
+			.when( '/cluster/guides/feedback', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardGuidesFeedbackCtrl',
 				resolve: {
@@ -86,7 +76,7 @@ angular
 				}
 			})
 			// screencasts
-			.when( '/health/guides/screens', {
+			.when( '/cluster/guides/screens', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardGuidesScreenCtrl',
 				resolve: {
@@ -95,84 +85,84 @@ angular
 					}],
 				}
 			})			
-			// health project list
-			.when( '/health/projects', {
+			// project list
+			.when( '/cluster/projects', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'ReportHealthProjectAppCtrl',
+				controller: 'ClusterProjectAppCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 						return ngmAuth.isAuthenticated();
 					}],
 				}
 			})
-			// health project list by organization
-			.when( '/health/projects/:organization_id', {
+			// project list by organization
+			.when( '/cluster/projects/:organization_id', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'ReportHealthProjectAppCtrl',
+				controller: 'ClusterProjectAppCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 						return ngmAuth.hasRole( 'ADMIN' );
 					}],
 				}
 			})			
-			// health project summary
-			.when( '/health/projects/summary/:project', {
+			// project summary
+			.when( '/cluster/projects/summary/:project', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'ReportHealthProjectSummaryCtrl',
+				controller: 'ClusterProjectSummaryCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 						return ngmAuth.isAuthenticated();
 					}],
 				}
 			})
-			// health project details
-			.when( '/health/projects/details/:project', {
+			// project details
+			.when( '/cluster/projects/details/:project', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'ReportHealthProjectDetailsCtrl',
+				controller: 'ClusterProjectDetailsCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 						return ngmAuth.isAuthenticated();
 					}],
 				}
 			})
-			// health project reports
-			.when( '/health/projects/report/:project', {
+			// project reports
+			.when( '/cluster/projects/report/:project', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'ReportHealthProjectReportsListCtrl',
+				controller: 'ClusterProjectReportsListCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 						return ngmAuth.isAuthenticated();
 					}],
 				}
 			})
-			// health project reports
-			.when( '/health/projects/report/:project/:report', {
+			// project reports
+			.when( '/cluster/projects/report/:project/:report', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'ReportHealthProjectReportCtrl',
+				controller: 'ClusterProjectReportCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 						return ngmAuth.isAuthenticated();
 					}],
 				}
 			})			
-			// health project financials
-			.when( '/health/projects/financials/:project', {
+			// project financials
+			.when( '/cluster/projects/financials/:project', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'ReportHealthProjectFinancialsCtrl',
+				controller: 'ClusterProjectFinancialsCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 						return ngmAuth.isAuthenticated();
 					}],
 				}
 			})
-			// health admin
-			.when( '/health/admin', {
-				redirectTo: '/health/admin/hq/all/all/' + moment().subtract( 1, 'M').startOf( 'M' ).format('YYYY-MM-DD') + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+			// admin
+			.when( '/cluster/admin', {
+				redirectTo: '/cluster/admin/hq/all/all/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
-			// health admin
-			.when( '/health/admin/:adminR/:admin0/:organization_id/:start/:end', {
+			// admin
+			.when( '/cluster/admin/:adminR/:admin0/:organization_id/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardHealthAdminCtrl',
+				controller: 'DashboardClusterAdminCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
 						// return ngmAuth.hasRole( 'ADMIN' );
@@ -182,28 +172,33 @@ angular
 			})
 
 			// health dashboard
-			.when( '/health/4w', {
-				redirectTo: '/health/4w/hq/all/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
+			.when( '/cluster/health/4w', {
+				redirectTo: '/cluster/health/4w/hq/all/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// health dashboard
-			.when( '/health/4w/:adminR/:admin0/:organization_id/:admin1/:admin2/:project/:beneficiaries/:start/:end', {
+			.when( '/cluster/health/4w/:adminR/:admin0/:organization_id/:admin1/:admin2/:project/:beneficiaries/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardHealthProjectsCtrl',
+				controller: 'DashboardHealthCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 						return ngmAuth.grantPublicAccess();
 					}],
 				}
 			})
-
-			// tmp
-			.when( '/health/4w/afghanistan/all/all/all/2016-01-01/2016-07-20', {
-				redirectTo: '/health/4w/hq/all/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
+			// FORBIDDEN
+			.when( '/cluster/forbidden', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardForbiddenCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return !ngmAuth.isAuthenticated();
+					}],
+				}
 			})
 
 			// DEFAULT
 			.otherwise({
-				redirectTo: '/health/projects'
+				redirectTo: '/cluster/projects'
 			});
 
 	}]);

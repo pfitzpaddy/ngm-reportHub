@@ -40,7 +40,7 @@
 </div>
 
 <!-- Project form -->
-<form name="healthReportForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
+<form name="clusterReportForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
 
 	<fieldset ng-disabled="
 		project.definition.organization !== project.user.organization && project.user.roles.indexOf('ADMIN') === -1
@@ -63,11 +63,11 @@
 						<button data-target="save-modal" class="waves-effect waves-light btn"
 							ng-click="project.save( false )"
 							ng-disabled="
-										( healthReportForm.$pristine ) ||
-										( healthReportForm.$invalid ) ||
+										( clusterReportForm.$pristine ) ||
+										( clusterReportForm.$invalid ) ||
 										( !project.formComplete() ) ||
 										( project.report.submit ) ||
-										( healthReportForm.$submitted && healthReportForm.$invalid )"
+										( clusterReportForm.$submitted && clusterReportForm.$invalid )"
 							ng-cloak><i class="material-icons right">send</i>Save</button>
 
 						<!-- cancel new -->

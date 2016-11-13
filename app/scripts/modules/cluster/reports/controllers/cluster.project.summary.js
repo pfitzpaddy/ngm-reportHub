@@ -1,12 +1,12 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:ReportHealthProjectsCtrl
+ * @name ngmReportHubApp.controller:ClusterProjectSummaryCtrl
  * @description
- * # ReportHealthProjectsCtrl
+ * # ClusterProjectSummaryCtrl
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ReportHealthProjectSummaryCtrl', ['$scope', '$route', '$location', 'ngmData', 'ngmUser', function ($scope, $route, $location, ngmData, ngmUser) {
+	.controller('ClusterProjectSummaryCtrl', ['$scope', '$route', '$location', 'ngmData', 'ngmUser', function ($scope, $route, $location, ngmData, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -16,7 +16,7 @@ angular.module('ngmReportHub')
 		// return project
 		ngmData.get({
 			method: 'POST',
-			url: 'http://' + $location.host() + '/api/health/project/getProject',
+			url: 'http://' + $location.host() + '/api/cluster/project/getProject',
 			data: {
 				id: $route.current.params.project
 			}
@@ -47,7 +47,7 @@ angular.module('ngmReportHub')
 				
 				// report dashboard model
 				$scope.model = {
-					name: 'report_health_summary',
+					name: 'cluster_project_summary',
 					header: {
 						div: {
 							'class': 'col s12 m12 l12 report-header',
@@ -71,7 +71,7 @@ angular.module('ngmReportHub')
 								card: 'white grey-text text-darken-2',
 								style: 'padding: 20px;',
 								config: {
-									html: '<a class="waves-effect waves-light btn left" href="#/health/projects"><i class="material-icons left">keyboard_return</i>Back to Projects</a><span class="right" style="padding-top:8px;">Last Updated: ' + moment($scope.report.project.updatedAt).format('DD MMMM, YYYY @ h:mm:ss a') + '</span>'
+									html: '<a class="waves-effect waves-light btn left" href="#/cluster/projects"><i class="material-icons left">keyboard_return</i>Back to Projects</a><span class="right" style="padding-top:8px;">Last Updated: ' + moment( $scope.report.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) + '</span>'
 								}
 							}]
 						}]
@@ -86,7 +86,7 @@ angular.module('ngmReportHub')
 									project: $scope.report.project,
 									user: $scope.report.user,
 									report_date: moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD'),
-									templateUrl: '/scripts/modules/health/views/health.project.summary.html',									
+									templateUrl: '/scripts/modules/cluster/views/cluster.project.summary.html',									
 									// forms:[{
 									// 	icon: 'edit',
 									// 	location: 'details',
@@ -111,13 +111,13 @@ angular.module('ngmReportHub')
 					          // Submit project for save
 					          ngmData.get({
 					            method: 'POST',
-					            url: 'http://' + $location.host() + '/api/health/project/setProject',
+					            url: 'http://' + $location.host() + '/api/cluster/project/setProject',
 					            data: {
 					              project: project
 					            }
 					          }).then(function(data){
 					            // redirect on success
-					            $location.path( '/health/projects' );
+					            $location.path( '/cluster/projects' );
 					            Materialize.toast( 'Project moved to Active!', 3000, 'success');
 					          });
 
@@ -132,13 +132,13 @@ angular.module('ngmReportHub')
 					          // Submit project for save
 					          ngmData.get({
 					            method: 'POST',
-					            url: 'http://' + $location.host() + '/api/health/project/setProject',
+					            url: 'http://' + $location.host() + '/api/cluster/project/setProject',
 					            data: {
 					              project: project
 					            }
 					          }).then(function(data){
 					            // redirect on success
-					            $location.path( '/health/projects' );
+					            $location.path( '/cluster/projects' );
 					            Materialize.toast( 'Project marked as Complete, Congratulations!', 3000, 'success');
 					          });
 

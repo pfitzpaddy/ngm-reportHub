@@ -1,12 +1,12 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:ReportHealthProjectsCtrl
+ * @name ngmReportHubApp.controller:ClusterProjectReportsListCtrl
  * @description
- * # ReportHealthProjectsCtrl
+ * # ClusterProjectReportsListCtrl
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ReportHealthProjectReportsListCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmData', 'ngmUser', function ($scope, $route, $location, $anchorScroll, $timeout, ngmData, ngmUser) {
+	.controller('ClusterProjectReportsListCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmData', 'ngmUser', function ($scope, $route, $location, $anchorScroll, $timeout, ngmData, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -38,7 +38,7 @@ angular.module('ngmReportHub')
 
 				// report dashboard model
 				$scope.model = {
-					name: 'report_health_list',
+					name: 'cluster_project_report_list',
 					header: {
 						div: {
 							'class': 'col s12 m12 l12 report-header',
@@ -77,7 +77,7 @@ angular.module('ngmReportHub')
 										username: $scope.report.user.username,
 										email: $scope.report.user.email,
 										dashboard: $scope.report.project.project_title,
-										theme: 'health_project_list',
+										theme: 'cluster_project_report_list',
 										format: 'csv',
 										url: $location.$$path
 									}
@@ -85,13 +85,6 @@ angular.module('ngmReportHub')
 							}]
 						}
 					},
-					// menu: [{
-					// 	'id': 'keyboard_return_menu_option',
-					// 	'icon': 'keyboard_return',
-					// 	'title': 'Back to Projects',
-					// 	'class': 'teal-text',
-					// 	'href': '#/health/projects'
-					// }],
 					rows: [{				
 						columns: [{
 							styleClass: 's12 m12 l12',
@@ -120,7 +113,7 @@ angular.module('ngmReportHub')
 									templateUrl: '/scripts/widgets/ngm-list/template/report.html',
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/report/getReportsList',
+										url: 'http://' + $location.host() + '/api/cluster/report/getReportsList',
 										data: {
 											filter: { 
 												project_id: $scope.report.project.id,
@@ -148,7 +141,7 @@ angular.module('ngmReportHub')
 									templateUrl: '/scripts/widgets/ngm-list/template/report.html',
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/report/getReportsList',
+										url: 'http://' + $location.host() + '/api/cluster/report/getReportsList',
 										data: {
 											filter: { 
 												project_id: $scope.report.project.id,
@@ -186,7 +179,7 @@ angular.module('ngmReportHub')
 		// return project
 		ngmData.get({
 			method: 'POST',
-			url: 'http://' + $location.host() + '/api/health/project/getProject',
+			url: 'http://' + $location.host() + '/api/cluster/project/getProject',
 			data: {
 				id: $route.current.params.project
 			}

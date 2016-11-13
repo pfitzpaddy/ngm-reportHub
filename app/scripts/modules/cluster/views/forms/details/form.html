@@ -79,7 +79,7 @@
 </div>
 
 <!-- Project form -->
-<form name="healthProjectForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
+<form name="clusterProjectForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
 		
 	<!-- disabled -->
 	<fieldset ng-disabled="
@@ -113,18 +113,18 @@
 							ng-click="project.save()"
 							ng-disabled="
 									project.definition.project_status === 'new' && (
-										( healthProjectForm.$pristine ) ||
-										( healthProjectForm.$invalid ) || 
-										( !project.project_type_valid() ) ||
+										( clusterProjectForm.$pristine ) ||
+										( clusterProjectForm.$invalid ) || 
+										( !project.activity_description_valid() ) ||
 										( !project.project_donor_valid() ) ||
 										( project.definition.target_beneficiaries.length === 0 ) ||
 										( project.definition.target_locations.length === 0 ) || 
-										( healthProjectForm.$submitted && healthProjectForm.$invalid ) ||
+										( clusterProjectForm.$submitted && clusterProjectForm.$invalid ) ||
 										( project.submit )
 									) ||
 									project.definition.project_status === 'active' && (
-										( healthProjectForm.$invalid ) || 
-										( !project.project_type_valid() ) ||
+										( clusterProjectForm.$invalid ) || 
+										( !project.activity_description_valid() ) ||
 										( !project.project_donor_valid() ) ||
 										( project.definition.target_beneficiaries.length === 0 ) ||
 										( project.definition.target_locations.length === 0 ) ||

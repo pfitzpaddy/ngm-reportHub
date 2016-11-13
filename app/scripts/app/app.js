@@ -28,9 +28,9 @@ angular
 		'ngm.widget.project.reports.list',
 		'ngm.widget.project.report',
 		// modules
+		'ngmCluster',
 		'ngmDews',
 		'ngmDrr',
-    'ngmHealth',
     'ngmEpr',
 		'ngmWatchkeeper',
 		// utils
@@ -67,18 +67,28 @@ angular
 				}
 			})
 			// HEALTH
-			.when( '/health/login', {
+			// .when( '/cluster/login', {
+			// 	templateUrl: '/views/app/dashboard.html',
+			// 	controller: 'DashboardLoginCtrl',
+			// 	resolve: {
+			// 		access: [ 'ngmAuth', function(ngmAuth) { 
+			// 			return ngmAuth.isAnonymous();
+			// 		}],
+			// 	}
+			// })
+			// FORBIDDEN
+			.when( '/forbidden', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardLoginCtrl',
+				controller: 'DashboardForbiddenCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAnonymous();
+						return !ngmAuth.isAuthenticated();
 					}],
 				}
 			})
 			// DEFAULT
 			.otherwise({
-				redirectTo: '/health/projects'
+				redirectTo: '/cluster/projects'
 			});
 	}])
 	.run(['$rootScope', '$location', 'ngmAuth', 'ngmUser', function($rootScope, $location, ngmAuth, ngmUser) {
@@ -158,30 +168,30 @@ angular
 			},
 
 			// page height
-			height: $(window).height(),
+			height: $( window ).height(),
 
 			// dashboard footer
 			footer: false,
 
 			// app style
-			style: {
-				logo: 'logo-who.png',
-				home: '#/who',
-				darkPrimaryColor: '#1976D2',
-				defaultPrimaryColor: '#2196F3',
-				lightPrimaryColor: '#BBDEFB',
-				textPrimaryColor: '#FFFFFF',
-				accentColor: '#009688',
-				primaryTextColor: '#212121',
-				secondaryTextColor: '#727272',
-				dividerColor: '#B6B6B6'
-			},
+			// style: {
+			// 	logo: 'logo.png',
+			// 	home: '#/cluster',
+			// 	darkPrimaryColor: '#1976D2',
+			// 	defaultPrimaryColor: '#2196F3',
+			// 	lightPrimaryColor: '#BBDEFB',
+			// 	textPrimaryColor: '#FFFFFF',
+			// 	accentColor: '#009688',
+			// 	primaryTextColor: '#212121',
+			// 	secondaryTextColor: '#727272',
+			// 	dividerColor: '#B6B6B6'
+			// },
 
 			// paint application
-			setApplication: function(route) {
+			setApplication: function( app ) {
 
 				// set app colors based on 
-				switch(route){
+				switch( app ){
 					case 'immap':
 						// set style obj
 						$scope.ngm.style = {
@@ -202,34 +212,25 @@ angular
 							lightPrimaryColor: '#BBDEFB'
 						}
 						break;
-					case 'health':
-						// set style obj
-						$scope.ngm.style = {
-							style: 'margin-right:-3px;',
-							logo: 'logo-health_cluster.png',
-							home: '#/health',
-							darkPrimaryColor: '#1976D2',
-							defaultPrimaryColor: '#2196F3',
-							lightPrimaryColor: '#BBDEFB'
-						}
-						break;
           case 'epr':
             // set style obj
             $scope.ngm.style = {
-              style: 'margin-right:-3px;',
-              logo: 'logo-health_cluster.png',
-              home: '#/health',
+              logo: 'logo-health.png',
+              home: '#/epr',
               darkPrimaryColor: '#1976D2',
               defaultPrimaryColor: '#2196F3',
               lightPrimaryColor: '#BBDEFB'
             }
             break;
 					default:
+
+						// logo
+						var logo = ngmUser.get().cluster_id === 'health' ?  'logo-health.png' : 'logo.png';
+
 						// default
 						$scope.ngm.style = {
-							style: 'margin-right:3px;',
-							logo: 'logo-l.png',
-							home: '#/health',
+							logo: logo,
+							home: '#/cluster',
 							darkPrimaryColor: '#1976D2',
 							defaultPrimaryColor: '#2196F3',
 							lightPrimaryColor: '#BBDEFB'
@@ -250,7 +251,7 @@ angular
 
 			// user
 			getUser: function() {
-				if (ngmUser.get()) {
+				if ( ngmUser.get() ) {
 					return ngmUser.get();
 				} else {
 					return 'welcome';
@@ -259,7 +260,7 @@ angular
 
 			// username
 			getUserName: function() {
-				if (ngmUser.get()) {
+				if ( ngmUser.get() ) {
 					return ngmUser.get().username;
 				} else {
 					return 'welcome';
@@ -272,43 +273,43 @@ angular
 			},
 
 			//
-			updateSession: function(){
+			// updateSession: function(){
 
-				// close modal
-				$('#ngm-session-modal').closeModal();
+			// 	// close modal
+			// 	$( '#ngm-session-modal' ).closeModal();
 
-				// set the $http object
-				var update = $http({
-					method: 'POST',
-					url: 'http://' + $location.host() + '/api/update',
-					data: { user: ngmUser.get() }
-				});
+			// 	// set the $http object
+			// 	var update = $http({
+			// 		method: 'POST',
+			// 		url: 'http://' + $location.host() + '/api/update',
+			// 		data: { user: ngmUser.get() }
+			// 	});
 
-				// on success store in localStorage
-				update.success( function( user ) {
+			// 	// on success store in localStorage
+			// 	update.success( function( user ) {
 					
-					// update user/session
-					ngmUser.set( user );
-					ngmAuth.setSessionTimeout( true, user );
+			// 		// update user/session
+			// 		ngmUser.set( user );
+			// 		ngmAuth.setSessionTimeout( true, user );
 
-          // user toast msg
-          $timeout(function(){
-            Materialize.toast('Your session is now updated!', 3000, 'success');
-          }, 2000);
+   //        // user toast msg
+   //        $timeout(function(){
+   //          Materialize.toast('Your session is now updated!', 3000, 'success');
+   //        }, 2000);
 
-				});
-			},
+			// 	});
+			// },
 
 			// open contact modal
 			contact: function() {
 				// open modal
-				$('#ngm-contact-modal').openModal({dismissible: false});
+				$( '#ngm-contact-modal' ).openModal({dismissible: false});
 			},
 
 			// Detect touch screen and enable scrollbar if necessary
 			isTouchDevice: function () {
 				try {
-					document.createEvent('TouchEvent');
+					document.createEvent( 'TouchEvent' );
 					return true;
 				} catch (e) {
 					return false;
@@ -318,18 +319,18 @@ angular
 			// toggle search active
 			toggleSearch: function(selector) {
 				// toggle search input
-				$('#nav-' + selector).slideToggle();
+				$( '#nav-' + selector ).slideToggle();
 			},
 
 			//
 			toggleNavigationMenu: function() {
 				// rotate icon
-				$('.ngm-profile-icon').toggleClass('rotate');
+				$( '.ngm-profile-icon' ).toggleClass( 'rotate' );
 				// set class
-	    	$('.ngm-profile').toggleClass('active');
-	    	$('.ngm-profile-menu-content').toggleClass('active');
+	    	$( '.ngm-profile' ).toggleClass( 'active' );
+	    	$( '.ngm-profile-menu-content' ).toggleClass( 'active' );
 	    	// toggle menu dropdown
-				$('.ngm-profile-menu-content').slideToggle();
+				$( '.ngm-profile-menu-content' ).slideToggle();
 			}		
 
 		};
@@ -359,9 +360,9 @@ angular
 			}
 
 			// get application
-			var route = $location.$$path.split('/')[1];
+			var app = $location.$$path.split('/')[1];
 			// set application
-			$scope.ngm.setApplication(route);
+			$scope.ngm.setApplication( app );
 
 		});
 

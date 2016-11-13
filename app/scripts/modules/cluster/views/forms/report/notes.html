@@ -19,7 +19,11 @@
 							<div class="row">
 				        
 				        <div class="input-field col s12 m12 l12">
-				          <textarea id="ngm-project-monthly-notes" type="text" class="validate materialize-textarea"
+				          <textarea 
+				          	id="ngm-project-monthly-notes" 
+				          	type="text" 
+				          	class="validate materialize-textarea"
+				          	name="notes"
 										ng-model="project.report.notes"
 										ng-disabled="project.report.report_status === 'complete'">
 									</textarea>

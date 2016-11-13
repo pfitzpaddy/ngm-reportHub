@@ -72,9 +72,11 @@
 		
 						<!-- logo -->
 						<!-- add logic here for homepage -->
-						<a href="{{ ngm.style.home }}" title="HOME">
-							<img class="ngm-logo" style="{{ ngm.style.style }}" ng-src="images/{{ ngm.style.logo }}" height="97" align="right"></img>
-						</a>
+						<div class="right">
+							<a href="{{ ngm.style.home }}" title="HOME">
+								<img class="ngm-logo" ng-src="images/{{ ngm.style.logo }}" height="97" align="right"></img>
+							</a>
+						</div>
 
 						<!-- profile menu -->
 						<!-- profile menu btn (implementing jQuery slideToggle() )-->
@@ -106,19 +108,26 @@
 									<!-- user logout -->
 									<li align="center" class="teal z-depth-2"
 											ng-show="ngm.getUserName() === 'welcome'">
-										<a class="white-text" href="#/health/login" ng-click="ngm.toggleNavigationMenu();">
+										<a class="white-text" href="#/cluster/login" ng-click="ngm.toggleNavigationMenu();">
 										<i class="medium material-icons">lock_outline</i>
 										<br/>LOGIN</a>
 									</li>
 
-									<!-- navigation options repeat -->
-									<!-- <div ng-init="$menu = ngm.getUserMenu()"> -->
+									<!-- contact modal -->
+									<li  align="center" class="teal z-depth-2" 
+										ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text" href="#/cluster/projects" ng-click="ngm.toggleNavigationMenu();">
+										<i class="medium material-icons">zoom_in</i>
+										<br/>MY PROJECTS</a>
+									</li>
+
+									<!-- navigation options repeat 
 										<li ng-repeat="option in ngm.navigationMenu" class="{{ option.liClass }}">
 											<a class="{{ option.aClass }}" href="/desk/#/{{ option.href }}" ng-click="ngm.toggleNavigationMenu();">
 											<i class="{{ option.iClass }}">{{ option.icon }}</i>
 											<br/>{{ option.title }}</a>
 									  </li>
-								  <!-- </div> -->
+								   </div> -->
 
 									<!-- contact modal -->
 									<li  align="center" class="teal z-depth-2" 
@@ -131,20 +140,20 @@
 									<!-- contact modal -->
 									<li  align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome'">
-										<a class="white-text" href="#/health/admin" ng-click="ngm.toggleNavigationMenu();">
+										<a class="white-text" href="#/cluster/admin" ng-click="ngm.toggleNavigationMenu();">
 										<i class="medium material-icons">assignment_ind</i>
 										<br/>ADMIN DASHBOARD</a>
 									</li>
 
 									<li  align="center" class="teal z-depth-2">
-										<a class="white-text" href="#/health/4w" ng-click="ngm.toggleNavigationMenu();">
+										<a class="white-text" href="#/cluster/health/4w" ng-click="ngm.toggleNavigationMenu();">
 										<i class="medium material-icons">assessment</i>
 										<br/>H4W DASHBOARD</a>
 									</li>
 
 									<!-- contact modal -->
 									<li  align="center" class="teal z-depth-2">
-										<a class="white-text" href="#/health/guides" ng-click="ngm.toggleNavigationMenu();">
+										<a class="white-text" href="#/cluster/guides" ng-click="ngm.toggleNavigationMenu();">
 										<i class="medium material-icons">help_outline</i>
 										<br/>USER GUIDES</a>
 									</li>
@@ -299,20 +308,20 @@
 		<!-- modules -->
 		
 		<!-- health -->
-		<script src="scripts/modules/health/app.js"></script>
+		<script src="scripts/modules/cluster/app.js"></script>
 		<!-- health report controllers -->
-		<script src="scripts/modules/health/reports/controllers/report.health.project.app.js"></script>
-		<script src="scripts/modules/health/reports/controllers/report.health.project.summary.js"></script>
-		<script src="scripts/modules/health/reports/controllers/report.health.project.details.js"></script>
-		<script src="scripts/modules/health/reports/controllers/report.health.project.reports.list.js"></script>
-		<script src="scripts/modules/health/reports/controllers/report.health.project.report.js"></script>		
+		<script src="scripts/modules/cluster/reports/controllers/cluster.project.app.js"></script>
+		<script src="scripts/modules/cluster/reports/controllers/cluster.project.summary.js"></script>
+		<script src="scripts/modules/cluster/reports/controllers/cluster.project.details.js"></script>
+		<script src="scripts/modules/cluster/reports/controllers/cluster.project.reports.list.js"></script>
+		<script src="scripts/modules/cluster/reports/controllers/cluster.project.report.js"></script>		
 		<!-- health forms -->
-		<script src="scripts/modules/health/reports/forms/report.health.project.form.details.js"></script>
-		<script src="scripts/modules/health/reports/forms/report.health.project.form.reports.list.js"></script>
-		<script src="scripts/modules/health/reports/forms/report.health.project.form.report.js"></script>
+		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.details.js"></script>
+		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.reports.list.js"></script>
+		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.report.js"></script>
 		<!-- health dashboards -->
-		<script src="scripts/modules/health/dashboards/dashboard.admin.js"></script>
-		<script src="scripts/modules/health/dashboards/dashboard.health.js"></script>
+		<script src="scripts/modules/cluster/dashboards/dashboard.admin.js"></script>
+		<script src="scripts/modules/cluster/dashboards/health/dashboard.health.js"></script>
 
 		<!-- epr -->
 		<script src="scripts/modules/epr/app.js"></script>

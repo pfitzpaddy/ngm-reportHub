@@ -1,22 +1,22 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:ReportHealthProjectFormDetailsCtrl
+ * @name ngmReportHubApp.controller:ClusterProjectFormDetailsCtrl
  * @description
- * # ReportHealthProjectFormDetailsCtrl
+ * # ClusterProjectFormDetailsCtrl
  * Controller of the ngmReportHub
  */
 
-angular.module('ngm.widget.project.details', ['ngm.provider'])
-  .config(function(dashboardProvider){
+angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
+  .config( function( dashboardProvider ){
     dashboardProvider
-      .widget('project.details', {
-        title: 'Health Project Details Form',
-        description: 'Display Health Project Details Form',
-        controller: 'ProjectDetailsCtrl',
-        templateUrl: '/scripts/modules/health/views/forms/details/form.html'
+      .widget( 'project.details', {
+        title: 'Cluster Project Details Form',
+        description: 'Display Project Details Form',
+        controller: 'ClusterProjectFormDetailsCtrl',
+        templateUrl: '/scripts/modules/cluster/views/forms/details/form.html'
       });
   })
-  .controller('ProjectDetailsCtrl', [
+  .controller( 'ClusterProjectFormDetailsCtrl', [
     '$scope',
     '$location',
     '$timeout',
@@ -63,10 +63,10 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
         // default indicators
         indicators: {
-          under5male: 0,
-          under5female: 0,
-          over5male: 0,
-          over5female: 0,
+          boys: 0,
+          girls: 0,
+          men: 0,
+          women: 0,
           penta3_vacc_male_under1: 0,
           penta3_vacc_female_under1: 0,
           skilled_birth_attendant: 0,
@@ -159,22 +159,22 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         },
 
         // details template
-        detailsUrl: '/scripts/modules/health/views/forms/details/details.html',
+        detailsUrl: '/scripts/modules/cluster/views/forms/details/details.html',
 
         // budget
-        budgetUrl: '/scripts/modules/health/views/forms/details/budget.html',
+        budgetUrl: '/scripts/modules/cluster/views/forms/details/budget.html',
 
         // target beneficiaries
-        targetBeneficiariesUrl: '/scripts/modules/health/views/forms/details/target-beneficiaries.html',
+        targetBeneficiariesUrl: '/scripts/modules/cluster/views/forms/details/target-beneficiaries.html',
 
         // default
-        targetBeneficiariesDefaultUrl: '/scripts/modules/health/views/forms/details/target-beneficiaries/target-beneficiaries-default.html',
+        targetBeneficiariesDefaultUrl: '/scripts/modules/cluster/views/forms/details/target-beneficiaries/target-beneficiaries-default.html',
 
         // training
-        targetBeneficiariesTrainingUrl: '/scripts/modules/health/views/forms/details/target-beneficiaries/target-beneficiaries-training.html',
+        targetBeneficiariesTrainingUrl: '/scripts/modules/cluster/views/forms/details/target-beneficiaries/target-beneficiaries-training.html',
 
         // details template
-        locationsUrl: '/scripts/modules/health/views/forms/details/target-locations.html',
+        locationsUrl: '/scripts/modules/cluster/views/forms/details/target-locations.html',
 
         // datepicker
         datepicker: {
@@ -455,7 +455,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         modalConfirm: function( modal ){
 
           // if not pristine, confirm exit
-          if( $scope.healthProjectForm.$dirty ){
+          if( $scope.clusterProjectForm.$dirty ){
             $( '#' + modal ).openModal( { dismissible: false } );
           } else{
             $scope.project.cancel();
@@ -517,7 +517,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           });
 
           // open success modal if valid form
-          if ( $scope.healthProjectForm.$valid ) {
+          if ( $scope.clusterProjectForm.$valid ) {
 
             // disable btn
             $scope.project.submit = true;
@@ -528,7 +528,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             // details update
             ngmData.get({
               method: 'POST',
-              url: 'http://' + $location.host() + '/api/health/project/setProject',
+              url: 'http://' + $location.host() + '/api/cluster/project/setProject',
               data: {
                 project: $scope.project.definition
               }
@@ -548,7 +548,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           } else {
             
             // form validation takes over
-            $scope.healthProjectForm.$setSubmitted();
+            $scope.clusterProjectForm.$setSubmitted();
             // inform
             Materialize.toast( 'Please review the form for errors and try again!', 3000);
 
@@ -568,7 +568,7 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
 
           // redirect on success
           $timeout(function(){
-            $location.path( '/health/projects/summary/' + $scope.project.definition.id );
+            $location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
             Materialize.toast( msg, 3000, 'success');
           }, 200);
 
@@ -584,13 +584,13 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
             if($scope.project.definition.project_status === 'new') {
               
               // Re-direct to list
-              $location.path( '/health/projects' );
+              $location.path( '/cluster/projects' );
               Materialize.toast( 'Create Project Cancelled!', 3000, 'note' );
 
             } else {
 
               // Re-direct to summary
-              $location.path( '/health/projects/summary/' + $scope.project.definition.id );
+              $location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
               if( $scope.project.definition.project_status !== 'complete' ) {
                 Materialize.toast( 'Project Update Cancelled!', 3000, 'note' );
               }
@@ -609,19 +609,19 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
         $timeout(function() {
 
           // autofocus
-          $('#ngm-project-name').focus()
+          $( '#ngm-project-name' ).focus()
 
           // selects
-          $('select').material_select();
+          $( 'select' ).material_select();
 
           // modals
-          $('.modal-trigger').leanModal();
+          $( '.modal-trigger' ).leanModal();
 
           // refresh dropdown options
           $scope.project.resetLocationSelect( true, true, true, true );          
 
           // menu return to list
-          $('#go-to-project-list').click(function(){
+          $( '#go-to-project-list' ).click( function(){
             $scope.project.cancel();
 
           });

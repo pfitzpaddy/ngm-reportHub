@@ -1,12 +1,12 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:ReportHealthProjectsCtrl
+ * @name ngmReportHubApp.controller:ClusterProjectAppCtrl
  * @description
- * # ReportHealthProjectsCtrl
+ * # ClusterProjectAppCtrl
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ReportHealthProjectAppCtrl', ['$scope', '$location', '$q', '$http', '$route', 'ngmData', 'ngmUser', function ( $scope, $location, $q, $http, $route, ngmData, ngmUser ) {
+	.controller('ClusterProjectAppCtrl', ['$scope', '$location', '$q', '$http', '$route', 'ngmData', 'ngmUser', function ( $scope, $location, $q, $http, $route, ngmData, ngmUser ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -20,7 +20,7 @@ angular.module('ngmReportHub')
 			ngm: $scope.$parent.ngm,
 
 			// form to add new project
-			newProjectUrl: '#/health/projects/details/new',
+			newProjectUrl: '#/cluster/projects/details/new',
 
 			// get organization
 			getOrganization: {
@@ -74,8 +74,8 @@ angular.module('ngmReportHub')
 			// id
 			$scope.report.organization_id = ngmUser.get().organization_id;
 			// title
-			$scope.report.title = ngmUser.get().adminRname + ' | ' + ngmUser.get().admin0name.toUpperCase().substring(0, 3) + ' | ' + ngmUser.get().organization + ' | Health Projects';
-			$scope.report.subtitle = 'Health projects for ' + ngmUser.get().organization + ' ' + ngmUser.get().admin0name;
+			$scope.report.title = ngmUser.get().adminRname + ' | ' + ngmUser.get().admin0name.toUpperCase().substring(0, 3) + ' | ' + ngmUser.get().organization + ' | ' + ngmUser.get().cluster + ' Projects';
+			$scope.report.subtitle = ngmUser.get().cluster + ' projects for ' + ngmUser.get().organization + ' ' + ngmUser.get().admin0name;
 
 		} else {
 
@@ -86,8 +86,8 @@ angular.module('ngmReportHub')
 			ngmData.get( $scope.report.getOrganization ).then( function( organization ){
 				
 				// title
-				$scope.report.title = organization.adminRname + ' | ' + organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + organization.organization_display_name + ' | Health Projects';
-				$scope.report.subtitle = 'Health projects for ' + organization.organization_display_name + ' ' + organization.admin0name;
+				$scope.report.title = organization.adminRname + ' | ' + organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + organization.organization_display_name + ' | ' + ngmUser.get().cluster + ' Projects';
+				$scope.report.subtitle = ngmUser.get().cluster + ' projects for ' + organization.organization_display_name + ' ' + organization.admin0name;
 
 				// set model
 				$scope.model.header.title.title = $scope.report.title;
@@ -99,7 +99,7 @@ angular.module('ngmReportHub')
 
 		// report dashboard model
 		$scope.model = {
-			name: 'report_health_list',
+			name: 'cluster_project_list',
 			header: {
 				div: {
 					'class': 'col s12 m12 l12 report-header',
@@ -142,7 +142,7 @@ angular.module('ngmReportHub')
 							icon: 'edit',
 							request: {
 								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/project/getProjectsList',
+								url: 'http://' + $location.host() + '/api/cluster/project/getProjectsList',
 								data: {
 									filter: { 
 										organization_id: $scope.report.organization_id,
@@ -167,7 +167,7 @@ angular.module('ngmReportHub')
 							icon: 'done',
 							request: {
 								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/project/getProjectsList',
+								url: 'http://' + $location.host() + '/api/cluster/project/getProjectsList',
 								data: {
 									filter: { 
 										organization_id: $scope.report.organization_id,

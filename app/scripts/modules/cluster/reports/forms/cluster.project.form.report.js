@@ -1,22 +1,22 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:ReportHealthProjectFormDetailsCtrl
+ * @name ngmReportHubApp.controller:ClusterProjectFormReportCtrl
  * @description
- * # ReportHealthProjectFormDetailsCtrl
+ * # ClusterProjectFormReportCtrl
  * Controller of the ngmReportHub
  */
 
-angular.module('ngm.widget.project.report', ['ngm.provider'])
-  .config(function(dashboardProvider){
+angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
+  .config( function( dashboardProvider ){
     dashboardProvider
       .widget('project.report', {
-        title: 'Health Reports Form',
-        description: 'Health Reports Form',
-        controller: 'ProjectReportCtrl',
-        templateUrl: '/scripts/modules/health/views/forms/report/form.html'
+        title: 'Cluster Reports Form',
+        description: 'Cluster Reports Form',
+        controller: 'ClusterProjectFormReportCtrl',
+        templateUrl: '/scripts/modules/cluster/views/forms/report/form.html'
       });
   })
-  .controller('ProjectReportCtrl', [
+  .controller( 'ClusterProjectFormReportCtrl', [
     '$scope',
     '$location',
     '$timeout',
@@ -75,19 +75,19 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         titleFormat: moment( config.report.reporting_period ).format('MMMM, YYYY'),
 
         // locations
-        locationsUrl: '/scripts/modules/health/views/forms/report/locations.html',
+        locationsUrl: '/scripts/modules/cluster/views/forms/report/locations.html',
 
         // locations
-        notesUrl: '/scripts/modules/health/views/forms/report/notes.html',
+        notesUrl: '/scripts/modules/cluster/views/forms/report/notes.html',
 
         // beneficiaries
-        beneficiariesUrl: '/scripts/modules/health/views/forms/report/beneficiaries.html',
+        beneficiariesUrl: '/scripts/modules/cluster/views/forms/report/beneficiaries.html',
 
         // default
-        beneficiariesDefaultUrl: '/scripts/modules/health/views/forms/report/beneficiaries/beneficiaries-default.html',
+        beneficiariesDefaultUrl: '/scripts/modules/cluster/views/forms/report/beneficiaries/beneficiaries-default.html',
 
         // training
-        beneficiariesTrainingUrl: '/scripts/modules/health/views/forms/report/beneficiaries/beneficiaries-training.html',        
+        beneficiariesTrainingUrl: '/scripts/modules/cluster/views/forms/report/beneficiaries/beneficiaries-training.html',        
 
         // something to do with formatting of forms with editiing a selected form!?
         formNames: [{
@@ -122,6 +122,8 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           name: 'capacityMale'
         },{
           name: 'capacityFemale'
+        },{
+          name: 'notes'
         }],
 
         // holder for UI options
@@ -251,7 +253,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           if ( modal === 'complete-modal' ) {
             $( '#' + modal ).openModal( { dismissible: false } );
           } else {
-            // if ( $scope.healthReportForm.$dirty ) {
+            // if ( $scope.clusterReportForm.$dirty ) {
             //   $( '#' + modal ).openModal( { dismissible: false } );
             // } else{
               $scope.project.cancel();
@@ -288,7 +290,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           $timeout(function() {
 
             // Re-direct to summary
-            $location.path( '/health/projects/report/' + $scope.project.definition.id );
+            $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
 
           }, 200);
 
@@ -321,7 +323,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           // setReportRequest
           var setReportRequest = {
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/health/report/setReport',
+            url: 'http://' + $location.host() + '/api/cluster/report/setReport',
             data: {
               report: $scope.project.report
             }
@@ -330,11 +332,14 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           // setProjectRequest
           var setProjectRequest = {
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/health/project/setProject',
+            url: 'http://' + $location.host() + '/api/cluster/project/setProject',
             data: {
               project: $scope.project.definition
             }
-          }
+          } 
+
+          // msg
+          Materialize.toast( 'Processing Report...' , 3000, 'note');
 
           // set report
           ngmData.get( setReportRequest ).then( function( report, complete ){  
@@ -373,7 +378,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
             // avoids duplicate beneficiaries ( if 'save' and then 'submit' is submited without a refresh in between )
             $route.reload();            
           } else {
-            $location.path( '/health/projects/report/' + $scope.project.definition.id );  
+            $location.path( '/cluster/projects/report/' + $scope.project.definition.id );  
           }
 
         }        
