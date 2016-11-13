@@ -46,10 +46,10 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
 
         // default indicators
         indicators: {
-          under5male: 0,
-          under5female: 0,
-          over5male: 0,
-          over5female: 0,
+          boys: 0,
+          girls: 0,
+          men: 0,
+          women: 0,
           penta3_vacc_male_under1: 0,
           penta3_vacc_female_under1: 0,
           skilled_birth_attendant: 0,
