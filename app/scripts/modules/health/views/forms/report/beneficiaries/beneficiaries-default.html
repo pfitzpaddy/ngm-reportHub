@@ -11,61 +11,61 @@
 
 </style>
 
-
-
 		      		<div class="row">
 		      		
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-under5male-{{ location.id }}-{{ $index }}" 
-				          	name="under5male"
+				          <input id="ngm-beneficiary-boys-{{ location.id }}-{{ $index }}" 
+				          	name="boys"
 				          	type="number" 
 				          	class="validate"
 				          	min="0"
-				          	ng-model="beneficiary.under5male"
+				          	ng-model="beneficiary.boys"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-under5male-{{ location.id }}-{{ $index }}" class="active">Boys</label>
+				          <label for="ngm-beneficiary-boys-{{ location.id }}-{{ $index }}" class="active">Boys</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-under5female-{{ location.id }}-{{ $index }}" 
-				          	name="under5female"
+				          <input id="ngm-beneficiary-girls-{{ location.id }}-{{ $index }}" 
+				          	name="girls"
 				          	type="number" 
 				          	class="validate" 
 				          	min="0"
-				          	ng-model="beneficiary.under5female"
+				          	ng-model="beneficiary.girls"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-under5female-{{ location.id }}-{{ $index }}" class="active">Girls</label>    		
+				          <label for="ngm-beneficiary-girls-{{ location.id }}-{{ $index }}" class="active">Girls</label>    		
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-over5male-{{ location.id }}-{{ $index }}" 
-				          	name="over5male"
+				          <input id="ngm-beneficiary-men-{{ location.id }}-{{ $index }}" 
+				          	name="men"
 				          	type="number" 
 				          	class="validate" 
 				          	min="0"
-				          	ng-model="beneficiary.over5male"
+				          	ng-model="beneficiary.men"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-over5male-{{ location.id }}-{{ $index }}" class="active">Men</label>
+				          <label for="ngm-beneficiary-men-{{ location.id }}-{{ $index }}" class="active">Men</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
-				          <input id="ngm-beneficiary-over5female-{{ location.id }}-{{ $index }}" 
-				          	name="over5female"
+				          <input id="ngm-beneficiary-women-{{ location.id }}-{{ $index }}" 
+				          	name="women"
 				          	type="number" 
 				          	class="validate" 
 				          	min="0"
-				          	ng-model="beneficiary.over5female"
+				          	ng-model="beneficiary.women"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-over5female-{{ location.id }}-{{ $index }}" class="active">Women</label>
+				          <label for="ngm-beneficiary-women-{{ location.id }}-{{ $index }}" class="active">Women</label>
 			      		</div>
 
 							</div>
 							
 							<br/>
+
+							<!-- put in templates here based on user.cluster -->
 
 							<div class="row">
 

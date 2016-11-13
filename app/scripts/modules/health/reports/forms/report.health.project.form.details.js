@@ -634,8 +634,6 @@ angular.module('ngm.widget.project.details', ['ngm.provider'])
           // order target_locations by latest updated
           $scope.project.definition.target_locations = $filter( 'orderBy' )( $scope.project.definition.target_locations, '-createdAt' );
 
-          console.log( $scope.project.definition.activity_description );
-
           // add project type check
           if ( $scope.project.definition.activity_description ) {
             // set object
