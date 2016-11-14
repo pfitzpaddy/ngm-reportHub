@@ -25,8 +25,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
     '$http',
     'ngmUser',
     'ngmData',
+    'ngmClusterHelper',
     'config',
-    function($scope, $location, $timeout, $filter, $q, $http, ngmUser, ngmData, config){
+    function( $scope, $location, $timeout, $filter, $q, $http, ngmUser, ngmData, ngmClusterHelper, config ){
 
       // get currency exchange
       // ngmData.get({
@@ -62,22 +63,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         updatedAt: moment( config.project.updatedAt ).format('DD MMMM, YYYY @ h:mm:ss a'),
 
         // default indicators
-        indicators: {
-          boys: 0,
-          girls: 0,
-          men: 0,
-          women: 0,
-          penta3_vacc_male_under1: 0,
-          penta3_vacc_female_under1: 0,
-          skilled_birth_attendant: 0,
-          conflict_trauma_treated: 0,
-          capacity_building_sessions: 0,
-          capacity_building_male: 0,
-          capacity_building_female: 0,
-          education_sessions: 0,
-          education_male: 0,
-          education_female: 0
-        },
+        indicators: ngmClusterHelper.getIndicators(),
 
         // holder for UI options
         options: {
@@ -165,7 +151,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         budgetUrl: '/scripts/modules/cluster/views/forms/details/budget.html',
 
         // target beneficiaries
-        targetBeneficiariesUrl: '/scripts/modules/cluster/views/forms/details/target-beneficiaries.html',
+        targetBeneficiariesUrl: '/scripts/modules/cluster/views/forms/details/target-beneficiaries/target-beneficiaries.html',
 
         // default
         targetBeneficiariesDefaultUrl: '/scripts/modules/cluster/views/forms/details/target-beneficiaries/target-beneficiaries-default.html',
@@ -174,7 +160,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         targetBeneficiariesTrainingUrl: '/scripts/modules/cluster/views/forms/details/target-beneficiaries/target-beneficiaries-training.html',
 
         // details template
-        locationsUrl: '/scripts/modules/cluster/views/forms/details/target-locations.html',
+        locationsUrl: '/scripts/modules/cluster/views/forms/details/target-locations/locations-' + ngmUser.get().cluster_id + '.html',
 
         // datepicker
         datepicker: {
@@ -281,7 +267,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // apply location dropdowns
-        locationSelect: function(id, select) {
+        locationSelect: function( id, select ) {
 
           var disabled;
 

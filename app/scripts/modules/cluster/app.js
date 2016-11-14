@@ -100,7 +100,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterProjectAppCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function( ngmAuth ) {
 						return ngmAuth.hasRole( 'ADMIN' );
 					}],
 				}
@@ -140,7 +140,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterProjectReportCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function( ngmAuth ) { 
 						return ngmAuth.isAuthenticated();
 					}],
 				}
@@ -150,7 +150,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterProjectFinancialsCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function( ngmAuth ) { 
 						return ngmAuth.isAuthenticated();
 					}],
 				}
@@ -164,7 +164,7 @@ angular
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardClusterAdminCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) {
+					access: [ 'ngmAuth', function( ngmAuth ) {
 						// return ngmAuth.hasRole( 'ADMIN' );
 						return ngmAuth.isAuthenticated();
 					}],
@@ -195,7 +195,6 @@ angular
 					}],
 				}
 			})
-
 			// DEFAULT
 			.otherwise({
 				redirectTo: '/cluster/projects'

@@ -66,16 +66,6 @@ angular
 					}],
 				}
 			})
-			// HEALTH
-			// .when( '/cluster/login', {
-			// 	templateUrl: '/views/app/dashboard.html',
-			// 	controller: 'DashboardLoginCtrl',
-			// 	resolve: {
-			// 		access: [ 'ngmAuth', function(ngmAuth) { 
-			// 			return ngmAuth.isAnonymous();
-			// 		}],
-			// 	}
-			// })
 			// FORBIDDEN
 			.when( '/forbidden', {
 				templateUrl: '/views/app/dashboard.html',
@@ -85,11 +75,11 @@ angular
 						return !ngmAuth.isAuthenticated();
 					}],
 				}
-			})
-			// DEFAULT
-			.otherwise({
-				redirectTo: '/cluster/projects'
 			});
+			// DEFAULT
+			// .otherwise({
+			// 	redirectTo: '/cluster/projects'
+			// });
 	}])
 	.run(['$rootScope', '$location', 'ngmAuth', 'ngmUser', function($rootScope, $location, ngmAuth, ngmUser) {
 
@@ -225,7 +215,7 @@ angular
 					default:
 
 						// logo
-						var logo = ngmUser.get().cluster_id === 'health' ?  'logo-health.png' : 'logo.png';
+						var logo = ngmUser.get() && ngmUser.get().cluster_id === 'health' ?  'logo-health.png' : 'logo.png';
 
 						// default
 						$scope.ngm.style = {

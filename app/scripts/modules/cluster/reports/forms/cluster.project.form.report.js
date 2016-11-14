@@ -26,8 +26,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
     '$route',
     'ngmUser',
     'ngmData',
+    'ngmClusterHelper',
     'config',
-    function($scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmData, config){
+    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmData, ngmClusterHelper, config ){
 
       // project
       $scope.project = {
@@ -45,22 +46,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         },
 
         // default indicators
-        indicators: {
-          boys: 0,
-          girls: 0,
-          men: 0,
-          women: 0,
-          penta3_vacc_male_under1: 0,
-          penta3_vacc_female_under1: 0,
-          skilled_birth_attendant: 0,
-          conflict_trauma_treated: 0,
-          capacity_building_sessions: 0,
-          capacity_building_male: 0,
-          capacity_building_female: 0,
-          education_sessions: 0,
-          education_male: 0,
-          education_female: 0          
-        },
+        indicators: ngmClusterHelper.getIndicators(),
 
         // project
         definition: config.project,
@@ -81,50 +67,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         notesUrl: '/scripts/modules/cluster/views/forms/report/notes.html',
 
         // beneficiaries
-        beneficiariesUrl: '/scripts/modules/cluster/views/forms/report/beneficiaries.html',
+        beneficiariesUrl: '/scripts/modules/cluster/views/forms/report/beneficiaries/beneficiaries.html',
 
         // default
-        beneficiariesDefaultUrl: '/scripts/modules/cluster/views/forms/report/beneficiaries/beneficiaries-default.html',
+        beneficiariesDefaultUrl: '/scripts/modules/cluster/views/forms/report/beneficiaries/beneficiaries-' + ngmUser.get().cluster_id + '.html',
 
         // training
-        beneficiariesTrainingUrl: '/scripts/modules/cluster/views/forms/report/beneficiaries/beneficiaries-training.html',        
-
-        // something to do with formatting of forms with editiing a selected form!?
-        formNames: [{
-          name: 'boys'
-        },{
-          name: 'girls'
-        },{
-          name: 'men'
-        },{
-          name: 'women'
-        },{
-          name: 'pentaMale'
-        },{
-          name: 'pentaFemale'
-        },{
-          name: 'sba'
-        },{
-          name: 'conflictTrauma'
-        },{
-          name: 'educationTopic'
-        },{
-          name: 'educationSessions'
-        },{
-          name: 'educationMale'
-        },{
-          name: 'educationFemale'
-        },{
-          name: 'capacityTopic'
-        },{
-          name: 'capacitySessions'
-        },{
-          name: 'capacityMale'
-        },{
-          name: 'capacityFemale'
-        },{
-          name: 'notes'
-        }],
+        beneficiariesTrainingUrl: '/scripts/modules/cluster/views/forms/report/beneficiaries/beneficiaries-training.html',
 
         // holder for UI options
         options: {
@@ -237,12 +186,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           // set report to 'todo'
           $scope.project.report.report_status = 'todo';
 
-          // using jquery to combat Materialize
-          angular.forEach( $scope.project.formNames, function( d, i ){
+          // using jquery to combat Materialize form classes! Needs a better solution
+          for ( var name in ngmClusterHelper.getIndicators() ) {
             // update classes
-            $( 'input[name="' + d.name + '"]' ).removeClass('ng-untouched').addClass('ng-touched');
-            $( 'input[name="' + d.name + '"]' ).removeClass('invalid').addClass('valid');            
-          });
+            $( 'input[name="' + name + '"]' ).removeClass( 'ng-untouched' ).addClass( 'ng-touched' );
+            $( 'input[name="' + name + '"]' ).removeClass( 'invalid' ).addClass( 'valid' );
+            // if textarea
+            $( 'textarea[name="' + name + '"]' ).removeClass( 'ng-untouched' ).addClass( 'ng-touched' );
+            $( 'textarea[name="' + name + '"]' ).removeClass( 'invalid' ).addClass( 'valid' );            
+          }
 
         },
 

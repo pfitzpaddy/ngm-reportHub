@@ -1,12 +1,12 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:DashboardDewsCtrl
+ * @name ngmReportHubApp.controller:DashboardClusterAdminCtrl
  * @description
- * # LoginCtrl
+ * # DashboardClusterAdminCtrl
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardHealthAdminCtrl', [
+	.controller('DashboardClusterAdminCtrl', [
 			'$scope', 
 			'$q', 
 			'$http', 
@@ -55,7 +55,7 @@ angular.module('ngmReportHub')
 					if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
 						
 						// user URL
-						var path = '/health/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
+						var path = '/cluster/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
 																 '/' + $scope.dashboard.user.admin0pcode.toLowerCase() +
 																 '/' + $route.current.params.organization_id + 
 																 '/' + $scope.dashboard.startDate + 
@@ -63,7 +63,7 @@ angular.module('ngmReportHub')
 					} else {
 						
 						// user URL
-						var path = '/health/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
+						var path = '/cluster/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
 																 '/' + $scope.dashboard.user.admin0pcode.toLowerCase() +
 																 '/' + $scope.dashboard.user.organization_id + 
 																 '/' + $scope.dashboard.startDate + 
@@ -80,7 +80,23 @@ angular.module('ngmReportHub')
 
 				// set dashboard title
 				setTitle: function() {
-					
+
+					// title
+					$scope.dashboard.title = $scope.dashboard.user.admin0name.toUpperCase().substring(0, 3) + ' | ';
+					$scope.dashboard.title += $scope.dashboard.user.cluster.toUpperCase() + ' CLUSTER | ';
+
+					// default
+					if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
+						$scope.dashboard.title += 'ADMIN';
+					} else {
+						$scope.dashboard.title += $scope.dashboard.user.organization;
+					}
+
+				},
+
+				// set dashboard title
+				setHealthTitle: function() {
+
 					// default
 					$scope.dashboard.title = $scope.dashboard.user.adminRname;
 
@@ -102,7 +118,7 @@ angular.module('ngmReportHub')
 				setSubtitle: function() {
 					
 					// default
-					$scope.dashboard.subtitle = 'Health Cluster admin dashboard for ' + $scope.dashboard.user.adminRname + ' ' + $scope.dashboard.user.admin0name;
+					$scope.dashboard.subtitle = 'Admin dashboard for ' + $scope.dashboard.user.admin0name + ' ' + $scope.dashboard.user.cluster + ' Cluster';
 
 				},
 
@@ -112,7 +128,7 @@ angular.module('ngmReportHub')
 					var rows = [],
 							request = {
 								method: 'POST',
-								url: 'http://' + $location.host() + '/api/health/admin/indicator',
+								url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
 								data: {
 									list: true,
 									indicator: 'organizations',
@@ -140,7 +156,7 @@ angular.module('ngmReportHub')
 						organizations.forEach(function( d, i ){
 
 							// path
-							var path = '#/health/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
+							var path = '#/cluster/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
 																			 '/' + $scope.dashboard.user.admin0pcode.toLowerCase() +
 																			 '/' + d.organization_id + 
 																			 '/' + $scope.dashboard.startDate + 
@@ -166,7 +182,7 @@ angular.module('ngmReportHub')
 						// menu
 						$scope.model.menu.push({
 							'search': true,
-							'id': 'search-health-organization',
+							'id': 'search-cluster-organization',
 							'icon': 'supervisor_account',
 							'title': 'Organization',
 							'class': 'teal lighten-1 white-text',
@@ -199,7 +215,7 @@ angular.module('ngmReportHub')
 					
 					// model
 					$scope.model = {
-						name: 'health_admin_dashboard',
+						name: 'cluster_admin_dashboard',
 						header: {
 							div: {
 								'class': 'col s12 m12 l12 report-header',
@@ -229,7 +245,7 @@ angular.module('ngmReportHub')
 											// set new date
 											$scope.dashboard.startDate = date;
 											// URL
-											var path = '/health/admin/' + $route.current.params.adminR + 
+											var path = '/cluster/admin/' + $route.current.params.adminR + 
 																					 '/' + $route.current.params.admin0 +
 																					 '/' + $route.current.params.organization_id +
 																					 '/' + $scope.dashboard.startDate + 
@@ -253,7 +269,7 @@ angular.module('ngmReportHub')
 											// set new date
 											$scope.dashboard.startDate = date;
 											// URL
-											var path = '/health/admin/' + $route.current.params.adminR + 
+											var path = '/cluster/admin/' + $route.current.params.adminR + 
 																					 '/' + $route.current.params.admin0 +
 																					 '/' + $route.current.params.organization_id +
 																					 '/' + $scope.dashboard.startDate + 
@@ -292,8 +308,8 @@ angular.module('ngmReportHub')
 											organization: $scope.dashboard.user.organization,
 											username: $scope.dashboard.user.username,
 											email: $scope.dashboard.user.email,
-											dashboard: 'health_admin',
-											theme: 'health_admin',
+											dashboard: 'cluster_admin',
+											theme: 'cluster_admin',
 											format: 'pdf',
 											url: $location.$$path
 										}
@@ -311,7 +327,7 @@ angular.module('ngmReportHub')
 									style: 'margin:15px; padding-bottom:30px;',
 									config: {
 										id: 'dashboard-btn',
-										html: '<a class="waves-effect waves-light btn right" href="#/health/admin" title="GoTo Current Reporting Month"><i class="material-icons left">cached</i>Current Reporting Month</a>'
+										html: '<a class="waves-effect waves-light btn right" href="#/cluster/admin" title="GoTo Current Reporting Month"><i class="material-icons left">cached</i>Current Reporting Month</a>'
 									}
 								}]
 							}]
@@ -326,7 +342,7 @@ angular.module('ngmReportHub')
 										title: 'Organizations',
 										request: {
 											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/admin/indicator',
+											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
 											data: {
 												indicator: 'organizations',
 												organization: $scope.dashboard.organization,
@@ -348,7 +364,7 @@ angular.module('ngmReportHub')
 										title: 'Total Reports',
 										request: {
 											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/admin/indicator',
+											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
 											data: {
 												indicator: 'reports_total',
 												organization: $scope.dashboard.organization,
@@ -370,7 +386,7 @@ angular.module('ngmReportHub')
 										title: 'Reports Completed',
 										request: {
 											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/admin/indicator',
+											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
 											data: {
 												indicator: 'reports_complete',
 												organization: $scope.dashboard.organization,
@@ -392,7 +408,7 @@ angular.module('ngmReportHub')
 										title: 'Reports Due',
 										request: {
 											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/admin/indicator',
+											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
 											data: {
 												indicator: 'reports_due',
 												organization: $scope.dashboard.organization,
@@ -418,13 +434,13 @@ angular.module('ngmReportHub')
 										headerText: 'white-text',
 										headerIcon: 'assignment_late',
 										headerTitle: 'Reports Due',
-										templateUrl: '/scripts/widgets/ngm-table/templates/health/admin.project.list.html',
+										templateUrl: '/scripts/widgets/ngm-table/templates/cluster/admin.project.list.html',
 										tableOptions:{
 											count: 10
 										},
 										request: {
 											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/admin/indicator',
+											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
 											data: {
 												list: true,
 												indicator: 'reports_due',
@@ -451,13 +467,13 @@ angular.module('ngmReportHub')
 										headerText: 'white-text',
 										headerIcon: 'assignment_turned_in',
 										headerTitle: 'Reports Completed',
-										templateUrl: '/scripts/widgets/ngm-table/templates/health/admin.project.list.html',
+										templateUrl: '/scripts/widgets/ngm-table/templates/cluster/admin.project.list.html',
 										tableOptions:{
 											count: 10
 										},
 										request: {
 											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/admin/indicator',
+											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
 											data: {
 												list: true,
 												indicator: 'reports_complete',
@@ -490,7 +506,7 @@ angular.module('ngmReportHub')
 						// 				},
 						// 				request: {
 						// 					method: 'POST',
-						// 					url: 'http://' + $location.host() + '/api/health/admin/indicator',
+						// 					url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
 						// 					data: {
 						// 						list: true,
 						// 						indicator: 'reports_total',

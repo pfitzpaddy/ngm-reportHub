@@ -22,14 +22,9 @@ angular.module('ngmReportHub')
 			// form to add new project
 			newProjectUrl: '#/cluster/projects/details/new',
 
-			// get organization
-			getOrganization: {
-				method: 'POST',
-				url: 'http://' + $location.host() + '/api/getOrganization',
-				data: {
-					'organization_id': $route.current.params.organization_id
-				}
-			},
+			// placeholders
+			title: '',
+			subtitle: '',
 
 			// province lists
 			admin1ListRequest: {
@@ -47,6 +42,19 @@ angular.module('ngmReportHub')
 				data: {
 					'admin0pcode': ngmUser.get().admin0pcode
 				}				
+			},
+
+			// get organization
+			getOrganization: function( organization_id ){
+
+				// return http
+				return {
+					method: 'POST',
+					url: 'http://' + $location.host() + '/api/getOrganization',
+					data: {
+						'organization_id': organization_id
+					}
+				}
 			}
 
 		}
@@ -54,7 +62,7 @@ angular.module('ngmReportHub')
 		// localStorage.removeItem( 'provinceList' );
 
 		// get all lists 
-		// if ( localStorage.getItem( 'lists' ) ) {
+		if ( localStorage.getItem( 'lists' ) ) {
 
 			// send request
 			$q.all([ $http( $scope.report.admin1ListRequest ), $http( $scope.report.admin2ListRequest ) ]).then( function( results ){
@@ -66,36 +74,19 @@ angular.module('ngmReportHub')
 
 			});
 
-		// }
-
-		// Set organization either from params ( admin ) or from user ( user )
-		if ( !$route.current.params.organization_id ) {
-			
-			// id
-			$scope.report.organization_id = ngmUser.get().organization_id;
-			// title
-			$scope.report.title = ngmUser.get().adminRname + ' | ' + ngmUser.get().admin0name.toUpperCase().substring(0, 3) + ' | ' + ngmUser.get().organization + ' | ' + ngmUser.get().cluster + ' Projects';
-			$scope.report.subtitle = ngmUser.get().cluster + ' projects for ' + ngmUser.get().organization + ' ' + ngmUser.get().admin0name;
-
-		} else {
-
-			// set organization_id
-			$scope.report.organization_id = $route.current.params.organization_id;
-
-			// get data
-			ngmData.get( $scope.report.getOrganization ).then( function( organization ){
-				
-				// title
-				$scope.report.title = organization.adminRname + ' | ' + organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + organization.organization_display_name + ' | ' + ngmUser.get().cluster + ' Projects';
-				$scope.report.subtitle = ngmUser.get().cluster + ' projects for ' + organization.organization_display_name + ' ' + organization.admin0name;
-
-				// set model
-				$scope.model.header.title.title = $scope.report.title;
-				$scope.model.header.subtitle.title = $scope.report.subtitle;
-
-			});
-
 		}
+
+		// org id
+		$scope.report.organization_id = $route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
+
+		// get data
+		ngmData.get( $scope.report.getOrganization( $scope.report.organization_id ) ).then( function( organization ){
+
+			// set model titles
+			$scope.model.header.title.title = organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + organization.cluster.toUpperCase() + ' | ' + organization.organization_display_name + ' | Projects';
+			$scope.model.header.subtitle.title = organization.cluster + ' projects for ' + organization.organization_display_name + ' ' + organization.admin0name;
+
+		});
 
 		// report dashboard model
 		$scope.model = {

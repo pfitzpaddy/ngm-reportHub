@@ -35,8 +35,18 @@
 								  <tbody>
 								    <tr>
 								    	<td width="10%" style="text-align:center;"><i class="material-icons" style="color: teal;">location_on</i></td>
-								    	<td width="90%" align="left"><h5 class="report-work-title" 
-																					style="color: #00796b; font-size:1.4rem; font-weight:300;text-align:left;margin-top:0px;">{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_type_name }}, {{ location.fac_name }}</h5></td>
+								    	<td width="90%" align="left">
+									    	<!-- health cluster -->
+									    	<h5 class="report-work-title" ng-if="project.user.cluster_id === 'health'"
+															style="color: #00796b; font-size:1.4rem; font-weight:300;text-align:left;margin-top:0px;">
+															{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_type_name }}, {{ location.fac_name }}
+												</h5>
+												<!-- other -->
+									    	<h5 class="report-work-title" ng-if="project.user.cluster_id !== 'health'"
+															style="color: #00796b; font-size:1.4rem; font-weight:300;text-align:left;margin-top:0px;">
+															{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_name }}
+												</h5>
+											</td>
 								    </tr>
 								  </tbody>
 								</table>

@@ -35,26 +35,26 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         login: function( ngmLoginForm ){
 
           // if invalid
-          if(ngmLoginForm.$invalid){
+          if( ngmLoginForm.$invalid ){
             // set submitted for validation
             ngmLoginForm.$setSubmitted();
           } else {
             
             // login
-            ngmAuth.login({ user: $scope.panel.user }).success(function(result) {
+            ngmAuth.login({ user: $scope.panel.user }).success( function( result ) {
               
-              // go to default org page 
+              // go to default org page
               $location.path( result.app_home );
 
               // remove any 'guest' location storage
               localStorage.removeItem( 'guest' );
 
               // user toast msg
-              $timeout(function(){
+              $timeout( function(){
                 Materialize.toast( 'Welcome back ' + result.username + '!', 3000, 'note' );
               }, 2000);
 
-            }).error(function(err) {
+            }).error( function( err ) {
 
               // update
               $timeout(function(){

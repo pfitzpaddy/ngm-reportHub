@@ -37,7 +37,7 @@
             <table class="centered highlight responsive-table" ng-table="table.tableParams">
               <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
                 <td data-title="'Organization'" sortable="'organization'">
-                  <a target="_blank" href="#/health/projects/{{ row.organization_id }}"
+                  <a target="_blank" href="#/cluster/projects/{{ row.organization_id }}"
                     title="GoTo Organizaiton Projects List">
                     {{ row.organization }}
                   </a>
@@ -49,7 +49,7 @@
                   {{ row.email }}
                 </td>
                 <td data-title="'Title'" sortable="'project_title'">
-                  <a target="_blank" href="#/health/projects/summary/{{ row.project_id }}" 
+                  <a target="_blank" href="#/cluster/projects/summary/{{ row.project_id }}" 
                     title="GoTo Project Summary">
                     {{ row.project_title }}
                   </a>
@@ -58,7 +58,7 @@
                     {{ row.reporting_period | date: 'MMMM' }}
                 </td>
                 <td data-title="'GoTo Report'" sortable="'reporting_period'">
-                  <a target="_blank" href="#/health/projects/report/{{ row.project_id }}/{{ row.id }}" 
+                  <a target="_blank" href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" 
                     title="GoTo {{ row.reporting_period | date: 'MMMM' }} Report">
                     <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
                   </a>
