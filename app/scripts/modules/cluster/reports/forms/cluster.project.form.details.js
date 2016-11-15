@@ -68,6 +68,46 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // holder for UI options
         options: {
           list: {
+            activities: {
+              activity_type: [{
+                activity_type_id: 'health_services',
+                activity_type_name: 'Health Services'
+              }],
+              activity_description: [{
+                activity_description_id: 'capacity_building',
+                activity_description_name: 'Capacity Building of Health Staff'
+              },{
+                activity_description_id: 'cardio_health',
+                activity_description_name: 'Cardio Health'
+              },{
+                activity_description_id: 'community_health',
+                activity_description_name: 'Community Health'
+              },{
+                activity_description_id: 'donation',
+                activity_description_name: 'Donation'
+              },{
+                activity_description_id: 'health_education',
+                activity_description_name: 'Health Education'
+              },{
+                activity_description_id: 'outbreak_response',
+                activity_description_name: 'Outbreak Response'
+              },{
+                activity_description_id: 'phc',
+                activity_description_name: 'PHC'
+              },{
+                activity_description_id: 'physical_rehabilitation',
+                activity_description_name: 'Physical Rehabilitation'
+              },{
+                activity_description_id: 'psycho_social',
+                activity_description_name: 'Psycho Social'
+              },{
+                activity_description_id: 'trauma_care',
+                activity_description_name: 'Trauma Care'
+              },{
+                activity_description_id: 'other',
+                activity_description_name: 'Other'
+              }]
+            },
             // beneficiaries
             beneficiaries: [{
               beneficiary_type: 'conflict_displaced',
@@ -650,9 +690,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           }
 
-
           // set list
-          $scope.project.options.filter.target_beneficiaries = $scope.project.options.list.beneficiaries;
+          $scope.project.options.filter.target_beneficiaries = angular.copy( $scope.project.options.list.beneficiaries );
 
           // for each beneficiaries
           angular.forEach( $scope.project.definition.target_beneficiaries, function(d, i){

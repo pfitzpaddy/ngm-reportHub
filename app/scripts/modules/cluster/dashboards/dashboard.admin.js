@@ -82,8 +82,8 @@ angular.module('ngmReportHub')
 				setTitle: function() {
 
 					// title
-					$scope.dashboard.title = $scope.dashboard.user.admin0name.toUpperCase().substring(0, 3) + ' | ';
-					$scope.dashboard.title += $scope.dashboard.user.cluster.toUpperCase() + ' CLUSTER | ';
+					$scope.dashboard.title = $scope.dashboard.user.admin0name.toUpperCase().substring( 0, 3 ) + ' | ';
+					$scope.dashboard.title += $scope.dashboard.user.cluster.toUpperCase() + ' | ';
 
 					// default
 					if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {

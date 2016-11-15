@@ -62,11 +62,26 @@
 				      <!-- project budget -->
 				      <div class="row">
 
+<!-- 
 				        <div class="input-field col s12 m6">
 				          <input id="ngm-project-code" type="text" class="validate"
 				          	ng-model="project.definition.project_code"
 				          	ng-disabled="project.definition.project_status === 'complete'">
 				          <label for="ngm-project-code">Project Code</label>
+				        </div>
+ -->
+
+				        <div class="input-field col s12 m6"
+				        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.activity_type }">
+				          <select class="validate"
+				          	id="ngm-activity_type" 
+				          	ng-model="project.definition.activity_type"
+				          	ng-disabled="project.definition.project_status === 'complete'"
+										ng-options="activities as activities.activity_type_name for activities in project.options.list.activities.activity_type track by activities.activity_type_id"
+				          	required>
+				          	<option value="" disabled selected>Select Activity Type</option>
+				          </select>
+				          <label for="ngm-activity_type">Activity Type</label>
 				        </div>
 
 				        <div class="input-field col s12 m3">
@@ -155,85 +170,31 @@
 				      </div>
 
 				      <!-- project type  -->
-				      <div class="row">
+				      <div class="row" ng-if="project.definition.activity_type">
 				      	<div class="input-field col s12 m6" style="padding-bottom:15px;"
 				      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.activity_description_valid() }">
 				      		<label>Activity Description</label>
-				      		<br/>
-							    <p style="padding-top:10px;">
-							      <input type="checkbox" id="capacity_building" 
-							      ng-model="project.definition.activity_description_check.capacity_building"
+				      		
+				      		<!-- label padding -->
+				      		<div style="padding-bottom:35px;"></div>				      		
+				      		
+				      		<!-- for activity_description -->
+							    <p ng-repeat="a in project.options.list.activities.activity_description track by $index">
+							      <input type="checkbox" id="{{ a.activity_description_id }}" 
+							      ng-model="project.definition.activity_description_check[ a.activity_description_id ]"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="capacity_building">Capacity Building of Health Staff</label>
+							      <label for="{{ a.activity_description_id }}">{{ a.activity_description_name }}</label>
 							    </p>
-							    <p>
-							      <input type="checkbox" id="cardio_health" 
-							      ng-model="project.definition.activity_description_check.cardio_health"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="cardio_health">Cardio Health</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="community_health" 
-							      ng-model="project.definition.activity_description_check.community_health"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="community_health">Community Health</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="donation" 
-							      ng-model="project.definition.activity_description_check.donation"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="donation">Donation</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="health_education" 
-							      ng-model="project.definition.activity_description_check.health_education"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="health_education">Health Education</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="outbreak_response" 
-							      ng-model="project.definition.activity_description_check.outbreak_response"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="outbreak_response">Outbreak Response</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="phc" 
-							      ng-model="project.definition.activity_description_check.phc"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="phc">PHC</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="physical_rehabilitation" 
-							      ng-model="project.definition.activity_description_check.physical_rehabilitation"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="physical_rehabilitation">Physical Rehabilitation</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="psycho_social" 
-							      ng-model="project.definition.activity_description_check.psycho_social"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="psycho_social">Psycho Social</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="trauma_care" 
-							      ng-model="project.definition.activity_description_check.trauma_care"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="trauma_care">Trauma Care</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="activity_description_other" 
-							      ng-model="project.definition.activity_description_check.other"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="activity_description_other">Other</label>
-							    </p>
+
 							  </div>	  
 
 							  <!-- project donor -->
 				      	<div class="input-field col s12 m6" style="padding-bottom:15px;"
 				      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.project_donor_valid() }">
 				      		<label>Project Donor</label>
-				      		<br/>
-							    <p style="padding-top:10px;">
+				      		<!-- label padding -->
+				      		<div style="padding-bottom:35px;"></div>
+							    <p>
 							      <input type="checkbox" id="dfid" 
 							      ng-model="project.definition.project_donor_check.dfid"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
@@ -315,7 +276,7 @@
 											ng-model="project.definition.activity_description_other"
 				        			ng-class="{ 'valid' : project.definition.activity_description_other }"
 											ng-disabled="!project.definition.activity_description_check.other || project.definition.project_status === 'complete'">
-				          <label for="ngm-project-activity_description_other">List Other Project Type</label>
+				          <label for="ngm-project-activity_description_other">List Other Activity Description</label>
 								</div>
 
 								<!--  Other Donors -->
@@ -339,7 +300,7 @@
 							<!-- other partners -->
 							<div class="row">
 							
-				        <div class="input-field col s12 m6" style="padding-bottom:15px;">
+				        <div class="input-field col s12 m6" style="padding-bottom:35px;">
 				        	<label>Project Partners</label>
 				        	<br/>
 				        	<p style="padding-top:10px;">
