@@ -4,7 +4,8 @@
   	// metrics
   	var users = 0,
   			locations = 0,
-  			reports = 0;
+  			reports = 0,
+  			href = window.location.href;
 
 		// materialize components
   	$('.parallax').parallax();
@@ -32,17 +33,17 @@
 		});
 
   	// jQuery requests for metric data
-		$.get( 'http://192.168.33.16/api/metrics/getUsers', function( data ) {
+		$.get( href + '/api/metrics/getUsers', function( data ) {
 		  users = data.value;
 		  $( '.users' ).html( users );
 		});
   	// jQuery requests for metric data
-		$.get( 'http://192.168.33.16/api/metrics/getLocations', function( data ) {
+		$.get( href + '/api/metrics/getLocations', function( data ) {
 		  locations = data.value;
 		  $( '.locations' ).html( locations );
 		});
   	// jQuery requests for metric data
-		$.get( 'http://192.168.33.16/api/metrics/getReports', function( data ) {
+		$.get( href + '/api/metrics/getReports', function( data ) {
 		  reports = data.value;
 		  $( '.reports' ).html( reports );
 		});
