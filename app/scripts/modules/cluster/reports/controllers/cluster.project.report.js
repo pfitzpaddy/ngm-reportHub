@@ -91,7 +91,7 @@ angular.module('ngmReportHub')
 							title: ngmUser.get().admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.organization + ' | ' + $scope.report.project.project_title
 						},
 						subtitle: {
-							'class': 'col s12 m12 l12 report-subtitle truncate',
+							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
 							'title': 'Actual Monthly Beneficiaries Report for ' + moment( $scope.report.definition.reporting_period ).format('MMMM, YYYY')
 						},
 						download: {

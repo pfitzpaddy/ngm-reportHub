@@ -43,7 +43,9 @@
 	<ul class="collection with-header z-depth-1">
 		<li class="collection-header {{ list.color }}" style="height:80px;">
 			<div class="col s12 m8">
-				<h4 class="report-work-title {{ list.textColor }}" style="margin-top:20px; font-size:2.1rem;"><i class="material-icons left">{{ list.titleIcon }}</i>{{ list.title }}</h4>
+				<h4 class="report-work-title {{ list.textColor }}" style="font-size:2.1rem;">
+					<i class="material-icons left">{{ list.titleIcon }}</i>{{ list.title }}
+				</h4>
 			</div>
 			<div ng-if="list.data.length > list.itemsPerPage" class="col s12 m4 right">
 			  <nav class="nav-list-search right" ng-class="{'focused':list.search.focused===true || list.search.filter }">
@@ -62,14 +64,14 @@
 	    </div>
 		</li>
 
-		<!-- pagination ctrl -->
+		<!-- pagination ctrl ( updated to enable large descriptions) -->
     <li class="collection-item avatar" 
     	dir-paginate="item in list.data | filter: list.search.filter | itemsPerPage: list.itemsPerPage" pagination-id="list.id"
     	style="padding-top:20px;">
 
     	<div class="row valign-wrapper">
 
-    		<div class="col s12 m8">
+    		<div class="col s12 m7">
 
 					<a href="#/cluster/projects/summary/{{ item.id }}" title="Update project {{ item.id }}">
 						<i class="material-icons circle white teal-text">{{ list.icon }}</i>
@@ -81,9 +83,9 @@
 
 				</div>
 
-				<div class="col s12 m4">
-					<a class="valign right" style="color:#616161;" href="#/cluster/projects/summary/{{ item.id }}" title="Update project {{ item.id }}" class="secondary-content">Last Updated: {{ list.updatedAt( item.updatedAt ) }}
-						<i class="material-icons valign right" style="color:#009688">send</i>
+				<div class="col s12 m5">
+					<a class="valign right" style="color:#616161;" href="#/cluster/projects/summary/{{ item.id }}" title="Update project {{ item.id }}" class="secondary-content">Updated: {{ list.updatedAt( item.updatedAt ) }}
+						<i class="material-icons valign right" style="color: teal">send</i>
 					</a>
 
 				</div>

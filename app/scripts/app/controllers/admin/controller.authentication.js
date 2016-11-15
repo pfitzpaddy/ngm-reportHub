@@ -114,7 +114,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             // resend password email
             ngmAuth.passwordResetSend({ 
                 user: $scope.panel.user, 
-                url: 'http://' + $location.host() + '/desk/#/health/find/' 
+                url: 'http://' + $location.host() + '/desk/#/cluster/find/' 
               }).success(function(result) {
               
                 // go to password reset page

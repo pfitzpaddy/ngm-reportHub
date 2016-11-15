@@ -1,11 +1,6 @@
 <style>
 
-	.count{
-	  position:relative;
-	  font-weight:100;
-	  font-size:3rem;
-	  line-height:3rem;
-	}
+	/**/
 
 </style>
 
@@ -33,14 +28,14 @@
 					      	<div class="row">
 
 					      		<div class="input-field col s12 m4">
-						          <input id="ngm-project-category-{{ $parent.$index }}-{{ $index }}" type="text" class="validate"
+						          <input id="ngm-project-category-{{ $parent.$index }}-{{ $index }}" type="text" class="validate beneficiary-title"
 						          	ng-model="beneficiary.beneficiary_name"
 						          	disabled>
 						          <label for="ngm-project-category-{{ $parent.$index }}-{{ $index }}">Beneficaries</label>
 					      		</div>
 
 					      		<div class="col s12 m7">
-					      			<div class="count right">
+					      			<div class="beneficiary-count right">
 					      				<span style="font-size:1.4rem;"><i class="material-icons" style="padding-right:20px; padding-top:10px;">group</i>Actual Total</span>
 					      					{{ beneficiary.boys + beneficiary.girls + beneficiary.men + beneficiary.women + beneficiary.penta3_vacc_male_under1 + beneficiary.penta3_vacc_female_under1 + beneficiary.skilled_birth_attendant + beneficiary.conflict_trauma_treated + beneficiary.education_male + beneficiary.education_female + beneficiary.capacity_building_male + beneficiary.capacity_building_female | number }}
 					      			</div>

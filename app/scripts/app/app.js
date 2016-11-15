@@ -81,7 +81,7 @@ angular
 			// 	redirectTo: '/cluster/projects'
 			// });
 	}])
-	.run(['$rootScope', '$location', 'ngmAuth', 'ngmUser', function($rootScope, $location, ngmAuth, ngmUser) {
+	.run([ '$rootScope', '$location', 'ngmAuth', 'ngmUser', function( $rootScope, $location, ngmAuth, ngmUser ) {
 
 		// check minutes since last login
 		if ( ngmUser.get() ) {

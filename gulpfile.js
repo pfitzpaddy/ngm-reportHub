@@ -112,9 +112,9 @@ gulp.task('html:app', function () {
     .pipe(gulp.dest(yeoman.dist + '/scripts/app/views'));
 });
 
-gulp.task('html:health', function () {
-  return gulp.src(yeoman.app + '/scripts/modules/health/views/**/*.html')
-    .pipe(gulp.dest(yeoman.dist + '/scripts/modules/health/views'));
+gulp.task('html:cluster', function () {
+  return gulp.src(yeoman.app + '/scripts/modules/cluster/views/**/*.html')
+    .pipe(gulp.dest(yeoman.dist + '/scripts/modules/cluster/views'));
 });
 
 ///////////
@@ -125,7 +125,7 @@ gulp.task('clean:dist', function (cb) {
   rimraf('./dist', cb);
 });
 
-gulp.task('client:build', [ 'html', 'html:app', 'html:health', 'styles' ], function () {
+gulp.task('client:build', [ 'html', 'html:app', 'html:cluster', 'styles' ], function () {
   var jsFilter = $.filter('**/*.js', {restore: true});
   var cssFilter = $.filter('**/*.css', {restore: true});
 

@@ -102,7 +102,7 @@ angular.module('ngmReportHub')
 					title: $scope.report.title
 				},
 				subtitle: {
-					'class': 'col s12 m12 l12 report-subtitle',
+					'class': 'col s12 m12 l12 report-subtitle hide-on-small-only',
 					title: $scope.report.subtitle
 				}
 			},

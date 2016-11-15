@@ -5,7 +5,7 @@
  *
  */
 
-/* NGM FORM */
+	/* NGM FORM */
 	/* solve dropdown bug */
 	.dropdown-content {
 		max-height: 450px;
@@ -26,6 +26,58 @@
     border: 0;
     margin: 0;
     padding: 0;
+	}
+
+	input, textarea {
+		font-size: 1.1rem !important;
+	}
+
+	label {
+		font-size: 1rem !important;	
+	}
+
+	/* report number of locations */
+	.report-selected-locations {
+		font-size:1.2rem;
+		padding-left:20px;
+		margin-top: 20px;
+		font-weight: 100;
+	}
+
+	/* location title with icon */
+	.report-location-title {
+		font-size: 1.36rem;
+		color: #00796b; 
+		font-weight: 300;
+		text-align: left;
+		padding: 10px 0px 10px 20px;
+	}
+
+	/* location title with icon */
+	.report-budget-title {
+		font-size: 1.2rem;
+		font-weight: 300;
+		text-align: left;
+		padding: 10px 0px 10px 20px;
+	}
+
+	/* beneficiary title for monthly report */
+	.beneficiary-title {
+		font-size: 1.28rem !important;
+	}
+
+	/* title for indicator blocks */
+	.indicator-title {
+		padding-left: 10px;
+		font-size: 1.16rem !important;		
+	}
+
+	/* for displaying beneficiary numbers */
+	.beneficiary-count{
+	  position:relative;
+	  font-weight:100;
+	  font-size:3rem;
+	  line-height:3rem;
 	}
 
 	/* input label */

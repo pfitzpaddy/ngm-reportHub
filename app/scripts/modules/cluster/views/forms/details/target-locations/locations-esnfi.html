@@ -6,7 +6,13 @@
 	<div class="col s12 m12 l12">
 		<div class="card">
 			<ul class="collection with-header">
-				<li class="collection-header blue lighten-4"><h5 class="report-work-title"><i class="material-icons left">location_on</i>Project Target Locations</h5></li>
+				
+				<li class="collection-header blue lighten-4">
+					<h5 class="report-work-title">
+						<i class="material-icons left">location_on</i>Project Target Locations
+					</h5>
+				</li>
+				
 				<li class="collection-item avatar">
 
 					<div class="row">
@@ -62,29 +68,29 @@
 
 							 </div>
 
-							 <div class="row">
+							 <div class="row" style="padding-left:40px;">
 
 							 	<div class="row">
-									<h5 class="report-work-title" style="font-size:1.1rem; padding-left:20px;">{{ project.definition.target_locations.length }} Selected Locations</h5>
+									<h5 class="report-selected-locations">{{ project.definition.target_locations.length }} Selected Locations</h5>
 								</div>
 
 								<div class="row" ng-repeat="location in project.definition.target_locations track by $index">
 
 									<div class="row" id="ngm-health-locations-{{ $index }}">
-										<!-- table for location -->
-										<table class="responsive-table centered" style="margin-left:10px; width:98%">
-										  <tbody>
-										    <tr>
-										    	<td width="10%" style="text-align:center;"><i class="material-icons" style="color: teal;">location_on</i></td>
-										    	<td width="80%" align="left"><h5 class="report-work-title" 
-																							style="font-size:1.2rem; font-weight:300;text-align:left;margin-top:0px;">{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_name }}</h5></td>
-										      <td width="10%" style="padding-left:15px;"><a class="waves-effect waves-light btn red lighten-2 left"
-										      	title="Remove {{ location.admin1name }} Location {{ location.fac_name }}"
-										      	ng-if="project.definition.project_status !== 'complete'"
-										      	ng-click="project.removeLocationModal( $index )"><i class="material-icons">cancel</i></a></td>
-										    </tr>
-										  </tbody>
-										</table>
+										<div class="col s12 m11 left">
+											<!-- other -->
+								    	<h5 class="report-location-title">
+														<i class="material-icons left" style="color: teal;">location_on</i>
+														{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_name }}
+											</h5>
+										</div>
+										<div class="col s12 m1 right" style="padding-top:15px;padding-right:34px;">
+											<a class="waves-effect waves-light btn red lighten-2 right"
+									      	title="Remove {{ location.admin1name }} Location {{ location.fac_name }}"
+									      	ng-if="project.definition.project_status !== 'complete'"
+									      	ng-click="project.removeLocationModal( $index )"><i class="material-icons">cancel</i>
+									    </a>
+										</div>
 									</div>
 
 								</div>

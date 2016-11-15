@@ -108,13 +108,18 @@ h1, h2, h3, h4, h5, p {
 	margin-top: 40px;
 	font-weight: 100;
 }
+.report-panel-title {
+	font-size: 1.46rem;
+	font-weight: 200;
+}
 .report-work-title {
 	margin-top: 20px;
-	font-weight: 100;	
+	font-weight: 100;
 }
 .report-subtitle {
 	margin-top: 0px;
 	color: #616161;
+	font-size: 1.1rem;
 }
 .report-download {
 	margin-top: 41px;
@@ -127,7 +132,7 @@ h1, h2, h3, h4, h5, p {
 	margin-top: -12px;
 	width: 90px;
 	padding: 0px;
-	z-index: 999999999;
+	/*z-index: 999999999;*/
 }
 .ngm-date input[type=text] {
 	cursor: pointer; cursor: hand;
