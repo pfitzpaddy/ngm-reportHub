@@ -46,6 +46,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               // go to default org page
               $location.path( result.app_home );
 
+              console.log( result.app_home )
+
               // remove any 'guest' location storage
               localStorage.removeItem( 'guest' );
 

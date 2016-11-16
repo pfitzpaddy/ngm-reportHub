@@ -62,7 +62,7 @@ angular.module('ngmReportHub')
 		// localStorage.removeItem( 'provinceList' );
 
 		// get all lists 
-		if ( localStorage.getItem( 'lists' ) ) {
+		// if ( localStorage.getItem( 'lists' ) ) {
 
 			// send request
 			$q.all([ $http( $scope.report.admin1ListRequest ), $http( $scope.report.admin2ListRequest ) ]).then( function( results ){
@@ -74,7 +74,7 @@ angular.module('ngmReportHub')
 
 			});
 
-		}
+		// }
 
 		// org id
 		$scope.report.organization_id = $route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;

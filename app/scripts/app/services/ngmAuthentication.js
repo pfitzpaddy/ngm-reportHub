@@ -160,7 +160,7 @@ angular.module('ngmReportHub')
 				
 				// 24 hours * 60 minutes ( 1440 )
 				// if ( minutes > ( 24 * 60 ) ){
-				if ( log_in.day() !== now.day() ) {
+				if ( !newSession && ( log_in.day() !== now.day() ) ) {
 					
 					// unset localStorage
 					ngmUser.unset();
