@@ -5,8 +5,8 @@
  * # ClusterProjectAppCtrl
  * Controller of the ngmReportHub
  */
-angular.module('ngmReportHub')
-	.controller('ClusterProjectAppCtrl', ['$scope', '$location', '$q', '$http', '$route', 'ngmData', 'ngmUser', function ( $scope, $location, $q, $http, $route, ngmData, ngmUser ) {
+angular.module( 'ngmReportHub' )
+	.controller( 'ClusterProjectAppCtrl', ['$scope', '$location', '$route', 'ngmData', 'ngmUser', function ( $scope, $location, $route, ngmData, ngmUser ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -26,24 +26,6 @@ angular.module('ngmReportHub')
 			title: '',
 			subtitle: '',
 
-			// province lists
-			admin1ListRequest: {
-				method: 'POST',
-				url: 'http://' + $location.host() + '/api/location/getAdmin1List',
-				data: {
-					'admin0pcode': ngmUser.get().admin0pcode
-				}
-			},
-
-			// district lists
-			admin2ListRequest: {
-				method: 'POST',
-				url: 'http://' + $location.host() + '/api/location/getAdmin2List',
-				data: {
-					'admin0pcode': ngmUser.get().admin0pcode
-				}				
-			},
-
 			// get organization
 			getOrganization: function( organization_id ){
 
@@ -58,23 +40,6 @@ angular.module('ngmReportHub')
 			}
 
 		}
-
-		// localStorage.removeItem( 'provinceList' );
-
-		// get all lists 
-		// if ( localStorage.getItem( 'lists' ) ) {
-
-			// send request
-			$q.all([ $http( $scope.report.admin1ListRequest ), $http( $scope.report.admin2ListRequest ) ]).then( function( results ){
-
-				// set lists to local storage
-				localStorage.setItem( 'lists', true );
-				localStorage.setItem( 'admin1List', JSON.stringify(results[0].data) );
-				localStorage.setItem( 'admin2List', JSON.stringify(results[1].data) );
-
-			});
-
-		// }
 
 		// org id
 		$scope.report.organization_id = $route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;

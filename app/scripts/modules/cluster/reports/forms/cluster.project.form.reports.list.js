@@ -25,8 +25,9 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
     '$http',
     'ngmUser',
     'ngmData',
+    'ngmClusterHelper',
     'config',
-    function($scope, $location, $timeout, $filter, $q, $http, ngmUser, ngmData, config){
+    function($scope, $location, $timeout, $filter, $q, $http, ngmUser, ngmData, ngmClusterHelper, config){
 
       // project
       $scope.project = {
@@ -37,17 +38,11 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
         // app style
         style: config.style,
 
-        // exchange rate
-        exchange: {
-          USDUSD: 1,
-          USDAFN: 68.61          
-        },
-
         // budget
-        project_budget_amount_recieved: 0,
-
-        // date
-        project_budget_date_recieved: moment().format('YYYY-MM-DD'),
+        budget: {
+          project_budget_amount_recieved: 0,
+          project_budget_date_recieved: moment().format('YYYY-MM-DD')
+        },
 
         // project
         definition: config.project,
@@ -57,6 +52,16 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
 
         // budget
         budgetUrl: '/scripts/modules/cluster/views/forms/reports.list/budget.html',
+
+        // set budget date on datepicker close
+        datepicker: {
+          maxDate: moment().format('YYYY-MM-DD'),
+          onClose: function() {
+            // format date on selection
+            $scope.project.budget.project_budget_date_recieved = 
+                moment( new Date( $scope.project.budget.project_budget_date_recieved ) ).format('YYYY-MM-DD');
+          }
+        },
 
         // cancel and delete empty project
         cancel: function() {
@@ -74,29 +79,17 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
         // save project
         saveBudgetLine: function() {
 
+          // get clean budget
+          var budget = 
+              ngmClusterHelper.getCleanBudget( ngmUser.get(), $scope.project.definition, $scope.project.budget );
+
           // if no progress reporting exists
           if ( !$scope.project.definition.project_budget_progress ) {
             $scope.project.definition.project_budget_progress = []
           }
   
-          // budget + username
-          var b = {
-            username: ngmUser.get().username,
-            email: ngmUser.get().email,
-            project_budget_amount_recieved: $scope.project.project_budget_amount_recieved,
-            project_budget_date_recieved: $scope.project.project_budget_date_recieved
-          }
-
-          // project definition + config
-          var p = angular.merge( {}, $scope.project.definition, b );
-          delete p.id;
-          // remove duplication from merge
-          delete p.project_budget_progress;
-          delete p.target_beneficiaries;
-          delete p.target_locations;
-  
           // extend targets with projectn ngmData details & push
-          $scope.project.definition.project_budget_progress.unshift( p );
+          $scope.project.definition.project_budget_progress.unshift( budget );
 
           // Update Project (as project_budget_progress is an association)
           ngmData.get({
@@ -108,7 +101,8 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
           }).then( function( project ){
 
             // reset form
-            $scope.project.project_budget_amount_recieved = 0;            
+            $scope.project.budget.project_budget_amount_recieved = 0;            
+            
             // on success
             Materialize.toast( 'Project Budget Progress Updated!', 3000, 'success');
 
@@ -130,32 +124,15 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
               project: $scope.project.definition
             }
           }).then( function( project ){
+            
             // on success
             Materialize.toast( 'Project Budget Progress Updated!', 3000, 'success');
+
           });
 
-        },
-
-        // set budget date on datepicker close
-        datepicker: {
-          maxDate: moment().format('YYYY-MM-DD'),
-          onClose: function() {
-            // format date
-            $scope.project.project_budget_date_recieved = moment( new Date( $scope.project.project_budget_date_recieved ) ).format('YYYY-MM-DD');
-          }
         }
 
       }
-
-      // on page load
-      angular.element(document).ready(function () {
-
-        // give a few seconds to render
-        $timeout(function() {
-
-        }, 1000 );
-
-      });
   }
 
 ]);

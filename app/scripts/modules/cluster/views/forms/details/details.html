@@ -1,4 +1,16 @@
 
+<script>
+  
+  // autofocus project name
+  $( '#ngm-project-name' ).focus();
+
+  // init selects
+  $( 'select' ).material_select();
+
+  // init textarea
+  $( 'textarea' ).height( $('textarea')[0].scrollHeight );
+
+</script>
 
 <!-- bind html -->
 <div class="row">
@@ -74,103 +86,50 @@
 				        <div class="input-field col s12 m6"
 				        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.activity_type }">
 				          <select class="validate"
-				          	id="ngm-activity_type" 
+				          	id="ngm-activity_type"
 				          	ng-model="project.definition.activity_type"
+				          	ng-model-options="{ trackBy: '$value.activity_type_id'}"
 				          	ng-disabled="project.definition.project_status === 'complete'"
-										ng-options="activities as activities.activity_type_name for activities in project.options.list.activities.activity_type track by activities.activity_type_id"
+										ng-options="activities.activity_type_id as activities.activity_type_name for activities in project.options.list.activities.activity_type"
 				          	required>
 				          	<option value="" disabled selected>Select Activity Type</option>
 				          </select>
 				          <label for="ngm-activity_type">Activity Type</label>
 				        </div>
 
-				        <div class="input-field col s12 m3">
-				          <input id="ngm-project-budget" type="number" class="validate" min="1"
-				          	ng-model="project.definition.project_budget"
-				          	ng-disabled="project.definition.project_status === 'complete'"
-				          	required>
-				          <label for="ngm-project-budget">Project Budget ( ${{ project.definition.project_budget_currency | uppercase }} )</label>
-				        </div>
+				        <!-- budget currency -->
+				        <div>
 
-				        <div class="input-field col s12 m3"
-				        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }"
-				        	ng-if="project.definition.admin0pcode === 'AF'">
-							    <select class="validate"
-							    	id="ngm-project-budget-currency"
-							    	ng-model="project.definition.project_budget_currency" 
-							    	ng-disabled="project.definition.project_status === 'complete'" 
-							    	required>
-							      <option value="" disabled selected>Select Project Budget Currency</option>
-							      <option value="usd">USD</option>
-							      <option value="afn">AFN</option>
-							    </select>
-							    <label for="ngm-project-budget-currency">Project Budget Currency</label>
-				        </div>
+					        <div class="input-field col s12 m3">
+					          <input id="ngm-project-budget" type="number" class="validate" min="1"
+					          	ng-model="project.definition.project_budget"
+					          	ng-disabled="project.definition.project_status === 'complete'"
+					          	required>
+					          <label for="ngm-project-budget">Project Budget ( ${{ project.definition.project_budget_currency | uppercase }} )</label>
+					        </div>
 
-				        <div class="input-field col s12 m3"
-				        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }"
-				        	ng-if="project.definition.admin0pcode === 'ET'">
-							    <select class="validate"
-							    	id="ngm-project-budget-currency"
-							    	ng-model="project.definition.project_budget_currency" 
-							    	ng-disabled="project.definition.project_status === 'complete'" 
-							    	required>
-							      <option value="" disabled selected>Select Project Budget Currency</option>
-							      <option value="usd">USD</option>
-							      <option value="etb">ETB</option>
-							    </select>
-							    <label for="ngm-project-budget-currency">Project Budget Currency</label>
-				        </div>
+					        <div class="input-field col s12 m3"
+					        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }">
+								    <select class="validate"
+								    	id="ngm-project_budget_currency"
+								    	ng-model="project.definition.project_budget_currency"
+								    	ng-model-options="{ trackBy: '$value.currency_id'}"
+								    	ng-disabled="project.definition.project_status === 'complete'" 
+											ng-options="currency.currency_id as currency.currency_name for currency in project.options.list.currencies"
+								    	required>
+								      <option value="" disabled selected>Select Project Budget Currency</option>
+								    </select>
+								    <label for="ngm-project_budget_currency">Project Budget Currency</label>
+					        </div>
 
-								<div class="input-field col s12 m3"
-				        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }"
-				        	ng-if="project.definition.admin0pcode === 'IQ'">
-							    <select class="validate"
-							    	id="ngm-project-budget-currency"
-							    	ng-model="project.definition.project_budget_currency" 
-							    	ng-disabled="project.definition.project_status === 'complete'" 
-							    	required>
-							      <option value="" disabled selected>Select Project Budget Currency</option>
-							      <option value="usd">USD</option>
-							      <option value="iqd">IQD</option>
-							    </select>
-							    <label for="ngm-project-budget-currency">Project Budget Currency</label>
-				        </div>	
-
-								<div class="input-field col s12 m3"
-				        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }"
-				        	ng-if="project.definition.admin0pcode === 'KE'">
-							    <select class="validate"
-							    	id="ngm-project-budget-currency"
-							    	ng-model="project.definition.project_budget_currency" 
-							    	ng-disabled="project.definition.project_status === 'complete'" 
-							    	required>
-							      <option value="" disabled selected>Select Project Budget Currency</option>
-							      <option value="usd">USD</option>
-							      <option value="kes">KES</option>
-							    </select>
-							    <label for="ngm-project-budget-currency">Project Budget Currency</label>
-				        </div>
-
-								<div class="input-field col s12 m3"
-				        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }"
-				        	ng-if="project.definition.admin0pcode === 'SO'">
-							    <select class="validate"
-							    	id="ngm-project-budget-currency"
-							    	ng-model="project.definition.project_budget_currency" 
-							    	ng-disabled="project.definition.project_status === 'complete'" 
-							    	required>
-							      <option value="" disabled selected>Select Project Budget Currency</option>
-							      <option value="usd">USD</option>
-							      <option value="sos">SOS</option>
-							    </select>
-							    <label for="ngm-project-budget-currency">Project Budget Currency</label>
 				        </div>
 
 				      </div>
 
-				      <!-- project type  -->
+				      <!-- activity description / project donor  -->
 				      <div class="row" ng-if="project.definition.activity_type">
+
+				      	<!-- Activity descirption -->
 				      	<div class="input-field col s12 m6" style="padding-bottom:15px;"
 				      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.activity_description_valid() }">
 				      		<label>Activity Description</label>
@@ -180,10 +139,10 @@
 				      		
 				      		<!-- for activity_description -->
 							    <p ng-repeat="a in project.options.list.activities.activity_description track by $index">
-							      <input type="checkbox" id="{{ a.activity_description_id }}" 
+							      <input type="checkbox" id="activity_{{ a.activity_description_id }}" 
 							      ng-model="project.definition.activity_description_check[ a.activity_description_id ]"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="{{ a.activity_description_id }}">{{ a.activity_description_name }}</label>
+							      <label for="activity_{{ a.activity_description_id }}">{{ a.activity_description_name }}</label>
 							    </p>
 
 							  </div>	  
@@ -194,78 +153,14 @@
 				      		<label>Project Donor</label>
 				      		<!-- label padding -->
 				      		<div style="padding-bottom:35px;"></div>
-							    <p>
-							      <input type="checkbox" id="dfid" 
-							      ng-model="project.definition.project_donor_check.dfid"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="dfid">DFID</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="chf" 
-							      ng-model="project.definition.project_donor_check.chf"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="chf">CHF</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="echo" 
-							      ng-model="project.definition.project_donor_check.echo"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="echo">ECHO</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="global_fund" 
-							      ng-model="project.definition.project_donor_check.global_fund"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="global_fund">Global Fund</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="icrc" 
-							      ng-model="project.definition.project_donor_check.icrc"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="icrc">ICRC</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="ifrc" 
-							      ng-model="project.definition.project_donor_check.ifrc"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="ifrc">IFRC</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="qatar_red_crescent" 
-							      ng-model="project.definition.project_donor_check.qatar_red_crescent"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="qatar_red_crescent">Qatar Red Crescent</label>
-							    </p>
-<!-- 							    <p>
-							      <input type="checkbox" id="save_the_children" 
-							      ng-model="project.definition.project_donor_check.save_the_children"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="save_the_children">Save the Children</label>
-							    </p> -->
-							    <p>
-							      <input type="checkbox" id="usaid" 
-							      ng-model="project.definition.project_donor_check.usaid"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="usaid">USAID</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="unicef"
-							      ng-model="project.definition.project_donor_check.unicef"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="unicef">UNICEF</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="who" 
-							      ng-model="project.definition.project_donor_check.who"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="who">WHO</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="project_donor_other" 
-								      ng-model="project.definition.project_donor_check.other"
+
+				      		<p ng-repeat="donor in project.options.list.donors track by $index">
+							      <input type="checkbox" id="donor_{{ donor.donor_id }}" 
+								      ng-model="project.definition.project_donor_check[ donor.donor_id ]"
 								      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="project_donor_other">Other</label>
-							    </p>
+							      <label for="donor_{{ donor.donor_id }}">{{ donor.donor_name }}</label>
+				      		</p>
+
 							  </div>
 
 							  <!--  Other Types -->

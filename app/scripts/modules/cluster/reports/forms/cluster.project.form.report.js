@@ -39,12 +39,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // app style
         style: config.style,
 
-        // exchange rate
-        exchange: {
-          USDUSD: 1,
-          USDAFN: 68.61          
-        },
-
         // default indicators
         indicators: ngmClusterHelper.getIndicators(),
 
@@ -60,124 +54,62 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // last update
         titleFormat: moment( config.report.reporting_period ).format('MMMM, YYYY'),
 
-        // locations
-        locationsUrl: '/scripts/modules/cluster/views/forms/report/locations.html',
-
-        // locations
-        notesUrl: '/scripts/modules/cluster/views/forms/report/notes.html',
-
-        // beneficiaries
-        beneficiariesUrl: '/scripts/modules/cluster/views/forms/report/beneficiaries/beneficiaries.html',
-
-        // default
-        beneficiariesDefaultUrl: '/scripts/modules/cluster/views/forms/report/beneficiaries/beneficiaries-' + ngmUser.get().cluster_id + '.html',
-
-        // training
-        beneficiariesTrainingUrl: '/scripts/modules/cluster/views/forms/report/beneficiaries/beneficiaries-training.html',
+        templatesUrl: '/scripts/modules/cluster/views/forms/report/',
+        locationsUrl: 'locations.html',
+        notesUrl: 'notes.html',
+        beneficiariesUrl: 'beneficiaries/beneficiaries.html',
+        beneficiariesDefaultUrl: 'beneficiaries/beneficiaries-' + ngmUser.get().cluster_id + '.html',
+        beneficiariesTrainingUrl: 'beneficiaries/beneficiaries-training.html',
 
         // holder for UI options
         options: {
           list: {
             // beneficiaries
-            beneficiaries: [{
-              beneficiary_type: 'conflict_displaced',
-              beneficiary_name: 'Conflict IDPs'
-            },{
-              beneficiary_type: 'health_affected_conflict',
-              beneficiary_name: 'Health Affected by Conflict'
-            },{
-              beneficiary_type: 'training',
-              beneficiary_name: 'Education & Capacity Building'
-            },{
-              beneficiary_type: 'natural_disaster_affected',
-              beneficiary_name: 'Natural Disaster IDPs'
-            },{
-              beneficiary_type: 'refugees_returnees',
-              beneficiary_name: 'Refugees & Returnees'
-            },{
-              beneficiary_type: 'white_area_population',
-              beneficiary_name: 'White Area Population'
-            }]
+            beneficiaries: ngmClusterHelper.getBeneficiaries()
           },
-          filter: {
-            beneficiaries: []
-          },
-          selection: {
-            beneficiaries: [],
-          }
+          beneficiaries: []
         },
 
         // add beneficiary
         addBeneficiary: function( $index ) {
 
-          // copy selection
-          var beneficiary = angular.copy( $scope.project.options.selection.beneficiaries[ $index ] );
+          // init load is null
+          if ( $scope.project.options.beneficiaries[ $index ] ) {
+            
+            // process + clean location
+            var beneficiaries = 
+                ngmClusterHelper.getCleanBeneficiaries( $scope.project.definition, $scope.project.report, $scope.project.indicators, $scope.project.report.locations[ $index ], $scope.project.options.beneficiaries[ $index ] );
 
-          // beneficiaries
-          var b = {
-            beneficiary_name: beneficiary.beneficiary_name,
-            beneficiary_type: beneficiary.beneficiary_type
+            // push to beneficiaries
+            $scope.project.report.locations[ $index ].beneficiaries.unshift( beneficiaries );
+
+            // clear selection
+            $scope.project.options.beneficiaries[ $index ] = {};
+
+            // filter / sort beneficiaries
+            $scope.project.options.list.beneficiaries[ $index ]
+                = ngmClusterHelper.getBeneficiaries( $scope.project.report.locations[ $index ].beneficiaries );
+
+            // update material select
+            ngmClusterHelper.updateSelect();
+
           }
-
-          // beneficiaries + location
-          b = angular.merge( {}, b, $scope.project.report.locations[$index] );
-
-          // beneficiaries + location + indicators
-          b = angular.merge( {}, b, $scope.project.indicators );
-
-          // beneficiaries + location + indicators + project
-          b = angular.merge( {}, b, config.project );
-          b.project_id = config.project.id;
-          delete b.id;
-
-          // beneficiaries + location + indicators + project + report
-          b = angular.merge( {}, b, $scope.project.report );
-          b.report_id = $scope.project.report.id;
-          delete b.id;
-          // remove duplication from merge
-          delete b.project_budget_progress;
-          delete b.target_beneficiaries;
-          delete b.target_locations;
-          delete b.locations;
-
-          // push to beneficiaries
-          $scope.project.report.locations[ $index ].beneficiaries.unshift( b );
-
-          // clear selection
-          $scope.project.options.selection.beneficiaries[ $index ] = {};
-
-          // filter list
-          $scope.project.options.filter.beneficiaries[ $index ] = $filter( 'filter' )($scope.project.options.filter.beneficiaries[$index], { beneficiary_type: '!' + beneficiary.beneficiary_type }, true);
-
-          // update dropdown
-          $timeout(function(){
-            // apply filter
-            $( 'select' ).material_select();
-          }, 0);
 
         },
 
         // remove beneficiary
         removeBeneficiary: function( $parent, $index ) {
 
-          // add option to selection
-          $scope.project.options.filter.beneficiaries[ $parent ].push({
-            'beneficiary_type': $scope.project.report.locations[ $parent ].beneficiaries[ $index ].beneficiary_type,
-            'beneficiary_name': $scope.project.report.locations[ $parent ].beneficiaries[ $index ].beneficiary_name,
-          });
-
           // remove location at i
           $scope.project.report.locations[ $parent ].beneficiaries.splice( $index, 1 );
 
-          // sort
-          $scope.project.options.filter.beneficiaries[ $parent ] = $filter( 'orderBy' )( $scope.project.options.filter.beneficiaries[ $parent ], 'beneficiary_name' );
+          // filter / sort
+          $scope.project.options.list.beneficiaries[ $parent ]
+              = ngmClusterHelper.getBeneficiaries( $scope.project.report.locations[ $index ].beneficiaries );
 
-          // update dropdown
-          $timeout(function(){
-            // apply filter
-            $( 'select' ).material_select();
-          }, 0);
-
+          // update material select
+          ngmClusterHelper.updateSelect();
+          
         },
 
         // when the user wishes to update form
@@ -205,11 +137,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           if ( modal === 'complete-modal' ) {
             $( '#' + modal ).openModal( { dismissible: false } );
           } else {
-            // if ( $scope.clusterReportForm.$dirty ) {
-            //   $( '#' + modal ).openModal( { dismissible: false } );
-            // } else{
-              $scope.project.cancel();
-            // }
+            $scope.project.cancel();
           }
 
         },
@@ -343,45 +271,17 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // give a few seconds to render
         $timeout(function() {
 
-          // selects
-          $( 'select' ).material_select();
-
-          // modals
-          $( '.modal-trigger' ).leanModal();
-
-          // maximise text area
-          if ( $scope.project.report.notes ) {
-            $( 'textarea' ).height( $('textarea')[0].scrollHeight );
-          }
-
           // filter beneficiaries
           angular.forEach( $scope.project.report.locations, function( l, i ) {
-            
-            // set list
-            $scope.project.options.filter.beneficiaries[i] = angular.copy( $scope.project.options.list.beneficiaries );
 
-            // if beneficiaries
-            if ( l.beneficiaries.length ) {
+            // filter / sort beneficiaries
+            $scope.project.options.list.beneficiaries[ i ]
+                = ngmClusterHelper.getBeneficiaries( $scope.project.report.locations[ i ].beneficiaries );
 
-              // for each beneficiaries
-              angular.forEach( l.beneficiaries, function( d, j ){
-              
-                // filter list
-                $scope.project.options.filter.beneficiaries[ i ] = $filter( 'filter' )( $scope.project.options.filter.beneficiaries[ i ], { beneficiary_type: '!' + d.beneficiary_type }, true);              
+            // update select
+            ngmClusterHelper.updateSelect();
 
-              });
-
-              // sort
-              $scope.project.options.filter.beneficiaries[ i ] = $filter( 'orderBy' )( $scope.project.options.filter.beneficiaries[ i ], 'beneficiary_name' );        
-
-            }
-
-          }); 
-
-          // update dropdown
-          $timeout(function(){
-            $( 'select' ).material_select();
-          }, 10);
+          });
 
         }, 1000);
 
@@ -389,3 +289,4 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
   }
 
 ]);
+

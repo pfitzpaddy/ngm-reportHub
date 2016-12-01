@@ -111,6 +111,7 @@ angular.module('ngmReportHub')
 									icon: 'edit',
 									rightIcon: 'watch_later',
 									templateUrl: '/scripts/widgets/ngm-list/template/report.html',
+									orderBy: 'reporting_due_date',
 									request: {
 										method: 'POST',
 										url: 'http://' + $location.host() + '/api/cluster/report/getReportsList',
@@ -137,8 +138,9 @@ angular.module('ngmReportHub')
 									title: 'Reports Complete',
 									hoverTitle: 'View',
 									icon: 'done',
-									rightIcon: 'send',
+									rightIcon: 'check_circle',
 									templateUrl: '/scripts/widgets/ngm-list/template/report.html',
+									orderBy: '-reporting_due_date',
 									request: {
 										method: 'POST',
 										url: 'http://' + $location.host() + '/api/cluster/report/getReportsList',

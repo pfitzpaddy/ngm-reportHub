@@ -1,8 +1,9 @@
-<style>
+<script>
 
-	/**/
+	// init select
+	$( 'select' ).material_select();
 
-</style>
+</script>
 
 
 							<!-- form -->
@@ -11,9 +12,9 @@
 									ng-class="{ 'error-label': healthProjectForm.$submitted 
 							  								&& project.report.locations[ $index ].beneficiaries.length === 0 }">
 							    <select id="ngm-beneficiary-category-{{ location.id }}" class="validate"
-							    	ng-model="project.options.selection.beneficiaries[$index]"
+							    	ng-model="project.options.beneficiaries[ $index ]"
 							    	ng-change="project.addBeneficiary( $index )"
-							    	ng-options="item as item.beneficiary_name for item in project.options.filter.beneficiaries[$index] track by item.beneficiary_type">
+							    	ng-options="item as item.beneficiary_name for item in project.options.list.beneficiaries[$index] track by item.beneficiary_type">
 							      <option value="" disabled selected>Select Category</option>
 							    </select>
 							    <label>Beneficiary Category</label>
@@ -27,14 +28,14 @@
 
 					      	<div class="row">
 
-					      		<div class="input-field col s12 m4">
+					      		<div class="input-field col s12 m3">
 						          <input id="ngm-project-category-{{ $parent.$index }}-{{ $index }}" type="text" class="validate beneficiary-title"
 						          	ng-model="beneficiary.beneficiary_name"
 						          	disabled>
 						          <label for="ngm-project-category-{{ $parent.$index }}-{{ $index }}">Beneficaries</label>
 					      		</div>
 
-					      		<div class="col s12 m7">
+					      		<div class="col s12 m8">
 					      			<div class="beneficiary-count right">
 					      				<span style="font-size:1.4rem;"><i class="material-icons" style="padding-right:20px; padding-top:10px;">group</i>Actual Total</span>
 					      					{{ beneficiary.boys + beneficiary.girls + beneficiary.men + beneficiary.women + beneficiary.penta3_vacc_male_under1 + beneficiary.penta3_vacc_female_under1 + beneficiary.skilled_birth_attendant + beneficiary.conflict_trauma_treated + beneficiary.education_male + beneficiary.education_female + beneficiary.capacity_building_male + beneficiary.capacity_building_female | number }}
@@ -42,11 +43,11 @@
 									  </div>
 
 					      		<div class="col s12 m1" style="padding-top:3px;">
-					      			<div class="btn waves-effect waves-light red lighten-2 right" 
+					      			<div class="btn-floating waves-effect waves-light red lighten-2 right" 
 					      					title="Remove Beneficiary {{ beneficiary.beneficiary_name }}"
 					      					ng-show="project.report.report_status !== 'complete'"
 					      					ng-click="project.removeBeneficiary( $parent.$index, $index )">
-					      					<i class="material-icons">cancel</i>
+					      					<i class="material-icons">clear</i>
 					      			</div>
 									   </div>
 
@@ -54,21 +55,16 @@
 
 					      	<!-- Target beneficiaries default -->
 					      	<div ng-if="beneficiary.beneficiary_type !== 'training'">
-										<div class="slide-animate" ng-include="project.beneficiariesDefaultUrl"></div>								
+										<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesDefaultUrl"></div>								
 									</div>
 
 
 					      	<!-- Target beneficiaries trainings -->
 					      	<div ng-if="beneficiary.beneficiary_type === 'training'">
-										<div class="slide-animate" ng-include="project.beneficiariesTrainingUrl"></div>
+										<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesTrainingUrl"></div>
 									</div>
 
 				      	</div>
 
 				      </div>
-
-
-	<script>
-		$( 'select' ).material_select();
-	</script>
 

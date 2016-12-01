@@ -1,5 +1,13 @@
 
-<!-- lime lighten-4 -->
+<script>
+
+	// add init delay to load data
+	setTimeout(function(){
+	  // init selects
+	  $( 'select' ).material_select();
+	}, 10 );
+
+</script>
 
 <!-- bind html -->
 <div class="row">
@@ -25,10 +33,11 @@
 			      			ng-class="{ 'error-label': healthProjectForm.$submitted
 							  								&& project.definition.locations.length === 0 }">
 			      			<select id="ngm-project-admin1" class="validate"
-							    	ng-model="project.options.selection.admin1"
-							    	ng-change="project.locationSelect('#ngm-project-admin2', 'admin2')"
+							    	ng-model="project.options.location.admin1"
+							    	ng-model-options="{ trackBy: '$value.admin1pcode'}"
+							    	ng-change="project.updateSelect()"
 							    	ng-disabled="project.definition.project_status === 'complete'"
-			      				ng-options="item as item.admin1name for item in project.options.list.admin1 track by item.admin1pcode">
+			      				ng-options="item as item.admin1name for item in project.options.list.admin1">
 			      				<option value="" disabled selected>Choose {{ project.options.list.admin1[0].admin1type_name }}</option>
 			      			</select>
 			      			<label>{{ project.options.list.admin1[0].admin1type_name }}</label>
@@ -38,10 +47,11 @@
 			      			ng-class="{ 'error-label': healthProjectForm.$submitted
 							  								&& project.definition.locations.length === 0 }">
 			      			<select id="ngm-project-admin2" class="validate"
-							    	ng-model="project.options.selection.admin2"
-							    	ng-change="project.locationSelect('#ngm-project-hf_type', 'hf_type')"
-			      				ng-options="item as item.admin2name for item in project.options.filter.admin2 track by item.id"
-			      				disabled>
+							    	ng-model="project.options.location.admin2"
+							    	ng-model-options="{ trackBy: '$value.id'}"
+							    	ng-change="project.updateSelect()"
+							    	ng-disabled="!project.options.location.admin1"
+			      				ng-options="item as item.admin2name for item in project.options.list.admin2 | filter: { admin1pcode: project.options.location.admin1.admin1pcode }">
 			      				<option value="" disabled selected>Choose {{ project.options.list.admin2[0].admin2type_name }}</option>
 			      			</select>
 			      			<label>{{ project.options.list.admin2[0].admin2type_name }}</label>
@@ -51,10 +61,10 @@
 							  	ng-class="{ 'error-label': healthProjectForm.$submitted
 							  								&& project.definition.locations.length === 0 }">
 							    <select id="ngm-project-hf_type" class="validate"
-							    	ng-model="project.options.selection.hf_type"
-							    	ng-change="project.locationSelect('#ngm-project-hf_name', 'hf_name')"
-							    	ng-options="item as item.fac_name for item in project.options.list.facility_type track by item.fac_type"
-							    	disabled>
+							    	ng-model="project.options.location.fac_type"
+							    	ng-model-options="{ trackBy: '$value.fac_type'}"
+							    	ng-disabled="!project.options.location.admin2"
+							    	ng-options="item as item.fac_type_name for item in project.options.list.facility_type">
 							      <option value="" disabled selected>Choose Facility Type</option>
 							    </select>
 							    <label>Facility Type</label>
@@ -62,18 +72,18 @@
 
 							  <div class="input-field col s12 m3">
 							    <input id="ngm-project-hf_name" type="text" class="validate"
-							    	ng-model="project.options.selection.hf_name"
-							    	disabled>
+							    	ng-model="project.options.location.fac_type.fac_name"
+							    	ng-disabled="!project.options.location.fac_type">
 							    <label for="ngm-project-hf_name">Facility Name</label>
 							  </div>
 
 			      		<div class="col s12 m1" style="padding-top:15px;">
-			      			<button class="waves-effect waves-light btn green lighten-2 right" 
-			      					title="Add Location {{ project.options.selection.hf_name }}"
+			      			<button class="waves-effect waves-light btn-floating green lighten-2 right" 
+			      					title="Add Location {{ project.options.location.fac_type.fac_name }}"
 			      					ng-show="project.definition.project_status !== 'complete'"
 			      					ng-click="project.addLocation()"
-			      					ng-disabled="!project.options.selection.hf_name">
-			      					<i class="material-icons">add_circle</i>
+			      					ng-disabled="!project.options.location.fac_type.fac_name">
+			      					<i class="material-icons">add</i>
 			      			</button>
 							  </div>					  
 
@@ -85,7 +95,7 @@
 									<h5 class="report-selected-locations">{{ project.definition.target_locations.length }} Selected Locations</h5>
 								</div>
 
-								<div class="row" ng-repeat="location in project.definition.target_locations track by $index">
+								<div class="row" ng-repeat="location in project.definition.target_locations | orderBy: '-createdAt' track by $index">
 
 									<div class="row" id="ngm-health-locations-{{ $index }}">
 										<div class="col s12 m11 left">
@@ -96,10 +106,10 @@
 											</h5>
 										</div>
 										<div class="col s12 m1 right" style="padding-top:15px;padding-right:34px;">
-											<a class="waves-effect waves-light btn red lighten-2 right"
+											<a class="waves-effect waves-light btn-floating red lighten-2 right"
 									      	title="Remove {{ location.admin1name }} Location {{ location.fac_name }}"
 									      	ng-if="project.definition.project_status !== 'complete'"
-									      	ng-click="project.removeLocationModal( $index )"><i class="material-icons">cancel</i>
+									      	ng-click="project.removeLocationModal( $index )"><i class="material-icons">clear</i>
 									    </a>
 										</div>
 									</div>

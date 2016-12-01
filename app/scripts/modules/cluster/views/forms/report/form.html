@@ -47,10 +47,10 @@
 	">
 		
 		<!-- Project beneficiaries details -->
-		<div class="slide-animate" ng-include="project.locationsUrl"></div>
+		<div class="slide-animate" ng-include="project.templatesUrl + project.locationsUrl"></div>
 
 		<!-- Project beneficiaries details -->
-		<div class="slide-animate" ng-include="project.notesUrl"></div>
+		<div class="slide-animate" ng-include="project.templatesUrl + project.notesUrl"></div>
 
 		<!-- form submission -->
 		<div class="row remove" ng-if="project.report.report_status !== 'complete'">

@@ -87,19 +87,13 @@
 	">
 
 		<!-- Project details -->
-		<div class="slide-animate" ng-include="project.detailsUrl"></div>
-
-		<!-- Project budget details -->
-		<!-- <div class="slide-animate" ng-include="project.budgetUrl"></div>		 -->
+		<div class="slide-animate" ng-include="project.templatesUrl + project.detailsUrl"></div>
 
 		<!-- Project beneficiaries details -->
-		<div class="slide-animate" ng-include="project.targetBeneficiariesUrl"></div>	
+		<div class="slide-animate" ng-include="project.templatesUrl + project.targetBeneficiariesUrl"></div>	
 
 		<!-- Project location details -->
-		<div class="slide-animate" ng-include="project.locationsUrl"></div>	
-
-		<!-- Project beneficiaries details -->
-		<!-- <div class="slide-animate" ng-include="project.beneficiariesUrl"></div>	 -->
+		<div class="slide-animate" ng-include="project.templatesUrl + project.locationsUrl"></div>	
 
 		<!-- form submission -->
 		<div class="row remove" ng-if="project.definition.project_status !== 'complete'">
