@@ -127,76 +127,84 @@
 				      </div>
 
 				      <!-- activity description / project donor  -->
-				      <div class="row" ng-if="project.definition.activity_type">
+				      <div ng-if="project.definition.activity_type">
+					      
+					      <div class="row">
 
-				      	<!-- Activity descirption -->
-				      	<div class="input-field col s12 m6" style="padding-bottom:15px;"
-				      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.activity_description_valid() }">
-				      		<label>Activity Description</label>
-				      		
-				      		<!-- label padding -->
-				      		<div style="padding-bottom:35px;"></div>				      		
-				      		
-				      		<!-- for activity_description -->
-							    <p ng-repeat="a in project.options.list.activities.activity_description | filter: { activity_type_id: project.definition.activity_type } track by $index">
-							      <input type="checkbox" id="activity_{{ a.activity_description_id }}" 
-							      ng-model="project.definition.activity_description_check[ a.activity_description_id ]"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="activity_{{ a.activity_description_id }}">{{ a.activity_description_name }}</label>
-							    </p>
-							    <p>
-							      <input type="checkbox" id="activity_other" 
-							      ng-model="project.definition.activity_description_check.other"
-							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="activity_other">Other</label>
-							    </p>
-
-							  </div>	  
-
-							  <!-- project donor -->
-				      	<div class="input-field col s12 m6" style="padding-bottom:15px;"
-				      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.project_donor_valid() }">
-				      		<label>Project Donor</label>
-				      		<!-- label padding -->
-				      		<div style="padding-bottom:35px;"></div>
-
-				      		<p ng-repeat="donor in project.options.list.donors track by $index">
-							      <input type="checkbox" id="donor_{{ donor.donor_id }}" 
-								      ng-model="project.definition.project_donor_check[ donor.donor_id ]"
+					      	<!-- Activity descirption -->
+					      	<div class="input-field col s12 m6" style="padding-bottom:15px;"
+					      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.activity_description_valid() }">
+					      		<label>Activity Description</label>
+					      		
+					      		<!-- label padding -->
+					      		<div style="padding-bottom:35px;"></div>				      		
+					      		
+					      		<!-- for activity_description -->
+								    <p ng-repeat="a in project.options.list.activities.activity_description | filter: { activity_type_id: project.definition.activity_type } track by $index">
+								      <input type="checkbox" id="activity_{{ a.activity_description_id }}" 
+								      ng-model="project.definition.activity_description_check[ a.activity_description_id ]"
 								      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label for="donor_{{ donor.donor_id }}">{{ donor.donor_name }}</label>
-				      		</p>
+								      <label for="activity_{{ a.activity_description_id }}">{{ a.activity_description_name }}</label>
+								    </p>
+								    <p>
+								      <input type="checkbox" id="activity_other" 
+								      ng-model="project.definition.activity_description_check.other"
+								      ng-disabled="project.definition.project_status === 'complete'"/>
+								      <label for="activity_other">Other</label>
+								    </p>
 
-							  </div>
+								  </div>	  
 
-							  <!--  Other Types -->
-								<div class="input-field col s12 m6"
-											ng-show="project.definition.activity_description_check.other">
-				          <input 
-				          		id="ngm-project-activity_description_other" type="text"
-											ng-model="project.definition.activity_description_other"
-				        			ng-class="{ 'valid' : project.definition.activity_description_other }"
-											ng-disabled="!project.definition.activity_description_check.other || project.definition.project_status === 'complete'">
-				          <label for="ngm-project-activity_description_other">List Other Activity Description</label>
+								  <!-- project donor -->
+					      	<div class="input-field col s12 m6" style="padding-bottom:15px;"
+					      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.project_donor_valid() }">
+					      		<label>Project Donor</label>
+					      		<!-- label padding -->
+					      		<div style="padding-bottom:35px;"></div>
+
+					      		<p ng-repeat="donor in project.options.list.donors track by $index">
+								      <input type="checkbox" id="donor_{{ donor.donor_id }}" 
+									      ng-model="project.definition.project_donor_check[ donor.donor_id ]"
+									      ng-disabled="project.definition.project_status === 'complete'"/>
+								      <label for="donor_{{ donor.donor_id }}">{{ donor.donor_name }}</label>
+					      		</p>
+
+								  </div>
+
 								</div>
 
-								<!--  Other Donors -->
-								<div class="input-field col s12 m6"
-											ng-show="project.definition.project_donor_check.other && !project.definition.activity_description_check.other">
-									<p></p>
-								</div>								
+								<div class="row">
 
-				        <div class="input-field col s12 m6"
-				        			ng-show="project.definition.project_donor_check.other">
-				          <input 
-				          		id="ngm-project-project_donor_other" type="text"
-											ng-model="project.definition.project_donor_other"
-				        			ng-class="{ 'valid' : project.definition.project_donor_other }"
-											ng-disabled="!project.definition.project_donor_check.other || project.definition.project_status === 'complete'">
-				          <label for="ngm-project-project_donor_other">List Other Donors</label>
-				       	</div>							  
+								  <!--  Other Types -->
+									<div class="input-field col s12 m6"
+												ng-show="project.definition.activity_description_check.other">
+					          <input 
+					          		id="ngm-project-activity_description_other" type="text"
+												ng-model="project.definition.activity_description_other"
+					        			ng-class="{ 'valid' : project.definition.activity_description_other }"
+												ng-disabled="!project.definition.activity_description_check.other || project.definition.project_status === 'complete'">
+					          <label for="ngm-project-activity_description_other">List Other Activity Description</label>
+									</div>
 
-				      </div>
+									<!--  Other Donors -->
+									<div class="input-field col s12 m6"
+												ng-show="project.definition.project_donor_check.other && !project.definition.activity_description_check.other">
+										<p></p>
+									</div>								
+
+					        <div class="input-field col s12 m6"
+					        			ng-show="project.definition.project_donor_check.other">
+					          <input 
+					          		id="ngm-project-project_donor_other" type="text"
+												ng-model="project.definition.project_donor_other"
+					        			ng-class="{ 'valid' : project.definition.project_donor_other }"
+												ng-disabled="!project.definition.project_donor_check.other || project.definition.project_status === 'complete'">
+					          <label for="ngm-project-project_donor_other">List Other Donors</label>
+					       	</div>							  
+
+					      </div>
+
+					     </div>
 
 							<!-- other partners -->
 							<div class="row">
