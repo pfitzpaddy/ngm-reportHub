@@ -100,7 +100,9 @@
 
 		      		<br/>
 
-							<div class="row">
+							<div class="row" 
+								ng-if="project.definition.activity_type === 'primary_health_care' ||
+											 project.definition.activity_type === 'reproductive_heatlh' ">
 
 								<h5 class="indicator-title">MIDWIFERY</h5>
 
@@ -144,7 +146,9 @@
 
 		      		<br/>
 
-							<div class="row">
+							<div class="row"
+								ng-if="project.definition.activity_type === 'primary_health_care' ||
+											 project.definition.activity_type === 'vaccination' ">
 
 								<h5 class="indicator-title">VACCINATIONS</h5>
 

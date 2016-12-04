@@ -88,7 +88,7 @@
 				          <select class="validate"
 				          	id="ngm-activity_type"
 				          	ng-model="project.definition.activity_type"
-				          	ng-model-options="{ trackBy: '$value.activity_type_id'}"
+				          	ng-model-options="{ trackBy: '$value.activity_type_id' }"
 				          	ng-disabled="project.definition.project_status === 'complete'"
 										ng-options="activities.activity_type_id as activities.activity_type_name for activities in project.options.list.activities.activity_type"
 				          	required>
@@ -113,7 +113,7 @@
 								    <select class="validate"
 								    	id="ngm-project_budget_currency"
 								    	ng-model="project.definition.project_budget_currency"
-								    	ng-model-options="{ trackBy: '$value.currency_id'}"
+								    	ng-model-options="{ trackBy: '$value.currency_id' }"
 								    	ng-disabled="project.definition.project_status === 'complete'" 
 											ng-options="currency.currency_id as currency.currency_name for currency in project.options.list.currencies"
 								    	required>
@@ -138,11 +138,17 @@
 				      		<div style="padding-bottom:35px;"></div>				      		
 				      		
 				      		<!-- for activity_description -->
-							    <p ng-repeat="a in project.options.list.activities.activity_description track by $index">
+							    <p ng-repeat="a in project.options.list.activities.activity_description | filter: { activity_type_id: project.definition.activity_type } track by $index">
 							      <input type="checkbox" id="activity_{{ a.activity_description_id }}" 
 							      ng-model="project.definition.activity_description_check[ a.activity_description_id ]"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
 							      <label for="activity_{{ a.activity_description_id }}">{{ a.activity_description_name }}</label>
+							    </p>
+							    <p>
+							      <input type="checkbox" id="activity_other" 
+							      ng-model="project.definition.activity_description_check.other"
+							      ng-disabled="project.definition.project_status === 'complete'"/>
+							      <label for="activity_other">Other</label>
 							    </p>
 
 							  </div>	  

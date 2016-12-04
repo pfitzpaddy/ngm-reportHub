@@ -15,6 +15,32 @@ angular.module('ngmReportHub')
         $timeout(function(){ $( 'select' ).material_select(); }, 0 );
 			},
 
+      // get a new project
+      getNewProject: function( user ) {
+
+        // create empty project
+        var project = {
+          project_status: 'new',
+          project_title: 'New Project',
+          project_description: 'Complete the project details to register a new project',
+          project_start_date: moment().format('YYYY-MM-DD'),
+          project_end_date: moment().add( 6, 'm' ).format('YYYY-MM-DD'),
+          target_beneficiaries: [],
+          beneficiary_type: [],
+          target_locations: []
+        }
+
+        // extend defaults with ngmUser details
+        project = angular.merge( {}, user, project );
+        
+        // remove id of ngmUser to avoid conflict with new project
+        delete project.id;
+
+        // return
+        return project;
+
+      },
+
       // project target report indicators
       getProjectTargetIndicators: function() {
         // targets
@@ -64,15 +90,6 @@ angular.module('ngmReportHub')
         // if unique
         if ( unique ) {
           activities = this.filterDuplicates( activities, 'activity_type_id' )
-        }
-
-        // else 
-        if ( !unique ) {
-          // add other
-          activities.push({
-            activity_description_id: 'other',
-            activity_description_name: 'Other'
-          });
         }
 
         // return 
@@ -153,35 +170,45 @@ angular.module('ngmReportHub')
 			},
 
 			// return ocha beneficiaries
-			getBeneficiaries: function( list ) {
+			getBeneficiaries: function( cluster_id, list ) {
 
 				// ocha beneficiaries list
 				var beneficiaries = [{
+          cluster: [ 'esnfi', 'health', 'wash' ],
           beneficiary_type: 'conflict_displaced',
           beneficiary_name: 'Conflict IDPs'
         },{
-          beneficiary_type: 'health_affected_conflict',
-          beneficiary_name: 'Health Affected by Conflict'
-        },{
+          cluster: [ 'esnfi', 'health', 'wash' ],
           beneficiary_type: 'training',
           beneficiary_name: 'Education & Capacity Building'
         },{
+          cluster: [ 'esnfi', 'health', 'wash' ],
+          beneficiary_type: 'health_affected_conflict',
+          beneficiary_name: 'Health Affected by Conflict'
+        },{
+          cluster: [ 'esnfi', 'health', 'wash' ],
           beneficiary_type: 'natural_disaster_affected',
           beneficiary_name: 'Natural Disaster IDPs'
         },{
+          cluster: [ 'esnfi', 'wash' ],
+          beneficiary_type: 'protracted_idps',
+          beneficiary_name: 'Protracted IDPs'
+        },{
+          cluster: [ 'esnfi', 'health', 'wash' ],
           beneficiary_type: 'refugees_returnees',
           beneficiary_name: 'Refugees & Returnees'
         },{
+          cluster: [ 'esnfi', 'health', 'wash' ],
           beneficiary_type: 'white_area_population',
           beneficiary_name: 'White Area Population'
         }];
 
-        
         // filter by cluster beneficiaries here
-
+        beneficiaries = $filter( 'filter' )( beneficiaries, { cluster: cluster_id }, true );
 
         // for each beneficiaries from list
         angular.forEach( list, function( d, i ){
+
           // filter out selected types
           beneficiaries = 
               $filter( 'filter' )( beneficiaries, { beneficiary_type: '!' + d.beneficiary_type }, true );
@@ -275,7 +302,7 @@ angular.module('ngmReportHub')
 
 			// get processed target location
 			getCleanTargetBeneficiaries: function( project, indicators, beneficiaries ){
-        
+
 				// merge project + indicators + beneficiaries
 				var beneficiaries = angular.merge( {}, project, indicators, beneficiaries );
 

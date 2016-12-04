@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterProjectDetailsCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmData', 'ngmUser', function ($scope, $route, $location, $anchorScroll, $timeout, ngmData, ngmUser) {
+	.controller('ClusterProjectDetailsCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmData', 'ngmUser', 'ngmClusterHelper', function ( $scope, $route, $location, $anchorScroll, $timeout, ngmData, ngmUser, ngmClusterHelper ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -159,26 +159,8 @@ angular.module('ngmReportHub')
 		// if 'new' create empty project
 		if( $route.current.params.project === 'new' ) {
 
-			// current date
-			var d = new Date();
-
-			// create empty project
-			var project = {
-				project_status: 'new',
-				project_title: 'New Project',
-				project_description: 'Complete the project details to register a new project',
-				project_start_date: new Date(),
-				project_end_date: new Date(d.getFullYear(), d.getMonth() + 6, d.getDate()),
-				target_beneficiaries: [],
-				beneficiary_type: [],
-				target_locations: []
-			}
-
-			// extend defaults with ngmUser details
-			project = angular.merge( {}, ngmUser.get(), project );
-			
-			// remove id of ngmUser to avoid conflict with new project
-			delete project.id;
+			// get new project
+			var project = ngmClusterHelper.getNewProject( ngmUser.get() );
 
 			// set summary
 			$scope.report.setProjectDetails( project );

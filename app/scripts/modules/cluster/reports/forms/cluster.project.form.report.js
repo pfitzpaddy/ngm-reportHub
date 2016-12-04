@@ -64,8 +64,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // holder for UI options
         options: {
           list: {
-            // beneficiaries
-            beneficiaries: ngmClusterHelper.getBeneficiaries()
+            // get default beneficiaries
+            beneficiaries: ngmClusterHelper.getBeneficiaries( config.project.cluster_id, [] )
           },
           beneficiaries: []
         },
@@ -88,7 +88,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
             // filter / sort beneficiaries
             $scope.project.options.list.beneficiaries[ $index ]
-                = ngmClusterHelper.getBeneficiaries( $scope.project.report.locations[ $index ].beneficiaries );
+                = ngmClusterHelper.getBeneficiaries( $scope.project.definition.cluster_id, $scope.project.report.locations[ $index ].beneficiaries );
 
             // update material select
             ngmClusterHelper.updateSelect();
@@ -105,7 +105,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
           // filter / sort
           $scope.project.options.list.beneficiaries[ $parent ]
-              = ngmClusterHelper.getBeneficiaries( $scope.project.report.locations[ $index ].beneficiaries );
+              = ngmClusterHelper.getBeneficiaries( $scope.project.definition.cluster_id, $scope.project.report.locations[ $index ].beneficiaries );
 
           // update material select
           ngmClusterHelper.updateSelect();
@@ -276,7 +276,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
             // filter / sort beneficiaries
             $scope.project.options.list.beneficiaries[ i ]
-                = ngmClusterHelper.getBeneficiaries( $scope.project.report.locations[ i ].beneficiaries );
+                = ngmClusterHelper.getBeneficiaries( $scope.project.definition.cluster_id, $scope.project.report.locations[ i ].beneficiaries );
 
             // update select
             ngmClusterHelper.updateSelect();

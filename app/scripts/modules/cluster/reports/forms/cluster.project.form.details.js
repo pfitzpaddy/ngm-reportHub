@@ -58,7 +58,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             // donors
             donors: ngmClusterHelper.getDonors(),
             // beneficiaries
-            beneficiaries: ngmClusterHelper.getBeneficiaries( config.project.target_beneficiaries ),
+            beneficiaries: ngmClusterHelper.getBeneficiaries( config.project.cluster_id, config.project.target_beneficiaries ),
             // admin1
             admin1: angular.fromJson( localStorage.getItem( 'admin1List' ) ),
             // admin2
@@ -67,50 +67,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             facility_type: ngmClusterHelper.getFacilityTypes(),
             // activities by cluster
             activities: {
-              activity_type: ngmClusterHelper.getActivities( ngmUser.get().cluster_id, true ),
-              activity_description: ngmClusterHelper.getActivities( ngmUser.get().cluster_id, false )
+              // pass project cluster_id 
+              activity_type: ngmClusterHelper.getActivities( config.project.cluster_id, true ),
+              activity_description: ngmClusterHelper.getActivities( config.project.cluster_id, false )
             }
-
-            // activities: {
-            //   activity_type: [{
-            //     activity_type_id: 'health_services',
-            //     activity_type_name: 'Health Services'
-            //   }],
-            //   activity_description: [{
-            //     activity_description_id: 'capacity_building',
-            //     activity_description_name: 'Capacity Building of Health Staff'
-            //   },{
-            //     activity_description_id: 'cardio_health',
-            //     activity_description_name: 'Cardio Health'
-            //   },{
-            //     activity_description_id: 'community_health',
-            //     activity_description_name: 'Community Health'
-            //   },{
-            //     activity_description_id: 'donation',
-            //     activity_description_name: 'Donation'
-            //   },{
-            //     activity_description_id: 'health_education',
-            //     activity_description_name: 'Health Education'
-            //   },{
-            //     activity_description_id: 'outbreak_response',
-            //     activity_description_name: 'Outbreak Response'
-            //   },{
-            //     activity_description_id: 'phc',
-            //     activity_description_name: 'PHC'
-            //   },{
-            //     activity_description_id: 'physical_rehabilitation',
-            //     activity_description_name: 'Physical Rehabilitation'
-            //   },{
-            //     activity_description_id: 'psycho_social',
-            //     activity_description_name: 'Psycho Social'
-            //   },{
-            //     activity_description_id: 'trauma_care',
-            //     activity_description_name: 'Trauma Care'
-            //   },{
-            //     activity_description_id: 'project_donor_other',
-            //     activity_description_name: 'Other'
-            //   }]
-            // }
           }
         },
 
@@ -126,8 +86,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // datepicker
         datepicker: {
           onClose: function(){
-            $scope.project.definition.project_start_date = moment( new Date( $scope.project.definition.project_start_date ) ).format('YYYY-MM-DD');
-            $scope.project.definition.project_end_date = moment( new Date( $scope.project.definition.project_end_date ) ).format('YYYY-MM-DD');
+            $scope.project.definition.project_start_date = moment( $scope.project.definition.project_start_date ).format('YYYY-MM-DD');
+            $scope.project.definition.project_end_date = moment( $scope.project.definition.project_end_date ).format('YYYY-MM-DD');
           }
         },
 
@@ -195,7 +155,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           // filter / sort target_beneficiaries
           $scope.project.options.list.beneficiaries 
-              = ngmClusterHelper.getBeneficiaries( $scope.project.definition.target_beneficiaries );
+              = ngmClusterHelper.getBeneficiaries( $scope.project.definition.cluster_id, $scope.project.definition.target_beneficiaries );
 
           // update material select
           ngmClusterHelper.updateSelect();
@@ -210,7 +170,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           // filter / sort
           $scope.project.options.list.beneficiaries 
-              = ngmClusterHelper.getBeneficiaries( $scope.project.definition.target_beneficiaries );
+              = ngmClusterHelper.getBeneficiaries( $scope.project.definition.cluster_id, $scope.project.definition.target_beneficiaries );
 
           // update material select
           ngmClusterHelper.updateSelect();
@@ -308,7 +268,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             $scope.project.definition.target_locations[i].project_title = $scope.project.definition.project_title;
             $scope.project.definition.target_locations[i].activity_description = $scope.project.definition.activity_description;
             // add beneficiary_types to locations
-            $scope.project.definition.target_locations[i] = $scope.project.definition.beneficiary_type;
+            $scope.project.definition.target_locations[i].beneficiary_type = $scope.project.definition.beneficiary_type;
             // locations
             $scope.project.definition.admin1pcode.push( l.admin1pcode );
             $scope.project.definition.admin2pcode.push( l.admin2pcode );
@@ -447,8 +407,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           //   // update the selection
           //   $( '#ngm-activity_type' ).val( $scope.project.definition.activity_type[0] );
           // }
-
-
 
 
         }, 1000);
