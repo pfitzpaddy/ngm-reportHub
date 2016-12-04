@@ -139,7 +139,7 @@
 
 									<!-- contact modal -->
 									<li  align="center" class="teal z-depth-2"
-										ng-show="ngm.getUserName() !== 'welcome'">
+										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().roles.indexOf( 'ADMIN' ) !== -1">
 										<a class="white-text" href="#/cluster/admin" ng-click="ngm.toggleNavigationMenu();">
 										<i class="medium material-icons">assignment_ind</i>
 										<br/>ADMIN DASHBOARD</a>
@@ -274,7 +274,6 @@
 		<script src="bower_components/highcharts/highcharts-more.js"></script>
 		<script src="bower_components/highcharts/modules/exporting.js"></script>
 		<script src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
-		<script src="bower_components/html2canvas/build/html2canvas.js"></script>
 		<script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
 		<script src="bower_components/materialize/bin/materialize.js"></script>
 		<script src="bower_components/moment/moment.js"></script>
