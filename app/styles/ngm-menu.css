@@ -12,7 +12,6 @@
 	position:fixed;
 	overflow: auto;
 	left: 0px;
-
 }
 .ngm-search {
 	height: 52px;
@@ -41,9 +40,10 @@
 	pointer-events:none;
 }
 .ngm-profile-btn {
+	height: 68px;
 	position:absolute; 
 	top:95px;
-	z-index:9999;
+	z-index:9991;
 }
 .ngm-profile-icon {
 	-moz-transition: all 0.2s linear;
@@ -56,6 +56,10 @@
 	-webkit-transform:rotate(180deg);
 	transform:rotate(180deg);	
 }
+/* menu icon size */
+i.smedium {
+  font-size: 3rem;
+}
 .ngm-profile-menu-content {
 	display: none;
   width: 280px;
@@ -66,9 +70,9 @@
   overflow: hidden;
 }
 .ngm-profile-menu-content li {
-	padding-top: 15px;
-	height: 100px;
-	text-align: center;	
+	/*padding-top: 15px;*/
+	/*height: 100px;*/
+	/*text-align: center;	*/
 }
 .collection .collection-item {
 	font-weight: 300;

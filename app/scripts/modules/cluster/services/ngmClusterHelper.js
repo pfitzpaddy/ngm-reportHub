@@ -41,17 +41,6 @@ angular.module('ngmReportHub')
 
       },
 
-      // project target report indicators
-      getProjectTargetIndicators: function() {
-        // targets
-        return { 
-          boys: 0,
-          girls: 0,
-          men: 0,
-          women: 0
-        }
-      },
-
       // monthly report indicators
       getIndicators: function() {
         // indicators

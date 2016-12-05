@@ -58,7 +58,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
               // update
               $timeout(function(){
-                Materialize.toast( err.msg, 3000, 'error' );
+                Materialize.toast( err.msg, 6000, 'error' );
               }, 400);
             });
           }
@@ -90,7 +90,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             }).error(function( err ) {
               // update
               $timeout(function(){
-                Materialize.toast( err.msg, 3000, 'error' );
+                Materialize.toast( err.msg, 6000, 'error' );
               }, 1000);
             });
 
@@ -132,7 +132,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
                 // update
                 $timeout(function(){
-                  Materialize.toast( err.msg, 3000, 'error' );
+                  Materialize.toast( err.msg, 6000, 'error' );
                 }, 400);
               });
           }
@@ -166,7 +166,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             }).error(function(err) {
               // update
               $timeout(function(){
-                Materialize.toast( err.msg, 3000, 'error' );
+                Materialize.toast( err.msg, 6000, 'error' );
               }, 1000);
             });
           }

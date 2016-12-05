@@ -8,7 +8,9 @@
   $( 'select' ).material_select();
 
   // init textarea
-  $( 'textarea' ).height( $('textarea')[0].scrollHeight );
+  setTimeout( function(){
+  	$( 'textarea' ).height( $('textarea')[0].scrollHeight );
+  }, 0 );
 
 </script>
 
@@ -39,12 +41,12 @@
 										ng-model="project.definition.project_title"
 										ng-disabled="project.definition.project_status === 'complete'"
 										required>
-				          <label for="ngm-project-name">Project Title</label>
+				          <label for="ngm-project-name">Project Title *</label>
 				        </div>
 				        
 				        <!-- input-date directive -->
 				        <div class="input-field col s12 m3">
-									<label for="ngm-start-date">Start Date</label>
+									<label for="ngm-start-date">Start Date *</label>
 									<input ngm-date
 									    type="text"
 									    name="created"
@@ -58,7 +60,7 @@
 
 				        <!-- input-date directive -->
 				        <div class="input-field col s12 m3">
-				          <label for="ngm-end-date">End Date</label>
+				          <label for="ngm-end-date">End Date *</label>
 									<input ngm-date
 									    type="text"
 									    name="created"
@@ -94,7 +96,7 @@
 				          	required>
 				          	<option value="" disabled selected>Select Activity Type</option>
 				          </select>
-				          <label for="ngm-activity_type">Activity Type</label>
+				          <label for="ngm-activity_type">Activity Type *</label>
 				        </div>
 
 				        <!-- budget currency -->
@@ -105,7 +107,7 @@
 					          	ng-model="project.definition.project_budget"
 					          	ng-disabled="project.definition.project_status === 'complete'"
 					          	required>
-					          <label for="ngm-project-budget">Project Budget ( ${{ project.definition.project_budget_currency | uppercase }} )</label>
+					          <label for="ngm-project-budget">Project Budget ( ${{ project.definition.project_budget_currency | uppercase }} ) *</label>
 					        </div>
 
 					        <div class="input-field col s12 m3"
@@ -119,7 +121,7 @@
 								    	required>
 								      <option value="" disabled selected>Select Project Budget Currency</option>
 								    </select>
-								    <label for="ngm-project_budget_currency">Project Budget Currency</label>
+								    <label for="ngm-project_budget_currency">Project Budget Currency *</label>
 					        </div>
 
 				        </div>
@@ -134,7 +136,7 @@
 					      	<!-- Activity descirption -->
 					      	<div class="input-field col s12 m6" style="padding-bottom:15px;"
 					      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.activity_description_valid() }">
-					      		<label>Activity Description</label>
+					      		<label>Activity Description *</label>
 					      		
 					      		<!-- label padding -->
 					      		<div style="padding-bottom:35px;"></div>				      		
@@ -158,7 +160,7 @@
 								  <!-- project donor -->
 					      	<div class="input-field col s12 m6" style="padding-bottom:15px;"
 					      				ng-class="{ 'error-label': healthProjectForm.$submitted && !project.project_donor_valid() }">
-					      		<label>Project Donor</label>
+					      		<label>Project Donor *</label>
 					      		<!-- label padding -->
 					      		<div style="padding-bottom:35px;"></div>
 
@@ -243,7 +245,7 @@
 										ng-disabled="project.definition.project_status === 'complete'"
 										required>
 									</textarea>
-				          <label for="ngm-project-description">Project Description & Objectives</label>
+				          <label for="ngm-project-description">Project Description & Objectives *</label>
 				        </div>
 				      </div>
 

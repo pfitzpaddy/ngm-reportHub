@@ -98,27 +98,24 @@
 							<ul class="ngm-profile-menu-content dropdown-content z-depth-2">
 
 									<!-- user logout -->
-									<li align="center" class="teal z-depth-2"
+									<li class="teal z-depth-2"
 											ng-show="ngm.getUserName() !== 'welcome'">
-										<a class="white-text" ng-click="ngm.logout();">
-										<i class="medium material-icons">lock_open</i>
-										<br/>LOGOUT</a>
+										<a class="white-text right" ng-click="ngm.logout();">
+										<i class="material-icons smedium right">lock_open</i>LOGOUT</a>
 									</li>	
 
 									<!-- user logout -->
-									<li align="center" class="teal z-depth-2"
+									<li align="right" class="teal z-depth-2"
 											ng-show="ngm.getUserName() === 'welcome'">
-										<a class="white-text" href="#/cluster/login" ng-click="ngm.toggleNavigationMenu();">
-										<i class="medium material-icons">lock_outline</i>
-										<br/>LOGIN</a>
+										<a class="white-text right" href="#/cluster/login" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">lock_outline</i>LOGIN</a>
 									</li>
 
 									<!-- contact modal -->
 									<li  align="center" class="teal z-depth-2" 
 										ng-show="ngm.getUserName() !== 'welcome'">
-										<a class="white-text" href="#/cluster/projects" ng-click="ngm.toggleNavigationMenu();">
-										<i class="medium material-icons">zoom_in</i>
-										<br/>MY PROJECTS</a>
+										<a class="white-text right" href="#/cluster/projects" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">zoom_in</i>MY PROJECTS</a>
 									</li>
 
 									<!-- navigation options repeat 
@@ -132,37 +129,33 @@
 									<!-- contact modal -->
 									<li  align="center" class="teal z-depth-2" 
 										ng-show="ngm.getUser() && ngm.getUser().organization.toLowerCase() === 'who' || ngm.getUser().organization.toLowerCase() === 'dews'">
-										<a class="white-text" href="#/who/" ng-click="ngm.toggleNavigationMenu();">
-										<i class="medium material-icons">info_outline</i>
-										<br/>DEWS DASHBOARD</a>
+										<a class="white-text right" href="#/who/" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">info_outline</i>DEWS DASHBOARD</a>
 									</li>
 
 									<!-- contact modal -->
 									<li  align="center" class="teal z-depth-2"
-										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().roles.indexOf( 'ADMIN' ) !== -1">
-										<a class="white-text" href="#/cluster/admin" ng-click="ngm.toggleNavigationMenu();">
-										<i class="medium material-icons">assignment_ind</i>
-										<br/>ADMIN DASHBOARD</a>
+										ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text right" href="#/cluster/admin" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">assignment_ind</i>ADMIN DASHBOARD</a>
 									</li>
 
-									<li  align="center" class="teal z-depth-2">
-										<a class="white-text" href="#/cluster/health/4w" ng-click="ngm.toggleNavigationMenu();">
-										<i class="medium material-icons">assessment</i>
-										<br/>H4W DASHBOARD</a>
-									</li>
-
-									<!-- contact modal -->
-									<li  align="center" class="teal z-depth-2">
-										<a class="white-text" href="#/cluster/guides" ng-click="ngm.toggleNavigationMenu();">
-										<i class="medium material-icons">help_outline</i>
-										<br/>USER GUIDES</a>
+									<li  align="center" class="teal z-depth-2"
+										ng-show="ngm.getUser().cluster_id === 'health'">
+										<a class="white-text right" href="#/cluster/health/4w" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">assessment</i>H4W DASHBOARD</a>
 									</li>
 
 									<!-- contact modal -->
 									<li  align="center" class="teal z-depth-2">
-										<a class="white-text" ng-click="ngm.contact(); ngm.toggleNavigationMenu()">
-										<i class="medium material-icons">group</i>
-										<br/>CONTACT REPORTHUB</a>
+										<a class="white-text right" href="#/cluster/guides" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">help_outline</i>USER GUIDES</a>
+									</li>
+
+									<!-- contact modal -->
+									<li  align="center" class="teal z-depth-2">
+										<a class="white-text right" ng-click="ngm.contact(); ngm.toggleNavigationMenu()">
+										<i class="material-icons smedium right">group</i>CONTACT REPORTHUB</a>
 									</li>
 
 							</ul>

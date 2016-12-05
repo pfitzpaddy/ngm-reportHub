@@ -90,6 +90,7 @@ li {
 					      <option value="KE">Kenya</option>
 					      <option value="SO">Somalia</option>
 					    </select>
+					    <label for="ngm-country">Country</label>
 	        </div>
 	      </div>
 
@@ -108,6 +109,7 @@ li {
 					      <option value="protection">Protection</option>
 					      <option value="wash">WASH</option>
 					    </select>
+					    <label for="ngm-cluster">Cluster</label>
 	        </div>
 	      </div>
 
@@ -189,12 +191,12 @@ li {
 	      </div>
 
 				<div class="action center">
-					<button
+					<div
 						id="contact-back"
 						class="btn btn-large waves-effect waves-teal" >
 							<i class="material-icons left">keyboard_arrow_left</i>
 							Back
-					</button>
+					</div>
 					<button
 						id="contact-next"
 						class="btn btn-large waves-effect waves-teal"
@@ -243,14 +245,14 @@ li {
 	      </div>
 
 				<div class="action center">
-					<button
+					<div
 						id="login-back"
 						class="btn btn-large waves-effect waves-teal">
 							<i class="material-icons left">keyboard_arrow_left</i>
 							Back
-					</button>
+					</div>
 					<button
-						type="submit"
+						id="login-register"
 						class="btn btn-large waves-effect waves-teal"
 						ng-disabled="ngmLoginForm.$invalid"
 						ng-click="panel.register()">
@@ -262,7 +264,6 @@ li {
 	    </form>
 
     </div>
-
 
   </div>
 
@@ -282,20 +283,26 @@ li {
 	// init select
 	$( 'select' ).material_select();
 
-	// goto next
-	$( '#organization-next' ).click( function(){
+	// organization goto contact
+	$( '#organization-next' ).click( function( e ){
 		// set login page
 		$( '.carousel' ).carousel( 'next' );
 	});
 
-	// go back
-	$( '#contact-back' ).click( function(){
-		// set login page
+	// contact go back
+	$( '#contact-back' ).click( function( e ){
 		$( '.carousel' ).carousel( 'prev' );
 	});
 
-	// go back
-	$( '#contact-next' ).click( function(){
+	// contact goto login on enter
+	$( '#contact-next' ).keydown( function( e ){
+		if ( e.keyCode === 13 ) {
+			$( '.carousel' ).carousel( 'next' );
+		}
+	});
+
+	// contact goto login on click
+	$( '#contact-next' ).click( function( e ){
 		// set login page
 		$( '.carousel' ).carousel( 'next' );
 		// toast msg!
@@ -304,9 +311,8 @@ li {
 		}, 400)
 	});
 
-	// go back
-	$( '#login-back' ).click( function(){
-		// set login page
+	// login go back
+	$( '#login-back' ).click( function( e ){
 		$( '.carousel' ).carousel( 'prev' );
 	});
 

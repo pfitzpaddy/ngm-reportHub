@@ -134,23 +134,39 @@ angular.module('ngmReportHub')
 					// districts
 					$scope.dashboard.setDistrictList( angular.fromJson( localStorage.getItem( 'drrdistrictList' ) ) );
 
-				}		
+				}
 
-				// request data
-				ngmData.get({
-					method: 'POST',
-					url: 'http://asdc.immap.org/geoapi/floodrisk/',
-					headers: { 'Content-Type': 'application/json' },
-					data: {
-						spatialfilter: [],
-						flag: $scope.dashboard.flag,
-						code: $route.current.params.district ? $scope.dashboard.districts[$route.current.params.district].dist_code : $scope.dashboard.data[$route.current.params.province].prov_code
-					}
-				}).then(function(data){
-					// assign data
-					$scope.dashboard.setDashboard(data);
-					$('#ngm-loading-modal').closeModal();
-				});			
+				// ngmData.get({
+				// 	method: 'POST',
+				// 	url: 'http://asdc.immap.org/account/ajax_login',
+				// 	data: {
+				// 		username: 'pfitzgerald',
+				// 		password: 'P@trick7'
+				// 	}
+				// }).then( function( data ){
+
+					// console.log( data );
+
+					// request data
+					ngmData.get({
+						method: 'POST',
+						url: 'http://asdc.immap.org/geoapi/floodrisk/',
+						headers: { 
+							'Content-Type': 'application/json',
+							csrftoken: 'WEeSAr3v6NCl6zAinb2tdMrSkR86NTub'
+						},
+						data: {
+							spatialfilter: [],
+							flag: $scope.dashboard.flag,
+							code: $route.current.params.district ? $scope.dashboard.districts[$route.current.params.district].dist_code : $scope.dashboard.data[$route.current.params.province].prov_code
+						}
+					}).then(function(data){
+						// assign data
+						$scope.dashboard.setDashboard(data);
+						$('#ngm-loading-modal').closeModal();
+					});	
+
+				// });
 
 			},		
 

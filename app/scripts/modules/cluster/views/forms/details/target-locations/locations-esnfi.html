@@ -40,7 +40,7 @@
 			      				ng-options="item as item.admin1name for item in project.options.list.admin1">
 			      				<option value="" disabled selected>Choose {{ project.options.list.admin1[0].admin1type_name }}</option>
 			      			</select>
-			      			<label>{{ project.options.list.admin1[0].admin1type_name }}</label>
+			      			<label>{{ project.options.list.admin1[0].admin1type_name }} *</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m4"
@@ -54,14 +54,14 @@
 			      				ng-options="item as item.admin2name for item in project.options.list.admin2 | filter: { admin1pcode: project.options.location.admin1.admin1pcode }">
 			      				<option value="" disabled selected>Choose {{ project.options.list.admin2[0].admin2type_name }}</option>
 			      			</select>
-			      			<label>{{ project.options.list.admin2[0].admin2type_name }}</label>
+			      			<label>{{ project.options.list.admin2[0].admin2type_name }} *</label>
 			      		</div>
 
 							  <div class="input-field col s12 m3">
 							    <input id="ngm-project-hf_name" type="text" class="validate"
 							    	ng-model="project.options.location.fac_type.fac_name"
 							    	ng-disabled="!project.options.location.admin2">
-							    <label for="ngm-project-hf_name">Location Name</label>
+							    <label for="ngm-project-hf_name">Location Name *</label>
 							  </div>
 
 			      		<div class="col s12 m1" style="padding-top:15px;">

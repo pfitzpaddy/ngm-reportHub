@@ -45,7 +45,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         updatedAt: moment( config.project.updatedAt ).format('DD MMMM, YYYY @ h:mm:ss a'),
 
         // default indicators
-        indicators: ngmClusterHelper.getProjectTargetIndicators(),
+        indicators: ngmClusterHelper.getIndicators(),
 
         // holder for UI options
         options: {

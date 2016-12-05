@@ -21,7 +21,7 @@
 		          <input id="ngm-project-budget-currency_monthly" type="number" class="validate"
 		          	ng-model="project.definition.project_budget"
 		          	disabled>
-		          <label for="ngm-project-budget-currency_monthly">Project Budget ( ${{ project.definition.project_budget_currency | uppercase }} )</label>
+		          <label for="ngm-project-budget-currency_monthly">Project Budget ( ${{ project.definition.project_budget_currency | uppercase }} ) *</label>
 		        </div>	        
 
 		        <!-- budget recieved -->
@@ -29,12 +29,12 @@
 		          <input id="ngm-project-budget_progress_usd" type="number" class="validate" min="0"
 		          	ng-model="project.budget.project_budget_amount_recieved"
 		          	ng-disabled="project.definition.project_status === 'complete'">
-		          <label for="ngm-project-budget_progress_usd" class="active">Budget Recieved Amount ( ${{ project.definition.project_budget_currency | uppercase }} )</label>
+		          <label for="ngm-project-budget_progress_usd" class="active">Budget Recieved Amount ( ${{ project.definition.project_budget_currency | uppercase }} ) *</label>
 		        </div>
 
 		        <!-- input-date directive -->
 		        <div class="input-field col s12 m3">
-							<label for="ngm-budget-recieved-date">Budget Recieved Date</label>
+							<label for="ngm-budget-recieved-date">Budget Recieved Date *</label>
 							<input ngm-date
 							    type="text"
 							    name="created"
