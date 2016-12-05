@@ -8,63 +8,9 @@
  */
 angular
 	.module('ngmCluster', [])
-	.run( [ '$location', '$q', '$http', 'ngmUser', function ( $location, $q, $http, ngmUser ) {
+	// .run( [ '$location', '$q', '$http', 'ngmUser', 'ngmClusterHelper', function ( $location, $q, $http, ngmUser, ngmClusterHelper ) {
 
-		// if user exists, get lists
-		if ( ngmUser.get() ) {
-			
-			// requests
-			var requests = {
-
-				// province lists
-				admin1ListRequest: {
-					method: 'POST',
-					url: 'http://' + $location.host() + '/api/location/getAdmin1List',
-					data: {
-						admin0pcode: ngmUser.get().admin0pcode
-					}
-				},
-
-				// district lists
-				admin2ListRequest: {
-					method: 'POST',
-					url: 'http://' + $location.host() + '/api/location/getAdmin2List',
-					data: {
-						admin0pcode: ngmUser.get().admin0pcode
-					}
-				},
-
-				// activities list
-				activitiesRequest: {
-					method: 'GET',
-					url: 'http://' + $location.host() + '/api/cluster/getActivities'
-				}
-
-			}
-
-			// localStorage.removeItem( 'provinceList' );
-
-			// get all lists 
-			// if ( localStorage.getItem( 'lists' ) ) {
-
-				// send request
-				$q.all([ 
-					$http( requests.admin1ListRequest ), 
-					$http( requests.admin2ListRequest ), 
-					$http( requests.activitiesRequest ) ]).then( function( results ){
-
-						// set lists to local storage
-						localStorage.setItem( 'lists', true );
-						localStorage.setItem( 'admin1List', JSON.stringify(results[0].data) );
-						localStorage.setItem( 'admin2List', JSON.stringify(results[1].data) );
-						localStorage.setItem( 'activitiesList', JSON.stringify(results[2].data) );
-
-					});
-
-			// }
-		}
-
-	}])
+	// }])
 	.config([ '$routeProvider', '$compileProvider', function ( $routeProvider, $compileProvider ) {
 
 		// https://medium.com/swlh/improving-angular-performance-with-1-line-of-code-a1fb814a6476#.ufea9sjt1

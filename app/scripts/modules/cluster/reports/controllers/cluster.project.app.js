@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller( 'ClusterProjectAppCtrl', ['$scope', '$location', '$route', 'ngmData', 'ngmUser', function ( $scope, $location, $route, ngmData, ngmUser ) {
+	.controller( 'ClusterProjectAppCtrl', ['$scope', '$location', '$route', 'ngmData', 'ngmUser', 'ngmClusterHelper', function ( $scope, $location, $route, ngmData, ngmUser, ngmClusterHelper ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -26,6 +26,12 @@ angular.module( 'ngmReportHub' )
 			title: '',
 			subtitle: '',
 
+			// get organization id
+			setOrganizationId: function(){
+				// set to report
+				$scope.report.organization_id = $route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
+			},
+
 			// get organization
 			getOrganization: function( organization_id ){
 
@@ -41,8 +47,11 @@ angular.module( 'ngmReportHub' )
 
 		}
 
+		// set location lists
+		ngmClusterHelper.setClusterLists( ngmUser.get().admin0pcode );
+
 		// org id
-		$scope.report.organization_id = $route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
+		$scope.report.setOrganizationId();
 
 		// get data
 		ngmData.get( $scope.report.getOrganization( $scope.report.organization_id ) ).then( function( organization ){
