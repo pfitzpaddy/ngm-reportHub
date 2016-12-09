@@ -65,7 +65,7 @@ angular
 						return ngmAuth.isAnonymous();
 					}],
 				}
-			})
+			})			
 			// FORBIDDEN
 			.when( '/forbidden', {
 				templateUrl: '/views/app/dashboard.html',
@@ -73,6 +73,21 @@ angular
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 						return !ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+
+			// achievements
+			.when( '/reporthub', {
+				redirectTo: '/reporthub/2016'
+			})
+			// achievements
+			.when( '/reporthub/:year', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardReportHubCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function( ngmAuth ) {
+						return ngmAuth.isAuthenticated();
 					}],
 				}
 			});
@@ -182,6 +197,16 @@ angular
 
 				// set app colors based on 
 				switch( app ){
+          case 'reporthub':
+            // set style obj
+            $scope.ngm.style = {
+              logo: 'logo.png',
+              home: '#/reporthub',
+              darkPrimaryColor: '#1976D2',
+              defaultPrimaryColor: '#2196F3',
+              lightPrimaryColor: '#BBDEFB'
+            }
+            break;
 					case 'immap':
 						// set style obj
 						$scope.ngm.style = {

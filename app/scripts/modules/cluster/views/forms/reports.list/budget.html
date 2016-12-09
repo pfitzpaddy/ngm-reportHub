@@ -42,6 +42,7 @@
 							    ng-model="project.budget.project_budget_date_recieved"
 							    format="dd mmm, yyyy"
 							    select-years="15"
+							    min="{{ project.datepicker.minDate }}"
 							    max="{{ project.datepicker.maxDate }}"
 							    on-close="project.datepicker.onClose()"/>
 		        </div>		        

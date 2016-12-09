@@ -55,6 +55,7 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
 
         // set budget date on datepicker close
         datepicker: {
+          minDate: moment( config.project.project_start_date ).format('YYYY-MM-DD'),
           maxDate: moment().format('YYYY-MM-DD'),
           onClose: function() {
             // format date on selection

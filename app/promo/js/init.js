@@ -5,7 +5,7 @@
   	var users = 0,
   			locations = 0,
   			reports = 0,
-  			href = window.location.href;
+  			href = window.location.href; // http://reporthub.immap.org
 
 		// materialize components
   	$('.parallax').parallax();

@@ -8,9 +8,7 @@
  */
 angular
 	.module('ngmCluster', [])
-	// .run( [ '$location', '$q', '$http', 'ngmUser', 'ngmClusterHelper', function ( $location, $q, $http, ngmUser, ngmClusterHelper ) {
-
-	// }])
+	// .run( [ '$location', '$q', '$http', 'ngmUser', 'ngmClusterHelper', function ( $location, $q, $http, ngmUser, ngmClusterHelper ) { }])
 	.config([ '$routeProvider', '$compileProvider', function ( $routeProvider, $compileProvider ) {
 
 		// https://medium.com/swlh/improving-angular-performance-with-1-line-of-code-a1fb814a6476#.ufea9sjt1
