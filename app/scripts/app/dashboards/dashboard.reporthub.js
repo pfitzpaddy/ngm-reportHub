@@ -46,10 +46,10 @@ angular.module('ngmReportHub')
 				getAgileHtml: function(){
 
 					return '<div class="row" style="padding:10px;">'
-										+'<div class="col s12 m4 center">'
+										+'<div class="col center s12 m4">'
 											+'<img src="images/recaptcha.png" width="128px;" title="Agile. Feedback. Development. Repeat." />'
 										+'</div>'
-										+'<div class="col s12 m8 left">'
+										+'<div class="col left s12 m8">'
 											+'<div>'
 												+'<h4>Agile</h4>'
 												+'<h5 style="font-size:1.6rem;">Feedback. Development. Repeat.</h5>'
