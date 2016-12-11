@@ -47,7 +47,7 @@ angular.module('ngmReportHub')
 
 					return '<div class="row" style="padding:10px;">'
 										+'<div class="col s12 m4 center">'
-											+'<img src="images/recaptcha.png" width="30%" title="Agile. Feedback. Development. Repeat." />'
+											+'<img src="images/recaptcha.png" width="128px;" title="Agile. Feedback. Development. Repeat." />'
 										+'</div>'
 										+'<div class="col s12 m8 left">'
 											+'<div>'
@@ -114,13 +114,26 @@ angular.module('ngmReportHub')
 				setDashboard: function(){
 
 					// add menu
+					// $scope.dashboard.menu = [{
+					// 	'id': 'epr-admin-year',
+					// 	'icon': 'help_outline',
+					// 	'title': 'PROBLEM',
+					// 	'class': 'red lighten-2 white-text',
+					// 	'rows': [{},{},{},{},{},{},{},{},{},{},{}]
+					// }];
 					$scope.dashboard.menu = [{
 						'id': 'epr-admin-year',
 						'icon': 'help_outline',
 						'title': 'PROBLEM',
 						'class': 'red lighten-2 white-text',
-						'rows': [{},{},{},{},{},{},{},{},{},{},{}]
-					}];
+						'rows': [{
+							'title': '2016 People-In-Need ( PIN ) estimates are required'
+						},{
+							'title': 'Several copies of the same data exist, collected in multiple local files from multiple partners'
+						},{
+							'title': 'Resulting calculations produce 3 different results across 2 different agencies'
+						}]
+					}];					
 
 					// title
 					$scope.dashboard.title = 'REPORTHUB | ACHIEVEMENTS';
@@ -344,7 +357,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Total Beneficiaries',
+										title: 'Services to Beneficiaries',
 										request: $scope.dashboard.getHealthRequest( 'beneficiaries' )
 									}
 								}]
@@ -365,11 +378,91 @@ angular.module('ngmReportHub')
 							columns: [{
 								styleClass: 's12 m12 l12',
 								widgets: [{
-									type: 'html',
+									type: 'highchart',
 									card: 'card-panel',
-									style: 'padding:0px;',
+									style: 'padding:0px; height: 300px;',
 									config: {
-										html: '<div style="height:400px;"></div>'
+										title: {
+											text: ''
+										},
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'bubble',
+													height: 300,
+													zoomType: 'x',
+													spacing: [ 0, 40, 20, 40 ]
+												},
+												legend: {
+													enabled: false
+												},
+												tooltip: {
+													useHTML: true,
+													headerFormat: '<br/>',
+													pointFormatter: function(){
+														
+														// remove ugly tooltip
+														$('svg').find('.highcharts-tooltip').remove();
+
+														// remove inline tooltip style
+														$('.highcharts-tooltip').find('span').css({ 'font-family': '"Roboto", sans-serif' });
+
+														return '<div class="row">'
+																			+ '<div class="card-panel">'
+																			+ '<h4 style="font-weight:100;">' + this.name + '</h4>'
+																			+ '<h5 style="font-size:1.1rem;font-weight:100;">' + moment( this.x ).format('MMM, YYYY') + '</h5>'
+																			+ '<p>' + this.description + '</p>'
+																			+ '</div>'
+																		+ '</div>';
+														
+													}
+												},
+												plotOptions: {
+													series: {
+														dataLabels: {
+															enabled: true,
+															format: '{point.name}'
+														}
+													}
+												}
+											},
+											title: {
+												text: '',
+												margin: 0
+											},
+											xAxis: {
+												title: {
+													text: false
+												},
+												labels: {
+													formatter: function() {
+														return moment( this.value ).format('MMM');
+													}
+												}
+											},
+											yAxis: {
+												title: {
+													text: ''
+												}
+											},
+											series: [{
+												data: [
+													{ x: Date.UTC( 2016, 0, 1 ), y: 0, z: 0, color: '#009688', name: '2016', description: '2016' },
+													{ x: Date.UTC( 2016, 1, 12 ), y: 0, z: 10, color: '#009688', name: 'CONCEPT', description: 'Proof of Concept for OCHA HRP Reporting Tool Accepted by WHO EHA Team' },
+													{ x: Date.UTC( 2016, 2, 1 ), y: 0, z: 10, color: '#009688', name: 'PILOT', description: 'Pilot Implementation' },
+													{ x: Date.UTC( 2016, 2, 27 ), y: 0, z: 10, color: '#0288d1', name: 'WORKSHOP', description: 'Health Cluster Orientation Workshop' },
+													{ x: Date.UTC( 2016, 3, 6 ), y: 0, z: 10, color: '#0288d1', name: 'TRAINING', description: 'Health Cluster Training & Focus Groups' },
+													{ x: Date.UTC( 2016, 3, 10 ), y: 0, z: 10, color: '#009688', name: 'DEVELOPMENT', description: 'Development Based on Health Partner User Feedback' },
+													{ x: Date.UTC( 2016, 4, 1 ), y: 0, z: 10, color: '#fdd835', name: 'MILESTONE', description: 'ReportHub Endorsed by Health Minister as Health Cluster Reporting Tool' },
+													{ x: Date.UTC( 2016, 6, 1 ), y: 0, z: 10, color: '#fdd835', name: 'MILESTONE', description: 'National IMO Extracts Data for OCHA 2nd Quarter Reporting Independantly' },
+													{ x: Date.UTC( 2016, 7, 25 ), y: 0, z: 10, color: '#0288d1', name: 'WORKSHOP', description: 'Health Cluster Workshop Data Reporting Workshop' },
+													{ x: Date.UTC( 2016, 8, 1 ), y: 0, z: 10, color: '#009688', name: 'DEVELOPMENT', description: 'Development Based on Health Partner User Feedback' },
+													{ x: Date.UTC( 2016, 10, 1 ), y: 0, z: 10, color: '#009688', name: 'DEVELOPMENT', description: 'Enhancements to Enable Capability for Global Deployment' },
+													{ x: Date.UTC( 2016, 11, 1 ), y: 0, z: 10, color: '#fdd835', name: 'MILESTONE', description: 'Cluster Coordinators Request ReportHub as Reporting Tool for 2017' },
+													{ x: Date.UTC( 2017, 0, 1 ), y: 0, z: 0, color: '#009688', name: '2017', description: '2017' },
+												]
+											}]
+										}
 									}
 								}]
 							}]

@@ -87,7 +87,7 @@ angular
 				controller: 'DashboardReportHubCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function( ngmAuth ) {
-						return ngmAuth.isAuthenticated();
+						return ngmAuth.grantPublicAccess();
 					}],
 				}
 			});
