@@ -92,14 +92,20 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // helpers helper
-        updateSelect: function() {
-          //
+        updateSelect: function( filter ) {
+
+          // filter
+          if ( filter ) {
+            // filter admin2 not working in ng-repeat?
+            $scope.project.options.list.admin2 = 
+                $filter( 'filter' )( angular.fromJson( localStorage.getItem( 'admin2List' ) ), 
+                                      { admin1pcode: $scope.project.options.location.admin1.admin1pcode }, true );
+          }
+
+          // update material_select
           ngmClusterHelper.updateSelect();
+          
         },
-
-
-        // THIS MIGHT GO!
-
 
         // validate project type
         activity_description_valid: function () {
@@ -136,8 +142,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return valid;
 
         },
-
-
 
 
         // add target benficiaries
@@ -183,7 +187,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // process + clean location 
           var location = 
               ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.project.options.location );
-  
+
           // extend targets with project, ngmData details & push
           $scope.project.definition.target_locations.unshift( location );
 
@@ -355,21 +359,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
       }
 
-      
-      // THIS ALL MIGHT GO
-
-
       // on page load
       angular.element( document ).ready(function () {
 
         // give a few seconds to render
         $timeout(function() {
-
-
-
-          // THIS MIGHT GO
-
-
 
           // add activity type check
           if ( $scope.project.definition.activity_description ) {
@@ -396,18 +390,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               }
             });
           }
-
-
-          // THIS MIGHT ALSO GO! IF ACTIVITY TYPE IS STRING!
-
-
-
-          // update activity_type select
-          // if ( $scope.project.definition.activity_type ) {
-          //   // update the selection
-          //   $( '#ngm-activity_type' ).val( $scope.project.definition.activity_type[0] );
-          // }
-
 
         }, 1000);
 

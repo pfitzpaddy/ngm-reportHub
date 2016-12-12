@@ -15,19 +15,23 @@ angular.module('ngmReportHub')
 
 		return {
 
+			// get user from storage
 			get: function() {
-				return angular.fromJson(localStorage.auth_token);
+				return angular.fromJson( localStorage.auth_token );
 			},
 
-			set: function(val) {
+			// set user to storage
+			set: function( val ) {
 				// JSON stringify result
 				return localStorage.setItem( 'auth_token', JSON.stringify( val ) );
 			},
 
+			// unset user from storage
 			unset: function() {
 				return localStorage.removeItem( 'auth_token' );
 			},			
 
+			// check user role
 			hasRole: function(role) {
 				// get from storage
 				var user = angular.fromJson( localStorage.auth_token );
@@ -37,6 +41,7 @@ angular.module('ngmReportHub')
 				return angular.uppercase(user.roles).indexOf(angular.uppercase(role)) >= 0;
 			},
 
+			// match any role
 			hasAnyRole: function( roles ) {
 				var user = angular.fromJson(localStorage.auth_token);
 				return !!user.roles.filter(function( role ) {
@@ -46,8 +51,9 @@ angular.module('ngmReportHub')
 
 		};
 	})
-	.factory('ngmAuth', ['$q', '$route', '$http', '$location', '$interval', 'ngmUser', function($q, $route, $http, $location, $interval, ngmUser) {
+	.factory('ngmAuth', ['$q', '$route', '$http', '$location', '$interval', 'ngmUser', function( $q, $route, $http, $location, $interval, ngmUser ) {
 
+		// auth
 		var ngmAuth = {
 
 			OK: 200,
@@ -55,8 +61,22 @@ angular.module('ngmReportHub')
 			FORBIDDEN: 403,
 			APP: $location.path().split('/')[1],
 
+			// guest
+			GUEST: { 
+				adminRpcode: 'HQ', 
+				adminRname: 'Global', 
+				admin0pcode: 'ALL', 
+				admin0name: 'All', 
+				guest: true,
+				visits: 1,
+				cluster_id: 'health',
+				organization: 'public', 
+				username: 'welcome', 
+				email: 'public'
+			},
+
 			// register
-			register: function(user) {
+			register: function( user ) {
 
 				// set the $http object
 				var register = $http({
@@ -68,6 +88,8 @@ angular.module('ngmReportHub')
 				// register success
 				register.success( function( result ) {
 					
+					// unset guest
+					ngmUser.unset();
 					// set localStorage
 					ngmUser.set( result );
 
@@ -92,6 +114,8 @@ angular.module('ngmReportHub')
 				// on success store in localStorage
 				login.success( function( result ) {
 					
+					// unset guest
+					ngmUser.unset();
 					// set localStorage
 					ngmUser.set( result );
 
@@ -125,6 +149,9 @@ angular.module('ngmReportHub')
 
 				// on success store in localStorage
 				reset.success( function( result ) {
+					// unset guest
+					ngmUser.unset();
+					// set user
 					ngmUser.set( result );
 				});
 
@@ -142,7 +169,7 @@ angular.module('ngmReportHub')
 				$('.ngm-profile-menu-content').slideToggle();
 
 				// unset token, backend dosnt care about logouts 
-				ngmUser.unset('auth_token');
+				ngmUser.unset();
 				$location.path( '/' + $location.$$path.split('/')[1] + '/login' );
 
 			},
@@ -170,93 +197,49 @@ angular.module('ngmReportHub')
 
 				}
 
-				// // 8 hour session
-				// var session = 1000 * 60 * 60 * 8;
-				
-				// // compare last login with now
-				// var log_in = moment( user.updatedAt ),
-				// 		now = moment( new Date() ),
-				// 		duration = moment.duration( now.diff( log_in ) );
-				
-				// // set timeout
-				// var milliSeconds = newSession ? session : session - duration.asMilliseconds();
-
-				//
-				// console.log( 'newSession: ' + newSession );
-				// console.log( 'log_in: ' + log_in );
-				// console.log( 'now: ' + log_in );
-				// console.log( 'duration: ' + duration );
-				// console.log( 'milliSeconds: ' + milliSeconds );
-
-				// session expired
-				// if ( milliSeconds < 0 ) {
-					
-				// 	// unset localStorage
-				// 	ngmUser.unset();
-
-				// 	// redirect to login
-				// 	$location.path( '/' + ngmAuth.APP + '/login' );
-
-				// } else {
-					
-				// 	// interval since last login
-				// 	$interval(function(){
-
-				// 		// open session confirm modal
-				// 		$('#ngm-session-modal').openModal( { dismissible: false } );
-
-				// 		// 2 minutes to reset session
-				// 		$interval(function(){
-
-				// 			// close modal
-				// 			$('#ngm-session-modal').closeModal();
-
-				// 			// unset localStorage
-				// 			ngmUser.unset();
-
-				// 			// re-direct
-				// 			$location.path( '/' + ngmAuth.APP + '/login' );
-
-				// 		}, 1000 * 60 * 2);
-
-				// 	}, milliSeconds);
-				// }
-
 			},
 
+			// setup a public user
 			grantPublicAccess: function( role ) {
-				
+
 				var deferred = $q.defer();
 
-				// make public
+				// if no user exists
+				if ( !ngmUser.get() ) {
+					// set guest to localStorage
+					ngmUser.set( ngmAuth.GUEST );
+				}
+
+				// resolve ok
 				deferred.resolve( ngmAuth.OK );
 
-				// return 200 OK
 				return deferred.promise;
 			},
 
+			// has role
 			hasRole: function( role ) {
 				
 				var deferred = $q.defer();
 
 				if ( ngmUser.hasRole( role ) ) {
 					deferred.resolve(ngmAuth.OK );
-				} else if ( !ngmUser.get('auth_token') ) {
+				} else if ( ngmUser.get().guest ) {
 					deferred.reject( ngmAuth.UNAUTHORIZED );
 				} else {
-					deferred.reject(ngmAuth.FORBIDDEN);
+					deferred.reject( ngmAuth.FORBIDDEN );
 				}
 
 				return deferred.promise;
 			},
 
+			// has any role
 			hasAnyRole: function( roles ) {
 				
 				var deferred = $q.defer();
 
 				if ( ngmUser.hasAnyRole( roles ) ) {
 					deferred.resolve( ngmAuth.OK );
-				} else if ( !ngmUser.get('auth_token') ) {
+				} else if ( ngmUser.get().guest ) {
 					deferred.reject( ngmAuth.UNAUTHORIZED );
 				} else {
 					deferred.reject( ngmAuth.FORBIDDEN );
@@ -265,11 +248,12 @@ angular.module('ngmReportHub')
 				return deferred.promise;
 			},
 
+			// anonymous
 			isAnonymous: function() {
 				
 				var deferred = $q.defer();
 
-				if ( !ngmUser.get('auth_token') ) {
+				if ( !ngmUser.get() || ngmUser.get().guest ) {
 					deferred.resolve( ngmAuth.OK );
 				} else {
 					deferred.reject( ngmAuth.FORBIDDEN );
@@ -278,11 +262,12 @@ angular.module('ngmReportHub')
 				return deferred.promise;
 			},
 
+			// authenticated
 			isAuthenticated: function() {
 				
 				var deferred = $q.defer();
 
-				if ( ngmUser.get('auth_token') ) {
+				if ( ngmUser.get() && !ngmUser.get().guest ) {
 					deferred.resolve( ngmAuth.OK );
 				} else {
 					deferred.reject( ngmAuth.UNAUTHORIZED );
@@ -299,15 +284,15 @@ angular.module('ngmReportHub')
 	.factory('ngmAuthInterceptor', ['$q', '$injector', function($q, $injector) {
 			
 		// get user
-		var ngmUser = $injector.get('ngmUser');
+		var ngmUser = $injector.get( 'ngmUser' );
 
 		return {
-			request: function(config) {
+			request: function( config ) {
 
 				var token;
 
 				// cover external APIs
-				if (ngmUser.get() && !config.externalApi ) {
+				if ( ngmUser.get() && !config.externalApi ) {
 					token = ngmUser.get().token;
 				}
 				if (token) {
@@ -319,6 +304,6 @@ angular.module('ngmReportHub')
 		};
 
 	}])
-	.config(function($httpProvider) {
-		$httpProvider.interceptors.push('ngmAuthInterceptor');
+	.config( function( $httpProvider ) {
+		$httpProvider.interceptors.push( 'ngmAuthInterceptor' );
 	});

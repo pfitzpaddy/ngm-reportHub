@@ -35,7 +35,7 @@
 			      			<select id="ngm-project-admin1" class="validate"
 							    	ng-model="project.options.location.admin1"
 							    	ng-model-options="{ trackBy: '$value.admin1pcode'}"
-							    	ng-change="project.updateSelect()"
+							    	ng-change="project.updateSelect( true )"
 							    	ng-disabled="project.definition.project_status === 'complete'"
 			      				ng-options="item as item.admin1name for item in project.options.list.admin1">
 			      				<option value="" disabled selected>Choose {{ project.options.list.admin1[0].admin1type_name }}</option>

@@ -173,6 +173,10 @@ angular
 			})
 
 			// health dashboard
+			.when( '/cluster/health', {
+				redirectTo: '/cluster/health/4w/hq/all/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			// health dashboard
 			.when( '/cluster/health/4w', {
 				redirectTo: '/cluster/health/4w/hq/all/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
 			})

@@ -255,8 +255,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
           // Re-direct to summary
           if ( $scope.project.report.report_status !== 'complete' ) {
-            // avoids duplicate beneficiaries ( if 'save' and then 'submit' is submited without a refresh in between )
-            $route.reload();            
+            // avoids duplicate beneficiaries 
+              // ( if 'save' and then 'submit' is submited without a refresh in between ) ???
+            $route.reload();
           } else {
             $location.path( '/cluster/projects/report/' + $scope.project.definition.id );  
           }

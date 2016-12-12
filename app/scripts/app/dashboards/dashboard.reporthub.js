@@ -133,7 +133,7 @@ angular.module('ngmReportHub')
 						},{
 							'title': 'Resulting calculations produce 3 different results across 2 different agencies'
 						}]
-					}];					
+					}];
 
 					// title
 					$scope.dashboard.title = 'REPORTHUB | ACHIEVEMENTS';
@@ -380,7 +380,7 @@ angular.module('ngmReportHub')
 								widgets: [{
 									type: 'highchart',
 									card: 'card-panel',
-									style: 'padding:0px; height: 300px;',
+									style: 'padding:0px; height: 240px;',
 									config: {
 										title: {
 											text: ''
@@ -389,7 +389,7 @@ angular.module('ngmReportHub')
 											options: {
 												chart: {
 													type: 'bubble',
-													height: 300,
+													height: 240,
 													zoomType: 'x',
 													spacing: [ 0, 40, 20, 40 ]
 												},
@@ -451,6 +451,7 @@ angular.module('ngmReportHub')
 													{ x: Date.UTC( 2016, 1, 12 ), y: 0, z: 10, color: '#009688', name: 'CONCEPT', description: 'Proof of Concept for OCHA HRP Reporting Tool Accepted by WHO EHA Team' },
 													{ x: Date.UTC( 2016, 2, 1 ), y: 0, z: 10, color: '#009688', name: 'PILOT', description: 'Pilot Implementation' },
 													{ x: Date.UTC( 2016, 2, 27 ), y: 0, z: 10, color: '#0288d1', name: 'WORKSHOP', description: 'Health Cluster Orientation Workshop' },
+													{ x: Date.UTC( 2016, 3, 1 ), y: 0, z: 10, color: '#009688', name: 'DEVELOPMENT', description: 'Development Based on Health Partner Feedback' },
 													{ x: Date.UTC( 2016, 3, 6 ), y: 0, z: 10, color: '#0288d1', name: 'TRAINING', description: 'Health Cluster Training & Focus Groups' },
 													{ x: Date.UTC( 2016, 3, 10 ), y: 0, z: 10, color: '#009688', name: 'DEVELOPMENT', description: 'Development Based on Health Partner User Feedback' },
 													{ x: Date.UTC( 2016, 4, 1 ), y: 0, z: 10, color: '#fdd835', name: 'MILESTONE', description: 'ReportHub Endorsed by Health Minister as Health Cluster Reporting Tool' },

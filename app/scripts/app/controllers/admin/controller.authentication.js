@@ -46,9 +46,6 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               // go to default org page
               $location.path( result.app_home );
 
-              // remove any 'guest' location storage
-              localStorage.removeItem( 'guest' );
-
               // user toast msg
               $timeout( function(){
                 Materialize.toast( 'Welcome back ' + result.username + '!', 3000, 'note' );
@@ -78,9 +75,6 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               
               // go to default org page
               $location.path( result.app_home );
-
-              // remove any 'guest' location storage
-              localStorage.removeItem( 'guest' );
 
               // user toast msg
               $timeout(function(){
@@ -115,7 +109,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             ngmAuth.passwordResetSend({ 
                 user: $scope.panel.user, 
                 url: 'http://' + $location.host() + '/desk/#/cluster/find/' 
-              }).success(function(result) {
+              }).success( function( result ) {
               
                 // go to password reset page
                 $( '.carousel' ).carousel( 'prev' );
@@ -149,17 +143,15 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           } else {
             
             // register
-            ngmAuth.passwordReset({ reset: $scope.panel.user, token: token }).success(function(result) {
+            ngmAuth.passwordReset({ reset: $scope.panel.user, token: token })
+              .success( function( result ) {
 
               // go to default org page 
               $location.path( '/' + result.app_home );
 
-              // remove any 'guest' location storage
-              localStorage.removeItem( 'guest' );
-
               // user toast msg
               $timeout(function(){
-                Materialize.toast('Welcome back ' + result.username + '!', 3000, 'note');
+                Materialize.toast( 'Welcome back ' + result.username + '!', 3000, 'note' );
               }, 2000);
 
 

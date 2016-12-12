@@ -56,6 +56,7 @@ angular
 
 		// all routes prescribed within specific module app.js files
 		$routeProvider
+			
 			// LOGIN
 			.when( '/login', {
 				templateUrl: '/views/app/dashboard.html',
@@ -81,6 +82,9 @@ angular
 			.when( '/reporthub', {
 				redirectTo: '/reporthub/2016'
 			})
+			.when( '/reporthub/login', {
+				redirectTo: '/reporthub/2016'
+			})
 			// achievements
 			.when( '/reporthub/:year', {
 				templateUrl: '/views/app/dashboard.html',
@@ -102,13 +106,17 @@ angular
 		if ( ngmUser.get() ) {
 			ngmAuth.setSessionTimeout( false, ngmUser.get() );
 		}
+		
+		// new guest page visit
+		if ( ngmUser.get() && ngmUser.get().guest ) {
+			ngmUser.unset();
+		}
 
 		// when error on route update redirect
 		$rootScope.$on( '$routeChangeError', function( event, current, previous, rejection ) {
 
 			// get app
 			var app = current.$$route.originalPath.split('/')[1];
-			
 			if ( rejection === ngmAuth.UNAUTHORIZED ) {
 				$location.path( '/' + app + '/login' );
 			} else if ( rejection === ngmAuth.FORBIDDEN ) {
@@ -119,28 +127,28 @@ angular
 
 	}])
   .filter('sumByKey', function() {
-      return function(data, key) {
-          if (typeof(data) === 'undefined' || typeof(key) === 'undefined') {
-              return 0;
-          }
+      return function( data, key ) {
+        if ( typeof( data ) === 'undefined' || typeof(key) === 'undefined' ) {
+          return 0;
+        }
 
-          var sum = 0;
-          for (var i = data.length - 1; i >= 0; i--) {
-              sum += parseInt(data[i][key]);
-          }
+        var sum = 0;
+        for ( var i = data.length - 1; i >= 0; i-- ) {
+          sum += parseInt( data[i][key] );
+        }
 
-          return sum;
+        return sum;
       };
   })
-  .directive('pwCheck', [function () {
+  .directive( 'pwCheck', [function () {
     return {
       require: 'ngModel',
       link: function (scope, elem, attrs, ctrl) {
         var firstPassword = '#' + attrs.pwCheck;
-        elem.add(firstPassword).on('keyup', function () {
+        elem.add( firstPassword ).on( 'keyup', function () {
           scope.$apply(function () {
             var v = elem.val()===$(firstPassword).val();
-            ctrl.$setValidity('pwmatch', v);
+            ctrl.$setValidity( 'pwmatch', v);
           });
         });
       }
@@ -177,20 +185,6 @@ angular
 
 			// dashboard footer
 			footer: false,
-
-			// app style
-			// style: {
-			// 	logo: 'logo.png',
-			// 	home: '#/cluster',
-			// 	darkPrimaryColor: '#1976D2',
-			// 	defaultPrimaryColor: '#2196F3',
-			// 	lightPrimaryColor: '#BBDEFB',
-			// 	textPrimaryColor: '#FFFFFF',
-			// 	accentColor: '#009688',
-			// 	primaryTextColor: '#212121',
-			// 	secondaryTextColor: '#727272',
-			// 	dividerColor: '#B6B6B6'
-			// },
 
 			// paint application
 			setApplication: function( app ) {
@@ -266,15 +260,13 @@ angular
 
 			// user
 			getUser: function() {
-				if ( ngmUser.get() ) {
-					return ngmUser.get();
-				} else {
-					return 'welcome';
-				}
+				// ngmUser
+				return ngmUser.get();
 			},
 
 			// username
 			getUserName: function() {
+				// ngmUser
 				if ( ngmUser.get() ) {
 					return ngmUser.get().username;
 				} else {
@@ -287,38 +279,10 @@ angular
 				ngmAuth.logout();
 			},
 
-			//
-			// updateSession: function(){
-
-			// 	// close modal
-			// 	$( '#ngm-session-modal' ).closeModal();
-
-			// 	// set the $http object
-			// 	var update = $http({
-			// 		method: 'POST',
-			// 		url: 'http://' + $location.host() + '/api/update',
-			// 		data: { user: ngmUser.get() }
-			// 	});
-
-			// 	// on success store in localStorage
-			// 	update.success( function( user ) {
-					
-			// 		// update user/session
-			// 		ngmUser.set( user );
-			// 		ngmAuth.setSessionTimeout( true, user );
-
-   //        // user toast msg
-   //        $timeout(function(){
-   //          Materialize.toast('Your session is now updated!', 3000, 'success');
-   //        }, 2000);
-
-			// 	});
-			// },
-
 			// open contact modal
 			contact: function() {
 				// open modal
-				$( '#ngm-contact-modal' ).openModal({dismissible: false});
+				$( '#ngm-contact-modal' ).openModal({ dismissible: false });
 			},
 
 			// Detect touch screen and enable scrollbar if necessary
@@ -351,28 +315,18 @@ angular
 		};
 
 		// nav menu
-		if ($scope.ngm.isTouchDevice()) {
-			$('#nav-mobile').css({ overflow: 'auto'});
+		if ( $scope.ngm.isTouchDevice() ) {
+			$( '#nav-mobile' ).css({ overflow: 'auto'});
 		}
 
 		// profile menu dropdown click
-		$('.ngm-profile-icon').click(function(){
-			// if (ngmUser.get()) {
+		$( '.ngm-profile-icon' ).click( function(){
 				// on app load, toggle menu on click
 				$scope.ngm.toggleNavigationMenu();
-			// }
-
 		});
 
 		// paint application
-		$scope.$on('$routeChangeStart', function(next, current) {
-
-			// set navigation menu
-			if (ngmUser.get()) {
-				$scope.ngm.navigationMenu = ngmUser.get().menu;
-			} else {
-				$scope.ngm.navigationMenu = false;
-			}
+		$scope.$on( '$routeChangeStart', function( next, current ) {
 
 			// get application
 			var app = $location.$$path.split('/')[1];
@@ -385,7 +339,7 @@ angular
     angular.element(document).ready(function () {
       // give a few seconds to render
       $timeout(function() {
-				$('.ngm-navigation-menu').css({ 'display': 'block' });
+				$( '.ngm-navigation-menu' ).css({ 'display': 'block' });
 			}, 1000 );
     });
 

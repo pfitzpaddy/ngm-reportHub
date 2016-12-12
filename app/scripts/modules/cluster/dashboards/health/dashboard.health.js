@@ -52,9 +52,9 @@ angular.module( 'ngmReportHub' )
 				data: {
 					// menu
 					menu_regions: {
-						'hq': 'GLOBAL',
-						'afro': 'AFRO',
-						'emro': 'EMRO',
+						'hq': { adminRpcode: 'hq', adminRname: 'GLOBAL', admin0pcode: 'all' },
+						'afro': { adminRpcode: 'afro', adminRname: 'AFRO', admin0pcode: 'all' },
+						'emro': { adminRpcode: 'emro', adminRname: 'EMRO', admin0pcode: 'all' }
 					},
 					// admin regions
 					admin_region: {
@@ -228,7 +228,7 @@ angular.module( 'ngmReportHub' )
 
 						// row
 						rows.push({
-							'title': d,
+							'title': d.adminRname,
 							'param': 'adminR',
 							'active': key,
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
@@ -1470,9 +1470,8 @@ angular.module( 'ngmReportHub' )
 
 			};
 
-			// if user
-			if ( $scope.dashboard.user && $scope.dashboard.user.adminRpcode ) {
-
+			// if registered user
+			if ( !ngmUser.get().guest ) {
 				// set dashboard
 				$scope.dashboard.setDashboard();
 
@@ -1480,40 +1479,48 @@ angular.module( 'ngmReportHub' )
 				$scope.dashboard.setMenu();
 
 			} else {
+				
+				// not first refresh
+				if ( ngmUser.get().visits !== 1 ) {
 
-				// guest user exists?
-				if ( localStorage.getItem( 'guest' ) ) {
+						// global / region
+						if ( $route.current.params.admin0 === 'all' ) {
+							angular.merge( $scope.dashboard.user, $scope.dashboard.data.menu_regions[ $route.current.params.adminR ] );	
+						}
 
-					// set user
-					$scope.dashboard.user = angular.fromJson( localStorage.getItem( 'guest' ) );
+						// country selection
+						if ( $route.current.params.admin0 !== 'all' ) {
+							angular.merge( $scope.dashboard.user, $scope.dashboard.data.admin_region[ $route.current.params.admin0.toUpperCase() ] );	
+						}
+						
+						// add visit
+						$scope.dashboard.user.visits++;
 
-					// set changes from URL
-					$scope.dashboard.user.adminRpcode = $route.current.params.adminR;
-					$scope.dashboard.user.adminRname = $scope.dashboard.data.menu_regions[ $route.current.params.adminR ];
-					$scope.dashboard.user.admin0pcode = $route.current.params.admin0;
+						// update guest
+						ngmUser.set( $scope.dashboard.user );
 
-					// set dashboard with guest user
-					$scope.dashboard.setDashboard();
+						// set dashboard with guest user
+						$scope.dashboard.setDashboard();
 
-					// set dashboard menu
-					$scope.dashboard.setMenu();
+						// set dashboard menu
+						$scope.dashboard.setMenu();
 
 				} else {
-				
+
 					// get location
 					ngmData.get({
 						method: 'GET',
 						url: 'http://ip-api.com/json'
 					}).then( function( results ){
 
-						// default is global
-						$scope.dashboard.user = { adminRpcode: 'HQ', adminRname: 'Global', admin0pcode: 'ALL', admin0name: 'All', guest: true, organization: 'public', username: 'public', email: 'public@gmail.com' },
-
-						// set guest location
+						// update guest location
 						angular.merge( $scope.dashboard.user, $scope.dashboard.data.admin_region[ results.countryCode ] );
 
-						// set 'guest'
-						localStorage.setItem( 'guest', JSON.stringify( $scope.dashboard.user ) );
+						// add visit
+						$scope.dashboard.user.visits++;
+
+						// update guest
+						ngmUser.set( $scope.dashboard.user );
 
 						// set dashboard with guest user
 						$scope.dashboard.setDashboard();
@@ -1523,7 +1530,6 @@ angular.module( 'ngmReportHub' )
 
 					});
 				}
-
 			}
 
 			// assign to ngm app scope ( for menu )
