@@ -448,7 +448,7 @@ angular.module('ngmReportHub')
 											series: [{
 												data: [
 													{ x: Date.UTC( 2016, 0, 1 ), y: 0, z: 0, color: '#009688', name: '2016', description: '2016' },
-													{ x: Date.UTC( 2016, 1, 12 ), y: 0, z: 10, color: '#009688', name: 'CONCEPT', description: 'Proof of Concept for OCHA HRP Reporting Tool Accepted by WHO EHA Team' },
+													{ x: Date.UTC( 2016, 1, 12 ), y: 0, z: 10, color: '#fdd835', name: 'CONCEPT', description: 'Proof of Concept for OCHA HRP Reporting Tool Accepted by WHO EHA Team' },
 													{ x: Date.UTC( 2016, 2, 1 ), y: 0, z: 10, color: '#009688', name: 'PILOT', description: 'Pilot Implementation' },
 													{ x: Date.UTC( 2016, 2, 27 ), y: 0, z: 10, color: '#0288d1', name: 'WORKSHOP', description: 'Health Cluster Orientation Workshop' },
 													{ x: Date.UTC( 2016, 3, 1 ), y: 0, z: 10, color: '#009688', name: 'DEVELOPMENT', description: 'Development Based on Health Partner Feedback' },

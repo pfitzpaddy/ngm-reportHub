@@ -188,11 +188,25 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           // time submitted
           $scope.project.report.report_submitted = moment().format();
 
+          // update activites for report ( from project )
+          $scope.project.report = 
+                  ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.report )
+
           // if new beneficiary type, add to project discription
           var length = $scope.project.definition.beneficiary_type.length;
           angular.forEach( $scope.project.report.locations, function( l, i ){
+
+            // update activites for location ( from project )
+            $scope.project.report.locations[i] = 
+                  ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.report.locations[i] ); 
+
             // each beneficiary
             angular.forEach( l.beneficiaries, function( b, j ){
+
+              // update activites for location ( from project )
+              $scope.project.report.locations[i].beneficiaries[j] = 
+                    ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.report.locations[i].beneficiaries[j] ); 
+
               // if new type, add to project discription
               if ( $scope.project.definition.beneficiary_type.indexOf( b.beneficiary_type ) < 0 ) {
                 $scope.project.definition.beneficiary_type.push( b.beneficiary_type );

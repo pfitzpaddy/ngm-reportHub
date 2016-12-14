@@ -51,6 +51,17 @@ angular
 		// from http://mysite.com/#/notes/1 to http://mysite.com/notes/1
 		// $locationProvider.html5Mode(true);
 
+		// extend localstorage to set an object
+		Storage.prototype.setObject = function( key, value ) {
+			this.setItem( key, JSON.stringify( value ) );
+		}
+
+		// extend localstorage to get an object
+		Storage.prototype.getObject = function( key ) {
+			var value = this.getItem( key );
+			return value && JSON.parse( value );
+		}
+
 		// https://medium.com/swlh/improving-angular-performance-with-1-line-of-code-a1fb814a6476#.ufea9sjt1
 		$compileProvider.debugInfoEnabled( false );
 
@@ -126,34 +137,6 @@ angular
 		});
 
 	}])
-  .filter('sumByKey', function() {
-      return function( data, key ) {
-        if ( typeof( data ) === 'undefined' || typeof(key) === 'undefined' ) {
-          return 0;
-        }
-
-        var sum = 0;
-        for ( var i = data.length - 1; i >= 0; i-- ) {
-          sum += parseInt( data[i][key] );
-        }
-
-        return sum;
-      };
-  })
-  .directive( 'pwCheck', [function () {
-    return {
-      require: 'ngModel',
-      link: function (scope, elem, attrs, ctrl) {
-        var firstPassword = '#' + attrs.pwCheck;
-        elem.add( firstPassword ).on( 'keyup', function () {
-          scope.$apply(function () {
-            var v = elem.val()===$(firstPassword).val();
-            ctrl.$setValidity( 'pwmatch', v);
-          });
-        });
-      }
-    }
-  }])
 	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', '$http', '$timeout', 'ngmAuth', 'ngmUser', function ($scope, $route, $location, $http, $timeout, ngmAuth, ngmUser) {
 
 		// ngm object

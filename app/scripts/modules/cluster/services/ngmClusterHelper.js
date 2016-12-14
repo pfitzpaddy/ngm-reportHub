@@ -5,8 +5,8 @@
  * Manages browser local storage
  *
  */
-angular.module('ngmReportHub')
-	.factory('ngmClusterHelper', [ '$location', '$q', '$http', '$filter', '$timeout', function( $location, $q, $http, $filter, $timeout ) {
+angular.module( 'ngmReportHub' )
+	.factory( 'ngmClusterHelper', [ '$location', '$q', '$http', '$filter', '$timeout', function( $location, $q, $http, $filter, $timeout ) {
 
 		return {
 			
@@ -49,20 +49,30 @@ angular.module('ngmReportHub')
           girls: 0,
           men: 0,
           women: 0,
-          penta3_vacc_male_under1: 0,
-          penta3_vacc_female_under1: 0,
+          boys_referral: 0,
+          girls_referral: 0,
+          men_referral: 0,
+          women_referral: 0,
+          // conflict
+          first_aid_stabalization: 0,
+          physical_rehabilitation: 0,
+          minor_surgeries: 0,
+          major_surgeries: 0,
+          conflict_trauma_treated: 0,          
+          // mch
           antenatal_care: 0,
           postnatal_care: 0,
           skilled_birth_attendant: 0,
-          male_referrals: 0,
-          female_referrals: 0,
-          conflict_trauma_treated: 0,
-          capacity_building_sessions: 0,
-          capacity_building_male: 0,
-          capacity_building_female: 0,
+          // vaccinations
+          vacc_male_under1: 0,
+          vacc_female_under1: 0,
+          // education / training building
           education_sessions: 0,
           education_male: 0,
           education_female: 0,
+          training_sessions: 0,
+          training_male: 0,
+          training_female: 0,          
           notes: false
         }
       },
@@ -71,7 +81,7 @@ angular.module('ngmReportHub')
       getActivities: function( cluster_id, unique ){
 
         // get activities list from storage
-        var activities = angular.fromJson( localStorage.getItem( 'activitiesList' ) );
+        var activities = localStorage.getObject( 'lists' ).activitiesList;
 
         // filter by cluster
         activities = $filter( 'filter' )( activities, { cluster_id: cluster_id }, true );
@@ -168,8 +178,8 @@ angular.module('ngmReportHub')
           beneficiary_name: 'Conflict IDPs'
         },{
           cluster: [ 'esnfi', 'health', 'wash' ],
-          beneficiary_type: 'training',
-          beneficiary_name: 'Education & Capacity Building'
+          beneficiary_type: 'education_training',
+          beneficiary_name: 'Education & Training'
         },{
           cluster: [ 'esnfi', 'health', 'wash' ],
           beneficiary_type: 'health_affected_conflict',
@@ -197,7 +207,6 @@ angular.module('ngmReportHub')
 
         // for each beneficiaries from list
         angular.forEach( list, function( d, i ){
-
           // filter out selected types
           beneficiaries = 
               $filter( 'filter' )( beneficiaries, { beneficiary_type: '!' + d.beneficiary_type }, true );
@@ -291,26 +300,41 @@ angular.module('ngmReportHub')
 
         }
 
-        // localStorage.removeItem( 'provinceList' );
+        // local storage
+        // localStorage.removeItem( 'lists' );
 
         // get all lists 
-        // if ( localStorage.getItem( 'lists' ) ) {
-
+        if ( !localStorage.getObject( 'lists' ) ) {
           // send request
           $q.all([ 
-            $http( requests.admin1ListRequest ), 
-            $http( requests.admin2ListRequest ), 
+            $http( requests.admin1ListRequest ),
+            $http( requests.admin2ListRequest ),
             $http( requests.activitiesRequest ) ]).then( function( results ){
 
-              // set lists to local storage
-              localStorage.setItem( 'lists', true );
-              localStorage.setItem( 'admin1List', JSON.stringify(results[0].data) );
-              localStorage.setItem( 'admin2List', JSON.stringify(results[1].data) );
-              localStorage.setItem( 'activitiesList', JSON.stringify(results[2].data) );
+              // admin1, admin2, activities object
+              var lists = {
+                admin1List: results[0].data,
+                admin2List: results[1].data,
+                activitiesList: results[2].data
+              };
+
+              // storage
+              localStorage.setObject( 'lists', lists );
 
             });
+        }
 
-        // }
+      },
+
+      // update activities for an object ( update )
+      updateActivities: function( project, update ){
+        
+        // update activity_type / activity_description
+        update.activity_type = project.activity_type;
+        update.activity_description = project.activity_description;
+
+        //
+        return update;
       },
 
 			// get processed target location
@@ -341,7 +365,6 @@ angular.module('ngmReportHub')
 				return beneficiaries;
 
 			},
-
 
 			// get processed target location
 			getCleanTargetBeneficiaries: function( project, indicators, beneficiaries ){
@@ -439,7 +462,6 @@ angular.module('ngmReportHub')
             if ( !isDuplicate ) {
               newItems.push( item );
             }
-
           });
           
           return newItems;
@@ -447,4 +469,5 @@ angular.module('ngmReportHub')
       }
 
 		};
+
 	}]);

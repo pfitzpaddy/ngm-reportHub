@@ -35,7 +35,7 @@
 			      			<select id="ngm-project-admin1" class="validate"
 							    	ng-model="project.options.location.admin1"
 							    	ng-model-options="{ trackBy: '$value.admin1pcode'}"
-							    	ng-change="project.updateSelect( true )"
+							    	ng-change="project.updateLocationSelect( true )"
 							    	ng-disabled="project.definition.project_status === 'complete'"
 			      				ng-options="item as item.admin1name for item in project.options.list.admin1">
 			      				<option value="" disabled selected>Choose {{ project.options.list.admin1[0].admin1type_name }}</option>
@@ -49,7 +49,7 @@
 			      			<select id="ngm-project-admin2" class="validate"
 							    	ng-model="project.options.location.admin2"
 							    	ng-model-options="{ trackBy: '$value.id'}"
-							    	ng-change="project.updateSelect()"
+							    	ng-change="project.updateLocationSelect()"
 							    	ng-disabled="!project.options.location.admin1"
 			      				ng-options="item as item.admin2name for item in project.options.list.admin2 | filter: { admin1pcode: project.options.location.admin1.admin1pcode }">
 			      				<option value="" disabled selected>Choose {{ project.options.list.admin2[0].admin2type_name }}</option>

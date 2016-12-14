@@ -11,41 +11,43 @@
  *
  */
 angular.module('ngmReportHub')
-	.factory('ngmUser', function() {
+	.factory('ngmUser', function() {	
 
 		return {
 
 			// get user from storage
 			get: function() {
-				return angular.fromJson( localStorage.auth_token );
+				return localStorage.getObject( 'auth_token' );
 			},
 
 			// set user to storage
 			set: function( val ) {
 				// JSON stringify result
-				return localStorage.setItem( 'auth_token', JSON.stringify( val ) );
+				localStorage.setObject( 'auth_token', val );
 			},
 
 			// unset user from storage
 			unset: function() {
-				return localStorage.removeItem( 'auth_token' );
+				// remove lists / user
+				localStorage.removeItem( 'lists' );
+				localStorage.removeItem( 'auth_token' );
 			},			
 
 			// check user role
-			hasRole: function(role) {
+			hasRole: function( role ) {
 				// get from storage
-				var user = angular.fromJson( localStorage.auth_token );
+				var user = localStorage.getObject( 'auth_token' );
 				// if no user
 				if ( !user ) return false; 
 				// else has role?
-				return angular.uppercase(user.roles).indexOf(angular.uppercase(role)) >= 0;
+				return angular.uppercase( user.roles ).indexOf( angular.uppercase( role ) ) >= 0;
 			},
 
 			// match any role
 			hasAnyRole: function( roles ) {
-				var user = angular.fromJson(localStorage.auth_token);
+				var user = localStorage.getObject( 'auth_token' );
 				return !!user.roles.filter(function( role ) {
-					return angular.uppercase(roles).indexOf( angular.uppercase(role) ) >= 0;
+					return angular.uppercase( roles ).indexOf( angular.uppercase( role ) ) >= 0;
 				}).length;
 			}
 

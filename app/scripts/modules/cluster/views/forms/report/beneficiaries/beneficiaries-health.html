@@ -1,6 +1,7 @@
 
 
-		      		<div class="row">
+		      		<div class="row"
+		      					ng-if="project.definition.activity_type === 'primary_health_care'">
 
 								<h5 class="indicator-title">OPD</h5>		      		
 		      		
@@ -13,7 +14,7 @@
 				          	ng-model="beneficiary.boys"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-boys-{{ location.id }}-{{ $index }}" class="active">Under 5 Male</label>
+				          <label for="ngm-beneficiary-boys-{{ location.id }}-{{ $index }}" class="active">u5 Male</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
@@ -25,7 +26,7 @@
 				          	ng-model="beneficiary.girls"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-girls-{{ location.id }}-{{ $index }}" class="active">Under 5 Female</label>    		
+				          <label for="ngm-beneficiary-girls-{{ location.id }}-{{ $index }}" class="active">u5 Female</label>    		
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
@@ -37,7 +38,7 @@
 				          	ng-model="beneficiary.men"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-men-{{ location.id }}-{{ $index }}" class="active">Over 5 Male</label>
+				          <label for="ngm-beneficiary-men-{{ location.id }}-{{ $index }}" class="active">o5 Male</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m3">
@@ -49,41 +50,124 @@
 				          	ng-model="beneficiary.women"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-women-{{ location.id }}-{{ $index }}" class="active">Over 5 Female</label>
+				          <label for="ngm-beneficiary-women-{{ location.id }}-{{ $index }}" class="active">o5 Female</label>
 			      		</div>
+
+			      		<br/>
 
 							</div>
 
-							<br/>
-
-		      		<div class="row">
+		      		<div class="row"
+		      					ng-if="project.definition.activity_type === 'primary_health_care'">
 
 		      			<h5 class="indicator-title">REFERRALS</h5>
 
-			      		<div class="input-field col s12 m4">
-				          <input id="ngm-beneficiary-male_referrals-{{ location.id }}-{{ $index }}"
-				          	name="male_referrals"
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-beneficiary-boys_referral-{{ location.id }}-{{ $index }}"
+				          	name="boys_referral"
 				          	type="number"
 				          	class="validate"
 				          	min="0"
-				          	ng-model="beneficiary.male_referrals"
+				          	ng-model="beneficiary.boys_referral"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-male_referrals-{{ location.id }}-{{ $index }}" class="active">Male Referrals</label>
+				          <label for="ngm-beneficiary-boys_referral-{{ location.id }}-{{ $index }}" class="active">u5 Male</label>
 			      		</div>
 
-			      		<div class="input-field col s12 m4">
-				          <input id="ngm-beneficiary-female_referrals-{{ location.id }}-{{ $index }}"
-				          	name="female_referrals"
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-beneficiary-girls_referral-{{ location.id }}-{{ $index }}"
+				          	name="girls_referral"
 				          	type="number"
 				          	class="validate"
 				          	min="0"
-				          	ng-model="beneficiary.female_referrals"
+				          	ng-model="beneficiary.girls_referral"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-female_referrals-{{ location.id }}-{{ $index }}" class="active">Female Referrals</label>
+				          <label for="ngm-beneficiary-girls_referral-{{ location.id }}-{{ $index }}" class="active">u5 Female</label>
 			      		</div>
-			      		
+
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-beneficiary-men_referral-{{ location.id }}-{{ $index }}"
+				          	name="men_referral"
+				          	type="number"
+				          	class="validate"
+				          	min="0"
+				          	ng-model="beneficiary.men_referral"
+				          	ng-disabled="project.report.report_status === 'complete'"
+										required>
+				          <label for="ngm-beneficiary-men_referral-{{ location.id }}-{{ $index }}" class="active">o5 Male</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-beneficiary-women_referral-{{ location.id }}-{{ $index }}"
+				          	name="women_referral"
+				          	type="number"
+				          	class="validate"
+				          	min="0"
+				          	ng-model="beneficiary.women_referral"
+				          	ng-disabled="project.report.report_status === 'complete'"
+										required>
+				          <label for="ngm-beneficiary-women_referral-{{ location.id }}-{{ $index }}" class="active">o5 Female</label>
+			      		</div>
+		      			
+		      			<br/>
+
+		      		</div>
+
+							<div class="row" 
+										ng-if="project.definition.activity_type === 'primary_health_care' ||
+		      									project.definition.activity_type === 'trauma_care' ">
+
+		      			<h5 class="indicator-title">CONFLICT</h5>
+
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-beneficiary-first_aid_stabalization-{{ location.id }}-{{ $index }}"
+				          	name="first_aid_stabalization"
+				          	type="number"
+				          	class="validate"
+				          	min="0"
+				          	ng-model="beneficiary.first_aid_stabalization"
+				          	ng-disabled="project.report.report_status === 'complete'"
+										required>
+				          <label for="ngm-beneficiary-first_aid_stabalization-{{ location.id }}-{{ $index }}" class="active">First Aid Stabalization</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-beneficiary-physical_rehabilitation-{{ location.id }}-{{ $index }}"
+				          	name="physical_rehabilitation"
+				          	type="number"
+				          	class="validate"
+				          	min="0"
+				          	ng-model="beneficiary.physical_rehabilitation"
+				          	ng-disabled="project.report.report_status === 'complete'"
+										required>
+				          <label for="ngm-beneficiary-physical_rehabilitation-{{ location.id }}-{{ $index }}" class="active">Physical Rehabilitation</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-beneficiary-minor_surgeries-{{ location.id }}-{{ $index }}"
+				          	name="minor_surgeries"
+				          	type="number"
+				          	class="validate"
+				          	min="0"
+				          	ng-model="beneficiary.minor_surgeries"
+				          	ng-disabled="project.report.report_status === 'complete'"
+										required>
+				          <label for="ngm-beneficiary-minor_surgeries-{{ location.id }}-{{ $index }}" class="active">Minor Surgeries</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-beneficiary-major_surgeries-{{ location.id }}-{{ $index }}"
+				          	name="major_surgeries"
+				          	type="number"
+				          	class="validate"
+				          	min="0"
+				          	ng-model="beneficiary.major_surgeries"
+				          	ng-disabled="project.report.report_status === 'complete'"
+										required>
+				          <label for="ngm-beneficiary-major_surgeries-{{ location.id }}-{{ $index }}" class="active">Major Surgeries</label>
+			      		</div>
+<!-- 			      		
 			      		<div class="input-field col s12 m4">
 				          <input id="ngm-beneficiary-conflict_trauma_treated-{{ location.id }}-{{ $index }}" 
 				          	name="conflict_trauma_treated"
@@ -95,16 +179,16 @@
 										required>
 				          <label for="ngm-beneficiary-conflict_trauma_treated-{{ location.id }}-{{ $index }}" class="active">Conflict Trauma Treated</label>
 			      		</div>
+-->
+		      			<br/>
 
 		      		</div>
 
-		      		<br/>
-
 							<div class="row" 
 								ng-if="project.definition.activity_type === 'primary_health_care' ||
-											 project.definition.activity_type === 'reproductive_heatlh' ">
+											 project.definition.activity_type === 'mch' ">
 
-								<h5 class="indicator-title">MIDWIFERY</h5>
+								<h5 class="indicator-title">MCH</h5>
 
 			      		<div class="input-field col s12 m4">
 				          <input id="ngm-beneficiary-antenatal_care-{{ location.id }}-{{ $index }}"
@@ -142,38 +226,45 @@
 				          <label for="ngm-beneficiary-skilled_birth_attendant-{{ location.id }}-{{ $index }}" class="active">Skilled Birth Attendants</label>
 			      		</div>
 
-		      		</div>
+		      			<br/>
 
-		      		<br/>
+		      		</div>
 
 							<div class="row"
 								ng-if="project.definition.activity_type === 'primary_health_care' ||
-											 project.definition.activity_type === 'vaccination' ">
+												project.definition.activity_type === 'mch' ||
+											 	project.definition.activity_type === 'vaccination' ">
 
 								<h5 class="indicator-title">VACCINATIONS</h5>
 
 			      		<div class="input-field col s12 m6">
-				          <input id="ngm-beneficiary-penta3_vacc_male_under1-{{ location.id }}-{{ $index }}"
-				          	name="penta3_vacc_male_under1"
+				          <input id="ngm-beneficiary-vacc_male_under1-{{ location.id }}-{{ $index }}"
+				          	name="vacc_male_under1"
 				          	type="number"
 				          	class="validate"
 				          	min="0"
-				          	ng-model="beneficiary.penta3_vacc_male_under1"
+				          	ng-model="beneficiary.vacc_male_under1"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-penta3_vacc_male_under1-{{ location.id }}-{{ $index }}" class="active">PENTA3 VACC Male (Under 1yrs)</label>
+				          <label
+				          	for="ngm-beneficiary-vacc_male_under1-{{ location.id }}-{{ $index }}" 
+				          	class="active">VACC Male (Under 1yrs)
+				          </label>
 			      		</div>
 
 			      		<div class="input-field col s12 m6">
-				          <input id="ngm-beneficiary-penta3_vacc_female_under1-{{ location.id }}-{{ $index }}"
-				          	name="penta3_vacc_female_under1"
+				          <input id="ngm-beneficiary-vacc_female_under1-{{ location.id }}-{{ $index }}"
+				          	name="vacc_female_under1"
 				          	type="number"
 				          	class="validate"
 				          	min="0"
-				          	ng-model="beneficiary.penta3_vacc_female_under1"
+				          	ng-model="beneficiary.vacc_female_under1"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
-				          <label for="ngm-beneficiary-penta3_vacc_female_under1-{{ location.id }}-{{ $index }}" class="active">PENTA3 VACC Female (Under 1yrs)</label>
+				          <label
+				          	for="ngm-beneficiary-vacc_female_under1-{{ location.id }}-{{ $index }}"
+				          	class="active">VACC Female (Under 1yrs)
+				          </label>
 			      		</div>
 
 		      		</div>

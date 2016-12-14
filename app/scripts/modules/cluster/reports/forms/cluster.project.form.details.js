@@ -60,9 +60,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             // beneficiaries
             beneficiaries: ngmClusterHelper.getBeneficiaries( config.project.cluster_id, config.project.target_beneficiaries ),
             // admin1
-            admin1: angular.fromJson( localStorage.getItem( 'admin1List' ) ),
+            admin1: localStorage.getObject( 'lists' ).admin1List,
             // admin2
-            admin2: angular.fromJson( localStorage.getItem( 'admin2List' ) ),
+            admin2: localStorage.getObject( 'lists' ).admin2List,
             // facility type
             facility_type: ngmClusterHelper.getFacilityTypes(),
             // activities by cluster
@@ -91,20 +91,27 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           }
         },
 
+        // reset activity_description when activity_type selected
+        updateActivitySelect: function() {
+          // reset
+          $scope.project.definition.activity_description = [];
+          $scope.project.definition.activity_description_check = {};
+        },
+
         // helpers helper
-        updateSelect: function( filter ) {
+        updateLocationSelect: function( filter ) {
 
           // filter
           if ( filter ) {
-            // filter admin2 not working in ng-repeat?
+            // why is admin2 filter not working in ng-repeat?
             $scope.project.options.list.admin2 = 
-                $filter( 'filter' )( angular.fromJson( localStorage.getItem( 'admin2List' ) ), 
-                                      { admin1pcode: $scope.project.options.location.admin1.admin1pcode }, true );
+                    $filter( 'filter' )( localStorage.getObject( 'lists' ).admin2List, 
+                            { admin1pcode: $scope.project.options.location.admin1.admin1pcode }, true );
           }
 
           // update material_select
           ngmClusterHelper.updateSelect();
-          
+
         },
 
         // validate project type
@@ -256,21 +263,26 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // add target_beneficiaries to projects to ensure simple filters
           angular.forEach( $scope.project.definition.target_beneficiaries, function( b, i ){
 
+            // push update activities
+            $scope.project.definition.target_beneficiaries[i] = 
+                  ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_beneficiaries[i] );
+            
             // push location ids to project
-            $scope.project.definition.target_beneficiaries[i].activity_type = $scope.project.definition.activity_type;
             $scope.project.definition.target_beneficiaries[i].project_title = $scope.project.definition.project_title;
-            $scope.project.definition.target_beneficiaries[i].activity_description = $scope.project.definition.activity_description;
             $scope.project.definition.beneficiary_type.push( b.beneficiary_type );
 
           });
 
           // add target_locations to projects to ensure simple filters
           angular.forEach( $scope.project.definition.target_locations, function( l, i ){
+            
+            // push update activities
+            $scope.project.definition.target_locations[i] = 
+                  ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_locations[i] );
+
 
             // push location ids to project
-            $scope.project.definition.target_locations[i].activity_type = $scope.project.definition.activity_type;
             $scope.project.definition.target_locations[i].project_title = $scope.project.definition.project_title;
-            $scope.project.definition.target_locations[i].activity_description = $scope.project.definition.activity_description;
             // add beneficiary_types to locations
             $scope.project.definition.target_locations[i].beneficiary_type = $scope.project.definition.beneficiary_type;
             // locations
@@ -391,7 +403,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             });
           }
 
-        }, 1000);
+        }, 1000 );
 
       });
   }

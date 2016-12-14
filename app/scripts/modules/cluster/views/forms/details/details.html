@@ -92,6 +92,7 @@
 				          	ng-model="project.definition.activity_type"
 				          	ng-model-options="{ trackBy: '$value.activity_type_id' }"
 				          	ng-disabled="project.definition.project_status === 'complete'"
+				          	ng-change="project.updateActivitySelect()"
 										ng-options="activities.activity_type_id as activities.activity_type_name for activities in project.options.list.activities.activity_type"
 				          	required>
 				          	<option value="" disabled selected>Select Activity Type</option>

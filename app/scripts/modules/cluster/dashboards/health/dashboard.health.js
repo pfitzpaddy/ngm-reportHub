@@ -368,72 +368,61 @@ angular.module( 'ngmReportHub' )
 
 					// menu rows
 					var active,
-							rows = [],
-							request = {
-								method: 'POST',
-								url: 'http://' + $location.host() + '/api/location/getAdmin1List',
-								data: {
-									admin0pcode: $route.current.params.admin0
-								}
-							};
+							rows = [];
 
-					// set admin1 data object
-					$scope.dashboard.data.admin1 = {};
+					// filter admin1 data object
+					$scope.dashboard.data.admin1 =
+ 									$filter( 'filter' )( localStorage.getObject( 'lists' ).admin1List, 
+                  				{ admin0pcode: $route.current.params.admin0.toUpperCase() }, true );
 
-					// fetch admin1 list
-					ngmData.get( request ).then( function( admin1  ){
+					// for each admin1, add to menu
+					angular.forEach( $scope.dashboard.data.admin1, function( d, key ){
 
-						// for each admin1
-						angular.forEach( admin1, function( d, key ){
+						// URL path
+						var path = '#/cluster/health/4w/' + $route.current.params.adminR + 
+															 '/' + $route.current.params.admin0 +
+															 '/' + $route.current.params.organization_id + 
+															 '/' + d.admin1pcode +
+															 '/all' +
+															 '/' + $route.current.params.project + 
+															 '/' + $route.current.params.beneficiaries + 
+															 '/' + $scope.dashboard.startDate + 
+															 '/' + $scope.dashboard.endDate;
 
-							// set object
-							$scope.dashboard.data.admin1[ d.admin1pcode ] = { admin1pcode: d.admin1pcode, admin1name: d.admin1name, admin1type_name: d.admin1type_name, admin1lat: d.admin1lat, admin1lng: d.admin1lng, admin1zoom: d.admin1zoom };
-
-							// URL path
-							var path = '#/cluster/health/4w/' + $route.current.params.adminR + 
-																 '/' + $route.current.params.admin0 +
-																 '/' + $route.current.params.organization_id + 
-																 '/' + d.admin1pcode +
-																 '/all' +
-																 '/' + $route.current.params.project + 
-																 '/' + $route.current.params.beneficiaries + 
-																 '/' + $scope.dashboard.startDate + 
-																 '/' + $scope.dashboard.endDate;
-
-							// row
-							rows.push({
-								'title': d.admin1name,
-								'param': 'admin1',
-								'active': d.admin1pcode,
-								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': path
-							});
-
+						// row
+						rows.push({
+							'title': d.admin1name,
+							'param': 'admin1',
+							'active': d.admin1pcode,
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': path
 						});
-
-						// push on to menu
-						$scope.model.menu.push({
-							'search': true,
-							'id': 'search-health-admin1',
-							'icon': 'location_on',
-							'title': $scope.dashboard.data.admin_region[ $route.current.params.admin0.toUpperCase() ].admin1type_name,
-							'class': 'teal lighten-1 white-text',
-							'rows': rows
-						});
-
-						// add beneficiaries to side menu
-						if ( $route.current.params.admin1 === 'all' ) {
-							// beneficiaries
-							$scope.dashboard.getBeneficiariesRows();
-
-						} else {
-							// update model TITLE/SUBTITLE
-							$scope.model.header.title.title += ' | ' + $scope.dashboard.data.admin1[ $route.current.params.admin1 ].admin1name;
-							$scope.model.header.subtitle.title += ', ' + $scope.dashboard.data.admin1[ $route.current.params.admin1 ].admin1name + ' ' + $scope.dashboard.data.admin1[ $route.current.params.admin1 ].admin1type_name;
-
-						}
 
 					});
+
+					// push on to menu
+					$scope.model.menu.push({
+						'search': true,
+						'id': 'search-health-admin1',
+						'icon': 'location_on',
+						'title': $scope.dashboard.data.admin_region[ $route.current.params.admin0.toUpperCase() ].admin1type_name,
+						'class': 'teal lighten-1 white-text',
+						'rows': rows
+					});
+
+					// add beneficiaries to side menu
+					if ( $route.current.params.admin1 === 'all' ) {
+						// beneficiaries
+						$scope.dashboard.getBeneficiariesRows();
+					} else {
+						// filter
+						var admin1 = $filter( 'filter' )(  $scope.dashboard.data.admin1, 
+                  				{ admin1pcode: $route.current.params.admin1 }, true );
+						
+						// update model title/subtitle
+						$scope.model.header.title.title += ' | ' + admin1[0].admin1name;
+						$scope.model.header.subtitle.title += ', ' + admin1[0].admin1name + ' ' + admin1[0].admin1type_name;
+					}
 
 				},
 
@@ -442,74 +431,61 @@ angular.module( 'ngmReportHub' )
 
 					// menu rows
 					var active,
-							rows = [],
-							request = {
-								method: 'POST',
-								url: 'http://' + $location.host() + '/api/location/getAdmin2List',
-								data: {
-									admin0pcode: $route.current.params.admin0
-								}
-							};
+							rows = [];
 
-					// set admin1 data object
-					$scope.dashboard.data.admin2 = {};
+					// filter admin1 data object
+					$scope.dashboard.data.admin2 =
+ 									$filter( 'filter' )( localStorage.getObject( 'lists' ).admin2List, 
+                  				{ admin1pcode: $route.current.params.admin1 }, true );
 
-					// fetch admin1 list
-					ngmData.get( request ).then( function( admin2  ){
+					// for each admin1
+					angular.forEach( $scope.dashboard.data.admin2, function( d, key ){
 
-						// filter the admin2 by admin1
-						admin2 = $filter('filter')( admin2, { admin1pcode: $route.current.params.admin1 }, true );
-	
-						// for each admin1
-						angular.forEach( admin2, function( d, key ){
+						// URL path
+						var path = '#/cluster/health/4w/' + $route.current.params.adminR + 
+															 '/' + $route.current.params.admin0 +
+															 '/' + $route.current.params.organization_id + 
+															 '/' + $route.current.params.admin1 +
+															 '/' + d.admin2pcode + 
+															 '/' + $route.current.params.project + 
+															 '/' + $route.current.params.beneficiaries + 
+															 '/' + $scope.dashboard.startDate + 
+															 '/' + $scope.dashboard.endDate;
 
-							// set object
-							$scope.dashboard.data.admin2[ d.admin2pcode ] = { admin2pcode: d.admin2pcode, admin2name: d.admin2name, admin2type_name: d.admin2type_name, admin2lat: d.admin2lat, admin2lng: d.admin2lng, admin2zoom: d.admin2zoom };
-
-							// URL path
-							var path = '#/cluster/health/4w/' + $route.current.params.adminR + 
-																 '/' + $route.current.params.admin0 +
-																 '/' + $route.current.params.organization_id + 
-																 '/' + $route.current.params.admin1 +
-																 '/' + d.admin2pcode + 
-																 '/' + $route.current.params.project + 
-																 '/' + $route.current.params.beneficiaries + 
-																 '/' + $scope.dashboard.startDate + 
-																 '/' + $scope.dashboard.endDate;
-
-							// row
-							rows.push({
-								'title': d.admin2name,
-								'param': 'admin2',
-								'active': d.admin2pcode,
-								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': path
-							});
-
+						// row
+						rows.push({
+							'title': d.admin2name,
+							'param': 'admin2',
+							'active': d.admin2pcode,
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': path
 						});
-
-						// push on to menu
-						$scope.model.menu.push({
-							'search': true,
-							'id': 'search-health-admin2',
-							'icon': 'location_on',
-							'title': $scope.dashboard.data.admin_region[ $route.current.params.admin0.toUpperCase() ].admin2type_name,
-							'class': 'teal lighten-1 white-text',
-							'rows': rows
-						});
-
-						// beneficiaries
-						$scope.dashboard.getBeneficiariesRows();						
-
-						// add beneficiaries to side menu
-						if ( $route.current.params.admin2 !== 'all' ) {
-							// update model TITLE/SUBTITLE
-							$scope.model.header.title.title += ' | ' + $scope.dashboard.data.admin2[ $route.current.params.admin2 ].admin2name;
-							$scope.model.header.subtitle.title += ', ' + $scope.dashboard.data.admin2[ $route.current.params.admin2 ].admin2name + ' ' + $scope.dashboard.data.admin2[ $route.current.params.admin2 ].admin2type_name;
-
-						}
 
 					});
+
+					// push on to menu
+					$scope.model.menu.push({
+						'search': true,
+						'id': 'search-health-admin2',
+						'icon': 'location_on',
+						'title': $scope.dashboard.data.admin_region[ $route.current.params.admin0.toUpperCase() ].admin2type_name,
+						'class': 'teal lighten-1 white-text',
+						'rows': rows
+					});
+
+					// beneficiaries
+					$scope.dashboard.getBeneficiariesRows();						
+
+					// add beneficiaries to side menu
+					if ( $route.current.params.admin2 !== 'all' ) {
+						// filter
+						var admin2 = $filter( 'filter' )(  $scope.dashboard.data.admin2, 
+                  				{ admin2pcode: $route.current.params.admin2 }, true );
+
+						// update model TITLE/SUBTITLE
+						$scope.model.header.title.title += ' | ' + admin2[0].admin2name;
+						$scope.model.header.subtitle.title += ', ' + admin2[0].admin2name + ' ' + admin2[0].admin2type_name;
+					}
 
 				},
 
