@@ -106,6 +106,80 @@ angular.module( 'ngmReportHub' )
 					}
 				},
 
+				// get print/export
+				getReportRequest: function( indicator ){
+
+					// request
+					return {
+						method: 'POST',
+						url: 'http://' + $location.host() + '/api/health/indicator',
+						data: {
+							cluster_id: 'health',
+							report: 'health_' + indicator + '_' + $scope.dashboard.report,
+							details: indicator,
+							start_date: $scope.dashboard.startDate,
+							end_date: $scope.dashboard.endDate,
+							adminRpcode: $scope.dashboard.adminRpcode,
+							admin0pcode: $scope.dashboard.admin0pcode,
+							organization_id: $scope.dashboard.organization_id,
+							admin1pcode: $scope.dashboard.admin1pcode,
+							admin2pcode: $scope.dashboard.admin2pcode,
+							project_type: $scope.dashboard.project_type,
+							beneficiary_type: $scope.dashboard.beneficiary_type
+						}
+					};
+				},
+
+				// get metrics 
+				getMetricsRequest: function( format, indicator ){
+
+					//
+					return {
+						method: 'POST',
+						url: 'http://' + $location.host() + '/api/metrics/set',
+						data: {
+							cluster_id: 'health',
+							organization: $scope.dashboard.user.organization,
+							username: $scope.dashboard.user.username,
+							email: $scope.dashboard.user.email,
+							dashboard: 'health_4w',
+							theme: indicator,
+							format: format,
+							url: $location.$$path
+						}
+					}
+				},
+
+				// get by indicator, extend by obj
+				getIndicatorRequest: function( indicator, obj ){
+
+					// request
+					var request = {
+						method: 'POST',
+						url: 'http://' + $location.host() + '/api/health/indicator',
+						data: {
+							cluster_id: 'health',
+							indicator: indicator,
+							start_date: $scope.dashboard.startDate,
+							end_date: $scope.dashboard.endDate,
+							adminRpcode: $scope.dashboard.adminRpcode,
+							admin0pcode: $scope.dashboard.admin0pcode,
+							organization_id: $scope.dashboard.organization_id,
+							admin1pcode: $scope.dashboard.admin1pcode,
+							admin2pcode: $scope.dashboard.admin2pcode,
+							project_type: $scope.dashboard.project_type,
+							beneficiary_type: $scope.dashboard.beneficiary_type
+						}
+					}
+
+					// extend query
+					request.data = angular.merge( request.data, obj );
+
+					// return
+					return request;	
+
+				},
+
         // set URL based on user rights
 				setUrl: function(){
 
@@ -297,6 +371,7 @@ angular.module( 'ngmReportHub' )
 								url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
 								data: {
 									list: true,
+									cluster_id: 'health',
 									indicator: 'organizations',
 									organization: 'all', 
 									adminRpcode: $route.current.params.adminR,
@@ -703,6 +778,7 @@ angular.module( 'ngmReportHub' )
 										method: 'POST',
 										url: 'http://' + $location.host() + '/api/print',
 										data: {
+											cluster_id: 'health',
 											report: $scope.dashboard.report,
 											printUrl: $location.absUrl(),
 											downloadUrl: 'http://' + $location.host() + '/report/',
@@ -711,19 +787,7 @@ angular.module( 'ngmReportHub' )
 											pageLoadTime: 7200
 										}
 									},						
-									metrics: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/metrics/set',
-										data: {
-											organization: $scope.dashboard.user.organization,
-											username: $scope.dashboard.user.username,
-											email: $scope.dashboard.user.email,
-											dashboard: 'health_4w',
-											theme: 'health_4w',
-											format: 'pdf',
-											url: $location.$$path
-										}
-									}						
+									metrics: $scope.dashboard.getMetricsRequest( 'pdf', 'health_4w' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
@@ -733,162 +797,38 @@ angular.module( 'ngmReportHub' )
 										method: 'POST',
 										url: 'http://' + $location.host() + '/api/health/data/contacts',
 										data: {
-											report: 'contacts_' + $scope.dashboard.report
+											report: 'health_contacts_' + $scope.dashboard.report
 										}
 									},
-									metrics: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/metrics/set',
-										data: {
-											organization: $scope.dashboard.user.organization,
-											username: $scope.dashboard.user.username,
-											email: $scope.dashboard.user.email,
-											dashboard: 'health_4w',
-											theme: 'health_contacts',
-											format: 'csv',
-											url: $location.$$path
-										}
-									}
+									metrics: $scope.dashboard.getMetricsRequest( 'csv', 'health_contacts' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'assignment_turned_in',
 									hover: 'Download Health Project Progress Report as CSV',
-									request: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/indicator',
-										data: {
-											report: 'health_projects_progress_' + $scope.dashboard.report,
-											details: 'projects',
-											start_date: $scope.dashboard.startDate,
-											end_date: $scope.dashboard.endDate,
-											adminRpcode: $scope.dashboard.adminRpcode,
-											admin0pcode: $scope.dashboard.admin0pcode,
-											organization_id: $scope.dashboard.organization_id,
-											admin1pcode: $scope.dashboard.admin1pcode,
-											admin2pcode: $scope.dashboard.admin2pcode,
-											project_type: $scope.dashboard.project_type,
-											beneficiary_type: $scope.dashboard.beneficiary_type
-										}
-									},
-									metrics: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/metrics/set',
-										data: {
-											organization: $scope.dashboard.user.organization,
-											username: $scope.dashboard.user.username,
-											email: $scope.dashboard.user.email,
-											dashboard: 'health_4w',
-											theme: 'health_details',
-											format: 'csv',
-											url: $location.$$path
-										}
-									}
+									request: $scope.dashboard.getReportRequest( 'projects' ),
+									metrics: $scope.dashboard.getMetricsRequest( 'csv', 'health_details' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'attach_money',
 									hover: 'Download Health Financial Report CSV',
-									request: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/indicator',
-										data: {
-											report: 'health_financial_' + $scope.dashboard.report,
-											details: 'financial',
-											start_date: $scope.dashboard.startDate,
-											end_date: $scope.dashboard.endDate,
-											adminRpcode: $scope.dashboard.adminRpcode,
-											admin0pcode: $scope.dashboard.admin0pcode,
-											organization_id: $scope.dashboard.organization_id,
-											admin1pcode: $scope.dashboard.admin1pcode,
-											admin2pcode: $scope.dashboard.admin2pcode,
-											project_type: $scope.dashboard.project_type,
-											beneficiary_type: $scope.dashboard.beneficiary_type
-										}
-									},
-									metrics: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/metrics/set',
-										data: {
-											organization: $scope.dashboard.user.organization,
-											username: $scope.dashboard.user.username,
-											email: $scope.dashboard.user.email,
-											dashboard: 'health_4w',
-											theme: 'health_financial',
-											format: 'csv',
-											url: $location.$$path
-										}
-									}
+									request: $scope.dashboard.getReportRequest( 'financial' ),
+									metrics: $scope.dashboard.getMetricsRequest( 'csv', 'health_financial' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'location_on',
 									hover: 'Download Health Beneficiaries by District as CSV',
-									request: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/indicator',
-										data: {
-											report: 'health_beneficiaries_by_district_' + $scope.dashboard.report,
-											details: 'locations',
-											start_date: $scope.dashboard.startDate,
-											end_date: $scope.dashboard.endDate,
-											adminRpcode: $scope.dashboard.adminRpcode,
-											admin0pcode: $scope.dashboard.admin0pcode,
-											organization_id: $scope.dashboard.organization_id,
-											admin1pcode: $scope.dashboard.admin1pcode,
-											admin2pcode: $scope.dashboard.admin2pcode,
-											project_type: $scope.dashboard.project_type,
-											beneficiary_type: $scope.dashboard.beneficiary_type
-										}
-									},
-									metrics: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/metrics/set',
-										data: {
-											organization: $scope.dashboard.user.organization,
-											username: $scope.dashboard.user.username,
-											email: $scope.dashboard.user.email,
-											dashboard: 'health_4w',
-											theme: 'health_locations',
-											format: 'csv',
-											url: $location.$$path
-										}
-									}
+									request: $scope.dashboard.getReportRequest( 'locations' ),
+									metrics: $scope.dashboard.getMetricsRequest( 'csv', 'health_locations' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'local_hospital',
 									hover: 'Download Health Beneficiaries by Health Facility as CSV',
-									request: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/indicator',
-										data: {
-											report: 'health_beneficiaries_by_facility_' + $scope.dashboard.report,
-											details: 'health_facility',
-											start_date: $scope.dashboard.startDate,
-											end_date: $scope.dashboard.endDate,
-											adminRpcode: $scope.dashboard.adminRpcode,
-											admin0pcode: $scope.dashboard.admin0pcode,
-											organization_id: $scope.dashboard.organization_id,
-											admin1pcode: $scope.dashboard.admin1pcode,
-											admin2pcode: $scope.dashboard.admin2pcode,
-											project_type: $scope.dashboard.project_type,
-											beneficiary_type: $scope.dashboard.beneficiary_type
-										}
-									},
-									metrics: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/metrics/set',
-										data: {
-											organization: $scope.dashboard.user.organization,
-											username: $scope.dashboard.user.username,
-											email: $scope.dashboard.user.email,
-											dashboard: 'health_4w',
-											theme: 'health_facility',
-											format: 'csv',
-											url: $location.$$path
-										}
-									}
+									request: $scope.dashboard.getReportRequest( 'health_facility' ),
+									metrics: $scope.dashboard.getMetricsRequest( 'csv', 'health_facility' )
 								}]
 							}							
 						},
@@ -941,23 +881,7 @@ angular.module( 'ngmReportHub' )
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Active Health Cluster Partners',
-										request: {
-											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/indicator',
-											data: {
-												indicator: 'partners',
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												organization_id: $scope.dashboard.organization_id,
-												admin1pcode: $scope.dashboard.admin1pcode,
-												admin2pcode: $scope.dashboard.admin2pcode,
-												project_status: 'active',
-												project_type: $scope.dashboard.project_type,
-												beneficiary_type: $scope.dashboard.beneficiary_type
-											}
-										}
+										request: $scope.dashboard.getIndicatorRequest( 'partners', { project_status: 'active' } )
 									}
 								}]
 							},{
@@ -968,23 +892,7 @@ angular.module( 'ngmReportHub' )
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Active Projects for ( ' + $scope.dashboard.projectTitle + ' )',
-										request: {
-											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/indicator',
-											data: {
-												indicator: 'projects',
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												organization_id: $scope.dashboard.organization_id,
-												admin1pcode: $scope.dashboard.admin1pcode,
-												admin2pcode: $scope.dashboard.admin2pcode,
-												project_status: 'active',
-												project_type: $scope.dashboard.project_type,
-												beneficiary_type: $scope.dashboard.beneficiary_type
-											}
-										}
+										request: $scope.dashboard.getIndicatorRequest( 'projects', { project_status: 'active' } )
 									}
 								}]
 							},{
@@ -994,24 +902,8 @@ angular.module( 'ngmReportHub' )
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Scheduled to Complete for ( ' + $scope.dashboard.projectTitle + ' )',
-										request: {
-											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/indicator',
-											data: {
-												indicator: 'projects',
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												organization_id: $scope.dashboard.organization_id,
-												admin1pcode: $scope.dashboard.admin1pcode,
-												admin2pcode: $scope.dashboard.admin2pcode,
-												project_status: 'complete',
-												project_type: $scope.dashboard.project_type,
-												beneficiary_type: $scope.dashboard.beneficiary_type
-											}
-										}
+										title: 'Completed Projects for ( ' + $scope.dashboard.projectTitle + ' )',
+										request: $scope.dashboard.getIndicatorRequest( 'projects', { project_status: 'complete' } )
 									}
 								}]
 							}]
@@ -1024,22 +916,7 @@ angular.module( 'ngmReportHub' )
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Beneficiaries ( ' + $scope.dashboard.beneficiariesTitle + ' )',
-										request: {
-											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/indicator',
-											data: {
-												indicator: 'beneficiaries',
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												organization_id: $scope.dashboard.organization_id,
-												admin1pcode: $scope.dashboard.admin1pcode,
-												admin2pcode: $scope.dashboard.admin2pcode,
-												project_type: $scope.dashboard.project_type,
-												beneficiary_type: $scope.dashboard.beneficiary_type
-											}
-										}
+										request: $scope.dashboard.getIndicatorRequest( 'beneficiaries', {} )
 									}
 								}]
 							}]
@@ -1091,22 +968,7 @@ angular.module( 'ngmReportHub' )
 												dataLabels: {
 													enabled: false
 												},
-												request: {
-													method: 'POST',
-													url: 'http://' + $location.host() + '/api/health/indicator',
-													data: {
-														indicator: 'under5',
-														start_date: $scope.dashboard.startDate,
-														end_date: $scope.dashboard.endDate,
-														adminRpcode: $scope.dashboard.adminRpcode,
-														admin0pcode: $scope.dashboard.admin0pcode,
-														organization_id: $scope.dashboard.organization_id,
-														admin1pcode: $scope.dashboard.admin1pcode,
-														admin2pcode: $scope.dashboard.admin2pcode,
-														project_type: $scope.dashboard.project_type,
-														beneficiary_type: $scope.dashboard.beneficiary_type
-													}
-												}
+												request: $scope.dashboard.getIndicatorRequest( 'under5', {} )
 											}]
 										}
 									}
@@ -1158,22 +1020,7 @@ angular.module( 'ngmReportHub' )
 												dataLabels: {
 													enabled: false
 												},
-												request: {
-													method: 'POST',
-													url: 'http://' + $location.host() + '/api/health/indicator',
-													data: {
-														indicator: 'over5',
-														start_date: $scope.dashboard.startDate,
-														end_date: $scope.dashboard.endDate,
-														adminRpcode: $scope.dashboard.adminRpcode,
-														admin0pcode: $scope.dashboard.admin0pcode,
-														organization_id: $scope.dashboard.organization_id,
-														admin1pcode: $scope.dashboard.admin1pcode,
-														admin2pcode: $scope.dashboard.admin2pcode,
-														project_type: $scope.dashboard.project_type,
-														beneficiary_type: $scope.dashboard.beneficiary_type
-													}
-												}
+												request: $scope.dashboard.getIndicatorRequest( 'over5', {} )
 											}]
 										}
 									}
@@ -1200,24 +1047,7 @@ angular.module( 'ngmReportHub' )
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Total Health Facilities',
-										request: {
-											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/indicator',
-											data: {
-												indicator: 'locations',
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												organization_id: $scope.dashboard.organization_id,
-												admin1pcode: $scope.dashboard.admin1pcode,
-												admin2pcode: $scope.dashboard.admin2pcode,
-												unique: false,
-												conflict: false,
-												project_type: $scope.dashboard.project_type,
-												beneficiary_type: $scope.dashboard.beneficiary_type
-											}
-										}
+										request: $scope.dashboard.getIndicatorRequest( 'locations', { unique: false, conflict: false } )
 									}
 								}]
 							},{
@@ -1234,24 +1064,7 @@ angular.module( 'ngmReportHub' )
 											subTitlePrefix: 'out of ',
 											// subTitlePostfix: ' conflict districts'
 										},
-										request: {
-											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/indicator',
-											data: {
-												indicator: 'locations',
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												organization_id: $scope.dashboard.organization_id,
-												admin1pcode: $scope.dashboard.admin1pcode,
-												admin2pcode: $scope.dashboard.admin2pcode,
-												unique: true,
-												conflict: false,
-												project_type: $scope.dashboard.project_type,
-												beneficiary_type: $scope.dashboard.beneficiary_type
-											}
-										}
+										request: $scope.dashboard.getIndicatorRequest( 'locations', { unique: true, conflict: false } )
 									}
 								}]
 							},{
@@ -1268,24 +1081,7 @@ angular.module( 'ngmReportHub' )
 											subTitlePrefix: 'out of ',
 											// subTitlePostfix: ' conflict districts'
 										},
-										request: {
-											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/indicator',
-											data: {
-												indicator: 'locations',											
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												organization_id: $scope.dashboard.organization_id,
-												admin1pcode: $scope.dashboard.admin1pcode,
-												admin2pcode: $scope.dashboard.admin2pcode,
-												unique: true,
-												conflict: true,
-												project_type: $scope.dashboard.project_type,
-												beneficiary_type: $scope.dashboard.beneficiary_type
-											}
-										}
+										request: $scope.dashboard.getIndicatorRequest( 'locations', { unique: true, conflict: true } )
 									}
 								}]
 							}]
@@ -1347,22 +1143,7 @@ angular.module( 'ngmReportHub' )
 					            series: [{
 				                name: 'Facilities',
 				                color: '#7cb5ec',
-				                request: {
-													method: 'POST',
-													url: 'http://' + $location.host() + '/api/health/indicator',
-													data: {				                	
-														indicator: 'facilities',
-														start_date: $scope.dashboard.startDate,
-														end_date: $scope.dashboard.endDate,
-														adminRpcode: $scope.dashboard.adminRpcode,
-														admin0pcode: $scope.dashboard.admin0pcode,
-														organization_id: $scope.dashboard.organization_id,
-														admin1pcode: $scope.dashboard.admin1pcode,
-														admin2pcode: $scope.dashboard.admin2pcode,
-														project_type: $scope.dashboard.project_type,
-														beneficiary_type: $scope.dashboard.beneficiary_type
-													}
-				                }
+				                request: $scope.dashboard.getIndicatorRequest( 'facilities', {} )
 					            }]
 										}
 									}
@@ -1407,23 +1188,8 @@ angular.module( 'ngmReportHub' )
 													}
 												}
 											}
-										},				
-										request: {
-											method: 'POST',
-											url: 'http://' + $location.host() + '/api/health/indicator',
-											data: {
-												indicator: 'markers',
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												organization_id: $scope.dashboard.organization_id,
-												admin1pcode: $scope.dashboard.admin1pcode,
-												admin2pcode: $scope.dashboard.admin2pcode,
-												project_type: $scope.dashboard.project_type,
-												beneficiary_type: $scope.dashboard.beneficiary_type
-											}
-										}
+										},
+										request: $scope.dashboard.getIndicatorRequest( 'markers', {} )
 									}
 								}]
 							}]

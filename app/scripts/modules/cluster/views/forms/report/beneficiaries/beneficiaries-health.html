@@ -115,10 +115,10 @@
 		      		</div>
 
 							<div class="row" 
-										ng-if="project.definition.activity_type === 'primary_health_care' ||
+										ng-if="project.definition.activity_description.indexOf( 'trauma_care' ) !== -1 ||
 		      									project.definition.activity_type === 'trauma_care' ">
 
-		      			<h5 class="indicator-title">CONFLICT</h5>
+		      			<h5 class="indicator-title">TRAUMA CARE SERVICES</h5>
 
 			      		<div class="input-field col s12 m3">
 				          <input id="ngm-beneficiary-first_aid_stabalization-{{ location.id }}-{{ $index }}"
@@ -185,7 +185,7 @@
 		      		</div>
 
 							<div class="row" 
-								ng-if="project.definition.activity_type === 'primary_health_care' ||
+								ng-if="project.definition.activity_description.indexOf( 'mch' ) !== -1 ||
 											 project.definition.activity_type === 'mch' ">
 
 								<h5 class="indicator-title">MCH</h5>
@@ -231,7 +231,8 @@
 		      		</div>
 
 							<div class="row"
-								ng-if="project.definition.activity_type === 'primary_health_care' ||
+								ng-if="project.definition.activity_description.indexOf( 'penta_3' ) !== -1 ||
+												project.definition.activity_description.indexOf( 'measles' ) !== -1 ||
 												project.definition.activity_type === 'mch' ||
 											 	project.definition.activity_type === 'vaccination' ">
 
