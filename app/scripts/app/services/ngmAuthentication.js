@@ -186,6 +186,9 @@ angular.module('ngmReportHub')
 
 				// new session
 				// var minutes = newSession ? 0 : duration.asMinutes();
+
+				// console.log( log_in )
+				// console.log( now )
 				
 				// 24 hours * 60 minutes ( 1440 )
 				// if ( minutes > ( 24 * 60 ) ){

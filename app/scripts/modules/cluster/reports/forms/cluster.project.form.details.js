@@ -195,6 +195,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var location = 
               ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.project.options.location );
 
+           console.log( location );
+
           // extend targets with project, ngmData details & push
           $scope.project.definition.target_locations.unshift( location );
 
