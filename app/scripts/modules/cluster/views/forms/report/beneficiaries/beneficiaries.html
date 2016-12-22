@@ -38,7 +38,43 @@
 					      		<div class="col s12 m8">
 					      			<div class="beneficiary-count right">
 					      				<span style="font-size:1.4rem;"><i class="material-icons" style="padding-right:20px; padding-top:10px;">group</i>Actual Total</span>
-					      					{{ beneficiary.boys + beneficiary.girls + beneficiary.men + beneficiary.women + beneficiary.penta3_vacc_male_under1 + beneficiary.penta3_vacc_female_under1 + beneficiary.skilled_birth_attendant + beneficiary.conflict_trauma_treated + beneficiary.education_male + beneficiary.education_female + beneficiary.capacity_building_male + beneficiary.capacity_building_female | number }}
+					      					{{ 
+					      						beneficiary.boys + 
+					      						beneficiary.girls + 
+					      						beneficiary.men + 
+					      						beneficiary.women +
+					      						beneficiary.boys_referral +
+									          beneficiary.girls_referral +
+									          beneficiary.men_referral +
+									          beneficiary.women_referral +
+								            beneficiary.boys_first_aid_stabalization +
+								            beneficiary.girls_first_aid_stabalization +
+								            beneficiary.men_first_aid_stabalization +
+								            beneficiary.women_first_aid_stabalization +
+								            beneficiary.boys_physical_rehabilitation +
+								            beneficiary.girls_physical_rehabilitation +
+								            beneficiary.men_physical_rehabilitation +
+								            beneficiary.women_physical_rehabilitation +
+								            beneficiary.boys_minor_surgeries +
+								            beneficiary.girls_minor_surgeries +
+								            beneficiary.men_minor_surgeries +
+								            beneficiary.women_minor_surgeries +
+								            beneficiary.boys_major_surgeries +
+								            beneficiary.girls_major_surgeries +
+								            beneficiary.men_major_surgeries +
+								            beneficiary.women_major_surgeries +
+								            beneficiary.antenatal_care +
+								            beneficiary.postnatal_care +
+								            beneficiary.skilled_birth_attendant +
+								            beneficiary.penta3_vacc_male_under1 +
+								            beneficiary.penta3_vacc_female_under1 +
+								            beneficiary.measles_vacc_male_under1 +
+								            beneficiary.measles_vacc_female_under1 +
+								            beneficiary.education_male +
+								            beneficiary.education_female +
+								            beneficiary.training_male +
+								            beneficiary.training_female | number
+									        }}
 					      			</div>
 									  </div>
 

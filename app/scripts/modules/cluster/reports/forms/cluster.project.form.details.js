@@ -44,8 +44,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // last update
         updatedAt: moment( config.project.updatedAt ).format('DD MMMM, YYYY @ h:mm:ss a'),
 
-        // default indicators
-        indicators: ngmClusterHelper.getIndicators(),
+        // default subset indicators ( boys, girls, men, women )
+        indicators: ngmClusterHelper.getIndicators( true ),
 
         // holder for UI options
         options: {
@@ -194,8 +194,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // process + clean location 
           var location = 
               ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.project.options.location );
-
-           console.log( location );
 
           // extend targets with project, ngmData details & push
           $scope.project.definition.target_locations.unshift( location );

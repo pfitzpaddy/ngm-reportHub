@@ -42,39 +42,72 @@ angular.module( 'ngmReportHub' )
       },
 
       // monthly report indicators
-      getIndicators: function() {
-        // indicators
-        return {
-          boys: 0,
-          girls: 0,
-          men: 0,
-          women: 0,
-          boys_referral: 0,
-          girls_referral: 0,
-          men_referral: 0,
-          women_referral: 0,
-          // conflict
-          first_aid_stabalization: 0,
-          physical_rehabilitation: 0,
-          minor_surgeries: 0,
-          major_surgeries: 0,
-          conflict_trauma_treated: 0,          
-          // mch
-          antenatal_care: 0,
-          postnatal_care: 0,
-          skilled_birth_attendant: 0,
-          // vaccinations
-          vacc_male_under1: 0,
-          vacc_female_under1: 0,
-          // education / training building
-          education_sessions: 0,
-          education_male: 0,
-          education_female: 0,
-          training_sessions: 0,
-          training_male: 0,
-          training_female: 0,          
-          notes: false
+      getIndicators: function( target ) {
+
+        // if project target, return subset
+        if ( target ) {
+          var indicators = {
+            boys: 0,
+            girls: 0,
+            men: 0,
+            women: 0
+          }
+        } else {
+          // indicators
+          var indicators = {
+            boys: 0,
+            girls: 0,
+            men: 0,
+            women: 0,
+            boys_referral: 0,
+            girls_referral: 0,
+            men_referral: 0,
+            women_referral: 0,
+            // fatp
+            boys_first_aid_stabalization: 0,
+            girls_first_aid_stabalization: 0,
+            men_first_aid_stabalization: 0,
+            women_first_aid_stabalization: 0,
+            // tcu
+            boys_physical_rehabilitation: 0,
+            girls_physical_rehabilitation: 0,
+            men_physical_rehabilitation: 0,
+            women_physical_rehabilitation: 0,
+            // tcu minor
+            boys_minor_surgeries: 0,
+            girls_minor_surgeries: 0,
+            men_minor_surgeries: 0,
+            women_minor_surgeries: 0,
+            // tcu major
+            boys_major_surgeries: 0,
+            girls_major_surgeries: 0,
+            men_major_surgeries: 0,
+            women_major_surgeries: 0,
+            // mch ( women )
+            antenatal_care: 0,
+            postnatal_care: 0,
+            skilled_birth_attendant: 0,
+            // vaccinations
+            penta3_vacc_male_under1: 0,
+            penta3_vacc_female_under1: 0,
+            measles_vacc_male_under1: 0,
+            measles_vacc_female_under1: 0,
+            // education
+            education_sessions: 0,
+            education_male: 0,
+            education_female: 0,
+            // training
+            training_sessions: 0,
+            training_male: 0,
+            training_female: 0,   
+            // monthly report notes
+            notes: false
+          }
         }
+
+        // reutrn
+        return indicators;
+
       },
 
       // return activity type by cluster
