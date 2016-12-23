@@ -12,7 +12,9 @@
 </style>
 
 			      	<!-- education -->
-		      		<div class="row">
+		      		<div class="row"
+		      					ng-if="beneficiary.beneficiary_type === 'education_training' ||
+		      									project.definition.activity_description.indexOf( 'education' ) !== -1">
 
 		      			<h5 class="indicator-title">AWARENESS & EDUCATION</h5>
 		      		
@@ -67,7 +69,9 @@
 			      	</div>
 
 							<!-- training -->
-		      		<div class="row">
+		      		<div class="row"
+		      					ng-if="beneficiary.beneficiary_type === 'education_training' ||
+		      									project.definition.activity_description.indexOf( 'training' ) !== -1">
 
 		      			<h5 class="indicator-title">TRAINING & CAPACITY BUILDING</h5>
 		      			

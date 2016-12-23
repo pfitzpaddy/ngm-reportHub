@@ -96,7 +96,8 @@
 
 
 					      	<!-- Target beneficiaries trainings -->
-					      	<div ng-if="beneficiary.beneficiary_type === 'education_training'">
+					      	<div ng-if="project.definition.activity_type === 'education_training' ||
+					      								beneficiary.beneficiary_type === 'education_training'">
 										<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesTrainingUrl"></div>
 									</div>
 

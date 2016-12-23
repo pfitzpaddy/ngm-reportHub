@@ -41,6 +41,72 @@ angular.module( 'ngmReportHub' )
 
       },
 
+      // get lists for cluster reporting
+      setClusterLists: function( admin0pcode ) {
+      
+        // requests
+        var requests = {
+
+          // province lists
+          admin1ListRequest: {
+            method: 'POST',
+            url: 'http://' + $location.host() + '/api/location/getAdmin1List',
+            data: {
+              admin0pcode: admin0pcode
+            }
+          },
+
+          // district lists
+          admin2ListRequest: {
+            method: 'POST',
+            url: 'http://' + $location.host() + '/api/location/getAdmin2List',
+            data: {
+              admin0pcode: admin0pcode
+            }
+          },
+
+          // activities list
+          activitiesRequest: {
+            method: 'GET',
+            url: 'http://' + $location.host() + '/api/cluster/getActivities'
+          },
+
+          // indicators list
+          indicatorsRequest: {
+            method: 'GET',
+            url: 'http://' + $location.host() + '/api/cluster/getIndicators'
+          }          
+
+        }
+
+        // local storage
+        // localStorage.removeItem( 'lists' );
+
+        // get all lists 
+        if ( !localStorage.getObject( 'lists' ) ) {
+          // send request
+          $q.all([ 
+            $http( requests.admin1ListRequest ),
+            $http( requests.admin2ListRequest ),
+            $http( requests.activitiesRequest ), 
+            $http( requests.indicatorsRequest ) ] ).then( function( results ){
+
+              // admin1, admin2, activities object
+              var lists = {
+                admin1List: results[0].data,
+                admin2List: results[1].data,
+                activitiesList: results[2].data,
+                indicatorsList: results[3].data
+              };
+
+              // storage
+              localStorage.setObject( 'lists', lists );
+
+            });
+        }
+
+      },      
+
       // monthly report indicators
       getIndicators: function( target ) {
 
@@ -53,56 +119,10 @@ angular.module( 'ngmReportHub' )
             women: 0
           }
         } else {
-          // indicators
-          var indicators = {
-            boys: 0,
-            girls: 0,
-            men: 0,
-            women: 0,
-            boys_referral: 0,
-            girls_referral: 0,
-            men_referral: 0,
-            women_referral: 0,
-            // fatp
-            boys_first_aid_stabalization: 0,
-            girls_first_aid_stabalization: 0,
-            men_first_aid_stabalization: 0,
-            women_first_aid_stabalization: 0,
-            // tcu
-            boys_physical_rehabilitation: 0,
-            girls_physical_rehabilitation: 0,
-            men_physical_rehabilitation: 0,
-            women_physical_rehabilitation: 0,
-            // tcu minor
-            boys_minor_surgeries: 0,
-            girls_minor_surgeries: 0,
-            men_minor_surgeries: 0,
-            women_minor_surgeries: 0,
-            // tcu major
-            boys_major_surgeries: 0,
-            girls_major_surgeries: 0,
-            men_major_surgeries: 0,
-            women_major_surgeries: 0,
-            // mch ( women )
-            antenatal_care: 0,
-            postnatal_care: 0,
-            skilled_birth_attendant: 0,
-            // vaccinations
-            penta3_vacc_male_under1: 0,
-            penta3_vacc_female_under1: 0,
-            measles_vacc_male_under1: 0,
-            measles_vacc_female_under1: 0,
-            // education
-            education_sessions: 0,
-            education_male: 0,
-            education_female: 0,
-            // training
-            training_sessions: 0,
-            training_male: 0,
-            training_female: 0,   
-            // monthly report notes
-            notes: false
-          }
+
+          // get indicatorsList
+          var indicators = localStorage.getObject( 'lists' ).indicatorsList;
+
         }
 
         // reutrn
@@ -301,62 +321,31 @@ angular.module( 'ngmReportHub' )
         }]
 			},
 
-      // get lists for cluster reporting
-      setClusterLists: function( admin0pcode ) {
-      
-        // requests
-        var requests = {
+      // sum beneficairies for location
+      getSumBeneficiaries: function( locations ) {
 
-          // province lists
-          admin1ListRequest: {
-            method: 'POST',
-            url: 'http://' + $location.host() + '/api/location/getAdmin1List',
-            data: {
-              admin0pcode: admin0pcode
-            }
-          },
-
-          // district lists
-          admin2ListRequest: {
-            method: 'POST',
-            url: 'http://' + $location.host() + '/api/location/getAdmin2List',
-            data: {
-              admin0pcode: admin0pcode
-            }
-          },
-
-          // activities list
-          activitiesRequest: {
-            method: 'GET',
-            url: 'http://' + $location.host() + '/api/cluster/getActivities'
-          }
-
-        }
-
-        // local storage
-        // localStorage.removeItem( 'lists' );
-
-        // get all lists 
-        if ( !localStorage.getObject( 'lists' ) ) {
-          // send request
-          $q.all([ 
-            $http( requests.admin1ListRequest ),
-            $http( requests.admin2ListRequest ),
-            $http( requests.activitiesRequest ) ]).then( function( results ){
-
-              // admin1, admin2, activities object
-              var lists = {
-                admin1List: results[0].data,
-                admin2List: results[1].data,
-                activitiesList: results[2].data
-              };
-
-              // storage
-              localStorage.setObject( 'lists', lists );
+        var $this = this;
+        
+        // sum beneficiary.sum
+        angular.forEach( locations, function( l, i ){
+          angular.forEach( l.beneficiaries, function( b, j ){
+            // indicators
+            angular.forEach( $this.getIndicators(), function( indicator, k ) {
+              // sum by list ( exclude keys )
+              if ( k !== 'id' && k !== 'education_sessions' && k !== 'training_sessions' && k !== 'notes' ) {
+                if ( !locations[i].beneficiaries[j].sum ) {
+                  locations[i].beneficiaries[j].sum = 0;
+                }
+                locations[i].beneficiaries[j].sum + b[ k ];
+              }
 
             });
-        }
+          });
+        });
 
+        console.log(locations)
+
+        return locations;
       },
 
       // update activities for an object ( update )
