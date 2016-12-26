@@ -26,12 +26,6 @@ angular.module( 'ngmReportHub' )
 			title: '',
 			subtitle: '',
 
-			// get organization id
-			setOrganizationId: function(){
-				// set to report
-				$scope.report.organization_id = $route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
-			},
-
 			// get organization
 			getOrganization: function( organization_id ){
 
@@ -47,14 +41,14 @@ angular.module( 'ngmReportHub' )
 
 		}
 
-		// set location lists
-		ngmClusterHelper.setClusterLists( ngmUser.get().admin0pcode );
-
 		// org id
-		$scope.report.setOrganizationId();
+		$scope.report.organization_id = 
+				$route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
 
 		// get data
-		ngmData.get( $scope.report.getOrganization( $scope.report.organization_id ) ).then( function( organization ){
+		ngmData
+			.get( $scope.report.getOrganization( $scope.report.organization_id ) )
+			.then( function( organization ){
 
 			// set model titles
 			$scope.model.header.title.title = organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + organization.cluster.toUpperCase() + ' | ' + organization.organization_display_name + ' | Projects';

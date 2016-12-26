@@ -113,11 +113,6 @@ angular
 	}])
 	.run([ '$rootScope', '$location', 'ngmAuth', 'ngmUser', function( $rootScope, $location, ngmAuth, ngmUser ) {
 
-		// check minutes since last login
-		// if ( ngmUser.get() ) {
-			// ngmAuth.setSessionTimeout( false, ngmUser.get() );
-		// }
-
 		// check session by last login
 		ngmAuth.setSessionTimeout( ngmUser.get() );
 		
