@@ -69,8 +69,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             reportUrl = 'beneficiaries/beneficiaries-' + ngmUser.get().cluster_id + '-2016.html'
           }
 
-          console.log( reportUrl )
-
           return reportUrl;
         },
 
