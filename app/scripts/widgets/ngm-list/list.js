@@ -55,6 +55,9 @@ angular.module('ngm.widget.list', ['ngm.provider'])
         // paginate id
         id: config.id ? config.id : 'ngm-paginate-' + Math.floor((Math.random()*1000000)),
 
+        // format reporting_period
+        format: false,
+
         // search
         search: {
           filter: '',
@@ -98,9 +101,9 @@ angular.module('ngm.widget.list', ['ngm.provider'])
         },
 
         // expand search box
-        toggleSearch: function($event) {
+        toggleSearch: function( $event ) {
           // focus search
-          $('#search_' + $scope.list.id).focus();
+          $( '#search_' + $scope.list.id ).focus();
           $scope.list.search.focused = $scope.list.search.focused ? false : true;
 
         }
@@ -112,6 +115,15 @@ angular.module('ngm.widget.list', ['ngm.provider'])
 
       // Merge defaults with config
       $scope.list = angular.merge({}, $scope.list, config);
+
+      // format list
+      if ( $scope.list.format ) {
+        // momentjs
+        $scope.list.data.forEach( function( d, i ){
+          // add this to assist display / filtering
+          $scope.list.data[i].reporting_period_title = $scope.list.titleFormat( d.reporting_period );
+        });
+      }
 
   }
 ]);
