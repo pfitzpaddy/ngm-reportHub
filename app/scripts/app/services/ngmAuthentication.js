@@ -92,6 +92,8 @@ angular.module('ngmReportHub')
 					
 					// unset guest
 					ngmUser.unset();
+					// set user last_logged_in
+					result.last_logged_in = moment();
 					// set localStorage
 					ngmUser.set( result );
 
