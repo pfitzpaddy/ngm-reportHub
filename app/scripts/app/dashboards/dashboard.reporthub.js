@@ -127,11 +127,13 @@ angular.module('ngmReportHub')
 						'title': 'PROBLEM',
 						'class': 'red lighten-2 white-text',
 						'rows': [{
-							'title': '2016 People-In-Need ( PIN ) estimates are required'
+							'title': '1) 2016 People-In-Need ( PIN ) estimates are required'
 						},{
-							'title': 'Several copies of the same data exist, collected in multiple local files from multiple partners'
+							'title': '2) Several copies of the same data exist, collected in multiple local files from multiple partners'
 						},{
-							'title': 'Resulting calculations produce 3 different results across 2 different agencies'
+							'title': '3) Resulting calculations produce 3 different results across 2 different agencies'
+						},{
+							'title': '<div class="center-align grey-text text-darken-2"><i>No surprise billions of dollars have been poured into Afghanistan by the international community and there is limited visibility of progress!</i>'
 						}]
 					}];
 
@@ -251,7 +253,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px;',
 									config: {
-										html: '<h2 class="col s12 report-title" style="margin-top: 0px; padding-bottom: 5px; font-size: 1.6rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">APPROACH</h2>'
+										html: '<h2 class="col s12 report-title" style="margin-top: 0px; padding-bottom: 5px; font-size: 1.6rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">SOLUTION</h2>'
 									}
 								}]
 							}]
@@ -454,7 +456,7 @@ angular.module('ngmReportHub')
 													{ x: Date.UTC( 2016, 3, 1 ), y: 0, z: 10, color: '#009688', name: 'DEVELOPMENT', description: 'Development Based on Health Partner Feedback' },
 													{ x: Date.UTC( 2016, 3, 6 ), y: 0, z: 10, color: '#0288d1', name: 'TRAINING', description: 'Health Cluster Training & Focus Groups' },
 													{ x: Date.UTC( 2016, 3, 10 ), y: 0, z: 10, color: '#009688', name: 'DEVELOPMENT', description: 'Development Based on Health Partner User Feedback' },
-													{ x: Date.UTC( 2016, 4, 1 ), y: 0, z: 10, color: '#fdd835', name: 'MILESTONE', description: 'ReportHub Endorsed by Health Minister as Health Cluster Reporting Tool' },
+													{ x: Date.UTC( 2016, 4, 1 ), y: 0, z: 10, color: '#fdd835', name: 'MILESTONE', description: 'ReportHub Endorsed by Health Minister as Health Cluster Reporting Tool After Only <b>2 Months</b> in Development' },
 													{ x: Date.UTC( 2016, 6, 1 ), y: 0, z: 10, color: '#fdd835', name: 'MILESTONE', description: 'National IMO Extracts Data for OCHA 2nd Quarter Reporting Independantly' },
 													{ x: Date.UTC( 2016, 7, 25 ), y: 0, z: 10, color: '#0288d1', name: 'WORKSHOP', description: 'Health Cluster Workshop Data Reporting Workshop' },
 													{ x: Date.UTC( 2016, 8, 1 ), y: 0, z: 10, color: '#009688', name: 'DEVELOPMENT', description: 'Development Based on Health Partner User Feedback' },

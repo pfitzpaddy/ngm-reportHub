@@ -195,12 +195,16 @@
 				      	<a ng-if="row.href" href="{{ row.href }}"
 				      		id="{{ row.id }}"
 				      		class="collection-item {{ row.class }}"
-				      		ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }" ng-cloak>{{ row.title }}</a>
+				      		ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }"
+									ng-bind-html="row.title"
+				      		ng-cloak></a>
 
 				      	<a ng-if="!row.href"
 				      		id="{{ row.id }}"
 				      		class="collection-item {{ row.class }}"
-				      		ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }" ng-cloak>{{ row.title }}</a>
+				      		ng-class="{ active: ngm.route.current.params['{{ row.param }}'] === '{{ row.active }}' }"
+				      		ng-bind-html="row.title"
+				      		ng-cloak></a>
 
 				      </div>
 			  		</div>
