@@ -187,7 +187,7 @@ angular.module('ngmReportHub')
 				console.log( user )
 
 				// tmp fix
-				if ( !user.last_logged_in ) {
+				if ( !user || !user.last_logged_in ) {
 						// unset localStorage
 						ngmUser.unset();					
 				} else {
