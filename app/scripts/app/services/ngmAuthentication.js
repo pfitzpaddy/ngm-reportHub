@@ -183,19 +183,25 @@ angular.module('ngmReportHub')
 			// Manages client session timeout
 			setSessionTimeout: function( user ) {
 
-				// get minutes since last login
-				var minutes = 
-							moment.duration( moment().diff( user.last_logged_in ) ).asMinutes();
+				// tmp fix
+				if ( !user.last_logged_in ) {
+						// unset localStorage
+						ngmUser.unset();					
+				} else {
+					// get minutes since last login
+					var minutes = 
+								moment.duration( moment().diff( user.last_logged_in ) ).asMinutes();
 
-				// ( 24 * 60 ) = 1440 minutes
-				if ( minutes > ( 24 * 60 ) ) {
-					
-					// unset localStorage
-					ngmUser.unset();
+					// ( 24 * 60 ) = 1440 minutes
+					if ( minutes > ( 24 * 60 ) ) {
+						
+						// unset localStorage
+						ngmUser.unset();
 
-					// redirect to login
-					$location.path( '/' + ngmAuth.APP + '/login' );
+						// redirect to login
+						$location.path( '/' + ngmAuth.APP + '/login' );
 
+					}
 				}
 
 			},
