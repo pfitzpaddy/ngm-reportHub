@@ -184,7 +184,7 @@ angular.module('ngmReportHub')
 			setSessionTimeout: function( user ) {
 
 				// 
-				console.log( user.last_logged_in )
+				console.log( user )
 
 				// tmp fix
 				if ( !user.last_logged_in ) {
