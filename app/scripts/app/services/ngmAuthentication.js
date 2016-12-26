@@ -183,8 +183,11 @@ angular.module('ngmReportHub')
 			// Manages client session timeout
 			setSessionTimeout: function( user ) {
 
+				// 
+				console.log( user.last_logged_in )
+
 				// tmp fix
-				if ( user && !user.last_logged_in ) {
+				if ( !user.last_logged_in ) {
 						// unset localStorage
 						ngmUser.unset();					
 				} else {
