@@ -11,7 +11,9 @@ angular
 	.run( [ '$location', '$q', '$http', 'ngmUser', 'ngmClusterHelper', function ( $location, $q, $http, ngmUser, ngmClusterHelper ) { 
 
 		// get lists
-		ngmClusterHelper.setClusterLists( ngmUser.get().admin0pcode );
+		if ( ngmUser.get() ) {
+			ngmClusterHelper.setClusterLists( ngmUser.get().admin0pcode );
+		}
 
 	}])
 	.config([ '$routeProvider', '$compileProvider', function ( $routeProvider, $compileProvider ) {
