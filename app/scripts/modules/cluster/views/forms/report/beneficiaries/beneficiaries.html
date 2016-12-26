@@ -63,6 +63,7 @@
 								            beneficiary.girls_major_surgeries +
 								            beneficiary.men_major_surgeries +
 								            beneficiary.women_major_surgeries +
+								            beneficiary.conflict_trauma_treated +
 								            beneficiary.antenatal_care +
 								            beneficiary.postnatal_care +
 								            beneficiary.skilled_birth_attendant +
@@ -91,7 +92,7 @@
 
 					      	<!-- Target beneficiaries default -->
 					      	<div ng-if="beneficiary.beneficiary_type !== 'education_training'">
-										<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesDefaultUrl"></div>								
+										<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesDefaultUrl()"></div>								
 									</div>
 
 

@@ -58,8 +58,21 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         locationsUrl: 'locations.html',
         notesUrl: 'notes.html',
         beneficiariesUrl: 'beneficiaries/beneficiaries.html',
-        beneficiariesDefaultUrl: 'beneficiaries/beneficiaries-' + ngmUser.get().cluster_id + '.html',
         beneficiariesTrainingUrl: 'beneficiaries/beneficiaries-training.html',
+        beneficiariesDefaultUrl: function(){
+
+          // default 2017
+          var reportUrl = 'beneficiaries/beneficiaries-' + ngmUser.get().cluster_id + '.html';
+
+          // to display 2016 / 2017 indicators for health!
+          if ( ngmUser.get().cluster_id === 'health' && $scope.project.report.report_year === 2016  ) {
+            reportUrl = 'beneficiaries/beneficiaries-' + ngmUser.get().cluster_id + '-2016.html'
+          }
+
+          console.log( reportUrl )
+
+          return reportUrl;
+        },
 
         // holder for UI options
         options: {

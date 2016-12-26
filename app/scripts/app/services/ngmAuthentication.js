@@ -96,7 +96,8 @@ angular.module('ngmReportHub')
 					ngmUser.set( result );
 
 					// manage session
-					ngmAuth.setSessionTimeout( true, result );
+					// ngmAuth.setSessionTimeout( true, result );
+					ngmAuth.setSessionTimeout( result );
 
 				});
 
@@ -118,11 +119,14 @@ angular.module('ngmReportHub')
 					
 					// unset guest
 					ngmUser.unset();
+					// set user last_logged_in
+					result.last_logged_in = moment();
 					// set localStorage
 					ngmUser.set( result );
 
 					// manage session
-					ngmAuth.setSessionTimeout( true, result );
+					// ngmAuth.setSessionTimeout( true, result );
+					ngmAuth.setSessionTimeout( result );
 
 				});
 
@@ -177,22 +181,14 @@ angular.module('ngmReportHub')
 			},
 
 			// Manages client session timeout
-			setSessionTimeout: function( newSession, user ) {
+			setSessionTimeout: function( user ) {
 
-				// compare last login with now
-				var log_in = moment( user.updatedAt ),
-						now = moment(),
-						duration = moment.duration( now.diff( log_in ) );
+				// get minutes since last login
+				var minutes = 
+							moment.duration( moment().diff( user.last_logged_in ) ).asMinutes();
 
-				// new session
-				// var minutes = newSession ? 0 : duration.asMinutes();
-
-				// console.log( log_in )
-				// console.log( now )
-				
-				// 24 hours * 60 minutes ( 1440 )
-				// if ( minutes > ( 24 * 60 ) ){
-				if ( !newSession && ( log_in.day() !== now.day() ) ) {
+				// ( 24 * 60 ) = 1440 minutes
+				if ( minutes > ( 24 * 60 ) ) {
 					
 					// unset localStorage
 					ngmUser.unset();
