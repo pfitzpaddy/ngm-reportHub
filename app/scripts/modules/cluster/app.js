@@ -8,18 +8,16 @@
  */
 angular
 	.module('ngmCluster', [])
-	.run( [ '$location', '$q', '$http', 'ngmUser', 'ngmClusterHelper', function ( $location, $q, $http, ngmUser, ngmClusterHelper ) { 
+	// .run( [ 'ngmClusterHelper', function ( ngmClusterHelper ) {
 
-		// get lists
-		if ( ngmUser.get() ) {
-			ngmClusterHelper.setClusterLists( ngmUser.get().admin0pcode );
-		}
+	// 	// set app cluster lists
+	// 	ngmClusterHelper.setClusterLists();
 
-	}])
+	// }])
 	.config([ '$routeProvider', '$compileProvider', function ( $routeProvider, $compileProvider ) {
 
 		// https://medium.com/swlh/improving-angular-performance-with-1-line-of-code-a1fb814a6476#.ufea9sjt1
-		$compileProvider.debugInfoEnabled( false )
+		$compileProvider.debugInfoEnabled( false );
 
 		// app routes with access rights
 		$routeProvider

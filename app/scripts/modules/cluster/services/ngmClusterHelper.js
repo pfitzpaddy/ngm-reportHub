@@ -42,54 +42,45 @@ angular.module( 'ngmReportHub' )
       },
 
       // get lists for cluster reporting
-      setClusterLists: function( admin0pcode ) {
+      setClusterLists: function() {
       
         // requests
         var requests = {
 
           // province lists
-          admin1ListRequest: {
-            method: 'POST',
-            url: 'http://' + $location.host() + '/api/location/getAdmin1List',
-            data: {
-              admin0pcode: admin0pcode
-            }
+          getAdmin1List: {
+            method: 'GET',
+            url: 'http://' + $location.host() + '/api/location/getAdmin1List'
           },
 
           // district lists
-          admin2ListRequest: {
-            method: 'POST',
-            url: 'http://' + $location.host() + '/api/location/getAdmin2List',
-            data: {
-              admin0pcode: admin0pcode
-            }
+          getAdmin2List: {
+            method: 'GET',
+            url: 'http://' + $location.host() + '/api/location/getAdmin2List'
           },
 
           // activities list
-          activitiesRequest: {
+          getActivities: {
             method: 'GET',
             url: 'http://' + $location.host() + '/api/cluster/getActivities'
           },
 
           // indicators list
-          indicatorsRequest: {
+          getIndicators: {
             method: 'GET',
             url: 'http://' + $location.host() + '/api/cluster/getIndicators'
           }          
 
         }
 
-        // local storage
-        // localStorage.removeItem( 'lists' );
-
         // get all lists 
         if ( !localStorage.getObject( 'lists' ) ) {
           // send request
           $q.all([ 
-            $http( requests.admin1ListRequest ),
-            $http( requests.admin2ListRequest ),
-            $http( requests.activitiesRequest ), 
-            $http( requests.indicatorsRequest ) ] ).then( function( results ){
+            $http( requests.getAdmin1List ),
+            $http( requests.getAdmin2List ),
+            $http( requests.getActivities ), 
+            $http( requests.getIndicators ) ] ).then( function( results ){
 
               // admin1, admin2, activities object
               var lists = {

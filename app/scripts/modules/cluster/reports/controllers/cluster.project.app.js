@@ -41,9 +41,6 @@ angular.module( 'ngmReportHub' )
 
 		}
 
-		// get cluster lists
-		ngmClusterHelper.setClusterLists( ngmUser.get().admin0pcode );
-
 		// org id
 		$scope.report.organization_id = 
 				$route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;

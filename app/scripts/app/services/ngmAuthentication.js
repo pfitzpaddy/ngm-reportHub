@@ -11,7 +11,7 @@
  *
  */
 angular.module('ngmReportHub')
-	.factory('ngmUser', function() {	
+	.factory( 'ngmUser', [ '$injector', function( $injector ) {	
 
 		return {
 
@@ -21,9 +21,12 @@ angular.module('ngmReportHub')
 			},
 
 			// set user to storage
-			set: function( val ) {
-				// JSON stringify result
-				localStorage.setObject( 'auth_token', val );
+			set: function( user ) {
+				// user last_logged_in & set
+				user.last_logged_in = moment();
+				localStorage.setObject( 'auth_token', user );
+				// set lists
+				$injector.get( 'ngmClusterHelper' ).setClusterLists();
 			},
 
 			// unset user from storage
@@ -52,8 +55,8 @@ angular.module('ngmReportHub')
 			}
 
 		};
-	})
-	.factory('ngmAuth', ['$q', '$route', '$http', '$location', '$interval', 'ngmUser', function( $q, $route, $http, $location, $interval, ngmUser ) {
+	}])
+	.factory( 'ngmAuth', [ '$q', '$route', '$http', '$location', '$interval', 'ngmUser', function( $q, $route, $http, $location, $interval, ngmUser ) {
 
 		// auth
 		var ngmAuth = {
@@ -92,13 +95,10 @@ angular.module('ngmReportHub')
 					
 					// unset guest
 					ngmUser.unset();
-					// set user last_logged_in
-					result.last_logged_in = moment();
 					// set localStorage
 					ngmUser.set( result );
 
 					// manage session
-					// ngmAuth.setSessionTimeout( true, result );
 					ngmAuth.setSessionTimeout( result );
 
 				});
@@ -107,7 +107,7 @@ angular.module('ngmReportHub')
 			},
 
 			// login
-			login: function(user) {
+			login: function( user ) {
 				
 				// set the $http object
 				var login = $http({
@@ -121,13 +121,10 @@ angular.module('ngmReportHub')
 					
 					// unset guest
 					ngmUser.unset();
-					// set user last_logged_in
-					result.last_logged_in = moment();
 					// set localStorage
 					ngmUser.set( result );
 
 					// manage session
-					// ngmAuth.setSessionTimeout( true, result );
 					ngmAuth.setSessionTimeout( result );
 
 				});
@@ -290,7 +287,7 @@ angular.module('ngmReportHub')
 		return ngmAuth;
 
 	}])
-	.factory('ngmAuthInterceptor', ['$q', '$injector', function($q, $injector) {
+	.factory( 'ngmAuthInterceptor', [ '$q', '$injector', function( $q, $injector ) {
 			
 		// get user
 		var ngmUser = $injector.get( 'ngmUser' );

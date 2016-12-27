@@ -17,7 +17,7 @@ angular.module( 'ngmReportHub' )
 			'$timeout', 
 			'$filter', 
 			'ngmUser', 
-			'ngmData', 
+			'ngmData',
 		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmData ) {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
@@ -28,7 +28,7 @@ angular.module( 'ngmReportHub' )
 			// empty model
 			$scope.model = {
 				rows: [{}]
-			};		
+			};
 
 			// create dews object
 			$scope.dashboard = {

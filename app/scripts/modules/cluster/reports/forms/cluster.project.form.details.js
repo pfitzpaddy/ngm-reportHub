@@ -59,10 +59,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             donors: ngmClusterHelper.getDonors(),
             // beneficiaries
             beneficiaries: ngmClusterHelper.getBeneficiaries( config.project.cluster_id, config.project.target_beneficiaries ),
-            // admin1
-            admin1: localStorage.getObject( 'lists' ).admin1List,
-            // admin2
-            admin2: localStorage.getObject( 'lists' ).admin2List,
+            // admin1 ( with admin0 filter )
+            admin1: $filter( 'filter' )( localStorage.getObject( 'lists' ).admin1List, 
+                            { admin0pcode: ngmUser.get().admin0pcode }, true ),
+            // admin2 ( with admin0 filter )
+            admin2: $filter( 'filter' )( localStorage.getObject( 'lists' ).admin2List, 
+                            { admin0pcode: ngmUser.get().admin0pcode }, true ),
             // facility type
             facility_type: ngmClusterHelper.getFacilityTypes(),
             // activities by cluster
