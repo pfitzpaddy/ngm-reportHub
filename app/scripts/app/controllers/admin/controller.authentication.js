@@ -184,6 +184,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               'ET': { adminRpcode: 'AFRO', adminRname: 'AFRO' },
               'IQ': { adminRpcode: 'EMRO', adminRname: 'EMRO' },
               'KE': { adminRpcode: 'AFRO', adminRname: 'AFRO' },
+              'NG': { adminRpcode: 'AFRO', adminRname: 'AFRO' },
               'SO': { adminRpcode: 'EMRO', adminRname: 'EMRO' }
             }            
 
