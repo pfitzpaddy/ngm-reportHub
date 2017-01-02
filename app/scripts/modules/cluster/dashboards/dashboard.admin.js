@@ -266,9 +266,9 @@ angular.module('ngmReportHub')
 									onClose: function(){
 										// set date
 										var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
-										if ( date !== $scope.dashboard.startDate ) {
+										if ( date !== $scope.dashboard.endDate ) {
 											// set new date
-											$scope.dashboard.startDate = date;
+											$scope.dashboard.endDate = date;
 											// URL
 											var path = '/cluster/admin/' + $route.current.params.adminR + 
 																					 '/' + $route.current.params.admin0 +
