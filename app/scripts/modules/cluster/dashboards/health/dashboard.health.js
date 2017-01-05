@@ -446,7 +446,7 @@ angular.module( 'ngmReportHub' )
 							rows = [];
 
 					// filter admin1 data object
-					$scope.dashboard.data.admin1 =
+					$scope.dashboard.data.admin1 = 
  									$filter( 'filter' )( localStorage.getObject( 'lists' ).admin1List, 
                   				{ admin0pcode: $route.current.params.admin0.toUpperCase() }, true );
 
@@ -746,9 +746,9 @@ angular.module( 'ngmReportHub' )
 									onClose: function(){
 										// set date
 										var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
-										if ( date !== $scope.dashboard.startDate ) {
+										if ( date !== $scope.dashboard.endDate ) {
 											// set new date
-											$scope.dashboard.startDate = date;
+											$scope.dashboard.endDate = date;
 											// URL
 											var path = '/cluster/health/4w/' + $route.current.params.adminR + 
 																					 '/' + $route.current.params.admin0 + 

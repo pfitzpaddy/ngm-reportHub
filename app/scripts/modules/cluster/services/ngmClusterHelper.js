@@ -75,6 +75,18 @@ angular.module( 'ngmReportHub' )
 
         // get all lists 
         if ( !localStorage.getObject( 'lists' ) ) {
+
+          // admin1, admin2, activities holders
+          var lists = {
+            admin1List: [],
+            admin2List: [],
+            activitiesList: [],
+            indicatorsList: []
+          };
+
+          // storage
+          localStorage.setObject( 'lists', lists );          
+
           // send request
           $q.all([ 
             $http( requests.getAdmin1List ),
