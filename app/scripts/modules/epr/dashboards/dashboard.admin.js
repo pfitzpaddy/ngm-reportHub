@@ -17,8 +17,9 @@ angular.module('ngmReportHub')
 			'$timeout', 
 			'$filter', 
 			'ngmUser', 
-			'ngmData', 
-		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmData ) {
+			'ngmData',
+			'ngmEprHelper',
+		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmData, ngmEprHelper ) {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
 				'AngularJS',
@@ -38,6 +39,12 @@ angular.module('ngmReportHub')
 				
 				// current user
 				user: ngmUser.get(),
+
+				// report start
+				startDate: moment( $route.current.params.start) .format( 'YYYY-MM-DD' ),
+
+				// report end
+				endDate: moment( $route.current.params.end ).format( 'YYYY-MM-DD' ),
 
 				// current report
 				report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
@@ -120,18 +127,38 @@ angular.module('ngmReportHub')
 				},
 
 				// get http request
-				getRequest: function( indicator, list ){
+				getRequest: function( url, indicator, list ){
 					// 
 					return {
 						method: 'POST',
-						url: 'http://' + $location.host() + '/api/epr/indicator',
+						url: 'http://' + $location.host() + '/api/' + url,
 						data: {
 							indicator: indicator,
 							list: list,
 							year: $scope.dashboard.year,
 							region: $scope.dashboard.region,
 							province: $scope.dashboard.province,
-							week: $scope.dashboard.week
+							week: $scope.dashboard.week,
+							start_date: $scope.dashboard.startDate,
+							end_date: $scope.dashboard.endDate,
+						}
+					}
+				},
+				
+				// get http request
+				getMetrics: function( theme, format ){
+					// 
+					return {
+						method: 'POST',
+						url: 'http://' + $location.host() + '/api/metrics/set',
+						data: {
+							organization: $scope.dashboard.user.organization,
+							username: $scope.dashboard.user.username,
+							email: $scope.dashboard.user.email,
+							dashboard: 'epr_admin',
+							theme: theme,
+							format: format,
+							url: $location.$$path
 						}
 					}
 				},
@@ -148,7 +175,7 @@ angular.module('ngmReportHub')
 							'param': 'region',
 							'active': k,
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/epr/admin/' + $scope.dashboard.year + '/' + k + '/all/' + $scope.dashboard.week
+							'href': '#/epr/admin/' + $scope.dashboard.year + '/' + k + '/all/' + $scope.dashboard.week + '/' + $scope.dashboard.startDate + '/' + $scope.dashboard.endDate
 						});
 					};
 					
@@ -162,13 +189,7 @@ angular.module('ngmReportHub')
 							'param': 'year',
 							'active': '2017',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/epr/admin/2017/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/' + $scope.dashboard.week
-						},{
-							'title': '2016',
-							'param': 'year',
-							'active': '2016',
-							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/epr/admin/2016/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/' + $scope.dashboard.week
+							'href': '#/epr/2017/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/' + $scope.dashboard.week + '/' + $scope.dashboard.startDate + '/' + $scope.dashboard.endDate
 						}]
 					},{
 						'id': 'epr-admin-region',
@@ -195,7 +216,7 @@ angular.module('ngmReportHub')
 							'param': 'province',
 							'active': d,
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/epr/admin/' + $scope.dashboard.year + '/' + $scope.dashboard.region + '/' + d + '/' + $scope.dashboard.week
+							'href': '#/epr/' + $scope.dashboard.year + '/' + $scope.dashboard.region + '/' + d + '/' + $scope.dashboard.week + '/' + $scope.dashboard.startDate + '/' + $scope.dashboard.endDate
 						});
 					});
 
@@ -219,17 +240,22 @@ angular.module('ngmReportHub')
 						'param': 'week',
 						'active': 'all',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '#/epr/admin/' + $scope.dashboard.year + '/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/all'
+						'href': '#/epr/' + $scope.dashboard.year + '/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/all/2017-01-01/' + moment().format('YYYY-MM-DD')
 					}];
 
 					// for each week
 					for(i=1;i<54;i++){
+
+						// set dates to week
+						var start_date = moment().year( $scope.dashboard.year ).week( i ).subtract( 1, 'd' ).format( 'YYYY-MM-DD' ); 
+						var end_date = moment().year( $scope.dashboard.year ).week( i ).subtract( 1, 'd' ).add( 1, 'w' ).format( 'YYYY-MM-DD' ); ;
+
 						rows.push({
 							'title': 'W'+i,
 							'param': 'week',
 							'active': i,
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/epr/admin/' + $scope.dashboard.year + '/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/' + i
+							'href': '#/epr/' + $scope.dashboard.year + '/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/' + i + '/' + start_date + '/' + end_date
 						});
 					}
 
@@ -303,13 +329,67 @@ angular.module('ngmReportHub')
 								'class': 'col hide-on-small-only m8 l9 report-subtitle truncate',
 								'title': $scope.dashboard.subtitle,
 							},
+							datePicker: {
+								'class': 'col s12 m4 l3',
+								dates: [{
+									style: 'float:left;',
+									label: 'from',
+									format: 'd mmm, yyyy',
+									max: $scope.dashboard.endDate,
+									currentTime: $scope.dashboard.startDate,
+									onClose: function(){
+										// set date
+										var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
+										if ( date !== $scope.dashboard.startDate ) {
+											// set new date
+											$scope.dashboard.startDate = date;
+											// URL
+											var path = '/epr/' + $route.current.params.year + 
+																					 '/' + $route.current.params.region + 
+																					 '/' + $route.current.params.province + 
+																					 '/all' +
+																					 '/' + $scope.dashboard.startDate + 
+																					 '/' + $scope.dashboard.endDate;
+
+											// update new date
+											$location.path( path );
+
+										}
+									}
+								},{
+									style: 'float:right',
+									label: 'to',
+									format: 'd mmm, yyyy',
+									min: $scope.dashboard.startDate,
+									currentTime: $scope.dashboard.endDate,
+									onClose: function(){
+										// set date
+										var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
+										if ( date !== $scope.dashboard.endDate ) {
+											// set new date
+											$scope.dashboard.endDate = date;
+											// URL
+											var path = '/epr/' + $route.current.params.year + 
+																					 '/' + $route.current.params.region + 
+																					 '/' + $route.current.params.province + 
+																					 '/all' +
+																					 '/' + $scope.dashboard.startDate + 
+																					 '/' + $scope.dashboard.endDate;
+
+											// update new date
+											$location.path( path );
+
+										}
+									}
+								}]
+							},
 							download: {
 								'class': 'col s12 m4 l4 hide-on-small-only',
 								downloads: [{
 									type: 'pdf',
 									color: 'blue',
 									icon: 'picture_as_pdf',
-									hover: 'Download Admin as PDF',
+									hover: 'Download EPR as PDF',
 									request: {
 										method: 'POST',
 										url: 'http://' + $location.host() + '/api/print',
@@ -321,22 +401,31 @@ angular.module('ngmReportHub')
 											pageLoadTime: 6200,
 											viewportWidth: 1400
 										}
-									},						
-									metrics: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/metrics/set',
-										data: {
-											organization: $scope.dashboard.user.organization,
-											username: $scope.dashboard.user.username,
-											email: $scope.dashboard.user.email,
-											dashboard: 'epr_admin',
-											theme: 'epr_admin',
-											format: 'pdf',
-											url: $location.$$path
-										}
-									}
+									},
+									metrics: $scope.dashboard.getMetrics( 'epr_print', 'pdf' )
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'assignment',
+									hover: 'Download EPR Data as CSV',
+									request: angular.merge({}, $scope.dashboard.getRequest( 'epr/indicator', 'data', false ), { data: { report: $scope.dashboard.report } } ),
+									metrics: $scope.dashboard.getMetrics( 'epr_data', 'csv' )
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'assignment_late',
+									hover: 'Download Alerts as CSV',
+									request: angular.merge({}, $scope.dashboard.getRequest( 'epr/alerts/data', 'data', false ), { data: { report: 'alerts_' + $scope.dashboard.report } } ),
+									metrics: $scope.dashboard.getMetrics( 'epr_alerts', 'csv' )
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'new_releases',
+									hover: 'Download Disasters as CSV',
+									request: angular.merge({}, $scope.dashboard.getRequest( 'epr/disasters/data', 'data', false ), { data: { report: 'disasters_' + $scope.dashboard.report } } ),
+									metrics: $scope.dashboard.getMetrics( 'epr_disasters', 'csv' )
 								}]
-							}							
+							}
 						},
 						menu: $scope.dashboard.menu,
 						rows: [{
@@ -361,7 +450,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Total Reports Due',
-										request: $scope.dashboard.getRequest( 'total', false )
+										request: $scope.dashboard.getRequest( 'epr/indicator', 'expected_reports', false )
 									}
 								}]
 							},{
@@ -372,7 +461,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Submitted Reports',
-										request: $scope.dashboard.getRequest( 'submitted_reports', false )
+										request: $scope.dashboard.getRequest( 'epr/indicator', 'submitted_reports', false )
 									}
 								}]
 							},{
@@ -383,7 +472,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Outstanding Reports',
-										request: $scope.dashboard.getRequest( 'outstanding_reports', false )
+										request: $scope.dashboard.getRequest( 'epr/indicator', 'outstanding_reports', false )
 									}
 								}]
 							},{
@@ -394,7 +483,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Duplicate Reports',
-										request: $scope.dashboard.getRequest( 'duplicate_reports', false )
+										request: $scope.dashboard.getRequest( 'epr/indicator', 'duplicate_reports', false )
 									}
 								}]
 							}]
@@ -415,7 +504,7 @@ angular.module('ngmReportHub')
 										tableOptions:{
 											count: 10
 										},
-										request: $scope.dashboard.getRequest( 'duplicate_reports', true )
+										request: $scope.dashboard.getRequest( 'epr/indicator', 'duplicate_reports', true )
 									}
 								}]
 							}]
@@ -436,7 +525,7 @@ angular.module('ngmReportHub')
 										tableOptions:{
 											count: 10
 										},
-										request: $scope.dashboard.getRequest( 'reports_submitted', true )
+										request: $scope.dashboard.getRequest( 'epr/indicator', 'reports_submitted', true )
 									}
 								}]
 							}]

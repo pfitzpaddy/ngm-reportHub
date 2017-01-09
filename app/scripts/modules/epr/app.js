@@ -17,10 +17,10 @@ angular
 		$routeProvider
 			// epr
 			.when( '/epr', {
-				redirectTo: '/epr/2017/all/all/all'
+				redirectTo: '/epr/2017/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// epr dashboard
-			.when( '/epr/:year/:region/:province/:week', {
+			.when( '/epr/:year/:region/:province/:week/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardEprCtrl',
 				resolve: {
@@ -31,10 +31,10 @@ angular
 			})
 			// epr
 			.when( '/epr/admin', {
-				redirectTo: '/epr/admin/2017/all/all/all'
+				redirectTo: '/epr/admin/2017/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// epr admin
-			.when( '/epr/admin/:year/:region/:province/:week', {
+			.when( '/epr/admin/:year/:region/:province/:week/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardEprAdminCtrl',
 				resolve: {

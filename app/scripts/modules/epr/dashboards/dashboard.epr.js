@@ -17,8 +17,9 @@ angular.module('ngmReportHub')
 			'$timeout', 
 			'$filter', 
 			'ngmUser', 
-			'ngmData', 
-		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmData ) {
+			'ngmData',
+			'ngmEprHelper',
+		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmData, ngmEprHelper ) {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
 				'AngularJS',
@@ -39,272 +40,40 @@ angular.module('ngmReportHub')
 				// current user
 				user: ngmUser.get(),
 
+				// report start
+				startDate: moment( $route.current.params.start ) .format( 'YYYY-MM-DD' ),
+
+				// report end
+				endDate: moment( $route.current.params.end ).format( 'YYYY-MM-DD' ),
+
 				// current report
 				report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
-
-				// data
-				data: {
-					region: {
-						'all': {
-							name: 'All'
-						},
-						'central': {
-							name: 'Central',
-							prov: [ 8,3,4,5,2,1 ]
-						},
-						'central_highlands': {
-							name: 'Central Highlands',
-							prov: [ 10,22 ]
-						},
-						'east': {
-							name: 'East',
-							prov: [ 13,7,14,6 ]
-						},
-						'north': {
-							name: 'North',
-							prov: [ 27,28,18,19,20 ]
-						},
-						'north_east': {
-							name: 'North East',
-							prov: [ 15,9,17,16 ]
-						},
-						'south': {
-							name: 'South',
-							prov: [ 32,23,34,24,33 ]
-						},
-						'south_east': {
-							name: 'South East',
-							prov: [  26,25,12,11 ]
-						},
-						'west': {
-							name: 'West',
-							prov: [ 31,21,29,30 ]
-						}
-					},
-					province: {
-						'15': 'Badakhshan',
-						'29': 'Badghis',
-						'9': 'Baghlan',
-						'18': 'Balkh',
-						'10': 'Bamyan',
-						'22': 'Daykundi',
-						'31': 'Farah',
-						'28': 'Faryab',
-						'11': 'Ghazni',
-						'21': 'Ghor',
-						'32': 'Hilmand',
-						'30': 'Hirat',
-						'27': 'Jawzjan',
-						'1': 'Kabul',
-						'33': 'Kandahar',
-						'2': 'Kapisa',
-						'26': 'Khost',
-						'13': 'Kunar',
-						'17': 'Kunduz',
-						'7': 'Laghman',
-						'5': 'Logar',
-						'6': 'Nangarhar',
-						'34': 'Nimroz',
-						'14': 'Nuristan',
-						'25': 'Paktika',
-						'12': 'Paktya',
-						'8': 'Panjsher',
-						'3': 'Parwan',
-						'19': 'Samangan',
-						'20': 'Sar-e-Pul',
-						'16': 'Takhar',
-						'23': 'Uruzgan',
-						'4': 'Wardak',
-						'24': 'Zabul',
-					}
-				},
-
-				// get http request
-				getRequest: function( indicator, list ){
-					// 
-					return {
-						method: 'POST',
-						url: 'http://' + $location.host() + '/api/epr/indicator',
-						data: {
-							indicator: indicator,
-							list: list,
-							year: $scope.dashboard.year,
-							region: $scope.dashboard.region,
-							province: $scope.dashboard.province,
-							week: $scope.dashboard.week
-						}
-					}
-				},
-
-				// get http request
-				getMetrics: function( theme, format ){
-					// 
-					return {
-						method: 'POST',
-						url: 'http://' + $location.host() + '/api/metrics/set',
-						data: {
-							organization: $scope.dashboard.user.organization,
-							username: $scope.dashboard.user.username,
-							email: $scope.dashboard.user.email,
-							dashboard: 'epr_admin',
-							theme: theme,
-							format: format,
-							url: $location.$$path
-						}
-					}
-				},
-
-				// default menu
-				getMenu: function(){
-
-					// rows
-					var rows = [];
-					// for each
-					for(var k in $scope.dashboard.data.region){
-						rows.push({
-							'title': $scope.dashboard.data.region[k].name,
-							'param': 'region',
-							'active': k,
-							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/epr/admin/' + $scope.dashboard.year + '/' + k + '/all/' + $scope.dashboard.week
-						});
-					};
-					
-					return [{
-						'id': 'epr-admin-year',
-						'icon': 'search',
-						'title': 'Year',
-						'class': 'teal lighten-1 white-text',
-						'rows': [{
-							'title': '2017',
-							'param': 'year',
-							'active': '2017',
-							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/epr/2017/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/' + $scope.dashboard.week
-						},{
-							'title': '2016',
-							'param': 'year',
-							'active': '2016',
-							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/epr/2016/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/' + $scope.dashboard.week
-						}]
-					},{
-						'id': 'epr-admin-region',
-						'icon': 'location_on',
-						'title': 'Region',
-						'class': 'teal lighten-1 white-text',
-						'rows': rows
-					}];
-
-				},
-
-				// province rows
-				getProvinceRows: function(){
-					
-					// rows
-					var rows = [];
-					// provinces by region
-					var provinces = $scope.dashboard.data.region[$scope.dashboard.region].prov;
-
-					// angular
-					angular.forEach(provinces, function( d, i ){
-						rows.push({
-							'title': $scope.dashboard.data.province[d],
-							'param': 'province',
-							'active': d,
-							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/epr/' + $scope.dashboard.year + '/' + $scope.dashboard.region + '/' + d + '/' + $scope.dashboard.week
-						});
-					});
-
-					// push to menu
-					$scope.dashboard.menu.push({
-						'id': 'epr-admin-province',
-						'icon': 'location_on',
-						'title': 'Province',
-						'class': 'teal lighten-1 white-text',
-						'rows': rows
-					});
-
-				},
-
-				// week rows
-				getWeekRows: function() {
-
-					// rows
-					var rows = [{
-						'title': 'All',
-						'param': 'week',
-						'active': 'all',
-						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '#/epr/' + $scope.dashboard.year + '/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/all'
-					}];
-
-					// for each week
-					for(i=1;i<54;i++){
-						rows.push({
-							'title': 'W'+i,
-							'param': 'week',
-							'active': i,
-							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '#/epr/' + $scope.dashboard.year + '/' + $scope.dashboard.region + '/' + $scope.dashboard.province + '/' + i
-						});
-					}
-
-					// push to menu
-					$scope.dashboard.menu.push({
-						'id': 'epr-admin-week',
-						'icon': 'date_range',
-						'title': 'Report Week',
-						'class': 'teal lighten-1 white-text',
-						'rows': rows
-					});
-
-				},
 
 				// set dashboard
 				setDashboard: function(){
 
-					// variables
-					$scope.dashboard.year = $route.current.params.year;
-					$scope.dashboard.region = $route.current.params.region;
-					$scope.dashboard.province = $route.current.params.province;
-					$scope.dashboard.week = $route.current.params.week;
 					// report name
 					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
 
-					// add menu
-					$scope.dashboard.menu = $scope.dashboard.getMenu();
-
-					// title
-					$scope.dashboard.title = 'EPR | ' + $scope.dashboard.year;
-					$scope.dashboard.subtitle = 'EPR Dashboard';
+					// set params for service
+					ngmEprHelper.setParams({
+						year: $route.current.params.year,
+						region: $route.current.params.region,
+						province: $route.current.params.province,
+						week: $route.current.params.week,
+						startDate: $scope.dashboard.startDate,
+						endDate: $scope.dashboard.endDate,
+						user: $scope.dashboard.user
+					});
 					
-					// region
-					if ( $scope.dashboard.region !== 'all' ) {
-						$scope.dashboard.title += ' | ' + $scope.dashboard.data.region[$scope.dashboard.region].name;
-						$scope.dashboard.subtitle += ' for ' + $scope.dashboard.data.region[$scope.dashboard.region].name + ' Region';
-
-						// province menu
-						$scope.dashboard.getProvinceRows();
-
+					// add menu
+					$scope.dashboard.menu = ngmEprHelper.getMenu();
+					// add province menu
+					if ( $route.current.params.region !== 'all' ) {
+						$scope.dashboard.menu.push(ngmEprHelper.getProvinceRows());
 					}
-					// if province
-					if ( $scope.dashboard.province !== 'all' ) {
-						$scope.dashboard.title += ' | ' + $scope.dashboard.data.province[$scope.dashboard.province]
-						$scope.dashboard.subtitle += ', ' + $scope.dashboard.data.province[$scope.dashboard.province] + ' Province';
-					}
-					// if week
-					if ( $scope.dashboard.week !== 'all' ) {
-						$scope.dashboard.title += ' | W' + $scope.dashboard.week;
-						$scope.dashboard.subtitle += ', EPR Week ' + $scope.dashboard.week;
-					}
-
 					// add weeks to menu
-					$scope.dashboard.getWeekRows();					
-
-					// report name
-					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
+					$scope.dashboard.menu.push(ngmEprHelper.getWeekRows());
 					
 					// model
 					$scope.model = {
@@ -317,11 +86,65 @@ angular.module('ngmReportHub')
 							title: {
 								'class': 'col s12 m8 l8 report-title truncate',
 								'style': 'font-size: 3.4rem; color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
-								'title': $scope.dashboard.title,
+								'title': ngmEprHelper.getTitle(),
 							},
 							subtitle: {
 								'class': 'col hide-on-small-only m8 l9 report-subtitle truncate',
-								'title': $scope.dashboard.subtitle,
+								'title': ngmEprHelper.getSubtitle(),
+							},
+							datePicker: {
+								'class': 'col s12 m4 l3',
+								dates: [{
+									style: 'float:left;',
+									label: 'from',
+									format: 'd mmm, yyyy',
+									max: $scope.dashboard.endDate,
+									currentTime: $scope.dashboard.startDate,
+									onClose: function(){
+										// set date
+										var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
+										if ( date !== $scope.dashboard.startDate ) {
+											// set new date
+											$scope.dashboard.startDate = date;
+											// URL
+											var path = '/epr/' + $route.current.params.year + 
+																					 '/' + $route.current.params.region + 
+																					 '/' + $route.current.params.province + 
+																					 '/all' +
+																					 '/' + $scope.dashboard.startDate + 
+																					 '/' + $scope.dashboard.endDate;
+
+											// update new date
+											$location.path( path );
+
+										}
+									}
+								},{
+									style: 'float:right',
+									label: 'to',
+									format: 'd mmm, yyyy',
+									min: $scope.dashboard.startDate,
+									currentTime: $scope.dashboard.endDate,
+									onClose: function(){
+										// set date
+										var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
+										if ( date !== $scope.dashboard.endDate ) {
+											// set new date
+											$scope.dashboard.endDate = date;
+											// URL
+											var path = '/epr/' + $route.current.params.year + 
+																					 '/' + $route.current.params.region + 
+																					 '/' + $route.current.params.province + 
+																					 '/all' +
+																					 '/' + $scope.dashboard.startDate + 
+																					 '/' + $scope.dashboard.endDate;
+
+											// update new date
+											$location.path( path );
+
+										}
+									}
+								}]
 							},
 							download: {
 								'class': 'col s12 m4 l4 hide-on-small-only',
@@ -342,50 +165,28 @@ angular.module('ngmReportHub')
 											viewportWidth: 1400
 										}
 									},
-									metrics: $scope.dashboard.getMetrics( 'epr_print', 'pdf' )
+									metrics: ngmEprHelper.getMetrics( 'epr_print', 'pdf' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'assignment',
 									hover: 'Download EPR Data as CSV',
-									request: angular.merge({}, $scope.dashboard.getRequest( 'data', false ), { data: { report: $scope.dashboard.report } } ),
-									metrics: $scope.dashboard.getMetrics( 'epr_data', 'csv' )
+									request: angular.merge({}, ngmEprHelper.getRequest( 'epr/indicator', 'data', false ), { data: { report: $scope.dashboard.report } } ),
+									metrics: ngmEprHelper.getMetrics( 'epr_data', 'csv' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'assignment_late',
 									hover: 'Download Alerts as CSV',
-									request: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/epr/alerts/data',
-										data: {
-											indicator: 'data',
-											report: $scope.dashboard.report,
-											year: $scope.dashboard.year,
-											region: $scope.dashboard.region,
-											province: $scope.dashboard.province,
-											week: $scope.dashboard.week
-										}
-									},
-									metrics: $scope.dashboard.getMetrics( 'epr_alerts', 'csv' )
+									request: angular.merge({}, ngmEprHelper.getRequest( 'epr/alerts/data', 'data', false ), { data: { report: 'alerts_' + $scope.dashboard.report } } ),
+									metrics: ngmEprHelper.getMetrics( 'epr_alerts', 'csv' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
-									icon: 'invert_colors',
+									icon: 'new_releases',
 									hover: 'Download Disasters as CSV',
-									request: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/epr/disasters/data',
-										data: {
-											indicator: 'data',
-											report: $scope.dashboard.report,
-											year: $scope.dashboard.year,
-											region: $scope.dashboard.region,
-											province: $scope.dashboard.province,
-											week: $scope.dashboard.week
-										}
-									},
-									metrics: $scope.dashboard.getMetrics( 'epr_disasters', 'csv' )
+									request: angular.merge({}, ngmEprHelper.getRequest( 'epr/disasters/data', 'data', false ), { data: { report: 'disasters_' + $scope.dashboard.report } } ),
+									metrics: ngmEprHelper.getMetrics( 'epr_disasters', 'csv' )
 								}]
 							}							
 						},
@@ -412,7 +213,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'EPR Reports',
-										request: $scope.dashboard.getRequest( 'submitted_reports', false )
+										request: ngmEprHelper.getRequest( 'epr/indicator', 'submitted_reports', false )
 									}
 								}]
 							}]
@@ -437,7 +238,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Alerts',
-										request: $scope.dashboard.getRequest( 'submitted_reports', false )
+										request: ngmEprHelper.getRequest( 'epr/alerts/indicator', 'total', false )
 									}
 								}]
 							}]
@@ -462,7 +263,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Disasters',
-										request: $scope.dashboard.getRequest( 'submitted_reports', false )
+										request: ngmEprHelper.getRequest( 'epr/disasters/indicator', 'total', false )
 									}
 								}]
 							}]
