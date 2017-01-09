@@ -65,7 +65,7 @@ angular.module('ngmReportHub')
 						endDate: $scope.dashboard.endDate,
 						user: $scope.dashboard.user
 					});
-					
+
 					// add menu
 					$scope.dashboard.menu = ngmEprHelper.getMenu();
 					// add province menu
@@ -246,6 +246,47 @@ angular.module('ngmReportHub')
 							columns: [{
 								styleClass: 's12 m12 l12',
 								widgets: [{
+									type: 'leaflet',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										height: '520px',
+										display: {
+											type: 'marker'
+										},
+										defaults: {
+											zoomToBounds: true
+										},
+										layers: {
+											baselayers: {
+												osm: {
+													name: 'Mapbox',
+													type: 'xyz',
+													url: 'https://b.tiles.mapbox.com/v4/aj.um7z9lus/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZml0enBhZGR5IiwiYSI6ImNpZW1vcXZiaTAwMXBzdGtrYmp0cDlkdnEifQ.NCI7rTR3PvN4iPZpt6hgKA',
+													layerOptions: {
+														continuousWorld: true
+													}
+												}
+											},
+											overlays: {
+												alerts: {
+													name: 'alerts',
+													type: 'markercluster',
+													visible: true,
+													layerOptions: {
+															maxClusterRadius: 90
+													}
+												}
+											}
+										},				
+										request: ngmEprHelper.getRequest( 'epr/alerts/indicator', 'markers', false )
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
 									type: 'html',
 									card: 'card-panel',
 									style: 'padding:0px;',
@@ -264,6 +305,47 @@ angular.module('ngmReportHub')
 									config: {
 										title: 'Disasters',
 										request: ngmEprHelper.getRequest( 'epr/disasters/indicator', 'total', false )
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'leaflet',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										height: '520px',
+										display: {
+											type: 'marker'
+										},
+										defaults: {
+											zoomToBounds: true
+										},
+										layers: {
+											baselayers: {
+												osm: {
+													name: 'Mapbox',
+													type: 'xyz',
+													url: 'https://b.tiles.mapbox.com/v4/aj.um7z9lus/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZml0enBhZGR5IiwiYSI6ImNpZW1vcXZiaTAwMXBzdGtrYmp0cDlkdnEifQ.NCI7rTR3PvN4iPZpt6hgKA',
+													layerOptions: {
+														continuousWorld: true
+													}
+												}
+											},
+											overlays: {
+												disasters: {
+													name: 'disasters',
+													type: 'markercluster',
+													visible: true,
+													layerOptions: {
+															maxClusterRadius: 90
+													}
+												}
+											}
+										},				
+										request: ngmEprHelper.getRequest( 'epr/disasters/indicator', 'markers', false )
 									}
 								}]
 							}]
