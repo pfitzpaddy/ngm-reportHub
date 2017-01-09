@@ -17,7 +17,7 @@ angular
 		$routeProvider
 			// epr
 			.when( '/epr', {
-				redirectTo: '/epr/2016/all/all/all'
+				redirectTo: '/epr/2017/all/all/all'
 			})
 			// epr dashboard
 			.when( '/epr/:year/:region/:province/:week', {
@@ -31,7 +31,7 @@ angular
 			})
 			// epr
 			.when( '/epr/admin', {
-				redirectTo: '/epr/admin/2016/all/all/all'
+				redirectTo: '/epr/admin/2017/all/all/all'
 			})
 			// epr admin
 			.when( '/epr/admin/:year/:region/:province/:week', {

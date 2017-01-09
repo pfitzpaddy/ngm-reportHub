@@ -278,7 +278,7 @@ angular.module('ngmReportHub')
 
 					// title
 					$scope.dashboard.title = 'EPR | ' + $scope.dashboard.year;
-					$scope.dashboard.subtitle = 'EPR Admin Dashboard';
+					$scope.dashboard.subtitle = 'EPR Dashboard';
 					
 					// region
 					if ( $scope.dashboard.region !== 'all' ) {
@@ -411,8 +411,8 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Sentinel Sites',
-										request: $scope.dashboard.getRequest( 'total', false )
+										title: 'EPR Reports',
+										request: $scope.dashboard.getRequest( 'submitted_reports', false )
 									}
 								}]
 							}]
