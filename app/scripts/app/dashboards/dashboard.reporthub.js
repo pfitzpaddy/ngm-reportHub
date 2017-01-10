@@ -69,7 +69,7 @@ angular.module('ngmReportHub')
 							cluster_id: 'health',
 							indicator: indicator,
 							start_date: '2016-01-01',
-							end_date: moment().format('YYYY-MM-DD'),
+							end_date: '2016-12-31',
 							adminRpcode: 'emro',
 							admin0pcode: 'af',
 							organization_id: 'all',
@@ -92,7 +92,7 @@ angular.module('ngmReportHub')
 							adminRpcode: 'emro',
 							admin0pcode: 'af',
 							start_date: '2016-01-01',
-							end_date: moment().format('YYYY-MM-DD'),
+							end_date: '2016-12-31',
 						}
 					}
 				},
