@@ -66,15 +66,16 @@ angular.module('ngmReportHub')
 						method: 'POST',
 						url: 'http://reporthub.immap.org/api/health/indicator',
 						data: {
+							cluster_id: 'health',
 							indicator: indicator,
 							start_date: '2016-01-01',
 							end_date: moment().format('YYYY-MM-DD'),
-							adminRpcode: 'EMRO',
-							admin0pcode: 'AF',
+							adminRpcode: 'emro',
+							admin0pcode: 'af',
 							organization_id: 'all',
 							admin1pcode: 'all',
 							admin2pcode: 'all',
-							project_type: ['all'],
+							activity_type: ['all'],
 							beneficiary_type: ['all']
 						}
 					}					
@@ -83,20 +84,18 @@ angular.module('ngmReportHub')
 				getAdminRequest: function( indicator ) {
 					return {
 						method: 'POST',
-						url: 'http://reporthub.immap.org/api/health/admin/indicator',
+						url: 'http://reporthub.immap.org/api/cluster/admin/indicator',
 						data: {
+							cluster_id: 'health',
 							indicator: indicator,
+							organization: 'all',
+							adminRpcode: 'emro',
+							admin0pcode: 'af',
 							start_date: '2016-01-01',
 							end_date: moment().format('YYYY-MM-DD'),
-							adminRpcode: 'EMRO',
-							admin0pcode: 'AF',
-							organization: 'all',
 						}
 					}
 				},
-				
-				// total reports holder
-				totalReports: 240,
 
 				// get total reports
 				setTotalReports: function() {
@@ -346,8 +345,13 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Reports Submitted ( out of ' + $scope.dashboard.totalReports + ' )',
-										request: $scope.dashboard.getAdminRequest( 'reports_complete' )
+										title: 'Reports Submitted',
+										display: {
+											fractionSize: 0,
+											simpleTitle: false,
+											subTitlePrefix: 'out of ',
+										},										
+										request: $scope.dashboard.getAdminRequest( 'reports_complete_total' )
 									}
 								}]
 							}]							
