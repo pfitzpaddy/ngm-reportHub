@@ -86,11 +86,11 @@ angular.module('ngmReportHub')
 							title: {
 								'class': 'col s12 m8 l8 report-title truncate',
 								'style': 'font-size: 3.4rem; color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
-								'title': $scope.dashboard.title,
+								'title': ngmEprHelper.getTitle(true),
 							},
 							subtitle: {
 								'class': 'col hide-on-small-only m8 l9 report-subtitle truncate',
-								'title': $scope.dashboard.subtitle,
+								'title': ngmEprHelper.getSubtitle(true),
 							},
 							datePicker: {
 								'class': 'col s12 m4 l3',

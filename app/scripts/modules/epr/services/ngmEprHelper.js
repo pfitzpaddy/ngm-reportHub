@@ -236,9 +236,11 @@ angular.module( 'ngmReportHub' )
       },
 
       //
-      getTitle: function(){
+      getTitle: function( admin ){
         // title
-        var title = 'EPR | ' + dashboard.year;
+        var title = 'EPR | ';
+            title += admin ? 'ADMIN | ' : '';
+            title += dashboard.year;
         // region
         if ( dashboard.region !== 'all' ) {
           title += ' | ' + dashboard.data.region[dashboard.region].name;
@@ -255,9 +257,11 @@ angular.module( 'ngmReportHub' )
       },
 
       //
-      getSubtitle: function(){
-        // title
-        var subtitle = 'EPR Dashboard';
+      getSubtitle: function(admin){
+        // subtitle
+        var subtitle = 'EPR ';
+            subtitle += admin ? 'Admin ' : '';
+            subtitle += 'Dashboard ' + dashboard.year;        
         // region
         if ( dashboard.region !== 'all' ) {
           subtitle += ' for ' + dashboard.data.region[dashboard.region].name + ' Region';
