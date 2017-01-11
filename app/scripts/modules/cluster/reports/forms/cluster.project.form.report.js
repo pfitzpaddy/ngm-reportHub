@@ -42,6 +42,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // default indicators
         indicators: ngmClusterHelper.getIndicators(),
 
+        // keys to ignore when summing beneficiaries in template
+        skip: [ 'families', 'education_sessions', 'training_sessions', 'notes' ],
+
         // project
         definition: config.project,
 

@@ -38,7 +38,10 @@
 					      		<div class="col s12 m8">
 					      			<div class="beneficiary-count right">
 					      				<span style="font-size:1.4rem;"><i class="material-icons" style="padding-right:20px; padding-top:10px;">group</i>Actual Total</span>
-					      					{{ 
+					      					<!-- filter in app/services/ngmHelper.js -->
+					      					{{ project.report.locations[$parent.$index].beneficiaries[$index] | sumByKeys:project.indicators:project.skip | number }}
+
+<!-- 					      					{{ 
 					      						beneficiary.boys + 
 					      						beneficiary.girls + 
 					      						beneficiary.men + 
@@ -76,7 +79,7 @@
 								            beneficiary.education_female +
 								            beneficiary.training_male +
 								            beneficiary.training_female | number
-									        }}
+									        }} -->
 					      			</div>
 									  </div>
 

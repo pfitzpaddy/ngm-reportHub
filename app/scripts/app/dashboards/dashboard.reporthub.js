@@ -300,7 +300,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Workshops',
-										data: { value: 2 }
+										data: { value: 3 }
 									}
 								}]
 							},{
