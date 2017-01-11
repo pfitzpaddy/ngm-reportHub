@@ -24,7 +24,7 @@ angular.module( 'ngmReportHub' )
           project_title: 'New Project',
           project_description: 'Complete the project details to register a new project',
           project_start_date: moment().format('YYYY-MM-DD'),
-          project_end_date: moment().add( 6, 'm' ).format('YYYY-MM-DD'),
+          project_end_date: moment().add( 6, 'M' ).format('YYYY-MM-DD'),
           target_beneficiaries: [],
           beneficiary_type: [],
           target_locations: []
@@ -119,7 +119,8 @@ angular.module( 'ngmReportHub' )
             boys: 0,
             girls: 0,
             men: 0,
-            women: 0
+            women: 0,
+            families: 0
           }
         } else {
 

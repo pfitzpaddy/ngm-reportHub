@@ -2,6 +2,23 @@
 
 		      		<div class="row">
 
+								<!-- <h5 class="indicator-title">FAMILIES</h5> -->
+				      		<div class="input-field col s12 m6">
+					          <input id="ngm-beneficiary-families-{{ location.id }}-{{ $index }}" 
+					          	name="families"
+					          	type="number" 
+					          	class="validate"
+					          	min="0"
+					          	ng-model="beneficiary.families"
+					          	ng-disabled="project.report.report_status === 'complete'"
+											required>
+					          <label for="ngm-beneficiary-families-{{ location.id }}-{{ $index }}" class="active">Families</label>
+				      		</div>
+
+							</div>
+
+		      		<div class="row">
+
 								<!-- <h5 class="indicator-title">OPD</h5> -->
 		      		
 			      		<div class="input-field col s12 m3">

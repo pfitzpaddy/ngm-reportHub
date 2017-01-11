@@ -12,11 +12,27 @@
 </style>
 
 
+		      		<div ng-if="project.definition.cluster_id === 'esnfi'" class="row">
+
+								<!-- <h5 class="indicator-title">FAMILIES</h5> -->
+				      		<div class="input-field col s12 m6">
+					          <input id="ngm-target_beneficiary-families-{{ $index }}" type="number" class="validate" min="0"
+					          	ng-model="target_beneficiary.families"
+					          	ng-disabled="project.report.report_status === 'complete'"
+											required>
+					          <label for="ngm-target_beneficiary-families-{{ $index }}" class="active">Families</label>
+				      		</div>
+
+							</div>
+
 
 		      		<div class="row">
 		      		
 			      		<div class="input-field col s12 m3">
 				          <input id="ngm-target_beneficiary-boys-{{ $index }}" type="number" class="validate" min="0"
+				          	type="number" 
+				          	class="validate"
+				          	min="0"
 				          	ng-model="target_beneficiary.boys"
 				          	ng-disabled="project.definition.project_status === 'complete'"
 										required>
