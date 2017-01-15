@@ -77,7 +77,7 @@ angular.module('ngmReportHub')
 				cluster_id: 'health',
 				organization: 'public', 
 				username: 'welcome', 
-				email: 'public'
+				email: 'public@immap.org'
 			},
 
 			// register

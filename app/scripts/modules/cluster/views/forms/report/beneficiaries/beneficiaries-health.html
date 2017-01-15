@@ -392,37 +392,37 @@
 
 							<div class="row"
 								ng-if="project.definition.activity_description.indexOf( 'penta_3' ) !== -1 || 
-												beneficiary.penta3_vacc_male_under1 > 0 || 
-												beneficiary.penta3_vacc_female_under1 > 0">
+												beneficiary.penta3_vacc_boys_under1 > 0 || 
+												beneficiary.penta3_vacc_girls_under1 > 0">
 
 								<h5 class="indicator-title">PENTA3 VACCINATIONS</h5>
 
 			      		<div class="input-field col s12 m6">
-				          <input id="ngm-beneficiary-penta3_vacc_male_under1-{{ location.id }}-{{ $index }}"
-				          	name="penta3_vacc_male_under1"
+				          <input id="ngm-beneficiary-penta3_vacc_boys_under1-{{ location.id }}-{{ $index }}"
+				          	name="penta3_vacc_boys_under1"
 				          	type="number"
 				          	class="validate"
 				          	min="0"
-				          	ng-model="beneficiary.penta3_vacc_male_under1"
+				          	ng-model="beneficiary.penta3_vacc_boys_under1"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
 				          <label
-				          	for="ngm-beneficiary-penta3_vacc_male_under1-{{ location.id }}-{{ $index }}" 
+				          	for="ngm-beneficiary-penta3_vacc_boys_under1-{{ location.id }}-{{ $index }}" 
 				          	class="active">VACC Male (u1)
 				          </label>
 			      		</div>
 
 			      		<div class="input-field col s12 m6">
-				          <input id="ngm-beneficiary-penta3_vacc_female_under1-{{ location.id }}-{{ $index }}"
-				          	name="penta3_vacc_female_under1"
+				          <input id="ngm-beneficiary-penta3_vacc_girls_under1-{{ location.id }}-{{ $index }}"
+				          	name="penta3_vacc_girls_under1"
 				          	type="number"
 				          	class="validate"
 				          	min="0"
-				          	ng-model="beneficiary.penta3_vacc_female_under1"
+				          	ng-model="beneficiary.penta3_vacc_girls_under1"
 				          	ng-disabled="project.report.report_status === 'complete'"
 										required>
 				          <label
-				          	for="ngm-beneficiary-penta3_vacc_female_under1-{{ location.id }}-{{ $index }}"
+				          	for="ngm-beneficiary-penta3_vacc_girls_under1-{{ location.id }}-{{ $index }}"
 				          	class="active">VACC Female (u1)
 				          </label>
 			      		</div>
