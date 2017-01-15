@@ -200,7 +200,7 @@ angular.module('ngmReportHub')
 									style: 'margin:15px; padding-bottom:30px;',
 									config: {
 										id: 'dashboard-btn',
-										html: '<a class="waves-effect waves-light btn right" href="#/epr/admin"><i class="material-icons left">cached</i>Reset Dashboard</a>'
+										html: '<a class="waves-effect waves-light btn right" href="#/epr"><i class="material-icons left">cached</i>Reset Dashboard</a>'
 									}
 								}]
 							}]
@@ -231,7 +231,7 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m12 l12',
+								styleClass: 's12 m4',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
@@ -239,6 +239,28 @@ angular.module('ngmReportHub')
 									config: {
 										title: 'Alerts',
 										request: ngmEprHelper.getRequest( 'epr/alerts/indicator', 'total', false )
+									}
+								}]
+							},{
+								styleClass: 's12 m4',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: 'Cases',
+										request: ngmEprHelper.getRequest( 'epr/alerts/indicator', 'cases', false )
+									}
+								}]
+							},{
+								styleClass: 's12 m4',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: 'Deaths',
+										request: ngmEprHelper.getRequest( 'epr/alerts/indicator', 'deaths', false )
 									}
 								}]
 							}]
@@ -297,7 +319,7 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m12 l12',
+								styleClass: 's12 m4',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
@@ -305,6 +327,28 @@ angular.module('ngmReportHub')
 									config: {
 										title: 'Disasters',
 										request: ngmEprHelper.getRequest( 'epr/disasters/indicator', 'total', false )
+									}
+								}]
+							},{
+								styleClass: 's12 m4',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: 'Casualties',
+										request: ngmEprHelper.getRequest( 'epr/disasters/indicator', 'casualties', false )
+									}
+								}]
+							},{
+								styleClass: 's12 m4',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: 'Deaths',
+										request: ngmEprHelper.getRequest( 'epr/disasters/indicator', 'deaths', false )
 									}
 								}]
 							}]
