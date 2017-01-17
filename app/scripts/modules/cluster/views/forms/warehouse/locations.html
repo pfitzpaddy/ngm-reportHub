@@ -1,0 +1,115 @@
+
+<script>
+
+	// add init delay to load data
+	setTimeout(function(){
+	  // init selects
+	  $( 'select' ).material_select();
+	}, 10 );
+
+</script>
+
+<!-- bind html -->
+<div class="row">
+	<div class="col s12 m12 l12">
+		<div class="card">
+			<ul class="collection with-header">
+				<li class="collection-header teal lighten-4">
+					<h5 class="report-work-title">
+						<i class="material-icons left">location_on</i>Warehouse Locations
+					</h5>
+				</li>
+				<li class="collection-item avatar">
+
+					<div class="row">
+					
+						<div class="card" style="padding:20px;">
+
+							<!-- form -->
+
+				      <div class="row remove">
+
+			      		<div class="input-field col s12 m4"
+			      			ng-class="{ 'error-label': healthProjectForm.$submitted
+							  								&& report.organization.warehouses.length === 0 }">
+			      			<select id="ngm-project-admin1" class="validate"
+							    	ng-model="report.options.warehouse.admin1"
+							    	ng-model-options="{ trackBy: '$value.admin1pcode'}"
+							    	ng-change="report.updateLocationSelect( true )"
+							    	ng-disabled="report.organization.project_status === 'complete'"
+			      				ng-options="item as item.admin1name for item in report.options.list.admin1">
+			      				<option value="" disabled selected>Choose {{ report.options.list.admin1[0].admin1type_name }}</option>
+			      			</select>
+			      			<label>{{ report.options.list.admin1[0].admin1type_name }} *</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m4"
+			      			ng-class="{ 'error-label': healthProjectForm.$submitted
+							  								&& report.organization.warehouses.length === 0 }">
+			      			<select id="ngm-project-admin2" class="validate"
+							    	ng-model="report.options.warehouse.admin2"
+							    	ng-model-options="{ trackBy: '$value.id'}"
+							    	ng-change="report.updateLocationSelect()"
+							    	ng-disabled="!report.options.warehouse.admin1"
+			      				ng-options="item as item.admin2name for item in report.options.list.admin2 | filter: { admin1pcode: report.options.warehouse.admin1.admin1pcode }">
+			      				<option value="" disabled selected>Choose {{ report.options.list.admin2[0].admin2type_name }}</option>
+			      			</select>
+			      			<label>{{ report.options.list.admin2[0].admin2type_name }} *</label>
+			      		</div>
+
+							  <div class="input-field col s12 m3">
+							    <input id="ngm-project-hf_name" type="text" class="validate"
+							    	ng-model="report.options.warehouse.fac_type.fac_name"
+							    	ng-disabled="!report.options.warehouse.admin2">
+							    <label for="ngm-project-hf_name">Warehouse Name *</label>
+							  </div>
+
+			      		<div class="col s12 m1" style="padding-top:15px;">
+			      			<button class="waves-effect waves-light btn-floating green lighten-2 right" 
+			      					title="Add Warehouse {{ report.options.warehouse.fac_type.fac_name }}"
+			      					ng-click="report.addLocation()"
+			      					ng-disabled="!report.options.warehouse.fac_type.fac_name">
+			      					<i class="material-icons">add</i>
+			      			</button>
+							  </div>					  
+
+							 </div>
+
+							 <div class="row" style="padding-left:40px;" ng-if="report.organization.warehouses.length">
+
+							 	<div class="row">
+									<h5 class="report-selected-warehouses">{{ report.organization.warehouses.length }} Selected Warehouses</h5>
+								</div>
+
+								<div class="row" ng-repeat="warehouse in report.organization.warehouses | orderBy: '-createdAt' track by $index">
+
+									<div class="row" id="ngm-health-warehouse-{{ $index }}">
+										<div class="col s12 m11 left">
+								    	<!-- health cluster -->
+								    	<h5 class="report-location-title">
+														<i class="material-icons left" style="color: teal;">location_on</i>
+														{{ warehouse.admin1name }}, {{ warehouse.admin2name }}, {{ warehouse.fac_name }}
+											</h5>
+										</div>
+										<div class="col s12 m1 right" style="padding-top:15px;padding-right:34px;">
+											<a class="waves-effect waves-light btn-floating red lighten-2 right"
+									      	title="Remove {{ warehouse.admin1name }} Warehouse {{ warehouse.fac_name }}"
+									      	ng-click="report.removeLocationModal( $index )"><i class="material-icons">clear</i>
+									    </a>
+										</div>
+									</div>
+
+								</div>
+								      	
+				      </div>
+
+			    	</div>
+
+			    </div>
+
+				</li>
+			</ul>
+
+		</div>
+	</div>
+</div>

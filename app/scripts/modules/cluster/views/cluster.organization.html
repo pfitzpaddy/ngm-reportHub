@@ -1,0 +1,50 @@
+
+<style>
+
+	.card .card-title {
+		font-weight: 200;
+		font-size: 1.8rem;
+	}
+
+	.card .card-content .card-title {
+		line-height: 24px;
+	}
+
+	.pagination li.active {
+	  background-color: #009688;
+	}
+	
+</style>
+
+<div class="row">
+  <div class="col s12 m6">
+  	<a href="#/cluster/projects">
+   	 <div class="card small blue-grey darken-1 hoverable">
+      <div class="card-image">
+        <img src="images/cluster/projects.jpg">
+      </div>
+      <div class="card-content white-text">
+      	<p class="card-title">Projects</p>
+      </div>
+      <div class="card-action">
+        <a href="#/cluster/projects">Go to {{ panel.organization.organization_display_name }} Projects</a>
+      </div>
+    </div>
+    </a>
+  </div>
+  <div class="col s12 m6">
+  	<a href="#/cluster/stocks">
+	    <div class="card small blue-grey darken-1 hoverable">
+	      <div class="card-image">
+	        <img src="images/cluster/stocks.jpg">
+	      </div>
+	      <div class="card-content white-text">
+	        <p class="card-title">Stocks</p>
+	      </div>
+	      <div class="card-action">
+	        <a href="#/cluster/stocks">Go to {{ panel.organization.organization_display_name }} Stocks</a>
+	      </div>
+	    </div>
+	   </a>
+  </div>
+</div>

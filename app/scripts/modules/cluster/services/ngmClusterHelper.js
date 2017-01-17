@@ -347,8 +347,6 @@ angular.module( 'ngmReportHub' )
           });
         });
 
-        console.log(locations)
-
         return locations;
       },
 
@@ -361,6 +359,29 @@ angular.module( 'ngmReportHub' )
 
         //
         return update;
+      },
+
+      // get processed warehouse location
+      getCleanWarehouseLocation: function(user, organization, warehouse){
+        
+        // merge
+        var warehouse = angular.merge({}, warehouse, warehouse.admin2, warehouse.fac_type);
+
+        // delete
+        delete warehouse.id;
+        delete warehouse.admin1;
+        delete warehouse.admin2;
+        delete warehouse.fac_type;
+
+        // add params
+        // warehouse.warehouse_status = 'new';
+        warehouse.cluster_id = organization.cluster_id;
+        warehouse.cluster = organization.cluster;
+        warehouse.organization = user.organization;
+        warehouse.username = user.username;
+        warehouse.email = user.email;
+
+        return warehouse;
       },
 
 			// get processed target location

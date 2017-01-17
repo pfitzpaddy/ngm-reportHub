@@ -91,10 +91,50 @@ angular
 					}],
 				}
 			})			
+			// organization
+			.when( '/cluster/organization', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ClusterOrganizationCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+			// project list by organization
+			.when( '/cluster/organization/:organization_id', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ClusterOrganizationCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function( ngmAuth ) {
+						return ngmAuth.hasRole( 'ADMIN' );
+					}],
+				}
+			})
+			// organization
+			.when( '/cluster/stocks', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ClusterOrganizationStocksCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+			// project list by organization
+			.when( '/cluster/stocks/:organization_id', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ClusterOrganizationStocksCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function( ngmAuth ) {
+						return ngmAuth.hasRole( 'ADMIN' );
+					}],
+				}
+			})
 			// project list
 			.when( '/cluster/projects', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'ClusterProjectAppCtrl',
+				controller: 'ClusterProjectProjectsCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 						return ngmAuth.isAuthenticated();
@@ -104,7 +144,7 @@ angular
 			// project list by organization
 			.when( '/cluster/projects/:organization_id', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'ClusterProjectAppCtrl',
+				controller: 'ClusterProjectProjectsCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function( ngmAuth ) {
 						return ngmAuth.hasRole( 'ADMIN' );
@@ -205,9 +245,13 @@ angular
 					}],
 				}
 			})
+			// CLUSTER HOME
+			.when( '/cluster', {
+				redirectTo: '/cluster/organization'
+			})
 			// DEFAULT
 			.otherwise({
-				redirectTo: '/cluster/projects'
+				redirectTo: '/cluster/organization'
 			});
 
 	}]);

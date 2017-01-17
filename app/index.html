@@ -114,6 +114,13 @@
 									<!-- my projects -->
 									<li  align="center" class="teal z-depth-2" 
 										ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text right" href="#/cluster/organization" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">zoom_in</i>MY ORGANIZATION</a>
+									</li>
+
+									<!-- my projects -->
+									<li  align="center" class="teal z-depth-2" 
+										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/projects" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">zoom_in</i>MY PROJECTS</a>
 									</li>
@@ -122,7 +129,12 @@
 									<li  align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/admin" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">assignment_ind</i>ADMIN DASHBOARD</a>
+										<i class="material-icons smedium right">assignment_ind</i>HEALTH ADMIN</a>
+									</li>
+									<li  align="center" class="teal z-depth-2"
+										ng-show="ngm.getUserName() === 'welcome' || ngm.getUser().cluster_id === 'health'">
+										<a class="white-text right" href="#/cluster/health/4w" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">assessment</i>H4W DASHBOARD</a>
 									</li>
 
 									<!-- navigation options repeat 
@@ -135,23 +147,33 @@
 
 									<!-- contact modal -->
 									<li  align="center" class="teal z-depth-2" 
-										ng-show="ngm.getUser().organization.toLowerCase() === 'who' || 
+										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
+															ngm.getUser().organization.toLowerCase() === 'who' || 
 															ngm.getUser().organization.toLowerCase() === 'dews'">
 										<a class="white-text right" href="#/who/" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">info_outline</i>DEWS DASHBOARD</a>
+										<i class="material-icons smedium right">assessment</i>DEWS DASHBOARD</a>
 									</li>
 
 									<li  align="center" class="teal z-depth-2"
-										ng-show="ngm.getUserName() === 'welcome' || ngm.getUser().cluster_id === 'health'">
-										<a class="white-text right" href="#/cluster/health/4w" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">assessment</i>H4W DASHBOARD</a>
+										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
+															ngm.getUser().organization.toLowerCase() === 'who' || 
+															ngm.getUser().organization.toLowerCase() === 'dews'">
+										<a class="white-text right" href="#/epr" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">assessment</i>EPR DASHBOARD</a>
+									</li>
+									<li  align="center" class="teal z-depth-2"
+										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
+															ngm.getUser().organization.toLowerCase() === 'who' || 
+															ngm.getUser().organization.toLowerCase() === 'dews'">
+										<a class="white-text right" href="#/epr" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">assessment</i>EPR ADMIN</a>
 									</li>
 
 									<!-- contact modal -->
-									<li  align="center" class="teal z-depth-2">
+<!-- 									<li  align="center" class="teal z-depth-2">
 										<a class="white-text right" href="#/cluster/guides" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">help_outline</i>USER GUIDES</a>
-									</li>
+									</li> -->
 
 									<!-- contact modal -->
 									<li  align="center" class="teal z-depth-2">
@@ -306,18 +328,22 @@
 		<!-- ReportHub dashboard -->
 		<script src="scripts/app/dashboards/dashboard.reporthub.js"></script>		
 		<!-- modules -->
-		
-		<!-- health -->
+		<!-- HEALTH -->
 		<script src="scripts/modules/cluster/app.js"></script>
 		<!-- services -->			
 		<script src="scripts/modules/cluster/services/ngmClusterHelper.js"></script>
-		<!-- health report controllers -->
-		<script src="scripts/modules/cluster/reports/controllers/cluster.project.app.js"></script>
+		<!-- health stocks -->
+		<script src="scripts/modules/cluster/reports/controllers/cluster.organization.js"></script>
+		<script src="scripts/modules/cluster/reports/controllers/cluster.organization.stocks.js"></script>
+		<!-- health projects -->
+		<script src="scripts/modules/cluster/reports/controllers/cluster.project.projects.js"></script>
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.summary.js"></script>
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.details.js"></script>
+		<!-- health reports -->
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.reports.list.js"></script>
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.report.js"></script>		
 		<!-- health forms -->
+		<script src="scripts/modules/cluster/reports/forms/cluster.organization.stocks.warehouse.form.js"></script>
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.details.js"></script>
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.reports.list.js"></script>
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.report.js"></script>
@@ -325,24 +351,24 @@
 		<script src="scripts/modules/cluster/dashboards/dashboard.admin.js"></script>
 		<script src="scripts/modules/cluster/dashboards/health/dashboard.health.js"></script>
 
-		<!-- epr -->
+		<!-- EPR -->
 		<script src="scripts/modules/epr/app.js"></script>
 		<script src="scripts/modules/epr/services/ngmEprHelper.js"></script>
 		<script src="scripts/modules/epr/dashboards/dashboard.admin.js"></script>
 		<script src="scripts/modules/epr/dashboards/dashboard.epr.js"></script>
 
-		<!-- dews -->
+		<!-- DEWS -->
 		<script src="scripts/modules/dews/app.js"></script>
 		<script src="scripts/modules/dews/upload/upload.dews.js"></script>
 		<script src="scripts/modules/dews/dashboards/dashboard.dews.js"></script>
 		
-		<!-- drr -->
+		<!-- DRR -->
 		<script src="scripts/modules/drr/app.js"></script>
 		<script src="scripts/modules/drr/dashboards/dashboard.baseline.js"></script>
 		<script src="scripts/modules/drr/dashboards/dashboard.flood.risk.js"></script>
 		<script src="scripts/modules/drr/dashboards/dashboard.flood.forecast.js"></script>
 		
-		<!-- watchkeeper -->
+		<!-- WATCHKEEPER -->
 		<script src="scripts/modules/watchkeeper/app.js"></script>
 		<script src="scripts/modules/watchkeeper/dashboards/dashboard.watchkeeper.js"></script>
 		<!-- endbuild -->

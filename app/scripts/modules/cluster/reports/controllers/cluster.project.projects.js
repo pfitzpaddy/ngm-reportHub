@@ -1,12 +1,12 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:ClusterProjectAppCtrl
+ * @name ngmReportHubApp.controller:ClusterProjectProjectsCtrl
  * @description
- * # ClusterProjectAppCtrl
+ * # ClusterProjectProjectsCtrl
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller( 'ClusterProjectAppCtrl', ['$scope', '$location', '$route', 'ngmData', 'ngmUser', 'ngmClusterHelper', function ( $scope, $location, $route, ngmData, ngmUser, ngmClusterHelper ) {
+	.controller( 'ClusterProjectProjectsCtrl', ['$scope', '$location', '$route', 'ngmData', 'ngmUser', 'ngmClusterHelper', function ( $scope, $location, $route, ngmData, ngmUser, ngmClusterHelper ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -82,7 +82,7 @@ angular.module( 'ngmReportHub' )
 						card: 'white grey-text text-darken-2',
 						style: 'padding: 20px;',
 						config: {
-							html: '<a class="waves-effect waves-light btn" href="' + $scope.report.newProjectUrl + '"><i class="material-icons left">add_circle_outline</i>Add New Project</a>'
+							html: '<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="#/cluster/organization"><i class="material-icons left">keyboard_return</i>Back to Organization</a><a class="waves-effect waves-light btn right" href="' + $scope.report.newProjectUrl + '"><i class="material-icons left">add_circle_outline</i>Add New Project</a>'
 						}
 					}]
 				}]

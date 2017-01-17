@@ -26,7 +26,7 @@ angular
 				}
 			})
 			// DEFAULTS
-			.when( '/immap/watchkeeper', {
+			.when( '/immap', {
 				redirectTo: '/immap/watchkeeper/kenya/2015-11-01/2015-11-30'
 			})
 			// Watchkeeper

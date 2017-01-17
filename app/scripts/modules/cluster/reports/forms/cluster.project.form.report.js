@@ -208,6 +208,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
           // if new beneficiary type, add to project discription
           var length = $scope.project.definition.beneficiary_type.length;
+
+          // foreach
           angular.forEach( $scope.project.report.locations, function( l, i ){
 
             // update activites for location ( from project )
@@ -250,7 +252,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           Materialize.toast( 'Processing Report...' , 3000, 'note');
 
           // set report
-          ngmData.get( setReportRequest ).then( function( report, complete ){  
+          ngmData.get( setReportRequest ).then( function( report, complete ){
+
+            // report
+            $scope.project.report = moment( report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' );
 
             // if no project update
             if ( length === $scope.project.definition.beneficiary_type.length ) {
@@ -259,6 +264,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
               // set project
               ngmData.get( setProjectRequest ).then( function( project, complete ){
+                // project
+                $scope.project.definition.updatedAt = moment( project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' );
                 $scope.project.refreshReport( report );
               });
 

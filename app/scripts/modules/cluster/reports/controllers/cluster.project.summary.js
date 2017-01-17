@@ -71,7 +71,7 @@ angular.module('ngmReportHub')
 								card: 'white grey-text text-darken-2',
 								style: 'padding: 20px;',
 								config: {
-									html: '<a class="waves-effect waves-light btn left" href="#/cluster/projects"><i class="material-icons left">keyboard_return</i>Back to Projects</a><span class="right" style="padding-top:8px;">Last Updated: ' + moment( $scope.report.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) + '</span>'
+									html: '<a class="btn-flat waves-effect waves-teal left" href="#/cluster/projects"><i class="material-icons left">keyboard_return</i>Back to Projects</a><span class="right" style="padding-top:8px;">Last Updated: ' + moment( $scope.report.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) + '</span>'
 								}
 							}]
 						}]
@@ -86,20 +86,7 @@ angular.module('ngmReportHub')
 									project: $scope.report.project,
 									user: $scope.report.user,
 									report_date: moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD'),
-									templateUrl: '/scripts/modules/cluster/views/cluster.project.summary.html',									
-									// forms:[{
-									// 	icon: 'edit',
-									// 	location: 'details',
-									// 	title: 'Project Details',
-									// 	subtitle: 'Project Details, Location and Beneficiaries',
-									// 	description: 'Define the project details, locations and beneficiaries for '
-									// },{
-									// 	icon: 'attach_money',
-									// 	location: 'financials',
-									// 	title: 'Project Financial Items',
-									// 	subtitle: 'Project Financial Line Items',
-									// 	description: 'Track the project spending against financial line items for '
-									// }],
+									templateUrl: '/scripts/modules/cluster/views/cluster.project.summary.html',
 					        // run submit
 
 					        // mark project active

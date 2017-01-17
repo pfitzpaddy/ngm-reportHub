@@ -26,12 +26,12 @@ angular
 				}
 			})
 			// DEFAULTS
-			.when( '/immap', {
-				redirectTo: '/immap/drr/baseline/afghanistan'
-			})
-			.when( '/immap/drr', {
-				redirectTo: '/immap/drr/baseline/afghanistan'
-			})
+			// .when( '/immap', {
+			// 	redirectTo: '/immap/drr/baseline/afghanistan'
+			// })
+			// .when( '/immap/drr', {
+			// 	redirectTo: '/immap/drr/baseline/afghanistan'
+			// })
 			.when( '/immap/drr/baseline', {
 				redirectTo: '/immap/drr/baseline/afghanistan'
 			})

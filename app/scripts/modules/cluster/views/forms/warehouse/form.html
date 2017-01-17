@@ -1,0 +1,51 @@
+<script>
+
+  // init modals
+  $( '.modal-trigger' ).leanModal();
+
+</script>
+
+
+<div id="warehouses-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Remove Warehouse Location</h4>
+    <p>Are you sure you want to remove this location from your organization?</p>
+    <p>This will effect any existing stock reports</p>
+  </div>
+  <div class="modal-footer">
+  	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="report.removeLocation()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, remove location!</a>
+  </div>
+</div>
+
+<!--  -->
+<div class="row">
+	<div class="col s12 m12 l12">
+		<div style="padding:20px;">
+			
+			<!--  -->
+			<a class="btn-flat waves-effect waves-teal" href="#/cluster/organization">
+				<i class="material-icons left">keyboard_return</i>Back to Project Summary
+			</a>
+
+			<span class="right" style="padding-top:8px;">Last Updated: {{ report.updatedAt }}</span>
+
+		</div>
+	</div>
+</div>
+
+<!-- Project form -->
+<form name="clusterReportsForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
+		
+	<!-- disabled -->
+	<fieldset ng-disabled="
+		report.organization.organization !== report.user.organization && report.user.roles.indexOf('ADMIN') === -1
+	">
+					
+		<!-- Project budget details -->
+		<div class="slide-animate" ng-include="report.warehouseUrl"></div>
+		
+	</fieldset>
+
+</form>
+

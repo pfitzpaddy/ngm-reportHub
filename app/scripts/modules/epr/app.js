@@ -39,7 +39,7 @@ angular
 				controller: 'DashboardEprAdminCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.hasRole( 'ADMIN' );
+						return ngmAuth.grantPublicAccess();
 					}],
 				}
 			});

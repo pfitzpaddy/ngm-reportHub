@@ -39,7 +39,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         style: config.style,
 
         // project
-        definition: config.project,
+        definition: config.organization,
 
         // last update
         updatedAt: moment( config.project.updatedAt ).format('DD MMMM, YYYY @ h:mm:ss a'),
@@ -378,6 +378,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // give a few seconds to render
         $timeout(function() {
+
+          console.log($scope.project.definition);
 
           // add activity type check
           if ( $scope.project.definition.activity_description ) {
