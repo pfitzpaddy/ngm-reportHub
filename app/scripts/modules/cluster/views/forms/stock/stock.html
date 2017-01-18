@@ -1,0 +1,42 @@
+		      		
+
+      		<div class="row">
+      		
+	      		<div class="input-field col s12 m4">
+		          <input id="ngm-stock-number_in_stock-{{ location.id }}-{{ $index }}" 
+		          	name="number_in_stock"
+		          	type="number" 
+		          	class="validate"
+		          	min="0"
+		          	ng-model="stock.number_in_stock"
+		          	ng-disabled="report.report.report_status === 'complete'"
+								required>
+		          <label for="ngm-stock-number_in_stock-{{ location.id }}-{{ $index }}" class="active">Number in Stock</label>
+	      		</div>
+
+	      		<div class="input-field col s12 m4">
+		          <input id="ngm-stock-number_in_pipeline-{{ location.id }}-{{ $index }}" 
+		          	name="number_in_pipeline"
+		          	type="number" 
+		          	class="validate"
+		          	min="0"
+		          	ng-model="stock.number_in_pipeline"
+		          	ng-disabled="report.report.report_status === 'complete'"
+								required>
+		          <label for="ngm-stock-number_in_pipeline-{{ location.id }}-{{ $index }}" class="active">Number in Pipeline</label>
+	      		</div>
+
+	      		<div class="input-field col s12 m4">
+		          <input id="ngm-stock-beneficiaries_covered-{{ location.id }}-{{ $index }}" 
+		          	name="beneficiaries_covered"
+		          	type="number" 
+		          	class="validate"
+		          	min="0"
+		          	ng-model="stock.beneficiaries_covered"
+		          	ng-disabled="report.report.report_status === 'complete'"
+								required>
+		          <label for="ngm-stock-beneficiaries_covered-{{ location.id }}-{{ $index }}" class="active">Beneficiaries Covered</label>
+	      		</div>
+
+      		</div>
+

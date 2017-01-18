@@ -6,6 +6,11 @@
  *
  */
 angular.module( 'ngmReportHub' )
+  .filter('reverse', function() {
+    return function(items) {
+      return items.slice().reverse();
+    };
+  })
   // sums object by key 
   .filter('sumByKey', function() {
       return function( data, key ) {

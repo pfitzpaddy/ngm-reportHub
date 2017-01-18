@@ -1,12 +1,12 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:ClusterOrganizationStocksCtrl
+ * @name ngmReportHubApp.controller:ClusterOrganizationStocksListCtrl
  * @description
- * # ClusterOrganizationStocksCtrl
+ * # ClusterOrganizationStocksListCtrl
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterOrganizationStocksCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmData', 'ngmUser', function ($scope, $route, $location, $anchorScroll, $timeout, ngmData, ngmUser) {
+	.controller('ClusterOrganizationStocksListCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmData', 'ngmUser', function ($scope, $route, $location, $anchorScroll, $timeout, ngmData, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -74,7 +74,7 @@ angular.module('ngmReportHub')
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
-								type: 'organization.stocks.warehouse.form',
+								type: 'organization.stocks.list',
 								config: {
 									style: $scope.report.ngm.style,
 									organization: $scope.report.organization
@@ -89,23 +89,23 @@ angular.module('ngmReportHub')
 								card: 'white grey-text text-darken-2',
 								config: {
 									titleIcon: 'alarm_on',
-									color: 'blue lighten-4',
+									color: 'light-blue lighten-4',
 									// textColor: 'white-text',
-									title: 'Reports ToDo',
+									title: 'Stock Reports ToDo',
 									hoverTitle: 'Update',
 									icon: 'edit',
 									rightIcon: 'watch_later',
-									templateUrl: '/scripts/widgets/ngm-list/template/report.html',
+									templateUrl: '/scripts/widgets/ngm-list/template/stock.html',
 									orderBy: 'reporting_due_date',
 									format: true,
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/cluster/report/getReportsList',
+										url: 'http://' + $location.host() + '/api/cluster/stock/getReportsList',
 										data: {
 											filter: { 
-												project_id: $scope.report.organization.id,
+												organization_id: $scope.report.organization.id,
 												report_active: true,
-												report_status: 'todo'
+												// report_status: 'todo'
 											}
 										}
 									}
@@ -120,20 +120,20 @@ angular.module('ngmReportHub')
 								card: 'white grey-text text-darken-2',
 								config: {
 									titleIcon: 'done_all',
-									color: 'blue lighten-4',
-									title: 'Reports Complete',
+									color: 'light-blue lighten-4',
+									title: 'Stock Reports Complete',
 									hoverTitle: 'View',
 									icon: 'done',
 									rightIcon: 'check_circle',
-									templateUrl: '/scripts/widgets/ngm-list/template/report.html',
+									templateUrl: '/scripts/widgets/ngm-list/template/stock.html',
 									orderBy: '-reporting_due_date',
 									format: true,
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/cluster/report/getReportsList',
+										url: 'http://' + $location.host() + '/api/cluster/stock/getReportsList',
 										data: {
 											filter: { 
-												project_id: $scope.report.organization.id,
+												organization_id: $scope.report.organization.id,
 												report_active: true,
 												report_status: 'complete'
 											}

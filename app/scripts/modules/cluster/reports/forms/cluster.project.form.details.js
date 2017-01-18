@@ -39,7 +39,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         style: config.style,
 
         // project
-        definition: config.organization,
+        definition: config.project,
 
         // last update
         updatedAt: moment( config.project.updatedAt ).format('DD MMMM, YYYY @ h:mm:ss a'),
@@ -198,7 +198,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.project.options.location );
 
           // extend targets with project, ngmData details & push
-          $scope.project.definition.target_locations.unshift( location );
+          $scope.project.definition.target_locations.push( location );
 
           // reset
           $scope.project.options.location = {};
@@ -212,7 +212,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         removeLocationModal: function( $index ) {
 
           // set location index
-          $scope.project.locationIndex = $index;
+          $scope.project.locationIndex = $scope.project.definition.target_locations.length-1 - $index;
 
           // open confirmation modal
           $('#location-modal').openModal({ dismissible: false });
@@ -378,8 +378,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // give a few seconds to render
         $timeout(function() {
-
-          console.log($scope.project.definition);
 
           // add activity type check
           if ( $scope.project.definition.activity_description ) {

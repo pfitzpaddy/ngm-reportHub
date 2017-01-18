@@ -94,7 +94,7 @@ angular
 			// organization
 			.when( '/cluster/organization', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'ClusterOrganizationCtrl',
+				controller: 'ClusterAppCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 						return ngmAuth.isAuthenticated();
@@ -111,23 +111,33 @@ angular
 					}],
 				}
 			})
-			// organization
+			// stock reports
 			.when( '/cluster/stocks', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'ClusterOrganizationStocksCtrl',
+				controller: 'ClusterOrganizationStocksListCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 						return ngmAuth.isAuthenticated();
 					}],
 				}
 			})
-			// project list by organization
+			// stock reports list by organization
 			.when( '/cluster/stocks/:organization_id', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'ClusterOrganizationStocksCtrl',
+				controller: 'ClusterOrganizationStocksListCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function( ngmAuth ) {
 						return ngmAuth.hasRole( 'ADMIN' );
+					}],
+				}
+			})
+			// stock report
+			.when( '/cluster/stocks/report/:organization_id/:report_id', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ClusterOrganizationStockReportCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function( ngmAuth ) {
+						return ngmAuth.isAuthenticated();
 					}],
 				}
 			})

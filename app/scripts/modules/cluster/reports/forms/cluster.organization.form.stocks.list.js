@@ -1,22 +1,22 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:ClusterOrganizationStocksWarehouseForm
+ * @name ngmReportHubApp.controller:ClusterOrganizationStocksFormList
  * @description
- * # ClusterOrganizationStocksWarehouseForm
+ * # ClusterOrganizationStocksFormList
  * Controller of the ngmReportHub
  */
 
-angular.module( 'ngm.widget.organization.stocks.warehouse.form', [ 'ngm.provider' ])
+angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
   .config( function( dashboardProvider ){
     dashboardProvider
-      .widget('organization.stocks.warehouse.form', {
+      .widget('organization.stocks.list', {
         title: 'Organization Warehouse and Stocks',
         description: 'Organization Warehouse and Stocks',
-        controller: 'ClusterOrganizationStocksWarehouseForm',
+        controller: 'ClusterOrganizationStocksFormList',
         templateUrl: '/scripts/modules/cluster/views/forms/warehouse/form.html'
       });
   })
-  .controller( 'ClusterOrganizationStocksWarehouseForm', [
+  .controller( 'ClusterOrganizationStocksFormList', [
     '$scope',
     '$location',
     '$timeout',
@@ -92,7 +92,7 @@ angular.module( 'ngm.widget.organization.stocks.warehouse.form', [ 'ngm.provider
               ngmClusterHelper.getCleanWarehouseLocation( ngmUser.get(), $scope.report.organization, $scope.report.options.warehouse );
  
           // extend targets with project, ngmData details & push
-          $scope.report.organization.warehouses.unshift( warehouse );
+          $scope.report.organization.warehouses.push( warehouse );
 
           // reset
           $scope.report.options.warehouse = {};
@@ -107,10 +107,13 @@ angular.module( 'ngm.widget.organization.stocks.warehouse.form', [ 'ngm.provider
             data: { organization: $scope.report.organization }
           }).then( function( organization ){
 
+            // set org
+            $scope.report.organization = organization;
+
             // on success
             Materialize.toast( 'Warehouse Location Added!', 3000, 'success');
 
-            // updated timestamp
+            // refresh to update empty reportlist
             $route.reload();
 
           });
@@ -121,7 +124,7 @@ angular.module( 'ngm.widget.organization.stocks.warehouse.form', [ 'ngm.provider
         removeLocationModal: function( $index ) {
 
           // set location index
-          $scope.report.locationIndex = $index;
+          $scope.report.locationIndex = $scope.report.organization.warehouses.length-1 - $index;
 
           // open confirmation modal
           $('#warehouses-modal').openModal({ dismissible: false });
@@ -139,13 +142,13 @@ angular.module( 'ngm.widget.organization.stocks.warehouse.form', [ 'ngm.provider
             method: 'POST',
             url: 'http://' + $location.host() + '/api/setOrganization',
             data: { organization: $scope.report.organization }
-          }).then( function( project ){
+          }).then( function( organization ){
+
+            // set org
+            $scope.report.organization = organization;
             
             // on success
             Materialize.toast( 'Warehouse Location Removed!', 3000, 'success');
-
-            // reload
-            $route.reload();
 
           });
 

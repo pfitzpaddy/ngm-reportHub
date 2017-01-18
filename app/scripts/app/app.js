@@ -27,8 +27,8 @@ angular
 		'ngm.widget.project.details',
 		'ngm.widget.project.reports.list',
 		'ngm.widget.project.report',
-		'ngm.widget.project.report',
-		'ngm.widget.organization.stocks.warehouse.form',
+		'ngm.widget.organization.stocks.list',
+		'ngm.widget.organization.stock',
 		// modules
 		'ngmCluster',
 		'ngmDews',

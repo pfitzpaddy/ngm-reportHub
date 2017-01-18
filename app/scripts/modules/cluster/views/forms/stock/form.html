@@ -1,0 +1,97 @@
+
+<!-- list modal -->
+<div id="list-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Cancel Stock Report</h4>
+    <p>Are you sure you want to return to Stock Reports List?</p>
+    <p>All edits will be lost...</p>
+  </div>
+  <div class="modal-footer">
+  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="report.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, abandon changes!</a>
+  </div>
+</div>
+
+<div id="complete-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Submit Stock Report for {{ report.titleFormat }}</h4>
+    <p>Are you sure you want to submit this monthly stock report for {{ report.titleFormat }}?</p>
+  </div>
+  <div class="modal-footer">
+  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="report.save( true )" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, submit report!</a>
+  </div>
+</div>
+
+<!--  -->
+<div class="row">
+	<div class="col s12 m12 l12">
+		<div style="padding:20px;">
+			
+			<!--  -->
+			<button class="btn-flat waves-effect waves-teal" ng-click="report.modalConfirm( 'list-modal' )">
+				<i class="material-icons left">keyboard_return</i>Back to Stock Reports
+			</button>
+
+			<span class="right" style="padding-top:8px;">Last Updated: {{ report.updatedAt }}</span>
+
+		</div>
+	</div>
+</div>
+
+<!-- report form -->
+<form name="clusterStockForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
+
+	<fieldset ng-disabled="
+		report.definition.organization !== report.user.organization && report.user.roles.indexOf('ADMIN') === -1
+	">
+		
+		<!-- report beneficiaries details -->
+		<div class="slide-animate" ng-include="report.templatesUrl + report.locationsUrl"></div>
+
+		<!-- report beneficiaries details -->
+		<div class="slide-animate" ng-include="report.templatesUrl + report.notesUrl"></div>
+
+		<!-- form submission -->
+		<div class="row remove" ng-if="report.report.report_status !== 'complete'">
+			<div class="col s12 m12 l12">
+				<div class="widget card-panel white grey-text text-darken-2">			
+					
+					<!-- submission -->
+					<div align="center" >
+						
+						<button data-target="save-modal" class="waves-effect waves-light btn"
+							ng-click="report.save( false )"
+							ng-disabled="
+										( clusterStockForm.$pristine ) ||
+										( clusterStockForm.$invalid ) ||
+										( !report.formComplete() ) ||
+										( report.report.submit ) ||
+										( clusterStockForm.$submitted && clusterStockForm.$invalid )"
+							ng-cloak><i class="material-icons right">send</i>Save</button>
+
+						<!-- cancel new -->
+						<button class="waves-effect waves-light btn grey" 
+							ng-click="report.modalConfirm( 'list-modal' )">
+							Cancel
+						</button>
+
+						<br/>
+						<br/>
+
+						<button class="waves-effect waves-light btn blue"
+							ng-click="report.modalConfirm( 'complete-modal' )"
+							ng-disabled="!report.formComplete()"
+							ng-cloak><i class="material-icons left">assignment_turned_in</i>Submit Monthly Report
+						</button>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+		
+	</fieldset>
+
+</form>
+

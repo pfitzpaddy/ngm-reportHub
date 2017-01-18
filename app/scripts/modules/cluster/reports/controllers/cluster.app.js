@@ -1,12 +1,12 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:ClusterOrganizationCtrl
+ * @name ngmReportHubApp.controller:ClusterAppCtrl
  * @description
- * # ClusterOrganizationCtrl
+ * # ClusterAppCtrl
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller( 'ClusterOrganizationCtrl', ['$scope', '$location', '$route', 'ngmData', 'ngmUser', 'ngmClusterHelper', function ( $scope, $location, $route, ngmData, ngmUser, ngmClusterHelper ) {
+	.controller( 'ClusterAppCtrl', ['$scope', '$location', '$route', 'ngmData', 'ngmUser', 'ngmClusterHelper', function ( $scope, $location, $route, ngmData, ngmUser, ngmClusterHelper ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',

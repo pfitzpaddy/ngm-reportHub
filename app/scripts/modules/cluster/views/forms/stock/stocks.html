@@ -1,0 +1,67 @@
+<script>
+
+	// init select
+	$( 'select' ).material_select();
+
+</script>
+
+
+							<!-- form -->
+			      	<div class="row remove" style="padding-left: 40px;" ng-show="report.report.report_status !== 'complete'">
+				        
+				        <div class="input-field col s12 m3"
+									ng-class="{ 'error-label': clusterStockForm.$submitted 
+							  								&& report.report.stocklocations[ $index ].stocks.length === 0 }">
+							    <select id="ngm-stocks-category-{{ location.id }}" class="validate"
+							    	ng-model="report.options.stocks[ $index ]"
+							    	ng-change="report.addStock( $index )"
+							    	ng-options="item as item.stock_item_name for item in report.options.list.stocks[$index] track by item.stock_item_type">
+							      <option value="" disabled selected>Select Stock</option>
+							    </select>
+							    <label>Stock Type *</label>
+				        </div>
+
+			      		<div class="col s12 m9" ng-if="report.report.stocklocations[$index].stocks.length">
+			      			<div class="beneficiary-count right">
+			      				<span style="font-size:1.4rem;"><i class="material-icons" style="padding-right:20px; padding-top:10px;">group</i>Beneficiaries Covered</span>
+			      					<!-- filter in app/services/ngmHelper.js -->
+			      					{{ report.report.stocklocations[$index].stocks | sumByKey:'beneficiaries_covered' | number }}
+			      			</div>
+							  </div>				        
+
+			      	</div>
+
+			      	<div class="row" style="padding-left: 40px;" 
+			      				ng-repeat="stock in report.report.stocklocations[$index].stocks | reverse track by $index">
+
+			      		<div class="card" style="padding: 20px;">
+
+					      	<div class="row">
+
+					      		<div class="input-field col s12 m11">
+						          <input id="ngm-report-category-{{ $parent.$index }}-{{ $index }}" type="text" class="validate beneficiary-title"
+						          	ng-model="stock.stock_item_name"
+						          	disabled>
+						          <label for="ngm-report-category-{{ $parent.$index }}-{{ $index }}">Stock Name</label>
+					      		</div>
+
+					      		<div class="col s12 m1" style="padding-top:3px;">
+					      			<div class="btn-floating waves-effect waves-light red lighten-2 right" 
+					      					title="Remove {{ stock.stock_item_name }}"
+					      					ng-show="report.report.report_status !== 'complete'"
+					      					ng-click="report.removeStock( $parent.$index, $index )">
+					      					<i class="material-icons">clear</i>
+					      			</div>
+									  </div>
+
+					      	</div>
+
+					      	<!-- Target beneficiaries default -->
+					      	<div>
+										<div class="slide-animate" ng-include="report.templatesUrl + report.stockUrl"></div>								
+									</div>
+
+				      	</div>
+
+				      </div>
+

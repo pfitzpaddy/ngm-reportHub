@@ -108,7 +108,55 @@ angular.module( 'ngmReportHub' )
             });
         }
 
-      },      
+      },    
+
+      getStocks: function( cluster_id, list ) {
+
+        // stock list
+        var stocks = [{
+          cluster: [ 'health' ],
+          stock_item_type: 'health_ddk_kit',
+          stock_item_name: 'Health: DDK Kit'
+        },{
+          cluster: [ 'health' ],
+          stock_item_type: 'health_iehk_basic_unit',
+          stock_item_name: 'Health: IEHK Basic Unit'
+        },{
+          cluster: [ 'health' ],
+          stock_item_type: 'health_iehk_supplementary_unit',
+          stock_item_name: 'Health: IEHK Supplementary Unit'
+        },{
+          cluster: [ 'health' ],
+          stock_item_type: 'health_new_born_kit',
+          stock_item_name: 'Health: New Born Kit'
+        },{
+          cluster: [ 'health' ],
+          stock_item_type: 'health_pneumonia_kit',
+          stock_item_name: 'Health: Pneumonia Kit'
+        },{
+          cluster: [ 'health' ],
+          stock_item_type: 'health_trauma_kit_a',
+          stock_item_name: 'Health: Trauma Kit A'
+        },{
+          cluster: [ 'health' ],
+          stock_item_type: 'health_trauma_kit_b',
+          stock_item_name: 'Health: Trauma Kit B'
+        }];
+
+        // filter by cluster beneficiaries here
+        stocks = $filter( 'filter' )( stocks, { cluster: cluster_id }, true );
+
+        // for each beneficiaries from list
+        angular.forEach( list, function( d, i ){
+          // filter out selected types
+          stocks = 
+              $filter( 'filter' )( stocks, { stock_item_type: '!' + d.stock_item_type }, true );
+        });
+
+        // sort and return
+        return $filter( 'orderBy' )( stocks, 'stock_item_name' );
+
+      },
 
       // monthly report indicators
       getIndicators: function( target ) {
@@ -382,6 +430,26 @@ angular.module( 'ngmReportHub' )
         warehouse.email = user.email;
 
         return warehouse;
+      },
+
+      // get processed stock location
+      getCleanStocks: function( report, location, stocks ){
+        
+        // merge
+        var stock = angular.merge({}, stocks, report, location );
+
+        // // delete
+        delete stock.id;
+        delete stock.stocks;
+        delete stock.stocklocations;
+        
+        // default stock
+        stock.report_id = stock.report_id.id;
+        stock.number_in_stock = 0;
+        stock.number_in_pipeline = 0;
+        stock.beneficiaries_covered = 0;
+
+        return stock;
       },
 
 			// get processed target location
