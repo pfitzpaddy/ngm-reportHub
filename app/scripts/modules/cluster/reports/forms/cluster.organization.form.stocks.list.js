@@ -68,6 +68,24 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
           }
         },
 
+        // setorg request
+        setOrganization: function() {
+          return {
+            method: 'POST',
+            url: 'http://' + $location.host() + '/api/setOrganization',
+            data: { organization: $scope.report.organization }
+          }
+        },
+
+        // rmove stocklocation request
+        removeStockLocation: function( stock_warehouse_id ){
+          return {
+            method: 'POST',
+            url: 'http://' + $location.host() + '/api/cluster/stock/removeStockLocation',
+            data: { stock_warehouse_id: stock_warehouse_id }
+          }
+        },
+
         // helpers helper
         updateLocationSelect: function( filter ) {
 
@@ -101,11 +119,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
           ngmClusterHelper.updateSelect();
 
           // Update Org with warehouse association
-          ngmData.get({
-            method: 'POST',
-            url: 'http://' + $location.host() + '/api/setOrganization',
-            data: { organization: $scope.report.organization }
-          }).then( function( organization ){
+          ngmData.get($scope.report.setOrganization()).then( function( organization ){
 
             // set org
             $scope.report.organization = organization;
@@ -134,21 +148,23 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
         // confirm locaiton remove
         removeLocation: function() {
 
+          // get warehouse to remove
+          var stock_warehouse_id = $scope.report.organization.warehouses[$scope.report.locationIndex].id;
+
           // remove location at i
           $scope.report.organization.warehouses.splice( $scope.report.locationIndex, 1 );
 
-          // Update Org with warehouse association
-          ngmData.get({
-            method: 'POST',
-            url: 'http://' + $location.host() + '/api/setOrganization',
-            data: { organization: $scope.report.organization }
-          }).then( function( organization ){
+          // send request
+          $q.all([ $http($scope.report.setOrganization()), $http($scope.report.removeStockLocation(stock_warehouse_id)) ]).then( function( results ){
 
             // set org
-            $scope.report.organization = organization;
+            $scope.report.organization = results[0].data;
             
             // on success
             Materialize.toast( 'Warehouse Location Removed!', 3000, 'success');
+
+            // refresh to update empty reportlist
+            // $route.reload();
 
           });
 
