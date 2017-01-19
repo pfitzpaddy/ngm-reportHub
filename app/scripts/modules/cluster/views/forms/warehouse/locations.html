@@ -36,7 +36,6 @@
 							    	ng-model="report.options.warehouse.admin1"
 							    	ng-model-options="{ trackBy: '$value.admin1pcode'}"
 							    	ng-change="report.updateLocationSelect( true )"
-							    	ng-disabled="report.organization.project_status === 'complete'"
 			      				ng-options="item as item.admin1name for item in report.options.list.admin1">
 			      				<option value="" disabled selected>Choose {{ report.options.list.admin1[0].admin1type_name }}</option>
 			      			</select>
