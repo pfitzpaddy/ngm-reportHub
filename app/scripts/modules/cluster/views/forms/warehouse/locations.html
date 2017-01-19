@@ -30,20 +30,20 @@
 				      <div class="row remove">
 
 			      		<div class="input-field col s12 m4"
-			      			ng-class="{ 'error-label': healthProjectForm.$submitted
+			      			ng-class="{ 'error-label': clusterStockReportsForm.$submitted
 							  								&& report.organization.warehouses.length === 0 }">
 			      			<select id="ngm-project-admin1" class="validate"
 							    	ng-model="report.options.warehouse.admin1"
 							    	ng-model-options="{ trackBy: '$value.admin1pcode'}"
 							    	ng-change="report.updateLocationSelect( true )"
 			      				ng-options="item as item.admin1name for item in report.options.list.admin1">
-			      				<option value="" disabled selected>Choose {{ report.options.list.admin1[0].admin1type_name }}</option>
+			      				<option value="" selected>Choose {{ report.options.list.admin1[0].admin1type_name }}</option>
 			      			</select>
 			      			<label>{{ report.options.list.admin1[0].admin1type_name }} *</label>
 			      		</div>
 
 			      		<div class="input-field col s12 m4"
-			      			ng-class="{ 'error-label': healthProjectForm.$submitted
+			      			ng-class="{ 'error-label': clusterStockReportsForm.$submitted
 							  								&& report.organization.warehouses.length === 0 }">
 			      			<select id="ngm-project-admin2" class="validate"
 							    	ng-model="report.options.warehouse.admin2"

@@ -34,11 +34,11 @@
 </div>
 
 <!-- Project form -->
-<form name="clusterReportsForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
-		
+<form name="clusterStockReportsForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
+
 	<!-- disabled -->
 	<fieldset ng-disabled="
-		report.organization.organization !== report.user.organization && report.user.roles.indexOf('ADMIN') === -1
+		report.organization.organization_display_name !== report.user.organization && report.user.roles.indexOf('ADMIN') === -1
 	">
 					
 		<!-- Project budget details -->
