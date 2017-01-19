@@ -115,7 +115,7 @@
 									<li  align="center" class="teal z-depth-2" 
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/organization" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">zoom_in</i>MY ORGANIZATION</a>
+										<i class="material-icons smedium right">person_pin</i>MY ORGANIZATION</a>
 									</li>
 
 									<!-- my projects -->
@@ -125,16 +125,23 @@
 										<i class="material-icons smedium right">zoom_in</i>MY PROJECTS</a>
 									</li>
 
+									<!-- my projects -->
+									<li  align="center" class="teal z-depth-2" 
+										ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text right" href="#/cluster/projects" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">insert_chart</i>MY STOCKS</a>
+									</li>
+
 									<!-- admin -->
 									<li  align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/admin" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">assignment_ind</i>HEALTH ADMIN</a>
+										<i class="material-icons smedium right">assignment_turned_in</i>HEALTH ADMIN</a>
 									</li>
 									<li  align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() === 'welcome' || ngm.getUser().cluster_id === 'health'">
 										<a class="white-text right" href="#/cluster/health/4w" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">assessment</i>H4W DASHBOARD</a>
+										<i class="material-icons smedium right">bubble_chart</i>H4W DASHBOARD</a>
 									</li>
 
 									<!-- navigation options repeat 
@@ -146,27 +153,26 @@
 								   </div> -->
 
 									<!-- contact modal -->
+									<li  align="center" class="teal z-depth-2"
+										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
+															ngm.getUser().organization.toLowerCase() === 'who' || 
+															ngm.getUser().organization.toLowerCase() === 'dews'">
+										<a class="white-text right" href="#/epr" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">assignment_turned_in</i>EPR ADMIN</a>
+									</li>
+									<li  align="center" class="teal z-depth-2"
+										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
+															ngm.getUser().organization.toLowerCase() === 'who' || 
+															ngm.getUser().organization.toLowerCase() === 'dews'">
+										<a class="white-text right" href="#/epr" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">bubble_chart</i>EPR DASHBOARD</a>
+									</li>
 									<li  align="center" class="teal z-depth-2" 
 										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
 															ngm.getUser().organization.toLowerCase() === 'who' || 
 															ngm.getUser().organization.toLowerCase() === 'dews'">
 										<a class="white-text right" href="#/who/" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">assessment</i>DEWS DASHBOARD</a>
-									</li>
-
-									<li  align="center" class="teal z-depth-2"
-										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
-															ngm.getUser().organization.toLowerCase() === 'who' || 
-															ngm.getUser().organization.toLowerCase() === 'dews'">
-										<a class="white-text right" href="#/epr" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">assessment</i>EPR DASHBOARD</a>
-									</li>
-									<li  align="center" class="teal z-depth-2"
-										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
-															ngm.getUser().organization.toLowerCase() === 'who' || 
-															ngm.getUser().organization.toLowerCase() === 'dews'">
-										<a class="white-text right" href="#/epr" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">assessment</i>EPR ADMIN</a>
+										<i class="material-icons smedium right">bubble_chart</i>DEWS DASHBOARD</a>
 									</li>
 
 									<!-- contact modal -->

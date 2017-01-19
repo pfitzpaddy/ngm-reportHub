@@ -105,7 +105,7 @@ angular.module('ngmReportHub')
 											filter: { 
 												organization_id: $scope.report.organization.id,
 												report_active: true,
-												// report_status: 'todo'
+												report_status: 'todo'
 											}
 										}
 									}
