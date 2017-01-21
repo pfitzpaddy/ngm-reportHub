@@ -278,31 +278,31 @@ angular.module( 'ngmReportHub' )
 
 				// ocha beneficiaries list
 				var beneficiaries = [{
-          cluster: [ 'esnfi', 'health', 'wash' ],
+          cluster: [ 'esnfi', 'health', 'wash', 'protection' ],
           beneficiary_type: 'conflict_displaced',
           beneficiary_name: 'Conflict IDPs'
         },{
-          cluster: [ 'esnfi', 'health', 'wash' ],
+          cluster: [ 'esnfi', 'health', 'wash', 'protection' ],
           beneficiary_type: 'education_training',
           beneficiary_name: 'Education & Training'
         },{
-          cluster: [ 'esnfi', 'health', 'wash' ],
+          cluster: [ 'esnfi', 'health', 'wash', 'protection' ],
           beneficiary_type: 'health_affected_conflict',
           beneficiary_name: 'Health Affected by Conflict'
         },{
-          cluster: [ 'esnfi', 'health', 'wash' ],
+          cluster: [ 'esnfi', 'health', 'wash', 'protection' ],
           beneficiary_type: 'natural_disaster_affected',
           beneficiary_name: 'Natural Disaster IDPs'
         },{
-          cluster: [ 'esnfi', 'wash' ],
+          cluster: [ 'esnfi', 'wash', 'protection' ],
           beneficiary_type: 'protracted_idps',
           beneficiary_name: 'Protracted IDPs'
         },{
-          cluster: [ 'esnfi', 'health', 'wash' ],
+          cluster: [ 'esnfi', 'health', 'wash', 'protection' ],
           beneficiary_type: 'refugees_returnees',
           beneficiary_name: 'Refugees & Returnees'
         },{
-          cluster: [ 'esnfi', 'health', 'wash' ],
+          cluster: [ 'esnfi', 'health', 'wash', 'protection' ],
           beneficiary_type: 'white_area_population',
           beneficiary_name: 'White Area Population'
         }];
