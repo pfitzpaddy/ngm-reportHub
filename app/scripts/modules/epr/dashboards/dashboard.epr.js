@@ -65,6 +65,9 @@ angular.module('ngmReportHub')
 						endDate: $scope.dashboard.endDate,
 						user: $scope.dashboard.user
 					});
+					
+					// 
+					console.log(JSON.stringify(ngmEprHelper.getRequest( 'epr/indicator', 'submitted_reports', false )));
 
 					// add menu
 					$scope.dashboard.menu = ngmEprHelper.getMenu();
@@ -162,7 +165,7 @@ angular.module('ngmReportHub')
 											downloadUrl: 'http://' + $location.host() + '/report/',
 											user: $scope.dashboard.user,
 											pageLoadTime: 6200,
-											viewportWidth: 1400
+											viewportWidth: 1280
 										}
 									},
 									metrics: ngmEprHelper.getMetrics( 'epr_print', 'pdf' )
