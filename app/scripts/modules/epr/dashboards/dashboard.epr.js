@@ -187,7 +187,7 @@ angular.module('ngmReportHub')
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'new_releases',
-									hover: 'Download Disasters as CSV',
+									hover: 'Download Incidents as CSV',
 									request: angular.merge({}, ngmEprHelper.getRequest( 'epr/disasters/data', 'data', false ), { data: { report: 'disasters_' + $scope.dashboard.report } } ),
 									metrics: ngmEprHelper.getMetrics( 'epr_disasters', 'csv' )
 								}]
@@ -316,7 +316,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px;',
 									config: {
-										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">DISASTERS</h2>'
+										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">INCIDENTS</h2>'
 									}
 								}]
 							}]
@@ -328,7 +328,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Disasters',
+										title: 'Incidents',
 										request: ngmEprHelper.getRequest( 'epr/disasters/indicator', 'total', false )
 									}
 								}]

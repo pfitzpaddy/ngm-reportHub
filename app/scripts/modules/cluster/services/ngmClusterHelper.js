@@ -141,6 +141,10 @@ angular.module( 'ngmReportHub' )
           cluster: [ 'health' ],
           stock_item_type: 'health_trauma_kit_b',
           stock_item_name: 'Health: Trauma Kit B'
+        },{
+          cluster: [ 'health' ],
+          stock_item_type: 'miscellaneous',
+          stock_item_name: 'Miscellaneous'
         }];
 
         // filter by cluster beneficiaries here

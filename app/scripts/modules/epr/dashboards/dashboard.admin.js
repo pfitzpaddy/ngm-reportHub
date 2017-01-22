@@ -184,7 +184,7 @@ angular.module('ngmReportHub')
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'new_releases',
-									hover: 'Download Disasters as CSV',
+									hover: 'Download Incidents as CSV',
 									request: angular.merge({}, ngmEprHelper.getRequest( 'epr/disasters/data', 'data', false ), { data: { report: 'disasters_' + $scope.dashboard.report } } ),
 									metrics: ngmEprHelper.getMetrics( 'epr_disasters', 'csv' )
 								}]
