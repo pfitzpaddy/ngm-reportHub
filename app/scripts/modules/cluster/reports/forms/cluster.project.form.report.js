@@ -255,7 +255,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           ngmData.get( setReportRequest ).then( function( report, complete ){
 
             // report
-            $scope.project.report = moment( report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' );
+            $scope.project.updatedAt = moment( report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' );
 
             // if no project update
             if ( length === $scope.project.definition.beneficiary_type.length ) {
