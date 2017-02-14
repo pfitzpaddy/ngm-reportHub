@@ -459,6 +459,10 @@ angular.module( 'ngmReportHub' )
 			// get processed target location
 			getCleanBeneficiaries: function( project, report, indicators, location, beneficiaries ){
 
+        // remove!
+        delete beneficiaries.cluster;
+        delete indicators.cluster;
+
 				// merge project + indicators + beneficiaries
 				var beneficiaries = angular.merge( {}, project, report, indicators, location, beneficiaries );
 
