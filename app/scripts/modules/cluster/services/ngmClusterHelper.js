@@ -290,7 +290,7 @@ angular.module( 'ngmReportHub' )
           beneficiary_type: 'education_training',
           beneficiary_name: 'Education & Training'
         },{
-          cluster: [ 'esnfi', 'health', 'wash', 'protection' ],
+          cluster: [ 'esnfi', 'health', 'wash' ],
           beneficiary_type: 'health_affected_conflict',
           beneficiary_name: 'Health Affected by Conflict'
         },{
@@ -306,7 +306,7 @@ angular.module( 'ngmReportHub' )
           beneficiary_type: 'refugees_returnees',
           beneficiary_name: 'Refugees & Returnees'
         },{
-          cluster: [ 'esnfi', 'health', 'wash', 'protection' ],
+          cluster: [ 'esnfi', 'health', 'wash' ],
           beneficiary_type: 'white_area_population',
           beneficiary_name: 'White Area Population'
         }];
