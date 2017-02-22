@@ -1,72 +1,116 @@
-<script>
 
-	// init select
-	$( 'select' ).material_select();
+<div class="row">
+	<!-- location title -->
+	<div class="col s12 m9 left">
+  	<!-- health cluster -->
+  	<h5 class="report-location-title" ng-if="project.user.cluster_id === 'health'">
+					<i class="material-icons left" style="color: teal;">location_on</i>
+					{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_type_name }}, {{ location.fac_name }}
+		</h5>
+		<!-- other -->
+  	<h5 class="report-location-title" ng-if="project.user.cluster_id !== 'health'">
+					<i class="material-icons left" style="color: teal;">location_on</i>
+					{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_name }}
+		</h5>
+	</div>
 
-</script>
+	<!-- location totals -->
+	<div class="col s12 m3 hide-on-med-and-down">
+		<div class="beneficiary-count right">
+			<span style="font-size:1.2rem;">
+				<i class="material-icons" style="padding-right:10px;">group</i></span>
+				<!-- filter in app/services/ngmHelper.js -->
+				{{ location.beneficiaries | sumArrayByKeys:project.indicators:project.skip | number }}
+		</div>
+	</div>
 
+</div>
 
-							<!-- form -->
-			      	<div class="row remove" style="padding-left: 40px;" ng-show="project.report.report_status !== 'complete'">
-				        <div class="input-field col s12 m3"
-									ng-class="{ 'error-label': healthProjectForm.$submitted 
-							  								&& project.report.locations[ $index ].beneficiaries.length === 0 }">
-							    <select id="ngm-beneficiary-category-{{ location.id }}" class="validate"
-							    	ng-model="project.options.beneficiaries[ $index ]"
-							    	ng-change="project.addBeneficiary( $index )"
-							    	ng-options="item as item.beneficiary_name for item in project.options.list.beneficiaries[$index] track by item.beneficiary_type">
-							      <option value="" disabled selected>Select Category</option>
-							    </select>
-							    <label>Beneficiary Category *</label>
-				        </div>
-			      	</div>	
+<div style="padding-left: 40px;">
+  <table class="bordered responsive-table" ng-show="project.report.locations[$locationIndex].beneficiaries.length">
+    <tr style="font-weight: 400">
+      <td>Activity</td>
+      <td>Description</td>
+      <td>Beneficiary</td>
+      <td>Boys</td>
+      <td>Girls</td>
+      <td>Men</td>
+      <td>Women</td>
+      <td>Sessions</td>
+      <td>Edit</td>
+    </tr>
+    <tr ng-repeat="beneficiary in project.report.locations[$locationIndex].beneficiaries track by $index">
+      <td>
+        <!-- editable activity_type from Project -->
+        <span e-placeholder="Select..." editable-select="beneficiary.activity_type_id" e-name="activity_type_id" e-form="rowform" e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.activity_types" onbeforesave="checkName($data, beneficiary.activity_type_id)">
+          {{ project.showActivity($data, beneficiary) }}
+        </span>
+      </td>
+      <td>
+        <!-- editable activity_description from Project -->
+        <span e-placeholder="Select..." editable-select="beneficiary.activity_description_id" e-name="activity_description_id" e-form="rowform" e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.activity_descriptions | filter: { activity_type_id: beneficiary.activity_type_id }" e-ng-disabled="!beneficiary.activity_type_id">
+          {{ project.showDescription($data, beneficiary) }}
+        </span>
+      </td>
+      <td>
+        <!-- editable group (select-remote) -->
+        <span e-placeholder="Select..." editable-select="beneficiary.beneficiary_type_id" e-name="beneficiary_type_id" e-form="rowform" e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.beneficiary_types"  e-ng-disabled="!beneficiary.activity_description_id">
+          {{ project.showBeneficiary($data, beneficiary) }}
+        </span>
+      </td>
+      <td>
+        <!-- editable number -->
+        <span editable-number="beneficiary.boys" e-name="boys" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'boys', $data )" e-required>
+          {{ beneficiary.boys }}
+        </span>
+      </td>
+      <td>
+        <!-- editable number -->
+        <span editable-number="beneficiary.girls" e-name="girls" e-form="rowform" e-min="0" e-ng-change="updateInput($locationIndex, $index, 'girls', $data )" e-required>
+          {{ beneficiary.girls }}
+        </span>
+      </td>
+      <td>
+        <!-- editable number -->
+        <span editable-number="beneficiary.men" e-name="men" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'men', $data )" e-required>
+          {{ beneficiary.men }}
+        </span>
+      </td>
+      <td>
+        <!-- editable number -->
+        <span editable-number="beneficiary.women" e-name="women" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'women', $data )" e-required>
+          {{ beneficiary.women }}
+        </span>
+      </td>
+      <td>
+        <!-- editable number -->
+        <span editable-number="beneficiary.sessions" e-name="sessions" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'sessions', $data )" e-ng-disabled="project.rowSessionsDisabled( beneficiary )" e-required>
+          {{ beneficiary.sessions }}
+        </span>
+      </td>
+      
+      <td style="white-space: nowrap">
+        <!-- form -->
+        <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == beneficiary">
+          <button type="submit" ng-if="rowform.$visible" ng-disabled="project.rowSaveDisabled(rowform.$data)" class="btn waves-effect waves-light save" title="Save">
+            <i class="material-icons">save</i>
+          </button>
+          <button type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn blue lighten-1 waves-effect waves-light" title="Cancel Edit">
+						<i class="material-icons">clear</i>
+          </button>
+        </form>
+        <div class="buttons" ng-if="!rowform.$visible">
+          <button class="btn waves-effect waves-light" ng-click="rowform.$show()" title="Edit">
+						<i class="material-icons">create</i>
+          </button>
+          <button class="btn red lighten-2 waves-effect waves-light" ng-click="project.removeBeneficiary( $locationIndex, $index )" title="Remove">
+          	<i class="material-icons">delete</i>
+          </button>
+        </div>  
+      </td>
+    </tr>
+  </table>
 
-			      	<div class="row" style="padding-left: 40px;" 
-			      				ng-repeat="beneficiary in project.report.locations[$index].beneficiaries track by $index">
+  <button class="btn" ng-click="project.addBeneficiary( $locationIndex )" style="margin:10px 0px;">Add Row</button>
 
-			      		<div class="card" style="padding: 20px;">
-
-					      	<div class="row">
-
-					      		<div class="input-field col s12 m3">
-						          <input id="ngm-project-category-{{ $parent.$index }}-{{ $index }}" type="text" class="validate beneficiary-title"
-						          	ng-model="beneficiary.beneficiary_name"
-						          	disabled>
-						          <label for="ngm-project-category-{{ $parent.$index }}-{{ $index }}">Beneficaries</label>
-					      		</div>
-
-					      		<div class="col s12 m8">
-					      			<div class="beneficiary-count right">
-					      				<span style="font-size:1.4rem;"><i class="material-icons" style="padding-right:20px; padding-top:10px;">group</i>Actual Total</span>
-					      					<!-- filter in app/services/ngmHelper.js -->
-					      					{{ project.report.locations[$parent.$index].beneficiaries[$index] | sumByKeys:project.indicators:project.skip | number }}
-					      			</div>
-									  </div>
-
-					      		<div class="col s12 m1" style="padding-top:3px;">
-					      			<div class="btn-floating waves-effect waves-light red lighten-2 right" 
-					      					title="Remove Beneficiary {{ beneficiary.beneficiary_name }}"
-					      					ng-show="project.report.report_status !== 'complete'"
-					      					ng-click="project.removeBeneficiary( $parent.$index, $index )">
-					      					<i class="material-icons">clear</i>
-					      			</div>
-									   </div>
-
-					      	</div>
-
-					      	<!-- Target beneficiaries default -->
-					      	<div ng-if="beneficiary.beneficiary_type !== 'education_training'">
-										<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesDefaultUrl()"></div>								
-									</div>
-
-
-					      	<!-- Target beneficiaries trainings -->
-					      	<div ng-if="project.definition.activity_type === 'education_training' ||
-					      								beneficiary.beneficiary_type === 'education_training'">
-										<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesTrainingUrl"></div>
-									</div>
-
-				      	</div>
-
-				      </div>
-
+</div>

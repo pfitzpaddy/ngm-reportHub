@@ -76,8 +76,9 @@
 	.beneficiary-count{
 	  position:relative;
 	  font-weight:100;
-	  font-size:3rem;
-	  line-height:3rem;
+	  font-size:2.4rem;
+	  line-height:2.4rem;
+	  padding: 20px 0px 10px 20px;
 	}
 
 	/* input label */

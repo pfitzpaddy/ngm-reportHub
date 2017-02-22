@@ -21,6 +21,7 @@ angular
 		'countTo',
 		'highcharts-ng',
 		'leaflet-directive',
+		'xeditable',
 		// ngm
 		'ngm',
 		'ngm.widget.form.authentication',

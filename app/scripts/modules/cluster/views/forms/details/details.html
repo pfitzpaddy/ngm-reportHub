@@ -76,34 +76,10 @@
 				      <!-- project budget -->
 				      <div class="row">
 
-<!-- 
-				        <div class="input-field col s12 m6">
-				          <input id="ngm-project-code" type="text" class="validate"
-				          	ng-model="project.definition.project_code"
-				          	ng-disabled="project.definition.project_status === 'complete'">
-				          <label for="ngm-project-code">Project Code</label>
-				        </div>
- -->
-
-				        <div class="input-field col s12 m6"
-				        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.activity_type }">
-				          <select class="validate"
-				          	id="ngm-activity_type"
-				          	ng-model="project.definition.activity_type"
-				          	ng-model-options="{ trackBy: '$value.activity_type_id' }"
-				          	ng-disabled="project.definition.project_status === 'complete'"
-				          	ng-change="project.updateActivitySelect()"
-										ng-options="activities.activity_type_id as activities.activity_type_name for activities in project.options.list.activities.activity_type"
-				          	required>
-				          	<option value="" disabled selected>Select Activity Type</option>
-				          </select>
-				          <label for="ngm-activity_type">Activity Type *</label>
-				        </div>
-
 				        <!-- budget currency -->
 				        <div>
 
-					        <div class="input-field col s12 m3">
+					        <div class="input-field col s12 m6">
 					          <input id="ngm-project-budget" type="number" class="validate" min="1"
 					          	ng-model="project.definition.project_budget"
 					          	ng-disabled="project.definition.project_status === 'complete'"
@@ -111,7 +87,7 @@
 					          <label for="ngm-project-budget">Project Budget ( ${{ project.definition.project_budget_currency | uppercase }} ) *</label>
 					        </div>
 
-					        <div class="input-field col s12 m3"
+					        <div class="input-field col s12 m6"
 					        	ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }">
 								    <select class="validate"
 								    	id="ngm-project_budget_currency"
@@ -130,7 +106,8 @@
 				      </div>
 
 				      <!-- activity description / project donor  -->
-				      <div ng-if="project.definition.activity_type">
+				      <!-- <div ng-if="project.definition.activity_type"> -->
+				      <div>
 					      
 					      <div class="row">
 
@@ -143,17 +120,11 @@
 					      		<div style="padding-bottom:35px;"></div>				      		
 					      		
 					      		<!-- for activity_description -->
-								    <p ng-repeat="a in project.options.list.activities.activity_description | filter: { activity_type_id: project.definition.activity_type } track by $index">
-								      <input type="checkbox" id="activity_{{ a.activity_description_id }}" 
-								      ng-model="project.definition.activity_description_check[ a.activity_description_id ]"
+								    <p ng-repeat="a in project.options.list.activities.activity_type">
+								      <input type="checkbox" id="activity_{{ a.activity_type_id }}" 
+								      ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
 								      ng-disabled="project.definition.project_status === 'complete'"/>
-								      <label for="activity_{{ a.activity_description_id }}">{{ a.activity_description_name }}</label>
-								    </p>
-								    <p>
-								      <input type="checkbox" id="activity_other" 
-								      ng-model="project.definition.activity_description_check.other"
-								      ng-disabled="project.definition.project_status === 'complete'"/>
-								      <label for="activity_other">Other</label>
+								      <label for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label>
 								    </p>
 
 								  </div>	  
@@ -165,7 +136,7 @@
 					      		<!-- label padding -->
 					      		<div style="padding-bottom:35px;"></div>
 
-					      		<p ng-repeat="donor in project.options.list.donors track by $index">
+					      		<p ng-repeat="donor in project.options.list.donors">
 								      <input type="checkbox" id="donor_{{ donor.donor_id }}" 
 									      ng-model="project.definition.project_donor_check[ donor.donor_id ]"
 									      ng-disabled="project.definition.project_status === 'complete'"/>

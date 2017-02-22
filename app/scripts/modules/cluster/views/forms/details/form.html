@@ -109,7 +109,7 @@
 									project.definition.project_status === 'new' && (
 										( clusterProjectForm.$pristine ) ||
 										( clusterProjectForm.$invalid ) || 
-										( !project.activity_description_valid() ) ||
+										( !project.activity_type_valid() ) ||
 										( !project.project_donor_valid() ) ||
 										( project.definition.target_beneficiaries.length === 0 ) ||
 										( project.definition.target_locations.length === 0 ) || 
@@ -118,7 +118,7 @@
 									) ||
 									project.definition.project_status === 'active' && (
 										( clusterProjectForm.$invalid ) || 
-										( !project.activity_description_valid() ) ||
+										( !project.activity_type_valid() ) ||
 										( !project.project_donor_valid() ) ||
 										( project.definition.target_beneficiaries.length === 0 ) ||
 										( project.definition.target_locations.length === 0 ) ||

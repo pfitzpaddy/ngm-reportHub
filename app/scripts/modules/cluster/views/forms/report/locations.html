@@ -29,28 +29,12 @@
 	      					title="Edit {{ project.titleFormat }}"
 	      					ng-show="project.report.report_status === 'complete'"
 	      					ng-click="project.editReport()">
-	      					<i class="material-icons left">add</i>Edit Report
+	      					<i class="material-icons left">create</i>Edit Report
 	      			</div>
 
 						</div>
 
-						<div class="row" ng-repeat="location in project.report.locations track by $index">
-
-							<div class="row" id="ngm-health-locations-{{ $index }}">
-								<div class="col s12 left">
-						    	<!-- health cluster -->
-						    	<h5 class="report-location-title" ng-if="project.user.cluster_id === 'health'">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_type_name }}, {{ location.fac_name }}
-									</h5>
-									<!-- other -->
-						    	<h5 class="report-location-title" ng-if="project.user.cluster_id !== 'health'">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_name }}
-									</h5>
-								</div>
-
-							</div>						
+						<div class="row" ng-repeat="location in project.report.locations" ng-init="$locationIndex=$index">						
 
 							<!-- Project beneficiaries details -->
 							<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesUrl"></div>

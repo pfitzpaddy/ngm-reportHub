@@ -25,7 +25,8 @@
     "ngm-leaflet-fullscreen": "~1.0.1",
     "ng-table": "~0.8.3",
     "ng-csv": "~0.3.6",
-    "angularUtils-pagination": "angular-utils-pagination#~0.11.0"
+    "angularUtils-pagination": "angular-utils-pagination#~0.11.0",
+    "angular-xeditable": "^0.6.0"
   },
   "devDependencies": {
     "angular-mocks": "1.4.8",
