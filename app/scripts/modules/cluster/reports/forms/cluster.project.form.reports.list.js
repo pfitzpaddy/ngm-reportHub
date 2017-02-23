@@ -64,16 +64,27 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
           }
         },
 
-        // cancel and delete empty project
-        cancel: function() {
-          
-          // update
-          $timeout(function() {
+        // project donor
+        showDonor: function($data, $budget){
+          var selected = [];
+          $budget.project_donor_id = $data;
+          if($budget.project_donor_id) {
+            selected = $filter('filter')( $scope.project.definition.project_donor, { project_donor_id: $budget.project_donor_id });
+            $budget.project_donor_name = selected[0].project_donor_name;
+          }
+          return selected.length ? selected[0].project_donor_name : 'No Selection!';
+        },
 
-            // Re-direct to summary
-            $location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
+        // add budget
+        addBudget: function( $parent ) {
+          // process + clean location
+          $scope.inserted = 
+              ngmClusterHelper.getCleanBudget( ngmUser.get(), $scope.project.definition, $scope.project.budget );
+          $scope.project.definition.project_budget_progress.push( $scope.inserted );
+        },
 
-          }, 100);
+        // save budget
+        save: function(){
 
         },
 

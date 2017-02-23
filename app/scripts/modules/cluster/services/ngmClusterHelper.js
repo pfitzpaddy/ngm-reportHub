@@ -453,14 +453,14 @@ angular.module( 'ngmReportHub' )
       },
 
 			// get processed target location
-			getCleanBeneficiaries: function( project, report, indicators, location, beneficiaries ){
+			getCleanBeneficiaries: function( project, report, location, beneficiaries ){
 
         // remove!
-        delete beneficiaries.cluster;
-        delete indicators.cluster;
+        // delete beneficiaries.cluster;
+        // delete indicators.cluster;
 
 				// merge project + indicators + beneficiaries
-				var beneficiaries = angular.merge( {}, project, report, indicators, location, beneficiaries );
+				var beneficiaries = angular.merge( {}, project, report, location, beneficiaries );
 
 				// set project_id
 				beneficiaries.project_id = project.id;
@@ -468,6 +468,8 @@ angular.module( 'ngmReportHub' )
 
         // remove duplication from merge
         delete beneficiaries.id;
+        delete beneficiaries.activity_type;
+        delete beneficiaries.beneficiary_type;
         delete beneficiaries.project_description
         delete beneficiaries.project_budget_progress;
         delete beneficiaries.beneficiaries;
@@ -486,10 +488,14 @@ angular.module( 'ngmReportHub' )
 			},
 
 			// get processed target location
-			getCleanTargetBeneficiaries: function( project, indicators, beneficiaries ){
+			getCleanTargetBeneficiaries: function( project, beneficiaries ){
+
+        // remove!
+        // delete beneficiaries.cluster;
+        // delete indicators.cluster;
 
 				// merge project + indicators + beneficiaries
-				var beneficiaries = angular.merge( {}, project, indicators, beneficiaries );
+				var beneficiaries = angular.merge( {}, project, beneficiaries );
 
         // remove duplication from merge
         delete beneficiaries.id;

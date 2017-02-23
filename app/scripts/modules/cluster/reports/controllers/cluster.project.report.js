@@ -94,37 +94,37 @@ angular.module('ngmReportHub')
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
 							'title': 'Actual Monthly Beneficiaries Report for ' + moment( $scope.report.definition.reporting_period ).format('MMMM, YYYY')
 						},
-						download: {
-							'class': 'col s12 m3 l3 hide-on-small-only',
-							downloads: [{
-								type: 'csv',
-								color: 'blue lighten-2',
-								icon: 'assignment',
-								hover: 'Download Monthly Report as CSV',
-								request: {
-									method: 'POST',
-									url: 'http://' + $location.host() + '/api/health/indicator',
-									data: {
-										report: 'projects_' + $scope.report.report,
-										details: 'projects',
-										project_id: $scope.report.project.id
-									}
-								},
-								metrics: {
-									method: 'POST',
-									url: 'http://' + $location.host() + '/api/metrics/set',
-									data: {
-										organization: $scope.report.user.organization,
-										username: $scope.report.user.username,
-										email: $scope.report.user.email,
-										dashboard: $scope.report.project.project_title,
-										theme: 'cluster_project_report',
-										format: 'csv',
-										url: $location.$$path
-									}
-								}
-							}]
-						}
+						// download: {
+						// 	'class': 'col s12 m3 l3 hide-on-small-only',
+						// 	downloads: [{
+						// 		type: 'csv',
+						// 		color: 'blue lighten-2',
+						// 		icon: 'assignment',
+						// 		hover: 'Download Monthly Report as CSV',
+						// 		request: {
+						// 			method: 'POST',
+						// 			url: 'http://' + $location.host() + '/api/health/indicator',
+						// 			data: {
+						// 				report: 'projects_' + $scope.report.report,
+						// 				details: 'projects',
+						// 				project_id: $scope.report.project.id
+						// 			}
+						// 		},
+						// 		metrics: {
+						// 			method: 'POST',
+						// 			url: 'http://' + $location.host() + '/api/metrics/set',
+						// 			data: {
+						// 				organization: $scope.report.user.organization,
+						// 				username: $scope.report.user.username,
+						// 				email: $scope.report.user.email,
+						// 				dashboard: $scope.report.project.project_title,
+						// 				theme: 'cluster_project_report',
+						// 				format: 'csv',
+						// 				url: $location.$$path
+						// 			}
+						// 		}
+						// 	}]
+						// }
 					},
 					rows: [{		
 						columns: [{

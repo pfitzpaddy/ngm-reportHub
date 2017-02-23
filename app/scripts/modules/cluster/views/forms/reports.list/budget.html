@@ -15,8 +15,67 @@
 					
 	      	<!-- budget input -->
 					<div class="row" style="padding-top:10px;">
+
+					  <table class="bordered responsive-table" ng-show="project.definition.project_budget_progress">
+					    <tr style="font-weight: 400">
+					      <td>Project Donor</td>
+					      <td>Project Budget</td>
+					      <td>Budget Recieved ( ${{ project.definition.project_budget_currency | uppercase }} )</td>
+					      <td>Budget Recieved Date</td>
+					      <td>Edit</td>
+					    </tr>
+					    <tr ng-repeat="budget in project.definition.project_budget_progress track by $index">
+					      <td>
+					        <!-- editable activity_type from Project -->
+					        <span e-placeholder="Select..." editable-select="budget.project_donor_id" e-name="project_donor_id" e-form="rowform" e-ng-options="d.project_donor_id as d.project_donor_name for d in project.definition.project_donor">
+					          {{ project.showDonor($data, budget) }}
+					        </span>
+					      </td>
+					      <td>
+					        <span editable-number="budget.project_budget" e-name="project_budget" e-form="rowform" e-min="0" e-disabled>
+					          {{ project.definition.project_budget }}
+					        </span>
+					      </td>
+					      <td>
+					        <!-- editable number -->
+					        <span editable-number="budget.project_budget_amount_recieved" e-name="project_budget_amount_recieved" e-form="rowform" e-min="0" e-ng-change="project.updateInput($index, 'project_budget_amount_recieved', $data )" e-required>
+					          {{ budget.project_budget_amount_recieved }}
+					        </span>
+					      </td>
+					      
+					      <td style="white-space: nowrap">
+					        <!-- form -->
+					        <form editable-form name="rowform" onbeforesave="project.save()" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == beneficiary">
+					          <button type="submit" ng-if="rowform.$visible" ng-disabled="project.rowSaveDisabled(rowform.$data)" class="btn waves-effect waves-light save" title="Save">
+					            <i class="material-icons">save</i>
+					          </button>
+					          <button type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn blue lighten-1 waves-effect waves-light" title="Cancel Edit">
+											<i class="material-icons">clear</i>
+					          </button>
+					        </form>
+					        <div class="buttons" ng-if="!rowform.$visible">
+					          <button class="btn waves-effect waves-light" ng-click="rowform.$show()" title="Edit">
+											<i class="material-icons">create</i>
+					          </button>
+					          <button class="btn red lighten-2 waves-effect waves-light" ng-click="project.removeBeneficiary( $index )" title="Remove">
+					          	<i class="material-icons">delete</i>
+					          </button>
+					        </div>  
+					      </td>
+					    </tr>
+					  </table>
+
+					  <button class="btn" ng-click="project.addBudget()" style="margin:20px 0px;">Add Row</button>						
+
+
+
+
+
+
+
+
 						
-						<!-- project budget -->		        
+						<!-- project budget    
 		        <div class="input-field col s12 m4">
 		          <input id="ngm-project-budget-currency_monthly" type="number" class="validate"
 		          	ng-model="project.definition.project_budget"
@@ -24,7 +83,7 @@
 		          <label for="ngm-project-budget-currency_monthly">Project Budget ( ${{ project.definition.project_budget_currency | uppercase }} ) *</label>
 		        </div>	        
 
-		        <!-- budget recieved -->
+		        <!-- budget recieved
 		        <div class="input-field col s12 m4">
 		          <input id="ngm-project-budget_progress_usd" type="number" class="validate" min="0"
 		          	ng-model="project.budget.project_budget_amount_recieved"
@@ -32,7 +91,7 @@
 		          <label for="ngm-project-budget_progress_usd" class="active">Budget Recieved Amount ( ${{ project.definition.project_budget_currency | uppercase }} ) *</label>
 		        </div>
 
-		        <!-- input-date directive -->
+		        <!-- input-date directive
 		        <div class="input-field col s12 m3">
 							<label for="ngm-budget-recieved-date">Budget Recieved Date *</label>
 							<input ngm-date
@@ -47,7 +106,7 @@
 							    on-close="project.datepicker.onClose()"/>
 		        </div>		        
 
-		        <!-- add circle -->
+		        <!-- add circle
 	      		<div class="col s12 m1" style="padding-top:15px;">
 	      			<button class="waves-effect waves-light btn-floating green lighten-2 right" 
 	      					title="Add Budget Recieved Date"
@@ -60,6 +119,8 @@
 
 		      </div>
 
+		      -->
+
 		      <!-- budget progress -->
 		      <div class="row">
 					 	<div class="col s12" ng-show="project.definition.project_budget_progress.length">
@@ -70,19 +131,12 @@
 					<!-- single items -->
 					<div class="row" style="padding-left:40px;"
 								ng-repeat="budget in project.definition.project_budget_progress | orderBy:'-project_budget_date_recieved' track by $index">
-						<div class="col s12 m11 left">
+						<div class="col s12 left">
 				    	<!-- health cluster -->
 				    	<h5 class="report-budget-title">
 									<i class="material-icons left" style="color: teal;">date_range</i>
 									${{ budget.project_budget_amount_recieved | number }} {{ project.definition.project_budget_currency | uppercase }} of Budget Recieved on {{ budget.project_budget_date_recieved | date:'longDate' }}
 							</h5>
-						</div>
-						<div class="col s12 m1 right" style="padding-top:15px;padding-right:12px;">
-							<a class="waves-effect waves-light btn-floating red lighten-2 right"
-					      	title="Remove budget item for {{ budget.project_budget_date_recieved | date:'longDate' }}"
-					      	ng-if="project.definition.project_status !== 'complete'"
-					      	ng-click="project.removeBudgetItem( $index )"><i class="material-icons">clear</i>
-					     </a>
 						</div>
 					</div>
 

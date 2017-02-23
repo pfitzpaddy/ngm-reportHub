@@ -1,0 +1,81 @@
+
+<!-- bind html -->
+<div class="row">
+	<div class="col s12 m12 l12">
+		<div class="card">
+			<ul id="project_beneficiaries_form" class="collection with-header">
+				
+				<li class="collection-header blue lighten-4">
+					<h5 class="report-work-title">
+						<i class="material-icons left">group</i>Project Target Beneficiaries
+					</h5>
+				</li>
+
+				<li class="collection-item avatar">
+
+					<!-- form -->
+	      	<div class="row remove" ng-show="project.definition.project_status !== 'complete'">
+		        <div class="input-field col s12 m3"
+							ng-class="{ 'error-label': healthProjectForm.$submitted 
+					  								&& project.definition.target_beneficiaries.length === 0 }">
+					    <select id="ngm-target_beneficiary-category" class="validate"
+					    	ng-model="project.options.target_beneficiaries"
+					    	ng-change="project.addTargetBeneficiary()"
+					    	ng-options="item as item.beneficiary_name for item in project.options.list.beneficiaries track by item.beneficiary_type">
+					      <option value="" disabled selected>Select Category</option>
+					    </select>
+					    <label>Target Beneficiary Category *</label>
+		        </div>
+	      	</div>	
+
+	      	<div class="row" ng-repeat="target_beneficiary in project.definition.target_beneficiaries | orderBy: '-createdAt' track by $index">
+
+	      		<div class="card" style="padding: 20px;">
+
+			      	<div class="row">
+
+			      		<div class="input-field col s12 m3">
+				          <input id="ngm-target_beneficiary-category" type="text" class="validate"
+				          	ng-model="target_beneficiary.beneficiary_name"
+				          	disabled>
+				          <label for="ngm-target_beneficiary-category">Target Beneficaries</label>
+			      		</div>
+
+			      		<div class="col s12 m8">
+			      			<div class="beneficiary-count right">
+			      				<span style="font-size:1.4rem;"><i class="material-icons" style="padding-right:20px; padding-top:10px;">group</i>Target Total</span>
+			      					{{ target_beneficiary.boys + target_beneficiary.girls + target_beneficiary.men + target_beneficiary.women | number }}
+			      			</div>
+							  </div>
+
+			      		<div class="col s12 m1 remove" style="padding-top:3px;">
+			      			<div class="btn-floating waves-effect waves-light red lighten-2 right" 
+			      					title="Remove Beneficiary {{ target_beneficiary.beneficiary_name }}"
+			      					ng-show="project.definition.project_status !== 'complete'"
+			      					ng-click="project.removeTargetBeneficiary( $index )">
+			      					<i class="material-icons">clear</i>
+			      			</div>
+							   </div>
+			      	</div>
+
+			      	<!-- Target beneficiaries default -->
+			      	<div ng-if="target_beneficiary.beneficiary_type !== 'education_training'">
+								<div class="slide-animate" ng-include="project.templatesUrl + project.targetBeneficiariesDefaultUrl"></div>								
+							</div>
+
+
+			      	<!-- Target beneficiaries trainings -->
+			      	<div ng-if="target_beneficiary.beneficiary_type === 'education_training'">
+								<div class="slide-animate" ng-include="project.templatesUrl + project.targetBeneficiariesTrainingUrl"></div>
+							</div>
+
+		      	</div>
+
+		      </div>
+
+				</li>
+
+			</ul>
+		</div>
+	</div>
+</div>

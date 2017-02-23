@@ -42,6 +42,10 @@
 				          <label for="ngm-project-notes">Monthly Notes & Comments</label>
 				        </div>
 
+				        <button class="btn" ng-if="project.report.report_status !== 'complete'" ng-disabled="!project.report.notes" ng-click="project.save(false)" style="margin:10px 10px;">
+				        	<i class="material-icons left">save</i>Save Notes
+				        </button>
+
 			      	</div>
 
 			      </div>

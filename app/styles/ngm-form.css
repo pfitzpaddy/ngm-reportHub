@@ -50,7 +50,7 @@
 		color: #00796b; 
 		font-weight: 300;
 		text-align: left;
-		padding: 10px 0px 10px 20px;
+		padding: 10px 0px 10px 10px;
 	}
 
 	/* location title with icon */
@@ -58,7 +58,7 @@
 		font-size: 1.2rem;
 		font-weight: 300;
 		text-align: left;
-		padding: 10px 0px 10px 20px;
+		padding: 10px 0px 10px 10px;
 	}
 
 	/* beneficiary title for monthly report */
