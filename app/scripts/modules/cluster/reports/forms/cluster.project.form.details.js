@@ -29,14 +29,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
     'config',
     function( $scope, $location, $timeout, $filter, $q, $http, ngmUser, ngmData, ngmClusterHelper, config ){
 
-
-
-
-
-
-
-
-
       // project
       $scope.project = {
 
@@ -54,6 +46,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // default subset indicators ( boys, girls, men, women )
         indicators: ngmClusterHelper.getIndicators( true ),
+
+        // keys to ignore when summing beneficiaries in template ( 2016 )
+        skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ],
 
         // lists
         activity_types: config.project.activity_type,
@@ -73,42 +68,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           facility_type: ngmClusterHelper.getFacilityTypes()
         },
 
-        // holder for UI options
-        // options: {
-        //   filter: {},
-        //   target_beneficiaries: {},
-        //   location: {},
-        //   list: {
-        //     // currencies
-        //     currencies: ngmClusterHelper.getCurrencies( config.project.admin0pcode ),
-        //     // donors
-        //     donors: ngmClusterHelper.getDonors(),
-        //     // beneficiaries
-        //     beneficiaries: ngmClusterHelper.getBeneficiaries( config.project.cluster_id, config.project.target_beneficiaries ),
-        //     // admin1 ( with admin0 filter )
-        //     admin1: $filter( 'filter' )( localStorage.getObject( 'lists' ).admin1List, 
-        //                     { admin0pcode: ngmUser.get().admin0pcode }, true ),
-        //     // admin2 ( with admin0 filter )
-        //     admin2: $filter( 'filter' )( localStorage.getObject( 'lists' ).admin2List, 
-        //                     { admin0pcode: ngmUser.get().admin0pcode }, true ),
-        //     // facility type
-        //     facility_type: ngmClusterHelper.getFacilityTypes(),
-        //     // activities by cluster
-        //     activities: {
-        //       // pass project cluster_id 
-        //       activity_type: ngmClusterHelper.getActivities( config.project.cluster_id, true ),
-        //       activity_description: ngmClusterHelper.getActivities( config.project.cluster_id, false )
-        //     }
-        //   }
-        // },
-
         // templates
         templatesUrl: '/scripts/modules/cluster/views/forms/details/',
         detailsUrl: 'details.html',
         targetBeneficiariesUrl: moment( config.project.project_end_date ).year() === 2016 ? 'target-beneficiaries/2016/target-beneficiaries.html' : 'target-beneficiaries/target-beneficiaries.html',
         targetBeneficiariesDefaultUrl: 'target-beneficiaries/2016/target-beneficiaries-default.html',
         targetBeneficiariesTrainingUrl: 'target-beneficiaries/2016/target-beneficiaries-training.html',
-        locationsUrl: 'target-locations/locations-' + ngmUser.get().cluster_id + '.html',
+        locationsUrl: moment( config.project.project_end_date ).year() === 2016 ? 'target-locations/2016/locations-health.html' : 'target-locations/locations.html',
 
         // datepicker
         datepicker: {
@@ -116,6 +82,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             $scope.project.definition.project_start_date = moment( $scope.project.definition.project_start_date ).format('YYYY-MM-DD');
             $scope.project.definition.project_end_date = moment( $scope.project.definition.project_end_date ).format('YYYY-MM-DD');
           }
+        },
+
+        // cancel
+        cancel: function() {
+          $timeout(function() {
+            $location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
+          }, 100);
         },
 
         // display activity
@@ -153,24 +126,145 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // add beneficiary
         addBeneficiary: function() {
-          $scope.inserted = {
+          $scope.insertedBeneficiary = {
             activity_type_id: null,
             activity_type_name: null,
             activity_description_id: null,
             activity_description_name: null,
             beneficiary_type_id: null,
             beneficiary_type_name: null,
-            families: 0, boys: 0, girls: 0, men:0, women:0, sessions: 0
+            families: 0, boys: 0, girls: 0, men:0, women:0
           };
-          // process + clean location
-          $scope.inserted = 
-              ngmClusterHelper.getCleanTargetBeneficiaries( $scope.project.definition, $scope.inserted );
-          $scope.project.definition.target_beneficiaries.push( $scope.inserted );
 
-          console.log($scope.inserted)
+          // process + clean location
+          $scope.insertedBeneficiary = 
+              ngmClusterHelper.getCleanTargetBeneficiaries( $scope.project.definition, $scope.insertedBeneficiary );
+          $scope.project.definition.target_beneficiaries.push( $scope.insertedBeneficiary );
         },
 
+        // update inidcators
+        updateInput: function( $index, indicator, $data ){
+          $scope.project.definition.target_beneficiaries[ $index ][ indicator ] = $data;
+        },
 
+        // disable save form
+        rowSaveDisabled: function( $data ){
+          var disabled = true;
+          if ( $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id &&
+                $data.families >= 0 && $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 ) {
+              disabled = false;
+          }
+          return disabled;
+        },
+
+        // save beneficiary
+        saveBeneficiary: function() {
+
+
+          // save project?
+
+
+
+          $timeout( function(){ Materialize.toast( 'Beneficiaries in Need Added!' , 3000, 'success' ) }, 600 );
+          return [200, {status: 'ok'}];
+        },
+
+        // remove beneficiary
+        removeBeneficiary: function( $index ) {
+
+
+          // save project?
+
+
+
+          $scope.project.definition.target_beneficiaries.splice( $index, 1 );
+          // save
+          // $scope.project.save( false );
+        },
+
+        showAdmin1: function($data, $location){
+          var selected = [];
+          $location.admin1pcode = $data;
+          console.log($location.admin1pcode)
+          if($location.admin1pcode) {
+            selected = $filter('filter')( $scope.project.lists.admin1, { admin1pcode: $location.admin1pcode });
+            // console.log($location.admin1pcode)
+            // console.log($scope.project.lists.admin1)
+            // console.log(selected)
+            $location.admin1name = selected[0].admin1name;
+          }
+          return selected.length ? selected[0].admin1name : 'No Selection!';
+        },
+
+        // admin2
+        showAdmin2: function($data, $location){
+          var selected = [];
+          $location.admin2pcode = $data;
+          if($location.admin2pcode) {
+            selected = $filter('filter')( $scope.project.lists.admin2, { admin2pcode: $location.admin2pcode });
+            $location.admin2name = selected[0].admin2name;
+          }
+          return selected.length ? selected[0].admin2name : 'No Selection!';
+        },
+
+        // fac_type
+        showFacType: function($data, $location){
+          var selected = [];
+          $location.fac_type_id = $data;
+          if($location.fac_type_id) {
+            selected = $filter('filter')( $scope.project.lists.facility_type, { fac_type_id: $location.fac_type_id });
+            $location.fac_type_name = selected[0].fac_type_name;
+          }
+          return selected.length ? selected[0].fac_type_name : 'No Selection!';
+        },
+
+        // add location
+        addLocation: function() {
+          $scope.insertedLocation = {
+            admin1pcode: null,
+            admin1name: null,
+            admin2pcode: null,
+            admin2name: null,
+            fac_type_id: null,
+            fac_type_name: null,
+            fac_name: null
+          };
+
+          // process + clean location 
+          $scope.insertedLocation = 
+              ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.insertedLocation );
+          $scope.project.definition.target_locations.push( $scope.insertedLocation );
+        },
+
+        // save location
+        saveLocation: function() {
+
+
+          // save project?
+
+
+
+          $timeout( function(){ Materialize.toast( 'Project Location Added!' , 3000, 'success' ) }, 600 );
+          return [200, {status: 'ok'}];
+        },
+
+        // remove location
+        removeLocation: function( $index ) {
+
+
+          // save project?
+
+
+
+          $scope.project.definition.target_locations.splice( $index, 1 );
+          // save
+          // $scope.project.save( false );
+        },
+
+        // on show form
+        showForm: function(){
+          $timeout(function() { window.scrollTo(0,0); }, 100);
+        },
 
         // add target benficiaries
         // addTargetBeneficiary: function() {
@@ -251,13 +345,32 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // },
 
         // validate project type
+        project_details_valid: function () {
+          // valid
+          var valid = false;
+          if(
+            $scope.project.definition.project_title &&
+            $scope.project.definition.project_start_date &&
+            $scope.project.definition.project_end_date &&
+            $scope.project.definition.project_budget &&
+            $scope.project.definition.project_budget_currency &&
+            $scope.project.definition.project_status &&
+            $scope.project.definition.project_description
+          ){
+            valid = true;
+          }
+          
+          return valid;
+        },
+
+        // validate project type
         activity_type_valid: function () {
           // valid
           var valid = false;
           // compile activity_description
-          angular.forEach( $scope.project.definition.activity_type_check, function( t, i ) {
+          angular.forEach( $scope.project.definition.activity_type_check, function( d, i ) {
             // check if selected
-            if ( t ){
+            if ( d ){
               valid = true;
             }
           });
@@ -278,52 +391,82 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return valid;
         },
 
+        // validate target beneficiary
+        target_beneficiaries_valid: function(){
+          var valid = false;
+          angular.forEach( $scope.project.definition.target_beneficiaries, function( d, i ){
+            if ( !$scope.project.rowSaveDisabled(d) ){
+              valid = true;
+            }
+          });
+          return valid;
+        },
+
+        // validate target locations
+        target_locations_valid: function(){
+          var valid = false;
+          angular.forEach( $scope.project.definition.target_locations, function( d, i ){
+            if(
+              d.admin1pcode &&
+              d.admin1name &&
+              d.admin2pcode &&
+              d.admin2name &&
+              d.fac_type_id &&
+              d.fac_type_name &&
+              d.fac_name
+            ){
+             valid = true; 
+            }
+          });
+          return valid;
+        },
+
         // cofirm exit if changes
         modalConfirm: function( modal ){
-
           // if not pristine, confirm exit
-          $scope.clusterProjectForm.$dirty ? 
-              $( '#' + modal ).openModal( { dismissible: false } ) : $scope.project.cancel();
+          // $scope.clusterProjectForm.$dirty ?
+              // $( '#' + modal ).openModal( { dismissible: false } ) : $scope.project.cancel();
+          $scope.project.cancel();
+        },
 
+        // compile activity_type 
+        compileActivityType: function(){
+          $scope.project.definition.activity_type = [];
+          angular.forEach( $scope.project.definition.activity_type_check, function( t, key ){
+            if ( t ) {
+              var a_type = $filter( 'filter' )( $scope.project.lists.activity_types, { activity_type_id: key })[0];
+              $scope.project.definition.activity_type.push( { activity_type_id: a_type.activity_type_id, activity_type_name: a_type.activity_type_name } );
+            }
+          });
+        },
+
+        // compile project_donor
+        compileDonor: function(){
+          $scope.project.definition.project_donor = [];
+          angular.forEach( $scope.project.definition.project_donor_check, function( d, key ){
+            if ( d ) {
+              var donor = $filter( 'filter' )( $scope.project.lists.donors, { project_donor_id: key })[0];
+              $scope.project.definition.project_donor.push( donor );
+            }
+          });
         },
 
         // save project
         save: function(){
 
           // reset to cover updates
-          $scope.project.definition.activity_type = [];
-          $scope.project.definition.project_donor = [];
+          $scope.project.definition.beneficiary_type = [];
           $scope.project.definition.admin1pcode = [];
           $scope.project.definition.admin2pcode = [];
-          $scope.project.definition.beneficiary_type = [];
 
-          // compile activity_type
-          angular.forEach( $scope.project.definition.activity_type_check, function( t, key ){
-            // push to project activity_type
-            if ( t ) {
-              var activity_type = $filter( 'filter' )( $scope.project.lists.activity_types, { activity_type_id: key })[0];
-              $scope.project.definition.activity_type.push( { activity_type_id: activity_type.activity_type_id, activity_type_name: activity_type.activity_type_name } );
-            }
-          });
-
-          // compile project_donor
-          angular.forEach( $scope.project.definition.project_donor_check, function( d, key ){
-            // push keys to project_donor
-            if ( d ) {
-              var donor = $filter( 'filter' )( $scope.project.lists.donors, { donor_id: key })[0];
-              $scope.project.definition.project_donor.push( donor );
-            }
-          });
-
-          // add target_beneficiaries to projects to ensure simple filters
+          // add target_beneficiaries to projects
           angular.forEach( $scope.project.definition.target_beneficiaries, function( b, i ){
-
-            // push update activities
+            
+            // update target_beneficiaries
             $scope.project.definition.target_beneficiaries[i] = 
                   ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_beneficiaries[i] );
             
-            // push location ids to project
-            $scope.project.definition.target_beneficiaries[i].project_title = $scope.project.definition.project_title;
+            // add type to project
             $scope.project.definition.beneficiary_type.push( { beneficiary_type_id: b.beneficiary_type_id, beneficiary_type_name: b.beneficiary_type_name } );
 
           });
@@ -334,13 +477,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             // push update activities
             $scope.project.definition.target_locations[i] = 
                   ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_locations[i] );
-
-
-            // push location ids to project
-            $scope.project.definition.target_locations[i].project_title = $scope.project.definition.project_title;
-            // add beneficiary_types to locations
-            $scope.project.definition.target_locations[i].beneficiary_type = $scope.project.definition.beneficiary_type;
-            // locations
+            
+            // add locations to project
             $scope.project.definition.admin1pcode.push( { admin1pcode: l.admin1pcode, admin1name: l.admin1name } );
             $scope.project.definition.admin2pcode.push( { admin2pcode: l.admin2pcode, admin2name: l.admin2name } );
 
@@ -352,7 +490,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
             // disable btn
             $scope.project.submit = true;
-
             // inform
             Materialize.toast('Processing...', 3000, 'note');
 
@@ -364,16 +501,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 project: $scope.project.definition
               }
             }).then( function( project ){
-
               // enable
               $scope.project.submit = false;
-
               // add id to client json
               $scope.project.definition = project;
-
               // notification modal
               $( '#save-modal' ).openModal({ dismissible: false });
-              
             });
 
           // } else {
@@ -428,28 +561,27 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // give a few seconds to render
         $timeout(function() {
 
-          // add activity type check
-          if ( $scope.project.definition.activity_type) {
-            // set object
+          // if activity_type is one set as default
+          if( !$scope.project.definition.target_beneficiaries.length ){
+            $scope.project.addBeneficiary();
+          }
+
+          // add activity type check box list
+          if ( $scope.project.definition.activity_type ) {
             $scope.project.definition.activity_type_check = {};
-            // set checkboxes
             angular.forEach( $scope.project.definition.activity_type, function( d, i ){
-              // push keys to activity_type
               if ( d ){
                 $scope.project.definition.activity_type_check[ d.activity_type_id ] = true;
               }
             });
           }
 
-          // add project donor check
+          // add project donor check box list
           if ( $scope.project.definition.project_donor ) {
-            // set object
             $scope.project.definition.project_donor_check = {};
-            // set checkboxes
             angular.forEach( $scope.project.definition.project_donor, function( d, i ){
-              // push keys to project_donor
               if ( d ){
-                $scope.project.definition.project_donor_check[ d.donor_id ] = true;
+                $scope.project.definition.project_donor_check[ d.project_donor_id ] = true;
               }
             });
           }

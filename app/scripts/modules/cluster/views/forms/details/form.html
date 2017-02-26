@@ -107,21 +107,20 @@
 							ng-click="project.save()"
 							ng-disabled="
 									project.definition.project_status === 'new' && (
-										( clusterProjectForm.$pristine ) ||
-										( clusterProjectForm.$invalid ) || 
+										( !project.project_details_valid() ) ||
 										( !project.activity_type_valid() ) ||
 										( !project.project_donor_valid() ) ||
-										( project.definition.target_beneficiaries.length === 0 ) ||
-										( project.definition.target_locations.length === 0 ) || 
+										( !project.target_beneficiaries_valid() ) ||
+										( !project.target_locations_valid() ) ||
 										( clusterProjectForm.$submitted && clusterProjectForm.$invalid ) ||
 										( project.submit )
 									) ||
 									project.definition.project_status === 'active' && (
-										( clusterProjectForm.$invalid ) || 
+										( !project.project_details_valid() ) ||
 										( !project.activity_type_valid() ) ||
 										( !project.project_donor_valid() ) ||
-										( project.definition.target_beneficiaries.length === 0 ) ||
-										( project.definition.target_locations.length === 0 ) ||
+										( !project.target_beneficiaries_valid() ) ||
+										( !project.target_locations_valid() ) ||
 										( project.submit )
 									)"
 							ng-cloak><i class="material-icons right">send</i>Save</button>

@@ -147,6 +147,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             delivery_type_name: null,
             sessions: 0, families: 0, boys: 0, girls: 0, men:0, women:0
           };
+
           // process + clean location
           $scope.inserted = 
               ngmClusterHelper.getCleanBeneficiaries( $scope.project.definition, $scope.project.report, $scope.project.report.locations[ $parent ], $scope.inserted );
@@ -171,16 +172,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         rowSaveDisabled: function( $data ){
           var disabled = true;
           if ( $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id && $data.delivery_type_id &&
-                $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 && $data.sessions >= 0) {
+                $data.sessions >= 0 && $data.families >= 0 && $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 ) {
               disabled = false;
           }
           return disabled;
-        },
-
-        // save beneficiary
-        saveBeneficiary: function( $data ) {
-          $timeout( function(){ Materialize.toast( 'Beneficiary Saved!' , 3000, 'success' ) }, 600 );
-          return [200, {status: 'ok'}];
         },
 
         // remove beneficiary
@@ -192,6 +187,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // save form on enter
         keydownSaveForm: function(){
+
           setTimeout(function(){
             $('.editable-input').keydown(function (e) {
               var keypressed = e.keyCode || e.which;

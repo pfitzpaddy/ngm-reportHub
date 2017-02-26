@@ -1,0 +1,114 @@
+
+<!-- bind html -->
+<div class="row">
+	<div class="col s12 m12 l12">
+		<div class="card">
+			<ul class="collection with-header">
+				<li class="collection-header blue lighten-4">
+					<h5 class="report-work-title">
+						<i class="material-icons left">location_on</i>Project Target Locations
+					</h5>
+				</li>
+				<li class="collection-item avatar">
+
+					<!-- location totals -->
+					<div class="row">
+						<div class="col s12 hide-on-med-and-down">
+							<div class="beneficiary-count">
+								<span style="font-size:1.2rem;">
+									<i class="material-icons" style="padding-right:10px;">location_on</i></span>
+									<!-- filter in app/services/ngmHelper.js -->
+									{{ project.definition.target_locations.length | number }} Locations
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s12 card">
+							<div style="padding-top: 10px; padding-left: 40px;">
+							  <table class="bordered responsive-table" ng-show="project.definition.target_locations.length">
+							    <tr style="font-weight: 400">
+							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
+							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
+							      <td ng-if="project.definition.cluster_id === 'health'">Facility Type</td>
+							      <td ng-if="project.definition.cluster_id === 'health'">Facility Name</td>
+							      <td ng-if="project.definition.cluster_id !== 'health'">Location Name</td>
+							    </tr>
+							    <tr ng-repeat="location in project.definition.target_locations track by $index">
+							      <td>
+							        <!-- editable admin1 -->
+							        <span e-placeholder="Select..." editable-select="location.admin1pcode" e-name="admin1pcode" e-form="rowform" e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1" e-required>
+							          {{ project.showAdmin1($data, location) }}
+							        </span>
+							      </td>
+							      <td>
+							        <!-- editable admin2 -->
+							        <span e-placeholder="Select..." editable-select="location.admin2pcode" e-name="admin2pcode" e-form="rowform" e-ng-options="item.admin2pcode as item.admin1name for item in project.lists.admin2" ng-disabled="!location.admin1pcode" e-required>
+							          {{ project.showAdmin2($data, location) }}
+							        </span>
+							      </td>
+							      <td ng-show="project.definition.cluster_id === 'health'">
+							        <!-- editable facility type-->
+							        <span e-placeholder="Select..." editable-select="location.fac_type_id" e-name="fac_type_id" e-form="rowform" e-ng-options="item.fac_type_id as item.fac_type_name for item in project.lists.facility_type" ng-disabled="!location.admin2pcode" e-required>
+							          {{ project.showFacType($data, location) }}
+							        </span>
+							      </td>
+							      <td>
+							        <!-- editable name -->
+							        <span editable-text="location.fac_name" e-name="fac_name" e-form="rowform" e-required>
+							          {{ location.fac_name }}
+							        </span>
+							      </td>
+							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
+							        <!-- form -->
+							        <form editable-form name="rowform" ng-show="rowform.$visible" onshow="project.showForm()" onbeforesave="project.saveLocation()" class="form-buttons form-inline" shown="inserted == insertedLocation">
+							          <button 
+							          		title="Save" type="submit" class="btn waves-effect waves-light save"
+							          		ng-if="rowform.$visible" 
+							          		ng-disabled="project.definition.project_status === 'new' && (
+							          			( !project.project_details_valid() ) ||
+					                    ( !project.activity_type_valid() ) ||
+					                    ( !project.project_donor_valid() ) ||
+					                    ( !project.target_beneficiaries_valid() ) ||
+					                    ( !project.target_locations_valid() ) ||
+					                    ( project.submit )
+					                  ) ||
+					                  project.definition.project_status === 'active' && (
+					                  	( !project.project_details_valid() ) ||
+					                    ( !project.activity_type_valid() ) ||
+					                    ( !project.project_donor_valid() ) ||
+					                    ( !project.target_beneficiaries_valid() ) ||
+					                    ( !project.target_locations_valid() ) ||
+					                    ( project.submit )
+					                  )">
+							            <i class="material-icons">save</i>
+							          </button>
+							          <button type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn blue lighten-1 waves-effect waves-light" title="Cancel Edit">
+													<i class="material-icons">clear</i>
+							          </button>
+							        </form>
+							        <div class="buttons" ng-if="!rowform.$visible">
+							          <button class="btn waves-effect waves-light" ng-click="rowform.$show()" title="Edit">
+													<i class="material-icons">create</i>
+							          </button>
+							          <button class="btn red lighten-2 waves-effect waves-light" ng-click="project.removeLocation( $index )" title="Remove">
+							          	<i class="material-icons">delete</i>
+							          </button>
+							        </div>  
+							      </td>
+							    </tr>
+							  </table>							      
+
+							  <button class="btn" ng-show="project.definition.project_status !== 'complete'" ng-click="project.addLocation()" style="margin:20px 0px;">
+							  	<i class="material-icons left">add</i>Add Row
+							  </button>
+
+							</div>
+
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

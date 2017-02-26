@@ -42,7 +42,7 @@
       <td>Beneficiary</td>
       <td>Delivery</td>
       <td ng-show="project.showSessions()">Sessions</td>
-      <td ng-if="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Families</td>
+      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Families</td>
       <td>Boys</td>
       <td>Girls</td>
       <td>Men</td>
@@ -80,7 +80,7 @@
           {{ beneficiary.sessions }}
         </span>
       </td>
-      <td ng-if="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">
+      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">
         <!-- editable number -->
         <span editable-number="beneficiary.families" e-name="families" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'families', $data )" e-required>
           {{ beneficiary.families }}
@@ -113,7 +113,7 @@
       
       <td style="white-space: nowrap" ng-show="project.report.report_status !== 'complete'">
         <!-- form -->
-        <form editable-form name="rowform" onbeforesave="project.save( false )" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == beneficiary">
+        <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" onbeforesave="project.save( false )" class="form-buttons form-inline" shown="inserted == beneficiary">
           <button type="submit" ng-if="rowform.$visible" ng-disabled="project.rowSaveDisabled(rowform.$data)" class="btn waves-effect waves-light save" title="Save">
             <i class="material-icons">save</i>
           </button>
@@ -133,7 +133,7 @@
     </tr>
   </table>
 
-  <button class="btn" ng-if="project.report.report_status !== 'complete'" ng-click="project.addBeneficiary( $locationIndex )">
+  <button class="btn" ng-show="project.report.report_status !== 'complete'" ng-click="project.addBeneficiary( $locationIndex )">
     <i class="material-icons left">add</i>Add Row
   </button>
 

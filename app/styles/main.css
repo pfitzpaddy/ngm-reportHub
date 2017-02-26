@@ -77,8 +77,10 @@ h1, h2, h3, h4, h5, p {
 	background-color: #ff8a80;
 }
 .toast.note {
-	color: #26a69a;
-	background-color: #e0f2f1;
+	/*color: #26a69a;*/
+	/*background-color: #e0f2f1; */
+	color: #fff;
+	background-color: #4db6ac;
 }
 .toast.success {
 	color: #fff;

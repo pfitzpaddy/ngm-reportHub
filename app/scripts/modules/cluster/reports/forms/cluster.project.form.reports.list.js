@@ -64,28 +64,23 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
           }
         },
 
-        // project donor
-        showDonor: function($data, $budget){
-          var selected = [];
-          $budget.project_donor_id = $data;
-          if($budget.project_donor_id) {
-            selected = $filter('filter')( $scope.project.definition.project_donor, { project_donor_id: $budget.project_donor_id });
-            $budget.project_donor_name = selected[0].project_donor_name;
-          }
-          return selected.length ? selected[0].project_donor_name : 'No Selection!';
+        // cancel
+        cancel: function() {
+          $timeout(function() {
+            $location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
+          }, 100);
         },
 
-        // add budget
-        addBudget: function( $parent ) {
-          // process + clean location
-          $scope.inserted = 
-              ngmClusterHelper.getCleanBudget( ngmUser.get(), $scope.project.definition, $scope.project.budget );
-          $scope.project.definition.project_budget_progress.push( $scope.inserted );
-        },
-
-        // save budget
-        save: function(){
-
+        // save form on enter
+        keydownSaveForm: function(){
+          setTimeout(function(){
+            $('#ngm-project-budget_progress').keydown(function (e) {
+              var keypressed = e.keyCode || e.which;
+              if (keypressed == 13) {
+                $('.save').trigger('click');
+              }
+            });
+          }, 0 );
         },
 
         // save project
@@ -97,54 +92,61 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
 
           // if no progress reporting exists
           if ( !$scope.project.definition.project_budget_progress ) {
-            $scope.project.definition.project_budget_progress = []
+            $scope.project.definition.project_budget_progress = [];
           }
   
           // extend targets with projectn ngmData details & push
           $scope.project.definition.project_budget_progress.unshift( budget );
 
           // Update Project (as project_budget_progress is an association)
-          ngmData.get({
-            method: 'POST',
-            url: 'http://' + $location.host() + '/api/cluster/project/setProject',
-            data: {
-              project: $scope.project.definition
-            }
-          }).then( function( project ){
+          // ngmData.get({
+          //   method: 'POST',
+          //   url: 'http://' + $location.host() + '/api/cluster/project/setProject',
+          //   data: {
+          //     project: $scope.project.definition
+          //   }
+          // }).then( function( project ){
 
-            // reset form
-            $scope.project.budget.project_budget_amount_recieved = 0;            
+              $scope.project.budget.project_budget_amount_recieved = 0;
+              $scope.project.budget.project_budget_date_recieved = moment().format('YYYY-MM-DD');       
             
-            // on success
-            Materialize.toast( 'Project Budget Progress Updated!', 3000, 'success');
+              // on success
+              Materialize.toast( 'Project Budget Progress Added!', 3000, 'success');
 
-          });
+          // });
 
         },
 
         // remove budget item
         removeBudgetItem: function( $index ) {
-
           // remove from
           $scope.project.definition.project_budget_progress.splice( $index, 1 );
-
           // Update 
-          ngmData.get({
-            method: 'POST',
-            url: 'http://' + $location.host() + '/api/cluster/project/setProject',
-            data: {
-              project: $scope.project.definition
-            }
-          }).then( function( project ){
-            
-            // on success
-            Materialize.toast( 'Project Budget Progress Updated!', 3000, 'success');
-
-          });
-
+          // ngmData.get({
+          //   method: 'POST',
+          //   url: 'http://' + $location.host() + '/api/cluster/project/setProject',
+          //   data: {
+          //     project: $scope.project.definition
+          //   }
+          // }).then( function( project ){
+          //   // on success
+          //   Materialize.toast( 'Project Budget Progress Updated!', 3000, 'success');
+          // });
         }
-
+        
       }
+
+      // if one donor
+      $timeout(function(){
+        // keydown of enter to save budget item
+        $scope.project.keydownSaveForm();
+        // default donor
+        if($scope.project.definition.project_donor.length===1){
+          $scope.project.budget.project_donor_id = $scope.project.definition.project_donor[0].project_donor_id
+          $scope.project.budget.project_donor_name = $scope.project.definition.project_donor[0].project_donor_name
+        }
+      }, 0);
+
   }
 
 ]);

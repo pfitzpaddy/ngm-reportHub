@@ -208,38 +208,35 @@ angular.module( 'ngmReportHub' )
 			// get cluster donors
 			getDonors: function() {
 				return [{
-          donor_id: 'dfid',
-          donor_name: 'DFID'
+          project_donor_id: 'dfid',
+          project_donor_name: 'DFID'
         },{
-          donor_id: 'chf',
-          donor_name: 'CHF'
+          project_donor_id: 'chf',
+          project_donor_name: 'CHF'
         },{
-          donor_id: 'echo',
-          donor_name: 'ECHO'
+          project_donor_id: 'echo',
+          project_donor_name: 'ECHO'
         },{
-          donor_id: 'global_fund',
-          donor_name: 'Global Fund'
+          project_donor_id: 'global_fund',
+          project_donor_name: 'Global Fund'
         },{
-          donor_id: 'icrc',
-          donor_name: 'ICRC'
+          project_donor_id: 'icrc',
+          project_donor_name: 'ICRC'
         },{
-          donor_id: 'ifrc',
-          donor_name: 'IFRC'
+          project_donor_id: 'ifrc',
+          project_donor_name: 'IFRC'
         },{
-          donor_id: 'qatar_red_crescent',
-          donor_name: 'Qatar Red Crescent'
+          project_donor_id: 'qatar_red_crescent',
+          project_donor_name: 'Qatar Red Crescent'
         },{
-          donor_id: 'usaid',
-          donor_name: 'USAID'
+          project_donor_id: 'usaid',
+          project_donor_name: 'USAID'
         },{
-          donor_id: 'unicef',
-          donor_name: 'UNICEF'
+          project_donor_id: 'unicef',
+          project_donor_name: 'UNICEF'
         },{
-          donor_id: 'who',
-          donor_name: 'WHO'
-        },{
-          donor_id: 'other',
-          donor_name: 'Other'
+          project_donor_id: 'who',
+          project_donor_name: 'WHO'
         }]
 			},
 
@@ -326,49 +323,49 @@ angular.module( 'ngmReportHub' )
 			getFacilityTypes: function() {
 				// health facility types
 				return [{
-          fac_type: 'RH',
+          fac_type_id: 'RH',
           fac_type_name: 'RH'
         },{
-          fac_type: 'PH',
+          fac_type_id: 'PH',
           fac_type_name: 'PH'
         },{
-          fac_type: 'DH',
+          fac_type_id: 'DH',
           fac_type_name: 'DH'
         },{
-          fac_type: 'CHC',
+          fac_type_id: 'CHC',
           fac_type_name: 'CHC'
         },{
-          fac_type: 'CHC+FATP',
+          fac_type_id: 'CHC+FATP',
           fac_type_name: 'CHC + FATP'
         },{
-          fac_type: 'BHC',
+          fac_type_id: 'BHC',
           fac_type_name: 'BHC'
         },{
-          fac_type: 'BHC+FATP',
+          fac_type_id: 'BHC+FATP',
           fac_type_name: 'BHC + FATP'
         },{
-          fac_type: 'FHH',
+          fac_type_id: 'FHH',
           fac_type_name: 'FHH'
         },{
-          fac_type: 'SHC',
+          fac_type_id: 'SHC',
           fac_type_name: 'SHC'
         },{
-          fac_type: 'MHT',
+          fac_type_id: 'MHT',
           fac_type_name: 'MHT'
         },{
-          fac_type: 'FATP',
+          fac_type_id: 'FATP',
           fac_type_name: 'FATP'
         },{
-          fac_type: 'DATC',
+          fac_type_id: 'DATC',
           fac_type_name: 'DATC'
         },{
-          fac_type: 'rehabilitation_center',
+          fac_type_id: 'rehabilitation_center',
           fac_type_name: 'Rehabilitation Center'
         },{
-          fac_type: 'special_hospital',
+          fac_type_id: 'special_hospital',
           fac_type_name: 'Special Hospital'
         },{
-          fac_type: 'local_committee',
+          fac_type_id: 'local_committee',
           fac_type_name: 'Local Committee'
         }]
 			},
@@ -402,7 +399,9 @@ angular.module( 'ngmReportHub' )
       updateActivities: function( project, update ){
         
         // update activity_type / activity_description
+        update.project_title = project.project_title;
         update.activity_type = project.activity_type;
+        update.beneficiary_type = project.beneficiary_type
         update.activity_description = project.activity_description;
 
         //
@@ -482,6 +481,12 @@ angular.module( 'ngmReportHub' )
         delete beneficiaries.project_budget;
         delete beneficiaries.project_budget_currency;
 
+        // add default
+        if( project.activity_type.length === 1){
+          beneficiaries.activity_type_id = project.activity_type[0].activity_type_id;
+          // $scope.inserted.activity_type_name = project.activity_type[0].activity_type_name;
+        }
+
         // return clean beneficiaries
 				return beneficiaries;
 
@@ -508,6 +513,12 @@ angular.module( 'ngmReportHub' )
         delete beneficiaries.project_donor_check;
         delete beneficiaries.project_budget;
         delete beneficiaries.project_budget_currency;
+
+        // add default
+        if( project.activity_type.length === 1){
+          beneficiaries.activity_type_id = project.activity_type[0].activity_type_id;
+          // $scope.inserted.activity_type_name = project.activity_type[0].activity_type_name;
+        }
 
         // return clean beneficiaries
 				return beneficiaries;
@@ -545,13 +556,16 @@ angular.module( 'ngmReportHub' )
 
 				// remove duplication from merge
         delete budget.id;
-        delete budget.project_description
+        delete budget.project_description;
         delete budget.project_budget_progress;
         delete budget.target_beneficiaries;
         delete budget.target_locations;
         delete budget.activity_description_check;
         delete budget.implementing_partners_checked;
         delete budget.project_donor_check;
+
+        // add donor name
+        budget.project_donor_name = $filter('filter')( project.project_donor, { project_donor_id: budget.project_donor_id });
 
         // return clean budget
 				return budget;

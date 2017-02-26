@@ -123,7 +123,8 @@
 								    <p ng-repeat="a in project.lists.activity_types">
 								      <input type="checkbox" id="activity_{{ a.activity_type_id }}" 
 								      ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
-								      ng-disabled="project.definition.project_status === 'complete'"/>
+								      ng-disabled="project.definition.project_status === 'complete'"
+								      ng-click="project.compileActivityType()"/>
 								      <label for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label>
 								    </p>
 
@@ -137,19 +138,21 @@
 					      		<div style="padding-bottom:35px;"></div>
 
 					      		<p ng-repeat="donor in project.lists.donors">
-								      <input type="checkbox" id="donor_{{ donor.donor_id }}" 
-									      ng-model="project.definition.project_donor_check[ donor.donor_id ]"
-									      ng-disabled="project.definition.project_status === 'complete'"/>
-								      <label for="donor_{{ donor.donor_id }}">{{ donor.donor_name }}</label>
+								      <input type="checkbox" id="donor_{{ donor.project_donor_id }}" 
+									      ng-model="project.definition.project_donor_check[ donor.project_donor_id ]"
+									      ng-disabled="project.definition.project_status === 'complete'"
+									      ng-click="project.compileDonor()"/>
+								      <label for="donor_{{ donor.project_donor_id }}">{{ donor.project_donor_name }}</label>
 					      		</p>
 
 								  </div>
 
 								</div>
 
+								<!-- 
 								<div class="row">
 
-								  <!--  Other Types -->
+								  <!--  Other Types 
 									<div class="input-field col s12 m6"
 												ng-show="project.definition.activity_description_check.other">
 					          <input 
@@ -160,7 +163,7 @@
 					          <label for="ngm-project-activity_description_other">List Other Activity Description</label>
 									</div>
 
-									<!--  Other Donors -->
+									<!--  Other Donors 
 									<div class="input-field col s12 m6"
 												ng-show="project.definition.project_donor_check.other && !project.definition.activity_description_check.other">
 										<p></p>
@@ -177,6 +180,7 @@
 					       	</div>							  
 
 					      </div>
+					      -->
 
 					     </div>
 

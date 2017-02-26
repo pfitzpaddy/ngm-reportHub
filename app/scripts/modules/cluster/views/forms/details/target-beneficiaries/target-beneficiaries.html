@@ -2,11 +2,11 @@
 <div class="row">
 	<div class="col s12 m12 l12">
 		<div class="card">
-			<ul id="project_beneficiaries_form" class="collection with-header">
+			<ul class="collection with-header">
 				
 				<li class="collection-header blue lighten-4">
 					<h5 class="report-work-title">
-						<i class="material-icons left">group</i>Project Target Beneficiaries
+						<i class="material-icons left">group</i>People in Need
 					</h5>
 				</li>
 
@@ -15,11 +15,11 @@
 					<!-- location totals -->
 					<div class="row">
 						<div class="col s12 hide-on-med-and-down">
-							<div class="beneficiary-count right">
+							<div class="beneficiary-count">
 								<span style="font-size:1.2rem;">
 									<i class="material-icons" style="padding-right:10px;">group</i></span>
 									<!-- filter in app/services/ngmHelper.js -->
-									{{ location.beneficiaries | sumArrayByKeys:project.indicators:project.skip | number }}
+									{{ project.definition.target_beneficiaries | sumArrayByKeys:project.indicators:project.skip | number }}
 							</div>
 						</div>
 					</div>
@@ -32,17 +32,17 @@
 							      <td>Activity</td>
 							      <td>Description</td>
 							      <td>Beneficiary</td>
-							      <td ng-if="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Families</td>
+							      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Families</td>
 							      <td>Boys</td>
 							      <td>Girls</td>
 							      <td>Men</td>
 							      <td>Women</td>
-							      <td>Edit</td>
+							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
 							    <tr ng-repeat="beneficiary in project.definition.target_beneficiaries track by $index">
 							      <td>
 							        <!-- editable activity_type from Project -->
-							        <span e-placeholder="Select..." editable-select="beneficiary.activity_type_id" e-name="activity_type_id" e-form="rowform" e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.activity_types">
+							        <span e-placeholder="Select..." editable-select="beneficiary.activity_type_id" e-name="activity_type_id" e-form="rowform" e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type" e-ng-disabled="!project.definition.activity_type.length">
 							          {{ project.showActivity($data, beneficiary) }}
 							        </span>
 							      </td>
@@ -58,9 +58,9 @@
 							          {{ project.showBeneficiary($data, beneficiary) }}
 							        </span>
 							      </td>
-							      <td ng-if="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">
+							      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">
 							        <!-- editable number -->
-							        <span editable-number="beneficiary.families" e-name="families" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'families', $data )" e-required>
+							        <span editable-number="beneficiary.families" e-name="families" e-form="rowform" e-min="0" e-ng-change="project.updateInput($index, 'families', $data )" e-required>
 							          {{ beneficiary.families }}
 							        </span>
 							      </td>
@@ -72,7 +72,7 @@
 							      </td>
 							      <td>
 							        <!-- editable number -->
-							        <span editable-number="beneficiary.girls" e-name="girls" e-form="rowform" e-min="0" e-ng-change="updateInput($index, 'girls', $data )" e-required>
+							        <span editable-number="beneficiary.girls" e-name="girls" e-form="rowform" e-min="0" e-ng-change="project.updateInput($index, 'girls', $data )" e-required>
 							          {{ beneficiary.girls }}
 							        </span>
 							      </td>
@@ -89,10 +89,27 @@
 							        </span>
 							      </td>
 							      
-							      <td style="white-space: nowrap">
+							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
 							        <!-- form -->
-							        <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == beneficiary">
-							          <button type="submit" ng-if="rowform.$visible" ng-disabled="project.rowSaveDisabled(rowform.$data)" class="btn waves-effect waves-light save" title="Save">
+							        <form editable-form name="rowform" ng-show="rowform.$visible" onshow="project.showForm()" onbeforesave="project.saveBeneficiary()" class="form-buttons form-inline" shown="inserted == insertedBeneficiary">
+							          <button 
+							          		title="Save" type="submit" class="btn waves-effect waves-light save"
+							          		ng-if="rowform.$visible" 
+							          		ng-disabled="project.definition.project_status === 'new' && (
+							          			( !project.project_details_valid() ) ||
+					                    ( !project.activity_type_valid() ) ||
+					                    ( !project.project_donor_valid() ) ||
+					                    ( !project.target_beneficiaries_valid() ) ||
+					                    ( project.submit )
+					                  ) ||
+					                  project.definition.project_status === 'active' && (
+					                  	( !project.project_details_valid() ) ||
+					                    ( !project.activity_type_valid() ) ||
+					                    ( !project.project_donor_valid() ) ||
+					                    ( !project.target_beneficiaries_valid() ) ||
+					                    ( !project.target_locations_valid() ) ||
+					                    ( project.submit )
+					                  )">
 							            <i class="material-icons">save</i>
 							          </button>
 							          <button type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn blue lighten-1 waves-effect waves-light" title="Cancel Edit">
@@ -111,7 +128,9 @@
 							    </tr>
 							  </table>
 
-							  <button class="btn" ng-click="project.addBeneficiary()" style="margin:20px 0px;">Add Row</button>
+							  <button class="btn" ng-show="project.definition.project_status !== 'complete'" ng-click="project.addBeneficiary()" style="margin:20px 0px;">
+							  	<i class="material-icons left">add</i>Add Row
+							  </button>
 
 							</div>
 
