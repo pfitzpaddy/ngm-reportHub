@@ -1,14 +1,10 @@
 
 <script>
-  
-  // autofocus project name
-  $( '#ngm-project-name' ).focus();
 
-  // init selects
-  $( 'select' ).material_select();
-
-  // init textarea
+  // init
   setTimeout( function(){
+  	$( '#ngm-project-name' ).focus();
+  	$( 'select' ).material_select();
   	$( 'textarea' ).height( $('textarea')[0].scrollHeight );
   }, 0 );
 
@@ -92,7 +88,6 @@
 								    <select class="validate"
 								    	id="ngm-project_budget_currency"
 								    	ng-model="project.definition.project_budget_currency"
-								    	ng-model-options="{ trackBy: '$value.currency_id' }"
 								    	ng-disabled="project.definition.project_status === 'complete'" 
 											ng-options="currency.currency_id as currency.currency_name for currency in project.lists.currencies"
 								    	required>

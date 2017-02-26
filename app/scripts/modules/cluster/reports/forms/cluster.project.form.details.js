@@ -91,12 +91,30 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           }, 100);
         },
 
+        // add beneficiary
+        addBeneficiary: function() {
+          $scope.inserted = {
+            activity_type_id: null,
+            activity_type_name: null,
+            activity_description_id: null,
+            activity_description_name: null,
+            beneficiary_type_id: null,
+            beneficiary_type_name: null,
+            families: 0, boys: 0, girls: 0, men:0, women:0
+          };
+
+          // process + clean location
+          $scope.inserted = 
+              ngmClusterHelper.getCleanTargetBeneficiaries( $scope.project.definition, $scope.inserted );
+          $scope.project.definition.target_beneficiaries.push( $scope.inserted );
+        },
+
         // display activity
         showActivity: function( $data, $beneficiary ) {
           var selected = [];
           $beneficiary.activity_type_id = $data;
           if($beneficiary.activity_type_id) {
-            selected = $filter('filter')( $scope.project.activity_types, { activity_type_id: $beneficiary.activity_type_id });
+            selected = $filter('filter')( $scope.project.definition.activity_type, { activity_type_id: $beneficiary.activity_type_id });
             $beneficiary.activity_type_name = selected[0].activity_type_name;
           }
           return selected.length ? selected[0].activity_type_name : 'No Selection!';
@@ -124,24 +142,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return selected.length ? selected[0].beneficiary_type_name : 'No Selection!';
         },
 
-        // add beneficiary
-        addBeneficiary: function() {
-          $scope.insertedBeneficiary = {
-            activity_type_id: null,
-            activity_type_name: null,
-            activity_description_id: null,
-            activity_description_name: null,
-            beneficiary_type_id: null,
-            beneficiary_type_name: null,
-            families: 0, boys: 0, girls: 0, men:0, women:0
-          };
-
-          // process + clean location
-          $scope.insertedBeneficiary = 
-              ngmClusterHelper.getCleanTargetBeneficiaries( $scope.project.definition, $scope.insertedBeneficiary );
-          $scope.project.definition.target_beneficiaries.push( $scope.insertedBeneficiary );
-        },
-
         // update inidcators
         updateInput: function( $index, indicator, $data ){
           $scope.project.definition.target_beneficiaries[ $index ][ indicator ] = $data;
@@ -159,68 +159,27 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // save beneficiary
         saveBeneficiary: function() {
-
-
-          // save project?
-
-
-
+          // save project
+          $scope.project.save( false );
+          // message
           $timeout( function(){ Materialize.toast( 'Beneficiaries in Need Added!' , 3000, 'success' ) }, 600 );
-          return [200, {status: 'ok'}];
+          // return [200, {status: 'ok'}];
         },
 
         // remove beneficiary
         removeBeneficiary: function( $index ) {
-
-
-          // save project?
-
-
-
+          // remove
           $scope.project.definition.target_beneficiaries.splice( $index, 1 );
           // save
-          // $scope.project.save( false );
-        },
-
-        showAdmin1: function($data, $location){
-          var selected = [];
-          $location.admin1pcode = $data;
-          console.log($location.admin1pcode)
-          if($location.admin1pcode) {
-            selected = $filter('filter')( $scope.project.lists.admin1, { admin1pcode: $location.admin1pcode });
-            // console.log($location.admin1pcode)
-            // console.log($scope.project.lists.admin1)
-            // console.log(selected)
-            $location.admin1name = selected[0].admin1name;
-          }
-          return selected.length ? selected[0].admin1name : 'No Selection!';
-        },
-
-        // admin2
-        showAdmin2: function($data, $location){
-          var selected = [];
-          $location.admin2pcode = $data;
-          if($location.admin2pcode) {
-            selected = $filter('filter')( $scope.project.lists.admin2, { admin2pcode: $location.admin2pcode });
-            $location.admin2name = selected[0].admin2name;
-          }
-          return selected.length ? selected[0].admin2name : 'No Selection!';
-        },
-
-        // fac_type
-        showFacType: function($data, $location){
-          var selected = [];
-          $location.fac_type_id = $data;
-          if($location.fac_type_id) {
-            selected = $filter('filter')( $scope.project.lists.facility_type, { fac_type_id: $location.fac_type_id });
-            $location.fac_type_name = selected[0].fac_type_name;
-          }
-          return selected.length ? selected[0].fac_type_name : 'No Selection!';
+          $scope.project.save( false );
+          // message
+          $timeout( function(){ Materialize.toast( 'Beneficiaries in Need Removed!' , 3000, 'success' ) }, 600 );
+          // return [200, {status: 'ok'}];
         },
 
         // add location
         addLocation: function() {
-          $scope.insertedLocation = {
+          $scope.inserted = {
             admin1pcode: null,
             admin1name: null,
             admin2pcode: null,
@@ -231,39 +190,81 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           };
 
           // process + clean location 
-          $scope.insertedLocation = 
-              ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.insertedLocation );
-          $scope.project.definition.target_locations.push( $scope.insertedLocation );
+          $scope.inserted = 
+              ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.inserted );  
+          $scope.project.definition.target_locations.push( $scope.inserted );
+        },
+
+        showAdmin1: function($data, $location){
+          var selected = [];
+          $location.admin1pcode = $data;
+          if($location.admin1pcode) {
+            selected = $filter('filter')( $scope.project.lists.admin1, { admin1pcode: $location.admin1pcode });
+            delete selected[0].id;
+            angular.merge($location, selected[0]);
+          }
+          return selected.length ? selected[0].admin1name : 'No Selection!';
+        },
+
+        // admin2
+        showAdmin2: function($data, $location){
+          var selected = [];
+          $location.admin2pcode = $data;
+          if($location.admin2pcode) {
+            selected = $filter('filter')( $scope.project.lists.admin2, { admin2pcode: $location.admin2pcode });
+            delete selected[0].id;
+            angular.merge($location, selected[0]);
+          }
+          return selected.length ? selected[0].admin2name : 'No Selection!';
+        },
+
+        // fac_type
+        showFacType: function($data, $location){
+          var selected = [];
+          $location.fac_type_id = $data;
+          if($location.fac_type_id) {
+            selected = $filter('filter')( $scope.project.lists.facility_type, { fac_type_id: $location.fac_type_id });
+            delete selected[0].id;
+            angular.merge($location, selected[0]);
+          }
+          return selected.length ? selected[0].fac_type_name : 'No Selection!';
+        },
+
+        // fac_name
+        showName: function($data, $location){
+          $location.fac_name = $data;
+          return $location.fac_name ? $location.fac_name : '';
         },
 
         // save location
-        saveLocation: function() {
+        saveLocation: function($index, $data) {
 
+          console.log(JSON.stringify($scope.project.definition.target_locations))
 
-          // save project?
+          // $scope.project.definition.target_locations[$index] = 
+          //       angular.merge($scope.project.definition.target_locations[$index], $data);
 
-
-
+          // save project
+          $scope.project.save( false );
+          // message
           $timeout( function(){ Materialize.toast( 'Project Location Added!' , 3000, 'success' ) }, 600 );
-          return [200, {status: 'ok'}];
+          // return [200, {status: 'ok'}];
         },
 
         // remove location
         removeLocation: function( $index ) {
-
-
-          // save project?
-
-
-
+          // remove
           $scope.project.definition.target_locations.splice( $index, 1 );
           // save
-          // $scope.project.save( false );
+          $scope.project.save( false );
+          // message
+          $timeout( function(){ Materialize.toast( 'Project Location Removed!' , 3000, 'success' ) }, 600 );
+          // return [200, {status: 'ok'}];
         },
 
         // on show form
         showForm: function(){
-          $timeout(function() { window.scrollTo(0,0); }, 100);
+          // $timeout(function() { window.scrollTo(0,0); }, 100);
         },
 
         // add target benficiaries
@@ -452,7 +453,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // save project
-        save: function(){
+        save: function( display_modal ){
 
           // reset to cover updates
           $scope.project.definition.beneficiary_type = [];
@@ -461,28 +462,21 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           // add target_beneficiaries to projects
           angular.forEach( $scope.project.definition.target_beneficiaries, function( b, i ){
-            
             // update target_beneficiaries
             $scope.project.definition.target_beneficiaries[i] = 
                   ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_beneficiaries[i] );
-            
             // add type to project
             $scope.project.definition.beneficiary_type.push( { beneficiary_type_id: b.beneficiary_type_id, beneficiary_type_name: b.beneficiary_type_name } );
-
           });
 
           // add target_locations to projects to ensure simple filters
           angular.forEach( $scope.project.definition.target_locations, function( l, i ){
-            
             // push update activities
             $scope.project.definition.target_locations[i] = 
-                  ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_locations[i] );
-            
+                  ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_locations[i] );            
             // add locations to project
             $scope.project.definition.admin1pcode.push( { admin1pcode: l.admin1pcode, admin1name: l.admin1name } );
             $scope.project.definition.admin2pcode.push( { admin2pcode: l.admin2pcode, admin2name: l.admin2name } );
-
-
           });
 
           // open success modal if valid form
@@ -504,9 +498,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               // enable
               $scope.project.submit = false;
               // add id to client json
-              $scope.project.definition = project;
+              $scope.project.definition = angular.merge({}, $scope.project.definition, project);
               // notification modal
-              $( '#save-modal' ).openModal({ dismissible: false });
+              if(display_modal){
+                $( '#save-modal' ).openModal({ dismissible: false });
+              }
             });
 
           // } else {
@@ -563,7 +559,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           // if activity_type is one set as default
           if( !$scope.project.definition.target_beneficiaries.length ){
-            $scope.project.addBeneficiary();
+            // $scope.project.addBeneficiary();
           }
 
           // add activity type check box list

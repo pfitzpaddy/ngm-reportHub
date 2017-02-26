@@ -70,8 +70,8 @@
 		        <!-- add circle -->
 	      		<div class="col s12 m1" style="padding-top:15px;">
 	      			<button class="waves-effect waves-light btn-floating teal right save" 
-	      					title="Save budget item"
-	      					ng-show="project.definition.project_status !== 'complete'"
+	      					title="Save Budget Item"
+	      					ng-if="project.definition.project_status !== 'complete'"
 	      					ng-click="project.saveBudgetLine()"
 	      					ng-disabled="( !project.budget.project_donor_id ) || ( project.budget.project_budget_amount_recieved < 1 ) || (project.budget.project_budget_amount_recieved > project.definition.project_budget ) ">
 	      					<i class="material-icons">save</i>

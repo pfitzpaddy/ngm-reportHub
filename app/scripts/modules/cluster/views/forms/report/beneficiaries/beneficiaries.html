@@ -7,33 +7,6 @@
 
 </style>
 
-<div class="row">
-	<!-- location title -->
-	<div class="col s12 m9 left">
-  	<!-- health cluster -->
-  	<h5 class="report-location-title" ng-if="project.user.cluster_id === 'health'">
-					<i class="material-icons left" style="color: teal;">location_on</i>
-					{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_type_name }}, {{ location.fac_name }}
-		</h5>
-		<!-- other -->
-  	<h5 class="report-location-title" ng-if="project.user.cluster_id !== 'health'">
-					<i class="material-icons left" style="color: teal;">location_on</i>
-					{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_name }}
-		</h5>
-	</div>
-
-	<!-- location totals -->
-	<div class="col s12 m3 hide-on-med-and-down">
-		<div class="beneficiary-count right">
-			<span style="font-size:1.2rem;">
-				<i class="material-icons" style="padding-right:10px;">group</i></span>
-				<!-- filter in app/services/ngmHelper.js -->
-				{{ location.beneficiaries | sumArrayByKeys:project.indicators:project.skip | number }}
-		</div>
-	</div>
-
-</div>
-
 <div style="padding-left: 20px;">
   <table class="bordered responsive-table" style="margin-bottom:10px;" ng-show="project.report.locations[$locationIndex].beneficiaries.length">
     <tr style="font-weight: 400">
@@ -52,7 +25,7 @@
     <tr ng-repeat="beneficiary in project.report.locations[$locationIndex].beneficiaries track by $index">
       <td>
         <!-- editable activity_type from Project -->
-        <span e-placeholder="Select..." editable-select="beneficiary.activity_type_id" e-name="activity_type_id" e-form="rowform" e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.activity_types">
+        <span e-placeholder="Select..." editable-select="beneficiary.activity_type_id" e-name="activity_type_id" e-form="rowform" e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type">
           {{ project.showActivity($data, beneficiary) }}
         </span>
       </td>

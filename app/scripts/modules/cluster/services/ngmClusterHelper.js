@@ -482,9 +482,9 @@ angular.module( 'ngmReportHub' )
         delete beneficiaries.project_budget_currency;
 
         // add default
-        if( project.activity_type.length === 1){
+        if( project.activity_type && project.activity_type.length === 1){
           beneficiaries.activity_type_id = project.activity_type[0].activity_type_id;
-          // $scope.inserted.activity_type_name = project.activity_type[0].activity_type_name;
+          beneficiaries.activity_type_name = project.activity_type[0].activity_type_name;
         }
 
         // return clean beneficiaries
@@ -515,9 +515,9 @@ angular.module( 'ngmReportHub' )
         delete beneficiaries.project_budget_currency;
 
         // add default
-        if( project.activity_type.length === 1){
+        if( project.activity_type && project.activity_type.length === 1){
           beneficiaries.activity_type_id = project.activity_type[0].activity_type_id;
-          // $scope.inserted.activity_type_name = project.activity_type[0].activity_type_name;
+          beneficiaries.activity_type_name = project.activity_type[0].activity_type_name;
         }
 
         // return clean beneficiaries
@@ -529,11 +529,13 @@ angular.module( 'ngmReportHub' )
 			getCleanTargetLocation: function( project, location ){
 
 				// merge project + admin1 + admin2 + facility
-				var location = angular.merge( {}, project, location.admin2, location.fac_type );
+				var location = angular.merge( {}, project, location );
 
         // remove duplication from merge
         delete location.id;
-        delete location.project_description
+        delete location.menu;
+        delete location.activity_description;
+        delete location.project_description;
         delete location.project_budget_progress;
         delete location.target_beneficiaries;
         delete location.target_locations;

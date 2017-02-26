@@ -99,21 +99,19 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
           $scope.project.definition.project_budget_progress.unshift( budget );
 
           // Update Project (as project_budget_progress is an association)
-          // ngmData.get({
-          //   method: 'POST',
-          //   url: 'http://' + $location.host() + '/api/cluster/project/setProject',
-          //   data: {
-          //     project: $scope.project.definition
-          //   }
-          // }).then( function( project ){
-
-              $scope.project.budget.project_budget_amount_recieved = 0;
-              $scope.project.budget.project_budget_date_recieved = moment().format('YYYY-MM-DD');       
-            
-              // on success
-              Materialize.toast( 'Project Budget Progress Added!', 3000, 'success');
-
-          // });
+          ngmData.get({
+            method: 'POST',
+            url: 'http://' + $location.host() + '/api/cluster/project/setProject',
+            data: {
+              project: $scope.project.definition
+            }
+          }).then( function( project ){
+            // reset form
+            $scope.project.budget.project_budget_amount_recieved = 0;
+            $scope.project.budget.project_budget_date_recieved = moment().format('YYYY-MM-DD');       
+            // on success
+            Materialize.toast( 'Project Budget Progress Added!', 3000, 'success');
+          });
 
         },
 
@@ -122,16 +120,16 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
           // remove from
           $scope.project.definition.project_budget_progress.splice( $index, 1 );
           // Update 
-          // ngmData.get({
-          //   method: 'POST',
-          //   url: 'http://' + $location.host() + '/api/cluster/project/setProject',
-          //   data: {
-          //     project: $scope.project.definition
-          //   }
-          // }).then( function( project ){
-          //   // on success
-          //   Materialize.toast( 'Project Budget Progress Updated!', 3000, 'success');
-          // });
+          ngmData.get({
+            method: 'POST',
+            url: 'http://' + $location.host() + '/api/cluster/project/setProject',
+            data: {
+              project: $scope.project.definition
+            }
+          }).then( function( project ){
+            // on success
+            Materialize.toast( 'Project Budget Progress Updated!', 3000, 'success');
+          });
         }
         
       }

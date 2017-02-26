@@ -58,7 +58,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         titleFormat: moment( config.report.reporting_period ).format('MMMM, YYYY'),
         
         // lists
-        activity_types: config.project.activity_type,
+        // activity_type: config.project.activity_type,
         activity_descriptions: ngmClusterHelper.getActivities( config.project.cluster_id, false ),
         beneficiary_types: ngmClusterHelper.getBeneficiaries( config.project.cluster_id, [] ),
         delivery_types:[{
@@ -74,15 +74,44 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         locationsUrl: 'locations.html',
         beneficiariesUrl: config.report.report_year === 2016 ? 'beneficiaries/2016/beneficiaries.html' : 'beneficiaries/beneficiaries.html',        
         beneficiariesTrainingUrl: 'beneficiaries/2016/beneficiaries-training.html',
-        beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health.html',
+        beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health-2016.html',
         notesUrl: 'notes.html',
+
+        // cancel and delete empty project
+        cancel: function() {
+          // update
+          $timeout(function() {
+            // Re-direct to summary
+            $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
+          }, 200);
+        },
+
+        // add beneficiary
+        addBeneficiary: function( $parent ) {
+          $scope.inserted = {
+            activity_type_id: null,
+            activity_type_name: null,
+            activity_description_id: null,
+            activity_description_name: null,
+            beneficiary_type_id: null,
+            beneficiary_type_name: null,
+            delivery_type_id: null,
+            delivery_type_name: null,
+            sessions: 0, families: 0, boys: 0, girls: 0, men:0, women:0
+          };
+
+          // process + clean location
+          $scope.inserted = 
+              ngmClusterHelper.getCleanBeneficiaries( $scope.project.definition, $scope.project.report, $scope.project.report.locations[ $parent ], $scope.inserted );
+          $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
+        },
 
         // display activity
         showActivity: function( $data, $beneficiary ) {
           var selected = [];
           $beneficiary.activity_type_id = $data;
           if($beneficiary.activity_type_id) {
-            selected = $filter('filter')( $scope.project.activity_types, { activity_type_id: $beneficiary.activity_type_id });
+            selected = $filter('filter')( $scope.project.definition.activity_type, { activity_type_id: $beneficiary.activity_type_id });
             $beneficiary.activity_type_name = selected[0].activity_type_name;
           }
           return selected.length ? selected[0].activity_type_name : 'No Selection!';
@@ -132,26 +161,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             });
           });
           return display;
-        },
-
-        // add beneficiary
-        addBeneficiary: function( $parent ) {
-          $scope.inserted = {
-            activity_type_id: null,
-            activity_type_name: null,
-            activity_description_id: null,
-            activity_description_name: null,
-            beneficiary_type_id: null,
-            beneficiary_type_name: null,
-            delivery_type_id: null,
-            delivery_type_name: null,
-            sessions: 0, families: 0, boys: 0, girls: 0, men:0, women:0
-          };
-
-          // process + clean location
-          $scope.inserted = 
-              ngmClusterHelper.getCleanBeneficiaries( $scope.project.definition, $scope.project.report, $scope.project.report.locations[ $parent ], $scope.inserted );
-          $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
         },
 
         // update inidcators
@@ -219,15 +228,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           } else {
             $scope.project.cancel();
           }
-        },
-
-        // cancel and delete empty project
-        cancel: function() {
-          // update
-          $timeout(function() {
-            // Re-direct to summary
-            $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
-          }, 200);
         },
 
         // save 

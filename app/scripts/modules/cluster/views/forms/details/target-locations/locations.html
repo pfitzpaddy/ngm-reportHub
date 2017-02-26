@@ -6,28 +6,17 @@
 			<ul class="collection with-header">
 				<li class="collection-header blue lighten-4">
 					<h5 class="report-work-title">
-						<i class="material-icons left">location_on</i>Project Target Locations
+						<i class="material-icons left">location_on</i><span class="beneficiary-count">{{ project.definition.target_locations.length | number }}</span> Project Target Locations
 					</h5>
 				</li>
 				<li class="collection-item avatar">
-
-					<!-- location totals -->
-					<div class="row">
-						<div class="col s12 hide-on-med-and-down">
-							<div class="beneficiary-count">
-								<span style="font-size:1.2rem;">
-									<i class="material-icons" style="padding-right:10px;">location_on</i></span>
-									<!-- filter in app/services/ngmHelper.js -->
-									{{ project.definition.target_locations.length | number }} Locations
-							</div>
-						</div>
-					</div>
 
 					<div class="row">
 						<div class="col s12 card">
 							<div style="padding-top: 10px; padding-left: 40px;">
 							  <table class="bordered responsive-table" ng-show="project.definition.target_locations.length">
 							    <tr style="font-weight: 400">
+							    	<td></td>
 							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
 							      <td ng-if="project.definition.cluster_id === 'health'">Facility Type</td>
@@ -35,6 +24,9 @@
 							      <td ng-if="project.definition.cluster_id !== 'health'">Location Name</td>
 							    </tr>
 							    <tr ng-repeat="location in project.definition.target_locations track by $index">
+							    	<td>
+							    		<i class="material-icons" style="color: teal;">location_on</i>
+							    	</td>
 							      <td>
 							        <!-- editable admin1 -->
 							        <span e-placeholder="Select..." editable-select="location.admin1pcode" e-name="admin1pcode" e-form="rowform" e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1" e-required>
@@ -43,7 +35,7 @@
 							      </td>
 							      <td>
 							        <!-- editable admin2 -->
-							        <span e-placeholder="Select..." editable-select="location.admin2pcode" e-name="admin2pcode" e-form="rowform" e-ng-options="item.admin2pcode as item.admin1name for item in project.lists.admin2" ng-disabled="!location.admin1pcode" e-required>
+							        <span e-placeholder="Select..." editable-select="location.admin2pcode" e-name="admin2pcode" e-form="rowform" e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | filter: { admin1pcode: location.admin1pcode }" ng-disabled="!location.admin1pcode" e-required>
 							          {{ project.showAdmin2($data, location) }}
 							        </span>
 							      </td>
@@ -56,12 +48,13 @@
 							      <td>
 							        <!-- editable name -->
 							        <span editable-text="location.fac_name" e-name="fac_name" e-form="rowform" e-required>
-							          {{ location.fac_name }}
+							        	{{ project.showName($data, location) }}
+							          <!-- {{ location.fac_name }} -->
 							        </span>
 							      </td>
 							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
 							        <!-- form -->
-							        <form editable-form name="rowform" ng-show="rowform.$visible" onshow="project.showForm()" onbeforesave="project.saveLocation()" class="form-buttons form-inline" shown="inserted == insertedLocation">
+							        <form editable-form name="rowform" ng-show="rowform.$visible" onshow="project.showForm()" onbeforesave="project.saveLocation($index, $data)" class="form-buttons form-inline" shown="inserted == location">
 							          <button 
 							          		title="Save" type="submit" class="btn waves-effect waves-light save"
 							          		ng-if="rowform.$visible" 

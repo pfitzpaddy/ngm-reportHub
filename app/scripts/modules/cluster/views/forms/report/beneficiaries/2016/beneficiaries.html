@@ -28,22 +28,14 @@
 
 					      	<div class="row">
 
-					      		<div class="input-field col s12 m3">
+					      		<div class="input-field col s12 m10">
 						          <input id="ngm-project-category-{{ $parent.$index }}-{{ $index }}" type="text" class="validate beneficiary-title"
 						          	ng-model="beneficiary.beneficiary_name"
 						          	disabled>
 						          <label for="ngm-project-category-{{ $parent.$index }}-{{ $index }}">Beneficaries</label>
 					      		</div>
 
-					      		<div class="col s12 m8">
-					      			<div class="beneficiary-count right">
-					      				<span style="font-size:1.4rem;"><i class="material-icons" style="padding-right:20px; padding-top:10px;">group</i>Actual Total</span>
-					      					<!-- filter in app/services/ngmHelper.js -->
-					      					{{ project.report.locations[$parent.$index].beneficiaries[$index] | sumByKeys:project.indicators:project.skip | number }}
-					      			</div>
-									  </div>
-
-					      		<div class="col s12 m1" style="padding-top:3px;">
+					      		<div class="col s12 m2" style="padding-top:3px;">
 					      			<div class="btn-floating waves-effect waves-light red lighten-2 right" 
 					      					title="Remove Beneficiary {{ beneficiary.beneficiary_name }}"
 					      					ng-show="project.report.report_status !== 'complete'"

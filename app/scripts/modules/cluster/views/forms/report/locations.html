@@ -27,7 +27,7 @@
 
 							<div class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
 	      					title="Edit {{ project.titleFormat }}"
-	      					ng-show="project.report.report_status === 'complete'"
+	      					ng-show="project.report.report_year !== 2016 && project.report.report_status === 'complete'"
 	      					ng-click="project.save(false)">
 	      					<i class="material-icons left">create</i>Edit Report
 	      			</div>
@@ -35,6 +35,35 @@
 						</div>
 
 						<div class="row" ng-repeat="location in project.report.locations" ng-init="$locationIndex=$index">						
+
+
+							<div class="row">
+								<!-- location title -->
+								<div class="col s12 m9 left">
+							  	<!-- health cluster -->
+							  	<h5 class="report-location-title" ng-if="project.user.cluster_id === 'health'">
+												<i class="material-icons left" style="color: teal;">location_on</i>
+												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_type_name }}, {{ location.fac_name }}
+									</h5>
+									<!-- other -->
+							  	<h5 class="report-location-title" ng-if="project.user.cluster_id !== 'health'">
+												<i class="material-icons left" style="color: teal;">location_on</i>
+												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_name }}
+									</h5>
+								</div>
+
+								<!-- location totals -->
+								<div class="col s12 m3 hide-on-med-and-down">
+									<div class="beneficiary-count right">
+										<span style="font-size:1.2rem;">
+											<i class="material-icons" style="padding-right:10px;">group</i></span>
+											<!-- filter in app/services/ngmHelper.js -->
+											{{ location.beneficiaries | sumArrayByKeys:project.indicators:project.skip | number }}
+									</div>
+								</div>
+
+							</div>
+
 
 							<!-- Project beneficiaries details -->
 							<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesUrl"></div>

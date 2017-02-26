@@ -6,29 +6,18 @@
 				
 				<li class="collection-header blue lighten-4">
 					<h5 class="report-work-title">
-						<i class="material-icons left">group</i>People in Need
+						<i class="material-icons left">group</i><span class="beneficiary-count">{{ project.definition.target_beneficiaries | sumArrayByKeys:project.indicators:project.skip | number }}</span> People in Need
 					</h5>
 				</li>
 
 				<li class="collection-item avatar">
-
-					<!-- location totals -->
-					<div class="row">
-						<div class="col s12 hide-on-med-and-down">
-							<div class="beneficiary-count">
-								<span style="font-size:1.2rem;">
-									<i class="material-icons" style="padding-right:10px;">group</i></span>
-									<!-- filter in app/services/ngmHelper.js -->
-									{{ project.definition.target_beneficiaries | sumArrayByKeys:project.indicators:project.skip | number }}
-							</div>
-						</div>
-					</div>
 
 					<div class="row">
 						<div class="col s12 card">
 							<div style="padding-top: 10px; padding-left: 40px;">
 							  <table class="bordered responsive-table" ng-show="project.definition.target_beneficiaries.length">
 							    <tr style="font-weight: 400">
+							    	<td></td>
 							      <td>Activity</td>
 							      <td>Description</td>
 							      <td>Beneficiary</td>
@@ -40,6 +29,9 @@
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
 							    <tr ng-repeat="beneficiary in project.definition.target_beneficiaries track by $index">
+							    	<td>
+							    		<i class="material-icons" style="color: #616161;">group</i>
+							    	</td>
 							      <td>
 							        <!-- editable activity_type from Project -->
 							        <span e-placeholder="Select..." editable-select="beneficiary.activity_type_id" e-name="activity_type_id" e-form="rowform" e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type" e-ng-disabled="!project.definition.activity_type.length">
@@ -91,7 +83,7 @@
 							      
 							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
 							        <!-- form -->
-							        <form editable-form name="rowform" ng-show="rowform.$visible" onshow="project.showForm()" onbeforesave="project.saveBeneficiary()" class="form-buttons form-inline" shown="inserted == insertedBeneficiary">
+							        <form editable-form name="rowform" ng-show="rowform.$visible" onshow="project.showForm()" onbeforesave="project.saveBeneficiary()" class="form-buttons form-inline" shown="inserted == beneficiary">
 							          <button 
 							          		title="Save" type="submit" class="btn waves-effect waves-light save"
 							          		ng-if="rowform.$visible" 
