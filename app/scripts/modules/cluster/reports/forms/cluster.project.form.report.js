@@ -196,7 +196,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // save form on enter
         keydownSaveForm: function(){
-
           setTimeout(function(){
             $('.editable-input').keydown(function (e) {
               var keypressed = e.keyCode || e.which;

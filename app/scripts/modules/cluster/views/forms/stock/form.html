@@ -40,7 +40,7 @@
 </div>
 
 <!-- report form -->
-<form name="clusterStockForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
+<div name="clusterStockForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
 
 	<fieldset ng-disabled="
 		report.report.organization !== report.user.organization && report.user.roles.indexOf('ADMIN') === -1
@@ -63,11 +63,8 @@
 						<button data-target="save-modal" class="waves-effect waves-light btn"
 							ng-click="report.save( false )"
 							ng-disabled="
-										( clusterStockForm.$pristine ) ||
-										( clusterStockForm.$invalid ) ||
 										( !report.formComplete() ) ||
-										( report.report.submit ) ||
-										( clusterStockForm.$submitted && clusterStockForm.$invalid )"
+										( report.report.submit )"
 							ng-cloak><i class="material-icons right">send</i>Save</button>
 
 						<!-- cancel new -->
@@ -93,5 +90,5 @@
 		
 	</fieldset>
 
-</form>
+</div>
 

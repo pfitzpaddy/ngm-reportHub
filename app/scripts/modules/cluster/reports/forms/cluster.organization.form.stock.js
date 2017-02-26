@@ -35,22 +35,14 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
         // user
         user: ngmUser.get(),
-
         // app style
         style: config.style,
-
         // project
         organization: config.organization,
-
         // report
         report: config.report,
-
-        // validation
-        validationNames: { number_in_stock:0, number_in_pipeline:0, beneficiaries_covered:0 },
-
         // last update
         updatedAt: moment( config.report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ),
-
         // last update
         titleFormat: moment( config.report.reporting_period ).format('MMMM, YYYY'),
 
@@ -60,74 +52,103 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         stockUrl: 'stock.html',
         notesUrl: 'notes.html',
 
-        // holder for UI options
-        options: {
-          list: {
-            // get default stocks
-            stocks: ngmClusterHelper.getStocks( config.organization.cluster_id, [] )
-          },
-          stocks: []
+        // lists
+        lists: {
+          stocks: ngmClusterHelper.getStocks( config.organization.cluster_id, [] )
+        },
+
+        // cancel and delete empty project
+        cancel: function() {
+          // update
+          $timeout(function() {
+            // Re-direct to summary
+            $location.path( '/cluster/stocks/');
+          }, 200);
         },
 
         // add stock
-        addStock: function( $index ) {
-
-          // init load is null
-          if ( $scope.report.options.stocks[ $index ] ) {
-            
-            // process + clean location
-            var stocks = 
-                ngmClusterHelper.getCleanStocks( $scope.report.report, $scope.report.report.stocklocations[ $index ], $scope.report.options.stocks[ $index ] );
-
-            // push to stocks
-            $scope.report.report.stocklocations[ $index ].stocks.push( stocks );
-
-            // clear selection
-            $scope.report.options.stocks[ $index ] = {};
-
-            // filter / sort stocks
-            $scope.report.options.list.stocks[ $index ]
-                = ngmClusterHelper.getStocks( $scope.report.organization.cluster_id, $scope.report.report.stocklocations[ $index ].stocks );
-
-            // update material select
-            ngmClusterHelper.updateSelect();
-
-          }
-
+        addStock: function( $parent ) {
+          $scope.inserted = {
+            stock_item_type: null,
+            stock_item_name: null,
+            number_in_stock:0, number_in_pipeline:0, beneficiaries_covered:0
+          };
+          // process + clean location
+          $scope.inserted = 
+              ngmClusterHelper.getCleanStocks( $scope.report.report, $scope.report.report.stocklocations[ $parent ], $scope.inserted );
+          $scope.report.report.stocklocations[ $parent ].stocks.push( $scope.inserted );
         },
+
+        // show stock type
+        showStockType: function( $data, $stock ){
+          var selected = [];
+          $stock.stock_item_type = $data;
+          if($stock.stock_item_type) {
+            selected = $filter('filter')( $scope.report.lists.stocks, { stock_item_type: $stock.stock_item_type });
+            $stock.stock_item_name = selected[0].stock_item_name;
+          }
+          return selected.length ? selected[0].stock_item_type : 'No Selection!';
+        },
+
+        // update inidcators
+        updateInput: function( $parent, $index, indicator, $data ){
+          $scope.report.report.stocklocations[$parent].stocks[ $index ][ indicator ] = $data;
+        },
+
+        // disable save form
+        rowSaveDisabled: function( $data ){
+          var disabled = true;
+          if ( $data.stock_item_type &&
+                $data.number_in_stock >= 0 && $data.number_in_pipeline >= 0 && $data.beneficiaries_covered >= 0 ) {
+              disabled = false;
+          }
+          return disabled;
+        },
+
+        // save form on enter
+        keydownSaveForm: function(){
+          setTimeout(function(){
+            $('.editable-input').keydown(function (e) {
+              var keypressed = e.keyCode || e.which;
+              if (keypressed == 13) {
+                $('.save').trigger('click');
+              }
+            });
+          }, 0 );
+        },
+
+        // add stock
+        // addStock: function( $index ) {
+
+        //   // init load is null
+        //   if ( $scope.report.options.stocks[ $index ] ) {
+            
+        //     // process + clean location
+        //     var stocks = 
+        //         ngmClusterHelper.getCleanStocks( $scope.report.report, $scope.report.report.stocklocations[ $index ], $scope.report.options.stocks[ $index ] );
+
+        //     // push to stocks
+        //     $scope.report.report.stocklocations[ $index ].stocks.push( stocks );
+
+        //     // clear selection
+        //     $scope.report.options.stocks[ $index ] = {};
+
+        //     // filter / sort stocks
+        //     $scope.report.options.list.stocks[ $index ]
+        //         = ngmClusterHelper.getStocks( $scope.report.organization.cluster_id, $scope.report.report.stocklocations[ $index ].stocks );
+
+        //     // update material select
+        //     ngmClusterHelper.updateSelect();
+
+        //   }
+
+        // },
 
         // remove stocks
         removeStock: function( $parent, $index ) {
-
-          // remove location at i
-          $scope.report.report.stocklocations[ $parent ].stocks.splice( $scope.report.report.stocklocations[ $parent ].stocks.length-1 - $index, 1 );
-
-          // filter / sort
-          $scope.report.options.list.stocks[ $parent ]
-              = ngmClusterHelper.getStocks( $scope.report.organization.cluster_id, $scope.report.report.stocklocations[ $parent].stocks );
-
-          // update material select
-          ngmClusterHelper.updateSelect();
-          
-        },
-
-        // when the user wishes to update form
-        editReport: function(){
-
-          // set report to 'todo'
-          $scope.report.report.report_status = 'todo';
-
-          // using jquery to combat Materialize form classes! Needs a better solution
-          for ( var name in $scope.report.validationNames ) {
-            console.log(name);
-            // update classes
-            $( 'input[name="' + name + '"]' ).removeClass( 'ng-untouched' ).addClass( 'ng-touched' );
-            $( 'input[name="' + name + '"]' ).removeClass( 'invalid' ).addClass( 'valid' );
-            // if textarea
-            $( 'textarea[name="' + name + '"]' ).removeClass( 'ng-untouched' ).addClass( 'ng-touched' );
-            $( 'textarea[name="' + name + '"]' ).removeClass( 'invalid' ).addClass( 'valid' );            
-          }
-
+          $scope.report.report.stocklocations[ $parent ].stocks.splice( $index, 1 );
+          // save
+          $scope.project.save( false );
         },
 
         // cofirm exit if changes
@@ -144,36 +165,15 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
         // determine if all locations containt at least one beneficiaries details 
         formComplete: function() {
-
-          var valid = true;
-
-          // for each locations
-          angular.forEach( $scope.report.report.stocklocations, function( l, i ){
-
-            // check beneficiaries length
-            if ( !l.stocks.length ) {
-              // if no beneficiaries for one loaction then not valid
-              valid = false;
-
-            }
-
+          var valid = false;
+          angular.forEach( $scope.report.report.stocklocations, function( l ){
+            angular.forEach( l.stocks, function( b ){
+              if ( !$scope.report.rowSaveDisabled( b ) ) {
+                valid = true;
+              }
+            });
           });
-
           return valid;
-
-        },
-
-        // cancel and delete empty project
-        cancel: function() {
-          
-          // update
-          $timeout(function() {
-
-            // Re-direct to summary
-            $location.path( '/cluster/stocks/');
-
-          }, 200);
-
         },
 
         // save 
@@ -239,28 +239,6 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         }        
 
       }
-
-      // on page load
-      angular.element( document ).ready(function () {
-
-        // give a few seconds to render
-        $timeout(function() {
-
-          // filter beneficiaries
-          angular.forEach( $scope.report.report.stocklocations, function( l, i ) {
-
-            // filter / sort beneficiaries
-            $scope.report.options.list.stocks[ i ]
-                = ngmClusterHelper.getStocks( $scope.report.organization.cluster_id, $scope.report.report.stocklocations[ i ].stocks );
-
-            // update select
-            ngmClusterHelper.updateSelect();
-
-          });
-
-        }, 1000);
-
-      });
   }
 
 ]);

@@ -34,17 +34,24 @@
 
 						</div>
 
-						<div class="row" ng-repeat="location in report.report.stocklocations track by $index">
+						<div class="row" ng-repeat="location in report.report.stocklocations" ng-init="$locationIndex=$index">
 
 							<div class="row" id="ngm-health-locations-{{ $index }}">
-								<div class="col s12 left">
+								<div class="col s12 m6 left">
 						    	<h5 class="report-location-title">
 												<i class="material-icons left" style="color: teal;">location_on</i>
 												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_name }}
 									</h5>
 								</div>
-
-							</div>						
+								<!-- location totals -->
+								<div class="col s12 m6 hide-on-med-and-down">
+									<div class="beneficiary-count right">
+			      				<span style="font-size:1.4rem;"><i class="material-icons" style="padding-right:20px; padding-top:10px;">group</i>Beneficiaries Covered</span>
+											<!-- filter in app/services/ngmHelper.js -->
+											{{ report.report.stocklocations[$locationIndex].stocks | sumByKey:'beneficiaries_covered' | number }}
+									</div>
+								</div>
+							</div>			
 
 							<!-- Project beneficiaries details -->
 							<div class="slide-animate" ng-include="report.templatesUrl + report.stocksUrl"></div>

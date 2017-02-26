@@ -238,12 +238,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // save location
         saveLocation: function($index, $data) {
-
-          console.log(JSON.stringify($scope.project.definition.target_locations))
-
-          // $scope.project.definition.target_locations[$index] = 
-          //       angular.merge($scope.project.definition.target_locations[$index], $data);
-
           // save project
           $scope.project.save( false );
           // message
@@ -266,84 +260,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         showForm: function(){
           // $timeout(function() { window.scrollTo(0,0); }, 100);
         },
-
-        // add target benficiaries
-        // addTargetBeneficiary: function() {
-
-        //   // process + clean location 
-        //   var target_beneficiaries = 
-        //       ngmClusterHelper.getCleanTargetBeneficiaries( $scope.project.definition, $scope.project.indicators, $scope.project.options.target_beneficiaries );
-
-        //   // 
-        //   target_beneficiaries.beneficiary_type = 'conflict_idps';
-        //   target_beneficiaries.beneficiary_name = 'Conflict IDPs';
-
-        //   // add target_beneficiaries
-        //   $scope.project.definition.target_beneficiaries.unshift( target_beneficiaries );
-
-        //   // clear selection
-        //   $scope.project.options.target_beneficiaries = {};
-
-        //   // filter / sort target_beneficiaries
-        //   $scope.project.options.list.beneficiaries 
-        //       = ngmClusterHelper.getBeneficiaries( $scope.project.definition.cluster_id, $scope.project.definition.target_beneficiaries );
-
-        //   // update material select
-        //   ngmClusterHelper.updateSelect();
-
-        // },
-
-        // // remove target beneficiary
-        // removeTargetBeneficiary: function( $index ) {
-
-        //   // remove location at i
-        //   $scope.project.definition.target_beneficiaries.splice( $index, 1 );
-
-        //   // filter / sort
-        //   $scope.project.options.list.beneficiaries 
-        //       = ngmClusterHelper.getBeneficiaries( $scope.project.definition.cluster_id, $scope.project.definition.target_beneficiaries );
-
-        //   // update material select
-        //   ngmClusterHelper.updateSelect();
-
-        // },
-
-        // // add location
-        // addLocation: function(){
-
-        //   // process + clean location 
-        //   var location = 
-        //       ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.project.options.location );
-
-        //   // extend targets with project, ngmData details & push
-        //   $scope.project.definition.target_locations.push( location );
-
-        //   // reset
-        //   $scope.project.options.location = {};
-
-        //   // update material select
-        //   ngmClusterHelper.updateSelect();
-
-        // },
-
-        // // remove location from location list
-        // removeLocationModal: function( $index ) {
-
-        //   // set location index
-        //   $scope.project.locationIndex = $scope.project.definition.target_locations.length-1 - $index;
-
-        //   // open confirmation modal
-        //   $('#location-modal').openModal({ dismissible: false });
-
-        // },
-
-        // // confirm locaiton remove
-        // removeLocation: function() {
-
-        //   // remove location at i
-        //   $scope.project.definition.target_locations.splice( $scope.project.locationIndex, 1 );
-
-        // },
 
         // validate project type
         project_details_valid: function () {
