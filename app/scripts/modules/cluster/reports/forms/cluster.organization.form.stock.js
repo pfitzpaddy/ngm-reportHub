@@ -176,6 +176,11 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           return valid;
         },
 
+        // enable edit report
+        editReport: function(){
+          $scope.report.report.report_status = 'todo';
+        },
+
         // save 
         save: function( complete ) {
 

@@ -54,7 +54,7 @@
 							      </td>
 							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
 							        <!-- form -->
-							        <form editable-form name="rowform" ng-show="rowform.$visible" onshow="project.showForm()" onbeforesave="project.saveLocation($index, $data)" class="form-buttons form-inline" shown="inserted == location">
+							        <form editable-form name="rowform" ng-show="rowform.$visible" onbeforesave="project.saveLocation($index, $data)" class="form-buttons form-inline" shown="inserted == location">
 							          <button 
 							          		title="Save" type="submit" class="btn waves-effect waves-light save"
 							          		ng-if="rowform.$visible" 
@@ -84,7 +84,7 @@
 							          <button class="btn waves-effect waves-light" ng-click="rowform.$show()" title="Edit">
 													<i class="material-icons">create</i>
 							          </button>
-							          <button class="btn red lighten-2 waves-effect waves-light" ng-click="project.removeLocation( $index )" title="Remove">
+							          <button class="btn red lighten-2 waves-effect waves-light" ng-click="project.removeLocationModal( $index )" title="Remove">
 							          	<i class="material-icons">delete</i>
 							          </button>
 							        </div>  

@@ -101,7 +101,7 @@
 							<a class="waves-effect waves-light btn-floating red lighten-2 right"
 					      	title="Remove budget item for {{ budget.project_budget_date_recieved | date:'longDate' }}"
 					      	ng-if="project.definition.project_status !== 'complete'"
-					      	ng-click="project.removeBudgetItem( $index )"><i class="material-icons">clear</i>
+					      	ng-click="project.removeBudgetModal( $index )"><i class="material-icons">clear</i>
 					     </a>
 						</div>
 					</div>

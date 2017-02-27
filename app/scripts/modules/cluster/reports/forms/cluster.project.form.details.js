@@ -162,18 +162,26 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // save project
           $scope.project.save( false );
           // message
-          $timeout( function(){ Materialize.toast( 'Beneficiaries in Need Added!' , 3000, 'success' ) }, 600 );
+          $timeout( function(){ Materialize.toast( 'People in Need Added!' , 3000, 'success' ) }, 600 );
           // return [200, {status: 'ok'}];
         },
 
+        // remove location from location list
+        removeBeneficiaryModal: function( $index ) {
+          // set location index
+          $scope.project.beneficiaryIndex = $index;
+          // open confirmation modal
+          $( '#beneficiary-modal' ).openModal({ dismissible: false });
+        },
+
         // remove beneficiary
-        removeBeneficiary: function( $index ) {
+        removeBeneficiary: function() {
           // remove
-          $scope.project.definition.target_beneficiaries.splice( $index, 1 );
+          $scope.project.definition.target_beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
           // save
           $scope.project.save( false );
           // message
-          $timeout( function(){ Materialize.toast( 'Beneficiaries in Need Removed!' , 3000, 'success' ) }, 600 );
+          $timeout( function(){ Materialize.toast( 'People in Need Removed!' , 3000, 'success' ) }, 600 );
           // return [200, {status: 'ok'}];
         },
 
@@ -245,20 +253,23 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // return [200, {status: 'ok'}];
         },
 
+        // remove location from location list
+        removeLocationModal: function( $index ) {
+          // set location index
+          $scope.project.locationIndex = $index;
+          // open confirmation modal
+          $( '#location-modal' ).openModal({ dismissible: false });
+        },
+
         // remove location
-        removeLocation: function( $index ) {
+        removeLocation: function() {
           // remove
-          $scope.project.definition.target_locations.splice( $index, 1 );
+          $scope.project.definition.target_locations.splice( $scope.project.locationIndex, 1 );
           // save
           $scope.project.save( false );
           // message
           $timeout( function(){ Materialize.toast( 'Project Location Removed!' , 3000, 'success' ) }, 600 );
           // return [200, {status: 'ok'}];
-        },
-
-        // on show form
-        showForm: function(){
-          // $timeout(function() { window.scrollTo(0,0); }, 100);
         },
 
         // validate project type

@@ -187,9 +187,18 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           return disabled;
         },
 
+        // remove location from location list
+        removeBeneficiaryModal: function( $parent, $index ) {
+          // set location index
+          $scope.project.locationIndex = $parent;
+          $scope.project.beneficiaryIndex = $index;
+          // open confirmation modal
+          $( '#beneficiary-modal' ).openModal({ dismissible: false });
+        },
+
         // remove beneficiary
-        removeBeneficiary: function( $parent, $index ) {
-          $scope.project.report.locations[ $parent ].beneficiaries.splice( $index, 1 );
+        removeBeneficiary: function() {
+          $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
           // save
           $scope.project.save( false );
         },

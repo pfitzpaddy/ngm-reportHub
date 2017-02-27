@@ -37,10 +37,21 @@
   </div>
 </div>
 
+<div id="beneficiary-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">group</i>Remove People in Need</h4>
+    <p>Are you sure you want to remove this Target Beneficiary from your project?</p>
+  </div>
+  <div class="modal-footer">
+  	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="project.removeBeneficiary()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, remove location!</a>
+  </div>
+</div>
+
 <div id="location-modal" class="modal">
   <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Remove Project Location</h4>
-    <p>Are you sure you want to remove this location from your project?</p>
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">location_on</i>Remove Project Location</h4>
+    <p>Are you sure you want to remove this Target Location from your project?</p>
     <p>This will effect any existing monthly beneficiary reports</p>
   </div>
   <div class="modal-footer">

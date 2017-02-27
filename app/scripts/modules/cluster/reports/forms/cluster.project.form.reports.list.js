@@ -115,10 +115,17 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
 
         },
 
+        // remove notification
+        removeBudgetModal: function( $index ) {
+          $scope.project.budgetIndex = $index;
+          // open confirmation modal
+          $( '#budget-modal' ).openModal({ dismissible: false });
+        },
+
         // remove budget item
-        removeBudgetItem: function( $index ) {
+        removeBudgetItem: function() {
           // remove from
-          $scope.project.definition.project_budget_progress.splice( $index, 1 );
+          $scope.project.definition.project_budget_progress.splice( $scope.project.budgetIndex, 1 );
           // Update 
           ngmData.get({
             method: 'POST',
