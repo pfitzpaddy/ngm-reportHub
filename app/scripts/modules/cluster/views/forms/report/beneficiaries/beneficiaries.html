@@ -10,19 +10,35 @@
 <div style="padding-left: 20px;">
   <table class="bordered responsive-table" style="margin-bottom:10px;" ng-show="project.report.locations[$locationIndex].beneficiaries.length">
     <tr style="font-weight: 400">
+      <td>Category</td>
+      <td>Beneficiary</td>
       <td>Activity</td>
       <td>Description</td>
-      <td>Beneficiary</td>
       <td>Delivery</td>
       <td ng-show="project.showSessions()">Sessions</td>
+      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Households</td>
       <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Families</td>
       <td>Boys</td>
       <td>Girls</td>
       <td>Men</td>
       <td>Women</td>
+      <td>Eld. Men</td>
+      <td>Eld. Women</td>      
       <td ng-show="project.report.report_status !== 'complete'">Edit</td>
     </tr>
     <tr ng-repeat="beneficiary in project.report.locations[$locationIndex].beneficiaries track by $index">
+      <td>
+        <!-- editable group (select-remote) -->
+        <span e-placeholder="Select..." editable-select="beneficiary.category_type_id" e-name="category_type_id" e-form="rowform" e-ng-options="b.category_type_id as b.category_type_name for b in project.category_types">
+          {{ project.showCategory($data, beneficiary) }}
+        </span>
+      </td>
+      <td>
+        <!-- editable group (select-remote) -->
+        <span e-placeholder="Select..." editable-select="beneficiary.beneficiary_type_id" e-name="beneficiary_type_id" e-form="rowform" e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.beneficiary_types | filter: { category_type_id: beneficiary.category_type_id }"  e-ng-disabled="!beneficiary.category_type_id">
+          {{ project.showBeneficiary($data, beneficiary) }}
+        </span>
+      </td>
       <td>
         <!-- editable activity_type from Project -->
         <span e-placeholder="Select..." editable-select="beneficiary.activity_type_id" e-name="activity_type_id" e-form="rowform" e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type">
@@ -37,13 +53,7 @@
       </td>
       <td>
         <!-- editable group (select-remote) -->
-        <span e-placeholder="Select..." editable-select="beneficiary.beneficiary_type_id" e-name="beneficiary_type_id" e-form="rowform" e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.beneficiary_types"  e-ng-disabled="!beneficiary.activity_description_id">
-          {{ project.showBeneficiary($data, beneficiary) }}
-        </span>
-      </td>
-      <td>
-        <!-- editable group (select-remote) -->
-        <span e-placeholder="Select..." editable-select="beneficiary.delivery_type_id" e-name="delivery_type_id" e-form="rowform" e-ng-options="b.delivery_type_id as b.delivery_type_name for b in project.delivery_types"  e-ng-disabled="!beneficiary.beneficiary_type_id">
+        <span e-placeholder="Select..." editable-select="beneficiary.delivery_type_id" e-name="delivery_type_id" e-form="rowform" e-ng-options="b.delivery_type_id as b.delivery_type_name for b in project.delivery_types"  e-ng-disabled="!beneficiary.activity_description_id">
           {{ project.showDelivery($data, beneficiary) }}
         </span>
       </td>
@@ -51,6 +61,12 @@
         <!-- editable number -->
         <span editable-number="beneficiary.sessions" e-name="sessions" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'sessions', $data )" e-ng-disabled="project.rowSessionsDisabled( beneficiary )" e-required>
           {{ beneficiary.sessions }}
+        </span>
+      </td>
+      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">
+        <!-- editable number -->
+        <span editable-number="beneficiary.households" e-name="households" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'households', $data )" e-required>
+          {{ beneficiary.households }}
         </span>
       </td>
       <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">
@@ -67,7 +83,7 @@
       </td>
       <td>
         <!-- editable number -->
-        <span editable-number="beneficiary.girls" e-name="girls" e-form="rowform" e-min="0" e-ng-change="updateInput($locationIndex, $index, 'girls', $data )" e-required>
+        <span editable-number="beneficiary.girls" e-name="girls" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'girls', $data )" e-required>
           {{ beneficiary.girls }}
         </span>
       </td>
@@ -83,24 +99,36 @@
           {{ beneficiary.women }}
         </span>
       </td>
+      <td>
+        <!-- editable number -->
+        <span editable-number="beneficiary.elderly_men" e-name="elderly_men" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'elderly_men', $data )" e-required>
+          {{ beneficiary.elderly_men }}
+        </span>
+      </td>
+      <td>
+        <!-- editable number -->
+        <span editable-number="beneficiary.elderly_women" e-name="elderly_women" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'elderly_women', $data )" e-required>
+          {{ beneficiary.elderly_women }}
+        </span>
+      </td>
       
       <td style="white-space: nowrap" ng-show="project.report.report_status !== 'complete'">
         <!-- form -->
         <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" onbeforesave="project.save( false )" class="form-buttons form-inline" shown="inserted == beneficiary">
-          <button type="submit" ng-if="rowform.$visible" ng-disabled="project.rowSaveDisabled(rowform.$data)" class="btn waves-effect waves-light save" title="Save">
+          <button type="submit" ng-if="rowform.$visible" ng-disabled="project.rowSaveDisabled(rowform.$data)" class="btn btn-small waves-effect waves-light save" title="Save">
             <i class="material-icons">save</i>
           </button>
-          <button type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn blue lighten-1 waves-effect waves-light" title="Cancel Edit">
+          <div type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-small blue lighten-1 waves-effect waves-light" title="Cancel Edit">
 						<i class="material-icons">clear</i>
-          </button>
+          </div>
         </form>
         <div class="buttons" ng-if="!rowform.$visible">
-          <button class="btn waves-effect waves-light" ng-click="rowform.$show()" title="Edit">
+          <div class="btn btn-small waves-effect waves-light" ng-click="rowform.$show()" title="Edit">
 						<i class="material-icons">create</i>
-          </button>
-          <button class="btn red lighten-2 waves-effect waves-light" ng-click="project.removeBeneficiaryModal( $locationIndex, $index )" title="Remove">
+          </div>
+          <div class="btn btn-small red lighten-2 waves-effect waves-light" ng-click="project.removeBeneficiaryModal( $locationIndex, $index )" title="Remove">
           	<i class="material-icons">delete</i>
-          </button>
+          </div>
         </div>  
       </td>
     </tr>

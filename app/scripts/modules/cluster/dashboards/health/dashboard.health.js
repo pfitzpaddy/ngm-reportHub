@@ -784,7 +784,7 @@ angular.module( 'ngmReportHub' )
 											downloadUrl: 'http://' + $location.host() + '/report/',
 											user: $scope.dashboard.user,
 											viewportWidth: 1390,
-											pageLoadTime: 9200
+											pageLoadTime: 26200
 										}
 									},						
 									metrics: $scope.dashboard.getMetricsRequest( 'pdf', 'health_4w' )

@@ -18,7 +18,7 @@
 				
 				<li class="collection-header blue lighten-4">
 					<h5 class="report-work-title">
-						<i class="material-icons left">playlist_add</i>Project Details
+						<i class="material-icons left">assignment</i>Project Details
 					</h5>
 				</li>
 
@@ -98,6 +98,20 @@
 
 				        </div>
 
+				      </div>
+
+				      <div class="row">
+				        <div class="input-field col s12 m12" style="padding-bottom:5px;">
+				        	<label>R&R Chapter</label>
+				        	<br/>
+				        	<p style="padding-top:10px;">
+					        	<input type="checkbox" id="ngm-project-project_rnr_chapter"
+					        		ng-model="project.definition.project_rnr_chapter"
+					        		ng-disabled="project.definition.project_status === 'complete'"
+					        		ng-click="project.getStrategicObjectives()"/>
+					          <label for="ngm-project-project_rnr_chapter">This project contributes to R&R Chapter?</label>
+					        </p>
+				        </div>			      	
 				      </div>
 
 				      <!-- activity type / project donor  -->

@@ -86,17 +86,20 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
         // save project
         saveBudgetLine: function() {
 
-          // get clean budget
-          var budget = 
-              ngmClusterHelper.getCleanBudget( ngmUser.get(), $scope.project.definition, $scope.project.budget );
-
           // if no progress reporting exists
           if ( !$scope.project.definition.project_budget_progress ) {
             $scope.project.definition.project_budget_progress = [];
           }
+
+          // push latest
+          $scope.project.definition.project_budget_progress.push( $scope.project.budget );
+
+          // get clean budget
+          $scope.project.definition.project_budget_progress = 
+              ngmClusterHelper.getCleanBudget( ngmUser.get(), $scope.project.definition, $scope.project.definition.project_budget_progress );
   
           // extend targets with projectn ngmData details & push
-          $scope.project.definition.project_budget_progress.unshift( budget );
+          // $scope.project.definition.project_budget_progress.unshift( budget );
 
           // Update Project (as project_budget_progress is an association)
           ngmData.get({

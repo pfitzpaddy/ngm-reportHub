@@ -77,7 +77,7 @@
 							 <div class="row" style="padding-left:40px;" ng-if="report.organization.warehouses.length">
 
 							 	<div class="row">
-									<h5 class="report-selected-warehouses">{{ report.organization.warehouses.length }} Selected Warehouses</h5>
+									<h5 class="report-selected-locations">{{ report.organization.warehouses.length }} Selected Warehouses</h5>
 								</div>
 
 								<div class="row" ng-repeat="warehouse in report.organization.warehouses | orderBy: '-createdAt' track by $index">

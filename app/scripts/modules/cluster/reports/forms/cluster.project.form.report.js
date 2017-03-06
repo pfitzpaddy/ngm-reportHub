@@ -60,7 +60,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // lists
         // activity_type: config.project.activity_type,
         activity_descriptions: ngmClusterHelper.getActivities( config.project.cluster_id, false ),
-        beneficiary_types: ngmClusterHelper.getBeneficiaries( config.project.cluster_id, [] ),
+        category_types: ngmClusterHelper.getCategoryTypes( config.project.cluster_id ),
+        beneficiary_types: config.report.report_year === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries( config.project.cluster_id, [] ),
         delivery_types:[{
           delivery_type_id: 'population',
           delivery_type_name: 'Population'
@@ -93,17 +94,42 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             activity_type_name: null,
             activity_description_id: null,
             activity_description_name: null,
+            category_type_id: null,
+            category_type_name: null,
             beneficiary_type_id: null,
             beneficiary_type_name: null,
             delivery_type_id: null,
             delivery_type_name: null,
-            sessions: 0, families: 0, boys: 0, girls: 0, men:0, women:0
+            households: 0, sessions: 0, families: 0, boys: 0, girls: 0, men:0, women:0, elderly_men:0, elderly_women:0
           };
 
-          // process + clean location
-          $scope.inserted = 
-              ngmClusterHelper.getCleanBeneficiaries( $scope.project.definition, $scope.project.report, $scope.project.report.locations[ $parent ], $scope.inserted );
           $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
+        },
+
+        // display category
+        showCategory: function( $data, $beneficiary ) {
+          var selected = [];
+          $beneficiary.category_type_id = $data;
+          if($beneficiary.category_type_id) {
+            selected = $filter('filter')( $scope.project.category_types, { category_type_id: $beneficiary.category_type_id });
+            $beneficiary.category_type_name = selected[0].category_type_name;
+          }
+          return selected.length ? selected[0].category_type_name : 'No Selection!';
+        },
+
+        // display beneficiary
+        showBeneficiary: function( $data, $beneficiary ) {
+          var selected = [];
+          $beneficiary.beneficiary_type_id = $data;
+          if($beneficiary.beneficiary_type_id) {
+            selected = $filter('filter')( $scope.project.beneficiary_types, { beneficiary_type_id: $beneficiary.beneficiary_type_id });
+          }
+          if ( selected.length ) {
+            $beneficiary.beneficiary_type_name = selected[0].beneficiary_type_name;
+            return selected[0].beneficiary_type_name
+          } else {
+            return 'No Selection!';
+          }
         },
 
         // display activity
@@ -126,17 +152,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             $beneficiary.activity_description_name = selected[0].activity_description_name;
           } 
           return selected.length ? selected[0].activity_description_name : 'No Selection!';
-        },
-
-        // display beneficiary
-        showBeneficiary: function( $data, $beneficiary ) {
-          var selected = [];
-          $beneficiary.beneficiary_type_id = $data;
-          if($beneficiary.beneficiary_type_id) {
-            selected = $filter('filter')( $scope.project.beneficiary_types, { beneficiary_type_id: $beneficiary.beneficiary_type_id });
-            $beneficiary.beneficiary_type_name = selected[0].beneficiary_type_name;
-          }
-          return selected.length ? selected[0].beneficiary_type_name : 'No Selection!';
         },
 
         // display delivery
@@ -180,8 +195,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // disable save form
         rowSaveDisabled: function( $data ){
           var disabled = true;
-          if ( $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id && $data.delivery_type_id &&
-                $data.sessions >= 0 && $data.families >= 0 && $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 ) {
+          if ( $data.category_type_id && $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id && $data.delivery_type_id &&
+                $data.sessions >= 0 && $data.households >= 0 && $data.families >= 0 && $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 && $data.elderly_men >= 0 && $data.elderly_women >= 0 ) {
               disabled = false;
           }
           return disabled;
@@ -249,9 +264,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $scope.project.report.submit = true;
           $scope.project.report.report_status = complete ? 'complete' : 'todo';
           $scope.project.report.report_submitted = moment().format();
+
+          // update project details of report + locations + beneficiaries
+          $scope.project.report = 
+              ngmClusterHelper.getCleanReport( $scope.project.definition, $scope.project.report );
           
           // msg
           Materialize.toast( 'Processing Report...' , 3000, 'note');
+
+          console.log(JSON.stringify($scope.project.report));
 
           // setReportRequest
           var setReportRequest = {
@@ -285,7 +306,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               $location.path( '/cluster/projects/report/' + $scope.project.definition.id );  
             }
           });
-        },
+
+        }
+
       }
   }
 

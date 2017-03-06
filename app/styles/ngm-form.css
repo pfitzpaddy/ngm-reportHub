@@ -36,6 +36,10 @@
 		font-size: 1rem !important;	
 	}
 
+	.btn, .btn-small {
+    padding: 0 1rem;
+  }
+
 	/* report number of locations */
 	.report-selected-locations {
 		font-size:1.2rem;

@@ -22,6 +22,7 @@
 							      <td ng-if="project.definition.cluster_id === 'health'">Facility Type</td>
 							      <td ng-if="project.definition.cluster_id === 'health'">Facility Name</td>
 							      <td ng-if="project.definition.cluster_id !== 'health'">Location Name</td>
+							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
 							    <tr ng-repeat="location in project.definition.target_locations track by $index">
 							    	<td>
@@ -35,7 +36,7 @@
 							      </td>
 							      <td>
 							        <!-- editable admin2 -->
-							        <span e-placeholder="Select..." editable-select="location.admin2pcode" e-name="admin2pcode" e-form="rowform" e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | filter: { admin1pcode: location.admin1pcode }" ng-disabled="!location.admin1pcode" e-required>
+							        <span e-placeholder="Select..." editable-select="location.admin2pcode" e-name="admin2pcode" e-form="rowform" e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | filter: { admin1pcode: location.admin1pcode }" e-ng-disabled="!location.admin1pcode" e-required>
 							          {{ project.showAdmin2($data, location) }}
 							        </span>
 							      </td>

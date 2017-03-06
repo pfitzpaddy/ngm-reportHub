@@ -18,20 +18,36 @@
 							  <table class="bordered responsive-table" ng-show="project.definition.target_beneficiaries.length">
 							    <tr style="font-weight: 400">
 							    	<td></td>
+							      <td>Category</td>
+							      <td>Beneficiary</td>
 							      <td>Activity</td>
 							      <td>Description</td>
-							      <td>Beneficiary</td>
+										<td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Households</td>
 							      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Families</td>
 							      <td>Boys</td>
 							      <td>Girls</td>
 							      <td>Men</td>
 							      <td>Women</td>
+							      <td>Eld. Men</td>
+							      <td>Eld. Women</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
 							    <tr ng-repeat="beneficiary in project.definition.target_beneficiaries track by $index">
 							    	<td>
 							    		<i class="material-icons" style="color: #616161;">group</i>
 							    	</td>
+							      <td>
+							        <!-- editable group (select-remote) -->
+							        <span e-placeholder="Select..." editable-select="beneficiary.category_type_id" e-name="category_type_id" e-form="rowform" e-ng-options="b.category_type_id as b.category_type_name for b in project.lists.category_types">
+							          {{ project.showCategory($data, beneficiary) }}
+							        </span>
+							      </td>
+							      <td>
+							        <!-- editable group (select-remote) -->
+							        <span e-placeholder="Select..." editable-select="beneficiary.beneficiary_type_id" e-name="beneficiary_type_id" e-form="rowform" e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types | filter: { category_type_id: beneficiary.category_type_id }"  e-ng-disabled="!beneficiary.category_type_id">
+							          {{ project.showBeneficiary($data, beneficiary) }}
+							        </span>
+							      </td>
 							      <td>
 							        <!-- editable activity_type from Project -->
 							        <span e-placeholder="Select..." editable-select="beneficiary.activity_type_id" e-name="activity_type_id" e-form="rowform" e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type" e-ng-disabled="!project.definition.activity_type.length">
@@ -44,10 +60,10 @@
 							          {{ project.showDescription($data, beneficiary) }}
 							        </span>
 							      </td>
-							      <td>
-							        <!-- editable group (select-remote) -->
-							        <span e-placeholder="Select..." editable-select="beneficiary.beneficiary_type_id" e-name="beneficiary_type_id" e-form="rowform" e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types"  e-ng-disabled="!beneficiary.activity_description_id">
-							          {{ project.showBeneficiary($data, beneficiary) }}
+							      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">
+							        <!-- editable number -->
+							        <span editable-number="beneficiary.households" e-name="households" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'households', $data )" e-required>
+							          {{ beneficiary.households }}
 							        </span>
 							      </td>
 							      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">
@@ -70,7 +86,7 @@
 							      </td>
 							      <td>
 							        <!-- editable number -->
-							        <span editable-number="beneficiary.men" e-name="men" e-form="rowform" e-min="0" e-ng-change="project.updateInput($index, 'men', $data )" e-required>
+							        <span editable-number="beneficiary.men" e-name="men" e-form="rowform" e-min="0" e-ng-change="project.updateInput($index, 'men', $data )" e-ng-disabled="beneficiary.activity_type_id === 'mch'" e-required>
 							          {{ beneficiary.men }}
 							        </span>
 							      </td>
@@ -78,6 +94,18 @@
 							        <!-- editable number -->
 							        <span editable-number="beneficiary.women" e-name="women" e-form="rowform" e-min="0" e-ng-change="project.updateInput($index, 'women', $data )" e-required>
 							          {{ beneficiary.women }}
+							        </span>
+							      </td>
+							      <td>
+							        <!-- editable number -->
+							        <span editable-number="beneficiary.elderly_men" e-name="elderly_men" e-form="rowform" e-min="0" e-ng-change="project.updateInput($index, 'elderly_men', $data )" e-required>
+							          {{ beneficiary.elderly_men }}
+							        </span>
+							      </td>
+							      <td>
+							        <!-- editable number -->
+							        <span editable-number="beneficiary.elderly_women" e-name="elderly_women" e-form="rowform" e-min="0" e-ng-change="project.updateInput($index, 'elderly_women', $data )" e-required>
+							          {{ beneficiary.elderly_women }}
 							        </span>
 							      </td>
 							      
@@ -92,6 +120,7 @@
 					                    ( !project.activity_type_valid() ) ||
 					                    ( !project.project_donor_valid() ) ||
 					                    ( !project.target_beneficiaries_valid() ) ||
+					                    ( !project.target_locations_valid() ) ||
 					                    ( project.submit )
 					                  ) ||
 					                  project.definition.project_status === 'active' && (
