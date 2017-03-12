@@ -75,7 +75,7 @@ angular.module('ngmReportHub')
 				$scope.report.definition = data[1].data;
 
 				// set report for downloads
-				$scope.report.report = $scope.report.project.organization + '_' + moment( $scope.report.definition.reporting_period ).format('MMMM, YYYY')
+				$scope.report.report = $scope.report.project.organization + '_' + $scope.report.definition.project_title.replace(/\ /g, '_') + '_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 
 				// report dashboard model
 				$scope.model = {
@@ -97,17 +97,21 @@ angular.module('ngmReportHub')
 						// download: {
 						// 	'class': 'col s12 m3 l3 hide-on-small-only',
 						// 	downloads: [{
-						// 		type: 'csv',
-						// 		color: 'blue lighten-2',
-						// 		icon: 'assignment',
-						// 		hover: 'Download Monthly Report as CSV',
+						// 		type: 'pdf',
+						// 		color: 'blue',
+						// 		icon: 'picture_as_pdf',
+						// 		hover: 'Download Health 4W as PDF',
 						// 		request: {
 						// 			method: 'POST',
-						// 			url: 'http://' + $location.host() + '/api/health/indicator',
+						// 			url: 'http://' + $location.host() + '/api/print',
 						// 			data: {
-						// 				report: 'projects_' + $scope.report.report,
-						// 				details: 'projects',
-						// 				project_id: $scope.report.project.id
+						// 				cluster_id: $scope.report.definition.cluster_id,
+						// 				report: $scope.report.report,
+						// 				printUrl: $location.absUrl(),
+						// 				downloadUrl: 'http://' + $location.host() + '/report/',
+						// 				user: ngmUser.get(),
+						// 				viewportWidth: 1390,
+						// 				pageLoadTime: 7200
 						// 			}
 						// 		},
 						// 		metrics: {
@@ -119,7 +123,7 @@ angular.module('ngmReportHub')
 						// 				email: $scope.report.user.email,
 						// 				dashboard: $scope.report.project.project_title,
 						// 				theme: 'cluster_project_report',
-						// 				format: 'csv',
+						// 				format: 'pdf',
 						// 				url: $location.$$path
 						// 			}
 						// 		}

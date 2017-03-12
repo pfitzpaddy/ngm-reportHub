@@ -84,7 +84,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           var selected = [];
           $stock.stock_item_type = $data;
           if($stock.stock_item_type) {
-            selected = $filter('filter')( $scope.report.lists.stocks, { stock_item_type: $stock.stock_item_type });
+            selected = $filter('filter')( $scope.report.lists.stocks, { stock_item_type: $stock.stock_item_type }, true);
             $stock.stock_item_name = selected[0].stock_item_name;
           }
           return selected.length ? selected[0].stock_item_name : 'No Selection!';

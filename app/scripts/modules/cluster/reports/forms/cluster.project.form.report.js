@@ -30,6 +30,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
     'config',
     function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmData, ngmClusterHelper, config ){
 
+      // order locations by
+      config.report.locations = $filter( 'orderBy' )( config.report.locations, [ 'admin1name', 'admin2name' ] );
+
       // project
       $scope.project = {
         
@@ -111,7 +114,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var selected = [];
           $beneficiary.category_type_id = $data;
           if($beneficiary.category_type_id) {
-            selected = $filter('filter')( $scope.project.category_types, { category_type_id: $beneficiary.category_type_id });
+            selected = $filter('filter')( $scope.project.category_types, { category_type_id: $beneficiary.category_type_id }, true);
             $beneficiary.category_type_name = selected[0].category_type_name;
           }
           return selected.length ? selected[0].category_type_name : 'No Selection!';
@@ -122,7 +125,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var selected = [];
           $beneficiary.beneficiary_type_id = $data;
           if($beneficiary.beneficiary_type_id) {
-            selected = $filter('filter')( $scope.project.beneficiary_types, { beneficiary_type_id: $beneficiary.beneficiary_type_id });
+            selected = $filter('filter')( $scope.project.beneficiary_types, { beneficiary_type_id: $beneficiary.beneficiary_type_id }, true);
           }
           if ( selected.length ) {
             $beneficiary.beneficiary_type_name = selected[0].beneficiary_type_name;
@@ -137,7 +140,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var selected = [];
           $beneficiary.activity_type_id = $data;
           if($beneficiary.activity_type_id) {
-            selected = $filter('filter')( $scope.project.definition.activity_type, { activity_type_id: $beneficiary.activity_type_id });
+            selected = $filter('filter')( $scope.project.definition.activity_type, { activity_type_id: $beneficiary.activity_type_id }, true);
             $beneficiary.activity_type_name = selected[0].activity_type_name;
           }
           return selected.length ? selected[0].activity_type_name : 'No Selection!';
@@ -148,7 +151,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var selected = [];
           $beneficiary.activity_description_id = $data;
           if($beneficiary.activity_description_id) {
-            selected = $filter('filter')( $scope.project.activity_descriptions, { activity_description_id: $beneficiary.activity_description_id });
+            selected = $filter('filter')( $scope.project.activity_descriptions, { activity_description_id: $beneficiary.activity_description_id }, true);
             $beneficiary.activity_description_name = selected[0].activity_description_name;
           } 
           return selected.length ? selected[0].activity_description_name : 'No Selection!';
@@ -159,7 +162,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var selected = [];
           $beneficiary.delivery_type_id = $data;
           if($beneficiary.delivery_type_id) {
-            selected = $filter('filter')( $scope.project.delivery_types, { delivery_type_id: $beneficiary.delivery_type_id });
+            selected = $filter('filter')( $scope.project.delivery_types, { delivery_type_id: $beneficiary.delivery_type_id }, true);
             $beneficiary.delivery_type_name = selected[0].delivery_type_name;
           }
           return selected.length ? selected[0].delivery_type_name : 'No Selection!';
@@ -261,7 +264,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $( 'textarea[name="notes"]' ).removeClass( 'invalid' ).addClass( 'valid' ); 
 
           // report
-          $scope.project.report.submit = true;
+          // $scope.project.report.submit = true;
           $scope.project.report.report_status = complete ? 'complete' : 'todo';
           $scope.project.report.report_submitted = moment().format();
 
@@ -271,8 +274,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           
           // msg
           Materialize.toast( 'Processing Report...' , 3000, 'note');
-
-          console.log(JSON.stringify($scope.project.report));
 
           // setReportRequest
           var setReportRequest = {
@@ -310,6 +311,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         }
 
       }
+
   }
 
 ]);

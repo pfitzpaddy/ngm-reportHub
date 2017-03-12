@@ -118,7 +118,7 @@
 					<div align="center">
 						
 						<button data-target="save-modal" class="waves-effect waves-light btn"
-							ng-click="project.save(true)"
+							ng-click="project.save( true, false )"
 							ng-disabled="
 									project.definition.project_status === 'new' && (
 										( !project.project_details_valid() ) ||

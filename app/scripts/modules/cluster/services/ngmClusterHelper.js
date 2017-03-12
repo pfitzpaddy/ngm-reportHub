@@ -32,6 +32,9 @@ angular.module( 'ngmReportHub' )
 
         // extend defaults with ngmUser details
         project = angular.merge( {}, user, project );
+
+        // set hrp code
+        project.project_hrp_code = this.getProjectHrpCode( project );
         
         // remove id of ngmUser to avoid conflict with new project
         delete project.id;
@@ -39,6 +42,15 @@ angular.module( 'ngmReportHub' )
         // return
         return project;
 
+      },
+
+      // get hrp code
+      getProjectHrpCode: function( project ) {
+
+        return project.admin0name.toUpperCase().substring(0, 3) + '-HRP-' +
+                        moment().year() + '-' +
+                        project.cluster.toUpperCase().substring(0, 3) + '-' +
+                        moment().unix();
       },
 
       // get lists for cluster reporting
@@ -214,6 +226,9 @@ angular.module( 'ngmReportHub' )
           project_donor_id: 'dfid',
           project_donor_name: 'DFID'
         },{
+          project_donor_id: 'cerf',
+          project_donor_name: 'CERF'
+        },{
           project_donor_id: 'chf',
           project_donor_name: 'CHF'
         },{
@@ -223,11 +238,17 @@ angular.module( 'ngmReportHub' )
           project_donor_id: 'global_fund',
           project_donor_name: 'Global Fund'
         },{
+          project_donor_id: 'german_foreign_ministry',
+          project_donor_name: 'German Foreign Ministry'
+        },{
           project_donor_id: 'icrc',
           project_donor_name: 'ICRC'
         },{
           project_donor_id: 'ifrc',
           project_donor_name: 'IFRC'
+        },{
+          project_donor_id: 'johanniter',
+          project_donor_name: 'Johanniter'
         },{
           project_donor_id: 'qatar_red_crescent',
           project_donor_name: 'Qatar Red Crescent'
@@ -355,42 +376,22 @@ angular.module( 'ngmReportHub' )
 
 				// ocha beneficiaries list
 				var beneficiaries = [{
-          cluster_id: [ 'health', 'nutrition', 'protection', 'wash' ],
-          category_type_id: [ 'category_b' ],
-          beneficiary_type_id: 'access_to_services',
-          beneficiary_type_name: 'Access to Services'
-        },{
-          cluster_id: [ 'esnfi', 'protection', 'wash' ],
-          category_type_id: [ 'category_a' ],
-          beneficiary_type_id: 'host_communities',
-          beneficiary_type_name: 'Host Communities'
-        },{
-          cluster_id: [ 'health' ],
-          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
-          beneficiary_type_id: 'white_area_population',
-          beneficiary_type_name: 'White Area Population'
-        },{
-          cluster_id: [ 'fsac' ],
-          category_type_id: [ 'category_c' ],
-          beneficiary_type_id: 'severely_food_insecure',
-          beneficiary_type_name: 'Severely Food Insecure'
-        },{
           cluster_id: [ 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
           category_type_id: [ 'category_a', 'category_b', 'category_c' ],
           beneficiary_type_id: 'conflict_affected',
           beneficiary_type_name: 'Conflict Affected'
         },{
-          cluster_id: [ 'esnfi', 'fsac', 'health', 'wash' ],
+          cluster_id: [ 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
           category_type_id: [ 'category_a', 'category_b', 'category_c' ],
           beneficiary_type_id: 'natural_disaster_affected',
           beneficiary_type_name: 'Natural Disaster Affected'
         },{
-          cluster_id: [ 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
+          cluster_id: [ 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
           category_type_id: [ 'category_a', 'category_b', 'category_c' ],
           beneficiary_type_id: 'idp_conflict',
           beneficiary_type_name: 'Conflict IDPs'
         },{
-          cluster_id: [ 'esnfi', 'fsac', 'health', 'wash' ],
+          cluster_id: [ 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
           category_type_id: [ 'category_a', 'category_b', 'category_c' ],
           beneficiary_type_id: 'idp_natural_disaster',
           beneficiary_type_name: 'Natural Disaster IDPs'
@@ -400,20 +401,62 @@ angular.module( 'ngmReportHub' )
           beneficiary_type_id: 'idp_protracted',
           beneficiary_type_name: 'Protracted IDPs'
         },{
-          cluster_id: [ 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
-          category_type_id: [ 'category_b', 'category_c' ],
-          beneficiary_type_id: 'refugee_pakistani',
-          beneficiary_type_name: 'Pakistani Refugees'
+          cluster_id: [ 'health' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          beneficiary_type_id: 'access_to_services',
+          beneficiary_type_name: 'White Area Population'
         },{
-          cluster_id: [ 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
+          cluster_id: [ 'nutrition', 'protection', 'wash' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          beneficiary_type_id: 'access_to_services',
+          beneficiary_type_name: 'Access to Services'
+        },{
+          cluster_id: [ 'esnfi', 'health', 'protection' ],
+          category_type_id: [ 'category_a' ],
+          beneficiary_type_id: 'host_communities',
+          beneficiary_type_name: 'Host Communities'
+        },{
+
+          cluster_id: [ 'wash' ],
+          category_type_id: [ 'category_a' ],
+          beneficiary_type_id: 'host_communities_disaster_idps',
+          beneficiary_type_name: 'Communities Hosting Natural Disasater IDPs'
+        },{
+          cluster_id: [ 'wash' ],
+          category_type_id: [ 'category_a' ],
+          beneficiary_type_id: 'host_communities_conflict_idps',
+          beneficiary_type_name: 'Communities Hosting Conflict IDPs'
+        },{
+          cluster_id: [ 'wash' ],
+          category_type_id: [ 'category_a' ],
+          beneficiary_type_id: 'host_communities_returnees',
+          beneficiary_type_name: 'Communities Hosting Returnees'
+        },{
+          cluster_id: [ 'wash' ],
+          category_type_id: [ 'category_a' ],
+          beneficiary_type_id: 'host_communities_refugees',
+          beneficiary_type_name: 'Communities Hosting Refugees'
+        },{
+
+          cluster_id: [ 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
           category_type_id: [ 'category_a', 'category_b', 'category_c' ],
           beneficiary_type_id: 'returnee_documented',
           beneficiary_type_name: 'Afghan Refugee Returnees (Documented)'
         },{
-          cluster_id: [ 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
+          cluster_id: [ 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
           category_type_id: [ 'category_a', 'category_b', 'category_c' ],
           beneficiary_type_id: 'returnee_undocumented',
-          beneficiary_type_name: 'Afghan Refugee Returnees (Undocumented)'
+          beneficiary_type_name: 'Afghan Returnees (Undocumented)'
+        },{
+          cluster_id: [ 'esnfi', 'fsac', 'health','nutrition', 'protection', 'wash' ],
+          category_type_id: [ 'category_b', 'category_c' ],
+          beneficiary_type_id: 'refugee_pakistani',
+          beneficiary_type_name: 'Pakistani Refugees'
+        },{
+          cluster_id: [ 'fsac' ],
+          category_type_id: [ 'category_c' ],
+          beneficiary_type_id: 'severely_food_insecure',
+          beneficiary_type_name: 'Severely Food Insecure'
         }];
 
 
@@ -583,7 +626,7 @@ angular.module( 'ngmReportHub' )
           budget[i] = angular.merge( {}, d, p, { username: user.username }, { email: user.email } );
           // add donor name
           budget[i].project_donor_name = 
-              $filter('filter')( project.project_donor, { project_donor_id: budget[i].project_donor_id });
+              $filter('filter')( project.project_donor, { project_donor_id: budget[i].project_donor_id }, true);
         });
 
         // return clean budget
@@ -684,11 +727,13 @@ angular.module( 'ngmReportHub' )
           // remove to ensure updated
           var l = angular.copy( location );
           delete r.id;
+          delete p.admin1pcode;
+          delete p.admin2pcode;          
+          delete r.admin1pcode;
+          delete r.admin2pcode;
           delete r.locations;
           delete l.activity_description;
           delete l.activity_type;
-          delete l.admin1pcode;
-          delete l.admin2pcode;
           delete l.beneficiary_type;
           delete l.category_type;
           delete l.project_donor;
@@ -709,8 +754,6 @@ angular.module( 'ngmReportHub' )
             var b = angular.copy( beneficiary );
             delete b.activity_description;
             delete b.activity_type;
-            delete b.admin1pcode;
-            delete b.admin2pcode;
             delete b.beneficiary_type;
             delete b.category_type;
             delete b.project_donor;
@@ -720,7 +763,7 @@ angular.module( 'ngmReportHub' )
             b.report_id = report.id;
             // merge
             report.locations[i].beneficiaries[j] = angular.merge( {}, b, l, r, p );
-            
+
           });
 
         });

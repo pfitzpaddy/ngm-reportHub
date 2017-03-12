@@ -19,7 +19,7 @@
   </div>
   <div class="modal-footer">
   	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="project.removeBeneficiary()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, remove location!</a>
+    <a ng-click="project.removeBeneficiary()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, remove Beneficiaries!</a>
   </div>
 </div>
 
@@ -95,9 +95,14 @@
 							<i class="material-icons left">keyboard_return</i>Cancel
 						</button>
 
-						<button class="waves-effect waves-light btn blue"
+						<!-- <button class="waves-effect waves-light btn blue"
 							ng-click="project.modalConfirm( 'complete-modal' )"
 							ng-disabled="!project.formComplete()"
+							ng-cloak><i class="material-icons left">assignment_turned_in</i>Submit Monthly Report
+						</button> -->
+
+						<button class="waves-effect waves-light btn blue"
+							ng-click="project.modalConfirm( 'complete-modal' )"
 							ng-cloak><i class="material-icons left">assignment_turned_in</i>Submit Monthly Report
 						</button>
 

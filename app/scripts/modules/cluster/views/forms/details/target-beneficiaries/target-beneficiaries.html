@@ -62,7 +62,7 @@
 							      </td>
 							      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">
 							        <!-- editable number -->
-							        <span editable-number="beneficiary.households" e-name="households" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'households', $data )" e-required>
+							        <span editable-number="beneficiary.households" e-name="households" e-form="rowform" e-min="0" e-ng-change="project.updateInput($index, 'households', $data )" e-required>
 							          {{ beneficiary.households }}
 							        </span>
 							      </td>

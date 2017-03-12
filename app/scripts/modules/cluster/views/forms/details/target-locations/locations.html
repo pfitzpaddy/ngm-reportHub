@@ -6,7 +6,7 @@
 			<ul class="collection with-header">
 				<li class="collection-header blue lighten-4">
 					<h5 class="report-work-title">
-						<i class="material-icons left">location_on</i><span class="beneficiary-count">{{ project.definition.target_locations.length | number }}</span> Project Target Locations
+						<i class="material-icons left">person_pin</i><span class="beneficiary-count">{{ project.definition.target_locations.length | number }}</span> Project Target Locations
 					</h5>
 				</li>
 				<li class="collection-item avatar">
@@ -26,29 +26,29 @@
 							    </tr>
 							    <tr ng-repeat="location in project.definition.target_locations track by $index">
 							    	<td>
-							    		<i class="material-icons" style="color: teal;">location_on</i>
+							    		<i class="material-icons" style="color: teal;">person_pin</i>
 							    	</td>
 							      <td>
 							        <!-- editable admin1 -->
-							        <span e-placeholder="Select..." editable-select="location.admin1pcode" e-name="admin1pcode" e-form="rowform" e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1" e-required>
+							        <span e-placeholder="Select..." editable-select="location.admin1pcode" e-name="admin1pcode" e-form="rowform" e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1" e-ng-change="project.showAdmin1Change($index, $data)" e-required>
 							          {{ project.showAdmin1($data, location) }}
 							        </span>
 							      </td>
 							      <td>
 							        <!-- editable admin2 -->
-							        <span e-placeholder="Select..." editable-select="location.admin2pcode" e-name="admin2pcode" e-form="rowform" e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | filter: { admin1pcode: location.admin1pcode }" e-ng-disabled="!location.admin1pcode" e-required>
-							          {{ project.showAdmin2($data, location) }}
+							        <span e-placeholder="Select..." editable-select="location.admin2pcode" e-name="admin2pcode" e-form="rowform" e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2Select[$index]" e-ng-disabled="!location.admin1pcode" e-ng-change="project.locationChange()" e-required>
+							          {{ project.showAdmin2($index, $data, location) }}
 							        </span>
 							      </td>
 							      <td ng-show="project.definition.cluster_id === 'health'">
 							        <!-- editable facility type-->
-							        <span e-placeholder="Select..." editable-select="location.fac_type_id" e-name="fac_type_id" e-form="rowform" e-ng-options="item.fac_type_id as item.fac_type_name for item in project.lists.facility_type" ng-disabled="!location.admin2pcode" e-required>
+							        <span e-placeholder="Select..." editable-select="location.fac_type_id" e-name="fac_type_id" e-form="rowform" e-ng-options="item.fac_type_id as item.fac_type_name for item in project.lists.facility_type" ng-disabled="!location.admin2pcode" e-ng-change="project.locationChange()" e-required>
 							          {{ project.showFacType($data, location) }}
 							        </span>
 							      </td>
 							      <td>
 							        <!-- editable name -->
-							        <span editable-text="location.fac_name" e-name="fac_name" e-form="rowform" e-required>
+							        <span editable-text="location.fac_name" e-name="fac_name" e-form="rowform" e-ng-change="project.locationChange()" e-required>
 							        	{{ project.showName($data, location) }}
 							          <!-- {{ location.fac_name }} -->
 							        </span>
