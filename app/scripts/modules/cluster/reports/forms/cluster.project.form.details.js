@@ -489,7 +489,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             // disable btn
             $scope.project.submit = true;
             // inform
-            var timer = $scope.project.definition.locations_updated ? 5000 : 3200;
+            var timer = $scope.project.definition.locations_updated ? 50000 : 32000;
             Materialize.toast( 'Processing...', timer, 'note' );
 
             // details update
@@ -502,6 +502,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             }).then( function( project ){
               // enable
               $scope.project.submit = false;
+              // remove toast
+              $timeout(function(){ 
+                $('.toast.note').animate({ 'marginTop' : '-=80px'});
+                $('.toast.note').fadeOut( 200 );
+              }, 600);
               // add id to client json
               $scope.project.definition = angular.merge({}, $scope.project.definition, project);
               if( save_msg ){
