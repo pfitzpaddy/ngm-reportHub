@@ -36,13 +36,13 @@
 							      </td>
 							      <td>
 							        <!-- editable admin2 -->
-							        <span e-placeholder="Select..." editable-select="location.admin2pcode" e-name="admin2pcode" e-form="rowform" e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2Select[$index]" e-ng-disabled="!location.admin1pcode" e-ng-change="project.locationChange()" e-required>
+							        <span e-placeholder="Select..." editable-select="location.admin2name" e-name="admin2name" e-form="rowform" e-ng-options="item.admin2name as item.admin2name for item in project.lists.admin2Select[$index]" e-ng-disabled="!location.admin1pcode" e-ng-change="project.locationChange()" e-required>
 							          {{ project.showAdmin2($index, $data, location) }}
 							        </span>
 							      </td>
 							      <td ng-show="project.definition.cluster_id === 'health'">
 							        <!-- editable facility type-->
-							        <span e-placeholder="Select..." editable-select="location.fac_type_id" e-name="fac_type_id" e-form="rowform" e-ng-options="item.fac_type_id as item.fac_type_name for item in project.lists.facility_type" ng-disabled="!location.admin2pcode" e-ng-change="project.locationChange()" e-required>
+							        <span e-placeholder="Select..." editable-select="location.fac_type_id" e-name="fac_type_id" e-form="rowform" e-ng-options="item.fac_type_id as item.fac_type_name for item in project.lists.facility_type" ng-disabled="!location.admin2name" e-ng-change="project.locationChange()" e-required>
 							          {{ project.showFacType($data, location) }}
 							        </span>
 							      </td>

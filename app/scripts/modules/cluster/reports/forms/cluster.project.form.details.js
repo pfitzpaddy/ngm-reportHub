@@ -145,6 +145,45 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $scope.project.definition.target_beneficiaries.push( $scope.inserted );
         },
 
+        // add beneficiary
+        addBeneficiary: function() {
+          // sadd
+          var sadd = { 
+            households: 0, 
+            sessions: 0, 
+            families: 0, 
+            boys: 0, 
+            girls: 0, 
+            men:0, 
+            women:0, 
+            elderly_men:0, 
+            elderly_women:0 
+          };
+          $scope.inserted = {
+            activity_type_id: null,
+            activity_type_name: null,
+            activity_description_id: null,
+            activity_description_name: null,
+            category_type_id: null,
+            category_type_name: null,
+            beneficiary_type_id: null,
+            beneficiary_type_name: null,
+            delivery_type_id: null,
+            delivery_type_name: null
+          };
+
+          // merge
+          angular.merge( $scope.inserted, sadd );
+          
+          // clone
+          var length = $scope.project.definition.target_beneficiaries.length;
+          if ( length ) {
+            var b = angular.copy( $scope.project.definition.target_beneficiaries[ length - 1 ] );
+            $scope.inserted = angular.merge( $scope.inserted, b, sadd );
+          }
+          $scope.project.definition.target_beneficiaries.push( $scope.inserted );
+        },
+
         // display category
         showCategory: function( $data, $beneficiary ) {
           var selected = [];
@@ -278,12 +317,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           // update admin2
           var selected = [];
-          $location.admin2pcode = $data;
-          if($location.admin2pcode) {
+          $location.admin2name = $data;
+          if($location.admin2name) {
             selected = $filter('filter')( $scope.project.lists.admin2Select[$index], { admin2name: $location.admin2name }, true);
             if(selected[0]){
               delete selected[0].id;
-              angular.merge($location, selected[0]);              
+              angular.merge($location, selected[0]);
             }
           }
           return selected.length ? selected[0].admin2name : 'No Selection!';
