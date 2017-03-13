@@ -281,11 +281,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             fac_name: null
           };
 
-          // process + clean location 
-          // $scope.inserted = 
-          //     ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.inserted );
-
-          $scope.project.definition.target_locations.push( $scope.inserted );
+          // clone
+          var length = $scope.project.definition.target_locations.length;
+          if ( length ) {
+            var b = angular.copy( $scope.project.definition.target_locations[ length - 1 ] );
+            $scope.inserted = angular.merge( $scope.inserted, b, { fac_name: null } );
+          }
+         $scope.project.definition.target_locations.push( $scope.inserted );
         },
 
         showAdmin1: function($data, $location){
