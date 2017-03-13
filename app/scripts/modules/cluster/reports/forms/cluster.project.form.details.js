@@ -280,7 +280,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var selected = [];
           $location.admin2pcode = $data;
           if($location.admin2pcode) {
-            selected = $filter('filter')( $scope.project.lists.admin2Select[$index], { admin2pcode: $location.admin2pcode }, true);
+            selected = $filter('filter')( $scope.project.lists.admin2Select[$index], { admin2name: $location.admin2name }, true);
             if(selected[0]){
               delete selected[0].id;
               angular.merge($location, selected[0]);              
