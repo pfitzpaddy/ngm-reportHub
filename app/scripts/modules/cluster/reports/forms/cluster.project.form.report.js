@@ -92,6 +92,18 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // add beneficiary
         addBeneficiary: function( $parent ) {
+          // sadd
+          var sadd = { 
+            households: 0, 
+            sessions: 0, 
+            families: 0, 
+            boys: 0, 
+            girls: 0, 
+            men:0, 
+            women:0, 
+            elderly_men:0, 
+            elderly_women:0 
+          };
           $scope.inserted = {
             activity_type_id: null,
             activity_type_name: null,
@@ -102,10 +114,18 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             beneficiary_type_id: null,
             beneficiary_type_name: null,
             delivery_type_id: null,
-            delivery_type_name: null,
-            households: 0, sessions: 0, families: 0, boys: 0, girls: 0, men:0, women:0, elderly_men:0, elderly_women:0
+            delivery_type_name: null
           };
 
+          // merge
+          angular.merge( $scope.inserted, sadd );
+          
+          // clone
+          var length = $scope.project.report.locations[ $parent ].beneficiaries.length;
+          if ( length ) {
+            var b = angular.copy( $scope.project.report.locations[ $parent ].beneficiaries[ length - 1 ] );
+            $scope.inserted = angular.merge( $scope.inserted, b, sadd );
+          }
           $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
         },
 
