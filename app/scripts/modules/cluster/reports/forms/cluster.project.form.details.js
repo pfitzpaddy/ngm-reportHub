@@ -89,7 +89,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // datepicker
         datepicker: {
           onClose: function(){
-            $scope.project.definition.locations_updated = true;
+            $scope.project.definition.update_locations = true;
             $scope.project.definition.project_start_date = moment( $scope.project.definition.project_start_date ).format('YYYY-MM-DD');
             $scope.project.definition.project_end_date = moment( $scope.project.definition.project_end_date ).format('YYYY-MM-DD');
           }
@@ -309,7 +309,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // if locations change we will need to run an update
         locationChange: function(){
-          $scope.project.definition.locations_updated = true;
+          $scope.project.definition.update_locations = true;
         },
 
         // save location
@@ -330,7 +330,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // remove location
         removeLocation: function() {
           // updated
-          $scope.project.definition.locations_updated = true;
+          $scope.project.definition.update_locations = true;
           // remove
           $scope.project.definition.target_locations.splice( $scope.project.locationIndex, 1 );
           // save (open modal, set)
@@ -455,23 +455,40 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           // add target_beneficiaries to projects
           angular.forEach( $scope.project.definition.target_beneficiaries, function( b, i ){
+            
             // update target_beneficiaries
             $scope.project.definition.target_beneficiaries[i] = 
                   ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_beneficiaries[i] );
-            // add type to project
-            $scope.project.definition.category_type.push( { category_type_id: b.category_type_id, category_type_name: b.category_type_name } );
-            // add type to project
-            $scope.project.definition.beneficiary_type.push( { beneficiary_type_id: b.beneficiary_type_id, beneficiary_type_name: b.beneficiary_type_name } );
+            
+            // add distinct
+            var found = $filter('filter')( $scope.project.definition.category_type, { category_type_id: b.category_type_id }, true);
+            if ( !found.length ){
+              $scope.project.definition.category_type.push( { category_type_id: b.category_type_id, category_type_name: b.category_type_name } );
+            }
+            var found = $filter('filter')( $scope.project.definition.beneficiary_type, { beneficiary_type_id: b.beneficiary_type_id }, true);
+            if ( !found.length ){
+              $scope.project.definition.beneficiary_type.push( { beneficiary_type_id: b.beneficiary_type_id, beneficiary_type_name: b.beneficiary_type_name } );
+            }
+            
           });
 
           // add target_locations to projects to ensure simple filters
           angular.forEach( $scope.project.definition.target_locations, function( l, i ){
+            
             // push update activities
             $scope.project.definition.target_locations[i] = 
-                  ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_locations[i] );            
-            // add locations to project
-            $scope.project.definition.admin1pcode.push( { admin1pcode: l.admin1pcode, admin1name: l.admin1name } );
-            $scope.project.definition.admin2pcode.push( { admin2pcode: l.admin2pcode, admin2name: l.admin2name } );
+                  ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_locations[i] );
+            
+            // add distinct
+            var found = $filter('filter')( $scope.project.definition.admin1pcode, { admin1pcode: l.admin1pcode }, true);
+            if ( !found.length ){
+              $scope.project.definition.admin1pcode.push( { admin1pcode: l.admin1pcode, admin1name: l.admin1name } );
+            }
+            var found = $filter('filter')( $scope.project.definition.admin2pcode, { admin2pcode: l.admin2pcode }, true);
+            if ( !found.length ){
+              $scope.project.definition.admin2pcode.push( { admin2pcode: l.admin2pcode, admin2name: l.admin2name } );
+            }
+
           });
 
 
@@ -489,8 +506,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             // disable btn
             $scope.project.submit = true;
             // inform
-            var timer = $scope.project.definition.locations_updated ? 50000 : 32000;
-            Materialize.toast( 'Processing...', timer, 'note' );
+            Materialize.toast( 'Processing...', 32000, 'note' );
 
             // details update
             ngmData.get({
@@ -509,6 +525,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               }, 600);
               // add id to client json
               $scope.project.definition = angular.merge({}, $scope.project.definition, project);
+              // locations updated
+              $scope.project.definition.update_locations = false;
               if( save_msg ){
                 // message
                 $timeout( function(){ Materialize.toast( save_msg , 3000, 'success' ) }, 400 );
@@ -572,7 +590,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         $timeout(function() {
 
           // reset location update flag
-          $scope.project.definition.locations_updated = false;
+          $scope.project.definition.update_locations = false;
 
           // reset to cover updates
           if ( !$scope.project.definition.project_hrp_code ){

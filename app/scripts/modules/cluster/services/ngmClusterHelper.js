@@ -645,6 +645,7 @@ angular.module( 'ngmReportHub' )
         delete p.target_beneficiaries;
         delete p.target_locations;
         delete p.project_budget_progress;
+        delete p.beneficiary_type;
 
         // needs to operate on an array
         angular.forEach( beneficiaries, function( d, i ){
