@@ -67,10 +67,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         beneficiary_types: config.report.report_year === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries( config.project.cluster_id, [] ),
         delivery_types:[{
           delivery_type_id: 'population',
-          delivery_type_name: 'Population'
+          delivery_type_name: 'New Beneficiaries'
         },{
           delivery_type_id: 'service',
-          delivery_type_name: 'Service'
+          delivery_type_name: 'Existing Beneficiaries'
         }],
         
         // templates
@@ -119,11 +119,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
           // merge
           angular.merge( $scope.inserted, sadd );
-          
+
           // clone
           var length = $scope.project.report.locations[ $parent ].beneficiaries.length;
           if ( length ) {
             var b = angular.copy( $scope.project.report.locations[ $parent ].beneficiaries[ length - 1 ] );
+            delete b.id;
             $scope.inserted = angular.merge( $scope.inserted, b, sadd );
           }
           $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );

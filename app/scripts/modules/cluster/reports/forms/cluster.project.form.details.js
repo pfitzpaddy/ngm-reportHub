@@ -126,27 +126,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // add beneficiary
         addBeneficiary: function() {
-          $scope.inserted = {
-            activity_type_id: null,
-            activity_type_name: null,
-            activity_description_id: null,
-            activity_description_name: null,
-            category_type_id: null,
-            category_type_name: null,
-            beneficiary_type_id: null,
-            beneficiary_type_name: null,
-            households: 0, families: 0, boys: 0, girls: 0, men:0, women:0, elderly_men:0, elderly_women:0
-          };
-
-          // process + clean location
-          // $scope.inserted = 
-          //     ngmClusterHelper.getCleanTargetBeneficiaries( $scope.project.definition, $scope.inserted );
-
-          $scope.project.definition.target_beneficiaries.push( $scope.inserted );
-        },
-
-        // add beneficiary
-        addBeneficiary: function() {
           // sadd
           var sadd = { 
             households: 0, 
@@ -179,6 +158,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var length = $scope.project.definition.target_beneficiaries.length;
           if ( length ) {
             var b = angular.copy( $scope.project.definition.target_beneficiaries[ length - 1 ] );
+            delete b.id;
             $scope.inserted = angular.merge( $scope.inserted, b, sadd );
           }
           $scope.project.definition.target_beneficiaries.push( $scope.inserted );
@@ -284,8 +264,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // clone
           var length = $scope.project.definition.target_locations.length;
           if ( length ) {
-            var b = angular.copy( $scope.project.definition.target_locations[ length - 1 ] );
-            $scope.inserted = angular.merge( $scope.inserted, b, { fac_name: null } );
+            var l = angular.copy( $scope.project.definition.target_locations[ length - 1 ] );
+            delete l.id;
+            $scope.inserted = angular.merge( $scope.inserted, l, { fac_name: null } );
           }
          $scope.project.definition.target_locations.push( $scope.inserted );
         },
@@ -544,10 +525,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // open success modal if valid form
           // if ( $scope.clusterProjectForm.$valid ) {
 
+
             // disable btn
             $scope.project.submit = true;
             // inform
-            Materialize.toast( 'Processing...', 32000, 'note' );
+            Materialize.toast( 'Processing...', 20000, 'note' );
 
             // details update
             ngmData.get({
@@ -565,7 +547,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 $('.toast.note').fadeOut( 200 );
               }, 600);
               // add id to client json
-              $scope.project.definition = angular.merge({}, $scope.project.definition, project);
+              $scope.project.definition = angular.merge( $scope.project.definition, project );
               // locations updated
               $scope.project.definition.update_locations = false;
               if( save_msg ){
