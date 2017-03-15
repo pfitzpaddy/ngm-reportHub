@@ -32,6 +32,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
       // order locations by
       config.project.target_locations = $filter( 'orderBy' )( config.project.target_locations, [ 'admin1name', 'admin2name', 'fac_type_id' ] );
 
+      if( !config.project.project_budget_currency ){
+        config.project.project_budget_currency = 'usd';
+      }
+
       // project
       $scope.project = {
 
@@ -531,6 +535,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
             // disable btn
             $scope.project.submit = false;
+            var msg = $scope.project.definition.project_status === 'new' ? 'New Project Saving! Moment...' : 'Processing...';
             // inform
             Materialize.toast( 'Processing...', 20000, 'note' );
 
