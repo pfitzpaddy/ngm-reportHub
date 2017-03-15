@@ -15,7 +15,7 @@
       <td>Activity</td>
       <td>Description</td>
       <td>Delivery to</td>
-      <td ng-show="project.showSessions()">Sessions</td>
+      <td ng-show="project.showSessions( $locationIndex )">Sessions</td>
       <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Households</td>
       <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Families</td>
       <td>Boys</td>
@@ -57,7 +57,7 @@
           {{ project.showDelivery($data, beneficiary) }}
         </span>
       </td>
-      <td ng-show="project.showSessions()">
+      <td ng-show="project.showSessions( $locationIndex )">
         <!-- editable number -->
         <span editable-number="beneficiary.sessions" e-name="sessions" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'sessions', $data )" e-ng-disabled="project.rowSessionsDisabled( beneficiary )" e-required>
           {{ beneficiary.sessions }}
@@ -115,7 +115,7 @@
       <td style="white-space: nowrap" ng-show="project.report.report_status !== 'complete'">
         <!-- form -->
         <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" onbeforesave="project.save( false )" class="form-buttons form-inline" shown="inserted == beneficiary">
-          <button type="submit" ng-if="rowform.$visible" ng-disabled="project.rowSaveDisabled(rowform.$data)" class="btn btn-small waves-effect waves-light save" title="Save">
+          <button type="submit" ng-if="rowform.$visible" ng-disabled="project.rowSaveDisabled( rowform.$data )" class="btn btn-small waves-effect waves-light save" title="Save">
             <i class="material-icons">save</i>
           </button>
           <div type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-small blue lighten-1 waves-effect waves-light" title="Cancel Edit">

@@ -188,19 +188,19 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }
           return selected.length ? selected[0].delivery_type_name : 'No Selection!';
         },
-
-        // show sessions
-        showSessions: function(){
+        
+        showSessions: function( $locationIndex ){
           var display = false;
-          angular.forEach($scope.project.report.locations, function(l){
-            angular.forEach(l.beneficiaries, function(b){
+          var l = $scope.project.report.locations[ $locationIndex ];
+          if( l ){
+            angular.forEach( l.beneficiaries, function(b){
               if( b.activity_description_id === 'education' || b.activity_description_id === 'training' ){
                 display = true;
               }
             });
-          });
+          }
           return display;
-        },
+        },        
 
         // update inidcators
         updateInput: function( $parent, $index, indicator, $data ){
@@ -256,15 +256,16 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // ennsure all locations contain at least one complete beneficiaries 
         formComplete: function() {
-          var valid = false;
-          angular.forEach( $scope.project.report.locations, function( l ){
-            angular.forEach( l.beneficiaries, function( b ){
-              if ( !$scope.project.rowSaveDisabled( b ) ) {
-                valid = true;
-              }
-            });
-          });
-          return valid;
+          // var valid = false;
+          // angular.forEach( $scope.project.report.locations, function( l ){
+          //   angular.forEach( l.beneficiaries, function( b ){
+          //     if ( !$scope.project.rowSaveDisabled( b ) ) {
+          //       valid = true;
+          //     }
+          //   });
+          // });
+          // return valid;
+          return true;
         },
 
         // cofirm exit if changes

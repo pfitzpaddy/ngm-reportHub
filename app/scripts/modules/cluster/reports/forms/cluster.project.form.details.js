@@ -41,6 +41,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // app style
         style: config.style,
 
+        // form
+        submit: true,
+
         // project
         definition: config.project,
 
@@ -421,16 +424,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // validate target locations
         target_locations_valid: function(){
-          var valid = false;
+          var valid = true;
           angular.forEach( $scope.project.definition.target_locations, function( d, i ){
             if(
-              d.admin1pcode &&
-              d.admin1name &&
-              d.admin2pcode &&
-              d.admin2name &&
-              d.fac_name
+              !d.admin1pcode ||
+              !d.admin1name ||
+              !d.admin2pcode ||
+              !d.admin2name ||
+              !d.fac_name
             ){
-             valid = true; 
+             valid = false;
             }
           });
           return valid;
@@ -527,7 +530,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 
             // disable btn
-            $scope.project.submit = true;
+            $scope.project.submit = false;
             // inform
             Materialize.toast( 'Processing...', 20000, 'note' );
 
@@ -539,21 +542,29 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 project: $scope.project.definition
               }
             }).then( function( project ){
+              
               // enable
-              $scope.project.submit = false;
+              $scope.project.submit = true;
+              
               // remove toast
               $timeout(function(){ 
                 $('.toast.note').animate({ 'marginTop' : '-=80px'});
                 $('.toast.note').fadeOut( 200 );
               }, 600);
+
               // add id to client json
               $scope.project.definition = angular.merge( $scope.project.definition, project );
+
+              console.log($scope.project.definition)
+              
               // locations updated
               $scope.project.definition.update_locations = false;
+              
               if( save_msg ){
                 // message
                 $timeout( function(){ Materialize.toast( save_msg , 3000, 'success' ) }, 400 );
               }
+              
               // notification modal
               if( display_modal ){
                 $( '#save-modal' ).openModal({ dismissible: false });

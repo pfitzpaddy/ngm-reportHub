@@ -37,6 +37,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         user: ngmUser.get(),
         // app style
         style: config.style,
+        // form
+        submit: true,
         // project
         organization: config.organization,
         // report
@@ -185,7 +187,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         save: function( complete ) {
 
           // disable btn
-          $scope.report.report.submit = true;
+          $scope.report.submit = false;
 
           // set to complete if "submit monthly report"
           $scope.report.report.report_status = complete ? 'complete' : 'todo';
@@ -222,7 +224,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         refreshReport: function( results, complete ){
 
           // enable
-          $scope.report.report.submit = false;  
+          $scope.report.submit = true;  
 
           // user msg
           var msg = 'Stock Report for  ' + moment( $scope.report.report.reporting_period ).format('MMMM, YYYY') + ' ';

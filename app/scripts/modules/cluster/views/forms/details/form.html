@@ -33,7 +33,7 @@
   </div>
   <div class="modal-footer">
   	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, abandon changes!</a>
+    <a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, Cancel Update!</a>
   </div>
 </div>
 
@@ -44,7 +44,7 @@
   </div>
   <div class="modal-footer">
   	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="project.removeBeneficiary()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, remove location!</a>
+    <a ng-click="project.removeBeneficiary()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove People in Need!</a>
   </div>
 </div>
 
@@ -126,7 +126,7 @@
 										( !project.project_donor_valid() ) ||
 										( !project.target_beneficiaries_valid() ) ||
 										( !project.target_locations_valid() ) ||
-										( project.submit )
+										( !project.submit )
 									) ||
 									project.definition.project_status === 'active' && (
 										( !project.project_details_valid() ) ||
@@ -134,7 +134,7 @@
 										( !project.project_donor_valid() ) ||
 										( !project.target_beneficiaries_valid() ) ||
 										( !project.target_locations_valid() ) ||
-										( project.submit )
+										( !project.submit )
 									)"
 							ng-cloak><i class="material-icons right">send</i>Save</button>
 

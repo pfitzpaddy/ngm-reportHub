@@ -59,12 +59,21 @@
 					
 					<!-- submission -->
 					<div align="center" >
-						
+							
+						<!-- validation -->
+						<!-- 
 						<button data-target="save-modal" class="waves-effect waves-light btn"
 							ng-click="report.save( false )"
 							ng-disabled="
 										( !report.formComplete() ) ||
-										( report.report.submit )"
+										( !report.submit )"
+							ng-cloak><i class="material-icons right">send</i>Save</button>
+
+						-->
+
+						<!-- no validation -->
+						<button data-target="save-modal" class="waves-effect waves-light btn"
+							ng-click="report.save( false )"
 							ng-cloak><i class="material-icons right">send</i>Save</button>
 
 						<!-- cancel new -->
@@ -78,7 +87,6 @@
 
 						<button class="waves-effect waves-light btn blue"
 							ng-click="report.modalConfirm( 'complete-modal' )"
-							ng-disabled="!report.formComplete()"
 							ng-cloak><i class="material-icons left">assignment_turned_in</i>Submit Monthly Report
 						</button>
 

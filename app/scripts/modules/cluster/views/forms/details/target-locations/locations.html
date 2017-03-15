@@ -59,22 +59,13 @@
 							          <button 
 							          		title="Save" type="submit" class="btn waves-effect waves-light save"
 							          		ng-if="rowform.$visible" 
-							          		ng-disabled="project.definition.project_status === 'new' && (
-							          			( !project.project_details_valid() ) ||
+							          		ng-disabled="
+					                  	( ( !project.project_details_valid() ) ||
 					                    ( !project.activity_type_valid() ) ||
 					                    ( !project.project_donor_valid() ) ||
 					                    ( !project.target_beneficiaries_valid() ) ||
 					                    ( !project.target_locations_valid() ) ||
-					                    ( project.submit )
-					                  ) ||
-					                  project.definition.project_status === 'active' && (
-					                  	( !project.project_details_valid() ) ||
-					                    ( !project.activity_type_valid() ) ||
-					                    ( !project.project_donor_valid() ) ||
-					                    ( !project.target_beneficiaries_valid() ) ||
-					                    ( !project.target_locations_valid() ) ||
-					                    ( project.submit )
-					                  )">
+					                    ( !project.submit ) )">
 							            <i class="material-icons">save</i>
 							          </button>
 							          <button type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn blue lighten-1 waves-effect waves-light" title="Cancel Edit">

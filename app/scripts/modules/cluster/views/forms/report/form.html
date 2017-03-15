@@ -71,29 +71,35 @@
 					<!-- submission -->
 					<div align="center" >
 						
-<!-- 						<button data-target="save-modal" class="waves-effect waves-light btn"
+					<!-- 	validation	-->			
+					<!--
+						<button data-target="save-modal" class="waves-effect waves-light btn"
 							ng-click="project.save( false )"
 							ng-disabled="
-										( clusterReportForm.$pristine ) ||
-										( clusterReportForm.$invalid ) ||
 										( !project.formComplete() ) ||
-										( project.report.submit ) ||
+										( !project.report.submit ) ||
 										( clusterReportForm.$submitted && clusterReportForm.$invalid )"
-							ng-cloak><i class="material-icons right">send</i>Save</button>
+							ng-cloak><i class="material-icons right">send</i>Save</button> 
+					-->
 
-						<!-- cancel new 
+						<!-- no validation -->
+<!-- 						<button data-target="save-modal" class="waves-effect waves-light btn"
+							ng-click="project.save( false )"
+							ng-cloak><i class="material-icons right">send</i>Save</button>				 -->			
+
+						<!-- cancel new  -->
 						<button class="waves-effect waves-light btn grey" 
 							ng-click="project.modalConfirm( 'list-modal' )">
 							Cancel
-						</button> -->
+						</button>
 
-<!-- 						<br/>
 						<br/>
- -->
- 						<button class="waves-effect waves-light btn grey" 
+						<br/>
+
+<!--  						<button class="waves-effect waves-light btn grey" 
 							ng-click="project.modalConfirm( 'list-modal' )">
 							<i class="material-icons left">keyboard_return</i>Cancel
-						</button>
+						</button> -->
 
 						<!-- <button class="waves-effect waves-light btn blue"
 							ng-click="project.modalConfirm( 'complete-modal' )"
