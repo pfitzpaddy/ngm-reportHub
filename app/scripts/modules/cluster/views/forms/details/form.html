@@ -28,8 +28,7 @@
 <div id="summary-modal" class="modal">
   <div class="modal-content">
     <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Cancel Project Update</h4>
-    <p>Are you sure you want to return to Project Summary?</p>
-    <p>All edits will be lost...</p>
+    <p>Return to Project Summary</p>
   </div>
   <div class="modal-footer">
   	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
@@ -40,7 +39,7 @@
 <div id="beneficiary-modal" class="modal">
   <div class="modal-content">
     <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">group</i>Remove People in Need</h4>
-    <p>Are you sure you want to remove People in Need from your project?</p>
+    <p>Remove People in Need from Project</p>
   </div>
   <div class="modal-footer">
   	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
@@ -51,7 +50,6 @@
 <div id="location-modal" class="modal">
   <div class="modal-content">
     <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">location_on</i>Remove Project Location</h4>
-    <p>Are you sure you want to remove this Target Location from your project?</p>
     <p>This will effect any existing monthly beneficiary reports</p>
   </div>
   <div class="modal-footer">
@@ -117,8 +115,7 @@
 					<!-- submission -->
 					<div align="center">
 						
-						<button data-target="save-modal" class="waves-effect waves-light btn"
-							ng-click="project.save( true, false )"
+						<button data-target="save-modal" class="waves-effect waves-light modal-trigger btn"
 							ng-disabled="
 									project.definition.project_status === 'new' && (
 										( !project.project_details_valid() ) ||
@@ -139,12 +136,12 @@
 							ng-cloak><i class="material-icons right">send</i>Save</button>
 
 						<!-- cancel new -->
-						<button class="waves-effect waves-light btn grey" ng-click="project.modalConfirm('list-modal')"
+						<button data-target="list-modal" class="waves-effect waves-light btn modal-trigger grey"
 							ng-if="project.definition.project_status === 'new' ">Cancel
 						</button>
 
 						<!-- cancel update -->
-						<button class="waves-effect waves-light btn grey" ng-click="project.modalConfirm('summary-modal')"
+						<button data-target="summary-modal" class="waves-effect waves-light btn modal-trigger grey"
 							ng-if="project.definition.project_status === 'active' ">Cancel
 						</button>
 
@@ -157,3 +154,12 @@
 	</fieldset>
 
 </div>
+
+<script type="text/javascript">
+  
+  // modals
+  setTimeout(function(){
+  	$('.modal-trigger').leanModal();
+  }, 200);
+
+</script>

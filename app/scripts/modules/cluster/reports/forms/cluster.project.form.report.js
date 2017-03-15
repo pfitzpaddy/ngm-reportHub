@@ -260,7 +260,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
 
             // save report
-            $scope.project.save( false );            
+            $scope.project.save( false, false );            
           });
         },
 
@@ -301,7 +301,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         },
 
         // save 
-        save: function( complete ){
+        save: function( complete, display_modal ){
 
           // if textarea
           $( 'textarea[name="notes"]' ).removeClass( 'ng-untouched' ).addClass( 'ng-touched' );
@@ -344,11 +344,23 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             
             // Re-direct to summary
             if ( $scope.project.report.report_status !== 'complete' ) {
+
               // avoids duplicate beneficiaries 
                 // ( if 'save' and then 'submit' is submited without a refresh in between ) ???
               // $route.reload();
+
+              // notification modal
+              if( display_modal ){
+                // $( '#save-modal' ).openModal({ dismissible: false });
+                $timeout(function() {
+                  $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
+                }, 600);
+              }
+
             } else {
-              $location.path( '/cluster/projects/report/' + $scope.project.definition.id );  
+              $timeout(function() {
+                $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
+              }, 600);
             }
           });
 
