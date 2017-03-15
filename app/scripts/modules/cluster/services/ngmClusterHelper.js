@@ -226,6 +226,9 @@ angular.module( 'ngmReportHub' )
           project_donor_id: 'dfid',
           project_donor_name: 'DFID'
         },{
+          project_donor_id: 'caritas_germany',
+          project_donor_name: 'Caritas Germany'
+        },{
           project_donor_id: 'cerf',
           project_donor_name: 'CERF'
         },{

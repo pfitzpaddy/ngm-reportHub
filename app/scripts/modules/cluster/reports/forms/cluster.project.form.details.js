@@ -466,6 +466,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         compileDonor: function(){
           $scope.project.definition.project_donor = [];
           angular.forEach( $scope.project.definition.project_donor_check, function( d, key ){
+            console.log(d)
+            console.log(key)
             if ( d ) {
               var donor = $filter( 'filter' )( $scope.project.lists.donors, { project_donor_id: key }, true)[0];
               $scope.project.definition.project_donor.push( donor );
@@ -475,6 +477,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // save project
         save: function( display_modal, save_msg ){
+
+          console.log('---------$scope.project.definition.project_hrp_code');
+          console.log($scope.project.definition.project_hrp_code);
 
           // groups
           $scope.project.definition.category_type = [];
@@ -570,7 +575,18 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               
               // notification modal
               if( display_modal ){
-                $( '#save-modal' ).openModal({ dismissible: false });
+                
+                // new becomes active!
+                var msg = $scope.project.definition.project_status === 'new' ? 'Project Created!' : 'Project Updated!';
+
+                // update
+                $timeout(function(){
+                  
+                  // redirect + msg
+                  $location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
+                  Materialize.toast( msg, 3000, 'success' );
+
+                }, 200 );
               }
             });
 
@@ -583,24 +599,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           //   Materialize.toast( 'Please review the form for errors and try again!', 3000);
 
           // }
-
-        },
-
-        // re-direct on save
-        redirect: function(){
-
-          // new becomes active!
-          var path = '/cluster/projects/summary/' + $scope.project.definition.id;
-          var msg = $scope.project.definition.project_status === 'new' ? 'Project Created!' : 'Project Updated!';
-
-          // update
-          $timeout(function(){
-            
-            // redirect + msg
-            $location.path( path );
-            Materialize.toast( msg, 3000, 'success' );
-
-          }, 200 );
 
         },
 
@@ -632,7 +630,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // reset to cover updates
           if ( !$scope.project.definition.project_hrp_code ){
             $scope.project.definition.project_hrp_code = 
-                      ngmClusterHelper.getProjectHrpCode( $scope.project.definition );
+                      ngmClusterHelper.getProjectHrpCode( $scope.project.definition );           
           }          
 
           // add activity type check box list

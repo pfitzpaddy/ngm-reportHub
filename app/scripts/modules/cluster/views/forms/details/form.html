@@ -7,7 +7,8 @@
     <p>Project has been saved!</p>
   </div>
   <div class="modal-footer">
-    <a ng-click="project.redirect()" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+    <a ng-click="project.save( true )" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
   </div>
 </div>
 
@@ -19,8 +20,8 @@
     <p>All edits will be lost...</p>
   </div>
   <div class="modal-footer">
-  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, abandon changes!</a>
+  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+    <a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
   </div>
 </div>
 
@@ -54,7 +55,7 @@
   </div>
   <div class="modal-footer">
   	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="project.removeLocation()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, remove location!</a>
+    <a ng-click="project.removeLocation()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove location!</a>
   </div>
 </div>
 
