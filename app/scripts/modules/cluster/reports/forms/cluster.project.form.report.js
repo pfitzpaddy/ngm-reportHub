@@ -31,7 +31,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
     function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmData, ngmClusterHelper, config ){
 
       // order locations by
-      config.report.locations = $filter( 'orderBy' )( config.report.locations, [ 'admin1name', 'admin2name' ] );
+      config.report.locations = $filter( 'orderBy' )( config.report.locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
 
       // project
       $scope.project = {
@@ -237,9 +237,31 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // remove beneficiary
         removeBeneficiary: function() {
-          $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
-          // save
-          $scope.project.save( false );
+
+          // msg
+          // Materialize.toast( 'Processing Beneficiary...' , 3000, 'note');
+          
+          // b
+          var b = $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries[ $scope.project.beneficiaryIndex ];
+
+          // setReportRequest
+          var setBeneficiariesRequest = {
+            method: 'POST',
+            url: 'http://' + $location.host() + '/api/cluster/report/removeBeneficiary',
+            data: {
+              beneficiary: b
+            }
+          }          
+          
+          // set report
+          ngmData.get( setBeneficiariesRequest ).then( function( result ){
+
+            // remove
+            $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
+
+            // save report
+            $scope.project.save( false );            
+          });
         },
 
         // save form on enter
@@ -307,10 +329,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }          
           
           // set report
-          ngmData.get( setReportRequest ).then( function( report, complete ){
+          ngmData.get( setReportRequest ).then( function( report ){
             
-            // report
-            $scope.project.report = angular.merge( {}, $scope.project.report, report );
+            // updated & popluateAll() report
+            $scope.project.report = report;
             $scope.project.report.submit = false;
             
             // user msg

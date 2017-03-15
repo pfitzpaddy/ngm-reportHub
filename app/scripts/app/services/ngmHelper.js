@@ -67,6 +67,34 @@ angular.module( 'ngmReportHub' )
         return sum;
       };
   })
+  // sums array of objects by keys
+  .filter('sumArrayofArraysByKeys', function() {
+      return function( array, key1, key2, keys, skip ) {
+        var sum = 0;
+        if ( typeof( array ) === 'undefined' || 
+              typeof( key1 ) === 'undefined' || 
+              typeof( key2 ) === 'undefined' || 
+              typeof( keys ) === 'undefined' ) {
+          return 0;
+        }
+        angular.forEach(array[key1], function(a){
+          angular.forEach(a[key2], function(d){
+            angular.forEach(d, function(e,i){
+              // put in checks here
+              angular.forEach(keys, function(k,j){
+                if( i === j && typeof( k ) === 'number' ) {
+                  console.log()
+                  if( skip.indexOf(i) < 0 ) {
+                    sum += parseInt( e );
+                  }
+                }
+              });
+            });
+          });
+        });
+        return sum;
+      };
+  })
   // checks 2 passwords are identical 
   .directive( 'pwCheck', [function () {
     return {

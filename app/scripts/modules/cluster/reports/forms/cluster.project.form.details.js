@@ -554,8 +554,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
               // add id to client json
               $scope.project.definition = angular.merge( $scope.project.definition, project );
-
-              console.log($scope.project.definition)
               
               // locations updated
               $scope.project.definition.update_locations = false;

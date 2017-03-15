@@ -14,7 +14,7 @@
 			<ul class="collection with-header">
 				<li class="collection-header blue lighten-4">
 					<h5 class="report-panel-title">
-						<i class="material-icons left">location_on</i>Project Beneficiaries for {{ project.titleFormat }}
+						<i class="material-icons left">group</i><span class="beneficiary-count">{{ project.report | sumArrayofArraysByKeys:'locations':'beneficiaries':project.indicators:project.skip | number }}</span> Project Beneficiaries for {{ project.titleFormat }}
 					</h5>
 				</li>
 				<li class="collection-item avatar">
