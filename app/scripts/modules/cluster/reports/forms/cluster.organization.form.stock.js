@@ -181,10 +181,11 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         // enable edit report
         editReport: function(){
           $scope.report.report.report_status = 'todo';
+          $scope.report.save( false, false );
         },
 
         // save 
-        save: function( complete ) {
+        save: function( complete, display_modal ) {
 
           // disable btn
           $scope.report.submit = false;
@@ -195,6 +196,9 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           // time submitted
           $scope.report.report.report_submitted = moment().format();
 
+          // msg
+          Materialize.toast( 'Processing Stock Report...' , 3000, 'note');
+
           // setReportRequest
           var setReportRequest = {
             method: 'POST',
@@ -204,47 +208,48 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             }
           }
 
-          // msg
-          Materialize.toast( 'Processing Stock Report...' , 3000, 'note');
-
           // set report
-          ngmData.get( setReportRequest ).then( function( report, complete ){
-
+          ngmData.get( setReportRequest ).then( function( report ){
             // report
             $scope.report.updatedAt = moment( report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' );        
+            
+            // enable
+            $scope.report.submit = true;  
 
-            // 
-            $scope.report.refreshReport( report );
+            // user msg
+            var msg = 'Stock Report for  ' + $scope.report.titleFormat + ' ';
+                msg += complete ? 'Submitted!' : 'Saved!';
+
+            // msg
+            Materialize.toast( msg , 3000, 'success');
+
+            // Re-direct to summary
+            if ( $scope.report.report.report_status !== 'complete' ) {
+              // avoids duplicate beneficiaries 
+                // ( if 'save' and then 'submit' is submited without a refresh in between ) ???
+              // Not if you do it properly (return and set with .populate()!)
+              // $route.reload();
+              console.log(display_modal)
+              if(display_modal){
+                // update
+                $timeout(function() {
+                  // Re-direct to summary
+                  $location.path( '/cluster/stocks/');
+                }, 200);
+              } else {
+                $timeout(function() {
+                  $route.reload();
+                }, 200);
+              }
+            } else {
+              $timeout(function() {
+                $location.path( '/cluster/stocks');
+              }), 200;
+            }
 
           });
 
-        },
-
-        // update user 
-        refreshReport: function( results, complete ){
-
-          // enable
-          $scope.report.submit = true;  
-
-          // user msg
-          var msg = 'Stock Report for  ' + moment( $scope.report.report.reporting_period ).format('MMMM, YYYY') + ' ';
-              msg += complete ? 'Submitted!' : 'Saved!';
-
-          // msg
-          Materialize.toast( msg , 3000, 'success');
-
-          // Re-direct to summary
-          if ( $scope.report.report.report_status !== 'complete' ) {
-            // avoids duplicate beneficiaries 
-              // ( if 'save' and then 'submit' is submited without a refresh in between ) ???
-            // Not if you do it properly (return and set with .populate()!)
-            $route.reload();
-          } else {
-            $location.path( '/cluster/stocks');  
-          }
-
-        }        
-
+        }
       }
   }
 
