@@ -29,9 +29,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
     'config',
     function( $scope, $location, $timeout, $filter, $q, $http, ngmUser, ngmData, ngmClusterHelper, config ){
 
-      // order locations by
-      config.project.target_locations = $filter( 'orderBy' )( config.project.target_locations, [ 'admin1name', 'admin2name', 'fac_type_id' ] );
-
+      // set default
       if( !config.project.project_budget_currency ){
         config.project.project_budget_currency = 'usd';
       }
@@ -466,8 +464,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         compileDonor: function(){
           $scope.project.definition.project_donor = [];
           angular.forEach( $scope.project.definition.project_donor_check, function( d, key ){
-            console.log(d)
-            console.log(key)
             if ( d ) {
               var donor = $filter( 'filter' )( $scope.project.lists.donors, { project_donor_id: key }, true)[0];
               $scope.project.definition.project_donor.push( donor );
@@ -477,9 +473,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // save project
         save: function( display_modal, save_msg ){
-
-          console.log('---------$scope.project.definition.project_hrp_code');
-          console.log($scope.project.definition.project_hrp_code);
 
           // groups
           $scope.project.definition.category_type = [];
@@ -564,6 +557,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
               // add id to client json
               $scope.project.definition = angular.merge( $scope.project.definition, project );
+
+              // order locations by
+              $scope.project.definition.target_locations = $filter( 'orderBy' )( $scope.project.definition.target_locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
               
               // locations updated
               $scope.project.definition.update_locations = false;
@@ -626,6 +622,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           // reset location update flag
           $scope.project.definition.update_locations = false;
+
+          // 
+          $scope.project.definition.target_locations = $filter( 'orderBy' )( $scope.project.definition.target_locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
 
           // reset to cover updates
           if ( !$scope.project.definition.project_hrp_code ){

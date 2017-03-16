@@ -334,6 +334,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             // updated & popluateAll() report
             $scope.project.report = report;
             $scope.project.report.submit = false;
+            // order locations by
+            $scope.project.report.locations = $filter( 'orderBy' )( $scope.project.report.locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
             
             // user msg
             var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
