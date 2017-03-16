@@ -426,16 +426,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // validate target locations
         target_locations_valid: function(){
-          var valid = true;
+          var valid = false;
           angular.forEach( $scope.project.definition.target_locations, function( d, i ){
             if(
-              !d.admin1pcode ||
-              !d.admin1name ||
-              !d.admin2pcode ||
-              !d.admin2name ||
-              !d.fac_name
+              d.admin1pcode &&
+              d.admin1name &&
+              d.admin2pcode &&
+              d.admin2name &&
+              d.fac_name
             ){
-             valid = false;
+             valid = true;
             }
           });
           return valid;
@@ -533,6 +533,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
             // disable btn
             $scope.project.submit = false;
+            console.log($scope.project.definition.project_status);
             var msg = $scope.project.definition.project_status === 'new' ? 'New Project Saving! Moment...' : 'Processing...';
             // inform
             Materialize.toast( 'Processing...', 20000, 'note' );
