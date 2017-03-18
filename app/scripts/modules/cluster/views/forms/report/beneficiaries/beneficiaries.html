@@ -16,6 +16,7 @@
       <td>Description</td>
       <td>Delivery to</td>
       <td ng-show="project.showSessions( $locationIndex )">Sessions</td>
+      <td ng-show="project.definition.cluster_id === 'eiewg'">Units</td>
       <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Households</td>
       <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Families</td>
       <td>Boys</td>
@@ -57,10 +58,16 @@
           {{ project.showDelivery($data, beneficiary) }}
         </span>
       </td>
-      <td ng-show="project.showSessions( $locationIndex )">
+      <td ng-show="project.showSessions( $locationIndex ) && project.definition.cluster_id !== 'eiewg'">
         <!-- editable number -->
         <span editable-number="beneficiary.sessions" e-name="sessions" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'sessions', $data )" e-ng-disabled="project.rowSessionsDisabled( beneficiary )" e-required>
           {{ beneficiary.sessions }}
+        </span>
+      </td>
+      <td ng-show="project.definition.cluster_id === 'eiewg'">
+        <!-- editable number -->
+        <span editable-number="beneficiary.units" e-name="units" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'units', $data )" e-required>
+          {{ beneficiary.units }}
         </span>
       </td>
       <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">

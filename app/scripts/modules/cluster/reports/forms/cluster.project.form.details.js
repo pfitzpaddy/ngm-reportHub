@@ -383,12 +383,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             $scope.project.definition.project_budget &&
             $scope.project.definition.project_budget_currency &&
             $scope.project.definition.project_status &&
-            $scope.project.definition.project_description && 
-            ( $scope.project.definition.strategic_objectives && $scope.project.definition.strategic_objectives.length )
+            $scope.project.definition.project_description
           ){
             valid = true;
           }
-          
+          // eiewg
+          if( $scope.project.definition.cluster_id !== 'eiewg' ) {
+            if ( !$scope.project.definition.strategic_objectives && !$scope.project.definition.strategic_objectives.length ) {
+              valid = false;
+            }
+          }
           return valid;
         },
 
@@ -540,7 +544,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
             // disable btn
             $scope.project.submit = false;
-            console.log($scope.project.definition.project_status);
             var msg = $scope.project.definition.project_status === 'new' ? 'New Project Saving! Moment...' : 'Processing...';
             // inform
             Materialize.toast( 'Processing...', 20000, 'note' );

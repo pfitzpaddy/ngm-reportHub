@@ -308,7 +308,7 @@ angular.module( 'ngmReportHub' )
         // cluster_id: [ 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
 
         var category_types = [{
-          cluster_id: [ 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
+          cluster_id: [ 'esnfi', 'fsac', 'health', 'protection', 'wash', 'eiewg' ],
           category_type_id: 'category_a',
           category_type_name: 'A) Emergency Relief Needs'
         },{
