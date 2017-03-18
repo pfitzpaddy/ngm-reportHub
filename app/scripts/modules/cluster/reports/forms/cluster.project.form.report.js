@@ -93,7 +93,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // add beneficiary
         addBeneficiary: function( $parent ) {
           // sadd
-          var sadd = { 
+          var sadd = {
+            units: 0,
             households: 0, 
             sessions: 0, 
             families: 0, 
@@ -105,20 +106,26 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             elderly_women:0 
           };
           $scope.inserted = {
-            activity_type_id: null,
-            activity_type_name: null,
-            activity_description_id: null,
-            activity_description_name: null,
             category_type_id: null,
             category_type_name: null,
             beneficiary_type_id: null,
             beneficiary_type_name: null,
+            activity_type_id: null,
+            activity_type_name: null,
+            activity_description_id: null,
+            activity_description_name: null,
             delivery_type_id: null,
             delivery_type_name: null
           };
 
           // merge
           angular.merge( $scope.inserted, sadd );
+
+          // eiewg
+          if( $scope.project.definition.cluster_id === 'eiewg' ){
+            $scope.inserted.category_type_id = 'category_a';
+            $scope.inserted.category_type_name = 'A) Emergency Relief Needs';
+          }
 
           // clone
           var length = $scope.project.report.locations[ $parent ].beneficiaries.length;

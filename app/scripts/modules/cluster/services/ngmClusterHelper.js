@@ -420,6 +420,23 @@ angular.module( 'ngmReportHub' )
           beneficiary_type_name: 'Host Communities'
         },{
 
+          cluster_id: [ 'eiewg' ],
+          category_type_id: [ 'category_a' ],
+          beneficiary_type_id: 'refugees_returnees',
+          beneficiary_type_name: 'Refugees & Returnees'
+        },{
+          cluster_id: [ 'eiewg' ],
+          category_type_id: [ 'category_a' ],
+          beneficiary_type_id: 'idps',
+          beneficiary_type_name: 'IDPs'
+        },{
+          cluster_id: [ 'eiewg' ],
+          category_type_id: [ 'category_a' ],
+          beneficiary_type_id: 'host_communities',
+          beneficiary_type_name: 'Host Communities'
+        },{
+
+
           cluster_id: [ 'wash' ],
           category_type_id: [ 'category_a' ],
           beneficiary_type_id: 'host_communities_disaster_idps',
