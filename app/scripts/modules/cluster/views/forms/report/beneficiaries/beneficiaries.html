@@ -10,25 +10,25 @@
 <div style="padding-left: 20px;">
   <table class="bordered responsive-table" style="margin-bottom:10px;" ng-show="project.report.locations[$locationIndex].beneficiaries.length">
     <tr style="font-weight: 400">
-      <td ng-show="project.definition.cluster_id !== 'eiewg'">Category</td>
+      <td ng-if="project.definition.cluster_id !== 'eiewg'">Category</td>
       <td>Beneficiary</td>
       <td>Activity</td>
       <td>Description</td>
       <td>Delivery to</td>
-      <td ng-show="project.showSessions( $locationIndex )">Sessions</td>
-      <td ng-show="project.definition.cluster_id === 'eiewg'">Units</td>
-      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Households</td>
-      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Families</td>
+      <td ng-if="project.showSessions( $locationIndex )">Sessions</td>
+      <td ng-if="project.definition.cluster_id === 'eiewg'">Units</td>
+      <td ng-if="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Households</td>
+      <td ng-if="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Families</td>
       <td>Boys</td>
       <td>Girls</td>
-      <td ng-show="project.definition.cluster_id !== 'eiewg'">Men</td>
-      <td ng-show="project.definition.cluster_id !== 'eiewg'">Women</td>
-      <td ng-show="project.definition.cluster_id !== 'eiewg'">Eld. Men</td>
-      <td ng-show="project.definition.cluster_id !== 'eiewg'">Eld. Women</td>      
-      <td ng-show="project.report.report_status !== 'complete'">Edit</td>
+      <td ng-if="project.definition.cluster_id !== 'eiewg'">Men</td>
+      <td ng-if="project.definition.cluster_id !== 'eiewg'">Women</td>
+      <td ng-if="project.definition.cluster_id !== 'eiewg'">Eld. Men</td>
+      <td ng-if="project.definition.cluster_id !== 'eiewg'">Eld. Women</td>      
+      <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
     <tr ng-repeat="beneficiary in project.report.locations[$locationIndex].beneficiaries track by $index">
-      <td ng-show="project.definition.cluster_id !== 'eiewg'">
+      <td ng-if="project.definition.cluster_id !== 'eiewg'">
         <!-- editable group (select-remote) -->
         <span e-placeholder="Select..." editable-select="beneficiary.category_type_id" e-name="category_type_id" e-form="rowform" e-ng-options="b.category_type_id as b.category_type_name for b in project.category_types">
           {{ project.showCategory($data, beneficiary) }}
@@ -58,25 +58,25 @@
           {{ project.showDelivery($data, beneficiary) }}
         </span>
       </td>
-      <td ng-show="project.showSessions( $locationIndex ) && project.definition.cluster_id !== 'eiewg'">
+      <td ng-if="project.showSessions( $locationIndex ) && project.definition.cluster_id !== 'eiewg'">
         <!-- editable number -->
         <span editable-number="beneficiary.sessions" e-name="sessions" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'sessions', $data )" e-ng-disabled="project.rowSessionsDisabled( beneficiary )" e-required>
           {{ beneficiary.sessions }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id === 'eiewg'">
+      <td ng-if="project.definition.cluster_id === 'eiewg'">
         <!-- editable number -->
         <span editable-number="beneficiary.units" e-name="units" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'units', $data )" e-required>
           {{ beneficiary.units }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">
+      <td ng-if="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">
         <!-- editable number -->
         <span editable-number="beneficiary.households" e-name="households" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'households', $data )" e-required>
           {{ beneficiary.households }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">
+      <td ng-if="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">
         <!-- editable number -->
         <span editable-number="beneficiary.families" e-name="families" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'families', $data )" e-required>
           {{ beneficiary.families }}
@@ -94,25 +94,25 @@
           {{ beneficiary.girls }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id !== 'eiewg'">
+      <td ng-if="project.definition.cluster_id !== 'eiewg'">
         <!-- editable number -->
         <span editable-number="beneficiary.men" e-name="men" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'men', $data )" e-required>
           {{ beneficiary.men }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id !== 'eiewg'">
+      <td ng-if="project.definition.cluster_id !== 'eiewg'">
         <!-- editable number -->
         <span editable-number="beneficiary.women" e-name="women" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'women', $data )" e-required>
           {{ beneficiary.women }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id !== 'eiewg'">
+      <td ng-if="project.definition.cluster_id !== 'eiewg'">
         <!-- editable number -->
         <span editable-number="beneficiary.elderly_men" e-name="elderly_men" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'elderly_men', $data )" e-required>
           {{ beneficiary.elderly_men }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id !== 'eiewg'">
+      <td ng-if="project.definition.cluster_id !== 'eiewg'">
         <!-- editable number -->
         <span editable-number="beneficiary.elderly_women" e-name="elderly_women" e-form="rowform" e-min="0" e-ng-change="project.updateInput($locationIndex, $index, 'elderly_women', $data )" e-required>
           {{ beneficiary.elderly_women }}
