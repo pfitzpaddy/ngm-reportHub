@@ -29,10 +29,56 @@
 					</p>
 
 					<!-- form -->
-					<div class="row"> 
+					<div class="row">
 						<div class="card">
 							<ul class="collection with-header">
 								<li class="collection-item avatar" ng-repeat="objective in project.lists.strategic_objectives track by $index">
+							    <div class="strategic_objective_title" style="padding:5px 0px 10px 35px;">{{ objective.objective_type_name }}</div>
+							    <p align="justify" style="padding:5px 0px 10px 0px;">
+							      <input type="checkbox" id="{{ objective.objective_type_id }}" 
+							      	ng-model="project.definition.strategic_objectives_check[ objective.objective_type_id ]"
+							      	ng-disabled="project.definition.project_status === 'complete'"
+							      	ng-click="project.setStrategicObjectives( $index )"/>
+							      <label for="{{ objective.objective_type_id }}" style="color:#757575;">{{ objective.objective_type_description }}</label>
+							    </p>
+							    <p align="justify" style="padding:5px 0px 10px 35px; font-weight:400;">
+										Relates to <span ng-repeat="so in objective.objective_type_objectives">{{ so }} </span>
+							    </p>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+				</li>
+
+			</ul>
+
+		</div>
+	</div>
+</div>
+
+<div class="row" ng-if="project.definition.project_rnr_chapter">
+	<div class="col s12 m12 l12">
+		<div class="card">
+			<ul id="project_details_form" class="collection with-header">
+				
+				<li class="collection-header blue lighten-4">
+					<h5 class="report-work-title">
+						<i class="material-icons left">loupe</i>REFUGEE & RETURNEE OBJECTIVES
+					</h5>
+				</li>
+
+				<li class="collection-item avatar">
+
+					<p style="padding:10px;">
+						Select the RnR Objectives that your project will target;
+					</p>
+
+					<!-- form -->
+					<div class="row">
+						<div class="card">
+							<ul class="collection with-header">
+								<li class="collection-item avatar" ng-repeat="objective in project.lists.strategic_rnr_objectives track by $index">
 							    <div class="strategic_objective_title" style="padding:5px 0px 10px 35px;">{{ objective.objective_type_name }}</div>
 							    <p align="justify" style="padding:5px 0px 10px 0px;">
 							      <input type="checkbox" id="{{ objective.objective_type_id }}" 

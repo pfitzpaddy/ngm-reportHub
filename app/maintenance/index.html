@@ -10,7 +10,6 @@
   <link href="imgs/favicon.ico" sizes="32x32" rel="icon">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/animate.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
@@ -25,10 +24,9 @@
     </nav>
   </div>
 
-  <div class="promo center white-text" style="height: 700px;">
+  <div class="promo center white-text" style="height: 600px;">
     <h1 id="promo-title">ReportHub</h1>
-    <h2 class="brand-logo">Maintenance</h2>
-    <img src="imgs/bot.png"/>
+    <img src="imgs/bot.png" width="320px;"/>
     <h5>ReportHub is currently unavailable due to maintenance!</h5>
     <h5>Normal service will resume shortly...</h5>
   </div>
@@ -73,9 +71,10 @@
   <!--  Scripts-->
   <script src="js/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.min.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/init.js"></script>
+  <script>
+    // materialize components
+    $('.parallax').parallax();    
+  </script>
 
   </body>
 </html>

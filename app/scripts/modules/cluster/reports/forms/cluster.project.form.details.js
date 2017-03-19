@@ -65,12 +65,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         activity_types: config.project.activity_type,
         lists: {
           strategic_objectives: ngmClusterHelper.getStrategicObjectives( config.project.cluster_id ),
+          strategic_rnr_objectives: ngmClusterHelper.getRnRStrategicObjectives(),
           activity_types: ngmClusterHelper.getActivities( config.project.cluster_id, true ),
           activity_descriptions: ngmClusterHelper.getActivities( config.project.cluster_id, false ),
           category_types: ngmClusterHelper.getCategoryTypes( config.project.cluster_id ),
           beneficiary_types: moment( config.project.project_end_date ).year() === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries( config.project.cluster_id ),
           currencies: ngmClusterHelper.getCurrencies( config.project.admin0pcode ),
-          donors: ngmClusterHelper.getDonors(),
+          donors: $filter( 'filter' )( localStorage.getObject( 'lists' ).donorsList, 
+                          { cluster_id: config.project.cluster_id }, true ),
           // admin1 ( with admin0 filter )
           admin1: $filter( 'filter' )( localStorage.getObject( 'lists' ).admin1List, 
                           { admin0pcode: ngmUser.get().admin0pcode }, true ),
@@ -110,11 +112,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // on RnR check
         getStrategicObjectives: function(){
           var id = $scope.project.definition.cluster_id;
+          $scope.project.definition.strategic_objectives_check = {};
           $scope.project.strategic_title = $scope.project.definition.cluster.toUpperCase() + ' OBJECTIVES';
-          if( $scope.project.definition.project_rnr_chapter ){
-            id = 'project_rnr_chapter';
-            $scope.project.strategic_title = 'REFUGEE & RETURNEE OBJECTIVES';
-          }
           $scope.project.lists.strategic_objectives = ngmClusterHelper.getStrategicObjectives( id );
         },
 
@@ -124,9 +123,23 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           angular.forEach( $scope.project.definition.strategic_objectives_check, function( key, so ){
             if ( key ) {
               var objective = $filter('filter')( $scope.project.lists.strategic_objectives, { objective_type_id: so }, true);
-              $scope.project.definition.strategic_objectives.push( objective[0] );
+              if( objective[0] ){
+                $scope.project.definition.strategic_objectives.push( objective[0] );
+              }
             }
           });
+
+          // RnR chapter
+          if ( $scope.project.definition.project_rnr_chapter ) {
+            angular.forEach( $scope.project.definition.strategic_objectives_check, function( key, so ){
+              if ( key ) {
+                var objective = $filter('filter')( $scope.project.lists.strategic_rnr_objectives, { objective_type_id: so }, true);
+                if( objective[0] ){
+                  $scope.project.definition.strategic_objectives.push( objective[0] );
+                }
+              }
+            });
+          }
 
           // set HRP if SOs selected
           if( $scope.project.definition.strategic_objectives.length ) {

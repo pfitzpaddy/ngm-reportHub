@@ -74,13 +74,19 @@ angular.module( 'ngmReportHub' )
           // activities list
           getActivities: {
             method: 'GET',
-            url: 'http://' + $location.host() + '/api/cluster/getActivities'
+            url: 'http://' + $location.host() + '/api/cluster/list/activities'
+          },
+
+          // donors list
+          getDonors: {
+            method: 'GET',
+            url: 'http://' + $location.host() + '/api/cluster/list/donors'
           },
 
           // indicators list
           getIndicators: {
             method: 'GET',
-            url: 'http://' + $location.host() + '/api/cluster/getIndicators'
+            url: 'http://' + $location.host() + '/api/cluster/list/indicators'
           }          
 
         }
@@ -93,6 +99,7 @@ angular.module( 'ngmReportHub' )
             admin1List: [],
             admin2List: [],
             activitiesList: [],
+            donorsList: [],
             indicatorsList: []
           };
 
@@ -104,6 +111,7 @@ angular.module( 'ngmReportHub' )
             $http( requests.getAdmin1List ),
             $http( requests.getAdmin2List ),
             $http( requests.getActivities ), 
+            $http( requests.getDonors ), 
             $http( requests.getIndicators ) ] ).then( function( results ){
 
               // admin1, admin2, activities object
@@ -111,7 +119,8 @@ angular.module( 'ngmReportHub' )
                 admin1List: results[0].data,
                 admin2List: results[1].data,
                 activitiesList: results[2].data,
-                indicatorsList: results[3].data
+                donorsList: results[3].data,
+                indicatorsList: results[4].data
               };
 
               // storage
@@ -929,28 +938,32 @@ angular.module( 'ngmReportHub' )
             objective_type_name: 'WASH OBJECTIVE 4',
             objective_type_description: 'Two-year transition of cluster leadership of Ministry of Rural Rehabilitation and Development set in motion',
             objective_type_objectives: [ 'SO1', 'SO2', 'SO4' ]
-          }],
-          'project_rnr_chapter':[{
-            objective_type_id: 'project_rnr_chapter_objective_1',
-            objective_type_name: 'REFUGEE & RETURNEE OBJECTIVE 1',
-            objective_type_description: 'Protection interventions provided to NWA refugees',
-            objective_type_objectives: [ 'SO1' ]
-          },{
-            objective_type_id: 'project_rnr_chapter_objective_2',
-            objective_type_name: 'REFUGEE & RETURNEE OBJECTIVE 2',
-            objective_type_description: 'Essential services delivered to returnees while pursuing durable solutions',
-            objective_type_objectives: [ 'SO1', 'SO3' ]
-          },{
-            objective_type_id: 'project_rnr_chapter_objective_3',
-            objective_type_name: 'REFUGEE & RETURNEE OBJECTIVE 3',
-            objective_type_description: 'Immediate humanitarian needs for vulnerable refugee returnees, undocumented returnees and deportees are met',
-            objective_type_objectives: [ 'SO1' ]
           }]
         }
 
         // return SO by cluster
         return strategic_objectives[ cluster_id ];
 
+      },
+
+      // RnR strategic obj
+      getRnRStrategicObjectives: function( ){
+        return [{
+          objective_type_id: 'project_rnr_chapter_objective_1',
+          objective_type_name: 'REFUGEE & RETURNEE OBJECTIVE 1',
+          objective_type_description: 'Protection interventions provided to NWA refugees',
+          objective_type_objectives: [ 'SO1' ]
+        },{
+          objective_type_id: 'project_rnr_chapter_objective_2',
+          objective_type_name: 'REFUGEE & RETURNEE OBJECTIVE 2',
+          objective_type_description: 'Essential services delivered to returnees while pursuing durable solutions',
+          objective_type_objectives: [ 'SO1', 'SO3' ]
+        },{
+          objective_type_id: 'project_rnr_chapter_objective_3',
+          objective_type_name: 'REFUGEE & RETURNEE OBJECTIVE 3',
+          objective_type_description: 'Immediate humanitarian needs for vulnerable refugee returnees, undocumented returnees and deportees are met',
+          objective_type_objectives: [ 'SO1' ]
+        }]
       },
 
       // remove duplicates in item ( json array ) based on value ( filterOn )
