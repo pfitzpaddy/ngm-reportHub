@@ -128,11 +128,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             }
           });
 
-          console.log($scope.project.definition.strategic_objectives.length)
-
           // set HRP if SOs selected
           if( $scope.project.definition.strategic_objectives.length ) {
-            $scope.project.definition.project_hrp_code.replace( '-OTH-', '-HRP-' );
+            $scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'OTH', 'HRP' );
           }
 
         },
@@ -408,12 +406,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           ){
             valid = true;
           }
-          // eiewg
-          if( $scope.project.definition.cluster_id !== 'eiewg' ) {
-            if ( !$scope.project.definition.strategic_objectives && !$scope.project.definition.strategic_objectives.length ) {
-              valid = false;
-            }
-          }
           return valid;
         },
 
@@ -655,7 +647,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // reset location update flag
           $scope.project.definition.update_locations = false;
 
-          // 
+          // order locations
           $scope.project.definition.target_locations = 
                   $filter( 'orderBy' )( $scope.project.definition.target_locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
 
