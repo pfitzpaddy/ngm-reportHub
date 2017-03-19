@@ -127,6 +127,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               $scope.project.definition.strategic_objectives.push( objective[0] );
             }
           });
+
+          console.log($scope.project.definition.strategic_objectives.length)
+
+          // set HRP if SOs selected
+          if( $scope.project.definition.strategic_objectives.length ) {
+            $scope.project.definition.project_hrp_code.replace( '-OTH-', '-HRP-' );
+          }
+
         },
 
         // add beneficiary
@@ -134,6 +142,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // sadd
           var sadd = {
             units: 0,
+            cash_amount: 0,
             households: 0, 
             sessions: 0, 
             families: 0, 
@@ -222,6 +231,18 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             $beneficiary.activity_description_name = selected[0].activity_description_name;
           } 
           return selected.length ? selected[0].activity_description_name : 'No Selection!';
+        },
+
+        // cash
+        showCash: function(){
+          var display = false;
+          var l = $scope.project.definition.target_beneficiaries;
+          angular.forEach( l, function(b){
+            if( b.activity_type_id === 'cash_vouchers' || b.activity_type_id === 'food_assistance' ){
+              display = true;
+            }
+          });
+          return display;
         },
 
         // update inidcators
@@ -635,7 +656,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $scope.project.definition.update_locations = false;
 
           // 
-          $scope.project.definition.target_locations = $filter( 'orderBy' )( $scope.project.definition.target_locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
+          $scope.project.definition.target_locations = 
+                  $filter( 'orderBy' )( $scope.project.definition.target_locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
 
           // reset to cover updates
           if ( !$scope.project.definition.project_hrp_code ){

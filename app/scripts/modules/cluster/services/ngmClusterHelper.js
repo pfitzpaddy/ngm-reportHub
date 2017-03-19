@@ -47,7 +47,7 @@ angular.module( 'ngmReportHub' )
       // get hrp code
       getProjectHrpCode: function( project ) {
 
-        return project.admin0name.toUpperCase().substring(0, 3) + '-HRP-' +
+        return project.admin0name.toUpperCase().substring(0, 3) + '-OTH-' +
                         moment().year() + '-' +
                         project.cluster.toUpperCase().substring(0, 3) + '-' +
                         moment().unix();
@@ -222,7 +222,7 @@ angular.module( 'ngmReportHub' )
 
 			// get cluster donors
 			getDonors: function() {
-				return [{
+				var donors = [{
           project_donor_id: 'dfid',
           project_donor_name: 'DFID'
         },{
@@ -265,6 +265,8 @@ angular.module( 'ngmReportHub' )
           project_donor_id: 'who',
           project_donor_name: 'WHO'
         }]
+
+        return donors;
 			},
 
 			// country currencies

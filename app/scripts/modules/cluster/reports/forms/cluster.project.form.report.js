@@ -96,6 +96,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           // sadd
           var sadd = {
             units: 0,
+            cash_amount: 0,
             households: 0, 
             sessions: 0, 
             families: 0, 
@@ -197,6 +198,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           return selected.length ? selected[0].delivery_type_name : 'No Selection!';
         },
         
+        // display if education/training sessions provided
         showSessions: function( $locationIndex ){
           var display = false;
           var l = $scope.project.report.locations[ $locationIndex ];
@@ -234,7 +236,21 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }
 
           return disabled;
-        },   
+        },
+
+        // cash
+        showCash: function( $locationIndex ){
+          var display = false;
+          var l = $scope.project.report.locations[ $locationIndex ];
+          if( l ){
+            angular.forEach( l.beneficiaries, function(b){
+              if( b.activity_type_id === 'cash_vouchers' || b.activity_type_id === 'food_assistance' ){
+                display = true;
+              }
+            });
+          }
+          return display;
+        },
 
         // update inidcators
         updateInput: function( $parent, $index, indicator, $data ){
