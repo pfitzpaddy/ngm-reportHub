@@ -31,7 +31,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
     function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmData, ngmClusterHelper, config ){
 
       // order locations by
-      config.report.locations = $filter( 'orderBy' )( config.report.locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
+      config.report.locations = 
+          $filter( 'orderBy' )( config.report.locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
 
       // project
       $scope.project = {
@@ -207,7 +208,33 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             });
           }
           return display;
-        },        
+        },
+
+        // disable input
+        disabledInput: function( $beneficiary, indicator ) {
+          var disabled = false;
+
+          // health, mch, ANC, PNC, SBA
+          if( $beneficiary.activity_type_id === 'mch' ||
+              $beneficiary.activity_description_id === 'antenatal_care' ||
+              $beneficiary.activity_description_id === 'postnatal_care' ||
+              $beneficiary.activity_description_id === 'skilled_birth_attendant' ){
+            if( indicator !== 'women' ){
+              disabled = true;
+            }
+          }
+
+          // health, vaccination
+          if( $beneficiary.activity_type_id === 'vaccination' ||
+              $beneficiary.activity_description_id === 'penta_3' ||
+              $beneficiary.activity_description_id === 'measles' ){
+            if( indicator !== 'boys' && indicator !== 'girls' ){
+              disabled = true;
+            }
+          }
+
+          return disabled;
+        },   
 
         // update inidcators
         updateInput: function( $parent, $index, indicator, $data ){
@@ -227,7 +254,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         rowSaveDisabled: function( $data ){
           var disabled = true;
           if ( $data.category_type_id && $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id && $data.delivery_type_id &&
-                $data.sessions >= 0 && $data.households >= 0 && $data.families >= 0 && $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 && $data.elderly_men >= 0 && $data.elderly_women >= 0 ) {
+                $data.units >= 0 && $data.sessions >= 0 && $data.households >= 0 && $data.families >= 0 && $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 && $data.elderly_men >= 0 && $data.elderly_women >= 0 ) {
               disabled = false;
           }
           return disabled;
