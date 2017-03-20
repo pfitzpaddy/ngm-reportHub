@@ -227,53 +227,46 @@ angular.module( 'ngmReportHub' )
         // return 
         return activities;
 
-      },     
+      },
 
 			// get cluster donors
-			getDonors: function() {
-				var donors = [{
-          project_donor_id: 'dfid',
-          project_donor_name: 'DFID'
-        },{
-          project_donor_id: 'caritas_germany',
-          project_donor_name: 'Caritas Germany'
-        },{
-          project_donor_id: 'cerf',
-          project_donor_name: 'CERF'
-        },{
-          project_donor_id: 'chf',
-          project_donor_name: 'CHF'
-        },{
-          project_donor_id: 'echo',
-          project_donor_name: 'ECHO'
-        },{
-          project_donor_id: 'global_fund',
-          project_donor_name: 'Global Fund'
-        },{
-          project_donor_id: 'german_foreign_ministry',
-          project_donor_name: 'German Foreign Ministry'
-        },{
-          project_donor_id: 'icrc',
-          project_donor_name: 'ICRC'
-        },{
-          project_donor_id: 'ifrc',
-          project_donor_name: 'IFRC'
-        },{
-          project_donor_id: 'johanniter',
-          project_donor_name: 'Johanniter'
-        },{
-          project_donor_id: 'qatar_red_crescent',
-          project_donor_name: 'Qatar Red Crescent'
-        },{
-          project_donor_id: 'usaid',
-          project_donor_name: 'USAID'
-        },{
-          project_donor_id: 'unicef',
-          project_donor_name: 'UNICEF'
-        },{
-          project_donor_id: 'who',
-          project_donor_name: 'WHO'
-        }]
+			getDonors: function( cluster_id ) {
+
+        // get from list
+        var donors = $filter( 'filter' )( localStorage.getObject( 'lists' ).donorsList, 
+                          { cluster_id: cluster_id }, true )
+
+        // if no list use default
+        if ( !donors.length ) {
+          var donors = [
+            { project_donor_id: 'australia', project_donor_name:'Australia'},
+            { project_donor_id: 'canada',  project_donor_name:'Canada'},
+            { project_donor_id: 'caritas_germany', project_donor_name: 'Caritas Germany' },
+            { project_donor_id: 'cerf', project_donor_name: 'CERF' },
+            { project_donor_id: 'chf', project_donor_name: 'CHF' },
+            { project_donor_id: 'denmark', project_donor_name:'Denmark'},
+            { project_donor_id: 'dfid', project_donor_name: 'DFID' },            
+            { project_donor_id: 'echo', project_donor_name: 'ECHO' },
+            { project_donor_id: 'finland', project_donor_name:'Finland' },
+            { project_donor_id: 'france', project_donor_name:'France' },
+            { project_donor_id: 'global_fund', project_donor_name: 'Global Fund' },
+            { project_donor_id: 'german_foreign_ministry', project_donor_name: 'German Foreign Ministry' },
+            { project_donor_id: 'icrc', project_donor_name: 'ICRC' },
+            { project_donor_id: 'ifrc', project_donor_name: 'IFRC' },
+            { project_donor_id: 'italy', project_donor_name: 'Italy' },
+            { project_donor_id: 'jica', project_donor_name: 'JICA' },
+            { project_donor_id: 'johanniter', project_donor_name: 'Johanniter' },
+            { project_donor_id: 'netherlands', project_donor_name: 'Netherlands' },
+            { project_donor_id: 'norway', project_donor_name: 'Norway' },
+            { project_donor_id: 'qatar_red_crescent', project_donor_name: 'Qatar Red Crescent' },
+            { project_donor_id: 'sweden', project_donor_name: 'Sweden' },
+            { project_donor_id: 'switzerland', project_donor_name: 'Switzerland' },
+            { project_donor_id: 'usaid', project_donor_name: 'USAID' },
+            { project_donor_id: 'unicef', project_donor_name: 'UNICEF' },
+            { project_donor_id: 'who', project_donor_name: 'WHO' },
+            { project_donor_id: 'world_bank', project_donor_name: 'Worldbank' }
+          ];
+        }
 
         return donors;
 			},
@@ -383,7 +376,7 @@ angular.module( 'ngmReportHub' )
       },
 
 			// return ocha beneficiaries
-			getBeneficiaries: function( cluster_id ) {
+			getBeneficiaries: function( project, cluster_id ) {
 
         // full list
         // cluster_id: [ 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
@@ -480,7 +473,7 @@ angular.module( 'ngmReportHub' )
           beneficiary_type_name: 'Afghan Returnees (Undocumented)'
         },{
           cluster_id: [ 'esnfi', 'fsac', 'health','nutrition', 'protection', 'wash' ],
-          category_type_id: [ 'category_b', 'category_c' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
           beneficiary_type_id: 'refugee_pakistani',
           beneficiary_type_name: 'Pakistani Refugees'
         },{
@@ -490,12 +483,31 @@ angular.module( 'ngmReportHub' )
           beneficiary_type_name: 'Severely Food Insecure'
         }];
 
+        // RnR
+        var rnr = [{
+          beneficiary_type_id: 'returnee_documented',
+          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          beneficiary_type_name: 'Afghan Refugee Returnees (Documented)'
+        },{
+          beneficiary_type_id: 'returnee_undocumented',
+          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          beneficiary_type_name: 'Afghan Returnees (Undocumented)'
+        },{
+          beneficiary_type_id: 'refugee_pakistani',
+          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          beneficiary_type_name: 'Pakistani Refugees'
+        }];
+
+        // set beneficiaries
+        var beneficiaries = $filter( 'filter' )( beneficiaries, { cluster_id: cluster_id } );
+
+        // if RnR
+        if ( project.project_rnr_chapter ) {
+          beneficiaries = this.filterDuplicates( beneficiaries.concat( rnr ), 'beneficiary_type_id' );
+        }
 
         // filter by cluster beneficiaries here
-        return $filter( 'filter' )( beneficiaries, { cluster_id: cluster_id } );
-
-        // sort and return
-        // return $filter( 'orderBy' )( beneficiaries, 'beneficiary_name' );
+        return beneficiaries
 
 			},
 

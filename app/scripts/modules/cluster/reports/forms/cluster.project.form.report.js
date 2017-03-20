@@ -34,6 +34,16 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       config.report.locations = 
           $filter( 'orderBy' )( config.report.locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
 
+      // set activity descriptions
+      $scope.activity_descriptions = ngmClusterHelper.getActivities( config.project.cluster_id, false );
+      
+      // if RnR add activities
+      if( config.project.project_rnr_chapter ){
+        // get activty list
+        $scope.activity_descriptions = 
+            $scope.activity_descriptions.concat( ngmClusterHelper.getActivities( 'rnr_chapter', false ) );
+      }
+
       // project
       $scope.project = {
         
@@ -63,9 +73,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         
         // lists
         // activity_type: config.project.activity_type,
-        activity_descriptions: ngmClusterHelper.getActivities( config.project.cluster_id, false ),
+        activity_descriptions: $scope.activity_descriptions,
         category_types: ngmClusterHelper.getCategoryTypes( config.project.cluster_id ),
-        beneficiary_types: config.report.report_year === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries( config.project.cluster_id, [] ),
+        beneficiary_types: config.report.report_year === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries( config.project, config.project.cluster_id ),
         delivery_types:[{
           delivery_type_id: 'population',
           delivery_type_name: 'New Beneficiaries'
