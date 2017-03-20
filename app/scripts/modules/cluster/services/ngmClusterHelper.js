@@ -87,7 +87,13 @@ angular.module( 'ngmReportHub' )
           getIndicators: {
             method: 'GET',
             url: 'http://' + $location.host() + '/api/cluster/list/indicators'
-          }          
+          },
+
+          // indicators list
+          getStockItems: {
+            method: 'GET',
+            url: 'http://' + $location.host() + '/api/cluster/list/stockitems'
+          }
 
         }
 
@@ -100,7 +106,8 @@ angular.module( 'ngmReportHub' )
             admin2List: [],
             activitiesList: [],
             donorsList: [],
-            indicatorsList: []
+            indicatorsList: [],
+            stockItemsList: []
           };
 
           // storage
@@ -112,7 +119,8 @@ angular.module( 'ngmReportHub' )
             $http( requests.getAdmin2List ),
             $http( requests.getActivities ), 
             $http( requests.getDonors ), 
-            $http( requests.getIndicators ) ] ).then( function( results ){
+            $http( requests.getIndicators ),
+            $http( requests.getStockItems ) ] ).then( function( results ){
 
               // admin1, admin2, activities object
               var lists = {
@@ -120,7 +128,8 @@ angular.module( 'ngmReportHub' )
                 admin2List: results[1].data,
                 activitiesList: results[2].data,
                 donorsList: results[3].data,
-                indicatorsList: results[4].data
+                indicatorsList: results[4].data,
+                stockItemsList: results[5].data
               };
 
               // storage
@@ -128,58 +137,6 @@ angular.module( 'ngmReportHub' )
 
             });
         }
-
-      },    
-
-      getStocks: function( cluster_id, list ) {
-
-        // stock list
-        var stocks = [{
-          cluster: [ 'health' ],
-          stock_item_type: 'health_ddk_kit',
-          stock_item_name: 'Health: DDK Kit'
-        },{
-          cluster: [ 'health' ],
-          stock_item_type: 'health_iehk_basic_unit',
-          stock_item_name: 'Health: IEHK Basic Unit'
-        },{
-          cluster: [ 'health' ],
-          stock_item_type: 'health_iehk_supplementary_unit',
-          stock_item_name: 'Health: IEHK Supplementary Unit'
-        },{
-          cluster: [ 'health' ],
-          stock_item_type: 'health_new_born_kit',
-          stock_item_name: 'Health: New Born Kit'
-        },{
-          cluster: [ 'health' ],
-          stock_item_type: 'health_pneumonia_kit',
-          stock_item_name: 'Health: Pneumonia Kit'
-        },{
-          cluster: [ 'health' ],
-          stock_item_type: 'health_trauma_kit_a',
-          stock_item_name: 'Health: Trauma Kit A'
-        },{
-          cluster: [ 'health' ],
-          stock_item_type: 'health_trauma_kit_b',
-          stock_item_name: 'Health: Trauma Kit B'
-        },{
-          cluster: [ 'health' ],
-          stock_item_type: 'miscellaneous',
-          stock_item_name: 'Miscellaneous'
-        }];
-
-        // filter by cluster beneficiaries here
-        stocks = $filter( 'filter' )( stocks, { cluster: cluster_id } );
-
-        // for each beneficiaries from list
-        angular.forEach( list, function( d, i ){
-          // filter out selected types
-          stocks = 
-              $filter( 'filter' )( stocks, { stock_item_type: '!' + d.stock_item_type } );
-        });
-
-        // sort and return
-        return $filter( 'orderBy' )( stocks, 'stock_item_name' );
 
       },
 

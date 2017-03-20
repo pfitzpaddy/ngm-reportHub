@@ -56,7 +56,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
         // lists
         lists: {
-          stocks: ngmClusterHelper.getStocks( config.organization.cluster_id, [] )
+          stocks: $filter( 'filter' )( localStorage.getObject( 'lists' ).stockItemsList, 
+                          { cluster_id: ngmUser.get().cluster_id }, true )
         },
 
         // cancel and delete empty project
