@@ -119,7 +119,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // RnR selected 
           if ( $scope.project.definition.project_rnr_chapter ){
             // update beneficiary list
-            $scope.project.beneficiary_types = ngmClusterHelper( $scope.project.definition, $scope.project.definition.cluster_id );
+            $scope.project.beneficiary_types = ngmClusterHelper.getBeneficiaries( $scope.project.definition, $scope.project.definition.cluster_id );
             // get activty list
             var activity_types = ngmClusterHelper.getActivities( 'rnr_chapter', true );
             var activity_descriptions = ngmClusterHelper.getActivities( 'rnr_chapter', false );
