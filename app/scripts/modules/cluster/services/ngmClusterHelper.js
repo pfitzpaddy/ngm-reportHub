@@ -143,11 +143,11 @@ angular.module( 'ngmReportHub' )
       // monthly report indicators
       getIndicators: function( target ) {
 
-        // if project target, return subset
+        // if project target, return subset (2016)
         if ( target ) {
           var indicators = {
-            households: 0,
-            families: 0,
+            // households: 0,
+            // families: 0,
             boys: 0,
             girls: 0,
             men: 0,
