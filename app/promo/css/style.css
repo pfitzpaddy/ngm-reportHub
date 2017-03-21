@@ -6,6 +6,22 @@
  * Made By MaterializeCSS.com
  */
 
+/* prezi */
+.prezi_iframe {
+  width:100%;
+  height:600px;
+}
+.prezi {
+  position:relative;
+}
+.pointers {
+  width:97%;
+  height:565px; 
+  position:absolute; 
+  pointer-events:none;
+  top:0;
+}
+
 nav ul a,
 nav .brand-logo {
   color: #fff;

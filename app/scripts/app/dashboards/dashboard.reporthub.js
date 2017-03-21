@@ -137,7 +137,7 @@ angular.module('ngmReportHub')
 					}];
 
 					// title
-					$scope.dashboard.title = 'REPORTHUB | ACHIEVEMENTS';
+					$scope.dashboard.title = 'REPORTHUB | 2016';
 					$scope.dashboard.subtitle = 'ReportHub summary and achievements for 2016';
 					// set total reports
 					$scope.dashboard.setTotalReports();
@@ -276,7 +276,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px;',
 									config: {
-										html: '<h2 class="col s12 report-title" style="margin-top: 0px; padding-bottom: 5px; font-size: 1.6rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">ACHIEVEMENTS</h2>'
+										html: '<h2 class="col s12 report-title" style="margin-top: 0px; padding-bottom: 5px; font-size: 1.6rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">ACHIEVEMENTS 2016</h2>'
 									}
 								}]
 							}]
@@ -381,6 +381,17 @@ angular.module('ngmReportHub')
 								}]
 							}]
 						},{
+							// columns: [{
+							// 	styleClass: 's12 m12 l12',
+							// 	widgets: [{
+							// 		type: 'html',
+							// 		card: 'card-panel',
+							// 		style: 'padding:0px;',
+							// 		config: {
+							// 			html: '<div style="height:400px;"></div>'
+							// 		}
+							// 	}]
+							// }]
 							columns: [{
 								styleClass: 's12 m12 l12',
 								widgets: [{
@@ -473,7 +484,7 @@ angular.module('ngmReportHub')
 									}
 								}]
 							}]
-						},{							
+						},{
 							columns: [{
 								styleClass: 's12 m12 l12',
 								widgets: [{

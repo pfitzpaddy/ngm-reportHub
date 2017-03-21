@@ -32,6 +32,26 @@
 		  }
 		});
 
+		// prezi
+		$('iframe').load(function(){
+			var myConfObj = {
+				iframeMouseOver: false
+			}
+			// onclick
+			$( window ).blur( function(){
+			  if(myConfObj.iframeMouseOver){
+			    // console.log('Wow! Iframe Click!');
+			  	$('.pointers').css({ 'pointer-events': 'all' });
+			  }
+			});
+			$( '.prezi' ).mouseover( function(){
+			   myConfObj.iframeMouseOver = true;
+			});
+			$( '.prezi' ).mouseout( function(){
+			    myConfObj.iframeMouseOver = false;
+			});
+		});
+
   	// jQuery requests for metric data
 		$.get( href + '/api/metrics/getUsers', function( data ) {
 		  users = data.value;
