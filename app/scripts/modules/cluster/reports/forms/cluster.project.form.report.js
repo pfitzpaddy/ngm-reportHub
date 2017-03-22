@@ -214,7 +214,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( b.activity_description_id === 'education' || b.activity_description_id === 'training' ){
+              if( $scope.project.definition.cluster_id !== 'eiewg' && ( b.activity_description_id.indexOf( 'education' ) !== -1 || b.activity_description_id.indexOf( 'training' ) !== -1 ) ) {
                 display = true;
               }
             });
@@ -270,7 +270,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // sessions disabled
         rowSessionsDisabled: function( $beneficiary ){
           var disabled = true;
-          if( $beneficiary.activity_description_id === 'education' || $beneficiary.activity_description_id === 'training' ) {
+          if( $scope.project.definition.cluster_id !== 'eiewg' && ( b.activity_description_id.indexOf( 'education' ) !== -1 || b.activity_description_id.indexOf( 'training' ) !== -1 ) ) {
             disabled = false
           }
           return disabled;
