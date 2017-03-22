@@ -34,6 +34,7 @@
 
 		// prezi
 		$('iframe').load(function(){
+
 			var myConfObj = {
 				iframeMouseOver: false
 			}

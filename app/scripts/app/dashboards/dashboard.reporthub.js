@@ -205,7 +205,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px;',
 									config: {
-										html: '<h2 class="col s12 report-title" style="margin-top: 0px; padding-bottom: 5px; font-size: 1.6rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">EMERGENCY HEALTH OUTBREAKS PIN 2016</h2>'
+										html: '<h2 class="col s12 report-title" style="margin-top: 0px; padding-bottom: 5px; font-size: 1.6rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">EMERGENCY HEALTH OUTBREAKS PIN | 2016</h2>'
 									}
 								}]
 							}]
@@ -276,7 +276,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px;',
 									config: {
-										html: '<h2 class="col s12 report-title" style="margin-top: 0px; padding-bottom: 5px; font-size: 1.6rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">ACHIEVEMENTS 2016</h2>'
+										html: '<h2 class="col s12 report-title" style="margin-top: 0px; padding-bottom: 5px; font-size: 1.6rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">ACHIEVEMENTS | 2016</h2>'
 									}
 								}]
 							}]
@@ -363,7 +363,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Services to Beneficiaries',
+										title: 'Services to Beneficiaries Tracked',
 										request: $scope.dashboard.getHealthRequest( 'beneficiaries' )
 									}
 								}]
@@ -376,7 +376,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px;',
 									config: {
-										html: '<h2 class="col s12 report-title" style="margin-top: 0px; padding-bottom: 5px; font-size: 1.6rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">TIMELINE</h2>'
+										html: '<h2 class="col s12 report-title" style="margin-top: 0px; padding-bottom: 5px; font-size: 1.6rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">TIMELINE | 2016</h2>'
 									}
 								}]
 							}]
@@ -492,7 +492,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px;',
 									config: {
-										html: '<h2 class="col s12 report-title" style="margin-top: 0px; padding-bottom: 5px; font-size: 1.6rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">LOCATIONS</h2>'
+										html: '<h2 class="col s12 report-title" style="margin-top: 0px; padding-bottom: 5px; font-size: 1.6rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">LOCATIONS | 2016</h2>'
 									}
 								}]
 							}]
