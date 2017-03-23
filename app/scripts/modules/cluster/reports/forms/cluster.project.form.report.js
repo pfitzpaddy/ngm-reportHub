@@ -151,6 +151,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // display category
         showCategory: function( $data, $beneficiary ) {
+          console.log( $beneficiary );
           var selected = [];
           $beneficiary.category_type_id = $data;
           if($beneficiary.category_type_id) {
@@ -214,7 +215,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( $scope.project.definition.cluster_id !== 'eiewg' && ( b.activity_description_id.indexOf( 'education' ) !== -1 || b.activity_description_id.indexOf( 'training' ) !== -1 ) ) {
+              if( ( $scope.project.definition.cluster_id !== 'eiewg' )
+                  && ( b.activity_description_id )
+                  && ( b.activity_description_id.indexOf( 'education' ) !== -1 || b.activity_description_id.indexOf( 'training' ) !== -1 ) ) {
                 display = true;
               }
             });
@@ -270,7 +273,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // sessions disabled
         rowSessionsDisabled: function( $beneficiary ){
           var disabled = true;
-          if( $scope.project.definition.cluster_id !== 'eiewg' && ( b.activity_description_id.indexOf( 'education' ) !== -1 || b.activity_description_id.indexOf( 'training' ) !== -1 ) ) {
+          if( ( $scope.project.definition.cluster_id !== 'eiewg' )
+                && ( $beneficiary.activity_description_id )
+                && ( $beneficiary.activity_description_id.indexOf( 'education' ) !== -1 || $beneficiary.activity_description_id.indexOf( 'training' ) !== -1 ) ) {
             disabled = false
           }
           return disabled;

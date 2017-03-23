@@ -818,6 +818,22 @@ angular.module( 'ngmReportHub' )
       getStrategicObjectives: function( cluster_id ){
 
         var strategic_objectives = {
+          'fsac': [{
+            objective_type_id: 'fsac_objective_1',
+            objective_type_name: 'FSAC OBJECTIVE 1',
+            objective_type_description: 'Immediate food needs of targeted shock affected populations are addressed with appropriate transfer modality (food, cash or voucher)',
+            objective_type_objectives: [ 'SO1' ]
+          },{
+            objective_type_id: 'fsac_objective_2',
+            objective_type_name: 'FSAC OBJECTIVE 2',
+            objective_type_description: 'Ensure continued and regular access to food during lean season for severely food insecure people, refugees and prolonged IDPs at risk of hunger and acute malnutrition',
+            objective_type_objectives: [ 'SO3' ]
+          },{
+            objective_type_id: 'fsac_objective_3',
+            objective_type_name: 'FSAC OBJECTIVE 3',
+            objective_type_description: 'Strengethen emergency preparedness and response capabilities of partners through development of contingency plans, timely coordinated food security assessments and capacity development especially in hard to reach areas',
+            objective_type_objectives: [ 'SO4' ]
+          }],
           'esnfi': [{
             objective_type_id: 'esnfi_objective_1',
             objective_type_name: 'ESNFI OBJECTIVE 1',
