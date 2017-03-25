@@ -151,7 +151,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // display category
         showCategory: function( $data, $beneficiary ) {
-          console.log( $beneficiary );
           var selected = [];
           $beneficiary.category_type_id = $data;
           if($beneficiary.category_type_id) {

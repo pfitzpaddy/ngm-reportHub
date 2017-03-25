@@ -22,10 +22,10 @@
       <td ng-if="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Families</td>
       <td>Boys</td>
       <td>Girls</td>
-      <td ng-if="project.definition.cluster_id !== 'eiewg'">Men</td>
+      <td ng-if="project.definition.cluster_id !== 'eiewg' && project.definition.cluster_id !== 'nutrition'">Men</td>
       <td ng-if="project.definition.cluster_id !== 'eiewg'">Women</td>
-      <td ng-if="project.definition.cluster_id !== 'eiewg'">Eld. Men</td>
-      <td ng-if="project.definition.cluster_id !== 'eiewg'">Eld. Women</td>      
+      <td ng-if="project.definition.cluster_id !== 'eiewg' && project.definition.cluster_id !== 'nutrition'">Eld. Men</td>
+      <td ng-if="project.definition.cluster_id !== 'eiewg' && project.definition.cluster_id !== 'nutrition'">Eld. Women</td>      
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
     <tr ng-repeat="beneficiary in project.report.locations[$locationIndex].beneficiaries track by $index | orderBy:'id'">
@@ -115,7 +115,7 @@
           {{ beneficiary.cash_amount }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">
+      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi' || project.definition.cluster_id === 'fsac'">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="households"
@@ -126,7 +126,7 @@
           {{ beneficiary.households }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">
+      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi' || project.definition.cluster_id === 'fsac'">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="families"
@@ -161,7 +161,7 @@
           {{ beneficiary.girls }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id !== 'eiewg'">
+      <td ng-show="project.definition.cluster_id !== 'eiewg' && project.definition.cluster_id !== 'nutrition'">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="men"
@@ -185,7 +185,7 @@
           {{ beneficiary.women }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id !== 'eiewg'">
+      <td ng-show="project.definition.cluster_id !== 'eiewg' && project.definition.cluster_id !== 'nutrition'">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="elderly_men"
@@ -197,7 +197,7 @@
           {{ beneficiary.elderly_men }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id !== 'eiewg'">
+      <td ng-show="project.definition.cluster_id !== 'eiewg' && project.definition.cluster_id !== 'nutrition'">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="elderly_women"
