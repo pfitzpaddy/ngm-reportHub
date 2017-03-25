@@ -120,33 +120,6 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           }, 0 );
         },
 
-        // add stock
-        // addStock: function( $index ) {
-
-        //   // init load is null
-        //   if ( $scope.report.options.stocks[ $index ] ) {
-            
-        //     // process + clean location
-        //     var stocks = 
-        //         ngmClusterHelper.getCleanStocks( $scope.report.report, $scope.report.report.stocklocations[ $index ], $scope.report.options.stocks[ $index ] );
-
-        //     // push to stocks
-        //     $scope.report.report.stocklocations[ $index ].stocks.push( stocks );
-
-        //     // clear selection
-        //     $scope.report.options.stocks[ $index ] = {};
-
-        //     // filter / sort stocks
-        //     $scope.report.options.list.stocks[ $index ]
-        //         = ngmClusterHelper.getStocks( $scope.report.organization.cluster_id, $scope.report.report.stocklocations[ $index ].stocks );
-
-        //     // update material select
-        //     ngmClusterHelper.updateSelect();
-
-        //   }
-
-        // },
-
         // remove stocks
         removeStock: function( $parent, $index ) {
           $scope.report.report.stocklocations[ $parent ].stocks.splice( $index, 1 );
@@ -230,7 +203,6 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                 // ( if 'save' and then 'submit' is submited without a refresh in between ) ???
               // Not if you do it properly (return and set with .populate()!)
               // $route.reload();
-              console.log(display_modal)
               if(display_modal){
                 // update
                 $timeout(function() {

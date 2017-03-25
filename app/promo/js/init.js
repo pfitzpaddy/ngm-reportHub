@@ -41,7 +41,6 @@
 			// onclick
 			$( window ).blur( function(){
 			  if(myConfObj.iframeMouseOver){
-			    // console.log('Wow! Iframe Click!');
 			  	$('.pointers').css({ 'pointer-events': 'all' });
 			  }
 			});
@@ -52,6 +51,15 @@
 			    myConfObj.iframeMouseOver = false;
 			});
 		});
+
+		// prezi
+		// var player = new PreziPlayer( 'prezi-player', { preziId: 'gqskqhfbjm2p', width: '100%', height: 600, explorable: false });
+
+		// // each step
+		// player.on(PreziPlayer.EVENT_CURRENT_STEP, function(e) {
+		//   console.log( e.value );
+		//   console.log( player.getCurrentStep() )
+		// });
 
   	// jQuery requests for metric data
 		$.get( href + '/api/metrics/getUsers', function( data ) {

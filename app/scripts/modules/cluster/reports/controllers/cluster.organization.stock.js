@@ -46,7 +46,7 @@ angular.module('ngmReportHub')
 			// report name placeholder (is updated below)
 			report: 'stock_report',
 
-			// get project
+			// get organization
 			getOrganization: {
 				method: 'POST',
 				url: 'http://' + $location.host() + '/api/getOrganization',
@@ -123,7 +123,7 @@ angular.module('ngmReportHub')
 		}
 
 		// send request
-		$q.all([ $http($scope.report.getOrganization), $http($scope.report.getReport) ]).then( function( results ){
+		$q.all([ $http( $scope.report.getOrganization ), $http( $scope.report.getReport ) ]).then( function( results ){
 
 			// set
 			$scope.report.organization = results[0].data;
