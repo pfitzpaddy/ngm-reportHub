@@ -199,10 +199,6 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
             // Re-direct to summary
             if ( $scope.report.report.report_status !== 'complete' ) {
-              // avoids duplicate beneficiaries 
-                // ( if 'save' and then 'submit' is submited without a refresh in between ) ???
-              // Not if you do it properly (return and set with .populate()!)
-              // $route.reload();
               if(display_modal){
                 // update
                 $timeout(function() {

@@ -95,8 +95,9 @@ angular.module( 'ngmReportHub' )
         return sum;
       };
   })
+
   // checks 2 passwords are identical 
-  .directive( 'pwCheck', [function () {
+  .directive( 'pwCheck', [ function () {
     return {
       require: 'ngModel',
       link: function (scope, elem, attrs, ctrl) {
@@ -109,4 +110,45 @@ angular.module( 'ngmReportHub' )
         });
       }
     }
-  }]);
+  }])
+
+  // typeahead directive
+  .directive('typeahead', function($timeout) {
+    return {
+      restrict: 'AEC',
+        scope: {
+          label: '@',
+          items: '=',
+          prompt:'@',
+          title: '@',
+          subtitle:'@',
+          model: '=',
+          onSelect:'&'
+        },
+        link:function(scope,elem,attrs){
+          scope.handleSelection=function(selectedItem){
+            scope.model=selectedItem;
+            scope.current=0;
+            scope.selected=true;        
+            $timeout(function(){
+              scope.onSelect();
+            },200);
+          };
+          scope.current=0;
+          scope.selected=true;
+          scope.isCurrent=function(index){
+            return scope.current==index;
+          };
+          scope.setCurrent=function(index){
+            scope.current=index;
+          };
+          $timeout(function(){
+            $( window ).resize(function() {
+              $('#dropdown').width($('#dropdowninputid').width());
+            });
+            scope.dropdownwidth = $('#dropdowninputid').width();
+          },200);
+        },
+        templateUrl: 'scripts/app/views/typeahead.html'
+    }
+  });

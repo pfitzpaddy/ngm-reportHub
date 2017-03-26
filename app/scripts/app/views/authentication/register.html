@@ -2,7 +2,7 @@
 <style>
 
 .dropdown-content {
-	max-height: 300px;
+	max-height: 450px;
 }
 
 .carousel {
@@ -116,6 +116,7 @@ li {
 	        </div>
 	      </div>
 
+				<!-- 
 	      <div class="row">
 	        <div class="input-field col s12">
 	        	<i class="material-icons prefix">supervisor_account</i>
@@ -125,8 +126,17 @@ li {
 	          <label for="ngm-organization">Organization</label>
 	        </div>
 	      </div>
+ 				-->
 
-				<div class="action center">
+				<typeahead 
+					label="Organization"
+					items="panel.organizations" 
+					prompt="" 
+					title="organization" 
+					subtitle="organization_name" 
+					model="panel.user.organization" on-select="panel.onOrganizationSelected()" />
+
+ 				<div class="action center">
 					<button
 						id="organization-next"
 						class="btn btn-large waves-effect waves-teal" 

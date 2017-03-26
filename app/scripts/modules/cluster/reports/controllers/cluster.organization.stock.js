@@ -68,7 +68,7 @@ angular.module('ngmReportHub')
 			init: function(){
 
 				// set report for downloads
-				$scope.report.report = $scope.report.organization.organization_display_name + '_' + moment( $scope.report.definition.reporting_period ).format('MMMM, YYYY');
+				$scope.report.report = $scope.report.organization.organization + '_' + moment( $scope.report.definition.reporting_period ).format('MMMM, YYYY');
 
 				// report dashboard model
 				$scope.model = {
@@ -81,7 +81,7 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m9 l9 report-title truncate',
 							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: ngmUser.get().admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.organization.cluster.toUpperCase() + ' | ' + $scope.report.organization.organization_display_name + ' | Stock Report'
+							title: ngmUser.get().admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.organization.cluster.toUpperCase() + ' | ' + $scope.report.organization.organization + ' | Stock Report'
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',

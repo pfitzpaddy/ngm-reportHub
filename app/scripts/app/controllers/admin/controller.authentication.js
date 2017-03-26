@@ -16,15 +16,17 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         templateUrl: '/scripts/app/views/view.html'
       });
   })
-  .controller('AuthenticationFormCtrl', [
+  .controller( 'AuthenticationFormCtrl', [
     '$scope',
+    '$http',
     '$location',
     '$timeout',
+    '$filter',
     'ngmAuth',
     'ngmUser',
     'ngmData',
     'config',
-    function($scope, $location, $timeout, ngmAuth, ngmUser, ngmData, config){
+    function( $scope, $http, $location, $timeout, $filter, ngmAuth, ngmUser, ngmData, config ){
 
       // project
       $scope.panel = {
@@ -163,12 +165,46 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             });
           }
 
-        }        
+        },
+
+        // select org
+        onOrganizationSelected: function(){
+          // filter
+          $scope.select = $filter( 'filter' )( $scope.panel.organizations, { organization: $scope.panel.user.organization }, true );
+          // merge org
+          var org = angular.copy( $scope.select[0] );
+          delete org.id;
+          angular.merge( $scope.panel.user, org );
+          // toast
+          Materialize.toast( org.organization + '<br/>' + org.organization_name + ' Selected...', 4000, 'note' );
+        }
 
       }
 
       // Merge defaults with config
-      $scope.panel = angular.merge({}, $scope.panel, config);
+      $scope.panel = angular.merge( {}, $scope.panel, config );
+
+      // get organizations
+      if ( !localStorage.getObject( 'organizations') ){
+
+        // set
+        $http.get( 'http://' + $location.host() + '/api/cluster/list/organizations' ).then(function( organizations ){
+          localStorage.setObject( 'organizations', organizations.data );
+          $scope.panel.organizations = organizations.data;
+          $timeout(function() {
+            $( 'select' ).material_select();
+          }, 100);
+        });
+
+      } else {
+
+        // set
+        $scope.panel.organizations = localStorage.getObject( 'organizations');
+        $timeout(function() {
+          $( 'select' ).material_select();
+        }, 100);
+
+      }
 
       // on page load
       angular.element(document).ready(function () {

@@ -51,8 +51,8 @@ angular.module( 'ngmReportHub' )
 			.then( function( organization ){
 
 			// set model titles
-			$scope.model.header.title.title = organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + organization.cluster.toUpperCase() + ' | ' + organization.organization_display_name + ' | Projects';
-			$scope.model.header.subtitle.title = organization.cluster + ' projects for ' + organization.organization_display_name + ' ' + organization.admin0name;
+			$scope.model.header.title.title = organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + organization.cluster.toUpperCase() + ' | ' + organization.organization + ' | Projects';
+			$scope.model.header.subtitle.title = organization.cluster + ' projects for ' + organization.organization + ' ' + organization.admin0name;
 
 		});
 

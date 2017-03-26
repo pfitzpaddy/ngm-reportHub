@@ -111,7 +111,7 @@ angular.module( 'ngmReportHub' )
           };
 
           // storage
-          localStorage.setObject( 'lists', lists );          
+          localStorage.setObject( 'lists', lists );    
 
           // send request
           $q.all([ 

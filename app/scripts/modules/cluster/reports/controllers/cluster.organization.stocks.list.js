@@ -50,7 +50,7 @@ angular.module('ngmReportHub')
 			// set project details
 			init: function(){
 
-				$scope.report.title = $scope.report.organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.organization.cluster.toUpperCase() + ' | ' + $scope.report.organization.organization_display_name + ' | Stocks';
+				$scope.report.title = $scope.report.organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.organization.cluster.toUpperCase() + ' | ' + $scope.report.organization.organization + ' | Stocks';
 
 				// report dashboard model
 				$scope.model = {
@@ -67,7 +67,7 @@ angular.module('ngmReportHub')
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
-							'title': 'Stock Reports for ' + $scope.report.organization.organization_display_name  + ', ' + $scope.report.organization.admin0name
+							'title': 'Stock Reports for ' + $scope.report.organization.organization  + ', ' + $scope.report.organization.admin0name
 						}
 					},
 					rows: [{				
