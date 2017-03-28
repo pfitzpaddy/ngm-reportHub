@@ -167,6 +167,23 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
         },
 
+        // RnR chapter validation
+        organizationDisabled: function(){
+          
+          var disabled = true;
+
+          // R&R Chapter
+          if ( $scope.panel.user && $scope.panel.user.cluster_id && $scope.panel.user.organization_name ) {
+            if ( ( $scope.panel.user.cluster_id === 'rnr_chapter' ) 
+                  &&  ( $scope.panel.user.organization === 'UNHCR' || $scope.panel.user.organization === 'IOM' ) ){
+              disabled = false;
+            } else {
+              // Materialize.toast( 'Only UNHCR or IOM Can Register in R&R Chapter!', 6000, 'error' );
+            }
+          }
+          return disabled;
+        },
+
         // select org
         onOrganizationSelected: function(){
           // filter
@@ -175,8 +192,17 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           var org = angular.copy( $scope.select[0] );
           delete org.id;
           angular.merge( $scope.panel.user, org );
-          // toast
-          Materialize.toast( org.organization + '<br/>' + org.organization_name + ' Selected...', 4000, 'note' );
+          
+          // R&R Chapter
+          if ( $scope.panel.user && $scope.panel.user.cluster_id && $scope.panel.user.organization_name ) {
+            if ( ( $scope.panel.user.cluster_id === 'rnr_chapter' ) 
+                  &&  ( $scope.panel.user.organization === 'UNHCR' || $scope.panel.user.organization === 'IOM' ) ){
+              Materialize.toast( org.organization + '<br/>' + org.organization_name + ' Selected...', 4000, 'note' );
+            } else {
+              // error as above
+              Materialize.toast( 'Only UNHCR or IOM Can Register in R&R Chapter!', 6000, 'error' );
+            }
+          }
         }
 
       }

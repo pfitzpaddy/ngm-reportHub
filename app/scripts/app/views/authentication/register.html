@@ -2,7 +2,7 @@
 <style>
 
 .dropdown-content {
-	max-height: 450px;
+	max-height: 320px;
 }
 
 .carousel {
@@ -140,7 +140,7 @@ li {
 					<button
 						id="organization-next"
 						class="btn btn-large waves-effect waves-teal" 
-						ng-disabled="ngmOrganizationForm.$invalid">
+						ng-disabled="panel.organizationDisabled()">
 							<i class="material-icons right">keyboard_arrow_right</i>
 							Next
 					</button>

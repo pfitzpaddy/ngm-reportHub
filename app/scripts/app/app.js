@@ -218,7 +218,10 @@ angular
 					default:
 
 						// logo
-						var logo = ngmUser.get() && ngmUser.get().cluster_id === 'health' ?  'logo-health.png' : 'logo.png';
+						var logo = 'logo.png';
+						if ( ngmUser.get() && ngmUser.get().cluster_id ) {
+							logo = 'logo-' + ngmUser.get().cluster_id + '.png';
+						}
 
 						// default
 						$scope.ngm.style = {
