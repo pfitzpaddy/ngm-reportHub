@@ -171,14 +171,16 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         organizationDisabled: function(){
           
           var disabled = true;
-
-          // R&R Chapter
-          if ( $scope.panel.user && $scope.panel.user.cluster_id && $scope.panel.user.organization_name ) {
-            if ( ( $scope.panel.user.cluster_id === 'rnr_chapter' ) 
-                  &&  ( $scope.panel.user.organization === 'UNHCR' || $scope.panel.user.organization === 'IOM' ) ){
+          if ( $scope.panel.user && $scope.panel.user.admin0pcode && $scope.panel.user.cluster_id && $scope.panel.user.organization_name ) {
+            // not R&R Chapter
+            if ( $scope.panel.user.cluster_id !== 'rnr_chapter' ) {
               disabled = false;
             } else {
-              // Materialize.toast( 'Only UNHCR or IOM Can Register in R&R Chapter!', 6000, 'error' );
+              if ( $scope.panel.user.organization === 'UNHCR' || $scope.panel.user.organization === 'IOM' ) {
+                disabled = false;
+              } else {
+                disabled = true;
+              }
             }
           }
           return disabled;
@@ -192,15 +194,21 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           var org = angular.copy( $scope.select[0] );
           delete org.id;
           angular.merge( $scope.panel.user, org );
-          
-          // R&R Chapter
-          if ( $scope.panel.user && $scope.panel.user.cluster_id && $scope.panel.user.organization_name ) {
-            if ( ( $scope.panel.user.cluster_id === 'rnr_chapter' ) 
-                  &&  ( $scope.panel.user.organization === 'UNHCR' || $scope.panel.user.organization === 'IOM' ) ){
+
+          // validate
+          if ( $scope.panel.user && $scope.panel.user.admin0pcode && $scope.panel.user.cluster_id && $scope.panel.user.organization_name ) {
+            // not R&R Chapter
+            if ( $scope.panel.user.cluster_id !== 'rnr_chapter' ) {
+              console.log('not rnr_chapter')
               Materialize.toast( org.organization + '<br/>' + org.organization_name + ' Selected...', 4000, 'note' );
             } else {
-              // error as above
-              Materialize.toast( 'Only UNHCR or IOM Can Register in R&R Chapter!', 6000, 'error' );
+              if ( $scope.panel.user.organization === 'UNHCR' || $scope.panel.user.organization === 'IOM' ) {
+                console.log('rnr_chapter & ok')
+                Materialize.toast( org.organization + '<br/>' + org.organization_name + ' Selected...', 4000, 'note' );
+              } else {
+                console.log('rnr_chapter & NOT ok')
+                Materialize.toast( 'Only UNHCR or IOM Can Register in R&R Chapter!', 6000, 'error' );
+              }
             }
           }
         }

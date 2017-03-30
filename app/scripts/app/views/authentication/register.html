@@ -82,6 +82,7 @@ li {
 					    <select class="validate"
 					    	id="ngm-country"
 					    	ng-model="panel.user.admin0pcode"
+					    	ng-select="panel.onOrganizationSelected()"
 					    	required>
 					      <option value="" disabled selected>Select Country</option>
 					      <option value="AF">Afghanistan</option>
@@ -101,6 +102,7 @@ li {
 					    <select class="validate"
 					    	id="ngm-cluster"
 					    	ng-model="panel.user.cluster_id"
+					    	ng-select="panel.onOrganizationSelected()"
 					    	required>
 					      <option value="" disabled selected>Select Cluster</option>
 					      <option value="eiewg">EiEWG</option>

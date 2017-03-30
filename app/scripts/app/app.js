@@ -18,7 +18,7 @@ angular
 		'ngTable',
 		'ngCsv',
 		'ngDropzone',
-		'countTo',
+		'ngCountTo',
 		'highcharts-ng',
 		'leaflet-directive',
 		'xeditable',

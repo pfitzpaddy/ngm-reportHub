@@ -4,7 +4,7 @@
 	<span class="count">
 		<span
 			value="0" 
-			count-to="{{ stats.data.value }}" 
+			ng-count-to="{{ stats.data.value }}" 
 			duration="{{ stats.display.duration }}"
 			filter="{{ stats.display.filter }}"
 			params="{{ stats.display.params }}"
@@ -17,7 +17,7 @@
 		( <span>{{ stats.display.subTitlePrefix }}</span>
 	  	<span class="name"
 		      value="0" 
-		      count-to="{{ stats.data.value_total }}" 
+		      ng-count-to="{{ stats.data.value_total }}" 
 		      duration="{{ stats.display.duration }}"
 		      filter="{{ stats.display.filter }}"
 		      params="{{ stats.display.params }}">
