@@ -66,8 +66,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         lists: {
           strategic_objectives: ngmClusterHelper.getStrategicObjectives( config.project.cluster_id ),
           strategic_rnr_objectives: ngmClusterHelper.getRnRStrategicObjectives(),
-          activity_types: ngmClusterHelper.getActivities( config.project.cluster_id, true ),
-          activity_descriptions: ngmClusterHelper.getActivities( config.project.cluster_id, false ),
+          activity_types: ngmClusterHelper.getActivities( config.project, config.project.cluster_id, true ),
+          activity_descriptions: ngmClusterHelper.getActivities( config.project, config.project.cluster_id, false ),
           category_types: ngmClusterHelper.getCategoryTypes( config.project.cluster_id ),
           beneficiary_types: moment( config.project.project_end_date ).year() === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries( config.project, config.project.cluster_id ),
           currencies: ngmClusterHelper.getCurrencies( config.project.admin0pcode ),
@@ -110,22 +110,67 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // on RnR check
         getStrategicObjectives: function(){
+          
           // set strategic objectives
           var id = $scope.project.definition.cluster_id;
           $scope.project.definition.strategic_objectives_check = {};
           $scope.project.strategic_title = $scope.project.definition.cluster.toUpperCase() + ' OBJECTIVES';
           $scope.project.lists.strategic_objectives = ngmClusterHelper.getStrategicObjectives( id );
 
-          // RnR selected 
-          if ( $scope.project.definition.project_rnr_chapter ){
-            // update beneficiary list
-            $scope.project.beneficiary_types = ngmClusterHelper.getBeneficiaries( $scope.project.definition, $scope.project.definition.cluster_id );
-            // get activty list
-            var activity_types = ngmClusterHelper.getActivities( 'rnr_chapter', true );
-            var activity_descriptions = ngmClusterHelper.getActivities( 'rnr_chapter', false );
-            $scope.project.lists.activity_types = $scope.project.lists.activity_types.concat( activity_types );
-            $scope.project.lists.activity_descriptions = $scope.project.lists.activity_descriptions.concat( activity_descriptions );
+          // update lists
+          // beneficiairies
+          $scope.project.beneficiary_types = ngmClusterHelper.getBeneficiaries( $scope.project.definition, $scope.project.definition.cluster_id );
+            // true is unique filtering
+          $scope.project.lists.activity_types = ngmClusterHelper.getActivities( $scope.project.definition, id, true );
+          $scope.project.lists.activity_descriptions = ngmClusterHelper.getActivities( $scope.project.definition, id, false );
+
+          // update activity_types selections
+          if( !$scope.project.definition.project_rnr_chapter ){
+            var activity_type = [];
+            angular.forEach( $scope.project.definition.activity_type, function( d, i ){
+
+
+              console.log(d.activity_type_id)
+              if ( d.activity_type_id !== 'protection_interventions' && 
+                    d.activity_type_id !== 'essential_services' && 
+                    d.activity_type_id !== 'immediate_needs' ) {
+                console.log(d.activity_type_id)
+              console.log($scope.project.definition.activity_type[i]);
+                activity_type.push( $scope.project.definition.activity_type[i] );
+              } else {
+                $scope.project.definition.activity_type_check[ d.activity_type_id ] = false;
+              }
+            });
+
+            //             angular.forEach( $scope.project.definition.activity_type, function( d, i ){
+            //   if ( d ){
+            //     $scope.project.definition.activity_type_check[ d.activity_type_id ] = true;
+            //   }
+            // });
+            console.log(activity_type);
+            $scope.project.definition.activity_type = activity_type;
           }
+
+
+
+          // RnR selected 
+          // if ( $scope.project.definition.project_rnr_chapter ){
+          //   // update beneficiary list
+          //   $scope.project.beneficiary_types = ngmClusterHelper.getBeneficiaries( $scope.project.definition, $scope.project.definition.cluster_id );
+          //   // get activty list
+          // if ( $scope.project.definition.project_rnr_chapter ){
+          //   
+          //   $scope.project.lists.activity_descriptions = ngmClusterHelper.getActivities( 'rnr_chapter', false );
+
+          //   // var activity_types = ngmClusterHelper.getActivities( 'rnr_chapter', true );
+          //   // var activity_descriptions = ngmClusterHelper.getActivities( 'rnr_chapter', false );
+          //   // $scope.project.lists.activity_types = $scope.project.lists.activity_types.concat( activity_types );
+          //   // $scope.project.lists.activity_descriptions = $scope.project.lists.activity_descriptions.concat( activity_descriptions );
+          // } else {
+          //   // var activity_types = ngmClusterHelper.getActivities( 'rnr_chapter', true );
+          //   // var activity_descriptions = ngmClusterHelper.getActivities( 'rnr_chapter', false );            
+          // }
+          // // }
         },
 
         // set to model on check

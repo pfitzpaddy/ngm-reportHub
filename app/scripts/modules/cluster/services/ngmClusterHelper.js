@@ -168,17 +168,22 @@ angular.module( 'ngmReportHub' )
       },
 
       // return activity type by cluster
-      getActivities: function( cluster_id, unique ){
+      getActivities: function( project, cluster_id, unique ){
 
         // get activities list from storage
-        var activities = localStorage.getObject( 'lists' ).activitiesList;
+        var activitiesList = angular.copy( localStorage.getObject( 'lists' ).activitiesList );
 
         // filter by cluster
-        activities = $filter( 'filter' )( activities, { cluster_id: cluster_id } );
+        activities = $filter( 'filter' )( activitiesList, { cluster_id: cluster_id } );
+
+        // add R&R Chpater
+        if ( project.project_rnr_chapter) {
+          activities = activities.concat( $filter( 'filter' )( activitiesList, { cluster_id: 'rnr_chapter' } ) );
+        }
 
         // if unique
         if ( unique ) {
-          activities = this.filterDuplicates( activities, 'activity_type_id' )
+          activities = this.filterDuplicates( activities, 'activity_type_id' );
         }
 
         // return 
@@ -456,7 +461,7 @@ angular.module( 'ngmReportHub' )
         }];
 
         // set beneficiaries
-        var beneficiaries = $filter( 'filter' )( beneficiaries, { cluster_id: cluster_id } );
+        beneficiaries = $filter( 'filter' )( beneficiaries, { cluster_id: cluster_id } );
 
         // if RnR
         if ( project.project_rnr_chapter ) {

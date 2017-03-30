@@ -199,14 +199,11 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           if ( $scope.panel.user && $scope.panel.user.admin0pcode && $scope.panel.user.cluster_id && $scope.panel.user.organization_name ) {
             // not R&R Chapter
             if ( $scope.panel.user.cluster_id !== 'rnr_chapter' ) {
-              console.log('not rnr_chapter')
               Materialize.toast( org.organization + '<br/>' + org.organization_name + ' Selected...', 4000, 'note' );
             } else {
               if ( $scope.panel.user.organization === 'UNHCR' || $scope.panel.user.organization === 'IOM' ) {
-                console.log('rnr_chapter & ok')
                 Materialize.toast( org.organization + '<br/>' + org.organization_name + ' Selected...', 4000, 'note' );
               } else {
-                console.log('rnr_chapter & NOT ok')
                 Materialize.toast( 'Only UNHCR or IOM Can Register in R&R Chapter!', 6000, 'error' );
               }
             }
