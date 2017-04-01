@@ -98,7 +98,8 @@
 
 						<!-- no validation -->
 						<button class="waves-effect waves-light btn modal-trigger"
-							data-target="save-modal" 
+							data-target="save-modal"
+							ng-disabled="!project.formComplete()"
 							ng-cloak><i class="material-icons right">send</i>Save
 						</button>	
 
@@ -140,10 +141,10 @@
 
 <script type="text/javascript">
   
-  // modals
-  setTimeout(function(){
-  	$('.modal-trigger').leanModal();
-  }, 200);
+	// modals
+	setTimeout(function(){
+		$('.modal-trigger').leanModal();
+	}, 200);
 
 </script>
 

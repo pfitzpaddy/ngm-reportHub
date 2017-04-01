@@ -88,8 +88,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           activity_descriptions: ngmClusterHelper.getActivities( config.project, true, false ),
 
           strategic_objectives: ngmClusterHelper.getStrategicObjectives(),
-          category_types: ngmClusterHelper.getCategoryTypes( config.project.cluster_id ),
-          beneficiary_types: moment( config.project.project_end_date ).year() === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries( config.project, config.project.cluster_id ),
+          category_types: ngmClusterHelper.getCategoryTypes(),
+          beneficiary_types: moment( config.project.project_end_date ).year() === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries(),
           currencies: ngmClusterHelper.getCurrencies( config.project.admin0pcode ),
           donors: ngmClusterHelper.getDonors( config.project.cluster_id ),
           // admin1 ( with admin0 filter )
@@ -213,8 +213,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           if( $beneficiary.activity_type_id && $scope.project.definition.activity_type.length ) {
             selected = $filter('filter')( $scope.project.definition.activity_type, { activity_type_id: $beneficiary.activity_type_id }, true);
             if ( selected.length ) {
-              $beneficiary.cluster_id = selected[0].cluster_id;
-              $beneficiary.cluster = selected[0].cluster;
+              
+              // catch for old data
+              if( selected[0].cluster_id && selected[0].cluster ) {
+                $beneficiary.cluster_id = selected[0].cluster_id;
+                $beneficiary.cluster = selected[0].cluster;
+              }
+
               $beneficiary.activity_type_name = selected[0].activity_type_name;
             }
           }

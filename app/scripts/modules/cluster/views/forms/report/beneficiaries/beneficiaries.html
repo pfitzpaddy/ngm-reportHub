@@ -10,10 +10,10 @@
 <div style="padding-left: 20px;">
   <table class="bordered responsive-table" style="margin-bottom:10px;" ng-show="project.report.locations[$locationIndex].beneficiaries.length">
     <tr style="font-weight: 400">
-      <td ng-if="project.definition.cluster_id !== 'eiewg'">Category</td>
-      <td>Beneficiary</td>
       <td>Activity</td>
       <td>Description</td>
+      <td ng-if="project.definition.cluster_id !== 'eiewg'">Category</td>
+      <td>Beneficiary</td>
       <td>Delivery to</td>
       <td ng-if="project.showSessions( $locationIndex )">Sessions</td>
       <td ng-if="project.definition.cluster_id === 'eiewg'">Units</td>
@@ -29,27 +29,6 @@
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
     <tr ng-repeat="beneficiary in project.report.locations[$locationIndex].beneficiaries track by $index | orderBy:'id'">
-      <td ng-show="project.definition.cluster_id !== 'eiewg'">
-        <!-- editable group (select-remote) -->
-        <span e-form="rowform"
-              e-name="category_type_id"
-              editable-select="beneficiary.category_type_id"
-              e-placeholder="Select..." 
-              e-ng-options="b.category_type_id as b.category_type_name for b in project.category_types">
-          {{ project.showCategory($data, beneficiary) }}
-        </span>
-      </td>
-      <td>
-        <!-- editable group (select-remote) -->
-        <span e-form="rowform"
-              e-name="beneficiary_type_id"
-              editable-select="beneficiary.beneficiary_type_id"
-              e-placeholder="Select..."
-              e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.beneficiary_types | filter: { category_type_id: beneficiary.category_type_id }"
-              e-ng-disabled="!beneficiary.category_type_id">
-          {{ project.showBeneficiary($data, beneficiary) }}
-        </span>
-      </td>
       <td>
         <!-- editable activity_type from Project -->
         <span e-form="rowform"
@@ -69,6 +48,28 @@
               e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.activity_descriptions | filter: { activity_type_id: beneficiary.activity_type_id }"
               e-ng-disabled="!beneficiary.activity_type_id">
           {{ project.showDescription($data, beneficiary) }}
+        </span>
+      </td>
+      <td ng-show="project.definition.cluster_id !== 'eiewg'">
+        <!-- editable group (select-remote) -->
+        <span e-form="rowform"
+              e-name="category_type_id"
+              editable-select="beneficiary.category_type_id"
+              e-placeholder="Select..." 
+              e-ng-options="b.category_type_id as b.category_type_name for b in project.category_types | filter:{ cluster_id: beneficiary.cluster_id }"
+              e-ng-disabled="!beneficiary.activity_description_id">
+          {{ project.showCategory($data, beneficiary) }}
+        </span>
+      </td>
+      <td>
+        <!-- editable group (select-remote) -->
+        <span e-form="rowform"
+              e-name="beneficiary_type_id"
+              editable-select="beneficiary.beneficiary_type_id"
+              e-placeholder="Select..."
+              e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.beneficiary_types | filter: { category_type_id: beneficiary.category_type_id, cluster_id: beneficiary.cluster_id }"
+              e-ng-disabled="!beneficiary.category_type_id">
+          {{ project.showBeneficiary($data, beneficiary) }}
         </span>
       </td>
       <td>
@@ -213,7 +214,7 @@
       <td style="white-space: nowrap" ng-show="project.report.report_status !== 'complete'">
         <!-- form -->
         <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" onbeforesave="project.save( false, false )" class="form-buttons form-inline" shown="inserted == beneficiary">
-          <button type="submit" ng-if="rowform.$visible" ng-disabled="project.rowSaveDisabled( rowform.$data )" class="btn btn-small waves-effect waves-light save" title="Save">
+          <button type="submit" ng-if="rowform.$visible" ng-disabled="!project.formComplete()" class="btn btn-small waves-effect waves-light save" title="Save">
             <i class="material-icons">save</i>
           </button>
           <div type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-small blue lighten-1 waves-effect waves-light" title="Cancel Edit">

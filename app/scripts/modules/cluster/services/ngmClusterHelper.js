@@ -182,12 +182,9 @@ angular.module( 'ngmReportHub' )
           });
         }
 
-        // filter cluster in monthly form
-        // if ( !filterInterCluster ) {
-        //   angular.forEach( project.activity_type, function( d, i ){
-        //     activities = activities.concat( $filter( 'filter' )( activitiesList, { cluster_id: d.cluster_id } ) );
-        //   });
-        // }
+        if ( !filterInterCluster ) {
+          activities = activitiesList;
+        }
 
         // if unique
         if ( filterDuplicates ) {
@@ -276,7 +273,7 @@ angular.module( 'ngmReportHub' )
 			},
 
       // get HRP 2017 category
-      getCategoryTypes: function( cluster_id ){
+      getCategoryTypes: function(){
 
         // full list
         // cluster_id: [ 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
@@ -296,7 +293,9 @@ angular.module( 'ngmReportHub' )
         }];
 
         // filter by cluster category_types here
-        return $filter( 'filter' )( category_types, { cluster_id: cluster_id } );
+        // return $filter( 'filter' )( category_types, { cluster_id: cluster_id } );
+
+        return category_types;
 
       },
 
@@ -346,7 +345,7 @@ angular.module( 'ngmReportHub' )
       },
 
 			// return ocha beneficiaries
-			getBeneficiaries: function( project, cluster_id ) {
+			getBeneficiaries: function() {
 
         // full list
         // cluster_id: [ 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
@@ -451,30 +450,30 @@ angular.module( 'ngmReportHub' )
           category_type_id: [ 'category_c' ],
           beneficiary_type_id: 'severely_food_insecure',
           beneficiary_type_name: 'Severely Food Insecure'
-        }];
-
-        // RnR
-        var rnr = [{
+        },{
+          cluster_id: [ 'rnr_chapter' ],
           beneficiary_type_id: 'returnee_documented',
           category_type_id: [ 'category_a', 'category_b', 'category_c' ],
           beneficiary_type_name: 'Afghan Refugee Returnees (Documented)'
         },{
+          cluster_id: [ 'rnr_chapter' ],
           beneficiary_type_id: 'returnee_undocumented',
           category_type_id: [ 'category_a', 'category_b', 'category_c' ],
           beneficiary_type_name: 'Afghan Returnees (Undocumented)'
         },{
+          cluster_id: [ 'rnr_chapter' ],
           beneficiary_type_id: 'refugee_pakistani',
           category_type_id: [ 'category_a', 'category_b', 'category_c' ],
           beneficiary_type_name: 'Pakistani Refugees'
         }];
 
         // set beneficiaries
-        beneficiaries = $filter( 'filter' )( beneficiaries, { cluster_id: cluster_id } );
+        // beneficiaries = $filter( 'filter' )( beneficiaries, { cluster_id: cluster_id } );
 
         // if RnR
-        if ( project.project_rnr_chapter ) {
-          beneficiaries = this.filterDuplicates( beneficiaries.concat( rnr ), 'beneficiary_type_id' );
-        }
+        // if ( project.project_rnr_chapter ) {
+        //   beneficiaries = this.filterDuplicates( beneficiaries.concat( rnr ), 'beneficiary_type_id' );
+        // }
 
         // filter by cluster beneficiaries here
         return beneficiaries
@@ -765,10 +764,15 @@ angular.module( 'ngmReportHub' )
             // rm
             delete p.cluster_id;
             delete p.cluster;
+            // report
+            delete r.cluster_id;
+            delete r.cluster;
             // location
             delete l.id;
             delete l.report_id;
             delete l.beneficiaries;
+            delete l.cluster_id;
+            delete l.cluster;
             // remove to ensure updated
             var b = angular.copy( beneficiary );
             delete b.activity_description;

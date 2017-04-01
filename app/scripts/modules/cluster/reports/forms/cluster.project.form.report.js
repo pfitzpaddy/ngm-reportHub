@@ -35,14 +35,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $filter( 'orderBy' )( config.report.locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
 
       // set activity descriptions
-      $scope.activity_descriptions = ngmClusterHelper.getActivities( config.project, false );
-      
-      // // if RnR add activities
-      // if( config.project.project_rnr_chapter ){
-      //   // get activty list
-      //   $scope.activity_descriptions = 
-      //       $scope.activity_descriptions.concat( ngmClusterHelper.getActivities( 'rnr_chapter', false ) );
-      // }
+      $scope.activity_descriptions = ngmClusterHelper.getActivities( config.project, false, false );
 
       // project
       $scope.project = {
@@ -74,8 +67,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // lists
         // activity_type: config.project.activity_type,
         activity_descriptions: $scope.activity_descriptions,
-        category_types: ngmClusterHelper.getCategoryTypes( config.project.cluster_id ),
-        beneficiary_types: config.report.report_year === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries( config.project, config.project.cluster_id ),
+        category_types: ngmClusterHelper.getCategoryTypes(),
+        beneficiary_types: config.report.report_year === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries(),
         delivery_types:[{
           delivery_type_id: 'population',
           delivery_type_name: 'New Beneficiaries'
@@ -118,6 +111,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             elderly_women:0 
           };
           $scope.inserted = {
+            cluster_id: null,
+            cluster: null,
             category_type_id: null,
             category_type_name: null,
             beneficiary_type_id: null,
@@ -149,38 +144,18 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
         },
 
-        // display category
-        showCategory: function( $data, $beneficiary ) {
-          var selected = [];
-          $beneficiary.category_type_id = $data;
-          if($beneficiary.category_type_id) {
-            selected = $filter('filter')( $scope.project.category_types, { category_type_id: $beneficiary.category_type_id }, true);
-            $beneficiary.category_type_name = selected[0].category_type_name;
-          }
-          return selected.length ? selected[0].category_type_name : 'No Selection!';
-        },
-
-        // display beneficiary
-        showBeneficiary: function( $data, $beneficiary ) {
-          var selected = [];
-          $beneficiary.beneficiary_type_id = $data;
-          if($beneficiary.beneficiary_type_id) {
-            selected = $filter('filter')( $scope.project.beneficiary_types, { beneficiary_type_id: $beneficiary.beneficiary_type_id }, true);
-          }
-          if ( selected.length ) {
-            $beneficiary.beneficiary_type_name = selected[0].beneficiary_type_name;
-            return selected[0].beneficiary_type_name
-          } else {
-            return 'No Selection!';
-          }
-        },
-
         // display activity
         showActivity: function( $data, $beneficiary ) {
           var selected = [];
           $beneficiary.activity_type_id = $data;
           if($beneficiary.activity_type_id) {
             selected = $filter('filter')( $scope.project.definition.activity_type, { activity_type_id: $beneficiary.activity_type_id }, true);
+
+            // catch for old data
+            if( selected[0].cluster_id && selected[0].cluster ) {
+              $beneficiary.cluster_id = selected[0].cluster_id;
+              $beneficiary.cluster = selected[0].cluster;
+            }
             $beneficiary.activity_type_name = selected[0].activity_type_name;
           }
           return selected.length ? selected[0].activity_type_name : 'No Selection!';
@@ -195,6 +170,32 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             $beneficiary.activity_description_name = selected[0].activity_description_name;
           } 
           return selected.length ? selected[0].activity_description_name : 'No Selection!';
+        },
+
+        // display category
+        showCategory: function( $data, $beneficiary ) {
+          var selected = [];
+          $beneficiary.category_type_id = $data;
+          if( $beneficiary.category_type_id ) {
+            selected = $filter('filter')( $scope.project.category_types, { category_type_id: $beneficiary.category_type_id }, true);
+            $beneficiary.category_type_name = selected[0].category_type_name;
+          }
+          return selected.length ? selected[0].category_type_name : 'No Selection!';
+        },
+
+        // display beneficiary
+        showBeneficiary: function( $data, $beneficiary ) {
+          var selected = [];
+          $beneficiary.beneficiary_type_id = $data;
+          if ( $beneficiary.beneficiary_type_id ) {
+            selected = $filter('filter')( $scope.project.beneficiary_types, { beneficiary_type_id: $beneficiary.beneficiary_type_id }, true);
+          }
+          if ( selected.length ) {
+            $beneficiary.beneficiary_type_name = selected[0].beneficiary_type_name;
+            return selected[0].beneficiary_type_name
+          } else {
+            return 'No Selection!';
+          }
         },
 
         // display delivery
@@ -342,16 +343,24 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // ennsure all locations contain at least one complete beneficiaries 
         formComplete: function() {
-          // var valid = false;
-          // angular.forEach( $scope.project.report.locations, function( l ){
-          //   angular.forEach( l.beneficiaries, function( b ){
-          //     if ( !$scope.project.rowSaveDisabled( b ) ) {
-          //       valid = true;
-          //     }
-          //   });
-          // });
-          // return valid;
-          return true;
+          var rowComplete = 0;
+          angular.forEach( $scope.project.report.locations, function( l ){
+            if ( l.beneficiaries.length ) {
+              angular.forEach( l.beneficiaries, function( b ){
+                if ( !$scope.project.rowSaveDisabled( b ) ) {
+                  rowComplete++;
+                }
+              });
+            } else {
+              rowComplete++;
+            }
+          });
+          // 
+          if( rowComplete >= $scope.project.report.locations.length ){
+            return true;
+          } else {
+            return false;  
+          }
         },
 
         // cofirm exit if changes
@@ -390,47 +399,43 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             data: {
               report: $scope.project.report
             }
-          }  
-
-          console.log($scope.project.report)        
+          }   
           
           // set report
-          // ngmData.get( setReportRequest ).then( function( report ){
+          ngmData.get( setReportRequest ).then( function( report ){
             
-          //   // updated & popluateAll() report
-          //   $scope.project.report = report;
-          //   $scope.project.report.submit = false;
-          //   // order locations by
-          //   $scope.project.report.locations = $filter( 'orderBy' )( $scope.project.report.locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
+            // updated & popluateAll() report
+            $scope.project.report = report;
+            $scope.project.report.submit = false;
+            // order locations by
+            $scope.project.report.locations = $filter( 'orderBy' )( $scope.project.report.locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
             
-          //   // user msg
-          //   var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
-          //       msg += complete ? 'Submitted!' : 'Saved!';
+            // user msg
+            var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
+                msg += complete ? 'Submitted!' : 'Saved!';
             
-          //   // msg
-          //   Materialize.toast( msg , 3000, 'success');
+            // msg
+            Materialize.toast( msg , 3000, 'success');
+            // set trigger
+            $('.modal-trigger').leanModal();
             
-          //   // Re-direct to summary
-          //   if ( $scope.project.report.report_status !== 'complete' ) {
+            // Re-direct to summary
+            if ( $scope.project.report.report_status !== 'complete' ) {
 
-          //     // avoids duplicate beneficiaries 
-          //       // ( if 'save' and then 'submit' is submited without a refresh in between ) ???
-          //     // $route.reload();
+              // notification modal
+              if( display_modal ){
+                // $( '#save-modal' ).openModal({ dismissible: false });
+                $timeout(function() {
+                  $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
+                }, 600);
+              }
 
-          //     // notification modal
-          //     if( display_modal ){
-          //       // $( '#save-modal' ).openModal({ dismissible: false });
-          //       $timeout(function() {
-          //         $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
-          //       }, 600);
-          //     }
-
-          //   } else {
-          //     $timeout(function() {
-          //       $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
-          //     }, 600);
-          //   }
-          // });
+            } else {
+              $timeout(function() {
+                $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
+              }, 600);
+            }
+          });
 
         }
 
