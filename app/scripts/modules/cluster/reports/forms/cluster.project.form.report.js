@@ -35,14 +35,14 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $filter( 'orderBy' )( config.report.locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
 
       // set activity descriptions
-      $scope.activity_descriptions = ngmClusterHelper.getActivities( config.project.cluster_id, false );
+      $scope.activity_descriptions = ngmClusterHelper.getActivities( config.project, false );
       
-      // if RnR add activities
-      if( config.project.project_rnr_chapter ){
-        // get activty list
-        $scope.activity_descriptions = 
-            $scope.activity_descriptions.concat( ngmClusterHelper.getActivities( 'rnr_chapter', false ) );
-      }
+      // // if RnR add activities
+      // if( config.project.project_rnr_chapter ){
+      //   // get activty list
+      //   $scope.activity_descriptions = 
+      //       $scope.activity_descriptions.concat( ngmClusterHelper.getActivities( 'rnr_chapter', false ) );
+      // }
 
       // project
       $scope.project = {
@@ -390,45 +390,47 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             data: {
               report: $scope.project.report
             }
-          }          
+          }  
+
+          console.log($scope.project.report)        
           
           // set report
-          ngmData.get( setReportRequest ).then( function( report ){
+          // ngmData.get( setReportRequest ).then( function( report ){
             
-            // updated & popluateAll() report
-            $scope.project.report = report;
-            $scope.project.report.submit = false;
-            // order locations by
-            $scope.project.report.locations = $filter( 'orderBy' )( $scope.project.report.locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
+          //   // updated & popluateAll() report
+          //   $scope.project.report = report;
+          //   $scope.project.report.submit = false;
+          //   // order locations by
+          //   $scope.project.report.locations = $filter( 'orderBy' )( $scope.project.report.locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
             
-            // user msg
-            var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
-                msg += complete ? 'Submitted!' : 'Saved!';
+          //   // user msg
+          //   var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
+          //       msg += complete ? 'Submitted!' : 'Saved!';
             
-            // msg
-            Materialize.toast( msg , 3000, 'success');
+          //   // msg
+          //   Materialize.toast( msg , 3000, 'success');
             
-            // Re-direct to summary
-            if ( $scope.project.report.report_status !== 'complete' ) {
+          //   // Re-direct to summary
+          //   if ( $scope.project.report.report_status !== 'complete' ) {
 
-              // avoids duplicate beneficiaries 
-                // ( if 'save' and then 'submit' is submited without a refresh in between ) ???
-              // $route.reload();
+          //     // avoids duplicate beneficiaries 
+          //       // ( if 'save' and then 'submit' is submited without a refresh in between ) ???
+          //     // $route.reload();
 
-              // notification modal
-              if( display_modal ){
-                // $( '#save-modal' ).openModal({ dismissible: false });
-                $timeout(function() {
-                  $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
-                }, 600);
-              }
+          //     // notification modal
+          //     if( display_modal ){
+          //       // $( '#save-modal' ).openModal({ dismissible: false });
+          //       $timeout(function() {
+          //         $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
+          //       }, 600);
+          //     }
 
-            } else {
-              $timeout(function() {
-                $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
-              }, 600);
-            }
-          });
+          //   } else {
+          //     $timeout(function() {
+          //       $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
+          //     }, 600);
+          //   }
+          // });
 
         }
 

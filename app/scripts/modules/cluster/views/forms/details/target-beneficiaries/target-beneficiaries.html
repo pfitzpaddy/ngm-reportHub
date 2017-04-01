@@ -18,10 +18,10 @@
 							  <table class="bordered responsive-table" ng-show="project.definition.target_beneficiaries.length">
 							    <tr style="font-weight: 400">
 							    	<td></td>
-							      <td ng-if="project.definition.cluster_id !== 'eiewg'">Category</td>
-							      <td>Beneficiary</td>
 							      <td>Activity</td>
 							      <td>Description</td>
+							      <td ng-if="project.definition.cluster_id !== 'eiewg'">Category</td>
+							      <td>Beneficiary</td>
 							      <td ng-if="project.definition.cluster_id === 'eiewg'">Units</td>
 							      <td ng-if="project.showCash()">Cash Amount</td>
 										<td ng-if="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Households</td>
@@ -38,33 +38,12 @@
 							    	<td>
 							    		<i class="material-icons" style="color: teal;">group</i>
 							    	</td>
-							      <td ng-show="project.definition.cluster_id !== 'eiewg'">
-							        <!-- editable group (select-remote) -->
-							        <span e-form="rowform"
-							        			e-name="category_type_id"
-							        			editable-select="beneficiary.category_type_id"
-							        			e-placeholder="Select..."
-							        			e-ng-options="b.category_type_id as b.category_type_name for b in project.lists.category_types">
-							          {{ project.showCategory($data, beneficiary) }}
-							        </span>
-							      </td>
-							      <td>
-							        <!-- editable group (select-remote) -->
-							        <span e-form="rowform"
-							        			e-name="beneficiary_type_id"
-							        			editable-select="beneficiary.beneficiary_type_id"
-							        			e-placeholder="Select..."
-							        			e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types | filter: { category_type_id: beneficiary.category_type_id }"
-							        			e-ng-disabled="!beneficiary.category_type_id">
-							          {{ project.showBeneficiary($data, beneficiary) }}
-							        </span>
-							      </td>
 							      <td>
 							        <!-- editable activity_type from Project -->
 							        <span e-form="rowform"
 							        			e-name="activity_type_id"
 							        			editable-select="beneficiary.activity_type_id"
-														e-placeholder="Select..."
+												e-placeholder="Select..."
 							        			e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type"
 							        			e-ng-disabled="!project.definition.activity_type.length">
 							          {{ project.showActivity($data, beneficiary) }}
@@ -81,7 +60,29 @@
 							          {{ project.showDescription($data, beneficiary) }}
 							        </span>
 							      </td>
-										<td ng-show="project.definition.cluster_id === 'eiewg'">
+							      <td ng-show="project.definition.cluster_id !== 'eiewg'">
+							        <!-- editable group (select-remote) -->
+							        <span e-form="rowform"
+							        			e-name="category_type_id"
+							        			editable-select="beneficiary.category_type_id"
+							        			e-placeholder="Select..."
+							        			e-ng-options="b.category_type_id as b.category_type_name for b in project.lists.category_types"
+							        			e-ng-disabled="!beneficiary.activity_description_id">
+							          {{ project.showCategory($data, beneficiary) }}
+							        </span>
+							      </td>
+							      <td>
+							        <!-- editable group (select-remote) -->
+							        <span e-form="rowform"
+							        			e-name="beneficiary_type_id"
+							        			editable-select="beneficiary.beneficiary_type_id"
+							        			e-placeholder="Select..."
+							        			e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types | filter: { category_type_id: beneficiary.category_type_id }"
+							        			e-ng-disabled="!beneficiary.category_type_id">
+							          {{ project.showBeneficiary($data, beneficiary) }}
+							        </span>
+							      </td>
+									<td ng-show="project.definition.cluster_id === 'eiewg'">
 							        <!-- editable number -->
 							        <span e-form="rowform"
 							        			e-name="units"

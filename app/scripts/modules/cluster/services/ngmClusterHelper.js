@@ -168,21 +168,29 @@ angular.module( 'ngmReportHub' )
       },
 
       // return activity type by cluster
-      getActivities: function( project, cluster_id, unique ){
+      getActivities: function( project, filterInterCluster, filterDuplicates ){
 
         // get activities list from storage
-        var activitiesList = angular.copy( localStorage.getObject( 'lists' ).activitiesList );
+        var activities = [],
+            activitiesList = angular.copy( localStorage.getObject( 'lists' ).activitiesList );
 
-        // filter by cluster
-        activities = $filter( 'filter' )( activitiesList, { cluster_id: cluster_id } );
-
-        // add R&R Chpater
-        if ( project.project_rnr_chapter) {
-          activities = activities.concat( $filter( 'filter' )( activitiesList, { cluster_id: 'rnr_chapter' } ) );
+        // filter cluster in details form
+        if ( filterInterCluster ) {
+          activities = $filter( 'filter' )( activitiesList, { cluster_id: project.cluster_id } );
+          angular.forEach( project.inter_cluster_activities, function( d, i ){
+            activities = activities.concat( $filter( 'filter' )( activitiesList, { cluster_id: d.cluster_id } ) );
+          });
         }
 
+        // filter cluster in monthly form
+        // if ( !filterInterCluster ) {
+        //   angular.forEach( project.activity_type, function( d, i ){
+        //     activities = activities.concat( $filter( 'filter' )( activitiesList, { cluster_id: d.cluster_id } ) );
+        //   });
+        // }
+
         // if unique
-        if ( unique ) {
+        if ( filterDuplicates ) {
           activities = this.filterDuplicates( activities, 'activity_type_id' );
         }
 
@@ -647,6 +655,8 @@ angular.module( 'ngmReportHub' )
 
         // remove duplication from merge
         delete p.id;
+        delete p.cluster_id;
+        delete p.cluster;
         delete p.target_beneficiaries;
         delete p.target_locations;
         delete p.project_budget_progress;
@@ -753,6 +763,9 @@ angular.module( 'ngmReportHub' )
           // locations
           angular.forEach( report.locations[i].beneficiaries, function( beneficiary, j ){
             // rm
+            delete p.cluster_id;
+            delete p.cluster;
+            // location
             delete l.id;
             delete l.report_id;
             delete l.beneficiaries;
@@ -820,140 +833,182 @@ angular.module( 'ngmReportHub' )
 			},
 
       // get objectives by cluster 
-      getStrategicObjectives: function( cluster_id ){
+      getStrategicObjectives: function(){
 
         var strategic_objectives = {
           'fsac': [{
+            cluster_id: 'fsac',
+            cluster: 'FSAC',
             objective_type_id: 'fsac_objective_1',
             objective_type_name: 'FSAC OBJECTIVE 1',
             objective_type_description: 'Immediate food needs of targeted shock affected populations are addressed with appropriate transfer modality (food, cash or voucher)',
             objective_type_objectives: [ 'SO1' ]
           },{
+            cluster_id: 'fsac',
+            cluster: 'FSAC',
             objective_type_id: 'fsac_objective_2',
             objective_type_name: 'FSAC OBJECTIVE 2',
             objective_type_description: 'Ensure continued and regular access to food during lean season for severely food insecure people, refugees and prolonged IDPs at risk of hunger and acute malnutrition',
             objective_type_objectives: [ 'SO3' ]
           },{
+            cluster_id: 'fsac',
+            cluster: 'FSAC',
             objective_type_id: 'fsac_objective_3',
             objective_type_name: 'FSAC OBJECTIVE 3',
             objective_type_description: 'Strengethen emergency preparedness and response capabilities of partners through development of contingency plans, timely coordinated food security assessments and capacity development especially in hard to reach areas',
             objective_type_objectives: [ 'SO4' ]
           }],
           'esnfi': [{
+            cluster_id: 'esnfi',
+            cluster: 'ESNFI',
             objective_type_id: 'esnfi_objective_1',
             objective_type_name: 'ESNFI OBJECTIVE 1',
             objective_type_description: 'Coordinated and timely ES-NFI response to families affected by natural disaster and armed conflict',
             objective_type_objectives: [ 'SO1' ]
           },{
+            cluster_id: 'esnfi',
+            cluster: 'ESNFI',
             objective_type_id: 'esnfi_objective_2',
             objective_type_name: 'ESNFI OBJECTIVE 2',
             objective_type_description: 'Coordinated and timely ES-NFI response to returnees',
             objective_type_objectives: [ 'SO1' ]
           },{
+            cluster_id: 'esnfi',
+            cluster: 'ESNFI',
             objective_type_id: 'esnfi_objective_3',
             objective_type_name: 'ESNFI OBJECTIVE 3',
             objective_type_description: 'Families falling into acute vulnerability due to shock are assisted with ES-NFI interventions in the medium term',
             objective_type_objectives: [ 'SO3' ]
           }],
           'health': [{
+            cluster_id: 'health',
+            cluster: 'Health',
             objective_type_id: 'health_objective_1',
             objective_type_name: 'HEALTH OBJECTIVE 1',
             objective_type_description: 'Ensure access to emergency health services, effective trauma care and mass casualty management for shock affected people',
             objective_type_objectives: [ 'SO1', 'SO2', 'SO4' ]
           },{
+            cluster_id: 'health',
+            cluster: 'Health',
             objective_type_id: 'health_objective_2',
             objective_type_name: 'HEALTH OBJECTIVE 2',
             objective_type_description: 'Ensure access to essential basic and emergency health services for white conflict-affected areas and overburdened services due to population movements',
             objective_type_objectives: [ 'SO2', 'SO4' ]
           },{
+            cluster_id: 'health',
+            cluster: 'Health',
             objective_type_id: 'health_objective_3',
             objective_type_name: 'HEALTH OBJECTIVE 3',
             objective_type_description: 'Provide immediate life saving assistance to those affected by public health outbreaks',
             objective_type_objectives: [ 'SO1', 'SO2', 'SO3', 'SO4' ]
           }],
           'nutrition':[{
+            cluster_id: 'nutrition',
+            cluster: 'Nutrition',
             objective_type_id: 'nutrition_objective_1',
             objective_type_name: 'NUTRITION OBJECTIVE 1',
             objective_type_description: 'Quality community and facility-based nutrition information is made available timely for programme monitoring and decision making',
             objective_type_objectives: [ 'SO1', 'SO2', 'SO3', 'SO4' ]
           },{
+            cluster_id: 'nutrition',
+            cluster: 'Nutrition',
             objective_type_id: 'nutrition_objective_2',
             objective_type_name: 'NUTRITION OBJECTIVE 2',
             objective_type_description: 'The incidence of acute malnutrition is reduced through Integrated Management of Acute Malnutrition among boys, girls, pregnant and lactating women',
             objective_type_objectives: [ 'SO1', 'SO2', 'SO3', 'SO4' ]
           },{
+            cluster_id: 'nutrition',
+            cluster: 'Nutrition',
             objective_type_id: 'nutrition_objective_3',
             objective_type_name: 'NUTRITION OBJECTIVE 3',
             objective_type_description: 'Contribute to reduction of morbidity and mortality among returnees and refugees by providing preventative nutrition programmes',
             objective_type_objectives: [ 'SO1', 'SO3' ]
           },{
+            cluster_id: 'nutrition',
+            cluster: 'Nutrition',
             objective_type_id: 'nutrition_objective_4',
             objective_type_name: 'NUTRITION OBJECTIVE 4',
             objective_type_description: 'Enhance capacity of partners to advocate for and respond at scale to nutrition in emergencies',
             objective_type_objectives: [ 'SO1', 'SO2', 'SO3', 'SO4' ]
           }],
           'protection':[{
+            cluster_id: 'protection',
+            cluster: 'Protection',
             objective_type_id: 'protection_objective_1',
             objective_type_name: 'PROTECTION OBJECTIVE 1',
             objective_type_description: 'Acute protection concerns, needs and violations stemming from the immediate impact of shocks and taking into account specific vulnerabilities are identified and addressed in a timely manner',
             objective_type_objectives: [ 'SO1', 'SO2' ]
           },{
+            cluster_id: 'protection',
+            cluster: 'Protection',
             objective_type_id: 'protection_objective_2',
             objective_type_name: 'PROTECTION OBJECTIVE 2',
             objective_type_description: 'Evolving protection concerns, needs and violations are monitored, analysed and responded to, upholding fundamental rights and restoring the dignity and well-being of vulnerable shock affected populations',
             objective_type_objectives: [ 'SO3' ]
           },{
+            cluster_id: 'protection',
+            cluster: 'Protection',
             objective_type_id: 'protection_objective_3',
             objective_type_name: 'PROTECTION OBJECTIVE 3',
             objective_type_description: 'Support the creation of a protection-conducive environment to prevent and mitigate protection risks, as well as facilitate an effective response to protection violation',
             objective_type_objectives: [ 'SO1', 'SO3' ]
           }],
           'wash':[{
+            cluster_id: 'wash',
+            cluster: 'Wash',
             objective_type_id: 'wash_objective_1',
             objective_type_name: 'WASH OBJECTIVE 1',
             objective_type_description: 'Ensure timely access to a sufficient quantity of safe drinking water, use of adequate and gender sensitive sanitation and appropriate means of hygiene practices by the affected population',
             objective_type_objectives: [ 'SO1', 'SO2', 'SO4' ]
           },{
+            cluster_id: 'wash',
+            cluster: 'Wash',
             objective_type_id: 'wash_objective_2',
             objective_type_name: 'WASH OBJECTIVE 2',
             objective_type_description: 'Ensure timely and adequate access to WASH services in institutions affected by emergencies',
             objective_type_objectives: [ 'SO1', 'SO2', 'SO4' ]
           },{
+            cluster_id: 'wash',
+            cluster: 'Wash',
             objective_type_id: 'wash_objective_3',
             objective_type_name: 'WASH OBJECTIVE 3',
             objective_type_description: 'Ensure timely and adequate access to WASH needs of the affected population',
             objective_type_objectives: [ 'SO1', 'SO2', 'SO4' ]
           },{
+            cluster_id: 'wash',
+            cluster: 'Wash',
             objective_type_id: 'wash_objective_4',
             objective_type_name: 'WASH OBJECTIVE 4',
             objective_type_description: 'Two-year transition of cluster leadership of Ministry of Rural Rehabilitation and Development set in motion',
             objective_type_objectives: [ 'SO1', 'SO2', 'SO4' ]
+          }],
+          'rnr_chapter': [{
+            cluster_id: 'rnr_chapter',
+            cluster: 'R&R Chapter',
+            objective_type_id: 'project_rnr_chapter_objective_1',
+            objective_type_name: 'REFUGEE & RETURNEE OBJECTIVE 1',
+            objective_type_description: 'Protection interventions provided to NWA refugees',
+            objective_type_objectives: [ 'SO1' ]
+          },{
+            cluster_id: 'rnr_chapter',
+            cluster: 'R&R Chapter',
+            objective_type_id: 'project_rnr_chapter_objective_2',
+            objective_type_name: 'REFUGEE & RETURNEE OBJECTIVE 2',
+            objective_type_description: 'Essential services delivered to returnees while pursuing durable solutions',
+            objective_type_objectives: [ 'SO1', 'SO3' ]
+          },{
+            cluster_id: 'rnr_chapter',
+            cluster: 'R&R Chapter',
+            objective_type_id: 'project_rnr_chapter_objective_3',
+            objective_type_name: 'REFUGEE & RETURNEE OBJECTIVE 3',
+            objective_type_description: 'Immediate humanitarian needs for vulnerable refugee returnees, undocumented returnees and deportees are met',
+            objective_type_objectives: [ 'SO1' ]
           }]
         }
 
         // return SO by cluster
-        return strategic_objectives[ cluster_id ];
+        return strategic_objectives;
 
-      },
-
-      // RnR strategic obj
-      getRnRStrategicObjectives: function( ){
-        return [{
-          objective_type_id: 'project_rnr_chapter_objective_1',
-          objective_type_name: 'REFUGEE & RETURNEE OBJECTIVE 1',
-          objective_type_description: 'Protection interventions provided to NWA refugees',
-          objective_type_objectives: [ 'SO1' ]
-        },{
-          objective_type_id: 'project_rnr_chapter_objective_2',
-          objective_type_name: 'REFUGEE & RETURNEE OBJECTIVE 2',
-          objective_type_description: 'Essential services delivered to returnees while pursuing durable solutions',
-          objective_type_objectives: [ 'SO1', 'SO3' ]
-        },{
-          objective_type_id: 'project_rnr_chapter_objective_3',
-          objective_type_name: 'REFUGEE & RETURNEE OBJECTIVE 3',
-          objective_type_description: 'Immediate humanitarian needs for vulnerable refugee returnees, undocumented returnees and deportees are met',
-          objective_type_objectives: [ 'SO1' ]
-        }]
       },
 
       // remove duplicates in item ( json array ) based on value ( filterOn )
