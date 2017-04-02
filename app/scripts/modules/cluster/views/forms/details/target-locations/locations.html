@@ -20,8 +20,8 @@
 							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
 							      <td ng-if="project.definition.cluster_id === 'health'">Facility Type</td>
-							      <td ng-if="project.definition.cluster_id === 'health'">Facility Name</td>
-							      <td ng-if="project.definition.cluster_id !== 'health'">Location Name</td>
+							      <td ng-if="project.definition.cluster_id === 'health'">Facility Name *</td>
+							      <td ng-if="project.definition.cluster_id !== 'health'">Location Name *</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
 							    <tr ng-repeat="location in project.definition.target_locations track by $index">
@@ -76,7 +76,14 @@
 							          <button class="btn waves-effect waves-light" ng-click="rowform.$show()" title="Edit">
 													<i class="material-icons">create</i>
 							          </button>
-							          <button class="btn red lighten-2 waves-effect waves-light" ng-click="project.removeLocationModal( $index )" title="Remove">
+							          <button class="btn red lighten-2 waves-effect waves-light" ng-click="project.removeLocationModal( $index )" title="Remove"
+											ng-disabled="
+							                  	( ( !project.project_details_valid() ) ||
+							                    ( !project.activity_type_valid() ) ||
+							                    ( !project.project_donor_valid() ) ||
+							                    ( !project.target_beneficiaries_valid() ) ||
+							                    ( !project.target_locations_valid() ) ||
+							                    ( !project.submit ) )">
 							          	<i class="material-icons">delete</i>
 							          </button>
 							        </div>  

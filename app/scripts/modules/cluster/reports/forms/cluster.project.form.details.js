@@ -154,6 +154,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // set HRP if SOs selected
           if( $scope.project.definition.strategic_objectives.length ) {
             $scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'OTH', 'HRP' );
+          } else {
+            $scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'HRP', 'OTH' );
           }
 
         },
@@ -445,7 +447,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return valid;
         },
 
-        // validate project type
+        // validate if ONE activity type
         activity_type_valid: function () {
           // valid
           var valid = false;
@@ -473,20 +475,24 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return valid;
         },
 
-        // validate target beneficiary
+        // validate if ALL target beneficairies valid
         target_beneficiaries_valid: function(){
-          var valid = false;
+          var rowComplete = 0;
           angular.forEach( $scope.project.definition.target_beneficiaries, function( d, i ){
             if ( !$scope.project.rowSaveDisabled(d) ){
-              valid = true;
+              rowComplete++;
             }
           });
-          return valid;
+          if( rowComplete >= $scope.project.definition.target_beneficiaries.length ){
+            return true;
+          } else {
+            return false;  
+          }
         },
 
-        // validate target locations
+        // validate id ALL target locations valid
         target_locations_valid: function(){
-          var valid = false;
+          var rowComplete = 0;
           angular.forEach( $scope.project.definition.target_locations, function( d, i ){
             if(
               d.admin1pcode &&
@@ -495,10 +501,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               d.admin2name &&
               d.fac_name
             ){
-             valid = true;
+              rowComplete++;
             }
           });
-          return valid;
+          if( rowComplete >= $scope.project.definition.target_locations.length ){
+            return true;
+          } else {
+            return false;  
+          }
         },
 
         // cofirm exit if changes
@@ -752,7 +762,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // reset to cover updates
           if ( !$scope.project.definition.project_hrp_code ){
             $scope.project.definition.project_hrp_code = 
-                      ngmClusterHelper.getProjectHrpCode( $scope.project.definition );           
+                      ngmClusterHelper.getProjectHrpCode( $scope.project.definition );      
           }          
 
           // add activity type check box list

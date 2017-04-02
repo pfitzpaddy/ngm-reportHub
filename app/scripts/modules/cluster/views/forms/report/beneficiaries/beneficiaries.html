@@ -226,7 +226,8 @@
           <div class="btn btn-small waves-effect waves-light" ng-click="rowform.$show()" title="Edit">
 						<i class="material-icons">create</i>
           </div>
-          <div class="btn btn-small red lighten-2 waves-effect waves-light" ng-click="project.removeBeneficiaryModal( $locationIndex, $index )" title="Remove">
+          <div class="btn btn-small red lighten-2 waves-effect waves-light" ng-click="project.removeBeneficiaryModal( $locationIndex, $index )" title="Remove"
+              ng-disabled="!project.formComplete()">
           	<i class="material-icons">delete</i>
           </div>
         </div>  

@@ -343,8 +343,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // ennsure all locations contain at least one complete beneficiaries 
         formComplete: function() {
+          var beneficiaries = 0;
           var rowComplete = 0;
           angular.forEach( $scope.project.report.locations, function( l ){
+            beneficiaries += l.beneficiaries.length;
             if ( l.beneficiaries.length ) {
               angular.forEach( l.beneficiaries, function( b ){
                 if ( !$scope.project.rowSaveDisabled( b ) ) {
@@ -356,7 +358,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             }
           });
           // 
-          if( rowComplete >= $scope.project.report.locations.length ){
+          if( rowComplete >= beneficiaries ){
             return true;
           } else {
             return false;  

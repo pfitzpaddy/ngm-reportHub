@@ -201,13 +201,13 @@
 							          		title="Save" type="submit" class="btn waves-effect waves-light save"
 							          		ng-if="rowform.$visible" 
 							          		ng-disabled="
-					                  	( ( !project.project_details_valid() ) ||
-					                    ( !project.activity_type_valid() ) ||
-					                    ( !project.project_donor_valid() ) ||
-					                    ( !project.target_beneficiaries_valid() ) ||
-					                    ( !project.target_locations_valid() ) ||
-					                    ( !project.submit ) )">
-							            <i class="material-icons">save</i>
+							                  	( ( !project.project_details_valid() ) ||
+							                    ( !project.activity_type_valid() ) ||
+							                    ( !project.project_donor_valid() ) ||
+							                    ( !project.target_beneficiaries_valid() ) ||
+							                    ( !project.target_locations_valid() ) ||
+							                    ( !project.submit ) )">
+									            <i class="material-icons">save</i>
 							          </button>
 							          <button type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn blue lighten-1 waves-effect waves-light" title="Cancel Edit">
 													<i class="material-icons">clear</i>
@@ -217,7 +217,14 @@
 							          <button class="btn waves-effect waves-light" ng-click="rowform.$show()" title="Edit">
 													<i class="material-icons">create</i>
 							          </button>
-							          <button class="btn red lighten-2 waves-effect waves-light" ng-click="project.removeBeneficiaryModal( $index )" title="Remove">
+							          <button class="btn red lighten-2 waves-effect waves-light" ng-click="project.removeBeneficiaryModal( $index )" title="Remove"
+											ng-disabled="
+							                  	( ( !project.project_details_valid() ) ||
+							                    ( !project.activity_type_valid() ) ||
+							                    ( !project.project_donor_valid() ) ||
+							                    ( !project.target_beneficiaries_valid() ) ||
+							                    ( !project.target_locations_valid() ) ||
+							                    ( !project.submit ) )">
 							          	<i class="material-icons">delete</i>
 							          </button>
 							        </div>  

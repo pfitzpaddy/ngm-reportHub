@@ -126,6 +126,7 @@
 
 						<button class="waves-effect waves-light btn blue"
 							ng-click="project.modalConfirm( 'complete-modal' )"
+							ng-disabled="!project.formComplete()"
 							ng-cloak><i class="material-icons left">assignment_turned_in</i>Submit Monthly Report
 						</button>
 
