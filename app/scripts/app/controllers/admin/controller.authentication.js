@@ -53,12 +53,6 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                 Materialize.toast( 'Welcome back ' + result.username + '!', 3000, 'note' );
               }, 2000);
 
-            }).error( function( err ) {
-
-              // update
-              $timeout(function(){
-                Materialize.toast( err.msg, 6000, 'error' );
-              }, 400);
             });
           }
         },
