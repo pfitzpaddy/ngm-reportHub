@@ -692,6 +692,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             
             // locations updated
             $scope.project.definition.update_locations = false;
+
+            // modal-trigger
+            $('.modal-trigger').leanModal();
             
             if( save_msg ){
               // message

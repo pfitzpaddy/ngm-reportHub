@@ -382,7 +382,12 @@ angular.module( 'ngmReportHub' )
           beneficiary_type_id: 'access_to_services',
           beneficiary_type_name: 'White Area Population'
         },{
-          cluster_id: [ 'nutrition', 'protection', 'wash' ],
+          cluster_id: [ 'wash' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          beneficiary_type_id: 'access_to_services',
+          beneficiary_type_name: 'Underserved Community'
+        },{
+          cluster_id: [ 'nutrition', 'protection' ],
           category_type_id: [ 'category_a', 'category_b', 'category_c' ],
           beneficiary_type_id: 'access_to_services',
           beneficiary_type_name: 'Access to Services'

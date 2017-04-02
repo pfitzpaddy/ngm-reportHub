@@ -18,7 +18,7 @@
       <td ng-if="project.showSessions( $locationIndex )">Sessions</td>
       <td ng-if="project.definition.cluster_id === 'eiewg'">Units</td>
       <td ng-if="project.showCash( $locationIndex )">Cash Amount</td>
-      <td ng-if="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Households</td>
+<!--       <td ng-if="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Households</td> -->
       <td ng-if="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Families</td>
       <td>Boys</td>
       <td>Girls</td>
@@ -116,7 +116,8 @@
           {{ beneficiary.cash_amount }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi' || project.definition.cluster_id === 'fsac'">
+<!--       <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi' || project.definition.cluster_id === 'fsac'"> -->
+      <td ng-show="false">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="households"
