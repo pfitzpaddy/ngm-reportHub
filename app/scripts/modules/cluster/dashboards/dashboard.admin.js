@@ -130,7 +130,7 @@ angular.module('ngmReportHub')
 								method: 'POST',
 								url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
 								data: {
-									cluster_id: 'health',
+									cluster_id: $scope.dashboard.user.cluster_id,
 									indicator: 'organizations',
 									list: true,
 									organization: $scope.dashboard.organization, 
@@ -345,7 +345,7 @@ angular.module('ngmReportHub')
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
 											data: {
-												cluster_id: 'health',
+												cluster_id: $scope.dashboard.user.cluster_id,
 												indicator: 'organizations',
 												organization: $scope.dashboard.organization,
 												adminRpcode: $scope.dashboard.adminRpcode,
@@ -368,7 +368,7 @@ angular.module('ngmReportHub')
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
 											data: {
-												cluster_id: 'health',
+												cluster_id: $scope.dashboard.user.cluster_id,
 												indicator: 'reports_total',
 												organization: $scope.dashboard.organization,
 												adminRpcode: $scope.dashboard.adminRpcode,
@@ -391,7 +391,7 @@ angular.module('ngmReportHub')
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
 											data: {
-												cluster_id: 'health',
+												cluster_id: $scope.dashboard.user.cluster_id,
 												indicator: 'reports_complete',
 												organization: $scope.dashboard.organization,
 												adminRpcode: $scope.dashboard.adminRpcode,
@@ -414,7 +414,7 @@ angular.module('ngmReportHub')
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
 											data: {
-												cluster_id: 'health',
+												cluster_id: $scope.dashboard.user.cluster_id,
 												indicator: 'reports_due',
 												organization: $scope.dashboard.organization,
 												adminRpcode: $scope.dashboard.adminRpcode,
@@ -447,7 +447,7 @@ angular.module('ngmReportHub')
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
 											data: {
-												cluster_id: 'health',
+												cluster_id: $scope.dashboard.user.cluster_id,
 												indicator: 'reports_due',
 												list: true,
 												organization: $scope.dashboard.organization,
@@ -481,7 +481,7 @@ angular.module('ngmReportHub')
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
 											data: {
-												cluster_id: 'health',
+												cluster_id: $scope.dashboard.user.cluster_id,
 												indicator: 'reports_complete',
 												list: true,
 												organization: $scope.dashboard.organization,
