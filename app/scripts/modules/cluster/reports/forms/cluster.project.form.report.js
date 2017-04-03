@@ -257,7 +257,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( b.activity_type_id === 'cash_vouchers' || b.activity_type_id === 'food_assistance' ){
+              if( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ){
                 display = true;
               }
             });

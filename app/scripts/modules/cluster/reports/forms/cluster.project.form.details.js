@@ -274,7 +274,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var display = false;
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
-            if( b.activity_type_id === 'cash_vouchers' || b.activity_type_id === 'food_assistance' ){
+            console.log(b.activity_description_id)
+            if( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ){
               display = true;
             }
           });
