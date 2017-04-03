@@ -981,7 +981,7 @@ angular.module( 'ngmReportHub' )
             cluster: 'Wash',
             objective_type_id: 'wash_objective_3',
             objective_type_name: 'WASH OBJECTIVE 3',
-            objective_type_description: 'Ensure timely and adequate access to WASH needs of the affected population',
+            objective_type_description: 'Ensure timely and adequate assessments of WASH needs of the affected population',
             objective_type_objectives: [ 'SO1', 'SO2', 'SO4' ]
           },{
             cluster_id: 'wash',
