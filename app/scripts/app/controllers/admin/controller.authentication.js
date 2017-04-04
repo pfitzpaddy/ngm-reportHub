@@ -79,6 +79,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
             }).error(function( err ) {
               // update
+              $scope.panel.err = err;
               $timeout(function(){
                 Materialize.toast( err.msg, 6000, 'error' );
               }, 1000);
