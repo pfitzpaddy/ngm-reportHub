@@ -211,9 +211,11 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'caritas_germany', project_donor_name: 'Caritas Germany' },
             { project_donor_id: 'cerf', project_donor_name: 'CERF' },
             { project_donor_id: 'chf', project_donor_name: 'CHF' },
+            { project_donor_id: 'danida', project_donor_name:'Danida'},
             { project_donor_id: 'denmark', project_donor_name:'Denmark'},
-            { project_donor_id: 'dfid', project_donor_name: 'DFID' },            
+            { project_donor_id: 'dfid', project_donor_name: 'DFID' },
             { project_donor_id: 'echo', project_donor_name: 'ECHO' },
+            { project_donor_id: 'european_union', project_donor_name: 'European Union' },
             { project_donor_id: 'finland', project_donor_name:'Finland' },
             { project_donor_id: 'france', project_donor_name:'France' },
             { project_donor_id: 'global_fund', project_donor_name: 'Global Fund' },
@@ -225,10 +227,12 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'johanniter', project_donor_name: 'Johanniter' },
             { project_donor_id: 'netherlands', project_donor_name: 'Netherlands' },
             { project_donor_id: 'norway', project_donor_name: 'Norway' },
+            { project_donor_id: 'ocha', project_donor_name: 'OCHA' },
             { project_donor_id: 'qatar_red_crescent', project_donor_name: 'Qatar Red Crescent' },
             { project_donor_id: 'sweden', project_donor_name: 'Sweden' },
             { project_donor_id: 'switzerland', project_donor_name: 'Switzerland' },
             { project_donor_id: 'usaid', project_donor_name: 'USAID' },
+            { project_donor_id: 'unhcr', project_donor_name: 'UNHCR' },
             { project_donor_id: 'unicef', project_donor_name: 'UNICEF' },
             { project_donor_id: 'who', project_donor_name: 'WHO' },
             { project_donor_id: 'world_bank', project_donor_name: 'Worldbank' }
@@ -236,19 +240,22 @@ angular.module( 'ngmReportHub' )
         }
 
         return donors;
-			},
+      },
 
-			// country currencies
-			getCurrencies: function( admin0pcode ) {
-				var currencies = [{
-          // default is USD
-          admin0pcode: admin0pcode,
-          currency_id: 'usd',
-          currency_name: 'USD'
-        },{
+      // country currencies
+      getCurrencies: function( admin0pcode ) {
+        var currencies = [{
           admin0pcode: 'AF',
           currency_id: 'afn',
           currency_name: 'AFN'
+        },{
+          admin0pcode: 'AF',
+          currency_id: 'ddk',
+          currency_name: 'DDK'
+        },{
+          admin0pcode: 'AF',
+          currency_id: 'eur',
+          currency_name: 'EUR'
         },{
           admin0pcode: 'ET',
           currency_id: 'etb',
@@ -265,12 +272,17 @@ angular.module( 'ngmReportHub' )
           admin0pcode: 'SO',
           currency_id: 'sos',
           currency_name: 'SOS'
+        },{
+          // default is USD
+          admin0pcode: admin0pcode,
+          currency_id: 'usd',
+          currency_name: 'USD'
         }];
 
         // filter currency options list by admin0pcode
         return $filter( 'filter' )( currencies, { admin0pcode: admin0pcode } );
 
-			},
+      },
 
       // get HRP 2017 category
       getCategoryTypes: function(){

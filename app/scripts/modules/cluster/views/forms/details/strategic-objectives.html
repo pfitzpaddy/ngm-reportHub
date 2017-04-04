@@ -72,8 +72,12 @@
 
 					<li class="collection-item avatar">
 
-						<p style="padding:10px;">
+						<p style="padding:10px;" ng-if="cluster.cluster_id !== 'eiewg'">
 							Select the Objectives that your project will target;
+						</p>
+
+						<p style="padding:10px;" ng-if="cluster.cluster_id === 'eiewg'">
+							There are no Strategic Objectives for EiEWG!
 						</p>
 
 						<!-- form -->

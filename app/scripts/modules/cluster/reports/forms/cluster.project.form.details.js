@@ -63,6 +63,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         activity_types: config.project.activity_type,
         lists: {
           clusters: [{
+            cluster_id: 'eiewg',
+            cluster: 'EiEWG'
+          },{
             cluster_id: 'esnfi',
             cluster: 'ESNFI'
           },{
@@ -267,6 +270,19 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           } else {
             return 'No Selection!';
           }
+        },
+
+        // 
+        display: function( cluster_id ) {
+          var display = false;
+          angular.forEach( $scope.project.target_beneficiaries, function( b, i ){
+            console.log(b)
+            console.log(cluster_id)
+            if ( b.cluster_id === cluster_id ) {
+              display = true;
+            }
+          });
+          return display;
         },
 
         // cash
@@ -529,6 +545,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               if ( cluster ) {
                 $scope.project.definition.inter_cluster_activities.push( { cluster_id: cluster.cluster_id, cluster: cluster.cluster } );
               }
+            } else {
+              // turn off ?
+              var activity_type = [];
+              angular.forEach( $scope.project.definition.activity_type, function( obj, i ) {
+                if ( obj.cluster_id === key ){
+                  $scope.project.definition.activity_type_check[ obj.activity_type_id ] = false;
+                } else{
+                  activity_type.push(obj);
+                }
+              });
             }
           });
           $scope.project.compileStrategicObjectives();
@@ -573,21 +599,23 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $scope.project.lists.activity_descriptions = ngmClusterHelper.getActivities( $scope.project.definition, true, false );
 
           // activity_descriptions for checklist
-          angular.forEach( $scope.project.definition.activity_type_check, function( t, key ){
-            var found = false;
-            angular.forEach( $scope.project.lists.activity_descriptions, function( d, i) {
-              if ( key === d.activity_type_id ) {
-                found = true;
-              }
-            });
-            if ( found ) {
-              $scope.project.definition.activity_type_check[ key ] = found;  
-            }
-            if ( !found ) {
-              delete $scope.project.definition.activity_type_check[ key ];
-            }
+          // angular.forEach( $scope.project.definition.activity_type_check, function( t, key ){
+          //   var found = false;
+          //   angular.forEach( $scope.project.lists.activity_descriptions, function( d, i) {
+          //     if ( key === d.activity_type_id ) {
+          //       found = true;
+          //     }
+          //   });
+          //   if ( found ) {
+          //     $scope.project.definition.activity_type_check[ key ] = found;  
+          //   }
+          //   if ( !found ) {
+          //     delete $scope.project.definition.activity_type_check[ key ];
+          //   }
             
-          });
+          // });
+
+
 
           // filter
           $scope.project.definition.activity_type = [];
