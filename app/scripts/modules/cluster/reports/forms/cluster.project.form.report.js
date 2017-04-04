@@ -229,10 +229,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         disabledInput: function( $beneficiary, indicator ) {
           var disabled = false;
 
-          // health, mch, ANC, PNC, SBA
+          // health, MCH, ANC, PNC, SBA
+          if( $beneficiary.activity_description_id === 'postnatal_care' ){
+            if( indicator !== 'boys' && indicator !== 'girls' && indicator !== 'women' ){
+              disabled = true;
+            }
+          }
+          // health, MCH, ANC, PNC, SBA
           if( $beneficiary.activity_type_id === 'mch' ||
               $beneficiary.activity_description_id === 'antenatal_care' ||
-              $beneficiary.activity_description_id === 'postnatal_care' ||
               $beneficiary.activity_description_id === 'skilled_birth_attendant' ){
             if( indicator !== 'women' ){
               disabled = true;
