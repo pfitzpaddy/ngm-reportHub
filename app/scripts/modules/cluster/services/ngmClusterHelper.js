@@ -391,15 +391,15 @@ angular.module( 'ngmReportHub' )
         },{
           cluster_id: [ 'health' ],
           category_type_id: [ 'category_a', 'category_b', 'category_c' ],
-          beneficiary_type_id: 'access_to_services',
+          beneficiary_type_id: 'white_area_population',
           beneficiary_type_name: 'White Area Population'
         },{
-          cluster_id: [ 'wash' ],
+          cluster_id: [ 'wash', 'protection' ],
           category_type_id: [ 'category_a', 'category_b', 'category_c' ],
-          beneficiary_type_id: 'access_to_services',
+          beneficiary_type_id: 'underserved_community',
           beneficiary_type_name: 'Underserved Community'
         },{
-          cluster_id: [ 'nutrition', 'protection' ],
+          cluster_id: [ 'nutrition' ],
           category_type_id: [ 'category_a', 'category_b', 'category_c' ],
           beneficiary_type_id: 'access_to_services',
           beneficiary_type_name: 'Access to Services'
