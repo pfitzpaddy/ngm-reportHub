@@ -53,7 +53,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         report: config.report,
 
         // default indicators ( 2016 )
-        indicators: ngmClusterHelper.getIndicators(),
+        indicators: config.report.report_year === 2016 ? ngmClusterHelper.getIndicators() : ngmClusterHelper.getIndicators( true ),
 
         // keys to ignore when summing beneficiaries in template ( 2016 )
         skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ],
