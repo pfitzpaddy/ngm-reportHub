@@ -229,11 +229,13 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'norway', project_donor_name: 'Norway' },
             { project_donor_id: 'ocha', project_donor_name: 'OCHA' },
             { project_donor_id: 'qatar_red_crescent', project_donor_name: 'Qatar Red Crescent' },
+            { project_donor_id: 'republic_of_korea', project_donor_name: 'Republic of Korea' },
             { project_donor_id: 'sweden', project_donor_name: 'Sweden' },
             { project_donor_id: 'switzerland', project_donor_name: 'Switzerland' },
             { project_donor_id: 'usaid', project_donor_name: 'USAID' },
             { project_donor_id: 'unhcr', project_donor_name: 'UNHCR' },
             { project_donor_id: 'unicef', project_donor_name: 'UNICEF' },
+            { project_donor_id: 'wfp', project_donor_name: 'WFP' },
             { project_donor_id: 'who', project_donor_name: 'WHO' },
             { project_donor_id: 'world_bank', project_donor_name: 'Worldbank' }
           ];

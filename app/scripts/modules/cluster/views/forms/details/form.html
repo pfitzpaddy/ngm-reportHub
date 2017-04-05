@@ -117,13 +117,22 @@
 						
 						<button data-target="save-modal" class="waves-effect waves-light modal-trigger btn"
 							ng-disabled="
+									project.definition.project_status === 'new' && (
 										( !project.project_details_valid() ) ||
 										( !project.activity_type_valid() ) ||
 										( !project.project_donor_valid() ) ||
 										( !project.target_beneficiaries_valid() ) ||
 										( !project.target_locations_valid() ) ||
 										( !project.submit )
-										"
+									) ||
+									project.definition.project_status === 'active' && (
+										( !project.project_details_valid() ) ||
+										( !project.activity_type_valid() ) ||
+										( !project.project_donor_valid() ) ||
+										( !project.target_beneficiaries_valid() ) ||
+										( !project.target_locations_valid() ) ||
+										( !project.submit )
+									)"
 							ng-cloak><i class="material-icons right">send</i>Save</button>
 
 						<!-- cancel new -->
