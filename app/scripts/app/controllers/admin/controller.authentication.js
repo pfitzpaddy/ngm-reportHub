@@ -44,17 +44,25 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             
             // login
             ngmAuth.login({ user: $scope.panel.user }).success( function( result ) {
-              
-              // go to default org page
-              $location.path( result.app_home );
 
-              // user toast msg
-              $timeout( function(){
-                Materialize.toast( 'Welcome back ' + result.username + '!', 3000, 'note' );
-              }, 2000);
+              // db error!
+              if( result.err || result.summary ){
+                var msg = result.summary ? result.summary : result.msg;
+                Materialize.toast( msg, 6000, 'error' );
+              }
+
+              // success
+              if ( !result.err && !result.summary ){
+                // go to default org page
+                console.log('here');
+                $location.path( result.app_home );
+                $timeout( function(){
+                  Materialize.toast( 'Welcome back ' + result.username + '!', 3000, 'note' );
+                }, 2000);
+              }
 
             });
-            
+
           }
         },
 
@@ -69,14 +77,21 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
             // register
             ngmAuth.register({ user: $scope.panel.user }).success(function( result ) {
-              
-              // go to default org page
-              $location.path( result.app_home );
 
-              // user toast msg
-              $timeout(function(){
-                Materialize.toast( 'Welcome ' + result.username + ', time to create a Project!', 3000, 'success' );
-              }, 2000);
+              // db error!
+              if( result.err || result.summary ){
+                var msg = result.summary ? result.summary : result.msg;
+                Materialize.toast( msg, 6000, 'error' );
+              }
+
+              // success
+              if ( !result.err && !result.summary ){
+                // go to default org page
+                $location.path( result.app_home );
+                $timeout( function(){
+                  Materialize.toast( 'Welcome ' + result.username + ', time to create a Project!', 3000, 'success' );
+                }, 2000);
+              }
 
             });
 

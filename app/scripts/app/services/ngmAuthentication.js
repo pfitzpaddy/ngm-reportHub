@@ -92,24 +92,19 @@ angular.module('ngmReportHub')
 
 				// register success
 				register.success( function( result ) {
-					
-					// unset guest
-					ngmUser.unset();
-					// set localStorage
-					ngmUser.set( result );
 
-					// manage session
-					ngmAuth.setSessionTimeout( result );
+					if ( !result.err && !result.summary ){
+						// unset guest
+						ngmUser.unset();
+						// set localStorage
+						ngmUser.set( result );
+						// manage session
+						ngmAuth.setSessionTimeout( result );
+					}
 
 				}).error(function( err ) {
 					// update
-					var err = err;
-					
-					err.msg = err.summary ? err.summary : err.msg;
-
-					console.log(err.msg)
-					
-					Materialize.toast( err.msg, 6000, 'error' );
+					Materialize.toast( 'Error!', 6000, 'error' );
 				});
 
 				return register;
@@ -127,22 +122,19 @@ angular.module('ngmReportHub')
 
 				// on success store in localStorage
 				login.success( function( result ) {
-					
-					// unset guest
-					ngmUser.unset();
-					// set localStorage
-					ngmUser.set( result );
 
-					// manage session
-					ngmAuth.setSessionTimeout( result );
+					if ( !result.err && !result.summary ){
+						// unset guest
+						ngmUser.unset();
+						// set localStorage
+						ngmUser.set( result );
+						// manage session
+						ngmAuth.setSessionTimeout( result );
+					}
 
 				}).error(function( err ) {
 					// update
-					var err = err;
-					
-					err.msg = err.summary ? err.summary : err.msg;
-					
-					Materialize.toast( err.msg, 6000, 'error' );
+					Materialize.toast( 'Error!', 6000, 'error' );
 				});
 
 				return login;
@@ -170,11 +162,16 @@ angular.module('ngmReportHub')
 
 				// on success store in localStorage
 				reset.success( function( result ) {
-					// unset guest
-					ngmUser.unset();
-					// set user
-					ngmUser.set( result );
-				});
+					if ( !result.err && !result.summary ){
+						// unset guest
+						ngmUser.unset();
+						// set user
+						ngmUser.set( result );
+					}
+				}).error(function( err ) {
+					// update
+					Materialize.toast( 'Error!', 6000, 'error' );
+				});;
 
 				return reset;
 			},
