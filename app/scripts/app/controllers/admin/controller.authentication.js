@@ -54,6 +54,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               }, 2000);
 
             });
+            
           }
         },
 
@@ -77,12 +78,6 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                 Materialize.toast( 'Welcome ' + result.username + ', time to create a Project!', 3000, 'success' );
               }, 2000);
 
-            }).error(function( err ) {
-              // update
-              $scope.panel.err = err;
-              $timeout(function(){
-                Materialize.toast( err.summary, 6000, 'error' );
-              }, 400);
             });
 
           // }

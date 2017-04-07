@@ -101,6 +101,15 @@ angular.module('ngmReportHub')
 					// manage session
 					ngmAuth.setSessionTimeout( result );
 
+				}).error(function( err ) {
+					// update
+					var err = err;
+					
+					err.msg = err.summary ? err.summary : err.msg;
+
+					console.log(err.msg)
+					
+					Materialize.toast( err.msg, 6000, 'error' );
 				});
 
 				return register;
@@ -127,12 +136,14 @@ angular.module('ngmReportHub')
 					// manage session
 					ngmAuth.setSessionTimeout( result );
 
-				}).error( function( err ) {
-
-	              // update
-	              Materialize.toast( err.msg, 6000, 'error' );
-
-	            });
+				}).error(function( err ) {
+					// update
+					var err = err;
+					
+					err.msg = err.summary ? err.summary : err.msg;
+					
+					Materialize.toast( err.msg, 6000, 'error' );
+				});
 
 				return login;
 			},
