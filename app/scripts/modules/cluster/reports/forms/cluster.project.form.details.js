@@ -62,6 +62,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // lists
         activity_types: config.project.activity_type,
         lists: {
+          delivery_types:[{
+            delivery_type_id: 'population',
+            delivery_type_name: 'New Beneficiaries'
+          },{
+            delivery_type_id: 'service',
+            delivery_type_name: 'Existing Beneficiaries'
+          }],
           clusters: [{
             cluster_id: 'eiewg',
             cluster: 'EiEWG'
@@ -272,11 +279,34 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           }
         },
 
+        // display delivery
+        showDelivery: function( $data, $beneficiary ) {
+          var selected = [];
+          $beneficiary.delivery_type_id = $data;
+          if($beneficiary.delivery_type_id) {
+            selected = $filter('filter')( $scope.project.lists.delivery_types, { delivery_type_id: $beneficiary.delivery_type_id }, true);
+            $beneficiary.delivery_type_name = selected[0].delivery_type_name;
+          }
+          return selected.length ? selected[0].delivery_type_name : 'No Selection!';
+        },
+
         // 
         display: function( cluster_id ) {
           var display = false;
           angular.forEach( $scope.project.target_beneficiaries, function( b, i ){
             if ( b.cluster_id === cluster_id ) {
+              display = true;
+            }
+          });
+          return display;
+        },
+
+        // units
+        showUnits: function(){
+          var display = false;
+          var l = $scope.project.definition.target_beneficiaries;
+          angular.forEach( l, function(b){
+            if( b.cluster_id === 'eiewg' ){
               display = true;
             }
           });
@@ -289,6 +319,88 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
             if( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ){
+              display = true;
+            }
+          });
+          return display;
+        },
+
+        showFamilies: function(){
+          var display = false;
+          var l = $scope.project.definition.target_beneficiaries;
+          angular.forEach( l, function(b){
+            if( b.cluster_id === 'wash' || b.cluster_id === 'esnfi' ){
+              display = true;
+            }
+          });
+          return display;
+        },
+
+        showMen: function(){
+          var display = false;
+          var l = $scope.project.definition.target_beneficiaries;
+          angular.forEach( l, function(b){
+            if( b.cluster_id !== 'eiewg' && 
+                b.cluster_id !== 'nutrition' && 
+                b.activity_type_id !== 'mch' &&
+                b.activity_description_id !== 'antenatal_care' &&
+                b.activity_description_id !== 'postnatal_care' &&
+                b.activity_description_id !== 'skilled_birth_attendant' &&
+                b.activity_type_id !== 'vaccination' && 
+                b.activity_description_id !== 'penta_3' &&
+                b.activity_description_id !== 'measles' ){
+              display = true;
+            }
+          });
+          return display;
+        },
+
+        showWomen: function(){
+          var display = false;
+          var l = $scope.project.definition.target_beneficiaries;
+          angular.forEach( l, function(b){
+            if( b.cluster_id !== 'eiewg' &&
+                b.activity_type_id !== 'vaccination' && 
+                b.activity_description_id !== 'penta_3' &&
+                b.activity_description_id !== 'measles' ){
+              display = true;
+            }
+          });
+          return display;
+        },
+
+        showEldMen: function(){
+          var display = false;
+          var l = $scope.project.definition.target_beneficiaries;
+          angular.forEach( l, function(b){
+            if( b.cluster_id !== 'eiewg' && 
+                b.cluster_id !== 'nutrition' && 
+                b.activity_type_id !== 'mch' &&
+                b.activity_description_id !== 'antenatal_care' &&
+                b.activity_description_id !== 'postnatal_care' &&
+                b.activity_description_id !== 'skilled_birth_attendant' &&
+                b.activity_type_id !== 'vaccination' && 
+                b.activity_description_id !== 'penta_3' &&
+                b.activity_description_id !== 'measles' ){
+              display = true;
+            }
+          });
+          return display;
+        },
+
+        showEldWomen: function(){
+          var display = false;
+          var l = $scope.project.definition.target_beneficiaries;
+          angular.forEach( l, function(b){
+            if( b.cluster_id !== 'eiewg' && 
+                b.cluster_id !== 'nutrition' && 
+                b.activity_type_id !== 'mch' &&
+                b.activity_description_id !== 'antenatal_care' &&
+                b.activity_description_id !== 'postnatal_care' &&
+                b.activity_description_id !== 'skilled_birth_attendant' &&
+                b.activity_type_id !== 'vaccination' && 
+                b.activity_description_id !== 'penta_3' &&
+                b.activity_description_id !== 'measles' ){
               display = true;
             }
           });
@@ -715,7 +827,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             $scope.project.submit = true;
 
             if ( project.err ) {
-              Materialize.toast( 'Save failed! The project §contains errors!', 6000, 'error' );
+              Materialize.toast( 'Save failed! The project contains errors!', 6000, 'error' );
             }
 
             if ( !project.err ){

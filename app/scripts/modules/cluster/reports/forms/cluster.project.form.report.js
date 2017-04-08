@@ -225,6 +225,105 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           return display;
         },
 
+        // units
+        showUnits: function( $locationIndex ){
+          var display = false;
+          var l = $scope.project.report.locations[ $locationIndex ];
+          if( l ){
+            angular.forEach( l.beneficiaries, function(b){
+              if( b.cluster_id === 'eiewg' ) {
+                display = true;
+              }
+            });
+          }
+          return display;
+        },
+
+        // cash
+        showCash: function( $locationIndex ){
+          var display = false;
+          var l = $scope.project.report.locations[ $locationIndex ];
+          if( l ){
+            angular.forEach( l.beneficiaries, function(b){
+              if( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ){
+                display = true;
+              }
+            });
+          }
+          return display;
+        },
+
+
+        // units
+        showFamilies: function( $locationIndex ){
+          var display = false;
+          var l = $scope.project.report.locations[ $locationIndex ];
+          if( l ){
+            angular.forEach( l.beneficiaries, function(b){
+              if( b.cluster_id === 'wash' || b.cluster_id === 'esnfi' ) {
+                display = true;
+              }
+            });
+          }
+          return display;
+        },
+
+        // units
+        showMen: function( $locationIndex ){
+          var display = false;
+          var l = $scope.project.report.locations[ $locationIndex ];
+          if( l ){
+            angular.forEach( l.beneficiaries, function(b){
+              if( b.cluster_id !== 'eiewg' && b.cluster_id !== 'nutrition' ) {
+                display = true;
+              }
+            });
+          }
+          return display;
+        },
+
+        // units
+        showWomen: function( $locationIndex ){
+          var display = false;
+          var l = $scope.project.report.locations[ $locationIndex ];
+          if( l ){
+            angular.forEach( l.beneficiaries, function(b){
+              if( b.cluster_id !== 'eiewg' ) {
+                display = true;
+              }
+            });
+          }
+          return display;
+        },
+
+        // units
+        showEldMen: function( $locationIndex ){
+          var display = false;
+          var l = $scope.project.report.locations[ $locationIndex ];
+          if( l ){
+            angular.forEach( l.beneficiaries, function(b){
+              if( b.cluster_id !== 'eiewg' && b.cluster_id !== 'nutrition' ) {
+                display = true;
+              }
+            });
+          }
+          return display;
+        },
+
+        // units
+        showEldWomen: function( $locationIndex ){
+          var display = false;
+          var l = $scope.project.report.locations[ $locationIndex ];
+          if( l ){
+            angular.forEach( l.beneficiaries, function(b){
+              if( b.cluster_id !== 'eiewg' && b.cluster_id !== 'nutrition' ) {
+                display = true;
+              }
+            });
+          }
+          return display;
+        },
+
         // disable input
         disabledInput: function( $beneficiary, indicator ) {
           var disabled = false;
@@ -254,20 +353,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }
 
           return disabled;
-        },
-
-        // cash
-        showCash: function( $locationIndex ){
-          var display = false;
-          var l = $scope.project.report.locations[ $locationIndex ];
-          if( l ){
-            angular.forEach( l.beneficiaries, function(b){
-              if( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ){
-                display = true;
-              }
-            });
-          }
-          return display;
         },
 
         // update inidcators
@@ -324,13 +409,24 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }          
           
           // set report
-          ngmData.get( setBeneficiariesRequest ).then( function( result ){
+          $http( setBeneficiariesRequest ).success( function( result ){
 
-            // remove
-            $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
+            if ( result.err ) {
+              // update
+              Materialize.toast( 'Error! Please correct the ROW and try again', 6000, 'error' );
+            }
 
-            // save report
-            $scope.project.save( false, false );            
+            if ( !result.err ) {
+              // remove
+              $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
+
+              // save report
+              $scope.project.save( false, false );
+            }
+
+          }).error(function( err ) {
+            // update
+            Materialize.toast( 'Error!', 6000, 'error' );
           });
         },
 
@@ -409,40 +505,51 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }   
           
           // set report
-          ngmData.get( setReportRequest ).then( function( report ){
-            
-            // updated & popluateAll() report
-            $scope.project.report = report;
-            $scope.project.report.submit = false;
-            // order locations by
-            $scope.project.report.locations = $filter( 'orderBy' )( $scope.project.report.locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
-            
-            // user msg
-            var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
-                msg += complete ? 'Submitted!' : 'Saved!';
-            
-            // msg
-            Materialize.toast( msg , 3000, 'success');
-            // set trigger
-            $('.modal-trigger').leanModal();
-            
-            // Re-direct to summary
-            if ( $scope.project.report.report_status !== 'complete' ) {
+          $http( setReportRequest ).success( function( report ){
 
-              // notification modal
-              if( display_modal ){
-                // $( '#save-modal' ).openModal({ dismissible: false });
+            if ( report.err ) {
+              // update
+              Materialize.toast( 'Error! Please correct the ROW and try again', 6000, 'error' );
+            }
+
+            if ( !report.err ) {
+              
+              // updated & popluateAll() report
+              $scope.project.report = report;
+              $scope.project.report.submit = false;
+              // order locations by
+              $scope.project.report.locations = $filter( 'orderBy' )( $scope.project.report.locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
+              
+              // user msg
+              var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
+                  msg += complete ? 'Submitted!' : 'Saved!';
+              
+              // msg
+              Materialize.toast( msg , 3000, 'success');
+              // set trigger
+              $('.modal-trigger').leanModal();
+              
+              // Re-direct to summary
+              if ( $scope.project.report.report_status !== 'complete' ) {
+
+                // notification modal
+                if( display_modal ){
+                  // $( '#save-modal' ).openModal({ dismissible: false });
+                  $timeout(function() {
+                    $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
+                  }, 600);
+                }
+
+              } else {
                 $timeout(function() {
                   $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
                 }, 600);
               }
-
-            } else {
-              $timeout(function() {
-                $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
-              }, 600);
             }
-          });
+          }).error(function( err ) {
+            // update
+            Materialize.toast( 'Error!', 6000, 'error' );
+          });;
 
         }
 

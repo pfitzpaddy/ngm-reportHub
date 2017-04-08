@@ -859,6 +859,14 @@ angular.module( 'ngmReportHub' )
       getStrategicObjectives: function(){
 
         var strategic_objectives = {
+          'eiewg': [{
+            cluster_id: 'eiewg',
+            cluster: 'EiEWG',
+            objective_type_id: 'eiewg_objective_1',
+            objective_type_name: 'EiEWG OBJECTIVE 1',
+            objective_type_description: 'No objectives related to HRP for 2017',
+            objective_type_objectives: []
+          }],
           'fsac': [{
             cluster_id: 'fsac',
             cluster: 'FSAC',

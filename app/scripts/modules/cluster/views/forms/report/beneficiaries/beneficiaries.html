@@ -12,20 +12,20 @@
     <tr style="font-weight: 400">
       <td>Activity</td>
       <td>Description</td>
-      <td ng-if="project.definition.cluster_id !== 'eiewg'">Category</td>
+      <td>Category</td>
       <td>Beneficiary</td>
       <td>Delivery to</td>
       <td ng-if="project.showSessions( $locationIndex )">Sessions</td>
-      <td ng-if="project.definition.cluster_id === 'eiewg'">Units</td>
+      <td ng-if="project.showUnits( $locationIndex )">Units</td>
       <td ng-if="project.showCash( $locationIndex )">Cash Amount</td>
 <!--       <td ng-if="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Households</td> -->
-      <td ng-if="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Families</td>
+      <td ng-if="project.showFamilies( $locationIndex )">Families</td>
       <td>Boys</td>
       <td>Girls</td>
-      <td ng-if="project.definition.cluster_id !== 'eiewg' && project.definition.cluster_id !== 'nutrition'">Men</td>
-      <td ng-if="project.definition.cluster_id !== 'eiewg'">Women</td>
-      <td ng-if="project.definition.cluster_id !== 'eiewg' && project.definition.cluster_id !== 'nutrition'">Eld. Men</td>
-      <td ng-if="project.definition.cluster_id !== 'eiewg' && project.definition.cluster_id !== 'nutrition'">Eld. Women</td>      
+      <td ng-if="project.showMen( $locationIndex )">Men</td>
+      <td ng-if="project.showWomen( $locationIndex )">Women</td>
+      <td ng-if="project.showEldMen( $locationIndex )">Eld. Men</td>
+      <td ng-if="project.showEldWomen( $locationIndex )">Eld. Women</td>      
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
     <tr ng-repeat="beneficiary in project.report.locations[$locationIndex].beneficiaries track by $index | orderBy:'id'">
@@ -79,7 +79,7 @@
               editable-select="beneficiary.delivery_type_id"
               e-placeholder="Select..."
               e-ng-options="b.delivery_type_id as b.delivery_type_name for b in project.delivery_types"
-              e-ng-disabled="!beneficiary.activity_description_id">
+              e-ng-disabled="!beneficiary.beneficiary_type_id">
           {{ project.showDelivery($data, beneficiary) }}
         </span>
       </td>

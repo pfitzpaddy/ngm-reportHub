@@ -72,16 +72,24 @@
 
 					<li class="collection-item avatar">
 
-						<p style="padding:10px;" ng-if="cluster.cluster_id !== 'eiewg'">
-							Select the Objectives that your project will target;
-						</p>
+						<div ng-if="cluster.cluster_id !== 'eiewg'">
+							<p style="padding:10px;">
+								Select the Objectives that your project will target;
+							</p>
+						</div>
 
-						<p style="padding:10px;" ng-if="cluster.cluster_id === 'eiewg'">
-							There are no Strategic Objectives for EiEWG!
-						</p>
+						<div ng-if="cluster.cluster_id === 'eiewg'">
+							<div class="row">
+								<div class="card" style="padding:20px;">
+									<p style="padding:10px;">
+										There are no Strategic Objectives for EiEWG!
+									</p>
+								</div>
+							</div>
+						</div>
 
 						<!-- form -->
-						<div class="row">
+						<div class="row" ng-if="cluster.cluster_id !== 'eiewg'">
 							<div class="card">
 								<ul class="collection with-header">
 									<li class="collection-item avatar" ng-repeat="objective in project.lists.strategic_objectives[ cluster.cluster_id ] track by $index">
