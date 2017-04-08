@@ -53,8 +53,12 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
               // success
               if ( !result.err && !result.summary ){
+
+                if ( $location.host().indexOf('dev') > -1 && result.cluster_id === 'fsac' ) {
+                  $( '#ngm-fsac-dev-modal' ).openModal({dismissible: false});
+                }
+
                 // go to default org page
-                console.log('here');
                 $location.path( result.app_home );
                 $timeout( function(){
                   Materialize.toast( 'Welcome back ' + result.username + '!', 3000, 'note' );

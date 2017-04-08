@@ -8,12 +8,13 @@
  */
 angular
 	.module('ngmCluster', [])
-	// .run( [ 'ngmClusterHelper', function ( ngmClusterHelper ) {
+	.run( [ '$location', 'ngmUser', function ( $location, ngmUser ) {
+	    
+	    if ( $location.host().indexOf('dev') > -1 && ngmUser.get().cluster_id === 'fsac' ) {
+	      $( '#ngm-fsac-dev-modal' ).openModal({dismissible: false});
+	    }
 
-	// 	// set app cluster lists
-	// 	ngmClusterHelper.setClusterLists();
-
-	// }])
+	}])
 	.config([ '$routeProvider', '$compileProvider', function ( $routeProvider, $compileProvider ) {
 
 		// https://medium.com/swlh/improving-angular-performance-with-1-line-of-code-a1fb814a6476#.ufea9sjt1
