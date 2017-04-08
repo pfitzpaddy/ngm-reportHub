@@ -103,7 +103,7 @@
 								  <input id="ngm-project_hrp_code" type="text" class="validate"
 								  	ng-model="project.definition.project_hrp_code"
 								  	disabled>
-								  <label for="ngm-project-budget">Project HRP Code</label>
+								  <label for="ngm-project-budget">HRP Project Code</label>
 								</div>
 
 								<div class="input-field col s12 m4">
@@ -125,6 +125,17 @@
 									      <option value="" disabled selected>Select Project Budget Currency</option>
 									    </select>
 									    <label for="ngm-project_budget_currency">Project Budget Currency *</label>
+								</div>
+
+							</div>
+
+							<div class="row">
+
+								<!-- budget currency -->
+								<div class="input-field col s12 m12">
+								  <input id="ngm-project_code" type="text" class="validate"
+								  	ng-model="project.definition.project_code">
+								  <label for="ngm-project_code">{{ project.definition.organization }} Project Code</label>
 								</div>
 
 							</div>
