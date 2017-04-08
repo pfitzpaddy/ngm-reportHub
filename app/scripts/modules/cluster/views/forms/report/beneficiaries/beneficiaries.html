@@ -35,7 +35,7 @@
               e-name="activity_type_id"
               editable-select="beneficiary.activity_type_id"
               e-placeholder="Select..."
-              e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type">
+              e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type | orderBy:'activity_type_name'">
           {{ project.showActivity($data, beneficiary) }}
         </span>
       </td>
@@ -45,7 +45,7 @@
               e-name="activity_description_id"
               editable-select="beneficiary.activity_description_id"
               e-placeholder="Select..."
-              e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.activity_descriptions | filter: { activity_type_id: beneficiary.activity_type_id }"
+              e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.activity_descriptions | filter: { cluster_id: beneficiary.cluster_id, activity_type_id: beneficiary.activity_type_id }"
               e-ng-disabled="!beneficiary.activity_type_id">
           {{ project.showDescription($data, beneficiary) }}
         </span>
@@ -83,7 +83,7 @@
           {{ project.showDelivery($data, beneficiary) }}
         </span>
       </td>
-      <td ng-show="project.showSessions( $locationIndex ) && project.definition.cluster_id !== 'eiewg'">
+      <td ng-show="project.showSessions( $locationIndex )">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="sessions"
@@ -95,23 +95,28 @@
           {{ beneficiary.sessions }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id === 'eiewg'">
+      <td ng-show="project.showUnits( $locationIndex )">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="units"
               editable-number="beneficiary.units"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $index, 'units', $data )"
+              e-ng-disabled="( beneficiary.activity_description_id.indexOf('cash') !== -1 ||
+                              ( beneficiary.cluster_id !== 'eiewg' &&
+                              beneficiary.activity_type_id !== 'food_assistance' &&
+                              beneficiary.cluster_id !== 'wash') )"
               e-required>
           {{ beneficiary.units }}
         </span>
       </td>
-      <td ng-if="project.showCash( $locationIndex )">
+      <td ng-show="project.showCash( $locationIndex )">
         <!-- editable number -->
         <span e-form="rowform" e-name="cash_amount"
               editable-number="beneficiary.cash_amount"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $index, 'cash_amount', $data )"
+              e-ng-disabled="beneficiary.activity_description_id.indexOf('cash') === -1"
               e-required>
           {{ beneficiary.cash_amount }}
         </span>
@@ -128,13 +133,14 @@
           {{ beneficiary.households }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi' || project.definition.cluster_id === 'fsac'">
+      <td ng-show="project.showFamilies( $locationIndex )">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="families"
               editable-number="beneficiary.families"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $index, 'families', $data )"
+              e-ng-disabled="beneficiary.cluster_id !== 'wash' && beneficiary.cluster_id !== 'esnfi'"
               e-required>
           {{ beneficiary.families }}
         </span>
@@ -146,7 +152,7 @@
               editable-number="beneficiary.boys"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $index, 'boys', $data )"
-              e-ng-disabled="project.disabledInput( beneficiary, 'boys' )"
+              e-ng-disabled="false"
               e-required>
           {{ beneficiary.boys }}
         </span>
@@ -158,55 +164,82 @@
               editable-number="beneficiary.girls"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $index, 'girls', $data )"
-              e-ng-disabled="project.disabledInput( beneficiary, 'girls' )"
+              e-ng-disabled="false"
               e-required>
           {{ beneficiary.girls }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id !== 'eiewg' && project.definition.cluster_id !== 'nutrition'">
+      <td ng-show="project.showMen( $locationIndex )">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="men"
               editable-number="beneficiary.men"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $index, 'men', $data )"
-              e-ng-disabled="project.disabledInput( beneficiary, 'men' )"
+              e-ng-disabled="beneficiary.cluster_id === 'eiewg' ||
+                      beneficiary.cluster_id === 'nutrition' ||
+                      beneficiary.activity_type_id === 'mch' ||
+                      beneficiary.activity_description_id === 'antenatal_care' ||
+                      beneficiary.activity_description_id === 'postnatal_care' ||
+                      beneficiary.activity_description_id === 'skilled_birth_attendant' ||
+                      beneficiary.activity_type_id === 'vaccination' ||
+                      beneficiary.activity_description_id === 'penta_3' ||
+                      beneficiary.activity_description_id === 'measles'"
               e-required>
           {{ beneficiary.men }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id !== 'eiewg'">
+      <td ng-show="project.showWomen( $locationIndex )">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="women"
               editable-number="beneficiary.women"
               e-min="0" 
               e-ng-change="project.updateInput( $locationIndex, $index, 'women', $data )" 
-              e-ng-disabled="project.disabledInput( beneficiary, 'women' )"
+              e-ng-disabled="beneficiary.cluster_id === 'eiewg' ||
+                      beneficiary.activity_type_id === 'vaccination' ||
+                      beneficiary.activity_description_id === 'penta_3' ||
+                      beneficiary.activity_description_id === 'measles'"
               e-required>
           {{ beneficiary.women }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id !== 'eiewg' && project.definition.cluster_id !== 'nutrition'">
+      <td ng-show="project.showEldMen( $locationIndex )">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="elderly_men"
               editable-number="beneficiary.elderly_men"
               e-min="0" 
               e-ng-change="project.updateInput( $locationIndex, $index, 'elderly_men', $data )" 
-              e-ng-disabled="project.disabledInput( beneficiary, 'elderly_men' )"
+              e-ng-disabled="beneficiary.cluster_id === 'eiewg' ||
+                      beneficiary.cluster_id === 'nutrition' ||
+                      beneficiary.activity_type_id === 'mch' ||
+                      beneficiary.activity_description_id === 'antenatal_care' ||
+                      beneficiary.activity_description_id === 'postnatal_care' ||
+                      beneficiary.activity_description_id === 'skilled_birth_attendant' ||
+                      beneficiary.activity_type_id === 'vaccination' ||
+                      beneficiary.activity_description_id === 'penta_3' ||
+                      beneficiary.activity_description_id === 'measles'"
               e-required>
           {{ beneficiary.elderly_men }}
         </span>
       </td>
-      <td ng-show="project.definition.cluster_id !== 'eiewg' && project.definition.cluster_id !== 'nutrition'">
+      <td ng-show="project.showEldWomen( $locationIndex )">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="elderly_women"
               editable-number="beneficiary.elderly_women"
               e-min="0" 
               e-ng-change="project.updateInput( $locationIndex, $index, 'elderly_women', $data )" 
-              e-ng-disabled="project.disabledInput( beneficiary, 'elderly_women' )"
+              e-ng-disabled="beneficiary.cluster_id === 'eiewg' ||
+                      beneficiary.cluster_id === 'nutrition' ||
+                      beneficiary.activity_type_id === 'mch' ||
+                      beneficiary.activity_description_id === 'antenatal_care' ||
+                      beneficiary.activity_description_id === 'postnatal_care' ||
+                      beneficiary.activity_description_id === 'skilled_birth_attendant' ||
+                      beneficiary.activity_type_id === 'vaccination' ||
+                      beneficiary.activity_description_id === 'penta_3' ||
+                      beneficiary.activity_description_id === 'measles'"
               e-required>
           {{ beneficiary.elderly_women }}
         </span>

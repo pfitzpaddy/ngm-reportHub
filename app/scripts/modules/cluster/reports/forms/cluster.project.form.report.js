@@ -231,7 +231,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( b.cluster_id === 'eiewg' ) {
+              if( b.activity_description_id && b.activity_description_id.indexOf('cash') === -1 && 
+                ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' || b.cluster_id === 'wash' ) ) {
                 display = true;
               }
             });
@@ -253,7 +254,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           return display;
         },
 
-
         // units
         showFamilies: function( $locationIndex ){
           var display = false;
@@ -274,7 +274,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( b.cluster_id !== 'eiewg' && b.cluster_id !== 'nutrition' ) {
+                if( b.cluster_id !== 'eiewg' && 
+                  b.cluster_id !== 'nutrition' && 
+                  b.activity_type_id !== 'mch' &&
+                  b.activity_description_id !== 'antenatal_care' &&
+                  b.activity_description_id !== 'postnatal_care' &&
+                  b.activity_description_id !== 'skilled_birth_attendant' &&
+                  b.activity_type_id !== 'vaccination' && 
+                  b.activity_description_id !== 'penta_3' &&
+                  b.activity_description_id !== 'measles' ){
                 display = true;
               }
             });
@@ -288,7 +296,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( b.cluster_id !== 'eiewg' ) {
+              if( b.cluster_id !== 'eiewg' &&
+                  b.activity_type_id !== 'vaccination' && 
+                  b.activity_description_id !== 'penta_3' &&
+                  b.activity_description_id !== 'measles' ){
                 display = true;
               }
             });
@@ -302,7 +313,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( b.cluster_id !== 'eiewg' && b.cluster_id !== 'nutrition' ) {
+              if( b.cluster_id !== 'eiewg' && 
+                  b.cluster_id !== 'nutrition' && 
+                  b.activity_type_id !== 'mch' &&
+                  b.activity_description_id !== 'antenatal_care' &&
+                  b.activity_description_id !== 'postnatal_care' &&
+                  b.activity_description_id !== 'skilled_birth_attendant' &&
+                  b.activity_type_id !== 'vaccination' && 
+                  b.activity_description_id !== 'penta_3' &&
+                  b.activity_description_id !== 'measles' ){
                 display = true;
               }
             });
@@ -316,7 +335,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( b.cluster_id !== 'eiewg' && b.cluster_id !== 'nutrition' ) {
+              if( b.cluster_id !== 'eiewg' && 
+                  b.cluster_id !== 'nutrition' && 
+                  b.activity_type_id !== 'mch' &&
+                  b.activity_description_id !== 'antenatal_care' &&
+                  b.activity_description_id !== 'postnatal_care' &&
+                  b.activity_description_id !== 'skilled_birth_attendant' &&
+                  b.activity_type_id !== 'vaccination' && 
+                  b.activity_description_id !== 'penta_3' &&
+                  b.activity_description_id !== 'measles' ){
                 display = true;
               }
             });
@@ -363,7 +390,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // sessions disabled
         rowSessionsDisabled: function( $beneficiary ){
           var disabled = true;
-          if( ( $scope.project.definition.cluster_id !== 'eiewg' )
+          if( ( $beneficiary.cluster_id !== 'eiewg' )
                 && ( $beneficiary.activity_description_id )
                 && ( $beneficiary.activity_description_id.indexOf( 'education' ) !== -1 || $beneficiary.activity_description_id.indexOf( 'training' ) !== -1 ) ) {
             disabled = false
@@ -383,11 +410,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // remove location from location list
         removeBeneficiaryModal: function( $parent, $index ) {
-          // set location index
-          $scope.project.locationIndex = $parent;
-          $scope.project.beneficiaryIndex = $index;
-          // open confirmation modal
-          $( '#beneficiary-modal' ).openModal({ dismissible: false });
+          if ( $scope.project.formComplete() ){
+            // set location index
+            $scope.project.locationIndex = $parent;
+            $scope.project.beneficiaryIndex = $index;
+            // open confirmation modal
+            $( '#beneficiary-modal' ).openModal({ dismissible: false });
+          }
         },
 
         // remove beneficiary
@@ -534,7 +563,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
                 // notification modal
                 if( display_modal ){
-                  // $( '#save-modal' ).openModal({ dismissible: false });
                   $timeout(function() {
                     $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
                   }, 600);

@@ -301,12 +301,39 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return display;
         },
 
+        // display if education/training sessions provided
+        showSessions: function(){
+          var display = false;
+          var l = $scope.project.definition.target_beneficiaries;
+          angular.forEach( l, function(b){
+            if( ( b.cluster_id !== 'eiewg' ) &&
+                ( b.activity_description_id ) && 
+                ( b.activity_description_id.indexOf( 'education' ) !== -1 ||
+                  b.activity_description_id.indexOf( 'training' ) !== -1 ) ) {
+              display = true;
+            }
+          });
+          return display;
+        },
+
+        // sessions disabled
+        rowSessionsDisabled: function( $beneficiary ){
+          var disabled = true;
+          if( ( $beneficiary.cluster_id !== 'eiewg' )
+                && ( $beneficiary.activity_description_id )
+                && ( $beneficiary.activity_description_id.indexOf( 'education' ) !== -1 || $beneficiary.activity_description_id.indexOf( 'training' ) !== -1 ) ) {
+            disabled = false
+          }
+          return disabled;
+        },
+
         // units
         showUnits: function(){
           var display = false;
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
-            if( b.cluster_id === 'eiewg' ){
+            if( b.activity_description_id && b.activity_description_id.indexOf('cash') === -1 && 
+              ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' || b.cluster_id === 'wash' ) ) {
               display = true;
             }
           });

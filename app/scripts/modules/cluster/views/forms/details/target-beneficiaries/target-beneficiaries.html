@@ -12,6 +12,10 @@
 
 				<li class="collection-item avatar">
 
+					<p style="padding:10px;">
+						Enter the TARGET BENEFICIARIES of your PROJECT in the form below;
+					</p>
+
 					<div class="row">
 						<div class="col s12 card">
 							<div style="padding-top: 10px; padding-left: 40px;">
@@ -23,7 +27,7 @@
 							      <td>Category</td>
 							      <td>Beneficiary</td>
 								  <td>Delivery to</td>
-
+								  <td ng-if="project.showSessions()">Sessions</td>
 							      <td ng-if="project.showUnits()">Units</td>
 							      <td ng-if="project.showCash()">Cash Amount</td>
 <!-- 								  <td ng-if="project.definition.cluster_id === 'wash' || project.definition.cluster_id === 'esnfi'">Households</td> -->
@@ -46,7 +50,7 @@
 							        			e-name="activity_type_id"
 							        			editable-select="beneficiary.activity_type_id"
 												e-placeholder="Select..."
-							        			e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type"
+							        			e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type | orderBy:'activity_type_name'"
 							        			e-ng-disabled="!project.definition.activity_type.length">
 							          {{ project.showActivity($data, beneficiary) }}
 							        </span>
@@ -57,7 +61,7 @@
 							        			e-name="activity_description_id"
 							        			editable-select="beneficiary.activity_description_id"
 							        			e-placeholder="Select..."
-							        			e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.lists.activity_descriptions | filter: { activity_type_id: beneficiary.activity_type_id }"
+							        			e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.lists.activity_descriptions | filter: { cluster_id: beneficiary.cluster_id, activity_type_id: beneficiary.activity_type_id }"
 							        			e-ng-disabled="!beneficiary.activity_type_id">
 							          {{ project.showDescription($data, beneficiary) }}
 							        </span>
@@ -95,6 +99,18 @@
 							          {{ project.showDelivery($data, beneficiary) }}
 							        </span>
 							      </td>
+							      <td ng-show="project.showSessions()">
+							        <!-- editable number -->
+							        <span e-form="rowform"
+							        			e-name="sessions"
+							        			editable-number="beneficiary.sessions"
+							        			e-min="0"
+							        			e-ng-change="project.updateInput($index, 'sessions', $data )"
+								              	e-ng-disabled="project.rowSessionsDisabled( beneficiary )"
+							        			e-required>
+							          {{ beneficiary.sessions }}
+							        </span>
+							      </td>
 								  <td ng-show="project.showUnits()">
 							        <!-- editable number -->
 							        <span e-form="rowform"
@@ -102,8 +118,10 @@
 							        			editable-number="beneficiary.units"
 							        			e-min="0"
 							        			e-ng-change="project.updateInput($index, 'units', $data )"
-							        			e-ng-disabled="beneficiary.cluster_id !== 'eiewg' &&
-							        							beneficiary.cluster_id !== 'fsac'"
+						              e-ng-disabled="( beneficiary.activity_description_id.indexOf('cash') !== -1 ||
+						                              ( beneficiary.cluster_id !== 'eiewg' &&
+						                              beneficiary.activity_type_id !== 'food_assistance' &&
+						                              beneficiary.cluster_id !== 'wash') )"
 							        			e-required>
 							          {{ beneficiary.units }}
 							        </span>
