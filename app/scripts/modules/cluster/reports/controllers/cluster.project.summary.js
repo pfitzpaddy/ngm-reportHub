@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterProjectSummaryCtrl', ['$scope', '$route', '$location', 'ngmData', 'ngmUser', function ($scope, $route, $location, ngmData, ngmUser) {
+	.controller('ClusterProjectSummaryCtrl', ['$scope', '$route', '$http', '$location', 'ngmData', 'ngmUser', function ($scope, $route, $http, $location, ngmData, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -87,49 +87,72 @@ angular.module('ngmReportHub')
 									user: $scope.report.user,
 									report_date: moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD'),
 									templateUrl: '/scripts/modules/cluster/views/cluster.project.summary.html',
-					        // run submit
 
-					        // mark project active
-					        markActive: function( project ){
+									// mark project active
+									markActive: function( project ){
 
-					          // mark project active
-					          project.project_status = 'active';       
+									  // mark project active
+									  project.project_status = 'active';       
 
-					          // Submit project for save
-					          ngmData.get({
-					            method: 'POST',
-					            url: 'http://' + $location.host() + '/api/cluster/project/setProject',
-					            data: {
-					              project: project
-					            }
-					          }).then(function(data){
-					            // redirect on success
-					            $location.path( '/cluster/projects' );
-					            Materialize.toast( 'Project moved to Active!', 3000, 'success');
-					          });
+									  // Submit project for save
+									  ngmData.get({
+									    method: 'POST',
+									    url: 'http://' + $location.host() + '/api/cluster/project/setProject',
+									    data: {
+									      project: project
+									    }
+									  }).then(function(data){
+									    // redirect on success
+									    $location.path( '/cluster/projects' );
+									    Materialize.toast( 'Project moved to Active!', 3000, 'success');
+									  });
 
-					        },
+									},
 
-					        // mark poject complete
-					        markComplete: function( project ){
+									// mark poject complete
+									markComplete: function( project ){
 
-					          // mark project complete
-					          project.project_status = 'complete';       
+									  // mark project complete
+									  project.project_status = 'complete';       
 
-					          // Submit project for save
-					          ngmData.get({
-					            method: 'POST',
-					            url: 'http://' + $location.host() + '/api/cluster/project/setProject',
-					            data: {
-					              project: project
-					            }
-					          }).then(function(data){
-					            // redirect on success
-					            $location.path( '/cluster/projects' );
-					            Materialize.toast( 'Project marked as Complete, Congratulations!', 3000, 'success');
-					          });
+									  // Submit project for save
+									  ngmData.get({
+									    method: 'POST',
+									    url: 'http://' + $location.host() + '/api/cluster/project/setProject',
+									    data: {
+									      project: project
+									    }
+									  }).then(function(data){
+									    // redirect on success
+									    $location.path( '/cluster/projects' );
+									    Materialize.toast( 'Project marked as Complete, Congratulations!', 3000, 'success');
+									  });
 
-					        }					        
+									},
+
+									deleteProject: function(project){
+									  // Submit project for save
+									  $http({
+									    method: 'POST',
+									    url: 'http://' + $location.host() + '/api/cluster/project/delete',
+									    data: {
+									      project_id: project.id
+									    }
+									  }).success(function(data){
+									    // redirect on success
+									    if ( data.err ) {
+									    	Materialize.toast( 'Project delete error! Please try again', 3000, 'error');
+									    }
+									    if ( !data.err ){
+										    $location.path( '/cluster/projects' );
+										    Materialize.toast( 'Project Deleted!', 3000, 'success');
+									    }
+									  }).error(function(err){
+									    // redirect on success
+									    Materialize.toast( 'Project delete error! Please try again', 3000, 'error');
+									  });
+									}
+
 								}
 							}]
 						}]
