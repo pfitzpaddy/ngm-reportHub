@@ -754,6 +754,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
               }, 200 );
             }
+          }).error(function( err ) {
+            // update
+            Materialize.toast( 'Error!', 6000, 'error' );
           });
 
         },
