@@ -640,9 +640,9 @@ angular.module( 'ngmReportHub' )
 
         // remove duplication from merge
         delete p.id;
+        delete p.project_budget_progress;
         delete p.target_beneficiaries;
         delete p.target_locations;
-        delete p.project_budget_progress;
 
         // needs to operate on an array
         angular.forEach( budget, function( d, i ){
@@ -656,8 +656,11 @@ angular.module( 'ngmReportHub' )
           delete budget[i].admin2pcode;
           budget[i] = angular.merge( {}, d, p, { username: user.username }, { email: user.email } );
           // add donor name
-          budget[i].project_donor_name = 
-              $filter('filter')( project.project_donor, { project_donor_id: budget[i].project_donor_id }, true);
+          var project_donor_name = $filter('filter')( project.project_donor, { project_donor_id: budget[i].project_donor_id }, true);
+          if( project_donor_name.length ){
+            budget[i].project_donor_name = project_donor_name[0].project_donor_name;
+          }
+
         });
 
         // return clean budget

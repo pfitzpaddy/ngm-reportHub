@@ -110,12 +110,31 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
             }
           }).then( function( project ){
             // reset form
+            // $scope.project.budget.activity_type_id = '';
             $scope.project.budget.project_budget_amount_recieved = 0;
             $scope.project.budget.project_budget_date_recieved = moment().format('YYYY-MM-DD');       
             // on success
             Materialize.toast( 'Project Budget Progress Added!', 3000, 'success');
           });
 
+        },
+
+        // set
+        setDonor: function(){
+          angular.forEach( $scope.project.definition.project_donor, function( d, i ){
+            if ( d.project_donor_id === $scope.project.budget.project_donor_id  ) {
+              $scope.project.budget.project_donor_name = d.project_donor_name;
+            } 
+          });
+        },
+
+        // set
+        setActivity: function(){
+          angular.forEach( $scope.project.definition.activity_type, function( d, i ){
+            if ( d.activity_type_id === $scope.project.budget.activity_type_id  ) {
+              $scope.project.budget.activity_type_name = d.activity_type_name;
+            } 
+          });
         },
 
         // remove notification
@@ -130,15 +149,18 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
           // remove from
           $scope.project.definition.project_budget_progress.splice( $scope.project.budgetIndex, 1 );
           // Update 
-          ngmData.get({
+          $http({
             method: 'POST',
             url: 'http://' + $location.host() + '/api/cluster/project/setProject',
             data: {
               project: $scope.project.definition
             }
-          }).then( function( project ){
+          }).success( function( project ){
             // on success
             Materialize.toast( 'Project Budget Progress Updated!', 3000, 'success');
+          }).error(function( err ) {
+            // update
+            Materialize.toast( 'Error!', 6000, 'error' );
           });
         }
         
@@ -153,7 +175,7 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
           $scope.project.budget.project_donor_id = $scope.project.definition.project_donor[0].project_donor_id
           $scope.project.budget.project_donor_name = $scope.project.definition.project_donor[0].project_donor_name
         }
-      }, 0);
+      }, 0 );
 
   }
 
