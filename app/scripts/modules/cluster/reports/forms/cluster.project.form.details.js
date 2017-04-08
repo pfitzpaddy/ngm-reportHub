@@ -276,8 +276,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         display: function( cluster_id ) {
           var display = false;
           angular.forEach( $scope.project.target_beneficiaries, function( b, i ){
-            console.log(b)
-            console.log(cluster_id)
             if ( b.cluster_id === cluster_id ) {
               display = true;
             }
@@ -705,55 +703,63 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           Materialize.toast( msg, 20000, 'note' );
 
           // details update
-          ngmData.get({
+          $http({
             method: 'POST',
             url: 'http://' + $location.host() + '/api/cluster/project/setProject',
             data: {
               project: $scope.project.definition
             }
-          }).then( function( project ){
-            
+          }).success( function( project ){
+
             // enable
             $scope.project.submit = true;
-            
-            // remove toast
-            $timeout(function(){ 
-              $('.toast.note').animate({ 'marginTop' : '-=80px'});
-              $('.toast.note').fadeOut( 200 );
-            }, 600);
 
-            // add id to client json
-            $scope.project.definition = angular.merge( $scope.project.definition, project );
-
-            // order locations by
-            $scope.project.definition.target_locations = $filter( 'orderBy' )( $scope.project.definition.target_locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
-            
-            // locations updated
-            $scope.project.definition.update_locations = false;
-
-            // modal-trigger
-            $('.modal-trigger').leanModal();
-            
-            if( save_msg ){
-              // message
-              $timeout( function(){ Materialize.toast( save_msg , 3000, 'success' ) }, 400 );
+            if ( project.err ) {
+              Materialize.toast( 'Save failed! The project §contains errors!', 6000, 'error' );
             }
-            
-            // notification modal
-            if( display_modal ){
+
+            if ( !project.err ){
               
-              // new becomes active!
-              var msg = $scope.project.definition.project_status === 'new' ? 'Project Created!' : 'Project Updated!';
+              // remove toast
+              $timeout(function(){ 
+                $('.toast.note').animate({ 'marginTop' : '-=80px'});
+                $('.toast.note').fadeOut( 200 );
+              }, 600);
 
-              // update
-              $timeout(function(){
+              // add id to client json
+              $scope.project.definition = angular.merge( $scope.project.definition, project );
+
+              // order locations by
+              $scope.project.definition.target_locations = $filter( 'orderBy' )( $scope.project.definition.target_locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
+              
+              // locations updated
+              $scope.project.definition.update_locations = false;
+
+              // modal-trigger
+              $('.modal-trigger').leanModal();
+              
+              if( save_msg ){
+                // message
+                $timeout( function(){ Materialize.toast( save_msg , 3000, 'success' ) }, 400 );
+              }
+              
+              // notification modal
+              if( display_modal ){
                 
-                // redirect + msg
-                $location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
-                Materialize.toast( msg, 3000, 'success' );
+                // new becomes active!
+                var msg = $scope.project.definition.project_status === 'new' ? 'Project Created!' : 'Project Updated!';
 
-              }, 200 );
+                // update
+                $timeout(function(){
+                  
+                  // redirect + msg
+                  $location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
+                  Materialize.toast( msg, 3000, 'success' );
+
+                }, 200 );
+              }
             }
+
           }).error(function( err ) {
             // update
             Materialize.toast( 'Error!', 6000, 'error' );
