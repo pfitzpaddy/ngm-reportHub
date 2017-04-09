@@ -102,7 +102,7 @@
 								<div class="input-field col s12 m4">
 								  <input id="ngm-project_hrp_code" type="text" class="validate"
 								  	ng-model="project.definition.project_hrp_code"
-								  	disabled>
+								  	ng-disabled="project.definition.project_status === 'complete'">
 								  <label for="ngm-project-budget">HRP Project Code</label>
 								</div>
 

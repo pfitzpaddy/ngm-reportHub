@@ -252,6 +252,10 @@ angular.module( 'ngmReportHub' )
           currency_name: 'AFN'
         },{
           admin0pcode: 'AF',
+          currency_id: 'aud',
+          currency_name: 'AUD'
+        },{
+          admin0pcode: 'AF',
           currency_id: 'ddk',
           currency_name: 'DDK'
         },{
