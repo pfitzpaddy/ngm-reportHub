@@ -255,12 +255,26 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         },
 
         // units
+        showHouseholds: function( $locationIndex ){
+          var display = false;
+          var l = $scope.project.report.locations[ $locationIndex ];
+          if( l ){
+            angular.forEach( l.beneficiaries, function(b){
+              if( b.cluster_id === 'esnfi' ) {
+                display = true;
+              }
+            });
+          }
+          return display;
+        },
+
+        // units
         showFamilies: function( $locationIndex ){
           var display = false;
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( b.cluster_id === 'wash' || b.cluster_id === 'esnfi' ) {
+              if( b.cluster_id === 'wash' ) {
                 display = true;
               }
             });

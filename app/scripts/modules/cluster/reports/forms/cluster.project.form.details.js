@@ -352,11 +352,23 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return display;
         },
 
+        // esnfi
+        showHouseholds: function(){
+          var display = false;
+          var l = $scope.project.definition.target_beneficiaries;
+          angular.forEach( l, function(b){
+            if( b.cluster_id === 'esnfi' ){
+              display = true;
+            }
+          });
+          return display;
+        },
+
         showFamilies: function(){
           var display = false;
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
-            if( b.cluster_id === 'wash' || b.cluster_id === 'esnfi' ){
+            if( b.cluster_id === 'wash' ){
               display = true;
             }
           });
