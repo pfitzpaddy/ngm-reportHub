@@ -57,6 +57,7 @@ angular.module('ngmReportHub')
 
 					// set params for service
 					ngmEprHelper.setParams({
+						url: '#/epr/admin',
 						year: $route.current.params.year,
 						region: $route.current.params.region,
 						province: $route.current.params.province,

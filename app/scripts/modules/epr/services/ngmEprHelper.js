@@ -140,7 +140,7 @@ angular.module( 'ngmReportHub' )
             'param': 'region',
             'active': k,
             'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-            'href': '#/epr/admin/' + dashboard.year + '/' + k + '/all/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
+            'href': dashboard.url + '/' + dashboard.year + '/' + k + '/all/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
           });
         };
         
@@ -154,7 +154,7 @@ angular.module( 'ngmReportHub' )
             'param': 'year',
             'active': '2017',
             'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-            'href': '#/epr/2017/' + dashboard.region + '/' + dashboard.province + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
+            'href':  dashboard.url + '/2017/' + dashboard.region + '/' + dashboard.province + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
           }]
         },{
           'id': 'epr-admin-region',
@@ -181,7 +181,7 @@ angular.module( 'ngmReportHub' )
             'param': 'province',
             'active': d,
             'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-            'href': '#/epr/' + dashboard.year + '/' + dashboard.region + '/' + d + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
+            'href':  dashboard.url + '/' + dashboard.year + '/' + dashboard.region + '/' + d + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
           });
         });
 
@@ -205,22 +205,23 @@ angular.module( 'ngmReportHub' )
           'param': 'week',
           'active': 'all',
           'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-          'href': '#/epr/' + dashboard.year + '/' + dashboard.region + '/' + dashboard.province + '/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+          'href':  dashboard.url + '/' + dashboard.year + '/' + dashboard.region + '/' + dashboard.province + '/all/2017-01-01/' + moment().format('YYYY-MM-DD')
         }];
 
         // for each week
         for(i=1;i<54;i++){
 
           // set dates to week
+          var week = i < 10 ? 'W0'+i : 'W'+i;
           var start_date = moment().year( dashboard.year ).week( i ).subtract( 1, 'd' ).format( 'YYYY-MM-DD' ); 
           var end_date = moment().year( dashboard.year ).week( i ).subtract( 1, 'd' ).add( 1, 'w' ).format( 'YYYY-MM-DD' ); ;
 
           rows.push({
-            'title': 'W'+i,
+            'title': week,
             'param': 'week',
             'active': i,
             'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-            'href': '#/epr/' + dashboard.year + '/' + dashboard.region + '/' + dashboard.province + '/' + i + '/' + start_date + '/' + end_date
+            'href':  dashboard.url + '/' + dashboard.year + '/' + dashboard.region + '/' + dashboard.province + '/' + week + '/' + start_date + '/' + end_date
           });
         }
 
@@ -251,7 +252,7 @@ angular.module( 'ngmReportHub' )
         }
         // if week
         if ( dashboard.week !== 'all' ) {
-          title += ' | W' + dashboard.week;
+          title += ' | ' + dashboard.week;
         }
         return title;
       },
@@ -272,7 +273,7 @@ angular.module( 'ngmReportHub' )
         }
         // if week
         if ( dashboard.week !== 'all' ) {
-          subtitle += ', EPR Week ' + dashboard.week;
+          subtitle += ', EPR ' + dashboard.week;
         }
         return subtitle
       }

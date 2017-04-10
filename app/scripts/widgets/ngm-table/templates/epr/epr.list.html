@@ -30,7 +30,7 @@
             <table class="centered highlight responsive-table" ng-table="table.tableParams">
               <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
                 <td data-title="'Week'" sortable="'reporting_week'">
-                    W{{ row.reporting_week }}
+                    {{ row.reporting_week }}
                 </td>
                 <td data-title="'Focal Point'" sortable="'focal_point_name'">
                   {{ row.focal_point_name }}
