@@ -207,6 +207,7 @@ angular.module( 'ngmReportHub' )
         if ( !donors.length ) {
           var donors = [
             { project_donor_id: 'australia', project_donor_name:'Australia'},
+            { project_donor_id: 'bmz', project_donor_name:'BMZ'},
             { project_donor_id: 'canada',  project_donor_name:'Canada'},
             { project_donor_id: 'caritas_germany', project_donor_name: 'Caritas Germany' },
             { project_donor_id: 'cerf', project_donor_name: 'CERF' },
