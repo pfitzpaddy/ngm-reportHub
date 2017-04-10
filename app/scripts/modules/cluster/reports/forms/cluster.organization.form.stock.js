@@ -56,8 +56,36 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
         // lists
         lists: {
+          units: [
+            { stock_unit_type: 'm2', stock_unit_name: 'm2' },
+            { stock_unit_type: 'm3', stock_unit_name: 'm3' },
+            { stock_unit_type: 'kg', stock_unit_name: 'KG' },
+            { stock_unit_type: 'man_days', stock_unit_name: 'Man Days' },
+            { stock_unit_type: 'metric_tonnes', stock_unit_name: 'Metric Tonnes' },
+            { stock_unit_type: 'pieces', stock_unit_name: 'Pieces' },
+            { stock_unit_type: 'tablets', stock_unit_name: 'Tablets' },
+            { stock_unit_type: 'litres', stock_unit_name: 'Litres' },
+            { stock_unit_type: 'boxes', stock_unit_name: 'Boxes' },
+            { stock_unit_type: 'kits', stock_unit_name: 'Kits' },
+            { stock_unit_type: 'drums', stock_unit_name: 'Drums' },
+            { stock_unit_type: 'pac', stock_unit_name: 'PAC' },
+          ],
           stocks: $filter( 'filter' )( localStorage.getObject( 'lists' ).stockItemsList, 
                           { cluster_id: ngmUser.get().cluster_id }, true )
+        }, 
+
+        // init
+        init: function(){
+
+          var currencies=[];
+
+          // add each currency
+          angular.forEach( ngmClusterHelper.getCurrencies( $scope.report.organization.admin0pcode ), function( d, i ){
+            currencies.push({ stock_unit_type: d.currency_id, stock_unit_name: d.currency_name });
+          });
+
+          // update units
+          $scope.report.lists.units = currencies.concat( $filter( 'orderBy' )( $scope.report.lists.units, 'stock_unit_name' ) );
         },
 
         // cancel and delete empty project
@@ -74,6 +102,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           $scope.inserted = {
             stock_item_type: null,
             stock_item_name: null,
+            stock_unit_type: null,
+            stock_unit_name: null,
             number_in_stock:0, number_in_pipeline:0, beneficiaries_covered:0
           };
           // process + clean location
@@ -91,6 +121,18 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             $stock.stock_item_name = selected[0].stock_item_name;
           }
           return selected.length ? selected[0].stock_item_name : 'No Selection!';
+        },
+
+        showStockUnits: function( $data, $stock ){
+          var selected = [];
+          $stock.stock_unit_type = $data;
+          if( $stock.stock_unit_type ) {
+            selected = $filter('filter')( $scope.report.lists.units, { stock_unit_type: $stock.stock_unit_type }, true );
+            if ( selected.length ){
+              $stock.stock_unit_name = selected[0].stock_unit_name;
+            }
+          }
+          return selected.length ? selected[0].stock_unit_name : 'No Selection!';
         },
 
         // update inidcators
@@ -184,11 +226,12 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
           // set report
           ngmData.get( setReportRequest ).then( function( report ){
+
+            // enable
+            $scope.report.submit = true;
+
             // report
             $scope.report.updatedAt = moment( report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' );        
-            
-            // enable
-            $scope.report.submit = true;  
 
             // user msg
             var msg = 'Stock Report for  ' + $scope.report.titleFormat + ' ';
@@ -220,6 +263,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
         }
       }
+
+      $scope.report.init();
   }
 
 ]);

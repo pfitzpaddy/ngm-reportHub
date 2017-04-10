@@ -3,9 +3,10 @@
   <table class="bordered responsive-table" style="margin-bottom:10px;" ng-show="report.report.stocklocations[$locationIndex].stocks.length">
     <tr style="font-weight: 400">
       <td>Stock Type</td>
+      <td>Stock Units</td>
       <td>Number in Stock</td>
       <td>Number in Pipeline</td>
-      <td>Beneficiaries Covered</td>
+      <td>Beneficiary Coverage</td>
       <td ng-show="report.report.report_status !== 'complete'">Edit</td>
     </tr>
     <tr ng-repeat="stock in report.report.stocklocations[$locationIndex].stocks track by $index">
@@ -13,6 +14,12 @@
         <!-- editable activity_type from report -->
         <span e-placeholder="Select..." editable-select="stock.stock_item_type" e-name="stock_item_type" e-form="rowform" e-ng-options="item.stock_item_type as item.stock_item_name for item in report.lists.stocks">
           {{ report.showStockType($data, stock) }}
+        </span>
+      </td>
+      <td>
+        <!-- editable activity_type from report -->
+        <span e-placeholder="Select..." editable-select="stock.stock_unit_type" e-name="stock_unit_type" e-form="rowform" e-ng-options="item.stock_unit_type as item.stock_unit_name for item in report.lists.units">
+          {{ report.showStockUnits($data, stock) }}
         </span>
       </td>
       <td>

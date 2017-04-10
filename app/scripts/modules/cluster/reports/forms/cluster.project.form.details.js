@@ -414,6 +414,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           angular.forEach( l, function(b){
             if( b.cluster_id !== 'eiewg' && 
                 b.cluster_id !== 'nutrition' && 
+                b.cluster_id !== 'wash' && 
                 b.activity_type_id !== 'mch' &&
                 b.activity_description_id !== 'antenatal_care' &&
                 b.activity_description_id !== 'postnatal_care' &&
@@ -433,6 +434,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           angular.forEach( l, function(b){
             if( b.cluster_id !== 'eiewg' && 
                 b.cluster_id !== 'nutrition' && 
+                b.cluster_id !== 'wash' &&
                 b.activity_type_id !== 'mch' &&
                 b.activity_description_id !== 'antenatal_care' &&
                 b.activity_description_id !== 'postnatal_care' &&
