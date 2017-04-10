@@ -6,7 +6,7 @@
 				
 				<li class="collection-header blue lighten-4">
 					<h5 class="report-work-title">
-						<i class="material-icons left">group</i><span class="beneficiary-count">{{ project.definition.target_beneficiaries | sumArrayByKeys:project.indicators:project.skip | number }}</span> People in Need
+						<i class="material-icons left">group</i><span class="beneficiary-count">{{ project.definition.target_beneficiaries | sumArrayByKeys:project.indicators:project.skip | number }}</span> Target Population
 					</h5>
 				</li>
 
@@ -29,7 +29,7 @@
 								  <td>Delivery to</td>
 								  <td ng-if="project.showSessions()">Sessions</td>
 							      <td ng-if="project.showUnits()">Units</td>
-							      <td ng-if="project.showCash()">Cash Amount</td>
+							      <td ng-if="project.showCash()">Cash Amount ( {{ project.definition.project_budget_currency | uppercase }} )</td>
 								  <td ng-if="project.showHouseholds()">Households</td>
 							      <td ng-if="project.showFamilies()">Families</td>
 							      <td>Boys</td>

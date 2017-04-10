@@ -44,6 +44,11 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
           project_budget_date_recieved: moment().format('YYYY-MM-DD')
         },
 
+        // placeholder bydget activity
+        lists: {
+          activity_type: angular.copy( config.project.activity_type )
+        },
+
         // project
         definition: config.project,
 
@@ -130,10 +135,10 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
 
         // set
         setActivity: function(){
-          angular.forEach( $scope.project.definition.activity_type, function( d, i ){
+          angular.forEach( $scope.project.lists.activity_type, function( d, i ){
             if ( d.activity_type_id === $scope.project.budget.activity_type_id  ) {
               $scope.project.budget.activity_type_name = d.activity_type_name;
-            } 
+            }
           });
         },
 
@@ -170,6 +175,14 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
       $timeout(function(){
         // keydown of enter to save budget item
         $scope.project.keydownSaveForm();
+        // add ALL to activity_type
+        $scope.project.lists.activity_type.unshift({
+          cluster_id: $scope.project.definition.cluster_id,
+          cluster: $scope.project.definition.cluster,
+          activity_type_id: 'all',
+          activity_type_name: 'All Activities'
+        });
+
         // default donor
         if($scope.project.definition.project_donor.length===1){
           $scope.project.budget.project_donor_id = $scope.project.definition.project_donor[0].project_donor_id

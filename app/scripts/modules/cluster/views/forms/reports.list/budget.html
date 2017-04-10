@@ -43,7 +43,7 @@
 					    	ng-model="project.budget.activity_type_id"
 					    	ng-disabled="project.definition.project_status === 'complete'"
 					    	ng-change="project.setActivity()"
-	      					ng-options="d.activity_type_id as d.activity_type_name for d in project.definition.activity_type">
+	      					ng-options="d.activity_type_id as d.activity_type_name for d in project.lists.activity_type">
 	      				<option value="" disabled selected>Select Activity...</option>
 	      			</select>
 	      			<label for="ngm-project-donor">Project Activity *</label>

@@ -111,7 +111,7 @@
 								  	ng-model="project.definition.project_budget"
 								  	ng-disabled="project.definition.project_status === 'complete'"
 								  	required>
-								  <label for="ngm-project-budget">Project Budget ( ${{ project.definition.project_budget_currency | uppercase }} ) *</label>
+								  <label for="ngm-project-budget">Project Budget ( {{ project.definition.project_budget_currency | uppercase }} ) *</label>
 								</div>
 
 								<div class="input-field col s12 m4"

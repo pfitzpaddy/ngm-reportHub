@@ -17,7 +17,7 @@
       <td>Delivery to</td>
       <td ng-if="project.showSessions( $locationIndex )">Sessions</td>
       <td ng-if="project.showUnits( $locationIndex )">Units</td>
-      <td ng-if="project.showCash( $locationIndex )">Cash Amount</td>
+      <td ng-if="project.showCash( $locationIndex )">Cash Amount ( {{ project.definition.project_budget_currency | uppercase }} )</td>
       <td ng-if="project.showHouseholds( $locationIndex )">Households</td>
       <td ng-if="project.showFamilies( $locationIndex )">Families</td>
       <td>Boys</td>
