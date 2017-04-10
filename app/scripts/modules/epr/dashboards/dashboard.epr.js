@@ -46,11 +46,23 @@ angular.module('ngmReportHub')
 				// report end
 				endDate: moment( $route.current.params.end ).format( 'YYYY-MM-DD' ),
 
+				// last update
+				updatedAt: '',
+
 				// current report
 				report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
 
 				// set dashboard
 				setDashboard: function(){
+
+					// get latest times 
+					$http.get({
+						url: 'http://' + $location.host() + '/api/epr/latestUpdate'
+					}).success(function(data){
+						$scope.dashboard.updatedAt = moment( data.updatedAt ).format('DD MMMM, YYYY @ h:mm:ss a');
+					}).error(function(err){
+						Materialize.toast( 'Request Error!', 6000, 'error' );
+					});
 
 					// report name
 					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
@@ -66,9 +78,6 @@ angular.module('ngmReportHub')
 						endDate: $scope.dashboard.endDate,
 						user: $scope.dashboard.user
 					});
-					
-					// 
-					console.log(JSON.stringify(ngmEprHelper.getRequest( 'epr/indicator', 'submitted_reports', false )));
 
 					// add menu
 					$scope.dashboard.menu = ngmEprHelper.getMenu();
@@ -204,7 +213,8 @@ angular.module('ngmReportHub')
 									style: 'margin:15px; padding-bottom:30px;',
 									config: {
 										id: 'dashboard-btn',
-										html: '<a class="waves-effect waves-light btn right" href="#/epr"><i class="material-icons left">cached</i>Reset Dashboard</a>'
+										request: { method: 'GET', url: 'http://' + $location.host() + '/api/epr/latestUpdate' },
+										templateUrl: '/scripts/widgets/ngm-html/template/epr.html'
 									}
 								}]
 							}]

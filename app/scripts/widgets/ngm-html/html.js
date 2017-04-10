@@ -86,6 +86,11 @@ angular.module('ngm.widget.html', ['ngm.provider'])
       // trust html
       $scope.panel.html = $sce.trustAsHtml($scope.panel.html);
 
+      // if updatedAt
+      if ( $scope.panel.data && $scope.panel.data.updatedAt ) {
+        $scope.panel.data.updatedAt = moment( data.updatedAt ).format('DD MMMM, YYYY @ h:mm:ss a');
+      }
+
       // init tabs
       if ($scope.panel.tabs) {
         $timeout(function() {

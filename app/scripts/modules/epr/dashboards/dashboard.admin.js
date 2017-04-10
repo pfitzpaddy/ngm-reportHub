@@ -46,6 +46,9 @@ angular.module('ngmReportHub')
 				// report end
 				endDate: moment( $route.current.params.end ).format( 'YYYY-MM-DD' ),
 
+				// last update
+				updatedAt: '',
+
 				// current report
 				report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
 
@@ -201,7 +204,8 @@ angular.module('ngmReportHub')
 									style: 'margin:15px; padding-bottom:30px;',
 									config: {
 										id: 'dashboard-btn',
-										html: '<a class="waves-effect waves-light btn right" href="#/epr/admin"><i class="material-icons left">cached</i>Reset Dashboard</a>'
+										request: { method: 'GET', url: 'http://' + $location.host() + '/api/epr/latestUpdate' },
+										templateUrl: '/scripts/widgets/ngm-html/template/epr.html'
 									}
 								}]
 							}]
