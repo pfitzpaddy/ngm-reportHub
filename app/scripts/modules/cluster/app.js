@@ -9,8 +9,10 @@
 angular
 	.module('ngmCluster', [])
 	.run( [ '$location', 'ngmUser', function ( $location, ngmUser ) {
-	    
-	    if ( $location.host().indexOf('dev') > -1 && ngmUser.get().cluster_id === 'fsac' ) {
+	    // temp fsac workaround
+	    if ( ngmUser.get() && 
+	    	ngmUser.get().cluster_id === 'fsac' && 
+	    	$location.host().indexOf('dev') > -1 ) {
 	      $( '#ngm-fsac-dev-modal' ).openModal({dismissible: false});
 	    }
 
