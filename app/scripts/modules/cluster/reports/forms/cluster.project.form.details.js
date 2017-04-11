@@ -62,6 +62,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // lists
         activity_types: config.project.activity_type,
         lists: {
+          units: ngmClusterHelper.getUnits( config.project.admin0pcode ),
           delivery_types:[{
             delivery_type_id: 'population',
             delivery_type_name: 'New Beneficiaries'
@@ -302,19 +303,19 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // display if education/training sessions provided
-        showSessions: function(){
-          var display = false;
-          var l = $scope.project.definition.target_beneficiaries;
-          angular.forEach( l, function(b){
-            if( ( b.cluster_id !== 'eiewg' ) &&
-                ( b.activity_description_id ) && 
-                ( b.activity_description_id.indexOf( 'education' ) !== -1 ||
-                  b.activity_description_id.indexOf( 'training' ) !== -1 ) ) {
-              display = true;
-            }
-          });
-          return display;
-        },
+        // showSessions: function(){
+        //   var display = false;
+        //   var l = $scope.project.definition.target_beneficiaries;
+        //   angular.forEach( l, function(b){
+        //     if( ( b.cluster_id !== 'eiewg' ) &&
+        //         ( b.activity_description_id ) && 
+        //         ( b.activity_description_id.indexOf( 'education' ) !== -1 ||
+        //           b.activity_description_id.indexOf( 'training' ) !== -1 ) ) {
+        //       display = true;
+        //     }
+        //   });
+        //   return display;
+        // },
 
         // sessions disabled
         rowSessionsDisabled: function( $beneficiary ){
@@ -327,29 +328,46 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return disabled;
         },
 
+        // cash
+        // showCash: function(){
+        //   var display = false;
+        //   var l = $scope.project.definition.target_beneficiaries;
+        //   angular.forEach( l, function(b){
+        //     if( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ){
+        //       display = true;
+        //     }
+        //   });
+        //   return display;
+        // },
+
         // units
         showUnits: function(){
           var display = false;
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
-            if( b.activity_description_id && b.activity_description_id.indexOf('cash') === -1 && 
-              ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' || b.cluster_id === 'wash' ) ) {
+            if( 
+                ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' || b.cluster_id === 'wash' ) ||
+                ( b.activity_description_id && 
+                ( b.activity_description_id.indexOf( 'education' ) > -1 ||
+                  b.activity_description_id.indexOf( 'training' ) > -1 ||
+                  b.activity_description_id.indexOf('cash') > -1 ) )
+              ) {
               display = true;
             }
           });
           return display;
         },
 
-        // cash
-        showCash: function(){
-          var display = false;
-          var l = $scope.project.definition.target_beneficiaries;
-          angular.forEach( l, function(b){
-            if( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ){
-              display = true;
+        showUnitTypes: function( $data, $beneficiary ){
+          var selected = [];
+          $beneficiary.unit_type_id = $data;
+          if($beneficiary.unit_type_id) {
+            selected = $filter('filter')( $scope.project.lists.units, { unit_type_id: $beneficiary.unit_type_id }, true);
+            if( selected.length ) {
+              $beneficiary.unit_type_name = selected[0].unit_type_name;
             }
-          });
-          return display;
+          }
+          return selected.length ? selected[0].unit_type_name : 'No Selection!';
         },
 
         // esnfi
@@ -357,7 +375,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var display = false;
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
-            if( b.cluster_id === 'esnfi' ){
+            if( b.cluster_id === 'esnfi' || b.cluster_id === 'fsac' ){
               display = true;
             }
           });
@@ -953,7 +971,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           if ( !$scope.project.definition.project_hrp_code ){
             $scope.project.definition.project_hrp_code = 
                       ngmClusterHelper.getProjectHrpCode( $scope.project.definition );      
-          }          
+          }
 
           // add activity type check box list
           if ( $scope.project.definition.inter_cluster_activities ) {
@@ -994,7 +1012,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               }
             });
           }
-
+          
         }, 1000 );
 
       });

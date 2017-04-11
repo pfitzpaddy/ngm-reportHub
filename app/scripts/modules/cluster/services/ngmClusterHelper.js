@@ -318,6 +318,41 @@ angular.module( 'ngmReportHub' )
 
       },
 
+      getUnits: function( admin0pcode ) {
+        var units = [
+            { unit_type_id: 'm2', unit_type_name: 'm2' },
+            { unit_type_id: 'm3', unit_type_name: 'm3' },
+            { unit_type_id: 'kg', unit_type_name: 'KG' },
+            { unit_type_id: 'man_days', unit_type_name: 'Man Days' },
+            { unit_type_id: 'metric_tonnes', unit_type_name: 'Metric Tonnes' },
+            { unit_type_id: 'pieces', unit_type_name: 'Pieces' },
+            { unit_type_id: 'tablets', unit_type_name: 'Tablets' },
+            { unit_type_id: 'litres', unit_type_name: 'Litres' },
+            { unit_type_id: 'boxes', unit_type_name: 'Boxes' },
+            { unit_type_id: 'kits', unit_type_name: 'Kits' },
+            { unit_type_id: 'drums', unit_type_name: 'Drums' },
+            { unit_type_id: 'pac', unit_type_name: 'PAC' },
+            { unit_type_id: 'seeds', unit_type_name: 'Seeds' },
+            { unit_type_id: 'units', unit_type_name: 'Units' },
+            { unit_type_id: 'cattle', unit_type_name: 'Cattle' },
+            { unit_type_id: 'sheep', unit_type_name: 'Sheep' },
+            { unit_type_id: 'poultry', unit_type_name: 'Poultry' },
+            { unit_type_id: 'goats', unit_type_name: 'Goats' },
+            { unit_type_id: 'structures', unit_type_name: 'Structures' },
+            { unit_type_id: 'sessions', unit_type_name: 'Sessions' },
+          ];
+
+          // unit type list
+          var currencies=[];
+          // add each currency
+          angular.forEach( this.getCurrencies( admin0pcode ), function( d, i ){
+            currencies.push({ unit_type_id: d.currency_id, unit_type_name: d.currency_name });
+          });
+          units = currencies.concat( $filter( 'orderBy' )( units, 'unit_type_name' ) );
+
+          return units;
+      },
+
       // return ocha beneficiaries
       getBeneficiaries2016: function( cluster_id, list ) {
 
