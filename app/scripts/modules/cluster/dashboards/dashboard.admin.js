@@ -46,28 +46,83 @@ angular.module('ngmReportHub')
 				endDate: moment( $route.current.params.end ).format( 'YYYY-MM-DD' ),
 				
 				// current report
-				report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
+				report_file_name: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
 
-        // set URL based on user rights
+				clusters: [
+					{ cluster_id: 'all', cluster: 'ALL' },
+					{ cluster_id: 'eiewg', cluster: 'EiEWG' },
+					{ cluster_id: 'esnfi', cluster: 'ESNFI' },
+					{ cluster_id: 'fsac', cluster: 'FSAC' },
+					{ cluster_id: 'health', cluster: 'Health' },
+					{ cluster_id: 'nutrition', cluster: 'Nutrition' },
+					{ cluster_id: 'protection', cluster: 'Protection' },
+					{ cluster_id: 'rnr_chapter', cluster: 'R&R Chapter' },
+					{ cluster_id: 'wash', cluster: 'WASH' }
+				],
+
+				names:{
+					'all': 'ALL',
+					'hq': 'HQ',
+					'emro': 'EMRO',
+					'af': 'AFGHANISTAN',
+				},
+
+				// admin
+				getAdminPath: function( cluster_id, report_type, organization ){
+
+					var path = '/cluster/admin/' + $scope.dashboard.adminRpcode.toLowerCase() +
+												 '/' + $scope.dashboard.admin0pcode.toLowerCase() +
+												 '/' + cluster_id +
+												 '/' + report_type +
+												 '/' + organization + 
+												 '/' + $scope.dashboard.startDate + 
+												 '/' + $scope.dashboard.endDate;
+
+					return path;
+				},
+
+				// user
+				getUserPath: function( cluster_id, organization ){
+
+					var path = '/cluster/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
+												 '/' + $scope.dashboard.user.admin0pcode.toLowerCase() +
+												 '/' + cluster_id + 
+												 '/' + report_type + 
+												 '/' + organization + 
+												 '/' + $scope.dashboard.startDate + 
+												 '/' + $scope.dashboard.endDate;
+				},
+
+				// request
+				getRequest: function( indicator, list ){
+
+					return {						
+						indicator: indicator,
+						list: list,
+						organization: $scope.dashboard.organization, 
+						adminRpcode: $scope.dashboard.adminRpcode,
+						admin0pcode: $scope.dashboard.admin0pcode,
+						cluster_id: $scope.dashboard.cluster_id,
+						report_type: $scope.dashboard.report_type,
+						start_date: $scope.dashboard.startDate,
+						end_date: $scope.dashboard.endDate,
+					}
+
+				},
+
+        		// set URL based on user rights
 				setUrl: function(){
 
-					// if not admin - set organization
-					if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
+					// if ADMIN
+					if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 || $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
 						
-						// user URL
-						var path = '/cluster/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
-																 '/' + $scope.dashboard.user.admin0pcode.toLowerCase() +
-																 '/' + $route.current.params.organization_id + 
-																 '/' + $scope.dashboard.startDate + 
-																 '/' + $scope.dashboard.endDate;
+						// admin URL
+						var path = $scope.dashboard.getAdminPath( $scope.dashboard.cluster_id, $scope.dashboard.report_type, $scope.dashboard.organization );
+
 					} else {
-						
+
 						// user URL
-						var path = '/cluster/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
-																 '/' + $scope.dashboard.user.admin0pcode.toLowerCase() +
-																 '/' + $scope.dashboard.user.organization_id + 
-																 '/' + $scope.dashboard.startDate + 
-																 '/' + $scope.dashboard.endDate;
+						var path = $scope.dashboard.getUserPath( $scope.dashboard.cluster_id, $scope.dashboard.report_type, $scope.dashboard.user.organization_id );
 					}
 					
 					// if current location is not equal to path 
@@ -81,35 +136,26 @@ angular.module('ngmReportHub')
 				// set dashboard title
 				setTitle: function() {
 
+					var cluster;
+
+					// cluster name
+					if ( $scope.dashboard.cluster_id !== 'all' ) {
+						var c = $filter( 'filter' )( $scope.dashboard.clusters, { cluster_id: $scope.dashboard.cluster_id } );
+						cluster = c[0].cluster;
+					} else {
+						cluster = 'ALL';
+					}
+
 					// title
-					$scope.dashboard.title = $scope.dashboard.user.admin0name.toUpperCase().substring( 0, 3 ) + ' | ';
-					$scope.dashboard.title += $scope.dashboard.user.cluster.toUpperCase() + ' | ';
+					$scope.dashboard.title = $scope.dashboard.admin0name.toUpperCase().substring( 0, 3 ) + ' | ';
+					$scope.dashboard.title += $scope.dashboard.report_type.toUpperCase() + ' | ';
+					$scope.dashboard.title += cluster.toUpperCase() + ' | ';
 
 					// default
 					if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
 						$scope.dashboard.title += 'ADMIN';
 					} else {
-						$scope.dashboard.title += $scope.dashboard.user.organization;
-					}
-
-				},
-
-				// set dashboard title
-				setHealthTitle: function() {
-
-					// default
-					$scope.dashboard.title = $scope.dashboard.user.adminRname;
-
-					// admin0
-					if ( $route.current.params.admin0 !== 'all' ) {
-						$scope.dashboard.title += ' | ' + $scope.dashboard.user.admin0name.toUpperCase().substring(0, 3);
-					}
-
-					// title ( if no admin )
-					if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
-						$scope.dashboard.title += ' | ADMIN';
-					} else {
-						$scope.dashboard.title += ' | ' + $scope.dashboard.user.organization;
+						$scope.dashboard.title += $scope.dashboard.organization;
 					}
 
 				},
@@ -118,94 +164,169 @@ angular.module('ngmReportHub')
 				setSubtitle: function() {
 					
 					// default
-					$scope.dashboard.subtitle = 'Admin dashboard for ' + $scope.dashboard.user.admin0name + ' ' + $scope.dashboard.user.cluster + ' Cluster';
+					$scope.dashboard.subtitle = 'Admin dashboard for ' + $scope.dashboard.admin0name + ' ' + $scope.dashboard.cluster_id + ' Cluster';
 
 				},
 
-				setMenu: function(){
+				setMenu: function( role ){
+
 
 					// menu rows
-					var rows = [],
-							request = {
-								method: 'POST',
-								url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
-								data: {
-									cluster_id: $scope.dashboard.user.cluster_id,
-									indicator: 'organizations',
-									list: true,
-									organization: $scope.dashboard.organization, 
-									adminRpcode: $scope.dashboard.adminRpcode,
-									admin0pcode: $scope.dashboard.admin0pcode,
-									start_date: $scope.dashboard.startDate,
-									end_date: $scope.dashboard.endDate,
-								}
-							};
+					var clusterRows = [],
+						orgRows = [],
+						request = {
+							method: 'POST',
+							url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
+							// indicator, list
+							data: $scope.dashboard.getRequest( 'organizations', true )
+						};
 
-					// fetch org list
-					ngmData.get( request ).then( function( organizations  ){
-
-						// filter
-						organizations = $filter( 'orderBy' )( organizations, 'organization' );
-
-						// add all
-						organizations.unshift({
-							organization_id: 'all',
-							organization: 'ALL',
-						})
-
-						// for each
-						organizations.forEach(function( d, i ){
-
-							// path
-							var path = '#/cluster/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
-																			 '/' + $scope.dashboard.user.admin0pcode.toLowerCase() +
-																			 '/' + d.organization_id + 
-																			 '/' + $scope.dashboard.startDate + 
-																			 '/' + $scope.dashboard.endDate;
-
-							// update title to organization
-							if ( $route.current.params.organization_id === d.organization_id && d.organization_id !== 'all' ) {
-								$scope.model.header.title.title += ' | ' + d.organization;
-								$scope.model.header.subtitle.title += ', ' + d.organization + ' organization';
-							}
+					if ( role === 'super' ){
+						angular.forEach( $scope.dashboard.clusters, function(d,i){
+							
+							// admin URL
+							var path = $scope.dashboard.getAdminPath( d.cluster_id, $scope.dashboard.report_type, $scope.dashboard.organization );
 
 							// menu rows
-							rows.push({
-								'title': d.organization,
-								'param': 'organization_id',
-								'active': d.organization_id,
+							clusterRows.push({
+								'title': $scope.dashboard.clusters[i].cluster,
+								'param': 'cluster_id',
+								'active': d.cluster_id,
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': path
+								'href': '/desk/#' + path
 							})
 
 						});
 
-						// menu
 						$scope.model.menu.push({
 							'search': true,
-							'id': 'search-cluster-organization',
-							'icon': 'supervisor_account',
-							'title': 'Organization',
+							'id': 'search-cluster',
+							'icon': 'person_pin',
+							'title': 'Cluster',
 							'class': 'teal lighten-1 white-text',
-							'rows': rows
-						});						
+							'rows': clusterRows
+						});
 
+					}
+
+					// reports
+					$scope.dashboard.setReportMenu();
+
+					// not user
+					if( role !== 'user' ){
+
+						// fetch org list
+						ngmData.get( request ).then( function( organizations  ){
+
+							// filter
+							organizations = $filter( 'orderBy' )( organizations, 'organization' );
+
+							// add all
+							organizations.unshift({
+								organization_id: 'all',
+								organization: 'ALL',
+							})
+
+							// for each
+							organizations.forEach(function( d, i ){
+
+								// admin URL
+								var path = $scope.dashboard.getAdminPath( $scope.dashboard.cluster_id, $scope.dashboard.report_type, d.organization_id );
+
+								// update title to organization
+								// if ( $route.current.params.organization_id === d.organization_id && d.organization_id !== 'all' ) {
+								// 	$scope.model.header.title.title += ' | ' + d.organization;
+								// 	$scope.model.header.subtitle.title += ', ' + d.organization + ' organization';
+								// }
+
+								// menu rows
+								orgRows.push({
+									'title': d.organization,
+									'param': 'organization_id',
+									'active': d.organization_id,
+									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+									'href': '/desk/#' + path
+								})
+
+							});
+
+							// menu
+							$scope.model.menu.push({
+								'search': true,
+								'id': 'search-cluster-organization',
+								'icon': 'supervisor_account',
+								'title': 'Organization',
+								'class': 'teal lighten-1 white-text',
+								'rows': orgRows
+							});
+
+						});
+
+					}
+
+				},
+
+				setReportMenu: function(){
+
+					// menu
+					$scope.model.menu.push({
+						'search': false,
+						'id': 'search-cluster-report',
+						'icon': 'assignment_turned_in',
+						'title': 'REPORT',
+						'class': 'teal lighten-1 white-text',
+						'rows': [{
+							'title': 'ACTIVITY',
+							'param': 'report_type',
+							'active': 'activity',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': '/desk/#' + $scope.dashboard.getAdminPath( $scope.dashboard.cluster_id, 'activity', $scope.dashboard.organization )
+						},{
+							'title': 'STOCKS',
+							'param': 'report_type',
+							'active': 'stock',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': '/desk/#' + $scope.dashboard.getAdminPath( $scope.dashboard.cluster_id, 'stock', $scope.dashboard.organization )
+						}]
 					});
-
+					
 				},
 
 				// set dashboard
 				setDashboard: function(){
 
+					// set cluster
+					$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
+
+					// constants (for now)
+					if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 ) {
+
+						// SUPER (later to be eniterly from url)
+						$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
+						$scope.dashboard.adminRname = $scope.dashboard.user.adminRname;
+						$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode;
+						$scope.dashboard.admin0name = $scope.dashboard.user.admin0name;
+
+						// CLUSTER ID
+						$scope.dashboard.cluster_id = $route.current.params.cluster_id;
+
+					} else if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
+
+						// ADMIN
+						$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
+						$scope.dashboard.adminRname = $scope.dashboard.user.adminRname;
+						$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode;
+						$scope.dashboard.admin0name = $scope.dashboard.user.admin0name;
+					}
+
 					// variables
+					$scope.dashboard.report_type = $route.current.params.report_type;
 					$scope.dashboard.organization = $route.current.params.organization_id;
-					$scope.dashboard.adminRpcode = $route.current.params.adminR;
-					$scope.dashboard.admin0pcode = $route.current.params.admin0;
 
 					// report name
-					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
+					$scope.dashboard.report_file_name += moment().format( 'YYYY-MM-DDTHHmm' );
 				
-					// set dashboard URL
+					// // set dashboard URL
 					$scope.dashboard.setUrl();
 
 					//  set title
@@ -246,11 +367,13 @@ angular.module('ngmReportHub')
 											// set new date
 											$scope.dashboard.startDate = date;
 											// URL
-											var path = '/cluster/admin/' + $route.current.params.adminR + 
-																					 '/' + $route.current.params.admin0 +
-																					 '/' + $route.current.params.organization_id +
-																					 '/' + $scope.dashboard.startDate + 
-																					 '/' + $scope.dashboard.endDate;
+											var path = $scope.dashboard.getAdminPath( $route.current.params.cluster_id, $route.current.params.report_type, $route.current.params.organization_id ) 
+
+											// '/cluster/admin/' + $route.current.params.adminR + 
+											// 										 '/' + $route.current.params.admin0 +
+											// 										 '/' + $route.current.params.organization_id +
+											// 										 '/' + $scope.dashboard.startDate + 
+											// 										 '/' + $scope.dashboard.endDate;
 
 											// update new date
 											$location.path( path );
@@ -270,11 +393,7 @@ angular.module('ngmReportHub')
 											// set new date
 											$scope.dashboard.endDate = date;
 											// URL
-											var path = '/cluster/admin/' + $route.current.params.adminR + 
-																					 '/' + $route.current.params.admin0 +
-																					 '/' + $route.current.params.organization_id +
-																					 '/' + $scope.dashboard.startDate + 
-																					 '/' + $scope.dashboard.endDate;
+											var path = $scope.dashboard.getAdminPath( $route.current.params.cluster_id, $route.current.params.report_type, $route.current.params.organization_id );
 
 											// update new date
 											$location.path( path );
@@ -294,7 +413,7 @@ angular.module('ngmReportHub')
 										method: 'POST',
 										url: 'http://' + $location.host() + '/api/print',
 										data: {
-											report: $scope.dashboard.report,
+											report: $scope.dashboard.report_file_name,
 											printUrl: $location.absUrl(),
 											downloadUrl: 'http://' + $location.host() + '/report/',
 											user: $scope.dashboard.user,
@@ -309,8 +428,8 @@ angular.module('ngmReportHub')
 											organization: $scope.dashboard.user.organization,
 											username: $scope.dashboard.user.username,
 											email: $scope.dashboard.user.email,
-											dashboard: 'cluster_admin',
-											theme: 'cluster_admin',
+											dashboard: 'cluster_admin_' + $scope.dashboard.cluster_id,
+											theme: 'cluster_admin_' + $scope.dashboard.cluster_id,
 											format: 'pdf',
 											url: $location.$$path
 										}
@@ -321,14 +440,19 @@ angular.module('ngmReportHub')
 						menu: [],
 						rows: [{
 							columns: [{
-								styleClass: 's12 m12 l12 remove',
+								styleClass: 's12 m12 l12',
 								widgets: [{
 									type: 'html',
 									card: 'white grey-text text-darken-2',
 									style: 'margin:15px; padding-bottom:30px;',
 									config: {
 										id: 'dashboard-btn',
-										html: '<a class="waves-effect waves-light btn right" href="#/cluster/admin" title="GoTo Current Reporting Month"><i class="material-icons left">cached</i>Current Reporting Month</a>'
+										request: {
+											method: 'POST',
+											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
+											data: $scope.dashboard.getRequest( 'latest', false ),
+										},
+										templateUrl: '/scripts/widgets/ngm-html/template/cluster.dashboard.admin.html'
 									}
 								}]
 							}]
@@ -344,15 +468,8 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
-											data: {
-												cluster_id: $scope.dashboard.user.cluster_id,
-												indicator: 'organizations',
-												organization: $scope.dashboard.organization,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate
-											}
+											// indicator, list
+											data: $scope.dashboard.getRequest( 'organizations', false )
 										}
 									}
 								}]
@@ -367,15 +484,8 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
-											data: {
-												cluster_id: $scope.dashboard.user.cluster_id,
-												indicator: 'reports_total',
-												organization: $scope.dashboard.organization,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate
-											}
+											// indicator, list
+											data: $scope.dashboard.getRequest( 'reports_total', false )
 										}
 									}
 								}]
@@ -390,15 +500,8 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
-											data: {
-												cluster_id: $scope.dashboard.user.cluster_id,
-												indicator: 'reports_complete',
-												organization: $scope.dashboard.organization,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate
-											}
+											// indicator, list
+											data: $scope.dashboard.getRequest( 'reports_complete', false )
 										}
 									}
 								}]
@@ -413,15 +516,8 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
-											data: {
-												cluster_id: $scope.dashboard.user.cluster_id,
-												indicator: 'reports_due',
-												organization: $scope.dashboard.organization,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate
-											}
+											// indicator, list
+											data: $scope.dashboard.getRequest( 'reports_due', false )
 										}
 									}
 								}]
@@ -434,6 +530,7 @@ angular.module('ngmReportHub')
 									card: 'panel',
 									style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
 									config: {
+										cluster_id: $scope.dashboard.cluster_id,
 										style: $scope.dashboard.ngm.style,
 										headerClass: 'collection-header red lighten-2',
 										headerText: 'white-text',
@@ -446,16 +543,8 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
-											data: {
-												cluster_id: $scope.dashboard.user.cluster_id,
-												indicator: 'reports_due',
-												list: true,
-												organization: $scope.dashboard.organization,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate
-											}
+											// indicator, list
+											data: $scope.dashboard.getRequest( 'reports_due', true )
 										}
 									}
 								}]
@@ -468,6 +557,7 @@ angular.module('ngmReportHub')
 									card: 'panel',
 									style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
 									config: {
+										cluster_id: $scope.dashboard.cluster_id,
 										style: $scope.dashboard.ngm.style,
 										headerClass: 'collection-header teal lighten-2',
 										headerText: 'white-text',
@@ -480,16 +570,8 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
-											data: {
-												cluster_id: $scope.dashboard.user.cluster_id,
-												indicator: 'reports_complete',
-												list: true,
-												organization: $scope.dashboard.organization,
-												adminRpcode: $scope.dashboard.adminRpcode,
-												admin0pcode: $scope.dashboard.admin0pcode,
-												start_date: $scope.dashboard.startDate,
-												end_date: $scope.dashboard.endDate
-											}
+											// indicator, list
+											data: $scope.dashboard.getRequest( 'reports_complete', true )
 										}
 									}
 								}]
@@ -549,10 +631,15 @@ angular.module('ngmReportHub')
 			// set dashboard
 			$scope.dashboard.setDashboard();
 
-			// set dashboard menu
-			// if not admin - set organization
-			if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
-				$scope.dashboard.setMenu();
+			// SUPERADMIN
+			if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 ) {
+				$scope.dashboard.setMenu( 'super' );
+			} else if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
+				// ADMIN
+				$scope.dashboard.setMenu( 'admin' );
+			} else {
+				// USER
+				$scope.dashboard.setMenu( 'user' );
 			}
 
 			// assign to ngm app scope ( for menu )

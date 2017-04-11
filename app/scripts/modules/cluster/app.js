@@ -216,10 +216,10 @@ angular
 			})
 			// admin
 			.when( '/cluster/admin', {
-				redirectTo: '/cluster/admin/hq/all/all/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/hq/all/all/activity/all/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			// admin
-			.when( '/cluster/admin/:adminR/:admin0/:organization_id/:start/:end', {
+			.when( '/cluster/admin/:adminR/:admin0/:cluster_id/:report_type/:organization_id/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardClusterAdminCtrl',
 				resolve: {

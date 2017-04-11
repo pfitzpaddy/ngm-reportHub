@@ -338,6 +338,7 @@ angular.module( 'ngmReportHub' )
             { unit_type_id: 'sheep', unit_type_name: 'Sheep' },
             { unit_type_id: 'poultry', unit_type_name: 'Poultry' },
             { unit_type_id: 'goats', unit_type_name: 'Goats' },
+            { unit_type_id: 'rice', unit_type_name: 'Rice' },
             { unit_type_id: 'structures', unit_type_name: 'Structures' },
             { unit_type_id: 'sessions', unit_type_name: 'Sessions' },
           ];
