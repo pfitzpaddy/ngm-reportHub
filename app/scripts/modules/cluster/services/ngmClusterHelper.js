@@ -411,13 +411,18 @@ angular.module( 'ngmReportHub' )
           beneficiary_type_id: 'access_to_services',
           beneficiary_type_name: 'Access to Services'
         },{
-          cluster_id: [ 'fsac', 'esnfi', 'health', 'protection' ],
+          cluster_id: [ 'esnfi', 'health', 'protection' ],
           category_type_id: [ 'category_a' ],
           beneficiary_type_id: 'host_communities',
           beneficiary_type_name: 'Host Communities'
         },{
           cluster_id: [ 'fsac' ],
-          category_type_id: [ 'category_a' ],
+          category_type_id: [ 'category_c' ],
+          beneficiary_type_id: 'host_communities',
+          beneficiary_type_name: 'Host Communities'
+        },{
+          cluster_id: [ 'fsac' ],
+          category_type_id: [ 'category_c' ],
           beneficiary_type_id: 'vunerable_communities',
           beneficiary_type_name: 'Vunerable Communities'
         },{
