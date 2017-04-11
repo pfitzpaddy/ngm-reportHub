@@ -257,8 +257,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             if(selected.length) {
               $beneficiary.unit_type_name = selected[0].unit_type_name;
             }
-          }
-          return selected.length ? selected[0].unit_type_name : 'No Selection!';
+          }else{
+            $beneficiary.unit_type_id = 'n_a';
+            $beneficiary.unit_type_id = 'N/A';
+          }            
+          return selected.length ? selected[0].unit_type_name : 'N/A';
         },
 
         // cash

@@ -366,8 +366,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             if( selected.length ) {
               $beneficiary.unit_type_name = selected[0].unit_type_name;
             }
+          }else{
+            $beneficiary.unit_type_id = 'n_a';
+            $beneficiary.unit_type_id = 'N/A';
           }
-          return selected.length ? selected[0].unit_type_name : 'No Selection!';
+          return selected.length ? selected[0].unit_type_name : 'N/A';
         },
 
         // esnfi
