@@ -264,6 +264,10 @@ angular.module( 'ngmReportHub' )
           currency_id: 'eur',
           currency_name: 'EUR'
         },{
+          admin0pcode: 'AF',
+          currency_id: 'sek',
+          currency_name: 'SEK'
+        },{
           admin0pcode: 'ET',
           currency_id: 'etb',
           currency_name: 'ETB'
@@ -298,15 +302,15 @@ angular.module( 'ngmReportHub' )
         // cluster_id: [ 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
 
         var category_types = [{
-          cluster_id: [ 'esnfi', 'fsac', 'health', 'protection', 'wash', 'eiewg' ],
+          cluster_id: [ 'esnfi', 'fsac', 'health', 'protection', 'wash', 'eiewg', 'rnr_chapter' ],
           category_type_id: 'category_a',
           category_type_name: 'A) Emergency Relief Needs'
         },{
-          cluster_id: [ 'health', 'nutrition', 'protection', 'wash' ],
+          cluster_id: [ 'health', 'nutrition', 'protection', 'wash', 'rnr_chapter'  ],
           category_type_id: 'category_b',
           category_type_name: 'B) Excess Morbidity and Mortality'
         },{
-          cluster_id: [ 'esnfi', 'fsac', 'nutrition', 'protection' ],
+          cluster_id: [ 'esnfi', 'fsac', 'nutrition', 'protection', 'rnr_chapter'  ],
           category_type_id: 'category_c',
           category_type_name: 'C) Shock-Induced Acute Vunerability'
         }];
@@ -319,6 +323,8 @@ angular.module( 'ngmReportHub' )
       },
 
       getUnits: function( admin0pcode ) {
+
+        // filter by cluster?
         var units = [
             { unit_type_id: 'm2', unit_type_name: 'm2' },
             { unit_type_id: 'm3', unit_type_name: 'm3' },
@@ -334,13 +340,22 @@ angular.module( 'ngmReportHub' )
             { unit_type_id: 'pac', unit_type_name: 'PAC' },
             { unit_type_id: 'seeds', unit_type_name: 'Seeds' },
             { unit_type_id: 'units', unit_type_name: 'Units' },
-            { unit_type_id: 'cattle', unit_type_name: 'Cattle' },
-            { unit_type_id: 'sheep', unit_type_name: 'Sheep' },
-            { unit_type_id: 'poultry', unit_type_name: 'Poultry' },
-            { unit_type_id: 'goats', unit_type_name: 'Goats' },
+            { unit_type_id: 'wheat', unit_type_name: 'Wheat' },
+            { unit_type_id: 'wheat_flour', unit_type_name: 'Wheat Flour' },
+            { unit_type_id: 'oil', unit_type_name: 'Oil' },
+            { unit_type_id: 'pulses', unit_type_name: 'Pulses' },
+            { unit_type_id: 'salt', unit_type_name: 'Salt' },
             { unit_type_id: 'rice', unit_type_name: 'Rice' },
+            { unit_type_id: 'heb', unit_type_name: 'HEB' },
+            { unit_type_id: 'rusf', unit_type_name: 'RUSF' },
+            { unit_type_id: 'mnt', unit_type_name: 'MNT' },
             { unit_type_id: 'structures', unit_type_name: 'Structures' },
             { unit_type_id: 'sessions', unit_type_name: 'Sessions' },
+            { unit_type_id: 'tcs', unit_type_name: 'TCs' },
+            { unit_type_id: 'cbss', unit_type_name: 'CBSs' },
+            { unit_type_id: 'teachers', unit_type_name: 'Teachers' },
+            { unit_type_id: 'classroom_kits', unit_type_name: 'Classroom Kits' },
+            { unit_type_id: 'school_kits', unit_type_name: 'School Kits' },
           ];
 
           // unit type list
@@ -453,14 +468,14 @@ angular.module( 'ngmReportHub' )
           beneficiary_type_name: 'Host Communities'
         },{
           cluster_id: [ 'fsac' ],
-          category_type_id: [ 'category_c' ],
+          category_type_id: [ 'category_a' ],
           beneficiary_type_id: 'host_communities',
           beneficiary_type_name: 'Host Communities'
         },{
           cluster_id: [ 'fsac' ],
-          category_type_id: [ 'category_c' ],
-          beneficiary_type_id: 'vunerable_communities',
-          beneficiary_type_name: 'Vunerable Communities'
+          category_type_id: [ 'category_a' ],
+          beneficiary_type_id: 'underserved_community',
+          beneficiary_type_name: 'Underserved Community'
         },{
 
           cluster_id: [ 'eiewg' ],

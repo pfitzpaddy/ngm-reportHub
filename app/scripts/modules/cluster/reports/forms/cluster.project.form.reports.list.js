@@ -46,7 +46,8 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
 
         // placeholder bydget activity
         lists: {
-          activity_type: angular.copy( config.project.activity_type )
+          activity_type: angular.copy( config.project.activity_type ),
+          currencies: ngmClusterHelper.getCurrencies( config.project.admin0pcode )
         },
 
         // project
@@ -137,6 +138,15 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
           angular.forEach( $scope.project.lists.activity_type, function( d, i ){
             if ( d.activity_type_id === $scope.project.budget.activity_type_id  ) {
               $scope.project.budget.activity_type_name = d.activity_type_name;
+            }
+          });
+        },
+
+        // set
+        setCurrency: function(){
+          angular.forEach( $scope.project.lists.currencies, function( d, i ){
+            if ( d.currency_id === $scope.project.budget.currency_id  ) {
+              $scope.project.budget.currency_name = d.currency_name;
             }
           });
         },

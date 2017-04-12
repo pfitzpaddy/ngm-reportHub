@@ -32,9 +32,9 @@
 					    	ng-disabled="project.definition.project_status === 'complete'"
 					    	ng-change="project.setDonor()"
 	      					ng-options="d.project_donor_id as d.project_donor_name for d in project.definition.project_donor">
-	      				<option value="" disabled selected>Select Donor...</option>
+	      				<option value="" disabled selected>Select...</option>
 	      			</select>
-	      			<label for="ngm-project-donor">Project Donor *</label>
+	      			<label for="ngm-project-donor">Donor *</label>
 		        </div>
 
 						<!-- project donor -->		        
@@ -44,25 +44,28 @@
 					    	ng-disabled="project.definition.project_status === 'complete'"
 					    	ng-change="project.setActivity()"
 	      					ng-options="d.activity_type_id as d.activity_type_name for d in project.lists.activity_type">
-	      				<option value="" disabled selected>Select Activity...</option>
+	      				<option value="" disabled selected>Select...</option>
 	      			</select>
-	      			<label for="ngm-project-donor">Project Activity *</label>
-		        </div>
-
-						<!-- project budget -->		        
-		        <div class="input-field col s12 m2">
-		          <input id="ngm-project-budget-currency_monthly" type="number" class="validate"
-		          	ng-model="project.definition.project_budget"
-		          	disabled>
-		          <label for="ngm-project-budget-currency_monthly">Budget ( ${{ project.definition.project_budget_currency | uppercase }} )</label>
-		        </div>	        
+	      			<label for="ngm-project-donor">Activity *</label>
+		        </div>        
 
 		        <!-- budget recieved -->
 		        <div class="input-field col s12 m2">
 		          <input id="ngm-project-budget_progress" type="number" class="validate" min="0"
 		          	ng-model="project.budget.project_budget_amount_recieved"
 		          	ng-disabled="project.definition.project_status === 'complete'">
-		          <label for="ngm-project-budget_progress_usd" class="active">Recieved ( ${{ project.definition.project_budget_currency | uppercase }} ) *</label>
+		          <label for="ngm-project-budget_progress_usd" class="active">Recieved ( {{ project.definition.project_budget_currency | uppercase }} ) *</label>
+		        </div>
+
+		        <div class="input-field col s12 m2">
+	      			<select id="ngm-project-donor-currency" class="validate"
+					    	ng-model="project.budget.currency_id"
+					    	ng-disabled="project.definition.project_status === 'complete'"
+					    	ng-change="project.setCurrency()"
+	      					ng-options="d.currency_id as d.currency_name for d in project.lists.currencies">
+	      				<option value="" disabled selected>Select...</option>
+	      			</select>
+	      			<label for="ngm-project-donor-currency">Currency *</label>
 		        </div>
 
 		        <!-- input-date directive -->
@@ -107,7 +110,7 @@
 				    	<!-- health cluster -->
 				    	<h5 class="report-budget-title">
 									<i class="material-icons left" style="color: teal;">date_range</i>
-									${{ budget.project_budget_amount_recieved | number }} {{ project.definition.project_budget_currency | uppercase }} of Budget Recieved on {{ budget.project_budget_date_recieved | date:'longDate' }} from {{ project.budget.project_donor_name }} for {{ budget.activity_type_name }}
+									{{ budget.project_budget_amount_recieved | number }} {{ budget.currency_name | uppercase }} of Budget Recieved on {{ budget.project_budget_date_recieved | date:'longDate' }} from {{ budget.project_donor_name }} for {{ budget.activity_type_name }}
 							</h5>
 						</div>
 						<div class="col s12 m1 right" style="padding-top:15px;padding-right:12px;">
@@ -125,7 +128,7 @@
 							ng-show="project.definition.project_budget_progress.length">
 				    	<h5 class="report-budget-title">
 									<i class="material-icons left" style="color: teal;">attach_money</i>
-									${{ project.definition.project_budget_progress | sumByKey:'project_budget_amount_recieved' | number  }} {{ project.definition.project_budget_currency | uppercase }} Recieved of <span style="font-weight: 400">${{ project.definition.project_budget | number  }} {{ project.definition.project_budget_currency | uppercase }}</span> Budget Total
+									{{ project.definition.project_budget_progress | sumByKey:'project_budget_amount_recieved' | number  }} {{ project.definition.project_budget_currency | uppercase }} Recieved of <span style="font-weight: 400">{{ project.definition.project_budget | number  }} {{ project.definition.project_budget_currency | uppercase }}</span> Budget Total
 							</h5>							
 						</div>
 					</div>

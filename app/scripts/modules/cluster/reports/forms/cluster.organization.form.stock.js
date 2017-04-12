@@ -56,37 +56,20 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
         // lists
         lists: {
-          units: [
-            { stock_unit_type: 'm2', stock_unit_name: 'm2' },
-            { stock_unit_type: 'm3', stock_unit_name: 'm3' },
-            { stock_unit_type: 'kg', stock_unit_name: 'KG' },
-            { stock_unit_type: 'man_days', stock_unit_name: 'Man Days' },
-            { stock_unit_type: 'metric_tonnes', stock_unit_name: 'Metric Tonnes' },
-            { stock_unit_type: 'pieces', stock_unit_name: 'Pieces' },
-            { stock_unit_type: 'tablets', stock_unit_name: 'Tablets' },
-            { stock_unit_type: 'litres', stock_unit_name: 'Litres' },
-            { stock_unit_type: 'boxes', stock_unit_name: 'Boxes' },
-            { stock_unit_type: 'kits', stock_unit_name: 'Kits' },
-            { stock_unit_type: 'drums', stock_unit_name: 'Drums' },
-            { stock_unit_type: 'pac', stock_unit_name: 'PAC' },
-          ],
+          stock_status:[{
+            stock_status_id: 'available',
+            stock_status_name: 'Available'
+          },{
+            stock_status_id: 'reserved',
+            stock_status_name: 'Reserved'
+          }],
+          units: ngmClusterHelper.getUnits( config.organization.admin0pcode ),
           stocks: $filter( 'filter' )( localStorage.getObject( 'lists' ).stockItemsList, 
-                          { cluster_id: ngmUser.get().cluster_id }, true )
+                          { cluster_id: config.organization.cluster_id }, true )
         }, 
 
         // init
-        init: function(){
-
-          var currencies=[];
-
-          // add each currency
-          angular.forEach( ngmClusterHelper.getCurrencies( $scope.report.organization.admin0pcode ), function( d, i ){
-            currencies.push({ stock_unit_type: d.currency_id, stock_unit_name: d.currency_name });
-          });
-
-          // update units
-          $scope.report.lists.units = currencies.concat( $filter( 'orderBy' )( $scope.report.lists.units, 'stock_unit_name' ) );
-        },
+        init: function(){},
 
         // cancel and delete empty project
         cancel: function() {
@@ -125,14 +108,26 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
         showStockUnits: function( $data, $stock ){
           var selected = [];
-          $stock.stock_unit_type = $data;
-          if( $stock.stock_unit_type ) {
-            selected = $filter('filter')( $scope.report.lists.units, { stock_unit_type: $stock.stock_unit_type }, true );
+          $stock.unit_type_id = $data;
+          if( $stock.unit_type_id ) {
+            selected = $filter('filter')( $scope.report.lists.units, { unit_type_id: $stock.unit_type_id }, true );
             if ( selected.length ){
-              $stock.stock_unit_name = selected[0].stock_unit_name;
+              $stock.unit_type_name = selected[0].unit_type_name;
             }
           }
-          return selected.length ? selected[0].stock_unit_name : 'No Selection!';
+          return selected.length ? selected[0].unit_type_name : 'No Selection!';
+        },
+
+        showStockStatus: function( $data, $stock ){
+          var selected = [];
+          $stock.stock_status_id = $data;
+          if( $stock.stock_status_id ) {
+            selected = $filter('filter')( $scope.report.lists.stock_status, { stock_status_id: $stock.stock_status_id }, true );
+            if ( selected.length ){
+              $stock.stock_status_name = selected[0].stock_status_name;
+            }
+          }
+          return selected.length ? selected[0].stock_status_name : 'No Selection!';
         },
 
         // update inidcators

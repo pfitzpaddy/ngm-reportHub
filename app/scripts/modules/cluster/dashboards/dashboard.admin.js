@@ -164,7 +164,8 @@ angular.module('ngmReportHub')
 				setSubtitle: function() {
 					
 					// default
-					$scope.dashboard.subtitle = 'Admin dashboard for ' + $scope.dashboard.admin0name + ' ' + $scope.dashboard.cluster_id + ' Cluster';
+					var cluster = $filter( 'filter' )( $scope.dashboard.clusters, { cluster_id: $scope.dashboard.cluster_id } )[0].cluster;
+					$scope.dashboard.subtitle = 'Admin dashboard for ' + $scope.dashboard.admin0name + ' ' + cluster + ' Cluster';
 
 				},
 

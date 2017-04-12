@@ -28,13 +28,17 @@ angular.module('ngmReportHub')
 			user: ngmUser.get(),
 
 			// current report
-			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),			
+			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
 
 			// set project details
 			setProjectDetails: function(data){
 
 				// assign data
 				$scope.report.project = data;
+
+				// add project code to subtitle?
+				var text = 'Actual Monthly Beneficiaries Report for ' + $scope.report.project.project_title
+				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + text : text;
 
 				// report dashboard model
 				$scope.model = {
@@ -51,7 +55,7 @@ angular.module('ngmReportHub')
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
-							'title': 'Actual Monthly Beneficiaries Reports for ' + $scope.report.project.project_title
+							'title': subtitle
 						},
 						download: {
 							'class': 'col s12 m3 l3 hide-on-small-only',

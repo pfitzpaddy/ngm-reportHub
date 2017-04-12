@@ -623,24 +623,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
       }
 
-      // on page load
-      angular.element( document ).ready(function () {
-
-        // give a few seconds to render
-        $timeout(function() {
-            
-          // unit type list
-          var currencies=[];
-          // add each currency
-          angular.forEach( ngmClusterHelper.getCurrencies( $scope.project.definition.admin0pcode ), function( d, i ){
-            currencies.push({ unit_type_id: d.currency_id, unit_type_name: d.currency_name });
-          });
-          $scope.project.lists.units = currencies.concat( $filter( 'orderBy' )( $scope.project.lists.units, 'unit_type_name' ) );
-
-        }, 1000 );
-
-      });
-
   }
 
 ]);

@@ -36,6 +36,10 @@ angular.module('ngmReportHub')
 				// assign data
 				$scope.report.project = data;
 
+				// add project code to subtitle?
+				var text = 'Actual Monthly Beneficiaries Report for ' + $scope.report.project.project_title
+				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + $scope.report.project.project_description : $scope.report.project.project_description;
+
 				// report dashboard model
 				$scope.model = {
 					name: 'cluster_project_details',
@@ -51,7 +55,7 @@ angular.module('ngmReportHub')
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
-							'title': $scope.report.project.project_description
+							'title': subtitle
 						},
 						download: {
 							'class': 'col s12 m3 l3 hide-on-small-only',

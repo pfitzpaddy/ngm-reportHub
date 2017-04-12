@@ -62,6 +62,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // lists
         activity_types: config.project.activity_type,
         lists: {
+          currencies: ngmClusterHelper.getCurrencies( config.project.admin0pcode ),
           units: ngmClusterHelper.getUnits( config.project.admin0pcode ),
           delivery_types:[{
             delivery_type_id: 'population',
