@@ -427,21 +427,63 @@ angular.module( 'ngmReportHub' )
           beneficiary_type_id: 'conflict_affected',
           beneficiary_type_name: 'Conflict Affected'
         },{
-          cluster_id: [ 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
-          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
-          beneficiary_type_id: 'natural_disaster_affected',
-          beneficiary_type_name: 'Natural Disaster Affected'
-        },{
+
           cluster_id: [ 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
           category_type_id: [ 'category_a', 'category_b', 'category_c' ],
           beneficiary_type_id: 'idp_conflict',
           beneficiary_type_name: 'Conflict IDPs'
         },{
+          cluster_id: [ 'fsac' ],
+          category_type_id: [ 'category_a', 'category_c' ],
+          beneficiary_type_id: 'idp_conflict',
+          beneficiary_type_name: 'Conflict IDPs ( Returnees )'
+        },{
+          cluster_id: [ 'fsac' ],
+          category_type_id: [ 'category_a', 'category_c' ],
+          beneficiary_type_id: 'idp_conflict',
+          beneficiary_type_name: 'Conflict IDPs ( Refugee Returnees )'
+        },{
+          cluster_id: [ 'fsac' ],
+          category_type_id: [ 'category_a', 'category_c' ],
+          beneficiary_type_id: 'idp_conflict',
+          beneficiary_type_name: 'Conflict IDPs ( Deportee Returnees )'
+        },{
+
           cluster_id: [ 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
           category_type_id: [ 'category_a', 'category_b', 'category_c' ],
           beneficiary_type_id: 'idp_natural_disaster',
           beneficiary_type_name: 'Natural Disaster IDPs'
         },{
+          cluster_id: [ 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          beneficiary_type_id: 'natural_disaster_affected',
+          beneficiary_type_name: 'Natural Disaster Affected'
+        },{
+          
+          // FSAC
+
+          cluster_id: [ 'fsac' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          beneficiary_type_id: 'natural_disaster_affected_earthquake',
+          beneficiary_type_name: 'Natural Disaster Affected (Earthquake)'
+        },{
+          cluster_id: [ 'fsac' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          beneficiary_type_id: 'natural_disaster_affected_flood',
+          beneficiary_type_name: 'Natural Disaster Affected (Flood)'
+        },{
+          cluster_id: [ 'fsac' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          beneficiary_type_id: 'natural_disaster_affected_drought',
+          beneficiary_type_name: 'Natural Disaster Affected (Drought)'
+        },{
+          cluster_id: [ 'fsac' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          beneficiary_type_id: 'natural_disaster_affected_wls',
+          beneficiary_type_name: 'Natural Disaster Affected (Winter / Lean Season)'
+        },{
+
+
           cluster_id: [ 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
           category_type_id: [ 'category_a', 'category_b', 'category_c' ],
           beneficiary_type_id: 'idp_protracted',
