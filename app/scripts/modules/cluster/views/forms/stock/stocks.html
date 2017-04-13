@@ -3,10 +3,10 @@
   <table class="bordered responsive-table" style="margin-bottom:10px;" ng-show="report.report.stocklocations[$locationIndex].stocks.length">
     <tr style="font-weight: 400">
       <td>Stock Type</td>
-      <td>Stock Units</td>
       <td>Status</td>
-      <td>Number in Stock</td>
-      <td>Number in Pipeline</td>
+      <td>No. in Stock</td>
+      <td>No. in Pipeline</td>
+      <td>Units</td>
       <td>Beneficiary Coverage</td>
       <td ng-show="report.report.report_status !== 'complete'">Edit</td>
     </tr>
@@ -15,12 +15,6 @@
         <!-- editable activity_type from report -->
         <span e-placeholder="Select..." editable-select="stock.stock_item_type" e-name="stock_item_type" e-form="rowform" e-ng-options="item.stock_item_type as item.stock_item_name for item in report.lists.stocks">
           {{ report.showStockType($data, stock) }}
-        </span>
-      </td>
-      <td>
-        <!-- editable activity_type from report -->
-        <span e-placeholder="Select..." editable-select="stock.unit_type_id" e-name="unit_type_id" e-form="rowform" e-ng-options="item.unit_type_id as item.unit_type_name for item in report.lists.units">
-          {{ report.showStockUnits($data, stock) }}
         </span>
       </td>
       <td>
@@ -42,6 +36,13 @@
         </span>
       </td>
       <td>
+        <!-- editable activity_type from report -->
+        <span e-placeholder="Select..." editable-select="stock.unit_type_id" e-name="unit_type_id" e-form="rowform" e-ng-options="item.unit_type_id as item.unit_type_name for item in report.lists.units"
+          e-required>
+          {{ report.showStockUnits($data, stock) }}
+        </span>
+      </td>
+      <td>
         <!-- editable number -->
         <span editable-number="stock.beneficiaries_covered" e-name="beneficiaries_covered" e-form="rowform" e-min="0" e-ng-change="report.updateInput($locationIndex, $index, 'beneficiaries_covered', $data )" e-ng-disabled="report.rowSessionsDisabled( beneficiary )" e-required>
           {{ stock.beneficiaries_covered }}
@@ -55,15 +56,15 @@
             <i class="material-icons">save</i>
           </button>
           <button type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn blue lighten-1 waves-effect waves-light" title="Cancel Edit">
-						<i class="material-icons">clear</i>
+            <i class="material-icons">clear</i>
           </button>
         </form>
         <div class="buttons" ng-if="!rowform.$visible">
           <button class="btn waves-effect waves-light" ng-click="rowform.$show()" title="Edit">
-						<i class="material-icons">create</i>
+            <i class="material-icons">create</i>
           </button>
           <button class="btn red lighten-2 waves-effect waves-light" ng-click="report.removeStock( $locationIndex, $index )" title="Remove">
-          	<i class="material-icons">delete</i>
+            <i class="material-icons">delete</i>
           </button>
         </div>  
       </td>

@@ -139,6 +139,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         rowSaveDisabled: function( $data ){
           var disabled = true;
           if ( $data.stock_item_type &&
+                $data.unit_type_id &&
+                $data.stock_status_id &&
                 $data.number_in_stock >= 0 && $data.number_in_pipeline >= 0 && $data.beneficiaries_covered >= 0 ) {
               disabled = false;
           }
