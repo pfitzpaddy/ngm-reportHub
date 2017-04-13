@@ -196,6 +196,34 @@ angular.module( 'ngmReportHub' )
 
       },
 
+      getClusters: function(){
+          return [{
+            cluster_id: 'eiewg',
+            cluster: 'EiEWG'
+          },{
+            cluster_id: 'esnfi',
+            cluster: 'ESNFI'
+          },{
+            cluster_id: 'fsac',
+            cluster: 'FSAC'
+          },{
+            cluster_id: 'health',
+            cluster: 'Health'
+          },{
+            cluster_id: 'nutrition',
+            cluster: 'Nutrition'
+          },{
+            cluster_id: 'protection',
+            cluster: 'Protection'
+          },{
+            cluster_id: 'rnr_chapter',
+            cluster: 'R&R Chapter'
+          },{
+            cluster_id: 'wash',
+            cluster: 'WASH'
+          }];
+      },
+
 			// get cluster donors
 			getDonors: function( cluster_id ) {
 

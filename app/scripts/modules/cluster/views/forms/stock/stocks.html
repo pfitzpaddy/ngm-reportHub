@@ -2,6 +2,7 @@
 <div style="padding-left: 20px;">
   <table class="bordered responsive-table" style="margin-bottom:10px;" ng-show="report.report.stocklocations[$locationIndex].stocks.length">
     <tr style="font-weight: 400">
+      <td>Cluster</td>
       <td>Stock Type</td>
       <td>Status</td>
       <td>No. in Stock</td>
@@ -13,7 +14,14 @@
     <tr ng-repeat="stock in report.report.stocklocations[$locationIndex].stocks track by $index">
       <td>
         <!-- editable activity_type from report -->
-        <span e-placeholder="Select..." editable-select="stock.stock_item_type" e-name="stock_item_type" e-form="rowform" e-ng-options="item.stock_item_type as item.stock_item_name for item in report.lists.stocks">
+        <span e-placeholder="Select..." editable-select="stock.cluster_id" e-name="cluster_id" e-form="rowform" e-ng-options="item.cluster_id as item.cluster for item in report.lists.clusters">
+          {{ report.showStockCluster($data, stock) }}
+        </span>
+      </td>
+      <td>
+        <!-- editable activity_type from report -->
+        <span e-placeholder="Select..." editable-select="stock.stock_item_type" e-name="stock_item_type" e-form="rowform" e-ng-options="item.stock_item_type as item.stock_item_name for item in report.lists.stocks | filter: { cluster_id: stock.cluster_id }"
+          e-ng-disabled="!stock.cluster_id">
           {{ report.showStockType($data, stock) }}
         </span>
       </td>

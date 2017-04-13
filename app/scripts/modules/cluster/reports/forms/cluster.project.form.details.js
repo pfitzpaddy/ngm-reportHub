@@ -71,31 +71,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             delivery_type_id: 'service',
             delivery_type_name: 'Existing Beneficiaries'
           }],
-          clusters: [{
-            cluster_id: 'eiewg',
-            cluster: 'EiEWG'
-          },{
-            cluster_id: 'esnfi',
-            cluster: 'ESNFI'
-          },{
-            cluster_id: 'fsac',
-            cluster: 'FSAC'
-          },{
-            cluster_id: 'health',
-            cluster: 'Health'
-          },{
-            cluster_id: 'nutrition',
-            cluster: 'Nutrition'
-          },{
-            cluster_id: 'protection',
-            cluster: 'Protection'
-          },{
-            cluster_id: 'rnr_chapter',
-            cluster: 'R&R Chapter'
-          },{
-            cluster_id: 'wash',
-            cluster: 'WASH'
-          }],
+          clusters: ngmClusterHelper.getClusters(),
           activity_types: ngmClusterHelper.getActivities( config.project, true, true ),
           activity_descriptions: ngmClusterHelper.getActivities( config.project, true, false ),
 

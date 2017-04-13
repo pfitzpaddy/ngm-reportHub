@@ -56,16 +56,16 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
         // lists
         lists: {
+          clusters: ngmClusterHelper.getClusters(),
+          units: ngmClusterHelper.getUnits( config.organization.admin0pcode ),
+          stocks: localStorage.getObject( 'lists' ).stockItemsList,
           stock_status:[{
             stock_status_id: 'available',
             stock_status_name: 'Available'
           },{
             stock_status_id: 'reserved',
             stock_status_name: 'Reserved'
-          }],
-          units: ngmClusterHelper.getUnits( config.organization.admin0pcode ),
-          stocks: $filter( 'filter' )( localStorage.getObject( 'lists' ).stockItemsList, 
-                          { cluster_id: config.organization.cluster_id }, true )
+          }]
         }, 
 
         // init
@@ -93,6 +93,17 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           $scope.inserted = 
               ngmClusterHelper.getCleanStocks( $scope.report.report, $scope.report.report.stocklocations[ $parent ], $scope.inserted );
           $scope.report.report.stocklocations[ $parent ].stocks.push( $scope.inserted );
+        },
+
+        // cluster
+        showStockCluster: function( $data, $stock ){
+          var selected = [];
+          $stock.cluster_id = $data;
+          if($stock.cluster_id) {
+            selected = $filter('filter')( $scope.report.lists.clusters, { cluster_id: $stock.cluster_id }, true);
+            $stock.cluster = selected[0].cluster;
+          }
+          return selected.length ? selected[0].cluster : 'No Selection!';
         },
 
         // show stock type
