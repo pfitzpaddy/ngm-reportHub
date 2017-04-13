@@ -85,8 +85,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           $scope.inserted = {
             stock_item_type: null,
             stock_item_name: null,
-            stock_unit_type: null,
-            stock_unit_name: null,
+            unit_type_id: null,
+            unit_type_name: null,
             number_in_stock:0, number_in_pipeline:0, beneficiaries_covered:0
           };
           // process + clean location
