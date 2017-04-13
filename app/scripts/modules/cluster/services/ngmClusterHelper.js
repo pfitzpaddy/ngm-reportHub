@@ -265,6 +265,10 @@ angular.module( 'ngmReportHub' )
           currency_name: 'EUR'
         },{
           admin0pcode: 'AF',
+          currency_id: 'gbp',
+          currency_name: 'GBP'
+        },{
+          admin0pcode: 'AF',
           currency_id: 'sek',
           currency_name: 'SEK'
         },{
