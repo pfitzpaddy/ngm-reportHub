@@ -163,7 +163,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         removeStock: function( $parent, $index ) {
           $scope.report.report.stocklocations[ $parent ].stocks.splice( $index, 1 );
           // save
-          $scope.project.save( false );
+          $scope.report.save( false );
         },
 
         // cofirm exit if changes
