@@ -68,7 +68,10 @@ angular.module('ngmReportHub')
 			init: function(){
 
 				// set report for downloads
+				$scope.report.title = ngmUser.get().admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.organization.cluster.toUpperCase() + ' | ' + $scope.report.organization.organization + ' | Stock Report';
 				$scope.report.report = $scope.report.organization.organization + '_' + moment( $scope.report.definition.reporting_period ).format('MMMM, YYYY');
+				// set report for downloads
+				$scope.report.filename = $scope.report.definition.organization + '_' + $scope.report.definition.cluster + '_' + moment( $scope.report.definition.report_month ).format( 'MMMM' ) + '_Stocks_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 
 				// report dashboard model
 				$scope.model = {
@@ -81,11 +84,42 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m9 l9 report-title truncate',
 							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: ngmUser.get().admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.organization.cluster.toUpperCase() + ' | ' + $scope.report.organization.organization + ' | Stock Report'
+							title: $scope.report.title
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
 							'title': 'Monthly Stock Report for ' + moment( $scope.report.definition.reporting_period ).format('MMMM, YYYY')
+						},
+						download: {
+							'class': 'col s12 m3 l3 hide-on-small-only',
+							downloads: [{
+								type: 'csv',
+								color: 'blue lighten-2',
+								icon: 'assignment',
+								hover: 'Download Monthly Stock Report as CSV',
+								request: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/cluster/report/getReportCsv',
+									data: {
+										report: $scope.report.filename,
+										report_type: 'stock',
+										report_id: $scope.report.definition.id
+									}
+								},
+								metrics: {
+									method: 'POST',
+									url: 'http://' + $location.host() + '/api/metrics/set',
+									data: {
+										organization: $scope.report.user.organization,
+										username: $scope.report.user.username,
+										email: $scope.report.user.email,
+										dashboard: $scope.report.title,
+										theme: 'stocl_report_' + $scope.report.user.cluster_id,
+										format: 'csv',
+										url: $location.$$path
+									}
+								}
+							}]
 						}
 					},
 					rows: [{		
