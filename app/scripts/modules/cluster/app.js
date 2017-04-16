@@ -230,6 +230,21 @@ angular
 				}
 			})
 
+			// cluster dashboard
+			.when( '/cluster/4w', {
+				redirectTo: '/cluster/4w/    /2016-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			// health dashboard
+			.when( '/cluster/health/4w/:adminR/:admin0/:organization_id/:admin1/:admin2/:project/:beneficiaries/:start/:end', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardClusterCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.grantPublicAccess();
+					}],
+				}
+			})
+
 			// health dashboard
 			.when( '/cluster/health', {
 				// redirectTo: '/cluster/health/4w/hq/all/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
