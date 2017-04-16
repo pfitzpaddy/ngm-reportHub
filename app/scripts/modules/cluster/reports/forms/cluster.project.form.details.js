@@ -602,7 +602,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             $scope.project.definition.project_title &&
             $scope.project.definition.project_start_date &&
             $scope.project.definition.project_end_date &&
-            $scope.project.definition.project_budget &&
             $scope.project.definition.project_budget_currency &&
             $scope.project.definition.project_status &&
             $scope.project.definition.project_description
@@ -798,6 +797,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $scope.project.definition.beneficiary_type = [];
           $scope.project.definition.admin1pcode = [];
           $scope.project.definition.admin2pcode = [];
+
+          // parse budget
+          $scope.project.definition.project_budget += '';
+          $scope.project.definition.project_budget = $scope.project.definition.project_budget.replace(',', '');
+          $scope.project.definition.project_budget = parseFloat( $scope.project.definition.project_budget );
 
           // add target_beneficiaries to projects
           angular.forEach( $scope.project.definition.target_beneficiaries, function( b, i ){

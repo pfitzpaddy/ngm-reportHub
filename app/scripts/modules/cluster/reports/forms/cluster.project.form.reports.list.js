@@ -90,6 +90,11 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
 
         // save project
         saveBudgetLine: function() {
+          
+          // parse budget
+          $scope.project.budget.project_budget_amount_recieved += '';
+          $scope.project.budget.project_budget_amount_recieved = $scope.project.budget.project_budget_amount_recieved.replace(',', '');
+          $scope.project.budget.project_budget_amount_recieved = parseFloat( $scope.project.budget.project_budget_amount_recieved );
 
           // if no progress reporting exists
           if ( !$scope.project.definition.project_budget_progress ) {
