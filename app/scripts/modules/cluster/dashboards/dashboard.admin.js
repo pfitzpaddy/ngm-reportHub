@@ -226,7 +226,7 @@ angular.module('ngmReportHub')
 							organizations.unshift({
 								organization_id: 'all',
 								organization: 'ALL',
-							})
+							});
 
 							// for each
 							organizations.forEach(function( d, i ){
@@ -247,7 +247,7 @@ angular.module('ngmReportHub')
 									'active': d.organization_id,
 									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 									'href': '/desk/#' + path
-								})
+								});
 
 							});
 

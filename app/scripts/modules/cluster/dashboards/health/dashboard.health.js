@@ -672,6 +672,7 @@ angular.module( 'ngmReportHub' )
 					$scope.dashboard.admin2pcode = $route.current.params.admin2;
 					$scope.dashboard.project_type = $route.current.params.project.split('+');
 					$scope.dashboard.beneficiary_type = $route.current.params.beneficiaries.split('+');
+					
 					// report name
 					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
 				

@@ -55,15 +55,6 @@ angular.module('ngmReportHub')
 				// set dashboard
 				setDashboard: function(){
 
-					// get latest times 
-					$http.get({
-						url: 'http://' + $location.host() + '/api/epr/latestUpdate'
-					}).success(function(data){
-						$scope.dashboard.updatedAt = moment( data.updatedAt ).format('DD MMMM, YYYY @ h:mm:ss a');
-					}).error(function(err){
-						Materialize.toast( 'Request Error!', 6000, 'error' );
-					});
-
 					// report name
 					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
 
@@ -214,7 +205,7 @@ angular.module('ngmReportHub')
 									config: {
 										id: 'dashboard-btn',
 										request: { method: 'GET', url: 'http://' + $location.host() + '/api/epr/latestUpdate' },
-										templateUrl: '/scripts/widgets/ngm-html/template/epr.html'
+										templateUrl: '/scripts/widgets/ngm-html/template/epr.dashboard.html'
 									}
 								}]
 							}]

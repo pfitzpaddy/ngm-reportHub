@@ -125,27 +125,16 @@
 										<i class="material-icons smedium right">lock_open</i>LOGOUT</a>
 									</li>
 
-									<!-- admin -->
-									<li  align="center" class="teal z-depth-2"
-										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().roles.indexOf('ADMIN') > -1">
+									<!-- ADMIN -->
+									<li align="center" class="teal z-depth-2"
+										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/admin" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">assignment_turned_in</i>{{ ngm.getUser().cluster | uppercase }} ADMIN</a>
-									</li>
-
-									<li  align="center" class="teal z-depth-2"
-										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().cluster_id === 'health'">
-										<a class="white-text right" href="#/cluster/health/4w" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">bubble_chart</i>H4W DASHBOARD</a>
-									</li>
-
-									<li  align="center" class="teal z-depth-2"
-										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().roles.indexOf('ADMIN') === -1">
-										<a class="white-text right" href="#/cluster/admin" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">assignment_turned_in</i>{{ ngm.getUser().organization | uppercase }} ADMIN</a>
+										<!-- <i class="material-icons smedium right">assignment_turned_in</i>{{ ngm.getUser().organization | uppercase }} ADMIN</a> -->
+										<i class="material-icons smedium right">assignment_turned_in</i>MY ADMIN</a>
 									</li>								
 
 									<!-- my projects -->
-									<li  align="center" class="teal z-depth-2" 
+									<li align="center" class="teal z-depth-2" 
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/organization" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">person_pin</i>MY ORGANIZATION</a>
@@ -158,11 +147,17 @@
 										<i class="material-icons smedium right">zoom_in</i>MY PROJECTS</a>
 									</li>
 
-									<!-- my projects -->
+									<!-- my STOCKS -->
 									<li  align="center" class="teal z-depth-2" 
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/stocks" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">insert_chart</i>MY STOCKS</a>
+									</li>
+
+									<!-- Dashboard -->
+									<li align="center" class="teal z-depth-2">
+										<a class="white-text right" href="#/cluster/4w" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">bubble_chart</i>4W DASHBOARD</a>
 									</li>
 
 									<!-- navigation options repeat 
@@ -382,8 +377,9 @@
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.details.js"></script>
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.reports.list.js"></script>
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.report.js"></script>
-		<!-- HEALTH dashboards -->
+		<!-- CLUSTER dashboards -->
 		<script src="scripts/modules/cluster/dashboards/dashboard.admin.js"></script>
+		<script src="scripts/modules/cluster/dashboards/dashboard.cluster.js"></script>
 		<script src="scripts/modules/cluster/dashboards/health/dashboard.health.js"></script>
 
 		<!-- EPR -->

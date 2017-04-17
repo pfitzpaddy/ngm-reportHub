@@ -205,7 +205,7 @@ angular.module('ngmReportHub')
 									config: {
 										id: 'dashboard-btn',
 										request: { method: 'GET', url: 'http://' + $location.host() + '/api/epr/latestUpdate' },
-										templateUrl: '/scripts/widgets/ngm-html/template/epr.html'
+										templateUrl: '/scripts/widgets/ngm-html/template/epr.admin.html'
 									}
 								}]
 							}]
