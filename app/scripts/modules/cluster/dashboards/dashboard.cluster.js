@@ -432,7 +432,14 @@ angular.module('ngmReportHub')
 									icon: 'assignment_turned_in',
 									hover: 'Download OCHA HRP Report as CSV',
 									request: $scope.dashboard.getRequest( { csv: true, indicator: 'ocha_report', report: $scope.dashboard.cluster_id + '_ocha_hrp_report-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
-									metrics: $scope.dashboard.getMetrics( 'cluster_contact_list', 'csv' )
+									metrics: $scope.dashboard.getMetrics( 'cluster_ocha_report', 'csv' )
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'attach_money',
+									hover: 'Download OCHA Financial Report as CSV',
+									request: $scope.dashboard.getRequest( { csv: true, indicator: 'financial_report', report: $scope.dashboard.cluster_id + '_ocha_financial_report-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									metrics: $scope.dashboard.getMetrics( 'cluster_financial_report', 'csv' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
@@ -460,7 +467,7 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12',
+								styleClass: 's12 m6',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
@@ -468,6 +475,17 @@ angular.module('ngmReportHub')
 									config: {
 										title: 'Active Organizations',
 										request: $scope.dashboard.getRequest( { indicator: 'organizations' } )
+									}
+								}]
+							},{
+								styleClass: 's12 m6',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: 'Active Projects',
+										request: $scope.dashboard.getRequest( { indicator: 'projects' } )
 									}
 								}]
 							}]
