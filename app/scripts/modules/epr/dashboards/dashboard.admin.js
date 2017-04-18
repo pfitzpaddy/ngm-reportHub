@@ -257,27 +257,6 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m12 l12 remove',
-								widgets: [{
-									type: 'table',
-									card: 'panel',
-									style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
-									config: {
-										style: $scope.dashboard.ngm.style,
-										headerClass: 'collection-header teal lighten-2',
-										headerText: 'white-text',
-										headerIcon: 'assignment_turned_in',
-										headerTitle: 'Reports Submitted',
-										templateUrl: '/scripts/widgets/ngm-table/templates/epr/epr.list.html',
-										tableOptions:{
-											count: 10
-										},
-										request: ngmEprHelper.getRequest( 'epr/indicator', 'reports_submitted', true )
-									}
-								}]
-							}]
-						},{
-							columns: [{
 								styleClass: 's12 m12 l12',
 								widgets: [{
 									type: 'table',
@@ -294,6 +273,27 @@ angular.module('ngmReportHub')
 											count: 10
 										},
 										request: ngmEprHelper.getRequest( 'epr/indicator', 'duplicate_reports', true )
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l12 remove',
+								widgets: [{
+									type: 'table',
+									card: 'panel',
+									style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
+									config: {
+										style: $scope.dashboard.ngm.style,
+										headerClass: 'collection-header teal lighten-2',
+										headerText: 'white-text',
+										headerIcon: 'assignment_turned_in',
+										headerTitle: 'Reports Submitted',
+										templateUrl: '/scripts/widgets/ngm-table/templates/epr/epr.list.html',
+										tableOptions:{
+											count: 10
+										},
+										request: ngmEprHelper.getRequest( 'epr/indicator', 'reports_submitted', true )
 									}
 								}]
 							}]
