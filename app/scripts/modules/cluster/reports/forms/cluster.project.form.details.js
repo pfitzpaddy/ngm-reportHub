@@ -786,6 +786,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               var donor = $filter( 'filter' )( $scope.project.lists.donors, { project_donor_id: key }, true)[0];
               $scope.project.definition.project_donor.push( donor );
             }
+            // focus on select
+            if ( key === 'other' && d ) {
+              $( '#ngm-project-project_donor_other' ).focus();
+            }
+            // remove if un-selected
+            if ( key === 'other' && !d ) {
+              $scope.project.definition.project_donor_other = '';
+            }
           });
         },
 

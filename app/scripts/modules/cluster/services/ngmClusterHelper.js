@@ -229,7 +229,7 @@ angular.module( 'ngmReportHub' )
 
         // get from list
         var donors = $filter( 'filter' )( localStorage.getObject( 'lists' ).donorsList, 
-                          { cluster_id: cluster_id }, true )
+                          { cluster_id: cluster_id }, true );
 
         // if no list use default
         if ( !donors.length ) {
@@ -270,6 +270,9 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'world_bank', project_donor_name: 'Worldbank' }
           ];
         }
+
+        // add other
+        donors.push( { project_donor_id: 'other', project_donor_name: 'Other' } );
 
         return donors;
       },
