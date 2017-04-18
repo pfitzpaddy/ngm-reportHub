@@ -506,6 +506,18 @@ angular.module('ngmReportHub')
 							columns: [{
 								styleClass: 's12 m12 l12',
 								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">LOCATIONS</h2>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
 									type: 'leaflet',
 									card: 'card-panel',
 									style: 'padding:0px;',
