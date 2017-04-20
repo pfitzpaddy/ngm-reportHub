@@ -275,7 +275,9 @@
 					      	<!-- project description -->
 							<div class="row">
 						        <div class="input-field col s12 m12 l12">
-						          <textarea id="ngm-project-description" type="text" class="validate materialize-textarea"
+						          <textarea id="ngm-project-description" type="text" 
+						          				style="padding-left:20px;"
+						          				class="validate materialize-textarea"
 												ng-model="project.definition.project_description"
 												ng-disabled="project.definition.project_status === 'complete'"
 												required>
