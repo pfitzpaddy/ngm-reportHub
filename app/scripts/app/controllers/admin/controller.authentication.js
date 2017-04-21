@@ -202,6 +202,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           // merge org
           var org = angular.copy( $scope.select[0] );
           delete org.id;
+          console.log(org);
           angular.merge( $scope.panel.user, org );
 
           // validate
@@ -225,7 +226,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
       $scope.panel = angular.merge( {}, $scope.panel, config );
 
       // get organizations
-      if ( !localStorage.getObject( 'organizations') ){
+      // if ( !localStorage.getObject( 'organizations') ){
 
         // set
         $http.get( 'http://' + $location.host() + '/api/cluster/list/organizations' ).then(function( organizations ){
@@ -236,15 +237,15 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           }, 100);
         });
 
-      } else {
+      // } else {
 
         // set
-        $scope.panel.organizations = localStorage.getObject( 'organizations');
-        $timeout(function() {
-          $( 'select' ).material_select();
-        }, 100);
+        // $scope.panel.organizations = localStorage.getObject( 'organizations');
+        // $timeout(function() {
+        //   $( 'select' ).material_select();
+        // }, 100);
 
-      }
+      // }
 
       // on page load
       angular.element(document).ready(function () {

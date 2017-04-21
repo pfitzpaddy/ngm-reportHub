@@ -40,10 +40,39 @@
                   {{ row.cluster }}
                 </td>
                 <td data-title="'Organization'" sortable="'organization'">
-                  <a target="_blank" href="#/cluster/projects/{{ row.organization_id }}"
-                    title="GoTo Organizaiton Projects List">
-                    {{ row.organization }}
-                  </a>
+
+                  <div ng-if="table.user.roles.indexOf( 'ADMIN' ) === -1">
+
+                    <a href="#/cluster/stocks"
+                      title="GoTo Organizaiton Stocks List"
+                      ng-if="!row.project_title">
+                      {{ row.organization }}
+                    </a>
+                    
+                    <a href="#/cluster/projects"
+                      title="GoTo Organizaiton Projects List"
+                      ng-if="row.project_title">
+                      {{ row.organization }}
+                    </a>
+
+                  </div>
+
+                  <div ng-if="table.user.roles.indexOf( 'ADMIN' ) !== -1">
+
+                    <a target="_blank" href="#/cluster/stocks/{{ row.organization_id }}"
+                      title="GoTo Organizaiton Stocks List"
+                      ng-if="!row.project_title">
+                      {{ row.organization }}
+                    </a>
+                    
+                    <a target="_blank" href="#/cluster/projects/{{ row.organization_id }}"
+                      title="GoTo Organizaiton Projects List"
+                      ng-if="row.project_title">
+                      {{ row.organization }}
+                    </a>
+
+                  </div>
+
                 </td>
                 <td data-title="'User'" sortable="'username'">
                   {{ row.username }}
@@ -51,14 +80,14 @@
                 <td data-title="'Contact'" sortable="'email'">
                   {{ row.email }}
                 </td>
-                <dic ng-if="row.project_title">
-                  <td data-title="'Title'" sortable="'project_title'">
-                    <a target="_blank" href="#/cluster/projects/summary/{{ row.project_id }}" 
-                      title="GoTo Project Summary">
-                      {{ row.project_title }}
-                    </a>
-                  </td>
-                </dic>
+                
+                <td data-title="'Title'" sortable="'project_title'" ng-if="table.showTitle">
+                  <a target="_blank" href="#/cluster/projects/summary/{{ row.project_id }}" 
+                    title="GoTo Project Summary">
+                    {{ row.project_title }}
+                  </a>
+                </td>
+
                 <td data-title="'Month'" sortable="'reporting_period'">
                     {{ row.reporting_period | date: 'MMMM' }}
                 </td>

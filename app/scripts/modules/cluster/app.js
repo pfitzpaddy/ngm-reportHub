@@ -219,7 +219,7 @@ angular
 				redirectTo: '/cluster/admin/hq/all/all/activity/all/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			// admin
-			.when( '/cluster/admin/:adminR/:admin0/:cluster_id/:report_type/:organization_id/:start/:end', {
+			.when( '/cluster/admin/:adminR/:admin0/:cluster_id/:report_type/:organization_tag/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardClusterAdminCtrl',
 				resolve: {
