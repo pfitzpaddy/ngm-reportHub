@@ -216,9 +216,12 @@ angular.module('ngmReportHub')
 						ngmData.get( request ).then( function( organizations  ){
 
 							if ( $scope.dashboard.organization_tag !== 'all' ) {
-								$scope.dashboard.organization = $filter( 'filter' )( organizations, { organization_tag: $scope.dashboard.organization_tag } )[0].organization;
-								if ( $scope.dashboard.organization_tag !== 'all' ) {
-									$scope.model.header.title.title += ' | ' + $scope.dashboard.organization;
+								var org = $filter( 'filter' )( organizations, { organization_tag: $scope.dashboard.organization_tag } );
+								if ( org.length ) {
+									$scope.dashboard.organization = org[0].organization;	
+									if ( $scope.dashboard.organization_tag !== 'all' ) {
+										$scope.model.header.title.title += ' | ' + $scope.dashboard.organization;
+									}
 								}
 							}
 
