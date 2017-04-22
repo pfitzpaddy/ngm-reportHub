@@ -632,15 +632,15 @@ angular.module('ngmReportHub')
 				$scope.dashboard.setDashboard();
 
 				// SUPERADMIN
-				// if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 ) {
-				// 	$scope.dashboard.setMenu( 'super' );
-				// } else if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
-				// 	// ADMIN
-				// 	$scope.dashboard.setMenu( 'admin' );
-				// } else {
-				// 	// USER
-				// 	$scope.dashboard.setMenu( 'user' );
-				// }
+				if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 ) {
+					$scope.dashboard.setMenu( 'super' );
+				} else if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
+					// ADMIN
+					$scope.dashboard.setMenu( 'admin' );
+				} else {
+					// USER
+					$scope.dashboard.setMenu( 'user' );
+				}
 
 			// }
 
