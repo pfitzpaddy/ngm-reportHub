@@ -94,7 +94,7 @@ angular.module('ngmReportHub')
 				// request
 				getRequest: function( indicator, list ){
 
-					return {
+					var request = {
 						list: list,
 						indicator: indicator,
 						cluster_id: $scope.dashboard.cluster_id,
@@ -105,6 +105,10 @@ angular.module('ngmReportHub')
 						start_date: $scope.dashboard.startDate,
 						end_date: $scope.dashboard.endDate
 					}
+					
+					console.log(request)
+
+					return request;
 
 				},
 
