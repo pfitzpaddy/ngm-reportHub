@@ -102,6 +102,7 @@ angular.module('ngmReportHub')
 					}
 					
 					console.log(request.cluster_id)
+					console.log($scope.dashboard.cluster_id)
 
 					return request;
 
@@ -333,14 +334,14 @@ angular.module('ngmReportHub')
 					$scope.dashboard.report_type = $route.current.params.report_type;
 
 					// ADMIN
-					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 ) {
-						$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
-					}
-					// USER
-					if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 && $scope.dashboard.user.roles.indexOf( 'ADMIN' ) === -1 ) {
-						$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
-						$scope.dashboard.organization = $scope.dashboard.user.organization;
-					}
+					// if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 ) {
+					// 	$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
+					// }
+					// // USER
+					// if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 && $scope.dashboard.user.roles.indexOf( 'ADMIN' ) === -1 ) {
+					// 	$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
+					// 	$scope.dashboard.organization = $scope.dashboard.user.organization;
+					// }
 
 					// report name
 					$scope.dashboard.report_file_name += moment().format( 'YYYY-MM-DDTHHmm' );
