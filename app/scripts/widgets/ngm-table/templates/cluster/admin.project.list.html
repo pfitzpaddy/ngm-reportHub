@@ -92,33 +92,73 @@
                     {{ row.reporting_period | date: 'MMMM' }}
                 </td>
                 <td data-title="'GoTo'" sortable="'reporting_period'">
-                  
-                  <a target="_blank" href="#/cluster/stocks/report/{{ row.organization_id }}/{{ row.id }}" 
-                    title="GoTo {{ row.reporting_period | date: 'MMMM' }} Stock Report"
-                    ng-if="!row.project_title">
-                    <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
-                  </a>
 
-                  <a target="_blank" href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" 
-                    title="GoTo {{ row.reporting_period | date: 'MMMM' }} Activity Report"
-                    ng-if="row.project_title">
-                    <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
-                  </a>
+                  <div ng-if="table.user.roles.indexOf( 'ADMIN' ) === -1">
+                  
+                    <a href="#/cluster/stocks/report/{{ row.organization_id }}/{{ row.id }}" 
+                      title="GoTo {{ row.reporting_period | date: 'MMMM' }} Stock Report"
+                      ng-if="!row.project_title">
+                      <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
+                    </a>
+
+                    <a href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" 
+                      title="GoTo {{ row.reporting_period | date: 'MMMM' }} Activity Report"
+                      ng-if="row.project_title">
+                      <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
+                    </a>
+
+                  </div>
+
+                  <div ng-if="table.user.roles.indexOf( 'ADMIN' ) !== -1">
+                  
+                    <a target="_blank" href="#/cluster/stocks/report/{{ row.organization_id }}/{{ row.id }}" 
+                      title="GoTo {{ row.reporting_period | date: 'MMMM' }} Stock Report"
+                      ng-if="!row.project_title">
+                      <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
+                    </a>
+
+                    <a target="_blank" href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" 
+                      title="GoTo {{ row.reporting_period | date: 'MMMM' }} Activity Report"
+                      ng-if="row.project_title">
+                      <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
+                    </a>
+
+                  </div>
 
                 </td>
                 <td data-title="'Status'" sortable="'status'">
 
-                  <a target="_blank" href="#/cluster/stocks/report/{{ row.organization_id }}/{{ row.id }}" 
-                    title="GoTo {{ row.reporting_period | date: 'MMMM' }} Stock Report"
-                    ng-if="!row.project_title">
-                    <i class="material-icons" style="color: {{ row.status }}">{{ row.icon }}</i>
-                  </a>
+                  <div ng-if="table.user.roles.indexOf( 'ADMIN' ) === -1">
 
-                  <a target="_blank" href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" 
-                    title="GoTo {{ row.reporting_period | date: 'MMMM' }} Activity Report"
-                    ng-if="row.project_title">
-                    <i class="material-icons" style="color: {{ row.status }}">{{ row.icon }}</i>
-                  </a>
+                    <a href="#/cluster/stocks/report/{{ row.organization_id }}/{{ row.id }}" 
+                      title="GoTo {{ row.reporting_period | date: 'MMMM' }} Stock Report"
+                      ng-if="!row.project_title">
+                      <i class="material-icons" style="color: {{ row.status }}">{{ row.icon }}</i>
+                    </a>
+
+                    <a href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" 
+                      title="GoTo {{ row.reporting_period | date: 'MMMM' }} Activity Report"
+                      ng-if="row.project_title">
+                      <i class="material-icons" style="color: {{ row.status }}">{{ row.icon }}</i>
+                    </a>
+
+                  </div>
+
+                  <div ng-if="table.user.roles.indexOf( 'ADMIN' ) !== -1">
+
+                    <a target="_blank" href="#/cluster/stocks/report/{{ row.organization_id }}/{{ row.id }}" 
+                      title="GoTo {{ row.reporting_period | date: 'MMMM' }} Stock Report"
+                      ng-if="!row.project_title">
+                      <i class="material-icons" style="color: {{ row.status }}">{{ row.icon }}</i>
+                    </a>
+
+                    <a target="_blank" href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" 
+                      title="GoTo {{ row.reporting_period | date: 'MMMM' }} Activity Report"
+                      ng-if="row.project_title">
+                      <i class="material-icons" style="color: {{ row.status }}">{{ row.icon }}</i>
+                    </a>
+
+                  </div>
 
                 </td>
               </tr>

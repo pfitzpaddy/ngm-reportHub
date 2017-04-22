@@ -232,10 +232,10 @@ angular
 
 			// cluster dashboard
 			.when( '/cluster/4w', {
-				redirectTo: '/cluster/4w/all/ALL/emro/af/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/4w/all/all/emro/af/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// health dashboard
-			.when( '/cluster/4w/:cluster_id/:organization/:adminRpcode/:admin0pcode/:admin1pcode/:admin2pcode/:beneficiaries/:start/:end', {
+			.when( '/cluster/4w/:cluster_id/:organization_tag/:adminRpcode/:admin0pcode/:admin1pcode/:admin2pcode/:beneficiaries/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardClusterCtrl',
 				resolve: {
