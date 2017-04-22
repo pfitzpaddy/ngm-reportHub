@@ -150,14 +150,14 @@ angular.module('ngmReportHub')
 						};
 
 					if ( role === 'super' ){
-						angular.forEach( $scope.dashboard.clusters, function(d,i){
+						angular.forEach( $scope.dashboard.lists.clusters, function(d,i){
 							
 							// admin URL
 							var path = $scope.dashboard.getAdminPath( d.cluster_id, $scope.dashboard.report_type, $scope.dashboard.organization_tag );
 
 							// menu rows
 							clusterRows.push({
-								'title': $scope.dashboard.clusters[i].cluster,
+								'title': $scope.dashboard.lists.clusters[i].cluster,
 								'param': 'cluster_id',
 								'active': d.cluster_id,
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
