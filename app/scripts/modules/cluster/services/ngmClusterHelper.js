@@ -739,10 +739,10 @@ angular.module( 'ngmReportHub' )
       },
 
       // get processed warehouse location
-      getCleanWarehouseLocation: function(user, organization, warehouse){
+      getCleanWarehouseLocation: function( user, organization, warehouse ){
         
         // merge
-        var warehouse = angular.merge({}, warehouse, warehouse.admin2, warehouse.fac_type);
+        var warehouse = angular.merge({}, organization, warehouse, warehouse.admin2, warehouse.fac_type);
 
         // delete
         delete warehouse.id;
@@ -752,9 +752,6 @@ angular.module( 'ngmReportHub' )
 
         // add params
         // warehouse.warehouse_status = 'new';
-        warehouse.cluster_id = organization.cluster_id;
-        warehouse.cluster = organization.cluster;
-        warehouse.organization = user.organization;
         warehouse.username = user.username;
         warehouse.email = user.email;
 
