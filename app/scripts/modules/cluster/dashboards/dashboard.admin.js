@@ -76,12 +76,7 @@ angular.module('ngmReportHub')
 				setUrl: function(){
 
 					// if ADMIN
-					var path;
-					if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 || $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
-						path = $scope.dashboard.getAdminPath( $scope.dashboard.cluster_id, $scope.dashboard.report_type, $scope.dashboard.organization_tag );
-					} else {
-						path = $scope.dashboard.getUserPath( $scope.dashboard.cluster_id, $scope.dashboard.report_type, $scope.dashboard.organization_tag );
-					}
+					var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.report_type, $scope.dashboard.organization_tag );
 					
 					// if current location is not equal to path 
 					if ( path !== $location.$$path ) {
@@ -113,25 +108,11 @@ angular.module('ngmReportHub')
 				},
 
 				// admin
-				getAdminPath: function( cluster_id, report_type, organization_tag ){
+				getPath: function( cluster_id, report_type, organization_tag ){
 
 					var path = '/cluster/admin/' + $scope.dashboard.adminRpcode.toLowerCase() +
 												 '/' + $scope.dashboard.admin0pcode.toLowerCase() +
 												 '/' + cluster_id +
-												 '/' + organization_tag +
-												 '/' + report_type +
-												 '/' + $scope.dashboard.startDate + 
-												 '/' + $scope.dashboard.endDate;
-
-					return path;
-				},
-
-				// user
-				getUserPath: function( cluster_id, report_type, organization_tag ){
-
-					var path = '/cluster/admin/' + $scope.dashboard.adminRpcode.toLowerCase() +
-												 '/' + $scope.dashboard.admin0pcode.toLowerCase() +
-												 '/' + cluster_id + 
 												 '/' + organization_tag +
 												 '/' + report_type +
 												 '/' + $scope.dashboard.startDate + 
@@ -162,7 +143,7 @@ angular.module('ngmReportHub')
 						angular.forEach( $scope.dashboard.lists.clusters, function(d,i){
 							
 							// admin URL
-							var path = $scope.dashboard.getAdminPath( d.cluster_id, $scope.dashboard.report_type, $scope.dashboard.organization_tag );
+							var path = $scope.dashboard.getPath( d.cluster_id, $scope.dashboard.report_type, $scope.dashboard.organization_tag );
 
 							// menu rows
 							clusterRows.push({
@@ -209,7 +190,7 @@ angular.module('ngmReportHub')
 							organizations.forEach(function( d, i ){
 
 								// admin URL
-								var path = $scope.dashboard.getAdminPath( $scope.dashboard.cluster_id, $scope.dashboard.report_type, d.organization_tag );
+								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.report_type, d.organization_tag );
 
 								// menu rows
 								orgRows.push({
@@ -329,13 +310,13 @@ angular.module('ngmReportHub')
 							'param': 'report_type',
 							'active': 'activity',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#' + $scope.dashboard.getAdminPath( $scope.dashboard.cluster_id, 'activity', $scope.dashboard.organization_tag )
+							'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'activity', $scope.dashboard.organization_tag )
 						},{
 							'title': 'STOCK',
 							'param': 'report_type',
 							'active': 'stock',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#' + $scope.dashboard.getAdminPath( $scope.dashboard.cluster_id, 'stock', $scope.dashboard.organization_tag )
+							'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'stock', $scope.dashboard.organization_tag )
 						}]
 					});
 					
@@ -406,7 +387,7 @@ angular.module('ngmReportHub')
 											// set new date
 											$scope.dashboard.startDate = date;
 											// URL
-											var path = $scope.dashboard.getAdminPath( $route.current.params.cluster_id, $route.current.params.report_type, $route.current.params.organization_tag ); 
+											var path = $scope.dashboard.getPath( $route.current.params.cluster_id, $route.current.params.report_type, $route.current.params.organization_tag ); 
 											// update new date
 											$location.path( path );
 
@@ -425,7 +406,7 @@ angular.module('ngmReportHub')
 											// set new date
 											$scope.dashboard.endDate = date;
 											// URL
-											var path = $scope.dashboard.getAdminPath( $route.current.params.cluster_id, $route.current.params.report_type, $route.current.params.organization_tag );
+											var path = $scope.dashboard.getPath( $route.current.params.cluster_id, $route.current.params.report_type, $route.current.params.organization_tag );
 											// update new date
 											$location.path( path );
 										}
