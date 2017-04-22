@@ -216,10 +216,10 @@ angular
 			})
 			// admin
 			.when( '/cluster/admin', {
-				redirectTo: '/cluster/admin/hq/all/all/activity/all/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/emro/af/all/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			// admin
-			.when( '/cluster/admin/:adminR/:admin0/:cluster_id/:report_type/:organization_tag/:start/:end', {
+			.when( '/cluster/admin/:adminRpcode/:admin0pcode/:cluster_id/:organization_tag/:report_type/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardClusterAdminCtrl',
 				resolve: {
@@ -232,10 +232,10 @@ angular
 
 			// cluster dashboard
 			.when( '/cluster/4w', {
-				redirectTo: '/cluster/4w/all/all/emro/af/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/4w/emro/af/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// health dashboard
-			.when( '/cluster/4w/:cluster_id/:organization_tag/:adminRpcode/:admin0pcode/:admin1pcode/:admin2pcode/:beneficiaries/:start/:end', {
+			.when( '/cluster/4w/:adminRpcode/:admin0pcode/:admin1pcode/:admin2pcode/:cluster_id/:organization_tag/:beneficiaries/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardClusterCtrl',
 				resolve: {

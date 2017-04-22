@@ -94,16 +94,16 @@ angular.module('ngmReportHub')
 				// request
 				getRequest: function( indicator, list ){
 
-					return {						
-						indicator: indicator,
+					return {
 						list: list,
+						indicator: indicator,
+						cluster_id: $scope.dashboard.cluster_id,
 						organization_tag: $scope.dashboard.organization_tag, 
 						adminRpcode: $scope.dashboard.adminRpcode,
 						admin0pcode: $scope.dashboard.admin0pcode,
-						cluster_id: $scope.dashboard.cluster_id,
 						report_type: $scope.dashboard.report_type,
 						start_date: $scope.dashboard.startDate,
-						end_date: $scope.dashboard.endDate,
+						end_date: $scope.dashboard.endDate
 					}
 
 				},
@@ -114,8 +114,8 @@ angular.module('ngmReportHub')
 					var path = '/cluster/admin/' + $scope.dashboard.adminRpcode.toLowerCase() +
 												 '/' + $scope.dashboard.admin0pcode.toLowerCase() +
 												 '/' + cluster_id +
+												 '/' + organization_tag +
 												 '/' + report_type +
-												 '/' + organization_tag + 
 												 '/' + $scope.dashboard.startDate + 
 												 '/' + $scope.dashboard.endDate;
 
@@ -125,11 +125,11 @@ angular.module('ngmReportHub')
 				// user
 				getUserPath: function( cluster_id, report_type, organization_tag ){
 
-					var path = '/cluster/admin/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
-												 '/' + $scope.dashboard.user.admin0pcode.toLowerCase() +
+					var path = '/cluster/admin/' + $scope.dashboard.adminRpcode.toLowerCase() +
+												 '/' + $scope.dashboard.admin0pcode.toLowerCase() +
 												 '/' + cluster_id + 
-												 '/' + report_type + 
-												 '/' + organization_tag + 
+												 '/' + organization_tag +
+												 '/' + report_type +
 												 '/' + $scope.dashboard.startDate + 
 												 '/' + $scope.dashboard.endDate;
 
@@ -150,6 +150,11 @@ angular.module('ngmReportHub')
 						};
 
 					if ( role === 'super' ){
+						// clusters
+						$scope.dashboard.lists.clusters.unshift({
+							cluster_id: 'all',
+							cluster: 'ALL',
+						});
 						angular.forEach( $scope.dashboard.lists.clusters, function(d,i){
 							
 							// admin URL
@@ -336,13 +341,11 @@ angular.module('ngmReportHub')
 				setDashboard: function(){
 
 					// constants (for now)
+					$scope.dashboard.adminRpcode = $route.current.params.adminRpcode;
+					$scope.dashboard.admin0pcode = $route.current.params.admin0pcode;
 					$scope.dashboard.cluster_id = $route.current.params.cluster_id;
-					$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
-					$scope.dashboard.adminRname = $scope.dashboard.user.adminRname;
-					$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode;
-					$scope.dashboard.admin0name = $scope.dashboard.user.admin0name;
-					$scope.dashboard.report_type = $route.current.params.report_type;
 					$scope.dashboard.organization_tag = $route.current.params.organization_tag;
+					$scope.dashboard.report_type = $route.current.params.report_type;
 
 					// ADMIN
 					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 ) {

@@ -87,12 +87,12 @@ angular.module('ngmReportHub')
 						method: 'POST',
 						url: 'http://' + $location.host() + '/api/cluster/indicator',
 						data: {
-							cluster_id: $scope.dashboard.cluster_id,
-							organization_tag: $scope.dashboard.organization_tag,
 							adminRpcode: $scope.dashboard.adminRpcode,
 							admin0pcode: $scope.dashboard.admin0pcode,
 							admin1pcode: $scope.dashboard.admin1pcode,
 							admin2pcode: $scope.dashboard.admin2pcode,
+							cluster_id: $scope.dashboard.cluster_id,
+							organization_tag: $scope.dashboard.organization_tag,
 							beneficiaries: $scope.dashboard.beneficiaries,
 							start_date: $scope.dashboard.startDate,
 							end_date: $scope.dashboard.endDate
@@ -123,13 +123,13 @@ angular.module('ngmReportHub')
 
 				// admin
 				getPath: function( cluster_id, organization_tag, admin1pcode, admin2pcode ){
-
-					var path = 'cluster/4w/' + cluster_id +
-																'/' + organization_tag +
-																'/' + $scope.dashboard.adminRpcode +
+					
+					var path = 'cluster/4w/' + $scope.dashboard.adminRpcode +
 																'/' + $scope.dashboard.admin0pcode +
 																'/' + admin1pcode +
 																'/' + admin2pcode +
+																'/' + cluster_id +
+																'/' + organization_tag +
 																'/' + $scope.dashboard.beneficiaries +
 																'/' + $scope.dashboard.startDate +
 																'/' + $scope.dashboard.endDate;
@@ -353,12 +353,12 @@ angular.module('ngmReportHub')
 				init: function(){
 
 					// variables
-					$scope.dashboard.cluster_id = $route.current.params.cluster_id;
-					$scope.dashboard.organization_tag = $route.current.params.organization_tag;
 					$scope.dashboard.adminRpcode = $route.current.params.adminRpcode;
 					$scope.dashboard.admin0pcode = $route.current.params.admin0pcode;
 					$scope.dashboard.admin1pcode = $route.current.params.admin1pcode;
 					$scope.dashboard.admin2pcode = $route.current.params.admin2pcode;
+					$scope.dashboard.cluster_id = $route.current.params.cluster_id;
+					$scope.dashboard.organization_tag = $route.current.params.organization_tag;
 					$scope.dashboard.beneficiaries = $route.current.params.beneficiaries.split('+');
 
 					// ADMIN
@@ -447,7 +447,7 @@ angular.module('ngmReportHub')
 											downloadUrl: 'http://' + $location.host() + '/report/',
 											user: $scope.dashboard.user,
 											pageLoadTime: 9600,
-											viewportWidth: 1280
+											viewportWidth: 1400
 										}
 									},
 									metrics: $scope.dashboard.getMetrics( 'cluster_dashboard_pdf', 'pdf' )
