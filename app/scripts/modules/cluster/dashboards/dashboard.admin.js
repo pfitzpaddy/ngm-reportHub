@@ -106,7 +106,7 @@ angular.module('ngmReportHub')
 						end_date: $scope.dashboard.endDate
 					}
 					
-					console.log(request)
+					console.log(request.cluster_id)
 
 					return request;
 
