@@ -70,14 +70,17 @@ angular.module('ngmReportHub')
 			GUEST: { 
 				adminRpcode: 'HQ', 
 				adminRname: 'Global', 
-				admin0pcode: 'ALL', 
+				admin0pcode: 'all', 
 				admin0name: 'All', 
 				guest: true,
 				visits: 1,
+				cluster: 'Health',
 				cluster_id: 'health',
 				organization: 'public', 
-				username: 'welcome', 
-				email: 'public@immap.org'
+				organization_tag: 'public',
+				username: 'welcome',
+				email: 'public@immap.org',
+				roles: [ 'USER', 'ADMIN', 'SUPERADMIN' ]
 			},
 
 			// register
