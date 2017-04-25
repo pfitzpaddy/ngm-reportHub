@@ -442,7 +442,7 @@ angular.module('ngmReportHub')
 										method: 'POST',
 										url: 'http://' + $location.host() + '/api/print',
 										data: {
-											report:  $scope.dashboard.report,
+											report:  $scope.dashboard.cluster_id + '_cluster_dashboard-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
 											printUrl: $location.absUrl(),
 											downloadUrl: 'http://' + $location.host() + '/report/',
 											user: $scope.dashboard.user,
@@ -456,28 +456,28 @@ angular.module('ngmReportHub')
 									color: 'blue lighten-2',
 									icon: 'call',
 									hover: 'Download Cluster Contact List as CSV',
-									request: $scope.dashboard.getRequest( { csv: true, indicator: 'contacts', report: $scope.dashboard.cluster_id + '_contacts_list-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									request: $scope.dashboard.getRequest( { csv: true, indicator: 'contacts', report: $scope.dashboard.cluster_id + '_contacts_list-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 									metrics: $scope.dashboard.getMetrics( 'cluster_contact_list', 'csv' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'assignment_turned_in',
 									hover: 'Download OCHA HRP Report as CSV',
-									request: $scope.dashboard.getRequest( { csv: true, indicator: 'ocha_report', report: $scope.dashboard.cluster_id + '_ocha_hrp_report-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									request: $scope.dashboard.getRequest( { csv: true, indicator: 'ocha_report', report: $scope.dashboard.cluster_id + '_ocha_hrp_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 									metrics: $scope.dashboard.getMetrics( 'cluster_ocha_report', 'csv' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'attach_money',
 									hover: 'Download OCHA Financial Report as CSV',
-									request: $scope.dashboard.getRequest( { csv: true, indicator: 'financial_report', report: $scope.dashboard.cluster_id + '_ocha_financial_report-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									request: $scope.dashboard.getRequest( { csv: true, indicator: 'financial_report', report: $scope.dashboard.cluster_id + '_ocha_financial_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 									metrics: $scope.dashboard.getMetrics( 'cluster_financial_report', 'csv' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'group',
 									hover: 'Download Beneficiary Data as CSV',
-									request: $scope.dashboard.getRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.cluster_id + '_beneficiary_data-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									request: $scope.dashboard.getRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.cluster_id + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 									metrics: $scope.dashboard.getMetrics( 'Beneficiary_data', 'csv' )
 								}]
 							}							
