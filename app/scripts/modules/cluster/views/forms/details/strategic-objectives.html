@@ -11,7 +11,7 @@
 </style>
 
 <!-- bind html -->
-<div class="row" ng-if="project.definition.cluster_id !== 'eiewg'">
+<div class="row" ng-if="project.definition.cluster_id !== 'eiewg' && project.definition.cluster_id !== 'cvwg'">
 	<!-- default SOs -->
 	<div>
 		<div class="col s12 m12 l12">
@@ -72,24 +72,24 @@
 
 					<li class="collection-item avatar">
 
-						<div ng-if="cluster.cluster_id !== 'eiewg'">
+						<div ng-if="cluster.cluster_id !== 'eiewg' && cluster.cluster_id !== 'cvwg'">
 							<p style="padding:10px;">
 								Select the Objectives that your project will target;
 							</p>
 						</div>
 
-						<div ng-if="cluster.cluster_id === 'eiewg'">
+						<div ng-if="cluster.cluster_id === 'eiewg' || cluster.cluster_id === 'cvwg'">
 							<div class="row">
 								<div class="card" style="padding:20px;">
 									<p style="padding:10px;">
-										There are no Strategic Objectives for EiEWG!
+										There are no Strategic Objectives for {{ cluster.cluster }}!
 									</p>
 								</div>
 							</div>
 						</div>
 
 						<!-- form -->
-						<div class="row" ng-if="cluster.cluster_id !== 'eiewg'">
+						<div class="row" ng-if="cluster.cluster_id !== 'eiewg' && cluster.cluster_id !== 'cvwg'">
 							<div class="card">
 								<ul class="collection with-header">
 									<li class="collection-item avatar" ng-repeat="objective in project.lists.strategic_objectives[ cluster.cluster_id ] track by $index">
