@@ -202,7 +202,6 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           // merge org
           var org = angular.copy( $scope.select[0] );
           delete org.id;
-          console.log(org);
           angular.merge( $scope.panel.user, org );
 
           // validate
