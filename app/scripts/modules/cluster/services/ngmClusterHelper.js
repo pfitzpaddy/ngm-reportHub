@@ -168,8 +168,8 @@ angular.module( 'ngmReportHub' )
       },
 
       // clusters
-      getClusters: function(){
-          return [{
+      getClusters: function( cluster_id ){
+          var clusters = [{
             cluster_id: 'eiewg',
             cluster: 'EiEWG'
           },{
@@ -197,6 +197,8 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'cvwg',
             cluster: 'Cash Voucher Working Group'
           }];
+
+          return clusters;
       },
 
       // return activity type by cluster
