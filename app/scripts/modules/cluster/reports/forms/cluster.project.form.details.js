@@ -477,10 +477,23 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // remove beneficiary
         removeBeneficiary: function() {
-          // remove
+          // get id
+          var id = $scope.project.definition.target_beneficiaries[ $scope.project.beneficiaryIndex ].id;
+          // remove from UI
           $scope.project.definition.target_beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
-          // save
-          $scope.project.save( false, 'People in Need Removed!' );
+          // send msg
+          $timeout( function(){ Materialize.toast( 'People in Need Removed!' , 3000, 'success' ) }, 400 );
+          
+          // remove at db
+          $http({
+            method: 'POST',
+            url: 'http://' + $location.host() + '/api/cluster/project/removeBeneficiary',
+            data: { id: id }
+          }).success( function( result ) {
+
+          }).error( function( err ) {
+            Materialize.toast( 'Error!', 6000, 'error' );
+          });
         },
 
         // add location
