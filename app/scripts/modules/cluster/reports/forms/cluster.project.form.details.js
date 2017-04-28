@@ -585,7 +585,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         saveLocation: function($index, $data) {
           // save project
           $scope.project.save( false, 'Project Location Saved!' );
-          // return [200, {status: 'ok'}];
         },
 
         // remove location from location list
@@ -596,15 +595,25 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $( '#location-modal' ).openModal({ dismissible: false });
         },
 
-        // remove location
+        // remove beneficiary
         removeLocation: function() {
-          // updated
-          $scope.project.definition.update_locations = true;
-          // remove
+          // get id
+          var id = $scope.project.definition.target_locations[ $scope.project.locationIndex ].id;
+          // remove from UI
           $scope.project.definition.target_locations.splice( $scope.project.locationIndex, 1 );
-          // save (open modal, set)
-          $scope.project.save( false, 'Project Location Removed!' );
-          // return [200, {status: 'ok'}];
+          // send msg
+          $timeout( function(){ Materialize.toast( 'Project Location Removed!' , 3000, 'success' ) }, 400 );
+          
+          // remove at db
+          $http({
+            method: 'POST',
+            url: 'http://' + $location.host() + '/api/cluster/project/removeLocation',
+            data: { id: id }
+          }).success( function( result ) {
+
+          }).error( function( err ) {
+            Materialize.toast( 'Error!', 6000, 'error' );
+          });
         },
 
         // validate project type
