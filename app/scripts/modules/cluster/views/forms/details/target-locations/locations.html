@@ -79,11 +79,18 @@
 							          </button>
 							        </form>
 							        <div class="buttons" ng-if="!rowform.$visible">
-							          <button class="btn waves-effect waves-light" ng-click="rowform.$show()" title="Edit">
+							          <button class="btn waves-effect waves-light" ng-click="rowform.$show(); project.locationEdit( $index )" title="Edit"
+							          			ng-disabled="
+							                  	( ( !project.project_details_valid() ) ||
+							                    ( !project.activity_type_valid() ) ||
+							                    ( !project.project_donor_valid() ) ||
+							                    ( !project.target_beneficiaries_valid() ) ||
+							                    ( !project.target_locations_valid() ) ||
+							                    ( !project.submit ) )">
 													<i class="material-icons">create</i>
 							          </button>
 							          <button class="btn red lighten-2 waves-effect waves-light" ng-click="project.removeLocationModal( $index )" title="Remove"
-											ng-disabled="
+							          			ng-disabled="
 							                  	( ( !project.project_details_valid() ) ||
 							                    ( !project.activity_type_valid() ) ||
 							                    ( !project.project_donor_valid() ) ||

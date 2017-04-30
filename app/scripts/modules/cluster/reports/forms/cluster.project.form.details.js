@@ -103,7 +103,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // datepicker
         datepicker: {
           onClose: function(){
-            $scope.project.definition.update_locations = true;
+            // $scope.project.definition.update_locations = true;
             $scope.project.definition.project_start_date = moment( $scope.project.definition.project_start_date ).format('YYYY-MM-DD');
             $scope.project.definition.project_end_date = moment( $scope.project.definition.project_end_date ).format('YYYY-MM-DD');
           }
@@ -578,7 +578,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // if locations change we will need to run an update
         locationChange: function(){
-          $scope.project.definition.update_locations = true;
+          // $scope.project.definition.update_locations = true;
+        },
+
+        // location edit
+        locationEdit: function( $index ) {
+          $scope.project.definition.target_locations[ $index ].update_location = true;
         },
 
         // save location
@@ -624,6 +629,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             $scope.project.definition.project_title &&
             $scope.project.definition.project_start_date &&
             $scope.project.definition.project_end_date &&
+            $scope.project.definition.project_budget &&
             $scope.project.definition.project_budget_currency &&
             $scope.project.definition.project_status &&
             $scope.project.definition.project_description
@@ -918,7 +924,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               $scope.project.definition.target_locations = $filter( 'orderBy' )( $scope.project.definition.target_locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
               
               // locations updated
-              $scope.project.definition.update_locations = false;
+              // $scope.project.definition.update_locations = false;
 
               // modal-trigger
               $('.modal-trigger').leanModal();
@@ -973,13 +979,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // give a few seconds to render
         $timeout(function() {
-
-          // reset location update flag
-          $scope.project.definition.update_locations = false;
-
-          // order locations
-          $scope.project.definition.target_locations = 
-                  $filter( 'orderBy' )( $scope.project.definition.target_locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
 
           // reset to cover updates
           if ( !$scope.project.definition.project_hrp_code ){

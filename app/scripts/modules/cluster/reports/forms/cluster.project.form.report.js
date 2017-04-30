@@ -138,6 +138,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }
 
           // clone
+          if ( !$scope.project.report.locations[ $parent ].beneficiaries ) {
+            $scope.project.report.locations[ $parent ].beneficiaries = [];
+          }
           var length = $scope.project.report.locations[ $parent ].beneficiaries.length;
           if ( length ) {
             var b = angular.copy( $scope.project.report.locations[ $parent ].beneficiaries[ length - 1 ] );
@@ -516,15 +519,17 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var beneficiaries = 0;
           var rowComplete = 0;
           angular.forEach( $scope.project.report.locations, function( l ){
-            beneficiaries += l.beneficiaries.length;
-            if ( l.beneficiaries.length ) {
-              angular.forEach( l.beneficiaries, function( b ){
-                if ( !$scope.project.rowSaveDisabled( b ) ) {
-                  rowComplete++;
-                }
-              });
-            } else {
-              rowComplete++;
+            if( l.beneficiaries ) {
+              beneficiaries += l.beneficiaries.length;
+              if ( l.beneficiaries.length ) {
+                angular.forEach( l.beneficiaries, function( b ){
+                  if ( !$scope.project.rowSaveDisabled( b ) ) {
+                    rowComplete++;
+                  }
+                });
+              } else {
+                rowComplete++;
+              }
             }
           });
           // 

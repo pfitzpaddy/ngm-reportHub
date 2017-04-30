@@ -25,8 +25,9 @@ angular.module( 'ngmReportHub' )
           project_description: 'Complete the project details to register a new project',
           project_start_date: moment().format('YYYY-MM-DD'),
           project_end_date: moment().add( 6, 'M' ).format('YYYY-MM-DD'),
-          target_beneficiaries: [],
+          project_budget_progress: [],
           beneficiary_type: [],
+          target_beneficiaries: [],
           target_locations: []
         }
 
@@ -224,8 +225,6 @@ angular.module( 'ngmReportHub' )
         if ( filterDuplicates ) {
           activities = this.filterDuplicates( activities, 'activity_type_id' );
         }
-
-        console.log(activities)
 
         // return 
         return activities;
