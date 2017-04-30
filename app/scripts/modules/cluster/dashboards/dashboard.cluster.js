@@ -529,7 +529,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Beneficiaries',
+										title: 'Services to Beneficiaries',
 										request: $scope.dashboard.getRequest( { indicator: 'beneficiaries' } )
 									}
 								}]

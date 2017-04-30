@@ -113,7 +113,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         cancel: function() {
           $timeout(function() {
             $location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
-          }, 100);
+          }, 400);
         },
 
         // set to model on check
@@ -482,7 +482,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // remove from UI
           $scope.project.definition.target_beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
           // send msg
-          $timeout( function(){ Materialize.toast( 'People in Need Removed!' , 3000, 'success' ) }, 400 );
+          $timeout( function(){ Materialize.toast( 'People in Need Removed!' , 3000, 'success' ) }, 600 );
           
           // remove at db
           $http({
@@ -607,7 +607,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // remove from UI
           $scope.project.definition.target_locations.splice( $scope.project.locationIndex, 1 );
           // send msg
-          $timeout( function(){ Materialize.toast( 'Project Location Removed!' , 3000, 'success' ) }, 400 );
+          $timeout( function(){ Materialize.toast( 'Project Location Removed!' , 3000, 'success' ) }, 600 );
           
           // remove at db
           $http({
@@ -915,7 +915,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               $timeout(function(){ 
                 $('.toast.note').animate({ 'marginTop' : '-=80px'});
                 $('.toast.note').fadeOut( 200 );
-              }, 600);
+              }, 400);
 
               // add id to client json
               $scope.project.definition = angular.merge( $scope.project.definition, project );
@@ -931,7 +931,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               
               if( save_msg ){
                 // message
-                $timeout( function(){ Materialize.toast( save_msg , 3000, 'success' ) }, 400 );
+                $timeout( function(){ Materialize.toast( save_msg , 3000, 'success' ) }, 600 );
               }
               
               // notification modal
@@ -945,9 +945,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                   
                   // redirect + msg
                   $location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
-                  Materialize.toast( msg, 3000, 'success' );
+                  // update
+                  $timeout(function(){                  
+                    Materialize.toast( msg, 3000, 'success' );
+                  }, 600 );
 
-                }, 200 );
+                }, 400 );
               }
             }
 
@@ -967,8 +970,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             var msg = $scope.project.definition.project_status === 'new' ? 'Create Project Cancelled!' : 'Project Update Cancelled!';
             // redirect + msg
             $location.path( path );
-            Materialize.toast( msg, 3000, 'note' );
-          }, 100 );
+            $timeout(function() { Materialize.toast( msg, 3000, 'note' ); }, 400 );
+          }, 400 );
 
         }   
 

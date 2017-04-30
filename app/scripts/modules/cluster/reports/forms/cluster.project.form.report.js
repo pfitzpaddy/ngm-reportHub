@@ -94,7 +94,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $timeout(function() {
             // Re-direct to summary
             $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
-          }, 200);
+          }, 400);
         },
 
         // add beneficiary
@@ -464,9 +464,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // remove beneficiary
         removeBeneficiary: function() {
-
-          // msg
-          // Materialize.toast( 'Processing Beneficiary...' , 3000, 'note');
           
           // b
           var b = $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries[ $scope.project.beneficiaryIndex ];
@@ -476,7 +473,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             method: 'POST',
             url: 'http://' + $location.host() + '/api/cluster/report/removeBeneficiary',
             data: {
-              beneficiary: b
+              id: b.id
             }
           }          
           
@@ -599,7 +596,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
                   msg += complete ? 'Submitted!' : 'Saved!';
               
               // msg
-              Materialize.toast( msg , 3000, 'success');
+              $timeout(function() { Materialize.toast( msg , 3000, 'success'); }, 600 );
               // set trigger
               $('.modal-trigger').leanModal();
               
@@ -610,13 +607,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
                 if( display_modal ){
                   $timeout(function() {
                     $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
-                  }, 600);
+                  }, 400);
                 }
 
               } else {
                 $timeout(function() {
                   $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
-                }, 600);
+                }, 400);
               }
             }
           }).error(function( err ) {
