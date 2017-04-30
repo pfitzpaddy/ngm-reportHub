@@ -26,7 +26,9 @@ angular.module('ngmReportHub')
 				user.last_logged_in = moment();
 				localStorage.setObject( 'auth_token', user );
 				// set lists
-				$injector.get( 'ngmClusterHelper' ).setClusterLists();
+				if ( !user.guest ) {
+					$injector.get( 'ngmClusterHelper' ).setClusterLists();
+				}
 			},
 
 			// unset user from storage

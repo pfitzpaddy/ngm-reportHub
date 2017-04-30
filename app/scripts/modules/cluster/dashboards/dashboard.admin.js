@@ -72,6 +72,20 @@ angular.module('ngmReportHub')
 					admin2: false,
 				},
 
+				// admin
+				getPath: function( cluster_id, report_type, organization_tag ){
+
+					var path = '/cluster/admin/' + $scope.dashboard.adminRpcode.toLowerCase() +
+												 '/' + $scope.dashboard.admin0pcode.toLowerCase() +
+												 '/' + cluster_id +
+												 '/' + organization_tag +
+												 '/' + report_type +
+												 '/' + $scope.dashboard.startDate + 
+												 '/' + $scope.dashboard.endDate;
+
+					return path;
+				},
+
         // set URL based on user rights
 				setUrl: function(){
 
@@ -103,20 +117,6 @@ angular.module('ngmReportHub')
 
 					return request;
 
-				},
-
-				// admin
-				getPath: function( cluster_id, report_type, organization_tag ){
-
-					var path = '/cluster/admin/' + $scope.dashboard.adminRpcode.toLowerCase() +
-												 '/' + $scope.dashboard.admin0pcode.toLowerCase() +
-												 '/' + cluster_id +
-												 '/' + organization_tag +
-												 '/' + report_type +
-												 '/' + $scope.dashboard.startDate + 
-												 '/' + $scope.dashboard.endDate;
-
-					return path;
 				},
 
 				// menu

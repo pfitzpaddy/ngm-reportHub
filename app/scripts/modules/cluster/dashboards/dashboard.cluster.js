@@ -56,8 +56,8 @@ angular.module('ngmReportHub')
 				// lists
 				lists: {
 					clusters: ngmClusterHelper.getClusters(),
-					admin1: localStorage.getObject( 'lists' ).admin1List,
-					admin2: localStorage.getObject( 'lists' ).admin2List
+					admin1: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin1List : [],
+					admin2: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin2List : []
 				},
 
 				// filtered data
@@ -70,7 +70,7 @@ angular.module('ngmReportHub')
 				// admin
 				getPath: function( cluster_id, organization_tag, admin1pcode, admin2pcode ){
 					
-					var path = 'cluster/4w/' + $scope.dashboard.adminRpcode +
+					var path = '/cluster/4w/' + $scope.dashboard.adminRpcode +
 																'/' + $scope.dashboard.admin0pcode +
 																'/' + admin1pcode +
 																'/' + admin2pcode +
@@ -91,7 +91,6 @@ angular.module('ngmReportHub')
 
 					// if current location is not equal to path 
 					if ( path !== $location.$$path ) {
-						// 
 						$location.path( path );
 					}
 
@@ -172,7 +171,7 @@ angular.module('ngmReportHub')
 								'param': 'cluster_id',
 								'active': d.cluster_id,
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/' + path
+								'href': '/desk/#' + path
 							});
 						});
 						$scope.model.menu.push({
@@ -192,7 +191,7 @@ angular.module('ngmReportHub')
 								'param': 'organization_tag',
 								'active': d.organization_tag,
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/' + path
+								'href': '/desk/#' + path
 							});
 						});
 						$scope.model.menu.push({
@@ -221,7 +220,7 @@ angular.module('ngmReportHub')
 									'param': 'admin1pcode',
 									'active': d.admin1pcode,
 									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-									'href': '/desk/#/' + path
+									'href': '/desk/#' + path
 								});
 							});
 							var title = $filter( 'filter' )( $scope.dashboard.lists.admin1, { admin0pcode: $scope.dashboard.admin0pcode.toUpperCase() }, true )[0];
@@ -253,7 +252,7 @@ angular.module('ngmReportHub')
 									'param': 'admin2pcode',
 									'active': d.admin2pcode,
 									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-									'href': '/desk/#/' + path
+									'href': '/desk/#' + path
 								});
 							});
 							var title = $filter( 'filter' )( $scope.dashboard.lists.admin2, { admin1pcode: $scope.dashboard.admin1pcode.toUpperCase() }, true )[0];
@@ -401,6 +400,7 @@ angular.module('ngmReportHub')
 									style: 'float:left;',
 									label: 'from',
 									format: 'd mmm, yyyy',
+									min: '2017-01-01',
 									max: $scope.dashboard.endDate,
 									currentTime: $scope.dashboard.startDate,
 									onClose: function(){
@@ -608,41 +608,46 @@ angular.module('ngmReportHub')
 			};
 
 			// if lists
-			if ( $scope.dashboard.lists.admin1 ) {
+			if ( $scope.dashboard.lists.admin1.length ) {
 				
 				// set dashboard
 				$scope.dashboard.init();
 
+				// assign to ngm app scope ( for menu )
+				$scope.dashboard.ngm.dashboard.model = $scope.model;
+
 			}
 
 			// if none
-			if ( !$scope.dashboard.lists.admin1 ) {
+			if ( !$scope.dashboard.lists.admin1.length ) {
 
 				// lists
 				var requests = {
-					getAdmin1List: { method: 'GET', url: 'http://' + $location.host() + '/api/location/getAdmin1List' },
-					getAdmin2List: { method: 'GET', url: 'http://' + $location.host() + '/api/location/getAdmin2List' }
+					getAdmin1List: 'http://' + $location.host() + '/api/location/getAdmin1List',
+					getAdmin2List: 'http://' + $location.host() + '/api/location/getAdmin2List'
 				}
 
 				// send request
 				$q.all([ 
-					$http( requests.getAdmin1List ),
-					$http( requests.getAdmin2List ) ] ).then( function( results ){
+					$http.get( requests.getAdmin1List ), 
+					$http.get( requests.getAdmin2List ) ]).then( function( results ) {
 
-						// admin1, admin2, activities object
-						var lists = { admin1List: results[0].data, admin2List: results[1].data };
+					// set dashboard lists
+					$scope.dashboard.lists.admin1 = results[0].data;
+					$scope.dashboard.lists.admin2 = results[1].data;
 
-						// storage
-						localStorage.setObject( 'lists', lists );
+					// set in localstorage
+					localStorage.setObject( 'lists', { admin1List: results[0].data, admin2List: results[1].data } );
 
-						// set dashboard
-						$scope.dashboard.init();
+					// set dashboard
+					$scope.dashboard.init();
 
-					});
+					// assign to ngm app scope ( for menu )
+					$scope.dashboard.ngm.dashboard.model = $scope.model;
+
+				});
+
 			}
-
-			// assign to ngm app scope ( for menu )
-			$scope.dashboard.ngm.dashboard.model = $scope.model;
 
 		}
 
