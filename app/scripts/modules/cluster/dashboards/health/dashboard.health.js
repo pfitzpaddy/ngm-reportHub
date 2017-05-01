@@ -48,6 +48,10 @@ angular.module( 'ngmReportHub' )
 				// current report
 				report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
 
+				// lists
+				admin1List: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin1List : [],
+				admin2List: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin2List : [],
+
 				// dashboard data
 				data: {
 					// menu
@@ -121,7 +125,7 @@ angular.module( 'ngmReportHub' )
 							end_date: $scope.dashboard.endDate,
 							adminRpcode: $scope.dashboard.adminRpcode,
 							admin0pcode: $scope.dashboard.admin0pcode,
-							organization_id: $scope.dashboard.organization_id,
+							organization_tag: $scope.dashboard.organization_tag,
 							admin1pcode: $scope.dashboard.admin1pcode,
 							admin2pcode: $scope.dashboard.admin2pcode,
 							project_type: $scope.dashboard.project_type,
@@ -164,7 +168,7 @@ angular.module( 'ngmReportHub' )
 							end_date: $scope.dashboard.endDate,
 							adminRpcode: $scope.dashboard.adminRpcode,
 							admin0pcode: $scope.dashboard.admin0pcode,
-							organization_id: $scope.dashboard.organization_id,
+							organization_tag: $scope.dashboard.organization_tag,
 							admin1pcode: $scope.dashboard.admin1pcode,
 							admin2pcode: $scope.dashboard.admin2pcode,
 							project_type: $scope.dashboard.project_type,
@@ -186,7 +190,7 @@ angular.module( 'ngmReportHub' )
 					// user URL
 					var path = '/cluster/health/4w/' + $scope.dashboard.user.adminRpcode.toLowerCase() +
 															 '/' + $scope.dashboard.user.admin0pcode.toLowerCase() + 
-															 '/' + $route.current.params.organization_id + 
+															 '/' + $route.current.params.organization_tag + 
 															 '/' + $route.current.params.admin1 + 
 															 '/' + $route.current.params.admin2 + 
 															 '/' + $route.current.params.project + 
@@ -292,7 +296,7 @@ angular.module( 'ngmReportHub' )
 						// URL path
 						var path = '#/cluster/health/4w/' + key + 
 															 '/all' +
-															 '/' + $route.current.params.organization_id +  
+															 '/' + $route.current.params.organization_tag +  
 															 '/all' + 
 															 '/all' +
 															 '/' + $route.current.params.project + 
@@ -327,7 +331,7 @@ angular.module( 'ngmReportHub' )
 						// URL path
 						var path = '#/cluster/health/4w/' + $route.current.params.adminR + 
 															 '/' + d.admin0pcode +
-															 '/' + $route.current.params.organization_id + 
+															 '/' + $route.current.params.organization_tag + 
 															 '/all' + 
 															 '/all' +
 															 '/' + $route.current.params.project + 
@@ -373,7 +377,8 @@ angular.module( 'ngmReportHub' )
 									list: true,
 									cluster_id: 'health',
 									indicator: 'organizations',
-									organization: 'all', 
+									organization_tag: 'all', 
+									report_type: 'activity',
 									adminRpcode: $route.current.params.adminR,
 									admin0pcode: $route.current.params.admin0,
 									start_date: $scope.dashboard.startDate,
@@ -384,22 +389,13 @@ angular.module( 'ngmReportHub' )
 					// fetch org list
 					ngmData.get( request ).then( function( organizations  ){
 
-						// filter
-						organizations = $filter( 'orderBy' )( organizations, 'organization' );
-
-						// add all
-						organizations.unshift({
-							organization_id: 'all',
-							organization: 'ALL',
-						})
-
 						// for each
 						organizations.forEach(function( d, i ){
 
 						// URL path
 						var path = '#/cluster/health/4w/' + $route.current.params.adminR + 
 															 '/' + $route.current.params.admin0 +
-															 '/' + d.organization_id +
+															 '/' + d.organization_tag +
 															 '/' + $route.current.params.admin1 +
 															 '/' + $route.current.params.admin2 +
 															 '/' + $route.current.params.project + 
@@ -408,7 +404,7 @@ angular.module( 'ngmReportHub' )
 															 '/' + $scope.dashboard.endDate;
 
 							// update title to organization
-							if ( $route.current.params.organization_id === d.organization_id && d.organization_id !== 'all' ) {
+							if ( $route.current.params.organization_tag === d.organization_tag && d.organization_tag !== 'all' ) {
 								$scope.model.header.title.title += ' | ' + d.organization;
 								$scope.model.header.subtitle.title += ', ' + d.organization + ' organization';
 							}
@@ -416,8 +412,8 @@ angular.module( 'ngmReportHub' )
 							// menu rows
 							rows.push({
 								'title': d.organization,
-								'param': 'organization_id',
-								'active': d.organization_id,
+								'param': 'organization_tag',
+								'active': d.organization_tag,
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 								'href': path
 							});
@@ -447,7 +443,7 @@ angular.module( 'ngmReportHub' )
 
 					// filter admin1 data object
 					$scope.dashboard.data.admin1 = 
- 									$filter( 'filter' )( localStorage.getObject( 'lists' ).admin1List, 
+ 									$filter( 'filter' )( $scope.dashboard.admin1List, 
                   				{ admin0pcode: $route.current.params.admin0.toUpperCase() }, true );
 
 					// for each admin1, add to menu
@@ -456,7 +452,7 @@ angular.module( 'ngmReportHub' )
 						// URL path
 						var path = '#/cluster/health/4w/' + $route.current.params.adminR + 
 															 '/' + $route.current.params.admin0 +
-															 '/' + $route.current.params.organization_id + 
+															 '/' + $route.current.params.organization_tag + 
 															 '/' + d.admin1pcode +
 															 '/all' +
 															 '/' + $route.current.params.project + 
@@ -491,7 +487,7 @@ angular.module( 'ngmReportHub' )
 						$scope.dashboard.getBeneficiariesRows();
 					} else {
 						// filter
-						var admin1 = $filter( 'filter' )(  $scope.dashboard.data.admin1, 
+						var admin1 = $filter( 'filter' )( $scope.dashboard.data.admin1, 
                   				{ admin1pcode: $route.current.params.admin1 }, true );
 						
 						// update model title/subtitle
@@ -510,7 +506,7 @@ angular.module( 'ngmReportHub' )
 
 					// filter admin1 data object
 					$scope.dashboard.data.admin2 =
- 									$filter( 'filter' )( localStorage.getObject( 'lists' ).admin2List, 
+ 									$filter( 'filter' )( $scope.dashboard.admin2List, 
                   				{ admin1pcode: $route.current.params.admin1 }, true );
 
 					// for each admin1
@@ -519,7 +515,7 @@ angular.module( 'ngmReportHub' )
 						// URL path
 						var path = '#/cluster/health/4w/' + $route.current.params.adminR + 
 															 '/' + $route.current.params.admin0 +
-															 '/' + $route.current.params.organization_id + 
+															 '/' + $route.current.params.organization_tag + 
 															 '/' + $route.current.params.admin1 +
 															 '/' + d.admin2pcode + 
 															 '/' + $route.current.params.project + 
@@ -577,7 +573,7 @@ angular.module( 'ngmReportHub' )
 						// URL path
 						var path = '#/cluster/health/4w/' + $route.current.params.adminR + 
 															 '/' + $route.current.params.admin0 +
-															 '/' + $route.current.params.organization_id + 
+															 '/' + $route.current.params.organization_tag + 
 															 '/' + $route.current.params.admin1 +
 															 '/' + $route.current.params.admin2 +
 															 '/' + $route.current.params.project + 
@@ -667,7 +663,7 @@ angular.module( 'ngmReportHub' )
 					// variables
 					$scope.dashboard.adminRpcode = $route.current.params.adminR;
 					$scope.dashboard.admin0pcode = $route.current.params.admin0;
-					$scope.dashboard.organization_id = $route.current.params.organization_id;
+					$scope.dashboard.organization_tag = $route.current.params.organization_tag;
 					$scope.dashboard.admin1pcode = $route.current.params.admin1;
 					$scope.dashboard.admin2pcode = $route.current.params.admin2;
 					$scope.dashboard.project_type = $route.current.params.project.split('+');
@@ -725,7 +721,7 @@ angular.module( 'ngmReportHub' )
 											// URL
 											var path = '/cluster/health/4w/' + $route.current.params.adminR + 
 																					 '/' + $route.current.params.admin0 + 
-																					 '/' + $route.current.params.organization_id + 
+																					 '/' + $route.current.params.organization_tag + 
 																					 '/' + $route.current.params.admin1 + 
 																					 '/' + $route.current.params.admin2 + 
 																					 '/' + $route.current.params.project + 
@@ -753,7 +749,7 @@ angular.module( 'ngmReportHub' )
 											// URL
 											var path = '/cluster/health/4w/' + $route.current.params.adminR + 
 																					 '/' + $route.current.params.admin0 + 
-																					 '/' + $route.current.params.organization_id + 
+																					 '/' + $route.current.params.organization_tag + 
 																					 '/' + $route.current.params.admin1 + 
 																					 '/' + $route.current.params.admin2 + 
 																					 '/' + $route.current.params.project + 
@@ -865,7 +861,7 @@ angular.module( 'ngmReportHub' )
 							// 					end_date: $scope.dashboard.endDate,
 							// 					adminRpcode: $scope.dashboard.adminRpcode,
 							// 					admin0pcode: $scope.dashboard.admin0pcode,
-							// 					organization_id: $scope.dashboard.organization_id,
+							// 					organization_tag: $scope.dashboard.organization_tag,
 							// 					admin1pcode: $scope.dashboard.admin1pcode,
 							// 					admin2pcode: $scope.dashboard.admin2pcode,
 							// 					project_type: $scope.dashboard.project_type,
@@ -1215,6 +1211,7 @@ angular.module( 'ngmReportHub' )
 
 			// if registered user
 			if ( !ngmUser.get().guest ) {
+				
 				// set dashboard
 				$scope.dashboard.setDashboard();
 
@@ -1250,14 +1247,29 @@ angular.module( 'ngmReportHub' )
 
 				} else {
 
-					// get location
-					ngmData.get({
-						method: 'GET',
-						url: 'http://ip-api.com/json'
-					}).then( function( results ){
+				// lists
+				var requests = {
+					ipApi: 'http://ip-api.com/json',
+					getAdmin1List: 'http://' + $location.host() + '/api/location/getAdmin1List',
+					getAdmin2List: 'http://' + $location.host() + '/api/location/getAdmin2List'
+				}
+
+				// send request
+				$q.all([ 
+					$http.get( requests.ipApi ),
+					$http.get( requests.getAdmin1List ), 
+					$http.get( requests.getAdmin2List ) ]).then( function( results ) {
+
+						// set dashboard lists
+						ipApi = results[0].data;
+						$scope.dashboard.admin1List = results[1].data;
+						$scope.dashboard.admin2List = results[2].data;
+
+						// set in localstorage
+						localStorage.setObject( 'lists', { admin1List: results[1].data, admin2List: results[2].data } );
 
 						// update guest location
-						angular.merge( $scope.dashboard.user, $scope.dashboard.data.admin_region[ results.countryCode ] );
+						angular.merge( $scope.dashboard.user, $scope.dashboard.data.admin_region[ ipApi.countryCode ] );
 
 						// add visit
 						$scope.dashboard.user.visits++;

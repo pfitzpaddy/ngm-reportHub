@@ -256,7 +256,7 @@ angular
 				redirectTo: '/cluster/health/4w/hq/all/all/all/all/all/all/2016-01-01/2016-12-31'
 			})
 			// health dashboard
-			.when( '/cluster/health/4w/:adminR/:admin0/:organization_id/:admin1/:admin2/:project/:beneficiaries/:start/:end', {
+			.when( '/cluster/health/4w/:adminR/:admin0/:organization_tag/:admin1/:admin2/:project/:beneficiaries/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardHealthCtrl',
 				resolve: {
