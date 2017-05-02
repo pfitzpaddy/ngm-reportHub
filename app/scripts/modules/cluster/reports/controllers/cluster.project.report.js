@@ -75,7 +75,7 @@ angular.module('ngmReportHub')
 				$scope.report.definition = data[1].data;
 
 				// set report for downloads
-				$scope.report.report = $scope.report.project.organization + '_' + $scope.report.project.cluster + '_' + $scope.report.definition.project_title.replace(/\ /g, '_') + '_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
+				$scope.report.report = $scope.report.project.organization + '_' + $scope.report.project.cluster + '_' + $scope.report.project.project_title.replace(/\ /g, '_') + '_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 
 				// add project code to subtitle?
 				var text = 'Actual Monthly Beneficiaries Report for ' + moment( $scope.report.definition.reporting_period ).format('MMMM, YYYY');
