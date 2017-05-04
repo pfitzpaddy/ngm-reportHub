@@ -101,14 +101,14 @@
 							<div class="row">
 
 								<!-- budget currency -->
-								<div class="input-field col s12 m4">
+								<div class="input-field col s12 m6">
 								  <input id="ngm-project_hrp_code" type="text" class="validate"
 								  	ng-model="project.definition.project_hrp_code"
 								  	ng-disabled="project.definition.project_status === 'complete'">
 								  <label for="ngm-project-budget">HRP Project Code</label>
 								</div>
 
-								<div class="input-field col s12 m4">
+								<div class="input-field col s12 m3">
 								  <input id="ngm-project-budget" type="text" class="validate"
 								  	ng-model="project.definition.project_budget"
 								  	ng-disabled="project.definition.project_status === 'complete'"
@@ -116,7 +116,7 @@
 								  <label for="ngm-project-budget">Project Budget ( {{ project.definition.project_budget_currency | uppercase }} ) *</label>
 								</div>
 
-								<div class="input-field col s12 m4"
+								<div class="input-field col s12 m3"
 									ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }">
 									    <select class="validate"
 									    	id="ngm-project_budget_currency"
@@ -276,7 +276,7 @@
 							<div class="row">
 						        <div class="input-field col s12 m12 l12">
 						          <textarea id="ngm-project-description" type="text" 
-						          				style="padding-left:12px;"
+						          				style="padding-left:10px;"
 						          				class="validate materialize-textarea"
 												ng-model="project.definition.project_description"
 												ng-disabled="project.definition.project_status === 'complete'"

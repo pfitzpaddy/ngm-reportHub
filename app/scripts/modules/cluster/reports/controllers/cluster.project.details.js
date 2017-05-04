@@ -145,12 +145,6 @@ angular.module('ngmReportHub')
 					}]
 				}
 
-				// set model to null
-				if($route.current.params.project === 'new'){
-					$scope.report.project.project_title = '';
-					$scope.report.project.project_description = '';
-				}
-
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;
 

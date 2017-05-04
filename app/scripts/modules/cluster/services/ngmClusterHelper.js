@@ -21,10 +21,13 @@ angular.module( 'ngmReportHub' )
         // create empty project
         var project = {
           project_status: 'new',
-          project_title: 'New Project',
+          project_title: 'Enter New ' + user.organization + ' Project Title...',
           project_description: 'Complete the project details to register a new project',
           project_start_date: moment().format('YYYY-MM-DD'),
           project_end_date: moment().add( 6, 'M' ).format('YYYY-MM-DD'),
+          // project_code: user.organization + '/' + moment().unix(),
+          project_budget: '0',
+          project_description: 'Please enter a project summary description including objectives...',
           project_budget_progress: [],
           beneficiary_type: [],
           target_beneficiaries: [],
@@ -297,29 +300,25 @@ angular.module( 'ngmReportHub' )
           currency_id: 'afn',
           currency_name: 'AFN'
         },{
-          admin0pcode: 'AF',
+          admin0pcode: admin0pcode,
           currency_id: 'aud',
           currency_name: 'AUD'
         },{
-          admin0pcode: 'AF',
+          admin0pcode: admin0pcode,
           currency_id: 'ddk',
           currency_name: 'DDK'
-        },{
-          admin0pcode: 'AF',
-          currency_id: 'eur',
-          currency_name: 'EUR'
-        },{
-          admin0pcode: 'AF',
-          currency_id: 'gbp',
-          currency_name: 'GBP'
-        },{
-          admin0pcode: 'AF',
-          currency_id: 'sek',
-          currency_name: 'SEK'
         },{
           admin0pcode: 'ET',
           currency_id: 'etb',
           currency_name: 'ETB'
+        },{
+          admin0pcode: admin0pcode,
+          currency_id: 'eur',
+          currency_name: 'EUR'
+        },{
+          admin0pcode: admin0pcode,
+          currency_id: 'gbp',
+          currency_name: 'GBP'
         },{
           admin0pcode: 'IQ',
           currency_id: 'iqd',
@@ -328,6 +327,10 @@ angular.module( 'ngmReportHub' )
           admin0pcode: 'KE',
           currency_id: 'kes',
           currency_name: 'KES'
+        },{
+          admin0pcode: admin0pcode,
+          currency_id: 'sek',
+          currency_name: 'SEK'
         },{
           admin0pcode: 'SO',
           currency_id: 'sos',

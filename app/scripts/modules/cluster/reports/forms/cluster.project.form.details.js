@@ -477,10 +477,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // remove beneficiary
         removeBeneficiary: function() {
+          
           // get id
           var id = $scope.project.definition.target_beneficiaries[ $scope.project.beneficiaryIndex ].id;
+
           // remove from UI
           $scope.project.definition.target_beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
+          
           // send msg
           $timeout( function(){ Materialize.toast( 'People in Need Removed!' , 3000, 'success' ) }, 600 );
           
@@ -494,6 +497,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           }).error( function( err ) {
             Materialize.toast( 'Error!', 6000, 'error' );
           });
+
         },
 
         // add location
@@ -602,10 +606,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // remove beneficiary
         removeLocation: function() {
+          
           // get id
           var id = $scope.project.definition.target_locations[ $scope.project.locationIndex ].id;
+          
           // remove from UI
           $scope.project.definition.target_locations.splice( $scope.project.locationIndex, 1 );
+          
           // send msg
           $timeout( function(){ Materialize.toast( 'Project Location Removed!' , 3000, 'success' ) }, 600 );
           
@@ -619,6 +626,15 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           }).error( function( err ) {
             Materialize.toast( 'Error!', 6000, 'error' );
           });
+
+        },
+
+        // remove from array
+        cancelEdit: function( key, $index ) {
+
+          // splice 
+          $scope.project.definition[ key ].splice( $index, 1 );
+
         },
 
         // validate project type
