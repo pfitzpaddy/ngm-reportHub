@@ -277,7 +277,7 @@
 							        <form editable-form name="rowform" ng-show="rowform.$visible" onbeforesave="project.saveBeneficiary()" class="form-buttons form-inline" shown="inserted == beneficiary">
 							          <button 
 							          		title="Save" type="submit" class="btn waves-effect waves-light save"
-							          		ng-if="rowform.$visible" 
+							          		ng-if="rowform.$visible && !project.newProject" 
 							          		ng-disabled="
 							                  	( ( !project.project_details_valid() ) ||
 							                    ( !project.activity_type_valid() ) ||

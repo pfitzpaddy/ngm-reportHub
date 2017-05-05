@@ -36,6 +36,15 @@ angular.module('ngmReportHub')
 				// assign data
 				$scope.report.project = data;
 
+				var title = ngmUser.get().admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.organization + ' | ';
+
+				// set model to null
+				if( $route.current.params.project === 'new' ){
+					title += 'New Project';
+				} else {
+					title += $scope.report.project.project_title;
+				}
+
 				// add project code to subtitle?
 				var text = 'Actual Monthly Beneficiaries Report for ' + $scope.report.project.project_title
 				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + $scope.report.project.project_description : $scope.report.project.project_description;
@@ -51,7 +60,7 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m9 l9 report-title truncate',
 							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: ngmUser.get().admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.organization + ' | ' + $scope.report.project.project_title
+							title: title
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',

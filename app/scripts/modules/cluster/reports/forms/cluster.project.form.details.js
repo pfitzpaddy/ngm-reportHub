@@ -47,6 +47,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // form
         submit: true,
 
+        // new project?
+        newProject: $route.current.params.project === 'new' ? true : false,
+
         // project
         definition: config.project,
 
@@ -104,8 +107,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         datepicker: {
           onClose: function(){
             // $scope.project.definition.update_locations = true;
-            $scope.project.definition.project_start_date = moment( $scope.project.definition.project_start_date ).format('YYYY-MM-DD');
-            $scope.project.definition.project_end_date = moment( $scope.project.definition.project_end_date ).format('YYYY-MM-DD');
+            $scope.project.definition.project_start_date = moment( new Date( $scope.project.definition.project_start_date ) ).format('YYYY-MM-DD');
+            $scope.project.definition.project_end_date = moment( new Date( $scope.project.definition.project_end_date ) ).format('YYYY-MM-DD');
           }
         },
 
@@ -463,7 +466,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // save beneficiary
         saveBeneficiary: function() {
-          // save project
+          // update location
           $scope.project.save( false, 'People in Need Saved!' );
         },
 
@@ -592,7 +595,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // save location
         saveLocation: function($index, $data) {
-          // save project
+          // update location
           $scope.project.save( false, 'Project Location Saved!' );
         },
 
@@ -645,7 +648,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             $scope.project.definition.project_title &&
             $scope.project.definition.project_start_date &&
             $scope.project.definition.project_end_date &&
-            $scope.project.definition.project_budget &&
+            $scope.project.definition.project_budget >= 0 &&
             $scope.project.definition.project_budget_currency &&
             $scope.project.definition.project_status &&
             $scope.project.definition.project_description
@@ -844,6 +847,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // save project
         save: function( display_modal, save_msg ){
 
+          // disable btn
+          $scope.project.submit = false;
+
+
+
+
+
           // groups
           $scope.project.definition.category_type = [];
           $scope.project.definition.beneficiary_type = [];
@@ -902,12 +912,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $scope.project.definition.target_locations = 
               ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.project.definition.target_locations );
 
-
-          // disable btn
-          $scope.project.submit = false;
-          var msg = $route.current.params.project === 'new' ? 'New Project Saving! This will take a Moment...' : 'Processing...';
+          
           // inform
-          Materialize.toast( msg, 20000, 'note' );
+          Materialize.toast( 'Processing...', 6000, 'note' );
 
           // details update
           $http({
@@ -925,53 +932,36 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               Materialize.toast( 'Save failed! The project contains errors!', 6000, 'error' );
             }
 
-            if ( !project.err ){
-              
-              // remove toast
-              $timeout(function(){ 
-                $('.toast.note').animate({ 'marginTop' : '-=80px'});
-                $('.toast.note').fadeOut( 200 );
-              }, 400);
+            if ( !project.err ) {
 
               // add id to client json
               $scope.project.definition = angular.merge( $scope.project.definition, project );
-
-              // order locations by
-              $scope.project.definition.target_locations = $filter( 'orderBy' )( $scope.project.definition.target_locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
               
-              // locations updated
-              // $scope.project.definition.update_locations = false;
-
-              // modal-trigger
-              $('.modal-trigger').leanModal();
-              
+              // location / beneficiary
               if( save_msg ){
-                // message
-                $timeout( function(){ Materialize.toast( save_msg , 3000, 'success' ) }, 600 );
+                $timeout( function(){ Materialize.toast( save_msg , 3000, 'success' ); }, 600 );
               }
               
               // notification modal
               if( display_modal ){
+
+                // modal-trigger
+                $('.modal-trigger').leanModal();
                 
                 // new becomes active!
-                var msg = $scope.project.definition.project_status === 'new' ? 'Project Created!' : 'Project Updated!';
+                var msg = $route.current.params.project === 'new' ? 'Project Created!' : 'Project Updated!';
 
                 // update
                 $timeout(function(){
-                  
                   // redirect + msg
                   $location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
-                  // update
-                  $timeout(function(){                  
-                    Materialize.toast( msg, 3000, 'success' );
-                  }, 600 );
-
+                  $timeout(function(){ Materialize.toast( msg, 3000, 'success' ); }, 600 );
                 }, 400 );
               }
             }
 
           }).error(function( err ) {
-            // update
+            // error
             Materialize.toast( 'Error!', 6000, 'error' );
           });
 

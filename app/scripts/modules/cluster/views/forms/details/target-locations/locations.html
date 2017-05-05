@@ -64,7 +64,7 @@
 							        <form editable-form name="rowform" ng-show="rowform.$visible" onbeforesave="project.saveLocation($index, $data)" class="form-buttons form-inline" shown="inserted == location">
 							          <button 
 							          		title="Save" type="submit" class="btn waves-effect waves-light save"
-							          		ng-if="rowform.$visible" 
+							          		ng-if="rowform.$visible && !project.newProject" 
 							          		ng-disabled="
 					                  	( ( !project.project_details_valid() ) ||
 					                    ( !project.activity_type_valid() ) ||

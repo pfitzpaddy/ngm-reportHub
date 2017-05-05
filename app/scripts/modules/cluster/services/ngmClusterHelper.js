@@ -18,24 +18,27 @@ angular.module( 'ngmReportHub' )
       // get a new project
       getNewProject: function( user ) {
 
+        var u = angular.copy( user );
+                delete u.createdAt;
+                delete u.updatedAt;
+
         // create empty project
         var project = {
           project_status: 'new',
-          project_title: 'Enter New ' + user.organization + ' Project Title...',
-          project_description: 'Complete the project details to register a new project',
-          project_start_date: moment().format('YYYY-MM-DD'),
-          project_end_date: moment().add( 6, 'M' ).format('YYYY-MM-DD'),
+          project_title: '',//'Enter New ' + user.organization + ' Project Title...',
+          project_description: 'Please complete Project Details and enter a project summary description including objectives...',
+          project_start_date: moment().subtract( 2, 'M').startOf( 'M' ).format('YYYY-MM-DD'),
+          project_end_date: moment().add( 6, 'M' ).endOf( 'M' ).format('YYYY-MM-DD'),
           // project_code: user.organization + '/' + moment().unix(),
           project_budget: '0',
-          project_description: 'Please enter a project summary description including objectives...',
           project_budget_progress: [],
           beneficiary_type: [],
           target_beneficiaries: [],
-          target_locations: []
+          target_locations: [],
         }
 
         // extend defaults with ngmUser details
-        project = angular.merge( {}, user, project );
+        project = angular.merge( {}, u, project );
 
         // set hrp code
         project.project_hrp_code = this.getProjectHrpCode( project );
