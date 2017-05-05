@@ -793,25 +793,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $scope.project.lists.activity_types = ngmClusterHelper.getActivities( $scope.project.definition, true, true );
           $scope.project.lists.activity_descriptions = ngmClusterHelper.getActivities( $scope.project.definition, true, false );
 
-          // activity_descriptions for checklist
-          // angular.forEach( $scope.project.definition.activity_type_check, function( t, key ){
-          //   var found = false;
-          //   angular.forEach( $scope.project.lists.activity_descriptions, function( d, i) {
-          //     if ( key === d.activity_type_id ) {
-          //       found = true;
-          //     }
-          //   });
-          //   if ( found ) {
-          //     $scope.project.definition.activity_type_check[ key ] = found;  
-          //   }
-          //   if ( !found ) {
-          //     delete $scope.project.definition.activity_type_check[ key ];
-          //   }
-            
-          // });
-
-
-
           // filter
           $scope.project.definition.activity_type = [];
           angular.forEach( $scope.project.definition.activity_type_check, function( t, key ){
@@ -911,6 +892,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // update target_locations
           $scope.project.definition.target_locations = 
               ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.project.definition.target_locations );
+
+          
+
+
 
           
           // inform
