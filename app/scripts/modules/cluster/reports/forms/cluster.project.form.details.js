@@ -648,7 +648,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             $scope.project.definition.project_title &&
             $scope.project.definition.project_start_date &&
             $scope.project.definition.project_end_date &&
-            $scope.project.definition.project_budget >= 0 &&
+            // $scope.project.definition.project_budget >= 0 &&
             $scope.project.definition.project_budget_currency &&
             $scope.project.definition.project_status &&
             $scope.project.definition.project_description
