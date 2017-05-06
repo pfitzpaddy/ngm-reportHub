@@ -106,7 +106,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // datepicker
         datepicker: {
           onClose: function(){
-            // $scope.project.definition.update_locations = true;
+            $scope.project.definition.update_dates = true;
             $scope.project.definition.project_start_date = moment( new Date( $scope.project.definition.project_start_date ) ).format('YYYY-MM-DD');
             $scope.project.definition.project_end_date = moment( new Date( $scope.project.definition.project_end_date ) ).format('YYYY-MM-DD');
           }
@@ -833,6 +833,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 
 
+          console.log($scope.project.definition.update_dates)
+
+
 
 
           // groups
@@ -893,7 +896,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $scope.project.definition.target_locations = 
               ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.project.definition.target_locations );
 
-          
 
 
 
@@ -921,6 +923,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
               // add id to client json
               $scope.project.definition = angular.merge( $scope.project.definition, project );
+              $scope.project.definition.update_dates = false;
               
               // location / beneficiary
               if( save_msg ){
