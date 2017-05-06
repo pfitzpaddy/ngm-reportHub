@@ -30,10 +30,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
     'config',
     function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmData, ngmClusterHelper, config ){
 
-      // order locations by
-      config.report.locations = 
-          $filter( 'orderBy' )( config.report.locations, [ 'admin1name', 'admin2name', 'fac_type_name', 'fac_name' ] );
-
       // set activity descriptions
       $scope.activity_descriptions = ngmClusterHelper.getActivities( config.project, false, false );
 
