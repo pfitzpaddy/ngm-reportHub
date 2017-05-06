@@ -358,7 +358,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var display = false;
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
-            if( b.cluster_id === 'esnfi' || b.cluster_id === 'fsac' ){
+            if( b.cluster_id === 'cvwg' || b.cluster_id === 'esnfi' || b.cluster_id === 'fsac' ){
               display = true;
             }
           });
@@ -541,8 +541,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // filter admin2
           $scope.project.lists.admin2Select[$index] = 
                   $filter('filter')( $scope.project.lists.admin2, { admin1pcode: $data }, true);
-          // fire change event
-          $scope.project.locationChange();
         },
 
         // admin2
@@ -583,18 +581,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return $location.fac_name ? $location.fac_name : '';
         },
 
-        // if locations change we will need to run an update
-        locationChange: function(){
-          // $scope.project.definition.update_locations = true;
-        },
-
         // location edit
         locationEdit: function( $index ) {
           $scope.project.definition.target_locations[ $index ].update_location = true;
         },
 
         // save location
-        saveLocation: function($index, $data) {
+        saveLocation: function() {
           // update location
           $scope.project.save( false, 'Project Location Saved!' );
         },
@@ -632,12 +625,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         },
 
-        // remove from array
+        // remove from array if no id
         cancelEdit: function( key, $index ) {
-
-          // splice 
-          $scope.project.definition[ key ].splice( $index, 1 );
-
+          if ( !$scope.project.definition[ key ][ $index ].id ) {
+            $scope.project.definition[ key ].splice( $index, 1 );
+          }
         },
 
         // validate project type
@@ -830,10 +822,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           // disable btn
           $scope.project.submit = false;
-
-
-
-          console.log($scope.project.definition.update_dates)
 
 
 

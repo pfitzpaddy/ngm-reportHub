@@ -265,7 +265,7 @@
       
       <td style="white-space: nowrap" ng-show="project.report.report_status !== 'complete'">
         <!-- form -->
-        <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" onbeforesave="project.save( false, false )" class="form-buttons form-inline" shown="inserted == beneficiary">
+        <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" onbeforesave="project.save( false, false )" class="form-buttons form-inline" shown="inserted === beneficiary">
           <button type="submit" ng-if="rowform.$visible" ng-disabled="!project.formComplete()" class="btn btn-small waves-effect waves-light save" title="Save">
             <i class="material-icons">save</i>
           </button>

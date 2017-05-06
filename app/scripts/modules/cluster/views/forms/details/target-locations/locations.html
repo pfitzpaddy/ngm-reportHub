@@ -36,35 +36,35 @@
 							    	</td>
 							      <td>
 							        <!-- editable admin1 -->
-							        <span e-placeholder="Select..." editable-select="location.admin1pcode" e-name="admin1pcode" e-form="rowform" e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1" e-ng-change="project.showAdmin1Change($index, $data)" e-required>
+							        <span e-placeholder="Select..." editable-select="location.admin1pcode" e-name="admin1pcode" e-form="locationform" e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1" e-ng-change="project.showAdmin1Change($index, $data)" e-required>
 							          {{ project.showAdmin1($data, location) }}
 							        </span>
 							      </td>
 							      <td>
 							        <!-- editable admin2 -->
-							        <span e-placeholder="Select..." editable-select="location.admin2name" e-name="admin2name" e-form="rowform" e-ng-options="item.admin2name as item.admin2name for item in project.lists.admin2Select[$index]" e-ng-disabled="!location.admin1pcode" e-ng-change="project.locationChange()" e-required>
+							        <span e-placeholder="Select..." editable-select="location.admin2name" e-name="admin2name" e-form="locationform" e-ng-options="item.admin2name as item.admin2name for item in project.lists.admin2Select[$index]" e-ng-disabled="!location.admin1pcode" e-required>
 							          {{ project.showAdmin2($index, $data, location) }}
 							        </span>
 							      </td>
 							      <td ng-show="project.definition.cluster_id === 'health'">
 							        <!-- editable facility type-->
-							        <span e-placeholder="Select..." editable-select="location.fac_type_id" e-name="fac_type_id" e-form="rowform" e-ng-options="item.fac_type_id as item.fac_type_name for item in project.lists.facility_type" ng-disabled="!location.admin2name" e-ng-change="project.locationChange()" e-required>
+							        <span e-placeholder="Select..." editable-select="location.fac_type_id" e-name="fac_type_id" e-form="locationform" e-ng-options="item.fac_type_id as item.fac_type_name for item in project.lists.facility_type" ng-disabled="!location.admin2name" e-required>
 							          {{ project.showFacType($data, location) }}
 							        </span>
 							      </td>
 							      <td>
 							        <!-- editable name -->
-							        <span editable-text="location.fac_name" e-name="fac_name" e-form="rowform" e-ng-change="project.locationChange()" e-required>
+							        <span editable-text="location.fac_name" e-name="fac_name" e-form="locationform" e-required>
 							        	{{ project.showName($data, location) }}
 							          <!-- {{ location.fac_name }} -->
 							        </span>
 							      </td>
 							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
 							        <!-- form -->
-							        <form editable-form name="rowform" ng-show="rowform.$visible" onbeforesave="project.saveLocation($index, $data)" class="form-buttons form-inline" shown="inserted == location">
+							        <form editable-form name="locationform" ng-show="locationform.$visible" onbeforesave="project.saveLocation()" class="form-buttons form-inline" shown="inserted === location">
 							          <button 
 							          		title="Save" type="submit" class="btn waves-effect waves-light save"
-							          		ng-if="rowform.$visible && !project.newProject" 
+							          		ng-if="locationform.$visible && !project.newProject"
 							          		ng-disabled="
 					                  	( ( !project.project_details_valid() ) ||
 					                    ( !project.activity_type_valid() ) ||
@@ -74,12 +74,12 @@
 					                    ( !project.submit ) )">
 							            <i class="material-icons">save</i>
 							          </button>
-							          <button type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); project.cancelEdit( 'target_locations', $index )" class="btn blue lighten-1 waves-effect waves-light" title="Cancel Edit">
+							          <button type="button" ng-if="locationform.$visible" ng-disabled="locationform.$waiting" ng-click="locationform.$cancel(); project.cancelEdit( 'target_locations', $index )" class="btn blue lighten-1 waves-effect waves-light" title="Cancel Edit">
 													<i class="material-icons">clear</i>
 							          </button>
 							        </form>
-							        <div class="buttons" ng-if="!rowform.$visible">
-							          <button class="btn waves-effect waves-light" ng-click="rowform.$show(); project.locationEdit( $index )" title="Edit"
+							        <div class="buttons" ng-if="!locationform.$visible">
+							          <button class="btn waves-effect waves-light" ng-click="locationform.$show(); project.locationEdit( $index )" title="Edit"
 							          			ng-disabled="
 							                  	( ( !project.project_details_valid() ) ||
 							                    ( !project.activity_type_valid() ) ||
