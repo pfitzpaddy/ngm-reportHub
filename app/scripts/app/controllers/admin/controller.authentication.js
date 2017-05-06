@@ -281,7 +281,11 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             $( '.cluster' ).css({ 'color': 'teal' });
             
             // add country display name
-            $scope.panel.user.cluster = $( this ).find( 'option:selected' ).text();
+            if ( $scope.panel.user.cluster_id !== 'cvwg' ) {
+              $scope.panel.user.cluster = $( this ).find( 'option:selected' ).text();
+            } else {
+              $scope.panel.user.cluster = 'Cash';
+            }
 
           });
 

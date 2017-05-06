@@ -52,7 +52,7 @@
 							        			e-name="activity_type_id"
 							        			editable-select="beneficiary.activity_type_id"
 												e-placeholder="Select..."
-							        			e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type | orderBy:'activity_type_name'"
+							        			e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type"
 							        			e-ng-disabled="!project.definition.activity_type.length">
 							          {{ project.showActivity($data, beneficiary) }}
 							        </span>

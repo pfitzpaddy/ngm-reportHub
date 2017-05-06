@@ -166,7 +166,12 @@
 									<label class="label">Activity Type *</label>
 									<div style="padding-bottom:5px;"></div>
 
-									<label class="label">{{ project.definition.cluster }}</label>
+									<div ng-if="project.definition.cluster_id !== 'cvwg'">
+										<label class="label">{{ project.definition.cluster }}</label>
+									</div>
+									<div ng-if="project.definition.cluster_id === 'cvwg'">
+										<label class="label">Multi-Purpose Cash</label>
+									</div>									
 
 									<!-- for project cluster activity_type -->
 									<p style="padding-left:10px;" ng-repeat="a in project.lists.activity_types | filter: { cluster_id: project.definition.cluster_id } ">

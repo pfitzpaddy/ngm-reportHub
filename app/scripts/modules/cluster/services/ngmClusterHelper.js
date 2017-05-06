@@ -192,6 +192,9 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'nutrition',
             cluster: 'Nutrition'
           },{
+            cluster_id: 'cvwg',
+            cluster: 'Multi-Purpose Cash'
+          },{
             cluster_id: 'protection',
             cluster: 'Protection'
           },{
@@ -200,9 +203,6 @@ angular.module( 'ngmReportHub' )
           },{
             cluster_id: 'wash',
             cluster: 'WASH'
-          },{
-            cluster_id: 'cvwg',
-            cluster: 'Cash Voucher Working Group'
           }];
 
           return clusters;
@@ -354,24 +354,25 @@ angular.module( 'ngmReportHub' )
       getCategoryTypes: function(){
 
         // full list
-        // cluster_id: [ 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
+        // cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
 
         var category_types = [{
           cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash', 'eiewg', 'rnr_chapter' ],
           category_type_id: 'category_a',
           category_type_name: 'A) Emergency Relief Needs'
         },{
-          cluster_id: [ 'cvwg', 'health', 'nutrition', 'protection', 'wash', 'rnr_chapter'  ],
+          cluster_id: [ 'cvwg', 'health', 'nutrition', 'protection', 'wash', 'rnr_chapter' ],
           category_type_id: 'category_b',
           category_type_name: 'B) Excess Morbidity and Mortality'
         },{
-          cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'nutrition', 'protection', 'rnr_chapter'  ],
+          cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'nutrition', 'protection', 'rnr_chapter' ],
           category_type_id: 'category_c',
           category_type_name: 'C) Shock-Induced Acute Vunerability'
+        },{
+          cluster_id: [ 'cvwg' ],
+          category_type_id: 'category_d',
+          category_type_name: 'D) Development'
         }];
-
-        // filter by cluster category_types here
-        // return $filter( 'filter' )( category_types, { cluster_id: cluster_id } );
 
         return category_types;
 
@@ -478,13 +479,13 @@ angular.module( 'ngmReportHub' )
 				// ocha beneficiaries list
 				var beneficiaries = [{
           cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
-          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c', 'category_d' ],
           beneficiary_type_id: 'conflict_affected',
           beneficiary_type_name: 'Conflict Affected'
         },{
 
           cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
-          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c', 'category_d' ],
           beneficiary_type_id: 'idp_conflict',
           beneficiary_type_name: 'Conflict IDPs'
         },{
@@ -505,12 +506,12 @@ angular.module( 'ngmReportHub' )
         },{
 
           cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
-          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c', 'category_d' ],
           beneficiary_type_id: 'idp_natural_disaster',
           beneficiary_type_name: 'Natural Disaster IDPs'
         },{
           cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
-          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c', 'category_d' ],
           beneficiary_type_id: 'natural_disaster_affected',
           beneficiary_type_name: 'Natural Disaster Affected'
         },{
@@ -555,12 +556,12 @@ angular.module( 'ngmReportHub' )
           beneficiary_type_name: 'Underserved Community'
         },{
           cluster_id: [ 'cvwg', 'nutrition' ],
-          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c', 'category_d' ],
           beneficiary_type_id: 'access_to_services',
           beneficiary_type_name: 'Access to Services'
         },{
           cluster_id: [ 'cvwg', 'esnfi', 'health', 'protection' ],
-          category_type_id: [ 'category_a' ],
+          category_type_id: [ 'category_a', 'category_d' ],
           beneficiary_type_id: 'host_communities',
           beneficiary_type_name: 'Host Communities'
         },{
@@ -614,17 +615,17 @@ angular.module( 'ngmReportHub' )
         },{
 
           cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
-          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c', 'category_d' ],
           beneficiary_type_id: 'returnee_documented',
           beneficiary_type_name: 'Afghan Refugee Returnees (Documented)'
         },{
           cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
-          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c', 'category_d' ],
           beneficiary_type_id: 'returnee_undocumented',
           beneficiary_type_name: 'Afghan Returnees (Undocumented)'
         },{
           cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health','nutrition', 'protection', 'wash' ],
-          category_type_id: [ 'category_a', 'category_b', 'category_c' ],
+          category_type_id: [ 'category_a', 'category_b', 'category_c', 'category_d' ],
           beneficiary_type_id: 'refugee_pakistani',
           beneficiary_type_name: 'Pakistani Refugees'
         },{
