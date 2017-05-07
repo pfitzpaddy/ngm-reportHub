@@ -21,11 +21,11 @@
 <div class="row">
 	<div class="col s12 m12 l12">
 		<div style="padding:20px;">
-			
-			<!--  -->
-			<a class="btn-flat waves-effect waves-teal" href="#/cluster/organization">
-				<i class="material-icons left">keyboard_return</i>Back to Project Summary
+			<!-- org href -->
+			<a class="btn-flat waves-effect waves-teal" href="{{ report.getOrganizationHref() }}">
+				<i class="material-icons left">keyboard_return</i>Back to Organization
 			</a>
+
 
 			<span class="right" style="padding-top:8px;">Last Updated: {{ report.updatedAt }}</span>
 

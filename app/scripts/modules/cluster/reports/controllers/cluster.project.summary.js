@@ -13,6 +13,8 @@ angular.module('ngmReportHub')
 			'Karma'
 		];
 
+		
+
 		// return project
 		ngmData.get({
 			method: 'POST',
@@ -38,6 +40,16 @@ angular.module('ngmReportHub')
 
 			// current user
 			user: ngmUser.get(),
+
+			// projects href
+			getProjectsHref: function(){
+				var href = '#/cluster/projects';
+				if ( $scope.report.user.organization !== $scope.report.project.organization 
+							&& $scope.report.user.roles.indexOf( 'ADMIN' ) ) {
+					href += '/' + $scope.report.project.organization_id;
+				}
+				return href;
+			},
 
 			// set summary
 			setProjectSummary: function(data){
@@ -75,7 +87,7 @@ angular.module('ngmReportHub')
 								card: 'white grey-text text-darken-2',
 								style: 'padding: 20px;',
 								config: {
-									html: '<a class="btn-flat waves-effect waves-teal left" href="#/cluster/projects"><i class="material-icons left">keyboard_return</i>Back to Projects</a><span class="right" style="padding-top:8px;">Last Updated: ' + moment( $scope.report.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) + '</span>'
+									html: '<a class="btn-flat waves-effect waves-teal left" href="' + $scope.report.getProjectsHref() + '"><i class="material-icons left">keyboard_return</i>Back to Projects</a><span class="right" style="padding-top:8px;">Last Updated: ' + moment( $scope.report.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) + '</span>'
 								}
 							}]
 						}]

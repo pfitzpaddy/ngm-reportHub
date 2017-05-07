@@ -107,7 +107,7 @@ angular
 			// project list by organization
 			.when( '/cluster/organization/:organization_id', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'ClusterOrganizationCtrl',
+				controller: 'ClusterAppCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function( ngmAuth ) {
 						return ngmAuth.hasRole( 'ADMIN' );

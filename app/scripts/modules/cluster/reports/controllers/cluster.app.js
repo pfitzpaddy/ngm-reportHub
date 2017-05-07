@@ -31,6 +31,9 @@ angular.module( 'ngmReportHub' )
 			// current user
 			user: ngmUser.get(),
 
+			// org id
+			organization_id: organization_id,			
+
 			// get organization
 			getOrganization: function( organization_id ){
 
@@ -79,6 +82,18 @@ angular.module( 'ngmReportHub' )
 								config: {
 									user: $scope.report.user,
 									organization: $scope.report.organization,
+									// get project href
+									getProjectsHref: function() {
+										var href = '#/cluster/projects';
+										if ( $route.current.params.organization_id ) { href += '/' + $route.current.params.organization_id }
+										return href;
+									},
+									// get project href
+									getStocksHref: function() {
+										var href = '#/cluster/stocks';
+										if ( $route.current.params.organization_id ) { href += '/' + $route.current.params.organization_id }
+										return href;
+									},
 									report_date: moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD'),
 									templateUrl: '/scripts/modules/cluster/views/cluster.organization.html',
 					      }

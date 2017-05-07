@@ -26,6 +26,13 @@ angular.module( 'ngmReportHub' )
 			title: '',
 			subtitle: '',
 
+			// organization
+			getOrganizationHref: function() {
+				var href = '#/cluster/organization';
+				if ( $route.current.params.organization_id ) { href += '/' + $route.current.params.organization_id }
+				return href;
+			},
+
 			// get organization
 			getOrganization: function( organization_id ){
 
@@ -82,7 +89,7 @@ angular.module( 'ngmReportHub' )
 						card: 'white grey-text text-darken-2',
 						style: 'padding: 20px;',
 						config: {
-							html: '<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="#/cluster/organization"><i class="material-icons left">keyboard_return</i>Back to Organization</a><a class="waves-effect waves-light btn right" href="' + $scope.report.newProjectUrl + '"><i class="material-icons left">add_circle_outline</i>Add New Project</a>'
+							html: '<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="' + $scope.report.getOrganizationHref() + '"><i class="material-icons left">keyboard_return</i>Back to Organization</a><a class="waves-effect waves-light btn right" href="' + $scope.report.newProjectUrl + '"><i class="material-icons left">add_circle_outline</i>Add New Project</a>'
 						}
 					}]
 				}]

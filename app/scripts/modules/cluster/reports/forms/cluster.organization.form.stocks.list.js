@@ -68,6 +68,13 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
           }
         },
 
+        // organization
+        getOrganizationHref: function() {
+          var href = '#/cluster/organization';
+          if ( $route.current.params.organization_id ) { href += '/' + $route.current.params.organization_id }
+          return href;
+        },
+
         // setorg request
         setOrganization: function() {
           return {
