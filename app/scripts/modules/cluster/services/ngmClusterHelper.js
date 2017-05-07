@@ -174,6 +174,18 @@ angular.module( 'ngmReportHub' )
 
       },
 
+      // get list 
+      getTransfers: function( length ){
+        var trasnfers = [];
+        for( var i=1; i<=length; i++ ){
+          trasnfers.push({
+            transfer_type_id: i,
+            transfer_type_value: i
+          })
+        }
+        return trasnfers;
+      },
+
       // clusters
       getClusters: function( cluster_id ){
           var clusters = [{
@@ -192,9 +204,9 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'nutrition',
             cluster: 'Nutrition'
           },{
-            cluster_id: 'cvwg',
-            cluster: 'Multi-Purpose Cash'
-          },{
+          //   cluster_id: 'cvwg',
+          //   cluster: 'Multi-Purpose Cash'
+          // },{
             cluster_id: 'protection',
             cluster: 'Protection'
           },{
@@ -215,7 +227,12 @@ angular.module( 'ngmReportHub' )
         var activities = [],
             activitiesList = angular.copy( localStorage.getObject( 'lists' ).activitiesList );
 
-        // filter cluster in details form
+        // no intercluster
+        if ( !filterInterCluster ) {
+          activities = activitiesList;
+        }
+
+        // intercluster filters
         if ( filterInterCluster ) {
           activities = $filter( 'filter' )( activitiesList, { cluster_id: project.cluster_id } );
           angular.forEach( project.inter_cluster_activities, function( d, i ){
@@ -223,12 +240,9 @@ angular.module( 'ngmReportHub' )
           });
         }
 
-        if ( !filterInterCluster ) {
-          activities = activitiesList;
-        }
-
-        // if unique
+        // filter for unique activity type
         if ( filterDuplicates ) {
+          // filter duplicates
           activities = this.filterDuplicates( activities, 'activity_type_id' );
         }
 

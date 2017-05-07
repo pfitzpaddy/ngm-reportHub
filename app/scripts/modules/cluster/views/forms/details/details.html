@@ -171,7 +171,7 @@
 									</div>
 									<div ng-if="project.definition.cluster_id === 'cvwg'">
 										<label class="label">Multi-Purpose Cash</label>
-									</div>									
+									</div>
 
 									<!-- for project cluster activity_type -->
 									<p style="padding-left:10px;" ng-repeat="a in project.lists.activity_types | filter: { cluster_id: project.definition.cluster_id } ">
@@ -182,6 +182,21 @@
 										<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label>
 									</p>
 
+									<!-- delivery -->
+<!-- 									
+									<div ng-if="project.definition.cluster_id === 'cvwg'">
+										<div style="padding-bottom:25px;"></div>
+										<label class="label">Delivery</label>
+										<p style="padding-left:10px;" ng-repeat="d in project.lists.cash_delivery_types">
+											<input type="checkbox" id="delivery_{{ d.delivery_type_id }}" 
+											ng-model="project.definition.mpc_delivery_type_check[ d.delivery_type_id ]"
+											ng-disabled="project.definition.project_status === 'complete'"
+											ng-click="project.compileCashDelivery()"/>
+											<label class="label checkbox-label" for="delivery_{{ d.delivery_type_id }}">{{ d.delivery_type_name }}</label>
+										</p>
+									</div>
+
+ -->
 									<!-- for each intercluster -->
 									<div ng-repeat="cluster in project.definition.inter_cluster_activities">
 

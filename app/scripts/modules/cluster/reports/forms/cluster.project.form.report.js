@@ -67,6 +67,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         beneficiary_types: config.report.report_year === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries(),
         lists: {
           units: ngmClusterHelper.getUnits( config.project.admin0pcode ),
+          // transfers
+          transfers: ngmClusterHelper.getTransfers( 10 )
         },
         delivery_types:[{
           delivery_type_id: 'population',
@@ -261,6 +263,49 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             $beneficiary.unit_type_id = 'N/A';
           }            
           return selected.length ? selected[0].unit_type_name : 'N/A';
+        },
+
+        // transfer_type_id
+        showTransferTypes: function( $data, $beneficiary ) {
+          var selected = [];
+          $beneficiary.transfer_type_id = $data;
+          if($beneficiary.transfer_type_id) {
+            selected = $filter('filter')( $scope.project.lists.transfers, { transfer_type_id: $beneficiary.transfer_type_id }, true);
+            if( selected.length ) {
+              $beneficiary.transfer_type_value = selected[0].transfer_type_value;
+            }
+          }else{
+            $beneficiary.transfer_type_id = 0;
+            $beneficiary.transfer_type_value = 0;
+          }
+          return selected.length ? selected[0].transfer_type_value : 0;
+        },
+
+
+        // transfers per beneficiaries
+        showTransfers: function( $locationIndex ){
+          var display = false;
+          var l = $scope.project.report.locations[ $locationIndex ];
+          if( l ){
+            angular.forEach( l.beneficiaries, function(b){
+              if( b.cluster_id === 'cvwg' ){
+                display = true;
+              }
+            });
+          }
+          return display;
+        },
+
+        showTransferNotes: function(){
+          var display = false;
+          angular.forEach( $scope.project.report.locations, function(l){
+            angular.forEach( l.beneficiaries, function(b){
+              if( b.cluster_id === 'cvwg' ){
+                display = true;
+              }
+            });
+          });
+          return display;
         },
 
         // cash

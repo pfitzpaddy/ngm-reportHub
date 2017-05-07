@@ -67,6 +67,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         lists: {
           currencies: ngmClusterHelper.getCurrencies( config.project.admin0pcode ),
           units: ngmClusterHelper.getUnits( config.project.admin0pcode ),
+          // delivery
           delivery_types:[{
             delivery_type_id: 'population',
             delivery_type_name: 'New Beneficiaries'
@@ -74,6 +75,22 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             delivery_type_id: 'service',
             delivery_type_name: 'Existing Beneficiaries'
           }],
+          // MPC
+          cash_delivery_types: [{
+            delivery_type_id: 'hawala',
+            delivery_type_name: 'Hawala'
+          },{
+            delivery_type_id: 'cash_in_hand',
+            delivery_type_name: 'Cash in Hand'
+          },{
+            delivery_type_id: 'mobile',
+            delivery_type_name: 'Mobile'
+          },{
+            delivery_type_id: 'cbt',
+            delivery_type_name: 'CBT'
+          }],
+          // transfers
+          transfers: ngmClusterHelper.getTransfers( 30 ),
           clusters: ngmClusterHelper.getClusters(),
           activity_types: ngmClusterHelper.getActivities( config.project, true, true ),
           activity_descriptions: ngmClusterHelper.getActivities( config.project, true, false ),
@@ -348,9 +365,37 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             }
           }else{
             $beneficiary.unit_type_id = 'n_a';
-            $beneficiary.unit_type_id = 'N/A';
+            $beneficiary.unit_type_name = 'N/A';
           }
           return selected.length ? selected[0].unit_type_name : 'N/A';
+        },
+
+        // transfer_type_id
+        showTransferTypes: function( $data, $beneficiary ) {
+          var selected = [];
+          $beneficiary.transfer_type_id = $data;
+          if($beneficiary.transfer_type_id) {
+            selected = $filter('filter')( $scope.project.lists.transfers, { transfer_type_id: $beneficiary.transfer_type_id }, true);
+            if( selected.length ) {
+              $beneficiary.transfer_type_value = selected[0].transfer_type_value;
+            }
+          }else{
+            $beneficiary.transfer_type_id = 0;
+            $beneficiary.transfer_type_value = 0;
+          }
+          return selected.length ? selected[0].transfer_type_value : 0;
+        },
+
+        // transfers per beneficiaries
+        showTransfers: function(){
+          var display = false;
+          var l = $scope.project.definition.target_beneficiaries;
+          angular.forEach( l, function(b){
+            if( b.cluster_id === 'cvwg' ){
+              display = true;
+            }
+          });
+          return display;
         },
 
         // esnfi
@@ -722,6 +767,18 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $scope.project.cancel();
         },
 
+        // compile cash
+        compileCashDelivery: function() {
+          $scope.project.definition.mpc_delivery_type = [];
+          angular.forEach( $scope.project.definition.mpc_delivery_type_check, function( d, key ){
+            if ( d ) {
+              var mpc_delivery = $filter( 'filter' )( $scope.project.lists.cash_delivery_types, { delivery_type_id: key }, true)[0];
+              $scope.project.definition.mpc_delivery_type.push( mpc_delivery );
+            }
+          });
+          $scope.project.compileActivityType();
+        },
+
         // compile cluster activities
         compileInterClusterActivities: function(){
           
@@ -965,6 +1022,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // give a few seconds to render
         $timeout(function() {
 
+          // set HRP if SOs selected
+          if( $scope.project.definition.strategic_objectives.length ) {
+            $scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'OTH', 'HRP' );
+          }
+
           // reset to cover updates
           if ( !$scope.project.definition.project_hrp_code ){
             $scope.project.definition.project_hrp_code = 
@@ -987,6 +1049,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             angular.forEach( $scope.project.definition.activity_type, function( d, i ){
               if ( d ){
                 $scope.project.definition.activity_type_check[ d.activity_type_id ] = true;
+              }
+            });
+          }
+
+          // add project donor check box list
+          if ( $scope.project.definition.mpc_delivery_type ) {
+            $scope.project.definition.mpc_delivery_type_check = {};
+            angular.forEach( $scope.project.definition.mpc_delivery_type, function( d, i ){
+              if ( d ){
+                $scope.project.definition.mpc_delivery_type_check[ d.delivery_type_id ] = true;
               }
             });
           }
