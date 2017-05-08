@@ -68,15 +68,30 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         lists: {
           units: ngmClusterHelper.getUnits( config.project.admin0pcode ),
           // transfers
-          transfers: ngmClusterHelper.getTransfers( 10 )
+          transfers: ngmClusterHelper.getTransfers( 10 ),
+          // Population
+          delivery_types:[{
+            delivery_type_id: 'population',
+            delivery_type_name: 'New Beneficiaries'
+          },{
+            delivery_type_id: 'service',
+            delivery_type_name: 'Existing Beneficiaries'
+          }],
+          // MPC
+          mpc_delivery_types: [{
+            mpc_delivery_type_id: 'hawala',
+            mpc_delivery_type_name: 'Hawala'
+          },{
+            mpc_delivery_type_id: 'cash_in_envelope',
+            mpc_delivery_type_name: 'Cash in Envelope'
+          },{
+            mpc_delivery_type_id: 'mobile',
+            mpc_delivery_type_name: 'Mobile'
+          },{
+            mpc_delivery_type_id: 'bank',
+            mpc_delivery_type_name: 'Bank'
+          }]
         },
-        delivery_types:[{
-          delivery_type_id: 'population',
-          delivery_type_name: 'New Beneficiaries'
-        },{
-          delivery_type_id: 'service',
-          delivery_type_name: 'Existing Beneficiaries'
-        }],
         
         // templates
         templatesUrl: '/scripts/modules/cluster/views/forms/report/',
@@ -123,7 +138,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             activity_description_id: null,
             activity_description_name: null,
             delivery_type_id: null,
-            delivery_type_name: null
+            delivery_type_name: null,
+            transfer_type_id: 0,
+            transfer_type_value: 0
           };
 
           // merge
@@ -144,6 +161,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             var b = angular.copy( $scope.project.report.locations[ $parent ].beneficiaries[ length - 1 ] );
             delete b.id;
             $scope.inserted = angular.merge( $scope.inserted, b, sadd );
+            $scope.inserted.transfer_type_id = 0;
+            $scope.inserted.transfer_type_value = 0;
           }
           $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
         },
@@ -174,6 +193,36 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             $beneficiary.activity_description_name = selected[0].activity_description_name;
           } 
           return selected.length ? selected[0].activity_description_name : 'No Selection!';
+        },
+
+        // display delivery
+        showCashDelivery: function( $data, $beneficiary ) {
+          var selected = [];
+          $beneficiary.mpc_delivery_type_id = $data;
+          if($beneficiary.mpc_delivery_type_id) {
+            
+            // selection
+            selected = $filter('filter')( $scope.project.lists.mpc_delivery_types, { mpc_delivery_type_id: $beneficiary.mpc_delivery_type_id }, true);
+            if ( selected.length ) {
+              $beneficiary.mpc_delivery_type_name = selected[0].mpc_delivery_type_name;
+            } else {
+              selected.push({
+                mpc_delivery_type_id: 'n_a',
+                mpc_delivery_type_name: 'N/A'
+              });
+            }
+
+            // no cash! for previous selections
+            if ( $beneficiary.activity_type_id.indexOf( 'cash' ) === -1 && 
+                  $beneficiary.activity_description_id && 
+                  $beneficiary.activity_description_id.indexOf( 'cash' ) === -1 ){
+              // reset
+              $beneficiary.mpc_delivery_type_id = 'n_a';
+              $beneficiary.mpc_delivery_type_name = 'N/A';
+            }
+
+          }
+          return selected.length ? selected[0].mpc_delivery_type_name : 'No Selection!';
         },
 
         // display category
@@ -207,7 +256,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var selected = [];
           $beneficiary.delivery_type_id = $data;
           if($beneficiary.delivery_type_id) {
-            selected = $filter('filter')( $scope.project.delivery_types, { delivery_type_id: $beneficiary.delivery_type_id }, true);
+            selected = $filter('filter')( $scope.project.lists.delivery_types, { delivery_type_id: $beneficiary.delivery_type_id }, true);
             $beneficiary.delivery_type_name = selected[0].delivery_type_name;
           }
           return selected.length ? selected[0].delivery_type_name : 'No Selection!';
@@ -281,26 +330,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           return selected.length ? selected[0].transfer_type_value : 0;
         },
 
-
-        // transfers per beneficiaries
-        showTransfers: function( $locationIndex ){
-          var display = false;
-          var l = $scope.project.report.locations[ $locationIndex ];
-          if( l ){
-            angular.forEach( l.beneficiaries, function(b){
-              if( b.cluster_id === 'cvwg' ){
-                display = true;
-              }
-            });
-          }
-          return display;
-        },
-
+        // display notes when cash activity
         showTransferNotes: function(){
           var display = false;
           angular.forEach( $scope.project.report.locations, function(l){
             angular.forEach( l.beneficiaries, function(b){
-              if( b.cluster_id === 'cvwg' ){
+              if( ( b.activity_type_id && b.activity_type_id.indexOf('cash') > -1 ) || ( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ) ){
                 display = true;
               }
             });
@@ -314,7 +349,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ){
+              if( ( b.activity_type_id && b.activity_type_id.indexOf('cash') > -1 ) || ( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ) ){
                 display = true;
               }
             });
@@ -490,6 +525,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               disabled = false;
           }
           return disabled;
+        },
+
+        // remove from array if no id
+        cancelEdit: function( $parent, $index ) {
+          if ( !$scope.project.report.locations[ $parent ].beneficiaries[ $index ].id ) {
+            $scope.project.report.locations[ $parent ].beneficiaries.splice( $index, 1 );
+          }
         },
 
         // remove location from location list

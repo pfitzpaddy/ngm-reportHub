@@ -12,14 +12,13 @@
     <tr style="font-weight: 400">
       <td>Activity</td>
       <td>Description</td>
+      <td ng-if="project.showCash( $locationIndex )">Delivery</td>
       <td>Category</td>
       <td>Beneficiary</td>
       <td>Population</td>
-<!--       <td ng-if="project.showSessions( $locationIndex )">Sessions</td>
-      <td ng-if="project.showCash( $locationIndex )">Cash Amount ( {{ project.definition.project_budget_currency | uppercase }} )</td> -->
       <td ng-if="project.showUnits( $locationIndex )">Amount</td>
       <td ng-if="project.showUnits( $locationIndex )">Units</td>
-      <td ng-if="project.showTransfers( $locationIndex )">Transfers</td>
+      <td ng-if="project.showCash( $locationIndex )">Transfers</td>
       <td ng-if="project.showHouseholds( $locationIndex )">HHs</td>
       <td ng-if="project.showFamilies( $locationIndex )">Families</td>
       <td>Boys</td>
@@ -52,6 +51,21 @@
           {{ project.showDescription($data, beneficiary) }}
         </span>
       </td>
+      <!-- show cash delivery -->
+      <td ng-show="project.showCash( $locationIndex )">
+        <span e-form="rowform"
+              e-name="mpc_delivery_type_id"
+              editable-select="beneficiary.mpc_delivery_type_id"
+              e-placeholder="Select..."
+              e-ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for b in project.lists.mpc_delivery_types"
+              e-ng-disabled="
+                !beneficiary.activity_description_id ||
+                ( beneficiary.activity_type_id.indexOf('cash') === -1 &&
+                beneficiary.activity_description_id && beneficiary.activity_description_id.indexOf('cash') === -1 )
+              ">
+          {{ project.showCashDelivery($data, beneficiary) }}
+        </span>
+      </td>
       <td ng-show="project.definition.cluster_id !== 'eiewg'">
         <!-- editable group (select-remote) -->
         <span e-form="rowform"
@@ -80,7 +94,7 @@
               e-name="delivery_type_id"
               editable-select="beneficiary.delivery_type_id"
               e-placeholder="Select..."
-              e-ng-options="b.delivery_type_id as b.delivery_type_name for b in project.delivery_types"
+              e-ng-options="b.delivery_type_id as b.delivery_type_name for b in project.lists.delivery_types"
               e-ng-disabled="!beneficiary.beneficiary_type_id">
           {{ project.showDelivery($data, beneficiary) }}
         </span>
@@ -138,12 +152,16 @@
       </td>
 
       <!-- transfers -->
-      <td ng-show="project.showTransfers( $locationIndex )">
+      <td ng-show="project.showCash( $locationIndex )">
         <span e-form="rowform"
               e-name="transfer_type_id"
               editable-select="beneficiary.transfer_type_id"
               e-placeholder="Select..."
-              e-ng-disabled="beneficiary.cluster_id !== 'cvwg'"
+              e-ng-disabled="
+                !beneficiary.activity_description_id ||
+                ( beneficiary.activity_type_id.indexOf('cash') === -1 &&
+                beneficiary.activity_description_id && beneficiary.activity_description_id.indexOf('cash') === -1 )
+              "
               e-ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers">
           {{ project.showTransferTypes( $data, beneficiary ) }}
         </span>
@@ -282,7 +300,7 @@
           <button type="submit" ng-if="rowform.$visible" ng-disabled="!project.formComplete()" class="btn btn-small waves-effect waves-light save" title="Save">
             <i class="material-icons">save</i>
           </button>
-          <div type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-small blue lighten-1 waves-effect waves-light" title="Cancel Edit">
+          <div type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); project.cancelEdit( $locationIndex, $index )" " class="btn btn-small blue lighten-1 waves-effect waves-light" title="Cancel Edit">
 						<i class="material-icons">clear</i>
           </div>
         </form>

@@ -194,7 +194,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             activity_description_id: null,
             activity_description_name: null,
             delivery_type_id: null,
-            delivery_type_name: null
+            delivery_type_name: null,
+            transfer_type_id: 0,
+            transfer_type_value: 0
           };
 
           // merge
@@ -212,6 +214,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             var b = angular.copy( $scope.project.definition.target_beneficiaries[ length - 1 ] );
             delete b.id;
             $scope.inserted = angular.merge( $scope.inserted, b, sadd );
+            $scope.inserted.transfer_type_id = 0;
+            $scope.inserted.transfer_type_value = 0;
           }
           $scope.project.definition.target_beneficiaries.push( $scope.inserted );
         },
@@ -254,6 +258,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var selected = [];
           $beneficiary.mpc_delivery_type_id = $data;
           if($beneficiary.mpc_delivery_type_id) {
+
+            // selection
             selected = $filter('filter')( $scope.project.lists.mpc_delivery_types, { mpc_delivery_type_id: $beneficiary.mpc_delivery_type_id }, true);
             if ( selected.length ) {
               $beneficiary.mpc_delivery_type_name = selected[0].mpc_delivery_type_name;
@@ -263,13 +269,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 mpc_delivery_type_name: 'N/A'
               });
             }
-            
-            // no cash!
-            if ( $beneficiary.activity_type_id.indexOf( 'cash' ) === -1 && 
+
+            // no cash! for previous selections
+            if ( $beneficiary.activity_type_id.indexOf( 'cash' ) === -1 &&
+                  $beneficiary.activity_description_id &&  
                   $beneficiary.activity_description_id.indexOf( 'cash' ) === -1 ){
+              // reset
               $beneficiary.mpc_delivery_type_id = 'n_a';
               $beneficiary.mpc_delivery_type_name = 'N/A';
             }
+
           }
           return selected.length ? selected[0].mpc_delivery_type_name : 'No Selection!';
         },
@@ -340,7 +349,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var display = false;
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
-            if( b.activity_type_id.indexOf('cash') > -1 || ( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ) ){
+            if( ( b.activity_type_id && b.activity_type_id.indexOf('cash') > -1 ) || ( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ) ){
               display = true;
             }
           });
@@ -395,18 +404,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           }
           return selected.length ? selected[0].transfer_type_value : 0;
         },
-
-        // transfers per beneficiaries
-        // showTransfers: function(){
-        //   var display = false;
-        //   var l = $scope.project.definition.target_beneficiaries;
-        //   angular.forEach( l, function(b){
-        //     if( b.cluster_id === 'cvwg' ){
-        //       display = true;
-        //     }
-        //   });
-        //   return display;
-        // },
 
         // esnfi
         showHouseholds: function(){
@@ -647,6 +644,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $scope.project.save( false, 'Project Location Saved!' );
         },
 
+        // remove from array if no id
+        cancelEdit: function( key, $index ) {
+          if ( !$scope.project.definition[ key ][ $index ].id ) {
+            $scope.project.definition[ key ].splice( $index, 1 );
+          }
+        },
+
         // remove location from location list
         removeLocationModal: function( $index ) {
           // set location index
@@ -678,13 +682,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             Materialize.toast( 'Error!', 6000, 'error' );
           });
 
-        },
-
-        // remove from array if no id
-        cancelEdit: function( key, $index ) {
-          if ( !$scope.project.definition[ key ][ $index ].id ) {
-            $scope.project.definition[ key ].splice( $index, 1 );
-          }
         },
 
         // validate project type
