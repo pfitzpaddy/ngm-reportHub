@@ -17,7 +17,7 @@
 						Enter the TARGET BENEFICIARIES of your PROJECT in the form below;
 					</p>
 
-					<div ng-if="project.showTransfers()" style="padding-left: 40px;">
+					<div ng-if="project.showCash()" style="padding-left: 40px;">
 						<p style="color: #e57373">
 							<span style="font-weight:400">Amount:</span> Please enter the cash amound <span style="font-weight:400">PER</span> beneficiary
 						</p>
@@ -34,6 +34,7 @@
 							    	<td></td>
 							      <td>Activity</td>
 							      <td>Description</td>
+							      <td ng-if="project.showCash()">Delivery</td>
 							      <td>Category</td>
 							      <td>Beneficiary</td>
 								 		<td>Population</td>
@@ -41,7 +42,7 @@
 								  <!-- <td ng-if="project.showCash()">Cash Amount ( {{ project.definition.project_budget_currency | uppercase }} )</td> -->
 							      <td ng-if="project.showUnits()">Amount</td>
 							      <td ng-if="project.showUnits()">Units</td>
-							      <td ng-if="project.showTransfers()">Transfers</td>
+							      <td ng-if="project.showCash()">Transfers</td>
 								  	<td ng-if="project.showHouseholds()">HHs</td>
 							      <td ng-if="project.showFamilies()">Families</td>
 							      <td>Boys</td>
@@ -78,6 +79,22 @@
 							          {{ project.showDescription($data, beneficiary) }}
 							        </span>
 							      </td>
+							      
+							      <td ng-show="project.showCash()">
+							        <span e-form="rowform"
+							              e-name="mpc_delivery_type_id"
+							              editable-select="beneficiary.mpc_delivery_type_id"
+							              e-placeholder="Select..."
+							              e-ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for b in project.lists.mpc_delivery_types"
+							              e-ng-disabled="
+							              	!beneficiary.activity_description_id ||
+															( beneficiary.activity_type_id.indexOf('cash') === -1 &&
+															beneficiary.activity_description_id && beneficiary.activity_description_id.indexOf('cash') === -1 )
+														">
+							          {{ project.showCashDelivery($data, beneficiary) }}
+							        </span>
+							      </td>
+
 							      <td>
 							        <!-- editable group (select-remote) -->
 							        <span e-form="rowform"
@@ -110,69 +127,48 @@
 							        </span>
 							      </td>
 
-							      <!-- <td ng-show="project.showSessions()"> -->
-							      <td ng-show="false">
+								    <!-- units -->
+	 								  <td ng-show="project.showUnits()">
 							        <span e-form="rowform"
-							        			e-name="sessions"
-							        			editable-number="beneficiary.sessions"
+							        			e-name="units"
+							        			editable-number="beneficiary.units"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput($index, 'sessions', $data )"
-								              	e-ng-disabled="project.rowSessionsDisabled( beneficiary )"
+							        			e-ng-change="project.updateInput($index, 'units', $data )"
+						              	e-ng-disabled="!project.showUnits()"
 							        			e-required>
-							          {{ beneficiary.sessions }}
+							          {{ beneficiary.units }}
 							        </span>
 							      </td>
-							      <!-- <td ng-show="project.showCash()"> -->
-							      <td ng-show="false">
+								     
+								    <!-- unit type -->
+	 								  <td ng-show="project.showUnits()">
 							        <span e-form="rowform"
-							        			e-name="cash_amount"
-							        			editable-number="beneficiary.cash_amount"
-							        			e-min="0"
-							        			e-ng-change="project.updateInput( $index, 'cash_amount', $data )"
-							        			e-ng-disabled="beneficiary.activity_description_id.indexOf('cash') === -1"
-							        			e-required>
-							          {{ beneficiary.cash_amount }}
+							        			e-name="unit_type_id"
+							        			editable-select="beneficiary.unit_type_id"
+														e-placeholder="Select..."
+							        			e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units">
+							          {{ project.showUnitTypes($data, beneficiary) }}
 							        </span>
 							      </td>
 
-							      <!-- units -->
- 								  <td ng-show="project.showUnits()">
-						        <span e-form="rowform"
-						        			e-name="units"
-						        			editable-number="beneficiary.units"
-						        			e-min="0"
-						        			e-ng-change="project.updateInput($index, 'units', $data )"
-					              	e-ng-disabled="!project.showUnits()"
-						        			e-required>
-						          {{ beneficiary.units }}
-						        </span>
-						      </td>
-							     
-							    <!-- unit type -->
- 								  <td ng-show="project.showUnits()">
-						        <span e-form="rowform"
-						        			e-name="unit_type_id"
-						        			editable-select="beneficiary.unit_type_id"
-													e-placeholder="Select..."
-						        			e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units">
-						          {{ project.showUnitTypes($data, beneficiary) }}
-						        </span>
-						      </td>
+								    <!-- traansfers -->
+	 								  <td ng-show="project.showCash()">
+							        <span e-form="rowform"
+							        			e-name="transfer_type_id"
+							        			editable-select="beneficiary.transfer_type_id"
+														e-placeholder="Select..."
+														e-ng-disabled="
+							              	!beneficiary.activity_description_id ||
+															( beneficiary.activity_type_id.indexOf('cash') === -1 &&
+															beneficiary.activity_description_id && beneficiary.activity_description_id.indexOf('cash') === -1 )
+														"
+							        			e-ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers">
+							          {{ project.showTransferTypes( $data, beneficiary ) }}
+							        </span>
+							      </td>
 
-							    <!-- traansfers -->
- 								  <td ng-show="project.showTransfers()">
-						        <span e-form="rowform"
-						        			e-name="transfer_type_id"
-						        			editable-select="beneficiary.transfer_type_id"
-													e-placeholder="Select..."
-													e-ng-disabled="beneficiary.cluster_id !== 'cvwg'"
-						        			e-ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers">
-						          {{ project.showTransferTypes( $data, beneficiary ) }}
-						        </span>
-						      </td>
-
-								  <td ng-show="project.showHouseholds()">
-							        <!-- editable number -->
+						      	<!-- editable number -->
+								  	<td ng-show="project.showHouseholds()">
 							        <span e-form="rowform"
 							        			e-name="households"
 							        			editable-number="beneficiary.households"

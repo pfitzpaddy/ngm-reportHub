@@ -76,18 +76,18 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             delivery_type_name: 'Existing Beneficiaries'
           }],
           // MPC
-          cash_delivery_types: [{
-            delivery_type_id: 'hawala',
-            delivery_type_name: 'Hawala'
+          mpc_delivery_types: [{
+            mpc_delivery_type_id: 'hawala',
+            mpc_delivery_type_name: 'Hawala'
           },{
-            delivery_type_id: 'cash_in_hand',
-            delivery_type_name: 'Cash in Hand'
+            mpc_delivery_type_id: 'cash_in_envelope',
+            mpc_delivery_type_name: 'Cash in Envelope'
           },{
-            delivery_type_id: 'mobile',
-            delivery_type_name: 'Mobile'
+            mpc_delivery_type_id: 'mobile',
+            mpc_delivery_type_name: 'Mobile'
           },{
-            delivery_type_id: 'cbt',
-            delivery_type_name: 'CBT'
+            mpc_delivery_type_id: 'bank',
+            mpc_delivery_type_name: 'Bank'
           }],
           // transfers
           transfers: ngmClusterHelper.getTransfers( 30 ),
@@ -249,6 +249,31 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return selected.length ? selected[0].activity_description_name : 'No Selection!';
         },
 
+        // display delivery
+        showCashDelivery: function( $data, $beneficiary ) {
+          var selected = [];
+          $beneficiary.mpc_delivery_type_id = $data;
+          if($beneficiary.mpc_delivery_type_id) {
+            selected = $filter('filter')( $scope.project.lists.mpc_delivery_types, { mpc_delivery_type_id: $beneficiary.mpc_delivery_type_id }, true);
+            if ( selected.length ) {
+              $beneficiary.mpc_delivery_type_name = selected[0].mpc_delivery_type_name;
+            } else {
+              selected.push({
+                mpc_delivery_type_id: 'n_a',
+                mpc_delivery_type_name: 'N/A'
+              });
+            }
+            
+            // no cash!
+            if ( $beneficiary.activity_type_id.indexOf( 'cash' ) === -1 && 
+                  $beneficiary.activity_description_id.indexOf( 'cash' ) === -1 ){
+              $beneficiary.mpc_delivery_type_id = 'n_a';
+              $beneficiary.mpc_delivery_type_name = 'N/A';
+            }
+          }
+          return selected.length ? selected[0].mpc_delivery_type_name : 'No Selection!';
+        },
+
         // display category
         showCategory: function( $data, $beneficiary ) {
           var selected = [];
@@ -299,21 +324,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return display;
         },
 
-        // display if education/training sessions provided
-        // showSessions: function(){
-        //   var display = false;
-        //   var l = $scope.project.definition.target_beneficiaries;
-        //   angular.forEach( l, function(b){
-        //     if( ( b.cluster_id !== 'eiewg' ) &&
-        //         ( b.activity_description_id ) && 
-        //         ( b.activity_description_id.indexOf( 'education' ) !== -1 ||
-        //           b.activity_description_id.indexOf( 'training' ) !== -1 ) ) {
-        //       display = true;
-        //     }
-        //   });
-        //   return display;
-        // },
-
         // sessions disabled
         rowSessionsDisabled: function( $beneficiary ){
           var disabled = true;
@@ -326,16 +336,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // cash
-        // showCash: function(){
-        //   var display = false;
-        //   var l = $scope.project.definition.target_beneficiaries;
-        //   angular.forEach( l, function(b){
-        //     if( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ){
-        //       display = true;
-        //     }
-        //   });
-        //   return display;
-        // },
+        showCash: function(){
+          var display = false;
+          var l = $scope.project.definition.target_beneficiaries;
+          angular.forEach( l, function(b){
+            if( b.activity_type_id.indexOf('cash') > -1 || ( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ) ){
+              display = true;
+            }
+          });
+          return display;
+        },
 
         // units
         showUnits: function(){
@@ -387,16 +397,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // transfers per beneficiaries
-        showTransfers: function(){
-          var display = false;
-          var l = $scope.project.definition.target_beneficiaries;
-          angular.forEach( l, function(b){
-            if( b.cluster_id === 'cvwg' ){
-              display = true;
-            }
-          });
-          return display;
-        },
+        // showTransfers: function(){
+        //   var display = false;
+        //   var l = $scope.project.definition.target_beneficiaries;
+        //   angular.forEach( l, function(b){
+        //     if( b.cluster_id === 'cvwg' ){
+        //       display = true;
+        //     }
+        //   });
+        //   return display;
+        // },
 
         // esnfi
         showHouseholds: function(){
@@ -765,18 +775,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // $scope.clusterProjectForm.$dirty ?
               // $( '#' + modal ).openModal( { dismissible: false } ) : $scope.project.cancel();
           $scope.project.cancel();
-        },
-
-        // compile cash
-        compileCashDelivery: function() {
-          $scope.project.definition.mpc_delivery_type = [];
-          angular.forEach( $scope.project.definition.mpc_delivery_type_check, function( d, key ){
-            if ( d ) {
-              var mpc_delivery = $filter( 'filter' )( $scope.project.lists.cash_delivery_types, { delivery_type_id: key }, true)[0];
-              $scope.project.definition.mpc_delivery_type.push( mpc_delivery );
-            }
-          });
-          $scope.project.compileActivityType();
         },
 
         // compile cluster activities
