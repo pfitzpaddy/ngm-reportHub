@@ -315,22 +315,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           return selected.length ? selected[0].transfer_type_value : 0;
         },
 
-        // display notes when cash activity
-        showTransferNotes: function(){
-          var display = false;
-          angular.forEach( $scope.project.report.locations, function(l){
-            angular.forEach( l.beneficiaries, function(b){
-              if( ( b.activity_type_id && b.activity_type_id.indexOf('cash') > -1 ) 
-                || ( b.activity_description_id && 
-                    ( b.activity_description_id.indexOf( 'cash' ) > -1 || 
-                      b.activity_description_id.indexOf( 'in_kind' ) > -1 ) ) ) {
-                display = true;
-              }
-            });
-          });
-          return display;
-        },
-
         // cash
         showCash: function( $locationIndex ){
           var display = false;
