@@ -174,6 +174,60 @@ angular.module( 'ngmReportHub' )
 
       },
 
+      // delivery
+      getDeliveryTypes: function() {
+        return [{
+          delivery_type_id: 'population',
+          delivery_type_name: 'New Beneficiaries'
+        },{
+          delivery_type_id: 'service',
+          delivery_type_name: 'Existing Beneficiaries'
+        }];
+      },      
+
+      // mpc delivery
+      getMpcDeliveryTypes: function() {
+        var types = [{
+            activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash' ],
+            mpc_delivery_type_id: 'hawala',
+            mpc_delivery_type_name: 'Hawala'
+          },{
+            activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash' ],
+            mpc_delivery_type_id: 'cash_in_envelope',
+            mpc_delivery_type_name: 'Cash in Envelope'
+          },{
+            activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash' ],
+            mpc_delivery_type_id: 'bank',
+            mpc_delivery_type_name: 'Bank'
+          },{
+            activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash' ],
+            mpc_delivery_type_id: 'mobile_cash',
+            mpc_delivery_type_name: 'Mobile Cash'
+          },{
+            activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash' ],
+            mpc_delivery_type_id: 'e_cash',
+            mpc_delivery_type_name: 'e-Cash'
+          },{
+            activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher' ],
+            mpc_delivery_type_id: 'paper_vouchers',
+            mpc_delivery_type_name: 'Paper Vouchers'
+          },{
+            activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher' ],
+            mpc_delivery_type_id: 'mobile_vouchers',
+            mpc_delivery_type_name: 'Mobile Vouchers'
+          },{
+            activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher' ],
+            mpc_delivery_type_id: 'e_vouchers',
+            mpc_delivery_type_name: 'e-Vouchers'
+          },{
+            activity_description_id: [ 'fsac_in_kind' ],
+            mpc_delivery_type_id: 'distribution',
+            mpc_delivery_type_name: 'Distribution'
+          }];
+
+        return types;
+      },
+
       // get list 
       getTransfers: function( length ){
         var trasnfers = [];

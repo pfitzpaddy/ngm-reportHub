@@ -95,6 +95,20 @@ angular.module( 'ngmReportHub' )
         return sum;
       };
   })
+  .filter('filterByArray', function() {
+    return function(tasks, tags, key ) {
+      return tasks.filter(function(task) {
+
+        for (var i in task[ key ]) {
+          if (tags === task[ key ][i] ) {
+            return true;
+          }
+        }
+        return false;
+
+      });
+    };
+  })
 
   // checks 2 passwords are identical 
   .directive( 'pwCheck', [ function () {

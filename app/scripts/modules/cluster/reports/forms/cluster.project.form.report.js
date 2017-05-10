@@ -66,31 +66,14 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         category_types: ngmClusterHelper.getCategoryTypes(),
         beneficiary_types: config.report.report_year === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries(),
         lists: {
+          // units
           units: ngmClusterHelper.getUnits( config.project.admin0pcode ),
           // transfers
           transfers: ngmClusterHelper.getTransfers( 10 ),
           // Population
-          delivery_types:[{
-            delivery_type_id: 'population',
-            delivery_type_name: 'New Beneficiaries'
-          },{
-            delivery_type_id: 'service',
-            delivery_type_name: 'Existing Beneficiaries'
-          }],
+          delivery_types:ngmClusterHelper.getDeliveryTypes(),
           // MPC
-          mpc_delivery_types: [{
-            mpc_delivery_type_id: 'hawala',
-            mpc_delivery_type_name: 'Hawala'
-          },{
-            mpc_delivery_type_id: 'cash_in_envelope',
-            mpc_delivery_type_name: 'Cash in Envelope'
-          },{
-            mpc_delivery_type_id: 'mobile',
-            mpc_delivery_type_name: 'Mobile'
-          },{
-            mpc_delivery_type_id: 'bank',
-            mpc_delivery_type_name: 'Bank'
-          }]
+          mpc_delivery_types: ngmClusterHelper.getMpcDeliveryTypes()
         },
         
         // templates
@@ -189,7 +172,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var selected = [];
           $beneficiary.activity_description_id = $data;
           if($beneficiary.activity_description_id) {
-            selected = $filter('filter')( $scope.project.activity_descriptions, { activity_description_id: $beneficiary.activity_description_id }, true);
+            selected = $filter('filter')( $scope.project.activity_descriptions, { activity_description_id: $beneficiary.activity_description_id }, true );
             $beneficiary.activity_description_name = selected[0].activity_description_name;
           } 
           return selected.length ? selected[0].activity_description_name : 'No Selection!';
@@ -202,7 +185,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           if($beneficiary.mpc_delivery_type_id) {
             
             // selection
-            selected = $filter('filter')( $scope.project.lists.mpc_delivery_types, { mpc_delivery_type_id: $beneficiary.mpc_delivery_type_id }, true);
+            selected = $filter('filter')( $scope.project.lists.mpc_delivery_types, { mpc_delivery_type_id: $beneficiary.mpc_delivery_type_id }, true );
             if ( selected.length ) {
               $beneficiary.mpc_delivery_type_name = selected[0].mpc_delivery_type_name;
             } else {
@@ -215,7 +198,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             // no cash! for previous selections
             if ( $beneficiary.activity_type_id.indexOf( 'cash' ) === -1 && 
                   $beneficiary.activity_description_id && 
-                  $beneficiary.activity_description_id.indexOf( 'cash' ) === -1 ){
+                  ( $beneficiary.activity_description_id.indexOf( 'cash' ) === -1 &&
+                    $beneficiary.activity_description_id.indexOf( 'in_kind' ) === -1 ) ) {
               // reset
               $beneficiary.mpc_delivery_type_id = 'n_a';
               $beneficiary.mpc_delivery_type_name = 'N/A';
@@ -289,7 +273,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
                 ( b.activity_description_id && 
                 ( b.activity_description_id.indexOf( 'education' ) > -1 ||
                   b.activity_description_id.indexOf( 'training' ) > -1 ||
-                  b.activity_description_id.indexOf('cash') > -1 ) )
+                  b.activity_description_id.indexOf( 'cash' ) > -1 ||
+                  b.activity_description_id.indexOf( 'in_kind' ) > -1 ) )
               ) {
                 display = true;
               }
@@ -335,7 +320,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var display = false;
           angular.forEach( $scope.project.report.locations, function(l){
             angular.forEach( l.beneficiaries, function(b){
-              if( ( b.activity_type_id && b.activity_type_id.indexOf('cash') > -1 ) || ( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ) ){
+              if( ( b.activity_type_id && b.activity_type_id.indexOf('cash') > -1 ) 
+                || ( b.activity_description_id && 
+                    ( b.activity_description_id.indexOf( 'cash' ) > -1 || 
+                      b.activity_description_id.indexOf( 'in_kind' ) > -1 ) ) ) {
                 display = true;
               }
             });
@@ -349,7 +337,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( ( b.activity_type_id && b.activity_type_id.indexOf('cash') > -1 ) || ( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ) ){
+              if( ( b.activity_type_id && b.activity_type_id.indexOf('cash') > -1 ) || 
+                  ( b.activity_description_id && 
+                  ( b.activity_description_id.indexOf( 'cash' ) > -1 ||
+                    b.activity_description_id.indexOf( 'in_kind' ) > -1 ) ) ) {
                 display = true;
               }
             });

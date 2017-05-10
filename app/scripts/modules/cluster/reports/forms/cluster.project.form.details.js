@@ -67,28 +67,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         lists: {
           currencies: ngmClusterHelper.getCurrencies( config.project.admin0pcode ),
           units: ngmClusterHelper.getUnits( config.project.admin0pcode ),
+          
           // delivery
-          delivery_types:[{
-            delivery_type_id: 'population',
-            delivery_type_name: 'New Beneficiaries'
-          },{
-            delivery_type_id: 'service',
-            delivery_type_name: 'Existing Beneficiaries'
-          }],
+          delivery_types: ngmClusterHelper.getDeliveryTypes(),
+          
           // MPC
-          mpc_delivery_types: [{
-            mpc_delivery_type_id: 'hawala',
-            mpc_delivery_type_name: 'Hawala'
-          },{
-            mpc_delivery_type_id: 'cash_in_envelope',
-            mpc_delivery_type_name: 'Cash in Envelope'
-          },{
-            mpc_delivery_type_id: 'mobile',
-            mpc_delivery_type_name: 'Mobile'
-          },{
-            mpc_delivery_type_id: 'bank',
-            mpc_delivery_type_name: 'Bank'
-          }],
+          mpc_delivery_types: ngmClusterHelper.getMpcDeliveryTypes(),
+
           // transfers
           transfers: ngmClusterHelper.getTransfers( 30 ),
           clusters: ngmClusterHelper.getClusters(),
@@ -100,13 +85,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           beneficiary_types: moment( config.project.project_end_date ).year() === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries(),
           currencies: ngmClusterHelper.getCurrencies( config.project.admin0pcode ),
           donors: ngmClusterHelper.getDonors( config.project.cluster_id ),
+          
           // admin1 ( with admin0 filter )
           admin1: $filter( 'filter' )( localStorage.getObject( 'lists' ).admin1List, 
                           { admin0pcode: ngmUser.get().admin0pcode }, true ),
+          
           // admin2 ( with admin0 filter )
           admin2: $filter( 'filter' )( localStorage.getObject( 'lists' ).admin2List, 
                           { admin0pcode: ngmUser.get().admin0pcode }, true ),
           admin2Select: [],
+          
           // facility type
           facility_type: ngmClusterHelper.getFacilityTypes()
         },
@@ -257,10 +245,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         showCashDelivery: function( $data, $beneficiary ) {
           var selected = [];
           $beneficiary.mpc_delivery_type_id = $data;
-          if($beneficiary.mpc_delivery_type_id) {
+          if( $beneficiary.mpc_delivery_type_id ) {
 
             // selection
-            selected = $filter('filter')( $scope.project.lists.mpc_delivery_types, { mpc_delivery_type_id: $beneficiary.mpc_delivery_type_id }, true);
+            selected = $filter('filter')( $scope.project.lists.mpc_delivery_types, { mpc_delivery_type_id: $beneficiary.mpc_delivery_type_id }, true );
             if ( selected.length ) {
               $beneficiary.mpc_delivery_type_name = selected[0].mpc_delivery_type_name;
             } else {
@@ -273,13 +261,15 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             // no cash! for previous selections
             if ( $beneficiary.activity_type_id.indexOf( 'cash' ) === -1 &&
                   $beneficiary.activity_description_id &&  
-                  $beneficiary.activity_description_id.indexOf( 'cash' ) === -1 ){
+                  ( $beneficiary.activity_description_id.indexOf( 'cash' ) === -1 && 
+                    $beneficiary.activity_description_id.indexOf( 'in_kind' ) === -1 ) ){
               // reset
               $beneficiary.mpc_delivery_type_id = 'n_a';
               $beneficiary.mpc_delivery_type_name = 'N/A';
             }
 
           }
+
           return selected.length ? selected[0].mpc_delivery_type_name : 'No Selection!';
         },
 
@@ -349,7 +339,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var display = false;
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
-            if( ( b.activity_type_id && b.activity_type_id.indexOf('cash') > -1 ) || ( b.activity_description_id && b.activity_description_id.indexOf('cash') > -1 ) ){
+            if( ( b.activity_type_id && b.activity_type_id.indexOf('cash') > -1 ) || 
+              ( b.activity_description_id && ( b.activity_description_id.indexOf('cash') > -1 || 
+                b.activity_description_id.indexOf( 'in_kind' ) > -1 ) ) ) {
               display = true;
             }
           });
@@ -366,7 +358,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 ( b.activity_description_id && 
                 ( b.activity_description_id.indexOf( 'education' ) > -1 ||
                   b.activity_description_id.indexOf( 'training' ) > -1 ||
-                  b.activity_description_id.indexOf('cash') > -1 ) )
+                  b.activity_description_id.indexOf( 'cash' ) > -1 ||
+                  b.activity_description_id.indexOf( 'in_kind' ) > -1 ) )
               ) {
               display = true;
             }
