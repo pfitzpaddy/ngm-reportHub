@@ -376,6 +376,10 @@ angular.module( 'ngmReportHub' )
           currency_name: 'AUD'
         },{
           admin0pcode: admin0pcode,
+          currency_id: 'cad',
+          currency_name: 'CAD'
+        },{
+          admin0pcode: admin0pcode,
           currency_id: 'ddk',
           currency_name: 'DDK'
         },{
