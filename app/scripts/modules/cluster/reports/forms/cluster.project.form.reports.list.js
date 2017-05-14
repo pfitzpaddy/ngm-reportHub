@@ -165,6 +165,9 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
 
         // remove budget item
         removeBudgetItem: function() {
+          
+          console.log($scope.project.budgetIndex)
+
           // id
           var id = $scope.project.definition.project_budget_progress[ $scope.project.budgetIndex ].id;
           // splice
