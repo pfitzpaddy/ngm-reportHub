@@ -206,7 +206,7 @@ angular.module( 'ngmReportHub' )
           },{
             activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash' ],
             mpc_delivery_type_id: 'e_cash',
-            mpc_delivery_type_name: 'e-Cash'
+            mpc_delivery_type_name: 'Electronic Card - Cash'
           },{
             activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher' ],
             mpc_delivery_type_id: 'paper_vouchers',
@@ -218,7 +218,7 @@ angular.module( 'ngmReportHub' )
           },{
             activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher' ],
             mpc_delivery_type_id: 'e_vouchers',
-            mpc_delivery_type_name: 'e-Vouchers'
+            mpc_delivery_type_name: 'Electronic Card - Vouchers'
           },{
             activity_description_id: [ 'fsac_in_kind' ],
             mpc_delivery_type_id: 'distribution',

@@ -107,11 +107,8 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
           // get clean budget
           $scope.project.definition.project_budget_progress = 
               ngmClusterHelper.getCleanBudget( ngmUser.get(), $scope.project.definition, $scope.project.definition.project_budget_progress );
-  
-          // extend targets with projectn ngmData details & push
-          // $scope.project.definition.project_budget_progress.unshift( budget );
 
-          // Update Project (as project_budget_progress is an association)
+          // Update Project
           ngmData.get({
             method: 'POST',
             url: 'http://' + $location.host() + '/api/cluster/project/setProject',
@@ -119,8 +116,11 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
               project: $scope.project.definition
             }
           }).then( function( project ){
+            
+            // set project definition
+            $scope.project.definition = project;
+
             // reset form
-            // $scope.project.budget.activity_type_id = '';
             $scope.project.budget.project_budget_amount_recieved = 0;
             $scope.project.budget.project_budget_date_recieved = moment().format('YYYY-MM-DD');       
             // on success
@@ -165,18 +165,20 @@ angular.module( 'ngm.widget.project.reports.list', [ 'ngm.provider' ])
 
         // remove budget item
         removeBudgetItem: function() {
-          // remove from
+          // id
+          var id = $scope.project.definition.project_budget_progress[ $scope.project.budgetIndex ].id;
+          // splice
           $scope.project.definition.project_budget_progress.splice( $scope.project.budgetIndex, 1 );
-          // Update 
+          // remove 
           $http({
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/cluster/project/setProject',
+            url: 'http://' + $location.host() + '/api/cluster/project/removeBudgetItem',
             data: {
-              project: $scope.project.definition
+              id: id
             }
           }).success( function( project ){
             // on success
-            Materialize.toast( 'Project Budget Progress Updated!', 3000, 'success');
+            Materialize.toast( 'Project Budget Progress Removed!', 3000, 'success');
           }).error(function( err ) {
             // update
             Materialize.toast( 'Error!', 6000, 'error' );
