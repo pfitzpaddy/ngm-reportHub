@@ -137,7 +137,7 @@ angular.module('ngmReportHub')
 						method: 'POST',
 						url: 'http://' + $location.host() + '/api/metrics/set',
 						data: {
-							organization: $scope.dashboard.user.organization_tag,
+							organization: $scope.dashboard.user.organization,
 							username: $scope.dashboard.user.username,
 							email: $scope.dashboard.user.email,
 							dashboard: 'cluster_dashboard',

@@ -19,7 +19,7 @@
 
 					<div ng-if="project.showCash()" style="padding-left: 40px;">
 						<p style="color: #e57373">
-							<span style="font-weight:400">Amount:</span> Please enter the cash amound <span style="font-weight:400">PER</span> Household ( <span style="font-weight:400">HH</span> )
+							<span style="font-weight:400">Amount:</span> Please enter the amount per <span style="font-weight:400">HOUSEHOLD ( HH )</span> per <span style="font-weight:400">TRANSFER</span>
 						</p>
 						<p style="color: #e57373">
 							<span style="font-weight:400">Transfers:</span> Please enter the <span style="font-weight:400">TOTAL</span> number of planned transfers for the <span style="font-weight:400">ENTIRE</span> project
@@ -90,7 +90,7 @@
 							              	!beneficiary.activity_description_id ||
 															( beneficiary.activity_type_id.indexOf('cash') === -1 &&
 																beneficiary.activity_description_id.indexOf('cash') === -1 &&
-																beneficiary.activity_description_id.indexOf('in_kind') === -1 )">
+																beneficiary.activity_description_id.indexOf('fsac_in_kind') === -1 )">
 							          {{ project.showCashDelivery($data, beneficiary) }}
 							        </span>
 							      </td>

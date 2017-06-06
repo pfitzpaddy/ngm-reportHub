@@ -62,7 +62,7 @@
                 !beneficiary.activity_description_id ||
                 ( beneficiary.activity_type_id.indexOf('cash') === -1 &&
                   beneficiary.activity_description_id.indexOf('cash') === -1 &&
-                  beneficiary.activity_description_id.indexOf('in_kind') === -1 )">
+                  beneficiary.activity_description_id.indexOf('fsac_in_kind') === -1 )">
           {{ project.showCashDelivery($data, beneficiary) }}
         </span>
       </td>

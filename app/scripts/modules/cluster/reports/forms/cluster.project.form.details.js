@@ -341,7 +341,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           angular.forEach( l, function(b){
             if( ( b.activity_type_id && b.activity_type_id.indexOf('cash') > -1 ) || 
               ( b.activity_description_id && ( b.activity_description_id.indexOf('cash') > -1 || 
-                b.activity_description_id.indexOf( 'in_kind' ) > -1 ) ) ) {
+                b.activity_description_id.indexOf( 'fsac_in_kind' ) > -1 ) ) ) {
               display = true;
             }
           });

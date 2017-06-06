@@ -28,7 +28,10 @@
 
 							<div class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
 	      					title="Edit {{ project.titleFormat }}"
-	      					ng-show="project.report.report_year !== 2016 && project.report.report_status === 'complete'"
+	      					ng-show="project.definition.project_status === 'active' && 
+	      										project.report.report_year === 2017 && 
+	      										project.report.report_status === 'complete'"
+	      										
 	      					ng-click="project.save( false, false)">
 	      					<i class="material-icons left">create</i>Edit Report
 	      			</div>
@@ -67,10 +70,10 @@
 							<!-- cvwg -->
 							<div ng-if="project.showCash( $locationIndex )" style="padding-left: 50px;">
 								<p style="color: #e57373">
-									<span style="font-weight:400">Amount:</span> Please enter the cash amound <span style="font-weight:400">PER</span> Household ( <span style="font-weight:400">HH</span> )
+									<span style="font-weight:400">Amount:</span> Please enter the amount per <span style="font-weight:400">HOUSEHOLD ( HH )</span> per <span style="font-weight:400">TRANSFER</span>
 								</p>
 								<p style="color: #e57373">
-									<span style="font-weight:400">Transfers:</span> Please enter the number of <span style="font-weight:400">ACTUAL</span> transfers for this <span style="font-weight:400">MONTH</span>
+									<span style="font-weight:400">Transfers:</span> Please enter the <span style="font-weight:400">ACTUAL</span> number  of transfers made <span style="font-weight:400">THIS</span> month
 								</p>
 							</div>
 
