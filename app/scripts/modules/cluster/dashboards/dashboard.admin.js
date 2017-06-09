@@ -119,6 +119,26 @@ angular.module('ngmReportHub')
 
 				},
 
+				getMetrics: function( type, format ) {
+
+					var request = {
+							method: 'POST',
+							url: 'http://' + $location.host() + '/api/metrics/set',
+							data: {
+								organization: $scope.dashboard.user.organization,
+								username: $scope.dashboard.user.username,
+								email: $scope.dashboard.user.email,
+								dashboard: 'cluster_admin_' + type + '_' + $scope.dashboard.cluster_id,
+								theme: 'cluster_admin_' + type + '_' + $scope.dashboard.cluster_id,
+								format: format,
+								url: $location.$$path
+							}
+						}
+
+					return request;
+
+				},
+
 				// menu
 				setMenu: function( role ){
 
@@ -430,20 +450,30 @@ angular.module('ngmReportHub')
 											viewportWidth: 1400
 										}
 									},						
-									metrics: {
+									metrics: $scope.dashboard.getMetrics( 'print', 'pdf' )
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'assignment_late',
+									hover: 'Download ' + $scope.dashboard.report_type.charAt(0).toUpperCase() + $scope.dashboard.report_type.slice(1) + ' Reports ToDo',
+									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/metrics/set',
-										data: {
-											organization: $scope.dashboard.user.organization,
-											username: $scope.dashboard.user.username,
-											email: $scope.dashboard.user.email,
-											dashboard: 'cluster_admin_' + $scope.dashboard.cluster_id,
-											theme: 'cluster_admin_' + $scope.dashboard.cluster_id,
-											format: 'pdf',
-											url: $location.$$path
-										}
-									}
-								}]
+										url: 'http://' + $location.host() + '/api/cluster/admin/indicator',	
+										data: angular.merge( $scope.dashboard.getRequest( 'reports_due', true ), { report: $scope.dashboard.cluster_id + '_' + $scope.dashboard.report_type +'_reports_due_' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
+									},
+									metrics: $scope.dashboard.getMetrics( 'reports_due', 'csv' )
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'assignment_turned_in',
+									hover: 'Download ' + $scope.dashboard.report_type.charAt(0).toUpperCase() + $scope.dashboard.report_type.slice(1) + ' Reports Complete',
+									request: {
+										method: 'POST',
+										url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
+										data: angular.merge( $scope.dashboard.getRequest( 'reports_complete', true ), { report: $scope.dashboard.cluster_id + '_' + $scope.dashboard.report_type + '_reports_complete_' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
+									},
+									metrics: $scope.dashboard.getMetrics( 'reports_complete', 'csv' )
+								}],
 							}							
 						},
 						menu: [],
