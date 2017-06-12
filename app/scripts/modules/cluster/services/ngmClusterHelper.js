@@ -638,8 +638,8 @@ angular.module( 'ngmReportHub' )
           beneficiary_type_id: 'access_to_services',
           beneficiary_type_name: 'Access to Services'
         },{
-          cluster_id: [ 'cvwg', 'esnfi', 'health', 'protection' ],
-          category_type_id: [ 'category_a', 'category_d' ],
+          cluster_id: [ 'cvwg', 'esnfi', 'health', 'protection', 'nutrition' ],
+          category_type_id: [ 'category_a', 'category_c', 'category_d' ],
           beneficiary_type_id: 'host_communities',
           beneficiary_type_name: 'Host Communities'
         },{

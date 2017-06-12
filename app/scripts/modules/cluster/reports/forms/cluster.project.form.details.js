@@ -414,7 +414,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var display = false;
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
-            if( b.cluster_id === 'wash' ){
+            if( b.cluster_id === 'wash' || b.activity_type_id === 'nutrition_education_training' ){
               display = true;
             }
           });
@@ -426,12 +426,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
             if( b.cluster_id !== 'eiewg' && 
-                b.cluster_id !== 'nutrition' && 
+                ( b.cluster_id !== 'nutrition' || b.activity_type_id === 'nutrition_education_training' ) && 
                 b.activity_type_id !== 'mch' &&
+                b.activity_type_id !== 'vaccination' && 
                 b.activity_description_id !== 'antenatal_care' &&
                 b.activity_description_id !== 'postnatal_care' &&
                 b.activity_description_id !== 'skilled_birth_attendant' &&
-                b.activity_type_id !== 'vaccination' && 
                 b.activity_description_id !== 'penta_3' &&
                 b.activity_description_id !== 'measles' ){
               display = true;

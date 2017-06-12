@@ -187,7 +187,7 @@
 							        			e-min="0"
 							        			e-ng-change="project.updateInput($index, 'families', $data )"
 							        			e-ng-disabled="beneficiary.cluster_id !== 'wash' &&
-							        							beneficiary.cluster_id !== 'esnfi'"
+							        							beneficiary.activity_type_id !== 'nutrition_education_training'"
 							        			e-required>
 							          {{ beneficiary.families }}
 							        </span>
@@ -222,12 +222,12 @@
 							        			e-min="0"
 							        			e-ng-change="project.updateInput($index, 'men', $data )"
 							        			e-ng-disabled="beneficiary.cluster_id === 'eiewg' ||
-							        							beneficiary.cluster_id === 'nutrition' ||
+							        							( beneficiary.cluster_id === 'nutrition' && beneficiary.activity_type_id !== 'nutrition_education_training' ) ||
 							        							beneficiary.activity_type_id === 'mch' ||
+							        							beneficiary.activity_type_id === 'vaccination' ||
 							        							beneficiary.activity_description_id === 'antenatal_care' ||
 							        							beneficiary.activity_description_id === 'postnatal_care' ||
 							        							beneficiary.activity_description_id === 'skilled_birth_attendant' ||
-							        							beneficiary.activity_type_id === 'vaccination' ||
 							        							beneficiary.activity_description_id === 'penta_3' ||
 							        							beneficiary.activity_description_id === 'measles'"
 							        			e-required>
