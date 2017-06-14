@@ -68,8 +68,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           currencies: ngmClusterHelper.getCurrencies( config.project.admin0pcode ),
           units: ngmClusterHelper.getUnits( config.project.admin0pcode ),
 
-
-          
           // delivery
           delivery_types: ngmClusterHelper.getDeliveryTypes(),
           
@@ -838,7 +836,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           // db attributes
           $scope.project.definition.mpc_purpose = [];
-          $scope.project.definition.mpc_purpose_cluster_id = [];
+          $scope.project.definition.mpc_purpose_cluster_id = '';
 
           // mpc purpose
           angular.forEach( $scope.project.definition.mpc_purpose_check, function( t, key ){
@@ -846,10 +844,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               var a_type = $filter( 'filter' )( $scope.project.lists.mpc_purpose, { mpc_purpose_type_id: key }, true)[0];
               if ( a_type ) {
                 $scope.project.definition.mpc_purpose.push( a_type );
-                $scope.project.definition.mpc_purpose_cluster_id.push( a_type.cluster_id );
+                $scope.project.definition.mpc_purpose_cluster_id += a_type.cluster_id + ', ';
               }
             }
           });
+
+          // trim last character of string
+          $scope.project.definition.mpc_purpose_cluster_id = $scope.project.definition.mpc_purpose_cluster_id.slice( 0, -2 );
 
         },
 

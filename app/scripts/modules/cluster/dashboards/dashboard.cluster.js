@@ -172,10 +172,8 @@ angular.module('ngmReportHub')
 						}
 
 						// clusters
-						$scope.dashboard.lists.clusters.unshift({
-							cluster_id: 'all',
-							cluster: 'ALL',
-						});
+						$scope.dashboard.lists.clusters.unshift({ cluster_id: 'cvwg', cluster: 'Multi-Purpose Cash' });
+						$scope.dashboard.lists.clusters.unshift({ cluster_id: 'all', cluster: 'ALL' });
 						angular.forEach( $scope.dashboard.lists.clusters, function(d,i){
 							var path = $scope.dashboard.getPath( d.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
 							clusterRows.push({
@@ -284,8 +282,12 @@ angular.module('ngmReportHub')
 				},
 
 				setCluster: function(){
-					$scope.dashboard.cluster = $filter( 'filter' )( $scope.dashboard.lists.clusters, 
-														{ cluster_id: $scope.dashboard.cluster_id }, true )[0]
+					if ( $scope.dashboard.cluster_id === 'cvwg' ) {
+						$scope.dashboard.cluster = { cluster_id: 'cvwg', cluster: 'Cash' };
+					} else {
+						$scope.dashboard.cluster = $filter( 'filter' )( $scope.dashboard.lists.clusters, 
+														{ cluster_id: $scope.dashboard.cluster_id }, true )[0];
+					}
 				},
 
 				// filter
@@ -374,8 +376,14 @@ angular.module('ngmReportHub')
 
 					// ADMIN
 					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 ) {
-						$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
+						if ( !$scope.dashboard.user.dashboard_visits ) {
+							$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
+						}
 					}
+
+					// plus dashboard_visits
+					$scope.dashboard.user.dashboard_visits++;
+					localStorage.setObject( 'auth_token', $scope.dashboard.user );					
 
 					// report name
 					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
