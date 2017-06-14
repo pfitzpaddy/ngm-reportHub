@@ -67,11 +67,21 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         lists: {
           currencies: ngmClusterHelper.getCurrencies( config.project.admin0pcode ),
           units: ngmClusterHelper.getUnits( config.project.admin0pcode ),
+
+
           
           // delivery
           delivery_types: ngmClusterHelper.getDeliveryTypes(),
           
           // MPC
+          mpc_purpose: [
+            { cluster_id: 'eiewg', cluster: 'EiEWG', mpc_purpose_type_id: 'education', mpc_purpose_type_name: 'Education' },
+            { cluster_id: 'fsac', cluster: 'FSAC', mpc_purpose_type_id: 'food', mpc_purpose_type_name: 'Food' },
+            { cluster_id: 'health', cluster: 'Health', mpc_purpose_type_id: 'health', mpc_purpose_type_name: 'Health' },
+            { cluster_id: 'esnfi', cluster: 'ESNFI', mpc_purpose_type_id: 'rent', mpc_purpose_type_name: 'Rent' },
+            { cluster_id: 'esnfi', cluster: 'ESNFI', mpc_purpose_type_id: 'shelter', mpc_purpose_type_name: 'Shelter' },
+            { cluster_id: 'esnfi', cluster: 'ESNFI', mpc_purpose_type_id: 'nfi', mpc_purpose_type_name: 'NFI' }
+          ],
           mpc_delivery_types: ngmClusterHelper.getMpcDeliveryTypes(),
 
           // transfers
@@ -823,6 +833,26 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         },
 
+        // compile mpc cash purpose
+        compileMpcPurpose: function() {
+
+          // db attributes
+          $scope.project.definition.mpc_purpose = [];
+          $scope.project.definition.mpc_purpose_cluster_id = [];
+
+          // mpc purpose
+          angular.forEach( $scope.project.definition.mpc_purpose_check, function( t, key ){
+            if ( t ) {
+              var a_type = $filter( 'filter' )( $scope.project.lists.mpc_purpose, { mpc_purpose_type_id: key }, true)[0];
+              if ( a_type ) {
+                $scope.project.definition.mpc_purpose.push( a_type );
+                $scope.project.definition.mpc_purpose_cluster_id.push( a_type.cluster_id );
+              }
+            }
+          });
+
+        },
+
         // compile activity_type 
         compileActivityType: function(){
           
@@ -1011,7 +1041,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         $timeout(function() {
 
           // set HRP if SOs selected
-          if( $scope.project.definition.strategic_objectives.length ) {
+          if ( $scope.project.definition.strategic_objectives && $scope.project.definition.strategic_objectives.length ) {
             $scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'OTH', 'HRP' );
           }
 
@@ -1039,6 +1069,31 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 $scope.project.definition.activity_type_check[ d.activity_type_id ] = true;
               }
             });
+          }
+
+          // if Cash
+          if ( $scope.project.definition.cluster_id === 'cvwg' ) {
+
+            // set only option to true
+            if ( !$scope.project.definition.activity_type ) {
+              $scope.project.definition.activity_type_check = {
+                'cvwg_multi_purpose_cash': true
+              };
+            }
+
+            // compile activity type
+            $scope.project.compileActivityType();
+
+            // add project donor check box list
+            if ( $scope.project.definition.mpc_purpose ) {
+              $scope.project.definition.mpc_purpose_check = {};
+              angular.forEach( $scope.project.definition.mpc_purpose, function( d, i ){
+                if ( d ){
+                  $scope.project.definition.mpc_purpose_check[ d.mpc_purpose_type_id ] = true;
+                }
+              });
+            }
+
           }
 
           // add project donor check box list
