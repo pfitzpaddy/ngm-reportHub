@@ -231,8 +231,6 @@ angular.module( 'ngmReportHub' )
 													useHTML: true,
 													headerFormat: '<br/>',
 													pointFormatter: function(){
-
-														console.log(this)
 														
 														// remove ugly tooltip
 														$('svg').find('.highcharts-tooltip').remove();

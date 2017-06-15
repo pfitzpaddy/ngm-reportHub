@@ -778,6 +778,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // compile cluster activities
         compileInterClusterActivities: function(){
           
+          console.log('here');
+
           $scope.project.definition.inter_cluster_activities = [];
           angular.forEach( $scope.project.definition.inter_cluster_check, function( t, key ){
             if ( t ) {
@@ -871,6 +873,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               }
             }
           });
+
+          console.log( $scope.project.definition.activity_type )
 
         },
 
@@ -1081,10 +1085,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 'cvwg_multi_purpose_cash': true
               };
             }
-
             // compile activity type
             $scope.project.compileActivityType();
-
             // add project donor check box list
             if ( $scope.project.definition.mpc_purpose ) {
               $scope.project.definition.mpc_purpose_check = {};

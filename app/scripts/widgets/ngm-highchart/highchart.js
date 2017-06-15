@@ -109,8 +109,6 @@ angular.module('ngm.widget.highchart', ['ngm.provider'])
 
           // For each series, make request
           angular.forEach($scope.highchart.chartConfig.series, function(series, key){
-
-            console.log(series.data)
             
             // if no request object, treat as static chart
             if ( !$.isEmptyObject(series.request) ) {
