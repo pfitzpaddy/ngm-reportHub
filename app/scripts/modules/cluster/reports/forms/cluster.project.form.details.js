@@ -777,8 +777,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // compile cluster activities
         compileInterClusterActivities: function(){
-          
-          console.log('here');
 
           $scope.project.definition.inter_cluster_activities = [];
           angular.forEach( $scope.project.definition.inter_cluster_check, function( t, key ){

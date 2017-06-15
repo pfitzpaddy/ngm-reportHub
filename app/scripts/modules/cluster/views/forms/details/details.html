@@ -141,57 +141,57 @@
 								</div>
 
 							</div>
-
-							<div class="row" ng-show="project.definition.cluster_id === 'cvwg'">
+							
+							<!-- cash -->
+							<div class="row" ng-if="project.definition.cluster_id === 'cvwg'">
 
 								<div class="input-field col s12 m6" style="padding-bottom:5px;">
-									<div>
-										<label>Purpose of Cash?</label>
-										<div style="padding-bottom:35px;"></div>
+									
+									<label>Purpose of Cash?</label>
+									<div style="padding-bottom:35px;"></div>
 
-									    <p ng-repeat="a in project.lists.mpc_purpose">
-									      <input type="checkbox" id="activity_{{ a.mpc_purpose_type_id }}" 
-									      ng-model="project.definition.mpc_purpose_check[ a.mpc_purpose_type_id ]"
-									      ng-disabled="project.definition.project_status === 'complete'"
-									      ng-click="project.compileMpcPurpose()"/>
-									      <label class="checkbox-label" for="activity_{{ a.mpc_purpose_type_id }}">{{ a.mpc_purpose_type_name }}</label>
-									    </p>
-									</div>
+								    <p ng-repeat="a in project.lists.mpc_purpose">
+								      <input type="checkbox" id="activity_{{ a.mpc_purpose_type_id }}" 
+								      ng-model="project.definition.mpc_purpose_check[ a.mpc_purpose_type_id ]"
+								      ng-disabled="project.definition.project_status === 'complete'"
+								      ng-click="project.compileMpcPurpose()"/>
+								      <label class="checkbox-label" for="activity_{{ a.mpc_purpose_type_id }}">{{ a.mpc_purpose_type_name }}</label>
+								    </p>
 
 								</div>
 								
 								<div class="input-field col s12 m6" style="padding-bottom:5px;">
-										<label class="label">Activity Type *</label>
-										<div style="padding-bottom:35px;"></div>
-										<!-- for project cluster activity_type -->
+										
+									<label class="label">Activity Type *</label>
+									<div style="padding-bottom:35px;"></div>
+
 										<p style="padding-left:10px;" ng-repeat="a in project.lists.activity_types | filter: { cluster_id: project.definition.cluster_id } ">
 											<input type="checkbox" id="activity_{{ a.activity_type_id }}" checked="true" 
 											ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
 											ng-disabled="project.definition.project_status === 'complete'"/>
 											<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label>
-										</p>										
+										</p>
+
 								</div>
 
 							</div>
 
 							<!-- inter -->
-							<div class="row" ng-show="project.definition.cluster_id !== 'cvwg'">
+							<div class="row" ng-if="project.definition.cluster_id !== 'cvwg'">
 								
 								<div class="input-field col s12 m6" style="padding-bottom:5px;">
-									<div>
-										<label>Inter-Cluster Activities?</label>
-										<div style="padding-bottom:35px;"></div>
+									
+									<label>Inter-Cluster Activities?</label>
+									<div style="padding-bottom:35px;"></div>
 
-									    <p ng-repeat="a in project.lists.clusters | 
-									    		filter: { cluster_id: '!' + project.definition.cluster_id } ">
-									      <input type="checkbox" id="activity_{{ a.cluster_id }}" 
-									      ng-model="project.definition.inter_cluster_check[ a.cluster_id ]"
-									      ng-disabled="project.definition.project_status === 'complete'"
-									      ng-click="project.compileInterClusterActivities()"/>
-									      <label class="checkbox-label" for="activity_{{ a.cluster_id }}">{{ a.cluster }}</label>
-									    </p>
-									</div>
-
+								    <p ng-repeat="a in project.lists.clusters | 
+								    		filter: { cluster_id: '!' + project.definition.cluster_id } ">
+								      <input type="checkbox" id="activity_{{ a.cluster_id }}" 
+								      ng-model="project.definition.inter_cluster_check[ a.cluster_id ]"
+								      ng-disabled="project.definition.project_status === 'complete'"
+								      ng-click="project.compileInterClusterActivities()"/>
+								      <label class="checkbox-label" for="activity_{{ a.cluster_id }}">{{ a.cluster }}</label>
+								    </p>
 								</div>
 
 								<div class="activity-field col s12 m6" style="padding-top:12px;padding-bottom:5px;">
