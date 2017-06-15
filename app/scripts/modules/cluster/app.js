@@ -230,6 +230,17 @@ angular
 				}
 			})
 
+			// hct dashboard 2017
+			.when( '/cluster/health/hct', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardHctCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.grantPublicAccess();
+					}],
+				}
+			})
+
 			// cluster dashboard
 			.when( '/cluster/4w', {
 				redirectTo: '/cluster/4w/emro/af/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
