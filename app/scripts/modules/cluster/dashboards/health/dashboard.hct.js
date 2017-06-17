@@ -119,31 +119,26 @@ angular.module( 'ngmReportHub' )
 							},
 							subtitle: {
 								'class': 'col hide-on-small-only s12 report-subtitle truncate',
-								'title': 'BPHS ( no TCU ) & Select Health Cluster services ( FATP, TCU, MCH, Vacc. ) in Target Districts ( HRP White Areas 2016 / OCHA IDP Districts 2017 ) of ' + data.title.toUpperCase(),
+								'title': 'BPHS ( no TCU ) Q4 2016 & Select Health Cluster Services ( FATP, TCU, MCH, Vacc. ) Q1 2017 in Target Districts ( HRP White Areas 2016 / OCHA IDP Districts 2017 )',
 							},
-							// download: {
-							// 	'class': 'col s12 m4 l4 hide-on-small-only',
-							// 	downloads: [{
-							// 		type: 'pdf',
-							// 		color: 'blue',
-							// 		icon: 'picture_as_pdf',
-							// 		hover: 'Download Health 4W as PDF',
-							// 		request: {
-							// 			method: 'POST',
-							// 			url: 'http://' + $location.host() + '/api/print',
-							// 			data: {
-							// 				cluster_id: 'health',
-							// 				report: $scope.dashboard.report,
-							// 				printUrl: $location.absUrl(),
-							// 				downloadUrl: 'http://' + $location.host() + '/report/',
-							// 				user: $scope.dashboard.user,
-							// 				viewportWidth: 1490,
-							// 				pageLoadTime: 1000
-							// 			}
-							// 		},
-							// 		metrics: $scope.dashboard.getMetricsRequest( 'pdf', 'health_4w' )
-							// 	}]
-							// }
+							download: {
+								'class': 'col s12 m4 l4 hide-on-small-only',
+								downloads: [{
+									type: 'pdf',
+									color: 'blue',
+									icon: 'picture_as_pdf',
+									hover: 'Download Health 4W as PDF',
+									url: 'http://' + $location.host() + '/report/health/hct-2017/pdf/ReportHub-hct-indicators-' + data.id + '.pdf',
+									metrics: $scope.dashboard.getMetricsRequest( 'pdf', 'health_hct_' + data.id )
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'assignment_turned_in',
+									hover: 'Download Health 4W as CSV',
+									url: 'http://' + $location.host() + '/report/health/hct-2017/csv/ReportHub_indicators_hct_Q1_2017.csv',
+									metrics: $scope.dashboard.getMetricsRequest( 'csv', 'health_hct_' + data.id )
+								}]
+							}
 						},
 						menu: $scope.dashboard.getMenu(),
 						rows: [{
