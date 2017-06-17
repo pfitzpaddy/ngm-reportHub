@@ -54,6 +54,7 @@ angular.module('ngm.widget.stats', ['ngm.provider'])
         element: $element,
         display: {
           iconClass: 'grey-text text-lighten-1',
+          subTitleClass: 'grey-text text-darken-2',
           filter: 'number',
           duration: 1,
           simpleTitle: true

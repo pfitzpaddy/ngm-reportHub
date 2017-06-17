@@ -232,6 +232,9 @@ angular
 
 			// hct dashboard 2017
 			.when( '/cluster/health/hct', {
+				redirectTo: '/cluster/health/hct/all'
+			})
+			.when( '/cluster/health/hct/:province', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardHctCtrl',
 				resolve: {

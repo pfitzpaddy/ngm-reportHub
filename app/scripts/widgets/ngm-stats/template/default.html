@@ -11,9 +11,9 @@
 			fraction-size="{{ stats.display.fractionSize }}">
 		</span>{{ stats.display.postfix }}</span>
 
-	<div ng-if="stats.display.simpleTitle" class="grey-text text-darken-2">{{ stats.title }}</div>
+	<div ng-if="stats.display.simpleTitle" class="{{ stats.display.subTitleClass }}">{{ stats.title }}</div>
 
-	<div ng-if="!stats.display.simpleTitle" class="grey-text text-darken-2">{{ stats.title }} 
+	<div ng-if="!stats.display.simpleTitle" class="{{ stats.display.subTitleClass }}">{{ stats.title }} 
 		( <span>{{ stats.display.subTitlePrefix }}</span>
 	  	<span class="name"
 		      value="0" 

@@ -18,7 +18,8 @@ angular.module( 'ngmReportHub' )
 			'$filter', 
 			'ngmUser', 
 			'ngmData',
-		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmData ) {
+			'ngmHctHelper',
+		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmData, ngmHctHelper ) {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
 				'AngularJS',
@@ -42,6 +43,39 @@ angular.module( 'ngmReportHub' )
 				// current report
 				report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
 
+				// data
+				data: ngmHctHelper.getData(),
+
+				// province menu
+				getMenu: function(){
+
+					var rows = [],
+							menu = [];
+
+					// for each admin1, add to menu
+					angular.forEach( $scope.dashboard.data, function( d, key ){
+						var path = '#/cluster/health/hct/' + d.id;
+						rows.push({
+							'title': d.title.toUpperCase(),
+							'param': 'province',
+							'active': d.id,
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': path
+						});
+					});
+					// push on to menu
+					menu.push({
+						'search': true,
+						'id': 'search-health-province',
+						'icon': 'location_on',
+						'title': 'Province',
+						'class': 'teal lighten-1 white-text',
+						'rows': rows
+					});
+
+					return menu;
+				},
+
 				// get metrics 
 				getMetricsRequest: function( format, indicator ){
 					return {
@@ -62,6 +96,13 @@ angular.module( 'ngmReportHub' )
 
 				// set dashboard
 				setDashboard: function(){
+
+					// set dashboard
+					$scope.dashboard.province = $route.current.params.province;
+					var data = $scope.dashboard.data[ $scope.dashboard.province ];
+
+					// calc
+					data.target_districts =  $scope.dashboard.province === 'all' ? data.wa_idp_districts : ( data.white_area_districts + data.idp_districts ) - data.wa_idp_districts;
 					
 					// model
 					$scope.model = {
@@ -74,37 +115,37 @@ angular.module( 'ngmReportHub' )
 							title: {
 								'class': 'col s12 m8 l8 report-title truncate',
 								'style': 'font-size: 3.4rem; color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
-								'title': 'AFG | HEALTH | NANGARHAR',
+								'title': 'AFG | HEALTH | ' + data.title.toUpperCase(),
 							},
 							subtitle: {
 								'class': 'col hide-on-small-only s12 report-subtitle truncate',
-								'title': 'BPHS ( no TCU ) & Select Health Cluster services ( FATP, TCU, MCH, Vacc. ) in Target Districts ( HRP White Areas 2016 / OCHA IDP Districts 2017 ) of Nangarhar',
+								'title': 'BPHS ( no TCU ) & Select Health Cluster services ( FATP, TCU, MCH, Vacc. ) in Target Districts ( HRP White Areas 2016 / OCHA IDP Districts 2017 ) of ' + data.title.toUpperCase(),
 							},
-							download: {
-								'class': 'col s12 m4 l4 hide-on-small-only',
-								downloads: [{
-									type: 'pdf',
-									color: 'blue',
-									icon: 'picture_as_pdf',
-									hover: 'Download Health 4W as PDF',
-									request: {
-										method: 'POST',
-										url: 'http://' + $location.host() + '/api/print',
-										data: {
-											cluster_id: 'health',
-											report: $scope.dashboard.report,
-											printUrl: $location.absUrl(),
-											downloadUrl: 'http://' + $location.host() + '/report/',
-											user: $scope.dashboard.user,
-											viewportWidth: 1490,
-											pageLoadTime: 4000
-										}
-									},
-									metrics: $scope.dashboard.getMetricsRequest( 'pdf', 'health_4w' )
-								}]
-							}
+							// download: {
+							// 	'class': 'col s12 m4 l4 hide-on-small-only',
+							// 	downloads: [{
+							// 		type: 'pdf',
+							// 		color: 'blue',
+							// 		icon: 'picture_as_pdf',
+							// 		hover: 'Download Health 4W as PDF',
+							// 		request: {
+							// 			method: 'POST',
+							// 			url: 'http://' + $location.host() + '/api/print',
+							// 			data: {
+							// 				cluster_id: 'health',
+							// 				report: $scope.dashboard.report,
+							// 				printUrl: $location.absUrl(),
+							// 				downloadUrl: 'http://' + $location.host() + '/report/',
+							// 				user: $scope.dashboard.user,
+							// 				viewportWidth: 1490,
+							// 				pageLoadTime: 1000
+							// 			}
+							// 		},
+							// 		metrics: $scope.dashboard.getMetricsRequest( 'pdf', 'health_4w' )
+							// 	}]
+							// }
 						},
-						menu: [],
+						menu: $scope.dashboard.getMenu(),
 						rows: [{
 							columns: [{
 								styleClass: 's12 m12 l3',
@@ -114,7 +155,7 @@ angular.module( 'ngmReportHub' )
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Districts',
-										data: { value: 22 }
+										data: { value: data.districts }
 									}
 								}]
 							},{
@@ -124,8 +165,8 @@ angular.module( 'ngmReportHub' )
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'White Area Districts ( 36% )',
-										data: { value: 8 }
+										title: 'White Area Districts ( ' + ( ( data.white_area_districts / data.districts ) * 100 ).toFixed( 0 ) +  '% )',
+										data: { value: data.white_area_districts }
 									}
 								}]
 							},{
@@ -135,8 +176,8 @@ angular.module( 'ngmReportHub' )
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'IDP Districts ( 36% )',
-										data: { value: 8 }
+										title: 'IDP Districts ( ' + ( ( data.idp_districts / data.districts ) * 100 ).toFixed( 0 ) +  '% )',
+										data: { value: data.idp_districts }
 									}
 								}]
 							},{
@@ -144,10 +185,13 @@ angular.module( 'ngmReportHub' )
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
+									card: 'card-panel stats-card blue-grey darken-1 white-text',
 									config: {
-										title: 'Target Districts ( 63% )',
-										data: { value: 14 }
+										display:{ 
+											subTitleClass: 'white-text'
+										},
+										title: 'Both White Area & IDP ( ' + ( ( data.target_districts / data.districts ) * 100 ).toFixed( 0 ) +  '% )',
+										data: { value: data.target_districts }
 									}
 								}]
 							}]
@@ -157,10 +201,10 @@ angular.module( 'ngmReportHub' )
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
+									card: 'card-panel stats-card teal lighten-5 grey-text text-darken-2',
 									config: {
 										title: 'BPHS ( no TCU ) Districts',
-										data: { value: 13 }
+										data: { value: data.bphs_districts }
 									}
 								}]
 							},{
@@ -168,10 +212,10 @@ angular.module( 'ngmReportHub' )
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
+									card: 'card-panel stats-card teal lighten-5 grey-text text-darken-2',
 									config: {
 										title: 'BPHS ( no TCU ) Services Provided',
-										data: { value: 1353 }
+										data: { value: data.bphs_services }
 									}
 								}]
 							}]
@@ -181,10 +225,10 @@ angular.module( 'ngmReportHub' )
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
+									card: 'card-panel stats-card blue lighten-4 grey-text text-darken-2',
 									config: {
 										title: 'Health Cluster ( FATP, TCU, MCH, Vacc. ) Districts',
-										data: { value: 6 }
+										data: { value: data.hc_districts }
 									}
 								}]
 							},{
@@ -192,10 +236,10 @@ angular.module( 'ngmReportHub' )
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
+									card: 'card-panel stats-card blue lighten-4 grey-text text-darken-2',
 									config: {
 										title: 'Health Cluster ( FATP, TCU, MCH, Vacc. ) Services Provided',
-										data: { value: 8269 }
+										data: { value: data.hc_services }
 									}
 								}]
 							}]
@@ -255,18 +299,7 @@ angular.module( 'ngmReportHub' )
 												},
 												xAxis: {
 													gridLineWidth:0,
-													categories: [
-														'Bat-e-Kot',
-														'Behsud',
-														'Deh Bala',
-														'Hesarak',
-														'Jalalabad',
-														'Mohmand Darah',
-														'Pacheer Wagaam',
-														'Rodat',
-														'Shinwar',
-														'Shirzad'     
-													],
+													categories: data.categories,
 													title: {
 															text: null
 													}
@@ -285,11 +318,11 @@ angular.module( 'ngmReportHub' )
 												series: [{
 													name: 'BPHS',
 													color: '#80cbc4',
-													data: [ 1, 0, 12, 23, 1056, 3, 42, 8, 193, 15 ]
+													data: data.bphs_data
 												},{
 													name: 'Health Cluster',
 													color: '#64b5f6',
-													data: [ 290, 109, 0, 0, 7335, 107, 0, 291, 137, 0 ]
+													data: data.hc_data
 												}]
 										}								
 									}
@@ -309,6 +342,11 @@ angular.module( 'ngmReportHub' )
 							}]						
 						}]
 					}
+
+					// override download btn
+					// $('.btn-floating').click(function(){
+					// 	console.log('hello');
+					// })
 
 				}
 

@@ -872,8 +872,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             }
           });
 
-          console.log( $scope.project.definition.activity_type )
-
         },
 
         // compile project_donor
