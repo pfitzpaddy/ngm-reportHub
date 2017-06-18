@@ -14,7 +14,7 @@ angular.module( 'ngmReportHub' )
           all: {
             id: 'all',
             title: 'ALL',
-            districts: 156,
+            districts: 155,
             white_area_districts: 93,
             idp_districts: 92,
             wa_idp_districts: 30,

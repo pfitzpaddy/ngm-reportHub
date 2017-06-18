@@ -101,6 +101,9 @@ angular.module( 'ngmReportHub' )
 					$scope.dashboard.province = $route.current.params.province;
 					var data = $scope.dashboard.data[ $scope.dashboard.province ];
 
+					// districts label
+					$scope.dashboard.label = $scope.dashboard.province === 'all' ? 'Total Target Districts' : 'Total Province Districts';
+
 					// calc
 					data.target_districts =  $scope.dashboard.province === 'all' ? data.wa_idp_districts : ( data.white_area_districts + data.idp_districts ) - data.wa_idp_districts;
 					
@@ -149,7 +152,7 @@ angular.module( 'ngmReportHub' )
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Districts',
+										title: $scope.dashboard.label,
 										data: { value: data.districts }
 									}
 								}]
