@@ -613,7 +613,7 @@ angular.module( 'ngmReportHub' )
           beneficiary_type_id: 'idp_natural_disaster',
           beneficiary_type_name: 'Natural Disaster IDPs'
         },{
-          cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
+          cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'wash' ],
           category_type_id: [ 'category_a' ],
           beneficiary_type_id: 'natural_disaster_affected',
           beneficiary_type_name: 'Natural Disaster Affected'
@@ -729,18 +729,18 @@ angular.module( 'ngmReportHub' )
           beneficiary_type_name: 'Pakistani Refugees'
         },{
           // CAT C)
-          cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'protection' ],
+          cluster_id: [ 'cvwg', 'esnfi', 'protection' ],
           category_type_id: [ 'category_c' ],
           beneficiary_type_id: 'returnee_documented',
           beneficiary_type_name: 'Afghan Refugee Returnees (Documented)'
         },{
-          cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'protection' ],
+          cluster_id: [ 'cvwg', 'esnfi', 'protection' ],
           category_type_id: [ 'category_c' ],
           beneficiary_type_id: 'returnee_undocumented',
           beneficiary_type_name: 'Afghan Returnees (Undocumented)'
         },{
           cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'protection' ],
-          category_type_id: [ 'category_b' ],
+          category_type_id: [ 'category_c' ],
           beneficiary_type_id: 'refugee_pakistani',
           beneficiary_type_name: 'Pakistani Refugees'
         },{
