@@ -410,6 +410,10 @@ angular.module( 'ngmReportHub' )
           currency_name: 'KES'
         },{
           admin0pcode: admin0pcode,
+          currency_id: 'nok',
+          currency_name: 'NOK'
+        },{
+          admin0pcode: admin0pcode,
           currency_id: 'sek',
           currency_name: 'SEK'
         },{
