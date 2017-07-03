@@ -498,7 +498,7 @@ angular.module('ngmReportHub')
 									icon: 'group',
 									hover: 'Download Beneficiary Data as CSV',
 									request: $scope.dashboard.getRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.cluster_id + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
-									metrics: $scope.dashboard.getMetrics( 'Beneficiary_data', 'csv' )
+									metrics: $scope.dashboard.getMetrics( 'beneficiary_data', 'csv' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',

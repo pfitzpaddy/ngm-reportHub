@@ -61,8 +61,6 @@ angular.module('ngmReportHub')
 				// lists
 				lists: {
 					clusters: ngmClusterHelper.getClusters(),
-					// admin1: localStorage.getObject( 'lists' ).admin1List,
-					// admin2: localStorage.getObject( 'lists' ).admin2List
 				},
 
 				// filtered data
@@ -119,6 +117,30 @@ angular.module('ngmReportHub')
 
 				},
 
+				// request
+				getCsvRequest: function( obj ){
+					var request = {
+						method: 'POST',
+						url: 'http://' + $location.host() + '/api/cluster/indicator',
+						data: {
+							adminRpcode: $scope.dashboard.adminRpcode,
+							admin0pcode: $scope.dashboard.admin0pcode,
+							admin1pcode: 'all',
+							admin2pcode: 'all',
+							cluster_id: $scope.dashboard.cluster_id,
+							organization_tag: $scope.dashboard.organization_tag,
+							beneficiaries: ['all'],
+							start_date: '2017-01-01',
+							end_date: moment().format( 'YYYY-MM-DD' )
+						}
+					}
+
+					request.data = angular.merge(request.data, obj);
+
+					return request;
+				},
+
+				// metrics
 				getMetrics: function( type, format ) {
 
 					var request = {
@@ -473,6 +495,20 @@ angular.module('ngmReportHub')
 										data: angular.merge( $scope.dashboard.getRequest( 'reports_complete', true ), { report: $scope.dashboard.cluster_id + '_' + $scope.dashboard.report_type + '_reports_complete_' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
 									},
 									metrics: $scope.dashboard.getMetrics( 'reports_complete', 'csv' )
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'group',
+									hover: 'Download Beneficiary Data as CSV',
+									request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.cluster_id + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									metrics: $scope.dashboard.getMetrics( 'beneficiary_data', 'csv' )
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'show_chart',
+									hover: 'Download Stock Data as CSV',
+									request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'stocks', report: $scope.dashboard.cluster_id + '_stock_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									metrics: $scope.dashboard.getMetrics( 'stocks', 'csv' )
 								}],
 							}							
 						},

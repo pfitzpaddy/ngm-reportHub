@@ -1,12 +1,12 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:ClusterProjectReportCtrl
+ * @name ngmReportHubApp.controller:ClusterProjectFinancialsCtrl
  * @description
- * # ClusterProjectReportCtrl
+ * # ClusterProjectFinancialsCtrl
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterProjectReportCtrl', [
+	.controller('ClusterProjectFinancialsCtrl', [
 			'$scope', 
 			'$route', 
 			'$q', 
@@ -16,7 +16,6 @@ angular.module('ngmReportHub')
 			'$timeout', 
 			'ngmData',
 			'ngmUser', 
-
 	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmData, ngmUser ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
@@ -56,29 +55,17 @@ angular.module('ngmReportHub')
 				}
 			}),
 
-			// get report
-			getReport: $http({
-				method: 'POST',
-				url: 'http://' + $location.host() + '/api/cluster/report/getReport',
-				data: {
-					id: $route.current.params.report
-				}
-			}),
-
 			// set project details
 			setProjectDetails: function( data ){
 
 				// project
 				$scope.report.project = data[0].data;
 
-				// report
-				$scope.report.definition = data[1].data;
-
 				// set report for downloads
 				$scope.report.report = $scope.report.project.organization + '_' + $scope.report.project.cluster + '_' + $scope.report.project.project_title.replace(/\ /g, '_') + '_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 
 				// add project code to subtitle?
-				var text = 'Actual Monthly Beneficiaries Report for ' + moment( $scope.report.definition.reporting_period ).format('MMMM, YYYY');
+				var text = 'Financial Reports for ' + $scope.report.project.project_title;
 				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + text : text;
 
 				// report dashboard model
@@ -98,47 +85,16 @@ angular.module('ngmReportHub')
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
 							'title': subtitle
 						},
-						download: {
-							'class': 'col s12 m3 l3 hide-on-small-only',
-							downloads: [{
-								type: 'csv',
-								color: 'blue lighten-2',
-								icon: 'assignment',
-								hover: 'Download Monthly Acvitiy Report as CSV',
-								request: {
-									method: 'POST',
-									url: 'http://' + $location.host() + '/api/cluster/report/getReportCsv',
-									data: {
-										report: $scope.report.report,
-										report_type: 'activity',
-										report_id: $scope.report.definition.id
-									}
-								},
-								metrics: {
-									method: 'POST',
-									url: 'http://' + $location.host() + '/api/metrics/set',
-									data: {
-										organization: $scope.report.user.organization,
-										username: $scope.report.user.username,
-										email: $scope.report.user.email,
-										dashboard: $scope.report.project.project_title,
-										theme: 'cluster_project_report_' + $scope.report.user.cluster_id,
-										format: 'csv',
-										url: $location.$$path
-									}
-								}
-							}]
-						}
+						download: {}
 					},
 					rows: [{		
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
-								type: 'project.report',
+								type: 'project.financials',
 								config: {
 									style: $scope.report.ngm.style,
-									project: $scope.report.project,
-									report: $scope.report.definition
+									project: $scope.report.project
 								}
 							}]
 						}]
@@ -165,7 +121,7 @@ angular.module('ngmReportHub')
 		}
 
 		// send request
-		$q.all([ $scope.report.getProject, $scope.report.getReport ]).then( function( results ){
+		$q.all([ $scope.report.getProject ]).then( function( results ){
 
 			// assign
 			$scope.report.setProjectDetails( results );

@@ -30,6 +30,22 @@ angular.module('ngmReportHub')
 			// current report
 			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
 
+			// the header navigation settings
+			getHeaderHtml: function(){
+				var html = '<div class="row">'
+										+'<div class="col s12 m12 l12">'
+											+'<div style="padding:20px;">'
+												+'<a class="btn-flat waves-effect waves-teal" href="#/cluster/projects/summary/' + $scope.report.project.id +'">'
+													+'<i class="material-icons left">keyboard_return</i>Back to Project Summary'
+												+'</a>'
+												+'<span class="right" style="padding-top:8px;">Last Updated: ' + moment( $scope.report.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) +'</span>'
+											+'</div>'
+										+'</div>'
+									+'</div>';
+
+				return html;
+			},
+
 			// set project details
 			setProjectDetails: function(data){
 
@@ -89,14 +105,13 @@ angular.module('ngmReportHub')
 							}]
 						}
 					},
-					rows: [{				
+					rows: [{
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
-								type: 'project.reports.list',
+								type: 'html',
 								config: {
-									style: $scope.report.ngm.style,
-									project: $scope.report.project
+									html: $scope.report.getHeaderHtml()
 								}
 							}]
 						}]
