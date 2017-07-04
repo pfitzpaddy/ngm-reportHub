@@ -244,7 +244,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var selected = [];
           $beneficiary.activity_description_id = $data;
           if($beneficiary.activity_description_id) {
-            selected = $filter('filter')( $scope.project.lists.activity_descriptions, { activity_description_id: $beneficiary.activity_description_id }, true);
+            selected = $filter('filter')( $scope.project.definition.project_donor, { activity_description_id: $beneficiary.activity_description_id }, true);
             if( selected.length ) {
               $beneficiary.activity_description_name = selected[0].activity_description_name;
             }

@@ -1,0 +1,181 @@
+<div class="row">
+  <div class="col s12 m12 l12">
+    <div class="card">
+      <ul class="collection with-header">
+        
+        <li class="collection-header teal lighten-4">
+          <h5 class="report-work-title">
+            <i class="material-icons left">attach_money</i>Project Budget Progress
+          </h5>
+        </li>
+
+        <li class="collection-item avatar">
+
+          <p style="padding:10px;">
+            Add a NEW ROW of financial details to your project for EACH PAYMENT recieved;
+          </p>
+
+          <div class="row">
+            <div class="col s12 card">
+              <div style="padding-top: 10px; padding-left: 40px;">
+
+                <table class="bordered responsive-table">
+                  <tr style="font-weight: 400">
+                    <td>Donor*</td>
+                    <td>Activity*</td>
+                    <td>Grant ID</td>
+                    <td>Amount*</td>
+                    <td>Currency*</td>
+                    <td>Recieved*</td>
+                    <td>on FTS?</td>
+                    <td ng-show="project.showFtsIdLabel()">FTS ID</td>
+                    <td>Notes</td>
+                    <td ng-if="project.definition.project_status !== 'complete'">Edit</td>
+                  </tr>
+                  <tr ng-repeat="budget in project.definition.project_budget_progress track by $index">
+
+                    <td>
+                      <!-- project_donor_id -->
+                      <span e-form="rowform"
+                            e-name="project_donor_id"
+                            editable-select="budget.project_donor_id"
+                            e-placeholder="Select..."
+                            e-ng-options="d.project_donor_id as d.project_donor_name for d in project.definition.project_donor">
+                        {{ project.showDonor( $data, budget ) }}
+                      </span>
+                    </td>
+
+                    <td>
+                      <!-- activity_type_id -->
+                      <span e-form="rowform"
+                            e-name="activity_type_id"
+                            editable-select="budget.activity_type_id"
+                            e-placeholder="Select..."
+                            e-ng-options="d.activity_type_id as d.activity_type_name for d in project.lists.activity_type">
+                        {{ project.showActivity( $data, budget ) }}
+                      </span>
+                    </td>
+
+                    <td>
+                      <!-- number -->
+                      <span e-form="rowform" 
+                            e-name="grant_id"
+                            editable-text="budget.grant_id"
+                            e-min="0"
+                            e-required>
+                        {{ budget.grant_id }}
+                      </span>
+                    </td>
+
+                    <td>
+                      <!-- number -->
+                      <span e-form="rowform" 
+                            e-name="project_budget_amount_recieved"
+                            editable-number="budget.project_budget_amount_recieved"
+                            e-min="0"
+                            e-required>
+                        {{ budget.project_budget_amount_recieved }}
+                      </span>
+                    </td> 
+
+                    <td>
+                      <!-- currency_id -->
+                      <span e-form="rowform"
+                            e-name="currency_id"
+                            editable-select="budget.currency_id"
+                            e-placeholder="Select..."
+                            e-ng-options="d.currency_id as d.currency_name for d in project.lists.currencies">
+                        {{ project.showCurrency( $data, budget ) }}
+                      </span>
+                    </td>
+
+                    <!-- input-date directive -->
+                    <td>
+                      <input ngm-date
+                          type="text"
+                          style="color:rgba(0, 0, 0, 0.87);margin-bottom:0px;border-bottom:0px;"
+                          ng-model="budget.project_budget_date_recieved"
+                          format="dd mmm, yyyy"
+                          select-years="15"
+                          max="{{ project.datepicker.maxDate }}"
+                          ng-disabled="!rowform.$visible"
+                          on-close="project.datepicker.onClose( budget )"/>
+                    </td>
+
+                    <td>
+                      <!-- currency_id -->
+                      <span e-form="rowform"
+                            e-name="reported_on_fts_id"
+                            editable-select="budget.reported_on_fts_id"
+                            e-placeholder="Select..."
+                            e-ng-options="d.reported_on_fts_id as d.reported_on_fts_name for d in project.lists.reported_on_fts">
+                        {{ project.showOnFts( $data, budget ) }}
+                      </span>
+                    </td>
+
+                    <td ng-show="project.showFtsIdLabel()">
+                      <!-- fts -->
+                      <span e-form="rowform" 
+                            e-name="fts_record_id"
+                            editable-text="budget.fts_record_id"
+                            e-min="0"
+                            e-ng-disabled="budget.reported_on_fts_id === 'no'"
+                            e-required>
+                        {{ budget.fts_record_id }}
+                      </span>
+                    </td>
+
+                    <td>
+                      <!-- number -->
+                      <span e-form="rowform" 
+                            e-name="comments"
+                            editable-text="budget.comments"
+                            e-required>
+                        {{ budget.comments }}
+                      </span>
+                    </td>
+                    
+                    <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'">
+                      <!-- form -->
+                      <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" onbeforesave="project.save()" class="form-buttons form-inline" shown="inserted === budget">
+                        <button type="submit" ng-if="rowform.$visible" 
+                                ng-disabled="( !budget.project_donor_id ) || 
+                                             ( !budget.activity_type_id ) || 
+                                             ( !budget.currency_id )" 
+                            class="btn btn-small waves-effect waves-light save" title="Save">
+                          <i class="material-icons">save</i>
+                        </button>
+                        <div type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); project.cancelEdit( $index )" " class="btn btn-small blue lighten-1 waves-effect waves-light" title="Cancel Edit">
+              						<i class="material-icons">clear</i>
+                        </div>
+                      </form>
+                      <div class="buttons" ng-if="!rowform.$visible">
+                        <div class="btn btn-small waves-effect waves-light" ng-click="rowform.$show()" title="Edit">
+              						<i class="material-icons">create</i>
+                        </div>
+                        <div class="btn btn-small red lighten-2 waves-effect waves-light" ng-click="project.removeBudgetModal( $index )" title="Remove"
+                            ng-disabled="( !budget.project_donor_id ) || 
+                                             ( !budget.activity_type_id ) || 
+                                             ( !budget.currency_id )">
+                        	<i class="material-icons">delete</i>
+                        </div>
+                      </div>  
+                    </td>
+
+                  </tr>
+                </table>
+
+                <button class="btn" ng-show="project.definition.project_status !== 'complete'" ng-click="project.addBudgetItem()" style="margin:20px 0px;">
+                  <i class="material-icons left">add</i>Add Row
+                </button>
+
+              </div>
+            </div>
+          </div>
+
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>

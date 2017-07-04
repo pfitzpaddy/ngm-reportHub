@@ -8,7 +8,7 @@
 
 <div id="budget-modal" class="modal">
   <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">group</i>Remove Budget</h4>
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">attach_money</i>Remove Budget</h4>
     <p>Are you sure you want to remove this Budget Item from your project?</p>
   </div>
   <div class="modal-footer">
@@ -41,7 +41,10 @@
 	">
 					
 		<!-- budget details -->
-		<!-- <div class="slide-animate" ng-include="project.financialsUrl"></div> -->
+		<div class="slide-animate" ng-include="project.templatesUrl + project.financialsUrl"></div>
+
+		<!-- Project beneficiaries details -->
+		<!-- <div class="slide-animate" ng-include="project.templatesUrl + project.notesUrl"></div> -->
 		
 	</fieldset>
 

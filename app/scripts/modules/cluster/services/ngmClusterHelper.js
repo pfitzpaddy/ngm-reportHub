@@ -1030,25 +1030,11 @@ angular.module( 'ngmReportHub' )
         delete p.project_budget_progress;
         delete p.target_beneficiaries;
         delete p.target_locations;
+        delete p.updatedAt;
+        delete budget.updatedAt;
 
-        // needs to operate on an array
-        angular.forEach( budget, function( d, i ){
-          // merge beneficiaries + project
-          delete budget[i].project_donor;
-          delete budget[i].strategic_objectives;
-          delete budget[i].activity_type;
-          delete budget[i].beneficiary_type;
-          delete budget[i].category_type;
-          delete budget[i].admin1pcode;
-          delete budget[i].admin2pcode;
-          budget[i] = angular.merge( {}, d, p, { username: user.username }, { email: user.email } );
-          // add donor name
-          var project_donor_name = $filter('filter')( project.project_donor, { project_donor_id: budget[i].project_donor_id }, true);
-          if( project_donor_name.length ){
-            budget[i].project_donor_name = project_donor_name[0].project_donor_name;
-          }
-
-        });
+        // merge
+        budget = angular.merge( {}, { username: user.username }, { email: user.email }, p, budget );
 
         // return clean budget
         return budget;
