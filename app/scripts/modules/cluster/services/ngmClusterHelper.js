@@ -264,9 +264,9 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'nutrition',
             cluster: 'Nutrition'
           },{
-          //   cluster_id: 'cvwg',
-          //   cluster: 'Multi-Purpose Cash'
-          // },{
+            cluster_id: 'cvwg',
+            cluster: 'Multi-Purpose Cash'
+          },{
             cluster_id: 'protection',
             cluster: 'Protection'
           },{
