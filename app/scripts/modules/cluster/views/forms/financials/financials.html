@@ -26,7 +26,11 @@
                     <td>Grant ID</td>
                     <td>Amount*</td>
                     <td>Currency*</td>
+                    <td>Funds*</td>
+                    <td ng-show="project.showProgrammingLabel()">Programming</td>
                     <td>Recieved*</td>
+                    <td>Multi-Year Funding</td>
+                    <td ng-show="project.showFunding2017()">2017 Funding</td>
                     <td>on FTS?</td>
                     <td ng-show="project.showFtsIdLabel()">FTS ID</td>
                     <td>Notes</td>
@@ -61,8 +65,7 @@
                       <span e-form="rowform" 
                             e-name="grant_id"
                             editable-text="budget.grant_id"
-                            e-min="0"
-                            e-required>
+                            e-min="0">
                         {{ budget.grant_id }}
                       </span>
                     </td>
@@ -72,8 +75,7 @@
                       <span e-form="rowform" 
                             e-name="project_budget_amount_recieved"
                             editable-number="budget.project_budget_amount_recieved"
-                            e-min="0"
-                            e-required>
+                            e-min="0">
                         {{ budget.project_budget_amount_recieved }}
                       </span>
                     </td> 
@@ -86,6 +88,29 @@
                             e-placeholder="Select..."
                             e-ng-options="d.currency_id as d.currency_name for d in project.lists.currencies">
                         {{ project.showCurrency( $data, budget ) }}
+                      </span>
+                    </td>
+
+                    <td>
+                      <!-- budget_funds_id -->
+                      <span e-form="rowform"
+                            e-name="budget_funds_id"
+                            editable-select="budget.budget_funds_id"
+                            e-placeholder="Select..."
+                            e-ng-options="d.budget_funds_id as d.budget_funds_name for d in project.lists.budget_funds">
+                        {{ project.showFunds( $data, budget ) }}
+                      </span>
+                    </td>
+
+                    <td ng-show="project.showProgrammingLabel()">
+                      <!-- financial_programming_id -->
+                      <span e-form="rowform"
+                            e-name="financial_programming_id"
+                            editable-select="budget.financial_programming_id"
+                            e-placeholder="Select..."
+                            e-ng-disabled="budget.budget_funds_id === 'inkind'"
+                            e-ng-options="d.financial_programming_id as d.financial_programming_name for d in project.lists.financial_programming">
+                        {{ project.showProgramming( $data, budget ) }}
                       </span>
                     </td>
 
@@ -105,6 +130,28 @@
                     <td>
                       <!-- currency_id -->
                       <span e-form="rowform"
+                            e-name="multi_year_funding_id"
+                            editable-select="budget.multi_year_funding_id"
+                            e-placeholder="Select..."
+                            e-ng-options="d.multi_year_funding_id as d.multi_year_funding_name for d in project.lists.multi_year_funding">
+                        {{ project.showMultiYear( $data, budget ) }}
+                      </span>
+                    </td>
+
+                    <td ng-show="project.showFunding2017()">
+                      <!-- number -->
+                      <span e-form="rowform" 
+                            e-name="funding_2017"
+                            editable-number="budget.funding_2017"
+                            e-min="0"
+                            ng-disabled="budget.multi_year_funding_id === 'no'">
+                        {{ budget.funding_2017 }}
+                      </span>
+                    </td>
+
+                    <td>
+                      <!-- currency_id -->
+                      <span e-form="rowform"
                             e-name="reported_on_fts_id"
                             editable-select="budget.reported_on_fts_id"
                             e-placeholder="Select..."
@@ -119,45 +166,45 @@
                             e-name="fts_record_id"
                             editable-text="budget.fts_record_id"
                             e-min="0"
-                            e-ng-disabled="budget.reported_on_fts_id === 'no'"
-                            e-required>
+                            e-ng-disabled="budget.reported_on_fts_id === 'no'">
                         {{ budget.fts_record_id }}
                       </span>
                     </td>
 
                     <td>
-                      <!-- number -->
+                      <!-- text -->
                       <span e-form="rowform" 
                             e-name="comments"
-                            editable-text="budget.comments"
-                            e-required>
+                            editable-text="budget.comments">
                         {{ budget.comments }}
                       </span>
                     </td>
-                    
                     <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'">
                       <!-- form -->
                       <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" onbeforesave="project.save()" class="form-buttons form-inline" shown="inserted === budget">
-                        <button type="submit" ng-if="rowform.$visible" 
-                                ng-disabled="( !budget.project_donor_id ) || 
-                                             ( !budget.activity_type_id ) || 
-                                             ( !budget.currency_id )" 
-                            class="btn btn-small waves-effect waves-light save" title="Save">
+                        <button type="submit" ng-if="rowform.$visible" class="btn btn-small waves-effect waves-light save" title="Save"
+                                ng-disabled="( !budget.project_donor_id ) ||
+                                             ( !budget.activity_type_id ) ||
+                                             ( !budget.currency_id ) ||
+                                             ( !budget.budget_funds_id ) ||
+                                             ( !budget.project_budget_date_recieved )">
                           <i class="material-icons">save</i>
                         </button>
                         <div type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); project.cancelEdit( $index )" " class="btn btn-small blue lighten-1 waves-effect waves-light" title="Cancel Edit">
-              						<i class="material-icons">clear</i>
+                          <i class="material-icons">clear</i>
                         </div>
                       </form>
                       <div class="buttons" ng-if="!rowform.$visible">
                         <div class="btn btn-small waves-effect waves-light" ng-click="rowform.$show()" title="Edit">
-              						<i class="material-icons">create</i>
+                          <i class="material-icons">create</i>
                         </div>
                         <div class="btn btn-small red lighten-2 waves-effect waves-light" ng-click="project.removeBudgetModal( $index )" title="Remove"
                             ng-disabled="( !budget.project_donor_id ) || 
-                                             ( !budget.activity_type_id ) || 
-                                             ( !budget.currency_id )">
-                        	<i class="material-icons">delete</i>
+                                         ( !budget.activity_type_id ) ||
+                                         ( !budget.currency_id ) ||
+                                         ( !budget.budget_funds_id ) ||
+                                         ( !budget.project_budget_date_recieved )">
+                          <i class="material-icons">delete</i>
                         </div>
                       </div>  
                     </td>
