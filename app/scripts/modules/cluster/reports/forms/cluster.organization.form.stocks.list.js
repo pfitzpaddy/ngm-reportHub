@@ -71,7 +71,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
         // organization
         getOrganizationHref: function() {
           var href = '#/cluster/organization';
-          if ( $route.current.params.organization_id ) { href += '/' + $route.current.params.organization_id }
+          if ( $scope.report.user.roles.indexOf('ADMIN') !== -1 ) { href += '/' + $scope.report.organization.id }
           return href;
         },
 

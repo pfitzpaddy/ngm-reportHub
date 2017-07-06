@@ -76,7 +76,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           // update
           $timeout(function() {
             // Re-direct to summary
-            $location.path( '/cluster/stocks/');
+            $location.path( '/cluster/stocks/' + $scope.report.organization.id );
           }, 200);
         },
 
