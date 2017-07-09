@@ -249,6 +249,9 @@ angular.module( 'ngmReportHub' )
       // clusters
       getClusters: function( cluster_id ){
           var clusters = [{
+            cluster_id: 'acbar',
+            cluster: 'ACBAR'
+          },{
             cluster_id: 'eiewg',
             cluster: 'EiEWG'
           },{

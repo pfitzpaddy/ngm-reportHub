@@ -519,7 +519,7 @@ angular.module('ngmReportHub')
 									style: 'margin:15px; padding-bottom:30px;',
 									config: {
 										id: 'dashboard-btn',
-										request: { method: 'GET', url: 'http://' + $location.host() + '/api/cluster/latestUpdate' },
+										request: $scope.dashboard.getRequest( { indicator: 'latest_update' } ),
 										templateUrl: '/scripts/widgets/ngm-html/template/cluster.dashboard.html'
 									}
 								}]
