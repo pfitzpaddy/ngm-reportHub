@@ -167,6 +167,25 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         },
 
+        // update organization if acbar partner
+        updateOrganization: function(){
+
+          // set org
+          $http({
+            method: 'POST',
+            url: 'http://' + $location.host() + '/api/setOrganizationPartner',
+            data: { 
+              organization_id: $scope.project.definition.organization_id,
+              project_acbar_partner: $scope.project.definition.project_acbar_partner
+            }
+          }).success( function( result ) {
+            // success!
+          }).error( function( err ) {
+            Materialize.toast( 'ACBAR Partner Organization Error!', 6000, 'error' );
+          });
+
+        },
+
         // add beneficiary
         addBeneficiary: function() {
           // sadd
