@@ -166,7 +166,8 @@
 									<div style="padding-bottom:35px;"></div>
 
 								    <p ng-repeat="a in project.lists.clusters | 
-								    		filter: { cluster_id: '!' + project.definition.cluster_id } ">
+								    		filter: { cluster_id: '!' + project.definition.cluster_id }"
+								    		ng-if="a.cluster_id !== 'acbar'">
 								      <input type="checkbox" id="activity_{{ a.cluster_id }}" 
 								      ng-model="project.definition.inter_cluster_check[ a.cluster_id ]"
 								      ng-disabled="project.definition.project_status === 'complete'"

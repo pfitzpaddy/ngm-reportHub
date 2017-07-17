@@ -130,7 +130,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           angular.merge( $scope.inserted, sadd );
 
           // eiewg
-          if( $scope.project.definition.cluster_id === 'eiewg' ){
+          if( $scope.project.definition.admin0pcode !== 'AF' || $scope.project.definition.cluster_id === 'eiewg' ){
             $scope.inserted.category_type_id = 'category_a';
             $scope.inserted.category_type_name = 'A) Emergency Relief Needs';
           }

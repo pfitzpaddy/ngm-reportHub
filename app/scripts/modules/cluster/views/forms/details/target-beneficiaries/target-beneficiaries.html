@@ -35,7 +35,7 @@
 							      <td>Activity</td>
 							      <td>Description</td>
 							      <td ng-if="project.showCash()">Delivery</td>
-							      <td>Category</td>
+							      <td ng-if="project.definition.admin0pcode === 'AF'">Category</td>
 							      <td>Beneficiary</td>
 								 		<td>Population</td>
 								  <!-- <td ng-if="project.showSessions()">Sessions</td> -->
@@ -95,7 +95,7 @@
 							        </span>
 							      </td>
 
-							      <td>
+							      <td ng-if="project.definition.admin0pcode === 'AF'">
 							        <!-- editable group (select-remote) -->
 							        <span e-form="rowform"
 							        			e-name="category_type_id"
@@ -112,7 +112,7 @@
 							        			editable-select="beneficiary.beneficiary_type_id"
 							        			e-placeholder="Select..."
 							        			e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types | filter: { category_type_id: beneficiary.category_type_id, cluster_id: beneficiary.cluster_id }"
-							        			e-ng-disabled="!beneficiary.category_type_id">
+							        			e-ng-disabled="!beneficiary.activity_description_id || !beneficiary.category_type_id">
 							          {{ project.showBeneficiary($data, beneficiary) }}
 							        </span>
 							      </td>

@@ -54,7 +54,11 @@ angular.module( 'ngmReportHub' )
       // get hrp code
       getProjectHrpCode: function( project ) {
 
-        return project.admin0name.toUpperCase().substring(0, 3) + '-OTH-' +
+        // report
+        var report = project.admin0pcode === 'AF' ? '-OTH-' : '-HRP-';
+
+        // return project code 
+        return project.admin0name.toUpperCase().substring(0, 3) + report +
                         moment().year() + '-' +
                         project.cluster.toUpperCase().substring(0, 3) + '-' +
                         moment().unix();
@@ -774,18 +778,33 @@ angular.module( 'ngmReportHub' )
           // CAT A), Refugees & Returnees
           cluster_id: [ 'eiewg' ],
           category_type_id: [ 'category_a' ],
-          beneficiary_type_id: 'refugees_returnees',
-          beneficiary_type_name: 'Refugees & Returnees'
+          beneficiary_type_id: 'displaced_children',
+          beneficiary_type_name: 'Displaced Children'
         },{
           cluster_id: [ 'eiewg' ],
           category_type_id: [ 'category_a' ],
-          beneficiary_type_id: 'idps',
-          beneficiary_type_name: 'IDPs'
+          beneficiary_type_id: 'displaced_refugee_children',
+          beneficiary_type_name: 'Displaced + Refugee Children'
         },{
           cluster_id: [ 'eiewg' ],
           category_type_id: [ 'category_a' ],
-          beneficiary_type_id: 'host_communities',
-          beneficiary_type_name: 'Host Communities'
+          beneficiary_type_id: 'displaced_returnee_children',
+          beneficiary_type_name: 'Displaced + Returnee Children'
+        },{
+          cluster_id: [ 'eiewg' ],
+          category_type_id: [ 'category_a' ],
+          beneficiary_type_id: 'returnee_refugee_children',
+          beneficiary_type_name: 'Returnee Refugee Children'
+        },{
+          cluster_id: [ 'eiewg' ],
+          category_type_id: [ 'category_a' ],
+          beneficiary_type_id: 'refugee_children',
+          beneficiary_type_name: 'Refugee Children'
+        },{
+          cluster_id: [ 'eiewg' ],
+          category_type_id: [ 'category_a' ],
+          beneficiary_type_id: 'returnee_children',
+          beneficiary_type_name: 'Returnee Children'
         },{
 
 

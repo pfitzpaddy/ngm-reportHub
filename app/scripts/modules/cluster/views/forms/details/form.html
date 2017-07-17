@@ -99,7 +99,7 @@
 		<div class="slide-animate" ng-include="project.templatesUrl + project.detailsUrl"></div>
 
 		<!-- Project SO -->
-		<div class="slide-animate" ng-include="project.templatesUrl + project.strategicObjectivesUrl"></div>
+		<div class="slide-animate" ng-if="project.definition.admin0pcode === 'AF'" ng-include="project.templatesUrl + project.strategicObjectivesUrl"></div>
 
 		<!-- Project beneficiaries details -->
 		<div class="slide-animate" ng-include="project.templatesUrl + project.targetBeneficiariesUrl"></div>

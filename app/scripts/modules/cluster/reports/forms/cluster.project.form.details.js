@@ -221,7 +221,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           angular.merge( $scope.inserted, sadd );
 
           // eiewg
-          if( $scope.project.definition.cluster_id === 'eiewg' ){
+          if( $scope.project.definition.admin0pcode !== 'AF' || $scope.project.definition.cluster_id === 'eiewg' ){
             $scope.inserted.category_type_id = 'category_a';
             $scope.inserted.category_type_name = 'A) Emergency Relief Needs';
           }
@@ -1064,7 +1064,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         $timeout(function() {
 
           // set HRP if SOs selected
-          if ( $scope.project.definition.strategic_objectives && $scope.project.definition.strategic_objectives.length ) {
+          if ( $scope.project.definition.strategic_objectives && 
+                $scope.project.definition.strategic_objectives.length && 
+                $scope.project.definition.admin0pcode === 'AF' ) {
             $scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'OTH', 'HRP' );
           }
 
