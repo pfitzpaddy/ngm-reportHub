@@ -35,7 +35,7 @@
 							      <td>Activity</td>
 							      <td>Description</td>
 							      <td ng-if="project.showCash()">Delivery</td>
-							      <td ng-if="project.definition.admin0pcode === 'AF'">Category</td>
+							      <td ng-if="project.definition.admin0pcode === 'AF' && project.definition.cluster_id !=='eiewg'">Category</td>
 							      <td>Beneficiary</td>
 								 		<td>Population</td>
 								  <!-- <td ng-if="project.showSessions()">Sessions</td> -->
@@ -95,7 +95,7 @@
 							        </span>
 							      </td>
 
-							      <td ng-if="project.definition.admin0pcode === 'AF'">
+							      <td ng-if="project.definition.admin0pcode === 'AF' && project.definition.cluster_id !=='eiewg'">
 							        <!-- editable group (select-remote) -->
 							        <span e-form="rowform"
 							        			e-name="category_type_id"

@@ -25,9 +25,9 @@
 							    	<td></td>
 							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
-							      <td ng-if="project.definition.cluster_id === 'health'">Facility Type</td>
-							      <td ng-if="project.definition.cluster_id === 'health'">Facility Name *</td>
-							      <td ng-if="project.definition.cluster_id !== 'health'">Location Name *</td>
+							      <td>School Type</td>
+							      <td>New School</td>
+							      <td ng-show="project.showSchoolNameLabel()">School Name *</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
 							    <tr ng-repeat="location in project.definition.target_locations track by $index">
@@ -42,20 +42,32 @@
 							      </td>
 							      <td>
 							        <!-- editable admin2 -->
-							        <span e-placeholder="Select..." editable-select="location.admin2name" e-name="admin2name" e-form="locationform" e-ng-options="item.admin2name as item.admin2name for item in project.lists.admin2Select[$index]" e-ng-disabled="!location.admin1pcode" e-required>
+							        <span e-placeholder="Select..." editable-select="location.admin2name" e-name="admin2name" e-form="locationform" e-ng-options="item.admin2name as item.admin2name for item in project.lists.admin2Select[$index]" e-ng-change="project.loadSchools($data, location)" e-ng-disabled="!location.admin1pcode" e-required>
 							          {{ project.showAdmin2($index, $data, location) }}
 							        </span>
 							      </td>
-							      <td ng-show="project.definition.cluster_id === 'health'">
+							      <td>
 							        <!-- editable facility type-->
-							        <span e-placeholder="Select..." editable-select="location.fac_type_id" e-name="fac_type_id" e-form="locationform" e-ng-options="item.fac_type_id as item.fac_type_name for item in project.lists.facility_type" e-ng-disabled="!location.admin2name" e-required>
-							          {{ project.showFacType($data, location) }}
+							        <span e-placeholder="Select..." editable-select="location.fac_type_id" e-name="fac_type_id" e-form="locationform" e-ng-options="item.fac_type_id as item.fac_type_name for item in project.lists.school_type" e-ng-disabled="!location.admin2name" e-required>
+							          {{ project.showSchoolType($data, location) }}
 							        </span>
 							      </td>
 							      <td>
+							        <!-- editable facility type-->
+							        <span e-placeholder="Select..." editable-select="location.new_school_id" e-name="new_school_id" e-form="locationform" e-ng-options="item.new_school_id as item.new_school_name for item in project.lists.new_schools" e-ng-disabled="!location.admin2name && !location.fac_type_id" e-required>
+							          {{ project.showYesNo($data, location) }}
+							        </span>
+							      </td>
+							      <td ng-if="location.new_school_id === 'no'">
+							        <!-- editable name-->
+							        <span e-placeholder="Select..." onshow="project.loadSchools($data, location)" editable-select="location.school_id" e-name="school_id" e-form="locationform" e-ng-options="item.school_id as item.fac_name for item in project.lists.schools" e-ng-disabled="!location.admin2name || !location.new_school_id">
+							          {{ project.showSchools($data, location) }}
+							        </span>
+							      </td>
+							      <td ng-if="location.new_school_id === 'yes'">
 							        <!-- editable name -->
-							        <span editable-text="location.fac_name" e-name="fac_name" e-form="locationform" e-required>
-							        	{{ project.showName($data, location) }}
+							        <span editable-text="location.fac_name" e-name="fac_name" e-form="locationform">
+							        	{{ location.fac_name }}
 							          <!-- {{ location.fac_name }} -->
 							        </span>
 							      </td>

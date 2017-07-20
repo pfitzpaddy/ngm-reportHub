@@ -128,7 +128,7 @@
 									<!-- ADMIN -->
 									<li align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome'">
-										<a class="white-text right" href="#/cluster/admin" ng-click="ngm.toggleNavigationMenu();">
+										<a class="white-text right" href="#/cluster/admin/{{ ngm.getUser().adminRpcode | lowercase }}/{{ ngm.getUser().admin0pcode | lowercase }}" ng-click="ngm.toggleNavigationMenu();">
 										<!-- <i class="material-icons smedium right">assignment_turned_in</i>{{ ngm.getUser().organization | uppercase }} ADMIN</a> -->
 										<i class="material-icons smedium right">assignment_turned_in</i>MY ADMIN</a>
 									</li>								

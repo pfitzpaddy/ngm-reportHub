@@ -107,6 +107,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           admin2Select: [],
           
           // facility type
+          new_schools:[{ new_school_id: 'yes', new_school_name: 'Yes' },{ new_school_id: 'no', new_school_name: 'No' }],
+          school_type: ngmClusterHelper.getSchoolTypes(),
           facility_type: ngmClusterHelper.getFacilityTypes()
         },
 
@@ -117,7 +119,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         targetBeneficiariesUrl: moment( config.project.project_end_date ).year() === 2016 ? 'target-beneficiaries/2016/target-beneficiaries.html' : 'target-beneficiaries/target-beneficiaries.html',
         targetBeneficiariesDefaultUrl: 'target-beneficiaries/2016/target-beneficiaries-default.html',
         targetBeneficiariesTrainingUrl: 'target-beneficiaries/2016/target-beneficiaries-training.html',
-        locationsUrl: moment( config.project.project_end_date ).year() === 2016 ? 'target-locations/2016/locations-health.html' : 'target-locations/locations.html',
+        locationsUrl: config.project.cluster_id === 'eiewg' ? 'target-locations/locations-eiewg.html' : 'target-locations/locations.html',
 
         // datepicker
         datepicker: {
@@ -612,7 +614,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // update admin2
-        showAdmin1Change: function($index, $data){
+        showAdmin1Change: function($index, $data, $location){
           // filter admin2
           $scope.project.lists.admin2Select[$index] = 
                   $filter('filter')( $scope.project.lists.admin2, { admin1pcode: $data }, true);
@@ -635,7 +637,20 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               angular.merge($location, selected[0]);
             }
           }
+
           return selected.length ? selected[0].admin2name : 'No Selection!';
+        },
+
+        // new school?
+        showYesNo: function($data, $location){
+          var selected = [];
+          $location.new_school_id = $data;
+          if($location.new_school_id) {
+            selected = $filter('filter')( $scope.project.lists.new_schools, { new_school_id: $location.new_school_id }, true);
+            new_school_id = selected[0].new_school_id;
+            new_school_name = selected[0].new_school_name;
+          }
+          return selected.length ? selected[0].new_school_name : 'No Selection!';
         },
 
         // fac_type
@@ -654,6 +669,52 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         showName: function($data, $location){
           $location.fac_name = $data;
           return $location.fac_name ? $location.fac_name : '';
+        },
+
+        // fac_type
+        showSchoolType: function($data, $location){
+          var selected = [];
+          $location.fac_type_id = $data;
+          if($location.fac_type_id) {
+            selected = $filter('filter')( $scope.project.lists.school_type, { fac_type_id: $location.fac_type_id }, true);
+            angular.merge($location, selected[0]);
+          }
+          return selected.length ? selected[0].fac_type_name : 'No Selection!';
+        },
+
+        // show the label heading
+        showSchoolNameLabel: function(){
+          return $scope.project.definition.target_locations[0] && $scope.project.definition.target_locations[0].new_school_id;
+        },
+
+        // show schools
+        showSchools: function($data, $location){
+          var selected = [];
+          $location.school_id = $data;
+          if( $location.school_id && $scope.project.lists.schools ) {
+            selected = $filter('filter')( $scope.project.lists.schools, { school_id: $location.school_id }, true);
+            delete selected[0].id;
+            angular.merge($location, selected[0]);
+          }
+          return selected.length ? selected[0].fac_name : $location.fac_name;
+        },
+
+        // load schools
+        loadSchools: function( $data, $target_location ){
+          // set lists  
+            // timeout will enable admin2 to be selected (if user changes admin2 retrospectively)
+          $timeout(function(){
+            if ( $target_location.admin1pcode && $target_location.admin2pcode ) {
+              Materialize.toast( 'Loading Schools!' , 6000, 'note' );
+              $http({ 
+                method: 'GET', url: 'http://' + $location.host() + '/api/location/getAdmin2Schools?admin1pcode=' + $target_location.admin1pcode + '&admin2pcode=' + $target_location.admin2pcode
+              }).success( function( result ) {
+                $scope.project.lists.schools = result;
+              }).error( function( err ) {
+                Materialize.toast( 'Schools List Error!', 6000, 'error' );
+              });
+            }
+          }, 200 );
         },
 
         // location edit

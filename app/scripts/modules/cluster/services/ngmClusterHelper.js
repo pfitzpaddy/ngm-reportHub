@@ -911,9 +911,37 @@ angular.module( 'ngmReportHub' )
 
 			},
 
+      // school facility types
+      getSchoolTypes: function() {
+        return [{
+          fac_type_id: 'higher',
+          fac_type_name: 'Higher'
+        },{
+          fac_type_id: 'upper_secondary',
+          fac_type_name: 'Upper Secondary'
+        },{
+          fac_type_id: 'lower_secondary',
+          fac_type_name: 'Lower Secondary'
+        },{
+          fac_type_id: 'primary',
+          fac_type_name: 'Primary'
+        },{
+          fac_type_id: 'ECD',
+          fac_type_name: 'ECD'
+        },{
+          fac_type_id: 'CFS',
+          fac_type_name: 'CFS'
+        },{
+          fac_type_id: 'ALC',
+          fac_type_name: 'ALC'
+        },{
+          fac_type_id: 'CBS',
+          fac_type_name: 'CBS'
+        }]
+      },
+
 			// health facility types
 			getFacilityTypes: function() {
-				// health facility types
 				return [{
           fac_type_id: 'RH',
           fac_type_name: 'RH'
@@ -1120,6 +1148,7 @@ angular.module( 'ngmReportHub' )
           delete locations[i].activity_type;
           delete locations[i].beneficiary_type;
           locations[i] = angular.merge( {}, d, p );
+          locations[i].school_id;
         });
 
         // return clean location
