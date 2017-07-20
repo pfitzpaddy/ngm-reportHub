@@ -261,7 +261,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               'IQ': { adminRpcode: 'EMRO', adminRname: 'EMRO' },
               'KE': { adminRpcode: 'AFRO', adminRname: 'AFRO' },
               'NG': { adminRpcode: 'AFRO', adminRname: 'AFRO' },
-              'SO': { adminRpcode: 'EMRO', adminRname: 'EMRO' }
+              'SO': { adminRpcode: 'EMRO', adminRname: 'EMRO' },
+              'UA': { adminRpcode: 'EMRO', adminRname: 'EMRO' },
+              'UR': { adminRpcode: 'EMRO', adminRname: 'EMRO' }
             }            
 
             // update icon color

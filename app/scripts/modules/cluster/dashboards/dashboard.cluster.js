@@ -307,11 +307,11 @@ angular.module('ngmReportHub')
 				// 
 				setTitle: function(){
 					// title
-					$scope.dashboard.title = '4W | AFG';
-					// cluster
-					if ( $scope.dashboard.cluster_id !== 'all' ) {
-						$scope.dashboard.title += ' | ' + $scope.dashboard.cluster.cluster;
-					}	
+					$scope.dashboard.title = '4W | ' + $scope.dashboard.adminRpcode.toUpperCase()
+					// admin0
+					if ( $scope.dashboard.admin0pcode !== 'all' ) {
+						$scope.dashboard.title += ' | ' + $scope.dashboard.admin0pcode.toUpperCase();
+					}
 					// org
 					if ( $scope.dashboard.organization_tag !== 'all' ) {
 						$scope.dashboard.title += ' | ' + $scope.dashboard.organization;
@@ -333,7 +333,11 @@ angular.module('ngmReportHub')
 				// subtitle
 				setSubtitle: function(){
 					// subtitle
-					$scope.dashboard.subtitle = '4W Dashboard for ';
+					$scope.dashboard.subtitle = '4W Dashboard for ' + $scope.dashboard.adminRpcode.toUpperCase();
+					// admin0
+					if ( $scope.dashboard.admin0pcode !== 'all' ) {
+						$scope.dashboard.subtitle += ' | ' + $scope.dashboard.admin0pcode.toUpperCase();
+					}
 					// cluster
 					if ( $scope.dashboard.cluster_id === 'all' ) {
 						$scope.dashboard.subtitle += 'ALL clusters';
