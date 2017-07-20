@@ -312,6 +312,10 @@ angular.module('ngmReportHub')
 					if ( $scope.dashboard.admin0pcode !== 'all' ) {
 						$scope.dashboard.title += ' | ' + $scope.dashboard.admin0pcode.toUpperCase();
 					}
+					// cluster
+					if ( $scope.dashboard.cluster_id !== 'all' ) {
+						$scope.dashboard.title += ' | ' + $scope.dashboard.cluster.cluster.toUpperCase();
+					}
 					// org
 					if ( $scope.dashboard.organization_tag !== 'all' ) {
 						$scope.dashboard.title += ' | ' + $scope.dashboard.organization;
@@ -340,9 +344,9 @@ angular.module('ngmReportHub')
 					}
 					// cluster
 					if ( $scope.dashboard.cluster_id === 'all' ) {
-						$scope.dashboard.subtitle += 'ALL clusters';
+						$scope.dashboard.subtitle += ', ALL clusters';
 					}	else {
-						$scope.dashboard.subtitle += $scope.dashboard.cluster.cluster.toUpperCase() + ' cluster';
+						$scope.dashboard.subtitle += ', ' + $scope.dashboard.cluster.cluster.toUpperCase() + ' cluster';
 					}
 					// org
 					if ( $scope.dashboard.organization_tag === 'all' ) {
