@@ -170,6 +170,7 @@
 
 									<!-- contact modal -->
 									<li  align="center" class="teal z-depth-2"
+										ng-if="ngm.getUser().admin0pcode === 'AF'"
 										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
 															ngm.getUser().organization.toLowerCase() === 'moph' ||
 															ngm.getUser().organization.toLowerCase() === 'who' || 
@@ -178,6 +179,7 @@
 										<i class="material-icons smedium right">assignment_turned_in</i>EPR ADMIN</a>
 									</li>
 									<li  align="center" class="teal z-depth-2"
+										ng-if="ngm.getUser().admin0pcode === 'AF'"
 										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
 															ngm.getUser().organization.toLowerCase() === 'moph' || 
 															ngm.getUser().organization.toLowerCase() === 'who' || 
@@ -186,6 +188,7 @@
 										<i class="material-icons smedium right">bubble_chart</i>EPR DASHBOARD</a>
 									</li>
 									<li  align="center" class="teal z-depth-2" 
+										ng-if="ngm.getUser().admin0pcode === 'AF'"
 										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
 															ngm.getUser().organization.toLowerCase() === 'who' || 
 															ngm.getUser().organization.toLowerCase() === 'dews'">
