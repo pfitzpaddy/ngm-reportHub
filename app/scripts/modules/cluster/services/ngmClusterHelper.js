@@ -581,6 +581,11 @@ angular.module( 'ngmReportHub' )
           beneficiary_type_id: 'idp_conflict',
           beneficiary_type_name: 'Conflict IDPs'
         },{
+        //   cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
+        //   category_type_id: [ 'category_a' ],
+        //   beneficiary_type_id: 'idp_conflict_natural_disaster',
+        //   beneficiary_type_name: 'Conflict IDPs + Natural Disaster IDPs'
+        // },{
           // CAT B) conflict affected / conflict idps
           cluster_id: [ 'wash' ],
           category_type_id: [ 'category_b' ],
@@ -592,6 +597,11 @@ angular.module( 'ngmReportHub' )
           beneficiary_type_id: 'idp_conflict',
           beneficiary_type_name: 'Conflict IDPs'
         },{
+        //   cluster_id: [ 'wash' ],
+        //   category_type_id: [ 'category_b' ],
+        //   beneficiary_type_id: 'idp_conflict_natural_disaster',
+        //   beneficiary_type_name: 'Conflict IDPs + Natural Disaster IDPs'
+        // },{
           // CAT C) conflict affected / conflict idps
           cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'protection',  ],
           category_type_id: [ 'category_c' ],
@@ -603,6 +613,11 @@ angular.module( 'ngmReportHub' )
           beneficiary_type_id: 'idp_conflict',
           beneficiary_type_name: 'Conflict IDPs'
         },{
+        //   cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'protection',  ],
+        //   category_type_id: [ 'category_c' ],
+        //   beneficiary_type_id: 'idp_conflict_natural_disaster',
+        //   beneficiary_type_name: 'Conflict IDPs + Natural Disaster IDPs'
+        // },{
           // CAT D) conflict affected / conflict idps
           cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
           category_type_id: [ 'category_d' ],
@@ -614,6 +629,11 @@ angular.module( 'ngmReportHub' )
           beneficiary_type_id: 'idp_conflict',
           beneficiary_type_name: 'Conflict IDPs'
         },{
+        //   cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
+        //   category_type_id: [ 'category_d' ],
+        //   beneficiary_type_id: 'idp_conflict_natural_disaster',
+        //   beneficiary_type_name: 'Conflict IDPs + Natural Disaster IDPs'
+        // },{
 
 
           // Natural Disaster
