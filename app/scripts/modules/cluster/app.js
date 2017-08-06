@@ -252,14 +252,20 @@ angular
 			})
 
 			// cluster dashboard
+			.when( '/cluster/4w/hq/all', {
+				redirectTo: '/cluster/4w/emro/all/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+			})			
 			.when( '/cluster/4w', {
-				redirectTo: '/cluster/4w/emro/af/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/4w/emro/all/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/4w//', {
-				redirectTo: '/cluster/4w/emro/af/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/4w/emro/all/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/4w/emro/af', {
 				redirectTo: '/cluster/4w/emro/af/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4w/emro/et', {
+				redirectTo: '/cluster/4w/emro/et/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/4w/emro/ur', {
 				redirectTo: '/cluster/4w/emro/ur/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')

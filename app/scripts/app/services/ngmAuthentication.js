@@ -28,7 +28,7 @@ angular.module('ngmReportHub')
 				localStorage.setObject( 'auth_token', user );
 				// set lists
 				if ( !user.guest ) {
-					$injector.get( 'ngmClusterHelper' ).setClusterLists();
+					$injector.get( 'ngmClusterHelper' ).setClusterLists( user );
 				}
 			},
 

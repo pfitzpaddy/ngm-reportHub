@@ -65,7 +65,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // get lists for cluster reporting
-      setClusterLists: function() {
+      setClusterLists: function( user ) {
       
         // requests
         var requests = {
@@ -73,13 +73,13 @@ angular.module( 'ngmReportHub' )
           // province lists
           getAdmin1List: {
             method: 'GET',
-            url: 'http://' + $location.host() + '/api/location/getAdmin1List'
+            url: 'http://' + $location.host() + '/api/location/getAdmin1List?admin0pcode=' + user.admin0pcode
           },
 
           // district lists
           getAdmin2List: {
             method: 'GET',
-            url: 'http://' + $location.host() + '/api/location/getAdmin2List'
+            url: 'http://' + $location.host() + '/api/location/getAdmin2List?admin0pcode=' + user.admin0pcode
           },
 
           // activities list
