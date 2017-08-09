@@ -933,31 +933,39 @@ angular.module( 'ngmReportHub' )
 
       // school facility types
       getSchoolTypes: function() {
-        return [{
+        var types = [{
+          fac_school_type: 'formal',
           fac_type_id: 'higher',
           fac_type_name: 'Higher'
         },{
-          fac_type_id: 'upper_secondary',
-          fac_type_name: 'Upper Secondary'
+          fac_school_type: 'formal',
+          fac_type_id: 'secondary',
+          fac_type_name: 'Secondary'
         },{
-          fac_type_id: 'lower_secondary',
-          fac_type_name: 'Lower Secondary'
-        },{
+          fac_school_type: 'formal',
           fac_type_id: 'primary',
           fac_type_name: 'Primary'
         },{
+          fac_school_type: 'formal',
           fac_type_id: 'ECD',
           fac_type_name: 'ECD'
         },{
-          fac_type_id: 'CFS',
-          fac_type_name: 'CFS'
+          fac_school_type: 'formal',
+          fac_type_id: 'TC',
+          fac_type_name: 'TC'
         },{
+          fac_school_type: 'informal',
           fac_type_id: 'ALC',
           fac_type_name: 'ALC'
         },{
+          fac_school_type: 'informal',
           fac_type_id: 'CBS',
           fac_type_name: 'CBS'
         }]
+
+        // set beneficiaries
+        return types;
+
       },
 
 			// health facility types

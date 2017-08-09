@@ -107,6 +107,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           admin2Select: [],
           
           // facility type
+          school_status: [{ school_status_id: 'formal', school_status_name: 'Formal' },{ school_status_id: 'informal', school_status_name: 'Informal' }],
           new_schools:[{ new_school_id: 'yes', new_school_name: 'Yes' },{ new_school_id: 'no', new_school_name: 'No' }],
           school_type: ngmClusterHelper.getSchoolTypes(),
           facility_type: ngmClusterHelper.getFacilityTypes()
@@ -595,6 +596,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           if ( length ) {
             var l = angular.copy( $scope.project.definition.target_locations[ length - 1 ] );
             delete l.id;
+            delete l.school_id;
+            delete l.fac_name;
+            delete l.school_hub_id;
+            delete l.school_hub_name;
             $scope.inserted = angular.merge( $scope.inserted, l, { fac_name: null } );
           }
          $scope.project.definition.target_locations.push( $scope.inserted );
@@ -651,6 +656,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return selected.length ? selected[0].new_school_name : 'No Selection!';
         },
 
+        yesNoChange: function( $location ){
+          delete $location.fac_name;
+          delete $location.school_id;
+          delete $location.school_hub_id;
+          delete $location.school_hub_name;
+        },
+
         // fac_type
         showFacType: function($data, $location){
           var selected = [];
@@ -669,6 +681,17 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return $location.fac_name ? $location.fac_name : '';
         },
 
+        // school status
+        showSchoolStatus: function($data, $location){
+          var selected = [];
+          $location.school_status_id = $data;
+          if($location.school_status_id) {
+            selected = $filter('filter')( $scope.project.lists.school_status, { school_status_id: $location.school_status_id }, true);
+            angular.merge($location, selected[0]);
+          }
+          return selected.length ? selected[0].school_status_name : 'No Selection!';
+        },
+
         // fac_type
         showSchoolType: function($data, $location){
           var selected = [];
@@ -685,6 +708,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return $scope.project.definition.target_locations[0] && $scope.project.definition.target_locations[0].new_school_id;
         },
 
+        // show the label heading
+        showHubSchoolNameLabel: function(){
+          return $scope.project.definition.target_locations[0] && $scope.project.definition.target_locations[0].school_status_id === 'informal';
+        },
+
         // show schools
         showSchools: function($data, $location){
           var selected = [];
@@ -695,6 +723,20 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             angular.merge($location, selected[0]);
           }
           return selected.length ? selected[0].fac_name : $location.fac_name;
+        },
+
+        // hub school
+        showHubSchools: function($data, $location){
+          var selected = [];
+          $location.school_hub_id = $data;
+          if( $location.school_hub_id && $scope.project.lists.hub_schools ) {
+            selected = $filter('filter')( $scope.project.lists.hub_schools, { school_id: $location.school_hub_id }, true);
+            selected[0].school_hub_id = selected[0].school_id;
+            selected[0].school_hub_name = selected[0].fac_name;
+            $location.school_hub_id = selected[0].school_id;
+            $location.school_hub_name = selected[0].fac_name;
+          }
+          return selected.length ? selected[0].school_hub_name : $location.school_hub_name;
         },
 
         // load schools
@@ -708,6 +750,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 method: 'GET', url: 'http://' + $location.host() + '/api/location/getAdmin2Schools?admin1pcode=' + $target_location.admin1pcode + '&admin2pcode=' + $target_location.admin2pcode
               }).success( function( result ) {
                 $scope.project.lists.schools = result;
+                $scope.project.lists.hub_schools = result;
               }).error( function( err ) {
                 Materialize.toast( 'Schools List Error!', 6000, 'error' );
               });
@@ -831,6 +874,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         target_locations_valid: function(){
           var rowComplete = 0;
           angular.forEach( $scope.project.definition.target_locations, function( d, i ){
+            console.log(d.fac_name)
             if(
               d.admin1pcode &&
               d.admin1name &&

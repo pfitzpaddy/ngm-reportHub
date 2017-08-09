@@ -25,9 +25,11 @@
 							    	<td></td>
 							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
-							      <td>School Type</td>
-							      <td>New School</td>
-							      <td ng-show="project.showSchoolNameLabel()">School Name *</td>
+							      <td>Status</td>
+							      <td>Type</td>
+							      <td>New</td>
+							      <td ng-show="project.showSchoolNameLabel()">School Name</td>
+							      <td ng-show="project.showHubSchoolNameLabel()">School Hub</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
 							    <tr ng-repeat="location in project.definition.target_locations track by $index">
@@ -47,14 +49,20 @@
 							        </span>
 							      </td>
 							      <td>
+							        <!-- editable school_status_id -->
+							        <span e-placeholder="Select..." editable-select="location.school_status_id" e-name="school_status_id" e-form="locationform" e-ng-options="item.school_status_id as item.school_status_name for item in project.lists.school_status" e-ng-disabled="!location.admin2pcode" e-required>
+							          {{ project.showSchoolStatus($data, location) }}
+							        </span>
+							      </td>
+							      <td>
 							        <!-- editable facility type-->
-							        <span e-placeholder="Select..." editable-select="location.fac_type_id" e-name="fac_type_id" e-form="locationform" e-ng-options="item.fac_type_id as item.fac_type_name for item in project.lists.school_type" e-ng-disabled="!location.admin2name" e-required>
+							        <span e-placeholder="Select..." editable-select="location.fac_type_id" e-name="fac_type_id" e-form="locationform" e-ng-options="item.fac_type_id as item.fac_type_name for item in project.lists.school_type  | filter:{ fac_school_type: location.school_status_id }:true" e-ng-disabled="!location.school_status_id" e-required>
 							          {{ project.showSchoolType($data, location) }}
 							        </span>
 							      </td>
 							      <td>
 							        <!-- editable facility type-->
-							        <span e-placeholder="Select..." editable-select="location.new_school_id" e-name="new_school_id" e-form="locationform" e-ng-options="item.new_school_id as item.new_school_name for item in project.lists.new_schools" e-ng-disabled="!location.admin2name && !location.fac_type_id" e-required>
+							        <span e-placeholder="Select..." editable-select="location.new_school_id" e-name="new_school_id" e-form="locationform" e-ng-options="item.new_school_id as item.new_school_name for item in project.lists.new_schools" e-ng-disabled="!location.fac_type_id" e-ng-change="project.yesNoChange(location)" e-required>
 							          {{ project.showYesNo($data, location) }}
 							        </span>
 							      </td>
@@ -66,9 +74,17 @@
 							      </td>
 							      <td ng-if="location.new_school_id === 'yes'">
 							        <!-- editable name -->
-							        <span editable-text="location.fac_name" e-name="fac_name" e-form="locationform">
-							        	{{ location.fac_name }}
+							        <span editable-text="location.fac_name" e-name="fac_name" e-form="locationform" e-required>
+							        	{{ project.showName($data, location) }}
 							          <!-- {{ location.fac_name }} -->
+							        </span>
+							      </td>
+							      <td ng-if="project.showHubSchoolNameLabel() && location.school_status_id === 'formal'">
+							      </td>
+							      <td ng-if="location.school_status_id === 'informal'">
+							        <!-- editable name-->
+							        <span e-placeholder="Select..." onshow="project.loadSchools($data, location)" editable-select="location.school_hub_id" e-name="school_hub_id" e-form="locationform" e-ng-options="item.school_id as item.fac_name for item in project.lists.hub_schools" e-ng-disabled="!location.admin2name || location.school_status_id !== 'informal'">
+							          {{ project.showHubSchools($data, location) }}
 							        </span>
 							      </td>
 							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
