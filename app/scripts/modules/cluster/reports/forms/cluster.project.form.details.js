@@ -719,10 +719,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $location.school_id = $data;
           if( $location.school_id && $scope.project.lists.schools ) {
             selected = $filter('filter')( $scope.project.lists.schools, { school_id: $location.school_id }, true);
-            delete selected[0].id;
-            angular.merge($location, selected[0]);
+            if (selected.length) {
+              $location.school_id = selected[0].school_id;
+              $location.fac_name = selected[0].fac_name;
+              $location.admin2lng = selected[0].admin2lng;
+              $location.admin2lat = selected[0].admin2lat;
+            }
           }
-          return selected.length ? selected[0].fac_name : $location.fac_name;
+          return $location.fac_name;
         },
 
         // hub school
@@ -731,12 +735,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $location.school_hub_id = $data;
           if( $location.school_hub_id && $scope.project.lists.hub_schools ) {
             selected = $filter('filter')( $scope.project.lists.hub_schools, { school_id: $location.school_hub_id }, true);
-            selected[0].school_hub_id = selected[0].school_id;
-            selected[0].school_hub_name = selected[0].fac_name;
-            $location.school_hub_id = selected[0].school_id;
-            $location.school_hub_name = selected[0].fac_name;
+            if (selected.length) {
+              $location.school_hub_id = selected[0].school_id;
+              $location.school_hub_name = selected[0].fac_name;
+            }
           }
-          return selected.length ? selected[0].school_hub_name : $location.school_hub_name;
+          return $location.school_hub_name;
         },
 
         // load schools
@@ -874,15 +878,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         target_locations_valid: function(){
           var rowComplete = 0;
           angular.forEach( $scope.project.definition.target_locations, function( d, i ){
-            console.log(d.fac_name)
-            if(
-              d.admin1pcode &&
-              d.admin1name &&
-              d.admin2pcode &&
-              d.admin2name &&
-              d.fac_name
-            ){
+            if ( d.admin1pcode && d.admin1name && d.admin2pcode && d.admin2name && d.fac_name ){
               rowComplete++;
+            }
+            // hack for eiewg
+            if ( d.school_status_id && d.school_status_id === 'informal' && !d.school_hub_id ) {
+              rowComplete--;
             }
           });
           if( rowComplete >= $scope.project.definition.target_locations.length ){
