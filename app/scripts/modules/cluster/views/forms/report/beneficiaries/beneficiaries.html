@@ -224,7 +224,7 @@
               editable-number="beneficiary.men"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $index, 'men', $data )"
-              e-ng-disabled="beneficiary.cluster_id === 'eiewg' ||
+              e-ng-disabled="
                       ( beneficiary.cluster_id === 'nutrition' && beneficiary.activity_type_id !== 'nutrition_education_training' ) ||
                       beneficiary.activity_type_id === 'mch' ||
                       beneficiary.activity_type_id === 'vaccination' ||
@@ -244,7 +244,7 @@
               editable-number="beneficiary.women"
               e-min="0" 
               e-ng-change="project.updateInput( $locationIndex, $index, 'women', $data )" 
-              e-ng-disabled="beneficiary.cluster_id === 'eiewg' ||
+              e-ng-disabled="
                       beneficiary.activity_type_id === 'vaccination' ||
                       beneficiary.activity_description_id === 'penta_3' ||
                       beneficiary.activity_description_id === 'measles'"
