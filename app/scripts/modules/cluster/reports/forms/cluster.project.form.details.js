@@ -106,7 +106,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                           { admin0pcode: ngmUser.get().admin0pcode }, true ),
           admin2Select: [],
           
-          // facility type
+          // Schools
+          schools:[],
+          hub_schools: [],
           school_status: [{ school_status_id: 'formal', school_status_name: 'Formal' },{ school_status_id: 'informal', school_status_name: 'Informal' }],
           new_schools:[{ new_school_id: 'yes', new_school_name: 'Yes' },{ new_school_id: 'no', new_school_name: 'No' }],
           school_type: ngmClusterHelper.getSchoolTypes(),
@@ -597,7 +599,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             var l = angular.copy( $scope.project.definition.target_locations[ length - 1 ] );
             delete l.id;
             delete l.school_id;
-            delete l.fac_name;
             delete l.school_hub_id;
             delete l.school_hub_name;
             $scope.inserted = angular.merge( $scope.inserted, l, { fac_name: null } );
@@ -714,11 +715,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // show schools
-        showSchools: function($data, $location){
+        showSchools: function($index, $data, $location){
           var selected = [];
           $location.school_id = $data;
-          if( $location.school_id && $scope.project.lists.schools ) {
-            selected = $filter('filter')( $scope.project.lists.schools, { school_id: $location.school_id }, true);
+          if( $location.school_id && $scope.project.lists.schools[$index] ) {
+            selected = $filter('filter')( $scope.project.lists.schools[$index], { school_id: $location.school_id }, true);
             if (selected.length) {
               $location.school_id = selected[0].school_id;
               $location.fac_name = selected[0].fac_name;
@@ -730,11 +731,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // hub school
-        showHubSchools: function($data, $location){
+        showHubSchools: function($index, $data, $location){
           var selected = [];
           $location.school_hub_id = $data;
-          if( $location.school_hub_id && $scope.project.lists.hub_schools ) {
-            selected = $filter('filter')( $scope.project.lists.hub_schools, { school_id: $location.school_hub_id }, true);
+          if( $location.school_hub_id && $scope.project.lists.hub_schools[$index] ) {
+            selected = $filter('filter')( $scope.project.lists.hub_schools[$index], { school_id: $location.school_hub_id }, true);
             if (selected.length) {
               $location.school_hub_id = selected[0].school_id;
               $location.school_hub_name = selected[0].fac_name;
@@ -744,7 +745,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // load schools
-        loadSchools: function( $data, $target_location ){
+        loadSchools: function( $index, $data, $target_location ){
           // set lists  
             // timeout will enable admin2 to be selected (if user changes admin2 retrospectively)
           $timeout(function(){
@@ -753,8 +754,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               $http({ 
                 method: 'GET', url: 'http://' + $location.host() + '/api/location/getAdmin2Schools?admin1pcode=' + $target_location.admin1pcode + '&admin2pcode=' + $target_location.admin2pcode
               }).success( function( result ) {
-                $scope.project.lists.schools = result;
-                $scope.project.lists.hub_schools = result;
+                $scope.project.lists.schools[$index] = result;
+                $scope.project.lists.hub_schools[$index] = result;
               }).error( function( err ) {
                 Materialize.toast( 'Schools List Error!', 6000, 'error' );
               });
