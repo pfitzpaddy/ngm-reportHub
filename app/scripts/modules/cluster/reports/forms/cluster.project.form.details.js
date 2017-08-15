@@ -1090,9 +1090,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             if ( !found.length ){
               $scope.project.definition.admin2pcode.push( { admin2pcode: l.admin2pcode, admin2name: l.admin2name } );
             }
-            var found = $filter('filter')( $scope.project.definition.admin3pcode, { admin3pcode: l.admin3pcode }, true);
-            if ( !found.length ){
-              $scope.project.definition.admin3pcode.push( { admin3pcode: l.admin3pcode, admin3name: l.admin3name } );
+            if ( $scope.project.lists.admin3.length ) {
+              var found = $filter('filter')( $scope.project.definition.admin3pcode, { admin3pcode: l.admin3pcode }, true);
+              if ( !found.length ){
+                $scope.project.definition.admin3pcode.push( { admin3pcode: l.admin3pcode, admin3name: l.admin3name } );
+              }
             }
 
           });

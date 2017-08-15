@@ -1140,6 +1140,7 @@ angular.module( 'ngmReportHub' )
         delete warehouse.id;
         delete warehouse.admin1;
         delete warehouse.admin2;
+        delete warehouse.admin3;
         delete warehouse.fac_type;
 
         // add params
@@ -1215,6 +1216,7 @@ angular.module( 'ngmReportHub' )
           delete beneficiaries[i].strategic_objectives;
           delete beneficiaries[i].admin1pcode;
           delete beneficiaries[i].admin2pcode;
+          delete beneficiaries[i].admin3pcode;
           beneficiaries[i] = angular.merge( {}, d, p );
           // add default
           if( project.activity_type && project.activity_type.length === 1){
@@ -1241,6 +1243,7 @@ angular.module( 'ngmReportHub' )
         delete p.project_budget_progress;
         delete p.admin1pcode;
         delete p.admin2pcode;
+        delete p.admin3pcode;
 
         // needs to operate on an array
         angular.forEach( locations, function( d, i ){
@@ -1276,6 +1279,7 @@ angular.module( 'ngmReportHub' )
         delete r.activity_type;
         delete r.admin1pcode;
         delete r.admin2pcode;
+        delete r.admin3pcode;
         delete r.beneficiary_type;
         delete r.category_type;
         delete r.project_donor;
@@ -1291,9 +1295,11 @@ angular.module( 'ngmReportHub' )
           var l = angular.copy( location );
           delete r.id;
           delete p.admin1pcode;
-          delete p.admin2pcode;          
+          delete p.admin2pcode;
+          delete p.admin3pcode;          
           delete r.admin1pcode;
           delete r.admin2pcode;
+          delete r.admin3pcode;
           delete r.locations;
           delete l.activity_description;
           delete l.activity_type;
