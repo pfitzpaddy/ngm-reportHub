@@ -93,18 +93,22 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           strategic_objectives: ngmClusterHelper.getStrategicObjectives(),
           category_types: ngmClusterHelper.getCategoryTypes(),
-          beneficiary_types: moment( config.project.project_end_date ).year() === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries(),
+          beneficiary_types: moment( config.project.project_end_date ).year() === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries( config.project.admin0pcode ),
           currencies: ngmClusterHelper.getCurrencies( config.project.admin0pcode ),
           donors: ngmClusterHelper.getDonors( config.project.cluster_id ),
           
-          // admin1 ( with admin0 filter )
-          admin1: $filter( 'filter' )( localStorage.getObject( 'lists' ).admin1List, 
-                          { admin0pcode: ngmUser.get().admin0pcode }, true ),
+          // admin1 ( with admin0 filter from API )
+          admin1: localStorage.getObject( 'lists' ).admin1List,
           
-          // admin2 ( with admin0 filter )
-          admin2: $filter( 'filter' )( localStorage.getObject( 'lists' ).admin2List, 
-                          { admin0pcode: ngmUser.get().admin0pcode }, true ),
+          // admin2 ( with admin0 filter from API )
+          admin2: localStorage.getObject( 'lists' ).admin2List,
+
+          // admin3 ( with admin0 filter from API )
+          admin3: localStorage.getObject( 'lists' ).admin3List,
+
+          // this is for row by row filters
           admin2Select: [],
+          admin3Select: [],
           
           // Schools
           schools:[],
@@ -112,7 +116,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           school_status: [{ school_status_id: 'formal', school_status_name: 'Formal' },{ school_status_id: 'informal', school_status_name: 'Informal' }],
           new_schools:[{ new_school_id: 'yes', new_school_name: 'Yes' },{ new_school_id: 'no', new_school_name: 'No' }],
           school_type: ngmClusterHelper.getSchoolTypes(),
-          facility_type: ngmClusterHelper.getFacilityTypes()
+          facility_type: ngmClusterHelper.getFacilityTypes( config.project.admin0pcode )
         },
 
         // templates
@@ -617,13 +621,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return selected.length ? selected[0].admin1name : 'No Selection!';
         },
 
-        // update admin2
-        showAdmin1Change: function($index, $data, $location){
-          // filter admin2
-          $scope.project.lists.admin2Select[$index] = 
-                  $filter('filter')( $scope.project.lists.admin2, { admin1pcode: $data }, true);
-        },
-
         // admin2
         showAdmin2: function($index, $data, $location){
 
@@ -643,6 +640,23 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           }
 
           return selected.length ? selected[0].admin2name : 'No Selection!';
+        },     
+
+        // admin3
+        showAdmin3: function($index, $data, $location){
+
+          // filter admin3
+          $scope.project.lists.admin3Select[$index] = 
+                  $filter('filter')( $scope.project.lists.admin3, { admin2pcode: $scope.project.definition.target_locations[$index].admin2pcode }, true);
+
+          var selected = [];
+          $location.admin3name = $data;
+          if($location.admin3name) {
+            selected = $filter('filter')( $scope.project.lists.admin3Select[$index], { admin3name: $location.admin3name }, true);
+            delete selected[0].id;
+            angular.merge($location, selected[0]);
+          }
+          return selected.length ? selected[0].admin3name : 'No Selection!';
         },
 
         // new school?
@@ -1034,6 +1048,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $scope.project.definition.beneficiary_type = [];
           $scope.project.definition.admin1pcode = [];
           $scope.project.definition.admin2pcode = [];
+          $scope.project.definition.admin3pcode = [];
 
           // parse budget
           $scope.project.definition.project_budget += '';
@@ -1074,6 +1089,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             var found = $filter('filter')( $scope.project.definition.admin2pcode, { admin2pcode: l.admin2pcode }, true);
             if ( !found.length ){
               $scope.project.definition.admin2pcode.push( { admin2pcode: l.admin2pcode, admin2name: l.admin2name } );
+            }
+            var found = $filter('filter')( $scope.project.definition.admin3pcode, { admin3pcode: l.admin3pcode }, true);
+            if ( !found.length ){
+              $scope.project.definition.admin3pcode.push( { admin3pcode: l.admin3pcode, admin3name: l.admin3name } );
             }
 
           });

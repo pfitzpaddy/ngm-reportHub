@@ -64,7 +64,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // activity_type: config.project.activity_type,
         activity_descriptions: $scope.activity_descriptions,
         category_types: ngmClusterHelper.getCategoryTypes(),
-        beneficiary_types: config.report.report_year === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries(),
+        beneficiary_types: config.report.report_year === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries( config.project.admin0pcode ),
         lists: {
           // units
           units: ngmClusterHelper.getUnits( config.project.admin0pcode ),

@@ -77,7 +77,7 @@
           {{ project.showCategory($data, beneficiary) }}
         </span>
       </td>
-      <td>
+      <td ng-if="project.definition.admin0pcode === 'AF' && project.definition.cluster_id !== 'eiewg'">
         <!-- editable group (select-remote) -->
         <span e-form="rowform"
               e-name="beneficiary_type_id"
@@ -85,6 +85,17 @@
               e-placeholder="Select..."
               e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.beneficiary_types | filter: { category_type_id: beneficiary.category_type_id, cluster_id: beneficiary.cluster_id }"
               e-ng-disabled="!beneficiary.activity_description_id || !beneficiary.category_type_id">
+          {{ project.showBeneficiary($data, beneficiary) }}
+        </span>
+      </td>
+      <td ng-if="project.definition.admin0pcode !== 'AF' || project.definition.cluster_id === 'eiewg'">
+        <!-- editable group (select-remote) -->
+        <span e-form="rowform"
+              e-name="beneficiary_type_id"
+              editable-select="beneficiary.beneficiary_type_id"
+              e-placeholder="Select..."
+              e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.beneficiary_types | filter: { cluster_id: beneficiary.cluster_id }"
+              e-ng-disabled="!beneficiary.activity_description_id">
           {{ project.showBeneficiary($data, beneficiary) }}
         </span>
       </td>

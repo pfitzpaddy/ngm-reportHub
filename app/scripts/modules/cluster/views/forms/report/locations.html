@@ -43,11 +43,18 @@
 							<div class="row">
 								<!-- location title -->
 								<div class="col s12 m9 left">
+							  	
 							  	<!-- health cluster -->
-							  	<h5 class="report-location-title" ng-if="project.definition.cluster_id === 'health'">
+							  	<h5 class="report-location-title" ng-if="project.definition.cluster_id === 'health' && !location.admin3pcode">
 												<i class="material-icons left" style="color: teal;">location_on</i>
 												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_type_name }}, {{ location.fac_name }}
 									</h5>
+							  	<!-- health cluster with admin3 -->
+							  	<h5 class="report-location-title" ng-if="project.definition.cluster_id === 'health' && location.admin3pcode">
+												<i class="material-icons left" style="color: teal;">location_on</i>
+												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.fac_type_name }}, {{ location.fac_name }}
+									</h5>
+
 									<!-- eiewg formal location -->
 							  	<h5 class="report-location-title" ng-if="project.definition.cluster_id === 'eiewg' && location.school_status_id === 'formal'">
 												<i class="material-icons left" style="color: teal;">location_on</i>

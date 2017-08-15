@@ -59,12 +59,12 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
           filter: {},
           warehouse: {},
           list: {
-            // admin1 ( with admin0 filter )
-            admin1: $filter( 'filter' )( localStorage.getObject( 'lists' ).admin1List, 
-                            { admin0pcode: ngmUser.get().admin0pcode }, true ),
-            // admin2 ( with admin0 filter )
-            admin2: $filter( 'filter' )( localStorage.getObject( 'lists' ).admin2List, 
-                            { admin0pcode: ngmUser.get().admin0pcode }, true ),
+            // admin1 ( with admin0 filter at API )
+            admin1: localStorage.getObject( 'lists' ).admin1List,
+            // admin2 ( with admin0 filter at API )
+            admin2: localStorage.getObject( 'lists' ).admin2List,
+            // admin3 ( with admin0 filter at API )
+            admin3: localStorage.getObject( 'lists' ).admin3List,
           }
         },
 
@@ -94,14 +94,18 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
         },
 
         // helpers helper
-        updateLocationSelect: function( filter ) {
+        updateLocationSelect: function( filterAdmin2, filterAdmin3 ) {
 
           // filter
-          if ( filter ) {
+          if ( filterAdmin2 ) {
             // why is admin2 filter not working in ng-repeat?
-            $scope.report.options.list.admin2 = 
-                    $filter( 'filter' )( localStorage.getObject( 'lists' ).admin2List, 
-                            { admin1pcode: $scope.report.options.warehouse.admin1.admin1pcode }, true );
+            $scope.report.options.list.admin2 = localStorage.getObject( 'lists' ).admin2List;
+          }
+
+          // filter
+          if ( filterAdmin3 ) {
+            // why is admin2 filter not working in ng-repeat?
+            $scope.report.options.list.admin3 = localStorage.getObject( 'lists' ).admin3List;
           }
 
           // update material_select

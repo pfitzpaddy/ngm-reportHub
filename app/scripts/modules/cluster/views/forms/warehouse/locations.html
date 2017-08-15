@@ -27,7 +27,7 @@
 
 							<!-- form -->
 
-				      <div class="row remove">
+				      <div class="row remove" ng-if="!report.options.list.admin3.length">
 
 			      		<div class="input-field col s12 m4"
 			      			ng-class="{ 'error-label': clusterStockReportsForm.$submitted
@@ -35,7 +35,7 @@
 			      			<select id="ngm-project-admin1" class="validate"
 							    	ng-model="report.options.warehouse.admin1"
 							    	ng-model-options="{ trackBy: '$value.admin1pcode'}"
-							    	ng-change="report.updateLocationSelect( true )"
+							    	ng-change="report.updateLocationSelect( true, false )"
 			      				ng-options="item as item.admin1name for item in report.options.list.admin1">
 			      				<option value="" selected>Choose {{ report.options.list.admin1[0].admin1type_name }}</option>
 			      			</select>
@@ -48,7 +48,7 @@
 			      			<select id="ngm-project-admin2" class="validate"
 							    	ng-model="report.options.warehouse.admin2"
 							    	ng-model-options="{ trackBy: '$value.id'}"
-							    	ng-change="report.updateLocationSelect()"
+							    	ng-change="report.updateLocationSelect( false, false )"
 							    	ng-disabled="!report.options.warehouse.admin1"
 			      				ng-options="item as item.admin2name for item in report.options.list.admin2 | filter: { admin1pcode: report.options.warehouse.admin1.admin1pcode }">
 			      				<option value="" disabled selected>Choose {{ report.options.list.admin2[0].admin2type_name }}</option>
@@ -74,6 +74,71 @@
 
 							 </div>
 
+				      <div class="row remove" ng-if="report.options.list.admin3.length">
+
+			      		<div class="input-field col s12 m3"
+			      			ng-class="{ 'error-label': clusterStockReportsForm.$submitted
+							  								&& report.organization.warehouses.length === 0 }">
+			      			<select id="ngm-project-admin1" class="validate"
+							    	ng-model="report.options.warehouse.admin1"
+							    	ng-model-options="{ trackBy: '$value.admin1pcode'}"
+							    	ng-change="report.updateLocationSelect( true, true )"
+			      				ng-options="item as item.admin1name for item in report.options.list.admin1">
+			      				<option value="" selected>Choose {{ report.options.list.admin1[0].admin1type_name }}</option>
+			      			</select>
+			      			<label>{{ report.options.list.admin1[0].admin1type_name }} *</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m3"
+			      			ng-class="{ 'error-label': clusterStockReportsForm.$submitted
+							  								&& report.organization.warehouses.length === 0 }">
+			      			<select id="ngm-project-admin2" class="validate"
+							    	ng-model="report.options.warehouse.admin2"
+							    	ng-model-options="{ trackBy: '$value.id'}"
+							    	ng-change="report.updateLocationSelect( false, true )"
+							    	ng-disabled="!report.options.warehouse.admin1"
+			      				ng-options="item as item.admin2name for item in report.options.list.admin2 | filter: { admin1pcode: report.options.warehouse.admin1.admin1pcode }">
+			      				<option value="" disabled selected>Choose {{ report.options.list.admin2[0].admin2type_name }}</option>
+			      			</select>
+			      			<label>{{ report.options.list.admin2[0].admin2type_name }} *</label>
+			      		</div>
+
+			      		<div class="input-field col s12 m3"
+			      			ng-class="{ 'error-label': clusterStockReportsForm.$submitted
+							  								&& report.organization.warehouses.length === 0 }">
+			      			<select id="ngm-project-admin3" class="validate"
+							    	ng-model="report.options.warehouse.admin3"
+							    	ng-model-options="{ trackBy: '$value.id'}"
+							    	ng-change="report.updateLocationSelect( false, false )"
+							    	ng-disabled="!report.options.warehouse.admin2"
+			      				ng-options="item as item.admin3name for item in report.options.list.admin3 | filter: { admin2pcode: report.options.warehouse.admin2.admin2pcode }">
+			      				<option value="" disabled selected>Choose {{ report.options.list.admin3[0].admin2type_name }}</option>
+			      			</select>
+			      			<label>{{ report.options.list.admin3[0].admin2type_name }} *</label>
+			      		</div>
+
+							  <div class="input-field col s12 m2">
+							    <input id="ngm-project-hf_name" type="text" class="validate"
+							    	ng-model="report.options.warehouse.fac_type.fac_name"
+							    	ng-disabled="!report.options.warehouse.admin3">
+							    <label for="ngm-project-hf_name">Warehouse Name *</label>
+							  </div>
+
+			      		<div class="col s12 m1" style="padding-top:15px;">
+			      			<button class="waves-effect waves-light btn-floating green lighten-2 right" 
+			      					title="Add Warehouse {{ report.options.warehouse.fac_type.fac_name }}"
+			      					ng-click="report.addLocation()"
+			      					ng-disabled="!report.options.warehouse.fac_type.fac_name">
+			      					<i class="material-icons">add</i>
+			      			</button>
+							  </div>					  
+
+							 </div>
+
+							 <div class="row" style="padding-left:40px;" ng-if="report.organization.warehouses.length">
+
+				      </div>
+
 							 <div class="row" style="padding-left:40px;" ng-if="report.organization.warehouses.length">
 
 							 	<div class="row">
@@ -84,10 +149,17 @@
 
 									<div class="row" id="ngm-health-warehouse-{{ $index }}">
 										<div class="col s12 m11 left">
-								    	<!-- health cluster -->
-								    	<h5 class="report-location-title">
+
+								    	<!-- admin2 -->
+								    	<h5 class="report-location-title" ng-if="!report.options.list.admin3.length">
 														<i class="material-icons left" style="color: teal;">location_on</i>
 														{{ warehouse.admin1name }}, {{ warehouse.admin2name }}, {{ warehouse.fac_name }}
+											</h5>
+
+								    	<!-- admin3 -->
+								    	<h5 class="report-location-title" ng-if="report.options.list.admin3.length">
+														<i class="material-icons left" style="color: teal;">location_on</i>
+														{{ warehouse.admin1name }}, {{ warehouse.admin2name }}, {{ warehouse.admin3name }}, {{ warehouse.fac_name }}
 											</h5>
 										</div>
 										<div class="col s12 m1 right" style="padding-top:15px;padding-right:34px;">
