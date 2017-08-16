@@ -629,6 +629,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // filter admin2
           $scope.project.lists.admin2Select[$index] = 
                   $filter('filter')( $scope.project.lists.admin2, { admin1pcode: $scope.project.definition.target_locations[$index].admin1pcode }, true);
+          // $scope.project.lists.admin3Select[$index] = $scope.project.lists.admin3;
 
           // update admin2
           var selected = [];
@@ -649,7 +650,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           // filter admin3
           $scope.project.lists.admin3Select[$index] = 
-                  $filter('filter')( $scope.project.lists.admin3, { admin2pcode: $scope.project.definition.target_locations[$index].admin2pcode }, true);
+                  $filter('filter')( $scope.project.lists.admin3, { admin1pcode: $scope.project.definition.target_locations[$index].admin1pcode, admin2pcode: $scope.project.definition.target_locations[$index].admin2pcode }, true);
 
           var selected = [];
           $location.admin3name = $data;
