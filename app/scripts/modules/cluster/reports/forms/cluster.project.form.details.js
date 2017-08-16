@@ -730,6 +730,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // show schools
         showSchools: function($index, $data, $location){
+
           var selected = [];
           $location.school_id = $data;
           if( $location.school_id && $scope.project.lists.schools[$index] ) {
@@ -741,7 +742,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               $location.admin2lat = selected[0].admin2lat;
             }
           }
-          return $location.fac_name;
+          return $location.fac_name ? $location.fac_name : 'No Selection!';
         },
 
         // hub school
@@ -760,14 +761,31 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // load schools
         loadSchools: function( $index, $data, $target_location ){
+
+          // reset
+          // remove any existing records if only on client
+          if (!$target_location.id) {
+            $scope.project.lists.schools[$index] = [];
+            $scope.project.lists.hub_schools[$index] = [];
+            delete $target_location.fac_name;
+            delete $target_location.school_id;
+            delete $target_location.school_hub_id;
+            delete $target_location.school_hub_name;
+          }
+
           // set lists  
             // timeout will enable admin2 to be selected (if user changes admin2 retrospectively)
           $timeout(function(){
-            if ( $target_location.admin1pcode && $target_location.admin2pcode ) {
-              Materialize.toast( 'Loading Schools!' , 6000, 'note' );
+            if ( $target_location.admin1pcode && $target_location.admin2name ) {
+              if( !$target_location.id ){
+                Materialize.toast( 'Loading Schools!' , 6000, 'note' );
+              }
               $http({ 
-                method: 'GET', url: 'http://' + $location.host() + '/api/location/getAdmin2Schools?admin1pcode=' + $target_location.admin1pcode + '&admin2pcode=' + $target_location.admin2pcode
+                method: 'GET', url: 'http://' + $location.host() + '/api/location/getAdmin2Schools?admin1pcode=' + $target_location.admin1pcode + '&admin2name=' + $target_location.admin2name
               }).success( function( result ) {
+                if ( $target_location.admin1pcode && $target_location.admin2name && !result.length ) {
+                  Materialize.toast( 'No Schools for ' + $target_location.admin1name +', ' + $target_location.admin2name + '!' , 6000, 'success' );
+                }
                 $scope.project.lists.schools[$index] = result;
                 $scope.project.lists.hub_schools[$index] = result;
               }).error( function( err ) {
