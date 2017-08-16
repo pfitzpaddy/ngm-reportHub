@@ -251,25 +251,36 @@ angular
 				}
 			})
 
-			// cluster dashboard
-			.when( '/cluster/4w/hq/all', {
-				redirectTo: '/cluster/4w/emro/all/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
-			})			
+			// cluster dashboard default
 			.when( '/cluster/4w', {
 				redirectTo: '/cluster/4w/emro/all/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/4w//', {
 				redirectTo: '/cluster/4w/emro/all/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
 			})
+
+			// cluster dashboard HQ
+			.when( '/cluster/4w/hq/all', {
+				redirectTo: '/cluster/4w/all/all/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			// cluster dashboard AFRO
+			.when( '/cluster/4w/afro/all', {
+				redirectTo: '/cluster/4w/afro/all/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4w/afro/et', {
+				redirectTo: '/cluster/4w/afro/et/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			// cluster dashboard EMRO
+			.when( '/cluster/4w/emro/all', {
+				redirectTo: '/cluster/4w/emro/all/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+			})
 			.when( '/cluster/4w/emro/af', {
 				redirectTo: '/cluster/4w/emro/af/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
-			})
-			.when( '/cluster/4w/emro/et', {
-				redirectTo: '/cluster/4w/emro/et/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/4w/emro/ur', {
 				redirectTo: '/cluster/4w/emro/ur/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
 			})
+
 			// health dashboard
 			.when( '/cluster/4w/:adminRpcode/:admin0pcode/:admin1pcode/:admin2pcode/:cluster_id/:organization_tag/:beneficiaries/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',

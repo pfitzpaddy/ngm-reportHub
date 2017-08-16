@@ -57,7 +57,8 @@ angular.module('ngmReportHub')
 				lists: {
 					clusters: ngmClusterHelper.getClusters(),
 					admin1: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin1List : [],
-					admin2: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin2List : []
+					admin2: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin2List : [],
+					admin3: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin3List : []
 				},
 
 				// filtered data
@@ -65,6 +66,7 @@ angular.module('ngmReportHub')
 					cluster: false,
 					admin1: false,
 					admin2: false,
+					admin3: false
 				},
 
 				// admin
@@ -187,7 +189,7 @@ angular.module('ngmReportHub')
 						$scope.model.menu.push({
 							'search': true,
 							'id': 'search-cluster-cluster',
-							'icon': 'person_pin',
+							'icon': 'camera',
 							'title': 'Cluster',
 							'class': 'teal lighten-1 white-text',
 							'rows': clusterRows
@@ -517,7 +519,31 @@ angular.module('ngmReportHub')
 								}]
 							}							
 						},
-						menu: [],
+						menu: [{
+							'id': 'search-region',
+							'icon': 'person_pin',
+							'title': 'Region',
+							'class': 'teal lighten-1 white-text',
+							'rows': [{
+								'title': 'HQ',
+								'param': 'adminRpcode',
+								'active': 'all',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/4w/hq/all'
+							},{
+								'title': 'AFRO',
+								'param': 'adminRpcode',
+								'active': 'afro',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/4w/afro/all'
+							},{
+								'title': 'EMRO',
+								'param': 'adminRpcode',
+								'active': 'emro',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/4w/emro/all'
+							}]
+						}],
 						rows: [{
 							columns: [{
 								styleClass: 's12 m12 l12',

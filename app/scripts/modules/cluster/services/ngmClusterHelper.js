@@ -967,8 +967,6 @@ angular.module( 'ngmReportHub' )
 
         }
 
-        console.log(beneficiaries)
-
         // filter by cluster beneficiaries here
         return beneficiaries;
 
