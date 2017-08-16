@@ -592,6 +592,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             admin1name: null,
             admin2pcode: null,
             admin2name: null,
+            admin3pcode: null,
+            admin3name: null,
             fac_type_id: null,
             fac_type_name: null,
             fac_name: null
@@ -720,12 +722,24 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // show the label heading
         showSchoolNameLabel: function(){
-          return $scope.project.definition.target_locations[0] && $scope.project.definition.target_locations[0].new_school_id;
+          var display = false;
+          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
+            if ( d.new_school_id ) {
+              display = true;
+            }
+          });
+          return display;
         },
 
         // show the label heading
         showHubSchoolNameLabel: function(){
-          return $scope.project.definition.target_locations[0] && $scope.project.definition.target_locations[0].school_status_id === 'informal';
+          var display = false;
+          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
+            if ( d.school_status_id === 'informal' ) {
+              display = true;
+            }
+          });
+          return display;
         },
 
         // show schools
