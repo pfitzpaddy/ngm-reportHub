@@ -864,47 +864,54 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // validate project type
         project_details_valid: function () {
           // valid
-          var valid = false;
-          if(
-            $scope.project.definition.project_title &&
-            $scope.project.definition.project_start_date &&
-            $scope.project.definition.project_end_date &&
-            // $scope.project.definition.project_budget >= 0 &&
-            $scope.project.definition.project_budget_currency &&
-            $scope.project.definition.project_status &&
-            $scope.project.definition.project_description
-          ){
-            valid = true;
+          $scope.project.project_details_valid_labels = [];
+
+          if( !$scope.project.definition.project_title ){
+            $scope.project.project_details_valid_labels.push('ngm-project-name');
           }
-          return valid;
+          if( !$scope.project.definition.project_start_date ){
+            $scope.project.project_details_valid_labels.push('ngm-start-date');
+          }
+          if( !$scope.project.definition.project_end_date ){
+            $scope.project.project_details_valid_labels.push('ngm-end-date');
+          }
+          if( !$scope.project.definition.project_budget_currency ){
+            $scope.project.project_details_valid_labels.push('ngm-project-budget');
+          }
+          if( !$scope.project.definition.project_description ){
+            $scope.project.project_details_valid_labels.push('ngm-project-description');
+          }
+
+          // if NO labels details valid
+          return !$scope.project.project_details_valid_labels.length;
         },
 
         // validate if ONE activity type
         activity_type_valid: function () {
           // valid
-          var valid = false;
-          // compile activity_description
-          angular.forEach( $scope.project.definition.activity_type_check, function( d, i ) {
-            // check if selected
-            if ( d ){
-              valid = true;
-            }
-          });
-          return valid;
+          $scope.project.activity_type_valid_labels = [];
+
+          // activity types?
+          if( typeof $scope.project.definition.activity_type_check === 'undefined' ){
+            $scope.project.activity_type_valid_labels.push('ngm-activity_type');
+          }
+
+          // if NO labels activities valid
+          return !$scope.project.activity_type_valid_labels.length;
         },
 
         // validate project donor
         project_donor_valid: function () {
           // valid
-          var valid = false;
-          // compile activity_description
-          angular.forEach( $scope.project.definition.project_donor_check, function( d, i ){
-            // check if selected
-            if ( d ){
-              valid = true;
-            }
-          });
-          return valid;
+          $scope.project.project_donor_valid_labels = [];
+
+          // activity types?
+          if( !$scope.project.definition.project_donor_check ){
+            $scope.project.project_donor_valid_labels.push('ngm-project_donor');
+          }
+
+          // if NO labels activities valid
+          return !$scope.project.project_donor_valid_labels.length;
         },
 
         // validate if ALL target beneficairies valid
@@ -915,7 +922,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               rowComplete++;
             }
           });
-          if( rowComplete >= $scope.project.definition.target_beneficiaries.length ){
+          if( rowComplete === $scope.project.definition.target_beneficiaries.length ){
             return true;
           } else {
             return false;  
@@ -934,7 +941,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               rowComplete--;
             }
           });
-          if( rowComplete >= $scope.project.definition.target_locations.length ){
+          if( $scope.project.definition.target_locations.length && ( rowComplete === $scope.project.definition.target_locations.length ) ){
             return true;
           } else {
             return false;  
@@ -1065,6 +1072,47 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               $scope.project.definition.project_donor_other = '';
             }
           });
+        },
+
+        // validate form
+        validate: function(){
+
+          // run validation
+          $('label').css({ 'color': '#26a69a'});
+          $('#ngm-target_locations').css({ 'color': '#26a69a'});
+          var a = $scope.project.project_details_valid();
+          var b = $scope.project.activity_type_valid();
+          var c = $scope.project.project_donor_valid();
+          var d = $scope.project.target_beneficiaries_valid();
+          var e = $scope.project.target_locations_valid();
+
+          // project description
+          angular.forEach( $scope.project.project_details_valid_labels, function( d,i ){
+            $('label[for=' + d + ']').css({ 'color': '#EE6E73'});
+          });
+
+          // activity types
+          angular.forEach( $scope.project.activity_type_valid_labels, function( d,i ){
+            $('label[for=' + d + ']').css({ 'color': '#EE6E73'});
+          });
+
+          // donor
+          angular.forEach( $scope.project.project_donor_valid_labels, function( d,i ){
+            $('label[for=' + d + ']').css({ 'color': '#EE6E73'});
+          });
+
+          // locations invalid!
+          if ( !e ) {
+            $('#ngm-target_locations').css({ 'color': '#EE6E73'});
+          }
+
+          // popup
+          if ( a && b && c && d && e ) { 
+            $( '#save-modal' ).openModal( { dismissible: false } );
+          } else {
+            Materialize.toast( 'Project has Errors!', 6000, 'error' );
+          }
+
         },
 
         // save project

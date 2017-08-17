@@ -62,7 +62,7 @@
 												ng-model="project.definition.project_title"
 												ng-disabled="project.definition.project_status === 'complete'"
 												required>
-								  <label for="ngm-project-name">Project Title *</label>
+								  <label for="ngm-project-name" class="error">Project Title *</label>
 								</div>
 
 								<!-- input-date directive -->
@@ -178,7 +178,7 @@
 
 								<div class="activity-field col s12 m6" style="padding-top:12px;padding-bottom:5px;">
 									
-									<label class="label">Activity Type *</label>
+									<label class="label" for="ngm-activity_type">Activity Type *</label>
 									<div style="padding-bottom:5px;"></div>
 
 									<label class="label">{{ project.definition.cluster }}</label>
@@ -240,7 +240,7 @@
 							<div class="row">
 
 								<div class="input-field col s12" style="padding-bottom:5px;">
-									<label>Project Donor *</label>
+									<label for="ngm-project_donor">Project Donor *</label>
 									<div style="padding-bottom:35px;"></div>
 
 									<p ng-repeat="donor in project.lists.donors">

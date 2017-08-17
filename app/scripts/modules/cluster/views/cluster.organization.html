@@ -21,7 +21,8 @@
   	<a href="{{ panel.getProjectsHref() }}">
    	 <div class="card small blue-grey darken-1 hoverable">
       <div class="card-image">
-        <img src="images/cluster/projects.jpg">
+        <img ng-if="panel.user.admin0pcode === 'AF' || panel.user.admin0pcode === 'ET'" src="images/cluster/projects-{{ panel.user.admin0pcode }}.jpg">
+        <img ng-if="panel.user.admin0pcode !== 'AF' && panel.user.admin0pcode !== 'ET'" src="images/cluster/projects.jpg">
       </div>
       <div class="card-content white-text">
       	<p class="card-title">Projects</p>

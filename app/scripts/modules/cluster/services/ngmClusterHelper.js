@@ -582,24 +582,36 @@ angular.module( 'ngmReportHub' )
           // beneficiaries
           beneficiaries = [{
             cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
-            beneficiary_type_id: 'conflict_affected',
-            beneficiary_type_name: 'Conflict Affected'
+            beneficiary_type_id: 'idps',
+            beneficiary_type_name: 'IDPs'
           },{
             cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
             beneficiary_type_id: 'idp_conflict',
             beneficiary_type_name: 'Conflict IDPs'
           },{
             cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
-            beneficiary_type_id: 'idp_natural_affected',
-            beneficiary_type_name: 'Natural Disaster Affected'
-          },{
-            cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
             beneficiary_type_id: 'idp_natural_disaster',
             beneficiary_type_name: 'Natural Disaster IDPs'
           },{
             cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
+            beneficiary_type_id: 'conflict_affected',
+            beneficiary_type_name: 'Conflict Affected'
+          },{
+            cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
+            beneficiary_type_id: 'host_communities',
+            beneficiary_type_name: 'Host Communities'
+          },{
+            cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
+            beneficiary_type_id: 'idp_natural_affected',
+            beneficiary_type_name: 'Natural Disaster Affected'
+          },{
+            cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
             beneficiary_type_id: 'refugees',
             beneficiary_type_name: 'Refugees'
+          },{
+            cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
+            beneficiary_type_id: 'returnees',
+            beneficiary_type_name: 'Returnees'
           }];
 
         } else {
@@ -1021,8 +1033,8 @@ angular.module( 'ngmReportHub' )
             fac_type_id: 'general_hospital',
             fac_type_name: 'General Hospital'
           },{
-            fac_type_id: 'rehabilitation_hospital',
-            fac_type_name: 'Rehabilitation Hospital'
+            fac_type_id: 'regional_hospital',
+            fac_type_name: 'Regional Hospital'
           },{
             fac_type_id: 'clinc',
             fac_type_name: 'Clinic'
