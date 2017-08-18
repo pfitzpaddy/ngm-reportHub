@@ -158,23 +158,7 @@
 							</div>
 
 							<!-- inter -->
-							<div class="row">
-								
-								<div class="input-field col s12 m6" style="padding-bottom:5px;">
-									
-									<label>Other activities in addition to {{ project.definition.cluster }}?</label>
-									<div style="padding-bottom:35px;"></div>
-
-								    <p ng-repeat="a in project.lists.clusters | 
-								    		filter: { cluster_id: '!' + project.definition.cluster_id }"
-								    		ng-if="a.cluster_id !== 'acbar'">
-								      <input type="checkbox" id="activity_{{ a.cluster_id }}" 
-								      ng-model="project.definition.inter_cluster_check[ a.cluster_id ]"
-								      ng-disabled="project.definition.project_status === 'complete'"
-								      ng-click="project.compileInterClusterActivities()"/>
-								      <label class="checkbox-label" for="activity_{{ a.cluster_id }}">{{ a.cluster }}</label>
-								    </p>
-								</div>
+							<div class="row" id="ngm-activity_type_label">
 
 								<div class="activity-field col s12 m6" style="padding-top:12px;padding-bottom:5px;">
 									
@@ -214,6 +198,22 @@
 									</div>
 								    
 								</div>
+								
+								<div class="input-field col s12 m6" style="padding-bottom:5px;">
+									
+									<label>Other activities in addition to {{ project.definition.cluster }}?</label>
+									<div style="padding-bottom:35px;"></div>
+
+								    <p ng-repeat="a in project.lists.clusters | 
+								    		filter: { cluster_id: '!' + project.definition.cluster_id }"
+								    		ng-if="a.cluster_id !== 'acbar'">
+								      <input type="checkbox" id="activity_{{ a.cluster_id }}" 
+								      ng-model="project.definition.inter_cluster_check[ a.cluster_id ]"
+								      ng-disabled="project.definition.project_status === 'complete'"
+								      ng-click="project.compileInterClusterActivities()"/>
+								      <label class="checkbox-label" for="activity_{{ a.cluster_id }}">{{ a.cluster }}</label>
+								    </p>
+								</div>
 
 							</div>
 
@@ -237,7 +237,7 @@
 
 							</div>
 
-							<div class="row">
+							<div id="ngm-project_donor_label" class="row">
 
 								<div class="input-field col s12" style="padding-bottom:5px;">
 									<label for="ngm-project_donor">Project Donor *</label>

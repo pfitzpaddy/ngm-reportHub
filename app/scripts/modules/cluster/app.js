@@ -8,15 +8,6 @@
  */
 angular
 	.module('ngmCluster', [])
-	.run( [ '$location', 'ngmUser', function ( $location, ngmUser ) {
-	    // temp fsac workaround
-	    if ( ngmUser.get() && 
-	    	ngmUser.get().cluster_id === 'fsac' && 
-	    	$location.host().indexOf('dev') > -1 ) {
-	      $( '#ngm-fsac-dev-modal' ).openModal({dismissible: false});
-	    }
-
-	}])
 	.config([ '$routeProvider', '$compileProvider', function ( $routeProvider, $compileProvider ) {
 
 		// https://medium.com/swlh/improving-angular-performance-with-1-line-of-code-a1fb814a6476#.ufea9sjt1

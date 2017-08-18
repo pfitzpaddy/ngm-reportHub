@@ -25,10 +25,11 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
     '$http',
     '$route',
     'ngmUser',
+    'ngmAuth',
     'ngmData',
     'ngmClusterHelper',
     'config',
-    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmData, ngmClusterHelper, config ){
+    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, config ){
 
       // project
       $scope.report = {
@@ -228,7 +229,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           // setReportRequest
           var setReportRequest = {
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/cluster/stock/setReport',
+            url: ngmAuth.LOCATION + '/api/cluster/stock/setReport',
             data: {
               report: $scope.report.report
             }

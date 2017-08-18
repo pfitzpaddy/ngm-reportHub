@@ -25,10 +25,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
     '$http',
     '$route',
     'ngmUser',
+    'ngmAuth',
     'ngmData',
     'ngmClusterHelper',
     'config',
-    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmData, ngmClusterHelper, config ){
+    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, config ){
 
       // set activity descriptions
       $scope.activity_descriptions = ngmClusterHelper.getActivities( config.project, false, false );
@@ -527,7 +528,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           // setReportRequest
           var setBeneficiariesRequest = {
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/cluster/report/removeBeneficiary',
+            url: ngmAuth.LOCATION + '/api/cluster/report/removeBeneficiary',
             data: {
               id: b.id
             }
@@ -625,7 +626,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           // setReportRequest
           var setReportRequest = {
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/cluster/report/setReport',
+            url: ngmAuth.LOCATION + '/api/cluster/report/setReport',
             data: {
               report: $scope.project.report
             }

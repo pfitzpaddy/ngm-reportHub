@@ -16,10 +16,11 @@ angular.module( 'ngmReportHub' )
 			'$window', 
 			'$timeout', 
 			'$filter', 
-			'ngmUser', 
+			'ngmUser',
+			'ngmAuth',
 			'ngmData',
 			'ngmHctHelper',
-		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmData, ngmHctHelper ) {
+		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData, ngmHctHelper ) {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
 				'AngularJS',
@@ -80,7 +81,7 @@ angular.module( 'ngmReportHub' )
 				getMetricsRequest: function( format, indicator ){
 					return {
 						method: 'POST',
-						url: 'http://' + $location.host() + '/api/metrics/set',
+						url: ngmAuth.LOCATION + '/api/metrics/set',
 						data: {
 							cluster_id: 'health',
 							organization: $scope.dashboard.user.organization,
@@ -131,14 +132,14 @@ angular.module( 'ngmReportHub' )
 									color: 'blue',
 									icon: 'picture_as_pdf',
 									hover: 'Download Health 4W as PDF',
-									url: 'http://' + $location.host() + '/report/health/hct-2017/pdf/ReportHub-hct-indicators-' + data.id + '.pdf',
+									url: ngmAuth.LOCATION + '/report/health/hct-2017/pdf/ReportHub-hct-indicators-' + data.id + '.pdf',
 									metrics: $scope.dashboard.getMetricsRequest( 'pdf', 'health_hct_' + data.id )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'assignment_turned_in',
 									hover: 'Download Health 4W as CSV',
-									url: 'http://' + $location.host() + '/report/health/hct-2017/csv/ReportHub_indicators_hct_Q1_2017.csv',
+									url: ngmAuth.LOCATION + '/report/health/hct-2017/csv/ReportHub_indicators_hct_Q1_2017.csv',
 									metrics: $scope.dashboard.getMetricsRequest( 'csv', 'health_hct_' + data.id )
 								}]
 							}

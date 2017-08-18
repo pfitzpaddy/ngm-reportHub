@@ -7,8 +7,8 @@
  */
 angular.module('ngmReportHub')
 	// modal controller
-	.controller('DashboardDewsCtrl', ['$rootScope', '$scope', '$http', '$location', '$route', '$window', '$timeout', 'ngmUser', 
-		function ($rootScope, $scope, $http, $location, $route, $window, $timeout, ngmUser) {
+	.controller('DashboardDewsCtrl', ['$rootScope', '$scope', '$http', '$location', '$route', '$window', '$timeout', 'ngmAuth', 'ngmUser', 
+		function ($rootScope, $scope, $http, $location, $route, $window, $timeout, ngmAuth, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -286,18 +286,18 @@ angular.module('ngmReportHub')
 						hover: 'Download ' + $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name +  ' Report as PDF',
 						request: {
 							method: 'POST',
-							url: 'http://' + $location.host() + '/api/print',
+							url: ngmAuth.LOCATION + '/api/print',
 							data: {
 								report: $scope.dashboard.report,
 								printUrl: $location.absUrl(),
-								downloadUrl: 'http://' + $location.host() + '/report/',
+								downloadUrl: ngmAuth.LOCATION + '/report/',
 								user: $scope.dashboard.user,
 								pageLoadTime: 6400
 							}
 						},
 						metrics: {
 							method: 'POST',
-							url: 'http://' + $location.host() + '/api/metrics/set',
+							url: ngmAuth.LOCATION + '/api/metrics/set',
 							data: {
 								organization: $scope.dashboard.user.organization,
 								username: $scope.dashboard.user.username,
@@ -315,7 +315,7 @@ angular.module('ngmReportHub')
 						hover: 'Download ' + $scope.dashboard.location.name + ', ' + $scope.dashboard.disease.name +  ' Report as CSV',
 						request: {
 							method: 'POST',
-							url: 'http://' + $location.host() + '/api/dews/data',
+							url: ngmAuth.LOCATION + '/api/dews/data',
 							data: {
 								report: $scope.dashboard.report,
 								start_date: $scope.dashboard.startDate,
@@ -326,7 +326,7 @@ angular.module('ngmReportHub')
 						},
 						metrics: {
 							method: 'POST',
-							url: 'http://' + $location.host() + '/api/metrics/set',
+							url: ngmAuth.LOCATION + '/api/metrics/set',
 							data: {
 								organization: $scope.dashboard.user.organization,
 								username: $scope.dashboard.user.username,
@@ -391,7 +391,7 @@ angular.module('ngmReportHub')
 							title: 'Outbreaks',
 							request: {
 								method: 'POST',
-								url: 'http://' + $location.host() + '/api/dews/indicator',
+								url: ngmAuth.LOCATION + '/api/dews/indicator',
 								data: {
 									start_date: $scope.dashboard.startDate,
 									end_date: $scope.dashboard.endDate,
@@ -411,7 +411,7 @@ angular.module('ngmReportHub')
 							title: 'Individual Cases',
 							request: {
 								method: 'POST',
-								url: 'http://' + $location.host() + '/api/dews/indicator',
+								url: ngmAuth.LOCATION + '/api/dews/indicator',
 								data: {
 									start_date: $scope.dashboard.startDate,
 									end_date: $scope.dashboard.endDate,									
@@ -432,7 +432,7 @@ angular.module('ngmReportHub')
 							title: 'Deaths',
 							request: {
 								method: 'POST',
-								url: 'http://' + $location.host() + '/api/dews/indicator',
+								url: ngmAuth.LOCATION + '/api/dews/indicator',
 								data: {
 									start_date: $scope.dashboard.startDate,
 									end_date: $scope.dashboard.endDate,
@@ -473,7 +473,7 @@ angular.module('ngmReportHub')
 											date: date,
 											request: {
 												method: 'POST',
-												url: 'http://' + $location.host() + '/api/dews/summary',
+												url: ngmAuth.LOCATION + '/api/dews/summary',
 												data: {
 													date: moment(date).format('YYYY-MM-DD'),
 													disease: $scope.dashboard.disease.id,
@@ -491,7 +491,7 @@ angular.module('ngmReportHub')
 							},
 							request: {
 								method: 'POST',
-								url: 'http://' + $location.host() + '/api/dews/calendar',
+								url: ngmAuth.LOCATION + '/api/dews/calendar',
 								data: {
 									start_date: $scope.dashboard.startDate,
 									end_date: $scope.dashboard.endDate,
@@ -576,7 +576,7 @@ angular.module('ngmReportHub')
 									turboThreshold: 0,
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/dews/chart',
+										url: ngmAuth.LOCATION + '/api/dews/chart',
 										data: {
 											start_date: $scope.dashboard.startDate,
 											end_date: $scope.dashboard.endDate,
@@ -629,7 +629,7 @@ angular.module('ngmReportHub')
 							},				
 							request: {
 								method: 'POST',
-								url: 'http://' + $location.host() + '/api/dews/markers',
+								url: ngmAuth.LOCATION + '/api/dews/markers',
 								data: {
 									layer: 'outbreaks',
 									start_date: $scope.dashboard.startDate,

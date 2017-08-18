@@ -14,9 +14,10 @@ angular.module('ngmReportHub')
 			'$location', 
 			'$anchorScroll',
 			'$timeout', 
+			'ngmAuth',
 			'ngmData',
 			'ngmUser', 
-	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmData, ngmUser ) {
+	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -49,7 +50,7 @@ angular.module('ngmReportHub')
 			// get organization
 			getOrganization: {
 				method: 'POST',
-				url: 'http://' + $location.host() + '/api/getOrganization',
+				url: ngmAuth.LOCATION + '/api/getOrganization',
 				data: {
 					'organization_id': $route.current.params.organization_id
 				}
@@ -58,7 +59,7 @@ angular.module('ngmReportHub')
 			// get report
 			getReport: {
 				method: 'POST',
-				url: 'http://' + $location.host() + '/api/cluster/stock/getReport',
+				url: ngmAuth.LOCATION + '/api/cluster/stock/getReport',
 				data: {
 					id: $route.current.params.report_id
 				}
@@ -99,7 +100,7 @@ angular.module('ngmReportHub')
 								hover: 'Download Monthly Stock Report as CSV',
 								request: {
 									method: 'POST',
-									url: 'http://' + $location.host() + '/api/cluster/report/getReportCsv',
+									url: ngmAuth.LOCATION + '/api/cluster/report/getReportCsv',
 									data: {
 										report: $scope.report.filename,
 										report_type: 'stock',
@@ -108,7 +109,7 @@ angular.module('ngmReportHub')
 								},
 								metrics: {
 									method: 'POST',
-									url: 'http://' + $location.host() + '/api/metrics/set',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
 									data: {
 										organization: $scope.report.user.organization,
 										username: $scope.report.user.username,

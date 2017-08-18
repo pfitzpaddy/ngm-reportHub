@@ -67,6 +67,7 @@ angular.module('ngmReportHub')
 			OK: 200,
 			UNAUTHORIZED: 401,
 			FORBIDDEN: 403,
+			LOCATION: $location.protocol() + '://' + $location.host() + ':' + $location.port(),
 			APP: $location.path().split('/')[1],
 
 			// guest
@@ -92,7 +93,7 @@ angular.module('ngmReportHub')
 				// set the $http object
 				var register = $http({
 					method: 'POST',
-					url: 'http://' + $location.host() + '/api/create',
+					url: this.LOCATION + '/api/create',
 					data: user
 				});
 
@@ -122,7 +123,7 @@ angular.module('ngmReportHub')
 				// set the $http object
 				var login = $http({
 					method: 'POST',
-					url: 'http://' + $location.host() + '/api/login',
+					url: this.LOCATION + '/api/login',
 					data: user
 				});
 
@@ -150,7 +151,7 @@ angular.module('ngmReportHub')
 
 				var reset = $http({
 					method: 'POST',
-					url: 'http://' + $location.host() + '/api/send-email',
+					url: this.LOCATION + '/api/send-email',
 					data: user
 				});		
 
@@ -162,7 +163,7 @@ angular.module('ngmReportHub')
 				// set the $http object
 				var reset = $http({
 					method: 'POST',
-					url: 'http://' + $location.host() + '/api/password-reset',
+					url: this.LOCATION + '/api/password-reset',
 					data: user
 				});
 

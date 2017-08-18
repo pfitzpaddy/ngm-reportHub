@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller( 'ClusterProjectProjectsCtrl', ['$scope', '$location', '$route', 'ngmData', 'ngmUser', 'ngmClusterHelper', function ( $scope, $location, $route, ngmData, ngmUser, ngmClusterHelper ) {
+	.controller( 'ClusterProjectProjectsCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser, ngmClusterHelper ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -39,7 +39,7 @@ angular.module( 'ngmReportHub' )
 				// return http
 				return {
 					method: 'POST',
-					url: 'http://' + $location.host() + '/api/getOrganization',
+					url: ngmAuth.LOCATION + '/api/getOrganization',
 					data: {
 						'organization_id': organization_id
 					}
@@ -108,7 +108,7 @@ angular.module( 'ngmReportHub' )
 							icon: 'edit',
 							request: {
 								method: 'POST',
-								url: 'http://' + $location.host() + '/api/cluster/project/getProjectsList',
+								url: ngmAuth.LOCATION + '/api/cluster/project/getProjectsList',
 								data: {
 									filter: { 
 										organization_id: $scope.report.organization_id,
@@ -133,7 +133,7 @@ angular.module( 'ngmReportHub' )
 							icon: 'done',
 							request: {
 								method: 'POST',
-								url: 'http://' + $location.host() + '/api/cluster/project/getProjectsList',
+								url: ngmAuth.LOCATION + '/api/cluster/project/getProjectsList',
 								data: {
 									filter: { 
 										organization_id: $scope.report.organization_id,

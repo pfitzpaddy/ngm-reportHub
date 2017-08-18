@@ -6,7 +6,7 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmEprHelper', [ '$location', '$q', '$http', '$filter', '$timeout', function( $location, $q, $http, $filter, $timeout ) {
+	.factory( 'ngmEprHelper', [ '$location', '$q', '$http', '$filter', '$timeout', 'ngmAuth', function( $location, $q, $http, $filter, $timeout, ngmAuth ) {
 
     //
     var dashboard = {
@@ -97,7 +97,7 @@ angular.module( 'ngmReportHub' )
       getRequest: function( url, indicator, list ){
         return {
           method: 'POST',
-          url: 'http://' + $location.host() + '/api/' + url,
+          url: ngmAuth.LOCATION + '/api/' + url,
           data: {
             indicator: indicator,
             list: list,
@@ -115,7 +115,7 @@ angular.module( 'ngmReportHub' )
       getMetrics: function( theme, format ){
         return {
           method: 'POST',
-          url: 'http://' + $location.host() + '/api/metrics/set',
+          url: ngmAuth.LOCATION + '/api/metrics/set',
           data: {
             organization: dashboard.user.organization,
             username: dashboard.user.username,

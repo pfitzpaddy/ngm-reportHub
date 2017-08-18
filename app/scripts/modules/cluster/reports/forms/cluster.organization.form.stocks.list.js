@@ -25,10 +25,11 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
     '$http',
     '$route',
     'ngmUser',
+    'ngmAuth',
     'ngmData',
     'ngmClusterHelper',
     'config',
-    function($scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmData, ngmClusterHelper, config){
+    function($scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, config){
 
       // project
       $scope.report = {
@@ -79,7 +80,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
         setOrganization: function() {
           return {
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/setOrganization',
+            url: ngmAuth.LOCATION + '/api/setOrganization',
             data: { organization: $scope.report.organization }
           }
         },
@@ -88,7 +89,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
         removeStockLocation: function( stock_warehouse_id ){
           return {
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/cluster/stock/removeStockLocation',
+            url: ngmAuth.LOCATION + '/api/cluster/stock/removeStockLocation',
             data: { stock_warehouse_id: stock_warehouse_id }
           }
         },

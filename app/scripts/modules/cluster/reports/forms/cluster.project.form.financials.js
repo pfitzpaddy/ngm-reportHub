@@ -25,10 +25,11 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
     '$http',
     '$route',
     'ngmUser',
+    'ngmAuth',
     'ngmData',
     'ngmClusterHelper',
     'config',
-    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmData, ngmClusterHelper, config ){
+    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, config ){
 
       // project
       $scope.project = {
@@ -300,7 +301,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           // remove 
           $http({
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/cluster/project/removeBudgetItem',
+            url: ngmAuth.LOCATION + '/api/cluster/project/removeBudgetItem',
             data: {
               id: id
             }
@@ -317,7 +318,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           // Update Project
           ngmData.get({
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/cluster/project/setProject',
+            url: ngmAuth.LOCATION + '/api/cluster/project/setProject',
             data: {
               project: $scope.project.definition
             }

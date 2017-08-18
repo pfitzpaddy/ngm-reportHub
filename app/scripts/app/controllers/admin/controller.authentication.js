@@ -54,10 +54,6 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               // success
               if ( !result.err && !result.summary ){
 
-                if ( $location.host().indexOf('dev') > -1 && result.cluster_id === 'fsac' ) {
-                  $( '#ngm-fsac-dev-modal' ).openModal({dismissible: false});
-                }
-
                 // go to default org page
                 $location.path( result.app_home );
                 $timeout( function(){
@@ -119,7 +115,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             // resend password email
             ngmAuth.passwordResetSend({ 
                 user: $scope.panel.user, 
-                url: 'http://' + $location.host() + '/desk/#/cluster/find/' 
+                url: ngmAuth.LOCATION + '/desk/#/cluster/find/' 
               }).success( function( result ) {
               
                 // go to password reset page
@@ -228,7 +224,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
       // if ( !localStorage.getObject( 'organizations') ){
 
         // set
-        $http.get( 'http://' + $location.host() + '/api/cluster/list/organizations' ).then(function( organizations ){
+        $http.get( ngmAuth.LOCATION + '/api/cluster/list/organizations' ).then(function( organizations ){
           localStorage.setObject( 'organizations', organizations.data );
           $scope.panel.organizations = organizations.data;
           $timeout(function() {

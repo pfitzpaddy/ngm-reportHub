@@ -16,9 +16,10 @@ angular.module('ngmReportHub')
 			'$window', 
 			'$timeout', 
 			'$filter', 
-			'ngmUser', 
+			'ngmUser',
+			'ngmAuth',
 			'ngmData', 
-		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmData ) {
+		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData ) {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
 				'AngularJS',
@@ -170,11 +171,11 @@ angular.module('ngmReportHub')
 									hover: 'Download EPR as PDF',
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/print',
+										url: ngmAuth.LOCATION + '/api/print',
 										data: {
 											report: $scope.dashboard.report,
 											printUrl: $location.absUrl(),
-											downloadUrl: 'http://' + $location.host() + '/report/',
+											downloadUrl: ngmAuth.LOCATION + '/report/',
 											user: $scope.dashboard.user,
 											pageLoadTime: 6200,
 											viewportWidth: 1400

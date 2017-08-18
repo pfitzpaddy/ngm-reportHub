@@ -16,9 +16,10 @@ angular.module('ngmReportHub')
 			'$window', 
 			'$timeout', 
 			'$filter', 
-			'ngmUser', 
+			'ngmUser',
+			'ngmAuth',
 			'ngmData', 
-		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmData ) {
+		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData ) {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
 				'AngularJS',

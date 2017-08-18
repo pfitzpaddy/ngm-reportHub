@@ -14,10 +14,10 @@ angular.module('ngmReportHub')
 			'$location', 
 			'$anchorScroll',
 			'$timeout', 
+			'ngmAuth',
 			'ngmData',
-			'ngmUser', 
-
-	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmData, ngmUser ) {
+			'ngmUser',
+	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -50,7 +50,7 @@ angular.module('ngmReportHub')
 			// get project
 			getProject: $http({
 				method: 'POST',
-				url: 'http://' + $location.host() + '/api/cluster/project/getProject',
+				url: ngmAuth.LOCATION + '/api/cluster/project/getProject',
 				data: {
 					id: $route.current.params.project
 				}
@@ -59,7 +59,7 @@ angular.module('ngmReportHub')
 			// get report
 			getReport: $http({
 				method: 'POST',
-				url: 'http://' + $location.host() + '/api/cluster/report/getReport',
+				url: ngmAuth.LOCATION + '/api/cluster/report/getReport',
 				data: {
 					id: $route.current.params.report
 				}
@@ -107,7 +107,7 @@ angular.module('ngmReportHub')
 								hover: 'Download Monthly Acvitiy Report as CSV',
 								request: {
 									method: 'POST',
-									url: 'http://' + $location.host() + '/api/cluster/report/getReportCsv',
+									url: ngmAuth.LOCATION + '/api/cluster/report/getReportCsv',
 									data: {
 										report: $scope.report.report,
 										report_type: 'activity',
@@ -116,7 +116,7 @@ angular.module('ngmReportHub')
 								},
 								metrics: {
 									method: 'POST',
-									url: 'http://' + $location.host() + '/api/metrics/set',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
 									data: {
 										organization: $scope.report.user.organization,
 										username: $scope.report.user.username,

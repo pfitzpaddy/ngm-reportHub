@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterProjectDetailsCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmData', 'ngmUser', 'ngmClusterHelper', function ( $scope, $route, $location, $anchorScroll, $timeout, ngmData, ngmUser, ngmClusterHelper ) {
+	.controller('ClusterProjectDetailsCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper', function ( $scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser, ngmClusterHelper ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -75,11 +75,11 @@ angular.module('ngmReportHub')
 								hover: 'Download Project Details as PDF',
 								request: {
 									method: 'POST',
-									url: 'http://' + $location.host() + '/api/print',
+									url: ngmAuth.LOCATION + '/api/print',
 									data: {
 										report: $scope.report.report,
 										printUrl: $location.absUrl(),
-										downloadUrl: 'http://' + $location.host() + '/report/',
+										downloadUrl: ngmAuth.LOCATION + '/report/',
 										token: $scope.report.user.token,
 										viewportWidth: 1480,
 										pageLoadTime: 3200
@@ -87,7 +87,7 @@ angular.module('ngmReportHub')
 								},						
 								metrics: {
 									method: 'POST',
-									url: 'http://' + $location.host() + '/api/metrics/set',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
 									data: {
 										organization: $scope.report.user.organization,
 										username: $scope.report.user.username,
@@ -105,7 +105,7 @@ angular.module('ngmReportHub')
 								hover: 'Download ' + $scope.report.project.project_title + ' as CSV',
 								request: {
 									method: 'POST',
-									url: 'http://' + $location.host() + '/api/health/indicator',
+									url: ngmAuth.LOCATION + '/api/health/indicator',
 									data: {
 										report: 'projects_' + $scope.report.report,
 										details: 'projects',
@@ -114,7 +114,7 @@ angular.module('ngmReportHub')
 								},
 								metrics: {
 									method: 'POST',
-									url: 'http://' + $location.host() + '/api/metrics/set',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
 									data: {
 										organization: $scope.report.user.organization,
 										username: $scope.report.user.username,
@@ -177,7 +177,7 @@ angular.module('ngmReportHub')
 			// return project
 			ngmData.get({
 				method: 'POST',
-				url: 'http://' + $location.host() + '/api/cluster/project/getProject',
+				url: ngmAuth.LOCATION + '/api/cluster/project/getProject',
 				data: {
 					id: $route.current.params.project
 				}

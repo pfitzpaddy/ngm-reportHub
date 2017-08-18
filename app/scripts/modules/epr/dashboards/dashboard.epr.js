@@ -16,10 +16,11 @@ angular.module('ngmReportHub')
 			'$window', 
 			'$timeout', 
 			'$filter', 
-			'ngmUser', 
+			'ngmUser',
+			'ngmAuth',
 			'ngmData',
 			'ngmEprHelper',
-		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmData, ngmEprHelper ) {
+		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData, ngmEprHelper ) {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
 				'AngularJS',
@@ -159,11 +160,11 @@ angular.module('ngmReportHub')
 									hover: 'Download EPR as PDF',
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/print',
+										url: ngmAuth.LOCATION + '/api/print',
 										data: {
 											report: $scope.dashboard.report,
 											printUrl: $location.absUrl(),
-											downloadUrl: 'http://' + $location.host() + '/report/',
+											downloadUrl: ngmAuth.LOCATION + '/report/',
 											user: $scope.dashboard.user,
 											pageLoadTime: 6200,
 											viewportWidth: 1280
@@ -204,7 +205,7 @@ angular.module('ngmReportHub')
 									style: 'margin:15px; padding-bottom:30px;',
 									config: {
 										id: 'dashboard-btn',
-										request: { method: 'GET', url: 'http://' + $location.host() + '/api/epr/latestUpdate' },
+										request: { method: 'GET', url: ngmAuth.LOCATION + '/api/epr/latestUpdate' },
 										templateUrl: '/scripts/widgets/ngm-html/template/epr.dashboard.html'
 									}
 								}]

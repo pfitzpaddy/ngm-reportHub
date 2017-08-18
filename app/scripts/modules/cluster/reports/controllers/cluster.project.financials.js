@@ -14,9 +14,10 @@ angular.module('ngmReportHub')
 			'$location', 
 			'$anchorScroll',
 			'$timeout', 
+			'ngmAuth',
 			'ngmData',
 			'ngmUser', 
-	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmData, ngmUser ) {
+	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -49,7 +50,7 @@ angular.module('ngmReportHub')
 			// get project
 			getProject: $http({
 				method: 'POST',
-				url: 'http://' + $location.host() + '/api/cluster/project/getProject',
+				url: ngmAuth.LOCATION + '/api/cluster/project/getProject',
 				data: {
 					id: $route.current.params.project
 				}

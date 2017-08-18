@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardFloodRiskCtrl', ['$scope', '$http', '$route', '$location', '$q', '$filter', '$timeout', 'ngmUser', 'ngmData', function ($scope, $http, $route, $location, $q, $filter, $timeout, ngmUser, ngmData) {
+	.controller('DashboardFloodRiskCtrl', ['$scope', '$http', '$route', '$location', '$q', '$filter', '$timeout', 'ngmAuth', 'ngmUser', 'ngmData', function ($scope, $http, $route, $location, $q, $filter, $timeout, ngmAuth, ngmUser, ngmData) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -37,13 +37,13 @@ angular.module('ngmReportHub')
 			// province lists
 			provinceMenuRequest: {
 				method: 'GET',
-				url: 'http://' + $location.host() + '/api/location/getProvinceMenu'
+				url: ngmAuth.LOCATION + '/api/location/getProvinceMenu'
 			},
 
 			// province lists
 			districtListRequest: {
 				method: 'GET',
-				url: 'http://' + $location.host() + '/api/location/getDistrictList'
+				url: ngmAuth.LOCATION + '/api/location/getDistrictList'
 			},
 
 			// tab links
@@ -208,18 +208,18 @@ angular.module('ngmReportHub')
 								hover: 'Download ' + $scope.dashboard.data[$route.current.params.province].name + ' Report as PDF',
 								request: {
 									method: 'POST',
-									url: 'http://' + $location.host() + '/api/print',
+									url: ngmAuth.LOCATION + '/api/print',
 									data: {
 										report: $scope.dashboard.report,
 										printUrl: $location.absUrl(),
-										downloadUrl: 'http://' + $location.host() + '/report/',
+										downloadUrl: ngmAuth.LOCATION + '/report/',
 										user: $scope.dashboard.user,
 										pageLoadTime: $scope.dashboard.pdfPrintPageLoadTime
 									}
 								},						
 								metrics: {
 									method: 'POST',
-									url: 'http://' + $location.host() + '/api/metrics/set',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
 									data: {
 										organization: $scope.dashboard.user ? $scope.dashboard.user.organization : 'public',
 										username: $scope.dashboard.user ? $scope.dashboard.user.username : 'public',

@@ -25,10 +25,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
     '$http',
     '$route',
     'ngmUser',
+    'ngmAuth',
     'ngmData',
     'ngmClusterHelper',
     'config',
-    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmData, ngmClusterHelper, config ){
+    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, config ){
 
       // set default
       if( !config.project.project_budget_currency ){
@@ -182,7 +183,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // set org
           $http({
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/setOrganizationPartner',
+            url: ngmAuth.LOCATION + '/api/setOrganizationPartner',
             data: { 
               organization_id: $scope.project.definition.organization_id,
               project_acbar_partner: $scope.project.definition.project_acbar_partner
@@ -575,7 +576,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // remove at db
           $http({
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/cluster/project/removeBeneficiary',
+            url: ngmAuth.LOCATION + '/api/cluster/project/removeBeneficiary',
             data: { id: id }
           }).success( function( result ) {
 
@@ -796,7 +797,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 Materialize.toast( 'Loading Schools!' , 6000, 'note' );
               }
               $http({ 
-                method: 'GET', url: 'http://' + $location.host() + '/api/location/getAdmin2Schools?admin1pcode=' + $target_location.admin1pcode + '&admin2name=' + $target_location.admin2name
+                method: 'GET', url: ngmAuth.LOCATION + '/api/location/getAdmin2Schools?admin1pcode=' + $target_location.admin1pcode + '&admin2name=' + $target_location.admin2name
               }).success( function( result ) {
                 if ( $target_location.admin1pcode && $target_location.admin2name && !result.length ) {
                   Materialize.toast( 'No Schools for ' + $target_location.admin1name +', ' + $target_location.admin2name + '!' , 6000, 'success' );
@@ -851,7 +852,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // remove at db
           $http({
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/cluster/project/removeLocation',
+            url: ngmAuth.LOCATION + '/api/cluster/project/removeLocation',
             data: { id: id }
           }).success( function( result ) {
 
@@ -1080,36 +1081,43 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // run validation
           $('label').css({ 'color': '#26a69a'});
           $('#ngm-target_locations').css({ 'color': '#26a69a'});
+          var scrollDiv;
           var a = $scope.project.project_details_valid();
           var b = $scope.project.activity_type_valid();
           var c = $scope.project.project_donor_valid();
           var d = $scope.project.target_beneficiaries_valid();
           var e = $scope.project.target_locations_valid();
 
-          // project description
-          angular.forEach( $scope.project.project_details_valid_labels, function( d,i ){
-            $('label[for=' + d + ']').css({ 'color': '#EE6E73'});
-          });
-
-          // activity types
-          angular.forEach( $scope.project.activity_type_valid_labels, function( d,i ){
-            $('label[for=' + d + ']').css({ 'color': '#EE6E73'});
-          });
-
-          // donor
-          angular.forEach( $scope.project.project_donor_valid_labels, function( d,i ){
-            $('label[for=' + d + ']').css({ 'color': '#EE6E73'});
-          });
-
           // locations invalid!
           if ( !e ) {
             $('#ngm-target_locations').css({ 'color': '#EE6E73'});
+            scrollDiv = $('#ngm-target_locations');
           }
+
+          // donor
+          angular.forEach( $scope.project.project_donor_valid_labels, function( l,i ){
+            $('label[for=' + l + ']').css({ 'color': '#EE6E73'});
+            scrollDiv = $('#ngm-project_donor_label');
+          });
+
+          // activity types
+          angular.forEach( $scope.project.activity_type_valid_labels, function( l,i ){
+            $('label[for=' + l + ']').css({ 'color': '#EE6E73'});
+            scrollDiv = $('#ngm-activity_type_label');
+          });
+
+          // project description
+          angular.forEach( $scope.project.project_details_valid_labels, function( l,i ){
+            $('label[for=' + l + ']').css({ 'color': '#EE6E73'});
+            scrollDiv = $('#project_details_form');
+          });
 
           // popup
           if ( a && b && c && d && e ) { 
             $( '#save-modal' ).openModal( { dismissible: false } );
           } else {
+            // scroll and error
+            scrollDiv.animatescroll();
             Materialize.toast( 'Project has Errors!', 6000, 'error' );
           }
 
@@ -1199,7 +1207,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // details update
           $http({
             method: 'POST',
-            url: 'http://' + $location.host() + '/api/cluster/project/setProject',
+            url: ngmAuth.LOCATION + '/api/cluster/project/setProject',
             data: {
               project: $scope.project.definition
             }

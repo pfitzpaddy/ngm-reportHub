@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller( 'ClusterAppCtrl', ['$scope', '$location', '$route', 'ngmData', 'ngmUser', 'ngmClusterHelper', function ( $scope, $location, $route, ngmData, ngmUser, ngmClusterHelper ) {
+	.controller( 'ClusterAppCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser, ngmClusterHelper ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -40,7 +40,7 @@ angular.module( 'ngmReportHub' )
 				// return http
 				return {
 					method: 'POST',
-					url: 'http://' + $location.host() + '/api/getOrganization',
+					url: ngmAuth.LOCATION + '/api/getOrganization',
 					data: {
 						'organization_id': organization_id
 					}

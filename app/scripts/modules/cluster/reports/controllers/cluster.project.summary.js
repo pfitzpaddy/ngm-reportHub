@@ -6,19 +6,17 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterProjectSummaryCtrl', ['$scope', '$route', '$http', '$location', 'ngmData', 'ngmUser', function ($scope, $route, $http, $location, ngmData, ngmUser) {
+	.controller('ClusterProjectSummaryCtrl', ['$scope', '$route', '$http', '$location', 'ngmAuth', 'ngmData', 'ngmUser', function ($scope, $route, $http, $location, ngmAuth, ngmData, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
 			'Karma'
 		];
 
-		
-
 		// return project
 		ngmData.get({
 			method: 'POST',
-			url: 'http://' + $location.host() + '/api/cluster/project/getProject',
+			url: ngmAuth.LOCATION + '/api/cluster/project/getProject',
 			data: {
 				id: $route.current.params.project
 			}
@@ -113,7 +111,7 @@ angular.module('ngmReportHub')
 									  // Submit project for save
 									  ngmData.get({
 									    method: 'POST',
-									    url: 'http://' + $location.host() + '/api/cluster/project/setProject',
+									    url: ngmAuth.LOCATION + '/api/cluster/project/setProject',
 									    data: {
 									      project: project
 									    }
@@ -134,7 +132,7 @@ angular.module('ngmReportHub')
 									  // Submit project for save
 									  ngmData.get({
 									    method: 'POST',
-									    url: 'http://' + $location.host() + '/api/cluster/project/setProject',
+									    url: ngmAuth.LOCATION + '/api/cluster/project/setProject',
 									    data: {
 									      project: project
 									    }
@@ -150,7 +148,7 @@ angular.module('ngmReportHub')
 									  // Submit project for save
 									  $http({
 									    method: 'POST',
-									    url: 'http://' + $location.host() + '/api/cluster/project/delete',
+									    url: ngmAuth.LOCATION + '/api/cluster/project/delete',
 									    data: {
 									      project_id: project.id
 									    }

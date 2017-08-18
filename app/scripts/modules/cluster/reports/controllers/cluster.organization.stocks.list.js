@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterOrganizationStocksListCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmData', 'ngmUser', function ($scope, $route, $location, $anchorScroll, $timeout, ngmData, ngmUser) {
+	.controller('ClusterOrganizationStocksListCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser', function ($scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -40,7 +40,7 @@ angular.module('ngmReportHub')
 				// return http
 				return {
 					method: 'POST',
-					url: 'http://' + $location.host() + '/api/getOrganization',
+					url: ngmAuth.LOCATION + '/api/getOrganization',
 					data: {
 						'organization_id': organization_id
 					}
@@ -100,7 +100,7 @@ angular.module('ngmReportHub')
 									format: true,
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/cluster/stock/getReportsList',
+										url: ngmAuth.LOCATION + '/api/cluster/stock/getReportsList',
 										data: {
 											filter: { 
 												organization_id: $scope.report.organization.id,
@@ -130,7 +130,7 @@ angular.module('ngmReportHub')
 									format: true,
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/cluster/stock/getReportsList',
+										url: ngmAuth.LOCATION + '/api/cluster/stock/getReportsList',
 										data: {
 											filter: { 
 												organization_id: $scope.report.organization.id,

@@ -16,9 +16,10 @@ angular.module( 'ngmReportHub' )
 			'$window', 
 			'$timeout', 
 			'$filter', 
-			'ngmUser', 
+			'ngmUser',
+			'ngmAuth',
 			'ngmData',
-		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmData ) {
+		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData ) {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
 				'AngularJS',
@@ -116,7 +117,7 @@ angular.module( 'ngmReportHub' )
 					// request
 					return {
 						method: 'POST',
-						url: 'http://' + $location.host() + '/api/health/indicator',
+						url: ngmAuth.LOCATION + '/api/health/indicator',
 						data: {
 							cluster_id: 'health',
 							report: 'health_' + indicator + '_' + $scope.dashboard.report,
@@ -140,7 +141,7 @@ angular.module( 'ngmReportHub' )
 					//
 					return {
 						method: 'POST',
-						url: 'http://' + $location.host() + '/api/metrics/set',
+						url: ngmAuth.LOCATION + '/api/metrics/set',
 						data: {
 							cluster_id: 'health',
 							organization: $scope.dashboard.user.organization,
@@ -160,7 +161,7 @@ angular.module( 'ngmReportHub' )
 					// request
 					var request = {
 						method: 'POST',
-						url: 'http://' + $location.host() + '/api/health/indicator',
+						url: ngmAuth.LOCATION + '/api/health/indicator',
 						data: {
 							cluster_id: 'health',
 							indicator: indicator,
@@ -372,7 +373,7 @@ angular.module( 'ngmReportHub' )
 					var rows = [],
 							request = {
 								method: 'POST',
-								url: 'http://' + $location.host() + '/api/cluster/admin/indicator',
+								url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
 								data: {
 									list: true,
 									cluster_id: 'health',
@@ -773,12 +774,12 @@ angular.module( 'ngmReportHub' )
 									hover: 'Download Health 4W as PDF',
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/print',
+										url: ngmAuth.LOCATION + '/api/print',
 										data: {
 											cluster_id: 'health',
 											report: $scope.dashboard.report,
 											printUrl: $location.absUrl(),
-											downloadUrl: 'http://' + $location.host() + '/report/',
+											downloadUrl: ngmAuth.LOCATION + '/report/',
 											user: $scope.dashboard.user,
 											viewportWidth: 1390,
 											pageLoadTime: 16400
@@ -792,7 +793,7 @@ angular.module( 'ngmReportHub' )
 									hover: 'Download Health Cluster Contact List as CSV',
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/health/data/contacts',
+										url: ngmAuth.LOCATION + '/api/health/data/contacts',
 										data: {
 											report: 'health_contacts_' + $scope.dashboard.report
 										}
@@ -1250,8 +1251,8 @@ angular.module( 'ngmReportHub' )
 				// lists
 				var requests = {
 					ipApi: 'http://ip-api.com/json',
-					getAdmin1List: 'http://' + $location.host() + '/api/location/getAdmin1List',
-					getAdmin2List: 'http://' + $location.host() + '/api/location/getAdmin2List'
+					getAdmin1List: ngmAuth.LOCATION + '/api/location/getAdmin1List',
+					getAdmin2List: ngmAuth.LOCATION + '/api/location/getAdmin2List'
 				}
 
 				// send request

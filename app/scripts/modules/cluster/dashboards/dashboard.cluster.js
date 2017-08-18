@@ -16,10 +16,11 @@ angular.module('ngmReportHub')
 			'$window', 
 			'$timeout', 
 			'$filter', 
-			'ngmUser', 
+			'ngmUser',
+			'ngmAuth',
 			'ngmData',
 			'ngmClusterHelper',
-		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmData, ngmClusterHelper ) {
+		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData, ngmClusterHelper ) {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
 				'AngularJS',
@@ -114,7 +115,7 @@ angular.module('ngmReportHub')
 				getRequest: function( obj ){
 					var request = {
 						method: 'POST',
-						url: 'http://' + $location.host() + '/api/cluster/indicator',
+						url: ngmAuth.LOCATION + '/api/cluster/indicator',
 						data: {
 							adminRpcode: $scope.dashboard.adminRpcode,
 							admin0pcode: $scope.dashboard.admin0pcode,
@@ -137,7 +138,7 @@ angular.module('ngmReportHub')
 				getMetrics: function( theme, format ){
 					return {
 						method: 'POST',
-						url: 'http://' + $location.host() + '/api/metrics/set',
+						url: ngmAuth.LOCATION + '/api/metrics/set',
 						data: {
 							organization: $scope.dashboard.user.organization,
 							username: $scope.dashboard.user.username,
@@ -470,11 +471,11 @@ angular.module('ngmReportHub')
 									hover: 'Download Dashboard as PDF',
 									request: {
 										method: 'POST',
-										url: 'http://' + $location.host() + '/api/print',
+										url: ngmAuth.LOCATION + '/api/print',
 										data: {
 											report:  $scope.dashboard.cluster_id + '_cluster_dashboard-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
 											printUrl: $location.absUrl(),
-											downloadUrl: 'http://' + $location.host() + '/report/',
+											downloadUrl: ngmAuth.LOCATION + '/report/',
 											user: $scope.dashboard.user,
 											pageLoadTime: 9600,
 											viewportWidth: 1400
@@ -692,8 +693,8 @@ angular.module('ngmReportHub')
 
 				// lists
 				var requests = {
-					getAdmin1List: 'http://' + $location.host() + '/api/location/getAdmin1List',
-					getAdmin2List: 'http://' + $location.host() + '/api/location/getAdmin2List'
+					getAdmin1List: ngmAuth.LOCATION + '/api/location/getAdmin1List',
+					getAdmin2List: ngmAuth.LOCATION + '/api/location/getAdmin2List'
 				}
 
 				// send request

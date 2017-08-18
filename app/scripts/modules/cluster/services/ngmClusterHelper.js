@@ -6,7 +6,7 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterHelper', [ '$location', '$q', '$http', '$filter', '$timeout', function( $location, $q, $http, $filter, $timeout ) {
+	.factory( 'ngmClusterHelper', [ '$location', '$q', '$http', '$filter', '$timeout', 'ngmAuth', function( $location, $q, $http, $filter, $timeout, ngmAuth ) {
 
 		return {
 			
@@ -73,43 +73,43 @@ angular.module( 'ngmReportHub' )
           // province lists
           getAdmin1List: {
             method: 'GET',
-            url: 'http://' + $location.host() + '/api/location/getAdmin1List?admin0pcode=' + user.admin0pcode
+            url: ngmAuth.LOCATION + '/api/location/getAdmin1List?admin0pcode=' + user.admin0pcode
           },
 
           // district lists
           getAdmin2List: {
             method: 'GET',
-            url: 'http://' + $location.host() + '/api/location/getAdmin2List?admin0pcode=' + user.admin0pcode
+            url: ngmAuth.LOCATION + '/api/location/getAdmin2List?admin0pcode=' + user.admin0pcode
           },
 
           // district lists
           getAdmin3List: {
             method: 'GET',
-            url: 'http://' + $location.host() + '/api/location/getAdmin3List?admin0pcode=' + user.admin0pcode
+            url: ngmAuth.LOCATION + '/api/location/getAdmin3List?admin0pcode=' + user.admin0pcode
           },
 
           // activities list
           getActivities: {
             method: 'GET',
-            url: 'http://' + $location.host() + '/api/cluster/list/activities'
+            url: ngmAuth.LOCATION + '/api/cluster/list/activities'
           },
 
           // donors list
           getDonors: {
             method: 'GET',
-            url: 'http://' + $location.host() + '/api/cluster/list/donors'
+            url: ngmAuth.LOCATION + '/api/cluster/list/donors'
           },
 
           // indicators list
           getIndicators: {
             method: 'GET',
-            url: 'http://' + $location.host() + '/api/cluster/list/indicators'
+            url: ngmAuth.LOCATION + '/api/cluster/list/indicators'
           },
 
           // indicators list
           getStockItems: {
             method: 'GET',
-            url: 'http://' + $location.host() + '/api/cluster/list/stockitems'
+            url: ngmAuth.LOCATION + '/api/cluster/list/stockitems'
           }
 
         }

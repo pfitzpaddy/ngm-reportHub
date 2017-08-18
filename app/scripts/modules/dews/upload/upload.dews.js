@@ -50,14 +50,14 @@ angular.module('ngmReportHub')
 						style: 'height: 296px;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							url: 'http://' + $location.host() + '/api/upload-file',
+							url: ngmAuth.LOCATION + '/api/upload-file',
 							acceptedFiles: '.xlsx',
 							headers: { 'Authorization': 'Bearer ' + ngmUser.get().token },
 							successMessage: false,
 							process: {
 								request: {
 									method: 'POST',
-									url: 'http://' + $location.host() + '/api/process',
+									url: ngmAuth.LOCATION + '/api/process',
 									data: {
 										type: 'xlsx',
 										schema: 'dews',
