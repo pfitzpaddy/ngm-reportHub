@@ -386,7 +386,7 @@ angular.module('ngmReportHub')
 						$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
 					}
 					// USER
-					if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 && $scope.dashboard.user.roles.indexOf( 'ADMIN' ) === -1 ) {
+					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 && $scope.dashboard.user.roles.indexOf( 'ADMIN' ) === -1 ) {
 						$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
 						$scope.dashboard.organization = $scope.dashboard.user.organization;
 					}
@@ -396,10 +396,7 @@ angular.module('ngmReportHub')
 				
 					// set
 					$scope.dashboard.setUrl();
-					// $scope.dashboard.setMenu();
 					$scope.dashboard.setCluster();
-					// $scope.dashboard.setAdmin1();
-					// $scope.dashboard.setAdmin2();
 					$scope.dashboard.setTitle();
 					$scope.dashboard.setSubtitle();
 					
@@ -683,61 +680,19 @@ angular.module('ngmReportHub')
 
 			};
 
-			// if lists
-			// if ( $scope.dashboard.lists.admin1 ) {
+			// set dashboard
+			$scope.dashboard.setDashboard();
 
-				// set dashboard
-				$scope.dashboard.setDashboard();
-
-				// SUPERADMIN
-				if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 ) {
-					$scope.dashboard.setMenu( 'super' );
-				} else if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
-					// ADMIN
-					$scope.dashboard.setMenu( 'admin' );
-				} else {
-					// USER
-					$scope.dashboard.setMenu( 'user' );
-				}
-
-			// }
-
-			// if none
-			// if ( !$scope.dashboard.lists.admin1 ) {
-
-			// 	// lists
-			// 	var requests = {
-			// 		getAdmin1List: { method: 'GET', url: 'http://' + $location.host() + '/api/location/getAdmin1List' },
-			// 		getAdmin2List: { method: 'GET', url: 'http://' + $location.host() + '/api/location/getAdmin2List' }
-			// 	}
-
-			// 	// send request
-			// 	$q.all([ 
-			// 		$http( requests.getAdmin1List ),
-			// 		$http( requests.getAdmin2List ) ] ).then( function( results ){
-
-			// 			// admin1, admin2, activities object
-			// 			var lists = { admin1List: results[0].data, admin2List: results[1].data };
-
-			// 			// storage
-			// 			localStorage.setObject( 'lists', lists );
-
-			// 			// set dashboard
-			// 			$scope.dashboard.setDashboard();
-
-			// 			// SUPERADMIN
-			// 			if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 ) {
-			// 				$scope.dashboard.setMenu( 'super' );
-			// 			} else if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
-			// 				// ADMIN
-			// 				$scope.dashboard.setMenu( 'admin' );
-			// 			} else {
-			// 				// USER
-			// 				$scope.dashboard.setMenu( 'user' );
-			// 			}
-
-			// 		});
-			// }
+			// SUPERADMIN
+			if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 ) {
+				$scope.dashboard.setMenu( 'super' );
+			} else if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
+				// ADMIN
+				$scope.dashboard.setMenu( 'admin' );
+			} else {
+				// USER
+				$scope.dashboard.setMenu( 'user' );
+			}
 
 			// assign to ngm app scope ( for menu )
 			$scope.dashboard.ngm.dashboard.model = $scope.model;
