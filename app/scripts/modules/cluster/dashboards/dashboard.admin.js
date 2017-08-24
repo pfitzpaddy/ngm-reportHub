@@ -200,7 +200,7 @@ angular.module('ngmReportHub')
 						$scope.model.menu.push({
 							'search': true,
 							'id': 'search-cluster',
-							'icon': 'person_pin',
+							'icon': 'camera',
 							'title': 'Cluster',
 							'class': 'teal lighten-1 white-text',
 							'rows': clusterRows
@@ -282,7 +282,14 @@ angular.module('ngmReportHub')
 				// 
 				setTitle: function(){
 					// title
-					$scope.dashboard.title = '4W | ' + $scope.dashboard.adminRpcode.toUpperCase()
+					$scope.dashboard.title = '4W';
+
+					// adminR
+					if ( $scope.dashboard.adminRpcode === 'all' ) {
+						$scope.dashboard.title += ' | HQ ';
+					} else {
+						$scope.dashboard.title += ' | ' + $scope.dashboard.adminRpcode.toUpperCase();
+					}
 					// admin0
 					if ( $scope.dashboard.admin0pcode !== 'all' ) {
 						$scope.dashboard.title += ' | ' + $scope.dashboard.admin0pcode.toUpperCase();
@@ -518,7 +525,49 @@ angular.module('ngmReportHub')
 								}],
 							}							
 						},
-						menu: [],
+						menu: [{
+							'id': 'search-region',
+							'icon': 'person_pin',
+							'title': 'Region',
+							'class': 'teal lighten-1 white-text',
+							'rows': [{
+								'title': 'HQ',
+								'param': 'adminRpcode',
+								'active': 'all',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin'
+							},{
+								'title': 'AFRO',
+								'param': 'adminRpcode',
+								'active': 'afro',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/afro'
+							},{
+								'title': 'EMRO',
+								'param': 'adminRpcode',
+								'active': 'emro',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/emro'
+							}]
+						},{
+							'id': 'search-country',
+							'icon': 'location_on',
+							'title': 'Country',
+							'class': 'teal lighten-1 white-text',
+							'rows': [{
+								'title': 'Afghanistan',
+								'param': 'admin0pcode',
+								'active': 'af',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/emro/af'
+							},{
+								'title': 'Ethiopia',
+								'param': 'admin0pcode',
+								'active': 'et',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/afro/et'
+							}]
+						}],
 						rows: [{
 							columns: [{
 								styleClass: 's12 m12 l12',

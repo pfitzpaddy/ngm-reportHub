@@ -91,7 +91,7 @@ angular.module( 'ngmReportHub' )
           // activities list
           getActivities: {
             method: 'GET',
-            url: ngmAuth.LOCATION + '/api/cluster/list/activities'
+            url: ngmAuth.LOCATION + '/api/cluster/list/activities?admin0pcode=' + user.admin0pcode
           },
 
           // donors list

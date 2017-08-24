@@ -205,24 +205,31 @@ angular
 					}],
 				}
 			})
+
 			// admin
 			.when( '/cluster/admin', {
 				redirectTo: '/cluster/admin/all/all/all/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			
 			// afro
+			.when( '/cluster/admin/afro', {
+				redirectTo: '/cluster/admin/afro/all/all/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+			})
 			.when( '/cluster/admin/afro/et', {
 				redirectTo: '/cluster/admin/afro/et/all/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
 
-			// admin
+			// emro
+			.when( '/cluster/admin/emro', {
+				redirectTo: '/cluster/admin/emro/all/all/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+			})
 			.when( '/cluster/admin/emro/af', {
 				redirectTo: '/cluster/admin/emro/af/all/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/emro/ur', {
 				redirectTo: '/cluster/admin/emro/ur/all/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
-			
+
 			// admin
 			.when( '/cluster/admin/:adminRpcode/:admin0pcode/:cluster_id/:organization_tag/:report_type/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
