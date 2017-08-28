@@ -59,6 +59,50 @@ angular.module('ngmReportHub')
 					'af': 'AFGHANISTAN',
 				},
 
+				menu: [{
+					'id': 'search-region',
+					'icon': 'person_pin',
+					'title': 'Region',
+					'class': 'teal lighten-1 white-text',
+					'rows': [{
+						'title': 'HQ',
+						'param': 'adminRpcode',
+						'active': 'all',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/admin'
+					},{
+						'title': 'AFRO',
+						'param': 'adminRpcode',
+						'active': 'afro',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/admin/afro'
+					},{
+						'title': 'EMRO',
+						'param': 'adminRpcode',
+						'active': 'emro',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/admin/emro'
+					}]
+				},{
+					'id': 'search-country',
+					'icon': 'location_on',
+					'title': 'Country',
+					'class': 'teal lighten-1 white-text',
+					'rows': [{
+						'title': 'Afghanistan',
+						'param': 'admin0pcode',
+						'active': 'af',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/admin/emro/af'
+					},{
+						'title': 'Ethiopia',
+						'param': 'admin0pcode',
+						'active': 'et',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/admin/afro/et'
+					}]
+				}],
+
 				// lists
 				lists: {
 					clusters: ngmClusterHelper.getClusters(),
@@ -525,49 +569,7 @@ angular.module('ngmReportHub')
 								}],
 							}							
 						},
-						menu: [{
-							'id': 'search-region',
-							'icon': 'person_pin',
-							'title': 'Region',
-							'class': 'teal lighten-1 white-text',
-							'rows': [{
-								'title': 'HQ',
-								'param': 'adminRpcode',
-								'active': 'all',
-								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/cluster/admin'
-							},{
-								'title': 'AFRO',
-								'param': 'adminRpcode',
-								'active': 'afro',
-								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/cluster/admin/afro'
-							},{
-								'title': 'EMRO',
-								'param': 'adminRpcode',
-								'active': 'emro',
-								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/cluster/admin/emro'
-							}]
-						},{
-							'id': 'search-country',
-							'icon': 'location_on',
-							'title': 'Country',
-							'class': 'teal lighten-1 white-text',
-							'rows': [{
-								'title': 'Afghanistan',
-								'param': 'admin0pcode',
-								'active': 'af',
-								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/cluster/admin/emro/af'
-							},{
-								'title': 'Ethiopia',
-								'param': 'admin0pcode',
-								'active': 'et',
-								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/cluster/admin/afro/et'
-							}]
-						}],
+						menu: [],
 						rows: [{
 							columns: [{
 								styleClass: 's12 m12 l12',
@@ -734,6 +736,7 @@ angular.module('ngmReportHub')
 
 			// SUPERADMIN
 			if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 ) {
+				$scope.model.menu = $scope.dashboard.menu;
 				$scope.dashboard.setMenu( 'super' );
 			} else if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
 				// ADMIN
