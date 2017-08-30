@@ -47,33 +47,33 @@
 							  	<!-- health cluster -->
 							  	<h5 class="report-location-title" ng-if="project.definition.cluster_id === 'health' && !location.admin3pcode">
 												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_type_name }}, {{ location.fac_name }}
+												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.facility_type_name }}, {{ location.facility_name }}
 									</h5>
 							  	<!-- health cluster with admin3 -->
 							  	<h5 class="report-location-title" ng-if="project.definition.cluster_id === 'health' && location.admin3pcode">
 												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.fac_type_name }}, {{ location.fac_name }}
+												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.facility_type_name }}, {{ location.facility_name }}
 									</h5>
 
 									<!-- eiewg formal location -->
-							  	<h5 class="report-location-title" ng-if="project.definition.cluster_id === 'eiewg' && location.school_status_id === 'formal'">
+							  	<h5 class="report-location-title" ng-if="project.definition.cluster_id === 'eiewg' && location.facility_status_id === 'formal'">
 												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.school_status_name | uppercase }} SCHOOL | {{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_type_name }}, {{ location.fac_name }}
+												{{ location.facility_status_name | uppercase }} SCHOOL | {{ location.admin1name }}, {{ location.admin2name }}, {{ location.facility_type_name }}, {{ location.facility_name }}
 									</h5>
 									<!-- eiewg informal location -->
-							  	<h5 class="report-location-title" ng-if="project.definition.cluster_id === 'eiewg' && location.school_status_id === 'informal'">
+							  	<h5 class="report-location-title" ng-if="project.definition.cluster_id === 'eiewg' && location.facility_status_id === 'informal'">
 												<i class="material-icons left" style="color:teal;">location_on</i>
-												HUB SCHOOL | {{ location.school_hub_name }}
+												HUB SCHOOL | {{ location.facility_hub_name }}
 												<br/>
 												<br/>
 												<span style="padding-left:40px;color:#616161;font-size:1.2rem;">
-													{{ location.school_status_name | uppercase }} SCHOOL | {{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_type_name }}, {{ location.fac_name }}
+													{{ location.facility_status_name | uppercase }} SCHOOL | {{ location.admin1name }}, {{ location.admin2name }}, {{ location.facility_type_name }}, {{ location.facility_name }}
 												</span>
 									</h5>
 									<!-- other -->
 							  	<h5 class="report-location-title" ng-if="project.definition.cluster_id !== 'health' && project.definition.cluster_id !== 'eiewg'">
 												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.fac_name }}
+												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.facility_name }}
 									</h5>
 								</div>
 

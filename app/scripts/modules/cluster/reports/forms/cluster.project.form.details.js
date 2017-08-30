@@ -114,8 +114,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // Schools
           schools:[],
           hub_schools: [],
-          school_status: [{ school_status_id: 'formal', school_status_name: 'Formal' },{ school_status_id: 'informal', school_status_name: 'Informal' }],
-          new_schools:[{ new_school_id: 'yes', new_school_name: 'Yes' },{ new_school_id: 'no', new_school_name: 'No' }],
+          facility_implementation: [{ facility_implementation_id: 'formal', facility_implementation_name: 'Formal' },{ facility_implementation_id: 'informal', facility_implementation_name: 'Informal' }],
+          new_facility:[{ new_facility_id: 'yes', new_facility_name: 'Yes' },{ new_facility_id: 'no', new_facility_name: 'No' }],
           school_type: ngmClusterHelper.getSchoolTypes(),
           facility_type: ngmClusterHelper.getFacilityTypes( config.project.admin0pcode )
         },
@@ -595,9 +595,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             admin2name: null,
             admin3pcode: null,
             admin3name: null,
-            fac_type_id: null,
-            fac_type_name: null,
-            fac_name: null
+            facility_id: null,
+            facility_implementation_id: null,
+            facility_type_id: null,
+            facility_type_name: null,
+            new_facility_id: null,
+            new_facility_name: null,
+            facility_name: null
           };
 
           // clone
@@ -605,10 +609,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           if ( length ) {
             var l = angular.copy( $scope.project.definition.target_locations[ length - 1 ] );
             delete l.id;
-            delete l.school_id;
-            delete l.school_hub_id;
-            delete l.school_hub_name;
-            $scope.inserted = angular.merge( $scope.inserted, l, { fac_name: null } );
+            l.facility_id = null;
+            l.facility_hub_id = null;
+            l.facility_hub_name = null;
+            l.facility_name = null;
+            $scope.inserted = angular.merge( $scope.inserted, l );
           }
          $scope.project.definition.target_locations.push( $scope.inserted );
         },
@@ -639,6 +644,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             selected = $filter('filter')( $scope.project.lists.admin2Select[$index], { admin2name: $location.admin2name }, true);
             if(selected[0]){
               delete selected[0].id;
+              $location.facility_implementation_id = null;
+              $location.facility_implementation_name = null;
+              $location.facility_type_id = null;
+              $location.facility_type_name = null;
+              $location.new_facility_id = null;
+              $location.new_facility_name = null;
               angular.merge($location, selected[0]);
             }
           }
@@ -658,75 +669,86 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           if($location.admin3name) {
             selected = $filter('filter')( $scope.project.lists.admin3Select[$index], { admin3name: $location.admin3name }, true);
             delete selected[0].id;
+            $location.facility_implementation_id = null;
+            $location.facility_implementation_name = null;
+            $location.facility_type_id = null;
+            $location.facility_type_name = null;
+            $location.new_facility_id = null;
+            $location.new_facility_name = null;
             angular.merge($location, selected[0]);
           }
           return selected.length ? selected[0].admin3name : 'No Selection!';
         },
 
-        // new school?
-        showYesNo: function($data, $location){
-          var selected = [];
-          $location.new_school_id = $data;
-          if($location.new_school_id) {
-            selected = $filter('filter')( $scope.project.lists.new_schools, { new_school_id: $location.new_school_id }, true);
-            new_school_id = selected[0].new_school_id;
-            new_school_name = selected[0].new_school_name;
-          }
-          return selected.length ? selected[0].new_school_name : 'No Selection!';
-        },
-
         yesNoChange: function( $location ){
-          delete $location.fac_name;
-          delete $location.school_id;
-          delete $location.school_hub_id;
-          delete $location.school_hub_name;
+          $location.facility_name = null;
+          $location.facility_id = null ;
+          $location.facility_hub_id = null;
+          $location.facility_hub_name = null;
         },
 
-        // fac_type
-        showFacType: function($data, $location){
+        // facility_type
+        showFacilityType: function($data, $location){
           var selected = [];
-          $location.fac_type_id = $data;
-          if($location.fac_type_id) {
-            selected = $filter('filter')( $scope.project.lists.facility_type, { fac_type_id: $location.fac_type_id }, true);
+          $location.facility_type_id = $data;
+          if($location.facility_type_id) {
+            selected = $filter('filter')( $scope.project.lists.facility_type, { facility_type_id: $location.facility_type_id }, true);
             delete selected[0].id;
             angular.merge($location, selected[0]);
           }
-          return selected.length ? selected[0].fac_type_name : 'No Selection!';
+          return selected.length ? selected[0].facility_type_name : 'No Selection!';
         },
 
-        // fac_name
-        showName: function($data, $location){
-          $location.fac_name = $data;
-          return $location.fac_name ? $location.fac_name : '';
-        },
-
-        // school status
-        showSchoolStatus: function($data, $location){
+        // facility implementation
+        showFacilityImplementation: function($data, $location){
           var selected = [];
-          $location.school_status_id = $data;
-          if($location.school_status_id) {
-            selected = $filter('filter')( $scope.project.lists.school_status, { school_status_id: $location.school_status_id }, true);
-            angular.merge($location, selected[0]);
+          $location.facility_implementation_id = $data;
+          if($location.facility_implementation_id) {
+            selected = $filter('filter')( $scope.project.lists.facility_implementation, { facility_implementation_id: $location.facility_implementation_id }, true);
+            $location.facility_implementation_name = selected[0].facility_implementation_name;
+            $location.facility_type_id = null;
+            $location.facility_type_name = null;
+            $location.new_facility_id = null;
+            $location.new_facility_name = null;
           }
-          return selected.length ? selected[0].school_status_name : 'No Selection!';
+          return selected.length ? selected[0].facility_implementation_name : 'No Selection!';
         },
 
-        // fac_type
+        // school type
         showSchoolType: function($data, $location){
           var selected = [];
-          $location.fac_type_id = $data;
-          if($location.fac_type_id) {
-            selected = $filter('filter')( $scope.project.lists.school_type, { fac_type_id: $location.fac_type_id }, true);
-            angular.merge($location, selected[0]);
+          $location.facility_type_id = $data;
+          if($location.facility_type_id) {
+            selected = $filter('filter')( $scope.project.lists.school_type, { facility_type_id: $location.facility_type_id }, true);
+            $location.facility_type_name = selected[0].facility_type_name;
+            $location.new_facility_id = null;
+            $location.new_facility_name = null;
           }
-          return selected.length ? selected[0].fac_type_name : 'No Selection!';
+          return selected.length ? selected[0].facility_type_name : 'No Selection!';
+        },
+
+        // new facility?
+        showYesNo: function($data, $location){
+          var selected = [];
+          $location.new_facility_id = $data;
+          if($location.new_facility_id) {
+            selected = $filter('filter')( $scope.project.lists.new_facility, { new_facility_id: $location.new_facility_id }, true );
+            $location.new_facility_name = selected[0].new_facility_name;
+          }
+          return selected.length ? selected[0].new_facility_name : 'No Selection!';
+        },
+
+        // facility_name
+        showName: function($data, $location){
+          $location.facility_name = $data;
+          return $location.facility_name ? $location.facility_name : '';
         },
 
         // show the label heading
         showSchoolNameLabel: function(){
           var display = false;
           angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
-            if ( d.new_school_id ) {
+            if ( d.new_facility_id ) {
               display = true;
             }
           });
@@ -737,7 +759,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         showHubSchoolNameLabel: function(){
           var display = false;
           angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
-            if ( d.school_status_id === 'informal' ) {
+            if ( d.new_facility_id && d.facility_implementation_id === 'informal' ) {
               display = true;
             }
           });
@@ -748,67 +770,88 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         showSchools: function($index, $data, $location){
 
           var selected = [];
-          $location.school_id = $data;
-          if( $location.school_id && $scope.project.lists.schools[$index] ) {
-            selected = $filter('filter')( $scope.project.lists.schools[$index], { school_id: $location.school_id }, true);
+          $location.facility_id = $data;
+          if( $location.facility_id && $scope.project.lists.schools[$index] && $scope.project.lists.schools[$index][$location.admin2pcode] ) {
+            selected = $filter('filter')( $scope.project.lists.schools[$index][$location.admin2pcode], { facility_id: $location.facility_id }, true);
             if (selected.length) {
-              $location.school_id = selected[0].school_id;
-              $location.fac_name = selected[0].fac_name;
+              $location.facility_id = selected[0].facility_id;
+              $location.facility_name = selected[0].facility_name;
               $location.admin2lng = selected[0].admin2lng;
               $location.admin2lat = selected[0].admin2lat;
             }
           }
-          return $location.fac_name ? $location.fac_name : 'No Selection!';
+          return $location.facility_name ? $location.facility_name : 'No Selection!';
         },
 
         // hub school
         showHubSchools: function($index, $data, $location){
           var selected = [];
-          $location.school_hub_id = $data;
-          if( $location.school_hub_id && $scope.project.lists.hub_schools[$index] ) {
-            selected = $filter('filter')( $scope.project.lists.hub_schools[$index], { school_id: $location.school_hub_id }, true);
+          $location.facility_hub_id = $data;
+          if( $location.facility_hub_id && $scope.project.lists.hub_schools[$index] && $scope.project.lists.hub_schools[$index][$location.admin2pcode] ) {
+            selected = $filter('filter')( $scope.project.lists.hub_schools[$index][$location.admin2pcode], { facility_id: $location.facility_hub_id }, true);
             if (selected.length) {
-              $location.school_hub_id = selected[0].school_id;
-              $location.school_hub_name = selected[0].fac_name;
+              $location.facility_hub_id = selected[0].facility_id;
+              $location.facility_hub_name = selected[0].facility_name;
             }
           }
-          return $location.school_hub_name;
+          return $location.facility_hub_name;
         },
 
         // load schools
         loadSchools: function( $index, $data, $target_location ){
 
-          // reset
-          // remove any existing records if only on client
+          // reset client
           if (!$target_location.id) {
+            $target_location.facility_name = null;
+            $target_location.facility_id = null;
+            $target_location.facility_hub_id = null;
+            $target_location.facility_hub_name = null;
+          }
+
+          // list storage
+          if (!$scope.project.lists.schools[$index]) {
             $scope.project.lists.schools[$index] = [];
             $scope.project.lists.hub_schools[$index] = [];
-            delete $target_location.fac_name;
-            delete $target_location.school_id;
-            delete $target_location.school_hub_id;
-            delete $target_location.school_hub_name;
+          }
+          // list storage by pcode2
+          if (!$scope.project.lists.schools[$index][$target_location.admin2pcode]) {
+            $scope.project.lists.schools[$index][$target_location.admin2pcode] = [];
+            $scope.project.lists.hub_schools[$index][$target_location.admin2pcode] = [];
+          }
+
+          // if kabul remove so that PD schools are displayed
+          if ( $scope.project.lists.schools[$index][$target_location.admin2pcode].length && $target_location.admin2pcode === '101' ) {
+            $scope.project.lists.schools[$index][$target_location.admin2pcode] = [];
+            $scope.project.lists.hub_schools[$index][$target_location.admin2pcode] = [];
           }
 
           // set lists  
             // timeout will enable admin2 to be selected (if user changes admin2 retrospectively)
           $timeout(function(){
-            if ( $target_location.admin1pcode && $target_location.admin2name ) {
-              if( !$target_location.id ){
-                Materialize.toast( 'Loading Schools!' , 6000, 'note' );
-              }
-              $http({ 
-                method: 'GET', url: ngmAuth.LOCATION + '/api/location/getAdmin2Schools?admin1pcode=' + $target_location.admin1pcode + '&admin2name=' + $target_location.admin2name
-              }).success( function( result ) {
-                if ( $target_location.admin1pcode && $target_location.admin2name && !result.length ) {
-                  Materialize.toast( 'No Schools for ' + $target_location.admin1name +', ' + $target_location.admin2name + '!' , 6000, 'success' );
+            if ( $target_location.admin1pcode && $target_location.admin2pcode && $target_location.admin2name ) {
+              // if already existing
+              if( $scope.project.lists.schools[$index][$target_location.admin2pcode] && $scope.project.lists.schools[$index][$target_location.admin2pcode].length ) {
+                // do nothing!
+              } else {
+                // else fetch!
+                if( !$target_location.id ){
+                  Materialize.toast( 'Loading Schools!' , 6000, 'note' );
                 }
-                $scope.project.lists.schools[$index] = result;
-                $scope.project.lists.hub_schools[$index] = result;
-              }).error( function( err ) {
-                Materialize.toast( 'Schools List Error!', 6000, 'error' );
-              });
+                $http({ 
+                  method: 'GET', url: ngmAuth.LOCATION + '/api/location/getAdmin2Facilities?cluster_id=' + $scope.project.definition.cluster_id + '&admin0pcode=' + $target_location.admin0pcode + '&admin1pcode=' + $target_location.admin1pcode + '&admin2pcode=' + $target_location.admin2pcode + '&admin2name=' + $target_location.admin2name
+                }).success( function( result ) {
+                  if ( $target_location.admin1pcode && $target_location.admin2name && !result.length ) {
+                    Materialize.toast( 'No Schools for ' + $target_location.admin1name +', ' + $target_location.admin2name + '!' , 6000, 'success' );
+                  }
+                  // set
+                  $scope.project.lists.schools[$index][$target_location.admin2pcode] = result;
+                  $scope.project.lists.hub_schools[$index][$target_location.admin2pcode] = result;
+                }).error( function( err ) {
+                  Materialize.toast( 'Schools List Error!', 6000, 'error' );
+                });
+              }
             }
-          }, 200 );
+          }, 600 );
         },
 
         // location edit
@@ -934,11 +977,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         target_locations_valid: function(){
           var rowComplete = 0;
           angular.forEach( $scope.project.definition.target_locations, function( d, i ){
-            if ( d.admin1pcode && d.admin1name && d.admin2pcode && d.admin2name && d.fac_name ){
+            if ( d.admin1pcode && d.admin1name && d.admin2pcode && d.admin2name && d.facility_name ){
               rowComplete++;
             }
             // hack for eiewg
-            if ( d.school_status_id && d.school_status_id === 'informal' && !d.school_hub_id ) {
+            if ( d.facility_implementation_id && d.facility_implementation_id === 'informal' && !d.facility_hub_id ) {
               rowComplete--;
             }
           });

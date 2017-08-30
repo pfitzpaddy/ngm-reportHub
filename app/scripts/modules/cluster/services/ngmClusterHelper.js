@@ -987,33 +987,33 @@ angular.module( 'ngmReportHub' )
       // school facility types
       getSchoolTypes: function() {
         var types = [{
-          fac_school_type: 'formal',
-          fac_type_id: 'higher',
-          fac_type_name: 'Higher'
+          facility_implementation_id: 'formal',
+          facility_type_id: 'higher',
+          facility_type_name: 'Higher'
         },{
-          fac_school_type: 'formal',
-          fac_type_id: 'secondary',
-          fac_type_name: 'Secondary'
+          facility_implementation_id: 'formal',
+          facility_type_id: 'secondary',
+          facility_type_name: 'Secondary'
         },{
-          fac_school_type: 'formal',
-          fac_type_id: 'primary',
-          fac_type_name: 'Primary'
+          facility_implementation_id: 'formal',
+          facility_type_id: 'primary',
+          facility_type_name: 'Primary'
         },{
-          fac_school_type: 'formal',
-          fac_type_id: 'ECD',
-          fac_type_name: 'ECD'
+          facility_implementation_id: 'formal',
+          facility_type_id: 'ECD',
+          facility_type_name: 'ECD'
         },{
-          fac_school_type: 'formal',
-          fac_type_id: 'TC',
-          fac_type_name: 'TC'
+          facility_implementation_id: 'formal',
+          facility_type_id: 'TC',
+          facility_type_name: 'TC'
         },{
-          fac_school_type: 'informal',
-          fac_type_id: 'ALC',
-          fac_type_name: 'ALC'
+          facility_implementation_id: 'informal',
+          facility_type_id: 'ALC',
+          facility_type_name: 'ALC'
         },{
-          fac_school_type: 'informal',
-          fac_type_id: 'CBS',
-          fac_type_name: 'CBS'
+          facility_implementation_id: 'informal',
+          facility_type_id: 'CBS',
+          facility_type_name: 'CBS'
         }]
 
         // set beneficiaries
@@ -1024,77 +1024,77 @@ angular.module( 'ngmReportHub' )
 			// health facility types
 			getFacilityTypes: function( admin0pcode ) {
 
-        // fac_type
+        // facility_type
         var facility_types = [];
 
         // GH, RH, PH, CTC, CTU, ORP
 				if ( admin0pcode === 'ET' ) {
           facility_types = [{
-            fac_type_id: 'general_hospital',
-            fac_type_name: 'General Hospital'
+            facility_type_id: 'general_hospital',
+            facility_type_name: 'General Hospital'
           },{
-            fac_type_id: 'regional_hospital',
-            fac_type_name: 'Regional Hospital'
+            facility_type_id: 'regional_hospital',
+            facility_type_name: 'Regional Hospital'
           },{
-            fac_type_id: 'clinc',
-            fac_type_name: 'Clinic'
+            facility_type_id: 'clinc',
+            facility_type_name: 'Clinic'
           },{
-            fac_type_id: 'ctc',
-            fac_type_name: 'CTC'
+            facility_type_id: 'ctc',
+            facility_type_name: 'CTC'
           },{
-            fac_type_id: 'ctu',
-            fac_type_name: 'CTU'
+            facility_type_id: 'ctu',
+            facility_type_name: 'CTU'
           },{
-            fac_type_id: 'orp',
-            fac_type_name: 'ORP'
+            facility_type_id: 'orp',
+            facility_type_name: 'ORP'
           }];
 
         } else {
           facility_types = [{
-            fac_type_id: 'RH',
-            fac_type_name: 'RH'
+            facility_type_id: 'RH',
+            facility_type_name: 'RH'
           },{
-            fac_type_id: 'PH',
-            fac_type_name: 'PH'
+            facility_type_id: 'PH',
+            facility_type_name: 'PH'
           },{
-            fac_type_id: 'DH',
-            fac_type_name: 'DH'
+            facility_type_id: 'DH',
+            facility_type_name: 'DH'
           },{
-            fac_type_id: 'CHC',
-            fac_type_name: 'CHC'
+            facility_type_id: 'CHC',
+            facility_type_name: 'CHC'
           },{
-            fac_type_id: 'CHC+FATP',
-            fac_type_name: 'CHC + FATP'
+            facility_type_id: 'CHC+FATP',
+            facility_type_name: 'CHC + FATP'
           },{
-            fac_type_id: 'BHC',
-            fac_type_name: 'BHC'
+            facility_type_id: 'BHC',
+            facility_type_name: 'BHC'
           },{
-            fac_type_id: 'BHC+FATP',
-            fac_type_name: 'BHC + FATP'
+            facility_type_id: 'BHC+FATP',
+            facility_type_name: 'BHC + FATP'
           },{
-            fac_type_id: 'FHH',
-            fac_type_name: 'FHH'
+            facility_type_id: 'FHH',
+            facility_type_name: 'FHH'
           },{
-            fac_type_id: 'SHC',
-            fac_type_name: 'SHC'
+            facility_type_id: 'SHC',
+            facility_type_name: 'SHC'
           },{
-            fac_type_id: 'MHT',
-            fac_type_name: 'MHT'
+            facility_type_id: 'MHT',
+            facility_type_name: 'MHT'
           },{
-            fac_type_id: 'FATP',
-            fac_type_name: 'FATP'
+            facility_type_id: 'FATP',
+            facility_type_name: 'FATP'
           },{
-            fac_type_id: 'DATC',
-            fac_type_name: 'DATC'
+            facility_type_id: 'DATC',
+            facility_type_name: 'DATC'
           },{
-            fac_type_id: 'rehabilitation_center',
-            fac_type_name: 'Rehabilitation Center'
+            facility_type_id: 'rehabilitation_center',
+            facility_type_name: 'Rehabilitation Center'
           },{
-            fac_type_id: 'special_hospital',
-            fac_type_name: 'Special Hospital'
+            facility_type_id: 'special_hospital',
+            facility_type_name: 'Special Hospital'
           },{
-            fac_type_id: 'local_committee',
-            fac_type_name: 'Local Committee'
+            facility_type_id: 'local_committee',
+            facility_type_name: 'Local Committee'
           }];
         }
 
@@ -1263,7 +1263,13 @@ angular.module( 'ngmReportHub' )
           delete locations[i].activity_type;
           delete locations[i].beneficiary_type;
           locations[i] = angular.merge( {}, d, p );
-          locations[i].school_id;
+          // set facility_lng, facility_lat 
+            // this is propigated through the entire datasets
+          if ( !locations[i].facility_lng && !locations[i].facility_lat ) {
+            // set admin3 or admin2 
+            locations[i].facility_lng = locations[i].admin3lng ? locations[i].admin3lng : locations[i].admin2lng;
+            locations[i].facility_lat = locations[i].admin3lat ? locations[i].admin3lat : locations[i].admin2lat;
+          }
         });
 
         // return clean location
