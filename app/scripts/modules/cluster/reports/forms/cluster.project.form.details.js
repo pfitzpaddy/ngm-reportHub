@@ -724,9 +724,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // if admin3pcode
           if( $scope.project.lists.facilities[$index] && location.admin3pcode && location.new_facility_id === 'no' ){
 
-            console.log(location.admin3pcode);
-            console.log(location.new_facility_id);
-
             // filter based on locations within the selected admin3
             angular.forEach( $scope.project.lists.facility_type, function( ft, i ) {
               var match = false;
@@ -739,7 +736,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 $scope.project.lists.facility_type_filtered.push(ft);
               } 
             });
-            console.log($scope.project.lists.facility_type_filtered);
           } else {
             $scope.project.lists.facility_type_filtered = $scope.project.lists.facility_type;
           }
@@ -747,7 +743,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // filter by facility_type 
           if(location.facility_type_id) {
             selected = $filter('filter')( $scope.project.lists.facility_type_filtered, { facility_type_id: location.facility_type_id }, true );
-            location.facility_type_name = selected[0].facility_type_name;
+            if ( selected.length ) {
+              location.facility_type_name = selected[0].facility_type_name;
+            }
           }
           return selected.length ? selected[0].facility_type_name : 'No Selection!';
 
@@ -798,7 +796,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           if( location.facility_id && $scope.project.lists.facilities[$index] && $scope.project.lists.facilities[$index][location.admin3pcode] ) {
             selected = $filter('filter')( $scope.project.lists.facilities[$index][location.admin3pcode], { facility_id: location.facility_id }, true);
             if (selected.length) {
-              location.facility_id = selected[0].facility_id;
               location.facility_name = selected[0].facility_name;
               location.facility_lng = selected[0].facility_lng;
               location.facility_lat = selected[0].facility_lat;
@@ -815,10 +812,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           if( location.facility_hub_id && $scope.project.lists.hub_facilities[$index] && $scope.project.lists.hub_facilities[$index][location.admin3pcode] ) {
             selected = $filter('filter')( $scope.project.lists.hub_facilities[$index][location.admin3pcode], { facility_id: location.facility_hub_id }, true);
             if (selected.length) {
-              location.facility_hub_id = selected[0].facility_id;
               location.facility_hub_name = selected[0].facility_name;
-              location.facility_lng = selected[0].facility_lng;
-              location.facility_lat = selected[0].facility_lat;
+              if ( location.new_facility_id === 'yes' ) {
+                location.facility_lng = selected[0].facility_lng;
+                location.facility_lat = selected[0].facility_lat;
+              }
             }
           }
           return location.facility_hub_name ? location.facility_hub_name : 'No Selection!';
@@ -913,7 +911,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           if( location.facility_id && $scope.project.lists.schools[$index] && $scope.project.lists.schools[$index][location.admin2pcode] ) {
             selected = $filter('filter')( $scope.project.lists.schools[$index][location.admin2pcode], { facility_id: location.facility_id }, true);
             if (selected.length) {
-              location.facility_id = selected[0].facility_id;
               location.facility_name = selected[0].facility_name;
               location.facility_lng = selected[0].facility_lng;
               location.facility_lat = selected[0].facility_lat;

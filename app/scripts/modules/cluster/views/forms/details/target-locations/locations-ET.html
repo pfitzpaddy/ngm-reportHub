@@ -27,7 +27,7 @@
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
 							      <td ng-if="project.lists.admin3.length">{{ project.lists.admin3[0].admin3type_name }}</td>
 							      <td>Implementation</td>
-							      <td ng-show="project.showNewFacilityLabel()">New Facility</td>
+							      <td>New Facility</td>
 							      <td>Facility Type</td>
 							      <td>Facility Name *</td>
 							      <td ng-show="project.showHubFacilityLabel()">Facility Hub</td>
@@ -60,13 +60,9 @@
 							          {{ project.showFacilityImplementation($data, location) }}
 							        </span>
 							      </td>
-							      
-							      <!-- empty squares -->
-							      <td ng-if="project.showNewFacilityLabel() && location.facility_implementation_id === 'embedded'">
-							      </td>
 
-							      <td ng-if="location.facility_implementation_id === 'standalone'">
-							        <span e-placeholder="Select..." editable-select="location.new_facility_id" e-name="new_facility_id" e-form="locationform" e-ng-options="item.new_facility_id as item.new_facility_name for item in project.lists.new_facility" e-ng-change="project.yesNoChange(location)" e-ng-disabled="location.facility_implementation_id !== 'standalone'" e-required>
+							      <td>
+							        <span e-placeholder="Select..." editable-select="location.new_facility_id" e-name="new_facility_id" e-form="locationform" e-ng-options="item.new_facility_id as item.new_facility_name for item in project.lists.new_facility" e-ng-change="project.yesNoChange(location)" e-ng-disabled="!location.facility_implementation_id" e-required>
 							          {{ project.showYesNo($data, location) }}
 							        </span>
 							      </td>
@@ -84,7 +80,7 @@
 							      <!-- empty squares -->
 							      <td ng-if="!location.facility_implementation_id && !location.facility_type_id">
 							      </td>
-							      <td ng-if="project.showHubFacilityLabel() && !location.new_facility_id && location.facility_implementation_id === 'standalone'">
+							      <td ng-if="project.showHubFacilityLabel() && !location.new_facility_id">
 							      </td>
 
 							      <!-- select existing: drop down -->
@@ -95,7 +91,7 @@
 							      </td>
 
 							      <!-- select new: free text  -->
-										<td ng-if="location.new_facility_id === 'yes' || location.facility_implementation_id === 'embedded'">
+										<td ng-if="location.new_facility_id === 'yes'">
 							        <span editable-text="location.facility_name" e-name="facility_name" e-form="locationform" e-required>
 							        	{{ project.showFacilityName($data, location) }}
 							        </span>
