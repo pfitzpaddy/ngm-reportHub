@@ -73,7 +73,7 @@
 
 							      <!-- FACILITY TYPE -->
 							      <td>
-							        <span e-placeholder="Select..." editable-select="location.facility_type_id" e-name="facility_type_id" e-form="locationform" e-ng-options="item.facility_type_id as item.facility_type_name for item in project.lists.facility_type_filtered" e-ng-disabled="!location.admin3name || !location.new_facility_id" e-required>
+							        <span e-placeholder="Select..." editable-select="location.facility_type_id" e-name="facility_type_id" e-form="locationform" e-ng-options="item.facility_type_id as item.facility_type_name for item in project.lists.facility_type_filtered" e-ng-disabled="!location.admin3name" e-required>
 							          {{ project.showFacilityType($index, $data, location) }}
 							        </span>
 							      </td>

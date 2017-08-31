@@ -722,7 +722,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               $scope.project.lists.facility_type_filtered = []; 
 
           // if admin3pcode
-          if( location.admin3pcode && location.new_facility_id === 'no' ){
+          if( $scope.project.lists.facilities[$index] && location.admin3pcode && location.new_facility_id === 'no' ){
+
+            console.log(location.admin3pcode);
+            console.log(location.new_facility_id);
 
             // filter based on locations within the selected admin3
             angular.forEach( $scope.project.lists.facility_type, function( ft, i ) {
@@ -736,7 +739,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 $scope.project.lists.facility_type_filtered.push(ft);
               } 
             });
-
+            console.log($scope.project.lists.facility_type_filtered);
           } else {
             $scope.project.lists.facility_type_filtered = $scope.project.lists.facility_type;
           }
