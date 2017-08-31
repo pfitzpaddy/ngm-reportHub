@@ -984,60 +984,88 @@ angular.module( 'ngmReportHub' )
 
 			},
 
-      // school facility types
-      getSchoolTypes: function() {
-        var types = [{
-          facility_implementation_id: 'formal',
-          facility_type_id: 'higher',
-          facility_type_name: 'Higher'
-        },{
-          facility_implementation_id: 'formal',
-          facility_type_id: 'secondary',
-          facility_type_name: 'Secondary'
-        },{
-          facility_implementation_id: 'formal',
-          facility_type_id: 'primary',
-          facility_type_name: 'Primary'
-        },{
-          facility_implementation_id: 'formal',
-          facility_type_id: 'ECD',
-          facility_type_name: 'ECD'
-        },{
-          facility_implementation_id: 'formal',
-          facility_type_id: 'TC',
-          facility_type_name: 'TC'
-        },{
-          facility_implementation_id: 'informal',
-          facility_type_id: 'ALC',
-          facility_type_name: 'ALC'
-        },{
-          facility_implementation_id: 'informal',
-          facility_type_id: 'CBS',
-          facility_type_name: 'CBS'
-        }]
-
-        // set beneficiaries
-        return types;
-
+      // get facility implementation 
+      getFacilityImplementation: function( cluster_id ){
+        var facility_implementation = [];
+        if ( cluster_id === 'eiewg'  ) {
+          facility_implementation = [{ 
+            facility_implementation_id: 'formal', 
+            facility_implementation_name: 'Formal' 
+          },{ 
+            facility_implementation_id: 'informal', 
+            facility_implementation_name: 'Informal' 
+          }]
+        } else {
+          facility_implementation = [{ 
+            facility_implementation_id: 'embedded', 
+            facility_implementation_name: 'Embedded Facility' 
+          },{ 
+            facility_implementation_id: 'standalone', 
+            facility_implementation_name: 'Standalone Facility' 
+          }]
+        }
+        return facility_implementation;
       },
 
 			// health facility types
-			getFacilityTypes: function( admin0pcode ) {
+			getFacilityTypes: function( cluster_id, admin0pcode ) {
 
         // facility_type
         var facility_types = [];
 
-        // GH, RH, PH, CTC, CTU, ORP
-				if ( admin0pcode === 'ET' ) {
+        // select what you wish
+        if ( cluster_id === 'eiewg' ) {
           facility_types = [{
+            facility_implementation_id: 'formal',
+            facility_type_id: 'higher',
+            facility_type_name: 'Higher'
+          },{
+            facility_implementation_id: 'formal',
+            facility_type_id: 'secondary',
+            facility_type_name: 'Secondary'
+          },{
+            facility_implementation_id: 'formal',
+            facility_type_id: 'primary',
+            facility_type_name: 'Primary'
+          },{
+            facility_implementation_id: 'formal',
+            facility_type_id: 'ECD',
+            facility_type_name: 'ECD'
+          },{
+            facility_implementation_id: 'formal',
+            facility_type_id: 'TC',
+            facility_type_name: 'TC'
+          },{
+            facility_implementation_id: 'informal',
+            facility_type_id: 'ALC',
+            facility_type_name: 'ALC'
+          },{
+            facility_implementation_id: 'informal',
+            facility_type_id: 'CBS',
+            facility_type_name: 'CBS'
+          }]
+        }
+
+        // health & Et
+				if ( cluster_id === 'health' && admin0pcode === 'ET' ) {
+          facility_types = [{
+            facility_type_id: 'primary_hospital',
+            facility_type_name: 'Primary Hospital'
+          },{
             facility_type_id: 'general_hospital',
             facility_type_name: 'General Hospital'
           },{
-            facility_type_id: 'regional_hospital',
-            facility_type_name: 'Regional Hospital'
+            facility_type_id: 'referral_hospital',
+            facility_type_name: 'Referral Hospital'
+          },{
+            facility_type_id: 'health_center',
+            facility_type_name: 'Health Center'
           },{
             facility_type_id: 'clinc',
             facility_type_name: 'Clinic'
+          },{
+            facility_type_id: 'MHT',
+            facility_type_name: 'MHT'
           },{
             facility_type_id: 'ctc',
             facility_type_name: 'CTC'
@@ -1048,8 +1076,10 @@ angular.module( 'ngmReportHub' )
             facility_type_id: 'orp',
             facility_type_name: 'ORP'
           }];
+        }
 
-        } else {
+        // health and not ET
+        if ( cluster_id === 'health' && admin0pcode !== 'ET' ) {
           facility_types = [{
             facility_type_id: 'RH',
             facility_type_name: 'RH'

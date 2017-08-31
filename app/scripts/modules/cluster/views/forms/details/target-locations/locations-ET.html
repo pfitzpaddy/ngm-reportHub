@@ -26,9 +26,11 @@
 							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
 							      <td ng-if="project.lists.admin3.length">{{ project.lists.admin3[0].admin3type_name }}</td>
-							      <td ng-if="project.definition.cluster_id === 'health'">Facility Type</td>
-							      <td ng-if="project.definition.cluster_id === 'health'">Facility Name *</td>
-							      <td ng-if="project.definition.cluster_id !== 'health'">Location Name *</td>
+							      <td>Implementation</td>
+							      <td ng-show="project.showNewFacilityLabel()">New Facility</td>
+							      <td>Facility Type</td>
+							      <td>Facility Name *</td>
+							      <td ng-show="project.showHubFacilityLabel()">Facility Hub</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
 							    <tr ng-repeat="location in project.definition.target_locations track by $index">
@@ -49,22 +51,69 @@
 							      </td>
 							      <td ng-if="project.lists.admin3.length">
 							        <!-- editable admin3 -->
-							        <span e-placeholder="Select..." editable-select="location.admin3name" e-name="admin3name" e-form="locationform" e-ng-options="item.admin3name as item.admin3name for item in project.lists.admin3Select[$index]" e-ng-disabled="!location.admin2pcode" e-required>
+							        <span e-placeholder="Select..." editable-select="location.admin3name" e-name="admin3name" e-form="locationform" e-ng-options="item.admin3name as item.admin3name for item in project.lists.admin3Select[$index]" e-ng-change="project.loadFacilities($index, $data, location)"  e-ng-disabled="!location.admin2pcode" e-required>
 							          {{ project.showAdmin3($index, $data, location) }}
 							        </span>
 							      </td>
-							      <td ng-show="project.definition.cluster_id === 'health'">
-							        <!-- editable facility type-->
-							        <span e-placeholder="Select..." editable-select="location.facility_type_id" e-name="facility_type_id" e-form="locationform" e-ng-options="item.facility_type_id as item.facility_type_name for item in project.lists.facility_type" e-ng-disabled="!location.admin2name" e-required>
-							          {{ project.showFacilityType($data, location) }}
+							      <td>
+							        <span e-placeholder="Select..." editable-select="location.facility_implementation_id" e-name="facility_implementation_id" e-form="locationform" e-ng-options="item.facility_implementation_id as item.facility_implementation_name for item in project.lists.facility_implementation" e-ng-change="project.facilityImplementationChange(location)" e-ng-disabled="!location.admin2pcode" e-required>
+							          {{ project.showFacilityImplementation($data, location) }}
 							        </span>
 							      </td>
+							      
+							      <!-- empty squares -->
+							      <td ng-if="project.showNewFacilityLabel() && location.facility_implementation_id === 'embedded'">
+							      </td>
+
+							      <td ng-if="location.facility_implementation_id === 'standalone'">
+							        <span e-placeholder="Select..." editable-select="location.new_facility_id" e-name="new_facility_id" e-form="locationform" e-ng-options="item.new_facility_id as item.new_facility_name for item in project.lists.new_facility" e-ng-change="project.yesNoChange(location)" e-ng-disabled="location.facility_implementation_id !== 'standalone'" e-required>
+							          {{ project.showYesNo($data, location) }}
+							        </span>
+							      </td>
+
+							      <!-- FACILITY TYPE -->
 							      <td>
-							        <!-- editable name -->
+							        <span e-placeholder="Select..." editable-select="location.facility_type_id" e-name="facility_type_id" e-form="locationform" e-ng-options="item.facility_type_id as item.facility_type_name for item in project.lists.facility_type_filtered" e-ng-disabled="!location.admin3name || !location.new_facility_id" e-required>
+							          {{ project.showFacilityType($index, $data, location) }}
+							        </span>
+							      </td>
+							      
+							      <!-- FACILITY NAME -->
+							      
+							      <!-- empty squares -->
+							      <!-- empty squares -->
+							      <td ng-if="!location.facility_implementation_id && !location.facility_type_id">
+							      </td>
+							      <td ng-if="project.showHubFacilityLabel() && !location.new_facility_id && location.facility_implementation_id === 'standalone'">
+							      </td>
+
+							      <!-- select existing: drop down -->
+							      <td ng-if="location.new_facility_id === 'no'">
+							        <span e-placeholder="Select..." onshow="project.loadFacilities($index, $data, location)" editable-select="location.facility_id" e-name="facility_id" e-form="locationform" e-ng-options="item.facility_id as item.facility_name for item in project.lists.facilities[$index][location.admin3pcode] | filter:{ facility_name: location.facility_type_name }" e-ng-disabled="!location.facility_type_id">
+							          {{ project.showFacilities($index, $data, location) }}
+							        </span>
+							      </td>
+
+							      <!-- select new: free text  -->
+										<td ng-if="location.new_facility_id === 'yes' || location.facility_implementation_id === 'embedded'">
 							        <span editable-text="location.facility_name" e-name="facility_name" e-form="locationform" e-required>
 							        	{{ project.showFacilityName($data, location) }}
 							        </span>
 							      </td>
+
+
+							      <!-- FACILITY HUB -->
+
+							      <!-- empty squares -->
+							      <td ng-if="project.showHubFacilityLabel() && location.facility_implementation_id === 'standalone'">
+							      </td>
+
+							      <td ng-if="location.facility_implementation_id === 'embedded'">
+							        <span e-placeholder="Select..." onshow="project.loadFacilities($index, $data, location)" editable-select="location.facility_hub_id" e-name="facility_hub_id" e-form="locationform" e-ng-options="item.facility_id as item.facility_name for item in project.lists.hub_facilities[$index][location.admin3pcode]" e-ng-disabled="!location.admin3name">
+							          {{ project.showHubFacilities($index, $data, location) }}
+							        </span>
+							      </td>
+
 							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
 							        <!-- form -->
 							        <form editable-form name="locationform" ng-show="locationform.$visible" onbeforesave="project.saveLocation()" class="form-buttons form-inline" shown="inserted === location">
