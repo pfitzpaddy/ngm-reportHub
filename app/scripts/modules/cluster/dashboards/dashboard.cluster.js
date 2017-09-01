@@ -70,6 +70,32 @@ angular.module('ngmReportHub')
 					admin3: false
 				},
 
+				menu: [{
+					'id': 'search-region',
+					'icon': 'person_pin',
+					'title': 'Region',
+					'class': 'teal lighten-1 white-text',
+					'rows': [{
+						'title': 'HQ',
+						'param': 'adminRpcode',
+						'active': 'all',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/4w/hq/all'
+					},{
+						'title': 'AFRO',
+						'param': 'adminRpcode',
+						'active': 'afro',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/4w/afro/all'
+					},{
+						'title': 'EMRO',
+						'param': 'adminRpcode',
+						'active': 'emro',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/4w/emro/all'
+					}]
+				}],
+
 				// admin
 				getPath: function( cluster_id, organization_tag, admin1pcode, admin2pcode ){
 
@@ -161,6 +187,11 @@ angular.module('ngmReportHub')
 							districtRows = [],
 							request = $scope.dashboard.getRequest( { list: true, indicator: 'organizations' } );
 
+					// SUPERADMIN
+					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) > 0 ) { 
+						$scope.model.menu = $scope.dashboard.menu;
+					}
+
 					// get orgs
 					ngmData.get( request ).then( function( organizations  ){
 
@@ -187,14 +218,29 @@ angular.module('ngmReportHub')
 								'href': '/desk/#' + path
 							});
 						});
-						$scope.model.menu.push({
-							'search': true,
-							'id': 'search-cluster-cluster',
-							'icon': 'camera',
-							'title': 'Cluster',
-							'class': 'teal lighten-1 white-text',
-							'rows': clusterRows
-						});
+
+						// SUPERADMIN
+						if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) > 0 ) { 
+							$scope.model.menu.push({
+								'search': true,
+								'id': 'search-cluster-cluster',
+								'icon': 'camera',
+								'title': 'Cluster',
+								'class': 'teal lighten-1 white-text',
+								'rows': clusterRows
+							});
+						}
+
+						// USER - filter only own ORG and ALL
+						if ( organizations.length && $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'ADMIN' ) === -1 ) {
+							var orgs = [];
+							angular.forEach( organizations, function(d){
+								if ( d.organization_tag === 'all' || d.organization_tag === $scope.dashboard.user.organization_tag ) {
+									orgs.push(d);
+								}
+							});
+							organizations = orgs;
+						}
 
 						// organizations
 						organizations.forEach(function( d, i ){
@@ -207,6 +253,8 @@ angular.module('ngmReportHub')
 								'href': '/desk/#' + path
 							});
 						});
+
+						// organizaiton
 						$scope.model.menu.push({
 							'search': true,
 							'id': 'search-cluster-organization',
@@ -321,7 +369,8 @@ angular.module('ngmReportHub')
 					}
 					// org
 					if ( $scope.dashboard.organization_tag !== 'all' ) {
-						$scope.dashboard.title += ' | ' + $scope.dashboard.organization;
+						var org = $scope.dashboard.organization ? ' | ' + $scope.dashboard.organization : '';
+						$scope.dashboard.title += org;
 					}
 					// admin1
 					if ( $scope.dashboard.admin1pcode !== 'all' ) {
@@ -355,7 +404,8 @@ angular.module('ngmReportHub')
 					if ( $scope.dashboard.organization_tag === 'all' ) {
 						$scope.dashboard.subtitle += ', ALL organizations';
 					} else {
-						$scope.dashboard.subtitle += ', ' + $scope.dashboard.organization + ' organization';
+						var org =  $scope.dashboard.organization ? ', ' + $scope.dashboard.organization + ' organization' : '';
+						$scope.dashboard.subtitle += org;
 					}
 					// admin1
 					if ( $scope.dashboard.admin1pcode === 'all' ) {
@@ -520,31 +570,7 @@ angular.module('ngmReportHub')
 								}]
 							}							
 						},
-						menu: [{
-							'id': 'search-region',
-							'icon': 'person_pin',
-							'title': 'Region',
-							'class': 'teal lighten-1 white-text',
-							'rows': [{
-								'title': 'HQ',
-								'param': 'adminRpcode',
-								'active': 'all',
-								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/cluster/4w/hq/all'
-							},{
-								'title': 'AFRO',
-								'param': 'adminRpcode',
-								'active': 'afro',
-								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/cluster/4w/afro/all'
-							},{
-								'title': 'EMRO',
-								'param': 'adminRpcode',
-								'active': 'emro',
-								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/cluster/4w/emro/all'
-							}]
-						}],
+						menu: [],
 						rows: [{
 							columns: [{
 								styleClass: 's12 m12 l12',
