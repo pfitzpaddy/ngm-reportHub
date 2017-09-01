@@ -188,7 +188,7 @@ angular.module('ngmReportHub')
 							request = $scope.dashboard.getRequest( { list: true, indicator: 'organizations' } );
 
 					// SUPERADMIN
-					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) > 0 ) { 
+					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) >= 0 ) { 
 						$scope.model.menu = $scope.dashboard.menu;
 					}
 
@@ -220,7 +220,7 @@ angular.module('ngmReportHub')
 						});
 
 						// SUPERADMIN
-						if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) > 0 ) { 
+						if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) >= 0 ) { 
 							$scope.model.menu.push({
 								'search': true,
 								'id': 'search-cluster-cluster',
@@ -448,15 +448,6 @@ angular.module('ngmReportHub')
 
 					// report name
 					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
-
-					// set
-					$scope.dashboard.setUrl();
-					$scope.dashboard.setMenu();
-					$scope.dashboard.setCluster();
-					$scope.dashboard.setAdmin1();
-					$scope.dashboard.setAdmin2();
-					$scope.dashboard.setTitle();
-					$scope.dashboard.setSubtitle();
 					
 					// model
 					$scope.model = {
@@ -690,6 +681,15 @@ angular.module('ngmReportHub')
 							}]
 						}]
 					}
+
+					// set
+					$scope.dashboard.setUrl();
+					$scope.dashboard.setMenu();
+					$scope.dashboard.setCluster();
+					$scope.dashboard.setAdmin1();
+					$scope.dashboard.setAdmin2();
+					$scope.dashboard.setTitle();
+					$scope.dashboard.setSubtitle();
 
 					// dashboard metrics
 					var visit = angular.merge( $scope.dashboard.getMetrics( $scope.dashboard.cluster_id + '_cluster_dashboard', 'view' ), { async: true } );
