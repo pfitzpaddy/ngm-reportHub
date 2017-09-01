@@ -56,7 +56,7 @@
 							      </td>
 										<td>
 							        <span e-placeholder="Select..." editable-select="location.facility_type_id" e-name="facility_type_id" e-form="locationform" e-ng-options="item.facility_type_id as item.facility_type_name for item in project.lists.facility_type | filter:{ facility_implementation_id: location.facility_implementation_id }:true" e-ng-disabled="!location.facility_implementation_id" e-required>
-							          {{ project.showFacilityType($data, location) }}
+							          {{ project.showFacilityType($index, $data, location) }}
 							        </span>
 							      </td>
 							      <td>

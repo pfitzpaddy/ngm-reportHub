@@ -56,7 +56,7 @@
 							      <td ng-show="project.definition.cluster_id === 'health'">
 							        <!-- editable facility type-->
 							        <span e-placeholder="Select..." editable-select="location.facility_type_id" e-name="facility_type_id" e-form="locationform" e-ng-options="item.facility_type_id as item.facility_type_name for item in project.lists.facility_type" e-ng-disabled="!location.admin2name" e-required>
-							          {{ project.showFacilityType($data, location) }}
+							          {{ project.showFacilityType($index, $data, location) }}
 							        </span>
 							      </td>
 							      <td>

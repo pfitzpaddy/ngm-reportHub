@@ -508,8 +508,10 @@ angular.module( 'ngmReportHub' )
             { unit_type_id: 'tcs', unit_type_name: 'TCs' },
             { unit_type_id: 'cbss', unit_type_name: 'CBSs' },
             { unit_type_id: 'teachers', unit_type_name: 'Teachers' },
+            { unit_type_id: 'tents', unit_type_name: 'Tents' },
             { unit_type_id: 'classroom_kits', unit_type_name: 'Classroom Kits' },
             { unit_type_id: 'school_kits', unit_type_name: 'School Kits' },
+            { unit_type_id: 'schools', unit_type_name: 'Schools' }
           ];
 
           // unit type list
@@ -861,6 +863,11 @@ angular.module( 'ngmReportHub' )
             category_type_id: [ 'category_a' ],
             beneficiary_type_id: 'displaced_returnee_children',
             beneficiary_type_name: 'Displaced + Returnee Children'
+          },{
+            cluster_id: [ 'eiewg' ],
+            category_type_id: [ 'category_a' ],
+            beneficiary_type_id: 'host_community_children',
+            beneficiary_type_name: 'Host Community Children'
           },{
             cluster_id: [ 'eiewg' ],
             category_type_id: [ 'category_a' ],
