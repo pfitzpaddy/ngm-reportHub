@@ -82,6 +82,10 @@
 							      </td>
 							      <td ng-if="project.showHubFacilityLabel() && !location.new_facility_id">
 							      </td>
+							      <td ng-if="project.showHubFacilityLabel() && !location.facility_implementation_id">
+							      </td>
+							      <td ng-if="!project.showHubFacilityLabel() && !location.new_facility_id">
+							      </td>
 
 							      <!-- select existing: drop down -->
 							      <td ng-if="location.new_facility_id === 'no'">
