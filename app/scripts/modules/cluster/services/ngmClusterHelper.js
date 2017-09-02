@@ -1181,19 +1181,21 @@ angular.module( 'ngmReportHub' )
       getCleanWarehouseLocation: function( user, organization, warehouse ){
         
         // merge
-        var warehouse = angular.merge({}, organization, warehouse, warehouse.admin2, warehouse.admin3, warehouse.fac_type);
+        var warehouse = angular.merge({}, organization, warehouse, warehouse.admin2, warehouse.admin3, warehouse.facility_type);
 
         // delete
         delete warehouse.id;
         delete warehouse.admin1;
         delete warehouse.admin2;
         delete warehouse.admin3;
-        delete warehouse.fac_type;
+        delete warehouse.facility_type;
 
         // add params
         // warehouse.warehouse_status = 'new';
         warehouse.username = user.username;
         warehouse.email = user.email;
+        warehouse.facility_lng = warehouse.admin3lng ? warehouse.admin3lng : warehouse.admin2lng;
+        warehouse.facility_lat = warehouse.admin3lat ? warehouse.admin3lat : warehouse.admin2lat;
 
         return warehouse;
       },
