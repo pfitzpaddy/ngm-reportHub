@@ -258,10 +258,22 @@ angular
 
 			// cluster dashboard default
 			.when( '/cluster/4w', {
-				redirectTo: '/cluster/4w/emro/all/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+				resolve: {
+					access: [ '$location', 'ngmUser', function( $location, ngmUser ) {
+						console.log(ngmUser.get().cluster_id);
+						var url = '/cluster/4w/all/all/all/all/' + ngmUser.get().cluster_id + '/all/all/2017-01-01/' + moment().format('YYYY-MM-DD');
+						$location.path( url );
+					}]
+				},
 			})
 			.when( '/cluster/4w//', {
-				redirectTo: '/cluster/4w/emro/all/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+				resolve: {
+					access: [ '$location', 'ngmUser', function( $location, ngmUser ) {
+						var cluster_id = ngmUser.get() && ngmUser.get().cluster_id ? ngmUser.get().cluster_id : 'all';
+						var url = '/cluster/4w/all/all/all/all/' + cluster_id + '/all/all/2017-01-01/' + moment().format('YYYY-MM-DD');
+						$location.path( url );
+					}]
+				},
 			})
 
 			// cluster dashboard HQ

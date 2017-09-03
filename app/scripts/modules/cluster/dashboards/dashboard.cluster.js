@@ -219,42 +219,31 @@ angular.module('ngmReportHub')
 							});
 						});
 
-						// SUPERADMIN
-						if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) >= 0 ) { 
-							$scope.model.menu.push({
-								'search': true,
-								'id': 'search-cluster-cluster',
-								'icon': 'camera',
-								'title': 'Cluster',
-								'class': 'teal lighten-1 white-text',
-								'rows': clusterRows
-							});
-						}
-
-						// USER - filter only own ORG and ALL
-						if ( organizations.length && $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'ADMIN' ) === -1 ) {
-							var orgs = [];
-							angular.forEach( organizations, function(d){
-								if ( d.organization_tag === 'all' || d.organization_tag === $scope.dashboard.user.organization_tag ) {
-									orgs.push(d);
-								}
-							});
-							organizations = orgs;
-						}
+						// add to menu
+						$scope.model.menu.push({
+							'search': true,
+							'id': 'search-cluster-cluster',
+							'icon': 'camera',
+							'title': 'Cluster',
+							'class': 'teal lighten-1 white-text',
+							'rows': clusterRows
+						});
 
 						// organizations
 						organizations.forEach(function( d, i ){
-							var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, d.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
-							orgRows.push({
-								'title': d.organization,
-								'param': 'organization_tag',
-								'active': d.organization_tag,
-								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#' + path
-							});
+							if ( d ) {
+								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, d.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+								orgRows.push({
+									'title': d.organization,
+									'param': 'organization_tag',
+									'active': d.organization_tag,
+									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+									'href': '/desk/#' + path
+								});
+							}
 						});
 
-						// organizaiton
+						// organization
 						$scope.model.menu.push({
 							'search': true,
 							'id': 'search-cluster-organization',
@@ -441,6 +430,14 @@ angular.module('ngmReportHub')
 							$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
 						}
 					}
+
+					// USER
+					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'ADMIN' ) ) {
+						if ( !$scope.dashboard.user.dashboard_visits ) {
+							$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
+							$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
+						}
+					}					
 
 					// plus dashboard_visits
 					$scope.dashboard.user.dashboard_visits++;
