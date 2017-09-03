@@ -263,7 +263,7 @@ angular
 						var adminRpcode =ngmUser.get() && ngmUser.get().adminRpcode ? ngmUser.get().cluster_id : 'all';
 						var admin0pcode =ngmUser.get() && ngmUser.get().admin0pcode ? ngmUser.get().cluster_id : 'all'; 
 						var cluster_id = ngmUser.get() && ngmUser.get().cluster_id ? ngmUser.get().cluster_id : 'all';
-						var url = '/cluster/4w/' + adminRpcode + '/' + admin0pcode + '/all/all/' + ngmUser.get().cluster_id + '/all/all/2017-01-01/' + moment().format('YYYY-MM-DD');
+						var url = '/cluster/4w/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/all/all/2017-01-01/' + moment().format('YYYY-MM-DD');
 						$location.path( url );
 					}]
 				},
@@ -274,7 +274,7 @@ angular
 						var adminRpcode =ngmUser.get() && ngmUser.get().adminRpcode ? ngmUser.get().cluster_id : 'all';
 						var admin0pcode =ngmUser.get() && ngmUser.get().admin0pcode ? ngmUser.get().cluster_id : 'all'; 
 						var cluster_id = ngmUser.get() && ngmUser.get().cluster_id ? ngmUser.get().cluster_id : 'all';
-						var url = '/cluster/4w/' + adminRpcode + '/' + admin0pcode + '/all/all/' + ngmUser.get().cluster_id + '/all/all/2017-01-01/' + moment().format('YYYY-MM-DD');
+						var url = '/cluster/4w/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/all/all/2017-01-01/' + moment().format('YYYY-MM-DD');
 						$location.path( url );
 					}]
 				},
