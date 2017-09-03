@@ -260,8 +260,10 @@ angular
 			.when( '/cluster/4w', {
 				resolve: {
 					access: [ '$location', 'ngmUser', function( $location, ngmUser ) {
-						console.log(ngmUser.get().cluster_id);
-						var url = '/cluster/4w/all/all/all/all/' + ngmUser.get().cluster_id + '/all/all/2017-01-01/' + moment().format('YYYY-MM-DD');
+						var adminRpcode =ngmUser.get() && ngmUser.get().adminRpcode ? ngmUser.get().cluster_id : 'all';
+						var admin0pcode =ngmUser.get() && ngmUser.get().admin0pcode ? ngmUser.get().cluster_id : 'all'; 
+						var cluster_id = ngmUser.get() && ngmUser.get().cluster_id ? ngmUser.get().cluster_id : 'all';
+						var url = '/cluster/4w/' + adminRpcode + '/' + admin0pcode + '/all/all/' + ngmUser.get().cluster_id + '/all/all/2017-01-01/' + moment().format('YYYY-MM-DD');
 						$location.path( url );
 					}]
 				},
@@ -269,12 +271,23 @@ angular
 			.when( '/cluster/4w//', {
 				resolve: {
 					access: [ '$location', 'ngmUser', function( $location, ngmUser ) {
+						var adminRpcode =ngmUser.get() && ngmUser.get().adminRpcode ? ngmUser.get().cluster_id : 'all';
+						var admin0pcode =ngmUser.get() && ngmUser.get().admin0pcode ? ngmUser.get().cluster_id : 'all'; 
 						var cluster_id = ngmUser.get() && ngmUser.get().cluster_id ? ngmUser.get().cluster_id : 'all';
-						var url = '/cluster/4w/all/all/all/all/' + cluster_id + '/all/all/2017-01-01/' + moment().format('YYYY-MM-DD');
+						var url = '/cluster/4w/' + adminRpcode + '/' + admin0pcode + '/all/all/' + ngmUser.get().cluster_id + '/all/all/2017-01-01/' + moment().format('YYYY-MM-DD');
 						$location.path( url );
 					}]
 				},
 			})
+
+			// cluster dashboard default
+			// .when( '/cluster/4w/', {
+			// 	redirectTo: '/cluster/4w/all/all/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+			// })
+			// // cluster dashboard AFRO
+			// .when( '/cluster/4w//', {
+			// 	redirectTo: '/cluster/4w/all/all/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+			// })
 
 			// cluster dashboard HQ
 			.when( '/cluster/4w/hq/all', {

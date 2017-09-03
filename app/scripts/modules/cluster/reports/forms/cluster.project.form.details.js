@@ -1340,7 +1340,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             $scope.project.definition.target_beneficiaries[i] = 
                   ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_beneficiaries[i] );
             
-            // add distinct
+            // add categories
             var found = $filter('filter')( $scope.project.definition.category_type, { category_type_id: b.category_type_id }, true);
             if ( !found.length ){
               $scope.project.definition.category_type.push( { category_type_id: b.category_type_id, category_type_name: b.category_type_name } );

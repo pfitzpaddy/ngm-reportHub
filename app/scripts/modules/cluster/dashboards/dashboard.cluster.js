@@ -190,6 +190,37 @@ angular.module('ngmReportHub')
 					// SUPERADMIN
 					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) >= 0 ) { 
 						$scope.model.menu = $scope.dashboard.menu;
+						if ( $scope.dashboard.adminRpcode !== 'all' ) {
+							var menu = {
+								'afro': {
+									'id': 'search-country',
+									'icon': 'person_pin',
+									'title': 'Country',
+									'class': 'teal lighten-1 white-text',
+									'rows': [{
+										'title': 'Ethiopia',
+										'param': 'admin0pcode',
+										'active': 'et',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/4w/afro/et'
+									}]
+								},
+								'emro': {
+									'id': 'search-country',
+									'icon': 'person_pin',
+									'title': 'Country',
+									'class': 'teal lighten-1 white-text',
+									'rows': [{
+										'title': 'Afghanistan',
+										'param': 'admin0pcode',
+										'active': 'af',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/4w/emro/af'
+									}]
+								}
+							}
+							$scope.model.menu.push(menu[$scope.dashboard.adminRpcode]);
+						}
 					}
 
 					// get orgs
