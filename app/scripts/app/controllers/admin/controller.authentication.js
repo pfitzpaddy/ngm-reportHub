@@ -264,11 +264,18 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
             // update icon color
             $( '.country' ).css({ 'color': 'teal' });
+
+
+            console.log($scope.panel.user.admin0pcode);
+            console.log(adminRegion[ $scope.panel.user.admin0pcode ]);
             
             // add country display name
             $scope.panel.user.admin0name = $( this ).find( 'option:selected' ).text();
             // add regions
             $scope.panel.user = angular.merge( {}, $scope.panel.user, adminRegion[ $scope.panel.user.admin0pcode ] );
+
+            
+            console.log($scope.panel.user);
 
           });
 
