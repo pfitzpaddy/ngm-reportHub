@@ -274,7 +274,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             // add regions
             $scope.panel.user = angular.merge( {}, $scope.panel.user, adminRegion[ $scope.panel.user.admin0pcode ] );
 
-            
+
             console.log($scope.panel.user);
 
           });
@@ -294,7 +294,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
           });
 
-        }, 400 );
+        }, 1000 );
 
       });      
 
