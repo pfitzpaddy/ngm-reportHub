@@ -99,8 +99,6 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                                                   $scope.panel.adminRegion[ $scope.panel.user.admin0pcode ], 
                                                   $scope.panel.cluster[ $scope.panel.user.cluster_id ] );
 
-          console.log($scope.panel.user);
-
           // register
           ngmAuth
             .register({ user: $scope.panel.user }).success(function( result ) {
