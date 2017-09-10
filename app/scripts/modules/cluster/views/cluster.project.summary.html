@@ -54,7 +54,7 @@
 </div>
 
 	<!-- panels -->
-	<div class="row">
+	<div class="row" ng-if="panel.project.admin0pcode === 'AF'">
 	  <div class="col s12 m4">
 	  	<a href="#/cluster/projects/details/{{ panel.project.id }}">
 	   	 <div class="card small blue-grey darken-1 hoverable">
@@ -86,6 +86,39 @@
 		   </a>
 	  </div>
 	  <div class="col s12 m4">
+	  	<a href="#/cluster/projects/report/{{ panel.project.id }}">
+		    <div class="card small blue-grey darken-1 hoverable">
+		      <div class="card-image">
+		        <img src="images/cluster/monthly_report.jpg">
+		      </div>
+		      <div class="card-content white-text">
+		        <p class="card-title">Monthly Reports</p>
+		      </div>
+		      <div class="card-action">
+		        <a href="#/cluster/projects/report/{{ panel.project.id }}">Go to Monthly Reports</a>
+		      </div>
+		    </div>
+		   </a>
+	  </div>
+	</div>
+
+	<div class="row" ng-if="panel.project.admin0pcode !== 'AF'">
+	  <div class="col s12 m6">
+	  	<a href="#/cluster/projects/details/{{ panel.project.id }}">
+	   	 <div class="card small blue-grey darken-1 hoverable">
+	      <div class="card-image">
+	        <img src="images/cluster/details-1.jpg">
+	      </div>
+	      <div class="card-content white-text">
+	      	<p class="card-title">Project Details</p>
+	      </div>
+	      <div class="card-action">
+	        <a href="#/cluster/projects/details/{{ panel.project.id }}">Go to Project Details</a>
+	      </div>
+	    </div>
+	    </a>
+	  </div>
+	  <div class="col s12 m6">
 	  	<a href="#/cluster/projects/report/{{ panel.project.id }}">
 		    <div class="card small blue-grey darken-1 hoverable">
 		      <div class="card-image">
