@@ -33,6 +33,31 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
         err: false,
 
+        // adminRegion
+        adminRegion: {
+          'AF': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0name: 'Afghanistan' },
+          'ET': { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0name: 'Ethiopia' },
+          'IQ': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0name: 'Iraq' },
+          'KE': { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0name: 'Kenya' },
+          'NG': { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0name: 'Nigeria' },
+          'SO': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0name: 'Somalia' },
+          'UA': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0name: 'Ukraine' },
+          'UR': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0name: 'Uruk' }
+        },
+
+        // cluster
+        cluster: {
+          'cvwg': { cluster: 'Cash' },
+          'eiewg': { cluster: 'EiEWG' },
+          'esnfi': { cluster: 'ESNFI' },
+          'fsac': { cluster: 'FSAC' },
+          'health': { cluster: 'Health' },
+          'nutrition': { cluster: 'Nutrition' },
+          'protection': { cluster: 'Protection' },
+          'rnr_chapter': { cluster: 'R&R Chapter' },
+          'wash': { cluster: 'WASH' }
+        },
+
         // login fn
         login: function( ngmLoginForm ){
 
@@ -69,33 +94,34 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         // register fn
         register: function( ngmRegisterForm ){
 
-          // if $invalid
-          // if(ngmRegisterForm.$invalid){
-          //   // set submitted for validation
-          //   ngmRegisterForm.$setSubmitted();
-          // } else {
+          // merge adminRegion
+          $scope.panel.user = angular.merge( {}, $scope.panel.user, 
+                                                  $scope.panel.adminRegion[ $scope.panel.user.admin0pcode ], 
+                                                  $scope.panel.cluster[ $scope.panel.user.cluster_id ] );
 
-            // register
-            ngmAuth.register({ user: $scope.panel.user }).success(function( result ) {
+          console.log($scope.panel.user);
 
-              // db error!
-              if( result.err || result.summary ){
-                var msg = result.summary ? result.summary : result.msg;
-                Materialize.toast( msg, 6000, 'error' );
-              }
+          // register
+          ngmAuth
+            .register({ user: $scope.panel.user }).success(function( result ) {
 
-              // success
-              if ( !result.err && !result.summary ){
-                // go to default org page
-                $location.path( result.app_home );
-                $timeout( function(){
-                  Materialize.toast( 'Welcome ' + result.username + ', time to create a Project!', 3000, 'success' );
-                }, 2000);
-              }
+            // db error!
+            if( result.err || result.summary ){
+              var msg = result.summary ? result.summary : result.msg;
+              Materialize.toast( msg, 6000, 'error' );
+            }
 
-            });
+            // success
+            if ( !result.err && !result.summary ){
+              // go to default org page
+              $location.path( result.app_home );
+              $timeout( function(){
+                Materialize.toast( 'Welcome ' + result.username + ', time to create a Project!', 3000, 'success' );
+              }, 2000);
+            }
 
-          // }
+          });
+
         },
 
         // register fn
@@ -248,55 +274,23 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         // give a few seconds to render
         $timeout(function() {
 
-          // on change
+          // on change update icon color
           $( '#ngm-country' ).on( 'change', function() {
-
-            var adminRegion = {
-              'AF': { adminRpcode: 'EMRO', adminRname: 'EMRO' },
-              'ET': { adminRpcode: 'AFRO', adminRname: 'AFRO' },
-              'IQ': { adminRpcode: 'EMRO', adminRname: 'EMRO' },
-              'KE': { adminRpcode: 'AFRO', adminRname: 'AFRO' },
-              'NG': { adminRpcode: 'AFRO', adminRname: 'AFRO' },
-              'SO': { adminRpcode: 'EMRO', adminRname: 'EMRO' },
-              'UA': { adminRpcode: 'EMRO', adminRname: 'EMRO' },
-              'UR': { adminRpcode: 'EMRO', adminRname: 'EMRO' }
-            }            
-
-            // update icon color
-            $( '.country' ).css({ 'color': 'teal' });
-
-
-            console.log($scope.panel.user.admin0pcode);
-            console.log(adminRegion[ $scope.panel.user.admin0pcode ]);
-            
-            // add country display name
-            $scope.panel.user.admin0name = $( this ).find( 'option:selected' ).text();
-            // add regions
-            $scope.panel.user = angular.merge( {}, $scope.panel.user, adminRegion[ $scope.panel.user.admin0pcode ] );
-
-
-            console.log($scope.panel.user);
-
-          });
-
-          // cluster
-          $( '#ngm-cluster' ).on( 'change', function() {
-
-            // update icon color
-            $( '.cluster' ).css({ 'color': 'teal' });
-            
-            // add country display name
-            if ( $scope.panel.user.cluster_id !== 'cvwg' ) {
-              $scope.panel.user.cluster = $( this ).find( 'option:selected' ).text();
-            } else {
-              $scope.panel.user.cluster = 'Cash';
+            if( $( this ).find( 'option:selected' ).text() ) {
+              $( '.country' ).css({ 'color': 'teal' });
             }
-
           });
 
-        }, 1000 );
+          // on change update icon color
+          $( '#ngm-cluster' ).on( 'change', function() {
+            if ( $( this ).find( 'option:selected' ).text() ) {
+              $( '.cluster' ).css({ 'color': 'teal' });
+            }
+          });
 
-      });      
+        }, 900 );
+
+      });    
 
     }
 
