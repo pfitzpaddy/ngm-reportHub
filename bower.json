@@ -1,0 +1,40 @@
+{
+  "name": "ngm-reportHub",
+  "version": "0.0.0",
+  "dependencies": {
+    "materialize": "0.97.8",
+    "angular": "1.4.8",
+    "angular-animate": "1.4.8",
+    "angular-cookies": "1.4.8",
+    "angular-filter-count-to": "~0.0.3",
+    "angular-leaflet-directive": "~0.8.8",
+    "angular-resource": "1.4.8",
+    "angular-route": "1.4.8",
+    "angular-sanitize": "1.4.8",
+    "angular-touch": "1.4.8",
+    "cal-heatmap": "~3.5.3",
+    "d3": "~3.5.6",
+    "highcharts": "~4.1.9",
+    "highcharts-ng": "~0.0.11",
+    "leaflet": "~0.7.5",
+    "leaflet.markercluster": "0.4.0-hotfix.1",
+    "moment": "~2.10.6",
+    "ngm-dashboard-framework": "~0.3.3",
+    "ngm-angular-dropzone": "~0.1.3",
+    "ngm-leaflet-control-geocoder": "~1.3.5",
+    "ngm-leaflet-fullscreen": "~1.0.1",
+    "ng-table": "~0.8.3",
+    "ng-csv": "~0.3.6",
+    "angularUtils-pagination": "angular-utils-pagination#~0.11.0",
+    "angular-xeditable": "^0.6.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.4.8",
+    "materialize": "~0.97.7"
+  },
+  "appPath": "app",
+  "moduleName": "ngmReportHub",
+  "resolutions": {
+    "angular": "1.4.8"
+  }
+}
