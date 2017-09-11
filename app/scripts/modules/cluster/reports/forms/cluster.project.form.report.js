@@ -226,7 +226,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var selected = [];
           $beneficiary.beneficiary_type_id = $data;
           if ( $beneficiary.beneficiary_type_id ) {
-            selected = $filter('filter')( $scope.project.beneficiary_types, { beneficiary_type_id: $beneficiary.beneficiary_type_id }, true);
+            selected = $filter('filter')( $scope.project.beneficiary_types, { cluster_id: $beneficiary.cluster_id, beneficiary_type_id: $beneficiary.beneficiary_type_id }, true );
+
           }
           if ( selected.length ) {
             $beneficiary.beneficiary_type_name = selected[0].beneficiary_type_name;
