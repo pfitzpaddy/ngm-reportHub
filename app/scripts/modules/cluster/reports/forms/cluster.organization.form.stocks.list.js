@@ -124,8 +124,6 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
           // extend targets with project, ngmData details & push
           $scope.report.organization.warehouses.push( warehouse );
 
-          console.log(warehouse)
-
           // reset
           $scope.report.options.warehouse = {};
 

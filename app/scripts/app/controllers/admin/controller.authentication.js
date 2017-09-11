@@ -225,12 +225,18 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           angular.merge( $scope.panel.user, org );
 
           // validate
-          if ( $scope.panel.user && $scope.panel.user.admin0pcode && $scope.panel.user.cluster_id && $scope.panel.user.organization_name ) {
+          if ( $scope.panel.user && $scope.panel.user.organization_name ) {
             // not R&R Chapter
             if ( $scope.panel.user.cluster_id !== 'rnr_chapter' ) {
+              // update icon
+              $( '.organization_symbol' ).css({ 'color': 'teal' });
+              // toast
               Materialize.toast( org.organization + '<br/>' + org.organization_name + ' Selected...', 4000, 'note' );
             } else {
               if ( $scope.panel.user.organization === 'UNHCR' || $scope.panel.user.organization === 'IOM' ) {
+                // update icon
+                $( '.organization_symbol' ).css({ 'color': 'teal' });
+                // toast
                 Materialize.toast( org.organization + '<br/>' + org.organization_name + ' Selected...', 4000, 'note' );
               } else {
                 Materialize.toast( 'Only UNHCR or IOM Can Register in R&R Chapter!', 6000, 'error' );
@@ -248,7 +254,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
       // if ( !localStorage.getObject( 'organizations') ){
 
         // set
-        $http.get( ngmAuth.LOCATION + '/api/cluster/list/organizations' ).then(function( organizations ){
+        $http.get( ngmAuth.LOCATION + '/api/list/organizations' ).then(function( organizations ){
           localStorage.setObject( 'organizations', organizations.data );
           $scope.panel.organizations = organizations.data;
           $timeout(function() {

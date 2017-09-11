@@ -73,19 +73,19 @@ angular.module( 'ngmReportHub' )
           // province lists
           getAdmin1List: {
             method: 'GET',
-            url: ngmAuth.LOCATION + '/api/location/getAdmin1List?admin0pcode=' + user.admin0pcode
+            url: ngmAuth.LOCATION + '/api/list/getAdmin1List?admin0pcode=' + user.admin0pcode
           },
 
           // district lists
           getAdmin2List: {
             method: 'GET',
-            url: ngmAuth.LOCATION + '/api/location/getAdmin2List?admin0pcode=' + user.admin0pcode
+            url: ngmAuth.LOCATION + '/api/list/getAdmin2List?admin0pcode=' + user.admin0pcode
           },
 
           // district lists
           getAdmin3List: {
             method: 'GET',
-            url: ngmAuth.LOCATION + '/api/location/getAdmin3List?admin0pcode=' + user.admin0pcode
+            url: ngmAuth.LOCATION + '/api/list/getAdmin3List?admin0pcode=' + user.admin0pcode
           },
 
           // activities list

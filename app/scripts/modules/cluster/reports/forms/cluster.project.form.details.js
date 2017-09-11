@@ -857,7 +857,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                   Materialize.toast( 'Loading Facilities!' , 6000, 'note' );
                 }
                 $http({ 
-                  method: 'GET', url: ngmAuth.LOCATION + '/api/location/getAdmin3Facilities?cluster_id=' + $scope.project.definition.cluster_id + '&admin0pcode=' + target_location.admin0pcode + '&admin1pcode=' + target_location.admin1pcode + '&admin2pcode=' + target_location.admin2pcode + '&admin3pcode=' + target_location.admin3pcode
+                  method: 'GET', url: ngmAuth.LOCATION + '/api/list/getAdmin3Facilities?cluster_id=' + $scope.project.definition.cluster_id + '&admin0pcode=' + target_location.admin0pcode + '&admin1pcode=' + target_location.admin1pcode + '&admin2pcode=' + target_location.admin2pcode + '&admin3pcode=' + target_location.admin3pcode
                 }).success( function( result ) {
                   if ( target_location.admin1pcode && target_location.admin2pcode && target_location.admin3pcode && !result.length ) {
                     Materialize.toast( 'No Facilities for ' + target_location.admin1name +', ' + target_location.admin2name +', ' + target_location.admin3name + '!' , 6000, 'success' );
@@ -977,7 +977,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                   Materialize.toast( 'Loading Schools!' , 6000, 'note' );
                 }
                 $http({ 
-                  method: 'GET', url: ngmAuth.LOCATION + '/api/location/getAdmin2Facilities?cluster_id=' + $scope.project.definition.cluster_id + '&admin0pcode=' + target_location.admin0pcode + '&admin1pcode=' + target_location.admin1pcode + '&admin2pcode=' + target_location.admin2pcode + '&admin2name=' + target_location.admin2name
+                  method: 'GET', url: ngmAuth.LOCATION + '/api/list/getAdmin2Facilities?cluster_id=' + $scope.project.definition.cluster_id + '&admin0pcode=' + target_location.admin0pcode + '&admin1pcode=' + target_location.admin1pcode + '&admin2pcode=' + target_location.admin2pcode + '&admin2name=' + target_location.admin2name
                 }).success( function( result ) {
                   if ( target_location.admin1pcode && target_location.admin2pcode && !result.length ) {
                     Materialize.toast( 'No Schools for ' + target_location.admin1name +', ' + target_location.admin2name + '!' , 6000, 'success' );
