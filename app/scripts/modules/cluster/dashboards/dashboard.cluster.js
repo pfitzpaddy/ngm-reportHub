@@ -747,8 +747,8 @@ angular.module('ngmReportHub')
 
 				// lists
 				var requests = {
-					getAdmin1List: ngmAuth.LOCATION + '/api/location/getAdmin1List',
-					getAdmin2List: ngmAuth.LOCATION + '/api/location/getAdmin2List'
+					getAdmin1List: ngmAuth.LOCATION + '/api/list/getAdmin1List',
+					getAdmin2List: ngmAuth.LOCATION + '/api/list/getAdmin2List'
 				}
 
 				// send request

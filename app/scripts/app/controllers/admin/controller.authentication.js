@@ -259,7 +259,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           $scope.panel.organizations = organizations.data;
           $timeout(function() {
             $( 'select' ).material_select();
-          }, 100);
+          }, 400);
         });
 
       // } else {
