@@ -37,13 +37,13 @@ angular.module('ngmReportHub')
 			// province lists
 			provinceMenuRequest: {
 				method: 'GET',
-				url: ngmAuth.LOCATION + '/api/location/getProvinceMenu'
+				url: ngmAuth.LOCATION + '/api/list/getProvinceMenu'
 			},
 
 			// province lists
 			districtListRequest: {
 				method: 'GET',
-				url: ngmAuth.LOCATION + '/api/location/getDistrictList'
+				url: ngmAuth.LOCATION + '/api/list/getDistrictList'
 			},
 			
 			// tab links
