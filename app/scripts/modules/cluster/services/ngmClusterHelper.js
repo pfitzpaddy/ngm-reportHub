@@ -850,37 +850,37 @@ angular.module( 'ngmReportHub' )
             
             // CAT A), Refugees & Returnees
             cluster_id: [ 'eiewg' ],
-            category_type_id: [ 'category_a' ],
+            category_type_id: [ 'category_a', 'category_d' ],
             beneficiary_type_id: 'displaced_children',
             beneficiary_type_name: 'Displaced Children'
           },{
             cluster_id: [ 'eiewg' ],
-            category_type_id: [ 'category_a' ],
+            category_type_id: [ 'category_a', 'category_d' ],
             beneficiary_type_id: 'displaced_refugee_children',
             beneficiary_type_name: 'Displaced + Refugee Children'
           },{
             cluster_id: [ 'eiewg' ],
-            category_type_id: [ 'category_a' ],
+            category_type_id: [ 'category_a', 'category_d' ],
             beneficiary_type_id: 'displaced_returnee_children',
             beneficiary_type_name: 'Displaced + Returnee Children'
           },{
             cluster_id: [ 'eiewg' ],
-            category_type_id: [ 'category_a' ],
+            category_type_id: [ 'category_a', 'category_d' ],
             beneficiary_type_id: 'host_community_children',
             beneficiary_type_name: 'Host Community Children'
           },{
             cluster_id: [ 'eiewg' ],
-            category_type_id: [ 'category_a' ],
+            category_type_id: [ 'category_a', 'category_d' ],
             beneficiary_type_id: 'returnee_refugee_children',
             beneficiary_type_name: 'Returnee Refugee Children'
           },{
             cluster_id: [ 'eiewg' ],
-            category_type_id: [ 'category_a' ],
+            category_type_id: [ 'category_a', 'category_d' ],
             beneficiary_type_id: 'refugee_children',
             beneficiary_type_name: 'Refugee Children'
           },{
             cluster_id: [ 'eiewg' ],
-            category_type_id: [ 'category_a' ],
+            category_type_id: [ 'category_a', 'category_d' ],
             beneficiary_type_id: 'returnee_children',
             beneficiary_type_name: 'Returnee Children'
           },{
