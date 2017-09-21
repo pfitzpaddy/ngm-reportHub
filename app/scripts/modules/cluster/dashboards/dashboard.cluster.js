@@ -78,7 +78,7 @@ angular.module('ngmReportHub')
 					'rows': [{
 						'title': 'HQ',
 						'param': 'adminRpcode',
-						'active': 'all',
+						'active': 'hq',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/4w/hq/all'
 					},{
@@ -190,7 +190,7 @@ angular.module('ngmReportHub')
 					// SUPERADMIN
 					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) >= 0 ) { 
 						$scope.model.menu = $scope.dashboard.menu;
-						if ( $scope.dashboard.adminRpcode !== 'all' ) {
+						if ( $scope.dashboard.adminRpcode !== 'hq' ) {
 							var menu = {
 								'afro': {
 									'id': 'search-country',

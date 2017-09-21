@@ -291,7 +291,7 @@ angular
 
 			// cluster dashboard HQ
 			.when( '/cluster/4w/hq/all', {
-				redirectTo: '/cluster/4w/all/all/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/4w/hq/all/all/all/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// cluster dashboard AFRO
 			.when( '/cluster/4w/afro/all', {
