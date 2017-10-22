@@ -69,7 +69,7 @@ angular.module('ngmReportHub')
 			init: function(){
 
 				// set report for downloads
-				$scope.report.title = ngmUser.get().admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.organization.cluster.toUpperCase() + ' | ' + $scope.report.organization.organization + ' | Stock Report';
+				$scope.report.title = $scope.report.definition.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.organization.cluster.toUpperCase() + ' | ' + $scope.report.organization.organization + ' | Stock Report';
 				$scope.report.report = $scope.report.organization.organization + '_' + moment( $scope.report.definition.reporting_period ).format('MMMM, YYYY');
 				// set report for downloads
 				$scope.report.filename = $scope.report.definition.organization + '_' + $scope.report.definition.cluster + '_' + moment( $scope.report.definition.report_month ).format( 'MMMM' ) + '_Stocks_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );

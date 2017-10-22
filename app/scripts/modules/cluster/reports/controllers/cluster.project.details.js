@@ -36,7 +36,7 @@ angular.module('ngmReportHub')
 				// assign data
 				$scope.report.project = data;
 
-				var title = ngmUser.get().admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.organization + ' | ';
+				var title = $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.organization + ' | ';
 
 				// set model to null
 				if( $route.current.params.project === 'new' ){
