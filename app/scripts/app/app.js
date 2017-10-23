@@ -35,7 +35,8 @@ angular
 		'ngmCluster',
 		'ngmDews',
 		'ngmDrr',
-    	'ngmEpr',
+    'ngmEpr',
+    'ngmSbp',
 		'ngmWatchkeeper',
 		// utils
 		'angularUtils.directives.dirPagination',
