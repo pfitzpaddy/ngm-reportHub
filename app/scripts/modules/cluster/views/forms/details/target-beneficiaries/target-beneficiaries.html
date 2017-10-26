@@ -37,7 +37,7 @@
 							      <td ng-if="project.showCash()">Delivery</td>
 							      <td ng-if="project.definition.admin0pcode === 'AF'">Category</td>
 							      <td>Beneficiary</td>
-								 		<td>Population</td>
+								 		<td ng-if="project.definition.admin0pcode === 'AF'">Population</td>
 								  <!-- <td ng-if="project.showSessions()">Sessions</td> -->
 								  <!-- <td ng-if="project.showCash()">Cash Amount ( {{ project.definition.project_budget_currency | uppercase }} )</td> -->
 							      <td ng-if="project.showUnits()">Amount</td>
@@ -131,7 +131,7 @@
 							      </td>
 
 
-							      <td>
+							      <td ng-if="project.definition.admin0pcode === 'AF'">
 							        <span e-form="rowform"
 							              e-name="delivery_type_id"
 							              editable-select="beneficiary.delivery_type_id"

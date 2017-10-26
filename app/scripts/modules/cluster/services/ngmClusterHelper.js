@@ -345,10 +345,13 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'cerf', project_donor_name: 'CERF' },
             { project_donor_id: 'chf', project_donor_name: 'CHF' },
             { project_donor_id: 'cida', project_donor_name: 'CIDA' },
+            { project_donor_id: 'czech_aid', project_donor_name: 'Czech Aid' },
+            { project_donor_id: 'czech_mofa', project_donor_name: 'Czech MOFA' },
             { project_donor_id: 'danida', project_donor_name:'Danida'},
             { project_donor_id: 'denmark', project_donor_name:'Denmark'},
             { project_donor_id: 'dfid', project_donor_name: 'DFID' },
             { project_donor_id: 'echo', project_donor_name: 'ECHO' },
+            { project_donor_id: 'ehf', project_donor_name: 'EHF' },
             { project_donor_id: 'european_union', project_donor_name: 'European Union' },
             { project_donor_id: 'finland', project_donor_name:'Finland' },
             { project_donor_id: 'france', project_donor_name:'France' },
@@ -503,6 +506,7 @@ angular.module( 'ngmReportHub' )
             { unit_type_id: 'heb', unit_type_name: 'HEB' },
             { unit_type_id: 'rusf', unit_type_name: 'RUSF' },
             { unit_type_id: 'mnt', unit_type_name: 'MNT' },
+            { unit_type_id: 'facilities', unit_type_name: 'Facilities' },
             { unit_type_id: 'structures', unit_type_name: 'Structures' },
             { unit_type_id: 'sessions', unit_type_name: 'Sessions' },
             { unit_type_id: 'tcs', unit_type_name: 'TCs' },
@@ -598,6 +602,10 @@ angular.module( 'ngmReportHub' )
             cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'conflict_affected',
             beneficiary_type_name: 'Conflict Affected'
+          },{
+            cluster_id: [ 'health', 'wash' ],
+            beneficiary_type_id: 'health_workers',
+            beneficiary_type_name: 'Health Workers'
           },{
             cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'host_communities',
@@ -1004,11 +1012,17 @@ angular.module( 'ngmReportHub' )
           }]
         } else {
           facility_implementation = [{ 
+            facility_implementation_id: 'standalone', 
+            facility_implementation_name: 'Standalone Facility' 
+          },{ 
             facility_implementation_id: 'embedded', 
             facility_implementation_name: 'Embedded Facility' 
           },{ 
-            facility_implementation_id: 'standalone', 
-            facility_implementation_name: 'Standalone Facility' 
+            facility_implementation_id: 'community', 
+            facility_implementation_name: 'Community Based' 
+          },{ 
+            facility_implementation_id: 'multiple', 
+            facility_implementation_name: 'Multiple Locations' 
           }]
         }
         return facility_implementation;
@@ -1054,7 +1068,7 @@ angular.module( 'ngmReportHub' )
         }
 
         // health & Et
-				if ( cluster_id === 'health' && admin0pcode === 'ET' ) {
+				if ( admin0pcode === 'ET' ) {
           facility_types = [{
             facility_type_id: 'primary_hospital',
             facility_type_name: 'Primary Hospital'
@@ -1068,11 +1082,17 @@ angular.module( 'ngmReportHub' )
             facility_type_id: 'health_center',
             facility_type_name: 'Health Center'
           },{
+            facility_type_id: 'health_post',
+            facility_type_name: 'Health Post'
+          },{
             facility_type_id: 'clinc',
             facility_type_name: 'Clinic'
           },{
             facility_type_id: 'MHT',
             facility_type_name: 'MHT'
+          },{
+            facility_type_id: 'stabalization_center',
+            facility_type_name: 'Stabalization Center'
           },{
             facility_type_id: 'ctc',
             facility_type_name: 'CTC'
