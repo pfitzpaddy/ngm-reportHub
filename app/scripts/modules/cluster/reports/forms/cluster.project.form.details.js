@@ -455,7 +455,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var display = false;
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
-            if( b.cluster_id === 'cvwg' || b.cluster_id === 'esnfi' || b.cluster_id === 'fsac' ){
+            if( b.cluster_id === 'cvwg' || b.cluster_id === 'esnfi' || b.cluster_id === 'fsac' || ( b.cluster_id === 'wash' && $scope.project.definition.admin0pcode !== 'AF' ) ){
               display = true;
             }
           });
@@ -674,8 +674,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           location.admin3name = $data;
           if(location.admin3name) {
             selected = $filter('filter')( $scope.project.lists.admin3Select[$index], { admin3name: location.admin3name }, true);
-            delete selected[0].id;
-            angular.merge(location, selected[0]);
+            if( selected && selected[0] ){
+              delete selected[0].id;
+              angular.merge(location, selected[0]);
+            }
           }
           return selected.length ? selected[0].admin3name : 'No Selection!';
         },
@@ -766,11 +768,20 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         /** HELATH ***********/
 
-        // new facility label
         showNewFacilityLabel: function(){
           var display = false;
           angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
-            if ( d.facility_implementation_id === 'standalone' ) {
+            if ( d.facility_implementation_id === 'standalone' || d.facility_implementation_id === 'embedded' ) {
+              display = true;
+            }
+          });
+          return display;
+        },
+
+        showFacilityTypeLabel: function(){
+          var display = false;
+          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
+            if ( d.facility_implementation_id === 'standalone' || d.facility_implementation_id === 'embedded' ) {
               display = true;
             }
           });
@@ -783,6 +794,46 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
             if ( d.facility_implementation_id === 'embedded' ) {
               display = true;
+            }
+          });
+          return display;
+        },
+
+        showFacilityNameLabel: function(){
+          var display = true;
+          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
+            if ( d.facility_implementation_id !== 'standalone' || d.facility_implementation_id !== 'embedded' ) {
+              display = false;
+            }
+          });
+          return display;
+        },
+
+        showCommunitiesNameLabel: function(){
+          var display = true;
+          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
+            if ( d.facility_implementation_id !== 'community' ) {
+              display = false;
+            }
+          });
+          return display;
+        },
+
+        showLocationsNameLabel: function(){
+          var display = true;
+          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
+            if ( d.facility_implementation_id !== 'multiple' ) {
+              display = false;
+            }
+          });
+          return display;
+        },
+
+        showNameLabel: function(){
+          var display = true;
+          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
+            if ( d.facility_implementation_id !== 'community' || d.facility_implementation_id !== 'multiple' ) {
+              display = false;
             }
           });
           return display;

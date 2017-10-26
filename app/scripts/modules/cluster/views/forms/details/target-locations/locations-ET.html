@@ -27,9 +27,14 @@
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
 							      <td ng-if="project.lists.admin3.length">{{ project.lists.admin3[0].admin3type_name }}</td>
 							      <td>Implementation</td>
-							      <td>New Facility</td>
-							      <td>Facility Type</td>
-							      <td>Facility Name *</td>
+							      <td ng-show="project.showNewFacilityLabel()">New</td>
+							      <td ng-show="project.showFacilityTypeLabel()">Facility Type</td>
+							      <td ng-show="project.showFacilityNameLabel()">Facility Name *</td>
+							      <td ng-show="project.showCommunitiesNameLabel()">Communities *</td>
+							      <td ng-show="project.showLocationsNameLabel()">Locations *</td>
+							      <td ng-show="!showFacilityNameLabel() 
+							      						&& !project.showCommunitiesNameLabel() 
+							      						&& !project.showLocationsNameLabel()">Name *</td>
 							      <td ng-show="project.showHubFacilityLabel()">Facility Hub</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
@@ -61,17 +66,20 @@
 							        </span>
 							      </td>
 
-							      <td>
+							      <td ng-if="location.facility_implementation_id === 'standalone' || location.facility_implementation_id === 'embedded'">
 							        <span e-placeholder="Select..." editable-select="location.new_facility_id" e-name="new_facility_id" e-form="locationform" e-ng-options="item.new_facility_id as item.new_facility_name for item in project.lists.new_facility" e-ng-change="project.yesNoChange(location)" e-ng-disabled="!location.facility_implementation_id" e-required>
 							          {{ project.showYesNo($data, location) }}
 							        </span>
 							      </td>
 
 							      <!-- FACILITY TYPE -->
-							      <td>
+							      <td ng-if="location.facility_implementation_id === 'standalone' || location.facility_implementation_id === 'embedded'">
 							        <span e-placeholder="Select..." editable-select="location.facility_type_id" e-name="facility_type_id" e-form="locationform" e-ng-options="item.facility_type_id as item.facility_type_name for item in project.lists.facility_type_filtered" e-ng-disabled="!location.admin3name" e-required>
 							          {{ project.showFacilityType($index, $data, location) }}
 							        </span>
+							      </td>
+
+							      <td ng-if="project.showFacilityTypeLabel() && (location.facility_implementation_id !== 'standalone' && location.facility_implementation_id !== 'embedded')">
 							      </td>
 							      
 							      <!-- FACILITY NAME -->
@@ -84,7 +92,7 @@
 							      </td>
 							      <td ng-if="project.showHubFacilityLabel() && !location.facility_implementation_id">
 							      </td>
-							      <td ng-if="!project.showHubFacilityLabel() && !location.new_facility_id">
+							      <td ng-if="project.showFacilityTypeLabel() && !project.showHubFacilityLabel() && !location.new_facility_id">
 							      </td>
 
 							      <!-- select existing: drop down -->
@@ -95,7 +103,7 @@
 							      </td>
 
 							      <!-- select new: free text  -->
-										<td ng-if="location.new_facility_id === 'yes'">
+										<td ng-if="location.new_facility_id === 'yes' || location.facility_implementation_id === 'community' || location.facility_implementation_id === 'multiple'">
 							        <span editable-text="location.facility_name" e-name="facility_name" e-form="locationform" e-required>
 							        	{{ project.showFacilityName($data, location) }}
 							        </span>

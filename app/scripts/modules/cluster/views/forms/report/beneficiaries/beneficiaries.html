@@ -15,7 +15,7 @@
       <td ng-if="project.showCash( $locationIndex )">Delivery</td>
       <td ng-if="project.definition.admin0pcode === 'AF'">Category</td>
       <td>Beneficiary</td>
-      <td>Population</td>
+      <td ng-if="project.definition.admin0pcode === 'AF'">Population</td>
       <td ng-if="project.showUnits( $locationIndex )">Amount</td>
       <td ng-if="project.showUnits( $locationIndex )">Units</td>
       <td ng-if="project.showCash( $locationIndex )">Transfers</td>
@@ -99,7 +99,7 @@
           {{ project.showBeneficiary($data, beneficiary) }}
         </span>
       </td>
-      <td>
+      <td ng-if="project.definition.admin0pcode === 'AF'">
         <!-- editable group (select-remote) -->
         <span e-form="rowform"
               e-name="delivery_type_id"
@@ -186,7 +186,7 @@
               editable-number="beneficiary.households"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $index, 'households', $data )"
-              e-ng-disabled="beneficiary.cluster_id !== 'cvwg' && beneficiary.cluster_id !== 'esnfi' && beneficiary.cluster_id !== 'fsac'"
+              e-ng-disabled="!project.showHouseholds( $locationIndex )"
               e-required>
           {{ beneficiary.households }}
         </span>
