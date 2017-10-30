@@ -115,6 +115,10 @@
 							      <!-- empty squares -->
 							      <td ng-if="project.showHubFacilityLabel() && location.facility_implementation_id === 'standalone'">
 							      </td>
+							      <td ng-if="project.showHubFacilityLabel() && location.facility_implementation_id === 'community'">
+							      </td>
+							      <td ng-if="project.showHubFacilityLabel() && location.facility_implementation_id === 'multiple'">
+							      </td>							      
 
 							      <td ng-if="location.facility_implementation_id === 'embedded'">
 							        <span e-placeholder="Select..." onshow="project.loadFacilities($index, $data, location)" editable-select="location.facility_hub_id" e-name="facility_hub_id" e-form="locationform" e-ng-options="item.facility_id as item.facility_name for item in project.lists.hub_facilities[$index][location.admin3pcode]" e-ng-disabled="!location.admin3name">
