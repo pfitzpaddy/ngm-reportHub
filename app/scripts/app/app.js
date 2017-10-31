@@ -92,6 +92,16 @@ angular
 					}],
 				}
 			})
+			// PROFILE
+			.when( '/profile', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardProfileCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
 
 			// achievements
 			.when( '/reporthub', {

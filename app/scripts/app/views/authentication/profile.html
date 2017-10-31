@@ -1,0 +1,134 @@
+
+<style>
+
+.carousel {
+	min-height: 800px;
+}
+
+.icon {
+	padding-top:10px;
+}
+
+.icon .card {
+  width: 150px;
+  height: 150px;
+  padding: 30px 0px 30px 20px;
+  border-radius: 50% !important;
+  margin: 10px auto;	
+}
+
+.title {
+	margin:20px 0px 10px;
+	font-weight:100;
+}
+
+form {
+	padding: 0px 20% !important;
+}
+
+li {
+	padding-bottom:10px;
+}
+
+.input-field .prefix {
+	padding-top: 8px;
+	color: #616161;
+}
+
+.helpers {
+	font-size:1.3rem !important;
+	margin-top:0px;
+	padding-bottom:4px;
+	cursor: pointer;
+}
+
+.action {
+	padding-top: 50px;
+}
+
+</style>
+
+  <div class="carousel">
+
+		<div class="icon center">
+			<!-- make it a circle -->
+			<div class="card">
+				<img title="Profile" src="images/registration.png" width="110%" style="margin-left:-20px;"/>
+			</div>
+			<h5 class="title">PROFILE</h5>
+		</div>
+
+		<form name="ngmProfileForm" class="col s12" novalidate>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">account_circle</i>
+	          <input id="ngm-username" type="text" class="validate"
+							ng-model="panel.user.username"
+							required>
+	          <label for="ngm-username">Username</label>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">accessibility</i>
+	          <input id="ngm-fullname" type="text" class="validate"
+							ng-model="panel.user.name"
+							required>
+	          <label for="ngm-fullname">Full Name</label>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">personal_video</i>
+	          <input id="ngm-position" type="text" class="validate"
+							ng-model="panel.user.position"
+							required>
+	          <label for="ngm-position">Position</label>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">phone</i>
+	          <input id="ngm-phone" type="tel" class="validate"
+							ng-model="panel.user.phone"
+							required>
+	          <label for="ngm-phone">Phone</label>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">email</i>
+	          <input id="ngm-email" type="email" class="validate"
+							ng-model="panel.user.email"
+							required>
+	          <label for="ngm-email">Email</label>
+	        </div>
+	      </div>
+
+			<div class="action center">
+				<button
+					class="btn btn-large waves-effect waves-teal" 
+					type="submit"
+					ng-disabled="ngmProfileForm.$invalid"
+					ng-click="panel.update(ngmProfileForm)">
+						UPDATE
+				</button>
+			</div>
+
+    </form>
+
+  </div>
+
+	<div>
+		<!-- footer -->
+		<div style="background: {{ panel.style.lightPrimaryColor }}; height:20px;"></div>
+		<div style="background: {{ panel.style.defaultPrimaryColor }}; height:60px;">
+			<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>
+		</div>
+	</div>
+
