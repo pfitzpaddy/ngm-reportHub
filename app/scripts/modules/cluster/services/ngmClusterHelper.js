@@ -511,6 +511,7 @@ angular.module( 'ngmReportHub' )
             { unit_type_id: 'sessions', unit_type_name: 'Sessions' },
             { unit_type_id: 'tcs', unit_type_name: 'TCs' },
             { unit_type_id: 'cbss', unit_type_name: 'CBSs' },
+            { unit_type_id: 'teachers', unit_type_name: 'People' },
             { unit_type_id: 'teachers', unit_type_name: 'Teachers' },
             { unit_type_id: 'tents', unit_type_name: 'Tents' },
             { unit_type_id: 'classroom_kits', unit_type_name: 'Classroom Kits' },
@@ -1090,6 +1091,9 @@ angular.module( 'ngmReportHub' )
           },{
             facility_type_id: 'MHT',
             facility_type_name: 'MHT'
+          },{
+            facility_type_id: 'MHNT',
+            facility_type_name: 'MHNT'
           },{
             facility_type_id: 'stabalization_center',
             facility_type_name: 'Stabalization Center'
