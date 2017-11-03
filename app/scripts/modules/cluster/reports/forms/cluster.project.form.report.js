@@ -495,7 +495,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // disable save form
         rowSaveDisabled: function( $data ){
           var disabled = true;
-          console.log($data)
           if ( $data.category_type_id && $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id &&
                 $data.units >= 0 && $data.sessions >= 0 && $data.households >= 0 && $data.families >= 0 && $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 && $data.elderly_men >= 0 && $data.elderly_women >= 0 ) {
               disabled = false;

@@ -59,7 +59,7 @@ angular.module('ngmReportHub')
 
 		};
 	}])
-	.factory( 'ngmAuth', [ '$q', '$route', '$http', '$location', '$interval', 'ngmUser', function( $q, $route, $http, $location, $interval, ngmUser ) {
+	.factory( 'ngmAuth', [ '$q', '$route', '$http', '$location', '$timeout', 'ngmUser', function( $q, $route, $http, $location, $timeout, ngmUser ) {
 
 		// auth
 		var ngmAuth = {
@@ -115,6 +115,28 @@ angular.module('ngmReportHub')
 				});
 
 				return register;
+			},
+
+			// update user profile
+			updateProfile: function( user ) {
+				
+				// set the $http object
+				var update = $http({
+					method: 'POST',
+					url: this.LOCATION + '/api/profile/update',
+					data: user
+				});
+
+				// on success store in localStorage
+				update.success( function( result ) {
+					//  success handles in controller.authentication.js
+				}).error(function( err ) {
+					// update
+					Materialize.toast( 'Error!', 6000, 'error' );
+				});
+
+				return update;
+
 			},
 
 			// login
@@ -205,7 +227,7 @@ angular.module('ngmReportHub')
 				// tmp fix
 				if ( !user || !user.last_logged_in ) {
 						// unset localStorage
-						ngmUser.unset();					
+						ngmUser.unset();				
 				} else {
 					// get minutes since last login
 					var minutes = 

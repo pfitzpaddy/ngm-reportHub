@@ -33,6 +33,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
         err: false,
 
+        user: ngmUser.get(),
+
         // adminRegion
         adminRegion: {
           'AF': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0name: 'Afghanistan' },
@@ -68,7 +70,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           } else {
             
             // login
-            ngmAuth.login({ user: $scope.panel.user }).success( function( result ) {
+            ngmAuth
+              .login({ user: $scope.panel.user }).success( function( result ) {
 
               // db error!
               if( result.err || result.summary ){
@@ -89,6 +92,35 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             });
 
           }
+        },
+
+        // update profile
+        update: function(ngmProfileForm) {
+
+          // merge adminRegion
+          $scope.panel.user = angular.merge( {}, ngmUser.get(), $scope.panel.user );
+
+          // register
+          ngmAuth
+            .updateProfile({ user: $scope.panel.user }).success(function( result ) {
+
+              // db error!
+              if( result.err || result.summary ){
+                var msg = result.msg ? result.msg : 'error!';
+                Materialize.toast( msg, 6000, msg );
+              }
+
+              // success
+              if ( result.success ){
+                // set localStorage
+                ngmUser.set( $scope.panel.user );
+                // success message
+                $timeout( function(){
+                  Materialize.toast( 'Success! Profile updated!', 3000, 'success' );
+                }, 1000);
+              }   
+
+            });
         },
 
         // register fn

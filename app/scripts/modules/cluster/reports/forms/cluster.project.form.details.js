@@ -77,7 +77,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             { cluster_id: 'eiewg', cluster: 'EiEWG', mpc_purpose_type_id: 'education', mpc_purpose_type_name: 'Education' },
             { cluster_id: 'fsac', cluster: 'FSAC', mpc_purpose_type_id: 'food', mpc_purpose_type_name: 'Food' },
             { cluster_id: 'esnfi', cluster: 'ESNFI', mpc_purpose_type_id: 'fuel_electricity', mpc_purpose_type_name: 'Fuel / Electricity' },
-            { cluster_id: 'health', cluster: 'Health', mpc_purpose_type_id: 'health', mpc_purpose_type_name: 'Health' },
+            { cluster_id: 'health', cluster: 'Health', mpc_purpose_type_id: 'mpc_health', mpc_purpose_type_name: 'Health' },
             { cluster_id: 'esnfi', cluster: 'ESNFI', mpc_purpose_type_id: 'rent', mpc_purpose_type_name: 'Rent' },
             { cluster_id: 'esnfi', cluster: 'ESNFI', mpc_purpose_type_id: 'shelter', mpc_purpose_type_name: 'Shelter Construction' },
             { cluster_id: 'esnfi', cluster: 'ESNFI', mpc_purpose_type_id: 'transport', mpc_purpose_type_name: 'Transport' },
