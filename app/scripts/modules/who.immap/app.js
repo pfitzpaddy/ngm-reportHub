@@ -1,6 +1,6 @@
 /**
  * @ngdoc overview
- * @name ngmReportHubApp
+ * @name app.js
  * @description
  * # ngmReportHubApp
  *
@@ -20,9 +20,9 @@ angular
 			// 	redirectTo: '/epr/2017/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
 			// })
 			// epr dashboard
-			.when( '/sbp', {
+			.when( '/who-immap', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardSbpCtrl',
+				controller: 'DashboardWhoImmapCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 						return ngmAuth.grantPublicAccess();
