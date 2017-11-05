@@ -126,7 +126,7 @@ angular
 			// 	redirectTo: '/cluster/projects'
 			// });
 	}])
-	.run([ '$rootScope', '$location', 'ngmAuth', 'ngmUser', function( $rootScope, $location, ngmAuth, ngmUser ) {
+	.run([ '$rootScope', '$window', '$location', 'ngmAuth', 'ngmUser', function( $rootScope, $window, $location, ngmAuth, ngmUser ) {
 
 		// check session by last login
 		ngmAuth.setSessionTimeout( ngmUser.get() );
@@ -134,6 +134,24 @@ angular
 		// new guest page visit
 		if ( ngmUser.get() && ngmUser.get().guest ) {
 			ngmUser.unset();
+		}
+
+		// IE checks!!!!!!
+		if (/MSIE 10/i.test($window.navigator.userAgent)) {
+		   // This is internet explorer 10
+		   openIeModal();
+		}
+		if (/MSIE 9/i.test($window.navigator.userAgent) || /rv:11.0/i.test($window.navigator.userAgent)) {
+		    // This is internet explorer 9 or 11
+		    openIeModal();
+		}
+		if (/Edge\/\d./i.test($window.navigator.userAgent)){
+		   // This is Microsoft Edge
+		   openIeModal();
+		}
+		// open modal
+		function openIeModal() {
+			$('#ngm-ie-modal').openModal({dismissible: false});
 		}
 
 		// when error on route update redirect
