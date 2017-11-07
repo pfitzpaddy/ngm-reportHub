@@ -36,16 +36,16 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
       // project
       $scope.project = {
-        
+
         // user
         user: ngmUser.get(),
-        
+
         // app style
         style: config.style,
-        
+
         // project
         definition: config.project,
-        
+
         // report
         report: config.report,
 
@@ -54,13 +54,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // keys to ignore when summing beneficiaries in template ( 2016 )
         skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ],
-        
+
         // last update
         updatedAt: moment( config.report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ),
-        
+
         // title
         titleFormat: moment( config.report.reporting_period ).format('MMMM, YYYY'),
-        
+
         // lists
         // activity_type: config.project.activity_type,
         activity_descriptions: $scope.activity_descriptions,
@@ -76,11 +76,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           // MPC
           mpc_delivery_types: ngmClusterHelper.getMpcDeliveryTypes()
         },
-        
+
         // templates
         templatesUrl: '/scripts/modules/cluster/views/forms/report/',
         locationsUrl: 'locations.html',
-        beneficiariesUrl: config.report.report_year === 2016 ? 'beneficiaries/2016/beneficiaries.html' : 'beneficiaries/beneficiaries.html',        
+        beneficiariesUrl: config.report.report_year === 2016 ? 'beneficiaries/2016/beneficiaries.html' : 'beneficiaries/beneficiaries.html',
         beneficiariesTrainingUrl: 'beneficiaries/2016/beneficiaries-training.html',
         beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health-2016.html',
         notesUrl: 'notes.html',
@@ -100,15 +100,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var sadd = {
             units: 0,
             cash_amount: 0,
-            households: 0, 
-            sessions: 0, 
-            families: 0, 
-            boys: 0, 
-            girls: 0, 
-            men:0, 
-            women:0, 
-            elderly_men:0, 
-            elderly_women:0 
+            households: 0,
+            sessions: 0,
+            families: 0,
+            boys: 0,
+            girls: 0,
+            men:0,
+            women:0,
+            elderly_men:0,
+            elderly_women:0
           };
           $scope.inserted = {
             cluster_id: null,
@@ -175,7 +175,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           if($beneficiary.activity_description_id) {
             selected = $filter('filter')( $scope.project.activity_descriptions, { activity_description_id: $beneficiary.activity_description_id }, true );
             $beneficiary.activity_description_name = selected[0].activity_description_name;
-          } 
+          }
           return selected.length ? selected[0].activity_description_name : 'No Selection!';
         },
 
@@ -184,7 +184,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var selected = [];
           $beneficiary.mpc_delivery_type_id = $data;
           if($beneficiary.mpc_delivery_type_id) {
-            
+
             // selection
             selected = $filter('filter')( $scope.project.lists.mpc_delivery_types, { mpc_delivery_type_id: $beneficiary.mpc_delivery_type_id }, true );
             if ( selected.length ) {
@@ -197,8 +197,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             }
 
             // no cash! for previous selections
-            if ( $beneficiary.activity_type_id.indexOf( 'cash' ) === -1 && 
-                  $beneficiary.activity_description_id && 
+            if ( $beneficiary.activity_type_id.indexOf( 'cash' ) === -1 &&
+                  $beneficiary.activity_description_id &&
                   ( $beneficiary.activity_description_id.indexOf( 'cash' ) === -1 &&
                     $beneficiary.activity_description_id.indexOf( 'in_kind' ) === -1 ) ) {
               // reset
@@ -247,7 +247,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }
           return selected.length ? selected[0].delivery_type_name : 'No Selection!';
         },
-        
+
         // display if education/training sessions provided
         showSessions: function( $locationIndex ){
           var display = false;
@@ -270,9 +270,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-            if( 
-                ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' || b.cluster_id === 'wash' ) ||
-                ( b.activity_description_id && 
+            if(
+                ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' ) ||
+                ( b.activity_description_id &&
                 ( b.activity_description_id.indexOf( 'education' ) > -1 ||
                   b.activity_description_id.indexOf( 'training' ) > -1 ||
                   b.activity_description_id.indexOf( 'cash' ) > -1 ||
@@ -297,7 +297,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }else{
             $beneficiary.unit_type_id = 'n_a';
             $beneficiary.unit_type_id = 'N/A';
-          }            
+          }
           return selected.length ? selected[0].unit_type_name : 'N/A';
         },
 
@@ -323,8 +323,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( ( b.activity_type_id && b.activity_type_id.indexOf('cash') > -1 ) || 
-                  ( b.activity_description_id && 
+              if( ( b.activity_type_id && b.activity_type_id.indexOf('cash') > -1 ) ||
+                  ( b.activity_description_id &&
                   ( b.activity_description_id.indexOf( 'cash' ) > -1 ||
                     b.activity_description_id.indexOf( 'fsac_in_kind' ) > -1 ) ) ) {
                 display = true;
@@ -368,7 +368,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-                if( ( b.cluster_id !== 'nutrition' || b.activity_type_id === 'nutrition_education_training' ) && 
+                if( ( b.cluster_id !== 'nutrition' || b.activity_type_id === 'nutrition_education_training' ) &&
                   b.activity_type_id !== 'mch' &&
                   b.activity_type_id !== 'vaccination' &&
                   b.activity_description_id !== 'antenatal_care' &&
@@ -389,7 +389,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( b.activity_type_id !== 'vaccination' && 
+              if( b.activity_type_id !== 'vaccination' &&
                   b.activity_description_id !== 'penta_3' &&
                   b.activity_description_id !== 'measles' ){
                 display = true;
@@ -405,14 +405,14 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( b.cluster_id !== 'eiewg' && 
-                  b.cluster_id !== 'nutrition' && 
-                  b.cluster_id !== 'wash' && 
+              if( b.cluster_id !== 'eiewg' &&
+                  b.cluster_id !== 'nutrition' &&
+                  b.cluster_id !== 'wash' &&
                   b.activity_type_id !== 'mch' &&
                   b.activity_description_id !== 'antenatal_care' &&
                   b.activity_description_id !== 'postnatal_care' &&
                   b.activity_description_id !== 'skilled_birth_attendant' &&
-                  b.activity_type_id !== 'vaccination' && 
+                  b.activity_type_id !== 'vaccination' &&
                   b.activity_description_id !== 'penta_3' &&
                   b.activity_description_id !== 'measles' ){
                 display = true;
@@ -428,14 +428,14 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( b.cluster_id !== 'eiewg' && 
-                  b.cluster_id !== 'nutrition' && 
-                  b.cluster_id !== 'wash' && 
+              if( b.cluster_id !== 'eiewg' &&
+                  b.cluster_id !== 'nutrition' &&
+                  b.cluster_id !== 'wash' &&
                   b.activity_type_id !== 'mch' &&
                   b.activity_description_id !== 'antenatal_care' &&
                   b.activity_description_id !== 'postnatal_care' &&
                   b.activity_description_id !== 'skilled_birth_attendant' &&
-                  b.activity_type_id !== 'vaccination' && 
+                  b.activity_type_id !== 'vaccination' &&
                   b.activity_description_id !== 'penta_3' &&
                   b.activity_description_id !== 'measles' ){
                 display = true;
@@ -491,7 +491,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }
           return disabled;
         },
-        
+
         // disable save form
         rowSaveDisabled: function( $data ){
           var disabled = true;
@@ -522,7 +522,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // remove beneficiary
         removeBeneficiary: function() {
-          
+
           // b
           var b = $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries[ $scope.project.beneficiaryIndex ];
 
@@ -533,8 +533,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             data: {
               id: b.id
             }
-          }          
-          
+          }
+
           // set report
           $http( setBeneficiariesRequest ).success( function( result ){
 
@@ -569,7 +569,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }, 0 );
         },
 
-        // ennsure all locations contain at least one complete beneficiaries 
+        // ennsure all locations contain at least one complete beneficiaries
         formComplete: function() {
           var beneficiaries = 0;
           var rowComplete = 0;
@@ -587,11 +587,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               }
             }
           });
-          // 
+          //
           if( rowComplete >= beneficiaries ){
             return true;
           } else {
-            return false;  
+            return false;
           }
         },
 
@@ -605,12 +605,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }
         },
 
-        // save 
+        // save
         save: function( complete, display_modal ){
 
           // if textarea
           $( 'textarea[name="notes"]' ).removeClass( 'ng-untouched' ).addClass( 'ng-touched' );
-          $( 'textarea[name="notes"]' ).removeClass( 'invalid' ).addClass( 'valid' ); 
+          $( 'textarea[name="notes"]' ).removeClass( 'invalid' ).addClass( 'valid' );
 
           // report
           // $scope.project.report.submit = true;
@@ -618,9 +618,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $scope.project.report.report_submitted = moment().format();
 
           // update project details of report + locations + beneficiaries
-          $scope.project.report = 
+          $scope.project.report =
               ngmClusterHelper.getCleanReport( $scope.project.definition, $scope.project.report );
-          
+
           // msg
           Materialize.toast( 'Processing Report...' , 3000, 'note');
 
@@ -631,8 +631,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             data: {
               report: $scope.project.report
             }
-          }   
-          
+          }
+
           // set report
           $http( setReportRequest ).success( function( report ){
 
@@ -642,21 +642,21 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             }
 
             if ( !report.err ) {
-              
+
               // updated report
               $scope.project.report = report;
               $scope.project.report.submit = false;
-              
+
               // user msg
               var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
                   msg += complete ? 'Submitted!' : 'Saved!';
-              
+
               // msg
               $timeout(function() { Materialize.toast( msg , 3000, 'success'); }, 600 );
-              
+
               // set trigger
               $('.modal-trigger').leanModal();
-              
+
               // Re-direct to summary
               if ( $scope.project.report.report_status !== 'complete' ) {
 
@@ -685,4 +685,3 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
   }
 
 ]);
-

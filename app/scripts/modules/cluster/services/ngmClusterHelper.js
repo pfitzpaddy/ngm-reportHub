@@ -9,7 +9,7 @@ angular.module( 'ngmReportHub' )
 	.factory( 'ngmClusterHelper', [ '$location', '$q', '$http', '$filter', '$timeout', 'ngmAuth', function( $location, $q, $http, $filter, $timeout, ngmAuth ) {
 
 		return {
-			
+
 			// update material_select
 			updateSelect: function(){
         $timeout(function(){ $( 'select' ).material_select(); }, 0 );
@@ -42,7 +42,7 @@ angular.module( 'ngmReportHub' )
 
         // set hrp code
         project.project_hrp_code = this.getProjectHrpCode( project );
-        
+
         // remove id of ngmUser to avoid conflict with new project
         delete project.id;
 
@@ -57,7 +57,7 @@ angular.module( 'ngmReportHub' )
         // report
         var report = project.admin0pcode === 'AF' ? '-OTH-' : '-HRP-';
 
-        // return project code 
+        // return project code
         return project.admin0name.toUpperCase().substring(0, 3) + report +
                         moment().year() + '-' +
                         project.cluster.toUpperCase().substring(0, 3) + '-' +
@@ -66,7 +66,7 @@ angular.module( 'ngmReportHub' )
 
       // get lists for cluster reporting
       setClusterLists: function( user ) {
-      
+
         // requests
         var requests = {
 
@@ -114,7 +114,7 @@ angular.module( 'ngmReportHub' )
 
         }
 
-        // get all lists 
+        // get all lists
         if ( !localStorage.getObject( 'lists' ) ) {
 
           // admin1, admin2, activities holders
@@ -132,12 +132,12 @@ angular.module( 'ngmReportHub' )
           localStorage.setObject( 'lists', lists );
 
           // send request
-          $q.all([ 
+          $q.all([
             $http( requests.getAdmin1List ),
             $http( requests.getAdmin2List ),
             $http( requests.getAdmin3List ),
-            $http( requests.getActivities ), 
-            $http( requests.getDonors ), 
+            $http( requests.getActivities ),
+            $http( requests.getDonors ),
             $http( requests.getIndicators ),
             $http( requests.getStockItems ) ] ).then( function( results ){
 
@@ -196,7 +196,7 @@ angular.module( 'ngmReportHub' )
           delivery_type_id: 'service',
           delivery_type_name: 'Existing Beneficiaries'
         }];
-      },      
+      },
 
       // mpc delivery
       getMpcDeliveryTypes: function() {
@@ -204,7 +204,7 @@ angular.module( 'ngmReportHub' )
         // food_for_asset_in_kind
         // food_for_asset_cbt
         // food_for_training_in_kind
-        // food_for_training_cbt        
+        // food_for_training_cbt
 
         var types = [{
             activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional' ],
@@ -247,7 +247,7 @@ angular.module( 'ngmReportHub' )
         return types;
       },
 
-      // get list 
+      // get list
       getTransfers: function( length ){
         var trasnfers = [];
         for( var i=1; i<=length; i++ ){
@@ -322,7 +322,7 @@ angular.module( 'ngmReportHub' )
           activities = this.filterDuplicates( activities, 'activity_type_id' );
         }
 
-        // return 
+        // return
         return activities;
 
       },
@@ -331,7 +331,7 @@ angular.module( 'ngmReportHub' )
 			getDonors: function( cluster_id ) {
 
         // get from list
-        var donors = $filter( 'filter' )( localStorage.getObject( 'lists' ).donorsList, 
+        var donors = $filter( 'filter' )( localStorage.getObject( 'lists' ).donorsList,
                           { cluster_id: cluster_id }, true );
 
         // if no list use default
@@ -566,7 +566,7 @@ angular.module( 'ngmReportHub' )
         // for each beneficiaries from list
         angular.forEach( list, function( d, i ){
           // filter out selected types
-          beneficiaries = 
+          beneficiaries =
               $filter( 'filter' )( beneficiaries, { beneficiary_type: '!' + d.beneficiary_type } );
         });
 
@@ -585,7 +585,7 @@ angular.module( 'ngmReportHub' )
 
         // admin ET
         if ( admin0pcode === 'ET' ) {
-          
+
           // beneficiaries
           beneficiaries = [{
             cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
@@ -638,11 +638,16 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_id: 'conflict_affected',
             beneficiary_type_name: 'Conflict Affected'
           },{
-            cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
+            cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection' ],
             category_type_id: [ 'category_a' ],
             beneficiary_type_id: 'idp_conflict',
             beneficiary_type_name: 'Conflict IDPs'
           },{
+						cluster_id: [ 'wash' ],
+            category_type_id: [ 'category_a' ],
+            beneficiary_type_id: 'idp_conflict',
+            beneficiary_type_name: 'Conflict IDPs (Recent)'
+					},{
           //   cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
           //   category_type_id: [ 'category_a' ],
           //   beneficiary_type_id: 'idp_conflict_natural_disaster',
@@ -657,7 +662,7 @@ angular.module( 'ngmReportHub' )
             cluster_id: [ 'wash' ],
             category_type_id: [ 'category_b' ],
             beneficiary_type_id: 'idp_conflict',
-            beneficiary_type_name: 'Conflict IDPs'
+            beneficiary_type_name: 'Conflict IDPs (Recent)'
           },{
           //   cluster_id: [ 'wash' ],
           //   category_type_id: [ 'category_b' ],
@@ -686,11 +691,16 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_id: 'conflict_affected',
             beneficiary_type_name: 'Conflict Affected'
           },{
-            cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
+            cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection' ],
             category_type_id: [ 'category_d' ],
             beneficiary_type_id: 'idp_conflict',
             beneficiary_type_name: 'Conflict IDPs'
           },{
+						cluster_id: [ 'wash' ],
+            category_type_id: [ 'category_d' ],
+            beneficiary_type_id: 'idp_conflict',
+            beneficiary_type_name: 'Conflict IDPs (Recent)'
+					},{
           //   cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
           //   category_type_id: [ 'category_d' ],
           //   beneficiary_type_id: 'idp_conflict_natural_disaster',
@@ -732,7 +742,7 @@ angular.module( 'ngmReportHub' )
             category_type_id: [ 'category_c' ],
             beneficiary_type_id: 'natural_disaster_affected',
             beneficiary_type_name: 'Natural Disaster Affected'
-          },{   
+          },{
             // CAT D) Natural Disaster
             cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
             category_type_id: [ 'category_d' ],
@@ -745,7 +755,7 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_name: 'Natural Disaster Affected'
           },{
 
-            
+
             // FSAC
 
             // CAT A), CAT B), Conflict, Natural Disaster
@@ -789,11 +799,16 @@ angular.module( 'ngmReportHub' )
             // Refugees, IDPs
 
             // CAT A), Cat B), Cat C), Protracted IDPs
-            cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
+            cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection' ],
             category_type_id: [ 'category_a', 'category_b', 'category_c' ],
             beneficiary_type_id: 'idp_protracted',
             beneficiary_type_name: 'Protracted IDPs'
           },{
+						cluster_id: [ 'wash' ],
+            category_type_id: [ 'category_a', 'category_b' ],
+            beneficiary_type_id: 'idp_protracted',
+            beneficiary_type_name: 'Conflict IDPs (Prolonged)'
+					},{
             // CAT A)
             cluster_id: [ 'cvwg', 'esnfi', 'fsac', 'health', 'protection', 'wash' ],
             category_type_id: [ 'category_a' ],
@@ -856,7 +871,7 @@ angular.module( 'ngmReportHub' )
 
 
             // EiEWG
-            
+
             // CAT A), Refugees & Returnees
             cluster_id: [ 'eiewg' ],
             category_type_id: [ 'category_a', 'category_d' ],
@@ -935,7 +950,7 @@ angular.module( 'ngmReportHub' )
 
 
             // Access to services
-            
+
             // CAT B)
 
             cluster_id: [ 'health' ],
@@ -1000,30 +1015,30 @@ angular.module( 'ngmReportHub' )
 
 			},
 
-      // get facility implementation 
+      // get facility implementation
       getFacilityImplementation: function( cluster_id ){
         var facility_implementation = [];
         if ( cluster_id === 'eiewg'  ) {
-          facility_implementation = [{ 
-            facility_implementation_id: 'formal', 
-            facility_implementation_name: 'Formal' 
-          },{ 
-            facility_implementation_id: 'informal', 
-            facility_implementation_name: 'Informal' 
+          facility_implementation = [{
+            facility_implementation_id: 'formal',
+            facility_implementation_name: 'Formal'
+          },{
+            facility_implementation_id: 'informal',
+            facility_implementation_name: 'Informal'
           }]
         } else {
-          facility_implementation = [{ 
-            facility_implementation_id: 'standalone', 
-            facility_implementation_name: 'Standalone Facility' 
-          },{ 
-            facility_implementation_id: 'embedded', 
-            facility_implementation_name: 'Embedded Facility' 
-          },{ 
-            facility_implementation_id: 'community', 
-            facility_implementation_name: 'Community Based' 
-          },{ 
-            facility_implementation_id: 'multiple', 
-            facility_implementation_name: 'Multiple Locations' 
+          facility_implementation = [{
+            facility_implementation_id: 'standalone',
+            facility_implementation_name: 'Standalone Facility'
+          },{
+            facility_implementation_id: 'embedded',
+            facility_implementation_name: 'Embedded Facility'
+          },{
+            facility_implementation_id: 'community',
+            facility_implementation_name: 'Community Based'
+          },{
+            facility_implementation_id: 'multiple',
+            facility_implementation_name: 'Multiple Locations'
           }]
         }
         return facility_implementation;
@@ -1167,7 +1182,7 @@ angular.module( 'ngmReportHub' )
       getSumBeneficiaries: function( locations ) {
 
         var $this = this;
-        
+
         // sum beneficiary.sum
         angular.forEach( locations, function( l, i ){
           angular.forEach( l.beneficiaries, function( b, j ){
@@ -1190,7 +1205,7 @@ angular.module( 'ngmReportHub' )
 
       // update activities for an object ( update )
       updateActivities: function( project, update ){
-        
+
         // update activity_type / activity_description
         update.project_title = project.project_title;
         update.activity_type = project.activity_type;
@@ -1203,7 +1218,7 @@ angular.module( 'ngmReportHub' )
 
       // get processed warehouse location
       getCleanWarehouseLocation: function( user, organization, warehouse ){
-        
+
         // merge
         var warehouse = angular.merge({}, organization, warehouse, warehouse.admin2, warehouse.admin3, warehouse.facility_type);
 
@@ -1226,7 +1241,7 @@ angular.module( 'ngmReportHub' )
 
       // get processed stock location
       getCleanStocks: function( report, location, stocks ){
-        
+
         // merge
         var stock = angular.merge( {}, stocks, report, location );
 
@@ -1234,7 +1249,7 @@ angular.module( 'ngmReportHub' )
         delete stock.id;
         delete stock.stocks;
         delete stock.stocklocations;
-        
+
         // default stock
         stock.report_id = stock.report_id.id;
         stock.number_in_stock = 0;
@@ -1326,10 +1341,10 @@ angular.module( 'ngmReportHub' )
           delete locations[i].activity_type;
           delete locations[i].beneficiary_type;
           locations[i] = angular.merge( {}, d, p );
-          // set facility_lng, facility_lat 
+          // set facility_lng, facility_lat
             // this is propigated through the entire datasets
           if ( !locations[i].facility_lng && !locations[i].facility_lat ) {
-            // set admin3 or admin2 
+            // set admin3 or admin2
             locations[i].facility_lng = locations[i].admin3lng ? locations[i].admin3lng : locations[i].admin2lng;
             locations[i].facility_lat = locations[i].admin3lat ? locations[i].admin3lat : locations[i].admin2lat;
           }
@@ -1342,7 +1357,7 @@ angular.module( 'ngmReportHub' )
 
       // update entire report with project details (dont ask)
       getCleanReport: function( project, report ) {
-        
+
         // copy to p
         var p = angular.copy( project );
         var r = angular.copy( report );
@@ -1364,7 +1379,7 @@ angular.module( 'ngmReportHub' )
         delete r.project_donor;
         delete r.strategic_objectives;
 
-        // merge 
+        // merge
         report = angular.merge( {}, r, p );
 
         // locations
@@ -1375,7 +1390,7 @@ angular.module( 'ngmReportHub' )
           delete r.id;
           delete p.admin1pcode;
           delete p.admin2pcode;
-          delete p.admin3pcode;          
+          delete p.admin3pcode;
           delete r.admin1pcode;
           delete r.admin2pcode;
           delete r.admin3pcode;
@@ -1469,7 +1484,7 @@ angular.module( 'ngmReportHub' )
 
 			},
 
-      // get objectives by cluster 
+      // get objectives by cluster
       getStrategicObjectives: function(){
 
         var strategic_objectives = {
@@ -1668,7 +1683,7 @@ angular.module( 'ngmReportHub' )
       filterDuplicates: function( items, filterOn ){
 
           // vars
-          var hashCheck = {}, 
+          var hashCheck = {},
               newItems = [];
 
           // comparison fn
@@ -1678,7 +1693,7 @@ angular.module( 'ngmReportHub' )
             } else {
               return item;
             }
-          };          
+          };
 
           // filter unique
           angular.forEach( items, function ( item ) {
@@ -1694,7 +1709,7 @@ angular.module( 'ngmReportHub' )
               newItems.push( item );
             }
           });
-          
+
           return newItems;
 
       }
