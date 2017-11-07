@@ -3,7 +3,7 @@
 	<div class="col s12 m12 l12">
 		<div class="card">
 			<ul class="collection with-header">
-				
+
 				<li class="collection-header blue lighten-4">
 					<h5 class="report-work-title">
 <!-- 						<i class="material-icons left">group</i><span class="beneficiary-count">{{ project.definition.target_beneficiaries | sumArrayByKeys:project.indicators:project.skip | number }}</span> Target Population -->
@@ -79,7 +79,7 @@
 							          {{ project.showDescription($data, beneficiary) }}
 							        </span>
 							      </td>
-							      
+
 							      <td ng-show="project.showCash()">
 							        <span e-form="rowform"
 							              e-name="mpc_delivery_type_id"
@@ -149,19 +149,34 @@
 							        			editable-number="beneficiary.units"
 							        			e-min="0"
 							        			e-ng-change="project.updateInput($index, 'units', $data )"
-						              	e-ng-disabled="!project.showUnits()"
+						              	e-ng-disabled="
+															!project.showUnits() ||
+															!beneficiary.activity_description_id ||
+															( project.definition.cluster_id === 'wash' &&
+																beneficiary.activity_description_id.indexOf('education') === -1 &&
+																beneficiary.activity_description_id.indexOf('training') === -1 &&
+																beneficiary.activity_description_id.indexOf('cash') === -1 &&
+																beneficiary.activity_description_id.indexOf('in_kind') === -1 )"
 							        			e-required>
 							          {{ beneficiary.units }}
 							        </span>
 							      </td>
-								     
+
 								    <!-- unit type -->
 	 								  <td ng-show="project.showUnits()">
 							        <span e-form="rowform"
 							        			e-name="unit_type_id"
 							        			editable-select="beneficiary.unit_type_id"
 														e-placeholder="Select..."
-							        			e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units">
+							        			e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units"
+														e-ng-disabled="
+															!project.showUnits() ||
+															!beneficiary.activity_description_id ||
+															( project.definition.cluster_id === 'wash' &&
+																beneficiary.activity_description_id.indexOf('education') === -1 &&
+																beneficiary.activity_description_id.indexOf('training') === -1 &&
+																beneficiary.activity_description_id.indexOf('cash') === -1 &&
+																beneficiary.activity_description_id.indexOf('in_kind') === -1 )">
 							          {{ project.showUnitTypes($data, beneficiary) }}
 							        </span>
 							      </td>
@@ -189,7 +204,7 @@
 							        			editable-number="beneficiary.households"
 							        			e-min="0"
 							        			e-ng-change="project.updateInput( $index, 'households', $data )"
-							        			e-ng-disabled="!project.showHouseholds()"	        			
+							        			e-ng-disabled="!project.showHouseholds()"
 							        			e-required>
 							          {{ beneficiary.households }}
 							        </span>
@@ -209,7 +224,7 @@
 							      </td>
 							      <td>
 							        <!-- editable number -->
-							        <span e-form="rowform" 
+							        <span e-form="rowform"
 							        			e-name="boys"
 							        			editable-number="beneficiary.boys"
 							        			e-min="0"
@@ -236,7 +251,7 @@
 							        			editable-number="beneficiary.men"
 							        			e-min="0"
 							        			e-ng-change="project.updateInput($index, 'men', $data )"
-							        			e-ng-disabled="( beneficiary.cluster_id === 'nutrition' && 
+							        			e-ng-disabled="( beneficiary.cluster_id === 'nutrition' &&
 							        							beneficiary.activity_type_id !== 'nutrition_education_training' ) ||
 							        							beneficiary.activity_type_id === 'mch' ||
 							        							beneficiary.activity_type_id === 'vaccination' ||
@@ -304,13 +319,13 @@
 							          {{ beneficiary.elderly_women }}
 							        </span>
 							      </td>
-							      
+
 							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
 							        <!-- form -->
 							        <form editable-form name="rowform" ng-show="rowform.$visible" onbeforesave="project.saveBeneficiary()" class="form-buttons form-inline" shown="inserted == beneficiary">
-							          <button 
+							          <button
 							          		title="Save" type="submit" class="btn waves-effect waves-light save"
-							          		ng-if="rowform.$visible && !project.newProject" 
+							          		ng-if="rowform.$visible && !project.newProject"
 							          		ng-disabled="
 							                  	( ( !project.project_details_valid() ) ||
 							                    ( !project.activity_type_valid() ) ||
@@ -345,9 +360,9 @@
 							                    ( !project.submit ) )">
 							          	<i class="material-icons">delete</i>
 							          </button>
-							        </div>  
+							        </div>
 							      </td>
-							      
+
 							    </tr>
 							  </table>
 

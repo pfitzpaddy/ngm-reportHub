@@ -343,7 +343,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var selected = [];
           $beneficiary.beneficiary_type_id = $data;
           if($beneficiary.beneficiary_type_id) {
-            selected = $filter('filter')( $scope.project.lists.beneficiary_types, { beneficiary_type_id: $beneficiary.beneficiary_type_id }, true);
+            selected = $filter('filter')( $scope.project.lists.beneficiary_types, { beneficiary_type_id: $beneficiary.beneficiary_type_id, cluster_id: $beneficiary.cluster_id }, true);
           }
           if ( selected.length ) {
             $beneficiary.beneficiary_type_name = selected[0].beneficiary_type_name;
@@ -406,7 +406,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
             if( 
-                ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' || b.cluster_id === 'wash' ) ||
+                ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' ) ||
                 ( b.activity_description_id && 
                 ( b.activity_description_id.indexOf( 'education' ) > -1 ||
                   b.activity_description_id.indexOf( 'training' ) > -1 ||

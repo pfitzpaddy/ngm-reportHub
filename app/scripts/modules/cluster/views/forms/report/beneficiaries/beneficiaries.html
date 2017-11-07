@@ -1,6 +1,6 @@
 
 <style>
-  
+
   .collection.with-header .collection-item.avatar{
     padding-left: 51 !important;
   }
@@ -26,7 +26,7 @@
       <td ng-if="project.showMen( $locationIndex )">Men</td>
       <td ng-if="project.showWomen( $locationIndex )">Women</td>
       <td ng-if="false">Eld. Men</td>
-      <td ng-if="false">Eld. Women</td>      
+      <td ng-if="false">Eld. Women</td>
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
     <tr ng-repeat="beneficiary in project.report.locations[$locationIndex].beneficiaries track by $index">
@@ -71,7 +71,7 @@
         <span e-form="rowform"
               e-name="category_type_id"
               editable-select="beneficiary.category_type_id"
-              e-placeholder="Select..." 
+              e-placeholder="Select..."
               e-ng-options="b.category_type_id as b.category_type_name for b in project.category_types | filter:{ cluster_id: beneficiary.cluster_id }"
               e-ng-disabled="!beneficiary.activity_description_id">
           {{ project.showCategory($data, beneficiary) }}
@@ -143,11 +143,12 @@
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $index, 'units', $data )"
               e-ng-disabled="
-                ( b.cluster_id !== 'eiewg' && b.cluster_id !== 'fsac' && b.cluster_id !== 'wash' ) &&
-                ( b.activity_description_id && 
-                ( b.activity_description_id.indexOf( 'education' ) > -1 &&
-                  b.activity_description_id.indexOf( 'training' ) > -1 &&
-                  b.activity_description_id.indexOf('cash') > -1 ) )"
+                  !beneficiary.activity_description_id ||
+                  ( project.definition.cluster_id === 'wash' &&
+                  beneficiary.activity_description_id.indexOf('education') === -1 &&
+                  beneficiary.activity_description_id.indexOf('training') === -1 &&
+                  beneficiary.activity_description_id.indexOf('cash') === -1 &&
+                  beneficiary.activity_description_id.indexOf('in_kind') === -1 )"
               e-required>
           {{ beneficiary.units }}
         </span>
@@ -157,7 +158,14 @@
               e-name="unit_type_id"
               editable-select="beneficiary.unit_type_id"
               e-placeholder="Select..."
-              e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units">
+              e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units"
+              e-ng-disabled="
+                !beneficiary.activity_description_id ||
+                ( project.definition.cluster_id === 'wash' &&
+                beneficiary.activity_description_id.indexOf('education') === -1 &&
+                beneficiary.activity_description_id.indexOf('training') === -1 &&
+                beneficiary.activity_description_id.indexOf('cash') === -1 &&
+                beneficiary.activity_description_id.indexOf('in_kind') === -1 )">
           {{ project.showUnitTypes($data, beneficiary) }}
         </span>
       </td>
@@ -219,7 +227,7 @@
       <td>
         <!-- editable number -->
         <span e-form="rowform"
-              e-name="girls" 
+              e-name="girls"
               editable-number="beneficiary.girls"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $index, 'girls', $data )"
@@ -253,8 +261,8 @@
         <span e-form="rowform"
               e-name="women"
               editable-number="beneficiary.women"
-              e-min="0" 
-              e-ng-change="project.updateInput( $locationIndex, $index, 'women', $data )" 
+              e-min="0"
+              e-ng-change="project.updateInput( $locationIndex, $index, 'women', $data )"
               e-ng-disabled="
                       beneficiary.activity_type_id === 'vaccination' ||
                       beneficiary.activity_description_id === 'penta_3' ||
@@ -268,8 +276,8 @@
         <span e-form="rowform"
               e-name="elderly_men"
               editable-number="beneficiary.elderly_men"
-              e-min="0" 
-              e-ng-change="project.updateInput( $locationIndex, $index, 'elderly_men', $data )" 
+              e-min="0"
+              e-ng-change="project.updateInput( $locationIndex, $index, 'elderly_men', $data )"
               e-ng-disabled="beneficiary.cluster_id === 'eiewg' ||
                       beneficiary.cluster_id === 'nutrition' ||
                       beneficiary.cluster_id === 'wash' ||
@@ -289,8 +297,8 @@
         <span e-form="rowform"
               e-name="elderly_women"
               editable-number="beneficiary.elderly_women"
-              e-min="0" 
-              e-ng-change="project.updateInput( $locationIndex, $index, 'elderly_women', $data )" 
+              e-min="0"
+              e-ng-change="project.updateInput( $locationIndex, $index, 'elderly_women', $data )"
               e-ng-disabled="beneficiary.cluster_id === 'eiewg' ||
                       beneficiary.cluster_id === 'nutrition' ||
                       beneficiary.cluster_id === 'wash' ||
@@ -304,8 +312,8 @@
               e-required>
           {{ beneficiary.elderly_women }}
         </span>
-      </td>  
-      
+      </td>
+
       <td style="white-space: nowrap" ng-show="project.report.report_status !== 'complete'">
         <!-- form -->
         <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" onbeforesave="project.save( false, false )" class="form-buttons form-inline" shown="inserted === beneficiary">
@@ -324,7 +332,7 @@
               ng-disabled="!project.formComplete()">
           	<i class="material-icons">delete</i>
           </div>
-        </div>  
+        </div>
       </td>
 
     </tr>
