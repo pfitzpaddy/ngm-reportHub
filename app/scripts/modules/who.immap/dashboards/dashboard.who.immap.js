@@ -115,6 +115,38 @@ angular.module('ngmReportHub')
 							columns: [{
 								styleClass: 's12 m12 l4',
 								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/who-immap/better_data.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/who-immap/better_decisions.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/who-immap/better_outcomes.png"></img>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
@@ -195,7 +227,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px;',
 									config: {
-										height: '680px',
+										height: '420px',
 										display: {
 											type: 'marker',
 											zoomToBounds: true
