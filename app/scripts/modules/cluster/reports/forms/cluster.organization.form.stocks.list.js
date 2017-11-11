@@ -150,7 +150,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
         removeLocationModal: function( $index ) {
 
           // set location index
-          $scope.report.locationIndex = $scope.report.organization.warehouses.length-1 - $index;
+          $scope.report.locationIndex = $index;
 
           // open confirmation modal
           $('#warehouses-modal').openModal({ dismissible: false });
