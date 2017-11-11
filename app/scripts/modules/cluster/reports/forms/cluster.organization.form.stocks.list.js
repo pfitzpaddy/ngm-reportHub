@@ -117,10 +117,10 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
         // add location
         addLocation: function(){
 
-          // process + clean warehouse 
-          var warehouse = 
+          // process + clean warehouse
+          var warehouse =
               ngmClusterHelper.getCleanWarehouseLocation( ngmUser.get(), $scope.report.organization, $scope.report.options.warehouse );
- 
+
           // extend targets with project, ngmData details & push
           $scope.report.organization.warehouses.push( warehouse );
 
@@ -150,7 +150,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
         removeLocationModal: function( $index ) {
 
           // set location index
-          $scope.report.locationIndex = $scope.report.organization.warehouses.length-1 - $index;
+          $scope.report.locationIndex = $scope.report.organization.warehouses.length-1;
 
           // open confirmation modal
           $('#warehouses-modal').openModal({ dismissible: false });
@@ -171,7 +171,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
 
             // set org
             $scope.report.organization = results[0].data;
-            
+
             // on success
             Materialize.toast( 'Warehouse Location Removed!', 3000, 'success');
 
