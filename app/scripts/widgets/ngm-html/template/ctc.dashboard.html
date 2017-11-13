@@ -1,7 +1,11 @@
 
 <!-- bind html -->
-<span class="left" style="padding-top:8px;">Last Updated: {{ panel.data.updatedAt }}</span>
 
-<a class="waves-effect waves-light btn right" href="#/ctc">
-	<i class="material-icons left">cached</i>Reset Dashboard
-</a>
+<button id="dashboard-fetch-btn" class="waves-effect waves-light btn blue left" ng-click="panel.fetchData()">
+	<i class="material-icons left">cached</i>Refresh Data
+</button>
+<span class="left" style="padding-left: 10px; padding-top:8px;">Last Updated: {{ panel.data.updatedAt }}</span>
+
+<button class="waves-effect waves-light btn right" href="#/who/ethiopia/ctc">
+	Reset Dashboard
+</button>

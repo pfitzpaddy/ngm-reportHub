@@ -12,14 +12,6 @@ angular.module( 'ngmReportHub' )
 			'AngularJS',
 			'Karma'
 		];
-
-		// init empty model
-		$scope.model = {
-			rows: [{}]
-		};
-
-		console.log('here')
-
 		// report object
 		$scope.report = {
 
@@ -47,7 +39,7 @@ angular.module( 'ngmReportHub' )
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle hide-on-small-only',
-							title: 'Assessments page for WCO Ethiopia'
+							title: 'Please select an assessments from the options below'
 						}
 					},
 					rows: [{
@@ -78,9 +70,12 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// assign to ngm app scope
-				$scope.report.ngm.dashboard.model = $scope.model;
+				$scope.report.ngm.dashboard.model = $scope.model;				
 			}
 
 		}
+
+		// set page
+		$scope.report.init();
 		
 	}]);

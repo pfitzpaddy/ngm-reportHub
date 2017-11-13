@@ -33,7 +33,7 @@ angular
 		'ngm.widget.organization.stock',
 		// modules
 		'ngmCluster',
-		'ngmEth',
+		'ngmEthiopia',
 		'ngmDews',
 		'ngmDrr',
     'ngmEpr',
@@ -121,11 +121,11 @@ angular
 						return ngmAuth.grantPublicAccess();
 					}],
 				}
-			});
+			})
 			// DEFAULT
-			// .otherwise({
-			// 	redirectTo: '/cluster/projects'
-			// });
+			.otherwise({
+				redirectTo: '/cluster/projects'
+			});
 	}])
 	.run([ '$rootScope', '$window', '$location', 'ngmAuth', 'ngmUser', function( $rootScope, $window, $location, ngmAuth, ngmUser ) {
 
@@ -228,12 +228,22 @@ angular
 						break;
 					case 'who':
 						// set style obj
-						$scope.ngm.style = {
-							logo: 'logo-who.png',
-							home: '#/who',
-							darkPrimaryColor: '#1976D2',
-							defaultPrimaryColor: '#2196F3',
-							lightPrimaryColor: '#BBDEFB'
+						if ( $location.$$path.split('/')[2] === 'ethiopia' ) {
+							$scope.ngm.style = {
+								logo: 'logo-health.png',
+								home: '#/who/ethiopia',
+								darkPrimaryColor: '#1976D2',
+								defaultPrimaryColor: '#2196F3',
+								lightPrimaryColor: '#BBDEFB'
+							}
+						} else {
+							$scope.ngm.style = {
+								logo: 'logo-who.png',
+								home: '#/who',
+								darkPrimaryColor: '#1976D2',
+								defaultPrimaryColor: '#2196F3',
+								lightPrimaryColor: '#BBDEFB'
+							}
 						}
 						break;
           case 'epr':

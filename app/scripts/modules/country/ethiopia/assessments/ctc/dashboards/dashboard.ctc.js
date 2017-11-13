@@ -1,12 +1,12 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:DashboardDewsCtrl
+ * @name ngmReportHubApp.controller:DashboardEthCtcCtrl
  * @description
- * # LoginCtrl
+ * # DashboardEthCtcCtrl
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardCtcCtrl', [
+	.controller('DashboardEthCtcCtrl', [
 			'$scope', 
 			'$q', 
 			'$http', 
@@ -269,7 +269,31 @@ angular.module('ngmReportHub')
 									card: 'white grey-text text-darken-2',
 									style: 'margin:15px; padding-bottom:30px;',
 									config: {
-										id: 'dashboard-btn',
+										fetchData: function() {
+
+											// disabled btn
+											$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
+
+											// toast
+											$timeout( function(){ Materialize.toast( 'Refreshing data...' , 6000, 'note' ); });
+
+											// ngmData
+											ngmData
+												.get( { method: 'GET', url: ngmAuth.LOCATION + '/api/ctc/getKoboData' } )
+												.then( function( result  ){
+
+													// toast
+													$timeout( function(){ 
+														Materialize.toast( 'CTC Assessments data updated!' , 4000, 'success' );
+														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
+														$timeout( function(){
+															$location.path( '/who/ethiopia/ctc' );
+														}, 400 );
+													}, 600 );
+													
+												});
+											
+										},
 										request: { method: 'GET', url: ngmAuth.LOCATION + '/api/ctc/latestUpdate' },
 										templateUrl: '/scripts/widgets/ngm-html/template/ctc.dashboard.html'
 									}
