@@ -117,11 +117,6 @@ gulp.task('html:cluster', function () {
     .pipe(gulp.dest(yeoman.dist + '/scripts/modules/cluster/views'));
 });
 
-gulp.task('html:country', function () {
-  return gulp.src(yeoman.app + '/scripts/modules/country/ethiopia/views/**/*.html')
-    .pipe(gulp.dest(yeoman.dist + '/scripts/modules/country/ethiopia/views'));
-});
-
 
 ///////////
 // Build //

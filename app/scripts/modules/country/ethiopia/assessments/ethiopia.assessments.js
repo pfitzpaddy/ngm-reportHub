@@ -50,7 +50,7 @@ angular.module( 'ngmReportHub' )
 								card: 'white grey-text text-darken-2',
 								style: 'padding: 0px;',
 								config: {
-									templateUrl: '/scripts/modules/country/ethiopia/views/ethiopia.assessments.html',
+									templateUrl: '/views/modules/ethiopia.assessments.html',
 					      }
 					    }]
 					  }]
