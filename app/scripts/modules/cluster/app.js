@@ -357,8 +357,8 @@ angular
 				redirectTo: '/cluster/organization'
 			})
 			// DEFAULT
-			.otherwise({
-				redirectTo: '/cluster/organization'
-			});
+			// .otherwise({
+			// 	redirectTo: '/cluster/organization'
+			// });
 
 	}]);

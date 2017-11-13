@@ -33,7 +33,7 @@ angular
 		'ngm.widget.organization.stock',
 		// modules
 		'ngmCluster',
-		'ngmCtc',
+		'ngmEth',
 		'ngmDews',
 		'ngmDrr',
     'ngmEpr',
