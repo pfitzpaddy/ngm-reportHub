@@ -37,6 +37,16 @@ angular
 						return ngmAuth.grantPublicAccess();
 					}],
 				}
+			})
+			// cdc monthly reports
+			.when( '/who/cdc/october/2017', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardWhoCdcOctober2017Ctrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.grantPublicAccess();
+					}],
+				}
 			});
 
 	}]);

@@ -408,7 +408,7 @@ angular.module('ngmReportHub')
 									}
 								}]
 							}]
-						},{			
+						},{	
 							columns: [{
 								styleClass: 's12 m12 l12',
 								widgets: [{
