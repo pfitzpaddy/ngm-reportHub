@@ -265,7 +265,7 @@ angular
 						}
 
 						// if WHO Ethiopia user!
-						if ( ngmUser.get().organization_tag === 'who' 
+						if ( ngmUser.get() && ngmUser.get().organization_tag === 'who' 
 								&& ngmUser.get().admin0pcode === 'ET' ) {
 							$scope.ngm.style = {
 								logo: 'logo-health.png',
