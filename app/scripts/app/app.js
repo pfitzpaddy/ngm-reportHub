@@ -264,13 +264,25 @@ angular
 							logo = 'logo-' + ngmUser.get().cluster_id + '.png';
 						}
 
-						// default
-						$scope.ngm.style = {
-							logo: logo,
-							home: '#/cluster',
-							darkPrimaryColor: '#1976D2',
-							defaultPrimaryColor: '#2196F3',
-							lightPrimaryColor: '#BBDEFB'
+						// if WHO Ethiopia user!
+						if ( ngmUser.get().organization_tag === 'who' 
+								&& ngmUser.get().admin0pcode === 'ET' ) {
+							$scope.ngm.style = {
+								logo: 'logo-health.png',
+								home: '#/who/ethiopia',
+								darkPrimaryColor: '#1976D2',
+								defaultPrimaryColor: '#2196F3',
+								lightPrimaryColor: '#BBDEFB'
+							}
+						} else {
+							// default
+							$scope.ngm.style = {
+								logo: logo,
+								home: '#/cluster',
+								darkPrimaryColor: '#1976D2',
+								defaultPrimaryColor: '#2196F3',
+								lightPrimaryColor: '#BBDEFB'
+							}
 						}
 				}
 

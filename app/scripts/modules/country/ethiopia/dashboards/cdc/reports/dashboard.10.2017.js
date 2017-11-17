@@ -192,6 +192,60 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
+								styleClass: 's12 m12 l6',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/ethiopia/contact_beatrice_gmail.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l6',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;height:192px;text-align: center;',
+									config: {
+										html: '<img width="75%" src="images/dashboards/ethiopia/Health-Cluster.png"></img>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/who-immap/contact_jon.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/who-immap/contact_bois.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/ethiopia/contact_patrick_fitzgerald.png"></img>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
 								styleClass: 's12 m12 l12',
 								widgets: [{
 									type: 'html',

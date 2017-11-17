@@ -133,9 +133,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var template;
           if ( config.project.cluster_id === 'eiewg' ) {
             template = 'target-locations/locations-eiewg.html';
-          } else if ( config.project.admin0pcode === 'ET' )  {
-            template = 'target-locations/locations-ET.html';
-          }else {
+          // } else if ( config.project.admin0pcode === 'ET' )  {
+          //   template = 'target-locations/locations-ET.html';
+          } else {
             template = 'target-locations/locations.html';
           }
           return template;

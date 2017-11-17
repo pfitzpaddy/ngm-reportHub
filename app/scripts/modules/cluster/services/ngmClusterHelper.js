@@ -604,10 +604,6 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_id: 'conflict_affected',
             beneficiary_type_name: 'Conflict Affected'
           },{
-            cluster_id: [ 'health', 'wash' ],
-            beneficiary_type_id: 'health_workers',
-            beneficiary_type_name: 'Health Workers'
-          },{
             cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'host_communities',
             beneficiary_type_name: 'Host Communities'
@@ -1086,6 +1082,12 @@ angular.module( 'ngmReportHub' )
         // health & Et
 				if ( admin0pcode === 'ET' ) {
           facility_types = [{
+            facility_type_id: 'community_based',
+            facility_type_name: 'Community Based'
+          },{
+            facility_type_id: 'multiple_facilities',
+            facility_type_name: 'Multiple Facilities'
+          },{
             facility_type_id: 'primary_hospital',
             facility_type_name: 'Primary Hospital'
           },{
@@ -1406,6 +1408,45 @@ angular.module( 'ngmReportHub' )
           l.report_id = report.id;
           // merge
           report.locations[i] = angular.merge( {}, l, r, p );
+
+          // locations
+          angular.forEach( report.locations[i].trainings, function( training, j ){
+            // rm
+            // delete p.cluster_id;
+            // delete p.cluster;
+            // report
+            // delete r.cluster_id;
+            // delete r.cluster;
+            // location
+            delete l.id;
+            delete l.report_id;
+            delete l.beneficiaries;
+            // delete l.cluster_id;
+            // delete l.cluster;
+            // remove to ensure updated
+            var t = angular.copy( training );
+            delete t.activity_description;
+            delete t.activity_type;
+            delete t.beneficiary_type;
+            delete t.category_type;
+            delete t.project_donor;
+            delete t.strategic_objectives;
+            // ids
+            t.project_id = project.id;
+            t.report_id = report.id;
+            // merge
+            report.locations[i].trainings[j] = angular.merge( {}, t, l, r, p );
+
+            // trainees
+            angular.forEach( training.training_participants, function( trainees, k ){
+              var trainings = angular.copy( report.locations[i].trainings[j] );
+              delete trainings.id;
+              report.locations[i].trainings[j].training_participants[k] = angular.merge( {}, trainees, trainings);
+              delete report.locations[i].trainings[j].training_participants[k].trainings;
+              delete report.locations[i].trainings[j].training_participants[k].training_participants;
+            });
+
+          });
 
           // locations
           angular.forEach( report.locations[i].beneficiaries, function( beneficiary, j ){

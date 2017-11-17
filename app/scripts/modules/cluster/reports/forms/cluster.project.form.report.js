@@ -74,7 +74,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           // Population
           delivery_types:ngmClusterHelper.getDeliveryTypes(),
           // MPC
-          mpc_delivery_types: ngmClusterHelper.getMpcDeliveryTypes()
+          mpc_delivery_types: ngmClusterHelper.getMpcDeliveryTypes(),
+          trainee_affiliations: [{ trainee_affiliation_id: 'moh', trainee_affiliation_name: 'MOH' }, { trainee_affiliation_id: 'ngo', trainee_affiliation_name: 'NGO' }],
+          trainee_health_workers: [{ trainee_health_worker_id: 'doctors', trainee_health_worker_name: 'Doctors' }, 
+                                   { trainee_health_worker_id: 'nurses', trainee_health_worker_name: 'Nurses' },
+                                   { trainee_health_worker_id: 'midwives', trainee_health_worker_name: 'Midwives' },
+                                   { trainee_health_worker_id: 'community_health_workers', trainee_health_worker_name: 'Community Health Workers' }]
         },
 
         // templates
@@ -83,7 +88,49 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         beneficiariesUrl: config.report.report_year === 2016 ? 'beneficiaries/2016/beneficiaries.html' : 'beneficiaries/beneficiaries.html',
         beneficiariesTrainingUrl: 'beneficiaries/2016/beneficiaries-training.html',
         beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health-2016.html',
+        trainingsUrl: 'trainings/trainings.html',
+        training_participantsUrl: 'trainings/training_participants.html',
         notesUrl: 'notes.html',
+
+        datepicker: {
+          startOnClose( $parent, $index, value ) {
+            var a = moment( value );
+            var b = moment( $scope.project.report.locations[ $parent ].trainings[ $index ].training_end_date );
+            $scope.project.report.locations[ $parent ].trainings[ $index ].training_start_date = moment( value ).format( 'YYYY-MM-DD' );
+            $scope.project.report.locations[ $parent ].trainings[ $index ].training_days_number = b.diff( a, 'days' )+1;
+            console.log($scope.project.report.locations[ $parent ].trainings[ $index ].training_days_number)
+          },
+          endOnClose( $parent, $index, value ) {
+            var a = moment( $scope.project.report.locations[ $parent ].trainings[ $index ].training_start_date );
+            var b = moment( value );
+            $scope.project.report.locations[ $parent ].trainings[ $index ].training_end_date = moment( value ).format( 'YYYY-MM-DD' );
+            $scope.project.report.locations[ $parent ].trainings[ $index ].training_days_number = b.diff( a, 'days' )+1;
+          },
+        },
+
+        // get activities
+        getActivityTypes: function(){
+          // 
+          var activity_types = $scope.project.definition.activity_type;
+          if ( $scope.project.definition.admin0pcode === 'ET' ) {
+            activity_types = $filter('filter')( $scope.project.definition.activity_type, { activity_type_id: '!training_capacity_building' }, true);
+          }
+          return activity_types;
+        },
+
+        // display traiings in monthly reports
+        displayTrainings: function() {
+          // if training and capacity building
+          if ( $scope.project.definition.admin0pcode === 'ET' ) {
+            if ( $filter('filter')( $scope.project.definition.activity_type, { activity_type_id: 'training_capacity_building' }, true).length ) {
+              return true;
+            } else {
+              return false;
+            }
+          } else {
+            return false;
+          }
+        },
 
         // cancel and delete empty project
         cancel: function() {
@@ -92,6 +139,48 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             // Re-direct to summary
             $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
           }, 400);
+        },
+
+        // add trainings
+        addTrainings: function( $parent ) {
+          // trainings
+          $scope.trainingInserted = {
+            training_title: 'Training / Workshop Title...',
+            training_start_date: moment().format('YYYY-MM-DD'),
+            training_end_date: moment().add( 3, 'd' ).format('YYYY-MM-DD'),
+            training_days_number: 0,
+            training_total_trainees: 0,
+            training_conducted_by: $scope.project.definition.organization,
+            training_supported_by: $scope.project.definition.organization,
+            training_participants: []
+          }
+          
+          // clone
+          if ( !$scope.project.report.locations[ $parent ].trainings ) {
+            $scope.project.report.locations[ $parent ].trainings = [];
+          }
+          $scope.project.report.locations[ $parent ].trainings.push( $scope.trainingInserted );
+
+          // expand title text
+          $timeout(function() { $('.editable-text').css({ width: '100%' }); }, 10);
+        },
+
+        // add particiapnt
+        addParticipant: function( $grandParent, $parent  ){
+          // trainings
+          $scope.participantInserted = {
+            trainee_affiliation_id: null,
+            trainee_affiliation_name: null,
+            trainee_health_worker_id: null,
+            trainee_health_worker_name: null,           
+            trainee_men: 0,
+            trainee_women: 0
+          }
+          // add to training participants
+          if ( !$scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_participants ) {
+            $scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_participants = [];
+          }
+          $scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_participants.push( $scope.participantInserted );
         },
 
         // add beneficiary
@@ -445,6 +534,55 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           return display;
         },
 
+        // training_title
+        showTrainingTitle: function( $data, training ){
+          training.training_title = $data;
+          return training.training_title ? training.training_title : '';
+        },
+
+        // training_title
+        showTrainingConductedBy: function( $data, training ){
+          training.training_conducted_by = $data;
+          return training.training_conducted_by ? training.training_conducted_by : '';
+        },
+
+        // training_title
+        showTrainingSupportedBy: function( $data, training ){
+          training.training_supported_by = $data;
+          return training.training_supported_by ? training.training_supported_by : '';
+        },
+
+        // show affiliation
+        showAffiliation: function( $data, $participant ) {
+          var selected = [];
+          $participant.trainee_affiliation_id = $data;
+          if( $participant.trainee_affiliation_id ) {
+            selected = $filter('filter')( $scope.project.lists.trainee_affiliations, { trainee_affiliation_id: $participant.trainee_affiliation_id }, true );
+            $participant.trainee_affiliation_name = selected[0].trainee_affiliation_name;
+          }
+          return selected.length ? selected[0].trainee_affiliation_name : 'No Selection!';
+        },
+
+        showHealthWorker: function( $data, $participant ) {
+          var selected = [];
+          $participant.trainee_health_worker_id = $data;
+          if( $participant.trainee_health_worker_id ) {
+            selected = $filter('filter')( $scope.project.lists.trainee_health_workers, { trainee_health_worker_id: $participant.trainee_health_worker_id }, true );
+            $participant.trainee_health_worker_name = selected[0].trainee_health_worker_name;
+          }
+          return selected.length ? selected[0].trainee_health_worker_name : 'No Selection!';
+        },
+
+        // training_title
+        setTraineeMen: function( $data, participant ){
+          participant.trainee_men = $data;
+          return participant.trainee_men;
+        },
+        setTraineeWomen: function( $data, participant ){
+          participant.trainee_women = $data;
+          return participant.trainee_women;
+        },
+
         // disable input
         disabledInput: function( $beneficiary, indicator ) {
           var disabled = false;
@@ -503,11 +641,110 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         },
 
         // remove from array if no id
+        cancelTrainingEdit: function( $parent, $index ) {
+          if ( !$scope.project.report.locations[ $parent ].trainings[ $index ].id ) {
+            $scope.project.report.locations[ $parent ].trainings.splice( $index, 1 );
+          }
+        },
+
+        // remove from array if no id
+        cancelTraineeEdit: function( $grandParent, $parent, $index ) {
+          if ( !$scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_participants[ $index ].id ) {
+            $scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_participants.splice( $index, 1 );
+          }
+        },
+
+        // remove from array if no id
         cancelEdit: function( $parent, $index ) {
           if ( !$scope.project.report.locations[ $parent ].beneficiaries[ $index ].id ) {
             $scope.project.report.locations[ $parent ].beneficiaries.splice( $index, 1 );
           }
         },
+
+        // remove modal
+        removeTrainingModal: function( $parent, $index ) {
+          if ( $scope.project.formComplete() ){
+            // set location index
+            $scope.project.locationIndex = $parent;
+            $scope.project.trainingIndex = $index;
+            // open confirmation modal
+            $( '#training-modal' ).openModal({ dismissible: false });
+          }
+        },
+
+        // removeTraining
+        removeTraining: function(){
+          // t
+          var t = $scope.project.report.locations[ $scope.project.locationIndex ].trainings[ $scope.project.trainingIndex ];
+          $scope.project.report.locations[ $scope.project.locationIndex ].trainings.splice( $scope.project.trainingIndex, 1 );
+
+          // setReportRequest
+          var setBeneficiariesRequest = {
+            method: 'POST',
+            url: ngmAuth.LOCATION + '/api/cluster/report/removeTraining',
+            data: {
+              id: t.id
+            }
+          }
+
+          // set report
+          $http( setBeneficiariesRequest ).success( function( result ){
+
+            if ( result.err ) {
+              // update
+              Materialize.toast( 'Error! Please try again', 6000, 'error' );
+            }
+
+            if ( !result.err ) {
+
+              // save report
+              $scope.project.save( false, false );
+            }
+
+          }).error(function( err ) {
+            // update
+            Materialize.toast( 'Error!', 6000, 'error' );
+          });
+
+        },
+
+        // removeTraining
+        removeTrainee: function( $grandParent, $parent, $index ) {
+          
+          // t
+          var t = $scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_participants[ $index ];
+          $scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_participants.splice( $index, 1 );
+
+          // setReportRequest
+          var setBeneficiariesRequest = {
+            method: 'POST',
+            url: ngmAuth.LOCATION + '/api/cluster/report/removeTrainee',
+            data: {
+              id: t.id
+            }
+          }
+
+          // set report
+          $http( setBeneficiariesRequest ).success( function( result ){
+
+            if ( result.err ) {
+              // update
+              Materialize.toast( 'Error! Please try again', 6000, 'error' );
+            }
+
+            if ( !result.err ) {
+
+              // save report
+              $scope.project.save( false, false );
+            }
+
+          }).error(function( err ) {
+            // update
+            Materialize.toast( 'Error!', 6000, 'error' );
+          });
+
+        },
+
 
         // remove location from location list
         removeBeneficiaryModal: function( $parent, $index ) {
@@ -525,6 +762,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
           // b
           var b = $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries[ $scope.project.beneficiaryIndex ];
+          $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
 
           // setReportRequest
           var setBeneficiariesRequest = {
@@ -544,8 +782,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             }
 
             if ( !result.err ) {
-              // remove
-              $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
 
               // save report
               $scope.project.save( false, false );
