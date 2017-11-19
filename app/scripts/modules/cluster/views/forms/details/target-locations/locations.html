@@ -23,18 +23,24 @@
 							  <table class="bordered responsive-table" ng-show="project.definition.target_locations.length">
 							    <tr style="font-weight: 400">
 							    	<td></td>
+							    	<td>Reporter</td>
 							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
 							      <td ng-if="project.lists.admin3.length">{{ project.lists.admin3[0].admin3type_name }}</td>
 							      <td ng-if="project.definition.cluster_id === 'health'">Facility Type</td>
-							      <td ng-if="project.definition.cluster_id === 'health'">Facility Name *</td>
-							      <td ng-if="project.definition.cluster_id !== 'health'">Location Name *</td>
+							      <td>Location *</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
 							    <tr ng-repeat="location in project.definition.target_locations track by $index">
 							    	<td>
 							    		<i class="material-icons" style="color: teal;">person_pin</i>
 							    	</td>
+							      <td>
+							        <!-- editable admin1 -->
+							        <span e-placeholder="Select..." editable-select="location.username" e-name="username" e-form="locationform" e-ng-options="item.username as item.username for item in project.lists.users" e-required>
+							          {{ project.showReporter($data, location) }}
+							        </span>
+							      </td>
 							      <td>
 							        <!-- editable admin1 -->
 							        <span e-placeholder="Select..." editable-select="location.admin1pcode" e-name="admin1pcode" e-form="locationform" e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1" e-required>

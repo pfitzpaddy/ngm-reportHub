@@ -36,6 +36,22 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         config.project.project_budget_currency = 'usd';
       }
 
+      // set org
+      $http({
+        method: 'POST',
+        url: ngmAuth.LOCATION + '/api/getOrganizationUsers',
+        data: {
+          admin0pcode: config.project.admin0pcode,
+          cluster_id: config.project.cluster_id,
+          organization: config.project.organization
+        }
+      }).success( function( user ) {
+        // return
+        $scope.project.lists.users = user;
+      }).error( function( err ) {
+        // 
+      });
+
       // project
       $scope.project = {
 
@@ -68,6 +84,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         lists: {
           currencies: ngmClusterHelper.getCurrencies( config.project.admin0pcode ),
           units: ngmClusterHelper.getUnits( config.project.admin0pcode ),
+
+          // users (fetched below)
+          users: [],
 
           // delivery
           delivery_types: ngmClusterHelper.getDeliveryTypes(),
@@ -601,6 +620,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // add location
         addLocation: function() {
           $scope.inserted = {
+            // reporter
+            name: $scope.project.definition.name,
+            position: $scope.project.definition.position,
+            phone: $scope.project.definition.phone,
+            email: $scope.project.definition.email,
+            username: $scope.project.definition.username,
+            // location
             admin1pcode: null,
             admin1name: null,
             admin2pcode: null,
@@ -628,6 +654,17 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             $scope.inserted = angular.merge( $scope.inserted, l );
           }
          $scope.project.definition.target_locations.push( $scope.inserted );
+        },
+
+        showReporter: function($data, location){
+          var selected = [];
+          location.username = $data;
+          if(location.username) {
+            selected = $filter('filter')( $scope.project.lists.users, { username: location.username }, true);
+            if (selected[0] && selected[0].id) { delete selected[0].id; }
+            angular.merge(location, selected[0]);
+          }
+          return selected.length ? selected[0].username : 'No Selection!';
         },
 
         showAdmin1: function($data, location){

@@ -1334,6 +1334,12 @@ angular.module( 'ngmReportHub' )
         delete p.admin1pcode;
         delete p.admin2pcode;
         delete p.admin3pcode;
+        // user
+        delete p.name;
+        delete p.position;
+        delete p.phone;
+        delete p.email;
+        delete p.username;
 
         // needs to operate on an array
         angular.forEach( locations, function( d, i ){

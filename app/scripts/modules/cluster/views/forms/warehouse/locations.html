@@ -112,9 +112,9 @@
 							    	ng-change="report.updateLocationSelect( false, false )"
 							    	ng-disabled="!report.options.warehouse.admin2"
 			      				ng-options="item as item.admin3name for item in report.options.list.admin3 | filter: { admin2pcode: report.options.warehouse.admin2.admin2pcode }">
-			      				<option value="" disabled selected>Choose {{ report.options.list.admin3[0].admin2type_name }}</option>
+			      				<option value="" disabled selected>Choose {{ report.options.list.admin3[0].admin3type_name }}</option>
 			      			</select>
-			      			<label>{{ report.options.list.admin3[0].admin2type_name }} *</label>
+			      			<label>{{ report.options.list.admin3[0].admin3type_name }} *</label>
 			      		</div>
 
 							  <div class="input-field col s12 m2">
