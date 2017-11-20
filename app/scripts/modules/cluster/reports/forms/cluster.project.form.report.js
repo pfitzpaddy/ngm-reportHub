@@ -75,11 +75,22 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           delivery_types:ngmClusterHelper.getDeliveryTypes(),
           // MPC
           mpc_delivery_types: ngmClusterHelper.getMpcDeliveryTypes(),
-          trainee_affiliations: [{ trainee_affiliation_id: 'moh', trainee_affiliation_name: 'MOH' }, { trainee_affiliation_id: 'ngo', trainee_affiliation_name: 'NGO' }],
+          // MOH, International NGO, Local NGO AND Private, Community
+          trainee_affiliations: [{ trainee_affiliation_id: 'community', trainee_affiliation_name: 'Community' },
+                                    { trainee_affiliation_id: 'moh', trainee_affiliation_name: 'MoH' },
+                                    { trainee_affiliation_id: 'private', trainee_affiliation_name: 'Private' },
+                                    { trainee_affiliation_id: 'local_ngo', trainee_affiliation_name: 'Local NGO' },
+                                    { trainee_affiliation_id: 'international_ngo', trainee_affiliation_name: 'International NGO' }],
           trainee_health_workers: [{ trainee_health_worker_id: 'doctors', trainee_health_worker_name: 'Doctors' }, 
-                                   { trainee_health_worker_id: 'nurses', trainee_health_worker_name: 'Nurses' },
-                                   { trainee_health_worker_id: 'midwives', trainee_health_worker_name: 'Midwives' },
-                                   { trainee_health_worker_id: 'community_health_workers', trainee_health_worker_name: 'Community Health Workers' }]
+                                    { trainee_health_worker_id: 'nurses', trainee_health_worker_name: 'Nurses' },
+                                    { trainee_health_worker_id: 'midwives', trainee_health_worker_name: 'Midwives' },
+                                    { trainee_health_worker_id: 'pharmacists', trainee_health_worker_name: 'Pharmacists' },
+                                    { trainee_health_worker_id: 'health_officers', trainee_health_worker_name: 'Health Officers' },
+                                    { trainee_health_worker_id: 'laboratory_technologists_technicians', trainee_health_worker_name: 'Laboratory Technologists / Technicians' },
+                                    { trainee_health_worker_id: 'community_health_workers', trainee_health_worker_name: 'Community Health Workers' },
+                                    { trainee_health_worker_id: 'community_health_volunteers', trainee_health_worker_name: 'Community Health Volunteers' },
+                                    { trainee_health_worker_id: 'health_extension_workers', trainee_health_worker_name: 'Health Extension Workers' },
+                                    { trainee_health_worker_id: 'environmental_health_workers', trainee_health_worker_name: 'Environmental Health Workers' }]
         },
 
         // templates
@@ -98,7 +109,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             var b = moment( $scope.project.report.locations[ $parent ].trainings[ $index ].training_end_date );
             $scope.project.report.locations[ $parent ].trainings[ $index ].training_start_date = moment( value ).format( 'YYYY-MM-DD' );
             $scope.project.report.locations[ $parent ].trainings[ $index ].training_days_number = b.diff( a, 'days' )+1;
-            console.log($scope.project.report.locations[ $parent ].trainings[ $index ].training_days_number)
           },
           endOnClose( $parent, $index, value ) {
             var a = moment( $scope.project.report.locations[ $parent ].trainings[ $index ].training_start_date );
@@ -122,7 +132,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         displayTrainings: function() {
           // if training and capacity building
           if ( $scope.project.definition.admin0pcode === 'ET' ) {
-            if ( $filter('filter')( $scope.project.definition.activity_type, { activity_type_id: 'training_capacity_building' }, true).length ) {
+            if ( $filter( 'filter' )( $scope.project.definition.activity_type, { activity_type_id: 'training_capacity_building' }, true ).length ) {
               return true;
             } else {
               return false;
@@ -141,18 +151,39 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }, 400);
         },
 
+        // resize form
+        editTraining: function(){
+          $('.editable-text').css({ width: '100%' }); 
+        },
+
         // add trainings
         addTrainings: function( $parent ) {
+          // training topics
+          var selected = [];
+          angular.forEach( $scope.project.activity_descriptions, function( t ) {
+            if ( t.activity_type_id.indexOf( 'training_capacity_building' ) >= 0) {
+              selected.push( t.activity_description_name );
+            }
+          });
+
           // trainings
           $scope.trainingInserted = {
             training_title: 'Training / Workshop Title...',
+            training_topics: selected.join(', '),
             training_start_date: moment().format('YYYY-MM-DD'),
             training_end_date: moment().add( 3, 'd' ).format('YYYY-MM-DD'),
-            training_days_number: 0,
+            training_days_number: 3,
             training_total_trainees: 0,
             training_conducted_by: $scope.project.definition.organization,
             training_supported_by: $scope.project.definition.organization,
-            training_participants: []
+            training_participants: [{
+              trainee_affiliation_id: null,
+              trainee_affiliation_name: null,
+              trainee_health_worker_id: null,
+              trainee_health_worker_name: null,
+              trainee_men: 0,
+              trainee_women: 0
+            }]
           }
           
           // clone
@@ -162,7 +193,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $scope.project.report.locations[ $parent ].trainings.push( $scope.trainingInserted );
 
           // expand title text
-          $timeout(function() { $('.editable-text').css({ width: '100%' }); }, 10);
+          $timeout( function() { 
+            $('.editable-text').css({ width: '100%' }); 
+            $('#participantsRowformEdit').click();
+          }, 200 );
         },
 
         // add particiapnt
@@ -172,7 +206,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             trainee_affiliation_id: null,
             trainee_affiliation_name: null,
             trainee_health_worker_id: null,
-            trainee_health_worker_name: null,           
+            trainee_health_worker_name: null,
             trainee_men: 0,
             trainee_women: 0
           }
@@ -181,6 +215,18 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             $scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_participants = [];
           }
           $scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_participants.push( $scope.participantInserted );
+        },
+
+        // sum participants
+        sumParticipants( $grandParent, $parent, forparticipant ) {
+          // var sum = 0;
+          // angular.forEach( $scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_participants, function( t ){
+          //   sum += t.trainee_men + t.trainee_women;
+          // });
+          $timeout(function(){
+            console.log( participant.trainee_men + participant.trainee_women );
+            $scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_total_trainees = participant.trainee_men + participant.trainee_women;
+          }, 10 )
         },
 
         // add beneficiary
@@ -540,6 +586,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           return training.training_title ? training.training_title : '';
         },
 
+        showTrainingTopics: function( $data, training ){
+          training.training_topics = $data;
+          return training.training_topics ? training.training_topics : '';
+        },
+
         // training_title
         showTrainingConductedBy: function( $data, training ){
           training.training_conducted_by = $data;
@@ -795,7 +846,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // save form on enter
         keydownSaveForm: function(){
-          setTimeout(function(){
+          $timeout(function(){
             $('.editable-input').keydown(function (e) {
               var keypressed = e.keyCode || e.which;
               if (keypressed == 13) {
@@ -829,6 +880,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           } else {
             return false;
           }
+        },
+
+        // training form valid
+        trainingValid: function(){
+          console.log( $scope.participantsRowform.$valid );
+          return $scope.participantsRowform.$valid;
         },
 
         // cofirm exit if changes

@@ -42,6 +42,7 @@
               editable-number="participant.trainee_men"
               e-min="0"
               e-ng-disabled="false"
+              e-ng-change="project.sumParticipants( $locationIndex, $trainingIndex, participant )"
               e-required>
           {{ project.setTraineeMen( $data, participant ) }}
         </span>
@@ -52,30 +53,31 @@
               editable-number="participant.trainee_women"
               e-min="0"
               e-ng-disabled="false"
+              e-ng-change="project.sumParticipants( $locationIndex, $trainingIndex, participant )"
               e-required>
           {{ project.setTraineeWomen( $data, participant ) }}
         </span>
       </td>
 
       <td style="white-space: nowrap" ng-show="project.report.report_status !== 'complete'">
-        <form editable-form name="participantsRowform" onshow="project.keydownSaveForm()" ng-show="participantsRowform.$visible" onbeforesave="project.save( false, false )" class="form-buttons form-inline" shown="participantInserted === participant">
+        <form editable-form name="participantsRowform" ng-show="participantsRowform.$visible;" onbeforesave="project.save( false, false )" class="form-buttons form-inline" shown="participantInserted === participant">
           <button type="submit" ng-if="participantsRowform.$visible" ng-disabled="!project.formComplete()" class="btn btn-small waves-effect waves-light save" title="Save">
             <i class="material-icons">save</i>
           </button>
-          <div type="button" ng-if="participantsRowform.$visible" ng-disabled="participantsRowform.$waiting" ng-click="project.addParticipant( $locationIndex, $trainingIndex )" class="btn btn-small cyan darken-2 waves-effect waves-light" title="Add Trainee">
-            <i class="material-icons">group</i>
-          </div>
+<!--           <div type="button" ng-if="participantsRowform.$visible" ng-disabled="participantsRowform.$waiting" ng-click="project.addParticipant( $locationIndex, $trainingIndex )" class="btn btn-small cyan darken-2 waves-effect waves-light" title="Add Trainee">
+            <i class="material-icons right">group</i>+
+          </div> -->
           <div type="button" ng-if="participantsRowform.$visible" ng-disabled="participantsRowform.$waiting" ng-click="participantsRowform.$cancel(); project.cancelTraineeEdit( $locationIndex, $trainingIndex, $index )" " class="btn btn-small blue lighten-1 waves-effect waves-light" title="Cancel Edit">
             <i class="material-icons">clear</i>
           </div>
         </form>
         <div class="buttons" ng-if="!participantsRowform.$visible">
-          <div class="btn btn-small waves-effect waves-light" ng-click="participantsRowform.$show()" title="Edit">
+          <div class="btn btn-small waves-effect waves-light" ng-click="participantsRowform.$show()" title="Edit" id="participantsRowformEdit">
             <i class="material-icons">create</i>
           </div>
-          <div type="button" ng-if="!participantsRowform.$visible" ng-disabled="participantsRowform.$waiting" ng-click="project.addParticipant( $locationIndex, $trainingIndex )" class="btn btn-small cyan darken-2 waves-effect waves-light" title="Add Trainee">
-            <i class="material-icons">group</i>
-          </div>
+<!--           <div type="button" ng-if="!participantsRowform.$visible" ng-disabled="participantsRowform.$waiting" ng-click="project.addParticipant( $locationIndex, $trainingIndex )" class="btn btn-small cyan darken-2 waves-effect waves-light" title="Add Trainee">
+            <i class="material-icons right">group</i>+
+          </div> -->
           <div class="btn btn-small red lighten-2 waves-effect waves-light" ng-click="project.removeTrainee( $locationIndex, $trainingIndex, $index )" title="Remove"
               ng-disabled="!project.formComplete()">
             <i class="material-icons">delete</i>
@@ -84,6 +86,11 @@
       </td>
     </tr>
   </table>
+
+  <!-- trainings -->
+  <button class="btn btn-small cyan darken-2 waves-effect waves-light" ng-show="project.report.report_status !== 'complete'" ng-click="project.addParticipant( $locationIndex, $trainingIndex )">
+    <i class="material-icons left">group</i>Add Trainees
+  </button>
 
 </div>
 

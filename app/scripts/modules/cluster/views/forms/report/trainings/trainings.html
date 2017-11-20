@@ -14,17 +14,23 @@
 <div style="padding-left: 20px;">
   <table class="bordered responsive-table" style="margin-bottom:10px;" ng-show="project.report.locations[$locationIndex].trainings.length">
     <tr style="font-weight: 400">
-      <td width="30%">Training Subject</td>
-      <td width="15%">Start Date</td>
-      <td width="15%">End Date</td>
-      <td width="20%">Conducted By</td>
-      <td width="20%">Supported By</td>
+      <td width="20%">Training Subject</td>
+      <td width="30%">Training Topics</td>
+      <td width="10%">Start Date</td>
+      <td width="10%">End Date</td>
+      <td width="15%">Conducted By</td>
+      <td width="15%">Supported By</td>
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
-    <tr ng-repeat="training in project.report.locations[$locationIndex].trainings" ng-init="$trainingIndex=$index">
+    <tr> <!-- ng-repeat="training in project.report.locations[$locationIndex].trainings" ng-init="$trainingIndex=$index"> -->
       <td>
-        <span editable-text="training.training_title" e-name="training_title" e-form="trainingRowform" e-required>
+        <span e-id="training_title" editable-text="training.training_title" e-name="training_title" e-form="trainingRowform" e-required>
           {{ project.showTrainingTitle( $data, training ) }}
+        </span>
+      </td>
+      <td>
+        <span e-id="training_topics" editable-text="training.training_topics" e-name="training_topics" e-form="trainingRowform" e-required>
+          {{ project.showTrainingTopics( $data, training ) }}
         </span>
       </td>
       <td>
@@ -69,25 +75,25 @@
       <td style="white-space: nowrap" ng-show="project.report.report_status !== 'complete'">
         <!-- form -->
         <form editable-form name="trainingRowform" onshow="project.keydownSaveForm()" ng-show="trainingRowform.$visible" onbeforesave="project.save( false, false )" class="form-buttons form-inline" shown="trainingInserted === training">
-          <button type="submit" ng-if="trainingRowform.$visible" ng-disabled="!project.formComplete()" class="btn btn-small waves-effect waves-light save" title="Save">
+          <button type="submit" ng-if="trainingRowform.$visible" ng-disabled="!project.formComplete() && !trainingRowform.$valid && !participantsRowform.$valid" class="btn btn-small waves-effect waves-light save" title="Save">
             <i class="material-icons">save</i>
           </button>
-          <div type="button" ng-if="trainingRowform.$visible" ng-disabled="trainingRowform.$waiting" ng-click="project.addParticipant( $locationIndex, $trainingIndex )" class="btn btn-small cyan darken-2 waves-effect waves-light" title="Add Trainee">
-            <i class="material-icons left">group</i>Add Trainees
-          </div>
+<!--           <div type="button" ng-if="trainingRowform.$visible" ng-disabled="trainingRowform.$waiting" ng-click="project.addParticipant( $locationIndex, $trainingIndex )" class="btn btn-small cyan darken-2 waves-effect waves-light" title="Add Trainee">
+            <i class="material-icons right">group</i>+
+          </div> -->
           <div type="button" ng-if="trainingRowform.$visible" ng-disabled="trainingRowform.$waiting" ng-click="trainingRowform.$cancel(); project.cancelTrainingEdit( $locationIndex, $trainingIndex )" " class="btn btn-small blue lighten-1 waves-effect waves-light" title="Cancel Edit">
             <i class="material-icons">clear</i>
           </div>
         </form>
         <div class="buttons" ng-if="!trainingRowform.$visible">
-          <div class="btn btn-small waves-effect waves-light" ng-click="trainingRowform.$show()" title="Edit">
+          <div class="btn btn-small waves-effect waves-light" ng-click="trainingRowform.$show(); project.editTraining();" title="Edit">
             <i class="material-icons">create</i>
           </div>
-          <div type="button" ng-if="!trainingRowform.$visible" ng-disabled="participantsRowform.$waiting" ng-click="project.addParticipant( $locationIndex, $trainingIndex )" class="btn btn-small cyan darken-2 waves-effect waves-light" title="Add Trainee">
-            <i class="material-icons left">group</i>Add Trainees
-          </div>
+<!--           <div type="button" ng-if="!trainingRowform.$visible" ng-disabled="participantsRowform.$waiting" ng-click="project.addParticipant( $locationIndex, $trainingIndex )" class="btn btn-small cyan darken-2 waves-effect waves-light" title="Add Trainee">
+            <i class="material-icons right">group</i>+
+          </div> -->
           <div class="btn btn-small red lighten-2 waves-effect waves-light" ng-click="project.removeTrainingModal( $locationIndex, $trainingIndex )" title="Remove"
-              ng-disabled="!project.formComplete()">
+              ng-disabled="!project.formComplete() && !trainingRowform.$valid && !participantsRowform.$valid">
             <i class="material-icons">delete</i>
           </div>
         </div>
@@ -96,15 +102,7 @@
   </table>
 
   <!-- participants -->
-  <div ng-repeat="training in project.report.locations[$locationIndex].trainings" ng-init="$trainingIndex=$index">
-    <div class="slide-animate" ng-include="project.templatesUrl + project.training_participantsUrl"></div>
-  </div>
-
-  <!-- trainings -->
-  <button class="btn blue" ng-show="project.report.report_status !== 'complete'" ng-click="project.addTrainings( $locationIndex )"
-            ng-disabled="project.report.locations[$locationIndex].trainings.length===1">
-    <i class="material-icons left">add</i>Add Trainings
-  </button>
+  <div class="slide-animate" ng-include="project.templatesUrl + project.training_participantsUrl"></div>
 
 </div>
 
