@@ -196,7 +196,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $timeout( function() { 
             $('.editable-text').css({ width: '100%' }); 
             $('#participantsRowformEdit').click();
-          }, 200 );
+          }, 400 );
         },
 
         // add particiapnt
