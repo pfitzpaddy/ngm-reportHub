@@ -639,7 +639,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             facility_type_name: null,
             new_facility_id: null,
             new_facility_name: null,
-            facility_name: null
+            facility_name: null,
+            facility_lat: null,
+            facility_lng: null
           };
 
           // clone
@@ -651,6 +653,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             l.facility_hub_id = null;
             l.facility_hub_name = null;
             l.facility_name = null;
+            l.facility_lat = null;
+            l.facility_lng = null;
             $scope.inserted = angular.merge( $scope.inserted, l );
           }
          $scope.project.definition.target_locations.push( $scope.inserted );
