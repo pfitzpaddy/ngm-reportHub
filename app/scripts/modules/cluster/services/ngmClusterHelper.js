@@ -994,7 +994,22 @@ angular.module( 'ngmReportHub' )
             category_type_id: [ 'category_a', 'category_b', 'category_c' ],
             beneficiary_type_id: 'refugee_pakistani',
             beneficiary_type_name: 'Pakistani Refugees'
-          }];
+          },{
+
+						// HEALTH
+
+						// CAT D) Others
+
+						cluster_id: [ 'health' ],
+						category_type_id: [ 'category_d' ],
+						beneficiary_type_id: 'health_workers',
+						beneficiary_type_name: 'Health Workers'
+					},{
+						cluster_id: [ 'health' ],
+						category_type_id: [ 'category_d' ],
+						beneficiary_type_id: 'other_beneficiaries',
+						beneficiary_type_name: 'Other Beneficiaries'
+					}];
 
           // set beneficiaries
           // beneficiaries = $filter( 'filter' )( beneficiaries, { cluster_id: cluster_id } );
@@ -1173,6 +1188,12 @@ angular.module( 'ngmReportHub' )
           },{
             facility_type_id: 'local_committee',
             facility_type_name: 'Local Committee'
+					},{
+            facility_type_id: 'family_protection_center',
+            facility_type_name: 'Family Protection Center'
+          },{
+            facility_type_id: 'woman_friendly_health_space',
+            facility_type_name: 'Woman Friendly Health Space'
           }];
         }
 
