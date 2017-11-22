@@ -148,6 +148,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         targetBeneficiariesUrl: moment( config.project.project_end_date ).year() === 2016 ? 'target-beneficiaries/2016/target-beneficiaries.html' : 'target-beneficiaries/target-beneficiaries.html',
         targetBeneficiariesDefaultUrl: 'target-beneficiaries/2016/target-beneficiaries-default.html',
         targetBeneficiariesTrainingUrl: 'target-beneficiaries/2016/target-beneficiaries-training.html',
+        contactDetailsUrl: 'contact-details.html',
         locationsUrl: function() {
           var template;
           if ( config.project.cluster_id === 'eiewg' ) {
@@ -1089,9 +1090,41 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 
 
+        updateOnUserExists: function() {
+            return $http({
+              method: 'POST',
+              url: ngmAuth.LOCATION + '/api/cluster/project/checkUserExists',
+              data: {
+                user: {
+                  name: $scope.project.definition.name,
+                  email: $scope.project.definition.email,
+                  organization_tag: $scope.project.definition.organization_tag,
+                  cluster_id: $scope.project.definition.cluster_id
+                }
+              }
+            }).then(function( result ) {
+              if ( result.data.err ) {
+                Materialize.toast( result.data.msg, 6000, 'error' );
+                $('#ngm-target_contact').html('There is no registered User with such Name or Email in '+ $scope.project.definition.organization + ' ' + $scope.project.definition.cluster + '! Please Check Correct Spelling;').css({ 'color': '#EE6E73'});
+                 return result.data.msg;
+              } else {
+                 $('#ngm-target_contact').html('FOCAL POINT of your PROJECT in the form below;').css({ 'color': 'initial'});
+                 $scope.project.updateContact( result.data );
+              }
+            }).catch( function( err ) {
+              Materialize.toast( 'Error!', 6000, 'error' );
+            });
+          },
 
-
-
+        updateContact: function( touser ) {
+            if ( touser ) {
+              $scope.project.definition.username = touser.username;
+              $scope.project.definition.name = touser.name;
+              $scope.project.definition.email = touser.email;
+              $scope.project.definition.position = touser.position;
+              $scope.project.definition.phone = touser.phone;
+            }
+        },
         // location edit
         locationEdit: function( $index ) {
           $scope.project.definition.target_locations[ $index ].update_location = true;
@@ -1101,6 +1134,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         saveLocation: function() {
           // update location
           $scope.project.save( false, 'Project Location Saved!' );
+        },
+
+        // save contact details
+        saveContact: function() {
+          // update location
+          $scope.project.save( false, 'Project Contact Details Saved!' );
         },
 
         // remove from array if no id
