@@ -95,6 +95,9 @@
 		project.definition.organization !== project.user.organization && project.user.roles.indexOf('ADMIN') === -1
 	">
 
+    <!-- Project contact details -->
+    <div class="slide-animate" ng-include="project.templatesUrl + project.contactDetailsUrl"></div>
+
 		<!-- Project details -->
 		<div class="slide-animate" ng-include="project.templatesUrl + project.detailsUrl"></div>
 
@@ -106,9 +109,6 @@
 
 		<!-- Project location details -->
 		<div class="slide-animate" ng-include="project.templatesUrl + project.locationsUrl()"></div>
-
-    <!-- Project contact details -->
-		<div class="slide-animate" ng-include="project.templatesUrl + project.contactDetailsUrl"></div>
 
 		<!-- form submission -->
 		<div class="row remove" ng-if="project.definition.project_status !== 'complete'">
