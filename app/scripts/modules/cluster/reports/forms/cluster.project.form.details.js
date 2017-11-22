@@ -1088,34 +1088,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         /** EiEWG END ************/
 
+        // set new project user
+        updateContactUser: function( $data ) {
+          var user = $filter('filter')($scope.project.lists.users, { username: $data.username }, true)[0];
+          $scope.project.updateContact( user );
+        },
 
-
-        updateOnUserExists: function() {
-            return $http({
-              method: 'POST',
-              url: ngmAuth.LOCATION + '/api/cluster/project/checkUserExists',
-              data: {
-                user: {
-                  name: $scope.project.definition.name,
-                  email: $scope.project.definition.email,
-                  organization_tag: $scope.project.definition.organization_tag,
-                  cluster_id: $scope.project.definition.cluster_id
-                }
-              }
-            }).then(function( result ) {
-              if ( result.data.err ) {
-                Materialize.toast( result.data.msg, 6000, 'error' );
-                $('#ngm-target_contact').html('There is no registered User with such Name or Email in '+ $scope.project.definition.organization + ' ' + $scope.project.definition.cluster + '! Please Check Correct Spelling;').css({ 'color': '#EE6E73'});
-                 return result.data.msg;
-              } else {
-                 $('#ngm-target_contact').html('FOCAL POINT of your PROJECT in the form below;').css({ 'color': 'initial'});
-                 $scope.project.updateContact( result.data );
-              }
-            }).catch( function( err ) {
-              Materialize.toast( 'Error!', 6000, 'error' );
-            });
-          },
-
+        // update project user values
         updateContact: function( touser ) {
             if ( touser ) {
               $scope.project.definition.username = touser.username;
@@ -1125,6 +1104,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               $scope.project.definition.phone = touser.phone;
             }
         },
+
         // location edit
         locationEdit: function( $index ) {
           $scope.project.definition.target_locations[ $index ].update_location = true;
