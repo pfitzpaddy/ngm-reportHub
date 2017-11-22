@@ -1116,12 +1116,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $scope.project.save( false, 'Project Location Saved!' );
         },
 
-        // save contact details
-        saveContact: function() {
-          // update location
-          $scope.project.save( false, 'Project Contact Details Saved!' );
-        },
-
         // remove from array if no id
         cancelEdit: function( key, $index ) {
           if ( !$scope.project.definition[ key ][ $index ].id ) {
