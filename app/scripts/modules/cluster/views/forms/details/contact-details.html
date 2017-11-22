@@ -1,0 +1,67 @@
+<div class="slide-animate">
+	<!-- bind html -->
+	<div class="row">
+		<div class="col s12 m12 l12">
+			<div class="card">
+				<ul class="collection with-header">
+					<li class="collection-header blue lighten-4">
+						<h5 class="report-work-title">
+              <i class="material-icons left">person_pin</i>
+              <span class="beneficiary-count"></span> Project Contact Details
+            </h5>
+					</li>
+					<li class="collection-item avatar">
+
+						<p id="ngm-target_contact" style="padding:10px;">
+							Select FOCAL POINT of your PROJECT in the form below;
+						</p>
+
+						<div class="row">
+							<div class="col s12 card">
+								<div style="padding-top: 10px; padding-bottom: 25px; padding-left: 40px; ">
+									<table class="bordered responsive-table" ng-show="project.definition">
+										<thead>
+										<tr style="font-weight: 400">
+											<td></td>
+											<td>Project Contact</td>
+											<td ng-show="project.definition.project_status !== 'complete'">Edit</td>
+										</tr>
+									  </thead>
+										<tr>
+											<td>
+												<i class="material-icons" style="color: teal;">person_pin</i>
+											</td>
+											<td>
+												<!-- editable name -->
+												<span editable-select="project.definition.username" e-name="username" e-form="contactform" e-ng-options="item.username as [ item.name, item.username, item.position, item.phone, item.email ].join(' | ') for item in project.lists.users" e-required>
+                            {{ [ project.definition.name, project.definition.username, project.definition.position, project.definition.phone, project.definition.email ].join(' | ')  }}
+                          </span>
+											</td>
+
+											<td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'">
+												<!-- form -->
+												<form editable-form name="contactform" ng-show="contactform.$visible" onaftersave="project.updateContactUser($data)" class="form-buttons form-inline" shown="inserted === project.definition">
+													<button title="Save" type="submit" class="btn waves-effect waves-light save" ng-if="contactform.$visible">
+                              <i class="material-icons">save</i>
+                            </button>
+													<button type="button" ng-if="contactform.$visible" ng-disabled="contactform.$waiting" ng-click="contactform.$cancel();" class="btn blue lighten-1 waves-effect waves-light" title="Cancel Edit">
+                              <i class="material-icons">clear</i>
+                            </button>
+												</form>
+												<div class="buttons" ng-if="!contactform.$visible">
+													<button class="btn waves-effect waves-light" ng-click="contactform.$show();" title="Edit">
+                              <i class="material-icons">create</i>
+                            </button>
+												</div>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

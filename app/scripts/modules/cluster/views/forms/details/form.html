@@ -62,7 +62,7 @@
 <div class="row" ng-if="project.definition.project_status === 'new'">
 	<div class="col s12 m12 l12">
 		<div style="padding:20px;">
-			
+
 			<!--  -->
 			<button class="waves-effect waves-light btn" ng-click="project.modalConfirm('list-modal')">
 				<i class="material-icons left">keyboard_return</i>Back to Projects
@@ -75,7 +75,7 @@
 <div class="row" ng-if="project.definition.project_status !== 'new'">
 	<div class="col s12 m12 l12">
 		<div style="padding:20px;">
-			
+
 			<!--  -->
 			<button class="waves-effect waves-light btn-flat" ng-click="project.modalConfirm('summary-modal')">
 				<i class="material-icons left">keyboard_return</i>Back to Project Summary
@@ -89,11 +89,14 @@
 
 <!-- Project form -->
 <div name="clusterProjectForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
-		
+
 	<!-- disabled -->
 	<fieldset ng-disabled="
 		project.definition.organization !== project.user.organization && project.user.roles.indexOf('ADMIN') === -1
 	">
+
+    <!-- Project contact details -->
+    <div class="slide-animate" ng-include="project.templatesUrl + project.contactDetailsUrl"></div>
 
 		<!-- Project details -->
 		<div class="slide-animate" ng-include="project.templatesUrl + project.detailsUrl"></div>
@@ -105,13 +108,13 @@
 		<div class="slide-animate" ng-include="project.templatesUrl + project.targetBeneficiariesUrl"></div>
 
 		<!-- Project location details -->
-		<div class="slide-animate" ng-include="project.templatesUrl + project.locationsUrl()"></div>	
+		<div class="slide-animate" ng-include="project.templatesUrl + project.locationsUrl()"></div>
 
 		<!-- form submission -->
 		<div class="row remove" ng-if="project.definition.project_status !== 'complete'">
 			<div class="col s12 m12 l12">
-				<div class="widget card-panel white grey-text text-darken-2">	
-					
+				<div class="widget card-panel white grey-text text-darken-2">
+
 					<!-- submission -->
 					<div align="center">
 <!-- 						<button data-target="save-modal" class="waves-effect waves-light modal-trigger btn"
@@ -140,13 +143,13 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</fieldset>
 
 </div>
 
 <script type="text/javascript">
-  
+
   // modals
   setTimeout(function(){
   	$('.modal-trigger').leanModal();
