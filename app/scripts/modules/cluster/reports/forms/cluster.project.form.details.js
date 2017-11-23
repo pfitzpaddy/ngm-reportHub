@@ -1300,6 +1300,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // db attributes
           $scope.project.definition.mpc_purpose = [];
           $scope.project.definition.mpc_purpose_cluster_id = '';
+          $scope.project.definition.mpc_purpose_type_id = '';
+          $scope.project.definition.mpc_purpose_type_name = '';
+
 
           // mpc purpose
           angular.forEach( $scope.project.definition.mpc_purpose_check, function( t, key ){
@@ -1308,13 +1311,17 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               if ( a_type ) {
                 $scope.project.definition.mpc_purpose.push( a_type );
                 $scope.project.definition.mpc_purpose_cluster_id += a_type.cluster_id + ', ';
+                $scope.project.definition.mpc_purpose_type_id += a_type.mpc_purpose_type_id + ', ';
+                $scope.project.definition.mpc_purpose_type_name += a_type.mpc_purpose_type_name + ', ';
               }
             }
           });
 
           // trim last character of string
+          // refactor
           $scope.project.definition.mpc_purpose_cluster_id = $scope.project.definition.mpc_purpose_cluster_id.slice( 0, -2 );
-
+          $scope.project.definition.mpc_purpose_type_id = $scope.project.definition.mpc_purpose_type_id.slice( 0, -2 );
+          $scope.project.definition.mpc_purpose_type_name = $scope.project.definition.mpc_purpose_type_name.slice( 0, -2 );
         },
 
         // compile activity_type 
