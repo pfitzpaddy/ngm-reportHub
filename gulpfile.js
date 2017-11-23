@@ -129,12 +129,14 @@ gulp.task('clean:dist', function (cb) {
 gulp.task('client:build', [ 'html', 'html:app', 'html:cluster', 'styles' ], function () {
   var jsFilter = $.filter('**/*.js', {restore: true});
   var cssFilter = $.filter('**/*.css', {restore: true});
+  var gulpUtil = require('gulp-util');
 
   return gulp.src(paths.views.main)
     .pipe($.useref({searchPath: [yeoman.app, '.tmp']}))
     .pipe(jsFilter)
     .pipe($.ngAnnotate())
-    .pipe($.uglify())
+    // .pipe($.uglify())
+    .pipe($.uglify().on('error', gulpUtil.log))
     .pipe(jsFilter.restore())
     .pipe(cssFilter)
     .pipe($.minifyCss({cache: true}))
