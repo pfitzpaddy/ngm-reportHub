@@ -104,13 +104,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         notesUrl: 'notes.html',
 
         datepicker: {
-          startOnClose( $parent, $index, value ) {
+          startOnClose: function( $parent, $index, value ) {
             var a = moment( value );
             var b = moment( $scope.project.report.locations[ $parent ].trainings[ $index ].training_end_date );
             $scope.project.report.locations[ $parent ].trainings[ $index ].training_start_date = moment( value ).format( 'YYYY-MM-DD' );
             $scope.project.report.locations[ $parent ].trainings[ $index ].training_days_number = b.diff( a, 'days' )+1;
           },
-          endOnClose( $parent, $index, value ) {
+          endOnClose: function( $parent, $index, value ) {
             var a = moment( $scope.project.report.locations[ $parent ].trainings[ $index ].training_start_date );
             var b = moment( value );
             $scope.project.report.locations[ $parent ].trainings[ $index ].training_end_date = moment( value ).format( 'YYYY-MM-DD' );
