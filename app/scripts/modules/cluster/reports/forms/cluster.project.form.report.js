@@ -218,7 +218,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         },
 
         // sum participants
-        sumParticipants( $grandParent, $parent, forparticipant ) {
+        sumParticipants: function( $grandParent, $parent, forparticipant ) {
           // var sum = 0;
           // angular.forEach( $scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_participants, function( t ){
           //   sum += t.trainee_men + t.trainee_women;
