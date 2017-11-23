@@ -477,6 +477,10 @@ angular.module('ngmReportHub')
 					// report name
 					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
 					
+					// filename cluster needs to be mpc for cvwg
+					// TODO refactor/update cvwg
+					$scope.dashboard.cluster_id_filename = $scope.dashboard.cluster_id !== 'cvwg' ? $scope.dashboard.cluster_id : 'mpc'
+
 					// model
 					$scope.model = {
 						name: 'cluster_dashboard',
@@ -556,35 +560,35 @@ angular.module('ngmReportHub')
 									color: 'blue lighten-2',
 									icon: 'call',
 									hover: 'Download Cluster Contact List as CSV',
-									request: $scope.dashboard.getRequest( { csv: true, indicator: 'contacts', report: $scope.dashboard.cluster_id + '_contacts_list-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									request: $scope.dashboard.getRequest( { csv: true, indicator: 'contacts', report: $scope.dashboard.cluster_id_filename + '_contacts_list-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 									metrics: $scope.dashboard.getMetrics( 'cluster_contact_list', 'csv' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'assignment_turned_in',
 									hover: 'Download OCHA HRP Report as CSV',
-									request: $scope.dashboard.getRequest( { csv: true, indicator: 'ocha_report', report: $scope.dashboard.cluster_id + '_ocha_hrp_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									request: $scope.dashboard.getRequest( { csv: true, indicator: 'ocha_report', report: $scope.dashboard.cluster_id_filename + '_ocha_hrp_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 									metrics: $scope.dashboard.getMetrics( 'cluster_ocha_report', 'csv' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'attach_money',
 									hover: 'Download OCHA Financial Report as CSV',
-									request: $scope.dashboard.getRequest( { csv: true, indicator: 'financial_report', report: $scope.dashboard.cluster_id + '_ocha_financial_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									request: $scope.dashboard.getRequest( { csv: true, indicator: 'financial_report', report: $scope.dashboard.cluster_id_filename + '_ocha_financial_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 									metrics: $scope.dashboard.getMetrics( 'cluster_financial_report', 'csv' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'group',
 									hover: 'Download Beneficiary Data as CSV',
-									request: $scope.dashboard.getRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.cluster_id + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									request: $scope.dashboard.getRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.cluster_id_filename + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 									metrics: $scope.dashboard.getMetrics( 'beneficiary_data', 'csv' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'show_chart',
 									hover: 'Download Stock Data as CSV',
-									request: $scope.dashboard.getRequest( { csv: true, indicator: 'stocks', report: $scope.dashboard.cluster_id + '_stock_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									request: $scope.dashboard.getRequest( { csv: true, indicator: 'stocks', report: $scope.dashboard.cluster_id_filename + '_stock_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 									metrics: $scope.dashboard.getMetrics( 'stocks', 'csv' )
 								}]
 							}							

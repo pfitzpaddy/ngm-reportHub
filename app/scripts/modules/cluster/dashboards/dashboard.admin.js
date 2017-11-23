@@ -451,6 +451,10 @@ angular.module('ngmReportHub')
 					$scope.dashboard.setTitle();
 					$scope.dashboard.setSubtitle();
 					
+					// filename cluster needs to be mpc for cvwg
+					// TODO refactor/update cvwg
+					$scope.dashboard.cluster_id_filename = $scope.dashboard.cluster_id !== 'cvwg' ? $scope.dashboard.cluster_id : 'mpc'
+
 					// model
 					$scope.model = {
 						name: 'cluster_admin_dashboard',
@@ -538,7 +542,7 @@ angular.module('ngmReportHub')
 									request: {
 										method: 'POST',
 										url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',	
-										data: angular.merge( $scope.dashboard.getRequest( 'reports_due', true ), { report: $scope.dashboard.cluster_id + '_' + $scope.dashboard.report_type +'_reports_due_' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
+										data: angular.merge( $scope.dashboard.getRequest( 'reports_due', true ), { report: $scope.dashboard.cluster_id_filename + '_' + $scope.dashboard.report_type +'_reports_due_' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
 									},
 									metrics: $scope.dashboard.getMetrics( 'reports_due', 'csv' )
 								},{
@@ -549,7 +553,7 @@ angular.module('ngmReportHub')
 									request: {
 										method: 'POST',
 										url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
-										data: angular.merge( $scope.dashboard.getRequest( 'reports_complete', true ), { report: $scope.dashboard.cluster_id + '_' + $scope.dashboard.report_type + '_reports_complete_' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
+										data: angular.merge( $scope.dashboard.getRequest( 'reports_complete', true ), { report: $scope.dashboard.cluster_id_filename + '_' + $scope.dashboard.report_type + '_reports_complete_' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
 									},
 									metrics: $scope.dashboard.getMetrics( 'reports_complete', 'csv' )
 								},{
@@ -557,14 +561,14 @@ angular.module('ngmReportHub')
 									color: 'blue lighten-2',
 									icon: 'group',
 									hover: 'Download Beneficiary Data as CSV',
-									request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.cluster_id + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.cluster_id_filename + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 									metrics: $scope.dashboard.getMetrics( 'beneficiary_data', 'csv' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'show_chart',
 									hover: 'Download Stock Data as CSV',
-									request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'stocks', report: $scope.dashboard.cluster_id + '_stock_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'stocks', report: $scope.dashboard.cluster_id_filename + '_stock_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 									metrics: $scope.dashboard.getMetrics( 'stocks', 'csv' )
 								}],
 							}							
