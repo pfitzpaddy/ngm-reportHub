@@ -43,6 +43,20 @@ angular.module('ngmReportHub')
 				// current report
 				report: 'who-immap-snapshot',
 
+				getHtmlCard: function( img, title ) {
+			    return '<a href="#/cluster">'
+							     +'<div class="card small blue-grey darken-1 hoverable">'
+							        +'<div class="card-image">'
+							          +'<img src="' + img + '">'
+							        +'</div>'
+							        +'<div class="card-content white-text">'
+							          // +'<p class="card-title" style="font-size:2.2rem;">' + title + '</p>'
+							          +'<p class="card-title">' + title + '</p>'
+							        +'</div>'
+							      +'</div>'
+							    +'</a>';
+  			},
+
 				getServiceHtml: function( img, title ) {
 					return '<div class="card-image">'
 			        +'<img src="images/' + img + '" height="180px;" width="100%">'
@@ -404,11 +418,427 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:10px;',
 									config: {
-										html: '<img width="100%" src="images/dashboards/who-immap/contact_bois.png"></img>'
+										html: '<img width="100%" src="images/dashboards/reporthub/contacts/contact_card_pfitzgerald_rh.png"></img>'
 									}
 								}]
 							}]
-						},{	
+						},{
+							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/reporthub/contacts/contact_card_pfitzgerald_rh.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/reporthub/contacts/contact_card_timur.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/reporthub/contacts/contact_card_fakhri.png"></img>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/ethiopia/contact_card_bill_red.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/ethiopia/contact_card_jon_red.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/ethiopia/contact_card_chris_red.png"></img>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/ethiopia/contact_card_bill_red.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/ethiopia/contact_card_chris_red.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/ethiopia/contact_card_melissa.png"></img>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/who-immap/contact_card_emlyn.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/who-immap/contact_card_marisol.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/who-immap/contact_card_budi.png"></img>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;height:260px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/drr/training/hasibullah.jpg"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;height:260px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/drr/training/girls_gps.jpg"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;height:260px;',
+									config: {
+										html: '<img width="100%" src="images/dashboards/drr/training/women_in_control.jpg"></img>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: $scope.dashboard.getHtmlCard( 'images/dashboards/drr/products/static-maps.png', 'Static Maps' )
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: $scope.dashboard.getHtmlCard( 'images/dashboards/drr/products/print-map.png', 'Interactive Maps' )
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: $scope.dashboard.getHtmlCard( 'images/dashboards/drr/products/print-dashboard.png', 'Dashboard' )
+									}
+								}]
+							}]
+						},{							
+							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: $scope.dashboard.getHtmlCard( 'images/dashboards/reporthub/csv.png', 'Data Export' )
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: $scope.dashboard.getHtmlCard( 'images/dashboards/reporthub/powerbi.png', 'Power Bi Integration' )
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: $scope.dashboard.getHtmlCard( 'images/dashboards/reporthub/hpc.tools.png', 'Direct Links to HPC.tools' )
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: $scope.dashboard.getHtmlCard( 'images/dashboards/who-immap/emergency_response.png', 'Emergency Response' )
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: $scope.dashboard.getHtmlCard( 'images/dashboards/who-immap/seasonal_planning.png', 'Seasonal Planning' )
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: $scope.dashboard.getHtmlCard( 'images/dashboards/who-immap/situational_anlaysis.png', 'Situational Analysis' )
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: "padding:0px; border-radius: 50% !important; width:200px; height:200px;",
+									config: {
+										html: '<img class="responsive-img circle" width="100%" src="images/dashboards/who-immap/layers/base.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: "padding:0px; border-radius: 50% !important; width:200px; height:200px;",
+									config: {
+										html: '<img class="responsive-img circle" width="100%" src="images/dashboards/who-immap/layers/population.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: "padding:0px; border-radius: 50% !important; width:200px; height:200px;",
+									config: {
+										html: '<img class="circle" width="100%" src="images/dashboards/who-immap/layers/infrastructure.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: "padding:0px; border-radius: 50% !important; width:200px; height:200px;",
+									config: {
+										html: '<img class="responsive-img circle" width="100%" src="images/dashboards/who-immap/layers/humanitarian_access.png"></img>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel blue-grey',
+									style: "padding:0px;",
+									config: {
+										html: '<img width="100%" src="images/dashboards/reporthub/ReportHub-admin-wash.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel blue-grey',
+									style: "padding:0px;",
+									config: {
+										html: '<img width="100%" src="images/dashboards/reporthub/ReportHub_health_4w.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel blue-grey',
+									style: "padding:0px;",
+									config: {
+										html: '<img width="100%" src="images/dashboards/reporthub/ReportHub-ctc-assessment.png"></img>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel blue-grey',
+									style: "padding:0px;",
+									config: {
+										html: $scope.dashboard.getHtmlCard( 'images/dashboards/reporthub/ReportHub-admin-wash.png', 'Reports Monitoring' )
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel blue-grey',
+									style: "padding:0px;",
+									config: {
+										html: $scope.dashboard.getHtmlCard( 'images/dashboards/reporthub/ReportHub-ctc-assessment.png', 'Assessment Monitoring' )
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel blue-grey',
+									style: "padding:0px;",
+									config: {
+										html: $scope.dashboard.getHtmlCard( 'images/dashboards/reporthub/ReportHub_health_4w.png', '4W Dashboard' )
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: "padding:0px; border-radius: 50% !important; width:200px; height:200px;",
+									config: {
+										html: '<img class="responsive-img circle" width="100%" src="images/dashboards/who-immap/layers/floods.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: "padding:0px; border-radius: 50% !important; width:200px; height:200px;",
+									config: {
+										html: '<img class="responsive-img circle" width="100%" src="images/dashboards/who-immap/layers/avalanche.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: "padding:0px; border-radius: 50% !important; width:200px; height:200px;",
+									config: {
+										html: '<img class="circle" width="100%" src="images/dashboards/who-immap/layers/earthquakes.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: "padding:0px; border-radius: 50% !important; width:200px; height:200px;",
+									config: {
+										html: '<img class="responsive-img circle" width="100%" src="images/dashboards/who-immap/layers/humanitarian_access.png"></img>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel blue-grey',
+									style: "padding:0px;",
+									config: {
+										html: '<img width="100%" src="images/dashboards/reporthub/usage.png"></img>'
+									}
+								}]
+							}]
+						},{
 							columns: [{
 								styleClass: 's12 m12 l12',
 								widgets: [{
