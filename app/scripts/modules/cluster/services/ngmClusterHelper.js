@@ -790,6 +790,11 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_id: 'natural_disaster_affected_wls',
             beneficiary_type_name: 'Natural Disaster Affected (Winter / Lean Season)'
           },{
+            cluster_id: [ 'fsac' ],
+            category_type_id: [ 'category_a', 'category_c' ],
+            beneficiary_type_id: 'natural_disaster_affected_locust',
+            beneficiary_type_name: 'Natural Disaster Affected (Locust)'
+          },{
 
 
             // Refugees, IDPs
