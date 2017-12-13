@@ -148,6 +148,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         targetBeneficiariesUrl: moment( config.project.project_end_date ).year() === 2016 ? 'target-beneficiaries/2016/target-beneficiaries.html' : 'target-beneficiaries/target-beneficiaries.html',
         targetBeneficiariesDefaultUrl: 'target-beneficiaries/2016/target-beneficiaries-default.html',
         targetBeneficiariesTrainingUrl: 'target-beneficiaries/2016/target-beneficiaries-training.html',
+        contactDetailsUrl: 'contact-details.html',
         locationsUrl: function() {
           var template;
           if ( config.project.cluster_id === 'eiewg' ) {
@@ -1087,10 +1088,22 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         /** EiEWG END ************/
 
+        // set new project user
+        updateContactUser: function( $data ) {
+          var user = $filter('filter')($scope.project.lists.users, { username: $data.username }, true)[0];
+          $scope.project.updateContact( user );
+        },
 
-
-
-
+        // update project user values
+        updateContact: function( touser ) {
+            if ( touser ) {
+              $scope.project.definition.username = touser.username;
+              $scope.project.definition.name = touser.name;
+              $scope.project.definition.email = touser.email;
+              $scope.project.definition.position = touser.position;
+              $scope.project.definition.phone = touser.phone;
+            }
+        },
 
         // location edit
         locationEdit: function( $index ) {
