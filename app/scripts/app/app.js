@@ -137,6 +137,12 @@ angular
 			ngmUser.unset();
 		}
 
+		// check URL
+		if ( $location.$$host.search('dev') > -1 ) {
+			// add DEV message if necissary
+			$('#print').append('<h4 class="grey-text text-lighten-2" style="position:absolute;top:0;right:0;padding-right:165px;padding-top:35px;">TEST VERSION</h4>');
+		}
+
 		// IE checks!!!!!!
 		if (/MSIE 10/i.test($window.navigator.userAgent)) {
 		   // This is internet explorer 10
