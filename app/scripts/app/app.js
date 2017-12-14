@@ -212,26 +212,6 @@ angular
 
 				// set app colors based on 
 				switch( app ){
-          case 'reporthub':
-            // set style obj
-            $scope.ngm.style = {
-              logo: 'logo.png',
-              home: '#/reporthub',
-              darkPrimaryColor: '#1976D2',
-              defaultPrimaryColor: '#2196F3',
-              lightPrimaryColor: '#BBDEFB'
-            }
-            break;
-					case 'immap':
-						// set style obj
-						$scope.ngm.style = {
-							logo: 'logo-immap.png',
-							home: '#/immap',
-							darkPrimaryColor: '#DE696E',
-							defaultPrimaryColor: '#EE6E73',
-							lightPrimaryColor: '#EF9A9A'
-						}
-						break;
 					case 'who':
 						// set style obj
 						if ( $location.$$path.split('/')[2] === 'ethiopia' ) {
@@ -252,6 +232,16 @@ angular
 							}
 						}
 						break;
+					case 'immap':
+						// set style obj
+						$scope.ngm.style = {
+							logo: 'logo-immap.png',
+							home: '#/immap',
+							darkPrimaryColor: '#DE696E',
+							defaultPrimaryColor: '#EE6E73',
+							lightPrimaryColor: '#EF9A9A'
+						}
+						break;
           case 'epr':
             // set style obj
             $scope.ngm.style = {
@@ -260,6 +250,36 @@ angular
               darkPrimaryColor: '#1976D2',
               defaultPrimaryColor: '#2196F3',
               lightPrimaryColor: '#BBDEFB'
+            }
+            break;
+          case 'reporthub':
+            // set style obj
+            $scope.ngm.style = {
+              logo: 'logo.png',
+              home: '#/reporthub',
+              darkPrimaryColor: '#1976D2',
+              defaultPrimaryColor: '#2196F3',
+              lightPrimaryColor: '#BBDEFB'
+            }
+            break;
+          case 'snapshot':
+            // set style obj
+            if ( $location.$$path.split('/')[2] === 'immap' ) {
+							$scope.ngm.style = {
+								logo: 'logo-immap.png',
+								home: '#/immap',
+								darkPrimaryColor: '#DE696E',
+								defaultPrimaryColor: '#EE6E73',
+								lightPrimaryColor: '#EF9A9A'
+							}
+            } else {
+							$scope.ngm.style = {
+								logo: 'logo-health.png',
+								home: '#/who/ethiopia',
+								darkPrimaryColor: '#1976D2',
+								defaultPrimaryColor: '#2196F3',
+								lightPrimaryColor: '#BBDEFB'
+							}
             }
             break;
 					default:
