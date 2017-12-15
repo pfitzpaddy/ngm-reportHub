@@ -160,7 +160,7 @@ gulp.task('rename:index', function () {
 });
 
 gulp.task('ngm:images', function () {
-  return gulp.src(yeoman.app + '/images/*')
+  return gulp.src(yeoman.app + '/images/**/*')
     .pipe($.cache($.imagemin({
         optimizationLevel: 5,
         progressive: true,
