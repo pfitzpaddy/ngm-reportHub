@@ -74,6 +74,8 @@ var styles = lazypipe()
 // Tasks //
 ///////////
 
+cache.clearAll();
+
 gulp.task('styles', function () {
   return gulp.src(paths.styles)
     .pipe(styles());
