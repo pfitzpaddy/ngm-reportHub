@@ -160,13 +160,23 @@ gulp.task('rename:index', function () {
 });
 
 gulp.task('copy:images', function () {
-  return gulp.src(yeoman.app + '/images/**/*.{gif,jpeg,jpg,png,svg}')
+  return gulp.src(yeoman.app + '/images/*.{gif,jpeg,jpg,png,svg}')
     .pipe($.cache($.imagemin({
         optimizationLevel: 5,
         progressive: true,
         interlaced: true
     })))
     .pipe(gulp.dest(yeoman.dist + '/images'));
+});
+
+gulp.task('copy:cdc', function () {
+  return gulp.src(yeoman.app + '/images/snapshots/cdc/**/*.{gif,jpeg,jpg,png,svg}')
+    .pipe($.cache($.imagemin({
+        optimizationLevel: 5,
+        progressive: true,
+        interlaced: true
+    })))
+    .pipe(gulp.dest(yeoman.dist + '/images/snapshots/cdc'));
 });
 
 gulp.task('bower:images', function () {
@@ -210,7 +220,7 @@ gulp.task('copy:mfonts', function () {
 });
 
 gulp.task('build', ['clean:dist'], function () {
-  runSequence(['copy:images', 'bower:images', 'fullscreen:images', 'copy:static', 'copy:extras', 'copy:widgets', 'copy:fonts', 'copy:mfonts', 'client:build'], 'rename:index');
+  runSequence(['copy:images', 'copy:cdc', 'bower:images', 'fullscreen:images', 'copy:static', 'copy:extras', 'copy:widgets', 'copy:fonts', 'copy:mfonts', 'client:build'], 'rename:index');
 });
 
 gulp.task('default', ['build']);
