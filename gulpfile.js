@@ -169,7 +169,7 @@ gulp.task('ngm:images', function () {
     .pipe(gulp.dest(yeoman.dist + '/images'));
 });
 gulp.task('ngm:imagesCluster', function () {
-  return gulp.src(yeoman.app + '/images/cluster/*')
+  return gulp.src(yeoman.app + '/images/cluster/**/*')
     .pipe($.cache($.imagemin({
         optimizationLevel: 5,
         progressive: true,
