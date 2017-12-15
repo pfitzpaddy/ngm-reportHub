@@ -237,7 +237,8 @@ gulp.task('copy:mfonts', function () {
 });
 
 gulp.task('build', ['clean:dist'], function () {
-  runSequence(['ngm:images', 'ngm:imagesCluster', 'ngm:imagesCountry', 'ngm:imagesSnapshots', 'bower:images', 'fullscreen:images', 'copy:static', 'copy:extras', 'copy:widgets', 'copy:fonts', 'copy:mfonts', 'client:build'], 'rename:index');
+  // runSequence(['ngm:images', 'ngm:imagesCluster', 'ngm:imagesCountry', 'ngm:imagesSnapshots', 'bower:images', 'fullscreen:images', 'copy:static', 'copy:extras', 'copy:widgets', 'copy:fonts', 'copy:mfonts', 'client:build'], 'rename:index');
+  runSequence(['ngm:images', 'bower:images', 'fullscreen:images', 'copy:static', 'copy:extras', 'copy:widgets', 'copy:fonts', 'copy:mfonts', 'client:build'], 'rename:index');
 });
 
 gulp.task('default', ['build']);
