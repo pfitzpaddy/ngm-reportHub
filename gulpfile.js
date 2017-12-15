@@ -160,13 +160,40 @@ gulp.task('rename:index', function () {
 });
 
 gulp.task('ngm:images', function () {
-  return gulp.src(yeoman.app + '/images/**/*')
+  return gulp.src(yeoman.app + '/images/*')
     .pipe($.cache($.imagemin({
         optimizationLevel: 5,
         progressive: true,
         interlaced: true
     })))
     .pipe(gulp.dest(yeoman.dist + '/images'));
+});
+gulp.task('ngm:imagesCluster', function () {
+  return gulp.src(yeoman.app + '/images/cluster/*')
+    .pipe($.cache($.imagemin({
+        optimizationLevel: 5,
+        progressive: true,
+        interlaced: true
+    })))
+    .pipe(gulp.dest(yeoman.dist + '/images/cluster'));
+});
+gulp.task('ngm:imagesCountry', function () {
+  return gulp.src(yeoman.app + '/images/country/**/*')
+    .pipe($.cache($.imagemin({
+        optimizationLevel: 5,
+        progressive: true,
+        interlaced: true
+    })))
+    .pipe(gulp.dest(yeoman.dist + '/images/country'));
+});
+gulp.task('ngm:imagesSnapshots', function () {
+  return gulp.src(yeoman.app + '/images/snapshots/**/*')
+    .pipe($.cache($.imagemin({
+        optimizationLevel: 5,
+        progressive: true,
+        interlaced: true
+    })))
+    .pipe(gulp.dest(yeoman.dist + '/images/snapshots'));
 });
 
 gulp.task('bower:images', function () {
@@ -210,7 +237,7 @@ gulp.task('copy:mfonts', function () {
 });
 
 gulp.task('build', ['clean:dist'], function () {
-  runSequence(['ngm:images', 'bower:images', 'fullscreen:images', 'copy:static', 'copy:extras', 'copy:widgets', 'copy:fonts', 'copy:mfonts', 'client:build'], 'rename:index');
+  runSequence(['ngm:images', 'ngm:imagesCluster', 'ngm:imagesCountry', 'ngm:imagesSnapshots', 'bower:images', 'fullscreen:images', 'copy:static', 'copy:extras', 'copy:widgets', 'copy:fonts', 'copy:mfonts', 'client:build'], 'rename:index');
 });
 
 gulp.task('default', ['build']);
