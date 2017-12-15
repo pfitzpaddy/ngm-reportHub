@@ -31,6 +31,10 @@ var lazypipe = require('lazypipe');
 var rimraf = require('rimraf');
 var wiredep = require('wiredep').stream;
 var runSequence = require('run-sequence');
+var cache = require('gulp-cache');
+
+// clear
+cache.clearAll();
 
 var yeoman = {
   app: require('./bower.json').appPath || 'app',
@@ -73,8 +77,6 @@ var styles = lazypipe()
 ///////////
 // Tasks //
 ///////////
-
-cache.clearAll();
 
 gulp.task('styles', function () {
   return gulp.src(paths.styles)
