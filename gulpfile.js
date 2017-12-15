@@ -34,7 +34,7 @@ var runSequence = require('run-sequence');
 var cache = require('gulp-cache');
 
 // clear
-cache.clearAll();
+// cache.clearAll();
 
 var yeoman = {
   app: require('./bower.json').appPath || 'app',
