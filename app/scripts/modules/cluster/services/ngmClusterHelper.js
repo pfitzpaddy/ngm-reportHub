@@ -605,6 +605,10 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_name: 'Conflict Affected'
           },{
             cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'health_workers',
+            beneficiary_type_name: 'Health Workers'
+          },{
+            cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'host_communities',
             beneficiary_type_name: 'Host Communities'
           },{

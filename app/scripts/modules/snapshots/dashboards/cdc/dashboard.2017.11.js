@@ -82,6 +82,38 @@ angular.module('ngmReportHub')
 						menu: [],
 						rows: [{
 							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/snapshots/cdc/better_data.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/snapshots/cdc/better_decisions.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/snapshots/cdc/better_outcomes.png"></img>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
 								styleClass: 's12 m12 l3',
 								widgets: [{
 									type: 'stats',
@@ -89,7 +121,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Products',
-										data: { value: 0 }
+										data: { value: 10 }
 									}
 								}]
 							},{
@@ -123,6 +155,84 @@ angular.module('ngmReportHub')
 									config: {
 										title: 'Personnel Trained',
 										data: { value: 36 }
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: 'Products',
+										data: { value: 17 }
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: 'Days of Training',
+										data: { value: 9 }
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: 'Organizations Trained',
+										data: { value: 14 }
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: 'Personnel Trained',
+										data: { value: 41 }
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: '<img width="100%" src="images/snapshots/cdc/201711/20171115_171935.jpg"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: '<img width="100%" src="images/snapshots/cdc/201711/20171117_174407.jpg"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: '<img width="100%" src="images/snapshots/cdc/201711/20171117_100308.jpg"></img>'
 									}
 								}]
 							}]

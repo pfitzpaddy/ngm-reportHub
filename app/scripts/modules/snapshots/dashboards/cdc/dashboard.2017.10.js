@@ -82,6 +82,38 @@ angular.module('ngmReportHub')
 						menu: [],
 						rows: [{
 							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/snapshots/cdc/better_data.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/snapshots/cdc/better_decisions.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/snapshots/cdc/better_outcomes.png"></img>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
 								styleClass: 's12 m12 l3',
 								widgets: [{
 									type: 'stats',
