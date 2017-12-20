@@ -43,14 +43,24 @@
 							<div class="row">
 								<!-- location title -->
 								<div class="col s12 m9 left">
-							  	
-							  	<!-- health cluster -->
-							  	<h5 class="report-location-title" ng-if="project.definition.cluster_id === 'health' && !location.admin3pcode">
+
+							  	<!-- no facility && admin2 -->
+							  	<h5 class="report-location-title" ng-if="!location.facility_type_name && !location.admin3pcode">
+												<i class="material-icons left" style="color: teal;">location_on</i>
+												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.facility_name }}
+									</h5>
+							  	<!-- no facility && admin3 -->
+							  	<h5 class="report-location-title" ng-if="!location.facility_type_name && location.admin3pcode">
+												<i class="material-icons left" style="color: teal;">location_on</i>
+												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.facility_name }}
+									</h5>
+							  	<!-- facility && admin2 -->
+							  	<h5 class="report-location-title" ng-if="location.facility_type_name && !location.admin3pcode">
 												<i class="material-icons left" style="color: teal;">location_on</i>
 												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.facility_type_name }}, {{ location.facility_name }}
 									</h5>
-							  	<!-- health cluster with admin3 -->
-							  	<h5 class="report-location-title" ng-if="project.definition.cluster_id === 'health' && location.admin3pcode">
+							  	<!-- facility && admin3 -->
+							  	<h5 class="report-location-title" ng-if="location.facility_type_name && location.admin3pcode">
 												<i class="material-icons left" style="color: teal;">location_on</i>
 												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.facility_type_name }}, {{ location.facility_name }}
 									</h5>
@@ -69,11 +79,6 @@
 												<span style="padding-left:40px;color:#616161;font-size:1.2rem;">
 													{{ location.facility_implementation_name | uppercase }} SCHOOL | {{ location.admin1name }}, {{ location.admin2name }}, {{ location.facility_type_name }}, {{ location.facility_name }}
 												</span>
-									</h5>
-									<!-- other -->
-							  	<h5 class="report-location-title" ng-if="project.definition.cluster_id !== 'health' && project.definition.cluster_id !== 'eiewg'">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.facility_name }}
 									</h5>
 								</div>
 
