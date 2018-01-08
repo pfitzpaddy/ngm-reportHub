@@ -7,19 +7,19 @@
  */
 angular.module('ngmReportHub')
 	.controller('DashboardClusterAdminCtrl', [
-			'$scope', 
-			'$q', 
-			'$http', 
-			'$location', 
+			'$scope',
+			'$q',
+			'$http',
+			'$location',
 			'$route',
 			'$rootScope',
-			'$window', 
-			'$timeout', 
-			'$filter', 
+			'$window',
+			'$timeout',
+			'$filter',
 			'ngmUser',
 			'ngmAuth',
 			'ngmData',
-			'ngmClusterHelper', 
+			'ngmClusterHelper',
 		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData, ngmClusterHelper ) {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
@@ -35,10 +35,10 @@ angular.module('ngmReportHub')
 
 			// create dews object
 			$scope.dashboard = {
-				
+
 				// parent
 				ngm: $scope.$parent.ngm,
-				
+
 				// current user
 				user: ngmUser.get(),
 
@@ -47,7 +47,7 @@ angular.module('ngmReportHub')
 
 				// report end
 				endDate: moment( $route.current.params.end ).format( 'YYYY-MM-DD' ),
-				
+
 				// current report
 				report_file_name: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
 
@@ -123,7 +123,7 @@ angular.module('ngmReportHub')
 												 '/' + cluster_id +
 												 '/' + organization_tag +
 												 '/' + report_type +
-												 '/' + $scope.dashboard.startDate + 
+												 '/' + $scope.dashboard.startDate +
 												 '/' + $scope.dashboard.endDate;
 
 					return path;
@@ -134,10 +134,10 @@ angular.module('ngmReportHub')
 
 					// if ADMIN
 					var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.report_type, $scope.dashboard.organization_tag );
-					
-					// if current location is not equal to path 
+
+					// if current location is not equal to path
 					if ( path !== $location.$$path ) {
-						// 
+						//
 						$location.path( path );
 					}
 
@@ -150,7 +150,7 @@ angular.module('ngmReportHub')
 						list: list,
 						indicator: indicator,
 						cluster_id: $scope.dashboard.cluster_id,
-						organization_tag: $scope.dashboard.organization_tag, 
+						organization_tag: $scope.dashboard.organization_tag,
 						adminRpcode: $scope.dashboard.adminRpcode,
 						admin0pcode: $scope.dashboard.admin0pcode,
 						report_type: $scope.dashboard.report_type,
@@ -181,6 +181,45 @@ angular.module('ngmReportHub')
 					}
 
 					request.data = angular.merge(request.data, obj);
+
+					return request;
+				},
+
+				// request
+				getProjectsRequest: function( obj ){
+					// constructs like sql query
+					var request = {
+						query: {
+							// dinamically construct
+						}
+					}
+
+					if ( $scope.dashboard.adminRpcode!=='all' ){
+						request.query.adminRpcode = $scope.dashboard.adminRpcode;
+					};
+
+					if ( $scope.dashboard.admin0pcode!=='all' ){
+						request.query.admin0pcode = $scope.dashboard.admin0pcode;
+					};
+
+					if ( $route.current.params.cluster_id!=='all' ){
+						request.query.cluster_id = $route.current.params.cluster_id;
+					}
+
+					if ( $route.current.params.organization_tag!=='all' ){
+						request.query.organization_tag = $route.current.params.organization_tag;
+					}
+
+					// query depenging on role
+					switch ($scope.dashboard.role){
+						case 'ADMIN':
+							request.query.cluster_id = $scope.dashboard.cluster_id;
+							break;
+						case 'USER':
+							request.query.organization_tag = $scope.dashboard.organization_tag;
+					}
+
+					request = angular.merge(request, obj);
 
 					return request;
 				},
@@ -226,7 +265,7 @@ angular.module('ngmReportHub')
 							cluster: 'ALL',
 						});
 						angular.forEach( $scope.dashboard.lists.clusters, function(d,i){
-							
+
 							// admin URL
 							var path = $scope.dashboard.getPath( d.cluster_id, $scope.dashboard.report_type, $scope.dashboard.organization_tag );
 
@@ -305,25 +344,25 @@ angular.module('ngmReportHub')
 				},
 
 				setCluster: function(){
-					$scope.dashboard.cluster = $filter( 'filter' )( $scope.dashboard.lists.clusters, 
+					$scope.dashboard.cluster = $filter( 'filter' )( $scope.dashboard.lists.clusters,
 														{ cluster_id: $scope.dashboard.cluster_id }, true )[0]
 				},
 
 				// filter
 				setAdmin1: function(){
-					$scope.dashboard.data.admin1 = $filter( 'filter' )( $scope.dashboard.lists.admin1, 
+					$scope.dashboard.data.admin1 = $filter( 'filter' )( $scope.dashboard.lists.admin1,
 														{ admin0pcode: $scope.dashboard.admin0pcode.toUpperCase(),
 															admin1pcode: $scope.dashboard.admin1pcode }, true )[0];
 				},
 
 				setAdmin2: function(){
-					$scope.dashboard.data.admin2 = $filter( 'filter' )( $scope.dashboard.lists.admin2, 
+					$scope.dashboard.data.admin2 = $filter( 'filter' )( $scope.dashboard.lists.admin2,
 														{ admin0pcode: $scope.dashboard.admin0pcode.toUpperCase(),
 															admin1pcode: $scope.dashboard.admin1pcode,
 															admin2pcode: $scope.dashboard.admin2pcode }, true )[0];
 				},
 
-				// 
+				//
 				setTitle: function(){
 					// title
 					$scope.dashboard.title = '4W';
@@ -341,7 +380,7 @@ angular.module('ngmReportHub')
 					// cluster
 					if ( $scope.dashboard.cluster_id !== 'all' ) {
 						$scope.dashboard.title += ' | ' + $scope.dashboard.cluster.cluster;
-					}	
+					}
 					// org
 					if ( $scope.dashboard.organization_tag !== 'all' ) {
 						$scope.dashboard.title += ' | ' + $scope.dashboard.organization;
@@ -372,7 +411,7 @@ angular.module('ngmReportHub')
 					if ( $scope.dashboard.cluster_id === 'all' ) {
 						$scope.dashboard.subtitle += ', ALL clusters';
 					}	else {
-						$scope.dashboard.subtitle += $scope.dashboard.cluster.cluster.toUpperCase() + ' cluster';
+						$scope.dashboard.subtitle += ' '+ $scope.dashboard.cluster.cluster.toUpperCase() + ' cluster';
 					}
 					// org
 					if ( $scope.dashboard.organization_tag === 'all' ) {
@@ -419,7 +458,7 @@ angular.module('ngmReportHub')
 							'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'stock', $scope.dashboard.organization_tag )
 						}]
 					});
-					
+
 				},
 
 				// set dashboard
@@ -435,25 +474,31 @@ angular.module('ngmReportHub')
 					// ADMIN
 					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 ) {
 						$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
+						$scope.dashboard.role = 'ADMIN';
 					}
 					// USER
 					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 && $scope.dashboard.user.roles.indexOf( 'ADMIN' ) === -1 ) {
 						$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
 						$scope.dashboard.organization = $scope.dashboard.user.organization;
+						$scope.dashboard.role = 'USER';
 					}
 
 					// report name
 					$scope.dashboard.report_file_name += moment().format( 'YYYY-MM-DDTHHmm' );
-				
+
 					// set
 					$scope.dashboard.setUrl();
 					$scope.dashboard.setCluster();
 					$scope.dashboard.setTitle();
 					$scope.dashboard.setSubtitle();
-					
+
 					// filename cluster needs to be mpc for cvwg
 					// TODO refactor/update cvwg
 					$scope.dashboard.cluster_id_filename = $scope.dashboard.cluster_id !== 'cvwg' ? $scope.dashboard.cluster_id : 'mpc'
+
+					if ($route.current.params.organization_tag!=='all'){
+						$scope.dashboard.cluster_id_filename = $route.current.params.organization_tag + '_' + $scope.dashboard.cluster_id_filename;
+					}
 
 					// model
 					$scope.model = {
@@ -488,7 +533,7 @@ angular.module('ngmReportHub')
 											// set new date
 											$scope.dashboard.startDate = date;
 											// URL
-											var path = $scope.dashboard.getPath( $route.current.params.cluster_id, $route.current.params.report_type, $route.current.params.organization_tag ); 
+											var path = $scope.dashboard.getPath( $route.current.params.cluster_id, $route.current.params.report_type, $route.current.params.organization_tag );
 											// update new date
 											$location.path( path );
 
@@ -532,8 +577,19 @@ angular.module('ngmReportHub')
 											pageLoadTime: 6200,
 											viewportWidth: 1400
 										}
-									},						
+									},
 									metrics: $scope.dashboard.getMetrics( 'print', 'pdf' )
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'assignment',
+									hover: 'Download Project Summaries as CSV',
+									request: {
+										method: 'POST',
+										url: ngmAuth.LOCATION + '/api/cluster/project/getProjects',
+										data: $scope.dashboard.getProjectsRequest( { report: $scope.dashboard.cluster_id_filename +'_projects' + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
+									},
+									metrics: $scope.dashboard.getMetrics( 'projects_summary', 'csv' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
@@ -541,7 +597,7 @@ angular.module('ngmReportHub')
 									hover: 'Download ' + $scope.dashboard.report_type.charAt(0).toUpperCase() + $scope.dashboard.report_type.slice(1) + ' Reports ToDo',
 									request: {
 										method: 'POST',
-										url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',	
+										url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
 										data: angular.merge( $scope.dashboard.getRequest( 'reports_due', true ), { report: $scope.dashboard.cluster_id_filename + '_' + $scope.dashboard.report_type +'_reports_due_' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
 									},
 									metrics: $scope.dashboard.getMetrics( 'reports_due', 'csv' )
@@ -571,7 +627,7 @@ angular.module('ngmReportHub')
 									request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'stocks', report: $scope.dashboard.cluster_id_filename + '_stock_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 									metrics: $scope.dashboard.getMetrics( 'stocks', 'csv' )
 								}],
-							}							
+							}
 						},
 						menu: [],
 						rows: [{
@@ -727,7 +783,7 @@ angular.module('ngmReportHub')
 										html: $scope.dashboard.ngm.footer
 									}
 								}]
-							}]						
+							}]
 						}]
 					}
 
