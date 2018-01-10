@@ -1392,6 +1392,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           if ( !e ) {
             $('#ngm-target_locations').css({ 'color': '#EE6E73'});
             scrollDiv = $('#ngm-target_locations');
+					}
+
+					if ( !d ) {
+            $('#ngm-target_beneficiaries').css({ 'color': '#EE6E73'});
+            scrollDiv = $('#ngm-target_beneficiaries');
           }
 
           // donor

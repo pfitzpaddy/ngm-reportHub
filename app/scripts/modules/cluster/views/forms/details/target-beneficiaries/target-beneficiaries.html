@@ -13,7 +13,7 @@
 
 				<li class="collection-item avatar">
 
-					<p style="padding:10px;">
+					<p id="ngm-target_beneficiaries" style="padding:10px;">
 						Enter the TARGET BENEFICIARIES of your PROJECT in the form below;
 					</p>
 
@@ -53,7 +53,7 @@
 							      <td ng-if="false">Eld. Women</td>
 							      <td ng-if="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
-							    <tr ng-repeat="beneficiary in project.definition.target_beneficiaries track by $index">
+							    <tr ng-repeat="beneficiary in project.definition.target_beneficiaries">
 							    	<td>
 							    		<i class="material-icons" style="color: teal;">group</i>
 							    	</td>
