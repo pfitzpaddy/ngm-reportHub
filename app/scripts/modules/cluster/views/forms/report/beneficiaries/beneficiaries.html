@@ -29,7 +29,7 @@
       <td ng-if="false">Eld. Women</td>
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
-    <tr ng-repeat="beneficiary in project.report.locations[$locationIndex].beneficiaries track by $index">
+    <tr ng-repeat="beneficiary in project.report.locations[$locationIndex].beneficiaries">
       <td>
         <!-- editable activity_type from Project -->
         <span e-form="rowform"
