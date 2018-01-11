@@ -1,8 +1,8 @@
 
 <style>
-	
+
 	.edit-report-btn {
-		position:absolute; right:20px; top:20px;	
+		position:absolute; right:20px; top:20px;
 	}
 
 </style>
@@ -18,12 +18,12 @@
 					</h5>
 				</li>
 				<li class="collection-item avatar">
-					
+
 					<!-- form -->
 
 					 	<div class="row">
-							
-							<h5 class="report-selected-locations">{{ report.report.stocklocations.length }} Selected Locations</h5>
+
+							<h5 class="report-selected-locations">{{ report.report.stocklocations.length }} Selected Locations<span style="color:#EE6E73; padding-left: 40px" ng-if="!report.formComplete()">Form Not Completed</span></h5>
 
 							<div class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
 	      					title="Edit {{ report.titleFormat }}"
@@ -51,7 +51,7 @@
 											{{ report.report.stocklocations[$locationIndex].stocks | sumByKey:'beneficiaries_covered' | number }}
 									</div>
 								</div>
-							</div>			
+							</div>
 
 							<!-- Project beneficiaries details -->
 							<div class="slide-animate" ng-include="report.templatesUrl + report.stocksUrl"></div>
@@ -59,7 +59,7 @@
 						</div>
 
 				</li>
-			</ul>		
+			</ul>
 
 		</div>
 	</div>
