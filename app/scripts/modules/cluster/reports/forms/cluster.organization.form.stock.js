@@ -66,7 +66,14 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           },{
             stock_status_id: 'reserved',
             stock_status_name: 'Reserved'
-          }]
+					}],
+					stock_item_purpose:[{
+						stock_item_purpose_id: 'prepositioned',
+						stock_item_purpose_name: 'Prepositioned',
+					},{
+						stock_item_purpose_id: 'operational',
+						stock_item_purpose_name: 'Operational',
+					}]
         },
 
         // init
@@ -149,6 +156,18 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             }
           }
           return selected.length ? selected[0].stock_status_name : 'No Selection!';
+				},
+
+				showStockPurpose: function( $data, $stock ){
+          var selected = [];
+          $stock.stock_item_purpose_id = $data;
+          if( $stock.stock_item_purpose_id ) {
+            selected = $filter('filter')( $scope.report.lists.stock_item_purpose, { stock_item_purpose_id: $stock.stock_item_purpose_id }, true );
+            if ( selected.length ){
+              $stock.stock_item_purpose_name = selected[0].stock_item_purpose_name;
+            }
+          }
+          return selected.length ? selected[0].stock_item_purpose_name : 'No Selection!';
         },
 
         // update inidcators
@@ -216,7 +235,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         editReport: function(){
           $scope.report.report.report_status = 'todo';
           $scope.report.save( false, false );
-        },
+				},
 
         // save
         save: function( complete, display_modal ) {
