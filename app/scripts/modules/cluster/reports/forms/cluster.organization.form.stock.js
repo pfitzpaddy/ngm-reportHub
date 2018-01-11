@@ -218,6 +218,79 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           $scope.report.save( false, false );
         },
 
+				// process adding previous stock report data
+				addPrevStocks: function (prev_report) {
+
+						angular.forEach(prev_report.stocklocations, function (l, i) {
+							var id = l.stock_warehouse_id;
+
+							// uncoment if rewriting all data, comment if adding rows every time on copy
+							// $scope.report.report.stocklocations
+							// 			.find(function (e) {return e.stock_warehouse_id === id}).stocks = [];
+
+							angular.forEach(l.stocks, function (s, ri) {
+								$scope.inserted = {
+									cluster_id: s.cluster_id,
+									stock_item_type: s.stock_item_type,
+									stock_item_name: s.stock_item_name,
+									stock_item_purpose_id: s.stock_item_name,
+									stock_item_purpose_name: s.stock_item_purpose_name,
+									stock_status_id: s.stock_status_id,
+									stock_status_name: s.stock_status_name,
+									unit_type_id: s.unit_type_id,
+									unit_type_name: s.unit_type_name,
+									number_in_stock: s.number_in_stock,
+									number_in_pipeline: s.number_in_pipeline,
+									beneficiaries_covered: s.beneficiaries_covered
+								};
+								var $loc = $scope.report.report.stocklocations.find(function (l) {
+									return l.stock_warehouse_id = id
+								})
+								$scope.inserted =
+									ngmClusterHelper.getCleanStocks($scope.report.report, $loc, $scope.inserted);
+
+								$scope.report.report.stocklocations.find(function (l) {
+									return l.stock_warehouse_id = id
+								}).stocks.push($scope.inserted);
+							});
+						});
+				},
+
+				// entry copy previous report
+				copyPrevReport: function () {
+
+					var getPrevReport = {
+						method: 'POST',
+						url: ngmAuth.LOCATION + '/api/cluster/stock/getReport',
+						data: {
+							id: $route.current.params.report_id,
+							previous: true
+						}
+					}
+
+					ngmData.get(getPrevReport).then(function (prev_report) {
+
+						$scope.report.addPrevStocks(prev_report);
+
+						// toast msg n of copied rows
+						var nrows = 0
+						angular.forEach(prev_report.stocklocations, function (l) {
+							nrows += l.stocks.length
+						})
+						if (!nrows) {
+							var msg = 'No data in previous report';
+						} else {
+							var msg = 'Copied ' + nrows + ' rows';
+						}
+						Materialize.toast(msg, 3000, 'success');
+					}).catch(function (e) {
+						Materialize.toast('Error, Not copied', 3000, 'error');
+					});
+
+				},
+
+
+
         // save
         save: function( complete, display_modal ) {
 

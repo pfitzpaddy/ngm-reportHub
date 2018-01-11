@@ -32,6 +32,13 @@
 	      					<i class="material-icons left">add</i>Edit Report
 	      			</div>
 
+							<div class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
+	      					title="Edit {{ report.titleFormat }}"
+	      					ng-show="report.report.report_status === 'todo'"
+	      					ng-click="report.copyPrevReport()">
+	      					<i class="material-icons left">content_copy</i>Copy Last Month
+							</div>
+
 						</div>
 
 						<div class="row" ng-repeat="location in report.report.stocklocations" ng-init="$locationIndex=$index">

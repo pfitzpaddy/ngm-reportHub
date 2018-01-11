@@ -1287,9 +1287,9 @@ angular.module( 'ngmReportHub' )
 
         // default stock
         stock.report_id = stock.report_id.id;
-        stock.number_in_stock = 0;
-        stock.number_in_pipeline = 0;
-        stock.beneficiaries_covered = 0;
+        // stock.number_in_stock = 0;
+        // stock.number_in_pipeline = 0;
+        // stock.beneficiaries_covered = 0;
 
         return stock;
       },
