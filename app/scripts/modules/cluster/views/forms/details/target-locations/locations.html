@@ -31,7 +31,7 @@
 							      <td>Location *</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
-							    <tr ng-repeat="location in project.definition.target_locations track by $index">
+							    <tr ng-repeat="location in project.definition.target_locations">
 							    	<td>
 							    		<i class="material-icons" style="color: teal;">person_pin</i>
 							    	</td>
@@ -74,7 +74,7 @@
 							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
 							        <!-- form -->
 							        <form editable-form name="locationform" ng-show="locationform.$visible" onbeforesave="project.saveLocation()" class="form-buttons form-inline" shown="inserted === location">
-							          <button 
+							          <button
 							          		title="Save" type="submit" class="btn waves-effect waves-light save"
 							          		ng-if="locationform.$visible && !project.newProject"
 							          		ng-disabled="
@@ -111,10 +111,10 @@
 							                    ( !project.submit ) )">
 							          	<i class="material-icons">delete</i>
 							          </button>
-							        </div>  
+							        </div>
 							      </td>
 							    </tr>
-							  </table>							      
+							  </table>
 
 							  <button class="btn" ng-show="project.definition.project_status !== 'complete'" ng-click="project.addLocation()" style="margin:20px 0px;">
 							  	<i class="material-icons left">add</i>Add Row
