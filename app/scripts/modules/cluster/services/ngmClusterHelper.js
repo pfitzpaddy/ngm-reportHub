@@ -1263,13 +1263,15 @@ angular.module( 'ngmReportHub' )
         delete warehouse.admin2;
         delete warehouse.admin3;
         delete warehouse.facility_type;
+				delete warehouse.createdAt;
+				delete warehouse.updatedAt;
 
         // add params
         // warehouse.warehouse_status = 'new';
         warehouse.username = user.username;
         warehouse.email = user.email;
         warehouse.facility_lng = warehouse.admin3lng ? warehouse.admin3lng : warehouse.admin2lng;
-        warehouse.facility_lat = warehouse.admin3lat ? warehouse.admin3lat : warehouse.admin2lat;
+				warehouse.facility_lat = warehouse.admin3lat ? warehouse.admin3lat : warehouse.admin2lat;
 
         return warehouse;
       },
