@@ -298,11 +298,18 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 							nrows += l.stocks.length
 						})
 						if (!nrows) {
-							var msg = 'No data in previous report';
+							if (Object.keys(prev_report).length) {
+								var msg = 'No data in previous report',
+										typ = 'success';
+							} else {
+								var msg = 'No previous report',
+										typ = 'success';
+							}
 						} else {
-							var msg = 'Copied ' + nrows + ' rows';
+								var msg = 'Copied ' + nrows + ' rows',
+										typ = 'success';
 						}
-						Materialize.toast(msg, 3000, 'success');
+						Materialize.toast(msg, 3000, typ);
 					}).catch(function (e) {
 						Materialize.toast('Error, Not copied', 3000, 'error');
 					});
