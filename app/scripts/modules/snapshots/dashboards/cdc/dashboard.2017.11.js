@@ -120,7 +120,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Products',
+										title: 'IM Products Nov',
 										data: { value: 10 }
 									}
 								}]
@@ -131,8 +131,8 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Days of Training',
-										data: { value: 5 }
+										title: 'IM Training Sessions Nov',
+										data: { value: 6 }
 									}
 								}]
 							},{
@@ -142,8 +142,8 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Organizations Trained',
-										data: { value: 10 }
+										title: 'Organizations Trained Nov',
+										data: { value: 17 }
 									}
 								}]
 							},{
@@ -153,7 +153,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Personnel Trained',
+										title: 'Personnel Trained Nov',
 										data: { value: 36 }
 									}
 								}]
@@ -166,7 +166,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Products',
+										title: 'IM Products Total',
 										data: { value: 17 }
 									}
 								}]
@@ -177,8 +177,8 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Days of Training',
-										data: { value: 9 }
+										title: 'IM Training Sessions Total',
+										data: { value: 12 }
 									}
 								}]
 							},{
@@ -188,8 +188,8 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Organizations Trained',
-										data: { value: 14 }
+										title: 'Organizations Trained Total',
+										data: { value: 19 }
 									}
 								}]
 							},{
@@ -199,8 +199,8 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Personnel Trained',
-										data: { value: 41 }
+										title: 'Personnel Trained Total',
+										data: { value: 43 }
 									}
 								}]
 							}]
