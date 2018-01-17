@@ -68,7 +68,7 @@
 
 			<!-- pagination ctrl -->
 	    <li class="collection-item avatar"
-	    	dir-paginate="item in list.data | filter: list.search.filter | orderBy: list.orderBy | itemsPerPage: list.itemsPerPage" pagination-id="list.id"
+	    	dir-paginate="item in list.data | filter: list.search.filter | orderBy: list.orderBy : true | itemsPerPage: list.itemsPerPage" pagination-id="list.id"
 	    	style="padding-top:20px;">
 				<a href="#/cluster/projects/report/{{ item.project_id }}/{{ item.id }}" title="{{ list.hoverTitle }} {{ item.reporting_period_title }} Report">
 					<i class="material-icons circle white teal-text">{{ list.icon }}</i>
