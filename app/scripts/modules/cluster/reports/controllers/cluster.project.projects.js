@@ -19,6 +19,9 @@ angular.module( 'ngmReportHub' )
 			// ngm
 			ngm: $scope.$parent.ngm,
 
+			// user
+			user: ngmUser.get(),
+
 			// form to add new project
 			newProjectUrl: '#/cluster/projects/details/new',
 
@@ -49,14 +52,18 @@ angular.module( 'ngmReportHub' )
 		}
 
 		// org id
-		$scope.report.organization_id = 
+		$scope.report.organization_id =
 				$route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
+
+		// org tag
+		$scope.report.organization_tag =
+		$route.current.params.organization_tag ? $route.current.params.organization_tag : ngmUser.get().organization_tag;
 
 		// get data
 		ngmData
 			.get( $scope.report.getOrganization( $scope.report.organization_id ) )
 			.then( function( organization ){
-
+			$scope.model.header.download.downloads[0].request.data.report = organization.organization_tag  +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 			// set model titles
 			$scope.model.header.title.title = organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + organization.cluster.toUpperCase() + ' | ' + organization.organization + ' | Projects';
 			$scope.model.header.subtitle.title = organization.cluster + ' projects for ' + organization.organization + ' ' + organization.admin0name;
@@ -72,13 +79,46 @@ angular.module( 'ngmReportHub' )
 					style: 'border-bottom: 3px ' + $scope.report.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
-					'class': 'col s12 m12 l12 report-title',
+					'class': 'col s12 m9 l9 report-title',
 					style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
 					title: $scope.report.title
 				},
 				subtitle: {
 					'class': 'col s12 m12 l12 report-subtitle hide-on-small-only',
 					title: $scope.report.subtitle
+				},
+				download: {
+					'class': 'col s12 m3 l3 hide-on-small-only',
+					downloads: [{
+						type: 'csv',
+						color: 'blue lighten-2',
+						icon: 'assignment',
+						hover: 'Download Project Summaries as CSV',
+						request: {
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/cluster/project/getProjects',
+							data: {
+								details: 'projects',
+								report: $scope.report.organization_tag +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
+								query: { organization_id: $scope.report.organization_id },
+								csv:true
+							}
+						},
+						metrics: {
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/metrics/set',
+							data: {
+								organization: $scope.report.user.organization,
+								username: $scope.report.user.username,
+								email: $scope.report.user.email,
+								dashboard: 'projects list',
+								theme: 'organization_projects_details',
+								format: 'csv',
+								url: $location.$$path
+							}
+						}
+					}]
+
 				}
 			},
 			rows: [{
@@ -110,7 +150,7 @@ angular.module( 'ngmReportHub' )
 								method: 'POST',
 								url: ngmAuth.LOCATION + '/api/cluster/project/getProjectsList',
 								data: {
-									filter: { 
+									filter: {
 										organization_id: $scope.report.organization_id,
 										project_status: 'active'
 									}
@@ -135,7 +175,7 @@ angular.module( 'ngmReportHub' )
 								method: 'POST',
 								url: ngmAuth.LOCATION + '/api/cluster/project/getProjectsList',
 								data: {
-									filter: { 
+									filter: {
 										organization_id: $scope.report.organization_id,
 										project_status: 'complete'
 									}
@@ -161,5 +201,5 @@ angular.module( 'ngmReportHub' )
 
 		// assign to ngm app scope
 		$scope.report.ngm.dashboard.model = $scope.model;
-		
+
 	}]);

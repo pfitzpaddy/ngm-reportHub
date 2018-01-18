@@ -20,15 +20,15 @@ angular.module('ngmReportHub')
 
 		// empty Project
 		$scope.report = {
-			
+
 			// parent
 			ngm: $scope.$parent.ngm,
-			
+
 			// current user
 			user: ngmUser.get(),
 
 			// current report
-			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),			
+			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
 
 			// set project details
 			setProjectDetails: function(data){
@@ -69,47 +69,50 @@ angular.module('ngmReportHub')
 						download: {
 							'class': 'col s12 m3 l3 hide-on-small-only',
 							downloads: [{
-								type: 'pdf',
-								color: 'blue',
-								icon: 'picture_as_pdf',
-								hover: 'Download Project Details as PDF',
-								request: {
-									method: 'POST',
-									url: ngmAuth.LOCATION + '/api/print',
-									data: {
-										report: $scope.report.report,
-										printUrl: $location.absUrl(),
-										downloadUrl: ngmAuth.LOCATION + '/report/',
-										token: $scope.report.user.token,
-										viewportWidth: 1480,
-										pageLoadTime: 3200
-									}
-								},						
-								metrics: {
-									method: 'POST',
-									url: ngmAuth.LOCATION + '/api/metrics/set',
-									data: {
-										organization: $scope.report.user.organization,
-										username: $scope.report.user.username,
-										email: $scope.report.user.email,
-										dashboard: $scope.report.project.project_title,
-										theme: 'cluster_project_details',
-										format: 'pdf',
-										url: $location.$$path
-									}
-								}						
-							},{
+							// 	type: 'pdf',
+							// 	color: 'blue',
+							// 	icon: 'picture_as_pdf',
+							// 	hover: 'Download Project Details as PDF',
+							// 	request: {
+							// 		method: 'POST',
+							// 		url: ngmAuth.LOCATION + '/api/print',
+							// 		data: {
+							// 			report: $scope.report.report,
+							// 			printUrl: $location.absUrl(),
+							// 			downloadUrl: ngmAuth.LOCATION + '/report/',
+							// 			token: $scope.report.user.token,
+							// 			user: $scope.report.user, 
+							// 			lists: localStorage.getObject( 'lists' ), 
+							// 			viewportWidth: 1480,
+							// 			pageLoadTime: 3200
+							// 		}
+							// 	},
+							// 	metrics: {
+							// 		method: 'POST',
+							// 		url: ngmAuth.LOCATION + '/api/metrics/set',
+							// 		data: {
+							// 			organization: $scope.report.user.organization,
+							// 			username: $scope.report.user.username,
+							// 			email: $scope.report.user.email,
+							// 			dashboard: $scope.report.project.project_title,
+							// 			theme: 'cluster_project_details',
+							// 			format: 'pdf',
+							// 			url: $location.$$path
+							// 		}
+							// 	}
+							// },{
 								type: 'csv',
 								color: 'blue lighten-2',
 								icon: 'assignment',
 								hover: 'Download ' + $scope.report.project.project_title + ' as CSV',
 								request: {
 									method: 'POST',
-									url: ngmAuth.LOCATION + '/api/health/indicator',
+									url: ngmAuth.LOCATION + '/api/cluster/project/getProjects',
 									data: {
-										report: 'projects_' + $scope.report.report,
+										report:  $scope.report.report,
 										details: 'projects',
-										project_id: $scope.report.project.id
+										query : { project_id : $scope.report.project.id },
+										csv : true
 									}
 								},
 								metrics: {
@@ -128,7 +131,7 @@ angular.module('ngmReportHub')
 							}]
 						}
 					},
-					rows: [{		
+					rows: [{
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
@@ -157,9 +160,9 @@ angular.module('ngmReportHub')
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;
 
-			}			
+			}
 
-		}		
+		}
 
 		// Run page
 
@@ -187,5 +190,5 @@ angular.module('ngmReportHub')
 			});
 
 		}
-		
+
 	}]);

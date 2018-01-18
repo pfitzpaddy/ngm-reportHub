@@ -13,7 +13,7 @@
 
 				<li class="collection-item avatar">
 
-					<p style="padding:10px;">
+					<p id="ngm-target_beneficiaries" style="padding:10px;">
 						Enter the TARGET BENEFICIARIES of your PROJECT in the form below;
 					</p>
 
@@ -53,7 +53,7 @@
 							      <td ng-if="false">Eld. Women</td>
 							      <td ng-if="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
-							    <tr ng-repeat="beneficiary in project.definition.target_beneficiaries track by $index">
+							    <tr ng-repeat="beneficiary in project.definition.target_beneficiaries">
 							    	<td>
 							    		<i class="material-icons" style="color: teal;">group</i>
 							    	</td>
@@ -251,8 +251,7 @@
 							        			editable-number="beneficiary.men"
 							        			e-min="0"
 							        			e-ng-change="project.updateInput($index, 'men', $data )"
-							        			e-ng-disabled="( beneficiary.cluster_id === 'nutrition' &&
-							        							beneficiary.activity_type_id !== 'nutrition_education_training' ) ||
+							        			e-ng-disabled="
 							        							beneficiary.activity_type_id === 'mch' ||
 							        							beneficiary.activity_type_id === 'vaccination' ||
 							        							beneficiary.activity_description_id === 'antenatal_care' ||
@@ -285,7 +284,6 @@
 							        			editable-number="beneficiary.elderly_men"
 							        			e-min="0" e-ng-change="project.updateInput($index, 'elderly_men', $data )"
 							        			e-ng-disabled="beneficiary.cluster_id === 'eiewg' ||
-							        							beneficiary.cluster_id === 'nutrition' ||
 							        							beneficiary.cluster_id === 'wash' ||
 							        							beneficiary.activity_type_id === 'mch' ||
 							        							beneficiary.activity_description_id === 'antenatal_care' ||
@@ -306,7 +304,6 @@
 							        			e-min="0"
 							        			e-ng-change="project.updateInput($index, 'elderly_women', $data )"
 							        			e-ng-disabled="beneficiary.cluster_id === 'eiewg' ||
-							        							beneficiary.cluster_id === 'nutrition' ||
 							        							beneficiary.cluster_id === 'wash' ||
 							        							beneficiary.activity_type_id === 'mch' ||
 							        							beneficiary.activity_description_id === 'antenatal_care' ||

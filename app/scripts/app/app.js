@@ -137,6 +137,12 @@ angular
 			ngmUser.unset();
 		}
 
+		// check URL
+		if ( $location.$$host.search('dev') > -1 ) {
+			// add DEV message if necissary
+			$('#print').append('<h4 class="grey-text text-lighten-2" style="position:absolute;top:0;right:0;padding-right:165px;padding-top:35px;">TEST VERSION</h4>');
+		}
+
 		// IE checks!!!!!!
 		if (/MSIE 10/i.test($window.navigator.userAgent)) {
 		   // This is internet explorer 10
@@ -206,26 +212,6 @@ angular
 
 				// set app colors based on 
 				switch( app ){
-          case 'reporthub':
-            // set style obj
-            $scope.ngm.style = {
-              logo: 'logo.png',
-              home: '#/reporthub',
-              darkPrimaryColor: '#1976D2',
-              defaultPrimaryColor: '#2196F3',
-              lightPrimaryColor: '#BBDEFB'
-            }
-            break;
-					case 'immap':
-						// set style obj
-						$scope.ngm.style = {
-							logo: 'logo-immap.png',
-							home: '#/immap',
-							darkPrimaryColor: '#DE696E',
-							defaultPrimaryColor: '#EE6E73',
-							lightPrimaryColor: '#EF9A9A'
-						}
-						break;
 					case 'who':
 						// set style obj
 						if ( $location.$$path.split('/')[2] === 'ethiopia' ) {
@@ -246,6 +232,16 @@ angular
 							}
 						}
 						break;
+					case 'immap':
+						// set style obj
+						$scope.ngm.style = {
+							logo: 'logo-immap.png',
+							home: '#/immap',
+							darkPrimaryColor: '#DE696E',
+							defaultPrimaryColor: '#EE6E73',
+							lightPrimaryColor: '#EF9A9A'
+						}
+						break;
           case 'epr':
             // set style obj
             $scope.ngm.style = {
@@ -254,6 +250,36 @@ angular
               darkPrimaryColor: '#1976D2',
               defaultPrimaryColor: '#2196F3',
               lightPrimaryColor: '#BBDEFB'
+            }
+            break;
+          case 'reporthub':
+            // set style obj
+            $scope.ngm.style = {
+              logo: 'logo.png',
+              home: '#/reporthub',
+              darkPrimaryColor: '#1976D2',
+              defaultPrimaryColor: '#2196F3',
+              lightPrimaryColor: '#BBDEFB'
+            }
+            break;
+          case 'snapshot':
+            // set style obj
+            if ( $location.$$path.split('/')[2] === 'immap' ) {
+							$scope.ngm.style = {
+								logo: 'logo-immap.png',
+								home: '#/immap',
+								darkPrimaryColor: '#DE696E',
+								defaultPrimaryColor: '#EE6E73',
+								lightPrimaryColor: '#EF9A9A'
+							}
+            } else {
+							$scope.ngm.style = {
+								logo: 'logo-health.png',
+								home: '#/who/ethiopia',
+								darkPrimaryColor: '#1976D2',
+								defaultPrimaryColor: '#2196F3',
+								lightPrimaryColor: '#BBDEFB'
+							}
             }
             break;
 					default:

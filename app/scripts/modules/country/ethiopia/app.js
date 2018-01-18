@@ -25,23 +25,13 @@ angular
 					}],
 				}
 			})
-			.when( '/who/ethiopia/ctc', {
-				redirectTo: '/who/ethiopia/ctc/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+			.when( '/who/ethiopia/monitoring', {
+				redirectTo: '/who/ethiopia/monitoring/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// epr dashboard
-			.when( '/who/ethiopia/ctc/:region/:zone/:woreda/:start/:end', {
+			.when( '/who/ethiopia/monitoring/:region/:zone/:woreda/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardEthCtcCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.grantPublicAccess();
-					}],
-				}
-			})
-			// cdc monthly reports
-			.when( '/who/cdc/october/2017', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardWhoCdcOctober2017Ctrl',
+				controller: 'DashboardEthMonitoringCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
 						return ngmAuth.grantPublicAccess();

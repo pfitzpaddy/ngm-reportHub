@@ -81,7 +81,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
                                     { trainee_affiliation_id: 'private', trainee_affiliation_name: 'Private' },
                                     { trainee_affiliation_id: 'local_ngo', trainee_affiliation_name: 'Local NGO' },
                                     { trainee_affiliation_id: 'international_ngo', trainee_affiliation_name: 'International NGO' }],
-          trainee_health_workers: [{ trainee_health_worker_id: 'doctors', trainee_health_worker_name: 'Doctors' }, 
+          trainee_health_workers: [{ trainee_health_worker_id: 'doctors', trainee_health_worker_name: 'Doctors' },
                                     { trainee_health_worker_id: 'nurses', trainee_health_worker_name: 'Nurses' },
                                     { trainee_health_worker_id: 'midwives', trainee_health_worker_name: 'Midwives' },
                                     { trainee_health_worker_id: 'pharmacists', trainee_health_worker_name: 'Pharmacists' },
@@ -120,7 +120,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // get activities
         getActivityTypes: function(){
-          // 
+          //
           var activity_types = $scope.project.definition.activity_type;
           if ( $scope.project.definition.admin0pcode === 'ET' ) {
             activity_types = $filter('filter')( $scope.project.definition.activity_type, { activity_type_id: '!training_capacity_building' }, true);
@@ -153,7 +153,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // resize form
         editTraining: function(){
-          $('.editable-text').css({ width: '100%' }); 
+          $('.editable-text').css({ width: '100%' });
         },
 
         // add trainings
@@ -185,7 +185,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               trainee_women: 0
             }]
           }
-          
+
           // clone
           if ( !$scope.project.report.locations[ $parent ].trainings ) {
             $scope.project.report.locations[ $parent ].trainings = [];
@@ -193,8 +193,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $scope.project.report.locations[ $parent ].trainings.push( $scope.trainingInserted );
 
           // expand title text
-          $timeout( function() { 
-            $('.editable-text').css({ width: '100%' }); 
+          $timeout( function() {
+            $('.editable-text').css({ width: '100%' });
             $('#participantsRowformEdit').click();
           }, 400 );
         },
@@ -683,10 +683,21 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // disable save form
         rowSaveDisabled: function( $data ){
-          var disabled = true;
-          if ( $data.category_type_id && $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id &&
-                $data.units >= 0 && $data.sessions >= 0 && $data.households >= 0 && $data.families >= 0 && $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 && $data.elderly_men >= 0 && $data.elderly_women >= 0 ) {
-              disabled = false;
+					var disabled = true;
+					switch ($scope.project.definition.admin0pcode) {
+						case 'AF':
+								if ( $data.category_type_id && $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id && $data.delivery_type_id &&
+									$data.units >= 0 && $data.sessions >= 0 && $data.households >= 0 && $data.families >= 0 && $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 && $data.elderly_men >= 0 && $data.elderly_women >= 0 ) {
+									disabled = false;
+										}
+								break;
+
+						default:
+								if ( $data.category_type_id && $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id &&
+									$data.units >= 0 && $data.sessions >= 0 && $data.households >= 0 && $data.families >= 0 && $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 && $data.elderly_men >= 0 && $data.elderly_women >= 0 ) {
+									disabled = false;
+										}
+									break;
           }
           return disabled;
         },
@@ -761,7 +772,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // removeTraining
         removeTrainee: function( $grandParent, $parent, $index ) {
-          
+
           // t
           var t = $scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_participants[ $index ];
           $scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_participants.splice( $index, 1 );
@@ -869,8 +880,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
                     rowComplete++;
                   }
                 });
-              } else {
-                rowComplete++;
+              // } else {
+              //   rowComplete++;
               }
             }
           });

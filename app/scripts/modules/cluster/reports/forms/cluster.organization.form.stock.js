@@ -66,8 +66,15 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           },{
             stock_status_id: 'reserved',
             stock_status_name: 'Reserved'
-          }]
-        }, 
+					}],
+					stock_item_purpose:[{
+						stock_item_purpose_id: 'prepositioned',
+						stock_item_purpose_name: 'Prepositioned',
+					},{
+						stock_item_purpose_id: 'operational',
+						stock_item_purpose_name: 'Operational',
+					}]
+        },
 
         // init
         init: function(){},
@@ -93,10 +100,17 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             number_in_stock:0, number_in_pipeline:0, beneficiaries_covered:0
           };
           // process + clean location
-          $scope.inserted = 
+          $scope.inserted =
               ngmClusterHelper.getCleanStocks( $scope.report.report, $scope.report.report.stocklocations[ $parent ], $scope.inserted );
           $scope.report.report.stocklocations[ $parent ].stocks.push( $scope.inserted );
         },
+
+				// remove from array if no id
+        cancelEdit: function( $parent, $index ) {
+						if ( !$scope.report.report.stocklocations[ $parent ].stocks[ $index ].id ) {
+							$scope.report.report.stocklocations[ $parent ].stocks.splice( $index, 1 );
+						}
+				},
 
         // cluster
         showStockCluster: function( $data, $stock ){
@@ -142,6 +156,18 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             }
           }
           return selected.length ? selected[0].stock_status_name : 'No Selection!';
+				},
+
+				showStockPurpose: function( $data, $stock ){
+          var selected = [];
+          $stock.stock_item_purpose_id = $data;
+          if( $stock.stock_item_purpose_id ) {
+            selected = $filter('filter')( $scope.report.lists.stock_item_purpose, { stock_item_purpose_id: $stock.stock_item_purpose_id }, true );
+            if ( selected.length ){
+              $stock.stock_item_purpose_name = selected[0].stock_item_purpose_name;
+            }
+          }
+          return selected.length ? selected[0].stock_item_purpose_name : 'No Selection!';
         },
 
         // update inidcators
@@ -176,7 +202,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         // remove stocks
         removeStock: function( $parent, $index ) {
           $scope.report.report.stocklocations[ $parent ].stocks.splice( $index, 1 );
-          // save
+					// save
           $scope.report.save( false );
         },
 
@@ -192,13 +218,13 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
         },
 
-        // determine if all locations containt at least one beneficiaries details 
+        // determine if all locations containt at least one beneficiaries details
         formComplete: function() {
-          var valid = false;
+          var valid = true;
           angular.forEach( $scope.report.report.stocklocations, function( l ){
             angular.forEach( l.stocks, function( b ){
-              if ( !$scope.report.rowSaveDisabled( b ) ) {
-                valid = true;
+              if ( $scope.report.rowSaveDisabled( b ) ) {
+                valid = false;
               }
             });
           });
@@ -209,9 +235,90 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         editReport: function(){
           $scope.report.report.report_status = 'todo';
           $scope.report.save( false, false );
-        },
+				},
 
-        // save 
+				// process adding previous stock report data
+				addPrevStocks: function (prev_report) {
+
+						angular.forEach(prev_report.stocklocations, function (l, i) {
+							var id = l.stock_warehouse_id;
+
+							// uncoment if rewriting all data, comment if adding rows every time on copy
+							// $scope.report.report.stocklocations
+							// 			.find(function (e) {return e.stock_warehouse_id === id}).stocks = [];
+
+							angular.forEach(l.stocks, function (s, ri) {
+								$scope.inserted = {
+									cluster_id: s.cluster_id,
+									stock_item_type: s.stock_item_type,
+									stock_item_name: s.stock_item_name,
+									stock_item_purpose_id: s.stock_item_name,
+									stock_item_purpose_name: s.stock_item_purpose_name,
+									stock_status_id: s.stock_status_id,
+									stock_status_name: s.stock_status_name,
+									unit_type_id: s.unit_type_id,
+									unit_type_name: s.unit_type_name,
+									number_in_stock: s.number_in_stock,
+									number_in_pipeline: s.number_in_pipeline,
+									beneficiaries_covered: s.beneficiaries_covered
+								};
+								var $loc = $scope.report.report.stocklocations.find(function (l) {
+									return l.stock_warehouse_id === id
+								});
+								var copy_report = $scope.report.report;
+								$scope.inserted =
+									ngmClusterHelper.getCleanStocks($scope.report.report, $loc, $scope.inserted);
+
+								$scope.report.report.stocklocations.find(function (l) {
+									return l.stock_warehouse_id === id
+								}).stocks.push($scope.inserted);
+							});
+						});
+				},
+
+				// entry copy previous report
+				copyPrevReport: function () {
+
+					var getPrevReport = {
+						method: 'POST',
+						url: ngmAuth.LOCATION + '/api/cluster/stock/getReport',
+						data: {
+							id: $route.current.params.report_id,
+							previous: true
+						}
+					}
+
+					ngmData.get(getPrevReport).then(function (prev_report) {
+
+						$scope.report.addPrevStocks(prev_report);
+
+						// toast msg n of copied rows
+						var nrows = 0
+						angular.forEach(prev_report.stocklocations, function (l) {
+							nrows += l.stocks.length
+						})
+						if (!nrows) {
+							if (Object.keys(prev_report).length) {
+								var msg = 'No data in previous report',
+										typ = 'success';
+							} else {
+								var msg = 'No previous report',
+										typ = 'success';
+							}
+						} else {
+								var msg = 'Copied ' + nrows + ' rows',
+										typ = 'success';
+						}
+						Materialize.toast(msg, 3000, typ);
+					}).catch(function (e) {
+						Materialize.toast('Error, Not copied', 3000, 'error');
+					});
+
+				},
+
+
+
+        // save
         save: function( complete, display_modal ) {
 
           // disable btn
@@ -240,9 +347,10 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
             // enable
             $scope.report.submit = true;
+						$scope.report.report = report;
 
             // report
-            $scope.report.updatedAt = moment( report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' );        
+            $scope.report.updatedAt = moment( report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' );
 
             // user msg
             var msg = 'Stock Report for  ' + $scope.report.titleFormat + ' ';
@@ -250,6 +358,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
             // msg
             Materialize.toast( msg , 3000, 'success');
+						$('.modal-trigger').leanModal();
 
             // Re-direct to summary
             if ( $scope.report.report.report_status !== 'complete' ) {
@@ -261,7 +370,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                 }, 200);
               } else {
                 $timeout(function() {
-                  $route.reload();
+                  // $route.reload();
                 }, 200);
               }
             } else {

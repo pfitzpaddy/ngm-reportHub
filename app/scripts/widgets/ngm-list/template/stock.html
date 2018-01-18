@@ -1,5 +1,5 @@
 
-<style>	
+<style>
 
 	.nav-list-search {
 		margin-top: 6px;
@@ -9,7 +9,7 @@
 		-moz-transition: width 1s ease;
 		-o-transition: width 1s ease;
 		-ms-transition: width 1s ease;
-		transition: width 1s ease;		
+		transition: width 1s ease;
 	}
 	.nav-list-search.focused {
 		margin-top: 6px;
@@ -24,10 +24,10 @@
 	.input-field input[type=search] {
 		font-weight: 300;
 		padding-top: 0px;
-	}	
+	}
 
   /* remove border bottom */
-	/*  
+	/*
 	input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=text]:valid {
 		border-bottom: none !important;
 		box-shadow: none !important;
@@ -36,7 +36,7 @@
 	.pagination li.active {
 	  background-color: #009688;
 	}
-	
+
 </style>
 
 <!-- bind html -->
@@ -56,7 +56,7 @@
 				        <div class="input-field">
 				          <input id="search_{{ list.id }}" type="search"
 				          	ng-model="list.search.filter"
-				          	ng-focus="list.search.focused=true"  
+				          	ng-focus="list.search.focused=true"
 			            	ng-blur="list.search.focused=false">
 				          <label for="search_{{ list.id }}"><i class="material-icons" style="color: teal; padding-left:5px;">search</i></label>
 				        </div>
@@ -67,8 +67,8 @@
 			</li>
 
 			<!-- pagination ctrl -->
-	    <li class="collection-item avatar" 
-	    	dir-paginate="item in list.data | filter: list.search.filter | orderBy: list.orderBy | itemsPerPage: list.itemsPerPage" pagination-id="list.id"
+	    <li class="collection-item avatar"
+	    	dir-paginate="item in list.data | filter: list.search.filter | orderBy: list.orderBy : true | itemsPerPage: list.itemsPerPage" pagination-id="list.id"
 	    	style="padding-top:20px;">
 				<a href="#/cluster/stocks/report/{{ item.organization_id }}/{{ item.id }}" title="{{ list.hoverTitle }} {{ item.reporting_period_title }} Report">
 					<i class="material-icons circle white teal-text">{{ list.icon }}</i>

@@ -605,6 +605,10 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_name: 'Conflict Affected'
           },{
             cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'health_workers',
+            beneficiary_type_name: 'Health Workers'
+          },{
+            cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'host_communities',
             beneficiary_type_name: 'Host Communities'
           },{
@@ -789,6 +793,11 @@ angular.module( 'ngmReportHub' )
             category_type_id: [ 'category_a', 'category_c' ],
             beneficiary_type_id: 'natural_disaster_affected_wls',
             beneficiary_type_name: 'Natural Disaster Affected (Winter / Lean Season)'
+          },{
+            cluster_id: [ 'fsac' ],
+            category_type_id: [ 'category_a', 'category_c' ],
+            beneficiary_type_id: 'natural_disaster_affected_locust',
+            beneficiary_type_name: 'Natural Disaster Affected (Locust)'
           },{
 
 
@@ -1121,8 +1130,11 @@ angular.module( 'ngmReportHub' )
             facility_type_id: 'clinc',
             facility_type_name: 'Clinic'
           },{
-            facility_type_id: 'MHT',
-            facility_type_name: 'MHT'
+            facility_type_id: 'clinc',
+            facility_type_name: 'Clinic'
+          },{
+            facility_type_id: 'idp_camp',
+            facility_type_name: 'IDP Camp'
           },{
             facility_type_id: 'MHNT',
             facility_type_name: 'MHNT'
@@ -1251,13 +1263,15 @@ angular.module( 'ngmReportHub' )
         delete warehouse.admin2;
         delete warehouse.admin3;
         delete warehouse.facility_type;
+				delete warehouse.createdAt;
+				delete warehouse.updatedAt;
 
         // add params
         // warehouse.warehouse_status = 'new';
         warehouse.username = user.username;
         warehouse.email = user.email;
         warehouse.facility_lng = warehouse.admin3lng ? warehouse.admin3lng : warehouse.admin2lng;
-        warehouse.facility_lat = warehouse.admin3lat ? warehouse.admin3lat : warehouse.admin2lat;
+				warehouse.facility_lat = warehouse.admin3lat ? warehouse.admin3lat : warehouse.admin2lat;
 
         return warehouse;
       },
@@ -1275,9 +1289,9 @@ angular.module( 'ngmReportHub' )
 
         // default stock
         stock.report_id = stock.report_id.id;
-        stock.number_in_stock = 0;
-        stock.number_in_pipeline = 0;
-        stock.beneficiaries_covered = 0;
+        // stock.number_in_stock = 0;
+        // stock.number_in_pipeline = 0;
+        // stock.beneficiaries_covered = 0;
 
         return stock;
       },
