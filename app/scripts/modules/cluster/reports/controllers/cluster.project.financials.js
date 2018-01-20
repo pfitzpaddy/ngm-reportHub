@@ -7,16 +7,16 @@
  */
 angular.module('ngmReportHub')
 	.controller('ClusterProjectFinancialsCtrl', [
-			'$scope', 
-			'$route', 
-			'$q', 
-			'$http', 
-			'$location', 
+			'$scope',
+			'$route',
+			'$q',
+			'$http',
+			'$location',
 			'$anchorScroll',
-			'$timeout', 
+			'$timeout',
 			'ngmAuth',
 			'ngmData',
-			'ngmUser', 
+			'ngmUser',
 	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
@@ -31,7 +31,7 @@ angular.module('ngmReportHub')
 
 		// empty Project
 		$scope.report = {
-			
+
 			// parent
 			ngm: $scope.$parent.ngm,
 
@@ -40,7 +40,7 @@ angular.module('ngmReportHub')
 
 			// placeholder
 			definition: {},
-			
+
 			// current user
 			user: ngmUser.get(),
 
@@ -86,9 +86,39 @@ angular.module('ngmReportHub')
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
 							'title': subtitle
 						},
-						download: {}
+						download: {
+							'class': 'col s12 m3 l3 hide-on-small-only',
+							downloads: [{
+								type: 'csv',
+								color: 'blue lighten-2',
+								icon: 'assignment',
+								hover: 'Download Project Financial Report as CSV',
+								request: {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/cluster/project/getFinancialDetails',
+									data: {
+										report: $scope.report.project.project_title + '_financials_details_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
+										project_id: $scope.report.project.id
+									}
+								},
+								metrics: {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
+									data: {
+										organization: $scope.report.user.organization,
+										username: $scope.report.user.username,
+										email: $scope.report.user.email,
+										dashboard: subtitle,
+										theme: 'project_financial_report' + $scope.report.user.cluster_id,
+										format: 'csv',
+										url: $location.$$path
+									}
+								}
+							}]
+						}
+						// download: {}
 					},
-					rows: [{		
+					rows: [{
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
@@ -117,7 +147,7 @@ angular.module('ngmReportHub')
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;
 
-			}			
+			}
 
 		}
 
@@ -128,5 +158,5 @@ angular.module('ngmReportHub')
 			$scope.report.setProjectDetails( results );
 
 		});
-		
+
 	}]);

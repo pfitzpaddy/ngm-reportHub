@@ -615,6 +615,13 @@ angular.module('ngmReportHub')
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
+									icon: 'attach_money',
+									hover: 'Download Projects Financials as CSV',
+									request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'financial_report', report: $scope.dashboard.cluster_id_filename + '_ocha_financial_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									metrics: $scope.dashboard.getMetrics( 'cluster_financial_report', 'csv' )
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
 									icon: 'group',
 									hover: 'Download Beneficiary Data as CSV',
 									request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.cluster_id_filename + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
