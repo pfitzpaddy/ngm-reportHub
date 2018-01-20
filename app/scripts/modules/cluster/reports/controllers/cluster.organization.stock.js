@@ -7,16 +7,16 @@
  */
 angular.module('ngmReportHub')
 	.controller('ClusterOrganizationStockReportCtrl', [
-			'$scope', 
-			'$route', 
-			'$q', 
-			'$http', 
-			'$location', 
+			'$scope',
+			'$route',
+			'$q',
+			'$http',
+			'$location',
 			'$anchorScroll',
-			'$timeout', 
+			'$timeout',
 			'ngmAuth',
 			'ngmData',
-			'ngmUser', 
+			'ngmUser',
 	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
@@ -31,7 +31,7 @@ angular.module('ngmReportHub')
 
 		// empty Project
 		$scope.report = {
-			
+
 			// parent
 			ngm: $scope.$parent.ngm,
 
@@ -40,7 +40,7 @@ angular.module('ngmReportHub')
 
 			// placeholder
 			definition: {},
-			
+
 			// current user
 			user: ngmUser.get(),
 
@@ -115,7 +115,7 @@ angular.module('ngmReportHub')
 										username: $scope.report.user.username,
 										email: $scope.report.user.email,
 										dashboard: $scope.report.title,
-										theme: 'stocl_report_' + $scope.report.user.cluster_id,
+										theme: 'monthly_stock_report' + $scope.report.user.cluster_id,
 										format: 'csv',
 										url: $location.$$path
 									}
@@ -123,7 +123,7 @@ angular.module('ngmReportHub')
 							}]
 						}
 					},
-					rows: [{		
+					rows: [{
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
@@ -153,7 +153,7 @@ angular.module('ngmReportHub')
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;
 
-			}			
+			}
 
 		}
 
@@ -168,5 +168,5 @@ angular.module('ngmReportHub')
 			$scope.report.init();
 
 		});
-		
+
 	}]);
