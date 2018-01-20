@@ -1409,7 +1409,9 @@ angular.module( 'ngmReportHub' )
         delete p.id;
         delete p.target_beneficiaries;
         delete p.target_locations;
-        delete p.project_budget_progress;
+				delete p.project_budget_progress;
+				delete p.createdAt;
+				delete p.updatedAt;
 
         // remove arrays to update
         delete r.activity_description;
@@ -1420,7 +1422,9 @@ angular.module( 'ngmReportHub' )
         delete r.beneficiary_type;
         delete r.category_type;
         delete r.project_donor;
-        delete r.strategic_objectives;
+				delete r.strategic_objectives;
+				delete r.createdAt;
+				delete r.updatedAt;
 
         // merge
         report = angular.merge( {}, r, p );
@@ -1443,7 +1447,9 @@ angular.module( 'ngmReportHub' )
           delete l.beneficiary_type;
           delete l.category_type;
           delete l.project_donor;
-          delete l.strategic_objectives;
+					delete l.strategic_objectives;
+					delete l.createdAt;
+					delete l.updatedAt;
           // ids
           l.project_id = project.id;
           l.report_id = report.id;
@@ -1471,7 +1477,9 @@ angular.module( 'ngmReportHub' )
             delete t.beneficiary_type;
             delete t.category_type;
             delete t.project_donor;
-            delete t.strategic_objectives;
+						delete t.strategic_objectives;
+						delete t.createdAt;
+						delete t.updatedAt;
             // ids
             t.project_id = project.id;
             t.report_id = report.id;
@@ -1481,7 +1489,9 @@ angular.module( 'ngmReportHub' )
             // trainees
             angular.forEach( training.training_participants, function( trainees, k ){
               var trainings = angular.copy( report.locations[i].trainings[j] );
-              delete trainings.id;
+							delete trainings.id;
+							delete trainings.createdAt;
+							delete trainings.updatedAt;
               report.locations[i].trainings[j].training_participants[k] = angular.merge( {}, trainees, trainings);
               delete report.locations[i].trainings[j].training_participants[k].trainings;
               delete report.locations[i].trainings[j].training_participants[k].training_participants;
@@ -1510,7 +1520,9 @@ angular.module( 'ngmReportHub' )
             delete b.beneficiary_type;
             delete b.category_type;
             delete b.project_donor;
-            delete b.strategic_objectives;
+						delete b.strategic_objectives;
+						delete b.createdAt;
+						delete b.updatedAt;
             // ids
             b.project_id = project.id;
             b.report_id = report.id;
