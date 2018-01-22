@@ -144,7 +144,7 @@
               e-ng-change="project.updateInput( $locationIndex, $index, 'units', $data )"
               e-ng-disabled="
                   !beneficiary.activity_description_id ||
-                  ( ['wash','nutrition','health','protection'].includes(project.definition.cluster_id) &&
+                  ( ['wash','nutrition','health','protection'].includes(beneficiary.cluster_id) &&
                   beneficiary.activity_description_id.indexOf('education') === -1 &&
                   beneficiary.activity_description_id.indexOf('training') === -1 &&
                   beneficiary.activity_description_id.indexOf('cash') === -1 &&
@@ -161,7 +161,7 @@
               e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units"
               e-ng-disabled="
                 !beneficiary.activity_description_id ||
-                ( ['wash','nutrition','health','protection'].includes(project.definition.cluster_id) &&
+                ( ['wash','nutrition','health','protection'].includes(beneficiary.cluster_id) &&
                 beneficiary.activity_description_id.indexOf('education') === -1 &&
                 beneficiary.activity_description_id.indexOf('training') === -1 &&
                 beneficiary.activity_description_id.indexOf('cash') === -1 &&
