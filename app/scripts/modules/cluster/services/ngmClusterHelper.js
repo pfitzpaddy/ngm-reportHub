@@ -1130,9 +1130,6 @@ angular.module( 'ngmReportHub' )
             facility_type_id: 'clinc',
             facility_type_name: 'Clinic'
           },{
-            facility_type_id: 'clinc',
-            facility_type_name: 'Clinic'
-          },{
             facility_type_id: 'idp_camp',
             facility_type_name: 'IDP Camp'
           },{
