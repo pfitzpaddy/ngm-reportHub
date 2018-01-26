@@ -272,7 +272,7 @@ angular.module('ngmReportHub')
 													}
 												}
 											}
-										},				
+										},
 										markers: {
 					            maiduguri: {
 				                lat: 11.834764,

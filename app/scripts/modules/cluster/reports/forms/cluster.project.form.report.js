@@ -154,6 +154,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // resize form
         editTraining: function(){
           $('.editable-text').css({ width: '100%' });
+          $('#training_topics').css({border: 'none' });
+          $('.editable-textarea').css({ width: '100%' });
         },
 
         // add trainings
@@ -195,6 +197,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           // expand title text
           $timeout( function() {
             $('.editable-text').css({ width: '100%' });
+            $('#training_topics').css({border: 'none' });
+            $('.editable-textarea').css({ width: '100%' });
             $('#participantsRowformEdit').click();
           }, 400 );
         },
