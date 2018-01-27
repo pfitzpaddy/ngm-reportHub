@@ -56,7 +56,7 @@ angular.module('ngmReportHub')
 
 				// lists
 				lists: {
-					clusters: ngmClusterHelper.getClusters(),
+					clusters: ngmClusterHelper.getClusters( $route.current.params.admin0pcode ),
 					admin1: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin1List : [],
 					admin2: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin2List : [],
 					admin3: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin3List : []
@@ -237,7 +237,6 @@ angular.module('ngmReportHub')
 						}
 
 						// clusters
-						$scope.dashboard.lists.clusters.unshift({ cluster_id: 'cvwg', cluster: 'Multi-Purpose Cash' });
 						$scope.dashboard.lists.clusters.unshift({ cluster_id: 'all', cluster: 'ALL' });
 						angular.forEach( $scope.dashboard.lists.clusters, function(d,i){
 							var path = $scope.dashboard.getPath( d.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );

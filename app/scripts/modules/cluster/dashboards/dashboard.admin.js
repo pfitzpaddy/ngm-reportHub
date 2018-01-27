@@ -105,7 +105,7 @@ angular.module('ngmReportHub')
 
 				// lists
 				lists: {
-					clusters: ngmClusterHelper.getClusters(),
+					clusters: ngmClusterHelper.getClusters( $route.current.params.admin0pcode ),
 				},
 
 				// filtered data

@@ -260,8 +260,48 @@ angular.module( 'ngmReportHub' )
       },
 
       // clusters
-      getClusters: function( cluster_id ){
-          var clusters = [{
+      getClusters: function( admin0pcode ){
+        var clusters = [];
+        if ( admin0pcode.toLowerCase() === 'all') {
+          clusters = [{
+            cluster_id: 'acbar',
+            cluster: 'ACBAR'
+          },{
+            cluster_id: 'agriculture',
+            cluster: 'Agriculture'
+          },{
+            cluster_id: 'education',
+            cluster: 'Education'
+          },{
+            cluster_id: 'eiewg',
+            cluster: 'EiEWG'
+          },{
+            cluster_id: 'esnfi',
+            cluster: 'ESNFI'
+          },{
+            cluster_id: 'fsac',
+            cluster: 'FSAC'
+          },{
+            cluster_id: 'health',
+            cluster: 'Health'
+          },{
+            cluster_id: 'nutrition',
+            cluster: 'Nutrition'
+          },{
+            cluster_id: 'cvwg',
+            cluster: 'Multi-Purpose Cash'
+          },{
+            cluster_id: 'protection',
+            cluster: 'Protection'
+          },{
+            cluster_id: 'rnr_chapter',
+            cluster: 'R&R Chapter'
+          },{
+            cluster_id: 'wash',
+            cluster: 'WASH'
+          }];
+        } else if ( admin0pcode.toLowerCase() === 'af' ) {
+          clusters = [{
             cluster_id: 'acbar',
             cluster: 'ACBAR'
           },{
@@ -292,6 +332,36 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'wash',
             cluster: 'WASH'
           }];
+        } else {
+          clusters = [{
+            cluster_id: 'agriculture',
+            cluster: 'Agriculture'
+          },{
+            cluster_id: 'education',
+            cluster: 'Education'
+          },{
+            cluster_id: 'esnfi',
+            cluster: 'ESNFI'
+          },{
+            cluster_id: 'fsac',
+            cluster: 'FSAC'
+          },{
+            cluster_id: 'health',
+            cluster: 'Health'
+          },{
+            cluster_id: 'nutrition',
+            cluster: 'Nutrition'
+          },{
+            cluster_id: 'cvwg',
+            cluster: 'Multi-Purpose Cash'
+          },{
+            cluster_id: 'protection',
+            cluster: 'Protection'
+          },{
+            cluster_id: 'wash',
+            cluster: 'WASH'
+          }];
+        }
 
           return clusters;
       },

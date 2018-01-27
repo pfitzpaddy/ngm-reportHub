@@ -107,7 +107,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           // transfers
           transfers: ngmClusterHelper.getTransfers( 30 ),
-          clusters: ngmClusterHelper.getClusters(),
+          clusters: ngmClusterHelper.getClusters( config.project.admin0pcode ),
           activity_types: ngmClusterHelper.getActivities( config.project, true, true ),
           activity_descriptions: ngmClusterHelper.getActivities( config.project, true, false ),
 

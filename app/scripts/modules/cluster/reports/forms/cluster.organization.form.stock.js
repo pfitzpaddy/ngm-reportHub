@@ -57,7 +57,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
         // lists
         lists: {
-          clusters: ngmClusterHelper.getClusters(),
+          clusters: ngmClusterHelper.getClusters( config.organization.admin0pcode ),
           units: ngmClusterHelper.getUnits( config.organization.admin0pcode ),
           stocks: localStorage.getObject( 'lists' ).stockItemsList,
           stock_status:[{
