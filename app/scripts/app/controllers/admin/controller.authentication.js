@@ -50,6 +50,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         // cluster
         cluster: {
           'cvwg': { cluster: 'Cash' },
+          'agriculture': { cluster: 'Agriculture' },
+          'education': { cluster: 'Education' },
           'eiewg': { cluster: 'EiEWG' },
           'esnfi': { cluster: 'ESNFI' },
           'fsac': { cluster: 'FSAC' },
