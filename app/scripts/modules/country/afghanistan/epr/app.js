@@ -17,21 +17,21 @@ angular
 		$routeProvider
 			// epr
 			.when( '/epr', {
-				redirectTo: '/epr/2017/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/epr/2018/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// epr dashboard
 			.when( '/epr/:year/:region/:province/:week/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardEprCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: [ 'ngmAuth', function(ngmAuth) {
 						return ngmAuth.grantPublicAccess();
 					}],
 				}
 			})
 			// epr
 			.when( '/epr/admin', {
-				redirectTo: '/epr/admin/2017/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/epr/admin/2018/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// epr admin
 			.when( '/epr/admin/:year/:region/:province/:week/:start/:end', {
