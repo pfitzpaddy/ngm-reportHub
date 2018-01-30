@@ -158,7 +158,7 @@
               e-name="unit_type_id"
               editable-select="beneficiary.unit_type_id"
               e-placeholder="Select..."
-              e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units"
+              e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units | filter: { cluster_id: beneficiary.cluster_id }"
               e-ng-disabled="
                 !beneficiary.activity_description_id ||
                 ( project.definition.cluster_id === 'wash' &&

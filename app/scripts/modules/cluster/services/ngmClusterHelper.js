@@ -553,51 +553,107 @@ angular.module( 'ngmReportHub' )
 
         // filter by cluster?
         var units = [
-            { unit_type_id: 'm2', unit_type_name: 'm2' },
-            { unit_type_id: 'm3', unit_type_name: 'm3' },
-            { unit_type_id: 'kg', unit_type_name: 'KG' },
-            { unit_type_id: 'man_days', unit_type_name: 'Man Days' },
-            { unit_type_id: 'metric_tonnes', unit_type_name: 'Metric Tonnes' },
-            { unit_type_id: 'pieces', unit_type_name: 'Pieces' },
-            { unit_type_id: 'tablets', unit_type_name: 'Tablets' },
-            { unit_type_id: 'litres', unit_type_name: 'Litres' },
-            { unit_type_id: 'boxes', unit_type_name: 'Boxes' },
-            { unit_type_id: 'kits', unit_type_name: 'Kits' },
-            { unit_type_id: 'drums', unit_type_name: 'Drums' },
-            { unit_type_id: 'pac', unit_type_name: 'PAC' },
-            { unit_type_id: 'seeds', unit_type_name: 'Seeds' },
-            { unit_type_id: 'units', unit_type_name: 'Units' },
-            { unit_type_id: 'wheat', unit_type_name: 'Wheat' },
-            { unit_type_id: 'wheat_flour', unit_type_name: 'Wheat Flour' },
-            { unit_type_id: 'oil', unit_type_name: 'Oil' },
-            { unit_type_id: 'pulses', unit_type_name: 'Pulses' },
-            { unit_type_id: 'salt', unit_type_name: 'Salt' },
-            { unit_type_id: 'rice', unit_type_name: 'Rice' },
-            { unit_type_id: 'heb', unit_type_name: 'HEB' },
-            { unit_type_id: 'rusf', unit_type_name: 'RUSF' },
-            { unit_type_id: 'mnt', unit_type_name: 'MNT' },
-            { unit_type_id: 'facilities', unit_type_name: 'Facilities' },
-            { unit_type_id: 'structures', unit_type_name: 'Structures' },
-            { unit_type_id: 'sessions', unit_type_name: 'Sessions' },
-            { unit_type_id: 'tcs', unit_type_name: 'TCs' },
-            { unit_type_id: 'cbss', unit_type_name: 'CBSs' },
-            { unit_type_id: 'teachers', unit_type_name: 'People' },
-            { unit_type_id: 'teachers', unit_type_name: 'Teachers' },
-            { unit_type_id: 'tents', unit_type_name: 'Tents' },
-            { unit_type_id: 'classroom_kits', unit_type_name: 'Classroom Kits' },
-            { unit_type_id: 'school_kits', unit_type_name: 'School Kits' },
-            { unit_type_id: 'schools', unit_type_name: 'Schools' }
+            { cluster_id: [ 'agriculture' ],
+              unit_type_id: 'kg', unit_type_name: 'KG', },
+            { cluster_id: [ 'agriculture' ],
+              unit_type_id: 'doze', unit_type_name: 'Doze' },
+            { cluster_id: [ 'agriculture' ],
+              unit_type_id: 'quantin', unit_type_name: 'Quantin' },
+            { cluster_id: [ 'agriculture' ],
+              unit_type_id: 'seeds', unit_type_name: 'Seeds' },
+            { cluster_id: [ 'agriculture' ],
+              unit_type_id: 'livestock', unit_type_name: 'Livestock' },
+            { cluster_id: [ 'agriculture' ],
+              unit_type_id: 'cattle', unit_type_name: 'Cattle' },
+            { cluster_id: [ 'agriculture' ],
+              unit_type_id: 'sheep', unit_type_name: 'Sheep' },
+            { cluster_id: [ 'agriculture' ],
+              unit_type_id: 'goats', unit_type_name: 'Goats' },
+            { cluster_id: [ 'agriculture' ],
+              unit_type_id: 'camels', unit_type_name: 'Camels' },
+            { cluster_id: [ 'agriculture' ],
+              unit_type_id: 'donkeys', unit_type_name: 'Donkeys' },
+            { cluster_id: [ 'agriculture' ],
+              unit_type_id: 'equians', unit_type_name: 'Equians' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'm2', unit_type_name: 'm2' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'm3', unit_type_name: 'm3' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'kg', unit_type_name: 'KG' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'man_days', unit_type_name: 'Man Days' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'metric_tonnes', unit_type_name: 'Metric Tonnes' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'pieces', unit_type_name: 'Pieces' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'tablets', unit_type_name: 'Tablets' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'litres', unit_type_name: 'Litres' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'boxes', unit_type_name: 'Boxes' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'kits', unit_type_name: 'Kits' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'drums', unit_type_name: 'Drums' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'pac', unit_type_name: 'PAC' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'seeds', unit_type_name: 'Seeds' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'units', unit_type_name: 'Units' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'wheat', unit_type_name: 'Wheat' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'wheat_flour', unit_type_name: 'Wheat Flour' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'oil', unit_type_name: 'Oil' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'pulses', unit_type_name: 'Pulses' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'salt', unit_type_name: 'Salt' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'rice', unit_type_name: 'Rice' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'heb', unit_type_name: 'HEB' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'rusf', unit_type_name: 'RUSF' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'mnt', unit_type_name: 'MNT' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'facilities', unit_type_name: 'Facilities' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'structures', unit_type_name: 'Structures' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'sessions', unit_type_name: 'Sessions' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'tcs', unit_type_name: 'TCs' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'cbss', unit_type_name: 'CBSs' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'teachers', unit_type_name: 'People' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'teachers', unit_type_name: 'Teachers' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'tents', unit_type_name: 'Tents' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'classroom_kits', unit_type_name: 'Classroom Kits' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'school_kits', unit_type_name: 'School Kits' },
+            { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              unit_type_id: 'schools', unit_type_name: 'Schools' }
           ];
 
-          // unit type list
-          var currencies=[];
-          // add each currency
-          angular.forEach( this.getCurrencies( admin0pcode ), function( d, i ){
-            currencies.push({ unit_type_id: d.currency_id, unit_type_name: d.currency_name });
-          });
-          units = currencies.concat( $filter( 'orderBy' )( units, 'unit_type_name' ) );
+        // unit type list
+        var currencies=[];
+        // add each currency
+        angular.forEach( this.getCurrencies( admin0pcode ), function( d, i ){
+          currencies.push({ unit_type_id: d.currency_id, unit_type_name: d.currency_name });
+        });
+        units = currencies.concat( $filter( 'orderBy' )( units, 'unit_type_name' ) );
 
-          return units;
+        return units;
       },
 
       // return ocha beneficiaries
@@ -658,39 +714,39 @@ angular.module( 'ngmReportHub' )
 
           // beneficiaries
           beneficiaries = [{
-            cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'idps',
             beneficiary_type_name: 'IDPs'
           },{
-            cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'idp_conflict',
             beneficiary_type_name: 'Conflict IDPs'
           },{
-            cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'idp_natural_disaster',
             beneficiary_type_name: 'Natural Disaster IDPs'
           },{
-            cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'conflict_affected',
             beneficiary_type_name: 'Conflict Affected'
           },{
-            cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'health_workers',
             beneficiary_type_name: 'Health Workers'
           },{
-            cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'host_communities',
             beneficiary_type_name: 'Host Communities'
           },{
-            cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'idp_natural_affected',
             beneficiary_type_name: 'Natural Disaster Affected'
           },{
-            cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'refugees',
             beneficiary_type_name: 'Refugees'
           },{
-            cluster_id: [ 'cvwg', 'eiewg', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'returnees',
             beneficiary_type_name: 'Returnees'
           }];

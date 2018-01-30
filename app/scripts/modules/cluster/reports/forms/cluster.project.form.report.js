@@ -410,7 +410,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
             if(
-                ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' ) ||
+                ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' || b.cluster_id === 'agriculture' ) ||
                 ( b.activity_description_id &&
                 ( b.activity_description_id.indexOf( 'education' ) > -1 ||
                   b.activity_description_id.indexOf( 'training' ) > -1 ||
@@ -428,7 +428,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         showUnitTypes: function( $data, $beneficiary ) {
           var selected = [];
           $beneficiary.unit_type_id = $data;
-          if( $beneficiary.unit_type_id ) {
+          if( $beneficiary.unit_type_id && $beneficiary.admin0pcode && $beneficiary.cluster_id ) {
             selected = $filter('filter')( $scope.project.lists.units, { unit_type_id: $beneficiary.unit_type_id }, true);
             if(selected.length) {
               $beneficiary.unit_type_name = selected[0].unit_type_name;
@@ -479,7 +479,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( b.cluster_id === 'cvwg' || b.cluster_id === 'esnfi' || b.cluster_id === 'fsac' || ( b.cluster_id === 'wash' && $scope.project.report.admin0pcode !== 'AF' ) ){
+              if( b.cluster_id === 'cvwg' || b.cluster_id === 'esnfi' || b.cluster_id === 'agriculture' || b.cluster_id === 'fsac' || ( b.cluster_id === 'wash' && $scope.project.report.admin0pcode !== 'AF' ) ){
                 display = true;
               }
             });

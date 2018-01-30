@@ -52,7 +52,7 @@
       </td>
       <td>
         <!-- editable activity_type from report -->
-        <span e-placeholder="Select..." editable-select="stock.unit_type_id" e-name="unit_type_id" e-form="rowform" e-ng-options="item.unit_type_id as item.unit_type_name for item in report.lists.units"
+        <span e-placeholder="Select..." editable-select="stock.unit_type_id" e-name="unit_type_id" e-form="rowform" e-ng-options="item.unit_type_id as item.unit_type_name for item in report.lists.units | filter: { cluster_id: stock.cluster_id }"
           e-required>
           {{ report.showStockUnits($data, stock) }}
         </span>

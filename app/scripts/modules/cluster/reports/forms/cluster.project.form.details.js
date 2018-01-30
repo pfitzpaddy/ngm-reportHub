@@ -426,7 +426,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
             if(
-                ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' ) ||
+                ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' || b.cluster_id === 'agriculture' ) ||
                 ( b.activity_description_id &&
                 ( b.activity_description_id.indexOf( 'education' ) > -1 ||
                   b.activity_description_id.indexOf( 'training' ) > -1 ||
@@ -475,7 +475,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var display = false;
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
-            if( b.cluster_id === 'cvwg' || b.cluster_id === 'esnfi' || b.cluster_id === 'fsac' || ( b.cluster_id === 'wash' && $scope.project.definition.admin0pcode !== 'AF' ) ){
+            if( b.cluster_id === 'cvwg' || b.cluster_id === 'agriculture' || b.cluster_id === 'esnfi' || b.cluster_id === 'fsac' || ( b.cluster_id === 'wash' && $scope.project.definition.admin0pcode !== 'AF' ) ){
               display = true;
             }
           });
