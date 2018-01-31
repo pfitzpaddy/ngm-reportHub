@@ -1607,6 +1607,15 @@ angular.module( 'ngmReportHub' )
             facility_type_id: 'community_based',
             facility_type_name: 'Community Based'
           },{
+            facility_type_id: 'idp_camp',
+            facility_type_name: 'IDP Camp'
+          },{
+            facility_type_id: 'refugee_camp',
+            facility_type_name: 'Refugee Camp'
+          },{
+            facility_type_id: 'feeding_center',
+            facility_type_name: 'Feeding Center'
+          },{
             facility_type_id: 'multiple_facilities',
             facility_type_name: 'Multiple Facilities'
           },{
@@ -1625,14 +1634,11 @@ angular.module( 'ngmReportHub' )
             facility_type_id: 'health_post',
             facility_type_name: 'Health Post'
           },{
-            facility_type_id: 'clinc',
-            facility_type_name: 'Clinic'
-          },{
-            facility_type_id: 'idp_camp',
-            facility_type_name: 'IDP Camp'
-          },{
             facility_type_id: 'MHNT',
             facility_type_name: 'MHNT'
+          },{
+            facility_type_id: 'clinc',
+            facility_type_name: 'Clinic'
           },{
             facility_type_id: 'stabalization_center',
             facility_type_name: 'Stabalization Center'
