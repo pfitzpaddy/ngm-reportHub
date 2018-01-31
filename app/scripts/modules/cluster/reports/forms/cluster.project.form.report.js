@@ -303,9 +303,14 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               $beneficiary.cluster_id = selected[0].cluster_id;
               $beneficiary.cluster = selected[0].cluster;
             }
-            $beneficiary.activity_type_name = selected[0].activity_type_name;
+            if (selected.length) {
+            	$beneficiary.activity_type_name = selected[0].activity_type_name;
+            } else {
+            	delete $beneficiary.activity_type_id
+            }
+
           }
-          return selected.length ? selected[0].activity_type_name : 'No Selection!';
+          return selected.length ? selected[0].activity_type_name : 'Needs Update!';
         },
 
         // display description
@@ -314,9 +319,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $beneficiary.activity_description_id = $data;
           if($beneficiary.activity_description_id) {
             selected = $filter('filter')( $scope.project.activity_descriptions, { activity_description_id: $beneficiary.activity_description_id }, true );
-            $beneficiary.activity_description_name = selected[0].activity_description_name;
+
+						if (selected.length) {
+            	$beneficiary.activity_description_name = selected[0].activity_description_name;
+            } else {
+            	delete $beneficiary.activity_description_id;
+            }
+
           }
-          return selected.length ? selected[0].activity_description_name : 'No Selection!';
+          return selected.length ? selected[0].activity_description_name : 'Needs Update!';
         },
 
         // display delivery
@@ -602,8 +613,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 				showTreatmentSameProvince: function( $data, $beneficiary ){
 					var selected = [];
-					if ($beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
-						$beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian') {
+					if (!$data || ($beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
+						$beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian')) {
 						delete $beneficiary.injury_treatment_same_province;
 					} else {
 						$beneficiary.injury_treatment_same_province = $data;
