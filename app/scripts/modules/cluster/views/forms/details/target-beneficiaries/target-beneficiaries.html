@@ -40,8 +40,8 @@
 								 		<td ng-if="project.definition.admin0pcode === 'AF'">Population</td>
 								  <!-- <td ng-if="project.showSessions()">Sessions</td> -->
 								  <!-- <td ng-if="project.showCash()">Cash Amount ( {{ project.definition.project_budget_currency | uppercase }} )</td> -->
-							      <td ng-if="project.showUnits()">Amount</td>
 							      <td ng-if="project.showUnits()">Units</td>
+							      <td ng-if="project.showUnits()">Amount</td>
 							      <td ng-if="project.showCash()">Transfers</td>
 								  	<td ng-if="project.showHouseholds()">HHs</td>
 							      <td ng-if="project.showFamilies()">Families</td>
@@ -143,26 +143,6 @@
 							        </span>
 							      </td>
 
-								    <!-- units -->
-	 								  <td ng-show="project.showUnits()">
-							        <span e-form="rowform"
-							        			e-name="units"
-							        			editable-number="beneficiary.units"
-							        			e-min="0"
-							        			e-ng-change="project.updateInput($index, 'units', $data )"
-						              	e-ng-disabled="
-															!project.showUnits() ||
-															!beneficiary.activity_description_id ||
-															( project.definition.cluster_id === 'wash' &&
-																beneficiary.activity_description_id.indexOf('education') === -1 &&
-																beneficiary.activity_description_id.indexOf('training') === -1 &&
-																beneficiary.activity_description_id.indexOf('cash') === -1 &&
-																beneficiary.activity_description_id.indexOf('in_kind') === -1 )"
-							        			e-required>
-							          {{ beneficiary.units }}
-							        </span>
-							      </td>
-
 								    <!-- unit type -->
 	 								  <td ng-show="project.showUnits()">
 							        <span e-form="rowform"
@@ -173,12 +153,36 @@
 														e-ng-disabled="
 															!project.showUnits() ||
 															!beneficiary.activity_description_id ||
-															( project.definition.cluster_id === 'wash' &&
+															( beneficiary.cluster_id !== 'eiewg' && 
+																beneficiary.cluster_id !== 'fsac' && 
+																beneficiary.cluster_id !== 'agriculture' &&
 																beneficiary.activity_description_id.indexOf('education') === -1 &&
 																beneficiary.activity_description_id.indexOf('training') === -1 &&
 																beneficiary.activity_description_id.indexOf('cash') === -1 &&
 																beneficiary.activity_description_id.indexOf('in_kind') === -1 )">
 							          {{ project.showUnitTypes($data, beneficiary) }}
+							        </span>
+							      </td>
+
+								    <!-- units -->
+	 								  <td ng-show="project.showUnits()">
+							        <span e-form="rowform"
+							        			e-name="units"
+							        			editable-number="beneficiary.units"
+							        			e-min="0"
+							        			e-ng-change="project.updateInput($index, 'units', $data )"
+						              	e-ng-disabled="
+															!project.showUnits() ||
+															!beneficiary.activity_description_id ||
+															( beneficiary.cluster_id !== 'eiewg' && 
+																beneficiary.cluster_id !== 'fsac' && 
+																beneficiary.cluster_id !== 'agriculture' &&
+																beneficiary.activity_description_id.indexOf('education') === -1 &&
+																beneficiary.activity_description_id.indexOf('training') === -1 &&
+																beneficiary.activity_description_id.indexOf('cash') === -1 &&
+																beneficiary.activity_description_id.indexOf('in_kind') === -1 )"
+							        			e-required>
+							          {{ beneficiary.units }}
 							        </span>
 							      </td>
 
