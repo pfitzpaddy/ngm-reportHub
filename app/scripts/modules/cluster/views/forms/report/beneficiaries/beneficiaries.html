@@ -13,7 +13,7 @@
       <td>Activity</td>
       <td>Description</td>
       <td ng-if="project.showCash( $locationIndex )">Delivery</td>
-      <td ng-if="project.definition.admin0pcode === 'AF'">Category</td>
+      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">Category</td>
       <td>Beneficiary</td>
       <td ng-if="project.definition.admin0pcode === 'AF'">Population</td>
       <td ng-if="project.showUnits( $locationIndex )">Amount</td>
@@ -26,7 +26,8 @@
       <td ng-if="project.showMen( $locationIndex )">Men</td>
       <td ng-if="project.showWomen( $locationIndex )">Women</td>
       <td ng-if="false">Eld. Men</td>
-      <td ng-if="false">Eld. Women</td>
+			<td ng-if="false">Eld. Women</td>
+			<td ng-if="project.showFatpTreatmentSameProvince( $locationIndex )">Treatment Same Province</td>
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
     <tr ng-repeat="beneficiary in project.report.locations[$locationIndex].beneficiaries">
@@ -66,7 +67,7 @@
           {{ project.showCashDelivery($data, beneficiary) }}
         </span>
       </td>
-      <td ng-if="project.definition.admin0pcode === 'AF'">
+      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">
         <!-- editable group (select-remote) -->
         <span e-form="rowform"
               e-name="category_type_id"
@@ -77,7 +78,7 @@
           {{ project.showCategory($data, beneficiary) }}
         </span>
       </td>
-      <td ng-if="project.definition.admin0pcode === 'AF'">
+      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">
         <!-- editable group (select-remote) -->
         <span e-form="rowform"
               e-name="beneficiary_type_id"
@@ -88,7 +89,7 @@
           {{ project.showBeneficiary($data, beneficiary) }}
         </span>
       </td>
-      <td ng-if="project.definition.admin0pcode !== 'AF'">
+      <td ng-if="project.definition.admin0pcode !== 'AF' || (project.definition.admin0pcode === 'AF' && !project.categoryShow2017())">
         <!-- editable group (select-remote) -->
         <span e-form="rowform"
               e-name="beneficiary_type_id"
@@ -269,7 +270,7 @@
               e-required>
           {{ beneficiary.women }}
         </span>
-      </td>
+			</td>
       <td ng-show="false">
         <!-- editable number -->
         <span e-form="rowform"
@@ -312,6 +313,17 @@
           {{ beneficiary.elderly_women }}
         </span>
       </td>
+			<td ng-show="project.showFatpTreatmentSameProvince( $locationIndex )">
+					<!-- editable select true/false -->
+					<span e-form="rowform"
+              e-name="injury_treatment_same_province"
+              editable-select="beneficiary.injury_treatment_same_province"
+              e-placeholder="Select..."
+							e-ng-options="s.choise as s.text for s in [{'choise':true, 'text':'Yes'},{'choise':false, 'text':'No'}]"
+							e-ng-disabled="beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
+															beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian'">
+          {{ project.showTreatmentSameProvince($data, beneficiary) }}
+			</td>
 
       <td style="white-space: nowrap" ng-show="project.report.report_status !== 'complete'">
         <!-- form -->
