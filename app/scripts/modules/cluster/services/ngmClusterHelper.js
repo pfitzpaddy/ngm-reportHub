@@ -2392,7 +2392,7 @@ angular.module( 'ngmReportHub' )
 
       	sub_strategic_objectives = {};
       	for (var i = start_report_year; i <= end_report_year; i++) {
-      		if (strategic_objectives[i]) sub_strategic_objectives[i] = strategic_objectives[i];
+      		if (strategic_objectives&&strategic_objectives[i]) sub_strategic_objectives[i] = strategic_objectives[i];
       	}
         // return SO by cluster
       	return sub_strategic_objectives;
