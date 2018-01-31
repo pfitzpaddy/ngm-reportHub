@@ -17,7 +17,7 @@
 		<div class="col s12 m12 l12">
 			<div class="card">
 				<ul id="project_details_form" class="collection with-header">
-					
+
 					<li class="collection-header blue lighten-4">
 						<h5 class="report-work-title">
 							<i class="material-icons left">loupe</i>{{ project.definition.cluster | uppercase }} OBJECTIVES
@@ -32,18 +32,18 @@
 
 						<!-- form -->
 						<div class="row">
-							<div class="card">
+							<div class="card" ng-repeat="year in project.getSOyears()">
 								<ul class="collection with-header">
-									<li class="collection-item avatar" ng-repeat="objective in project.lists.strategic_objectives[ project.definition.cluster_id ] track by $index">
-								    <div class="strategic_objective_title" style="padding:5px 0px 10px 35px;">{{ objective.objective_type_name }}</div>
+									<li class="collection-item avatar" ng-repeat="objective in project.lists.strategic_objectives[year][ project.definition.cluster_id ]">
+								    <div class="strategic_objective_title" style="padding:5px 0px 10px 35px;">{{ year + " " + objective.objective_type_name }}</div>
 								    <p align="justify" style="padding:5px 0px 10px 0px;">
-								      <input type="checkbox" id="{{ objective.objective_type_id }}" 
-								      	ng-model="project.definition.strategic_objectives_check[ objective.objective_type_id ]"
-								      	ng-disabled="project.definition.project_status === 'complete'"
-								      	ng-click="project.setStrategicObjectives( $index, objective.cluster_id )"/>
-								      <label for="{{ objective.objective_type_id }}" style="color:#757575;">{{ objective.objective_type_description }}</label>
+								      <input type="checkbox" id="{{ objective.objective_type_id + ':' + objective.objective_year }}"
+								      	ng-model="project.definition.strategic_objectives_check[ objective.objective_type_id + ':' + objective.objective_year ]"
+								      	ng-disabled="project.definition.project_status === 'complete'||(objective.cluster_id==='cvwg'&&year===2017)"
+								      	ng-click="project.setStrategicObjectives( objective.cluster_id )"/>
+								      <label for="{{ objective.objective_type_id + ':' + objective.objective_year }}" style="color:#757575;">{{ objective.objective_type_description }}</label>
 								    </p>
-								    <p align="justify" style="padding:5px 0px 10px 35px; font-weight:400;">
+								    <p ng-if="objective.objective_type_objectives.length" align="justify" style="padding:5px 0px 10px 35px; font-weight:400;">
 											Relates to <span ng-repeat="so in objective.objective_type_objectives">{{ so }} </span>
 								    </p>
 									</li>
@@ -63,7 +63,7 @@
 		<div class="col s12 m12 l12">
 			<div class="card">
 				<ul id="project_details_form" class="collection with-header">
-					
+
 					<li class="collection-header blue lighten-4">
 						<h5 class="report-work-title">
 							<i class="material-icons left">loupe</i>{{ cluster.cluster | uppercase }}
@@ -72,13 +72,13 @@
 
 					<li class="collection-item avatar">
 
-						<div ng-if="cluster.cluster_id !== 'eiewg' && cluster.cluster_id !== 'cvwg'">
+						<div ng-if="cluster.cluster_id !== 'eiewg'">
 							<p style="padding:10px;">
 								Select the Objectives that your project will target;
 							</p>
 						</div>
 
-						<div ng-if="cluster.cluster_id === 'eiewg' || cluster.cluster_id === 'cvwg'">
+						<div ng-if="cluster.cluster_id === 'eiewg'">
 							<div class="row">
 								<div class="card" style="padding:20px;">
 									<p style="padding:10px;">
@@ -89,19 +89,19 @@
 						</div>
 
 						<!-- form -->
-						<div class="row" ng-if="cluster.cluster_id !== 'eiewg' && cluster.cluster_id !== 'cvwg'">
-							<div class="card">
+						<div class="row" ng-if="cluster.cluster_id !== 'eiewg'">
+							<div class="card" ng-repeat="year in project.getSOyears()">
 								<ul class="collection with-header">
-									<li class="collection-item avatar" ng-repeat="objective in project.lists.strategic_objectives[ cluster.cluster_id ] track by $index">
-								    <div class="strategic_objective_title" style="padding:5px 0px 10px 35px;">{{ objective.objective_type_name }}</div>
+									<li class="collection-item avatar" ng-repeat="objective in project.lists.strategic_objectives[year][ cluster.cluster_id ]">
+								    <div class="strategic_objective_title" style="padding:5px 0px 10px 35px;">{{ year + " " +  objective.objective_type_name }}</div>
 								    <p align="justify" style="padding:5px 0px 10px 0px;">
-								      <input type="checkbox" id="{{ objective.objective_type_id }}" 
-								      	ng-model="project.definition.strategic_objectives_check[ objective.objective_type_id ]"
-								      	ng-disabled="project.definition.project_status === 'complete'"
-								      	ng-click="project.setStrategicObjectives( $index, cluster.cluster_id )"/>
-								      <label for="{{ objective.objective_type_id }}" style="color:#757575;">{{ objective.objective_type_description }}</label>
+								      <input type="checkbox" id="{{ objective.objective_type_id + ':' + objective.objective_year }}"
+								      	ng-model="project.definition.strategic_objectives_check[ objective.objective_type_id + ':' + objective.objective_year ]"
+								      	ng-disabled="project.definition.project_status === 'complete'||(objective.cluster_id==='cvwg'&&year==='2017')"
+								      	ng-click="project.setStrategicObjectives( cluster.cluster_id )"/>
+								      <label for="{{ objective.objective_type_id + ':' + objective.objective_year }}" style="color:#757575;">{{ objective.objective_type_description }}</label>
 								    </p>
-								    <p align="justify" style="padding:5px 0px 10px 35px; font-weight:400;">
+								    <p ng-if="objective.objective_type_objectives.length" align="justify" style="padding:5px 0px 10px 35px; font-weight:400;">
 											Relates to <span ng-repeat="so in objective.objective_type_objectives">{{ so }} </span>
 								    </p>
 									</li>
