@@ -319,7 +319,7 @@
               e-name="injury_treatment_same_province"
               editable-select="beneficiary.injury_treatment_same_province"
               e-placeholder="Select..."
-							e-ng-options="s for s in ['YES', 'NO']"
+							e-ng-options="s.choise as s.text for s in [{'choise':true, 'text':'Yes'},{'choise':false, 'text':'No'}]"
 							e-ng-disabled="beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
 															beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian'">
           {{ project.showTreatmentSameProvince($data, beneficiary) }}

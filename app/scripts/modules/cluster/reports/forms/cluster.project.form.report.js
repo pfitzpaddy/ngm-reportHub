@@ -607,9 +607,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						delete $beneficiary.injury_treatment_same_province;
 					} else {
 						$beneficiary.injury_treatment_same_province = $data;
+						var selected = $filter('filter')([{'choise':true, 'text':'Yes'},{'choise':false, 'text':'No'}], {choise: $beneficiary.injury_treatment_same_province});
 					}
-
-          return $beneficiary.injury_treatment_same_province ? $beneficiary.injury_treatment_same_province : 'No Selection!';
+          return selected.length ? selected[0].text : 'No Selection!';
 				},
 
         // training_title
