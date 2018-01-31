@@ -897,6 +897,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }
         },
 
+				// preps for 2018 #TODO delete
+				categoryShow2017: function(){
+					return moment()<moment('2018-02-01')
+				},
+
         // training form valid
         trainingValid: function(){
           console.log( $scope.participantsRowform.$valid );

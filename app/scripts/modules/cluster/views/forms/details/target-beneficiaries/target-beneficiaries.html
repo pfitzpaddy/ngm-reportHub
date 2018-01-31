@@ -35,7 +35,7 @@
 							      <td>Activity</td>
 							      <td>Description</td>
 							      <td ng-if="project.showCash()">Delivery</td>
-							      <td ng-if="project.definition.admin0pcode === 'AF'">Category</td>
+							      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">Category</td>
 							      <td>Beneficiary</td>
 								 		<td ng-if="project.definition.admin0pcode === 'AF'">Population</td>
 								  <!-- <td ng-if="project.showSessions()">Sessions</td> -->
@@ -96,7 +96,7 @@
 							      </td>
 
 							      <!-- afghanistan -->
-							      <td ng-if="project.definition.admin0pcode === 'AF'">
+							      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">
 							        <!-- editable group (select-remote) -->
 							        <span e-form="rowform"
 							        			e-name="category_type_id"
@@ -107,7 +107,7 @@
 							          {{ project.showCategory($data, beneficiary) }}
 							        </span>
 							      </td>
-							      <td ng-if="project.definition.admin0pcode === 'AF'">
+							      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">
 							        <span e-form="rowform"
 							        			e-name="beneficiary_type_id"
 							        			editable-select="beneficiary.beneficiary_type_id"
@@ -119,7 +119,7 @@
 							      </td>
 
 							      <!-- others -->
-							      <td ng-if="project.definition.admin0pcode !== 'AF'">
+							      <td>
 							        <span e-form="rowform"
 							        			e-name="beneficiary_type_id"
 							        			editable-select="beneficiary.beneficiary_type_id"

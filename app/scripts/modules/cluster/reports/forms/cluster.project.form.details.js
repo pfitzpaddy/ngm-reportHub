@@ -1223,6 +1223,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           }
         },
 
+				// preps for 2018 #TODO delete
+				categoryShow2017: function(){
+					return moment()<moment('2018-02-01')
+				},
         // validate id ALL target locations valid
         target_locations_valid: function(){
           var rowComplete = 0;
