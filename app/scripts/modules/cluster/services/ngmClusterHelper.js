@@ -27,8 +27,8 @@ angular.module( 'ngmReportHub' )
           project_status: 'new',
           project_title: '',//'Enter New ' + user.organization + ' Project Title...',
           project_description: 'Please complete Project Details and enter a project summary description including objectives...',
-          project_start_date: moment().subtract( 2, 'M').startOf( 'M' ).format('YYYY-MM-DD'),
-          project_end_date: moment().add( 6, 'M' ).endOf( 'M' ).format('YYYY-MM-DD'),
+          project_start_date: moment().startOf( 'M' ).format('YYYY-MM-DD'),
+          project_end_date: moment().add( 8, 'M' ).endOf( 'M' ).format('YYYY-MM-DD'),
           // project_code: user.organization + '/' + moment().unix(),
           project_budget: '0',
           project_budget_progress: [],
@@ -2074,14 +2074,16 @@ angular.module( 'ngmReportHub' )
 			},
 
       // get objectives by cluster
-      getStrategicObjectives: function(){
+      getStrategicObjectives: function (admin0pcode, start_report_year, end_report_year) {
+      	if (admin0pcode === 'AF') {
 
         var strategic_objectives = {
+      			2017: {
           'cvwg': [{
             cluster_id: 'cvwg',
             cluster: 'Cash Voucher Working Group',
-            objective_type_id: 'cvwg_objective_1',
-            objective_type_name: 'CVWG OBJECTIVE 1',
+      					objective_type_id: 'mpc_objective_1',
+      					objective_type_name: 'MPC OBJECTIVE 1',
             objective_type_description: 'No objectives related to HRP for 2017',
             objective_type_objectives: []
           }],
@@ -2186,7 +2188,7 @@ angular.module( 'ngmReportHub' )
             objective_type_id: 'nutrition_objective_4',
             objective_type_name: 'NUTRITION OBJECTIVE 4',
             objective_type_description: 'Enhance capacity of partners to advocate for and respond at scale to nutrition in emergencies',
-            objective_type_objectives: [ 'SO1', 'SO2', 'SO3', 'SO4' ]
+      					objective_type_objectives: ['SO1', 'SO2', 'SO3', 'SO4'],
           }],
           'protection':[{
             cluster_id: 'protection',
@@ -2223,7 +2225,7 @@ angular.module( 'ngmReportHub' )
             objective_type_id: 'wash_objective_2',
             objective_type_name: 'WASH OBJECTIVE 2',
             objective_type_description: 'Ensure timely and adequate access to WASH services in institutions affected by emergencies',
-            objective_type_objectives: [ 'SO1', 'SO2', 'SO4' ]
+      					objective_type_objectives: ['SO1', 'SO2', 'SO4'],
           },{
             cluster_id: 'wash',
             cluster: 'Wash',
@@ -2245,7 +2247,7 @@ angular.module( 'ngmReportHub' )
             objective_type_id: 'project_rnr_chapter_objective_1',
             objective_type_name: 'REFUGEE & RETURNEE OBJECTIVE 1',
             objective_type_description: 'Protection interventions provided to NWA refugees',
-            objective_type_objectives: [ 'SO1' ]
+      					objective_type_objectives: ['SO1'],
           },{
             cluster_id: 'rnr_chapter',
             cluster: 'R&R Chapter',
@@ -2260,13 +2262,144 @@ angular.module( 'ngmReportHub' )
             objective_type_name: 'REFUGEE & RETURNEE OBJECTIVE 3',
             objective_type_description: 'Immediate humanitarian needs for vulnerable refugee returnees, undocumented returnees and deportees are met',
             objective_type_objectives: [ 'SO1' ]
+      				}],
+      			},
+      			2018: {
+      				'cvwg': [{
+      					cluster_id: 'cvwg',
+      					cluster: 'Cash Voucher Working Group',
+      					objective_type_id: 'mpc_objective_1',
+      					objective_type_name: 'MPC OBJECTIVE 1',
+      					objective_type_description: 'Save lives in the areas of highest need',
+      					objective_type_objectives: ['S01'],
+      					objective_year: 2018
+      				}],
+      				'eiewg': [{
+      					cluster_id: 'eiewg',
+      					cluster: 'EiEWG',
+      					objective_type_id: 'eiewg_objective_1',
+      					objective_type_name: 'EiEWG OBJECTIVE 1',
+      					objective_type_description: 'No objectives related to HRP for 2017',
+      					objective_type_objectives: [],
+      					objective_year: 2018
+      				}],
+      				'fsac': [{
+      					cluster_id: 'fsac',
+      					cluster: 'FSAC',
+      					objective_type_id: 'fsac_objective_1',
+      					objective_type_name: 'FSAC OBJECTIVE 1',
+      					objective_type_description: 'Ensure continued and regular access to food for the acute food insecure across the country',
+      					objective_type_objectives: ['SO1'],
+      					objective_year: 2018
+      				}, {
+      					cluster_id: 'fsac',
+      					cluster: 'FSAC',
+      					objective_type_id: 'fsac_objective_2',
+      					objective_type_name: 'FSAC OBJECTIVE 2',
+      					objective_type_description: 'Protect and rehabilitate livelihoods for the vulnerable population at risk of hunger and malnutrition through appropriate response and linkages with development programme',
+      					objective_type_objectives: ['SO1'],
+      					objective_year: 2018
+      				}, {
+      					cluster_id: 'fsac',
+      					cluster: 'FSAC',
+      					objective_type_id: 'fsac_objective_3',
+      					objective_type_name: 'FSAC OBJECTIVE 3',
+      					objective_type_description: 'Strengthen emergency preparedness and provide timely response in hard to reach areas through enhanced capacity of partners on assessment and contingency planning',
+      					objective_type_objectives: ['SO3'],
+      					objective_year: 2018
+      				}],
+      				'esnfi': [{
+      					cluster_id: 'esnfi',
+      					cluster: 'ESNFI',
+      					objective_type_id: 'esnfi_objective_1',
+      					objective_type_name: 'ESNFI OBJECTIVE 1',
+      					objective_type_description: 'Save lives in the areas of highest need',
+      					objective_type_objectives: ['SO1'],
+      					objective_year: 2018
+      				}],
+      				'health': [{
+      					cluster_id: 'health',
+      					cluster: 'Health',
+      					objective_type_id: 'health_objective_1',
+      					objective_type_name: 'HEALTH OBJECTIVE 1',
+      					objective_type_description: 'Save lives in the areas of highest need: People suffering trauma related injuries because of the conflict receive life-saving treatment within the province where the injury was sustained in either existing medical facilities or new First Aid Trauma Posts',
+      					objective_type_objectives: ['SO1'],
+      					objective_year: 2018
+      				}, {
+      					cluster_id: 'health',
+      					cluster: 'Health',
+      					objective_type_id: 'health_objective_2',
+      					objective_type_name: 'HEALTH OBJECTIVE 2',
+      					objective_type_description: 'Reduce protection violations and increase respect for International Humanitarian Law',
+      					objective_type_objectives: ['SO2'],
+      					objective_year: 2018
+      				}],
+      				'nutrition': [{
+      					cluster_id: 'nutrition',
+      					cluster: 'Nutrition',
+      					objective_type_id: 'nutrition_objective_1',
+      					objective_type_name: 'NUTRITION OBJECTIVE 1',
+      					objective_type_description: 'Save lives in the areas of highest need',
+      					objective_type_objectives: ['SO1'],
+      					objective_year: 2018
+      				}],
+      				'protection': [{
+      					cluster_id: 'protection',
+      					cluster: 'Protection',
+      					objective_type_id: 'protection_objective_1',
+      					objective_type_name: 'PROTECTION OBJECTIVE 1',
+      					objective_type_description: 'Save lives in the areas of highest need',
+      					objective_type_objectives: ['SO1'],
+      					objective_year: 2018
+      				}, {
+      					cluster_id: 'protection',
+      					cluster: 'Protection',
+      					objective_type_id: 'protection_objective_2',
+      					objective_type_name: 'PROTECTION OBJECTIVE 2',
+      					objective_type_description: 'Reduce protection violations and increase respect for International Humanitarian Law',
+      					objective_type_objectives: ['SO2'],
+      					objective_year: 2018
+      				}],
+      				'wash': [{
+      					cluster_id: 'wash',
+      					cluster: 'Wash',
+      					objective_type_id: 'wash_objective_1',
+      					objective_type_name: 'WASH OBJECTIVE 1',
+      					objective_type_description: 'WASH related communicable diseases are reduced among IDP, returnee, refugee and non-displaced conflictaffected women, men and children of all ages through timely and adequate WASH assistance',
+      					objective_type_objectives: ['SO1', 'SO3'],
+      					objective_year: 2018
+      				}, {
+      					cluster_id: 'wash',
+      					cluster: 'Wash',
+      					objective_type_id: 'wash_objective_2',
+      					objective_type_name: 'WASH OBJECTIVE 2',
+      					objective_type_description: 'People affected by natural disasters –including severe weather conditions– are assessed and responded to in a timely manner preventing loss of life and risk of disease',
+      					objective_type_objectives: ['SO1', 'SO3'],
+      					objective_year: 2018
+      				}],
+      				'rnr_chapter': [{
+      					cluster_id: 'rnr_chapter',
+      					cluster: 'R&R Chapter',
+      					objective_type_id: 'project_rnr_chapter_objective_1',
+      					objective_type_name: 'REFUGEE & RETURNEE OBJECTIVE 1',
+      					objective_type_description: 'Save lives in the areas of highest need',
+      					objective_type_objectives: ['SO1'],
+      					objective_year: 2018
           }]
         }
+      		}
+      	}
 
+      	sub_strategic_objectives = {};
+      	for (var i = start_report_year; i <= end_report_year; i++) {
+      		if (strategic_objectives[i]) sub_strategic_objectives[i] = strategic_objectives[i];
+      	}
         // return SO by cluster
-        return strategic_objectives;
+      	return sub_strategic_objectives;
 
       },
+
+
 
       // remove duplicates in item ( json array ) based on value ( filterOn )
       filterDuplicates: function( items, filterOn ){
