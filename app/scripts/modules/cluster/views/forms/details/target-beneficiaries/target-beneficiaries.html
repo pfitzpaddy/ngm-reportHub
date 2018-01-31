@@ -50,7 +50,8 @@
 							      <td ng-if="project.showMen()">Men</td>
 							      <td ng-if="project.showWomen()">Women</td>
 							      <td ng-if="false">Eld. Men</td>
-							      <td ng-if="false">Eld. Women</td>
+										<td ng-if="false">Eld. Women</td>
+										<td ng-if="project.showFatpTreatmentSameProvince()">Treatment Same Province</td>
 							      <td ng-if="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
 							    <tr ng-repeat="beneficiary in project.definition.target_beneficiaries">
@@ -119,7 +120,7 @@
 							      </td>
 
 							      <!-- others -->
-							      <td>
+							      <td ng-if="project.definition.admin0pcode !== 'AF' || (project.definition.admin0pcode === 'AF' && !project.categoryShow2017())">
 							        <span e-form="rowform"
 							        			e-name="beneficiary_type_id"
 							        			editable-select="beneficiary.beneficiary_type_id"
@@ -316,6 +317,17 @@
 							          {{ beneficiary.elderly_women }}
 							        </span>
 							      </td>
+										<td ng-show="project.showFatpTreatmentSameProvince()">
+												<!-- editable select true/false -->
+												<span e-form="rowform"
+														e-name="injury_treatment_same_province"
+														editable-select="beneficiary.injury_treatment_same_province"
+														e-placeholder="Select..."
+														e-ng-options="s for s in ['YES', 'NO']"
+														e-ng-disabled="beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
+																						beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian'">
+												{{ project.showTreatmentSameProvince($data, beneficiary) }}
+										</td>
 
 							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
 							        <!-- form -->

@@ -282,7 +282,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var length = $scope.project.report.locations[ $parent ].beneficiaries.length;
           if ( length ) {
             var b = angular.copy( $scope.project.report.locations[ $parent ].beneficiaries[ length - 1 ] );
-            delete b.id;
+						delete b.id;
+						delete b.injury_treatment_same_province;
             $scope.inserted = angular.merge( $scope.inserted, b, sadd );
             $scope.inserted.transfer_type_id = 0;
             $scope.inserted.transfer_type_value = 0;
@@ -583,6 +584,33 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }
           return display;
         },
+
+				// injury sustained same province field
+        showFatpTreatmentSameProvince: function( $locationIndex ){
+          var display = false;
+          var l = $scope.project.report.locations[ $locationIndex ];
+          if( l ){
+            angular.forEach( l.beneficiaries, function(b){
+								if( b.activity_description_id === 'fatp_stabilization_referrals_conflict' ||
+										b.activity_description_id === 'fatp_stabilization_referrals_civilian' ){
+                			display = true;
+              }
+            });
+          }
+          return display;
+				},
+
+				showTreatmentSameProvince: function( $data, $beneficiary ){
+					var selected = [];
+					if ($beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
+						$beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian') {
+						delete $beneficiary.injury_treatment_same_province;
+					} else {
+						$beneficiary.injury_treatment_same_province = $data;
+					}
+
+          return $beneficiary.injury_treatment_same_province ? $beneficiary.injury_treatment_same_province : 'No Selection!';
+				},
 
         // training_title
         showTrainingTitle: function( $data, training ){
