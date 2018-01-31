@@ -642,7 +642,11 @@ angular.module( 'ngmReportHub' )
             { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
               unit_type_id: 'school_kits', unit_type_name: 'School Kits' },
             { cluster_id: [ 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
-              unit_type_id: 'schools', unit_type_name: 'Schools' }
+							unit_type_id: 'schools', unit_type_name: 'Schools' },
+						{ cluster_id: [ 'health' ],
+							unit_type_id: 'centers', unit_type_name: 'Centers' },
+						{ cluster_id: [ 'health' ],
+              unit_type_id: 'medics', unit_type_name: 'Medics' }
           ];
 
         // unit type list
