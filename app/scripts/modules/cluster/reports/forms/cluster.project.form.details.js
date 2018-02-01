@@ -299,7 +299,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             if ( selected.length ) {
 
               // catch for old data
-              if( selected[0].cluster_id && selected[0].cluster ) {
+              if( selected.length && selected[0].cluster_id && selected[0].cluster ) {
                 $beneficiary.cluster_id = selected[0].cluster_id;
                 $beneficiary.cluster = selected[0].cluster;
 							}
@@ -307,7 +307,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							if (selected.length) {
 								$beneficiary.activity_type_name = selected[0].activity_type_name;
 							} else {
-								delete $beneficiary.activity_type_id
+								// if data exists then get it
+								if ($beneficiary.activity_type_name&&$beneficiary.activity_type_id){
+									selected = [{}];
+									selected[0].activity_type_name = $beneficiary.activity_type_name;
+								} else {
+								delete $beneficiary.activity_type_id;
+								}
 							}
 
             }
@@ -324,8 +330,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             if (selected.length) {
             	$beneficiary.activity_description_name = selected[0].activity_description_name;
             } else {
+							// if data exists then get it
+							if ($beneficiary.activity_description_name&&$beneficiary.activity_description_id){
+								selected = [{}];
+								selected[0].activity_description_name = $beneficiary.activity_description_name;
+							} else {
             	delete $beneficiary.activity_description_id;
             }
+          }
           }
           return selected.length ? selected[0].activity_description_name : 'Needs Update!';
         },
