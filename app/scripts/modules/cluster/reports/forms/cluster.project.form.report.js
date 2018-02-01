@@ -936,6 +936,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }
         },
 
+				reportingYear: function(){
+					return moment().subtract(1,'M').year();
+				},
+
 				// preps for 2018 #TODO delete
 				categoryShow2017: function(){
 					return moment()<moment('2018-02-01')
