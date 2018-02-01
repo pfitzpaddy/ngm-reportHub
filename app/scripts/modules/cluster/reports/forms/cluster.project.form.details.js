@@ -1260,17 +1260,31 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					return display;
 				},
 
-				showTreatmentSameProvince: function( $data, $beneficiary ){
-					var selected = [];
-					if (!$data || ($beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
-						$beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian')) {
+				showTreatmentSameProvince: function ($data, $beneficiary) {
+					var selected = [{}];
+					// will show blank for all activities except
+					if ($beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
+						$beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian') {
 						delete $beneficiary.injury_treatment_same_province;
+						selected[0].text = '-'
+					// will show if not selected
+					} else if ($data == null) {
+						delete $beneficiary.injury_treatment_same_province;
+						selected[0].text = 'Not Selected!'
+					// will show if selected
 					} else {
 						$beneficiary.injury_treatment_same_province = $data;
-						var selected = $filter('filter')([{'choise':true, 'text':'Yes'},{'choise':false, 'text':'No'}], {choise: $beneficiary.injury_treatment_same_province});
+						var selected = $filter('filter')([{
+							'choise': true,
+							'text': 'Yes'
+						}, {
+							'choise': false,
+							'text': 'No'
+						}], {
+							choise: $beneficiary.injury_treatment_same_province
+						});
 					}
-
-					return selected.length ? selected[0].text : 'No Selection!';
+					return selected[0].text;
 				},
 
 

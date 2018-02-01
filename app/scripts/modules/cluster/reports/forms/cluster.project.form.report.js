@@ -316,7 +316,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // display description
         showDescription: function( $data, $beneficiary ) {
           var selected = [];
-          $beneficiary.activity_description_id = $data;
+					$beneficiary.activity_description_id = $data;
           if($beneficiary.activity_description_id) {
             selected = $filter('filter')( $scope.project.activity_descriptions, { activity_description_id: $beneficiary.activity_description_id }, true );
 
@@ -611,16 +611,31 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           return display;
 				},
 
-				showTreatmentSameProvince: function( $data, $beneficiary ){
-					var selected = [];
-					if (!$data || ($beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
-						$beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian')) {
+				showTreatmentSameProvince: function ($data, $beneficiary) {
+					var selected = [{}];
+					// will show blank for all activities except
+					if ($beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
+						$beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian') {
 						delete $beneficiary.injury_treatment_same_province;
+						selected[0].text = '-'
+					// will show if not selected
+					} else if ($data == null) {
+						delete $beneficiary.injury_treatment_same_province;
+						selected[0].text = 'Not Selected!'
+					// will show if selected
 					} else {
 						$beneficiary.injury_treatment_same_province = $data;
-						var selected = $filter('filter')([{'choise':true, 'text':'Yes'},{'choise':false, 'text':'No'}], {choise: $beneficiary.injury_treatment_same_province});
+						var selected = $filter('filter')([{
+							'choise': true,
+							'text': 'Yes'
+						}, {
+							'choise': false,
+							'text': 'No'
+						}], {
+							choise: $beneficiary.injury_treatment_same_province
+						});
 					}
-          return selected.length ? selected[0].text : 'No Selection!';
+					return selected[0].text;
 				},
 
         // training_title
@@ -934,7 +949,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           } else {
             return false;
           }
-        },
+				},
 
 				reportingYear: function(){
 					return moment().subtract(1,'M').year();
