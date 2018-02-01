@@ -729,14 +729,14 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					var disabled = true;
 					switch ($scope.project.definition.admin0pcode) {
 						case 'AF':
-								if ( $data.category_type_id && $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id && $data.delivery_type_id &&
+								if ( $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id && $data.delivery_type_id &&
 									$data.units >= 0 && $data.sessions >= 0 && $data.households >= 0 && $data.families >= 0 && $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 && $data.elderly_men >= 0 && $data.elderly_women >= 0 ) {
 									disabled = false;
 										}
 								break;
 
 						default:
-								if ( $data.category_type_id && $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id &&
+								if ( $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id &&
 									$data.units >= 0 && $data.sessions >= 0 && $data.households >= 0 && $data.families >= 0 && $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 && $data.elderly_men >= 0 && $data.elderly_women >= 0 ) {
 									disabled = false;
 										}

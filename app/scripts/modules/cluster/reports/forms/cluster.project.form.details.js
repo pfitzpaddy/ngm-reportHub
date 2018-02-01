@@ -588,7 +588,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // disable save form
         rowSaveDisabled: function( $data ){
           var disabled = true;
-          if ( $data.category_type_id && $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id &&
+          if ( $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id &&
                 $data.households >= 0 && $data.families >= 0 && $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 && $data.elderly_men >= 0 && $data.elderly_women >= 0 ) {
               disabled = false;
           }
