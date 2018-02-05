@@ -263,7 +263,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             delivery_type_id: null,
             delivery_type_name: null,
             transfer_type_id: 0,
-            transfer_type_value: 0
+						transfer_type_value: 0,
+						added_beneficiary: true,
           };
 
           // merge
@@ -788,7 +789,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // remove from array if no id
         cancelEdit: function( $parent, $index ) {
-          if ( !$scope.project.report.locations[ $parent ].beneficiaries[ $index ].id ) {
+        	if (!$scope.project.report.locations[$parent].beneficiaries[$index].id &&
+						 (!$scope.project.report.locations[$parent].beneficiaries[$index].default_beneficiary ||
+							 $scope.project.report.locations[$parent].beneficiaries[$index].added_beneficiary)) {
             $scope.project.report.locations[ $parent ].beneficiaries.splice( $index, 1 );
           }
         },
@@ -892,10 +895,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // remove beneficiary
         removeBeneficiary: function() {
 
-          // b
+          // depending on if has or hasnt id set
           var b = $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries[ $scope.project.beneficiaryIndex ];
           $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
 
+					if (b.id){
           // setReportRequest
           var setBeneficiariesRequest = {
             method: 'POST',
@@ -923,6 +927,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             // update
             Materialize.toast( 'Error!', 6000, 'error' );
           });
+				 } else {
+							$scope.project.save( false, false );
+				 }
         },
 
         // save form on enter
