@@ -711,7 +711,23 @@ angular.module( 'ngmReportHub' )
         // full list
         // cluster_id: [ 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'wash' ],
 
-        var beneficiaries = [];
+        var beneficiaries = [{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'idps',
+            beneficiary_type_name: 'IDPs'
+          },{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'refugees',
+            beneficiary_type_name: 'Refugees'
+          },{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'returnees',
+            beneficiary_type_name: 'Returnees'
+          },{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'host_communities',
+            beneficiary_type_name: 'Host Communities'
+          }];
 
         // admin ET
         if ( admin0pcode === 'ET' ) {
@@ -1527,7 +1543,8 @@ angular.module( 'ngmReportHub' )
 							}];
 						}
 
-			}
+			   }
+
         // filter by cluster beneficiaries here
         return beneficiaries;
 
