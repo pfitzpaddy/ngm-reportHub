@@ -7,15 +7,15 @@
  */
 angular.module('ngmReportHub')
 	.controller('DashboardClusterCtrl', [
-			'$scope', 
-			'$q', 
-			'$http', 
-			'$location', 
+			'$scope',
+			'$q',
+			'$http',
+			'$location',
 			'$route',
 			'$rootScope',
-			'$window', 
-			'$timeout', 
-			'$filter', 
+			'$window',
+			'$timeout',
+			'$filter',
 			'ngmUser',
 			'ngmAuth',
 			'ngmData',
@@ -35,10 +35,10 @@ angular.module('ngmReportHub')
 
 			// create dews object
 			$scope.dashboard = {
-				
+
 				// parent
 				ngm: $scope.$parent.ngm,
-				
+
 				// current user
 				user: ngmUser.get(),
 
@@ -130,14 +130,14 @@ angular.module('ngmReportHub')
 					// get url
 					var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
 
-					// if current location is not equal to path 
+					// if current location is not equal to path
 					if ( path !== $location.$$path ) {
 						$location.path( path );
 					}
 
 				},
 
-				// 
+				//
 				getRequest: function( obj ){
 					var request = {
 						method: 'POST',
@@ -177,7 +177,7 @@ angular.module('ngmReportHub')
 					}
 				},
 
-				// 
+				//
 				setMenu: function(){
 
 					// rows
@@ -188,7 +188,7 @@ angular.module('ngmReportHub')
 							request = $scope.dashboard.getRequest( { list: true, indicator: 'organizations' } );
 
 					// SUPERADMIN
-					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) >= 0 ) { 
+					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) >= 0 ) {
 						$scope.model.menu = $scope.dashboard.menu;
 						if ( $scope.dashboard.adminRpcode !== 'hq' ) {
 							var menu = {
@@ -359,28 +359,28 @@ angular.module('ngmReportHub')
 
 				setCluster: function(){
 					if ( $scope.dashboard.cluster_id === 'cvwg' ) {
-						$scope.dashboard.cluster = { cluster_id: 'cvwg', cluster: 'Cash' };
+						$scope.dashboard.cluster = { cluster_id: 'cvwg', cluster: 'MPC' };
 					} else {
-						$scope.dashboard.cluster = $filter( 'filter' )( $scope.dashboard.lists.clusters, 
+						$scope.dashboard.cluster = $filter( 'filter' )( $scope.dashboard.lists.clusters,
 														{ cluster_id: $scope.dashboard.cluster_id }, true )[0];
 					}
 				},
 
 				// filter
 				setAdmin1: function(){
-					$scope.dashboard.data.admin1 = $filter( 'filter' )( $scope.dashboard.lists.admin1, 
+					$scope.dashboard.data.admin1 = $filter( 'filter' )( $scope.dashboard.lists.admin1,
 														{ admin0pcode: $scope.dashboard.admin0pcode.toUpperCase(),
 															admin1pcode: $scope.dashboard.admin1pcode }, true )[0];
 				},
 
 				setAdmin2: function(){
-					$scope.dashboard.data.admin2 = $filter( 'filter' )( $scope.dashboard.lists.admin2, 
+					$scope.dashboard.data.admin2 = $filter( 'filter' )( $scope.dashboard.lists.admin2,
 														{ admin0pcode: $scope.dashboard.admin0pcode.toUpperCase(),
 															admin1pcode: $scope.dashboard.admin1pcode,
 															admin2pcode: $scope.dashboard.admin2pcode }, true )[0];
 				},
 
-				// 
+				//
 				setTitle: function(){
 					// title
 					$scope.dashboard.title = '4W | ' + $scope.dashboard.adminRpcode.toUpperCase()
@@ -473,15 +473,15 @@ angular.module('ngmReportHub')
 							$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
 							$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
 						}
-					}					
+					}
 
 					// plus dashboard_visits
 					$scope.dashboard.user.dashboard_visits++;
-					localStorage.setObject( 'auth_token', $scope.dashboard.user );					
+					localStorage.setObject( 'auth_token', $scope.dashboard.user );
 
 					// report name
 					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
-					
+
 					// filename cluster needs to be mpc for cvwg
 					// TODO refactor/update cvwg
 					$scope.dashboard.cluster_id_filename = $scope.dashboard.cluster_id !== 'cvwg' ? $scope.dashboard.cluster_id : 'mpc'
@@ -596,7 +596,7 @@ angular.module('ngmReportHub')
 									request: $scope.dashboard.getRequest( { csv: true, indicator: 'stocks', report: $scope.dashboard.cluster_id_filename + '_stock_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 									metrics: $scope.dashboard.getMetrics( 'stocks', 'csv' )
 								}]
-							}							
+							}
 						},
 						menu: [],
 						rows: [{
@@ -688,7 +688,7 @@ angular.module('ngmReportHub')
 														continuousWorld: true
 													}
 												}
-											},								
+											},
 											overlays: {
 												projects: {
 													name: 'Projects',
@@ -742,7 +742,7 @@ angular.module('ngmReportHub')
 
 			// if lists
 			if ( $scope.dashboard.lists.admin1.length ) {
-				
+
 				// set dashboard
 				$scope.dashboard.init();
 
@@ -761,8 +761,8 @@ angular.module('ngmReportHub')
 				}
 
 				// send request
-				$q.all([ 
-					$http.get( requests.getAdmin1List ), 
+				$q.all([
+					$http.get( requests.getAdmin1List ),
 					$http.get( requests.getAdmin2List ) ]).then( function( results ) {
 
 					// set dashboard lists
