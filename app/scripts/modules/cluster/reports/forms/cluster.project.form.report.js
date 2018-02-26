@@ -32,7 +32,28 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
     function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, config ){
 
       // set activity descriptions
-      $scope.activity_descriptions = ngmClusterHelper.getActivities( config.project, false, false );
+			$scope.activity_descriptions = ngmClusterHelper.getActivities( config.project, false, false );
+
+			// TODO DELETE next if lines starting 01062018
+			if (config.project.organization === "EMERGENCY" ) {
+				$scope.activity_descriptions.push(
+						{ activity_description_id	: "fatp_stabilization",
+							activity_description_name	:	"FATP - Stabilization ( Conflict )",
+							activity_type_id :	"trauma_care",
+							activity_type_name : "Trauma Care",
+							admin0pcode :	"AF",
+							cluster	:	"Health",
+							cluster_id : "health"
+					},{ activity_description_id	: "fatp_stabilization_civilian",
+							activity_description_name	:	"FATP - Stabilization ( Civilian )",
+							activity_type_id :	"trauma_care",
+							activity_type_name : "Trauma Care",
+							admin0pcode :	"AF",
+							cluster	:	"Health",
+							cluster_id : "health"
+					}
+				)
+			}
 
       // project
       $scope.project = {
@@ -154,6 +175,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // resize form
         editTraining: function(){
           $('.editable-text').css({ width: '100%' });
+          $('#training_topics').css({border: 'none' });
+          $('.editable-textarea').css({ width: '100%' });
         },
 
         // add trainings
@@ -195,6 +218,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           // expand title text
           $timeout( function() {
             $('.editable-text').css({ width: '100%' });
+            $('#training_topics').css({border: 'none' });
+            $('.editable-textarea').css({ width: '100%' });
             $('#participantsRowformEdit').click();
           }, 400 );
         },
@@ -278,7 +303,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var length = $scope.project.report.locations[ $parent ].beneficiaries.length;
           if ( length ) {
             var b = angular.copy( $scope.project.report.locations[ $parent ].beneficiaries[ length - 1 ] );
-            delete b.id;
+						delete b.id;
+						delete b.injury_treatment_same_province;
             $scope.inserted = angular.merge( $scope.inserted, b, sadd );
             $scope.inserted.transfer_type_id = 0;
             $scope.inserted.transfer_type_value = 0;
@@ -294,24 +320,47 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             selected = $filter('filter')( $scope.project.definition.activity_type, { activity_type_id: $beneficiary.activity_type_id }, true);
 
             // catch for old data
-            if( selected[0].cluster_id && selected[0].cluster ) {
+            if( selected.length && selected[0].cluster_id && selected[0].cluster ) {
               $beneficiary.cluster_id = selected[0].cluster_id;
               $beneficiary.cluster = selected[0].cluster;
             }
-            $beneficiary.activity_type_name = selected[0].activity_type_name;
+            if (selected.length) {
+            	$beneficiary.activity_type_name = selected[0].activity_type_name;
+            } else {
+							// if data exists then get it
+							if ($beneficiary.activity_type_name&&$beneficiary.activity_type_id){
+								selected = [{}];
+								selected[0].activity_type_name = $beneficiary.activity_type_name;
+							} else {
+							delete $beneficiary.activity_type_id;
+							}
+            }
+
           }
-          return selected.length ? selected[0].activity_type_name : 'No Selection!';
+          return selected.length ? selected[0].activity_type_name : 'Needs Update!';
         },
 
         // display description
         showDescription: function( $data, $beneficiary ) {
           var selected = [];
-          $beneficiary.activity_description_id = $data;
+					$beneficiary.activity_description_id = $data;
           if($beneficiary.activity_description_id) {
             selected = $filter('filter')( $scope.project.activity_descriptions, { activity_description_id: $beneficiary.activity_description_id }, true );
-            $beneficiary.activity_description_name = selected[0].activity_description_name;
+
+						if (selected.length) {
+            	$beneficiary.activity_description_name = selected[0].activity_description_name;
+            } else {
+							// if data exists then get it
+							if ($beneficiary.activity_description_name&&$beneficiary.activity_description_id){
+								selected = [{}];
+								selected[0].activity_description_name = $beneficiary.activity_description_name;
+							} else {
+            	delete $beneficiary.activity_description_id;
+            }
+            }
+
           }
-          return selected.length ? selected[0].activity_description_name : 'No Selection!';
+          return selected.length ? selected[0].activity_description_name : 'Needs Update!';
         },
 
         // display delivery
@@ -406,7 +455,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
             if(
-                ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' ) ||
+                ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' || b.cluster_id === 'agriculture' ) ||
                 ( b.activity_description_id &&
                 ( b.activity_description_id.indexOf( 'education' ) > -1 ||
                   b.activity_description_id.indexOf( 'training' ) > -1 ||
@@ -424,7 +473,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         showUnitTypes: function( $data, $beneficiary ) {
           var selected = [];
           $beneficiary.unit_type_id = $data;
-          if( $beneficiary.unit_type_id ) {
+          if( $beneficiary.unit_type_id && $beneficiary.admin0pcode && $beneficiary.cluster_id ) {
             selected = $filter('filter')( $scope.project.lists.units, { unit_type_id: $beneficiary.unit_type_id }, true);
             if(selected.length) {
               $beneficiary.unit_type_name = selected[0].unit_type_name;
@@ -475,7 +524,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           var l = $scope.project.report.locations[ $locationIndex ];
           if( l ){
             angular.forEach( l.beneficiaries, function(b){
-              if( b.cluster_id === 'cvwg' || b.cluster_id === 'esnfi' || b.cluster_id === 'fsac' || ( b.cluster_id === 'wash' && $scope.project.report.admin0pcode !== 'AF' ) ){
+              if( b.cluster_id === 'cvwg' || b.cluster_id === 'esnfi' || b.cluster_id === 'agriculture' || b.cluster_id === 'fsac' || ( b.cluster_id === 'wash' && $scope.project.report.admin0pcode !== 'AF' ) ){
                 display = true;
               }
             });
@@ -579,6 +628,48 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }
           return display;
         },
+
+				// injury sustained same province field
+        showFatpTreatmentSameProvince: function( $locationIndex ){
+          var display = false;
+          var l = $scope.project.report.locations[ $locationIndex ];
+          if( l ){
+            angular.forEach( l.beneficiaries, function(b){
+								if( b.activity_description_id === 'fatp_stabilization_referrals_conflict' ||
+										b.activity_description_id === 'fatp_stabilization_referrals_civilian' ){
+                			display = true;
+              }
+            });
+          }
+          return display;
+				},
+
+				showTreatmentSameProvince: function ($data, $beneficiary) {
+					var selected = [{}];
+					// will show blank for all activities except
+					if ($beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
+						$beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian') {
+						delete $beneficiary.injury_treatment_same_province;
+						selected[0].text = '-'
+					// will show if not selected
+					} else if ($data == null) {
+						delete $beneficiary.injury_treatment_same_province;
+						selected[0].text = 'Not Selected!'
+					// will show if selected
+					} else {
+						$beneficiary.injury_treatment_same_province = $data;
+						var selected = $filter('filter')([{
+							'choise': true,
+							'text': 'Yes'
+						}, {
+							'choise': false,
+							'text': 'No'
+						}], {
+							choise: $beneficiary.injury_treatment_same_province
+						});
+					}
+					return selected[0].text;
+				},
 
         // training_title
         showTrainingTitle: function( $data, training ){
@@ -686,14 +777,14 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					var disabled = true;
 					switch ($scope.project.definition.admin0pcode) {
 						case 'AF':
-								if ( $data.category_type_id && $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id && $data.delivery_type_id &&
+								if ( $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id && $data.delivery_type_id &&
 									$data.units >= 0 && $data.sessions >= 0 && $data.households >= 0 && $data.families >= 0 && $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 && $data.elderly_men >= 0 && $data.elderly_women >= 0 ) {
 									disabled = false;
 										}
 								break;
 
 						default:
-								if ( $data.category_type_id && $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id &&
+								if ( $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id &&
 									$data.units >= 0 && $data.sessions >= 0 && $data.households >= 0 && $data.families >= 0 && $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 && $data.elderly_men >= 0 && $data.elderly_women >= 0 ) {
 									disabled = false;
 										}
@@ -891,7 +982,16 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           } else {
             return false;
           }
-        },
+				},
+
+				reportingYear: function(){
+					return moment().subtract(1,'M').year();
+				},
+
+				// preps for 2018 #TODO delete
+				categoryShow2017: function(){
+					return moment()<moment('2018-02-01')
+				},
 
         // training form valid
         trainingValid: function(){

@@ -1,8 +1,8 @@
 
 <style>
-	
+
 	.edit-report-btn {
-		position:absolute; right:20px; top:20px;	
+		position:absolute; right:20px; top:20px;
 	}
 
 </style>
@@ -19,19 +19,19 @@
 					</h5>
 				</li>
 				<li class="collection-item avatar">
-					
+
 					<!-- form -->
 
 					 	<div class="row">
-							
-							<h5 class="report-selected-locations">{{ project.report.locations.length }} Selected Locations</h5>
 
+							<h5 class="report-selected-locations">{{ project.report.locations.length }} Selected Locations</h5>
+							<!-- TODO DELETE project.report.organization === 'EMERGENCY' after 01062018 -->
 							<div class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
 	      					title="Edit {{ project.titleFormat }}"
-	      					ng-show="project.definition.project_status === 'active' && 
-	      										project.report.report_year === 2017 && 
+									ng-show="project.definition.project_status === 'active' &&
+														( project.report.report_year === project.reportingYear() || project.report.organization === 'EMERGENCY' ) &&
 	      										project.report.report_status === 'complete'"
-	      										
+
 	      					ng-click="project.save( false, false)">
 	      					<i class="material-icons left">create</i>Edit Report
 	      			</div>
@@ -108,12 +108,12 @@
 
 							<!-- activities -->
 							<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesUrl"></div>
-							
+
 							<!-- trainings -->
 							<div ng-if="project.displayTrainings()">
 							  <!-- trainings -->
 							  <div style="padding-left: 20px;">
-								  <button class="btn blue" ng-show="project.report.report_status !== 'complete'" 
+								  <button class="btn blue" ng-show="project.report.report_status !== 'complete'"
 								  					ng-click="project.addTrainings( $locationIndex )">
 								    <i class="material-icons left">add</i>Add Trainings
 								  </button>
@@ -126,7 +126,7 @@
 						</div>
 
 				</li>
-			</ul>		
+			</ul>
 
 		</div>
 	</div>

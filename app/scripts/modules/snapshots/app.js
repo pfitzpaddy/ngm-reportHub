@@ -84,6 +84,15 @@ angular
 						return ngmAuth.grantPublicAccess();
 					}],
 				}
+			})
+			.when( '/snapshot/who/cdc/report/2018/01', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardWhoCdc201801Ctrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.grantPublicAccess();
+					}],
+				}
 			});
 
 	}]);

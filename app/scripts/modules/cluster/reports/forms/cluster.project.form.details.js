@@ -107,11 +107,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           // transfers
           transfers: ngmClusterHelper.getTransfers( 30 ),
-          clusters: ngmClusterHelper.getClusters(),
+          clusters: ngmClusterHelper.getClusters( config.project.admin0pcode ),
           activity_types: ngmClusterHelper.getActivities( config.project, true, true ),
           activity_descriptions: ngmClusterHelper.getActivities( config.project, true, false ),
 
-          strategic_objectives: ngmClusterHelper.getStrategicObjectives(),
+          strategic_objectives: ngmClusterHelper.getStrategicObjectives(config.project.admin0pcode, moment(config.project.project_start_date).year(), moment(config.project.project_end_date).year() ),
           category_types: ngmClusterHelper.getCategoryTypes(),
           beneficiary_types: moment( config.project.project_end_date ).year() === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries( config.project.admin0pcode ),
           currencies: ngmClusterHelper.getCurrencies( config.project.admin0pcode ),
@@ -167,6 +167,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             $scope.project.definition.update_dates = true;
             $scope.project.definition.project_start_date = moment( new Date( $scope.project.definition.project_start_date ) ).format('YYYY-MM-DD');
             $scope.project.definition.project_end_date = moment( new Date( $scope.project.definition.project_end_date ) ).format('YYYY-MM-DD');
+						$scope.project.lists.strategic_objectives =  ngmClusterHelper.getStrategicObjectives($scope.project.definition.admin0pcode,
+							moment( new Date( $scope.project.definition.project_start_date ) ).year(), moment( new Date( $scope.project.definition.project_end_date ) ).year() )
           }
         },
 
@@ -178,20 +180,24 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // set to model on check
-        setStrategicObjectives: function( $index, cluster_id ){
+        setStrategicObjectives: function( cluster_id ){
 
           $scope.project.definition.strategic_objectives = [];
           angular.forEach( $scope.project.definition.strategic_objectives_check, function( key, so ){
 
             if ( key ) {
+							var so_obj = so.split(":");
+							// "health_objective_2:2018"
+							//  old 2017 SO has no year, update db or use this hunch
+							if (so_obj[1]==="")so_obj[1]=2017;
               if ( cluster_id !== $scope.project.definition.cluster_id ) {
                 // always include cluster_id
-                var objective = $filter('filter')( $scope.project.lists.strategic_objectives[ $scope.project.definition.cluster_id ], { objective_type_id: so }, true);
+                var objective = $filter('filter')( $scope.project.lists.strategic_objectives[so_obj[1]][ $scope.project.definition.cluster_id ], { objective_type_id: so_obj[0] }, true);
                 if( objective[0] ){
                   $scope.project.definition.strategic_objectives.push( objective[0] );
                 }
               }
-              var objective = $filter('filter')( [].concat.apply([], Object.values($scope.project.lists.strategic_objectives)) , { objective_type_id: so }, true);
+              var objective = $filter('filter')( [].concat.apply([], Object.values($scope.project.lists.strategic_objectives[so_obj[1]])) , { objective_type_id: so_obj[0] }, true);
               if( objective[0] ){
                 $scope.project.definition.strategic_objectives.push( objective[0] );
               }
@@ -209,6 +215,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         },
 
+				getSOyears: function(){
+					return Object.keys($scope.project.lists.strategic_objectives);
+				},
         // update organization if acbar partner
         updateOrganization: function(){
 
@@ -272,7 +281,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var length = $scope.project.definition.target_beneficiaries.length;
           if ( length ) {
             var b = angular.copy( $scope.project.definition.target_beneficiaries[ length - 1 ] );
-            delete b.id;
+						delete b.id;
+						delete b.injury_treatment_same_province;
             $scope.inserted = angular.merge( $scope.inserted, b, sadd );
             $scope.inserted.transfer_type_id = 0;
             $scope.inserted.transfer_type_value = 0;
@@ -289,15 +299,26 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             if ( selected.length ) {
 
               // catch for old data
-              if( selected[0].cluster_id && selected[0].cluster ) {
+              if( selected.length && selected[0].cluster_id && selected[0].cluster ) {
                 $beneficiary.cluster_id = selected[0].cluster_id;
                 $beneficiary.cluster = selected[0].cluster;
-              }
+							}
 
-              $beneficiary.activity_type_name = selected[0].activity_type_name;
+							if (selected.length) {
+								$beneficiary.activity_type_name = selected[0].activity_type_name;
+							} else {
+								// if data exists then get it
+								if ($beneficiary.activity_type_name&&$beneficiary.activity_type_id){
+									selected = [{}];
+									selected[0].activity_type_name = $beneficiary.activity_type_name;
+								} else {
+								delete $beneficiary.activity_type_id;
+								}
+							}
+
             }
           }
-          return selected.length ? selected[0].activity_type_name : 'No Selection!';
+          return selected.length ? selected[0].activity_type_name : 'Needs Update!';
         },
 
         // display description
@@ -306,11 +327,19 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $beneficiary.activity_description_id = $data;
           if($beneficiary.activity_description_id) {
             selected = $filter('filter')( $scope.project.lists.activity_descriptions, { activity_description_id: $beneficiary.activity_description_id }, true);
-            if( selected.length ) {
-              $beneficiary.activity_description_name = selected[0].activity_description_name;
+            if (selected.length) {
+            	$beneficiary.activity_description_name = selected[0].activity_description_name;
+            } else {
+							// if data exists then get it
+							if ($beneficiary.activity_description_name&&$beneficiary.activity_description_id){
+								selected = [{}];
+								selected[0].activity_description_name = $beneficiary.activity_description_name;
+							} else {
+            	delete $beneficiary.activity_description_id;
             }
           }
-          return selected.length ? selected[0].activity_description_name : 'No Selection!';
+          }
+          return selected.length ? selected[0].activity_description_name : 'Needs Update!';
         },
 
         // display delivery
@@ -426,7 +455,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
             if(
-                ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' ) ||
+                ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' || b.cluster_id === 'agriculture' ) ||
                 ( b.activity_description_id &&
                 ( b.activity_description_id.indexOf( 'education' ) > -1 ||
                   b.activity_description_id.indexOf( 'training' ) > -1 ||
@@ -475,7 +504,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var display = false;
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
-            if( b.cluster_id === 'cvwg' || b.cluster_id === 'esnfi' || b.cluster_id === 'fsac' || ( b.cluster_id === 'wash' && $scope.project.definition.admin0pcode !== 'AF' ) ){
+            if( b.cluster_id === 'cvwg' || b.cluster_id === 'agriculture' || b.cluster_id === 'esnfi' || b.cluster_id === 'fsac' || ( b.cluster_id === 'wash' && $scope.project.definition.admin0pcode !== 'AF' ) ){
               display = true;
             }
           });
@@ -571,7 +600,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // disable save form
         rowSaveDisabled: function( $data ){
           var disabled = true;
-          if ( $data.category_type_id && $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id &&
+          if ( $data.activity_type_id && $data.activity_description_id && $data.beneficiary_type_id &&
                 $data.households >= 0 && $data.families >= 0 && $data.boys >= 0 && $data.girls >= 0 && $data.men >= 0 && $data.women >= 0 && $data.elderly_men >= 0 && $data.elderly_women >= 0 ) {
               disabled = false;
           }
@@ -1223,6 +1252,54 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           }
         },
 
+				// preps for 2018 #TODO delete
+				categoryShow2017: function(){
+					return moment()<moment('2018-02-01')
+				},
+
+				// injury sustained same province field
+				showFatpTreatmentSameProvince: function( ){
+					var display = false;
+					var l = $scope.project.definition.target_beneficiaries;
+					if( l ){
+						angular.forEach( l, function(b){
+								if( b.activity_description_id === 'fatp_stabilization_referrals_conflict' ||
+										b.activity_description_id === 'fatp_stabilization_referrals_civilian' ){
+											display = true;
+							}
+						});
+					}
+					return display;
+				},
+
+				showTreatmentSameProvince: function ($data, $beneficiary) {
+					var selected = [{}];
+					// will show blank for all activities except
+					if ($beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
+						$beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian') {
+						delete $beneficiary.injury_treatment_same_province;
+						selected[0].text = '-'
+					// will show if not selected
+					} else if ($data == null) {
+						delete $beneficiary.injury_treatment_same_province;
+						selected[0].text = 'Not Selected!'
+					// will show if selected
+					} else {
+						$beneficiary.injury_treatment_same_province = $data;
+						var selected = $filter('filter')([{
+							'choise': true,
+							'text': 'Yes'
+						}, {
+							'choise': false,
+							'text': 'No'
+						}], {
+							choise: $beneficiary.injury_treatment_same_province
+						});
+					}
+					return selected[0].text;
+				},
+
+
         // validate id ALL target locations valid
         target_locations_valid: function(){
           var rowComplete = 0;
@@ -1285,15 +1362,19 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           angular.forEach( $scope.project.definition.strategic_objectives_check, function( key, so ){
 
             if ( key ) {
+							var so_obj = so.split(":");
+							// "health_objective_2:2018"
+							// old 2017 SO has no year, update db or use this hunch
+							if (so_obj[1]==="")so_obj[1]=2017;
               // default
-              var objective = $filter('filter')( $scope.project.lists.strategic_objectives[ $scope.project.definition.cluster_id ], { objective_type_id: so }, true );
+              var objective = $filter('filter')( $scope.project.lists.strategic_objectives[so_obj[1]][ $scope.project.definition.cluster_id ], { objective_type_id: so_obj[0] }, true );
               if( objective[0] ){
                 strategic_objectives.push( objective[0] );
               }
 
               // intercluster
               angular.forEach( $scope.project.definition.inter_cluster_activities, function( d, i ){
-                var objective = $filter('filter')( $scope.project.lists.strategic_objectives[ d.cluster_id ], { objective_type_id: so }, true );
+                var objective = $filter('filter')( $scope.project.lists.strategic_objectives[so_obj[1]][ d.cluster_id ], { objective_type_id: so_obj[0] }, true );
                 if( objective[0] ){
                   strategic_objectives.push( objective[0] );
                 }
@@ -1664,7 +1745,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             $scope.project.definition.strategic_objectives_check = {};
             angular.forEach( $scope.project.definition.strategic_objectives, function( d, i ){
               if ( d ){
-                $scope.project.definition.strategic_objectives_check[ d.objective_type_id ] = true;
+                $scope.project.definition.strategic_objectives_check[ d.objective_type_id + ':' + (d.objective_year?d.objective_year:'') ] = true;
               }
             });
           }

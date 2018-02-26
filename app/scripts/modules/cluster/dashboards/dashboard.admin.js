@@ -105,7 +105,7 @@ angular.module('ngmReportHub')
 
 				// lists
 				lists: {
-					clusters: ngmClusterHelper.getClusters(),
+					clusters: ngmClusterHelper.getClusters( $route.current.params.admin0pcode ),
 				},
 
 				// filtered data
@@ -383,7 +383,8 @@ angular.module('ngmReportHub')
 					}
 					// org
 					if ( $scope.dashboard.organization_tag !== 'all' ) {
-						$scope.dashboard.title += ' | ' + $scope.dashboard.organization;
+						var org = $scope.dashboard.organization ? ' | ' + $scope.dashboard.organization : '';
+						$scope.dashboard.title += org;
 					}
 					// admin1
 					// if ( $scope.dashboard.admin1pcode !== 'all' ) {
@@ -417,7 +418,8 @@ angular.module('ngmReportHub')
 					if ( $scope.dashboard.organization_tag === 'all' ) {
 						$scope.dashboard.subtitle += ', ALL organizations';
 					} else {
-						$scope.dashboard.subtitle += ', ' + $scope.dashboard.organization + ' organization';
+						var org = $scope.dashboard.organization ? $scope.dashboard.organization : '';
+						$scope.dashboard.subtitle += ', ' + org + ' organization';
 					}
 					// admin1
 					// if ( $scope.dashboard.admin1pcode === 'all' ) {
@@ -612,6 +614,13 @@ angular.module('ngmReportHub')
 										data: angular.merge( $scope.dashboard.getRequest( 'reports_complete', true ), { report: $scope.dashboard.cluster_id_filename + '_' + $scope.dashboard.report_type + '_reports_complete_' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
 									},
 									metrics: $scope.dashboard.getMetrics( 'reports_complete', 'csv' )
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
+									icon: 'attach_money',
+									hover: 'Download Projects Financials as CSV',
+									request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'financial_report', report: $scope.dashboard.cluster_id_filename + '_ocha_financial_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									metrics: $scope.dashboard.getMetrics( 'cluster_financial_report', 'csv' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',

@@ -35,13 +35,13 @@
 							      <td>Activity</td>
 							      <td>Description</td>
 							      <td ng-if="project.showCash()">Delivery</td>
-							      <td ng-if="project.definition.admin0pcode === 'AF'">Category</td>
+							      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">Category</td>
 							      <td>Beneficiary</td>
 								 		<td ng-if="project.definition.admin0pcode === 'AF'">Population</td>
 								  <!-- <td ng-if="project.showSessions()">Sessions</td> -->
 								  <!-- <td ng-if="project.showCash()">Cash Amount ( {{ project.definition.project_budget_currency | uppercase }} )</td> -->
-							      <td ng-if="project.showUnits()">Amount</td>
 							      <td ng-if="project.showUnits()">Units</td>
+							      <td ng-if="project.showUnits()">Amount</td>
 							      <td ng-if="project.showCash()">Transfers</td>
 								  	<td ng-if="project.showHouseholds()">HHs</td>
 							      <td ng-if="project.showFamilies()">Families</td>
@@ -50,7 +50,8 @@
 							      <td ng-if="project.showMen()">Men</td>
 							      <td ng-if="project.showWomen()">Women</td>
 							      <td ng-if="false">Eld. Men</td>
-							      <td ng-if="false">Eld. Women</td>
+										<td ng-if="false">Eld. Women</td>
+										<td ng-if="project.showFatpTreatmentSameProvince()">Treatment Same Province</td>
 							      <td ng-if="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
 							    <tr ng-repeat="beneficiary in project.definition.target_beneficiaries">
@@ -96,7 +97,7 @@
 							      </td>
 
 							      <!-- afghanistan -->
-							      <td ng-if="project.definition.admin0pcode === 'AF'">
+							      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">
 							        <!-- editable group (select-remote) -->
 							        <span e-form="rowform"
 							        			e-name="category_type_id"
@@ -107,7 +108,7 @@
 							          {{ project.showCategory($data, beneficiary) }}
 							        </span>
 							      </td>
-							      <td ng-if="project.definition.admin0pcode === 'AF'">
+							      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">
 							        <span e-form="rowform"
 							        			e-name="beneficiary_type_id"
 							        			editable-select="beneficiary.beneficiary_type_id"
@@ -119,7 +120,7 @@
 							      </td>
 
 							      <!-- others -->
-							      <td ng-if="project.definition.admin0pcode !== 'AF'">
+							      <td ng-if="project.definition.admin0pcode !== 'AF' || (project.definition.admin0pcode === 'AF' && !project.categoryShow2017())">
 							        <span e-form="rowform"
 							        			e-name="beneficiary_type_id"
 							        			editable-select="beneficiary.beneficiary_type_id"
@@ -142,6 +143,28 @@
 							        </span>
 							      </td>
 
+								    <!-- unit type -->
+	 								  <td ng-show="project.showUnits()">
+							        <span e-form="rowform"
+							        			e-name="unit_type_id"
+							        			editable-select="beneficiary.unit_type_id"
+														e-placeholder="Select..."
+							        			e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units | filter: { cluster_id: beneficiary.cluster_id }"
+														e-ng-disabled="
+															!project.showUnits() ||
+															!beneficiary.activity_description_id ||
+															(	['wash','nutrition','health','protection'].includes(beneficiary.cluster_id) &&
+															( beneficiary.cluster_id !== 'eiewg' && 
+																beneficiary.cluster_id !== 'fsac' && 
+																beneficiary.cluster_id !== 'agriculture' &&
+																beneficiary.activity_description_id.indexOf('education') === -1 &&
+																beneficiary.activity_description_id.indexOf('training') === -1 &&
+																beneficiary.activity_description_id.indexOf('cash') === -1 &&
+																beneficiary.activity_description_id.indexOf('in_kind') === -1 )">
+							          {{ project.showUnitTypes($data, beneficiary) }}
+							        </span>
+							      </td>
+
 								    <!-- units -->
 	 								  <td ng-show="project.showUnits()">
 							        <span e-form="rowform"
@@ -153,31 +176,15 @@
 															!project.showUnits() ||
 															!beneficiary.activity_description_id ||
 															(	['wash','nutrition','health','protection'].includes(beneficiary.cluster_id) &&
+															( beneficiary.cluster_id !== 'eiewg' && 
+																beneficiary.cluster_id !== 'fsac' && 
+																beneficiary.cluster_id !== 'agriculture' &&
 																beneficiary.activity_description_id.indexOf('education') === -1 &&
 																beneficiary.activity_description_id.indexOf('training') === -1 &&
 																beneficiary.activity_description_id.indexOf('cash') === -1 &&
 																beneficiary.activity_description_id.indexOf('in_kind') === -1 )"
 							        			e-required>
 							          {{ beneficiary.units }}
-							        </span>
-							      </td>
-
-								    <!-- unit type -->
-	 								  <td ng-show="project.showUnits()">
-							        <span e-form="rowform"
-							        			e-name="unit_type_id"
-							        			editable-select="beneficiary.unit_type_id"
-														e-placeholder="Select..."
-							        			e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units"
-														e-ng-disabled="
-															!project.showUnits() ||
-															!beneficiary.activity_description_id ||
-															(	['wash','nutrition','health','protection'].includes(beneficiary.cluster_id) &&
-																beneficiary.activity_description_id.indexOf('education') === -1 &&
-																beneficiary.activity_description_id.indexOf('training') === -1 &&
-																beneficiary.activity_description_id.indexOf('cash') === -1 &&
-																beneficiary.activity_description_id.indexOf('in_kind') === -1 )">
-							          {{ project.showUnitTypes($data, beneficiary) }}
 							        </span>
 							      </td>
 
@@ -316,6 +323,17 @@
 							          {{ beneficiary.elderly_women }}
 							        </span>
 							      </td>
+										<td ng-show="project.showFatpTreatmentSameProvince()">
+												<!-- editable select true/false -->
+												<span e-form="rowform"
+														e-name="injury_treatment_same_province"
+														editable-select="beneficiary.injury_treatment_same_province"
+														e-placeholder="Select..."
+														e-ng-options="s.choise as s.text for s in [{'choise':true, 'text':'Yes'},{'choise':false, 'text':'No'}]"
+														e-ng-disabled="beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
+																						beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian'">
+												{{ project.showTreatmentSameProvince($data, beneficiary) }}
+										</td>
 
 							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
 							        <!-- form -->
@@ -342,7 +360,6 @@
 							                  	( ( !project.project_details_valid() ) ||
 							                    ( !project.activity_type_valid() ) ||
 							                    ( !project.project_donor_valid() ) ||
-							                    ( !project.target_beneficiaries_valid() ) ||
 							                    ( !project.target_locations_valid() ) ||
 							                    ( !project.submit ) )">
 													<i class="material-icons">create</i>

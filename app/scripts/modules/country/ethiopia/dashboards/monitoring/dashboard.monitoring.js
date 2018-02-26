@@ -287,7 +287,7 @@ angular.module('ngmReportHub')
 														Materialize.toast( 'CTC Assessments data updated!' , 4000, 'success' );
 														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 														$timeout( function(){
-															$location.path( '/who/ethiopia/ctc' );
+															$route.reload();
 														}, 400 );
 													}, 600 );
 													
