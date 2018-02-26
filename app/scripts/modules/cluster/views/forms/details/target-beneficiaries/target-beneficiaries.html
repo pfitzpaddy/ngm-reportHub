@@ -153,6 +153,7 @@
 														e-ng-disabled="
 															!project.showUnits() ||
 															!beneficiary.activity_description_id ||
+															(	['wash','nutrition','health','protection'].includes(beneficiary.cluster_id) &&
 															( beneficiary.cluster_id !== 'eiewg' && 
 																beneficiary.cluster_id !== 'fsac' && 
 																beneficiary.cluster_id !== 'agriculture' &&
@@ -174,6 +175,7 @@
 						              	e-ng-disabled="
 															!project.showUnits() ||
 															!beneficiary.activity_description_id ||
+															(	['wash','nutrition','health','protection'].includes(beneficiary.cluster_id) &&
 															( beneficiary.cluster_id !== 'eiewg' && 
 																beneficiary.cluster_id !== 'fsac' && 
 																beneficiary.cluster_id !== 'agriculture' &&
