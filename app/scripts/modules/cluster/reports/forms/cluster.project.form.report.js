@@ -32,7 +32,28 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
     function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, config ){
 
       // set activity descriptions
-      $scope.activity_descriptions = ngmClusterHelper.getActivities( config.project, false, false );
+			$scope.activity_descriptions = ngmClusterHelper.getActivities( config.project, false, false );
+
+			// TODO DELETE next if lines starting 01062018
+			if (config.project.organization === "EMERGENCY" ) {
+				$scope.activity_descriptions.push(
+						{ activity_description_id	: "fatp_stabilization",
+							activity_description_name	:	"FATP - Stabilization ( Conflict )",
+							activity_type_id :	"trauma_care",
+							activity_type_name : "Trauma Care",
+							admin0pcode :	"AF",
+							cluster	:	"Health",
+							cluster_id : "health"
+					},{ activity_description_id	: "fatp_stabilization_civilian",
+							activity_description_name	:	"FATP - Stabilization ( Civilian )",
+							activity_type_id :	"trauma_care",
+							activity_type_name : "Trauma Care",
+							admin0pcode :	"AF",
+							cluster	:	"Health",
+							cluster_id : "health"
+					}
+				)
+			}
 
       // project
       $scope.project = {
