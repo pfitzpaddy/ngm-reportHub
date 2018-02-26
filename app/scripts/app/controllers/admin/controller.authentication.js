@@ -49,7 +49,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
         // cluster
         cluster: {
-          'cvwg': { cluster: 'Cash' },
+          'cvwg': { cluster: 'MPC' },
           'agriculture': { cluster: 'Agriculture' },
           'education': { cluster: 'Education' },
           'eiewg': { cluster: 'EiEWG' },
@@ -70,7 +70,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             // set submitted for validation
             ngmLoginForm.$setSubmitted();
           } else {
-            
+
             // login
             ngmAuth
               .login({ user: $scope.panel.user }).success( function( result ) {
@@ -120,7 +120,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                 $timeout( function(){
                   Materialize.toast( 'Success! Profile updated!', 3000, 'success' );
                 }, 1000);
-              }   
+              }
 
             });
         },
@@ -129,8 +129,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         register: function( ngmRegisterForm ){
 
           // merge adminRegion
-          $scope.panel.user = angular.merge( {}, $scope.panel.user, 
-                                                  $scope.panel.adminRegion[ $scope.panel.user.admin0pcode ], 
+          $scope.panel.user = angular.merge( {}, $scope.panel.user,
+                                                  $scope.panel.adminRegion[ $scope.panel.user.admin0pcode ],
                                                   $scope.panel.cluster[ $scope.panel.user.cluster_id ] );
 
           // register
@@ -168,14 +168,14 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             // user toast msg
             $timeout(function(){
               Materialize.toast('Your Email Is Being Prepared!', 3000, 'note');
-            }, 400);            
+            }, 400);
 
             // resend password email
-            ngmAuth.passwordResetSend({ 
-                user: $scope.panel.user, 
-                url: ngmAuth.LOCATION + '/desk/#/cluster/find/' 
+            ngmAuth.passwordResetSend({
+                user: $scope.panel.user,
+                url: ngmAuth.LOCATION + '/desk/#/cluster/find/'
               }).success( function( result ) {
-              
+
                 // go to password reset page
                 $( '.carousel' ).carousel( 'prev' );
 
@@ -206,12 +206,12 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             // set submitted for validation
             ngmResetPasswordForm.$setSubmitted();
           } else {
-            
+
             // register
             ngmAuth.passwordReset({ reset: $scope.panel.user, token: token })
               .success( function( result ) {
 
-              // go to default org page 
+              // go to default org page
               $location.path( '/' + result.app_home );
 
               // user toast msg
@@ -232,7 +232,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
         // RnR chapter validation
         organizationDisabled: function(){
-          
+
           var disabled = true;
           if ( $scope.panel.user && $scope.panel.user.admin0pcode && $scope.panel.user.cluster_id && $scope.panel.user.organization_name ) {
             // not R&R Chapter
@@ -328,7 +328,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
         }, 900 );
 
-      });    
+      });
 
     }
 
