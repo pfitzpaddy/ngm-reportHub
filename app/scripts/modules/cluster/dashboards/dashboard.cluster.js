@@ -584,6 +584,13 @@ angular.module('ngmReportHub')
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
+									icon: 'wc',
+									hover: 'Download Training Participants as CSV',
+									request: $scope.dashboard.getRequest( { csv: true, indicator: 'training_participants', report: $scope.dashboard.cluster_id_filename + '_training_participants_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+									metrics: $scope.dashboard.getMetrics( 'training_participants', 'csv' )
+								},{
+									type: 'csv',
+									color: 'blue lighten-2',
 									icon: 'group',
 									hover: 'Download Beneficiary Data as CSV',
 									request: $scope.dashboard.getRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.cluster_id_filename + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
