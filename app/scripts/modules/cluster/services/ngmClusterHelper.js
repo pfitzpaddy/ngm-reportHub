@@ -646,7 +646,9 @@ angular.module( 'ngmReportHub' )
 						{ cluster_id: [ 'health' ],
 							unit_type_id: 'centers', unit_type_name: 'Centers' },
 						{ cluster_id: [ 'health' ],
-              unit_type_id: 'medics', unit_type_name: 'Medics' }
+							unit_type_id: 'medics', unit_type_name: 'Medics' },
+						{ cluster_id: [ 'health' ],
+							unit_type_id: 'health_extension_workers', unit_type_name: 'Health Extension Workers' },
           ];
 
         // unit type list
