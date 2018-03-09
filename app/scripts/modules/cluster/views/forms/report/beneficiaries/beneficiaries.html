@@ -250,7 +250,7 @@
               e-ng-change="project.updateInput( $locationIndex, $index, 'men', $data )"
               e-ng-disabled="
                       beneficiary.activity_type_id === 'mch' ||
-                      beneficiary.activity_type_id === 'vaccination' ||
+                      (beneficiary.activity_type_id === 'vaccination'&&beneficiary.activity_description_id !== 'vaccination_tt') ||
                       beneficiary.activity_description_id === 'antenatal_care' ||
                       beneficiary.activity_description_id === 'postnatal_care' ||
                       beneficiary.activity_description_id === 'skilled_birth_attendant' ||
@@ -268,7 +268,7 @@
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $index, 'women', $data )"
               e-ng-disabled="
-                      beneficiary.activity_type_id === 'vaccination' ||
+                      (beneficiary.activity_type_id === 'vaccination'&&beneficiary.activity_description_id !== 'vaccination_tt') ||
                       beneficiary.activity_description_id === 'penta_3' ||
                       beneficiary.activity_description_id === 'measles'"
               e-required>
