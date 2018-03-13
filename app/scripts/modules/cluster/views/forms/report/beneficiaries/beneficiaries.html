@@ -146,14 +146,16 @@
               e-ng-change="project.updateInput( $locationIndex, $index, 'units', $data )"
               e-ng-disabled="
                   !beneficiary.activity_description_id ||
-                  ( ['wash','nutrition','health','protection'].includes(beneficiary.cluster_id) &&
+                  ( ['wash','nutrition','health','protection', 'esnfi'].includes(beneficiary.cluster_id) &&
                   ( beneficiary.cluster_id !== 'eiewg' &&
                     beneficiary.cluster_id !== 'fsac' &&
                     beneficiary.cluster_id !== 'agriculture' &&
                   beneficiary.activity_description_id.indexOf('education') === -1 &&
                   beneficiary.activity_description_id.indexOf('training') === -1 &&
                   beneficiary.activity_description_id.indexOf('cash') === -1 &&
-                  beneficiary.activity_description_id.indexOf('in_kind') === -1 ))"
+                  beneficiary.activity_description_id.indexOf('in_kind') === -1 &&
+									beneficiary.activity_description_id.indexOf('voucher') === -1 ||
+									beneficiary.activity_description_id.indexOf('_standard') > -1 ))"
               e-required>
           {{ beneficiary.units }}
         </span>
@@ -166,11 +168,13 @@
               e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units"
               e-ng-disabled="
                 !beneficiary.activity_description_id ||
-                ( ['wash','nutrition','health','protection'].includes(beneficiary.cluster_id) &&
+                ( ['wash','nutrition','health','protection', 'esnfi'].includes(beneficiary.cluster_id) &&
                 beneficiary.activity_description_id.indexOf('education') === -1 &&
                 beneficiary.activity_description_id.indexOf('training') === -1 &&
                 beneficiary.activity_description_id.indexOf('cash') === -1 &&
-                beneficiary.activity_description_id.indexOf('in_kind') === -1 )">
+                beneficiary.activity_description_id.indexOf('in_kind') === -1 &&
+								beneficiary.activity_description_id.indexOf('voucher') === -1 ||
+								beneficiary.activity_description_id.indexOf('_standard') > -1 )">
           {{ project.showUnitTypes($data, beneficiary) }}
         </span>
       </td>

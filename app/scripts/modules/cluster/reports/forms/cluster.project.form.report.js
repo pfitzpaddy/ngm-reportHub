@@ -456,11 +456,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             angular.forEach( l.beneficiaries, function(b){
             if(
                 ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' || b.cluster_id === 'agriculture' ) ||
-                ( b.activity_description_id &&
+                ( b.activity_description_id && b.activity_description_id.indexOf( '_standard' ) === -1 &&
                 ( b.activity_description_id.indexOf( 'education' ) > -1 ||
                   b.activity_description_id.indexOf( 'training' ) > -1 ||
                   b.activity_description_id.indexOf( 'cash' ) > -1 ||
-                  b.activity_description_id.indexOf( 'in_kind' ) > -1 ) )
+                  b.activity_description_id.indexOf( 'in_kind' ) > -1 ||
+									b.activity_description_id.indexOf( 'voucher' ) > -1 ) )
               ) {
                 display = true;
               }
