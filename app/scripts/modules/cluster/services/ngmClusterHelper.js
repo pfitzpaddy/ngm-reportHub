@@ -1718,6 +1718,9 @@ angular.module( 'ngmReportHub' )
           },{
             facility_type_id: 'woman_friendly_health_space',
             facility_type_name: 'Woman Friendly Health Space'
+          },{
+            facility_type_id: 'mobile_outreach_team',
+            facility_type_name: 'Mobile Outreach Team ( MOT )'
           }];
         }
 

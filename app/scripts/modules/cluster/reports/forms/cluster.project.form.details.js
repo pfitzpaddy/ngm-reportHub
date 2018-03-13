@@ -684,7 +684,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             l.facility_hub_name = null;
             l.facility_name = null;
             l.facility_lat = null;
-            l.facility_lng = null;
+						l.facility_lng = null;
+						l.facility_type_id = null;
+						l.facility_type_name = null;
             $scope.inserted = angular.merge( $scope.inserted, l );
           }
          $scope.project.definition.target_locations.push( $scope.inserted );
