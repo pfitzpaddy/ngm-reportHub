@@ -1721,6 +1721,12 @@ angular.module( 'ngmReportHub' )
           },{
             facility_type_id: 'mobile_outreach_team',
             facility_type_name: 'Mobile Outreach Team ( MOT )'
+          },{
+            facility_type_id: 'village',
+            facility_type_name: 'Village'
+          },{
+            facility_type_id: 'community_based',
+            facility_type_name: 'Community Based'
           }];
         }
 
