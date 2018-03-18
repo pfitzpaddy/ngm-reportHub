@@ -229,6 +229,9 @@ angular
 			.when( '/cluster/admin/emro/so', {
 				redirectTo: '/cluster/admin/emro/so/all/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
+			.when( '/cluster/admin/emro/sy', {
+				redirectTo: '/cluster/admin/emro/sy/all/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+			})
 			.when( '/cluster/admin/emro/ur', {
 				redirectTo: '/cluster/admin/emro/ur/all/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
@@ -312,6 +315,9 @@ angular
 			})
 			.when( '/cluster/4w/emro/so', {
 				redirectTo: '/cluster/4w/emro/so/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4w/emro/sy', {
+				redirectTo: '/cluster/4w/emro/sy/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/4w/emro/ur', {
 				redirectTo: '/cluster/4w/emro/ur/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')

@@ -79,21 +79,11 @@ li {
 	      <div class="row">
 	        <div class="input-field col s12">
 	        	<i class="material-icons prefix country">person_pin</i>
-					    <select class="validate"
-					    	id="ngm-country"
-					    	ng-model="panel.user.admin0pcode"
-					    	ng-select="panel.onOrganizationSelected()"
-					    	required>
-					      <option value="" disabled selected>Select Country</option>
-					      <option value="AF">Afghanistan</option>
-					      <option value="ET">Ethiopia</option>
-					      <option value="IQ">Iraq</option>
-					      <option value="KE">Kenya</option>
-					      <option value="NG">Nigeria</option>
-					      <option value="SO">Somalia</option>
-					      <option value="UA">Ukraine</option>
-					      <option value="UR">Uruk</option>
-					    </select>
+	        	<select id="ngm-country" 
+	        					ng-options="location.admin0pcode as location.admin0name for location in panel.adminRegion"
+	        					ng-model="panel.user.admin0pcode">Select Country
+	        					<option value="">Select Country</option>
+	        					</select>
 					    <label for="ngm-country">Country</label>
 	        </div>
 	      </div>
@@ -135,13 +125,13 @@ li {
 	      </div>
  				-->
 
-				<typeahead 
+				<typeahead
 					label="Organization"
 					items="panel.organizations" 
 					prompt="" 
 					title="organization" 
 					subtitle="organization_name" 
-					model="panel.user.organization" on-select="panel.onOrganizationSelected()" />
+					model="panel.user.organization" on-select="panel.onOrganizationSelected()">Select Organization</typeahead>
 
  				<div class="action center">
 					<button

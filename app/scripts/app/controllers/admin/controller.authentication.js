@@ -36,16 +36,17 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         user: ngmUser.get(),
 
         // adminRegion
-        adminRegion: {
-          'AF': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0name: 'Afghanistan' },
-          'ET': { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0name: 'Ethiopia' },
-          'IQ': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0name: 'Iraq' },
-          'KE': { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0name: 'Kenya' },
-          'NG': { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0name: 'Nigeria' },
-          'SO': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0name: 'Somalia' },
-          'UA': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0name: 'Ukraine' },
-          'UR': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0name: 'Uruk' }
-        },
+        adminRegion: [
+          { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'AF', admin0name: 'Afghanistan' },
+          { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0pcode: 'ET', admin0name: 'Ethiopia' },
+          { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'IQ', admin0name: 'Iraq' },
+          { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0pcode: 'KE', admin0name: 'Kenya' },
+          { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0pcode: 'NG', admin0name: 'Nigeria' },
+          { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'SO', admin0name: 'Somalia' },
+          { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'SY', admin0name: 'Syria' },
+          { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'UA', admin0name: 'Ukraine' },
+          { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'UR', admin0name: 'Uruk' }
+        ],
 
         // cluster
         cluster: {
@@ -131,6 +132,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           // merge adminRegion
           $scope.panel.user = angular.merge( {}, $scope.panel.user,
                                                   $scope.panel.adminRegion[ $scope.panel.user.admin0pcode ],
+                                                  $filter('filter')( $scope.panel.adminRegion, { admin0pcode: $scope.panel.user.admin0pcode }, true)[0],
                                                   $scope.panel.cluster[ $scope.panel.user.cluster_id ] );
 
           // register

@@ -222,6 +222,12 @@ angular.module('ngmReportHub')
 										'active': 'so',
 										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 										'href': '/desk/#/cluster/4w/emro/so'
+									},{
+										'title': 'Syria',
+										'param': 'admin0pcode',
+										'active': 'sy',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/4w/emro/sy'
 									}]
 								}
 							}
