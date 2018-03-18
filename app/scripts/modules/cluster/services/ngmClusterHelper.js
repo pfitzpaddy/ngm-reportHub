@@ -1645,14 +1645,17 @@ angular.module( 'ngmReportHub' )
             facility_type_id: 'health_post',
             facility_type_name: 'Health Post'
           },{
-            facility_type_id: 'MHNT',
-            facility_type_name: 'MHNT'
+            facility_type_id: 'permanent_health_facility',
+            facility_type_name: 'Permanent Health Facility'
           },{
-            facility_type_id: 'clinc',
-            facility_type_name: 'Clinic'
+            facility_type_id: 'temporary_health_facility',
+            facility_type_name: 'Temporary Health Facility'
           },{
             facility_type_id: 'stabalization_center',
             facility_type_name: 'Stabalization Center'
+          },{
+            facility_type_id: 'MHNT',
+            facility_type_name: 'MHNT'
           },{
             facility_type_id: 'ctc',
             facility_type_name: 'CTC'
