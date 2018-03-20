@@ -2348,7 +2348,7 @@ angular.module( 'ngmReportHub' )
       				}, {
       					cluster_id: 'esnfi',
       					cluster: 'ESNFI',
-      					objective_type_id: 'esnfi_objective_1',
+      					objective_type_id: 'esnfi_objective_2',
       					objective_type_name: 'ESNFI OBJECTIVE 1',
       					objective_type_description: 'Ensure that the living conditions of vulnerable people are improved',
       					objective_type_objectives: ['SO1'],
@@ -2356,7 +2356,7 @@ angular.module( 'ngmReportHub' )
       				}, {
       					cluster_id: 'esnfi',
       					cluster: 'ESNFI',
-      					objective_type_id: 'esnfi_objective_1',
+      					objective_type_id: 'esnfi_objective_3',
       					objective_type_name: 'ESNFI OBJECTIVE 1',
       					objective_type_description: 'Ensure adequate response capacity through preparedness measures and prepositioning of emergency shelters and Non-Food Items',
       					objective_type_objectives: ['SO3'],
@@ -2391,8 +2391,8 @@ angular.module( 'ngmReportHub' )
       				'protection': [{
       					cluster_id: 'protection',
       					cluster: 'Protection',
-      					objective_type_id: 'protection_objective_1',
-      					objective_type_name: 'PROTECTION OBJECTIVE 1',
+      					objective_type_id: 'protection_objective_2',
+      					objective_type_name: 'PROTECTION OBJECTIVE 2',
       					objective_type_description: 'Parties increase measures to protect civilians based upon further harmonized POC/IHL advocacy by protection actors',
       					objective_type_objectives: ['SO1','SO2'],
       					objective_year: 2018
@@ -2407,24 +2407,24 @@ angular.module( 'ngmReportHub' )
       				}, {
       					cluster_id: 'protection',
       					cluster: 'Protection',
-      					objective_type_id: 'protection_objective_2',
-      					objective_type_name: 'PROTECTION OBJECTIVE 2',
+      					objective_type_id: 'protection_objective_3',
+      					objective_type_name: 'PROTECTION OBJECTIVE 3',
       					objective_type_description: 'Gender Based Violence incidents in emergencies are identified and survivors’ multi-sectorial needs are adequately responded to',
       					objective_type_objectives: ['SO1','SO2'],
       					objective_year: 2018
       				}, {
       					cluster_id: 'protection',
       					cluster: 'Protection',
-      					objective_type_id: 'protection_objective_2',
-      					objective_type_name: 'PROTECTION OBJECTIVE 2',
+      					objective_type_id: 'protection_objective_4',
+      					objective_type_name: 'PROTECTION OBJECTIVE 5',
       					objective_type_description: 'Vulnerable displaced persons are able to claim and exercise housing, land and property, as well as legal identity rights vital for achieving durable solutions',
       					objective_type_objectives: ['SO1','SO3'],
       					objective_year: 2018
       				}, {
       					cluster_id: 'protection',
       					cluster: 'Protection',
-      					objective_type_id: 'protection_objective_2',
-      					objective_type_name: 'PROTECTION OBJECTIVE 2',
+      					objective_type_id: 'protection_objective_5',
+      					objective_type_name: 'PROTECTION OBJECTIVE 5',
       					objective_type_description: 'Reduce deaths and injuries from mines/ERW and promote inclusivity and rights of persons with disabilities, through education and clearance of high-impact mine/ERW and spot ERW contamination',
       					objective_type_objectives: ['SO1','SO2'],
       					objective_year: 2018
