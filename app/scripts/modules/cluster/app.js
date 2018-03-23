@@ -206,12 +206,41 @@ angular
 				}
 			})
 
-			// admin
+			// DEFAULT
 			.when( '/cluster/admin', {
 				redirectTo: '/cluster/admin/all/all/all/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
+
+			// HQ SUPERADMIN BY CLUSTER
+			.when( '/cluster/admin/all/all/agriculture', {
+				redirectTo: '/cluster/admin/all/all/agriculture/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+			})
+			.when( '/cluster/admin/all/all/education', {
+				redirectTo: '/cluster/admin/all/all/education/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+			})
+			.when( '/cluster/admin/all/all/esnfi', {
+				redirectTo: '/cluster/admin/all/all/esnfi/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+			})
+			.when( '/cluster/admin/all/all/fsac', {
+				redirectTo: '/cluster/admin/all/all/fsac/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+			})
+			.when( '/cluster/admin/all/all/health', {
+				redirectTo: '/cluster/admin/all/all/health/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+			})
+			.when( '/cluster/admin/all/all/nutrition', {
+				redirectTo: '/cluster/admin/all/all/nutrition/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+			})
+			.when( '/cluster/admin/all/all/cvwg', {
+				redirectTo: '/cluster/admin/all/all/cvwg/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+			})
+			.when( '/cluster/admin/all/all/protection', {
+				redirectTo: '/cluster/admin/all/all/protection/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+			})
+			.when( '/cluster/admin/all/all/wash', {
+				redirectTo: '/cluster/admin/all/all/wash/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
+			})
 			
-			// afro
+			// AFRO
 			.when( '/cluster/admin/afro', {
 				redirectTo: '/cluster/admin/afro/all/all/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
@@ -219,7 +248,7 @@ angular
 				redirectTo: '/cluster/admin/afro/et/all/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
 
-			// emro
+			// EMRO
 			.when( '/cluster/admin/emro', {
 				redirectTo: '/cluster/admin/emro/all/all/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
@@ -236,7 +265,7 @@ angular
 				redirectTo: '/cluster/admin/emro/ur/all/all/activity/' + moment().subtract( 1, 'M').startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD')
 			})
 
-			// admin
+			// ADMIN
 			.when( '/cluster/admin/:adminRpcode/:admin0pcode/:cluster_id/:organization_tag/:report_type/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardClusterAdminCtrl',
