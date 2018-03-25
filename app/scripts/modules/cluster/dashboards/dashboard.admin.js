@@ -383,7 +383,9 @@ angular.module('ngmReportHub')
 					if ( $scope.dashboard.adminRpcode === 'all' ) {
 						$scope.dashboard.title += ' | HQ ';
 					} else {
-						$scope.dashboard.title += ' | ' + $scope.dashboard.adminRpcode.toUpperCase();
+						if ( $scope.dashboard.admin0pcode === 'all' ) { 
+							$scope.dashboard.title += ' | ' + $scope.dashboard.adminRpcode.toUpperCase();
+						}
 					}
 					// admin0
 					if ( $scope.dashboard.admin0pcode !== 'all' ) {
@@ -415,16 +417,20 @@ angular.module('ngmReportHub')
 				// subtitle
 				setSubtitle: function(){
 					// subtitle
-					$scope.dashboard.subtitle = 'ADMIN Dashboard for ' + $scope.dashboard.adminRpcode.toUpperCase();
+					$scope.dashboard.subtitle = 'ADMIN Dashboard for ';
 					// admin0
+					if ( $scope.dashboard.admin0pcode === 'all' ) {
+						$scope.dashboard.subtitle = 'ADMIN Dashboard for ' + $scope.dashboard.adminRpcode.toUpperCase();
+					}
+
 					if ( $scope.dashboard.admin0pcode !== 'all' ) {
-						$scope.dashboard.subtitle += ' | ' + $scope.dashboard.admin0pcode.toUpperCase();
+						$scope.dashboard.subtitle += $scope.dashboard.admin0pcode.toUpperCase();
 					}
 					// cluster
 					if ( $scope.dashboard.cluster_id === 'all' ) {
 						$scope.dashboard.subtitle += ', ALL clusters';
 					}	else {
-						$scope.dashboard.subtitle += ' '+ $scope.dashboard.cluster.cluster.toUpperCase() + ' cluster';
+						$scope.dashboard.subtitle += ', '+ $scope.dashboard.cluster.cluster.toUpperCase() + ' cluster';
 					}
 					// org
 					if ( $scope.dashboard.organization_tag === 'all' ) {

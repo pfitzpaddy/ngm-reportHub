@@ -389,8 +389,13 @@ angular.module('ngmReportHub')
 				//
 				setTitle: function(){
 					// title
-					$scope.dashboard.title = '4W | ' + $scope.dashboard.adminRpcode.toUpperCase()
+					$scope.dashboard.title = '4W'
+				
 					// admin0
+					if ( $scope.dashboard.admin0pcode === 'all' ) {
+						$scope.dashboard.title = '4W | ' + $scope.dashboard.adminRpcode.toUpperCase()
+					}
+
 					if ( $scope.dashboard.admin0pcode !== 'all' ) {
 						$scope.dashboard.title += ' | ' + $scope.dashboard.admin0pcode.toUpperCase();
 					}
@@ -420,10 +425,14 @@ angular.module('ngmReportHub')
 				// subtitle
 				setSubtitle: function(){
 					// subtitle
-					$scope.dashboard.subtitle = '4W Dashboard for ' + $scope.dashboard.adminRpcode.toUpperCase();
+					$scope.dashboard.subtitle = '4W Dashboard for ';
 					// admin0
+					if ( $scope.dashboard.admin0pcode === 'all' ) {
+						$scope.dashboard.subtitle = '4W Dashboard for ' + $scope.dashboard.adminRpcode.toUpperCase();
+					}
+
 					if ( $scope.dashboard.admin0pcode !== 'all' ) {
-						$scope.dashboard.subtitle += ' | ' + $scope.dashboard.admin0pcode.toUpperCase();
+						$scope.dashboard.subtitle +=  $scope.dashboard.admin0pcode.toUpperCase();
 					}
 					// cluster
 					if ( $scope.dashboard.cluster_id === 'all' ) {
