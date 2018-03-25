@@ -588,6 +588,7 @@ angular.module('ngmReportHub')
 									request: $scope.dashboard.getRequest( { csv: true, indicator: 'financial_report', report: $scope.dashboard.cluster_id_filename + '_ocha_financial_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 									metrics: $scope.dashboard.getMetrics( 'cluster_financial_report', 'csv' )
 								},{
+									id: 'training_participants',
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'wc',
@@ -732,6 +733,12 @@ angular.module('ngmReportHub')
 						}]
 					}
 
+					// remove training participants for AF
+					if ($scope.dashboard.admin0pcode.toUpperCase() === 'AF'){
+						$scope.model.header.download.downloads = $scope.model.header.download.downloads.filter(function( obj ) {
+							return obj.id !== 'training_participants';
+						  });
+					}
 					// set
 					$scope.dashboard.setUrl();
 					$scope.dashboard.setMenu();
