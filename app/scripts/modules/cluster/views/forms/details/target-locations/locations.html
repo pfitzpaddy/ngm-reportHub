@@ -43,7 +43,7 @@
 							      </td>
 							      <td>
 							        <!-- editable admin1 -->
-							        <span e-placeholder="Select..." editable-select="location.admin1pcode" e-name="admin1pcode" e-form="locationform" e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1" e-required>
+							        <span e-placeholder="Select..." editable-select="location.admin1pcode" e-name="admin1pcode" e-form="locationform" e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1 | filter : { inactive: '!true' } " e-required>
 							          {{ project.showAdmin1($data, location) }}
 							        </span>
 							      </td>
