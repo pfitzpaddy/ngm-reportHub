@@ -741,14 +741,6 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_name: 'IDPs'
           },{
             cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
-            beneficiary_type_id: 'refugees',
-            beneficiary_type_name: 'Refugees'
-          },{
-            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
-            beneficiary_type_id: 'returnees',
-            beneficiary_type_name: 'Returnees'
-          },{
-            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'idp_conflict',
             beneficiary_type_name: 'Conflict IDPs'
           },{
@@ -763,6 +755,14 @@ angular.module( 'ngmReportHub' )
             cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'idp_natural_disaster',
             beneficiary_type_name: 'Natural Disaster IDPs'
+          },{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'refugees',
+            beneficiary_type_name: 'Refugees'
+          },{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'returnees',
+            beneficiary_type_name: 'Returnees'
           },{
             cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'health_workers',
