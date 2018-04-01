@@ -765,6 +765,10 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_name: 'Returnees'
           },{
             cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'idp_returnee',
+            beneficiary_type_name: 'Returnee IDPs'
+          },{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'health_workers',
             beneficiary_type_name: 'Health Workers'
           },{
@@ -1677,6 +1681,9 @@ angular.module( 'ngmReportHub' )
           },{
             facility_type_id: 'MHNT',
             facility_type_name: 'MHNT'
+          },{
+            facility_type_id: 'MPT',
+            facility_type_name: 'MPT'
           },{
             facility_type_id: 'ctc',
             facility_type_name: 'CTC'
