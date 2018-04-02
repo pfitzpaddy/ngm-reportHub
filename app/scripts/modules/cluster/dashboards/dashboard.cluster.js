@@ -80,19 +80,19 @@ angular.module('ngmReportHub')
 						'param': 'adminRpcode',
 						'active': 'hq',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/4w/hq/all'
+						'href': '/desk/#/cluster/5w/hq/all'
 					},{
 						'title': 'AFRO',
 						'param': 'adminRpcode',
 						'active': 'afro',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/4w/afro/all'
+						'href': '/desk/#/cluster/5w/afro/all'
 					},{
 						'title': 'EMRO',
 						'param': 'adminRpcode',
 						'active': 'emro',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/4w/emro/all'
+						'href': '/desk/#/cluster/5w/emro/all'
 					}]
 				}],
 
@@ -100,7 +100,7 @@ angular.module('ngmReportHub')
 				getPath: function( cluster_id, organization_tag, admin1pcode, admin2pcode ){
 
 					if ( cluster_id !== 'rnr_chapter' ) {
-						var path = '/cluster/4w/' + $scope.dashboard.adminRpcode +
+						var path = '/cluster/5w/' + $scope.dashboard.adminRpcode +
 																	'/' + $scope.dashboard.admin0pcode +
 																	'/' + admin1pcode +
 																	'/' + admin2pcode +
@@ -110,7 +110,7 @@ angular.module('ngmReportHub')
 																	'/' + $scope.dashboard.startDate +
 																	'/' + $scope.dashboard.endDate;
 					} else {
-						var path = '/cluster/4w/' + $scope.dashboard.adminRpcode +
+						var path = '/cluster/5w/' + $scope.dashboard.adminRpcode +
 																	'/' + $scope.dashboard.admin0pcode +
 																	'/' + admin1pcode +
 																	'/' + admin2pcode +
@@ -202,7 +202,7 @@ angular.module('ngmReportHub')
 										'param': 'admin0pcode',
 										'active': 'et',
 										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-										'href': '/desk/#/cluster/4w/afro/et'
+										'href': '/desk/#/cluster/5w/afro/et'
 									}]
 								},
 								'emro': {
@@ -215,19 +215,19 @@ angular.module('ngmReportHub')
 										'param': 'admin0pcode',
 										'active': 'af',
 										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-										'href': '/desk/#/cluster/4w/emro/af'
+										'href': '/desk/#/cluster/5w/emro/af'
 									},{
 										'title': 'Somalia',
 										'param': 'admin0pcode',
 										'active': 'so',
 										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-										'href': '/desk/#/cluster/4w/emro/so'
+										'href': '/desk/#/cluster/5w/emro/so'
 									},{
 										'title': 'Syria',
 										'param': 'admin0pcode',
 										'active': 'sy',
 										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-										'href': '/desk/#/cluster/4w/emro/sy'
+										'href': '/desk/#/cluster/5w/emro/sy'
 									}]
 								}
 							}
@@ -389,11 +389,11 @@ angular.module('ngmReportHub')
 				//
 				setTitle: function(){
 					// title
-					$scope.dashboard.title = '4W'
+					$scope.dashboard.title = '5W'
 				
 					// admin0
 					if ( $scope.dashboard.admin0pcode === 'all' ) {
-						$scope.dashboard.title = '4W | ' + $scope.dashboard.adminRpcode.toUpperCase()
+						$scope.dashboard.title = '5W | ' + $scope.dashboard.adminRpcode.toUpperCase()
 					}
 
 					if ( $scope.dashboard.admin0pcode !== 'all' ) {
@@ -425,10 +425,10 @@ angular.module('ngmReportHub')
 				// subtitle
 				setSubtitle: function(){
 					// subtitle
-					$scope.dashboard.subtitle = '4W Dashboard for ';
+					$scope.dashboard.subtitle = '5W Dashboard for ';
 					// admin0
 					if ( $scope.dashboard.admin0pcode === 'all' ) {
-						$scope.dashboard.subtitle = '4W Dashboard for ' + $scope.dashboard.adminRpcode.toUpperCase();
+						$scope.dashboard.subtitle = '5W Dashboard for ' + $scope.dashboard.adminRpcode.toUpperCase();
 					}
 
 					if ( $scope.dashboard.admin0pcode !== 'all' ) {
