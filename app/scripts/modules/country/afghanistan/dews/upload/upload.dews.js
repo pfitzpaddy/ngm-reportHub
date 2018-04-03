@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('UpdateDewsCtrl', ['$scope', '$location', 'ngmUser', function ($scope, $location, ngmUser) {
+	.controller('UpdateDewsCtrl', ['$scope', '$location', 'ngmAuth', 'ngmUser', function ($scope, $location, ngmAuth, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
