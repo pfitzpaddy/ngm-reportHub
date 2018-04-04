@@ -285,16 +285,19 @@ angular.module('ngmReportHub')
 							}
 						});
 
-						// organization
-						$scope.model.menu.push({
-							'search': true,
-							'id': 'search-cluster-organization',
-							'icon': 'supervisor_account',
-							'title': 'Organization',
-							'class': 'teal lighten-1 white-text',
-							'rows': orgRows
-						});
+						// organization & disable if public
+						if ($scope.dashboard.user.username !== 'welcome') {
+				
+							$scope.model.menu.push({
+								'search': true,
+								'id': 'search-cluster-organization',
+								'icon': 'supervisor_account',
+								'title': 'Organization',
+								'class': 'teal lighten-1 white-text',
+								'rows': orgRows
+							});
 
+					    }
 						// if country selected
 						if ( $scope.dashboard.admin0pcode !== 'all' ) {
 
