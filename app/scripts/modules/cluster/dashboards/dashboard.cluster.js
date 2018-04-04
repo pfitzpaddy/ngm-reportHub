@@ -742,6 +742,11 @@ angular.module('ngmReportHub')
 						}]
 					}
 
+					// disallow public download
+					if ($scope.dashboard.user.username === 'welcome'){
+						delete $scope.model.header.download
+					}
+
 					// remove training participants for AF
 					if ($scope.dashboard.admin0pcode.toUpperCase() === 'AF'){
 						$scope.model.header.download.downloads = $scope.model.header.download.downloads.filter(function( obj ) {
