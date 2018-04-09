@@ -13,6 +13,7 @@
       <td>Activity</td>
       <td>Description</td>
       <td ng-if="project.showCash( $locationIndex )">Delivery</td>
+      <td ng-if="project.showPackage( $locationIndex )">Package</td>
       <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">Category</td>
       <td>Beneficiary</td>
       <td ng-if="project.definition.admin0pcode === 'AF'">Population</td>
@@ -63,10 +64,24 @@
                 !beneficiary.activity_description_id ||
                 ( beneficiary.activity_type_id.indexOf('cash') === -1 &&
                   beneficiary.activity_description_id.indexOf('cash') === -1 &&
-                  beneficiary.activity_description_id.indexOf('fsac_in_kind') === -1 )">
+                  beneficiary.activity_description_id.indexOf('fsac_in_kind') === -1 &&
+                  beneficiary.activity_description_id.indexOf('package') === -1 )">
           {{ project.showCashDelivery($data, beneficiary) }}
         </span>
       </td>
+
+      <td ng-show="project.showPackage( $locationIndex )">
+          <span e-form="rowform"
+                e-name="package_type_id"
+                editable-select="beneficiary.package_type_id"
+                e-placeholder="Select..."
+                e-ng-options="s.package_type_id as s.package_type_name for s in [{'package_type_id':'standard', 'package_type_name':'Standard'},{'package_type_id':'non-standard', 'package_type_name':'Non-standard'}]"
+                e-ng-disabled="
+                  !project.enablePackage($data, beneficiary)">
+            {{ project.showPackageTypes($data, beneficiary) }}
+          </span>
+        </td>
+
       <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">
         <!-- editable group (select-remote) -->
         <span e-form="rowform"
@@ -154,7 +169,9 @@
                   beneficiary.activity_description_id.indexOf('training') === -1 &&
                   beneficiary.activity_description_id.indexOf('cash') === -1 &&
                   beneficiary.activity_description_id.indexOf('in_kind') === -1 &&
-									beneficiary.activity_description_id.indexOf('voucher') === -1 ||
+									beneficiary.activity_description_id.indexOf('voucher') === -1 &&
+                  beneficiary.activity_description_id.indexOf('package') === -1 &&
+                  beneficiary.activity_description_id.indexOf('assessment') === -1 ||
 									beneficiary.activity_description_id.indexOf('_standard') > -1 ))"
               e-required>
           {{ beneficiary.units }}
@@ -173,7 +190,9 @@
                 beneficiary.activity_description_id.indexOf('training') === -1 &&
                 beneficiary.activity_description_id.indexOf('cash') === -1 &&
                 beneficiary.activity_description_id.indexOf('in_kind') === -1 &&
-								beneficiary.activity_description_id.indexOf('voucher') === -1 ||
+								beneficiary.activity_description_id.indexOf('voucher') === -1 &&
+                beneficiary.activity_description_id.indexOf('package') === -1 &&
+                beneficiary.activity_description_id.indexOf('assessment') === -1 ||
 								beneficiary.activity_description_id.indexOf('_standard') > -1 )">
           {{ project.showUnitTypes($data, beneficiary) }}
         </span>
@@ -189,7 +208,8 @@
                 !beneficiary.activity_description_id ||
                 ( beneficiary.activity_type_id.indexOf('cash') === -1 &&
                   beneficiary.activity_description_id.indexOf('cash') === -1 &&
-                  beneficiary.activity_description_id.indexOf('in_kind') === -1 )"
+                  beneficiary.activity_description_id.indexOf('in_kind') === -1 &&
+                  beneficiary.activity_description_id.indexOf('package') === -1)"
               e-ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers">
           {{ project.showTransferTypes( $data, beneficiary ) }}
         </span>
