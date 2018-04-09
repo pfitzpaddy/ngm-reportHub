@@ -17,7 +17,7 @@
 						Enter the TARGET BENEFICIARIES of your PROJECT in the form below;
 					</p>
 
-					<div ng-if="project.showCash()" style="padding-left: 40px;">
+					<div ng-if="project.showCash() && !project.showPackage()" style="padding-left: 40px;">
 						<p style="color: #e57373">
 							<span style="font-weight:400">Amount:</span> Please enter the amount per <span style="font-weight:400">HOUSEHOLD ( HH )</span> per <span style="font-weight:400">TRANSFER</span>
 						</p>
@@ -34,7 +34,8 @@
 							    	<td></td>
 							      <td>Activity</td>
 							      <td>Description</td>
-							      <td ng-if="project.showCash()">Delivery</td>
+										<td ng-if="project.showCash()">Delivery</td>
+										<td ng-if="project.showPackage()">Package</td>
 							      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">Category</td>
 							      <td>Beneficiary</td>
 								 		<td ng-if="project.definition.admin0pcode === 'AF'">Population</td>
@@ -91,10 +92,23 @@
 							              	!beneficiary.activity_description_id ||
 															( beneficiary.activity_type_id.indexOf('cash') === -1 &&
 																beneficiary.activity_description_id.indexOf('cash') === -1 &&
-																beneficiary.activity_description_id.indexOf('fsac_in_kind') === -1 )">
+																beneficiary.activity_description_id.indexOf('fsac_in_kind') === -1 &&
+																beneficiary.activity_description_id.indexOf('package') === -1 )">
 							          {{ project.showCashDelivery($data, beneficiary) }}
 							        </span>
 							      </td>
+
+										<td ng-show="project.showPackage()">
+												<span e-form="rowform"
+															e-name="package_type_id"
+															editable-select="beneficiary.package_type_id"
+															e-placeholder="Select..."
+															e-ng-options="s.package_type_id as s.package_type_name for s in [{'package_type_id':'standard', 'package_type_name':'Standard'},{'package_type_id':'non-standard', 'package_type_name':'Non-standard'}]"
+															e-ng-disabled="
+																!project.enablePackage($data, beneficiary)">
+													{{ project.showPackageTypes($data, beneficiary) }}
+												</span>
+											</td>
 
 							      <!-- afghanistan -->
 							      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">
@@ -161,7 +175,9 @@
 																beneficiary.activity_description_id.indexOf('training') === -1 &&
 																beneficiary.activity_description_id.indexOf('cash') === -1 &&
 																beneficiary.activity_description_id.indexOf('in_kind') === -1 &&
-																beneficiary.activity_description_id.indexOf('voucher') === -1 ||
+																beneficiary.activity_description_id.indexOf('voucher') === -1 &&
+																beneficiary.activity_description_id.indexOf('package') === -1 &&
+																beneficiary.activity_description_id.indexOf('assessment') === -1 ||
 																beneficiary.activity_description_id.indexOf('_standard') > -1 ))"
 							        			e-required>
 							          {{ beneficiary.units }}
@@ -186,13 +202,15 @@
 																beneficiary.activity_description_id.indexOf('training') === -1 &&
 																beneficiary.activity_description_id.indexOf('cash') === -1 &&
 																beneficiary.activity_description_id.indexOf('in_kind') === -1 &&
-																beneficiary.activity_description_id.indexOf('voucher') === -1 ||
+																beneficiary.activity_description_id.indexOf('voucher') === -1 &&
+																beneficiary.activity_description_id.indexOf('package') === -1 &&
+																beneficiary.activity_description_id.indexOf('assessment') === -1 ||
 																beneficiary.activity_description_id.indexOf('_standard') > -1 ))">
 							          {{ project.showUnitTypes($data, beneficiary) }}
 							        </span>
 							      </td>
 
-								    <!-- traansfers -->
+								    <!-- transfers -->
 	 								  <td ng-show="project.showCash()">
 							        <span e-form="rowform"
 							        			e-name="transfer_type_id"
@@ -202,7 +220,8 @@
 							              	!beneficiary.activity_description_id ||
 															( beneficiary.activity_type_id.indexOf('cash') === -1 &&
 																beneficiary.activity_description_id.indexOf('cash') === -1 &&
-																beneficiary.activity_description_id.indexOf('in_kind') === -1 )"
+																beneficiary.activity_description_id.indexOf('in_kind') === -1 &&
+																beneficiary.activity_description_id.indexOf('package') === -1 )"
 							        			e-ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers">
 							          {{ project.showTransferTypes( $data, beneficiary ) }}
 							        </span>

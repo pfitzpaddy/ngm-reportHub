@@ -242,6 +242,18 @@ angular.module( 'ngmReportHub' )
             activity_description_id: [ 'fsac_in_kind' ],
             mpc_delivery_type_id: 'distribution',
             mpc_delivery_type_name: 'Distribution'
+          },{
+            activity_description_id: [ 'tent_distribution_2_tarps_package','rental_support_3_month_package','existing_shelter_upgrade_package','nfi_package','winterization_package','transitional_shelter_package' ],
+            mpc_delivery_type_id: 'cash',
+            mpc_delivery_type_name: 'Cash'
+          },{
+            activity_description_id: [ 'tent_distribution_2_tarps_package','rental_support_3_month_package','existing_shelter_upgrade_package','nfi_package','winterization_package','transitional_shelter_package' ],
+            mpc_delivery_type_id: 'voucher',
+            mpc_delivery_type_name: 'Voucher'
+          },{
+            activity_description_id: [ 'tent_distribution_2_tarps_package','rental_support_3_month_package','existing_shelter_upgrade_package','nfi_package','winterization_package','transitional_shelter_package' ],
+            mpc_delivery_type_id: 'in-kind',
+            mpc_delivery_type_name: 'In-kind'
           }];
 
         return types;
@@ -648,7 +660,9 @@ angular.module( 'ngmReportHub' )
 						{ cluster_id: [ 'health' ],
 							unit_type_id: 'medics', unit_type_name: 'Medics' },
 						{ cluster_id: [ 'health' ],
-							unit_type_id: 'health_extension_workers', unit_type_name: 'Health Extension Workers' },
+              unit_type_id: 'health_extension_workers', unit_type_name: 'Health Extension Workers' },
+            { cluster_id: [ 'esnfi' ],
+							unit_type_id: 'houses', unit_type_name: 'Houses' },
           ];
 
         // unit type list

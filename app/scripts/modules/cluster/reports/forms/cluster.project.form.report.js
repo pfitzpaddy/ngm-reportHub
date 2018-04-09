@@ -384,7 +384,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             if ( $beneficiary.activity_type_id.indexOf( 'cash' ) === -1 &&
                   $beneficiary.activity_description_id &&
                   ( $beneficiary.activity_description_id.indexOf( 'cash' ) === -1 &&
-                    $beneficiary.activity_description_id.indexOf( 'in_kind' ) === -1 ) ) {
+                    $beneficiary.activity_description_id.indexOf( 'in_kind' ) === -1 &&
+                    $beneficiary.activity_description_id.indexOf( 'package' ) === -1 ) ) {
               // reset
               $beneficiary.mpc_delivery_type_id = 'n_a';
               $beneficiary.mpc_delivery_type_name = 'N/A';
@@ -392,6 +393,34 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
           }
           return selected.length ? selected[0].mpc_delivery_type_name : 'No Selection!';
+        },
+
+        // display package
+        showPackageTypes: function( $data, $beneficiary ) {
+          var selected = [];
+          $beneficiary.package_type_id = $data;
+          if( $beneficiary.package_type_id ) {
+
+            // selection
+            selected = $filter('filter')( [{
+							'package_type_id': 'standard',
+							'package_type_name': 'Standard'
+						}, {
+							'package_type_id': 'non-standard',
+							'package_type_name': 'Non-standard'
+						}], { package_type_id: $beneficiary.package_type_id }, true );
+            if ( selected.length ) {
+              $beneficiary.package_type_name = selected[0].package_type_name;
+            } else {
+              selected.push({
+                package_type_id: 'n_a',
+                package_type_name: 'N/A'
+              });
+            }
+
+          }
+
+          return selected.length ? selected[0].package_type_name : 'No Selection!';
         },
 
         // display category
@@ -461,6 +490,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
                   b.activity_description_id.indexOf( 'training' ) > -1 ||
                   b.activity_description_id.indexOf( 'cash' ) > -1 ||
                   b.activity_description_id.indexOf( 'in_kind' ) > -1 ||
+                  b.activity_description_id.indexOf( 'package' ) > -1 ||
+                  b.activity_description_id.indexOf( 'assessment' ) > -1 ||
 									b.activity_description_id.indexOf( 'voucher' ) > -1 ) )
               ) {
                 display = true;
@@ -511,11 +542,67 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               if( ( b.activity_type_id && b.activity_type_id.indexOf('cash') > -1 ) ||
                   ( b.activity_description_id &&
                   ( b.activity_description_id.indexOf( 'cash' ) > -1 ||
+                    b.activity_description_id.indexOf('package') > -1 ||
                     b.activity_description_id.indexOf( 'fsac_in_kind' ) > -1 ) ) ) {
                 display = true;
               }
             });
           }
+          return display;
+        },
+
+        // cash
+        showPackage: function( $locationIndex ){
+          var display = false;
+          var l = $scope.project.report.locations[ $locationIndex ];
+          if ( l ) {
+          angular.forEach( l.beneficiaries, function(b){
+            if( 
+              ( b.activity_description_id && ( 
+                b.activity_description_id.indexOf('tent_distribution_2_tarps_package') > -1 ||
+                b.activity_description_id.indexOf( 'rental_support_3_month_package' ) > -1 ||
+                b.activity_description_id.indexOf( 'existing_shelter_upgrade_package' ) > -1 ||
+                b.activity_description_id.indexOf( 'nfi_package' ) > -1 ||
+                b.activity_description_id.indexOf( 'winterization_package' ) > -1 ||
+                b.activity_description_id.indexOf( 'transitional_shelter_package' ) > -1) ) ) {
+              display = true;
+            }
+          });
+          }
+          return display;
+        },
+
+        // enable editing package
+        enablePackage: function( $data, b ) {
+          var display = false;
+          if (
+            ( b.activity_description_id && ( 
+              b.activity_description_id.indexOf('tent_distribution_2_tarps_package') > -1 ||
+              b.activity_description_id.indexOf( 'rental_support_3_month_package' ) > -1 ||
+              b.activity_description_id.indexOf( 'existing_shelter_upgrade_package' ) > -1 ||
+              b.activity_description_id.indexOf( 'nfi_package' ) > -1 ||
+              b.activity_description_id.indexOf( 'winterization_package' ) > -1 ||
+              b.activity_description_id.indexOf( 'transitional_shelter_package' ) > -1) )
+          ) {
+             display = true;
+          }
+          
+          return display;
+        },
+
+        // enable editing cash
+        enableCash: function( $data, beneficiary ) {
+          var display = false;
+          if (
+            !beneficiary.activity_description_id ||
+															( beneficiary.activity_type_id.indexOf('cash') === -1 &&
+																beneficiary.activity_description_id.indexOf('cash') === -1 &&
+																beneficiary.activity_description_id.indexOf('fsac_in_kind') === -1 &&
+																beneficiary.activity_description_id.indexOf('package') === -1 )
+          ) {
+             display = true;
+          }
+          
           return display;
         },
 

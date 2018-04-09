@@ -95,7 +95,7 @@
 							</div>
 
 							<!-- cvwg -->
-							<div ng-if="project.showCash( $locationIndex )" style="padding-left: 50px;">
+							<div ng-if="project.showCash( $locationIndex ) && !project.showPackage( $locationIndex )" style="padding-left: 50px;">
 								<p style="color: #e57373">
 									<span style="font-weight:400">Amount:</span> Please enter the amount per <span style="font-weight:400">HOUSEHOLD ( HH )</span> per <span style="font-weight:400">TRANSFER</span>
 								</p>
