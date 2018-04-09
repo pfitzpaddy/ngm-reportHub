@@ -17,7 +17,7 @@
 						Enter the TARGET BENEFICIARIES of your PROJECT in the form below;
 					</p>
 
-					<div ng-if="project.showCash()" style="padding-left: 40px;">
+					<div ng-if="project.showCash() && !project.showPackage()" style="padding-left: 40px;">
 						<p style="color: #e57373">
 							<span style="font-weight:400">Amount:</span> Please enter the amount per <span style="font-weight:400">HOUSEHOLD ( HH )</span> per <span style="font-weight:400">TRANSFER</span>
 						</p>
