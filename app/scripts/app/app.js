@@ -39,6 +39,7 @@ angular
     'ngmEpr',
     'ngmSbp',
 		'ngmWatchkeeper',
+		'ngmNutrition',
 		// utils
 		'angularUtils.directives.dirPagination',
 		// widgets
