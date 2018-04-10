@@ -35,7 +35,7 @@ angular
 				controller: 'DashboardNutritionWeeklyCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.grantPublicAccess();
+						return ngmAuth.isAuthenticated();
 					}],
 				}
 			})
@@ -49,7 +49,7 @@ angular
 				controller: 'DashboardNutritionWeeklyAdminCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) {
-						return ngmAuth.grantPublicAccess();
+						return ngmAuth.isAuthenticated();
 					}],
 				}
 			});
