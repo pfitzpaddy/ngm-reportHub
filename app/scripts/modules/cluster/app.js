@@ -135,6 +135,18 @@ angular
 					}],
 				}
 			})
+
+			// Syria FSAC Demo
+			.when( '/cluster/syria/fsac', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ClusterSyriaDashboard',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+
 			// project list
 			.when( '/cluster/projects', {
 				templateUrl: '/views/app/dashboard.html',
