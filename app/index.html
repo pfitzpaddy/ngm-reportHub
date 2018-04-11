@@ -172,7 +172,12 @@
 										<a class="white-text right" href="#/who/ethiopia" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">assignment_late</i>ASSESSMENTS</a>
 									</li>
-
+									<li  align="center" class="teal z-depth-2" 
+										ng-if="ngm.getUser().admin0pcode.toLowerCase() === 'af'"
+										ng-show="ngm.getUser().cluster_id.toLowerCase() === 'nutrition'">
+										<a class="white-text right" href="#/nutrition/afghanistan/" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">bubble_chart</i>NUTRITION WEEKLY</a>
+									</li>
 									<!-- navigation options repeat 
 										<li ng-repeat="option in ngm.navigationMenu" class="{{ option.liClass }}">
 											<a class="{{ option.aClass }}" href="/desk/#/{{ option.href }}" ng-click="ngm.toggleNavigationMenu();">
@@ -456,6 +461,8 @@
 		<script src="scripts/modules/country/afghanistan/nutrition/dashboards/dashboard.nutrition.weekly.js"></script>
 		<script src="scripts/modules/country/afghanistan/nutrition/dashboards/dashboard.admin.nutrition.weekly.js"></script>
 		<script src="scripts/modules/country/afghanistan/nutrition/assessments/nutrition.assessments.js"></script>
+		<script src="scripts/modules/country/afghanistan/nutrition/assessments/nutrition.koboform.js"></script>
+
 
 		<!-- endbuild -->
 
