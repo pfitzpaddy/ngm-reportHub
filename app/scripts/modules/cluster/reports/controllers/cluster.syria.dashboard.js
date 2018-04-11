@@ -40,7 +40,7 @@ angular.module('ngmReportHub')
 								card: 'white grey-text text-darken-2',
 								style: 'padding: 20px;',
 								config: {
-									html: '<a class="btn waves-effect waves-teal left" href="#/cluster/organization"><i class="material-icons left">keyboard_return</i>Back to Home</a><div style="padding-bottom:20px;"></div>'
+									html: '<a class="btn waves-effect waves-teal left" href="#/cluster/organization"><i class="material-icons left">keyboard_return</i>Back to Home</a><div style="padding-bottom:40px;"></div>'
 								}
 							}]
 						}]
