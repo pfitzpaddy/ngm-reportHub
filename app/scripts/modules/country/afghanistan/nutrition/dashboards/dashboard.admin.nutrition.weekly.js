@@ -305,11 +305,16 @@ angular.module('ngmReportHub')
 													
 													// toast
 													$timeout( function(){ 
-														Materialize.toast( 'Opening Report...' , 4000, 'success' );
+														Materialize.toast( 'Opening Report...' , 1000, 'success' );
 														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 														$( '#nutrition-edit-btn'+dataid ).toggleClass( 'disabled' );
 														$timeout( function(){
-															window.open( result.url , '_blank');
+															var parser = document.createElement('a');
+															parser.href = result.url;
+															var pathname = parser.pathname;
+															var search = parser.search;
+															var pathname = window.open( '#/nutrition/afghanistan/form' + pathname + search , '_blank');
+															// window.open( result.url , '_blank');
 															// $route.reload();
 														}, 400 );
 													}, 600 );
@@ -339,7 +344,7 @@ angular.module('ngmReportHub')
 													
 													// toast
 													$timeout( function(){ 
-														Materialize.toast( 'Deleting Report...' , 4000, 'success' );
+														Materialize.toast( 'Deleting Report...' , 1000, 'success' );
 														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 														$( '#nutrition-delete-btn'+dataid ).toggleClass( 'disabled' );
 														$timeout( function(){
@@ -394,7 +399,12 @@ angular.module('ngmReportHub')
 														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 														$( '#nutrition-edit-btn'+dataid ).toggleClass( 'disabled' );
 														$timeout( function(){
-															window.open( result.url , '_blank');
+															var parser = document.createElement('a');
+															parser.href = result.url;
+															var pathname = parser.pathname;
+															var search = parser.search;
+															// window.open( result.url , '_blank');
+															var pathname = window.open( '#/nutrition/afghanistan/form' + pathname + search , '_blank');
 															// $route.reload();
 														}, 400 );
 													}, 600 );

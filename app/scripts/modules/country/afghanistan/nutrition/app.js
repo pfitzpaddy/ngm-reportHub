@@ -25,6 +25,26 @@ angular
 					}],
 				}
 			})
+			// nutrition koboform
+			.when( '/nutrition/afghanistan/form/:mode/:id', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardNutritionKoboFormCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.grantPublicAccess();
+					}],
+				}
+			})
+			// nutrition koboform edit
+			.when( '/nutrition/afghanistan/form/:mode/:id/:instance_id', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardNutritionKoboFormCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.grantPublicAccess();
+					}],
+				}
+			})
 			// nutrition weekly dashboard
 			.when( '/nutrition/afghanistan/dashboard', {
 				redirectTo: '/nutrition/afghanistan/dashboard/2018/all/all/all/2018-01-01/' + moment().add(1, 'day').startOf('isoWeek').subtract(1, 'day').add(1, 'week').format('YYYY-MM-DD')

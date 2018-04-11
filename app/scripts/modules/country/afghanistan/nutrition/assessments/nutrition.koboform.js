@@ -1,12 +1,12 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.DashboardNutritionAssessmentsCtrl
+ * @name ngmReportHubApp.DashboardKoboFormCtrl
  * @description
- * # DashboardNutritionAssessmentsCtrl
+ * # DashboardKoboFormCtrl
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller( 'DashboardNutritionAssessmentsCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser ) {
+	.controller( 'DashboardNutritionKoboFormCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -26,7 +26,7 @@ angular.module( 'ngmReportHub' )
 
 				// report dashboard model
 				$scope.model = {
-					name: 'nutrition_afghanistan_assessments',
+					name: 'nutrition_afghanistan_koboform',
 					header: {
 						div: {
 							'class': 'col s12 m12 l12 report-header',
@@ -35,11 +35,11 @@ angular.module( 'ngmReportHub' )
 						title: {
 							'class': 'col s12 m12 l12 report-title',
 							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: 'Nutrition Afghanistan | Assessments'
+							title: 'Nutrition Afghanistan | Assessment | Form' + ' | ' + ($route.current.params.mode==='i'||$route.current.params.mode==='x'?'New':'Edit')
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle hide-on-small-only',
-							title: 'Please select an assessments from the options below'
+							title: 'Please complete an assessment in the form below'
 						}
 					},
 					rows: [{
@@ -50,7 +50,10 @@ angular.module( 'ngmReportHub' )
 								card: 'white grey-text text-darken-2',
 								style: 'padding: 0px;',
 								config: {
-									templateUrl: '/scripts/modules/country/afghanistan/nutrition/views/nutrition.assessments.html',
+									templateUrl: '/scripts/modules/country/afghanistan/nutrition/views/nutrition.koboform.html',
+									src: 'https://ee.humanitarianresponse.info/'+$route.current.params.mode + 
+																			 '/'+$route.current.params.id + ( $route.current.params.instance_id && $route.current.params.returnUrl ?
+																			 '?instance_id='+$route.current.params.instance_id  : '' ),
 					      }
 					    }]
 					  }]
@@ -78,4 +81,9 @@ angular.module( 'ngmReportHub' )
 		// set page
 		$scope.report.init();
 		
-	}]);
+	}]).config(['$sceDelegateProvider', function($sceDelegateProvider) {  
+		$sceDelegateProvider.resourceUrlWhitelist([
+		  'self',
+		  'https://ee.humanitarianresponse.info/**',
+		]);
+	  }]);;
