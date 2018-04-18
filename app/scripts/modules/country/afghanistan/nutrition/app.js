@@ -47,10 +47,10 @@ angular
 			})
 			// nutrition weekly dashboard
 			.when( '/nutrition/afghanistan/dashboard', {
-				redirectTo: '/nutrition/afghanistan/dashboard/2018/all/all/all/2018-01-01/' + moment().add(1, 'day').startOf('isoWeek').subtract(1, 'day').add(1, 'week').format('YYYY-MM-DD')
+				redirectTo: '/nutrition/afghanistan/dashboard/2018/all/all/all/all/2018-01-01/' + moment().add(1, 'day').startOf('isoWeek').subtract(1, 'day').add(1, 'week').format('YYYY-MM-DD')
 			})
 			// nutrition weekly dashboard
-			.when( '/nutrition/afghanistan/dashboard/:year/:province/:district/:week/:start/:end', {
+			.when( '/nutrition/afghanistan/dashboard/:year/:province/:district/:organization/:week/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardNutritionWeeklyCtrl',
 				resolve: {
@@ -61,10 +61,10 @@ angular
 			})
 			// nutrition weekly admin
 			.when( '/nutrition/afghanistan/admin', {
-				redirectTo: '/nutrition/afghanistan/admin/2018/all/all/all/2018-01-01/' + moment().add(1, 'day').startOf('isoWeek').subtract(1, 'day').add(1, 'week').format('YYYY-MM-DD')
+				redirectTo: '/nutrition/afghanistan/admin/2018/all/all/all/all/2018-01-01/' + moment().add(1, 'day').startOf('isoWeek').subtract(1, 'day').add(1, 'week').format('YYYY-MM-DD')
 			})
 			// nutrition weekly admin
-			.when( '/nutrition/afghanistan/admin/:year/:province/:district/:week/:start/:end', {
+			.when( '/nutrition/afghanistan/admin/:year/:province/:district/:organization/:week/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardNutritionWeeklyAdminCtrl',
 				resolve: {
