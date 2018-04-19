@@ -33,6 +33,7 @@ angular.module( 'ngmReportHub' )
             year: dashboard.year,
             province: dashboard.province,
             district: dashboard.district,
+            organization_tag: dashboard.organization,
             week: dashboard.week,
             start_date: dashboard.startDate,
             end_date: dashboard.endDate
@@ -63,7 +64,7 @@ angular.module( 'ngmReportHub' )
         // rows
         var rows = [];
 
-        return [{
+        return {
           'id': 'nutrition-dashboard-year',
           'icon': 'search',
           'title': 'Year',
@@ -73,16 +74,16 @@ angular.module( 'ngmReportHub' )
             'param': 'year',
             'active': '2018',
             'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-            'href':  dashboard.url + '/2018/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
+            'href':  dashboard.url + '/2018/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
           },{
             'title': '2019',
             'param': 'year',
             // 'active': '2019',
             'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-            'href':  dashboard.url + '/2019/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
+            'href':  dashboard.url + '/2019/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
           }]
         }
-      ];
+      ;
 
       },
 
@@ -95,7 +96,7 @@ angular.module( 'ngmReportHub' )
             'param': 'province',
           'active': 'all',
           'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-          'href':  dashboard.url + '/' + dashboard.year + '/' + 'all' + '/' + 'all' + '/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+          'href':  dashboard.url + '/' + dashboard.year + '/' + 'all' + '/' + 'all' + '/' + 'all' + '/' + dashboard.week + '/2018-01-01/' + moment().format('YYYY-MM-DD')
         }];
 
         angular.forEach(dashboard.admin1, function( d, i ){
@@ -104,7 +105,7 @@ angular.module( 'ngmReportHub' )
               'param': 'province',
               'active': d.admin1pcode,
               'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-              'href':  dashboard.url + '/' + dashboard.year + '/' + d.admin1pcode + '/' + dashboard.district + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
+              'href':  dashboard.url + '/' + dashboard.year + '/' + d.admin1pcode + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
             });
         });
 
@@ -128,7 +129,7 @@ angular.module( 'ngmReportHub' )
             'param': 'district',
           'active': 'all',
           'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-          'href':  dashboard.url + '/' + dashboard.year + '/' + dashboard.province + '/' + 'all' + '/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+          'href':  dashboard.url + '/' + dashboard.year + '/' + dashboard.province + '/' + 'all' + '/' + 'all' + '/' + dashboard.week + '/2018-01-01/' + moment().format('YYYY-MM-DD')
         }];
 
         angular.forEach(dashboard.admin2, function( d, i ){
@@ -138,7 +139,7 @@ angular.module( 'ngmReportHub' )
             'param': 'district',
             'active': d.admin2pcode,
             'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-            'href':  dashboard.url + '/' + dashboard.year  + '/' + dashboard.province + '/' + d.admin2pcode + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
+            'href':  dashboard.url + '/' + dashboard.year  + '/' + dashboard.province + '/' + d.admin2pcode + '/' + dashboard.organization + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
           });
         }
         });
@@ -154,6 +155,35 @@ angular.module( 'ngmReportHub' )
 
       },
 
+      getOrganizationRows: function(organizations) {
+
+            var orgRows = [];
+
+							// for each
+							organizations.forEach(function( d, i ){
+
+								// menu rows
+								orgRows.push({
+									'title': d.organization,
+									'param': 'organization_tag',
+									'active': d.organization_tag,
+									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+                  'href': dashboard.url + '/' + dashboard.year  + '/' + dashboard.province + '/' + dashboard.district + '/' + d.organization_tag + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate 
+								});
+
+							});
+
+              // menu
+							return {
+								'search': true,
+								'id': 'search-cluster-organization',
+								'icon': 'supervisor_account',
+								'title': 'Organization',
+								'class': 'teal lighten-1 white-text',
+								'rows': orgRows
+							}
+      },
+
       // week rows
       getWeekRows: function() {
 
@@ -163,7 +193,7 @@ angular.module( 'ngmReportHub' )
           'param': 'week',
           'active': 'all',
           'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-          'href':  dashboard.url + '/' + dashboard.year  + '/' + dashboard.province + '/' + dashboard.district + '/all/'+ moment().startOf('year').format( 'YYYY-MM-DD' ) + '/' + moment().format('YYYY-MM-DD')
+          'href':  dashboard.url + '/' + dashboard.year  + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/all/'+ moment().startOf('year').format( 'YYYY-MM-DD' ) + '/' + moment().format('YYYY-MM-DD')
         }];
 
         // for each week
@@ -179,7 +209,7 @@ angular.module( 'ngmReportHub' )
             'param': 'week',
             'active': i,
             'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-            'href':  dashboard.url + '/' + dashboard.year + '/' + dashboard.province + '/'  + dashboard.district + '/' + i + '/' + start_date + '/' + end_date
+            'href':  dashboard.url + '/' + dashboard.year + '/' + dashboard.province + '/'  + dashboard.district + '/' + dashboard.organization + '/'  + i + '/' + start_date + '/' + end_date
           });
         }
 
@@ -208,6 +238,11 @@ angular.module( 'ngmReportHub' )
         if ( dashboard.week !== 'all' ) {
           title += ' | ' + dashboard.week;
         }
+
+        // if organization
+        if ( dashboard.organization !== 'all' ) {
+          title += ' | ' + dashboard.organization.toUpperCase();
+        }
         return title;
       },
 
@@ -225,6 +260,11 @@ angular.module( 'ngmReportHub' )
         // if week
         if ( dashboard.week !== 'all' ) {
           subtitle += ', NUTRITION ' + dashboard.week;
+        }
+
+        // if organization
+        if ( dashboard.organization !== 'all' ) {
+          subtitle += ', ' + dashboard.organization.toUpperCase();
         }
         return subtitle
       }

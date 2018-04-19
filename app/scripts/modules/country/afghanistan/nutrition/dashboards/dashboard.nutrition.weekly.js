@@ -53,6 +53,28 @@ angular.module('ngmReportHub')
 				// current report
 				report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
 
+				setMenu: function(){
+
+					ngmData
+						.get( ngmNutritionHelper.getRequest( 'nutrition/afghanistan/beneficiaries/indicator', 'organizations', true ) )
+						.then( function( organizations  ){
+						// add menu
+						$scope.model.menu.push(ngmNutritionHelper.getMenu());
+						// add province menu
+						$scope.model.menu.push(ngmNutritionHelper.getProvinceRows());
+
+						if ( $route.current.params.province !== 'all' ) {
+							$scope.model.menu.push(ngmNutritionHelper.getDistrictRows());
+						}
+
+						// add organization to menu						
+						$scope.model.menu.push(ngmNutritionHelper.getOrganizationRows(organizations));				
+						// add weeks to menu
+						$scope.model.menu.push(ngmNutritionHelper.getWeekRows());
+						})
+
+				},
+
 				// set dashboard
 				setDashboard: function(){
 
@@ -65,22 +87,14 @@ angular.module('ngmReportHub')
 						year: $route.current.params.year,
 						province: $route.current.params.province,
 						district: $route.current.params.district,
+						organization: $route.current.params.organization,
 						week: $route.current.params.week,
 						startDate: $scope.dashboard.startDate,
 						endDate: $scope.dashboard.endDate,
 						user: $scope.dashboard.user
 					});
-
-					// add menu
-					$scope.dashboard.menu = ngmNutritionHelper.getMenu();
-					// add province menu
-					$scope.dashboard.menu.push(ngmNutritionHelper.getProvinceRows());
-
-					if ( $route.current.params.province !== 'all' ) {
-						$scope.dashboard.menu.push(ngmNutritionHelper.getDistrictRows());
-					}
-					// add weeks to menu
-					$scope.dashboard.menu.push(ngmNutritionHelper.getWeekRows());
+				
+					$scope.dashboard.setMenu();				
 					
 					// model
 					$scope.model = {
@@ -190,7 +204,7 @@ angular.module('ngmReportHub')
 								}]
 							}							
 						},
-						menu: $scope.dashboard.menu,
+						menu: [],
 						rows: [{
 							columns: [{
 								styleClass: 's12 m12 l12',
@@ -264,7 +278,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Organizations',
-										request: ngmNutritionHelper.getRequest( 'nutrition/afghanistan/indicator', 'organizations', false )
+										request: ngmNutritionHelper.getRequest( 'nutrition/afghanistan/beneficiaries/indicator', 'organizations', false )
 									}
 								}]
 							},{
@@ -275,7 +289,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: 'Reports',
-										request: ngmNutritionHelper.getRequest( 'nutrition/afghanistan/indicator', 'submitted_reports', false )
+										request: ngmNutritionHelper.getRequest( 'nutrition/afghanistan/beneficiaries/indicator', 'submitted_reports', false )
 									}
 								}]
 							},{
