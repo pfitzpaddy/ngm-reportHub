@@ -43,7 +43,7 @@ angular.module('ngmReportHub')
 				user: ngmUser.get(),
 
 				// when 'hq'
-				pageLoadTime: 13600,
+				pageLoadTime: 14600,
 
 				// report start
 				startDate: moment( $route.current.params.start ) .format( 'YYYY-MM-DD' ),
@@ -196,7 +196,7 @@ angular.module('ngmReportHub')
 						if ( $scope.dashboard.adminRpcode !== 'hq' ) {
 
 							// page load time
-							$scope.dashboard.pageLoadTime = 7200;
+							$scope.dashboard.pageLoadTime = 9200;
 
 							var menu = {
 								'afro': {
