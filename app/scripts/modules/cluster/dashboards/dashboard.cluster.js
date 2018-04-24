@@ -561,6 +561,7 @@ angular.module('ngmReportHub')
 							download: {
 								'class': 'col s12 m4 l4 hide-on-small-only',
 								downloads: [{
+									id: 'cluster_dashboard_pdf',
 									type: 'pdf',
 									color: 'blue',
 									icon: 'picture_as_pdf',
@@ -754,7 +755,9 @@ angular.module('ngmReportHub')
 					
 					// disallow public download
 					if ($scope.dashboard.user.username === 'welcome'){
-						delete $scope.model.header.download
+						$scope.model.header.download.downloads = $scope.model.header.download.downloads.filter(function( obj ) {
+							return obj.id === 'cluster_dashboard_pdf';
+						  });
 					}
 
 					// set
