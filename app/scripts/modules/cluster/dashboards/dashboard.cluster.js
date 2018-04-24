@@ -42,6 +42,9 @@ angular.module('ngmReportHub')
 				// current user
 				user: ngmUser.get(),
 
+				// when 'hq'
+				pageLoadTime: 13600,
+
 				// report start
 				startDate: moment( $route.current.params.start ) .format( 'YYYY-MM-DD' ),
 
@@ -191,6 +194,10 @@ angular.module('ngmReportHub')
 					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) >= 0 ) {
 						$scope.model.menu = $scope.dashboard.menu;
 						if ( $scope.dashboard.adminRpcode !== 'hq' ) {
+
+							// page load time
+							$scope.dashboard.pageLoadTime = 7200;
+
 							var menu = {
 								'afro': {
 									'id': 'search-country',
@@ -574,7 +581,7 @@ angular.module('ngmReportHub')
 											printUrl: $location.absUrl(),
 											downloadUrl: ngmAuth.LOCATION + '/report/',
 											user: $scope.dashboard.user,
-											pageLoadTime: 9600,
+											pageLoadTime: $scope.dashboard.pageLoadTime,
 											viewportWidth: 1400
 										}
 									},
