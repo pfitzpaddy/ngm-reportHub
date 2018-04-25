@@ -196,7 +196,7 @@ angular.module('ngmReportHub')
 						if ( $scope.dashboard.adminRpcode !== 'hq' ) {
 
 							// page load time
-							$scope.dashboard.pageLoadTime = 9200;
+							$scope.dashboard.pageLoadTime = $scope.dashboard.admin0pcode === 'all' ? 9600 : 6200;
 
 							var menu = {
 								'afro': {
