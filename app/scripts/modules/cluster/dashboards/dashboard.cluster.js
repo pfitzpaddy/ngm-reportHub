@@ -43,7 +43,7 @@ angular.module('ngmReportHub')
 				user: ngmUser.get(),
 
 				// when 'hq'
-				pageLoadTime: 16900,
+				pageLoadTime: 18900,
 
 				// report start
 				startDate: moment( $route.current.params.start ) .format( 'YYYY-MM-DD' ),
