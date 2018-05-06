@@ -4,18 +4,17 @@
 >
 > Developer documentation for ReportHub modules
 
-## Notes
+#### Notes
 - The following opinionated [AngularJs Style Guide](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md) is recommended for coding patterns
 
-
-### Objective
+#### Objective
 - Build kobo reporting tool as module in ReportHub
 
 
 ## Solution
 1. Create Kobo form [i.e. example](https://www.dropbox.com/s/7g0wlmxmflov626/monitoring_and_supportive_supervision.xlsx?dl=1)
 
-### Notes
+#### Notes
 - The kobo form will need to use the `theme-grid pages` style defined in the settings tab.
 - See the [xlsForm Standards](http://xlsform.org/) for more details.
 
@@ -23,7 +22,7 @@
 ## ReportHub db Connection
 - In order to create a new database, ReportEngine requires a database connection string (once ReportHub is installed).
 
-### Steps
+#### Steps
 1. Update `/home/ubuntu/nginx/www/ngm-reportEngine/config/local.js`. [i.e. example](https://github.com/pfitzpaddy/ngm-reportShell/blob/master/ngm-reporthub.shell.build.sh#L237)
 2. Include the following config object in addition to the existing database connections to establish a new Mongo database with sailsjs
 ```
@@ -39,29 +38,28 @@
 ```
 3. Make `iMMAP/Reporting` folder structure in [models](https://github.com/pfitzpaddy/ngm-reportEngine/tree/master/api/models)
 
-### Notes
+#### Notes
 - Inside models are the schema (as json files) that will be created in the `ngmiMMAP` database as Mongo Collections when you use the [Waterline ORM](http://waterlinejs.org/) syntax to `Create`,  `Read`, `Update`, `Delete` (CRUD) in controllers.
 
 
 ## Kobo Processing APIs
 - The monthly report processing script will be an API that fetches Kobo API data for the Monthly Report form and processes it into standardised data tables.
 
-### Steps
+#### Steps
 1. Create branch in ngm-reportEngine folder `git checkout -b feature-monthly-reporting`
 2. Create project folder `iMMAP/Reporting` in [controllers](https://github.com/pfitzpaddy/ngm-reportEngine/tree/master/api/controllers)
 3. Processing script in `iMMAP/Reporting` [sample](https://github.com/pfitzpaddy/ngm-reportEngine/blob/master/api/controllers/Country/Eth/Ctc/CtcController.js)
 4. Routes to access the script to make it RestFULL. [i.e. routes](https://github.com/pfitzpaddy/ngm-reportEngine/blob/master/config/routes.js)
 5. Resulting tables required to store the processed data need to be added as model. [i.e. models](https://github.com/pfitzpaddy/ngm-reportEngine/tree/master/api/models/Ctc)
 
-### Notes
+#### Notes
 - You will need to configure KOBO connection params in `/home/ubuntu/nginx/www/ngm-reportEngine/config/kobo.js`.
-
 
 
 ## ReportHub Dashboard APIs for Kobo
 - Create indicators and stats from the database available as RestFULL APIs.
 
-### Steps
+#### Steps
 1.  Processing script in `iMMAP/Reporting` [i.e. sample](https://github.com/pfitzpaddy/ngm-reportEngine/blob/master/api/controllers/Country/Eth/Ctc/CtcDashboardController.js)
 2. Routes to access the script to make it RestFULL. [i.e. routes](https://github.com/pfitzpaddy/ngm-reportEngine/blob/master/config/routes.js)
 
@@ -69,7 +67,7 @@
 ## ReportHub Dashboard Config
 - The dashboard page will require a route that will load a dashboard configuration
 
-### Steps
+#### Steps
 
 **App**
 1. Create `immap` folder in [modules](https://github.com/pfitzpaddy/ngm-reportHub/tree/master/app/scripts/modules)
@@ -105,11 +103,11 @@
 <script src="scripts/modules/immap/reporting/dashboards/dashboard.immap.reporting.monthly.js"></script>
 ```
 
-### On completion
+#### On completion
 12. Add all new files into the repository at ngm-reportHub `git stage -A`
 13. Commit all changes in ngm-reportHub `git commit -m "Feature: New dashboard page for monthly reporting" -a`
 
-### Notes
+#### Notes
 - Test the URL before making changes to the configuration
 - if you get lost just copy the other examples in [modules](https://github.com/pfitzpaddy/ngm-reportHub/tree/master/app/scripts/modules)
 
@@ -117,7 +115,7 @@
 ## Team Landing Page
 - Make a landing splash page in HTML that will load for the iMMAP team members.
 
-### Steps
+#### Steps
 1. Create branch in ngm-reportHub `git checkout -b feature-monthly-reporting`
 
 **Page View**
@@ -154,6 +152,6 @@
 <script src="scripts/modules/immap/pages/immap.landing.js"></script>
 ```
 
-### Notes
+#### Notes
 - Test the URL before making changes to the configuration
 - If you get lost just copy the other examples in [modules](https://github.com/pfitzpaddy/ngm-reportHub/tree/master/app/scripts/modules)
