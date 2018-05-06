@@ -4,15 +4,15 @@
 >
 > Developer documentation for ReportHub modules
 
-# Notes
+## Notes
 - The following opinionated [AngularJs Style Guide](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md) is recommended for coding patterns
 
 
-# Objective
+### Objective
 - Build kobo reporting tool as module in ReportHub
 
 
-# Solution
+## Solution
 - [ ] Create Kobo form [i.e. example](https://www.dropbox.com/s/7g0wlmxmflov626/monitoring_and_supportive_supervision.xlsx?dl=1)
 
 ### Notes
@@ -20,7 +20,7 @@
 - See the [xlsForm Standards](http://xlsform.org/) for more details.
 
 
-# ReportHub db Connection
+## ReportHub db Connection
 - In order to create a new database, ReportEngine requires a database connection string (once ReportHub is installed).
 
 ### Steps
@@ -43,7 +43,7 @@
 - Inside models are the schema (as json files) that will be created in the `ngmiMMAP` database as Mongo Collections when you use the [Waterline ORM](http://waterlinejs.org/) syntax to `Create`,  `Read`, `Update`, `Delete` (CRUD) in controllers.
 
 
-# Kobo Processing APIs
+## Kobo Processing APIs
 - The monthly report processing script will be an API that fetches Kobo API data for the Monthly Report form and processes it into standardised data tables.
 
 ### Steps
@@ -58,7 +58,7 @@
 
 
 
-# ReportHub Dashboard APIs for Kobo
+## ReportHub Dashboard APIs for Kobo
 - Create indicators and stats from the database available as RestFULL APIs.
 
 ### Steps
@@ -66,7 +66,7 @@
 - [ ] Routes to access the script to make it RestFULL. [i.e. routes](https://github.com/pfitzpaddy/ngm-reportEngine/blob/master/config/routes.js)
 
 
-# ReportHub Dashboard Config
+## ReportHub Dashboard Config
 - The dashboard page will require a route that will load a dashboard configuration
 
 ### Steps
@@ -114,7 +114,7 @@
 - if you get lost just copy the other examples in [modules](https://github.com/pfitzpaddy/ngm-reportHub/tree/master/app/scripts/modules)
 
 
-# Team Landing Page
+## Team Landing Page
 - Make a landing splash page in HTML that will load for the iMMAP team members.
 
 ### Steps
