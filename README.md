@@ -88,6 +88,7 @@
 5. Add `ngmiMMAP` into the main [app.js file](https://github.com/pfitzpaddy/ngm-reportHub/blob/master/app/scripts/app/app.js)
 
 **Dashboard**
+
 6. Create `reporting` folder in `modules/immap` folder
 7. Create `dashboards` folder in above `modules/immap/reporting` folder
 8. Create `dashboard.immap.reporting.monthly.js` file in above `modules/immap/reporting/dashboards` folder
@@ -95,6 +96,7 @@
 10. Create dashboard configuration [i.e. sample](https://github.com/pfitzpaddy/ngm-reportHub/blob/master/app/scripts/modules/snapshots/dashboards/cdc/dashboard.2018.01.js)
 
 **Index**
+
 11. Add all scripts into `app/index.html`
 ```
 <!-- iMMAP -->
@@ -119,17 +121,20 @@
 1. Create branch in ngm-reportHub `git checkout -b feature-monthly-reporting`
 
 **Page View**
+
 2. In `modules/immap` folder create `views` folder
 3. in `modules/immap/views` folder create `immap.landing.html`
 4. Create HTML template with cards as `Monthly Report`, `Training Report` and `Dashboards` [i.e. sample](https://github.com/pfitzpaddy/ngm-reportHub/blob/master/app/scripts/modules/country/ethiopia/views/ethiopia.assessments.html)
 
 **Page Controller**
+
 5. `modules/immap` folder create `pages` folder
 6. `modules/immap/pages` folder create `immap.landing.js` file [i.e. sample](https://github.com/pfitzpaddy/ngm-reportHub/blob/5c540f3e7a964da4dc50e57bdea9e2c741353204/app/scripts/modules/country/ethiopia/assessments/ethiopia.assessments.js)
 7. Update controller name to `iMMAPLandingCtrl`
 8. in controller update line [53](https://github.com/pfitzpaddy/ngm-reportHub/blob/5c540f3e7a964da4dc50e57bdea9e2c741353204/app/scripts/modules/country/ethiopia/assessments/ethiopia.assessments.js#L53) to the HTML Page View above `/scripts/modules/reporting/immap/views/immap.landing.html`
 
 **Page Route**
+
 9. Create route in `modules/immap/app.js` as
 ```
 .when( '/immap', {
