@@ -153,8 +153,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var template;
           if ( config.project.cluster_id === 'eiewg' ) {
             template = 'target-locations/locations-eiewg.html';
-          // } else if ( config.project.admin0pcode === 'ET' )  {
-          //   template = 'target-locations/locations-ET.html';
+          } else if ( config.project.admin0pcode === 'ET' )  {
+            template = 'target-locations/locations-ET.html';
           } else {
             template = 'target-locations/locations.html';
           }
@@ -770,8 +770,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             l.facility_name = null;
             l.facility_lat = null;
 						l.facility_lng = null;
-						l.facility_type_id = null;
-						l.facility_type_name = null;
+            // l.new_facility_id = null;
+            // l.new_facility_name = null;
+						// l.facility_type_id = null;
+						// l.facility_type_name = null;
             $scope.inserted = angular.merge( $scope.inserted, l );
           }
          $scope.project.definition.target_locations.push( $scope.inserted );
@@ -879,31 +881,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         showFacilityType: function($index, $data, location){
           var selected = [];
               location.facility_type_id = $data;
-              $scope.project.lists.facility_type_filtered = [];
-
-          // if admin3pcode
-          if( $scope.project.lists.facilities[$index] && location.admin3pcode && location.new_facility_id === 'no' ){
-
-            // filter based on locations within the selected admin3
-            angular.forEach( $scope.project.lists.facility_type, function( ft, i ) {
-              var match = false;
-              angular.forEach( $scope.project.lists.facilities[$index][location.admin3pcode], function( l, i ) {
-                if( l.facility_name.indexOf( ft.facility_type_name ) >= 0 ){
-                  match = true;
-                }
-              });
-              if ( match ) {
-                $scope.project.lists.facility_type_filtered.push(ft);
-              }
-            });
-          } else {
-            $scope.project.lists.facility_type_filtered = $scope.project.lists.facility_type;
-          }
 
           // filter by facility_type
           if(location.facility_type_id) {
-            selected = $filter('filter')( $scope.project.lists.facility_type_filtered, { facility_type_id: location.facility_type_id }, true );
+            selected = $filter('filter')( $scope.project.lists.facility_type, { facility_type_id: location.facility_type_id }, true );
             if ( selected.length ) {
+              location.facility_type_id = selected[0].facility_type_id;
               location.facility_type_name = selected[0].facility_type_name;
             }
           }
@@ -925,6 +908,47 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 
         /** HELATH ***********/
+
+        changeFacilityType: function( $index, location ) {
+          
+          $timeout(function(){
+
+            // facility type
+            if ( location.facility_type_id === 'idp_camp' || 
+                  location.facility_type_id === 'health_center' || 
+                  location.facility_type_id === 'referral_hospital' ||
+                  location.facility_type_id === 'general_hospital' ||
+                  location.facility_type_id === 'primary_hospital' ) {
+              
+              // facilities?
+              var facility_list = $filter('filter')( $scope.project.lists.facilities[$index][location.admin3pcode], { facility_type_id: location.facility_type_id }, true );
+              if ( !facility_list.length ) {
+                Materialize.toast( 'No ' + location.facility_type_name + ' for ' + location.admin1name +', ' + location.admin2name +', ' + location.admin3name + '!' , 6000, 'success' );
+              }
+
+            } else {
+              location.new_facility_id = 'no';
+              location.new_facility_name = 'No';
+            }
+
+          }, 400 );
+        },
+
+        showNewLabel: function(){
+          var display = false;
+          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
+
+            if ( d.new_facility_id === 'yes' 
+                  && (d.facility_type_id === 'idp_camp' || 
+                  d.facility_type_id === 'health_center' || 
+                  d.facility_type_id === 'referral_hospital' ||
+                  d.facility_type_id === 'general_hospital' ||
+                  d.facility_type_id === 'primary_hospital' ) ) {
+              display = true;
+            }
+          });
+          return display;
+        },
 
         showNewFacilityLabel: function(){
           var display = false;
@@ -1038,42 +1062,49 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           if (!target_location.id) {
             target_location.facility_name = null;
             target_location.facility_id = null;
-            target_location.facility_hub_id = null;
-            target_location.facility_hub_name = null;
           }
 
           // list storage
           if (!$scope.project.lists.facilities[$index]) {
             $scope.project.lists.facilities[$index] = [];
-            $scope.project.lists.hub_facilities[$index] = [];
           }
           // list storage by pcode2
           if (!$scope.project.lists.facilities[$index][target_location.admin3pcode]) {
             $scope.project.lists.facilities[$index][target_location.admin3pcode] = [];
-            $scope.project.lists.hub_facilities[$index][target_location.admin3pcode] = [];
           }
 
           // set lists
             // timeout will enable admin2 to be selected (if user changes admin2 retrospectively)
           $timeout(function(){
-            if ( target_location.admin1pcode && target_location.admin2pcode  && target_location.admin3pcode ) {
+            if ( target_location.admin1pcode 
+                  && target_location.admin2pcode  
+                  && target_location.admin3pcode ) {
+
               // if already existing
-              if( $scope.project.lists.facilities[$index][target_location.admin3pcode] && $scope.project.lists.facilities[$index][target_location.admin3pcode].length ) {
+              if( $scope.project.lists.facilities[$index][target_location.admin3pcode] 
+                    && $scope.project.lists.facilities[$index][target_location.admin3pcode].length ) {
                 // do nothing!
               } else {
                 // else fetch!
-                if( !target_location.id ){
+                if( !target_location.id && target_location.admin3name !== 'Other' ){
                   Materialize.toast( 'Loading Facilities!' , 6000, 'note' );
                 }
                 $http({
-                  method: 'GET', url: ngmAuth.LOCATION + '/api/list/getAdmin3Facilities?cluster_id=' + $scope.project.definition.cluster_id + '&admin0pcode=' + target_location.admin0pcode + '&admin1pcode=' + target_location.admin1pcode + '&admin2pcode=' + target_location.admin2pcode + '&admin3pcode=' + target_location.admin3pcode
+                  method: 'GET', url: ngmAuth.LOCATION + '/api/list/getAdmin3Facilities?admin0pcode=' + target_location.admin0pcode
+                                                        + '&admin1pcode=' + target_location.admin1pcode 
+                                                        + '&admin2pcode=' + target_location.admin2pcode 
+                                                        + '&admin3pcode=' + target_location.admin3pcode
                 }).success( function( result ) {
-                  if ( target_location.admin1pcode && target_location.admin2pcode && target_location.admin3pcode && !result.length ) {
-                    Materialize.toast( 'No Facilities for ' + target_location.admin1name +', ' + target_location.admin2name +', ' + target_location.admin3name + '!' , 6000, 'success' );
+                    if ( target_location.admin1pcode 
+                                && target_location.admin2pcode 
+                                && target_location.admin3pcode 
+                                && target_location.new_facility_id === 'yes' 
+                                && !result.length ) {
+                    Materialize.toast( 'No ' + target_location.facility_type_name + ' for ' + target_location.admin1name +', ' + target_location.admin2name +', ' + target_location.admin3name + '!' , 6000, 'success' );
+
                   }
                   // set
                   $scope.project.lists.facilities[$index][target_location.admin3pcode] = result;
-                  $scope.project.lists.hub_facilities[$index][target_location.admin3pcode] = result;
                 }).error( function( err ) {
                   Materialize.toast( 'Facilities List Error!', 6000, 'error' );
                 });
