@@ -176,10 +176,9 @@ angular.module( 'ngmReportHub' )
             elderly_women: 0
           }
         } else {
-
           // get indicatorsList
           var indicators = localStorage.getObject( 'lists' ).indicatorsList;
-
+          angular.merge( indicators, { training_total_trainees: 0 } );
         }
 
         // reutrn

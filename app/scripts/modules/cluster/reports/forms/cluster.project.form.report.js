@@ -71,7 +71,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         report: config.report,
 
         // default indicators ( 2016 )
-        indicators: config.report.report_year === 2016 ? ngmClusterHelper.getIndicators() : ngmClusterHelper.getIndicators( true ),
+        indicators: config.report.report_year === 2016 ? ngmClusterHelper.getIndicators( true ) : ngmClusterHelper.getIndicators(),
 
         // keys to ignore when summing beneficiaries in template ( 2016 )
         skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ],
@@ -235,6 +235,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             trainee_men: 0,
             trainee_women: 0
           }
+
           // add to training participants
           if ( !$scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_participants ) {
             $scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_participants = [];
@@ -243,15 +244,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         },
 
         // sum participants
-        sumParticipants: function( $grandParent, $parent, forparticipant ) {
-          // var sum = 0;
-          // angular.forEach( $scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_participants, function( t ){
-          //   sum += t.trainee_men + t.trainee_women;
-          // });
+        sumParticipants: function( $grandParent, $parent, participant ) {
+          // sum 
           $timeout(function(){
-            console.log( participant.trainee_men + participant.trainee_women );
             $scope.project.report.locations[ $grandParent ].trainings[ $parent ].training_total_trainees = participant.trainee_men + participant.trainee_women;
-          }, 10 )
+          }, 10 );
         },
 
         // add beneficiary
