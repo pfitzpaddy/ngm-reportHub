@@ -913,6 +913,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           
           $timeout(function(){
 
+            // reset
+            if (location.new_facility_id !== 'yes') {
+              location.new_facility_id = null;
+              location.new_facility_name = null;              
+            }
+
             // facility type
             if ( location.facility_type_id === 'idp_camp' || 
                   location.facility_type_id === 'health_center' || 
@@ -921,24 +927,28 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                   location.facility_type_id === 'primary_hospital' ) {
               
               // facilities?
-              var facility_list = $filter('filter')( $scope.project.lists.facilities[$index][location.admin3pcode], { facility_type_id: location.facility_type_id }, true );
-              if ( !facility_list.length ) {
-                Materialize.toast( 'No ' + location.facility_type_name + ' for ' + location.admin1name +', ' + location.admin2name +', ' + location.admin3name + '!' , 6000, 'success' );
+              if ( $scope.project.lists.facilities.length ) {
+                var facility_list = $filter('filter')( $scope.project.lists.facilities[$index][location.admin3pcode], { facility_type_id: location.facility_type_id }, true );
+                if ( !facility_list.length ) {
+                  Materialize.toast( 'No ' + location.facility_type_name + ' for ' + location.admin1name +', ' + location.admin2name +', ' + location.admin3name + '!' , 6000, 'success' );
+                }
+
               }
 
             } else {
               location.new_facility_id = 'no';
               location.new_facility_name = 'No';
+
             }
 
           }, 400 );
         },
 
-        showNewLabel: function(){
+        showExistingLabel: function(){
           var display = false;
           angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
 
-            if ( d.new_facility_id === 'yes' 
+            if ( d.new_facility_id !== 'no'
                   && (d.facility_type_id === 'idp_camp' || 
                   d.facility_type_id === 'health_center' || 
                   d.facility_type_id === 'referral_hospital' ||
@@ -1095,16 +1105,15 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                                                         + '&admin2pcode=' + target_location.admin2pcode 
                                                         + '&admin3pcode=' + target_location.admin3pcode
                 }).success( function( result ) {
-                    if ( target_location.admin1pcode 
-                                && target_location.admin2pcode 
-                                && target_location.admin3pcode 
-                                && target_location.new_facility_id === 'yes' 
-                                && !result.length ) {
+                  // facilities
+                  var facility_list = $filter('filter')( result, { facility_type_id: target_location.facility_type_id }, true );
+                  if ( !facility_list.length ) {
                     Materialize.toast( 'No ' + target_location.facility_type_name + ' for ' + target_location.admin1name +', ' + target_location.admin2name +', ' + target_location.admin3name + '!' , 6000, 'success' );
-
                   }
+                  
                   // set
                   $scope.project.lists.facilities[$index][target_location.admin3pcode] = result;
+
                 }).error( function( err ) {
                   Materialize.toast( 'Facilities List Error!', 6000, 'error' );
                 });

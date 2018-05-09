@@ -28,7 +28,7 @@
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
 							      <td ng-if="project.lists.admin3.length">{{ project.lists.admin3[0].admin3type_name }}</td>
 										<td>Location Type</td>
-							      <td>Existing Camp / Facility ?</td>
+										<td ng-show="project.showExistingLabel()">From Site List?</td>
 							      <td>Site Name *</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
@@ -68,7 +68,7 @@
 							        </span>
 							      </td>
 
-							      <td>
+							      <td ng-show="project.showExistingLabel()">
 							        <span e-placeholder="Select..." editable-select="location.new_facility_id" e-name="new_facility_id" e-form="locationform" e-ng-options="item.new_facility_id as item.new_facility_name for item in project.lists.new_facility" e-ng-change="project.yesNoChange(location)"  
 							        		e-ng-disabled="location.facility_type_id !== 'idp_camp'
 							      											&& location.facility_type_id !== 'health_center'
