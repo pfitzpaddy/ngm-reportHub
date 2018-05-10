@@ -876,12 +876,19 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // new facility?
-        showYesNo: function($data, location){
+        showYesNo: function($index, $data, location){
           var selected = [];
           location.new_facility_id = $data;
           if(location.new_facility_id) {
             selected = $filter('filter')( $scope.project.lists.new_facility, { new_facility_id: location.new_facility_id }, true );
             location.new_facility_name = selected[0].new_facility_name;
+          }
+          if ( $scope.project.lists.facilities
+                && $scope.project.lists.facilities[$index]
+                && $scope.project.lists.facilities[$index][location.admin3pcode] ) {
+            var filtered = [];
+            filtered = $filter('filter')( $scope.project.lists.facilities[$index][location.admin3pcode], { facility_type_id: location.facility_type_id }, true );
+            $scope.project.showYesNoDisabled = !filtered.length;
           }
           return selected.length ? selected[0].new_facility_name : 'No Selection!';
         },
@@ -925,64 +932,62 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         /** HELATH ***********/
 
-        changeFacilityType: function( $index, location ) {
+        changeFacilityType: function( $index, target_location ) {
           
           $timeout(function(){
-
             // reset
-            if (location.new_facility_id !== 'yes') {
-              location.new_facility_id = null;
-              location.new_facility_name = null;              
-            }
+            // if (target_location.new_facility_id !== 'yes') {
+              target_location.new_facility_id = 'yes';
+              target_location.new_facility_name = 'Yes';
+            // }
 
             // facility type
-            if ( location.facility_type_id === 'idp_site' || 
-                  location.facility_type_id === 'hospital' || 
-                  location.facility_type_id === 'health_center' || 
-                  location.facility_type_id === 'health_post') {
+            if ( target_location.facility_type_id === 'idp_site' || 
+                  target_location.facility_type_id === 'hospital' || 
+                  target_location.facility_type_id === 'health_center' || 
+                  target_location.facility_type_id === 'health_post') {
               
               // facilities?
               if ( $scope.project.lists.facilities.length 
-                    // && location.facility_type_id
-                    && location.admin1name 
-                    && location.admin2name 
-                    && location.admin3name ) {
+                    // && target_location.facility_type_id
+                    && target_location.admin1name 
+                    && target_location.admin2name 
+                    && target_location.admin3name ) {
                 // filtered list
                 var facility_list = [];
-                facility_list = $filter('filter')( $scope.project.lists.facilities[$index][location.admin3pcode], { facility_type_id: location.facility_type_id } );
+                facility_list = $filter('filter')( $scope.project.lists.facilities[$index][target_location.admin3pcode], { facility_type_id: target_location.facility_type_id } );
                 if ( !facility_list.length ) {
                   // open free text
-                  location.new_facility_id = 'no';
-                  location.new_facility_name = 'No';
+                  target_location.new_facility_id = 'no';
+                  target_location.new_facility_name = 'No';
                   // message
-                  Materialize.toast( 'No ' + location.facility_type_name + 's for ' + location.admin1name +', ' + location.admin2name +', ' + location.admin3name + '!' , 6000, 'success' );
+                  Materialize.toast( 'No ' + target_location.facility_type_name + 's for ' + target_location.admin1name +', ' + target_location.admin2name +', ' + target_location.admin3name + '!' , 6000, 'success' );
 
                 } else {
                   // open drop down
-                  location.new_facility_id = 'yes';
-                  location.new_facility_name = 'Yes';
+                  target_location.new_facility_id = 'yes';
+                  target_location.new_facility_name = 'Yes';
                 }
 
               }
 
             } else {
-              location.new_facility_id = 'no';
-              location.new_facility_name = 'No';
+              target_location.new_facility_id = 'no';
+              target_location.new_facility_name = 'No';
 
             }
 
-          }, 100 );
+          }, 10 );
         },
 
         showExistingLabel: function(){
           var display = false;
           angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
 
-            if ( d.new_facility_id !== 'no'
-                  && (d.facility_type_id === 'idp_site' || 
+            if ( d.facility_type_id === 'idp_site' || 
                   d.facility_type_id === 'hospital' || 
                   d.facility_type_id === 'health_center' ||
-                  d.facility_type_id === 'health_post' ) ) {
+                  d.facility_type_id === 'health_post' ) {
               display = true;
             }
           });
@@ -1139,15 +1144,15 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                   facility_list = $filter('filter')( result, { facility_type_id: target_location.facility_type_id }, true );
                   if ( !facility_list.length && target_location.facility_type_id ) {
                     // open free text
-                    location.new_facility_id = 'no';
-                    location.new_facility_name = 'No';
+                    target_location.new_facility_id = 'no';
+                    target_location.new_facility_name = 'No';
                     // send message
                     Materialize.toast( 'No ' + target_location.facility_type_name + 's for ' + target_location.admin1name +', ' + target_location.admin2name +', ' + target_location.admin3name + '!' , 6000, 'success' );
                   
                   } else {
                     // open drop down
-                    location.new_facility_id = 'yes';
-                    location.new_facility_name = 'Yes';
+                    target_location.new_facility_id = 'yes';
+                    target_location.new_facility_name = 'Yes';
 
                   }
                   
