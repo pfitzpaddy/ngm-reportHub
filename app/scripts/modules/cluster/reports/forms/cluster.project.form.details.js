@@ -842,7 +842,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           // place 'Other' to end of list
           if ( other_i && other ) {
-            delete $scope.project.lists.admin3Select[$index][other_i];
+            $scope.project.lists.admin3Select[$index].splice(other_i, 1);
             $scope.project.lists.admin3Select[$index].push(other);
           }
 
@@ -943,7 +943,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               
               // facilities?
               if ( $scope.project.lists.facilities.length 
-                    && location.facility_type_name 
+                    // && location.facility_type_id
                     && location.admin1name 
                     && location.admin2name 
                     && location.admin3name ) {
@@ -971,7 +971,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
             }
 
-          }, 400 );
+          }, 100 );
         },
 
         showExistingLabel: function(){
@@ -1159,7 +1159,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 });
               }
             }
-          }, 400 );
+          }, 10 );
         },
 
 
@@ -1279,7 +1279,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 });
               }
             }
-          }, 400 );
+          }, 10 );
         },
 
         /** EiEWG END ************/
