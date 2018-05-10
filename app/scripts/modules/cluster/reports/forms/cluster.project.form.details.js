@@ -826,9 +826,25 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // admin3
         showAdmin3: function($index, $data, location){
 
+          var other_i, other;
+
           // filter admin3
           $scope.project.lists.admin3Select[$index] =
                   $filter('filter')( $scope.project.lists.admin3, { admin1pcode: $scope.project.definition.target_locations[$index].admin1pcode, admin2pcode: $scope.project.definition.target_locations[$index].admin2pcode }, true);
+
+          // place other last on list
+          angular.forEach( $scope.project.lists.admin3Select[$index], function( d, i ) {
+            if ( d.admin3name === 'Other' ) {
+              other_i = i;
+              other = d;
+            }
+          });
+
+          // place 'Other' to end of list
+          if ( other_i && other ) {
+            delete $scope.project.lists.admin3Select[$index][other_i];
+            $scope.project.lists.admin3Select[$index].push(other);
+          }
 
           var selected = [];
           location.admin3name = $data;
