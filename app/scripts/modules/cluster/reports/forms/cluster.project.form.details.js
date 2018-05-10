@@ -913,6 +913,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           
           $timeout(function(){
 
+            // filtered list
+            var facility_list = [];
+
             // reset
             if (location.new_facility_id !== 'yes') {
               location.new_facility_id = null;
@@ -931,13 +934,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                     && location.admin1name 
                     && location.admin2name 
                     && location.admin3name ) {
-                var facility_list = $filter('filter')( $scope.project.lists.facilities[$index][location.admin3pcode], { facility_type_id: location.facility_type_id }, true );
+                facility_list = $filter('filter')( $scope.project.lists.facilities[$index][location.admin3pcode], { facility_type_id: location.facility_type_id }, true );
+                facility_list = facility_list ? facility_list : [];
                 if ( !facility_list.length ) {
                   // open free text
                   location.new_facility_id = 'no';
                   location.new_facility_name = 'No';
                   // message
-                  Materialize.toast( 'No ' + location.facility_type_name + ' for ' + location.admin1name +', ' + location.admin2name +', ' + location.admin3name + '!' , 6000, 'success' );
+                  Materialize.toast( 'No ' + location.facility_type_name + 's for ' + location.admin1name +', ' + location.admin2name +', ' + location.admin3name + '!' , 6000, 'success' );
 
                 }
 
@@ -1095,7 +1099,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $timeout(function(){
             if ( target_location.admin1pcode 
                   && target_location.admin2pcode  
-                  && target_location.admin3pcode ) {
+                  && target_location.admin3pcode
+                  && target_location.facility_type_id ) {
 
               // if already existing
               if( $scope.project.lists.facilities[$index][target_location.admin3pcode] 
@@ -1103,7 +1108,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 // do nothing!
               } else {
                 // else fetch!
-                if( !target_location.id && target_location.admin3name !== 'Other' ){
+                if( !target_location.id ){
                   Materialize.toast( 'Loading Facilities!' , 6000, 'note' );
                 }
                 $http({
@@ -1113,13 +1118,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                                                         + '&admin3pcode=' + target_location.admin3pcode
                 }).success( function( result ) {
                   // facilities
-                  var facility_list = $filter('filter')( result, { facility_type_id: target_location.facility_type_id }, true );
+                  var facility_list = [];
+                  facility_list = $filter('filter')( result, { facility_type_id: target_location.facility_type_id }, true );
                   if ( !facility_list.length ) {
                     // open free text
                     location.new_facility_id = 'no';
                     location.new_facility_name = 'No';
                     // send message
-                    Materialize.toast( 'No ' + target_location.facility_type_name + ' for ' + target_location.admin1name +', ' + target_location.admin2name +', ' + target_location.admin3name + '!' , 6000, 'success' );
+                    Materialize.toast( 'No ' + target_location.facility_type_name + 's for ' + target_location.admin1name +', ' + target_location.admin2name +', ' + target_location.admin3name + '!' , 6000, 'success' );
                   }
                   
                   // set
