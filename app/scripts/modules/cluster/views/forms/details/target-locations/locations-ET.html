@@ -70,7 +70,7 @@
 
 							      <td ng-show="project.showExistingLabel()">
 							        <span e-placeholder="Select..." editable-select="location.new_facility_id" e-name="new_facility_id" e-form="locationform" e-ng-options="item.new_facility_id as item.new_facility_name for item in project.lists.new_facility" e-ng-change="project.yesNoChange(location)"  
-							        		e-ng-disabled="location.facility_type_id !== 'idp_camp'
+							        		e-ng-disabled="location.facility_type_id !== 'idp_site'
 							      											&& location.facility_type_id !== 'hospital'
 							      											&& location.facility_type_id !== 'health_center'
 							      											&& location.facility_type_id !== 'health_post'" e-required>

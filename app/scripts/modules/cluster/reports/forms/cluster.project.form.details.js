@@ -923,7 +923,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             }
 
             // facility type
-            if ( location.facility_type_id === 'idp_camp' || 
+            if ( location.facility_type_id === 'idp_site' || 
                   location.facility_type_id === 'hospital' || 
                   location.facility_type_id === 'health_center' || 
                   location.facility_type_id === 'health_post') {
@@ -961,7 +961,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
 
             if ( d.new_facility_id !== 'no'
-                  && (d.facility_type_id === 'idp_camp' || 
+                  && (d.facility_type_id === 'idp_site' || 
                   d.facility_type_id === 'hospital' || 
                   d.facility_type_id === 'health_center' ||
                   d.facility_type_id === 'health_post' ) ) {

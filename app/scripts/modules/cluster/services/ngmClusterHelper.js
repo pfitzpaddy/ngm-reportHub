@@ -1650,11 +1650,11 @@ angular.module( 'ngmReportHub' )
             facility_type_id: 'multiple_facilities',
             facility_type_name: 'Multiple Facilities'
           },{
-            facility_type_id: 'refugee_camp',
-            facility_type_name: 'Refugee Camp'
+            facility_type_id: 'refugee_site',
+            facility_type_name: 'Refugee Site'
           },{
-            facility_type_id: 'idp_camp',
-            facility_type_name: 'IDP Camp'
+            facility_type_id: 'idp_site',
+            facility_type_name: 'IDP Site'
           },{
             facility_type_id: 'child_friendly_sapce',
             facility_type_name: 'Child Friendly Sapce'
