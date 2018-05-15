@@ -1573,203 +1573,192 @@ angular.module( 'ngmReportHub' )
 
 			},
 
-      // get facility implementation
-      getFacilityImplementation: function( cluster_id ){
-        var facility_implementation = [];
+      // get site implementation
+      getSiteImplementation: function( cluster_id ){
+        var site_implementation = [];
         if ( cluster_id === 'eiewg'  ) {
-          facility_implementation = [{
-            facility_implementation_id: 'formal',
-            facility_implementation_name: 'Formal'
+          site_implementation = [{
+            site_implementation_id: 'formal',
+            site_implementation_name: 'Formal'
           },{
-            facility_implementation_id: 'informal',
-            facility_implementation_name: 'Informal'
+            site_implementation_id: 'informal',
+            site_implementation_name: 'Informal'
           }]
         } else {
-          facility_implementation = [{
-            facility_implementation_id: 'standalone',
-            facility_implementation_name: 'Standalone Facility'
+          site_implementation = [{
+            site_implementation_id: 'multiple_services',
+            site_implementation_name: 'Multiple Services'
           },{
-            facility_implementation_id: 'embedded',
-            facility_implementation_name: 'Embedded Facility'
+            site_implementation_id: 'community_based',
+            site_implementation_name: 'Community Based'
           },{
-            facility_implementation_id: 'community',
-            facility_implementation_name: 'Community Based'
+            site_implementation_id: 'child_friendly_sapce',
+            site_implementation_name: 'Child Friendly Sapce'
           },{
-            facility_implementation_id: 'multiple',
-            facility_implementation_name: 'Multiple Locations'
+            site_implementation_id: 'women_friendly_sapce',
+            site_implementation_name: 'Women Friendly Sapce'
+          },{
+            site_implementation_id: 'feeding_center',
+            site_implementation_name: 'Feeding Center'
+          },{
+            site_implementation_id: 'stabalization_center',
+            site_implementation_name: 'Stabalization Center'
+          },{
+            site_implementation_id: 'phc',
+            site_implementation_name: 'PHC'
+          },{
+            site_implementation_id: 'mhnt',
+            site_implementation_name: 'MHNT'
+          },{
+            site_implementation_id: 'mpt',
+            site_implementation_name: 'MPT'
+          },{
+            site_implementation_id: 'ctc',
+            site_implementation_name: 'CTC'
+          },{
+            site_implementation_id: 'ctu',
+            site_implementation_name: 'CTU'
+          },{
+            site_implementation_id: 'orp',
+            site_implementation_name: 'ORP'
           }]
         }
-        return facility_implementation;
+        return site_implementation;
       },
 
-			// health facility types
-			getFacilityTypes: function( cluster_id, admin0pcode ) {
+			// health site types
+			getSiteTypes: function( cluster_id, admin0pcode ) {
 
-        // facility_type
-        var facility_types = [];
+        // site_type
+        var site_types = [{
+            site_type_id: 'multiple_sites',
+            site_type_name: 'Multiple Sites'
+          },{
+            site_type_id: 'settlement',
+            site_type_name: 'Settlement'
+          },{
+            site_type_id: 'community_center',
+            site_type_name: 'Community Center'
+          },{
+            site_type_id: 'schools',
+            site_type_name: 'School'
+          },{
+            site_type_id: 'hospital',
+            site_type_name: 'Hospital'
+          },{
+            site_type_id: 'health_center',
+            site_type_name: 'Health Center'
+          },{
+            site_type_id: 'health_post',
+            site_type_name: 'Health Post'
+          },{
+            site_type_id: 'refugee_site',
+            site_type_name: 'Refugee Site'
+          },{
+            site_type_id: 'idp_site',
+            site_type_name: 'IDP Site'            
+          }];
 
         // select what you wish
         if ( cluster_id === 'eiewg' ) {
-          facility_types = [{
-            facility_implementation_id: 'formal',
-            facility_type_id: 'higher',
-            facility_type_name: 'Higher'
+          site_types = [{
+            site_implementation_id: 'formal',
+            site_type_id: 'higher',
+            site_type_name: 'Higher'
           },{
-            facility_implementation_id: 'formal',
-            facility_type_id: 'secondary',
-            facility_type_name: 'Secondary'
+            site_implementation_id: 'formal',
+            site_type_id: 'secondary',
+            site_type_name: 'Secondary'
           },{
-            facility_implementation_id: 'formal',
-            facility_type_id: 'primary',
-            facility_type_name: 'Primary'
+            site_implementation_id: 'formal',
+            site_type_id: 'primary',
+            site_type_name: 'Primary'
           },{
-            facility_implementation_id: 'formal',
-            facility_type_id: 'ECD',
-            facility_type_name: 'ECD'
+            site_implementation_id: 'formal',
+            site_type_id: 'ECD',
+            site_type_name: 'ECD'
           },{
-            facility_implementation_id: 'formal',
-            facility_type_id: 'TC',
-            facility_type_name: 'TC'
+            site_implementation_id: 'formal',
+            site_type_id: 'TC',
+            site_type_name: 'TC'
           },{
-            facility_implementation_id: 'informal',
-            facility_type_id: 'ALC',
-            facility_type_name: 'ALC'
+            site_implementation_id: 'informal',
+            site_type_id: 'ALC',
+            site_type_name: 'ALC'
           },{
-            facility_implementation_id: 'informal',
-            facility_type_id: 'CBS',
-            facility_type_name: 'CBS'
+            site_implementation_id: 'informal',
+            site_type_id: 'CBS',
+            site_type_name: 'CBS'
           }]
         }
 
-        // health & Et
-				if ( admin0pcode === 'ET' ) {
-          facility_types = [{
-            facility_type_id: 'community_based',
-            facility_type_name: 'Community Based'
-          },{
-            facility_type_id: 'multiple_facilities',
-            facility_type_name: 'Multiple Facilities'
-          },{
-            facility_type_id: 'refugee_site',
-            facility_type_name: 'Refugee Site'
-          },{
-            facility_type_id: 'idp_site',
-            facility_type_name: 'IDP Site'
-          },{
-            facility_type_id: 'child_friendly_sapce',
-            facility_type_name: 'Child Friendly Sapce'
-          },{
-            facility_type_id: 'women_friendly_sapce',
-            facility_type_name: 'Women Friendly Sapce'
-          },{
-            facility_type_id: 'feeding_center',
-            facility_type_name: 'Feeding Center'
-          },{
-            facility_type_id: 'schools',
-            facility_type_name: 'School'
-          },{
-            facility_type_id: 'hospital',
-            facility_type_name: 'Hospital'
-          },{
-            facility_type_id: 'health_center',
-            facility_type_name: 'Health Center'
-          },{
-            facility_type_id: 'health_post',
-            facility_type_name: 'Health Post'
-          },{
-            facility_type_id: 'permanent_health_facility',
-            facility_type_name: 'Permanent Health Facility'
-          },{
-            facility_type_id: 'temporary_health_facility',
-            facility_type_name: 'Temporary Health Facility'
-          },{
-            facility_type_id: 'stabalization_center',
-            facility_type_name: 'Stabalization Center'
-          },{
-            facility_type_id: 'MHNT',
-            facility_type_name: 'MHNT'
-          },{
-            facility_type_id: 'MPT',
-            facility_type_name: 'MPT'
-          },{
-            facility_type_id: 'ctc',
-            facility_type_name: 'CTC'
-          },{
-            facility_type_id: 'ctu',
-            facility_type_name: 'CTU'
-          },{
-            facility_type_id: 'orp',
-            facility_type_name: 'ORP'
-          }];
-        }
-
         // health and not ET
-        if ( cluster_id === 'health' && admin0pcode !== 'ET' ) {
-          facility_types = [{
-            facility_type_id: 'RH',
-            facility_type_name: 'RH'
+        if ( admin0pcode !== 'ET' ) {
+          site_types = [{
+            site_type_id: 'RH',
+            site_type_name: 'RH'
           },{
-            facility_type_id: 'PH',
-            facility_type_name: 'PH'
+            site_type_id: 'PH',
+            site_type_name: 'PH'
           },{
-            facility_type_id: 'DH',
-            facility_type_name: 'DH'
+            site_type_id: 'DH',
+            site_type_name: 'DH'
           },{
-            facility_type_id: 'CHC',
-            facility_type_name: 'CHC'
+            site_type_id: 'CHC',
+            site_type_name: 'CHC'
           },{
-            facility_type_id: 'CHC+FATP',
-            facility_type_name: 'CHC + FATP'
+            site_type_id: 'CHC+FATP',
+            site_type_name: 'CHC + FATP'
           },{
-            facility_type_id: 'BHC',
-            facility_type_name: 'BHC'
+            site_type_id: 'BHC',
+            site_type_name: 'BHC'
           },{
-            facility_type_id: 'BHC+FATP',
-            facility_type_name: 'BHC + FATP'
+            site_type_id: 'BHC+FATP',
+            site_type_name: 'BHC + FATP'
           },{
-            facility_type_id: 'FHH',
-            facility_type_name: 'FHH'
+            site_type_id: 'FHH',
+            site_type_name: 'FHH'
           },{
-            facility_type_id: 'SHC',
-            facility_type_name: 'SHC'
+            site_type_id: 'SHC',
+            site_type_name: 'SHC'
           },{
-            facility_type_id: 'MHT',
-            facility_type_name: 'MHT'
+            site_type_id: 'MHT',
+            site_type_name: 'MHT'
           },{
-            facility_type_id: 'FATP',
-            facility_type_name: 'FATP'
+            site_type_id: 'FATP',
+            site_type_name: 'FATP'
           },{
-            facility_type_id: 'DATC',
-            facility_type_name: 'DATC'
+            site_type_id: 'DATC',
+            site_type_name: 'DATC'
           },{
-            facility_type_id: 'rehabilitation_center',
-            facility_type_name: 'Rehabilitation Center'
+            site_type_id: 'rehabilitation_center',
+            site_type_name: 'Rehabilitation Center'
           },{
-            facility_type_id: 'special_hospital',
-            facility_type_name: 'Special Hospital'
+            site_type_id: 'special_hospital',
+            site_type_name: 'Special Hospital'
           },{
-            facility_type_id: 'local_committee',
-            facility_type_name: 'Local Committee'
+            site_type_id: 'local_committee',
+            site_type_name: 'Local Committee'
 					},{
-            facility_type_id: 'family_protection_center',
-            facility_type_name: 'Family Protection Center'
+            site_type_id: 'family_protection_center',
+            site_type_name: 'Family Protection Center'
           },{
-            facility_type_id: 'woman_friendly_health_space',
-            facility_type_name: 'Woman Friendly Health Space'
+            site_type_id: 'woman_friendly_health_space',
+            site_type_name: 'Woman Friendly Health Space'
           },{
-            facility_type_id: 'mobile_outreach_team',
-            facility_type_name: 'Mobile Outreach Team ( MOT )'
+            site_type_id: 'mobile_outreach_team',
+            site_type_name: 'Mobile Outreach Team ( MOT )'
           },{
-            facility_type_id: 'village',
-            facility_type_name: 'Village'
+            site_type_id: 'village',
+            site_type_name: 'Village'
           },{
-            facility_type_id: 'community_based',
-            facility_type_name: 'Community Based'
+            site_type_id: 'community_based',
+            site_type_name: 'Community Based'
           }];
         }
 
         // facilities
-        return facility_types;
+        return site_types;
 			},
 
       // sum beneficairies for location
@@ -1814,14 +1803,14 @@ angular.module( 'ngmReportHub' )
       getCleanWarehouseLocation: function( user, organization, warehouse ){
 
         // merge
-        var warehouse = angular.merge({}, organization, warehouse, warehouse.admin2, warehouse.admin3, warehouse.facility_type);
+        var warehouse = angular.merge({}, organization, warehouse, warehouse.admin2, warehouse.admin3, warehouse.site_type);
 
         // delete
         delete warehouse.id;
         delete warehouse.admin1;
         delete warehouse.admin2;
         delete warehouse.admin3;
-        delete warehouse.facility_type;
+        delete warehouse.site_type;
 				delete warehouse.createdAt;
 				delete warehouse.updatedAt;
 
@@ -1829,8 +1818,8 @@ angular.module( 'ngmReportHub' )
         // warehouse.warehouse_status = 'new';
         warehouse.username = user.username;
         warehouse.email = user.email;
-        warehouse.facility_lng = warehouse.admin3lng ? warehouse.admin3lng : warehouse.admin2lng;
-				warehouse.facility_lat = warehouse.admin3lat ? warehouse.admin3lat : warehouse.admin2lat;
+        warehouse.site_lng = warehouse.admin3lng ? warehouse.admin3lng : warehouse.admin2lng;
+				warehouse.site_lat = warehouse.admin3lat ? warehouse.admin3lat : warehouse.admin2lat;
 
         return warehouse;
       },
@@ -1943,12 +1932,12 @@ angular.module( 'ngmReportHub' )
           delete locations[i].activity_type;
           delete locations[i].beneficiary_type;
           locations[i] = angular.merge( {}, d, p );
-          // set facility_lng, facility_lat
+          // set site_lng, site_lat
             // this is propigated through the entire datasets
-          if ( !locations[i].facility_lng && !locations[i].facility_lat ) {
+          if ( !locations[i].site_lng && !locations[i].site_lat ) {
             // set admin3 or admin2
-            locations[i].facility_lng = locations[i].admin3lng ? locations[i].admin3lng : locations[i].admin2lng;
-            locations[i].facility_lat = locations[i].admin3lat ? locations[i].admin3lat : locations[i].admin2lat;
+            locations[i].site_lng = locations[i].admin3lng ? locations[i].admin3lng : locations[i].admin2lng;
+            locations[i].site_lat = locations[i].admin3lat ? locations[i].admin3lat : locations[i].admin2lat;
           }
         });
 

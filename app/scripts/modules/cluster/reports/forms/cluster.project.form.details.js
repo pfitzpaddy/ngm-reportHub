@@ -133,12 +133,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // Schools
           schools:[],
           hub_schools: [],
-          // facilities
-          facilities:[],
-          hub_facilities: [],
-          new_facility:[{ new_facility_id: 'yes', new_facility_name: 'Yes' },{ new_facility_id: 'no', new_facility_name: 'No' }],
-          facility_implementation: ngmClusterHelper.getFacilityImplementation( config.project.cluster_id ),
-          facility_type: ngmClusterHelper.getFacilityTypes( config.project.cluster_id, config.project.admin0pcode )
+          // sites
+          sites:[],
+          hub_sites: [],
+          new_site:[{ new_site_id: 'yes', new_site_name: 'Yes' },{ new_site_id: 'no', new_site_name: 'No' }],
+          site_list_select:[{ site_list_select_id: 'yes', site_list_select_name: 'Yes'},{ site_list_select_id: 'no', site_list_select_name: 'No'}],
+          site_implementation: ngmClusterHelper.getSiteImplementation( config.project.cluster_id ),
+          site_type: ngmClusterHelper.getSiteTypes( config.project.cluster_id, config.project.admin0pcode )
         },
 
         // templates
@@ -167,8 +168,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             $scope.project.definition.update_dates = true;
             $scope.project.definition.project_start_date = moment( new Date( $scope.project.definition.project_start_date ) ).format('YYYY-MM-DD');
             $scope.project.definition.project_end_date = moment( new Date( $scope.project.definition.project_end_date ) ).format('YYYY-MM-DD');
-						$scope.project.lists.strategic_objectives =  ngmClusterHelper.getStrategicObjectives($scope.project.definition.admin0pcode,
-							moment( new Date( $scope.project.definition.project_start_date ) ).year(), moment( new Date( $scope.project.definition.project_end_date ) ).year() )
+            $scope.project.lists.strategic_objectives =  ngmClusterHelper.getStrategicObjectives($scope.project.definition.admin0pcode,
+              moment( new Date( $scope.project.definition.project_start_date ) ).year(), moment( new Date( $scope.project.definition.project_end_date ) ).year() )
           }
         },
 
@@ -186,10 +187,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           angular.forEach( $scope.project.definition.strategic_objectives_check, function( key, so ){
 
             if ( key ) {
-							var so_obj = so.split(":");
-							// "health_objective_2:2018"
-							//  old 2017 SO has no year, update db or use this hunch
-							if (so_obj[1]==="")so_obj[1]=2017;
+              var so_obj = so.split(":");
+              // "health_objective_2:2018"
+              //  old 2017 SO has no year, update db or use this hunch
+              if (so_obj[1]==="")so_obj[1]=2017;
               if ( cluster_id !== $scope.project.definition.cluster_id ) {
                 // always include cluster_id
                 var objective = $filter('filter')( $scope.project.lists.strategic_objectives[so_obj[1]][ $scope.project.definition.cluster_id ], { objective_type_id: so_obj[0] }, true);
@@ -215,9 +216,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         },
 
-				getSOyears: function(){
-					return Object.keys($scope.project.lists.strategic_objectives);
-				},
+        getSOyears: function(){
+          return Object.keys($scope.project.lists.strategic_objectives);
+        },
         // update organization if acbar partner
         updateOrganization: function(){
 
@@ -281,8 +282,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var length = $scope.project.definition.target_beneficiaries.length;
           if ( length ) {
             var b = angular.copy( $scope.project.definition.target_beneficiaries[ length - 1 ] );
-						delete b.id;
-						delete b.injury_treatment_same_province;
+            delete b.id;
+            delete b.injury_treatment_same_province;
             $scope.inserted = angular.merge( $scope.inserted, b, sadd );
             $scope.inserted.transfer_type_id = 0;
             $scope.inserted.transfer_type_value = 0;
@@ -302,19 +303,19 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               if( selected.length && selected[0].cluster_id && selected[0].cluster ) {
                 $beneficiary.cluster_id = selected[0].cluster_id;
                 $beneficiary.cluster = selected[0].cluster;
-							}
+              }
 
-							if (selected.length) {
-								$beneficiary.activity_type_name = selected[0].activity_type_name;
-							} else {
-								// if data exists then get it
-								if ($beneficiary.activity_type_name&&$beneficiary.activity_type_id){
-									selected = [{}];
-									selected[0].activity_type_name = $beneficiary.activity_type_name;
-								} else {
-								delete $beneficiary.activity_type_id;
-								}
-							}
+              if (selected.length) {
+                $beneficiary.activity_type_name = selected[0].activity_type_name;
+              } else {
+                // if data exists then get it
+                if ($beneficiary.activity_type_name&&$beneficiary.activity_type_id){
+                  selected = [{}];
+                  selected[0].activity_type_name = $beneficiary.activity_type_name;
+                } else {
+                delete $beneficiary.activity_type_id;
+                }
+              }
 
             }
           }
@@ -328,14 +329,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           if($beneficiary.activity_description_id) {
             selected = $filter('filter')( $scope.project.lists.activity_descriptions, { activity_description_id: $beneficiary.activity_description_id }, true);
             if (selected.length) {
-            	$beneficiary.activity_description_name = selected[0].activity_description_name;
+              $beneficiary.activity_description_name = selected[0].activity_description_name;
             } else {
-							// if data exists then get it
-							if ($beneficiary.activity_description_name&&$beneficiary.activity_description_id){
-								selected = [{}];
-								selected[0].activity_description_name = $beneficiary.activity_description_name;
-							} else {
-            	delete $beneficiary.activity_description_id;
+              // if data exists then get it
+              if ($beneficiary.activity_description_name&&$beneficiary.activity_description_id){
+                selected = [{}];
+                selected[0].activity_description_name = $beneficiary.activity_description_name;
+              } else {
+              delete $beneficiary.activity_description_id;
             }
           }
           }
@@ -383,12 +384,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
             // selection
             selected = $filter('filter')( [{
-							'package_type_id': 'standard',
-							'package_type_name': 'Standard'
-						}, {
-							'package_type_id': 'non-standard',
-							'package_type_name': 'Non-standard'
-						}], { package_type_id: $beneficiary.package_type_id }, true );
+              'package_type_id': 'standard',
+              'package_type_name': 'Standard'
+            }, {
+              'package_type_id': 'non-standard',
+              'package_type_name': 'Non-standard'
+            }], { package_type_id: $beneficiary.package_type_id }, true );
             if ( selected.length ) {
               $beneficiary.package_type_name = selected[0].package_type_name;
             } else {
@@ -521,10 +522,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var display = false;
           if (
             !beneficiary.activity_description_id ||
-															( beneficiary.activity_type_id.indexOf('cash') === -1 &&
-																beneficiary.activity_description_id.indexOf('cash') === -1 &&
-																beneficiary.activity_description_id.indexOf('fsac_in_kind') === -1 &&
-																beneficiary.activity_description_id.indexOf('package') === -1 )
+                              ( beneficiary.activity_type_id.indexOf('cash') === -1 &&
+                                beneficiary.activity_description_id.indexOf('cash') === -1 &&
+                                beneficiary.activity_description_id.indexOf('fsac_in_kind') === -1 &&
+                                beneficiary.activity_description_id.indexOf('package') === -1 )
           ) {
              display = true;
           }
@@ -543,7 +544,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 ( b.activity_description_id.indexOf( 'education' ) > -1 ||
                   b.activity_description_id.indexOf( 'training' ) > -1 ||
                   b.activity_description_id.indexOf( 'cash' ) > -1 ||
-									b.activity_description_id.indexOf( 'in_kind' ) > -1 ||
+                  b.activity_description_id.indexOf( 'in_kind' ) > -1 ||
                   b.activity_description_id.indexOf( 'voucher' ) > -1 ||
                   b.activity_description_id.indexOf( 'package' ) > -1 ||
                   b.activity_description_id.indexOf( 'assessment' ) > -1 ) )
@@ -748,15 +749,17 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             admin2name: null,
             admin3pcode: null,
             admin3name: null,
-            facility_id: null,
-            facility_implementation_id: null,
-            facility_type_id: null,
-            facility_type_name: null,
-            new_facility_id: null,
-            new_facility_name: null,
-            facility_name: null,
-            facility_lat: null,
-            facility_lng: null
+            // site_id: null,
+            // site_implementation_id: null,
+            // site_type_id: null,
+            // site_type_name: null,
+            // new_site_id: null,
+            // new_site_name: null,
+            // site_list_select_id: null,
+            // site_list_select_name: null,
+            // site_name: null,
+            // site_lat: null,
+            // site_lng: null
           };
 
           // clone
@@ -764,19 +767,21 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           if ( length ) {
             var l = angular.copy( $scope.project.definition.target_locations[ length - 1 ] );
             delete l.id;
-            l.facility_id = null;
-            l.facility_hub_id = null;
-            l.facility_hub_name = null;
-            l.facility_name = null;
-            l.facility_lat = null;
-						l.facility_lng = null;
-            // l.new_facility_id = null;
-            // l.new_facility_name = null;
-						// l.facility_type_id = null;
-						// l.facility_type_name = null;
+            l.site_hub_id = null;
+            l.site_hub_name = null;
+            l.site_id = null;
+            l.site_name = null;
+            l.site_lat = null;
+            l.site_lng = null;
+            // l.new_site_id = null;
+            // l.new_site_name = null;
+            // l.site_list_select_id = null;
+            // l.site_list_select_name = null;
+            // l.site_type_id = null;
+            // l.site_type_name = null;
             $scope.inserted = angular.merge( $scope.inserted, l );
           }
-         $scope.project.definition.target_locations.push( $scope.inserted );
+          $scope.project.definition.target_locations.push( $scope.inserted );
         },
 
         showReporter: function($data, location){
@@ -858,69 +863,79 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return selected.length ? selected[0].admin3name : 'No Selection!';
         },
 
-        // facility implementation
-        showFacilityImplementation: function($data, location){
+        // site implementation
+        showSiteImplementation: function($data, location){
           var selected = [];
-          location.facility_implementation_id = $data;
-          if(location.facility_implementation_id) {
-            selected = $filter('filter')( $scope.project.lists.facility_implementation, { facility_implementation_id: location.facility_implementation_id }, true);
-            location.facility_implementation_name = selected[0].facility_implementation_name;
+          location.site_implementation_id = $data;
+          if(location.site_implementation_id) {
+            selected = $filter('filter')( $scope.project.lists.site_implementation, { site_implementation_id: location.site_implementation_id }, true);
+            location.site_implementation_name = selected[0].site_implementation_name;
           }
-          return selected.length ? selected[0].facility_implementation_name : 'No Selection!';
+          return selected.length ? selected[0].site_implementation_name : 'No Selection!';
         },
-        // reset facility is new
-        facilityImplementationChange: function(location){
-          location.new_facility_id = null;
-          location.new_facility_name = null;
+        // reset site is new
+        siteImplementationChange: function(location){
+          location.new_site_id = null;
+          location.new_site_name = null;
           $scope.project.yesNoChange(location);
         },
-
-        // new facility?
+        // new site?
         showYesNo: function($index, $data, location){
           var selected = [];
-          location.new_facility_id = $data;
-          if(location.new_facility_id) {
-            selected = $filter('filter')( $scope.project.lists.new_facility, { new_facility_id: location.new_facility_id }, true );
-            location.new_facility_name = selected[0].new_facility_name;
+          location.new_site_id = $data;
+          if(location.new_site_id) {
+            selected = $filter('filter')( $scope.project.lists.new_site, { new_site_id: location.new_site_id }, true );
+            location.new_site_name = selected[0].new_site_name;
           }
-          if ( $scope.project.lists.facilities
-                && $scope.project.lists.facilities[$index]
-                && $scope.project.lists.facilities[$index][location.admin3pcode] ) {
+          return selected.length ? selected[0].new_site_name : 'No Selection!';
+        },
+        // from list
+        showListYesNo: function($index, $data, location){
+          var selected = [];
+          location.site_list_select_id = $data;
+          if(location.site_list_select_id) {
+            selected = $filter('filter')( $scope.project.lists.site_list_select, { site_list_select_id: location.site_list_select_id }, true );
+            location.site_list_select_name = selected[0].site_list_select_name;
+          }
+          if ( $scope.project.lists.sites
+                && $scope.project.lists.sites[$index]
+                && $scope.project.lists.sites[$index][location.admin3pcode] ) {
             var filtered = [];
-            filtered = $filter('filter')( $scope.project.lists.facilities[$index][location.admin3pcode], { facility_type_id: location.facility_type_id }, true );
-            $scope.project.showYesNoDisabled = !filtered.length;
+            filtered = $filter('filter')( $scope.project.lists.sites[$index][location.admin3pcode], { site_type_id: location.site_type_id }, true );
+            $scope.project.showListYesNoDisabled = !filtered.length;
           }
-          return selected.length ? selected[0].new_facility_name : 'No Selection!';
+
+          return selected.length ? selected[0].site_list_select_name : 'No Selection!';
         },
         // yes/no
         yesNoChange: function( location ){
-          location.facility_name = null;
-          location.facility_id = null ;
-          location.facility_hub_id = null;
-          location.facility_hub_name = null;
+          location.site_name = null;
+          location.site_id = null ;
+          location.site_hub_id = null;
+          location.site_hub_name = null;
         },
 
-        // facility_type
-        showFacilityType: function($index, $data, location){
+        // site_type
+        showSiteType: function($index, $data, location){
           var selected = [];
-              location.facility_type_id = $data;
+              location.site_type_id = $data;
 
-          // filter by facility_type
-          if(location.facility_type_id) {
-            selected = $filter('filter')( $scope.project.lists.facility_type, { facility_type_id: location.facility_type_id }, true );
+          // filter by site_type
+          if(location.site_type_id) {
+            selected = $filter('filter')( $scope.project.lists.site_type, { site_type_id: location.site_type_id }, true );
             if ( selected.length ) {
-              location.facility_type_id = selected[0].facility_type_id;
-              location.facility_type_name = selected[0].facility_type_name;
+              location.site_type_id = selected[0].site_type_id;
+              location.site_type_name = selected[0].site_type_name;
             }
           }
-          return selected.length ? selected[0].facility_type_name : 'No Selection!';
+          return selected.length ? selected[0].site_type_name : 'No Selection!';
 
         },
 
-        // facility_name
-        showFacilityName: function($data, location){
-          location.facility_name = $data;
-          return location.facility_name ? location.facility_name : '';
+        // site_name
+        showSiteName: function($data, location){
+          location.site_name = $data;
+          return location.site_name ? location.site_name : '';
         },
 
 
@@ -932,48 +947,52 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         /** HELATH ***********/
 
-        changeFacilityType: function( $index, target_location ) {
-          
-          $timeout(function(){
-            // reset
-            // if (target_location.new_facility_id !== 'yes') {
-              target_location.new_facility_id = 'yes';
-              target_location.new_facility_name = 'Yes';
-            // }
+        changeSiteType: function( $index, target_location ) {
 
-            // facility type
-            if ( target_location.facility_type_id === 'idp_site' || 
-                  target_location.facility_type_id === 'hospital' || 
-                  target_location.facility_type_id === 'health_center' || 
-                  target_location.facility_type_id === 'health_post') {
+          // timeout
+          $timeout(function(){
+            
+            // reset
+            target_location.site_list_select_id = 'yes';
+            target_location.site_list_select_name = 'Yes';
+
+            // site type
+            if ( target_location.site_type_id === 'idp_site' || 
+                  target_location.site_type_id === 'hospital' || 
+                  target_location.site_type_id === 'health_center' || 
+                  target_location.site_type_id === 'health_post') {
               
-              // facilities?
-              if ( $scope.project.lists.facilities.length 
-                    // && target_location.facility_type_id
+              // sites?
+              if ( $scope.project.lists.sites.length 
+                    // && target_location.site_type_id
                     && target_location.admin1name 
                     && target_location.admin2name 
                     && target_location.admin3name ) {
                 // filtered list
-                var facility_list = [];
-                facility_list = $filter('filter')( $scope.project.lists.facilities[$index][target_location.admin3pcode], { facility_type_id: target_location.facility_type_id } );
-                if ( !facility_list.length ) {
+                var site_list = [];
+                site_list = $filter('filter')( $scope.project.lists.sites[$index][target_location.admin3pcode], { site_type_id: target_location.site_type_id } );
+                if ( !site_list.length ) {
+                  
                   // open free text
-                  target_location.new_facility_id = 'no';
-                  target_location.new_facility_name = 'No';
+                  target_location.site_list_select_id = 'no';
+                  target_location.site_list_select_name = 'No';
+                  
                   // message
-                  Materialize.toast( 'No ' + target_location.facility_type_name + 's for ' + target_location.admin1name +', ' + target_location.admin2name +', ' + target_location.admin3name + '!' , 6000, 'success' );
+                  Materialize.toast( 'No ' + target_location.site_type_name + 's for ' + target_location.admin1name +', ' + target_location.admin2name +', ' + target_location.admin3name + '!' , 6000, 'success' );
 
                 } else {
                   // open drop down
-                  target_location.new_facility_id = 'yes';
-                  target_location.new_facility_name = 'Yes';
+                  target_location.site_list_select_id = 'yes';
+                  target_location.site_list_select_name = 'Yes';
                 }
 
               }
 
             } else {
-              target_location.new_facility_id = 'no';
-              target_location.new_facility_name = 'No';
+              
+              // no
+              target_location.site_list_select_id = 'no';
+              target_location.site_list_select_name = 'No';
 
             }
 
@@ -984,137 +1003,66 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var display = false;
           angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
 
-            if ( d.facility_type_id === 'idp_site' || 
-                  d.facility_type_id === 'hospital' || 
-                  d.facility_type_id === 'health_center' ||
-                  d.facility_type_id === 'health_post' ) {
+            if ( d.site_type_id === 'idp_site' || 
+                  d.site_type_id === 'hospital' || 
+                  d.site_type_id === 'health_center' ||
+                  d.site_type_id === 'health_post' ) {
               display = true;
             }
           });
           return display;
         },
 
-        showNewFacilityLabel: function(){
-          var display = false;
-          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
-            if ( d.facility_implementation_id === 'standalone' || d.facility_implementation_id === 'embedded' ) {
-              display = true;
-            }
-          });
-          return display;
-        },
-
-        showFacilityTypeLabel: function(){
-          var display = false;
-          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
-            if ( d.facility_implementation_id === 'standalone' || d.facility_implementation_id === 'embedded' ) {
-              display = true;
-            }
-          });
-          return display;
-        },
-
-        // show the facility hub label heading
-        showHubFacilityLabel: function(){
-          var display = false;
-          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
-            if ( d.facility_implementation_id === 'embedded' ) {
-              display = true;
-            }
-          });
-          return display;
-        },
-
-        showFacilityNameLabel: function(){
-          var display = true;
-          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
-            if ( d.facility_implementation_id !== 'standalone' || d.facility_implementation_id !== 'embedded' ) {
-              display = false;
-            }
-          });
-          return display;
-        },
-
-        showCommunitiesNameLabel: function(){
-          var display = true;
-          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
-            if ( d.facility_implementation_id !== 'community' ) {
-              display = false;
-            }
-          });
-          return display;
-        },
-
-        showLocationsNameLabel: function(){
-          var display = true;
-          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
-            if ( d.facility_implementation_id !== 'multiple' ) {
-              display = false;
-            }
-          });
-          return display;
-        },
-
-        showNameLabel: function(){
-          var display = true;
-          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
-            if ( d.facility_implementation_id !== 'community' || d.facility_implementation_id !== 'multiple' ) {
-              display = false;
-            }
-          });
-          return display;
-        },
-
-        // show facilities (if facility is existing facility)
-        showFacilities: function($index, $data, location){
+        // show sites (if site is existing site)
+        showAdmin3Sites: function($index, $data, location){
 
           var selected = [];
-          location.facility_id = $data;
-          if( location.facility_id && $scope.project.lists.facilities[$index] && $scope.project.lists.facilities[$index][location.admin3pcode] ) {
-            selected = $filter('filter')( $scope.project.lists.facilities[$index][location.admin3pcode], { facility_id: location.facility_id }, true);
+          location.site_id = $data;
+          if( location.site_id && $scope.project.lists.sites[$index] && $scope.project.lists.sites[$index][location.admin3pcode] ) {
+            selected = $filter('filter')( $scope.project.lists.sites[$index][location.admin3pcode], { site_id: location.site_id }, true);
             if (selected.length) {
-              location.facility_name = selected[0].facility_name;
-              location.facility_lng = selected[0].facility_lng;
-              location.facility_lat = selected[0].facility_lat;
+              location.site_name = selected[0].site_name;
+              location.site_lng = selected[0].site_lng;
+              location.site_lat = selected[0].site_lat;
             }
           }
-          return location.facility_name ? location.facility_name : 'No Selection!';
+          return location.site_name ? location.site_name : 'No Selection!';
         },
 
-        // show facilities
-        showHubFacilities: function($index, $data, location){
+        // show sites
+        showHubSites: function($index, $data, location){
 
           var selected = [];
-          location.facility_hub_id = $data;
-          if( location.facility_hub_id && $scope.project.lists.hub_facilities[$index] && $scope.project.lists.hub_facilities[$index][location.admin3pcode] ) {
-            selected = $filter('filter')( $scope.project.lists.hub_facilities[$index][location.admin3pcode], { facility_id: location.facility_hub_id }, true);
+          location.site_hub_id = $data;
+          if( location.site_hub_id && $scope.project.lists.hub_sites[$index] && $scope.project.lists.hub_sites[$index][location.admin3pcode] ) {
+            selected = $filter('filter')( $scope.project.lists.hub_sites[$index][location.admin3pcode], { site_id: location.site_hub_id }, true);
             if (selected.length) {
-              location.facility_hub_name = selected[0].facility_name;
-              if ( location.new_facility_id === 'yes' ) {
-                location.facility_lng = selected[0].facility_lng;
-                location.facility_lat = selected[0].facility_lat;
+              location.site_hub_name = selected[0].site_name;
+              if ( location.new_site_id === 'yes' ) {
+                location.site_lng = selected[0].site_lng;
+                location.site_lat = selected[0].site_lat;
               }
             }
           }
-          return location.facility_hub_name ? location.facility_hub_name : 'No Selection!';
+          return location.site_hub_name ? location.site_hub_name : 'No Selection!';
         },
 
-        // load facilities
-        loadFacilities: function( $index, $data, target_location ){
+        // load sites
+        loadAdmin3Sites: function( $index, target_location ){
 
           // reset client
           if (!target_location.id) {
-            target_location.facility_name = null;
-            target_location.facility_id = null;
+            target_location.site_name = null;
+            target_location.site_id = null;
           }
 
           // list storage
-          if (!$scope.project.lists.facilities[$index]) {
-            $scope.project.lists.facilities[$index] = [];
+          if (!$scope.project.lists.sites[$index]) {
+            $scope.project.lists.sites[$index] = [];
           }
           // list storage by pcode2
-          if (!$scope.project.lists.facilities[$index][target_location.admin3pcode]) {
-            $scope.project.lists.facilities[$index][target_location.admin3pcode] = [];
+          if (!$scope.project.lists.sites[$index][target_location.admin3pcode]) {
+            $scope.project.lists.sites[$index][target_location.admin3pcode] = [];
           }
 
           // set lists
@@ -1125,42 +1073,45 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                   && target_location.admin3pcode ) {
 
               // if already existing
-              if( $scope.project.lists.facilities[$index][target_location.admin3pcode] 
-                    && $scope.project.lists.facilities[$index][target_location.admin3pcode].length ) {
+              if( $scope.project.lists.sites[$index][target_location.admin3pcode] 
+                    && $scope.project.lists.sites[$index][target_location.admin3pcode].length ) {
                 // do nothing!
               } else {
                 // else fetch!
                 if( !target_location.id ){
-                  Materialize.toast( 'Loading Facilities!' , 6000, 'note' );
+                  Materialize.toast( 'Loading Sites!' , 6000, 'note' );
                 }
                 $http({
-                  method: 'GET', url: ngmAuth.LOCATION + '/api/list/getAdmin3Facilities?admin0pcode=' + target_location.admin0pcode
+                  method: 'GET', url: ngmAuth.LOCATION + '/api/list/getAdmin3Sites?admin0pcode=' + target_location.admin0pcode
                                                         + '&admin1pcode=' + target_location.admin1pcode 
                                                         + '&admin2pcode=' + target_location.admin2pcode 
                                                         + '&admin3pcode=' + target_location.admin3pcode
                 }).success( function( result ) {
-                  // facilities
-                  var facility_list = [];
-                  facility_list = $filter('filter')( result, { facility_type_id: target_location.facility_type_id }, true );
-                  if ( !facility_list.length && target_location.facility_type_id ) {
-                    // open free text
-                    target_location.new_facility_id = 'no';
-                    target_location.new_facility_name = 'No';
-                    // send message
-                    Materialize.toast( 'No ' + target_location.facility_type_name + 's for ' + target_location.admin1name +', ' + target_location.admin2name +', ' + target_location.admin3name + '!' , 6000, 'success' );
+                  // sites
+                  // var site_list = [];
+                  // site_list = $filter('filter')( result, { site_type_id: target_location.site_type_id }, true );
+                  // if ( !site_list.length && target_location.site_type_id ) {
+                    
+                  //   // open free text
+                  //   target_location.site_list_select_id = 'no';
+                  //   target_location.site_list_select_name = 'No';
+                    
+                  //   // send message
+                  //   Materialize.toast( 'No ' + target_location.site_type_name + 's for ' + target_location.admin1name +', ' + target_location.admin2name +', ' + target_location.admin3name + '!' , 6000, 'success' );
                   
-                  } else {
-                    // open drop down
-                    target_location.new_facility_id = 'yes';
-                    target_location.new_facility_name = 'Yes';
+                  // } else {
+                    
+                  //   // open drop down
+                  //   // target_location.site_list_select_id = 'no';
+                  //   // target_location.site_list_select_name = 'No';
 
-                  }
+                  // }
                   
                   // set
-                  $scope.project.lists.facilities[$index][target_location.admin3pcode] = result;
+                  $scope.project.lists.sites[$index][target_location.admin3pcode] = result;
 
                 }).error( function( err ) {
-                  Materialize.toast( 'Facilities List Error!', 6000, 'error' );
+                  Materialize.toast( 'Sites List Error!', 6000, 'error' );
                 });
               }
             }
@@ -1179,7 +1130,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         showSchoolNameLabel: function(){
           var display = false;
           angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
-            if ( d.new_facility_id ) {
+            if ( d.new_site_id ) {
               display = true;
             }
           });
@@ -1190,7 +1141,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         showHubSchoolNameLabel: function(){
           var display = false;
           angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
-            if ( d.new_facility_id && d.facility_implementation_id === 'informal' ) {
+            if ( d.new_site_id && d.site_implementation_id === 'informal' ) {
               display = true;
             }
           });
@@ -1201,33 +1152,33 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         showSchools: function($index, $data, location){
 
           var selected = [];
-          location.facility_id = $data;
-          if( location.facility_id && $scope.project.lists.schools[$index] && $scope.project.lists.schools[$index][location.admin2pcode] ) {
-            selected = $filter('filter')( $scope.project.lists.schools[$index][location.admin2pcode], { facility_id: location.facility_id }, true);
+          location.site_id = $data;
+          if( location.site_id && $scope.project.lists.schools[$index] && $scope.project.lists.schools[$index][location.admin2pcode] ) {
+            selected = $filter('filter')( $scope.project.lists.schools[$index][location.admin2pcode], { site_id: location.site_id }, true);
             if (selected.length) {
-              location.facility_name = selected[0].facility_name;
-              location.facility_lng = selected[0].facility_lng;
-              location.facility_lat = selected[0].facility_lat;
+              location.site_name = selected[0].site_name;
+              location.site_lng = selected[0].site_lng;
+              location.site_lat = selected[0].site_lat;
             }
           }
-          return location.facility_name ? location.facility_name : 'No Selection!';
+          return location.site_name ? location.site_name : 'No Selection!';
         },
 
         // hub school
         showHubSchools: function($index, $data, location){
           var selected = [];
-          location.facility_hub_id = $data;
-          if( location.facility_hub_id && $scope.project.lists.hub_schools[$index] && $scope.project.lists.hub_schools[$index][location.admin2pcode] ) {
-            selected = $filter('filter')( $scope.project.lists.hub_schools[$index][location.admin2pcode], { facility_id: location.facility_hub_id }, true);
+          location.site_hub_id = $data;
+          if( location.site_hub_id && $scope.project.lists.hub_schools[$index] && $scope.project.lists.hub_schools[$index][location.admin2pcode] ) {
+            selected = $filter('filter')( $scope.project.lists.hub_schools[$index][location.admin2pcode], { site_id: location.site_hub_id }, true);
             if (selected.length) {
-              location.facility_hub_name = selected[0].facility_name;
-              if( location.new_facility_id === 'yes' ){
-                location.facility_lng = selected[0].facility_lng;
-                location.facility_lat = selected[0].facility_lat;
+              location.site_hub_name = selected[0].site_name;
+              if( location.new_site_id === 'yes' ){
+                location.site_lng = selected[0].site_lng;
+                location.site_lat = selected[0].site_lat;
               }
             }
           }
-          return location.facility_hub_name;
+          return location.site_hub_name;
         },
 
         // load schools
@@ -1235,10 +1186,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           // reset client
           if (!target_location.id) {
-            target_location.facility_name = null;
-            target_location.facility_id = null;
-            target_location.facility_hub_id = null;
-            target_location.facility_hub_name = null;
+            target_location.site_name = null;
+            target_location.site_id = null;
+            target_location.site_hub_id = null;
+            target_location.site_hub_name = null;
           }
 
           // list storage
@@ -1271,7 +1222,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                   Materialize.toast( 'Loading Schools!' , 6000, 'note' );
                 }
                 $http({
-                  method: 'GET', url: ngmAuth.LOCATION + '/api/list/getAdmin2Facilities?cluster_id=' + $scope.project.definition.cluster_id + '&admin0pcode=' + target_location.admin0pcode + '&admin1pcode=' + target_location.admin1pcode + '&admin2pcode=' + target_location.admin2pcode + '&admin2name=' + target_location.admin2name
+                  method: 'GET', url: ngmAuth.LOCATION + '/api/list/getAdmin2Sites?cluster_id=' + $scope.project.definition.cluster_id + '&admin0pcode=' + target_location.admin0pcode + '&admin1pcode=' + target_location.admin1pcode + '&admin2pcode=' + target_location.admin2pcode + '&admin2name=' + target_location.admin2name
                 }).success( function( result ) {
                   if ( target_location.admin1pcode && target_location.admin2pcode && !result.length ) {
                     Materialize.toast( 'No Schools for ' + target_location.admin1name +', ' + target_location.admin2name + '!' , 6000, 'success' );
@@ -1425,63 +1376,63 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           }
         },
 
-				// preps for 2018 #TODO delete
-				categoryShow2017: function(){
-					return moment()<moment('2018-02-01')
-				},
+        // preps for 2018 #TODO delete
+        categoryShow2017: function(){
+          return moment()<moment('2018-02-01')
+        },
 
-				// injury sustained same province field
-				showFatpTreatmentSameProvince: function( ){
-					var display = false;
-					var l = $scope.project.definition.target_beneficiaries;
-					if( l ){
-						angular.forEach( l, function(b){
-								if( b.activity_description_id === 'fatp_stabilization_referrals_conflict' ||
-										b.activity_description_id === 'fatp_stabilization_referrals_civilian' ){
-											display = true;
-							}
-						});
-					}
-					return display;
-				},
+        // injury sustained same province field
+        showFatpTreatmentSameProvince: function( ){
+          var display = false;
+          var l = $scope.project.definition.target_beneficiaries;
+          if( l ){
+            angular.forEach( l, function(b){
+                if( b.activity_description_id === 'fatp_stabilization_referrals_conflict' ||
+                    b.activity_description_id === 'fatp_stabilization_referrals_civilian' ){
+                      display = true;
+              }
+            });
+          }
+          return display;
+        },
 
-				showTreatmentSameProvince: function ($data, $beneficiary) {
-					var selected = [{}];
-					// will show blank for all activities except
-					if ($beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
-						$beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian') {
-						delete $beneficiary.injury_treatment_same_province;
-						selected[0].text = '-'
-					// will show if not selected
-					} else if ($data == null) {
-						delete $beneficiary.injury_treatment_same_province;
-						selected[0].text = 'Not Selected!'
-					// will show if selected
-					} else {
-						$beneficiary.injury_treatment_same_province = $data;
-						var selected = $filter('filter')([{
-							'choise': true,
-							'text': 'Yes'
-						}, {
-							'choise': false,
-							'text': 'No'
-						}], {
-							choise: $beneficiary.injury_treatment_same_province
-						});
-					}
-					return selected[0].text;
-				},
+        showTreatmentSameProvince: function ($data, $beneficiary) {
+          var selected = [{}];
+          // will show blank for all activities except
+          if ($beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
+            $beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian') {
+            delete $beneficiary.injury_treatment_same_province;
+            selected[0].text = '-'
+          // will show if not selected
+          } else if ($data == null) {
+            delete $beneficiary.injury_treatment_same_province;
+            selected[0].text = 'Not Selected!'
+          // will show if selected
+          } else {
+            $beneficiary.injury_treatment_same_province = $data;
+            var selected = $filter('filter')([{
+              'choise': true,
+              'text': 'Yes'
+            }, {
+              'choise': false,
+              'text': 'No'
+            }], {
+              choise: $beneficiary.injury_treatment_same_province
+            });
+          }
+          return selected[0].text;
+        },
 
 
         // validate id ALL target locations valid
         target_locations_valid: function(){
           var rowComplete = 0;
           angular.forEach( $scope.project.definition.target_locations, function( d, i ){
-            if ( d.admin1pcode && d.admin1name && d.admin2pcode && d.admin2name && d.facility_name ){
+            if ( d.admin1pcode && d.admin1name && d.admin2pcode && d.admin2name && d.site_name ){
               rowComplete++;
             }
             // hack for eiewg
-            if ( d.facility_implementation_id && d.facility_implementation_id === 'informal' && !d.facility_hub_id ) {
+            if ( d.site_implementation_id && d.site_implementation_id === 'informal' && !d.site_hub_id ) {
               rowComplete--;
             }
           });
@@ -1535,10 +1486,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           angular.forEach( $scope.project.definition.strategic_objectives_check, function( key, so ){
 
             if ( key ) {
-							var so_obj = so.split(":");
-							// "health_objective_2:2018"
-							// old 2017 SO has no year, update db or use this hunch
-							if (so_obj[1]==="")so_obj[1]=2017;
+              var so_obj = so.split(":");
+              // "health_objective_2:2018"
+              // old 2017 SO has no year, update db or use this hunch
+              if (so_obj[1]==="")so_obj[1]=2017;
               // default
               var objective = $filter('filter')( $scope.project.lists.strategic_objectives[so_obj[1]][ $scope.project.definition.cluster_id ], { objective_type_id: so_obj[0] }, true );
               if( objective[0] ){
@@ -1646,9 +1597,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           if ( !e ) {
             $('#ngm-target_locations').css({ 'color': '#EE6E73'});
             scrollDiv = $('#ngm-target_locations');
-					}
+          }
 
-					if ( !d ) {
+          if ( !d ) {
             $('#ngm-target_beneficiaries').css({ 'color': '#EE6E73'});
             scrollDiv = $('#ngm-target_beneficiaries');
           }
@@ -1919,6 +1870,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             angular.forEach( $scope.project.definition.strategic_objectives, function( d, i ){
               if ( d ){
                 $scope.project.definition.strategic_objectives_check[ d.objective_type_id + ':' + (d.objective_year?d.objective_year:'') ] = true;
+              }
+            });
+          }
+
+
+          // fetch lists for project details
+          if ( $scope.project.definition.id && $scope.project.definition.admin0pcode === 'ET' ) {
+            angular.forEach( $scope.project.definition.target_locations, function( d, i ){
+              if ( d ){
+                $scope.project.loadAdmin3Sites( i, d );
               }
             });
           }

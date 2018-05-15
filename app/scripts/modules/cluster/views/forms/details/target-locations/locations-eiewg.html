@@ -38,7 +38,7 @@
 							    	</td>
 							      <td>
 							        <!-- editable admin1 -->
-							        <span e-placeholder="Select..." editable-select="location.admin1pcode" e-name="admin1pcode" e-form="locationform" e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1" e-required>
+							        <span e-placeholder="Select..." editable-select="location.admin1pcode" e-name="admin1pcode" e-form="locationform" e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1 | filter : { inactive: '!true' } " e-required>
 							          {{ project.showAdmin1($data, location) }}
 							        </span>
 							      </td>
@@ -49,39 +49,39 @@
 							        </span>
 							      </td>
 							      <td>
-							        <!-- editable facility_implementation_id -->
-							        <span e-placeholder="Select..." editable-select="location.facility_implementation_id" e-name="facility_implementation_id" e-form="locationform" e-ng-options="item.facility_implementation_id as item.facility_implementation_name for item in project.lists.facility_implementation" e-ng-disabled="!location.admin2pcode" e-required>
-							          {{ project.showFacilityImplementation($data, location) }}
+							        <!-- editable site_implementation_id -->
+							        <span e-placeholder="Select..." editable-select="location.site_implementation_id" e-name="site_implementation_id" e-form="locationform" e-ng-options="item.site_implementation_id as item.site_implementation_name for item in project.lists.site_implementation" e-ng-disabled="!location.admin2pcode" e-required>
+							          {{ project.showSiteImplementation($data, location) }}
 							        </span>
 							      </td>
 										<td>
-							        <span e-placeholder="Select..." editable-select="location.facility_type_id" e-name="facility_type_id" e-form="locationform" e-ng-options="item.facility_type_id as item.facility_type_name for item in project.lists.facility_type | filter:{ facility_implementation_id: location.facility_implementation_id }:true" e-ng-disabled="!location.facility_implementation_id" e-required>
-							          {{ project.showFacilityType($index, $data, location) }}
+							        <span e-placeholder="Select..." editable-select="location.site_type_id" e-name="site_type_id" e-form="locationform" e-ng-options="item.site_type_id as item.site_type_name for item in project.lists.site_type | filter:{ site_implementation_id: location.site_implementation_id }:true" e-ng-disabled="!location.site_implementation_id" e-required>
+							          {{ project.showSiteType($index, $data, location) }}
 							        </span>
 							      </td>
 							      <td>
-							        <span e-placeholder="Select..." editable-select="location.new_facility_id" e-name="new_facility_id" e-form="locationform" e-ng-options="item.new_facility_id as item.new_facility_name for item in project.lists.new_facility" e-ng-disabled="!location.facility_type_id" e-ng-change="project.yesNoChange(location)" e-required>
-							          {{ project.showYesNo($data, location) }}
+							        <span e-placeholder="Select..." editable-select="location.new_site_id" e-name="new_site_id" e-form="locationform" e-ng-options="item.new_site_id as item.new_site_name for item in project.lists.new_site" e-ng-disabled="!location.site_type_id" e-ng-change="project.yesNoChange(location)" e-required>
+							          {{ project.showYesNo($index, $data, location) }}
 							        </span>
 							      </td>
-							      <td ng-if="location.new_facility_id === 'no'">
-							        <span e-placeholder="Select..." onshow="project.loadSchools($index, $data, location)" editable-select="location.facility_id" e-name="facility_id" e-form="locationform" e-ng-options="item.facility_id as item.facility_name for item in project.lists.schools[$index][location.admin2pcode]" e-ng-disabled="!location.admin2name || !location.new_facility_id">
+							      <td ng-if="location.new_site_id === 'no'">
+							        <span e-placeholder="Select..." onshow="project.loadSchools($index, $data, location)" editable-select="location.site_id" e-name="site_id" e-form="locationform" e-ng-options="item.site_id as item.site_name for item in project.lists.schools[$index][location.admin2pcode]" e-ng-disabled="!location.admin2name || !location.new_site_id">
 							          {{ project.showSchools($index, $data, location) }}
 							        </span>
 							      </td>
-							      <td ng-if="location.new_facility_id === 'yes'">
-							        <span editable-text="location.facility_name" e-name="facility_name" e-form="locationform" e-required>
-							        	{{ project.showFacilityName($data, location) }}
+							      <td ng-if="location.new_site_id === 'yes'">
+							        <span editable-text="location.site_name" e-name="site_name" e-form="locationform" e-required>
+							        	{{ project.showSiteName($data, location) }}
 							        </span>
 							      </td>
-							      <td ng-if="project.showHubSchoolNameLabel() && location.facility_implementation_id === 'formal'">
+							      <td ng-if="project.showHubSchoolNameLabel() && location.site_implementation_id === 'formal'">
 							      </td>
-							      <td ng-if="location.new_facility_id && location.facility_implementation_id === 'informal'">
-							        <span e-placeholder="Select..." onshow="project.loadSchools($index, $data, location)" editable-select="location.facility_hub_id" e-name="facility_hub_id" e-form="locationform" e-ng-options="item.facility_id as item.facility_name for item in project.lists.hub_schools[$index][location.admin2pcode]" e-ng-disabled="!location.admin2name || location.facility_implementation_id !== 'informal'">
+							      <td ng-if="location.new_site_id && location.site_implementation_id === 'informal'">
+							        <span e-placeholder="Select..." onshow="project.loadSchools($index, $data, location)" editable-select="location.site_hub_id" e-name="site_hub_id" e-form="locationform" e-ng-options="item.site_id as item.site_name for item in project.lists.hub_schools[$index][location.admin2pcode]" e-ng-disabled="!location.admin2name || location.site_implementation_id !== 'informal'">
 							          {{ project.showHubSchools($index, $data, location) }}
 							        </span>
 							      </td>
-							      <td ng-if="project.showHubSchoolNameLabel() && !location.facility_implementation_id">
+							      <td ng-if="project.showHubSchoolNameLabel() && !location.site_implementation_id">
 							      </td>
 							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
 							        <!-- form -->
