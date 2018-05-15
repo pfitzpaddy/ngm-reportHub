@@ -1659,39 +1659,6 @@ angular.module( 'ngmReportHub' )
             site_type_name: 'IDP Site'            
           }];
 
-        // select what you wish
-        if ( cluster_id === 'eiewg' ) {
-          site_types = [{
-            site_implementation_id: 'formal',
-            site_type_id: 'higher',
-            site_type_name: 'Higher'
-          },{
-            site_implementation_id: 'formal',
-            site_type_id: 'secondary',
-            site_type_name: 'Secondary'
-          },{
-            site_implementation_id: 'formal',
-            site_type_id: 'primary',
-            site_type_name: 'Primary'
-          },{
-            site_implementation_id: 'formal',
-            site_type_id: 'ECD',
-            site_type_name: 'ECD'
-          },{
-            site_implementation_id: 'formal',
-            site_type_id: 'TC',
-            site_type_name: 'TC'
-          },{
-            site_implementation_id: 'informal',
-            site_type_id: 'ALC',
-            site_type_name: 'ALC'
-          },{
-            site_implementation_id: 'informal',
-            site_type_id: 'CBS',
-            site_type_name: 'CBS'
-          }]
-        }
-
         // health and not ET
         if ( admin0pcode !== 'ET' ) {
           site_types = [{
@@ -1755,6 +1722,38 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'community_based',
             site_type_name: 'Community Based'
           }];
+        }
+
+        if ( cluster_id === 'eiewg' ) {
+          site_types = [{
+            site_implementation_id: 'formal',
+            site_type_id: 'higher',
+            site_type_name: 'Higher'
+          },{
+            site_implementation_id: 'formal',
+            site_type_id: 'secondary',
+            site_type_name: 'Secondary'
+          },{
+            site_implementation_id: 'formal',
+            site_type_id: 'primary',
+            site_type_name: 'Primary'
+          },{
+            site_implementation_id: 'formal',
+            site_type_id: 'ECD',
+            site_type_name: 'ECD'
+          },{
+            site_implementation_id: 'formal',
+            site_type_id: 'TC',
+            site_type_name: 'TC'
+          },{
+            site_implementation_id: 'informal',
+            site_type_id: 'ALC',
+            site_type_name: 'ALC'
+          },{
+            site_implementation_id: 'informal',
+            site_type_id: 'CBS',
+            site_type_name: 'CBS'
+          }]
         }
 
         // facilities

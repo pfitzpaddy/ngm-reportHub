@@ -928,6 +928,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               location.site_type_name = selected[0].site_type_name;
             }
           }
+          console.log(location)
           return selected.length ? selected[0].site_type_name : 'No Selection!';
 
         },
