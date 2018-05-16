@@ -1586,9 +1586,6 @@ angular.module( 'ngmReportHub' )
           }]
         } else {
           site_implementation = [{
-            site_implementation_id: 'multiple_services',
-            site_implementation_name: 'Multiple Services'
-          },{
             site_implementation_id: 'community_based',
             site_implementation_name: 'Community Based'
           },{
@@ -1603,9 +1600,6 @@ angular.module( 'ngmReportHub' )
           },{
             site_implementation_id: 'stabalization_center',
             site_implementation_name: 'Stabalization Center'
-          },{
-            site_implementation_id: 'phc',
-            site_implementation_name: 'PHC'
           },{
             site_implementation_id: 'mhnt',
             site_implementation_name: 'MHNT'
@@ -1636,9 +1630,6 @@ angular.module( 'ngmReportHub' )
           },{
             site_type_id: 'settlement',
             site_type_name: 'Settlement'
-          },{
-            site_type_id: 'community_center',
-            site_type_name: 'Community Center'
           },{
             site_type_id: 'schools',
             site_type_name: 'School'
