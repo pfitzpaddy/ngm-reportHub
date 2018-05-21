@@ -1643,11 +1643,11 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'health_post',
             site_type_name: 'Health Post'
           },{
-            site_type_id: 'refugee_site',
-            site_type_name: 'Refugee Site'
-          },{
             site_type_id: 'idp_site',
-            site_type_name: 'IDP Site'            
+            site_type_name: 'IDP Site'
+          },{
+            site_type_id: 'refugee_site',
+            site_type_name: 'Refugee Site'       
           }];
 
         // health and not ET
