@@ -493,11 +493,16 @@ angular.module('ngmReportHub')
 
 					// ADMIN
 					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 ) {
+						$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
+						$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode; 
 						$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
 						$scope.dashboard.role = 'ADMIN';
 					}
 					// USER
 					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 && $scope.dashboard.user.roles.indexOf( 'ADMIN' ) === -1 ) {
+						$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
+						$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode; 
+						$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
 						$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
 						$scope.dashboard.organization = $scope.dashboard.user.organization;
 						$scope.dashboard.role = 'USER';
@@ -669,7 +674,7 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
-											data: $scope.dashboard.getRequest( 'latest', false ),
+											data: $scope.dashboard.getRequest( 'latest', false )
 										},
 										templateUrl: '/scripts/widgets/ngm-html/template/cluster.dashboard.admin.html'
 									}
