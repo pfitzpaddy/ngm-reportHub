@@ -79,13 +79,13 @@ angular.module('ngm.widget.list', ['ngm.provider'])
         // format date
         titleFormat: function( date ) {
           // return moment
-          return moment( date ).format('MMMM, YYYY');
+          return moment.utc( date ).format('MMMM, YYYY');
         },
 
         // format date
         dueFormat: function( date ) {
           // return moment
-          return moment( date ).format('DD MMMM, YYYY');
+          return moment.utc( date ).format('DD MMMM, YYYY');
         },
 
         // description

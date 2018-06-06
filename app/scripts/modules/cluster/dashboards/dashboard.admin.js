@@ -42,11 +42,17 @@ angular.module('ngmReportHub')
 				// current user
 				user: ngmUser.get(),
 
+				// report period start
+				startDate: moment.utc( $route.current.params.start ).format( 'YYYY-MM-DD' ),
+
+				// report period end
+				endDate: moment.utc( $route.current.params.end ).format( 'YYYY-MM-DD' ),
+
 				// report start
-				startDate: moment( $route.current.params.start) .format( 'YYYY-MM-DD' ),
+				startDateReport: moment.utc( $route.current.params.start ).subtract( 1, 'M').format( 'YYYY-MM-DD' ),
 
 				// report end
-				endDate: moment( $route.current.params.end ).format( 'YYYY-MM-DD' ),
+				endDateReport: moment.utc( $route.current.params.end ).subtract( 1, 'M').format( 'YYYY-MM-DD' ),
 
 				// current report
 				report_file_name: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
@@ -166,8 +172,8 @@ angular.module('ngmReportHub')
 						adminRpcode: $scope.dashboard.adminRpcode,
 						admin0pcode: $scope.dashboard.admin0pcode,
 						report_type: $scope.dashboard.report_type,
-						start_date: $scope.dashboard.startDate,
-						end_date: $scope.dashboard.endDate
+						start_date: $scope.dashboard.startDateReport,
+						end_date: $scope.dashboard.endDateReport
 					}
 
 					return request;
@@ -187,8 +193,8 @@ angular.module('ngmReportHub')
 							cluster_id: $scope.dashboard.cluster_id,
 							organization_tag: $scope.dashboard.organization_tag,
 							beneficiaries: ['all'],
-							start_date: '2017-01-01',
-							end_date: moment().format( 'YYYY-MM-DD' )
+							start_date: $scope.dashboard.startDateReport,
+							end_date: $scope.dashboard.endDateReport
 						}
 					}
 
@@ -490,6 +496,8 @@ angular.module('ngmReportHub')
 					$scope.dashboard.cluster_id = $route.current.params.cluster_id;
 					$scope.dashboard.organization_tag = $route.current.params.organization_tag;
 					$scope.dashboard.report_type = $route.current.params.report_type;
+					// report name
+					$scope.dashboard.report_file_name += moment().format( 'YYYY-MM-DDTHHmm' );
 
 					// ADMIN
 					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 ) {
@@ -507,9 +515,6 @@ angular.module('ngmReportHub')
 						$scope.dashboard.organization = $scope.dashboard.user.organization;
 						$scope.dashboard.role = 'USER';
 					}
-
-					// report name
-					$scope.dashboard.report_file_name += moment().format( 'YYYY-MM-DDTHHmm' );
 
 					// set
 					$scope.dashboard.setUrl();
@@ -553,7 +558,7 @@ angular.module('ngmReportHub')
 									currentTime: $scope.dashboard.startDate,
 									onClose: function(){
 										// set date
-										var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
+										var date = moment.utc(new Date(this.currentTime)).format('YYYY-MM-DD');
 										if ( date !== $scope.dashboard.startDate ) {
 											// set new date
 											$scope.dashboard.startDate = date;
@@ -572,7 +577,7 @@ angular.module('ngmReportHub')
 									currentTime: $scope.dashboard.endDate,
 									onClose: function(){
 										// set date
-										var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
+										var date = moment.utc(new Date(this.currentTime)).format('YYYY-MM-DD')
 										if ( date !== $scope.dashboard.endDate ) {
 											// set new date
 											$scope.dashboard.endDate = date;

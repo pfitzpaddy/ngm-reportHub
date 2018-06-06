@@ -80,7 +80,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         updatedAt: moment( config.report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ),
 
         // title
-        titleFormat: moment( config.report.reporting_period ).format('MMMM, YYYY'),
+        titleFormat: moment.utc( config.report.reporting_period ).format('MMMM, YYYY'),
 
         // lists
         // activity_type: config.project.activity_type,
@@ -126,15 +126,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         datepicker: {
           startOnClose: function( $parent, $index, value ) {
-            var a = moment( value );
-            var b = moment( $scope.project.report.locations[ $parent ].trainings[ $index ].training_end_date );
-            $scope.project.report.locations[ $parent ].trainings[ $index ].training_start_date = moment( value ).format( 'YYYY-MM-DD' );
+            var a = moment.utc( value );
+            var b = moment.utc( $scope.project.report.locations[ $parent ].trainings[ $index ].training_end_date );
+            $scope.project.report.locations[ $parent ].trainings[ $index ].training_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
             $scope.project.report.locations[ $parent ].trainings[ $index ].training_days_number = b.diff( a, 'days' )+1;
           },
           endOnClose: function( $parent, $index, value ) {
-            var a = moment( $scope.project.report.locations[ $parent ].trainings[ $index ].training_start_date );
-            var b = moment( value );
-            $scope.project.report.locations[ $parent ].trainings[ $index ].training_end_date = moment( value ).format( 'YYYY-MM-DD' );
+            var a = moment.utc( $scope.project.report.locations[ $parent ].trainings[ $index ].training_start_date );
+            var b = moment.utc( value );
+            $scope.project.report.locations[ $parent ].trainings[ $index ].training_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
             $scope.project.report.locations[ $parent ].trainings[ $index ].training_days_number = b.diff( a, 'days' )+1;
           },
         },
@@ -193,8 +193,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $scope.trainingInserted = {
             training_title: 'Training / Workshop Title...',
             training_topics: selected.join(', '),
-            training_start_date: moment().format('YYYY-MM-DD'),
-            training_end_date: moment().add( 3, 'd' ).format('YYYY-MM-DD'),
+            training_start_date: moment.utc().format('YYYY-MM-DD'),
+            training_end_date: moment.utc().add( 3, 'd' ).format('YYYY-MM-DD'),
             training_days_number: 3,
             training_total_trainees: 0,
             training_conducted_by: $scope.project.definition.organization,
@@ -1137,7 +1137,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               $scope.project.report.submit = false;
 
               // user msg
-              var msg = 'Project Report for  ' + moment( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
+              var msg = 'Project Report for  ' + moment.utc( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
                   msg += complete ? 'Submitted!' : 'Saved!';
 
               // msg
