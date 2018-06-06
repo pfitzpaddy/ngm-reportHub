@@ -661,7 +661,12 @@ angular.module( 'ngmReportHub' )
 						{ cluster_id: [ 'health' ],
               unit_type_id: 'health_extension_workers', unit_type_name: 'Health Extension Workers' },
             { cluster_id: [ 'esnfi' ],
-							unit_type_id: 'houses', unit_type_name: 'Houses' },
+              unit_type_id: 'houses', unit_type_name: 'Houses' },
+            { cluster_id: [ 'esnfi' ],
+            // ESNFI cash item types
+              unit_type_id: 'afg', unit_type_name: 'AFG' },
+            { cluster_id: [ 'esnfi' ],
+							unit_type_id: 'USD', unit_type_name: 'USD' },    
           ];
 
         // unit type list
@@ -2405,8 +2410,8 @@ angular.module( 'ngmReportHub' )
       				'protection': [{
       					cluster_id: 'protection',
       					cluster: 'Protection',
-      					objective_type_id: 'protection_objective_2',
-      					objective_type_name: 'PROTECTION OBJECTIVE 2',
+      					objective_type_id: 'protection_objective_1',
+      					objective_type_name: 'PROTECTION OBJECTIVE 1',
       					objective_type_description: 'Parties increase measures to protect civilians based upon further harmonized POC/IHL advocacy by protection actors',
       					objective_type_objectives: ['SO1','SO2'],
       					objective_year: 2018
@@ -2430,7 +2435,7 @@ angular.module( 'ngmReportHub' )
       					cluster_id: 'protection',
       					cluster: 'Protection',
       					objective_type_id: 'protection_objective_4',
-      					objective_type_name: 'PROTECTION OBJECTIVE 5',
+      					objective_type_name: 'PROTECTION OBJECTIVE 4',
       					objective_type_description: 'Vulnerable displaced persons are able to claim and exercise housing, land and property, as well as legal identity rights vital for achieving durable solutions',
       					objective_type_objectives: ['SO1','SO3'],
       					objective_year: 2018
