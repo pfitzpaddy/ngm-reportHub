@@ -47,7 +47,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         // last update
         updatedAt: moment( config.report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ),
         // last update
-        titleFormat: moment( config.report.reporting_period ).format('MMMM, YYYY'),
+        titleFormat: moment.utc( [ config.report.report_year, config.report.report_month, 1 ] ).format('MMMM, YYYY'),
 
         templatesUrl: '/scripts/modules/cluster/views/forms/stock/',
         locationsUrl: 'locations.html',
