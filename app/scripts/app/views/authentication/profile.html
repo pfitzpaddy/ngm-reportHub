@@ -90,6 +90,40 @@ li {
 	        </div>
 	      </div>
 
+				<!-- input-date directive -->
+				<div class="row">
+					<div class="input-field col s12" 
+								ng-if="panel.user.organization === 'iMMAP' && panel.user.admin0pcode === 'ET'">
+								<i class="material-icons prefix">date_range</i>
+								<input ngm-date
+								    type="text"
+								    name="created"
+								    id="ngm-contract-start-date"
+								    ng-model="panel.user.contract_start_date"
+								    format="dd mmm, yyyy"
+								    select-years="15"
+								    max="{{ panel.user.contract_end_date }}"/>
+								<label for="ngm-contract-start-date">Contract Start Date</label>
+					</div>
+				</div>
+
+				<!-- input-date directive -->
+				<div class="row">
+					<div class="input-field col s12"
+								ng-if="panel.user.organization === 'iMMAP' && panel.user.admin0pcode === 'ET'">
+					  		<i class="material-icons prefix">date_range</i>
+								<input ngm-date
+								    type="text"
+								    name="created"
+								    id="ngm-contract-end-date"
+								    ng-model="panel.user.contract_end_date"
+								    format="dd mmm, yyyy"
+								    select-years="15"
+								    min="{{ panel.user.contract_start_date }}"/>
+								<label for="ngm-contract-end-date">Contract End Date</label>
+					</div>
+				</div>
+
 	      <div class="row">
 	        <div class="input-field col s12">
 	        	<i class="material-icons prefix">phone</i>

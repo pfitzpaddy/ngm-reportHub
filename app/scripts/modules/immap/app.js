@@ -7,7 +7,7 @@
  * Main module of the application.
  */
 angular
-	.module('ngmWatchkeeper', [])
+	.module('ngmiMMAP', [])
 	.config([ '$routeProvider', '$compileProvider', function ( $routeProvider, $compileProvider ) {
 
 		// https://medium.com/swlh/improving-angular-performance-with-1-line-of-code-a1fb814a6476#.ufea9sjt1
@@ -25,8 +25,26 @@ angular
 					}],
 				}
 			})
-			// DEFAULTS
+			// project list
 			.when( '/immap', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ImmapHomeCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+			.when( '/immap/profile', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardProfileCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+			.when( '/immap/watchkeeper', {
 				redirectTo: '/immap/watchkeeper/kenya/2015-11-01/2015-11-30'
 			})
 			// Watchkeeper

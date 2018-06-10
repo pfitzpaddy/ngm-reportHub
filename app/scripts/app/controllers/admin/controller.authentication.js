@@ -260,6 +260,14 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           delete org.id;
           angular.merge( $scope.panel.user, org );
 
+          // update home page for iMMAP Ethiopia
+          if ( $scope.panel.user.organization === 'iMMAP' 
+                && $scope.panel.user.admin0pcode === 'ET' ) {
+              $scope.panel.user.app_home = '/immap/';
+          } else {
+            delete $scope.panel.user.app_home;
+          }
+
           // validate
           if ( $scope.panel.user && $scope.panel.user.organization_name ) {
             // not R&R Chapter
@@ -314,6 +322,13 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         // give a few seconds to render
         $timeout(function() {
 
+          // profile page
+          if( $location.path() === '/immap/profile' && 
+                $scope.panel.user.organization === 'iMMAP' &&
+                $scope.panel.user.admin0pcode === 'ET' ) {
+            $( '.carousel' ).css({ 'min-height': '960px' });
+          }
+
           // on change update icon color
           $( '#ngm-country' ).on( 'change', function() {
             if( $( this ).find( 'option:selected' ).text() ) {
@@ -325,6 +340,25 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           $( '#ngm-cluster' ).on( 'change', function() {
             if ( $( this ).find( 'option:selected' ).text() ) {
               $( '.cluster' ).css({ 'color': 'teal' });
+            }
+          });
+
+          // if iMMAP & ethiopia
+          $( '#organization-next' ).click( function( e ){
+            if ( $scope.panel.user.organization === 'iMMAP' 
+                  && $scope.panel.user.admin0pcode === 'ET' ) {
+              $( '.carousel' ).css({ 'min-height': '800px' });
+            } else {
+              $( '.carousel' ).css({ 'min-height': '640px' });
+            }
+          });
+          // if iMMAP & ethiopia
+          $( '#login-back' ).click( function( e ){
+            if ( $scope.panel.user.organization === 'iMMAP' 
+                  && $scope.panel.user.admin0pcode === 'ET' ) {
+              $( '.carousel' ).css({ 'min-height': '800px' });
+            } else {
+              $( '.carousel' ).css({ 'min-height': '640px' });
             }
           });
 
