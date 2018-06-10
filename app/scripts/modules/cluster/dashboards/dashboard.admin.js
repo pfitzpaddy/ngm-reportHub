@@ -43,16 +43,16 @@ angular.module('ngmReportHub')
 				user: ngmUser.get(),
 
 				// report period start
-				startDate: moment.utc( $route.current.params.start ).format( 'YYYY-MM-DD' ),
+				startDate: moment( $route.current.params.start ).format( 'YYYY-MM-DD' ),
 
 				// report period end
-				endDate: moment.utc( $route.current.params.end ).format( 'YYYY-MM-DD' ),
+				endDate: moment( $route.current.params.end ).format( 'YYYY-MM-DD' ),
 
 				// report start
-				startDateReport: moment.utc( $route.current.params.start ).subtract( 1, 'M').format( 'YYYY-MM-DD' ),
+				startDateReport: moment( $route.current.params.start ).subtract( 1, 'M').format( 'YYYY-MM-DD' ),
 
 				// report end
-				endDateReport: moment.utc( $route.current.params.end ).subtract( 1, 'M').format( 'YYYY-MM-DD' ),
+				endDateReport: moment( $route.current.params.end ).subtract( 1, 'M').format( 'YYYY-MM-DD' ),
 
 				// current report
 				report_file_name: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
@@ -558,7 +558,7 @@ angular.module('ngmReportHub')
 									currentTime: $scope.dashboard.startDate,
 									onClose: function(){
 										// set date
-										var date = moment.utc(new Date(this.currentTime)).format('YYYY-MM-DD');
+										var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD');
 										if ( date !== $scope.dashboard.startDate ) {
 											// set new date
 											$scope.dashboard.startDate = date;
