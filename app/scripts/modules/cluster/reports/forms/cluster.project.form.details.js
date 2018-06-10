@@ -166,12 +166,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         datepicker: {
           onClose: function(){
             $scope.project.definition.update_dates = true;
-            
-            console.log($scope.project.definition.project_start_date)
-            console.log(moment.utc( new Date( $scope.project.definition.project_start_date ) ).format('YYYY-MM-DD'))
 
-            $scope.project.definition.project_start_date = moment.utc( new Date( $scope.project.definition.project_start_date ) ).format('YYYY-MM-DD');
-            $scope.project.definition.project_end_date = moment.utc( new Date( $scope.project.definition.project_end_date ) ).format('YYYY-MM-DD');
+            $scope.project.definition.project_start_date = moment( new Date( $scope.project.definition.project_start_date ) ).format('YYYY-MM-DD');
+            $scope.project.definition.project_end_date = moment( new Date( $scope.project.definition.project_end_date ) ).format('YYYY-MM-DD');
 
             $scope.project.lists.strategic_objectives =  ngmClusterHelper.getStrategicObjectives($scope.project.definition.admin0pcode,
               moment( new Date( $scope.project.definition.project_start_date ) ).year(), moment( new Date( $scope.project.definition.project_end_date ) ).year() )
