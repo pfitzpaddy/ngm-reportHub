@@ -74,7 +74,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         indicators: config.report.report_year === 2016 ? ngmClusterHelper.getIndicators( true ) : ngmClusterHelper.getIndicators(),
 
         // keys to ignore when summing beneficiaries in template ( 2016 )
-        skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ],
+        skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes', 'households' ],
 
         // last update
         updatedAt: moment( config.report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ),
