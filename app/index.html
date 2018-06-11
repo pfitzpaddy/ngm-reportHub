@@ -137,18 +137,25 @@
 										<i class="material-icons smedium right">bubble_chart</i>5W DASHBOARD</a>
 									</li>
 
-									<!-- my projects -->
-									<li align="center" class="teal z-depth-2" 
-										ng-show="ngm.getUserName() !== 'welcome'">
-										<a class="white-text right" href="#/cluster/organization" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">group</i>MY ORGANIZATION</a>
-									</li>
-
 									<!-- PROFILE -->
 									<li align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/profile" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">account_circle</i>MY PROFILE</a>
+									</li>
+
+									<!-- TEAM -->
+									<li align="center" class="teal z-depth-2"
+										ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text right" href="#/team" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">group</i>MY TEAM</a>
+									</li>
+
+									<!-- ORG -->
+									<li align="center" class="teal z-depth-2" 
+										ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text right" href="#/cluster/organization" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">donut</i>MY ORGANIZATION</a>
 									</li>
 
 									<!-- ADMIN -->
@@ -247,9 +254,16 @@
 									</li>
 									
 									<!-- PROFILE -->
-									<li align="center" class="teal z-depth-2"
+									<li align="center" class="teal z-depth-2">
 										<a class="white-text right" href="#/immap/profile" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">account_circle</i>MY PROFILE</a>
+									</li>
+
+									<!-- TEAM -->
+									<li align="center" class="teal z-depth-2"
+										ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text right" href="#/immap/team" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">group</i>MY TEAM</a>
 									</li>
 
 							</ul>
@@ -396,6 +410,7 @@
 		<script src="scripts/app/controllers/admin/controller.reset.js"></script>
 		<script src="scripts/app/controllers/admin/controller.forbidden.js"></script>
 		<script src="scripts/app/controllers/admin/controller.profile.js"></script>
+		<script src="scripts/app/controllers/admin/controller.team.js"></script>
 		<!-- help guide -->
 		<script src="scripts/app/controllers/guides/controller.guide.menu.js"></script>
 		<script src="scripts/app/controllers/guides/controller.guide.feedback.js"></script>

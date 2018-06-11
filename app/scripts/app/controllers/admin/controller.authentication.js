@@ -344,23 +344,23 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           });
 
           // if iMMAP & ethiopia
-          $( '#organization-next' ).click( function( e ){
-            if ( $scope.panel.user.organization === 'iMMAP' 
-                  && $scope.panel.user.admin0pcode === 'ET' ) {
-              $( '.carousel' ).css({ 'min-height': '800px' });
-            } else {
-              $( '.carousel' ).css({ 'min-height': '640px' });
-            }
-          });
-          // if iMMAP & ethiopia
-          $( '#login-back' ).click( function( e ){
-            if ( $scope.panel.user.organization === 'iMMAP' 
-                  && $scope.panel.user.admin0pcode === 'ET' ) {
-              $( '.carousel' ).css({ 'min-height': '800px' });
-            } else {
-              $( '.carousel' ).css({ 'min-height': '640px' });
-            }
-          });
+          // $( '#organization-next' ).click( function( e ){
+          //   if ( $scope.panel.user.organization === 'iMMAP' 
+          //         && $scope.panel.user.admin0pcode === 'ET' ) {
+          //     $( '.carousel' ).css({ 'min-height': '890px' });
+          //   } else {
+          //     $( '.carousel' ).css({ 'min-height': '640px' });
+          //   }
+          // });
+          // // if iMMAP & ethiopia
+          // $( '#login-back' ).click( function( e ){
+          //   if ( $scope.panel.user.organization === 'iMMAP' 
+          //         && $scope.panel.user.admin0pcode === 'ET' ) {
+          //     $( '.carousel' ).css({ 'min-height': '890px' });
+          //   } else {
+          //     $( '.carousel' ).css({ 'min-height': '640px' });
+          //   }
+          // });
 
         }, 900 );
 

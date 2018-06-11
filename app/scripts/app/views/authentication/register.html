@@ -69,7 +69,7 @@ li {
 			<div class="icon center">
 				<!-- make it a circle -->
 				<div class="card">
-					<img title="Check your ReportHub email account" src="images/registration.png"/>
+					<img title="ReportHub Registration" src="images/registration.png"/>
 				</div>
 				<h5 class="title">ORGANIZATION</h5>
 			</div>
@@ -153,7 +153,7 @@ li {
 			<div class="icon center">
 				<!-- make it a circle -->
 				<div class="card">
-					<img title="Check your ReportHub email account" src="images/registration.png"/>
+					<img title="Contact Details" src="images/registration.png"/>
 				</div>
 				<h5 class="title">CONTACT</h5>
 			</div>
@@ -179,60 +179,6 @@ li {
 	          <label for="ngm-position">Position</label>
 	        </div>
 	      </div>
-
-<!-- 	      <div class="row" ng-if="panel.user.organization === 'iMMAP' ">
-	        <div class="input-field col s12">
-	        	<i class="material-icons prefix">date_range</i>
-	          <input id="ngm-position" type="text" class="validate"
-							ng-model="panel.user.start_date"
-							required>
-	          <label for="ngm-position">Contract Start Date</label>
-	        </div>
-	      </div>
-
-	      <div class="row" ng-if="panel.user.organization === 'iMMAP' ">
-	        <div class="input-field col s12">
-	        	<i class="material-icons prefix">date_range</i>
-	          <input id="ngm-position" type="date" class="validate"
-							ng-model="panel.user.end_date"
-							required>
-	          <label for="ngm-position">Contract End Date</label>
-	        </div>
-	      </div> -->
-
-				<!-- input-date directive -->
-				<div class="row">
-					<div class="input-field col s12" 
-								ng-if="panel.user.organization === 'iMMAP' && panel.user.admin0pcode === 'ET'">
-								<i class="material-icons prefix">date_range</i>
-								<input ngm-date
-								    type="text"
-								    name="created"
-								    id="ngm-contract-start-date"
-								    ng-model="panel.user.contract_start_date"
-								    format="dd mmm, yyyy"
-								    select-years="15"
-								    max="{{ panel.user.contract_end_date }}"/>
-								<label for="ngm-contract-start-date">Contract Start Date</label>
-					</div>
-				</div>
-
-				<!-- input-date directive -->
-				<div class="row">
-					<div class="input-field col s12"
-								ng-if="panel.user.organization === 'iMMAP' && panel.user.admin0pcode === 'ET'">
-					  		<i class="material-icons prefix">date_range</i>
-								<input ngm-date
-								    type="text"
-								    name="created"
-								    id="ngm-contract-end-date"
-								    ng-model="panel.user.contract_end_date"
-								    format="dd mmm, yyyy"
-								    select-years="15"
-								    min="{{ panel.user.contract_start_date }}"/>
-								<label for="ngm-contract-end-date">Contract End Date</label>
-					</div>
-				</div>
 
 	      <div class="row">
 	        <div class="input-field col s12">
@@ -261,13 +207,13 @@ li {
 							<i class="material-icons left">keyboard_arrow_left</i>
 							Back
 					</div>
-					<button
+					<div
 						id="contact-next"
 						class="btn btn-large waves-effect waves-teal"
 						ng-disabled="ngmContactForm.$invalid">
 							<i class="material-icons right">keyboard_arrow_right</i>
 							Next
-					</button>
+					</div>
 				</div>
 
 	    </form>
@@ -275,12 +221,12 @@ li {
     </div>
 
     <!-- contact -->
-    <div class="carousel-item" href="#two!">
+    <div class="carousel-item" href="#three!">
 
 			<div class="icon center">
 				<!-- make it a circle -->
 				<div class="card">
-					<img title="Check your ReportHub email account" src="images/registration.png"/>
+					<img title="ReportHub Login Details" src="images/registration.png"/>
 				</div>
 				<h5 class="title">LOGIN DETAILS</h5>
 			</div>
@@ -315,14 +261,124 @@ li {
 							<i class="material-icons left">keyboard_arrow_left</i>
 							Back
 					</div>
-					<button
+					<div
+						id="login-next"
+						ng-show="panel.user.organization === 'iMMAP' && panel.user.admin0pcode === 'ET'"
+						class="btn btn-large waves-effect waves-teal"
+						ng-disabled="ngmLoginForm.$invalid">
+							<i class="material-icons right">keyboard_arrow_right</i>
+							Next
+					</div>
+					<div
 						id="login-register"
+						ng-show="panel.user.organization !== 'iMMAP' && panel.user.admin0pcode !== 'ET'"
 						class="btn btn-large waves-effect waves-teal"
 						ng-disabled="ngmLoginForm.$invalid"
 						ng-click="panel.register()">
 							<i class="material-icons right">keyboard_arrow_right</i>
 							Register!
-					</button>
+					</div>
+					<div
+						id="login-register"
+						ng-show="panel.user.organization === 'iMMAP' && panel.user.admin0pcode !== 'ET'"
+						class="btn btn-large waves-effect waves-teal"
+						ng-disabled="ngmLoginForm.$invalid"
+						ng-click="panel.register()">
+							<i class="material-icons right">keyboard_arrow_right</i>
+							Register!
+					</div>
+				</div>
+
+	    </form>
+
+    </div>
+
+    <!-- programme -->
+    <div class="carousel-item" href="#four!">
+
+			<div class="icon center">
+				<!-- make it a circle -->
+				<div class="card">
+					<img title="iMMAP Programme" src="images/registration.png"/>
+				</div>
+				<h5 class="title">iMMAP PROGRAMME</h5>
+			</div>
+
+			<form name="ngmProgrammeForm" class="col s12" novalidate>
+
+				<!-- programme -->
+				<div class="row">
+					<div class="input-field col s12">
+	        	<i class="material-icons prefix cluster">donut_large</i>
+					    <select class="validate"
+									    	id="ngm-programme"
+									    	ng-model="panel.user.programme">
+					      <option value="" disabled selected>Select Programme</option>
+								<option value="cdc">CDC PHIS Implementation</option>
+								<option value="ofda">OFDA Humanitarian IM Support</option>
+					    </select>
+					    <label for="ngm-programme">Programme</label>
+	        </div>
+	      </div>
+
+				<!-- input-date directive -->
+				<div class="row">
+					<div class="input-field col s12">
+								<i class="material-icons prefix">date_range</i>
+								<input ngm-date
+								    type="text"
+								    name="created"
+								    id="ngm-contract-start-date"
+								    ng-model="panel.user.contract_start_date"
+								    format="dd mmm, yyyy"
+								    select-years="15"
+								    max="{{ panel.user.contract_end_date }}"/>
+								<label for="ngm-contract-start-date">Contract Start Date</label>
+					</div>
+				</div>
+
+				<!-- input-date directive -->
+				<div class="row">
+					<div class="input-field col s12">
+					  		<i class="material-icons prefix">date_range</i>
+								<input ngm-date
+								    type="text"
+								    name="created"
+								    id="ngm-contract-end-date"
+								    ng-model="panel.user.contract_end_date"
+								    format="dd mmm, yyyy"
+								    select-years="15"
+								    min="{{ panel.user.contract_start_date }}"/>
+								<label for="ngm-contract-end-date">Contract End Date</label>
+					</div>
+				</div>
+
+				<!-- duty station -->
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">personal_video</i>
+	          <input id="ngm-duty-station" type="text" class="validate"
+							ng-model="panel.user.admin1pcode"
+							required>
+	          <label for="ngm-duty-station">Duty Station</label>
+	        </div>
+	      </div>
+
+				<div class="action center">
+					<div
+							id="programme-back"
+							class="btn btn-large waves-effect waves-teal">
+							<i class="material-icons left">keyboard_arrow_left</i>
+							Back
+					</div>
+					<div
+							id="programme-register"
+							class="btn btn-large waves-effect waves-teal"
+							ng-disabled="ngmProgrammeForm.$invalid"
+							ng-click="panel.register()">
+							<i class="material-icons right">keyboard_arrow_right</i>
+							Register!
+					</div>
 				</div>
 
 	    </form>
@@ -347,38 +403,46 @@ li {
 	// init select
 	$( 'select' ).material_select();
 
-	// organization goto contact
+	// organization goto contact details
 	$( '#organization-next' ).click( function( e ){
-		// set login page
 		$( '.carousel' ).carousel( 'next' );
 	});
-
-	// contact go back
+	// contact details go back
 	$( '#contact-back' ).click( function( e ){
 		$( '.carousel' ).carousel( 'prev' );
 	});
 
 	// contact goto login on enter
-	$( '#contact-next' ).keydown( function( e ){
-		if ( e.keyCode === 13 ) {
-			$( '.carousel' ).carousel( 'next' );
-		}
-	});
+	// $( '#contact-next' ).keydown( function( e ){
+	// 	if ( e.keyCode === 13 ) {
+	// 		$( '.carousel' ).carousel( 'next' );
+	// 	}
+	// });
 
 	// contact goto login on click
 	$( '#contact-next' ).click( function( e ){
 		// set login page
 		$( '.carousel' ).carousel( 'next' );
-		$( '.carousel' ).css({ 'min-height': '640px' });
-		// toast msg!
 		setTimeout(function(){
 			Materialize.toast( 'Almost Complete! Now set your LOGIN details', 3400, 'success' );
-		}, 400)
+		}, 400);
 	});
 
-	// login go back
+	// login details go back
 	$( '#login-back' ).click( function( e ){
 		$( '.carousel' ).carousel( 'prev' );
+	});
+	// login details go next (if iMMAP)
+	$( '#login-next' ).click( function( e ){
+		$( '.carousel' ).carousel( 'next' );
+	});
+
+	// iMMAP details go back to login
+	$( '#programme-back' ).click( function( e ){
+		$( '.carousel' ).carousel( 'prev' );
+		setTimeout(function(){
+			Materialize.toast( 'Last Item! Add iMMAP details', 3400, 'success' );
+		}, 400);
 	});
 
 </script>

@@ -1,0 +1,69 @@
+
+<style>
+
+.count, .label {
+  z-index: 1 !important;
+}
+
+.ng-table th.sortable .sort-indicator {
+  color: #2196F3;
+  font-weight: 400;
+}
+
+.pagination li.active {
+    background-color: #009688;
+}
+
+</style>
+
+
+<!-- ngTable -->
+<div class="row" ng-if="data.length">
+  <div class="col s12 m12 l12">
+    <div class="card">
+      <ul class="collection with-header">
+        <li class="{{ table.headerClass }}">
+          <h5 class="report-work-title {{ table.headerText }}"><i class="material-icons left">{{ table.headerIcon }}</i>{{ table.headerTitle }}</h5></li>
+        <li class="collection-item avatar" style="padding:10px;">
+
+          <!-- if data -->
+          <div ng-if="data.length">
+            <table class="centered highlight responsive-table" ng-table="table.tableParams">
+              <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
+                <!--
+                  <td data-title="'Country'" sortable="'admin0name'">
+                      {{ row.admin0name }}
+                  </td>
+                -->
+                <td data-title="'Name'" sortable="'name'">
+                    {{ row.name }}
+                </td>
+                <td data-title="'Position'" sortable="'position'">
+                  {{ row.position }}
+                </td>
+                <td data-title="'Sector'" sortable="'cluster'">
+                    {{ row.cluster }}
+                </td>
+                <td data-title="'Email'" sortable="'email'">
+                  {{ row.email }}
+                </td>
+                <td data-title="'Phone'" sortable="'phone'">
+                    {{ row.phone }}
+                </td>
+                <td data-title="'Edit'" sortable="'name'" ng-if="true">
+                  <div class="btn btn-small btn-flat waves-effect waves-light" title="Edit">
+                    <i class="material-icons">create</i>
+                  </div>
+                  <div class="btn btn-small red waves-effect waves-light" title="Delete">
+                    <i class="material-icons">delete</i>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

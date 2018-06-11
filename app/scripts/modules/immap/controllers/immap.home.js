@@ -21,7 +21,7 @@ angular.module( 'ngmReportHub' )
 			// current user
 			user: ngmUser.get(),
 
-			// 
+			// init()
 			init: function(){
 
 				// report dashboard model
@@ -50,6 +50,7 @@ angular.module( 'ngmReportHub' )
 								card: 'white grey-text text-darken-2',
 								style: 'padding: 0px;',
 								config: {
+									user: $scope.report.user,
 									templateUrl: '/scripts/modules/immap/views/immap.home.html',
 					      }
 					    }]

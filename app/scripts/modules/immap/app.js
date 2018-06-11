@@ -35,6 +35,15 @@ angular
 					}],
 				}
 			})
+			.when( '/immap/team', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardTeamCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
 			.when( '/immap/profile', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardProfileCtrl',

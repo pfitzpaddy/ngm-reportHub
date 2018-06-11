@@ -95,6 +95,16 @@ angular
 					}],
 				}
 			})
+			// TEAM
+			.when( '/team', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardTeamCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})			
 			// PROFILE
 			.when( '/profile', {
 				templateUrl: '/views/app/dashboard.html',
