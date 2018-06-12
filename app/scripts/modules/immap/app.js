@@ -53,6 +53,15 @@ angular
 					}],
 				}
 			})
+			.when( '/immap/profile/:username', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardProfileCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
 			.when( '/immap/watchkeeper', {
 				redirectTo: '/immap/watchkeeper/kenya/2015-11-01/2015-11-30'
 			})

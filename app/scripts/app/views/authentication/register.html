@@ -310,13 +310,11 @@ li {
 				<div class="row">
 					<div class="input-field col s12">
 	        	<i class="material-icons prefix cluster">donut_large</i>
-					    <select class="validate"
-									    	id="ngm-programme"
-									    	ng-model="panel.user.programme">
-					      <option value="" disabled selected>Select Programme</option>
-								<option value="cdc">CDC PHIS Implementation</option>
-								<option value="ofda">OFDA Humanitarian IM Support</option>
-					    </select>
+					    <select id="ngm-programme"
+        					ng-options="list.programme_id as list.programme_name for list in panel.programme"
+        					ng-model="panel.user.programme_id">Select Programme
+        					<option value="" disabled selected>Select Programme</option>
+        					</select>
 					    <label for="ngm-programme">Programme</label>
 	        </div>
 	      </div>

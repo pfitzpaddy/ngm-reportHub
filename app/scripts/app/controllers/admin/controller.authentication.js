@@ -38,6 +38,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         // adminRegion
         adminRegion: [
           { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'AF', admin0name: 'Afghanistan' },
+          { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0pcode: 'CD', admin0name: 'Democratic Republic of Congo' },
           { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0pcode: 'ET', admin0name: 'Ethiopia' },
           { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'IQ', admin0name: 'Iraq' },
           { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0pcode: 'KE', admin0name: 'Kenya' },
@@ -46,6 +47,13 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'SY', admin0name: 'Syria' },
           { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'UA', admin0name: 'Ukraine' },
           { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'UR', admin0name: 'Uruk' }
+        ],
+
+        programme:[
+          { programme_id: 'ETWHOIMOSUPPORTP1', programme_name: 'ETWHOIMOSUPPORTP1' },
+          { programme_id: 'ETUSAIDOFDAIMOSUPPORTP1', programme_name: 'ETUSAIDOFDAIMOSUPPORTP1' },
+          { programme_id: 'WWCDCCOOPERATIVEAGREEMENTP11', programme_name: 'WWCDCCOOPERATIVEAGREEMENTP11' },
+          { programme_id: 'WWCDCCOOPERATIVEAGREEMENTP12', programme_name: 'WWCDCCOOPERATIVEAGREEMENTP12' },
         ],
 
         // cluster
@@ -101,8 +109,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         update: function(ngmProfileForm) {
 
           // merge adminRegion
-          $scope.panel.user = angular.merge( {}, ngmUser.get(), $scope.panel.user );
-
+          $scope.panel.user = angular.merge( {}, ngmUser.get(), 
+                                                  $filter('filter')( $scope.panel.programme, { programme_id: $scope.panel.user.programme_id }, true)[0], 
+                                                  $scope.panel.user );
           // register
           ngmAuth
             .updateProfile({ user: $scope.panel.user }).success(function( result ) {
@@ -132,6 +141,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           // merge adminRegion
           $scope.panel.user = angular.merge( {}, $scope.panel.user,
                                                   $scope.panel.adminRegion[ $scope.panel.user.admin0pcode ],
+                                                  $scope.panel.programme[ $scope.panel.user.programme_id ],
                                                   $filter('filter')( $scope.panel.adminRegion, { admin0pcode: $scope.panel.user.admin0pcode }, true)[0],
                                                   $scope.panel.cluster[ $scope.panel.user.cluster_id ] );
 
@@ -262,8 +272,11 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
           // update home page for iMMAP Ethiopia
           if ( $scope.panel.user.organization === 'iMMAP' 
-                && $scope.panel.user.admin0pcode === 'ET' ) {
-              $scope.panel.user.app_home = '/immap/';
+                && ( $scope.panel.user.admin0pcode === 'CD' || $scope.panel.user.admin0pcode === 'ET' ) ) {
+            // add defaults
+            $scope.panel.user.app_home = '/immap/';
+            $scope.panel.user.roles = [ 'ADMIN', 'USER' ];
+            
           } else {
             delete $scope.panel.user.app_home;
           }
@@ -320,14 +333,25 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
       angular.element(document).ready(function () {
 
         // give a few seconds to render
+        // $timeout(function() {
+
+        // profile page
+        //   if( $location.path() === '/immap/profile' && 
+        //         $scope.panel.user.organization === 'iMMAP' &&
+        //         ( $scope.panel.user.admin0pcode === 'CD' || $scope.panel.user.admin0pcode === 'ET' ) ) {
+        //     $( '.carousel' ).css({ 'min-height': '960px' });
+        //   }
+        // }, 400);
+
+        // give a few seconds to render
         $timeout(function() {
 
           // profile page
-          if( $location.path() === '/immap/profile' && 
-                $scope.panel.user.organization === 'iMMAP' &&
-                $scope.panel.user.admin0pcode === 'ET' ) {
-            $( '.carousel' ).css({ 'min-height': '960px' });
-          }
+          // if( $location.path() === '/immap/profile' && 
+          //       $scope.panel.user.organization === 'iMMAP' &&
+          //       ( $scope.panel.user.admin0pcode === 'CD' || $scope.panel.user.admin0pcode === 'ET' ) ) {
+          //   $( '.carousel' ).css({ 'min-height': '960px' });
+          // }
 
           // on change update icon color
           $( '#ngm-country' ).on( 'change', function() {
@@ -342,25 +366,6 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               $( '.cluster' ).css({ 'color': 'teal' });
             }
           });
-
-          // if iMMAP & ethiopia
-          // $( '#organization-next' ).click( function( e ){
-          //   if ( $scope.panel.user.organization === 'iMMAP' 
-          //         && $scope.panel.user.admin0pcode === 'ET' ) {
-          //     $( '.carousel' ).css({ 'min-height': '890px' });
-          //   } else {
-          //     $( '.carousel' ).css({ 'min-height': '640px' });
-          //   }
-          // });
-          // // if iMMAP & ethiopia
-          // $( '#login-back' ).click( function( e ){
-          //   if ( $scope.panel.user.organization === 'iMMAP' 
-          //         && $scope.panel.user.admin0pcode === 'ET' ) {
-          //     $( '.carousel' ).css({ 'min-height': '890px' });
-          //   } else {
-          //     $( '.carousel' ).css({ 'min-height': '640px' });
-          //   }
-          // });
 
         }, 900 );
 

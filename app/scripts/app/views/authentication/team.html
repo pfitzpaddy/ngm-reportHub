@@ -22,14 +22,14 @@
   <div class="col s12 m12 l12">
     <div class="card">
       <ul class="collection with-header">
-        <li class="{{ table.headerClass }}">
+        <li class="{{ table.headerClass }}" style="{{ table.headerStyle }}">
           <h5 class="report-work-title {{ table.headerText }}"><i class="material-icons left">{{ table.headerIcon }}</i>{{ table.headerTitle }}</h5></li>
         <li class="collection-item avatar" style="padding:10px;">
 
           <!-- if data -->
           <div ng-if="data.length">
             <table class="centered highlight responsive-table" ng-table="table.tableParams">
-              <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
+              <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;" ng-click="table.onClick(row)">
                 <!--
                   <td data-title="'Country'" sortable="'admin0name'">
                       {{ row.admin0name }}
@@ -51,10 +51,7 @@
                     {{ row.phone }}
                 </td>
                 <td data-title="'Edit'" sortable="'name'" ng-if="true">
-                  <div class="btn btn-small btn-flat waves-effect waves-light" title="Edit">
-                    <i class="material-icons">create</i>
-                  </div>
-                  <div class="btn btn-small red waves-effect waves-light" title="Delete">
+                  <div title="Delete">
                     <i class="material-icons">delete</i>
                   </div>
                 </td>

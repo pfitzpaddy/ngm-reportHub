@@ -115,7 +115,15 @@ angular
 					}],
 				}
 			})
-
+			.when( '/profile/:username', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardProfileCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
 			// achievements
 			.when( '/reporthub', {
 				redirectTo: '/reporthub/2016'

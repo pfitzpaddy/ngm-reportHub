@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardTeamCtrl', ['$scope', 'ngmAuth', function ($scope, ngmAuth) {
+	.controller('DashboardTeamCtrl', ['$scope', '$location', 'ngmAuth', function ($scope, $location, ngmAuth) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -27,14 +27,14 @@ angular.module('ngmReportHub')
 
 		}
 
-		// 
+		// add padding
 		$scope.dashboard.ngm.style.paddingHeight = 20;
 
 		// get user email HASH
 		$scope.dashboard.user.emailHash = $scope.dashboard.MD5($scope.dashboard.user.email.trim().toLowerCase() );
-		// https://www.gravatar.com/avatar/eda554bc427113541d601bc10577df43?s=200
-		// https://www.gravatar.com/avatar/eda554bc427113541d601bc10577df43.jpg
-		// https://www.gravatar.com/avatar/eda554bc427113541d601bc10577df44?s=200&d=retro
+		
+		// url href
+		$scope.dashboard.profileHref = $scope.dashboard.user.organization === 'iMMAP' ? '/immap/profile' : '/profile';
 
 		// dews dashboard model
 		var model = {
@@ -57,14 +57,71 @@ angular.module('ngmReportHub')
 			},
 			rows: [{
 				columns: [{
-					styleClass: 's12',
+					styleClass: 's12 m6',
 					widgets: [{
 						type: 'html',
 						config: {
 							user: $scope.dashboard.user,
 							style: $scope.dashboard.ngm.style,
-							profileHref: '#/immap/profile',
-							templateUrl: '/scripts/app/views/authentication/team-profile.html'
+							profileHref: $scope.dashboard.profileHref,
+							templateUrl: '/scripts/app/views/authentication/profile-card.html'
+						}
+					}]
+				},{
+					styleClass: 's12 m3',
+					widgets: [{
+						type: 'stats',
+						style: 'text-align: center;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Countries',
+							request: {
+								method: 'POST',
+								url: ngmAuth.LOCATION + '/api/getOrganizationIndicator',
+								data: {
+									indicator: 'countries',
+									admin0pcode: $scope.dashboard.user.admin0pcode,
+									organization: $scope.dashboard.user.organization
+								}
+							}
+						}
+					}]
+				},{
+					styleClass: 's12 m3',
+					widgets: [{
+						type: 'stats',
+						style: 'text-align: center;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Sectors',
+							request: {
+								method: 'POST',
+								url: ngmAuth.LOCATION + '/api/getOrganizationIndicator',
+								data: {
+									indicator: 'sectors',
+									admin0pcode: $scope.dashboard.user.admin0pcode,
+									organization: $scope.dashboard.user.organization
+								}
+							}
+						}
+					}]
+				},{
+					styleClass: 's12 m6',
+					widgets: [{
+						type: 'stats',
+						style: 'text-align: center;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: $scope.dashboard.user.organization + ' Staff',
+							request: {
+								method: 'POST',
+								url: ngmAuth.LOCATION + '/api/getOrganizationIndicator',
+								data: {
+									indicator: 'total',
+									admin0pcode: $scope.dashboard.user.admin0pcode,
+									organization: $scope.dashboard.user.organization
+								}
+							}
 						}
 					}]
 				}]
@@ -77,21 +134,28 @@ angular.module('ngmReportHub')
 						style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
 						config: {
 							style: $scope.dashboard.ngm.style,
-							headerClass: 'collection-header red lighten-2',
+							headerClass: 'collection-header lighten-2',
+							headerStyle: 'background-color:' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 							headerText: 'white-text',
 							headerIcon: 'group',
-							headerTitle: $scope.dashboard.user.organization + ' ' + $scope.dashboard.user.admin0name,
-							templateUrl: '/scripts/widgets/ngm-table/templates/immap/immap.team.html',
+							headerTitle: $scope.dashboard.user.organization,
+							templateUrl: '/scripts/app/views/authentication/team.html',
 							tableOptions:{
 								count: 10
 							},
 							request: {
 								method: 'POST',
-								url: ngmAuth.LOCATION + '/api/getOrganizationUsers',
+								url: ngmAuth.LOCATION + '/api/getOrganizationIndicator',
 								data: {
+									indicator: 'list',
 									admin0pcode: $scope.dashboard.user.admin0pcode,
 									organization: $scope.dashboard.user.organization
 								}
+							},
+							onClick: function(user){
+								// go to profile
+								console.log( $scope.dashboard.profileHref + '/' + user.username )
+								$location.path( $scope.dashboard.profileHref + '/' + user.username );
 							}
 						}
 					}]

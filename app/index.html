@@ -108,7 +108,8 @@
 							</a>
 							<!-- profile menu dropdown list -->
 							<ul class="ngm-profile-menu-content dropdown-content z-depth-2" 
-									ng-if="ngm.getUser().admin0pcode !== 'ET' && ngm.getUser().organization !== 'iMMAP'">
+									ng-if="(ngm.getUser().organization !== 'iMMAP') || ( ngm.getUser().organization === 'iMMAP' && 
+												( ngm.getUser().admin0pcode !== 'CD' && ngm.getUser().admin0pcode !== 'ET' ) )">
 
 									<!-- user login -->
 									<li align="right" class="teal z-depth-2"
@@ -139,8 +140,13 @@
 
 									<!-- PROFILE -->
 									<li align="center" class="teal z-depth-2"
-										ng-show="ngm.getUserName() !== 'welcome'">
-										<a class="white-text right" href="#/profile" ng-click="ngm.toggleNavigationMenu();">
+										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().organization !== 'iMMAP'">
+										<a class="white-text right" href="#/profile/{{ ngm.getUserName() }}" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">account_circle</i>MY PROFILE</a>
+									</li>
+									<li align="center" class="teal z-depth-2"
+										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().organization === 'iMMAP'">
+										<a class="white-text right" href="#/immap/profile/{{ ngm.getUserName() }}" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">account_circle</i>MY PROFILE</a>
 									</li>
 
@@ -152,11 +158,16 @@
 									</li>
 
 									<!-- ORG -->
-									<li align="center" class="teal z-depth-2" 
+									<li align="center" class="teal z-depth-2"
+										ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text right" href="#/team" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">donut_large</i>MY ORGANIZATION</a>
+									</li>
+<!-- 									<li align="center" class="teal z-depth-2" 
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/organization" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">donut</i>MY ORGANIZATION</a>
-									</li>
+									</li> -->
 
 									<!-- ADMIN -->
 									<li align="center" class="teal z-depth-2"
@@ -244,7 +255,8 @@
 							</ul>
 							<!-- profile menu dropdown list -->
 							<ul class="ngm-profile-menu-content dropdown-content z-depth-2" 
-									ng-if="ngm.getUser().admin0pcode === 'ET' && ngm.getUser().organization === 'iMMAP'">
+									ng-if="ngm.getUser().organization === 'iMMAP' && 
+												( ngm.getUser().admin0pcode === 'CD' || ngm.getUser().admin0pcode === 'ET' ) ">
 
 									<!-- user logout -->
 									<li class="teal z-depth-2"
@@ -255,7 +267,7 @@
 									
 									<!-- PROFILE -->
 									<li align="center" class="teal z-depth-2">
-										<a class="white-text right" href="#/immap/profile" ng-click="ngm.toggleNavigationMenu();">
+										<a class="white-text right" href="#/immap/profile/{{ ngm.getUserName() }}" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">account_circle</i>MY PROFILE</a>
 									</li>
 
@@ -265,6 +277,13 @@
 										<a class="white-text right" href="#/immap/team" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">group</i>MY TEAM</a>
 									</li>
+
+									<!-- ADMIN -->
+									<li align="center" class="teal z-depth-2"
+										ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text right" href="#/cluster/admin/{{ ngm.getUser().adminRpcode | lowercase }}/{{ ngm.getUser().admin0pcode | lowercase }}" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">assignment_turned_in</i>MY ADMIN</a>
+									</li>							
 
 							</ul>
 						</div>

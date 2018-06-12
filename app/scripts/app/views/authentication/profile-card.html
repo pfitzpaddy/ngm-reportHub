@@ -51,13 +51,13 @@ li {
   <div class="row">
     <div class="col s12">
       <div class="card">
-      	<a href="{{ panel.profileHref }}" title="Go To Profile">
+      	<a href="#{{ panel.profileHref }}/{{ panel.user.username }}" title="Go To Profile">
 	        <div class="card-content">
 	        	<div class="row">
-		        	<div class="col s12 m3">
-		          	<img src="https://www.gravatar.com/avatar/{{ panel.user.emailHash }}?s=160" title="{{ panel.user.name }}" class="circle">
+		        	<div class="col s12 m5">
+		          	<img src="https://www.gravatar.com/avatar/{{ panel.user.emailHash }}?s=188" title="{{ panel.user.name }}" class="circle">
 		        	</div>
-		        	<div class="col s12 m9" style="padding-left:0px;">
+		        	<div class="col s12 m7" style="padding-left:0px;">
 						    <h4>{{ panel.user.name }}</h4>
 						    <h5>{{ panel.user.position }}</h5>
 						    <p>{{ panel.user.cluster }} Sector, {{ panel.user.admin0name }}</p>
