@@ -65,7 +65,8 @@ li {
 
 		    	<!-- btn as title! -->
 		   	 	<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">Profile</a>
-
+					
+					<!-- 
 		      <div class="row">
 		        <div class="input-field col s12">
 		        	<i class="material-icons prefix cluster">donut_large</i>
@@ -90,6 +91,17 @@ li {
 						    <label for="ngm-cluster">Cluster</label>
 		        </div>
 		      </div>
+		      -->
+
+		      <div class="row">
+		        <div class="input-field col s12">
+		        	<i class="material-icons prefix">account_circle</i>
+		          <input id="ngm-username" type="text" class="validate"
+								ng-model="panel.user.username"
+								required>
+		          <label for="ngm-username">Username</label>
+		        </div>
+		      </div>
 
 		      <div class="row">
 		        <div class="input-field col s12">
@@ -111,19 +123,11 @@ li {
 		        </div>
 				  </div>
 
-		      <div class="row">
-		        <div class="input-field col s12">
-		        	<i class="material-icons prefix">account_circle</i>
-		          <input id="ngm-username" type="text" class="validate"
-								ng-model="panel.user.username"
-								required>
-		          <label for="ngm-username">Username</label>
-		        </div>
-		      </div>
-
 				</div>
 
-		    <div class="card z-depth-1" style="padding:5% 20% 5% !important;">
+		    <div class="card z-depth-1" style="padding:5% 20% 5% !important;" 
+		    			ng-show="panel.user.organization === 'iMMAP' && 
+		    						( panel.user.admin0pcode === 'CD' || panel.user.admin0pcode === 'ET' )">
 
 		    	<!-- btn as title! -->
 		   	 	<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">Programme</a>
@@ -177,13 +181,15 @@ li {
 						</div>
 					</div>
 
-		      <div class="row">
-		        <div class="input-field col s12">
-		        	<i class="material-icons prefix">person_pin</i>
-		          <input id="ngm-duty-station" type="text" class="validate"
-								ng-model="panel.user.admin1pcode"
-								required>
-		          <label for="ngm-duty-station">Duty Station</label>
+					<div class="row">
+						<div class="input-field col s12">
+		        	<i class="material-icons prefix cluster">person_pin</i>
+						    <select id="ngm-duty-station"
+	        					ng-options="list.site_name as list.site_name for list in panel.dutyStations | filter: { admin0pcode: panel.user.admin0pcode }"
+	        					ng-model="panel.user.site_name">Select Duty Station
+	        					<option value="" disabled selected>Select Station</option>
+	        					</select>
+						    <label for="ngm-duty-station">Duty Station</label>
 		        </div>
 		      </div>
 

@@ -36,6 +36,7 @@ angular.module('ngmReportHub')
 			unset: function() {
 				// remove lists / user
 				localStorage.removeItem( 'lists' );
+				localStorage.removeItem( 'dutyStations' );
 				localStorage.removeItem( 'auth_token' );
 			},			
 

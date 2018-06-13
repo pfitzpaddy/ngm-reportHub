@@ -22,11 +22,12 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
     '$location',
     '$timeout',
     '$filter',
+    '$q',
     'ngmAuth',
     'ngmUser',
     'ngmData',
     'config',
-    function( $scope, $http, $location, $timeout, $filter, ngmAuth, ngmUser, ngmData, config ){
+    function( $scope, $http, $location, $timeout, $filter, $q, ngmAuth, ngmUser, ngmData, config ){
 
       // project
       $scope.panel = {
@@ -49,12 +50,16 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'UR', admin0name: 'Uruk' }
         ],
 
+        // programme
         programme:[
           { programme_id: 'ETWHOIMOSUPPORTP1', programme_name: 'ETWHOIMOSUPPORTP1' },
           { programme_id: 'ETUSAIDOFDAIMOSUPPORTP1', programme_name: 'ETUSAIDOFDAIMOSUPPORTP1' },
           { programme_id: 'WWCDCCOOPERATIVEAGREEMENTP11', programme_name: 'WWCDCCOOPERATIVEAGREEMENTP11' },
           { programme_id: 'WWCDCCOOPERATIVEAGREEMENTP12', programme_name: 'WWCDCCOOPERATIVEAGREEMENTP12' },
         ],
+
+        // duty stations
+        dutyStations: localStorage.getObject( 'dutyStations'),
 
         // cluster
         cluster: {
@@ -108,9 +113,14 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         // update profile
         update: function(ngmProfileForm) {
 
+          console.log($scope.panel.dutyStations)
+          console.log($scope.panel.user.site_name)
+          console.log($filter('filter')( $scope.panel.dutyStations, { site_name: $scope.panel.user.site_name }, true)[0])
+
           // merge adminRegion
-          $scope.panel.user = angular.merge( {}, ngmUser.get(), 
+          $scope.panel.user = angular.merge( {}, ngmUser.get(),
                                                   $filter('filter')( $scope.panel.programme, { programme_id: $scope.panel.user.programme_id }, true)[0], 
+                                                  $filter('filter')( $scope.panel.dutyStations, { site_name: $scope.panel.user.site_name }, true)[0],
                                                   $scope.panel.user );
           // register
           ngmAuth
@@ -142,6 +152,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           $scope.panel.user = angular.merge( {}, $scope.panel.user,
                                                   $scope.panel.adminRegion[ $scope.panel.user.admin0pcode ],
                                                   $scope.panel.programme[ $scope.panel.user.programme_id ],
+                                                  $filter('filter')( $scope.panel.dutyStations, { site_name: $scope.panel.user.site_name }, true)[0],
                                                   $filter('filter')( $scope.panel.adminRegion, { admin0pcode: $scope.panel.user.admin0pcode }, true)[0],
                                                   $scope.panel.cluster[ $scope.panel.user.cluster_id ] );
 
@@ -301,6 +312,23 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             }
           }
         }
+
+      }
+
+      // localStorage.removeItem( 'dutyStations' );
+
+      // fetch duty stations
+      if ( !localStorage.getObject( 'dutyStations') ) {
+        // activities list
+        var getDutyStations = {
+          method: 'GET',
+          url: ngmAuth.LOCATION + '/api/list/getDutyStations'
+        }
+        // send request
+        $q.all([ $http( getDutyStations ) ] ).then( function( results ){
+          localStorage.setObject( 'dutyStations', results[0].data );
+          $scope.panel.dutyStations = results[0].data;
+        });
 
       }
 
