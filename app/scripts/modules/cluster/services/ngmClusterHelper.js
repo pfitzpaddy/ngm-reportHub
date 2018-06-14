@@ -18,9 +18,21 @@ angular.module( 'ngmReportHub' )
       // get a new project
       getNewProject: function( user ) {
 
+        // copy user and remove conflicts
         var u = angular.copy( user );
                 delete u.createdAt;
                 delete u.updatedAt;
+                delete u.admin1pcode;
+                delete u.admin1name;
+                delete u.site_class;
+                delete u.site_type_id;
+                delete u.site_type_name;
+                delete u.site_status;
+                delete u.site_name;
+                delete u.admin1lng;
+                delete u.admin1lat;
+                delete u.site_lng;
+                delete u.site_lat;
 
         // create empty project
         var project = {
@@ -1885,7 +1897,7 @@ angular.module( 'ngmReportHub' )
           delete beneficiaries[i].admin1pcode;
           delete beneficiaries[i].admin2pcode;
           delete beneficiaries[i].admin3pcode;
-          beneficiaries[i] = angular.merge( {}, d, p );
+          beneficiaries[i] = angular.merge( {}, p, d );
           // add default
           if( project.activity_type && project.activity_type.length === 1){
             beneficiaries[i].activity_type_id = project.activity_type[0].activity_type_id;
@@ -1926,7 +1938,7 @@ angular.module( 'ngmReportHub' )
           delete locations[i].strategic_objectives;
           delete locations[i].activity_type;
           delete locations[i].beneficiary_type;
-          locations[i] = angular.merge( {}, d, p );
+          locations[i] = angular.merge( {}, p, d );
           // set site_lng, site_lat
             // this is propigated through the entire datasets
           if ( !locations[i].site_lng && !locations[i].site_lat ) {
@@ -1970,7 +1982,7 @@ angular.module( 'ngmReportHub' )
 				delete r.updatedAt;
 
         // merge
-        report = angular.merge( {}, r, p );
+        report = angular.merge( {}, p, r );
 
         // locations
         angular.forEach(report.locations, function( location, i ){
@@ -1997,7 +2009,7 @@ angular.module( 'ngmReportHub' )
           l.project_id = project.id;
           l.report_id = report.id;
           // merge
-          report.locations[i] = angular.merge( {}, l, r, p );
+          report.locations[i] = angular.merge( {}, p, r, l );
 
           // locations
           angular.forEach( report.locations[i].trainings, function( training, j ){
@@ -2027,7 +2039,8 @@ angular.module( 'ngmReportHub' )
             t.project_id = project.id;
             t.report_id = report.id;
             // merge
-            report.locations[i].trainings[j] = angular.merge( {}, t, l, r, p );
+            // report.locations[i].trainings[j] = angular.merge( {}, t, l, r, p );
+            report.locations[i].trainings[j] = angular.merge( {}, p, r, l, t );
 
             // trainees
             angular.forEach( training.training_participants, function( trainees, k ){
@@ -2070,7 +2083,8 @@ angular.module( 'ngmReportHub' )
             b.project_id = project.id;
             b.report_id = report.id;
             // merge
-            report.locations[i].beneficiaries[j] = angular.merge( {}, b, l, r, p );
+            // report.locations[i].beneficiaries[j] = angular.merge( {}, b, l, r, p );
+            report.locations[i].beneficiaries[j] = angular.merge( {}, p, r, l, b );
 
           });
 

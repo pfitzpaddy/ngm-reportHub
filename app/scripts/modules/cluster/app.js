@@ -256,8 +256,14 @@ angular
 			.when( '/cluster/admin/afro', {
 				redirectTo: '/cluster/admin/afro/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
+			.when( '/cluster/admin/afro/cd', {
+				redirectTo: '/cluster/admin/afro/cd/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+			})
 			.when( '/cluster/admin/afro/et', {
 				redirectTo: '/cluster/admin/afro/et/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+			})
+			.when( '/cluster/admin/afro/ng', {
+				redirectTo: '/cluster/admin/afro/ng/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 
 			// EMRO
@@ -347,8 +353,14 @@ angular
 			.when( '/cluster/5w/afro/all', {
 				redirectTo: '/cluster/5w/afro/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
+			.when( '/cluster/5w/afro/cd', {
+				redirectTo: '/cluster/5w/afro/cd/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
 			.when( '/cluster/5w/afro/et', {
 				redirectTo: '/cluster/5w/afro/et/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/5w/afro/ng', {
+				redirectTo: '/cluster/5w/afro/ng/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// cluster dashboard EMRO
 			.when( '/cluster/5w/emro/all', {

@@ -205,11 +205,23 @@ angular.module('ngmReportHub')
 									'title': 'Country',
 									'class': 'teal lighten-1 white-text',
 									'rows': [{
+										'title': 'Democratic Republic of Congo',
+										'param': 'admin0pcode',
+										'active': 'cd',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/5w/afro/cd'
+									},{
 										'title': 'Ethiopia',
 										'param': 'admin0pcode',
 										'active': 'et',
 										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 										'href': '/desk/#/cluster/5w/afro/et'
+									},{
+										'title': 'Nigeria',
+										'param': 'admin0pcode',
+										'active': 'ng',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/5w/afro/ng'
 									}]
 								},
 								'emro': {

@@ -111,17 +111,21 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         },
 
         // update profile
-        update: function(ngmProfileForm) {
-
-          console.log($scope.panel.dutyStations)
-          console.log($scope.panel.user.site_name)
-          console.log($filter('filter')( $scope.panel.dutyStations, { site_name: $scope.panel.user.site_name }, true)[0])
+        update: function( ngmProfileForm ) {
 
           // merge adminRegion
           $scope.panel.user = angular.merge( {}, ngmUser.get(),
-                                                  $filter('filter')( $scope.panel.programme, { programme_id: $scope.panel.user.programme_id }, true)[0], 
-                                                  $filter('filter')( $scope.panel.dutyStations, { site_name: $scope.panel.user.site_name }, true)[0],
+                                                  $filter('filter')( $scope.panel.programme, { programme_id: $scope.panel.user.programme_id }, true)[0],
                                                   $scope.panel.user );
+
+          // if immap and ET || CD
+          if ( $scope.panel.user.site_name ) {
+            var dutyStation = $filter('filter')( $scope.panel.dutyStations, { site_name: $scope.panel.user.site_name }, true)[0];
+                delete dutyStation.id;
+            // merge duty station
+            $scope.panel.user = angular.merge( {}, $scope.panel.user, dutyStation );
+          }
+
           // register
           ngmAuth
             .updateProfile({ user: $scope.panel.user }).success(function( result ) {
@@ -152,9 +156,15 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           $scope.panel.user = angular.merge( {}, $scope.panel.user,
                                                   $scope.panel.adminRegion[ $scope.panel.user.admin0pcode ],
                                                   $scope.panel.programme[ $scope.panel.user.programme_id ],
-                                                  $filter('filter')( $scope.panel.dutyStations, { site_name: $scope.panel.user.site_name }, true)[0],
                                                   $filter('filter')( $scope.panel.adminRegion, { admin0pcode: $scope.panel.user.admin0pcode }, true)[0],
                                                   $scope.panel.cluster[ $scope.panel.user.cluster_id ] );
+          // if immap and ET || CD
+          if ( $scope.panel.user.site_name ) {
+            var dutyStation = $filter('filter')( $scope.panel.dutyStations, { site_name: $scope.panel.user.site_name }, true)[0];
+                delete dutyStation.id;
+            // merge duty station
+            $scope.panel.user = angular.merge( {}, $scope.panel.user, dutyStation );
+          }
 
           // register
           ngmAuth
@@ -315,8 +325,6 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
       }
 
-      // localStorage.removeItem( 'dutyStations' );
-
       // fetch duty stations
       if ( !localStorage.getObject( 'dutyStations') ) {
         // activities list
@@ -361,30 +369,13 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
       angular.element(document).ready(function () {
 
         // give a few seconds to render
-        // $timeout(function() {
-
-        // profile page
-        //   if( $location.path() === '/immap/profile' && 
-        //         $scope.panel.user.organization === 'iMMAP' &&
-        //         ( $scope.panel.user.admin0pcode === 'CD' || $scope.panel.user.admin0pcode === 'ET' ) ) {
-        //     $( '.carousel' ).css({ 'min-height': '960px' });
-        //   }
-        // }, 400);
-
-        // give a few seconds to render
         $timeout(function() {
-
-          // profile page
-          // if( $location.path() === '/immap/profile' && 
-          //       $scope.panel.user.organization === 'iMMAP' &&
-          //       ( $scope.panel.user.admin0pcode === 'CD' || $scope.panel.user.admin0pcode === 'ET' ) ) {
-          //   $( '.carousel' ).css({ 'min-height': '960px' });
-          // }
 
           // on change update icon color
           $( '#ngm-country' ).on( 'change', function() {
             if( $( this ).find( 'option:selected' ).text() ) {
               $( '.country' ).css({ 'color': 'teal' });
+              $( 'select' ).material_select();
             }
           });
 

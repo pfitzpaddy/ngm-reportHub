@@ -185,8 +185,8 @@ li {
 						<div class="input-field col s12">
 		        	<i class="material-icons prefix cluster">person_pin</i>
 						    <select id="ngm-duty-station"
-	        					ng-options="list.site_name as list.site_name for list in panel.dutyStations | filter: { admin0pcode: panel.user.admin0pcode }"
-	        					ng-model="panel.user.site_name">Select Duty Station
+			        					ng-options="list.site_name as list.site_name for list in panel.dutyStations | filter: { admin0pcode: panel.user.admin0pcode } | orderBy:'site_name'"
+	        							ng-model="panel.user.site_name">Select Duty Station
 	        					<option value="" disabled selected>Select Station</option>
 	        					</select>
 						    <label for="ngm-duty-station">Duty Station</label>
@@ -243,7 +243,7 @@ li {
 			style="top:-40px;"
 			type="submit"
 			ng-disabled="ngmProfileForm.$invalid"
-			ng-click="panel.update(ngmProfileForm)">
+			ng-click="panel.update( ngmProfileForm )">
 				UPDATE
 		</button>
 	</div>

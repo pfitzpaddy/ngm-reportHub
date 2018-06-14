@@ -140,13 +140,8 @@
 
 									<!-- PROFILE -->
 									<li align="center" class="teal z-depth-2"
-										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().organization !== 'iMMAP'">
+										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/profile/{{ ngm.getUserName() }}" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">account_circle</i>MY PROFILE</a>
-									</li>
-									<li align="center" class="teal z-depth-2"
-										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().organization === 'iMMAP'">
-										<a class="white-text right" href="#/immap/profile/{{ ngm.getUserName() }}" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">account_circle</i>MY PROFILE</a>
 									</li>
 
