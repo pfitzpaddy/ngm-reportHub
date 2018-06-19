@@ -115,6 +115,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
           // merge adminRegion
           $scope.panel.user = angular.merge( {}, ngmUser.get(),
+                                                  $filter('filter')( $scope.panel.adminRegion, { admin0pcode: $scope.panel.user.admin0pcode }, true)[0],
                                                   $filter('filter')( $scope.panel.programme, { programme_id: $scope.panel.user.programme_id }, true)[0],
                                                   $scope.panel.user );
 
@@ -139,6 +140,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               // success
               if ( result.success ){
                 // set localStorage
+                $scope.panel.user = result.user;
                 ngmUser.set( $scope.panel.user );
                 // success message
                 $timeout( function(){

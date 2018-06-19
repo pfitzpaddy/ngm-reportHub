@@ -31,10 +31,10 @@ angular.module('ngmReportHub')
 		$scope.dashboard.ngm.style.paddingHeight = 20;
 
 		// get user email HASH
-		$scope.dashboard.user.emailHash = $scope.dashboard.MD5($scope.dashboard.user.email.trim().toLowerCase() );
+		$scope.dashboard.user.emailHash = $scope.dashboard.MD5( $scope.dashboard.user.email.trim().toLowerCase() );
 		
 		// url href
-		$scope.dashboard.profileHref = $scope.dashboard.user.organization === 'iMMAP' ? '/immap/profile' : '/profile';
+		$scope.dashboard.profileHref = ( $scope.dashboard.user.organization === 'iMMAP' && ( $scope.dashboard.user.admin0pcode === 'CD' || $scope.dashboard.user.admin0pcode === 'ET' ) ) ? '/immap/profile' : '/profile';
 
 		// dews dashboard model
 		var model = {
@@ -154,7 +154,6 @@ angular.module('ngmReportHub')
 							},
 							onClick: function(user){
 								// go to profile
-								console.log( $scope.dashboard.profileHref + '/' + user.username )
 								$location.path( $scope.dashboard.profileHref + '/' + user.username );
 							}
 						}

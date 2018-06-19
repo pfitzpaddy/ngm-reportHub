@@ -64,6 +64,13 @@ angular.module('ngmReportHub')
 								config: {
 									style: $scope.dashboard.ngm.style,
 									user: user,
+						      formDisabled: function() {
+						        var disabled = false;
+						        if ( $scope.dashboard.user.username !== $scope.dashboard.username ) {
+						          disabled = true;
+						        }
+						        return disabled;
+						      },
 									templateUrl: '/scripts/app/views/authentication/profile.html'
 								}
 							}]

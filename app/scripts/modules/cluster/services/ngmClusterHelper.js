@@ -24,13 +24,13 @@ angular.module( 'ngmReportHub' )
                 delete u.updatedAt;
                 delete u.admin1pcode;
                 delete u.admin1name;
+                delete u.admin1lng;
+                delete u.admin1lat;
                 delete u.site_class;
                 delete u.site_type_id;
                 delete u.site_type_name;
                 delete u.site_status;
                 delete u.site_name;
-                delete u.admin1lng;
-                delete u.admin1lat;
                 delete u.site_lng;
                 delete u.site_lat;
 
