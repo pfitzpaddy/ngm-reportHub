@@ -43,7 +43,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         data: {
           admin0pcode: config.project.admin0pcode,
           cluster_id: config.project.cluster_id,
-          organization: config.project.organization
+          organization: config.project.organization,
+          status: 'active'
         }
       }).success( function( user ) {
         // return

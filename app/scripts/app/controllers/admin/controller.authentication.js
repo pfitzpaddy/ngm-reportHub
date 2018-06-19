@@ -36,6 +36,12 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
         user: ngmUser.get(),
 
+        btnDisabled: false,
+
+        btnActivate: config.user.status === 'deactivated' ? true : false,
+
+        btnDeactivate: config.user.status === 'active' ? true : false,
+
         // adminRegion
         adminRegion: [
           { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'AF', admin0name: 'Afghanistan' },
@@ -52,6 +58,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
         // programme
         programme:[
+          { programme_id: 'DRCWHOPHISP1', programme_name: 'DRCWHOPHISP1' },
           { programme_id: 'ETWHOIMOSUPPORTP1', programme_name: 'ETWHOIMOSUPPORTP1' },
           { programme_id: 'ETUSAIDOFDAIMOSUPPORTP1', programme_name: 'ETUSAIDOFDAIMOSUPPORTP1' },
           { programme_id: 'WWCDCCOOPERATIVEAGREEMENTP11', programme_name: 'WWCDCCOOPERATIVEAGREEMENTP11' },
@@ -110,14 +117,58 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           }
         },
 
+        // open modal by id 
+        openModal: function( modal ) {
+          $( '#' + modal ).openModal({ dismissible: false });
+        },
+
+        // deactivate 
+        updateStatus: function ( status ) {
+          // set status
+          $scope.panel.user.status = status;
+          $scope.panel.update( true );
+          
+        },
+
+        // delete user!
+        delete: function () {
+          
+          // disable btns
+          $scope.panel.btnDisabled = true;
+
+          // return project
+          ngmData.get({
+            method: 'POST',
+            url: ngmAuth.LOCATION + '/api/delete',
+            data: {
+              user: $scope.panel.user
+            }
+          }).then( function( data ){
+            
+            if ( data.success ) {
+              // success message
+              Materialize.toast( 'Success! User Deleted!', 6000, 'success' );
+              $timeout( function(){
+                var path = ( ngmUser.get().organization === 'iMMAP' && ( ngmUser.get().admin0pcode === 'CD' || ngmUser.get().admin0pcode === 'ET' ) ) ? '/immap/team' : '/team';
+                $location.path( path );
+              }, 1000 );
+            } else {
+              Materialize.toast( 'Error! Try Again!', 6000, 'error' );
+            }
+
+          });
+        },
+
         // update profile
-        update: function( ngmProfileForm ) {
+        update: function( reload ) {
+
+          // disable btns
+          $scope.panel.btnDisabled = true;
 
           // merge adminRegion
-          $scope.panel.user = angular.merge( {}, ngmUser.get(),
+          $scope.panel.user = angular.merge( {}, $scope.panel.user,
                                                   $filter('filter')( $scope.panel.adminRegion, { admin0pcode: $scope.panel.user.admin0pcode }, true)[0],
-                                                  $filter('filter')( $scope.panel.programme, { programme_id: $scope.panel.user.programme_id }, true)[0],
-                                                  $scope.panel.user );
+                                                  $filter('filter')( $scope.panel.programme, { programme_id: $scope.panel.user.programme_id }, true)[0] );
 
           // if immap and ET || CD
           if ( $scope.panel.user.site_name ) {
@@ -139,13 +190,22 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
               // success
               if ( result.success ){
-                // set localStorage
-                $scope.panel.user = result.user;
-                ngmUser.set( $scope.panel.user );
+                // set user and localStorage (if updating own profile)
+                if ( $scope.panel.user.username === ngmUser.get().username ) {
+                  $scope.panel.user = angular.merge( {}, $scope.panel.user, result.user );
+                  ngmUser.set( $scope.panel.user );
+                }
                 // success message
+                Materialize.toast( 'Success! Profile updated!', 6000, 'success' );
                 $timeout( function(){
-                  Materialize.toast( 'Success! Profile updated!', 3000, 'success' );
-                }, 1000);
+                  if ( reload ) {
+                    // activate btn
+                    $scope.panel.btnDisabled = false;
+                    // redirect to team view and page refresh
+                    var path = ( ngmUser.get().organization === 'iMMAP' && ( ngmUser.get().admin0pcode === 'CD' || ngmUser.get().admin0pcode === 'ET' ) ) ? '/immap/team' : '/team';
+                    $location.path( path );
+                  }
+                }, 1000 );
               }
 
             });
@@ -156,10 +216,10 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
           // merge adminRegion
           $scope.panel.user = angular.merge( {}, $scope.panel.user,
-                                                  $scope.panel.adminRegion[ $scope.panel.user.admin0pcode ],
-                                                  $scope.panel.programme[ $scope.panel.user.programme_id ],
+                                                  $filter('filter')( $scope.panel.programme, { programme_id: $scope.panel.user.programme_id }, true)[0],
                                                   $filter('filter')( $scope.panel.adminRegion, { admin0pcode: $scope.panel.user.admin0pcode }, true)[0],
                                                   $scope.panel.cluster[ $scope.panel.user.cluster_id ] );
+
           // if immap and ET || CD
           if ( $scope.panel.user.site_name ) {
             var dutyStation = $filter('filter')( $scope.panel.dutyStations, { site_name: $scope.panel.user.site_name }, true)[0];

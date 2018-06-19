@@ -80,6 +80,7 @@ angular.module('ngmReportHub')
 								url: ngmAuth.LOCATION + '/api/getOrganizationIndicator',
 								data: {
 									indicator: 'countries',
+									status: 'active',
 									admin0pcode: $scope.dashboard.user.admin0pcode,
 									organization: $scope.dashboard.user.organization
 								}
@@ -99,6 +100,7 @@ angular.module('ngmReportHub')
 								url: ngmAuth.LOCATION + '/api/getOrganizationIndicator',
 								data: {
 									indicator: 'sectors',
+									status: 'active',
 									admin0pcode: $scope.dashboard.user.admin0pcode,
 									organization: $scope.dashboard.user.organization
 								}
@@ -112,12 +114,13 @@ angular.module('ngmReportHub')
 						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: $scope.dashboard.user.organization + ' Staff',
+							title: 'Active ' + $scope.dashboard.user.organization + ' Staff',
 							request: {
 								method: 'POST',
 								url: ngmAuth.LOCATION + '/api/getOrganizationIndicator',
 								data: {
 									indicator: 'total',
+									status: 'active',
 									admin0pcode: $scope.dashboard.user.admin0pcode,
 									organization: $scope.dashboard.user.organization
 								}
@@ -138,7 +141,7 @@ angular.module('ngmReportHub')
 							headerStyle: 'background-color:' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 							headerText: 'white-text',
 							headerIcon: 'group',
-							headerTitle: $scope.dashboard.user.organization,
+							headerTitle: $scope.dashboard.user.organization + ' Active Users',
 							templateUrl: '/scripts/app/views/authentication/team.html',
 							tableOptions:{
 								count: 10
@@ -148,6 +151,42 @@ angular.module('ngmReportHub')
 								url: ngmAuth.LOCATION + '/api/getOrganizationIndicator',
 								data: {
 									indicator: 'list',
+									status: 'active',
+									admin0pcode: $scope.dashboard.user.admin0pcode,
+									organization: $scope.dashboard.user.organization
+								}
+							},
+							onClick: function(user){
+								// go to profile
+								$location.path( $scope.dashboard.profileHref + '/' + user.username );
+							}
+						}
+					}]
+				}]
+			},{
+				columns: [{
+					styleClass: 's12',
+					widgets: [{
+						type: 'table',
+						card: 'panel',
+						style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
+						config: {
+							style: $scope.dashboard.ngm.style,
+							headerClass: 'collection-header lighten-2',
+							headerStyle: 'background-color: grey',
+							headerText: 'white-text',
+							headerIcon: 'group',
+							headerTitle: $scope.dashboard.user.organization + ' Deactivated Users',
+							templateUrl: '/scripts/app/views/authentication/team.html',
+							tableOptions:{
+								count: 10
+							},
+							request: {
+								method: 'POST',
+								url: ngmAuth.LOCATION + '/api/getOrganizationIndicator',
+								data: {
+									indicator: 'list',
+									status: 'deactivated',
 									admin0pcode: $scope.dashboard.user.admin0pcode,
 									organization: $scope.dashboard.user.organization
 								}

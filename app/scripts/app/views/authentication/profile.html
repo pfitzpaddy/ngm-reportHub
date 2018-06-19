@@ -48,6 +48,43 @@ li {
 
 </style>
 
+<!-- deactivate -->
+<div id="deactivate-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="font-weight:100; padding-top: 20px;"><i class="material-icons medium left">assignment_late</i>Deactivate User</h4>
+    <p style="padding-left: 76px;">Deactivate {{ panel.user.username }}?</p>
+  </div>
+  <div class="modal-footer">
+  	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="panel.updateStatus( 'deactivated' )" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Deactivate User!</a>
+  </div>
+</div>
+
+<!-- activate -->
+<div id="activate-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="font-weight:100; padding-top: 20px;"><i class="material-icons medium left">assignment_turned_in</i>Activate User</h4>
+    <p style="padding-left: 76px;">Activate {{ panel.user.username }}?</p>
+  </div>
+  <div class="modal-footer">
+  	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="panel.updateStatus( 'activate' )" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Activate User!</a>
+  </div>
+</div>
+
+<!-- delete -->
+<div id="delete-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="color: #E57373; font-weight:100; padding-top: 20px;"><i class="material-icons medium left">delete</i>Delete User</h4>
+    <p style="padding-left: 76px;">Delete {{ panel.user.username }}?</p>
+    <p style="padding-left: 76px;">WARNING! This action can not be undone!</p>
+  </div>
+  <div class="modal-footer">
+  	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="panel.delete()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Delete User!</a>
+  </div>
+</div>
+
 <!-- form -->
   <div class="row">
     <div class="col s12 m12 l8 offset-l2">
@@ -260,19 +297,44 @@ li {
    	</div>
   </div>
 
-	<div class="action center" ng-if="!panel.formDisabled()">
+  <!-- update -->
+	<div class="action center">
 		<button
-			class="btn btn-large waves-effect waves-teal"
-			style="top:-40px;"
-			type="submit"
-			ng-disabled="ngmProfileForm.$invalid"
-			ng-click="panel.update( ngmProfileForm )">
-				UPDATE
+				ng-if="!panel.formDisabled()"
+				class="btn btn-large waves-effect waves-teal"
+				style="top:-40px;"
+				type="submit"
+				ng-click="panel.update( false )"
+				ng-disabled="ngmProfileForm.$invalid || panel.btnDisabled">
+				<i class="material-icons left">edit</i>UPDATE
+		</button>
+		<button
+				ng-if="panel.activateUpdateVisible() && panel.btnDeactivate"
+				style="top:-40px;"
+				class="btn btn-large blue waves-effect waves-blue"
+				ng-click="panel.openModal( 'deactivate-modal' )"
+				ng-disabled="panel.btnDisabled">
+				<i class="material-icons left">assignment_late</i>DEACTIVATE
+		</button>
+		<button
+				ng-if="panel.activateUpdateVisible() && panel.btnActivate"
+				style="top:-40px;"
+				class="btn btn-large blue waves-effect waves-blue"
+				ng-click="panel.openModal( 'activate-modal' )"
+				ng-disabled="panel.btnDisabled">
+				<i class="material-icons left">assignment_turned_in</i>ACTIVATE
+		</button>
+		<button
+				ng-if="panel.activateUpdateVisible()"
+				style="top:-40px;"
+				class="btn btn-large red lighten-2 waves-effect waves-red"
+				ng-click="panel.openModal( 'delete-modal' )"
+				ng-disabled="panel.btnDisabled">
+				<i class="material-icons left">delete</i>DELETE
 		</button>
 	</div>
 
   <!-- </div> -->
-
 	<div>
 		<!-- footer -->
 		<div style="background: {{ panel.style.lightPrimaryColor }}; height:20px;"></div>

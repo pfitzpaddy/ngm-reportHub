@@ -50,6 +50,9 @@
                 <td data-title="'Phone'" sortable="'phone'">
                     {{ row.phone }}
                 </td>
+                <td data-title="'Updated'" sortable="'updatedAt'">
+                    {{ row.updatedAt | date:'medium' }}
+                </td>
                 <td data-title="'Edit'" sortable="'name'" ng-if="false">
                   <div title="Delete">
                     <i class="material-icons">delete</i>
