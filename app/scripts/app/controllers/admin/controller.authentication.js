@@ -38,9 +38,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
         btnDisabled: false,
 
-        btnActivate: config.user.status === 'deactivated' ? true : false,
+        btnActivate: config.user && config.user.status === 'deactivated' ? true : false,
 
-        btnDeactivate: config.user.status === 'active' ? true : false,
+        btnDeactivate: config.user && config.user.status === 'active' ? true : false,
 
         // adminRegion
         adminRegion: [
@@ -198,10 +198,12 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                 // success message
                 Materialize.toast( 'Success! Profile updated!', 6000, 'success' );
                 $timeout( function(){
+                  
+                  // activate btn
+                  $scope.panel.btnDisabled = false;
+
+                  // redirect to team view and page refresh
                   if ( reload ) {
-                    // activate btn
-                    $scope.panel.btnDisabled = false;
-                    // redirect to team view and page refresh
                     var path = ( ngmUser.get().organization === 'iMMAP' && ( ngmUser.get().admin0pcode === 'CD' || ngmUser.get().admin0pcode === 'ET' ) ) ? '/immap/team' : '/team';
                     $location.path( path );
                   }

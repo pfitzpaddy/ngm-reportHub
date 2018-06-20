@@ -135,7 +135,8 @@
 								<!-- budget currency -->
 								<div class="input-field col s12 m12">
 								  <input id="ngm-project_code" type="text" class="validate"
-								  	ng-model="project.definition.project_code">
+								  	ng-model="project.definition.project_code"
+								  	ng-disabled="project.definition.project_status === 'complete'">
 								  <label for="ngm-project_code">{{ project.definition.organization }} Project Code</label>
 								</div>
 
