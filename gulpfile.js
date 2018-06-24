@@ -131,6 +131,11 @@ gulp.task('html:nutrition', function () {
     .pipe(gulp.dest(yeoman.dist + '/scripts/modules/country/afghanistan/nutrition/views'));
 });
 
+gulp.task('html:immap', function () {
+  return gulp.src(yeoman.app + '/scripts/modules/immap/views/**/*.html')
+    .pipe(gulp.dest(yeoman.dist + '/scripts/modules/immap/views'));
+});
+
 
 ///////////
 // Build //
@@ -140,7 +145,7 @@ gulp.task('clean:dist', function (cb) {
   rimraf('./dist', cb);
 });
 
-gulp.task('client:build', [ 'html', 'html:app', 'html:cluster', 'html:country', 'html:nutrition', 'styles' ], function () {
+gulp.task('client:build', [ 'html', 'html:app', 'html:cluster', 'html:country', 'html:nutrition', 'html:immap', 'styles' ], function () {
   var jsFilter = $.filter('**/*.js', {restore: true});
   var cssFilter = $.filter('**/*.css', {restore: true});
   var gulpUtil = require('gulp-util');
