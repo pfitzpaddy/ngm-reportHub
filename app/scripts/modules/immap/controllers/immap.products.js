@@ -55,9 +55,9 @@ angular.module( 'ngmReportHub' )
 					
 					// set report variables to USER
 					$scope.report.admin0pcode = $scope.report.user.admin0pcode;
-					$scope.report.project = $scope.report.user.project;
+					$scope.report.project = $scope.report.user.programme_id;
+					$scope.report.product_sector_id = $scope.report.user.cluster_id;
 					$scope.report.email = $scope.report.user.email;
-					$scope.report.product_sector_id = $scope.report.user.product_sector_id;
 
 				}
 
@@ -147,10 +147,10 @@ angular.module( 'ngmReportHub' )
 			// format subtitle
 			getSubTitle: function() {
 				// all params
-				var subtitle = $scope.report.admin0pcode.toUpperCase() + ' product(s) | ' +
-												$scope.report.project.toUpperCase() + ' project(s) | ' +
-												$scope.report.email.toUpperCase() + ' member(s) | ' +
-												$scope.report.product_sector_id.toUpperCase() + ' sector(s) | ' +
+				var subtitle = $scope.report.admin0pcode.toUpperCase() + ' | ' +
+												$scope.report.project.toUpperCase() + ' | ' +
+												$scope.report.email.toUpperCase() + ' | ' +
+												$scope.report.product_sector_id.toUpperCase() + ' | ' +
 												$scope.report.product_type_id.toUpperCase() + ' type(s)'; //+
 												// '- hit <span style="font-weight:400;">REFRESH LIST</span> to fetch the latest submissions!'
 				return subtitle;
