@@ -259,18 +259,37 @@
 										<a class="white-text right" ng-click="ngm.logout();">
 										<i class="material-icons smedium right">lock_open</i>LOGOUT</a>
 									</li>
-									
-									<!-- PROFILE -->
-									<li align="center" class="teal z-depth-2">
-										<a class="white-text right" href="#/immap/profile/{{ ngm.getUserName() }}" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">account_circle</i>MY PROFILE</a>
+
+									<!-- HOME -->
+									<li align="center" class="teal z-depth-2"
+										ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text right" href="#/immap" 
+												ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">person_pin</i>MY HOME</a>
 									</li>
 
 									<!-- TEAM -->
 									<li align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome'">
-										<a class="white-text right" href="#/immap/team" ng-click="ngm.toggleNavigationMenu();">
+										<a class="white-text right" href="#/immap/team" 
+												ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">group</i>MY TEAM</a>
+									</li>
+									
+									<!-- PROFILE -->
+									<li align="center" class="teal z-depth-2"
+										ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text right" href="#/immap/profile/{{ ngm.getUserName() }}" 
+												ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">account_circle</i>MY PROFILE</a>
+									</li>
+
+									<!-- PRODUCTS -->
+									<li align="center" class="teal z-depth-2"
+										ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text right" href="#/immap/products" 
+												ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">crop_original</i>MY PRODUCTS</a>
 									</li>
 
 									<!-- ADMIN -->
@@ -511,6 +530,8 @@
 		<!-- WATCHKEEPER -->
 		<script src="scripts/modules/immap/app.js"></script>
 		<script src="scripts/modules/immap/controllers/immap.home.js"></script>
+		<script src="scripts/modules/immap/controllers/immap.products.js"></script>
+		<script src="scripts/modules/immap/controllers/immap.products.new.js"></script>
 		<script src="scripts/modules/immap/dashboards/dashboard.watchkeeper.js"></script>
 		
 		<!-- NUTRITION -->

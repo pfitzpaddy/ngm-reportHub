@@ -1,0 +1,30 @@
+
+<style>
+
+</style>
+
+<!-- ngHtml -->
+<div ng-if="panel.data.length" ng-repeat="row in panel.data track by $index">
+
+    <!-- product -->
+    <div class="col s12 m3">
+      <a class="left" 
+          title="{{ row.product_description }} by {{ row.email }}"
+          href="{{ row.product_upload }}" target="_blank">
+        <div class="card small blue-grey darken-1 hoverable">
+          <div class="card-image">
+            <img height="160" ng-src="https://drive.google.com/thumbnail?id={{ row.product_id }}&sz=w360">
+          </div>
+          <div class="card-content white-text">
+            <p class="card-title">{{ row.product_sector }} {{ row.product_type }}</p>
+          </div>
+          <div class="card-action">
+            <a class="left" 
+                title="{{ row.product_description }} by {{ row.email }}"
+                href="{{ row.product_upload }}" target="_blank">Open</a>
+          </div>
+        </div>
+      </a>
+    </div>
+
+</div>

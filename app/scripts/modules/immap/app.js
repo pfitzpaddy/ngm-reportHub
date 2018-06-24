@@ -62,10 +62,33 @@ angular
 					}],
 				}
 			})
+			// Products
+			.when( '/immap/products', {
+				redirectTo: '/immap/products/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/immap/products/:admin0pcode/:project/:product_sector_id/:product_type_id/:email/:start_date/:end_date', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ImmapProductsCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated(); 
+					}],
+				}
+			})
+			// Products
+			.when( '/immap/products/new', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ImmapProductsNewCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated(); 
+					}],
+				}
+			})
+			// Watchkeeper
 			.when( '/immap/watchkeeper', {
 				redirectTo: '/immap/watchkeeper/kenya/2015-11-01/2015-11-30'
 			})
-			// Watchkeeper
 			.when( '/immap/watchkeeper/:country/:start/:end', {
 				reloadOnSearch: false,
 				templateUrl: '/views/app/dashboard.html',

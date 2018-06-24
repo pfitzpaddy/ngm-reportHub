@@ -67,7 +67,7 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
           label: {
             position: 'top'
           },
-          data: data.data,
+          data: data && data.data ? data.data : {},
           subDomainTitleFormat: {
             filled: "<div class='count'>{count}</div> {name} on {date}"
           },
@@ -217,7 +217,7 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
 
         }
       };
-
+      
       // Merge defaults with config
       $scope.calHeatmap = angular.merge({}, $scope.calHeatmap, config);
 
