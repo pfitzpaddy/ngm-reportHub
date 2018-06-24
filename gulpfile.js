@@ -219,7 +219,7 @@ gulp.task('copy:drr', function () {
     })))
     .pipe(gulp.dest(yeoman.dist + '/images/snapshots/drr'));
 });
-gulp.task('copy:immap', function () {
+gulp.task('copy:snapshots', function () {
   return gulp.src(yeoman.app + '/images/snapshots/immap/**/*.{gif,jpeg,jpg,png,svg}')
     .pipe($.cache($.imagemin({
         optimizationLevel: 5,
@@ -227,6 +227,15 @@ gulp.task('copy:immap', function () {
         interlaced: true
     })))
     .pipe(gulp.dest(yeoman.dist + '/images/snapshots/immap'));
+});
+gulp.task('copy:immap', function () {
+  return gulp.src(yeoman.app + '/images/immap/**/*.{gif,jpeg,jpg,png,svg}')
+    .pipe($.cache($.imagemin({
+        optimizationLevel: 5,
+        progressive: true,
+        interlaced: true
+    })))
+    .pipe(gulp.dest(yeoman.dist + '/images/immap'));
 });
 gulp.task('copy:reporthub', function () {
   return gulp.src(yeoman.app + '/images/snapshots/reporthub/**/*.{gif,jpeg,jpg,png,svg}')
@@ -289,7 +298,7 @@ gulp.task('copy:mfonts', function () {
 });
 
 gulp.task('build', ['clean:dist'], function () {
-  runSequence(['copy:images', 'copy:cluster', 'copy:country', 'copy:cdc', 'copy:drr', 'copy:immap', 'copy:reporthub', 'copy:who-immap', 'bower:images', 'fullscreen:images', 'copy:static', 'copy:extras', 'copy:widgets', 'copy:fonts', 'copy:mfonts', 'client:build'], 'rename:index');
+  runSequence(['copy:images', 'copy:cluster', 'copy:country', 'copy:cdc', 'copy:drr', 'copy:snapshots', 'copy:immap', 'copy:reporthub', 'copy:who-immap', 'bower:images', 'fullscreen:images', 'copy:static', 'copy:extras', 'copy:widgets', 'copy:fonts', 'copy:mfonts', 'client:build'], 'rename:index');
 });
 
 gulp.task('default', ['build']);
