@@ -113,6 +113,12 @@ angular.module('ngmReportHub')
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/admin/emro/so'
 					},{
+						'title': 'South Sudan',
+						'param': 'admin0pcode',
+						'active': 'ss',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/admin/afro/ss'
+					},{
 						'title': 'Syria',
 						'param': 'admin0pcode',
 						'active': 'so',

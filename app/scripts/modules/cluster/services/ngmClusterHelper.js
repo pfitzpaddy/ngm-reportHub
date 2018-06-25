@@ -761,6 +761,28 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_name: 'Host Communities'
           }];
 
+        // admin SS
+        if ( admin0pcode === 'SS' ) {
+          // beneficiaries
+          beneficiaries = [{
+              cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              beneficiary_type_id: 'idps',
+              beneficiary_type_name: 'IDPs'
+            },{
+              cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              beneficiary_type_id: 'refugees',
+              beneficiary_type_name: 'Refugees'
+            },{
+              cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              beneficiary_type_id: 'host_communities',
+              beneficiary_type_name: 'Host Communities'
+            },{
+              cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+              beneficiary_type_id: 'otherwise_affected',
+              beneficiary_type_name: 'Otherwise Affected'
+            }];
+        }
+
         // admin ET
         if ( admin0pcode === 'ET' ) {
 

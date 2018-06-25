@@ -265,6 +265,9 @@ angular
 			.when( '/cluster/admin/afro/ng', {
 				redirectTo: '/cluster/admin/afro/ng/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
+			.when( '/cluster/admin/afro/ss', {
+				redirectTo: '/cluster/admin/afro/ss/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+			})
 
 			// EMRO
 			.when( '/cluster/admin/emro', {
@@ -361,6 +364,9 @@ angular
 			})
 			.when( '/cluster/5w/afro/ng', {
 				redirectTo: '/cluster/5w/afro/ng/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/5w/afro/ss', {
+				redirectTo: '/cluster/5w/afro/ss/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// cluster dashboard EMRO
 			.when( '/cluster/5w/emro/all', {

@@ -222,6 +222,12 @@ angular.module('ngmReportHub')
 										'active': 'ng',
 										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 										'href': '/desk/#/cluster/5w/afro/ng'
+									},{
+										'title': 'South Sudan',
+										'param': 'admin0pcode',
+										'active': 'ss',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/5w/afro/ss'
 									}]
 								},
 								'emro': {
