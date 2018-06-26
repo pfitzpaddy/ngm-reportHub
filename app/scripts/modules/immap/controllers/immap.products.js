@@ -274,7 +274,7 @@ angular.module( 'ngmReportHub' )
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
 									title: 'Total Products',
-									request: $scope.report.getRequest( 'total' )
+									request: $scope.report.getRequest( 'products' )
 								}
 							}]
 						},{
@@ -284,43 +284,144 @@ angular.module( 'ngmReportHub' )
 								style: 'text-align: center;',
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
-									title: 'Sectors',
+									title: 'Total Sectors',
 									request: $scope.report.getRequest( 'sectors' )
 								}
 							}]
 						},{
-							styleClass: 's12 m3',
+							styleClass: 's12 m6',
 							widgets: [{
 								type: 'stats',
 								style: 'text-align: center;',
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
-									title: 'by Sector',
-									data: { value: 3 }
-								}
-							}]
-						},{
-							styleClass: 's12 m3',
-							widgets: [{
-								type: 'stats',
-								style: 'text-align: center;',
-								card: 'card-panel stats-card white grey-text text-darken-2',
-								config: {
-									title: 'by Product',
-									data: { value: 4 }
+									title: 'Team Contributors',
+									request: $scope.report.getRequest( 'team' )
 								}
 							}]
 						}]
 					},{
 						columns: [{
-							styleClass: 's12 m12 l12',
+							styleClass: 's12 m3',
+							widgets: [{
+								type: 'highchart',
+								style: 'height: 190px;',
+								card: 'card-panel stats-card white grey-text text-darken-2',
+								config: {
+									title: {
+										text: 'by Type',
+									},
+									chartConfig: {
+										options: {
+											chart: {
+												type: 'pie',
+												height: 150,
+												spacing: [ 0, 0, 20, 0 ]
+											},
+											tooltip: {
+												pointFormat: '<b>{point.y:,.0f} {series.name}</b>'
+											},
+											legend: {
+													enabled: false
+											}																	
+										},
+				            title: {
+				              text: null
+				            },
+				            yAxis: {
+			                title: {
+			                	text: null
+			                }
+				            },
+				            plotOptions: {
+			                pie: {
+			                  shadow: false
+			                }
+				            },
+				            tooltip: {
+			                formatter: function() {
+			                  return '<b>'+ this.point.name +'</b>: '+ this.y +' %';
+			                }
+				            },
+				            series: [{
+			                name: 'Products',
+											data: [],
+			                request: $scope.report.getRequest( 'products_chart' ),
+			                size: '120%',
+			                innerSize: '60%',
+			                showInLegend:true,
+			                dataLabels: {
+			                  enabled: false
+			                }
+				            }]
+									}
+								}
+							}]
+						},{
+							styleClass: 's12 m3',
+							widgets: [{
+								type: 'highchart',
+								style: 'height: 190px;',
+								card: 'card-panel stats-card white grey-text text-darken-2',
+								config: {
+									title: {
+										text: 'by Sector'
+									},
+									chartConfig: {
+										options: {
+											chart: {
+												type: 'pie',
+												height: 150,
+												spacing: [ 0, 0, 20, 0 ]
+											},
+											tooltip: {
+												pointFormat: '<b>{point.y:,.0f} {series.name}</b>'
+											},
+											legend: {
+													enabled: false
+											}																	
+										},
+				            title: {
+				              text: null
+				            },
+				            yAxis: {
+			                title: {
+			                	text: null
+			                }
+				            },
+				            plotOptions: {
+			                pie: {
+			                  shadow: false
+			                }
+				            },
+				            tooltip: {
+			                formatter: function() {
+			                  return '<b>'+ this.point.name +'</b>: '+ this.y +' %';
+			                }
+				            },
+				            series: [{
+			                name: 'Products',
+			                data: [],
+			                request: $scope.report.getRequest( 'sectors_chart' ),
+			                size: '120%',
+			                innerSize: '60%',
+			                showInLegend:true,
+			                dataLabels: {
+			                  enabled: false
+			                }
+				            }]
+									}
+								}
+							}]
+						},{
+							styleClass: 's12 m6',
 							widgets: [{
 								type: 'calHeatmap',
 								card: 'card-panel',
 								style: 'padding-top:5px;',
 								config: {
 									title: {
-										style: 'padding-top: 10px;',
+										style: 'padding-top: 0px;',
 										name: 'Product Submissions'
 									},
 									options: { itemName: 'Product', start: new Date( $scope.report.start_date ) },
