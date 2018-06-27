@@ -220,74 +220,74 @@ angular
 
 			// DEFAULT
 			.when( '/cluster/admin', {
-				redirectTo: '/cluster/admin/all/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 
 			// HQ SUPERADMIN BY CLUSTER
 			.when( '/cluster/admin/all/all/agriculture', {
-				redirectTo: '/cluster/admin/all/all/agriculture/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/agriculture/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/all/all/education', {
-				redirectTo: '/cluster/admin/all/all/education/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/education/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/all/all/esnfi', {
-				redirectTo: '/cluster/admin/all/all/esnfi/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/esnfi/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/all/all/fsac', {
-				redirectTo: '/cluster/admin/all/all/fsac/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/fsac/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/all/all/health', {
-				redirectTo: '/cluster/admin/all/all/health/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/health/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/all/all/nutrition', {
-				redirectTo: '/cluster/admin/all/all/nutrition/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/nutrition/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/all/all/cvwg', {
-				redirectTo: '/cluster/admin/all/all/cvwg/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/cvwg/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/all/all/protection', {
-				redirectTo: '/cluster/admin/all/all/protection/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/protection/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/all/all/wash', {
-				redirectTo: '/cluster/admin/all/all/wash/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/wash/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			
 			// AFRO
 			.when( '/cluster/admin/afro', {
-				redirectTo: '/cluster/admin/afro/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/afro/all/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/afro/cd', {
-				redirectTo: '/cluster/admin/afro/cd/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/afro/cd/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/afro/et', {
-				redirectTo: '/cluster/admin/afro/et/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/afro/et/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/afro/ng', {
-				redirectTo: '/cluster/admin/afro/ng/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/afro/ng/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/afro/ss', {
-				redirectTo: '/cluster/admin/afro/ss/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/afro/ss/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 
 			// EMRO
 			.when( '/cluster/admin/emro', {
-				redirectTo: '/cluster/admin/emro/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/emro/all/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/emro/af', {
-				redirectTo: '/cluster/admin/emro/af/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/emro/af/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/emro/so', {
-				redirectTo: '/cluster/admin/emro/so/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/emro/so/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/emro/sy', {
-				redirectTo: '/cluster/admin/emro/sy/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/emro/sy/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 			.when( '/cluster/admin/emro/ur', {
-				redirectTo: '/cluster/admin/emro/ur/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/emro/ur/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
 			})
 
 			// ADMIN
-			.when( '/cluster/admin/:adminRpcode/:admin0pcode/:cluster_id/:organization_tag/:report_type/:start/:end', {
+			.when( '/cluster/admin/:adminRpcode/:admin0pcode/:cluster_id/:activity_type_id/:organization_tag/:report_type/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardClusterAdminCtrl',
 				resolve: {
@@ -322,7 +322,7 @@ angular
 						var adminRpcode =ngmUser.get() && ngmUser.get().adminRpcode ? ngmUser.get().adminRpcode.toLowerCase() : 'hq';
 						var admin0pcode =ngmUser.get() && ngmUser.get().admin0pcode ? ngmUser.get().admin0pcode.toLowerCase() : 'all'; 
 						var cluster_id = ngmUser.get() && ngmUser.get().cluster_id ? ngmUser.get().cluster_id : 'all';
-						var url = '/cluster/5w/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/all/all/2018-01-01/' + moment().format('YYYY-MM-DD');
+						var url = '/cluster/5w/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD');
 						$location.path( url );
 					}]
 				},
@@ -333,7 +333,7 @@ angular
 						var adminRpcode =ngmUser.get() && ngmUser.get().adminRpcode ? ngmUser.get().adminRpcode.toLowerCase() : 'hq';
 						var admin0pcode =ngmUser.get() && ngmUser.get().admin0pcode ? ngmUser.get().admin0pcode.toLowerCase() : 'all'; 
 						var cluster_id = ngmUser.get() && ngmUser.get().cluster_id ? ngmUser.get().cluster_id : 'all';
-						var url = '/cluster/5w/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/all/all/2018-01-01/' + moment().format('YYYY-MM-DD');
+						var url = '/cluster/5w/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD');
 						$location.path( url );
 					}]
 				},
@@ -350,43 +350,43 @@ angular
 
 			// cluster dashboard HQ
 			.when( '/cluster/5w/hq/all', {
-				redirectTo: '/cluster/5w/hq/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/5w/hq/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// cluster dashboard AFRO
 			.when( '/cluster/5w/afro/all', {
-				redirectTo: '/cluster/5w/afro/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/5w/afro/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/5w/afro/cd', {
-				redirectTo: '/cluster/5w/afro/cd/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/5w/afro/cd/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/5w/afro/et', {
-				redirectTo: '/cluster/5w/afro/et/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/5w/afro/et/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/5w/afro/ng', {
-				redirectTo: '/cluster/5w/afro/ng/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/5w/afro/ng/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/5w/afro/ss', {
-				redirectTo: '/cluster/5w/afro/ss/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/5w/afro/ss/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// cluster dashboard EMRO
 			.when( '/cluster/5w/emro/all', {
-				redirectTo: '/cluster/5w/emro/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/5w/emro/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/5w/emro/af', {
-				redirectTo: '/cluster/5w/emro/af/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/5w/emro/af/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/5w/emro/so', {
-				redirectTo: '/cluster/5w/emro/so/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/5w/emro/so/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/5w/emro/sy', {
-				redirectTo: '/cluster/5w/emro/sy/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/5w/emro/sy/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/5w/emro/ur', {
-				redirectTo: '/cluster/5w/emro/ur/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/5w/emro/ur/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 
 			// health dashboard
-			.when( '/cluster/5w/:adminRpcode/:admin0pcode/:admin1pcode/:admin2pcode/:cluster_id/:organization_tag/:beneficiaries/:start/:end', {
+			.when( '/cluster/5w/:adminRpcode/:admin0pcode/:admin1pcode/:admin2pcode/:cluster_id/:activity_type_id/:organization_tag/:beneficiaries/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardClusterCtrl',
 				resolve: {
