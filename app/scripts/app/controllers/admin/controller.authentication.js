@@ -361,7 +361,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                 && ( $scope.panel.user.admin0pcode === 'CD' || $scope.panel.user.admin0pcode === 'ET' ) ) {
             // add defaults
             $scope.panel.user.app_home = '/immap/';
-            $scope.panel.user.roles = [ 'ADMIN', 'USER' ];
+            // $scope.panel.user.roles = [ 'ADMIN', 'USER' ];
             
           } else {
             delete $scope.panel.user.app_home;

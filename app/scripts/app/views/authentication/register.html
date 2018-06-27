@@ -366,6 +366,30 @@ li {
 	        </div>
 	      </div>
 
+	      <!-- profile -->
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">assignment_ind</i>
+	          <input id="ngm-profile"
+	          				type="text"
+	          				class="validate"
+										ng-model="panel.user.profile">
+	          <label for="ngm-profile">Profile</label>
+	        </div>
+	      </div>
+
+	      <!-- software -->
+	      <div class="row">
+	        <div class="input-field col s12">
+	        	<i class="material-icons prefix">important_devices</i>
+	          <input id="ngm-software"
+	          				type="text"
+	          				class="validate"
+										ng-model="panel.user.software">
+	          <label for="ngm-software">Software</label>
+	        </div>
+	      </div>
+
 				<div class="action center">
 					<div
 							id="programme-back"
@@ -409,17 +433,16 @@ li {
 	$( '#organization-next' ).click( function( e ){
 		$( '.carousel' ).carousel( 'next' );
 	});
+	// organization on enter
+	$( '#organization-next' ).keydown( function( e ){
+		if ( e.keyCode === 13 ) {
+			$( '.carousel' ).carousel( 'next' );
+		}
+	});
 	// contact details go back
 	$( '#contact-back' ).click( function( e ){
 		$( '.carousel' ).carousel( 'prev' );
 	});
-
-	// contact goto login on enter
-	// $( '#contact-next' ).keydown( function( e ){
-	// 	if ( e.keyCode === 13 ) {
-	// 		$( '.carousel' ).carousel( 'next' );
-	// 	}
-	// });
 
 	// contact goto login on click
 	$( '#contact-next' ).click( function( e ){
@@ -429,22 +452,36 @@ li {
 			Materialize.toast( 'Almost Complete! Now set your LOGIN details', 3400, 'success' );
 		}, 400);
 	});
+	// contact on enter
+	$( '#contact-next' ).keydown( function( e ){
+		if ( e.keyCode === 13 ) {
+			$( '.carousel' ).carousel( 'next' );
+		}
+	});
 
 	// login details go back
 	$( '#login-back' ).click( function( e ){
-		$( '.carousel' ).carousel( 'prev' );
+		$( '.carousel' ).carousel( 'prev' );		
 	});
 	// login details go next (if iMMAP)
 	$( '#login-next' ).click( function( e ){
 		$( '.carousel' ).carousel( 'next' );
+		$( '.carousel' ).css({ 'min-height': '840px' });
+		setTimeout(function(){
+			Materialize.toast( 'Last Item! Add iMMAP PROGRAMME details', 3400, 'success' );
+		}, 400);
+	});
+	// login on enter
+	$( '#login-next' ).keydown( function( e ){
+		if ( e.keyCode === 13 ) {
+			$( '.carousel' ).carousel( 'next' );
+		}
 	});
 
 	// iMMAP details go back to login
 	$( '#programme-back' ).click( function( e ){
 		$( '.carousel' ).carousel( 'prev' );
-		setTimeout(function(){
-			Materialize.toast( 'Last Item! Add iMMAP details', 3400, 'success' );
-		}, 400);
+		$( '.carousel' ).css({ 'min-height': '640px' });
 	});
 
 </script>

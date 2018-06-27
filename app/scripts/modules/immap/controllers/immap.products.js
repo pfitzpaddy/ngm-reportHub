@@ -157,78 +157,11 @@ angular.module( 'ngmReportHub' )
 
 			},
 
-			// init()
-			init: function(){
+			// get rows based on USER
+			getRows: function(){
 
-				// update filename
-				$scope.report.report_filename += $scope.report.start_date + '-to-' + $scope.report.end_date + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' )
-
-				// report dashboard model
-				$scope.model = {
-					name: 'immap_products',
-					header: {
-						div: {
-							'class': 'col s12 m12 l12 report-header',
-							style: 'border-bottom: 3px ' + $scope.report.ngm.style.defaultPrimaryColor + ' solid;'
-						},
-						title: {
-							'class': 'col s12 m8 l8 report-title truncate',
-							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: 'iMMAP | ' + $scope.report.admin0pcode.toUpperCase() + ' | Products'
-						},
-						subtitle: {
-							'class': 'col hide-on-small-only m8 l9 report-subtitle truncate',
-							title: $scope.report.getSubTitle()
-						},
-						datePicker: {
-							'class': 'col s12 m4 l3',
-							dates: [{
-								style: 'float:left;',
-								label: 'from',
-								format: 'd mmm, yyyy',
-								min: '2017-01-01',
-								max: $scope.report.end_date,
-								currentTime: $scope.report.start_date,
-								onClose: function(){
-									// set date
-									var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
-									if ( date !== $scope.report.start_date ) {
-										// set new date
-										$scope.report.start_date = date;
-										$scope.report.setPath( $scope.report.getPath() );
-									}
-								}
-							},{
-								style: 'float:right',
-								label: 'to',
-								format: 'd mmm, yyyy',
-								min: $scope.report.start_date,
-								currentTime: $scope.report.end_date,
-								onClose: function(){
-									// set date
-									var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
-									if ( date !== $scope.report.end_date ) {
-										// set new date
-										$scope.report.end_date = date;
-										$scope.report.setPath( $scope.report.getPath() );
-									}
-								}
-							}]
-						},
-						download: {
-							'class': 'col s12 m4 l4 hide-on-small-only',
-							downloads: [{
-								type: 'csv',
-								color: 'blue lighten-2',
-								icon: 'assignment_turned_in',
-								hover: 'Download Products List as CSV',
-								request: $scope.report.getRequest( 'csv' ),
-								metrics: $scope.report.getMetrics( 'immap_products_list', 'csv' )
-							}]
-						}
-					},
-					menu: [],
-					rows: [{
+				// controls
+				var rows = [{
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
@@ -265,7 +198,30 @@ angular.module( 'ngmReportHub' )
 								}
 							}]
 						}]
-					},{				
+				}];
+
+				// user heatmap
+				var heatmap = {
+						columns: [{
+							styleClass: 's12',
+							widgets: [{
+								type: 'calHeatmap',
+								card: 'card-panel',
+								style: 'padding-top:5px;',
+								config: {
+									title: {
+										style: 'padding-top: 0px;',
+										name: 'Product Submissions'
+									},
+									options: { itemName: 'Product', start: new Date( $scope.report.start_date ) },
+									request: $scope.report.getRequest( 'calendar' )
+								}
+							}]
+						}]
+				};
+
+				// admin widgets
+				var adminWidgets = [{	
 						columns: [{
 							styleClass: 's12 m3',
 							widgets: [{
@@ -344,7 +300,7 @@ angular.module( 'ngmReportHub' )
 			                }
 				            },
 				            series: [{
-			                name: 'Products',
+			                name: 'Product(s)',
 											data: [],
 			                request: $scope.report.getRequest( 'products_chart' ),
 			                size: '120%',
@@ -400,7 +356,7 @@ angular.module( 'ngmReportHub' )
 			                }
 				            },
 				            series: [{
-			                name: 'Products',
+			                name: 'Product(s)',
 			                data: [],
 			                request: $scope.report.getRequest( 'sectors_chart' ),
 			                size: '120%',
@@ -429,7 +385,10 @@ angular.module( 'ngmReportHub' )
 								}
 							}]
 						}]
-					},{
+				}];
+
+				// default widgets
+				var defaultWidgets = [{
 						columns: [{
 							styleClass: 's12',
 							widgets: [{
@@ -477,7 +436,100 @@ angular.module( 'ngmReportHub' )
 								}
 							}]
 						}]
-					}]
+				}];
+
+				// if USER
+				if ( $scope.report.user.roles.indexOf('ORG') === -1 ||
+							$scope.report.user.roles.indexOf('ADMIN') === -1 ) {
+					// calendar heatmap
+					rows.push( heatmap );
+
+				} else {
+					// push admin widgets
+					rows.push( adminWidgets[0], adminWidgets[1] );
+
+				}
+
+				// push default widgets
+				rows.push( defaultWidgets[0], defaultWidgets[1], defaultWidgets[2] );
+
+				// return rows
+				return rows;
+
+			},
+
+			// init()
+			init: function(){
+
+				// update filename
+				$scope.report.report_filename += $scope.report.start_date + '-to-' + $scope.report.end_date + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' )
+
+				// report dashboard model
+				$scope.model = {
+					name: 'immap_products',
+					header: {
+						div: {
+							'class': 'col s12 m12 l12 report-header',
+							style: 'border-bottom: 3px ' + $scope.report.ngm.style.defaultPrimaryColor + ' solid;'
+						},
+						title: {
+							'class': 'col s12 m8 l8 report-title truncate',
+							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
+							title: 'iMMAP | ' + $scope.report.admin0pcode.toUpperCase() + ' | Products'
+						},
+						subtitle: {
+							'class': 'col hide-on-small-only m8 l9 report-subtitle truncate',
+							title: $scope.report.getSubTitle()
+						},
+						datePicker: {
+							'class': 'col s12 m4 l3',
+							dates: [{
+								style: 'float:left;',
+								label: 'from',
+								format: 'd mmm, yyyy',
+								min: '2017-01-01',
+								max: $scope.report.end_date,
+								currentTime: $scope.report.start_date,
+								onClose: function(){
+									// set date
+									var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
+									if ( date !== $scope.report.start_date ) {
+										// set new date
+										$scope.report.start_date = date;
+										$scope.report.setPath( $scope.report.getPath() );
+									}
+								}
+							},{
+								style: 'float:right',
+								label: 'to',
+								format: 'd mmm, yyyy',
+								min: $scope.report.start_date,
+								currentTime: $scope.report.end_date,
+								onClose: function(){
+									// set date
+									var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
+									if ( date !== $scope.report.end_date ) {
+										// set new date
+										$scope.report.end_date = date;
+										$scope.report.setPath( $scope.report.getPath() );
+									}
+								}
+							}]
+						},
+						download: {
+							'class': 'col s12 m4 l4 hide-on-small-only',
+							downloads: [{
+								type: 'csv',
+								color: 'blue lighten-2',
+								icon: 'assignment_turned_in',
+								hover: 'Download Products List as CSV',
+								request: $scope.report.getRequest( 'csv' ),
+								metrics: $scope.report.getMetrics( 'immap_products_list', 'csv' )
+							}]
+						}
+					},
+					menu: [],
+					rows: $scope.report.getRows()
 				}
 
 				// assign to ngm app scope
