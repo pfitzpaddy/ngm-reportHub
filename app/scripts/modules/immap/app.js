@@ -95,7 +95,8 @@ angular
 				controller: 'DashboardWatchkeeperCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAuthenticated(); 
+						// return ngmAuth.isAuthenticated(); 
+						return ngmAuth.grantPublicAccess();
 					}],
 				}
 			})
