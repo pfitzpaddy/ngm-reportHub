@@ -119,7 +119,7 @@ angular.module('ngmReportHub')
 		// set dashboard params
 		$scope.dashboard.country = $scope.dashboard.data.country[$route.current.params.country];
 		$scope.dashboard.title = 'iMMAP | ' + $scope.dashboard.country.name;
-		$scope.dashboard.subtitle = 'Watchkeeper Security Key Indicators for ' + $scope.dashboard.country.name;
+		$scope.dashboard.subtitle = 'Watchkeeper Security Key Indicators for ' + $scope.dashboard.country.name + ' using ACLED datasource - <a target="_blank" href="https://www.acleddata.com/">https://www.acleddata.com/</a>';
 
 		// calendar heatmap legend (colors) 
 		if ($scope.dashboard.country.id === '*') {
