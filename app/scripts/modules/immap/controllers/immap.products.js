@@ -54,9 +54,6 @@ angular.module( 'ngmReportHub' )
 							$scope.report.user.roles.indexOf('ADMIN') === -1 ) {
 					
 					// set report variables to USER
-					$scope.report.admin0pcode = $scope.report.user.admin0pcode;
-					$scope.report.project = $scope.report.user.programme_id;
-					$scope.report.product_sector_id = $scope.report.user.cluster_id;
 					$scope.report.email = $scope.report.user.email;
 
 				}
@@ -128,7 +125,7 @@ angular.module( 'ngmReportHub' )
 				// if USER
 				if ( $scope.report.user.roles.indexOf('ORG') === -1 ||
 							$scope.report.user.roles.indexOf('ADMIN') === -1 ) {
-					menu_items = [ 'product_type_id' ];
+					menu_items = [ 'admin0pcode', 'project', 'product_sector_id', 'product_type_id' ];
 				} else {
 					menu_items = [ 'admin0pcode', 'project', 'product_sector_id', 'product_type_id', 'email' ];
 				}
