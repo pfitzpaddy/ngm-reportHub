@@ -405,7 +405,11 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
       }
 
-      // Merge defaults with config
+      // if config user
+      if ( config.user ) {
+        $scope.panel.user = {};
+      }
+      // merge defaults with config
       $scope.panel = angular.merge( {}, $scope.panel, config );
 
       // get organizations

@@ -33,7 +33,7 @@ angular.module('ngmReportHub')
 
 			// load dashboard
 			init: function( user ){
-			
+				
 				// add padding to style?
 				$scope.dashboard.ngm.style.paddingHeight = 20;		
 
