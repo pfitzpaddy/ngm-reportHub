@@ -35,7 +35,11 @@ angular
 					}],
 				}
 			})
+			// TEAM
 			.when( '/immap/team', {
+				redirectTo: '/immap/team/all/all/all/all'
+			})
+			.when( '/immap/team/:admin0pcode/:organization_tag/:project/:cluster_id', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardTeamCtrl',
 				resolve: {

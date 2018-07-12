@@ -80,6 +80,7 @@ angular.module( 'ngmReportHub' )
 
 			},
 
+			// request
 			getRequest: function( indicator ){
 				return {
 						method: 'POST',

@@ -97,6 +97,9 @@ angular
 			})
 			// TEAM
 			.when( '/team', {
+				redirectTo: '/team/all/all/all/all'
+			})
+			.when( '/team/:admin0pcode/:organization_tag/:project/:cluster_id', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardTeamCtrl',
 				resolve: {
@@ -104,7 +107,7 @@ angular
 						return ngmAuth.isAuthenticated();
 					}],
 				}
-			})			
+			})
 			// PROFILE
 			.when( '/profile', {
 				templateUrl: '/views/app/dashboard.html',
