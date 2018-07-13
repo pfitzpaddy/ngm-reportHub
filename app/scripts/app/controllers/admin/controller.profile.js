@@ -66,9 +66,10 @@ angular.module('ngmReportHub')
 									user: user,
 						      formDisabled: function() {
 						        var disabled = false;
-						        if ( user.status !== 'active' ||
+						        if ( user.status !== 'active' &&
 						        			$scope.dashboard.user.username !== $scope.dashboard.username && 
-						        			$scope.dashboard.user.roles.indexOf('ORG') === -1 ) {
+						        			( $scope.dashboard.user.roles.indexOf('ORG') === -1 ||
+						        				$scope.dashboard.user.roles.indexOf('SUPERADMIN') === -1 ) ) {
 						          disabled = true;
 						        }
 						        return disabled;
@@ -76,7 +77,8 @@ angular.module('ngmReportHub')
 						      activateUpdateVisible: function() {
 						        var visible = false;
 						        if ( $scope.dashboard.user.username !== $scope.dashboard.username && 
-						        			$scope.dashboard.user.roles.indexOf('ORG') !== -1 ) {
+						        			( $scope.dashboard.user.roles.indexOf('ORG') !== -1 ||
+						        				$scope.dashboard.user.roles.indexOf('SUPERADMIN') !== -1 ) ) {
 						          visible = true;
 						        }
 						        return visible;

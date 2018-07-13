@@ -6,13 +6,13 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardTeamCtrl', ['$scope', '$route', '$location', 'ngmAuth', function ($scope, $route, $location, ngmAuth) {
+	.controller('DashboardTeamCtrl', ['$scope', '$route', '$location', 'ngmAuth', 'ngmData', function ($scope, $route, $location, ngmAuth, ngmData) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
 			'Karma'
 		];
-
+		
 		// login object
 		$scope.dashboard = {
 
@@ -24,6 +24,12 @@ angular.module('ngmReportHub')
 
 			// admin0pcode
 			admin0pcode: $route.current.params.admin0pcode,
+
+			// admin0name
+			admin0name: $scope.$parent.ngm.getUser().admin0name,
+
+			// organization
+			organization: $scope.$parent.ngm.getUser().organization,
 
 			// organization_tag
 			organization_tag: $route.current.params.organization_tag,
@@ -40,15 +46,29 @@ angular.module('ngmReportHub')
 			// set path based on user
 			getPath: function() {
 
-				// if USER
-				if ( $scope.dashboard.user.roles.indexOf('ORG') === -1 ||
-							$scope.dashboard.user.roles.indexOf('ADMIN') === -1 ) {
-					
-					// set dashboard variables to USER
+				// super
+				if ( $scope.dashboard.user.roles.indexOf('SUPERADMIN') !== -1 ){
+					$scope.dashboard.admin0pcode = $route.current.params.admin0pcode;
+				} else {
 					$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode;
-					$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
-
 				}
+
+				// admin
+				if ( $scope.dashboard.user.roles.indexOf('ADMIN') !== -1 ){
+					$scope.dashboard.organization_tag = $route.current.params.organization_tag;
+				} else {
+					$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
+				}
+
+				// if iMMAP
+				if ( $scope.dashboard.user.organization === 'iMMAP' ) {
+					$scope.dashboard.project = $route.current.params.project;
+				} else {
+					$scope.dashboard.project = 'all'
+				}
+
+				// sector (default)
+				$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
 
 				// go with URL
 				var path = '/immap/team/' + $scope.dashboard.admin0pcode +
@@ -85,6 +105,50 @@ angular.module('ngmReportHub')
 					}
 			},
 
+			// set menu based on URL
+			setMenu: function() {
+
+				// menu
+				var menu_items = []
+
+				// if SUPERUSER
+				if ( $scope.dashboard.user.roles.indexOf('SUPERADMIN') !== -1 ) {
+					menu_items.push( 'admin0pcode' );
+				}
+				// if ADMIN
+				if ( $scope.dashboard.user.roles.indexOf('ADMIN') !== -1 ) {
+					menu_items.push( 'organization_tag');
+				}
+				// if iMMAP
+				if ( $scope.dashboard.user.organization === 'iMMAP' ) {
+					menu_items.push( 'project');
+				}
+				// add sector
+				menu_items.push( 'cluster_id');
+
+				// request
+				var request = angular.merge( $scope.dashboard.getRequest( 0, 0 ), { url: ngmAuth.LOCATION + '/api/getOrganizationMenu', data: { menu_items: menu_items } } ) 
+
+				// ngmData
+				ngmData
+					.get( request )
+					.then( function( result  ){
+						// set titles
+						$scope.dashboard.admin0name = result.admin0name;
+						$scope.dashboard.organization = result.organization;
+						$scope.dashboard.setTitles();
+						// set menu
+						$scope.dashboard.ngm.dashboard.model.menu = result.menu;
+					});
+
+			},
+
+			// set title
+			setTitles: function () {
+				$scope.dashboard.ngm.dashboard.model.header.title.title = $scope.dashboard.organization + ' | ' +  $scope.dashboard.admin0name + ' | Team';
+				$scope.dashboard.ngm.dashboard.model.header.subtitle.title = $scope.dashboard.organization  + ' | ' +  $scope.dashboard.admin0name + ' | Team | ' + $scope.dashboard.user.username;
+			},
+
 			// init
 			init: function(){
 
@@ -98,9 +162,11 @@ angular.module('ngmReportHub')
 				$scope.dashboard.profileHref = ( $scope.dashboard.user.organization === 'iMMAP' 
 					&& ( $scope.dashboard.user.admin0pcode === 'CD' || $scope.dashboard.user.admin0pcode === 'ET' ) ) ? '/immap/profile' : '/profile';
 
+				console.log($scope.dashboard.organization)
+
 				// dews dashboard model
-				var model = {
-					name: 'dashboard_profile',
+				$scope.model = {
+					name: 'dashboard_team',
 					header: {
 						div: {
 							'class': 'col s12 m12 l12 report-header',
@@ -109,12 +175,12 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m12 l12 report-title',
 							style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
-							title: $scope.dashboard.user.organization + ' | ' +  $scope.dashboard.user.admin0name + ' | Team'
+							title: $scope.dashboard.organization + ' | ' +  $scope.dashboard.admin0name + ' | Team'
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle',
 							html: true,
-							title: $scope.dashboard.user.organization  + ' | ' +  $scope.dashboard.user.admin0name + ' | Team | ' + $scope.dashboard.user.username
+							title: $scope.dashboard.organization  + ' | ' +  $scope.dashboard.admin0name + ' | Team | ' + $scope.dashboard.user.username
 						}
 					},
 					rows: [{
@@ -230,11 +296,8 @@ angular.module('ngmReportHub')
 					}]
 				};
 
-				// assign model to scope
-				$scope.model = model;
-
 				// assign to ngm app scope
-				$scope.dashboard.ngm.dashboard = $scope.model;
+				$scope.dashboard.ngm.dashboard.model = $scope.model;
 
 			}
 
@@ -242,7 +305,7 @@ angular.module('ngmReportHub')
 
 		// set path, menu and init
 		$scope.dashboard.setPath( $scope.dashboard.getPath() );
-		// init
+		$scope.dashboard.setMenu();
 		$scope.dashboard.init();
 		
 	}]);

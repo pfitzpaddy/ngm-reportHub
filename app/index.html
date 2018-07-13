@@ -297,7 +297,13 @@
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/admin/{{ ngm.getUser().adminRpcode | lowercase }}/{{ ngm.getUser().admin0pcode | lowercase }}" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">assignment_turned_in</i>MY ADMIN</a>
-									</li>							
+									</li>
+
+									<!-- Dashboard -->
+									<li align="center" class="teal z-depth-2">
+										<a class="white-text right" href="#/cluster/5w/{{ ngm.getUser().adminRpcode | lowercase }}/{{ ngm.getUser().admin0pcode | lowercase }}" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">bubble_chart</i>5W DASHBOARD</a>
+									</li>
 
 							</ul>
 						</div>
