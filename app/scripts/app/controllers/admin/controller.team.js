@@ -139,7 +139,6 @@ angular.module('ngmReportHub')
 						// set titles
 						$scope.dashboard.admin0name = result.admin0name;
 						$scope.dashboard.organization = result.organization;
-						console.log($scope.dashboard.organization)
 						$scope.dashboard.setTitles();
 						// set menu
 						$scope.dashboard.ngm.dashboard.model.menu = result.menu;
@@ -149,7 +148,6 @@ angular.module('ngmReportHub')
 
 			// set title
 			setTitles: function () {
-				console.log($scope.dashboard.organization)
 				$scope.dashboard.ngm.dashboard.model.header.title.title = $scope.dashboard.organization + ' | ' +  $scope.dashboard.admin0name + ' | Team';
 				$scope.dashboard.ngm.dashboard.model.header.subtitle.title = $scope.dashboard.organization  + ' | ' +  $scope.dashboard.admin0name + ' | Team | ' + $scope.dashboard.user.username;
 			},
