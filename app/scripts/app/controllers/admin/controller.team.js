@@ -49,26 +49,29 @@ angular.module('ngmReportHub')
 				// super
 				if ( $scope.dashboard.user.roles.indexOf('SUPERADMIN') !== -1 ){
 					$scope.dashboard.admin0pcode = $route.current.params.admin0pcode;
+					$scope.dashboard.cluster_id = $route.current.params.cluster_id;
 				} else {
 					$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode;
+					$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
 				}
 
 				// admin
 				if ( $scope.dashboard.user.roles.indexOf('ADMIN') !== -1 ){
 					$scope.dashboard.organization_tag = $route.current.params.organization_tag;
+					$scope.dashboard.cluster_id = $route.current.params.cluster_id;
 				} else {
 					$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
+					$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
 				}
 
 				// if iMMAP
 				if ( $scope.dashboard.user.organization === 'iMMAP' ) {
 					$scope.dashboard.project = $route.current.params.project;
+					$scope.dashboard.cluster_id = $route.current.params.cluster_id;
 				} else {
 					$scope.dashboard.project = 'all'
+					$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
 				}
-
-				// sector (default)
-				$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
 
 				// go with URL
 				var path = '/immap/team/' + $scope.dashboard.admin0pcode +
@@ -136,6 +139,7 @@ angular.module('ngmReportHub')
 						// set titles
 						$scope.dashboard.admin0name = result.admin0name;
 						$scope.dashboard.organization = result.organization;
+						console.log($scope.dashboard.organization)
 						$scope.dashboard.setTitles();
 						// set menu
 						$scope.dashboard.ngm.dashboard.model.menu = result.menu;
@@ -145,6 +149,7 @@ angular.module('ngmReportHub')
 
 			// set title
 			setTitles: function () {
+				console.log($scope.dashboard.organization)
 				$scope.dashboard.ngm.dashboard.model.header.title.title = $scope.dashboard.organization + ' | ' +  $scope.dashboard.admin0name + ' | Team';
 				$scope.dashboard.ngm.dashboard.model.header.subtitle.title = $scope.dashboard.organization  + ' | ' +  $scope.dashboard.admin0name + ' | Team | ' + $scope.dashboard.user.username;
 			},
@@ -224,7 +229,7 @@ angular.module('ngmReportHub')
 								style: 'text-align: center;',
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
-									title: 'Active ' + $scope.dashboard.user.organization + ' Staff',
+									title: 'Active Staff',
 									request: $scope.dashboard.getRequest( 'total', 'active' )
 								}
 							}]
