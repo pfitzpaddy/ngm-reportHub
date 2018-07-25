@@ -42,6 +42,7 @@ angular.module( 'ngmReportHub' )
           project_start_date: moment.utc().startOf( 'M' ).format('YYYY-MM-DD'),
           project_end_date: moment.utc().add( 8, 'M' ).endOf( 'M' ).format('YYYY-MM-DD'),
           // project_code: user.organization + '/' + moment().unix(),
+          project_hrp_project: true,
           project_budget: '0',
           project_budget_progress: [],
           beneficiary_type: [],
@@ -66,11 +67,8 @@ angular.module( 'ngmReportHub' )
       // get hrp code
       getProjectHrpCode: function( project ) {
 
-        // report
-        var report = project.admin0pcode === 'AF' ? '-OTH-' : '-HRP-';
-
-        // return project code
-        return project.admin0name.toUpperCase().substring(0, 3) + report +
+        // return project code (defaults to HRP)
+        return project.admin0name.toUpperCase().substring(0, 3) + '-HRP-' +
                         moment().year() + '-' +
                         project.cluster.toUpperCase().substring(0, 3) + '-' +
                         moment().unix();
@@ -421,15 +419,20 @@ angular.module( 'ngmReportHub' )
       },
 
 			// get cluster donors
-			getDonors: function( cluster_id ) {
+			getDonors: function( admin0pcode, cluster_id ) {
+
+        // donor list
+        var donors;
 
         // get from list
-        var donors = $filter( 'filter' )( localStorage.getObject( 'lists' ).donorsList,
+          // this list needs to be updated at the db to iclude admin0pcode as string (like activities)
+          // hack for NG has been put in place, so much to do, so little time (horrible, I know!)
+        donors = $filter( 'filter' )( localStorage.getObject( 'lists' ).donorsList,
                           { cluster_id: cluster_id }, true );
 
         // if no list use default
         if ( !donors.length ) {
-          var donors = [
+          donors = [
             { project_donor_id: 'australia', project_donor_name:'Australia'},
             { project_donor_id: 'aus_aid', project_donor_name:'AusAid'},
             { project_donor_id: 'bmz', project_donor_name:'BMZ'},
@@ -473,6 +476,60 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'wfp', project_donor_name: 'WFP' },
             { project_donor_id: 'who', project_donor_name: 'WHO' },
             { project_donor_id: 'world_bank', project_donor_name: 'Worldbank' }
+          ];
+        }
+
+        // include for NG
+        if ( admin0pcode === 'NG' ) {
+          donors = [
+            { project_donor_id: "africa_development_bank", project_donor_name:"African Development Bank" },
+            { project_donor_id: "australian_high_commission", project_donor_name:"Australian High Commission" },
+            { project_donor_id: "british_high_commission", project_donor_name:"British High Commission" },
+            { project_donor_id: "central_emergency_response_fund", project_donor_name:"Central Emergency Response Fund" },
+            { project_donor_id: "cjk", project_donor_name:"CJK" },
+            { project_donor_id: "danish_international_development_agency", project_donor_name:"Danish International Development Agency" },
+            { project_donor_id: "ukaid", project_donor_name:"Department for International Development (UKAID)" },
+            { project_donor_id: "dgd_belgium_fund", project_donor_name:"DGD Belgium Fund" },
+            { project_donor_id: "disability_rights_fund", project_donor_name:"Disability Rights Fund" },
+            { project_donor_id: "dutch_cooperating_aid_agencies", project_donor_name:"Dutch Cooperating Aid Agencies" },
+            { project_donor_id: "dutch_relief_alliance", project_donor_name:"Dutch Relief Alliance" },
+            { project_donor_id: "embassy_denmark", project_donor_name:"Embassy of Denmark" },
+            { project_donor_id: "embassy_finland", project_donor_name:"Embassy of Finland" },
+            { project_donor_id: "embassy_france", project_donor_name:"Embassy of France" },
+            { project_donor_id: "embassy_israel", project_donor_name:"Embassy of Israel" },
+            { project_donor_id: "embassy_japan", project_donor_name:"Embassy of Japan" },
+            { project_donor_id: "embassy_poland", project_donor_name:"Embassy of Poland" },
+            { project_donor_id: "embassy_sweden", project_donor_name:"Embassy of Sweden" },
+            { project_donor_id: "embassy_switzerland", project_donor_name:"Embassy of Switzerland" },
+            { project_donor_id: "embassy_kingdom_of_netherlands", project_donor_name:"Embassy of the Kingdom of Netherlands" },
+            { project_donor_id: "europe_aid", project_donor_name:"EuropeAid" },
+            { project_donor_id: "european_commission", project_donor_name:"European Commission" },
+            { project_donor_id: "european_commissioner_for_humanitarian_aid_and_civil_protection", project_donor_name:"European Commissioner for Humanitarian Aid and Civil Protection (ECHO)" },
+            { project_donor_id: "european_union", project_donor_name:"European Union" },
+            { project_donor_id: "french_ministry_of_foreign_affairs", project_donor_name:"French Ministry of Foreign Affairs" },
+            { project_donor_id: "german_federal_foreign_office", project_donor_name:"German Federal Foreign Office" },
+            { project_donor_id: "global_affairs_canada", project_donor_name:"Global Affairs Canada" },
+            { project_donor_id: "global_fund", project_donor_name:"Global Fund" },
+            { project_donor_id: "global_fund_for_women", project_donor_name:"Global Fund for Women" },
+            { project_donor_id: "global_fund_observer", project_donor_name:"Global Fund Observer" },
+            { project_donor_id: "high_comission_of_canda", project_donor_name:"High Commission of Canada" },
+            { project_donor_id: "irish_aid", project_donor_name:"Irish Aid" },
+            { project_donor_id: "italian_agency_for_cooperation_and_development", project_donor_name:"Italian Agency for Cooperation and Development" },
+            { project_donor_id: "japan_international_cooperation_agency", project_donor_name:"Japan International Cooperation Agency" },
+            { project_donor_id: "letsai", project_donor_name:"LETSAI" },
+            { project_donor_id: "nigerian_humanitarian_fund", project_donor_name:"Nigerian Humanitarian Fund" },
+            { project_donor_id: "norwegian_ministry_of_foreign_affairs", project_donor_name:"Norwegian Ministry of Foreign Affairs" },
+            { project_donor_id: "office_of_us_disaster_assistance", project_donor_name:"Office of US Disaster Assistance" },
+            { project_donor_id: "plan_international_candaa", project_donor_name:"Plan International Canada" },
+            { project_donor_id: "private_donor", project_donor_name:"Private Donor" },
+            { project_donor_id: "royal_norwegian_embassy", project_donor_name:"Royal Norwegian Embassy" },
+            { project_donor_id: "sv", project_donor_name:"SV" },
+            { project_donor_id: "swedish_international_development_cooperation_agency", project_donor_name:"Swedish International Development Cooperation Agency" },
+            { project_donor_id: "swiss_embassy", project_donor_name:"Swiss Embassy" },
+            { project_donor_id: "swiss_solidarity", project_donor_name:"Swiss Solidarity" },
+            { project_donor_id: "united_nations_childrens_fund", project_donor_name:"United Nations Children's Fund" },
+            { project_donor_id: "usaid", project_donor_name:"United States Agency for International Development" },
+            { project_donor_id: "us_ofda", project_donor_name:"United States Office of Foreign Disaster Assistance" }
           ];
         }
 
@@ -1663,7 +1720,11 @@ angular.module( 'ngmReportHub' )
 			getSiteTypes: function( cluster_id, admin0pcode ) {
 
         // site_type
-        var site_types = [{
+        var site_types;
+
+        // et
+        if ( admin0pcode === 'ET' ) {
+          site_types = [{
             site_type_id: 'multiple_sites',
             site_type_name: 'Multiple Sites'
           },{
@@ -1688,9 +1749,48 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'refugee_site',
             site_type_name: 'Refugee Site'       
           }];
+        }
+
+        // ng
+        if ( admin0pcode === 'NG' ) {
+          site_types = [{
+            site_type_id: 'multiple_sites',
+            site_type_name: 'Multiple Sites'
+          },{
+            site_type_id: 'host_community',
+            site_type_name: 'Host Community'
+          },{
+            site_type_id: 'settlement',
+            site_type_name: 'Settlement'
+          },{
+            site_type_id: 'school',
+            site_type_name: 'School'
+          },{
+            site_type_id: 'hospital',
+            site_type_name: 'Hospital'
+          },{
+            site_type_id: 'health_center',
+            site_type_name: 'Health Center'
+          },{
+            site_type_id: 'health_post',
+            site_type_name: 'Health Post'
+          },{
+            site_type_id: 'idp_site_formal',
+            site_type_name: 'IDP Site Formal'
+          },{
+            site_type_id: 'idp_site_informal',
+            site_type_name: 'IDP Site Informal'
+          },{
+            site_type_id: 'refugee_site',
+            site_type_name: 'Refugee Site'
+          },{
+            site_type_id: 'returnee_site',
+            site_type_name: 'Returnee Site'
+          }];
+        }
 
         // health and not ET
-        if ( admin0pcode !== 'ET' ) {
+        if ( admin0pcode !== 'ET' && admin0pcode !== 'NG' ) {
           site_types = [{
             site_type_id: 'RH',
             site_type_name: 'RH'
@@ -1785,7 +1885,7 @@ angular.module( 'ngmReportHub' )
             site_type_name: 'CBS'
           }]
         }
-
+        
         // facilities
         return site_types;
 			},

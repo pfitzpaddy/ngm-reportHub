@@ -100,11 +100,12 @@
 							<!-- project budget -->
 							<div class="row">
 
-								<!-- budget currency -->
+								<!-- org project code  -->
 								<div class="input-field col s12 m6">
-								  <input id="ngm-project_hrp_code" type="text" class="validate"
-								  	ng-model="project.definition.project_hrp_code" disabled="true">
-								  <label for="ngm-project-budget">HRP Project Code</label>
+								  <input id="ngm-project_code" type="text" class="validate"
+								  	ng-model="project.definition.project_code"
+								  	ng-disabled="project.definition.project_status === 'complete'">
+								  <label for="ngm-project_code">{{ project.definition.organization }} Project Code</label>
 								</div>
 
 								<div class="input-field col s12 m3">
@@ -132,12 +133,22 @@
 
 							<div class="row">
 
-								<!-- budget currency -->
-								<div class="input-field col s12 m12">
-								  <input id="ngm-project_code" type="text" class="validate"
-								  	ng-model="project.definition.project_code"
-								  	ng-disabled="project.definition.project_status === 'complete'">
-								  <label for="ngm-project_code">{{ project.definition.organization }} Project Code</label>
+								<!-- switch -->
+								<div class="switch input-field col s12 m6">
+									<label>
+										Non-HRP Project
+										<input ng-click="project.setHrpStatus()" 
+														ng-checked="project.definition.project_hrp_project" type="checkbox">
+										<span class="lever"></span>
+										HRP Project
+									</label>
+								</div>
+								
+								<!-- HRP code -->
+								<div class="input-field col s12 m6">
+								  <input id="ngm-project_hrp_code" type="text" class="validate"
+								  	ng-model="project.definition.project_hrp_code" disabled="true">
+								  <label for="ngm-project-budget">HRP Project Code</label>
 								</div>
 
 							</div>

@@ -85,6 +85,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // lists
         // activity_type: config.project.activity_type,
         activity_descriptions: $scope.activity_descriptions,
+        activity_status: [{ 
+                      activity_status_id: 'planned', activity_status_name: 'Planned' 
+                    }, {
+                      activity_status_id: 'ongoing', activity_status_name: 'Ongoing' 
+                    }, {
+                      activity_status_id: 'completed', activity_status_name: 'Completed' 
+                    }],
         category_types: ngmClusterHelper.getCategoryTypes(),
         beneficiary_types: config.report.report_year === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries( config.project.admin0pcode ),
         lists: {
@@ -358,6 +365,19 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
           }
           return selected.length ? selected[0].activity_description_name : 'Needs Update!';
+        },
+
+        // display description
+        showActivityStatus: function( $data, $beneficiary ) {
+          var selected = [];
+          $beneficiary.activity_status_id = $data;
+          if($beneficiary.activity_status_id) {
+            selected = $filter('filter')( $scope.project.activity_status, { activity_status_id: $beneficiary.activity_status_id }, true );
+            if (selected.length) {
+              $beneficiary.activity_status_name = selected[0].activity_status_name;
+            }
+          }
+          return selected.length ? selected[0].activity_status_name : 'Needs Update!';
         },
 
         // display delivery

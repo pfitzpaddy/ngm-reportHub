@@ -23,12 +23,14 @@
       <div class="card-image">
         <img ng-if="panel.organization.admin0pcode === 'AF' || 
         						panel.organization.admin0pcode === 'ET' || 
-        						panel.organization.admin0pcode === 'SO' ||
+        						panel.organization.admin0pcode === 'NG' ||
+                    panel.organization.admin0pcode === 'SO' ||
                     panel.organization.admin0pcode === 'SS' ||
         						panel.organization.admin0pcode === 'SY'" 
         						src="images/cluster/projects-{{ panel.organization.admin0pcode }}.jpg">
         <img ng-if="panel.organization.admin0pcode !== 'AF' && 
         						panel.organization.admin0pcode !== 'ET' && 
+                    panel.organization.admin0pcode !== 'NG' && 
         						panel.organization.admin0pcode !== 'SO' && 
                     panel.organization.admin0pcode !== 'SS' && 
         						panel.organization.admin0pcode !== 'SY'" 
@@ -100,13 +102,15 @@
    	 <div class="card small blue-grey darken-1 hoverable">
       <div class="card-image">
         <img ng-if="panel.organization.admin0pcode === 'AF' || 
-        						panel.organization.admin0pcode === 'ET' || 
+        						panel.organization.admin0pcode === 'ET' ||
+                    panel.organization.admin0pcode === 'NG' || 
         						panel.organization.admin0pcode === 'SO' ||
                     panel.organization.admin0pcode === 'SS' ||
         						panel.organization.admin0pcode === 'SY'" 
         						src="images/cluster/projects-{{ panel.organization.admin0pcode }}.jpg">
         <img ng-if="panel.organization.admin0pcode !== 'AF' && 
         						panel.organization.admin0pcode !== 'ET' && 
+                    panel.organization.admin0pcode !== 'NG' && 
         						panel.organization.admin0pcode !== 'SO' && 
                     panel.organization.admin0pcode !== 'SS' && 
         						panel.organization.admin0pcode !== 'SY'" 

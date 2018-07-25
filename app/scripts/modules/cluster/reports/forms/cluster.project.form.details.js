@@ -116,7 +116,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           category_types: ngmClusterHelper.getCategoryTypes(),
           beneficiary_types: moment( config.project.project_end_date ).year() === 2016 ? ngmClusterHelper.getBeneficiaries2016( config.project.cluster_id, [] ) : ngmClusterHelper.getBeneficiaries( config.project.admin0pcode ),
           currencies: ngmClusterHelper.getCurrencies( config.project.admin0pcode ),
-          donors: ngmClusterHelper.getDonors( config.project.cluster_id ),
+          donors: ngmClusterHelper.getDonors( config.project.admin0pcode, config.project.cluster_id ),
 
           // admin1 ( with admin0 filter from API )
           admin1: localStorage.getObject( 'lists' ).admin1List,
@@ -152,12 +152,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         targetBeneficiariesTrainingUrl: 'target-beneficiaries/2016/target-beneficiaries-training.html',
         contactDetailsUrl: 'contact-details.html',
         locationsUrl: function() {
-          var template;
+          
+          // default is by country
+          var template = 'target-locations/locations-' + config.project.admin0pcode + '.html';;
+
+          // else
           if ( config.project.cluster_id === 'eiewg' ) {
             template = 'target-locations/locations-eiewg.html';
-          } else if ( config.project.admin0pcode === 'ET' )  {
-            template = 'target-locations/locations-ET.html';
-          } else {
+          }
+          if ( config.project.admin0pcode !== 'ET' && 
+                config.project.admin0pcode !== 'NG' )  {
             template = 'target-locations/locations.html';
           }
           return template;
@@ -211,17 +215,30 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           });
 
           // set HRP if SOs selected
-          if( $scope.project.definition.strategic_objectives.length ) {
+          // if( $scope.project.definition.strategic_objectives.length ) {
+          //   $scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'OTH', 'HRP' );
+          // } else {
+          //   $scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'HRP', 'OTH' );
+          // }
+
+        },
+
+        // new toggle for HRP status
+        setHrpStatus: function() {
+          // set true / false
+          $scope.project.definition.project_hrp_project = !$scope.project.definition.project_hrp_project;
+          // set hrp in project_hrp_code
+          if( $scope.project.definition.project_hrp_project ) {
             $scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'OTH', 'HRP' );
           } else {
             $scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'HRP', 'OTH' );
           }
-
         },
 
         getSOyears: function(){
           return Object.keys($scope.project.lists.strategic_objectives);
         },
+
         // update organization if acbar partner
         updateOrganization: function(){
 

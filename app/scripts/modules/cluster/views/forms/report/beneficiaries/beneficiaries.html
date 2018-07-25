@@ -12,6 +12,7 @@
     <tr style="font-weight: 400">
       <td>Activity</td>
       <td>Description</td>
+      <td ng-if="project.definition.admin0pcode === 'NG'">Status</td>
       <td ng-if="project.showCash( $locationIndex )">Delivery</td>
       <td ng-if="project.showPackage( $locationIndex )">Package</td>
       <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">Category</td>
@@ -26,8 +27,8 @@
       <td>Girls</td>
       <td ng-if="project.showMen( $locationIndex )">Men</td>
       <td ng-if="project.showWomen( $locationIndex )">Women</td>
-      <td ng-if="false">Eld. Men</td>
-			<td ng-if="false">Eld. Women</td>
+      <td ng-if="project.definition.admin0pcode === 'NG'">Eld. Men</td>
+      <td ng-if="project.definition.admin0pcode === 'NG'">Eld. Women</td>
 			<td ng-if="project.showFatpTreatmentSameProvince( $locationIndex )">Treatment Same Province</td>
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
@@ -51,6 +52,17 @@
               e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.activity_descriptions | filter: { cluster_id: beneficiary.cluster_id, activity_type_id: beneficiary.activity_type_id }"
               e-ng-disabled="!beneficiary.activity_type_id">
           {{ project.showDescription($data, beneficiary) }}
+        </span>
+      </td>
+      <td>
+        <!-- editable activity_status from Project -->
+        <span e-form="rowform"
+              e-name="activity_status_id"
+              editable-select="beneficiary.activity_status_id"
+              e-placeholder="Select..."
+              e-ng-options="a_d.activity_status_id as a_d.activity_status_name for a_d in project.activity_status"
+              e-ng-disabled="!beneficiary.activity_description_id">
+          {{ project.showActivityStatus($data, beneficiary) }}
         </span>
       </td>
       <!-- show cash delivery -->
@@ -299,44 +311,26 @@
           {{ beneficiary.women }}
         </span>
 			</td>
-      <td ng-show="false">
+      <td ng-show="project.definition.admin0pcode === 'NG'">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="elderly_men"
               editable-number="beneficiary.elderly_men"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $index, 'elderly_men', $data )"
-              e-ng-disabled="beneficiary.cluster_id === 'eiewg' ||
-                      beneficiary.cluster_id === 'nutrition' ||
-                      beneficiary.cluster_id === 'wash' ||
-                      beneficiary.activity_type_id === 'mch' ||
-                      beneficiary.activity_description_id === 'antenatal_care' ||
-                      beneficiary.activity_description_id === 'postnatal_care' ||
-                      beneficiary.activity_description_id === 'skilled_birth_attendant' ||
-                      beneficiary.activity_type_id === 'vaccination' ||
-                      beneficiary.activity_description_id === 'penta_3' ||
-                      beneficiary.activity_description_id === 'measles'"
+              e-ng-disabled="project.definition.admin0pcode !== 'NG'"
               e-required>
           {{ beneficiary.elderly_men }}
         </span>
       </td>
-      <td ng-show="false">
+      <td ng-show="project.definition.admin0pcode === 'NG'">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="elderly_women"
               editable-number="beneficiary.elderly_women"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $index, 'elderly_women', $data )"
-              e-ng-disabled="beneficiary.cluster_id === 'eiewg' ||
-                      beneficiary.cluster_id === 'nutrition' ||
-                      beneficiary.cluster_id === 'wash' ||
-                      beneficiary.activity_type_id === 'mch' ||
-                      beneficiary.activity_description_id === 'antenatal_care' ||
-                      beneficiary.activity_description_id === 'postnatal_care' ||
-                      beneficiary.activity_description_id === 'skilled_birth_attendant' ||
-                      beneficiary.activity_type_id === 'vaccination' ||
-                      beneficiary.activity_description_id === 'penta_3' ||
-                      beneficiary.activity_description_id === 'measles'"
+              e-ng-disabled="project.definition.admin0pcode !== 'NG'"
               e-required>
           {{ beneficiary.elderly_women }}
         </span>
