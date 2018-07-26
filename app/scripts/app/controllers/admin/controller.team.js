@@ -74,7 +74,7 @@ angular.module('ngmReportHub')
 				}
 
 				// go with URL
-				var path = '/immap/team/' + $scope.dashboard.admin0pcode +
+				var path = '/team/' + $scope.dashboard.admin0pcode +
 																	'/' + $scope.dashboard.organization_tag +
 																	'/' + $scope.dashboard.project +
 																	'/' + $scope.dashboard.cluster_id;

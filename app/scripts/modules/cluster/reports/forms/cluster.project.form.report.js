@@ -377,7 +377,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               $beneficiary.activity_status_name = selected[0].activity_status_name;
             }
           }
-          return selected.length ? selected[0].activity_status_name : 'Needs Update!';
+          return selected.length ? selected[0].activity_status_name : 'N/A';
         },
 
         // display delivery
