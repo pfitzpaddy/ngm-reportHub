@@ -551,7 +551,7 @@ angular.module('ngmReportHub')
 					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'ADMIN' ) ) {
 						if ( !$scope.dashboard.user.dashboard_visits ) {
 							$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
-							$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
+							// $scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
 						}
 					}
 
