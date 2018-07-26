@@ -49,10 +49,10 @@ angular.module('ngmReportHub')
 				endDate: moment( $route.current.params.end ).format( 'YYYY-MM-DD' ),
 
 				// report start
-				startDateReport: moment( $route.current.params.start ).subtract( 1, 'M').format( 'YYYY-MM-DD' ),
+				startDateReport: moment( $route.current.params.start ).format( 'YYYY-MM-DD' ),
 
 				// report end
-				endDateReport: moment( $route.current.params.end ).subtract( 1, 'M').format( 'YYYY-MM-DD' ),
+				endDateReport: moment( $route.current.params.end ).format( 'YYYY-MM-DD' ),
 
 				// current report
 				report_file_name: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
@@ -737,6 +737,30 @@ angular.module('ngmReportHub')
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
 											data: $scope.dashboard.getRequest( 'latest', false )
+										},
+										getPreviousMonth: function() {
+											// get dates
+											var start_date = moment(new Date($scope.dashboard.startDate)).utc().subtract(1, 'M').startOf('M').format('YYYY-MM-DD');
+											var end_date = moment(new Date($scope.dashboard.endDate)).utc().subtract(1, 'M').endOf('M').format('YYYY-MM-DD');
+											// set dates
+											$scope.dashboard.startDate = start_date;
+											$scope.dashboard.endDate = end_date;
+											// set path
+											var path = $scope.dashboard.getPath( $route.current.params.cluster_id, $scope.dashboard.activity_type_id, $route.current.params.report_type, $route.current.params.organization_tag );
+											// update new date
+											$location.path( path );
+										},
+										getCurrentMonth: function() {
+											// get dates
+											var start_date = moment().utc().startOf('M').format('YYYY-MM-DD');
+											var end_date = moment().utc().endOf('M').format('YYYY-MM-DD');
+											// set dates
+											$scope.dashboard.startDate = start_date;
+											$scope.dashboard.endDate = end_date;
+											// set path
+											var path = $scope.dashboard.getPath( $route.current.params.cluster_id, $scope.dashboard.activity_type_id, $route.current.params.report_type, $route.current.params.organization_tag );
+											// update new date
+											$location.path( path );
 										},
 										templateUrl: '/scripts/widgets/ngm-html/template/cluster.dashboard.admin.html'
 									}

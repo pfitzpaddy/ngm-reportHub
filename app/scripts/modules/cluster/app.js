@@ -13,6 +13,27 @@ angular
 		// https://medium.com/swlh/improving-angular-performance-with-1-line-of-code-a1fb814a6476#.ufea9sjt1
 		$compileProvider.debugInfoEnabled( false );
 
+		this.page = {
+			start_date: function() {
+				var date;
+				if ( moment.utc().date() <= 20 ) {
+					date = moment.utc().startOf( 'M' ).subtract( 1, 'M').format( 'YYYY-MM-DD' )
+				} else {
+					date = moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' );
+				}
+				return date;
+			},
+			end_date: function() {
+				var date;
+				if ( moment.utc().date() <= 20 ) {
+					date = moment.utc().endOf( 'M' ).subtract( 1, 'M').format( 'YYYY-MM-DD' )
+				} else {
+					date = moment.utc().endOf( 'M' ).format( 'YYYY-MM-DD' );
+				}
+				return date;
+			},
+		}
+
 		// app routes with access rights
 		$routeProvider
 			// login
@@ -220,70 +241,70 @@ angular
 
 			// DEFAULT
 			.when( '/cluster/admin', {
-				redirectTo: '/cluster/admin/all/all/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 
 			// HQ SUPERADMIN BY CLUSTER
 			.when( '/cluster/admin/all/all/agriculture', {
-				redirectTo: '/cluster/admin/all/all/all/agriculture/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/agriculture/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			.when( '/cluster/admin/all/all/education', {
-				redirectTo: '/cluster/admin/all/all/all/education/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/education/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			.when( '/cluster/admin/all/all/esnfi', {
-				redirectTo: '/cluster/admin/all/all/all/esnfi/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/esnfi/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			.when( '/cluster/admin/all/all/fsac', {
-				redirectTo: '/cluster/admin/all/all/all/fsac/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/fsac/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			.when( '/cluster/admin/all/all/health', {
-				redirectTo: '/cluster/admin/all/all/all/health/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/health/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			.when( '/cluster/admin/all/all/nutrition', {
-				redirectTo: '/cluster/admin/all/all/all/nutrition/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/nutrition/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			.when( '/cluster/admin/all/all/cvwg', {
-				redirectTo: '/cluster/admin/all/all/all/cvwg/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/cvwg/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			.when( '/cluster/admin/all/all/protection', {
-				redirectTo: '/cluster/admin/all/all/all/protection/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/protection/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			.when( '/cluster/admin/all/all/wash', {
-				redirectTo: '/cluster/admin/all/all/all/wash/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/all/all/all/wash/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			
 			// AFRO
 			.when( '/cluster/admin/afro', {
-				redirectTo: '/cluster/admin/afro/all/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/afro/all/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			.when( '/cluster/admin/afro/cd', {
-				redirectTo: '/cluster/admin/afro/cd/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/afro/cd/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			.when( '/cluster/admin/afro/et', {
-				redirectTo: '/cluster/admin/afro/et/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/afro/et/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			.when( '/cluster/admin/afro/ng', {
-				redirectTo: '/cluster/admin/afro/ng/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/afro/ng/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			.when( '/cluster/admin/afro/ss', {
-				redirectTo: '/cluster/admin/afro/ss/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/afro/ss/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 
 			// EMRO
 			.when( '/cluster/admin/emro', {
-				redirectTo: '/cluster/admin/emro/all/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/emro/all/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			.when( '/cluster/admin/emro/af', {
-				redirectTo: '/cluster/admin/emro/af/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/emro/af/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			.when( '/cluster/admin/emro/so', {
-				redirectTo: '/cluster/admin/emro/so/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/emro/so/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			.when( '/cluster/admin/emro/sy', {
-				redirectTo: '/cluster/admin/emro/sy/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/emro/sy/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 			.when( '/cluster/admin/emro/ur', {
-				redirectTo: '/cluster/admin/emro/ur/all/all/all/activity/' + moment.utc().startOf( 'M' ).format( 'YYYY-MM-DD' ) + '/' + moment().endOf( 'M' ).format('YYYY-MM-DD')
+				redirectTo: '/cluster/admin/emro/ur/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 
 			// ADMIN
