@@ -27,7 +27,7 @@
 							    	<td>Implementation</td>
 							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
-							      <td ng-if="project.lists.admin3.length">{{ project.lists.admin3[0].admin3type_name }}</td>
+							      <td ng-show="project.showNgAdmin3Label()">{{ project.lists.admin3[0].admin3type_name }}</td>
 										<td>Location Type</td>
 										<td ng-show="project.showExistingLabel()">From Site List?</td>
 							      <td>Site Name *</td>
@@ -61,16 +61,16 @@
 							          {{ project.showAdmin2($index, $data, location) }}
 							        </span>
 							      </td>
-							      <td ng-if="project.lists.admin3.length">
+							      <td ng-show="project.showNgAdmin3( $index, location )">
 							        <!-- editable admin3 -->
-							        <span e-placeholder="Select..." editable-select="location.admin3name" e-name="admin3name" e-form="locationform" e-ng-options="item.admin3name as item.admin3name for item in project.lists.admin3Select[$index]" e-ng-change="project.loadAdmin3Sites($index, location)"  e-ng-disabled="!location.admin2pcode" e-required>
+							        <span e-placeholder="Select..." editable-select="location.admin3name" e-name="admin3name" e-form="locationform" e-ng-options="item.admin3name as item.admin3name for item in project.lists.admin3Select[$index]" e-ng-change="project.loadAdmin3Sites($index, location)" e-ng-disabled="!project.showNgAdmin3( $index, location )" e-required>
 							          {{ project.showAdmin3($index, $data, location) }}
 							        </span>
 							      </td>
 
 							      <!-- SITE TYPE -->
 							      <td>
-							        <span e-placeholder="Select..." editable-select="location.site_type_id" e-name="site_type_id" e-form="locationform" e-ng-options="item.site_type_id as item.site_type_name for item in project.lists.site_type" e-ng-change="project.changeSiteType($index, location)" e-ng-disabled="project.lists.admin3.length && !location.admin3name" e-required>
+							        <span e-placeholder="Select..." editable-select="location.site_type_id" e-name="site_type_id" e-form="locationform" e-ng-options="item.site_type_id as item.site_type_name for item in project.lists.site_type" e-ng-change="project.changeSiteType($index, location)" e-ng-disabled="!location.admin2name" e-required>
 							          {{ project.showSiteType($index, $data, location) }}
 							        </span>
 							      </td>

@@ -1067,6 +1067,24 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return location.site_hub_name ? location.site_hub_name : 'No Selection!';
         },
 
+        // admin3 label
+        showNgAdmin3Label: function () {
+          var display = false;
+          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
+            var admin3list = $filter('filter')( $scope.project.lists.admin3, { admin2pcode: d.admin2pcode }, true );
+            if ( d.admin2pcode && admin3list.length ) {
+              display = true;
+            }
+          });
+          return display;
+        },
+
+        // show NG admin 3
+        showNgAdmin3: function( $index, location ) {
+          var admin3list = $filter('filter')( $scope.project.lists.admin3, { admin2pcode: location.admin2pcode }, true );
+          return admin3list.length;
+        },
+
         // load sites
         loadAdmin3Sites: function( $index, target_location ){
 
