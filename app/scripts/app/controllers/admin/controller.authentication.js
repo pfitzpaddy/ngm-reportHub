@@ -1,4 +1,4 @@
-/**
+x/**
  * @ngdoc function
  * @name ngmReportHubApp.controller:ProjectFinancialsCtrl
  * @description
@@ -359,8 +359,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           // update home page for iMMAP Ethiopia
           if ( $scope.panel.user.organization === 'iMMAP' 
                 && ( $scope.panel.user.admin0pcode === 'CD' || $scope.panel.user.admin0pcode === 'ET' ) ) {
-            // add defaults
-            $scope.panel.user.app_home = '/immap/';
+            // add defaults as admin
+            // $scope.panel.user.app_home = '/immap/';
+            $scope.panel.user.app_home = '/cluster/admin/' + $scope.panel.user.adminRpcode.toLowerCase() + '/' + $scope.panel.user.admin0pcode.toLowerCase();
             $scope.panel.user.roles = [ 'ADMIN', 'USER' ];
             
           } else {

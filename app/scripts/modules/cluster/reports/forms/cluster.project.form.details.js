@@ -978,6 +978,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
             // site type
             if ( target_location.site_type_id === 'idp_site' || 
+                  target_location.site_type_id === 'idp_site_formal' || 
+                  target_location.site_type_id === 'idp_site_informal' || 
                   target_location.site_type_id === 'hospital' || 
                   target_location.site_type_id === 'health_center' || 
                   target_location.site_type_id === 'health_post') {
@@ -1024,6 +1026,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
 
             if ( d.site_type_id === 'idp_site' || 
+                  d.site_type_id === 'idp_site_formal' || 
+                  d.site_type_id === 'idp_site_informal' || 
                   d.site_type_id === 'hospital' || 
                   d.site_type_id === 'health_center' ||
                   d.site_type_id === 'health_post' ) {
