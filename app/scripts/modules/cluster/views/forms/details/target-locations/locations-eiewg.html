@@ -85,7 +85,7 @@
 							      </td>
 							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
 							        <!-- form -->
-							        <form editable-form name="locationform" ng-show="locationform.$visible" onbeforesave="project.saveLocation()" class="form-buttons form-inline" shown="inserted === location">
+							        <form editable-form name="locationform" ng-show="locationform.$visible" onbeforesave="project.saveLocation()" class="form-buttons form-inline" shown="inserted == location">
 							          <button 
 							          		title="Save" type="submit" class="btn waves-effect waves-light save"
 							          		ng-if="locationform.$visible && !project.newProject"

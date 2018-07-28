@@ -20,6 +20,7 @@ angular.module( 'ngmReportHub' )
 
         // copy user and remove conflicts
         var u = angular.copy( user );
+                delete u.id;
                 delete u.createdAt;
                 delete u.updatedAt;
                 delete u.admin1pcode;
