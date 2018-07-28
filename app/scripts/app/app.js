@@ -322,15 +322,6 @@ angular
 								defaultPrimaryColor: '#2196F3',
 								lightPrimaryColor: '#BBDEFB'
 							}
-						} else if ( ngmUser.get() && ngmUser.get().organization_tag === 'immap' 
-								&& ( ngmUser.get().admin0pcode === 'CD' || ngmUser.get().admin0pcode === 'ET' ) ) {
-							$scope.ngm.style = {
-								logo: logo,
-								home: '#/immap',
-								darkPrimaryColor: '#1976D2',
-								defaultPrimaryColor: '#2196F3',
-								lightPrimaryColor: '#BBDEFB'
-							}
 						} else {
 							// default
 							$scope.ngm.style = {

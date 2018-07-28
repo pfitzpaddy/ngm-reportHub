@@ -1,4 +1,4 @@
-x/**
+/**
  * @ngdoc function
  * @name ngmReportHubApp.controller:ProjectFinancialsCtrl
  * @description
