@@ -990,9 +990,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                     && target_location.admin1name 
                     && target_location.admin2name 
                     && target_location.admin3name ) {
+
                 // filtered list
                 var site_list = [];
                 site_list = $filter('filter')( $scope.project.lists.sites[$index][target_location.admin3pcode], { site_type_id: target_location.site_type_id } );
+                console.log(site_list)
                 if ( !site_list.length ) {
                   
                   // open free text
@@ -1008,6 +1010,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                   target_location.site_list_select_name = 'Yes';
                 }
 
+              } else {
+                // no
+                target_location.site_list_select_id = 'no';
+                target_location.site_list_select_name = 'No';
               }
 
             } else {
