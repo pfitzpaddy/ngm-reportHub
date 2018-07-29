@@ -12,7 +12,7 @@
     <tr style="font-weight: 400">
       <td>Activity</td>
       <td>Description</td>
-      <td ng-if="project.definition.admin0pcode === 'NG'">Status</td>
+      <td ng-if="project.showActivityStatusLabel()">Status</td>
       <td ng-if="project.showCash( $locationIndex )">Delivery</td>
       <td ng-if="project.showPackage( $locationIndex )">Package</td>
       <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">Category</td>
@@ -54,7 +54,7 @@
           {{ project.showDescription($data, beneficiary) }}
         </span>
       </td>
-      <td>
+      <td ng-if="project.showActivityStatusLabel()">
         <!-- editable activity_status from Project -->
         <span e-form="rowform"
               e-name="activity_status_id"

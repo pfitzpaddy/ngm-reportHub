@@ -367,6 +367,26 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           return selected.length ? selected[0].activity_description_name : 'Needs Update!';
         },
 
+        // ET WASH and NG
+        showActivityStatusLabel: function() {
+          var display = false;
+          // all for NG
+          if ( $scope.project.admin0pcode === 'NG' ) {
+            display = true
+          }
+          // else for WASH
+          angular.forEach( $scope.project.report.locations, function( l ){
+            if( l.beneficiaries.length ) {
+              angular.forEach( l.beneficiaries, function( b ){
+                if ( b.cluster_id === 'wash' ) {
+                  display = true;
+                }
+              });
+            }
+          });          
+          return display;
+        },
+
         // display description
         showActivityStatus: function( $data, $beneficiary ) {
           var selected = [];
@@ -377,7 +397,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               $beneficiary.activity_status_name = selected[0].activity_status_name;
             }
           }
-          return selected.length ? selected[0].activity_status_name : 'N/A';
+          return selected.length ? selected[0].activity_status_name : '-';
         },
 
         // display delivery

@@ -274,23 +274,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             elderly_men:0,
             elderly_women:0
           };
-          // $scope.inserted = {
-          //   category_type_id: null,
-          //   category_type_name: null,
-          //   beneficiary_type_id: null,
-          //   beneficiary_type_name: null,
-          //   activity_type_id: null,
-          //   activity_type_name: null,
-          //   activity_description_id: null,
-          //   activity_description_name: null,
-          //   delivery_type_id: null,
-          //   delivery_type_name: null,
-          //   transfer_type_id: 0,
-          //   transfer_type_value: 0
-          // };
+          $scope.inserted = {}
 
           // merge
-          // angular.merge( $scope.inserted, sadd );
+          angular.merge( $scope.inserted, sadd );
 
           // eiewg
           if( $scope.project.definition.admin0pcode !== 'AF' || $scope.project.definition.cluster_id === 'eiewg' ){
@@ -777,7 +764,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             l.site_lat = null;
             l.site_lng = null;
             $scope.inserted = angular.merge( $scope.inserted, l );
+            // copy dropdown lists
+            $scope.project.lists.sites[ length ] = $scope.project.lists.sites[ length-1 ];
           }
+          // set targets
           $scope.project.definition.target_locations.push( $scope.inserted );
         },
 
@@ -907,7 +897,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             filtered = $filter('filter')( $scope.project.lists.sites[$index][location.admin3pcode], { site_type_id: location.site_type_id }, true );
             $scope.project.showListYesNoDisabled = !filtered.length;
           } else {
-            // $scope.project.showListYesNoDisabled = true;
+            $scope.project.showListYesNoDisabled = true;
           }
 
           return selected.length ? selected[0].site_list_select_name : 'No Selection!';
@@ -1061,45 +1051,38 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return location.site_hub_name ? location.site_hub_name : 'No Selection!';
         },
 
-        // admin3 label
-        showNgAdmin3Label: function () {
-          var display = false;
-          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
-            var admin3list = $filter('filter')( $scope.project.lists.admin3, { admin2pcode: d.admin2pcode }, true );
-            if ( d.admin2pcode && admin3list.length ) {
-              display = true;
-            }
-          });
-          return display;
-        },
-
         // show NG admin 3
         showNgAdmin3: function( $index, location ) {
-          var admin3list = $filter('filter')( $scope.project.lists.admin3, { admin2pcode: location.admin2pcode }, true );
+          var admin3list = [];
+          if ( location && location.admin2pcode ) {
+            admin3list = $filter('filter')( $scope.project.lists.admin3, { admin2pcode: location.admin2pcode }, true );
+          }
           return admin3list.length;
         },
 
         // load sites
         loadAdmin3Sites: function( $index, target_location ){
 
-          // reset client
-          if (!target_location.id) {
-            target_location.site_name = null;
-            target_location.site_id = null;
-          }
-
-          // list storage
-          if (!$scope.project.lists.sites[$index]) {
-            $scope.project.lists.sites[$index] = [];
-          }
-          // list storage by pcode2
-          if (!$scope.project.lists.sites[$index][target_location.admin3pcode]) {
-            $scope.project.lists.sites[$index][target_location.admin3pcode] = [];
-          }
-
-          // set lists
-            // timeout will enable admin2 to be selected (if user changes admin2 retrospectively)
+          // timeout to get admin3 value
           $timeout(function(){
+
+            // reset client
+            if (!target_location.id) {
+              target_location.site_name = null;
+              target_location.site_id = null;
+            }
+
+            // list storage
+            if (!$scope.project.lists.sites[$index]) {
+              $scope.project.lists.sites[$index] = [];
+            }
+            // list storage by pcode2
+            if (!$scope.project.lists.sites[$index][target_location.admin3pcode]) {
+              $scope.project.lists.sites[$index][target_location.admin3pcode] = [];
+            }
+
+            // set lists
+              // timeout will enable admin2 to be selected (if user changes admin2 retrospectively)
             if ( target_location.admin1pcode 
                   && target_location.admin2pcode  
                   && target_location.admin3pcode ) {
@@ -1406,7 +1389,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         showFatpTreatmentSameProvince: function( ){
           var display = false;
           var l = $scope.project.definition.target_beneficiaries;
-          if( l ){
+          if( l && $scope.project.definition.admin0pcode === 'AF'  ){
             angular.forEach( l, function(b){
                 if( b.activity_description_id === 'fatp_stabilization_referrals_conflict' ||
                     b.activity_description_id === 'fatp_stabilization_referrals_civilian' ){

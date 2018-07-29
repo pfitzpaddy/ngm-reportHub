@@ -17,6 +17,10 @@
 						Enter the TARGET LOCATIONS of your PROJECT in the form below;
 					</p>
 
+					<p>
+						
+					</p>
+
 					<div class="row">
 						<div class="col s12 card">
 							<div style="padding-top: 10px; padding-left: 40px;">
@@ -27,7 +31,7 @@
 							    	<td>Implementation</td>
 							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
-							      <td ng-show="project.showNgAdmin3Label()">{{ project.lists.admin3[0].admin3type_name }}</td>
+							      <td>{{ project.lists.admin3[0].admin3type_name }}</td>
 										<td>Location Type</td>
 										<td ng-show="project.showExistingLabel()">From List?</td>
 							      <td>Site Name *</td>
@@ -61,7 +65,10 @@
 							          {{ project.showAdmin2($index, $data, location) }}
 							        </span>
 							      </td>
-							      <td ng-show="project.showNgAdmin3( $index, location )">
+							      <td ng-show="!project.lists.admin3Select[$index].length" style="text-align:center;">
+							      	-
+							      </td>
+							      <td ng-show="project.lists.admin3Select[$index].length">
 							        <!-- editable admin3 -->
 							        <span e-placeholder="Select..." editable-select="location.admin3name" e-name="admin3name" e-form="locationform" e-ng-options="item.admin3name as item.admin3name for item in project.lists.admin3Select[$index]" e-ng-change="project.loadAdmin3Sites($index, location)" e-ng-disabled="!project.showNgAdmin3( $index, location )" e-required>
 							          {{ project.showAdmin3($index, $data, location) }}
