@@ -274,23 +274,23 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             elderly_men:0,
             elderly_women:0
           };
-          $scope.inserted = {
-            category_type_id: null,
-            category_type_name: null,
-            beneficiary_type_id: null,
-            beneficiary_type_name: null,
-            activity_type_id: null,
-            activity_type_name: null,
-            activity_description_id: null,
-            activity_description_name: null,
-            delivery_type_id: null,
-            delivery_type_name: null,
-            transfer_type_id: 0,
-            transfer_type_value: 0
-          };
+          // $scope.inserted = {
+          //   category_type_id: null,
+          //   category_type_name: null,
+          //   beneficiary_type_id: null,
+          //   beneficiary_type_name: null,
+          //   activity_type_id: null,
+          //   activity_type_name: null,
+          //   activity_description_id: null,
+          //   activity_description_name: null,
+          //   delivery_type_id: null,
+          //   delivery_type_name: null,
+          //   transfer_type_id: 0,
+          //   transfer_type_value: 0
+          // };
 
           // merge
-          angular.merge( $scope.inserted, sadd );
+          // angular.merge( $scope.inserted, sadd );
 
           // eiewg
           if( $scope.project.definition.admin0pcode !== 'AF' || $scope.project.definition.cluster_id === 'eiewg' ){
@@ -755,32 +755,15 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // add location
         addLocation: function() {
+
+          // reporter
           $scope.inserted = {
-            // reporter
             name: $scope.project.definition.name,
             position: $scope.project.definition.position,
             phone: $scope.project.definition.phone,
             email: $scope.project.definition.email,
-            username: $scope.project.definition.username,
-            // location
-            admin1pcode: null,
-            admin1name: null,
-            admin2pcode: null,
-            admin2name: null,
-            admin3pcode: null,
-            admin3name: null,
-            // site_id: null,
-            // site_implementation_id: null,
-            // site_type_id: null,
-            // site_type_name: null,
-            // new_site_id: null,
-            // new_site_name: null,
-            // site_list_select_id: null,
-            // site_list_select_name: null,
-            // site_name: null,
-            // site_lat: null,
-            // site_lng: null
-          };
+            username: $scope.project.definition.username
+          }
 
           // clone
           var length = $scope.project.definition.target_locations.length;
@@ -793,12 +776,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             l.site_name = null;
             l.site_lat = null;
             l.site_lng = null;
-            // l.new_site_id = null;
-            // l.new_site_name = null;
-            // l.site_list_select_id = null;
-            // l.site_list_select_name = null;
-            // l.site_type_id = null;
-            // l.site_type_name = null;
             $scope.inserted = angular.merge( $scope.inserted, l );
           }
           $scope.project.definition.target_locations.push( $scope.inserted );
@@ -810,7 +787,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           if(location.username) {
             selected = $filter('filter')( $scope.project.lists.users, { username: location.username }, true);
             if (selected[0] && selected[0].id) { delete selected[0].id; }
-            angular.merge(location, selected[0]);
+            var reporter = {
+              name: selected[0].name,
+              position: selected[0].position,
+              phone: selected[0].phone,
+              email: selected[0].email,
+              username: selected[0].username
+            }
+            angular.merge(location, reporter);
           }
           return selected.length ? selected[0].username : 'No Selection!';
         },
@@ -832,14 +816,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // filter admin2
           $scope.project.lists.admin2Select[$index] =
                   $filter('filter')( $scope.project.lists.admin2, { admin1pcode: $scope.project.definition.target_locations[$index].admin1pcode }, true);
-          // $scope.project.lists.admin3Select[$index] = $scope.project.lists.admin3;
 
           // update admin2
           var selected = [];
           location.admin2name = $data;
           if(location.admin2name) {
             selected = $filter('filter')( $scope.project.lists.admin2Select[$index], { admin2name: location.admin2name }, true);
-            if(selected[0]){
+            if(selected && selected[0]){
               delete selected[0].id;
               angular.merge(location, selected[0]);
             }
@@ -923,6 +906,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             var filtered = [];
             filtered = $filter('filter')( $scope.project.lists.sites[$index][location.admin3pcode], { site_type_id: location.site_type_id }, true );
             $scope.project.showListYesNoDisabled = !filtered.length;
+          } else {
+            // $scope.project.showListYesNoDisabled = true;
           }
 
           return selected.length ? selected[0].site_list_select_name : 'No Selection!';
@@ -994,7 +979,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 // filtered list
                 var site_list = [];
                 site_list = $filter('filter')( $scope.project.lists.sites[$index][target_location.admin3pcode], { site_type_id: target_location.site_type_id } );
-                console.log(site_list)
                 if ( !site_list.length ) {
                   
                   // open free text
@@ -1136,27 +1120,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                                                         + '&admin3pcode=' + target_location.admin3pcode
                 }).success( function( result ) {
                   // sites
-                  // var site_list = [];
-                  // site_list = $filter('filter')( result, { site_type_id: target_location.site_type_id }, true );
-                  // if ( !site_list.length && target_location.site_type_id ) {
-                    
-                  //   // open free text
-                  //   target_location.site_list_select_id = 'no';
-                  //   target_location.site_list_select_name = 'No';
-                    
-                  //   // send message
-                  //   Materialize.toast( 'No ' + target_location.site_type_name + 's for ' + target_location.admin1name +', ' + target_location.admin2name +', ' + target_location.admin3name + '!' , 6000, 'success' );
-                  
-                  // } else {
-                    
-                  //   // open drop down
-                  //   // target_location.site_list_select_id = 'no';
-                  //   // target_location.site_list_select_name = 'No';
-
-                  // }
-                  
-                  // set
                   $scope.project.lists.sites[$index][target_location.admin3pcode] = result;
+
+                  // filter
+                  var site_type = $filter('filter')( result, { site_type_id: target_location.site_type_id }, true );
+
+                  // set to no if no results or type
+                  if ( !result.length || !site_type.length ) {
+                    target_location.site_list_select_id = 'no';
+                    target_location.site_list_select_name = 'No';
+                  }
 
                 }).error( function( err ) {
                   Materialize.toast( 'Sites List Error!', 6000, 'error' );
