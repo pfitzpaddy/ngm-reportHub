@@ -114,6 +114,8 @@ angular.module('ngmReportHub')
 				// menu
 				var menu_items = []
 
+				console.log($scope.dashboard.user.roles.indexOf('SUPERADMIN'));
+
 				// if SUPERUSER
 				if ( $scope.dashboard.user.roles.indexOf('SUPERADMIN') !== -1 ) {
 					menu_items.push( 'admin0pcode' );
@@ -128,6 +130,8 @@ angular.module('ngmReportHub')
 				}
 				// add sector
 				menu_items.push( 'cluster_id');
+
+				console.log(menu_items)
 
 				// request
 				var request = angular.merge( $scope.dashboard.getRequest( 0, 0 ), { url: ngmAuth.LOCATION + '/api/getOrganizationMenu', data: { menu_items: menu_items } } ) 
@@ -162,10 +166,9 @@ angular.module('ngmReportHub')
 				$scope.dashboard.user.emailHash = $scope.dashboard.MD5( $scope.dashboard.user.email.trim().toLowerCase() );
 				
 				// url href
-				$scope.dashboard.profileHref = ( $scope.dashboard.user.organization === 'iMMAP' 
-					&& ( $scope.dashboard.user.admin0pcode === 'CD' || $scope.dashboard.user.admin0pcode === 'ET' ) ) ? '/immap/profile' : '/profile';
-
-				console.log($scope.dashboard.organization)
+				// $scope.dashboard.profileHref = ( $scope.dashboard.user.organization === 'iMMAP' 
+				// 	&& ( $scope.dashboard.user.admin0pcode === 'CD' || $scope.dashboard.user.admin0pcode === 'ET' ) ) ? '/immap/profile' : '/profile';
+				$scope.dashboard.profileHref = '/profile';
 
 				// dews dashboard model
 				$scope.model = {

@@ -609,7 +609,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var display = false;
           var l = $scope.project.definition.target_beneficiaries;
           angular.forEach( l, function(b){
-            if( b.cluster_id === 'wash' || b.activity_type_id === 'nutrition_education_training' ){
+            if( $scope.project.definition.admin0pcode !== 'NG' && ( b.cluster_id === 'wash' || b.activity_type_id === 'nutrition_education_training' ) ){
               display = true;
             }
           });

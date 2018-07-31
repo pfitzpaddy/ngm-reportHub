@@ -307,25 +307,25 @@
 							          {{ beneficiary.women }}
 							        </span>
 							      </td>
-							      <td ng-show="beneficiary.admin0pcode === 'NG'">
+							      <td ng-show="project.definition.admin0pcode === 'NG'">
 							        <!-- editable number -->
 							        <span e-form="rowform"
 							        			e-name="elderly_men"
 							        			editable-number="beneficiary.elderly_men"
 							        			e-min="0" e-ng-change="project.updateInput($index, 'elderly_men', $data )"
-							        			e-ng-disabled="beneficiary.admin0pcode !== 'NG'"
+							        			e-ng-disabled="project.definition.admin0pcode !== 'NG'"
 							        			e-required>
 							          {{ beneficiary.elderly_men }}
 							        </span>
 							      </td>
-							      <td ng-show="beneficiary.admin0pcode === 'NG'">
+							      <td ng-show="project.definition.admin0pcode === 'NG'">
 							        <!-- editable number -->
 							        <span e-form="rowform"
 							        			e-name="elderly_women"
 							        			editable-number="beneficiary.elderly_women"
 							        			e-min="0"
 							        			e-ng-change="project.updateInput($index, 'elderly_women', $data )"
-							        			e-ng-disabled="beneficiary.admin0pcode !== 'NG'"
+							        			e-ng-disabled="project.definition.admin0pcode !== 'NG'"
 							        			e-required>
 							          {{ beneficiary.elderly_women }}
 							        </span>
