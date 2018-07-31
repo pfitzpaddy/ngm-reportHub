@@ -131,8 +131,6 @@ angular.module('ngmReportHub')
 				// add sector
 				menu_items.push( 'cluster_id');
 
-				console.log(menu_items)
-
 				// request
 				var request = angular.merge( $scope.dashboard.getRequest( 0, 0 ), { url: ngmAuth.LOCATION + '/api/getOrganizationMenu', data: { menu_items: menu_items } } ) 
 

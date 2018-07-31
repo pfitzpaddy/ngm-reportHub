@@ -776,7 +776,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           location.username = $data;
           if(location.username) {
             selected = $filter('filter')( $scope.project.lists.users, { username: location.username }, true);
-            if ( selected[0].name ) {
+            if ( selected.length ) {
               var reporter = {
                 name: selected[0].name,
                 position: selected[0].position,
