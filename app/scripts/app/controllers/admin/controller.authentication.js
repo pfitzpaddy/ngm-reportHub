@@ -357,8 +357,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           angular.merge( $scope.panel.user, org );
 
           // update home page for iMMAP Ethiopia
-          if ( $scope.panel.user.organization === 'iMMAP' 
-                && ( $scope.panel.user.admin0pcode === 'CD' || $scope.panel.user.admin0pcode === 'ET' ) ) {
+          if ( $scope.panel.user.organization === 'iMMAP' ) {
             // add defaults as admin
             // $scope.panel.user.app_home = '/immap/';
             $scope.panel.user.app_home = '/cluster/admin/' + $scope.panel.user.adminRpcode.toLowerCase() + '/' + $scope.panel.user.admin0pcode.toLowerCase();
