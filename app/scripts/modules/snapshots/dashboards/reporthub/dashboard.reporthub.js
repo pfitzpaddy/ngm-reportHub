@@ -197,6 +197,18 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
+								styleClass: 's12',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel blue-grey',
+									style: "padding:0px;",
+									config: {
+										html: '<img width="100%" src="images/snapshots/reporthub/usage_2018.png"></img>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
 								styleClass: 's12 m12 l4',
 								widgets: [{
 									type: 'html',
@@ -224,6 +236,38 @@ angular.module('ngmReportHub')
 									style: 'padding:10px;',
 									config: {
 										html: '<img width="100%" src="images/snapshots/reporthub/contact/contact_card_fakhri.png"></img>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/snapshots/reporthub/contact/rsennoga.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/snapshots/reporthub/contact/contact_card_pfitzgerald_rh_ng.png"></img>'
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:10px;',
+									config: {
+										html: '<img width="100%" src="images/snapshots/reporthub/contact/aadekunle.png"></img>'
 									}
 								}]
 							}]

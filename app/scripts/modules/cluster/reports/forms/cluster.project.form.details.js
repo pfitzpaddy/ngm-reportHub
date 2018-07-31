@@ -776,15 +776,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           location.username = $data;
           if(location.username) {
             selected = $filter('filter')( $scope.project.lists.users, { username: location.username }, true);
-            if (selected[0] && selected[0].id) { delete selected[0].id; }
-            var reporter = {
-              name: selected[0].name,
-              position: selected[0].position,
-              phone: selected[0].phone,
-              email: selected[0].email,
-              username: selected[0].username
+            if ( selected[0].name ) {
+              var reporter = {
+                name: selected[0].name,
+                position: selected[0].position,
+                phone: selected[0].phone,
+                email: selected[0].email,
+                username: selected[0].username
+              }
+              angular.merge(location, reporter);
             }
-            angular.merge(location, reporter);
           }
           return selected.length ? selected[0].username : 'No Selection!';
         },
