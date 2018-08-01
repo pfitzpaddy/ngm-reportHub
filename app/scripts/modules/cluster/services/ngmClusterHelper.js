@@ -1772,6 +1772,9 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'collective_settlement',
             site_type_name: 'Settlement'
           },{
+            site_type_id: 'transitional_centre',
+            site_type_name: 'Transitional Centre'
+          },{
             site_type_id: 'school',
             site_type_name: 'School'
           },{
@@ -1780,6 +1783,9 @@ angular.module( 'ngmReportHub' )
           },{
             site_type_id: 'health_center',
             site_type_name: 'Health Center'
+          },{
+            site_type_id: 'nutrition_center',
+            site_type_name: 'Nutrition Center'
           },{
             site_type_id: 'idp_camp',
             site_type_name: 'IDP Camp'

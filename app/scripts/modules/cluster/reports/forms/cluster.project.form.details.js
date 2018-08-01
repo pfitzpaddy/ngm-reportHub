@@ -1006,13 +1006,19 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           var display = false;
           angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
 
-            if ( d.site_type_id === 'idp_site' || 
-                  d.site_type_id === 'idp_site_formal' || 
-                  d.site_type_id === 'idp_site_informal' || 
-                  d.site_type_id === 'hospital' || 
-                  d.site_type_id === 'health_center' ||
-                  d.site_type_id === 'health_post' ) {
-              display = true;
+            if ( $scope.project.definition.admin0pcode === 'NG' ) {
+              if ( d.site_type_id === 'idp_camp' ||
+                    d.site_type_id === 'collective_settlement' || 
+                    d.site_type_id === 'transitional_centre' ) {
+                display = true;
+              }
+            } else {
+              if ( d.site_type_id === 'idp_site' ||
+                    d.site_type_id === 'hospital' || 
+                    d.site_type_id === 'health_center' ||
+                    d.site_type_id === 'health_post' ) {
+                display = true;
+              }
             }
           });
           return display;
@@ -1106,6 +1112,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                   // sites
                   $scope.project.lists.sites[$index][target_location.admin3pcode] = result;
 
+                  console.log(result)
+
                   // filter
                   var site_type = $filter('filter')( result, { site_type_id: target_location.site_type_id }, true );
 
@@ -1113,7 +1121,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                   if ( !result.length || !site_type.length ) {
                     target_location.site_list_select_id = 'no';
                     target_location.site_list_select_name = 'No';
+                  } else {
+                    target_location.site_list_select_id = 'yes';
+                    target_location.site_list_select_name = 'Yes';
                   }
+
+                  console.log(target_location.site_list_select_name)
 
                 }).error( function( err ) {
                   Materialize.toast( 'Sites List Error!', 6000, 'error' );
