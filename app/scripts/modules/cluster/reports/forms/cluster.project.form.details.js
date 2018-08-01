@@ -1112,8 +1112,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                   // sites
                   $scope.project.lists.sites[$index][target_location.admin3pcode] = result;
 
-                  console.log(result)
-
                   // filter
                   var site_type = $filter('filter')( result, { site_type_id: target_location.site_type_id }, true );
 
@@ -1125,8 +1123,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                     target_location.site_list_select_id = 'yes';
                     target_location.site_list_select_name = 'Yes';
                   }
-
-                  console.log(target_location.site_list_select_name)
 
                 }).error( function( err ) {
                   Materialize.toast( 'Sites List Error!', 6000, 'error' );
