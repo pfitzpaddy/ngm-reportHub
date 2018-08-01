@@ -292,13 +292,18 @@ gulp.task('copy:fonts', function () {
     .pipe(gulp.dest(yeoman.dist + '/fonts'));
 });
 
+gulp.task('copy:css', function () {
+  return gulp.src(yeoman.app + '/css/**/*')
+    .pipe(gulp.dest(yeoman.dist + '/css'));
+});
+
 gulp.task('copy:mfonts', function () {
   return gulp.src(yeoman.app + '/../bower_components/materialize/fonts/**/*')
     .pipe(gulp.dest(yeoman.dist + '/fonts'));
 });
 
 gulp.task('build', ['clean:dist'], function () {
-  runSequence(['copy:images', 'copy:cluster', 'copy:country', 'copy:cdc', 'copy:drr', 'copy:snapshots', 'copy:immap', 'copy:reporthub', 'copy:who-immap', 'bower:images', 'fullscreen:images', 'copy:static', 'copy:extras', 'copy:widgets', 'copy:fonts', 'copy:mfonts', 'client:build'], 'rename:index');
+  runSequence(['copy:images', 'copy:cluster', 'copy:country', 'copy:cdc', 'copy:drr', 'copy:snapshots', 'copy:immap', 'copy:reporthub', 'copy:who-immap', 'bower:images', 'fullscreen:images', 'copy:static', 'copy:extras', 'copy:widgets', 'copy:fonts', 'copy:css', 'copy:mfonts', 'client:build'], 'rename:index');
 });
 
 gulp.task('default', ['build']);
