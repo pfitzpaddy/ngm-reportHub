@@ -1769,7 +1769,7 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'host_community',
             site_type_name: 'Host Community'
           },{
-            site_type_id: 'settlement',
+            site_type_id: 'collective_settlement',
             site_type_name: 'Settlement'
           },{
             site_type_id: 'school',
@@ -1781,20 +1781,8 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'health_center',
             site_type_name: 'Health Center'
           },{
-            site_type_id: 'health_post',
-            site_type_name: 'Health Post'
-          },{
-            site_type_id: 'idp_site_formal',
-            site_type_name: 'IDP Site Formal'
-          },{
-            site_type_id: 'idp_site_informal',
-            site_type_name: 'IDP Site Informal'
-          },{
-            site_type_id: 'refugee_site',
-            site_type_name: 'Refugee Site'
-          },{
-            site_type_id: 'returnee_site',
-            site_type_name: 'Returnee Site'
+            site_type_id: 'idp_camp',
+            site_type_name: 'IDP Camp'
           }];
         }
 
