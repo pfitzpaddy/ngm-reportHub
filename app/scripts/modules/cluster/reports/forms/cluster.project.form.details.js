@@ -469,166 +469,32 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         /****** EiEWG ( ngmClusterHelperAf.js ) ************/
 
 
-
-        // new site?
-        showYesNo: function($index, $data, location){
-          var selected = [];
-          location.new_site_id = $data;
-          if(location.new_site_id) {
-            selected = $filter('filter')( $scope.project.lists.new_site, { new_site_id: location.new_site_id }, true );
-            location.new_site_name = selected[0].new_site_name;
-          }
-          return selected.length ? selected[0].new_site_name : 'No Selection!';
+        showYesNo: function( $index, $data, target_location ){
+          return ngmClusterHelperAf.showYesNo( $scope.project.lists, $index, $data, target_location );
         },
 
-        // show the label heading
-        showSchoolNameLabel: function(){
-          var display = false;
-          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
-            if ( d.new_site_id ) {
-              display = true;
-            }
-          });
-          return display;
+        showSchoolNameLabel: function( project ){
+          return ngmClusterHelperAf.showSchoolNameLabel( $scope.project.definition );
         },
 
-        // show the label heading
-        showHubSchoolNameLabel: function(){
-          var display = false;
-          angular.forEach( $scope.project.definition.target_locations, function( d, i ) {
-            if ( d.new_site_id && d.site_implementation_id === 'informal' ) {
-              display = true;
-            }
-          });
-          return display;
+        showHubSchoolNameLabel: function( project ){
+          return ngmClusterHelperAf.showHubSchoolNameLabel( $scope.project.definition );
         },
 
-        // show schools
-        showSchools: function($index, $data, location){
-
-          var selected = [];
-          location.site_id = $data;
-          if( location.site_id && $scope.project.lists.schools[$index] && $scope.project.lists.schools[$index][location.admin2pcode] ) {
-            selected = $filter('filter')( $scope.project.lists.schools[$index][location.admin2pcode], { site_id: location.site_id }, true);
-            if (selected.length) {
-              location.site_name = selected[0].site_name;
-              location.site_lng = selected[0].site_lng;
-              location.site_lat = selected[0].site_lat;
-            }
-          }
-          return location.site_name ? location.site_name : 'No Selection!';
+        showSchools: function( $index, $data, target_location ){
+          return ngmClusterHelperAf.showSchools( $scope.project.lists, $index, $data, target_location );
         },
 
-        // hub school
-        showHubSchools: function($index, $data, location){
-          var selected = [];
-          location.site_hub_id = $data;
-          if( location.site_hub_id && $scope.project.lists.hub_schools[$index] && $scope.project.lists.hub_schools[$index][location.admin2pcode] ) {
-            selected = $filter('filter')( $scope.project.lists.hub_schools[$index][location.admin2pcode], { site_id: location.site_hub_id }, true);
-            if (selected.length) {
-              location.site_hub_name = selected[0].site_name;
-              if( location.new_site_id === 'yes' ){
-                location.site_lng = selected[0].site_lng;
-                location.site_lat = selected[0].site_lat;
-              }
-            }
-          }
-          return location.site_hub_name;
+        showHubSchools: function( $index, $data, target_location ){
+          return ngmClusterHelperAf.showHubSchools( $scope.project.lists, $index, $data, target_location );
         },
 
-        // load schools
         loadSchools: function( $index, $data, target_location ){
-
-          // reset client
-          if (!target_location.id) {
-            target_location.site_name = null;
-            target_location.site_id = null;
-            target_location.site_hub_id = null;
-            target_location.site_hub_name = null;
-          }
-
-          // list storage
-          if (!$scope.project.lists.schools[$index]) {
-            $scope.project.lists.schools[$index] = [];
-            $scope.project.lists.hub_schools[$index] = [];
-          }
-          // list storage by pcode2
-          if (!$scope.project.lists.schools[$index][target_location.admin2pcode]) {
-            $scope.project.lists.schools[$index][target_location.admin2pcode] = [];
-            $scope.project.lists.hub_schools[$index][target_location.admin2pcode] = [];
-          }
-
-          // if kabul remove so that PD schools are displayed
-          if ( $scope.project.lists.schools[$index][target_location.admin2pcode].length && target_location.admin2pcode === '101' ) {
-            $scope.project.lists.schools[$index][target_location.admin2pcode] = [];
-            $scope.project.lists.hub_schools[$index][target_location.admin2pcode] = [];
-          }
-
-          // set lists
-            // timeout will enable admin2 to be selected (if user changes admin2 retrospectively)
-          $timeout(function(){
-            if ( target_location.admin1pcode && target_location.admin2pcode && target_location.admin2name ) {
-              // if already existing
-              if( $scope.project.lists.schools[$index][target_location.admin2pcode] && $scope.project.lists.schools[$index][target_location.admin2pcode].length ) {
-                // do nothing!
-              } else {
-                // else fetch!
-                if( !target_location.id ){
-                  Materialize.toast( 'Loading Schools!' , 6000, 'note' );
-                }
-                $http({
-                  method: 'GET', url: ngmAuth.LOCATION + '/api/list/getAdmin2Sites?cluster_id=' + $scope.project.definition.cluster_id + '&admin0pcode=' + target_location.admin0pcode + '&admin1pcode=' + target_location.admin1pcode + '&admin2pcode=' + target_location.admin2pcode + '&admin2name=' + target_location.admin2name
-                }).success( function( result ) {
-                  if ( target_location.admin1pcode && target_location.admin2pcode && !result.length ) {
-                    Materialize.toast( 'No Schools for ' + target_location.admin1name +', ' + target_location.admin2name + '!' , 6000, 'success' );
-                  }
-                  // set
-                  $scope.project.lists.schools[$index][target_location.admin2pcode] = result;
-                  $scope.project.lists.hub_schools[$index][target_location.admin2pcode] = result;
-                }).error( function( err ) {
-                  Materialize.toast( 'Schools List Error!', 6000, 'error' );
-                });
-              }
-            }
-          }, 10 );
+          ngmClusterHelperAf.loadSchools( $scope.project.lists, $index, $data, target_location );
         },
-
-        /** EiEWG END ************/
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -662,27 +528,27 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // validate project type
         project_details_valid: function () {
-          ngmClusterHelperForm.project_details_valid( $scope.project.definition );
+          return ngmClusterHelperForm.project_details_valid( $scope.project.definition );
         },
 
         // validate if ONE activity type
         activity_type_valid: function () {
-          ngmClusterHelperForm.activity_type_valid( $scope.project.definition );
+          return ngmClusterHelperForm.activity_type_valid( $scope.project.definition );
         },
 
         // validate project donor
         project_donor_valid: function () {
-          ngmClusterHelperForm.project_donor_valid( $scope.project.definition );
+          return ngmClusterHelperForm.project_donor_valid( $scope.project.definition );
         },
 
         // validate if ALL target beneficairies valid
         target_beneficiaries_valid: function(){
-          ngmClusterHelperForm.target_beneficiaries_valid( $scope.project.definition );
+          return ngmClusterHelperForm.target_beneficiaries_valid( $scope.project.definition );
         },
 
         // validate id ALL target locations valid
         target_locations_valid: function(){
-          ngmClusterHelperForm.target_locations_valid( $scope.project.definition );
+          return ngmClusterHelperForm.target_locations_valid( $scope.project.definition );
         },
 
         // validate form
