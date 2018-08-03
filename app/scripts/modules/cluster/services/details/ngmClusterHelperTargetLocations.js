@@ -266,11 +266,7 @@ angular.module( 'ngmReportHub' )
           selected = $filter('filter')( lists.adminSitesSelect[$index], { site_id: target_location.site_id }, true);
           if ( selected[0] && selected[0].id ) { 
             delete selected[0].id;
-            console.log('timeout')
-            console.log(target_location.site_name)
-            console.log(selected[0])
             angular.merge( target_location, selected[0] );
-            console.log(target_location.site_name)
           }
         }
         return target_location.site_name ? target_location.site_name : '-';

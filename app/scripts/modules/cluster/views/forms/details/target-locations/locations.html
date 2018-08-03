@@ -17,6 +17,10 @@
 						Enter the TARGET LOCATIONS of your PROJECT in the form below;
 					</p>
 
+					<p>
+						
+					</p>
+
 					<div class="row">
 						<div class="col s12 card">
 							<div style="padding-top: 10px; padding-left: 40px;">
@@ -24,26 +28,39 @@
 							    <tr style="font-weight: 400">
 							    	<td></td>
 							    	<td>Reporter</td>
+							    	<td>Implementation</td>
 							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
 							      <td ng-if="project.lists.admin3.length">{{ project.lists.admin3[0].admin3type_name }}</td>
-							      <td ng-if="project.definition.cluster_id === 'health'">Site Type</td>
-							      <td>Location *</td>
+										<td>Type</td>
+										<td>From List?</td>
+							      <td>Site Name *</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
-							    <tr ng-repeat="location in project.definition.target_locations">
+							    <tr ng-repeat="location in project.definition.target_locations track by $index">
 							    	<td>
 							    		<i class="material-icons" style="color: teal;">person_pin</i>
 							    	</td>
 							      <td>
-							        <!-- editable admin1 -->
-							        <span e-placeholder="Select..."
-							        				editable-select="location.username"
-							        				e-name="username"
-							        				e-form="locationform"
-							        				e-ng-options="item.username as item.username for item in project.lists.users"
+							        <!-- editable reporter -->
+							        <span e-placeholder="Select..." 
+							        				editable-select="location.username" 
+							        				e-name="username" 
+							        				e-form="locationform" 
+							        				e-ng-options="item.username as item.username for item in project.lists.users" 
 							        				e-required>
-							          {{ project.showReporter($data, location) }}
+							          {{ project.showReporter( $data, location ) }}
+							        </span>
+							      </td>
+							      <td>
+							        <!-- editable site_implementation_id -->
+							        <span e-placeholder="Select..." 
+							        				editable-select="location.site_implementation_id" 
+							        				e-name="site_implementation_id" 
+							        				e-form="locationform" 
+							        				e-ng-options="item.site_implementation_id as item.site_implementation_name for item in project.lists.site_implementation"
+							        				e-required>
+							          {{ project.showSiteImplementation( $data, location ) }}
 							        </span>
 							      </td>
 							      <td>
@@ -52,58 +69,106 @@
 							        				editable-select="location.admin1pcode"
 							        				e-name="admin1pcode"
 							        				e-form="locationform"
-							        				e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1 | filter : { inactive: '!true' }"
+							        				e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1" 
+							        				e-ng-change="project.getAdminSites( location )"
 							        				e-required>
-							          {{ project.showAdmin1($data, location) }}
+							          {{ project.showAdmin1( $data, location ) }}
 							        </span>
 							      </td>
 							      <td>
 							        <!-- editable admin2 -->
 							        <span e-placeholder="Select..."
-							        				editable-select="location.admin2name"
-							        				e-name="admin2name"
+							        				editable-select="location.admin2pcode"
+							        				e-name="admin2pcode"
 							        				e-form="locationform"
-							        				e-ng-options="item.admin2name as item.admin2name for item in project.lists.admin2Select[$index]" e-ng-disabled="!location.admin1pcode"
+							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2Select[$index]"
+							        				e-ng-disabled="!location.admin1pcode"
 							        				e-required>
-							          {{ project.showAdmin2($index, $data, location) }}
+							          {{ project.showAdmin2( $index, $data, location ) }}
 							        </span>
 							      </td>
 							      <td ng-if="project.lists.admin3.length">
 							        <!-- editable admin3 -->
-							        <span e-placeholder="Select..."
-							        				editable-select="location.admin3name"
-							        				e-name="admin3name"
-							        				e-form="locationform"
-							        				e-ng-options="item.admin3name as item.admin3name for item in project.lists.admin3Select[$index]" e-ng-disabled="!location.admin2pcode"
-							        				e-required>
-							          {{ project.showAdmin3($index, $data, location) }}
-							        </span>
+							        <div ng-show="!project.lists.admin3Select[$index].length">
+								        <span>
+								        	-
+								        </span>
+								      </div>
+							        <div ng-show="project.lists.admin3Select[$index].length">
+								        <span e-placeholder="Select..."
+								        				editable-select="location.admin3pcode"
+								        				e-name="admin3pcode"
+								        				e-form="locationform"
+								        				e-ng-options="item.admin3pcode as item.admin3name for item in project.lists.admin3Select[$index]" 
+																e-ng-change="project.siteTypeOnChange( $index, $data, location )"
+								        				e-ng-disabled="!location.admin2pcode">
+								          {{ project.showAdmin3( $index, $data, location ) }}
+								        </span>
+								       </div>
 							      </td>
-							      <td ng-show="project.definition.cluster_id === 'health'">
-							        <!-- editable site type-->
+							      <td>
+							      	<!-- site type -->							      
 							        <span e-placeholder="Select..."
 							        				editable-select="location.site_type_id"
 							        				e-name="site_type_id"
 							        				e-form="locationform"
-							        				e-ng-options="item.site_type_id as item.site_type_name for item in project.lists.site_type" 
+							        				e-ng-options="item.site_type_id as item.site_type_name for item in project.lists.site_type"
+							        				e-ng-change="project.siteTypeOnChange( $index, $data, location )"
 							        				e-ng-disabled="!location.admin2name"
 							        				e-required>
-							          {{ project.showSiteType($index, $data, location) }}
+							          {{ project.showSiteType( $index, $data, location ) }}
 							        </span>
 							      </td>
+
 							      <td>
-							        <!-- editable name -->
+							      	<!-- select from list -->	
+							        <span e-placeholder="Select..."
+							        				editable-select="location.site_list_select_id"
+							        				e-name="site_list_select_id"
+							        				e-form="locationform"
+							        				e-ng-options="item.site_list_select_id as item.site_list_select_name for item in project.lists.site_list_select"
+							        				e-ng-change="project.yesNoOnChange( location )"
+							        				e-ng-disabled="location.site_list_select_disabled">
+							          {{ project.showListYesNo( $index, $data, location ) }}
+							        </span>
+							      </td>
+
+							      <!-- select existing: drop down -->
+							      <td ng-if="location.site_list_select_id === 'yes'">
+							        <span e-placeholder="Select..."
+							        			editable-select="location.site_id"
+							        			e-name="site_id"
+							        			e-form="locationform"
+							        			e-ng-options="item.site_id as item.site_name for item in project.lists.adminSitesSelect[$index] | 
+							        											filter:{ site_type_id: location.site_type_id }"
+							        			e-ng-disabled="!location.site_type_id">
+							          {{ project.showAdminSites( $index, $data, location ) }}
+							        </span>
+							      </td>
+
+							      <!-- select existing: free text  -->
+										 <td ng-if="location.site_list_select_id === 'no'">
 							        <span editable-text="location.site_name"
 							        				e-name="site_name"
 							        				e-form="locationform"
 							        				e-required>
-							        	{{ project.showSiteName($data, location) }}
+							        	{{ project.showSiteName( $data, location ) }}
 							        </span>
 							      </td>
+							      <!-- select existing: free text  -->
+										 <td ng-if="location.site_list_select_id !== 'no' && location.site_list_select_id !== 'yes'">
+							        <span editable-text="location.site_name"
+							        				e-name="site_name"
+							        				e-form="locationform"
+							        				e-required>
+							        	{{ project.showSiteName( $data, location ) }}
+							        </span>
+							      </td>
+
 							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
 							        <!-- form -->
 							        <form editable-form name="locationform" ng-show="locationform.$visible" onbeforesave="project.saveLocation()" class="form-buttons form-inline" shown="inserted == location">
-							          <button
+							          <button 
 							          		title="Save" type="submit" class="btn waves-effect waves-light save"
 							          		ng-if="locationform.$visible && !project.newProject"
 							          		ng-disabled="
@@ -140,10 +205,10 @@
 							                    ( !project.submit ) )">
 							          	<i class="material-icons">delete</i>
 							          </button>
-							        </div>
+							        </div>  
 							      </td>
 							    </tr>
-							  </table>
+							  </table>							      
 
 							  <button class="btn" ng-show="project.definition.project_status !== 'complete'" ng-click="project.addLocation()" style="margin:20px 0px;">
 							  	<i class="material-icons left">add</i>Add Row

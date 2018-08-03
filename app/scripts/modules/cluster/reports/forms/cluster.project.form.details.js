@@ -150,7 +150,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 
           // sites
-          site_implementation: ngmClusterHelper.getSiteImplementation( config.project.cluster_id ),
+          site_implementation: ngmClusterHelper.getSiteImplementation( config.project.admin0pcode, config.project.cluster_id ),
           site_list_select:[{ site_list_select_id: 'yes', site_list_select_name: 'Yes'},{ site_list_select_id: 'no', site_list_select_name: 'No'}],
           site_type: ngmClusterHelper.getSiteTypes( config.project.cluster_id, config.project.admin0pcode ),
           sites:[],
@@ -189,22 +189,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         contactDetailsUrl: 'contact-details.html',
         
         // locations
-        locationsUrl: function() {
-          
-          // default is by country
-          var template = 'target-locations/locations-' + config.project.admin0pcode + '.html';;
-
-          // else
-          if ( config.project.cluster_id === 'eiewg' ) {
-            template = 'target-locations/locations-eiewg.html';
-          }
-          if ( config.project.admin0pcode !== 'ET' && 
-                config.project.admin0pcode !== 'NG' )  {
-            template = 'target-locations/locations.html';
-          }
-
-          return template;
-        },
+        locationsUrl: config.project.cluster_id === 'eiewg' ? 'target-locations/locations-eiewg.html' : 'target-locations/locations.html';
 
 
 
@@ -255,6 +240,27 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           }
         },
 
+
+
+
+
+
+        // set new project user
+        updateContactUser: function( $data ) {
+          var user = $filter('filter')($scope.project.lists.users, { username: $data.username }, true)[0];
+          $scope.project.updateContact( user );
+        },
+
+        // update project user values
+        updateContact: function( touser ) {
+            if ( touser ) {
+              $scope.project.definition.username = touser.username;
+              $scope.project.definition.name = touser.name;
+              $scope.project.definition.email = touser.email;
+              $scope.project.definition.position = touser.position;
+              $scope.project.definition.phone = touser.phone;
+            }
+        },
 
 
 
@@ -428,6 +434,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $scope.project.definition.target_locations.push( $scope.inserted );
         },
 
+
+
+
+
+
         // project focal point
         showReporter: function( $data, target_location ){
           return ngmClusterHelperTargetLocations.showReporter( $scope.project.lists, $data, target_location )
@@ -490,7 +501,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // site_name
         showSiteName: function( $data, target_location ){
-          if( $data ) { console.log($data); target_location.site_name = $data; }
+          if( $data ) { target_location.site_name = $data; }
           return target_location.site_name ? target_location.site_name : '';
         },
 
@@ -535,76 +546,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 
 
-
-
-
-
-
-
-        // load sites (ET, NG)
-        // loadAdmin3Sites: function( $index, target_location ){
-
-        //   // timeout to get admin3 value
-        //   $timeout(function(){
-
-        //     // reset client
-        //     if (!target_location.id) {
-        //       target_location.site_name = null;
-        //       target_location.site_id = null;
-        //     }
-
-        //     // list storage
-        //     if (!$scope.project.lists.sites[$index]) {
-        //       $scope.project.lists.sites[$index] = [];
-        //     }
-        //     // list storage by pcode2
-        //     if (!$scope.project.lists.sites[$index][target_location.admin3pcode]) {
-        //       $scope.project.lists.sites[$index][target_location.admin3pcode] = [];
-        //     }
-
-        //     // set lists
-        //       // timeout will enable admin2 to be selected (if user changes admin2 retrospectively)
-        //     if ( target_location.admin1pcode 
-        //           && target_location.admin2pcode  
-        //           && target_location.admin3pcode ) {
-
-        //       // if already existing
-        //       if( $scope.project.lists.sites[$index][target_location.admin3pcode] 
-        //             && $scope.project.lists.sites[$index][target_location.admin3pcode].length ) {
-        //         // do nothing!
-        //       } else {
-        //         // else fetch!
-        //         if( !target_location.id ){
-        //           Materialize.toast( 'Loading Sites!' , 6000, 'note' );
-        //         }
-        //         $http({
-        //           method: 'GET', url: ngmAuth.LOCATION + '/api/list/getAdmin3Sites?admin0pcode=' + target_location.admin0pcode
-        //                                                 + '&admin1pcode=' + target_location.admin1pcode 
-        //                                                 + '&admin2pcode=' + target_location.admin2pcode 
-        //                                                 + '&admin3pcode=' + target_location.admin3pcode
-        //         }).success( function( result ) {
-        //           // sites
-        //           $scope.project.lists.sites[$index][target_location.admin3pcode] = result;
-
-        //           // filter
-        //           var site_type = $filter('filter')( result, { site_type_id: target_location.site_type_id }, true );
-
-        //           // set to no if no results or type
-        //           if ( !result.length || !site_type.length ) {
-        //             target_location.site_list_select_id = 'no';
-        //             target_location.site_list_select_name = 'No';
-        //           } else {
-        //             target_location.site_list_select_id = 'yes';
-        //             target_location.site_list_select_name = 'Yes';
-        //           }
-
-        //         }).error( function( err ) {
-        //           Materialize.toast( 'Sites List Error!', 6000, 'error' );
-        //         });
-        //       }
-        //     }
-        //   }, 10 );
-        // },
 
 
 
@@ -738,24 +679,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 
 
-        // set new project user
-        updateContactUser: function( $data ) {
-          var user = $filter('filter')($scope.project.lists.users, { username: $data.username }, true)[0];
-          $scope.project.updateContact( user );
-        },
-
-        // update project user values
-        updateContact: function( touser ) {
-            if ( touser ) {
-              $scope.project.definition.username = touser.username;
-              $scope.project.definition.name = touser.name;
-              $scope.project.definition.email = touser.email;
-              $scope.project.definition.position = touser.position;
-              $scope.project.definition.phone = touser.phone;
-            }
-        },
-
-
 
 
 
@@ -821,6 +744,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           });
 
         },
+
+
+
 
 
 

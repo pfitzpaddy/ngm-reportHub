@@ -1690,7 +1690,7 @@ angular.module( 'ngmReportHub' )
 			},
 
       // get site implementation
-      getSiteImplementation: function( cluster_id ){
+      getSiteImplementation: function( admin0pcode, cluster_id ){
         var site_implementation = [];
         if ( cluster_id === 'eiewg'  ) {
           site_implementation = [{
@@ -1699,7 +1699,39 @@ angular.module( 'ngmReportHub' )
           },{
             site_implementation_id: 'informal',
             site_implementation_name: 'Informal'
-          }]
+          }];
+        } else if ( admin0pcode === 'AF' ){
+          site_implementation = [{
+            site_implementation_id: 'community_based',
+            site_implementation_name: 'Community Based'
+          },{
+            site_implementation_id: 'local_committee',
+            site_implementation_name: 'Local Committee'
+          },{
+            site_implementation_id: 'family_protection_center',
+            site_implementation_name: 'Family Protection Center'
+          },{
+            site_implementation_id: 'woman_friendly_health_space',
+            site_implementation_name: 'Woman Friendly Health Space'
+          },{
+            site_implementation_id: 'mobile_outreach_team',
+            site_implementation_name: 'Mobile Outreach Team ( MOT )'
+          },{
+            site_implementation_id: 'mhnt',
+            site_implementation_name: 'MHNT'
+          },{
+            site_implementation_id: 'mpt',
+            site_implementation_name: 'MPT'
+          },{
+            site_implementation_id: 'ctc',
+            site_implementation_name: 'CTC'
+          },{
+            site_implementation_id: 'ctu',
+            site_implementation_name: 'CTU'
+          },{
+            site_implementation_id: 'orp',
+            site_implementation_name: 'ORP'
+          }];
         } else {
           site_implementation = [{
             site_implementation_id: 'community_based',
@@ -1731,8 +1763,10 @@ angular.module( 'ngmReportHub' )
           },{
             site_implementation_id: 'orp',
             site_implementation_name: 'ORP'
-          }]
+          }];
+
         }
+
         return site_implementation;
       },
 
@@ -1740,11 +1774,7 @@ angular.module( 'ngmReportHub' )
 			getSiteTypes: function( cluster_id, admin0pcode ) {
 
         // site_type
-        var site_types;
-
-        // et
-        if ( admin0pcode === 'ET' ) {
-          site_types = [{
+        var site_types = [{
             site_type_id: 'multiple_sites',
             site_type_name: 'Multiple Sites'
           },{
@@ -1769,7 +1799,6 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'refugee_site',
             site_type_name: 'Refugee Site'       
           }];
-        }
 
         // ng
         if ( admin0pcode === 'NG' ) {
@@ -1804,8 +1833,20 @@ angular.module( 'ngmReportHub' )
         }
 
         // health and not ET
-        if ( admin0pcode !== 'ET' && admin0pcode !== 'NG' ) {
+        if ( admin0pcode === 'AF' ) {
           site_types = [{
+            site_type_id: 'multiple_sites',
+            site_type_name: 'Multiple Sites'
+          },{
+            site_type_id: 'host_community',
+            site_type_name: 'Host Community'
+          },{
+            site_type_id: 'village',
+            site_type_name: 'Village'
+          },{
+            site_type_id: 'schools',
+            site_type_name: 'School'
+          },{
             site_type_id: 'RH',
             site_type_name: 'RH'
           },{
@@ -1842,29 +1883,14 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'DATC',
             site_type_name: 'DATC'
           },{
-            site_type_id: 'rehabilitation_center',
-            site_type_name: 'Rehabilitation Center'
-          },{
             site_type_id: 'special_hospital',
             site_type_name: 'Special Hospital'
           },{
-            site_type_id: 'local_committee',
-            site_type_name: 'Local Committee'
-					},{
-            site_type_id: 'family_protection_center',
-            site_type_name: 'Family Protection Center'
+            site_type_id: 'rehabilitation_center',
+            site_type_name: 'Rehabilitation Center'
           },{
-            site_type_id: 'woman_friendly_health_space',
-            site_type_name: 'Woman Friendly Health Space'
-          },{
-            site_type_id: 'mobile_outreach_team',
-            site_type_name: 'Mobile Outreach Team ( MOT )'
-          },{
-            site_type_id: 'village',
-            site_type_name: 'Village'
-          },{
-            site_type_id: 'community_based',
-            site_type_name: 'Community Based'
+            site_type_id: 'nutrition_center',
+            site_type_name: 'Nutrition Center'
           }];
         }
 

@@ -114,8 +114,6 @@ angular.module('ngmReportHub')
 				// menu
 				var menu_items = []
 
-				console.log($scope.dashboard.user.roles.indexOf('SUPERADMIN'));
-
 				// if SUPERUSER
 				if ( $scope.dashboard.user.roles.indexOf('SUPERADMIN') !== -1 ) {
 					menu_items.push( 'admin0pcode' );
