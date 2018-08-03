@@ -214,7 +214,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // display delivery
-      showDelivery: function( $data, $beneficiary ) {
+      showDelivery: function( lists, $data, $beneficiary ) {
         var selected = [];
         $beneficiary.delivery_type_id = $data;
         if($beneficiary.delivery_type_id) {

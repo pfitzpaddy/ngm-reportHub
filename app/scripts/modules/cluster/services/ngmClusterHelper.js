@@ -171,6 +171,26 @@ angular.module( 'ngmReportHub' )
 
       },
 
+      // set org users for a project
+      setOrganizationUsers( lists, project ) {
+        // set org
+        $http({
+          method: 'POST',
+          url: ngmAuth.LOCATION + '/api/getOrganizationUsers',
+          data: {
+            admin0pcode: project.admin0pcode,
+            cluster_id: project.cluster_id,
+            organization: project.organization,
+            status: 'active'
+          }
+        }).success( function( users ) {
+          // return
+          lists.users = users;
+        }).error( function( err ) {
+          //
+        });
+      },
+
       // monthly report indicators
       getIndicators: function( target ) {
 
@@ -1778,6 +1798,9 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'multiple_sites',
             site_type_name: 'Multiple Sites'
           },{
+            site_type_id: 'host_community',
+            site_type_name: 'Host Community'
+          },{
             site_type_id: 'settlement',
             site_type_name: 'Settlement'
           },{
@@ -1841,6 +1864,9 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'host_community',
             site_type_name: 'Host Community'
           },{
+            site_type_id: 'collective_settlement',
+            site_type_name: 'Settlement'
+          },{
             site_type_id: 'village',
             site_type_name: 'Village'
           },{
@@ -1891,6 +1917,12 @@ angular.module( 'ngmReportHub' )
           },{
             site_type_id: 'nutrition_center',
             site_type_name: 'Nutrition Center'
+          },{
+            site_type_id: 'idp_site',
+            site_type_name: 'IDP Site'
+          },{
+            site_type_id: 'refugee_site',
+            site_type_name: 'Refugee Site' 
           }];
         }
 
@@ -1967,6 +1999,135 @@ angular.module( 'ngmReportHub' )
         //
         return update;
       },
+
+
+      // compile cluster activities
+      compileInterClusterActivities: function( project, lists ){
+
+        project.inter_cluster_activities = [];
+        angular.forEach( project.inter_cluster_check, function( t, key ){
+          if ( t ) {
+            var cluster = $filter( 'filter' )( lists.clusters, { cluster_id: key }, true)[0];
+            if ( cluster ) {
+              project.inter_cluster_activities.push( { cluster_id: cluster.cluster_id, cluster: cluster.cluster } );
+            }
+          } else {
+            // turn off ?
+            var activity_type = [];
+            angular.forEach( project.activity_type, function( obj, i ) {
+              if ( obj.cluster_id === key ){
+                project.activity_type_check[ obj.activity_type_id ] = false;
+              } else{
+                activity_type.push(obj);
+              }
+            });
+          }
+        });
+        this.compileStrategicObjectives( project, lists );
+        this.compileActivityType( project, lists );
+      },
+
+      // strategic objectives
+      compileStrategicObjectives: function( project, lists ){
+
+        var strategic_objectives = [];
+
+        // each SO
+        angular.forEach( project.strategic_objectives_check, function( key, so ){
+
+          if ( key ) {
+            var so_obj = so.split(":");
+            // "health_objective_2:2018"
+            // old 2017 SO has no year, update db or use this hunch
+            if (so_obj[1]==="")so_obj[1]=2017;
+            // default
+            var objective = $filter('filter')( lists.strategic_objectives[so_obj[1]][ project.cluster_id ], { objective_type_id: so_obj[0] }, true );
+            if( objective[0] ){
+              strategic_objectives.push( objective[0] );
+            }
+
+            // intercluster
+            angular.forEach( project.inter_cluster_activities, function( d, i ){
+              var objective = $filter('filter')( lists.strategic_objectives[so_obj[1]][ d.cluster_id ], { objective_type_id: so_obj[0] }, true );
+              if( objective[0] ){
+                strategic_objectives.push( objective[0] );
+              }
+            });
+          }
+
+        });
+
+        project.strategic_objectives = strategic_objectives;
+      },
+
+      // compile mpc cash purpose
+      compileMpcPurpose: function( project, lists ) {
+
+        // db attributes
+        project.mpc_purpose = [];
+        project.mpc_purpose_cluster_id = '';
+        project.mpc_purpose_type_id = '';
+        project.mpc_purpose_type_name = '';
+
+
+        // mpc purpose
+        angular.forEach( project.mpc_purpose_check, function( t, key ){
+          if ( t ) {
+            var a_type = $filter( 'filter' )( lists.mpc_purpose, { mpc_purpose_type_id: key }, true)[0];
+            if ( a_type ) {
+              project.mpc_purpose.push( a_type );
+              project.mpc_purpose_cluster_id += a_type.cluster_id + ', ';
+              project.mpc_purpose_type_id += a_type.mpc_purpose_type_id + ', ';
+              project.mpc_purpose_type_name += a_type.mpc_purpose_type_name + ', ';
+            }
+          }
+        });
+
+        // trim last character of string
+        // refactor
+        project.mpc_purpose_cluster_id = project.mpc_purpose_cluster_id.slice( 0, -2 );
+        project.mpc_purpose_type_id = project.mpc_purpose_type_id.slice( 0, -2 );
+        project.mpc_purpose_type_name = project.mpc_purpose_type_name.slice( 0, -2 );
+      },
+
+      // compile activity_type
+      compileActivityType: function( project, lists ){
+
+        // update
+        lists.activity_types = this.getActivities( project, true, true );
+        lists.activity_descriptions = this.getActivities( project, true, false );
+
+        // filter
+        project.activity_type = [];
+        angular.forEach( project.activity_type_check, function( t, key ){
+          if ( t ) {
+            var a_type = $filter( 'filter' )( lists.activity_types, { activity_type_id: key }, true)[0];
+            if ( a_type ) {
+              project.activity_type.push( { cluster_id: a_type.cluster_id, cluster: a_type.cluster, activity_type_id: a_type.activity_type_id, activity_type_name: a_type.activity_type_name } );
+            }
+          }
+        });
+      },
+
+      // compile project_donor
+      compileDonor: function( project, lists ){
+        project.project_donor = [];
+        angular.forEach( project.project_donor_check, function( d, key ){
+          if ( d ) {
+            var donor = $filter( 'filter' )( lists.donors, { project_donor_id: key }, true)[0];
+            project.project_donor.push( donor );
+          }
+          // focus on select
+          if ( key === 'other' && d ) {
+            $( '#ngm-project-project_donor_other' ).focus();
+          }
+          // remove if un-selected
+          if ( key === 'other' && !d ) {
+            project.project_donor_other = '';
+          }
+        });
+      },
+
 
       // get processed warehouse location
       getCleanWarehouseLocation: function( user, organization, warehouse ){

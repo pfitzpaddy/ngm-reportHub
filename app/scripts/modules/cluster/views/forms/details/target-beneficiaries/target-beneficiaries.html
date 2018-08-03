@@ -67,7 +67,7 @@
 														e-placeholder="Select..."
 							        			e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type"
 							        			e-ng-disabled="!project.definition.activity_type.length">
-							          {{ project.showActivity($data, beneficiary) }}
+							          {{ project.showActivity( $data, beneficiary ) }}
 							        </span>
 							      </td>
 							      <td>
@@ -78,7 +78,7 @@
 							        			e-placeholder="Select..."
 							        			e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.lists.activity_descriptions | filter: { cluster_id: beneficiary.cluster_id, activity_type_id: beneficiary.activity_type_id }"
 							        			e-ng-disabled="!beneficiary.activity_type_id">
-							          {{ project.showDescription($data, beneficiary) }}
+							          {{ project.showDescription( $data, beneficiary ) }}
 							        </span>
 							      </td>
 
@@ -94,7 +94,7 @@
 																beneficiary.activity_description_id.indexOf('cash') === -1 &&
 																beneficiary.activity_description_id.indexOf('fsac_in_kind') === -1 &&
 																beneficiary.activity_description_id.indexOf('package') === -1 )">
-							          {{ project.showCashDelivery($data, beneficiary) }}
+							          {{ project.showCashDelivery( $data, beneficiary ) }}
 							        </span>
 							      </td>
 
@@ -105,7 +105,7 @@
 															e-placeholder="Select..."
 															e-ng-options="s.package_type_id as s.package_type_name for s in [{'package_type_id':'standard', 'package_type_name':'Standard'},{'package_type_id':'non-standard', 'package_type_name':'Non-standard'}]"
 															e-ng-disabled="!project.enablePackage( beneficiary )">
-													{{ project.showPackageTypes($data, beneficiary) }}
+													{{ project.showPackageTypes( $data, beneficiary ) }}
 												</span>
 											</td>
 
@@ -118,7 +118,7 @@
 							        			e-placeholder="Select..."
 							        			e-ng-options="b.category_type_id as b.category_type_name for b in project.lists.category_types | filter: { cluster_id: beneficiary.cluster_id }"
 							        			e-ng-disabled="!beneficiary.activity_description_id">
-							          {{ project.showCategory($data, beneficiary) }}
+							          {{ project.showCategory( $data, beneficiary ) }}
 							        </span>
 							      </td>
 							      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">
@@ -128,7 +128,7 @@
 							        			e-placeholder="Select..."
 							        			e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types | filter: { category_type_id: beneficiary.category_type_id, cluster_id: beneficiary.cluster_id }"
 							        			e-ng-disabled="!beneficiary.activity_description_id || !beneficiary.category_type_id">
-							          {{ project.showBeneficiary($data, beneficiary) }}
+							          {{ project.showBeneficiary( $data, beneficiary ) }}
 							        </span>
 							      </td>
 
@@ -140,7 +140,7 @@
 							        			e-placeholder="Select..."
 							        			e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types | filter: { cluster_id: beneficiary.cluster_id }"
 							        			e-ng-disabled="!beneficiary.activity_description_id">
-							          {{ project.showBeneficiary($data, beneficiary) }}
+							          {{ project.showBeneficiary( $data, beneficiary ) }}
 							        </span>
 							      </td>
 
@@ -152,7 +152,7 @@
 							              e-placeholder="Select..."
 							              e-ng-options="b.delivery_type_id as b.delivery_type_name for b in project.lists.delivery_types"
 							              e-ng-disabled="!beneficiary.beneficiary_type_id">
-							          {{ project.showDelivery($data, beneficiary) }}
+							          {{ project.showDelivery( $data, beneficiary ) }}
 							        </span>
 							      </td>
 
@@ -205,7 +205,7 @@
 																beneficiary.activity_description_id.indexOf('package') === -1 &&
 																beneficiary.activity_description_id.indexOf('assessment') === -1 ||
 																beneficiary.activity_description_id.indexOf('_standard') > -1 ))">
-							          {{ project.showUnitTypes($data, beneficiary) }}
+							          {{ project.showUnitTypes( $data, beneficiary ) }}
 							        </span>
 							      </td>
 
@@ -338,7 +338,7 @@
 														e-ng-options="s.choise as s.text for s in [{'choise':true, 'text':'Yes'},{'choise':false, 'text':'No'}]"
 														e-ng-disabled="beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
 																						beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian'">
-												{{ project.showTreatmentSameProvince($data, beneficiary) }}
+												{{ project.showTreatmentSameProvince( $data, beneficiary ) }}
 										</td>
 
 							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >

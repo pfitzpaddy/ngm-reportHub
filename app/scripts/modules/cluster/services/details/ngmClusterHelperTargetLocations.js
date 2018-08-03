@@ -41,6 +41,25 @@ angular.module( 'ngmReportHub' )
         return inserted;
       },
 
+      // remove beneficiary
+      removeLocation: function( project, locationIndex ) {
+
+        // get id
+        var id = project.target_locations[ locationIndex ].id;
+        project.target_locations.splice( locationIndex, 1 );
+
+        // remove at db
+        $http({
+          method: 'POST',
+          url: ngmAuth.LOCATION + '/api/cluster/project/removeLocation',
+          data: { id: id }
+        }).success( function( result ) {
+          Materialize.toast( 'Project Location Removed!' , 3000, 'success' )
+        }).error( function( err ) {
+          Materialize.toast( 'Error!', 6000, 'error' );
+        });
+      },
+
       showReporter: function( lists, $data, target_location ){
         var selected = [];
         target_location.username = $data;
@@ -212,7 +231,6 @@ angular.module( 'ngmReportHub' )
 
         }
         return selected.length ? selected[0].site_type_name : '-';
-
       },
 
       // on change
@@ -248,10 +266,8 @@ angular.module( 'ngmReportHub' )
           selected = $filter('filter')( project.lists.site_list_select, { site_list_select_id: target_location.site_list_select_id }, true );
           target_location.site_list_select_name = selected[0].site_list_select_name;
         }
-
         // name
         return selected.length ? selected[0].site_list_select_name : '-';
-
       },
 
       // show sites

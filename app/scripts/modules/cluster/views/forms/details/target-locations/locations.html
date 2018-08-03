@@ -33,7 +33,7 @@
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
 							      <td ng-if="project.lists.admin3.length">{{ project.lists.admin3[0].admin3type_name }}</td>
 										<td>Type</td>
-										<td>From List?</td>
+										<td ng-if="project.definition.admin0pcode !== 'AF'">From List?</td>
 							      <td>Site Name *</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
@@ -69,7 +69,7 @@
 							        				editable-select="location.admin1pcode"
 							        				e-name="admin1pcode"
 							        				e-form="locationform"
-							        				e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1" 
+							        				e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1 | filter : { inactive: '!true' }" 
 							        				e-ng-change="project.getAdminSites( location )"
 							        				e-required>
 							          {{ project.showAdmin1( $data, location ) }}
@@ -120,7 +120,7 @@
 							        </span>
 							      </td>
 
-							      <td>
+							      <td ng-if="project.definition.admin0pcode !== 'AF'">
 							      	<!-- select from list -->	
 							        <span e-placeholder="Select..."
 							        				editable-select="location.site_list_select_id"
