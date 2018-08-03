@@ -104,8 +104,7 @@
 															editable-select="beneficiary.package_type_id"
 															e-placeholder="Select..."
 															e-ng-options="s.package_type_id as s.package_type_name for s in [{'package_type_id':'standard', 'package_type_name':'Standard'},{'package_type_id':'non-standard', 'package_type_name':'Non-standard'}]"
-															e-ng-disabled="
-																!project.enablePackage($data, beneficiary)">
+															e-ng-disabled="!project.enablePackage( beneficiary )">
 													{{ project.showPackageTypes($data, beneficiary) }}
 												</span>
 											</td>

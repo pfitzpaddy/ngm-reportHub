@@ -208,14 +208,25 @@ angular.module( 'ngmReportHub' )
         }];
       },
 
+      // mpc purpose
+      getMpcPurpose: function () {
+        return [
+            { cluster_id: 'eiewg', cluster: 'EiEWG', mpc_purpose_type_id: 'education', mpc_purpose_type_name: 'Education' },
+            { cluster_id: 'fsac', cluster: 'FSAC', mpc_purpose_type_id: 'food', mpc_purpose_type_name: 'Food' },
+            { cluster_id: 'esnfi', cluster: 'ESNFI', mpc_purpose_type_id: 'fuel_electricity', mpc_purpose_type_name: 'Fuel / Electricity' },
+            { cluster_id: 'health', cluster: 'Health', mpc_purpose_type_id: 'mpc_health', mpc_purpose_type_name: 'Health' },
+            { cluster_id: 'esnfi', cluster: 'ESNFI', mpc_purpose_type_id: 'rent', mpc_purpose_type_name: 'Rent' },
+            { cluster_id: 'esnfi', cluster: 'ESNFI', mpc_purpose_type_id: 'shelter', mpc_purpose_type_name: 'Shelter Construction' },
+            { cluster_id: 'esnfi', cluster: 'ESNFI', mpc_purpose_type_id: 'transport', mpc_purpose_type_name: 'Transport' },
+            { cluster_id: 'esnfi', cluster: 'ESNFI', mpc_purpose_type_id: 'nfi', mpc_purpose_type_name: 'NFI' },
+            { cluster_id: 'wash', cluster: 'WASH', mpc_purpose_type_id: 'wash', mpc_purpose_type_name: 'WASH' }
+          ];
+      },
+
       // mpc delivery
       getMpcDeliveryTypes: function() {
 
-        // food_for_asset_in_kind
-        // food_for_asset_cbt
-        // food_for_training_in_kind
-        // food_for_training_cbt
-
+        // types
         var types = [{
             activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
             mpc_delivery_type_id: 'hawala',
