@@ -82,6 +82,7 @@
 							        				e-name="admin2pcode"
 							        				e-form="locationform"
 							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2Select[$index]"
+							        				e-ng-change="project.siteTypeOnChange( $index, $data, location )"
 							        				e-ng-disabled="!location.admin1pcode"
 							        				e-required>
 							          {{ project.showAdmin2( $index, $data, location ) }}

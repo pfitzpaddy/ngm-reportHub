@@ -12,7 +12,6 @@
     <tr style="font-weight: 400">
       <td>Activity</td>
       <td>Description</td>
-      <td ng-if="project.showActivityStatusLabel()">Status</td>
       <td ng-if="project.showCash( $locationIndex )">Delivery</td>
       <td ng-if="project.showPackage( $locationIndex )">Package</td>
       <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">Category</td>
@@ -52,17 +51,6 @@
               e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.activity_descriptions | filter: { cluster_id: beneficiary.cluster_id, activity_type_id: beneficiary.activity_type_id }"
               e-ng-disabled="!beneficiary.activity_type_id">
           {{ project.showDescription($data, beneficiary) }}
-        </span>
-      </td>
-      <td ng-if="project.showActivityStatusLabel()">
-        <!-- editable activity_status from Project -->
-        <span e-form="rowform"
-              e-name="activity_status_id"
-              editable-select="beneficiary.activity_status_id"
-              e-placeholder="Select..."
-              e-ng-options="a_d.activity_status_id as a_d.activity_status_name for a_d in project.activity_status"
-              e-ng-disabled="!beneficiary.activity_description_id">
-          {{ project.showActivityStatus($data, beneficiary) }}
         </span>
       </td>
       <!-- show cash delivery -->

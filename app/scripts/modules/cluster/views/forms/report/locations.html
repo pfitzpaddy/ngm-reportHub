@@ -14,7 +14,6 @@
 			<ul class="collection with-header">
 				<li class="collection-header blue lighten-4">
 					<h5 class="report-panel-title">
-<!-- 						<i class="material-icons left">group</i><span class="beneficiary-count">{{ project.report | sumArrayofArraysByKeys:'locations':'beneficiaries':project.indicators:project.skip | number }}</span> Services for {{ project.titleFormat }} -->
 						<i class="material-icons left">group</i>{{ project.titleFormat }}
 					</h5>
 				</li>
@@ -29,7 +28,7 @@
 							<div class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
 	      					title="Edit {{ project.titleFormat }}"
 									ng-show="project.definition.project_status === 'active' &&
-														( project.report.report_year === project.reportingYear() || project.report.organization === 'EMERGENCY' ) &&
+														project.report.report_year === project.reportingYear() &&
 	      										project.report.report_status === 'complete'"
 
 	      					ng-click="project.save( false, false)">

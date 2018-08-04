@@ -71,7 +71,7 @@ angular.module( 'ngmReportHub' )
         return display;
       },
 
-      showTreatmentSameProvince: function ( $data, $beneficiary ) {
+      showTreatmentSameProvince: function( $data, $beneficiary ) {
         var selected = [{}];
         // will show blank for all activities except
         if ( $beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&

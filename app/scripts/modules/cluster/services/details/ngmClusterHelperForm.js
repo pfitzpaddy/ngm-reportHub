@@ -11,7 +11,7 @@ angular.module( 'ngmReportHub' )
 		return {
 
       // validate project type
-      project_details_valid: function ( project ) {
+      project_details_valid: function( project ) {
 
       	// valid
       	this.project_details_valid_labels = [];
@@ -37,7 +37,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // validate if ONE activity type
-      activity_type_valid: function ( project ) {
+      activity_type_valid: function( project ) {
         
         // valid
         this.activity_type_valid_labels = [];
@@ -52,7 +52,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // validate project donor
-      project_donor_valid: function ( project ) {
+      project_donor_valid: function( project ) {
 
       	// valid
       	this.project_donor_valid_labels = [];

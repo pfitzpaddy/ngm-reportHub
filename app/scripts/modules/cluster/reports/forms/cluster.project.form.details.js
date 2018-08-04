@@ -527,17 +527,17 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 
         // validate project type
-        project_details_valid: function () {
+        project_details_valid: function() {
           return ngmClusterHelperForm.project_details_valid( $scope.project.definition );
         },
 
         // validate if ONE activity type
-        activity_type_valid: function () {
+        activity_type_valid: function() {
           return ngmClusterHelperForm.activity_type_valid( $scope.project.definition );
         },
 
         // validate project donor
-        project_donor_valid: function () {
+        project_donor_valid: function() {
           return ngmClusterHelperForm.project_donor_valid( $scope.project.definition );
         },
 

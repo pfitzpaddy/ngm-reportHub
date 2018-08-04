@@ -172,7 +172,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // set org users for a project
-      setOrganizationUsers( lists, project ) {
+      setOrganizationUsers: function( lists, project ) {
         // set org
         $http({
           method: 'POST',
