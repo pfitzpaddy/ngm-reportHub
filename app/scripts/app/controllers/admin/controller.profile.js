@@ -65,12 +65,12 @@ angular.module('ngmReportHub')
 									style: $scope.dashboard.ngm.style,
 									user: user,
 						      formDisabled: function() {
-						        var disabled = false;
-						        if ( user.status !== 'active' &&
-						        			$scope.dashboard.user.username !== $scope.dashboard.username && 
-						        			( $scope.dashboard.user.roles.indexOf('ORG') === -1 ||
-						        				$scope.dashboard.user.roles.indexOf('SUPERADMIN') === -1 ) ) {
-						          disabled = true;
+						        var disabled = true;
+										if ( user.status === 'active' &&
+						        			( $scope.dashboard.username === $scope.dashboard.user.username ||
+						        			( $scope.dashboard.user.roles.indexOf('ORG') !== -1 ||
+						        				$scope.dashboard.user.roles.indexOf('SUPERADMIN') !== -1 ) ) ) {
+						          disabled = false;
 						        }
 						        return disabled;
 						      },
