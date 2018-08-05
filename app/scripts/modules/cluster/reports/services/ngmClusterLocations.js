@@ -6,7 +6,7 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterHelperTargetLocations', [ '$http', '$filter', '$timeout', 'ngmAuth', function( $http, $filter, $timeout, ngmAuth ) {
+	.factory( 'ngmClusterLocations', [ '$http', '$filter', '$timeout', 'ngmAuth', function( $http, $filter, $timeout, ngmAuth ) {
 
 		return {
       
@@ -66,8 +66,8 @@ angular.module( 'ngmReportHub' )
         if( target_location.username ) {
 
           // filter selection
-          selected = $filter('filter')( lists.users, { username: target_location.username }, true);
-          if ( selected.length ) {
+          selected = $filter('filter')( lists.users, { username: target_location.username }, true );
+          if ( selected && selected.length ) {
             var reporter = {
               name: selected[0].name,
               position: selected[0].position,

@@ -87,7 +87,7 @@
 										<span style="font-size:1.2rem;">
 											<i class="material-icons" style="padding-right:10px;">group</i></span>
 												<!-- filter in app/services/ngmHelper.js -->
-												{{ location | sumArrayofArraysByKeys:'beneficiaries':'trainings':project.indicators:project.skip | number }}
+												{{ location | sumArrayofArraysByKeys:'beneficiaries':'trainings':project.indicators:project.lists.skip | number }}
 									</div>
 								</div>
 

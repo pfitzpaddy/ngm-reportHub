@@ -6,9 +6,14 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterHelperForm', [ '$http', '$filter', 'ngmClusterHelperTargetBeneficiaries', 'ngmAuth', function( $http, $filter, ngmClusterHelperTargetBeneficiaries, ngmAuth ) {
+	.factory( 'ngmClusterHelperForm', [ '$http', '$filter', '$timeout', 'ngmClusterHelperTargetBeneficiaries', 'ngmAuth', function( $http, $filter, $timeout, ngmClusterHelperTargetBeneficiaries, ngmAuth ) {
 
 		return {
+
+      // update material_select
+      updateSelect: function(){
+        $timeout(function(){ $( 'select' ).material_select(); }, 0 );
+      },
 
       // validate project type
       project_details_valid: function( project ) {
