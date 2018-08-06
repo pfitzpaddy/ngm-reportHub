@@ -38,8 +38,6 @@
 							      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">Category</td>
 							      <td>Beneficiary</td>
 								 		<td ng-if="project.definition.admin0pcode === 'AF'">Population</td>
-								  <!-- <td ng-if="project.showSessions()">Sessions</td> -->
-								  <!-- <td ng-if="project.showCash()">Cash Amount ( {{ project.definition.project_budget_currency | uppercase }} )</td> -->
 										<td ng-if="project.showUnits()">Amount</td>
 										<td ng-if="project.showUnits()">Units</td>
 							      <td ng-if="project.showCash()">Transfers</td>
@@ -132,7 +130,8 @@
 							      </td>
 
 							      <!-- others -->
-							      <td ng-if="project.definition.admin0pcode !== 'AF' || (project.definition.admin0pcode === 'AF' && !project.categoryShow2017())">
+							      <td ng-if="project.definition.admin0pcode !== 'AF' || 
+							      						(project.definition.admin0pcode === 'AF' && !project.categoryShow2017())">
 							        <span e-form="rowform"
 							        			e-name="beneficiary_type_id"
 							        			editable-select="beneficiary.beneficiary_type_id"
@@ -340,43 +339,58 @@
 												{{ project.showTreatmentSameProvince( $data, beneficiary ) }}
 										</td>
 
-							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
+							      <td style="white-space: nowrap"
+							      			ng-show="project.definition.project_status !== 'complete'" >
 							        <!-- form -->
-							        <form editable-form name="rowform" ng-show="rowform.$visible" onbeforesave="project.saveBeneficiary()" class="form-buttons form-inline" shown="inserted == beneficiary">
-							          <button
-							          		title="Save" type="submit" class="btn waves-effect waves-light save"
-							          		ng-if="rowform.$visible && !project.newProject"
-							          		ng-disabled="
-							                  	( ( !project.project_details_valid() ) ||
-							                    ( !project.activity_type_valid() ) ||
-							                    ( !project.project_donor_valid() ) ||
-							                    ( !project.target_beneficiaries_valid() ) ||
-							                    ( !project.target_locations_valid() ) ||
-							                    ( !project.submit ) )">
+							        <form editable-form
+							        				name="rowform"
+							        				ng-show="rowform.$visible"
+							        				onbeforesave="project.saveBeneficiary()"
+							        				class="form-buttons form-inline"
+							        				shown="inserted == beneficiary">
+							          <button title="Save"
+									          			type="submit"
+									          			class="btn waves-effect waves-light save"
+									          			ng-if="rowform.$visible && !project.newProject"
+									          			ng-disabled="
+								                  	( ( !project.project_details_valid() ) ||
+								                    ( !project.activity_type_valid() ) ||
+								                    ( !project.project_donor_valid() ) ||
+								                    ( !project.target_beneficiaries_valid() ) ||
+								                    ( !project.target_locations_valid() ) ||
+								                    ( !project.submit ) )">
 									            <i class="material-icons">save</i>
 							          </button>
-							          <button type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); project.cancelEdit( 'target_beneficiaries', $index )" class="btn blue lighten-1 waves-effect waves-light" title="Cancel Edit">
+							          <button type="button"
+							          					ng-if="rowform.$visible"
+							          					ng-disabled="rowform.$waiting"
+							          					ng-click="rowform.$cancel(); project.cancelEdit( 'target_beneficiaries', $index )"
+							          					class="btn blue lighten-1 waves-effect waves-light"
+							          					title="Cancel Edit">
 													<i class="material-icons">clear</i>
 							          </button>
 							        </form>
 							        <div class="buttons" ng-if="!rowform.$visible">
-							          <button class="btn waves-effect waves-light" ng-click="rowform.$show()" title="Edit"
-															ng-disabled="
-							                  	( ( !project.project_details_valid() ) ||
-							                    ( !project.activity_type_valid() ) ||
-							                    ( !project.project_donor_valid() ) ||
-							                    ( !project.target_locations_valid() ) ||
-							                    ( !project.submit ) )">
+							          <button class="btn waves-effect waves-light"
+							          					ng-click="rowform.$show()" title="Edit"
+																	ng-disabled="
+								                  	( ( !project.project_details_valid() ) ||
+								                    ( !project.activity_type_valid() ) ||
+								                    ( !project.project_donor_valid() ) ||
+								                    ( !project.target_locations_valid() ) ||
+								                    ( !project.submit ) )">
 													<i class="material-icons">create</i>
 							          </button>
-							          <button class="btn red lighten-2 waves-effect waves-light" ng-click="project.removeBeneficiaryModal( $index )" title="Remove"
-							          			ng-disabled="
-							                  	( ( !project.project_details_valid() ) ||
-							                    ( !project.activity_type_valid() ) ||
-							                    ( !project.project_donor_valid() ) ||
-							                    ( !project.target_beneficiaries_valid() ) ||
-							                    ( !project.target_locations_valid() ) ||
-							                    ( !project.submit ) )">
+							          <button class="btn red lighten-2 waves-effect waves-light"
+							          					ng-click="project.removeTargetBeneficiaryModal( $index )" 
+							          					title="Remove"
+							          					ng-disabled="
+								                  	( ( !project.project_details_valid() ) ||
+								                    ( !project.activity_type_valid() ) ||
+								                    ( !project.project_donor_valid() ) ||
+								                    ( !project.target_beneficiaries_valid() ) ||
+								                    ( !project.target_locations_valid() ) ||
+								                    ( !project.submit ) )">
 							          	<i class="material-icons">delete</i>
 							          </button>
 							        </div>
@@ -385,7 +399,10 @@
 							    </tr>
 							  </table>
 
-							  <button class="btn" ng-show="project.definition.project_status !== 'complete'" ng-click="project.addBeneficiary()" style="margin:20px 0px;">
+							  <button class="btn"
+							  					ng-show="project.definition.project_status !== 'complete'"
+							  					ng-click="project.addBeneficiary()"
+							  					style="margin:20px 0px;">
 							  	<i class="material-icons left">add</i>Add Row
 							  </button>
 

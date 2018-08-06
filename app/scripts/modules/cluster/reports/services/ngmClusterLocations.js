@@ -64,7 +64,6 @@ angular.module( 'ngmReportHub' )
         var selected = [];
         target_location.username = $data;
         if( target_location.username ) {
-
           // filter selection
           selected = $filter('filter')( lists.users, { username: target_location.username }, true );
           if ( selected && selected.length ) {
@@ -78,7 +77,7 @@ angular.module( 'ngmReportHub' )
             angular.merge( target_location, reporter );
           }
         }
-        return selected.length ? selected[0].username : 'No Selection!';
+        return selected.length ? selected[0].username : '-';
       },
 
       // site implementation
@@ -107,7 +106,7 @@ angular.module( 'ngmReportHub' )
         }
 
         // return name
-        return selected.length ? selected[0].admin1name : 'No Selection!';
+        return selected.length ? selected[0].admin1name : '-';
       },
 
       // get sites

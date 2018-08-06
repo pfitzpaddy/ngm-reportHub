@@ -77,7 +77,7 @@ angular.module('ngm.widget.list', ['ngm.provider'])
         },
 
         // format date
-        titleFormat: function( date ) {
+        monthlyTitleFormat: function( date ) {
           // return moment
           return moment.utc( date ).format('MMMM, YYYY');
         },
@@ -121,7 +121,7 @@ angular.module('ngm.widget.list', ['ngm.provider'])
         // momentjs
         $scope.list.data.forEach( function( d, i ){
           // add this to assist display / filtering
-          $scope.list.data[i].reporting_period_title = $scope.list.titleFormat( d.reporting_period );
+          $scope.list.data[i].reporting_period_title = $scope.list.monthlyTitleFormat( d.reporting_period );
         });
       }
 

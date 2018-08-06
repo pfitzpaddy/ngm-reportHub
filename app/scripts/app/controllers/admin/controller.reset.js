@@ -36,7 +36,7 @@ angular.module('ngmReportHub')
 					style: 'border-bottom: 3px ' + $scope.dashboard.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
-					'class': 'col s12 m12 l12 report-title',
+					'class': 'col s12 m12 l12 report-title truncate',
 					style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 					title: 'Reset Password'
 				},

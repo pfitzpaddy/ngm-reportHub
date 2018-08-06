@@ -6,9 +6,114 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterHelper', [ '$location', '$q', '$http', '$filter', '$timeout', 'ngmAuth', function( $location, $q, $http, $filter, $timeout, ngmAuth ) {
+	.factory( 'ngmClusterHelper', 
+      [ '$location', 
+        '$q',
+        '$http',
+        '$filter',
+        '$timeout',
+        'ngmAuth',
+        'ngmClusterLists',
+        'ngmClusterLocations',
+    function( $location, $q, $http, $filter, $timeout, ngmAuth, ngmClusterLists, ngmClusterLocations ) {
 
-		return {
+		var ngmClusterHelper = {
+
+      // set form on load
+      setForm: function( project, lists ) {
+
+        // on page load
+        angular.element( document ).ready(function () {
+
+          // give a few seconds to render
+          $timeout(function() {
+
+            // add activity type check box list
+            if ( project.inter_cluster_activities ) {
+              project.inter_cluster_check = {};
+              angular.forEach( project.inter_cluster_activities, function( d, i ){
+                if ( d ){
+                  project.inter_cluster_check[ d.cluster_id ] = true;
+                }
+              });
+            }
+
+            // add activity type check box list
+            if ( project.activity_type ) {
+              project.activity_type_check = {};
+              angular.forEach( project.activity_type, function( d, i ){
+                if ( d ){
+                  project.activity_type_check[ d.activity_type_id ] = true;
+                }
+              });
+            }
+
+            // if Cash
+            if ( project.cluster_id === 'cvwg' ) {
+
+              // set only option to true
+              if ( !project.activity_type ) {
+                project.activity_type_check = {
+                  'cvwg_multi_purpose_cash': true
+                };
+              }
+
+              // compile activity type
+              ngmClusterHelper.compileActivityType( project, lists );
+              // add project donor check box list
+              if ( project.mpc_purpose ) {
+                project.mpc_purpose_check = {};
+                angular.forEach( project.mpc_purpose, function( d, i ){
+                  if ( d ){
+                    project.mpc_purpose_check[ d.mpc_purpose_type_id ] = true;
+                  }
+                });
+              }
+            }
+
+            // add project donor check box list
+            if ( project.mpc_delivery_type ) {
+              project.mpc_delivery_type_check = {};
+              angular.forEach( project.mpc_delivery_type, function( d, i ){
+                if ( d ){
+                  project.mpc_delivery_type_check[ d.delivery_type_id ] = true;
+                }
+              });
+            }
+
+            // add project donor check box list
+            if ( project.project_donor ) {
+              project.project_donor_check = {};
+              angular.forEach( project.project_donor, function( d, i ){
+                if ( d ){
+                  project.project_donor_check[ d.project_donor_id ] = true;
+                }
+              });
+            }
+
+            // add SOs check box list
+            if ( project.strategic_objectives ) {
+              project.strategic_objectives_check = {};
+              angular.forEach( project.strategic_objectives, function( d, i ){
+                if ( d ){
+                  project.strategic_objectives_check[ d.objective_type_id + ':' + (d.objective_year?d.objective_year:'') ] = true;
+                }
+              });
+            }
+
+            // fetch lists for project details
+            if ( project.id ) {
+              angular.forEach( project.target_locations, function( t, i ){
+                if ( t ){
+                  ngmClusterLocations.getAdminSites( lists, t );
+                }
+              });
+            }
+
+          }, 1000 );
+
+        });
+      },
 
       // get a new project
       getNewProject: function( user ) {
@@ -50,7 +155,7 @@ angular.module( 'ngmReportHub' )
         project = angular.merge( {}, u, project );
 
         // set hrp code
-        project.project_hrp_code = this.getProjectHrpCode( project );
+        project.project_hrp_code = ngmClusterHelper.getProjectHrpCode( project );
 
         // remove id of ngmUser to avoid conflict with new project
         delete project.id;
@@ -69,12 +174,6 @@ angular.module( 'ngmReportHub' )
                         moment().unix();
       },
 
-
-
-
-
-
-
       // update activities for an object ( update )
       updateActivities: function( project, update ){
 
@@ -87,11 +186,6 @@ angular.module( 'ngmReportHub' )
         //
         return update;
       },
-
-
-
-
-
 
       // compile cluster activities
       compileInterClusterActivities: function( project, lists ){
@@ -115,8 +209,8 @@ angular.module( 'ngmReportHub' )
             });
           }
         });
-        this.compileStrategicObjectives( project, lists );
-        this.compileActivityType( project, lists );
+        ngmClusterHelper.compileStrategicObjectives( project, lists );
+        ngmClusterHelper.compileActivityType( project, lists );
       },
 
       // strategic objectives
@@ -186,8 +280,8 @@ angular.module( 'ngmReportHub' )
       compileActivityType: function( project, lists ){
 
         // update
-        lists.activity_types = this.getActivities( project, true, true );
-        lists.activity_descriptions = this.getActivities( project, true, false );
+        lists.activity_types = ngmClusterLists.getActivities( project, true, true );
+        lists.activity_descriptions = ngmClusterLists.getActivities( project, true, false );
 
         // filter
         project.activity_type = [];
@@ -508,9 +602,10 @@ angular.module( 'ngmReportHub' )
         });
 
         return report;
-
       }
 
 		};
+
+    return ngmClusterHelper;
 
 	}]);

@@ -79,7 +79,7 @@ angular.module( 'ngmReportHub' )
 					style: 'border-bottom: 3px ' + $scope.report.ngm.style.defaultPrimaryColor + ' solid;'
 				},
 				title: {
-					'class': 'col s12 m9 l9 report-title',
+					'class': 'col s12 m9 l9 report-title truncate',
 					style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
 					title: $scope.report.title
 				},

@@ -28,7 +28,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
     'ngmAuth',
     'ngmData',
     'ngmClusterHelper',
-    'ngmClusterHelperForm',
+    'ngmClusterValidation',
     'config',
     function( $scope,
         $location,
@@ -41,7 +41,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
         ngmAuth,
         ngmData,
         ngmClusterHelper,
-        ngmClusterHelperForm,
+        ngmClusterValidation,
         config ){
 
       // project
@@ -123,7 +123,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
           }
 
           // update material_select
-          ngmClusterHelperForm.updateSelect();
+          ngmClusterValidation.updateSelect();
 
         },
 
@@ -141,7 +141,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
           $scope.report.options.warehouse = {};
 
           // update material select
-          ngmClusterHelperForm.updateSelect();
+          ngmClusterValidation.updateSelect();
 
           // Update Org with warehouse association
           ngmData.get($scope.report.setOrganization()).then( function( organization ){

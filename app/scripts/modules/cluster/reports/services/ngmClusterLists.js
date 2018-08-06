@@ -1,24 +1,23 @@
 /**
- * @name ngmReportHub.factory:ngmClusterHelper
+ * @name ngmReportHub.factory:ngmClusterLists
  * @description
- * # ngmClusterHelper
+ * # ngmClusterLists
  * Manages browser local storage
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterLists', [ '$http', '$filter', '$timeout', 'ngmClusterHelperTargetBeneficiaries', 'ngmAuth', function( $http, $filter, $timeout, ngmClusterHelperTargetBeneficiaries, ngmAuth ) {
+	.factory( 'ngmClusterLists', 
+      [ '$q',
+        '$http',
+        '$filter',
+        '$timeout',
+        'ngmAuth',
+    function( $q, $http, $filter, $timeout, ngmAuth ) {
 
 		var ngmClusterLists = {
-        
-      // yes / no lists
-      new_site: [{ new_site_id: 'yes', new_site_name: 'Yes' },{ new_site_id: 'no', new_site_name: 'No' }],
-      site_list_select: [{ site_list_select_id: 'yes', site_list_select_name: 'Yes'},{ site_list_select_id: 'no', site_list_select_name: 'No'}],
-      
-      // keys to ignore when summing beneficiaries in template ( 2016 )
-      skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ],
 
-      // set lists
-      setLists: function( project ) {
+      // lists ( project, mpc transfers )
+      setLists: function( project, transfers ) {
 
         return {
 
@@ -29,15 +28,35 @@ angular.module( 'ngmReportHub' )
           delivery_types: ngmClusterLists.getDeliveryTypes(),
           mpc_purpose: ngmClusterLists.getMpcPurpose(),
           mpc_delivery_types: ngmClusterLists.getMpcDeliveryTypes(),
-          transfers: ngmClusterLists.getTransfers( 30 ),
+          transfers: ngmClusterLists.getTransfers( transfers ),
           clusters: ngmClusterLists.getClusters( project.admin0pcode ),
           activity_types: ngmClusterLists.getActivities( project, true, true ),
           activity_descriptions: ngmClusterLists.getActivities( project, true, false ),
+          projectActivityTypes: ngmClusterLists.getProjectActivityTypes( project ),
           strategic_objectives: ngmClusterLists.getStrategicObjectives( project.admin0pcode, moment( project.project_start_date ).year(), moment( project.project_end_date ).year() ),
           category_types: ngmClusterLists.getCategoryTypes(),
           beneficiary_types: ngmClusterLists.getBeneficiaries( moment( project.project_end_date ).year(), project.admin0pcode, project.cluster_id ),
           currencies: ngmClusterLists.getCurrencies( project.admin0pcode ),
           donors: ngmClusterLists.getDonors( project.admin0pcode, project.cluster_id ),
+          // keys to ignore when summing beneficiaries in template ( 2016 )
+          skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ],
+
+          // training
+          trainee_affiliations: [{ trainee_affiliation_id: 'community', trainee_affiliation_name: 'Community' },
+                                    { trainee_affiliation_id: 'moh', trainee_affiliation_name: 'MoH' },
+                                    { trainee_affiliation_id: 'private', trainee_affiliation_name: 'Private' },
+                                    { trainee_affiliation_id: 'local_ngo', trainee_affiliation_name: 'Local NGO' },
+                                    { trainee_affiliation_id: 'international_ngo', trainee_affiliation_name: 'International NGO' }],
+          trainee_health_workers: [{ trainee_health_worker_id: 'doctors', trainee_health_worker_name: 'Doctors' },
+                                    { trainee_health_worker_id: 'nurses', trainee_health_worker_name: 'Nurses' },
+                                    { trainee_health_worker_id: 'midwives', trainee_health_worker_name: 'Midwives' },
+                                    { trainee_health_worker_id: 'pharmacists', trainee_health_worker_name: 'Pharmacists' },
+                                    { trainee_health_worker_id: 'health_officers', trainee_health_worker_name: 'Health Officers' },
+                                    { trainee_health_worker_id: 'laboratory_technologists_technicians', trainee_health_worker_name: 'Laboratory Technologists / Technicians' },
+                                    { trainee_health_worker_id: 'community_health_workers', trainee_health_worker_name: 'Community Health Workers' },
+                                    { trainee_health_worker_id: 'community_health_volunteers', trainee_health_worker_name: 'Community Health Volunteers' },
+                                    { trainee_health_worker_id: 'health_extension_workers', trainee_health_worker_name: 'Health Extension Workers' },
+                                    { trainee_health_worker_id: 'environmental_health_workers', trainee_health_worker_name: 'Environmental Health Workers' }],
           
           // lists on load
           admin1: localStorage.getObject( 'lists' ).admin1List,
@@ -49,15 +68,15 @@ angular.module( 'ngmReportHub' )
           admin2Select: [],
           admin3Select: [],
           adminSitesSelect: [],
-          site_list_select: ngmClusterLists.site_list_select,
           site_implementation: ngmClusterLists.getSiteImplementation( project.admin0pcode, project.cluster_id ),
           site_type: ngmClusterLists.getSiteTypes( project.cluster_id, project.admin0pcode ),
+          site_list_select: [{ site_list_select_id: 'yes', site_list_select_name: 'Yes'},{ site_list_select_id: 'no', site_list_select_name: 'No'}],
 
           // eiewg
           schools:[],
           hub_schools: [],
           hub_sites: [],
-          new_site: ngmClusterLists.new_site
+          new_site: [{ new_site_id: 'yes', new_site_name: 'Yes' },{ new_site_id: 'no', new_site_name: 'No' }]
 
         }
       },
@@ -426,15 +445,47 @@ angular.module( 'ngmReportHub' )
           });
         }
 
-        // filter for unique activity type
+        // filter for unique activity_type (else no filter for all activity_descriptions)
         if ( filterDuplicates ) {
           // filter duplicates
           activities = ngmClusterLists.filterDuplicates( activities, 'activity_type_id' );
+        } else {
+          // EMERGENCY need this for their internal donor reporting!
+          if ( project.organization === "EMERGENCY" ) {
+           activities.unshift(
+               { activity_description_id : "fatp_stabilization",
+                 activity_description_name : "FATP - Stabilization ( Conflict )",
+                 activity_type_id :  "trauma_care",
+                 activity_type_name : "Trauma Care",
+                 admin0pcode : "AF",
+                 cluster : "Health",
+                 cluster_id : "health"
+             },{ activity_description_id : "fatp_stabilization_civilian",
+                 activity_description_name : "FATP - Stabilization ( Civilian )",
+                 activity_type_id :  "trauma_care",
+                 activity_type_name : "Trauma Care",
+                 admin0pcode : "AF",
+                 cluster : "Health",
+                 cluster_id : "health"
+             });
+          }
         }
 
         // return
         return activities;
 
+      },
+
+      // get activities
+      getProjectActivityTypes: function( project ){
+        var activity_types = [];
+        if ( project && project.activity_type && project.activity_type.length ) {
+          activity_types = project.activity_type;
+          if ( project.admin0pcode === 'ET' ) {
+            activity_types = $filter('filter')( project.activity_type, { activity_type_id: '!training_capacity_building' }, true );
+          }
+        }
+        return activity_types;
       },
 
       // get cluster donors

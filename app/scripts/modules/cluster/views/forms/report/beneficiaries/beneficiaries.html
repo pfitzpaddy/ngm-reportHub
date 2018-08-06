@@ -38,7 +38,7 @@
               e-name="activity_type_id"
               editable-select="beneficiary.activity_type_id"
               e-placeholder="Select..."
-              e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.getActivityTypes()">
+              e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.lists.projectActivityTypes">
           {{ project.showActivity($data, beneficiary) }}
         </span>
       </td>
@@ -48,7 +48,7 @@
               e-name="activity_description_id"
               editable-select="beneficiary.activity_description_id"
               e-placeholder="Select..."
-              e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.activity_descriptions | filter: { cluster_id: beneficiary.cluster_id, activity_type_id: beneficiary.activity_type_id }"
+              e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.lists.activity_descriptions | filter: { cluster_id: beneficiary.cluster_id, activity_type_id: beneficiary.activity_type_id }"
               e-ng-disabled="!beneficiary.activity_type_id">
           {{ project.showDescription($data, beneficiary) }}
         </span>
@@ -77,8 +77,8 @@
                 e-placeholder="Select..."
                 e-ng-options="s.package_type_id as s.package_type_name for s in [{'package_type_id':'standard', 'package_type_name':'Standard'},{'package_type_id':'non-standard', 'package_type_name':'Non-standard'}]"
                 e-ng-disabled="
-                  !project.enablePackage($data, beneficiary)">
-            {{ project.showPackageTypes($data, beneficiary) }}
+                  !project.enablePackage( beneficiary )">
+            {{ project.showPackageTypes( $data, beneficiary ) }}
           </span>
         </td>
 
@@ -88,7 +88,7 @@
               e-name="category_type_id"
               editable-select="beneficiary.category_type_id"
               e-placeholder="Select..."
-              e-ng-options="b.category_type_id as b.category_type_name for b in project.category_types | filter:{ cluster_id: beneficiary.cluster_id }"
+              e-ng-options="b.category_type_id as b.category_type_name for b in project.lists.category_types | filter:{ cluster_id: beneficiary.cluster_id }"
               e-ng-disabled="!beneficiary.activity_description_id">
           {{ project.showCategory($data, beneficiary) }}
         </span>
@@ -99,7 +99,7 @@
               e-name="beneficiary_type_id"
               editable-select="beneficiary.beneficiary_type_id"
               e-placeholder="Select..."
-              e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.beneficiary_types | filter: { category_type_id: beneficiary.category_type_id, cluster_id: beneficiary.cluster_id }"
+              e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types | filter: { category_type_id: beneficiary.category_type_id, cluster_id: beneficiary.cluster_id }"
               e-ng-disabled="!beneficiary.activity_description_id || !beneficiary.category_type_id">
           {{ project.showBeneficiary($data, beneficiary) }}
         </span>
@@ -110,7 +110,7 @@
               e-name="beneficiary_type_id"
               editable-select="beneficiary.beneficiary_type_id"
               e-placeholder="Select..."
-              e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.beneficiary_types | filter: { cluster_id: beneficiary.cluster_id }"
+              e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types | filter: { cluster_id: beneficiary.cluster_id }"
               e-ng-disabled="!beneficiary.activity_description_id">
           {{ project.showBeneficiary($data, beneficiary) }}
         </span>
@@ -126,19 +126,7 @@
           {{ project.showDelivery($data, beneficiary) }}
         </span>
       </td>
-
-      <td ng-show="false">
-        <!-- editable number -->
-        <span e-form="rowform"
-              e-name="sessions"
-              editable-number="beneficiary.sessions"
-              e-min="0"
-              e-ng-change="project.updateInput( $locationIndex, $index, 'sessions', $data )"
-              e-ng-disabled="project.rowSessionsDisabled( beneficiary )"
-              e-required>
-          {{ beneficiary.sessions }}
-        </span>
-      </td>
+      
       <td ng-show="false">
         <!-- editable number -->
         <span e-form="rowform" e-name="cash_amount"
@@ -335,22 +323,44 @@
           {{ project.showTreatmentSameProvince($data, beneficiary) }}
 			</td>
 
-      <td style="white-space: nowrap" ng-show="project.report.report_status !== 'complete'">
+      <td style="white-space: nowrap"
+          ng-show="project.report.report_status !== 'complete'">
         <!-- form -->
-        <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" onbeforesave="project.save( false, false )" class="form-buttons form-inline" shown="inserted == beneficiary">
-          <button type="submit" ng-if="rowform.$visible" ng-disabled="!project.formComplete()" class="btn btn-small waves-effect waves-light save" title="Save">
+        <form editable-form name="rowform"
+                onshow="project.keydownSaveForm()"
+                ng-show="rowform.$visible"
+                onbeforesave="project.save( false, false )"
+                class="form-buttons form-inline"
+                shown="inserted == beneficiary">
+          <button type="submit"
+                    ng-if="rowform.$visible"
+                    ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
+                                  !ngmClusterTrainings.trainingFormComplete( project.report.locations )"
+                    class="btn btn-small waves-effect waves-light save"
+                    title="Save">
             <i class="material-icons">save</i>
           </button>
-          <div type="button" ng-if="rowform.$visible" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); project.cancelEdit( $locationIndex, $index )" " class="btn btn-small blue lighten-1 waves-effect waves-light" title="Cancel Edit">
+          <div type="button"
+                ng-if="rowform.$visible"
+                ng-disabled="rowform.$waiting"
+                ng-click="rowform.$cancel(); project.cancelEdit( $locationIndex, $index )"
+                class="btn btn-small blue lighten-1 waves-effect waves-light"
+                title="Cancel Edit">
 						<i class="material-icons">clear</i>
           </div>
         </form>
-        <div class="buttons" ng-if="!rowform.$visible">
-          <div class="btn btn-small waves-effect waves-light" ng-click="rowform.$show()" title="Edit">
+        <div class="buttons"
+              ng-if="!rowform.$visible">
+          <div class="btn btn-small waves-effect waves-light"
+                ng-click="rowform.$show()"
+                title="Edit">
 						<i class="material-icons">create</i>
           </div>
-          <div class="btn btn-small red lighten-2 waves-effect waves-light" ng-click="project.removeBeneficiaryModal( $locationIndex, $index )" title="Remove"
-              ng-disabled="!project.formComplete()">
+          <div class="btn btn-small red lighten-2 waves-effect waves-light"
+                ng-click="project.removeBeneficiaryModal( $locationIndex, $index )"
+                title="Remove"
+                ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
+                              !ngmClusterTrainings.trainingFormComplete( project.report.locations  )">
           	<i class="material-icons">delete</i>
           </div>
         </div>

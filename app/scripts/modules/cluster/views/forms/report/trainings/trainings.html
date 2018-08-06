@@ -12,7 +12,9 @@
 </style>
 
 <div style="padding-left: 20px;">
-  <table class="bordered responsive-table" style="margin-bottom:10px;" ng-show="project.report.locations[$locationIndex].trainings.length">
+  <table class="bordered responsive-table" 
+          style="margin-bottom:10px;"
+          ng-show="project.report.locations[$locationIndex].trainings.length">
     <tr style="font-weight: 400">
       <td width="20%">Training Subject</td>
       <td width="30%">Training Topics</td>
@@ -22,15 +24,23 @@
       <td width="15%">Supported By</td>
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
-    <tr> <!-- ng-repeat="training in project.report.locations[$locationIndex].trainings" ng-init="$trainingIndex=$index"> -->
+    <tr>
       <td>
-        <span e-id="training_title" editable-text="training.training_title" e-name="training_title" e-form="trainingRowform" e-required>
-          {{ project.showTrainingTitle( $data, training ) }}
+        <span e-id="training_title"
+                editable-text="training.training_title"
+                e-name="training_title"
+                e-form="trainingRowform"
+                e-required>
+          {{ ngmClusterTrainings.showTrainingTitle( $data, training ) }}
         </span>
       </td>
       <td>
-        <span e-id="training_topics" editable-textarea="training.training_topics" e-name="training_topics" e-form="trainingRowform" e-required>
-          {{ project.showTrainingTopics( $data, training ) }}
+        <span e-id="training_topics_{{ $locationIndex }}{{ $trainingIndex }}"
+                editable-textarea="training.training_topics"
+                e-name="training_topics"
+                e-form="trainingRowform"
+                e-required>
+          {{ ngmClusterTrainings.showTrainingTopics( $data, training ) }}
         </span>
       </td>
       <td>
@@ -43,8 +53,11 @@
               ng-model="training.training_start_date"
               format="dd mmm, yyyy"
               max="{{ training.training_end_date }}"
-              on-close="project.datepicker.startOnClose( $locationIndex, $trainingIndex, training.training_start_date )"
-              ng-disabled="project.definition.project_status === 'complete'"/>
+              on-close="project.datepicker.startOnClose( 
+                              project.report.locations[ $locationIndex ].trainings[ $trainingIndex ],
+                              training.training_start_date )"
+              ng-disabled="project.definition.project_status === 'complete'"
+              e-required/>
         </div>
       </td>
       <td>
@@ -57,43 +70,70 @@
               ng-model="training.training_end_date"
               format="dd mmm, yyyy"
               min="{{ training.training_start_date }}"
-              on-close="project.datepicker.endOnClose( $locationIndex, $trainingIndex, training.training_end_date )"
-              ng-disabled="project.definition.project_status === 'complete'"/>
+              on-close="project.datepicker.endOnClose( 
+                              project.report.locations[ $locationIndex ].trainings[ $trainingIndex ],
+                              training.training_end_date )"
+              ng-disabled="project.definition.project_status === 'complete'"
+              e-required/>
         </div>
       </td>
       <td>
-        <span editable-text="training.training_conducted_by" e-name="training_conducted_by" e-form="trainingRowform" e-required>
-          {{ project.showTrainingConductedBy( $data, training ) }}
+        <span editable-text="training.training_conducted_by"
+                e-name="training_conducted_by"
+                e-form="trainingRowform"
+                e-required>
+          {{ ngmClusterTrainings.showTrainingConductedBy( $data, training ) }}
         </span>
       </td>
       <td>
-        <span editable-text="training.training_supported_by" e-name="training_supported_by" e-form="trainingRowform" e-required>
-          {{ project.showTrainingSupportedBy( $data, training ) }}
+        <span editable-text="training.training_supported_by"
+                e-name="training_supported_by"
+                e-form="trainingRowform"
+                e-required>
+          {{ ngmClusterTrainings.showTrainingSupportedBy( $data, training ) }}
         </span>
       </td>
 
       <td style="white-space: nowrap" ng-show="project.report.report_status !== 'complete'">
         <!-- form -->
-        <form editable-form name="trainingRowform" onshow="project.keydownSaveForm()" ng-show="trainingRowform.$visible" onbeforesave="project.save( false, false )" class="form-buttons form-inline" shown="trainingInserted === training">
-          <button type="submit" ng-if="trainingRowform.$visible" ng-disabled="!project.formComplete() && !trainingRowform.$valid && !participantsRowform.$valid" class="btn btn-small waves-effect waves-light save" title="Save">
+        <form editable-form
+                name="trainingRowform"
+                onshow="project.keydownSaveForm()"
+                ng-show="trainingRowform.$visible"
+                onbeforesave="project.save( false, false )"
+                class="form-buttons form-inline"
+                shown="trainingInserted === training">
+          <button type="submit"
+                    ng-if="trainingRowform.$visible"
+                    ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
+                                  !ngmClusterTrainings.trainingFormComplete( project.report.locations )"
+                    class="btn btn-small waves-effect waves-light save"
+                    title="Save">
             <i class="material-icons">save</i>
           </button>
-<!--           <div type="button" ng-if="trainingRowform.$visible" ng-disabled="trainingRowform.$waiting" ng-click="project.addParticipant( $locationIndex, $trainingIndex )" class="btn btn-small cyan darken-2 waves-effect waves-light" title="Add Trainee">
-            <i class="material-icons right">group</i>+
-          </div> -->
-          <div type="button" ng-if="trainingRowform.$visible" ng-disabled="trainingRowform.$waiting" ng-click="trainingRowform.$cancel(); project.cancelTrainingEdit( $locationIndex, $trainingIndex )" " class="btn btn-small blue lighten-1 waves-effect waves-light" title="Cancel Edit">
+          <div type="button"
+                ng-if="trainingRowform.$visible"
+                  ng-disabled="trainingRowform.$waiting"
+                  ng-click="trainingRowform.$cancel();
+                              project.cancelTrainingEdit( project.report.locations[ $locationIndex ], $trainingIndex )"
+                  class="btn btn-small blue lighten-1 waves-effect waves-light"
+                  title="Cancel Edit">
             <i class="material-icons">clear</i>
           </div>
         </form>
-        <div class="buttons" ng-if="!trainingRowform.$visible">
-          <div class="btn btn-small waves-effect waves-light" ng-click="trainingRowform.$show(); project.editTraining();" title="Edit">
+        <div class="buttons"
+              ng-if="!trainingRowform.$visible">
+          <div class="btn btn-small waves-effect waves-light"
+                ng-click="trainingRowform.$show();"
+                title="Edit">
             <i class="material-icons">create</i>
           </div>
-<!--           <div type="button" ng-if="!trainingRowform.$visible" ng-disabled="participantsRowform.$waiting" ng-click="project.addParticipant( $locationIndex, $trainingIndex )" class="btn btn-small cyan darken-2 waves-effect waves-light" title="Add Trainee">
-            <i class="material-icons right">group</i>+
-          </div> -->
-          <div class="btn btn-small red lighten-2 waves-effect waves-light" ng-click="project.removeTrainingModal( $locationIndex, $trainingIndex )" title="Remove"
-              ng-disabled="!project.formComplete() && !trainingRowform.$valid && !participantsRowform.$valid">
+          <div class="btn btn-small red lighten-2 waves-effect waves-light"
+                ng-click="ngmClusterTrainings.removeTrainingModal( project, project.report.locations[ $locationIndex ].trainings, 
+                                                                  $locationIndex, $trainingIndex )"
+                title="Remove"
+                ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
+                              !ngmClusterTrainings.trainingFormComplete( project.report.locations )">
             <i class="material-icons">delete</i>
           </div>
         </div>
@@ -102,7 +142,7 @@
   </table>
 
   <!-- participants -->
-  <div class="slide-animate" ng-include="project.templatesUrl + project.training_participantsUrl"></div>
+  <div class="slide-animate" ng-include="project.templatesUrl + ngmClusterTrainings.training_participantsUrl"></div>
 
 </div>
 

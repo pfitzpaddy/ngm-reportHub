@@ -27,14 +27,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
     'ngmUser',
     'ngmAuth',
     'ngmData',
-    'ngmClusterLists',
-    'ngmClusterLocations',
-
-
     'ngmClusterHelper',
+    'ngmClusterLists',
+    'ngmClusterBeneficiaries',
+    'ngmClusterLocations',
+    'ngmClusterValidation',
     'ngmClusterHelperAf',
-    'ngmClusterHelperForm',
-    'ngmClusterHelperTargetBeneficiaries',
     'config',
     function( 
         $scope, 
@@ -47,14 +45,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         ngmUser,
         ngmAuth,
         ngmData,
-        ngmClusterLists,
-        ngmClusterLocations,
-
-
         ngmClusterHelper,
+        ngmClusterLists,
+        ngmClusterBeneficiaries,
+        ngmClusterLocations,
+        ngmClusterValidation,
         ngmClusterHelperAf,
-        ngmClusterHelperForm,
-        ngmClusterHelperTargetBeneficiaries,
         config ){
 
       // project
@@ -67,7 +63,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         newProject: $route.current.params.project === 'new' ? true : false,
         definition: config.project,
         updatedAt: moment( config.project.updatedAt ).format('DD MMMM, YYYY @ h:mm:ss a'),
-        lists: ngmClusterLists.setLists(config.project),
+
+        // lists ( project, mpc transfers )
+        lists: ngmClusterLists.setLists( config.project, 30 ),
         
         // datepicker
         datepicker: {
@@ -89,6 +87,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         /**** TEMPLATES ****/
 
+        // url
         templatesUrl: '/scripts/modules/cluster/views/forms/details/',
         // details
         detailsUrl: 'details.html',
@@ -102,107 +101,15 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 
         // init lists
-        init() {
-
+        init: function() {
           // usd default currency
           if( !$scope.project.definition.project_budget_currency ){
             $scope.project.definition.project_budget_currency = 'usd';
           }
-
           // set org users
           ngmClusterLists.setOrganizationUsersList( $scope.project.lists, config.project );
-
-          // on page load
-          angular.element( document ).ready(function () {
-
-            // give a few seconds to render
-            $timeout(function() {
-
-              // add activity type check box list
-              if ( $scope.project.definition.inter_cluster_activities ) {
-                $scope.project.definition.inter_cluster_check = {};
-                angular.forEach( $scope.project.definition.inter_cluster_activities, function( d, i ){
-                  if ( d ){
-                    $scope.project.definition.inter_cluster_check[ d.cluster_id ] = true;
-                  }
-                });
-              }
-
-              // add activity type check box list
-              if ( $scope.project.definition.activity_type ) {
-                $scope.project.definition.activity_type_check = {};
-                angular.forEach( $scope.project.definition.activity_type, function( d, i ){
-                  if ( d ){
-                    $scope.project.definition.activity_type_check[ d.activity_type_id ] = true;
-                  }
-                });
-              }
-
-              // if Cash
-              if ( $scope.project.definition.cluster_id === 'cvwg' ) {
-
-                // set only option to true
-                if ( !$scope.project.definition.activity_type ) {
-                  $scope.project.definition.activity_type_check = {
-                    'cvwg_multi_purpose_cash': true
-                  };
-                }
-                // compile activity type
-                $scope.project.compileActivityType();
-                // add project donor check box list
-                if ( $scope.project.definition.mpc_purpose ) {
-                  $scope.project.definition.mpc_purpose_check = {};
-                  angular.forEach( $scope.project.definition.mpc_purpose, function( d, i ){
-                    if ( d ){
-                      $scope.project.definition.mpc_purpose_check[ d.mpc_purpose_type_id ] = true;
-                    }
-                  });
-                }
-              }
-
-              // add project donor check box list
-              if ( $scope.project.definition.mpc_delivery_type ) {
-                $scope.project.definition.mpc_delivery_type_check = {};
-                angular.forEach( $scope.project.definition.mpc_delivery_type, function( d, i ){
-                  if ( d ){
-                    $scope.project.definition.mpc_delivery_type_check[ d.delivery_type_id ] = true;
-                  }
-                });
-              }
-
-              // add project donor check box list
-              if ( $scope.project.definition.project_donor ) {
-                $scope.project.definition.project_donor_check = {};
-                angular.forEach( $scope.project.definition.project_donor, function( d, i ){
-                  if ( d ){
-                    $scope.project.definition.project_donor_check[ d.project_donor_id ] = true;
-                  }
-                });
-              }
-
-              // add SOs check box list
-              if ( $scope.project.definition.strategic_objectives ) {
-                $scope.project.definition.strategic_objectives_check = {};
-                angular.forEach( $scope.project.definition.strategic_objectives, function( d, i ){
-                  if ( d ){
-                    $scope.project.definition.strategic_objectives_check[ d.objective_type_id + ':' + (d.objective_year?d.objective_year:'') ] = true;
-                  }
-                });
-              }
-
-              // fetch lists for project details
-              if ( $scope.project.definition.id ) {
-                angular.forEach( $scope.project.definition.target_locations, function( t, i ){
-                  if ( t ){
-                    $scope.project.getAdminSites( t );
-                  }
-                });
-              }
-
-            }, 1000 );
-
-          });
-
+          // set form on page load
+          ngmClusterHelper.setForm( $scope.project.definition, $scope.project.lists );
         },
 
         // cofirm exit if changes
@@ -219,15 +126,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             var msg = $scope.project.definition.project_status === 'new' ? 'Create Project Cancelled!' : 'Project Update Cancelled!';
             // redirect + msg
             $location.path( path );
-            $timeout(function() { Materialize.toast( msg, 3000, 'note' ); }, 400 );
+            $timeout( function() { Materialize.toast( msg, 3000, 'note' ); }, 400 );
           }, 400 );
-        },
-
-        // remove from array if no id
-        cancelEdit: function( key, $index ) {
-          if ( !$scope.project.definition[ key ][ $index ].id ) {
-            $scope.project.definition[ key ].splice( $index, 1 );
-          }
         },
 
         // set new project user
@@ -283,9 +183,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return moment()<moment('2018-02-01')
         },
 
-        // injury sustained same province field
+        // injury sustained same province as field hospital
         showFatpTreatmentSameProvince: function(){
-          return ngmClusterHelperAf.showFatpTreatmentSameProvince( $scope.project.definition );
+          return ngmClusterHelperAf.showFatpTreatmentSameProvince( $scope.project.definition.target_beneficiaries );
         },
 
         // treatment same province
@@ -330,121 +230,121 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // add beneficiary
         addBeneficiary: function() {
-          $scope.inserted = ngmClusterHelperTargetBeneficiaries.addBeneficiary( $scope.project.definition.target_beneficiaries );
+          $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.definition.target_beneficiaries );
           $scope.project.definition.target_beneficiaries.push( $scope.inserted );
         },
 
         // remove beneficiary from list
-        removeBeneficiaryModal: function( $index ) {
+        removeTargetBeneficiaryModal: function( $index ) {
           $scope.project.beneficiaryIndex = $index;
           $( '#beneficiary-modal' ).openModal({ dismissible: false });
         },
 
         // remove beneficiary from db
-        removeBeneficiary: function() {
+        removeTargetBeneficiary: function() {
           var id = $scope.project.definition.target_beneficiaries[ $scope.project.beneficiaryIndex ].id;
           $scope.project.definition.target_beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
-          ngmClusterHelperTargetBeneficiaries.removeBeneficiary( id );
+          ngmClusterBeneficiaries.removeTargetBeneficiary( id );
         },
 
         // activity
         showActivity: function( $data, $beneficiary ) {
-          return ngmClusterHelperTargetBeneficiaries.showActivity( $scope.project.definition, $data, $beneficiary );
+          return ngmClusterBeneficiaries.showActivity( $scope.project.definition, $data, $beneficiary );
         },
 
         // description
         showDescription: function( $data, $beneficiary ) {
-          return ngmClusterHelperTargetBeneficiaries.showDescription( $scope.project.lists, $data, $beneficiary );
+          return ngmClusterBeneficiaries.showDescription( $scope.project.lists, $data, $beneficiary );
         },
 
         // cash delivery
         showCashDelivery: function( $data, $beneficiary ) {
-          return ngmClusterHelperTargetBeneficiaries.showCashDelivery( $scope.project.lists, $data, $beneficiary );
+          return ngmClusterBeneficiaries.showCashDelivery( $scope.project.lists, $data, $beneficiary );
         },
 
         // package types
         showPackageTypes: function( $data, $beneficiary ) {
-          return ngmClusterHelperTargetBeneficiaries.showPackageTypes( $data, $beneficiary );
+          return ngmClusterBeneficiaries.showPackageTypes( $data, $beneficiary );
         },
 
         // category
         showCategory: function( $data, $beneficiary ) {
-          return ngmClusterHelperTargetBeneficiaries.showCategory( $scope.project.lists, $data, $beneficiary );
+          return ngmClusterBeneficiaries.showCategory( $scope.project.lists, $data, $beneficiary );
         },
 
         // beneficiary
         showBeneficiary: function( $data, $beneficiary ) {
-          return ngmClusterHelperTargetBeneficiaries.showBeneficiary( $scope.project.lists, $data, $beneficiary );
+          return ngmClusterBeneficiaries.showBeneficiary( $scope.project.lists, $data, $beneficiary );
         },
 
         // delivery
         showDelivery: function( $data, $beneficiary ) {
-          return ngmClusterHelperTargetBeneficiaries.showDelivery( $scope.project.lists, $data, $beneficiary );
+          return ngmClusterBeneficiaries.showDelivery( $scope.project.lists, $data, $beneficiary );
         },
 
         // cash
         showCash: function() {
-          return ngmClusterHelperTargetBeneficiaries.showCash( $scope.project.definition );
+          return ngmClusterBeneficiaries.showCash( $scope.project.definition.target_beneficiaries );
         },
 
-        // package
+        // show package
         showPackage: function() {
-          return ngmClusterHelperTargetBeneficiaries.showPackage( $scope.project.definition );
+          return ngmClusterBeneficiaries.showPackage( $scope.project.definition.target_beneficiaries );
         },
 
-         // package
+         // enable package
         enablePackage: function( beneficiary ) {
-          return ngmClusterHelperTargetBeneficiaries.enablePackage( beneficiary );
+          return ngmClusterBeneficiaries.enablePackage( beneficiary );
         },
 
         // units
         showUnits: function(){
-          return ngmClusterHelperTargetBeneficiaries.showUnits( $scope.project.definition );
+          return ngmClusterBeneficiaries.showUnits( $scope.project.definition.target_beneficiaries );
         },
 
         // unit type
         showUnitTypes: function( $data, $beneficiary ){
-          return ngmClusterHelperTargetBeneficiaries.showUnitTypes( $scope.project.lists, $data, $beneficiary );
+          return ngmClusterBeneficiaries.showUnitTypes( $scope.project.lists, $data, $beneficiary );
         },
 
         // transfer type
         showTransferTypes: function( $data, $beneficiary ){
-          return ngmClusterHelperTargetBeneficiaries.showTransferTypes( $scope.project.lists, $data, $beneficiary );
+          return ngmClusterBeneficiaries.showTransferTypes( $scope.project.lists, $data, $beneficiary );
         },
 
         // hhs
         showHouseholds: function(){
-          return ngmClusterHelperTargetBeneficiaries.showHouseholds( $scope.project.definition );
+          return ngmClusterBeneficiaries.showHouseholds( $scope.project.definition.target_beneficiaries );
         },
 
         // families
         showFamilies: function(){
-          return ngmClusterHelperTargetBeneficiaries.showFamilies( $scope.project.definition );
+          return ngmClusterBeneficiaries.showFamilies( $scope.project.definition.target_beneficiaries );
         },
 
         // men
         showMen: function(){
-          return ngmClusterHelperTargetBeneficiaries.showMen( $scope.project.definition );
+          return ngmClusterBeneficiaries.showMen( $scope.project.definition.target_beneficiaries );
         },
 
         // women
         showWomen: function(){
-          return ngmClusterHelperTargetBeneficiaries.showWomen( $scope.project.definition );
+          return ngmClusterBeneficiaries.showWomen( $scope.project.definition.target_beneficiaries );
         },
 
         // eld men
         showEldMen: function(){
-          return ngmClusterHelperTargetBeneficiaries.showEldMen( $scope.project.definition );
+          return ngmClusterBeneficiaries.showEldMen( $scope.project.definition.target_beneficiaries );
         },
 
         // eld women
         showEldWomen: function(){
-          return ngmClusterHelperTargetBeneficiaries.showEldWomen( $scope.project.definition );
+          return ngmClusterBeneficiaries.showEldWomen( $scope.project.definition.target_beneficiaries );
         },
 
         // disable save form
         rowSaveDisabled: function( $data ){
-          return ngmClusterHelperTargetBeneficiaries.rowSaveDisabled( $data );
+          return ngmClusterBeneficiaries.rowSaveDisabled( $scope.project.definition, $data );
         },
 
         // save beneficiary
@@ -547,6 +447,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
 
+        /**** CANCEL EDIT ( beneficiaries or locations ) ****/
+
+        // remove from array if no id
+        cancelEdit: function( key, $index ) {
+          if ( !$scope.project.definition[ key ][ $index ].id ) {
+            $scope.project.definition[ key ].splice( $index, 1 );
+          }
+        },
+
+
         /**** CLUSTER HELPER ( ngmClusterHelper.js ) ****/
 
         // compile cluster activities
@@ -570,36 +480,36 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
 
-        /**** FORM ( ngmClusterHelperForm.js ) ****/
+        /**** FORM ( ngmClusterValidation.js ) ****/
 
         // validate project type
         project_details_valid: function() {
-          return ngmClusterHelperForm.project_details_valid( $scope.project.definition );
+          return ngmClusterValidation.project_details_valid( $scope.project.definition );
         },
 
         // validate if ONE activity type
         activity_type_valid: function() {
-          return ngmClusterHelperForm.activity_type_valid( $scope.project.definition );
+          return ngmClusterValidation.activity_type_valid( $scope.project.definition );
         },
 
         // validate project donor
         project_donor_valid: function() {
-          return ngmClusterHelperForm.project_donor_valid( $scope.project.definition );
+          return ngmClusterValidation.project_donor_valid( $scope.project.definition );
         },
 
         // validate if ALL target beneficairies valid
         target_beneficiaries_valid: function(){
-          return ngmClusterHelperForm.target_beneficiaries_valid( $scope.project.definition );
+          return ngmClusterValidation.target_beneficiaries_valid( $scope.project.definition );
         },
 
         // validate id ALL target locations valid
         target_locations_valid: function(){
-          return ngmClusterHelperForm.target_locations_valid( $scope.project.definition );
+          return ngmClusterValidation.target_locations_valid( $scope.project.definition );
         },
 
         // validate form
         validate: function(){
-          ngmClusterHelperForm.validate( $scope.project.definition );
+          ngmClusterValidation.validate( $scope.project.definition );
         },
 
 
@@ -628,9 +538,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             $scope.project.definition.target_beneficiaries[i] =
                   ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_beneficiaries[i] );
 
-
-
-
             // add categories
             var found = $filter('filter')( $scope.project.definition.category_type, { category_type_id: b.category_type_id }, true);
             if ( !found.length ){
@@ -641,9 +548,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               $scope.project.definition.beneficiary_type.push( { beneficiary_type_id: b.beneficiary_type_id, beneficiary_type_name: b.beneficiary_type_name } );
             }
 
-
-            
-
           });
 
           // add target_locations to projects to ensure simple filters
@@ -652,9 +556,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             // push update activities
             $scope.project.definition.target_locations[i] =
                   ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_locations[i] );
-
-
-
 
             // add distinct
             var found = $filter('filter')( $scope.project.definition.admin1pcode, { admin1pcode: l.admin1pcode }, true);
@@ -671,8 +572,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 $scope.project.definition.admin3pcode.push( { admin3pcode: l.admin3pcode, admin3name: l.admin3name } );
               }
             }
-
-
 
           });
 
@@ -692,28 +591,24 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $http({
             method: 'POST',
             url: ngmAuth.LOCATION + '/api/cluster/project/setProject',
-            data: {
-              project: $scope.project.definition
-            }
+            data: { project: $scope.project.definition }
           }).success( function( project ){
 
             // enable
             $scope.project.submit = true;
 
-            if ( project.err ) {
-              Materialize.toast( 'Save failed! The project contains errors!', 6000, 'error' );
-            }
+            // error
+            if ( project.err ) { Materialize.toast( 'Save failed! The project contains errors!', 6000, 'error' ); }
 
+            // if success
             if ( !project.err ) {
 
               // add id to client json
               $scope.project.definition = angular.merge( $scope.project.definition, project );
               $scope.project.definition.update_dates = false;
 
-              // location / beneficiary
-              if( save_msg ){
-                $timeout( function(){ Materialize.toast( save_msg , 3000, 'success' ); }, 600 );
-              }
+              // save
+              if( save_msg ){ Materialize.toast( save_msg , 3000, 'success' ); }
 
               // notification modal
               if( display_modal ){
@@ -721,12 +616,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 // modal-trigger
                 $('.modal-trigger').leanModal();
 
-                // new becomes active!
-                var msg = $route.current.params.project === 'new' ? 'Project Created!' : 'Project Updated!';
+                // save msg
+                var msg = $scope.project.newProject ? 'Project Created!' : 'Project Updated!';
 
-                // update
+                // save, redirect + msg
                 $timeout(function(){
-                  // redirect + msg
                   $location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
                   $timeout(function(){ Materialize.toast( msg, 3000, 'success' ); }, 600 );
                 }, 400 );
@@ -742,9 +636,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
       }
 
-      // load
+      // init project
       $scope.project.init();
-
   }
 
 ]);

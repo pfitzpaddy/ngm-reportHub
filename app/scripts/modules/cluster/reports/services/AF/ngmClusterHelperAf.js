@@ -1,14 +1,14 @@
 /**
- * @name ngmReportHub.factory:ngmClusterHelper
+ * @name ngmReportHub.factory:ngmClusterHelperAf
  * @description
- * # ngmClusterHelper
+ * # ngmClusterHelperAf
  * Manages browser local storage
  *
  */
 angular.module( 'ngmReportHub' )
 	.factory( 'ngmClusterHelperAf', [ '$http', '$filter', '$timeout', 'ngmAuth', function( $http, $filter, $timeout, ngmAuth ) {
 
-		return {
+		var ngmClusterHelperAf = {
 
 			// set org to acbar partner
 			updateAcbarOrganization: function( project ) {
@@ -57,14 +57,13 @@ angular.module( 'ngmReportHub' )
       },
 
       // injury sustained same province field
-      showFatpTreatmentSameProvince: function( project ){
+      showFatpTreatmentSameProvince: function( beneficiaries ){
         var display = false;
-        var l = project.target_beneficiaries;
-        if( l && project.admin0pcode === 'AF'  ){
-          angular.forEach( l, function(b){
-              if( b.activity_description_id === 'fatp_stabilization_referrals_conflict' ||
-                  b.activity_description_id === 'fatp_stabilization_referrals_civilian' ){
-                    display = true;
+        if ( beneficiaries ) {
+          angular.forEach( beneficiaries, function(b){        
+            if( b.activity_description_id === 'fatp_stabilization_referrals_conflict' ||
+                  b.activity_description_id === 'fatp_stabilization_referrals_civilian' ) {
+              display = true;
             }
           });
         }
@@ -75,7 +74,7 @@ angular.module( 'ngmReportHub' )
         var selected = [{}];
         // will show blank for all activities except
         if ( $beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
-          $beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian' ) {
+              $beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian' ) {
           delete $beneficiary.injury_treatment_same_province;
           selected[0].text = '-'
         // will show if not selected
@@ -99,13 +98,7 @@ angular.module( 'ngmReportHub' )
       },
 
 
-
-
-
-
-
       /****** EiEWG ************/
-
 
       // new site
       showYesNo: function( lists, $index, $data, target_location ){
@@ -232,5 +225,8 @@ angular.module( 'ngmReportHub' )
 
       
 		};
+
+    // return
+    return ngmClusterHelperAf;
 
 	}]);

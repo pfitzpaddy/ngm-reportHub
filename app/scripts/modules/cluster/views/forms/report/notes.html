@@ -16,7 +16,7 @@
 			<ul class="collection with-header">
 				<li class="collection-header blue lighten-4">
 					<h5 class="report-panel-title">
-						<i class="material-icons left">location_on</i>Notes for {{ project.titleFormat }}
+						<i class="material-icons left">location_on</i>Notes for {{ project.monthlyTitleFormat }}
 					</h5>
 				</li>
 
@@ -42,7 +42,12 @@
 				          <label for="ngm-project-notes">Monthly Notes & Comments</label>
 				        </div>
 
-				        <button class="btn" ng-if="project.report.report_status !== 'complete'" ng-disabled="!project.report.notes" ng-click="project.save(false)" style="margin:10px 10px;">
+				        <button class="btn" 
+				        				ng-if="project.report.report_status !== 'complete'"
+				        				ng-disabled="!project.report.notes ||
+				        											!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
+				        												!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
+				        				ng-click="project.save( false )" style="margin:10px 10px;">
 				        	<i class="material-icons left">save</i>Save Notes
 				        </button>
 
