@@ -77,7 +77,7 @@ angular.module( 'ngmReportHub' )
             angular.merge( target_location, reporter );
           }
         }
-        return selected.length ? selected[0].username : '-';
+        return selected && selected.length ? selected[0].username : '-';
       },
 
       // site implementation

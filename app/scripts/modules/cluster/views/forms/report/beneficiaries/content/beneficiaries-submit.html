@@ -1,0 +1,377 @@
+
+<style>
+
+  .collection.with-header .collection-item.avatar{
+    padding-left: 51 !important;
+  }
+
+</style>
+
+<div style="padding-left: 20px;">
+  <table class="bordered responsive-table" style="margin-bottom:10px;" ng-show="project.report.locations[$locationIndex].beneficiaries.length">
+    <tr style="font-weight: 400">
+      <td>Activity</td>
+      <td>Description</td>
+      <td ng-if="project.showCash( $locationIndex )">Delivery</td>
+      <td ng-if="project.showPackage( $locationIndex )">Package</td>
+      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">Category</td>
+      <td>Beneficiary</td>
+      <td ng-if="project.definition.admin0pcode === 'AF'">Population</td>
+			<td ng-if="project.showUnits( $locationIndex )">Amount</td>
+			<td ng-if="project.showUnits( $locationIndex )">Units</td>
+      <td ng-if="project.showCash( $locationIndex )">Transfers</td>
+      <td ng-if="project.showHouseholds( $locationIndex )">HHs</td>
+      <td ng-if="project.showFamilies( $locationIndex )">Families</td>
+      <td>Boys</td>
+      <td>Girls</td>
+      <td ng-if="project.showMen( $locationIndex )">Men</td>
+      <td ng-if="project.showWomen( $locationIndex )">Women</td>
+      <td ng-if="project.definition.admin0pcode === 'NG'">Eld. Men</td>
+      <td ng-if="project.definition.admin0pcode === 'NG'">Eld. Women</td>
+			<td ng-if="project.showFatpTreatmentSameProvince( $locationIndex )">Treatment Same Province</td>
+      <td ng-if="project.report.report_status !== 'complete'">Edit</td>
+    </tr>
+    <tr ng-repeat="beneficiary in project.report.locations[$locationIndex].beneficiaries">
+      <td>
+        <!-- editable activity_type from Project -->
+        <span e-form="rowform"
+              e-name="activity_type_id"
+              editable-select="beneficiary.activity_type_id"
+              e-placeholder="Select..."
+              e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.lists.projectActivityTypes">
+          {{ project.showActivity($data, beneficiary) }}
+        </span>
+      </td>
+      <td>
+        <!-- editable activity_description from Project -->
+        <span e-form="rowform"
+              e-name="activity_description_id"
+              editable-select="beneficiary.activity_description_id"
+              e-placeholder="Select..."
+              e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.lists.activity_descriptions | filter: { cluster_id: beneficiary.cluster_id, activity_type_id: beneficiary.activity_type_id }"
+              e-ng-disabled="!beneficiary.activity_type_id">
+          {{ project.showDescription($data, beneficiary) }}
+        </span>
+      </td>
+      <!-- show cash delivery -->
+      <td ng-show="project.showCash( $locationIndex )">
+        <span e-form="rowform"
+              e-name="mpc_delivery_type_id"
+              editable-select="beneficiary.mpc_delivery_type_id"
+              e-placeholder="Select..."
+              e-ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for b in project.lists.mpc_delivery_types | filterByArray:beneficiary.activity_description_id:'activity_description_id'"
+              e-ng-disabled="
+                !beneficiary.activity_description_id ||
+                ( beneficiary.activity_type_id.indexOf('cash') === -1 &&
+                  beneficiary.activity_description_id.indexOf('cash') === -1 &&
+                  beneficiary.activity_description_id.indexOf('fsac_in_kind') === -1 &&
+                  beneficiary.activity_description_id.indexOf('package') === -1 )">
+          {{ project.showCashDelivery($data, beneficiary) }}
+        </span>
+      </td>
+
+      <td ng-show="project.showPackage( $locationIndex )">
+          <span e-form="rowform"
+                e-name="package_type_id"
+                editable-select="beneficiary.package_type_id"
+                e-placeholder="Select..."
+                e-ng-options="s.package_type_id as s.package_type_name for s in [{'package_type_id':'standard', 'package_type_name':'Standard'},{'package_type_id':'non-standard', 'package_type_name':'Non-standard'}]"
+                e-ng-disabled="
+                  !project.enablePackage( beneficiary )">
+            {{ project.showPackageTypes( $data, beneficiary ) }}
+          </span>
+        </td>
+
+      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">
+        <!-- editable group (select-remote) -->
+        <span e-form="rowform"
+              e-name="category_type_id"
+              editable-select="beneficiary.category_type_id"
+              e-placeholder="Select..."
+              e-ng-options="b.category_type_id as b.category_type_name for b in project.lists.category_types | filter:{ cluster_id: beneficiary.cluster_id }"
+              e-ng-disabled="!beneficiary.activity_description_id">
+          {{ project.showCategory($data, beneficiary) }}
+        </span>
+      </td>
+      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">
+        <!-- editable group (select-remote) -->
+        <span e-form="rowform"
+              e-name="beneficiary_type_id"
+              editable-select="beneficiary.beneficiary_type_id"
+              e-placeholder="Select..."
+              e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types | filter: { category_type_id: beneficiary.category_type_id, cluster_id: beneficiary.cluster_id }"
+              e-ng-disabled="!beneficiary.activity_description_id || !beneficiary.category_type_id">
+          {{ project.showBeneficiary($data, beneficiary) }}
+        </span>
+      </td>
+      <td ng-if="project.definition.admin0pcode !== 'AF' || (project.definition.admin0pcode === 'AF' && !project.categoryShow2017())">
+        <!-- editable group (select-remote) -->
+        <span e-form="rowform"
+              e-name="beneficiary_type_id"
+              editable-select="beneficiary.beneficiary_type_id"
+              e-placeholder="Select..."
+              e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types | filter: { cluster_id: beneficiary.cluster_id }"
+              e-ng-disabled="!beneficiary.activity_description_id">
+          {{ project.showBeneficiary($data, beneficiary) }}
+        </span>
+      </td>
+      <td ng-if="project.definition.admin0pcode === 'AF'">
+        <!-- editable group (select-remote) -->
+        <span e-form="rowform"
+              e-name="delivery_type_id"
+              editable-select="beneficiary.delivery_type_id"
+              e-placeholder="Select..."
+              e-ng-options="b.delivery_type_id as b.delivery_type_name for b in project.lists.delivery_types"
+              e-ng-disabled="!beneficiary.beneficiary_type_id">
+          {{ project.showDelivery($data, beneficiary) }}
+        </span>
+      </td>
+      
+      <td ng-show="false">
+        <!-- editable number -->
+        <span e-form="rowform" e-name="cash_amount"
+              editable-number="beneficiary.cash_amount"
+              e-min="0"
+              e-ng-change="project.updateInput( $locationIndex, $index, 'cash_amount', $data )"
+              e-ng-disabled="beneficiary.activity_description_id.indexOf('cash') === -1"
+              e-required>
+          {{ beneficiary.cash_amount }}
+        </span>
+      </td>
+
+
+      <td ng-show="project.showUnits( $locationIndex )">
+        <!-- editable number -->
+        <span e-form="rowform"
+              e-name="units"
+              editable-number="beneficiary.units"
+              e-min="0"
+              e-ng-change="project.updateInput( $locationIndex, $index, 'units', $data )"
+              e-ng-disabled="
+                  !beneficiary.activity_description_id ||
+                  ( ['wash','nutrition','health','protection', 'esnfi'].includes(beneficiary.cluster_id) &&
+                  ( beneficiary.cluster_id !== 'eiewg' &&
+                    beneficiary.cluster_id !== 'fsac' &&
+                    beneficiary.cluster_id !== 'agriculture' &&
+                  beneficiary.activity_description_id.indexOf('education') === -1 &&
+                  beneficiary.activity_description_id.indexOf('training') === -1 &&
+                  beneficiary.activity_description_id.indexOf('cash') === -1 &&
+                  beneficiary.activity_description_id.indexOf('in_kind') === -1 &&
+									beneficiary.activity_description_id.indexOf('voucher') === -1 &&
+                  beneficiary.activity_description_id.indexOf('package') === -1 &&
+                  beneficiary.activity_description_id.indexOf('assessment') === -1 ||
+									beneficiary.activity_description_id.indexOf('_standard') > -1 ))"
+              e-required>
+          {{ beneficiary.units }}
+        </span>
+      </td>
+      <td ng-show="project.showUnits( $locationIndex )">
+        <span e-form="rowform"
+              e-name="unit_type_id"
+              editable-select="beneficiary.unit_type_id"
+              e-placeholder="Select..."
+              e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units"
+              e-ng-disabled="
+                !beneficiary.activity_description_id ||
+                ( ['wash','nutrition','health','protection', 'esnfi'].includes(beneficiary.cluster_id) &&
+                beneficiary.activity_description_id.indexOf('education') === -1 &&
+                beneficiary.activity_description_id.indexOf('training') === -1 &&
+                beneficiary.activity_description_id.indexOf('cash') === -1 &&
+                beneficiary.activity_description_id.indexOf('in_kind') === -1 &&
+								beneficiary.activity_description_id.indexOf('voucher') === -1 &&
+                beneficiary.activity_description_id.indexOf('package') === -1 &&
+                beneficiary.activity_description_id.indexOf('assessment') === -1 ||
+								beneficiary.activity_description_id.indexOf('_standard') > -1 )">
+          {{ project.showUnitTypes($data, beneficiary) }}
+        </span>
+      </td>
+
+      <!-- transfers -->
+      <td ng-show="project.showCash( $locationIndex )">
+        <span e-form="rowform"
+              e-name="transfer_type_id"
+              editable-select="beneficiary.transfer_type_id"
+              e-placeholder="Select..."
+              e-ng-disabled="
+                !beneficiary.activity_description_id ||
+                ( beneficiary.activity_type_id.indexOf('cash') === -1 &&
+                  beneficiary.activity_description_id.indexOf('cash') === -1 &&
+                  beneficiary.activity_description_id.indexOf('in_kind') === -1 &&
+                  beneficiary.activity_description_id.indexOf('package') === -1)"
+              e-ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers">
+          {{ project.showTransferTypes( $data, beneficiary ) }}
+        </span>
+      </td>
+
+
+      <td ng-show="project.showHouseholds( $locationIndex )">
+        <!-- editable number -->
+        <span e-form="rowform"
+              e-name="households"
+              editable-number="beneficiary.households"
+              e-min="0"
+              e-ng-change="project.updateInput( $locationIndex, $index, 'households', $data )"
+              e-ng-disabled="!project.showHouseholds( $locationIndex )"
+              e-required>
+          {{ beneficiary.households }}
+        </span>
+      </td>
+      <td ng-show="project.showFamilies( $locationIndex )">
+        <!-- editable number -->
+        <span e-form="rowform"
+              e-name="families"
+              editable-number="beneficiary.families"
+              e-min="0"
+              e-ng-change="project.updateInput( $locationIndex, $index, 'families', $data )"
+              e-ng-disabled="beneficiary.cluster_id !== 'wash' &&
+                        beneficiary.activity_type_id !== 'nutrition_education_training'"
+              e-required>
+          {{ beneficiary.families }}
+        </span>
+      </td>
+      <td>
+        <!-- editable number -->
+        <span e-form="rowform"
+              e-name="boys"
+              editable-number="beneficiary.boys"
+              e-min="0"
+              e-ng-change="project.updateInput( $locationIndex, $index, 'boys', $data )"
+              e-ng-disabled="false"
+              e-required>
+          {{ beneficiary.boys }}
+        </span>
+      </td>
+      <td>
+        <!-- editable number -->
+        <span e-form="rowform"
+              e-name="girls"
+              editable-number="beneficiary.girls"
+              e-min="0"
+              e-ng-change="project.updateInput( $locationIndex, $index, 'girls', $data )"
+              e-ng-disabled="false"
+              e-required>
+          {{ beneficiary.girls }}
+        </span>
+      </td>
+      <td ng-show="project.showMen( $locationIndex )">
+        <!-- editable number -->
+        <span e-form="rowform"
+              e-name="men"
+              editable-number="beneficiary.men"
+              e-min="0"
+              e-ng-change="project.updateInput( $locationIndex, $index, 'men', $data )"
+              e-ng-disabled="
+                      beneficiary.activity_type_id === 'mch' ||
+                      (beneficiary.activity_type_id === 'vaccination'&&beneficiary.activity_description_id !== 'vaccination_tt') ||
+                      beneficiary.activity_description_id === 'antenatal_care' ||
+                      beneficiary.activity_description_id === 'postnatal_care' ||
+                      beneficiary.activity_description_id === 'skilled_birth_attendant' ||
+                      beneficiary.activity_description_id === 'penta_3' ||
+                      beneficiary.activity_description_id === 'measles'"
+              e-required>
+          {{ beneficiary.men }}
+        </span>
+      </td>
+      <td ng-show="project.showWomen( $locationIndex )">
+        <!-- editable number -->
+        <span e-form="rowform"
+              e-name="women"
+              editable-number="beneficiary.women"
+              e-min="0"
+              e-ng-change="project.updateInput( $locationIndex, $index, 'women', $data )"
+              e-ng-disabled="
+                      (beneficiary.activity_type_id === 'vaccination'&&beneficiary.activity_description_id !== 'vaccination_tt') ||
+                      beneficiary.activity_description_id === 'penta_3' ||
+                      beneficiary.activity_description_id === 'measles'"
+              e-required>
+          {{ beneficiary.women }}
+        </span>
+			</td>
+      <td ng-show="project.definition.admin0pcode === 'NG'">
+        <!-- editable number -->
+        <span e-form="rowform"
+              e-name="elderly_men"
+              editable-number="beneficiary.elderly_men"
+              e-min="0"
+              e-ng-change="project.updateInput( $locationIndex, $index, 'elderly_men', $data )"
+              e-ng-disabled="project.definition.admin0pcode !== 'NG'"
+              e-required>
+          {{ beneficiary.elderly_men }}
+        </span>
+      </td>
+      <td ng-show="project.definition.admin0pcode === 'NG'">
+        <!-- editable number -->
+        <span e-form="rowform"
+              e-name="elderly_women"
+              editable-number="beneficiary.elderly_women"
+              e-min="0"
+              e-ng-change="project.updateInput( $locationIndex, $index, 'elderly_women', $data )"
+              e-ng-disabled="project.definition.admin0pcode !== 'NG'"
+              e-required>
+          {{ beneficiary.elderly_women }}
+        </span>
+      </td>
+			<td ng-show="project.showFatpTreatmentSameProvince( $locationIndex )">
+					<!-- editable select true/false -->
+					<span e-form="rowform"
+              e-name="injury_treatment_same_province"
+              editable-select="beneficiary.injury_treatment_same_province"
+              e-placeholder="Select..."
+							e-ng-options="s.choise as s.text for s in [{'choise':true, 'text':'Yes'},{'choise':false, 'text':'No'}]"
+							e-ng-disabled="beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
+															beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian'">
+          {{ project.showTreatmentSameProvince($data, beneficiary) }}
+			</td>
+
+      <td style="white-space: nowrap"
+          ng-show="project.report.report_status !== 'complete'">
+        <!-- form -->
+        <form editable-form name="rowform"
+                onshow="project.keydownSaveForm()"
+                ng-show="rowform.$visible"
+                onbeforesave="project.save( false, false )"
+                class="form-buttons form-inline"
+                shown="inserted == beneficiary">
+          <button type="submit"
+                    ng-if="rowform.$visible"
+                    ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
+                                  !ngmClusterTrainings.trainingFormComplete( project.report.locations )"
+                    class="btn btn-small waves-effect waves-light save"
+                    title="Save">
+            <i class="material-icons">save</i>
+          </button>
+          <div type="button"
+                ng-if="rowform.$visible"
+                ng-disabled="rowform.$waiting"
+                ng-click="rowform.$cancel(); project.cancelEdit( $locationIndex, $index )"
+                class="btn btn-small blue lighten-1 waves-effect waves-light"
+                title="Cancel Edit">
+						<i class="material-icons">clear</i>
+          </div>
+        </form>
+        <div class="buttons"
+              ng-if="!rowform.$visible">
+          <div class="btn btn-small waves-effect waves-light"
+                ng-click="rowform.$show()"
+                title="Edit">
+						<i class="material-icons">create</i>
+          </div>
+          <div class="btn btn-small red lighten-2 waves-effect waves-light"
+                ng-click="project.removeBeneficiaryModal( $locationIndex, $index )"
+                title="Remove"
+                ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
+                              !ngmClusterTrainings.trainingFormComplete( project.report.locations  )">
+          	<i class="material-icons">delete</i>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <button class="btn" ng-show="project.report.report_status !== 'complete'" ng-click="project.addBeneficiary( $locationIndex )">
+    <i class="material-icons left">add</i>Add Beneficiaries
+  </button>
+
+</div>
+
+<br/>
