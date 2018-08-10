@@ -423,11 +423,11 @@ li {
 
 <script>
 
-	// init carousel
-	$( '.carousel.carousel-slider' ).carousel({ full_width: true });
-
-	// init select
-	$( 'select' ).material_select();
+	// init
+	setTimeout(function(){
+		$( 'select' ).material_select();
+		$( '.carousel.carousel-slider' ).carousel({ full_width: true });
+	}, 100 );
 
 	// organization goto contact details
 	$( '#organization-next' ).click( function( e ){

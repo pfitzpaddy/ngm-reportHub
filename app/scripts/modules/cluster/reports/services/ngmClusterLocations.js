@@ -224,8 +224,22 @@ angular.module( 'ngmReportHub' )
             target_location.site_type_name = selected[0].site_type_name;
           }
 
-          // enabled / disabled
-          site_list = $filter('filter')( lists.adminSitesSelect[$index], { site_type_id: target_location.site_type_id }, true );
+          // site list
+          if ( target_location.admin3pcode ) {  
+            site_list = $filter('filter')( lists.adminSitesSelect[$index], { 
+              admin1pcode: target_location.admin1pcode, 
+              admin2pcode: target_location.admin2pcode,
+              admin3pcode: target_location.admin3pcode,
+              site_type_id: target_location.site_type_id
+            }, true );
+          } else {
+            site_list = $filter('filter')( lists.adminSitesSelect[$index], { 
+              admin1pcode: target_location.admin1pcode,
+              admin2pcode: target_location.admin2pcode,
+              site_type_id: target_location.site_type_id
+            }, true );
+          }
+          // enable / disabled
           target_location.site_list_select_disabled = !site_list.length;
 
         }
@@ -240,9 +254,24 @@ angular.module( 'ngmReportHub' )
         target_location.site_name = null;
 
         // site list
-        site_list = $filter('filter')( lists.adminSitesSelect[$index], { site_type_id: target_location.site_type_id }, true );
+        if ( target_location.admin3pcode ) {  
+          site_list = $filter('filter')( lists.adminSitesSelect[$index], { 
+            admin1pcode: target_location.admin1pcode, 
+            admin2pcode: target_location.admin2pcode,
+            admin3pcode: target_location.admin3pcode,
+            site_type_id: target_location.site_type_id
+          }, true );
+        } else {
+          site_list = $filter('filter')( lists.adminSitesSelect[$index], { 
+            admin1pcode: target_location.admin1pcode,
+            admin2pcode: target_location.admin2pcode,
+            site_type_id: target_location.site_type_id
+          }, true );
+        }
+        // enable / disabled
+        target_location.site_list_select_disabled = !site_list.length;
 
-        // if length
+        // set site selected
         if ( site_list.length ) {
           target_location.site_list_select_id = 'yes';
           target_location.site_list_select_name = 'Yes';
@@ -250,6 +279,7 @@ angular.module( 'ngmReportHub' )
           target_location.site_list_select_id = 'no';
           target_location.site_list_select_name = 'No';
         }
+
       },
 
       // select from list?

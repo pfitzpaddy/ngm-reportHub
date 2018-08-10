@@ -208,10 +208,12 @@ li {
 <script>
 
 	// init
-	$( '.carousel.carousel-slider' ).carousel({ full_width: true });
-
-	// goTo login page
-	$( '.carousel' ).carousel( 'set', 2 );
+	setTimeout(function(){
+		$( 'select' ).material_select();
+		$( '.carousel.carousel-slider' ).carousel({ full_width: true });
+		// goTo login page
+		$( '.carousel' ).carousel( 'set', 2 );
+	}, 100 );	
 
 	// hidden to start
 	setTimeout( function(){
