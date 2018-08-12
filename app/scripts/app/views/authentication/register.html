@@ -99,6 +99,7 @@ li {
 					      <option value="" disabled selected>Select Cluster</option>
 								<option value="cvwg">Multi-Purpose Cash</option>
 								<option value="agriculture">Agriculture</option>
+								<option value="cccm_esnfi">CCCM - Shelter</option>
 								<option value="education">Education</option>
 					      <option value="eiewg">EiEWG</option>
 					      <option value="esnfi">ESNFI</option>
@@ -478,6 +479,13 @@ li {
 		}
 	});
 
+	// enter to register
+	$( '#login-register' ).keydown( function( e ){
+		if ( e.keyCode === 13 ) {
+			$( '.carousel' ).carousel( 'next' );
+		}
+	});
+	
 	// iMMAP details go back to login
 	$( '#programme-back' ).click( function( e ){
 		$( '.carousel' ).carousel( 'prev' );

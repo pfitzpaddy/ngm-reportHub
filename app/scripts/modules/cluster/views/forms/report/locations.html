@@ -106,7 +106,7 @@
 							<!-- Project beneficiaries details -->
 
 							<!-- activities -->
-							<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesUrl"></div>
+							<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesUrl()"></div>
 
 							<!-- trainings -->
 							<div ng-if="ngmClusterTrainings.displayTrainings( project.definition )">

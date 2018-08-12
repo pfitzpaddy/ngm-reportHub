@@ -30,6 +30,14 @@ angular.module( 'ngmReportHub' )
         // inserted
         var inserted = {};
 
+
+
+        // to merge or not to merge
+          // NG, cluster, activity based answer
+          
+
+
+
         // merge
         angular.merge( inserted, sadd );
 

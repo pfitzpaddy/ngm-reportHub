@@ -75,19 +75,29 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // lists ( project, mpc transfers )
         lists: ngmClusterLists.setLists( config.project, 10 ),
 
-
+        
         /**** TEMPLATES ****/
 
         // url
         templatesUrl: '/scripts/modules/cluster/views/forms/report/',
-        // locations
+        // templates
         locationsUrl: 'locations.html',
-        // beneficairies
-        beneficiariesUrl: config.report.report_year === 2016 ? 'beneficiaries/2016/beneficiaries.html' : 'beneficiaries/beneficiaries.html',
         beneficiariesTrainingUrl: 'beneficiaries/2016/beneficiaries-training.html',
         beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health-2016.html',
         notesUrl: 'notes.html',
-
+        
+        // beneficairies template
+        beneficiariesUrl: function() {
+          var template;
+          if ( $scope.project.report.report_year === 2016 ) {
+            template = 'beneficiaries/2016/beneficiaries.html';
+          } else if ( $scope.project.report.admin0pcode === 'NG' ) {
+            template ='beneficiaries/beneficiaries.html';
+          } else {
+            template ='beneficiaries/beneficiaries.html';
+          }
+          return template;
+        },
         
         // cancel monthly report
         cancel: function() {
