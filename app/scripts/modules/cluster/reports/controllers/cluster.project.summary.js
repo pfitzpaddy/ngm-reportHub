@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterProjectSummaryCtrl', ['$scope', '$route', '$http', '$location', 'ngmAuth', 'ngmData', 'ngmUser', function ($scope, $route, $http, $location, ngmAuth, ngmData, ngmUser) {
+	.controller('ClusterProjectSummaryCtrl', ['$scope', '$route', '$http', '$location', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser', function ($scope, $route, $http, $location, $timeout, ngmAuth, ngmData, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -106,7 +106,10 @@ angular.module('ngmReportHub')
 									markActive: function( project ){
 
 									  // mark project active
-									  project.project_status = 'active';       
+									  project.project_status = 'active';
+
+									  // timeout
+									  $timeout(function(){ Materialize.toast( 'Processing...', 3000, 'note'); }, 200 ); 
 
 									  // Submit project for save
 									  ngmData.get({
@@ -118,7 +121,7 @@ angular.module('ngmReportHub')
 									  }).then(function(data){
 									    // redirect on success
 									    $location.path( '/cluster/projects' );
-									    Materialize.toast( 'Project moved to Active!', 3000, 'success');
+									    Materialize.toast( 'Project moved to Active!', 4000, 'success');
 									  });
 
 									},
@@ -127,7 +130,10 @@ angular.module('ngmReportHub')
 									markComplete: function( project ){
 
 									  // mark project complete
-									  project.project_status = 'complete';       
+									  project.project_status = 'complete';
+
+									  // timeout
+									  $timeout(function(){ Materialize.toast( 'Processing...', 3000, 'note'); }, 200 );
 
 									  // Submit project for save
 									  ngmData.get({
@@ -139,7 +145,7 @@ angular.module('ngmReportHub')
 									  }).then(function(data){
 									    // redirect on success
 									    $location.path( '/cluster/projects' );
-									    Materialize.toast( 'Project marked as Complete, Congratulations!', 3000, 'success');
+									    Materialize.toast( 'Project marked as Complete, Congratulations!', 4000, 'success');
 									  });
 
 									},
@@ -155,7 +161,7 @@ angular.module('ngmReportHub')
 									  }).success(function(data){
 									    // redirect on success
 									    if ( data.err ) {
-									    	Materialize.toast( 'Project delete error! Please try again', 3000, 'error');
+									    	Materialize.toast( 'Project delete error! Please try again', 4000, 'error');
 									    }
 									    if ( !data.err ){
 										    $location.path( '/cluster/projects' );
@@ -163,7 +169,7 @@ angular.module('ngmReportHub')
 									    }
 									  }).error(function(err){
 									    // redirect on success
-									    Materialize.toast( 'Project delete error! Please try again', 3000, 'error');
+									    Materialize.toast( 'Project delete error! Please try again', 4000, 'error');
 									  });
 									}
 
