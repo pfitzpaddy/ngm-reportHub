@@ -1197,19 +1197,19 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_id: 'idps',
             beneficiary_type_name: 'IDPs'
           },{
-            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'gbv', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cccm_esnfi', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'gbv', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'refugees',
             beneficiary_type_name: 'Refugees'
           },{
-            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'gbv', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cccm_esnfi', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'gbv', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'returnees',
             beneficiary_type_name: 'Returnees'
           },{
-            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'gbv', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cccm_esnfi', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'gbv', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'host_communities',
             beneficiary_type_name: 'Host Communities'
           },{
-            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'gbv', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cccm_esnfi', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'gbv', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'stakeholders',
             beneficiary_type_name: 'Stakeholders'
           }];
@@ -1324,6 +1324,10 @@ angular.module( 'ngmReportHub' )
             cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'idp_natural_affected',
             beneficiary_type_name: 'Natural Disaster Affected'
+          },{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'vulnerable_groups',
+            beneficiary_type_name: 'Vulnerable Groups'
           }];
 
         } else if ( admin0pcode === 'AF' ) {

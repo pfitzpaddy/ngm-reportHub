@@ -15,7 +15,14 @@ angular.module( 'ngmReportHub' )
         'ngmAuth',
         'ngmClusterLists',
         'ngmClusterLocations',
-    function( $location, $q, $http, $filter, $timeout, ngmAuth, ngmClusterLists, ngmClusterLocations ) {
+    function( $location, 
+                $q, 
+                $http, 
+                $filter, 
+                $timeout, 
+                ngmAuth, 
+                ngmClusterLists, 
+                ngmClusterLocations ) {
 
 		var ngmClusterHelper = {
 
