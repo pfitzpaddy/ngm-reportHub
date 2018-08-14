@@ -6,19 +6,31 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', 'ngmAuth', function( $http, $filter, ngmAuth ) {
+	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', 'ngmAuth', 'ngmClusterHelperNgWash', function( $http, $filter, ngmAuth, ngmClusterHelperNgWash ) {
 
+    // beneficairies
 		var ngmClusterBeneficiaries = {
 
+      // datepicker (NG)
+      datepicker: {
+        startOnClose: function( beneficiary, value ) {
+          beneficiary.activity_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+        },
+        endOnClose: function( beneficiary, value ) {
+          beneficiary.activity_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+        },
+      },
+
       // add beneficiary
-      addBeneficiary: function ( beneficiaries ) {
+      addBeneficiary: function ( project, beneficiaries ) {
         
-        // sadd
+        // inserted
+        var inserted = {};
         var sadd = {
           units: 0,
+          sessions: 0,
           cash_amount: 0,
           households: 0,
-          sessions: 0,
           families: 0,
           boys: 0,
           girls: 0,
@@ -27,16 +39,17 @@ angular.module( 'ngmReportHub' )
           elderly_men:0,
           elderly_women:0
         };
-        // inserted
-        var inserted = {};
 
+        // NG has activity dates
+        if ( project.admin0pcode === 'NG' ) {
+          sadd.activity_start_date = moment( new Date() ).startOf( 'M' ).format('YYYY-MM-DD');
+          sadd.activity_end_date = moment( new Date() ).endOf( 'M' ).format('YYYY-MM-DD');
+          // init select
+          setTimeout(function(){ $( '.input-field select' ).material_select(); }, 200 );
+        }
 
-
-        // to merge or not to merge
-          // NG, cluster, activity based answer
-          
-
-
+        // note: see ngmClusterBeneficiaries.updateBeneficiaryModel
+          // for activity specific popn detais
 
         // merge
         angular.merge( inserted, sadd );
@@ -51,6 +64,7 @@ angular.module( 'ngmReportHub' )
           inserted.transfer_type_id = 0;
           inserted.transfer_type_value = 0;
         }
+
         // return new beneficiary
         return inserted;
       },
@@ -115,7 +129,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // show activity (generic)
-      showActivity: function( project, $data, $beneficiary ){
+      showActivity: function( project, $data, $beneficiary, targets ){
         var selected = [];
         $beneficiary.activity_type_id = $data;
         if( $beneficiary.activity_type_id && project.activity_type.length ) {
@@ -141,9 +155,37 @@ angular.module( 'ngmReportHub' )
               }
             }
 
+            // updates beneficiaries if popn details to be used from dtm
+            if ( !targets ) {
+              $beneficiary = ngmClusterBeneficiaries.updateBeneficiaryModel( project, $beneficiary );
+              // console.log($beneficiary);
+            }
           }
         }
         return selected.length ? selected[0].activity_type_name : '-';
+      },
+
+      // update beneficiary
+      updateBeneficiaryModel:function( project, $beneficiary ){
+        // NG Water activities use dtm population (from dtm sites)
+          // see ngmClusterBeneficiaries.js getCleanReport()
+          // note: beneficiaries (b) is merged over locations (l)
+          // report.locations[i].beneficiaries[j] = angular.merge( {}, p, r, l, b );
+          // thus sadd must be empty to record dtm site level details
+        if ( project.admin0pcode === 'NG' && 
+              $beneficiary.cluster_id === 'wash' ) {
+          delete $beneficiary.sessions;
+          delete $beneficiary.cash_amount;
+          delete $beneficiary.households;
+          delete $beneficiary.families;
+          delete $beneficiary.boys;
+          delete $beneficiary.girls;
+          delete $beneficiary.men;
+          delete $beneficiary.women;
+          delete $beneficiary.elderly_men;
+          delete $beneficiary.elderly_women;
+        }
+        return $beneficiary;
       },
 
       // show descipriton (generic)
@@ -165,6 +207,42 @@ angular.module( 'ngmReportHub' )
           }
         }
         return selected.length ? selected[0].activity_description_name : '-';
+      },
+
+      // display category
+      showTargetDetails: function( lists, $data, $beneficiary ) {
+        var selected = [];
+        $beneficiary.activity_detail_id = $data;
+        if( $beneficiary.activity_detail_id ) {
+          selected = $filter('filter')( lists.activity_details, { activity_detail_id: $beneficiary.activity_detail_id }, true);
+          if( selected.length ) {
+            $beneficiary.activity_detail_name = selected[0].activity_detail_name;
+          }
+
+        }
+        return selected.length ? selected[0].activity_detail_name : '-';
+      },
+
+      // display category
+      showReportDetails: function( lists, $data, $location, $beneficiary, $beneficiaryIndex ) {
+        var selected = [];
+        $beneficiary.activity_detail_id = $data;
+        if( $beneficiary.activity_detail_id ) {
+          selected = $filter('filter')( lists.activity_details, { activity_detail_id: $beneficiary.activity_detail_id }, true);
+          if( selected.length ) {
+            $beneficiary.activity_detail_name = selected[0].activity_detail_name;
+          }
+
+          // add borehole if new activity
+          if ( $beneficiary.activity_detail_id === 'borehole_upgrade' ||
+                $beneficiary.activity_detail_id === 'borehole_construction' ) {
+            if ( !$beneficiary.boreholes ) {
+              ngmClusterHelperNgWash.addBorehole( $location, $beneficiary );
+            }
+          }
+
+        }
+        return selected.length ? selected[0].activity_detail_name : '-';
       },
 
       // display delivery (afg specific)
@@ -534,6 +612,15 @@ angular.module( 'ngmReportHub' )
                   $data.women >= 0 &&
                   $data.elderly_men >= 0 &&
                   $data.elderly_women >= 0 ) {
+              disabled = false;
+            }
+            break;
+
+          case 'NG':
+            if ( $data.activity_type_id && 
+                  $data.activity_description_id && 
+                  $data.activity_detail_id &&
+                  $data.beneficiary_type_id ) {
               disabled = false;
             }
             break;

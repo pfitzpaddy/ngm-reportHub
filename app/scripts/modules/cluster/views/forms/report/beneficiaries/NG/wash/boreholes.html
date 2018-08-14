@@ -1,0 +1,221 @@
+
+<!-- for each activity -->
+<h5 class="report-location-title" style="padding-top:0px;">{{ beneficiary.activity_detail_name }} Details</h5>
+	
+	<!-- repeat -->
+  <div class="card-panel" ng-repeat="borehole in beneficiary.boreholes" 
+  			ng-init="$boreholeIndex = $index">
+
+	  <!-- borehole title / btns -->
+	  <div class="row">
+	  	<div class="col s12 m6">
+				<h5 style="font-size: 1.32rem; padding-bottom:10px;">Borehole Site {{ $boreholeIndex+1 }}</h5>
+			</div>
+			<div class="col s12 m6">
+  			<div class="btn-floating waves-effect waves-light red lighten-2 right" 
+	  					title="Remove Borehole"
+	  					ng-show="project.report.report_status !== 'complete'"
+	  					ng-click="ngmClusterHelperNgWash.removeBoreholeModal( project, beneficiary, $boreholeIndex )">
+  				<i class="material-icons">clear</i>
+  			</div>
+
+			</div>
+		</div>
+
+		<div class="row">
+		
+			<div class="input-field col s12 m3">
+      	<select id="ngm-borehole_water_facility_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+	      					name="borehole_water_facility_type"
+	      					class="validate"
+	      					ng-options="type.borehole_water_facility_type_id as 
+	      												type.borehole_water_facility_type_name for 
+	      												type in ngmClusterHelperNgWash.lists.borehole_water_facility_types"
+	      					ng-model="borehole.borehole_water_facility_type_id"
+	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+	      					required>
+				<option value="">Select...</option>
+				</select>
+	      <label for="ngm-borehole_water_facility_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+	      				class="active" style="transform:translateY(-10%)">Water Facility Type</label>
+			</div>
+
+			<div class="input-field col s12 m3">
+      	<select id="ngm-borehole_water_facility_size-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+	      					name="borehole_water_facility_size"
+	      					class="validate"
+	      					ng-options="size.borehole_water_facility_size_id as 
+	      												size.borehole_water_facility_size_name for 
+	      												size in ngmClusterHelperNgWash.lists.borehole_water_facility_sizes"
+	      					ng-model="borehole.borehole_water_facility_size_id"
+	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+	      					required>
+				<option value="">Select...</option>
+				</select>
+	      <label for="ngm-borehole_water_facility_size-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+	      				class="active" style="transform:translateY(-10%)">Water Facility Size</label>
+			</div>
+
+			<div class="input-field col s12 m3">
+      	<select id="ngm-borehole_chlorination_plan-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+	      					name="borehole_chlorination_plan"
+	      					class="validate"
+	      					ng-options="type.borehole_chlorination_plan_id as 
+	      												type.borehole_chlorination_plan_name for 
+	      												type in ngmClusterHelperNgWash.lists.borehole_chlorination_plans"
+	      					ng-model="borehole.borehole_chlorination_plan_id"
+	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+	      					required>
+				<option value="">Select...</option>
+				</select>
+	      <label for="ngm-borehole_chlorination_plan-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+	      				class="active" style="transform:translateY(-10%)">Cholrine Plan for {{ project.monthNameFormat }}</label>
+			</div>
+
+			<div class="input-field col s12 m3">
+      	<select id="ngm-borehole_free_residual_cholrine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+	      					name="borehole_free_residual_cholrine_range"
+	      					class="validate"
+	      					ng-options="type.borehole_free_residual_cholrine_range_id as 
+	      												type.borehole_free_residual_cholrine_range_name for 
+	      												type in ngmClusterHelperNgWash.lists.borehole_free_residual_cholrine_ranges"
+	      					ng-model="borehole.borehole_free_residual_cholrine_range_id"
+	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+	      					required>
+				<option value="">Select...</option>
+				</select>
+	      <label for="ngm-borehole_free_residual_cholrine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+	      				class="active" style="transform:translateY(-10%)">Free Residual Chlorine (FRC) Range</label>
+			</div>
+
+		</div>
+
+		<div class="row">
+
+			<div class="input-field col s12 m3">
+      	<select id="ngm-borehole_water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+	      					name="borehole_water_turbidity_range"
+	      					class="validate"
+	      					ng-options="type.borehole_water_turbidity_range_id as 
+	      												type.borehole_water_turbidity_range_name for 
+	      												type in ngmClusterHelperNgWash.lists.borehole_water_turbidity_ranges"
+	      					ng-model="borehole.borehole_water_turbidity_range_id"
+	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+	      					required>
+				<option value="">Select...</option>
+				</select>
+	      <label for="ngm-borehole_water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+	      				class="active" style="transform:translateY(-10%)">Water Turbidity Range (NTU)</label>
+			</div>
+		
+			<div class="input-field col s12 m3">
+	      <input id="ngm-borehole_tanks_storage_ltrs-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+				      	name="borehole_tanks_storage_ltrs"
+				      	type="number" 
+				      	class="validate" 
+				      	min="0"
+				      	ng-model="borehole.borehole_tanks_storage_ltrs"
+				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+	      <label for="ngm-borehole_tanks_storage_ltrs-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}"
+	      				class="active">Storage Tanks (Ltrs)</label>
+			</div>
+
+			<div class="input-field col s12 m3">
+	      <input id="ngm-borehole_taps_number_connected-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}"
+				      	name="borehole_taps_number_connected"
+				      	type="number" 
+				      	class="validate" 
+				      	min="0"
+				      	ng-model="borehole.borehole_taps_number_connected"
+				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+	      <label for="ngm-borehole_taps_number_connected-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}"
+	      				class="active">Taps Connected (Number)</label>
+			</div>		
+
+			<div class="input-field col s12 m3">
+	      <input id="ngm-borehole_taps_ave_flow_rate_ltrs_minute-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+				      	name="borehole_taps_ave_flow_rate_ltrs_minute"
+				      	type="number" 
+				      	class="validate" 
+				      	min="0"
+				      	ng-model="borehole.borehole_taps_ave_flow_rate_ltrs_minute"
+				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+	      <label for="ngm-borehole_taps_ave_flow_rate_ltrs_minute-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}"
+	      				class="active">Average Flow Rate of Taps (Ltrs/Min)</label>
+			</div>
+
+		</div>
+
+		<div class="row">
+
+			<div class="input-field col s12 m3">
+	      <input id="ngm-borehole_yield_ltrs_second-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+				      	name="borehole_yield_ltrs_second"
+				      	type="number" 
+				      	class="validate" 
+				      	min="0"
+				      	ng-model="borehole.borehole_yield_ltrs_second"
+				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+	      <label for="ngm-borehole_yield_ltrs_second-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}"
+	      				class="active">Borehole Yield (Ltrs/Sec)</label>
+			</div>
+
+			<div class="input-field col s12 m3">
+	      <input id="ngm-borehole_pumping_ave_daily_hours-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}"
+				      	name="borehole_pumping_ave_daily_hours"
+				      	type="number" 
+				      	class="validate" 
+				      	min="0"
+				      	ng-model="borehole.borehole_pumping_ave_daily_hours"
+				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+	      <label for="ngm-borehole_pumping_ave_daily_hours-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}"
+	      				class="active">Daily Pumping Hours (Average)</label>
+			</div>
+
+			<div class="input-field col s12 m3">
+	      <input id="ngm-borehole_lng-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+				      	name="borehole_lng"
+				      	type="text" 
+				      	class="validate"
+				      	ng-model="borehole.borehole_lng"
+				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+	      <label for="ngm-borehole_lng-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}"
+	      				class="active">Longitude</label>
+			</div>
+
+			<div class="input-field col s12 m3">
+	      <input id="ngm-borehole_lat-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}"
+				      	name="borehole_lat"
+				      	type="text" 
+				      	class="validate"
+				      	ng-model="borehole.borehole_lat"
+				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+	      <label for="ngm-borehole_lat-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}"
+	      				class="active">Latitude</label>
+			</div>
+
+		</div>  
+
+  </div>
+
+  <!-- add new borehole -->
+  <button class="btn blue" 
+          ng-show="project.report.report_status !== 'complete'" 
+          ng-click="ngmClusterHelperNgWash.addBorehole( location, beneficiary )">
+    <i class="material-icons left">add</i>Add Borehole
+  </button>
+
+<script>
+  // init
+  setTimeout(function(){ 
+  	$( '.input-field select' ).material_select(); 
+  	setTimeout(function(){ $( '.input-field select' ).material_select(); }, 460 );
+	}, 200 );
+</script>

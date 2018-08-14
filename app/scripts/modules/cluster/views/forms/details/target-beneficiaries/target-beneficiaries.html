@@ -33,6 +33,7 @@
 							    	<td></td>
 							      <td>Activity</td>
 							      <td>Description</td>
+							      <td ng-if="project.definition.admin0pcode === 'NG'">Details</td>
 										<td ng-if="project.showCash()">Delivery</td>
 										<td ng-if="project.showPackage()">Package</td>
 							      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">Category</td>
@@ -57,7 +58,6 @@
 							    		<i class="material-icons" style="color: teal;">group</i>
 							    	</td>
 							      <td>
-							        <!-- editable activity_type from Project -->
 							        <span e-form="rowform"
 							        			e-name="activity_type_id"
 							        			editable-select="beneficiary.activity_type_id"
@@ -68,7 +68,6 @@
 							        </span>
 							      </td>
 							      <td>
-							        <!-- editable activity_description from Project -->
 							        <span e-form="rowform"
 							        			e-name="activity_description_id"
 							        			editable-select="beneficiary.activity_description_id"
@@ -76,6 +75,20 @@
 							        			e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.lists.activity_descriptions | filter: { cluster_id: beneficiary.cluster_id, activity_type_id: beneficiary.activity_type_id }"
 							        			e-ng-disabled="!beneficiary.activity_type_id">
 							          {{ project.showDescription( $data, beneficiary ) }}
+							        </span>
+							      </td>
+							      <td ng-if="project.definition.admin0pcode === 'NG'">
+							        <span e-form="rowform"
+							        			e-name="activity_detail_id"
+							        			editable-select="beneficiary.activity_detail_id"
+							        			e-placeholder="Select..."
+							        			e-ng-options="a_d.activity_detail_id as a_d.activity_detail_name 
+							        											for a_d in project.lists.activity_details | 
+							        												filter: { cluster_id: beneficiary.cluster_id, 
+																        									activity_type_id: beneficiary.activity_type_id, 
+																        									activity_description_id: beneficiary.activity_description_id }"
+							        			e-ng-disabled="!beneficiary.activity_description_id">
+							          {{ project.showTargetDetails( $data, beneficiary ) }}
 							        </span>
 							      </td>
 

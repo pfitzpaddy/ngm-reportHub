@@ -287,8 +287,8 @@ angular.module( 'ngmReportHub' )
       compileActivityType: function( project, lists ){
 
         // update
-        lists.activity_types = ngmClusterLists.getActivities( project, true, true );
-        lists.activity_descriptions = ngmClusterLists.getActivities( project, true, false );
+        lists.activity_types = ngmClusterLists.getActivities( project, true, 'activity_type_id' );
+        lists.activity_descriptions = ngmClusterLists.getActivities( project, true, 'activity_description_id' );
 
         // filter
         project.activity_type = [];

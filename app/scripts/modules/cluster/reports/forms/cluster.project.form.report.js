@@ -32,6 +32,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
     'ngmClusterBeneficiaries',
     'ngmClusterTrainings',
     'ngmClusterHelperAf',
+    'ngmClusterHelperNgWash',
     'config',
     function( 
       $scope,
@@ -49,6 +50,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       ngmClusterBeneficiaries,
       ngmClusterTrainings,
       ngmClusterHelperAf,
+      ngmClusterHelperNgWash,
       config ){
 
 
@@ -59,6 +61,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       $scope.scope = $scope;
       $scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
       $scope.ngmClusterTrainings = ngmClusterTrainings;
+      $scope.ngmClusterHelperNgWash = ngmClusterHelperNgWash;
 
 
       // project
@@ -71,6 +74,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         report: config.report,
         updatedAt: moment( config.report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ),
         monthlyTitleFormat: moment.utc( [ config.report.report_year, config.report.report_month, 1 ] ).format('MMMM, YYYY'),
+        monthNameFormat: moment.utc( [ config.report.report_year, config.report.report_month, 1 ] ).format('MMM'),
 
         // lists ( project, mpc transfers )
         lists: ngmClusterLists.setLists( config.project, 10 ),
@@ -92,7 +96,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           if ( $scope.project.report.report_year === 2016 ) {
             template = 'beneficiaries/2016/beneficiaries.html';
           } else if ( $scope.project.report.admin0pcode === 'NG' ) {
-            template ='beneficiaries/beneficiaries.html';
+            template ='beneficiaries/NG/beneficiaries.html';
           } else {
             template ='beneficiaries/beneficiaries.html';
           }
@@ -160,7 +164,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // add beneficiary
         addBeneficiary: function( $parent ) {
-          $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.report.locations[ $parent ].beneficiaries );
+          $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.definition, $scope.project.report.locations[ $parent ].beneficiaries );
           $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
         },
 
@@ -177,15 +181,19 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         removeBeneficiary: function() {
           var id = $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries[ $scope.project.beneficiaryIndex ].id;
           $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
-          console.log(id)
           ngmClusterBeneficiaries.removeBeneficiary( $scope.project, id );
         },
 
         // activity
         showActivity: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showActivity( $scope.project.definition, $data, $beneficiary );
+          return ngmClusterBeneficiaries.showActivity( $scope.project.definition, $data, $beneficiary, false );
         },
 
+        // description
+        showReportDetails: function( $data, $location, $beneficiary, $beneficiaryIndex ) {
+          return ngmClusterBeneficiaries.showReportDetails( $scope.project.lists, $data, $location, $beneficiary, $beneficiaryIndex );
+        },
+        
         // description
         showDescription: function( $data, $beneficiary ) {
           return ngmClusterBeneficiaries.showDescription( $scope.project.lists, $data, $beneficiary );

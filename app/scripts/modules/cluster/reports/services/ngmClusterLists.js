@@ -30,8 +30,9 @@ angular.module( 'ngmReportHub' )
           mpc_delivery_types: ngmClusterLists.getMpcDeliveryTypes(),
           transfers: ngmClusterLists.getTransfers( transfers ),
           clusters: ngmClusterLists.getClusters( project.admin0pcode ),
-          activity_types: ngmClusterLists.getActivities( project, true, true ),
-          activity_descriptions: ngmClusterLists.getActivities( project, true, false ),
+          activity_types: ngmClusterLists.getActivities( project, true, 'activity_type_id' ),
+          activity_descriptions: ngmClusterLists.getActivities( project, true, 'activity_description_id' ),
+          activity_details: ngmClusterLists.getActivities( project, true, 'activity_detail_id' ),
           projectActivityTypes: ngmClusterLists.getProjectActivityTypes( project ),
           strategic_objectives: ngmClusterLists.getStrategicObjectives( project.admin0pcode, moment( project.project_start_date ).year(), moment( project.project_end_date ).year() ),
           category_types: ngmClusterLists.getCategoryTypes(),
@@ -445,12 +446,12 @@ angular.module( 'ngmReportHub' )
           });
         }
 
-        // filter for unique activity_type (else no filter for all activity_descriptions)
-        if ( filterDuplicates ) {
-          // filter duplicates
-          activities = ngmClusterLists.filterDuplicates( activities, 'activity_type_id' );
-        } else {
+        // filter duplications by tag
+        activities = ngmClusterLists.filterDuplicates( activities, filterDuplicates );
+
+        if ( filterDuplicates = 'activity_description_id' ) {
           // EMERGENCY need this for their internal donor reporting!
+          // not sure why this is missing referrals?
           if ( project.organization === "EMERGENCY" ) {
            activities.unshift(
                { activity_description_id : "fatp_stabilization",

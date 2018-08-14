@@ -230,7 +230,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // add beneficiary
         addBeneficiary: function() {
-          $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.definition.target_beneficiaries );
+          $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.definition, $scope.project.definition.target_beneficiaries );
           $scope.project.definition.target_beneficiaries.push( $scope.inserted );
         },
 
@@ -249,12 +249,22 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // activity
         showActivity: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showActivity( $scope.project.definition, $data, $beneficiary );
+          return ngmClusterBeneficiaries.showActivity( $scope.project.definition, $data, $beneficiary, true );
         },
 
         // description
         showDescription: function( $data, $beneficiary ) {
           return ngmClusterBeneficiaries.showDescription( $scope.project.lists, $data, $beneficiary );
+        },
+
+        // target details
+        showTargetDetails: function( $data, $beneficiary ) {
+          return ngmClusterBeneficiaries.showTargetDetails( $scope.project.lists, $data, $beneficiary );
+        },
+
+        // report details
+        showTargetDetails: function( $data, $beneficiary ) {
+          return ngmClusterBeneficiaries.showTargetDetails( $scope.project.lists, $data, $beneficiary );
         },
 
         // cash delivery
