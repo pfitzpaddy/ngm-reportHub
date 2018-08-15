@@ -21,6 +21,7 @@ angular.module( 'ngmReportHub' )
 			// NG and WASH
 			boreholeUrl: 'beneficiaries/NG/wash/borehole.html',
 			reticulationUrl: 'beneficiaries/NG/wash/reticulation.html',
+			serviceUrl: 'beneficiaries/NG/wash/service.html',
 
 			// beneficiaries
 			ratios: {
@@ -61,6 +62,13 @@ angular.module( 'ngmReportHub' )
 					template = ngmClusterHelperNgWash.reticulationUrl;
 				}
 
+				// service
+				if ( beneficiary.activity_detail_id === 'water_trucking' ||
+							beneficiary.activity_detail_id === 'cash_for_water' ||
+							beneficiary.activity_detail_id === 'distribution_treatment_tablets' ) {
+					template = ngmClusterHelperNgWash.serviceUrl;
+				}
+
 				// url
 				return template;
 			},
@@ -75,6 +83,48 @@ angular.module( 'ngmReportHub' )
 					$("label[for='" + label + "']").css({ 'color': '#26a69a', 'font-weight': 300 });
 				}
 			},
+
+      // add initial object
+      detailsChange: function( $location, $beneficiary ){
+
+      	// slight timeout to capture UI changes
+      	$timeout(function(){
+	        // beneficiary
+	        if ( $beneficiary ) {
+	          
+	          // add borehole if new activity
+	          if ( $beneficiary.activity_detail_id === 'borehole_upgrade' ||
+	                $beneficiary.activity_detail_id === 'borehole_construction' ||
+	                $beneficiary.activity_detail_id === 'borehole_rehabilitation' ) {
+	            if ( !$beneficiary.boreholes || !$beneficiary.boreholes.length ) {
+	              ngmClusterHelperNgWash.addBorehole( $location, $beneficiary );
+	            }
+	          }
+
+	          // add reticulation if new activity
+	          if ( $beneficiary.activity_detail_id === 'reticulation_construction' ||
+	                $beneficiary.activity_detail_id === 'reticulation_rehabilitation' ) {
+	            if ( !$beneficiary.reticulations || !$beneficiary.reticulations.length ) {
+	              ngmClusterHelperNgWash.addReticulation( $location, $beneficiary );
+	            }
+	          }
+
+	          // add service if new activity 
+	          	// could be done at activity_description_id level, but at activity_detail_id for consistency
+	          if ( $beneficiary.activity_detail_id === 'water_trucking' ||
+									$beneficiary.activity_detail_id === 'cash_for_water' ||
+									$beneficiary.activity_detail_id === 'distribution_treatment_tablets' ) {
+	            if ( !$beneficiary.services || !$beneficiary.services.length ) {
+	              ngmClusterHelperNgWash.addService( $location, $beneficiary );
+	            }
+	          }
+
+	          // init
+	          setTimeout(function(){ $( '.input-field select' ).material_select(); }, 200 );
+
+	        }
+	      }, 10 );
+      },
 
 			// add borehole
 			addBorehole: function( location, beneficiary ){
@@ -112,7 +162,7 @@ angular.module( 'ngmReportHub' )
 
 			},
 
-			// add borehole
+			// add reticulation
 			addReticulation: function( location, beneficiary ){
 					
 				// default
@@ -136,6 +186,37 @@ angular.module( 'ngmReportHub' )
 
         // push
 				beneficiary.reticulations.push( reticulation );
+
+				// init select
+				setTimeout(function(){ $( '.input-field select' ).material_select(); }, 200 );
+
+			},
+
+			// add service
+			addService: function( location, beneficiary ){
+					
+				// default
+				var service = {
+					quantity: 0,
+					quantity_measurement: 'm3_per_month',
+          activity_start_date: moment( new Date() ).startOf( 'M' ).format('YYYY-MM-DD'),
+          activity_end_date: moment( new Date() ).endOf( 'M' ).format('YYYY-MM-DD')
+				}
+
+				// existing
+				var length = beneficiary.services && beneficiary.services.length;
+
+				// set boreholes
+				if ( !length ){
+					beneficiary.services = [];
+				} else {
+          var b = angular.copy( beneficiary.services[ length - 1 ] );
+          delete b.id;
+          service = angular.merge( {}, service, b );
+        }
+
+        // push
+				beneficiary.services.push( service );
 
 				// init select
 				setTimeout(function(){ $( '.input-field select' ).material_select(); }, 200 );
@@ -213,30 +294,68 @@ angular.module( 'ngmReportHub' )
 
 			// validate wash activities
 			validateActivities: function( locations ) {
-				
-				// count
+
+				// collect error divs
+				var elements = [];
+
+				// borehole count
 				var boreholeLength = 0;
 				var boreholeRowComplete = 0;
 
-				// each borehole
+				// reticulation count
+				var reticulationLength = 0;
+				var reticulationRowComplete = 0;
+
+				// service count
+				var serviceLength = 0;
+				var serviceRowComplete = 0;
+
+				// each location
 				angular.forEach( locations, function( l, i ){
 					angular.forEach( l.beneficiaries, function( b, j ){
+
+						// boreholes 
 						if ( b.boreholes && b.boreholes.length ) {
 							boreholeLength += b.boreholes.length;
-							console.log( b.boreholes )
 							angular.forEach( b.boreholes, function( borehole, k ){
-								boreholeRowComplete += ngmClusterHelperNgWashValidation.validateBorehole( borehole, i, j, k );
+								var result = ngmClusterHelperNgWashValidation.validateBorehole( borehole, i, j, k );
+								angular.merge( elements, result.divs );
+								boreholeRowComplete += result.count;
 							});
 						}
+
+						// reticulation 
+						if ( b.reticulations && b.reticulations.length ) {
+							reticulationLength += b.reticulations.length;
+							angular.forEach( b.reticulations, function( reticulation, k ){
+								var result = ngmClusterHelperNgWashValidation.validateReticulation( reticulation, i, j, k );
+								angular.merge( elements, result.divs );
+								reticulationRowComplete +=  result.count;
+							});
+						}
+
+						// service 
+						if ( b.services && b.services.length ) {
+							serviceLength += b.services.length;
+							angular.forEach( b.services, function( service, k ){
+								var result = ngmClusterHelperNgWashValidation.validateService( b, service, i, j, k );
+								angular.merge( elements, result.divs );
+								serviceRowComplete +=  result.count;
+							});
+						}
+
 					});
 				});
 
 				// valid
-				if ( boreholeLength === boreholeRowComplete ) {
-					return true;
-				} else {
-					Materialize.toast( 'Boreholes form contains errors!' , 6000, 'error' );
+				if ( boreholeLength !== boreholeRowComplete ||
+							reticulationLength !== reticulationRowComplete ||
+							serviceLength !== serviceRowComplete ) {
+					Materialize.toast( 'Form contains errors!' , 6000, 'error' );
+					elements[0].animatescroll();
 					return false;
+				} else {
+					return true;
 				}
 				
 			}

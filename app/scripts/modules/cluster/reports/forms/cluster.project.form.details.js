@@ -257,14 +257,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return ngmClusterBeneficiaries.showDescription( $scope.project.lists, $data, $beneficiary );
         },
 
-        // target details
-        showTargetDetails: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showTargetDetails( $scope.project.lists, $data, $beneficiary );
-        },
-
-        // report details
-        showTargetDetails: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showTargetDetails( $scope.project.lists, $data, $beneficiary );
+        // details
+        showDetails: function( $data, $beneficiary ) {
+          return ngmClusterBeneficiaries.showDetails( $scope.project.lists, $data, $beneficiary );
         },
 
         // cash delivery

@@ -89,23 +89,23 @@
 			</div>
 
 			<div class="input-field col s12 m3">
-      	<select id="ngm-borehole_free_residual_chlorine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
-	      					name="borehole_free_residual_chlorine_range"
+      	<select id="ngm-free_residual_chlorine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+	      					name="free_residual_chlorine_range"
 	      					class="validate"
-	      					ng-options="type.borehole_free_residual_chlorine_range_id as 
-	      												type.borehole_free_residual_chlorine_range_name for 
-	      												type in ngmClusterHelperNgWashLists.lists.borehole_free_residual_chlorine_ranges"
-	      					ng-model="borehole.borehole_free_residual_chlorine_range_id"
+	      					ng-options="type.free_residual_chlorine_range_id as 
+	      												type.free_residual_chlorine_range_name for 
+	      												type in ngmClusterHelperNgWashLists.lists.free_residual_chlorine_ranges"
+	      					ng-model="borehole.free_residual_chlorine_range_id"
 	      					ng-change="ngmClusterHelperNgWash.selectChange( borehole, 
-	      																			'borehole_free_residual_chlorine_ranges',
-	      																			'borehole_free_residual_chlorine_range_id', 
-	      																			'borehole_free_residual_chlorine_range_name',
-	      																			'ngm-borehole_free_residual_chlorine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}' )"
+	      																			'free_residual_chlorine_ranges',
+	      																			'free_residual_chlorine_range_id', 
+	      																			'free_residual_chlorine_range_name',
+	      																			'ngm-free_residual_chlorine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}' )"
 	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 	      					required>
 				<option value="">Select...</option>
 				</select>
-	      <label for="ngm-borehole_free_residual_chlorine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+	      <label for="ngm-free_residual_chlorine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
 	      				class="active" style="transform:translateY(-10%)">Free Residual Chlorine (FRC) Range</label>
 			</div>
 
@@ -114,8 +114,8 @@
 		<div class="row">
 
 			<div class="input-field col s12 m3">
-      	<select id="ngm-borehole_water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
-	      					name="borehole_water_turbidity_range"
+      	<select id="ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+	      					name="water_turbidity_range"
 	      					class="validate"
 	      					ng-options="type.water_turbidity_range_id as 
 	      												type.water_turbidity_range_name for 
@@ -125,12 +125,12 @@
 	      																			'water_turbidity_ranges',
 	      																			'water_turbidity_range_id', 
 	      																			'water_turbidity_range_name',
-	      																			'ngm-borehole_water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}' )"
+	      																			'ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}' )"
 	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 	      					required>
 				<option value="">Select...</option>
 				</select>
-	      <label for="ngm-borehole_water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+	      <label for="ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
 	      				class="active" style="transform:translateY(-10%)">Water Turbidity Range (NTU)</label>
 			</div>
 		

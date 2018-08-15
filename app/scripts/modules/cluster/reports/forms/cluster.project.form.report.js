@@ -199,9 +199,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           return ngmClusterBeneficiaries.showDescription( $scope.project.lists, $data, $beneficiary );
         },
 
-        // description
-        showReportDetails: function( $data, $location, $beneficiary, $beneficiaryIndex ) {
-          return ngmClusterBeneficiaries.showReportDetails( $scope.project.lists, $data, $location, $beneficiary, $beneficiaryIndex );
+        // details
+        showDetails: function( $data, $beneficiary ) {
+          return ngmClusterBeneficiaries.showDetails( $scope.project.lists, $data, $beneficiary );
         },
 
         // cholera

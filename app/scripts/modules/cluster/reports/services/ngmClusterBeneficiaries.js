@@ -205,7 +205,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // display category
-      showTargetDetails: function( lists, $data, $beneficiary ) {
+      showDetails: function( lists, $data, $beneficiary ) {
         var selected = [];
         $beneficiary.activity_detail_id = $data;
         if( $beneficiary.activity_detail_id ) {
@@ -213,38 +213,6 @@ angular.module( 'ngmReportHub' )
           if( selected.length ) {
             $beneficiary.activity_detail_name = selected[0].activity_detail_name;
           }
-
-        }
-        return selected.length ? selected[0].activity_detail_name : '-';
-      },
-
-      // display category
-      showReportDetails: function( lists, $data, $location, $beneficiary, $beneficiaryIndex ) {
-        var selected = [];
-        $beneficiary.activity_detail_id = $data;
-        if( $beneficiary.activity_detail_id ) {
-          selected = $filter('filter')( lists.activity_details, { activity_detail_id: $beneficiary.activity_detail_id }, true);
-          if( selected.length ) {
-            $beneficiary.activity_detail_name = selected[0].activity_detail_name;
-          }
-
-          // add borehole if new activity
-          if ( $beneficiary.activity_detail_id === 'borehole_upgrade' ||
-                $beneficiary.activity_detail_id === 'borehole_construction' ||
-                $beneficiary.activity_detail_id === 'borehole_rehabilitation' ) {
-            if ( !$beneficiary.boreholes || !$beneficiary.boreholes.length ) {
-              ngmClusterHelperNgWash.addBorehole( $location, $beneficiary );
-            }
-          }
-
-          // add reticulation if new activity
-          if ( $beneficiary.activity_detail_id === 'reticulation_construction' ||
-                $beneficiary.activity_detail_id === 'reticulation_rehabilitation' ) {
-            if ( !$beneficiary.reticulations || !$beneficiary.reticulations.length ) {
-              ngmClusterHelperNgWash.addReticulation( $location, $beneficiary );
-            }
-          }
-
         }
         return selected.length ? selected[0].activity_detail_name : '-';
       },

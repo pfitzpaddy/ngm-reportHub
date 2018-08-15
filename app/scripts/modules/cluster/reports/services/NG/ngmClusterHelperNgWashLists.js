@@ -66,21 +66,21 @@ angular.module( 'ngmReportHub' )
 					borehole_chlorination_plan_id: 'bucket_chlorination',
 					borehole_chlorination_plan_name: 'Bucket Chlorination'
 				}],
-				borehole_free_residual_chlorine_ranges: [{
-					borehole_free_residual_chlorine_range_id: '0_mg_ltr',
-					borehole_free_residual_chlorine_range_name: '0 mg/ltr'
+				free_residual_chlorine_ranges: [{
+					free_residual_chlorine_range_id: '0_mg_ltr',
+					free_residual_chlorine_range_name: '0 mg/ltr'
 				},{
-					borehole_free_residual_chlorine_range_id: '0.1_0.2_mg_ltr',
-					borehole_free_residual_chlorine_range_name: '0.1 to 0.2 mg/ltr'
+					free_residual_chlorine_range_id: '0.1_0.2_mg_ltr',
+					free_residual_chlorine_range_name: '0.1 to 0.2 mg/ltr'
 				},{
-					borehole_free_residual_chlorine_range_id: '0.21_0.4_mg_ltr',
-					borehole_free_residual_chlorine_range_name: '0.21 to 0.4 mg/ltr'
+					free_residual_chlorine_range_id: '0.21_0.4_mg_ltr',
+					free_residual_chlorine_range_name: '0.21 to 0.4 mg/ltr'
 				},{
-					borehole_free_residual_chlorine_range_id: '0.41_0.5_mg_ltr',
-					borehole_free_residual_chlorine_range_name: '0.41 to 0.5 mg/ltr'
+					free_residual_chlorine_range_id: '0.41_0.5_mg_ltr',
+					free_residual_chlorine_range_name: '0.41 to 0.5 mg/ltr'
 				},{
-					borehole_free_residual_chlorine_range_id: 'gt_0.5_mg_ltr',
-					borehole_free_residual_chlorine_range_name: '>0.5 mg/ltr'
+					free_residual_chlorine_range_id: 'gt_0.5_mg_ltr',
+					free_residual_chlorine_range_name: '>0.5 mg/ltr'
 				}],
 				from_chlorinated_systems: [{
 					from_chlorinated_system_id: 'yes',
