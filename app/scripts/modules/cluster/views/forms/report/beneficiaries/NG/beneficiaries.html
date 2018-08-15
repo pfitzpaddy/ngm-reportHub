@@ -1,7 +1,9 @@
 
 <style>
 
-  .collection.with-header .collection-item.avatar{
+  button.picker__clear { display: none; }
+
+  .collection.with-header .collection-item.avatar {
     padding-left: 51 !important;
   }
 
@@ -14,9 +16,8 @@
       <td>Activity</td>
       <td>Description</td>
       <td>Details</td>
+      <td>Cholera Response</td>
       <td>Beneficiary</td>
-      <td>Activity<br/> Start Date</td>
-      <td><br/>End Date</td>
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
     <tr ng-repeat-start="beneficiary in project.report.locations[$locationIndex].beneficiaries" 
@@ -27,7 +28,7 @@
               editable-select="beneficiary.activity_type_id"
               e-placeholder="Select..."
               e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.lists.projectActivityTypes">
-          {{ project.showActivity($data, beneficiary) }}
+          {{ project.showActivity( $data, beneficiary ) }}
         </span>
       </td>
       <td>
@@ -37,7 +38,7 @@
               e-placeholder="Select..."
               e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.lists.activity_descriptions | filter: { cluster_id: beneficiary.cluster_id, activity_type_id: beneficiary.activity_type_id }"
               e-ng-disabled="!beneficiary.activity_type_id">
-          {{ project.showDescription($data, beneficiary) }}
+          {{ project.showDescription( $data, beneficiary ) }}
         </span>
       </td>
       <td>
@@ -56,41 +57,25 @@
       </td>
       <td>
         <span e-form="rowform"
+              e-name="activity_cholera_response_id"
+              editable-select="beneficiary.activity_cholera_response_id"
+              e-placeholder="Select..."
+              e-ng-options="b.activity_cholera_response_id as 
+                              b.activity_cholera_response_name for 
+                              b in project.lists.activity_cholera_response"
+              e-ng-disabled="!beneficiary.activity_description_id">
+          {{ project.showCholera( $data, beneficiary ) }}
+        </span>
+      </td>
+      <td>
+        <span e-form="rowform"
               e-name="beneficiary_type_id"
               editable-select="beneficiary.beneficiary_type_id"
               e-placeholder="Select..."
               e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types | filter: { cluster_id: beneficiary.cluster_id }"
-              e-ng-disabled="!beneficiary.activity_description_id">
-          {{ project.showBeneficiary($data, beneficiary) }}
+              e-ng-disabled="!beneficiary.activity_cholera_response_id">
+          {{ project.showBeneficiary( $data, beneficiary ) }}
         </span>
-      </td>
-      <td>
-        <div class="input-field">
-          <input ngm-date
-              type="text"
-              name="created"
-              id="ngm-start-date"
-              ng-model="beneficiary.activity_start_date"
-              format="dd mmm, yyyy"
-              max="{{ beneficiary.activity_end_date }}"
-              on-close="ngmClusterBeneficiaries.datepicker.startOnClose( beneficiary, beneficiary.activity_start_date )"
-              ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
-              e-required/>
-        </div>
-      </td>
-      <td>
-        <div class="input-field">
-          <input ngm-date
-              type="text"
-              name="created"
-              id="ngm-end-date"
-              ng-model="beneficiary.activity_end_date"
-              format="dd mmm, yyyy"
-              min="{{ beneficiary.activity_start_date }}"
-              on-close="ngmClusterBeneficiaries.datepicker.endOnClose( beneficiary, beneficiary.activity_end_date )"
-              ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
-              e-required/>
-        </div>
       </td>
       
       <!-- controls -->
@@ -99,16 +84,16 @@
         <form editable-form name="rowform"
                 onshow="project.keydownSaveForm()"
                 ng-show="rowform.$visible"
-                onbeforesave="project.save( false, false )"
                 class="form-buttons form-inline"
                 shown="inserted == beneficiary">
-          <button type="submit"
+          <div type="button"
                     ng-if="rowform.$visible"
                     ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations )"
                     class="btn btn-small waves-effect waves-light save"
+                    ng-click="project.validateBeneficiariesForm( false, false )"
                     title="Save">
             <i class="material-icons">save</i>
-          </button>
+          </div>
           <div type="button"
                 ng-if="rowform.$visible"
                 ng-disabled="rowform.$waiting"
@@ -140,16 +125,13 @@
 
     <!-- details -->
     <!-- ng-show as an extra row is added only if necissary ( some projects may have intersectoral activities ) -->
-    <tr ng-repeat-end 
-          ng-show="beneficiary.activity_detail_id === 'borehole_upgrade' ||
-                      beneficiary.activity_detail_id === 'borehole_construction'">
+    <tr ng-repeat-end ng-if="ngmClusterHelperNgWash.getTemplate( beneficiary )">
       <td colspan="100" style="padding-left:20px">
 
-        <!-- if boreholes -->
-        <div ng-if="beneficiary.activity_detail_id === 'borehole_upgrade' ||
-                      beneficiary.activity_detail_id === 'borehole_construction'"
-              ng-include="project.templatesUrl + ngmClusterHelperNgWash.boreholesUrl">
-        </div>
+        <!-- get template -->
+        <!-- <div ng-if="beneficiary.activity_detail_id"> -->
+          <div ng-include="project.templatesUrl + ngmClusterHelperNgWash.getTemplate( beneficiary )"></div>
+        <!-- </div> -->
 
       </td> 
     </tr>

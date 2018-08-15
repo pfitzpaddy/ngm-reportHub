@@ -10,81 +10,70 @@ angular.module( 'ngmReportHub' )
 			[ '$http',
 				'$filter',
 				'$timeout',
-				'ngmAuth', function( $http, $filter, $timeout, ngmAuth ) {
+				'ngmAuth',
+				'ngmClusterHelperNgWashLists',
+				'ngmClusterHelperNgWashValidation',
+				function( $http, $filter, $timeout, ngmAuth, ngmClusterHelperNgWashLists, ngmClusterHelperNgWashValidation ) {
 
 		// definition
 		var ngmClusterHelperNgWash = {
 					
 			// NG and WASH
-			boreholesUrl: 'beneficiaries/NG/wash/boreholes.html',
+			boreholeUrl: 'beneficiaries/NG/wash/borehole.html',
+			reticulationUrl: 'beneficiaries/NG/wash/reticulation.html',
 
-			// lists
-			lists: {
-				borehole_water_facility_types: [{
-					borehole_water_facility_type_id:'solar',
-					borehole_water_facility_type_name:'Solar'
-				},{
-					borehole_water_facility_type_id:'motorized',
-					borehole_water_facility_type_name:'Motorized'
-				},{
-					borehole_water_facility_type_id:'hybrid',
-					borehole_water_facility_type_name:'Hybrid ( Solar-Generator )'
-				},{
-					borehole_water_facility_type_id:'hand_pump',
-					borehole_water_facility_type_name:'Hand Pump'
-				}],
-				borehole_water_facility_sizes: [{
-					borehole_water_facility_size_id:'big',
-					borehole_water_facility_size_name:'Big'
-				},{
-					borehole_water_facility_size_id:'medium',
-					borehole_water_facility_size_name:'Medium'
-				},{
-					borehole_water_facility_size_id:'small',
-					borehole_water_facility_size_name:'Small'
-				}],
-				borehole_water_turbidity_ranges: [{
-					borehole_water_turbidity_range_id: 'ntu_0',
-					borehole_water_turbidity_range_name: '0 NTU'
-				},{
-					borehole_water_turbidity_range_id: 'ntu_lt_5',
-					borehole_water_turbidity_range_name: '<5 NTU'
-				},{
-					borehole_water_turbidity_range_id: 'ntu_5_to_20',
-					borehole_water_turbidity_range_name: '5 to 20 NTU'
-				},{
-					borehole_water_turbidity_range_id: 'ntu_gt_20',
-					borehole_water_turbidity_range_name: 'Above 20 NTU'
-				}],
-				borehole_chlorination_plans: [{
-					borehole_chlorination_plan_id: 'none',
-					borehole_chlorination_plan_name: 'None'
-				},{
-					borehole_chlorination_plan_id: 'online_chlorination',
-					borehole_chlorination_plan_name: 'Online Chlorination'
-				},{
-					borehole_chlorination_plan_id: 'tank_chlorination',
-					borehole_chlorination_plan_name: 'Chlorination in Tank'
-				},{
-					borehole_chlorination_plan_id: 'bucket_chlorination',
-					borehole_chlorination_plan_name: 'Bucket Chlorination'
-				}],
-				borehole_free_residual_cholrine_ranges: [{
-					borehole_free_residual_cholrine_range_id: '0_mg_ltr',
-					borehole_free_residual_cholrine_range_name: '0 mg/ltr',
-				},{
-					borehole_free_residual_cholrine_range_id: '0.1_0.2_mg_ltr',
-					borehole_free_residual_cholrine_range_name: '0.1 to 0.2 mg/ltr',
-				},{
-					borehole_free_residual_cholrine_range_id: '0.21_0.4_mg_ltr',
-					borehole_free_residual_cholrine_range_name: '0.21 to 0.4 mg/ltr',
-				},{
-					borehole_free_residual_cholrine_range_id: '0.41_0.5_mg_ltr',
-					borehole_free_residual_cholrine_range_name: '0.41 to 0.5 mg/ltr',
-				},{
-					borehole_free_residual_cholrine_range_id: 'gt_0.5_mg_ltr',
-					borehole_free_residual_cholrine_range_name: '>0.5 mg/ltr',
-				}]
+			// beneficiaries
+			ratios: {
+				beneficiaries: 66.6667,
+				households: 0.1666666666667, // 1/6
+				boys: 0.2538,
+				girls: 0.2862,
+				men: 0.1833,
+				women: 0.2067,
+				elderly_men: 0.0329,
+				elderly_women: 0.0371
+			},
+
+			// reset form
+			init_material_select:function(){
+				setTimeout(function(){ 
+					$( '.input-field input' ).removeClass( 'invalid' );
+					$( '.input-field input' ).removeClass( 'ng-touched' );
+					$( '.input-field select' ).material_select(); 
+				}, 10 );
+			},
+
+			// show 2 rows with template
+			getTemplate: function( beneficiary ){
+				
+				var template = false;
+
+				// borehole
+				if ( beneficiary.activity_detail_id === 'borehole_upgrade' ||
+              beneficiary.activity_detail_id === 'borehole_construction' ||
+              beneficiary.activity_detail_id === 'borehole_rehabilitation' ) {
+					template = ngmClusterHelperNgWash.boreholeUrl;
+				}
+
+				// reticulation
+				if ( beneficiary.activity_detail_id === 'reticulation_construction' ||
+              beneficiary.activity_detail_id === 'reticulation_rehabilitation' ) {
+					template = ngmClusterHelperNgWash.reticulationUrl;
+				}
+
+				// url
+				return template;
+			},
+
+			// update display name in object on borehole change
+			selectChange: function( b, list, key, name, label ){
+				if ( b[ key ] ) {
+					var id = b[ key ];
+					var search_list = ngmClusterHelperNgWashLists.lists[ list ];
+					var filter = $filter('filter')( search_list, { [key]: id }, true );
+					b[ name ] = filter[0][ name ];
+					$("label[for='" + label + "']").css({ 'color': '#26a69a', 'font-weight': 300 });
+				}
 			},
 
 			// add borehole
@@ -95,10 +84,12 @@ angular.module( 'ngmReportHub' )
 					borehole_yield_ltrs_second: 0,
 					borehole_pumping_ave_daily_hours: 0,
 					borehole_tanks_storage_ltrs: 0,
-					borehole_taps_number_connected: 0,
+					taps_number_connected: 0,
 					borehole_taps_ave_flow_rate_ltrs_minute: 0,
 					borehole_lng: location.site_lng,
 					borehole_lat: location.site_lat,
+          activity_start_date: moment( new Date() ).startOf( 'M' ).format('YYYY-MM-DD'),
+          activity_end_date: moment( new Date() ).endOf( 'M' ).format('YYYY-MM-DD')
 				}
 
 				// existing
@@ -121,37 +112,134 @@ angular.module( 'ngmReportHub' )
 
 			},
 
-			// reset form
-			init_material_select:function(){
-				setTimeout(function(){ 
-					$( '.input-field input' ).removeClass( 'invalid' );
-					$( '.input-field input' ).removeClass( 'ng-touched' );
-					$( '.input-field select' ).material_select(); 
-				}, 10 );
+			// add borehole
+			addReticulation: function( location, beneficiary ){
+					
+				// default
+				var reticulation = {
+					taps_number_connected: 0,
+          activity_start_date: moment( new Date() ).startOf( 'M' ).format('YYYY-MM-DD'),
+          activity_end_date: moment( new Date() ).endOf( 'M' ).format('YYYY-MM-DD')
+				}
+
+				// existing
+				var length = beneficiary.reticulations && beneficiary.reticulations.length;
+
+				// set boreholes
+				if ( !length ){
+					beneficiary.reticulations = [];
+				} else {
+          var b = angular.copy( beneficiary.reticulations[ length - 1 ] );
+          delete b.id;
+          reticulation = angular.merge( {}, reticulation, b );
+        }
+
+        // push
+				beneficiary.reticulations.push( reticulation );
+
+				// init select
+				setTimeout(function(){ $( '.input-field select' ).material_select(); }, 200 );
+
 			},
 
       // remove beneficiary nodal
-      removeBoreholeModal: function( project, beneficiary, $boreholeIndex ) {
+      removeModal: function( project, beneficiary, $index, name, modal ) {
       	ngmClusterHelperNgWash.project = project;
       	ngmClusterHelperNgWash.beneficiary = beneficiary;
-        ngmClusterHelperNgWash.$boreholeIndex = $boreholeIndex;
-        $( '#borehole-modal' ).openModal({ dismissible: false });
+      	ngmClusterHelperNgWash.name = name;
+        ngmClusterHelperNgWash.$index = $index;
+        $( modal ).openModal({ dismissible: false });
       },
 
 			// remove borehole
-			removeBorehole: function(){
-				ngmClusterHelperNgWash.beneficiary.boreholes.splice( ngmClusterHelperNgWash.$boreholeIndex, 1 );
-				ngmClusterHelperNgWash.project.save( false, false );
+			remove: function(){
+				
+				// get id
+				var id = ngmClusterHelperNgWash.beneficiary[ ngmClusterHelperNgWash.name ][ ngmClusterHelperNgWash.$index ].id;
+				ngmClusterHelperNgWash.beneficiary[ ngmClusterHelperNgWash.name ].splice( ngmClusterHelperNgWash.$index, 1 );
+				
+				// calculate location totals
+				ngmClusterHelperNgWash.totalActivityBeneficiaries( ngmClusterHelperNgWash.project.report.locations );
+
+				// update db if id exists (stored in db)
+				if ( id ) {
+					ngmClusterHelperNgWash.project.save( false, false );
+				}			
+			},
+
+			// m3 = yield*hrs*3600secs
+			boreholeOutput: function( locations, b ){
+				if ( b.borehole_yield_ltrs_second >=0 && 
+							b.borehole_pumping_ave_daily_hours >=0 ) {
+					b.borehole_m3 = b.borehole_yield_ltrs_second * b.borehole_pumping_ave_daily_hours * 3600;
+					b.borehole_beneficiaires = b.borehole_m3 * ngmClusterHelperNgWash.ratios.beneficiaries;
+					b.households = Math.round( b.borehole_beneficiaires * ngmClusterHelperNgWash.ratios.households );
+					b.boys = Math.round( b.borehole_beneficiaires * ngmClusterHelperNgWash.ratios.boys );
+					b.girls = Math.round( b.borehole_beneficiaires * ngmClusterHelperNgWash.ratios.girls );
+					b.men = Math.round( b.borehole_beneficiaires * ngmClusterHelperNgWash.ratios.men );
+					b.women = Math.round( b.borehole_beneficiaires * ngmClusterHelperNgWash.ratios.women );
+					b.elderly_men = Math.round( b.borehole_beneficiaires * ngmClusterHelperNgWash.ratios.elderly_men );
+					b.elderly_women = Math.round( b.borehole_beneficiaires * ngmClusterHelperNgWash.ratios.elderly_women );
+						
+					// calculate location totals
+					ngmClusterHelperNgWash.totalActivityBeneficiaries( locations );
+
+				}
+			},
+
+			// calculate comboned beneficiaries per borehole by location / activity
+			totalActivityBeneficiaries: function( locations ){
+				angular.forEach( locations, function( l, i ){
+					angular.forEach( l.beneficiaries, function( b, j ){
+						b.households = 0;
+						b.boys = 0;
+						b.girls = 0;
+						b.men = 0;
+						b.women = 0;
+						b.elderly_men = 0;
+						b.elderly_women = 0;
+						angular.forEach( b.boreholes, function( borehole, k ){
+							b.households += borehole.households;
+							b.boys += borehole.boys;
+							b.girls += borehole.girls;
+							b.men += borehole.men;
+							b.women += borehole.women;
+							b.elderly_men += borehole.elderly_men;
+							b.elderly_women += borehole.elderly_women;
+						});
+					});
+				});
+			},
+
+			// validate wash activities
+			validateActivities: function( locations ) {
+				
+				// count
+				var boreholeLength = 0;
+				var boreholeRowComplete = 0;
+
+				// each borehole
+				angular.forEach( locations, function( l, i ){
+					angular.forEach( l.beneficiaries, function( b, j ){
+						if ( b.boreholes && b.boreholes.length ) {
+							boreholeLength += b.boreholes.length;
+							console.log( b.boreholes )
+							angular.forEach( b.boreholes, function( borehole, k ){
+								boreholeRowComplete += ngmClusterHelperNgWashValidation.validateBorehole( borehole, i, j, k );
+							});
+						}
+					});
+				});
+
+				// valid
+				if ( boreholeLength === boreholeRowComplete ) {
+					return true;
+				} else {
+					Materialize.toast( 'Boreholes form contains errors!' , 6000, 'error' );
+					return false;
+				}
+				
 			}
-
-			
-			// 											lng1 						lat1, 					lng2 						lat2
-			// 'NG': ( 'Nigeria', ( 2.69170169436, 4.24059418377, 14.5771777686, 13.8659239771 ) ),
-
-
-			
-
-
 
 		}
 

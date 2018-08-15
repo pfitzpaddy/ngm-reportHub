@@ -33,6 +33,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
     'ngmClusterTrainings',
     'ngmClusterHelperAf',
     'ngmClusterHelperNgWash',
+    'ngmClusterHelperNgWashLists',
+    'ngmClusterHelperNgWashValidation',
     'config',
     function( 
       $scope,
@@ -51,6 +53,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       ngmClusterTrainings,
       ngmClusterHelperAf,
       ngmClusterHelperNgWash,
+      ngmClusterHelperNgWashLists,
+      ngmClusterHelperNgWashValidation,
       config ){
 
 
@@ -62,7 +66,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       $scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
       $scope.ngmClusterTrainings = ngmClusterTrainings;
       $scope.ngmClusterHelperNgWash = ngmClusterHelperNgWash;
-
+      $scope.ngmClusterHelperNgWashLists = ngmClusterHelperNgWashLists;
+      $scope.ngmClusterHelperNgWashValidation = ngmClusterHelperNgWashValidation;
 
       // project
       $scope.project = {
@@ -186,17 +191,22 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // activity
         showActivity: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showActivity( $scope.project.definition, $data, $beneficiary, false );
+          return ngmClusterBeneficiaries.showActivity( $scope.project.definition, $data, $beneficiary );
+        },
+
+        // description
+        showDescription: function( $data, $beneficiary ) {
+          return ngmClusterBeneficiaries.showDescription( $scope.project.lists, $data, $beneficiary );
         },
 
         // description
         showReportDetails: function( $data, $location, $beneficiary, $beneficiaryIndex ) {
           return ngmClusterBeneficiaries.showReportDetails( $scope.project.lists, $data, $location, $beneficiary, $beneficiaryIndex );
         },
-        
-        // description
-        showDescription: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showDescription( $scope.project.lists, $data, $beneficiary );
+
+        // cholera
+        showCholera: function( $data, $beneficiary ) {
+          return ngmClusterBeneficiaries.showCholera( $scope.project.lists, $data, $beneficiary );
         },
 
         // cash delivery
@@ -298,6 +308,19 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         cancelEdit: function( $parent, $index ) {
           if ( !$scope.project.report.locations[ $parent ].beneficiaries[ $index ].id ) {
             $scope.project.report.locations[ $parent ].beneficiaries.splice( $index, 1 );
+          }
+        },
+
+        // validate form ( ng wash )
+        validateBeneficiariesForm: function( complete, display_modal ){
+          if ( ngmClusterHelperNgWash.validateActivities( $scope.project.report.locations ) ){
+            if ( complete ) {
+              $( '#complete-modal' ).openModal( { dismissible: false } );
+            } else if ( display_modal ) {
+              $( '#save-modal' ).openModal( { dismissible: false } );
+            } else {
+              $scope.project.save( false, false );
+            }
           }
         },
 

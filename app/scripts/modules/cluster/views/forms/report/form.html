@@ -44,10 +44,24 @@
   </div>
   <div class="modal-footer">
   	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="ngmClusterHelperNgWash.removeBorehole()" 
+    <a ng-click="ngmClusterHelperNgWash.remove()" 
     		class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Borehole!</a>
   </div>
 </div>
+
+<div id="reticulation-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
+    	<i class="material-icons medium left">delete</i>Remove Reticulation</h4>
+    <p style="padding-left: 76px;">Remove this Reticulation from your project?</p>
+  </div>
+  <div class="modal-footer">
+  	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="ngmClusterHelperNgWash.remove()" 
+    		class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Reticulation!</a>
+  </div>
+</div>
+
 
 <div id="training-modal" class="modal">
   <div class="modal-content">
@@ -110,29 +124,21 @@
 					<!-- submission -->
 					<div align="center" >
 						
-					<!-- 	validation	-->			
-					<!--
-						<button data-target="save-modal" class="waves-effect waves-light btn"
-							ng-click="project.save( false )"
-							ng-disabled="
-										( !project.formComplete() ) ||
-										( !project.report.submit ) ||
-										( clusterReportForm.$submitted && clusterReportForm.$invalid )"
-							ng-cloak><i class="material-icons right">send</i>Save</button> 
-					-->
-
-							<!-- ng-click="project.modalConfirm( 'save-modal' )" -->
-
-						<!-- no validation -->
-						<button class="waves-effect waves-light btn modal-trigger"
+						<!-- validation -->
+<!-- 						<button class="waves-effect waves-light btn modal-trigger"
 											data-target="save-modal"
 	                		ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
 	                									!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
 	                		ng-cloak>
                 		<i class="material-icons right">send</i>Save
-						</button>	
-
-<!-- ng-click="project.modalConfirm( 'list-modal' )" -->
+						</button>	 -->
+						<button class="waves-effect waves-light btn"
+											ng-click="project.validateBeneficiariesForm( false, true )"
+	                		ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
+	                									!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
+	                		ng-cloak>
+                		<i class="material-icons right">send</i>Save
+						</button>
 
 						<!-- cancel new  -->
 						<button class="waves-effect waves-light btn grey modal-trigger" 
@@ -142,19 +148,8 @@
 						<br/>
 						<br/>
 
-<!--  						<button class="waves-effect waves-light btn grey" 
-							ng-click="project.modalConfirm( 'list-modal' )">
-							<i class="material-icons left">keyboard_return</i>Cancel
-						</button> -->
-
-						<!-- <button class="waves-effect waves-light btn blue"
-							ng-click="project.modalConfirm( 'complete-modal' )"
-							ng-disabled="!project.formComplete()"
-							ng-cloak><i class="material-icons left">assignment_turned_in</i>Submit Monthly Report
-						</button> -->
-
 						<button class="waves-effect waves-light btn blue"
-											ng-click="project.modalConfirm( 'complete-modal' )"
+											ng-click="project.validateBeneficiariesForm( true, false )"
 											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
 																		!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
 											ng-cloak>

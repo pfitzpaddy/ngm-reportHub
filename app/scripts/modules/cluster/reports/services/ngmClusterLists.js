@@ -42,6 +42,10 @@ angular.module( 'ngmReportHub' )
           // keys to ignore when summing beneficiaries in template ( 2016 )
           skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ],
 
+          // NG cholera
+          activity_cholera_response: [{ activity_cholera_response_id: 'yes', activity_cholera_response_name: 'Yes' },
+                              { activity_cholera_response_id: 'no', activity_cholera_response_name: 'No' }],
+
           // training
           trainee_affiliations: [{ trainee_affiliation_id: 'community', trainee_affiliation_name: 'Community' },
                                     { trainee_affiliation_id: 'moh', trainee_affiliation_name: 'MoH' },

@@ -40,16 +40,13 @@ angular.module( 'ngmReportHub' )
           elderly_women:0
         };
 
-        // NG has activity dates
-        if ( project.admin0pcode === 'NG' ) {
-          sadd.activity_start_date = moment( new Date() ).startOf( 'M' ).format('YYYY-MM-DD');
-          sadd.activity_end_date = moment( new Date() ).endOf( 'M' ).format('YYYY-MM-DD');
-          // init select
-          setTimeout(function(){ $( '.input-field select' ).material_select(); }, 200 );
-        }
-
         // note: see ngmClusterBeneficiaries.updateBeneficiaryModel
           // for activity specific popn detais
+
+        // NG has select
+        if ( project.admin0pcode === 'NG' ) {
+          setTimeout(function(){ $( '.input-field select' ).material_select(); }, 200 );
+        }
 
         // merge
         angular.merge( inserted, sadd );
@@ -76,7 +73,7 @@ angular.module( 'ngmReportHub' )
           url: ngmAuth.LOCATION + '/api/cluster/project/removeBeneficiary',
           data: { id: id }
         }).success( function( result ) {
-          Materialize.toast( 'People in Need Removed!' , 4000, 'success' )
+          Materialize.toast( 'People in Need Removed!' , 4000, 'success' );
         }).error( function( err ) {
           Materialize.toast( 'Error!', 6000, 'error' );
         });
@@ -129,7 +126,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // show activity (generic)
-      showActivity: function( project, $data, $beneficiary, targets ){
+      showActivity: function( project, $data, $beneficiary ){
         var selected = [];
         $beneficiary.activity_type_id = $data;
         if( $beneficiary.activity_type_id && project.activity_type.length ) {
@@ -156,10 +153,8 @@ angular.module( 'ngmReportHub' )
             }
 
             // updates beneficiaries if popn details to be used from dtm
-            if ( !targets ) {
-              $beneficiary = ngmClusterBeneficiaries.updateBeneficiaryModel( project, $beneficiary );
-              // console.log($beneficiary);
-            }
+            // $beneficiary = ngmClusterBeneficiaries.updateBeneficiaryModel( project, $beneficiary );
+
           }
         }
         return selected.length ? selected[0].activity_type_name : '-';
@@ -235,14 +230,36 @@ angular.module( 'ngmReportHub' )
 
           // add borehole if new activity
           if ( $beneficiary.activity_detail_id === 'borehole_upgrade' ||
-                $beneficiary.activity_detail_id === 'borehole_construction' ) {
-            if ( !$beneficiary.boreholes ) {
+                $beneficiary.activity_detail_id === 'borehole_construction' ||
+                $beneficiary.activity_detail_id === 'borehole_rehabilitation' ) {
+            if ( !$beneficiary.boreholes || !$beneficiary.boreholes.length ) {
               ngmClusterHelperNgWash.addBorehole( $location, $beneficiary );
+            }
+          }
+
+          // add reticulation if new activity
+          if ( $beneficiary.activity_detail_id === 'reticulation_construction' ||
+                $beneficiary.activity_detail_id === 'reticulation_rehabilitation' ) {
+            if ( !$beneficiary.reticulations || !$beneficiary.reticulations.length ) {
+              ngmClusterHelperNgWash.addReticulation( $location, $beneficiary );
             }
           }
 
         }
         return selected.length ? selected[0].activity_detail_name : '-';
+      },
+
+      // cholera response
+      showCholera: function( lists, $data, $beneficiary ) {
+        var selected = [];
+        $beneficiary.activity_cholera_response_id = $data;
+        if( $beneficiary.activity_cholera_response_id ) {
+          selected = $filter('filter')( lists.activity_cholera_response, { activity_cholera_response_id: $beneficiary.activity_cholera_response_id }, true);
+          if( selected.length ) {
+            $beneficiary.activity_cholera_response_name = selected[0].activity_cholera_response_name;
+          }
+        }
+        return selected.length ? selected[0].activity_cholera_response_name : '-';
       },
 
       // display delivery (afg specific)
