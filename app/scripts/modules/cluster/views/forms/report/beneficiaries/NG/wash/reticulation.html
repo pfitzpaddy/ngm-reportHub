@@ -26,15 +26,15 @@
 		<div class="row">
 
 			<div class="input-field col s12 m4">
-	      <input id="ngm-taps_number_connected-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}"
-				      	name="taps_number_connected"
+	      <input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}"
+				      	name="quantity"
 				      	type="number" 
 				      	class="validate" 
 				      	min="0"
-				      	ng-model="reticulation.taps_number_connected"
+				      	ng-model="reticulation.quantity"
 				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
-	      <label for="ngm-taps_number_connected-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}"
+	      <label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}"
 	      				class="active">Taps Connected (Number)</label>
 			</div>
 

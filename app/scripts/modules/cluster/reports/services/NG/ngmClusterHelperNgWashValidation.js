@@ -31,7 +31,6 @@ angular.module( 'ngmReportHub' )
 					id = $("label[for='" + label + "']");
 					id.css({ 'color': '#26a69a', 'font-weight': 300 });
 				} else {
-					console.log(label)
 					id = $("label[for='" + label + "']");
 					id.css({ 'color': '#EE6E73', 'font-weight': 400 });
  					Materialize.toast( 'Borehole location outside Nigeria!' , 6000, 'error' );
@@ -48,36 +47,37 @@ angular.module( 'ngmReportHub' )
 				var complete = true;
 
 				// boreholes
-				if ( !b.water_turbidity_range_id && !b.water_turbidity_range_name ){ 
-					id = $("label[for='" + 'ngm-water_turbidity_range-'+i+'-'+j+'-'+k + "']");
-					id.css({ 'color': '#EE6E73', 'font-weight': 400 });
-					divs.push(id);
-					complete = false;
-				}
-				if ( !b.free_residual_chlorine_range_id && !b.free_residual_chlorine_range_name ){ 
-					id = $("label[for='" + 'ngm-free_residual_chlorine_range-'+i+'-'+j+'-'+k + "']");
-					id.css({ 'color': '#EE6E73', 'font-weight': 400 });
-					divs.push(id);
-					complete = false;
-				}
-				if ( !b.borehole_chlorination_plan_id && !b.borehole_chlorination_plan_name ){ 
-					id = $("label[for='" + 'ngm-borehole_chlorination_plan-'+i+'-'+j+'-'+k + "']");
-					id.css({ 'color': '#EE6E73', 'font-weight': 400 });
-					divs.push(id);
+				if ( !b.borehole_water_facility_type_id && !b.borehole_water_facility_type_name ){ 
+					id = "label[for='" + 'ngm-borehole_water_facility_type-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					divs.push( id );
 					complete = false;
 				}
 				if ( !b.borehole_water_facility_size_id && !b.borehole_water_facility_size_name ){ 
-					id = $("label[for='" + 'ngm-borehole_water_facility_size-'+i+'-'+j+'-'+k + "']");
-					id.css({ 'color': '#EE6E73', 'font-weight': 400 });
-					divs.push(id);
+					id = "label[for='" + 'ngm-borehole_water_facility_size-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					divs.push( id );
 					complete = false;
 				}
-				if ( !b.borehole_water_facility_type_id && !b.borehole_water_facility_type_name ){ 
-					id = $("label[for='" + 'ngm-borehole_water_facility_type-'+i+'-'+j+'-'+k + "']");
-					id.css({ 'color': '#EE6E73', 'font-weight': 400 });
-					divs.push(id);
+				if ( !b.borehole_chlorination_plan_id && !b.borehole_chlorination_plan_name ){ 
+					id = "label[for='" + 'ngm-borehole_chlorination_plan-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					divs.push( id );
 					complete = false;
 				}
+				if ( !b.free_residual_chlorine_range_id && !b.free_residual_chlorine_range_name ){ 
+					id = "label[for='" + 'ngm-free_residual_chlorine_range-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					divs.push( id );
+					complete = false;
+				}
+				if ( !b.water_turbidity_range_id && !b.water_turbidity_range_name ){ 
+					id = "label[for='" + 'ngm-water_turbidity_range-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					divs.push( id );
+					complete = false;
+				}
+
 
 				// return 1 for complete, 0 for error
 				if ( complete ) {
@@ -98,14 +98,14 @@ angular.module( 'ngmReportHub' )
 
 				// reticulation
 				if ( !b.from_chlorinated_system_id && !b.from_chlorinated_system_name ){ 
-					id = $("label[for='" + 'ngm-from_chlorinated_system-'+i+'-'+j+'-'+k + "']");
-					id.css({ 'color': '#EE6E73', 'font-weight': 400 });
+					id = "label[for='" + 'ngm-from_chlorinated_system-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					divs.push( id );
 					complete = false;
 				}
 				if ( !b.water_turbidity_range_id && !b.water_turbidity_range_name ){ 
-					id = $("label[for='" + 'ngm-water_turbidity_range-'+i+'-'+j+'-'+k + "']");
-					id.css({ 'color': '#EE6E73', 'font-weight': 400 });
+					id = "label[for='" + 'ngm-water_turbidity_range-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					divs.push( id );
 					complete = false;
 				}
@@ -130,14 +130,14 @@ angular.module( 'ngmReportHub' )
 				// tablets service has no dropdowns
 				if ( b.activity_detail_id !== 'distribution_treatment_tablets' ) {
 					if ( !s.free_residual_chlorine_range && !s.free_residual_chlorine_range ){ 
-						id = $("label[for='" + 'ngm-free_residual_chlorine_range-'+i+'-'+j+'-'+k + "']");
-						id.css({ 'color': '#EE6E73', 'font-weight': 400 });
+						id = "label[for='" + 'ngm-free_residual_chlorine_range-'+i+'-'+j+'-'+k + "']";
+						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 						divs.push( id );
 						complete = false;
 					}
 					if ( !s.water_turbidity_range_id && !s.water_turbidity_range_name ){ 
-						id = $("label[for='" + 'ngm-water_turbidity_range-'+i+'-'+j+'-'+k + "']");
-						id.css({ 'color': '#EE6E73', 'font-weight': 400 });
+						id = "label[for='" + 'ngm-water_turbidity_range-'+i+'-'+j+'-'+k + "']";
+						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 						divs.push( id );
 						complete = false;
 					}
@@ -147,7 +147,6 @@ angular.module( 'ngmReportHub' )
 				if ( complete ) {
 					return { count: 1, divs: divs };
 				} else {
-					console.log( divs )
 					return { count: 0, divs: divs };
 				}
 

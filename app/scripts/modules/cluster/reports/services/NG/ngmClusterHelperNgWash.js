@@ -352,7 +352,7 @@ angular.module( 'ngmReportHub' )
 							reticulationLength !== reticulationRowComplete ||
 							serviceLength !== serviceRowComplete ) {
 					Materialize.toast( 'Form contains errors!' , 6000, 'error' );
-					elements[0].animatescroll();
+					$( elements[0] ).animatescroll();
 					return false;
 				} else {
 					return true;
