@@ -77,8 +77,16 @@ angular.module( 'ngmReportHub' )
 			selectChange: function( b, list, key, name, label ){
 				if ( b[ key ] ) {
 					var id = b[ key ];
+					var obj = {}
 					var search_list = ngmClusterHelperNgWashLists.lists[ list ];
-					var filter = $filter('filter')( search_list, { [key]: id }, true );
+					
+					// this approach does NOT break gulp!
+					obj[key] = id;
+					var filter = $filter('filter')( search_list, obj, true );
+					
+					// this does
+					// var filter = $filter('filter')( search_list, { [key]: id }, true );
+
 					b[ name ] = filter[0][ name ];
 					$("label[for='" + label + "']").css({ 'color': '#26a69a', 'font-weight': 300 });
 				}
