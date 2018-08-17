@@ -126,12 +126,16 @@
 
     <!-- details -->
     <!-- ng-show as an extra row is added only if necissary ( some projects may have intersectoral activities ) -->
-    <tr ng-repeat-end ng-if="ngmClusterHelperNgWash.getTemplate( beneficiary )">
+    <!-- the activity row must not be disabled to display the details forms -->
+    <tr ng-repeat-end ng-show="ngmClusterHelperNgWash.getTemplate( beneficiary ); 
+                                !ngmClusterBeneficiaries.rowSaveDisabled( project.definition, beneficiary );">
       <td colspan="100" style="padding-left:20px">
 
         <!-- get template -->
         <div ng-if="ngmClusterHelperNgWash.getTemplate( beneficiary )">
-          <div ng-include="project.templatesUrl + ngmClusterHelperNgWash.getTemplate( beneficiary )"></div>
+          <div ng-include="project.templatesUrl + 
+                            ngmClusterHelperNgWash.templateUrl + 
+                            ngmClusterHelperNgWash.getTemplate( beneficiary )"></div>
         </div>
 
       </td> 

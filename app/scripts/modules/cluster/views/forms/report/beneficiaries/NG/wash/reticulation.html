@@ -3,7 +3,7 @@
 <h5 class="report-location-title" style="padding-top:0px;">{{ beneficiary.activity_detail_name }} Details</h5>
 	
 	<!-- repeat -->
-  <div class="card-panel" ng-repeat="reticulation in beneficiary.reticulations" 
+  <div class="card-panel" ng-repeat="reticulation in beneficiary.water" 
   			ng-init="$reticulationIndex = $index">
 
 	  <!-- reticulation title / btns -->
@@ -124,7 +124,7 @@
           ng-show="project.report.report_status !== 'complete'" 
           ng-click="rowform.$show(); 
           						ngmClusterHelperNgWash.init_material_select();
-          						ngmClusterHelperNgWash.addReticulation( location, beneficiary )">
+          						ngmClusterHelperNgWash.addActivityDetail( location, beneficiary, 'water' )">
     <i class="material-icons left">add</i>Add Reticulation
   </button>
 

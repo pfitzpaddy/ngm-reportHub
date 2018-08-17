@@ -38,7 +38,7 @@ angular.module( 'ngmReportHub' )
 
 			},
 
-			// validate borehole
+			// validate borehole form
 			validateBorehole: function( b, i, j, k ){
 					
 				// valid
@@ -77,7 +77,36 @@ angular.module( 'ngmReportHub' )
 					divs.push( id );
 					complete = false;
 				}
-
+				if ( b.borehole_tanks_storage_ltrs === undefined || b.borehole_tanks_storage_ltrs < 0 ){ 
+					id = "label[for='" + 'ngm-borehole_tanks_storage_ltrs-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					divs.push( id );
+					complete = false;
+				}
+				if ( b.taps_number_connected === undefined || b.taps_number_connected < 0 ){ 
+					id = "label[for='" + 'ngm-taps_number_connected-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					divs.push( id );
+					complete = false;
+				}
+				if ( b.borehole_taps_ave_flow_rate_ltrs_minute === undefined || b.borehole_taps_ave_flow_rate_ltrs_minute < 0 ){ 
+					id = "label[for='" + 'ngm-borehole_taps_ave_flow_rate_ltrs_minute-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					divs.push( id );
+					complete = false;
+				}
+				if ( b.borehole_yield_ltrs_second === undefined || b.borehole_yield_ltrs_second < 0 ){ 
+					id = "label[for='" + 'ngm-borehole_yield_ltrs_second-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					divs.push( id );
+					complete = false;
+				}
+				if ( b.borehole_pumping_ave_daily_hours === undefined || b.borehole_pumping_ave_daily_hours < 0 ){ 
+					id = "label[for='" + 'ngm-borehole_pumping_ave_daily_hours-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					divs.push( id );
+					complete = false;
+				}
 
 				// return 1 for complete, 0 for error
 				if ( complete ) {
@@ -88,8 +117,8 @@ angular.module( 'ngmReportHub' )
 
 			},
 
-			// validate borehole
-			validateReticulation: function( b, i, j, k ){
+			// validate reticulation form
+			validateReticulation: function( r, i, j, k ){
 					
 				// valid
 				var id;
@@ -97,13 +126,19 @@ angular.module( 'ngmReportHub' )
 				var complete = true;
 
 				// reticulation
-				if ( !b.from_chlorinated_system_id && !b.from_chlorinated_system_name ){ 
+				if ( r.quantity === undefined || r.quantity < 0 ){ 
+					id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					divs.push( id );
+					complete = false;
+				}
+				if ( !r.from_chlorinated_system_id && !r.from_chlorinated_system_name ){ 
 					id = "label[for='" + 'ngm-from_chlorinated_system-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					divs.push( id );
 					complete = false;
 				}
-				if ( !b.water_turbidity_range_id && !b.water_turbidity_range_name ){ 
+				if ( !r.water_turbidity_range_id && !r.water_turbidity_range_name ){ 
 					id = "label[for='" + 'ngm-water_turbidity_range-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					divs.push( id );
@@ -119,16 +154,23 @@ angular.module( 'ngmReportHub' )
 
 			},
 
-			// validate borehole
-			validateService: function( b, s, i, j, k ){
+			// validate service form
+			validateService: function( beneficiary, s, i, j, k ){
 					
 				// valid
 				var id;
 				var divs = []
 				var complete = true;
 
+				// service
+				if ( s.quantity === undefined || s.quantity < 0 ){ 
+					id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					divs.push( id );
+					complete = false;
+				}
 				// tablets service has no dropdowns
-				if ( b.activity_detail_id !== 'distribution_treatment_tablets' ) {
+				if ( beneficiary.activity_detail_id !== 'distribution_treatment_tablets' ) {
 					if ( !s.free_residual_chlorine_range && !s.free_residual_chlorine_range ){ 
 						id = "label[for='" + 'ngm-free_residual_chlorine_range-'+i+'-'+j+'-'+k + "']";
 						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });

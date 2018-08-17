@@ -19,9 +19,7 @@ angular.module( 'ngmReportHub' )
 		var ngmClusterHelperNgWash = {
 					
 			// NG and WASH
-			boreholeUrl: 'beneficiaries/NG/wash/borehole.html',
-			reticulationUrl: 'beneficiaries/NG/wash/reticulation.html',
-			serviceUrl: 'beneficiaries/NG/wash/service.html',
+			templateUrl: 'beneficiaries/NG/wash/',
 
 			// beneficiaries
 			ratios: {
@@ -35,6 +33,96 @@ angular.module( 'ngmReportHub' )
 				elderly_women: 0.0371
 			},
 
+			// activity keys
+			keys: {
+				// borehole
+				'borehole_construction':{
+					template: 'borehole.html',
+					association: 'boreholes',
+					measurement: {
+						borehole_yield_ltrs_second: 0,
+						borehole_pumping_ave_daily_hours: 0,
+						borehole_tanks_storage_ltrs: 0,
+						taps_number_connected: 0,
+						borehole_taps_ave_flow_rate_ltrs_minute: 0
+					}
+				},
+				'borehole_rehabilitation':{
+					template: 'borehole.html',
+					association: 'boreholes',
+					measurement: {
+						borehole_yield_ltrs_second: 0,
+						borehole_pumping_ave_daily_hours: 0,
+						borehole_tanks_storage_ltrs: 0,
+						taps_number_connected: 0,
+						borehole_taps_ave_flow_rate_ltrs_minute: 0
+					}
+				},
+				'borehole_upgrade':{
+					template: 'borehole.html',
+					association: 'boreholes',
+					measurement: {
+						borehole_yield_ltrs_second: 0,
+						borehole_pumping_ave_daily_hours: 0,
+						borehole_tanks_storage_ltrs: 0,
+						taps_number_connected: 0,
+						borehole_taps_ave_flow_rate_ltrs_minute: 0
+					}
+				},
+				// reticulation
+				'reticulation_construction': { 
+					template: 'reticulation.html',
+					association: 'water',
+					measurement: {
+						quantity_measurement_id: 'taps_connected',
+						quantity_measurement_name: 'Taps Connected'
+					}
+				},
+				'reticulation_rehabilitation': { 
+					template: 'reticulation.html',
+					association: 'water',
+					measurement: {
+						quantity_measurement_id: 'taps_connected',
+						quantity_measurement_name: 'Taps Connected'
+					}
+				},
+				// services
+				'water_trucking': { 
+					template: 'service.html',
+					association: 'water',
+					measurement: {
+						quantity_measurement_id: 'm3_per_month',
+						quantity_measurement_name: 'm3/Per Month'
+					}
+				},
+				'cash_for_water': { 
+					template: 'service.html',
+					association: 'water',
+					measurement: {
+						quantity_measurement_id: 'm3_per_month',
+						quantity_measurement_name: 'm3/Per Month'
+					}
+				},
+				'distribution_treatment_tablets': {
+					template: 'service.html',
+					association: 'water'
+				},
+				// ops and maintenance
+				'operation_maintenance_monitoring': { 
+					template: 'maintenance.html',
+					association: 'water',
+					measurement: {
+						quantity_measurement_id: 'monitoring_visits',
+						quantity_measurement_name: 'Monitoring Visits'
+					}
+				},
+				defaults: {
+					quantity: 0,
+					activity_start_date: moment( new Date() ).startOf( 'M' ).format('YYYY-MM-DD'),
+					activity_end_date: moment( new Date() ).endOf( 'M' ).format('YYYY-MM-DD')
+				}
+			},
+
 			// reset form
 			init_material_select:function(){
 				setTimeout(function(){ 
@@ -44,33 +132,18 @@ angular.module( 'ngmReportHub' )
 				}, 10 );
 			},
 
-			// show 2 rows with template
+			// show template
 			getTemplate: function( beneficiary ){
-				
-				var template = false;
-
-				// borehole
-				if ( beneficiary.activity_detail_id === 'borehole_upgrade' ||
-              beneficiary.activity_detail_id === 'borehole_construction' ||
-              beneficiary.activity_detail_id === 'borehole_rehabilitation' ) {
-					template = ngmClusterHelperNgWash.boreholeUrl;
+				if ( beneficiary.activity_detail_id ) {
+					return ngmClusterHelperNgWash.keys[ beneficiary.activity_detail_id ].template
+				} else {
+					return false;
 				}
+			},
 
-				// reticulation
-				if ( beneficiary.activity_detail_id === 'reticulation_construction' ||
-              beneficiary.activity_detail_id === 'reticulation_rehabilitation' ) {
-					template = ngmClusterHelperNgWash.reticulationUrl;
-				}
-
-				// service
-				if ( beneficiary.activity_detail_id === 'water_trucking' ||
-							beneficiary.activity_detail_id === 'cash_for_water' ||
-							beneficiary.activity_detail_id === 'distribution_treatment_tablets' ) {
-					template = ngmClusterHelperNgWash.serviceUrl;
-				}
-
-				// url
-				return template;
+			// set input style 
+			inputChange: function( label ){
+				$("label[for='" + label + "']").css({ 'color': '#26a69a', 'font-weight': 300 });
 			},
 
 			// update display name in object on borehole change
@@ -79,166 +152,87 @@ angular.module( 'ngmReportHub' )
 					var id = b[ key ];
 					var obj = {}
 					var search_list = ngmClusterHelperNgWashLists.lists[ list ];
-					
 					// this approach does NOT break gulp!
 					obj[key] = id;
 					var filter = $filter('filter')( search_list, obj, true );
-					
-					// this does
-					// var filter = $filter('filter')( search_list, { [key]: id }, true );
-
+					// set name
 					b[ name ] = filter[0][ name ];
 					$("label[for='" + label + "']").css({ 'color': '#26a69a', 'font-weight': 300 });
 				}
 			},
 
-      // add initial object
-      detailsChange: function( $location, $beneficiary ){
+			// add initial object
+			detailsChange: function( $location, $beneficiary ){
 
-      	// slight timeout to capture UI changes
-      	$timeout(function(){
-	        // beneficiary
-	        if ( $beneficiary ) {
-	          
-	          // add borehole if new activity
-	          if ( $beneficiary.activity_detail_id === 'borehole_upgrade' ||
-	                $beneficiary.activity_detail_id === 'borehole_construction' ||
-	                $beneficiary.activity_detail_id === 'borehole_rehabilitation' ) {
-	            if ( !$beneficiary.boreholes || !$beneficiary.boreholes.length ) {
-	              ngmClusterHelperNgWash.addBorehole( $location, $beneficiary );
-	            }
-	          }
-
-	          // add reticulation if new activity
-	          if ( $beneficiary.activity_detail_id === 'reticulation_construction' ||
-	                $beneficiary.activity_detail_id === 'reticulation_rehabilitation' ) {
-	            if ( !$beneficiary.reticulations || !$beneficiary.reticulations.length ) {
-	              ngmClusterHelperNgWash.addReticulation( $location, $beneficiary );
-	            }
-	          }
-
-	          // add service if new activity 
-	          	// could be done at activity_description_id level, but at activity_detail_id for consistency
-	          if ( $beneficiary.activity_detail_id === 'water_trucking' ||
-									$beneficiary.activity_detail_id === 'cash_for_water' ||
-									$beneficiary.activity_detail_id === 'distribution_treatment_tablets' ) {
-	            if ( !$beneficiary.services || !$beneficiary.services.length ) {
-	              ngmClusterHelperNgWash.addService( $location, $beneficiary );
-	            }
-	          }
-
-	          // init
-	          setTimeout(function(){ $( '.input-field select' ).material_select(); }, 200 );
-
-	        }
-	      }, 10 );
-      },
-
-			// add borehole
-			addBorehole: function( location, beneficiary ){
+				// slight timeout to capture UI changes
+				$timeout(function(){
 					
-				// default
-				var borehole = {
-					borehole_yield_ltrs_second: 0,
-					borehole_pumping_ave_daily_hours: 0,
-					borehole_tanks_storage_ltrs: 0,
-					taps_number_connected: 0,
-					borehole_taps_ave_flow_rate_ltrs_minute: 0,
-					borehole_lng: location.site_lng,
-					borehole_lat: location.site_lat,
-          activity_start_date: moment( new Date() ).startOf( 'M' ).format('YYYY-MM-DD'),
-          activity_end_date: moment( new Date() ).endOf( 'M' ).format('YYYY-MM-DD')
+					// beneficiary
+					if ( $beneficiary ) {
+
+					// ngmClusterHelperNgWash keys 
+					var keys = ngmClusterHelperNgWash.keys[ $beneficiary.activity_detail_id ];
+						// in case user changes their mind ( update existing )
+						if ( $beneficiary[ keys.association ] && $beneficiary[ keys.association ].length ) {
+							angular.forEach( $beneficiary[ keys.association ], function( i, a ) {
+								a = angular.merge( {}, keys.measurement, ngmClusterHelperNgWash.keys.defaults );
+								a.borehole_lng = $location.site_lng;
+								a.borehole_lat = $location.site_lat;
+							});
+						} else {
+							// add new 
+							ngmClusterHelperNgWash.addActivityDetail( $location, $beneficiary, keys.association );
+						}
+
+						// init
+						setTimeout(function(){ $( '.input-field select' ).material_select(); }, 200 );
+
+					}
+				}, 10 );
+			},
+
+			// add activity ( reticulation, service, maintenance )
+			addActivityDetail: function( location, beneficiary, association ) {
+
+				// based on association and activity_detail
+				var length = beneficiary[ association ] && beneficiary[ association ].length;
+				var measurement = ngmClusterHelperNgWash.keys[ beneficiary.activity_detail_id ].measurement;
+				
+				// create model using ngmClusterHelperNgWash keys ( based on activity_detail )
+				var activity = angular.merge( {}, measurement, ngmClusterHelperNgWash.keys.defaults );
+
+				// in case of boreholes ( only saved ay db level if boreholes )
+				activity.borehole_lng = location.site_lng;
+				activity.borehole_lat = location.site_lat;
+
+				// set association
+				if ( !length ){
+					beneficiary[ association ] = [];
 				}
 
-				// existing
-				var length = beneficiary.boreholes && beneficiary.boreholes.length;
+				// copy previous
+				if ( length ) {
+					var a = angular.copy( beneficiary[ association ][ length - 1 ] );
+					delete a.id;
+					activity = angular.merge( {}, activity, a );
+				}
 
-				// set boreholes
-				if ( !length ){
-					beneficiary.boreholes = [];
-				} else {
-          var b = angular.copy( beneficiary.boreholes[ length - 1 ] );
-          delete b.id;
-          borehole = angular.merge( {}, borehole, b );
-        }
-
-        // push
-				beneficiary.boreholes.push( borehole );
+				// push
+				beneficiary[ association ].push( activity );
 
 				// init select
 				setTimeout(function(){ $( '.input-field select' ).material_select(); }, 200 );
 
 			},
 
-			// add reticulation
-			addReticulation: function( location, beneficiary ){
-					
-				// default
-				var reticulation = {
-					taps_number_connected: 0,
-          activity_start_date: moment( new Date() ).startOf( 'M' ).format('YYYY-MM-DD'),
-          activity_end_date: moment( new Date() ).endOf( 'M' ).format('YYYY-MM-DD')
-				}
-
-				// existing
-				var length = beneficiary.reticulations && beneficiary.reticulations.length;
-
-				// set boreholes
-				if ( !length ){
-					beneficiary.reticulations = [];
-				} else {
-          var b = angular.copy( beneficiary.reticulations[ length - 1 ] );
-          delete b.id;
-          reticulation = angular.merge( {}, reticulation, b );
-        }
-
-        // push
-				beneficiary.reticulations.push( reticulation );
-
-				// init select
-				setTimeout(function(){ $( '.input-field select' ).material_select(); }, 200 );
-
+			// remove beneficiary nodal
+			removeModal: function( project, beneficiary, $index, name, modal ) {
+				ngmClusterHelperNgWash.project = project;
+				ngmClusterHelperNgWash.beneficiary = beneficiary;
+				ngmClusterHelperNgWash.name = name;
+				ngmClusterHelperNgWash.$index = $index;
+				$( modal ).openModal({ dismissible: false });
 			},
-
-			// add service
-			addService: function( location, beneficiary ){
-					
-				// default
-				var service = {
-					quantity: 0,
-					quantity_measurement: 'm3_per_month',
-          activity_start_date: moment( new Date() ).startOf( 'M' ).format('YYYY-MM-DD'),
-          activity_end_date: moment( new Date() ).endOf( 'M' ).format('YYYY-MM-DD')
-				}
-
-				// existing
-				var length = beneficiary.services && beneficiary.services.length;
-
-				// set boreholes
-				if ( !length ){
-					beneficiary.services = [];
-				} else {
-          var b = angular.copy( beneficiary.services[ length - 1 ] );
-          delete b.id;
-          service = angular.merge( {}, service, b );
-        }
-
-        // push
-				beneficiary.services.push( service );
-
-				// init select
-				setTimeout(function(){ $( '.input-field select' ).material_select(); }, 200 );
-
-			},
-
-      // remove beneficiary nodal
-      removeModal: function( project, beneficiary, $index, name, modal ) {
-      	ngmClusterHelperNgWash.project = project;
-      	ngmClusterHelperNgWash.beneficiary = beneficiary;
-      	ngmClusterHelperNgWash.name = name;
-        ngmClusterHelperNgWash.$index = $index;
-        $( modal ).openModal({ dismissible: false });
-      },
 
 			// remove borehole
 			remove: function(){
@@ -318,6 +312,9 @@ angular.module( 'ngmReportHub' )
 				var serviceLength = 0;
 				var serviceRowComplete = 0;
 
+				// keys to validate correct form
+				var keys = ngmClusterHelperNgWash.keys;
+
 				// each location
 				angular.forEach( locations, function( l, i ){
 					angular.forEach( l.beneficiaries, function( b, j ){
@@ -332,23 +329,21 @@ angular.module( 'ngmReportHub' )
 							});
 						}
 
-						// reticulation 
-						if ( b.reticulations && b.reticulations.length ) {
-							reticulationLength += b.reticulations.length;
-							angular.forEach( b.reticulations, function( reticulation, k ){
-								var result = ngmClusterHelperNgWashValidation.validateReticulation( reticulation, i, j, k );
-								angular.merge( elements, result.divs );
-								reticulationRowComplete +=  result.count;
-							});
-						}
-
-						// service 
-						if ( b.services && b.services.length ) {
-							serviceLength += b.services.length;
-							angular.forEach( b.services, function( service, k ){
-								var result = ngmClusterHelperNgWashValidation.validateService( b, service, i, j, k );
-								angular.merge( elements, result.divs );
-								serviceRowComplete +=  result.count;
+						// water form validations
+						if ( b.water && b.water.length ) {
+							angular.forEach( b.water, function( w, k ){
+								if ( keys[ b.activity_detail_id ].template === 'reticulation.html' ) {
+									reticulationLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateReticulation( w, i, j, k );
+									angular.merge( elements, result.divs );
+									reticulationRowComplete +=  result.count;
+								}
+								if ( keys[ b.activity_detail_id ].template === 'service.html' ) {
+									serviceLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateService( b, w, i, j, k );
+									angular.merge( elements, result.divs );
+									serviceRowComplete +=  result.count;
+								}
 							});
 						}
 

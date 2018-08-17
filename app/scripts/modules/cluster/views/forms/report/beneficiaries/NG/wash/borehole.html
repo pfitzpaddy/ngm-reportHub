@@ -141,6 +141,7 @@
 				      	class="validate" 
 				      	min="0"
 				      	ng-model="borehole.borehole_tanks_storage_ltrs"
+				      	ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-borehole_tanks_storage_ltrs-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}' )"
 				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 	      <label for="ngm-borehole_tanks_storage_ltrs-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}"
@@ -154,6 +155,7 @@
 				      	class="validate" 
 				      	min="0"
 				      	ng-model="borehole.taps_number_connected"
+				      	ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-taps_number_connected-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}' )"
 				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 	      <label for="ngm-taps_number_connected-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}"
@@ -167,6 +169,7 @@
 				      	class="validate" 
 				      	min="0"
 				      	ng-model="borehole.borehole_taps_ave_flow_rate_ltrs_minute"
+				      	ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-borehole_taps_ave_flow_rate_ltrs_minute-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}' )"
 				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 	      <label for="ngm-borehole_taps_ave_flow_rate_ltrs_minute-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}"
@@ -184,7 +187,8 @@
 				      	class="validate" 
 				      	min="0"
 				      	ng-model="borehole.borehole_yield_ltrs_second"
-				      	ng-change="ngmClusterHelperNgWash.boreholeOutput( project.report.locations, borehole )"
+				      	ng-change="ngmClusterHelperNgWash.boreholeOutput( project.report.locations, borehole );
+				      							 ngmClusterHelperNgWash.inputChange( 'ngm-borehole_yield_ltrs_second-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}' );"
 				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 	      <label for="ngm-borehole_yield_ltrs_second-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}"
@@ -198,7 +202,8 @@
 				      	class="validate" 
 				      	min="0"
 				      	ng-model="borehole.borehole_pumping_ave_daily_hours"
-				      	ng-change="ngmClusterHelperNgWash.boreholeOutput( project.report.locations, borehole )"
+				      	ng-change="ngmClusterHelperNgWash.boreholeOutput( project.report.locations, borehole );
+				      							 ngmClusterHelperNgWash.inputChange( 'ngm-borehole_pumping_ave_daily_hours-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}' );"
 				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 	      <label for="ngm-borehole_pumping_ave_daily_hours-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}"
