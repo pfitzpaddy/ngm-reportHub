@@ -105,15 +105,50 @@ angular.module( 'ngmReportHub' )
 				},
 				'distribution_treatment_tablets': {
 					template: 'service.html',
-					association: 'water'
+					association: 'water',
+					measurement: {
+						quantity_measurement_id: 'm3_per_month',
+						quantity_measurement_name: 'm3/Per Month'
+					}
 				},
 				// ops and maintenance
+				'fuel_provision_water': { 
+					template: 'maintenance.html',
+					association: 'water',
+					measurement: {
+						quantity_measurement_id: 'm3_per_month',
+						quantity_measurement_name: 'm3/Per Month'
+					}
+				},
+				'washcoms_establishment_training': { 
+					template: 'maintenance.html',
+					association: 'water',
+					measurement: {
+						male: 0,
+						female: 0
+					}
+				},
+				'maintenance_repair_kits_provision_to_washcoms': { 
+					template: 'maintenance.html',
+					association: 'water',
+					measurement: {
+						quantity_measurement_id: 'kits_distributed',
+						quantity_measurement_name: 'Kits Distributed'
+					}
+				},
 				'operation_maintenance_monitoring': { 
 					template: 'maintenance.html',
 					association: 'water',
 					measurement: {
 						quantity_measurement_id: 'monitoring_visits',
 						quantity_measurement_name: 'Monitoring Visits'
+					}
+				},
+				'maintenance_repair_replacement_water_systems': { 
+					template: 'maintenance.html',
+					association: 'water',
+					measurement: {
+						details:[]
 					}
 				},
 				defaults: {
@@ -168,7 +203,7 @@ angular.module( 'ngmReportHub' )
 				$timeout(function(){
 					
 					// beneficiary
-					if ( $beneficiary ) {
+					if ( $beneficiary.activity_detail_id ) {
 
 					// ngmClusterHelperNgWash keys 
 					var keys = ngmClusterHelperNgWash.keys[ $beneficiary.activity_detail_id ];
@@ -181,7 +216,7 @@ angular.module( 'ngmReportHub' )
 							});
 						} else {
 							// add new 
-							ngmClusterHelperNgWash.addActivityDetail( $location, $beneficiary, keys.association );
+							ngmClusterHelperNgWash.addActivity( $location, $beneficiary, keys.association );
 						}
 
 						// init
@@ -192,7 +227,7 @@ angular.module( 'ngmReportHub' )
 			},
 
 			// add activity ( reticulation, service, maintenance )
-			addActivityDetail: function( location, beneficiary, association ) {
+			addActivity: function( location, beneficiary, association ) {
 
 				// based on association and activity_detail
 				var length = beneficiary[ association ] && beneficiary[ association ].length;
@@ -222,6 +257,15 @@ angular.module( 'ngmReportHub' )
 
 				// init select
 				setTimeout(function(){ $( '.input-field select' ).material_select(); }, 200 );
+
+			},
+
+			// activity details
+			addActivityDetail: function( maintenance ) {
+
+				// based on association and activity_detail
+				console.log( maintenance )
+				maintenance.details.push({id:0});
 
 			},
 

@@ -16,7 +16,7 @@
 	  					title="Remove Reticulation"
 	  					ng-show="project.report.report_status !== 'complete'"
 	  					ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, 
-	  																													$reticulationIndex, 'reticulations', '#reticulation-modal' )">
+	  																													$reticulationIndex, 'water', '#reticulation-modal' )">
   				<i class="material-icons">clear</i>
   			</div>
 
@@ -124,7 +124,7 @@
           ng-show="project.report.report_status !== 'complete'" 
           ng-click="rowform.$show(); 
           						ngmClusterHelperNgWash.init_material_select();
-          						ngmClusterHelperNgWash.addActivityDetail( location, beneficiary, 'water' )">
+          						ngmClusterHelperNgWash.addActivity( location, beneficiary, 'water' )">
     <i class="material-icons left">add</i>Add Reticulation
   </button>
 

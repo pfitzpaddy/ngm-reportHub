@@ -3,8 +3,8 @@
 <h5 class="report-location-title" style="padding-top:0px;">{{ beneficiary.activity_detail_name }} Details</h5>
 	
 	<!-- repeat -->
-  <div class="card-panel" ng-repeat="service in beneficiary.water" 
-  			ng-init="$serviceIndex = $index">
+  <div class="card-panel" ng-repeat="maintenance in beneficiary.water" 
+  			ng-init="$maintenanceIndex = $index">
 
 	  <!-- service title / btns -->
 	  <div class="row">
@@ -16,7 +16,7 @@
 	  					title="Remove Service"
 	  					ng-show="project.report.report_status !== 'complete'"
 	  					ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, 
-	  																													$serviceIndex, 'water', '#service-modal' )">
+	  																													$serviceIndex, 'services', '#service-modal' )">
   				<i class="material-icons">clear</i>
   			</div>
 

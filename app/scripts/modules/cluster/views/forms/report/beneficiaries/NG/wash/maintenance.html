@@ -3,191 +3,263 @@
 <h5 class="report-location-title" style="padding-top:0px;">{{ beneficiary.activity_detail_name }} Details</h5>
 	
 	<!-- repeat -->
-  <div class="card-panel" ng-repeat="maintenance in beneficiary.water" 
-  			ng-init="$maintenanceIndex = $index">
+	<div class="card-panel" ng-repeat="maintenance in beneficiary.water" 
+				ng-init="$maintenanceIndex = $index">
 
-	  <!-- service title / btns -->
-	  <div class="row">
-	  	<div class="col s12 m6">
-				<h5 style="font-size: 1.32rem; padding-bottom:10px;">Service {{ $serviceIndex+1 }}</h5>
+		<!-- maintenance title / btns -->
+		<div class="row">
+			<div class="col s12 m6">
+				<h5 style="font-size: 1.32rem; padding-bottom:10px;">Ops & Maintenance {{ $maintenanceIndex+1 }}</h5>
 			</div>
 			<div class="col s12 m6">
-  			<div class="btn-floating waves-effect waves-light red lighten-2 right" 
-	  					title="Remove Service"
-	  					ng-show="project.report.report_status !== 'complete'"
-	  					ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, 
-	  																													$serviceIndex, 'services', '#service-modal' )">
-  				<i class="material-icons">clear</i>
-  			</div>
+				<div class="btn-floating waves-effect waves-light red lighten-2 right" 
+							title="Remove Maintenance"
+							ng-show="project.report.report_status !== 'complete'"
+							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, 
+																															$maintenanceIndex, 'water', '#maintenance-modal' )">
+					<i class="material-icons">clear</i>
+				</div>
 
 			</div>
 		</div>
 
 		<!-- distribution_treatment_tablets -->
-		<div ng-if="beneficiary.activity_detail_id === 'distribution_treatment_tablets'">
+		<div ng-if="beneficiary.activity_detail_id === 'fuel_provision_water' || 
+									beneficiary.activity_detail_id === 'maintenance_repair_kits_provision_to_washcoms' || 
+									beneficiary.activity_detail_id === 'operation_maintenance_monitoring' ">
 	
 			<div class="row">
 
 				<div class="input-field col s12 m4">
-		      <input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}"
-					      	name="quantity"
-					      	type="number" 
-					      	class="validate" 
-					      	min="0"
-					      	ng-model="service.quantity"
-					      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+					<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+									name="quantity"
+									type="number" 
+									class="validate" 
+									min="0"
+									ng-model="maintenance.quantity"
+									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 									required>
-		      <label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}"
-		      				class="active">Quantity (m3/Per Month)</label>
+					<!-- label based on activity_detail_id -->
+					<label ng-if="beneficiary.activity_detail_id === 'fuel_provision_water'"
+									for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+									class="active">Quantity (m3/Per Month)</label>
+					<label ng-if="beneficiary.activity_detail_id === 'maintenance_repair_kits_provision_to_washcoms'"
+									for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+									class="active">Quantity (Kits Provided)</label>
+					<label ng-if="beneficiary.activity_detail_id === 'operation_maintenance_monitoring'"
+									for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+									class="active">Quantity (Monitoring Visits)</label>
 				</div>
 
-	      <div class="input-field col s12 m4">
-	        <input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}"
-	        		ngm-date
-	            type="text"
-	            name="created"
-	            ng-model="service.activity_start_date"
-	            format="dd mmm, yyyy"
-	            max="{{ service.activity_end_date }}"
-	            on-close="ngmClusterBeneficiaries.datepicker.startOnClose( service, service.activity_start_date )"
-	            ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
-	            e-required/>
-		      <label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}"
-		      				class="active">Activity Start Date</label>
-	      </div>
+				<div class="input-field col s12 m4">
+					<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+							ngm-date
+							type="text"
+							name="created"
+							ng-model="maintenance.activity_start_date"
+							format="dd mmm, yyyy"
+							max="{{ maintenance.activity_end_date }}"
+							on-close="ngmClusterBeneficiaries.datepicker.startOnClose( maintenance, maintenance.activity_start_date )"
+							ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+							e-required/>
+					<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+									class="active">Activity Start Date</label>
+				</div>
 
-	      <div class="input-field col s12 m4">
-	        <input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}"
-	        		ngm-date
-	            type="text"
-	            name="created"
-	            ng-model="service.activity_end_date"
-	            format="dd mmm, yyyy"
-	            min="{{ service.activity_start_date }}"
-	            on-close="ngmClusterBeneficiaries.datepicker.endOnClose( service, service.activity_end_date )"
-	            ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
-	            e-required/>
-		      <label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}"
-		      				class="active">Activity End Date</label>            
-	      </div>
+				<div class="input-field col s12 m4">
+					<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+							ngm-date
+							type="text"
+							name="created"
+							ng-model="maintenance.activity_end_date"
+							format="dd mmm, yyyy"
+							min="{{ maintenance.activity_start_date }}"
+							on-close="ngmClusterBeneficiaries.datepicker.endOnClose( maintenance, maintenance.activity_end_date )"
+							ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+							e-required/>
+					<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+									class="active">Activity End Date</label>            
+				</div>
 
 			</div>
 
 		</div>
 
-		<!-- water_trucking || cash_for_water -->
-		<div ng-if="beneficiary.activity_detail_id !== 'distribution_treatment_tablets'">
-
+		<!-- washcoms_establishment_training -->
+		<div ng-if="beneficiary.activity_detail_id === 'washcoms_establishment_training'">
+	
 			<div class="row">
 
-				<div class="input-field col s12 m4">
-		      <input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}"
-					      	name="quantity"
-					      	type="number" 
-					      	class="validate" 
-					      	min="0"
-					      	ng-model="service.quantity"
-					      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+				<div class="input-field col s12 m6">
+					<input id="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+									name="male"
+									type="number" 
+									class="validate" 
+									min="0"
+									ng-model="maintenance.male"
+									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 									required>
-		      <label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}"
-		      				class="active">Quantity (m3/Per Month)</label>
+					<!-- label based on activity_detail_id -->
+					<label for="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+									class="active">Males Trained</label>
 				</div>
-
-				<div class="input-field col s12 m4">
-	      	<select id="ngm-free_residual_chlorine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}" 
-		      					name="free_residual_chlorine_range"
-		      					class="validate"
-		      					ng-options="type.free_residual_chlorine_range_id as 
-		      												type.free_residual_chlorine_range_name for 
-		      												type in ngmClusterHelperNgWashLists.lists.free_residual_chlorine_ranges"
-		      					ng-model="service.free_residual_chlorine_range_id"
-		      					ng-change="ngmClusterHelperNgWash.selectChange( service, 
-		      																			'free_residual_chlorine_ranges',
-		      																			'free_residual_chlorine_range_id', 
-		      																			'free_residual_chlorine_range_name',
-		      																			'ngm-free_residual_chlorine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}' )"
-		      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
-		      					required>
-					<option value="">Select...</option>
-					</select>
-		      <label for="ngm-free_residual_chlorine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}" 
-		      				class="active" style="transform:translateY(-10%)">Free Residual Chlorine (FRC) Range</label>
-				</div>
-
-				<div class="input-field col s12 m4">
-	      	<select id="ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}" 
-		      					name="water_turbidity_range"
-		      					class="validate"
-		      					ng-options="type.water_turbidity_range_id as 
-		      												type.water_turbidity_range_name for 
-		      												type in ngmClusterHelperNgWashLists.lists.water_turbidity_ranges"
-		      					ng-model="service.water_turbidity_range_id"
-		      					ng-change="ngmClusterHelperNgWash.selectChange( service, 
-		      																			'water_turbidity_ranges',
-		      																			'water_turbidity_range_id', 
-		      																			'water_turbidity_range_name',
-		      																			'ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}' )"
-		      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
-		      					required>
-					<option value="">Select...</option>
-					</select>
-		      <label for="ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}" 
-		      				class="active" style="transform:translateY(-10%)">Water Turbidity Range (NTU)</label>
+				<div class="input-field col s12 m6">
+					<input id="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+									name="female"
+									type="number" 
+									class="validate" 
+									min="0"
+									ng-model="maintenance.female"
+									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									required>
+					<!-- label based on activity_detail_id -->
+					<label for="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+									class="active">Females Trained</label>
 				</div>
 
 			</div>
 
 			<div class="row">
 
-	      <div class="input-field col s12 m6">
-	        <input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}"
-	        		ngm-date
-	            type="text"
-	            name="created"
-	            ng-model="service.activity_start_date"
-	            format="dd mmm, yyyy"
-	            max="{{ service.activity_end_date }}"
-	            on-close="ngmClusterBeneficiaries.datepicker.startOnClose( service, service.activity_start_date )"
-	            ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
-	            e-required/>
-		      <label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}"
-		      				class="active">Activity Start Date</label>
-	      </div>
+				<div class="input-field col s12 m6">
+					<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+							ngm-date
+							type="text"
+							name="created"
+							ng-model="maintenance.activity_start_date"
+							format="dd mmm, yyyy"
+							max="{{ maintenance.activity_end_date }}"
+							on-close="ngmClusterBeneficiaries.datepicker.startOnClose( maintenance, maintenance.activity_start_date )"
+							ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+							e-required/>
+					<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+									class="active">Activity Start Date</label>
+				</div>
 
-	      <div class="input-field col s12 m6">
-	        <input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}"
-	        		ngm-date
-	            type="text"
-	            name="created"
-	            ng-model="service.activity_end_date"
-	            format="dd mmm, yyyy"
-	            min="{{ service.activity_start_date }}"
-	            on-close="ngmClusterBeneficiaries.datepicker.endOnClose( service, service.activity_end_date )"
-	            ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
-	            e-required/>
-		      <label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}"
-		      				class="active">Activity End Date</label>            
-	      </div>
+				<div class="input-field col s12 m6">
+					<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+							ngm-date
+							type="text"
+							name="created"
+							ng-model="maintenance.activity_end_date"
+							format="dd mmm, yyyy"
+							min="{{ maintenance.activity_start_date }}"
+							on-close="ngmClusterBeneficiaries.datepicker.endOnClose( maintenance, maintenance.activity_end_date )"
+							ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+							e-required/>
+					<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+									class="active">Activity End Date</label>            
+				</div>
 
 			</div>
 
 		</div>
 
-  </div>
+		<!-- washcoms_establishment_training -->
+		<div ng-if="beneficiary.activity_detail_id === 'maintenance_repair_replacement_water_systems'">
 
-  <!-- add new service -->
-  <button class="btn blue" 
-          ng-show="project.report.report_status !== 'complete'" 
-          ng-click="rowform.$show(); 
-          						ngmClusterHelperNgWash.init_material_select();
-          						ngmClusterHelperNgWash.addActivityDetail( location, beneficiary, 'water' )">
-    <i class="material-icons left">add</i>Add Services
-  </button>
+			<div class="row">
+
+				<div class="input-field col s12 m6">
+					<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+							ngm-date
+							type="text"
+							name="created"
+							ng-model="maintenance.activity_start_date"
+							format="dd mmm, yyyy"
+							max="{{ maintenance.activity_end_date }}"
+							on-close="ngmClusterBeneficiaries.datepicker.startOnClose( maintenance, maintenance.activity_start_date )"
+							ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+							e-required/>
+					<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+									class="active">Activity Start Date</label>
+				</div>
+
+				<div class="input-field col s12 m6">
+					<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+							ngm-date
+							type="text"
+							name="created"
+							ng-model="maintenance.activity_end_date"
+							format="dd mmm, yyyy"
+							min="{{ maintenance.activity_start_date }}"
+							on-close="ngmClusterBeneficiaries.datepicker.endOnClose( maintenance, maintenance.activity_end_date )"
+							ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+							e-required/>
+					<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+									class="active">Activity End Date</label>            
+				</div>
+
+			</div>
+
+			<div class="row" style="margin-left: 20px;" ng-repeat="detail in maintenance.details">
+
+				<div class="col s12 m3">
+					<p style="font-size:17px; padding-top:25px;">Parts Repaired / Replaced {{ $index+1 }} </p>
+				</div>
+				<div class="input-field col s12 m4">
+	      	<select id="ngm-detail_category-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+		      					name="detail_category_id"
+		      					class="validate"
+		      					ng-options="detail.detail_category_id as 
+		      												detail.detail_category_name for 
+		      												detail in ngmClusterHelperNgWashLists.filterDuplicates( ngmClusterHelperNgWashLists.lists.details, 'detail_category_id' )"
+		      					ng-change="ngmClusterHelperNgWash.init_material_select();"
+		      					ng-model="detail.detail_category_id"
+		      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+		      					required>
+					<option value="">Select...</option>
+					</select>
+		      <label for="ngm-detail_category-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+		      				class="active" style="transform:translateY(-10%)">System</label>
+				</div>
+
+				<div class="input-field col s12 m5">
+	      	<select id="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+		      					name="detail_type_id"
+		      					class="validate"
+		      					ng-options="detail.detail_type_id as 
+		      												detail.detail_type_name for 
+		      												detail in ngmClusterHelperNgWashLists.lists.details | 
+		      															filter: { detail_category_id: detail.detail_category_id }"
+		      					ng-model="detail.detail_type_id"
+		      					ng-disabled="!detail.detail_category_id || !rowform.$visible || project.report.report_status === 'complete'"
+		      					required>
+					<option value="">Select... </option>
+					</select>
+		      <label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+		      				class="active" style="transform:translateY(-10%)">Parts</label>
+				</div>
+			</div>
+
+			<div class="row" style="margin-left: 20px;">
+				<!-- add details -->
+				<button class="btn blue lighten-2"
+								ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+								ng-click="rowform.$show(); 
+											ngmClusterHelperNgWash.init_material_select();
+											ngmClusterHelperNgWash.addActivityDetail( maintenance )">
+					<i class="material-icons left">add</i>Add Details
+				</button>
+			</div>
+
+		</div>
+
+	</div>
+
+	<!-- add new maintenance -->
+	<button class="btn blue" 
+					ng-show="project.report.report_status !== 'complete'" 
+					ng-click="rowform.$show(); 
+											ngmClusterHelperNgWash.init_material_select();
+											ngmClusterHelperNgWash.addActivity( location, beneficiary, 'water' )">
+		<i class="material-icons left">add</i>Add Ops & Maintenance
+	</button>
 
 <script>
-  // init
-  setTimeout(function(){ 
-  	$( '.input-field select' ).material_select(); 
-  	setTimeout(function(){ $( '.input-field select' ).material_select(); }, 460 );
+	// init
+	setTimeout(function(){ 
+		$( '.input-field select' ).material_select(); 
+		setTimeout(function(){ $( '.input-field select' ).material_select(); }, 460 );
 	}, 200 );
 </script>
