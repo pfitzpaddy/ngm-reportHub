@@ -89,7 +89,41 @@ angular.module( 'ngmReportHub' )
 					from_chlorinated_system_id: 'no',
 					from_chlorinated_system_name: 'No'
 				}],
-				details:[{
+				washcom_details:[{
+					detail_type_id: 'heavy_duty_vice',
+					detail_type_name: 'Heavy Duty Vice'
+				},{
+					detail_type_id:'rod_vice',
+					detail_type_name:'Rod Vice'
+				},{
+					detail_type_id:'ppipe',
+					detail_type_name:'Heavy Duty Pipe Spanner'
+				},{
+					detail_type_id:'spanner_ring',
+					detail_type_name:'Spanner (19- 17) Ring'
+				},{
+					detail_type_id:'spanner_plate',
+					detail_type_name:'5. Spanner (19- 17) Plate'
+				},{
+					detail_type_id:'screw_driver',
+					detail_type_name:'Screw Driver'
+				},{
+					detail_type_id:'plunger',
+					detail_type_name:'Plunger'
+				},{
+					detail_type_id:'dice',
+					detail_type_name:'Dice'
+				},{
+					detail_type_id:'grease',
+					detail_type_name:'Grease'
+				},{
+					detail_type_id:'pile',
+					detail_type_name:'Pile'
+				},{
+					detail_type_id:'hacksaw',
+					detail_type_name:'Hacksaw'
+				}],
+				ops_maintenance_details:[{
 					// handpump
 					detail_category_id: 'handpump',
 					detail_category_name: 'Handpump', 

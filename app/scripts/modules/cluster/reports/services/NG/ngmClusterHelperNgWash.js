@@ -125,7 +125,8 @@ angular.module( 'ngmReportHub' )
 					association: 'water',
 					measurement: {
 						male: 0,
-						female: 0
+						female: 0,
+						details:[]
 					}
 				},
 				'maintenance_repair_kits_provision_to_washcoms': { 
@@ -181,18 +182,19 @@ angular.module( 'ngmReportHub' )
 				$("label[for='" + label + "']").css({ 'color': '#26a69a', 'font-weight': 300 });
 			},
 
-			// update display name in object on borehole change
-			selectChange: function( b, list, key, name, label ){
-				if ( b[ key ] ) {
-					var id = b[ key ];
+			// update display name in object on select change
+			selectChange: function( d, list, key, name, label ){
+				if ( d[ key ] ) {
+					var id = d[ key ];
 					var obj = {}
 					var search_list = ngmClusterHelperNgWashLists.lists[ list ];
 					// this approach does NOT break gulp!
 					obj[key] = id;
 					var filter = $filter('filter')( search_list, obj, true );
 					// set name
-					b[ name ] = filter[0][ name ];
+					d[ name ] = filter[0][ name ];
 					$("label[for='" + label + "']").css({ 'color': '#26a69a', 'font-weight': 300 });
+					ngmClusterHelperNgWash.init_material_select();
 				}
 			},
 
@@ -213,14 +215,13 @@ angular.module( 'ngmReportHub' )
 								a = angular.merge( {}, keys.measurement, ngmClusterHelperNgWash.keys.defaults );
 								a.borehole_lng = $location.site_lng;
 								a.borehole_lat = $location.site_lat;
+								// init
+								ngmClusterHelperNgWash.init_material_select();
 							});
 						} else {
 							// add new 
 							ngmClusterHelperNgWash.addActivity( $location, $beneficiary, keys.association );
 						}
-
-						// init
-						setTimeout(function(){ $( '.input-field select' ).material_select(); }, 200 );
 
 					}
 				}, 10 );
@@ -255,17 +256,8 @@ angular.module( 'ngmReportHub' )
 				// push
 				beneficiary[ association ].push( activity );
 
-				// init select
-				setTimeout(function(){ $( '.input-field select' ).material_select(); }, 200 );
-
-			},
-
-			// activity details
-			addActivityDetail: function( maintenance ) {
-
-				// based on association and activity_detail
-				console.log( maintenance )
-				maintenance.details.push({id:0});
+				// init
+				ngmClusterHelperNgWash.init_material_select();
 
 			},
 
@@ -356,6 +348,10 @@ angular.module( 'ngmReportHub' )
 				var serviceLength = 0;
 				var serviceRowComplete = 0;
 
+				// maintenance count
+				var maintenanceLength = 0;
+				var maintenanceRowComplete = 0;
+
 				// keys to validate correct form
 				var keys = ngmClusterHelperNgWash.keys;
 
@@ -388,6 +384,12 @@ angular.module( 'ngmReportHub' )
 									angular.merge( elements, result.divs );
 									serviceRowComplete +=  result.count;
 								}
+								if ( keys[ b.activity_detail_id ].template === 'maintenance.html' ) {
+									maintenanceLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateMaintenance( b, w, i, j, k );
+									angular.merge( elements, result.divs );
+									maintenanceRowComplete +=  result.count;
+								}
 							});
 						}
 
@@ -397,7 +399,8 @@ angular.module( 'ngmReportHub' )
 				// valid
 				if ( boreholeLength !== boreholeRowComplete ||
 							reticulationLength !== reticulationRowComplete ||
-							serviceLength !== serviceRowComplete ) {
+							serviceLength !== serviceRowComplete ||
+							maintenanceLength !== maintenanceRowComplete ) {
 					Materialize.toast( 'Form contains errors!' , 6000, 'error' );
 					$( elements[0] ).animatescroll();
 					return false;

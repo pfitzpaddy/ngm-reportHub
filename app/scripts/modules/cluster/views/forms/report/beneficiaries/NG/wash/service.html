@@ -95,7 +95,7 @@
 
 				<div class="input-field col s12 m4">
 	      	<select id="ngm-free_residual_chlorine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $serviceIndex }}" 
-		      					name="free_residual_chlorine_range"
+		      					name="free_residual_chlorine_range_id"
 		      					class="validate"
 		      					ng-options="type.free_residual_chlorine_range_id as 
 		      												type.free_residual_chlorine_range_name for 
@@ -177,7 +177,8 @@
 
   <!-- add new service -->
   <button class="btn blue" 
-          ng-show="project.report.report_status !== 'complete'" 
+          ng-show="project.report.report_status !== 'complete'"
+          ng-hide="beneficiary.water.length === 1"
           ng-click="rowform.$show(); 
           						ngmClusterHelperNgWash.init_material_select();
           						ngmClusterHelperNgWash.addActivity( location, beneficiary, 'water' )">
