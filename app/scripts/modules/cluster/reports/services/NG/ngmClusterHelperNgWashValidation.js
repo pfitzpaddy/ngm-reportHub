@@ -234,14 +234,11 @@ angular.module( 'ngmReportHub' )
 						if ( !d.detail_category_id && !d.detail_category_name ){ 
 							id = "label[for='" + 'ngm-detail_category-'+i+'-'+j+'-'+k + "']";
 							$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
-							console.log( id )
 							validation.divs.push( id );
 							complete = false;
 						}
 					}
 				});
-
-				console.log(validation.divs)
 
 				// return 1 for complete, default 0 for error
 				if ( complete ) {

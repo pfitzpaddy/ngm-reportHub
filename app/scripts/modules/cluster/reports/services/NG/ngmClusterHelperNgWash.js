@@ -211,11 +211,14 @@ angular.module( 'ngmReportHub' )
 					var keys = ngmClusterHelperNgWash.keys[ $beneficiary.activity_detail_id ];
 						// in case user changes their mind ( update existing )
 						if ( $beneficiary[ keys.association ] && $beneficiary[ keys.association ].length ) {
-							angular.forEach( $beneficiary[ keys.association ], function( i, a ) {
+							angular.forEach( $beneficiary[ keys.association ], function( a, i ) {
+								// remove details
+								delete a.details;
+								// merge defaults
 								a = angular.merge( {}, keys.measurement, ngmClusterHelperNgWash.keys.defaults );
 								a.borehole_lng = $location.site_lng;
 								a.borehole_lat = $location.site_lat;
-								// init
+								// init UI
 								ngmClusterHelperNgWash.init_material_select();
 							});
 						} else {
@@ -249,7 +252,9 @@ angular.module( 'ngmReportHub' )
 				// copy previous
 				if ( length ) {
 					var a = angular.copy( beneficiary[ association ][ length - 1 ] );
+					console.log(a.details)
 					delete a.id;
+					delete a.details;
 					activity = angular.merge( {}, activity, a );
 				}
 

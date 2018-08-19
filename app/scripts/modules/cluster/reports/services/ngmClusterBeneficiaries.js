@@ -603,8 +603,7 @@ angular.module( 'ngmReportHub' )
 
           case 'NG':
             if ( $data.activity_type_id && 
-                  $data.activity_description_id && 
-                  $data.activity_detail_id &&
+                  $data.activity_description_id &&
                   $data.beneficiary_type_id ) {
               disabled = false;
             }
