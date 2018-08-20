@@ -78,7 +78,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 moment( new Date( $scope.project.definition.project_end_date ) ).format('YYYY-MM-DD');
             // get strategic objectives
             $scope.project.lists.strategic_objectives =  
-                  ngmClusterHelper.getStrategicObjectives($scope.project.definition.admin0pcode,
+                  ngmClusterHelperList.getStrategicObjectives($scope.project.definition.admin0pcode,
                     moment( new Date( $scope.project.definition.project_start_date ) ).year(), 
                     moment( new Date( $scope.project.definition.project_end_date ) ).year() )
           }

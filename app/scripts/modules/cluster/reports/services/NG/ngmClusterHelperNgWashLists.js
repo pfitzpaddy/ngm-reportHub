@@ -15,8 +15,376 @@ angular.module( 'ngmReportHub' )
 		// definition
 		var ngmClusterHelperNgWashLists = {
 
+			// activity keys
+			keys: {
+				
+				// WATER
+				// boreholes
+				'borehole_construction':{
+					template: 'borehole.html',
+					association: 'boreholes',
+					measurement: {
+						borehole_yield_ltrs_second: 0,
+						borehole_pumping_ave_daily_hours: 0,
+						borehole_tanks_storage_ltrs: 0,
+						taps_number_connected: 0,
+						borehole_taps_ave_flow_rate_ltrs_minute: 0
+					}
+				},
+				'borehole_rehabilitation':{
+					template: 'borehole.html',
+					association: 'boreholes',
+					measurement: {
+						borehole_yield_ltrs_second: 0,
+						borehole_pumping_ave_daily_hours: 0,
+						borehole_tanks_storage_ltrs: 0,
+						taps_number_connected: 0,
+						borehole_taps_ave_flow_rate_ltrs_minute: 0
+					}
+				},
+				'borehole_upgrade':{
+					template: 'borehole.html',
+					association: 'boreholes',
+					measurement: {
+						borehole_yield_ltrs_second: 0,
+						borehole_pumping_ave_daily_hours: 0,
+						borehole_tanks_storage_ltrs: 0,
+						taps_number_connected: 0,
+						borehole_taps_ave_flow_rate_ltrs_minute: 0
+					}
+				},
+				
+				// reticulation
+				'reticulation_construction': { 
+					template: 'reticulation.html',
+					association: 'water',
+					measurement: {
+						quantity_measurement_id: 'taps_connected',
+						quantity_measurement_name: 'Taps Connected'
+					}
+				},
+				'reticulation_rehabilitation': { 
+					template: 'reticulation.html',
+					association: 'water',
+					measurement: {
+						quantity_measurement_id: 'taps_connected',
+						quantity_measurement_name: 'Taps Connected'
+					}
+				},
+				
+				// services
+				'water_trucking': { 
+					template: 'service.html',
+					association: 'water',
+					measurement: {
+						quantity_measurement_id: 'm3_per_month',
+						quantity_measurement_name: 'm3/Per Month'
+					}
+				},
+				'cash_for_water': { 
+					template: 'service.html',
+					association: 'water',
+					measurement: {
+						quantity_measurement_id: 'm3_per_month',
+						quantity_measurement_name: 'm3/Per Month'
+					}
+				},
+				'distribution_treatment_tablets': {
+					template: 'service.html',
+					association: 'water',
+					measurement: {
+						quantity_measurement_id: 'm3_per_month',
+						quantity_measurement_name: 'm3/Per Month'
+					}
+				},
+				
+				// ops and maintenance
+				'fuel_provision_water': { 
+					template: 'maintenance.html',
+					association: 'water',
+					measurement: {
+						quantity_measurement_id: 'm3_per_month',
+						quantity_measurement_name: 'm3/Per Month'
+					}
+				},
+				'washcoms_establishment_training': { 
+					template: 'maintenance.html',
+					association: 'water',
+					measurement: {
+						male: 0,
+						female: 0,
+						quantity_measurement_id: 'training_sessions',
+						quantity_measurement_name: 'Training Sessions',
+					}
+				},
+				'operation_maintenance_monitoring': { 
+					template: 'maintenance.html',
+					association: 'water',
+					measurement: {
+						quantity_measurement_id: 'monitoring_visits',
+						quantity_measurement_name: 'Monitoring Visits'
+					}
+				},
+				'maintenance_repair_kits_provision_to_washcoms': { 
+					template: 'maintenance.html',
+					association: 'water',
+					measurement: {
+						details:[],
+						quantity_measurement_id: 'kits_distributed',
+						quantity_measurement_name: 'Kits Distributed'
+					}
+				},
+				'maintenance_repair_replacement_water_systems': { 
+					template: 'maintenance.html',
+					association: 'water',
+					measurement: {
+						details:[],
+						quantity_measurement_id: 'systems_repaired_replaced',
+						quantity_measurement_name: 'Systems Repaired / Replaced'
+					}
+				},
+
+				// SANITATION
+				// latrines construction
+				'latrine_construction_hh': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						quantity_measurement_id: 'hh_latrines',
+						quantity_measurement_name: ' HH Latrines'
+					}
+				},
+				'latrine_construction_vip': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						male: 0,
+						female: 0,
+						male_disabled: 0,
+						female_disabled: 0,
+						gender_marking_id: 'no',
+						gender_marking_name: 'No',
+						lock_installation: 'no',
+						lock_installation: 'No',
+						quantity_measurement_id: 'vip_latrines',
+						quantity_measurement_name: 'VIP Latrines'
+					}
+				},
+				'latrine_construction_emergency': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						male: 0,
+						female: 0,
+						male_disabled: 0,
+						female_disabled: 0,
+						gender_marking_id: 'no',
+						gender_marking_name: 'No',
+						lock_installation: 'no',
+						lock_installation: 'No',
+						quantity_measurement_id: 'emergency_latrines',
+						quantity_measurement_name: 'Emergency Latrines'
+					}
+				},
+				// latrine rehabilitation
+				'latrine_rehabilitation_hh': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						quantity_measurement_id: 'hh_latrines',
+						quantity_measurement_name: ' HH Latrines'
+					}
+				},
+				'latrine_rehabilitation_vip': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						male: 0,
+						female: 0,
+						male_disabled: 0,
+						female_disabled: 0,
+						gender_marking_id: 'no',
+						gender_marking_name: 'No',
+						lock_installation: 'no',
+						lock_installation: 'No',
+						quantity_measurement_id: 'vip_latrines',
+						quantity_measurement_name: 'VIP Latrines'
+					}
+				},
+				'latrine_rehabilitation_emergency': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						male: 0,
+						female: 0,
+						male_disabled: 0,
+						female_disabled: 0,
+						gender_marking_id: 'no',
+						gender_marking_name: 'No',
+						lock_installation: 'no',
+						lock_installation: 'No',
+						quantity_measurement_id: 'emergency_latrines',
+						quantity_measurement_name: 'Emergency Latrines'
+					}
+				},
+				// cleaning and desludging
+				'latrine_cleaning_disinfection_vip': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						male: 0,
+						female: 0,
+						male_disabled: 0,
+						female_disabled: 0,
+						quantity_measurement_id: 'vip_latrines',
+						quantity_measurement_name: ' VIP Latrines'
+					}
+				},
+				'latrine_cleaning_disinfection_emergency': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						male: 0,
+						female: 0,
+						male_disabled: 0,
+						female_disabled: 0,
+						quantity_measurement_id: 'emergency_latrines',
+						quantity_measurement_name: 'Emergency Latrines'
+					}
+				},
+				// desludging
+				'latrine_desludging_manual': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						stipend_id: 'no',
+						stipend_name: 'No',
+						stipend_amount: 0,
+						quantity_measurement_id: 'manual',
+						quantity_measurement_name: 'Manual'
+					}
+				},
+				'latrine_desludging_mechanical': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						quantity_measurement_id: 'mechanical',
+						quantity_measurement_name: 'Mechanical'
+					}
+				},
+				'latrine_sludge_dumping_site': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						details: [],
+						quantity_measurement_id: 'sites_prepared',
+						quantity_measurement_name: 'Sites Prepared'
+					}
+				},
+				'latrine_monitoring': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						details: [],
+						quantity_measurement_id: 'monitoring_visits',
+						quantity_measurement_name: 'Monitoring Visits'
+					}
+				},
+				// geneder marking / locks
+				'latrine_gender_marking_vip': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						male: 0,
+						female: 0,
+						male_disabled: 0,
+						female_disabled: 0,
+						quantity_measurement_id: 'vip_latrines',
+						quantity_measurement_name: 'VIP Latrines'
+					}
+				},
+				'latrine_gender_marking_emergency': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						male: 0,
+						female: 0,
+						male_disabled: 0,
+						female_disabled: 0,
+						quantity_measurement_id: 'emergency_latrines',
+						quantity_measurement_name: 'Emergency Latrines'
+					}
+				},
+				'latrine_lock_installation_vip': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						male: 0,
+						female: 0,
+						male_disabled: 0,
+						female_disabled: 0,
+						quantity_measurement_id: 'vip_latrines',
+						quantity_measurement_name: 'VIP Latrines'
+					}
+				},
+				'latrine_lock_installation_emergency': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						male: 0,
+						female: 0,
+						male_disabled: 0,
+						female_disabled: 0,
+						quantity_measurement_id: 'emergency_latrines',
+						quantity_measurement_name: 'Emergency Latrines'
+					}
+				},
+				'hand_washing_stations_installation': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						quantity_measurement_id: 'installed',
+						quantity_measurement_name: 'Installed'
+					}
+				},
+				'hand_washing_stations_refilled': { 
+					template: 'latrines.html',
+					association: 'sanitation',
+					measurement: {
+						quantity_measurement_id: 'refilled',
+						quantity_measurement_name: 'Refilled'
+					}
+				},
+				defaults: {
+					quantity: 0,
+					activity_start_date: moment( new Date() ).startOf( 'M' ).format('YYYY-MM-DD'),
+					activity_end_date: moment( new Date() ).endOf( 'M' ).format('YYYY-MM-DD')
+				}
+			},
+
 			// lists
 			lists: {
+				stipends: [{
+					stipend_id: 'no',
+					stipend_name: 'No',
+				},{
+					stipend_id: 'yes',
+					stipend_name: 'Yes',
+				}],
+				gender_markings: [{
+					gender_marking_id: 'no',
+					gender_marking_name: 'No',
+				},{
+					gender_marking_id: 'yes',
+					gender_marking_name: 'Yes',
+				}],
+				lock_installations: [{
+					lock_installation_id: 'no',
+					lock_installation_name: 'No',
+				},{
+					lock_installation_id: 'yes',
+					lock_installation_name: 'Yes',
+				}],
 				borehole_water_facility_types: [{
 					borehole_water_facility_type_id:'solar',
 					borehole_water_facility_type_name:'Solar'
@@ -742,6 +1110,48 @@ angular.module( 'ngmReportHub' )
 					detail_category_name: 'Electronic Pumps',
 					detail_type_id:'sub_pump_replacement',
 					detail_type_name:'Submersible Pump Replacement'
+				}],
+				sludge_dumping_site_details:[{
+					detail_type_id: 'site_excavation',
+					detail_type_name: 'Site Excavation'
+				},{
+					detail_type_id: 'compaction',
+					detail_type_name: 'Compaction'
+				},{
+					detail_type_id: 'disinfection',
+					detail_type_name: 'Disinfection'
+				},{
+					detail_type_id: 'fencing',
+					detail_type_name: 'Fencing'
+				}],
+				latrine_monitoring_details:[{
+					detail_type_id: 'pit_level',
+					detail_type_name: 'Level Pit Contents',
+					detail_type_label: 'Number (Latrine(s) Pit Level Checked)'
+				},{
+					detail_type_id: 'latrine_cleanliness',
+					detail_type_name: 'Cleanliness of Latrine',
+					detail_type_label: 'Number (Latrine(s) Cleanliness Checked)'
+				},{
+					detail_type_id: 'latrine_functionality',
+					detail_type_name: 'Latrine Functionality',
+					detail_type_label: 'Number (Latrine(s) Functionality Checked)'
+				},{
+					detail_type_id: 'sanitation_committee_activeness',
+					detail_type_name: "Sanitation Committee Members' Activeness, Training and Complaints/Feedback'",
+					detail_type_label: 'Number (Committee Performance(s) / Need(s) Monitored)'
+				},{
+					detail_type_id: 'elders_access_latrine',
+					detail_type_name: 'Accessibility of Latrines for Disabled and Elderly Users',
+					detail_type_label: 'Number (Latrine(s) Accessibility Checked)'
+				},{
+					detail_type_id: 'desludging_records',
+					detail_type_name: 'Desludging Records',
+					detail_type_label: 'Number (Latrine Desludging Record(s) Checked)'
+				},{
+					detail_type_id: 'latrine_user_complaints',
+					detail_type_name: 'User Complaints on Latrine Functionality',
+					detail_type_label: 'Number (User Complaint(s) Checked)'
 				}]
 			},
 

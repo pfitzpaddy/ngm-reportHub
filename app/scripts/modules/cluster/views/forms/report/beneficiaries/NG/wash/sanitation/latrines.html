@@ -1,0 +1,329 @@
+<!-- for each activity -->
+<h5 class="report-location-title" ng-if="beneficiary.sanitation.length" style="padding-top:0px;">{{ beneficiary.activity_detail_name }}</h5>
+	
+	<!-- repeat -->
+	<div class="card-panel" ng-repeat="latrine in beneficiary.sanitation" 
+				ng-init="$latrineIndex = $index">
+
+		<!-- latrine title / btns -->
+		<div class="row">
+			<div class="col s12 m6">
+				<h5 style="font-size: 1.32rem; padding-bottom:10px;">Details</h5>
+			</div>
+			<div class="col s12 m6">
+				<div class="btn-floating waves-effect waves-light red lighten-2 right" 
+							title="Remove Latrine"
+							ng-show="project.report.report_status !== 'complete'"
+							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, 
+																															$latrineIndex, 'sanitation', '#latrine-modal' )">
+					<i class="material-icons">clear</i>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- quanitiy -->
+		<div class="row">
+
+			<div class="input-field col s12">
+				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								name="quantity"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="latrine.quantity"
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+
+				<!-- label based on activity_detail_id -->
+				<label ng-if="beneficiary.activity_detail_id === 'latrine_construction_hh' || 
+															beneficiary.activity_detail_id === 'latrine_rehabilitation_hh'"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								class="active">Quantity (HH Latrines)</label>
+
+				<label ng-if="beneficiary.activity_detail_id === 'latrine_desludging_manual' || 
+															beneficiary.activity_detail_id === 'latrine_desludging_mechanical'"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								class="active">Quantity (Latrines Desludged)</label>
+
+				<label ng-if="beneficiary.activity_detail_id === 'latrine_sludge_dumping_site'"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								class="active">Quantity (Sites Prepared)</label>
+
+				<label ng-if="beneficiary.activity_detail_id === 'latrine_monitoring'"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								class="active">Quantity (Monitoring Visits)</label>
+
+				<label ng-if="beneficiary.activity_detail_id === 'hand_washing_stations_installation'"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								class="active">Quantity (Hand Stations Installed)</label>
+
+				<label ng-if="beneficiary.activity_detail_id === 'hand_washing_stations_refilled'"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								class="active">Quantity (Hand Stations Refilled)</label>
+								
+			</div>
+
+		</div>
+
+		<!-- vip / emergency -->
+		<div class="row" ng-if="beneficiary.activity_detail_id === 'latrine_construction_vip' || 
+															beneficiary.activity_detail_id === 'latrine_construction_emergency' ||
+															beneficiary.activity_detail_id === 'latrine_rehabilitation_vip' ||
+															beneficiary.activity_detail_id === 'latrine_rehabilitation_emergency' ||
+															beneficiary.activity_detail_id === 'latrine_cleaning_disinfection_vip' ||
+															beneficiary.activity_detail_id === 'latrine_gender_marking_vip' ||
+															beneficiary.activity_detail_id === 'latrine_gender_marking_emergency' ||
+															beneficiary.activity_detail_id === 'latrine_lock_installation_vip' ||
+															beneficiary.activity_detail_id === 'latrine_lock_installation_emergency'">
+			
+			<div class="input-field col s12 m3">
+				<input id="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								name="male"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="latrine.male"
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+				<!-- label based on activity_detail_id -->
+				<label for="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								class="active">Latrines for Males</label>
+			</div>
+
+			<div class="input-field col s12 m3">
+				<input id="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								name="female"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="latrine.female"
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+				<!-- label based on activity_detail_id -->
+				<label for="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								class="active">Latrines for Females</label>
+			</div>
+
+			<div class="input-field col s12 m3">
+				<input id="ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								name="male_disabled"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="latrine.male_disabled"
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+				<!-- label based on activity_detail_id -->
+				<label for="ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								class="active">Latrines for Males Disabled</label>
+			</div>
+
+			<div class="input-field col s12 m3">
+				<input id="ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								name="female_disabled"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="latrine.female_disabled"
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+				<!-- label based on activity_detail_id -->
+				<label for="ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								class="active">Latrines for Females Disabled</label>
+			</div>
+
+		</div>
+
+		<!-- gender marking / lock installation -->
+		<div class="row" ng-if="beneficiary.activity_detail_id === 'latrine_construction_vip' || 
+															beneficiary.activity_detail_id === 'latrine_construction_emergency' ||
+															beneficiary.activity_detail_id === 'latrine_rehabilitation_vip' ||
+															beneficiary.activity_detail_id === 'latrine_rehabilitation_emergency'">
+
+			<div class="input-field col s12 m6">
+      	<select id="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
+	      					name="gender_marking"
+	      					class="validate"
+	      					ng-options="type.gender_marking_id as 
+	      												type.gender_marking_name for 
+	      												type in ngmClusterHelperNgWashLists.lists.gender_markings"
+	      					ng-model="latrine.gender_marking_id"
+	      					ng-change="ngmClusterHelperNgWash.selectChange( latrine, 
+	      																			'gender_markings',
+	      																			'gender_marking_id', 
+	      																			'gender_marking_name',
+	      																			'ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
+	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+	      					required>
+				<option value="">Select...</option>
+				</select>
+	      <label for="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
+	      				class="active" style="transform:translateY(-10%)">Latrine Gender Marking</label>
+			</div>
+
+			<div class="input-field col s12 m6">
+      	<select id="ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
+	      					name="lock_installation"
+	      					class="validate"
+	      					ng-options="type.lock_installation_id as 
+	      												type.lock_installation_name for 
+	      												type in ngmClusterHelperNgWashLists.lists.lock_installations"
+	      					ng-model="latrine.gender_marking_id"
+	      					ng-change="ngmClusterHelperNgWash.selectChange( latrine, 
+	      																			'lock_installations',
+	      																			'lock_installation_id', 
+	      																			'lock_installation_name',
+	      																			'ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
+	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+	      					required>
+				<option value="">Select...</option>
+				</select>
+	      <label for="ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
+	      				class="active" style="transform:translateY(-10%)">Latrine Lock Installation</label>
+			</div>
+
+		</div>
+
+		<!-- manual desludging -->
+		<div class="row" ng-if="beneficiary.activity_detail_id === 'latrine_desludging_manual'">
+
+			<div class="input-field col s12 m6">
+      	<select id="ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
+	      					name="stipend"
+	      					class="validate"
+	      					ng-options="type.stipend_id as 
+	      												type.stipend_name for 
+	      												type in ngmClusterHelperNgWashLists.lists.stipends"
+	      					ng-model="latrine.stipend_id"
+	      					ng-change="ngmClusterHelperNgWash.selectChange( latrine, 
+	      																			'stipends',
+	      																			'stipend_id', 
+	      																			'stipend_name',
+	      																			'ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
+	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+	      					required>
+				<option value="">Select...</option>
+				</select>
+	      <label for="ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
+	      				class="active" style="transform:translateY(-10%)">Stipends Provided</label>
+			</div>
+
+			<div class="input-field col s12 m6">
+				<input id="ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								name="stipend_amount"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="latrine.stipend_amount"
+								ng-disabled="latrine.stipend_id === 'no' || !rowform.$visible || project.report.report_status === 'complete'"
+								required>
+				<label for="ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								class="active">Stipend Amount Total (Naira)</label>
+			</div>
+
+		</div>
+
+		<!-- dates -->
+		<div class="row">
+
+			<div class="input-field col s12 m6">
+				<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+						ngm-date
+						type="text"
+						name="created"
+						ng-model="latrine.activity_start_date"
+						format="dd mmm, yyyy"
+						max="{{ latrine.activity_end_date }}"
+						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( latrine, latrine.activity_start_date )"
+						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						e-required/>
+				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								class="active">Activity Start Date</label>
+			</div>
+
+			<div class="input-field col s12 m6">
+				<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+						ngm-date
+						type="text"
+						name="created"
+						ng-model="latrine.activity_end_date"
+						format="dd mmm, yyyy"
+						min="{{ latrine.activity_start_date }}"
+						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( latrine, latrine.activity_end_date )"
+						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						e-required/>
+				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+								class="active">Activity End Date</label>            
+			</div>
+
+		</div>
+
+		<!-- details ( latrine_sludge_dumping_site ) -->
+		<div ng-if="beneficiary.activity_detail_id === 'latrine_sludge_dumping_site' || 
+									beneficiary.activity_detail_id === 'latrine_monitoring'">
+
+			<div class="row" ng-repeat="detail in latrine.details">
+
+				<!-- latrine_sludge_dumping_site -->
+				<div ng-if="beneficiary.activity_detail_id === 'latrine_sludge_dumping_site'">
+					<div ng-include="project.templatesUrl + 
+														ngmClusterHelperNgWash.templateUrl +
+														beneficiary.activity_type_id + '/details/latrines.sludge_dumping_site.html'"></div>
+				</div>
+
+				<!-- latrine_monitoring -->
+				<div ng-if="beneficiary.activity_detail_id === 'latrine_monitoring'">
+					<div ng-include="project.templatesUrl + 
+														ngmClusterHelperNgWash.templateUrl +
+														beneficiary.activity_type_id + '/details/latrines.latrine_monitoring.html'"></div>
+				</div>
+
+			</div>
+
+			<div class="row" style="margin-left:20px;"
+						ng-if="beneficiary.activity_detail_id === 'latrine_sludge_dumping_site'">
+				<!-- add details -->
+				<button class="btn blue lighten-2"
+								ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+								ng-hide="latrine.details.length === 4"
+								ng-click="rowform.$show(); 
+											ngmClusterHelperNgWash.init_material_select();
+											ngmClusterHelperNgWash.addDetails( latrine, {} );">
+					<i class="material-icons left">add</i>Add Details
+				</button>
+			</div>
+
+			<div class="row" style="margin-left:20px;"
+						ng-if="beneficiary.activity_detail_id === 'latrine_monitoring'">
+				<!-- add details -->
+				<button class="btn blue lighten-2"
+								ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+								ng-click="rowform.$show(); 
+											ngmClusterHelperNgWash.init_material_select();
+											ngmClusterHelperNgWash.addDetails( latrine, { quantity: 0 } );">
+					<i class="material-icons left">add</i>Add Details
+				</button>
+			</div>
+
+		</div>	
+
+	</div>
+
+	<!-- add new latrine -->
+	<button class="btn blue" 
+					ng-show="project.report.report_status !== 'complete'"
+					ng-hide="beneficiary.sanitation.length === 1" 
+					ng-click="rowform.$show(); 
+											ngmClusterHelperNgWash.init_material_select();
+											ngmClusterHelperNgWash.addActivity( location, beneficiary, 'sanitation' )">
+		<i class="material-icons left">add</i>Add Latrine Details
+	</button>
+
+<script>
+	// init
+	setTimeout(function(){ 
+		$( '.input-field select' ).material_select(); 
+		setTimeout(function(){ $( '.input-field select' ).material_select(); }, 460 );
+	}, 200 );
+</script>

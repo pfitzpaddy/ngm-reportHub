@@ -33,132 +33,6 @@ angular.module( 'ngmReportHub' )
 				elderly_women: 0.0371
 			},
 
-			// activity keys
-			keys: {
-				// borehole
-				'borehole_construction':{
-					template: 'borehole.html',
-					association: 'boreholes',
-					measurement: {
-						borehole_yield_ltrs_second: 0,
-						borehole_pumping_ave_daily_hours: 0,
-						borehole_tanks_storage_ltrs: 0,
-						taps_number_connected: 0,
-						borehole_taps_ave_flow_rate_ltrs_minute: 0
-					}
-				},
-				'borehole_rehabilitation':{
-					template: 'borehole.html',
-					association: 'boreholes',
-					measurement: {
-						borehole_yield_ltrs_second: 0,
-						borehole_pumping_ave_daily_hours: 0,
-						borehole_tanks_storage_ltrs: 0,
-						taps_number_connected: 0,
-						borehole_taps_ave_flow_rate_ltrs_minute: 0
-					}
-				},
-				'borehole_upgrade':{
-					template: 'borehole.html',
-					association: 'boreholes',
-					measurement: {
-						borehole_yield_ltrs_second: 0,
-						borehole_pumping_ave_daily_hours: 0,
-						borehole_tanks_storage_ltrs: 0,
-						taps_number_connected: 0,
-						borehole_taps_ave_flow_rate_ltrs_minute: 0
-					}
-				},
-				// reticulation
-				'reticulation_construction': { 
-					template: 'reticulation.html',
-					association: 'water',
-					measurement: {
-						quantity_measurement_id: 'taps_connected',
-						quantity_measurement_name: 'Taps Connected'
-					}
-				},
-				'reticulation_rehabilitation': { 
-					template: 'reticulation.html',
-					association: 'water',
-					measurement: {
-						quantity_measurement_id: 'taps_connected',
-						quantity_measurement_name: 'Taps Connected'
-					}
-				},
-				// services
-				'water_trucking': { 
-					template: 'service.html',
-					association: 'water',
-					measurement: {
-						quantity_measurement_id: 'm3_per_month',
-						quantity_measurement_name: 'm3/Per Month'
-					}
-				},
-				'cash_for_water': { 
-					template: 'service.html',
-					association: 'water',
-					measurement: {
-						quantity_measurement_id: 'm3_per_month',
-						quantity_measurement_name: 'm3/Per Month'
-					}
-				},
-				'distribution_treatment_tablets': {
-					template: 'service.html',
-					association: 'water',
-					measurement: {
-						quantity_measurement_id: 'm3_per_month',
-						quantity_measurement_name: 'm3/Per Month'
-					}
-				},
-				// ops and maintenance
-				'fuel_provision_water': { 
-					template: 'maintenance.html',
-					association: 'water',
-					measurement: {
-						quantity_measurement_id: 'm3_per_month',
-						quantity_measurement_name: 'm3/Per Month'
-					}
-				},
-				'washcoms_establishment_training': { 
-					template: 'maintenance.html',
-					association: 'water',
-					measurement: {
-						male: 0,
-						female: 0,
-						details:[]
-					}
-				},
-				'maintenance_repair_kits_provision_to_washcoms': { 
-					template: 'maintenance.html',
-					association: 'water',
-					measurement: {
-						quantity_measurement_id: 'kits_distributed',
-						quantity_measurement_name: 'Kits Distributed'
-					}
-				},
-				'operation_maintenance_monitoring': { 
-					template: 'maintenance.html',
-					association: 'water',
-					measurement: {
-						quantity_measurement_id: 'monitoring_visits',
-						quantity_measurement_name: 'Monitoring Visits'
-					}
-				},
-				'maintenance_repair_replacement_water_systems': { 
-					template: 'maintenance.html',
-					association: 'water',
-					measurement: {
-						details:[]
-					}
-				},
-				defaults: {
-					quantity: 0,
-					activity_start_date: moment( new Date() ).startOf( 'M' ).format('YYYY-MM-DD'),
-					activity_end_date: moment( new Date() ).endOf( 'M' ).format('YYYY-MM-DD')
-				}
-			},
-
 			// reset form
 			init_material_select:function(){
 				setTimeout(function(){ 
@@ -171,7 +45,7 @@ angular.module( 'ngmReportHub' )
 			// show template
 			getTemplate: function( beneficiary ){
 				if ( beneficiary.activity_detail_id ) {
-					return ngmClusterHelperNgWash.keys[ beneficiary.activity_detail_id ].template
+					return ngmClusterHelperNgWashLists.keys[ beneficiary.activity_detail_id ].template
 				} else {
 					return false;
 				}
@@ -184,6 +58,7 @@ angular.module( 'ngmReportHub' )
 
 			// update display name in object on select change
 			selectChange: function( d, list, key, name, label ){
+				console.log( d );
 				if ( d[ key ] ) {
 					var id = d[ key ];
 					var obj = {}
@@ -208,16 +83,15 @@ angular.module( 'ngmReportHub' )
 					if ( $beneficiary.activity_detail_id ) {
 
 					// ngmClusterHelperNgWash keys 
-					var keys = ngmClusterHelperNgWash.keys[ $beneficiary.activity_detail_id ];
+					var keys = ngmClusterHelperNgWashLists.keys[ $beneficiary.activity_detail_id ];
 						// in case user changes their mind ( update existing )
 						if ( $beneficiary[ keys.association ] && $beneficiary[ keys.association ].length ) {
 							angular.forEach( $beneficiary[ keys.association ], function( a, i ) {
-								// remove details
-								delete a.details;
-								// merge defaults
-								a = angular.merge( {}, keys.measurement, ngmClusterHelperNgWash.keys.defaults );
-								a.borehole_lng = $location.site_lng;
-								a.borehole_lat = $location.site_lat;
+								// make new
+								var activity = angular.merge( {}, ngmClusterHelperNgWashLists.keys.defaults, keys.measurement );
+										activity.borehole_lng = $location.site_lng;
+										activity.borehole_lat = $location.site_lat;								
+								$beneficiary[ keys.association ][ i ] = activity;
 								// init UI
 								ngmClusterHelperNgWash.init_material_select();
 							});
@@ -235,10 +109,10 @@ angular.module( 'ngmReportHub' )
 
 				// based on association and activity_detail
 				var length = beneficiary[ association ] && beneficiary[ association ].length;
-				var measurement = ngmClusterHelperNgWash.keys[ beneficiary.activity_detail_id ].measurement;
+				var measurement = ngmClusterHelperNgWashLists.keys[ beneficiary.activity_detail_id ].measurement;
 				
 				// create model using ngmClusterHelperNgWash keys ( based on activity_detail )
-				var activity = angular.merge( {}, measurement, ngmClusterHelperNgWash.keys.defaults );
+				var activity = angular.merge( {}, ngmClusterHelperNgWashLists.keys.defaults, measurement );
 
 				// in case of boreholes ( only saved ay db level if boreholes )
 				activity.borehole_lng = location.site_lng;
@@ -252,7 +126,6 @@ angular.module( 'ngmReportHub' )
 				// copy previous
 				if ( length ) {
 					var a = angular.copy( beneficiary[ association ][ length - 1 ] );
-					console.log(a.details)
 					delete a.id;
 					delete a.details;
 					activity = angular.merge( {}, activity, a );
@@ -264,6 +137,11 @@ angular.module( 'ngmReportHub' )
 				// init
 				ngmClusterHelperNgWash.init_material_select();
 
+			},
+
+			// add new details
+			addDetails: function( d, obj ){
+				d.details.push( obj );
 			},
 
 			// remove beneficiary nodal
@@ -341,24 +219,30 @@ angular.module( 'ngmReportHub' )
 				// collect error divs
 				var elements = [];
 
-				// borehole count
+				// WATER
+				// borehole
 				var boreholeLength = 0;
 				var boreholeRowComplete = 0;
 
-				// reticulation count
+				// reticulation
 				var reticulationLength = 0;
 				var reticulationRowComplete = 0;
 
-				// service count
+				// service
 				var serviceLength = 0;
 				var serviceRowComplete = 0;
 
-				// maintenance count
+				// maintenance
 				var maintenanceLength = 0;
 				var maintenanceRowComplete = 0;
 
+				// SANITATION
+				// latrines
+				var latrinesLength = 0;
+				var latrinesRowComplete = 0;
+
 				// keys to validate correct form
-				var keys = ngmClusterHelperNgWash.keys;
+				var keys = ngmClusterHelperNgWashLists.keys;
 
 				// each location
 				angular.forEach( locations, function( l, i ){
@@ -395,6 +279,12 @@ angular.module( 'ngmReportHub' )
 									angular.merge( elements, result.divs );
 									maintenanceRowComplete +=  result.count;
 								}
+								if ( keys[ b.activity_detail_id ].template === 'latrines.html' ) {
+									latrinesLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateLatrines( b, w, i, j, k );
+									angular.merge( elements, result.divs );
+									latrinesRowComplete +=  result.count;
+								}
 							});
 						}
 
@@ -405,7 +295,8 @@ angular.module( 'ngmReportHub' )
 				if ( boreholeLength !== boreholeRowComplete ||
 							reticulationLength !== reticulationRowComplete ||
 							serviceLength !== serviceRowComplete ||
-							maintenanceLength !== maintenanceRowComplete ) {
+							maintenanceLength !== maintenanceRowComplete ||
+							latrinesLength !== latrinesRowComplete ) {
 					Materialize.toast( 'Form contains errors!' , 6000, 'error' );
 					$( elements[0] ).animatescroll();
 					return false;

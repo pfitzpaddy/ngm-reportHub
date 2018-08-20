@@ -124,7 +124,7 @@
 
     </tr>
 
-    <!-- details -->
+    <!-- activities -->
     <!-- ng-show as an extra row is added only if necissary ( some projects may have intersectoral activities ) -->
     <!-- the activity row must not be disabled to display the details forms -->
     <tr ng-repeat-end ng-show="ngmClusterHelperNgWash.getTemplate( beneficiary ); 
@@ -134,7 +134,8 @@
         <!-- get template -->
         <div ng-if="ngmClusterHelperNgWash.getTemplate( beneficiary )">
           <div ng-include="project.templatesUrl + 
-                            ngmClusterHelperNgWash.templateUrl + 
+                            ngmClusterHelperNgWash.templateUrl +
+                            beneficiary.activity_type_id + '/' +
                             ngmClusterHelperNgWash.getTemplate( beneficiary )"></div>
         </div>
 

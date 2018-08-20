@@ -206,7 +206,7 @@ angular.module( 'ngmReportHub' )
 					validation.divs.push( id );
 					complete = false;
 				}
-				// tablets service has no dropdowns
+				// washcoms_establishment_training has male / female
 				if ( beneficiary.activity_detail_id === 'washcoms_establishment_training' ) {
 					if ( m.male === undefined || m.male < 0 ){ 
 						id = "label[for='" + 'ngm-male-'+i+'-'+j+'-'+k + "']";
@@ -225,14 +225,14 @@ angular.module( 'ngmReportHub' )
 				// for each details
 				angular.forEach( m.details, function( d, l ){
 					if ( !d.detail_type_id && !d.detail_type_name ){ 
-						id = "label[for='" + 'ngm-detail_type-'+i+'-'+j+'-'+k + "']";
+						id = "label[for='" + 'ngm-detail_type-'+i+'-'+j+'-'+k+'-'+l+"']";
 						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 						validation.divs.push( id );
 						complete = false;
 					}
 					if ( beneficiary.activity_category_id === 'maintenance_repair_replacement_water_systems' ) {
 						if ( !d.detail_category_id && !d.detail_category_name ){ 
-							id = "label[for='" + 'ngm-detail_category-'+i+'-'+j+'-'+k + "']";
+							id = "label[for='" + 'ngm-detail_category-'+i+'-'+j+'-'+k+'-'+l+"']";
 							$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 							validation.divs.push( id );
 							complete = false;
