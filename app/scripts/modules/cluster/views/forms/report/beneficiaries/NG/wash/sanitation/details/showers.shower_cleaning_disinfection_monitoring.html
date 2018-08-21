@@ -4,24 +4,24 @@
 
 					<!-- detail -->
 					<div class="input-field col s12 m5">
-		      	<select id="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}-{{ $index }}" 
-			      					name="detail_type_id"
-			      					class="validate"
-			      					ng-options="detail.detail_type_id as 
-			      												detail.detail_type_name for 
-			      												detail in ngmClusterHelperNgWashLists.lists.shower_monitoring_details"
-		      						ng-change="ngmClusterHelperNgWash.selectChange( detail, 
-		      																			'shower_monitoring_details',
-		      																			'detail_type_id', 
-		      																			'detail_type_name',
-		      																			'ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}-{{ $index }}' )"
-			      					ng-model="detail.detail_type_id"
-			      					ng-disabled="!rowform.$visible || project.report.report_status === 'complete'"
-			      					required>
+						<select id="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}-{{ $index }}" 
+											name="detail_type_id"
+											class="validate"
+											ng-options="detail.detail_type_id as 
+																		detail.detail_type_name for 
+																		detail in ngmClusterHelperNgWashLists.lists.shower_monitoring_details"
+											ng-change="ngmClusterHelperNgWash.selectChange( detail, 
+																								'shower_monitoring_details',
+																								'detail_type_id', 
+																								'detail_type_name',
+																								'ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}-{{ $index }}' )"
+											ng-model="detail.detail_type_id"
+											ng-disabled="!rowform.$visible || project.report.report_status === 'complete'"
+											required>
 						<option value="">Select... </option>
 						</select>
-			      <label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}-{{ $index }}" 
-			      				class="active" style="transform:translateY(-10%)">Monitoring Activity</label>
+						<label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}-{{ $index }}" 
+										class="active" style="transform:translateY(-10%)">Monitoring Activity</label>
 					</div>
 
 					<!-- quantity -->

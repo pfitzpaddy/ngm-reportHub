@@ -127,7 +127,7 @@
     <!-- activities -->
     <!-- ng-show as an extra row is added only if necissary ( some projects may have intersectoral activities ) -->
     <!-- the activity row must not be disabled to display the details forms -->
-    <tr ng-repeat-end ng-show="ngmClusterHelperNgWash.getTemplate( beneficiary ); 
+    <tr ng-repeat-end ng-show="ngmClusterHelperNgWash.getTemplate( beneficiary ) && 
                                 !ngmClusterBeneficiaries.rowSaveDisabled( project.definition, beneficiary );">
       <td colspan="100" style="padding-left:20px">
 

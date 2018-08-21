@@ -45,7 +45,7 @@ angular.module( 'ngmReportHub' )
 
 			// show template
 			getTemplate: function( beneficiary ){
-				if ( beneficiary.activity_detail_id ) {
+				if ( beneficiary && beneficiary.activity_detail_id && beneficiary.activity_detail_name ) {
 					return ngmClusterHelperNgWashKeys.keys[ beneficiary.activity_detail_id ].template
 				} else {
 					return false;
@@ -250,9 +250,14 @@ angular.module( 'ngmReportHub' )
 				var wasteLength = 0;
 				var wasteRowComplete = 0;
 				
-				// waste
+				// committee
 				var committeeLength = 0;
-				var committeeRowComplete = 0;				
+				var committeeRowComplete = 0;
+
+				// HYGIENE
+				// 
+				var hygieneLength = 0;
+				var hygieneRowComplete = 0;
 
 				// keys to validate correct form
 				var keys = ngmClusterHelperNgWashKeys.keys;
@@ -261,17 +266,7 @@ angular.module( 'ngmReportHub' )
 				angular.forEach( locations, function( l, i ){
 					angular.forEach( l.beneficiaries, function( d, j ){
 
-						// boreholes 
-						if ( d.boreholes && d.boreholes.length ) {
-							boreholeLength += d.boreholes.length;
-							angular.forEach( d.boreholes, function( borehole, k ){
-								var result = ngmClusterHelperNgWashValidation.validateBorehole( borehole, i, j, k );
-								angular.merge( elements, result.divs );
-								boreholeRowComplete += result.count;
-							});
-						}
-
-						// water form validations
+						// water
 						if ( d.water && d.water.length ) {
 							angular.forEach( d.water, function( water, k ){
 								if ( keys[ d.activity_detail_id ].template === 'reticulation.html' ) {
@@ -295,6 +290,17 @@ angular.module( 'ngmReportHub' )
 							});
 						}
 
+						// boreholes 
+						if ( d.boreholes && d.boreholes.length ) {
+							boreholeLength += d.boreholes.length;
+							angular.forEach( d.boreholes, function( borehole, k ){
+								var result = ngmClusterHelperNgWashValidation.validateBorehole( borehole, i, j, k );
+								angular.merge( elements, result.divs );
+								boreholeRowComplete += result.count;
+							});
+						}
+
+						// sanitation
 						if ( d.sanitation && d.sanitation.length ) {
 							angular.forEach( d.sanitation, function( sanitation, k ){
 								if ( keys[ d.activity_detail_id ].template === 'latrines.html' ) {
@@ -324,6 +330,19 @@ angular.module( 'ngmReportHub' )
 							});
 						}
 
+						// hygiene
+						if ( d.hygiene && d.hygiene.length ) {
+							angular.forEach( d.hygiene, function( hygiene, k ){
+								if ( keys[ d.activity_detail_id ].template === 'promotion.html' ||
+											keys[ d.activity_detail_id ].template === 'kits.html' ) {
+									hygieneLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateHygiene( d, hygiene, i, j, k );
+									angular.merge( elements, result.divs );
+									hygieneRowComplete +=  result.count;
+								}
+							});
+						}
+
 					});
 				});
 
@@ -335,7 +354,8 @@ angular.module( 'ngmReportHub' )
 							latrinesLength !== latrinesRowComplete ||
 							showersLength !== showersRowComplete ||
 							wasteLength !== wasteRowComplete ||
-							committeeLength !== committeeRowComplete ) {
+							committeeLength !== committeeRowComplete ||
+							hygieneLength !== hygieneRowComplete ) {
 					Materialize.toast( 'Form contains errors!' , 6000, 'error' );
 					$( elements[0] ).animatescroll();
 					return false;

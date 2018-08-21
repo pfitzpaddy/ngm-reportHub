@@ -4,24 +4,24 @@
 
 					<!-- detail -->
 					<div class="input-field col s12 m5">
-		      	<select id="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}-{{ $index }}" 
-			      					name="detail_type_id"
-			      					class="validate"
-			      					ng-options="detail.detail_type_id as 
-			      												detail.detail_type_name for 
-			      												detail in ngmClusterHelperNgWashLists.lists.solid_waste_committee_kits"
-		      						ng-change="ngmClusterHelperNgWash.selectChange( detail, 
-		      																			'solid_waste_committee_kits',
-		      																			'detail_type_id', 
-		      																			'detail_type_name',
-		      																			'ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}-{{ $index }}' )"
-			      					ng-model="detail.detail_type_id"
-			      					ng-disabled="!rowform.$visible || project.report.report_status === 'complete'"
-			      					required>
+						<select id="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}-{{ $index }}" 
+											name="detail_type_id"
+											class="validate"
+											ng-options="detail.detail_type_id as 
+																		detail.detail_type_name for 
+																		detail in ngmClusterHelperNgWashLists.lists.solid_waste_committee_kits"
+											ng-change="ngmClusterHelperNgWash.selectChange( detail, 
+																								'solid_waste_committee_kits',
+																								'detail_type_id', 
+																								'detail_type_name',
+																								'ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}-{{ $index }}' )"
+											ng-model="detail.detail_type_id"
+											ng-disabled="!rowform.$visible || project.report.report_status === 'complete'"
+											required>
 						<option value="">Select... </option>
 						</select>
-			      <label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}-{{ $index }}" 
-			      				class="active" style="transform:translateY(-10%)">Kit Item</label>
+						<label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}-{{ $index }}" 
+										class="active" style="transform:translateY(-10%)">Kit Item</label>
 					</div>
 
 					<!-- quantity -->

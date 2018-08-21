@@ -608,6 +608,123 @@ angular.module( 'ngmReportHub' )
 						details: []
 					}
 				},
+				// HYGIENE
+				// promotion
+				'leaflet_flyer_distribution': {
+					template: 'promotion.html',
+					association: 'hygiene',
+					measurement:{
+						quantity_measurement_id: 'leaflets_flyers_distributed',
+						quantity_measurement_name: 'Leaflets / Flyers Distributed',
+					}
+				},
+				'house_to_house_visit': {
+					template: 'promotion.html',
+					association: 'hygiene',
+					measurement:{
+						quantity_measurement_id: 'house_visits',
+						quantity_measurement_name: 'House Visits',
+					}
+				},
+				'focus_group_sessions': {
+					template: 'promotion.html',
+					association: 'hygiene',
+					measurement:{
+						quantity_measurement_id: 'sessions',
+						quantity_measurement_name: 'Sessions',
+					}
+				},
+				'mass_campaigns': {
+					template: 'promotion.html',
+					association: 'hygiene',
+					measurement:{
+						quantity_measurement_id: 'campaigns',
+						quantity_measurement_name: 'Campaigns',
+					}
+				},
+				'speaker_campaigns': {
+					template: 'promotion.html',
+					association: 'hygiene',
+					measurement:{
+						quantity_measurement_id: 'campaigns',
+						quantity_measurement_name: 'Campaigns',
+					}
+				},
+				'other_campaigns': {
+					template: 'promotion.html',
+					association: 'hygiene',
+					measurement:{
+						quantity_measurement_id: 'campaigns',
+						quantity_measurement_name: 'Campaigns',
+						details:[]
+					}
+				},
+				'hygiene_promotion_volunteers_recruitment_training': {
+					template: 'promotion.html',
+					association: 'hygiene',
+					measurement:{
+						male: 0,
+						female: 0,
+						quantity_measurement_id: 'trainings',
+						quantity_measurement_name: 'Trainings',
+						details:[]
+					}
+				},
+				'hygiene_promotion_monitoring_visits': {
+					template: 'promotion.html',
+					association: 'hygiene',
+					measurement:{
+						quantity_measurement_id: 'monitoring_visits',
+						quantity_measurement_name: 'Monitoring Visits',
+						details:[]
+					}
+				},
+				// kit distribution
+				'initial_hygiene_kit_distribution': {
+					template: 'kits.html',
+					association: 'hygiene',
+					measurement:{
+						quantity_measurement_id: 'kits_distributed',
+						quantity_measurement_name: 'Kits Distributed',
+						details:[]
+					}
+				},
+				'replenishment_hygiene_kit_distribution': {
+					template: 'kits.html',
+					association: 'hygiene',
+					measurement:{
+						quantity_measurement_id: 'kits_distributed',
+						quantity_measurement_name: 'Kits Distributed',
+						details:[]
+					}
+				},
+				'hygiene_promotion_volunteers_kit_distribution': {
+					template: 'kits.html',
+					association: 'hygiene',
+					measurement:{
+						quantity_measurement_id: 'kits_distributed',
+						quantity_measurement_name: 'Kits Distributed',
+						details:[]
+					}
+				},
+				'cholera_kit_distribution': {
+					template: 'kits.html',
+					association: 'hygiene',
+					measurement:{
+						quantity_measurement_id: 'kits_distributed',
+						quantity_measurement_name: 'Kits Distributed',
+						details:[]
+					}
+				},
+				'post_distribution_monitoring': {
+					template: 'kits.html',
+					association: 'hygiene',
+					measurement:{
+						quantity_measurement_id: 'monitoring_activities',
+						quantity_measurement_name: 'Monitoring Activities',
+						details:[]
+					}
+				},
 				// default
 				defaults: {
 					quantity: 0,

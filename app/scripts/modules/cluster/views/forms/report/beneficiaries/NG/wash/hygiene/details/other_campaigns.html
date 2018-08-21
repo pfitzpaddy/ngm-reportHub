@@ -1,0 +1,28 @@
+					<div class="col s12 m3" style="text-align:right;">
+						<p style="font-size:16px; padding-top:26px;">Activity {{ $index+1 }} </p>
+					</div>
+					
+					<div class="input-field col s12 m9">
+		      	<select id="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $promotionIndex }}-{{ $index }}" 
+			      					name="detail_type_id"
+			      					class="validate"
+			      					ng-options="detail.detail_type_id as 
+			      												detail.detail_type_name for 
+			      												detail in ngmClusterHelperNgWashLists.lists[ beneficiary.activity_detail_id ]"
+		      						ng-change="ngmClusterHelperNgWash.selectChange( detail, 
+		      																			beneficiary.activity_detail_id,
+		      																			'detail_type_id', 
+		      																			'detail_type_name',
+		      																			'ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $promotionIndex }}-{{ $index }}' )"
+			      					ng-model="detail.detail_type_id"
+			      					ng-disabled="!rowform.$visible || project.report.report_status === 'complete'"
+			      					required>
+						<option value="">Select... </option>
+						</select>
+			      <label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $promotionIndex }}-{{ $index }}" 
+			      				class="active" style="transform:translateY(-10%)">Promotion Activity</label>
+					</div>
+<script>
+	// init
+	setTimeout(function(){ $( '.input-field select' ).material_select();  }, 400 );
+</script>

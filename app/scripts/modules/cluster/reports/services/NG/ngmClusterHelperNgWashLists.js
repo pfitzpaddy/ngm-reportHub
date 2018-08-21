@@ -929,9 +929,195 @@ angular.module( 'ngmReportHub' )
 					detail_type_id: 'metalic_bucket',
 					detail_type_name: 'Metallic Bucket with Handle'
 				}],
-
+				other_campaigns: [{
+					detail_type_id:'theatre',
+					detail_type_name:'Theater'
+				},{
+					detail_type_id:'shows',
+					detail_type_name:'Shows'
+				},{
+					detail_type_id:'ghwd',
+					detail_type_name:'Global Hand Washing Day'
+				},{
+					detail_type_id:'cleanup_cmpgn',
+					detail_type_name:'Cleanup Campaign'
+				},{
+					detail_type_id:'hndwshing_hr',
+					detail_type_name:'Handwashing Hour'
+				},{
+					detail_type_id:'jerrycan_clnng_cmpgn',
+					detail_type_name:'Jerry Can Cleaning Campaign'
+				},{
+					detail_type_id:'child_child_ssn',
+					detail_type_name:'Child-to-Child Session'
+				},{
+					detail_type_id:'not_listed',
+					detail_type_name:'Not Listed'
+				}],
+				hygiene_promotion_volunteers_recruitment_training: [{
+					detail_type_id:'cmmty_engagment',
+					detail_type_name:'Community Engagement/Mobilization, Dialogue and Interaction (Activities Related to Customs, Taboos, Norms, Culture)'
+				},{
+					detail_type_id:'info_knwldge_sharing',
+					detail_type_name:'Information and Knowledge Sharing'
+				},{
+					detail_type_id:'use_of_wash_facilities',
+					detail_type_name:'Ensuring Access and Use of WASH facilities and Services (Promoting the Use of WASH Facilities and Services Including Water Points, Latrines, Showers, Handwashing Stations)'
+				},{
+					detail_type_id:'use_of_wash_materials',
+					detail_type_name:'Ensuring Access and Use of Materials (pPromoting the use of WASH Facilities and Services Including Hygiene Kits, Aquatabs)'
+				},{
+					detail_type_id:'pub_health_risk',
+					detail_type_name:'Training on the Key Activities to Mitigate pPublic Health Risks (Promoting Handwashing at Key Times, Safe Water)'
+				},{
+					detail_type_id:'wrking_children_young_elderly',
+					detail_type_name:'Basic Principles on Working with Children, Young, Elderly and Disabled People '
+				},{
+					detail_type_id:'gender_issues',
+					detail_type_name:'Gender Issues (Importance of Gender Sensitivity, SGBV, SGM)'
+				},{
+					detail_type_id:'mhm',
+					detail_type_name:'Menstrual Hygiene Management (MHM) and Incontinence'
+				},{
+					detail_type_id:'muac',
+					detail_type_name:'Understanding of MUAC Readings'
+				},{
+					detail_type_id:'hp_in_edu',
+					detail_type_name:'Principles of Hygiene Promotion for Schools, Safe Spaces and Learning Centres'
+				},{
+					detail_type_id:'accountability',
+					detail_type_name:'Accountability to Affected Population (Training on Feedback and Complaint Mechanism)'
+				}],
+				hygiene_promotion_monitoring_visits: [{
+					detail_type_id:'hp_knw_pou',
+					detail_type_name:'Hygiene Promoters Understanding of Correct Dosage for Any POU Chlorine Products'
+				},{
+					detail_type_id:'hp_knw_ors',
+					detail_type_name:'Hygiene Promoters Knowledge of ORS Preparation'
+				},{
+					detail_type_id:'hp_knw_nfi',
+					detail_type_name:'Hygiene Promoters Understanding of Purpose of All NFIs'
+				},{
+					detail_type_id:'hp_knw_key_cholera_msgs',
+					detail_type_name:'Hygiene Promoters Knowledge of Key Cholera and Hygiene Messages'
+				},{
+					detail_type_id:'hp_hh_logs',
+					detail_type_name:'Hygiene Promoter Household Visit Logs'
+				}],
+				initial_hygiene_kit_distribution:[{
+					detail_type_id:'jerrycan_25l',
+					detail_type_name:'Jerrycan, 25 L, Non-Collapsible'
+				},{
+					detail_type_id:'jerrycan_10l',
+					detail_type_name:'Jerrycan, 10 L, Non-Collapsible'
+				},{
+					detail_type_id:'bucket',
+					detail_type_name:'Bucket with lid, HDPE, 20 L'
+				},{
+					detail_type_id:'kettle',
+					detail_type_name:'Kettle with Lid, Plastic, Sanitary Cleansing, 2L'
+				},{
+					detail_type_id:'torch',
+					detail_type_name:'Torch light, Rechargeable'
+				},{
+					detail_type_id:'potty',
+					detail_type_name:'Child Potty with Lid'
+				},{
+					detail_type_id:'bath_soap',
+					detail_type_name:'Bathing Soap, 250 Grams'
+				},{
+					detail_type_id:'laundry_soap',
+					detail_type_name:'Laundry Soap, 200 Grams'
+				},{
+					detail_type_id:'rope',
+					detail_type_name:'Rope'
+				},{
+					detail_type_id:'clothepins',
+					detail_type_name:'Clothes Pins'
+				},{
+					detail_type_id:'female_underwear',
+					detail_type_name:'Female Undergarments, Medium Size'
+				},{
+					detail_type_id:'reusable_sanit_pad',
+					detail_type_name:'Reusable Sanitary Pad Set (2 Holders, 3 Winged Pads, 2 Straight Pads)'
+				}],
+				replenishment_hygiene_kit_distribution:[{
+					detail_type_id:'bath_soap',
+					detail_type_name:'Bathing soap, 250 Grams'
+				},{
+					detail_type_id:'laundry_soap',
+					detail_type_name:'Laundry soap, 200 Grams'
+				}],
+				cholera_kit_distribution:[{
+					detail_type_id:'ors',
+					detail_type_name:'ORS Packet'
+				},{
+					detail_type_id:'wtr_guard',
+					detail_type_name:'Water Guard Solution, 1.25% Sodium Hypochlorite (NaOCl) Solution, 250 mL (250ml Bottle)'
+				},{
+					detail_type_id:'aquatab',
+					detail_type_name:'Aquatab or Oasis, Sodium Dichloroisocyanurate (NaDCC) 67 mg Tablets (Pack of 50 Tablets)'
+				},{
+					detail_type_id:'bath_soap',
+					detail_type_name:'Bathing Soap, 250 Grams'
+				}],
+				hygiene_promotion_volunteers_kit_distribution:[{
+					detail_type_id:'hwshing_poster_eng',
+					detail_type_name:'Hand Washing Poster (English)'
+				},{
+					detail_type_id:'hwshing_poster_knri',
+					detail_type_name:'Hand Washing Poster (Kanuri)'
+				},{
+					detail_type_id:'hwshing_poster_hsa',
+					detail_type_name:'Hand Washing Poster (Hausa)'
+				},{
+					detail_type_id:'hwshing_hndbills_hsa_eng',
+					detail_type_name:'Hand Washing Handbills (Hausa, English)'
+				},{
+					detail_type_id:'chlr_prev_pstr',
+					detail_type_name:'Cholera Prevention Poster'
+				},{
+					detail_type_id:'chlr_flip_chrt',
+					detail_type_name:'Cholera Flip Chart'
+				},{
+					detail_type_id:'hep_e_pstr_hndbills',
+					detail_type_name:'Hepatitis E Prevention Posters and Hand Bills'
+				}],
+				post_distribution_monitoring:[{
+					detail_type_id:'hk_cultural_good',
+					detail_type_name:'Cultural Appropriateness'
+				},{
+					detail_type_id:'hk_usefulness',
+					detail_type_name:'Usefulness of Items to Households'
+				},{
+					detail_type_id:'hk_sufficienccy',
+					detail_type_name:'Sufficient Quantities'
+				},{
+					detail_type_id:'hk_issues',
+					detail_type_name:'Issues or Dislikes of Materials'
+				},{
+					detail_type_id:'hk_purpose_use',
+					detail_type_name:'Users Understanding of Purpose and Use'
+				},{
+					detail_type_id:'hk_missing',
+					detail_type_name:'Missing Items in Kits '
+				},{
+					detail_type_id:'hk_availability_hhs',
+					detail_type_name:'Availability of Materials to All Households'
+				},{
+					detail_type_id:'hk_transparency',
+					detail_type_name:'Transparency of the Selection Process'
+				},{
+					detail_type_id:'hk_access_dsbld_elder',
+					detail_type_name:'Access to Materials by Disabled and Elderly '
+				},{
+					detail_type_id:'hk_queuing',
+					detail_type_name:'Queuing/Waiting Time of Beneficiaries Recieving Materials'
+				},{
+					detail_type_id:'hk_security',
+					detail_type_name:'Security Concerns for Women and Children During Distribution'
+				}]
 			},
-
 
 			// remove duplicates in item ( json array ) based on value ( filterOn )
 			filterDuplicates: function( list, keyname ){

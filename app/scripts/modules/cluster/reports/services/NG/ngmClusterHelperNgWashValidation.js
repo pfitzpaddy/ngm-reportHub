@@ -583,6 +583,67 @@ angular.module( 'ngmReportHub' )
 				}
 				return validation;
 
+			},
+
+			// validate form
+			validateHygiene: function( beneficiary, d, i, j, k ){
+				
+				// valid
+				var id;
+				var complete = true;
+				var validation = { count: 0, divs: [] };
+
+				// service
+				if ( d.quantity === undefined || d.quantity < 0 ){ 
+					id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					validation.divs.push( id );
+					complete = false;
+				}
+
+				// male / female
+				if ( beneficiary.activity_detail_id === 'hygiene_promotion_volunteers_recruitment_training' ){
+					if ( d.male === undefined || d.male < 0 ){ 
+						id = "label[for='" + 'ngm-male-'+i+'-'+j+'-'+k + "']";
+						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+						validation.divs.push( id );
+						complete = false;
+					}
+					if ( d.female === undefined || d.female < 0 ){ 
+						id = "label[for='" + 'ngm-female-'+i+'-'+j+'-'+k + "']";
+						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+						validation.divs.push( id );
+						complete = false;
+					}
+				}
+
+				// for each details
+				angular.forEach( d.details, function( d, l ){
+					if ( !d.detail_type_id && !d.detail_type_name ){ 
+						id = "label[for='" + 'ngm-detail_type-'+i+'-'+j+'-'+k+'-'+l+"']";
+						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+						validation.divs.push( id );
+						complete = false;
+					}
+					if ( beneficiary.activity_detail_id !== 'post_distribution_monitoring' &&
+								beneficiary.activity_detail_id !== 'hygiene_promotion_monitoring_visits' &&
+								beneficiary.activity_detail_id !== 'other_campaigns' &&
+								beneficiary.activity_detail_id !== 'hygiene_promotion_volunteers_recruitment_training' ) {
+						if ( d.quantity === undefined || d.quantity < 0 ){ 
+							id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k+'-'+l+"']";
+							$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+							validation.divs.push( id );
+							complete = false;
+						}
+					}
+				});
+
+				// return 1 for complete, default 0 for error
+				if ( complete ) {
+					validation.count = 1;
+				}
+				return validation;
+
 			}
 
 		}
