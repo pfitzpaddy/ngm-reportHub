@@ -1,0 +1,231 @@
+<!-- for each activity -->
+<h5 class="report-location-title" ng-if="beneficiary.sanitation.length" style="padding-top:0px;">Details</h5>
+	
+	<!-- repeat -->
+	<div class="card-panel" ng-repeat="committee in beneficiary.sanitation" 
+				ng-init="$committeeIndex = $index">
+
+		<!-- committee title / btns -->
+		<div class="row">
+			<div class="col s12 m8">
+				<h5 style="font-size: 1.32rem; padding-bottom:10px;">{{ beneficiary.activity_detail_name }}</h5>
+			</div>
+			<div class="col s12 m4">
+				<div class="btn-floating waves-effect waves-light red lighten-2 right" 
+							title="Remove Committee"
+							ng-show="project.report.report_status !== 'complete'"
+							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, 
+																															$committeeIndex, 'sanitation', '#committee-modal' )">
+					<i class="material-icons">clear</i>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- male / female -->
+		<div class="row">
+
+			<div class="input-field col s12 m6">
+				<input id="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
+								name="male"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="committee.male"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}' )"
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+				<!-- label based on activity_detail_id -->
+				<label for="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
+								class="active">Males</label>
+			</div>
+
+			<div class="input-field col s12 m6">
+				<input id="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
+								name="female"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="committee.female"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}' )"
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+				<!-- label based on activity_detail_id -->
+				<label for="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
+								class="active">Females</label>
+			</div>
+
+		</div>
+
+		<!-- rotation -->
+		<div class="row">
+
+			<div class="input-field col s12 m6">
+				<select id="ngm-committee_rotation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}" 
+									name="committee_rotation"
+									class="validate"
+									ng-options="type.committee_rotation_id as 
+																type.committee_rotation_name for 
+																type in ngmClusterHelperNgWashLists.lists.committee_rotations"
+									ng-model="committee.committee_rotation_id"
+									ng-change="ngmClusterHelperNgWash.selectChange( committee, 
+																							'committee_rotations',
+																							'committee_rotation_id', 
+																							'committee_rotation_name',
+																							'ngm-committee_rotation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}' )"
+									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									required>
+				<option value="">Select...</option>
+				</select>
+				<label for="ngm-committee_rotation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}" 
+								class="active" style="transform:translateY(-10%)">Committee Rotation</label>
+			</div>
+
+			<div class="input-field col s12 m6">
+				<input id="ngm-committee_rotation_per_month-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
+								name="committee_rotation_per_month"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="committee.committee_rotation_per_month"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-committee_rotation_per_month-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}' )"
+								ng-disabled="committee.committee_rotation_id === 'no' || !rowform.$visible || project.report.report_status === 'complete'"
+								required>
+				<label for="ngm-committee_rotation_per_month-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
+								class="active">Committee Rotations (Per Month)</label>
+			</div>
+
+		</div>
+
+		<!-- stipend -->
+		<div class="row">
+			
+			<div class="input-field col s12 m6">
+				<select id="ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}" 
+									name="stipend"
+									class="validate"
+									ng-options="type.stipend_id as 
+																type.stipend_name for 
+																type in ngmClusterHelperNgWashLists.lists.stipends"
+									ng-model="committee.stipend_id"
+									ng-change="ngmClusterHelperNgWash.selectChange( committee, 
+																							'stipends',
+																							'stipend_id', 
+																							'stipend_name',
+																							'ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}' )"
+									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									required>
+				<option value="">Select...</option>
+				</select>
+				<label for="ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}" 
+								class="active" style="transform:translateY(-10%)">Stipends Provided</label>
+			</div>
+
+			<div class="input-field col s12 m6">
+				<input id="ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
+								name="stipend_amount"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="committee.stipend_amount"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}' )"
+								ng-disabled="committee.stipend_id === 'no' || !rowform.$visible || project.report.report_status === 'complete'"
+								required>
+				<label for="ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
+								class="active">Stipend Amount Per Member (Naira)</label>
+			</div>
+
+		</div>
+
+		<!-- dates -->
+		<div class="row">
+
+			<div class="input-field col s12 m6">
+				<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
+						ngm-date
+						type="text"
+						name="created"
+						ng-model="committee.activity_start_date"
+						format="dd mmm, yyyy"
+						max="{{ committee.activity_end_date }}"
+						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( committee, committee.activity_start_date )"
+						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						e-required/>
+				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
+								class="active">Activity Start Date</label>
+			</div>
+
+			<div class="input-field col s12 m6">
+				<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
+						ngm-date
+						type="text"
+						name="created"
+						ng-model="committee.activity_end_date"
+						format="dd mmm, yyyy"
+						min="{{ committee.activity_start_date }}"
+						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( committee, committee.activity_end_date )"
+						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						e-required/>
+				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
+								class="active">Activity End Date</label>            
+			</div>
+
+		</div>
+
+		<!-- details -->
+		<div class="row" ng-repeat="detail in committee.details">
+
+			<!-- committee -->
+			<div ng-include="project.templatesUrl + 
+												ngmClusterHelperNgWash.templateUrl +
+												beneficiary.activity_type_id + '/details/committee.' + beneficiary.activity_detail_id + '.html'"></div>
+
+		</div>
+
+		<!-- establishment_training_rotational_waste_management_committee -->
+		<div class="row" style="margin-left:20px;"
+					ng-if="beneficiary.activity_detail_id === 'establishment_training_rotational_waste_management_committee'">
+			<!-- add details -->
+			<button class="btn blue lighten-2"
+							ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+							ng-hide="committee.details.length === ngmClusterHelperNgWashLists.lists.waste_management_committee_duties.length"
+							ng-click="rowform.$show(); 
+										ngmClusterHelperNgWash.init_material_select();
+										ngmClusterHelperNgWash.addDetails( committee, {} );">
+				<i class="material-icons left">add</i>Add Details
+			</button>
+		</div>
+
+		<!-- establishment_training_rotational_sanitation_committee -->
+		<div class="row" style="margin-left:20px;"
+					ng-if="beneficiary.activity_detail_id === 'establishment_training_rotational_sanitation_committee'">
+			<!-- add details -->
+			<button class="btn blue lighten-2"
+							ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+							ng-hide="committee.details.length === ngmClusterHelperNgWashLists.lists.sanitation_committee_duties.length"
+							ng-click="rowform.$show(); 
+										ngmClusterHelperNgWash.init_material_select();
+										ngmClusterHelperNgWash.addDetails( committee, {} );">
+				<i class="material-icons left">add</i>Add Details
+			</button>
+		</div>
+
+	</div>
+
+	<!-- add new committee -->
+	<button class="btn blue" 
+					ng-show="project.report.report_status !== 'complete'"
+					ng-hide="beneficiary.sanitation.length === 1" 
+					ng-click="rowform.$show(); 
+											ngmClusterHelperNgWash.init_material_select();
+											ngmClusterHelperNgWash.addActivity( location, beneficiary, 'sanitation' )">
+		<i class="material-icons left">add</i>Add Committee Details
+	</button>
+
+<script>
+	// init
+	setTimeout(function(){ 
+		$( '.input-field select' ).material_select(); 
+		setTimeout(function(){ $( '.input-field select' ).material_select(); }, 460 );
+	}, 200 );
+</script>

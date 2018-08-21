@@ -14,9 +14,11 @@ angular.module( 'ngmReportHub' )
       // datepicker (NG)
       datepicker: {
         startOnClose: function( beneficiary, value ) {
+          if (!value) { value =  moment( new Date() ).startOf( 'M' ); }
           beneficiary.activity_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
         },
         endOnClose: function( beneficiary, value ) {
+          if (!value) { value =  moment( new Date() ).endOf( 'M' ); }
           beneficiary.activity_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
         },
       },

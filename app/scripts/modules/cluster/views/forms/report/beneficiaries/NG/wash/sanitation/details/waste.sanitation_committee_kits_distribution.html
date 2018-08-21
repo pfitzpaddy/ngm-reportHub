@@ -1,0 +1,46 @@
+					<div class="col s12 m2" style="text-align:right;">
+						<p style="font-size:16px; padding-top:26px;">Kit Contents {{ $index+1 }} </p>
+					</div>
+
+					<!-- detail -->
+					<div class="input-field col s12 m5">
+		      	<select id="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}-{{ $index }}" 
+			      					name="detail_type_id"
+			      					class="validate"
+			      					ng-options="detail.detail_type_id as 
+			      												detail.detail_type_name for 
+			      												detail in ngmClusterHelperNgWashLists.lists.sanitation_committee_kits"
+		      						ng-change="ngmClusterHelperNgWash.selectChange( detail, 
+		      																			'sanitation_committee_kits',
+		      																			'detail_type_id', 
+		      																			'detail_type_name',
+		      																			'ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}-{{ $index }}' )"
+			      					ng-model="detail.detail_type_id"
+			      					ng-disabled="!rowform.$visible || project.report.report_status === 'complete'"
+			      					required>
+						<option value="">Select... </option>
+						</select>
+			      <label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}-{{ $index }}" 
+			      				class="active" style="transform:translateY(-10%)">Kit Item</label>
+					</div>
+
+					<!-- quantity -->
+					<div class="input-field col s12 m5">
+						<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}-{{ $index }}"
+										name="quantity"
+										type="number" 
+										class="validate" 
+										min="0"
+										ng-model="detail.quantity"
+										ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}-{{ $index }}' )"
+										ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+										required>
+						
+						<label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}-{{ $index }}"
+										class="active">Peices</label>
+					</div>
+
+<script>
+	// init
+	setTimeout(function(){ $( '.input-field select' ).material_select();  }, 400 );
+</script>

@@ -15,353 +15,6 @@ angular.module( 'ngmReportHub' )
 		// definition
 		var ngmClusterHelperNgWashLists = {
 
-			// activity keys
-			keys: {
-				
-				// WATER
-				// boreholes
-				'borehole_construction':{
-					template: 'borehole.html',
-					association: 'boreholes',
-					measurement: {
-						borehole_yield_ltrs_second: 0,
-						borehole_pumping_ave_daily_hours: 0,
-						borehole_tanks_storage_ltrs: 0,
-						taps_number_connected: 0,
-						borehole_taps_ave_flow_rate_ltrs_minute: 0
-					}
-				},
-				'borehole_rehabilitation':{
-					template: 'borehole.html',
-					association: 'boreholes',
-					measurement: {
-						borehole_yield_ltrs_second: 0,
-						borehole_pumping_ave_daily_hours: 0,
-						borehole_tanks_storage_ltrs: 0,
-						taps_number_connected: 0,
-						borehole_taps_ave_flow_rate_ltrs_minute: 0
-					}
-				},
-				'borehole_upgrade':{
-					template: 'borehole.html',
-					association: 'boreholes',
-					measurement: {
-						borehole_yield_ltrs_second: 0,
-						borehole_pumping_ave_daily_hours: 0,
-						borehole_tanks_storage_ltrs: 0,
-						taps_number_connected: 0,
-						borehole_taps_ave_flow_rate_ltrs_minute: 0
-					}
-				},
-				
-				// reticulation
-				'reticulation_construction': { 
-					template: 'reticulation.html',
-					association: 'water',
-					measurement: {
-						quantity_measurement_id: 'taps_connected',
-						quantity_measurement_name: 'Taps Connected'
-					}
-				},
-				'reticulation_rehabilitation': { 
-					template: 'reticulation.html',
-					association: 'water',
-					measurement: {
-						quantity_measurement_id: 'taps_connected',
-						quantity_measurement_name: 'Taps Connected'
-					}
-				},
-				
-				// services
-				'water_trucking': { 
-					template: 'service.html',
-					association: 'water',
-					measurement: {
-						quantity_measurement_id: 'm3_per_month',
-						quantity_measurement_name: 'm3/Per Month'
-					}
-				},
-				'cash_for_water': { 
-					template: 'service.html',
-					association: 'water',
-					measurement: {
-						quantity_measurement_id: 'm3_per_month',
-						quantity_measurement_name: 'm3/Per Month'
-					}
-				},
-				'distribution_treatment_tablets': {
-					template: 'service.html',
-					association: 'water',
-					measurement: {
-						quantity_measurement_id: 'm3_per_month',
-						quantity_measurement_name: 'm3/Per Month'
-					}
-				},
-				
-				// ops and maintenance
-				'fuel_provision_water': { 
-					template: 'maintenance.html',
-					association: 'water',
-					measurement: {
-						quantity_measurement_id: 'm3_per_month',
-						quantity_measurement_name: 'm3/Per Month'
-					}
-				},
-				'washcoms_establishment_training': { 
-					template: 'maintenance.html',
-					association: 'water',
-					measurement: {
-						male: 0,
-						female: 0,
-						quantity_measurement_id: 'training_sessions',
-						quantity_measurement_name: 'Training Sessions',
-					}
-				},
-				'operation_maintenance_monitoring': { 
-					template: 'maintenance.html',
-					association: 'water',
-					measurement: {
-						quantity_measurement_id: 'monitoring_visits',
-						quantity_measurement_name: 'Monitoring Visits'
-					}
-				},
-				'maintenance_repair_kits_provision_to_washcoms': { 
-					template: 'maintenance.html',
-					association: 'water',
-					measurement: {
-						details:[],
-						quantity_measurement_id: 'kits_distributed',
-						quantity_measurement_name: 'Kits Distributed'
-					}
-				},
-				'maintenance_repair_replacement_water_systems': { 
-					template: 'maintenance.html',
-					association: 'water',
-					measurement: {
-						details:[],
-						quantity_measurement_id: 'systems_repaired_replaced',
-						quantity_measurement_name: 'Systems Repaired / Replaced'
-					}
-				},
-
-				// SANITATION
-				// latrines construction
-				'latrine_construction_hh': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						quantity_measurement_id: 'hh_latrines',
-						quantity_measurement_name: ' HH Latrines'
-					}
-				},
-				'latrine_construction_vip': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						male: 0,
-						female: 0,
-						male_disabled: 0,
-						female_disabled: 0,
-						gender_marking_id: 'no',
-						gender_marking_name: 'No',
-						lock_installation: 'no',
-						lock_installation: 'No',
-						quantity_measurement_id: 'vip_latrines',
-						quantity_measurement_name: 'VIP Latrines'
-					}
-				},
-				'latrine_construction_emergency': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						male: 0,
-						female: 0,
-						male_disabled: 0,
-						female_disabled: 0,
-						gender_marking_id: 'no',
-						gender_marking_name: 'No',
-						lock_installation: 'no',
-						lock_installation: 'No',
-						quantity_measurement_id: 'emergency_latrines',
-						quantity_measurement_name: 'Emergency Latrines'
-					}
-				},
-				// latrine rehabilitation
-				'latrine_rehabilitation_hh': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						quantity_measurement_id: 'hh_latrines',
-						quantity_measurement_name: ' HH Latrines'
-					}
-				},
-				'latrine_rehabilitation_vip': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						male: 0,
-						female: 0,
-						male_disabled: 0,
-						female_disabled: 0,
-						gender_marking_id: 'no',
-						gender_marking_name: 'No',
-						lock_installation: 'no',
-						lock_installation: 'No',
-						quantity_measurement_id: 'vip_latrines',
-						quantity_measurement_name: 'VIP Latrines'
-					}
-				},
-				'latrine_rehabilitation_emergency': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						male: 0,
-						female: 0,
-						male_disabled: 0,
-						female_disabled: 0,
-						gender_marking_id: 'no',
-						gender_marking_name: 'No',
-						lock_installation: 'no',
-						lock_installation: 'No',
-						quantity_measurement_id: 'emergency_latrines',
-						quantity_measurement_name: 'Emergency Latrines'
-					}
-				},
-				// cleaning and desludging
-				'latrine_cleaning_disinfection_vip': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						male: 0,
-						female: 0,
-						male_disabled: 0,
-						female_disabled: 0,
-						quantity_measurement_id: 'vip_latrines',
-						quantity_measurement_name: ' VIP Latrines'
-					}
-				},
-				'latrine_cleaning_disinfection_emergency': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						male: 0,
-						female: 0,
-						male_disabled: 0,
-						female_disabled: 0,
-						quantity_measurement_id: 'emergency_latrines',
-						quantity_measurement_name: 'Emergency Latrines'
-					}
-				},
-				// desludging
-				'latrine_desludging_manual': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						stipend_id: 'no',
-						stipend_name: 'No',
-						stipend_amount: 0,
-						quantity_measurement_id: 'manual',
-						quantity_measurement_name: 'Manual'
-					}
-				},
-				'latrine_desludging_mechanical': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						quantity_measurement_id: 'mechanical',
-						quantity_measurement_name: 'Mechanical'
-					}
-				},
-				'latrine_sludge_dumping_site': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						details: [],
-						quantity_measurement_id: 'sites_prepared',
-						quantity_measurement_name: 'Sites Prepared'
-					}
-				},
-				'latrine_monitoring': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						details: [],
-						quantity_measurement_id: 'monitoring_visits',
-						quantity_measurement_name: 'Monitoring Visits'
-					}
-				},
-				// geneder marking / locks
-				'latrine_gender_marking_vip': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						male: 0,
-						female: 0,
-						male_disabled: 0,
-						female_disabled: 0,
-						quantity_measurement_id: 'vip_latrines',
-						quantity_measurement_name: 'VIP Latrines'
-					}
-				},
-				'latrine_gender_marking_emergency': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						male: 0,
-						female: 0,
-						male_disabled: 0,
-						female_disabled: 0,
-						quantity_measurement_id: 'emergency_latrines',
-						quantity_measurement_name: 'Emergency Latrines'
-					}
-				},
-				'latrine_lock_installation_vip': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						male: 0,
-						female: 0,
-						male_disabled: 0,
-						female_disabled: 0,
-						quantity_measurement_id: 'vip_latrines',
-						quantity_measurement_name: 'VIP Latrines'
-					}
-				},
-				'latrine_lock_installation_emergency': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						male: 0,
-						female: 0,
-						male_disabled: 0,
-						female_disabled: 0,
-						quantity_measurement_id: 'emergency_latrines',
-						quantity_measurement_name: 'Emergency Latrines'
-					}
-				},
-				'hand_washing_stations_installation': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						quantity_measurement_id: 'installed',
-						quantity_measurement_name: 'Installed'
-					}
-				},
-				'hand_washing_stations_refilled': { 
-					template: 'latrines.html',
-					association: 'sanitation',
-					measurement: {
-						quantity_measurement_id: 'refilled',
-						quantity_measurement_name: 'Refilled'
-					}
-				},
-				defaults: {
-					quantity: 0,
-					activity_start_date: moment( new Date() ).startOf( 'M' ).format('YYYY-MM-DD'),
-					activity_end_date: moment( new Date() ).endOf( 'M' ).format('YYYY-MM-DD')
-				}
-			},
-
 			// lists
 			lists: {
 				stipends: [{
@@ -370,6 +23,13 @@ angular.module( 'ngmReportHub' )
 				},{
 					stipend_id: 'yes',
 					stipend_name: 'Yes',
+				}],
+				committee_rotations:[{
+					committee_rotation_id: 'no',
+					committee_rotation_name: 'No'
+				},{
+					committee_rotation_id: 'yes',
+					committee_rotation_name: 'Yes'
 				}],
 				gender_markings: [{
 					gender_marking_id: 'no',
@@ -1127,32 +787,149 @@ angular.module( 'ngmReportHub' )
 				latrine_monitoring_details:[{
 					detail_type_id: 'pit_level',
 					detail_type_name: 'Level Pit Contents',
-					detail_type_label: 'Number (Latrine(s) Pit Level Checked)'
+					detail_type_label: 'No. (Latrine(s) Pit Level Checked)'
 				},{
 					detail_type_id: 'latrine_cleanliness',
 					detail_type_name: 'Cleanliness of Latrine',
-					detail_type_label: 'Number (Latrine(s) Cleanliness Checked)'
+					detail_type_label: 'No. (Latrine(s) Cleanliness Checked)'
 				},{
 					detail_type_id: 'latrine_functionality',
 					detail_type_name: 'Latrine Functionality',
-					detail_type_label: 'Number (Latrine(s) Functionality Checked)'
+					detail_type_label: 'No. (Latrine(s) Functionality Checked)'
 				},{
 					detail_type_id: 'sanitation_committee_activeness',
-					detail_type_name: "Sanitation Committee Members' Activeness, Training and Complaints/Feedback'",
-					detail_type_label: 'Number (Committee Performance(s) / Need(s) Monitored)'
+					detail_type_name: "Sanitation Committee Members Activeness, Training and Complaints/Feedback'",
+					detail_type_label: 'No. (Committee Indicator(s) Monitored)'
 				},{
 					detail_type_id: 'elders_access_latrine',
 					detail_type_name: 'Accessibility of Latrines for Disabled and Elderly Users',
-					detail_type_label: 'Number (Latrine(s) Accessibility Checked)'
+					detail_type_label: 'No. (Latrine(s) Accessibility Checked)'
 				},{
 					detail_type_id: 'desludging_records',
 					detail_type_name: 'Desludging Records',
-					detail_type_label: 'Number (Latrine Desludging Record(s) Checked)'
+					detail_type_label: 'No. (Latrine Desludging Record(s) Checked)'
 				},{
 					detail_type_id: 'latrine_user_complaints',
 					detail_type_name: 'User Complaints on Latrine Functionality',
-					detail_type_label: 'Number (User Complaint(s) Checked)'
-				}]
+					detail_type_label: 'No. (Latrine Complaint(s) Checked)'
+				}],
+				shower_monitoring_details:[{
+					detail_type_id: 'shwrs_cleanliness',
+					detail_type_name: 'Cleanliness of Showers',
+					detail_type_label: 'No. (Showers(s) Cleanliness Checked)'
+				},{
+					detail_type_id: 'shwrs_functionality',
+					detail_type_name: "Showers Functionality",
+					detail_type_label: 'No. (Showers(s) Functionality Checked)'
+				},{
+					detail_type_id: 'shwrs_access_dibld_eldrly',
+					detail_type_name: 'Accessibility of Showers for Disabled/Elderly',
+					detail_type_label: 'No. (Showers(s) Accessibility Checked)'
+				},{
+					detail_type_id: 'shwr_lighting',
+					detail_type_name: 'Lighting of Showers at Night',
+					detail_type_label: 'No. (Showers(s) Lighting Checked)'
+				},{
+					detail_type_id: 'shwrs_user_complaints',
+					detail_type_name: 'User Complaints on Shower Functionality',
+					detail_type_label: 'No. (Showers(s) Complaints Checked)'
+				}],
+				facility_status:[{
+					facility_status_id: 'newly_constructed',
+					facility_status_name: 'Newly Constructed',
+				},{
+					facility_status_id: 'existing_rehabilitated',
+					facility_status_name: 'Existing / Rehabilitated',
+				}],
+				solid_waste_committee_kits:[{
+					detail_type_id: 'mask',
+					detail_type_name: 'Respirator Mask'
+				},{
+					detail_type_id: 'broom',
+					detail_type_name: 'Rubber Broom with Stick Handle'
+				},{
+					detail_type_id: 'gloves',
+					detail_type_name: 'Heavy Duty Gloves (Pair)'
+				},{
+					detail_type_id: 'wastebin',
+					detail_type_name: 'Solid Waste Bin (120 L)'
+				},{
+					detail_type_id: 'shovel',
+					detail_type_name: 'Shovel'
+				},{
+					detail_type_id: 'rake',
+					detail_type_name: 'Rake'
+				},{
+					detail_type_id: 'axe',
+					detail_type_name: 'Pick Axe'
+				},{
+					detail_type_id: 'wheelbarrow',
+					detail_type_name: 'Wheelbarrow'
+				}],
+				waste_management_committee_duties:[{
+					detail_type_id: 'wst_cmmttee_area_assgnd',
+					detail_type_name: 'Informed of the Part of Camp Responsible For'
+				},{
+					detail_type_id: 'wst_cmmttee_infrmd_daily_clning',
+					detail_type_name: 'Informed they are Responsible for Daily Emptying of Communal Waste Bins'
+				},{
+					detail_type_id: 'wst_cmmttee_infrmd_rtatn',
+					detail_type_name: 'Informed of Rotation Schedule (for Rotational Committees)'
+				}],
+				sanitation_committee_duties:[{
+					detail_type_id: 'snt_cmmttee_ltrn_assgnd',
+					detail_type_name: 'Informed of the Latrines/Showers Responsible For'
+				},{
+					detail_type_id: 'snt_cmmttee_infrmd_daily_clning',
+					detail_type_name: 'Informed they are Responsible for Daily Cleaning of Internal Latrine Superstructure in Camps'
+				},{
+					detail_type_id: 'snt_cmmttee_infrmd_outside_clning',
+					detail_type_name: 'Informed they are Responsible to Ensure Excrement Outside of Latrine is Cleared'
+				},{
+					detail_type_id: 'snt_cmmttee_infrmd_rtatn',
+					detail_type_name: 'Informed of Rotation Schedule (for Rotational Committees)'					
+				}],
+				sanitation_committee_kits:[{
+					detail_type_id: 'lqd_dtrgnt',
+					detail_type_name: 'Liquid Detergent'
+				},{
+					detail_type_id: 'pwdrd_dtrgnt',
+					detail_type_name: 'Powdered Deterhgent (60-100g)'
+				},{
+					detail_type_id: 'brush',
+					detail_type_name: 'Hard Toilet Brush with Stick '
+				},{
+					detail_type_id: 'broom',
+					detail_type_name: 'Rubber Broom with Stick Handle'
+				},{
+					detail_type_id: 'gloves',
+					detail_type_name: 'Rubber Gloves'
+				},{
+					detail_type_id: 'bucket',
+					detail_type_name: 'HDPE 20L Bucket with Lid'
+				},{
+					detail_type_id: 'rainboots',
+					detail_type_name: 'Rubber Rainboots'
+				},{
+					detail_type_id: 'dustpan',
+					detail_type_name: 'Plastic Dust Pan'
+				},{
+					detail_type_id: 'shovel',
+					detail_type_name: 'Shovel'
+				},{
+					detail_type_id: 'rake',
+					detail_type_name: 'Rake'
+				},{
+					detail_type_id: 'hoe',
+					detail_type_name: 'Hoe with Wooden Handle'
+				},{
+					detail_type_id: 'wheelbarrow',
+					detail_type_name: 'Wheel Barrow'
+				},{
+					detail_type_id: 'metalic_bucket',
+					detail_type_name: 'Metallic Bucket with Handle'
+				}],
+
 			},
 
 

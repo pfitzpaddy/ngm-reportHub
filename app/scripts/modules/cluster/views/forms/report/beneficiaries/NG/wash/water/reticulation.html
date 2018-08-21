@@ -33,6 +33,7 @@
 				      	min="0"
 				      	ng-model="reticulation.quantity"
 				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+				      	ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}' )"
 								required>
 	      <label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}"
 	      				class="active">Taps Connected (Number)</label>

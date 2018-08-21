@@ -4,45 +4,45 @@
 
 					<!-- detail -->
 					<div class="input-field col s12 m5">
-		      	<select id="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}-{{ $index }}" 
+		      	<select id="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}-{{ $index }}" 
 			      					name="detail_type_id"
 			      					class="validate"
 			      					ng-options="detail.detail_type_id as 
 			      												detail.detail_type_name for 
-			      												detail in ngmClusterHelperNgWashLists.lists.latrine_monitoring_details"
+			      												detail in ngmClusterHelperNgWashLists.lists.shower_monitoring_details"
 		      						ng-change="ngmClusterHelperNgWash.selectChange( detail, 
-		      																			'latrine_monitoring_details',
+		      																			'shower_monitoring_details',
 		      																			'detail_type_id', 
 		      																			'detail_type_name',
-		      																			'ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}-{{ $index }}' )"
+		      																			'ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}-{{ $index }}' )"
 			      					ng-model="detail.detail_type_id"
 			      					ng-disabled="!rowform.$visible || project.report.report_status === 'complete'"
 			      					required>
 						<option value="">Select... </option>
 						</select>
-			      <label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}-{{ $index }}" 
+			      <label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}-{{ $index }}" 
 			      				class="active" style="transform:translateY(-10%)">Monitoring Activity</label>
 					</div>
 
 					<!-- quantity -->
 					<div class="input-field col s12 m5">
-						<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}-{{ $index }}"
+						<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}-{{ $index }}"
 										name="quantity"
 										type="number" 
 										class="validate" 
 										min="0"
 										ng-model="detail.quantity"
-										ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}-{{ $index }}' )"
+										ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}-{{ $index }}' )"
 										ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 										required>
 						
 						<label ng-if="!detail.detail_type_id"
-										for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}-{{ $index }}"
+										for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}-{{ $index }}"
 										class="active">Monitoring Visits</label>
 
 						<label ng-if="detail.detail_type_id"
-										for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}-{{ $index }}"
-										class="active">{{ (ngmClusterHelperNgWashLists.lists.latrine_monitoring_details | 
+										for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}-{{ $index }}"
+										class="active">{{ (ngmClusterHelperNgWashLists.lists.shower_monitoring_details | 
 																				filter: { detail_type_id: detail.detail_type_id })[0].detail_type_label }}</label>
 					</div>
 

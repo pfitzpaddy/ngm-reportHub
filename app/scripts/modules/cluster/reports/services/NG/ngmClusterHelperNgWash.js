@@ -11,9 +11,10 @@ angular.module( 'ngmReportHub' )
 				'$filter',
 				'$timeout',
 				'ngmAuth',
+				'ngmClusterHelperNgWashKeys',
 				'ngmClusterHelperNgWashLists',
 				'ngmClusterHelperNgWashValidation',
-				function( $http, $filter, $timeout, ngmAuth, ngmClusterHelperNgWashLists, ngmClusterHelperNgWashValidation ) {
+				function( $http, $filter, $timeout, ngmAuth, ngmClusterHelperNgWashKeys, ngmClusterHelperNgWashLists, ngmClusterHelperNgWashValidation ) {
 
 		// definition
 		var ngmClusterHelperNgWash = {
@@ -45,7 +46,7 @@ angular.module( 'ngmReportHub' )
 			// show template
 			getTemplate: function( beneficiary ){
 				if ( beneficiary.activity_detail_id ) {
-					return ngmClusterHelperNgWashLists.keys[ beneficiary.activity_detail_id ].template
+					return ngmClusterHelperNgWashKeys.keys[ beneficiary.activity_detail_id ].template
 				} else {
 					return false;
 				}
@@ -58,7 +59,6 @@ angular.module( 'ngmReportHub' )
 
 			// update display name in object on select change
 			selectChange: function( d, list, key, name, label ){
-				console.log( d );
 				if ( d[ key ] ) {
 					var id = d[ key ];
 					var obj = {}
@@ -83,12 +83,12 @@ angular.module( 'ngmReportHub' )
 					if ( $beneficiary.activity_detail_id ) {
 
 					// ngmClusterHelperNgWash keys 
-					var keys = ngmClusterHelperNgWashLists.keys[ $beneficiary.activity_detail_id ];
+					var keys = ngmClusterHelperNgWashKeys.keys[ $beneficiary.activity_detail_id ];
 						// in case user changes their mind ( update existing )
 						if ( $beneficiary[ keys.association ] && $beneficiary[ keys.association ].length ) {
 							angular.forEach( $beneficiary[ keys.association ], function( a, i ) {
 								// make new
-								var activity = angular.merge( {}, ngmClusterHelperNgWashLists.keys.defaults, keys.measurement );
+								var activity = angular.merge( {}, ngmClusterHelperNgWashKeys.keys.defaults, keys.measurement );
 										activity.borehole_lng = $location.site_lng;
 										activity.borehole_lat = $location.site_lat;								
 								$beneficiary[ keys.association ][ i ] = activity;
@@ -109,10 +109,10 @@ angular.module( 'ngmReportHub' )
 
 				// based on association and activity_detail
 				var length = beneficiary[ association ] && beneficiary[ association ].length;
-				var measurement = ngmClusterHelperNgWashLists.keys[ beneficiary.activity_detail_id ].measurement;
+				var measurement = ngmClusterHelperNgWashKeys.keys[ beneficiary.activity_detail_id ].measurement;
 				
 				// create model using ngmClusterHelperNgWash keys ( based on activity_detail )
-				var activity = angular.merge( {}, ngmClusterHelperNgWashLists.keys.defaults, measurement );
+				var activity = angular.merge( {}, ngmClusterHelperNgWashKeys.keys.defaults, measurement );
 
 				// in case of boreholes ( only saved ay db level if boreholes )
 				activity.borehole_lng = location.site_lng;
@@ -142,6 +142,7 @@ angular.module( 'ngmReportHub' )
 			// add new details
 			addDetails: function( d, obj ){
 				d.details.push( obj );
+				setTimeout(function(){ $( '.input-field select' ).material_select(); }, 100 );
 			},
 
 			// remove beneficiary nodal
@@ -240,18 +241,30 @@ angular.module( 'ngmReportHub' )
 				// latrines
 				var latrinesLength = 0;
 				var latrinesRowComplete = 0;
+				
+				// showers
+				var showersLength = 0;
+				var showersRowComplete = 0;
+
+				// waste
+				var wasteLength = 0;
+				var wasteRowComplete = 0;
+				
+				// waste
+				var committeeLength = 0;
+				var committeeRowComplete = 0;				
 
 				// keys to validate correct form
-				var keys = ngmClusterHelperNgWashLists.keys;
+				var keys = ngmClusterHelperNgWashKeys.keys;
 
 				// each location
 				angular.forEach( locations, function( l, i ){
-					angular.forEach( l.beneficiaries, function( b, j ){
+					angular.forEach( l.beneficiaries, function( d, j ){
 
 						// boreholes 
-						if ( b.boreholes && b.boreholes.length ) {
-							boreholeLength += b.boreholes.length;
-							angular.forEach( b.boreholes, function( borehole, k ){
+						if ( d.boreholes && d.boreholes.length ) {
+							boreholeLength += d.boreholes.length;
+							angular.forEach( d.boreholes, function( borehole, k ){
 								var result = ngmClusterHelperNgWashValidation.validateBorehole( borehole, i, j, k );
 								angular.merge( elements, result.divs );
 								boreholeRowComplete += result.count;
@@ -259,31 +272,54 @@ angular.module( 'ngmReportHub' )
 						}
 
 						// water form validations
-						if ( b.water && b.water.length ) {
-							angular.forEach( b.water, function( w, k ){
-								if ( keys[ b.activity_detail_id ].template === 'reticulation.html' ) {
+						if ( d.water && d.water.length ) {
+							angular.forEach( d.water, function( water, k ){
+								if ( keys[ d.activity_detail_id ].template === 'reticulation.html' ) {
 									reticulationLength ++;
-									var result = ngmClusterHelperNgWashValidation.validateReticulation( w, i, j, k );
+									var result = ngmClusterHelperNgWashValidation.validateReticulation( water, i, j, k );
 									angular.merge( elements, result.divs );
 									reticulationRowComplete +=  result.count;
 								}
-								if ( keys[ b.activity_detail_id ].template === 'service.html' ) {
+								if ( keys[ d.activity_detail_id ].template === 'service.html' ) {
 									serviceLength ++;
-									var result = ngmClusterHelperNgWashValidation.validateService( b, w, i, j, k );
+									var result = ngmClusterHelperNgWashValidation.validateService( d, water, i, j, k );
 									angular.merge( elements, result.divs );
 									serviceRowComplete +=  result.count;
 								}
-								if ( keys[ b.activity_detail_id ].template === 'maintenance.html' ) {
+								if ( keys[ d.activity_detail_id ].template === 'maintenance.html' ) {
 									maintenanceLength ++;
-									var result = ngmClusterHelperNgWashValidation.validateMaintenance( b, w, i, j, k );
+									var result = ngmClusterHelperNgWashValidation.validateMaintenance( d, water, i, j, k );
 									angular.merge( elements, result.divs );
 									maintenanceRowComplete +=  result.count;
 								}
-								if ( keys[ b.activity_detail_id ].template === 'latrines.html' ) {
+							});
+						}
+
+						if ( d.sanitation && d.sanitation.length ) {
+							angular.forEach( d.sanitation, function( sanitation, k ){
+								if ( keys[ d.activity_detail_id ].template === 'latrines.html' ) {
 									latrinesLength ++;
-									var result = ngmClusterHelperNgWashValidation.validateLatrines( b, w, i, j, k );
+									var result = ngmClusterHelperNgWashValidation.validateLatrines( d, sanitation, i, j, k );
 									angular.merge( elements, result.divs );
 									latrinesRowComplete +=  result.count;
+								}
+								if ( keys[ d.activity_detail_id ].template === 'showers.html' ) {
+									showersLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateShowers( d, sanitation, i, j, k );
+									angular.merge( elements, result.divs );
+									showersRowComplete +=  result.count;
+								}
+								if ( keys[ d.activity_detail_id ].template === 'waste.html' ) {
+									wasteLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateWaste( d, sanitation, i, j, k );
+									angular.merge( elements, result.divs );
+									wasteRowComplete +=  result.count;
+								}
+								if ( keys[ d.activity_detail_id ].template === 'committee.html' ) {
+									committeeLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateCommittee( d, sanitation, i, j, k );
+									angular.merge( elements, result.divs );
+									committeeRowComplete +=  result.count;
 								}
 							});
 						}
@@ -296,7 +332,10 @@ angular.module( 'ngmReportHub' )
 							reticulationLength !== reticulationRowComplete ||
 							serviceLength !== serviceRowComplete ||
 							maintenanceLength !== maintenanceRowComplete ||
-							latrinesLength !== latrinesRowComplete ) {
+							latrinesLength !== latrinesRowComplete ||
+							showersLength !== showersRowComplete ||
+							wasteLength !== wasteRowComplete ||
+							committeeLength !== committeeRowComplete ) {
 					Materialize.toast( 'Form contains errors!' , 6000, 'error' );
 					$( elements[0] ).animatescroll();
 					return false;
