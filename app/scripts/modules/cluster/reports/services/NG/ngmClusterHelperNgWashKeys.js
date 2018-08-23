@@ -725,6 +725,73 @@ angular.module( 'ngmReportHub' )
 						details:[]
 					}
 				},
+				// CASH
+				'direct_cash_payment': {
+					template: 'cash.html',
+					association: 'cash',
+					measurement:{
+						households: 0,
+						cash_amount: 0,
+						quantity_measurement_id: 'naira',
+						quantity_measurement_name: 'Naira',
+						details:[]
+					}
+				},
+				'delivery_through_agent': {
+					template: 'cash.html',
+					association: 'cash',
+					measurement:{
+						households: 0,
+						cash_amount: 0,
+						quantity_measurement_id: 'naira',
+						quantity_measurement_name: 'Naira',
+						details:[]
+					}
+				},
+				'prepaid_cards': {
+					template: 'cash.html',
+					association: 'cash',
+					measurement:{
+						households: 0,
+						cash_amount: 0,
+						quantity_measurement_id: 'naira',
+						quantity_measurement_name: 'Naira',
+						details:[]
+					}
+				},
+				'physical_voucher': {
+					template: 'cash.html',
+					association: 'cash',
+					measurement:{
+						households: 0,
+						cash_amount: 0,
+						quantity_measurement_id: 'naira',
+						quantity_measurement_name: 'Naira',
+						details:[]
+					}
+				},
+				'mobile_phone_transfer': {
+					template: 'cash.html',
+					association: 'cash',
+					measurement:{
+						households: 0,
+						cash_amount: 0,
+						quantity_measurement_id: 'naira',
+						quantity_measurement_name: 'Naira',
+						details:[]
+					}
+				},
+				'smart_card_chipped': {
+					template: 'cash.html',
+					association: 'cash',
+					measurement:{
+						households: 0,
+						cash_amount: 0,
+						quantity_measurement_id: 'naira',
+						quantity_measurement_name: 'Naira',
+						details:[]
+					}
+				},
 				// default
 				defaults: {
 					quantity: 0,

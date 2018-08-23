@@ -1116,6 +1116,52 @@ angular.module( 'ngmReportHub' )
 				},{
 					detail_type_id:'hk_security',
 					detail_type_name:'Security Concerns for Women and Children During Distribution'
+				}],
+				cash_based_items:[{
+					detail_type_id:'water_vendor',
+					detail_type_name:'Water, Water Vendor Fee, 20L jerrycan'
+				},{
+					detail_type_id:'jerrycan_25l',
+					detail_type_name:'Jerrycan, 25 L, Non-collapsible'
+				},{
+					detail_type_id:'jerrycan_10l',
+					detail_type_name:'Jerrycan, 10 L, Non-collapsible'
+				},{
+					detail_type_id:'bucket',
+					detail_type_name:'Bucket with Lid, HDPE, 20 L'
+				},{
+					detail_type_id:'aquatabs',
+					detail_type_name:'Aqua tabs, Strip of 10x67mg tablets'
+				},{
+					detail_type_id:'kettle',
+					detail_type_name:'Kettle with Lid, Plastic, sanitary cleansing, 2 L'
+				},{
+					detail_type_id:'child_potty',
+					detail_type_name:'Child Potty with Lid'
+				},{
+					detail_type_id:'bathing_soap',
+					detail_type_name:'Bathing Soap, 250 Grams'
+				},{
+					detail_type_id:'laundry_soap',
+					detail_type_name:'Laundry Soap, 200 Grams'
+				},{
+					detail_type_id:'rope',
+					detail_type_name:'Rope, 4m'
+				},{
+					detail_type_id:'clothes_pin',
+					detail_type_name:'Clothes Pins, Pack of 5'
+				},{
+					detail_type_id:'sanit_pads',
+					detail_type_name:'Sanitary Pads, Reusable Packs'
+				},{
+					detail_type_id:'female_undergament',
+					detail_type_name:'Female Undergarments, Medium Size'
+				},{
+					detail_type_id:'torchlight',
+					detail_type_name:'Torch Light, Rechargeable'
+				},{
+					detail_type_id:'other',
+					detail_type_name:'Others'
 				}]
 			},
 

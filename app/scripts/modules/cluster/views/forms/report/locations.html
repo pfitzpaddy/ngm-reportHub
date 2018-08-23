@@ -94,13 +94,15 @@
 							</div>
 
 							<!-- cvwg -->
-							<div ng-if="project.showCash( $locationIndex ) && !project.showPackage( $locationIndex )" style="padding-left: 50px;">
-								<p style="color: #e57373">
-									<span style="font-weight:400">Amount:</span> Please enter the amount per <span style="font-weight:400">HOUSEHOLD ( HH )</span> per <span style="font-weight:400">TRANSFER</span>
-								</p>
-								<p style="color: #e57373">
-									<span style="font-weight:400">Transfers:</span> Please enter the <span style="font-weight:400">ACTUAL</span> number  of transfers made <span style="font-weight:400">THIS</span> month
-								</p>
+							<div ng-if="location.admin0pcode !== 'NG'">
+								<div ng-if="project.showCash( $locationIndex ) && !project.showPackage( $locationIndex )" style="padding-left: 50px;">
+									<p style="color: #e57373">
+										<span style="font-weight:400">Amount:</span> Please enter the amount per <span style="font-weight:400">HOUSEHOLD ( HH )</span> per <span style="font-weight:400">TRANSFER</span>
+									</p>
+									<p style="color: #e57373">
+										<span style="font-weight:400">Transfers:</span> Please enter the <span style="font-weight:400">ACTUAL</span> number  of transfers made <span style="font-weight:400">THIS</span> month
+									</p>
+								</div>
 							</div>
 
 							<!-- Project beneficiaries details -->

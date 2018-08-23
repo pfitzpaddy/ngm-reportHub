@@ -644,6 +644,48 @@ angular.module( 'ngmReportHub' )
 				}
 				return validation;
 
+			},
+
+			// validate form
+			validateCash: function( beneficiary, d, i, j, k ){
+				
+				// valid
+				var id;
+				var complete = true;
+				var validation = { count: 0, divs: [] };
+
+				// naira
+				if ( d.quantity === undefined || d.quantity < 0 ){ 
+					id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					validation.divs.push( id );
+					complete = false;
+				}
+
+				// households
+				if ( d.households === undefined || d.households < 0 ){ 
+					id = "label[for='" + 'ngm-households-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					validation.divs.push( id );
+					complete = false;
+				}
+
+				// for each details
+				angular.forEach( d.details, function( d, l ){
+					if ( !d.detail_type_id && !d.detail_type_name ){ 
+						id = "label[for='" + 'ngm-detail_type-'+i+'-'+j+'-'+k+'-'+l+"']";
+						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+						validation.divs.push( id );
+						complete = false;
+					}
+				});
+
+				// return 1 for complete, default 0 for error
+				if ( complete ) {
+					validation.count = 1;
+				}
+				return validation;
+
 			}
 
 		}

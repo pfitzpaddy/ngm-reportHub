@@ -22,7 +22,7 @@ angular.module( 'ngmReportHub' )
 			// NG and WASH
 			templateUrl: 'beneficiaries/NG/wash/',
 
-			// beneficiaries
+			// beneficiaries calculations
 			ratios: {
 				beneficiaries: 66.6667,
 				households: 0.1666666666667, // 1/6
@@ -34,14 +34,8 @@ angular.module( 'ngmReportHub' )
 				elderly_women: 0.0371
 			},
 
-			// reset form
-			init_material_select:function(){
-				setTimeout(function(){ 
-					$( '.input-field input' ).removeClass( 'invalid' );
-					$( '.input-field input' ).removeClass( 'ng-touched' );
-					$( '.input-field select' ).material_select(); 
-				}, 10 );
-			},
+			
+			// TEMPLATES
 
 			// show template
 			getTemplate: function( beneficiary ){
@@ -50,6 +44,18 @@ angular.module( 'ngmReportHub' )
 				} else {
 					return false;
 				}
+			},
+
+
+			// UI UPDATES
+
+			// reset form
+			init_material_select:function(){
+				setTimeout(function(){ 
+					$( '.input-field input' ).removeClass( 'invalid' );
+					$( '.input-field input' ).removeClass( 'ng-touched' );
+					$( '.input-field select' ).material_select(); 
+				}, 10 );
 			},
 
 			// set input style 
@@ -104,6 +110,9 @@ angular.module( 'ngmReportHub' )
 				}, 10 );
 			},
 
+
+			// ADD RECORDS
+
 			// add activity ( reticulation, service, maintenance )
 			addActivity: function( location, beneficiary, association ) {
 
@@ -145,6 +154,9 @@ angular.module( 'ngmReportHub' )
 				setTimeout(function(){ $( '.input-field select' ).material_select(); }, 100 );
 			},
 
+
+			// REMOVE RECORDS
+
 			// remove beneficiary nodal
 			removeModal: function( project, beneficiary, $index, name, modal ) {
 				ngmClusterHelperNgWash.project = project;
@@ -170,6 +182,10 @@ angular.module( 'ngmReportHub' )
 				}			
 			},
 
+
+			// CALCULATIONS
+
+			// borehole
 			// m3 = yield*hrs*3600secs
 			boreholeOutput: function( locations, b ){
 				if ( b.borehole_yield_ltrs_second >=0 && 
@@ -189,6 +205,26 @@ angular.module( 'ngmReportHub' )
 
 				}
 			},
+
+			// activities
+			indicatorCalculation: function( beneficiary, association, indicators ) {
+				// for each indicator set to 0
+				angular.forEach( indicators, function( d, i ){
+					beneficiary[ d ] = 0;
+				});
+				// calculate for association each indicator
+				angular.forEach( beneficiary[ association ], function( a, i ){
+					angular.forEach( indicators, function( d, j ){
+						beneficiary[ d ] += a[ d ];
+					});
+				});
+
+				console.log( beneficiary );
+
+			},
+
+
+			// TOTAL BENEFICIARIES
 
 			// calculate comboned beneficiaries per borehole by location / activity
 			totalActivityBeneficiaries: function( locations ){
@@ -213,6 +249,9 @@ angular.module( 'ngmReportHub' )
 					});
 				});
 			},
+
+
+			// VALIDATION
 
 			// validate wash activities
 			validateActivities: function( locations ) {
@@ -258,6 +297,11 @@ angular.module( 'ngmReportHub' )
 				// 
 				var hygieneLength = 0;
 				var hygieneRowComplete = 0;
+
+				// CASH
+				// 
+				var cashLength = 0;
+				var cashRowComplete = 0;
 
 				// keys to validate correct form
 				var keys = ngmClusterHelperNgWashKeys.keys;
@@ -343,6 +387,18 @@ angular.module( 'ngmReportHub' )
 							});
 						}
 
+						// cash
+						if ( d.cash && d.cash.length ) {
+							angular.forEach( d.cash, function( hygiene, k ){
+								if ( keys[ d.activity_detail_id ].template === 'cash.html' ) {
+									cashLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateCash( d, hygiene, i, j, k );
+									angular.merge( elements, result.divs );
+									cashRowComplete +=  result.count;
+								}
+							});
+						}
+
 					});
 				});
 
@@ -355,7 +411,8 @@ angular.module( 'ngmReportHub' )
 							showersLength !== showersRowComplete ||
 							wasteLength !== wasteRowComplete ||
 							committeeLength !== committeeRowComplete ||
-							hygieneLength !== hygieneRowComplete ) {
+							hygieneLength !== hygieneRowComplete ||
+							cashLength !== cashRowComplete ) {
 					Materialize.toast( 'Form contains errors!' , 6000, 'error' );
 					$( elements[0] ).animatescroll();
 					return false;

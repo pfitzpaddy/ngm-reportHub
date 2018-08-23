@@ -396,7 +396,33 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'wash',
             cluster: 'WASH'
           }];
-        } else {
+        } else if ( admin0pcode.toLowerCase() === 'ng' ) {
+          clusters = [{
+            cluster_id: 'agriculture',
+            cluster: 'Agriculture'
+          },{
+            cluster_id: 'education',
+            cluster: 'Education'
+          },{
+            cluster_id: 'esnfi',
+            cluster: 'ESNFI'
+          },{
+            cluster_id: 'fsac',
+            cluster: 'FSAC'
+          },{
+            cluster_id: 'health',
+            cluster: 'Health'
+          },{
+            cluster_id: 'nutrition',
+            cluster: 'Nutrition'
+          },{
+            cluster_id: 'protection',
+            cluster: 'Protection'
+          },{
+            cluster_id: 'wash',
+            cluster: 'WASH'
+          }];
+        }else {
           clusters = [{
             cluster_id: 'agriculture',
             cluster: 'Agriculture'
@@ -1201,6 +1227,22 @@ angular.module( 'ngmReportHub' )
             cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'gbv', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'idps',
             beneficiary_type_name: 'IDPs'
+          },{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'gbv', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'drought_idps',
+            beneficiary_type_name: 'Drought IDPs'
+          },{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'gbv', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'flood_idps',
+            beneficiary_type_name: 'Flood IDPs'
+          },{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'gbv', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'natural_disaster_idps',
+            beneficiary_type_name: 'Natural Disaster IDPs'
+          },{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'gbv', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'conflict_idps',
+            beneficiary_type_name: 'Conflict IDPs'
           },{
             cluster_id: [ 'agriculture', 'cccm_esnfi', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'gbv', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'refugees',
