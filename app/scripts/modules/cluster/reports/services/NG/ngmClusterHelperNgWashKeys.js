@@ -792,6 +792,135 @@ angular.module( 'ngmReportHub' )
 						details:[]
 					}
 				},
+				// ACCOUNTABILITY
+				// 2 way
+				'complaints_boxes': {
+					template: 'complaints.html',
+					association: 'accountability',
+					measurement:{
+						complaints_recieved: 0,
+						complaints_addressed: 0,
+						complaints_closed: 0,
+						quantity_measurement_id: 'complaint_boxes_onsite',
+						quantity_measurement_name: 'Complaint Boxes Onsite',
+						details:[]
+					}
+				},
+				'toll_free_line': {
+					template: 'complaints.html',
+					association: 'accountability',
+					measurement:{
+						complaints_recieved: 0,
+						complaints_addressed: 0,
+						complaints_closed: 0,
+						quantity_measurement_id: 'toll_free_lines_available',
+						quantity_measurement_name: 'Toll Free Lines Available',
+						details:[]
+					}
+				},
+				'help_desk': {
+					template: 'complaints.html',
+					association: 'accountability',
+					measurement:{
+						complaints_recieved: 0,
+						complaints_addressed: 0,
+						complaints_closed: 0,
+						quantity_measurement_id: 'help_desks_onsite',
+						quantity_measurement_name: 'Help Desks Onsite',
+						details:[]
+					}
+				},
+				// design, monitoring, engagement, involvement
+				'project_design': {
+					template: 'participation.html',
+					association: 'accountability',
+					measurement:{
+						boys: 0,
+						girls: 0,
+						men: 0,
+						women: 0,
+						elderly_men: 0,
+						elderly_women: 0,
+						quantity_measurement_id: 'project_design',
+						quantity_measurement_name: 'Project Design',
+						details:[]
+					}
+				},
+				'project_monitoring': {
+					template: 'participation.html',
+					association: 'accountability',
+					measurement:{
+						boys: 0,
+						girls: 0,
+						men: 0,
+						women: 0,
+						elderly_men: 0,
+						elderly_women: 0,
+						quantity_measurement_id: 'project_monitoring',
+						quantity_measurement_name: 'Project Monitoring',
+						details:[]
+					}
+				},
+				'project_evaluation': {
+					template: 'participation.html',
+					association: 'accountability',
+					measurement:{
+						boys: 0,
+						girls: 0,
+						men: 0,
+						women: 0,
+						elderly_men: 0,
+						elderly_women: 0,
+						quantity_measurement_id: 'project_evaluation',
+						quantity_measurement_name: 'Project Evaluation',
+						details:[]
+					}
+				},
+				'community_involvement_in_decision_making': {
+					template: 'participation.html',
+					association: 'accountability',
+					measurement:{
+						boys: 0,
+						girls: 0,
+						men: 0,
+						women: 0,
+						elderly_men: 0,
+						elderly_women: 0,
+						quantity_measurement_id: 'community_involvement',
+						quantity_measurement_name: 'Community Involvement',
+						details:[]
+					}
+				},
+				'information_rights_entitlement': {
+					template: 'participation.html',
+					association: 'accountability',
+					measurement:{
+						boys: 0,
+						girls: 0,
+						men: 0,
+						women: 0,
+						elderly_men: 0,
+						elderly_women: 0,
+						quantity_measurement_id: 'information_rights_entitlement',
+						quantity_measurement_name: 'Information on Rights / Entitlements',
+						details:[]
+					}
+				},
+				'information_roles_responsibilities': {
+					template: 'participation.html',
+					association: 'accountability',
+					measurement:{
+						boys: 0,
+						girls: 0,
+						men: 0,
+						women: 0,
+						elderly_men: 0,
+						elderly_women: 0,
+						quantity_measurement_id: 'information_roles_responsibilities',
+						quantity_measurement_name: 'Information on Roles / Responsibilities of WASH Staff',
+						details:[]
+					}
+				},
 				// default
 				defaults: {
 					quantity: 0,

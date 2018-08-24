@@ -218,9 +218,6 @@ angular.module( 'ngmReportHub' )
 						beneficiary[ d ] += a[ d ];
 					});
 				});
-
-				console.log( beneficiary );
-
 			},
 
 
@@ -260,48 +257,24 @@ angular.module( 'ngmReportHub' )
 				var elements = [];
 
 				// WATER
-				// borehole
-				var boreholeLength = 0;
-				var boreholeRowComplete = 0;
-
-				// reticulation
-				var reticulationLength = 0;
-				var reticulationRowComplete = 0;
-
-				// service
-				var serviceLength = 0;
-				var serviceRowComplete = 0;
-
-				// maintenance
-				var maintenanceLength = 0;
-				var maintenanceRowComplete = 0;
+				var waterLength = 0;
+				var waterRowComplete = 0;
 
 				// SANITATION
-				// latrines
-				var latrinesLength = 0;
-				var latrinesRowComplete = 0;
-				
-				// showers
-				var showersLength = 0;
-				var showersRowComplete = 0;
-
-				// waste
-				var wasteLength = 0;
-				var wasteRowComplete = 0;
-				
-				// committee
-				var committeeLength = 0;
-				var committeeRowComplete = 0;
+				var sanitationLength = 0;
+				var sanitationRowComplete = 0;
 
 				// HYGIENE
-				// 
 				var hygieneLength = 0;
 				var hygieneRowComplete = 0;
 
 				// CASH
-				// 
 				var cashLength = 0;
 				var cashRowComplete = 0;
+
+				// ACCOUNTABILITY
+				var accountabilityLength = 0;
+				var accountabilityRowComplete = 0;
 
 				// keys to validate correct form
 				var keys = ngmClusterHelperNgWashKeys.keys;
@@ -314,33 +287,33 @@ angular.module( 'ngmReportHub' )
 						if ( d.water && d.water.length ) {
 							angular.forEach( d.water, function( water, k ){
 								if ( keys[ d.activity_detail_id ].template === 'reticulation.html' ) {
-									reticulationLength ++;
+									waterLength ++;
 									var result = ngmClusterHelperNgWashValidation.validateReticulation( water, i, j, k );
 									angular.merge( elements, result.divs );
-									reticulationRowComplete +=  result.count;
+									waterRowComplete +=  result.count;
 								}
 								if ( keys[ d.activity_detail_id ].template === 'service.html' ) {
-									serviceLength ++;
+									waterLength ++;
 									var result = ngmClusterHelperNgWashValidation.validateService( d, water, i, j, k );
 									angular.merge( elements, result.divs );
-									serviceRowComplete +=  result.count;
+									waterRowComplete +=  result.count;
 								}
 								if ( keys[ d.activity_detail_id ].template === 'maintenance.html' ) {
-									maintenanceLength ++;
+									waterLength ++;
 									var result = ngmClusterHelperNgWashValidation.validateMaintenance( d, water, i, j, k );
 									angular.merge( elements, result.divs );
-									maintenanceRowComplete +=  result.count;
+									waterRowComplete +=  result.count;
 								}
 							});
 						}
 
 						// boreholes 
 						if ( d.boreholes && d.boreholes.length ) {
-							boreholeLength += d.boreholes.length;
+							waterLength += d.boreholes.length;
 							angular.forEach( d.boreholes, function( borehole, k ){
 								var result = ngmClusterHelperNgWashValidation.validateBorehole( borehole, i, j, k );
 								angular.merge( elements, result.divs );
-								boreholeRowComplete += result.count;
+								waterRowComplete += result.count;
 							});
 						}
 
@@ -348,28 +321,28 @@ angular.module( 'ngmReportHub' )
 						if ( d.sanitation && d.sanitation.length ) {
 							angular.forEach( d.sanitation, function( sanitation, k ){
 								if ( keys[ d.activity_detail_id ].template === 'latrines.html' ) {
-									latrinesLength ++;
+									sanitationLength ++;
 									var result = ngmClusterHelperNgWashValidation.validateLatrines( d, sanitation, i, j, k );
 									angular.merge( elements, result.divs );
-									latrinesRowComplete +=  result.count;
+									sanitationRowComplete +=  result.count;
 								}
 								if ( keys[ d.activity_detail_id ].template === 'showers.html' ) {
-									showersLength ++;
+									sanitationLength ++;
 									var result = ngmClusterHelperNgWashValidation.validateShowers( d, sanitation, i, j, k );
 									angular.merge( elements, result.divs );
-									showersRowComplete +=  result.count;
+									sanitationRowComplete +=  result.count;
 								}
 								if ( keys[ d.activity_detail_id ].template === 'waste.html' ) {
-									wasteLength ++;
+									sanitationLength ++;
 									var result = ngmClusterHelperNgWashValidation.validateWaste( d, sanitation, i, j, k );
 									angular.merge( elements, result.divs );
-									wasteRowComplete +=  result.count;
+									sanitationRowComplete +=  result.count;
 								}
 								if ( keys[ d.activity_detail_id ].template === 'committee.html' ) {
-									committeeLength ++;
+									sanitationLength ++;
 									var result = ngmClusterHelperNgWashValidation.validateCommittee( d, sanitation, i, j, k );
 									angular.merge( elements, result.divs );
-									committeeRowComplete +=  result.count;
+									sanitationRowComplete +=  result.count;
 								}
 							});
 						}
@@ -389,12 +362,30 @@ angular.module( 'ngmReportHub' )
 
 						// cash
 						if ( d.cash && d.cash.length ) {
-							angular.forEach( d.cash, function( hygiene, k ){
+							angular.forEach( d.cash, function( cash, k ){
 								if ( keys[ d.activity_detail_id ].template === 'cash.html' ) {
-									cashLength ++;
-									var result = ngmClusterHelperNgWashValidation.validateCash( d, hygiene, i, j, k );
+									hygieneLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateCash( d, cash, i, j, k );
 									angular.merge( elements, result.divs );
-									cashRowComplete +=  result.count;
+									hygieneRowComplete +=  result.count;
+								}
+							});
+						}
+
+						// accountability
+						if ( d.accountability && d.accountability.length ) {
+							angular.forEach( d.accountability, function( accountability, k ){
+								if ( keys[ d.activity_detail_id ].template === 'complaints.html' ) {
+									accountabilityLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateComplaints( d, accountability, i, j, k );
+									angular.merge( elements, result.divs );
+									accountabilityRowComplete +=  result.count;
+								}
+								if ( keys[ d.activity_detail_id ].template === 'participation.html' ) {
+									accountabilityLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateParticipation( d, accountability, i, j, k );
+									angular.merge( elements, result.divs );
+									accountabilityRowComplete +=  result.count;
 								}
 							});
 						}
@@ -403,16 +394,11 @@ angular.module( 'ngmReportHub' )
 				});
 
 				// valid
-				if ( boreholeLength !== boreholeRowComplete ||
-							reticulationLength !== reticulationRowComplete ||
-							serviceLength !== serviceRowComplete ||
-							maintenanceLength !== maintenanceRowComplete ||
-							latrinesLength !== latrinesRowComplete ||
-							showersLength !== showersRowComplete ||
-							wasteLength !== wasteRowComplete ||
-							committeeLength !== committeeRowComplete ||
+				if ( waterLength !== waterRowComplete ||
+							sanitationLength !== sanitationRowComplete ||
 							hygieneLength !== hygieneRowComplete ||
-							cashLength !== cashRowComplete ) {
+							cashLength !== cashRowComplete  ||
+							accountabilityLength !== accountabilityRowComplete ) {
 					Materialize.toast( 'Form contains errors!' , 6000, 'error' );
 					$( elements[0] ).animatescroll();
 					return false;

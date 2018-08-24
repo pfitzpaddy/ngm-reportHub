@@ -686,6 +686,118 @@ angular.module( 'ngmReportHub' )
 				}
 				return validation;
 
+			},
+
+			// validate form
+			validateComplaints: function( beneficiary, d, i, j, k ){
+				
+				// valid
+				var id;
+				var complete = true;
+				var validation = { count: 0, divs: [] };
+
+				// means to lodge
+				if ( d.quantity === undefined || d.quantity < 0 ){ 
+					id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					validation.divs.push( id );
+					complete = false;
+				}
+
+				// recieved
+				if ( d.complaints_recieved === undefined || d.complaints_recieved < 0 ){ 
+					id = "label[for='" + 'ngm-complaints_recieved-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					validation.divs.push( id );
+					complete = false;
+				}
+
+				// addressed
+				if ( d.complaints_addressed === undefined || d.complaints_addressed < 0 ){ 
+					id = "label[for='" + 'ngm-complaints_addressed-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					validation.divs.push( id );
+					complete = false;
+				}
+
+				// closed
+				if ( d.complaints_closed === undefined || d.complaints_closed < 0 ){ 
+					id = "label[for='" + 'ngm-complaints_closed-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					validation.divs.push( id );
+					complete = false;
+				}
+
+				// return 1 for complete, default 0 for error
+				if ( complete ) {
+					validation.count = 1;
+				}
+				return validation;
+
+			},
+
+			// validate form
+			validateParticipation: function( beneficiary, d, i, j, k ){
+				
+				// valid
+				var id;
+				var complete = true;
+				var validation = { count: 0, divs: [] };
+
+				// participation
+				if ( d.boys === undefined || d.boys < 0 ){ 
+					id = "label[for='" + 'ngm-boys-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					validation.divs.push( id );
+					complete = false;
+				}
+				if ( d.girls === undefined || d.girls < 0 ){ 
+					id = "label[for='" + 'ngm-girls-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					validation.divs.push( id );
+					complete = false;
+				}
+				if ( d.men === undefined || d.men < 0 ){ 
+					id = "label[for='" + 'ngm-men-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					validation.divs.push( id );
+					complete = false;
+				}
+				if ( d.women === undefined || d.women < 0 ){ 
+					id = "label[for='" + 'ngm-women-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					validation.divs.push( id );
+					complete = false;
+				}
+				if ( d.elderly_men === undefined || d.elderly_men < 0 ){ 
+					id = "label[for='" + 'ngm-elderly_men-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					validation.divs.push( id );
+					complete = false;
+				}
+				if ( d.elderly_women === undefined || d.elderly_women < 0 ){ 
+					id = "label[for='" + 'ngm-elderly_women-'+i+'-'+j+'-'+k + "']";
+					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+					validation.divs.push( id );
+					complete = false;
+				}
+
+				// for each details
+				angular.forEach( d.details, function( d, l ){
+					if ( !d.detail_type_id && !d.detail_type_name ){ 
+						id = "label[for='" + 'ngm-detail_type-'+i+'-'+j+'-'+k+'-'+l+"']";
+						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+						validation.divs.push( id );
+						complete = false;
+					}
+				});
+
+				// return 1 for complete, default 0 for error
+				if ( complete ) {
+					validation.count = 1;
+				}
+				return validation;
+
 			}
 
 		}
