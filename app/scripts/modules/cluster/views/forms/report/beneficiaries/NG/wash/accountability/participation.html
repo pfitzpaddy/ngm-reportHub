@@ -164,25 +164,27 @@
 		</div>
 
 		<!-- details -->
-		<div class="row" ng-repeat="detail in accounts.details">
+		<div ng-if="beneficiary.activity_description_id === 'transparency'">
+			<div class="row" ng-repeat="detail in accounts.details">
 
-			<!-- languages -->
-			<div ng-include="project.templatesUrl + 
-												ngmClusterHelperNgWash.templateUrl +
-												beneficiary.activity_type_id + '/details/details.accountability.html'"></div>
+				<!-- languages -->
+				<div ng-include="project.templatesUrl + 
+													ngmClusterHelperNgWash.templateUrl +
+													beneficiary.activity_type_id + '/details/details.accountability.html'"></div>
 
-		</div>
+			</div>
 
-		<div class="row" style="margin-left:20px;">
-			<!-- add details -->
-			<button class="btn blue lighten-2"
-							ng-show="project.report.report_status !== 'complete' && rowform.$visible"
-							ng-hide="accounts.details.length === ngmClusterHelperNgWashLists.lists.information_community_languages"
-							ng-click="rowform.$show(); 
-										ngmClusterHelperNgWash.init_material_select();
-										ngmClusterHelperNgWash.addDetails( accounts, {} );">
-				<i class="material-icons left">add</i>Add Details
-			</button>
+			<div class="row" style="margin-left:20px;">
+				<!-- add details -->
+				<button class="btn blue lighten-2"
+								ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+								ng-hide="accounts.details.length === ngmClusterHelperNgWashLists.lists.information_community_languages"
+								ng-click="rowform.$show(); 
+											ngmClusterHelperNgWash.init_material_select();
+											ngmClusterHelperNgWash.addDetails( accounts, {} );">
+					<i class="material-icons left">add</i>Add Details
+				</button>
+			</div>
 		</div>
 
 	</div>
