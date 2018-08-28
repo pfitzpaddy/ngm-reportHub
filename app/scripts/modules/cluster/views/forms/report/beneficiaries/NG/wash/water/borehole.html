@@ -275,11 +275,12 @@
   </div>
 
   <!-- add new borehole -->
-  <button class="btn blue" 
-          ng-show="project.report.report_status !== 'complete'" 
+  <button id="add_activitiy_btn-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}" 
+  				class="btn blue" 
+          ng-show="project.report.report_status !== 'complete'"
           ng-click="rowform.$show(); 
           						ngmClusterHelperNgWash.init_material_select();
-          						ngmClusterHelperNgWash.addActivity( location, beneficiary, 'boreholes' )">
+          						ngmClusterHelperNgWash.addActivity( project.report.locations, location, beneficiary, 'boreholes', 'add_activitiy_btn-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $boreholeIndex }}' )">
     <i class="material-icons left">add</i>Add Borehole
   </button>
 

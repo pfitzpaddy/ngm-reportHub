@@ -31,7 +31,7 @@
 								class="validate" 
 								min="0"
 								ng-model="ctp.households"
-								ng-change="ngmClusterHelperNgWash.indicatorCalculation( beneficiary, 'cash', [ 'households', 'cash_amount' ] );
+								ng-change="ngmClusterHelperNgWash.indicatorSum( beneficiary, 'cash', [ 'households', 'cash_amount' ] );
 														ngmClusterHelperNgWash.inputChange( 'ngm-households-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
@@ -49,7 +49,7 @@
 								min="0"
 								ng-model="ctp.quantity"
 								ng-change="ctp.cash_amount = ctp.quantity;
-														ngmClusterHelperNgWash.indicatorCalculation( beneficiary, 'cash', [ 'households', 'cash_amount' ] );
+														ngmClusterHelperNgWash.indicatorSum( beneficiary, 'cash', [ 'households', 'cash_amount' ] );
 														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
@@ -126,7 +126,7 @@
 					ng-hide="beneficiary.cash.length === 1" 
 					ng-click="rowform.$show(); 
 											ngmClusterHelperNgWash.init_material_select();
-											ngmClusterHelperNgWash.addActivity( location, beneficiary, 'cash' )">
+											ngmClusterHelperNgWash.addActivity( project.report.locations, location, beneficiary, 'cash' )">
 		<i class="material-icons left">add</i>Add CTP Details
 	</button>
 

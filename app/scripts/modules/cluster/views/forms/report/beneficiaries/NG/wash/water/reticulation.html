@@ -33,7 +33,8 @@
 				      	min="0"
 				      	ng-model="reticulation.quantity"
 				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
-				      	ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}' )"
+				      	ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, reticulation, 'taps' );
+				      							ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}' )"
 								required>
 	      <label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}"
 	      				class="active">Taps Connected (Number)</label>
@@ -124,7 +125,7 @@
           ng-show="project.report.report_status !== 'complete'" 
           ng-click="rowform.$show(); 
           						ngmClusterHelperNgWash.init_material_select();
-          						ngmClusterHelperNgWash.addActivity( location, beneficiary, 'water' )">
+          						ngmClusterHelperNgWash.addActivity( project.report.locations, location, beneficiary, 'water' )">
     <i class="material-icons left">add</i>Add Reticulation
   </button>
 

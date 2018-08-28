@@ -24,14 +24,26 @@ angular.module( 'ngmReportHub' )
 
 			// beneficiaries calculations
 			ratios: {
-				beneficiaries: 66.6667,
+
+				// defaults
 				households: 0.1666666666667, // 1/6
 				boys: 0.2538,
 				girls: 0.2862,
 				men: 0.1833,
 				women: 0.2067,
 				elderly_men: 0.0329,
-				elderly_women: 0.0371
+				elderly_women: 0.0371,
+
+				// beneficiary ratios
+				water:{
+					beneficiaries: 66.6667
+				},
+				taps:{
+					beneficiaries: 250
+				},
+				tablets:{
+					beneficiaries: 1.33333333
+				}
 			},
 
 			
@@ -79,8 +91,71 @@ angular.module( 'ngmReportHub' )
 				}
 			},
 
+			// add beneficiary
+			addBeneficiary: function ( beneficiaries ) {
+
+				// clone
+				var length = beneficiaries.length;
+
+				// inserted
+				var inserted = {};
+				var sadd = {
+					cash_amount: 0,
+					households: 0,
+					boys: 0,
+					girls: 0,
+					men: 0,
+					women: 0,
+					elderly_men: 0,
+					elderly_women: 0,
+					total_beneficiaries: 0
+				};
+
+				// merge
+				angular.merge( inserted, sadd );
+
+				// if previous beneficiaries
+				if ( length ) {
+										
+					var b = angular.copy( beneficiaries[ length - 1 ] );
+					var keys = ngmClusterHelperNgWashKeys.keys[ b.activity_detail_id ];
+					var defaults = ngmClusterHelperNgWashKeys.keys.defaults;
+
+					// associations
+					delete b.id;
+					inserted = angular.merge( inserted, b, sadd );
+					angular.forEach( inserted, function( d, i ){
+						if ( Array.isArray( d ) ) {
+							// associations
+							if ( i === 'water' || 
+										i === 'boreholes' ||
+										i === 'sanitation' ||
+										i === 'hygiene' ||
+										i === 'cash' ||
+										i === 'accountability') {
+								angular.forEach( d, function( e, j ){
+									delete e.id;
+									delete e.createdAt;
+									delete e.updatedAt;
+									// to copy
+									// e = angular.merge( {}, keys.measurement, defaults );
+									angular.merge( e, keys.measurement, defaults );
+								});
+							}
+						}
+					});
+				}
+
+				// refresh UI
+				ngmClusterHelperNgWash.init_material_select();
+
+				// return
+				return inserted;
+
+			},
+
 			// add initial object
-			detailsChange: function( $location, $beneficiary ){
+			detailsChange: function( locations, $location, $beneficiary ){
 
 				// slight timeout to capture UI changes
 				$timeout(function(){
@@ -88,23 +163,20 @@ angular.module( 'ngmReportHub' )
 					// beneficiary
 					if ( $beneficiary.activity_detail_id ) {
 
-					// ngmClusterHelperNgWash keys 
-					var keys = ngmClusterHelperNgWashKeys.keys[ $beneficiary.activity_detail_id ];
-						// in case user changes their mind ( update existing )
-						if ( $beneficiary[ keys.association ] && $beneficiary[ keys.association ].length ) {
-							angular.forEach( $beneficiary[ keys.association ], function( a, i ) {
-								// make new
-								var activity = angular.merge( {}, ngmClusterHelperNgWashKeys.keys.defaults, keys.measurement );
-										activity.borehole_lng = $location.site_lng;
-										activity.borehole_lat = $location.site_lat;								
-								$beneficiary[ keys.association ][ i ] = activity;
-								// init UI
-								ngmClusterHelperNgWash.init_material_select();
-							});
-						} else {
-							// add new 
-							ngmClusterHelperNgWash.addActivity( $location, $beneficiary, keys.association );
-						}
+						// ngmClusterHelperNgWash keys 
+						var keys = ngmClusterHelperNgWashKeys.keys[ $beneficiary.activity_detail_id ];
+						var defaults = ngmClusterHelperNgWashKeys.keys.defaults;
+
+						// remove all previous entries
+						$beneficiary.water = [];
+						$beneficiary.boreholes = [];
+						$beneficiary.sanitation = [];
+						$beneficiary.hygiene = [];
+						$beneficiary.cash = [];
+						$beneficiary.accountability = [];
+
+						// add new
+						ngmClusterHelperNgWash.addActivity( locations, $location, $beneficiary, keys.association );
 
 					}
 				}, 10 );
@@ -114,14 +186,15 @@ angular.module( 'ngmReportHub' )
 			// ADD RECORDS
 
 			// add activity ( reticulation, service, maintenance )
-			addActivity: function( location, beneficiary, association ) {
+			addActivity: function( locations, location, beneficiary, association, btn_id ) {
 
 				// based on association and activity_detail
-				var length = beneficiary[ association ] && beneficiary[ association ].length;
-				var measurement = ngmClusterHelperNgWashKeys.keys[ beneficiary.activity_detail_id ].measurement;
+				var length = beneficiary[ association ] ? beneficiary[ association ].length : 0;
+				var keys = ngmClusterHelperNgWashKeys.keys[ beneficiary.activity_detail_id ];
+				var defaults = ngmClusterHelperNgWashKeys.keys.defaults;
 				
 				// create model using ngmClusterHelperNgWash keys ( based on activity_detail )
-				var activity = angular.merge( {}, ngmClusterHelperNgWashKeys.keys.defaults, measurement );
+				var activity = angular.merge( {}, keys.measurement, defaults );
 
 				// in case of boreholes ( only saved ay db level if boreholes )
 				activity.borehole_lng = location.site_lng;
@@ -137,11 +210,19 @@ angular.module( 'ngmReportHub' )
 					var a = angular.copy( beneficiary[ association ][ length - 1 ] );
 					delete a.id;
 					delete a.details;
-					activity = angular.merge( {}, activity, a );
+					delete a.createdAt;
+					delete a.updatedAt;
+					activity = angular.merge( {}, a, activity );
 				}
 
 				// push
 				beneficiary[ association ].push( activity );
+				ngmClusterHelperNgWash.totalActivityBeneficiaries( locations );
+
+				// ensures page does not scroll to 5W activity input form
+				if ( btn_id ) { 
+					$( '#' + btn_id ).animatescroll();
+				}
 
 				// init
 				ngmClusterHelperNgWash.init_material_select();
@@ -158,11 +239,11 @@ angular.module( 'ngmReportHub' )
 			// REMOVE RECORDS
 
 			// remove beneficiary nodal
-			removeModal: function( project, beneficiary, $index, name, modal ) {
+			removeModal: function( project, beneficiary, $index, association, modal ) {
 				ngmClusterHelperNgWash.project = project;
 				ngmClusterHelperNgWash.beneficiary = beneficiary;
-				ngmClusterHelperNgWash.name = name;
-				ngmClusterHelperNgWash.$index = $index;
+				ngmClusterHelperNgWash.removeIndex = $index;
+				ngmClusterHelperNgWash.association = association;
 				$( modal ).openModal({ dismissible: false });
 			},
 
@@ -170,9 +251,9 @@ angular.module( 'ngmReportHub' )
 			remove: function(){
 				
 				// get id
-				var id = ngmClusterHelperNgWash.beneficiary[ ngmClusterHelperNgWash.name ][ ngmClusterHelperNgWash.$index ].id;
-				ngmClusterHelperNgWash.beneficiary[ ngmClusterHelperNgWash.name ].splice( ngmClusterHelperNgWash.$index, 1 );
-				
+				var id = ngmClusterHelperNgWash.beneficiary[ ngmClusterHelperNgWash.association ][ ngmClusterHelperNgWash.removeIndex ].id;
+				ngmClusterHelperNgWash.beneficiary[ ngmClusterHelperNgWash.association ].splice( ngmClusterHelperNgWash.removeIndex, 1 );
+
 				// calculate location totals
 				ngmClusterHelperNgWash.totalActivityBeneficiaries( ngmClusterHelperNgWash.project.report.locations );
 
@@ -185,34 +266,53 @@ angular.module( 'ngmReportHub' )
 
 			// CALCULATIONS
 
+			// get sadd breakdowns
+			bSadd: function( b ){
+				var ratios = ngmClusterHelperNgWash.ratios;
+				// sadd
+				b.households = Math.round( b.total_beneficiaries * ratios.households );
+				b.boys = Math.round( b.total_beneficiaries * ratios.boys );
+				b.girls = Math.round( b.total_beneficiaries * ratios.girls );
+				b.men = Math.round( b.total_beneficiaries * ratios.men );
+				b.women = Math.round( b.total_beneficiaries * ratios.women );
+				b.elderly_men = Math.round( b.total_beneficiaries * ratios.elderly_men );
+				b.elderly_women = Math.round( b.total_beneficiaries * ratios.elderly_women );
+				b.total_beneficiaries = Math.round( b.total_beneficiaries );
+			},
+
 			// borehole
 			// m3 = yield*hrs*3600secs
 			boreholeOutput: function( locations, b ){
 				if ( b.borehole_yield_ltrs_second >=0 && 
 							b.borehole_pumping_ave_daily_hours >=0 ) {
+					// metrics
 					b.borehole_m3 = b.borehole_yield_ltrs_second * b.borehole_pumping_ave_daily_hours * 3600;
-					b.borehole_beneficiaires = b.borehole_m3 * ngmClusterHelperNgWash.ratios.beneficiaries;
-					b.households = Math.round( b.borehole_beneficiaires * ngmClusterHelperNgWash.ratios.households );
-					b.boys = Math.round( b.borehole_beneficiaires * ngmClusterHelperNgWash.ratios.boys );
-					b.girls = Math.round( b.borehole_beneficiaires * ngmClusterHelperNgWash.ratios.girls );
-					b.men = Math.round( b.borehole_beneficiaires * ngmClusterHelperNgWash.ratios.men );
-					b.women = Math.round( b.borehole_beneficiaires * ngmClusterHelperNgWash.ratios.women );
-					b.elderly_men = Math.round( b.borehole_beneficiaires * ngmClusterHelperNgWash.ratios.elderly_men );
-					b.elderly_women = Math.round( b.borehole_beneficiaires * ngmClusterHelperNgWash.ratios.elderly_women );
-						
+					b.total_beneficiaries = b.borehole_m3 * ngmClusterHelperNgWash.ratios.water.beneficiaries;
+					// sadd
+					ngmClusterHelperNgWash.bSadd( b );
 					// calculate location totals
 					ngmClusterHelperNgWash.totalActivityBeneficiaries( locations );
-
 				}
 			},
 
-			// activities
-			indicatorCalculation: function( beneficiary, association, indicators ) {
-				// for each indicator set to 0
+			// taps * 250
+			indicatorOutput: function( locations, b, key ){
+				if ( b.quantity >=0 ) {
+					// metrics
+					b.total_beneficiaries = b.quantity * ngmClusterHelperNgWash.ratios[ key ].beneficiaries;
+					// sadd
+					ngmClusterHelperNgWash.bSadd( b );
+					// calculate location totals
+					ngmClusterHelperNgWash.totalActivityBeneficiaries( locations ); 
+				}
+			},
+
+			// activity calculations by [ key ]
+			indicatorSum: function( beneficiary, association, indicators ) {
 				angular.forEach( indicators, function( d, i ){
 					beneficiary[ d ] = 0;
 				});
-				// calculate for association each indicator
+				// sum each [ key ] per association
 				angular.forEach( beneficiary[ association ], function( a, i ){
 					angular.forEach( indicators, function( d, j ){
 						beneficiary[ d ] += a[ d ];
@@ -234,178 +334,32 @@ angular.module( 'ngmReportHub' )
 						b.women = 0;
 						b.elderly_men = 0;
 						b.elderly_women = 0;
-						angular.forEach( b.boreholes, function( borehole, k ){
-							b.households += borehole.households;
-							b.boys += borehole.boys;
-							b.girls += borehole.girls;
-							b.men += borehole.men;
-							b.women += borehole.women;
-							b.elderly_men += borehole.elderly_men;
-							b.elderly_women += borehole.elderly_women;
+						b.total_beneficiaries = 0;
+						// each association
+						angular.forEach( b, function( d, k ){
+							if ( Array.isArray( d ) ) {
+								// associations
+								if ( k === 'water' || 
+											k === 'boreholes' ||
+											k === 'sanitation' ||
+											k === 'hygiene' ||
+											k === 'cash' ||
+											k === 'accountability') {
+									angular.forEach( d, function( activity, l ){
+										b.households += activity.households;
+										b.boys += activity.boys;
+										b.girls += activity.girls;
+										b.men += activity.men;
+										b.women += activity.women;
+										b.elderly_men += activity.elderly_men;
+										b.elderly_women += activity.elderly_women;
+										b.total_beneficiaries += activity.total_beneficiaries;
+									});
+								}
+							}
 						});
 					});
 				});
-			},
-
-
-			// VALIDATION
-
-			// validate wash activities
-			validateActivities: function( locations ) {
-
-				// collect error divs
-				var elements = [];
-
-				// WATER
-				var waterLength = 0;
-				var waterRowComplete = 0;
-
-				// SANITATION
-				var sanitationLength = 0;
-				var sanitationRowComplete = 0;
-
-				// HYGIENE
-				var hygieneLength = 0;
-				var hygieneRowComplete = 0;
-
-				// CASH
-				var cashLength = 0;
-				var cashRowComplete = 0;
-
-				// ACCOUNTABILITY
-				var accountabilityLength = 0;
-				var accountabilityRowComplete = 0;
-
-				// keys to validate correct form
-				var keys = ngmClusterHelperNgWashKeys.keys;
-
-				// each location
-				angular.forEach( locations, function( l, i ){
-					angular.forEach( l.beneficiaries, function( d, j ){
-
-						// water
-						if ( d.water && d.water.length ) {
-							angular.forEach( d.water, function( water, k ){
-								if ( keys[ d.activity_detail_id ].template === 'reticulation.html' ) {
-									waterLength ++;
-									var result = ngmClusterHelperNgWashValidation.validateReticulation( water, i, j, k );
-									angular.merge( elements, result.divs );
-									waterRowComplete +=  result.count;
-								}
-								if ( keys[ d.activity_detail_id ].template === 'service.html' ) {
-									waterLength ++;
-									var result = ngmClusterHelperNgWashValidation.validateService( d, water, i, j, k );
-									angular.merge( elements, result.divs );
-									waterRowComplete +=  result.count;
-								}
-								if ( keys[ d.activity_detail_id ].template === 'maintenance.html' ) {
-									waterLength ++;
-									var result = ngmClusterHelperNgWashValidation.validateMaintenance( d, water, i, j, k );
-									angular.merge( elements, result.divs );
-									waterRowComplete +=  result.count;
-								}
-							});
-						}
-
-						// boreholes 
-						if ( d.boreholes && d.boreholes.length ) {
-							waterLength += d.boreholes.length;
-							angular.forEach( d.boreholes, function( borehole, k ){
-								var result = ngmClusterHelperNgWashValidation.validateBorehole( borehole, i, j, k );
-								angular.merge( elements, result.divs );
-								waterRowComplete += result.count;
-							});
-						}
-
-						// sanitation
-						if ( d.sanitation && d.sanitation.length ) {
-							angular.forEach( d.sanitation, function( sanitation, k ){
-								if ( keys[ d.activity_detail_id ].template === 'latrines.html' ) {
-									sanitationLength ++;
-									var result = ngmClusterHelperNgWashValidation.validateLatrines( d, sanitation, i, j, k );
-									angular.merge( elements, result.divs );
-									sanitationRowComplete +=  result.count;
-								}
-								if ( keys[ d.activity_detail_id ].template === 'showers.html' ) {
-									sanitationLength ++;
-									var result = ngmClusterHelperNgWashValidation.validateShowers( d, sanitation, i, j, k );
-									angular.merge( elements, result.divs );
-									sanitationRowComplete +=  result.count;
-								}
-								if ( keys[ d.activity_detail_id ].template === 'waste.html' ) {
-									sanitationLength ++;
-									var result = ngmClusterHelperNgWashValidation.validateWaste( d, sanitation, i, j, k );
-									angular.merge( elements, result.divs );
-									sanitationRowComplete +=  result.count;
-								}
-								if ( keys[ d.activity_detail_id ].template === 'committee.html' ) {
-									sanitationLength ++;
-									var result = ngmClusterHelperNgWashValidation.validateCommittee( d, sanitation, i, j, k );
-									angular.merge( elements, result.divs );
-									sanitationRowComplete +=  result.count;
-								}
-							});
-						}
-
-						// hygiene
-						if ( d.hygiene && d.hygiene.length ) {
-							angular.forEach( d.hygiene, function( hygiene, k ){
-								if ( keys[ d.activity_detail_id ].template === 'promotion.html' ||
-											keys[ d.activity_detail_id ].template === 'kits.html' ) {
-									hygieneLength ++;
-									var result = ngmClusterHelperNgWashValidation.validateHygiene( d, hygiene, i, j, k );
-									angular.merge( elements, result.divs );
-									hygieneRowComplete +=  result.count;
-								}
-							});
-						}
-
-						// cash
-						if ( d.cash && d.cash.length ) {
-							angular.forEach( d.cash, function( cash, k ){
-								if ( keys[ d.activity_detail_id ].template === 'cash.html' ) {
-									hygieneLength ++;
-									var result = ngmClusterHelperNgWashValidation.validateCash( d, cash, i, j, k );
-									angular.merge( elements, result.divs );
-									hygieneRowComplete +=  result.count;
-								}
-							});
-						}
-
-						// accountability
-						if ( d.accountability && d.accountability.length ) {
-							angular.forEach( d.accountability, function( accountability, k ){
-								if ( keys[ d.activity_detail_id ].template === 'complaints.html' ) {
-									accountabilityLength ++;
-									var result = ngmClusterHelperNgWashValidation.validateComplaints( d, accountability, i, j, k );
-									angular.merge( elements, result.divs );
-									accountabilityRowComplete +=  result.count;
-								}
-								if ( keys[ d.activity_detail_id ].template === 'participation.html' ) {
-									accountabilityLength ++;
-									var result = ngmClusterHelperNgWashValidation.validateParticipation( d, accountability, i, j, k );
-									angular.merge( elements, result.divs );
-									accountabilityRowComplete +=  result.count;
-								}
-							});
-						}
-
-					});
-				});
-
-				// valid
-				if ( waterLength !== waterRowComplete ||
-							sanitationLength !== sanitationRowComplete ||
-							hygieneLength !== hygieneRowComplete ||
-							cashLength !== cashRowComplete  ||
-							accountabilityLength !== accountabilityRowComplete ) {
-					Materialize.toast( 'Form contains errors!' , 6000, 'error' );
-					$( elements[0] ).animatescroll();
-					return false;
-				} else {
-					return true;
-				}
-				
 			}
 
 		}

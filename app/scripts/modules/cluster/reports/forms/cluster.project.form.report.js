@@ -169,7 +169,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // add beneficiary
         addBeneficiary: function( $parent ) {
-          $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.definition, $scope.project.report.locations[ $parent ].beneficiaries );
+          $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.report.locations[ $parent ].beneficiaries );
+          $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
+        },
+
+        // add beneficiary
+        addNgWashBeneficiary: function( $parent ) {
+          $scope.inserted = ngmClusterHelperNgWash.addBeneficiary( $scope.project.report.locations[ $parent ].beneficiaries );
           $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
         },
 
@@ -313,7 +319,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // validate form ( ng wash )
         validateBeneficiariesForm: function( complete, display_modal ){
-          if ( ngmClusterHelperNgWash.validateActivities( $scope.project.report.locations ) ){
+          if ( ngmClusterHelperNgWashValidation.validateActivities( $scope.project.report.locations ) ){
             if ( complete ) {
               $( '#complete-modal' ).openModal( { dismissible: false } );
             } else if ( display_modal ) {

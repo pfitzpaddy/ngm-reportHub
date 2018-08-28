@@ -20,7 +20,7 @@
       <td>Beneficiary</td>
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
-    <tr ng-repeat-start="beneficiary in project.report.locations[$locationIndex].beneficiaries" 
+    <tr ng-repeat-start="beneficiary in project.report.locations[ $locationIndex ].beneficiaries" 
           ng-init="$beneficiaryIndex=$index">
       <td>
         <span e-form="rowform"
@@ -46,7 +46,7 @@
               e-name="activity_detail_id"
               editable-select="beneficiary.activity_detail_id"
               e-placeholder="Select..."
-              e-ng-change="ngmClusterHelperNgWash.detailsChange( location, beneficiary )"
+              e-ng-change="ngmClusterHelperNgWash.detailsChange( project.report.locations, location, beneficiary )"
               e-ng-options="a_d.activity_detail_id as a_d.activity_detail_name 
                               for a_d in project.lists.activity_details | 
                                 filter: { cluster_id: beneficiary.cluster_id, 
@@ -144,8 +144,9 @@
   </table>
 
   <!-- add -->
-  <button class="btn" ng-show="project.report.report_status !== 'complete'" 
-            ng-click="project.addBeneficiary( $locationIndex )">
+  <button class="btn" 
+            ng-show="project.report.report_status !== 'complete'" 
+            ng-click="project.addNgWashBeneficiary( $locationIndex )">
     <i class="material-icons left">add</i>Add Activities
   </button>
 

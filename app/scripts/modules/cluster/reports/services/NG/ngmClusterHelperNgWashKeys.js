@@ -24,6 +24,16 @@ angular.module( 'ngmReportHub' )
 					template: 'borehole.html',
 					association: 'boreholes',
 					measurement: {
+						borehole_water_facility_type_id: null,
+						borehole_water_facility_type_name: null,
+						borehole_water_facility_size_id: null,
+						borehole_water_facility_size_name: null,
+						borehole_chlorination_plan_id: null,
+						borehole_chlorination_plan_name: null,
+						free_residual_chlorine_range_id: null,
+						free_residual_chlorine_range_name: null,
+						water_turbidity_range_id: null,
+						water_turbidity_range_name: null,
 						borehole_yield_ltrs_second: 0,
 						borehole_pumping_ave_daily_hours: 0,
 						borehole_tanks_storage_ltrs: 0,
@@ -35,6 +45,16 @@ angular.module( 'ngmReportHub' )
 					template: 'borehole.html',
 					association: 'boreholes',
 					measurement: {
+						borehole_water_facility_type_id: null,
+						borehole_water_facility_type_name: null,
+						borehole_water_facility_size_id: null,
+						borehole_water_facility_size_name: null,
+						borehole_chlorination_plan_id: null,
+						borehole_chlorination_plan_name: null,
+						free_residual_chlorine_range_id: null,
+						free_residual_chlorine_range_name: null,
+						water_turbidity_range_id: null,
+						water_turbidity_range_name: null,
 						borehole_yield_ltrs_second: 0,
 						borehole_pumping_ave_daily_hours: 0,
 						borehole_tanks_storage_ltrs: 0,
@@ -46,6 +66,16 @@ angular.module( 'ngmReportHub' )
 					template: 'borehole.html',
 					association: 'boreholes',
 					measurement: {
+						borehole_water_facility_type_id: null,
+						borehole_water_facility_type_name: null,
+						borehole_water_facility_size_id: null,
+						borehole_water_facility_size_name: null,
+						borehole_chlorination_plan_id: null,
+						borehole_chlorination_plan_name: null,
+						free_residual_chlorine_range_id: null,
+						free_residual_chlorine_range_name: null,
+						water_turbidity_range_id: null,
+						water_turbidity_range_name: null,
 						borehole_yield_ltrs_second: 0,
 						borehole_pumping_ave_daily_hours: 0,
 						borehole_tanks_storage_ltrs: 0,
@@ -568,14 +598,12 @@ angular.module( 'ngmReportHub' )
 					template: 'committee.html',
 					association: 'sanitation',
 					measurement: {
-						male: 0,
-						female: 0,
-						committee_rotation_id: 'no',
-						committee_rotation_name: 'No',
-						committee_rotation_per_month: 0,
 						stipend_id: 'no',
 						stipend_name: 'No',
 						stipend_amount: 0,
+						committee_rotation_id: 'no',
+						committee_rotation_name: 'No',
+						committee_rotation_per_month: 0,
 						quantity_measurement_id: 'sanitation_committee',
 						quantity_measurement_name: 'Sanitation Committee',
 						details: []
@@ -595,14 +623,12 @@ angular.module( 'ngmReportHub' )
 					template: 'committee.html',
 					association: 'sanitation',
 					measurement: {
-						male: 0,
-						female: 0,
-						committee_rotation_id: 'no',
-						committee_rotation_name: 'No',
-						committee_rotation_per_month: 0,
 						stipend_id: 'no',
 						stipend_name: 'No',
 						stipend_amount: 0,
+						committee_rotation_id: 'no',
+						committee_rotation_name: 'No',
+						committee_rotation_per_month: 0,
 						quantity_measurement_id: 'sanitation_committee',
 						quantity_measurement_name: 'Sanitation Committee',
 						details: []
@@ -663,8 +689,6 @@ angular.module( 'ngmReportHub' )
 					template: 'promotion.html',
 					association: 'hygiene',
 					measurement:{
-						male: 0,
-						female: 0,
 						quantity_measurement_id: 'trainings',
 						quantity_measurement_name: 'Trainings',
 						details:[]
@@ -835,12 +859,6 @@ angular.module( 'ngmReportHub' )
 					template: 'participation.html',
 					association: 'accountability',
 					measurement:{
-						boys: 0,
-						girls: 0,
-						men: 0,
-						women: 0,
-						elderly_men: 0,
-						elderly_women: 0,
 						quantity_measurement_id: 'project_design',
 						quantity_measurement_name: 'Project Design',
 						details:[]
@@ -850,12 +868,6 @@ angular.module( 'ngmReportHub' )
 					template: 'participation.html',
 					association: 'accountability',
 					measurement:{
-						boys: 0,
-						girls: 0,
-						men: 0,
-						women: 0,
-						elderly_men: 0,
-						elderly_women: 0,
 						quantity_measurement_id: 'project_monitoring',
 						quantity_measurement_name: 'Project Monitoring',
 						details:[]
@@ -865,12 +877,6 @@ angular.module( 'ngmReportHub' )
 					template: 'participation.html',
 					association: 'accountability',
 					measurement:{
-						boys: 0,
-						girls: 0,
-						men: 0,
-						women: 0,
-						elderly_men: 0,
-						elderly_women: 0,
 						quantity_measurement_id: 'project_evaluation',
 						quantity_measurement_name: 'Project Evaluation',
 						details:[]
@@ -880,12 +886,6 @@ angular.module( 'ngmReportHub' )
 					template: 'participation.html',
 					association: 'accountability',
 					measurement:{
-						boys: 0,
-						girls: 0,
-						men: 0,
-						women: 0,
-						elderly_men: 0,
-						elderly_women: 0,
 						quantity_measurement_id: 'community_involvement',
 						quantity_measurement_name: 'Community Involvement',
 						details:[]
@@ -895,12 +895,6 @@ angular.module( 'ngmReportHub' )
 					template: 'participation.html',
 					association: 'accountability',
 					measurement:{
-						boys: 0,
-						girls: 0,
-						men: 0,
-						women: 0,
-						elderly_men: 0,
-						elderly_women: 0,
 						quantity_measurement_id: 'information_rights_entitlement',
 						quantity_measurement_name: 'Information on Rights / Entitlements',
 						details:[]
@@ -910,12 +904,6 @@ angular.module( 'ngmReportHub' )
 					template: 'participation.html',
 					association: 'accountability',
 					measurement:{
-						boys: 0,
-						girls: 0,
-						men: 0,
-						women: 0,
-						elderly_men: 0,
-						elderly_women: 0,
 						quantity_measurement_id: 'information_roles_responsibilities',
 						quantity_measurement_name: 'Information on Roles / Responsibilities of WASH Staff',
 						details:[]
@@ -924,6 +912,13 @@ angular.module( 'ngmReportHub' )
 				// default
 				defaults: {
 					quantity: 0,
+					boys: 0,
+					girls: 0,
+					men: 0,
+					women: 0,
+					elderly_men: 0,
+					elderly_women: 0,
+					total_beneficiaries: 0,
 					activity_start_date: moment( new Date() ).startOf( 'M' ).format('YYYY-MM-DD'),
 					activity_end_date: moment( new Date() ).endOf( 'M' ).format('YYYY-MM-DD')
 				}

@@ -10,7 +10,8 @@ angular.module( 'ngmReportHub' )
 			[ '$http',
 				'$filter',
 				'$timeout',
-				'ngmAuth', function( $http, $filter, $timeout, ngmAuth ) {
+				'ngmClusterHelperNgWashKeys',
+				'ngmAuth', function( $http, $filter, $timeout, ngmClusterHelperNgWashKeys, ngmAuth ) {
 
 		// definition
 		var ngmClusterHelperNgWashValidation = {
@@ -798,6 +799,166 @@ angular.module( 'ngmReportHub' )
 				}
 				return validation;
 
+			},
+
+			// VALIDATION
+
+			// validate wash activities
+			validateActivities: function( locations ) {
+
+				// collect error divs
+				var elements = [];
+
+				// WATER
+				var waterLength = 0;
+				var waterRowComplete = 0;
+
+				// SANITATION
+				var sanitationLength = 0;
+				var sanitationRowComplete = 0;
+
+				// HYGIENE
+				var hygieneLength = 0;
+				var hygieneRowComplete = 0;
+
+				// CASH
+				var cashLength = 0;
+				var cashRowComplete = 0;
+
+				// ACCOUNTABILITY
+				var accountabilityLength = 0;
+				var accountabilityRowComplete = 0;
+
+				// keys to validate correct form
+				var keys = ngmClusterHelperNgWashKeys.keys;
+
+				// each location
+				angular.forEach( locations, function( l, i ){
+					angular.forEach( l.beneficiaries, function( d, j ){
+
+						// water
+						if ( d.water && d.water.length ) {
+							angular.forEach( d.water, function( water, k ){
+								if ( keys[ d.activity_detail_id ].template === 'reticulation.html' ) {
+									waterLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateReticulation( water, i, j, k );
+									angular.merge( elements, result.divs );
+									waterRowComplete +=  result.count;
+								}
+								if ( keys[ d.activity_detail_id ].template === 'service.html' ) {
+									waterLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateService( d, water, i, j, k );
+									angular.merge( elements, result.divs );
+									waterRowComplete +=  result.count;
+								}
+								if ( keys[ d.activity_detail_id ].template === 'maintenance.html' ) {
+									waterLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateMaintenance( d, water, i, j, k );
+									angular.merge( elements, result.divs );
+									waterRowComplete +=  result.count;
+								}
+							});
+						}
+
+						// boreholes 
+						if ( d.boreholes && d.boreholes.length ) {
+							waterLength += d.boreholes.length;
+							angular.forEach( d.boreholes, function( borehole, k ){
+								var result = ngmClusterHelperNgWashValidation.validateBorehole( borehole, i, j, k );
+								angular.merge( elements, result.divs );
+								waterRowComplete += result.count;
+							});
+						}
+
+						// sanitation
+						if ( d.sanitation && d.sanitation.length ) {
+							angular.forEach( d.sanitation, function( sanitation, k ){
+								if ( keys[ d.activity_detail_id ].template === 'latrines.html' ) {
+									sanitationLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateLatrines( d, sanitation, i, j, k );
+									angular.merge( elements, result.divs );
+									sanitationRowComplete +=  result.count;
+								}
+								if ( keys[ d.activity_detail_id ].template === 'showers.html' ) {
+									sanitationLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateShowers( d, sanitation, i, j, k );
+									angular.merge( elements, result.divs );
+									sanitationRowComplete +=  result.count;
+								}
+								if ( keys[ d.activity_detail_id ].template === 'waste.html' ) {
+									sanitationLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateWaste( d, sanitation, i, j, k );
+									angular.merge( elements, result.divs );
+									sanitationRowComplete +=  result.count;
+								}
+								if ( keys[ d.activity_detail_id ].template === 'committee.html' ) {
+									sanitationLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateCommittee( d, sanitation, i, j, k );
+									angular.merge( elements, result.divs );
+									sanitationRowComplete +=  result.count;
+								}
+							});
+						}
+
+						// hygiene
+						if ( d.hygiene && d.hygiene.length ) {
+							angular.forEach( d.hygiene, function( hygiene, k ){
+								if ( keys[ d.activity_detail_id ].template === 'promotion.html' ||
+											keys[ d.activity_detail_id ].template === 'kits.html' ) {
+									hygieneLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateHygiene( d, hygiene, i, j, k );
+									angular.merge( elements, result.divs );
+									hygieneRowComplete +=  result.count;
+								}
+							});
+						}
+
+						// cash
+						if ( d.cash && d.cash.length ) {
+							angular.forEach( d.cash, function( cash, k ){
+								if ( keys[ d.activity_detail_id ].template === 'cash.html' ) {
+									hygieneLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateCash( d, cash, i, j, k );
+									angular.merge( elements, result.divs );
+									hygieneRowComplete +=  result.count;
+								}
+							});
+						}
+
+						// accountability
+						if ( d.accountability && d.accountability.length ) {
+							angular.forEach( d.accountability, function( accountability, k ){
+								if ( keys[ d.activity_detail_id ].template === 'complaints.html' ) {
+									accountabilityLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateComplaints( d, accountability, i, j, k );
+									angular.merge( elements, result.divs );
+									accountabilityRowComplete +=  result.count;
+								}
+								if ( keys[ d.activity_detail_id ].template === 'participation.html' ) {
+									accountabilityLength ++;
+									var result = ngmClusterHelperNgWashValidation.validateParticipation( d, accountability, i, j, k );
+									angular.merge( elements, result.divs );
+									accountabilityRowComplete +=  result.count;
+								}
+							});
+						}
+
+					});
+				});
+
+				// valid
+				if ( waterLength !== waterRowComplete ||
+							sanitationLength !== sanitationRowComplete ||
+							hygieneLength !== hygieneRowComplete ||
+							cashLength !== cashRowComplete  ||
+							accountabilityLength !== accountabilityRowComplete ) {
+					Materialize.toast( 'Form contains errors!' , 6000, 'error' );
+					$( elements[0] ).animatescroll();
+					return false;
+				} else {
+					return true;
+				}
+				
 			}
 
 		}

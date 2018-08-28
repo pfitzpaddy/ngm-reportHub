@@ -138,7 +138,7 @@
 					ng-hide="beneficiary.sanitation.length === 1" 
 					ng-click="rowform.$show(); 
 											ngmClusterHelperNgWash.init_material_select();
-											ngmClusterHelperNgWash.addActivity( location, beneficiary, 'sanitation' )">
+											ngmClusterHelperNgWash.addActivity( project.report.locations, location, beneficiary, 'sanitation' )">
 		<i class="material-icons left">add</i>Add {{ beneficiary.activity_description_name }} Details
 	</button>
 

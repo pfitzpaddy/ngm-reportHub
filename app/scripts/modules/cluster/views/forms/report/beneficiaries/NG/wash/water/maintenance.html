@@ -186,7 +186,7 @@
 					ng-hide="beneficiary.water.length === 1" 
 					ng-click="rowform.$show(); 
 											ngmClusterHelperNgWash.init_material_select();
-											ngmClusterHelperNgWash.addActivity( location, beneficiary, 'water' )">
+											ngmClusterHelperNgWash.addActivity( project.report.locations, location, beneficiary, 'water' )">
 		<i class="material-icons left">add</i>Add Ops & Maintenance
 	</button>
 

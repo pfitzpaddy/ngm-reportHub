@@ -47,12 +47,12 @@ angular.module( 'ngmReportHub' )
   })
   // sums array of objects by keys
   .filter('sumArrayByKeys', function() {
-      return function( array, keys, skip ) {
+      return function( array, key1, keys, skip ) {
         var sum = 0;
         if ( typeof( array ) === 'undefined' || typeof(keys) === 'undefined' ) {
           return 0;
         }
-        angular.forEach(array, function(a,i){
+        angular.forEach(array[ key1 ], function(a,i){
           angular.forEach(a, function(d,i){
             // put in checks here
             angular.forEach(keys, function(k,j){

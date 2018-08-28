@@ -65,12 +65,14 @@
 									</h5>
 
 									<!-- eiewg formal location -->
-							  	<h5 class="report-location-title" ng-if="project.definition.cluster_id === 'eiewg' && location.site_implementation_id === 'formal'">
+							  	<h5 class="report-location-title" 
+							  				ng-if="project.definition.cluster_id === 'eiewg' && location.site_implementation_id === 'formal'">
 												<i class="material-icons left" style="color: teal;">location_on</i>
 												{{ location.site_implementation_name | uppercase }} SCHOOL | {{ location.admin1name }}, {{ location.admin2name }}, {{ location.site_type_name }}, {{ location.site_name }}
 									</h5>
 									<!-- eiewg informal location -->
-							  	<h5 class="report-location-title" ng-if="project.definition.cluster_id === 'eiewg' && location.site_implementation_id === 'informal'">
+							  	<h5 class="report-location-title"
+							  				ng-if="project.definition.cluster_id === 'eiewg' && location.site_implementation_id === 'informal'">
 												<i class="material-icons left" style="color:teal;">location_on</i>
 												HUB SCHOOL | {{ location.site_hub_name }}
 												<br/>
@@ -82,12 +84,22 @@
 								</div>
 
 								<!-- location totals -->
-								<div class="col s12 m3 hide-on-med-and-down">
+								<div class="col s12 m3 hide-on-med-and-down" 
+											ng-if="project.definition.admin0pcode !== 'NG' ">
 									<div class="beneficiary-count right">
 										<span style="font-size:1.2rem;">
 											<i class="material-icons" style="padding-right:10px;">group</i></span>
 												<!-- filter in app/services/ngmHelper.js -->
 												{{ location | sumArrayofArraysByKeys:'beneficiaries':'trainings':project.lists.indicators:project.lists.skip | number }}
+									</div>
+								</div>
+								<div class="col s12 m3 hide-on-med-and-down"
+											ng-if="project.definition.admin0pcode === 'NG' ">
+									<div class="beneficiary-count right">
+										<span style="font-size:1.2rem;">
+											<i class="material-icons" style="padding-right:10px;">group</i></span>
+												<!-- filter in app/services/ngmHelper.js -->
+												{{ location | sumArrayByKeys:'beneficiaries':{ 'total_beneficiaries': 0 }:project.lists.skip | number }}
 									</div>
 								</div>
 

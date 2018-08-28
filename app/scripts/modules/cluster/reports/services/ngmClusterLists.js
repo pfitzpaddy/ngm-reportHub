@@ -39,6 +39,7 @@ angular.module( 'ngmReportHub' )
           beneficiary_types: ngmClusterLists.getBeneficiaries( moment( project.project_end_date ).year(), project.admin0pcode, project.cluster_id ),
           currencies: ngmClusterLists.getCurrencies( project.admin0pcode ),
           donors: ngmClusterLists.getDonors( project.admin0pcode, project.cluster_id ),
+          
           // keys to ignore when summing beneficiaries in template ( 2016 )
           skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ],
 

@@ -24,7 +24,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // add beneficiary
-      addBeneficiary: function ( project, beneficiaries ) {
+      addBeneficiary: function ( beneficiaries ) {
         
         // inserted
         var inserted = {};
@@ -41,14 +41,6 @@ angular.module( 'ngmReportHub' )
           elderly_men:0,
           elderly_women:0
         };
-
-        // note: see ngmClusterBeneficiaries.updateBeneficiaryModel
-          // for activity specific popn detais
-
-        // NG has select
-        if ( project.admin0pcode === 'NG' ) {
-          setTimeout(function(){ $( '.input-field select' ).material_select(); }, 200 );
-        }
 
         // merge
         angular.merge( inserted, sadd );
@@ -154,35 +146,9 @@ angular.module( 'ngmReportHub' )
               }
             }
 
-            // updates beneficiaries if popn details to be used from dtm
-            // $beneficiary = ngmClusterBeneficiaries.updateBeneficiaryModel( project, $beneficiary );
-
           }
         }
         return selected.length ? selected[0].activity_type_name : '-';
-      },
-
-      // update beneficiary
-      updateBeneficiaryModel:function( project, $beneficiary ){
-        // NG Water activities use dtm population (from dtm sites)
-          // see ngmClusterBeneficiaries.js getCleanReport()
-          // note: beneficiaries (b) is merged over locations (l)
-          // report.locations[i].beneficiaries[j] = angular.merge( {}, p, r, l, b );
-          // thus sadd must be empty to record dtm site level details
-        if ( project.admin0pcode === 'NG' && 
-              $beneficiary.cluster_id === 'wash' ) {
-          delete $beneficiary.sessions;
-          delete $beneficiary.cash_amount;
-          delete $beneficiary.households;
-          delete $beneficiary.families;
-          delete $beneficiary.boys;
-          delete $beneficiary.girls;
-          delete $beneficiary.men;
-          delete $beneficiary.women;
-          delete $beneficiary.elderly_men;
-          delete $beneficiary.elderly_women;
-        }
-        return $beneficiary;
       },
 
       // show descipriton (generic)

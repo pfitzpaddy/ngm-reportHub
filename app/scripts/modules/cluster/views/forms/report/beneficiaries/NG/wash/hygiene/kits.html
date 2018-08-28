@@ -146,7 +146,7 @@
 					ng-hide="beneficiary.hygiene.length === 1"
 					ng-click="rowform.$show(); 
 											ngmClusterHelperNgWash.init_material_select();
-											ngmClusterHelperNgWash.addActivity( location, beneficiary, 'hygiene' )">
+											ngmClusterHelperNgWash.addActivity( project.report.locations, location, beneficiary, 'hygiene' )">
 		<i class="material-icons left">add</i>Add Hygiene Kit Details
 	</button>
 
@@ -157,7 +157,7 @@
 					ng-hide="beneficiary.hygiene.length === 1"
 					ng-click="rowform.$show(); 
 											ngmClusterHelperNgWash.init_material_select();
-											ngmClusterHelperNgWash.addActivity( location, beneficiary, 'hygiene' )">
+											ngmClusterHelperNgWash.addActivity( project.report.locations, location, beneficiary, 'hygiene' )">
 		<i class="material-icons left">add</i>Add Hygiene Monitoring Details
 	</button>
 
