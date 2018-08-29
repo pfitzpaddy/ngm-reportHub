@@ -33,17 +33,41 @@ angular.module( 'ngmReportHub' )
 				women: 0.2067,
 				elderly_men: 0.0329,
 				elderly_women: 0.0371,
+				beneficiaries: 66.6667,
 
 				// beneficiary ratios
+				// water
 				water:{
+					keys: [ 'quantity' ],
 					beneficiaries: 66.6667
 				},
 				taps:{
+					keys: [ 'quantity' ],
 					beneficiaries: 250
 				},
 				tablets:{
+					keys: [ 'quantity' ],
 					beneficiaries: 1.33333333
-				}
+				},
+				// sanitation
+				// latrines
+				hh_latrines:{
+					keys: [ 'quantity' ],
+					beneficiaries: 6
+				},
+				latrines:{
+					keys: [ 'male', 'female', 'male_disabled', 'female_disabled' ],
+					beneficiaries: 50
+				},
+				hand_washing:{
+					keys: [ 'quantity' ],
+					beneficiaries: 50
+				},
+				// showers
+				showers:{
+					keys: [ 'male', 'female', 'male_disabled', 'female_disabled' ],
+					beneficiaries: 100
+				},
 			},
 
 			
@@ -287,7 +311,7 @@ angular.module( 'ngmReportHub' )
 							b.borehole_pumping_ave_daily_hours >=0 ) {
 					// metrics
 					b.borehole_m3 = b.borehole_yield_ltrs_second * b.borehole_pumping_ave_daily_hours * 3600;
-					b.total_beneficiaries = b.borehole_m3 * ngmClusterHelperNgWash.ratios.water.beneficiaries;
+					b.total_beneficiaries = b.borehole_m3 * ngmClusterHelperNgWash.ratios.beneficiaries;
 					// sadd
 					ngmClusterHelperNgWash.bSadd( b );
 					// calculate location totals
@@ -298,11 +322,17 @@ angular.module( 'ngmReportHub' )
 			// taps * 250
 			indicatorOutput: function( locations, b, key ){
 				if ( b.quantity >=0 ) {
-					// metrics
-					b.total_beneficiaries = b.quantity * ngmClusterHelperNgWash.ratios[ key ].beneficiaries;
-					// sadd
+					// calculate metrics
+					b.total_beneficiaries = 0;
+					// add each key
+					angular.forEach( ngmClusterHelperNgWash.ratios[ key ].keys, function( d, i ){
+						b.total_beneficiaries += b[ d ];
+					});
+					// times ratio
+					b.total_beneficiaries *= ngmClusterHelperNgWash.ratios[ key ].beneficiaries;
+					// make it sadd
 					ngmClusterHelperNgWash.bSadd( b );
-					// calculate location totals
+					// calculate beneficairy totals
 					ngmClusterHelperNgWash.totalActivityBeneficiaries( locations ); 
 				}
 			},

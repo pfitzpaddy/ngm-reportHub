@@ -53,7 +53,8 @@
 								class="validate" 
 								min="0"
 								ng-model="shower.male"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
+								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, shower, 'showers' );
+														ngmClusterHelperNgWash.inputChange( 'ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 				<!-- label based on activity_detail_id -->
@@ -68,7 +69,8 @@
 								class="validate" 
 								min="0"
 								ng-model="shower.female"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
+								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, shower, 'showers' );
+														ngmClusterHelperNgWash.inputChange( 'ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 				<!-- label based on activity_detail_id -->
@@ -83,7 +85,8 @@
 								class="validate" 
 								min="0"
 								ng-model="shower.male_disabled"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
+								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, shower, 'showers' );
+														ngmClusterHelperNgWash.inputChange( 'ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 				<!-- label based on activity_detail_id -->
@@ -98,7 +101,8 @@
 								class="validate" 
 								min="0"
 								ng-model="shower.female_disabled"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
+								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, shower, 'showers' );
+														ngmClusterHelperNgWash.inputChange( 'ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 				<!-- label based on activity_detail_id -->
