@@ -68,6 +68,12 @@ angular.module( 'ngmReportHub' )
 					keys: [ 'male', 'female', 'male_disabled', 'female_disabled' ],
 					beneficiaries: 100
 				},
+				// CTP
+				// cash
+				cash:{
+					keys: [ 'households' ],
+					beneficiaries: 6
+				},
 			},
 
 			
@@ -337,26 +343,13 @@ angular.module( 'ngmReportHub' )
 				}
 			},
 
-			// activity calculations by [ key ]
-			indicatorSum: function( beneficiary, association, indicators ) {
-				angular.forEach( indicators, function( d, i ){
-					beneficiary[ d ] = 0;
-				});
-				// sum each [ key ] per association
-				angular.forEach( beneficiary[ association ], function( a, i ){
-					angular.forEach( indicators, function( d, j ){
-						beneficiary[ d ] += a[ d ];
-					});
-				});
-			},
-
-
 			// TOTAL BENEFICIARIES
 
 			// calculate comboned beneficiaries per borehole by location / activity
 			totalActivityBeneficiaries: function( locations ){
 				angular.forEach( locations, function( l, i ){
 					angular.forEach( l.beneficiaries, function( b, j ){
+						b.cash_amount = 0;
 						b.households = 0;
 						b.boys = 0;
 						b.girls = 0;
@@ -376,6 +369,7 @@ angular.module( 'ngmReportHub' )
 											k === 'cash' ||
 											k === 'accountability') {
 									angular.forEach( d, function( activity, l ){
+										b.cash_amount += activity.cash_amount ? activity.cash_amount : 0;
 										b.households += activity.households;
 										b.boys += activity.boys;
 										b.girls += activity.girls;

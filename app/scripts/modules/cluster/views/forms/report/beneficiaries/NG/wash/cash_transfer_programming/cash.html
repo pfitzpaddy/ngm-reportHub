@@ -31,7 +31,7 @@
 								class="validate" 
 								min="0"
 								ng-model="ctp.households"
-								ng-change="ngmClusterHelperNgWash.indicatorSum( beneficiary, 'cash', [ 'households', 'cash_amount' ] );
+								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, ctp, 'cash' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-households-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
@@ -49,7 +49,7 @@
 								min="0"
 								ng-model="ctp.quantity"
 								ng-change="ctp.cash_amount = ctp.quantity;
-														ngmClusterHelperNgWash.indicatorSum( beneficiary, 'cash', [ 'households', 'cash_amount' ] );
+														ngmClusterHelperNgWash.indicatorOutput( project.report.locations, ctp, 'cash' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>

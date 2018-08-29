@@ -30,13 +30,18 @@
 
 			<!-- col s12 input -->
 			<div class="input-field col s12">
+
+
+				<!-- fuel_provision_water -->
 				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+								ng-if="beneficiary.activity_detail_id === 'fuel_provision_water'"
 								name="quantity"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="maintenance.quantity"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}' )"
+								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, maintenance, 'water' );
+														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
@@ -44,6 +49,19 @@
 				<label ng-if="beneficiary.activity_detail_id === 'fuel_provision_water'"
 								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
 								class="active">Quantity (m3/Per Month)</label>
+
+
+				<!-- monitoring, kits, repair -->
+				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
+								ng-if="beneficiary.activity_detail_id !== 'fuel_provision_water'"
+								name="quantity"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="maintenance.quantity"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}' )"
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>								
 
 				<label ng-if="beneficiary.activity_detail_id === 'operation_maintenance_monitoring'"
 								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
