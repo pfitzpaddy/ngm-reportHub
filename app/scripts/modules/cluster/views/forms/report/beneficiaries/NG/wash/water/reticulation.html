@@ -3,20 +3,18 @@
 <h5 class="report-location-title" style="padding-top:0px;">{{ beneficiary.activity_detail_name }} Details</h5>
 	
 	<!-- repeat -->
-  <div class="card-panel" ng-repeat="reticulation in beneficiary.water" 
-  			ng-init="$reticulationIndex = $index">
+  <div class="card-panel" ng-repeat="reticulation in beneficiary.water">
 
 	  <!-- reticulation title / btns -->
 	  <div class="row">
 	  	<div class="col s12 m6">
-				<h5 style="font-size: 1.32rem; padding-bottom:10px;">Reticulation Site {{ $reticulationIndex+1 }}</h5>
+				<h5 style="font-size: 1.32rem; padding-bottom:10px;">Reticulation Site {{ $index+1 }}</h5>
 			</div>
 			<div class="col s12 m6">
   			<div class="btn-floating waves-effect waves-light red lighten-2 right" 
 	  					title="Remove Reticulation"
 	  					ng-show="project.report.report_status !== 'complete'"
-	  					ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, 
-	  																													$reticulationIndex, 'water', '#reticulation-modal' )">
+	  					ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $index, 'water', '#reticulation-modal' )">
   				<i class="material-icons">clear</i>
   			</div>
 
@@ -26,7 +24,7 @@
 		<div class="row">
 
 			<div class="input-field col s12 m4">
-	      <input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}"
+	      <input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 				      	name="quantity"
 				      	type="number" 
 				      	class="validate" 
@@ -34,14 +32,14 @@
 				      	ng-model="reticulation.quantity"
 				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 				      	ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, reticulation, 'taps' );
-				      							ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}' )"
+				      							ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 								required>
-	      <label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}"
+	      <label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 	      				class="active">Taps Connected (Number)</label>
 			</div>
 
 			<div class="input-field col s12 m4">
-      	<select id="ngm-from_chlorinated_system-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}" 
+      	<select id="ngm-from_chlorinated_system-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
 	      					name="from_chlorinated_system"
 	      					class="validate"
 	      					ng-options="type.from_chlorinated_system_id as 
@@ -52,17 +50,17 @@
 	      																			'from_chlorinated_systems',
 	      																			'from_chlorinated_system_id', 
 	      																			'from_chlorinated_system_name',
-	      																			'ngm-from_chlorinated_system-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}' )"
+	      																			'ngm-from_chlorinated_system-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 	      					required>
 				<option value="">Select...</option>
 				</select>
-	      <label for="ngm-from_chlorinated_system-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}" 
+	      <label for="ngm-from_chlorinated_system-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
 	      				class="active" style="transform:translateY(-10%)">From Chlorinated System?</label>
 			</div>
 
 			<div class="input-field col s12 m4">
-      	<select id="ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}" 
+      	<select id="ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
 	      					name="water_turbidity_range"
 	      					class="validate"
 	      					ng-options="type.water_turbidity_range_id as 
@@ -73,12 +71,12 @@
 	      																			'water_turbidity_ranges',
 	      																			'water_turbidity_range_id', 
 	      																			'water_turbidity_range_name',
-	      																			'ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}' )"
+	      																			'ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 	      					required>
 				<option value="">Select...</option>
 				</select>
-	      <label for="ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}" 
+	      <label for="ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
 	      				class="active" style="transform:translateY(-10%)">Water Turbidity Range (NTU)</label>
 			</div>
 
@@ -87,7 +85,7 @@
 		<div class="row">
 
       <div class="input-field col s12 m6">
-        <input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}"
+        <input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
         		ngm-date
             type="text"
             name="created"
@@ -97,12 +95,12 @@
             on-close="ngmClusterBeneficiaries.datepicker.startOnClose( reticulation, reticulation.activity_start_date )"
             ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
             e-required/>
-	      <label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}"
+	      <label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 	      				class="active">Activity Start Date</label>
       </div>
 
       <div class="input-field col s12 m6">
-        <input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}"
+        <input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
         		ngm-date
             type="text"
             name="created"
@@ -112,7 +110,7 @@
             on-close="ngmClusterBeneficiaries.datepicker.endOnClose( reticulation, reticulation.activity_end_date )"
             ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
             e-required/>
-	      <label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $reticulationIndex }}"
+	      <label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 	      				class="active">Activity End Date</label>            
       </div>
 

@@ -2,8 +2,7 @@
 <h5 class="report-location-title" ng-if="beneficiary.sanitation.length" style="padding-top:0px;">Details</h5>
 	
 	<!-- repeat -->
-	<div class="card-panel" ng-repeat="shower in beneficiary.sanitation" 
-				ng-init="$showerIndex = $index">
+	<div class="card-panel" ng-repeat="shower in beneficiary.sanitation">
 
 		<!-- shower title / btns -->
 		<div class="row">
@@ -14,8 +13,7 @@
 				<div class="btn-floating waves-effect waves-light red lighten-2 right" 
 							title="Remove Shower"
 							ng-show="project.report.report_status !== 'complete'"
-							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, 
-																															$showerIndex, 'sanitation', '#shower-modal' )">
+							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $index, 'sanitation', '#shower-modal' )">
 					<i class="material-icons">clear</i>
 				</div>
 
@@ -26,18 +24,18 @@
 		<div class="row" ng-if="beneficiary.activity_detail_id === 'shower_cleaning_disinfection_monitoring'">
 
 			<div class="input-field col s12">
-				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
+				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								name="quantity"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="shower.quantity"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
+				<label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Quantity (Monitoring Visits)</label>
 			</div>
 
@@ -47,66 +45,66 @@
 		<div class="row" ng-if="beneficiary.activity_detail_id !== 'shower_cleaning_disinfection_monitoring'">
 			
 			<div class="input-field col s12 m3">
-				<input id="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
+				<input id="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								name="male"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="shower.male"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, shower, 'showers' );
-														ngmClusterHelperNgWash.inputChange( 'ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
+														ngmClusterHelperNgWash.inputChange( 'ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
+				<label for="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Showers for Males</label>
 			</div>
 
 			<div class="input-field col s12 m3">
-				<input id="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
+				<input id="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								name="female"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="shower.female"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, shower, 'showers' );
-														ngmClusterHelperNgWash.inputChange( 'ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
+														ngmClusterHelperNgWash.inputChange( 'ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
+				<label for="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Showers for Females</label>
 			</div>
 
 			<div class="input-field col s12 m3">
-				<input id="ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
+				<input id="ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								name="male_disabled"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="shower.male_disabled"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, shower, 'showers' );
-														ngmClusterHelperNgWash.inputChange( 'ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
+														ngmClusterHelperNgWash.inputChange( 'ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
+				<label for="ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Showers for Males Disabled</label>
 			</div>
 
 			<div class="input-field col s12 m3">
-				<input id="ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
+				<input id="ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								name="female_disabled"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="shower.female_disabled"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, shower, 'showers' );
-														ngmClusterHelperNgWash.inputChange( 'ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
+														ngmClusterHelperNgWash.inputChange( 'ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
+				<label for="ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Showers for Females Disabled</label>
 			</div>
 
@@ -119,7 +117,7 @@
 															beneficiary.activity_detail_id === 'shower_rehabilitation_mid_term'">
 
 			<div class="input-field col s12 m6">
-      	<select id="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}" 
+      	<select id="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
 	      					name="gender_marking"
 	      					class="validate"
 	      					ng-options="type.gender_marking_id as 
@@ -130,17 +128,17 @@
 	      																			'gender_markings',
 	      																			'gender_marking_id', 
 	      																			'gender_marking_name',
-	      																			'ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
+	      																			'ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 	      					required>
 				<option value="">Select...</option>
 				</select>
-	      <label for="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}" 
+	      <label for="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
 	      				class="active" style="transform:translateY(-10%)">Shower Gender Marking</label>
 			</div>
 
 			<div class="input-field col s12 m6">
-      	<select id="ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}" 
+      	<select id="ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
 	      					name="lock_installation"
 	      					class="validate"
 	      					ng-options="type.lock_installation_id as 
@@ -151,12 +149,12 @@
 	      																			'lock_installations',
 	      																			'lock_installation_id', 
 	      																			'lock_installation_name',
-	      																			'ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
+	      																			'ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 	      					required>
 				<option value="">Select...</option>
 				</select>
-	      <label for="ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}" 
+	      <label for="ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
 	      				class="active" style="transform:translateY(-10%)">Shower Lock Installation</label>
 			</div>
 
@@ -169,7 +167,7 @@
 															beneficiary.activity_detail_id === 'shower_lock_installation_mid_term'">
 
 			<div class="input-field col s12">
-				<select id="ngm-facility_status-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}" 
+				<select id="ngm-facility_status-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
 									name="gender_marking"
 									class="validate"
 									ng-options="type.facility_status_id as 
@@ -180,12 +178,12 @@
 																							'facility_status',
 																							'facility_status_id', 
 																							'facility_status_name',
-																							'ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
+																							'ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 									required>
 				<option value="">Select...</option>
 				</select>
-				<label for="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}" 
+				<label for="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
 								class="active" style="transform:translateY(-10%)">Facility Status</label>
 			</div>
 
@@ -195,7 +193,7 @@
 		<div class="row">
 
 			<div class="input-field col s12 m6">
-				<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
+				<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 						ngm-date
 						type="text"
 						name="created"
@@ -205,12 +203,12 @@
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( shower, shower.activity_start_date )"
 						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
 						e-required/>
-				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
+				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Activity Start Date</label>
 			</div>
 
 			<div class="input-field col s12 m6">
-				<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
+				<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 						ngm-date
 						type="text"
 						name="created"
@@ -220,7 +218,7 @@
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( shower, shower.activity_end_date )"
 						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
 						e-required/>
-				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
+				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Activity End Date</label>            
 			</div>
 

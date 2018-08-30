@@ -10,11 +10,12 @@ angular.module( 'ngmReportHub' )
 			[ '$http',
 				'$filter',
 				'$timeout',
+ 				'$injector',
 				'ngmAuth',
 				'ngmClusterHelperNgWashKeys',
 				'ngmClusterHelperNgWashLists',
 				'ngmClusterHelperNgWashValidation',
-				function( $http, $filter, $timeout, ngmAuth, ngmClusterHelperNgWashKeys, ngmClusterHelperNgWashLists, ngmClusterHelperNgWashValidation ) {
+				function( $http, $filter, $timeout, $injector, ngmAuth, ngmClusterHelperNgWashKeys, ngmClusterHelperNgWashLists, ngmClusterHelperNgWashValidation ) {
 
 		// definition
 		var ngmClusterHelperNgWash = {
@@ -59,6 +60,10 @@ angular.module( 'ngmReportHub' )
 					keys: [ 'male', 'female', 'male_disabled', 'female_disabled' ],
 					beneficiaries: 50
 				},
+				desludged:{
+					keys: [ 'quantity' ],
+					beneficiaries: 50
+				},
 				hand_washing:{
 					keys: [ 'quantity' ],
 					beneficiaries: 50
@@ -68,12 +73,23 @@ angular.module( 'ngmReportHub' )
 					keys: [ 'male', 'female', 'male_disabled', 'female_disabled' ],
 					beneficiaries: 100
 				},
+				// Hygiene
+				// kit
+				kits:{
+					keys: [ 'quantity' ],
+					beneficiaries: 6
+				},
 				// CTP
 				// cash
 				cash:{
 					keys: [ 'households' ],
 					beneficiaries: 6
 				},
+				// accountability
+				complaints:{
+					keys: [ 'complaints_recieved' ],
+					beneficiaries: 1
+				}
 			},
 
 			
@@ -92,7 +108,7 @@ angular.module( 'ngmReportHub' )
 			// UI UPDATES
 
 			// reset form
-			init_material_select:function(){
+			init_material_select: function(){
 				setTimeout(function(){ 
 					$( '.input-field input' ).removeClass( 'invalid' );
 					$( '.input-field input' ).removeClass( 'ng-touched' );
@@ -247,7 +263,7 @@ angular.module( 'ngmReportHub' )
 
 				// push
 				beneficiary[ association ].push( activity );
-				ngmClusterHelperNgWash.totalActivityBeneficiaries( locations );
+				ngmClusterHelperNgWash.setActivityBeneficiaries( locations );
 
 				// ensures page does not scroll to 5W activity input form
 				if ( btn_id ) { 
@@ -262,7 +278,8 @@ angular.module( 'ngmReportHub' )
 			// add new details
 			addDetails: function( d, obj ){
 				d.details.push( obj );
-				setTimeout(function(){ $( '.input-field select' ).material_select(); }, 100 );
+				// setTimeout(function(){ $( '.input-field select' ).material_select(); }, 100 );
+				ngmClusterHelperNgWash.init_material_select();
 			},
 
 
@@ -285,8 +302,8 @@ angular.module( 'ngmReportHub' )
 				ngmClusterHelperNgWash.beneficiary[ ngmClusterHelperNgWash.association ].splice( ngmClusterHelperNgWash.removeIndex, 1 );
 
 				// calculate location totals
-				ngmClusterHelperNgWash.totalActivityBeneficiaries( ngmClusterHelperNgWash.project.report.locations );
-
+				ngmClusterHelperNgWash.setActivityBeneficiaries( ngmClusterHelperNgWash.project.report.locations );
+				
 				// update db if id exists (stored in db)
 				if ( id ) {
 					ngmClusterHelperNgWash.project.save( false, false );
@@ -321,7 +338,7 @@ angular.module( 'ngmReportHub' )
 					// sadd
 					ngmClusterHelperNgWash.bSadd( b );
 					// calculate location totals
-					ngmClusterHelperNgWash.totalActivityBeneficiaries( locations );
+					ngmClusterHelperNgWash.setActivityBeneficiaries( locations );
 				}
 			},
 
@@ -339,52 +356,68 @@ angular.module( 'ngmReportHub' )
 					// make it sadd
 					ngmClusterHelperNgWash.bSadd( b );
 					// calculate beneficairy totals
-					ngmClusterHelperNgWash.totalActivityBeneficiaries( locations ); 
+					ngmClusterHelperNgWash.setActivityBeneficiaries( locations ); 
 				}
 			},
 
 			// TOTAL BENEFICIARIES
 
-			// calculate comboned beneficiaries per borehole by location / activity
-			totalActivityBeneficiaries: function( locations ){
+			// set total beneficiaries
+			setActivityBeneficiaries: function( locations ){
+
 				angular.forEach( locations, function( l, i ){
 					angular.forEach( l.beneficiaries, function( b, j ){
-						b.cash_amount = 0;
-						b.households = 0;
-						b.boys = 0;
-						b.girls = 0;
-						b.men = 0;
-						b.women = 0;
-						b.elderly_men = 0;
-						b.elderly_women = 0;
-						b.total_beneficiaries = 0;
-						// each association
-						angular.forEach( b, function( d, k ){
-							if ( Array.isArray( d ) ) {
-								// associations
-								if ( k === 'water' || 
-											k === 'boreholes' ||
-											k === 'sanitation' ||
-											k === 'hygiene' ||
-											k === 'cash' ||
-											k === 'accountability') {
-									angular.forEach( d, function( activity, l ){
-										b.cash_amount += activity.cash_amount ? activity.cash_amount : 0;
-										b.households += activity.households;
-										b.boys += activity.boys;
-										b.girls += activity.girls;
-										b.men += activity.men;
-										b.women += activity.women;
-										b.elderly_men += activity.elderly_men;
-										b.elderly_women += activity.elderly_women;
-										b.total_beneficiaries += activity.total_beneficiaries;
-									});
-								}
-							}
-						});
+
+						ngmClusterHelperNgWash.sumActivityBeneficiaries( b );
+
 					});
 				});
-			}
+			},
+
+			// sum beneficiaries
+			sumActivityBeneficiaries: function( b ) {
+
+				// set beneficiaries
+				b.cash_amount = 0;
+				b.households = 0;
+				b.boys = 0;
+				b.girls = 0;
+				b.men = 0;
+				b.women = 0;
+				b.elderly_men = 0;
+				b.elderly_women = 0;
+				b.total_beneficiaries = 0;
+				
+				// each association
+				angular.forEach( b, function( d, k ){
+					if ( Array.isArray( d ) ) {
+						// associations
+						if ( k === 'water' || 
+									k === 'boreholes' ||
+									k === 'sanitation' ||
+									k === 'hygiene' ||
+									k === 'cash' ||
+									k === 'accountability') {
+							angular.forEach( d, function( activity, l ){
+								b.cash_amount += activity.cash_amount ? activity.cash_amount : 0;
+								b.households += activity.households;
+								b.boys += activity.boys;
+								b.girls += activity.girls;
+								b.men += activity.men;
+								b.women += activity.women;
+								b.elderly_men += activity.elderly_men;
+								b.elderly_women += activity.elderly_women;
+								b.total_beneficiaries += activity.total_beneficiaries;
+							});
+						}
+					}
+				});
+			},
+
+			// sum beneficiaries
+			setBeneficiariesByLocation: function( b ) {
+
+			}			
 
 		}
 

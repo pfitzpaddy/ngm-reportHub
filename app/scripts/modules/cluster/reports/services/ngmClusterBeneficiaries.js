@@ -39,7 +39,8 @@ angular.module( 'ngmReportHub' )
           men:0,
           women:0,
           elderly_men:0,
-          elderly_women:0
+          elderly_women:0,
+          total_beneficiaries:0
         };
 
         // merge

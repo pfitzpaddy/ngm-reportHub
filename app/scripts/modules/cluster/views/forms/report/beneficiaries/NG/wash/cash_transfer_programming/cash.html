@@ -2,8 +2,7 @@
 <h5 class="report-location-title" ng-if="beneficiary.cash.length" style="padding-top:0px;">Details</h5>
 	
 	<!-- repeat -->
-	<div class="card-panel" ng-repeat="ctp in beneficiary.cash" 
-				ng-init="$ctpIndex = $index">
+	<div class="card-panel" ng-repeat="ctp in beneficiary.cash">
 
 		<!-- ctp title / btns -->
 		<div class="row">
@@ -14,7 +13,7 @@
 				<div class="btn-floating waves-effect waves-light red lighten-2 right" 
 							title="Remove Cash Transfer"
 							ng-show="project.report.report_status !== 'complete'"
-							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $ctpIndex, 'cash', '#cash-modal' )">
+							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $index, 'cash', '#cash-modal' )">
 					<i class="material-icons">clear</i>
 				</div>
 
@@ -25,24 +24,24 @@
 		<div class="row">		
 
 			<div class="input-field col s6">
-				<input id="ngm-households-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}"
+				<input id="ngm-households-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								name="households"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="ctp.households"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, ctp, 'cash' );
-														ngmClusterHelperNgWash.inputChange( 'ngm-households-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}' )"
+														ngmClusterHelperNgWash.inputChange( 'ngm-households-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}"
+				<label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Households</label>
 			</div>
 
 			<div class="input-field col s6">
-				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}"
+				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								name="quantity"
 								type="number" 
 								class="validate" 
@@ -50,12 +49,12 @@
 								ng-model="ctp.quantity"
 								ng-change="ctp.cash_amount = ctp.quantity;
 														ngmClusterHelperNgWash.indicatorOutput( project.report.locations, ctp, 'cash' );
-														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}' )"
+														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}"
+				<label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Cash Amount (Naira Per Household)</label>
 			</div>
 
@@ -65,7 +64,7 @@
 		<div class="row">
 
 			<div class="input-field col s12 m6">
-				<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}"
+				<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 						ngm-date
 						type="text"
 						name="created"
@@ -75,12 +74,12 @@
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( ctp, ctp.activity_start_date )"
 						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
 						e-required/>
-				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}"
+				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Activity Start Date</label>
 			</div>
 
 			<div class="input-field col s12 m6">
-				<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}"
+				<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 						ngm-date
 						type="text"
 						name="created"
@@ -90,7 +89,7 @@
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( ctp, ctp.activity_end_date )"
 						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
 						e-required/>
-				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}"
+				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Activity End Date</label>            
 			</div>
 

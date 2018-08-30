@@ -2,8 +2,7 @@
 <h5 class="report-location-title" ng-if="beneficiary.accountability.length" style="padding-top:0px;">Details</h5>
 	
 	<!-- repeat -->
-	<div class="card-panel" ng-repeat="accounts in beneficiary.accountability" 
-				ng-init="$accountsIndex = $index">
+	<div class="card-panel" ng-repeat="accounts in beneficiary.accountability">
 
 		<!-- accounts title / btns -->
 		<div class="row">
@@ -14,7 +13,7 @@
 				<div class="btn-floating waves-effect waves-light red lighten-2 right" 
 							title="Remove Accountability Activity"
 							ng-show="project.report.report_status !== 'complete'"
-							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $accountsIndex, 'accountability', '#accounts-modal' )">
+							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $index, 'accountability', '#accounts-modal' )">
 					<i class="material-icons">clear</i>
 				</div>
 
@@ -25,78 +24,79 @@
 		<div class="row">
 
 			<div class="input-field col s12 m3">
-				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}"
+				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								name="quantity"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="accounts.quantity"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}' )"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- label based on activity_detail_id -->
 				<label ng-if="beneficiary.activity_detail_id === 'complaints_boxes'"
-								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Complaints Boxes Onsite</label>
 
 				<label ng-if="beneficiary.activity_detail_id === 'toll_free_line'"
-								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Toll Free Lines Made Available</label>
 
 				<label ng-if="beneficiary.activity_detail_id === 'help_desk'"
-								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Help Desks Onsite</label>
 			</div>
 
 			<!-- complaints recieved -->
 			<div class="input-field col s12 m3">
-				<input id="ngm-complaints_recieved-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}"
+				<input id="ngm-complaints_recieved-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								name="complaints_recieved"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="accounts.complaints_recieved"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-complaints_recieved-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}' )"
+								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, accounts, 'complaints' );
+														ngmClusterHelperNgWash.inputChange( 'ngm-complaints_recieved-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-complaints_recieved-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}"
+				<label for="ngm-complaints_recieved-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Complaints Recieved</label>
 			</div>
 
 			<!-- complaints addressed -->
 			<div class="input-field col s12 m3">
-				<input id="ngm-complaints_addressed-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}"
+				<input id="ngm-complaints_addressed-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								name="complaints_addressed"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="accounts.complaints_addressed"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-complaints_addressed-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}' )"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-complaints_addressed-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-complaints_addressed-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}"
+				<label for="ngm-complaints_addressed-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Complaints Addressed</label>
 			</div>
 
 			<!-- complaints closed -->
 			<div class="input-field col s12 m3">
-				<input id="ngm-complaints_closed-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}"
+				<input id="ngm-complaints_closed-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								name="complaints_closed"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="accounts.complaints_closed"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-complaints_closed-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}' )"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-complaints_closed-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-complaints_closed-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}"
+				<label for="ngm-complaints_closed-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Complaints Closed</label>
 			</div>
 
@@ -106,7 +106,7 @@
 		<div class="row">
 
 			<div class="input-field col s12 m6">
-				<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}"
+				<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 						ngm-date
 						type="text"
 						name="created"
@@ -116,12 +116,12 @@
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( accounts, accounts.activity_start_date )"
 						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
 						e-required/>
-				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}"
+				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Activity Start Date</label>
 			</div>
 
 			<div class="input-field col s12 m6">
-				<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}"
+				<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 						ngm-date
 						type="text"
 						name="created"
@@ -131,7 +131,7 @@
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( accounts, accounts.activity_end_date )"
 						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
 						e-required/>
-				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountsIndex }}"
+				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Activity End Date</label>            
 			</div>
 
