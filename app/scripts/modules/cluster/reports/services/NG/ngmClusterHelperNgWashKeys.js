@@ -598,6 +598,8 @@ angular.module( 'ngmReportHub' )
 					template: 'committee.html',
 					association: 'sanitation',
 					measurement: {
+						male: 0,
+						female: 0,
 						stipend_id: 'no',
 						stipend_name: 'No',
 						stipend_amount: 0,
@@ -623,6 +625,8 @@ angular.module( 'ngmReportHub' )
 					template: 'committee.html',
 					association: 'sanitation',
 					measurement: {
+						male: 0,
+						female: 0,
 						stipend_id: 'no',
 						stipend_name: 'No',
 						stipend_amount: 0,

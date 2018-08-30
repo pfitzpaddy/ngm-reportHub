@@ -364,13 +364,84 @@ angular.module( 'ngmReportHub' )
 
 			// set total beneficiaries
 			setActivityBeneficiaries: function( locations ){
-
+				// set beneficiary populations
 				angular.forEach( locations, function( l, i ){
 					angular.forEach( l.beneficiaries, function( b, j ){
+						if ( 	
+									// water - ops and maintenance
+									b.activity_detail_id === 'washcoms_establishment_training' ||
+									b.activity_detail_id === 'operation_maintenance_monitoring' ||
+									b.activity_detail_id === 'maintenance_repair_kits_provision_to_washcoms' ||
+									b.activity_detail_id === 'maintenance_repair_replacement_water_systems' ||
 
-						ngmClusterHelperNgWash.sumActivityBeneficiaries( b );
+									// sanitation - latrines
+									b.activity_detail_id === 'latrine_sludge_dumping_site' ||
+									b.activity_detail_id === 'latrine_monitoring' ||
 
+									// sanitation - waste management
+									b.activity_detail_id === 'cleaning_campaigns' ||
+									b.activity_detail_id === 'communal_refuse_pit_excavation_for_incineration_burial' ||
+									b.activity_detail_id === 'establishment_training_rotational_waste_management_committee' ||
+
+									// sanitation - committee
+									b.activity_detail_id === 'establishment_training_rotational_sanitation_committee' ||
+
+									// hygiene - hygiene_promotion
+									b.activity_detail_id === 'leaflet_flyer_distribution' ||
+									b.activity_detail_id === 'focus_group_sessions' ||
+									b.activity_detail_id === 'mass_campaigns' ||
+									b.activity_detail_id === 'speaker_campaigns' ||
+									b.activity_detail_id === 'other_campaigns' ||
+									b.activity_detail_id === 'hygiene_promotion_volunteers_recruitment_training' ||
+									b.activity_detail_id === 'hygiene_promotion_monitoring_visits' ||
+
+									// much easier - by description
+									b.activity_description_id === 'project_design_monitoring_evaluation' ||
+									b.activity_description_id === 'community_participation' || 
+									b.activity_description_id === 'transparency' 
+								) {
+							ngmClusterHelperNgWash.setActivityBeneficiariesBySite( l, b );
+						} else {
+							ngmClusterHelperNgWash.sumActivityBeneficiaries( b );
+						}
 					});
+				});
+			},
+
+			// sum beneficiaries
+			setActivityBeneficiariesBySite: function( l, b ) {
+
+				// set beneficiaries
+				b.households = l.households;
+				b.boys = l.boys;
+				b.girls = l.girls;
+				b.men = l.men;
+				b.women = l.women;
+				b.elderly_men = l.elderly_men;
+				b.elderly_women = l.elderly_women;
+				b.total_beneficiaries = l.site_population;
+
+				// each association
+				angular.forEach( b, function( d, k ){
+					if ( Array.isArray( d ) ) {
+						// associations
+						if ( k === 'water' || 
+									k === 'boreholes' ||
+									k === 'sanitation' ||
+									k === 'hygiene' ||
+									k === 'accountability') {
+							angular.forEach( d, function( activity, l ){
+								activity.households = l.households;
+								activity.boys = l.boys;
+								activity.girls = l.girls;
+								activity.men = l.men;
+								activity.women = l.women;
+								activity.elderly_men = l.elderly_men;
+								activity.elderly_women = l.elderly_women;
+								activity.total_beneficiaries = l.site_population;
+							});
+						}
+					}
 				});
 			},
 
@@ -412,12 +483,7 @@ angular.module( 'ngmReportHub' )
 						}
 					}
 				});
-			},
-
-			// sum beneficiaries
-			setBeneficiariesByLocation: function( b ) {
-
-			}			
+			}
 
 		}
 
