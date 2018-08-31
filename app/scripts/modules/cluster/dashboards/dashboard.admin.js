@@ -207,7 +207,7 @@ angular.module('ngmReportHub')
 						}
 					}
 
-					request.data = angular.merge(request.data, obj);
+					request.data = angular.merge( request.data, obj );
 
 					return request;
 				},
