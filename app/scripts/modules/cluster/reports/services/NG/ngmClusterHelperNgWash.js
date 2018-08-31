@@ -205,6 +205,8 @@ angular.module( 'ngmReportHub' )
 
 				// slight timeout to capture UI changes
 				$timeout(function(){
+
+					console.log('detailsChange')
 					
 					// beneficiary
 					if ( $beneficiary.activity_detail_id ) {
@@ -240,7 +242,12 @@ angular.module( 'ngmReportHub' )
 				var defaults = ngmClusterHelperNgWashKeys.keys.defaults;
 				
 				// create model using ngmClusterHelperNgWash keys ( based on activity_detail )
+				console.log('addActivity')
+				console.log( keys.measurement )
+				console.log( defaults )
 				var activity = angular.merge( {}, keys.measurement, defaults );
+
+				console.log( activity )
 
 				// in case of boreholes ( only saved ay db level if boreholes )
 				activity.borehole_lng = location.site_lng;
@@ -396,7 +403,6 @@ angular.module( 'ngmReportHub' )
 									b.activity_detail_id === 'hygiene_promotion_monitoring_visits' ||
 
 									// much easier - by description
-									b.activity_description_id === 'project_design_monitoring_evaluation' ||
 									b.activity_description_id === 'community_participation' || 
 									b.activity_description_id === 'transparency' 
 								) {

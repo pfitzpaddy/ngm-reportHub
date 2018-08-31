@@ -272,6 +272,140 @@ angular.module('ngmReportHub')
 
 				},
 
+				// get downloads
+				getDownloads: function(){
+					
+					// downloads
+					var downloads = [{
+							type: 'pdf',
+							color: 'blue',
+							icon: 'picture_as_pdf',
+							hover: 'Download Admin as PDF',
+							request: {
+								method: 'POST',
+								url: ngmAuth.LOCATION + '/api/print',
+								data: {
+									report: $scope.dashboard.report_file_name,
+									printUrl: $location.absUrl(),
+									downloadUrl: ngmAuth.LOCATION + '/report/',
+									user: $scope.dashboard.user,
+									pageLoadTime: 6200,
+									viewportWidth: 1400
+								}
+							},
+							metrics: $scope.dashboard.getMetrics( 'print', 'pdf' )
+					},{
+						type: 'csv',
+						color: 'blue lighten-2',
+						icon: 'assignment',
+						hover: 'Download Project Summaries as CSV',
+						request: {
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/cluster/project/getProjects',
+							data: $scope.dashboard.getProjectsRequest( { report: $scope.dashboard.cluster_id_filename +'_projects' + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
+						},
+						metrics: $scope.dashboard.getMetrics( 'projects_summary', 'csv' )
+					},{
+						type: 'csv',
+						color: 'blue lighten-2',
+						icon: 'assignment_late',
+						hover: 'Download ' + $scope.dashboard.report_type.charAt(0).toUpperCase() + $scope.dashboard.report_type.slice(1) + ' Reports ToDo',
+						request: {
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
+							data: angular.merge( $scope.dashboard.getRequest( 'reports_due', true ), { report: $scope.dashboard.cluster_id_filename + '_' + $scope.dashboard.report_type +'_reports_due_' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
+						},
+						metrics: $scope.dashboard.getMetrics( 'reports_due', 'csv' )
+					},{
+						type: 'csv',
+						color: 'blue lighten-2',
+						icon: 'assignment_turned_in',
+						hover: 'Download ' + $scope.dashboard.report_type.charAt(0).toUpperCase() + $scope.dashboard.report_type.slice(1) + ' Reports Complete',
+						request: {
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
+							data: angular.merge( $scope.dashboard.getRequest( 'reports_complete', true ), { report: $scope.dashboard.cluster_id_filename + '_' + $scope.dashboard.report_type + '_reports_complete_' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
+						},
+						metrics: $scope.dashboard.getMetrics( 'reports_complete', 'csv' )
+					},{
+						type: 'csv',
+						color: 'blue lighten-2',
+						icon: 'attach_money',
+						hover: 'Download Projects Financials as CSV',
+						request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'financial_report', report: $scope.dashboard.cluster_id_filename + '_ocha_financial_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'cluster_financial_report', 'csv' )
+					},{
+						type: 'csv',
+						color: 'blue lighten-2',
+						icon: 'group',
+						hover: 'Download Beneficiary Data as CSV',
+						request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.activity_filename + $scope.dashboard.cluster_id_filename + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'beneficiary_data', 'csv' )
+					},{
+						type: 'csv',
+						color: 'blue lighten-2',
+						icon: 'show_chart',
+						hover: 'Download Stock Data as CSV',
+						request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'stocks', report: $scope.dashboard.cluster_id_filename + '_stock_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'stocks', 'csv' )
+					}];
+
+					// ng wash dls
+					var ng_wash_dl = [{
+						type: 'csv',
+						color: 'teal lighten-3',
+						icon: 'compare_arrows',
+						hover: 'Download Accountability Data as CSV',
+						request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'accountability', report: $scope.dashboard.activity_filename + $scope.dashboard.cluster_id_filename + '_accountability_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'accountability_data', 'csv' )
+					},{
+						type: 'csv',
+						color: 'teal lighten-3',
+						icon: 'radio_button_checked',
+						hover: 'Download Borehole Data as CSV',
+						request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'boreholes', report: $scope.dashboard.cluster_id_filename + '_boreholes_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'borehole_data', 'csv' )
+					},{
+						type: 'csv',
+						color: 'teal lighten-3',
+						icon: 'local_activity',
+						hover: 'Download Cash Programming Data as CSV',
+						request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'cash', report: $scope.dashboard.cluster_id_filename + '_cash_programming-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'cash_programming', 'csv' )
+					},{
+						type: 'csv',
+						color: 'teal lighten-3',
+						icon: 'spa',
+						hover: 'Download Hygiene Data as CSV',
+						request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'hygiene', report: $scope.dashboard.cluster_id_filename + '_hygiene_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'hygiene_data', 'csv' )
+					},{
+						type: 'csv',
+						color: 'teal lighten-3',
+						icon: 'wc',
+						hover: 'Download Sanitation Data as CSV',
+						request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'sanitation', report: $scope.dashboard.cluster_id_filename + '_sanitation_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'sanitation_data', 'csv' )
+					},{
+						type: 'csv',
+						color: 'teal lighten-3',
+						icon: 'local_drink',
+						hover: 'Download Water Data as CSV',
+						request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'water', report: $scope.dashboard.cluster_id_filename + '_water_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'water_data', 'csv' )
+					}];
+
+					// NG, wash and Admin
+					if ( $scope.dashboard.admin0pcode === 'NG' &&
+								$scope.dashboard.cluster_id === 'wash' &&
+								$scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1  ) {
+						downloads = downloads.concat ( ng_wash_dl );
+					}
+
+					// return
+					return downloads;	
+				},
+
 				// menu
 				setMenu: function( role ){
 
@@ -535,6 +669,7 @@ angular.module('ngmReportHub')
 						});
 					}
 				},
+
 				// set dashboard
 				setDashboard: function(){
 
@@ -648,79 +783,7 @@ angular.module('ngmReportHub')
 							},
 							download: {
 								'class': 'col s12 m4 l4 hide-on-small-only',
-								downloads: [{
-									type: 'pdf',
-									color: 'blue',
-									icon: 'picture_as_pdf',
-									hover: 'Download Admin as PDF',
-									request: {
-										method: 'POST',
-										url: ngmAuth.LOCATION + '/api/print',
-										data: {
-											report: $scope.dashboard.report_file_name,
-											printUrl: $location.absUrl(),
-											downloadUrl: ngmAuth.LOCATION + '/report/',
-											user: $scope.dashboard.user,
-											pageLoadTime: 6200,
-											viewportWidth: 1400
-										}
-									},
-									metrics: $scope.dashboard.getMetrics( 'print', 'pdf' )
-								},{
-									type: 'csv',
-									color: 'blue lighten-2',
-									icon: 'assignment',
-									hover: 'Download Project Summaries as CSV',
-									request: {
-										method: 'POST',
-										url: ngmAuth.LOCATION + '/api/cluster/project/getProjects',
-										data: $scope.dashboard.getProjectsRequest( { report: $scope.dashboard.cluster_id_filename +'_projects' + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
-									},
-									metrics: $scope.dashboard.getMetrics( 'projects_summary', 'csv' )
-								},{
-									type: 'csv',
-									color: 'blue lighten-2',
-									icon: 'assignment_late',
-									hover: 'Download ' + $scope.dashboard.report_type.charAt(0).toUpperCase() + $scope.dashboard.report_type.slice(1) + ' Reports ToDo',
-									request: {
-										method: 'POST',
-										url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
-										data: angular.merge( $scope.dashboard.getRequest( 'reports_due', true ), { report: $scope.dashboard.cluster_id_filename + '_' + $scope.dashboard.report_type +'_reports_due_' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
-									},
-									metrics: $scope.dashboard.getMetrics( 'reports_due', 'csv' )
-								},{
-									type: 'csv',
-									color: 'blue lighten-2',
-									icon: 'assignment_turned_in',
-									hover: 'Download ' + $scope.dashboard.report_type.charAt(0).toUpperCase() + $scope.dashboard.report_type.slice(1) + ' Reports Complete',
-									request: {
-										method: 'POST',
-										url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
-										data: angular.merge( $scope.dashboard.getRequest( 'reports_complete', true ), { report: $scope.dashboard.cluster_id_filename + '_' + $scope.dashboard.report_type + '_reports_complete_' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
-									},
-									metrics: $scope.dashboard.getMetrics( 'reports_complete', 'csv' )
-								},{
-									type: 'csv',
-									color: 'blue lighten-2',
-									icon: 'attach_money',
-									hover: 'Download Projects Financials as CSV',
-									request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'financial_report', report: $scope.dashboard.cluster_id_filename + '_ocha_financial_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
-									metrics: $scope.dashboard.getMetrics( 'cluster_financial_report', 'csv' )
-								},{
-									type: 'csv',
-									color: 'blue lighten-2',
-									icon: 'group',
-									hover: 'Download Beneficiary Data as CSV',
-									request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.activity_filename + $scope.dashboard.cluster_id_filename + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
-									metrics: $scope.dashboard.getMetrics( 'beneficiary_data', 'csv' )
-								},{
-									type: 'csv',
-									color: 'blue lighten-2',
-									icon: 'show_chart',
-									hover: 'Download Stock Data as CSV',
-									request: $scope.dashboard.getCsvRequest( { csv: true, indicator: 'stocks', report: $scope.dashboard.cluster_id_filename + '_stock_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
-									metrics: $scope.dashboard.getMetrics( 'stocks', 'csv' )
-								}],
+								downloads: $scope.dashboard.getDownloads()
 							}
 						},
 						menu: [],
