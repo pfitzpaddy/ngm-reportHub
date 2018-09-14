@@ -1,0 +1,70 @@
+
+<style>
+
+.carousel {
+	min-height: 800px;
+}
+
+.icon {
+	padding-top:10px;
+}
+
+.icon .card {
+  width: 150px;
+  height: 150px;
+  padding: 30px 0px 30px 20px;
+  border-radius: 50% !important;
+  margin: 10px auto;
+}
+
+.title {
+	margin:20px 0px 10px;
+	font-weight:100;
+}
+
+form {
+	padding: 0px 20% !important;
+}
+
+.input-field .prefix {
+	padding-top: 8px;
+	color: #616161;
+}
+
+.helpers {
+	font-size:1.3rem !important;
+	margin-top:0px;
+	padding-bottom:4px;
+	cursor: pointer;
+}
+
+.action {
+	padding-top: 50px;
+}
+
+</style>
+
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+      	<a href="#{{ panel.profileHref }}/{{ panel.user.username }}" title="Go To Profile">
+	        <div class="card-content">
+	        	<div class="row">
+		        	<div class="col s12 m5">
+		          	<img src="https://www.gravatar.com/avatar/{{ panel.user.emailHash }}?s=188" title="{{ panel.user.name }}" class="circle">
+		          	<a href="https://en.gravatar.com/site/signup/" target="_blank" class="btn" style="bottom:30px;left:0px;position:absolute;">Update Photo</a>
+		        	</div>
+		        	<div class="col s12 m7" style="padding-left:0px;">
+						    <h4>{{ panel.user.name }}</h4>
+						    <h5>{{ panel.user.position }}</h5>
+						    <p>{{ panel.user.cluster }} Sector, {{ panel.user.admin0name }}</p>
+						    <p>{{ panel.user.email }}</p>
+						    <p>{{ panel.user.phone }}</p>
+		        	</div>
+		        </div>
+	        </div>
+        </a>
+      </div>
+    </div>
+  </div>
+

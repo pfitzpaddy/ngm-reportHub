@@ -38,7 +38,8 @@ angular
 		'ngmDrr',
     'ngmEpr',
     'ngmSbp',
-		'ngmWatchkeeper',
+		'ngmiMMAP',
+		'ngmNutrition',
 		// utils
 		'angularUtils.directives.dirPagination',
 		// widgets
@@ -94,6 +95,19 @@ angular
 					}],
 				}
 			})
+			// TEAM
+			.when( '/team', {
+				redirectTo: '/team/all/all/all/all'
+			})
+			.when( '/team/:admin0pcode/:organization_tag/:project/:cluster_id', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardTeamCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
 			// PROFILE
 			.when( '/profile', {
 				templateUrl: '/views/app/dashboard.html',
@@ -104,7 +118,15 @@ angular
 					}],
 				}
 			})
-
+			.when( '/profile/:username', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'DashboardProfileCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
 			// achievements
 			.when( '/reporthub', {
 				redirectTo: '/reporthub/2016'

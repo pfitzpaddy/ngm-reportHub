@@ -126,6 +126,16 @@ gulp.task('html:country', function () {
     .pipe(gulp.dest(yeoman.dist + '/scripts/modules/country/ethiopia/views'));
 });
 
+gulp.task('html:nutrition', function () {
+  return gulp.src(yeoman.app + '/scripts/modules/country/afghanistan/nutrition/views/**/*.html')
+    .pipe(gulp.dest(yeoman.dist + '/scripts/modules/country/afghanistan/nutrition/views'));
+});
+
+gulp.task('html:immap', function () {
+  return gulp.src(yeoman.app + '/scripts/modules/immap/views/**/*.html')
+    .pipe(gulp.dest(yeoman.dist + '/scripts/modules/immap/views'));
+});
+
 
 ///////////
 // Build //
@@ -135,7 +145,7 @@ gulp.task('clean:dist', function (cb) {
   rimraf('./dist', cb);
 });
 
-gulp.task('client:build', [ 'html', 'html:app', 'html:cluster', 'html:country', 'styles' ], function () {
+gulp.task('client:build', [ 'html', 'html:app', 'html:cluster', 'html:country', 'html:nutrition', 'html:immap', 'styles' ], function () {
   var jsFilter = $.filter('**/*.js', {restore: true});
   var cssFilter = $.filter('**/*.css', {restore: true});
   var gulpUtil = require('gulp-util');
@@ -209,7 +219,7 @@ gulp.task('copy:drr', function () {
     })))
     .pipe(gulp.dest(yeoman.dist + '/images/snapshots/drr'));
 });
-gulp.task('copy:immap', function () {
+gulp.task('copy:snapshots', function () {
   return gulp.src(yeoman.app + '/images/snapshots/immap/**/*.{gif,jpeg,jpg,png,svg}')
     .pipe($.cache($.imagemin({
         optimizationLevel: 5,
@@ -217,6 +227,15 @@ gulp.task('copy:immap', function () {
         interlaced: true
     })))
     .pipe(gulp.dest(yeoman.dist + '/images/snapshots/immap'));
+});
+gulp.task('copy:immap', function () {
+  return gulp.src(yeoman.app + '/images/immap/**/*.{gif,jpeg,jpg,png,svg}')
+    .pipe($.cache($.imagemin({
+        optimizationLevel: 5,
+        progressive: true,
+        interlaced: true
+    })))
+    .pipe(gulp.dest(yeoman.dist + '/images/immap'));
 });
 gulp.task('copy:reporthub', function () {
   return gulp.src(yeoman.app + '/images/snapshots/reporthub/**/*.{gif,jpeg,jpg,png,svg}')
@@ -259,6 +278,11 @@ gulp.task('copy:extras', function () {
     .pipe(gulp.dest(yeoman.dist));
 });
 
+gulp.task('copy:icons', function () {
+  return gulp.src(yeoman.app + '/styles/iconfont/**/*')
+    .pipe(gulp.dest(yeoman.dist + '/styles/iconfont'));
+});
+
 gulp.task('copy:widgets', function () {
   // widgets
   gulp.src(yeoman.app + '/scripts/widgets/**/*.js')
@@ -279,7 +303,7 @@ gulp.task('copy:mfonts', function () {
 });
 
 gulp.task('build', ['clean:dist'], function () {
-  runSequence(['copy:images', 'copy:cluster', 'copy:country', 'copy:cdc', 'copy:drr', 'copy:immap', 'copy:reporthub', 'copy:who-immap', 'bower:images', 'fullscreen:images', 'copy:static', 'copy:extras', 'copy:widgets', 'copy:fonts', 'copy:mfonts', 'client:build'], 'rename:index');
+  runSequence(['copy:images', 'copy:cluster', 'copy:country', 'copy:cdc', 'copy:drr', 'copy:snapshots', 'copy:immap', 'copy:reporthub', 'copy:who-immap', 'bower:images', 'fullscreen:images', 'copy:static', 'copy:extras', 'copy:icons', 'copy:widgets', 'copy:fonts', 'copy:mfonts', 'client:build'], 'rename:index');
 });
 
 gulp.task('default', ['build']);

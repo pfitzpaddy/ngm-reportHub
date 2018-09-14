@@ -89,7 +89,7 @@
                 </td>
 
                 <td data-title="'Month'" sortable="'reporting_period'">
-                    {{ row.reporting_period | date: 'MMMM' }}
+                    {{ table.formatUtcDate( row.reporting_period ) }}
                 </td>
                 <td data-title="'GoTo'" sortable="'reporting_period'">
 
@@ -102,7 +102,7 @@
                     </a>
 
                     <a href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" 
-                      title="GoTo {{ row.reporting_period | date: 'MMMM' }} Activity Report"
+                      title="GoTo {{ table.formatUtcDate( row.reporting_period ) }} Activity Report"
                       ng-if="row.project_title">
                       <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
                     </a>

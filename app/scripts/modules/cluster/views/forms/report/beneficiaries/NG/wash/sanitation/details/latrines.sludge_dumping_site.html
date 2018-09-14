@@ -1,0 +1,28 @@
+					<div class="col s12 m4" style="text-align:right;">
+						<p style="font-size:16px; padding-top:26px;">Site Preperation Activity {{ $index+1 }} </p>
+					</div>
+					
+					<div class="input-field col s12 m8">
+						<select id="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}-{{ $index }}" 
+											name="detail_type_id"
+											class="validate"
+											ng-options="detail.detail_type_id as 
+																		detail.detail_type_name for 
+																		detail in ngmClusterHelperNgWashLists.lists.sludge_dumping_site_details"
+											ng-change="ngmClusterHelperNgWash.selectChange( detail, 
+																								'sludge_dumping_site_details',
+																								'detail_type_id', 
+																								'detail_type_name',
+																								'ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}-{{ $index }}' )"
+											ng-model="detail.detail_type_id"
+											ng-disabled="!rowform.$visible || project.report.report_status === 'complete'"
+											required>
+						<option value="">Select... </option>
+						</select>
+						<label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}-{{ $index }}" 
+										class="active" style="transform:translateY(-10%)">Site Preperation</label>
+					</div>
+<script>
+	// init
+	setTimeout(function(){ $( '.input-field select' ).material_select();  }, 400 );
+</script>

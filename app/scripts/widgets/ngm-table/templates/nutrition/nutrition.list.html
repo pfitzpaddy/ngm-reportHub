@@ -1,0 +1,77 @@
+
+<style>
+
+.count, .label {
+  z-index: 1 !important;
+}
+
+.ng-table th.sortable .sort-indicator {
+  color: #2196F3;
+  font-weight: 400;
+}
+
+.pagination li.active {
+    background-color: #009688;
+}
+
+</style>
+
+<!-- ngTable -->
+<div class="row" ng-if="data.length">
+  <div class="col s12 m12 l12">
+    <div class="card">
+      <ul class="collection with-header">
+        <li class="{{ table.headerClass }}"><h5 class="report-work-title {{ table.headerText }}"><i class="material-icons left">{{ table.headerIcon }}</i>{{ table.headerTitle }}</h5></li>
+        <li class="collection-item avatar" style="padding:10px;">
+
+          <!-- if data -->
+          <div ng-if="data.length">
+            <table class="centered highlight responsive-table" ng-table="table.tableParams">
+
+              <div id="delete-modal" class="modal">
+                  <div class="modal-content">
+                    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Delete Weekly Report</h4>
+                  </div>
+                  <div class="modal-footer">
+                    <a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+                    <a ng-click="table.deleteForm(table.pk, table.dataid)" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Delete report!</a>
+                  </div>
+              </div>
+
+              <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;" ng-click="">
+
+                <td data-title="'Week'" sortable="'reporting_week'">
+                    {{ row.reporting_start_date + ' (' + row.reporting_week + ')' }}
+                </td>
+                <td data-title="'Focal Point'" sortable="'focal_point_name'">
+                  {{ row.focal_point_name }}
+                </td>
+                <td data-title="'Email'" sortable="'focal_point_email'">
+                  {{ row.focal_point_email }}
+                </td>
+                <td data-title="'Organization'" sortable="'organization_name'">
+                    {{ row.organization_name + ' (' + row.organization + ')' }}
+                </td>
+                <td data-title="'Submitted'" sortable="'_submission_time'">
+                    {{ row._submission_time }}
+                </td>
+                <td style="white-space: nowrap">
+                    <div class="buttons">
+                        <div id ='nutrition-edit-btn{{row.dataid}}' class="btn btn-small waves-effect waves-light" ng-click="table.fetchData(row.pk,row.dataid)" title="Edit">
+                          <i class="material-icons">create</i>
+                        </div>
+                        <div id ='nutrition-delete-btn{{row.dataid}}' class="btn btn-small red lighten-2 waves-effect waves-light" ng-click="table.modalDelete('delete-modal', row.pk, row.dataid);" title="Remove"
+                            ng-disabled="">
+                          <i class="material-icons">delete</i>
+                        </div>
+                      </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

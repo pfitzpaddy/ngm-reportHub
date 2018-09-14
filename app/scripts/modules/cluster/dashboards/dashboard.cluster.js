@@ -7,20 +7,21 @@
  */
 angular.module('ngmReportHub')
 	.controller('DashboardClusterCtrl', [
-			'$scope', 
-			'$q', 
-			'$http', 
-			'$location', 
+			'$scope',
+			'$q',
+			'$http',
+			'$location',
 			'$route',
 			'$rootScope',
-			'$window', 
-			'$timeout', 
-			'$filter', 
+			'$window',
+			'$timeout',
+			'$filter',
 			'ngmUser',
 			'ngmAuth',
 			'ngmData',
 			'ngmClusterHelper',
-		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData, ngmClusterHelper ) {
+			'ngmClusterLists',
+		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists ) {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
 				'AngularJS',
@@ -35,12 +36,15 @@ angular.module('ngmReportHub')
 
 			// create dews object
 			$scope.dashboard = {
-				
+
 				// parent
 				ngm: $scope.$parent.ngm,
-				
+
 				// current user
 				user: ngmUser.get(),
+
+				// when 'hq'
+				pageLoadTime: 18900,
 
 				// report start
 				startDate: moment( $route.current.params.start ) .format( 'YYYY-MM-DD' ),
@@ -56,7 +60,7 @@ angular.module('ngmReportHub')
 
 				// lists
 				lists: {
-					clusters: ngmClusterHelper.getClusters(),
+					clusters: ngmClusterLists.getClusters( $route.current.params.admin0pcode ),
 					admin1: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin1List : [],
 					admin2: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin2List : [],
 					admin3: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin3List : []
@@ -80,43 +84,45 @@ angular.module('ngmReportHub')
 						'param': 'adminRpcode',
 						'active': 'hq',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/4w/hq/all'
+						'href': '/desk/#/cluster/5w/hq/all'
 					},{
 						'title': 'AFRO',
 						'param': 'adminRpcode',
 						'active': 'afro',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/4w/afro/all'
+						'href': '/desk/#/cluster/5w/afro/all'
 					},{
 						'title': 'EMRO',
 						'param': 'adminRpcode',
 						'active': 'emro',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/4w/emro/all'
+						'href': '/desk/#/cluster/5w/emro/all'
 					}]
 				}],
 
 				// admin
-				getPath: function( cluster_id, organization_tag, admin1pcode, admin2pcode ){
+				getPath: function( cluster_id, activity_type_id, organization_tag, admin1pcode, admin2pcode ){
 
 					if ( cluster_id !== 'rnr_chapter' ) {
-						var path = '/cluster/4w/' + $scope.dashboard.adminRpcode +
+						var path = '/cluster/5w/' + $scope.dashboard.adminRpcode +
 																	'/' + $scope.dashboard.admin0pcode +
 																	'/' + admin1pcode +
 																	'/' + admin2pcode +
 																	'/' + cluster_id +
+																	'/' + activity_type_id +
 																	'/' + organization_tag +
 																	'/' + $scope.dashboard.beneficiaries.join('+') +
 																	'/' + $scope.dashboard.startDate +
 																	'/' + $scope.dashboard.endDate;
 					} else {
-						var path = '/cluster/4w/' + $scope.dashboard.adminRpcode +
+						var path = '/cluster/5w/' + $scope.dashboard.adminRpcode +
 																	'/' + $scope.dashboard.admin0pcode +
 																	'/' + admin1pcode +
 																	'/' + admin2pcode +
 																	'/' + cluster_id +
+																	'/' + activity_type_id +
 																	'/' + organization_tag +
-																	'/returnee_undocumented+returnee_documented+refugee_pakistani' +
+																	'/returnee_undocumented+returnee_documented+refugee_pakistani' +																	
 																	'/' + $scope.dashboard.startDate +
 																	'/' + $scope.dashboard.endDate;
 					}
@@ -128,16 +134,16 @@ angular.module('ngmReportHub')
 				setUrl: function(){
 
 					// get url
-					var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+					var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
 
-					// if current location is not equal to path 
+					// if current location is not equal to path
 					if ( path !== $location.$$path ) {
 						$location.path( path );
 					}
 
 				},
 
-				// 
+				//
 				getRequest: function( obj ){
 					var request = {
 						method: 'POST',
@@ -148,6 +154,7 @@ angular.module('ngmReportHub')
 							admin1pcode: $scope.dashboard.admin1pcode,
 							admin2pcode: $scope.dashboard.admin2pcode,
 							cluster_id: $scope.dashboard.cluster_id,
+							activity_type_id: $scope.dashboard.activity_type_id,
 							organization_tag: $scope.dashboard.organization_tag,
 							beneficiaries: $scope.dashboard.beneficiaries,
 							start_date: $scope.dashboard.startDate,
@@ -177,7 +184,129 @@ angular.module('ngmReportHub')
 					}
 				},
 
-				// 
+				// downloads
+				getDownloads: function(){
+
+					var downloads = [{
+						id: 'cluster_dashboard_pdf',
+						type: 'pdf',
+						color: 'blue',
+						icon: 'picture_as_pdf',
+						hover: 'Download Dashboard as PDF',
+						request: {
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/print',
+							data: {
+								report:  $scope.dashboard.cluster_id + '_cluster_dashboard-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
+								printUrl: $location.absUrl(),
+								downloadUrl: ngmAuth.LOCATION + '/report/',
+								user: $scope.dashboard.user,
+								pageLoadTime: $scope.dashboard.pageLoadTime,
+								viewportWidth: 1400
+							}
+						},
+						metrics: $scope.dashboard.getMetrics( 'cluster_dashboard_pdf', 'pdf' )
+					},{
+						type: 'csv',
+						color: 'blue lighten-2',
+						icon: 'call',
+						hover: 'Download Cluster Contact List as CSV',
+						request: $scope.dashboard.getRequest( { csv: true, indicator: 'contacts', report: $scope.dashboard.cluster_id_filename + '_contacts_list-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'cluster_contact_list', 'csv' )
+					},{
+						type: 'csv',
+						color: 'blue lighten-2',
+						icon: 'assignment_turned_in',
+						hover: 'Download OCHA HRP Report as CSV',
+						request: $scope.dashboard.getRequest( { csv: true, indicator: 'ocha_report', report: $scope.dashboard.cluster_id_filename + '_ocha_hrp_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'cluster_ocha_report', 'csv' )
+					},{
+						type: 'csv',
+						color: 'blue lighten-2',
+						icon: 'attach_money',
+						hover: 'Download OCHA Financial Report as CSV',
+						request: $scope.dashboard.getRequest( { csv: true, indicator: 'financial_report', report: $scope.dashboard.cluster_id_filename + '_ocha_financial_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'cluster_financial_report', 'csv' )
+					},{
+						id: 'training_participants',
+						type: 'csv',
+						color: 'blue lighten-2',
+						icon: 'wc',
+						hover: 'Download Training Participants as CSV',
+						request: $scope.dashboard.getRequest( { csv: true, indicator: 'training_participants', report: $scope.dashboard.cluster_id_filename + '_training_participants_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'training_participants', 'csv' )
+					},{
+						type: 'csv',
+						color: 'blue lighten-2',
+						icon: 'group',
+						hover: 'Download Beneficiary Data as CSV',
+						request: $scope.dashboard.getRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.activity_filename + $scope.dashboard.cluster_id_filename + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'beneficiary_data', 'csv' )
+					},{
+						type: 'csv',
+						color: 'blue lighten-2',
+						icon: 'show_chart',
+						hover: 'Download Stock Data as CSV',
+						request: $scope.dashboard.getRequest( { csv: true, indicator: 'stocks', report: $scope.dashboard.cluster_id_filename + '_stock_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'stocks', 'csv' )
+					}];
+
+					// ng wash dls
+					var ng_wash_dl = [{
+						type: 'csv',
+						color: 'teal lighten-3',
+						icon: 'compare_arrows',
+						hover: 'Download Accountability Data as CSV',
+						request: $scope.dashboard.getRequest( { csv: true, indicator: 'accountability', report: $scope.dashboard.activity_filename + $scope.dashboard.cluster_id_filename + '_accountability_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'accountability_data', 'csv' )
+					},{
+						type: 'csv',
+						color: 'teal lighten-3',
+						icon: 'radio_button_checked',
+						hover: 'Download Borehole Data as CSV',
+						request: $scope.dashboard.getRequest( { csv: true, indicator: 'boreholes', report: $scope.dashboard.cluster_id_filename + '_boreholes_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'borehole_data', 'csv' )
+					},{
+						type: 'csv',
+						color: 'teal lighten-3',
+						icon: 'local_activity',
+						hover: 'Download Cash Programming Data as CSV',
+						request: $scope.dashboard.getRequest( { csv: true, indicator: 'cash', report: $scope.dashboard.cluster_id_filename + '_cash_programming-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'cash_programming', 'csv' )
+					},{
+						type: 'csv',
+						color: 'teal lighten-3',
+						icon: 'spa',
+						hover: 'Download Hygiene Data as CSV',
+						request: $scope.dashboard.getRequest( { csv: true, indicator: 'hygiene', report: $scope.dashboard.cluster_id_filename + '_hygiene_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'hygiene_data', 'csv' )
+					},{
+						type: 'csv',
+						color: 'teal lighten-3',
+						icon: 'wc',
+						hover: 'Download Sanitation Data as CSV',
+						request: $scope.dashboard.getRequest( { csv: true, indicator: 'sanitation', report: $scope.dashboard.cluster_id_filename + '_sanitation_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'sanitation_data', 'csv' )
+					},{
+						type: 'csv',
+						color: 'teal lighten-3',
+						icon: 'local_drink',
+						hover: 'Download Water Data as CSV',
+						request: $scope.dashboard.getRequest( { csv: true, indicator: 'water', report: $scope.dashboard.cluster_id_filename + '_water_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'water_data', 'csv' )
+					}];
+
+					// NG, wash and Admin
+					if ( $scope.dashboard.admin0pcode === 'ng' &&
+								$scope.dashboard.cluster_id === 'wash' &&
+								$scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1  ) {
+						downloads = downloads.concat ( ng_wash_dl );
+					}
+
+					return downloads;
+				},
+
+				//
 				setMenu: function(){
 
 					// rows
@@ -188,9 +317,13 @@ angular.module('ngmReportHub')
 							request = $scope.dashboard.getRequest( { list: true, indicator: 'organizations' } );
 
 					// SUPERADMIN
-					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) >= 0 ) { 
+					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) >= 0 ) {
 						$scope.model.menu = $scope.dashboard.menu;
 						if ( $scope.dashboard.adminRpcode !== 'hq' ) {
+
+							// page load time
+							$scope.dashboard.pageLoadTime = $scope.dashboard.admin0pcode === 'all' ? 9600 : 6200;
+
 							var menu = {
 								'afro': {
 									'id': 'search-country',
@@ -198,11 +331,29 @@ angular.module('ngmReportHub')
 									'title': 'Country',
 									'class': 'teal lighten-1 white-text',
 									'rows': [{
+										'title': 'Democratic Republic of Congo',
+										'param': 'admin0pcode',
+										'active': 'cd',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/5w/afro/cd'
+									},{
 										'title': 'Ethiopia',
 										'param': 'admin0pcode',
 										'active': 'et',
 										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-										'href': '/desk/#/cluster/4w/afro/et'
+										'href': '/desk/#/cluster/5w/afro/et'
+									},{
+										'title': 'Nigeria',
+										'param': 'admin0pcode',
+										'active': 'ng',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/5w/afro/ng'
+									},{
+										'title': 'South Sudan',
+										'param': 'admin0pcode',
+										'active': 'ss',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/5w/afro/ss'
 									}]
 								},
 								'emro': {
@@ -215,7 +366,19 @@ angular.module('ngmReportHub')
 										'param': 'admin0pcode',
 										'active': 'af',
 										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-										'href': '/desk/#/cluster/4w/emro/af'
+										'href': '/desk/#/cluster/5w/emro/af'
+									},{
+										'title': 'Somalia',
+										'param': 'admin0pcode',
+										'active': 'so',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/5w/emro/so'
+									},{
+										'title': 'Syria',
+										'param': 'admin0pcode',
+										'active': 'sy',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/5w/emro/sy'
 									}]
 								}
 							}
@@ -237,10 +400,9 @@ angular.module('ngmReportHub')
 						}
 
 						// clusters
-						$scope.dashboard.lists.clusters.unshift({ cluster_id: 'cvwg', cluster: 'Multi-Purpose Cash' });
 						$scope.dashboard.lists.clusters.unshift({ cluster_id: 'all', cluster: 'ALL' });
 						angular.forEach( $scope.dashboard.lists.clusters, function(d,i){
-							var path = $scope.dashboard.getPath( d.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+							var path = $scope.dashboard.getPath( d.cluster_id, 'all', $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
 							clusterRows.push({
 								'title': d.cluster,
 								'param': 'cluster_id',
@@ -260,10 +422,35 @@ angular.module('ngmReportHub')
 							'rows': clusterRows
 						});
 
+						// activity menu 
+						if ( $scope.dashboard.cluster_id === 'protection' ) {
+						
+							$scope.model.menu.push({
+								'search': false,
+								'id': 'search-cluster-activity',
+								'icon': 'assignment_turned_in',
+								'title': 'Activity',
+								'class': 'teal lighten-1 white-text',
+								'rows': [{
+									'title': 'ALL',
+									'param': 'activity_type_id',
+									'active': 'all',
+									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+									'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'all', $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode )
+								},{
+									'title': 'CPiE',
+									'param': 'activity_type_id',
+									'active': 'cpie',
+									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+									'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'cpie', $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode )
+								}]
+							});
+						}
+
 						// organizations
 						organizations.forEach(function( d, i ){
 							if ( d ) {
-								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, d.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, d.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
 								orgRows.push({
 									'title': d.organization,
 									'param': 'organization_tag',
@@ -274,16 +461,19 @@ angular.module('ngmReportHub')
 							}
 						});
 
-						// organization
-						$scope.model.menu.push({
-							'search': true,
-							'id': 'search-cluster-organization',
-							'icon': 'supervisor_account',
-							'title': 'Organization',
-							'class': 'teal lighten-1 white-text',
-							'rows': orgRows
-						});
+						// organization & disable if public
+						if ($scope.dashboard.user.username !== 'welcome') {
+				
+							$scope.model.menu.push({
+								'search': true,
+								'id': 'search-cluster-organization',
+								'icon': 'supervisor_account',
+								'title': 'Organization',
+								'class': 'teal lighten-1 white-text',
+								'rows': orgRows
+							});
 
+					    }
 						// if country selected
 						if ( $scope.dashboard.admin0pcode !== 'all' ) {
 
@@ -295,9 +485,9 @@ angular.module('ngmReportHub')
 								admin1name: 'ALL',
 							});
 							angular.forEach( admin1List, function(d,i){
-								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, d.admin1pcode, 'all' );
+								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, d.admin1pcode, 'all' );
 								provinceRows.push({
-									'title': d.admin1name,
+									'title': d.inactive ? d.admin1name + ' (Old)' : d.admin1name,
 									'param': 'admin1pcode',
 									'active': d.admin1pcode,
 									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
@@ -327,7 +517,7 @@ angular.module('ngmReportHub')
 								admin2name: 'ALL',
 							});
 							angular.forEach( admin2List, function(d,i){
-								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, d.admin2pcode );
+								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, d.admin2pcode );
 								districtRows.push({
 									'title': d.admin2name,
 									'param': 'admin2pcode',
@@ -354,38 +544,47 @@ angular.module('ngmReportHub')
 
 				setCluster: function(){
 					if ( $scope.dashboard.cluster_id === 'cvwg' ) {
-						$scope.dashboard.cluster = { cluster_id: 'cvwg', cluster: 'Cash' };
+						$scope.dashboard.cluster = { cluster_id: 'cvwg', cluster: 'MPC' };
 					} else {
-						$scope.dashboard.cluster = $filter( 'filter' )( $scope.dashboard.lists.clusters, 
+						$scope.dashboard.cluster = $filter( 'filter' )( $scope.dashboard.lists.clusters,
 														{ cluster_id: $scope.dashboard.cluster_id }, true )[0];
 					}
 				},
 
 				// filter
 				setAdmin1: function(){
-					$scope.dashboard.data.admin1 = $filter( 'filter' )( $scope.dashboard.lists.admin1, 
+					$scope.dashboard.data.admin1 = $filter( 'filter' )( $scope.dashboard.lists.admin1,
 														{ admin0pcode: $scope.dashboard.admin0pcode.toUpperCase(),
 															admin1pcode: $scope.dashboard.admin1pcode }, true )[0];
 				},
 
 				setAdmin2: function(){
-					$scope.dashboard.data.admin2 = $filter( 'filter' )( $scope.dashboard.lists.admin2, 
+					$scope.dashboard.data.admin2 = $filter( 'filter' )( $scope.dashboard.lists.admin2,
 														{ admin0pcode: $scope.dashboard.admin0pcode.toUpperCase(),
 															admin1pcode: $scope.dashboard.admin1pcode,
 															admin2pcode: $scope.dashboard.admin2pcode }, true )[0];
 				},
 
-				// 
+				//
 				setTitle: function(){
 					// title
-					$scope.dashboard.title = '4W | ' + $scope.dashboard.adminRpcode.toUpperCase()
+					$scope.dashboard.title = '5W'
+				
 					// admin0
+					if ( $scope.dashboard.admin0pcode === 'all' ) {
+						$scope.dashboard.title = '5W | ' + $scope.dashboard.adminRpcode.toUpperCase()
+					}
+
 					if ( $scope.dashboard.admin0pcode !== 'all' ) {
 						$scope.dashboard.title += ' | ' + $scope.dashboard.admin0pcode.toUpperCase();
 					}
 					// cluster
 					if ( $scope.dashboard.cluster_id !== 'all' ) {
 						$scope.dashboard.title += ' | ' + $scope.dashboard.cluster.cluster.toUpperCase();
+					}
+					// activity
+					if ( $scope.dashboard.activity_type_id !== 'all' ) {
+						$scope.dashboard.title += ' | ' + $scope.dashboard.activity_type_id.toUpperCase();
 					}
 					// org
 					if ( $scope.dashboard.organization_tag !== 'all' ) {
@@ -409,16 +608,24 @@ angular.module('ngmReportHub')
 				// subtitle
 				setSubtitle: function(){
 					// subtitle
-					$scope.dashboard.subtitle = '4W Dashboard for ' + $scope.dashboard.adminRpcode.toUpperCase();
+					$scope.dashboard.subtitle = '5W Dashboard for ';
 					// admin0
+					if ( $scope.dashboard.admin0pcode === 'all' ) {
+						$scope.dashboard.subtitle = '5W Dashboard for ' + $scope.dashboard.adminRpcode.toUpperCase();
+					}
+
 					if ( $scope.dashboard.admin0pcode !== 'all' ) {
-						$scope.dashboard.subtitle += ' | ' + $scope.dashboard.admin0pcode.toUpperCase();
+						$scope.dashboard.subtitle +=  $scope.dashboard.admin0pcode.toUpperCase();
 					}
 					// cluster
 					if ( $scope.dashboard.cluster_id === 'all' ) {
 						$scope.dashboard.subtitle += ', ALL clusters';
 					}	else {
 						$scope.dashboard.subtitle += ', ' + $scope.dashboard.cluster.cluster.toUpperCase() + ' cluster';
+					}
+					// activity
+					if ( $scope.dashboard.activity_type_id !== 'all' ) {
+						$scope.dashboard.subtitle += ', ' + $scope.dashboard.activity_type_id.toUpperCase();
 					}
 					// org
 					if ( $scope.dashboard.organization_tag === 'all' ) {
@@ -454,6 +661,7 @@ angular.module('ngmReportHub')
 					$scope.dashboard.cluster_id = $route.current.params.cluster_id;
 					$scope.dashboard.organization_tag = $route.current.params.organization_tag;
 					$scope.dashboard.beneficiaries = $route.current.params.beneficiaries.split('+');
+					$scope.dashboard.activity_type_id = $route.current.params.activity_type_id;
 
 					// ADMIN
 					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 ) {
@@ -466,20 +674,28 @@ angular.module('ngmReportHub')
 					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'ADMIN' ) ) {
 						if ( !$scope.dashboard.user.dashboard_visits ) {
 							$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
-							$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
+							// $scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
 						}
-					}					
+					}
 
 					// plus dashboard_visits
 					$scope.dashboard.user.dashboard_visits++;
-					localStorage.setObject( 'auth_token', $scope.dashboard.user );					
+					localStorage.setObject( 'auth_token', $scope.dashboard.user );
 
 					// report name
 					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
-					
+
 					// filename cluster needs to be mpc for cvwg
 					// TODO refactor/update cvwg
 					$scope.dashboard.cluster_id_filename = $scope.dashboard.cluster_id !== 'cvwg' ? $scope.dashboard.cluster_id : 'mpc'
+
+					if ($route.current.params.activity_type_id!=='all'){
+						$scope.dashboard.activity_filename = $route.current.params.activity_type_id + '_';
+					}
+
+					if ($route.current.params.activity_type_id==='all'){
+						$scope.dashboard.activity_filename = '';
+					}
 
 					// model
 					$scope.model = {
@@ -513,7 +729,7 @@ angular.module('ngmReportHub')
 										if ( date !== $scope.dashboard.startDate ) {
 											// set new date
 											$scope.dashboard.startDate = date;
-											var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+											var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
 											$location.path( path );
 										}
 									}
@@ -529,7 +745,7 @@ angular.module('ngmReportHub')
 										if ( date !== $scope.dashboard.endDate ) {
 											// set new date
 											$scope.dashboard.endDate = date;
-											var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+											var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
 											$location.path( path );
 										}
 									}
@@ -537,61 +753,8 @@ angular.module('ngmReportHub')
 							},
 							download: {
 								'class': 'col s12 m4 l4 hide-on-small-only',
-								downloads: [{
-									type: 'pdf',
-									color: 'blue',
-									icon: 'picture_as_pdf',
-									hover: 'Download Dashboard as PDF',
-									request: {
-										method: 'POST',
-										url: ngmAuth.LOCATION + '/api/print',
-										data: {
-											report:  $scope.dashboard.cluster_id + '_cluster_dashboard-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
-											printUrl: $location.absUrl(),
-											downloadUrl: ngmAuth.LOCATION + '/report/',
-											user: $scope.dashboard.user,
-											pageLoadTime: 9600,
-											viewportWidth: 1400
-										}
-									},
-									metrics: $scope.dashboard.getMetrics( 'cluster_dashboard_pdf', 'pdf' )
-								},{
-									type: 'csv',
-									color: 'blue lighten-2',
-									icon: 'call',
-									hover: 'Download Cluster Contact List as CSV',
-									request: $scope.dashboard.getRequest( { csv: true, indicator: 'contacts', report: $scope.dashboard.cluster_id_filename + '_contacts_list-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
-									metrics: $scope.dashboard.getMetrics( 'cluster_contact_list', 'csv' )
-								},{
-									type: 'csv',
-									color: 'blue lighten-2',
-									icon: 'assignment_turned_in',
-									hover: 'Download OCHA HRP Report as CSV',
-									request: $scope.dashboard.getRequest( { csv: true, indicator: 'ocha_report', report: $scope.dashboard.cluster_id_filename + '_ocha_hrp_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
-									metrics: $scope.dashboard.getMetrics( 'cluster_ocha_report', 'csv' )
-								},{
-									type: 'csv',
-									color: 'blue lighten-2',
-									icon: 'attach_money',
-									hover: 'Download OCHA Financial Report as CSV',
-									request: $scope.dashboard.getRequest( { csv: true, indicator: 'financial_report', report: $scope.dashboard.cluster_id_filename + '_ocha_financial_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
-									metrics: $scope.dashboard.getMetrics( 'cluster_financial_report', 'csv' )
-								},{
-									type: 'csv',
-									color: 'blue lighten-2',
-									icon: 'group',
-									hover: 'Download Beneficiary Data as CSV',
-									request: $scope.dashboard.getRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.cluster_id_filename + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
-									metrics: $scope.dashboard.getMetrics( 'beneficiary_data', 'csv' )
-								},{
-									type: 'csv',
-									color: 'blue lighten-2',
-									icon: 'show_chart',
-									hover: 'Download Stock Data as CSV',
-									request: $scope.dashboard.getRequest( { csv: true, indicator: 'stocks', report: $scope.dashboard.cluster_id_filename + '_stock_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
-									metrics: $scope.dashboard.getMetrics( 'stocks', 'csv' )
-								}]
-							}							
+								downloads: $scope.dashboard.getDownloads()
+							}
 						},
 						menu: [],
 						rows: [{
@@ -683,7 +846,7 @@ angular.module('ngmReportHub')
 														continuousWorld: true
 													}
 												}
-											},								
+											},
 											overlays: {
 												projects: {
 													name: 'Projects',
@@ -714,6 +877,20 @@ angular.module('ngmReportHub')
 						}]
 					}
 
+					// remove training participants for AF
+					if ($scope.dashboard.admin0pcode.toUpperCase() === 'AF'){
+						$scope.model.header.download.downloads = $scope.model.header.download.downloads.filter(function( obj ) {
+							return obj.id !== 'training_participants';
+						  });
+					}
+					
+					// disallow public download
+					if ($scope.dashboard.user.username === 'welcome'){
+						$scope.model.header.download.downloads = $scope.model.header.download.downloads.filter(function( obj ) {
+							return obj.id === 'cluster_dashboard_pdf';
+						  });
+					}
+
 					// set
 					$scope.dashboard.setUrl();
 					$scope.dashboard.setMenu();
@@ -737,7 +914,7 @@ angular.module('ngmReportHub')
 
 			// if lists
 			if ( $scope.dashboard.lists.admin1.length ) {
-				
+
 				// set dashboard
 				$scope.dashboard.init();
 
@@ -756,8 +933,8 @@ angular.module('ngmReportHub')
 				}
 
 				// send request
-				$q.all([ 
-					$http.get( requests.getAdmin1List ), 
+				$q.all([
+					$http.get( requests.getAdmin1List ),
 					$http.get( requests.getAdmin2List ) ]).then( function( results ) {
 
 					// set dashboard lists

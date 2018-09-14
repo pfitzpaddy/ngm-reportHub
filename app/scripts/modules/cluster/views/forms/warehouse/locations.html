@@ -58,16 +58,16 @@
 
 							  <div class="input-field col s12 m3">
 							    <input id="ngm-project-hf_name" type="text" class="validate"
-							    	ng-model="report.options.warehouse.facility_type.facility_name"
+							    	ng-model="report.options.warehouse.site_type.site_name"
 							    	ng-disabled="!report.options.warehouse.admin2">
 							    <label for="ngm-project-hf_name">Warehouse Name *</label>
 							  </div>
 
 			      		<div class="col s12 m1" style="padding-top:15px;">
 			      			<button class="waves-effect waves-light btn-floating green lighten-2 right" 
-			      					title="Add Warehouse {{ report.options.warehouse.facility_type.facility_name }}"
+			      					title="Add Warehouse {{ report.options.warehouse.site_type.site_name }}"
 			      					ng-click="report.addLocation()"
-			      					ng-disabled="!report.options.warehouse.facility_type.facility_name">
+			      					ng-disabled="!report.options.warehouse.site_type.site_name">
 			      					<i class="material-icons">add</i>
 			      			</button>
 							  </div>					  
@@ -119,16 +119,16 @@
 
 							  <div class="input-field col s12 m2">
 							    <input id="ngm-project-hf_name" type="text" class="validate"
-							    	ng-model="report.options.warehouse.facility_type.facility_name"
+							    	ng-model="report.options.warehouse.site_type.site_name"
 							    	ng-disabled="!report.options.warehouse.admin3">
 							    <label for="ngm-project-hf_name">Warehouse Name *</label>
 							  </div>
 
 			      		<div class="col s12 m1" style="padding-top:15px;">
 			      			<button class="waves-effect waves-light btn-floating green lighten-2 right" 
-			      					title="Add Warehouse {{ report.options.warehouse.facility_type.facility_name }}"
+			      					title="Add Warehouse {{ report.options.warehouse.site_type.site_name }}"
 			      					ng-click="report.addLocation()"
-			      					ng-disabled="!report.options.warehouse.facility_type.facility_name">
+			      					ng-disabled="!report.options.warehouse.site_type.site_name">
 			      					<i class="material-icons">add</i>
 			      			</button>
 							  </div>					  
@@ -153,18 +153,18 @@
 								    	<!-- admin2 -->
 								    	<h5 class="report-location-title" ng-if="!report.options.list.admin3.length">
 														<i class="material-icons left" style="color: teal;">location_on</i>
-														{{ warehouse.admin1name }}, {{ warehouse.admin2name }}, {{ warehouse.facility_name }}
+														{{ warehouse.admin1name }}, {{ warehouse.admin2name }}, {{ warehouse.site_name }}
 											</h5>
 
 								    	<!-- admin3 -->
 								    	<h5 class="report-location-title" ng-if="report.options.list.admin3.length">
 														<i class="material-icons left" style="color: teal;">location_on</i>
-														{{ warehouse.admin1name }}, {{ warehouse.admin2name }}, {{ warehouse.admin3name }}, {{ warehouse.facility_name }}
+														{{ warehouse.admin1name }}, {{ warehouse.admin2name }}, {{ warehouse.admin3name }}, {{ warehouse.site_name }}
 											</h5>
 										</div>
 										<div class="col s12 m1 right" style="padding-top:15px;padding-right:34px;">
 											<a class="waves-effect waves-light btn-floating red lighten-2 right"
-									      	title="Remove {{ warehouse.admin1name }} Warehouse {{ warehouse.facility_name }}"
+									      	title="Remove {{ warehouse.admin1name }} Warehouse {{ warehouse.site_name }}"
 									      	ng-click="report.removeLocationModal( $index )"><i class="material-icons">clear</i>
 									    </a>
 										</div>

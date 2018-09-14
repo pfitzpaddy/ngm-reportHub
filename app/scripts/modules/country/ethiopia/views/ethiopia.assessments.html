@@ -17,8 +17,26 @@
 </style>
 
 <div class="row">
+
+  <!-- team -->
   <div class="col s12 m4">
-    <a href="#/cluster">
+    <a href="#/team">
+      <div class="card small blue-grey darken-1 hoverable">
+        <div class="card-image">
+          <img src="images/immap/team.jpg">
+        </div>
+        <div class="card-content white-text">
+          <p class="card-title">{{ panel.user.organization }} Team</p>
+        </div>
+        <div class="card-action">
+          <a class="left" href="#/team">View Team</a>
+        </div>
+      </div>
+     </a>
+  </div>
+
+  <div class="col s12 m4">
+    <a href="#/cluster/projects">
      <div class="card small blue-grey darken-1 hoverable">
         <div class="card-image">
           <img src="images/cluster/projects-ET.jpg">
@@ -27,11 +45,32 @@
           <p class="card-title">Projects</p>
         </div>
         <div class="card-action">
-          <a class="left" href="#/cluster">View Projects</a>
+          <a class="left" href="#/cluster/projects">View Projects</a>
         </div>
       </div>
     </a>
   </div>
+
+  <div class="col s12 m4">
+    <a href="#/cluster/stocks">
+      <div class="card small blue-grey darken-1 hoverable">
+        <div class="card-image">
+          <img src="images/cluster/stocks.jpg">
+        </div>
+        <div class="card-content white-text">
+          <p class="card-title">Stocks</p>
+        </div>
+        <div class="card-action">
+          <a href="#/cluster/stocks">Go to {{ panel.organization.organization }} Stocks</a>
+        </div>
+      </div>
+     </a>
+  </div>
+
+</div>
+
+<div class="row">  
+
   <div class="col s12 m4">
  	 <div class="card small blue-grey darken-1 hoverable">
       <div class="card-image">
@@ -46,6 +85,8 @@
       </div>
     </div>
   </div>
+
+  <!-- 
   <div class="col s12 m4">
    <div class="card small blue-grey darken-1 hoverable">
       <div class="card-image">
@@ -56,8 +97,7 @@
       </div>
     </div>
   </div>
-</div>
-<div class="row">
+
   <div class="col s12 m4">
    <div class="card small blue-grey darken-1 hoverable">
       <div class="card-image">
@@ -70,4 +110,6 @@
       </div>
     </div>
   </div>
+   -->
+   
 </div>

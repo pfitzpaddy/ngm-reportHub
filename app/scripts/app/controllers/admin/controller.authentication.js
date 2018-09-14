@@ -22,11 +22,12 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
     '$location',
     '$timeout',
     '$filter',
+    '$q',
     'ngmAuth',
     'ngmUser',
     'ngmData',
     'config',
-    function( $scope, $http, $location, $timeout, $filter, ngmAuth, ngmUser, ngmData, config ){
+    function( $scope, $http, $location, $timeout, $filter, $q, ngmAuth, ngmUser, ngmData, config ){
 
       // project
       $scope.panel = {
@@ -35,21 +36,45 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
         user: ngmUser.get(),
 
+        btnDisabled: false,
+
+        btnActivate: config.user && config.user.status === 'deactivated' ? true : false,
+
+        btnDeactivate: config.user && config.user.status === 'active' ? true : false,
+
         // adminRegion
-        adminRegion: {
-          'AF': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0name: 'Afghanistan' },
-          'ET': { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0name: 'Ethiopia' },
-          'IQ': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0name: 'Iraq' },
-          'KE': { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0name: 'Kenya' },
-          'NG': { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0name: 'Nigeria' },
-          'SO': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0name: 'Somalia' },
-          'UA': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0name: 'Ukraine' },
-          'UR': { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0name: 'Uruk' }
-        },
+        adminRegion: [
+          { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'AF', admin0name: 'Afghanistan' },
+          { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0pcode: 'CD', admin0name: 'Democratic Republic of Congo' },
+          { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0pcode: 'ET', admin0name: 'Ethiopia' },
+          { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'IQ', admin0name: 'Iraq' },
+          { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0pcode: 'KE', admin0name: 'Kenya' },
+          { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0pcode: 'NG', admin0name: 'Nigeria' },
+          { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'SO', admin0name: 'Somalia' },
+          { adminRpcode: 'AFRO', adminRname: 'AFRO', admin0pcode: 'SS', admin0name: 'South Sudan' },
+          { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'SY', admin0name: 'Syria' },
+          { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'UA', admin0name: 'Ukraine' },
+          { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'UR', admin0name: 'Uruk' }
+        ],
+
+        // programme
+        programme:[
+          { programme_id: 'DRCWHOPHISP1', programme_name: 'DRCWHOPHISP1' },
+          { programme_id: 'ETWHOIMOSUPPORTP1', programme_name: 'ETWHOIMOSUPPORTP1' },
+          { programme_id: 'ETUSAIDOFDAIMOSUPPORTP1', programme_name: 'ETUSAIDOFDAIMOSUPPORTP1' },
+          { programme_id: 'WWCDCCOOPERATIVEAGREEMENTP11', programme_name: 'WWCDCCOOPERATIVEAGREEMENTP11' },
+          { programme_id: 'WWCDCCOOPERATIVEAGREEMENTP12', programme_name: 'WWCDCCOOPERATIVEAGREEMENTP12' },
+        ],
+
+        // duty stations
+        dutyStations: localStorage.getObject( 'dutyStations'),
 
         // cluster
         cluster: {
-          'cvwg': { cluster: 'Cash' },
+          'cvwg': { cluster: 'MPC' },
+          'agriculture': { cluster: 'Agriculture' },
+          'cccm_esnfi': { cluster: 'CCCM - Shelter' },
+          'education': { cluster: 'Education' },
           'eiewg': { cluster: 'EiEWG' },
           'esnfi': { cluster: 'ESNFI' },
           'fsac': { cluster: 'FSAC' },
@@ -68,7 +93,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             // set submitted for validation
             ngmLoginForm.$setSubmitted();
           } else {
-            
+
             // login
             ngmAuth
               .login({ user: $scope.panel.user }).success( function( result ) {
@@ -94,11 +119,66 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           }
         },
 
+        // open modal by id 
+        openModal: function( modal ) {
+          $( '#' + modal ).openModal({ dismissible: false });
+        },
+
+        // deactivate 
+        updateStatus: function ( status ) {
+          // set status
+          $scope.panel.user.status = status;
+          $scope.panel.update( true );
+          
+        },
+
+        // delete user!
+        delete: function () {
+          
+          // disable btns
+          $scope.panel.btnDisabled = true;
+
+          // return project
+          ngmData.get({
+            method: 'POST',
+            url: ngmAuth.LOCATION + '/api/delete',
+            data: {
+              user: $scope.panel.user
+            }
+          }).then( function( data ){
+            
+            if ( data.success ) {
+              // success message
+              Materialize.toast( 'Success! User Deleted!', 6000, 'success' );
+              $timeout( function(){
+                var path = ( ngmUser.get().organization === 'iMMAP' && ( ngmUser.get().admin0pcode === 'CD' || ngmUser.get().admin0pcode === 'ET' ) ) ? '/immap/team' : '/team';
+                $location.path( path );
+              }, 1000 );
+            } else {
+              Materialize.toast( 'Error! Try Again!', 6000, 'error' );
+            }
+
+          });
+        },
+
         // update profile
-        update: function(ngmProfileForm) {
+        update: function( reload ) {
+
+          // disable btns
+          $scope.panel.btnDisabled = true;
 
           // merge adminRegion
-          $scope.panel.user = angular.merge( {}, ngmUser.get(), $scope.panel.user );
+          $scope.panel.user = angular.merge( {}, $scope.panel.user,
+                                                  $filter('filter')( $scope.panel.adminRegion, { admin0pcode: $scope.panel.user.admin0pcode }, true)[0],
+                                                  $filter('filter')( $scope.panel.programme, { programme_id: $scope.panel.user.programme_id }, true)[0] );
+
+          // if immap and ET || CD
+          if ( $scope.panel.user.site_name ) {
+            var dutyStation = $filter('filter')( $scope.panel.dutyStations, { site_name: $scope.panel.user.site_name }, true)[0];
+                delete dutyStation.id;
+            // merge duty station
+            $scope.panel.user = angular.merge( {}, $scope.panel.user, dutyStation );
+          }
 
           // register
           ngmAuth
@@ -112,13 +192,25 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
               // success
               if ( result.success ){
-                // set localStorage
-                ngmUser.set( $scope.panel.user );
+                // set user and localStorage (if updating own profile)
+                if ( $scope.panel.user.username === ngmUser.get().username ) {
+                  $scope.panel.user = angular.merge( {}, $scope.panel.user, result.user );
+                  ngmUser.set( $scope.panel.user );
+                }
                 // success message
+                Materialize.toast( 'Success! Profile updated!', 6000, 'success' );
                 $timeout( function(){
-                  Materialize.toast( 'Success! Profile updated!', 3000, 'success' );
-                }, 1000);
-              }   
+                  
+                  // activate btn
+                  $scope.panel.btnDisabled = false;
+
+                  // redirect to team view and page refresh
+                  if ( reload ) {
+                    var path = ( ngmUser.get().organization === 'iMMAP' && ( ngmUser.get().admin0pcode === 'CD' || ngmUser.get().admin0pcode === 'ET' ) ) ? '/immap/team' : '/team';
+                    $location.path( path );
+                  }
+                }, 1000 );
+              }
 
             });
         },
@@ -127,9 +219,18 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         register: function( ngmRegisterForm ){
 
           // merge adminRegion
-          $scope.panel.user = angular.merge( {}, $scope.panel.user, 
-                                                  $scope.panel.adminRegion[ $scope.panel.user.admin0pcode ], 
+          $scope.panel.user = angular.merge( {}, $scope.panel.user,
+                                                  $filter('filter')( $scope.panel.programme, { programme_id: $scope.panel.user.programme_id }, true)[0],
+                                                  $filter('filter')( $scope.panel.adminRegion, { admin0pcode: $scope.panel.user.admin0pcode }, true)[0],
                                                   $scope.panel.cluster[ $scope.panel.user.cluster_id ] );
+
+          // if immap and ET || CD
+          if ( $scope.panel.user.site_name ) {
+            var dutyStation = $filter('filter')( $scope.panel.dutyStations, { site_name: $scope.panel.user.site_name }, true)[0];
+                delete dutyStation.id;
+            // merge duty station
+            $scope.panel.user = angular.merge( {}, $scope.panel.user, dutyStation );
+          }
 
           // register
           ngmAuth
@@ -166,14 +267,14 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             // user toast msg
             $timeout(function(){
               Materialize.toast('Your Email Is Being Prepared!', 3000, 'note');
-            }, 400);            
+            }, 400);
 
             // resend password email
-            ngmAuth.passwordResetSend({ 
-                user: $scope.panel.user, 
-                url: ngmAuth.LOCATION + '/desk/#/cluster/find/' 
+            ngmAuth.passwordResetSend({
+                user: $scope.panel.user,
+                url: ngmAuth.LOCATION + '/desk/#/cluster/find/'
               }).success( function( result ) {
-              
+
                 // go to password reset page
                 $( '.carousel' ).carousel( 'prev' );
 
@@ -204,12 +305,12 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             // set submitted for validation
             ngmResetPasswordForm.$setSubmitted();
           } else {
-            
+
             // register
             ngmAuth.passwordReset({ reset: $scope.panel.user, token: token })
               .success( function( result ) {
 
-              // go to default org page 
+              // go to default org page
               $location.path( '/' + result.app_home );
 
               // user toast msg
@@ -230,7 +331,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
         // RnR chapter validation
         organizationDisabled: function(){
-          
+
           var disabled = true;
           if ( $scope.panel.user && $scope.panel.user.admin0pcode && $scope.panel.user.cluster_id && $scope.panel.user.organization_name ) {
             // not R&R Chapter
@@ -256,6 +357,17 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           delete org.id;
           angular.merge( $scope.panel.user, org );
 
+          // update home page for iMMAP Ethiopia
+          if ( $scope.panel.user.organization === 'iMMAP' ) {
+            // add defaults as admin
+            // $scope.panel.user.app_home = '/immap/';
+            $scope.panel.user.app_home = '/cluster/admin/' + $scope.panel.user.adminRpcode.toLowerCase() + '/' + $scope.panel.user.admin0pcode.toLowerCase();
+            $scope.panel.user.roles = [ 'ADMIN', 'USER' ];
+            
+          } else {
+            delete $scope.panel.user.app_home;
+          }
+
           // validate
           if ( $scope.panel.user && $scope.panel.user.organization_name ) {
             // not R&R Chapter
@@ -279,7 +391,26 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
       }
 
-      // Merge defaults with config
+      // fetch duty stations
+      if ( !localStorage.getObject( 'dutyStations') ) {
+        // activities list
+        var getDutyStations = {
+          method: 'GET',
+          url: ngmAuth.LOCATION + '/api/list/getDutyStations'
+        }
+        // send request
+        $q.all([ $http( getDutyStations ) ] ).then( function( results ){
+          localStorage.setObject( 'dutyStations', results[0].data );
+          $scope.panel.dutyStations = results[0].data;
+        });
+
+      }
+
+      // if config user
+      if ( config.user ) {
+        $scope.panel.user = {};
+      }
+      // merge defaults with config
       $scope.panel = angular.merge( {}, $scope.panel, config );
 
       // get organizations
@@ -314,6 +445,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           $( '#ngm-country' ).on( 'change', function() {
             if( $( this ).find( 'option:selected' ).text() ) {
               $( '.country' ).css({ 'color': 'teal' });
+              $( 'select' ).material_select();
             }
           });
 
@@ -326,7 +458,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
         }, 900 );
 
-      });    
+      });
 
     }
 

@@ -14,7 +14,7 @@
   height: 150px;
   padding: 30px 0px 30px 20px;
   border-radius: 50% !important;
-  margin: 10px auto;	
+  margin: 10px auto;
 }
 
 .title {
@@ -24,10 +24,6 @@
 
 form {
 	padding: 0px 20% !important;
-}
-
-li {
-	padding-bottom:10px;
 }
 
 .input-field .prefix {
@@ -48,93 +44,317 @@ li {
 
 </style>
 
-  <div class="carousel">
+<!-- deactivate -->
+<div id="deactivate-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="font-weight:100; padding-top: 20px;"><i class="material-icons medium left">assignment_late</i>Deactivate User</h4>
+    <p style="padding-left: 76px;">Deactivate {{ panel.user.username }}?</p>
+  </div>
+  <div class="modal-footer">
+  	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="panel.updateStatus( 'deactivated' )" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Deactivate User!</a>
+  </div>
+</div>
 
-		<div class="icon center">
-			<!-- make it a circle -->
-			<div class="card">
-				<img title="Profile" src="images/registration.png" width="110%" style="margin-left:-20px;"/>
-			</div>
-			<h5 class="title">PROFILE</h5>
-		</div>
+<!-- activate -->
+<div id="activate-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="font-weight:100; padding-top: 20px;"><i class="material-icons medium left">assignment_turned_in</i>Activate User</h4>
+    <p style="padding-left: 76px;">Activate {{ panel.user.username }}?</p>
+  </div>
+  <div class="modal-footer">
+  	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="panel.updateStatus( 'active' )" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Activate User!</a>
+  </div>
+</div>
 
-		<form name="ngmProfileForm" class="col s12" novalidate>
+<!-- delete -->
+<div id="delete-modal" class="modal">
+  <div class="modal-content">
+    <h4 style="color: #E57373; font-weight:100; padding-top: 20px;"><i class="material-icons medium left">delete</i>Delete User</h4>
+    <p style="padding-left: 76px;">Delete {{ panel.user.username }}?</p>
+    <p style="padding-left: 76px;">WARNING! This action can not be undone!</p>
+  </div>
+  <div class="modal-footer">
+  	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    <a ng-click="panel.delete()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Delete User!</a>
+  </div>
+</div>
 
-	      <div class="row">
-	        <div class="input-field col s12">
-	        	<i class="material-icons prefix">account_circle</i>
-	          <input id="ngm-username" type="text" class="validate"
-							ng-model="panel.user.username"
-							required>
-	          <label for="ngm-username">Username</label>
-	        </div>
-	      </div>
+<!-- form -->
+  <div class="row">
+    <div class="col s12 m12 l8 offset-l2">
 
-	      <div class="row">
-	        <div class="input-field col s12">
-	        	<i class="material-icons prefix">accessibility</i>
-	          <input id="ngm-fullname" type="text" class="validate"
-							ng-model="panel.user.name"
-							required>
-	          <label for="ngm-fullname">Full Name</label>
-	        </div>
-	      </div>
+    	<form name="ngmProfileForm" novalidate style="padding:0px !important;">	
 
-	      <div class="row">
-	        <div class="input-field col s12">
-	        	<i class="material-icons prefix">personal_video</i>
-	          <input id="ngm-position" type="text" class="validate"
-							ng-model="panel.user.position"
-							required>
-	          <label for="ngm-position">Position</label>
-	        </div>
-	      </div>
+		    <div class="card z-depth-1" style="padding:0px 20% 5% !important;">
 
-	      <div class="row">
-	        <div class="input-field col s12">
-	        	<i class="material-icons prefix">phone</i>
-	          <input id="ngm-phone" type="tel" class="validate"
-							ng-model="panel.user.phone"
-							required>
-	          <label for="ngm-phone">Phone</label>
-	        </div>
-	      </div>
+					<div class="icon center">
+						<div class="card">
+							<img title="Profile" src="images/registration.png" width="110%" style="margin-left:-20px;"/>
+						</div>
+						<h5 class="title">PROFILE</h5>
+					</div>
 
-	      <div class="row">
-	        <div class="input-field col s12">
-	        	<i class="material-icons prefix">perm_identity</i>
-	          <input id="ngm-skype" type="text" class="validate"
-							ng-model="panel.user.skype"
-							required>
-	          <label for="ngm-skype">Skype ID</label>
-	        </div>
-	      </div>
+		    	<!-- btn as title! -->
+		   	 	<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">Profile</a>
+					
+					<!-- 
+		      <div class="row">
+		        <div class="input-field col s12">
+		        	<i class="material-icons prefix cluster">donut_large</i>
+						    <select class="validate"
+						    	id="ngm-cluster"
+						    	ng-model="panel.user.cluster_id"
+						    	ng-select="panel.onOrganizationSelected()"
+						    	required>
+						      <option value="" disabled selected>Select Cluster</option>
+									<option value="cvwg">Multi-Purpose Cash</option>
+									<option value="agriculture">Agriculture</option>
+									<option value="education">Education</option>
+						      <option value="eiewg">EiEWG</option>
+						      <option value="esnfi">ESNFI</option>
+						      <option value="fsac">FSAC</option>
+						      <option value="health">Health</option>
+						      <option value="nutrition">Nutrition</option>
+						      <option value="protection">Protection</option>
+						      <option value="rnr_chapter">R&R Chapter</option>
+						      <option value="wash">WASH</option>
+						    </select>
+						    <label for="ngm-cluster">Cluster</label>
+		        </div>
+		      </div>
+		      -->
 
-	      <div class="row">
-	        <div class="input-field col s12">
-	        	<i class="material-icons prefix">email</i>
-	          <input id="ngm-email" type="email" class="validate"
-							ng-model="panel.user.email"
-							required>
-	          <label for="ngm-email">Email</label>
-	        </div>
-	      </div>
+		      <div class="row">
+		        <div class="input-field col s12">
+		        	<i class="material-icons prefix">account_circle</i>
+		          <input id="ngm-username" type="text" class="validate"
+								ng-model="panel.user.username"
+								ng-disabled="panel.formDisabled()"
+								required>
+		          <label for="ngm-username">Username</label>
+		        </div>
+		      </div>
 
-			<div class="action center">
-				<button
-					class="btn btn-large waves-effect waves-teal" 
-					style="top:-40px;"
-					type="submit"
-					ng-disabled="ngmProfileForm.$invalid"
-					ng-click="panel.update(ngmProfileForm)">
-						UPDATE
-				</button>
-			</div>
+		      <div class="row">
+		        <div class="input-field col s12">
+		        	<i class="material-icons prefix">accessibility</i>
+		          <input id="ngm-fullname" type="text" class="validate"
+								ng-model="panel.user.name"
+								ng-disabled="panel.formDisabled()"
+								required>
+		          <label for="ngm-fullname">Full Name</label>
+		        </div>
+		      </div>
 
-    </form>
+		      <div class="row">
+		        <div class="input-field col s12">
+		        	<i class="material-icons prefix">personal_video</i>
+		          <input id="ngm-position" type="text" class="validate"
+								ng-model="panel.user.position"
+								ng-disabled="panel.formDisabled()"
+								required>
+		          <label for="ngm-position">Position</label>
+		        </div>
+				  </div>
 
+				</div>
+
+		    <div class="card z-depth-1" style="padding:5% 20% 5% !important;" 
+		    			ng-show="panel.user.organization === 'iMMAP' && 
+		    						( panel.user.admin0pcode === 'CD' || panel.user.admin0pcode === 'ET' )">
+
+		    	<!-- btn as title! -->
+		   	 	<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">Programme</a>
+
+					<!-- programme -->
+					<div class="row">
+						<div class="input-field col s12">
+		        	<i class="material-icons prefix cluster">donut_large</i>
+						    <select id="ngm-programme"
+	        					ng-options="list.programme_id as list.programme_name for list in panel.programme"
+	        					ng-model="panel.user.programme_id"
+	        					ng-disabled="panel.formDisabled()">Select Programme
+	        					<option value="" disabled selected>Select Programme</option>
+	        					</select>
+						    <label for="ngm-programme">Programme</label>
+		        </div>
+		      </div>
+
+					<!-- input-date directive -->
+					<div class="row">
+						<div class="input-field col s12" 
+									ng-if="panel.user.organization === 'iMMAP' && 
+										( panel.user.admin0pcode === 'CD' || panel.user.admin0pcode === 'ET' ) ">
+									<i class="material-icons prefix">date_range</i>
+									<input ngm-date
+									    type="text"
+									    name="created"
+									    id="ngm-contract-start-date"
+									    ng-model="panel.user.contract_start_date"
+									    format="dd mmm, yyyy"
+									    select-years="15"
+									    max="{{ panel.user.contract_end_date }}"
+									    ng-disabled="panel.formDisabled()"/>
+									<label for="ngm-contract-start-date">Contract Start Date</label>
+						</div>
+					</div>
+
+					<!-- input-date directive -->
+					<div class="row">
+						<div class="input-field col s12"
+									ng-if="panel.user.organization === 'iMMAP' && 
+										( panel.user.admin0pcode === 'CD' || panel.user.admin0pcode === 'ET' ) ">
+						  		<i class="material-icons prefix">date_range</i>
+									<input ngm-date
+									    type="text"
+									    name="created"
+									    id="ngm-contract-end-date"
+									    ng-model="panel.user.contract_end_date"
+									    format="dd mmm, yyyy"
+									    select-years="15"
+									    min="{{ panel.user.contract_start_date }}"
+									    ng-disabled="panel.formDisabled()"/>
+									<label for="ngm-contract-end-date">Contract End Date</label>
+						</div>
+					</div>
+
+		      <div class="row">
+		        <div class="input-field col s12">
+		        	<i class="material-icons prefix country">person_pin</i>
+		        	<select id="ngm-country" 
+		        					ng-options="location.admin0pcode as location.admin0name for location in panel.adminRegion"
+		        					ng-model="panel.user.admin0pcode"
+		        					ng-disabled="panel.formDisabled()">Select Country
+		        					<option value="">Select Country</option>
+		        					</select>
+						    <label for="ngm-country">Country</label>
+		        </div>
+		      </div>
+
+					<div class="row">
+						<div class="input-field col s12">
+		        	<i class="material-icons prefix cluster">location_on</i>
+						    <select id="ngm-duty-station"
+			        					ng-options="list.site_name as list.site_name for list in panel.dutyStations | filter: { admin0pcode: panel.user.admin0pcode } | orderBy:'site_name'"
+	        							ng-model="panel.user.site_name"
+	        							ng-disabled="panel.formDisabled()">Select Duty Station
+	        					<option value="" disabled selected>Select Station</option>
+	        					</select>
+						    <label for="ngm-duty-station">Duty Station</label>
+		        </div>
+		      </div>
+
+		      <!-- profile -->
+		      <div class="row">
+		        <div class="input-field col s12">
+		        	<i class="material-icons prefix">assignment_ind</i>
+		          <input id="ngm-profile" 
+		          				type="text"
+		          				class="validate"
+											ng-model="panel.user.profile">
+		          <label for="ngm-profile">Profile</label>
+		        </div>
+		      </div>
+
+		      <!-- software -->
+		      <div class="row">
+		        <div class="input-field col s12">
+		        	<i class="material-icons prefix">important_devices</i>
+		          <input id="ngm-software"
+		          				type="text"
+		          				class="validate"
+											ng-model="panel.user.software">
+		          <label for="ngm-software">Software</label>
+		        </div>
+		      </div>
+
+				</div>
+
+		    <div class="card z-depth-1" style="padding:5% 20% 5% !important;">
+
+		    	<!-- btn as title! -->
+		   	 	<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">Contact</a>
+
+		   	 	<!-- contacts -->
+		      <div class="row">
+		        <div class="input-field col s12">
+		        	<i class="material-icons prefix">phone</i>
+		          <input id="ngm-phone" type="tel" class="validate"
+								ng-model="panel.user.phone"
+								ng-disabled="panel.formDisabled()"
+								required>
+		          <label for="ngm-phone">Phone</label>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="input-field col s12">
+		        	<i class="material-icons prefix">perm_identity</i>
+		          <input id="ngm-skype" type="text" class="validate"
+								ng-model="panel.user.skype"
+								ng-disabled="panel.formDisabled()">
+		          <label for="ngm-skype">Skype ID</label>
+		        </div>
+		      </div>
+
+		      <div class="row">
+		        <div class="input-field col s12">
+		        	<i class="material-icons prefix">email</i>
+		          <input id="ngm-email" type="email" class="validate"
+								ng-model="panel.user.email"
+								ng-disabled="panel.formDisabled()"
+								required>
+		          <label for="ngm-email">Email</label>
+		        </div>
+		      </div>
+
+				</div>
+
+			</form>
+
+   	</div>
   </div>
 
+  <!-- update -->
+	<div class="action center">
+		<button
+				ng-if="!panel.formDisabled()"
+				class="btn btn-large waves-effect waves-teal"
+				style="top:-40px;"
+				type="submit"
+				ng-click="panel.update( false )"
+				ng-disabled="ngmProfileForm.$invalid || panel.btnDisabled">
+				<i class="material-icons left">edit</i>UPDATE
+		</button>
+		<button
+				ng-if="panel.activateUpdateVisible() && panel.btnDeactivate"
+				style="top:-40px;"
+				class="btn btn-large blue waves-effect waves-blue"
+				ng-click="panel.openModal( 'deactivate-modal' )"
+				ng-disabled="panel.btnDisabled">
+				<i class="material-icons left">assignment_late</i>DEACTIVATE
+		</button>
+		<button
+				ng-if="panel.activateUpdateVisible() && panel.btnActivate"
+				style="top:-40px;"
+				class="btn btn-large blue waves-effect waves-blue"
+				ng-click="panel.openModal( 'activate-modal' )"
+				ng-disabled="panel.btnDisabled">
+				<i class="material-icons left">assignment_turned_in</i>ACTIVATE
+		</button>
+		<button
+				ng-if="panel.activateUpdateVisible()"
+				style="top:-40px;"
+				class="btn btn-large red lighten-2 waves-effect waves-red"
+				ng-click="panel.openModal( 'delete-modal' )"
+				ng-disabled="panel.btnDisabled">
+				<i class="material-icons left">delete</i>DELETE
+		</button>
+	</div>
+
+  <!-- </div> -->
 	<div>
 		<!-- footer -->
 		<div style="background: {{ panel.style.lightPrimaryColor }}; height:20px;"></div>
@@ -142,4 +362,13 @@ li {
 			<p class="ngm-menu-footer-body">Supported by <a class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>
 		</div>
 	</div>
+
+	<script>
+
+		// init
+		setTimeout(function(){
+			$( 'select' ).material_select();
+		}, 100 );
+
+	</script>
 

@@ -67,6 +67,11 @@ angular.module('ngm.widget.table', ['ngm.provider'])
           counts: []
         },
 
+        formatUtcDate: function ( date ) {
+          // return moment
+          return moment.utc( date ).format('MMMM');
+        },
+
         // on row click
         rowClick: function( newTab, href ){
 

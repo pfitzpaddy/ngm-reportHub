@@ -7,16 +7,16 @@
  */
 angular.module('ngmReportHub')
 	.controller('ClusterOrganizationStockReportCtrl', [
-			'$scope', 
-			'$route', 
-			'$q', 
-			'$http', 
-			'$location', 
+			'$scope',
+			'$route',
+			'$q',
+			'$http',
+			'$location',
 			'$anchorScroll',
-			'$timeout', 
+			'$timeout',
 			'ngmAuth',
 			'ngmData',
-			'ngmUser', 
+			'ngmUser',
 	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
@@ -31,7 +31,7 @@ angular.module('ngmReportHub')
 
 		// empty Project
 		$scope.report = {
-			
+
 			// parent
 			ngm: $scope.$parent.ngm,
 
@@ -40,7 +40,7 @@ angular.module('ngmReportHub')
 
 			// placeholder
 			definition: {},
-			
+
 			// current user
 			user: ngmUser.get(),
 
@@ -70,7 +70,7 @@ angular.module('ngmReportHub')
 
 				// set report for downloads
 				$scope.report.title = $scope.report.definition.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.organization.cluster.toUpperCase() + ' | ' + $scope.report.organization.organization + ' | Stock Report';
-				$scope.report.report = $scope.report.organization.organization + '_' + moment( $scope.report.definition.reporting_period ).format('MMMM, YYYY');
+				$scope.report.report = $scope.report.organization.organization + '_' + moment.utc( [ $scope.report.definition.report_year, $scope.report.definition.report_month, 1 ] ).format('MMMM, YYYY');
 				// set report for downloads
 				$scope.report.filename = $scope.report.definition.organization + '_' + $scope.report.definition.cluster + '_' + moment( $scope.report.definition.report_month ).format( 'MMMM' ) + '_Stocks_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 
@@ -89,7 +89,7 @@ angular.module('ngmReportHub')
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
-							'title': 'Monthly Stock Report for ' + moment( $scope.report.definition.reporting_period ).format('MMMM, YYYY')
+							'title': 'Monthly Stock Report for ' + moment.utc( [ $scope.report.definition.report_year, $scope.report.definition.report_month, 1 ] ).format('MMMM, YYYY')
 						},
 						download: {
 							'class': 'col s12 m3 l3 hide-on-small-only',
@@ -115,7 +115,7 @@ angular.module('ngmReportHub')
 										username: $scope.report.user.username,
 										email: $scope.report.user.email,
 										dashboard: $scope.report.title,
-										theme: 'stocl_report_' + $scope.report.user.cluster_id,
+										theme: 'monthly_stock_report' + $scope.report.user.cluster_id,
 										format: 'csv',
 										url: $location.$$path
 									}
@@ -123,7 +123,7 @@ angular.module('ngmReportHub')
 							}]
 						}
 					},
-					rows: [{		
+					rows: [{
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
@@ -153,7 +153,7 @@ angular.module('ngmReportHub')
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;
 
-			}			
+			}
 
 		}
 
@@ -168,5 +168,5 @@ angular.module('ngmReportHub')
 			$scope.report.init();
 
 		});
-		
+
 	}]);

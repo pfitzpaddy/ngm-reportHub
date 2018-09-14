@@ -1,0 +1,187 @@
+<!-- for each activity -->
+<h5 class="report-location-title" ng-if="beneficiary.hygiene.length" style="padding-top:0px;">Details</h5>
+	
+	<!-- repeat -->
+	<div class="card-panel" ng-repeat="kit in beneficiary.hygiene">
+
+		<!-- kit title / btns -->
+		<div class="row">
+			<div class="col s12 m8">
+				<h5 style="font-size: 1.32rem; padding-bottom:10px;">{{ beneficiary.activity_detail_name }}</h5>
+			</div>
+			<div class="col s12 m4">
+				<div class="btn-floating waves-effect waves-light red lighten-2 right" 
+							title="Remove Hygiene Kit Distribution"
+							ng-show="project.report.report_status !== 'complete'"
+							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $index, 'hygiene', '#hygiene-kit-modal' )">
+					<i class="material-icons">clear</i>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- quanitiy -->
+		<div class="row">		
+
+			<div class="input-field col s12">
+
+
+				<!-- kits -->
+				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								ng-if="beneficiary.activity_detail_id !== 'post_distribution_monitoring'"
+								name="quantity"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="kit.quantity"
+								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, kit, 'kits' );
+														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+
+				<!-- kits -->
+				<label ng-if="beneficiary.activity_detail_id !== 'post_distribution_monitoring'"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								class="active">Quantity (Kits Distributed)</label>
+
+
+				<!-- monitoring  -->
+				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								ng-if="beneficiary.activity_detail_id === 'post_distribution_monitoring'"
+								name="quantity"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="kit.quantity"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+
+				<!-- monitoring  -->
+				<label ng-if="beneficiary.activity_detail_id === 'post_distribution_monitoring'"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								class="active">Quantity (Monitoring Activities)</label>
+			</div>
+
+		</div>
+
+		<!-- dates -->
+		<div class="row">
+
+			<div class="input-field col s12 m6">
+				<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+						ngm-date
+						type="text"
+						name="created"
+						ng-model="kit.activity_start_date"
+						format="dd mmm, yyyy"
+						max="{{ kit.activity_end_date }}"
+						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( kit, kit.activity_start_date )"
+						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						e-required/>
+				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								class="active">Activity Start Date</label>
+			</div>
+
+			<div class="input-field col s12 m6">
+				<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+						ngm-date
+						type="text"
+						name="created"
+						ng-model="kit.activity_end_date"
+						format="dd mmm, yyyy"
+						min="{{ kit.activity_start_date }}"
+						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( kit, kit.activity_end_date )"
+						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						e-required/>
+				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								class="active">Activity End Date</label>            
+			</div>
+
+		</div>
+
+		<!-- details -->
+		<div ng-if="beneficiary.activity_detail_id !== 'post_distribution_monitoring'">
+
+			<div class="row" ng-repeat="detail in kit.details">
+
+				<!-- solid_waste_management_committee_kits -->
+				<div ng-include="project.templatesUrl + 
+													ngmClusterHelperNgWash.templateUrl +
+													beneficiary.activity_type_id + '/details/kit_details.html'"></div>
+
+			</div>
+
+			<!-- kit details  -->
+			<div class="row" style="margin-left:20px;">
+				<!-- add details -->
+				<button class="btn blue lighten-2"
+								ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+								ng-hide="kit.details.length === ngmClusterHelperNgWashLists.lists[ beneficiary.activity_detail_id ].length"
+								ng-click="rowform.$show(); 
+											ngmClusterHelperNgWash.init_material_select();
+											ngmClusterHelperNgWash.addDetails( kit, { quantity: 0 } );">
+					<i class="material-icons left">add</i>Add Details
+				</button>
+			</div>
+
+		</div>
+
+		<!-- details -->
+		<div ng-if="beneficiary.activity_detail_id === 'post_distribution_monitoring'">
+
+			<div class="row" ng-repeat="detail in kit.details">
+
+				<!-- solid_waste_management_committee_kits -->
+				<div ng-include="project.templatesUrl + 
+													ngmClusterHelperNgWash.templateUrl +
+													beneficiary.activity_type_id + '/details/monitoring.html'"></div>
+
+			</div>
+
+			<!-- kit details  -->
+			<div class="row" style="margin-left:20px;">
+				<!-- add details -->
+				<button class="btn blue lighten-2"
+								ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+								ng-hide="kit.details.length === ngmClusterHelperNgWashLists.lists[ beneficiary.activity_detail_id ].length"
+								ng-click="rowform.$show(); 
+											ngmClusterHelperNgWash.init_material_select();
+											ngmClusterHelperNgWash.addDetails( kit, {} );">
+					<i class="material-icons left">add</i>Add Details
+				</button>
+			</div>
+
+		</div>
+
+	</div>
+
+	<!-- add Hygiene kit -->
+	<button class="btn blue"
+					ng-if="beneficiary.activity_detail_id !== 'post_distribution_monitoring'"
+					ng-show="project.report.report_status !== 'complete'"
+					ng-hide="beneficiary.hygiene.length === 1"
+					ng-click="rowform.$show(); 
+											ngmClusterHelperNgWash.init_material_select();
+											ngmClusterHelperNgWash.addActivity( project.report.locations, location, beneficiary, 'hygiene' )">
+		<i class="material-icons left">add</i>Add Hygiene Kit Details
+	</button>
+
+	<!-- add Hygiene monitoring -->
+	<button class="btn blue"
+					ng-if="beneficiary.activity_detail_id === 'post_distribution_monitoring'"
+					ng-show="project.report.report_status !== 'complete'"
+					ng-hide="beneficiary.hygiene.length === 1"
+					ng-click="rowform.$show(); 
+											ngmClusterHelperNgWash.init_material_select();
+											ngmClusterHelperNgWash.addActivity( project.report.locations, location, beneficiary, 'hygiene' )">
+		<i class="material-icons left">add</i>Add Hygiene Monitoring Details
+	</button>
+
+<script>
+	// init
+	setTimeout(function(){ 
+		$( '.input-field select' ).material_select(); 
+		setTimeout(function(){ $( '.input-field select' ).material_select(); }, 460 );
+	}, 200 );
+</script>

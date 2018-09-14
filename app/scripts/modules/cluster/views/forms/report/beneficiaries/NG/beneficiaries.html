@@ -1,0 +1,155 @@
+
+<style>
+
+  button.picker__clear { display: none; }
+
+  .collection.with-header .collection-item.avatar {
+    padding-left: 51 !important;
+  }
+
+</style>
+
+<div class="card-panel" style="padding-left:50px;">
+  <table class="bordered responsive-table" style="margin-bottom:10px;" 
+          ng-show="project.report.locations[ $locationIndex ].beneficiaries.length">
+    <tr style="font-weight: 400">
+      <td>Activity</td>
+      <td>Description</td>
+      <td>Details</td>
+      <td>Cholera Response</td>
+      <td>Beneficiary</td>
+      <td ng-if="project.report.report_status !== 'complete'">Edit</td>
+    </tr>
+    <tr ng-repeat-start="beneficiary in project.report.locations[ $locationIndex ].beneficiaries" 
+          ng-init="$beneficiaryIndex=$index">
+      <td>
+        <span e-form="rowform"
+              e-name="activity_type_id"
+              editable-select="beneficiary.activity_type_id"
+              e-placeholder="Select..."
+              e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.lists.projectActivityTypes">
+          {{ project.showActivity( $data, beneficiary ) }}
+        </span>
+      </td>
+      <td>
+        <span e-form="rowform"
+              e-name="activity_description_id"
+              editable-select="beneficiary.activity_description_id"
+              e-placeholder="Select..."
+              e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.lists.activity_descriptions | filter: { cluster_id: beneficiary.cluster_id, activity_type_id: beneficiary.activity_type_id }"
+              e-ng-disabled="!beneficiary.activity_type_id">
+          {{ project.showDescription( $data, beneficiary ) }}
+        </span>
+      </td>
+      <td>
+        <span e-form="rowform"
+              e-name="activity_detail_id"
+              editable-select="beneficiary.activity_detail_id"
+              e-placeholder="Select..."
+              e-ng-change="ngmClusterHelperNgWash.detailsChange( project.report.locations, location, beneficiary )"
+              e-ng-options="a_d.activity_detail_id as a_d.activity_detail_name 
+                              for a_d in project.lists.activity_details | 
+                                filter: { cluster_id: beneficiary.cluster_id, 
+                                            activity_type_id: beneficiary.activity_type_id, 
+                                            activity_description_id: beneficiary.activity_description_id }"
+              e-ng-disabled="!beneficiary.activity_description_id">
+          {{ project.showDetails( $data, beneficiary ) }}
+        </span>
+      </td>
+      <td>
+        <span e-form="rowform"
+              e-name="activity_cholera_response_id"
+              editable-select="beneficiary.activity_cholera_response_id"
+              e-placeholder="Select..."
+              e-ng-options="b.activity_cholera_response_id as 
+                              b.activity_cholera_response_name for 
+                              b in project.lists.activity_cholera_response"
+              e-ng-disabled="!beneficiary.activity_description_id">
+          {{ project.showCholera( $data, beneficiary ) }}
+        </span>
+      </td>
+      <td>
+        <span e-form="rowform"
+              e-name="beneficiary_type_id"
+              editable-select="beneficiary.beneficiary_type_id"
+              e-placeholder="Select..."
+              e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types | filter: { cluster_id: beneficiary.cluster_id }"
+              e-ng-disabled="!beneficiary.activity_cholera_response_id">
+          {{ project.showBeneficiary( $data, beneficiary ) }}
+        </span>
+      </td>
+      
+      <!-- controls -->
+      <td style="white-space: nowrap" ng-show="project.report.report_status !== 'complete'">
+        <!-- form -->
+        <form editable-form name="rowform"
+                onshow="project.keydownSaveForm()"
+                ng-show="rowform.$visible"
+                class="form-buttons form-inline"
+                shown="inserted == beneficiary">
+          <div type="button"
+                    ng-if="rowform.$visible"
+                    ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations )"
+                    class="btn btn-small waves-effect waves-light save"
+                    ng-click="project.validateBeneficiariesForm( false, false )"
+                    title="Save">
+            <i class="material-icons">save</i>
+          </div>
+          <div type="button"
+                ng-if="rowform.$visible"
+                ng-disabled="rowform.$waiting"
+                ng-click="rowform.$cancel();  
+                            project.cancelEdit( $locationIndex, $index );
+                            ngmClusterHelperNgWash.init_material_select();"
+                class="btn btn-small blue lighten-1 waves-effect waves-light"
+                title="Cancel Edit">
+						<i class="material-icons">clear</i>
+          </div>
+        </form>
+        <div class="buttons"
+              ng-if="!rowform.$visible">
+          <div class="btn btn-small waves-effect waves-light"
+                ng-click="rowform.$show(); ngmClusterHelperNgWash.init_material_select();"
+                title="Edit">
+						<i class="material-icons">create</i>
+          </div>
+          <div class="btn btn-small red lighten-2 waves-effect waves-light"
+                ng-click="project.removeBeneficiaryModal( $locationIndex, $index )"
+                title="Remove"
+                ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations )">
+          	<i class="material-icons">delete</i>
+          </div>
+        </div>
+      </td>
+
+    </tr>
+
+    <!-- activities -->
+    <!-- ng-show as an extra row is added only if necissary ( some projects may have intersectoral activities ) -->
+    <!-- the activity row must not be disabled to display the details forms -->
+    <tr ng-repeat-end ng-show="ngmClusterHelperNgWash.getTemplate( beneficiary ) && 
+                                !ngmClusterBeneficiaries.rowSaveDisabled( project.definition, beneficiary );">
+      <td colspan="100" style="padding-left:20px">
+
+        <!-- get template -->
+        <div ng-if="ngmClusterHelperNgWash.getTemplate( beneficiary )">
+          <div ng-include="project.templatesUrl + 
+                            ngmClusterHelperNgWash.templateUrl +
+                            beneficiary.activity_type_id + '/' +
+                            ngmClusterHelperNgWash.getTemplate( beneficiary )"></div>
+        </div>
+
+      </td> 
+    </tr>
+  </table>
+
+  <!-- add -->
+  <button class="btn" 
+            ng-show="project.report.report_status !== 'complete'" 
+            ng-click="project.addNgWashBeneficiary( $locationIndex )">
+    <i class="material-icons left">add</i>Add Activities
+  </button>
+
+</div>
+
+<br/>

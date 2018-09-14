@@ -1,0 +1,138 @@
+<!-- for each activity -->
+<h5 class="report-location-title" ng-if="beneficiary.cash.length" style="padding-top:0px;">Details</h5>
+	
+	<!-- repeat -->
+	<div class="card-panel" ng-repeat="ctp in beneficiary.cash">
+
+		<!-- ctp title / btns -->
+		<div class="row">
+			<div class="col s12 m8">
+				<h5 style="font-size: 1.32rem; padding-bottom:10px;">{{ beneficiary.activity_detail_name }}</h5>
+			</div>
+			<div class="col s12 m4">
+				<div class="btn-floating waves-effect waves-light red lighten-2 right" 
+							title="Remove Cash Transfer"
+							ng-show="project.report.report_status !== 'complete'"
+							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $index, 'cash', '#cash-modal' )">
+					<i class="material-icons">clear</i>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- househols / quantity -->
+		<div class="row">		
+
+			<div class="input-field col s6">
+				<input id="ngm-households-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								name="households"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="ctp.households"
+								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, ctp, 'cash' );
+														ngmClusterHelperNgWash.inputChange( 'ngm-households-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+
+				<!-- label based on activity_detail_id -->
+				<label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								class="active">Households</label>
+			</div>
+
+			<div class="input-field col s6">
+				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								name="quantity"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="ctp.quantity"
+								ng-change="ctp.cash_amount = ctp.quantity;
+														ngmClusterHelperNgWash.indicatorOutput( project.report.locations, ctp, 'cash' );
+														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+
+				<!-- label based on activity_detail_id -->
+				<label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								class="active">Cash Amount (Naira Per Household)</label>
+			</div>
+
+		</div>
+
+		<!-- dates -->
+		<div class="row">
+
+			<div class="input-field col s12 m6">
+				<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+						ngm-date
+						type="text"
+						name="created"
+						ng-model="ctp.activity_start_date"
+						format="dd mmm, yyyy"
+						max="{{ ctp.activity_end_date }}"
+						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( ctp, ctp.activity_start_date )"
+						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						e-required/>
+				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								class="active">Activity Start Date</label>
+			</div>
+
+			<div class="input-field col s12 m6">
+				<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+						ngm-date
+						type="text"
+						name="created"
+						ng-model="ctp.activity_end_date"
+						format="dd mmm, yyyy"
+						min="{{ ctp.activity_start_date }}"
+						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( ctp, ctp.activity_end_date )"
+						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						e-required/>
+				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								class="active">Activity End Date</label>            
+			</div>
+
+		</div>
+
+		<!-- details -->
+		<div class="row" ng-repeat="detail in ctp.details">
+
+			<!-- CTP details -->
+			<div ng-include="project.templatesUrl + 
+												ngmClusterHelperNgWash.templateUrl +
+												beneficiary.activity_type_id + '/details/cash.details.html'"></div>
+
+		</div>
+
+		<div class="row" style="margin-left:20px;">
+			<!-- add details -->
+			<button class="btn blue lighten-2"
+							ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+							ng-hide="ctp.details.length === ngmClusterHelperNgWashLists.lists.cash_based_items"
+							ng-click="rowform.$show(); 
+										ngmClusterHelperNgWash.init_material_select();
+										ngmClusterHelperNgWash.addDetails( ctp, {} );">
+				<i class="material-icons left">add</i>Add Details
+			</button>
+		</div>
+
+	</div>
+
+	<!-- add new CTP  -->
+	<button class="btn blue" 
+					ng-show="project.report.report_status !== 'complete'"
+					ng-hide="beneficiary.cash.length === 1" 
+					ng-click="rowform.$show(); 
+											ngmClusterHelperNgWash.init_material_select();
+											ngmClusterHelperNgWash.addActivity( project.report.locations, location, beneficiary, 'cash' )">
+		<i class="material-icons left">add</i>Add CTP Details
+	</button>
+
+<script>
+	// init
+	setTimeout(function(){ 
+		$( '.input-field select' ).material_select(); 
+		setTimeout(function(){ $( '.input-field select' ).material_select(); }, 460 );
+	}, 200 );
+</script>

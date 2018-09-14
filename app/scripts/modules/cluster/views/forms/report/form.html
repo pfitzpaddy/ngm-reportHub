@@ -1,60 +1,220 @@
 
 <!-- save modal -->
 <div id="save-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">done</i>Save Monthly Report {{ project.titleFormat }}</h4>
-    <p>Do you want to Save {{ project.titleFormat }}?</p>
-    <!-- <p>Project has been saved!</p> -->
-  </div>
-  <div class="modal-footer">
-  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="project.save( false, true )" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
-  </div>
+	<div class="modal-content">
+		<h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">done</i>Save Monthly Report {{ project.monthlyTitleFormat }}</h4>
+		<p>Do you want to Save {{ project.monthlyTitleFormat }}?</p>
+		<!-- <p>Project has been saved!</p> -->
+	</div>
+	<div class="modal-footer">
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="project.save( false, true )" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+	</div>
 </div>
 
 <!-- list modal -->
 <div id="list-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Cancel Monthly Report {{ project.titleFormat }}</h4>
-    <p>Return to Monthly Report List</p>
-  </div>
-  <div class="modal-footer">
-  	<a class=" modal-action modal-close waves-effect waves-teal btn-flat">No</a>
-    <a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
-  </div>
-</div>
-
-<div id="training-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">group</i>Remove Training</h4>
-    <p>Remove this Training from your project?</p>
-  </div>
-  <div class="modal-footer">
-  	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="project.removeTraining()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Training!</a>
-  </div>
+	<div class="modal-content">
+		<h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Cancel Monthly Report {{ project.monthlyTitleFormat }}</h4>
+		<p>Return to Monthly Report List</p>
+	</div>
+	<div class="modal-footer">
+		<a class=" modal-action modal-close waves-effect waves-teal btn-flat">No</a>
+		<a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+	</div>
 </div>
 
 <div id="beneficiary-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">group</i>Remove Beneficiaries</h4>
-    <p>Remove this Beneficiary from your project?</p>
-  </div>
-  <div class="modal-footer">
-  	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="project.removeBeneficiary()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Beneficiary!</a>
-  </div>
+	<div class="modal-content">
+		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
+			<i class="material-icons medium left">delete</i>Remove Beneficiary</h4>
+		<p style="padding-left: 76px;">Remove this Beneficiary from your Report?</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="project.removeBeneficiary()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Beneficiary!</a>
+	</div>
+</div>
+
+<div id="borehole-modal" class="modal">
+	<div class="modal-content">
+		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
+			<i class="material-icons medium left">delete</i>Remove Borehole</h4>
+		<p style="padding-left: 76px;">Remove this Borehole from your Report?</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="ngmClusterHelperNgWash.remove()" 
+				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Borehole!</a>
+	</div>
+</div>
+
+<div id="reticulation-modal" class="modal">
+	<div class="modal-content">
+		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
+			<i class="material-icons medium left">delete</i>Remove Reticulation</h4>
+		<p style="padding-left: 76px;">Remove this Reticulation from your Report?</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="ngmClusterHelperNgWash.remove()" 
+				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Reticulation!</a>
+	</div>
+</div>
+
+<div id="service-modal" class="modal">
+	<div class="modal-content">
+		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
+			<i class="material-icons medium left">delete</i>Remove Service</h4>
+		<p style="padding-left: 76px;">Remove this Service from your Report?</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="ngmClusterHelperNgWash.remove()" 
+				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Service!</a>
+	</div>
+</div>
+
+<div id="maintenance-modal" class="modal">
+	<div class="modal-content">
+		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
+			<i class="material-icons medium left">delete</i>Remove Maintenance</h4>
+		<p style="padding-left: 76px;">Remove this Maintenance from your Report?</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="ngmClusterHelperNgWash.remove()" 
+				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Maintenance!</a>
+	</div>
+</div>
+
+<div id="latrine-modal" class="modal">
+	<div class="modal-content">
+		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
+			<i class="material-icons medium left">delete</i>Remove Latrine</h4>
+		<p style="padding-left: 76px;">Remove this Latrine from your Report?</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="ngmClusterHelperNgWash.remove()" 
+				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Latrine!</a>
+	</div>
+</div>
+
+<div id="shower-modal" class="modal">
+	<div class="modal-content">
+		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
+			<i class="material-icons medium left">delete</i>Remove Shower</h4>
+		<p style="padding-left: 76px;">Remove this Shower from your Report?</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="ngmClusterHelperNgWash.remove()" 
+				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Shower!</a>
+	</div>
+</div>
+
+<div id="waste-modal" class="modal">
+	<div class="modal-content">
+		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
+			<i class="material-icons medium left">delete</i>Remove Waste Management</h4>
+		<p style="padding-left: 76px;">Remove this Waste Management from your Report?</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="ngmClusterHelperNgWash.remove()" 
+				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Waste Management!</a>
+	</div>
+</div>
+
+<div id="committee-modal" class="modal">
+	<div class="modal-content">
+		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
+			<i class="material-icons medium left">delete</i>Remove Committee</h4>
+		<p style="padding-left: 76px;">Remove this Committee from your Report?</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="ngmClusterHelperNgWash.remove()" 
+				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Committee!</a>
+	</div>
+</div>
+
+<div id="hygiene-promotion-modal" class="modal">
+	<div class="modal-content">
+		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
+			<i class="material-icons medium left">delete</i>Remove Hygiene Promotion</h4>
+		<p style="padding-left: 76px;">Remove this Hygiene Promotion from your Report?</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="ngmClusterHelperNgWash.remove()" 
+				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Hygiene Promotion!</a>
+	</div>
+</div>
+
+<div id="hygiene-kit-modal" class="modal">
+	<div class="modal-content">
+		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
+			<i class="material-icons medium left">delete</i>Remove Hygiene Distribution</h4>
+		<p style="padding-left: 76px;">Remove this Hygiene Distribution from your Report?</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="ngmClusterHelperNgWash.remove()" 
+				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Hygiene Distribution!</a>
+	</div>
+</div>
+
+<div id="cash-modal" class="modal">
+	<div class="modal-content">
+		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
+			<i class="material-icons medium left">delete</i>Remove Cash Transfer</h4>
+		<p style="padding-left: 76px;">Remove this Cash Transfer from your Report?</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="ngmClusterHelperNgWash.remove()" 
+				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Cash Transfer!</a>
+	</div>
+</div>
+
+<div id="accounts-modal" class="modal">
+	<div class="modal-content">
+		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
+			<i class="material-icons medium left">delete</i>Remove Accountability Activity</h4>
+		<p style="padding-left: 76px;">Remove this Accountability Activity from your Report?</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="ngmClusterHelperNgWash.remove()" 
+				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Accountability Activity!</a>
+	</div>
+</div>
+
+
+<div id="training-modal" class="modal">
+	<div class="modal-content">
+		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
+			<i class="material-icons medium left">delete</i>Remove Training</h4>
+		<p style="padding-left: 76px;">Remove this Training from your Report?</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="ngmClusterTrainings.removeTraining()" 
+				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Training!</a>
+	</div>
 </div>
 
 <div id="complete-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Submit Monthly Report for {{ project.titleFormat }}</h4>
-    <p>Submit monthly report for {{ project.titleFormat }}?</p>
-  </div>
-  <div class="modal-footer">
-  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="project.save( true )" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, Submit report!</a>
-  </div>
+	<div class="modal-content">
+		<h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Submit Monthly Report for {{ project.monthlyTitleFormat }}</h4>
+		<p>Submit monthly report for {{ project.monthlyTitleFormat }}?</p>
+	</div>
+	<div class="modal-footer">
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="project.save( true )" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, Submit report!</a>
+	</div>
 </div>
 
 <!--  -->
@@ -94,51 +254,36 @@
 					<!-- submission -->
 					<div align="center" >
 						
-					<!-- 	validation	-->			
-					<!--
-						<button data-target="save-modal" class="waves-effect waves-light btn"
-							ng-click="project.save( false )"
-							ng-disabled="
-										( !project.formComplete() ) ||
-										( !project.report.submit ) ||
-										( clusterReportForm.$submitted && clusterReportForm.$invalid )"
-							ng-cloak><i class="material-icons right">send</i>Save</button> 
-					-->
-
-							<!-- ng-click="project.modalConfirm( 'save-modal' )" -->
-
-						<!-- no validation -->
-						<button class="waves-effect waves-light btn modal-trigger"
-							data-target="save-modal"
-							ng-disabled="!project.formComplete()"
-							ng-cloak><i class="material-icons right">send</i>Save
-						</button>	
-
-<!-- ng-click="project.modalConfirm( 'list-modal' )" -->
+						<!-- validation -->
+<!-- 						<button class="waves-effect waves-light btn modal-trigger"
+											data-target="save-modal"
+											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
+																		!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
+											ng-cloak>
+										<i class="material-icons right">send</i>Save
+						</button>	 -->
+						<button class="waves-effect waves-light btn"
+											ng-click="project.validateBeneficiariesForm( false, true )"
+											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
+																		!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
+											ng-cloak>
+										<i class="material-icons right">send</i>Save
+						</button>
 
 						<!-- cancel new  -->
 						<button class="waves-effect waves-light btn grey modal-trigger" 
-							data-target="list-modal">Cancel
+											data-target="list-modal">Cancel
 						</button>
 
 						<br/>
 						<br/>
 
-<!--  						<button class="waves-effect waves-light btn grey" 
-							ng-click="project.modalConfirm( 'list-modal' )">
-							<i class="material-icons left">keyboard_return</i>Cancel
-						</button> -->
-
-						<!-- <button class="waves-effect waves-light btn blue"
-							ng-click="project.modalConfirm( 'complete-modal' )"
-							ng-disabled="!project.formComplete()"
-							ng-cloak><i class="material-icons left">assignment_turned_in</i>Submit Monthly Report
-						</button> -->
-
 						<button class="waves-effect waves-light btn blue"
-							ng-click="project.modalConfirm( 'complete-modal' )"
-							ng-disabled="!project.formComplete()"
-							ng-cloak><i class="material-icons left">assignment_turned_in</i>Submit Monthly Report
+											ng-click="project.validateBeneficiariesForm( true, false )"
+											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
+																		!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
+											ng-cloak>
+							<i class="material-icons left">assignment_turned_in</i>Submit Monthly Report
 						</button>
 
 					</div>
@@ -152,7 +297,7 @@
 </div>
 
 <script type="text/javascript">
-  
+	
 	// modals
 	setTimeout(function(){
 		$('.modal-trigger').leanModal();

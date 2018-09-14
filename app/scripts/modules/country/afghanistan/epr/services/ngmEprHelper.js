@@ -143,7 +143,7 @@ angular.module( 'ngmReportHub' )
             'href': dashboard.url + '/' + dashboard.year + '/' + k + '/all/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
           });
         };
-        
+
         return [{
           'id': 'epr-admin-year',
           'icon': 'search',
@@ -155,6 +155,12 @@ angular.module( 'ngmReportHub' )
             'active': '2017',
             'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
             'href':  dashboard.url + '/2017/' + dashboard.region + '/' + dashboard.province + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
+          },{
+            'title': '2018',
+            'param': 'year',
+            'active': '2018',
+            'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+            'href':  dashboard.url + '/2018/' + dashboard.region + '/' + dashboard.province + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
           }]
         },{
           'id': 'epr-admin-region',
@@ -168,7 +174,7 @@ angular.module( 'ngmReportHub' )
 
       // province rows
       getProvinceRows: function(){
-        
+
         // rows
         var rows = [];
         // provinces by region
@@ -213,7 +219,7 @@ angular.module( 'ngmReportHub' )
 
           // set dates to week
           var week = i < 10 ? 'W0'+i : 'W'+i;
-          var start_date = moment().year( dashboard.year ).week( i ).subtract( 1, 'd' ).format( 'YYYY-MM-DD' ); 
+          var start_date = moment().year( dashboard.year ).week( i ).subtract( 1, 'd' ).format( 'YYYY-MM-DD' );
           var end_date = moment().year( dashboard.year ).week( i ).subtract( 1, 'd' ).add( 1, 'w' ).format( 'YYYY-MM-DD' ); ;
 
           rows.push({
@@ -262,7 +268,7 @@ angular.module( 'ngmReportHub' )
         // subtitle
         var subtitle = 'EPR ';
             subtitle += admin ? 'Admin ' : '';
-            subtitle += 'Dashboard ' + dashboard.year;        
+            subtitle += 'Dashboard ' + dashboard.year;
         // region
         if ( dashboard.region !== 'all' ) {
           subtitle += ' for ' + dashboard.data.region[dashboard.region].name + ' Region';

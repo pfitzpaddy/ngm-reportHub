@@ -77,15 +77,15 @@ angular.module('ngm.widget.list', ['ngm.provider'])
         },
 
         // format date
-        titleFormat: function( date ) {
+        monthlyTitleFormat: function( date ) {
           // return moment
-          return moment( date ).format('MMMM, YYYY');
+          return moment.utc( date ).format('MMMM, YYYY');
         },
 
         // format date
         dueFormat: function( date ) {
           // return moment
-          return moment( date ).format('DD MMMM, YYYY');
+          return moment.utc( date ).format('DD MMMM, YYYY');
         },
 
         // description
@@ -121,7 +121,7 @@ angular.module('ngm.widget.list', ['ngm.provider'])
         // momentjs
         $scope.list.data.forEach( function( d, i ){
           // add this to assist display / filtering
-          $scope.list.data[i].reporting_period_title = $scope.list.titleFormat( d.reporting_period );
+          $scope.list.data[i].reporting_period_title = $scope.list.monthlyTitleFormat( d.reporting_period );
         });
       }
 

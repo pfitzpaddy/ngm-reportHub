@@ -26,7 +26,7 @@ angular
 				}
 			})
 			.when( '/who/ethiopia/monitoring', {
-				redirectTo: '/who/ethiopia/monitoring/all/all/all/2017-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/who/ethiopia/monitoring/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			// epr dashboard
 			.when( '/who/ethiopia/monitoring/:region/:zone/:woreda/:start/:end', {

@@ -47,12 +47,12 @@ angular.module( 'ngmReportHub' )
   })
   // sums array of objects by keys
   .filter('sumArrayByKeys', function() {
-      return function( array, keys, skip ) {
+      return function( array, key1, keys, skip ) {
         var sum = 0;
         if ( typeof( array ) === 'undefined' || typeof(keys) === 'undefined' ) {
           return 0;
         }
-        angular.forEach(array, function(a,i){
+        angular.forEach(array[ key1 ], function(a,i){
           angular.forEach(a, function(d,i){
             // put in checks here
             angular.forEach(keys, function(k,j){
@@ -77,21 +77,35 @@ angular.module( 'ngmReportHub' )
               typeof( keys ) === 'undefined' ) {
           return 0;
         }
-        angular.forEach(array[key1], function(a){
-          angular.forEach(a[key2], function(d){
-            angular.forEach(d, function(e,i){
-              // put in checks here
-              angular.forEach(keys, function(k,j){
-                if( i === j && typeof( k ) === 'number' ) {
-                  console.log()
-                  if( skip.indexOf(i) < 0 ) {
-                    sum += parseInt( e );
-                  }
+        
+        // array 1
+        angular.forEach(array[key1], function(a,i){
+          angular.forEach(a, function(d,i){
+            // put in checks here
+            angular.forEach(keys, function(k,j){
+              if( i === j && typeof( k ) === 'number' ) {
+                if( skip.indexOf(i) < 0 ) {
+                  sum += parseInt( d );
                 }
-              });
+              }
             });
           });
         });
+
+        // array 2
+        angular.forEach(array[key2], function(a,i){
+          angular.forEach(a, function(d,i){
+            // put in checks here
+            angular.forEach(keys, function(k,j){
+              if( i === j && typeof( k ) === 'number' ) {
+                if( skip.indexOf(i) < 0 ) {
+                  sum += parseInt( d );
+                }
+              }
+            });
+          });
+        });
+
         return sum;
       };
   })

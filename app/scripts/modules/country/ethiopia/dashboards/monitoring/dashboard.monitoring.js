@@ -186,7 +186,7 @@ angular.module('ngmReportHub')
 											// set new date
 											$scope.dashboard.startDate = date;
 											// URL
-											var path = '/ctc/' + $route.current.params.region + 
+											var path = '/who/ethiopia/monitoring/' + $route.current.params.region + 
 																					 '/' + $route.current.params.zone + 
 																					 '/' + $route.current.params.woreda + 
 																					 '/' + $scope.dashboard.startDate + 
@@ -210,7 +210,7 @@ angular.module('ngmReportHub')
 											// set new date
 											$scope.dashboard.endDate = date;
 											// URL
-											var path = '/ctc/' + $route.current.params.region + 
+											var path = '/who/ethiopia/monitoring/' + $route.current.params.region + 
 																					 '/' + $route.current.params.zone + 
 																					 '/' + $route.current.params.woreda + 
 																					 '/' + $scope.dashboard.startDate + 
@@ -287,7 +287,7 @@ angular.module('ngmReportHub')
 														Materialize.toast( 'CTC Assessments data updated!' , 4000, 'success' );
 														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 														$timeout( function(){
-															$location.path( '/who/ethiopia/ctc' );
+															$route.reload();
 														}, 400 );
 													}, 600 );
 													

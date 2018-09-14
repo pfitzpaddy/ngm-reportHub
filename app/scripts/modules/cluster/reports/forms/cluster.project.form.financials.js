@@ -28,8 +28,9 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
     'ngmAuth',
     'ngmData',
     'ngmClusterHelper',
+    'ngmClusterLists',
     'config',
-    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, config ){
+    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, config ){
 
       // project
       $scope.project = {
@@ -64,7 +65,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           }],
           multi_year_funding: [ { multi_year_funding_id: 'yes', multi_year_funding_name: 'Yes' }, { multi_year_funding_id: 'no', multi_year_funding_name: 'No' } ],
           activity_type: angular.copy( config.project.activity_type ),
-          currencies: ngmClusterHelper.getCurrencies( config.project.admin0pcode )
+          currencies: ngmClusterLists.getCurrencies( config.project.admin0pcode )
         },
 
         // datepicker

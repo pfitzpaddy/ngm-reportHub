@@ -10,7 +10,7 @@
 
 		<!-- favicon -->
 		<link rel="icon" href="images/favicon.ico" sizes="32x32">
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
 
 		<!-- vendor css -->
 		<!-- build:css(.) styles/vendor.css -->
@@ -30,6 +30,7 @@
 
 		<!-- ngm css -->
 		<!-- build:css(.tmp) styles/main.css -->
+		<link rel="stylesheet" href="styles/iconfont.css" />
 		<link rel="stylesheet" href="styles/main.css">	
 		<link rel="stylesheet" href="styles/ngm-menu.css">
 		<link rel="stylesheet" href="styles/ngm-form.css">
@@ -98,7 +99,7 @@
 								<a class="btn-floating btn-large"
 										ng-class="{ 'waves-effect waves-teal waves-teal-lighten-4' : ngm.getUserName() !== 'welcome' }"
 										style="background: {{ ngm.style.defaultPrimaryColor }};" >
-									<i class="ngm-profile-icon material-icons right">add</i>
+									<i class="ngm-profile-icon material-icons right">menu</i>
 								</a>
 							</div>
 							<!-- profile menu dropdown -->
@@ -111,7 +112,14 @@
 
 									<!-- user login -->
 									<li align="right" class="teal z-depth-2"
-											ng-show="ngm.getUserName() === 'welcome'">
+											ng-show="ngm.getUserName() === 'welcome' && ngm.style.home === '#/immap'">
+										<a class="white-text right" href="#/immap/login" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">lock_outline</i>LOGIN</a>
+									</li>
+
+									<!-- user login -->
+									<li align="right" class="teal z-depth-2"
+											ng-show="ngm.getUserName() === 'welcome' && ngm.style.home !== '#/immap'">
 										<a class="white-text right" href="#/cluster/login" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">lock_outline</i>LOGIN</a>
 									</li>
@@ -123,45 +131,68 @@
 										<i class="material-icons smedium right">lock_open</i>LOGOUT</a>
 									</li>
 
-									<!-- Dashboard -->
-									<li align="center" class="teal z-depth-2">
-										<a class="white-text right" href="#/cluster/4w/{{ ngm.getUser().adminRpcode | lowercase }}/{{ ngm.getUser().admin0pcode | lowercase }}" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">bubble_chart</i>4W DASHBOARD</a>
-									</li>
-
-									<!-- my projects -->
+									<!-- home page -->
 									<li align="center" class="teal z-depth-2" 
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/organization" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">group</i>MY ORGANIZATION</a>
+										<i class="material-icons smedium right">home</i>MY HOME</a>
 									</li>
 
-									<!-- PROFILE -->
+									<!-- iMMAP HOME -->
 									<li align="center" class="teal z-depth-2"
-										ng-show="ngm.getUserName() !== 'welcome'">
-										<a class="white-text right" href="#/profile" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">account_circle</i>MY PROFILE</a>
+										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().organization === 'iMMAP'">
+										<a class="white-text right" href="#/immap" 
+												ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">important_devices</i>iMMAP HOME</a>
 									</li>
 
 									<!-- ADMIN -->
 									<li align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/admin/{{ ngm.getUser().adminRpcode | lowercase }}/{{ ngm.getUser().admin0pcode | lowercase }}" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">assignment_turned_in</i>MY ADMIN</a>
+										<i class="material-icons smedium right">move_to_inbox</i>MY ADMIN</a>
+									</li>
+
+									<!-- Dashboard -->
+									<li align="center" class="teal z-depth-2">
+										<a class="white-text right" href="#/cluster/5w/{{ ngm.getUser().adminRpcode | lowercase }}/{{ ngm.getUser().admin0pcode | lowercase }}" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">bubble_chart</i>5W DASHBOARD</a>
+									</li>
+
+									<!-- TEAM -->
+									<li align="center" class="teal z-depth-2"
+										ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text right" href="#/team" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">group</i>MY TEAM</a>
+									</li>
+
+									<!-- PROFILE -->
+									<li align="center" class="teal z-depth-2"
+										ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text right" href="#/profile/{{ ngm.getUserName() }}" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">person_pin</i>MY PROFILE</a>
+									</li>
+
+									<!-- my projects -->
+									<li  align="center" class="teal z-depth-2" 
+										ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text right" href="#/cluster/projects" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">zoom_in</i>MY PROJECTS</a>
 									</li>
 
 									<!-- my STOCKS -->
 									<li  align="center" class="teal z-depth-2" 
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/stocks" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">insert_chart</i>MY STOCKS</a>
+										<i class="material-icons smedium right">assignment_turned_in</i>MY STOCKS</a>
 									</li>
-									
-									<!-- my projects -->
-									<li  align="center" class="teal z-depth-2" 
-										ng-show="ngm.getUserName() !== 'welcome'">
-										<a class="white-text right" href="#/cluster/projects" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">zoom_in</i>MY PROJECTS</a>
+
+									<!-- PRODUCTS -->
+									<li align="center" class="teal z-depth-2"
+										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().organization === 'iMMAP'">
+										<a class="white-text right" href="#/immap/products" 
+												ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">crop_original</i>MY PRODUCTS</a>
 									</li>
 
 									<!-- assessments -->
@@ -172,16 +203,14 @@
 										<a class="white-text right" href="#/who/ethiopia" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">assignment_late</i>ASSESSMENTS</a>
 									</li>
+									<li  align="center" class="teal z-depth-2" 
+										ng-if="ngm.getUser().admin0pcode.toLowerCase() === 'af'"
+										ng-show="ngm.getUser().cluster_id.toLowerCase() === 'nutrition'">
+										<a class="white-text right" href="#/nutrition/afghanistan/" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">bubble_chart</i>NUTRITION WEEKLY</a>
+									</li>
 
-									<!-- navigation options repeat 
-										<li ng-repeat="option in ngm.navigationMenu" class="{{ option.liClass }}">
-											<a class="{{ option.aClass }}" href="/desk/#/{{ option.href }}" ng-click="ngm.toggleNavigationMenu();">
-											<i class="{{ option.iClass }}">{{ option.icon }}</i>
-											<br/>{{ option.title }}</a>
-									  </li>
-								   </div> -->
-
-									<!-- contact modal -->
+									<!-- EPR -->
 									<li  align="center" class="teal z-depth-2"
 										ng-if="ngm.getUser().admin0pcode === 'AF'"
 										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
@@ -216,12 +245,13 @@
 									</li> -->
 
 									<!-- contact modal -->
-									<li  align="center" class="teal z-depth-2">
+									<li align="center" class="teal z-depth-2">
 										<a class="white-text right" ng-click="ngm.contact(); ngm.toggleNavigationMenu()">
 										<i class="material-icons smedium right">perm_phone_msg</i>CONTACT REPORTHUB</a>
 									</li>
 
 							</ul>
+
 						</div>
 					</div>
 				</div>
@@ -365,48 +395,68 @@
 		<script src="scripts/app/controllers/admin/controller.reset.js"></script>
 		<script src="scripts/app/controllers/admin/controller.forbidden.js"></script>
 		<script src="scripts/app/controllers/admin/controller.profile.js"></script>
+		<script src="scripts/app/controllers/admin/controller.team.js"></script>
 		<!-- help guide -->
 		<script src="scripts/app/controllers/guides/controller.guide.menu.js"></script>
 		<script src="scripts/app/controllers/guides/controller.guide.feedback.js"></script>
 		<!-- ReportHub dashboard -->
 		<script src="scripts/app/dashboards/dashboard.reporthub.js"></script>		
 		
+		
 		<!-- MODULES -->
-		<!-- HEALTH -->
+		
+		<!-- CLUSTER -->
 		<script src="scripts/modules/cluster/app.js"></script>
-		<!-- services -->
-		<script src="scripts/modules/cluster/services/ngmHctHelper.js"></script>
-		<script src="scripts/modules/cluster/services/ngmClusterHelper.js"></script>
 		<!-- APP HOME -->
 		<script src="scripts/modules/cluster/reports/controllers/cluster.app.js"></script>
 		
-		<!-- STOCKS -->
-		<script src="scripts/modules/cluster/reports/controllers/cluster.organization.stock.js"></script>
-		<script src="scripts/modules/cluster/reports/controllers/cluster.organization.stocks.list.js"></script>
-		<!-- STOCKS forms -->
-		<script src="scripts/modules/cluster/reports/forms/cluster.organization.form.stock.js"></script>
-		<script src="scripts/modules/cluster/reports/forms/cluster.organization.form.stocks.list.js"></script>
-		<!-- CLUSTER projects -->
+		<!-- REPORTING -->
+
+		<!-- PROJECTS -->
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.projects.js"></script>
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.summary.js"></script>
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.details.js"></script>
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.financials.js"></script>
-		<!-- CLUSTER reports -->
+
+		<!-- SERVICES -->
+		<script src="scripts/modules/cluster/reports/services/ngmClusterHelper.js"></script>
+		<script src="scripts/modules/cluster/reports/services/ngmClusterLists.js"></script>
+		<script src="scripts/modules/cluster/reports/services/ngmClusterBeneficiaries.js"></script>
+		<script src="scripts/modules/cluster/reports/services/ngmClusterLocations.js"></script>
+		<script src="scripts/modules/cluster/reports/services/ngmClusterTrainings.js"></script>
+		<script src="scripts/modules/cluster/reports/services/ngmClusterValidation.js"></script>
+		<!-- AF -->
+		<script src="scripts/modules/cluster/reports/services/AF/ngmClusterHelperAf.js"></script>
+		<!-- NG -->
+		<script src="scripts/modules/cluster/reports/services/NG/ngmClusterHelperNgWash.js"></script>
+		<script src="scripts/modules/cluster/reports/services/NG/ngmClusterHelperNgWashKeys.js"></script>
+		<script src="scripts/modules/cluster/reports/services/NG/ngmClusterHelperNgWashLists.js"></script>
+		<script src="scripts/modules/cluster/reports/services/NG/ngmClusterHelperNgWashValidation.js"></script>
+
+		<!-- MONTHLY -->
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.reports.list.js"></script>
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.report.js"></script>		
-		<!-- CLUSTER forms -->
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.details.js"></script>
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.financials.js"></script>
-		<!-- <script src="scripts/modules/cluster/reports/forms/cluster.project.form.reports.list.js"></script> -->
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.report.js"></script>
-		<!-- CLUSTER dashboards -->
+		
+		<!-- STOCKS -->
+		<script src="scripts/modules/cluster/reports/controllers/cluster.organization.stock.js"></script>
+		<script src="scripts/modules/cluster/reports/controllers/cluster.organization.stocks.list.js"></script>
+		<script src="scripts/modules/cluster/reports/forms/cluster.organization.form.stock.js"></script>
+		<script src="scripts/modules/cluster/reports/forms/cluster.organization.form.stocks.list.js"></script>
+
+		<!-- CLUSTER DASHBOARDS -->
 		<script src="scripts/modules/cluster/dashboards/dashboard.admin.js"></script>
 		<script src="scripts/modules/cluster/dashboards/dashboard.cluster.js"></script>
 		<script src="scripts/modules/cluster/dashboards/health/dashboard.hct.js"></script>
 		<script src="scripts/modules/cluster/dashboards/health/dashboard.health.js"></script>
+		<script src="scripts/modules/cluster/reports/controllers/cluster.syria.dashboard.js"></script>
+		<!-- services -->
+		<script src="scripts/modules/cluster/dashboards/services/ngmHctHelper.js"></script>
+
 
 		<!-- SNAPSHOTS -->
-
 		<script src="scripts/modules/snapshots/app.js"></script>
 		<!-- who immap -->
 		<script src="scripts/modules/snapshots/dashboards/who/dashboard.who.immap.js"></script>
@@ -418,6 +468,7 @@
 		<script src="scripts/modules/snapshots/dashboards/cdc/dashboard.2017.10.js"></script>
 		<script src="scripts/modules/snapshots/dashboards/cdc/dashboard.2017.11.js"></script>
 		<script src="scripts/modules/snapshots/dashboards/cdc/dashboard.2017.12.js"></script>
+		<script src="scripts/modules/snapshots/dashboards/cdc/dashboard.2018.01.js"></script>
 
 
 		<!-- COUNTRY -->
@@ -446,8 +497,21 @@
 		<script src="scripts/modules/country/afghanistan/drr/dashboards/dashboard.flood.forecast.js"></script>
 		
 		<!-- WATCHKEEPER -->
-		<script src="scripts/modules/watchkeeper/app.js"></script>
-		<script src="scripts/modules/watchkeeper/dashboards/dashboard.watchkeeper.js"></script>
+		<script src="scripts/modules/immap/app.js"></script>
+		<script src="scripts/modules/immap/controllers/immap.home.js"></script>
+		<script src="scripts/modules/immap/controllers/immap.products.js"></script>
+		<script src="scripts/modules/immap/controllers/immap.products.new.js"></script>
+		<script src="scripts/modules/immap/dashboards/dashboard.watchkeeper.js"></script>
+		
+		<!-- NUTRITION -->
+		<script src="scripts/modules/country/afghanistan/nutrition/app.js"></script>
+		<script src="scripts/modules/country/afghanistan/nutrition/services/ngmNutritionHelper.js"></script>
+		<script src="scripts/modules/country/afghanistan/nutrition/dashboards/dashboard.nutrition.weekly.js"></script>
+		<script src="scripts/modules/country/afghanistan/nutrition/dashboards/dashboard.admin.nutrition.weekly.js"></script>
+		<script src="scripts/modules/country/afghanistan/nutrition/assessments/nutrition.assessments.js"></script>
+		<script src="scripts/modules/country/afghanistan/nutrition/assessments/nutrition.koboform.js"></script>
+
+
 		<!-- endbuild -->
 
 

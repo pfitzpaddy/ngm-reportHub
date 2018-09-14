@@ -28,7 +28,7 @@ angular.module('ngmReportHub')
 				localStorage.setObject( 'auth_token', user );
 				// set lists
 				if ( !user.guest ) {
-					$injector.get( 'ngmClusterHelper' ).setClusterLists( user );
+					$injector.get( 'ngmClusterLists' ).setClusterLists( user );
 				}
 			},
 
@@ -36,6 +36,7 @@ angular.module('ngmReportHub')
 			unset: function() {
 				// remove lists / user
 				localStorage.removeItem( 'lists' );
+				localStorage.removeItem( 'dutyStations' );
 				localStorage.removeItem( 'auth_token' );
 			},			
 
@@ -217,7 +218,8 @@ angular.module('ngmReportHub')
 
 				// unset token, backend dosnt care about logouts 
 				ngmUser.unset();
-				$location.path( '/' + $location.$$path.split('/')[1] + '/login' );
+				$location.path( '/login' );
+				// $location.path( '/' + $location.$$path.split('/')[1] + '/login' );
 
 			},
 
