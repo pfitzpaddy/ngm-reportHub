@@ -341,7 +341,7 @@ angular.module( 'ngmReportHub' )
 							b.borehole_pumping_ave_daily_hours >=0 ) {
 					// metrics
 					b.borehole_m3 = b.borehole_yield_ltrs_second * b.borehole_pumping_ave_daily_hours * 3600;
-					b.total_beneficiaries = b.borehole_m3 * ngmClusterHelperNgWash.ratios.beneficiaries;
+					b.total_beneficiaries = ( b.borehole_m3 * ngmClusterHelperNgWash.ratios.beneficiaries ) / 1000;
 					// sadd
 					ngmClusterHelperNgWash.bSadd( b );
 					// calculate location totals
