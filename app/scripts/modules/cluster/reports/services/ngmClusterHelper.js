@@ -503,7 +503,7 @@ angular.module( 'ngmReportHub' )
         report = angular.merge( {}, p, r );
 
         // locations
-        angular.forEach(report.locations, function( location, i ){
+        angular.forEach( report.locations, function( location, i ){
 
           // remove to ensure updated
           var l = angular.copy( location );
@@ -526,8 +526,17 @@ angular.module( 'ngmReportHub' )
           // ids
           l.project_id = project.id;
           l.report_id = report.id;
+
+          // set site_lng, site_lat
+            // this is propigated through the entire datasets
+          if ( !l.site_lng && !l.site_lat ) {
+            // set admin3 or admin2
+            l.site_lng = l.admin3lng ? l.admin3lng : l.admin2lng;
+            l.site_lat = l.admin3lat ? l.admin3lat : l.admin2lat;
+          }
+
           // merge
-          report.locations[i] = angular.merge( {}, p, r, l );
+          report.locations[i] = angular.merge( {}, p, r, l );        
 
           // locations
           angular.forEach( report.locations[i].trainings, function( training, j ){
