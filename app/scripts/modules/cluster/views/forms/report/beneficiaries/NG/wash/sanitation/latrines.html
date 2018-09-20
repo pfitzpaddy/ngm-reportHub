@@ -44,7 +44,7 @@
 								class="validate" 
 								min="0"
 								ng-model="latrine.quantity"
-								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, latrine, 'hh_latrines' );
+								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, latrine, 'households' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
