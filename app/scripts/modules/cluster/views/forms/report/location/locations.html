@@ -140,6 +140,21 @@
 
 						</div>
 
+						<div style="padding-left: 10px; margin-bottom: 10px"
+									ng-if="project.definition.admin0pcode === 'ET' && 
+													project.definition.cluster_id === 'esnfi' &&
+													project.report.report_status !== 'complete'">
+							<button class="btn"
+											style="background-color: #2196F3;"
+							 				ng-click="ngmClusterLocations.openNewLocation( project, project.report.locations );">
+								<i class="material-icons left">location_on</i>Add Location
+							</button>
+							<div ng-if="ngmClusterLocations.openAddNewLocation" 
+										class="slide-animate" 
+										ng-include="project.templatesUrl + project.addNewLocationUrl">
+							</div>
+						</div>
+
 				</li>
 			</ul>
 

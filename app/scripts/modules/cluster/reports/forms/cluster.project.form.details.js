@@ -362,7 +362,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // add location
         addLocation: function() {
-          $scope.inserted = ngmClusterLocations.addLocation( $scope.project.definition );
+          $scope.inserted = ngmClusterLocations.addLocation( $scope.project.definition, $scope.project.definition.target_locations );
           $scope.project.definition.target_locations.push( $scope.inserted );
         },
 
@@ -431,7 +431,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // select from list?
         showListYesNo: function( $index, $data, target_location ){
-          return ngmClusterLocations.showListYesNo( $scope.project, $index, $data, target_location );
+          return ngmClusterLocations.showListYesNo( $scope.project.lists, $index, $data, target_location );
         },
 
         // yes/no
@@ -447,8 +447,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // site_name
         showSiteName: function( $data, target_location ){
-          if( $data ) { target_location.site_name = $data; }
-          return target_location.site_name ? target_location.site_name : '';
+          return ngmClusterLocations.showSiteName( $data, target_location );
         },
 
 

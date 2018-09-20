@@ -1,0 +1,172 @@
+<div class="row">
+	<div class="col s12 m12 l12">
+		<div class="card">
+			<ul class="collection with-header">
+				<li class="collection-item avatar">					 
+					<div class="row">
+						<div class="col s12 ">
+							<div style="padding-top: 10px; ">
+								<table class="bordered responsive-table" >
+									<tr style="font-weight: 400">
+										<td></td>
+							    	<td>Implementation</td>
+							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
+							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
+							      <td ng-if="project.lists.admin3.length">{{ project.lists.admin3[0].admin3type_name }}</td>
+										<td>Type</td>
+										<td ng-if="project.definition.admin0pcode !== 'AF'">From List?</td>
+							      <td>Site Name *</td>
+										<td>Save</td>
+									</tr>
+									<tr ng-init="locationform.$show()">
+										<td>
+											<i class="material-icons" style="color: teal;">person_pin</i>
+										</td>
+							      <td>
+							        <!-- editable site_implementation_id -->
+							        <span e-placeholder="Select..." 
+							        				editable-select="ngmClusterLocations.new_location.site_implementation_id" 
+							        				e-name="site_implementation_id" 
+							        				e-form="locationform" 
+							        				e-ng-options="item.site_implementation_id as item.site_implementation_name for item in project.lists.site_implementation"
+							        				e-required>
+							          {{ ngmClusterLocations.showSiteImplementation( project.lists, $data, ngmClusterLocations.new_location ) }}
+							        </span>
+							      </td>
+							      <td>
+							        <!-- editable admin1 -->
+							        <span e-placeholder="Select..."
+							        				editable-select="ngmClusterLocations.new_location.admin1pcode"
+							        				e-name="admin1pcode"
+							        				e-form="locationform"
+							        				e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1 | filter : { inactive: '!true' }" 
+							        				e-ng-change="ngmClusterLocations.getAdminSites( project.lists, ngmClusterLocations.new_location )"
+							        				e-required>
+												{{ ngmClusterLocations.showAdmin1( project.lists, $data, ngmClusterLocations.new_location ) }}
+							        </span>
+							      </td>
+							      <td>
+							        <!-- editable admin2 -->
+							        <span e-placeholder="Select..."
+							        				editable-select="ngmClusterLocations.new_location.admin2pcode"
+							        				e-name="admin2pcode"
+							        				e-form="locationform"
+							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2Select[0]"
+							        				e-ng-change="ngmClusterLocations.siteTypeOnChange( project.lists, 0, $data, ngmClusterLocations.new_location )"
+							        				e-ng-disabled="!ngmClusterLocations.new_location.admin1pcode"
+							        				e-required>
+							          {{ ngmClusterLocations.showAdmin2( project.lists, 0, $data, ngmClusterLocations.new_location ) }}
+							        </span>
+							      </td>
+							      <td ng-if="project.lists.admin3.length">
+							        <!-- editable admin3 -->
+							        <div ng-show="!project.lists.admin3Select[0].length">
+								        <span>
+								        	-
+								        </span>
+								      </div>
+							        <div ng-show="project.lists.admin3Select[0].length">
+								        <span e-placeholder="Select..."
+								        				editable-select="ngmClusterLocations.new_location.admin3pcode"
+								        				e-name="admin3pcode"
+								        				e-form="locationform"
+								        				e-ng-options="item.admin3pcode as item.admin3name for item in project.lists.admin3Select[0]" 
+																e-ng-change="ngmClusterLocations.siteTypeOnChange( project.lists, 0, $data, ngmClusterLocations.new_location )"
+								        				e-ng-disabled="!ngmClusterLocations.new_location.admin2pcode">
+								          {{ ngmClusterLocations.showAdmin3( project.lists, 0, $data, ngmClusterLocations.new_location ) }}
+								        </span>
+								       </div>
+							      </td>
+							      <td>
+							      	<!-- site type -->							      
+							        <span e-placeholder="Select..."
+							        				editable-select="ngmClusterLocations.new_location.site_type_id"
+							        				e-name="site_type_id"
+							        				e-form="locationform"
+							        				e-ng-options="item.site_type_id as item.site_type_name for item in project.lists.site_type"
+							        				e-ng-change="ngmClusterLocations.siteTypeOnChange( project.lists, 0, $data, ngmClusterLocations.new_location )"
+							        				e-ng-disabled="!ngmClusterLocations.new_location.admin2name"
+							        				e-required>
+							          {{ ngmClusterLocations.showSiteType( project.lists, 0, $data, ngmClusterLocations.new_location ) }}
+							        </span>
+							      </td>
+
+							      <td ng-if="project.definition.admin0pcode !== 'AF'">
+							      	<!-- select from list -->	
+							        <span e-placeholder="Select..."
+							        				editable-select="ngmClusterLocations.new_location.site_list_select_id"
+							        				e-name="site_list_select_id"
+							        				e-form="locationform"
+							        				e-ng-options="item.site_list_select_id as item.site_list_select_name for item in project.lists.site_list_select"
+							        				e-ng-change="ngmClusterLocations.yesNoOnChange( ngmClusterLocations.new_location )"
+							        				e-ng-disabled="ngmClusterLocations.new_location.site_list_select_disabled">
+							          {{ ngmClusterLocations.showListYesNo( project.lists, 0, $data, ngmClusterLocations.new_location ) }}
+							        </span>
+							      </td>
+
+							      <!-- select existing: drop down -->
+							      <td ng-if="ngmClusterLocations.new_location.site_list_select_id === 'yes'">
+							        <span e-placeholder="Select..."
+							        			editable-select="ngmClusterLocations.new_location.site_id"
+							        			e-name="site_id"
+							        			e-form="locationform"
+							        			e-ng-options="item.site_id as item.site_name for item in project.lists.adminSitesSelect[0] | 
+							        											filter:{ site_type_id: ngmClusterLocations.new_location.site_type_id }"
+							        			e-ng-disabled="!ngmClusterLocations.new_location.site_type_id">
+							          {{ ngmClusterLocations.showAdminSites( project.lists, 0, $data, ngmClusterLocations.new_location ) }}
+							        </span>
+							      </td>
+
+							      <!-- select existing: free text  -->
+										 <td ng-if="ngmClusterLocations.new_location.site_list_select_id === 'no'">
+							        <span editable-text="ngmClusterLocations.new_location.site_name"
+							        				e-name="site_name"
+							        				e-form="locationform"
+							        				e-required>
+							        	{{ ngmClusterLocations.showSiteName( $data, ngmClusterLocations.new_location ) }}
+							        </span>
+							      </td>
+							      <!-- select existing: free text  -->
+										 <td ng-if="ngmClusterLocations.new_location.site_list_select_id !== 'no' && 
+										 							ngmClusterLocations.new_location.site_list_select_id !== 'yes'">
+							        <span editable-text="ngmClusterLocations.new_location.site_name"
+							        				e-name="site_name"
+							        				e-form="locationform"
+							        				e-required>
+							        	{{ ngmClusterLocations.showSiteName( $data, ngmClusterLocations.new_location ) }}
+							        </span>
+							      </td>
+
+										<!-- button -->
+										<td style="white-space: nowrap" ng-show="project.report.report_status !== 'complete'">
+											<!-- form -->
+											<form editable-form 
+														name="locationform"
+														class="form-buttons form-inline"
+														onbeforesave="ngmClusterLocations.addNewLocation( project, ngmClusterLocations.new_location )"
+														shown="true">
+												<button title="Save" 
+																type="submit"
+																class="btn waves-effect waves-light save"
+																ng-disabled="!ngmClusterLocations.new_location.admin2name || 
+																							!ngmClusterLocations.new_location.site_name">
+														<i class="material-icons">save</i>
+												</button>
+							          <button type="button"
+							          				ng-click="ngmClusterLocations.new_location = {}; ngmClusterLocations.openAddNewLocation = false;" 
+							          				class="btn blue lighten-1 waves-effect waves-light"
+							          				title="Cancel New Location">
+													<i class="material-icons">clear</i>
+							          </button>
+											</form>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
