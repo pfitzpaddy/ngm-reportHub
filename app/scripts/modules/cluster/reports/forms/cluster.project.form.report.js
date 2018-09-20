@@ -30,6 +30,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
     'ngmClusterHelper',
     'ngmClusterLists',
     'ngmClusterBeneficiaries',
+    'ngmClusterLocations',
     'ngmClusterTrainings',
     'ngmClusterHelperAf',
     'ngmClusterHelperNgWash',
@@ -50,6 +51,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       ngmClusterHelper,
       ngmClusterLists,
       ngmClusterBeneficiaries,
+      ngmClusterLocations,
       ngmClusterTrainings,
       ngmClusterHelperAf,
       ngmClusterHelperNgWash,
@@ -68,7 +70,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       $scope.ngmClusterHelperNgWash = ngmClusterHelperNgWash;
       $scope.ngmClusterHelperNgWashLists = ngmClusterHelperNgWashLists;
       $scope.ngmClusterHelperNgWashValidation = ngmClusterHelperNgWashValidation;
-
+      $scope.openAddLocation = false;
+      
       // project
       $scope.project = {
 
@@ -94,6 +97,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         beneficiariesTrainingUrl: 'beneficiaries/2016/beneficiaries-training.html',
         beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health-2016.html',
         notesUrl: 'notes.html',
+        addLocationUrl:'ET/esnfi/new_location.html',
         
         // beneficairies template
         beneficiariesUrl: function() {
@@ -168,10 +172,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         /**** Beneficiaries ****/
 
         // add beneficiary
-        addBeneficiary: function( $parent ) {
-          $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.report.locations[ $parent ].beneficiaries );
-          $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
-        },
+        addBeneficiary: function( $parent ) {          
+          $scope.inserted = ngmClusterBeneficiaries.addBeneficiary($scope.project.report.locations[$parent].beneficiaries );
+          $scope.project.report.locations[$parent].beneficiaries.push( $scope.inserted );        
+          
+          
+        },       
 
         // add beneficiary
         addNgWashBeneficiary: function( $parent ) {
@@ -244,6 +250,104 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         showCash: function( $locationIndex ) {
           return ngmClusterBeneficiaries.showCash( $scope.project.report.locations[ $locationIndex ].beneficiaries );
         },
+
+        
+
+        
+        //add new Location
+        showAdmin1AddLocation: function ($data) {
+         
+          if($data !== null){
+            $scope.selectedAdmin1Code = $data;
+            $scope.project.lists.admin2Select[0] =
+              $filter('filter')($scope.project.lists.admin2, { admin1pcode: $data }, true);
+            
+            $scope.admin2status = true;
+          } else{
+            $scope.admin2status = false;
+          } 
+
+        },
+
+        showAdmin2AddLocation: function ($data) {
+          if ($data !== null) {
+            $scope.selectedAdmin1Code = $data;
+            $scope.project.lists.admin3Select[0] =
+              $filter('filter')($scope.project.lists.admin3, {
+                admin1pcode: $scope.selectedAdmin1Code,
+                admin2pcode: $data
+              }, true);
+            $scope.admin3status = true;
+          } else {
+            $scope.admin3status = false;
+          }
+
+        },
+
+        siteNameNewAddLocation($data){
+          console.log($data);
+          if ($data !== null) {
+            $scope.siteNameStatus = true;
+          }else{
+            $scope.siteNameStatus = false;
+          }
+         
+        },
+        
+
+        // add location
+        addLocation: function () {
+          // $scope.inserted = ngmClusterLocations.addLocation($scope.project.definition);
+          // $scope.project.definition.target_locations.push($scope.inserted);
+          // var a = $scope.project.report.locations
+          // $scope.project.report.locations.push(a);
+          // console.log();
+          // console.log($scope.project.report.locations);                          
+
+        },
+
+        addNewLocation:function($data){
+          
+          var a={}
+          var ab = $scope.project.report.locations[0];
+        
+          
+          
+          for (key in ab) {
+            if (key === '$$hashKey' || key === 'id' || key==='site_lat'){              
+            }else{
+              a[key] = ab[key];
+            }            
+            $scope.openAddLocation = false;              
+          }
+          chAdmin2 = $filter('filter')($scope.project.lists.admin2, { admin1pcode: $data.admin1pcode }, true);
+                    
+          a.admin1lat = chAdmin2[0].admin1lat;
+          a.admin1lng = chAdmin2[0].admin1lng;
+          a.admin1pcode = chAdmin2[0].admin1pcode;
+          a.admin1name = chAdmin2[0].admin1name;
+          a.admin2name = chAdmin2[0].admin2name;
+          a.admin2lat = chAdmin2[0].admin2lat;
+          a.admin2lng = chAdmin2[0].admin2lng;
+          a.admin2pcode = chAdmin2[0].admin2pcode;          
+          a.beneficiaries = [];         
+          a.adminRpcode = chAdmin2[0].adminRpcode;
+          a.adminRname = chAdmin2[0].adminRname;
+          if ($data.site_list_select_id){
+            a.site_list_select_id = $data.site_list_select_id;
+          }
+          if ($data.site_name) {
+            a.site_name = $data.site_name;
+          }
+          if ($data.site_id) {
+            a.site_type_id = $data.site_type_id;
+          }
+
+          $scope.project.report.locations.push(a);          
+          $scope.project.save();
+        
+        },
+        
         
         // enable cash
         enableCash: function( $data, $beneficiary ) {
@@ -333,7 +437,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // save
         save: function( complete, display_modal ){
-
           // if textarea
           $( 'textarea[name="notes"]' ).removeClass( 'ng-untouched' ).addClass( 'ng-touched' );
           $( 'textarea[name="notes"]' ).removeClass( 'invalid' ).addClass( 'valid' );
@@ -346,7 +449,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           // update project details of report + locations + beneficiaries
           $scope.project.report =
               ngmClusterHelper.getCleanReport( $scope.project.definition, $scope.project.report );
-
+          
           // msg
           Materialize.toast( 'Processing Report...' , 3000, 'note');
 
@@ -359,7 +462,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
           // set report
           $http( setReportRequest ).success( function( report ){
-
+            
             if ( report.err ) {
               // update
               Materialize.toast( 'Error! Please correct the ROW and try again', 6000, 'error' );
@@ -370,6 +473,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               // updated report
               $scope.project.report = report;
               $scope.project.report.submit = false;
+              
 
               // user msg
               var msg = 'Project Report for  ' + moment.utc( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
@@ -402,9 +506,16 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             Materialize.toast( 'Error!', 6000, 'error' );
           });;
 
+        },
+
+        openSesame: function (params) {
+          $scope.openAddLocation = !$scope.openAddLocation;
+          
+          
         }
 
       }
+      
 
   }
 

@@ -136,8 +136,17 @@
 								<div ng-repeat="training in project.report.locations[ $locationIndex ].trainings" ng-init="$trainingIndex=$index">
 									<div class="slide-animate" ng-include="project.templatesUrl + ngmClusterTrainings.trainingsUrl"></div>
 								</div>
-							</div>
+							</div>						
+							
 
+						</div>
+						<div style="padding-left: 10px;margin-bottom: 10px">
+							<button class="btn" style="background-color: #2196F3;" ng-if="project.definition.admin0pcode === 'ET' && project.definition.cluster_id === 'esnfi'"
+							 ng-click="project.openSesame();">
+								<i class="material-icons left">location_on</i>Add Location
+							</button>
+						
+							<div ng-if="openAddLocation" class="slide-animate" ng-include="project.templatesUrl + project.addLocationUrl"></div>
 						</div>
 
 				</li>

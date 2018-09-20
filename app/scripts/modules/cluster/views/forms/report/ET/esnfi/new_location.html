@@ -1,0 +1,161 @@
+<div class="row">
+    <div class="col s12 m12 l12">
+        <div class="card">
+            <ul class="collection with-header">
+                
+                <li class="collection-item avatar">
+                   
+                    <div class="row">
+                        <div class="col s12 ">
+                            <div style="padding-top: 10px; ">
+                                <table class="bordered responsive-table" >
+                                    <tr style="font-weight: 400">
+                                        <td></td>
+                                        <td>Region</td>
+                                        <td>Zone</td>
+                                        <td ng-if="project.lists.admin3.length">Woreda</td>
+                                        <td>Type</td>                                        
+                                        <td>From List?</td>
+                                        <td>Site Name *</td>
+                                        <td>Save</td>
+                                        
+                                       
+                                    </tr>
+                                    <tr  ng-init="locationform.$show()">
+                                        <td>
+                                            <i class="material-icons" style="color: teal;">person_pin</i>
+                                        </td>
+                                                <td>
+                                                    <!-- Admin1-->
+                                                    <span 
+                                                    e-placeholder="Select..." 
+                                                    editable-select="none"
+                                                     e-name="admin1pcode"
+                                                    e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1| filter : { inactive: '!true' }" 
+                                                    e-form="locationform"
+                                                     e-ng-change="project.showAdmin1AddLocation( $data)"
+                                                     e-required
+                                                    >
+                                                         <!-- {{ project.showAdmin1AddLocation( $data,project.report.locations[0]) }} -->
+                                                    </span>
+                                                </td>
+                                        <td>
+                                            <!-- Admin2 -->
+                                            <span
+                                             e-placeholder="Select..."
+                                                 editable-select="none" 
+                                                 e-name="admin2pcode" 
+                                                 e-form="locationform" 
+                                                 e-ng-options="item.admin2pcode as item.admin2name
+                                                for item in project.lists.admin2Select[0]"                                                
+                                                 e-ng-disabled="!admin2status"
+                                                 e-ng-change="project.showAdmin2AddLocation( $data)"
+                                                 e-required
+                                                >
+                                                 <!-- {{ project.showAdmin2AddLocation( $data,project.report.locations[0]) }} -->
+                                            </span>
+                                            
+                                        </td>
+                                        <td ng-if="project.lists.admin3.length">
+                                            <div ng-show="!project.lists.admin3Select[0].length">
+                                                <span>
+                                                    -
+                                                </span>
+                                            </div>
+                                            <div ng-show="project.lists.admin3Select[0].length">
+                                                <!-- Admin3 -->
+                                                <span e-placeholder="Select..." 
+                                                 editable-select="none" 
+                                                 e-name="admin3pcode" 
+                                                 e-form="locationform" 
+                                                 e-ng-options="item.admin3pcode as item.admin3name
+                                                for item in project.lists.admin3Select[0]"                                                
+                                                 e-ng-disabled="!admin3status"                                                 
+                                                >
+                                                     <!-- {{ project.showAdmin3( $index, $data, project.report.locations[0] ) }} -->
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <!-- Type -->
+                                            <span e-placeholder="Select..." 
+                                             editable-select="none" 
+                                             e-name="site_type_id" 
+                                             e-form="locationform" 
+                                             e-ng-options="item.site_type_id as item.site_type_name
+                                            for item in project.lists.site_type" 
+                                             e-ng-disabled="!admin2status"
+                                            >
+                                                
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <!-- FormList? -->
+                                            <span e-placeholder="Select..." 
+                                             editable-select="none" 
+                                             e-name="site_list_select_id" 
+                                             e-form="locationform" 
+                                             e-ng-options="item.site_list_select_id
+                                            as item.site_list_select_name for item in project.lists.site_list_select" 
+                                            >
+                                                 
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <!-- Site Name -->
+                                            <span 
+                                             editable-text="none" 
+                                             e-name="site_name" 
+                                             e-form="locationform"
+                                             e-required
+                                             e-ng-change="project.siteNameNewAddLocation($data)">
+                                                
+                                            </span>
+                                        </td>
+                                        <!-- button -->
+                                        <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'">
+                                            <!-- form -->
+                                            <form editable-form 
+                                                name="locationform"
+                                                 
+                                                class="form-buttons form-inline"
+                                                onbeforesave="project.addNewLocation($data)"
+                                                shown="true"
+                                                >
+                                                <button title="Save" type="submit" class="btn waves-effect waves-light save" ng-disabled="((!admin2status)||(!siteNameStatus))" >
+                                                    
+                                                    <i class="material-icons">save</i>
+                                                </button>
+                                                <!-- <button type="button"  ng-disabled="locationform.$waiting"  
+                                                    class="btn blue lighten-1 waves-effect waves-light" title="Cancel Edit">
+                                                    <i class="material-icons">clear</i>
+                                                </button> -->
+                                            </form>
+                                           
+                                        </td>
+                                    </tr>
+
+                                   
+                                    
+                                </table>
+                                
+
+                                <!-- <button class="btn" ng-show="project.definition.project_status !== 'complete'" ng-click="project.addLocation()" style="margin:20px 0px;">
+                                    <i class="material-icons left">add</i>Add Row 
+                                </button> -->
+
+                                <!-- <div class="buttons" ng-if="!locationform.$visible">
+                                    <button class="btn waves-effect waves-light" ng-click="locationform.$show()" title="Edit"
+                                        
+                                        <i class="material-icons">create</i>
+                                    </button> -->
+
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
