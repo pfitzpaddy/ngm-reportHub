@@ -29,6 +29,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
     'ngmData',
     'ngmClusterHelper',
     'ngmClusterLists',
+    'ngmClusterLocations',
     'ngmClusterBeneficiaries',
     'ngmClusterLocations',
     'ngmClusterTrainings',
@@ -50,6 +51,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       ngmData,
       ngmClusterHelper,
       ngmClusterLists,
+      ngmClusterLocations,
       ngmClusterBeneficiaries,
       ngmClusterLocations,
       ngmClusterTrainings,
@@ -65,6 +67,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       // link for ngmClusterTrainings service directly into the template
         // this should be a directive - sorry Steve Jobs!
       $scope.scope = $scope;
+      $scope.ngmClusterLists = ngmClusterLists;
+      $scope.ngmClusterLocations = ngmClusterLocations;
       $scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
       $scope.ngmClusterTrainings = ngmClusterTrainings;
       $scope.ngmClusterHelperNgWash = ngmClusterHelperNgWash;
@@ -93,7 +97,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // url
         templatesUrl: '/scripts/modules/cluster/views/forms/report/',
         // templates
-        locationsUrl: 'locations.html',
+        locationsUrl: 'location/locations.html',
+        addNewLocationUrl: 'location/new_location.html',
         beneficiariesTrainingUrl: 'beneficiaries/2016/beneficiaries-training.html',
         beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health-2016.html',
         notesUrl: 'notes.html',
