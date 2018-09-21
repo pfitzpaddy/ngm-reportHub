@@ -53,14 +53,15 @@
 								class="validate" 
 								min="0"
 								ng-model="kit.quantity"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, kit, 'monitoring' );
+														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- monitoring  -->
 				<label ng-if="beneficiary.activity_detail_id === 'post_distribution_monitoring'"
 								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
-								class="active">Quantity (Monitoring Activities)</label>
+								class="active">Quantity (Kits Distributed)</label>
 			</div>
 
 		</div>

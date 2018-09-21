@@ -180,7 +180,7 @@ angular.module( 'ngmReportHub' )
 					template: 'latrines.html',
 					association: 'sanitation',
 					measurement: {
-						quantity_measurement_id: 'hh_latrines',
+						quantity_measurement_id: 'households',
 						quantity_measurement_name: ' HH Latrines'
 					}
 				},
@@ -221,7 +221,7 @@ angular.module( 'ngmReportHub' )
 					template: 'latrines.html',
 					association: 'sanitation',
 					measurement: {
-						quantity_measurement_id: 'hh_latrines',
+						quantity_measurement_id: 'households',
 						quantity_measurement_name: ' HH Latrines'
 					}
 				},
@@ -748,8 +748,8 @@ angular.module( 'ngmReportHub' )
 					template: 'kits.html',
 					association: 'hygiene',
 					measurement:{
-						quantity_measurement_id: 'monitoring_activities',
-						quantity_measurement_name: 'Monitoring Activities',
+						quantity_measurement_id: 'kits_distributed',
+						quantity_measurement_name: 'Kits Distributed',
 						details:[]
 					}
 				},

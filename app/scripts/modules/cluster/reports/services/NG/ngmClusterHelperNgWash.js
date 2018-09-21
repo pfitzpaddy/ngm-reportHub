@@ -52,7 +52,7 @@ angular.module( 'ngmReportHub' )
 				},
 				// sanitation
 				// latrines
-				hh_latrines:{
+				households:{
 					keys: [ 'quantity' ],
 					beneficiaries: 6
 				},
@@ -78,6 +78,10 @@ angular.module( 'ngmReportHub' )
 				kits:{
 					keys: [ 'quantity' ],
 					beneficiaries: 6
+				},
+				monitoring:{
+					keys: [ 'quantity' ],
+					beneficiaries: 1
 				},
 				// CTP
 				// cash
@@ -205,8 +209,6 @@ angular.module( 'ngmReportHub' )
 
 				// slight timeout to capture UI changes
 				$timeout(function(){
-
-					console.log('detailsChange')
 					
 					// beneficiary
 					if ( $beneficiary.activity_detail_id ) {
@@ -242,12 +244,7 @@ angular.module( 'ngmReportHub' )
 				var defaults = ngmClusterHelperNgWashKeys.keys.defaults;
 				
 				// create model using ngmClusterHelperNgWash keys ( based on activity_detail )
-				console.log('addActivity')
-				console.log( keys.measurement )
-				console.log( defaults )
 				var activity = angular.merge( {}, keys.measurement, defaults );
-
-				console.log( activity )
 
 				// in case of boreholes ( only saved ay db level if boreholes )
 				activity.borehole_lng = location.site_lng;
@@ -341,7 +338,7 @@ angular.module( 'ngmReportHub' )
 							b.borehole_pumping_ave_daily_hours >=0 ) {
 					// metrics
 					b.borehole_m3 = b.borehole_yield_ltrs_second * b.borehole_pumping_ave_daily_hours * 3600;
-					b.total_beneficiaries = b.borehole_m3 * ngmClusterHelperNgWash.ratios.beneficiaries;
+					b.total_beneficiaries = ( b.borehole_m3 * ngmClusterHelperNgWash.ratios.beneficiaries ) * 0.001;
 					// sadd
 					ngmClusterHelperNgWash.bSadd( b );
 					// calculate location totals
@@ -400,6 +397,7 @@ angular.module( 'ngmReportHub' )
 									b.activity_detail_id === 'speaker_campaigns' ||
 									b.activity_detail_id === 'other_campaigns' ||
 									b.activity_detail_id === 'hygiene_promotion_volunteers_recruitment_training' ||
+									b.activity_detail_id === 'hygiene_promotion_volunteers_kit_distribution' ||
 									b.activity_detail_id === 'hygiene_promotion_monitoring_visits' ||
 
 									// much easier - by description

@@ -24,7 +24,28 @@
 		<div class="row">		
 
 			<div class="input-field col s12">
-				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+
+				
+				<!-- house_to_house_visit -->
+				<input ng-if="beneficiary.activity_detail_id === 'house_to_house_visit'"
+								id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								name="quantity"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="promotion.quantity"
+								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, promotion, 'households' );
+														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+				<label ng-if="beneficiary.activity_detail_id === 'house_to_house_visit'"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								class="active">Quantity (House Visits)</label>
+
+				
+				<!-- label based on activity_detail_id -->
+				<input ng-if="beneficiary.activity_detail_id !== 'house_to_house_visit'"
+								id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								name="quantity"
 								type="number" 
 								class="validate" 
