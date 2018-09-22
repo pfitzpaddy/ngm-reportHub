@@ -1,10 +1,9 @@
-
 <style>
-
 	.edit-report-btn {
-		position:absolute; right:20px; top:20px;
+		position: absolute;
+		right: 20px;
+		top: 20px;
 	}
-
 </style>
 
 <!-- bind html -->
@@ -21,148 +20,135 @@
 
 					<!-- form -->
 
-					 	<div class="row">
+					<div class="row">
 
-							<h5 class="report-selected-locations">{{ project.report.locations.length }} Selected Locations</h5>
-							<!-- TODO DELETE project.report.organization === 'EMERGENCY' after 01062018 -->
-							<div class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
-	      					title="Edit {{ project.monthlyTitleFormat }}"
-									ng-show="project.definition.project_status === 'active' &&
+						<h5 class="report-selected-locations">{{ project.report.locations.length }} Selected Locations</h5>
+						<!-- TODO DELETE project.report.organization === 'EMERGENCY' after 01062018 -->
+						<div class="btn waves-effect waves-light hide-on-small-only edit-report-btn" title="Edit {{ project.monthlyTitleFormat }}"
+						 ng-show="project.definition.project_status === 'active' &&
 														project.report.report_year === project.reportingYear() &&
-	      										project.report.report_status === 'complete'"
+	      										project.report.report_status === 'complete'" ng-click="project.save( false, false)">
+							<i class="material-icons left">create</i>Edit Report
+						</div>
 
-	      					ng-click="project.save( false, false)">
-	      					<i class="material-icons left">create</i>Edit Report
-	      			</div>
+					</div>
+
+					<div class="row" ng-repeat="location in project.report.locations" ng-init="$locationIndex=$index">
+
+						<div class="row">
+							<!-- location title -->
+							<div class="col s12 m9 left">
+
+								<!-- no site && admin2 -->
+								<h5 class="report-location-title" ng-if="!location.site_type_name && !location.admin3pcode">
+									<i class="material-icons left" style="color: teal;">location_on</i>
+									{{ location.admin1name }}, {{ location.admin2name }}, {{ location.site_name }}
+								</h5>
+								<!-- no site && admin3 -->
+								<h5 class="report-location-title" ng-if="!location.site_type_name && location.admin3pcode">
+									<i class="material-icons left" style="color: teal;">location_on</i>
+									{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.site_name }}
+								</h5>
+								<!-- site && admin2 -->
+								<h5 class="report-location-title" ng-if="location.site_type_name && !location.admin3pcode">
+									<i class="material-icons left" style="color: teal;">location_on</i>
+									{{ location.admin1name }}, {{ location.admin2name }}, {{ location.site_type_name }}, {{ location.site_name }}
+								</h5>
+								<!-- site && admin3 -->
+								<h5 class="report-location-title" ng-if="location.site_type_name && location.admin3pcode">
+									<i class="material-icons left" style="color: teal;">location_on</i>
+									{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.site_type_name }}, {{ location.site_name
+									}}
+								</h5>
+
+								<!-- eiewg formal location -->
+								<h5 class="report-location-title" ng-if="project.definition.cluster_id === 'eiewg' && location.site_implementation_id === 'formal'">
+									<i class="material-icons left" style="color: teal;">location_on</i>
+									{{ location.site_implementation_name | uppercase }} SCHOOL | {{ location.admin1name }}, {{ location.admin2name }}, {{ location.site_type_name
+									}}, {{ location.site_name }}
+								</h5>
+								<!-- eiewg informal location -->
+								<h5 class="report-location-title" ng-if="project.definition.cluster_id === 'eiewg' && location.site_implementation_id === 'informal'">
+									<i class="material-icons left" style="color:teal;">location_on</i>
+									HUB SCHOOL | {{ location.site_hub_name }}
+									<br/>
+									<br/>
+									<span style="padding-left:40px;color:#616161;font-size:1.2rem;">
+										{{ location.site_implementation_name | uppercase }} SCHOOL | {{ location.admin1name }}, {{ location.admin2name }}, {{ location.site_type_name
+										}}, {{ location.site_name }}
+									</span>
+								</h5>
+							</div>
+
+							<!-- location totals -->
+							<div class="col s12 m3 hide-on-med-and-down" ng-if="project.definition.admin0pcode !== 'NG' ">
+								<div class="beneficiary-count right">
+									<span style="font-size:1.2rem;">
+										<i class="material-icons" style="padding-right:10px;">group</i>
+									</span>
+									<!-- filter in app/services/ngmHelper.js -->
+									{{ location | sumArrayofArraysByKeys:'beneficiaries':'trainings':project.lists.indicators:project.lists.skip | number }}
+								</div>
+							</div>
+							<div class="col s12 m3 hide-on-med-and-down" ng-if="project.definition.admin0pcode === 'NG' ">
+								<div class="beneficiary-count right">
+									<span style="font-size:1.2rem;">
+										<i class="material-icons" style="padding-right:10px;">group</i>
+									</span>
+									<!-- filter in app/services/ngmHelper.js -->
+									{{ location | sumArrayByKeys:'beneficiaries':{ 'total_beneficiaries': 0 }:project.lists.skip | number }}
+								</div>
+							</div>
 
 						</div>
 
-						<div class="row" ng-repeat="location in project.report.locations" ng-init="$locationIndex=$index">
-
-							<div class="row">
-								<!-- location title -->
-								<div class="col s12 m9 left">
-
-							  	<!-- no site && admin2 -->
-							  	<h5 class="report-location-title" ng-if="!location.site_type_name && !location.admin3pcode">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.site_name }}
-									</h5>
-							  	<!-- no site && admin3 -->
-							  	<h5 class="report-location-title" ng-if="!location.site_type_name && location.admin3pcode">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.site_name }}
-									</h5>
-							  	<!-- site && admin2 -->
-							  	<h5 class="report-location-title" ng-if="location.site_type_name && !location.admin3pcode">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.site_type_name }}, {{ location.site_name }}
-									</h5>
-							  	<!-- site && admin3 -->
-							  	<h5 class="report-location-title" ng-if="location.site_type_name && location.admin3pcode">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.site_type_name }}, {{ location.site_name }}
-									</h5>
-
-									<!-- eiewg formal location -->
-							  	<h5 class="report-location-title" 
-							  				ng-if="project.definition.cluster_id === 'eiewg' && location.site_implementation_id === 'formal'">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.site_implementation_name | uppercase }} SCHOOL | {{ location.admin1name }}, {{ location.admin2name }}, {{ location.site_type_name }}, {{ location.site_name }}
-									</h5>
-									<!-- eiewg informal location -->
-							  	<h5 class="report-location-title"
-							  				ng-if="project.definition.cluster_id === 'eiewg' && location.site_implementation_id === 'informal'">
-												<i class="material-icons left" style="color:teal;">location_on</i>
-												HUB SCHOOL | {{ location.site_hub_name }}
-												<br/>
-												<br/>
-												<span style="padding-left:40px;color:#616161;font-size:1.2rem;">
-													{{ location.site_implementation_name | uppercase }} SCHOOL | {{ location.admin1name }}, {{ location.admin2name }}, {{ location.site_type_name }}, {{ location.site_name }}
-												</span>
-									</h5>
-								</div>
-
-								<!-- location totals -->
-								<div class="col s12 m3 hide-on-med-and-down" 
-											ng-if="project.definition.admin0pcode !== 'NG' ">
-									<div class="beneficiary-count right">
-										<span style="font-size:1.2rem;">
-											<i class="material-icons" style="padding-right:10px;">group</i></span>
-												<!-- filter in app/services/ngmHelper.js -->
-												{{ location | sumArrayofArraysByKeys:'beneficiaries':'trainings':project.lists.indicators:project.lists.skip | number }}
-									</div>
-								</div>
-								<div class="col s12 m3 hide-on-med-and-down"
-											ng-if="project.definition.admin0pcode === 'NG' ">
-									<div class="beneficiary-count right">
-										<span style="font-size:1.2rem;">
-											<i class="material-icons" style="padding-right:10px;">group</i></span>
-												<!-- filter in app/services/ngmHelper.js -->
-												{{ location | sumArrayByKeys:'beneficiaries':{ 'total_beneficiaries': 0 }:project.lists.skip | number }}
-									</div>
-								</div>
-
+						<!-- cvwg -->
+						<div ng-if="location.admin0pcode !== 'NG'">
+							<div ng-if="project.showCash( $locationIndex ) && !project.showPackage( $locationIndex )" style="padding-left: 50px;">
+								<p style="color: #e57373">
+									<span style="font-weight:400">Amount:</span> Please enter the amount per
+									<span style="font-weight:400">HOUSEHOLD ( HH )</span> per
+									<span style="font-weight:400">TRANSFER</span>
+								</p>
+								<p style="color: #e57373">
+									<span style="font-weight:400">Transfers:</span> Please enter the
+									<span style="font-weight:400">ACTUAL</span> number of transfers made
+									<span style="font-weight:400">THIS</span> month
+								</p>
 							</div>
+						</div>
 
-							<!-- cvwg -->
-							<div ng-if="location.admin0pcode !== 'NG'">
-								<div ng-if="project.showCash( $locationIndex ) && !project.showPackage( $locationIndex )" style="padding-left: 50px;">
-									<p style="color: #e57373">
-										<span style="font-weight:400">Amount:</span> Please enter the amount per <span style="font-weight:400">HOUSEHOLD ( HH )</span> per <span style="font-weight:400">TRANSFER</span>
-									</p>
-									<p style="color: #e57373">
-										<span style="font-weight:400">Transfers:</span> Please enter the <span style="font-weight:400">ACTUAL</span> number  of transfers made <span style="font-weight:400">THIS</span> month
-									</p>
-								</div>
-							</div>
+						<!-- Project beneficiaries details -->
 
-							<!-- Project beneficiaries details -->
+						<!-- activities -->
+						<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesUrl()"></div>
 
-							<!-- activities -->
-							<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesUrl()"></div>
-
+						<!-- trainings -->
+						<div ng-if="ngmClusterTrainings.displayTrainings( project.definition )">
 							<!-- trainings -->
-							<div ng-if="ngmClusterTrainings.displayTrainings( project.definition )">
-							  <!-- trainings -->
-							  <div style="padding-left: 20px;">
-								  <button class="btn blue" ng-show="project.report.report_status !== 'complete'"
-								  					ng-click="ngmClusterTrainings.addTrainings( scope, project.lists, 
+							<div style="padding-left: 20px;">
+								<button class="btn blue" ng-show="project.report.report_status !== 'complete'" ng-click="ngmClusterTrainings.addTrainings( scope, project.lists, 
 								  																						project.definition,
 								  																						project.report.locations[ $locationIndex ], $locationIndex )">
-								    <i class="material-icons left">add</i>Add Trainings
-								  </button>
-								 </div>
-								<div ng-repeat="training in project.report.locations[ $locationIndex ].trainings" ng-init="$trainingIndex=$index">
-									<div class="slide-animate" ng-include="project.templatesUrl + ngmClusterTrainings.trainingsUrl"></div>
-								</div>
-							</div>						
-							
-
-						</div>
-						<div style="padding-left: 10px;margin-bottom: 10px">
-							<button class="btn" style="background-color: #2196F3;" ng-if="project.definition.admin0pcode === 'ET' && project.definition.cluster_id === 'esnfi'"
-							 ng-click="project.openSesame();">
-								<i class="material-icons left">location_on</i>Add Location
-							</button>
-						
-							<div ng-if="openAddLocation" class="slide-animate" ng-include="project.templatesUrl + project.addLocationUrl"></div>
-						</div>
-
-						<div style="padding-left: 10px; margin-bottom: 10px"
-									ng-if="project.definition.admin0pcode === 'ET' && 
-													project.definition.cluster_id === 'esnfi' &&
-													project.report.report_status !== 'complete'">
-							<button class="btn"
-											style="background-color: #2196F3;"
-							 				ng-click="ngmClusterLocations.openNewLocation( project, project.report.locations );">
-								<i class="material-icons left">location_on</i>Add Location
-							</button>
-							<div ng-if="ngmClusterLocations.openAddNewLocation" 
-										class="slide-animate" 
-										ng-include="project.templatesUrl + project.addNewLocationUrl">
+									<i class="material-icons left">add</i>Add Trainings
+								</button>
+							</div>
+							<div ng-repeat="training in project.report.locations[ $locationIndex ].trainings" ng-init="$trainingIndex=$index">
+								<div class="slide-animate" ng-include="project.templatesUrl + ngmClusterTrainings.trainingsUrl"></div>
 							</div>
 						</div>
+
+					</div>
+
+					<div style="padding-left: 10px; margin-bottom: 10px" ng-if="project.definition.admin0pcode === 'ET' && 
+													project.definition.cluster_id === 'esnfi' &&
+													project.report.report_status !== 'complete'">
+						<button class="btn" style="background-color: #2196F3;" ng-click="ngmClusterLocations.openNewLocation( project, project.report.locations );">
+							<i class="material-icons left">location_on</i>Add Location
+						</button>
+						<div ng-if="ngmClusterLocations.openAddNewLocation" class="slide-animate" ng-include="project.templatesUrl + project.addNewLocationUrl">
+						</div>
+					</div>
 
 				</li>
 			</ul>
