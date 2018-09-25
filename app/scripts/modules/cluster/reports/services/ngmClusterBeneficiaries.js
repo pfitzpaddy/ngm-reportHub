@@ -41,9 +41,9 @@ angular.module( 'ngmReportHub' )
           elderly_men:0,
           elderly_women:0,
           total_beneficiaries:0,
-          distribution_start_date: new Date(),
-          distribution_end_date: new Date(),
-          distribution_status: ""
+          // distribution_start_date: new Date(),
+          // distribution_end_date: new Date(),
+          // distribution_status: ""
         };
 
         // merge
@@ -54,10 +54,19 @@ angular.module( 'ngmReportHub' )
         if ( length ) {
           var b = angular.copy( beneficiaries[ length - 1 ] );
           delete b.id;
-          delete b.injury_treatment_same_province;          
+          delete b.injury_treatment_same_province;
+
+          if (b.activity_type_id === 'hardware_materials_distribution' && b.admin0pcode === 'ET' && b.cluster_id === 'esnfi') {
+            b.distribution_start_date = new Date();
+            b.distribution_end_date = new Date();
+            b.distribution_status = "";
+          }
+
           inserted = angular.merge( inserted, b, sadd );
           inserted.transfer_type_id = 0;
           inserted.transfer_type_value = 0;
+
+          
          
         }
 
