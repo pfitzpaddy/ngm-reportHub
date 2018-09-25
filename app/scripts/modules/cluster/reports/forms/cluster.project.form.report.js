@@ -176,6 +176,11 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         // add beneficiary
         addBeneficiary: function ($parent) {
           $scope.inserted = ngmClusterBeneficiaries.addBeneficiary($scope.project.report.locations[$parent].beneficiaries);
+          // if ($scope.project.report.activity_type[0].activity_type_id === "hardware_materials_distribution"){
+          //   $scope.distribution_date = true;
+          // }
+          
+          // console.log($scope.inserted, $parent);
           $scope.project.report.locations[$parent].beneficiaries.push($scope.inserted);
         },
 
@@ -352,7 +357,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
           // update project details of report + locations + beneficiaries
           $scope.project.report =
             ngmClusterHelper.getCleanReport($scope.project.definition, $scope.project.report);
-
+          console.log($scope.project.report);
           // msg
           Materialize.toast('Processing Report...', 3000, 'note');
 
@@ -411,6 +416,28 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         }
 
       }
+
+      $scope.check = function ($data) {        
+        console.log(ngmClusterHelper.getCleanReport($scope.project.definition, $scope.project.report));        
+      }
+      
+      $scope.datepicker =  {
+        start: function ($parent, $child) {
+          var start = $scope.project.report.locations[$parent].beneficiaries[$child].distribution_start_date;
+          $scope.project.report.locations[$parent].beneficiaries[$child].distribution_start_date = moment(new Date(start)).format('YYYY-MM-DDTHH:MM:SSZ');
+        },
+        end: function ($parent, $child) {
+          var end = $scope.project.report.locations[$parent].beneficiaries[$child].distribution_end_date;
+          console.log(end);
+          if(end !==''){
+            $scope.project.report.locations[$parent].beneficiaries[$child].distribution_end_date = moment(new Date(end)).format('YYYY-MM-DDTHH:MM:SSZ');
+          }
+         
+        }
+        
+
+      }
+      console.log($scope.project.report);
       
 
     }

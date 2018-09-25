@@ -40,7 +40,10 @@ angular.module( 'ngmReportHub' )
           women:0,
           elderly_men:0,
           elderly_women:0,
-          total_beneficiaries:0
+          total_beneficiaries:0,
+          distribution_start_date: new Date(),
+          distribution_end_date: new Date(),
+          distribution_status: ""
         };
 
         // merge
@@ -51,10 +54,11 @@ angular.module( 'ngmReportHub' )
         if ( length ) {
           var b = angular.copy( beneficiaries[ length - 1 ] );
           delete b.id;
-          delete b.injury_treatment_same_province;
+          delete b.injury_treatment_same_province;          
           inserted = angular.merge( inserted, b, sadd );
           inserted.transfer_type_id = 0;
           inserted.transfer_type_value = 0;
+         
         }
 
         // return new beneficiary
