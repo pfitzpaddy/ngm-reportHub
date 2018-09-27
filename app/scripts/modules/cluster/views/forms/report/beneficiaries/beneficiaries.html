@@ -312,7 +312,7 @@
     </tr>
 
     <!-- Kit Details -->
-    <tr ng-repeat-end ng-if="beneficiary.admin0pcode === 'ET' && beneficiary.cluster_id === 'esnfi' && (beneficiary.activity_description_id ==='bedding_set_partial_kit'
+    <tr  ng-if="beneficiary.admin0pcode === 'ET' && beneficiary.cluster_id === 'esnfi' && (beneficiary.activity_description_id ==='bedding_set_partial_kit'
     || beneficiary.activity_description_id ==='mosquito_net_set_partial_kit'
     || beneficiary.activity_description_id ==='kitchen_set_partial_kit' 
     || beneficiary.activity_description_id ==='hygiene_kit_partial_kit'
@@ -360,7 +360,7 @@
         
       </td>
     </tr>
-    
+    <tr ng-repeat-end></tr>
     
     
   </table>
