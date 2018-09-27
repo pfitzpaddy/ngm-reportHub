@@ -236,7 +236,7 @@
 
       <td style="white-space: nowrap" ng-show="project.report.report_status !== 'complete'">
         <!-- form -->
-        <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" onbeforesave="project.save(false,false)"
+        <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" onbeforesave="check($data)"
           class="form-buttons form-inline" shown="inserted == beneficiary">
           <button type="submit" ng-if="rowform.$visible" ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
                                   !ngmClusterTrainings.trainingFormComplete( project.report.locations )" class="btn btn-small waves-effect waves-light save"
@@ -267,17 +267,17 @@
       
       
     </tr>
-    <tr ng-repeat-end ng-if="beneficiary.admin0pcode === 'ET' && beneficiary.cluster_id === 'esnfi' && beneficiary.activity_type_id ==='hardware_materials_distribution' && beneficiary.distribution_start_date">
+    <!-- <tr ng-repeat-end ng-if="beneficiary.admin0pcode === 'ET' && beneficiary.cluster_id === 'esnfi' && beneficiary.activity_type_id ==='hardware_materials_distribution' && beneficiary.distribution_start_date">
       <td colspan="14" >
-        <div class="card" style="padding:20px;">
+        <div class="card" style="padding:20px;"> -->
         
           <!-- project details -->
-          <div class="row" >
+          <!-- <div class="row" > -->
         
         
         
             <!-- input-date directive -->
-            <div class="input-field col s12 m6">
+            <!-- <div class="input-field col s12 m6">
               <label for="ngm-start-date"> Distributed Start Date *</label>
               <input ngm-date 
               type="text" 
@@ -290,10 +290,10 @@
               on-close="datepicker.start($locationIndex,$index)" 
               
               />
-            </div>
+            </div> -->
         
             <!-- input-date directive -->
-            <div class="input-field col s12 m6">
+            <!-- <div class="input-field col s12 m6">
               <label for="ngm-end-date">Distributed End Date </label>
               <input ngm-date 
               type="text" 
@@ -306,13 +306,58 @@
               on-close="datepicker.end($locationIndex,$index)" 
               
               />
-            </div>
+            </div> -->
+        
+          <!-- </div>
+        </div>
+      </td> 
+      
+    </tr>-->
+    <tr ng-repeat-end ng-if="beneficiary.admin0pcode === 'AF' && beneficiary.cluster_id === 'cvwg' && beneficiary.activity_description_id ==='mpc_cash_smeb'">
+      <td colspan="14" ng-if="beneficiary.kit_details">
+        <div class="card-panel" style="padding:20px;">
+          <div class="row"  ng-repeat="detail in beneficiary.kit_details" >
+              <div class="col s12 m2" style="text-align:right;">
+                <p style="font-size:16px; padding-top:26px;">Kit Contents </p>
+              </div>
+
+              <div class="input-field col s12 m5">
+                <select id="ngm-beneficiary-kit-{{ $locationIndex }}-{{ $index }}" class="validate" ng-model="detail.detail_type_id" 
+                  ng-options="detail.detail_type_id as detail.detail_type_name for detail in ngmClusterHelperNgWashLists.lists.kit_details" 
+                   ng-change="project.selectChangeKitDetail( detail, 'kit_details', 'detail_type_id', 'detail_type_name','ngm-beneficiary-kit-{{ $locationIndex }}-{{ $index }}-{{beneficaryIndex}}')"
+                   ng-disabled="!rowform.$visible || project.report.report_status === 'complete'">
+                  <option value="" selected>Select...</option>
+                </select>
+                <label for="ngm-beneficiary-kit-{{ $locationIndex }}-{{ $index }}" class="active" style="transform:translateY(-10%)">Kit Item</label>
+
+              </div>
+
+              <div class="input-field col s12 m5">
+                    <input id="ngm-beneficiary-quantity-{{ $locationIndex }}-{{ $index }}" name="quantity" type="number"
+                      class="validate" min="0" ng-model="detail.quantity"
+                       ng-change="project.inputChange(ngm-beneficiary-quantity-{{ $locationIndex }}-{{ $index }})"
+                       ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+                      >              
+                    <label for="ngm-beneficiary-quantity-{{ $locationIndex }}-{{ $index }}" class="active">Peices</label>
+              </div>
+             
         
           </div>
+          <div class="row" style="margin-left:20px;">
+            
+            <button class="btn blue lighten-2" ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+              ng-click="rowform.$show();project.addKitDetail($locationIndex,$index);
+                                ngmClusterHelperNgWash.init_material_select()";
+               ng-hide="beneficiary.kit_details.length === ngmClusterHelperNgWashLists.lists.kit_details.length || project.report.report_status === 'complete' || !rowform.$visible ";
+          											>
+              <i class="material-icons left">add</i>Add Details
+            </button>
+          </div>
         </div>
+        
       </td>
-      
     </tr>
+    
     
     
   </table>
@@ -323,4 +368,11 @@
 
 </div>
 
+  
+
+
 <br/>
+<script>
+  // init
+  setTimeout(function () { $('.input-field select').material_select(); }, 100);
+</script>

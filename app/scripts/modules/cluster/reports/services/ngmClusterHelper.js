@@ -616,7 +616,7 @@ angular.module( 'ngmReportHub' )
                             
             } else {
               b.distribution_status = 'ongoing'              
-            }
+            }          
             // merge
             // report.locations[i].beneficiaries[j] = angular.merge( {}, b, l, r, p );
             report.locations[i].beneficiaries[j] = angular.merge( {}, p, r, l, b );

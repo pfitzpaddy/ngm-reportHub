@@ -6,7 +6,7 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', 'ngmAuth', 'ngmClusterHelperNgWash', function( $http, $filter, ngmAuth, ngmClusterHelperNgWash ) {
+  .factory('ngmClusterBeneficiaries', ['$http', '$filter', 'ngmAuth', 'ngmClusterHelperNgWash', 'ngmClusterHelperNgWashLists', function ($http, $filter, ngmAuth, ngmClusterHelperNgWash, ngmClusterHelperNgWashLists ) {
 
     // beneficairies
 		var ngmClusterBeneficiaries = {
@@ -62,6 +62,11 @@ angular.module( 'ngmReportHub' )
             b.distribution_status = "";
           }
 
+          if (b.admin0pcode === 'AF' && b.cluster_id === 'cvwg' && b.activity_description_id === 'mpc_cash_smeb'){
+            
+            b.kit_details = [];            
+          }
+
           inserted = angular.merge( inserted, b, sadd );
           inserted.transfer_type_id = 0;
           inserted.transfer_type_value = 0;
@@ -73,6 +78,28 @@ angular.module( 'ngmReportHub' )
         // return new beneficiary
         return inserted;
       },
+
+      //add kit_detail
+      addKitDetails: function (kit_details) {
+        insertedKitDetails={};
+        var addKit = {
+          detail_type_id: '',
+          detail_type_name: '',
+           quantity:0
+        };
+        // merge
+        angular.merge(insertedKitDetails,addKit);
+        var length = kit_details.length;
+        if(length){
+          var kit = angular.copy(kit_details[length - 1]);
+          angular.merge(insertedKitDetails, kit);
+        }
+
+        return insertedKitDetails;
+
+      },
+
+     
 
       // remove target_beneficiary from db
       removeTargetBeneficiary: function( id ) {
