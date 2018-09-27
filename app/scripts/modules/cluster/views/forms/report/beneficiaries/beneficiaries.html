@@ -268,7 +268,7 @@
       
     </tr>
     <!-- Distribution Date -->
-    <tr  ng-if="beneficiary.admin0pcode === 'AF' && beneficiary.cluster_id === 'cvwg' && beneficiary.activity_type_id ==='cvwg_multi_purpose_cash' && beneficiary.distribution_start_date">
+    <tr  ng-if="beneficiary.admin0pcode === 'ET' && beneficiary.cluster_id === 'esnfi' && beneficiary.activity_type_id ==='hardware_materials_distribution' && beneficiary.distribution_start_date">
       <td colspan="14">
         <div class="card" style="padding:20px;">
     
@@ -312,7 +312,11 @@
     </tr>
 
     <!-- Kit Details -->
-    <tr ng-repeat-end ng-if="beneficiary.admin0pcode === 'AF' && beneficiary.cluster_id === 'cvwg' && beneficiary.activity_description_id ==='mpc_cash_smeb'">
+    <tr ng-repeat-end ng-if="beneficiary.admin0pcode === 'ET' && beneficiary.cluster_id === 'esnfi' && (beneficiary.activity_description_id ==='bedding_set_partial_kit'
+    || beneficiary.activity_description_id ==='mosquito_net_set_partial_kit'
+    || beneficiary.activity_description_id ==='kitchen_set_partial_kit' 
+    || beneficiary.activity_description_id ==='hygiene_kit_partial_kit'
+    || beneficiary.activity_description_id ==='loose_items')">
       <td colspan="14" ng-if="beneficiary.kit_details">
         <div class="card-panel" style="padding:20px;">
           <div class="row"  ng-repeat="detail in beneficiary.kit_details" >
