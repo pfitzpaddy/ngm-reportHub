@@ -176,11 +176,6 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         // add beneficiary
         addBeneficiary: function ($parent) {
           $scope.inserted = ngmClusterBeneficiaries.addBeneficiary($scope.project.report.locations[$parent].beneficiaries);
-          // if ($scope.project.report.activity_type[0].activity_type_id === "hardware_materials_distribution"){
-          //   $scope.distribution_date = true;
-          // }
-          
-          // console.log($scope.inserted, $parent);
           $scope.project.report.locations[$parent].beneficiaries.push($scope.inserted);
         },
 
@@ -192,8 +187,23 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
 
         //add kitDetails
         addKitDetail: function ($parent,$child) {
-          $scope.inserted = ngmClusterBeneficiaries.addKitDetails($scope.project.report.locations[$parent].beneficiaries[$child].kit_details);
-          $scope.project.report.locations[$parent].beneficiaries[$child].kit_details.push($scope.inserted);          
+          // (main) to put detail on new beneficiaries
+
+          // $scope.inserted = ngmClusterBeneficiaries.addKitDetails($scope.project.report.locations[$parent].beneficiaries[$child].kit_details);
+          // $scope.project.report.locations[$parent].beneficiaries[$child].kit_details.push($scope.inserted);
+
+          // (additional) if we want to put kit detail on existing beneficiaries
+          if (!$scope.project.report.locations[$parent].beneficiaries[$child].kit_details){
+            $scope.project.report.locations[$parent].beneficiaries[$child] = ngmClusterBeneficiaries.addKit($scope.project.report.locations[$parent].beneficiaries[$child]);
+            if ($scope.project.report.locations[$parent].beneficiaries[$child].kit_details){
+              $scope.inserted = ngmClusterBeneficiaries.addKitDetails($scope.project.report.locations[$parent].beneficiaries[$child].kit_details);
+              $scope.project.report.locations[$parent].beneficiaries[$child].kit_details.push($scope.inserted);
+            }
+          } else{
+            $scope.inserted = ngmClusterBeneficiaries.addKitDetails($scope.project.report.locations[$parent].beneficiaries[$child].kit_details);
+            $scope.project.report.locations[$parent].beneficiaries[$child].kit_details.push($scope.inserted);
+          }
+                    
         },
 
         selectChangeKitDetail: function (d, list, key, name, label) {
@@ -430,7 +440,7 @@ angular.module('ngm.widget.project.report', ['ngm.provider'])
         }
 
       }
-
+      //for testing you can ignore this one
       $scope.check = function ($data) {        
         console.log(ngmClusterHelper.getCleanReport($scope.project.definition, $scope.project.report));        
       }

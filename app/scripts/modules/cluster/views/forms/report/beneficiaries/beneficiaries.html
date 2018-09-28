@@ -236,7 +236,7 @@
 
       <td style="white-space: nowrap" ng-show="project.report.report_status !== 'complete'">
         <!-- form -->
-        <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" onbeforesave="check($data)"
+        <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" onbeforesave="project.save(false,false)"
           class="form-buttons form-inline" shown="inserted == beneficiary">
           <button type="submit" ng-if="rowform.$visible" ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
                                   !ngmClusterTrainings.trainingFormComplete( project.report.locations )" class="btn btn-small waves-effect waves-light save"
@@ -317,8 +317,8 @@
     || beneficiary.activity_description_id ==='kitchen_set_partial_kit' 
     || beneficiary.activity_description_id ==='hygiene_kit_partial_kit'
     || beneficiary.activity_description_id ==='loose_items')">
-      <td colspan="14" ng-if="beneficiary.kit_details">
-        <div class="card-panel" style="padding:20px;">
+      <td colspan="14" ng-if="rowform.$visible ||beneficiary.kit_details.length ">
+        <div class="card-panel" style="padding:20px;" >
           <div class="row"  ng-repeat="detail in beneficiary.kit_details" >
               <div class="col s12 m2" style="text-align:right;">
                 <p style="font-size:16px; padding-top:26px;">Kit Contents </p>

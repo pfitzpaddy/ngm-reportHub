@@ -62,7 +62,11 @@ angular.module( 'ngmReportHub' )
             b.distribution_status = "";
           }
 
-          if (b.admin0pcode === 'AF' && b.cluster_id === 'cvwg' && b.activity_description_id === 'mpc_cash_smeb'){
+          if (b.admin0pcode === 'ET' && b.cluster_id === 'esnfi' && (b.activity_description_id === 'bedding_set_partial_kit'
+            || b.activity_description_id === 'mosquito_net_set_partial_kit'
+            || b.activity_description_id === 'kitchen_set_partial_kit'
+            || b.activity_description_id === 'hygiene_kit_partial_kit'
+            || b.activity_description_id === 'loose_items')){
             
             b.kit_details = [];            
           }
@@ -79,6 +83,17 @@ angular.module( 'ngmReportHub' )
         return inserted;
       },
 
+      //add kit_detail atribute to existing beneficiaries
+      addKit: function (beneficiaries) {
+        var inserted = {};
+        var addKit = {
+          detail_type_id: '',
+          detail_type_name: '',
+          quantity: 0
+        };
+        beneficiaries.kit_details=[];        
+        return beneficiaries;
+      },
       //add kit_detail
       addKitDetails: function (kit_details) {
         insertedKitDetails={};
