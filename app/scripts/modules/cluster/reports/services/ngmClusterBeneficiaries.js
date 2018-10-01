@@ -6,7 +6,7 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', 'ngmAuth', 'ngmClusterHelperNgWash', function( $http, $filter, ngmAuth, ngmClusterHelperNgWash ) {
+  .factory('ngmClusterBeneficiaries', ['$http', '$filter', 'ngmAuth', 'ngmClusterHelperNgWash', 'ngmClusterHelperNgWashLists', function ($http, $filter, ngmAuth, ngmClusterHelperNgWash, ngmClusterHelperNgWashLists ) {
 
     // beneficairies
 		var ngmClusterBeneficiaries = {
@@ -40,7 +40,10 @@ angular.module( 'ngmReportHub' )
           women:0,
           elderly_men:0,
           elderly_women:0,
-          total_beneficiaries:0
+          total_beneficiaries:0,
+          // distribution_start_date: new Date(),
+          // distribution_end_date: new Date(),
+          // distribution_status: ""
         };
 
         // merge
@@ -52,14 +55,66 @@ angular.module( 'ngmReportHub' )
           var b = angular.copy( beneficiaries[ length - 1 ] );
           delete b.id;
           delete b.injury_treatment_same_province;
+
+          if (b.activity_type_id === 'hardware_materials_distribution' && b.admin0pcode === 'ET' && b.cluster_id === 'esnfi') {
+            b.distribution_start_date = new Date();
+            b.distribution_end_date = new Date();
+            b.distribution_status = "";
+          }
+
+          if (b.admin0pcode === 'ET' && b.cluster_id === 'esnfi' && (b.activity_description_id === 'bedding_set_partial_kit'
+            || b.activity_description_id === 'mosquito_net_set_partial_kit'
+            || b.activity_description_id === 'kitchen_set_partial_kit'
+            || b.activity_description_id === 'hygiene_kit_partial_kit'
+            || b.activity_description_id === 'loose_items')){
+            
+            b.kit_details = [];            
+          }
+
           inserted = angular.merge( inserted, b, sadd );
           inserted.transfer_type_id = 0;
           inserted.transfer_type_value = 0;
+
+          
+         
         }
 
         // return new beneficiary
         return inserted;
       },
+
+      //add kit_detail atribute to existing beneficiaries
+      addKit: function (beneficiaries) {
+        var inserted = {};
+        var addKit = {
+          detail_type_id: '',
+          detail_type_name: '',
+          quantity: 0
+        };
+        beneficiaries.kit_details=[];        
+        return beneficiaries;
+      },
+      //add kit_detail
+      addKitDetails: function (kit_details) {
+        insertedKitDetails={};
+        var addKit = {
+          detail_type_id: '',
+          detail_type_name: '',
+           quantity:0
+        };
+        // merge
+        angular.merge(insertedKitDetails,addKit);
+        var length = kit_details.length;
+        if(length){
+          var kit = angular.copy(kit_details[length - 1]);
+          angular.merge(insertedKitDetails, kit);
+        }
+
+        return insertedKitDetails;
+
+      },
+
+     
 
       // remove target_beneficiary from db
       removeTargetBeneficiary: function( id ) {
