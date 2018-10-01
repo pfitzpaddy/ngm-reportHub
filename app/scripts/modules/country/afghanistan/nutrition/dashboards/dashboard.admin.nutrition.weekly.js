@@ -131,7 +131,8 @@ angular.module('ngmReportHub')
 											var path = '/nutrition/afghanistan/admin/' + $route.current.params.year + 
 																					 '/' + $route.current.params.province + 
 																					 '/' + $route.current.params.district +
-																					 '/all' +
+																					 '/' + $route.current.params.organization +
+																					 '/' + $route.current.params.week +
 																					 '/' + $scope.dashboard.startDate + 
 																					 '/' + $scope.dashboard.endDate;
 
@@ -156,7 +157,8 @@ angular.module('ngmReportHub')
 											var path = '/nutrition/afghanistan/admin/' + $route.current.params.year + 
 																					 '/' + $route.current.params.province + 
 																					 '/' + $route.current.params.district +
-																					 '/all' +
+																					 '/' + $route.current.params.organization +
+																					 '/' + $route.current.params.week +
 																					 '/' + $scope.dashboard.startDate + 
 																					 '/' + $scope.dashboard.endDate;
 
