@@ -1,0 +1,36 @@
+
+
+			<div class="col s12 m2" style="text-align:right;">
+				<p style="font-size:16px; padding-top:26px;">Kit Contents {{ $index+1 }} </p>
+			</div>
+
+			<div class="input-field col s12 m5">
+				<select id="ngm-beneficiary-kit-{{ $locationIndex }}-{{ $index }}" 
+                class="validate"
+                ng-model="detail.detail_type_id" 
+                ng-options="detail.detail_type_id as detail.detail_type_name for detail in ngmClusterHelperNgWashLists.lists.kit_details"
+                ng-change="project.selectChangeKitDetail( detail, 'kit_details', 'detail_type_id', 'detail_type_name','ngm-beneficiary-kit-{{ $locationIndex }}-{{ $index }}-{{beneficaryIndex}}')"
+                ng-disabled="project.report.report_status === 'complete' || !rowform.$visible">
+
+					<option value="" selected>Select...</option>
+
+				</select>
+				<label for="ngm-beneficiary-kit-{{ $locationIndex }}-{{ $index }}" class="active" style="transform:translateY(-10%)">Kit Item</label>
+			</div>
+
+			<div class="input-field col s12 m5">
+				<input id="ngm-beneficiary-quantity-{{ $locationIndex }}-{{ $index }}" 
+                  name="quantity" 
+                  type="number" 
+                  class="validate"
+                  min="0" 
+                  ng-model="detail.quantity"
+                  ng-change="project.inputChange( 'ngm-beneficiary-quantity-{{ $locationIndex }}-{{ $index }}' )" 
+                  ng-disabled="project.report.report_status === 'complete' || !rowform.$visible">
+                <label for="ngm-beneficiary-quantity-{{ $locationIndex }}-{{ $index }}" class="active">Peices</label>
+			</div>
+
+<script>
+	// init
+	setTimeout(function(){ $( '.input-field select' ).material_select();  }, 400 );
+</script>

@@ -98,6 +98,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         addNewLocationUrl: 'location/new_location.html',
         beneficiariesTrainingUrl: 'beneficiaries/2016/beneficiaries-training.html',
         beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health-2016.html',
+        template_kit_details: 'beneficiaries/kit_details.html',
         notesUrl: 'notes.html',
         
         // beneficairies template
@@ -183,20 +184,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $scope.inserted = ngmClusterHelperNgWash.addBeneficiary( $scope.project.report.locations[ $parent ].beneficiaries );
           $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
         },
-
-				// add Kit Detail
-				addKitDetail: function ($parent, $child) {
-					if (!$scope.project.report.locations[$parent].beneficiaries[$child].kit_details) {
-						$scope.project.report.locations[$parent].beneficiaries[$child] = ngmClusterBeneficiaries.addKit($scope.project.report.locations[$parent].beneficiaries[$child]);
-						if ($scope.project.report.locations[$parent].beneficiaries[$child].kit_details) {
-							$scope.inserted = ngmClusterBeneficiaries.addKitDetails($scope.project.report.locations[$parent].beneficiaries[$child].kit_details);
-							$scope.project.report.locations[$parent].beneficiaries[$child].kit_details.push($scope.inserted);
-						}
-					} else {
-						$scope.inserted = ngmClusterBeneficiaries.addKitDetails($scope.project.report.locations[$parent].beneficiaries[$child].kit_details);
-						$scope.project.report.locations[$parent].beneficiaries[$child].kit_details.push($scope.inserted);
-					}
-				},
 
 				selectChangeKitDetail: function (d, list, key, name, label) {
 					ngmClusterHelperNgWash.selectChange(d, list, key, name, label);

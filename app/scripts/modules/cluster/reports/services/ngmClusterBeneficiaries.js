@@ -40,7 +40,8 @@ angular.module( 'ngmReportHub' )
           women:0,
           elderly_men:0,
           elderly_women:0,
-          total_beneficiaries:0
+          total_beneficiaries:0,
+          // kit_details: []
         };
 
         // merge
@@ -52,22 +53,6 @@ angular.module( 'ngmReportHub' )
           var b = angular.copy( beneficiaries[ length - 1 ] );
           delete b.id;
 					delete b.injury_treatment_same_province;
-					// for add-distribution-item
-					if (b.activity_type_id === 'hardware_materials_distribution' && b.admin0pcode === 'ET' && b.cluster_id === 'esnfi') {
-						b.distribution_start_date = new Date();
-						b.distribution_end_date = new Date();
-						b.distribution_status = "";
-					}
-					// for add-loose-kit-item
-					if (b.admin0pcode === 'ET' && b.cluster_id === 'esnfi' && (b.activity_description_id === 'bedding_set_partial_kit'
-						|| b.activity_description_id === 'mosquito_net_set_partial_kit'
-						|| b.activity_description_id === 'kitchen_set_partial_kit'
-						|| b.activity_description_id === 'hygiene_kit_partial_kit'
-						|| b.activity_description_id === 'loose_items')) {
-
-						b.kit_details = [];
-					}
-
           inserted = angular.merge( inserted, b, sadd );
           inserted.transfer_type_id = 0;
           inserted.transfer_type_value = 0;
@@ -76,38 +61,28 @@ angular.module( 'ngmReportHub' )
         // return new beneficiary
         return inserted;
 			},
-			
-			// add kit-detail
-			addKitDetails: function (kit_details) {
-				insertedKitDetails = {};
-				var addKit = {
-					detail_type_id: '',
-					detail_type_name: '',
-					quantity: 0
-				};
-				// merge
-				angular.merge(insertedKitDetails, addKit);
-				var length = kit_details.length;
-				if (length) {
-					var kit = angular.copy(kit_details[length - 1]);
-					angular.merge(insertedKitDetails, kit);
-				}
 
-				return insertedKitDetails;
+      // show add kit detials
+      showKitDetails: function( project, beneficiary ){
+        var kit = project.admin0pcode === 'ET' && 
+                beneficiary.cluster_id === 'esnfi' && 
+                ( beneficiary.activity_description_id === 'esnfi_kit_standard_individual_items'
+                  || beneficiary.activity_description_id === 'bedding_set_partial_kit'
+                  || beneficiary.activity_description_id === 'mosquito_net_set_partial_kit' 
+                  || beneficiary.activity_description_id ==='kitchen_set_partial_kit'
+                  || beneficiary.activity_description_id ==='hygiene_kit_partial_kit' 
+                  || beneficiary.activity_description_id ==='loose_items' );
 
-			},
-
-			//add kit_detail atribute to existing beneficiaries
-			addKit: function (beneficiaries) {
-				var inserted = {};
-				var addKit = {
-					detail_type_id: '',
-					detail_type_name: '',
-					quantity: 0
-				};
-				beneficiaries.kit_details = [];
-				return beneficiaries;
-			},
+        return kit;
+      },
+      
+      // add kit-detail
+      addKitDetail: function ( beneficiary ) {
+        if ( !beneficiary.kit_details ) {
+          beneficiary.kit_details = [];
+        }
+        beneficiary.kit_details.push({});
+      },
 
       // remove target_beneficiary from db
       removeTargetBeneficiary: function( id ) {
