@@ -333,23 +333,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               $scope.project.save( false, false );
             }
           }
-				},
-				
-				// datepicker
-				datepicker: {
-					start: function ($parent, $child) {
-						var start = $scope.project.report.locations[$parent].beneficiaries[$child].distribution_start_date;
-						$scope.project.report.locations[$parent].beneficiaries[$child].distribution_start_date = moment(new Date(start)).format('YYYY-MM-DDTHH:MM:SSZ');
-					},
-					end: function ($parent, $child) {
-						var end = $scope.project.report.locations[$parent].beneficiaries[$child].distribution_end_date;
-						console.log(end);
-						if (end !== '') {
-							$scope.project.report.locations[$parent].beneficiaries[$child].distribution_end_date = moment(new Date(end)).format('YYYY-MM-DDTHH:MM:SSZ');
-						}
-					}
-
-				},
+        },
 
 
         // save
@@ -425,8 +409,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         }
 
-			}
-		
+      }
 
   }
 
