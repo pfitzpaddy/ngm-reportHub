@@ -599,7 +599,15 @@ angular.module( 'ngmReportHub' )
 						delete b.updatedAt;
             // ids
             b.project_id = project.id;
-            b.report_id = report.id;
+						b.report_id = report.id;
+						
+						if (b.distribution_start_date && b.distribution_end_date) {
+
+							b.distribution_status = 'complete';
+
+						} else {
+							b.distribution_status = 'ongoing'
+						}
             // merge
             // report.locations[i].beneficiaries[j] = angular.merge( {}, b, l, r, p );
             report.locations[i].beneficiaries[j] = angular.merge( {}, p, r, l, b );

@@ -31,7 +31,7 @@
 			<td ng-if="project.showFatpTreatmentSameProvince( $locationIndex )">Treatment Same Province</td>
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
-    <tr ng-repeat="beneficiary in project.report.locations[$locationIndex].beneficiaries">
+    <tr ng-repeat-start="beneficiary in project.report.locations[$locationIndex].beneficiaries">
       <td>
         <!-- editable activity_type from Project -->
         <span e-form="rowform"
@@ -365,7 +365,37 @@
           </div>
         </div>
       </td>
-    </tr>
+		</tr>
+		<tr ng-repeat-end ng-if="beneficiary.admin0pcode === 'AF' && beneficiary.cluster_id === 'cvwg' && beneficiary.activity_type_id ==='cvwg_multi_purpose_cash' && beneficiary.distribution_start_date">
+			<td colspan="14">
+				<div class="card" style="padding:20px;">
+		
+					<!-- project details -->
+					<div class="row">
+		
+		
+		
+						<!-- input-date directive -->
+						<div class="input-field col s12 m6">
+							<label for="ngm-start-date"> Distributed Start Date *</label>
+							<input ngm-date type="text" name="distribution_start" id="ngm-start-date" ng-model="beneficiary.distribution_start_date"
+							 format="dd mmm, yyyy" select-years="15" max="{{ project.definition.project_end_date }}" on-close="project.datepicker.start($locationIndex,$index)"
+							 ng-disabled="!rowform.$visible || project.report.report_status === 'complete'" />
+						</div>
+		
+						<!-- input-date directive -->
+						<div class="input-field col s12 m6">
+							<label for="ngm-end-date">Distributed End Date </label>
+							<input ngm-date type="text" name="distribution_end" id="ngm-end-date" ng-model="beneficiary.distribution_end_date" format="dd mmm, yyyy"
+							 select-years="15" min="{{ project.definition.project_start_date }}" on-close="project.datepicker.end($locationIndex,$index)"
+							 ng-disabled="!rowform.$visible || project.report.report_status === 'complete'" />
+						</div>
+		
+					</div>
+				</div>
+			</td>
+		
+		</tr>
   </table>
 
   <button class="btn" 
