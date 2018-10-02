@@ -427,11 +427,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         }
 
       }
-			console.log($scope.project.report);
-			$scope.open =true;
-			$scope.buka= function(){
-				$scope.open = !$scope.open;
-			}
+
   }
 
 ]);
