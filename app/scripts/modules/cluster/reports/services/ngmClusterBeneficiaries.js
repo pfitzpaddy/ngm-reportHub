@@ -108,7 +108,7 @@ angular.module( 'ngmReportHub' )
 				beneficiaries.kit_details = [];
 				return beneficiaries;
 			},
-			 
+
       // remove target_beneficiary from db
       removeTargetBeneficiary: function( id ) {
         $http({
