@@ -31,7 +31,7 @@
 			<td ng-if="project.showFatpTreatmentSameProvince( $locationIndex )">Treatment Same Province</td>
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
-    <tr ng-repeat="beneficiary in project.report.locations[$locationIndex].beneficiaries">
+    <tr ng-repeat-start="beneficiary in project.report.locations[$locationIndex].beneficiaries">
       <td>
         <!-- editable activity_type from Project -->
         <span e-form="rowform"
@@ -352,7 +352,7 @@
         <div class="buttons"
               ng-if="!rowform.$visible">
           <div class="btn btn-small waves-effect waves-light"
-                ng-click="rowform.$show()"
+                ng-click="rowform.$show();ngmClusterHelperNgWash.init_material_select();"
                 title="Edit">
 						<i class="material-icons">create</i>
           </div>
@@ -365,7 +365,69 @@
           </div>
         </div>
       </td>
-    </tr>
+		</tr>
+
+		<!-- Kit Details -->
+		<tr ng-if="beneficiary.admin0pcode === 'AF' && beneficiary.cluster_id === 'cvwg' && (beneficiary.activity_description_id ==='bedding_set_partial_kit'
+				|| beneficiary.activity_description_id ==='mosquito_net_set_partial_kit' 
+				|| beneficiary.activity_description_id ==='kitchen_set_partial_kit'
+				|| beneficiary.activity_description_id ==='hygiene_kit_partial_kit' 
+				|| beneficiary.activity_description_id ==='loose_items' || beneficiary.activity_description_id ==='mpc_cash_smeb')">
+			<td colspan="14" ng-if="rowform.$visible ||beneficiary.kit_details.length ">
+				<div class="card-panel" style="padding:20px;">
+
+					<div class="row" ng-repeat="detail in beneficiary.kit_details">
+
+						<div class="col s12 m2" style="text-align:right;">
+							<p style="font-size:16px; padding-top:26px;">Kit Contents {{ $index+1 }} </p>
+						</div>
+
+						<div class="input-field col s12 m5">
+							<select id="ngm-beneficiary-kit-{{ $locationIndex }}-{{ $index }}" 
+							class="validate" 
+							ng-model="detail.detail_type_id" 
+							ng-options="detail.detail_type_id as detail.detail_type_name for detail in ngmClusterHelperNgWashLists.lists.kit_details"
+							ng-change="project.selectChangeKitDetail( detail, 'kit_details', 'detail_type_id', 'detail_type_name','ngm-beneficiary-kit-{{ $locationIndex }}-{{ $index }}-{{beneficaryIndex}}')"
+							 ng-disabled="project.report.report_status === 'complete' || !rowform.$visible">
+
+								<option value="" selected>Select...</option>
+
+							</select>
+							<label for="ngm-beneficiary-kit-{{ $locationIndex }}-{{ $index }}" class="active" style="transform:translateY(-10%)">Kit Item</label>
+						</div>
+
+						<div class="input-field col s12 m5">
+							<input id="ngm-beneficiary-quantity-{{ $locationIndex }}-{{ $index }}" 
+							name="quantity" 
+							type="number" 
+							class="validate" 
+							min="0" 
+							ng-model="detail.quantity"
+							ng-change="project.inputChange('ngm-beneficiary-quantity-{{ $locationIndex }}-{{ $index }}')" 
+							ng-disabled="project.report.report_status === 'complete' || !rowform.$visible">
+								<label for="ngm-beneficiary-quantity-{{ $locationIndex }}-{{ $index }}" class="active">Peices</label>
+						</div>
+
+					</div>
+
+					<!-- button detail -->
+					<div class="row" style="margin-left:20px;">
+						<button class="btn blue lighten-2" 
+						ng-show="project.report.report_status !== 'complete' && rowform.$visible" 
+						ng-click="rowform.$show();project.addKitDetail($locationIndex,$index);ngmClusterHelperNgWash.init_material_select();" 
+						ng-hide="beneficiary.kit_details.length === ngmClusterHelperNgWashLists.lists.kit_details.length|| project.report.report_status === 'complete' || !rowform.$visible "; >
+
+						<i class="material-icons left">add</i>Add Details
+						</button>
+					</div>
+
+				</div>
+			</td>
+
+			
+
+		</tr>
+		<tr ng-repeat-end></tr>
   </table>
 
   <button class="btn" 
@@ -377,3 +439,7 @@
 </div>
 
 <br/>
+<script>
+	// init
+	setTimeout(function () { $('.input-field select').material_select(); }, 100);
+</script>

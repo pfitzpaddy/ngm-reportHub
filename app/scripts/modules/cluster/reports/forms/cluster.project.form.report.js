@@ -179,7 +179,29 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
         },
 
-        // remove beneficiary nodal
+				// add Kit Detail
+				addKitDetail: function ($parent, $child) {
+					if (!$scope.project.report.locations[$parent].beneficiaries[$child].kit_details) {
+						$scope.project.report.locations[$parent].beneficiaries[$child] = ngmClusterBeneficiaries.addKit($scope.project.report.locations[$parent].beneficiaries[$child]);
+						if ($scope.project.report.locations[$parent].beneficiaries[$child].kit_details) {
+							$scope.inserted = ngmClusterBeneficiaries.addKitDetails($scope.project.report.locations[$parent].beneficiaries[$child].kit_details);
+							$scope.project.report.locations[$parent].beneficiaries[$child].kit_details.push($scope.inserted);
+						}
+					} else {
+						$scope.inserted = ngmClusterBeneficiaries.addKitDetails($scope.project.report.locations[$parent].beneficiaries[$child].kit_details);
+						$scope.project.report.locations[$parent].beneficiaries[$child].kit_details.push($scope.inserted);
+					}
+				},
+
+				selectChangeKitDetail: function (d, list, key, name, label) {
+					ngmClusterHelperNgWash.selectChange(d, list, key, name, label);
+				},
+
+				inputChange: function (label) {
+					ngmClusterHelperNgWash.inputChange(label);
+				},
+
+				// remove beneficiary nodal
         removeBeneficiaryModal: function( $parent, $index ) {
           if ( ngmClusterBeneficiaries.beneficiaryFormComplete( $scope.project.definition, $scope.project.report.locations ) ){
               $scope.project.locationIndex = $parent;
@@ -405,7 +427,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         }
 
       }
-
+			console.log($scope.project.report);
+			$scope.open =true;
+			$scope.buka= function(){
+				$scope.open = !$scope.open;
+			}
   }
 
 ]);
