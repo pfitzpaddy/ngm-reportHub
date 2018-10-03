@@ -1,0 +1,35 @@
+
+		<!--  -->
+		<div class="col s12 m2" style="text-align:right;">
+			<p style="font-size:16px; padding-top:26px;">Distribution</p>
+		</div>
+
+		<!-- input-date directive -->
+		<div class="input-field col s12 m5">
+			<label for="ngm-distirbution-start-date">Start Date</label>
+			<input ngm-date
+							type="text"
+							name="ngm-distirbution-start-date"
+							id="ngm-distirbution-start-date"
+							ng-model="beneficiary.distribution_start_date"
+			 				format="dd mmm, yyyy"
+			 				select-years="15" 
+			 				max="{{ project.definition.project_end_date }}"
+			 				on-close="ngmClusterBeneficiaries.datepicker.distributionStartOnClose( beneficiary, beneficiary.distribution_start_date )"
+			 ng-disabled="!rowform.$visible || project.report.report_status === 'complete'" />
+		</div>
+
+		<!-- input-date directive -->
+		<div class="input-field col s12 m5">
+			<label for="ngm-distribution-end-date">End Date</label>
+			<input ngm-date
+							type="text"
+							name="ngm-distribution-end-date"
+							id="ngm-distribution-end-date"
+							ng-model="beneficiary.distribution_end_date"
+							format="dd mmm, yyyy"
+							select-years="15"
+							min="{{ beneficiary.distribution_start_date }}"
+							on-close="ngmClusterBeneficiaries.datepicker.distributionEndOnClose( beneficiary, beneficiary.distribution_end_date )"
+			 ng-disabled="!rowform.$visible || project.report.report_status === 'complete'" />
+		</div>

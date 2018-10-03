@@ -21,6 +21,18 @@ angular.module( 'ngmReportHub' )
           if (!value) { value =  moment( new Date() ).endOf( 'M' ); }
           beneficiary.activity_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
         },
+        distributionStartOnClose: function( beneficiary, value ) {
+          beneficiary.distribution_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+          console.log(beneficiary.distribution_start_date)
+        },
+        distributionEndOnClose: function( beneficiary, value ) {
+          beneficiary.distribution_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+          if ( beneficiary.distribution_end_date ) {
+            beneficiary.distribution_status = 'complete';
+          }
+          console.log(beneficiary.distribution_end_date)
+          console.log(beneficiary.distribution_status)
+        },        
       },
 
       // add beneficiary
@@ -40,8 +52,7 @@ angular.module( 'ngmReportHub' )
           women:0,
           elderly_men:0,
           elderly_women:0,
-          total_beneficiaries:0,
-          // kit_details: []
+          total_beneficiaries:0
         };
 
         // merge
@@ -62,9 +73,25 @@ angular.module( 'ngmReportHub' )
         return inserted;
 			},
 
+      // show distribution date
+      showDistributionDate: function( project, beneficiary ){
+        var display = project.admin0pcode === 'ET' && 
+                beneficiary.cluster_id === 'esnfi' && 
+                ( beneficiary.activity_type_id === 'hardware_materials_distribution'
+                  || beneficiary.activity_type_id ==='cash_vouchers' );
+
+        // set values
+        if ( display && !beneficiary.distribution_start_date ) {
+          beneficiary.distribution_start_date = moment.utc( new Date() ).format( 'YYYY-MM-DD' );
+          beneficiary.distribution_status = 'ongoing';
+        }
+
+        return display;
+      },
+
       // show add kit detials
       showKitDetails: function( project, beneficiary ){
-        var kit = project.admin0pcode === 'ET' && 
+        var display = project.admin0pcode === 'ET' && 
                 beneficiary.cluster_id === 'esnfi' && 
                 ( beneficiary.activity_description_id === 'esnfi_kit_standard_individual_items'
                   || beneficiary.activity_description_id === 'bedding_set_partial_kit'
@@ -73,7 +100,7 @@ angular.module( 'ngmReportHub' )
                   || beneficiary.activity_description_id ==='hygiene_kit_partial_kit' 
                   || beneficiary.activity_description_id ==='loose_items' );
 
-        return kit;
+        return display;
       },
       
       // add kit-detail
