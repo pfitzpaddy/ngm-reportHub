@@ -30,8 +30,6 @@ angular.module( 'ngmReportHub' )
           if ( beneficiary.distribution_end_date ) {
             beneficiary.distribution_status = 'complete';
           }
-          console.log(beneficiary.distribution_end_date)
-          console.log(beneficiary.distribution_status)
         },        
       },
 
