@@ -8,7 +8,7 @@
 				<select id="ngm-beneficiary-kit-{{ $locationIndex }}-{{ $index }}" 
                 class="validate"
                 ng-model="detail.detail_type_id" 
-                ng-options="detail.detail_type_id as detail.detail_type_name for detail in ngmClusterHelperNgWashLists.lists.kit_details"
+                ng-options="detail.detail_type_id as detail.detail_type_name for detail in project.lists.kit_details"
                 ng-change="project.selectChangeKitDetail( detail, 'kit_details', 'detail_type_id', 'detail_type_name','ngm-beneficiary-kit-{{ $locationIndex }}-{{ $index }}-{{beneficaryIndex}}')"
                 ng-disabled="project.report.report_status === 'complete' || !rowform.$visible">
 
@@ -27,7 +27,7 @@
                   ng-model="detail.quantity"
                   ng-change="project.inputChange( 'ngm-beneficiary-quantity-{{ $locationIndex }}-{{ $index }}' )" 
                   ng-disabled="project.report.report_status === 'complete' || !rowform.$visible">
-                <label for="ngm-beneficiary-quantity-{{ $locationIndex }}-{{ $index }}" class="active">Peices</label>
+                <label for="ngm-beneficiary-quantity-{{ $locationIndex }}-{{ $index }}" class="active">Amount</label>
 			</div>
 
 <script>

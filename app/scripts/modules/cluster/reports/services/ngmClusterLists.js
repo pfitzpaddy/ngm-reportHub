@@ -39,6 +39,7 @@ angular.module( 'ngmReportHub' )
           beneficiary_types: ngmClusterLists.getBeneficiaries( moment( project.project_end_date ).year(), project.admin0pcode, project.cluster_id ),
           currencies: ngmClusterLists.getCurrencies( project.admin0pcode ),
           donors: ngmClusterLists.getDonors( project.admin0pcode, project.cluster_id ),
+          kit_details: ngmClusterLists.getKitDetails(),
           
           // keys to ignore when summing beneficiaries in template ( 2016 )
           skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ],
@@ -2392,6 +2393,161 @@ angular.module( 'ngmReportHub' )
         
         // facilities
         return site_types;
+      },
+
+      // kit-details
+      getKitDetails: function(){
+        var kit_details = [{
+          detail_type_id: 'esnfi_axe',
+          detail_type_name: 'Axe (Iron with Wood handle)'
+        }, {
+          detail_type_id: 'esnfi_beam',
+          detail_type_name: 'Beam'
+        }, {
+          detail_type_id: 'esnfi_big_spoon',
+          detail_type_name: 'Big Spoon for Cooking'
+        }, {
+          detail_type_id: 'esnfi_blankets',
+          detail_type_name: 'Blangkets'
+        }, {
+          detail_type_id: 'esnfi_bowl',
+          detail_type_name: 'Bowl'
+        }, {
+          detail_type_id: 'esnfi_bucket',
+          detail_type_name: 'Mason Bucket (15 liters Reinforced)'
+        }, {
+          detail_type_id: 'esnfi_cash_nfis',
+          detail_type_name: 'Cash for NFIs'
+        }, {
+          detail_type_id: 'esnfi_cash_rent',
+          detail_type_name: 'Cash for Rent'
+        }, {
+          detail_type_id: 'esnfi_cash_shelter_repair',
+          detail_type_name: 'Cash for Shelter Repair'
+        }, {
+          detail_type_id: 'esnfi_cash_voucher',
+          detail_type_name: 'Cash for Gas'
+        }, {
+          detail_type_id: 'esnfi_clothes_children',
+          detail_type_name: 'Clothes for Children (e.g socks, gloves, sweaters, hats)'
+        }, {
+          detail_type_id: 'esnfi_clothes_men',
+          detail_type_name: 'Clothes for Men (e.g socks, gloves, sweaters, hats)'
+        }, {
+          detail_type_id: 'esnfi_clothes_women',
+          detail_type_name: 'Clothes for Women (e.g socks, gloves, sweaters, hats)'
+        }, {
+          detail_type_id: 'esnfi_cooking_pot',
+          detail_type_name: 'Cooking Pot'
+        }, {
+          detail_type_id: 'esnfi_digger',
+          detail_type_name: 'Pick Digger (with Wooden Handle)'
+        }, {
+          detail_type_id: 'esnfi_emergency_shelter_kit',
+          detail_type_name: 'Emergency Shelter Kit (2+1 items)'
+        }, {
+          detail_type_id: 'esnfi_emergency_shelter_repeair_toolkit',
+          detail_type_name: 'Emergency Shelter Repair Toolkit (11+2 items)'
+        }, {
+          detail_type_id: 'esnfi_family_sized_tent',
+          detail_type_name: 'Family Sized Tent'
+        }, {
+          detail_type_id: 'esnfi_fuel_gel',
+          detail_type_name: 'Fuel Gel'
+        }, {
+          detail_type_id: 'esnfi_gas',
+          detail_type_name: 'Gas Cylinder'
+        }, {
+          detail_type_id: 'esnfi_glass',
+          detail_type_name: 'Glass for Tea'
+        }, {
+          detail_type_id: 'esnfi_hammer',
+          detail_type_name: 'Claw Hammer (4 Steel Magnetic Head)'
+        }, {
+          detail_type_id: 'esnfi_hoe',
+          detail_type_name: 'Hoe (Iron with Wood Handle)'
+        }, {
+          detail_type_id: 'esnfi_jerrycan',
+          detail_type_name: 'Jerrycan'
+        }, {
+          detail_type_id: 'esnfi_kindling',
+          detail_type_name: 'Kindling'
+        }, {
+          detail_type_id: 'esnfi_kitchen_set',
+          detail_type_name: 'Kitchen Set'
+        }, {
+          detail_type_id: 'esnfi_lights',
+          detail_type_name: 'Lights (Solar Lantern, Torch w/ Battery, Table Lamp)'
+        }, {
+          detail_type_id: 'esnfi_matchbox',
+          detail_type_name: 'Matchbox'
+        }, {
+          detail_type_id: 'esnfi_multi_purpose_cash',
+          detail_type_name: 'Multi-Purpose Cash'
+        }, {
+          detail_type_id: 'esnfi_nails',
+          detail_type_name: 'Nails'
+        }, {
+          detail_type_id: 'esnfi_peeling_knife',
+          detail_type_name: 'Peeling Knife'
+        }, {
+          detail_type_id: 'esnfi_plastic_mat',
+          detail_type_name: 'Plastic Mat'
+        }, {
+          detail_type_id: 'esnfi_plastic_rope',
+          detail_type_name: 'Plastic Rope (30m / 6-10 mm Diameter)'
+        }, {
+          detail_type_id: 'esnfi_pump_spares_pvc_pipe_63_mm',
+          detail_type_name: 'Pump Spares (PVC Pipe 63 MM Class E)'
+        }, {
+          detail_type_id: 'esnfi_pump_spares_pvc_pipe_67_inch',
+          detail_type_name: 'Pump Spares (PVC Filter Pipe 6 Class D(26.28 KG))'
+        }, {
+          detail_type_id: 'esnfi_rope',
+          detail_type_name: 'Rope'
+        }, {
+          detail_type_id: 'esnfi_sanitry_napkins',
+          detail_type_name: 'Sanitry Napkins'
+        }, {
+          detail_type_id: 'esnfi_saw',
+          detail_type_name: 'Hand-held Saw'
+        }, {
+          detail_type_id: 'esnfi_shovel',
+          detail_type_name: 'Shovel (Iron with Wood Handle)'
+        }, {
+          detail_type_id: 'esnfi_sisal_rope',
+          detail_type_name: 'Sisal Rope (100m)'
+        }, {
+          detail_type_id: 'esnfi_soap_handwash',
+          detail_type_name: 'Soap (Handwash)'
+        }, {
+          detail_type_id: 'esnfi_spoon',
+          detail_type_name: 'Spoon'
+        }, {
+          detail_type_id: 'esnfi_standard_nfi_kit',
+          detail_type_name: 'Standard NFI Kit (16 items)'
+        }, {
+          detail_type_id: 'esnfi_tarapaulin',
+          detail_type_name: 'Tarpaulin'
+        }, {
+          detail_type_id: 'esnfi_tea_pot',
+          detail_type_name: 'Tea Pot'
+        }, {
+          detail_type_id: 'esnfi_trowel',
+          detail_type_name: 'Plastering Trowel (10 with Wood Handle)'
+        }, {
+          detail_type_id: 'esnfi_wheelbarrow',
+          detail_type_name: 'Wheelbarrow/Zambil'
+        }, {
+          detail_type_id: 'esnfi_window',
+          detail_type_name: 'Window'
+        }, {
+          detail_type_id: 'esnfi_wood',
+          detail_type_name: 'Wood'
+        }];
+
+        return kit_details;
+
       },
 
       // remove duplicates in item ( json array ) based on value ( filterOn )
