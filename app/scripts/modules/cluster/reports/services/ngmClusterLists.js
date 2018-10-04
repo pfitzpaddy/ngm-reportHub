@@ -2524,9 +2524,6 @@ angular.module( 'ngmReportHub' )
           detail_type_id: 'esnfi_spoon',
           detail_type_name: 'Spoon'
         }, {
-          detail_type_id: 'esnfi_standard_nfi_kit',
-          detail_type_name: 'Standard NFI Kit (16 items)'
-        }, {
           detail_type_id: 'esnfi_tarapaulin',
           detail_type_name: 'Tarpaulin'
         }, {

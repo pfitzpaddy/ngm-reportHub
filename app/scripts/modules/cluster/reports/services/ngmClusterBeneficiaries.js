@@ -91,12 +91,7 @@ angular.module( 'ngmReportHub' )
       showKitDetails: function( project, beneficiary ){
         var display = project.admin0pcode === 'ET' && 
                 beneficiary.cluster_id === 'esnfi' && 
-                ( beneficiary.activity_description_id === 'esnfi_kit_standard_individual_items'
-                  || beneficiary.activity_description_id === 'bedding_set_partial_kit'
-                  || beneficiary.activity_description_id === 'mosquito_net_set_partial_kit' 
-                  || beneficiary.activity_description_id ==='kitchen_set_partial_kit'
-                  || beneficiary.activity_description_id ==='hygiene_kit_partial_kit' 
-                  || beneficiary.activity_description_id ==='loose_items' );
+                beneficiary.activity_description_id ==='loose_items';
 
         return display;
       },
@@ -107,6 +102,9 @@ angular.module( 'ngmReportHub' )
           beneficiary.kit_details = [];
         }
         beneficiary.kit_details.push({});
+        if ( beneficiary.kit_details.length < 3 ) {
+          Materialize.toast( 'Note: At least 3 kit items required to submit, add ' + ( 3 - beneficiary.kit_details.length) + ' more item(s)!' , 6000, 'note' );
+        }
       },
 
       // remove target_beneficiary from db
@@ -599,24 +597,6 @@ angular.module( 'ngmReportHub' )
       rowSaveDisabled: function( project, $data ){
         var disabled = true;
         switch ( project.admin0pcode ) {
-          case 'AF':
-            if ( $data.activity_type_id && 
-                  $data.activity_description_id && 
-                  $data.beneficiary_type_id && 
-                  $data.delivery_type_id &&
-                  $data.units >= 0 && 
-                  $data.sessions >= 0 && 
-                  $data.households >= 0 && 
-                  $data.families >= 0 &&
-                  $data.boys >= 0 &&
-                  $data.girls >= 0 &&
-                  $data.men >= 0 &&
-                  $data.women >= 0 &&
-                  $data.elderly_men >= 0 &&
-                  $data.elderly_women >= 0 ) {
-              disabled = false;
-            }
-            break;
 
           case 'NG':
             if ( $data.activity_type_id && 
@@ -640,7 +620,29 @@ angular.module( 'ngmReportHub' )
                   $data.women >= 0 &&
                   $data.elderly_men >= 0 &&
                   $data.elderly_women >= 0 ) {
-              disabled = false;
+
+              // AF
+              if ( project.admin0pcode === 'AF' ) {
+                if ( $data.delivery_type_id ) {
+                  disabled = false;
+                }
+              }
+
+              // ET
+              if ( project.admin0pcode === 'ET' ) {
+                if ( $data.activity_description_id === 'loose_items' ) {
+                  if ( $data.kit_details.length >= 3 ){
+                    disabled = false;
+                  }
+                } else {
+                  disabled = false;
+                }
+              }
+
+              // else
+              if ( project.admin0pcode !== 'AF' && project.admin0pcode !== 'ET' ) {
+                disabled = false;
+              }
             }
         }
         // return
