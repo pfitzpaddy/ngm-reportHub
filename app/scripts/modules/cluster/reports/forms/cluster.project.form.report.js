@@ -32,6 +32,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
     'ngmClusterLocations',
     'ngmClusterBeneficiaries',
     'ngmClusterTrainings',
+    'ngmClusterValidation',
     'ngmClusterHelperAf',
     'ngmClusterHelperNgWash',
     'ngmClusterHelperNgWashLists',
@@ -53,6 +54,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       ngmClusterLocations,
       ngmClusterBeneficiaries,
       ngmClusterTrainings,
+      ngmClusterValidation,
       ngmClusterHelperAf,
       ngmClusterHelperNgWash,
       ngmClusterHelperNgWashLists,
@@ -69,6 +71,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       $scope.ngmClusterLocations = ngmClusterLocations;
       $scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
       $scope.ngmClusterTrainings = ngmClusterTrainings;
+      $scope.ngmClusterValidation = ngmClusterValidation;
       $scope.ngmClusterHelperNgWash = ngmClusterHelperNgWash;
       $scope.ngmClusterHelperNgWashLists = ngmClusterHelperNgWashLists;
       $scope.ngmClusterHelperNgWashValidation = ngmClusterHelperNgWashValidation;
@@ -185,14 +188,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $scope.inserted = ngmClusterHelperNgWash.addBeneficiary( $scope.project.report.locations[ $parent ].beneficiaries );
           $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
         },
-
-				selectChangeKitDetail: function (d, list, key, name, label) {
-					ngmClusterHelperNgWash.selectChange(d, list, key, name, label);
-				},
-
-				inputChange: function (label) {
-					ngmClusterHelperNgWash.inputChange(label);
-				},
 
 				// remove beneficiary nodal
         removeBeneficiaryModal: function( $parent, $index ) {
@@ -333,8 +328,21 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         },
 
         // validate form ( ng wash )
-        validateBeneficiariesForm: function( complete, display_modal ){
+        validateWashNgBeneficiariesForm: function( complete, display_modal ){
           if ( ngmClusterHelperNgWashValidation.validateActivities( $scope.project.report.locations ) ){
+            if ( complete ) {
+              $( '#complete-modal' ).openModal( { dismissible: false } );
+            } else if ( display_modal ) {
+              $( '#save-modal' ).openModal( { dismissible: false } );
+            } else {
+              $scope.project.save( false, false );
+            }
+          }
+        },
+
+        // validate form ( ng wash )
+        validateBeneficiariesDetailsForm: function( rowform, complete, display_modal ){
+          if ( ngmClusterValidation.validateDetails( rowform, $scope.project.report.locations ) ){
             if ( complete ) {
               $( '#complete-modal' ).openModal( { dismissible: false } );
             } else if ( display_modal ) {

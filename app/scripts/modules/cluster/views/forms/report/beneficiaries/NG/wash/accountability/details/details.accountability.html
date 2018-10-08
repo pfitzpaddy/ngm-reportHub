@@ -2,8 +2,8 @@
 						<p style="font-size:16px; padding-top:26px;">Language {{ $index+1 }} </p>
 					</div>
 					
-					<div class="input-field col s12 m9">
-		      	<select id="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $promotionIndex }}{{ $accountsIndex }}-{{ $index }}" 
+					<div class="input-field col s12 m8">
+		      	<select id="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}{{ $accountsIndex }}-{{ $index }}" 
 			      					name="detail_type_id"
 			      					class="validate"
 			      					ng-options="detail.detail_type_id as 
@@ -13,15 +13,27 @@
 		      																			'information_community_languages',
 		      																			'detail_type_id', 
 		      																			'detail_type_name',
-		      																			'ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $promotionIndex }}{{ $accountsIndex }}-{{ $index }}' )"
+		      																			'ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}{{ $accountsIndex }}-{{ $index }}' )"
 			      					ng-model="detail.detail_type_id"
 			      					ng-disabled="!rowform.$visible || project.report.report_status === 'complete'"
 			      					required>
 						<option value="">Select... </option>
 						</select>
-			      <label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $promotionIndex }}{{ $accountsIndex }}-{{ $index }}" 
+			      <label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}{{ $accountsIndex }}-{{ $index }}" 
 			      				class="active" style="transform:translateY(-10%)">Languages Used in Communication</label>
 					</div>
+					
+					<!-- remove -->
+					<div class="input-field col s12 m1">
+		  			<div class="btn-floating waves-effect waves-light red lighten-2" 
+			  					title="Remove"
+			  					ng-show="rowform.$visible"
+			  					ng-click="ngmClusterHelperNgWash.removeDetail( accounts, $index )"
+		              ng-disabled="!!ngmClusterBeneficiaries.rowSaveDisabled( project.definition, beneficiary )">
+		  				<i class="material-icons">clear</i>
+		  			</div>
+					</div>
+					
 <script>
 	// init
 	setTimeout(function(){ $( '.input-field select' ).material_select();  }, 400 );

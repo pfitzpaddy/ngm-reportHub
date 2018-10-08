@@ -27,7 +27,7 @@ angular.module( 'ngmReportHub' )
 			ratios: {
 
 				// defaults
-				households: 0.1666666666667, // 1/6
+				hhs: 0.1666666666667, // 1/6
 				boys: 0.2538,
 				girls: 0.2862,
 				men: 0.1833,
@@ -101,7 +101,9 @@ angular.module( 'ngmReportHub' )
 
 			// show template
 			getTemplate: function( beneficiary ){
-				if ( beneficiary && beneficiary.activity_detail_id && beneficiary.activity_detail_name ) {
+				if ( beneficiary && 
+							beneficiary.activity_detail_id && 
+							ngmClusterHelperNgWashKeys.keys[ beneficiary.activity_detail_id ].template ) {
 					return ngmClusterHelperNgWashKeys.keys[ beneficiary.activity_detail_id ].template
 				} else {
 					return false;
@@ -286,6 +288,13 @@ angular.module( 'ngmReportHub' )
 				ngmClusterHelperNgWash.init_material_select();
 			},
 
+      // remove kit-details
+      removeDetail: function( d, $index ) {
+        d.details.splice( $index, 1);
+        // project.save( false, false );
+        Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
+      },
+
 
 			// REMOVE RECORDS
 
@@ -321,7 +330,7 @@ angular.module( 'ngmReportHub' )
 			bSadd: function( b ){
 				var ratios = ngmClusterHelperNgWash.ratios;
 				// sadd
-				b.households = Math.round( b.total_beneficiaries * ratios.households );
+				b.households = Math.round( b.total_beneficiaries * ratios.hhs );
 				b.boys = Math.round( b.total_beneficiaries * ratios.boys );
 				b.girls = Math.round( b.total_beneficiaries * ratios.girls );
 				b.men = Math.round( b.total_beneficiaries * ratios.men );
@@ -398,11 +407,11 @@ angular.module( 'ngmReportHub' )
 									b.activity_detail_id === 'other_campaigns' ||
 									b.activity_detail_id === 'hygiene_promotion_volunteers_recruitment_training' ||
 									b.activity_detail_id === 'hygiene_promotion_volunteers_kit_distribution' ||
-									b.activity_detail_id === 'hygiene_promotion_monitoring_visits' ||
+									b.activity_detail_id === 'hygiene_promotion_monitoring_visits' // ||
 
 									// much easier - by description
-									b.activity_description_id === 'community_participation' || 
-									b.activity_description_id === 'transparency' 
+									// b.activity_description_id === 'community_participation' || 
+									// b.activity_description_id === 'transparency' 
 								) {
 							ngmClusterHelperNgWash.setActivityBeneficiariesBySite( l, b );
 						} else {
@@ -475,7 +484,7 @@ angular.module( 'ngmReportHub' )
 									k === 'accountability') {
 							angular.forEach( d, function( activity, l ){
 								b.cash_amount += activity.cash_amount ? activity.cash_amount : 0;
-								b.households += activity.households;
+								b.households += activity.households ? activity.households : 0;
 								b.boys += activity.boys;
 								b.girls += activity.girls;
 								b.men += activity.men;

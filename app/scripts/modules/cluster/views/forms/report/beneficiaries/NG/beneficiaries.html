@@ -51,7 +51,7 @@
                               for a_d in project.lists.activity_details | 
                                 filter: { cluster_id: beneficiary.cluster_id, 
                                             activity_type_id: beneficiary.activity_type_id, 
-                                            activity_description_id: beneficiary.activity_description_id }"
+                                            activity_description_id: beneficiary.activity_description_id }:true"
               e-ng-disabled="!beneficiary.activity_description_id">
           {{ project.showDetails( $data, beneficiary ) }}
         </span>
@@ -91,7 +91,7 @@
                     ng-if="rowform.$visible"
                     ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations )"
                     class="btn btn-small waves-effect waves-light save"
-                    ng-click="project.validateBeneficiariesForm( false, false )"
+                    ng-click="project.validateWashNgBeneficiariesForm( false, false )"
                     title="Save">
             <i class="material-icons">save</i>
           </div>

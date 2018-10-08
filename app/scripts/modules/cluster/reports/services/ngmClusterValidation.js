@@ -112,6 +112,80 @@ angular.module( 'ngmReportHub' )
         }
       },
 
+      // validate details
+      validateDetails: function( rowform, locations ) {
+        
+        // collect error divs
+        var elements = [];
+
+        // WATER
+        var detailsLength = 0;
+        var detailsRowComplete = 0;
+
+        // each location
+        angular.forEach( locations, function( l, i ){
+          angular.forEach( l.beneficiaries, function( d, j ){
+
+            // details
+            if ( d.kit_details && d.kit_details.length  ) {
+              detailsLength ++;
+              var result = ngmClusterValidation.validateDetail( d.kit_details, i, j );
+              angular.merge( elements, result.divs );
+              detailsRowComplete +=  result.count;
+            }
+
+          });
+        });
+
+        // valid
+        if ( detailsLength !== detailsRowComplete ) {
+          Materialize.toast( 'Details contains errors!' , 6000, 'error' );
+          $timeout(function() { rowform.$show(); }, 10);
+          $( elements[0] ).animatescroll();
+          return false;
+        } else {
+          return true;
+        }
+
+      },
+
+
+      // validate form
+      validateDetail: function( kit_details, i, j ){
+        
+        // valid
+        var id;
+        var complete = true;
+        var validation = { count: 0, divs: [] };
+
+        // for each details
+        angular.forEach( kit_details, function( d, k ){
+
+          // quantity
+          if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){ 
+            id = "label[for='" + 'ngm-beneficiary-kit-quantity-'+i+'-'+j+'-'+k+"']";
+            $( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+            validation.divs.push( id );
+            complete = false;
+          }
+
+          // detail
+          if ( !d.detail_type_id && !d.detail_type_name ){ 
+            id = "label[for='" + 'ngm-beneficiary-kit-'+i+'-'+j+'-'+k+"']";
+            $( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+            validation.divs.push( id );
+            complete = false;
+          }
+        });
+
+        // return 1 for complete, default 0 for error
+        if ( complete ) {
+          validation.count = 1;
+        }
+        return validation;
+
+      },
+
       // validate form
       validate: function( project ){
 

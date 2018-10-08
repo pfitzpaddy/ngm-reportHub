@@ -13,7 +13,7 @@
 			<div class="col s12 m6">
   			<div class="btn-floating waves-effect waves-light red lighten-2 right" 
 	  					title="Remove Borehole"
-	  					ng-show="project.report.report_status !== 'complete'"
+	  					ng-show="project.report.report_status !== 'complete' && rowform.$visible"
 	  					ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $index, 'boreholes', '#borehole-modal' )">
   				<i class="material-icons">clear</i>
   			</div>

@@ -693,6 +693,8 @@ angular.module( 'ngmReportHub' )
 					template: 'promotion.html',
 					association: 'hygiene',
 					measurement:{
+						male: 0,
+						female: 0,
 						quantity_measurement_id: 'trainings',
 						quantity_measurement_name: 'Trainings',
 						details:[]

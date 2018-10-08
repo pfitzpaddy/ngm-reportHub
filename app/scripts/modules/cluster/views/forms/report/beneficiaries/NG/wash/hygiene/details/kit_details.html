@@ -25,7 +25,7 @@
 					</div>
 
 					<!-- quantity -->
-					<div class="input-field col s12 m5">
+					<div class="input-field col s12 m4">
 						<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $kitIndex }}-{{ $index }}"
 										name="quantity"
 										type="number" 
@@ -38,6 +38,17 @@
 						
 						<label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $kitIndex }}-{{ $index }}"
 										class="active">Peices</label>
+					</div>
+
+					<!-- remove -->
+					<div class="input-field col s12 m1">
+		  			<div class="btn-floating waves-effect waves-light red lighten-2" 
+			  					title="Remove"
+			  					ng-show="rowform.$visible"
+			  					ng-click="ngmClusterHelperNgWash.removeDetail( kit, $index )"
+		              ng-disabled="!!ngmClusterBeneficiaries.rowSaveDisabled( project.definition, beneficiary )">
+		  				<i class="material-icons">clear</i>
+		  			</div>
 					</div>
 
 <script>

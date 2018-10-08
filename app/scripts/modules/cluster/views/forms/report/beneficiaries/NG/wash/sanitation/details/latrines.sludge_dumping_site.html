@@ -1,4 +1,4 @@
-					<div class="col s12 m4" style="text-align:right;">
+					<div class="col s12 m3" style="text-align:right;">
 						<p style="font-size:16px; padding-top:26px;">Site Preperation Activity {{ $index+1 }} </p>
 					</div>
 					
@@ -22,6 +22,18 @@
 						<label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}-{{ $index }}" 
 										class="active" style="transform:translateY(-10%)">Site Preperation</label>
 					</div>
+
+					<!-- remove -->
+					<div class="input-field col s12 m1">
+		  			<div class="btn-floating waves-effect waves-light red lighten-2" 
+			  					title="Remove"
+			  					ng-show="rowform.$visible"
+			  					ng-click="ngmClusterHelperNgWash.removeDetail( latrine, $index )"
+		              ng-disabled="!!ngmClusterBeneficiaries.rowSaveDisabled( project.definition, beneficiary )">
+		  				<i class="material-icons">clear</i>
+		  			</div>
+					</div>
+					
 <script>
 	// init
 	setTimeout(function(){ $( '.input-field select' ).material_select();  }, 400 );

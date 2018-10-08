@@ -2,7 +2,7 @@
 <h5 class="report-location-title" ng-if="beneficiary.sanitation.length" style="padding-top:0px;">Details</h5>
 	
 	<!-- repeat -->
-	<div class="card-panel" ng-repeat="latrine in beneficiary.sanitation">
+	<div class="card-panel" ng-repeat="latrine in beneficiary.sanitation" ng-init="$latrineIndex=$index">
 
 		<!-- latrine title / btns -->
 		<div class="row">
@@ -12,8 +12,8 @@
 			<div class="col s12 m4">
 				<div class="btn-floating waves-effect waves-light red lighten-2 right" 
 							title="Remove Latrine"
-							ng-show="project.report.report_status !== 'complete'"
-							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $index, 'sanitation', '#latrine-modal' )">
+							ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $latrineIndex, 'sanitation', '#latrine-modal' )">
 					<i class="material-icons">clear</i>
 				</div>
 
@@ -36,7 +36,7 @@
 				
 
 				<!-- HH latrines -->
-				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								ng-if="beneficiary.activity_detail_id === 'latrine_construction_hh' || 
 												beneficiary.activity_detail_id === 'latrine_rehabilitation_hh'"
 								name="quantity"
@@ -45,20 +45,20 @@
 								min="0"
 								ng-model="latrine.quantity"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, latrine, 'households' );
-														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- label based on activity_detail_id -->
 				<label ng-if="beneficiary.activity_detail_id === 'latrine_construction_hh' || 
 															beneficiary.activity_detail_id === 'latrine_rehabilitation_hh'"
-								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								class="active">Quantity (HH Latrines)</label>
 
 
 
 				<!-- hand_washing -->
-				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								ng-if="beneficiary.activity_detail_id === 'hand_washing_stations_installation' || 
 												beneficiary.activity_detail_id === 'hand_washing_stations_refilled'"
 								name="quantity"
@@ -67,22 +67,22 @@
 								min="0"
 								ng-model="latrine.quantity"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, latrine, 'hand_washing' );
-														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<label ng-if="beneficiary.activity_detail_id === 'hand_washing_stations_installation'"
-								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								class="active">Quantity (Hand Stations Installed)</label>
 
 				<label ng-if="beneficiary.activity_detail_id === 'hand_washing_stations_refilled'"
-								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								class="active">Quantity (Hand Stations Refilled)</label>
 
 
 
 				<!-- other -->
-				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								ng-if="beneficiary.activity_detail_id === 'latrine_desludging_manual' || 
 															beneficiary.activity_detail_id === 'latrine_desludging_mechanical'"
 								name="quantity"
@@ -91,20 +91,20 @@
 								min="0"
 								ng-model="latrine.quantity"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, latrine, 'desludged' );
-														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- label based on activity_detail_id -->
 				<label ng-if="beneficiary.activity_detail_id === 'latrine_desludging_manual' || 
 															beneficiary.activity_detail_id === 'latrine_desludging_mechanical'"
-								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								class="active">Quantity (Latrines Desludged)</label>
 
 
 
 				<!-- sites prepared, monitored -->
-				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								ng-if="beneficiary.activity_detail_id === 'latrine_sludge_dumping_site' ||
 												beneficiary.activity_detail_id === 'latrine_monitoring'"
 								name="quantity"
@@ -112,17 +112,17 @@
 								class="validate" 
 								min="0"
 								ng-model="latrine.quantity"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- label based on activity_detail_id -->
 				<label ng-if="beneficiary.activity_detail_id === 'latrine_sludge_dumping_site'"
-								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								class="active">Quantity (Sites Prepared)</label>
 
 				<label ng-if="beneficiary.activity_detail_id === 'latrine_monitoring'"
-								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								class="active">Quantity (Monitoring Visits)</label>
 								
 			</div>
@@ -143,66 +143,66 @@
 															beneficiary.activity_detail_id === 'latrine_lock_installation_emergency'">
 			
 			<div class="input-field col s12 m3">
-				<input id="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								name="male"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="latrine.male"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, latrine, 'latrines' );
-														ngmClusterHelperNgWash.inputChange( 'ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+														ngmClusterHelperNgWash.inputChange( 'ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<label for="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								class="active">Latrines for Males</label>
 			</div>
 
 			<div class="input-field col s12 m3">
-				<input id="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								name="female"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="latrine.female"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, latrine, 'latrines' );
-														ngmClusterHelperNgWash.inputChange( 'ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+														ngmClusterHelperNgWash.inputChange( 'ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<label for="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								class="active">Latrines for Females</label>
 			</div>
 
 			<div class="input-field col s12 m3">
-				<input id="ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								name="male_disabled"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="latrine.male_disabled"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, latrine, 'latrines' );
-														ngmClusterHelperNgWash.inputChange( 'ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+														ngmClusterHelperNgWash.inputChange( 'ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<label for="ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								class="active">Latrines for Males Disabled</label>
 			</div>
 
 			<div class="input-field col s12 m3">
-				<input id="ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								name="female_disabled"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="latrine.female_disabled"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, latrine, 'latrines' );
-														ngmClusterHelperNgWash.inputChange( 'ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+														ngmClusterHelperNgWash.inputChange( 'ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<label for="ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								class="active">Latrines for Females Disabled</label>
 			</div>
 
@@ -215,7 +215,7 @@
 															beneficiary.activity_detail_id === 'latrine_rehabilitation_emergency'">
 
 			<div class="input-field col s12 m6">
-				<select id="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
+				<select id="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
 									name="gender_marking"
 									class="validate"
 									ng-options="type.gender_marking_id as 
@@ -226,33 +226,33 @@
 																							'gender_markings',
 																							'gender_marking_id', 
 																							'gender_marking_name',
-																							'ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+																							'ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
 									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 									required>
 				<option value="">Select...</option>
 				</select>
-				<label for="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
+				<label for="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
 								class="active" style="transform:translateY(-10%)">Latrine Gender Marking</label>
 			</div>
 
 			<div class="input-field col s12 m6">
-				<select id="ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
+				<select id="ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
 									name="lock_installation"
 									class="validate"
 									ng-options="type.lock_installation_id as 
 																type.lock_installation_name for 
 																type in ngmClusterHelperNgWashLists.lists.lock_installations"
-									ng-model="latrine.gender_marking_id"
+									ng-model="latrine.lock_installation_id"
 									ng-change="ngmClusterHelperNgWash.selectChange( latrine, 
 																							'lock_installations',
 																							'lock_installation_id', 
 																							'lock_installation_name',
-																							'ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+																							'ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
 									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 									required>
 				<option value="">Select...</option>
 				</select>
-				<label for="ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
+				<label for="ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
 								class="active" style="transform:translateY(-10%)">Latrine Lock Installation</label>
 			</div>
 
@@ -265,23 +265,23 @@
 															beneficiary.activity_detail_id === 'latrine_lock_installation_emergency'">
 
 			<div class="input-field col s12">
-				<select id="ngm-facility_status-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
+				<select id="ngm-facility_status-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
 									name="gender_marking"
 									class="validate"
 									ng-options="type.facility_status_id as 
 																type.facility_status_name for 
 																type in ngmClusterHelperNgWashLists.lists.facility_status"
-									ng-model="latrine.gender_marking_id"
+									ng-model="latrine.facility_status_id"
 									ng-change="ngmClusterHelperNgWash.selectChange( latrine, 
 																							'facility_status',
 																							'facility_status_id', 
 																							'facility_status_name',
-																							'ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+																							'ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
 									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 									required>
 				<option value="">Select...</option>
 				</select>
-				<label for="ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
+				<label for="ngm-facility_status-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
 								class="active" style="transform:translateY(-10%)">Facility Status</label>
 			</div>
 
@@ -291,7 +291,7 @@
 		<div class="row" ng-if="beneficiary.activity_detail_id === 'latrine_desludging_manual'">
 
 			<div class="input-field col s12 m6">
-				<select id="ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
+				<select id="ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
 									name="stipend"
 									class="validate"
 									ng-options="type.stipend_id as 
@@ -302,26 +302,26 @@
 																							'stipends',
 																							'stipend_id', 
 																							'stipend_name',
-																							'ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+																							'ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
 									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 									required>
 				<option value="">Select...</option>
 				</select>
-				<label for="ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
+				<label for="ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}" 
 								class="active" style="transform:translateY(-10%)">Stipends Provided</label>
 			</div>
 
 			<div class="input-field col s12 m6">
-				<input id="ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								name="stipend_amount"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="latrine.stipend_amount"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
 								ng-disabled="latrine.stipend_id === 'no' || !rowform.$visible || project.report.report_status === 'complete'"
 								required>
-				<label for="ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<label for="ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								class="active">Stipend Amount Total (Naira)</label>
 			</div>
 
@@ -331,7 +331,7 @@
 		<div class="row">
 
 			<div class="input-field col s12 m6">
-				<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 						ngm-date
 						type="text"
 						name="created"
@@ -341,12 +341,12 @@
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( latrine, latrine.activity_start_date )"
 						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
 						e-required/>
-				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								class="active">Activity Start Date</label>
 			</div>
 
 			<div class="input-field col s12 m6">
-				<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 						ngm-date
 						type="text"
 						name="created"
@@ -356,7 +356,7 @@
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( latrine, latrine.activity_end_date )"
 						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
 						e-required/>
-				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								class="active">Activity End Date</label>            
 			</div>
 

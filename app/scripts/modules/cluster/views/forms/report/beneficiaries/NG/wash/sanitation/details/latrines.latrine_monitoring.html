@@ -25,7 +25,7 @@
 					</div>
 
 					<!-- quantity -->
-					<div class="input-field col s12 m5">
+					<div class="input-field col s12 m4">
 						<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}-{{ $index }}"
 										name="quantity"
 										type="number" 
@@ -44,6 +44,17 @@
 										for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}-{{ $index }}"
 										class="active">{{ (ngmClusterHelperNgWashLists.lists.latrine_monitoring_details | 
 																				filter: { detail_type_id: detail.detail_type_id })[0].detail_type_label }}</label>
+					</div>
+
+					<!-- remove -->
+					<div class="input-field col s12 m1">
+		  			<div class="btn-floating waves-effect waves-light red lighten-2" 
+			  					title="Remove"
+			  					ng-show="rowform.$visible"
+			  					ng-click="ngmClusterHelperNgWash.removeDetail( latrine, $index )"
+		              ng-disabled="!!ngmClusterBeneficiaries.rowSaveDisabled( project.definition, beneficiary )">
+		  				<i class="material-icons">clear</i>
+		  			</div>
 					</div>
 
 <script>

@@ -23,7 +23,7 @@
 	      				class="active" style="transform:translateY(-10%)">System</label>
 			</div>
 
-			<div class="input-field col s12 m5">
+			<div class="input-field col s12 m4">
       	<select id="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}-{{ $index }}" 
 	      					name="detail_type_id"
 	      					class="validate"
@@ -44,6 +44,18 @@
 	      <label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}-{{ $index }}" 
 	      				class="active" style="transform:translateY(-10%)">Parts</label>
 			</div>
+
+			<!-- remove -->
+			<div class="input-field col s12 m1">
+  			<div class="btn-floating waves-effect waves-light red lighten-2" 
+	  					title="Remove"
+	  					ng-show="rowform.$visible"
+	  					ng-click="ngmClusterHelperNgWash.removeDetail( maintenance, $index )"
+              ng-disabled="!!ngmClusterBeneficiaries.rowSaveDisabled( project.definition, beneficiary )">
+  				<i class="material-icons">clear</i>
+  			</div>
+			</div>
+
 <script>
 	// init
 	setTimeout(function(){ $( '.input-field select' ).material_select();  }, 400 );

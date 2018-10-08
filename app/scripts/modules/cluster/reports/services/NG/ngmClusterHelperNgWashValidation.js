@@ -126,7 +126,7 @@ angular.module( 'ngmReportHub' )
 				var validation = { count: 0, divs: [] };
 
 				// reticulation
-				if ( d.quantity === undefined || d.quantity < 0 ){ 
+				if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){
 					id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );
@@ -162,7 +162,7 @@ angular.module( 'ngmReportHub' )
 				var validation = { count: 0, divs: [] };
 
 				// service
-				if ( d.quantity === undefined || d.quantity < 0 ){ 
+				if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){
 					id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );
@@ -202,7 +202,7 @@ angular.module( 'ngmReportHub' )
 				var validation = { count: 0, divs: [] };
 
 				// service
-				if ( d.quantity === undefined || d.quantity < 0 ){ 
+				if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){
 					id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );
@@ -211,13 +211,13 @@ angular.module( 'ngmReportHub' )
 
 				// washcoms_establishment_training has male / female
 				if ( beneficiary.activity_detail_id === 'washcoms_establishment_training' ) {
-					if ( d.male === undefined || d.male < 0 ){ 
+					if ( d.male === null ||  d.male === undefined || d.male < 0 ){ 
 						id = "label[for='" + 'ngm-male-'+i+'-'+j+'-'+k + "']";
 						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.female === undefined || d.female < 0 ){ 
+					if ( d.female === null ||  d.female === undefined || d.female < 0 ){ 
 						id = "label[for='" + 'ngm-female-'+i+'-'+j+'-'+k + "']";
 						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 						validation.divs.push( id );
@@ -260,7 +260,7 @@ angular.module( 'ngmReportHub' )
 				var validation = { count: 0, divs: [] };
 
 				// service
-				if ( d.quantity === undefined || d.quantity < 0 ){ 
+				if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){
 					id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );
@@ -278,25 +278,25 @@ angular.module( 'ngmReportHub' )
 							beneficiary.activity_detail_id === 'latrine_gender_marking_emergency' ||
 							beneficiary.activity_detail_id === 'latrine_lock_installation_vip' ||
 							beneficiary.activity_detail_id === 'latrine_lock_installation_emergency' ){
-					if ( d.male === undefined || d.male < 0 ){ 
+					if ( d.male === null ||  d.male === undefined || d.male < 0 ){
 						id = "label[for='" + 'ngm-male-'+i+'-'+j+'-'+k + "']";
 						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.female === undefined || d.female < 0 ){ 
+					if ( d.female === null ||  d.female === undefined || d.female < 0 ){
 						id = "label[for='" + 'ngm-female-'+i+'-'+j+'-'+k + "']";
 						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.male_disabled === undefined || d.male_disabled < 0 ){ 
+					if ( d.male_disabled === null || d.male_disabled === undefined || d.male_disabled < 0 ){ 
 						id = "label[for='" + 'ngm-male_disabled-'+i+'-'+j+'-'+k + "']";
 						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.female_disabled === undefined || d.female_disabled < 0 ){ 
+					if ( d.female_disabled === null || d.female_disabled === undefined || d.female_disabled < 0 ){ 
 						id = "label[for='" + 'ngm-female_disabled-'+i+'-'+j+'-'+k + "']";
 						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 						validation.divs.push( id );
@@ -361,7 +361,7 @@ angular.module( 'ngmReportHub' )
 						complete = false;
 					}
 					if ( beneficiary.activity_detail_id === 'latrine_monitoring' ) {
-						if ( d.quantity === undefined || d.quantity < 0 ){ 
+						if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){
 							id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k+'-'+l+"']";
 							$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 							validation.divs.push( id );
@@ -387,7 +387,7 @@ angular.module( 'ngmReportHub' )
 				var validation = { count: 0, divs: [] };
 
 				// service
-				if ( d.quantity === undefined || d.quantity < 0 ){ 
+				if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){
 					id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );
@@ -396,25 +396,25 @@ angular.module( 'ngmReportHub' )
 
 				// male, female + disabled
 				if ( beneficiary.activity_detail_id !== 'shower_cleaning_disinfection_monitoring' ){
-					if ( d.male === undefined || d.male < 0 ){ 
+					if ( d.male === null || d.male === undefined || d.male < 0 ){ 
 						id = "label[for='" + 'ngm-male-'+i+'-'+j+'-'+k + "']";
 						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.female === undefined || d.female < 0 ){ 
+					if ( d.female === null || d.female === undefined || d.female < 0 ){ 
 						id = "label[for='" + 'ngm-female-'+i+'-'+j+'-'+k + "']";
 						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.male_disabled === undefined || d.male_disabled < 0 ){ 
+					if ( d.male_disabled === null || d.male_disabled === undefined || d.male_disabled < 0 ){ 
 						id = "label[for='" + 'ngm-male_disabled-'+i+'-'+j+'-'+k + "']";
 						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.female_disabled === undefined || d.female_disabled < 0 ){ 
+					if ( d.female_disabled === null || d.female_disabled === undefined || d.female_disabled < 0 ){ 
 						id = "label[for='" + 'ngm-female_disabled-'+i+'-'+j+'-'+k + "']";
 						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 						validation.divs.push( id );
@@ -462,7 +462,7 @@ angular.module( 'ngmReportHub' )
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.quantity === undefined || d.quantity < 0 ){ 
+					if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){ 
 						id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k+'-'+l+"']";
 						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 						validation.divs.push( id );
@@ -487,7 +487,7 @@ angular.module( 'ngmReportHub' )
 				var validation = { count: 0, divs: [] };
 
 				// service
-				if ( d.quantity === undefined || d.quantity < 0 ){ 
+				if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){
 					id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );
@@ -561,7 +561,7 @@ angular.module( 'ngmReportHub' )
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.stipend_amount === undefined || d.stipend_amount < 0 ){ 
+				if ( d.stipend_amount === null || d.stipend_amount === undefined || d.stipend_amount < 0 ){ 
 					id = "label[for='" + 'ngm-stipend_amount-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );
@@ -595,7 +595,7 @@ angular.module( 'ngmReportHub' )
 				var validation = { count: 0, divs: [] };
 
 				// service
-				if ( d.quantity === undefined || d.quantity < 0 ){ 
+				if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){
 					id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );
@@ -604,13 +604,13 @@ angular.module( 'ngmReportHub' )
 
 				// male / female
 				if ( beneficiary.activity_detail_id === 'hygiene_promotion_volunteers_recruitment_training' ){
-					if ( d.male === undefined || d.male < 0 ){ 
+					if ( d.male === null || d.male === undefined || d.male < 0 ){ 
 						id = "label[for='" + 'ngm-male-'+i+'-'+j+'-'+k + "']";
 						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.female === undefined || d.female < 0 ){ 
+					if ( d.female === null || d.female === undefined || d.female < 0 ){ 
 						id = "label[for='" + 'ngm-female-'+i+'-'+j+'-'+k + "']";
 						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 						validation.divs.push( id );
@@ -656,7 +656,7 @@ angular.module( 'ngmReportHub' )
 				var validation = { count: 0, divs: [] };
 
 				// naira
-				if ( d.quantity === undefined || d.quantity < 0 ){ 
+				if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){ 
 					id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );
@@ -664,7 +664,7 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// households
-				if ( d.households === undefined || d.households < 0 ){ 
+				if ( d.households === null || d.households === undefined || d.households < 0 ){ 
 					id = "label[for='" + 'ngm-households-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );
@@ -698,7 +698,7 @@ angular.module( 'ngmReportHub' )
 				var validation = { count: 0, divs: [] };
 
 				// means to lodge
-				if ( d.quantity === undefined || d.quantity < 0 ){ 
+				if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){
 					id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );
@@ -746,37 +746,37 @@ angular.module( 'ngmReportHub' )
 				var validation = { count: 0, divs: [] };
 
 				// participation
-				if ( d.boys === undefined || d.boys < 0 ){ 
+				if ( d.boys === null || d.boys === undefined || d.boys < 0 ){ 
 					id = "label[for='" + 'ngm-boys-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.girls === undefined || d.girls < 0 ){ 
+				if ( d.girls === null || d.girls === undefined || d.girls < 0 ){ 
 					id = "label[for='" + 'ngm-girls-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.men === undefined || d.men < 0 ){ 
+				if ( d.men === null || d.men === undefined || d.men < 0 ){ 
 					id = "label[for='" + 'ngm-men-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.women === undefined || d.women < 0 ){ 
+				if ( d.women === null || d.women === undefined || d.women < 0 ){ 
 					id = "label[for='" + 'ngm-women-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.elderly_men === undefined || d.elderly_men < 0 ){ 
+				if ( d.elderly_men === null || d.elderly_men === undefined || d.elderly_men < 0 ){ 
 					id = "label[for='" + 'ngm-elderly_men-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.elderly_women === undefined || d.elderly_women < 0 ){ 
+				if ( d.elderly_women === null || d.elderly_women === undefined || d.elderly_women < 0 ){ 
 					id = "label[for='" + 'ngm-elderly_women-'+i+'-'+j+'-'+k + "']";
 					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
 					validation.divs.push( id );

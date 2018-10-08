@@ -6,7 +6,8 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', 'ngmAuth', 'ngmClusterHelperNgWash', function( $http, $filter, ngmAuth, ngmClusterHelperNgWash ) {
+	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', 'ngmAuth', 'ngmClusterLists', 'ngmClusterHelperNgWashLists',
+              function( $http, $filter, ngmAuth, ngmClusterLists, ngmClusterHelperNgWashLists ) {
 
     // beneficairies
 		var ngmClusterBeneficiaries = {
@@ -31,6 +32,24 @@ angular.module( 'ngmReportHub' )
             beneficiary.distribution_status = 'complete';
           }
         },        
+      },
+
+      // update display name in object on select change
+      selectChange: function( d, list, key, name, label ){
+        if ( d[ key ] ) {
+          var id = d[ key ];
+          var obj = {}
+          console.log(list)
+          var search_list = ngmClusterLists.lists[ list ];
+          // this approach does NOT break gulp!
+          obj[key] = id;
+          var filter = $filter('filter')( search_list, obj, true );
+          // set name
+          d[ name ] = filter[0][ name ];
+          console.log(filter[0][ name ]);
+          $("label[for='" + label + "']").css({ 'color': '#26a69a', 'font-weight': 300 });
+          ngmClusterHelperNgWashLists.init_material_select();
+        }
       },
 
       // add beneficiary
@@ -104,6 +123,17 @@ angular.module( 'ngmReportHub' )
         beneficiary.kit_details.push({});
         if ( beneficiary.kit_details.length < 3 ) {
           Materialize.toast( 'Note: At least 3 kit items required to submit, add ' + ( 3 - beneficiary.kit_details.length) + ' more item(s)!' , 6000, 'note' );
+        }
+      },
+
+      // remove kit-details
+      removeKitDetail: function( project, beneficiary, $index ) {
+        if ( beneficiary.kit_details.length >= 4 ) {
+          beneficiary.kit_details.splice( $index, 1);
+          // project.save( false, false );
+          Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
+        } else {
+          Materialize.toast( 'Minimum of 3 Kit Items required!' , 4000, 'note' );
         }
       },
 

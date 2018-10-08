@@ -1,34 +1,49 @@
 
-
+	
+			<!-- label -->
 			<div class="col s12 m2" style="text-align:right;">
 				<p style="font-size:16px; padding-top:26px;">Kit Contents {{ $index+1 }} </p>
 			</div>
 
+			<!-- select -->
 			<div class="input-field col s12 m5">
-				<select id="ngm-beneficiary-kit-{{ $locationIndex }}-{{ $index }}" 
+				<select id="ngm-beneficiary-kit-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
                 class="validate"
                 ng-model="detail.detail_type_id" 
                 ng-options="detail.detail_type_id as detail.detail_type_name for detail in project.lists.kit_details"
-                ng-change="project.selectChangeKitDetail( detail, 'kit_details', 'detail_type_id', 'detail_type_name','ngm-beneficiary-kit-{{ $locationIndex }}-{{ $index }}-{{beneficaryIndex}}')"
+                ng-change="ngmClusterBeneficiaries.selectChange( detail, 'kit_details', 'detail_type_id', 'detail_type_name','ngm-beneficiary-kit-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}')"
                 ng-disabled="project.report.report_status === 'complete' || !rowform.$visible">
-
 					<option value="" selected>Select...</option>
 
 				</select>
-				<label for="ngm-beneficiary-kit-{{ $locationIndex }}-{{ $index }}" class="active" style="transform:translateY(-10%)">Kit Item</label>
+				<label for="ngm-beneficiary-kit-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" class="active" style="transform:translateY(-10%)">Kit Item</label>
 			</div>
 
-			<div class="input-field col s12 m5">
-				<input id="ngm-beneficiary-quantity-{{ $locationIndex }}-{{ $index }}" 
+			<!-- quantity -->
+			<div class="input-field col s12 m4">
+				<input id="ngm-beneficiary-kit-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
                   name="quantity" 
                   type="number" 
                   class="validate"
                   min="0" 
                   ng-model="detail.quantity"
-                  ng-change="project.inputChange( 'ngm-beneficiary-quantity-{{ $locationIndex }}-{{ $index }}' )" 
+                  ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-beneficiary-kit-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
                   ng-disabled="project.report.report_status === 'complete' || !rowform.$visible">
-                <label for="ngm-beneficiary-quantity-{{ $locationIndex }}-{{ $index }}" class="active">Amount (per HH)</label>
+                <label for="ngm-beneficiary-kit-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" class="active">Amount (per HH)</label>
 			</div>
+
+			<!-- remove -->
+			<div class="input-field col s12 m1">
+  			<div class="btn-floating waves-effect waves-light red lighten-2" 
+	  					title="Remove"
+	  					ng-show="rowform.$visible"
+	  					ng-click="ngmClusterBeneficiaries.removeKitDetail( project, beneficiary, $beneficiaryIndex )"
+              ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
+                            !ngmClusterTrainings.trainingFormComplete( project.report.locations )">
+  				<i class="material-icons">clear</i>
+  			</div>
+			</div>
+
 
 <script>
 	// init

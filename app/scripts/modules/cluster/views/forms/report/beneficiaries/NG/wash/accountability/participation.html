@@ -2,7 +2,7 @@
 <h5 class="report-location-title" ng-if="beneficiary.accountability.length" style="padding-top:0px;">Details</h5>
 	
 	<!-- repeat -->
-	<div class="card-panel" ng-repeat="accounts in beneficiary.accountability">
+	<div class="card-panel" ng-repeat="accounts in beneficiary.accountability" ng-init="$accountabilityIndex=$index">
 
 		<!-- accounts title / btns -->
 		<div class="row">
@@ -18,8 +18,8 @@
 			<div class="col s12 m4">
 				<div class="btn-floating waves-effect waves-light red lighten-2 right" 
 							title="Remove Accountability Activity"
-							ng-show="project.report.report_status !== 'complete'"
-							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $index, 'accountability', '#accounts-modal' )">
+							ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $accountabilityIndex, 'accountability', '#accounts-modal' )">
 					<i class="material-icons">clear</i>
 				</div>
 
@@ -30,98 +30,98 @@
 		<div class="row">
 
 			<div class="input-field col s12 m2">
-				<input id="ngm-boys-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-boys-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								name="boys"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="accounts.boys"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-boys-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-boys-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-boys-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<label for="ngm-boys-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								class="active">Boys</label>
 			</div>
 
 			<div class="input-field col s12 m2">
-				<input id="ngm-girls-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-girls-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								name="girls"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="accounts.girls"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-girls-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-girls-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-girls-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<label for="ngm-girls-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								class="active">Girls</label>
 			</div>
 
 			<div class="input-field col s12 m2">
-				<input id="ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								name="men"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="accounts.men"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<label for="ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								class="active">Men</label>
 			</div>
 
 			<div class="input-field col s12 m2">
-				<input id="ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								name="women"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="accounts.women"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<label for="ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								class="active">Women</label>
 			</div>
 
 			<div class="input-field col s12 m2">
-				<input id="ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								name="elderly_men"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="accounts.elderly_men"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<label for="ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								class="active">Elderly Men</label>
 			</div>
 
 			<div class="input-field col s12 m2">
-				<input id="ngm-elderly_women-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-elderly_women-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								name="elderly_women"
 								type="number" 
 								class="validate" 
 								min="0"
 								ng-model="accounts.elderly_women"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-elderly_women-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-elderly_women-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
 								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 								required>
 
 				<!-- label based on activity_detail_id -->
-				<label for="ngm-elderly_women-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<label for="ngm-elderly_women-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								class="active">Elderly Women</label>
 			</div>
 
@@ -131,7 +131,7 @@
 		<div class="row">
 
 			<div class="input-field col s12 m6">
-				<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 						ngm-date
 						type="text"
 						name="created"
@@ -141,12 +141,12 @@
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( accounts, accounts.activity_start_date )"
 						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
 						e-required/>
-				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								class="active">Activity Start Date</label>
 			</div>
 
 			<div class="input-field col s12 m6">
-				<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<input id="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 						ngm-date
 						type="text"
 						name="created"
@@ -156,7 +156,7 @@
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( accounts, accounts.activity_end_date )"
 						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
 						e-required/>
-				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
+				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								class="active">Activity End Date</label>            
 			</div>
 

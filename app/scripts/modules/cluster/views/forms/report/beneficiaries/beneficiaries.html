@@ -8,7 +8,8 @@
 </style>
 
 <div style="padding-left: 20px;">
-  <table class="bordered responsive-table" style="margin-bottom:10px;" ng-show="project.report.locations[$locationIndex].beneficiaries.length">
+  <table class="bordered responsive-table" style="margin-bottom:10px;"
+          ng-show="project.report.locations[ $locationIndex ].beneficiaries.length">
     <tr style="font-weight: 400">
       <td>Activity</td>
       <td>Description</td>
@@ -31,7 +32,8 @@
 			<td ng-if="project.showFatpTreatmentSameProvince( $locationIndex )">Treatment Same Province</td>
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
-    <tr ng-repeat-start="beneficiary in project.report.locations[ $locationIndex ].beneficiaries">
+    <tr ng-repeat-start="beneficiary in project.report.locations[ $locationIndex ].beneficiaries"
+          ng-init="$beneficiaryIndex=$index">
       <td>
         <!-- editable activity_type from Project -->
         <span e-form="rowform"
@@ -132,7 +134,7 @@
         <span e-form="rowform" e-name="cash_amount"
               editable-number="beneficiary.cash_amount"
               e-min="0"
-              e-ng-change="project.updateInput( $locationIndex, $index, 'cash_amount', $data )"
+              e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'cash_amount', $data )"
               e-ng-disabled="beneficiary.activity_description_id.indexOf('cash') === -1"
               e-required>
           {{ beneficiary.cash_amount }}
@@ -146,7 +148,7 @@
               e-name="units"
               editable-number="beneficiary.units"
               e-min="0"
-              e-ng-change="project.updateInput( $locationIndex, $index, 'units', $data )"
+              e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'units', $data )"
               e-ng-disabled="
                   !beneficiary.activity_description_id ||
                   ( ['wash','nutrition','health','protection', 'esnfi'].includes(beneficiary.cluster_id) &&
@@ -210,7 +212,7 @@
               e-name="households"
               editable-number="beneficiary.households"
               e-min="0"
-              e-ng-change="project.updateInput( $locationIndex, $index, 'households', $data )"
+              e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'households', $data )"
               e-ng-disabled="!project.showHouseholds( $locationIndex )"
               e-required>
           {{ beneficiary.households }}
@@ -222,7 +224,7 @@
               e-name="families"
               editable-number="beneficiary.families"
               e-min="0"
-              e-ng-change="project.updateInput( $locationIndex, $index, 'families', $data )"
+              e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'families', $data )"
               e-ng-disabled="beneficiary.cluster_id !== 'wash' &&
                         beneficiary.activity_type_id !== 'nutrition_education_training'"
               e-required>
@@ -235,7 +237,7 @@
               e-name="boys"
               editable-number="beneficiary.boys"
               e-min="0"
-              e-ng-change="project.updateInput( $locationIndex, $index, 'boys', $data )"
+              e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'boys', $data )"
               e-ng-disabled="false"
               e-required>
           {{ beneficiary.boys }}
@@ -247,7 +249,7 @@
               e-name="girls"
               editable-number="beneficiary.girls"
               e-min="0"
-              e-ng-change="project.updateInput( $locationIndex, $index, 'girls', $data )"
+              e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'girls', $data )"
               e-ng-disabled="false"
               e-required>
           {{ beneficiary.girls }}
@@ -259,7 +261,7 @@
               e-name="men"
               editable-number="beneficiary.men"
               e-min="0"
-              e-ng-change="project.updateInput( $locationIndex, $index, 'men', $data )"
+              e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'men', $data )"
               e-ng-disabled="
                       beneficiary.activity_type_id === 'mch' ||
                       (beneficiary.activity_type_id === 'vaccination'&&beneficiary.activity_description_id !== 'vaccination_tt') ||
@@ -278,7 +280,7 @@
               e-name="women"
               editable-number="beneficiary.women"
               e-min="0"
-              e-ng-change="project.updateInput( $locationIndex, $index, 'women', $data )"
+              e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'women', $data )"
               e-ng-disabled="
                       (beneficiary.activity_type_id === 'vaccination'&&beneficiary.activity_description_id !== 'vaccination_tt') ||
                       beneficiary.activity_description_id === 'penta_3' ||
@@ -293,7 +295,7 @@
               e-name="elderly_men"
               editable-number="beneficiary.elderly_men"
               e-min="0"
-              e-ng-change="project.updateInput( $locationIndex, $index, 'elderly_men', $data )"
+              e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'elderly_men', $data )"
               e-ng-disabled="project.definition.admin0pcode !== 'NG'"
               e-required>
           {{ beneficiary.elderly_men }}
@@ -305,7 +307,7 @@
               e-name="elderly_women"
               editable-number="beneficiary.elderly_women"
               e-min="0"
-              e-ng-change="project.updateInput( $locationIndex, $index, 'elderly_women', $data )"
+              e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'elderly_women', $data )"
               e-ng-disabled="project.definition.admin0pcode !== 'NG'"
               e-required>
           {{ beneficiary.elderly_women }}
@@ -329,7 +331,7 @@
         <form editable-form name="rowform"
                 onshow="project.keydownSaveForm()"
                 ng-show="rowform.$visible"
-                onbeforesave="project.save( false, false )"
+                onbeforesave="project.validateBeneficiariesDetailsForm( rowform, false, false )"
                 class="form-buttons form-inline"
                 shown="inserted == beneficiary">
           <button type="submit"
@@ -343,7 +345,7 @@
           <div type="button"
                 ng-if="rowform.$visible"
                 ng-disabled="rowform.$waiting"
-                ng-click="rowform.$cancel(); project.cancelEdit( $locationIndex, $index )"
+                ng-click="rowform.$cancel(); project.cancelEdit( $locationIndex, $beneficiaryIndex )"
                 class="btn btn-small blue lighten-1 waves-effect waves-light"
                 title="Cancel Edit">
 						<i class="material-icons">clear</i>
@@ -357,7 +359,7 @@
 						<i class="material-icons">create</i>
           </div>
           <div class="btn btn-small red lighten-2 waves-effect waves-light"
-                ng-click="project.removeBeneficiaryModal( $locationIndex, $index )"
+                ng-click="project.removeBeneficiaryModal( $locationIndex, $beneficiaryIndex )"
                 title="Remove"
                 ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
                               !ngmClusterTrainings.trainingFormComplete( project.report.locations  )">
