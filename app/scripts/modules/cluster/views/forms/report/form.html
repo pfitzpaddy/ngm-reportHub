@@ -251,17 +251,10 @@
 			<div class="col s12 m12 l12">
 				<div class="widget card-panel white grey-text text-darken-2">			
 					
-					<!-- submission -->
-					<div align="center" >
+					<!-- submission !== NG -->
+					<div align="center" ng-if="project.definition.admin0pcode !== 'NG'">
 						
 						<!-- validation -->
-<!-- 						<button class="waves-effect waves-light btn modal-trigger"
-											data-target="save-modal"
-											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
-																		!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
-											ng-cloak>
-										<i class="material-icons right">send</i>Save
-						</button>	 -->
 						<button class="waves-effect waves-light btn"
 											ng-click="project.validateBeneficiariesDetailsForm( false, false, true )"
 											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
@@ -278,6 +271,7 @@
 						<br/>
 						<br/>
 
+						<!-- monthly report -->
 						<button class="waves-effect waves-light btn blue"
 											ng-click="project.validateBeneficiariesDetailsForm( false, true, false )"
 											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
@@ -287,6 +281,35 @@
 						</button>
 
 					</div>
+
+					<!-- submission === NG -->
+					<div align="center" ng-if="project.definition.admin0pcode === 'NG'">
+						
+						<!-- validation -->
+						<button class="waves-effect waves-light btn"
+											ng-click="project.validateWashNgBeneficiariesForm( false, true )"
+											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations )"
+											ng-cloak>
+										<i class="material-icons right">send</i>Save
+						</button>
+
+						<!-- cancel new  -->
+						<button class="waves-effect waves-light btn grey modal-trigger" 
+											data-target="list-modal">Cancel
+						</button>
+
+						<br/>
+						<br/>
+
+						<!-- monthly report -->
+						<button class="waves-effect waves-light btn blue"
+											ng-click="project.validateWashNgBeneficiariesForm( true, false )"
+											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations )"
+											ng-cloak>
+							<i class="material-icons left">assignment_turned_in</i>Submit Monthly Report
+						</button>
+
+					</div>					
 
 				</div>
 			</div>
@@ -299,9 +322,7 @@
 <script type="text/javascript">
 	
 	// modals
-	setTimeout(function(){
-		$('.modal-trigger').leanModal();
-	}, 200);
+	setTimeout(function(){ $('.modal-trigger').leanModal(); }, 200);
 
 </script>
 
