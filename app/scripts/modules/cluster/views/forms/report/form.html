@@ -263,7 +263,7 @@
 										<i class="material-icons right">send</i>Save
 						</button>	 -->
 						<button class="waves-effect waves-light btn"
-											ng-click="project.validateBeneficiariesForm( false, true )"
+											ng-click="project.validateBeneficiariesDetailsForm( false, false, true )"
 											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
 																		!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
 											ng-cloak>
@@ -279,7 +279,7 @@
 						<br/>
 
 						<button class="waves-effect waves-light btn blue"
-											ng-click="project.validateBeneficiariesForm( true, false )"
+											ng-click="project.validateBeneficiariesDetailsForm( false, true, false )"
 											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
 																		!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
 											ng-cloak>
