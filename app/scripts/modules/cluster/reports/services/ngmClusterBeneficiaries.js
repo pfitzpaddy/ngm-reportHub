@@ -6,8 +6,8 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', 'ngmAuth', 'ngmClusterLists', 'ngmClusterHelperNgWashLists',
-              function( $http, $filter, ngmAuth, ngmClusterLists, ngmClusterHelperNgWashLists ) {
+	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', 'ngmAuth', 'ngmClusterLists', 'ngmClusterHelperNgWash',
+              function( $http, $filter, ngmAuth, ngmClusterLists, ngmClusterHelperNgWash ) {
 
     // beneficairies
 		var ngmClusterBeneficiaries = {
@@ -24,7 +24,6 @@ angular.module( 'ngmReportHub' )
         },
         distributionStartOnClose: function( beneficiary, value ) {
           beneficiary.distribution_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
-          console.log(beneficiary.distribution_start_date)
         },
         distributionEndOnClose: function( beneficiary, value ) {
           beneficiary.distribution_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
@@ -35,20 +34,18 @@ angular.module( 'ngmReportHub' )
       },
 
       // update display name in object on select change
-      selectChange: function( d, list, key, name, label ){
+      selectChange: function( project, d, list, key, name, label ){
         if ( d[ key ] ) {
           var id = d[ key ];
           var obj = {}
-          console.log(list)
-          var search_list = ngmClusterLists.lists[ list ];
+          var search_list = project.lists[ list ];
           // this approach does NOT break gulp!
           obj[key] = id;
           var filter = $filter('filter')( search_list, obj, true );
           // set name
           d[ name ] = filter[0][ name ];
-          console.log(filter[0][ name ]);
           $("label[for='" + label + "']").css({ 'color': '#26a69a', 'font-weight': 300 });
-          ngmClusterHelperNgWashLists.init_material_select();
+          ngmClusterHelperNgWash.init_material_select();
         }
       },
 
@@ -111,29 +108,35 @@ angular.module( 'ngmReportHub' )
         var display = project.admin0pcode === 'ET' && 
                 beneficiary.cluster_id === 'esnfi' && 
                 beneficiary.activity_description_id ==='loose_items';
+
+        // defaults to 1 entry
+        if ( display && !beneficiary.kit_details ) {
+          beneficiary.kit_details = [{}];
+        }
+
         return display;
       },
       
       // add kit-detail
       addKitDetail: function ( beneficiary ) {
-        if ( !beneficiary.kit_details ) {
-          beneficiary.kit_details = [];
-        }
-        beneficiary.kit_details.push({});
-        // if ( beneficiary.kit_details.length < 3 ) {
-        //   Materialize.toast( 'Note: At least 3 kit items required to submit, add ' + ( 3 - beneficiary.kit_details.length) + ' more item(s)!' , 6000, 'note' );
+        // if ( !beneficiary.kit_details ) {
+        //   beneficiary.kit_details s= [];
         // }
+        beneficiary.kit_details.push({});
+        if ( beneficiary.kit_details.length < 1 ) {
+          Materialize.toast( 'Note: Please add at least 1 kit item to submit!' , 6000, 'note' );
+        }
       },
 
       // remove kit-details
       removeKitDetail: function( project, beneficiary, $index ) {
-        // if ( beneficiary.kit_details.length >= 4 ) {
+        if ( beneficiary.kit_details.length >= 1 ) {
           beneficiary.kit_details.splice( $index, 1);
           // project.save( false, false );
           Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
-        // } else {
-        //   Materialize.toast( 'Minimum of 3 Kit Items required!' , 4000, 'note' );
-        // }
+        } else {
+          Materialize.toast( 'Minimum of 1 Kit Items required!' , 4000, 'note' );
+        }
       },
 
       // remove target_beneficiary from db
@@ -627,6 +630,52 @@ angular.module( 'ngmReportHub' )
         var disabled = true;
         switch ( project.admin0pcode ) {
 
+          case 'AF':
+            if ( $data.activity_type_id && 
+                  $data.activity_description_id &&
+                  $data.beneficiary_type_id &&
+                  $data.delivery_type_id &&
+                  $data.units >= 0 &&
+                  $data.sessions >= 0 &&
+                  $data.households >= 0 &&
+                  $data.families >= 0 &&
+                  $data.boys >= 0 &&
+                  $data.girls >= 0 &&
+                  $data.men >= 0 &&
+                  $data.women >= 0 &&
+                  $data.elderly_men >= 0 &&
+                  $data.elderly_women >= 0 ) {
+              disabled = false;
+            }
+            break;
+
+          case 'ET':
+            if ( $data.activity_type_id && 
+                  $data.activity_description_id &&
+                  $data.beneficiary_type_id &&
+                  $data.units >= 0 &&
+                  $data.sessions >= 0 &&
+                  $data.households >= 0 &&
+                  $data.families >= 0 &&
+                  $data.boys >= 0 &&
+                  $data.girls >= 0 &&
+                  $data.men >= 0 &&
+                  $data.women >= 0 &&
+                  $data.elderly_men >= 0 &&
+                  $data.elderly_women >= 0 ) {
+
+              if ( $data.cluster_id === 'esnfi' ) {
+                if ( $data.activity_description_id === 'loose_items' && $data.kit_details.length >= 1 && $data.households >= 1 ) {
+                  disabled = false;
+                } else if ( $data.households >= 1 ) {
+                  disabled = false;
+                }
+              } else {
+                disabled = false;
+              }
+            }
+            break;
+
           case 'NG':
             if ( $data.activity_type_id && 
                   $data.activity_description_id &&
@@ -649,32 +698,7 @@ angular.module( 'ngmReportHub' )
                   $data.women >= 0 &&
                   $data.elderly_men >= 0 &&
                   $data.elderly_women >= 0 ) {
-
-              // AF
-              if ( project.admin0pcode === 'AF' ) {
-                if ( $data.delivery_type_id ) {
-                  disabled = false;
-                }
-              } else {
                 disabled = false;
-              }
-
-              // ET
-              // if ( project.admin0pcode === 'ET' ) {
-              //   if ( $data.activity_description_id === 'loose_items' ) {
-              //     if ( $data.kit_details.length >= 3 ){
-              //       disabled = false;
-              //     }
-              //   } else {
-              //     disabled = false;
-              //   }
-              // }
-
-              // else
-              // if ( project.admin0pcode !== 'AF' ) && project.admin0pcode !== 'ET' ) {
-              //   disabled = false;
-              // }
-              
             }
         }
         // return

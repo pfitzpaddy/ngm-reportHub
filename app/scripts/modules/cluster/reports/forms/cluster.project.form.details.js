@@ -230,7 +230,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // add beneficiary
         addBeneficiary: function() {
-          $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.definition, $scope.project.definition.target_beneficiaries );
+          $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.definition.target_beneficiaries );
           $scope.project.definition.target_beneficiaries.push( $scope.inserted );
         },
 
