@@ -111,7 +111,6 @@ angular.module( 'ngmReportHub' )
         var display = project.admin0pcode === 'ET' && 
                 beneficiary.cluster_id === 'esnfi' && 
                 beneficiary.activity_description_id ==='loose_items';
-
         return display;
       },
       
@@ -121,20 +120,20 @@ angular.module( 'ngmReportHub' )
           beneficiary.kit_details = [];
         }
         beneficiary.kit_details.push({});
-        if ( beneficiary.kit_details.length < 3 ) {
-          Materialize.toast( 'Note: At least 3 kit items required to submit, add ' + ( 3 - beneficiary.kit_details.length) + ' more item(s)!' , 6000, 'note' );
-        }
+        // if ( beneficiary.kit_details.length < 3 ) {
+        //   Materialize.toast( 'Note: At least 3 kit items required to submit, add ' + ( 3 - beneficiary.kit_details.length) + ' more item(s)!' , 6000, 'note' );
+        // }
       },
 
       // remove kit-details
       removeKitDetail: function( project, beneficiary, $index ) {
-        if ( beneficiary.kit_details.length >= 4 ) {
+        // if ( beneficiary.kit_details.length >= 4 ) {
           beneficiary.kit_details.splice( $index, 1);
           // project.save( false, false );
           Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
-        } else {
-          Materialize.toast( 'Minimum of 3 Kit Items required!' , 4000, 'note' );
-        }
+        // } else {
+        //   Materialize.toast( 'Minimum of 3 Kit Items required!' , 4000, 'note' );
+        // }
       },
 
       // remove target_beneficiary from db
@@ -656,23 +655,26 @@ angular.module( 'ngmReportHub' )
                 if ( $data.delivery_type_id ) {
                   disabled = false;
                 }
+              } else {
+                disabled = false;
               }
 
               // ET
-              if ( project.admin0pcode === 'ET' ) {
-                if ( $data.activity_description_id === 'loose_items' ) {
-                  if ( $data.kit_details.length >= 3 ){
-                    disabled = false;
-                  }
-                } else {
-                  disabled = false;
-                }
-              }
+              // if ( project.admin0pcode === 'ET' ) {
+              //   if ( $data.activity_description_id === 'loose_items' ) {
+              //     if ( $data.kit_details.length >= 3 ){
+              //       disabled = false;
+              //     }
+              //   } else {
+              //     disabled = false;
+              //   }
+              // }
 
               // else
-              if ( project.admin0pcode !== 'AF' && project.admin0pcode !== 'ET' ) {
-                disabled = false;
-              }
+              // if ( project.admin0pcode !== 'AF' ) && project.admin0pcode !== 'ET' ) {
+              //   disabled = false;
+              // }
+              
             }
         }
         // return
