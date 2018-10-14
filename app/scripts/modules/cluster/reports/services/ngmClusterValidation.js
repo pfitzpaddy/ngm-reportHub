@@ -126,6 +126,15 @@ angular.module( 'ngmReportHub' )
         angular.forEach( locations, function( l, i ){
           angular.forEach( l.beneficiaries, function( d, j ){
 
+
+            // details
+            if ( d.partial_kits && d.partial_kits.length  ) {
+              detailsLength ++;
+              var result = ngmClusterValidation.validatePartial( d.partial_kits, i, j );
+              angular.merge( elements, result.divs );
+              detailsRowComplete +=  result.count;
+            }
+
             // details
             if ( d.kit_details && d.kit_details.length  ) {
               detailsLength ++;
@@ -146,6 +155,34 @@ angular.module( 'ngmReportHub' )
         } else {
           return true;
         }
+
+      },
+
+      // validate form
+      validatePartial: function( partial_kits, i, j ){
+        
+        // valid
+        var id;
+        var complete = true;
+        var validation = { count: 0, divs: [] };
+
+        // for each details
+        angular.forEach( partial_kits, function( d, k ){
+
+          // detail
+          if ( !d.detail_type_id && !d.detail_type_name ){
+            id = "label[for='" + 'ngm-beneficiary-kit-'+i+'-'+j+'-'+k+"']";
+            $( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+            validation.divs.push( id );
+            complete = false;
+          }
+        });
+
+        // return 1 for complete, default 0 for error
+        if ( complete ) {
+          validation.count = 1;
+        }
+        return validation;
 
       },
 

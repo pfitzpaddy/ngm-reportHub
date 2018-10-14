@@ -50,7 +50,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // add beneficiary
-      addBeneficiary: function ( beneficiaries ) {
+      addBeneficiary: function ( beneficiaries, defaults ) {
         
         // inserted
         var inserted = {};
@@ -70,7 +70,7 @@ angular.module( 'ngmReportHub' )
         };
 
         // merge
-        angular.merge( inserted, sadd );
+        angular.merge( inserted, sadd, defaults );
 
         // clone
         var length = beneficiaries.length;
@@ -78,7 +78,7 @@ angular.module( 'ngmReportHub' )
           var b = angular.copy( beneficiaries[ length - 1 ] );
           delete b.id;
 					delete b.injury_treatment_same_province;
-          inserted = angular.merge( inserted, b, sadd );
+          inserted = angular.merge( inserted, b, sadd, defaults );
           inserted.transfer_type_id = 0;
           inserted.transfer_type_value = 0;
         }
@@ -103,6 +103,27 @@ angular.module( 'ngmReportHub' )
         return display;
       },
 
+
+      // show add kit detials
+      showPartialKits: function( project, beneficiary, $index ){
+        var display = project.admin0pcode === 'ET' && 
+                beneficiary.cluster_id === 'esnfi' && 
+                beneficiary.activity_description_id ==='partial_kits';
+
+        // defaults to 1 entry
+        if ( display && !beneficiary.partial_kits ) {
+          beneficiary.partial_kits = [{}];
+        }
+
+        // list
+        if ( !ngmClusterBeneficiaries.partial_kits ) {
+          ngmClusterBeneficiaries.partial_kits = [];
+          ngmClusterBeneficiaries.partial_kits[ $index ] = ngmClusterLists.getPartialKits();
+        }
+
+        return display;
+      },
+
       // show add kit detials
       showKitDetails: function( project, beneficiary ){
         var display = project.admin0pcode === 'ET' && 
@@ -116,12 +137,32 @@ angular.module( 'ngmReportHub' )
 
         return display;
       },
+
+      // add kit-detail
+      addPartialKits: function ( beneficiary, $index ) {
+        beneficiary.partial_kits.push({});
+        if ( beneficiary.partial_kits.length < 1 ) {
+          Materialize.toast( 'Note: Please add at least 1 kit item to submit!' , 6000, 'note' );
+        }
+      },
+
+      // remove kit-details
+      removePartialKit: function( project, beneficiary, $index ) {
+        if ( beneficiary.partial_kits.length >= 2 ) {
+          beneficiary.partial_kits.splice( $index, 1);
+          Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
+        } else {
+          Materialize.toast( 'Minimum of 1 Kit Items required!' , 4000, 'note' );
+        }
+        // var partial_kits = ngmClusterLists.getPartialKits();
+        // angular.forEach( beneficiary.partial_kits, function( d ){
+        //   partial_kits = $filter('filter')( partial_kits, { detail_type_id: '!' + d.detail_type_id }, true );
+        // });
+        // ngmClusterBeneficiaries.partial_kits[ $index ] = partial_kits;
+      },
       
       // add kit-detail
       addKitDetail: function ( beneficiary ) {
-        // if ( !beneficiary.kit_details ) {
-        //   beneficiary.kit_details s= [];
-        // }
         beneficiary.kit_details.push({});
         if ( beneficiary.kit_details.length < 1 ) {
           Materialize.toast( 'Note: Please add at least 1 kit item to submit!' , 6000, 'note' );
@@ -130,9 +171,8 @@ angular.module( 'ngmReportHub' )
 
       // remove kit-details
       removeKitDetail: function( project, beneficiary, $index ) {
-        if ( beneficiary.kit_details.length >= 1 ) {
+        if ( beneficiary.kit_details.length >= 2 ) {
           beneficiary.kit_details.splice( $index, 1);
-          // project.save( false, false );
           Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
         } else {
           Materialize.toast( 'Minimum of 1 Kit Items required!' , 4000, 'note' );
@@ -665,8 +705,13 @@ angular.module( 'ngmReportHub' )
                   $data.elderly_women >= 0 ) {
 
               if ( $data.cluster_id === 'esnfi' ) {
-                if ( $data.activity_description_id === 'loose_items' && $data.kit_details.length >= 1 && $data.households >= 1 ) {
-                  disabled = false;
+                if ( $data.activity_description_id === 'loose_items' ) {
+                  if ( $data.partial_kits && $data.partial_kits.length >= 1 && $data.households >= 1 ) {
+                    disabled = false;
+                  }
+                  if ( $data.kit_details && $data.kit_details.length >= 1 && $data.households >= 1 ) {
+                    disabled = false;
+                  }
                 } else if ( $data.households >= 1 ) {
                   disabled = false;
                 }

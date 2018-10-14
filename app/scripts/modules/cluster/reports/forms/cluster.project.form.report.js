@@ -101,8 +101,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         addNewLocationUrl: 'location/new_location.html',
         beneficiariesTrainingUrl: 'beneficiaries/2016/beneficiaries-training.html',
         beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health-2016.html',
-        template_distribution_date: 'beneficiaries/distribution_date.html',
-        template_kit_details: 'beneficiaries/kit_details.html',
+        template_distribution_date: 'beneficiaries/ET/distribution_date.html',
+        template_partial_kits: 'beneficiaries/ET/partial_kits.html',
+        template_kit_details: 'beneficiaries/ET/kit_details.html',
         notesUrl: 'notes.html',
         
         // beneficairies template
@@ -178,8 +179,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         /**** Beneficiaries ****/
 
         // add beneficiary
-        addBeneficiary: function( $parent ) {
-          $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.report.locations[ $parent ].beneficiaries );
+        addBeneficiary: function( $parent, defaults ) {
+          $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.report.locations[ $parent ].beneficiaries, defaults );
           $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
         },
 

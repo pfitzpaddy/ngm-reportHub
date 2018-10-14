@@ -39,6 +39,7 @@ angular.module( 'ngmReportHub' )
           beneficiary_types: ngmClusterLists.getBeneficiaries( moment( project.project_end_date ).year(), project.admin0pcode, project.cluster_id ),
           currencies: ngmClusterLists.getCurrencies( project.admin0pcode ),
           donors: ngmClusterLists.getDonors( project.admin0pcode, project.cluster_id ),
+          partial_kits: ngmClusterLists.getPartialKits(),
           kit_details: ngmClusterLists.getKitDetails(),
           
           // keys to ignore when summing beneficiaries in template ( 2016 )
@@ -2395,6 +2396,29 @@ angular.module( 'ngmReportHub' )
         
         // facilities
         return site_types;
+      },
+
+      // kit-details
+      getPartialKits: function(){
+        var kit_details = [{
+          detail_type_id: 'emergency_shelter_kit',
+          detail_type_name: 'Emergency Shelter Kit'
+        }, {
+          detail_type_id: 'bedding_set',
+          detail_type_name: 'Bedding Set'
+        }, {
+          detail_type_id: 'mosquito_net_set',
+          detail_type_name: 'Mosquito Net Set'
+        }, {
+          detail_type_id: 'kitchen_set',
+          detail_type_name: 'Kitchen Set'
+        }, {
+          detail_type_id: 'hygiene_it',
+          detail_type_name: 'Hygiene Kit'
+        }];
+
+        return kit_details;
+
       },
 
       // kit-details
