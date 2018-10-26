@@ -10,7 +10,8 @@
 				<select id="ngm-beneficiary-kit-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
                 class="validate"
                 ng-model="detail.detail_type_id" 
-                ng-options="detail.detail_type_id as detail.detail_type_name for detail in ngmClusterBeneficiaries.partial_kits[ $beneficiaryIndex ] "
+                ng-options="detail.detail_type_id as detail.detail_type_name for detail in
+                							ngmClusterLists.getPartialKitsList( $index, detail.detail_type_id, beneficiary.partial_kits )"
                 ng-change="ngmClusterBeneficiaries.selectChange( project, detail, 'partial_kits', 'detail_type_id', 'detail_type_name','ngm-beneficiary-kit-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}')"
                 ng-disabled="project.report.report_status === 'complete' || !rowform.$visible">
 					<option value="" selected>Select...</option>
@@ -24,7 +25,7 @@
   			<div class="btn-floating waves-effect waves-light red lighten-2" 
 	  					title="Remove"
 	  					ng-show="rowform.$visible"
-	  					ng-click="ngmClusterBeneficiaries.removePartialKit( project, beneficiary, $beneficiaryIndex )"
+	  					ng-click="ngmClusterBeneficiaries.removePartialKit( project, beneficiary, $index )"
               ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
                             !ngmClusterTrainings.trainingFormComplete( project.report.locations )">
   				<i class="material-icons">clear</i>

@@ -408,7 +408,7 @@
             <!-- add details -->
             <div class="row" style="margin-left:20px;padding-top: 5px;">
               <button class="btn blue lighten-2"
-                      ng-if="beneficiary.partial_kits.length !== 5"
+                      ng-if="beneficiary.partial_kits.length !== project.lists.partial_kits.length"
                       ng-show="project.report.report_status !== 'complete' && rowform.$visible"
                       ng-click="ngmClusterBeneficiaries.addPartialKits( beneficiary, $beneficiaryIndex );
                                   ngmClusterHelperNgWash.init_material_select();">
@@ -426,6 +426,7 @@
             <!-- add details -->
             <div class="row" style="margin-left:20px;padding-top: 5px;">
               <button class="btn blue lighten-2"
+                      ng-if="beneficiary.kit_details.length !== project.lists.kit_details.length"
                       ng-show="project.report.report_status !== 'complete' && rowform.$visible"
                       ng-click="ngmClusterBeneficiaries.addKitDetail( beneficiary );
                                   ngmClusterHelperNgWash.init_material_select();">

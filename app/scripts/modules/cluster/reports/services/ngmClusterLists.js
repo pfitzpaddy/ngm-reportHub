@@ -16,6 +16,10 @@ angular.module( 'ngmReportHub' )
 
 		var ngmClusterLists = {
 
+      // holders
+      partial_kits: [],
+      kit_details: [],
+
       // lists ( project, mpc transfers )
       setLists: function( project, transfers ) {
 
@@ -2398,6 +2402,37 @@ angular.module( 'ngmReportHub' )
         return site_types;
       },
 
+      // 
+      getPartialKitsList: function( $index, detail_type_id, b_partial_kits ) {
+
+        // get kit details
+        var partial_kits = ngmClusterLists.getPartialKits();
+
+        console.log($index)
+        console.log(detail_type_id)
+        console.log(b_partial_kits)
+        console.log(partial_kits)
+
+        // list
+        if ( !ngmClusterLists.partial_kits[ $index ] ) {
+          ngmClusterLists.partial_kits[ $index ] = partial_kits;
+        }
+
+        // remove current selection
+        b_partial_kits = $filter( 'filter' )( b_partial_kits, { detail_type_id: '!' + detail_type_id } );
+        
+        // filter partial_kits
+        angular.forEach( b_partial_kits, function ( kit ) {
+          if ( kit.detail_type_id ) {
+            ngmClusterLists.partial_kits[ $index ] = $filter( 'filter' )( ngmClusterLists.partial_kits[ $index ], { detail_type_id: '!' + kit.detail_type_id } );
+          }
+        });
+
+        // return
+        return ngmClusterLists.partial_kits[ $index ];
+
+      },
+
       // kit-details
       getPartialKits: function(){
         var kit_details = [{
@@ -2418,6 +2453,32 @@ angular.module( 'ngmReportHub' )
         }];
 
         return kit_details;
+
+      },
+
+      // 
+      getKitDetailsList: function( $index, detail_type_id, b_kit_details ) {
+
+        // get kit details
+        var kit_details = ngmClusterLists.getKitDetails();
+
+        // list
+        if ( !ngmClusterLists.kit_details[ $index ] ) {
+          ngmClusterLists.kit_details[ $index ] = kit_details;
+        }
+
+        // remove current selection
+        b_kit_details = $filter( 'filter' )( b_kit_details, { detail_type_id: '!' + detail_type_id } );
+        
+        // filter kit_details
+        angular.forEach( b_kit_details, function ( kit ) {
+          if ( kit.detail_type_id ) {
+            ngmClusterLists.kit_details[ $index ] = $filter( 'filter' )( ngmClusterLists.kit_details[ $index ], { detail_type_id: '!' + kit.detail_type_id } );
+          }
+        });
+
+        // return
+        return ngmClusterLists.kit_details[ $index ];
 
       },
 
