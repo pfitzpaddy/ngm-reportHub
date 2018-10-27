@@ -1,0 +1,13 @@
+<!-- bind html -->
+
+<span class="left" style="padding-left: 10px; padding-top:8px;">Last Updated: {{ panel.data.updatedAt }}</span>
+
+<div class="right">
+	<a class="waves-effect waves-light btn " href="{{panel.reset}}">
+		<i class="material-icons left">cached</i>Reset Dashboard
+	</a>
+	<a class="waves-effect waves-light btn blue darken-1" href="{{panel.getCurrentMonth}}" style="padding-left:20px; margin-left: 5px"
+	 title="GoTo Current Month">
+		<i class="material-icons left">refresh</i>Current Month
+	</a>
+</div>
