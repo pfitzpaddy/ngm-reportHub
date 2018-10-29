@@ -148,10 +148,10 @@ angular.module( 'ngmReportHub' )
       },
 
       // remove kit-details
-      removePartialKit: function( project, beneficiary, $index ) {
+      removePartialKit: function( project, beneficiary, $locationIndex, $beneficiaryIndex, $index ) {
         if ( beneficiary.partial_kits.length >= 2 ) {
           beneficiary.partial_kits.splice( $index, 1);
-          ngmClusterLists.partial_kits.splice( $index, 1);
+          ngmClusterLists.partial_kits[ $locationIndex ][ $beneficiaryIndex ].splice( $index, 1 );
           Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
         } else {
           Materialize.toast( 'Minimum of 1 Kit Items required!' , 4000, 'note' );
@@ -168,10 +168,10 @@ angular.module( 'ngmReportHub' )
       },
 
       // remove kit-details
-      removeKitDetail: function( project, beneficiary, $index ) {
+      removeKitDetail: function( project, beneficiary, $locationIndex, $beneficiaryIndex, $index ) {
         if ( beneficiary.kit_details.length >= 2 ) {
           beneficiary.kit_details.splice( $index, 1);
-          ngmClusterLists.kit_details.splice( $index, 1);
+          ngmClusterLists.kit_details[ $locationIndex ][ $beneficiaryIndex ].splice( $index, 1 );
           Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
         } else {
           Materialize.toast( 'Minimum of 1 Kit Items required!' , 4000, 'note' );
