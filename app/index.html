@@ -237,6 +237,14 @@
 										<a class="white-text right" href="#/who/" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">bubble_chart</i>DEWS DASHBOARD</a>
 									</li>
+									<!-- DROUGHT -->
+									<li align="center" class="teal z-depth-2"
+									 ng-if="ngm.getUser().admin0pcode.toLowerCase() === 'af'"
+									>
+										<a class="white-text right" href="#/response/afghanistan/drought" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">bubble_chart</i>DROUGHT DASHBOARD</a>
+									</li>
+
 
 									<!-- contact modal -->
 <!-- 									<li  align="center" class="teal z-depth-2">
@@ -510,6 +518,13 @@
 		<script src="scripts/modules/country/afghanistan/nutrition/dashboards/dashboard.admin.nutrition.weekly.js"></script>
 		<script src="scripts/modules/country/afghanistan/nutrition/assessments/nutrition.assessments.js"></script>
 		<script src="scripts/modules/country/afghanistan/nutrition/assessments/nutrition.koboform.js"></script>
+
+		<!-- DROUGHT -->
+		<script src="scripts/modules/country/afghanistan/drought/app.js"></script>
+		<script src="scripts/modules/country/afghanistan/drought/services/ngmDroughtHelper.js"></script>
+		<script src="scripts/modules/country/afghanistan/drought/dashboards/dashboard.drought.admin.js"></script>
+		<!-- <script src="scripts/modules/country/afghanistan/drought/dashboards/dashboard.admin.drought.weekly.js"></script> -->
+		<script src="scripts/modules/country/afghanistan/drought/main/drought.main.js"></script>
 
 
 		<!-- endbuild -->

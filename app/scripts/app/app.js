@@ -40,6 +40,7 @@ angular
     'ngmSbp',
 		'ngmiMMAP',
 		'ngmNutrition',
+		'ngmDrought',
 		// utils
 		'angularUtils.directives.dirPagination',
 		// widgets
