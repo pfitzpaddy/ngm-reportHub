@@ -101,6 +101,12 @@ angular.module('ngmReportHub')
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/admin/emro/af'
 					},{
+						'title': 'Bangladesh',
+						'param': 'admin0pcode',
+						'active': 'bd',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/admin/searo/bd'
+					},{
 						'title': 'Ethiopia',
 						'param': 'admin0pcode',
 						'active': 'et',

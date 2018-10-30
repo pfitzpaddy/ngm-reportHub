@@ -97,6 +97,12 @@ angular.module('ngmReportHub')
 						'active': 'emro',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/5w/emro/all'
+					},{
+						'title': 'SEARO',
+						'param': 'adminRpcode',
+						'active': 'searo',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/5w/searo/all'
 					}]
 				}],
 
@@ -379,6 +385,19 @@ angular.module('ngmReportHub')
 										'active': 'sy',
 										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 										'href': '/desk/#/cluster/5w/emro/sy'
+									}]
+								},
+								'searo': {
+									'id': 'search-country',
+									'icon': 'person_pin',
+									'title': 'Country',
+									'class': 'teal lighten-1 white-text',
+									'rows': [{
+										'title': 'Bangladesh',
+										'param': 'admin0pcode',
+										'active': 'bd',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/5w/searo/bd'
 									}]
 								}
 							}

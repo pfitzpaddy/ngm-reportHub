@@ -2257,6 +2257,12 @@ angular.module( 'ngmReportHub' )
             site_implementation_id: 'stabalization_center',
             site_implementation_name: 'Stabalization Center'
           },{
+            site_implementation_id: 'food_distribution_point_gfd',
+            site_implementation_name: 'Food Distribution Point (GFD)'
+          },{
+            site_implementation_id: 'e_voucher_outlet_food',
+            site_implementation_name: 'E-Voucher Outlet (Food)'
+          },{
             site_implementation_id: 'mhnt',
             site_implementation_name: 'MHNT'
           },{

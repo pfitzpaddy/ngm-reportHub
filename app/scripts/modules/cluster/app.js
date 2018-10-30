@@ -307,6 +307,14 @@ angular
 				redirectTo: '/cluster/admin/emro/ur/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 
+			// SEARO
+			.when( '/cluster/admin/searo', {
+				redirectTo: '/cluster/admin/searo/all/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when( '/cluster/admin/searo/bd', {
+				redirectTo: '/cluster/admin/searo/bd/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+
 			// ADMIN
 			.when( '/cluster/admin/:adminRpcode/:admin0pcode/:cluster_id/:activity_type_id/:organization_tag/:report_type/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
@@ -370,10 +378,17 @@ angular
 			// })
 
 			// cluster dashboard HQ
+			.when( '/cluster/5w/hq', {
+				redirectTo: '/cluster/5w/hq/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
 			.when( '/cluster/5w/hq/all', {
 				redirectTo: '/cluster/5w/hq/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
+			
 			// cluster dashboard AFRO
+			.when( '/cluster/5w/afro', {
+				redirectTo: '/cluster/5w/afro/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
 			.when( '/cluster/5w/afro/all', {
 				redirectTo: '/cluster/5w/afro/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
@@ -389,7 +404,11 @@ angular
 			.when( '/cluster/5w/afro/ss', {
 				redirectTo: '/cluster/5w/afro/ss/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
+			
 			// cluster dashboard EMRO
+			.when( '/cluster/5w/emro', {
+				redirectTo: '/cluster/5w/emro/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
 			.when( '/cluster/5w/emro/all', {
 				redirectTo: '/cluster/5w/emro/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
@@ -404,6 +423,17 @@ angular
 			})
 			.when( '/cluster/5w/emro/ur', {
 				redirectTo: '/cluster/5w/emro/ur/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
+
+			// SEARO
+			.when( '/cluster/5w/searo', {
+				redirectTo: '/cluster/5w/searo/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/5w/searo/all', {
+				redirectTo: '/cluster/5w/searo/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/5w/searo/bd', {
+				redirectTo: '/cluster/5w/searo/bd/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 
 			// health dashboard
