@@ -137,18 +137,18 @@
 			<ul class="collection with-header">
 				<li class="collection-header teal lighten-2">
 					<h5 class="report-work-title {{ table.headerText }}">
-						Reporting Organization</h5>
+						Reporting Organizations</h5>
 				</li>
-				<li>
+				<li class="collection-header">
 					<div  style=" margin: 10px 5px 10px 5px">
 					
-						<p ng-if="data.length" style="padding-left: 10px">
+						<h5 ng-if="data.length" style=" color:#4db6ac;padding-left: 10px">
 							
 							<span ng-repeat="row in type =(data|orderBy:'organization') track by $index" ng-if="type[$index-1].organization !=row.organization">{{row.organization}}{{(type[$index].organization!=type[data.length-1].organization) ? ', ' : ' '}}</span>
-						</p>
-						<p ng-if="!data.length" style="padding-left: 10px">
+						</h5>
+						<h5 ng-if="!data.length" style=" color:#4db6ac;padding-left: 10px">
 							 No Organizations !
-						</p>
+						</h5>
 					</div>
 				</li>
 			</ul>			
