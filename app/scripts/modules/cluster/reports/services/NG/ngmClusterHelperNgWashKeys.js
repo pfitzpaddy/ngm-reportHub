@@ -159,7 +159,7 @@ angular.module( 'ngmReportHub' )
 					template: 'maintenance.html',
 					association: 'water',
 					measurement: {
-						details:[],
+						details:[{}],
 						quantity_measurement_id: 'kits_distributed',
 						quantity_measurement_name: 'Kits Distributed'
 					}
@@ -168,7 +168,7 @@ angular.module( 'ngmReportHub' )
 					template: 'maintenance.html',
 					association: 'water',
 					measurement: {
-						details:[],
+						details:[{}],
 						quantity_measurement_id: 'systems_repaired_replaced',
 						quantity_measurement_name: 'Systems Repaired / Replaced'
 					}
@@ -306,7 +306,7 @@ angular.module( 'ngmReportHub' )
 					template: 'latrines.html',
 					association: 'sanitation',
 					measurement: {
-						details: [],
+						details: [{}],
 						quantity_measurement_id: 'sites_prepared',
 						quantity_measurement_name: 'Sites Prepared'
 					}
@@ -315,7 +315,7 @@ angular.module( 'ngmReportHub' )
 					template: 'latrines.html',
 					association: 'sanitation',
 					measurement: {
-						details: [],
+						details: [{ quantity: 0 }],
 						quantity_measurement_id: 'monitoring_visits',
 						quantity_measurement_name: 'Monitoring Visits'
 					}
@@ -565,7 +565,7 @@ angular.module( 'ngmReportHub' )
 					measurement: {
 						quantity_measurement_id: 'monitoring_visits',
 						quantity_measurement_name: 'Monitoring Visits',
-						details:[]
+						details: [{ quantity: 0 }]
 					}
 				},				
 				// waste management
@@ -583,7 +583,7 @@ angular.module( 'ngmReportHub' )
 					measurement: {
 						quantity_measurement_id: 'waste_management_kits_distributed',
 						quantity_measurement_name: 'Waste Management Kits Distributed',
-						details:[]
+						details: [{ quantity: 0 }]
 					}
 				},
 				'communal_refuse_pit_excavation_for_incineration_burial': {
@@ -595,7 +595,7 @@ angular.module( 'ngmReportHub' )
 					}
 				},
 				'establishment_training_rotational_waste_management_committee': {
-					template: 'committee.html',
+					template: 'waste.html',
 					association: 'sanitation',
 					measurement: {
 						male: 0,
@@ -608,17 +608,17 @@ angular.module( 'ngmReportHub' )
 						committee_rotation_per_month: 0,
 						quantity_measurement_id: 'sanitation_committee',
 						quantity_measurement_name: 'Sanitation Committee',
-						details: []
+						details: [{}]
 					}
 				},
 				// sanitation committee
 				'sanitation_committee_kits_distribution': {
-					template: 'waste.html',
+					template: 'committee.html',
 					association: 'sanitation',
 					measurement: {
 						quantity_measurement_id: 'sanitation_kits_distributed',
 						quantity_measurement_name: 'Sanitation Kits Distributed',
-						details: []
+						details: [{ quantity: 0 }]
 					}
 				},
 				'establishment_training_rotational_sanitation_committee': {
@@ -635,7 +635,7 @@ angular.module( 'ngmReportHub' )
 						committee_rotation_per_month: 0,
 						quantity_measurement_id: 'sanitation_committee',
 						quantity_measurement_name: 'Sanitation Committee',
-						details: []
+						details: [{}]
 					}
 				},
 				// HYGIENE
@@ -686,7 +686,7 @@ angular.module( 'ngmReportHub' )
 					measurement:{
 						quantity_measurement_id: 'campaigns',
 						quantity_measurement_name: 'Campaigns',
-						details:[]
+						details: [{}]
 					}
 				},
 				'hygiene_promotion_volunteers_recruitment_training': {
@@ -697,7 +697,7 @@ angular.module( 'ngmReportHub' )
 						female: 0,
 						quantity_measurement_id: 'trainings',
 						quantity_measurement_name: 'Trainings',
-						details:[]
+						details: [{}]
 					}
 				},
 				'hygiene_promotion_monitoring_visits': {
@@ -706,7 +706,7 @@ angular.module( 'ngmReportHub' )
 					measurement:{
 						quantity_measurement_id: 'monitoring_visits',
 						quantity_measurement_name: 'Monitoring Visits',
-						details:[]
+						details: [{}]
 					}
 				},
 				// kit distribution
@@ -716,7 +716,7 @@ angular.module( 'ngmReportHub' )
 					measurement:{
 						quantity_measurement_id: 'kits_distributed',
 						quantity_measurement_name: 'Kits Distributed',
-						details:[]
+						details: [{ quantity: 0 }]
 					}
 				},
 				'replenishment_hygiene_kit_distribution': {
@@ -725,7 +725,7 @@ angular.module( 'ngmReportHub' )
 					measurement:{
 						quantity_measurement_id: 'kits_distributed',
 						quantity_measurement_name: 'Kits Distributed',
-						details:[]
+						details: [{ quantity: 0 }]
 					}
 				},
 				'hygiene_promotion_volunteers_kit_distribution': {
@@ -734,7 +734,7 @@ angular.module( 'ngmReportHub' )
 					measurement:{
 						quantity_measurement_id: 'kits_distributed',
 						quantity_measurement_name: 'Kits Distributed',
-						details:[]
+						details: [{ quantity: 0 }]
 					}
 				},
 				'cholera_kit_distribution': {
@@ -743,7 +743,7 @@ angular.module( 'ngmReportHub' )
 					measurement:{
 						quantity_measurement_id: 'kits_distributed',
 						quantity_measurement_name: 'Kits Distributed',
-						details:[]
+						details: [{ quantity: 0 }]
 					}
 				},
 				'post_distribution_monitoring': {
@@ -752,7 +752,7 @@ angular.module( 'ngmReportHub' )
 					measurement:{
 						quantity_measurement_id: 'kits_distributed',
 						quantity_measurement_name: 'Kits Distributed',
-						details:[]
+						details: [{ quantity: 0 }]
 					}
 				},
 				// CASH
@@ -764,7 +764,7 @@ angular.module( 'ngmReportHub' )
 						cash_amount: 0,
 						quantity_measurement_id: 'naira',
 						quantity_measurement_name: 'Naira',
-						details:[]
+						details: [{}]
 					}
 				},
 				'delivery_through_agent': {
@@ -775,7 +775,7 @@ angular.module( 'ngmReportHub' )
 						cash_amount: 0,
 						quantity_measurement_id: 'naira',
 						quantity_measurement_name: 'Naira',
-						details:[]
+						details: [{}]
 					}
 				},
 				'prepaid_cards': {
@@ -786,7 +786,7 @@ angular.module( 'ngmReportHub' )
 						cash_amount: 0,
 						quantity_measurement_id: 'naira',
 						quantity_measurement_name: 'Naira',
-						details:[]
+						details: [{}]
 					}
 				},
 				'physical_voucher': {
@@ -797,7 +797,7 @@ angular.module( 'ngmReportHub' )
 						cash_amount: 0,
 						quantity_measurement_id: 'naira',
 						quantity_measurement_name: 'Naira',
-						details:[]
+						details: [{}]
 					}
 				},
 				'mobile_phone_transfer': {
@@ -808,7 +808,7 @@ angular.module( 'ngmReportHub' )
 						cash_amount: 0,
 						quantity_measurement_id: 'naira',
 						quantity_measurement_name: 'Naira',
-						details:[]
+						details: [{}]
 					}
 				},
 				'smart_card_chipped': {
@@ -819,7 +819,7 @@ angular.module( 'ngmReportHub' )
 						cash_amount: 0,
 						quantity_measurement_id: 'naira',
 						quantity_measurement_name: 'Naira',
-						details:[]
+						details: [{}]
 					}
 				},
 				// ACCOUNTABILITY
@@ -833,7 +833,7 @@ angular.module( 'ngmReportHub' )
 						complaints_closed: 0,
 						quantity_measurement_id: 'complaint_boxes_onsite',
 						quantity_measurement_name: 'Complaint Boxes Onsite',
-						details:[]
+						details: [{}]
 					}
 				},
 				'toll_free_line': {
@@ -845,7 +845,7 @@ angular.module( 'ngmReportHub' )
 						complaints_closed: 0,
 						quantity_measurement_id: 'toll_free_lines_available',
 						quantity_measurement_name: 'Toll Free Lines Available',
-						details:[]
+						details: [{}]
 					}
 				},
 				'help_desk': {
@@ -857,7 +857,7 @@ angular.module( 'ngmReportHub' )
 						complaints_closed: 0,
 						quantity_measurement_id: 'help_desks_onsite',
 						quantity_measurement_name: 'Help Desks Onsite',
-						details:[]
+						details: [{}]
 					}
 				},
 				// design, monitoring, engagement, involvement
@@ -867,7 +867,7 @@ angular.module( 'ngmReportHub' )
 					measurement:{
 						quantity_measurement_id: 'project_design',
 						quantity_measurement_name: 'Project Design',
-						details:[]
+						details: [{}]
 					}
 				},
 				'project_monitoring': {
@@ -876,7 +876,7 @@ angular.module( 'ngmReportHub' )
 					measurement:{
 						quantity_measurement_id: 'project_monitoring',
 						quantity_measurement_name: 'Project Monitoring',
-						details:[]
+						details: [{}]
 					}
 				},
 				'project_evaluation': {
@@ -885,7 +885,7 @@ angular.module( 'ngmReportHub' )
 					measurement:{
 						quantity_measurement_id: 'project_evaluation',
 						quantity_measurement_name: 'Project Evaluation',
-						details:[]
+						details: [{}]
 					}
 				},
 				'community_involvement_in_decision_making': {
@@ -894,7 +894,7 @@ angular.module( 'ngmReportHub' )
 					measurement:{
 						quantity_measurement_id: 'community_involvement',
 						quantity_measurement_name: 'Community Involvement',
-						details:[]
+						details: [{}]
 					}
 				},
 				'information_rights_entitlement': {
@@ -903,7 +903,7 @@ angular.module( 'ngmReportHub' )
 					measurement:{
 						quantity_measurement_id: 'information_rights_entitlement',
 						quantity_measurement_name: 'Information on Rights / Entitlements',
-						details:[]
+						details: [{}]
 					}
 				},
 				'information_roles_responsibilities': {
@@ -912,7 +912,7 @@ angular.module( 'ngmReportHub' )
 					measurement:{
 						quantity_measurement_id: 'information_roles_responsibilities',
 						quantity_measurement_name: 'Information on Roles / Responsibilities of WASH Staff',
-						details:[]
+						details: [{}]
 					}
 				},
 				// default

@@ -226,6 +226,7 @@ angular.module( 'ngmReportHub' )
 						$beneficiary.hygiene = [];
 						$beneficiary.cash = [];
 						$beneficiary.accountability = [];
+						ngmClusterHelperNgWashLists.details = [];
 
 						// add new
 						ngmClusterHelperNgWash.addActivity( locations, $location, $beneficiary, keys.association );
@@ -284,14 +285,15 @@ angular.module( 'ngmReportHub' )
 			// add new details
 			addDetails: function( d, obj ){
 				d.details.push( obj );
-				// setTimeout(function(){ $( '.input-field select' ).material_select(); }, 100 );
-				ngmClusterHelperNgWash.init_material_select();
+				// ngmClusterHelperNgWash.init_material_select();
 			},
 
       // remove kit-details
-      removeDetail: function( d, $index ) {
+      removeDetail: function( d, $locationIndex, $beneficiaryIndex, $index ) {
         d.details.splice( $index, 1);
-        // project.save( false, false );
+        if ( ngmClusterHelperNgWashLists.details[ $locationIndex ] && ngmClusterHelperNgWashLists.details[ $locationIndex ][ $beneficiaryIndex ] ) {
+        	ngmClusterHelperNgWashLists.details[ $locationIndex ][ $beneficiaryIndex ].splice( $index, 1 );
+        }
         Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
       },
 

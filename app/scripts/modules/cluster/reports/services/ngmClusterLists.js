@@ -2577,6 +2577,7 @@ angular.module( 'ngmReportHub' )
 
       },
 
+      // manages selections (removes selections from detials list for ET ESNFI partial_kits, kit_details)
       getDetailList: function( detail_list, $locationIndex, $beneficiaryIndex, $index, detail_type_id, b_detail_list ) {
 
         // list

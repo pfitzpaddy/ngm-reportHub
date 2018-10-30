@@ -3,23 +3,24 @@
 					</div>
 					
 					<div class="input-field col s12 m8">
-		      	<select id="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}-{{ $index }}" 
+		      	<select id="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}-{{ $index }}" 
 			      					name="detail_type_id"
 			      					class="validate"
 			      					ng-options="detail.detail_type_id as 
 			      												detail.detail_type_name for 
-			      												detail in ngmClusterHelperNgWashLists.lists.waste_management_committee_duties"
+			      												detail in 
+			      												ngmClusterHelperNgWashLists.getDetailList( ngmClusterHelperNgWashLists.lists.waste_management_committee_duties, $locationIndex, $beneficiaryIndex, $index, detail.detail_type_id, waste.details )"
 		      						ng-change="ngmClusterHelperNgWash.selectChange( detail, 
 		      																			'waste_management_committee_duties',
 		      																			'detail_type_id', 
 		      																			'detail_type_name',
-		      																			'ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}-{{ $index }}' )"
+		      																			'ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}-{{ $index }}' )"
 			      					ng-model="detail.detail_type_id"
 			      					ng-disabled="!rowform.$visible || project.report.report_status === 'complete'"
 			      					required>
 						<option value="">Select... </option>
 						</select>
-			      <label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}-{{ $index }}" 
+			      <label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}-{{ $index }}" 
 			      				class="active" style="transform:translateY(-10%)">Committee Responsibilities</label>
 					</div>
 
@@ -28,7 +29,7 @@
 		  			<div class="btn-floating waves-effect waves-light red lighten-2" 
 			  					title="Remove"
 			  					ng-show="rowform.$visible"
-			  					ng-click="ngmClusterHelperNgWash.removeDetail( committee, $index )"
+			  					ng-click="ngmClusterHelperNgWash.removeDetail( waste, $locationIndex, $beneficiaryIndex, $index )"
 		              ng-disabled="!!ngmClusterBeneficiaries.rowSaveDisabled( project.definition, beneficiary )">
 		  				<i class="material-icons">clear</i>
 		  			</div>

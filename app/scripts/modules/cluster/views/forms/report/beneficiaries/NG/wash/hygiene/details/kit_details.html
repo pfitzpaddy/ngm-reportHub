@@ -9,7 +9,8 @@
 											class="validate"
 											ng-options="detail.detail_type_id as 
 																		detail.detail_type_name for 
-																		detail in ngmClusterHelperNgWashLists.lists[ beneficiary.activity_detail_id ]"
+																		detail in 
+																		ngmClusterHelperNgWashLists.getDetailList( ngmClusterHelperNgWashLists.lists[ beneficiary.activity_detail_id ], $locationIndex, $beneficiaryIndex, $index, detail.detail_type_id, kit.details )"
 											ng-change="ngmClusterHelperNgWash.selectChange( detail, 
 																								beneficiary.activity_detail_id,
 																								'detail_type_id', 
@@ -45,7 +46,7 @@
 		  			<div class="btn-floating waves-effect waves-light red lighten-2" 
 			  					title="Remove"
 			  					ng-show="rowform.$visible"
-			  					ng-click="ngmClusterHelperNgWash.removeDetail( kit, $index )"
+			  					ng-click="ngmClusterHelperNgWash.removeDetail( kit, $locationIndex, $beneficiaryIndex, $index )"
 		              ng-disabled="!!ngmClusterBeneficiaries.rowSaveDisabled( project.definition, beneficiary )">
 		  				<i class="material-icons">clear</i>
 		  			</div>

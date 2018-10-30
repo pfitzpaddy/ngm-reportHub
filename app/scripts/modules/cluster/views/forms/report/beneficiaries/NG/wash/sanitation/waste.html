@@ -20,58 +20,184 @@
 			</div>
 		</div>
 
-		<!-- quanitiy -->
-		<div class="row">
+		<!-- waste management -->
+		<div class="row" ng-if="beneficiary.activity_detail_id !== 'establishment_training_rotational_waste_management_committee'">
 
 			<div class="input-field col s12">
 
-				
 				<!-- kits -->
-				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
-								ng-if="beneficiary.activity_detail_id === 'solid_waste_management_committee_kits_distribution' ||
-												beneficiary.activity_detail_id === 'sanitation_committee_kits_distribution'"
-								name="quantity"
-								type="number" 
-								class="validate" 
-								min="0"
-								ng-model="waste.quantity"
-								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, waste, 'kits' );
-														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
-								required>
-
-				<!-- kits -->
-				<label ng-if="beneficiary.activity_detail_id === 'solid_waste_management_committee_kits_distribution' ||
-												beneficiary.activity_detail_id === 'sanitation_committee_kits_distribution'"
-								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
-								class="active">Quantity (Kits Distributed)</label>
-
+				<div ng-if="beneficiary.activity_detail_id === 'solid_waste_management_committee_kits_distribution'">
 				
-				<!-- campaigns, excavations -->
-				<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
-								ng-if="beneficiary.activity_detail_id !== 'solid_waste_management_committee_kits_distribution' &&
-												beneficiary.activity_detail_id !== 'sanitation_committee_kits_distribution'"
-								name="quantity"
-								type="number" 
-								class="validate" 
-								min="0"
-								ng-model="waste.quantity"
-								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
-								required>
+					<!-- input -->
+					<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
+									ng-if="beneficiary.activity_detail_id === 'solid_waste_management_committee_kits_distribution' ||
+													beneficiary.activity_detail_id === 'sanitation_committee_kits_distribution'"
+									name="quantity"
+									type="number" 
+									class="validate" 
+									min="0"
+									ng-model="waste.quantity"
+									ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, waste, 'kits' );
+															ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
+									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									required>
 
-				<!-- label based on activity_detail_id -->
-				<label ng-if="beneficiary.activity_detail_id === 'cleaning_campaigns'"
-								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
-								class="active">Quantity (Campaigns)</label>
+					<!-- kits -->
+					<label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
+									class="active">Quantity (Kits Distributed)</label>
 
-				<label ng-if="beneficiary.activity_detail_id === 'communal_refuse_pit_excavation_for_incineration_burial'"
-								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
-								class="active">Quantity (Pit Excavations)</label>
+				</div>		
+
+				<!-- campaigns, excavations  -->
+				<div ng-if="beneficiary.activity_detail_id !== 'solid_waste_management_committee_kits_distribution'">		
+				
+					<!-- input -->
+					<input id="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
+									name="quantity"
+									type="number" 
+									class="validate" 
+									min="0"
+									ng-model="waste.quantity"
+									ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
+									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									required>
+
+					<!-- label based on activity_detail_id -->
+					<label ng-if="beneficiary.activity_detail_id === 'cleaning_campaigns'"
+									for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
+									class="active">Quantity (Campaigns)</label>
+
+					<label ng-if="beneficiary.activity_detail_id === 'communal_refuse_pit_excavation_for_incineration_burial'"
+									for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
+									class="active">Quantity (Pit Excavations)</label>
+
+				</div>
 
 			</div>
 
 		</div>
+
+		<!-- establishment_training_rotational_waste_management_committee -->
+		<div ng-if="beneficiary.activity_detail_id === 'establishment_training_rotational_waste_management_committee'">
+
+			<!-- male / female -->
+			<div class="row">
+
+				<div class="input-field col s12 m6">
+					<input id="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
+									name="male"
+									type="number" 
+									class="validate" 
+									min="0"
+									ng-model="waste.male"
+									ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
+									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									required>
+					<!-- label based on activity_detail_id -->
+					<label for="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
+									class="active">Males</label>
+				</div>
+
+				<div class="input-field col s12 m6">
+					<input id="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
+									name="female"
+									type="number" 
+									class="validate" 
+									min="0"
+									ng-model="waste.female"
+									ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
+									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									required>
+					<!-- label based on activity_detail_id -->
+					<label for="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
+									class="active">Females</label>
+				</div>
+
+			</div>
+
+			<!-- rotation -->
+			<div class="row">
+
+				<div class="input-field col s12 m6">
+					<select id="ngm-waste_rotation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}" 
+										name="waste_rotation"
+										class="validate"
+										ng-options="type.committee_rotation_id as 
+																	type.committee_rotation_name for 
+																	type in ngmClusterHelperNgWashLists.lists.committee_rotations"
+										ng-model="waste.committee_rotation_id"
+										ng-change="ngmClusterHelperNgWash.selectChange( waste, 
+																								'committee_rotations',
+																								'committee_rotation_id', 
+																								'committee_rotation_name',
+																								'ngm-waste_rotation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
+										ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+										required>
+					<option value="">Select...</option>
+					</select>
+					<label for="ngm-waste_rotation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}" 
+									class="active" style="transform:translateY(-10%)">Committee Rotation</label>
+				</div>
+
+				<div class="input-field col s12 m6">
+					<input id="ngm-committee_rotation_per_month-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
+									name="committee_rotation_per_month"
+									type="number" 
+									class="validate" 
+									min="0"
+									ng-model="waste.committee_rotation_per_month"
+									ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-committee_rotation_per_month-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
+									ng-disabled="waste.committee_rotation_id === 'no' || !rowform.$visible || project.report.report_status === 'complete'"
+									required>
+					<label for="ngm-committee_rotation_per_month-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
+									class="active">Committee Rotations (Per Month)</label>
+				</div>
+
+			</div>
+
+			<!-- stipend -->
+			<div class="row">
+				
+				<div class="input-field col s12 m6">
+					<select id="ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}" 
+										name="stipend"
+										class="validate"
+										ng-options="type.stipend_id as 
+																	type.stipend_name for 
+																	type in ngmClusterHelperNgWashLists.lists.stipends"
+										ng-model="waste.stipend_id"
+										ng-change="ngmClusterHelperNgWash.selectChange( waste, 
+																								'stipends',
+																								'stipend_id', 
+																								'stipend_name',
+																								'ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
+										ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+										required>
+					<option value="">Select...</option>
+					</select>
+					<label for="ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}" 
+									class="active" style="transform:translateY(-10%)">Stipends Provided</label>
+				</div>
+
+				<div class="input-field col s12 m6">
+					<input id="ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
+									name="stipend_amount"
+									type="number" 
+									class="validate" 
+									min="0"
+									ng-model="waste.stipend_amount"
+									ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
+									ng-disabled="waste.stipend_id === 'no' || !rowform.$visible || project.report.report_status === 'complete'"
+									required>
+					<label for="ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
+									class="active">Stipend Amount Per Member (Naira)</label>
+				</div>
+
+			</div>
+
+		</div>
+
+
 
 		<!-- dates -->
 		<div class="row">
@@ -109,8 +235,8 @@
 		</div>
 
 		<!-- details ( solid_waste_management_committee_kits ) -->
-		<div ng-if="beneficiary.activity_detail_id === 'solid_waste_management_committee_kits_distribution' || 
-									beneficiary.activity_detail_id === 'sanitation_committee_kits_distribution'">
+		<div ng-if="beneficiary.activity_detail_id === 'solid_waste_management_committee_kits_distribution' ||
+									beneficiary.activity_detail_id === 'establishment_training_rotational_waste_management_committee'">
 
 			<div class="row" ng-repeat="detail in waste.details">
 
@@ -135,14 +261,14 @@
 			</div>
 
 			<div class="row" style="margin-left:20px;" 
-						ng-if="beneficiary.activity_detail_id === 'sanitation_committee_kits_distribution'">
+						ng-if="beneficiary.activity_detail_id === 'establishment_training_rotational_waste_management_committee'">
 				<!-- add details -->
 				<button class="btn blue lighten-2"
 								ng-show="project.report.report_status !== 'complete' && rowform.$visible"
-								ng-hide="waste.details.length === ngmClusterHelperNgWashLists.lists.sanitation_committee_kits.length"
+								ng-hide="waste.details.length === ngmClusterHelperNgWashLists.lists.waste_management_committee_duties.length"
 								ng-click="rowform.$show(); 
 											ngmClusterHelperNgWash.init_material_select();
-											ngmClusterHelperNgWash.addDetails( waste, { quantity: 0 } );">
+											ngmClusterHelperNgWash.addDetails( waste, {} );">
 					<i class="material-icons left">add</i>Add Details
 				</button>
 			</div>

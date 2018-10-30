@@ -15,6 +15,9 @@ angular.module( 'ngmReportHub' )
 		// definition
 		var ngmClusterHelperNgWashLists = {
 
+			// 
+			details: [],
+
 			// lists
 			lists: {
 				stipends: [{
@@ -1171,7 +1174,7 @@ angular.module( 'ngmReportHub' )
 					detail_type_name:'Babur'
 				},{					
 					detail_type_id:'bacama',
-					detail_type_name:'bachama	Bacama/Bachama'
+					detail_type_name:'Bacama/Bachama'
 				},{
 					detail_type_id:'bade',
 					detail_type_name:'Bade'
@@ -1222,7 +1225,7 @@ angular.module( 'ngmReportHub' )
 					detail_type_name:'Fali'
 				},{
 					detail_type_id:'fula',
-					detail_type_name:'fulani Fula/Fulani'
+					detail_type_name:'Fula/Fulani'
 				},{
 					detail_type_id:'fulfulde',
 					detail_type_name:'Fulfulde'
@@ -1381,6 +1384,37 @@ angular.module( 'ngmReportHub' )
 					detail_type_name:'yii Kitule'
 				}]
 			},
+
+      // manages selections (removes selections from detials list for ET ESNFI partial_kits, kit_details)
+      getDetailList: function( list, $locationIndex, $beneficiaryIndex, $index, detail_type_id, b_detail_list ) {
+
+        // each beneficiary
+        if ( !ngmClusterHelperNgWashLists.details[ $locationIndex ] ) {
+          ngmClusterHelperNgWashLists.details[ $locationIndex ] = [];
+        }
+        if ( !ngmClusterHelperNgWashLists.details[ $locationIndex ][ $beneficiaryIndex ] ) {
+          ngmClusterHelperNgWashLists.details[ $locationIndex ][ $beneficiaryIndex ] = [];
+        }
+        
+        // set list at index
+        if ( !ngmClusterHelperNgWashLists.details[ $locationIndex ][ $beneficiaryIndex ][ $index ] ) {
+          ngmClusterHelperNgWashLists.details[ $locationIndex ][ $beneficiaryIndex ][ $index ] = angular.copy( list );
+        }
+
+        // remove current selection
+        b_detail_list = $filter( 'filter' )( b_detail_list, { detail_type_id: '!' + detail_type_id } );
+        
+        // filter partial_kits
+        angular.forEach( b_detail_list, function ( detail ) {
+          if ( detail.detail_type_id ) {
+            ngmClusterHelperNgWashLists.details[ $locationIndex ][ $beneficiaryIndex ][ $index ] = $filter( 'filter' )( ngmClusterHelperNgWashLists.details[ $locationIndex ][ $beneficiaryIndex ][ $index ], { detail_type_id: '!' + detail.detail_type_id } );
+          }
+        });
+
+        // return
+        return ngmClusterHelperNgWashLists.details[ $locationIndex ][ $beneficiaryIndex ][ $index ];
+
+      },
 
 			// remove duplicates in item ( json array ) based on value ( filterOn )
 			filterDuplicates: function( list, keyname ){

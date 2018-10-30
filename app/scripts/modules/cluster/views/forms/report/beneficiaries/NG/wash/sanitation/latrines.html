@@ -388,8 +388,8 @@
 						ng-if="beneficiary.activity_detail_id === 'latrine_sludge_dumping_site'">
 				<!-- add details -->
 				<button class="btn blue lighten-2"
+								ng-if="latrine.details.length !== ngmClusterHelperNgWashLists.lists.sludge_dumping_site_details.length"
 								ng-show="project.report.report_status !== 'complete' && rowform.$visible"
-								ng-hide="latrine.details.length === 4"
 								ng-click="rowform.$show(); 
 											ngmClusterHelperNgWash.init_material_select();
 											ngmClusterHelperNgWash.addDetails( latrine, {} );">
@@ -401,6 +401,7 @@
 						ng-if="beneficiary.activity_detail_id === 'latrine_monitoring'">
 				<!-- add details -->
 				<button class="btn blue lighten-2"
+								ng-if="latrine.details.length !== ngmClusterHelperNgWashLists.lists.latrine_monitoring_details.length"
 								ng-show="project.report.report_status !== 'complete' && rowform.$visible"
 								ng-click="rowform.$show(); 
 											ngmClusterHelperNgWash.init_material_select();

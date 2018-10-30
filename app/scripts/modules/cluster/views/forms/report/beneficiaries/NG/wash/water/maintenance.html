@@ -169,27 +169,44 @@
 				<div ng-if="beneficiary.activity_detail_id === 'maintenance_repair_kits_provision_to_washcoms'">
 					<div ng-include="project.templatesUrl + 
 														ngmClusterHelperNgWash.templateUrl +
-														beneficiary.activity_type_id + '/details/maintenance.replacement_parts.html'"></div>
+														beneficiary.activity_type_id + '/details/maintenance.repair_kits.html'"></div>
 				</div>
 
 				<!-- maintenance_repair_replacement_water_systems -->
 				<div ng-if="beneficiary.activity_detail_id === 'maintenance_repair_replacement_water_systems'">
 					<div ng-include="project.templatesUrl + 
 														ngmClusterHelperNgWash.templateUrl +
-														beneficiary.activity_type_id + '/details/maintenance.repair_kits.html'"></div>
+														beneficiary.activity_type_id + '/details/maintenance.replacement_parts.html'"></div>
 				</div>
 
 			</div>
 
 			<div class="row" style="margin-left:20px;">
-				<!-- add details -->
-				<button class="btn blue lighten-2"
-								ng-show="project.report.report_status !== 'complete' && rowform.$visible"
-								ng-click="rowform.$show(); 
-											ngmClusterHelperNgWash.init_material_select();
-											ngmClusterHelperNgWash.addDetails( maintenance, {} );">
-					<i class="material-icons left">add</i>Add Details
-				</button>
+				
+				<!-- add maintenance_repair_kits_provision_to_washcoms details -->
+				<div ng-if="beneficiary.activity_detail_id === 'maintenance_repair_kits_provision_to_washcoms'">
+					<button class="btn blue lighten-2"
+									ng-if="maintenance.details.length !== ngmClusterHelperNgWashLists.lists.washcom_details.length"
+									ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+									ng-click="rowform.$show(); 
+												ngmClusterHelperNgWash.init_material_select();
+												ngmClusterHelperNgWash.addDetails( maintenance, {} );">
+						<i class="material-icons left">add</i>Add Details
+					</button>
+				</div>
+
+				<!-- add maintenance_repair_kits_provision_to_washcoms details -->
+				<div ng-if="beneficiary.activity_detail_id === 'maintenance_repair_replacement_water_systems'">
+					<button class="btn blue lighten-2"
+									ng-if="maintenance.details.length !== ngmClusterHelperNgWashLists.lists.ops_maintenance_details.length"
+									ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+									ng-click="rowform.$show(); 
+												ngmClusterHelperNgWash.init_material_select();
+												ngmClusterHelperNgWash.addDetails( maintenance, {} );">
+						<i class="material-icons left">add</i>Add Details
+					</button>
+				</div>
+
 			</div>
 
 		</div>		

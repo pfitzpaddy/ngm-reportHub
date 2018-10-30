@@ -487,11 +487,18 @@ angular.module( 'ngmReportHub' )
 				var validation = { count: 0, divs: [] };
 
 				// service
-				if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){
-					id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
-					$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
-					validation.divs.push( id );
-					complete = false;
+				if ( beneficiary.activity_detail_id !== 'establishment_training_rotational_waste_management_committee' ) {
+					if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){
+						id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
+						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+						validation.divs.push( id );
+						complete = false;
+					}
+				}
+
+				// committee
+				if ( beneficiary.activity_detail_id === 'establishment_training_rotational_waste_management_committee' ) {
+					validation = ngmClusterHelperNgWashValidation.validateCommittee( beneficiary, d, i, j, k );
 				}
 
 				// for each details
@@ -525,6 +532,11 @@ angular.module( 'ngmReportHub' )
 				var id;
 				var complete = true;
 				var validation = { count: 0, divs: [] };
+
+				// sanitation_committee_kits_distribution
+				if ( beneficiary.activity_detail_id === 'sanitation_committee_kits_distribution' ) {
+					validation = ngmClusterHelperNgWashValidation.validateWaste( beneficiary, d, i, j, k );
+				}
 
 				// male / female
 				if ( d.male === undefined || d.male < 0 ){ 
