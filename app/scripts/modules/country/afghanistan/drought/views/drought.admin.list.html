@@ -1,0 +1,157 @@
+<style>
+	.count,
+	.label {
+		z-index: 1 !important;
+	}
+
+	.ng-table th.sortable .sort-indicator {
+		color: #2196F3;
+		font-weight: 400;
+	}
+
+	.pagination li.active {
+		background-color: #009688;
+	}
+</style>
+
+<!-- ngTable -->
+<div class="row">
+	<div class="col s12 m12 l12">
+		<div class="card">
+			<ul class="collection with-header">
+				<li class="{{ table.headerClass }}">
+					<h5 class="report-work-title {{ table.headerText }}">
+						<i class="material-icons left">{{ table.headerIcon }}</i>{{ table.headerTitle }}</h5>
+				</li>
+				<li class="collection-item avatar" style="padding:10px;">					
+										
+					<!-- if no data -->
+					<div ng-if="data.length === 0">
+						<div class="label" style="text-align:center; padding-top:20px;">
+							<span>No {{ table.headerTitle }}!</span>
+						</div>
+					</div>
+
+					<!-- if data -->
+					<div ng-if="data.length">
+						<table class="centered highlight responsive-table" ng-table="table.tableParams">
+							<tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
+								<!-- <td data-title="'Cluster'" sortable="'cluster'" ng-if="table.cluster_id === 'all'">
+									{{ row.cluster }}
+								</td> -->
+								<td data-title="'Cluster'" sortable="'cluster'" >
+									{{ row.cluster }}
+								</td>
+								<td data-title="'Organization'" sortable="'organization'">
+
+									<div ng-if="table.user.roles.indexOf( 'ADMIN' ) === -1">
+
+										<a href="#/cluster/stocks" title="GoTo Organizaiton Stocks List" ng-if="!row.project_title">
+											{{ row.organization }}
+										</a>
+
+										<a href="#/cluster/projects" title="GoTo Organizaiton Projects List" ng-if="row.project_title">
+											{{ row.organization }}
+										</a>
+
+									</div>
+
+									<div ng-if="table.user.roles.indexOf( 'ADMIN' ) !== -1">
+
+										<a target="_blank" href="#/cluster/stocks/{{ row.organization_id }}" title="GoTo Organizaiton Stocks List" ng-if="!row.project_title">
+											{{ row.organization }}
+										</a>
+
+										<a target="_blank" href="#/cluster/projects/{{ row.organization_id }}" title="GoTo Organizaiton Projects List" ng-if="row.project_title">
+											{{ row.organization }}
+										</a>
+
+									</div>
+
+								</td>
+								<td data-title="'User'" sortable="'username'">
+									{{ row.username }}
+								</td>
+								<td data-title="'Contact'" sortable="'email'">
+									{{ row.email }}
+								</td>
+								<td data-title="'Title'" sortable="'project_title'" ng-if="table.showTitle">
+									<a target="_blank" href="#/cluster/projects/summary/{{ row.project_id }}" title="GoTo Project Summary">
+										{{ row.project_title }}
+									</a>
+								</td>
+
+								<td data-title="'Month'" sortable="'reporting_period'">
+									{{ table.formatUtcDate( row.reporting_period ) }}
+								</td>
+								<td data-title="'GoTo'" sortable="'reporting_period'">
+
+									<div ng-if="table.user.roles.indexOf( 'ADMIN' ) === -1">
+
+										<a href="#/cluster/stocks/report/{{ row.organization_id }}/{{ row.id }}" title="GoTo {{ row.reporting_period | date: 'MMMM' }} Stock Report"
+										 ng-if="!row.project_title">
+											<i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
+										</a>
+
+										<a href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" title="GoTo {{ table.formatUtcDate( row.reporting_period ) }} Activity Report"
+										 ng-if="row.project_title">
+											<i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
+										</a>
+
+									</div>
+
+									<div ng-if="table.user.roles.indexOf( 'ADMIN' ) !== -1">
+
+										<a target="_blank" href="#/cluster/stocks/report/{{ row.organization_id }}/{{ row.id }}" title="GoTo {{ row.reporting_period | date: 'MMMM' }} Stock Report"
+										 ng-if="!row.project_title">
+											<i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
+										</a>
+
+										<a target="_blank" href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" title="GoTo {{ row.reporting_period | date: 'MMMM' }} Activity Report"
+										 ng-if="row.project_title">
+											<i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
+										</a>
+
+									</div>
+
+								</td>
+								<td data-title="'Status'" sortable="'status'">
+
+									<div ng-if="table.user.roles.indexOf( 'ADMIN' ) === -1">										
+										<i class="material-icons" style="color: {{ row.status }}">{{ row.icon }}</i>
+									</div>
+
+									<div ng-if="table.user.roles.indexOf( 'ADMIN' ) !== -1">										
+										<i class="material-icons" style="color: {{ row.status }}">{{ row.icon }}</i>
+								  </div>
+
+								</td>
+							</tr>
+						</table>
+					</div>
+
+				</li>
+			</ul>
+		</div>
+		<div class="card" ng-if="dashboard.user.roles.indexOf('ADMIN') === -1 || dashboard.user.roles.indexOf('SUPERADMIN') === -1">
+			<ul class="collection with-header">
+				<li class="collection-header teal lighten-2">
+					<h5 class="report-work-title {{ table.headerText }}">
+							<i class="material-icons left">group</i>Reporting Organizations</h5>
+				</li>
+				<li class="collection-header">
+					<div  style=" margin: 10px 5px 10px 5px">
+					
+						<h5 ng-if="data.length" style=" color:#4db6ac;padding-left: 10px">
+							
+							<span ng-repeat="row in type =(data|orderBy:'organization') track by $index" ng-if="type[$index-1].organization !=row.organization">{{row.organization}}{{(type[$index].organization!=type[data.length-1].organization) ? ', ' : ' '}}</span>
+						</h5>
+						<h5 ng-if="!data.length" style=" color:#4db6ac;padding-left: 10px">
+							 No Organizations !
+						</h5>
+					</div>
+				</li>
+			</ul>			
+		</div>
+	</div>
+</div>

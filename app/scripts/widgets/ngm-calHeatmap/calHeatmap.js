@@ -48,7 +48,14 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
 
       // unique id
       var id = 'ngm-cal-heatmap-' + Math.floor((Math.random()*1000000));
-
+			$scope.sum= function(data){
+				var getValue = (Object.values(data));				
+				temp = 0;
+				getValue.forEach(element => {
+					temp = element + temp
+				});
+				return temp;
+			}
       // statistics widget default config
       $scope.calHeatmap = {
         id: id,
@@ -215,7 +222,8 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
 
           }
 
-        }
+		},
+		dataLength: data && data.data ? $scope.sum(data.data) : 0,
       };
       
       // Merge defaults with config
