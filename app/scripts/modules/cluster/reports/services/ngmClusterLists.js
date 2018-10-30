@@ -74,12 +74,16 @@ angular.module( 'ngmReportHub' )
           admin1: localStorage.getObject( 'lists' ).admin1List,
           admin2: localStorage.getObject( 'lists' ).admin2List,
           admin3: localStorage.getObject( 'lists' ).admin3List,
+          admin4: localStorage.getObject( 'lists' ).admin4List,
           adminSites:[], // fetched on admin1 change
          
           // row by row filters
           admin2Select: [],
           admin3Select: [],
+          admin4Select: [],
           adminSitesSelect: [],
+
+          // sites
           site_implementation: ngmClusterLists.getSiteImplementation( project.admin0pcode, project.cluster_id ),
           site_type: ngmClusterLists.getSiteTypes( project.cluster_id, project.admin0pcode ),
           site_list_select: [{ site_list_select_id: 'yes', site_list_select_name: 'Yes'},{ site_list_select_id: 'no', site_list_select_name: 'No'}],
@@ -99,22 +103,28 @@ angular.module( 'ngmReportHub' )
         // requests
         var requests = {
 
-          // province lists
+          // admin1 lists
           getAdmin1List: {
             method: 'GET',
             url: ngmAuth.LOCATION + '/api/list/getAdmin1List?admin0pcode=' + user.admin0pcode
           },
 
-          // district lists
+          // admin2 lists
           getAdmin2List: {
             method: 'GET',
             url: ngmAuth.LOCATION + '/api/list/getAdmin2List?admin0pcode=' + user.admin0pcode
           },
 
-          // district lists
+          // admin3 lists
           getAdmin3List: {
             method: 'GET',
             url: ngmAuth.LOCATION + '/api/list/getAdmin3List?admin0pcode=' + user.admin0pcode
+          },
+          
+          // admin4 lists (determin if country has admin4 list!)
+          getAdmin4List: {
+            method: 'GET',
+            url: ngmAuth.LOCATION + '/api/list/getAdmin4List?admin0pcode=' + user.admin0pcode
           },
 
           // activities list
@@ -151,6 +161,7 @@ angular.module( 'ngmReportHub' )
             admin1List: [],
             admin2List: [],
             admin3List: [],
+            admin4List: [],
             activitiesList: [],
             donorsList: [],
             indicatorsList: [],
@@ -165,6 +176,7 @@ angular.module( 'ngmReportHub' )
             $http( requests.getAdmin1List ),
             $http( requests.getAdmin2List ),
             $http( requests.getAdmin3List ),
+            $http( requests.getAdmin4List ),
             $http( requests.getActivities ),
             $http( requests.getDonors ),
             $http( requests.getIndicators ),
@@ -175,10 +187,11 @@ angular.module( 'ngmReportHub' )
                 admin1List: results[0].data,
                 admin2List: results[1].data,
                 admin3List: results[2].data,
-                activitiesList: results[3].data,
-                donorsList: results[4].data,
-                indicatorsList: results[5].data,
-                stockItemsList: results[6].data
+                admin4List: results[3].data,
+                activitiesList: results[4].data,
+                donorsList: results[5].data,
+                indicatorsList: results[6].data,
+                stockItemsList: results[7].data
               };
 
               // storage

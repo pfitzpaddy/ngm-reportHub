@@ -280,15 +280,18 @@ li {
 							<i class="material-icons right">keyboard_arrow_right</i>
 							Register!
 					</div>
-					<div
-						id="login-register"
-						ng-show="panel.user.organization === 'iMMAP' && 
-											( panel.user.admin0pcode !== 'CD' && panel.user.admin0pcode !== 'ET' )"
-						class="btn btn-large waves-effect waves-teal"
-						ng-disabled="ngmLoginForm.$invalid"
-						ng-click="panel.register()">
+					<div class="action center">
+						<button
+							type="submit"
+								id="login-register"
+								ng-show="panel.user.organization === 'iMMAP' && 
+													( panel.user.admin0pcode !== 'CD' && panel.user.admin0pcode !== 'ET' )"
+								class="btn btn-large waves-effect waves-teal"
+								ng-disabled="ngmLoginForm.$invalid"
+								ng-click="panel.register()">
 							<i class="material-icons right">keyboard_arrow_right</i>
 							Register!
+						</button>
 					</div>
 				</div>
 

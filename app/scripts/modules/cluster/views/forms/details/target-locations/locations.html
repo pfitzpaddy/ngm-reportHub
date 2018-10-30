@@ -32,6 +32,7 @@
 							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
 							      <td ng-if="project.lists.admin3.length">{{ project.lists.admin3[0].admin3type_name }}</td>
+							      <td ng-if="project.lists.admin4.length">{{ project.lists.admin4[0].admin4type_name }}</td>
 										<td>Type</td>
 										<td ng-if="project.definition.admin0pcode !== 'AF'">From List?</td>
 							      <td>Site Name *</td>
@@ -104,6 +105,25 @@
 																e-ng-change="project.siteTypeOnChange( $index, $data, location )"
 								        				e-ng-disabled="!location.admin2pcode">
 								          {{ project.showAdmin3( $index, $data, location ) }}
+								        </span>
+								       </div>
+							      </td>
+							      <td ng-if="project.lists.admin4.length">
+							        <!-- editable admin3 -->
+							        <div ng-show="!project.lists.admin4Select[$index].length">
+								        <span>
+								        	-
+								        </span>
+								      </div>
+							        <div ng-show="project.lists.admin4Select[$index].length">
+								        <span e-placeholder="Select..."
+								        				editable-select="location.admin4pcode"
+								        				e-name="admin4pcode"
+								        				e-form="locationform"
+								        				e-ng-options="item.admin4pcode as item.admin4name for item in project.lists.admin4Select[$index]" 
+																e-ng-change="project.siteTypeOnChange( $index, $data, location )"
+								        				e-ng-disabled="!location.admin3pcode">
+								          {{ project.showAdmin4( $index, $data, location ) }}
 								        </span>
 								       </div>
 							      </td>

@@ -460,9 +460,19 @@ angular.module( 'ngmReportHub' )
           // set site_lng, site_lat
             // this is propigated through the entire datasets
           if ( !locations[i].site_lng && !locations[i].site_lat ) {
-            // set admin3 or admin2
-            locations[i].site_lng = locations[i].admin3lng ? locations[i].admin3lng : locations[i].admin2lng;
-            locations[i].site_lat = locations[i].admin3lat ? locations[i].admin3lat : locations[i].admin2lat;
+            // set admin4, admin3 or admin2
+            if ( locations[i].admin2lng && locations[i].admin2lat ) {
+              locations[i].site_lng = locations[i].admin2lng;
+              locations[i].site_lat = locations[i].admin2lat;
+            }
+            if ( locations[i].admin3lng && locations[i].admin3lat ) {
+              locations[i].site_lng = locations[i].admin3lng;
+              locations[i].site_lat = locations[i].admin3lat;
+            }
+            if ( locations[i].admin4lng && locations[i].admin4lat ) {
+              locations[i].site_lng = locations[i].admin4lng;
+              locations[i].site_lat = locations[i].admin4lat;
+            }
           }
         });
 
@@ -530,9 +540,19 @@ angular.module( 'ngmReportHub' )
           // set site_lng, site_lat
             // this is propigated through the entire datasets
           if ( !l.site_lng && !l.site_lat ) {
-            // set admin3 or admin2
-            l.site_lng = l.admin3lng ? l.admin3lng : l.admin2lng;
-            l.site_lat = l.admin3lat ? l.admin3lat : l.admin2lat;
+            // set admin4, admin3 or admin2
+            if ( l.admin2lng && l.admin2lat ) {
+              l.site_lng = l.admin2lng;
+              l.site_lat = l.admin2lat;
+            }
+            if ( l.admin3lng && l.admin3lat ) {
+              l.site_lng = l.admin3lng;
+              l.site_lat = l.admin3lat;
+            }
+            if ( l.admin4lng && l.admin4lat ) {
+              l.site_lng = l.admin4lng;
+              l.site_lat = l.admin4lat;
+            }
           }
 
           // merge
