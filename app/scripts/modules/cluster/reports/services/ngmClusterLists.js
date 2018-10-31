@@ -75,12 +75,14 @@ angular.module( 'ngmReportHub' )
           admin2: localStorage.getObject( 'lists' ).admin2List,
           admin3: localStorage.getObject( 'lists' ).admin3List,
           admin4: localStorage.getObject( 'lists' ).admin4List,
+          admin5: localStorage.getObject( 'lists' ).admin5List,
           adminSites:[], // fetched on admin1 change
          
           // row by row filters
           admin2Select: [],
           admin3Select: [],
           admin4Select: [],
+          admin5Select: [],
           adminSitesSelect: [],
 
           // sites
@@ -121,10 +123,16 @@ angular.module( 'ngmReportHub' )
             url: ngmAuth.LOCATION + '/api/list/getAdmin3List?admin0pcode=' + user.admin0pcode
           },
           
-          // admin4 lists (determin if country has admin4 list!)
+          // admin4 lists (determine if country has admin4 list!)
           getAdmin4List: {
             method: 'GET',
             url: ngmAuth.LOCATION + '/api/list/getAdmin4List?admin0pcode=' + user.admin0pcode
+          },
+
+          // admin4 lists (determine if country has admin4 list!)
+          getAdmin5List: {
+            method: 'GET',
+            url: ngmAuth.LOCATION + '/api/list/getAdmin5List?admin0pcode=' + user.admin0pcode
           },
 
           // activities list
@@ -162,6 +170,7 @@ angular.module( 'ngmReportHub' )
             admin2List: [],
             admin3List: [],
             admin4List: [],
+            admin5List: [],
             activitiesList: [],
             donorsList: [],
             indicatorsList: [],
@@ -177,6 +186,7 @@ angular.module( 'ngmReportHub' )
             $http( requests.getAdmin2List ),
             $http( requests.getAdmin3List ),
             $http( requests.getAdmin4List ),
+            $http( requests.getAdmin5List ),
             $http( requests.getActivities ),
             $http( requests.getDonors ),
             $http( requests.getIndicators ),
@@ -188,10 +198,11 @@ angular.module( 'ngmReportHub' )
                 admin2List: results[1].data,
                 admin3List: results[2].data,
                 admin4List: results[3].data,
-                activitiesList: results[4].data,
-                donorsList: results[5].data,
-                indicatorsList: results[6].data,
-                stockItemsList: results[7].data
+                admin5List: results[4].data,
+                activitiesList: results[5].data,
+                donorsList: results[6].data,
+                indicatorsList: results[7].data,
+                stockItemsList: results[8].data
               };
 
               // storage

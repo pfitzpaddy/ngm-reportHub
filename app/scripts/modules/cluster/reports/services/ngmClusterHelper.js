@@ -473,6 +473,10 @@ angular.module( 'ngmReportHub' )
               locations[i].site_lng = locations[i].admin4lng;
               locations[i].site_lat = locations[i].admin4lat;
             }
+            if ( locations[i].admin5lng && locations[i].admin5lat ) {
+              locations[i].site_lng = locations[i].admin5lng;
+              locations[i].site_lat = locations[i].admin5lat;
+            }
           }
         });
 
@@ -552,6 +556,10 @@ angular.module( 'ngmReportHub' )
             if ( l.admin4lng && l.admin4lat ) {
               l.site_lng = l.admin4lng;
               l.site_lat = l.admin4lat;
+            }
+            if ( l.admin5lng && l.admin5lat ) {
+              l.site_lng = l.admin5lng;
+              l.site_lat = l.admin5lat;
             }
           }
 

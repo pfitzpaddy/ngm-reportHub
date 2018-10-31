@@ -422,6 +422,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return ngmClusterLocations.showAdmin4( $scope.project.lists, $index, $data, target_location );
         },
 
+        // show admin5
+        showAdmin5: function( $index, $data, target_location ){
+          return ngmClusterLocations.showAdmin5( $scope.project.lists, $index, $data, target_location );
+        },
+
         // site_type
         showSiteType: function( $index, $data, target_location ){
           return ngmClusterLocations.showSiteType( $scope.project.lists, $index, $data, target_location );

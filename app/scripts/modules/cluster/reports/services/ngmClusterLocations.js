@@ -126,6 +126,22 @@ angular.module( 'ngmReportHub' )
       },
 
       // get sites
+      getAdmin5: function( lists, target_location ){
+        $timeout(function(){
+          var selected = $filter('filter')( lists.admin5sites, { admin1pcode: target_location.admin1pcode }, true );
+          if ( !selected.length ){
+            $http({ method: 'GET', 
+                    url: ngmAuth.LOCATION + '/api/list/getAdmin5List?admin0pcode=' 
+                                            + target_location.admin0pcode
+                                            + '&admin1pcode=' + target_location.admin1pcode
+            }).success( function( result ) {
+              lists.admin5sites = lists.admin5sites.concat( result );
+            });
+          }
+        }, 0 );
+      },
+
+      // get sites
       getAdminSites: function( lists, target_location ){
         $timeout(function(){
           var selected = $filter('filter')( lists.adminSites, { admin1pcode: target_location.admin1pcode }, true );
@@ -254,7 +270,7 @@ angular.module( 'ngmReportHub' )
         return selected && selected.length ? selected[0].admin3name : '-';
       },
 
-      // admin3
+      // admin4
       showAdmin4: function( lists, $index, $data, target_location ){
 
         // other lists
@@ -303,6 +319,60 @@ angular.module( 'ngmReportHub' )
 
         // return name
         return selected && selected.length ? selected[0].admin4name : '-';
+      },
+
+      // admin5
+      showAdmin5: function( lists, $index, $data, target_location ){
+
+        // other lists
+        var index, 
+            other;
+
+        // exists
+        if ( target_location && 
+              target_location.admin1pcode &&
+              target_location.admin2pcode &&
+              target_location.admin3pcode &&
+              target_location.admin4pcode ) {
+
+          // filter admin3
+          lists.admin5Select[$index] =
+                  $filter('filter')( lists.admin5, { admin1pcode: target_location.admin1pcode, 
+                                                        admin2pcode: target_location.admin2pcode,
+                                                        admin3pcode: target_location.admin3pcode,
+                                                        admin4pcode: target_location.admin4pcode }, true );
+
+          // select
+          var selected = [];
+          target_location.admin5pcode = $data;
+          if( target_location.admin5pcode ) {
+
+            // filter selection
+            selected = $filter('filter')( lists.admin5Select[$index], { admin5pcode: target_location.admin5pcode }, true );
+            if( selected[0] && selected[0].id ){
+              delete selected[0].id;
+              angular.merge( target_location, selected[0] );
+            }
+
+            // filter sites
+            lists.adminSitesSelect[$index] = 
+                $filter('filter')( lists.adminSites, { admin1pcode: target_location.admin1pcode, 
+                                                        admin2pcode: target_location.admin2pcode,
+                                                        admin3pcode: target_location.admin3pcode,
+                                                        admin4pcode: target_location.admin4pcode,
+                                                        admin5pcode: target_location.admin5pcode }, true );
+            // if no admin3sites
+            if ( !lists.adminSitesSelect[$index].length ) {
+              target_location.site_list_select_id = 'no';
+              target_location.site_list_select_name = 'No';
+            }
+
+          }
+
+        }
+
+        // return name
+        return selected && selected.length ? selected[0].admin5name : '-';
       },
 
       // site_type
