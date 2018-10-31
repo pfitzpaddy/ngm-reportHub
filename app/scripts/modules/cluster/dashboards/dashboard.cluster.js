@@ -398,6 +398,12 @@ angular.module('ngmReportHub')
 										'active': 'bd',
 										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 										'href': '/desk/#/cluster/5w/searo/bd'
+									},{
+										'title': 'Cox Bazar',
+										'param': 'admin0pcode',
+										'active': 'cb',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/5w/searo/cb'
 									}]
 								}
 							}

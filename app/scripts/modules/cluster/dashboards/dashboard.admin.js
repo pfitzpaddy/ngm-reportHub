@@ -107,6 +107,12 @@ angular.module('ngmReportHub')
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/admin/searo/bd'
 					},{
+						'title': 'Cox Bazar',
+						'param': 'admin0pcode',
+						'active': 'cb',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/admin/searo/cb'
+					},{
 						'title': 'Ethiopia',
 						'param': 'admin0pcode',
 						'active': 'et',
