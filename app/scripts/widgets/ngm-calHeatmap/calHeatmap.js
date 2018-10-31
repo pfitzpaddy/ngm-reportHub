@@ -233,7 +233,7 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
       var cal = new CalHeatMap();
       $timeout(function() {
         cal.init($scope.calHeatmap.options);  
-      }, 10);
+      }, 50);
 
     }
 ]);
