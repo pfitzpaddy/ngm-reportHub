@@ -397,46 +397,26 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return ngmClusterLocations.showSiteImplementation( $scope.project.lists, $index, $data, target_location );
         },
 
-        // admin1
-        showAdmin1: function( $data, target_location ){
-          return ngmClusterLocations.showAdmin1( $scope.project.lists, $data, target_location );
+        // showadmin
+        showAdmin: function( parent_pcode, list, pcode, name, $index, $data, target_location ){
+          return ngmClusterLocations.showAdmin( $scope.project.lists, parent_pcode, list, pcode, name, $index, $data, target_location );
         },
 
         // fetch lists
         getAdminSites: function( target_location ){
-          ngmClusterLocations.getAdminSites( $scope.project.lists, target_location );
+          ngmClusterLocations.getAdminSites( $scope.project.lists, $scope.project.definition.admin0pcode, target_location );
         },
 
-        // show admin2
-        showAdmin2: function( $index, $data, target_location ){
-          return ngmClusterLocations.showAdmin2( $scope.project.lists, $index, $data, target_location );
-        },
-
-        // show admin3
-        showAdmin3: function( $index, $data, target_location ){
-          return ngmClusterLocations.showAdmin3( $scope.project.lists, $index, $data, target_location );
-        },
-
-        // show admin4
-        showAdmin4: function( $index, $data, target_location ){
-          return ngmClusterLocations.showAdmin4( $scope.project.lists, $index, $data, target_location );
-        },
-
-        // show admin5
-        showAdmin5: function( $index, $data, target_location ){
-          return ngmClusterLocations.showAdmin5( $scope.project.lists, $index, $data, target_location );
+        // on change
+        adminOnChange: function( pcode, $index, $data, target_location ){
+          $timeout(function() {
+            ngmClusterLocations.adminOnChange( $scope.project.lists, pcode, $index, $data, target_location );
+          }, 0 );
         },
 
         // site_type
         showSiteType: function( $index, $data, target_location ){
           return ngmClusterLocations.showSiteType( $scope.project.lists, $index, $data, target_location );
-        },
-
-        // on change
-        siteTypeOnChange: function( $index, $data, target_location ){
-          $timeout(function() {
-            ngmClusterLocations.siteTypeOnChange( $scope.project.lists, $index, $data, target_location );
-          }, 0 );
         },
 
         // select from list?
@@ -446,8 +426,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // yes/no
         yesNoOnChange: function( target_location ){
-          target_location.site_name = null;
           target_location.site_id = null ;
+          // target_location.site_name = null;
         },
 
         // show sites

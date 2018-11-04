@@ -110,281 +110,128 @@ angular.module( 'ngmReportHub' )
       },
 
       // get sites
-      getAdmin4: function( lists, target_location ){
+      getAdminSites: function( lists, admin0pcode, target_location ){
+
         $timeout(function(){
-          var selected = $filter('filter')( lists.admin4sites, { admin1pcode: target_location.admin1pcode }, true );
-          if ( !selected.length ){
+
+          // clear selections
+          delete target_location.admin2pcode;
+          delete target_location.admin2name;
+          delete target_location.admin3pcode;
+          delete target_location.admin3name;
+          delete target_location.admin4pcode;
+          delete target_location.admin4name;
+          delete target_location.admin5pcode;
+          delete target_location.admin5name;
+          target_location.site_list_select_disabled = true;
+
+          // admin4
+          var selected_admin4 = $filter('filter')( lists.admin4, { admin1pcode: target_location.admin1pcode }, true );
+          if ( !selected_admin4.length ){
             $http({ method: 'GET', 
                     url: ngmAuth.LOCATION + '/api/list/getAdmin4List?admin0pcode=' 
-                                            + target_location.admin0pcode
+                                            + admin0pcode
                                             + '&admin1pcode=' + target_location.admin1pcode
             }).success( function( result ) {
-              lists.admin4sites = lists.admin4sites.concat( result );
+              lists.admin4 = lists.admin4.concat( result );
             });
-          }
-        }, 0 );
-      },
+          }          
 
-      // get sites
-      getAdmin5: function( lists, target_location ){
-        $timeout(function(){
-          var selected = $filter('filter')( lists.admin5sites, { admin1pcode: target_location.admin1pcode }, true );
-          if ( !selected.length ){
+          // admin5
+          var selected_admin5 = $filter('filter')( lists.admin5, { admin1pcode: target_location.admin1pcode }, true );
+          if ( !selected_admin5.length ){
             $http({ method: 'GET', 
                     url: ngmAuth.LOCATION + '/api/list/getAdmin5List?admin0pcode=' 
-                                            + target_location.admin0pcode
+                                            + admin0pcode
                                             + '&admin1pcode=' + target_location.admin1pcode
             }).success( function( result ) {
-              lists.admin5sites = lists.admin5sites.concat( result );
+              lists.admin5 = lists.admin5.concat( result );
             });
-          }
-        }, 0 );
-      },
+          }          
 
-      // get sites
-      getAdminSites: function( lists, target_location ){
-        $timeout(function(){
-          var selected = $filter('filter')( lists.adminSites, { admin1pcode: target_location.admin1pcode }, true );
-          if ( !selected.length ){
+          // sites
+          var selected_sites = $filter('filter')( lists.adminSites, { admin1pcode: target_location.admin1pcode }, true );
+          if ( !selected_sites.length ){
             $http({ method: 'GET', 
                     url: ngmAuth.LOCATION + '/api/list/getAdminSites?admin0pcode=' 
-                                            + target_location.admin0pcode
+                                            + admin0pcode
                                             + '&admin1pcode=' + target_location.admin1pcode
             }).success( function( result ) {
               lists.adminSites = lists.adminSites.concat( result );
             });
           }
+
         }, 0 );
       },
+      
+      // showadmin
+      showAdmin: function( lists, parent_pcode, list, pcode, name, $index, $data, target_location ){
 
-      // admin1
-      showAdmin1: function( lists, $data, target_location ){
+        // params
         var selected = [];
-        target_location.admin1pcode = $data;
-        if( target_location.admin1pcode ) {
 
-          // filter selection
-          selected = $filter('filter')( lists.admin1, { admin1pcode: target_location.admin1pcode }, true);
-          if ( selected[0] && selected[0].id ) { 
+        // selection list
+        if( target_location[ parent_pcode ] ) {
+          
+          // filter parent list
+          var search_parent_admin = {}
+          search_parent_admin[ parent_pcode ] = target_location[ parent_pcode ];
+          lists[ list + 'Select' ][ $index ] = $filter('filter')( lists[ list ], search_parent_admin, true );
+
+          // other (for ET lists)
+          var o_index, o_other;
+          angular.forEach( lists[ list + 'Select' ][ $index ], function( d, i ) {
+            if ( d.admin3name === 'Other' ) { o_index = i; o_other = d; }
+          });
+          if ( o_other ) {
+            lists[ list + 'Select' ][ $index ].splice( o_index, 1 );
+            lists[ list + 'Select' ][ $index ].push( o_other );
+          }
+
+        } 
+
+        // list selection
+        target_location[ pcode ] = $data;
+        if( target_location[ pcode ] ) {
+
+          // filter
+          var search_admin = {}
+          search_admin[ pcode ] = target_location[ pcode ];
+
+          // get selection
+          selected = $filter( 'filter')( lists[ list + 'Select' ][ $index ], search_admin, true );
+          if ( selected && selected[0] && selected[0].id ) { 
             delete selected[0].id;
             angular.merge( target_location, selected[0] );
           }
+
+          // filter sites
+          lists.adminSitesSelect[ $index ] = $filter('filter')( lists.adminSites, search_admin, true );
+
+          // if no adminsites
+          if ( !lists.adminSitesSelect[ $index ].length ) {
+            target_location.site_list_select_id = 'no';
+            target_location.site_list_select_name = 'No';
+          }
+ 
         }
 
         // return name
-        return selected.length ? selected[0].admin1name : '-';
-      },
-
-      // admin2
-      showAdmin2: function( lists, $index, $data, target_location ){
-
-        // exists
-        if ( target_location && 
-              target_location.admin1pcode ) {
-
-          lists.admin2Select[$index] =
-                  $filter('filter')( lists.admin2, { admin1pcode: target_location.admin1pcode }, true );
-
-          // update
-          var selected = [];
-          target_location.admin2pcode = $data;
-          if( target_location.admin2pcode ) {
-            
-            // filter selection
-            selected = $filter('filter')( lists.admin2Select[$index], { admin2pcode: target_location.admin2pcode }, true );
-            if ( selected[0] && selected[0].id ) { 
-              delete selected[0].id;
-              angular.merge( target_location, selected[0] );
-            }
-            
-            // filter sites
-            lists.adminSitesSelect[$index] = 
-                $filter('filter')( lists.adminSites, { admin1pcode: target_location.admin1pcode, 
-                                                        admin2pcode: target_location.admin2pcode }, true );
-            // if no admin3sites
-            if ( !lists.adminSitesSelect[$index].length ) {
-              target_location.site_list_select_id = 'no';
-              target_location.site_list_select_name = 'No';
-            }
-
-          }
-
-        }
-
-        return selected && selected.length ? selected[0].admin2name : '-';
-      },
-
-      // admin3
-      showAdmin3: function( lists, $index, $data, target_location ){
-
-        // other lists
-        var index, 
-            other;
-
-        // exists
-        if ( target_location && 
-              target_location.admin1pcode &&
-              target_location.admin2pcode ) {
-
-          // filter admin3
-          lists.admin3Select[$index] =
-                  $filter('filter')( lists.admin3, { admin1pcode: target_location.admin1pcode, 
-                                                        admin2pcode: target_location.admin2pcode }, true);
-          // other (for ET lists)
-          angular.forEach( lists.admin3Select[$index], function( d, i ) {
-            if ( d.admin3name === 'Other' ) { index = i; other = d; }
-          });
-          if ( other ) {
-            lists.admin3Select[$index].splice( index, 1 );
-            lists.admin3Select[$index].push( other );
-          }
-
-          // select
-          var selected = [];
-          target_location.admin3pcode = $data;
-          if( target_location.admin3pcode ) {
-
-            // filter selection
-            selected = $filter('filter')( lists.admin3Select[$index], { admin3pcode: target_location.admin3pcode }, true);
-            if( selected[0] && selected[0].id ){
-              delete selected[0].id;
-              angular.merge( target_location, selected[0] );
-            }
-
-            // filter sites
-            lists.adminSitesSelect[$index] = 
-                $filter('filter')( lists.adminSites, { admin1pcode: target_location.admin1pcode, 
-                                                        admin2pcode: target_location.admin2pcode,
-                                                        admin3pcode: target_location.admin3pcode }, true );
-            // if no admin3sites
-            if ( !lists.adminSitesSelect[$index].length ) {
-              target_location.site_list_select_id = 'no';
-              target_location.site_list_select_name = 'No';
-            }
-
-          }
-
-        }
-
-        // return name
-        return selected && selected.length ? selected[0].admin3name : '-';
-      },
-
-      // admin4
-      showAdmin4: function( lists, $index, $data, target_location ){
-
-        // other lists
-        var index, 
-            other;
-
-        // exists
-        if ( target_location && 
-              target_location.admin1pcode &&
-              target_location.admin2pcode &&
-              target_location.admin3pcode ) {
-
-          // filter admin3
-          lists.admin4Select[$index] =
-                  $filter('filter')( lists.admin4, { admin1pcode: target_location.admin1pcode, 
-                                                        admin2pcode: target_location.admin2pcode,
-                                                        admin3pcode: target_location.admin3pcode }, true );
-
-          // select
-          var selected = [];
-          target_location.admin4pcode = $data;
-          if( target_location.admin4pcode ) {
-
-            // filter selection
-            selected = $filter('filter')( lists.admin4Select[$index], { admin4pcode: target_location.admin4pcode }, true );
-            if( selected[0] && selected[0].id ){
-              delete selected[0].id;
-              angular.merge( target_location, selected[0] );
-            }
-
-            // filter sites
-            lists.adminSitesSelect[$index] = 
-                $filter('filter')( lists.adminSites, { admin1pcode: target_location.admin1pcode, 
-                                                        admin2pcode: target_location.admin2pcode,
-                                                        admin3pcode: target_location.admin3pcode,
-                                                        admin4pcode: target_location.admin4pcode }, true );
-            // if no admin3sites
-            if ( !lists.adminSitesSelect[$index].length ) {
-              target_location.site_list_select_id = 'no';
-              target_location.site_list_select_name = 'No';
-            }
-
-          }
-
-        }
-
-        // return name
-        return selected && selected.length ? selected[0].admin4name : '-';
-      },
-
-      // admin5
-      showAdmin5: function( lists, $index, $data, target_location ){
-
-        // other lists
-        var index, 
-            other;
-
-        // exists
-        if ( target_location && 
-              target_location.admin1pcode &&
-              target_location.admin2pcode &&
-              target_location.admin3pcode &&
-              target_location.admin4pcode ) {
-
-          // filter admin3
-          lists.admin5Select[$index] =
-                  $filter('filter')( lists.admin5, { admin1pcode: target_location.admin1pcode, 
-                                                        admin2pcode: target_location.admin2pcode,
-                                                        admin3pcode: target_location.admin3pcode,
-                                                        admin4pcode: target_location.admin4pcode }, true );
-
-          // select
-          var selected = [];
-          target_location.admin5pcode = $data;
-          if( target_location.admin5pcode ) {
-
-            // filter selection
-            selected = $filter('filter')( lists.admin5Select[$index], { admin5pcode: target_location.admin5pcode }, true );
-            if( selected[0] && selected[0].id ){
-              delete selected[0].id;
-              angular.merge( target_location, selected[0] );
-            }
-
-            // filter sites
-            lists.adminSitesSelect[$index] = 
-                $filter('filter')( lists.adminSites, { admin1pcode: target_location.admin1pcode, 
-                                                        admin2pcode: target_location.admin2pcode,
-                                                        admin3pcode: target_location.admin3pcode,
-                                                        admin4pcode: target_location.admin4pcode,
-                                                        admin5pcode: target_location.admin5pcode }, true );
-            // if no admin3sites
-            if ( !lists.adminSitesSelect[$index].length ) {
-              target_location.site_list_select_id = 'no';
-              target_location.site_list_select_name = 'No';
-            }
-
-          }
-
-        }
-
-        // return name
-        return selected && selected.length ? selected[0].admin5name : '-';
+        return selected && selected.length ? selected[0][ name ] : '-';
       },
 
       // site_type
       showSiteType: function( lists, $index, $data, target_location ){
         
+        // attr
         var selected = [],
             site_list = [];
 
         // filter by site_type
         target_location.site_type_id = $data;
-        target_location.site_list_select_disabled = true;
         if( target_location.site_type_id ) {
+
+          // select site type
           selected = $filter('filter')( lists.site_type, { site_type_id: target_location.site_type_id }, true );
           if( selected[0] && selected[0] ){
             delete selected[0].id;
@@ -392,62 +239,58 @@ angular.module( 'ngmReportHub' )
             target_location.site_type_name = selected[0].site_type_name;
           }
 
-          // site list
-          if ( target_location.admin3pcode ) {  
-            site_list = $filter('filter')( lists.adminSitesSelect[$index], { 
-              admin1pcode: target_location.admin1pcode, 
-              admin2pcode: target_location.admin2pcode,
-              admin3pcode: target_location.admin3pcode,
-              site_type_id: target_location.site_type_id
-            }, true );
-          } else {
-            site_list = $filter('filter')( lists.adminSitesSelect[$index], { 
-              admin1pcode: target_location.admin1pcode,
-              admin2pcode: target_location.admin2pcode,
-              site_type_id: target_location.site_type_id
-            }, true );
-          }
-          // enable / disabled
-          if ( !site_list ){ site_list = [] }
-          target_location.site_list_select_disabled = !site_list.length;
-
         }
+
+        // return name
         return selected.length ? selected[0].site_type_name : '-';
       },
 
+
       // on change
-      siteTypeOnChange: function( lists, $index, $data, target_location ){
+      adminOnChange: function( lists, pcode, $index, $data, target_location ){
 
+        // set to null
         var site_list = [];
-        target_location.site_id = null ;
+        target_location.site_id = null;
         target_location.site_name = null;
+        target_location.site_list_select_disabled = true;
 
-        // site list
-        if ( target_location.admin3pcode ) {  
-          site_list = $filter('filter')( lists.adminSitesSelect[$index], { 
-            admin1pcode: target_location.admin1pcode, 
-            admin2pcode: target_location.admin2pcode,
-            admin3pcode: target_location.admin3pcode,
-            site_type_id: target_location.site_type_id
-          }, true );
-        } else {
-          site_list = $filter('filter')( lists.adminSitesSelect[$index], { 
-            admin1pcode: target_location.admin1pcode,
-            admin2pcode: target_location.admin2pcode,
-            site_type_id: target_location.site_type_id
-          }, true );
+        // clear selections
+        switch( pcode ) {
+          case 'admin2pcode':
+            delete target_location.admin3pcode;
+            delete target_location.admin3name;
+            delete target_location.admin4pcode;
+            delete target_location.admin4name;
+            delete target_location.admin5pcode;
+            delete target_location.admin5name;
+            break;
+          case 'admin3pcode':
+            delete target_location.admin4pcode;
+            delete target_location.admin4name;
+            delete target_location.admin5pcode;
+            delete target_location.admin5name;
+            break;
+          case 'admin4pcode':
+            delete target_location.admin5pcode;
+            delete target_location.admin5name;
+            break;
         }
-        // enable / disabled
-        if ( !site_list ){ site_list = [] }
-        target_location.site_list_select_disabled = !site_list.length;
+
+        // filter adminsites
+        var search_admin = {}
+        search_admin[ pcode ] = target_location[ pcode ];
+        site_list = $filter('filter')( lists.adminSitesSelect[ $index ], search_admin, true );
 
         // set site selected
-        if ( site_list.length ) {
+        if ( site_list && site_list.length && target_location.site_type_id ) {
           target_location.site_list_select_id = 'yes';
           target_location.site_list_select_name = 'Yes';
+          target_location.site_list_select_disabled = false;
         } else {
           target_location.site_list_select_id = 'no';
           target_location.site_list_select_name = 'No';
+          target_location.site_list_select_disabled = true;
         }
 
       },

@@ -79,6 +79,7 @@ angular.module( 'ngmReportHub' )
           adminSites:[], // fetched on admin1 change
          
           // row by row filters
+          admin1Select: [],
           admin2Select: [],
           admin3Select: [],
           admin4Select: [],
@@ -2338,7 +2339,7 @@ angular.module( 'ngmReportHub' )
             site_type_name: 'IDP Site'
           },{
             site_type_id: 'refugee_site',
-            site_type_name: 'Refugee Site'       
+            site_type_name: 'Refugee Site'
           }];
 
         // ng
@@ -2474,6 +2475,41 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'CBS',
             site_type_name: 'CBS'
           }]
+        }
+
+        // Cox bazar
+        if ( admin0pcode === 'CB' ) {
+          site_types = [{
+            site_type_id: 'multiple_sites',
+            site_type_name: 'Multiple Sites'
+          },{
+            site_type_id: 'host_community',
+            site_type_name: 'Host Community'
+          },{
+            site_type_id: 'settlement',
+            site_type_name: 'Settlement'
+          },{
+            site_type_id: 'hospital',
+            site_type_name: 'Hospital'
+          },{
+            site_type_id: 'primary_hc',
+            site_type_name: 'Primary HC'
+          },{
+            site_type_id: 'health_post_fixed',
+            site_type_name: 'Health Post Fixed'
+          },{
+            site_type_id: 'health_facility',
+            site_type_name: 'Health Facility'
+          },{
+            site_type_id: 'dispensary',
+            site_type_name: 'Dispensary'
+          },{
+            site_type_id: 'idp_site',
+            site_type_name: 'IDP Site'
+          },{
+            site_type_id: 'refugee_site',
+            site_type_name: 'Refugee Site'
+          }];
         }
         
         // facilities
