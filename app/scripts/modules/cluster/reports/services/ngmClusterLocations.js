@@ -116,16 +116,6 @@ angular.module( 'ngmReportHub' )
         // fetch
         $timeout(function(){
 
-          // clear selections
-          delete target_location.admin2pcode;
-          delete target_location.admin2name;
-          delete target_location.admin3pcode;
-          delete target_location.admin3name;
-          delete target_location.admin4pcode;
-          delete target_location.admin4name;
-          delete target_location.admin5pcode;
-          delete target_location.admin5name;
-
           // admin4
           var selected_admin4 = $filter('filter')( lists.admin4, { admin1pcode: target_location.admin1pcode }, true );
           if ( !selected_admin4.length ){
@@ -252,6 +242,16 @@ angular.module( 'ngmReportHub' )
 
         // clear selections
         switch( pcode ) {
+          case 'admin1pcode':
+            delete target_location.admin2pcode;
+            delete target_location.admin2name;
+            delete target_location.admin3pcode;
+            delete target_location.admin3name;
+            delete target_location.admin4pcode;
+            delete target_location.admin4name;
+            delete target_location.admin5pcode;
+            delete target_location.admin5name;
+            break;
           case 'admin2pcode':
             delete target_location.admin3pcode;
             delete target_location.admin3name;

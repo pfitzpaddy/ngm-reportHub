@@ -98,7 +98,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         templatesUrl: '/scripts/modules/cluster/views/forms/report/',
         // templates
         locationsUrl: 'location/locations.html',
-        addNewLocationUrl: 'location/new_location.html',
+        addLocationUrl: 'location/add.location.html',
         beneficiariesTrainingUrl: 'beneficiaries/2016/beneficiaries-training.html',
         beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health-2016.html',
         template_distribution_date: 'beneficiaries/ET/distribution_date.html',
@@ -176,7 +176,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         },
 
 
-        /**** Beneficiaries ****/
+        /**** BENEFICIARIES ****/
 
         // add beneficiary
         addBeneficiary: function( $parent, defaults ) {
@@ -205,6 +205,55 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
           ngmClusterBeneficiaries.removeBeneficiary( $scope.project, id );
         },
+
+
+        
+        /**** LOCATIONS ****/
+
+        // showadmin
+        showAdmin: function( parent_pcode, list, pcode, name, $index, $data, target_location ){
+          return ngmClusterLocations.showAdmin( $scope.project.lists, parent_pcode, list, pcode, name, $index, $data, target_location );
+        },
+
+        // fetch lists
+        getAdminSites: function( target_location ){
+          ngmClusterLocations.getAdminSites( $scope.project.lists, $scope.project.definition.admin0pcode, target_location );
+        },
+
+        // on change
+        adminOnChange: function( pcode, $index, $data, target_location ){
+          $timeout(function() {
+            ngmClusterLocations.adminOnChange( $scope.project.lists, pcode, $index, $data, target_location );
+          }, 0 );
+        },
+
+        // site_type
+        showSiteType: function( $index, $data, target_location ){
+          return ngmClusterLocations.showSiteType( $scope.project.lists, $index, $data, target_location );
+        },
+
+        // select from list?
+        showListYesNo: function( $index, $data, target_location ){
+          return ngmClusterLocations.showListYesNo( $scope.project.lists, $index, $data, target_location );
+        },
+
+        // yes/no
+        yesNoOnChange: function( target_location ){
+          target_location.site_id = null ;
+        },
+
+        // show sites
+        showAdminSites: function( $index, $data, target_location ){
+          return ngmClusterLocations.showAdminSites( $scope.project.lists, $index, $data, target_location );
+        },
+
+        // site_name
+        showSiteName: function( $data, target_location ){
+          return ngmClusterLocations.showSiteName( $data, target_location );
+        },
+
+
+        /**** ACTIVITIES ****/
 
         // activity
         showActivity: function( $data, $beneficiary ) {

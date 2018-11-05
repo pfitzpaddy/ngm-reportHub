@@ -97,7 +97,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         targetBeneficiariesDefaultUrl: 'target-beneficiaries/2016/target-beneficiaries-default.html',
         targetBeneficiariesTrainingUrl: 'target-beneficiaries/2016/target-beneficiaries-training.html',
         targetBeneficiariesUrl: moment( config.project.project_end_date ).year() === 2016 ? 'target-beneficiaries/2016/target-beneficiaries.html' : 'target-beneficiaries/target-beneficiaries.html',
-        locationsUrl: config.project.cluster_id === 'eiewg' ? 'target-locations/locations-eiewg.html' : 'target-locations/locations.html',
+        locationsUrl: 'target-locations/locations.html',
+        locationsAddUrl: 'target-locations/add.location.html',
 
 
         // init lists
@@ -217,7 +218,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         loadSchools: function( $index, $data, target_location ){
-          ngmClusterHelperAf.loadSchools( $scope.project.lists, $index, $data, target_location );
+          ngmClusterHelperAf.loadSchools( $scope.project.lists, $index, $data, $scope.project.definition.admin0pcode, target_location );
         },        
 
 

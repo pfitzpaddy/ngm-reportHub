@@ -13,6 +13,8 @@
 							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
 							      <td ng-if="project.lists.admin3.length">{{ project.lists.admin3[0].admin3type_name }}</td>
+							      <td ng-if="project.lists.admin4.length">{{ project.lists.admin4[0].admin4type_name }}</td>
+							      <td ng-if="project.lists.admin5.length">{{ project.lists.admin5[0].admin5type_name }}</td>
 										<td>Type</td>
 										<td ng-if="project.definition.admin0pcode !== 'AF'">From List?</td>
 							      <td>Site Name *</td>
@@ -30,64 +32,105 @@
 							        				e-form="locationform" 
 							        				e-ng-options="item.site_implementation_id as item.site_implementation_name for item in project.lists.site_implementation"
 							        				e-required>
-							          {{ ngmClusterLocations.showSiteImplementation( project.lists, $data, ngmClusterLocations.new_location ) }}
+							          {{ project.showSiteImplementation( $data, ngmClusterLocations.new_location ) }}
 							        </span>
 							      </td>
 							      <td>
-							        <!-- editable admin1 -->
+							      	<!-- admin1 -->
 							        <span e-placeholder="Select..."
 							        				editable-select="ngmClusterLocations.new_location.admin1pcode"
 							        				e-name="admin1pcode"
 							        				e-form="locationform"
 							        				e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1 | filter : { inactive: '!true' }" 
-							        				e-ng-change="ngmClusterLocations.getAdminSites( project.lists, ngmClusterLocations.new_location )"
+							        				e-ng-change="project.getAdminSites( ngmClusterLocations.new_location ); project.adminOnChange( 'admin1pcode', $index, $data, ngmClusterLocations.new_location )"
 							        				e-required>
-												{{ ngmClusterLocations.showAdmin1( project.lists, $data, ngmClusterLocations.new_location ) }}
+							          {{ project.showAdmin( 'admin0pcode', 'admin1', 'admin1pcode', 'admin1name', $index, $data, ngmClusterLocations.new_location ) }}
 							        </span>
 							      </td>
 							      <td>
-							        <!-- editable admin2 -->
+							      	<!-- admin2 -->
 							        <span e-placeholder="Select..."
 							        				editable-select="ngmClusterLocations.new_location.admin2pcode"
 							        				e-name="admin2pcode"
 							        				e-form="locationform"
-							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2Select[0]"
-							        				e-ng-change="ngmClusterLocations.siteTypeOnChange( project.lists, 0, $data, ngmClusterLocations.new_location )"
+							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2Select[ $index ]"
+							        				e-ng-change="project.adminOnChange( 'admin2pcode', $index, $data, ngmClusterLocations.new_location )"
 							        				e-ng-disabled="!ngmClusterLocations.new_location.admin1pcode"
 							        				e-required>
-							          {{ ngmClusterLocations.showAdmin2( project.lists, 0, $data, ngmClusterLocations.new_location ) }}
+							          {{ project.showAdmin( 'admin1pcode', 'admin2', 'admin2pcode', 'admin2name', $index, $data, ngmClusterLocations.new_location ) }}
 							        </span>
 							      </td>
+							      <!-- editable admin3 -->
 							      <td ng-if="project.lists.admin3.length">
-							        <!-- editable admin3 -->
-							        <div ng-show="!project.lists.admin3Select[0].length">
+							        <div ng-show="!project.lists.admin3Select[ $index ].length">
 								        <span>
 								        	-
 								        </span>
 								      </div>
-							        <div ng-show="project.lists.admin3Select[0].length">
+							        <div ng-show="project.lists.admin3Select[ $index ].length">
 								        <span e-placeholder="Select..."
 								        				editable-select="ngmClusterLocations.new_location.admin3pcode"
 								        				e-name="admin3pcode"
 								        				e-form="locationform"
-								        				e-ng-options="item.admin3pcode as item.admin3name for item in project.lists.admin3Select[0]" 
-																e-ng-change="ngmClusterLocations.siteTypeOnChange( project.lists, 0, $data, ngmClusterLocations.new_location )"
+								        				e-ng-options="item.admin3pcode as item.admin3name for item in project.lists.admin3Select[ $index ]" 
+																e-ng-change="project.adminOnChange( 'admin3pcode', $index, $data, ngmClusterLocations.new_location )"
 								        				e-ng-disabled="!ngmClusterLocations.new_location.admin2pcode">
-								          {{ ngmClusterLocations.showAdmin3( project.lists, 0, $data, ngmClusterLocations.new_location ) }}
+							          {{ project.showAdmin( 'admin2pcode', 'admin3', 'admin3pcode', 'admin3name', $index, $data, ngmClusterLocations.new_location ) }}
 								        </span>
 								       </div>
 							      </td>
+
+							      <!-- editable admin4 -->
+							      <td ng-if="project.lists.admin4.length">
+							        <div ng-show="!project.lists.admin4Select[ $index ].length">
+								        <span>
+								        	-
+								        </span>
+								      </div>
+							        <div ng-show="project.lists.admin4Select[ $index ].length">
+								        <span e-placeholder="Select..."
+								        				editable-select="ngmClusterLocations.new_location.admin4pcode"
+								        				e-name="admin4pcode"
+								        				e-form="locationform"
+								        				e-ng-options="item.admin4pcode as item.admin4name for item in project.lists.admin4Select[ $index ]" 
+																e-ng-change="project.adminOnChange( 'admin4pcode', $index, $data, ngmClusterLocations.new_location )"
+								        				e-ng-disabled="!ngmClusterLocations.new_location.admin3pcode">
+							          {{ project.showAdmin( 'admin3pcode', 'admin4', 'admin4pcode', 'admin4name', $index, $data, ngmClusterLocations.new_location ) }}
+								        </span>
+								       </div>
+							      </td>
+
+							      <!-- editable admin5 -->
+							      <td ng-if="project.lists.admin5.length">
+							        <div ng-show="!project.lists.admin5Select[ $index ].length">
+								        <span>
+								        	-
+								        </span>
+								      </div>
+							        <div ng-show="project.lists.admin5Select[ $index ].length">
+								        <span e-placeholder="Select..."
+								        				editable-select="ngmClusterLocations.new_location.admin5pcode"
+								        				e-name="admin5pcode"
+								        				e-form="locationform"
+								        				e-ng-options="item.admin5pcode as item.admin5name for item in project.lists.admin5Select[ $index ]" 
+																e-ng-change="project.adminOnChange( 'admin5pcode', $index, $data, ngmClusterLocations.new_location )"
+								        				e-ng-disabled="!ngmClusterLocations.new_location.admin4pcode">
+								          {{ project.showAdmin( 'admin4pcode', 'admin5', 'admin5pcode', 'admin5name', $index, $data, ngmClusterLocations.new_location ) }}
+								        </span>
+								       </div>
+							      </td>
+
 							      <td>
-							      	<!-- site type -->							      
+							      	<!-- site type -->
 							        <span e-placeholder="Select..."
 							        				editable-select="ngmClusterLocations.new_location.site_type_id"
 							        				e-name="site_type_id"
 							        				e-form="locationform"
 							        				e-ng-options="item.site_type_id as item.site_type_name for item in project.lists.site_type"
-							        				e-ng-change="ngmClusterLocations.siteTypeOnChange( project.lists, 0, $data, ngmClusterLocations.new_location )"
-							        				e-ng-disabled="!ngmClusterLocations.new_location.admin2name"
+							        				e-ng-change="project.adminOnChange( 'site_type_id', $index, $data, ngmClusterLocations.new_location )"
+							        				e-ng-disabled="!ngmClusterLocations.new_location.admin1pcode"
 							        				e-required>
-							          {{ ngmClusterLocations.showSiteType( project.lists, 0, $data, ngmClusterLocations.new_location ) }}
+							          {{ project.showSiteType( $locationIndex, $data, ngmClusterLocations.new_location ) }}
 							        </span>
 							      </td>
 
@@ -98,9 +141,9 @@
 							        				e-name="site_list_select_id"
 							        				e-form="locationform"
 							        				e-ng-options="item.site_list_select_id as item.site_list_select_name for item in project.lists.site_list_select"
-							        				e-ng-change="ngmClusterLocations.yesNoOnChange( ngmClusterLocations.new_location )"
+							        				e-ng-change="project.yesNoOnChange( ngmClusterLocations.new_location )"
 							        				e-ng-disabled="ngmClusterLocations.new_location.site_list_select_disabled">
-							          {{ ngmClusterLocations.showListYesNo( project.lists, 0, $data, ngmClusterLocations.new_location ) }}
+							          {{ project.showListYesNo( $locationIndex, $data, ngmClusterLocations.new_location ) }}
 							        </span>
 							      </td>
 
@@ -110,10 +153,10 @@
 							        			editable-select="ngmClusterLocations.new_location.site_id"
 							        			e-name="site_id"
 							        			e-form="locationform"
-							        			e-ng-options="item.site_id as item.site_name for item in project.lists.adminSitesSelect[0] | 
+							        			e-ng-options="item.site_id as item.site_name for item in project.lists.adminSitesSelect[ $index ] | 
 							        											filter:{ site_type_id: ngmClusterLocations.new_location.site_type_id }"
 							        			e-ng-disabled="!ngmClusterLocations.new_location.site_type_id">
-							          {{ ngmClusterLocations.showAdminSites( project.lists, 0, $data, ngmClusterLocations.new_location ) }}
+							          {{ project.showAdminSites( $locationIndex, $data, ngmClusterLocations.new_location ) }}
 							        </span>
 							      </td>
 
@@ -123,17 +166,16 @@
 							        				e-name="site_name"
 							        				e-form="locationform"
 							        				e-required>
-							        	{{ ngmClusterLocations.showSiteName( $data, ngmClusterLocations.new_location ) }}
+							        	{{ project.showSiteName( $data, ngmClusterLocations.new_location ) }}
 							        </span>
 							      </td>
 							      <!-- select existing: free text  -->
-										 <td ng-if="ngmClusterLocations.new_location.site_list_select_id !== 'no' && 
-										 							ngmClusterLocations.new_location.site_list_select_id !== 'yes'">
+										 <td ng-if="ngmClusterLocations.new_location.site_list_select_id !== 'no' && ngmClusterLocations.new_location.site_list_select_id !== 'yes'">
 							        <span editable-text="ngmClusterLocations.new_location.site_name"
 							        				e-name="site_name"
 							        				e-form="locationform"
 							        				e-required>
-							        	{{ ngmClusterLocations.showSiteName( $data, ngmClusterLocations.new_location ) }}
+							        	{{ project.showSiteName( $data, ngmClusterLocations.new_location ) }}
 							        </span>
 							      </td>
 
