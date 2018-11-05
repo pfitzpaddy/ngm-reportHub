@@ -39,7 +39,8 @@ angular.module( 'ngmReportHub' )
           email: project.email,
           username: project.username,
           site_list_select_id: 'no',
-          site_list_select_yes: 'No'
+          site_list_select_yes: 'No',
+          site_list_select_disabled: true
         }
 
         // clone
@@ -112,6 +113,7 @@ angular.module( 'ngmReportHub' )
       // get sites
       getAdminSites: function( lists, admin0pcode, target_location ){
 
+        // fetch
         $timeout(function(){
 
           // clear selections
@@ -123,7 +125,6 @@ angular.module( 'ngmReportHub' )
           delete target_location.admin4name;
           delete target_location.admin5pcode;
           delete target_location.admin5name;
-          target_location.site_list_select_disabled = true;
 
           // admin4
           var selected_admin4 = $filter('filter')( lists.admin4, { admin1pcode: target_location.admin1pcode }, true );
@@ -207,12 +208,6 @@ angular.module( 'ngmReportHub' )
 
           // filter sites
           lists.adminSitesSelect[ $index ] = $filter('filter')( lists.adminSites, search_admin, true );
-
-          // if no adminsites
-          if ( !lists.adminSitesSelect[ $index ].length ) {
-            target_location.site_list_select_id = 'no';
-            target_location.site_list_select_name = 'No';
-          }
  
         }
 
