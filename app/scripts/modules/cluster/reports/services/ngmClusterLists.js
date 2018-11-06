@@ -311,15 +311,15 @@ angular.module( 'ngmReportHub' )
             mpc_delivery_type_id: 'e_cash',
             mpc_delivery_type_name: 'Electronic Card - Cash'
           },{
-            activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher' ],
+            activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher', 'fsac_cash_e_voucher' ],
             mpc_delivery_type_id: 'paper_vouchers',
             mpc_delivery_type_name: 'Paper Vouchers'
           },{
-            activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher' ],
+            activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher', 'fsac_cash_e_voucher' ],
             mpc_delivery_type_id: 'mobile_vouchers',
             mpc_delivery_type_name: 'Mobile Vouchers'
           },{
-            activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher' ],
+            activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher', 'fsac_cash_e_voucher' ],
             mpc_delivery_type_id: 'e_vouchers',
             mpc_delivery_type_name: 'Electronic Card - Vouchers'
           },{
@@ -331,7 +331,7 @@ angular.module( 'ngmReportHub' )
             mpc_delivery_type_id: 'cash',
             mpc_delivery_type_name: 'Cash'
           },{
-            activity_description_id: [ 'tent_distribution_2_tarps_package','rental_support_3_month_package','existing_shelter_upgrade_package','nfi_package','winterization_package','transitional_shelter_package' ],
+            activity_description_id: [ 'tent_distribution_2_tarps_package','rental_support_3_month_package','existing_shelter_upgrade_package','nfi_package','winterization_package','transitional_shelter_package', 'fsac_cash_e_voucher' ],
             mpc_delivery_type_id: 'voucher',
             mpc_delivery_type_name: 'Voucher'
           },{
@@ -684,6 +684,10 @@ angular.module( 'ngmReportHub' )
           admin0pcode: admin0pcode,
           currency_id: 'aud',
           currency_name: 'AUD'
+        },{
+          admin0pcode: admin0pcode,
+          currency_id: 'bdt',
+          currency_name: 'BDT'
         },{
           admin0pcode: admin0pcode,
           currency_id: 'cad',
