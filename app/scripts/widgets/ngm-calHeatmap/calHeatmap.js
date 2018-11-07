@@ -222,8 +222,8 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
 
           }
 
-		},
-		dataLength: data && data.data ? $scope.sum(data.data) : 0,
+		    },
+		    dataLength: data && data.data ? $scope.sum(data.data) : 0,
       };
       
       // Merge defaults with config
@@ -231,9 +231,22 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
 
       // Assign data to calHeatmap
       var cal = new CalHeatMap();
-      $timeout(function() {
-        cal.init($scope.calHeatmap.options);  
-      }, 50);
+
+      // wait for element exists
+      var waitForEl = function(selector, callback) {
+        if (d3.select(selector)[0][0]) {
+          callback();
+        } else {
+          setTimeout(function() {
+            waitForEl(selector, callback);
+          }, 20);
+        }
+      };
+
+      // wait for cal-heatmap element exists
+      waitForEl($scope.calHeatmap.options.itemSelector, function() {
+        cal.init($scope.calHeatmap.options);
+      });
 
     }
 ]);
