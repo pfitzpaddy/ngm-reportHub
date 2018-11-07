@@ -798,7 +798,7 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m6',
+								styleClass: 's12 m4',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
@@ -809,7 +809,7 @@ angular.module('ngmReportHub')
 									}
 								}]
 							},{
-								styleClass: 's12 m6',
+								styleClass: 's12 m4',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
@@ -817,6 +817,17 @@ angular.module('ngmReportHub')
 									config: {
 										title: 'Active Projects',
 										request: $scope.dashboard.getRequest( { indicator: 'projects' } )
+									}
+								}]
+							},{
+								styleClass: 's12 m4',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: 'Active Locations',
+										request: $scope.dashboard.getRequest( { indicator: 'locations' } )
 									}
 								}]
 							}]
