@@ -267,6 +267,26 @@ angular.module('ngmReportHub')
 										},
 										request: ngmDroughtHelper.getLatestUpdate('drought/afghanistan/latestUpdate'),
 										// link:$scope.dashboard.setLink(),
+										getPreviousMonth: function() {
+											// get dates
+											var start_date = moment(new Date($scope.dashboard.startDate)).utc().subtract(1, 'M').startOf('M').format('YYYY-MM-DD');
+											var end_date = moment(new Date($scope.dashboard.endDate)).utc().subtract(1, 'M').endOf('M').format('YYYY-MM-DD');
+											var previousMonth = parseInt(moment().month(moment(start_date).format('MMM')).format("M"))-1;
+											if (parseInt(moment(end_date).format("YYYY")) <= parseInt($route.current.params.year)){
+												var setYear = moment(end_date).format("YYYY");
+											} else{
+												var setYear = moment(end_date).format("YYYY");
+											}
+											var setYear = parseInt(moment(end_date).format("YYYY")) ;	
+											
+											// set dates
+											$scope.dashboard.startDate = start_date;
+											$scope.dashboard.endDate = end_date;
+											var path = '/response/afghanistan/drought/dashboard/' + $route.current.params.status_plan + '/' + setYear + '/' + $route.current.params.cluster + '/' + $route.current.params.province+'/'+$route.current.params.district+'/'+$route.current.params.organization+'/'+previousMonth+'/'+start_date+'/'+end_date;
+											
+											//set Path
+											$location.path( path );
+										},
 										reset: '#/response/afghanistan/drought/dashboard/all', //+ $route.current.params.status_plan,
 										getCurrentMonth: '#/response/afghanistan/drought/dashboard/' + $route.current.params.status_plan + '/' + moment().year() + '/all/all/all/all/' + (moment().month() - 1) + '/' + moment().subtract(1, 'months').startOf('month').format('YYYY-MM-DD') + '/' + moment().subtract(1, 'months').endOf('month').format('YYYY-MM-DD'),
 										templateUrl: '/scripts/widgets/ngm-html/template/drought.dashboard.html'
