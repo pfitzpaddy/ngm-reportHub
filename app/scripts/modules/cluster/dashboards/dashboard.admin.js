@@ -693,7 +693,7 @@ angular.module('ngmReportHub')
 				// set dashboard
 				setDashboard: function(){
 
-					// constants (for now)
+					// set
 					$scope.dashboard.adminRpcode = $route.current.params.adminRpcode;
 					$scope.dashboard.admin0pcode = $route.current.params.admin0pcode;
 					$scope.dashboard.cluster_id = $route.current.params.cluster_id;
@@ -703,6 +703,19 @@ angular.module('ngmReportHub')
 					
 					// report name
 					$scope.dashboard.report_file_name += moment().format( 'YYYY-MM-DDTHHmm' );
+
+					// USER
+					if ( $scope.dashboard.user.roles && 
+								$scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 && 
+								$scope.dashboard.user.roles.indexOf( 'COUNTRY' ) === -1 && 
+								$scope.dashboard.user.roles.indexOf( 'ADMIN' ) === -1 ) {
+						$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
+						$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode;
+						// $scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
+						$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
+						$scope.dashboard.organization = $scope.dashboard.user.organization;
+						$scope.dashboard.role = 'USER';
+					}
 
 					// ADMIN
 					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
@@ -716,22 +729,19 @@ angular.module('ngmReportHub')
 					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'COUNTRY' ) !== -1 ) {
 						$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
 						$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode;
-						console.log($route.current.params.cluster_id)
 						$scope.dashboard.cluster_id = $route.current.params.cluster_id;
 						$scope.dashboard.role = 'COUNTRY';
 					}
 
-					// USER
-					if ( $scope.dashboard.user.roles && 
-								$scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 && 
-								$scope.dashboard.user.roles.indexOf( 'COUNTRY' ) === -1 && 
-								$scope.dashboard.user.roles.indexOf( 'ADMIN' ) === -1 ) {
-						$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
-						$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode; 
-						// $scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
-						$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
-						$scope.dashboard.organization = $scope.dashboard.user.organization;
-						$scope.dashboard.role = 'USER';
+					// SUPERADMIN
+					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 ) {
+						$scope.dashboard.adminRpcode = $route.current.params.adminRpcode;
+						$scope.dashboard.admin0pcode = $route.current.params.admin0pcode;
+						$scope.dashboard.cluster_id = $route.current.params.cluster_id;
+						$scope.dashboard.organization_tag = $route.current.params.organization_tag;
+						$scope.dashboard.report_type = $route.current.params.report_type;
+						$scope.dashboard.activity_type_id = $route.current.params.activity_type_id;
+						$scope.dashboard.role = 'SUPERADMIN';
 					}
 
 					// set
