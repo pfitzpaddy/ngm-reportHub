@@ -27,8 +27,8 @@
       <td>Girls</td>
       <td ng-if="project.showMen( $locationIndex )">Men</td>
       <td ng-if="project.showWomen( $locationIndex )">Women</td>
-      <td ng-if="project.definition.admin0pcode === 'NG'">Eld. Men</td>
-      <td ng-if="project.definition.admin0pcode === 'NG'">Eld. Women</td>
+      <td ng-if="project.definition.admin0pcode === 'NG' || project.definition.admin0pcode === 'AF'">Eld. Men</td>
+      <td ng-if="project.definition.admin0pcode === 'NG' || project.definition.admin0pcode === 'AF'">Eld. Women</td>
 			<td ng-if="project.showFatpTreatmentSameProvince( $locationIndex )">Treatment Same Province</td>
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
@@ -289,26 +289,26 @@
           {{ beneficiary.women }}
         </span>
 			</td>
-      <td ng-show="project.definition.admin0pcode === 'NG'">
+      <td ng-show="project.definition.admin0pcode === 'NG' || project.definition.admin0pcode === 'AF'">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="elderly_men"
               editable-number="beneficiary.elderly_men"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'elderly_men', $data )"
-              e-ng-disabled="project.definition.admin0pcode !== 'NG'"
+              e-ng-disabled="project.definition.admin0pcode !== 'NG' && project.definition.admin0pcode !== 'AF'"
               e-required>
           {{ beneficiary.elderly_men }}
         </span>
       </td>
-      <td ng-show="project.definition.admin0pcode === 'NG'">
+      <td ng-show="project.definition.admin0pcode === 'NG'|| project.definition.admin0pcode === 'AF'">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="elderly_women"
               editable-number="beneficiary.elderly_women"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'elderly_women', $data )"
-              e-ng-disabled="project.definition.admin0pcode !== 'NG'"
+              e-ng-disabled="project.definition.admin0pcode !== 'NG' && project.definition.admin0pcode !== 'AF'"
               e-required>
           {{ beneficiary.elderly_women }}
         </span>
