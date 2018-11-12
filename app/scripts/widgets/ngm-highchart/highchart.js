@@ -45,7 +45,8 @@ angular.module('ngm.widget.highchart', ['ngm.provider'])
         align: 'middle',
         title: {
           align: 'left',
-          text: 'Incidents'
+					text: 'Incidents',
+					style: 'line-height: 1.0'
         },
         templateUrl: '/scripts/widgets/ngm-highchart/template/default.html',
         label: {

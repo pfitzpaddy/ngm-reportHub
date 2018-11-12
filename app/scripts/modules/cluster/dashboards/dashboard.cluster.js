@@ -846,6 +846,164 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 180px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											text: 'Children'
+										},
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'pie',
+													height: 140,
+													margin: [0,0,0,0],
+													spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: false
+												}				
+											},
+											title: {
+													text: '',
+													margin: 0
+											},
+											plotOptions: {
+													pie: {
+															shadow: false
+													}
+											},
+											series: [{
+												name: 'Children',
+												size: '100%',
+												innerSize: '80%',
+												showInLegend:false,
+												dataLabels: {
+													enabled: false
+												},
+												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for:'children'})												
+																						}]
+										}
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 180px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											text: 'Adult'
+										},
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'pie',
+													height: 140,
+													margin: [0,0,0,0],
+													spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: false
+												}				
+											},
+											title: {
+													text: '',
+													margin: 0
+											},
+											plotOptions: {
+													pie: {
+															shadow: false
+													}
+											},
+											series: [{
+												name: 'Adult',
+												size: '100%',
+												innerSize: '80%',
+												showInLegend:false,
+												dataLabels: {
+													enabled: false
+												},
+												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for: 'adult' })												
+											}]
+										}
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 180px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											text: 'Elderly'
+										},
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'pie',
+													height: 140,
+													margin: [0,0,0,0],
+													spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: false
+												}				
+											},
+											title: {
+													text: '',
+													margin: 0
+											},
+											plotOptions: {
+													pie: {
+															shadow: false
+													}
+											},
+											series: [{
+												name: 'Elderly',
+												size: '100%',
+												innerSize: '80%',
+												showInLegend:false,
+												dataLabels: {
+													enabled: false
+												},
+												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for: 'elderly' })												
+											}]
+										}
+									}
+								}]
+							}]
+						},{
+							columns: [{
 								styleClass: 's12 m12 l12',
 								widgets: [{
 									type: 'html',
