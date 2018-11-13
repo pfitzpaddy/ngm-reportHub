@@ -116,6 +116,18 @@ angular.module( 'ngmReportHub' )
         // fetch
         $timeout(function(){
 
+          // admin3
+          var selected_admin3 = $filter('filter')( lists.admin3, { admin1pcode: target_location.admin1pcode }, true );
+          if ( !selected_admin3.length ){
+            $http({ method: 'GET', 
+                    url: ngmAuth.LOCATION + '/api/list/getAdmin3List?admin0pcode=' 
+                                            + admin0pcode
+                                            + '&admin1pcode=' + target_location.admin1pcode
+            }).success( function( result ) {
+              lists.admin3 = lists.admin3.concat( result );
+            });
+          }  
+
           // admin4
           var selected_admin4 = $filter('filter')( lists.admin4, { admin1pcode: target_location.admin1pcode }, true );
           if ( !selected_admin4.length ){

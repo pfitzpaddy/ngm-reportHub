@@ -307,6 +307,14 @@ angular
 				redirectTo: '/cluster/admin/emro/ur/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 
+			// EURO
+			.when( '/cluster/admin/euro', {
+				redirectTo: '/cluster/admin/euro/all/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when( '/cluster/admin/euro/ua', {
+				redirectTo: '/cluster/admin/euro/ua/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+
 			// SEARO
 			.when( '/cluster/admin/searo', {
 				redirectTo: '/cluster/admin/searo/all/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
@@ -406,6 +414,17 @@ angular
 			})
 			.when( '/cluster/5w/afro/ss', {
 				redirectTo: '/cluster/5w/afro/ss/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
+
+			// EURO
+			.when( '/cluster/5w/euro', {
+				redirectTo: '/cluster/5w/euro/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/5w/euro/all', {
+				redirectTo: '/cluster/5w/euro/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/5w/euro/ua', {
+				redirectTo: '/cluster/5w/euro/ua/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			
 			// cluster dashboard EMRO

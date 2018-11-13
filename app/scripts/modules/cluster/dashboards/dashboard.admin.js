@@ -88,6 +88,12 @@ angular.module('ngmReportHub')
 						'active': 'searo',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/admin/searo'
+					},{
+						'title': 'EURO',
+						'param': 'adminRpcode',
+						'active': 'euro',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/admin/euro'
 					}]
 				},{
 					'id': 'search-country',
@@ -136,6 +142,12 @@ angular.module('ngmReportHub')
 						'active': 'so',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/admin/emro/sy'
+					},{
+						'title': 'Ukraine',
+						'param': 'admin0pcode',
+						'active': 'ua',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/admin/euro/ua'
 					}]
 				}],
 
