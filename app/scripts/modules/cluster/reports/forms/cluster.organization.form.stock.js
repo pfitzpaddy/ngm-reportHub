@@ -74,7 +74,26 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 					},{
 						stock_item_purpose_id: 'operational',
 						stock_item_purpose_name: 'Operational',
-					}]
+					}],
+					stock_targeted_groups:[
+						{
+							stock_targeted_groups_id: 'all',
+							stock_targeted_groups_name: 'All'
+						},
+						{
+							stock_targeted_groups_id: 'conflict',
+							stock_targeted_groups_name: 'Conflict'
+						},
+						{
+							stock_targeted_groups_id:'natural_disaster',
+							stock_targeted_groups_name: 'Natural Disaster'
+						},
+						{
+							stock_targeted_groups_id: 'returnee',
+							stock_targeted_groups_name: 'Returnee'
+						},
+						
+					]
         },
 
         // init
@@ -98,11 +117,16 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             stock_item_name: null,
             unit_type_id: null,
             unit_type_name: null,
-            number_in_stock:0, number_in_pipeline:0, beneficiaries_covered:0
+						number_in_stock:0, number_in_pipeline:0, beneficiaries_covered:0,
+						stock_targeted_groups_id: null,
+						stock_targeted_groups_name: null,
+
+						
           };
           // process + clean location
           $scope.inserted =
-              ngmClusterHelper.getCleanStocks( $scope.report.report, $scope.report.report.stocklocations[ $parent ], $scope.inserted );
+							ngmClusterHelper.getCleanStocks( $scope.report.report, $scope.report.report.stocklocations[ $parent ], $scope.inserted );
+				
           $scope.report.report.stocklocations[ $parent ].stocks.push( $scope.inserted );
         },
 
@@ -169,7 +193,18 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             }
           }
           return selected.length ? selected[0].stock_item_purpose_name : 'No Selection!';
-        },
+				},
+				showStockTargetedGroup: function($data,$stock){
+					selected = [];
+					$stock.stock_targeted_groups_id =$data;
+					if ($stock.stock_targeted_groups_id){
+						selected = $filter('filter')($scope.report.lists.stock_targeted_groups, { stock_targeted_groups_id: $stock.stock_targeted_groups_id},true);
+						if(selected.length){
+							$stock.stock_targeted_groups_name = selected[0].stock_targeted_groups_name;
+						}
+					}
+					return selected.length ? selected[0].stock_targeted_groups_name : '_';
+				},
 
         // update inidcators
         updateInput: function( $parent, $index, indicator, $data ){
@@ -332,7 +367,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           $scope.report.report.report_submitted = moment().format();
 
           // msg
-          Materialize.toast( 'Processing Stock Report...' , 3000, 'note');
+					Materialize.toast( 'Processing Stock Report...' , 3000, 'note');
 
           // setReportRequest
           var setReportRequest = {
@@ -385,7 +420,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         }
       }
 
-      $scope.report.init();
+			$scope.report.init();
+
   }
 
 ]);
