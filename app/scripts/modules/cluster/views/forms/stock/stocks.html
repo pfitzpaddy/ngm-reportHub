@@ -4,12 +4,13 @@
     <tr style="font-weight: 400">
 			<td>Cluster</td>
 			<td>Stock Purpose</td>
+			<td ng-if="report.user.cluster_id === 'esnfi'">Targeted Groups</td>
       <td>Stock Type</td>
       <td>Status</td>
       <td>No. in Stock</td>
       <td>No. in Pipeline</td>
       <td>Units</td>
-      <td>Beneficiary Coverage</td>
+			<td>Beneficiary Coverage</td>
       <td ng-show="report.report.report_status !== 'complete'">Edit</td>
     </tr>
     <tr ng-repeat="stock in report.report.stocklocations[$locationIndex].stocks">
@@ -25,6 +26,12 @@
           {{ report.showStockPurpose($data, stock) }}
         </span>
       </td>
+			<td ng-if="report.user.cluster_id === 'esnfi'">
+				<span e-placeholder="Select..." editable-select="stock.stock_targeted_groups_id" e-name="stock_targeted_groups_id" e-form="rowform" e-ng-options="item.stock_targeted_groups_id as item.stock_targeted_groups_name for item in report.lists.stock_targeted_groups "
+				 e-required>
+					{{ report.showStockTargetedGroup($data, stock) }}
+				</span>
+			</td>
       <td>
         <!-- editable activity_type from report -->
         <span e-placeholder="Select..." editable-select="stock.stock_item_type" e-name="stock_item_type" e-form="rowform" e-ng-options="item.stock_item_type as item.stock_item_name for item in report.lists.stocks | filter: { cluster_id: stock.cluster_id }"
@@ -62,7 +69,7 @@
         <span editable-number="stock.beneficiaries_covered" e-name="beneficiaries_covered" e-form="rowform" e-min="0" e-ng-change="report.updateInput($locationIndex, $index, 'beneficiaries_covered', $data )" e-ng-disabled="report.rowSessionsDisabled( beneficiary )" e-required>
           {{ stock.beneficiaries_covered }}
         </span>
-      </td>
+			</td>
 
       <td style="white-space: nowrap" ng-show="report.report.report_status !== 'complete'">
         <!-- form -->
