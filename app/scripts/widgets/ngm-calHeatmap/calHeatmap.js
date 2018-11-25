@@ -51,9 +51,9 @@ angular.module('ngm.widget.calHeatmap', ['ngm.provider'])
 			$scope.sum= function(data){
 				var getValue = (Object.values(data));				
 				temp = 0;
-				getValue.forEach(element => {
-					temp = element + temp
-				});
+        for (i = 0; i < getValue.length; i++) { 
+          temp = getValue[i] + temp;
+        }
 				return temp;
 			}
       // statistics widget default config
