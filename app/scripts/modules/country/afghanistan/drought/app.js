@@ -15,6 +15,14 @@ angular
 
 		// app routes with access rights
 		$routeProvider
+			
+			// /response page could have cards for each country response
+			.when( '/response', {
+				redirectTo: '/response/afghanistan/drought'
+			})
+			.when( '/response/afghanistan', {
+				redirectTo: '/response/afghanistan/drought'
+			})
 			.when('/response/afghanistan/drought', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DroughtMainCtrl',
