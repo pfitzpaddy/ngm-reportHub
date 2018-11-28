@@ -2023,6 +2023,10 @@ angular.module( 'ngmReportHub' )
                 beneficiary_type_name: 'Natural Disaster Affected'
               },{
                 cluster_id: [ 'health' ],
+                beneficiary_type_id: 'idp',
+                beneficiary_type_name: 'IDPs'
+              },{
+                cluster_id: [ 'health' ],
                 beneficiary_type_id: 'idp_protracted',
                 beneficiary_type_name: 'Protracted IDPs'
               },{
@@ -2045,6 +2049,10 @@ angular.module( 'ngmReportHub' )
                 cluster_id: [ 'health' ],
                 beneficiary_type_id: 'drought_affected_displaced',
                 beneficiary_type_name: 'Drought Affected Displaced'
+              },{
+                cluster_id: [ 'health' ],
+                beneficiary_type_id: 'chronic_emergency',
+                beneficiary_type_name: 'Chronic Emergency'
               },{
 
                 // NUTRITION
