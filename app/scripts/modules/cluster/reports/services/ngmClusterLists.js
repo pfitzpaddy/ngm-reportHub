@@ -2771,8 +2771,32 @@ angular.module( 'ngmReportHub' )
 
         // duplicates filtered
         return newItems;
-      },
+			},
+			
+			//stock-targeted-groups
+			getStockTargetedGroups: function(){
+				var stock_targeted_groups= [
+					{
+						stock_targeted_groups_id: 'all',
+						stock_targeted_groups_name: 'All'
+					},
+					{
+						stock_targeted_groups_id: 'conflict',
+						stock_targeted_groups_name: 'Conflict'
+					},
+					{
+						stock_targeted_groups_id: 'natural_disaster',
+						stock_targeted_groups_name: 'Natural Disaster'
+					},
+					{
+						stock_targeted_groups_id: 'returnee',
+						stock_targeted_groups_name: 'Returnee'
+					},
 
+				]
+
+				return stock_targeted_groups
+			}
 		};
 
     // return
