@@ -1,0 +1,73 @@
+<style>
+	.count,
+	.label {
+		z-index: 1 !important;
+	}
+
+	.ng-table th.sortable .sort-indicator {
+		color: #2196F3;
+		font-weight: 400;
+	}
+
+	.pagination li.active {
+		background-color: #009688;
+	}
+</style>
+
+<!-- ngTable -->
+<div class="row" ng-if="table.showTable">
+	<div class="col s12 m12 l12">
+		<div class="card">
+			<ul class="collection with-header">
+				<li class="{{ table.headerClass }}">
+					<h5 class="report-work-title {{ table.headerText }}">
+						<i class="material-icons left">{{ table.headerIcon }}</i>{{ table.headerTitle }}</h5>
+				</li>
+				<li class="collection-item avatar" style="padding:10px;">
+
+					<!-- if no data -->
+					<div ng-if="data.length === 0">
+						<div class="label" style="text-align:center; padding-top:20px;">
+							<span>No {{ table.headerTitle }}!</span>
+						</div>
+					</div>
+
+					<!-- if data -->
+					<div ng-if="data.length">
+						<table class="centered highlight responsive-table" ng-table="table.tableParams">
+							<tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
+								<td data-title="'Cluster'" sortable="'cluster'" ng-if="table.cluster_id === 'all'">
+									{{ row.cluster }}
+								</td>
+								<td data-title="'Organization'" sortable="'organization'">
+									 {{ row.organization }}									
+								</td>					
+
+								<td data-title="'Title'" sortable="'project_title'" ng-if="table.showTitle">
+									<a target="_blank" href="#/cluster/projects/summary/{{ row.project_id }}" title="GoTo Project Summary">
+										{{ row.project_title }}
+									</a>
+								</td>								
+								<td data-title="'Target Beneficiaries'" sortable="'target_total_format'" >
+									{{ row.target_total_format }}
+								</td>
+								<td data-title="'Reported Beneficiaries'" sortable="'report_total_format'">
+									{{ row.report_total_format }}
+								</td>
+								<td data-title="'Progress'" sortable="'progress_percentage'" ng-if="row.progress_percentage ==='N/A'">
+									{{ row.progress_percentage}}
+								</td>
+								<td data-title="'Progress'" sortable="'progress_percentage'" ng-if="row.progress_percentage !=='N/A'">
+									{{ row.progress_percentage| number : 1 }} %
+								</td>
+
+								
+							</tr>
+						</table>
+					</div>
+
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

@@ -1017,6 +1017,36 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
+								styleClass: 's12 m12 l12 remove',
+								widgets: [{
+									type: 'table',
+									card: 'panel',
+									style: 'padding:0px; height: ' + $scope.dashboard.ngm.style.height + 'px;',
+									config: {
+										user: $scope.dashboard.user,
+										cluster_id: $scope.dashboard.cluster_id,
+										showTable: $scope.dashboard.report_type === 'activity' ? true : false,
+										showTitle: $scope.dashboard.report_type === 'activity' ? true : false,
+										style: $scope.dashboard.ngm.style,
+										headerClass: 'collection-header teal lighten-2',
+										headerText: 'white-text',
+										headerIcon: 'assignment_turned_in',
+										headerTitle: 'Projects Progress',
+										templateUrl: '/scripts/widgets/ngm-table/templates/cluster/admin.progress.beneficiaries.html',
+										tableOptions:{
+											count: 10
+										},
+										request: {
+											method: 'POST',
+											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
+											// indicator, list
+											data: $scope.dashboard.getRequest( 'progress_beneficiaries', true )
+										}
+									}
+								}]
+							}]
+						},{
+							columns: [{
 								styleClass: 's12 m12 l12',
 								widgets: [{
 									type: 'html',
