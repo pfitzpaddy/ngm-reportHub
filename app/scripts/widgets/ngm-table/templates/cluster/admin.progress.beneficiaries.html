@@ -12,6 +12,30 @@
 	.pagination li.active {
 		background-color: #009688;
 	}
+	/* Progress Bar */
+	.percentage-wrapper{	
+	}
+	.percentage-wrapper span{
+		line-height: 10px;
+	}
+	.percentage-wrapper span:last-child{
+		position: absolute;
+		right: 15px;
+		margin-top:5px;	
+	}
+	.project-progress-bar-wrapper {
+			background-color: #ffffff;
+			border: 1px solid #4db6ac;
+			display: inline-block;
+			width: 50px;
+			height: 12px;
+			border-radius: 4px;
+			
+	}
+	.project-progress-bar-wrapper .project-progress-bar-inner {
+			height: 100%;
+			background-color:#4db6ac;
+	}
 </style>
 
 <!-- ngTable -->
@@ -57,8 +81,18 @@
 								<td data-title="'Progress'" sortable="'progress_percentage'" ng-if="row.progress_percentage ==='N/A'">
 									{{ row.progress_percentage}}
 								</td>
-								<td data-title="'Progress'" sortable="'progress_percentage'" ng-if="row.progress_percentage !=='N/A'">
-									{{ row.progress_percentage| number : 1 }} %
+								<td width="15%" data-title="'Progress'" sortable="'progress_percentage'" ng-if="row.progress_percentage !=='N/A'">
+									<div class="percentage-wrapper">
+										<span>{{ row.progress_percentage| number : 1 }}%</span>
+										<span class="project-progress-bar-wrapper ">
+											<div class="project-progress-bar-inner" style="width: {{row.progress_percentage}}%" ng-if="row.progress_percentage <=100">
+												&nbsp
+											</div>
+											<div class="project-progress-bar-inner" style="width: 100%" ng-if="row.progress_percentage >100">
+												&nbsp
+											</div>											
+										</span>
+									</div>
 								</td>
 
 								
