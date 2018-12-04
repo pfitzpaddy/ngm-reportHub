@@ -866,8 +866,7 @@ angular.module( 'ngmReportHub' )
 					association: 'accountability',
 					measurement:{
 						quantity_measurement_id: 'project_design',
-						quantity_measurement_name: 'Project Design',
-						details: [{}]
+						quantity_measurement_name: 'Project Design'
 					}
 				},
 				'project_monitoring': {
@@ -875,8 +874,7 @@ angular.module( 'ngmReportHub' )
 					association: 'accountability',
 					measurement:{
 						quantity_measurement_id: 'project_monitoring',
-						quantity_measurement_name: 'Project Monitoring',
-						details: [{}]
+						quantity_measurement_name: 'Project Monitoring'
 					}
 				},
 				'project_evaluation': {
@@ -884,8 +882,7 @@ angular.module( 'ngmReportHub' )
 					association: 'accountability',
 					measurement:{
 						quantity_measurement_id: 'project_evaluation',
-						quantity_measurement_name: 'Project Evaluation',
-						details: [{}]
+						quantity_measurement_name: 'Project Evaluation'
 					}
 				},
 				'community_involvement_in_decision_making': {
@@ -893,8 +890,7 @@ angular.module( 'ngmReportHub' )
 					association: 'accountability',
 					measurement:{
 						quantity_measurement_id: 'community_involvement',
-						quantity_measurement_name: 'Community Involvement',
-						details: [{}]
+						quantity_measurement_name: 'Community Involvement'
 					}
 				},
 				'information_rights_entitlement': {
