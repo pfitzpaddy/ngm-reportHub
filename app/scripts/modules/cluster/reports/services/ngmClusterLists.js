@@ -2354,6 +2354,50 @@ angular.module( 'ngmReportHub' )
             site_type_name: 'Refugee Site'
           }];
 
+        // et
+        if ( admin0pcode === 'ET' ) {
+          site_types = [{
+            site_type_id: 'multiple_sites',
+            site_type_name: 'Multiple Sites'
+          },{
+            site_type_id: 'settlement',
+            site_type_name: 'Settlement'
+          },{
+            site_type_id: 'hospital',
+            site_type_name: 'Hospital'
+          },{
+            site_type_id: 'health_center',
+            site_type_name: 'Health Center'
+          },{
+            site_type_id: 'health_post',
+            site_type_name: 'Health Post'
+          },{
+            site_type_id: 'schools',
+            site_type_name: 'School'
+          },{
+            site_type_id: 'host_community_families',
+            site_type_name: 'Host Community/Families'
+          },{
+            site_type_id: 'collective_center',
+            site_type_name: 'Collective Center'
+          },{
+            site_type_id: 'dispersed_settlement',
+            site_type_name: 'Dispersed Settlement'
+          },{
+            site_type_id: 'planned_site',
+            site_type_name: 'Planned Site'
+          },{
+            site_type_id: 'spontaneous_site',
+            site_type_name: 'Spontaneous Site'
+          },{
+            site_type_id: 'transit_site',
+            site_type_name: 'Transit Site'
+          },{
+            site_type_id: 'other',
+            site_type_name: 'Other'
+          }];
+        } 
+
         // ng
         if ( admin0pcode === 'NG' ) {
           site_types = [{
