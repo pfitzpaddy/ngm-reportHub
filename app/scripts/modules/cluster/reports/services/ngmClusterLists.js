@@ -2276,6 +2276,9 @@ angular.module( 'ngmReportHub' )
           },{
             site_implementation_id: 'orp',
             site_implementation_name: 'ORP'
+          },{
+            site_implementation_id: 'clinic',
+            site_implementation_name: 'Clinic'
           }];
         } else {
           site_implementation = [{
@@ -2314,6 +2317,9 @@ angular.module( 'ngmReportHub' )
           },{
             site_implementation_id: 'orp',
             site_implementation_name: 'ORP'
+          },{
+            site_implementation_id: 'clinic',
+            site_implementation_name: 'Clinic'
           }];
 
         }
@@ -2371,6 +2377,9 @@ angular.module( 'ngmReportHub' )
           },{
             site_type_id: 'health_post',
             site_type_name: 'Health Post'
+          },{
+            site_type_id: 'clinic',
+            site_type_name: 'Clinic'
           },{
             site_type_id: 'schools',
             site_type_name: 'School'
