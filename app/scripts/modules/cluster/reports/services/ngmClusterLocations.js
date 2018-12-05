@@ -17,6 +17,15 @@ angular.module( 'ngmReportHub' )
       // open new locaiton form in monthly report 
       openNewLocation: function( project, locations ) {
         ngmClusterLocations.new_location = ngmClusterLocations.addLocation( project.definition, locations );
+        // set adminSitesSelect
+        angular.forEach( project.report.locations, function( d, i ) {
+          if ( !project.lists.adminSitesSelect[ i ] ) {
+            project.lists.adminSitesSelect[ i ] = angular.copy( project.lists.adminSites );
+          }
+        });
+        // trigger form update
+        ngmClusterLocations.adminOnChange( project.lists, 'admin3pcode', locations.length-1, ngmClusterLocations.new_location.admin3pcode, ngmClusterLocations.new_location );
+        // lists, pcode, $index, $data, target_location
         ngmClusterLocations.openAddNewLocation = !ngmClusterLocations.openAddNewLocation;
       },
 
@@ -124,7 +133,10 @@ angular.module( 'ngmReportHub' )
                                             + admin0pcode
                                             + '&admin1pcode=' + target_location.admin1pcode
             }).success( function( result ) {
-              lists.admin3 = lists.admin3.concat( result );
+              var selected_admin3 = $filter('filter')( lists.admin3, { admin1pcode: target_location.admin1pcode }, true );
+              if ( !selected_admin3.length ){
+                lists.admin3 = lists.admin3.concat( result );
+              }
             });
           }  
 
@@ -136,7 +148,10 @@ angular.module( 'ngmReportHub' )
                                             + admin0pcode
                                             + '&admin1pcode=' + target_location.admin1pcode
             }).success( function( result ) {
-              lists.admin4 = lists.admin4.concat( result );
+              var selected_admin4 = $filter('filter')( lists.admin4, { admin1pcode: target_location.admin1pcode }, true );
+              if ( !selected_admin4.length ){
+                lists.admin4 = lists.admin4.concat( result );
+              }
             });
           }          
 
@@ -148,7 +163,10 @@ angular.module( 'ngmReportHub' )
                                             + admin0pcode
                                             + '&admin1pcode=' + target_location.admin1pcode
             }).success( function( result ) {
-              lists.admin5 = lists.admin5.concat( result );
+              var selected_admin5 = $filter('filter')( lists.admin5, { admin1pcode: target_location.admin1pcode }, true );
+              if ( !selected_admin5.length ){
+                lists.admin5 = lists.admin5.concat( result );
+              }
             });
           }          
 
@@ -160,7 +178,10 @@ angular.module( 'ngmReportHub' )
                                             + admin0pcode
                                             + '&admin1pcode=' + target_location.admin1pcode
             }).success( function( result ) {
-              lists.adminSites = lists.adminSites.concat( result );
+              var selected_sites = $filter('filter')( lists.adminSites, { admin1pcode: target_location.admin1pcode }, true );
+              if ( !selected_sites.length ){
+                lists.adminSites = lists.adminSites.concat( result );
+              }
             });
           }
 
@@ -295,9 +316,6 @@ angular.module( 'ngmReportHub' )
         // apply filter
         site_list = $filter('filter')( lists.adminSitesSelect[ $index ], search_site, true );
 
-        console.log('site_list');
-        console.log(site_list);
-
         // set site selected
         if ( site_list && site_list.length && target_location.site_type_id ) {
           target_location.site_list_select_id = 'yes';
@@ -319,6 +337,11 @@ angular.module( 'ngmReportHub' )
 
         // set sites to null
         target_location.site_list_select_id = $data;
+
+        // disabled false
+        if ( target_location.site_list_select_id && target_location.site_list_select_id === 'yes' ) {
+          target_location.site_list_select_disabled = false;
+        }
 
         if( target_location.site_list_select_id ) {
           selected = $filter('filter')( lists.site_list_select, { site_list_select_id: target_location.site_list_select_id }, true );

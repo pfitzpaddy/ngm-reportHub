@@ -224,7 +224,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // project focal point
         showReporter: function( $data, target_location ){
-          console.log($scope.project.lists);
           return ngmClusterLocations.showReporter( $scope.project.lists, $data, target_location )
         },
 
