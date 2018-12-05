@@ -80,7 +80,8 @@ angular.module('ngm.widget.highchart', ['ngm.provider'])
               hover:{
                 enabled: false
               }
-            }
+						},
+						data:[]
           }],
           func: function(chart) {
 
