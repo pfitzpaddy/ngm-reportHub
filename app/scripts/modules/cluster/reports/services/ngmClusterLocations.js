@@ -249,8 +249,7 @@ angular.module( 'ngmReportHub' )
         // set to null
         var site_list = [];
         target_location.site_id = null;
-        target_location.site_name = null;
-        target_location.site_list_select_disabled = true;
+        target_location.site_list_select_disabled = false;
 
         // clear selections
         switch( pcode ) {
@@ -284,10 +283,20 @@ angular.module( 'ngmReportHub' )
             break;
         }
 
+        // filter admin
+        var search_site = {}
+        search_site[ pcode ] = target_location[ pcode ];
+
         // filter adminsites
-        var search_admin = {}
-        search_admin[ pcode ] = target_location[ pcode ];
-        site_list = $filter('filter')( lists.adminSitesSelect[ $index ], search_admin, true );
+        if( target_location.site_type_id ) {
+          angular.merge( search_site, { site_type_id: target_location.site_type_id } );
+        }
+
+        // apply filter
+        site_list = $filter('filter')( lists.adminSitesSelect[ $index ], search_site, true );
+
+        console.log('site_list');
+        console.log(site_list);
 
         // set site selected
         if ( site_list && site_list.length && target_location.site_type_id ) {

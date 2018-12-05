@@ -394,8 +394,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // site implementation
-        showSiteImplementation: function( $index, $data, target_location ){
-          return ngmClusterLocations.showSiteImplementation( $scope.project.lists, $index, $data, target_location );
+        showSiteImplementation: function( $data, target_location ){
+          return ngmClusterLocations.showSiteImplementation( $scope.project.lists, $data, target_location );
         },
 
         // showadmin

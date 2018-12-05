@@ -9,6 +9,7 @@
 								<table class="bordered responsive-table" >
 									<tr style="font-weight: 400">
 										<td></td>
+										<td>Reporter</td>
 							    	<td>Implementation</td>
 							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
@@ -24,6 +25,17 @@
 										<td>
 											<i class="material-icons" style="color: teal;">person_pin</i>
 										</td>
+							      <td>
+							        <!-- editable reporter -->
+							        <span e-placeholder="Select..." 
+							        				editable-select="ngmClusterLocations.new_location.username" 
+							        				e-name="username" 
+							        				e-form="locationform" 
+							        				e-ng-options="item.username as item.username for item in project.lists.users" 
+							        				e-required>
+							          {{ project.showReporter( $data, ngmClusterLocations.new_location ) }}
+							        </span>
+							      </td>
 							      <td>
 							        <!-- editable site_implementation_id -->
 							        <span e-placeholder="Select..." 
