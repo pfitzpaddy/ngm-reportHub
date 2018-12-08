@@ -2416,14 +2416,17 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'host_community',
             site_type_name: 'Host Community'
           },{
-            site_type_id: 'collective_settlement',
+            site_type_id: 'settlement',
             site_type_name: 'Settlement'
+          },{
+            site_type_id: 'collective_settlement',
+            site_type_name: 'Collective Settlement/Centre'
           },{
             site_type_id: 'transitional_centre',
             site_type_name: 'Transitional Centre'
           },{
-            site_type_id: 'school',
-            site_type_name: 'School'
+            site_type_id: 'idp_site',
+            site_type_name: 'IDP Site'
           },{
             site_type_id: 'hospital',
             site_type_name: 'Hospital'
@@ -2434,8 +2437,8 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'nutrition_center',
             site_type_name: 'Nutrition Center'
           },{
-            site_type_id: 'idp_camp',
-            site_type_name: 'IDP Camp'
+            site_type_id: 'school',
+            site_type_name: 'School'
           }];
         }
 
