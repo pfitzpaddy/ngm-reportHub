@@ -95,60 +95,6 @@ angular.module('ngmReportHub')
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/admin/euro'
 					}]
-				},{
-					'id': 'search-country',
-					'icon': 'location_on',
-					'title': 'Country',
-					'class': 'teal lighten-1 white-text',
-					'rows': [{
-						'title': 'Afghanistan',
-						'param': 'admin0pcode',
-						'active': 'af',
-						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/admin/emro/af'
-					},{
-						'title': 'Bangladesh',
-						'param': 'admin0pcode',
-						'active': 'bd',
-						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/admin/searo/bd'
-					},{
-						'title': 'Cox Bazar',
-						'param': 'admin0pcode',
-						'active': 'cb',
-						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/admin/searo/cb'
-					},{
-						'title': 'Ethiopia',
-						'param': 'admin0pcode',
-						'active': 'et',
-						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/admin/afro/et'
-					},{
-						'title': 'Somalia',
-						'param': 'admin0pcode',
-						'active': 'so',
-						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/admin/emro/so'
-					},{
-						'title': 'South Sudan',
-						'param': 'admin0pcode',
-						'active': 'ss',
-						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/admin/afro/ss'
-					},{
-						'title': 'Syria',
-						'param': 'admin0pcode',
-						'active': 'so',
-						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/admin/emro/sy'
-					},{
-						'title': 'Ukraine',
-						'param': 'admin0pcode',
-						'active': 'ua',
-						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/admin/euro/ua'
-					}]
 				}],
 
 				// lists
@@ -445,7 +391,7 @@ angular.module('ngmReportHub')
 
 					// SUPERADMIN
 					if ( role !== 'admin' ){
-
+						$scope.dashboard.setCountryMenu();
 						// add cluster
 						angular.forEach( $scope.dashboard.lists.clusters, function( d, i ){
 
@@ -706,6 +652,166 @@ angular.module('ngmReportHub')
 							}]
 						});
 					}
+				},
+				setCountryMenu:function(){
+					var menu  = {
+						'all': {
+							'id': 'search-country',
+							'icon': 'location_on',
+							'title': 'Country',
+							'class': 'teal lighten-1 white-text',
+							'rows': [{
+								'title': 'Afghanistan',
+								'param': 'admin0pcode',
+								'active': 'af',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/emro/af'
+							}, {
+								'title': 'Bangladesh',
+								'param': 'admin0pcode',
+								'active': 'bd',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/searo/bd'
+							}, {
+								'title': 'Cox Bazar',
+								'param': 'admin0pcode',
+								'active': 'cb',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/searo/cb'
+							},{
+								'title': 'Democratic Republic of Congo',
+								'param': 'admin0pcode',
+								'active': 'cd',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/5w/afro/cd'
+							}, {
+								'title': 'Ethiopia',
+								'param': 'admin0pcode',
+								'active': 'et',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/afro/et'
+							}, {
+								'title': 'Somalia',
+								'param': 'admin0pcode',
+								'active': 'so',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/emro/so'
+							}, {
+								'title': 'South Sudan',
+								'param': 'admin0pcode',
+								'active': 'ss',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/afro/ss'
+							}, {
+								'title': 'Syria',
+								'param': 'admin0pcode',
+								'active': 'so',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/emro/sy'
+							}, {
+								'title': 'Ukraine',
+								'param': 'admin0pcode',
+								'active': 'ua',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/euro/ua'
+							}, {
+								'title': 'Nigeria',
+								'param': 'admin0pcode',
+								'active': 'ng',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/afro/ng'
+							},]
+						},
+						'afro': {
+							'id': 'search-country',
+							'icon': 'person_pin',
+							'title': 'Country',
+							'class': 'teal lighten-1 white-text',
+							'rows': [{
+								'title': 'Democratic Republic of Congo',
+								'param': 'admin0pcode',
+								'active': 'cd',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/5w/afro/cd'
+							},{
+								'title': 'Ethiopia',
+								'param': 'admin0pcode',
+								'active': 'et',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/afro/et'
+							}, {
+								'title': 'Nigeria',
+								'param': 'admin0pcode',
+								'active': 'ng',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/afro/ng'
+							}, {
+								'title': 'South Sudan',
+								'param': 'admin0pcode',
+								'active': 'ss',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/afro/ss'
+							}]
+						},
+						'emro': {
+							'id': 'search-country',
+							'icon': 'person_pin',
+							'title': 'Country',
+							'class': 'teal lighten-1 white-text',
+							'rows': [{
+								'title': 'Afghanistan',
+								'param': 'admin0pcode',
+								'active': 'af',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/emro/af'
+							}, {
+								'title': 'Somalia',
+								'param': 'admin0pcode',
+								'active': 'so',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/emro/so'
+							}, {
+								'title': 'Syria',
+								'param': 'admin0pcode',
+								'active': 'sy',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/emro/sy'
+							}]
+						},
+						'searo': {
+							'id': 'search-country',
+							'icon': 'person_pin',
+							'title': 'Country',
+							'class': 'teal lighten-1 white-text',
+							'rows': [{
+								'title': 'Bangladesh',
+								'param': 'admin0pcode',
+								'active': 'bd',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/searo/bd'
+							}, {
+								'title': 'Cox Bazar',
+								'param': 'admin0pcode',
+								'active': 'cb',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/searo/cb'
+							}]
+						},
+						'euro': {
+							'id': 'search-country',
+							'icon': 'person_pin',
+							'title': 'Country',
+							'class': 'teal lighten-1 white-text',
+							'rows': [{
+								'title': 'Ukraine',
+								'param': 'admin0pcode',
+								'active': 'ua',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/euro/ua'
+							},]
+						}
+					}
+					$scope.model.menu.push(menu[$scope.dashboard.adminRpcode]);
 				},
 
 				// set dashboard
