@@ -391,7 +391,9 @@ angular.module('ngmReportHub')
 
 					// SUPERADMIN
 					if ( role !== 'admin' ){
-						$scope.dashboard.setCountryMenu();
+						if ($scope.dashboard.user.organization_tag !== 'usaid'){
+							$scope.dashboard.setCountryMenu();
+						}
 						// add cluster
 						angular.forEach( $scope.dashboard.lists.clusters, function( d, i ){
 
@@ -1192,6 +1194,9 @@ angular.module('ngmReportHub')
 			if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 ) {
 				// SUPERADMIN
 				$scope.model.menu = $scope.dashboard.menu;
+				if ($scope.dashboard.user.organization_tag === 'usaid'){
+					$scope.model.menu = [];
+				}
 				$scope.dashboard.setMenu( 'super' );
 			}
 
