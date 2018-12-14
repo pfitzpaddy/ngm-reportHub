@@ -112,7 +112,7 @@ angular.module( 'ngmReportHub' )
             if ( project.id ) {
               angular.forEach( project.target_locations, function( t, i ){
                 if ( t ){
-                  ngmClusterLocations.getAdminSites( lists, project.admin0pcode, t );
+                  // ngmClusterLocations.getAdminSites( lists, project.admin0pcode, t );
                 }
               });
             }
