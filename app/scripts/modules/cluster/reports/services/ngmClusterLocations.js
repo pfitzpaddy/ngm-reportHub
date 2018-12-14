@@ -120,55 +120,64 @@ angular.module( 'ngmReportHub' )
       },
 
       // get sites
-      getAdminSites: function( lists, admin0pcode, target_location ){
+      getAdminSites: function( lists, admin0pcode, pcode, $index, $data, target_location ){
 
         // fetch
         $timeout(function(){
 
           // admin3
-          var selected_admin3 = $filter('filter')( lists.admin3, { admin1pcode: target_location.admin1pcode }, true );
-          if ( !selected_admin3.length ){
-            $http({ method: 'GET', 
-                    url: ngmAuth.LOCATION + '/api/list/getAdmin3List?admin0pcode=' 
-                                            + admin0pcode
-                                            + '&admin1pcode=' + target_location.admin1pcode
-            }).success( function( result ) {
-              var selected_admin3 = $filter('filter')( lists.admin3, { admin1pcode: target_location.admin1pcode }, true );
-              if ( !selected_admin3.length ){
-                lists.admin3 = lists.admin3.concat( result );
-              }
-            });
-          }  
+          if ( lists.admin3.length ) {
+            var selected_admin3 = $filter('filter')( lists.admin3, { admin1pcode: target_location.admin1pcode }, true );
+            if ( !selected_admin3.length ){
+              $http({ method: 'GET', 
+                      url: ngmAuth.LOCATION + '/api/list/getAdmin3List?admin0pcode=' 
+                                              + admin0pcode
+                                              + '&admin1pcode=' + target_location.admin1pcode
+              }).success( function( result ) {
+                var selected_admin3 = $filter('filter')( lists.admin3, { admin1pcode: target_location.admin1pcode }, true );
+                if ( !selected_admin3.length ){
+                  lists.admin3 = lists.admin3.concat( result );
+                  ngmClusterLocations.adminOnChange( lists, pcode, $index, $data, target_location );
+                }
+              });
+            }
+          }
 
           // admin4
-          var selected_admin4 = $filter('filter')( lists.admin4, { admin1pcode: target_location.admin1pcode }, true );
-          if ( !selected_admin4.length ){
-            $http({ method: 'GET', 
-                    url: ngmAuth.LOCATION + '/api/list/getAdmin4List?admin0pcode=' 
-                                            + admin0pcode
-                                            + '&admin1pcode=' + target_location.admin1pcode
-            }).success( function( result ) {
-              var selected_admin4 = $filter('filter')( lists.admin4, { admin1pcode: target_location.admin1pcode }, true );
-              if ( !selected_admin4.length ){
-                lists.admin4 = lists.admin4.concat( result );
-              }
-            });
-          }          
+          if ( lists.admin4.length ) {
+            var selected_admin4 = $filter('filter')( lists.admin4, { admin1pcode: target_location.admin1pcode }, true );
+            if ( !selected_admin4.length ){
+              $http({ method: 'GET', 
+                      url: ngmAuth.LOCATION + '/api/list/getAdmin4List?admin0pcode=' 
+                                              + admin0pcode
+                                              + '&admin1pcode=' + target_location.admin1pcode
+              }).success( function( result ) {
+                var selected_admin4 = $filter('filter')( lists.admin4, { admin1pcode: target_location.admin1pcode }, true );
+                if ( !selected_admin4.length ){
+                  lists.admin4 = lists.admin4.concat( result );
+                  ngmClusterLocations.adminOnChange( lists, pcode, $index, $data, target_location );
+                }
+              });
+            }
+          }        
 
           // admin5
-          var selected_admin5 = $filter('filter')( lists.admin5, { admin1pcode: target_location.admin1pcode }, true );
-          if ( !selected_admin5.length ){
-            $http({ method: 'GET', 
-                    url: ngmAuth.LOCATION + '/api/list/getAdmin5List?admin0pcode=' 
-                                            + admin0pcode
-                                            + '&admin1pcode=' + target_location.admin1pcode
-            }).success( function( result ) {
-              var selected_admin5 = $filter('filter')( lists.admin5, { admin1pcode: target_location.admin1pcode }, true );
-              if ( !selected_admin5.length ){
-                lists.admin5 = lists.admin5.concat( result );
-              }
-            });
-          }          
+          if ( lists.admin5.length ) {
+            var selected_admin5 = $filter('filter')( lists.admin5, { admin1pcode: target_location.admin1pcode }, true );
+            if ( !selected_admin5.length ){
+              $http({ method: 'GET', 
+                      url: ngmAuth.LOCATION + '/api/list/getAdmin5List?admin0pcode=' 
+                                              + admin0pcode
+                                              + '&admin1pcode=' + target_location.admin1pcode
+              }).success( function( result ) {
+                var selected_admin5 = $filter('filter')( lists.admin5, { admin1pcode: target_location.admin1pcode }, true );
+                if ( !selected_admin5.length ){
+                  lists.admin5 = lists.admin5.concat( result );
+                  ngmClusterLocations.adminOnChange( lists, pcode, $index, $data, target_location );
+                }
+              });
+            }
+          }        
 
           // sites
           var selected_sites = $filter('filter')( lists.adminSites, { admin1pcode: target_location.admin1pcode }, true );
@@ -181,6 +190,7 @@ angular.module( 'ngmReportHub' )
               var selected_sites = $filter('filter')( lists.adminSites, { admin1pcode: target_location.admin1pcode }, true );
               if ( !selected_sites.length ){
                 lists.adminSites = lists.adminSites.concat( result );
+                ngmClusterLocations.adminOnChange( lists, pcode, $index, $data, target_location );
               }
             });
           }

@@ -54,7 +54,7 @@
 							        				e-name="admin1pcode"
 							        				e-form="locationform"
 							        				e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1 | filter : { inactive: '!true' }" 
-							        				e-ng-change="project.getAdminSites( ngmClusterLocations.new_location ); project.adminOnChange( 'admin1pcode', $index, $data, ngmClusterLocations.new_location )"
+							        				e-ng-change="project.getAdminSites( 'admin1pcode', $index, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin1pcode', $index, $data, ngmClusterLocations.new_location )"
 							        				e-required>
 							          {{ project.showAdmin( 'admin0pcode', 'admin1', 'admin1pcode', 'admin1name', $index, $data, ngmClusterLocations.new_location ) }}
 							        </span>
@@ -66,7 +66,7 @@
 							        				e-name="admin2pcode"
 							        				e-form="locationform"
 							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2Select[ $index ]"
-							        				e-ng-change="project.adminOnChange( 'admin2pcode', $index, $data, ngmClusterLocations.new_location )"
+							        				e-ng-change="project.getAdminSites( 'admin2pcode', $index, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin2pcode', $index, $data, ngmClusterLocations.new_location )"
 							        				e-ng-disabled="!ngmClusterLocations.new_location.admin1pcode"
 							        				e-required>
 							          {{ project.showAdmin( 'admin1pcode', 'admin2', 'admin2pcode', 'admin2name', $index, $data, ngmClusterLocations.new_location ) }}
@@ -85,7 +85,7 @@
 								        				e-name="admin3pcode"
 								        				e-form="locationform"
 								        				e-ng-options="item.admin3pcode as item.admin3name for item in project.lists.admin3Select[ $index ]" 
-																e-ng-change="project.adminOnChange( 'admin3pcode', $index, $data, ngmClusterLocations.new_location )"
+																e-ng-change="project.getAdminSites( 'admin3pcode', $index, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin3pcode', $index, $data, ngmClusterLocations.new_location )"
 								        				e-ng-disabled="!ngmClusterLocations.new_location.admin2pcode">
 							          {{ project.showAdmin( 'admin2pcode', 'admin3', 'admin3pcode', 'admin3name', $index, $data, ngmClusterLocations.new_location ) }}
 								        </span>
@@ -105,7 +105,7 @@
 								        				e-name="admin4pcode"
 								        				e-form="locationform"
 								        				e-ng-options="item.admin4pcode as item.admin4name for item in project.lists.admin4Select[ $index ]" 
-																e-ng-change="project.adminOnChange( 'admin4pcode', $index, $data, ngmClusterLocations.new_location )"
+																e-ng-change="project.getAdminSites( 'admin4pcode', $index, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin4pcode', $index, $data, ngmClusterLocations.new_location )"
 								        				e-ng-disabled="!ngmClusterLocations.new_location.admin3pcode">
 							          {{ project.showAdmin( 'admin3pcode', 'admin4', 'admin4pcode', 'admin4name', $index, $data, ngmClusterLocations.new_location ) }}
 								        </span>
@@ -125,7 +125,7 @@
 								        				e-name="admin5pcode"
 								        				e-form="locationform"
 								        				e-ng-options="item.admin5pcode as item.admin5name for item in project.lists.admin5Select[ $index ]" 
-																e-ng-change="project.adminOnChange( 'admin5pcode', $index, $data, ngmClusterLocations.new_location )"
+																e-ng-change="project.getAdminSites( 'admin5pcode', $index, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'admin5pcode', $index, $data, ngmClusterLocations.new_location )"
 								        				e-ng-disabled="!ngmClusterLocations.new_location.admin4pcode">
 								          {{ project.showAdmin( 'admin4pcode', 'admin5', 'admin5pcode', 'admin5name', $index, $data, ngmClusterLocations.new_location ) }}
 								        </span>
@@ -139,7 +139,7 @@
 							        				e-name="site_type_id"
 							        				e-form="locationform"
 							        				e-ng-options="item.site_type_id as item.site_type_name for item in project.lists.site_type"
-							        				e-ng-change="project.adminOnChange( 'site_type_id', $index, $data, ngmClusterLocations.new_location )"
+							        				e-ng-change="project.getAdminSites( 'site_type_id', $index, $data, ngmClusterLocations.new_location ); project.adminOnChange( 'site_type_id', $index, $data, ngmClusterLocations.new_location )"
 							        				e-ng-disabled="!ngmClusterLocations.new_location.admin1pcode"
 							        				e-required>
 							          {{ project.showSiteType( $locationIndex, $data, ngmClusterLocations.new_location ) }}

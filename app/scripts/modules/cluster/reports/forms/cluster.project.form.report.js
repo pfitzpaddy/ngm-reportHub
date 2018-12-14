@@ -238,8 +238,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         },
 
         // fetch lists
-        getAdminSites: function( target_location ){
-          ngmClusterLocations.getAdminSites( $scope.project.lists, $scope.project.definition.admin0pcode, target_location );
+        getAdminSites: function( pcode, $index, $data, target_location ){
+          ngmClusterLocations.getAdminSites( $scope.project.lists, $scope.project.definition.admin0pcode, pcode, $index, $data, target_location );
         },
 
         // on change
