@@ -80,10 +80,20 @@ angular.module( 'ngmReportHub' )
 					delete b.injury_treatment_same_province;
           inserted = angular.merge( inserted, b, sadd, defaults );
           inserted.transfer_type_id = 0;
-          inserted.transfer_type_value = 0;
+					inserted.transfer_type_value = 0;
+					if (inserted.mpc_delivery_type_id || inserted.mpc_mechanism_type_id || inserted.package_type_id || inserted.unit_type_id){
+						inserted.mpc_delivery_type_id= null;
+						inserted.mpc_delivery_type_name= null;
+						inserted.mpc_mechanism_type_id = null;
+						inserted.mpc_mechanism_type_name= null ;
+						inserted.package_type_id=null;
+						inserted.package_type_name= null;
+						inserted.unit_type_id=null;
+						inserted.unit_type_name=null;
+					}
         }
 
-        // return new beneficiary
+				// return new beneficiary
         return inserted;
 			},
 
@@ -347,7 +357,81 @@ angular.module( 'ngmReportHub' )
         }
 
         return selected.length ? selected[0].mpc_delivery_type_name : '-';
-      },
+			},
+
+			showCashMechanism: function ( lists, $data, $beneficiary ){
+				var selected = [];
+				$beneficiary.mpc_mechanism_type_id = $data;
+				if ($beneficiary.mpc_mechanism_type_id) {
+
+					// selection
+					selected = $filter('filter')(lists.mechanism_delivery, { mpc_mechanism_type_id: $beneficiary.mpc_mechanism_type_id }, true);
+					if (selected.length) {
+						$beneficiary.mpc_mechanism_type_name = selected[0].mpc_mechanism_type_name;
+					} else {
+						selected.push({
+							mpc_mechanism_type_id: 'n_a',
+							mpc_mechanism_type_name: 'N/A'
+						});
+					}					
+
+				}
+
+				return selected.length ? selected[0].mpc_mechanism_type_name : '-';
+
+			},
+			
+			// Show delivery field   
+			showDeliveryfield:function($beneficiary,cluster, list){				
+				var countclusterId=0
+				//check if in the $beneficiary have cluster_id match with cluster parameter   
+				for(var i=0; i<$beneficiary.length;i++){
+					if($beneficiary[i].cluster_id===cluster){
+						countclusterId= countclusterId+1;
+					}
+				}
+				// if the countclusterId>0 set true
+				if(countclusterId>0){				
+					return true;
+				}else{				
+					return false
+				}
+
+			},
+
+			//check activity_description_id of beneficiaries
+			checkClusterOfActivity: function (beneficiaries,cluster, list) {
+				//ALl aactivity_description_id
+				var allActDesc =[];
+				//list is $scope.project.lists.mpc_delivery_types, and make activity_description_id into one array
+				list.forEach(function (l,i) {					
+					allActDesc=allActDesc.concat(l.activity_description_id);			
+				})
+				
+				// check if beneficiaries cluster_id match with cluster parameter and activity_description_id match with activity_description_id in allActDesc
+				if(beneficiaries.cluster_id=== cluster){
+					if (allActDesc.indexOf(beneficiaries.activity_description_id)>-1){						
+						return true
+					}
+					return false
+					// return true;
+				} else {
+					
+					return false;
+				}				
+				//return false;
+			},
+			// To set option and disable Mechanism field option based on activity_description_id
+			showMechanismOption: function(list,activity_description_id){
+				var allActDesc = [];
+				list.forEach(function (l, i) {
+					allActDesc = allActDesc.concat(l.activity_description_id);
+				})
+				if(allActDesc.indexOf(activity_description_id) > -1){
+					return true
+				}
+				return false;
+			},
 
       // display package
       showPackageTypes: function( $data, $beneficiary ) {
