@@ -34,7 +34,8 @@
 							      <td>Activity</td>
 							      <td>Description</td>
 							      <td ng-if="project.definition.admin0pcode === 'NG'">Details</td>
-										<td ng-if="project.showCash()">Delivery</td>
+										<td ng-if="project.showCash() && project.showDeliveryfield() && project.definition.admin0pcode === 'AF'">Delivery</td>
+										<td ng-if="project.showCash()">Mechanism</td>
 										<td ng-if="project.showPackage()">Package</td>
 							      <td ng-if="project.definition.admin0pcode === 'AF' && project.categoryShow2017()">Category</td>
 							      <td>Beneficiary</td>
@@ -91,22 +92,23 @@
 							          {{ project.showDetails( $data, beneficiary ) }}
 							        </span>
 							      </td>
-
-							      <td ng-show="project.showCash()">
-							        <span e-form="rowform"
-							              e-name="mpc_delivery_type_id"
-							              editable-select="beneficiary.mpc_delivery_type_id"
-							              e-placeholder="Select..."
-							              e-ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for b in project.lists.mpc_delivery_types  | filterByArray:beneficiary.activity_description_id:'activity_description_id'"
-							              e-ng-disabled="
-							              	!beneficiary.activity_description_id ||
-															( beneficiary.activity_type_id.indexOf('cash') === -1 &&
-																beneficiary.activity_description_id.indexOf('cash') === -1 &&
-																beneficiary.activity_description_id.indexOf('fsac_in_kind') === -1 &&
-																beneficiary.activity_description_id.indexOf('package') === -1 )">
-							          {{ project.showCashDelivery( $data, beneficiary ) }}
-							        </span>
-							      </td>
+							      
+										<td ng-if="project.showCash( $locationIndex ) && project.showDeliveryfield(project.report.locations[ $locationIndex ].beneficiaries)">
+											<span e-form="rowform" e-name="mpc_delivery_type_id" editable-select="beneficiary.mpc_delivery_type_id" e-placeholder="Select..."
+											 e-ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for b in project.lists.mpc_delivery_types " e-ng-disabled="
+																		 !project.checkClusterOfActivity(beneficiary)">
+												{{ project.showCashDelivery($data, beneficiary) }}
+											</span>											
+										</td>
+										
+										<td ng-show="project.showCash( $locationIndex )">
+											<span e-form="rowform" e-name="mpc_mechanism_type_id" editable-select="beneficiary.mpc_mechanism_type_id" e-placeholder="Select..."
+											 e-ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for b in project.lists.mechanism_delivery 
+																							 | filter: (project.checkClusterOfActivity(beneficiary)== true?{mpc_delivery_type_id:beneficiary.mpc_delivery_type_id}:project.showMechanismOption(beneficiary.activity_description_id)==true?{activity_description_id:beneficiary.activity_description_id}:{activity_description_id:''}):(project.showMechanismOption(beneficiary.activity_description_id)==true?true:false)"
+											 e-ng-disabled="!(project.showMechanismOption(beneficiary.activity_description_id) && beneficiary.mpc_delivery_type_id !== 'in-kind')">
+												{{ project.showCashMechanism($data, beneficiary) }}
+											</span>											
+										</td>
 
 										<td ng-show="project.showPackage()">
 												<span e-form="rowform"

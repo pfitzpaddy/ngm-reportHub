@@ -26,7 +26,7 @@ angular.module( 'ngmReportHub' )
         return {
 
           // lists
-          units: ngmClusterLists.getUnits( project.admin0pcode ),
+					units: ngmClusterLists.getUnits( project.admin0pcode ),
           indicators: ngmClusterLists.getIndicators( true ),
           currencies: ngmClusterLists.getCurrencies(project.admin0pcode ),
           delivery_types: ngmClusterLists.getDeliveryTypes(),
@@ -44,7 +44,8 @@ angular.module( 'ngmReportHub' )
           currencies: ngmClusterLists.getCurrencies( project.admin0pcode ),
           donors: ngmClusterLists.getDonors( project.admin0pcode, project.cluster_id ),
           partial_kits: ngmClusterLists.getPartialKits(),
-          kit_details: ngmClusterLists.getKitDetails(),
+					kit_details: ngmClusterLists.getKitDetails(),
+					mechanism_delivery: ngmClusterLists.getMechanismDelivery(),
           
           // keys to ignore when summing beneficiaries in template ( 2016 )
           skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ],
@@ -290,58 +291,153 @@ angular.module( 'ngmReportHub' )
       getMpcDeliveryTypes: function() {
 
         // types
-        var types = [{
-            activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
-            mpc_delivery_type_id: 'hawala',
-            mpc_delivery_type_name: 'Hawala'
-          },{
-            activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
-            mpc_delivery_type_id: 'cash_in_envelope',
-            mpc_delivery_type_name: 'Cash in Envelope'
-          },{
-            activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
-            mpc_delivery_type_id: 'bank',
-            mpc_delivery_type_name: 'Bank'
-          },{
-            activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
-            mpc_delivery_type_id: 'mobile_cash',
-            mpc_delivery_type_name: 'Mobile Cash'
-          },{
-            activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
-            mpc_delivery_type_id: 'e_cash',
-            mpc_delivery_type_name: 'Electronic Card - Cash'
-          },{
-            activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher', 'fsac_cash_e_voucher' ],
-            mpc_delivery_type_id: 'paper_vouchers',
-            mpc_delivery_type_name: 'Paper Vouchers'
-          },{
-            activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher', 'fsac_cash_e_voucher' ],
-            mpc_delivery_type_id: 'mobile_vouchers',
-            mpc_delivery_type_name: 'Mobile Vouchers'
-          },{
-            activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher', 'fsac_cash_e_voucher' ],
-            mpc_delivery_type_id: 'e_vouchers',
-            mpc_delivery_type_name: 'Electronic Card - Vouchers'
-          },{
-            activity_description_id: [ 'fsac_in_kind' ],
-            mpc_delivery_type_id: 'distribution',
-            mpc_delivery_type_name: 'Distribution'
-          },{
-            activity_description_id: [ 'tent_distribution_2_tarps_package','rental_support_3_month_package','existing_shelter_upgrade_package','nfi_package','winterization_package','transitional_shelter_package' ],
-            mpc_delivery_type_id: 'cash',
-            mpc_delivery_type_name: 'Cash'
-          },{
-            activity_description_id: [ 'tent_distribution_2_tarps_package','rental_support_3_month_package','existing_shelter_upgrade_package','nfi_package','winterization_package','transitional_shelter_package', 'fsac_cash_e_voucher' ],
-            mpc_delivery_type_id: 'voucher',
-            mpc_delivery_type_name: 'Voucher'
-          },{
-            activity_description_id: [ 'tent_distribution_2_tarps_package','rental_support_3_month_package','existing_shelter_upgrade_package','nfi_package','winterization_package','transitional_shelter_package' ],
-            mpc_delivery_type_id: 'in-kind',
-            mpc_delivery_type_name: 'In-kind'
-          }];
+        // var types = [{
+        //     activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
+        //     mpc_delivery_type_id: 'hawala',
+        //     mpc_delivery_type_name: 'Hawala'
+        //   },{
+        //     activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
+        //     mpc_delivery_type_id: 'cash_in_envelope',
+        //     mpc_delivery_type_name: 'Cash in Envelope'
+        //   },{
+        //     activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
+        //     mpc_delivery_type_id: 'bank',
+        //     mpc_delivery_type_name: 'Bank'
+        //   },{
+        //     activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
+        //     mpc_delivery_type_id: 'mobile_cash',
+        //     mpc_delivery_type_name: 'Mobile Cash'
+        //   },{
+        //     activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
+        //     mpc_delivery_type_id: 'e_cash',
+        //     mpc_delivery_type_name: 'Electronic Card - Cash'
+        //   },{
+        //     activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher', 'fsac_cash_e_voucher' ],
+        //     mpc_delivery_type_id: 'paper_vouchers',
+        //     mpc_delivery_type_name: 'Paper Vouchers'
+        //   },{
+        //     activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher', 'fsac_cash_e_voucher' ],
+        //     mpc_delivery_type_id: 'mobile_vouchers',
+        //     mpc_delivery_type_name: 'Mobile Vouchers'
+        //   },{
+        //     activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher', 'fsac_cash_e_voucher' ],
+        //     mpc_delivery_type_id: 'e_vouchers',
+        //     mpc_delivery_type_name: 'Electronic Card - Vouchers'
+        //   },{
+        //     activity_description_id: [ 'fsac_in_kind' ],
+        //     mpc_delivery_type_id: 'distribution',
+        //     mpc_delivery_type_name: 'Distribution'
+        //   },{
+        //     activity_description_id: [ 'tent_distribution_2_tarps_package','rental_support_3_month_package','existing_shelter_upgrade_package','nfi_package','winterization_package','transitional_shelter_package' ],
+        //     mpc_delivery_type_id: 'cash',
+        //     mpc_delivery_type_name: 'Cash'
+        //   },{
+        //     activity_description_id: [ 'tent_distribution_2_tarps_package','rental_support_3_month_package','existing_shelter_upgrade_package','nfi_package','winterization_package','transitional_shelter_package', 'fsac_cash_e_voucher' ],
+        //     mpc_delivery_type_id: 'voucher',
+        //     mpc_delivery_type_name: 'Voucher'
+        //   },{
+        //     activity_description_id: [ 'tent_distribution_2_tarps_package','rental_support_3_month_package','existing_shelter_upgrade_package','nfi_package','winterization_package','transitional_shelter_package' ],
+        //     mpc_delivery_type_id: 'in-kind',
+        //     mpc_delivery_type_name: 'In-kind'
+				//   }];
+				
+				var types =[{
+					activity_description_id: ['fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional', 'mpc_cash_smeb', 'mpc_cash_post_arrival_grant', 'mpc_cash_protection_grant', 'mpc_cash_grant_other', 'nfi_package_cash_restricted_unrestricted_nonstandard', 'nfi_package_cash_restricted_unrestricted_standard_usd', 'winterization_package_cash_restricted_unrestricted_nonstandard', 'winterization_package_cash_restricted_unrestricted_standard_usd', 'transitional_shelter_cash_restricted_unrestricted_usd', 'existing_shelter_cash_restricted_unrestricted_usd_upgrade', 'rental_support_3_month_cash_restricted_unrestricted_usd'],
+					// mpc_delivery_type_id: ['cash', 'cash_in_envelope', 'hawala', 'bank', 'mobile_cash','e_cash'],
+					mpc_delivery_type_id: 'cash',
+        	mpc_delivery_type_name: 'Cash'
+					},{
+						activity_description_id: ['fsac_cash_value_voucher', 'fsac_cash_commodity_voucher', 'fsac_cash_e_voucher',],
+						// mpc_delivery_type_id: ['paper_vouchers', 'mobile_vouchers', 'e_vouchers'],
+						mpc_delivery_type_id: 'voucher',
+						mpc_delivery_type_name: 'Voucher'
+					},{
+						activity_description_id: ['tent_distribution_2_tarps_package', 'rental_support_3_month_package', 'existing_shelter_upgrade_package', 'nfi_package', 'winterization_package', 'transitional_shelter_package'],
+						// mpc_delivery_type_id: ['in-kind', 'distribution'],
+						mpc_delivery_type_id: 'in-kind',
+						mpc_delivery_type_name: 'In-kind'
+					},]
 
         return types;
-      },
+			},
+			
+			getMechanismDelivery: function(){
+				var types = [{
+						activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
+						// mpc_delivery_type_id: ['cash', 'cash_in_envelope', 'hawala', 'bank', 'mobile_cash','e_cash'],
+						mpc_delivery_type_id: 'cash',
+            mpc_mechanism_type_id: 'hawala',
+            mpc_mechanism_type_name: 'Hawala'
+          },{
+            activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
+						// mpc_delivery_type_id: ['cash', 'cash_in_envelope', 'hawala', 'bank', 'mobile_cash', 'e_cash'],
+						mpc_delivery_type_id: 'cash',
+						mpc_mechanism_type_id: 'cash_in_envelope',
+            mpc_mechanism_type_name: 'Cash in Envelope'
+          },{
+            activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
+						// mpc_delivery_type_id: ['cash', 'cash_in_envelope', 'hawala', 'bank', 'mobile_cash', 'e_cash'],
+						mpc_delivery_type_id: 'cash',
+						mpc_mechanism_type_id: 'bank',
+            mpc_mechanism_type_name: 'Bank'
+          },{
+            activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
+						// mpc_delivery_type_id: ['cash', 'cash_in_envelope', 'hawala', 'bank', 'mobile_cash', 'e_cash'],
+						mpc_delivery_type_id: 'cash',
+						mpc_mechanism_type_id: 'mobile_cash',
+            mpc_mechanism_type_name: 'Mobile Cash'
+          },{
+            activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
+						// mpc_delivery_type_id: ['cash', 'cash_in_envelope', 'hawala', 'bank', 'mobile_cash', 'e_cash'],
+						mpc_delivery_type_id: 'cash',
+						mpc_mechanism_type_id: 'e_cash',
+            mpc_mechanism_type_name: 'Electronic Card - Cash'
+          },{
+						activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher', 'fsac_cash_e_voucher' ],
+						// mpc_delivery_type_id: ['paper_vouchers', 'mobile_vouchers', 'e_vouchers'],
+						mpc_delivery_type_id: 'voucher',
+            mpc_mechanism_type_id: 'paper_vouchers',
+            mpc_mechanism_type_name: 'Paper Vouchers'
+          },{
+						activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher', 'fsac_cash_e_voucher' ],
+						// mpc_delivery_type_id: ['paper_vouchers', 'mobile_vouchers', 'e_vouchers'],
+						mpc_delivery_type_id: 'voucher',
+            mpc_mechanism_type_id: 'mobile_vouchers',
+            mpc_mechanism_type_name: 'Mobile Vouchers'
+          },{
+						activity_description_id: [ 'fsac_cash_value_voucher', 'fsac_cash_commodity_voucher', 'fsac_cash_e_voucher' ],
+						// mpc_delivery_type_id: ['paper_vouchers', 'mobile_vouchers', 'e_vouchers'],
+						mpc_delivery_type_id: 'voucher',
+            mpc_mechanism_type_id: 'e_vouchers',
+            mpc_mechanism_type_name: 'Electronic Card - Vouchers'
+          },{
+						activity_description_id: [ 'fsac_in_kind' ],
+						mpc_delivery_type_id: 'distribution',
+            mpc_mechanism_type_id: 'distribution',
+            mpc_mechanism_type_name: 'Distribution'
+					},
+					// {
+          //   activity_description_id: [ 'tent_distribution_2_tarps_package','rental_support_3_month_package','existing_shelter_upgrade_package','nfi_package','winterization_package','transitional_shelter_package' ],
+					// 	// mpc_delivery_type_id: ['cash', 'cash_in_envelope', 'hawala', 'bank', 'mobile_cash', 'e_cash'],
+					// 	mpc_delivery_type_id: 'cash',
+					// 	mpc_mechanism_type_id: 'cash',
+          //   mpc_mechanism_type_name: 'Cash'
+          // },{
+          //   activity_description_id: [ 'tent_distribution_2_tarps_package','rental_support_3_month_package','existing_shelter_upgrade_package','nfi_package','winterization_package','transitional_shelter_package', 'fsac_cash_e_voucher' ],
+					// 	// mpc_delivery_type_id: ['paper_vouchers', 'mobile_vouchers', 'e_vouchers'],
+					// 	mpc_delivery_type_id: 'voucher',
+					// 	mpc_mechanism_type_id: 'voucher',
+          //   mpc_mechanism_type_name: 'Voucher'
+          // },{
+          //   activity_description_id: [ 'tent_distribution_2_tarps_package','rental_support_3_month_package','existing_shelter_upgrade_package','nfi_package','winterization_package','transitional_shelter_package' ],
+					// 	// mpc_delivery_type_id: ['paper_vouchers', 'mobile_vouchers', 'e_vouchers'],
+					// 	mpc_delivery_type_id: 'in-kind',
+					// 	mpc_mechanism_type_id: 'in-kind',
+          //   mpc_mechanism_type_name: 'In-kind'
+					// }
+				];
+					return types
+			},
 
       // get list
       getTransfers: function( length ){
@@ -1137,8 +1233,8 @@ angular.module( 'ngmReportHub' )
         return category_types;
       },
 
-      getUnits: function( admin0pcode ) {
-
+			getUnits: function( admin0pcode ) {
+				
         // filter by cluster?
         var units = [
             { cluster_id: [ 'agriculture' ],
@@ -1250,10 +1346,14 @@ angular.module( 'ngmReportHub' )
         var currencies=[];
         // add each currency
         angular.forEach( this.getCurrencies( admin0pcode ), function( d, i ){
-          currencies.push({ unit_type_id: d.currency_id, unit_type_name: d.currency_name });
+					if(d.currency_id === 'afn'|| d.currency_id === 'usd'){
+						currencies.push({ unit_type_id: d.currency_id, unit_type_name: d.currency_name, mpc_delivery_type_id:'cash' });
+					}else{
+						currencies.push({ unit_type_id: d.currency_id, unit_type_name: d.currency_name });
+					}
         });
-        units = currencies.concat( $filter( 'orderBy' )( units, 'unit_type_name' ) );
-
+				units = currencies.concat( $filter( 'orderBy' )( units, 'unit_type_name' ) );
+								
         return units;
       },
 

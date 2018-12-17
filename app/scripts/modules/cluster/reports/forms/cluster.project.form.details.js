@@ -266,7 +266,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // cash delivery
         showCashDelivery: function( $data, $beneficiary ) {
           return ngmClusterBeneficiaries.showCashDelivery( $scope.project.lists, $data, $beneficiary );
-        },
+				},
+
+				//cash mechanism
+				showCashMechanism: function ($data, $beneficiary) {
+					return ngmClusterBeneficiaries.showCashMechanism($scope.project.lists, $data, $beneficiary);
+				},
 
         // package types
         showPackageTypes: function( $data, $beneficiary ) {
@@ -291,7 +296,20 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // cash
         showCash: function() {
           return ngmClusterBeneficiaries.showCash( $scope.project.definition.target_beneficiaries );
-        },
+				},
+				
+				//check activivity_description and cluster_id of beneficiary
+				checkClusterOfActivity: function ($beneficiary) {
+					return ngmClusterBeneficiaries.checkClusterOfActivity($beneficiary, 'esnfi', $scope.project.lists.mpc_delivery_types);
+				},
+				// show delivery fiels
+				showDeliveryfield: function () {					
+					return ngmClusterBeneficiaries.showDeliveryfield($scope.project.definition.target_beneficiaries, 'esnfi', $scope.project.lists.mpc_delivery_types);
+				},
+				// disable mechanism option
+				showMechanismOption: function ($activityDescription) {
+					return ngmClusterBeneficiaries.showMechanismOption($scope.project.lists.mpc_delivery_types, $activityDescription);
+				},
 
         // show package
         showPackage: function() {
