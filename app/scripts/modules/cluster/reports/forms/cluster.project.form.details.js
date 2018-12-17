@@ -412,8 +412,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // site implementation
-        showSiteImplementation: function( $index, $data, target_location ){
-          return ngmClusterLocations.showSiteImplementation( $scope.project.lists, $index, $data, target_location );
+        showSiteImplementation: function( $data, target_location ){
+          return ngmClusterLocations.showSiteImplementation( $scope.project.lists, $data, target_location );
         },
 
         // showadmin
@@ -422,8 +422,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // fetch lists
-        getAdminSites: function( target_location ){
-          ngmClusterLocations.getAdminSites( $scope.project.lists, $scope.project.definition.admin0pcode, target_location );
+        getAdminSites: function( pcode, $index, $data, target_location ){
+          ngmClusterLocations.getAdminSites( $scope.project.lists, $scope.project.definition.admin0pcode, pcode, $index, $data, target_location );
         },
 
         // on change

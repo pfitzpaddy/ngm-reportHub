@@ -4,7 +4,7 @@
     <tr style="font-weight: 400">
 			<td>Cluster</td>
 			<td>Stock Purpose</td>
-			<td ng-if="report.cluster_id === 'esnfi'">Targeted Groups</td>
+			<td>Targeted Groups</td>
       <td>Stock Type</td>
       <td>Status</td>
       <td>No. in Stock</td>
@@ -26,7 +26,7 @@
           {{ report.showStockPurpose($data, stock) }}
         </span>
       </td>
-			<td ng-if="report.cluster_id === 'esnfi'">
+			<td>
 				<span e-placeholder="Select..." editable-select="stock.stock_targeted_groups_id" e-name="stock_targeted_groups_id" e-form="rowform" e-ng-options="item.stock_targeted_groups_id as item.stock_targeted_groups_name for item in report.lists.stock_targeted_groups "
 				 e-required>
 					{{ report.showStockTargetedGroup($data, stock) }}

@@ -105,6 +105,18 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         template_partial_kits: 'beneficiaries/ET/partial_kits.html',
         template_kit_details: 'beneficiaries/ET/kit_details.html',
         notesUrl: 'notes.html',
+
+        // init lists
+        init: function() {
+          // usd default currency
+          if( !$scope.project.definition.project_budget_currency ){
+            $scope.project.definition.project_budget_currency = 'usd';
+          }
+          // set org users
+          ngmClusterLists.setOrganizationUsersList( $scope.project.lists, config.project );
+          // set form on page load
+          ngmClusterHelper.setForm( $scope.project.definition, $scope.project.lists );
+        },
         
         // beneficairies template
         beneficiariesUrl: function() {
@@ -210,14 +222,24 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         
         /**** LOCATIONS ****/
 
+        // project focal point
+        showReporter: function( $data, target_location ){
+          return ngmClusterLocations.showReporter( $scope.project.lists, $data, target_location )
+        },
+
+        // site implementation
+        showSiteImplementation: function( $data, target_location ){
+          return ngmClusterLocations.showSiteImplementation( $scope.project.lists, $data, target_location );
+        },
+
         // showadmin
         showAdmin: function( parent_pcode, list, pcode, name, $index, $data, target_location ){
           return ngmClusterLocations.showAdmin( $scope.project.lists, parent_pcode, list, pcode, name, $index, $data, target_location );
         },
 
         // fetch lists
-        getAdminSites: function( target_location ){
-          ngmClusterLocations.getAdminSites( $scope.project.lists, $scope.project.definition.admin0pcode, target_location );
+        getAdminSites: function( pcode, $index, $data, target_location ){
+          ngmClusterLocations.getAdminSites( $scope.project.lists, $scope.project.definition.admin0pcode, pcode, $index, $data, target_location );
         },
 
         // on change
@@ -493,9 +515,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           });;
 
         }
-				
-			}
-					
+
+      }
+
+      // init project
+      $scope.project.init();
   }
 
 ]);

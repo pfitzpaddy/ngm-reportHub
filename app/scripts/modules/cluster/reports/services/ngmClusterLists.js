@@ -2376,6 +2376,9 @@ angular.module( 'ngmReportHub' )
           },{
             site_implementation_id: 'orp',
             site_implementation_name: 'ORP'
+          },{
+            site_implementation_id: 'clinic',
+            site_implementation_name: 'Clinic'
           }];
         } else {
           site_implementation = [{
@@ -2414,6 +2417,9 @@ angular.module( 'ngmReportHub' )
           },{
             site_implementation_id: 'orp',
             site_implementation_name: 'ORP'
+          },{
+            site_implementation_id: 'clinic',
+            site_implementation_name: 'Clinic'
           }];
 
         }
@@ -2454,6 +2460,53 @@ angular.module( 'ngmReportHub' )
             site_type_name: 'Refugee Site'
           }];
 
+        // et
+        if ( admin0pcode === 'ET' ) {
+          site_types = [{
+            site_type_id: 'multiple_sites',
+            site_type_name: 'Multiple Sites'
+          },{
+            site_type_id: 'settlement',
+            site_type_name: 'Settlement'
+          },{
+            site_type_id: 'hospital',
+            site_type_name: 'Hospital'
+          },{
+            site_type_id: 'health_center',
+            site_type_name: 'Health Center'
+          },{
+            site_type_id: 'health_post',
+            site_type_name: 'Health Post'
+          },{
+            site_type_id: 'clinic',
+            site_type_name: 'Clinic'
+          },{
+            site_type_id: 'schools',
+            site_type_name: 'School'
+          },{
+            site_type_id: 'host_community_families',
+            site_type_name: 'Host Community/Families'
+          },{
+            site_type_id: 'collective_center',
+            site_type_name: 'Collective Center'
+          },{
+            site_type_id: 'dispersed_settlement',
+            site_type_name: 'Dispersed Settlement'
+          },{
+            site_type_id: 'planned_site',
+            site_type_name: 'Planned Site'
+          },{
+            site_type_id: 'spontaneous_site',
+            site_type_name: 'Spontaneous Site'
+          },{
+            site_type_id: 'transit_site',
+            site_type_name: 'Transit Site'
+          },{
+            site_type_id: 'other',
+            site_type_name: 'Other'
+          }];
+        } 
+
         // ng
         if ( admin0pcode === 'NG' ) {
           site_types = [{
@@ -2463,14 +2516,17 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'host_community',
             site_type_name: 'Host Community'
           },{
-            site_type_id: 'collective_settlement',
+            site_type_id: 'settlement',
             site_type_name: 'Settlement'
+          },{
+            site_type_id: 'collective_settlement',
+            site_type_name: 'Collective Settlement/Centre'
           },{
             site_type_id: 'transitional_centre',
             site_type_name: 'Transitional Centre'
           },{
-            site_type_id: 'school',
-            site_type_name: 'School'
+            site_type_id: 'idp_site',
+            site_type_name: 'IDP Site'
           },{
             site_type_id: 'hospital',
             site_type_name: 'Hospital'
@@ -2481,8 +2537,8 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'nutrition_center',
             site_type_name: 'Nutrition Center'
           },{
-            site_type_id: 'idp_camp',
-            site_type_name: 'IDP Camp'
+            site_type_id: 'school',
+            site_type_name: 'School'
           }];
         }
 
@@ -2885,20 +2941,20 @@ angular.module( 'ngmReportHub' )
 			getStockTargetedGroups: function(){
 				var stock_targeted_groups= [
 					{
-						stock_targeted_groups_id: 'all',
-						stock_targeted_groups_name: 'All'
+						stock_targeted_groups_id: 'all_population',
+						stock_targeted_groups_name: 'All Population'
 					},
 					{
-						stock_targeted_groups_id: 'conflict',
-						stock_targeted_groups_name: 'Conflict'
+						stock_targeted_groups_id: 'conflict_affected',
+						stock_targeted_groups_name: 'Conflict Affected'
 					},
 					{
 						stock_targeted_groups_id: 'natural_disaster',
 						stock_targeted_groups_name: 'Natural Disaster'
 					},
 					{
-						stock_targeted_groups_id: 'returnee',
-						stock_targeted_groups_name: 'Returnee'
+						stock_targeted_groups_id: 'returnees',
+						stock_targeted_groups_name: 'Returnees'
 					},
 
 				]
