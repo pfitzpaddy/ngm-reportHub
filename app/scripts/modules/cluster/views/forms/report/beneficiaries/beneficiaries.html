@@ -57,7 +57,7 @@
         </span>
       </td>
       <!-- show cash delivery -->
-      <td ng-if="project.showCash( $locationIndex ) && project.showDeliveryfield(project.report.locations[ $locationIndex ].beneficiaries)">
+      <td ng-if="project.showCash( $locationIndex ) && project.showDeliveryfield(project.report.locations[ $locationIndex ].beneficiaries) && project.definition.admin0pcode === 'AF'">
 				<span 
 							e-form="rowform"
               e-name="mpc_delivery_type_id"
@@ -76,7 +76,7 @@
               editable-select="beneficiary.mpc_mechanism_type_id"
               e-placeholder="Select..."
 							e-ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for b in project.lists.mechanism_delivery 
-													 | filter: (project.checkClusterOfActivity(beneficiary)== true?{mpc_delivery_type_id:beneficiary.mpc_delivery_type_id}:project.showMechanismOption(beneficiary.activity_description_id)==true?{activity_description_id:beneficiary.activity_description_id}:{activity_description_id:''}):(project.showMechanismOption(beneficiary.activity_description_id)==true?true:false)"
+													 | filter: (project.definition.admin0pcode === 'AF' && project.checkClusterOfActivity(beneficiary)== true?{mpc_delivery_type_id:beneficiary.mpc_delivery_type_id}:project.showMechanismOption(beneficiary.activity_description_id)==true?{activity_description_id:beneficiary.activity_description_id}:{activity_description_id:''}):(project.showMechanismOption(beneficiary.activity_description_id)==true?true:false)"
               e-ng-disabled="!(project.showMechanismOption(beneficiary.activity_description_id) && beneficiary.mpc_delivery_type_id !== 'in-kind')">
           {{ project.showCashMechanism($data, beneficiary) }}
 				</span>				
