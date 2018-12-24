@@ -88,9 +88,11 @@ angular.module('ngmReportHub')
 							
 							// add month to menu
 							$scope.model.menu.push(ngmDroughtHelper.getMonthRows());
-
+							
+							//add response to menu
+							$scope.model.menu.push(ngmDroughtHelper.getResponseRows());
 							//add plan to menu
-							$scope.model.menu.push(ngmDroughtHelper.getPlanRows());
+							$scope.model.menu.push(ngmDroughtHelper.getPlanRows($route.current.params.urgency));
 
 							
 						})
@@ -165,6 +167,7 @@ angular.module('ngmReportHub')
 					ngmDroughtHelper.setParams({
 
 						url: '#/response/afghanistan/drought/dashboard',
+						urgency: $route.current.params.urgency,
 						statusPlan: $route.current.params.status_plan,
 						year: $route.current.params.year,
 						cluster: $route.current.params.cluster,
