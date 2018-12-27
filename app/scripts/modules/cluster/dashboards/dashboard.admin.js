@@ -42,6 +42,11 @@ angular.module('ngmReportHub')
 				// current user
 				user: ngmUser.get(),
 
+				userRestrictedRouteParams: ngmAuth.getRouteParams('ADMIN'),
+
+				// use menu itemes by user permissions
+				userMenuItems: ngmAuth.getMenuParams('ADMIN'),
+
 				// report period start
 				startDate: moment( $route.current.params.start ).format( 'YYYY-MM-DD' ),
 
@@ -377,7 +382,7 @@ angular.module('ngmReportHub')
 				},
 
 				// menu
-				setMenu: function( role ){
+				setMenu: function( userMenuItems ){
 
 					// menu rows
 					var clusterRows = [],
@@ -389,11 +394,18 @@ angular.module('ngmReportHub')
 							data: $scope.dashboard.getRequest( 'organizations', true )
 						};
 
-					// SUPERADMIN
-					if ( role !== 'admin' ){
+					if( userMenuItems.includes('adminRpcode') ){
+						$scope.model.menu = $scope.dashboard.menu;
+					}
+
+					if( userMenuItems.includes('admin0pcode') ){
 						if ($scope.dashboard.user.organization_tag !== 'usaid'){
 							$scope.dashboard.setCountryMenu();
 						}
+					}
+
+					if( userMenuItems.includes('cluster_id') ){
+						
 						// add cluster
 						angular.forEach( $scope.dashboard.lists.clusters, function( d, i ){
 
@@ -427,15 +439,55 @@ angular.module('ngmReportHub')
 							'class': 'teal lighten-1 white-text',
 							'rows': clusterRows
 						});
-
 					}
+	
+					// // SUPERADMIN
+					// if ( role !== 'admin' ){
+					// 	if ($scope.dashboard.user.organization_tag !== 'usaid'){
+					// 		$scope.dashboard.setCountryMenu();
+					// 	}
+					// 	// add cluster
+					// 	angular.forEach( $scope.dashboard.lists.clusters, function( d, i ){
+
+					// 		// admin URL
+					// 		var path = $scope.dashboard.getPath( d.cluster_id, 'all', $scope.dashboard.report_type, $scope.dashboard.organization_tag );
+
+					// 		// menu rows
+					// 		clusterRows.push({
+					// 			'title': $scope.dashboard.lists.clusters[i].cluster,
+					// 			'param': 'cluster_id',
+					// 			'active': d.cluster_id,
+					// 			'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+					// 			'href': '/desk/#' + path
+					// 		});
+
+					// 	});
+
+					// 	// add clusters
+					// 	if ( $scope.dashboard.lists.clusters[ 0 ].cluster_id !== 'all' ){
+					// 		$scope.dashboard.lists.clusters.unshift({
+					// 			cluster_id: 'all',
+					// 			cluster: 'ALL',
+					// 		});
+					// 	}
+
+					// 	$scope.model.menu.push({
+					// 		'search': true,
+					// 		'id': 'search-cluster',
+					// 		'icon': 'camera',
+					// 		'title': 'Sector',
+					// 		'class': 'teal lighten-1 white-text',
+					// 		'rows': clusterRows
+					// 	});
+
+					// }
 
 					// reports
 					$scope.dashboard.setReportMenu();
 					$scope.dashboard.setActivityMenu();
 
 					// ADMIN
-					if ( role === 'super' || role === 'country' || role === 'admin' ){
+					if( userMenuItems.includes('organization_tag') ){
 
 						// fetch org list
 						ngmData.get( request ).then( function( organizations  ){
@@ -482,6 +534,53 @@ angular.module('ngmReportHub')
 						});
 
 					}
+					// if ( role === 'super' || role === 'country' || role === 'admin' ){
+
+					// 	// fetch org list
+					// 	ngmData.get( request ).then( function( organizations  ){
+
+					// 		// set organization
+					// 		if ( $scope.dashboard.organization_tag !== 'all' ) {
+					// 			var org = $filter( 'filter' )( organizations, { organization_tag: $scope.dashboard.organization_tag } );
+					// 			if ( org.length ) {
+					// 				$scope.dashboard.organization = org[0].organization;
+					// 				$scope.dashboard.setTitle();
+					// 				$scope.dashboard.setSubtitle();
+					// 			}
+					// 		}
+
+					// 		// for each
+					// 		organizations.forEach(function( d, i ){
+
+					// 			// admin URL
+					// 			var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.report_type, d.organization_tag );
+
+					// 			// menu rows
+					// 			orgRows.push({
+					// 				'title': d.organization,
+					// 				'param': 'organization_tag',
+					// 				'active': d.organization_tag,
+					// 				'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+					// 				'href': '/desk/#' + path
+					// 			});
+
+					// 		});
+
+					// 		// organization menu
+					// 		if ( $scope.model.menu[ $scope.model.menu.length - 1 ].title !== 'Organization' ) {
+					// 			$scope.model.menu.push({
+					// 				'search': true,
+					// 				'id': 'search-cluster-organization',
+					// 				'icon': 'supervisor_account',
+					// 				'title': 'Organization',
+					// 				'class': 'teal lighten-1 white-text',
+					// 				'rows': orgRows
+					// 			});
+					// 		} 
+
+					// 	});
+
+					// }
 
 				},
 
@@ -830,45 +929,50 @@ angular.module('ngmReportHub')
 					// report name
 					$scope.dashboard.report_file_name += moment().format( 'YYYY-MM-DDTHHmm' );
 
+					// override route params to user permitted zone params if any
+					for (const key of $scope.dashboard.userRestrictedRouteParams){
+						$scope.dashboard[key] = $scope.dashboard.user[key].toLowerCase()
+					}
+					
 					// USER
-					if ( $scope.dashboard.user.roles && 
-								$scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 && 
-								$scope.dashboard.user.roles.indexOf( 'COUNTRY' ) === -1 && 
-								$scope.dashboard.user.roles.indexOf( 'ADMIN' ) === -1 ) {
-						$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
-						$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode;
-						// $scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
-						$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
-						$scope.dashboard.organization = $scope.dashboard.user.organization;
-						$scope.dashboard.role = 'USER';
-					}
+					// if ( $scope.dashboard.user.roles && 
+					// 			$scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 && 
+					// 			$scope.dashboard.user.roles.indexOf( 'COUNTRY' ) === -1 && 
+					// 			$scope.dashboard.user.roles.indexOf( 'ADMIN' ) === -1 ) {
+					// 	$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
+					// 	$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode;
+					// 	// $scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
+					// 	$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
+					// 	$scope.dashboard.organization = $scope.dashboard.user.organization;
+					// 	$scope.dashboard.role = 'USER';
+					// }
 
-					// ADMIN
-					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
-						$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
-						$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode; 
-						$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
-						$scope.dashboard.role = 'ADMIN';
-					}
+					// // ADMIN
+					// if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
+					// 	$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
+					// 	$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode; 
+					// 	$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
+					// 	$scope.dashboard.role = 'ADMIN';
+					// }
 
-					// COUNTRY
-					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'COUNTRY' ) !== -1 ) {
-						$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
-						$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode;
-						$scope.dashboard.cluster_id = $route.current.params.cluster_id;
-						$scope.dashboard.role = 'COUNTRY';
-					}
+					// // COUNTRY
+					// if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'COUNTRY' ) !== -1 ) {
+					// 	$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
+					// 	$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode;
+					// 	$scope.dashboard.cluster_id = $route.current.params.cluster_id;
+					// 	$scope.dashboard.role = 'COUNTRY';
+					// }
 
-					// SUPERADMIN
-					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 ) {
-						$scope.dashboard.adminRpcode = $route.current.params.adminRpcode;
-						$scope.dashboard.admin0pcode = $route.current.params.admin0pcode;
-						$scope.dashboard.cluster_id = $route.current.params.cluster_id;
-						$scope.dashboard.organization_tag = $route.current.params.organization_tag;
-						$scope.dashboard.report_type = $route.current.params.report_type;
-						$scope.dashboard.activity_type_id = $route.current.params.activity_type_id;
-						$scope.dashboard.role = 'SUPERADMIN';
-					}
+					// // SUPERADMIN
+					// if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 ) {
+					// 	$scope.dashboard.adminRpcode = $route.current.params.adminRpcode;
+					// 	$scope.dashboard.admin0pcode = $route.current.params.admin0pcode;
+					// 	$scope.dashboard.cluster_id = $route.current.params.cluster_id;
+					// 	$scope.dashboard.organization_tag = $route.current.params.organization_tag;
+					// 	$scope.dashboard.report_type = $route.current.params.report_type;
+					// 	$scope.dashboard.activity_type_id = $route.current.params.activity_type_id;
+					// 	$scope.dashboard.role = 'SUPERADMIN';
+					// }
 
 					// set
 					$scope.dashboard.setUrl();
@@ -1174,31 +1278,35 @@ angular.module('ngmReportHub')
 
 			// set dashboard
 			$scope.dashboard.setDashboard();
-
+			// filters = ngmAuth.getFilterParams('ADMIN_FILTERS')
+			// console.log(filters)
 			// set menu
-			if ( $scope.dashboard.user.roles.indexOf( 'USER' ) !== -1 ) {
-				// USER
-				$scope.model.menu = [];
-				$scope.dashboard.setMenu( 'user' );
-			}
-			if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
-				// ADMIN
-				$scope.model.menu = [];
-				$scope.dashboard.setMenu( 'admin' );
-			}
-			if ( $scope.dashboard.user.roles.indexOf( 'COUNTRY' ) !== -1 ) {
-				// COUNTRY
-				$scope.model.menu = [];
-				$scope.dashboard.setMenu( 'country' );
-			}
-			if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 ) {
-				// SUPERADMIN
-				$scope.model.menu = $scope.dashboard.menu;
-				if ($scope.dashboard.user.organization_tag === 'usaid'){
-					$scope.model.menu = [];
-				}
-				$scope.dashboard.setMenu( 'super' );
-			}
+			// 
+			$scope.model.menu = [];
+			$scope.dashboard.setMenu( $scope.dashboard.userMenuItems );
+			// if ( $scope.dashboard.user.roles.indexOf( 'USER' ) !== -1 ) {
+			// 	// USER
+			// 	$scope.model.menu = [];
+			// 	$scope.dashboard.setMenu( 'user' );
+			// }
+			// if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
+			// 	// ADMIN
+			// 	$scope.model.menu = [];
+			// 	$scope.dashboard.setMenu( 'admin' );
+			// }
+			// if ( $scope.dashboard.user.roles.indexOf( 'COUNTRY' ) !== -1 ) {
+			// 	// COUNTRY
+			// 	$scope.model.menu = [];
+			// 	$scope.dashboard.setMenu( 'country' );
+			// }
+			// if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 ) {
+			// 	// SUPERADMIN
+			// 	$scope.model.menu = $scope.dashboard.menu;
+			// 	if ($scope.dashboard.user.organization_tag === 'usaid'){
+			// 		$scope.model.menu = [];
+			// 	}
+			// 	$scope.dashboard.setMenu( 'super' );
+			// }
 
 			// assign to ngm app scope ( for menu )
 			$scope.dashboard.ngm.dashboard.model = $scope.model;
