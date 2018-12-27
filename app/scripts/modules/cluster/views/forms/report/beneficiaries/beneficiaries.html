@@ -363,18 +363,18 @@
         </form>
         <div class="buttons"
               ng-if="!rowform.$visible">
-          <div class="btn btn-small waves-effect waves-light"
+          <button class="btn btn-small waves-effect waves-light"
                 ng-click="rowform.$show();ngmClusterHelperNgWash.init_material_select();"
                 title="Edit">
 						<i class="material-icons">create</i>
-          </div>
-          <div class="btn btn-small red lighten-2 waves-effect waves-light"
+          </button>
+          <button class="btn btn-small red lighten-2 waves-effect waves-light"
                 ng-click="project.removeBeneficiaryModal( $locationIndex, $beneficiaryIndex )"
                 title="Remove"
                 ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
                               !ngmClusterTrainings.trainingFormComplete( project.report.locations  )">
           	<i class="material-icons">delete</i>
-          </div>
+          </button>
         </div>
       </td>
 		</tr>
