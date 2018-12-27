@@ -68,8 +68,10 @@ angular.module('ngmReportHub')
 						        var disabled = true;
 										if ( user.status === 'active' &&
 						        			( $scope.dashboard.username === $scope.dashboard.user.username ||
-						        			( $scope.dashboard.user.roles.indexOf('ORG') !== -1 ||
-						        				$scope.dashboard.user.roles.indexOf('SUPERADMIN') !== -1 ) ) ) {
+											( ngmAuth.canEdit( 'EDIT_USER', { adminRpcode: user.adminRpcode, 
+																			  admin0pcode: user.admin0pcode, 
+																			  cluster_id: user.cluster_id, 
+																			  organization_tag: user.organization_tag } ) ) ) ) {
 						          disabled = false;
 						        }
 						        return disabled;
@@ -77,8 +79,10 @@ angular.module('ngmReportHub')
 						      activateUpdateVisible: function() {
 						        var visible = false;
 						        if ( $scope.dashboard.user.username !== $scope.dashboard.username && 
-						        			( $scope.dashboard.user.roles.indexOf('ORG') !== -1 ||
-						        				$scope.dashboard.user.roles.indexOf('SUPERADMIN') !== -1 ) ) {
+											( ngmAuth.canEdit( 'EDIT_USER', { adminRpcode: user.adminRpcode, 
+																			  admin0pcode: user.admin0pcode, 
+																			  cluster_id: user.cluster_id, 
+																			  organization_tag: user.organization_tag } ) ) ) {
 						          visible = true;
 						        }
 						        return visible;
