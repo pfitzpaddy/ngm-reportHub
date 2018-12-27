@@ -36,17 +36,33 @@ angular
 			// .when('/response/afghanistan/drought/dashboard/non_displaced', {
 			// 	redirectTo: '/response/afghanistan/drought/dashboard/non_displaced/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
 			// })
-			.when('/response/afghanistan/drought/dashboard/non_displaced', {
+			.when('/response/afghanistan/drought/dashboard/emergency/all', {
+				// redirectTo: '/response/afghanistan/drought/dashboard/non_displaced/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+				resolve: {
+					access: ['$location', 'ngmUser', function ($location, ngmUser) {
+						var user = ngmUser.get();
+						if (user.roles.indexOf('SUPERADMIN') !== -1) {
+							var url = '/response/afghanistan/drought/dashboard/emergency/all/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+						} else if (user.roles.indexOf('ADMIN') !== -1) {
+							var url = '/response/afghanistan/drought/dashboard/emergency/all/' + moment().year() + '/' + user.cluster_id + '/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+						} else {
+							var url = '/response/afghanistan/drought/dashboard/emergency/all/' + moment().year() + '/' + user.cluster_id + '/all/all/' + user.organization_tag + '/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+						}
+						$location.path(url);
+					}]
+				}
+			})
+			.when('/response/afghanistan/drought/dashboard/emergency/drought_affected_non_displaced', {
 				// redirectTo: '/response/afghanistan/drought/dashboard/non_displaced/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
 				resolve:{
 					access: ['$location', 'ngmUser', function ($location, ngmUser) {
 						var user = ngmUser.get();
 						if(user.roles.indexOf('SUPERADMIN') !== -1){
-							var url = '/response/afghanistan/drought/dashboard/non_displaced/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+							var url = '/response/afghanistan/drought/dashboard/emergency/drought_affected_non_displaced/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
 						} else if (user.roles.indexOf('ADMIN') !== -1){
-							var url = '/response/afghanistan/drought/dashboard/non_displaced/' + moment().year() +'/'+ user.cluster_id + '/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+							var url = '/response/afghanistan/drought/dashboard/emergency/drought_affected_non_displaced/' + moment().year() +'/'+ user.cluster_id + '/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
 						} else {
-							var url = '/response/afghanistan/drought/dashboard/non_displaced/' + moment().year() + '/' + user.cluster_id + '/all/all/' + user.organization_tag +'/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+							var url = '/response/afghanistan/drought/dashboard/emergency/drought_affected_non_displaced/' + moment().year() + '/' + user.cluster_id + '/all/all/' + user.organization_tag +'/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
 						}
 						$location.path(url);
 					}]
@@ -56,17 +72,49 @@ angular
 			// .when('/response/afghanistan/drought/dashboard/displaced', {
 			// 	redirectTo: '/response/afghanistan/drought/dashboard/displaced/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
 			// })
-			.when('/response/afghanistan/drought/dashboard/displaced', {
+			.when('/response/afghanistan/drought/dashboard/emergency/drought_affected_displaced', {
 				// redirectTo: '/response/afghanistan/drought/dashboard/displaced/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
 				resolve: {
 					access: ['$location', 'ngmUser', function ($location, ngmUser) {
 						var user = ngmUser.get();
 						if (user.roles.indexOf('SUPERADMIN') !== -1) {
-							var url = '/response/afghanistan/drought/dashboard/displaced/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+							var url = '/response/afghanistan/drought/dashboard/emergency/drought_affected_displaced/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
 						} else if (user.roles.indexOf('ADMIN') !== -1) {
-							var url = '/response/afghanistan/drought/dashboard/displaced/' + moment().year() + '/' + user.cluster_id + '/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+							var url = '/response/afghanistan/drought/dashboard/emergency/drought_affected_displaced/' + moment().year() + '/' + user.cluster_id + '/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
 						} else {
-							var url = '/response/afghanistan/drought/dashboard/displaced/' + moment().year() + '/' + user.cluster_id + '/all/all/' + user.organization_tag + '/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+							var url = '/response/afghanistan/drought/dashboard/emergency/drought_affected_displaced/' + moment().year() + '/' + user.cluster_id + '/all/all/' + user.organization_tag + '/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+						}
+						$location.path(url);
+					}]
+				}
+			})
+			.when('/response/afghanistan/drought/dashboard/non_emergency/all', {
+				// redirectTo: '/response/afghanistan/drought/dashboard/displaced/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+				resolve: {
+					access: ['$location', 'ngmUser', function ($location, ngmUser) {
+						var user = ngmUser.get();
+						if (user.roles.indexOf('SUPERADMIN') !== -1) {
+							var url = '/response/afghanistan/drought/dashboard/non_emergency/all/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+						} else if (user.roles.indexOf('ADMIN') !== -1) {
+							var url = '/response/afghanistan/drought/dashboard/non_emergency/all/' + moment().year() + '/' + user.cluster_id + '/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+						} else {
+							var url = '/response/afghanistan/drought/dashboard/non_emergency/all/' + moment().year() + '/' + user.cluster_id + '/all/all/' + user.organization_tag + '/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+						}
+						$location.path(url);
+					}]
+				}
+			})
+			.when('/response/afghanistan/drought/dashboard/non_emergency/natural_disaster_affected_drought', {
+				// redirectTo: '/response/afghanistan/drought/dashboard/displaced/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+				resolve: {
+					access: ['$location', 'ngmUser', function ($location, ngmUser) {
+						var user = ngmUser.get();
+						if (user.roles.indexOf('SUPERADMIN') !== -1) {
+							var url = '/response/afghanistan/drought/dashboard/non_emergency/natural_disaster_affected_drought/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+						} else if (user.roles.indexOf('ADMIN') !== -1) {
+							var url = '/response/afghanistan/drought/dashboard/non_emergency/natural_disaster_affected_drought/' + moment().year() + '/' + user.cluster_id + '/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+						} else {
+							var url = '/response/afghanistan/drought/dashboard/non_emergency/natural_disaster_affected_drought/' + moment().year() + '/' + user.cluster_id + '/all/all/' + user.organization_tag + '/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
 						}
 						$location.path(url);
 					}]
@@ -75,17 +123,17 @@ angular
 			// .when('/response/afghanistan/drought/dashboard/all', {
 			// 	redirectTo: '/response/afghanistan/drought/dashboard/all/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
 			// })
-			.when('/response/afghanistan/drought/dashboard/all', {
+			.when('/response/afghanistan/drought/dashboard/all/all', {
 				// redirectTo: '/response/afghanistan/drought/dashboard/all/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
 				resolve: {
 					access: ['$location', 'ngmUser', function ($location, ngmUser) {
 						var user = ngmUser.get();
 						if (user.roles.indexOf('SUPERADMIN') !== -1) {
-							var url = '/response/afghanistan/drought/dashboard/all/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+							var url = '/response/afghanistan/drought/dashboard/all/all/' + moment().year() + '/all/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
 						} else if (user.roles.indexOf('ADMIN') !== -1) {
-							var url = '/response/afghanistan/drought/dashboard/all/' + moment().year() + '/' + user.cluster_id + '/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+							var url = '/response/afghanistan/drought/dashboard/all/all/' + moment().year() + '/' + user.cluster_id + '/all/all/all/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
 						} else {
-							var url = '/response/afghanistan/drought/dashboard/all/' + moment().year() + '/' + user.cluster_id + '/all/all/' + user.organization_tag + '/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
+							var url = '/response/afghanistan/drought/dashboard/all/all/' + moment().year() + '/' + user.cluster_id + '/all/all/' + user.organization_tag + '/all/' + moment().startOf('month').format('YYYY-MM-DD') + '/' + moment().format('YYYY-MM-DD')
 						}
 						$location.path(url);
 					}]
@@ -93,7 +141,7 @@ angular
 			})
 
 
-			.when('/response/afghanistan/drought/dashboard/:status_plan/:year/:cluster/:province/:district/:organization/:month/:start/:end', {
+			.when('/response/afghanistan/drought/dashboard/:urgency/:status_plan/:year/:cluster/:province/:district/:organization/:month/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardDroughtCtrl',
 				resolve: {

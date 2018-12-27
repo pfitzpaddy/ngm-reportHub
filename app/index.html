@@ -205,7 +205,8 @@
 									</li>
 									<li  align="center" class="teal z-depth-2" 
 										ng-if="ngm.getUser().admin0pcode.toLowerCase() === 'af'"
-										ng-show="ngm.getUser().cluster_id.toLowerCase() === 'nutrition'">
+										ng-show="ngm.getUser().cluster_id.toLowerCase() === 'nutrition'||
+														 ngm.getUser().organization.toLowerCase() === 'usaid'">
 										<a class="white-text right" href="#/nutrition/afghanistan/" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">bubble_chart</i>NUTRITION WEEKLY</a>
 									</li>
@@ -225,7 +226,8 @@
 										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
 															ngm.getUser().organization.toLowerCase() === 'moph' || 
 															ngm.getUser().organization.toLowerCase() === 'who' || 
-															ngm.getUser().organization.toLowerCase() === 'dews'">
+															ngm.getUser().organization.toLowerCase() === 'dews'||
+															ngm.getUser().organization.toLowerCase() === 'usaid'">
 										<a class="white-text right" href="#/epr" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">bubble_chart</i>EPR DASHBOARD</a>
 									</li>

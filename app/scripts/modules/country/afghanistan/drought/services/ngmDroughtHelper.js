@@ -31,6 +31,7 @@ angular.module('ngmReportHub')
 					data: {
 						indicator: indicator,
 						list: list,
+						urgency: dashboard.urgency,
 						status_plan: dashboard.statusPlan,
 						year: dashboard.year,
 						cluster: dashboard.cluster,
@@ -264,38 +265,118 @@ angular.module('ngmReportHub')
 				};
 
 			},
+			getResponseRows: function(){
+				var rows = [					
+					{
+						'title': 'All',
+						'param': 'urgency',
+						'active': 'all',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '#/response/afghanistan/drought/dashboard/all/all' //+ '/' + dashboard.year + '/' + dashboard.cluster + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.month + '/' + dashboard.startDate + '/' + dashboard.endDate
+					},
+					{
+						'title': 'Emergency',
+						'param': 'urgency',
+						'active': 'emergency',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '#/response/afghanistan/drought/dashboard/emergency/all' //+ '/' + dashboard.year + '/' + dashboard.cluster + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.month + '/' + dashboard.startDate + '/' + dashboard.endDate
+					},
+					{
+						'title': 'Non-Emergency',
+						'param': 'urgency',
+						'active': 'non_emergency',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '#/response/afghanistan/drought/dashboard/non_emergency/all' //+ '/' + dashboard.year + '/' + dashboard.cluster + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.month + '/' + dashboard.startDate + '/' + dashboard.endDate
+					},
+				];
 
-			getPlanRows:function () {
-				var rows = [
-					// {
-					// 	'title': 'All',
-					// 	'param': 'cluster',
-					// 	'active': 'all',
-					// 	'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-					// 	'href': dashboard.url + '/' + dashboard.statusPlan + '/' + dashboard.year + '/' + 'all' + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.month + '/' + dashboard.startDate + '/' + dashboard.endDate
-					// },
+				return {
+					'id': 'drought-response',
+					'icon': 'compare_arrows',
+					'title': 'Response Type',
+					'class': 'teal lighten-1 white-text',
+					'rows': rows
+				};
+
+			},
+			getPlanRows:function (response) {
+				var all = [					
 					{
 						'title': 'All',
 						'param': 'status_plan',
 						'active': 'all',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '#/response/afghanistan/drought/dashboard/all' + '/' + dashboard.year + '/' + dashboard.cluster  + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.month + '/' + dashboard.startDate + '/' + dashboard.endDate
+						'href': '#/response/afghanistan/drought/dashboard/all/all' + '/' + dashboard.year + '/' + dashboard.cluster  + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.month + '/' + dashboard.startDate + '/' + dashboard.endDate
 					},
 					{
 						'title': 'Displaced',
 						'param': 'status_plan',
-						'active': 'displaced',
+						'active': 'drought_affected_displaced',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '#/response/afghanistan/drought/dashboard/displaced' + '/' + dashboard.year + '/' + dashboard.cluster + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.month + '/' + dashboard.startDate + '/' + dashboard.endDate
+						'href': '#/response/afghanistan/drought/dashboard/all/drought_affected_displaced' + '/' + dashboard.year + '/' + dashboard.cluster + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.month + '/' + dashboard.startDate + '/' + dashboard.endDate
 					},
 					{
 						'title': 'Non-Displaced',
 						'param': 'status_plan',
-						'active': 'non_displaced',
+						'active': 'drought_affected_non_displaced',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '#/response/afghanistan/drought/dashboard/non_displaced' + '/' + dashboard.year + '/' + dashboard.cluster + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.month + '/' + dashboard.startDate + '/' + dashboard.endDate
+						'href': '#/response/afghanistan/drought/dashboard/all/drought_affected_non_displaced' + '/' + dashboard.year + '/' + dashboard.cluster + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.month + '/' + dashboard.startDate + '/' + dashboard.endDate
+					},
+					{
+						'title': 'Natural Disaster',
+						'param': 'status_plan',
+						'active': 'natural_disaster_affected_drought',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '#/response/afghanistan/drought/dashboard/all/natural_disaster_affected_drought' + '/' + dashboard.year + '/' + dashboard.cluster + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.month + '/' + dashboard.startDate + '/' + dashboard.endDate
 					},
 			];
+				var emergency = [					
+					{
+						'title': 'All',
+						'param': 'status_plan',
+						'active': 'all',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '#/response/afghanistan/drought/dashboard/emergency/all' + '/' + dashboard.year + '/' + dashboard.cluster  + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.month + '/' + dashboard.startDate + '/' + dashboard.endDate
+					},
+					{
+						'title': 'Displaced',
+						'param': 'status_plan',
+						'active': 'drought_affected_displaced',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '#/response/afghanistan/drought/dashboard/emergency/drought_affected_displaced' + '/' + dashboard.year + '/' + dashboard.cluster + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.month + '/' + dashboard.startDate + '/' + dashboard.endDate
+					},
+					{
+						'title': 'Non-Displaced',
+						'param': 'status_plan',
+						'active': 'drought_affected_non_displaced',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '#/response/afghanistan/drought/dashboard/emergency/drought_affected_non_displaced' + '/' + dashboard.year + '/' + dashboard.cluster + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.month + '/' + dashboard.startDate + '/' + dashboard.endDate
+					},
+			];
+				var non_emergency = [
+					{
+						'title': 'All',
+						'param': 'status_plan',
+						'active': 'all',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '#/response/afghanistan/drought/dashboard/non_emergency/all' + '/' + dashboard.year + '/' + dashboard.cluster + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.month + '/' + dashboard.startDate + '/' + dashboard.endDate
+					},
+					{
+						'title': 'Natural Disaster',
+						'param': 'status_plan',
+						'active': 'natural_disaster_affected_drought',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '#/response/afghanistan/drought/dashboard/non_emergency/natural_disaster_affected_drought' + '/' + dashboard.year + '/' + dashboard.cluster + '/' + dashboard.province + '/' + dashboard.district + '/' + dashboard.organization + '/' + dashboard.month + '/' + dashboard.startDate + '/' + dashboard.endDate
+					},
+				];
+			
+				if(response == 'all'){
+					rows = all;
+				} else if(response =='emergency'){
+					rows = emergency;
+				} else {
+					rows = non_emergency;
+				}
 
 				return {
 					'id': 'drought-plan',
