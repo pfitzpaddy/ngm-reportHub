@@ -428,9 +428,9 @@
           </div>
 
       		<!-- Kit Details -->
-          <div ng-show="ngmClusterBeneficiaries.showKitDetails( project.definition, beneficiary );">
+          <div ng-show="ngmClusterBeneficiaries.showKitDetails( project.lists.activity_descriptions, project.definition, beneficiary );">
             <!-- get template -->
-            <div class="row" ng-repeat="detail in beneficiary.kit_details">
+            <div class="row" ng-repeat="detail in beneficiary.kit_details track by detail.detail_type_id">
               <div ng-include="project.templatesUrl + project.template_kit_details"></div>
             </div>
             <!-- add details -->

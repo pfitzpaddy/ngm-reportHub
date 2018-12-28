@@ -118,7 +118,7 @@ angular.module( 'ngmReportHub' )
       showPartialKits: function( project, beneficiary, $index ){
         var display = project.admin0pcode === 'ET' && 
                 beneficiary.cluster_id === 'esnfi' && 
-                beneficiary.activity_description_id ==='partial_kits';
+                beneficiary.activity_description_id === 'partial_kits';
 
         // defaults to 1 entry
         if ( display && !beneficiary.partial_kits ) {
@@ -135,15 +135,19 @@ angular.module( 'ngmReportHub' )
       },
 
       // show add kit detials
-      showKitDetails: function( project, beneficiary ){
+      showKitDetails: function( list, project, beneficiary ){
         var display = project.admin0pcode === 'ET' && 
                 beneficiary.cluster_id === 'esnfi' && 
-                beneficiary.activity_description_id ==='loose_items';
+                beneficiary.activity_type_id === 'hardware_materials_distribution' &&
+                beneficiary.activity_description_id !== 'partial_kits';
 
         // defaults to 1 entry
+        var kit = $filter('filter')( list, { activity_description_id: beneficiary.activity_description_id }, true );
         if ( display && !beneficiary.kit_details ) {
-          beneficiary.kit_details = [{}];
+          beneficiary.kit_details = kit[0].kit_details
         }
+
+        console.log(beneficiary.kit_details)
 
         return display;
       },
