@@ -52,7 +52,7 @@
               editable-select="beneficiary.activity_description_id"
               e-placeholder="Select..."
               e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.lists.activity_descriptions | filter: { cluster_id: beneficiary.cluster_id, activity_type_id: beneficiary.activity_type_id }"
-              e-ng-change="ngmClusterBeneficiaries.descriptionChange( project.lists, beneficiary )"
+              e-ng-change="ngmClusterBeneficiaries.descriptionChange( $locationIndex, $beneficiaryIndex, project.lists, beneficiary )"
               e-ng-disabled="!beneficiary.activity_type_id">
           {{ project.showDescription($data, beneficiary) }}
         </span>
@@ -439,7 +439,7 @@
               <button class="btn blue lighten-2"
                       ng-if="beneficiary.kit_details.length !== project.lists.kit_details.length"
                       ng-show="project.report.report_status !== 'complete' && rowform.$visible"
-                      ng-click="ngmClusterBeneficiaries.addKitDetail( beneficiary );
+                      ng-click="ngmClusterBeneficiaries.addKitDetail( $locationIndex, $beneficiaryIndex, beneficiary );
                                   ngmClusterHelperNgWash.init_material_select();">
                 <i class="material-icons left">add</i>Add Kit Details
               </button>

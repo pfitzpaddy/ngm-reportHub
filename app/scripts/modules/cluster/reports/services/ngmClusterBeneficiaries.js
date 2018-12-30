@@ -150,12 +150,15 @@ angular.module( 'ngmReportHub' )
       }, 
 
       // et esnfi onchange
-      descriptionChange: function( lists, $beneficiary ) {
+      descriptionChange: function( $locationIndex, $beneficiaryIndex, lists, $beneficiary ) {
         $beneficiary.kit_details = [{}];
         $timeout(function() {
           if ( $beneficiary && $beneficiary.activity_description_id ) {
             $beneficiary = ngmClusterBeneficiaries.setKitDetails( lists.activity_descriptions, $beneficiary );
           }
+          angular.forEach( $beneficiary.kit_details, function ( d, i ) {
+            ngmClusterLists.setDetailList( 'kit_details', $locationIndex, $beneficiaryIndex, i, d.detail_type_id, $beneficiary.kit_details );
+          });
         }, 0 );
       },
 
@@ -170,8 +173,8 @@ angular.module( 'ngmReportHub' )
 
       // add kit-detail
       addPartialKits: function ( beneficiary, $index ) {
-        beneficiary.partial_kits.push({});
         delete beneficiary.kit_details;
+        beneficiary.partial_kits.push({});
         if ( beneficiary.partial_kits.length < 1 ) {
           Materialize.toast( 'Note: Please add at least 1 kit item to submit!' , 6000, 'note' );
         }
@@ -189,19 +192,26 @@ angular.module( 'ngmReportHub' )
       },
       
       // add kit-detail
-      addKitDetail: function ( beneficiary ) {
-        beneficiary.kit_details.push({});
-        delete beneficiary.partial_kits;
-        if ( beneficiary.kit_details.length < 1 ) {
+      addKitDetail: function ( $locationIndex, $beneficiaryIndex, $beneficiary ) {
+        delete $beneficiary.partial_kits;
+        $beneficiary.kit_details.push({});
+        // reset list
+        angular.forEach( $beneficiary.kit_details, function ( d, i ) {
+          ngmClusterLists.setDetailList( 'kit_details', $locationIndex, $beneficiaryIndex, i, d.detail_type_id, $beneficiary.kit_details );
+        });
+        if ( $beneficiary.kit_details.length < 1 ) {
           Materialize.toast( 'Note: Please add at least 1 kit item to submit!' , 6000, 'note' );
         }
       },
 
       // remove kit-details
-      removeKitDetail: function( project, beneficiary, $locationIndex, $beneficiaryIndex, $index ) {
+      removeKitDetail: function( project, beneficiary, $locationIndex, $beneficiaryIndex ) {
         if ( beneficiary.kit_details.length >= 2 ) {
           beneficiary.kit_details.splice( $index, 1);
-          ngmClusterLists.kit_details[ $locationIndex ][ $beneficiaryIndex ].splice( $index, 1 );
+          // reset list
+          angular.forEach( $beneficiary.kit_details, function ( d, i ) {
+            ngmClusterLists.setDetailList( 'kit_details', $locationIndex, $beneficiaryIndex, i, d.detail_type_id, $beneficiary.kit_details );
+          });
           Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
         } else {
           Materialize.toast( 'Minimum of 1 Kit Items required!' , 4000, 'note' );

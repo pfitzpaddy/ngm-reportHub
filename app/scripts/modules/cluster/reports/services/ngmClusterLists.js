@@ -2918,7 +2918,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // manages selections (removes selections from detials list for ET ESNFI partial_kits, kit_details)
-      getDetailList: function( detail_list, $locationIndex, $beneficiaryIndex, $index, detail_type_id, b_detail_list ) {
+      setDetailList: function( detail_list, $locationIndex, $beneficiaryIndex, $index, detail_type_id, b_detail_list ) {
 
         // list
         var list;
@@ -2941,9 +2941,7 @@ angular.module( 'ngmReportHub' )
           }
           
           // set list at index
-          if ( !ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ] ) {
             ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ] = angular.copy( list );
-          }
 
           // remove current selection
           b_detail_list = $filter( 'filter' )( b_detail_list, { detail_type_id: '!' + detail_type_id } );
@@ -2951,12 +2949,9 @@ angular.module( 'ngmReportHub' )
           // filter partial_kits
           angular.forEach( b_detail_list, function ( detail ) {
             if ( detail.detail_type_id ) {
-              // ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ] = $filter( 'filter' )( ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ], { detail_type_id: '!' + detail.detail_type_id } );
+              ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ] = $filter( 'filter' )( ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ], { detail_type_id: '!' + detail.detail_type_id } );
             }
           });
-
-          // return
-          return ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ];
 
       },
 
