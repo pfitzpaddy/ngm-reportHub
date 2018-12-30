@@ -38,7 +38,7 @@
   			<div class="btn-floating waves-effect waves-light red lighten-2" 
 	  					title="Remove"
 	  					ng-show="rowform.$visible"
-	  					ng-click="ngmClusterBeneficiaries.removeKitDetail( project, beneficiary, $locationIndex, $beneficiaryIndex )"
+	  					ng-click="ngmClusterBeneficiaries.removeKitDetail( project, beneficiary, $locationIndex, $beneficiaryIndex, $index )"
               ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
                             !ngmClusterTrainings.trainingFormComplete( project.report.locations )">
   				<i class="material-icons">clear</i>

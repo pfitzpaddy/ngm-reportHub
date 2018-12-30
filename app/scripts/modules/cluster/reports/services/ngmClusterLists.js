@@ -2953,6 +2953,8 @@ angular.module( 'ngmReportHub' )
             }
           });
 
+          console.log( ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ] )
+
       },
 
       // remove duplicates in item ( json array ) based on value ( filterOn )
