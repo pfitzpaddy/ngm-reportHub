@@ -6,8 +6,8 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', 'ngmAuth', 'ngmClusterLists', 'ngmClusterHelperNgWash',
-              function( $http, $filter, ngmAuth, ngmClusterLists, ngmClusterHelperNgWash ) {
+	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', '$timeout', 'ngmAuth', 'ngmClusterLists', 'ngmClusterHelperNgWash',
+              function( $http, $filter, $timeout, ngmAuth, ngmClusterLists, ngmClusterHelperNgWash ) {
 
     // beneficairies
 		var ngmClusterBeneficiaries = {
@@ -142,14 +142,30 @@ angular.module( 'ngmReportHub' )
                 beneficiary.activity_description_id !== 'partial_kits';
 
         // defaults to 1 entry
-        var kit = $filter('filter')( list, { activity_description_id: beneficiary.activity_description_id }, true );
         if ( display && !beneficiary.kit_details ) {
-          beneficiary.kit_details = kit[0].kit_details
+          beneficiary.kit_details = [{}];
         }
 
-        console.log(beneficiary.kit_details)
-
         return display;
+      }, 
+
+      // et esnfi onchange
+      descriptionChange: function( lists, $beneficiary ) {
+        $beneficiary.kit_details = [{}];
+        $timeout(function() {
+          if ( $beneficiary && $beneficiary.activity_description_id ) {
+            $beneficiary = ngmClusterBeneficiaries.setKitDetails( lists.activity_descriptions, $beneficiary );
+          }
+        }, 0 );
+      },
+
+      // set kit details
+      setKitDetails: function( list, beneficiary ){
+        var kit = $filter('filter')( list, { activity_description_id: beneficiary.activity_description_id }, true );
+        if ( kit[0].kit_details.length ) {
+          beneficiary.kit_details = kit[0].kit_details;
+        }
+        return beneficiary;
       },
 
       // add kit-detail

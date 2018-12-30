@@ -52,6 +52,7 @@
               editable-select="beneficiary.activity_description_id"
               e-placeholder="Select..."
               e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.lists.activity_descriptions | filter: { cluster_id: beneficiary.cluster_id, activity_type_id: beneficiary.activity_type_id }"
+              e-ng-change="ngmClusterBeneficiaries.descriptionChange( project.lists, beneficiary )"
               e-ng-disabled="!beneficiary.activity_type_id">
           {{ project.showDescription($data, beneficiary) }}
         </span>
@@ -399,7 +400,7 @@
 
         <!-- distribution / kit details -->
         <div ng-show="ngmClusterBeneficiaries.showDistributionDate( project.definition, beneficiary ) || 
-                                ngmClusterBeneficiaries.showKitDetails( project.definition, beneficiary )">
+                                ngmClusterBeneficiaries.showKitDetails( project.lists, project.definition, beneficiary )">
 
           <!-- Distribution Date -->
           <div ng-show="ngmClusterBeneficiaries.showDistributionDate( project.definition, beneficiary );">
@@ -428,9 +429,9 @@
           </div>
 
       		<!-- Kit Details -->
-          <div ng-show="ngmClusterBeneficiaries.showKitDetails( project.lists.activity_descriptions, project.definition, beneficiary );">
+          <div ng-show="ngmClusterBeneficiaries.showKitDetails( project.lists, project.definition, beneficiary );">
             <!-- get template -->
-            <div class="row" ng-repeat="detail in beneficiary.kit_details track by detail.detail_type_id">
+            <div class="row" ng-repeat="detail in beneficiary.kit_details">
               <div ng-include="project.templatesUrl + project.template_kit_details"></div>
             </div>
             <!-- add details -->
