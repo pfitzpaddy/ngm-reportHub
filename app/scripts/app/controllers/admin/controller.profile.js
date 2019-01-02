@@ -64,7 +64,7 @@ angular.module('ngmReportHub')
 								config: {
 									style: $scope.dashboard.ngm.style,
 									user: user,
-						      formDisabled: function() {
+						      formDisabled: (function() {
 						        var disabled = true;
 										if ( user.status === 'active' &&
 						        			( $scope.dashboard.username === $scope.dashboard.user.username ||
@@ -75,8 +75,8 @@ angular.module('ngmReportHub')
 						          disabled = false;
 						        }
 						        return disabled;
-						      },
-						      activateUpdateVisible: function() {
+						      })(),
+						      activateUpdateVisible: (function() {
 						        var visible = false;
 						        if ( $scope.dashboard.user.username !== $scope.dashboard.username && 
 											( ngmAuth.canEdit( 'EDIT_USER', { adminRpcode: user.adminRpcode, 
@@ -86,7 +86,7 @@ angular.module('ngmReportHub')
 						          visible = true;
 						        }
 						        return visible;
-						      },
+						      })(),
 									templateUrl: '/scripts/app/views/authentication/profile.html'
 								}
 							}]
