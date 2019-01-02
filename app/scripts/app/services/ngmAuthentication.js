@@ -114,6 +114,18 @@ angular.module('ngmReportHub')
 			LEVEL: 3
 		},
 		{ 
+			ROLE: 'ADMIN',
+			EDIT: true,
+			EDIT_RESTRICTED: ['cluster_id', 'admin0pcode', 'adminRpcode'],
+			EDIT_USER: true,
+			EDIT_USER_RESTRICTED: ['cluster_id', 'admin0pcode', 'adminRpcode'],
+			ADMIN_RESTRICTED: [ 'admin0pcode', 'cluster_id' ],
+			ADMIN_MENU: [ 'organization_tag', 'report_id' ],
+			DASHBOARD_RESTRICTED: [ 'admin0pcode', 'cluster_id' ],
+			DASHBOARD_MENU: [ 'organization_tag', 'report_id' ],
+			LEVEL: 3
+		},
+		{ 
 			ROLE: 'COUNTRY',
 			EDIT: false,
 			EDIT_RESTRICTED: ['admin0pcode', 'adminRpcode'],
