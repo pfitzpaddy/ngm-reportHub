@@ -2324,6 +2324,21 @@ angular.module( 'ngmReportHub' )
                 cluster_id: [ 'eiewg' ],
                 beneficiary_type_id: 'returnee_children',
                 beneficiary_type_name: 'Returnee Children'
+              },{
+
+                // R&R CHAPTER
+
+                cluster_id: [ 'rnr_chapter' ],
+                beneficiary_type_id: 'returnee_documented',
+                beneficiary_type_name: 'Afghan Refugee Returnees (Documented)'
+              },{
+                cluster_id: [ 'rnr_chapter' ],
+                beneficiary_type_id: 'returnee_undocumented',
+                beneficiary_type_name: 'Afghan Returnees (Undocumented)'
+              },{
+                cluster_id: [ 'rnr_chapter' ],
+                beneficiary_type_id: 'refugee_pakistani',
+                beneficiary_type_name: 'Pakistani Refugees'
               }];
             }
 
