@@ -531,7 +531,7 @@ angular.module('ngmReportHub')
 			 * @param {string} zones.organization_tag - organization_tag. 
 			 * @returns {boolean} User can/cannot edit for input view zones.
 			 */
-			canEdit: function(permission, zones){
+			canDo: function(permission, zones){
 				
 				// check params
 				if (!permission||!zones||typeof zones!=='object'||typeof permission!=='string') return false
@@ -604,7 +604,7 @@ angular.module('ngmReportHub')
 					admin0pcode,
 					adminRpcode
 				}
-				return this.canEdit(permission, zones)
+				return this.canDo(permission, zones)
 			},
 		};
 
