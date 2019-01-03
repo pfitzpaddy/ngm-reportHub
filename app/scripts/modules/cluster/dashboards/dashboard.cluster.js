@@ -74,6 +74,8 @@ angular.module('ngmReportHub')
 					admin3: false
 				},
 
+				menu_items: ngmAuth.getMenuParams('DASHBOARD'),
+
 				menu: [{
 					'id': 'search-region',
 					'icon': 'person_pin',
@@ -309,6 +311,16 @@ angular.module('ngmReportHub')
 						downloads = downloads.concat ( ng_wash_dl );
 					}
 
+					// example of blocking download
+					// const canDownload = ngmAuth.canDo( 'DASHBOARD_DOWNLOAD', { 
+					// 										adminRpcode: $scope.dashboard.adminRpcode.toUpperCase(), 
+					// 										admin0pcode: $scope.dashboard.admin0pcode.toUpperCase(), 
+					// 										cluster_id: $scope.dashboard.cluster_id, 
+					// 										organization_tag: $scope.dashboard.organization_tag } )
+					// filter downloads list
+					// if (!canDownload){
+					// 	downloads = downloads.filter(x => x.id === 'cluster_dashboard_pdf')
+					// }
 					return downloads;
 				},
 
@@ -322,13 +334,12 @@ angular.module('ngmReportHub')
 							districtRows = [],
 							request = $scope.dashboard.getRequest( { list: true, indicator: 'organizations' } );
 
-					// SUPERADMIN
-					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) >= 0 ) {
+					if ($scope.dashboard.menu_items.includes('adminRpcode')){
 						$scope.model.menu = $scope.dashboard.menu;
-						if ( $scope.dashboard.adminRpcode !== 'hq' ) {
+					}
 
-							// page load time
-							$scope.dashboard.pageLoadTime = $scope.dashboard.admin0pcode === 'all' ? 9600 : 6200;
+					if ($scope.dashboard.menu_items.includes('admin0pcode')){
+						if ( $scope.dashboard.adminRpcode !== 'hq' ) {
 
 							var menu = {
 								'afro': {
@@ -493,7 +504,7 @@ angular.module('ngmReportHub')
 						});
 
 						// organization & disable if public
-						if ($scope.dashboard.user.username !== 'welcome') {
+						if ($scope.dashboard.menu_items.includes('organization_tag') && $scope.dashboard.user.username !== 'welcome') {
 				
 							$scope.model.menu.push({
 								'search': true,
@@ -693,21 +704,6 @@ angular.module('ngmReportHub')
 					$scope.dashboard.organization_tag = $route.current.params.organization_tag;
 					$scope.dashboard.beneficiaries = $route.current.params.beneficiaries.split('+');
 					$scope.dashboard.activity_type_id = $route.current.params.activity_type_id;
-
-					// ADMIN
-					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 ) {
-						if ( !$scope.dashboard.user.dashboard_visits ) {
-							$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
-						}
-					}
-
-					// USER
-					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'ADMIN' ) ) {
-						if ( !$scope.dashboard.user.dashboard_visits ) {
-							$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
-							// $scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
-						}
-					}
 
 					// plus dashboard_visits
 					$scope.dashboard.user.dashboard_visits++;
