@@ -109,6 +109,7 @@ angular.module('ngmReportHub')
 			EDIT: true,
 			EDIT_RESTRICTED: ['organization_tag', 'admin0pcode', 'adminRpcode'],
 			EDIT_USER: true,
+			EDIT_USER_ROLES: [ 'USER', 'ORG' ],
 			EDIT_USER_RESTRICTED: ['organization_tag', 'admin0pcode', 'adminRpcode'],
 			ADMIN_RESTRICTED: [ 'admin0pcode', 'organization_tag' ],
 			ADMIN_MENU: [ 'cluster_id', 'report_id' ],
@@ -123,6 +124,7 @@ angular.module('ngmReportHub')
 			EDIT: true,
 			EDIT_RESTRICTED: ['cluster_id', 'admin0pcode', 'adminRpcode'],
 			EDIT_USER: true,
+			EDIT_USER_ROLES: [ 'USER', 'ORG', 'CLUSTER' ],
 			EDIT_USER_RESTRICTED: ['cluster_id', 'admin0pcode', 'adminRpcode'],
 			ADMIN_RESTRICTED: [ 'admin0pcode', 'cluster_id' ],
 			ADMIN_MENU: [ 'organization_tag', 'report_id' ],
@@ -139,6 +141,7 @@ angular.module('ngmReportHub')
 			EDIT: true,
 			EDIT_RESTRICTED: ['cluster_id', 'admin0pcode', 'adminRpcode'],
 			EDIT_USER: true,
+			EDIT_USER_ROLES: [ 'USER', 'ORG', 'CLUSTER' ],
 			EDIT_USER_RESTRICTED: ['cluster_id', 'admin0pcode', 'adminRpcode'],
 			ADMIN_RESTRICTED: [ 'admin0pcode', 'cluster_id' ],
 			ADMIN_MENU: [ 'organization_tag', 'report_id' ],
@@ -155,6 +158,7 @@ angular.module('ngmReportHub')
 			EDIT: false,
 			EDIT_RESTRICTED: ['admin0pcode', 'adminRpcode'],
 			EDIT_USER: false,
+			EDIT_USER_ROLES: [ 'USER', 'ORG', 'CLUSTER', 'COUNTRY' ],
 			EDIT_USER_RESTRICTED: ['admin0pcode', 'adminRpcode'],
 			ADMIN_RESTRICTED: [ 'admin0pcode' ],
 			ADMIN_MENU: [ 'cluster_id', 'report_id', 'organization_tag' ],
@@ -235,6 +239,7 @@ angular.module('ngmReportHub')
 			EDIT: true,
 			EDIT_RESTRICTED: [],
 			EDIT_USER: true,
+			EDIT_USER_ROLES: [ 'USER', 'ORG', 'CLUSTER', 'COUNTRY', 'REGION_ORG', 'REGION', 'HQ_ORG', 'HQ', 'SUPERADMIN'],
 			EDIT_USER_RESTRICTED: [],
 			ADMIN_RESTRICTED: [],
 			ADMIN_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'report_id', 'organization_tag' ],
@@ -592,6 +597,18 @@ angular.module('ngmReportHub')
 				const USER_PERMISSIONS = ngmAuth.userPermissions();
 				// for menu get role with highest priority if user has multiple roles 
 				return USER_PERMISSIONS.reduce(function(max, v){return v.LEVEL > max.LEVEL ? v : max })[dashboard_filter]
+			},
+
+			/**
+			 * Returns array of user's allowed roles to edit on users
+			 * @returns {string[]} Roles array e.g. [ 'USER', 'ORG' ]
+			 */
+			getEditableRoles: function(){
+				// filter permissions if EDIT_USER allowed
+				const USER_PERMISSIONS = ngmAuth.userPermissions().filter(role=>role['EDIT_USER']&&role['EDIT_USER_ROLES']);
+				if (!USER_PERMISSIONS.length) return [];
+				// get users allowed roles to edit highest priority if user has multiple roles 
+				return USER_PERMISSIONS.reduce(function(max, role){return role.LEVEL > max.LEVEL ? role : max })['EDIT_USER_ROLES']
 			},
 
 			/**
