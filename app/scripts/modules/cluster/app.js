@@ -356,28 +356,37 @@ angular
 			.when( '/cluster/4w', {
 				redirectTo: '/cluster/5w'
 			})
-			.when( '/cluster/5w/', {
-				redirectTo: '/cluster/5w'
-			})
-			.when( '/cluster/5w//', {
-				redirectTo: '/cluster/5w'
-			})
 			.when( '/cluster/5w', {
 				resolve: {
-					access: [ '$location', 'ngmUser', 'ngmAuth', function( $location, ngmUser, ngmAuth ) {
-						ngmAuth.grantPublicAccess();
-						// redirect to user init route
-						const userInitRouteParams = ngmAuth.getRouteParams('DASHBOARD');
-						const user = ngmUser.get();
-						const adminRpcode = userInitRouteParams.includes('adminRpcode') && user && user.adminRpcode ? user.adminRpcode.toLowerCase() : 'hq';
-						const admin0pcode = userInitRouteParams.includes('admin0pcode') && user && user.admin0pcode ? user.admin0pcode.toLowerCase() : 'all';
-						const cluster_id = userInitRouteParams.includes('cluster_id') && user && user.cluster_id ? user.cluster_id.toLowerCase() : 'all';
-						const organization_tag = userInitRouteParams.includes('organization_tag') && user && user.organization_tag ? user.organization_tag.toLowerCase() : 'all';
-						const url = '/cluster/5w/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/all/' + organization_tag + '/all/2018-01-01/' + moment().format('YYYY-MM-DD');
+					access: [ '$location', 'ngmUser', function( $location, ngmUser ) {
+						var adminRpcode =ngmUser.get() && ngmUser.get().adminRpcode ? ngmUser.get().adminRpcode.toLowerCase() : 'hq';
+						var admin0pcode =ngmUser.get() && ngmUser.get().admin0pcode ? ngmUser.get().admin0pcode.toLowerCase() : 'all'; 
+						var cluster_id = ngmUser.get() && ngmUser.get().cluster_id ? ngmUser.get().cluster_id : 'all';
+						var url = '/cluster/5w/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD');
 						$location.path( url );
 					}]
 				},
 			})
+			.when( '/cluster/5w//', {
+				resolve: {
+					access: [ '$location', 'ngmUser', function( $location, ngmUser ) {
+						var adminRpcode =ngmUser.get() && ngmUser.get().adminRpcode ? ngmUser.get().adminRpcode.toLowerCase() : 'hq';
+						var admin0pcode =ngmUser.get() && ngmUser.get().admin0pcode ? ngmUser.get().admin0pcode.toLowerCase() : 'all'; 
+						var cluster_id = ngmUser.get() && ngmUser.get().cluster_id ? ngmUser.get().cluster_id : 'all';
+						var url = '/cluster/5w/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD');
+						$location.path( url );
+					}]
+				},
+			})
+
+			// cluster dashboard default
+			// .when( '/cluster/5w/', {
+			// 	redirectTo: '/cluster/5w/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			// })
+			// // cluster dashboard AFRO
+			// .when( '/cluster/5w//', {
+			// 	redirectTo: '/cluster/5w/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			// })
 
 			// cluster dashboard HQ
 			.when( '/cluster/5w/hq', {
@@ -458,7 +467,7 @@ angular
 				controller: 'DashboardClusterCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
-							return ngmAuth.grantPublicAccess();
+						return ngmAuth.grantPublicAccess();
 					}],
 				}
 			})

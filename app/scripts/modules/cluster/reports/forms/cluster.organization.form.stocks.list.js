@@ -82,8 +82,6 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
           }
         },
 
-        canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.organization.adminRpcode, admin0pcode:config.organization.admin0pcode, cluster_id: config.organization.cluster_id, organization_tag:config.organization.organization_tag } ),
-
         // organization
         getOrganizationHref: function() {
           var href = '#/cluster/organization';

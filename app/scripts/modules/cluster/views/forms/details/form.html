@@ -91,7 +91,9 @@
 <div name="clusterProjectForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
 
 	<!-- disabled -->
-	<fieldset ng-disabled="!project.canEdit">
+	<fieldset ng-disabled="
+		project.definition.organization !== project.user.organization && project.user.roles.indexOf('ADMIN') === -1
+	">
 
 		<!-- Project details -->
 		<div class="slide-animate" ng-include="project.templatesUrl + project.detailsUrl"></div>

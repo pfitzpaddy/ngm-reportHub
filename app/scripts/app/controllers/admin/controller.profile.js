@@ -64,29 +64,25 @@ angular.module('ngmReportHub')
 								config: {
 									style: $scope.dashboard.ngm.style,
 									user: user,
-						      formDisabled: (function() {
+						      formDisabled: function() {
 						        var disabled = true;
 										if ( user.status === 'active' &&
 						        			( $scope.dashboard.username === $scope.dashboard.user.username ||
-											( ngmAuth.canDo( 'EDIT_USER', { adminRpcode: user.adminRpcode, 
-																			  admin0pcode: user.admin0pcode, 
-																			  cluster_id: user.cluster_id, 
-																			  organization_tag: user.organization_tag } ) ) ) ) {
+						        			( $scope.dashboard.user.roles.indexOf('ORG') !== -1 ||
+						        				$scope.dashboard.user.roles.indexOf('SUPERADMIN') !== -1 ) ) ) {
 						          disabled = false;
 						        }
 						        return disabled;
-						      })(),
-						      activateUpdateVisible: (function() {
+						      },
+						      activateUpdateVisible: function() {
 						        var visible = false;
 						        if ( $scope.dashboard.user.username !== $scope.dashboard.username && 
-											( ngmAuth.canDo( 'EDIT_USER', { adminRpcode: user.adminRpcode, 
-																			  admin0pcode: user.admin0pcode, 
-																			  cluster_id: user.cluster_id, 
-																			  organization_tag: user.organization_tag } ) ) ) {
+						        			( $scope.dashboard.user.roles.indexOf('ORG') !== -1 ||
+						        				$scope.dashboard.user.roles.indexOf('SUPERADMIN') !== -1 ) ) {
 						          visible = true;
 						        }
 						        return visible;
-						      })(),
+						      },
 									templateUrl: '/scripts/app/views/authentication/profile.html'
 								}
 							}]

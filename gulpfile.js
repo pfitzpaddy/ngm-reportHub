@@ -32,7 +32,7 @@ var rimraf = require('rimraf');
 var wiredep = require('wiredep').stream;
 var runSequence = require('run-sequence');
 var cache = require('gulp-cache');
-var uglify = require('gulp-uglify-es').default;
+
 // clear
 // cache.clearAll();
 
@@ -159,7 +159,7 @@ gulp.task('client:build', [ 'html', 'html:app', 'html:cluster', 'html:country', 
     .pipe(jsFilter)
     .pipe($.ngAnnotate())
     // .pipe($.uglify())
-    .pipe(uglify().on('error', gulpUtil.log))
+    .pipe($.uglify().on('error', gulpUtil.log))
     .pipe(jsFilter.restore())
     .pipe(cssFilter)
     .pipe($.minifyCss({cache: true}))

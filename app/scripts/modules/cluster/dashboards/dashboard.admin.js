@@ -42,11 +42,6 @@ angular.module('ngmReportHub')
 				// current user
 				user: ngmUser.get(),
 
-				userRestrictedRouteParams: ngmAuth.getRouteParams('ADMIN'),
-
-				// use menu itemes by user permissions
-				userMenuItems: ngmAuth.getMenuParams('ADMIN'),
-
 				// report period start
 				startDate: moment( $route.current.params.start ).format( 'YYYY-MM-DD' ),
 
@@ -382,7 +377,7 @@ angular.module('ngmReportHub')
 				},
 
 				// menu
-				setMenu: function( userMenuItems ){
+				setMenu: function( role ){
 
 					// menu rows
 					var clusterRows = [],
@@ -394,18 +389,11 @@ angular.module('ngmReportHub')
 							data: $scope.dashboard.getRequest( 'organizations', true )
 						};
 
-					if( userMenuItems.includes('adminRpcode') ){
-						$scope.model.menu = $scope.dashboard.menu;
-					}
-
-					if( userMenuItems.includes('admin0pcode') ){
+					// SUPERADMIN
+					if ( role !== 'admin' ){
 						if ($scope.dashboard.user.organization_tag !== 'usaid'){
 							$scope.dashboard.setCountryMenu();
 						}
-					}
-
-					if( userMenuItems.includes('cluster_id') ){
-						
 						// add cluster
 						angular.forEach( $scope.dashboard.lists.clusters, function( d, i ){
 
@@ -439,14 +427,15 @@ angular.module('ngmReportHub')
 							'class': 'teal lighten-1 white-text',
 							'rows': clusterRows
 						});
+
 					}
-	
+
 					// reports
 					$scope.dashboard.setReportMenu();
 					$scope.dashboard.setActivityMenu();
 
 					// ADMIN
-					if( userMenuItems.includes('organization_tag') ){
+					if ( role === 'super' || role === 'country' || role === 'admin' ){
 
 						// fetch org list
 						ngmData.get( request ).then( function( organizations  ){
@@ -841,15 +830,45 @@ angular.module('ngmReportHub')
 					// report name
 					$scope.dashboard.report_file_name += moment().format( 'YYYY-MM-DDTHHmm' );
 
-					// override route params to user permitted zone params if any
-					for (const key of $scope.dashboard.userRestrictedRouteParams){
-						$scope.dashboard[key] = $scope.dashboard.user[key].toLowerCase()
+					// USER
+					if ( $scope.dashboard.user.roles && 
+								$scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) === -1 && 
+								$scope.dashboard.user.roles.indexOf( 'COUNTRY' ) === -1 && 
+								$scope.dashboard.user.roles.indexOf( 'ADMIN' ) === -1 ) {
+						$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
+						$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode;
+						// $scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
+						$scope.dashboard.organization_tag = $scope.dashboard.user.organization_tag;
+						$scope.dashboard.organization = $scope.dashboard.user.organization;
+						$scope.dashboard.role = 'USER';
 					}
 
-					// name for title, as for other roles it comes from api
-					if (['USER','ORG'].some(role => $scope.dashboard.user.roles.includes(role))){
-						$scope.dashboard.organization =  $scope.dashboard.user.organization;
-					};
+					// ADMIN
+					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
+						$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
+						$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode; 
+						$scope.dashboard.cluster_id = $scope.dashboard.user.cluster_id;
+						$scope.dashboard.role = 'ADMIN';
+					}
+
+					// COUNTRY
+					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'COUNTRY' ) !== -1 ) {
+						$scope.dashboard.adminRpcode = $scope.dashboard.user.adminRpcode;
+						$scope.dashboard.admin0pcode = $scope.dashboard.user.admin0pcode;
+						$scope.dashboard.cluster_id = $route.current.params.cluster_id;
+						$scope.dashboard.role = 'COUNTRY';
+					}
+
+					// SUPERADMIN
+					if ( $scope.dashboard.user.roles && $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 ) {
+						$scope.dashboard.adminRpcode = $route.current.params.adminRpcode;
+						$scope.dashboard.admin0pcode = $route.current.params.admin0pcode;
+						$scope.dashboard.cluster_id = $route.current.params.cluster_id;
+						$scope.dashboard.organization_tag = $route.current.params.organization_tag;
+						$scope.dashboard.report_type = $route.current.params.report_type;
+						$scope.dashboard.activity_type_id = $route.current.params.activity_type_id;
+						$scope.dashboard.role = 'SUPERADMIN';
+					}
 
 					// set
 					$scope.dashboard.setUrl();
@@ -1155,12 +1174,31 @@ angular.module('ngmReportHub')
 
 			// set dashboard
 			$scope.dashboard.setDashboard();
-			// filters = ngmAuth.getFilterParams('ADMIN_FILTERS')
-			// console.log(filters)
+
 			// set menu
-			// 
-			$scope.model.menu = [];
-			$scope.dashboard.setMenu( $scope.dashboard.userMenuItems );
+			if ( $scope.dashboard.user.roles.indexOf( 'USER' ) !== -1 ) {
+				// USER
+				$scope.model.menu = [];
+				$scope.dashboard.setMenu( 'user' );
+			}
+			if ( $scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ) {
+				// ADMIN
+				$scope.model.menu = [];
+				$scope.dashboard.setMenu( 'admin' );
+			}
+			if ( $scope.dashboard.user.roles.indexOf( 'COUNTRY' ) !== -1 ) {
+				// COUNTRY
+				$scope.model.menu = [];
+				$scope.dashboard.setMenu( 'country' );
+			}
+			if ( $scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1 ) {
+				// SUPERADMIN
+				$scope.model.menu = $scope.dashboard.menu;
+				if ($scope.dashboard.user.organization_tag === 'usaid'){
+					$scope.model.menu = [];
+				}
+				$scope.dashboard.setMenu( 'super' );
+			}
 
 			// assign to ngm app scope ( for menu )
 			$scope.dashboard.ngm.dashboard.model = $scope.model;

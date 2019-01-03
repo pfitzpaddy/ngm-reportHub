@@ -54,7 +54,9 @@
 <!-- report form -->
 <div name="clusterStockForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
 
-	<fieldset ng-disabled="!report.canEdit">
+	<fieldset ng-disabled="
+		report.report.organization !== report.user.organization && report.user.roles.indexOf('ADMIN') === -1
+	">
 
 		<!-- report beneficiaries details -->
 		<div class="slide-animate" ng-include="report.templatesUrl + report.locationsUrl"></div>

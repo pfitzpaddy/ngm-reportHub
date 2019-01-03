@@ -131,7 +131,7 @@ form {
 		        	<i class="material-icons prefix">account_circle</i>
 		          <input id="ngm-username" type="text" class="validate"
 								ng-model="panel.user.username"
-								ng-disabled="panel.formDisabled"
+								ng-disabled="panel.formDisabled()"
 								required>
 		          <label for="ngm-username">Username</label>
 		        </div>
@@ -142,7 +142,7 @@ form {
 		        	<i class="material-icons prefix">accessibility</i>
 		          <input id="ngm-fullname" type="text" class="validate"
 								ng-model="panel.user.name"
-								ng-disabled="panel.formDisabled"
+								ng-disabled="panel.formDisabled()"
 								required>
 		          <label for="ngm-fullname">Full Name</label>
 		        </div>
@@ -153,7 +153,7 @@ form {
 		        	<i class="material-icons prefix">personal_video</i>
 		          <input id="ngm-position" type="text" class="validate"
 								ng-model="panel.user.position"
-								ng-disabled="panel.formDisabled"
+								ng-disabled="panel.formDisabled()"
 								required>
 		          <label for="ngm-position">Position</label>
 		        </div>
@@ -175,7 +175,7 @@ form {
 						    <select id="ngm-programme"
 	        					ng-options="list.programme_id as list.programme_name for list in panel.programme"
 	        					ng-model="panel.user.programme_id"
-	        					ng-disabled="panel.formDisabled">Select Programme
+	        					ng-disabled="panel.formDisabled()">Select Programme
 	        					<option value="" disabled selected>Select Programme</option>
 	        					</select>
 						    <label for="ngm-programme">Programme</label>
@@ -196,7 +196,7 @@ form {
 									    format="dd mmm, yyyy"
 									    select-years="15"
 									    max="{{ panel.user.contract_end_date }}"
-									    ng-disabled="panel.formDisabled"/>
+									    ng-disabled="panel.formDisabled()"/>
 									<label for="ngm-contract-start-date">Contract Start Date</label>
 						</div>
 					</div>
@@ -215,7 +215,7 @@ form {
 									    format="dd mmm, yyyy"
 									    select-years="15"
 									    min="{{ panel.user.contract_start_date }}"
-									    ng-disabled="panel.formDisabled"/>
+									    ng-disabled="panel.formDisabled()"/>
 									<label for="ngm-contract-end-date">Contract End Date</label>
 						</div>
 					</div>
@@ -226,7 +226,7 @@ form {
 		        	<select id="ngm-country" 
 		        					ng-options="location.admin0pcode as location.admin0name for location in panel.adminRegion"
 		        					ng-model="panel.user.admin0pcode"
-		        					ng-disabled="panel.formDisabled">Select Country
+		        					ng-disabled="panel.formDisabled()">Select Country
 		        					<option value="">Select Country</option>
 		        					</select>
 						    <label for="ngm-country">Country</label>
@@ -239,7 +239,7 @@ form {
 						    <select id="ngm-duty-station"
 			        					ng-options="list.site_name as list.site_name for list in panel.dutyStations | filter: { admin0pcode: panel.user.admin0pcode } | orderBy:'site_name'"
 	        							ng-model="panel.user.site_name"
-	        							ng-disabled="panel.formDisabled">Select Duty Station
+	        							ng-disabled="panel.formDisabled()">Select Duty Station
 	        					<option value="" disabled selected>Select Station</option>
 	        					</select>
 						    <label for="ngm-duty-station">Duty Station</label>
@@ -283,7 +283,7 @@ form {
 		        	<i class="material-icons prefix">phone</i>
 		          <input id="ngm-phone" type="tel" class="validate"
 								ng-model="panel.user.phone"
-								ng-disabled="panel.formDisabled"
+								ng-disabled="panel.formDisabled()"
 								required>
 		          <label for="ngm-phone">Phone</label>
 		        </div>
@@ -294,7 +294,7 @@ form {
 		        	<i class="material-icons prefix">perm_identity</i>
 		          <input id="ngm-skype" type="text" class="validate"
 								ng-model="panel.user.skype"
-								ng-disabled="panel.formDisabled">
+								ng-disabled="panel.formDisabled()">
 		          <label for="ngm-skype">Skype ID</label>
 		        </div>
 		      </div>
@@ -304,7 +304,7 @@ form {
 		        	<i class="material-icons prefix">email</i>
 		          <input id="ngm-email" type="email" class="validate"
 								ng-model="panel.user.email"
-								ng-disabled="panel.formDisabled"
+								ng-disabled="panel.formDisabled()"
 								required>
 		          <label for="ngm-email">Email</label>
 		        </div>
@@ -320,7 +320,7 @@ form {
   <!-- update -->
 	<div class="action center">
 		<button
-				ng-if="!panel.formDisabled"
+				ng-if="!panel.formDisabled()"
 				class="btn btn-large waves-effect waves-teal"
 				style="top:-40px;"
 				type="submit"
@@ -329,7 +329,7 @@ form {
 				<i class="material-icons left">edit</i>UPDATE
 		</button>
 		<button
-				ng-if="panel.activateUpdateVisible && panel.btnDeactivate"
+				ng-if="panel.activateUpdateVisible() && panel.btnDeactivate"
 				style="top:-40px;"
 				class="btn btn-large blue waves-effect waves-blue"
 				ng-click="panel.openModal( 'deactivate-modal' )"
@@ -337,7 +337,7 @@ form {
 				<i class="material-icons left">assignment_late</i>DEACTIVATE
 		</button>
 		<button
-				ng-if="panel.activateUpdateVisible && panel.btnActivate"
+				ng-if="panel.activateUpdateVisible() && panel.btnActivate"
 				style="top:-40px;"
 				class="btn btn-large blue waves-effect waves-blue"
 				ng-click="panel.openModal( 'activate-modal' )"
@@ -345,7 +345,7 @@ form {
 				<i class="material-icons left">assignment_turned_in</i>ACTIVATE
 		</button>
 		<button
-				ng-if="panel.activateUpdateVisible"
+				ng-if="panel.activateUpdateVisible()"
 				style="top:-40px;"
 				class="btn btn-large red lighten-2 waves-effect waves-red"
 				ng-click="panel.openModal( 'delete-modal' )"

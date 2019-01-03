@@ -63,7 +63,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         newProject: $route.current.params.project === 'new' ? true : false,
         definition: config.project,
         updatedAt: moment( config.project.updatedAt ).format('DD MMMM, YYYY @ h:mm:ss a'),
-        canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.project.adminRpcode, admin0pcode:config.project.admin0pcode, cluster_id: config.project.cluster_id, organization_tag:config.project.organization_tag } ),
 
         // lists ( project, mpc transfers )
         lists: ngmClusterLists.setLists( config.project, 30 ),

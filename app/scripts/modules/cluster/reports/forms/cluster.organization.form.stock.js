@@ -56,8 +56,6 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         stockUrl: 'stock.html',
         notesUrl: 'notes.html',
 
-        canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.organization.adminRpcode, admin0pcode:config.organization.admin0pcode, cluster_id: config.organization.cluster_id, organization_tag:config.organization.organization_tag } ),
-
         // lists
         lists: {
           clusters: ngmClusterLists.getClusters( config.organization.admin0pcode ),
