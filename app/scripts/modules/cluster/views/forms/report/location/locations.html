@@ -33,7 +33,7 @@
 
 							<h5 class="report-selected-locations">{{ project.report.locations.length }} Selected Locations</h5>
 							<!-- TODO DELETE project.report.organization === 'EMERGENCY' after 01062018  -->
-							<div class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
+							<button class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
 	      					title="Edit {{ project.monthlyTitleFormat }}"
 									ng-show="project.definition.project_status === 'active' &&
 														project.report.report_year === project.reportingYear() &&
@@ -41,13 +41,13 @@
 
 	      					ng-click="project.save( false, false)">
 	      					<i class="material-icons left">create</i>Edit Report
-	      			</div>
-							<div class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
+	      			</button>
+							<button class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
 	      					title="Copy {{ project.previousMonth }}"	      					
 									ng-click="project.copyPrevReport()"
 									ng-if="!deactivedCopybutton">
 	      					<i class="material-icons left">content_copy</i>Copy Last Month
-							</div>
+							</button>
 						</div>
 
 						<div class="row" ng-repeat="location in project.report.locations" ng-init="$locationIndex=$index">
