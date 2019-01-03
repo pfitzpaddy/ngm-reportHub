@@ -520,7 +520,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					ngmData.get(getPrevReport).then(function (prev_report) {
 						
 						var brows = 0;
-						var trows =0
+						var trows =0;
+						var info = "Save to apply changes"
 						angular.forEach(prev_report.locations, function(l){
 							brows += l.beneficiaries.length;
 							trows += l.trainings.length;
@@ -563,6 +564,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 									msg += " and "+countNewLocation+" location"
 								}
 								Materialize.toast(msg, 4000, typ);
+								Materialize.toast(info, 4500, 'note');
 							}, 1500);
 						}						
 						$scope.addBeneficiaryDisable = false;						
