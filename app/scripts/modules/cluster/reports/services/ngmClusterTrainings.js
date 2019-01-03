@@ -111,12 +111,22 @@ angular.module( 'ngmReportHub' )
 
       // remove modal
       removeTrainingModal: function( project, locations, $parent, $index ) {
-        if ( ngmClusterTrainings.trainingFormComplete( locations ) ){
-          ngmClusterTrainings.project = project;
-          ngmClusterTrainings.locationIndex = $parent;
-          ngmClusterTrainings.trainingIndex = $index;
-          $( '#training-modal' ).openModal({ dismissible: false });
-        }
+				if (!project.report.locations[$parent].trainings[$index].id){
+					project.report.locations[$parent].trainings.splice($index, 1);
+				} else {
+					if (ngmClusterTrainings.trainingFormComplete(locations)) {
+						ngmClusterTrainings.project = project;
+						ngmClusterTrainings.locationIndex = $parent;
+						ngmClusterTrainings.trainingIndex = $index;
+						$('#training-modal').openModal({ dismissible: false });
+					}
+				}
+        // if ( ngmClusterTrainings.trainingFormComplete( locations ) ){
+        //   ngmClusterTrainings.project = project;
+        //   ngmClusterTrainings.locationIndex = $parent;
+        //   ngmClusterTrainings.trainingIndex = $index;
+        //   $( '#training-modal' ).openModal({ dismissible: false });
+        // }
       },
 
       // removeTraining
@@ -125,7 +135,7 @@ angular.module( 'ngmReportHub' )
         // t
         var t = ngmClusterTrainings.project.report.locations[ ngmClusterTrainings.locationIndex ].trainings[ ngmClusterTrainings.trainingIndex ];
         ngmClusterTrainings.project.report.locations[ ngmClusterTrainings.locationIndex ].trainings.splice( ngmClusterTrainings.trainingIndex, 1 );
-
+				ngmClusterTrainings.project.activePrevReportButton();
         // setReportRequest
         var removeTrainingRequest = {
           method: 'POST',
@@ -150,6 +160,7 @@ angular.module( 'ngmReportHub' )
         var t = project.report.locations[ $grandParent ].trainings[ $parent ].training_participants[ $index ];
         project.report.locations[ $grandParent ].trainings[ $parent ].training_participants.splice( $index, 1 );
 
+				if(!t.copy_prev_month){
         // setReportRequest
         var removeTrainingParticipantRequest = {
           method: 'POST',
@@ -165,7 +176,7 @@ angular.module( 'ngmReportHub' )
           Materialize.toast( 'Error!', 6000, 'error' );
         });
 
-      },
+      }},
 
       // ennsure all locations contain at least one complete beneficiaries
       trainingFormComplete: function( locations ) {
@@ -310,16 +321,22 @@ angular.module( 'ngmReportHub' )
       },
 
       // remove from array if no id
-      cancelTrainingEdit: function( location, $index ) {
+      cancelTrainingEdit: function( location, $index ) {			
         if ( !location.trainings[ $index ].id ) {
-          location.trainings.splice( $index, 1 );
+					if (!location.trainings[ $index ].copy_prev_month) {						
+						location.trainings.splice($index, 1);
+					}
+          // location.trainings.splice( $index, 1 );
         }
       },
 
       // remove from array if no id
       cancelTraineeEdit: function( training, $index ) {
         if ( !training.training_participants[ $index ].id ) {
-          training.training_participants.splice( $index, 1 );
+					if (!training.training_participants[$index].copy_prev_month) {
+						training.training_participants.splice($index, 1);
+					}
+          // training.training_participants.splice( $index, 1 );
         }
       },
 

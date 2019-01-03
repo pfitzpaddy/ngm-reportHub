@@ -80,7 +80,7 @@ angular.module( 'ngmReportHub' )
 					delete b.injury_treatment_same_province;
           inserted = angular.merge( inserted, b, sadd, defaults );
           inserted.transfer_type_id = 0;
-          inserted.transfer_type_value = 0;
+		  inserted.transfer_type_value = 0;
         }
 
         // return new beneficiary

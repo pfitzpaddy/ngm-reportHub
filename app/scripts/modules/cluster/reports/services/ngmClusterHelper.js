@@ -590,6 +590,7 @@ angular.module( 'ngmReportHub' )
 						delete t.strategic_objectives;
 						delete t.createdAt;
 						delete t.updatedAt;
+						delete t.copy_prev_month;
             // ids
             t.project_id = project.id;
             t.report_id = report.id;
@@ -603,6 +604,7 @@ angular.module( 'ngmReportHub' )
 							delete trainings.id;
 							delete trainings.createdAt;
 							delete trainings.updatedAt;
+							delete trainees.copy_prev_month;
               report.locations[i].trainings[j].training_participants[k] = angular.merge( {}, trainees, trainings);
               delete report.locations[i].trainings[j].training_participants[k].trainings;
               delete report.locations[i].trainings[j].training_participants[k].training_participants;
@@ -634,6 +636,7 @@ angular.module( 'ngmReportHub' )
 						delete b.strategic_objectives;
 						delete b.createdAt;
 						delete b.updatedAt;
+						delete b.copy_prev_month;
             // ids
             b.project_id = project.id;
             b.report_id = report.id;
@@ -646,8 +649,168 @@ angular.module( 'ngmReportHub' )
         });
 
         return report;
-      }
+      },
 
+			getCleanBeneficiaryforCopy:function (beneficiary,location,report) {			
+				
+				var b = angular.copy(beneficiary)
+				var l = angular.copy(location)
+				var r = angular.copy(report)
+				
+				delete b.id
+				b.location_id = l.id;
+				b.report_id = r.id;
+				b.report_active = r.report_active				
+				b.report_month = r.report_month
+				b.report_status = r.report_status
+				b.report_submitted = r.report_submitted
+				b.report_year= r.report_year;
+				b.reporting_due_date = r.reporting_due_date;
+				b.reporting_period = r.reporting_period;				
+				delete r.admin3pcode					
+								
+				var beneficiary = angular.merge({}, l,r,b);
+				delete beneficiary.id;
+				delete beneficiary.beneficiaries;
+				delete beneficiary.locations;
+				delete beneficiary.trainings;
+				beneficiary.copy_prev_month = "copy-"+ Math.round(Math.random()*100000);
+
+				//association boreholes
+				if(beneficiary.boreholes.length>0){
+					beneficiary.boreholes.forEach(function (bh) {
+						delete bh.id
+						delete bh.beneficiary_id
+						delete bh.createdAt
+						delete bh.updatedAt
+					})
+				}
+				//association sanitation
+				if (beneficiary.sanitation.length > 0) {
+					beneficiary.sanitation.forEach(function (s) {
+						delete s.id
+						delete s.beneficiary_id
+						delete s.createdAt
+						delete s.updatedAt
+					})
+				}
+				//association water
+				if (beneficiary.water.length > 0) {
+					beneficiary.water.forEach(function (w) {
+						delete w.id
+						delete w.beneficiary_id
+						delete w.createdAt
+						delete w.updatedAt
+					})
+				}
+				//association hygiene
+				if (beneficiary.hygiene.length > 0) {
+					beneficiary.hygiene.forEach(function (h) {
+						delete h.id
+						delete h.beneficiary_id
+						delete h.createdAt
+						delete h.updatedAt
+					})
+				}
+				//association cash
+				if (beneficiary.cash.length > 0) {
+					beneficiary.cash.forEach(function (c) {
+						delete c.id
+						delete c.beneficiary_id
+						delete c.createdAt
+						delete c.updatedAt
+					})
+				}
+				//association accounttability
+				if (beneficiary.accountability.length > 0) {
+					beneficiary.accountability.forEach(function (acc) {
+						delete acc.id
+						delete acc.beneficiary_id
+						delete acc.createdAt
+						delete acc.updatedAt
+					})
+				}
+				// console.log("B", beneficiary);
+				// console.log(report);
+				return beneficiary;
+			},
+
+			getCleanTrainingsforCopy:function(training, location,report){
+				
+				var t = angular.copy(training)			
+				var l = angular.copy(location)
+				var r = angular.copy(report)
+
+				delete t.id
+				t.report_id = r.id
+				t.location_id = l.id;
+				t.report_active = r.report_active				
+				t.report_month = r.report_month
+				t.report_status = r.report_status
+				t.report_submitted = r.report_submitted
+				t.report_year = r.report_year;
+				t.reporting_due_date = r.reporting_due_date;
+				t.reporting_period = r.reporting_period;				
+				delete l.report_status
+				
+				var trainingmerge = angular.merge({},l,r,t);
+				delete trainingmerge.id
+				delete trainingmerge.activity_description;
+				delete trainingmerge.activity_type;
+				delete trainingmerge.beneficiary_type;
+				delete trainingmerge.category_type;
+				delete trainingmerge.project_donor;
+				delete trainingmerge.strategic_objectives;
+				delete trainingmerge.createdAt;
+				delete trainingmerge.updatedAt;
+				delete trainingmerge.beneficiaries;
+				delete trainingmerge.trainings;
+				delete trainingmerge.locations;
+				trainingmerge.location_id = l.id;
+				trainingmerge.copy_prev_month = "copy-t" + Math.round(Math.random() * 100000);
+
+				angular.forEach(t.training_participants, function(trainees,i){
+					tm = angular.copy(trainingmerge);
+					delete trainees.id;
+					delete trainees.createdAt;
+					delete trainees.updatedAt;
+					delete trainees.training_id;
+					delete tm.training_participants;
+					trainees.copy_prev_month = "copy-tp" + Math.round(Math.random() * 100000);														
+					trainingmerge.training_participants[i] = angular.merge({}, trainees,tm );
+				})
+
+				return trainingmerge
+			},
+
+			// clean location from previous month that not exist in current month 
+			getCleanCopyLocation: function(location,report){
+				var l = angular.copy(location);
+				var r = angular.copy(report);
+				
+				delete l.id
+				l.report_id = r.id;
+				l.report_active = r.report_active
+				l.report_month = r.report_month
+				l.report_status = r.report_status
+				l.report_submitted = r.report_submitted
+				l.report_year = r.report_year;
+				l.reporting_due_date = r.reporting_due_date;
+				l.reporting_period = r.reporting_period;
+
+				angular.forEach(l.beneficiaries,function (b,i) {
+					new_b = ngmClusterHelper.getCleanBeneficiaryforCopy(b,l,r);
+					l.beneficiaries[i]= new_b;
+				})
+
+				angular.forEach(l.trainings,function (t) {
+					new_t= ngmClusterHelper.getCleanTrainingsforCopy(t,l,r);
+					l.trainings[i]= new_t;
+				})
+
+				copied_location = l;
+				return copied_location
+			}
 		};
 
     return ngmClusterHelper;

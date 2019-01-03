@@ -102,7 +102,8 @@
                   ng-disabled="rowform.$waiting"
                   ng-click="rowform.$cancel();  
                               project.cancelEdit( $locationIndex, $index );
-                              ngmClusterHelperNgWash.init_material_select();"
+															ngmClusterHelperNgWash.init_material_select();
+															project.activePrevReportButton()"
                   class="btn btn-small blue lighten-1 waves-effect waves-light"
                   title="Cancel Edit">
   						<i class="material-icons">clear</i>
@@ -116,7 +117,7 @@
   						<i class="material-icons">create</i>
             </div>
             <div class="btn btn-small red lighten-2 waves-effect waves-light"
-                  ng-click="project.removeBeneficiaryModal( $locationIndex, $index )"
+                  ng-click="project.removeBeneficiaryModal( $locationIndex, $index );project.activePrevReportButton()"
                   title="Remove"
                   ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations )">
             	<i class="material-icons">delete</i>
@@ -151,7 +152,8 @@
   <!-- add -->
   <button class="btn" 
             ng-show="project.report.report_status !== 'complete'" 
-            ng-click="project.addNgWashBeneficiary( $locationIndex )">
+						ng-click="project.addNgWashBeneficiary( $locationIndex );project.activePrevReportButton()"
+						ng-disabled="addBeneficiaryDisable">
     <i class="material-icons left">add</i>Add Activities
   </button>
   <br/>
