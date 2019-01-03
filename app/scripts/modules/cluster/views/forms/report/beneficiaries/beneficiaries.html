@@ -33,7 +33,7 @@
 			<td ng-if="project.showFatpTreatmentSameProvince( $locationIndex )">Treatment Same Province</td>
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
-    <tr ng-repeat-start="beneficiary in project.report.locations[ $locationIndex ].beneficiaries"
+    <tr ng-repeat-start="beneficiary in project.report.locations[ $locationIndex ].beneficiaries track by $index"
           ng-init="$beneficiaryIndex=$index">
       <td>
         <!-- editable activity_type from Project -->
@@ -355,7 +355,7 @@
           <div type="button"
                 ng-if="rowform.$visible"
                 ng-disabled="rowform.$waiting"
-                ng-click="rowform.$cancel(); project.cancelEdit( $locationIndex, $beneficiaryIndex )"
+                ng-click="rowform.$cancel(); project.cancelEdit( $locationIndex, $beneficiaryIndex );project.activePrevReportButton()"
                 class="btn btn-small blue lighten-1 waves-effect waves-light"
                 title="Cancel Edit">
 						<i class="material-icons">clear</i>
@@ -369,7 +369,7 @@
 						<i class="material-icons">create</i>
           </div>
           <div class="btn btn-small red lighten-2 waves-effect waves-light"
-                ng-click="project.removeBeneficiaryModal( $locationIndex, $beneficiaryIndex )"
+                ng-click="project.removeBeneficiaryModal( $locationIndex, $beneficiaryIndex );project.activePrevReportButton()"
                 title="Remove"
                 ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
                               !ngmClusterTrainings.trainingFormComplete( project.report.locations  )">
@@ -456,7 +456,8 @@
   <button class="btn" 
             ng-if="project.definition.admin0pcode === 'ET' && project.definition.cluster_id === 'esnfi'"
             ng-show="project.report.report_status !== 'complete'" 
-            ng-click="project.addBeneficiary( $locationIndex, { households: 1 } )">
+						ng-click="project.addBeneficiary( $locationIndex, { households: 1 } ); project.activePrevReportButton()"
+						ng-disabled="addBeneficiaryDisable">
     <i class="material-icons left">add</i>Add Beneficiaries
   </button>
 
@@ -464,7 +465,8 @@
   <button class="btn"
             ng-if="project.definition.admin0pcode !== 'ET' || project.definition.cluster_id !== 'esnfi'" 
             ng-show="project.report.report_status !== 'complete'" 
-            ng-click="project.addBeneficiary( $locationIndex )">
+						ng-click="project.addBeneficiary( $locationIndex ); project.activePrevReportButton()"
+						ng-disabled="addBeneficiaryDisable">
     <i class="material-icons left">add</i>Add Beneficiaries
   </button>  
 

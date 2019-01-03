@@ -115,7 +115,7 @@
                 ng-if="trainingRowform.$visible"
                   ng-disabled="trainingRowform.$waiting"
                   ng-click="trainingRowform.$cancel();
-                              project.cancelTrainingEdit( project.report.locations[ $locationIndex ], $trainingIndex )"
+															ngmClusterTrainings.cancelTrainingEdit( project.report.locations[ $locationIndex ], $trainingIndex )"
                   class="btn btn-small blue lighten-1 waves-effect waves-light"
                   title="Cancel Edit">
             <i class="material-icons">clear</i>
@@ -130,7 +130,7 @@
           </div>
           <div class="btn btn-small red lighten-2 waves-effect waves-light"
                 ng-click="ngmClusterTrainings.removeTrainingModal( project, project.report.locations[ $locationIndex ].trainings, 
-                                                                  $locationIndex, $trainingIndex )"
+                                                                  $locationIndex, $trainingIndex );project.activePrevReportButton()	"
                 title="Remove"
                 ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
                               !ngmClusterTrainings.trainingFormComplete( project.report.locations )">

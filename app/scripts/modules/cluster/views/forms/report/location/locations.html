@@ -42,7 +42,12 @@
 	      					ng-click="project.save( false, false)">
 	      					<i class="material-icons left">create</i>Edit Report
 	      			</div>
-
+							<div class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
+	      					title="Copy {{ project.previousMonth }}"	      					
+									ng-click="project.copyPrevReport()"
+									ng-if="!deactivedCopybutton">
+	      					<i class="material-icons left">content_copy</i>Copy Last Month
+							</div>
 						</div>
 
 						<div class="row" ng-repeat="location in project.report.locations" ng-init="$locationIndex=$index">
@@ -163,7 +168,8 @@
 								  <button class="btn blue" ng-show="project.report.report_status !== 'complete'"
 								  					ng-click="ngmClusterTrainings.addTrainings( scope, project.lists, 
 								  																						project.definition,
-								  																						project.report.locations[ $locationIndex ], $locationIndex )">
+																															project.report.locations[ $locationIndex ], $locationIndex );project.activePrevReportButton()"
+														ng-disabled="addBeneficiaryDisable">
 								    <i class="material-icons left">add</i>Add Trainings
 								  </button>
 								 </div>
@@ -174,13 +180,14 @@
 
 						</div>
 
-						<div style="padding-left: 10px; margin-bottom: 10px"
+						<div style="padding-left: 10px; margin-bottom: 10px;margin-top: 5px"
 									ng-if="project.definition.admin0pcode === 'ET' && 
 													project.definition.cluster_id === 'esnfi' &&
 													project.report.report_status !== 'complete'">
 							<button class="btn"
 											style="background-color: #2196F3;"
-							 				ng-click="ngmClusterLocations.openNewLocation( project, project.report.locations );">
+											 ng-click="ngmClusterLocations.openNewLocation( project, project.report.locations );"
+											 ng-disabled="addBeneficiaryDisable">
 								<i class="material-icons left">location_on</i>Add Location
 							</button>
 							<div ng-if="ngmClusterLocations.openAddNewLocation" 
