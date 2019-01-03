@@ -42,12 +42,12 @@
 	      					ng-click="project.save( false, false)">
 	      					<i class="material-icons left">create</i>Edit Report
 	      			</button>
-							<div class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
+							<button class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
 	      					title="Copy {{ project.previousMonth }}"	      					
 									ng-click="project.copyPrevReport()"
 									ng-if="!deactivedCopybutton">
 	      					<i class="material-icons left">content_copy</i>Copy Last Month
-							</div>
+							</button>
 						</div>
 
 						<div class="row" ng-repeat="location in project.report.locations" ng-init="$locationIndex=$index">
