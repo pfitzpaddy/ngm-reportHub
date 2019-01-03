@@ -68,7 +68,7 @@ angular.module('ngmReportHub')
 						        var disabled = true;
 										if ( user.status === 'active' &&
 						        			( $scope.dashboard.username === $scope.dashboard.user.username ||
-											( ngmAuth.canEdit( 'EDIT_USER', { adminRpcode: user.adminRpcode, 
+											( ngmAuth.canDo( 'EDIT_USER', { adminRpcode: user.adminRpcode, 
 																			  admin0pcode: user.admin0pcode, 
 																			  cluster_id: user.cluster_id, 
 																			  organization_tag: user.organization_tag } ) ) ) ) {
@@ -79,7 +79,7 @@ angular.module('ngmReportHub')
 						      activateUpdateVisible: (function() {
 						        var visible = false;
 						        if ( $scope.dashboard.user.username !== $scope.dashboard.username && 
-											( ngmAuth.canEdit( 'EDIT_USER', { adminRpcode: user.adminRpcode, 
+											( ngmAuth.canDo( 'EDIT_USER', { adminRpcode: user.adminRpcode, 
 																			  admin0pcode: user.admin0pcode, 
 																			  cluster_id: user.cluster_id, 
 																			  organization_tag: user.organization_tag } ) ) ) {

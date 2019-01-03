@@ -52,7 +52,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
         financialsUrl: 'financials.html',
         notesUrl: 'notes.html',
 
-        canEdit: ngmAuth.canEdit( 'EDIT', { adminRpcode: config.project.adminRpcode, admin0pcode:config.project.admin0pcode, cluster_id: config.project.cluster_id, organization_tag:config.project.organization_tag } ),
+        canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.project.adminRpcode, admin0pcode:config.project.admin0pcode, cluster_id: config.project.cluster_id, organization_tag:config.project.organization_tag } ),
 
         // placeholder bydget activity
         lists: {
