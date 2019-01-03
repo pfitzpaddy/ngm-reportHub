@@ -78,6 +78,17 @@ angular.module('ngmReportHub')
 	 * @returns {UserPermissions[]} - Array of Roles permission definitions.
 	 */
 	.constant( 'ngmPermissions', [{ 
+			ROLE: 'PUBLIC',
+			EDIT: false,
+			EDIT_USER: false,
+			ADMIN_RESTRICTED: [ 'admin0pcode', 'organization_tag' ],
+			ADMIN_MENU: [ 'cluster_id', 'report_id' ],
+			DASHBOARD_RESTRICTED: [],
+			DASHBOARD_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'organization_tag' ],
+			TEAM_RESTRICTED: [],
+			TEAM_MENU: [],
+			LEVEL: 0 
+		},{ 
 			ROLE: 'USER',
 			EDIT: true,
 			EDIT_RESTRICTED: ['organization_tag', 'admin0pcode', 'adminRpcode'],
@@ -85,8 +96,12 @@ angular.module('ngmReportHub')
 			EDIT_USER_RESTRICTED: ['organization_tag', 'admin0pcode', 'adminRpcode'],
 			ADMIN_RESTRICTED: [ 'admin0pcode', 'organization_tag' ],
 			ADMIN_MENU: [ 'cluster_id', 'report_id' ],
-			DASHBOARD_RESTRICTED: [ 'admin0pcode', 'organization_tag' ],
-			DASHBOARD_MENU: [ 'cluster_id', 'report_id' ],
+			DASHBOARD_RESTRICTED: [ 'adminRpcode', 'admin0pcode', 'organization_tag' ],
+			DASHBOARD_MENU: [ 'cluster_id' ],
+			DASHBOARD_DOWNLOAD: true,
+			DASHBOARD_DOWNLOAD_RESTRICTED: ['organization_tag', 'admin0pcode', 'adminRpcode'],
+			TEAM_RESTRICTED: [ 'admin0pcode', 'organization_tag' ],
+			TEAM_MENU: [ 'cluster_id', 'report_id' ],
 			LEVEL: 1 
 		},
 		{ 
@@ -97,8 +112,10 @@ angular.module('ngmReportHub')
 			EDIT_USER_RESTRICTED: ['organization_tag', 'admin0pcode', 'adminRpcode'],
 			ADMIN_RESTRICTED: [ 'admin0pcode', 'organization_tag' ],
 			ADMIN_MENU: [ 'cluster_id', 'report_id' ],
-			DASHBOARD_RESTRICTED: [ 'admin0pcode', 'organization_tag' ],
-			DASHBOARD_MENU: [ 'cluster_id', 'report_id' ],
+			DASHBOARD_RESTRICTED: [ 'adminRpcode', 'admin0pcode', 'organization_tag' ],
+			DASHBOARD_MENU: [ 'cluster_id' ],
+			DASHBOARD_DOWNLOAD: true,
+			DASHBOARD_DOWNLOAD_RESTRICTED: ['organization_tag', 'admin0pcode', 'adminRpcode'],
 			LEVEL: 2
 		},
 		{ 
@@ -109,8 +126,12 @@ angular.module('ngmReportHub')
 			EDIT_USER_RESTRICTED: ['cluster_id', 'admin0pcode', 'adminRpcode'],
 			ADMIN_RESTRICTED: [ 'admin0pcode', 'cluster_id' ],
 			ADMIN_MENU: [ 'organization_tag', 'report_id' ],
-			DASHBOARD_RESTRICTED: [ 'admin0pcode', 'cluster_id' ],
-			DASHBOARD_MENU: [ 'organization_tag', 'report_id' ],
+			DASHBOARD_RESTRICTED: [ 'adminRpcode', 'admin0pcode', 'cluster_id' ],
+			DASHBOARD_MENU: [ 'organization_tag' ],
+			DASHBOARD_DOWNLOAD: true,
+			DASHBOARD_DOWNLOAD_RESTRICTED: ['cluster_id', 'admin0pcode', 'adminRpcode'],
+			TEAM_RESTRICTED: [ 'admin0pcode', 'cluster_id' ],
+			TEAM_MENU: [ 'organization_tag' ],
 			LEVEL: 3
 		},
 		{ 
@@ -121,8 +142,12 @@ angular.module('ngmReportHub')
 			EDIT_USER_RESTRICTED: ['cluster_id', 'admin0pcode', 'adminRpcode'],
 			ADMIN_RESTRICTED: [ 'admin0pcode', 'cluster_id' ],
 			ADMIN_MENU: [ 'organization_tag', 'report_id' ],
-			DASHBOARD_RESTRICTED: [ 'admin0pcode', 'cluster_id' ],
-			DASHBOARD_MENU: [ 'organization_tag', 'report_id' ],
+			DASHBOARD_RESTRICTED: [ 'adminRpcode', 'admin0pcode', 'cluster_id' ],
+			DASHBOARD_MENU: [ 'organization_tag' ],
+			DASHBOARD_DOWNLOAD: true,
+			DASHBOARD_DOWNLOAD_RESTRICTED: ['cluster_id', 'admin0pcode', 'adminRpcode'],
+			TEAM_RESTRICTED: [ 'admin0pcode', 'cluster_id' ],
+			TEAM_MENU: [ 'organization_tag' ],
 			LEVEL: 3
 		},
 		{ 
@@ -133,8 +158,12 @@ angular.module('ngmReportHub')
 			EDIT_USER_RESTRICTED: ['admin0pcode', 'adminRpcode'],
 			ADMIN_RESTRICTED: [ 'admin0pcode' ],
 			ADMIN_MENU: [ 'cluster_id', 'report_id', 'organization_tag' ],
-			DASHBOARD_RESTRICTED: [ 'admin0pcode' ],
-			DASHBOARD_MENU: [ 'cluster_id', 'report_id', 'organization_tag' ],
+			DASHBOARD_RESTRICTED: [ 'admin0pcode', 'adminRpcode' ],
+			DASHBOARD_MENU: [ 'cluster_id', 'organization_tag' ],
+			DASHBOARD_DOWNLOAD: true,
+			DASHBOARD_DOWNLOAD_RESTRICTED: ['admin0pcode', 'adminRpcode'],
+			TEAM_RESTRICTED: [ 'admin0pcode' ],
+			TEAM_MENU: [ 'cluster_id', 'organization_tag' ],
 			LEVEL: 4
 		},
 		{ 
@@ -146,7 +175,11 @@ angular.module('ngmReportHub')
 			ADMIN_RESTRICTED: [ 'adminRpcode', 'organization_tag' ],
 			ADMIN_MENU: [ 'admin0pcode', 'cluster_id', 'report_id' ],
 			DASHBOARD_RESTRICTED: [ 'adminRpcode', 'organization_tag' ],
-			DASHBOARD_MENU: [ 'admin0pcode', 'cluster_id', 'report_id' ],
+			DASHBOARD_MENU: [ 'admin0pcode', 'cluster_id' ],
+			DASHBOARD_DOWNLOAD: true,
+			DASHBOARD_DOWNLOAD_RESTRICTED: ['organization_tag', 'adminRpcode'],
+			TEAM_RESTRICTED: [ 'adminRpcode', 'organization_tag' ],
+			TEAM_MENU: [ 'admin0pcode', 'cluster_id' ],
 			LEVEL: 5
 		},
 		{ 
@@ -158,7 +191,11 @@ angular.module('ngmReportHub')
 			ADMIN_RESTRICTED: [ 'adminRpcode' ],
 			ADMIN_MENU: [ 'admin0pcode', 'cluster_id', 'report_id', 'organization_tag' ],
 			DASHBOARD_RESTRICTED: [ 'adminRpcode' ],
-			DASHBOARD_MENU: [ 'admin0pcode', 'cluster_id', 'report_id', 'organization_tag' ],
+			DASHBOARD_MENU: [ 'admin0pcode', 'cluster_id', 'organization_tag' ],
+			DASHBOARD_DOWNLOAD: true,
+			DASHBOARD_DOWNLOAD_RESTRICTED: ['adminRpcode'],
+			TEAM_RESTRICTED: [ 'adminRpcode' ],
+			TEAM_MENU: [ 'admin0pcode', 'cluster_id', 'organization_tag' ],
 			LEVEL: 6
 		},
 		{ 
@@ -170,7 +207,11 @@ angular.module('ngmReportHub')
 			ADMIN_RESTRICTED: [ 'organization_tag' ],
 			ADMIN_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'report_id' ],
 			DASHBOARD_RESTRICTED: [ 'organization_tag' ],
-			DASHBOARD_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'report_id' ],
+			DASHBOARD_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id' ],
+			DASHBOARD_DOWNLOAD: true,
+			DASHBOARD_DOWNLOAD_RESTRICTED: ['organization_tag'],
+			TEAM_RESTRICTED: [ 'organization_tag' ],
+			TEAM_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id' ],
 			LEVEL: 7
 		},
 		{ 
@@ -182,7 +223,11 @@ angular.module('ngmReportHub')
 			ADMIN_RESTRICTED: [],
 			ADMIN_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'report_id', 'organization_tag' ],
 			DASHBOARD_RESTRICTED: [],
-			DASHBOARD_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'report_id', 'organization_tag' ],
+			DASHBOARD_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'organization_tag' ],
+			DASHBOARD_DOWNLOAD: true,
+			DASHBOARD_DOWNLOAD_RESTRICTED: [],
+			TEAM_RESTRICTED: [],
+			TEAM_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'organization_tag' ],
 			LEVEL: 8
 		},
 		{ 
@@ -194,7 +239,11 @@ angular.module('ngmReportHub')
 			ADMIN_RESTRICTED: [],
 			ADMIN_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'report_id', 'organization_tag' ],
 			DASHBOARD_RESTRICTED: [],
-			DASHBOARD_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'report_id', 'organization_tag' ],
+			DASHBOARD_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'organization_tag' ],
+			DASHBOARD_DOWNLOAD: true,
+			DASHBOARD_DOWNLOAD_RESTRICTED: [],
+			TEAM_RESTRICTED: [],
+			TEAM_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'organization_tag' ],
 			LEVEL: 9
 		}]
    )
@@ -222,7 +271,7 @@ angular.module('ngmReportHub')
 				organization_tag: 'all',
 				username: 'welcome',
 				email: 'public@immap.org',
-				roles: [ 'USER', 'ADMIN', 'SUPERADMIN' ]
+				roles: [ 'USER', 'ADMIN', 'SUPERADMIN', 'PUBLIC' ]
 			},
 
 			// register
@@ -469,7 +518,7 @@ angular.module('ngmReportHub')
 			 */
 			userPermissions: function(){
 				const user = ngmUser.get();
-				return ngmPermissions.filter(function(x){return user.roles.indexOf(x.ROLE)!==-1})
+				return ngmPermissions.filter(function(x){return user.roles.includes(x.ROLE)})
 			},
 
 			/**
