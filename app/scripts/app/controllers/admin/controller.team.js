@@ -59,8 +59,10 @@ angular.module('ngmReportHub')
 				$scope.dashboard.organization_tag = $route.current.params.organization_tag;
 
 				// override route params to user permitted zone params if any
-				for (const key of $scope.dashboard.userRestrictedRouteParams){
-					$scope.dashboard[key] = $scope.dashboard.user[key]
+				if ( $scope.dashboard.userRestrictedRouteParams ) {
+					for (const key of $scope.dashboard.userRestrictedRouteParams){
+						$scope.dashboard[key] = $scope.dashboard.user[key]
+					}
 				}
 
 				// if iMMAP

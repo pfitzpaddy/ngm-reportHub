@@ -842,8 +842,10 @@ angular.module('ngmReportHub')
 					$scope.dashboard.report_file_name += moment().format( 'YYYY-MM-DDTHHmm' );
 
 					// override route params to user permitted zone params if any
-					for (const key of $scope.dashboard.userRestrictedRouteParams){
-						$scope.dashboard[key] = $scope.dashboard.user[key].toLowerCase()
+					if ( $scope.dashboard.userRestrictedRouteParams ) {
+						for (const key of $scope.dashboard.userRestrictedRouteParams){
+							$scope.dashboard[key] = $scope.dashboard.user[key].toLowerCase()
+						}
 					}
 
 					// name for title, as for other roles it comes from api
