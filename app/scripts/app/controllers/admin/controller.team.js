@@ -141,6 +141,214 @@ angular.module('ngmReportHub')
 				$scope.dashboard.ngm.dashboard.model.header.subtitle.title = $scope.dashboard.organization  + ' | ' +  $scope.dashboard.admin0name + ' | Team | ' + $scope.dashboard.user.username;
 			},
 
+			// set stats
+			setStats: function() {
+
+				// 235
+
+				var stats = [{
+					styleClass: 's12 m6',
+					widgets: [{
+						type: 'html',
+						config: {
+							user: $scope.dashboard.user,
+							style: $scope.dashboard.ngm.style,
+							profileHref: $scope.dashboard.profileHref,
+							templateUrl: '/scripts/app/views/authentication/profile-card.html'
+						}
+					}]
+				}];
+
+				// stats USER, ORG ( active staff )
+				var stats_org_level = [{
+					styleClass: 's12 m6',
+					widgets: [{
+						type: 'stats',
+						style: 'text-align:center; height:235px; padding-top:90px;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Active Staff',
+							request: $scope.dashboard.getRequest( 'total', 'active' )
+						}
+					}]
+				}];
+
+				// stats CLUSTER, ADMIN ( orgs, active staff )
+				var stats_cluster_level = [{
+					styleClass: 's12 m6',
+					widgets: [{
+						type: 'stats',
+						style: 'text-align: center;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Organizations',
+							request: $scope.dashboard.getRequest( 'organizations', 'active' )
+						}
+					}]
+				},{
+					styleClass: 's12 m6',
+					widgets: [{
+						type: 'stats',
+						style: 'text-align: center;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Active Partners',
+							request: $scope.dashboard.getRequest( 'total', 'active' )
+						}
+					}]
+				}];
+
+				// country level
+				var stats_country_level = [{
+					styleClass: 's12 m3',
+					widgets: [{
+						type: 'stats',
+						style: 'text-align: center;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Sectors',
+							request: $scope.dashboard.getRequest( 'sectors', 'active' )
+						}
+					}]
+				},{
+					styleClass: 's12 m3',
+					widgets: [{
+						type: 'stats',
+						style: 'text-align: center;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Organizations',
+							request: $scope.dashboard.getRequest( 'organizations', 'active' )
+						}
+					}]
+				},{
+					styleClass: 's12 m6',
+					widgets: [{
+						type: 'stats',
+						style: 'text-align: center;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Active Partners',
+							request: $scope.dashboard.getRequest( 'total', 'active' )
+						}
+					}]
+				}];
+
+				// above county level ORG
+				var stats_country_level_above_org = [{
+					styleClass: 's12 m3',
+					widgets: [{
+						type: 'stats',
+						style: 'text-align: center;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Countries',
+							request: $scope.dashboard.getRequest( 'countries', 'active' )
+						}
+					}]
+				},{
+					styleClass: 's12 m3',
+					widgets: [{
+						type: 'stats',
+						style: 'text-align: center;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Sectors',
+							request: $scope.dashboard.getRequest( 'sectors', 'active' )
+						}
+					}]
+				},{
+					styleClass: 's12 m6',
+					widgets: [{
+						type: 'stats',
+						style: 'text-align: center;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Active Partners',
+							request: $scope.dashboard.getRequest( 'total', 'active' )
+						}
+					}]
+				}];
+
+				// above county level above
+				var stats_country_level_above = [{
+					styleClass: 's12 m3',
+					widgets: [{
+						type: 'stats',
+						style: 'text-align: center;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Countries',
+							request: $scope.dashboard.getRequest( 'countries', 'active' )
+						}
+					}]
+				},{
+					styleClass: 's12 m3',
+					widgets: [{
+						type: 'stats',
+						style: 'text-align: center;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Sectors',
+							request: $scope.dashboard.getRequest( 'sectors', 'active' )
+						}
+					}]
+				},{
+					styleClass: 's12 m3',
+					widgets: [{
+						type: 'stats',
+						style: 'text-align: center;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Organizations',
+							request: $scope.dashboard.getRequest( 'organizations', 'active' )
+						}
+					}]
+				},{
+					styleClass: 's12 m3',
+					widgets: [{
+						type: 'stats',
+						style: 'text-align: center;',
+						card: 'card-panel stats-card white grey-text text-darken-2',
+						config: {
+							title: 'Active Partners',
+							request: $scope.dashboard.getRequest( 'total', 'active' )
+						}
+					}]
+				}];
+
+				// region / hq 
+				if ( $scope.dashboard.user.roles.indexOf( 'HQ' ) > -1 || 
+										$scope.dashboard.user.roles.indexOf( 'REGION' ) > -1 ) {
+					stats = stats.concat( stats_country_level_above );
+				}
+
+				// region / hq ORG
+				else if ( $scope.dashboard.user.roles.indexOf( 'HQ_ORG' ) > -1 || 
+										$scope.dashboard.user.roles.indexOf( 'REGION_ORG' ) > -1 ) {
+					stats = stats.concat( stats_country_level_above_org );
+				}
+
+				// country
+				else if ( $scope.dashboard.user.roles.indexOf( 'COUNTRY' ) > -1 ) {
+					stats = stats.concat( stats_country_level );
+				}
+
+				// cluster
+				else if ( $scope.dashboard.user.roles.indexOf( 'CLUSTER' ) > -1 || 
+										$scope.dashboard.user.roles.indexOf( 'ADMIN' ) > -1 ) {
+					stats = stats.concat( stats_country_level );
+				} 
+				// user / org
+				else if ( $scope.dashboard.user.roles.indexOf( 'USER' ) > -1 || 
+										$scope.dashboard.user.roles.indexOf( 'ORG' ) > -1 ) {
+					stats = stats.concat( stats_org_level );					
+				}
+				
+				return stats;
+
+			},
+
 			// init
 			init: function(){
 
@@ -175,51 +383,7 @@ angular.module('ngmReportHub')
 						}
 					},
 					rows: [{
-						columns: [{
-							styleClass: 's12 m6',
-							widgets: [{
-								type: 'html',
-								config: {
-									user: $scope.dashboard.user,
-									style: $scope.dashboard.ngm.style,
-									profileHref: $scope.dashboard.profileHref,
-									templateUrl: '/scripts/app/views/authentication/profile-card.html'
-								}
-							}]
-						},{
-							styleClass: 's12 m3',
-							widgets: [{
-								type: 'stats',
-								style: 'text-align: center;',
-								card: 'card-panel stats-card white grey-text text-darken-2',
-								config: {
-									title: 'Countries',
-									request: $scope.dashboard.getRequest( 'countries', 'active' )
-								}
-							}]
-						},{
-							styleClass: 's12 m3',
-							widgets: [{
-								type: 'stats',
-								style: 'text-align: center;',
-								card: 'card-panel stats-card white grey-text text-darken-2',
-								config: {
-									title: 'Sectors',
-									request: $scope.dashboard.getRequest( 'sectors', 'active' )
-								}
-							}]
-						},{
-							styleClass: 's12 m6',
-							widgets: [{
-								type: 'stats',
-								style: 'text-align: center;',
-								card: 'card-panel stats-card white grey-text text-darken-2',
-								config: {
-									title: 'Active Staff',
-									request: $scope.dashboard.getRequest( 'total', 'active' )
-								}
-							}]
-						}]
+						columns: $scope.dashboard.setStats()
 					},{
 						columns: [{
 							styleClass: 's12',
