@@ -628,7 +628,7 @@ angular.module( 'ngmReportHub' )
                   b.cluster_id === 'esnfi' || 
                   b.cluster_id === 'fsac' || 
                   b.activity_type_id && b.activity_type_id.indexOf( 'cash' ) !== -1 || 
-                  b.activity_type_id && b.activity_description_id.indexOf( 'cash' ) !== -1 || 
+                  b.activity_description_id && b.activity_description_id.indexOf( 'cash' ) !== -1 || 
                   ( b.cluster_id === 'wash' && b.admin0pcode !== 'AF' ) ){
               display = true;
             }

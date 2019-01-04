@@ -606,6 +606,7 @@ angular.module( 'ngmReportHub' )
 
         // filter duplications by tag
         if ( filterDuplicates ) {
+          activities = $filter( 'filter' )( activitiesList, { active: true } );
           activities = ngmClusterLists.filterDuplicates( activities, filterDuplicates );
         }
 
