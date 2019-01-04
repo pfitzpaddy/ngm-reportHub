@@ -2769,11 +2769,14 @@ angular.module( 'ngmReportHub' )
           detail_type_id: 'esnfi_beam',
           detail_type_name: 'Beam'
         }, {
+          detail_type_id: 'esnfi_bed_net',
+          detail_type_name: 'Bed Net'
+        }, {
           detail_type_id: 'esnfi_big_spoon',
           detail_type_name: 'Big Spoon for Cooking'
         }, {
           detail_type_id: 'esnfi_blankets',
-          detail_type_name: 'Blangkets'
+          detail_type_name: 'Blankets'
         }, {
           detail_type_id: 'esnfi_bowl',
           detail_type_name: 'Bowl'
@@ -2805,6 +2808,9 @@ angular.module( 'ngmReportHub' )
           detail_type_id: 'esnfi_cooking_pot',
           detail_type_name: 'Cooking Pot'
         }, {
+          detail_type_id: 'esnfi_cups',
+          detail_type_name: 'Cups'
+        }, {
           detail_type_id: 'esnfi_digger',
           detail_type_name: 'Pick Digger (with Wooden Handle)'
         }, {
@@ -2835,6 +2841,9 @@ angular.module( 'ngmReportHub' )
           detail_type_id: 'esnfi_jerrycan',
           detail_type_name: 'Jerrycan'
         }, {
+          detail_type_id: 'esnfi_kettle_jug',
+          detail_type_name: 'Kettle/Jug'
+        }, {
           detail_type_id: 'esnfi_kindling',
           detail_type_name: 'Kindling'
         }, {
@@ -2847,6 +2856,9 @@ angular.module( 'ngmReportHub' )
           detail_type_id: 'esnfi_matchbox',
           detail_type_name: 'Matchbox'
         }, {
+          detail_type_id: 'mosquito_net_set',
+          detail_type_name: 'Mosquito Net Set'
+        }, {
           detail_type_id: 'esnfi_multi_purpose_cash',
           detail_type_name: 'Multi-Purpose Cash'
         }, {
@@ -2856,8 +2868,14 @@ angular.module( 'ngmReportHub' )
           detail_type_id: 'esnfi_peeling_knife',
           detail_type_name: 'Peeling Knife'
         }, {
-          detail_type_id: 'esnfi_plastic_mat',
-          detail_type_name: 'Plastic Mat'
+          detail_type_id: 'esnfi_plastic_sheet',
+          detail_type_name: 'Plastic Sheet'
+        }, {
+          detail_type_id: 'esnfi_plates',
+          detail_type_name: 'Plates'
+        }, {
+          detail_type_id: 'esnfi_sleeping_mat',
+          detail_type_name: 'Sleeping Mat'
         }, {
           detail_type_id: 'esnfi_plastic_rope',
           detail_type_name: 'Plastic Rope (30m / 6-10 mm Diameter)'
@@ -2901,6 +2919,9 @@ angular.module( 'ngmReportHub' )
           detail_type_id: 'esnfi_wheelbarrow',
           detail_type_name: 'Wheelbarrow/Zambil'
         }, {
+          detail_type_id: 'esnfi_washing_basin',
+          detail_type_name: 'Washing Basin'
+        }, {
           detail_type_id: 'esnfi_window',
           detail_type_name: 'Window'
         }, {
@@ -2913,45 +2934,40 @@ angular.module( 'ngmReportHub' )
       },
 
       // manages selections (removes selections from detials list for ET ESNFI partial_kits, kit_details)
-      getDetailList: function( detail_list, $locationIndex, $beneficiaryIndex, $index, detail_type_id, b_detail_list ) {
+      setDetailList: function( detail_list, $locationIndex, $beneficiaryIndex, $index, detail_type_id, b_detail_list ) {
 
         // list
         var list;
 
-        // each beneficiary
-        if ( !ngmClusterLists[ detail_list ][ $locationIndex ] ) {
-          ngmClusterLists[ detail_list ][ $locationIndex ] = [];
-        }
-        if ( !ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ] ) {
-          ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ] = [];
-        }       
-
-        // get kit details
-        switch( detail_list ) {
-          case 'partial_kits':
-            list = ngmClusterLists.getPartialKits();
-            break;
-          default:
-            list = ngmClusterLists.getKitDetails();
-        }
-        
-        // set list at index
-        if ( !ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ] ) {
-          ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ] = angular.copy( list );
-        }
-
-        // remove current selection
-        b_detail_list = $filter( 'filter' )( b_detail_list, { detail_type_id: '!' + detail_type_id } );
-        
-        // filter partial_kits
-        angular.forEach( b_detail_list, function ( detail ) {
-          if ( detail.detail_type_id ) {
-            ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ] = $filter( 'filter' )( ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ], { detail_type_id: '!' + detail.detail_type_id } );
+          // each beneficiary
+          if ( !ngmClusterLists[ detail_list ][ $locationIndex ] ) {
+            ngmClusterLists[ detail_list ][ $locationIndex ] = [];
           }
-        });
+          if ( !ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ] ) {
+            ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ] = [];
+          }       
 
-        // return
-        return ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ];
+          // get kit details
+          switch( detail_list ) {
+            case 'partial_kits':
+              list = ngmClusterLists.getPartialKits();
+              break;
+            default:
+              list = ngmClusterLists.getKitDetails();
+          }
+          
+          // set list at index
+            ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ] = angular.copy( list );
+
+          // remove current selection
+          b_detail_list = $filter( 'filter' )( b_detail_list, { detail_type_id: '!' + detail_type_id } );
+          
+          // filter partial_kits
+          angular.forEach( b_detail_list, function ( detail ) {
+            if ( detail.detail_type_id ) {
+              ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ] = $filter( 'filter' )( ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ], { detail_type_id: '!' + detail.detail_type_id } );
+            }
+          });
 
       },
 
