@@ -161,6 +161,12 @@ angular.module( 'ngmReportHub' )
             'active': '2018',
             'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
             'href':  dashboard.url + '/2018/' + dashboard.region + '/' + dashboard.province + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
+          },{
+            'title': '2019',
+            'param': 'year',
+            'active': '2019',
+            'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+            'href':  dashboard.url + '/2019/' + dashboard.region + '/' + dashboard.province + '/' + dashboard.week + '/' + dashboard.startDate + '/' + dashboard.endDate
           }]
         },{
           'id': 'epr-admin-region',
