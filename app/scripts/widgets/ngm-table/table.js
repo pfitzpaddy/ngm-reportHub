@@ -81,7 +81,11 @@ angular.module('ngm.widget.table', ['ngm.provider'])
           } else {
             $location.path( href );
           }
-        }
+				},
+				//just for team page
+				getUser: function(user){
+					$scope.editedUser = user;
+				}
 
       };
 
@@ -89,8 +93,8 @@ angular.module('ngm.widget.table', ['ngm.provider'])
       $scope.table = angular.merge({}, $scope.table, config);
 
       // data
-      $scope.data = config.data ? config.data : data;
-
+			$scope.data = config.data ? config.data : data;
+			
       // check if features
       if ( data && data.features ) {
         $scope.data = data.features;
@@ -101,7 +105,7 @@ angular.module('ngm.widget.table', ['ngm.provider'])
       $scope.table.tableSettings.data = $scope.data;
 
       // ngTable
-      $scope.table.tableParams = new NgTableParams($scope.table.tableOptions, $scope.table.tableSettings);
+			$scope.table.tableParams = new NgTableParams($scope.table.tableOptions, $scope.table.tableSettings);
 
   }
 ]);

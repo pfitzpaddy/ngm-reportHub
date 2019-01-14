@@ -89,7 +89,11 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           'protection': { cluster: 'Protection' },
           'rnr_chapter': { cluster: 'R&R Chapter' },
           'wash': { cluster: 'WASH' }
-        },
+				},
+				
+				// editable role array:
+				
+				editRoleUrl: '/scripts/app/views/authentication/edit-role.html',
 
         // login fn
         login: function( ngmLoginForm ){
@@ -393,7 +397,24 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               }
             }
           }
-        }
+				},
+				
+				//manage user access
+				manageUserAccess:function (id) {
+
+					if (document.getElementById(id).checked){						
+						var values = document.getElementById(id).value;
+						if($scope.panel.user.roles.indexOf(values)=== -1){
+							$scope.panel.user.roles.push(values)
+						}						
+					} else{
+						var values = document.getElementById(id).value;
+						if ($scope.panel.user.roles.indexOf(values) > -1) {
+							var index =$scope.panel.user.roles.indexOf(values);
+							$scope.panel.user.roles.splice(index,1);							
+						}
+					}
+				},
 
       }
 
@@ -414,10 +435,11 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
       // if config user
       if ( config.user ) {
-        $scope.panel.user = {};
+				$scope.panel.user = {};
+				$scope.panel.roles = ngmAuth.getEditableRoles();
       }
-      // merge defaults with config
-      $scope.panel = angular.merge( {}, $scope.panel, config );
+			// merge defaults with config
+			$scope.panel = angular.merge( {}, $scope.panel, config );
 
       // get organizations
       // if ( !localStorage.getObject( 'organizations') ){

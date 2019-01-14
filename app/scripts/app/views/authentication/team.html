@@ -13,8 +13,34 @@
 .pagination li.active {
     background-color: #009688;
 }
+.modal-content .ng-table-pager {
+    display: none;
+}
 
 </style>
+<div id="manage-modal" class="modal">
+	<div class="modal-content" style=" padding-top: 0px; padding-left: 0px; padding-right: 0px">
+		<ul class="collection with-header" style="margin-top:0">
+			<li class="collection-header teal lighten-1" style="border-bottom: 0">
+				<h5 style="color: #ffffff;font-weight:300;">
+					<i class="material-icons left" style="font-size: 25px">account_circle</i>
+					Manage User Access for {{editedUser.name? editedUser.name: editedUser.username}}
+				</h5>
+			</li>
+		</ul>
+		
+		<div class="row" style="margin-left: 10px;margin-right:10px;">
+			<div class="col s4" ng-repeat="role in table.editableRole">									
+				<input type="checkbox" class="filled-in" id={{role}} value={{role}} ng-checked="editedUser.roles.indexOf(role) > -1" ng-click="table.manageUser(role,editedUser)" />
+				<label for="{{role}}" style="color: #000000; font-weight: 500;">{{role}}</label>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<div class="modal-action modal-close wave-effects wave-red red darken-1 btn" style="margin-left:10px;margin-right: 25px">Close</div>
+		<div class="modal-action modal-close wave-effects wave-green btn" ng-click="table.saveEditAccess(editedUser)">Save</div>
+	</div>
+</div>
 
 
 <!-- ngTable -->
@@ -29,36 +55,56 @@
           <!-- if data -->
           <div ng-if="data.length">
             <table class="centered highlight responsive-table" ng-table="table.tableParams">
-              <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;" ng-click="table.onClick(row)">
-                <td data-title="'Country'" sortable="'admin0name'">
+              <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
+                <td data-title="'Country'" sortable="'admin0name'" ng-click="table.onClick(row)">
                     {{ row.admin0name }}
                 </td>
-                <td data-title="'Organization'" sortable="'organization'">
+                <td data-title="'Organization'" sortable="'organization'" ng-click="table.onClick(row)">
                     {{ row.organization }}
                 </td>
-                <td data-title="'Name'" sortable="'name'">
+                <td data-title="'Name'" sortable="'name'" ng-click="table.onClick(row)">
                     {{ row.name }}
                 </td>
-                <td data-title="'Position'" sortable="'position'">
+                <td data-title="'Position'" sortable="'position'" ng-click="table.onClick(row)">
                   {{ row.position }}
                 </td>
-                <td data-title="'Sector'" sortable="'cluster'">
+                <td data-title="'Sector'" sortable="'cluster'" ng-click="table.onClick(row)">
                     {{ row.cluster }}
                 </td>
-                <td data-title="'Email'" sortable="'email'">
+                <td data-title="'Email'" sortable="'email'" ng-click="table.onClick(row)">
                   {{ row.email }}
                 </td>
-                <td data-title="'Phone'" sortable="'phone'">
+                <td data-title="'Phone'" sortable="'phone'" ng-click="table.onClick(row)">
                     {{ row.phone }}
                 </td>
-                <td data-title="'Updated'" sortable="'updatedAt'">
+                <td data-title="'Updated'" sortable="'updatedAt'" ng-click="table.onClick(row)">
                     {{ row.updatedAt | date:'medium' }}
                 </td>
                 <td data-title="'Edit'" sortable="'name'" ng-if="false">
                   <div title="Delete">
                     <i class="material-icons">delete</i>
                   </div>
-                </td>
+								</td>
+								<td data-title="'Role'" sortable="'roles'" ng-if="!table.formDisabled && table.editableRole">
+									<p>
+										<span ng-repeat="shift in row.roles track by $index ">
+											{{shift}}{{$last ? '' : ', '}}
+										</span>
+									</p>
+								</td>
+								<td data-title="'Edit Role'" sortable="'name'" ng-if="!table.formDisabled && table.editableRole">
+									<button
+									class="btn waves-effect waves-teal"
+									style="font-size: 12px;height: 30px; line-height: 30px"
+									ng-click="table.openModal('manage-modal');table.getUser(row)"
+									ng-disabled="table.btnDisabled()"
+									>											
+											MANAGE USER
+									</button>
+									<!-- <div title="Edit Role">
+										<i class="material-icons">edit</i>
+									</div> -->
+								</td>
               </tr>
             </table>
           </div>
