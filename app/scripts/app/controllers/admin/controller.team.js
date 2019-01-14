@@ -408,7 +408,37 @@ angular.module('ngmReportHub')
 									onClick: function(user){
 										// go to profile
 										$location.path( $scope.dashboard.profileHref + '/' + user.username );
-									}
+									},
+									editableRole: ngmAuth.getEditableRoles(),
+									manageUser: function(role,row){
+										$scope.dashboard.manageUserAccess(role,row);
+									},
+									saveEditAccess: function(user){
+										$scope.dashboard.saveAccess(user);
+									},
+									openModal:function (modal) {
+										$scope.dashboard.openModal(modal);
+									},
+									formDisabled: (function () {
+										var disabled = true;
+										if ($scope.dashboard.user.status === 'active' &&
+											
+												(ngmAuth.canDo('EDIT_USER', {
+													adminRpcode:$scope.dashboard.user.adminRpcode,
+													admin0pcode: $scope.dashboard.user.admin0pcode,
+													cluster_id: $scope.dashboard.user.cluster_id,
+													organization_tag: $scope.dashboard.user.organization_tag
+												}))) {
+											disabled = false;
+										}
+										return disabled;
+									})(),
+									btnDisabled: (function(){										
+										if(!$scope.dashboard.btnManageAccessDisabled){
+											return false
+										}
+										return true;
+									})
 								}
 							}]
 						}]
@@ -456,7 +486,46 @@ angular.module('ngmReportHub')
 				// assign to ngm app scope
 				$scope.dashboard.ngm.dashboard.model = $scope.model;
 
-			}
+			},			
+			openModal: function (modal) {
+				$('#' + modal).openModal({ dismissible: false });
+			},
+			//manage user access
+			manageUserAccess: function (id,user) {
+				if (document.getElementById(id).checked) {
+					var values = document.getElementById(id).value;
+					if (user.roles.indexOf(values) === -1) {
+						user.roles.push(values)
+					}
+				} else {
+					var values = document.getElementById(id).value;
+					if (user.roles.indexOf(values) > -1) {
+						var index = user.roles.indexOf(values);
+						user.roles.splice(index, 1);
+					}
+				}
+			},
+			saveAccess:function(user){
+				//set button to disable 
+				$scope.dashboard.btnManageAccessDisabled= true;
+				// toast to wait
+				Materialize.toast('Plesase! wait a moment...', 10000, 'note');
+				//save update
+				ngmAuth
+					.updateProfile({ user: user }).success(function (result) {
+						// db error!
+						if (result.err || result.summary) {
+							var msg = result.msg ? result.msg : 'error!';
+							Materialize.toast(msg, 6000, msg);
+						}
+						// success
+						if (result.success) {							
+							Materialize.toast('Success! Role updated!', 3000, 'success');
+							$scope.dashboard.btnManageAccessDisabled=false;
+						}
+					});
+			},
+			btnManageAccessDisabled: false
 
 		}
 

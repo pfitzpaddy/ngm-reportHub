@@ -41,6 +41,13 @@ form {
 .action {
 	padding-top: 50px;
 }
+/* [type="checkbox"].filled-in:not(:checked) + label:after {
+  left: 25%;
+}
+
+[type="checkbox"].filled-in:checked + label:after,[type="checkbox"].filled-in:checked + label:before {
+	 left: 25%;
+} */
 
 </style>
 
@@ -80,6 +87,16 @@ form {
     <a ng-click="panel.delete()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Delete User!</a>
   </div>
 </div>
+
+<!-- manage user -->
+<!-- <div id="manage-modal" class="modal">
+		<div class="modal-content" ng-include="panel.editRoleUrl">			
+		</div>
+		<div class="modal-footer">
+			<div class="modal-action modal-close wave-effects wave-red red darken-1 btn" style="margin-left:10px;margin-right: 25px">Close</div>
+			<div class="modal-action modal-close wave-effects wave-green btn" ng-click="panel.saveUserAccess()">Save</div>
+		</div>
+</div> -->
 
 <!-- form -->
   <div class="row">
@@ -310,6 +327,21 @@ form {
 		        </div>
 		      </div>
 
+				</div>
+
+				<!-- ROLE -->
+				<div ng-if="!panel.formDisabled && panel.roles.length" class="card z-depth-1" style="padding:5% 20% 5% !important;">
+				
+					<!-- btn as title! -->
+					<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">ROLES</a>
+
+					<div class="row">
+						<div class="col s4" ng-repeat="role in panel.roles" >
+							<input type="checkbox" class="filled-in" id={{role}} value={{role}} ng-checked="panel.user.roles.indexOf(role) > -1"
+								 ng-click="panel.manageUserAccess(role)" />
+							<label for="{{role}}" style="color: #000000; font-weight: 500;">{{role}}</label>
+						</div>
+					</div>
 				</div>
 
 			</form>

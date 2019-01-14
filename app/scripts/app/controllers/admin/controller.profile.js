@@ -58,6 +58,18 @@ angular.module('ngmReportHub')
 					},
 					rows: [{
 						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'html',
+								card: 'white grey-text text-darken-2',
+								style: 'padding: 20px;',
+								config: {
+									html: '<a class="waves-effect waves-light btn left" href="#/team" style="left:200px;"><i class="material-icons left">keyboard_return</i>Back To team</a>'
+								}
+							}]
+						}]
+					},{
+						columns: [{
 							styleClass: 's12',
 							widgets: [{
 								type: 'form.authentication',
