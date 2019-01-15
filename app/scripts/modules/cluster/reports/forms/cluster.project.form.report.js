@@ -367,7 +367,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // unit type
         showUnitTypes: function( $data, $beneficiary ){
           return ngmClusterBeneficiaries.showUnitTypes( $scope.project.lists, $data, $beneficiary );
-        },
+				},
+				
+				// unit jus for cash
+				showCashUnit: function($beneficiary){
+					return ngmClusterBeneficiaries.showCashUnit($beneficiary);
+				},
 
         // transfer type
         showTransferTypes: function( $data, $beneficiary ){

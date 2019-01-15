@@ -584,7 +584,24 @@ angular.module( 'ngmReportHub' )
           });
         }
         return display;
-      },
+			},
+			
+			// show unit just for cash
+			showCashUnit: function(beneficiary){
+				var unitCash = false;
+				if (beneficiary.activity_description_id){
+					if (beneficiary.activity_description_id.indexOf('cash') !== -1 || beneficiary.activity_description_id.indexOf('package') !== -1){
+						if (beneficiary.mpc_delivery_type_id){
+							if (beneficiary.mpc_delivery_type_id === 'cash'){
+								unitCash = true;
+							}
+						} else{
+							unitCash = true
+						}
+					}
+				}
+				return unitCash
+			},
 
       // unit types
       showUnitTypes: function( lists, $data, $beneficiary ){

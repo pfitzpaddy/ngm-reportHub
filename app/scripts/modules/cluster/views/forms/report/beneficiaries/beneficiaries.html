@@ -182,7 +182,7 @@
               e-name="unit_type_id"
               editable-select="beneficiary.unit_type_id"
               e-placeholder="Select..."
-              e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units | filter: (beneficiary.activity_description_id.indexOf('cash') !== -1 ? (beneficiary.mpc_delivery_type_id ? ( beneficiary.mpc_delivery_type_id=== 'cash'?{mpc_delivery_type_id:beneficiary.mpc_delivery_type_id}:'') :{mpc_delivery_type_id:'cash'} ):'')"
+              e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units | filter: project.showCashUnit(beneficiary)?{mpc_delivery_type_id:'cash'}:''"
               e-ng-disabled="
                 !beneficiary.activity_description_id ||
                 ( ['wash','nutrition','health','protection', 'esnfi'].includes(beneficiary.cluster_id) &&
