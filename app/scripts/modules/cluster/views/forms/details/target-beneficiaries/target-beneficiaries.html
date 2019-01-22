@@ -293,14 +293,7 @@
 							        			editable-number="beneficiary.men"
 							        			e-min="0"
 							        			e-ng-change="project.updateInput($index, 'men', $data )"
-							        			e-ng-disabled="
-							        							beneficiary.activity_type_id === 'mch' ||
-							        							(beneficiary.activity_type_id === 'vaccination'&&beneficiary.activity_description_id !== 'vaccination_tt') ||
-							        							beneficiary.activity_description_id === 'antenatal_care' ||
-							        							beneficiary.activity_description_id === 'postnatal_care' ||
-							        							beneficiary.activity_description_id === 'skilled_birth_attendant' ||
-							        							beneficiary.activity_description_id === 'penta_3' ||
-							        							beneficiary.activity_description_id === 'measles'"
+							        			e-ng-disabled="!project.showMenDisabled( $index )"
 							        			e-required>
 							          {{ beneficiary.men }}
 							        </span>
@@ -312,9 +305,7 @@
 							        			editable-number="beneficiary.women"
 							        			e-min="0"
 							        			e-ng-change="project.updateInput($index, 'women', $data )"
-							        			e-ng-disabled="(beneficiary.activity_type_id === 'vaccination'&&beneficiary.activity_description_id !== 'vaccination_tt') ||
-							        							beneficiary.activity_description_id === 'penta_3' ||
-							        							beneficiary.activity_description_id === 'measles'"
+							        			e-ng-disabled="!project.showWomenDisabled( $index )"
 							        			e-required>
 							          {{ beneficiary.women }}
 							        </span>
@@ -325,7 +316,7 @@
 							        			e-name="elderly_men"
 							        			editable-number="beneficiary.elderly_men"
 							        			e-min="0" e-ng-change="project.updateInput($index, 'elderly_men', $data )"
-							        			e-ng-disabled="!project.showEldMen()"
+							        			e-ng-disabled="!project.showEldMenDisabled( $index )"
 							        			e-required>
 							          {{ beneficiary.elderly_men }}
 							        </span>
@@ -337,7 +328,7 @@
 							        			editable-number="beneficiary.elderly_women"
 							        			e-min="0"
 							        			e-ng-change="project.updateInput($index, 'elderly_women', $data )"
-							        			e-ng-disabled="!project.showEldWomen()"
+							        			e-ng-disabled="!project.showEldWomenDisabled( $index )"
 							        			e-required>
 							          {{ beneficiary.elderly_women }}
 							        </span>

@@ -399,20 +399,36 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         showMen: function( $locationIndex ){
           return ngmClusterBeneficiaries.showMen( $scope.project.report.locations[ $locationIndex ].beneficiaries );
         },
+        // men
+        showMenDisabled: function( $locationIndex, $beneficiaryIndex ){
+          return ngmClusterBeneficiaries.showMen( [ $scope.project.report.locations[ $locationIndex ].beneficiaries[ $beneficiaryIndex ] ] );
+        },
 
         // women
         showWomen: function( $locationIndex ){
           return ngmClusterBeneficiaries.showWomen( $scope.project.report.locations[ $locationIndex ].beneficiaries );
+        },
+        // women
+        showWomenDisabled: function( $locationIndex, $beneficiaryIndex ){
+          return ngmClusterBeneficiaries.showWomen( [ $scope.project.report.locations[ $locationIndex ].beneficiaries[ $beneficiaryIndex ] ] );
         },
 
         // eld men
         showEldMen: function( $locationIndex ){
           return ngmClusterBeneficiaries.showEldMen( $scope.project.report.locations[ $locationIndex ].beneficiaries );
         },
+        // eld men
+        showEldMenDisabled: function( $locationIndex, $beneficiaryIndex ){
+          return ngmClusterBeneficiaries.showEldMen( [ $scope.project.report.locations[ $locationIndex ].beneficiaries[ $beneficiaryIndex ] ] );
+        },
 
         // eld women
         showEldWomen: function( $locationIndex ){
           return ngmClusterBeneficiaries.showEldWomen( $scope.project.report.locations[ $locationIndex ].beneficiaries );
+        },
+        // eld women
+        showEldWomenDisabled: function( $locationIndex, $beneficiaryIndex ){
+          return ngmClusterBeneficiaries.showEldWomen( [ $scope.project.report.locations[ $locationIndex ].beneficiaries[ $beneficiaryIndex ] ] );
         },
 
         // disable save form

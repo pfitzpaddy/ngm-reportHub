@@ -273,7 +273,7 @@
               editable-number="beneficiary.men"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'men', $data )"
-              e-ng-disabled="!project.showMen( $locationIndex )"
+              e-ng-disabled="!project.showMenDisabled( $locationIndex, $beneficiaryIndex )"
               e-required>
           {{ beneficiary.men }}
         </span>
@@ -285,7 +285,7 @@
               editable-number="beneficiary.women"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'women', $data )"
-              e-ng-disabled="!project.showWomen( $locationIndex )"
+              e-ng-disabled="!project.showWomenDisabled( $locationIndex, $beneficiaryIndex )"
               e-required>
           {{ beneficiary.women }}
         </span>
@@ -297,7 +297,7 @@
               editable-number="beneficiary.elderly_men"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'elderly_men', $data )"
-              e-ng-disabled="!project.showEldMen( $locationIndex )"
+              e-ng-disabled="!project.showEldMenDisabled( $locationIndex, $beneficiaryIndex )"
               e-required>
           {{ beneficiary.elderly_men }}
         </span>
@@ -309,7 +309,7 @@
               editable-number="beneficiary.elderly_women"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'elderly_women', $data )"
-              e-ng-disabled="!project.showEldWomen( $locationIndex )"
+              e-ng-disabled="!project.showEldWomenDisabled( $locationIndex, $beneficiaryIndex )"
               e-required>
           {{ beneficiary.elderly_women }}
         </span>

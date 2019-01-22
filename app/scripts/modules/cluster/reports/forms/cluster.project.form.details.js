@@ -351,20 +351,36 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         showMen: function(){
           return ngmClusterBeneficiaries.showMen( $scope.project.definition.target_beneficiaries );
         },
+        // men
+        showMenDisabled: function( $index ){
+          return ngmClusterBeneficiaries.showMen( [ $scope.project.definition.target_beneficiaries[ $index ] ] );
+        },
 
         // women
         showWomen: function(){
           return ngmClusterBeneficiaries.showWomen( $scope.project.definition.target_beneficiaries );
+        },
+        // men
+        showWomenDisabled: function( $index ){
+          return ngmClusterBeneficiaries.showWomen( [ $scope.project.definition.target_beneficiaries[ $index ] ] );
         },
 
         // eld men
         showEldMen: function(){
           return ngmClusterBeneficiaries.showEldMen( $scope.project.definition.target_beneficiaries );
         },
+        // eld men
+        showEldMenDisabled: function( $index ){
+          return ngmClusterBeneficiaries.showEldMen( [ $scope.project.definition.target_beneficiaries[ $index ] ] );
+        },
 
         // eld women
         showEldWomen: function(){
           return ngmClusterBeneficiaries.showEldWomen( $scope.project.definition.target_beneficiaries );
+        },
+        // eld women
+        showEldWomenDisabled: function( $index ){
+          return ngmClusterBeneficiaries.showEldWomen( [ $scope.project.definition.target_beneficiaries[ $index ] ] );
         },
 
         // disable save form
