@@ -1454,6 +1454,45 @@ angular.module( 'ngmReportHub' )
             }];
         }
 
+        // admin SO
+        if ( admin0pcode === 'SO' ) {
+          
+          // beneficiaries
+          beneficiaries = [{
+            cluster_id: [ "health", "protection", "eiewg", "wash", "cvwg", "fsac", "esnfi", "rnr_chapter", "nutrition", "acbar", "agriculture", "education", "cccm_esnfi" ],
+            beneficiary_type_id: 'idps',
+            beneficiary_type_name: 'IDPs'
+          },{
+            cluster_id: [ "health", "protection", "eiewg", "wash", "cvwg", "fsac", "esnfi", "rnr_chapter", "nutrition", "acbar", "agriculture", "education", "cccm_esnfi" ],
+            beneficiary_type_id: 'drought_idps',
+            beneficiary_type_name: 'Drought IDPs'
+          },{
+            cluster_id: [ "health", "protection", "eiewg", "wash", "cvwg", "fsac", "esnfi", "rnr_chapter", "nutrition", "acbar", "agriculture", "education", "cccm_esnfi" ],
+            beneficiary_type_id: 'flood_idps',
+            beneficiary_type_name: 'Flood IDPs'
+          },{
+            cluster_id: [ "health", "protection", "eiewg", "wash", "cvwg", "fsac", "esnfi", "rnr_chapter", "nutrition", "acbar", "agriculture", "education", "cccm_esnfi" ],
+            beneficiary_type_id: 'conflict_idps',
+            beneficiary_type_name: 'Conflict IDPs'
+          },{
+            cluster_id: [ "health", "protection", "eiewg", "wash", "cvwg", "fsac", "esnfi", "rnr_chapter", "nutrition", "acbar", "agriculture", "education", "cccm_esnfi" ],
+            beneficiary_type_id: 'refugees',
+            beneficiary_type_name: 'Refugees'
+          },{
+            cluster_id: [ "health", "protection", "eiewg", "wash", "cvwg", "fsac", "esnfi", "rnr_chapter", "nutrition", "acbar", "agriculture", "education", "cccm_esnfi" ],
+            beneficiary_type_id: 'returnees',
+            beneficiary_type_name: 'Returnees'
+          },{
+            cluster_id: [ "health", "protection", "eiewg", "wash", "cvwg", "fsac", "esnfi", "rnr_chapter", "nutrition", "acbar", "agriculture", "education", "cccm_esnfi" ],
+            beneficiary_type_id: 'host_communities',
+            beneficiary_type_name: 'Host Communities'
+          },{
+            cluster_id: [ "health", "protection", "eiewg", "wash", "cvwg", "fsac", "esnfi", "rnr_chapter", "nutrition", "acbar", "agriculture", "education", "cccm_esnfi" ],
+            beneficiary_type_id: 'health_care_workers',
+            beneficiary_type_name: 'Health Care Workers'
+          }];          
+        }
+
         // admin ET
         if ( admin0pcode === 'ET' ) {
 
@@ -1516,7 +1555,11 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_name: 'Vulnerable Groups'
           }];
 
-        } else if ( admin0pcode === 'AF' ) {
+        } 
+
+        // afghanistan
+        if ( admin0pcode === 'AF' ) {
+          
           // #TODO put it on config
           var report_year = 2017;
 
