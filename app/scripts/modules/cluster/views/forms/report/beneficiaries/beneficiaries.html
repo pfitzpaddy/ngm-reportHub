@@ -28,8 +28,8 @@
       <td>Girls</td>
       <td ng-if="project.showMen( $locationIndex )">Men</td>
       <td ng-if="project.showWomen( $locationIndex )">Women</td>
-      <td ng-if="project.definition.admin0pcode === 'NG' || project.definition.admin0pcode === 'AF'">Eld. Men</td>
-      <td ng-if="project.definition.admin0pcode === 'NG' || project.definition.admin0pcode === 'AF'">Eld. Women</td>
+      <td ng-if="project.showEldMen( $locationIndex )">Eld. Men</td>
+      <td ng-if="project.showEldWomen( $locationIndex )">Eld. Women</td>
 			<td ng-if="project.showFatpTreatmentSameProvince( $locationIndex )">Treatment Same Province</td>
       <td ng-if="project.report.report_status !== 'complete'">Edit</td>
     </tr>
@@ -273,14 +273,7 @@
               editable-number="beneficiary.men"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'men', $data )"
-              e-ng-disabled="
-                      beneficiary.activity_type_id === 'mch' ||
-                      (beneficiary.activity_type_id === 'vaccination'&&beneficiary.activity_description_id !== 'vaccination_tt') ||
-                      beneficiary.activity_description_id === 'antenatal_care' ||
-                      beneficiary.activity_description_id === 'postnatal_care' ||
-                      beneficiary.activity_description_id === 'skilled_birth_attendant' ||
-                      beneficiary.activity_description_id === 'penta_3' ||
-                      beneficiary.activity_description_id === 'measles'"
+              e-ng-disabled="!project.showMen( $locationIndex )"
               e-required>
           {{ beneficiary.men }}
         </span>
@@ -292,34 +285,31 @@
               editable-number="beneficiary.women"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'women', $data )"
-              e-ng-disabled="
-                      (beneficiary.activity_type_id === 'vaccination'&&beneficiary.activity_description_id !== 'vaccination_tt') ||
-                      beneficiary.activity_description_id === 'penta_3' ||
-                      beneficiary.activity_description_id === 'measles'"
+              e-ng-disabled="!project.showWomen( $locationIndex )"
               e-required>
           {{ beneficiary.women }}
         </span>
 			</td>
-      <td ng-show="project.definition.admin0pcode === 'NG' || project.definition.admin0pcode === 'AF'">
+      <td ng-show="project.showEldMen( $locationIndex )">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="elderly_men"
               editable-number="beneficiary.elderly_men"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'elderly_men', $data )"
-              e-ng-disabled="project.definition.admin0pcode !== 'NG' && project.definition.admin0pcode !== 'AF'"
+              e-ng-disabled="!project.showEldMen( $locationIndex )"
               e-required>
           {{ beneficiary.elderly_men }}
         </span>
       </td>
-      <td ng-show="project.definition.admin0pcode === 'NG'|| project.definition.admin0pcode === 'AF'">
+      <td ng-show="project.showEldWomen( $locationIndex )">
         <!-- editable number -->
         <span e-form="rowform"
               e-name="elderly_women"
               editable-number="beneficiary.elderly_women"
               e-min="0"
               e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'elderly_women', $data )"
-              e-ng-disabled="project.definition.admin0pcode !== 'NG' && project.definition.admin0pcode !== 'AF'"
+              e-ng-disabled="!project.showEldWomen( $locationIndex )"
               e-required>
           {{ beneficiary.elderly_women }}
         </span>

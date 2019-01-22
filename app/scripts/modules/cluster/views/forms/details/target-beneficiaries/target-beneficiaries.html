@@ -49,8 +49,8 @@
 							      <td>Girls</td>
 							      <td ng-if="project.showMen()">Men</td>
 							      <td ng-if="project.showWomen()">Women</td>
-							      <td ng-if="project.definition.admin0pcode === 'NG'">Eld. Men</td>
-										<td ng-if="project.definition.admin0pcode === 'NG'">Eld. Women</td>
+							      <td ng-if="project.showEldMen()">Eld. Men</td>
+										<td ng-if="project.showEldWomen()">Eld. Women</td>
 										<td ng-if="project.showFatpTreatmentSameProvince()">Treatment Same Province</td>
 							      <td ng-if="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
@@ -319,25 +319,25 @@
 							          {{ beneficiary.women }}
 							        </span>
 							      </td>
-							      <td ng-show="project.definition.admin0pcode === 'NG'">
+							      <td ng-show="project.showEldMen()">
 							        <!-- editable number -->
 							        <span e-form="rowform"
 							        			e-name="elderly_men"
 							        			editable-number="beneficiary.elderly_men"
 							        			e-min="0" e-ng-change="project.updateInput($index, 'elderly_men', $data )"
-							        			e-ng-disabled="project.definition.admin0pcode !== 'NG'"
+							        			e-ng-disabled="!project.showEldMen()"
 							        			e-required>
 							          {{ beneficiary.elderly_men }}
 							        </span>
 							      </td>
-							      <td ng-show="project.definition.admin0pcode === 'NG'">
+							      <td ng-show="project.showEldWomen()">
 							        <!-- editable number -->
 							        <span e-form="rowform"
 							        			e-name="elderly_women"
 							        			editable-number="beneficiary.elderly_women"
 							        			e-min="0"
 							        			e-ng-change="project.updateInput($index, 'elderly_women', $data )"
-							        			e-ng-disabled="project.definition.admin0pcode !== 'NG'"
+							        			e-ng-disabled="!project.showEldWomen()"
 							        			e-required>
 							          {{ beneficiary.elderly_women }}
 							        </span>
