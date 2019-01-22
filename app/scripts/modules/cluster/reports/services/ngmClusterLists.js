@@ -2778,6 +2778,9 @@ angular.module( 'ngmReportHub' )
           detail_type_id: 'esnfi_blankets',
           detail_type_name: 'Blankets'
         }, {
+          detail_type_id: 'esnfi_blankets_synthetic_1.5x2m',
+          detail_type_name: 'Blankets, Synthetic, 1.5 x 2m'
+        }, {
           detail_type_id: 'esnfi_bowl',
           detail_type_name: 'Bowl'
         }, {
@@ -2841,6 +2844,12 @@ angular.module( 'ngmReportHub' )
           detail_type_id: 'esnfi_jerrycan',
           detail_type_name: 'Jerrycan'
         }, {
+          detail_type_id: 'esnfi_jerrycan_20l_rigid',
+          detail_type_name: 'Jerrycan 20L Rigid'
+        }, {
+          detail_type_id: 'esnfi_jerrycan_10l_collapsible',
+          detail_type_name: 'Jerrycan 10L Collapsible'
+        }, {
           detail_type_id: 'esnfi_kettle_jug',
           detail_type_name: 'Kettle/Jug'
         }, {
@@ -2898,11 +2907,17 @@ angular.module( 'ngmReportHub' )
           detail_type_id: 'esnfi_shovel',
           detail_type_name: 'Shovel (Iron with Wood Handle)'
         }, {
+          detail_type_id: 'esnfi_sack',
+          detail_type_name: 'Sack'
+        }, {
           detail_type_id: 'esnfi_sisal_rope',
           detail_type_name: 'Sisal Rope (100m)'
         }, {
           detail_type_id: 'esnfi_soap_handwash',
           detail_type_name: 'Soap (Handwash)'
+        }, {
+          detail_type_id: 'esnfi_soap_laundry_800g_bar',
+          detail_type_name: 'Soap (Laundry) 800g Bar'
         }, {
           detail_type_id: 'esnfi_spoon',
           detail_type_name: 'Spoon'

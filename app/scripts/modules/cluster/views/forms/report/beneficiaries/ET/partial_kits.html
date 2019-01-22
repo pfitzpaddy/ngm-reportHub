@@ -11,7 +11,7 @@
                 class="validate"
                 ng-model="detail.detail_type_id" 
                 ng-options="detail.detail_type_id as detail.detail_type_name for detail in
-                							ngmClusterLists.partial_kits[ $locationIndex ][ $beneficiaryIndex ][ $index ]"
+                							ngmClusterLists.partial_kits[ $locationIndex ][ $beneficiaryIndex ][ $index ] | orderBy:'detail_type_name'"
                 ng-change="ngmClusterBeneficiaries.selectChange( project, detail, 'partial_kits', 'detail_type_id', 'detail_type_name','ngm-beneficiary-kit-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}')"
                 ng-disabled="project.report.report_status === 'complete' || !rowform.$visible">
 					<option value="" selected>Select...</option>
