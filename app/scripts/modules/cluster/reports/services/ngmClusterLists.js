@@ -2818,9 +2818,15 @@ angular.module( 'ngmReportHub' )
           detail_type_id: 'esnfi_big_spoon',
           detail_type_name: 'Big Spoon for Cooking'
         }, {
+          detail_type_id: 'esnfi_cooking_ladel_aluminium_steel_125ml',
+          detail_type_name: 'Cooking Ladel Aluminium or Stainless Steel 125ml'
+        }, {
           detail_type_id: 'esnfi_blankets',
           detail_type_name: 'Blankets'
         }, {
+          detail_type_id: 'esnfi_blankets_1.6x2.2m',
+          detail_type_name: 'Blankets, 1.6M x 2.2M'
+        }, {          
           detail_type_id: 'esnfi_blankets_synthetic_1.5x2m',
           detail_type_name: 'Blankets, Synthetic, 1.5 x 2m'
         }, {
@@ -2854,8 +2860,23 @@ angular.module( 'ngmReportHub' )
           detail_type_id: 'esnfi_cooking_pot',
           detail_type_name: 'Cooking Pot'
         }, {
+          detail_type_id: 'esnfi_cooking_pot_aluminium_7lt_lid_handle',
+          detail_type_name: 'Cooking Pot Aluminium 7lt Lid Handle'
+        }, {
           detail_type_id: 'esnfi_cups',
           detail_type_name: 'Cups'
+        }, {
+          detail_type_id: 'hessian_bags_100kg_polyethylene',
+          detail_type_name: 'Hessian Bags 100kg Polyethylene'
+        }, {
+          detail_type_id: 'nfi_bags_iom_logo',
+          detail_type_name: 'NFI Bags with IOM Logo'
+        }, {
+          detail_type_id: 'long_lasting_insecticide_treated_nets_llitns',
+          detail_type_name: 'Long Lasting Insecticide Treated Nets (LLITNs) - WHO Standard'
+        }, {
+          detail_type_id: 'esnfi_drinking_cup_handle_stainless_steel_aluminium',
+          detail_type_name: 'Drinking Cup with Handle, Stainless Steel or Aluminium'
         }, {
           detail_type_id: 'esnfi_digger',
           detail_type_name: 'Pick Digger (with Wooden Handle)'
@@ -2926,8 +2947,14 @@ angular.module( 'ngmReportHub' )
           detail_type_id: 'esnfi_plates',
           detail_type_name: 'Plates'
         }, {
+          detail_type_id: 'esnfi_plates_individual_round_stainless_steel_30cm_cup_0.75l',
+          detail_type_name: 'Plates Individual Round Stainless Steel 30cm Cup 0.75l'
+        }, {
           detail_type_id: 'esnfi_sleeping_mat',
           detail_type_name: 'Sleeping Mat'
+        }, {
+          detail_type_id: 'esnfi_plastic_mat_2mx2.5m',
+          detail_type_name: 'Plastic Mat 2M x 2.5M'
         }, {
           detail_type_id: 'esnfi_plastic_rope',
           detail_type_name: 'Plastic Rope (30m / 6-10 mm Diameter)'
@@ -2940,6 +2967,9 @@ angular.module( 'ngmReportHub' )
         }, {
           detail_type_id: 'esnfi_rope',
           detail_type_name: 'Rope'
+        }, {
+          detail_type_id: 'esnfi_plstic_rope_20m',
+          detail_type_name: 'Plastic Rope (20m)'
         }, {
           detail_type_id: 'esnfi_sanitry_napkins',
           detail_type_name: 'Sanitry Napkins'
@@ -2979,6 +3009,9 @@ angular.module( 'ngmReportHub' )
         }, {
           detail_type_id: 'esnfi_washing_basin',
           detail_type_name: 'Washing Basin'
+        }, {
+          detail_type_id: 'esnfi_washing_basin_60cm_diameter',
+          detail_type_name: 'Washing Basin 60CM Diameter'
         }, {
           detail_type_id: 'esnfi_window',
           detail_type_name: 'Window'
