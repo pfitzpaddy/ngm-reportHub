@@ -765,6 +765,53 @@ angular.module( 'ngmReportHub' )
           ];
         }
 
+        // if no list use default
+        if ( !donors.length ) {
+          donors = [
+            { project_donor_id: 'australia', project_donor_name:'Australia'},
+            { project_donor_id: 'aus_aid', project_donor_name:'AusAid'},
+            { project_donor_id: 'bmz', project_donor_name:'BMZ'},
+            { project_donor_id: 'canada',  project_donor_name:'Canada'},
+            { project_donor_id: 'caritas_germany', project_donor_name: 'Caritas Germany' },
+            { project_donor_id: 'cerf', project_donor_name: 'CERF' },
+            { project_donor_id: 'cida', project_donor_name: 'CIDA' },
+            { project_donor_id: 'czech_aid', project_donor_name: 'Czech Aid' },
+            { project_donor_id: 'czech_mofa', project_donor_name: 'Czech MOFA' },
+            { project_donor_id: 'danida', project_donor_name:'Danida'},
+            { project_donor_id: 'denmark', project_donor_name:'Denmark'},
+            { project_donor_id: 'dfid', project_donor_name: 'DFID' },
+            { project_donor_id: 'echo', project_donor_name: 'ECHO' },
+            { project_donor_id: 'european_union', project_donor_name: 'European Union' },
+            { project_donor_id: 'finland', project_donor_name:'Finland' },
+            { project_donor_id: 'france', project_donor_name:'France' },
+            { project_donor_id: 'global_fund', project_donor_name: 'Global Fund' },
+            { project_donor_id: 'german_foreign_ministry', project_donor_name: 'German Foreign Ministry' },
+            { project_donor_id: 'icrc', project_donor_name: 'ICRC' },
+            { project_donor_id: 'ifrc', project_donor_name: 'IFRC' },
+            { project_donor_id: 'irish_aid', project_donor_name: 'IrishAid' },
+            { project_donor_id: 'italy', project_donor_name: 'Italy' },
+            { project_donor_id: 'jica', project_donor_name: 'JICA' },
+            { project_donor_id: 'johanniter', project_donor_name: 'Johanniter' },
+            { project_donor_id: 'khalifa_bin_zayed_al_nahyan_charity_foundation', project_donor_name: 'Khalifa bin Zayed Al Nahyan Charity Foundation' },
+            { project_donor_id: 'netherlands', project_donor_name: 'Netherlands' },
+            { project_donor_id: 'norway', project_donor_name: 'Norway' },
+            { project_donor_id: 'qatar_red_crescent', project_donor_name: 'Qatar Red Crescent' },
+            { project_donor_id: 'republic_of_korea', project_donor_name: 'Republic of Korea' },
+            { project_donor_id: 'sdc', project_donor_name: 'SDC' },
+            { project_donor_id: 'shf', project_donor_name: 'SHF' },
+            { project_donor_id: 'sida', project_donor_name: 'SIDA' },
+            { project_donor_id: 'start_network_global_humanitarian_assistance', project_donor_name: 'Start Network Global Humanitarian Assistance' },
+            { project_donor_id: 'sweden', project_donor_name: 'Sweden' },
+            { project_donor_id: 'switzerland', project_donor_name: 'Switzerland' },
+            { project_donor_id: 'usaid', project_donor_name: 'USAID' },
+            { project_donor_id: 'unhcr', project_donor_name: 'UNHCR' },
+            { project_donor_id: 'unicef', project_donor_name: 'UNICEF' },
+            { project_donor_id: 'wfp', project_donor_name: 'WFP' },
+            { project_donor_id: 'who', project_donor_name: 'WHO' },
+            { project_donor_id: 'world_bank', project_donor_name: 'Worldbank' }
+          ];
+        }
+
         // add other
         donors.push( { project_donor_id: 'other', project_donor_name: 'Other' } );
 

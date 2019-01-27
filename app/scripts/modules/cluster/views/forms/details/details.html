@@ -187,25 +187,27 @@
 										<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label>
 									</p>
 
-									<!-- for each intercluster -->
-									<div ng-repeat="cluster in project.definition.inter_cluster_activities">
+									<!-- for each intercluster ( NOT SO )-->
+									<div ng-if="project.definition.admin0pcode !== 'SO'">
+										<div ng-repeat="cluster in project.definition.inter_cluster_activities">
 
-										<div ng-show="project.definition.inter_cluster_check[ cluster.cluster_id ]">
+											<div ng-show="project.definition.inter_cluster_check[ cluster.cluster_id ]">
 
-											<div style="padding-top:20px;"></div>
-											
-											<label class="label">{{ cluster.cluster }}</label>
-											<!-- for project cluster activity_type -->
-											<p style="padding-left:10px;"  ng-repeat="a in project.lists.activity_types | filter: { cluster_id: cluster.cluster_id } ">
-												<input type="checkbox" id="activity_{{ a.activity_type_id }}" 
-												ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
-												ng-disabled="project.definition.project_status === 'complete'"
-												ng-click="project.compileInterClusterActivities()"/>
-												<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label>
-											</p>
+												<div style="padding-top:20px;"></div>
+												
+												<label class="label">{{ cluster.cluster }}</label>
+												<!-- for project cluster activity_type -->
+												<p style="padding-left:10px;"  ng-repeat="a in project.lists.activity_types | filter: { cluster_id: cluster.cluster_id } ">
+													<input type="checkbox" id="activity_{{ a.activity_type_id }}" 
+													ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
+													ng-disabled="project.definition.project_status === 'complete'"
+													ng-click="project.compileInterClusterActivities()"/>
+													<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label>
+												</p>
+
+											</div>
 
 										</div>
-
 									</div>
 								    
 								</div>
@@ -261,13 +263,7 @@
 									      ng-click="project.compileDonor()"/>
 								      <label class="checkbox-label" for="donor_{{ donor.project_donor_id }}">{{ donor.project_donor_name }}</label>
 									</p>
-<!-- 								    <p>
-								      <input type="checkbox" id="other" 
-								      ng-model="project.definition.project_donor_check.other"
-								      ng-disabled="project.definition.project_status === 'complete'"
-								      ng-click="project.compileDonor()"/>
-								      <label class="checkbox-label" for="other">Other</label>
-								    </p> -->
+
 								</div>
 
 							</div>
