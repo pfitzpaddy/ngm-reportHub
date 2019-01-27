@@ -766,7 +766,7 @@ angular.module( 'ngmReportHub' )
         }
 
         // if no list use default
-        if ( !donors.length ) {
+        if ( admin0pcode === 'SO' ) {
           donors = [
             { project_donor_id: 'australia', project_donor_name:'Australia'},
             { project_donor_id: 'aus_aid', project_donor_name:'AusAid'},
