@@ -103,7 +103,14 @@ angular.module('ngmReportHub')
 						'active': 'searo',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/5w/searo/all'
-					}]
+					},{
+						'title': 'AMER',
+						'param': 'adminRpcode',
+						'active': 'amer',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/5w/amer/all'
+					}
+					]
 				}],
 
 				// admin
@@ -404,6 +411,19 @@ angular.module('ngmReportHub')
 										'active': 'cb',
 										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 										'href': '/desk/#/cluster/5w/searo/cb'
+									}]
+								},
+								'amer': {
+									'id': 'search-country',
+									'icon': 'person_pin',
+									'title': 'Country',
+									'class': 'teal lighten-1 white-text',
+									'rows': [{
+										'title': 'Colombia',
+										'param': 'admin0pcode',
+										'active': 'col',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/5w/amer/col'
 									}]
 								}
 							}
