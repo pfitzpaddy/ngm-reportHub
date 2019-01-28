@@ -14,7 +14,18 @@
 			<ul class="collection with-header">
 				<li class="collection-header blue lighten-4">
 					<h5 class="report-panel-title">
-						<i class="material-icons left">group</i>{{ project.monthlyTitleFormat }}
+						<!-- December 2018 -->
+						<div ng-if="project.report.admin0pcode === 'SO' && project.report.report_year === 2018 && project.report.report_month === 11">
+							<i class="material-icons left">group</i>2018 YEAR END TOTALS
+						</div>
+						<!-- 2019 onwards -->
+						<div ng-if="project.report.admin0pcode === 'SO' && project.report.report_year > 2018">
+							<i class="material-icons left">group</i>{{ project.monthlyTitleFormat }}
+						</div>
+						<!-- 2019 onwards -->
+						<div ng-if="project.report.admin0pcode !== 'SO'">
+							<i class="material-icons left">group</i>{{ project.monthlyTitleFormat }}
+						</div>
 					</h5>
 				</li>
 				<li class="collection-item avatar">

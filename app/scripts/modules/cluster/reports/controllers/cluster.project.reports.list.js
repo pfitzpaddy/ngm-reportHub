@@ -46,6 +46,24 @@ angular.module('ngmReportHub')
 				return html;
 			},
 
+			// return default template or Somalia template
+			getReportTemplate: function(){
+				var tmpl = '/scripts/widgets/ngm-list/template/report.html';
+				if ( $scope.report.project.admin0pcode === 'SO' ) {
+					tmpl = '/scripts/widgets/ngm-list/template/report_somalia.html';
+				}
+				return tmpl;
+			},
+
+			// return default template or Somalia template
+			getReportFilter: function( obj ){
+				if ( $scope.report.project.admin0pcode === 'SO' ) {
+					var so = { reporting_period: { '>=': '2018-12-01' } };
+					angular.merge(obj, so);
+				}
+				return obj;
+			},
+
 			// set project details
 			setProjectDetails: function(data){
 
@@ -129,18 +147,14 @@ angular.module('ngmReportHub')
 									hoverTitle: 'Update',
 									icon: 'edit',
 									rightIcon: 'watch_later',
-									templateUrl: '/scripts/widgets/ngm-list/template/report.html',
+									templateUrl: $scope.report.getReportTemplate(),
 									orderBy: 'reporting_due_date',
 									format: true,
 									request: {
 										method: 'POST',
 										url: ngmAuth.LOCATION + '/api/cluster/report/getReportsList',
 										data: {
-											filter: { 
-												project_id: $scope.report.project.id,
-												report_active: true,
-												report_status: 'todo'
-											}
+											filter: $scope.report.getReportFilter({ project_id: $scope.report.project.id, report_active: true, report_status: 'todo' })
 										}
 									}
 								}
@@ -159,18 +173,14 @@ angular.module('ngmReportHub')
 									hoverTitle: 'View',
 									icon: 'done',
 									rightIcon: 'check_circle',
-									templateUrl: '/scripts/widgets/ngm-list/template/report.html',
+									templateUrl: $scope.report.getReportTemplate(),
 									orderBy: '-reporting_due_date',
 									format: true,
 									request: {
 										method: 'POST',
 										url: ngmAuth.LOCATION + '/api/cluster/report/getReportsList',
 										data: {
-											filter: { 
-												project_id: $scope.report.project.id,
-												report_active: true,
-												report_status: 'complete'
-											}
+											filter: $scope.report.getReportFilter({ project_id: $scope.report.project.id, report_active: true, report_status: 'complete' })
 										}
 									}
 								}

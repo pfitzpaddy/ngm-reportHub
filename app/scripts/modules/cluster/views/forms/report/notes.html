@@ -16,7 +16,18 @@
 			<ul class="collection with-header">
 				<li class="collection-header blue lighten-4">
 					<h5 class="report-panel-title">
-						<i class="material-icons left">location_on</i>Notes for {{ project.monthlyTitleFormat }}
+						<!-- December 2018 -->
+						<div ng-if="project.report.admin0pcode === 'SO' && project.report.report_year === 2018 && project.report.report_month === 11">
+							<i class="material-icons left">location_on</i>Notes for 2018
+						</div>
+						<!-- 2019 onwards -->
+						<div ng-if="project.report.admin0pcode === 'SO' && project.report.report_year > 2018">
+							<i class="material-icons left">location_on</i>Notes for {{ project.monthlyTitleFormat }}
+						</div>
+						<!-- 2019 onwards -->
+						<div ng-if="project.report.admin0pcode !== 'SO'">
+							<i class="material-icons left">location_on</i>Notes for {{ project.monthlyTitleFormat }}
+						</div>
 					</h5>
 				</li>
 
