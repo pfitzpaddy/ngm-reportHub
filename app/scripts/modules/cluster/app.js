@@ -327,7 +327,6 @@ angular
 			})
 
 			//AMER
-
 			.when('/cluster/admin/amer/',{
 				redirectTo:'/cluster/admin/amer/all/all/all/all/activity' + this.page.start_date() + '/' + this.page.end_date()
 			})
@@ -471,11 +470,9 @@ angular
 			})
 
 			//AMER
-
 			.when('/cluster/5w/amer', {
 				redirectTo: '/cluster/5w/amer/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
-
 			.when('/cluster/5w/amer/all', {
 				redirectTo: '/cluster/5w/amer/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})

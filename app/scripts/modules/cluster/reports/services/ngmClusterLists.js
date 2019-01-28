@@ -773,12 +773,10 @@ angular.module( 'ngmReportHub' )
       // country currencies
       getCurrencies: function( admin0pcode ) {
         var currencies = [
-
         {
           admin0pcode: 'COL',
           currency_id: 'cop',
           currency_name: 'COP'
-
         },
         {
           admin0pcode: 'AF',
