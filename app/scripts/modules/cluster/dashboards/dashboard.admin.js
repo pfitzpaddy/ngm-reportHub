@@ -1011,7 +1011,7 @@ angular.module('ngmReportHub')
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
 											// indicator, list
-											data: $scope.dashboard.getRequest( 'reports_total', false )
+											data: $scope.dashboard.getRequest( 'projects_total', false )
 										}
 									}
 								}]
