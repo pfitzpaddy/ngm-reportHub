@@ -326,6 +326,14 @@ angular
 				redirectTo: '/cluster/admin/searo/cb/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 
+			//AMER
+			.when('/cluster/admin/amer/',{
+				redirectTo:'/cluster/admin/amer/all/all/all/all/activity' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/admin/amer/col',{
+				redirectTo: '/cluster/admin/amer/col/all/all/all/activity' + this.page.start_date() + '/' + this.page.end_date()
+			})
+
 			// ADMIN
 			.when( '/cluster/admin/:adminRpcode/:admin0pcode/:cluster_id/:activity_type_id/:organization_tag/:report_type/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
@@ -450,6 +458,17 @@ angular
 			})
 			.when( '/cluster/5w/searo/cb', {
 				redirectTo: '/cluster/5w/searo/cb/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
+
+			//AMER
+			.when('/cluster/5w/amer', {
+				redirectTo: '/cluster/5w/amer/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when('/cluster/5w/amer/all', {
+				redirectTo: '/cluster/5w/amer/all/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when('/cluster/5w/amer/col',{
+				redirectTo: '/cluster/5w/amer/col/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 
 			// health dashboard
