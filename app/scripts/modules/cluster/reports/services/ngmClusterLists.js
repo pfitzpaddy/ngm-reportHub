@@ -1485,6 +1485,23 @@ angular.module( 'ngmReportHub' )
           beneficiaries = $filter( 'filter' )( beneficiaries, { cluster_id: cluster_id } );
         }
 
+        if (  admin0pcode === 'CB' ) {
+          // default
+          var beneficiaries = [{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'refuges_in_camps',
+            beneficiary_type_name: 'Refuges in Camps'
+          },{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'refuges_in_host_communities',
+            beneficiary_type_name: 'Refuges in Host Communities'
+          },{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'host_communities',
+            beneficiary_type_name: 'Host Communities'
+          }];
+        }
+
         // admin SS
         if ( admin0pcode === 'SS' ) {
           // beneficiaries
@@ -2647,35 +2664,11 @@ angular.module( 'ngmReportHub' )
         // Cox bazar
         if ( admin0pcode === 'CB' ) {
           site_types = [{
-            site_type_id: 'multiple_sites',
-            site_type_name: 'Multiple Sites'
-          },{
             site_type_id: 'host_community',
             site_type_name: 'Host Community'
           },{
-            site_type_id: 'settlement',
-            site_type_name: 'Settlement'
-          },{
-            site_type_id: 'hospital',
-            site_type_name: 'Hospital'
-          },{
-            site_type_id: 'primary_hc',
-            site_type_name: 'Primary HC'
-          },{
-            site_type_id: 'health_post_fixed',
-            site_type_name: 'Health Post Fixed'
-          },{
-            site_type_id: 'health_facility',
-            site_type_name: 'Health Facility'
-          },{
-            site_type_id: 'dispensary',
-            site_type_name: 'Dispensary'
-          },{
-            site_type_id: 'idp_site',
-            site_type_name: 'IDP Site'
-          },{
-            site_type_id: 'refugee_site',
-            site_type_name: 'Refugee Site'
+            site_type_id: 'refugee_camp',
+            site_type_name: 'Refugee Camp'
           }];
         }
 

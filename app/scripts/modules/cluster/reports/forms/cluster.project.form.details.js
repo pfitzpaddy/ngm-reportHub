@@ -53,6 +53,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         ngmClusterHelperAf,
         config ){
 
+
+      // set to $scope
+      $scope.ngmClusterHelper = ngmClusterHelper;
+
       // project
       $scope.project = {
 
@@ -155,9 +159,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $scope.project.definition.project_hrp_project = !$scope.project.definition.project_hrp_project;
           // set hrp in project_hrp_code
           if( $scope.project.definition.project_hrp_project ) {
-            $scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'OTH', 'HRP' );
+            if ( $scope.project.definition.admin0pcode === 'CB' ) {
+              $scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'OTH', 'JRP' );
+            } else {
+              $scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'OTH', 'HRP' );
+            }
           } else {
             $scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'HRP', 'OTH' );
+            $scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'JRP', 'OTH' );
           }
         },
 

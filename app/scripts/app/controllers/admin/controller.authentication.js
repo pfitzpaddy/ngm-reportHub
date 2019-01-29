@@ -86,6 +86,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           'fsac': { cluster: 'FSAC' },
           'health': { cluster: 'Health' },
           'logistics': { cluster: 'Logistics' },
+          'smsd': { cluster: 'Site Management and Site Development' },
           'nutrition': { cluster: 'Nutrition' },
           'protection': { cluster: 'Protection' },
           'rnr_chapter': { cluster: 'R&R Chapter' },

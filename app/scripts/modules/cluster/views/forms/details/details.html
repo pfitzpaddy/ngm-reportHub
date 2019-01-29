@@ -136,19 +136,24 @@
 								<!-- switch -->
 								<div class="switch input-field col s12 m6">
 									<label>
-										Non-HRP Project
-										<input ng-click="project.setHrpStatus()" 
+										Non-{{ project.getProjectHrpName( project.definition ) }} Project
+										<input ng-click="project.setHrpStatus();" 
 														ng-checked="project.definition.project_hrp_project" type="checkbox">
 										<span class="lever"></span>
-										HRP Project
+										{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} Project
 									</label>
 								</div>
 								
-								<!-- HRP code -->
-								<div class="input-field col s12 m6">
+								<!-- label -->
+								<div ng-if="project.definition.project_hrp_project" class="input-field col s12 m6">
 								  <input id="ngm-project_hrp_code" type="text" class="validate"
 								  	ng-model="project.definition.project_hrp_code" disabled="true">
-								  <label for="ngm-project-budget">HRP Project Code</label>
+								  <label for="ngm-project-budget">{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} Project Code</label>
+								</div>
+								<div ng-if="!project.definition.project_hrp_project" class="input-field col s12 m6">
+								  <input id="ngm-project_hrp_code" type="text" class="validate"
+								  	ng-model="project.definition.project_hrp_code" disabled="true">
+								  <label for="ngm-project-budget">Non-{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} Project Code</label>
 								</div>
 
 							</div>

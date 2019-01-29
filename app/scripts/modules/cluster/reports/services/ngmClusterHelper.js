@@ -175,10 +175,19 @@ angular.module( 'ngmReportHub' )
       getProjectHrpCode: function( project ) {
 
         // return project code (defaults to HRP)
-        return project.admin0name.toUpperCase().substring(0, 3) + '-HRP-' +
+        var tag = project.admin0pcode === 'CB' ? '-JRP-' : '-HRP-';
+        return project.admin0name.toUpperCase().substring(0, 3) + tag +
                         moment().year() + '-' +
                         project.cluster.toUpperCase().substring(0, 3) + '-' +
                         moment().unix();
+      },
+
+      // get hrp code
+      getProjectHrpName: function( project ) {
+
+        // return project code (defaults to HRP)
+        var tag = project.admin0pcode === 'CB' ? 'JRP' : 'HRP';
+        return tag;
       },
 
       // update activities for an object ( update )

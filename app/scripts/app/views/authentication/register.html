@@ -84,7 +84,7 @@ li {
 	        <div class="input-field col s12">
 	        	<i class="material-icons prefix country">person_pin</i>
 	        	<select id="ngm-country" 
-	        					ng-options="location.admin0pcode as location.admin0name for location in panel.adminRegion"
+	        					ng-options="location.admin0pcode as location.admin0name for location in panel.adminRegion | orderBy:'admin0name'"
 	        					ng-model="panel.user.admin0pcode">Select Country
 	        					<option value="">Select Country</option>
 	        					</select>
@@ -109,6 +109,7 @@ li {
 					      <option value="esnfi">ESNFI</option>
 					      <option value="fsac">FSAC</option>
 					      <option value="health">Health</option>
+					      <option value="smsd">Site Management and Site Development</option>
 					      <option value="nutrition">Nutrition</option>
 					      <option value="protection">Protection</option>
 					      <option value="rnr_chapter">R&R Chapter</option>
