@@ -94,6 +94,12 @@ angular.module('ngmReportHub')
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/5w/afro/all'
 					},{
+						'title': 'AMER',
+						'param': 'adminRpcode',
+						'active': 'amer',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/cluster/5w/amer/all'
+					},{
 						'title': 'EMRO',
 						'param': 'adminRpcode',
 						'active': 'emro',
@@ -105,14 +111,7 @@ angular.module('ngmReportHub')
 						'active': 'searo',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/5w/searo/all'
-					},{
-						'title': 'AMER',
-						'param': 'adminRpcode',
-						'active': 'amer',
-						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/5w/amer/all'
-					}
-					]
+					}]
 				}],
 
 				// admin
