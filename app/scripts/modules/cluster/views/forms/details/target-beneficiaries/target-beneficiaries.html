@@ -32,7 +32,8 @@
 							    <tr style="font-weight: 400">
 							    	<td></td>
 							      <td>Activity</td>
-							      <td>Description</td>
+							      <td ng-if="project.definition.admin0pcode !== 'SO'">Description</td>
+							      <td ng-if="project.definition.admin0pcode === 'SO'">Specific Indicator</td>
 							      <td ng-if="project.definition.admin0pcode === 'NG'">Details</td>
 										<td ng-if="project.showCash() && project.showDeliveryfield() && project.definition.admin0pcode === 'AF'">Delivery</td>
 										<td ng-if="project.showCash()">Mechanism</td>

@@ -12,7 +12,8 @@
           ng-show="project.report.locations[ $locationIndex ].beneficiaries.length">
     <tr style="font-weight: 400">
       <td>Activity</td>
-      <td>Description</td>
+      <td ng-if="project.definition.admin0pcode !== 'SO'">Description</td>
+      <td ng-if="project.definition.admin0pcode === 'SO'">Specific Indicator</td>
 			<td ng-if="project.showCash( $locationIndex ) && project.showDeliveryfield(project.report.locations[ $locationIndex ].beneficiaries) && project.definition.admin0pcode === 'AF'">Delivery</td>
 			<td ng-if="project.showCash( $locationIndex )">Mechanism</td>
       <td ng-if="project.showPackage( $locationIndex )">Package</td>
