@@ -333,8 +333,17 @@ angular.module( 'ngmReportHub' )
           selected = $filter('filter')( lists.activity_descriptions, { activity_description_id: $beneficiary.activity_description_id }, true);
           if ( selected.length ) {
             $beneficiary.activity_description_name = selected[0].activity_description_name;
-            $beneficiary.indicator_id = selected[0].indicator_id;
-            $beneficiary.indicator_name = selected[0].indicator_name;
+            
+
+
+
+
+            // $beneficiary.indicator_id = selected[0].indicator_id;
+            // $beneficiary.indicator_name = selected[0].indicator_name;
+
+
+
+
           } else {
             // if data exists then get it
             if ($beneficiary.activity_description_name&&$beneficiary.activity_description_id){
@@ -356,6 +365,26 @@ angular.module( 'ngmReportHub' )
           selected = $filter('filter')( lists.activity_details, { activity_detail_id: $beneficiary.activity_detail_id }, true);
           if( selected.length ) {
             $beneficiary.activity_detail_name = selected[0].activity_detail_name;
+
+
+
+            // $beneficiary.indicator_id = selected[0].indicator_id;
+            // $beneficiary.indicator_name = selected[0].indicator_name;
+
+
+            
+          }
+        }
+        return selected.length ? selected[0].activity_detail_name : '-';
+      },
+
+      // display category
+      showIndicator: function( lists, $data, $beneficiary ) {
+        var selected = [];
+        $beneficiary.indicator_id = $data;
+        if( $beneficiary.indicator_id ) {
+          selected = $filter('filter')( lists.indicators, { indicator_id: $beneficiary.indicator_id }, true);
+          if( selected.length ) {
             $beneficiary.indicator_id = selected[0].indicator_id;
             $beneficiary.indicator_name = selected[0].indicator_name;
           }

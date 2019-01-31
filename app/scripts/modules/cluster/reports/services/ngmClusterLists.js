@@ -36,7 +36,8 @@ angular.module( 'ngmReportHub' )
           clusters: ngmClusterLists.getClusters( project.admin0pcode ),
           activity_types: ngmClusterLists.getActivities( project, true, 'activity_type_id' ),
           activity_descriptions: ngmClusterLists.getActivities( project, true, 'activity_description_id' ),
-          activity_details: ngmClusterLists.getActivities( project, true, false ),
+          activity_details: ngmClusterLists.getActivities( project, true, 'activity_detail_id' ),
+          indicators: ngmClusterLists.getActivities( project, true, 'indicator_id' ),
           projectActivityTypes: ngmClusterLists.getProjectActivityTypes( project ),
           strategic_objectives: ngmClusterLists.getStrategicObjectives( project.admin0pcode, moment( project.project_start_date ).year(), moment( project.project_end_date ).year() ),
           category_types: ngmClusterLists.getCategoryTypes(),
@@ -1499,6 +1500,10 @@ angular.module( 'ngmReportHub' )
             cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'host_communities',
             beneficiary_type_name: 'Host Communities'
+          },{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'humanitarian_workers',
+            beneficiary_type_name: 'Humanitarian Workers'
           }];
         }
 

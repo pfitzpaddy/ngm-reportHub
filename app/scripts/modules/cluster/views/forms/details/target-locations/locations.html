@@ -28,7 +28,7 @@
 							    <tr style="font-weight: 400">
 							    	<td></td>
 							    	<td>Reporter</td>
-							    	<td ng-if="project.definition.admin0pcode !== 'CB'">Implementation</td>
+							    	<td>Implementation</td>
 							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
 							      <td ng-if="project.lists.admin3.length">{{ project.lists.admin3[0].admin3type_name }}</td>
@@ -54,7 +54,7 @@
 							          {{ project.showReporter( $data, location ) }}
 							        </span>
 							      </td>
-							      <td ng-if="project.definition.admin0pcode !== 'CB'">
+							      <td>
 							        <!-- editable site_implementation_id -->
 							        <span e-placeholder="Select..." 
 							        				editable-select="location.site_implementation_id" 

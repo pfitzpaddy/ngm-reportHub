@@ -34,7 +34,8 @@
 							      <td>Activity</td>
 							      <td ng-if="project.definition.admin0pcode !== 'SO'">Description</td>
 							      <td ng-if="project.definition.admin0pcode === 'SO'">Specific Indicator</td>
-							      <td ng-if="project.definition.admin0pcode === 'NG'">Details</td>
+							      <td ng-if="project.showActivityDetailsColumn">Details</td>
+							      <td ng-if="project.showIndicatorColumn">Indicator</td>
 										<td ng-if="project.showCash() && project.showDeliveryfield() && project.definition.admin0pcode === 'AF'">Delivery</td>
 										<td ng-if="project.showCash()">Mechanism</td>
 										<td ng-if="project.showPackage()">Package</td>
@@ -65,6 +66,8 @@
 							        			editable-select="beneficiary.activity_type_id"
 														e-placeholder="Select..."
 							        			e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type"
+							        			e-ng-change="project.setShowActivityDetailsColumn( beneficiary ); 
+							        										project.setShowIndicatorColumn( beneficiary )"
 							        			e-ng-disabled="!project.definition.activity_type.length">
 							          {{ project.showActivity( $data, beneficiary ) }}
 							        </span>
@@ -75,11 +78,15 @@
 							        			editable-select="beneficiary.activity_description_id"
 							        			e-placeholder="Select..."
 							        			e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.lists.activity_descriptions | filter: { cluster_id: beneficiary.cluster_id, activity_type_id: beneficiary.activity_type_id }"
+							        			e-ng-change="project.setActivityDetailsColumnRow( $index, beneficiary );
+							        										project.setIndicatorColumnRow( $index, beneficiary )"
 							        			e-ng-disabled="!beneficiary.activity_type_id">
 							          {{ project.showDescription( $data, beneficiary ) }}
 							        </span>
 							      </td>
-							      <td ng-if="project.definition.admin0pcode === 'NG'">
+
+							      <!-- details -->
+							      <td ng-if="project.showActivityDetailsColumn">
 							        <span e-form="rowform"
 							        			e-name="activity_detail_id"
 							        			editable-select="beneficiary.activity_detail_id"
@@ -89,8 +96,44 @@
 							        												filter: { cluster_id: beneficiary.cluster_id, 
 																        									activity_type_id: beneficiary.activity_type_id, 
 																        									activity_description_id: beneficiary.activity_description_id }"
-							        			e-ng-disabled="!beneficiary.activity_description_id">
+														e-ng-change="project.setActivityDetailsColumnRow( $index, beneficiary );
+																					project.setIndicatorColumnRow( $index, beneficiary )"
+							        			e-ng-disabled="!beneficiary.activity_description_id || !project.showActivityDetailsColumnRow[ $index ]">
 							          {{ project.showDetails( $data, beneficiary ) }}
+							        </span>
+							      </td>
+
+							      <!-- 2nd tier activities -->
+							      <td ng-if="project.showIndicatorColumn && !beneficiary.activity_detail_id">
+							        <span e-form="rowform"
+							        			e-name="indicator_id"
+							        			editable-select="beneficiary.indicator_id"
+							        			e-placeholder="Select..."
+							        			e-ng-options="a_d.indicator_id as a_d.indicator_name 
+							        											for a_d in project.lists.indicators | 
+							        												filter: { cluster_id: beneficiary.cluster_id, 
+																        									activity_type_id: beneficiary.activity_type_id, 
+																        									activity_description_id: beneficiary.activity_description_id }"
+														e-ng-change="project.setIndicatorColumnRow( $index, beneficiary )"
+							        			e-ng-disabled="!beneficiary.activity_description_id || !project.showIndicatorColumnRow[ $index ]">
+							          {{ project.showIndicator( $data, beneficiary ) }}
+							        </span>
+							      </td>
+							      <!-- 3rd tier activities -->
+							      <td ng-if="project.showIndicatorColumn && beneficiary.activity_detail_id">
+							        <span e-form="rowform"
+							        			e-name="indicator_id"
+							        			editable-select="beneficiary.indicator_id"
+							        			e-placeholder="Select..."
+							        			e-ng-options="a_d.indicator_id as a_d.indicator_name 
+							        											for a_d in project.lists.indicators | 
+							        												filter: { cluster_id: beneficiary.cluster_id, 
+																        									activity_type_id: beneficiary.activity_type_id, 
+																        									activity_description_id: beneficiary.activity_description_id,
+																        									activity_detail_id: beneficiary.activity_detail_id }"
+														e-ng-change="project.setIndicatorColumnRow( $index, beneficiary )"
+							        			e-ng-disabled="!beneficiary.activity_description_id || !project.showIndicatorColumnRow[ $index ]">
+							          {{ project.showIndicator( $data, beneficiary ) }}
 							        </span>
 							      </td>
 							      

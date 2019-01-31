@@ -296,8 +296,12 @@ angular.module( 'ngmReportHub' )
       compileActivityType: function( project, lists ){
 
         // update
-        lists.activity_types = ngmClusterLists.getActivities( project, true, 'activity_type_id' );
-        lists.activity_descriptions = ngmClusterLists.getActivities( project, true, 'activity_description_id' );
+        // lists.activity_types = ngmClusterLists.getActivities( project, true, 'activity_type_id' );
+        // lists.activity_descriptions = ngmClusterLists.getActivities( project, true, 'activity_description_id' );
+        // lists.activity_details = ngmClusterLists.getActivities( project, true, 'activity_detail_id' );
+        // lists.indicators = ngmClusterLists.getActivities( project, true, 'indicator_id' );
+
+        // console.log(lists.activity_types)
 
         // filter
         project.activity_type = [];
@@ -739,8 +743,6 @@ angular.module( 'ngmReportHub' )
 						delete acc.updatedAt
 					})
 				}
-				// console.log("B", beneficiary);
-				// console.log(report);
 				return beneficiary;
 			},
 
