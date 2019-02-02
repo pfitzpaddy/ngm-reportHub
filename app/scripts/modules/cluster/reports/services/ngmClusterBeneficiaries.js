@@ -12,6 +12,41 @@ angular.module( 'ngmReportHub' )
     // beneficairies
 		var ngmClusterBeneficiaries = {
 
+      // default columns
+      form: {
+        defaults: {
+          columns: {
+            detail: false,
+            indicator: false,
+            activity_detail_id: false,
+            mpc_mechanism_type_id: false,
+            package: false,
+            category: false,
+            population: false,
+            amount: false,
+            units: false,
+            transfers: false,
+            households: false,
+            families: false,
+            boys: true,
+            girls: true,
+            men: true,
+            women: true,
+            elderly_men: false,
+            elderly_women: false
+          },
+          rows:[{
+            detail: false,
+            indicator: false,
+            boys: true,
+            girls: true,
+            men: true,
+            women: true
+          }]
+        },
+        active:{}
+      },        
+
       // datepicker (NG)
       datepicker: {
         startOnClose: function( beneficiary, value ) {
@@ -142,7 +177,7 @@ angular.module( 'ngmReportHub' )
         return display;
       },
 
-      // et esnfi onchange
+      // ethiopia esnfi onchange
       descriptionChange: function( $locationIndex, $beneficiaryIndex, lists, $beneficiary ) {
 
         var kits;
@@ -261,64 +296,17 @@ angular.module( 'ngmReportHub' )
           Materialize.toast( 'Error!', 6000, 'error' );
         });
       },
-      
-      // disable input ( not used by good approach )
-      disabledInput: function( $beneficiary, indicator ) {
-        var disabled = false;
-
-        // health, MCH, ANC, PNC, SBA
-        if( $beneficiary.activity_description_id === 'postnatal_care' ){
-          if( indicator !== 'boys' && indicator !== 'girls' && indicator !== 'women' ){
-            disabled = true;
-          }
-        }
-        // health, MCH, ANC, PNC, SBA
-        if( $beneficiary.activity_type_id === 'mch' ||
-            $beneficiary.activity_description_id === 'antenatal_care' ||
-            $beneficiary.activity_description_id === 'skilled_birth_attendant' ){
-          if( indicator !== 'women' ){
-            disabled = true;
-          }
-        }
-
-        // health, vaccination
-        if( $beneficiary.activity_type_id === 'vaccination' ||
-            $beneficiary.activity_description_id === 'penta_3' ||
-            $beneficiary.activity_description_id === 'measles' ){
-          if( indicator !== 'boys' && indicator !== 'girls' ){
-            disabled = true;
-          }
-        }
-
-        return disabled;
-      },
 
       // show activity (generic)
-      showActivity: function( project, $data, $beneficiary ){
+      displayActivity: function( project, $data, $beneficiary ){
         var selected = [];
         $beneficiary.activity_type_id = $data;
         if( $beneficiary.activity_type_id && project.activity_type.length ) {
           selected = $filter('filter')( project.activity_type, { activity_type_id: $beneficiary.activity_type_id }, true);
           if ( selected.length ) {
 
-            // catch for old data
-            if( selected.length && selected[0].cluster_id && selected[0].cluster ) {
-              $beneficiary.cluster_id = selected[0].cluster_id;
-              $beneficiary.cluster = selected[0].cluster;
-            }
-
-            // selected
-            if (selected.length) {
-              $beneficiary.activity_type_name = selected[0].activity_type_name;
-            } else {
-              // if data exists then get it
-              if ($beneficiary.activity_type_name&&$beneficiary.activity_type_id){
-                selected = [{}];
-                selected[0].activity_type_name = $beneficiary.activity_type_name;
-              } else {
-                delete $beneficiary.activity_type_id;
-              }
-            }
+            // set activity_type_name
+            $beneficiary.activity_type_name = selected[0].activity_type_name;
 
           }
         }
@@ -326,44 +314,74 @@ angular.module( 'ngmReportHub' )
       },
 
       // show descipriton (generic)
-      showDescription: function( lists, $data, $beneficiary ){
+      displayDescription: function( project, lists, $data, $beneficiary ){
         var selected = [];
         $beneficiary.activity_description_id = $data;
         if( $beneficiary.activity_description_id ) {
-          selected = $filter('filter')( lists.activity_descriptions, { activity_description_id: $beneficiary.activity_description_id }, true);
+          selected = $filter('filter')( lists.activity_descriptions, { 
+                                            cluster_id: $beneficiary.cluster_id,
+                                            activity_description_id: $beneficiary.activity_description_id }, true );
           if ( selected.length ) {
+
+            // set activity_description_name
             $beneficiary.activity_description_name = selected[0].activity_description_name;
-            
 
 
 
+          //   // remove previous selection
+          //   delete $beneficiary.activity_detail_id;
+          //   delete $beneficiary.activity_detail_name;
+          //   delete $beneficiary.indicator_id;
+          //   delete $beneficiary.indicator_name;
 
-            // $beneficiary.indicator_id = selected[0].indicator_id;
-            // $beneficiary.indicator_name = selected[0].indicator_name;
+          //   // 
+          //   if (  ) {
+          //     $beneficiary.indicator_id = selected[0].indicator_id;
+          //     $beneficiary.indicator_name = selected[0].indicator_name;              
+          //   }
+
+          //   // activity_description_name
+          //   $beneficiary.activity_description_name = selected[0].activity_description_name;
 
 
 
+          // } else {
+          //   // if data exists then get it
+          //   if ($beneficiary.activity_description_name&&$beneficiary.activity_description_id){
+          //     selected = [{}];
+          //     selected[0].activity_description_name = $beneficiary.activity_description_name;
+          //   } else {
+          //     delete $beneficiary.activity_description_id;
+          //   }
+          // }
 
-          } else {
-            // if data exists then get it
-            if ($beneficiary.activity_description_name&&$beneficiary.activity_description_id){
-              selected = [{}];
-              selected[0].activity_description_name = $beneficiary.activity_description_name;
-            } else {
-              delete $beneficiary.activity_description_id;
-            }
+
           }
+
         }
         return selected.length ? selected[0].activity_description_name : '-';
       },
 
       // display category
-      showDetails: function( lists, $data, $beneficiary ) {
+      displayDetails: function( lists, $data, $beneficiary ) {
         var selected = [];
         $beneficiary.activity_detail_id = $data;
         if( $beneficiary.activity_detail_id ) {
-          selected = $filter('filter')( lists.activity_details, { activity_detail_id: $beneficiary.activity_detail_id }, true);
+          selected = $filter('filter')( lists.activity_details, { 
+                                            cluster_id: $beneficiary.cluster_id, 
+                                            activity_description_id: $beneficiary.activity_description_id,
+                                            activity_detail_id: $beneficiary.activity_detail_id }, true );
           if( selected.length ) {
+
+            
+            // remove indicator
+            // delete $beneficiary.indicator_id;
+            // delete $beneficiary.indicator_name;
+
+
+
+
+            // set activity
             $beneficiary.activity_detail_name = selected[0].activity_detail_name;
 
 
@@ -372,25 +390,141 @@ angular.module( 'ngmReportHub' )
             // $beneficiary.indicator_name = selected[0].indicator_name;
 
 
-            
+
           }
         }
         return selected.length ? selected[0].activity_detail_name : '-';
       },
 
       // display category
-      showIndicator: function( lists, $data, $beneficiary ) {
+      displayIndicator: function( lists, $data, $beneficiary ) {
         var selected = [];
         $beneficiary.indicator_id = $data;
         if( $beneficiary.indicator_id ) {
           selected = $filter('filter')( lists.indicators, { indicator_id: $beneficiary.indicator_id }, true);
           if( selected.length ) {
-            $beneficiary.indicator_id = selected[0].indicator_id;
+            // $beneficiary.indicator_id = selected[0].indicator_id;
             $beneficiary.indicator_name = selected[0].indicator_name;
           }
         }
-        return selected.length ? selected[0].activity_detail_name : '-';
+        return selected.length ? selected[0].indicator_name : '-';
       },
+
+
+
+
+
+
+
+
+      // show target columns
+      setBeneficiariesForm: function ( lists, beneficiaries ) {
+
+        // set defaults
+        ngmClusterBeneficiaries.form.active = angular.copy( ngmClusterBeneficiaries.form.defaults );
+
+        // check target_beneficiaries
+        if ( beneficiaries.length ) {
+          angular.forEach( beneficiaries, function( beneficiary, row_index ){
+            ngmClusterBeneficiaries.setBeneficiariesFormTargets( lists, beneficiary, row_index );
+          });
+        }
+
+      },
+
+      // set columns, rows
+      setBeneficiariesFormTargets: function( lists, beneficiary, row_index ) {
+
+        // set default
+        if ( !ngmClusterBeneficiaries.form.active.rows[ row_index ] ) {
+          ngmClusterBeneficiaries.form.active.rows[ row_index ] = angular.copy( ngmClusterBeneficiaries.form.defaults.rows[ 0 ] );
+        }
+        
+        // let UI catch up
+        $timeout(function() {
+
+          // if activity_description_id
+          if ( beneficiary && beneficiary.activity_description_id ) {
+
+            // 3 different types of lists
+            var search_list_activity_descriptions = $filter('filter')( lists.activity_descriptions, { activity_description_id: beneficiary.activity_description_id }, true );
+            var search_list_activity_details = $filter('filter')( lists.activity_details, { activity_description_id: beneficiary.activity_description_id }, true );
+            var search_list_indicators = $filter('filter')( lists.indicators, { activity_description_id: beneficiary.activity_description_id }, true );
+
+            // default
+            angular.forEach( search_list_activity_descriptions, function( row, i ){
+              // for each row
+              ngmClusterBeneficiaries.setColumnsRows( row, row_index );
+            });
+
+            // by activity_detail_id
+            if ( beneficiary.activity_detail_id ) {
+              search_list_activity_details = $filter('filter')( search_list_activity_details, { activity_detail_id: beneficiary.activity_detail_id }, true )
+              // for each activity details
+              angular.forEach( search_list_activity_details, function( row, i ){
+                // for each value, column
+                ngmClusterBeneficiaries.setColumnsRows( row, row_index );
+              });
+            }
+
+            // by indicator_id
+            if ( beneficiary.indicator_id ) {
+              search_list_indicators = $filter('filter')( search_list_indicators, { indicator_id: beneficiary.indicator_id }, true )
+              // // for each indicators
+              angular.forEach( search_list_indicators, function( row, i ){
+                // for each value, column
+                ngmClusterBeneficiaries.setColumnsRows( row, row_index );
+              });
+            }
+
+          }
+
+        }, 0 );
+
+      },
+
+      // set columns, rows
+      setColumnsRows: function( row, row_index ) {
+
+        // first row ( reset )
+        if ( row_index === 0 ){
+          ngmClusterBeneficiaries.form.active.columns = angular.merge( {}, ngmClusterBeneficiaries.form.defaults.columns, row );
+        } else {
+          // set columns
+          angular.forEach( row, function( value, column ){
+            if ( value ) {
+              ngmClusterBeneficiaries.form.active.columns[ column ] = value;
+            }
+          });
+        } 
+
+        // set row
+        ngmClusterBeneficiaries.form.active.rows[ row_index ] = angular.merge( {}, ngmClusterBeneficiaries.form.defaults.rows[ 0 ], row );       
+
+      },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       // cholera response
       showCholera: function( lists, $data, $beneficiary ) {
@@ -404,6 +538,27 @@ angular.module( 'ngmReportHub' )
         }
         return selected.length ? selected[0].activity_cholera_response_name : '-';
       },
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       // display delivery (afg specific)
       showCashDelivery: function( lists, $data, $beneficiary ) {
@@ -500,7 +655,51 @@ angular.module( 'ngmReportHub' )
 				}				
 				//return false;
 			},
-			// To set option and disable Mechanism field option based on activity_description_id
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // To set option and disable Mechanism field option based on activity_description_id
 			showMechanismOption: function(list,activity_description_id){
 				var allActDesc = [];
 				list.forEach(function (l, i) {

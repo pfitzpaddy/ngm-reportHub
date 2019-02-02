@@ -56,10 +56,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
       // set to $scope
       $scope.ngmClusterHelper = ngmClusterHelper;
+      $scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
 
       // project
       $scope.project = {
 
+        
         // defaults
         user: ngmUser.get(),
         style: config.style,
@@ -69,10 +71,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         updatedAt: moment( config.project.updatedAt ).format('DD MMMM, YYYY @ h:mm:ss a'),
         canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.project.adminRpcode, admin0pcode:config.project.admin0pcode, cluster_id: config.project.cluster_id, organization_tag:config.project.organization_tag } ),
 
+
         // cluster
         displayIndicatorCluster: {
           'AF': [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'gbv', 'rnr_chapter', 'wash' ],
-          'CB': [ 'protection' ]
+          'CB': [ 'wash', 'protection' ]
         },
 
         // activity details
@@ -126,10 +129,15 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           if( !$scope.project.definition.project_budget_currency ){
             $scope.project.definition.project_budget_currency = 'usd';
           }
+          
           // set org users
           ngmClusterLists.setOrganizationUsersList( $scope.project.lists, config.project );
+          
           // set form on page load
           ngmClusterHelper.setForm( $scope.project.definition, $scope.project.lists );
+          
+          // set columns / rows
+          ngmClusterBeneficiaries.setBeneficiariesForm( $scope.project.lists, $scope.project.definition.target_beneficiaries );
         },
 
         // cofirm exit if changes
@@ -185,6 +193,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
 
+        
+
         /**** AFGHANISTAN ( ngmClusterHelperAf.js ) ****/
 
         // update organization if acbar partner
@@ -208,130 +218,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return moment()<moment('2018-02-01')
         },
 
-        // activity details
-        setShowActivityDetailsColumn: function( beneficiary ) {
-          
-          var search_list;
-          $scope.project.showActivityDetailsColumn = false;
-
-          // check target_beneficiaries
-          if ( $scope.project.definition.target_beneficiaries.length ) {
-            angular.forEach( $scope.project.definition.target_beneficiaries, function( d, i ){
-              if ( d.activity_type_id ) {
-                search_list = $filter('filter')( $scope.project.lists.activity_details, { activity_type_id: d.activity_type_id }, true);
-                angular.forEach( search_list, function( d, i ){
-                  if ( d.activity_detail_id ) {
-                    $scope.project.showActivityDetailsColumn = true;
-                  }
-                });
-              }
-            });
-          }
-
-          // check current selection
-          $timeout(function(){
-            if ( beneficiary && beneficiary.activity_type_id ) {
-              search_list = $filter('filter')( $scope.project.lists.activity_details, { activity_type_id: beneficiary.activity_type_id }, true);
-              angular.forEach( search_list, function( d, i ){
-                if ( d.activity_detail_id ) {
-                  $scope.project.showActivityDetailsColumn = true;
-                }
-              });
-            }
-          }, 0 );
-          
-        },
-
-        // indicators
-        setShowIndicatorColumn: function( beneficiary ) {
-            
-          var search_list;
-          $scope.project.showIndicatorColumn = false;
-
-          // check target_beneficiaries
-          if ( $scope.project.definition.target_beneficiaries.length ) {
-            angular.forEach( $scope.project.definition.target_beneficiaries, function( d, i ){
-              if ( d.activity_type_id ) {
-                search_list = $filter('filter')( $scope.project.lists.indicators, { activity_type_id: d.activity_type_id }, true );
-                angular.forEach( search_list, function( d, i ){
-                  if ( d.indicator_id ) {
-
-                    // get the cluster list from displayIndicatorCluster based on admin0pcode
-                    var display = $filter('filter')( $scope.project.displayIndicatorCluster[ beneficiary.admin0pcode ], { cluster_id: beneficiary.cluster_id }, true );
-                    if ( display ) {
-                      $scope.project.showIndicatorColumn = true;
-                    }
-
-                  }
-                });
-              }
-            });
-          }
-
-          // check current selection
-          $timeout(function(){
-            if ( beneficiary && beneficiary.activity_type_id ) {
-              search_list = $filter('filter')( $scope.project.lists.indicators, { activity_type_id: beneficiary.activity_type_id }, true );
-              angular.forEach( search_list, function( d, i ){
-                if ( d.indicator_id ) {
-                  
-                  // get the cluster list from displayIndicatorCluster based on admin0pcode
-                  console.log( $scope.project.displayIndicatorCluster[ beneficiary.admin0pcode ] )
-                  console.log( beneficiary.cluster_id )
-                  var display = $filter('filter')( $scope.project.displayIndicatorCluster[ beneficiary.admin0pcode ], { cluster_id: beneficiary.cluster_id }, true );
-                  if ( display ) {
-                    $scope.project.showIndicatorColumn = true;
-                  }
-
-                }
-              });
-            }
-          }, 0 );
-          
-        },
-
-        // activity details by row
-        setActivityDetailsColumnRow: function( $index, beneficiary ) {
-
-          // showActivityDetailsColumnRow
-          if ( !$scope.project.showActivityDetailsColumnRow[ $index ] ){
-            $scope.project.showActivityDetailsColumnRow[ $index ] = false
-          }
-          
-          // check current selection
-          $timeout(function(){
-            if ( beneficiary && beneficiary.activity_type_id ) {
-              var search_list = $filter('filter')( $scope.project.lists.activity_details, { activity_type_id: beneficiary.activity_type_id }, true );
-              angular.forEach( search_list, function( d, i ){
-                if ( d.activity_detail_id ) {
-                  $scope.project.showActivityDetailsColumnRow[ $index ] = true;
-                }
-              });
-            }
-          }, 0 );
-        },
-
-        // activity details by row
-        setIndicatorColumnRow: function( $index, beneficiary ) {
-            
-          // showIndicatorColumnRow
-          if ( !$scope.project.showIndicatorColumnRow[ $index ] ){
-            $scope.project.showIndicatorColumnRow[ $index ] = false
-          }
-          
-          // check current selection
-          $timeout(function(){
-            if ( beneficiary && beneficiary.activity_type_id ) {
-              var search_list = $filter('filter')( $scope.project.lists.indicators, { activity_type_id: beneficiary.activity_type_id }, true );
-              angular.forEach( search_list, function( d, i ){
-                if ( d.indicator_id ) {
-                  $scope.project.showIndicatorColumnRow[ $index ] = true;
-                }
-              });
-            }
-          }, 0 );
-        },
-
         // injury sustained same province as field hospital
         showFatpTreatmentSameProvince: function(){
           return ngmClusterHelperAf.showFatpTreatmentSameProvince( $scope.project.definition.target_beneficiaries );
@@ -342,6 +228,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return ngmClusterHelperAf.showTreatmentSameProvince( $data, $beneficiary );
         },
 
+
+       
 
         /****** EiEWG ( ngmClusterHelperAf.js ) ************/
 
@@ -370,6 +258,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },        
 
 
+        
         /**** TARGET BENEFICIARIES ( ngmClusterHelperBeneficiaries.js ) ****/
 
         // update inidcators
@@ -379,8 +268,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // add beneficiary
         addBeneficiary: function() {
+          
+          // set beneficiaries
           $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.definition.target_beneficiaries );
           $scope.project.definition.target_beneficiaries.push( $scope.inserted );
+          
+          // set columns / rows display
+          ngmClusterBeneficiaries.setBeneficiariesFormTargets( $scope.project.lists, $scope.inserted, $scope.project.definition.target_beneficiaries.length-1 );
         },
 
         // remove beneficiary from list
@@ -393,38 +287,148 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         removeTargetBeneficiary: function() {
           var id = $scope.project.definition.target_beneficiaries[ $scope.project.beneficiaryIndex ].id;
           $scope.project.definition.target_beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
+          ngmClusterBeneficiaries.form.active.rows.splice( $scope.project.beneficiaryIndex, 1 );
           ngmClusterBeneficiaries.removeTargetBeneficiary( id );
         },
 
         // activity
-        showActivity: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showActivity( $scope.project.definition, $data, $beneficiary, true );
+        displayActivity: function( $data, $beneficiary ) {
+          return ngmClusterBeneficiaries.displayActivity( $scope.project.definition, $data, $beneficiary, true );
         },
 
         // description
-        showDescription: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showDescription( $scope.project.lists, $data, $beneficiary );
+        displayDescription: function( $data, $beneficiary ) {
+          return ngmClusterBeneficiaries.displayDescription( $scope.project.definition, $scope.project.lists, $data, $beneficiary );
         },
 
         // details
-        showDetails: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showDetails( $scope.project.lists, $data, $beneficiary );
+        displayDetails: function( $data, $beneficiary ) {
+          return ngmClusterBeneficiaries.displayDetails( $scope.project.lists, $data, $beneficiary );
         },
 
         // indicator
-        showIndicator: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showIndicator( $scope.project.lists, $data, $beneficiary );
+        displayIndicator: function( $data, $beneficiary ) {
+          return ngmClusterBeneficiaries.displayIndicator( $scope.project.lists, $data, $beneficiary );
         },
+
+
+
+        // make for columns
+
+        // make for rows
+
+
+
+
+
+
+
+
+
+
+        // show targets
+        showTargetColumnsRows: function( beneficiary, index ) {
+
+          // if activity_id
+          if ( beneficiary && beneficiary.activity_type_id ) {
+
+            // LISTS 
+            var search_list_activity_description = $filter('filter')( $scope.project.lists.activity_description, { activity_type_id: beneficiary.activity_type_id }, true );
+            var search_list_activity_details = $filter('filter')( $scope.project.lists.activity_details, { activity_type_id: beneficiary.activity_type_id }, true );
+            var search_list_indicator = $filter('filter')( $scope.project.lists.indicators, { activity_type_id: beneficiary.activity_type_id }, true );
+
+            // ROWS
+            // showActivityDetailsColumnRow
+            // $scope.project.showActivityDetailsColumnRow[ index ] = false
+
+            // showIndicatorColumnRow
+            // $scope.project.showIndicatorColumnRow[ index ] = false
+
+            console.log( search_list_activity_details )
+
+
+            // merge the list to use!
+
+
+
+            // activity details
+            angular.forEach( search_list_activity_details, function( d, i ){
+              if ( d.activity_detail_id ) {
+                $scope.project.columns[ 'detail' ] = true;
+                // $scope.project.showActivityDetailsColumnRow[ index ] = true;
+              }
+            });
+
+            // indicators
+            angular.forEach( search_list_indicator, function( d, i ){
+              if ( display_indicator.length && d.indicator_id ) {
+                $scope.project.columns[ 'inidcator' ] = true;
+                // $scope.project.showIndicatorColumnRow[ index ] = true;
+              }
+            });
+
+          }
+
+        },
+
+
+        // columns
+        displayTargetColumnsRows: function( beneficiary, index ) {
+
+          // if activity_id
+          if ( beneficiary && beneficiary.activity_type_id ) {
+
+            // COLUMNS
+            
+            // search
+            var search_list_activity = $filter('filter')( $scope.project.lists.activity_details, { activity_type_id: beneficiary.activity_type_id }, true );
+            var search_list_indicator = $filter('filter')( $scope.project.lists.indicators, { activity_type_id: beneficiary.activity_type_id }, true );
+            
+            // get the cluster list from displayIndicatorCluster based on admin0pcode
+            var display_indicator = $filter('filter')( $scope.project.displayIndicatorCluster[ $scope.project.definition.admin0pcode ], beneficiary.cluster_id, true );
+            
+
+            // ROWS
+            // showActivityDetailsColumnRow
+            $scope.project.showActivityDetailsColumnRow[ index ] = false
+
+            // showIndicatorColumnRow
+            $scope.project.showIndicatorColumnRow[ index ] = false
+
+            
+            // activity details
+            angular.forEach( search_list_activity, function( d, i ){
+              if ( d.activity_detail_id ) {
+                $scope.project.showActivityDetailsColumn = true;
+                $scope.project.showActivityDetailsColumnRow[ index ] = true;
+              }
+            });
+
+            // indicators
+            angular.forEach( search_list_indicator, function( d, i ){
+              if ( display_indicator.length && d.indicator_id ) {
+                $scope.project.showIndicatorColumn = true;
+                $scope.project.showIndicatorColumnRow[ index ] = true;
+              }
+            });
+          
+          }
+
+        },
+
+
+
+
 
         // cash delivery
         showCashDelivery: function( $data, $beneficiary ) {
           return ngmClusterBeneficiaries.showCashDelivery( $scope.project.lists, $data, $beneficiary );
-				},
+        },
 
-				//cash mechanism
-				showCashMechanism: function ($data, $beneficiary) {
-					return ngmClusterBeneficiaries.showCashMechanism($scope.project.lists, $data, $beneficiary);
-				},
+        //cash mechanism
+        showCashMechanism: function ($data, $beneficiary) {
+          return ngmClusterBeneficiaries.showCashMechanism($scope.project.lists, $data, $beneficiary);
+        },
 
         // package types
         showPackageTypes: function( $data, $beneficiary ) {
@@ -449,20 +453,20 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         // cash
         showCash: function() {
           return ngmClusterBeneficiaries.showCash( $scope.project.definition.target_beneficiaries );
-				},
-				
-				//check activivity_description and cluster_id of beneficiary
-				checkClusterOfActivity: function ($beneficiary) {
-					return ngmClusterBeneficiaries.checkClusterOfActivity($beneficiary, 'esnfi', $scope.project.lists.mpc_delivery_types);
-				},
-				// show delivery fiels
-				showDeliveryfield: function () {					
-					return ngmClusterBeneficiaries.showDeliveryfield($scope.project.definition.target_beneficiaries, 'esnfi', $scope.project.lists.mpc_delivery_types);
-				},
-				// disable mechanism option
-				showMechanismOption: function ($activityDescription) {
-					return ngmClusterBeneficiaries.showMechanismOption($scope.project.lists.mpc_delivery_types, $activityDescription);
-				},
+        },
+        
+        //check activivity_description and cluster_id of beneficiary
+        checkClusterOfActivity: function ($beneficiary) {
+          return ngmClusterBeneficiaries.checkClusterOfActivity($beneficiary, 'esnfi', $scope.project.lists.mpc_delivery_types);
+        },
+        // show delivery fiels
+        showDeliveryfield: function () {          
+          return ngmClusterBeneficiaries.showDeliveryfield($scope.project.definition.target_beneficiaries, 'esnfi', $scope.project.lists.mpc_delivery_types);
+        },
+        // disable mechanism option
+        showMechanismOption: function ($activityDescription) {
+          return ngmClusterBeneficiaries.showMechanismOption($scope.project.lists.mpc_delivery_types, $activityDescription);
+        },
 
         // show package
         showPackage: function() {
@@ -540,10 +544,95 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return ngmClusterBeneficiaries.rowSaveDisabled( $scope.project.definition, $data );
         },
 
+        // set activity details
+        showTargetColumns: function() {
+          
+          // show columns false
+          $scope.project.showActivityDetailsColumn = false;
+          $scope.project.showIndicatorColumn = false;
+
+          // check target_beneficiaries
+          if ( $scope.project.definition.target_beneficiaries.length ) {
+            angular.forEach( $scope.project.definition.target_beneficiaries, function( d, i ){
+              if ( d.activity_type_id ) {
+               $scope.project.displayTargetColumnsRows( d, i );
+              }
+            });
+          }
+        },
+
+        // columns
+        displayTargetColumnsRows: function( beneficiary, index ) {
+
+          // if activity_id
+          if ( beneficiary && beneficiary.activity_type_id ) {
+
+            // COLUMNS
+            
+            // search
+            var search_list_activity = $filter('filter')( $scope.project.lists.activity_details, { activity_type_id: beneficiary.activity_type_id }, true );
+            var search_list_indicator = $filter('filter')( $scope.project.lists.indicators, { activity_type_id: beneficiary.activity_type_id }, true );
+            
+            // get the cluster list from displayIndicatorCluster based on admin0pcode
+            var display_indicator = $filter('filter')( $scope.project.displayIndicatorCluster[ $scope.project.definition.admin0pcode ], beneficiary.cluster_id, true );
+            
+
+            // ROWS
+            // showActivityDetailsColumnRow
+            $scope.project.showActivityDetailsColumnRow[ index ] = false
+
+            // showIndicatorColumnRow
+            $scope.project.showIndicatorColumnRow[ index ] = false
+
+            
+            // activity details
+            angular.forEach( search_list_activity, function( d, i ){
+              if ( d.activity_detail_id ) {
+                $scope.project.showActivityDetailsColumn = true;
+                $scope.project.showActivityDetailsColumnRow[ index ] = true;
+              }
+            });
+
+            // indicators
+            angular.forEach( search_list_indicator, function( d, i ){
+              if ( display_indicator.length && d.indicator_id ) {
+                $scope.project.showIndicatorColumn = true;
+                $scope.project.showIndicatorColumnRow[ index ] = true;
+              }
+            });
+          
+          }
+
+        },
+
         // save beneficiary
         saveBeneficiary: function() {
           $scope.project.save( false, 'People in Need Saved!' );
         },
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         /**** TARGET LOCATIONS ( ngmClusterLocations.js ) ****/
@@ -629,16 +718,21 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
 
+        
         /**** CANCEL EDIT ( beneficiaries or locations ) ****/
 
         // remove from array if no id
         cancelEdit: function( key, $index ) {
           if ( !$scope.project.definition[ key ][ $index ].id ) {
             $scope.project.definition[ key ].splice( $index, 1 );
+            ngmClusterBeneficiaries.form.active.rows.splice( $index, 1 );
           }
+          // set columns / rows
+          ngmClusterBeneficiaries.setBeneficiariesForm( $scope.project.lists, $scope.project.definition.target_beneficiaries );          
         },
 
 
+        
         /**** CLUSTER HELPER ( ngmClusterHelper.js ) ****/
 
         // compile cluster activities
@@ -662,6 +756,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
 
+        
         /**** FORM ( ngmClusterValidation.js ) ****/
 
         // validate project type
@@ -695,6 +790,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
 
+
+        /**** SAVE ****/
+        
         // save project
         save: function( display_modal, save_msg ){
 

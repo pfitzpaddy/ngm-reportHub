@@ -301,8 +301,6 @@ angular.module( 'ngmReportHub' )
         // lists.activity_details = ngmClusterLists.getActivities( project, true, 'activity_detail_id' );
         // lists.indicators = ngmClusterLists.getActivities( project, true, 'indicator_id' );
 
-        // console.log(lists.activity_types)
-
         // filter
         project.activity_type = [];
         angular.forEach( project.activity_type_check, function( t, key ){
