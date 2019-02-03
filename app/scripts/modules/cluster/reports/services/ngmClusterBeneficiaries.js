@@ -18,14 +18,14 @@ angular.module( 'ngmReportHub' )
           columns: {
             detail: false,
             indicator: false,
-            activity_detail_id: false,
+            category_type_id: false,
+            delivery_type_id: false,
+            mpc_delivery_type_id: false,
             mpc_mechanism_type_id: false,
-            package: false,
-            category: false,
-            population: false,
-            amount: false,
+            package_type_id: false,
             units: false,
-            transfers: false,
+            unit_type_id: false,
+            transfer_type_id: false,
             households: false,
             families: false,
             boys: true,
@@ -44,7 +44,7 @@ angular.module( 'ngmReportHub' )
             women: true
           }]
         },
-        active:{}
+        active:[{}]
       },        
 
       // datepicker (NG)
@@ -86,7 +86,7 @@ angular.module( 'ngmReportHub' )
 
       // add beneficiary
       addBeneficiary: function ( beneficiaries, defaults ) {
-        
+
         // inserted
         var inserted = {};
         var sadd = {
@@ -131,6 +131,9 @@ angular.module( 'ngmReportHub' )
 				// return new beneficiary
         return inserted;
 			},
+
+
+      /* ESNFI KITS */
 
       // show distribution date
       showDistributionDate: function( project, beneficiary ){
@@ -297,6 +300,9 @@ angular.module( 'ngmReportHub' )
         });
       },
 
+
+      /* BENEFICIARIES FORM */ 
+
       // show activity (generic)
       displayActivity: function( project, $data, $beneficiary ){
         var selected = [];
@@ -304,17 +310,17 @@ angular.module( 'ngmReportHub' )
         if( $beneficiary.activity_type_id && project.activity_type.length ) {
           selected = $filter('filter')( project.activity_type, { activity_type_id: $beneficiary.activity_type_id }, true);
           if ( selected.length ) {
-
             // set activity_type_name
+            $beneficiary.cluster_id = selected[0].cluster_id;
+            $beneficiary.cluster = selected[0].cluster;
             $beneficiary.activity_type_name = selected[0].activity_type_name;
-
           }
         }
         return selected.length ? selected[0].activity_type_name : '-';
       },
 
       // show descipriton (generic)
-      displayDescription: function( project, lists, $data, $beneficiary ){
+      displayDescription: function( lists, $data, $beneficiary, row ){
         var selected = [];
         $beneficiary.activity_description_id = $data;
         if( $beneficiary.activity_description_id ) {
@@ -322,48 +328,23 @@ angular.module( 'ngmReportHub' )
                                             cluster_id: $beneficiary.cluster_id,
                                             activity_description_id: $beneficiary.activity_description_id }, true );
           if ( selected.length ) {
-
+            
             // set activity_description_name
             $beneficiary.activity_description_name = selected[0].activity_description_name;
 
-
-
-          //   // remove previous selection
-          //   delete $beneficiary.activity_detail_id;
-          //   delete $beneficiary.activity_detail_name;
-          //   delete $beneficiary.indicator_id;
-          //   delete $beneficiary.indicator_name;
-
-          //   // 
-          //   if (  ) {
-          //     $beneficiary.indicator_id = selected[0].indicator_id;
-          //     $beneficiary.indicator_name = selected[0].indicator_name;              
-          //   }
-
-          //   // activity_description_name
-          //   $beneficiary.activity_description_name = selected[0].activity_description_name;
-
-
-
-          // } else {
-          //   // if data exists then get it
-          //   if ($beneficiary.activity_description_name&&$beneficiary.activity_description_id){
-          //     selected = [{}];
-          //     selected[0].activity_description_name = $beneficiary.activity_description_name;
-          //   } else {
-          //     delete $beneficiary.activity_description_id;
-          //   }
-          // }
-
+            // add indicator ( if exists and no dropdown )
+            if ( row && !row.indicator && row.indicator_id ) {
+              $beneficiary.indicator_id = selected[0].indicator_id;
+              $beneficiary.indicator_name = selected[0].indicator_name;
+            }
 
           }
-
         }
         return selected.length ? selected[0].activity_description_name : '-';
       },
 
       // display category
-      displayDetails: function( lists, $data, $beneficiary ) {
+      displayDetails: function( lists, $data, $beneficiary, row ) {
         var selected = [];
         $beneficiary.activity_detail_id = $data;
         if( $beneficiary.activity_detail_id ) {
@@ -372,24 +353,15 @@ angular.module( 'ngmReportHub' )
                                             activity_description_id: $beneficiary.activity_description_id,
                                             activity_detail_id: $beneficiary.activity_detail_id }, true );
           if( selected.length ) {
-
             
-            // remove indicator
-            // delete $beneficiary.indicator_id;
-            // delete $beneficiary.indicator_name;
-
-
-
-
-            // set activity
+            // set activity_detail_name
             $beneficiary.activity_detail_name = selected[0].activity_detail_name;
-
-
-
-            // $beneficiary.indicator_id = selected[0].indicator_id;
-            // $beneficiary.indicator_name = selected[0].indicator_name;
-
-
+            
+            // add indicator ( if exists and no dropdown )
+            if ( row && !row.indicator && row.indicator_id ) {
+              $beneficiary.indicator_id = selected[0].indicator_id;
+              $beneficiary.indicator_name = selected[0].indicator_name;
+            }
 
           }
         }
@@ -401,7 +373,7 @@ angular.module( 'ngmReportHub' )
         var selected = [];
         $beneficiary.indicator_id = $data;
         if( $beneficiary.indicator_id ) {
-          selected = $filter('filter')( lists.indicators, { indicator_id: $beneficiary.indicator_id }, true);
+          selected = $filter('filter')( lists.activity_indicators, { indicator_id: $beneficiary.indicator_id }, true);
           if( selected.length ) {
             // $beneficiary.indicator_id = selected[0].indicator_id;
             $beneficiary.indicator_name = selected[0].indicator_name;
@@ -409,125 +381,9 @@ angular.module( 'ngmReportHub' )
         }
         return selected.length ? selected[0].indicator_name : '-';
       },
-
-
-
-
-
-
-
-
-      // show target columns
-      setBeneficiariesForm: function ( lists, beneficiaries ) {
-
-        // set defaults
-        ngmClusterBeneficiaries.form.active = angular.copy( ngmClusterBeneficiaries.form.defaults );
-
-        // check target_beneficiaries
-        if ( beneficiaries.length ) {
-          angular.forEach( beneficiaries, function( beneficiary, row_index ){
-            ngmClusterBeneficiaries.setBeneficiariesFormTargets( lists, beneficiary, row_index );
-          });
-        }
-
-      },
-
-      // set columns, rows
-      setBeneficiariesFormTargets: function( lists, beneficiary, row_index ) {
-
-        // set default
-        if ( !ngmClusterBeneficiaries.form.active.rows[ row_index ] ) {
-          ngmClusterBeneficiaries.form.active.rows[ row_index ] = angular.copy( ngmClusterBeneficiaries.form.defaults.rows[ 0 ] );
-        }
-        
-        // let UI catch up
-        $timeout(function() {
-
-          // if activity_description_id
-          if ( beneficiary && beneficiary.activity_description_id ) {
-
-            // 3 different types of lists
-            var search_list_activity_descriptions = $filter('filter')( lists.activity_descriptions, { activity_description_id: beneficiary.activity_description_id }, true );
-            var search_list_activity_details = $filter('filter')( lists.activity_details, { activity_description_id: beneficiary.activity_description_id }, true );
-            var search_list_indicators = $filter('filter')( lists.indicators, { activity_description_id: beneficiary.activity_description_id }, true );
-
-            // default
-            angular.forEach( search_list_activity_descriptions, function( row, i ){
-              // for each row
-              ngmClusterBeneficiaries.setColumnsRows( row, row_index );
-            });
-
-            // by activity_detail_id
-            if ( beneficiary.activity_detail_id ) {
-              search_list_activity_details = $filter('filter')( search_list_activity_details, { activity_detail_id: beneficiary.activity_detail_id }, true )
-              // for each activity details
-              angular.forEach( search_list_activity_details, function( row, i ){
-                // for each value, column
-                ngmClusterBeneficiaries.setColumnsRows( row, row_index );
-              });
-            }
-
-            // by indicator_id
-            if ( beneficiary.indicator_id ) {
-              search_list_indicators = $filter('filter')( search_list_indicators, { indicator_id: beneficiary.indicator_id }, true )
-              // // for each indicators
-              angular.forEach( search_list_indicators, function( row, i ){
-                // for each value, column
-                ngmClusterBeneficiaries.setColumnsRows( row, row_index );
-              });
-            }
-
-          }
-
-        }, 0 );
-
-      },
-
-      // set columns, rows
-      setColumnsRows: function( row, row_index ) {
-
-        // first row ( reset )
-        if ( row_index === 0 ){
-          ngmClusterBeneficiaries.form.active.columns = angular.merge( {}, ngmClusterBeneficiaries.form.defaults.columns, row );
-        } else {
-          // set columns
-          angular.forEach( row, function( value, column ){
-            if ( value ) {
-              ngmClusterBeneficiaries.form.active.columns[ column ] = value;
-            }
-          });
-        } 
-
-        // set row
-        ngmClusterBeneficiaries.form.active.rows[ row_index ] = angular.merge( {}, ngmClusterBeneficiaries.form.defaults.rows[ 0 ], row );       
-
-      },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      
       // cholera response
-      showCholera: function( lists, $data, $beneficiary ) {
+      displayCholera: function( lists, $data, $beneficiary ) {
         var selected = [];
         $beneficiary.activity_cholera_response_id = $data;
         if( $beneficiary.activity_cholera_response_id ) {
@@ -539,184 +395,76 @@ angular.module( 'ngmReportHub' )
         return selected.length ? selected[0].activity_cholera_response_name : '-';
       },
 
-      
+      // display beneficiary
+      displayBeneficiary: function( lists, $data, $beneficiary ) {
+        var selected = [];
+        $beneficiary.beneficiary_type_id = $data;
+        if( $beneficiary.beneficiary_type_id ) {
+          selected = $filter('filter')( lists.beneficiary_types, { beneficiary_type_id: $beneficiary.beneficiary_type_id, cluster_id: $beneficiary.cluster_id }, true);
+        }
+        if ( selected.length ) {
+          $beneficiary.beneficiary_type_name = selected[0].beneficiary_type_name;
+        }
+        return selected.length ? selected[0].beneficiary_type_name : '-';
+      },
 
+      // display delivery
+      displayDelivery: function( lists, $data, $beneficiary ) {
+        var selected = [];
+        $beneficiary.delivery_type_id = $data;
+        if( $beneficiary.delivery_type_id ) {
+          selected = $filter('filter')( lists.delivery_types, { delivery_type_id: $beneficiary.delivery_type_id }, true);
+          $beneficiary.delivery_type_name = selected[0].delivery_type_name;
+        }
+        return selected.length ? selected[0].delivery_type_name : '-';
+      },
 
+      // unit types
+      displayUnitTypes: function( lists, $data, $beneficiary ){
+        var selected = [];
+        $beneficiary.unit_type_id = $data;
+        if($beneficiary.unit_type_id) {
+          selected = $filter('filter')( lists.units, { unit_type_id: $beneficiary.unit_type_id }, true);
+          if( selected.length ) {
+            $beneficiary.unit_type_name = selected[0].unit_type_name;
+          }
+        }
+        return selected.length ? selected[0].unit_type_name : '-';
+      },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      // display delivery (afg specific)
-      showCashDelivery: function( lists, $data, $beneficiary ) {
+      // display delivery ( cash )
+      displayCashDelivery: function( lists, $data, $beneficiary ) {
         var selected = [];
         $beneficiary.mpc_delivery_type_id = $data;
         if( $beneficiary.mpc_delivery_type_id ) {
-
           // selection
           selected = $filter('filter')( lists.mpc_delivery_types, { mpc_delivery_type_id: $beneficiary.mpc_delivery_type_id }, true );
           if ( selected.length ) {
             $beneficiary.mpc_delivery_type_name = selected[0].mpc_delivery_type_name;
-          } else {
-            selected.push({
-              mpc_delivery_type_id: 'n_a',
-              mpc_delivery_type_name: 'N/A'
-            });
           }
-
-          // no cash! for previous selections
-          if ( $beneficiary.activity_type_id.indexOf( 'cash' ) === -1 &&
-                $beneficiary.activity_description_id &&
-                ( $beneficiary.activity_description_id.indexOf( 'cash' ) === -1 &&
-                  $beneficiary.activity_description_id.indexOf( 'in_kind' ) === -1 &&
-                  $beneficiary.activity_description_id.indexOf( 'package' ) === -1 ) ){
-            // reset
-            $beneficiary.mpc_delivery_type_id = 'n_a';
-            $beneficiary.mpc_delivery_type_name = 'N/A';
-          }
-
         }
-
         return selected.length ? selected[0].mpc_delivery_type_name : '-';
-			},
+      },
 
-			showCashMechanism: function ( lists, $data, $beneficiary ){
-				var selected = [];
-				$beneficiary.mpc_mechanism_type_id = $data;
-				if ($beneficiary.mpc_mechanism_type_id) {
-
-					// selection
-					selected = $filter('filter')(lists.mechanism_delivery, { mpc_mechanism_type_id: $beneficiary.mpc_mechanism_type_id }, true);
-					if (selected.length) {
-						$beneficiary.mpc_mechanism_type_name = selected[0].mpc_mechanism_type_name;
-					} else {
-						selected.push({
-							mpc_mechanism_type_id: 'n_a',
-							mpc_mechanism_type_name: 'N/A'
-						});
-					}					
-
-				}
-
-				return selected.length ? selected[0].mpc_mechanism_type_name : '-';
-
-			},
-			
-			// Show delivery field   
-			showDeliveryfield:function($beneficiary,cluster, list){				
-				var countclusterId=0
-				//check if in the $beneficiary have cluster_id match with cluster parameter   
-				for(var i=0; i<$beneficiary.length;i++){
-					if($beneficiary[i].cluster_id===cluster){
-						countclusterId= countclusterId+1;
-					}
-				}
-				// if the countclusterId>0 set true
-				if(countclusterId>0){				
-					return true;
-				}else{				
-					return false
-				}
-
-			},
-
-			//check activity_description_id of beneficiaries
-			checkClusterOfActivity: function (beneficiaries,cluster, list) {
-				//ALl aactivity_description_id
-				var allActDesc =[];
-				//list is $scope.project.lists.mpc_delivery_types, and make activity_description_id into one array
-				list.forEach(function (l,i) {					
-					allActDesc=allActDesc.concat(l.activity_description_id);			
-				})
-				
-				// check if beneficiaries cluster_id match with cluster parameter and activity_description_id match with activity_description_id in allActDesc
-				if(beneficiaries.cluster_id=== cluster){
-					if (allActDesc.indexOf(beneficiaries.activity_description_id)>-1){						
-						return true
-					}
-					return false
-					// return true;
-				} else {
-					
-					return false;
-				}				
-				//return false;
-			},
-			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      // To set option and disable Mechanism field option based on activity_description_id
-			showMechanismOption: function(list,activity_description_id){
-				var allActDesc = [];
-				list.forEach(function (l, i) {
-					allActDesc = allActDesc.concat(l.activity_description_id);
-				})
-				if(allActDesc.indexOf(activity_description_id) > -1){
-					return true
-				}
-				return false;
-			},
+      // display mechanism ( cash )
+      displayCashMechanism: function ( lists, $data, $beneficiary ){
+        var selected = [];
+        $beneficiary.mpc_mechanism_type_id = $data;
+        if ($beneficiary.mpc_mechanism_type_id) {
+          // selection
+          selected = $filter('filter')(lists.mechanism_delivery, { mpc_mechanism_type_id: $beneficiary.mpc_mechanism_type_id }, true);
+          if (selected.length) {
+            $beneficiary.mpc_mechanism_type_name = selected[0].mpc_mechanism_type_name;
+          }
+        }
+        return selected.length ? selected[0].mpc_mechanism_type_name : '-';
+      },
 
       // display package
-      showPackageTypes: function( $data, $beneficiary ) {
+      displayPackageTypes: function( $data, $beneficiary ) {
         var selected = [];
         $beneficiary.package_type_id = $data;
         if( $beneficiary.package_type_id ) {
-
           // selection
           selected = $filter('filter')( [{
             'package_type_id': 'standard',
@@ -727,20 +475,13 @@ angular.module( 'ngmReportHub' )
           }], { package_type_id: $beneficiary.package_type_id }, true );
           if ( selected.length ) {
             $beneficiary.package_type_name = selected[0].package_type_name;
-          } else {
-            selected.push({
-              package_type_id: 'n_a',
-              package_type_name: 'N/A'
-            });
           }
-
         }
-
         return selected.length ? selected[0].package_type_name : '-';
       },
 
       // display category
-      showCategory: function( lists, $data, $beneficiary ) {
+      displayCategory: function( lists, $data, $beneficiary ) {
         var selected = [];
         $beneficiary.category_type_id = $data;
         if($beneficiary.category_type_id) {
@@ -752,136 +493,8 @@ angular.module( 'ngmReportHub' )
         return selected.length ? selected[0].category_type_name : '-';
       },
 
-      // display beneficiary
-      showBeneficiary: function( lists, $data, $beneficiary ) {
-        var selected = [];
-        $beneficiary.beneficiary_type_id = $data;
-        if( $beneficiary.beneficiary_type_id ) {
-          selected = $filter('filter')( lists.beneficiary_types, { beneficiary_type_id: $beneficiary.beneficiary_type_id, cluster_id: $beneficiary.cluster_id }, true);
-        }
-        if ( selected.length ) {
-          $beneficiary.beneficiary_type_name = selected[0].beneficiary_type_name;
-          return selected[0].beneficiary_type_name
-        } else {
-          return '-';
-        }
-      },
-
-      // display delivery
-      showDelivery: function( lists, $data, $beneficiary ) {
-        var selected = [];
-        $beneficiary.delivery_type_id = $data;
-        if( $beneficiary.delivery_type_id ) {
-          selected = $filter('filter')( lists.delivery_types, { delivery_type_id: $beneficiary.delivery_type_id }, true);
-          $beneficiary.delivery_type_name = selected[0].delivery_type_name;
-        }
-        return selected.length ? selected[0].delivery_type_name : '-';
-      },
-
-      // cash
-      showCash: function( beneficiaries ){
-        var display = false;
-        if ( beneficiaries ) {
-          angular.forEach( beneficiaries, function( b ){
-            if( ( b.activity_type_id && b.activity_type_id.indexOf('cash') > -1 ) ||
-              ( b.activity_description_id && ( b.activity_description_id.indexOf('cash') > -1 ||
-                b.activity_description_id.indexOf('package') > -1 ||
-                b.activity_description_id.indexOf( 'fsac_in_kind' ) > -1 ) ) ) {
-              display = true;
-            }
-          });
-        }
-        return display;
-      },
-
-      // enable editing cash
-      enableCash: function( $data, beneficiary ) {
-        var display = false;
-        if ( !beneficiary.activity_description_id ||
-              ( beneficiary.activity_type_id.indexOf('cash') === -1 &&
-                beneficiary.activity_description_id.indexOf('cash') === -1 &&
-                beneficiary.activity_description_id.indexOf('fsac_in_kind') === -1 &&
-                beneficiary.activity_description_id.indexOf('package') === -1 ) ) {
-           display = true;
-        }
-        return display;
-      },
-
-      // package
-      showPackage: function( beneficiaries ){
-        var display = false;
-        if ( beneficiaries ) {
-          angular.forEach( beneficiaries, function( b ){
-            if( ( b.activity_description_id && ( 
-                b.activity_description_id.indexOf('tent_distribution_2_tarps_package') > -1 ||
-                b.activity_description_id.indexOf( 'rental_support_3_month_package' ) > -1 ||
-                b.activity_description_id.indexOf( 'existing_shelter_upgrade_package' ) > -1 ||
-                b.activity_description_id.indexOf( 'nfi_package' ) > -1 ||
-                b.activity_description_id.indexOf( 'winterization_package' ) > -1 ||
-                b.activity_description_id.indexOf( 'transitional_shelter_package' ) > -1) ) ) {
-              display = true;
-            }
-          });
-        }
-        return display;
-      },
-
-      // enable editing package
-      enablePackage: function( b ) {
-        var display = false;
-        if ( b )  {
-          if (( b.activity_description_id && ( 
-                b.activity_description_id.indexOf( 'tent_distribution_2_tarps_package' ) > -1 ||
-                b.activity_description_id.indexOf( 'rental_support_3_month_package' ) > -1 ||
-                b.activity_description_id.indexOf( 'existing_shelter_upgrade_package' ) > -1 ||
-                b.activity_description_id.indexOf( 'nfi_package' ) > -1 ||
-                b.activity_description_id.indexOf( 'winterization_package' ) > -1 ||
-                b.activity_description_id.indexOf( 'transitional_shelter_package' ) > -1) ) ) {
-             display = true;
-          }
-        }
-        return display;
-      },
-
-      // units
-      showUnits: function( beneficiaries ){
-        var display = false;
-        if ( beneficiaries.length ) {
-          angular.forEach( beneficiaries, function(b){
-            if( ( b.cluster_id === 'eiewg' || b.cluster_id === 'fsac' || b.cluster_id === 'agriculture' ) ||
-                ( b.activity_description_id && b.activity_description_id.indexOf( '_standard' ) === -1 &&
-                ( b.activity_description_id.indexOf( 'education' ) > -1 ||
-                  b.activity_description_id.indexOf( 'training' ) > -1 ||
-                  b.activity_description_id.indexOf( 'cash' ) > -1 ||
-                  b.activity_description_id.indexOf( 'in_kind' ) > -1 ||
-                  b.activity_description_id.indexOf( 'voucher' ) > -1 ||
-                  b.activity_description_id.indexOf( 'package' ) > -1 ||
-                  b.activity_description_id.indexOf( 'assessment' ) > -1 ) ) ) {
-              display = true;
-            }
-          });
-        }
-        return display;
-      },
-
-      // unit types
-      showUnitTypes: function( lists, $data, $beneficiary ){
-        var selected = [];
-        $beneficiary.unit_type_id = $data;
-        if($beneficiary.unit_type_id) {
-          selected = $filter('filter')( lists.units, { unit_type_id: $beneficiary.unit_type_id }, true);
-          if( selected.length ) {
-            $beneficiary.unit_type_name = selected[0].unit_type_name;
-          }
-        }else{
-          $beneficiary.unit_type_id = 'n_a';
-          $beneficiary.unit_type_name = 'N/A';
-        }
-        return selected.length ? selected[0].unit_type_name : 'N/A';
-      },
-
       // transfer_type_id
-      showTransferTypes: function( lists, $data, $beneficiary ) {
+      displayTransferTypes: function( lists, $data, $beneficiary ) {
         var selected = [];
         $beneficiary.transfer_type_id = $data;
         if($beneficiary.transfer_type_id) {
@@ -896,117 +509,110 @@ angular.module( 'ngmReportHub' )
         return selected.length ? selected[0].transfer_type_value : 0;
       },
 
-      // esnfi
-      showHouseholds: function( beneficiaries ){
-        var display = false;
-        if ( beneficiaries ){
-          angular.forEach( beneficiaries, function( b ){
-            if( b.cluster_id === 'cvwg' || 
-                  b.cluster_id === 'agriculture' || 
-                  b.cluster_id === 'esnfi' || 
-                  b.cluster_id === 'fsac' || 
-                  b.activity_type_id && b.activity_type_id.indexOf( 'cash' ) !== -1 || 
-                  b.activity_description_id && b.activity_description_id.indexOf( 'cash' ) !== -1 || 
-                  ( b.cluster_id === 'wash' && b.admin0pcode !== 'AF' ) ){
-              display = true;
-            }
-          });
-        }
-        return display;
+      
+      /* SHOW AND HIDE TARGETS */
+
+      // for each location ( monhtly report )
+      setLocationsForm: function( lists, locations ) {
+
+        // set defaults
+        ngmClusterBeneficiaries.form.active = [ angular.copy( ngmClusterBeneficiaries.form.defaults ) ];
+
+        // 
+        angular.forEach( locations, function( location, location_index ){
+          console.log( location.beneficiaries );
+          ngmClusterBeneficiaries.setBeneficiariesForm( lists, location_index, location.beneficiaries );
+        });
       },
 
-      // families
-      showFamilies: function( beneficiaries ){
-        var display = false;
-        if ( beneficiaries ) {
-          angular.forEach( beneficiaries, function( b ){
-            if( b.admin0pcode !== 'NG' && 
-                ( b.cluster_id === 'wash' || b.activity_type_id === 'nutrition_education_training' ) ){
-              display = true;
-            }
+      // show target columns
+      setBeneficiariesForm: function ( lists, location_index, beneficiaries ) {
+
+        // set defaults
+        ngmClusterBeneficiaries.form.active[ location_index ] = angular.copy( ngmClusterBeneficiaries.form.defaults );
+
+        // check target_beneficiaries
+        if ( beneficiaries.length ) {
+          angular.forEach( beneficiaries, function( beneficiary, row_index ){
+            ngmClusterBeneficiaries.setBeneficiariesFormTargets( lists, location_index, beneficiary, row_index );
           });
         }
-        return display;
       },
 
-      // men
-      showMen: function( beneficiaries ){
-        var display = false;
-        if ( beneficiaries ) {
-          angular.forEach( beneficiaries, function( b ){
-            if( ( b.cluster_id !== 'nutrition' || b.activity_type_id === 'nutrition_education_training' ) &&
-                b.activity_type_id !== 'mch' &&
-                ( b.activity_type_id !== 'vaccination' || b.activity_description_id === 'vaccination_tt' ) &&
-                  b.activity_description_id !== 'antenatal_care' &&
-                  b.activity_description_id !== 'postnatal_care' &&
-                  b.activity_description_id !== 'skilled_birth_attendant' &&
-                  b.activity_description_id !== 'penta_3' &&
-                  b.activity_description_id !== 'measles' ){
-              display = true;
-            }
-          });
+      // set columns, rows
+      setBeneficiariesFormTargets: function( lists, location_index, beneficiary, row_index ) {
+
+        // set default
+        if ( !ngmClusterBeneficiaries.form.active[ location_index ] ) {
+          ngmClusterBeneficiaries.form.active[ location_index ] = { 
+            columns: angular.copy( ngmClusterBeneficiaries.form.defaults.columns ),
+            rows: angular.copy( ngmClusterBeneficiaries.form.defaults.rows )
+          };
         }
-        return display;
+
+        
+        // let UI catch up
+        $timeout(function() {
+
+          // if activity_description_id
+          if ( beneficiary && beneficiary.activity_description_id ) {
+
+            // 3 different types of lists
+            var search = {
+              list_activity_descriptions: $filter('filter')( lists.activity_descriptions, { activity_description_id: beneficiary.activity_description_id }, true ),
+              list_activity_details: $filter('filter')( lists.activity_details, { activity_description_id: beneficiary.activity_description_id }, true ),
+              list_activity_indicators: $filter('filter')( lists.activity_indicators, { activity_description_id: beneficiary.activity_description_id }, true )
+            }
+
+            // default
+            angular.forEach( search.list_activity_descriptions, function( row, i ){
+              // for each row
+              ngmClusterBeneficiaries.setColumnsRows( location_index, row, row_index );
+            });
+
+            // by activity_detail_id
+            if ( beneficiary.activity_detail_id ) {
+              search.list_activity_details = $filter('filter')( search.list_activity_details, { activity_detail_id: beneficiary.activity_detail_id }, true )
+              // for each activity details
+              angular.forEach( search.list_activity_details, function( row, i ){
+                // for each value, column
+                ngmClusterBeneficiaries.setColumnsRows( location_index, row, row_index );
+              });
+            }
+
+            // by indicator_id
+            if ( beneficiary.indicator_id ) {
+              search.list_activity_indicators = $filter('filter')( search.list_activity_indicators, { indicator_id: beneficiary.indicator_id }, true )
+              // // for each indicators
+              angular.forEach( search.list_activity_indicators, function( row, i ){
+                // for each value, column
+                ngmClusterBeneficiaries.setColumnsRows( location_index, row, row_index );
+              });
+            }
+
+          }
+        }, 0 );
       },
 
-      // women
-      showWomen: function( beneficiaries ){
-        var display = false;
-        if ( beneficiaries ) {
-          angular.forEach( beneficiaries, function( b ){
-            if( ( b.activity_type_id !== 'vaccination' || b.activity_description_id === 'vaccination_tt' ) &&
-                  b.activity_description_id !== 'penta_3' &&
-                  b.activity_description_id !== 'measles' ){
-              display = true;
+      // set columns, rows
+      setColumnsRows: function( location_index, row, row_index ) {
+        // first row ( reset )
+        if ( row_index === 0 ){
+          ngmClusterBeneficiaries.form.active[ location_index ].columns = angular.merge( {}, ngmClusterBeneficiaries.form.defaults.columns, row );
+        } else {
+          // set columns
+          angular.forEach( row, function( value, column ){
+            if ( value ) {
+              ngmClusterBeneficiaries.form.active[ location_index ].columns[ column ] = value;
             }
           });
-        }
-        return display;
+        } 
+        // set row
+        ngmClusterBeneficiaries.form.active[ location_index ].rows[ row_index ] = angular.merge( {}, ngmClusterBeneficiaries.form.defaults.rows[ 0 ], row );       
       },
 
-      // eld men
-      showEldMen: function( beneficiaries ){
-        var display = false;
-        if ( beneficiaries ) {
-          angular.forEach( beneficiaries, function( b ){
-            if( b.cluster_id !== 'eiewg' &&
-                b.cluster_id !== 'nutrition' &&
-                b.cluster_id !== 'wash' &&
-                b.activity_type_id !== 'mch' &&
-                b.activity_description_id !== 'antenatal_care' &&
-                b.activity_description_id !== 'postnatal_care' &&
-                b.activity_description_id !== 'skilled_birth_attendant' &&
-                b.activity_type_id !== 'vaccination' &&
-                b.activity_description_id !== 'penta_3' &&
-                b.activity_description_id !== 'measles' ){
-              display = true;
-            }
-          });
-        }
-        return display;
-      },
 
-      // eld women
-      showEldWomen: function( beneficiaries ){
-        var display = false;
-        if ( beneficiaries ) {
-          angular.forEach( beneficiaries, function(b){
-            if( b.cluster_id !== 'eiewg' &&
-                b.cluster_id !== 'nutrition' &&
-                b.cluster_id !== 'wash' &&
-                b.activity_type_id !== 'mch' &&
-                b.activity_description_id !== 'antenatal_care' &&
-                b.activity_description_id !== 'postnatal_care' &&
-                b.activity_description_id !== 'skilled_birth_attendant' &&
-                b.activity_type_id !== 'vaccination' &&
-                b.activity_description_id !== 'penta_3' &&
-                b.activity_description_id !== 'measles' ){
-              display = true;
-            }
-          });
-        }
-        return display;
-      },
+      /* VALIDATION */
 
       // ennsure all locations contain at least one complete beneficiaries
       beneficiaryFormComplete: function( project, locations ) {

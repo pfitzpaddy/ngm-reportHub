@@ -121,6 +121,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           ngmClusterLists.setOrganizationUsersList( $scope.project.lists, config.project );
           // set form on page load
           ngmClusterHelper.setForm( $scope.project.definition, $scope.project.lists );
+          // set columns / rows
+          ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.definition.locations );
         },
         
         // beneficairies template
@@ -155,7 +157,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }, 0 );
         },
 
-        // update inidcators
+        // update inidcators ( place into array on update )
         updateInput: function( $parent, $index, indicator, $data ){
           $scope.project.report.locations[ $parent ].beneficiaries[ $index ][ indicator ] = $data;
         },
@@ -193,12 +195,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         },
 
 
+
         /**** BENEFICIARIES ****/
 
         // add beneficiary
         addBeneficiary: function( $parent, defaults ) {
           $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.report.locations[ $parent ].beneficiaries, defaults );
           $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
+          // set columns / rows display
+          ngmClusterBeneficiaries.setBeneficiariesFormTargets( $scope.project.lists, $parent, $scope.inserted, $scope.project.report.locations[ $parent ].beneficiaries.length-1 );
         },
 
         // add beneficiary
@@ -286,150 +291,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         },
 
 
+        
         /**** ACTIVITIES ****/
-
-        // activity
-        showActivity: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showActivity( $scope.project.definition, $data, $beneficiary );
-        },
-
-        // description
-        showDescription: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showDescription( $scope.project.lists, $data, $beneficiary );
-        },
-
-        // details
-        showDetails: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showDetails( $scope.project.lists, $data, $beneficiary );
-        },
-
-        // cholera
-        showCholera: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showCholera( $scope.project.lists, $data, $beneficiary );
-        },
-
-        // cash delivery
-        showCashDelivery: function( $data, $beneficiary ) {					
-          return ngmClusterBeneficiaries.showCashDelivery( $scope.project.lists, $data, $beneficiary );
-				},
-				//cash mechanism
-				showCashMechanism: function ($data, $beneficiary ){
-					return ngmClusterBeneficiaries.showCashMechanism($scope.project.lists, $data, $beneficiary);
-				},
-
-        // package types
-        showPackageTypes: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showPackageTypes( $data, $beneficiary );
-        },
-
-        // category
-        showCategory: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showCategory( $scope.project.lists, $data, $beneficiary );
-        },
-
-        // beneficiary
-        showBeneficiary: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showBeneficiary( $scope.project.lists, $data, $beneficiary );
-        },
-
-        // delivery
-        showDelivery: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.showDelivery( $scope.project.lists, $data, $beneficiary );
-        },
-
-        // show cash
-        showCash: function( $locationIndex ) {
-					return ngmClusterBeneficiaries.showCash( $scope.project.report.locations[ $locationIndex ].beneficiaries );
-				},
-				
-				//check activivity_description and cluster_id of beneficiary
-				checkClusterOfActivity: function ($beneficiary) {					
-					return ngmClusterBeneficiaries.checkClusterOfActivity($beneficiary, 'esnfi', $scope.project.lists.mpc_delivery_types);
-					
-				},
-				// show delivery fiels
-				showDeliveryfield:function($beneficiary){					
-					return ngmClusterBeneficiaries.showDeliveryfield($beneficiary, 'esnfi', $scope.project.lists.mpc_delivery_types);
-				},
-				// disable mechanism option
-				showMechanismOption:function($activityDescription){
-					return ngmClusterBeneficiaries.showMechanismOption($scope.project.lists.mpc_delivery_types,$activityDescription);
-				},
-        // enable cash
-        enableCash: function( $data, $beneficiary ) {
-          return ngmClusterBeneficiaries.enableCash( $data, $beneficiary );
-        },
-
-        // show package
-        showPackage: function( $locationIndex ) {
-          return ngmClusterBeneficiaries.showPackage( $scope.project.report.locations[ $locationIndex ].beneficiaries );
-        },
-
-        // enable package
-        enablePackage: function( beneficiary ) {
-          return ngmClusterBeneficiaries.enablePackage( beneficiary );
-        },
-
-        // units
-        showUnits: function( $locationIndex ){
-          return ngmClusterBeneficiaries.showUnits( $scope.project.report.locations[ $locationIndex ].beneficiaries );
-        },
-
-        // unit type
-        showUnitTypes: function( $data, $beneficiary ){
-          return ngmClusterBeneficiaries.showUnitTypes( $scope.project.lists, $data, $beneficiary );
-        },
-
-        // transfer type
-        showTransferTypes: function( $data, $beneficiary ){
-          return ngmClusterBeneficiaries.showTransferTypes( $scope.project.lists, $data, $beneficiary );
-        },
-
-        // hhs
-        showHouseholds: function( $locationIndex ){
-          return ngmClusterBeneficiaries.showHouseholds( $scope.project.report.locations[ $locationIndex ].beneficiaries );
-        },
-
-        // families
-        showFamilies: function( $locationIndex ){
-          return ngmClusterBeneficiaries.showFamilies( $scope.project.report.locations[ $locationIndex ].beneficiaries );
-        },
-
-        // men
-        showMen: function( $locationIndex ){
-          return ngmClusterBeneficiaries.showMen( $scope.project.report.locations[ $locationIndex ].beneficiaries );
-        },
-        // men
-        showMenDisabled: function( $locationIndex, $beneficiaryIndex ){
-          return ngmClusterBeneficiaries.showMen( [ $scope.project.report.locations[ $locationIndex ].beneficiaries[ $beneficiaryIndex ] ] );
-        },
-
-        // women
-        showWomen: function( $locationIndex ){
-          return ngmClusterBeneficiaries.showWomen( $scope.project.report.locations[ $locationIndex ].beneficiaries );
-        },
-        // women
-        showWomenDisabled: function( $locationIndex, $beneficiaryIndex ){
-          return ngmClusterBeneficiaries.showWomen( [ $scope.project.report.locations[ $locationIndex ].beneficiaries[ $beneficiaryIndex ] ] );
-        },
-
-        // eld men
-        showEldMen: function( $locationIndex ){
-          return ngmClusterBeneficiaries.showEldMen( $scope.project.report.locations[ $locationIndex ].beneficiaries );
-        },
-        // eld men
-        showEldMenDisabled: function( $locationIndex, $beneficiaryIndex ){
-          return ngmClusterBeneficiaries.showEldMen( [ $scope.project.report.locations[ $locationIndex ].beneficiaries[ $beneficiaryIndex ] ] );
-        },
-
-        // eld women
-        showEldWomen: function( $locationIndex ){
-          return ngmClusterBeneficiaries.showEldWomen( $scope.project.report.locations[ $locationIndex ].beneficiaries );
-        },
-        // eld women
-        showEldWomenDisabled: function( $locationIndex, $beneficiaryIndex ){
-          return ngmClusterBeneficiaries.showEldWomen( [ $scope.project.report.locations[ $locationIndex ].beneficiaries[ $beneficiaryIndex ] ] );
-        },
 
         // disable save form
         rowSaveDisabled: function( $data ){

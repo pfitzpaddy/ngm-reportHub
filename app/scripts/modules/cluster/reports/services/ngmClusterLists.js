@@ -32,12 +32,13 @@ angular.module( 'ngmReportHub' )
           delivery_types: ngmClusterLists.getDeliveryTypes(),
           mpc_purpose: ngmClusterLists.getMpcPurpose(),
           mpc_delivery_types: ngmClusterLists.getMpcDeliveryTypes(),
+          mpc_mechanism_type: ngmClusterLists.getMpcMechanismTypes(),
           transfers: ngmClusterLists.getTransfers( transfers ),
           clusters: ngmClusterLists.getClusters( project.admin0pcode ),
           activity_types: ngmClusterLists.getActivities( project, true, 'activity_type_id' ),
           activity_descriptions: ngmClusterLists.getActivities( project, true, 'activity_description_id' ),
           activity_details: ngmClusterLists.getActivities( project, true, 'activity_detail_id' ),
-          indicators: ngmClusterLists.getActivities( project, true, 'indicator_id' ),
+          activity_indicators: ngmClusterLists.getActivities( project, true, 'indicator_id' ),
           projectActivityTypes: ngmClusterLists.getProjectActivityTypes( project ),
           strategic_objectives: ngmClusterLists.getStrategicObjectives( project.admin0pcode, moment( project.project_start_date ).year(), moment( project.project_end_date ).year() ),
           category_types: ngmClusterLists.getCategoryTypes(),
@@ -46,7 +47,7 @@ angular.module( 'ngmReportHub' )
           donors: ngmClusterLists.getDonors( project.admin0pcode, project.cluster_id ),
           partial_kits: ngmClusterLists.getPartialKits(),
 					kit_details: ngmClusterLists.getKitDetails(),
-					mechanism_delivery: ngmClusterLists.getMechanismDelivery(),
+					
           
           // keys to ignore when summing beneficiaries in template ( 2016 )
           skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ],
@@ -362,7 +363,7 @@ angular.module( 'ngmReportHub' )
         return types;
 			},
 			
-			getMechanismDelivery: function(){
+			getMpcMechanismTypes: function(){
 				var types = [{
 						activity_description_id: [ 'fsac_cash', 'fsac_multi_purpose_cash', 'esnfi_multi_purpose_cash', 'cvwg_multi_purpose_cash', 'cash_nfi', 'cash_clothes', 'cash_winterization', 'cash_rent', 'cash_shelter_repair', 'shelter_construction_cash_permanent', 'shelter_construction_cash_transitional','mpc_cash_smeb','mpc_cash_post_arrival_grant','mpc_cash_protection_grant','mpc_cash_grant_other','nfi_package_cash_restricted_unrestricted_nonstandard','nfi_package_cash_restricted_unrestricted_standard_usd','winterization_package_cash_restricted_unrestricted_nonstandard','winterization_package_cash_restricted_unrestricted_standard_usd','transitional_shelter_cash_restricted_unrestricted_usd','existing_shelter_cash_restricted_unrestricted_usd_upgrade','rental_support_3_month_cash_restricted_unrestricted_usd' ],
 						// mpc_delivery_type_id: ['cash', 'cash_in_envelope', 'hawala', 'bank', 'mobile_cash','e_cash'],
@@ -521,6 +522,29 @@ angular.module( 'ngmReportHub' )
           },{
             cluster_id: 'rnr_chapter',
             cluster: 'R&R Chapter'
+          },{
+            cluster_id: 'wash',
+            cluster: 'WASH'
+          }];
+        } else if ( admin0pcode.toLowerCase() === 'cb' ) {
+          clusters = [{
+            cluster_id: 'esnfi',
+            cluster: 'ESNFI'
+          },{
+            cluster_id: 'fsac',
+            cluster: 'FSAC'
+          },{
+            cluster_id: 'health',
+            cluster: 'Health'
+          },{
+            cluster_id: 'nutrition',
+            cluster: 'Nutrition'
+          },{
+            cluster_id: 'smsd',
+            cluster: 'Site Management and Site Development'
+          },{
+            cluster_id: 'protection',
+            cluster: 'Protection'
           },{
             cluster_id: 'wash',
             cluster: 'WASH'
@@ -2035,7 +2059,7 @@ angular.module( 'ngmReportHub' )
                 beneficiary_type_name: 'Other Beneficiaries'
               }];
 
-            } else if (report_year === 2018){
+            } else if (report_year >= 2018){
 
               beneficiaries = [{
 
@@ -2462,6 +2486,9 @@ angular.module( 'ngmReportHub' )
             }
 
          }
+
+        // filter by cluster beneficiaries here
+        beneficiaries = $filter( 'filter' )( beneficiaries, { cluster_id: cluster_id } );
 
         // filter by cluster beneficiaries here
         return beneficiaries;
