@@ -168,19 +168,29 @@
       <!-- CASH -->
       
       <!-- mpc_delivery_type_id  -->
-      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'mpc_delivery_type_id' ]">
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'mpc_delivery_type_id' ] &&
+                  !ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'mpc_delivery_type_id' ]">
+        -
+      </td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'mpc_delivery_type_id' ] &&
+                  ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'mpc_delivery_type_id' ]">
         <span e-form="rowform"
               e-name="mpc_delivery_type_id"
               editable-select="beneficiary.mpc_delivery_type_id"
               e-placeholder="Select..."
               e-ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for b in project.lists.mpc_delivery_types"
-              e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'mpc_delivery_type_id' ]">
+              e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'mpc_delivery_type_id' ]">
           {{ project.displayCashDelivery($data, beneficiary) }}
         </span>                     
       </td>
         
       <!-- mpc_mechanism_type_id  -->
-      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'mpc_mechanism_type_id' ]">
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'mpc_mechanism_type_id' ] &&
+                  !ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'mpc_mechanism_type_id' ]">
+        -
+      </td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'mpc_mechanism_type_id' ] &&
+                  ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'mpc_mechanism_type_id' ]">
         <span e-form="rowform"
               e-name="mpc_mechanism_type_id"
               editable-select="beneficiary.mpc_mechanism_type_id"
@@ -190,13 +200,18 @@
                                 activity_description_id: beneficiary.activity_description_id,
                                 mpc_delivery_type_id: beneficiary.mpc_delivery_type_id 
                               }"
-              e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'mpc_mechanism_type_id' ]">
+              e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'mpc_mechanism_type_id' ]">
           {{ project.displayCashMechanism($data, beneficiary) }}
         </span>                     
       </td>
 
       <!-- package  -->
-      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'package_type_id' ]">
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'package_type_id' ] &&
+                  !ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'package_type_id' ]">
+        -
+      </td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'package_type_id' ] &&
+                  ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'package_type_id' ]">
         <span e-form="rowform"
               e-name="package_type_id"
               editable-select="beneficiary.package_type_id"
@@ -209,7 +224,7 @@
                                 'package_type_id':'non-standard',
                                 'package_type_name':'Non-standard'
                               }]"
-              e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'package_type_id' ]">
+              e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'package_type_id' ]">
           {{ project.displayPackageTypes( $data, beneficiary ) }}
         </span>
       </td>
@@ -226,7 +241,7 @@
               e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types |
                               filter: { 
                                 cluster_id: beneficiary.cluster_id
-                              }"
+                              } : true"
               e-ng-disabled="!beneficiary.activity_description_id">
           {{ ngmClusterBeneficiaries.displayBeneficiary( project.lists, $data, beneficiary ) }}
         </span>
@@ -278,7 +293,7 @@
               e-name="transfer_type_id"
               editable-select="beneficiary.transfer_type_id"
               e-placeholder="Select..."
-              e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ 'transfer_type_id' ]"
+              e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'transfer_type_id' ]"
               e-ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers">
           {{ project.displayTransferTypes( $data, beneficiary ) }}
         </span>
@@ -464,11 +479,12 @@
         </div>       
 
         <!-- distribution / kit details -->
-        <div ng-show="ngmClusterBeneficiaries.showDistributionDate( project.definition, beneficiary ) || 
-                                ngmClusterBeneficiaries.showKitDetails( project.lists, project.definition, beneficiary )">
+        <div ng-show="ngmClusterBeneficiaries.showDistributionDate( beneficiary ) || 
+                                ngmClusterBeneficiaries.showPartialKits( $locationIndex, $beneficiaryIndex, $index, beneficiary ) ||
+                                ngmClusterBeneficiaries.showKitDetails( $locationIndex, $beneficiaryIndex, $index, beneficiary )">
 
           <!-- Distribution Date -->
-          <div ng-show="ngmClusterBeneficiaries.showDistributionDate( project.definition, beneficiary );">
+          <div ng-show="ngmClusterBeneficiaries.showDistributionDate( beneficiary );">
             <!-- get template -->
             <div class="row">
               <div ng-include="project.templatesUrl + project.template_distribution_date"></div>
@@ -476,7 +492,7 @@
           </div>
 
           <!-- Kit Details -->
-          <div ng-show="ngmClusterBeneficiaries.showPartialKits( project.definition, beneficiary, $beneficiaryIndex );">
+          <div ng-show="ngmClusterBeneficiaries.showPartialKits( $locationIndex, $beneficiaryIndex, $index, beneficiary );">
             <!-- get template -->
             <div class="row" ng-repeat="detail in beneficiary.partial_kits">
               <div ng-include="project.templatesUrl + project.template_partial_kits"></div>
@@ -486,15 +502,14 @@
               <button class="btn blue lighten-2"
                       ng-if="beneficiary.partial_kits.length !== project.lists.partial_kits.length"
                       ng-show="project.report.report_status !== 'complete' && rowform.$visible"
-                      ng-click="ngmClusterBeneficiaries.addPartialKits( $locationIndex, $beneficiaryIndex, beneficiary );
-                                  ngmClusterHelperNgWash.init_material_select();">
+                      ng-click="ngmClusterBeneficiaries.addPartialKits( $locationIndex, $beneficiaryIndex, beneficiary );">
                 <i class="material-icons left">add</i>Add Partial Kits
               </button>
             </div>
           </div>
 
       		<!-- Kit Details -->
-          <div ng-show="ngmClusterBeneficiaries.showKitDetails( project.lists, project.definition, beneficiary );">
+          <div ng-show="ngmClusterBeneficiaries.showKitDetails( $locationIndex, $beneficiaryIndex, $index, beneficiary );">
             <!-- get template -->
             <div class="row" ng-repeat="detail in beneficiary.kit_details">
               <div ng-include="project.templatesUrl + project.template_kit_details"></div>
@@ -504,8 +519,7 @@
               <button class="btn blue lighten-2"
                       ng-if="beneficiary.kit_details.length !== project.lists.kit_details.length"
                       ng-show="project.report.report_status !== 'complete' && rowform.$visible"
-                      ng-click="ngmClusterBeneficiaries.addKitDetail( $locationIndex, $beneficiaryIndex, beneficiary );
-                                  ngmClusterHelperNgWash.init_material_select();">
+                      ng-click="ngmClusterBeneficiaries.addKitDetail( $locationIndex, $beneficiaryIndex, beneficiary );">
                 <i class="material-icons left">add</i>Add Kit Details
               </button>
             </div>
@@ -541,5 +555,5 @@
 <br/>
 <script>
 	// init
-	setTimeout(function () { $('.input-field select').material_select(); }, 100);
+	setTimeout(function () { $('.input-field select').material_select(); }, 400 );
 </script>

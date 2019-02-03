@@ -122,7 +122,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           // set form on page load
           ngmClusterHelper.setForm( $scope.project.definition, $scope.project.lists );
           // set columns / rows
-          ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.definition.locations );
+          ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
         },
         
         // beneficairies template

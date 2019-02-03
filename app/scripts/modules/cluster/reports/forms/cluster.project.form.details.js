@@ -267,10 +267,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // add beneficiary
-        addBeneficiary: function() {
+        addBeneficiary: function( defaults ) {
           
           // set beneficiaries
-          $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.definition.target_beneficiaries );
+          $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.definition.target_beneficiaries, defaults );
           $scope.project.definition.target_beneficiaries.push( $scope.inserted );
           
           // set columns / rows display

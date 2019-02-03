@@ -21,6 +21,9 @@
 
 								<div ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'mpc_delivery_type_id' ] &&
 															!ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'package_type_id' ]" style="padding-left: 40px;">
+									<p>
+										<i class="material-icons left" style="color: #e57373">info</i>
+									</p>
 									<p style="color: #e57373">
 										<span style="font-weight:400">Amount:</span> Please enter the amount per <span style="font-weight:400">HOUSEHOLD ( HH )</span> per <span style="font-weight:400">TRANSFER</span>
 									</p>
@@ -104,7 +107,7 @@
 							        			e-name="activity_description_id"
 							        			editable-select="beneficiary.activity_description_id"
 							        			e-placeholder="Select..."
-							        			e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.lists.activity_descriptions | 								filter: { 
+							        			e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.lists.activity_descriptions | 														filter: { 
 							        										cluster_id: beneficiary.cluster_id,
 							        										activity_type_id: beneficiary.activity_type_id
 							        									} : true"
@@ -195,21 +198,30 @@
 
 							      
 							      <!-- CASH -->
-										
 										<!-- mpc_delivery_type_id  -->
-										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'mpc_delivery_type_id' ]">
+										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'mpc_delivery_type_id' ] &&
+																!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'mpc_delivery_type_id' ]">
+											-
+										</td>
+										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'mpc_delivery_type_id' ] &&
+																ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'mpc_delivery_type_id' ]">
 											<span e-form="rowform"
 														e-name="mpc_delivery_type_id"
 														editable-select="beneficiary.mpc_delivery_type_id"
 														e-placeholder="Select..."
 														e-ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for b in project.lists.mpc_delivery_types"
-														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'mpc_delivery_type_id' ]">
+														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'mpc_delivery_type_id' ]">
 												{{ project.displayCashDelivery( $data, beneficiary ) }}
 											</span>											
 										</td>
 											
 										<!-- mpc_mechanism_type_id  -->
-										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'mpc_mechanism_type_id' ]">
+										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'mpc_mechanism_type_id' ] &&
+																!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'mpc_mechanism_type_id' ]">
+											-
+										</td>
+										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'mpc_mechanism_type_id' ] &&
+																ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'mpc_mechanism_type_id' ]">
 											<span e-form="rowform"
 														e-name="mpc_mechanism_type_id"
 														editable-select="beneficiary.mpc_mechanism_type_id"
@@ -219,13 +231,18 @@
 																							activity_description_id: beneficiary.activity_description_id,
 																							mpc_delivery_type_id: beneficiary.mpc_delivery_type_id 
 																						}"
-														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'mpc_mechanism_type_id' ]">
+														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'mpc_mechanism_type_id' ]">
 												{{ project.displayCashMechanism( $data, beneficiary ) }}
 											</span>											
 										</td>
 
 										<!-- package  -->
-										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'package_type_id' ]">
+										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'package_type_id' ] &&
+																!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'package_type_id' ]">
+											- THIS
+										</td>
+										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'package_type_id' ] &&
+																ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'package_type_id' ]">
 											<span e-form="rowform"
 														e-name="package_type_id"
 														editable-select="beneficiary.package_type_id"
@@ -238,7 +255,7 @@
 																							'package_type_id':'non-standard',
 																							'package_type_name':'Non-standard'
 																						}]"
-														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'package_type_id' ]">
+														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'package_type_id' ]">
 												{{ project.displayPackageTypes( $data, beneficiary ) }}
 											</span>
 										</td>
@@ -255,7 +272,7 @@
 							              e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types |
 							              								filter: { 
 							              									cluster_id: beneficiary.cluster_id
-							              								}"
+							              								} : true"
 							              e-ng-disabled="!beneficiary.activity_description_id">
 							          {{ ngmClusterBeneficiaries.displayBeneficiary( project.lists, $data, beneficiary ) }}
 							        </span>
@@ -302,12 +319,17 @@
 							      </td>
 
 							      <!-- transfer_type_id -->
-							      <td ng-show="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'transfer_type_id' ]">
+							      <td ng-show="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'transfer_type_id' ] &&
+							      							!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'transfer_type_id' ]">
+							      	-
+							      </td>
+							      <td ng-show="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'transfer_type_id' ] &&
+							      							ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'transfer_type_id' ]">
 							        <span e-form="rowform"
 							        			e-name="transfer_type_id"
 							        			editable-select="beneficiary.transfer_type_id"
 														e-placeholder="Select..."
-														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ 'transfer_type_id' ]"
+														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'transfer_type_id' ]"
 							        			e-ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers">
 							          {{ project.displayTransferTypes( $data, beneficiary ) }}
 							        </span>
@@ -491,13 +513,24 @@
 							    </tr>
 							  </table>
 
-							  <button class="btn"
-							  					ng-show="project.definition.project_status !== 'complete'"
-							  					ng-click="project.addBeneficiary()"
-							  					style="margin:20px 0px;">
-							  	<i class="material-icons left">add</i>Add Row
+							  <button class="btn" 
+							            ng-if="project.definition.admin0pcode === 'ET' && project.definition.cluster_id === 'esnfi'"
+							            ng-show="project.report.report_status !== 'complete'" 
+													ng-click="project.addBeneficiary({ households: 1 })"
+													ng-disabled="addBeneficiaryDisable"
+													style="margin:20px 0px;">
+							    <i class="material-icons left">add</i>Add Beneficiaries
 							  </button>
 
+							  <!-- default -->
+							  <button class="btn"
+							            ng-if="project.definition.admin0pcode !== 'ET' || project.definition.cluster_id !== 'esnfi'" 
+							            ng-show="project.report.report_status !== 'complete'" 
+													ng-click="project.addBeneficiary()"
+													ng-disabled="addBeneficiaryDisable"
+													style="margin:20px 0px;">
+							    <i class="material-icons left">add</i>Add Beneficiaries
+							  </button>  
 							</div>
 
 						</div>

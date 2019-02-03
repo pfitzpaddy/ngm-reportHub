@@ -136,11 +136,10 @@ angular.module( 'ngmReportHub' )
       /* ESNFI KITS */
 
       // show distribution date
-      showDistributionDate: function( project, beneficiary ){
-        var display = project.admin0pcode === 'ET' && 
-                beneficiary.cluster_id === 'esnfi' && 
-                ( beneficiary.activity_type_id === 'hardware_materials_distribution'
-                  || beneficiary.activity_type_id ==='cash_vouchers' );
+      showDistributionDate: function( beneficiary ){
+        var display = beneficiary.cluster_id === 'esnfi' && 
+                        ( beneficiary.activity_type_id === 'hardware_materials_distribution' || 
+                            beneficiary.activity_type_id ==='cash_vouchers' );
 
         // set values
         if ( display && !beneficiary.distribution_start_date ) {
@@ -153,31 +152,50 @@ angular.module( 'ngmReportHub' )
 
 
       // show add kit detials
-      showPartialKits: function( project, beneficiary, $index ){
-        var display = project.admin0pcode === 'ET' && 
-                beneficiary.cluster_id === 'esnfi' && 
-                beneficiary.activity_description_id === 'partial_kits';
+      showPartialKits: function( $locationIndex, $beneficiaryIndex, $index, beneficiary ){
+        var display = beneficiary.cluster_id === 'esnfi' && 
+                        beneficiary.activity_description_id === 'partial_kits';
 
         // defaults to 1 entry
         if ( display && !beneficiary.partial_kits ) {
           beneficiary.partial_kits = [{}];
         }
 
+        // set kits
+        ngmClusterBeneficiaries.setKits( $locationIndex, $beneficiaryIndex, $index, 'partial_kits', ngmClusterLists.getPartialKits() );
+
         return display;
       },
 
       // show add kit detials
-      showKitDetails: function( list, project, beneficiary ){
-        var display = project.admin0pcode === 'ET' && 
-                beneficiary.cluster_id === 'esnfi' &&
-                beneficiary.activity_description_id === 'loose_items';
+      showKitDetails: function( $locationIndex, $beneficiaryIndex, $index, beneficiary ){
+        var display = beneficiary.cluster_id === 'esnfi' &&
+                        beneficiary.activity_description_id === 'loose_items';
 
         // defaults to 1 entry
         if ( display && !beneficiary.kit_details ) {
           beneficiary.kit_details = [{}];
         }
 
+        // set kits
+        ngmClusterBeneficiaries.setKits( $locationIndex, $beneficiaryIndex, $index, 'kit_details', ngmClusterLists.getKitDetails() );
+
         return display;
+      },
+
+      // kits
+      setKits( $locationIndex, $beneficiaryIndex, $index, key, list ) {
+        // first list
+        if ( !ngmClusterLists[ key ][ $locationIndex ] ) {
+          ngmClusterLists[ key ][ $locationIndex ] = [];
+        }
+        if ( !ngmClusterLists[ key ][ $locationIndex ][ $beneficiaryIndex ] ) {
+          ngmClusterLists[ key ][ $locationIndex ][ $beneficiaryIndex ] = [];
+        }
+        if ( !ngmClusterLists[ key ][ $locationIndex ][ $beneficiaryIndex ][ $index ] ){
+          console.log('here')
+          ngmClusterLists[ key ][ $locationIndex ][ $beneficiaryIndex ][ $index ] = list;
+        }
       },
 
       // ethiopia esnfi onchange
@@ -515,12 +533,8 @@ angular.module( 'ngmReportHub' )
       // for each location ( monhtly report )
       setLocationsForm: function( lists, locations ) {
 
-        // set defaults
-        ngmClusterBeneficiaries.form.active = [ angular.copy( ngmClusterBeneficiaries.form.defaults ) ];
-
-        // 
+        // set form
         angular.forEach( locations, function( location, location_index ){
-          console.log( location.beneficiaries );
           ngmClusterBeneficiaries.setBeneficiariesForm( lists, location_index, location.beneficiaries );
         });
       },
@@ -549,7 +563,6 @@ angular.module( 'ngmReportHub' )
             rows: angular.copy( ngmClusterBeneficiaries.form.defaults.rows )
           };
         }
-
         
         // let UI catch up
         $timeout(function() {
@@ -608,7 +621,7 @@ angular.module( 'ngmReportHub' )
           });
         } 
         // set row
-        ngmClusterBeneficiaries.form.active[ location_index ].rows[ row_index ] = angular.merge( {}, ngmClusterBeneficiaries.form.defaults.rows[ 0 ], row );       
+        ngmClusterBeneficiaries.form.active[ location_index ].rows[ row_index ] = angular.merge( {}, ngmClusterBeneficiaries.form.defaults.rows[ 0 ], row );
       },
 
 

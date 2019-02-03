@@ -1513,19 +1513,19 @@ angular.module( 'ngmReportHub' )
         if (  admin0pcode === 'CB' ) {
           // default
           var beneficiaries = [{
-            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'fss', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'refuges_in_camps',
             beneficiary_type_name: 'Refuges in Camps'
           },{
-            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'fss', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'refuges_in_host_communities',
             beneficiary_type_name: 'Refuges in Host Communities'
           },{
-            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'fss', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'host_communities',
             beneficiary_type_name: 'Host Communities'
           },{
-            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'fss', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'humanitarian_workers',
             beneficiary_type_name: 'Humanitarian Workers'
           }];
@@ -2488,7 +2488,7 @@ angular.module( 'ngmReportHub' )
          }
 
         // filter by cluster beneficiaries here
-        beneficiaries = $filter( 'filter' )( beneficiaries, { cluster_id: cluster_id } );
+        // beneficiaries = $filter( 'filter' )( beneficiaries, { cluster_id: cluster_id } );
 
         // filter by cluster beneficiaries here
         return beneficiaries;

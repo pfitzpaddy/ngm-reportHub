@@ -30,7 +30,7 @@
                 editable-select="beneficiary.activity_type_id"
                 e-placeholder="Select..."
                 e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.lists.projectActivityTypes">
-            {{ project.displayActivity( $data, beneficiary ) }}
+            {{ ngmClusterBeneficiaries.displayActivity( project.definition, $data, beneficiary ) }}
           </span>
         </td>
         <td>
@@ -38,9 +38,13 @@
                 e-name="activity_description_id"
                 editable-select="beneficiary.activity_description_id"
                 e-placeholder="Select..."
-                e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.lists.activity_descriptions | filter: { cluster_id: beneficiary.cluster_id, activity_type_id: beneficiary.activity_type_id }"
+                e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.lists.activity_descriptions | 
+                                filter: {
+                                  cluster_id: beneficiary.cluster_id,
+                                  activity_type_id: beneficiary.activity_type_id
+                                }"
                 e-ng-disabled="!beneficiary.activity_type_id">
-            {{ project.displayDescription( $data, beneficiary ) }}
+            {{ ngmClusterBeneficiaries.displayDescription( project.lists, $data, beneficiary ) }}
           </span>
         </td>
         <td>
@@ -55,7 +59,7 @@
                                               activity_type_id: beneficiary.activity_type_id, 
                                               activity_description_id: beneficiary.activity_description_id }:true"
                 e-ng-disabled="!beneficiary.activity_description_id">
-            {{ project.displayDetails( $data, beneficiary ) }}
+            {{ ngmClusterBeneficiaries.displayDetails( project.lists, $data, beneficiary ) }}
           </span>
         </td>
         <td>
@@ -67,7 +71,7 @@
                                 b.activity_cholera_response_name for 
                                 b in project.lists.activity_cholera_response"
                 e-ng-disabled="!beneficiary.activity_description_id">
-            {{ project.displayCholera( $data, beneficiary ) }}
+            {{ ngmClusterBeneficiaries.displayCholera( project.lists, $data, beneficiary ) }}
           </span>
         </td>
         <td>
@@ -77,7 +81,7 @@
                 e-placeholder="Select..."
                 e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types | filter: { cluster_id: beneficiary.cluster_id }"
                 e-ng-disabled="!beneficiary.activity_cholera_response_id">
-            {{ project.displayBeneficiary( $data, beneficiary ) }}
+            {{ ngmClusterBeneficiaries.displayBeneficiary( project.lists, $data, beneficiary ) }}
           </span>
         </td>
         
