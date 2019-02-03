@@ -531,8 +531,8 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'esnfi',
             cluster: 'ESNFI'
           },{
-            cluster_id: 'fsac',
-            cluster: 'FSAC'
+            cluster_id: 'fss',
+            cluster: 'Food Security'
           },{
             cluster_id: 'health',
             cluster: 'Health'

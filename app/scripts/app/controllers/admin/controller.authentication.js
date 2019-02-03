@@ -84,6 +84,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           'emergency_telecommunications': { cluster: 'Emergency Telecommunications' },
           'esnfi': { cluster: 'ESNFI' },
           'fsac': { cluster: 'FSAC' },
+          'fss': { cluster: 'Food Security' },
           'health': { cluster: 'Health' },
           'logistics': { cluster: 'Logistics' },
           'smsd': { cluster: 'Site Management and Site Development' },
