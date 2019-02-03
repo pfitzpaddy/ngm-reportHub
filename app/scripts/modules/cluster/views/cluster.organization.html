@@ -147,13 +147,15 @@
    	 <div class="card small blue-grey darken-1 hoverable">
       <div class="card-image">
         <img ng-if="panel.organization.admin0pcode === 'AF' || 
-        						panel.organization.admin0pcode === 'ET' ||
+        						panel.organization.admin0pcode === 'COL' ||
+                    panel.organization.admin0pcode === 'ET' ||
                     panel.organization.admin0pcode === 'CB' ||
                     panel.organization.admin0pcode === 'NG' || 
         						panel.organization.admin0pcode === 'SO' ||
                     panel.organization.admin0pcode === 'SS'" 
         						src="images/cluster/projects-{{ panel.organization.admin0pcode }}.jpg">
         <img ng-if="panel.organization.admin0pcode !== 'AF' && 
+                    panel.organization.admin0pcode !== 'COL' && 
         						panel.organization.admin0pcode !== 'ET' && 
                     panel.organization.admin0pcode !== 'CB' && 
                     panel.organization.admin0pcode !== 'NG' && 

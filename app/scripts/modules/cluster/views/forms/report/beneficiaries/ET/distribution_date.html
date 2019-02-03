@@ -15,7 +15,7 @@
 			 				format="dd mmm, yyyy"
 			 				select-years="15" 
 			 				max="{{ project.definition.project_end_date }}"
-			 				on-close="ngmClusterBeneficiaries.datepicker.distributionStartOnClose( beneficiary, beneficiary.distribution_start_date )"
+			 				on-close="ngmClusterBeneficiaries.datepicker.distributionStartOnClose( project.report.locations[ $locationIndex ], $beneficiaryIndex, $index, beneficiary.distribution_start_date )"
 			 ng-disabled="!rowform.$visible || project.report.report_status === 'complete'" />
 		</div>
 
@@ -30,6 +30,6 @@
 							format="dd mmm, yyyy"
 							select-years="15"
 							min="{{ beneficiary.distribution_start_date }}"
-							on-close="ngmClusterBeneficiaries.datepicker.distributionEndOnClose( beneficiary, beneficiary.distribution_end_date )"
+							on-close="ngmClusterBeneficiaries.datepicker.distributionEndOnClose( project.report.locations[ $locationIndex ], $beneficiaryIndex, $index, beneficiary.distribution_end_date )"
 			 ng-disabled="!rowform.$visible || project.report.report_status === 'complete'" />
 		</div>

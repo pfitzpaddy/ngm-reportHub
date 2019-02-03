@@ -57,14 +57,12 @@ angular.module( 'ngmReportHub' )
           if (!value) { value =  moment( new Date() ).endOf( 'M' ); }
           beneficiary.activity_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
         },
-        distributionStartOnClose: function( beneficiary, value ) {
-          beneficiary.distribution_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+        distributionStartOnClose: function( location, $beneficiaryIndex, $index, value ) {
+          location.beneficiaries[ $beneficiaryIndex ].distribution_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
         },
-        distributionEndOnClose: function( beneficiary, value ) {
-          beneficiary.distribution_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
-          if ( beneficiary.distribution_end_date ) {
-            beneficiary.distribution_status = 'complete';
-          }
+        distributionEndOnClose: function( location, $beneficiaryIndex, $index, value ) {
+          location.beneficiaries[ $beneficiaryIndex ].distribution_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+          location.beneficiaries[ $beneficiaryIndex ].distribution_status = 'complete';
         },        
       },
 
@@ -193,7 +191,6 @@ angular.module( 'ngmReportHub' )
           ngmClusterLists[ key ][ $locationIndex ][ $beneficiaryIndex ] = [];
         }
         if ( !ngmClusterLists[ key ][ $locationIndex ][ $beneficiaryIndex ][ $index ] ){
-          console.log('here')
           ngmClusterLists[ key ][ $locationIndex ][ $beneficiaryIndex ][ $index ] = list;
         }
       },
