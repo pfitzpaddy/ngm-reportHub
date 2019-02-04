@@ -143,7 +143,7 @@ angular.module('ngmReportHub')
 									titleIcon: 'alarm_on',
 									color: 'blue lighten-4',
 									// textColor: 'white-text',
-									title: 'Reports ToDo',
+									title: 'Progress Update ToDo',
 									hoverTitle: 'Update',
 									icon: 'edit',
 									rightIcon: 'watch_later',
@@ -169,7 +169,7 @@ angular.module('ngmReportHub')
 								config: {
 									titleIcon: 'done_all',
 									color: 'blue lighten-4',
-									title: 'Reports Complete',
+									title: 'Progress Update Complete',
 									hoverTitle: 'View',
 									icon: 'done',
 									rightIcon: 'check_circle',

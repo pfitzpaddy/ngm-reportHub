@@ -56,7 +56,7 @@ angular.module('ngmReportHub')
 				$scope.report.project = data;
 				
 				// add project code to subtitle?
-				var text = 'Actual Monthly Beneficiaries Report for ' + $scope.report.project.project_title
+				var text = 'Actual Monthly Progress Report for ' + $scope.report.project.project_title
 				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + $scope.report.project.project_description : $scope.report.project.project_description;
 				
 				// report dashboard model

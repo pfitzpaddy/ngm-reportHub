@@ -63,10 +63,7 @@ angular.module('ngmReportHub')
 			      +'</div>'
 			      +'<div class="card-content white-text" style="padding:14px">'
 			      	+'<p class="card-title" style="font-size:1.5rem; font-weight:100;">' + title + '</p>'
-			      +'</div>'
-			      // +'<div class="card-action">'
-			      //   +'<a href="#/cluster/projects/details/{{ panel.project.id }}">Go to Project Details</a>'
-			      // +'</div>'
+			      +'</div>';
 				},
 
 				// set dashboard

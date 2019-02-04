@@ -78,7 +78,7 @@ angular.module('ngmReportHub')
 				$scope.report.report = $scope.report.project.organization + '_' + $scope.report.project.cluster + '_' + $scope.report.project.project_title.replace(/\ /g, '_') + '_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 
 				// add project code to subtitle?
-				var text = 'Actual Monthly Beneficiaries Report for ' + moment.utc( $scope.report.definition.reporting_period ).format('MMMM, YYYY');
+				var text = 'Actual Monthly Progress for ' + moment.utc( $scope.report.definition.reporting_period ).format('MMMM, YYYY');
 				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + text : text;
 
 				// report dashboard model
