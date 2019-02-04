@@ -35,9 +35,8 @@ angular.module( 'ngmReportHub' )
           selected = $filter('filter')( lists.site_type, { site_type_id: target_location.site_type_id }, true );
           if( selected && selected.length ){
             delete selected[0].id;
-            // target_location.site_type_id = selected[0].site_type_id;
-            // target_location.site_type_name = selected[0].site_type_name;
-            angular.merge( target_location, selected[0] );
+            target_location.site_type_id = selected[0].site_type_id;
+            target_location.site_type_name = selected[0].site_type_name;
           }
         }
 
@@ -59,9 +58,8 @@ angular.module( 'ngmReportHub' )
           selected = $filter('filter')( lists.adminSites, { admin2pcode: target_location.admin2pcode }, true );
           if( selected && selected.length ){
             delete selected[0].id;
-            // target_location.admin2pcode = selected[0].admin2pcode;
-            // target_location.admin2name = selected[0].admin2name;
-            angular.merge( target_location, selected[0] );
+            target_location.admin2pcode = selected[0].admin2pcode;
+            target_location.admin2name = selected[0].admin2name;
           }
         }
 
@@ -75,7 +73,29 @@ angular.module( 'ngmReportHub' )
         // attr
         var selected = [];
 
-        lists[ 'adminSitesSelect' ][ $index ] = lists.adminSites;
+        // filter by site_type
+        target_location.site_id = $data;
+
+        // if site_id
+        if( target_location.site_id ) {
+          // select site type
+          selected = $filter('filter')( lists.adminSites, { site_id: target_location.site_id }, true );
+          if( selected && selected.length ){
+            delete selected[0].id;
+            target_location.site_id = selected[0].site_id;
+            target_location.site_name = selected[0].site_name;
+          }
+        }
+
+        // return name
+        return selected && selected.length ? selected[0].site_name : '-';
+      },
+
+      // on change
+      updateSite: function( lists, $index, $data, target_location ){
+
+        // attr
+        var selected = [];
 
         // filter by site_type
         target_location.site_id = $data;
@@ -86,14 +106,10 @@ angular.module( 'ngmReportHub' )
           selected = $filter('filter')( lists.adminSites, { site_id: target_location.site_id }, true );
           if( selected && selected.length ){
             delete selected[0].id;
-            // target_location.site_id = selected[0].site_id;
-            // target_location.site_name = selected[0].site_name;
             angular.merge( target_location, selected[0] );
           }
         }
 
-        // return name
-        return selected && selected.length ? selected[0].site_name : '-';
       }
 
     }

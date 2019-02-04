@@ -61,12 +61,15 @@ angular.module( 'ngmReportHub' )
         if ( length ) {
           var l = angular.copy( locations[ length - 1 ] );
           delete l.id;
-          l.site_hub_id = null;
-          l.site_hub_name = null;
-          l.site_id = null;
-          l.site_name = null;
-          l.site_lat = null;
-          l.site_lng = null;
+          // if not CXB
+          if ( project.admin0pcode !== 'CB' ) {
+            l.site_hub_id = null;
+            l.site_hub_name = null;
+            l.site_id = null;
+            l.site_name = null;
+            l.site_lat = null;
+            l.site_lng = null;
+          }
           inserted = angular.merge( inserted, l );
         }
         // set targets

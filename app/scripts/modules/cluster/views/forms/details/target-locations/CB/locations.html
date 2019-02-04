@@ -48,7 +48,7 @@
 							        				e-form="locationform" 
 							        				e-ng-options="item.username as item.username for item in project.lists.users" 
 							        				e-required>
-							          {{ project.showReporter( $index, $data, location ) }}
+							          {{ project.showReporter( $data, location ) }}
 							        </span>
 							      </td>
 
@@ -87,8 +87,9 @@
 							        			editable-select="location.site_id"
 							        			e-name="site_id"
 							        			e-form="locationform"
-							        			e-ng-options="item.site_id as item.site_name for item in project.lists.adminSitesSelect[ $index ] | 
-							        											filter:{ site_type_id: location.site_type_id }">
+							        			e-ng-options="item.site_id as item.site_name for item in project.lists.adminSites | 
+							        											filter:{ site_type_id: location.site_type_id }"
+														e-ng-change="ngmCbSectorLocations.updateSite( project.lists, $index, $data, location );">
 							          {{ ngmCbSectorLocations.displaySites( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
