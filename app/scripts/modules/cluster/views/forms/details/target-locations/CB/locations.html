@@ -60,7 +60,7 @@
 							        				e-form="locationform"
 							        				e-ng-options="item.site_type_id as item.site_type_name for item in project.lists.site_type"
 							        				e-required>
-							          {{ project.showSiteType( $index, $data, location ) }}
+							          {{ ngmCbSectorLocations.displaySiteType( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
 

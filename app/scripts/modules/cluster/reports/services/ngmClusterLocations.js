@@ -46,11 +46,17 @@ angular.module( 'ngmReportHub' )
           position: project.position,
           phone: project.phone,
           email: project.email,
-          username: project.username,
-          site_list_select_id: 'no',
-          site_list_select_yes: 'No',
-          site_list_select_disabled: true
+          username: project.username
         }
+
+        // add site select if admin0pcode !== 'CB'
+        if ( project.admin0pcode !== 'CB' ) {
+          inserted.site_list_select_id = 'no';
+          inserted.site_list_select_yes = 'No';
+          inserted.site_list_select_disabled = true;
+        }
+
+        console.log(inserted);
 
         // clone
         var length = locations.length;
@@ -268,13 +274,8 @@ angular.module( 'ngmReportHub' )
           }
 
         }
-        console.log(lists)
-        console.log($index)
-        console.log($data)
-        console.log(target_location)
-        console.log(target_location.site_type_id)
         // return name
-        return selected.length ? selected[0].site_type_name : '-';
+        return selected && selected.length ? selected[0].site_type_name : '-';
       },
 
 
