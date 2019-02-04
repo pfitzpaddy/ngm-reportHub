@@ -33,6 +33,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
     'ngmClusterLocations',
     'ngmClusterValidation',
     'ngmClusterHelperAf',
+    'ngmCbSectorLocations',
     'config',
     function( 
         $scope, 
@@ -51,12 +52,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         ngmClusterLocations,
         ngmClusterValidation,
         ngmClusterHelperAf,
+        ngmCbSectorLocations,
         config ){
 
 
       // set to $scope
       $scope.ngmClusterHelper = ngmClusterHelper;
       $scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
+      $scope.ngmCbSectorLocations = ngmCbSectorLocations;
 
       // project
       $scope.project = {
@@ -119,7 +122,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         targetBeneficiariesDefaultUrl: 'target-beneficiaries/2016/target-beneficiaries-default.html',
         targetBeneficiariesTrainingUrl: 'target-beneficiaries/2016/target-beneficiaries-training.html',
         targetBeneficiariesUrl: moment( config.project.project_end_date ).year() === 2016 ? 'target-beneficiaries/2016/target-beneficiaries.html' : 'target-beneficiaries/target-beneficiaries.html',
-        locationsUrl: 'target-locations/locations.html',
+        locationsUrl: config.project.admin0pcode === 'CB' ? 'target-locations/CB/locations.html' : 'target-locations/add.location.html',
         locationsAddUrl: 'target-locations/add.location.html',
 
 
@@ -520,6 +523,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 $scope.project.definition.admin3pcode.push( { admin3pcode: l.admin3pcode, admin3name: l.admin3name } );
               }
             }
+            if ( $scope.project.lists.admin4.length ) {
+              var found = $filter('filter')( $scope.project.definition.admin4pcode, { admin4pcode: l.admin4pcode }, true);
+              if ( !found.length ){
+                $scope.project.definition.admin4pcode.push( { admin4pcode: l.admin4pcode, admin4name: l.admin4name } );
+              }
+            }            
 
           });
 

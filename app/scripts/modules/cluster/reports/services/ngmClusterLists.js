@@ -79,7 +79,7 @@ angular.module( 'ngmReportHub' )
           admin3: localStorage.getObject( 'lists' ).admin3List,
           admin4: localStorage.getObject( 'lists' ).admin4List,
           admin5: localStorage.getObject( 'lists' ).admin5List,
-          adminSites:[], // fetched on admin1 change
+          adminSites: localStorage.getObject( 'lists' ).adminSites ? localStorage.getObject( 'lists' ).adminSites : [], // fetched on admin1 change
          
           // row by row filters
           admin1Select: [],
@@ -133,10 +133,16 @@ angular.module( 'ngmReportHub' )
             url: ngmAuth.LOCATION + '/api/list/getAdmin4List?admin0pcode=' + user.admin0pcode
           },
 
-          // admin4 lists (determine if country has admin4 list!)
+          // admin5 lists (determine if country has admin5 list!)
           getAdmin5List: {
             method: 'GET',
             url: ngmAuth.LOCATION + '/api/list/getAdmin5List?admin0pcode=' + user.admin0pcode
+          },
+
+          // get sites ( for select countries with limited sites )
+          getAdminSites: {
+            method: 'GET',
+            url: ngmAuth.LOCATION + '/api/list/getAdminSites?admin0pcode=' + user.admin0pcode
           },
 
           // activities list
@@ -175,6 +181,7 @@ angular.module( 'ngmReportHub' )
             admin3List: [],
             admin4List: [],
             admin5List: [],
+            adminSites: [],
             activitiesList: [],
             donorsList: [],
             indicatorsList: [],
@@ -191,6 +198,7 @@ angular.module( 'ngmReportHub' )
             $http( requests.getAdmin3List ),
             $http( requests.getAdmin4List ),
             $http( requests.getAdmin5List ),
+            $http( requests.getAdminSites ),
             $http( requests.getActivities ),
             $http( requests.getDonors ),
             $http( requests.getIndicators ),
@@ -203,11 +211,14 @@ angular.module( 'ngmReportHub' )
                 admin3List: results[2].data,
                 admin4List: results[3].data,
                 admin5List: results[4].data,
-                activitiesList: results[5].data,
-                donorsList: results[6].data,
-                indicatorsList: results[7].data,
-                stockItemsList: results[8].data
+                adminSites: results[5].data,
+                activitiesList: results[6].data,
+                donorsList: results[7].data,
+                indicatorsList: results[8].data,
+                stockItemsList: results[9].data
               };
+
+              console.log( lists )
 
               // storage
               localStorage.setObject( 'lists', lists );
@@ -2696,11 +2707,23 @@ angular.module( 'ngmReportHub' )
         // Cox bazar
         if ( admin0pcode === 'CB' ) {
           site_types = [{
+            site_type_id: 'refugee_camp',
+            site_type_name: 'Refugee Camp'
+          },{
             site_type_id: 'host_community',
             site_type_name: 'Host Community'
           },{
-            site_type_id: 'refugee_camp',
-            site_type_name: 'Refugee Camp'
+            site_type_id: 'nutrition_feeding_center',
+            site_type_name: 'Nutrition Feeding Center'
+          },{
+            site_type_id: 'general_food_distribution_point',
+            site_type_name: 'General Food Distribution Point'
+          },{
+            site_type_id: 'e_voucher_store',
+            site_type_name: 'eVoucher Store'
+          },{
+            site_type_id: 'refugee_block',
+            site_type_name: 'Refugee Block'
           }];
         }
 

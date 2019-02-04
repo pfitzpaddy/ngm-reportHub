@@ -261,14 +261,18 @@ angular.module( 'ngmReportHub' )
 
           // select site type
           selected = $filter('filter')( lists.site_type, { site_type_id: target_location.site_type_id }, true );
-          if( selected[0] && selected[0] ){
+          if( selected && selected.length ){
             delete selected[0].id;
             target_location.site_type_id = selected[0].site_type_id;
             target_location.site_type_name = selected[0].site_type_name;
           }
 
         }
-
+        console.log(lists)
+        console.log($index)
+        console.log($data)
+        console.log(target_location)
+        console.log(target_location.site_type_id)
         // return name
         return selected.length ? selected[0].site_type_name : '-';
       },
