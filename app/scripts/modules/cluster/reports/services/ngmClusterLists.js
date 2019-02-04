@@ -218,8 +218,6 @@ angular.module( 'ngmReportHub' )
                 stockItemsList: results[9].data
               };
 
-              console.log( lists )
-
               // storage
               localStorage.setObject( 'lists', lists );
 

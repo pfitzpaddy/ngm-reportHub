@@ -56,8 +56,6 @@ angular.module( 'ngmReportHub' )
           inserted.site_list_select_disabled = true;
         }
 
-        console.log(inserted);
-
         // clone
         var length = locations.length;
         if ( length ) {
