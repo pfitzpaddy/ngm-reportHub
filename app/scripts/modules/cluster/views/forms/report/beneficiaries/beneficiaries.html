@@ -428,7 +428,7 @@
           <button type="submit"
                     ng-if="rowform.$visible"
                     ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
-                                  !ngmClusterTrainings.trainingFormComplete( project.report.locations )"
+                                  !ngmClusterTrainings.trainingFormComplete( project.report.locations ) || fsac_assessment_disabled"
                     class="btn btn-small waves-effect waves-light save"
                     title="Save">
             <i class="material-icons">save</i>
@@ -461,7 +461,7 @@
 		</tr>
 
     <!-- ET ESNFI -->
-    <tr ng-repeat-end ng-if="project.definition.admin0pcode === 'ET' && beneficiary.cluster_id === 'esnfi'">
+    <tr  ng-if="project.definition.admin0pcode === 'ET' && beneficiary.cluster_id === 'esnfi'">
 
       <!-- column -->
       <td colspan="100" style="padding-left:20px">
@@ -529,7 +529,18 @@
 
       </td>
 
-    </tr>
+		</tr>
+		<tr ng-repeat-end ng-if ="project.showFsacAssessment(beneficiary)">
+				<td colspan="100" style="padding-left:20px">
+			
+					<!-- get template -->
+					<div >
+
+						<div ng-include="project.templatesUrl + project.fsac_assessment"></div>
+					</div>
+			
+				</td>
+		</tr>
 
   </table>
   

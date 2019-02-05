@@ -1,0 +1,85 @@
+<style>
+	
+.collection .collection-item.avatar {
+	min-height: 0;
+}
+.modal {
+  width: auto !important;
+  right: auto !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+</style>
+<div id="save-modal" class="modal ">
+	<div class="modal-content">
+		<img src="images/cluster/monthly_report.jpg" id="imagepreview" >
+		<!-- <p>Project has been saved!</p> -->
+	</div>
+	<div class="modal-footer">
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+	</div>
+</div>
+<div class="card-panel stats-card white grey-text text-darken-2">
+	<div id="dropzone">
+		<form ng-dropzone 
+				dropzone="dropzone" 
+				dropzone-config="dropzoneConfig"
+				enctype="multipart/form-data"
+				class="dropzone needsclick dz-clickable">
+			<div class="fallback">
+				<input name="file" type="file" multiple />
+			</div>
+		</form>
+	</div>
+</div>
+<!-- List -->
+<div class="card-panel">
+
+	<div class="card">
+					<ul class="collection with-header">
+									<li class="collection-header teal" style="height:80px;">
+										<div class="col s12 m8">
+											<h4  style="font-size:2.1rem; color: #ffffff">
+												<i class="material-icons left" style="    margin-top: 5px;">perm_media</i>Collection File
+											</h4>
+										</div>
+									</li>
+						<li class="collection-item avatar">
+							<i class="material-icons circle teal ">insert_drive_file</i>
+							<span class="title text-darken-2">Cod.png</span>
+							<p>
+								Modified: August 28th 2018 | Created by: Fakhri
+							</p>
+							<div class="secondary-content">
+								<div class="btn-floating  wave-effect blue" ng-click="dropzoneConfig.openModal('save-modal')">
+									<i class="small material-icons">compare</i>
+								</div>
+								<div class="btn-floating  wave-effect ">
+									<i class="small material-icons">cloud_download</i>
+								</div>
+								<div class="btn-floating  wave-effect red">
+									<i class="small material-icons">clear</i>
+								</div>
+							</div>
+						</li>
+						<li class="collection-item avatar">
+							<i class="material-icons circle teal ">photo_size_select_actual</i>
+							<span class="title text-darken-2">Cod.png</span>
+							<p>
+								Modified: August 28th 2018 | Created by: Fakhri
+							</p>
+							<div class="secondary-content">
+								<div class="btn-floating  wave-effect blue" ng-click="dropzoneConfig.openModal('save-modal')">
+									<i class="small material-icons">compare</i>
+								</div>
+								<div class="btn-floating  wave-effect ">
+									<i class="small material-icons">cloud_download</i>
+								</div>
+								<div class="btn-floating  wave-effect red">
+									<i class="small material-icons">clear</i>
+								</div>
+							</div>
+						</li>
+					</ul>
+	</div>
+</div>

@@ -1,0 +1,105 @@
+<style>
+	.count {
+		position: relative;
+		font-weight: 400;
+		font-size: 2.0rem;
+		padding-top: 5px;
+	}
+
+	.bold {
+		font-weight: 400;
+	}
+
+	
+</style>
+<h5 class="report-location-title" style="padding-top:0px;">FCS Reporting</h5>
+
+
+<div class="card-panel">
+
+
+	<div class="row bold">
+		<div class="col s12 m4 pull-m4 offset-m4">
+			<!-- <h5 style="font-size: 1.32rem; padding-bottom:10px;">HH Surveyed</h5> -->
+			<div class="input-field " >
+				<input id="ngm-assessment-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_surveyed" type="number" class="validate" 
+				 min="0" ng-model="beneficiary.hh_surveyed" ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+				 ng-change="project.fsacAssessmentPercentage(beneficiary)" required>
+				<!-- label based on activity_detail_id -->
+				<label for="ngm-malengm-assessment-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">HH Surveyed</label>
+			</div>
+
+		</div>
+		<div class=" col s12 m3" ng-if='fsac_assessment_disabled && rowform.$visible'>
+			<label for="ngm-percentage-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="" style="color: red"> *The total more than HH Surveyed</label>
+			<!-- <div class="count ">
+				0%
+			</div> -->
+		
+		</div>
+	</div>
+
+
+	<div class="row bold">
+		<div class="input-field col s12 m4">
+			<span class="input-holder"></span>
+			<input id="ngm-acceptable-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_acceptable" type="number" class="validate " 
+			 min="0" max="beneficiary.hh_surveyed" ng-model="beneficiary.hh_acceptable" ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+			 ng-change="project.fsacAssessmentPercentage(beneficiary)" 
+			 required>
+			<!-- label based on activity_detail_id -->
+			<label for="ngm-acceptable-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">Acceptable</label>
+		</div>
+
+		<div class="input-field col s12 m4">
+			<input id="ngm-borderline-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_borderline" type="number" class="validate"  min="0"
+			 max="beneficiary.hh_surveyed" ng-model="beneficiary.hh_borderline" ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+			 ng-change="project.fsacAssessmentPercentage(beneficiary)" required>
+			<!-- label based on activity_detail_id -->
+			<label for="ngm-borderline-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">Border Line</label>
+		</div>
+
+		<div class="input-field col s12 m4">
+			<input id="ngm-poor-after-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_poor" type="number" class="validate" 
+			 min="0" max="beneficiary.hh_surveyed" ng-model="beneficiary.hh_poor" ng-change="project.fsacAssessmentPercentage(beneficiary)"
+			 ng-disabled="project.report.report_status === 'complete' || !rowform.$visible" required>
+			<!-- label based on activity_detail_id -->
+			<label for="ngm-poor-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" >Poor</label>
+		</div>
+		<div class="input-field col s12 m4">
+			<input id="ngm-acceptable_pmd-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_acceptable_pmd" type="number" class="validate" 
+			 min="0" ng-model="beneficiary.hh_acceptable_pmd" ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+			 ng-change="project.fsacAssessmentPercentage(beneficiary)" required>
+			<!-- label based on activity_detail_id -->
+			<label for="ngm-acceptable_pmd-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">Acceptable PMD</label>
+		</div>
+		
+		<div class="input-field col s12 m4">
+			<input id="ngm-borderline_pmd-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_borderline_pmd" type="number" class="validate"  min="0"
+			 max="beneficiary.hh_surveyed" ng-model="beneficiary.hh_borderline_pmd" ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+			 ng-change="project.fsacAssessmentPercentage(beneficiary)" required>
+			<!-- label based on activity_detail_id -->
+			<label for="ngm-borderline_pmd-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">Border Line PMD</label>
+		</div>
+		
+		<div class="input-field col s12 m4">
+			<input id="ngm-poor_pmd-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_poor_pmd" type="number" class="validate" 
+			 min="0" max="beneficiary.hh_surveyed" ng-model="beneficiary.hh_poor_pmd" ng-change="project.fsacAssessmentPercentage(beneficiary)"
+			 ng-disabled="project.report.report_status === 'complete' || !rowform.$visible" required>
+			<!-- label based on activity_detail_id -->
+			<label for="ngm-poor_pmd-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">Poor PMD</label>
+		</div>
+		
+
+	</div>
+
+
+</div>
+
+<script>
+	// init
+	setTimeout(function () {
+		$('.input-field select').material_select();
+		setTimeout(function () { $('.input-field select').material_select(); }, 460);
+	}, 200);
+</script>

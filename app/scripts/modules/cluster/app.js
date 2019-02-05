@@ -238,6 +238,16 @@ angular
 					}],
 				}
 			})
+			// project documents
+			.when('/cluster/projects/upload/:project', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ClusterProjectDocumentCtrl',
+				resolve: {
+					access: ['ngmAuth', function (ngmAuth) {
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
 
 			// DEFAULT
 			.when( '/cluster/admin', {

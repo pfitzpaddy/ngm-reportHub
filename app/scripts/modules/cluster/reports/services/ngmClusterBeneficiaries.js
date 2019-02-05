@@ -99,7 +99,18 @@ angular.module( 'ngmReportHub' )
           women:0,
           elderly_men:0,
           elderly_women:0,
-          total_beneficiaries:0
+					total_beneficiaries:0,
+					// hh_assements:0,
+					// hh_assements_poor_before:0,
+					// hh_assements_poor_after:0,
+					// hh_assements_percentage:0,
+					// hh_surveyed:0,
+					// hh_acceptable:0,
+					// hh_acceptable_pmd:0,
+					// hh_borderline:0,
+					// hh_borderline_pmd:0,
+					// hh_poor:0,
+					// hh_poor_pmd:0
         };
 
         // merge
@@ -727,7 +738,22 @@ angular.module( 'ngmReportHub' )
         }
         // return
         return disabled;
-      },
+			},
+			setAssessmentAtribute:function (b) {
+				var b_copy =angular.copy(b);
+				if(!b_copy.id && !b_copy.hh_surveyed){
+					b_copy.hh_surveyed = 0;
+					b_copy.hh_acceptable = 0;
+					b_copy.hh_acceptable_pmd = 0;
+					b_copy.hh_borderline = 0;
+					b_copy.hh_borderline = 0;
+					b_copy.hh_borderline_pmd = 0;
+					b_copy.hh_poor = 0;
+					b_copy.hh_poor_pmd = 0;
+				}
+
+				return b_copy
+			},
 
 
       /**** STOCKS? ****/

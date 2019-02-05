@@ -1,0 +1,108 @@
+<style>
+	.count {
+    position: relative;
+    font-weight: 400;
+    font-size: 2.0rem;
+		padding-top: 5px;
+}
+.bold{
+	font-weight: 400;
+}
+</style>
+<h5 class="report-location-title"  style="padding-top:0px;">Detail</h5>
+
+
+<div class="card-panel" >
+
+
+	<div class="row bold">
+		<div class="col s12 m8">
+			<h5 style="font-size: 1.32rem; padding-bottom:10px;">FSAC Assessment</h5>
+		</div>
+		<!-- <div class="col s12 m4">
+			<div class="btn-floating waves-effect waves-light red lighten-2 right" title="Remove Latrine" >
+				<i class="material-icons">clear</i>
+			</div>
+
+		</div> -->
+
+
+	</div>
+
+
+	<div class="row bold">
+			<div class="input-field col s12 m3">
+				<input id="ngm-assessment-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								name="hh_assessment"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="beneficiary.hh_assements"								
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+				<!-- label based on activity_detail_id -->
+				<label for="ngm-malengm-assessment-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								class="active">HH Assessment</label>
+			</div>
+
+			<div class="input-field col s12 m2">
+				<input id="ngm-poor-before-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								name="hh_poor"
+								type="number" 
+								class="validate"
+								min="0"
+								max="beneficiary.hh_assements" 
+								ng-model="beneficiary.hh_assements_poor_before"								
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+				<!-- label based on activity_detail_id -->
+				<label for="ngm-poor-before-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								class="active">HH Poor Before</label>
+			</div>
+
+			<div class="input-field col s12 m2">
+				<input id="ngm-ngm-poor-after-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								name="male_disabled"
+								type="number" 
+								class="validate" 
+								min="0"
+								max="beneficiary.hh_assements"
+								ng-model="beneficiary.hh_assements_poor_after"
+								ng-change="project.fsacAssessmentPercentage(beneficiary)"
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required>
+				<!-- label based on activity_detail_id -->
+				<label for="ngm-ngm-poor-after-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								class="active">HH Poor After</label>
+			</div>
+
+			<div class=" col s12 m3">
+				<!-- <input id="ngm-hh-percentage-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								name="female_disabled"
+								type="number" 
+								class="validate" 
+								min="0"
+								ng-model="beneficiary.hh_assements_percentage"
+								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								required> -->
+				<!-- label based on activity_detail_id -->
+				<label for="ngm-hh-percentage-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+								class="active teal-text">% Percentage</label>
+													<div class="count ">
+														{{beneficiary.hh_assements_percentage}}%
+													</div>
+
+			</div>
+
+	</div>
+			
+
+</div>
+
+<script>
+	// init
+	setTimeout(function () {
+		$('.input-field select').material_select();
+		setTimeout(function () { $('.input-field select').material_select(); }, 460);
+	}, 200);
+</script>
