@@ -109,7 +109,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         template_distribution_date: 'beneficiaries/ET/distribution_date.html',
         template_partial_kits: 'beneficiaries/ET/partial_kits.html',
         template_kit_details: 'beneficiaries/ET/kit_details.html',
-        notesUrl: 'notes.html',
+				notesUrl: 'notes.html',
+				// #########FOR-TRAINING TEST
+				// fsac_assessment: 'beneficiaries/assessment_fsac_absnumber_v2.html',
+				//percentage
+				fsac_assessment: 'beneficiaries/fsac_percentage.html',
 
         // init lists
         init: function() {
@@ -294,6 +298,67 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         
         /**** ACTIVITIES ****/
 
+					// fsac_assessment
+					showFsacAssessment:function(b){
+						if (b.activity_description_id){
+
+							if (b.activity_type_id === 'fsac_assessments' && 
+								(b.activity_description_id.indexOf('sess') > -1 
+								|| (b.activity_description_id) ==='fsac_pre_harvest_appraisal'))
+								{
+								return true
+							}
+						}
+						return false
+					},
+
+				fsacAssessmentPercentage:function (b) {
+					// version 1
+					// if (b.hh_assements_poor_after>0){
+
+					// 	b.hh_assements_percentage = (b.hh_assements_poor_after - b.hh_assements_poor_after / b.hh_assements)*100;
+					// }
+					// b.hh_assements_percentage =0;
+
+					// version 2 absolute_number
+					// $scope.fsac_assessment_disabled = false;
+					// 	var total = b.hh_acceptable + b.hh_borderline + b.hh_poor;
+					// 	var total_pmd = b.hh_acceptable_pmd + b.hh_borderline_pmd + b.hh_poor_pmd;
+					// 	if (total > b.hh_surveyed || total_pmd > b.hh_surveyed){
+					// 		$scope.fsac_assessment_disabled = true;
+							
+					// 	}
+					
+					// version 2 percentage
+					$scope.fsac_assessment_invalid = false;
+					$scope.fsac_assessment_overflow = false;
+					$scope.fsac_assessment_disabled = false;
+					var total = b.hh_acceptable + b.hh_borderline + b.hh_poor;
+					var total_pmd = b.hh_acceptable_pmd + b.hh_borderline_pmd + b.hh_poor_pmd;
+
+					if (total > 100 || total_pmd > 100) {
+						$scope.fsac_assessment_overflow = true;
+					}
+					if ((b.hh_acceptable < 0 || b.hh_borderline < 0 || b.hh_poor < 0 || b.hh_acceptable_pmd < 0 || b.hh_borderline_pmd < 0 || b.hh_poor_pmd < 0) ||
+						(b.hh_acceptable === undefined || b.hh_borderline === undefined || b.hh_poor === undefined || b.hh_acceptable_pmd === undefined || b.hh_borderline_pmd === undefined || b.hh_poor_pmd === undefined) || isNaN(total) || isNaN(total_pmd)) {
+						$scope.fsac_assessment_invalid = true;
+					}
+
+					if ($scope.fsac_assessment_invalid ||
+					$scope.fsac_assessment_overflow){
+						$scope.fsac_assessment_disabled = true;
+					}
+
+					
+				},
+
+				fsacToPercentage:function(b,string){
+					// b[string] = (b[string]/b.hh_surveyed)*100;
+				},
+				setAssessmentAtribute: function ($parent,$index){
+					var beneficiary = $scope.project.report.locations[$parent].beneficiaries[$index]
+					$scope.project.report.locations[$parent].beneficiaries[$index]=ngmClusterBeneficiaries.setAssessmentAtribute(beneficiary);
+				},
         // disable save form
         rowSaveDisabled: function( $data ){
           return ngmClusterBeneficiaries.rowSaveDisabled( $scope.project.definition, $data );
@@ -391,7 +456,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							previous: true
 						}
 					}
-					
+
 
 					var getPrevReport ={
 						method: 'POST',
