@@ -111,9 +111,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         template_kit_details: 'beneficiaries/ET/kit_details.html',
 				notesUrl: 'notes.html',
 				// #########FOR-TRAINING TEST
-				// fsac_assessment: 'beneficiaries/assessment_fsac_absnumber_v2.html',
+				// fsac_assessment: 'beneficiaries/AF/assessment_fsac_absnumber_v2.html',
 				//percentage
-				fsac_assessment: 'beneficiaries/fsac_percentage.html',
+				fsac_assessment: 'beneficiaries/AF/fsac_percentage.html',
 
         // init lists
         init: function() {

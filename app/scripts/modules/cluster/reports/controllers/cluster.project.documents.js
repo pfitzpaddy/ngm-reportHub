@@ -27,28 +27,70 @@ angular.module('ngmReportHub')
 			// current user
 			user: ngmUser.get(),
 
+			// placeholders
+			title: '',
+			subtitle: '',
+
 			// current report
 			// report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
+
+			// the header navigation settings
+			getHeaderHtml: function(){
+				var html = '<div class="row">'
+										+'<div class="col s12 m12 l12">'
+											+'<div style="padding:20px;">'
+												+'<a class="btn-flat waves-effect waves-teal" href="#/cluster/projects/summary/' + $scope.report.project.id +'">'
+													+'<i class="material-icons left">keyboard_return</i>Back to Project Summary'
+												+'</a>'
+												+'<span class="right" style="padding-top:8px;">Last Updated: ' + moment( $scope.report.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) +'</span>'
+											+'</div>'
+										+'</div>'
+									+'</div>';
+
+				return html;
+			},
+
+			// get organization
+			getOrganization: function( organization_id ){
+
+				// return http
+				return {
+					method: 'POST',
+					url: ngmAuth.LOCATION + '/api/getOrganization',
+					data: {
+						'organization_id': organization_id
+					}
+				}
+			},
 
 			// set project details
 			setUpload: function (data) {
 
+				// org id
+				$scope.report.organization_id =
+						$route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
+
+				// org tag
+				$scope.report.organization_tag =
+				$route.current.params.organization_tag ? $route.current.params.organization_tag : ngmUser.get().organization_tag;
+
+				// get data
+				ngmData
+					.get( $scope.report.getOrganization( $scope.report.organization_id ) )
+					.then( function( organization ){
+					$scope.model.header.download.downloads[0].request.data.report = organization.organization_tag  +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
+					// set model titles
+					$scope.model.header.title.title = organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + organization.cluster.toUpperCase() + ' | ' + organization.organization + ' | Documents';
+					// $scope.model.header.subtitle.title = organization.cluster + ' projects for ' + organization.organization + ' ' + organization.admin0name;
+
+				});
+
 				// assign data
 				$scope.report.project = data;
 
-				// var title = $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.organization + ' | ';
-				var title = 'Project Documents'
-
-				// set model to null
-				// if ($route.current.params.project === 'new') {
-				// 	title += 'New Project';
-				// } else {
-				// 	title += $scope.report.project.project_title;
-				// }
-
 				// add project code to subtitle?
-				// var text = 'Documents Project for ' + $scope.report.project.project_title;
-				var subtitle = $scope.report.project.project_title + '- Document' ;//$scope.report.project.project_code ? $scope.report.project.project_code + ' - ' + $scope.report.project.project_description : $scope.report.project.project_description;
+
+				$scope.report.subtitle = $scope.report.project.project_title + '- Documents' ;
 
 				// report dashboard model
 				$scope.model = {
@@ -61,11 +103,11 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m9 l9 report-title truncate',
 							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: title
+							title: $scope.report.title
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
-							'title': subtitle
+							'title': $scope.report.subtitle
 						},
 						download: {
 							'class': 'col s12 m3 l3 hide-on-small-only',
@@ -101,6 +143,16 @@ angular.module('ngmReportHub')
 						}
 					},
 					rows: [{
+						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'html',
+								config: {
+									html: $scope.report.getHeaderHtml()
+								}
+							}]
+						}]
+					},{
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
@@ -177,29 +229,16 @@ angular.module('ngmReportHub')
 
 		// Run page
 
-		// if 'new' create empty project
-		if ($route.current.params.project === 'new') {
-
-			// get new project
-			var project = ngmClusterHelper.getNewProject(ngmUser.get());
-
-			// set summary
-			$scope.report.setUpload(project);
-
-		} else {
-
-			// return project
-			ngmData.get({
-				method: 'POST',
-				url: ngmAuth.LOCATION + '/api/cluster/project/getProject',
-				data: {
-					id: $route.current.params.project
-				}
-			}).then(function (data) {
-				// assign data
-				$scope.report.setUpload(data);
-			});
-
-		}
+		// return project
+		ngmData.get({
+			method: 'POST',
+			url: ngmAuth.LOCATION + '/api/cluster/project/getProject',
+			data: {
+				id: $route.current.params.project
+			}
+		}).then(function (data) {
+			// assign data
+			$scope.report.setUpload(data);
+		});
 
 	}]);
