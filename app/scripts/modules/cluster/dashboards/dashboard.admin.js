@@ -524,20 +524,20 @@ angular.module('ngmReportHub')
 				//
 				setTitle: function(){
 					// title
-					$scope.dashboard.title = '4W';
+					$scope.dashboard.title = 'ADMIN';
 
 					// adminR
-					if ( $scope.dashboard.adminRpcode === 'all' ) {
+					if ( $scope.dashboard.adminRpcode === 'all' && $scope.dashboard.admin0pcode === 'all' ) {
 						$scope.dashboard.title += ' | HQ ';
-					} else {
-						if ( $scope.dashboard.admin0pcode === 'all' ) { 
-							$scope.dashboard.title += ' | ' + $scope.dashboard.adminRpcode.toUpperCase();
-						}
+					}
+					else if ( $scope.dashboard.adminRpcode !== 'all' && $scope.dashboard.admin0pcode === 'all' ) {
+						$scope.dashboard.title += ' | ' + $scope.dashboard.adminRpcode.toUpperCase();
 					}
 					// admin0
-					if ( $scope.dashboard.admin0pcode !== 'all' ) {
+					else if ( $scope.dashboard.admin0pcode !== 'all' ) {
 						$scope.dashboard.title += ' | ' + $scope.dashboard.admin0pcode.toUpperCase();
 					}
+
 					// cluster
 					if ( $scope.dashboard.cluster_id !== 'all' ) {
 						$scope.dashboard.title += ' | ' + $scope.dashboard.cluster.cluster;
@@ -553,14 +553,7 @@ angular.module('ngmReportHub')
 						var org = $scope.dashboard.organization ? ' | ' + $scope.dashboard.organization : '';
 						$scope.dashboard.title += org;
 					}
-					// admin1
-					// if ( $scope.dashboard.admin1pcode !== 'all' ) {
-					// 	$scope.dashboard.title += ' | ' + $scope.dashboard.data.admin1.admin1name;
-					// }
-					// // admin2
-					// if ( $scope.dashboard.admin2pcode !== 'all' ) {
-					// 	$scope.dashboard.title += ' | ' + $scope.dashboard.data.admin2.admin2name;
-					// }
+					
 					// update of rendered title
 					if ( $scope.model.header && $scope.model.header.title ){
 						$scope.model.header.title.title = $scope.dashboard.title;

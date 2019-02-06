@@ -537,6 +537,9 @@ angular.module( 'ngmReportHub' )
           }];
         } else if ( admin0pcode.toLowerCase() === 'cb' ) {
           clusters = [{
+            cluster_id: 'education',
+            cluster: 'Education'
+          },{
             cluster_id: 'esnfi',
             cluster: 'ESNFI'
           },{

@@ -31,6 +31,22 @@ angular.module('ngmReportHub')
 			// profile username to load
 			username: $route.current.params.username,
 
+			// the header navigation settings
+			getHeaderHtml: function(){
+				var html = '<div class="row hide-on-small-only">'
+										+'<div class="col s12 m12 l12">'
+											+'<div>'
+												+'<a class="btn-flat waves-effect waves-teal" href="#/team">'
+													+'<i class="material-icons left">keyboard_return</i>Back to Team'
+												+'</a>'
+												+'<span class="right" style="padding-top:8px;">Last Updated: ' + moment( $scope.dashboard.user.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) +'</span>'
+											+'</div>'
+										+'</div>'
+									+'</div>';
+
+				return html;
+			},
+
 			// load dashboard
 			init: function( user ){
 				
@@ -64,7 +80,7 @@ angular.module('ngmReportHub')
 								card: 'white grey-text text-darken-2',
 								style: 'padding: 20px;',
 								config: {
-									html: '<a class="waves-effect waves-light btn left" href="#/team" style="left:200px;"><i class="material-icons left">keyboard_return</i>Back To team</a>'
+									html: $scope.dashboard.getHeaderHtml()
 								}
 							}]
 						}]

@@ -495,13 +495,25 @@ angular.module('ngmReportHub')
 				if (document.getElementById(id).checked) {
 					var values = document.getElementById(id).value;
 					if (user.roles.indexOf(values) === -1) {
-						user.roles.push(values)
+						user.roles.push(values);
+						// set landing page to admin
+						if ( user.roles.length > 1 ) {
+							user.app_home = '/cluster/admin/';
+						} 
+						// set landing page to org
+						if ( user.roles.length === 1 && user.roles.indexOf( 'USER' ) !== -1 ) {
+							user.app_home = '/cluster/organization/';
+						}
 					}
 				} else {
 					var values = document.getElementById(id).value;
 					if (user.roles.indexOf(values) > -1) {
 						var index = user.roles.indexOf(values);
 						user.roles.splice(index, 1);
+						// set landing page to org
+						if ( user.roles.length === 1 && user.roles.indexOf( 'USER' ) !== -1 ) {
+							user.app_home = '/cluster/organization/';
+						}
 					}
 				}
 			},
