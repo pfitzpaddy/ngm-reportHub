@@ -65,8 +65,8 @@
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'delivery_type_id' ]">Type</td>
 
 							      <!-- inputs -->
+										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'unit_type_id' ]">Units</td>
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'units' ]">Quantity</td>
-							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'unit_type_id' ]">Units</td>
 										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'transfer_type_id' ]">Transfers</td>
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'households' ]">Households</td>
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'families' ]">Families</td>
@@ -294,18 +294,6 @@
 
 							      <!-- UNITS, SADD -->
 
-							      <!-- units -->
-							      <td ng-show="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'units' ]">
-							        <span e-form="rowform"
-							        			e-name="units"
-							        			editable-number="beneficiary.units"
-							        			e-min="0"
-							        			e-ng-change="project.updateInput( $index, 'units', $data )"
-							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'units' ]">
-							          {{ beneficiary.units }}
-							        </span>
-							      </td>
-
 								    <!-- unit type -->
 										<td ng-show="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'unit_type_id' ]">
 							        <span e-form="rowform"
@@ -315,6 +303,18 @@
 							        			e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units"
 														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'unit_type_id' ]">
 							          {{ project.displayUnitTypes( $data, beneficiary ) }}
+							        </span>
+							      </td>
+
+							      <!-- units -->
+							      <td ng-show="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'units' ]">
+							        <span e-form="rowform"
+							        			e-name="units"
+							        			editable-number="beneficiary.units"
+							        			e-min="0"
+							        			e-ng-change="project.updateInput( $index, 'units', $data )"
+							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'units' ]">
+							          {{ beneficiary.units }}
 							        </span>
 							      </td>
 

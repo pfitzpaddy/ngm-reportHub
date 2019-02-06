@@ -447,9 +447,10 @@ angular.module('ngmReportHub')
 						});
 					}
 	
+					// sub-sector
+					$scope.dashboard.setActivityMenu();
 					// reports
 					$scope.dashboard.setReportMenu();
-					$scope.dashboard.setActivityMenu();
 
 					// ADMIN
 					if( userMenuItems.includes('organization_tag') ){
@@ -636,33 +637,74 @@ angular.module('ngmReportHub')
 				setActivityMenu: function(){
 					// menu
 					if ($scope.dashboard.report_type === 'activity' && $scope.dashboard.cluster_id === 'protection' ) {
-					
-						$scope.model.menu.push({
-							'search': false,
-							'id': 'search-cluster-activity',
-							'icon': 'autorenew',
-							'title': 'Activity',
-							'class': 'teal lighten-1 white-text',
-							'rows': [{
-								'title': 'ALL',
-								'param': 'activity_type_id',
-								'active': 'all',
-								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'all', 'activity', $scope.dashboard.organization_tag )
-							},{
-								'title': 'CPiE',
-								'param': 'activity_type_id',
-								'active': 'cpie',
-								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'cpie', 'activity', $scope.dashboard.organization_tag )
-							},{
-								'title': 'GBV',
-								'param': 'activity_type_id',
-								'active': 'gbv',
-								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'gbv', 'activity', $scope.dashboard.organization_tag )
-							}]
-						});
+
+						console.log($scope.dashboard.admin0pcode)
+							
+						// Afghanistan
+						if ( $scope.dashboard.admin0pcode === 'af' ) {
+							$scope.model.menu.push({
+								'search': false,
+								'id': 'search-cluster-activity',
+								'icon': 'data_usage',
+								'title': 'activity',
+								'class': 'teal lighten-1 white-text',
+								'rows': [{
+									'title': 'ALL',
+									'param': 'activity_type_id',
+									'active': 'all',
+									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+									'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'all', 'activity', $scope.dashboard.organization_tag )
+								},{
+									'title': 'CPiE',
+									'param': 'activity_type_id',
+									'active': 'cpie',
+									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+									'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'cpie', 'activity', $scope.dashboard.organization_tag )
+								},{
+									'title': 'GBV',
+									'param': 'activity_type_id',
+									'active': 'gbv',
+									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+									'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'gbv', 'activity', $scope.dashboard.organization_tag )
+								}]
+							});
+						}
+
+						// CXB
+						if ( $scope.dashboard.admin0pcode === 'cb' ) {
+							$scope.model.menu.push({
+								'search': false,
+								'id': 'search-cluster-activity',
+								'icon': 'data_usage',
+								'title': 'Sub-Sector',
+								'class': 'teal lighten-1 white-text',
+								'rows': [{
+									'title': 'ALL',
+									'param': 'activity_type_id',
+									'active': 'all',
+									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+									'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'all', 'activity', $scope.dashboard.organization_tag )
+								},{
+									'title': 'CPiE',
+									'param': 'activity_type_id',
+									'active': 'cpie',
+									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+									'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'cp', 'activity', $scope.dashboard.organization_tag )
+								},{
+									'title': 'GBV',
+									'param': 'activity_type_id',
+									'active': 'gbv',
+									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+									'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'gbv', 'activity', $scope.dashboard.organization_tag )
+								},{
+									'title': 'GBV',
+									'param': 'activity_type_id',
+									'active': 'gbv',
+									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+									'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'protection', 'activity', $scope.dashboard.organization_tag )
+								}]
+							});
+						}
 					}
 				},
 				setCountryMenu:function(){

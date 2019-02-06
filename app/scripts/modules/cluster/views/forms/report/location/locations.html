@@ -53,7 +53,8 @@
 	      					ng-click="project.save( false, false)">
 	      					<i class="material-icons left">create</i>Edit Report
 	      			</button>
-							<button class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
+							<button ng-if="project.report.admin0pcode !=='ET' && project.report.cluster_id !=='esnfi'"
+									class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
 	      					title="Copy {{ project.previousMonth }}"	      					
 									ng-click="project.copyPrevReport()"
 									ng-if="!deactivedCopybutton">

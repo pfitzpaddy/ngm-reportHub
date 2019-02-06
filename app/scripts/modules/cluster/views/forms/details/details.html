@@ -125,7 +125,7 @@
 								<!-- switch -->
 								<div class="switch input-field col s12 m6">
 									<label>
-										Non-{{ project.getProjectHrpName( project.definition ) }} Project
+										Non-{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} Project
 										<input ng-click="project.setHrpStatus();" 
 														ng-checked="project.definition.project_hrp_project" type="checkbox">
 										<span class="lever"></span>
@@ -142,7 +142,7 @@
 								<div ng-if="!project.definition.project_hrp_project" class="input-field col s12 m6">
 								  <input id="ngm-project_hrp_code" type="text" class="validate"
 								  	ng-model="project.definition.project_hrp_code" disabled="true">
-								  <label for="ngm-project-budget">Non-{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} Project Code</label>
+								  <label for="ngm-project_hrp_code">Non-{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} Project Code</label>
 								</div>
 
 							</div>

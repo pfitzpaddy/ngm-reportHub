@@ -335,6 +335,15 @@ angular
 			.when( '/cluster/admin/searo/cb', {
 				redirectTo: '/cluster/admin/searo/cb/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
+			.when( '/cluster/admin/searo/cb/protection/cp', {
+				redirectTo: '/cluster/admin/searo/cb/protection/cp/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when( '/cluster/admin/searo/cb/protection/gbv', {
+				redirectTo: '/cluster/admin/searo/cb/protection/gbv/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when( '/cluster/admin/searo/cb/protection/protection', {
+				redirectTo: '/cluster/admin/searo/cb/protection/protection/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
+			})
 
 			//AMER
 			.when('/cluster/admin/amer/',{

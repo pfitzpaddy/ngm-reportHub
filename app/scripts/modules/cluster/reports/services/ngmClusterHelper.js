@@ -178,7 +178,7 @@ angular.module( 'ngmReportHub' )
         var tag = project.admin0pcode === 'CB' ? '-JRP-' : '-HRP-';
         return project.admin0name.toUpperCase().substring(0, 3) + tag +
                         moment().year() + '-' +
-                        project.cluster.toUpperCase().substring(0, 3) + '-' +
+                        project.cluster_id.toUpperCase() + '-' +
                         moment().unix();
       },
 
