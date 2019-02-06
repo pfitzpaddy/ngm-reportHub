@@ -402,7 +402,8 @@ angular.module('ngmReportHub')
 									headerTitle: $scope.dashboard.user.organization + ' Active Users',
 									templateUrl: '/scripts/app/views/authentication/team.html',
 									tableOptions:{
-										count: 10
+										count: 10,
+										sorting: { updatedAt: "desc" } 
 									},
 									request: $scope.dashboard.getRequest( 'list', 'active' ),
 									onClick: function(user){
@@ -418,6 +419,9 @@ angular.module('ngmReportHub')
 									},
 									openModal:function (modal) {
 										$scope.dashboard.openModal(modal);
+									},
+									getUserRoleDescriptions: function( role ){
+										return ngmAuth.getUserRoleDescriptions( role );
 									},
 									formDisabled: (function () {
 										var disabled = true;
@@ -458,7 +462,8 @@ angular.module('ngmReportHub')
 									headerTitle: $scope.dashboard.user.organization + ' Deactivated Users',
 									templateUrl: '/scripts/app/views/authentication/team.html',
 									tableOptions:{
-										count: 10
+										count: 10,
+										sorting: { updatedAt: "desc" } 
 									},
 									request: $scope.dashboard.getRequest( 'list', 'deactivated' ),
 									onClick: function(user){

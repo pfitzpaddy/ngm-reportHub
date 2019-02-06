@@ -87,7 +87,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'organization_tag' ],
 			TEAM_RESTRICTED: [],
 			TEAM_MENU: [],
-			LEVEL: 0 
+			LEVEL: 0,
+			DESCRIPTION: 'Public Access'
 		},{ 
 			ROLE: 'USER',
 			EDIT: true,
@@ -102,7 +103,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['organization_tag', 'admin0pcode', 'adminRpcode'],
 			TEAM_RESTRICTED: [ 'admin0pcode', 'organization_tag' ],
 			TEAM_MENU: [ 'cluster_id', 'report_id' ],
-			LEVEL: 1 
+			LEVEL: 1,
+			DESCRIPTION: 'The USER can add, edit and update reports for your Organization'
 		},
 		{ 
 			ROLE: 'ORG',
@@ -117,7 +119,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_MENU: [ 'cluster_id' ],
 			DASHBOARD_DOWNLOAD: true,
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['organization_tag', 'admin0pcode', 'adminRpcode'],
-			LEVEL: 2
+			LEVEL: 2,
+			DESCRIPTION: 'The ORG role is to manage the USERS of your Organization'
 		},
 		{ 
 			ROLE: 'CLUSTER',
@@ -134,7 +137,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['cluster_id', 'admin0pcode', 'adminRpcode'],
 			TEAM_RESTRICTED: [ 'admin0pcode', 'cluster_id' ],
 			TEAM_MENU: [ 'organization_tag' ],
-			LEVEL: 3
+			LEVEL: 3,
+			DESCRIPTION: 'The CLUSTER role is to manage the partners and projects of your Sector'
 		},
 		{ 
 			ROLE: 'ADMIN',
@@ -151,7 +155,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['cluster_id', 'admin0pcode', 'adminRpcode'],
 			TEAM_RESTRICTED: [ 'admin0pcode', 'cluster_id' ],
 			TEAM_MENU: [ 'organization_tag' ],
-			LEVEL: 3
+			LEVEL: 3,
+			DESCRIPTION: 'The ADMIN is to manage the partners and projects of your COUNTRY'
 		},
 		{ 
 			ROLE: 'COUNTRY',
@@ -168,7 +173,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['admin0pcode', 'adminRpcode'],
 			TEAM_RESTRICTED: [ 'admin0pcode' ],
 			TEAM_MENU: [ 'cluster_id', 'organization_tag' ],
-			LEVEL: 4
+			LEVEL: 4,
+			DESCRIPTION: 'The COUNTRY role acts as an observer and can view (but not edit) all Sectors'
 		},
 		{ 
 			ROLE: 'REGION_ORG',
@@ -184,7 +190,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['organization_tag', 'adminRpcode'],
 			TEAM_RESTRICTED: [ 'adminRpcode', 'organization_tag' ],
 			TEAM_MENU: [ 'admin0pcode', 'cluster_id' ],
-			LEVEL: 5
+			LEVEL: 5,
+			DESCRIPTION: 'The REGION_ORG role can view projects in your Region for your Organization'
 		},
 		{ 
 			ROLE: 'REGION',
@@ -200,7 +207,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['adminRpcode'],
 			TEAM_RESTRICTED: [ 'adminRpcode' ],
 			TEAM_MENU: [ 'admin0pcode', 'cluster_id', 'organization_tag' ],
-			LEVEL: 6
+			LEVEL: 6,
+			DESCRIPTION: 'The REGION role can view projects in your Region for all Sectors'
 		},
 		{ 
 			ROLE: 'HQ_ORG',
@@ -216,7 +224,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['organization_tag'],
 			TEAM_RESTRICTED: [ 'organization_tag' ],
 			TEAM_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id' ],
-			LEVEL: 7
+			LEVEL: 7,
+			DESCRIPTION: 'The HQ_ORG role can view projects Globally for your Organisation'
 		},
 		{ 
 			ROLE: 'HQ',
@@ -232,7 +241,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: [],
 			TEAM_RESTRICTED: [],
 			TEAM_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'organization_tag' ],
-			LEVEL: 8
+			LEVEL: 8,
+			DESCRIPTION: 'The HQ role can view projects Globally for your all Sectors'
 		},
 		{ 
 			ROLE: 'SUPERADMIN',
@@ -249,7 +259,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: [],
 			TEAM_RESTRICTED: [],
 			TEAM_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'organization_tag' ],
-			LEVEL: 9
+			LEVEL: 9,
+			DESCRIPTION: 'Beware, here be dragons!'
 		}]
    )
 	.factory( 'ngmAuth', [ '$q', '$route', '$http', '$location', '$timeout', 'ngmUser', 'ngmPermissions', function( $q, $route, $http, $location, $timeout, ngmUser, ngmPermissions ) {
@@ -515,6 +526,15 @@ angular.module('ngmReportHub')
 				}
 
 				return deferred.promise;
+			},
+
+			/**
+			 * @param {string} role - the User Role
+			 * Returns user permissions definitions array of objs
+			 * @returns {UserPermissions[]} - User permissions definitions array
+			 */
+			getUserRoleDescriptions: function( role ){
+				return ngmPermissions.filter(function(x){return x.ROLE === role })[ 0 ].DESCRIPTION;
 			},
 
 			/**

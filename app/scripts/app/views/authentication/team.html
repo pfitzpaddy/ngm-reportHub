@@ -18,7 +18,7 @@
 }
 
 </style>
-<div id="manage-modal" class="modal">
+<div id="manage-modal" class="modal" style="width:80%">
 	<div class="modal-content" style=" padding-top: 0px; padding-left: 0px; padding-right: 0px">
 		<ul class="collection with-header" style="margin-top:0">
 			<li class="collection-header teal lighten-1" style="border-bottom: 0">
@@ -30,7 +30,7 @@
 		</ul>
 		
 		<div class="row" style="margin-left: 10px;margin-right:10px;">
-			<div class="col s4" ng-repeat="role in table.editableRole">									
+			<div class="col s4" ng-repeat="role in table.editableRole">
 				<input type="checkbox"
                 class="filled-in"
                 id={{role}}
@@ -39,6 +39,7 @@
                 ng-disabled="role === 'USER'"
                 ng-click="table.manageUser(role,editedUser)" />
 				<label for="{{role}}" style="color: #000000; font-weight: 500;">{{role}}</label>
+        <div class="teal-text" style="margin-left: 35px">{{ table.getUserRoleDescriptions( role ) }}</div>
 			</div>
 		</div>
 	</div>
