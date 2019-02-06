@@ -295,12 +295,23 @@
 							      <!-- UNITS, SADD -->
 
 								    <!-- unit type -->
-										<td ng-show="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'unit_type_id' ]">
+										<td ng-show="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'unit_type_id' ] && project.lists.units.length">
 							        <span e-form="rowform"
 							        			e-name="unit_type_id"
 							        			editable-select="beneficiary.unit_type_id"
 														e-placeholder="Select..."
 							        			e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units"
+														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'unit_type_id' ]">
+							          {{ project.displayUnitTypes( $data, beneficiary ) }}
+							        </span>
+							      </td>
+										<td ng-show="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'unit_type_id' ] && !project.lists.units.length">
+							        <span e-form="rowform"
+							        			e-name="unit_type_id"
+							        			editable-select="beneficiary.unit_type_id"
+														e-placeholder="Select..."
+							        			e-ng-options="a.unit_type_id as a.unit_type_name for a in 
+							        											ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'unit_type_id' ]"
 														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'unit_type_id' ]">
 							          {{ project.displayUnitTypes( $data, beneficiary ) }}
 							        </span>

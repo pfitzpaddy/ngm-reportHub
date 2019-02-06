@@ -1609,6 +1609,11 @@ angular.module( 'ngmReportHub' )
 					}
         });
 				units = currencies.concat( $filter( 'orderBy' )( units, 'unit_type_name' ) );
+
+        // set to zero if CXB
+        if ( admin0pcode === 'CB' ) {
+          units = [];
+        }
 								
         return units;
       },
