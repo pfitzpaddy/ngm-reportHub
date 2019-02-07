@@ -200,7 +200,7 @@
 															{mpc_delivery_type_id: beneficiary.mpc_delivery_type_id}
 															:{ activity_description_id: beneficiary.activity_description_id}
 															):(beneficiary.mpc_delivery_type_id?false:true)"
-              e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'mpc_mechanism_type_id' ] || (beneficiary.mpc_delivery_type_id == 'in-kind'&& beneficiary.activity_description_id =='nfi_package')">
+              e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'mpc_mechanism_type_id' ] || (beneficiary.mpc_delivery_type_id == 'in-kind')">
           {{ ngmClusterBeneficiaries.displayCashMechanism(project.lists,$data, beneficiary) }}
         </span>                     
       </td>
