@@ -292,7 +292,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         // site_name
         showSiteName: function( $data, target_location ){
           return ngmClusterLocations.showSiteName( $data, target_location );
-        },
+				},
 
 
         
@@ -624,7 +624,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       // init project
 			$scope.project.init();
 			$scope.project.activePrevReportButton();
-
   }
 
 ]);

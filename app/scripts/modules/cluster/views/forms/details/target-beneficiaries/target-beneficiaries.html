@@ -111,7 +111,7 @@
 							        										cluster_id: beneficiary.cluster_id,
 							        										activity_type_id: beneficiary.activity_type_id
 							        									} : true"
-							        			e-ng-change="ngmClusterBeneficiaries.setBeneficiariesFormTargets( project.lists, 0, beneficiary, $index )"
+							        			e-ng-change="ngmClusterBeneficiaries.setBeneficiariesFormTargets( project.lists, 0, beneficiary, $index );ngmClusterBeneficiaries.nullMpcDelivery(0, beneficiary, $index)"
 							        			e-ng-disabled="!beneficiary.activity_type_id">
 							          {{ ngmClusterBeneficiaries.displayDescription( project.lists, $data, beneficiary, ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ] ) }}
 							        </span>
@@ -211,7 +211,7 @@
 														e-placeholder="Select..."
 														e-ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for b in project.lists.mpc_delivery_types"
 														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'mpc_delivery_type_id' ]">
-												{{ project.displayCashDelivery( $data, beneficiary ) }}
+												{{ ngmClusterBeneficiaries.displayCashDelivery( project.lists,$data, beneficiary ) }}
 											</span>											
 										</td>
 											
@@ -226,13 +226,11 @@
 														e-name="mpc_mechanism_type_id"
 														editable-select="beneficiary.mpc_mechanism_type_id"
 														e-placeholder="Select..."
-														e-ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for b in project.lists.mpc_mechanism_type | 
-																						filter: {
-																							activity_description_id: beneficiary.activity_description_id,
-																							mpc_delivery_type_id: beneficiary.mpc_delivery_type_id 
-																						}"
-														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'mpc_mechanism_type_id' ]">
-												{{ project.displayCashMechanism( $data, beneficiary ) }}
+														 e-ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for b in project.lists.mpc_mechanism_type | filter: (beneficiary.mpc_delivery_type_id?
+														{mpc_delivery_type_id: beneficiary.mpc_delivery_type_id} :{ activity_description_id: beneficiary.activity_description_id}
+														):(beneficiary.mpc_delivery_type_id?false:true)"
+														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'mpc_mechanism_type_id' ]|| (beneficiary.mpc_delivery_type_id == 'in-kind'&& beneficiary.activity_description_id =='nfi_package')">
+												{{ ngmClusterBeneficiaries.displayCashMechanism( project.lists,$data, beneficiary ) }}
 											</span>											
 										</td>
 
@@ -256,7 +254,7 @@
 																							'package_type_name':'Non-standard'
 																						}]"
 														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'package_type_id' ]">
-												{{ project.displayPackageTypes( $data, beneficiary ) }}
+												{{ ngmClusterBeneficiaries.displayPackageTypes( $data, beneficiary ) }}
 											</span>
 										</td>
 
@@ -329,6 +327,18 @@
 							        </span>
 							      </td>
 
+								    <!-- unit type -->
+										<td ng-show="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'unit_type_id' ]">
+							        <span e-form="rowform"
+							        			e-name="unit_type_id"
+							        			editable-select="beneficiary.unit_type_id"
+														e-placeholder="Select..."
+							        			e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units | filter : ngmClusterBeneficiaries.displayCashUnit(beneficiary,project.definition.admin0pcode)?{mpc_delivery_type_id:'cash'}:''"
+														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'unit_type_id' ]">
+							          {{ ngmClusterBeneficiaries.displayUnitTypes( project.lists,$data, beneficiary ) }}
+							        </span>
+							      </td>
+
 							      <!-- transfer_type_id -->
 							      <td ng-show="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'transfer_type_id' ] &&
 							      							!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'transfer_type_id' ]">
@@ -342,7 +352,7 @@
 														e-placeholder="Select..."
 														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'transfer_type_id' ]"
 							        			e-ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers">
-							          {{ project.displayTransferTypes( $data, beneficiary ) }}
+							          {{ ngmClusterBeneficiaries.displayTransferTypes( project.lists ,$data, beneficiary ) }}
 							        </span>
 							      </td>
 

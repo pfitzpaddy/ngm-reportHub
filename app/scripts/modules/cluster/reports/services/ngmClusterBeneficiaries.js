@@ -478,7 +478,7 @@ angular.module( 'ngmReportHub' )
         $beneficiary.mpc_mechanism_type_id = $data;
         if ($beneficiary.mpc_mechanism_type_id) {
           // selection
-          selected = $filter('filter')(lists.mechanism_delivery, { mpc_mechanism_type_id: $beneficiary.mpc_mechanism_type_id }, true);
+					selected = $filter('filter')(lists.mpc_mechanism_type, { mpc_mechanism_type_id: $beneficiary.mpc_mechanism_type_id }, true);
           if (selected.length) {
             $beneficiary.mpc_mechanism_type_name = selected[0].mpc_mechanism_type_name;
           }
@@ -533,7 +533,37 @@ angular.module( 'ngmReportHub' )
           $beneficiary.transfer_type_value = 0;
         }
         return selected.length ? selected[0].transfer_type_value : 0;
-      },
+			},
+			
+			//unit_type just for cash afg
+			// show unit just for cash
+			displayCashUnit: function (beneficiary, admin0pcode) {
+				var unitCash = false;
+				if (beneficiary.activity_description_id && admin0pcode == 'AF') {
+					if (beneficiary.activity_description_id.indexOf('cash') !== -1 || beneficiary.activity_description_id.indexOf('package') !== -1) {
+						if (beneficiary.mpc_delivery_type_id) {
+							if (beneficiary.mpc_delivery_type_id === 'cash') {
+								unitCash = true;
+							} else {
+								unitCash = false;
+							}
+						} else {
+							unitCash = true;
+						}
+					}
+				}
+				return unitCash
+			},
+
+			//nullify mpc_delivery_type_id
+			nullMpcDelivery: function ($locationIndex, $beneficiary, $index) {
+
+				if (ngmClusterBeneficiaries.form.active[$locationIndex].columns['mpc_delivery_type_id'] !== 0) {
+					$beneficiary.mpc_delivery_type_id = null;
+					$beneficiary.mpc_delivery_type_name = null;
+				}
+				return $beneficiary
+			},
 
       
       /* SHOW AND HIDE TARGETS */
