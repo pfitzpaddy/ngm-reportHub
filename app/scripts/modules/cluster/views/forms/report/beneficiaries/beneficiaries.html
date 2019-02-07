@@ -269,9 +269,10 @@
               e-name="unit_type_id"
               editable-select="beneficiary.unit_type_id"
               e-placeholder="Select..."
-              e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units"
+              e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units | filter : ngmClusterBeneficiaries.displayCashUnit(beneficiary,project.definition.admin0pcode)?{mpc_delivery_type_id:'cash'}:''"
               e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'unit_type_id' ]">
-          {{ project.displayUnitTypes( $data, beneficiary ) }}
+          {{ ngmClusterBeneficiaries.displayUnitTypes( project.lists,$data, beneficiary ) }}
+        </span>
         </span>
       </td>
       <td ng-show="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'unit_type_id' ]  && !project.lists.units">
@@ -298,17 +299,6 @@
         </span>
       </td>
 
-      <!-- unit type -->
-      <td ng-show="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'unit_type_id' ]">
-        <span e-form="rowform"
-              e-name="unit_type_id"
-              editable-select="beneficiary.unit_type_id"
-              e-placeholder="Select..."
-              e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units | filter : ngmClusterBeneficiaries.displayCashUnit(beneficiary,project.definition.admin0pcode)?{mpc_delivery_type_id:'cash'}:''"
-              e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'unit_type_id' ]">
-          {{ ngmClusterBeneficiaries.displayUnitTypes( project.lists,$data, beneficiary ) }}
-        </span>
-      </td>
 
       <!-- transfer_type_id -->
       <td ng-show="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'transfer_type_id' ]">
