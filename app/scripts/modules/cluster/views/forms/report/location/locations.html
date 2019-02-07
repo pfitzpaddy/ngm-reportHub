@@ -49,15 +49,16 @@
 									ng-show="project.definition.project_status === 'active' &&
 														project.report.report_year === project.reportingYear() &&
 	      										project.report.report_status === 'complete'"
-
 	      					ng-click="project.save( false, false)">
 	      					<i class="material-icons left">create</i>Edit Report
 	      			</button>
-							<button ng-if="project.report.admin0pcode !=='ET' && project.report.cluster_id !=='esnfi'"
-									class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
-	      					title="Copy {{ project.previousMonth }}"	      					
-									ng-click="project.copyPrevReport()"
-									ng-if="!deactivedCopybutton">
+							<button ng-hide="( project.report.admin0pcode ==='ET' && project.report.cluster_id === 'esnfi' ) ||
+																!deactivedCopybutton ||
+																project.report.report_status === 'complete'" 
+												class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
+				      					title="Copy {{ project.previousMonth }}"	      					
+												ng-click="project.copyPrevReport()"
+												ng-disabled="!deactivedCopybutton">
 	      					<i class="material-icons left">content_copy</i>Copy Last Month
 							</button>
 						</div>
