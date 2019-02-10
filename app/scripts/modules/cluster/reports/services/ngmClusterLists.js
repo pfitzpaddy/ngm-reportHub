@@ -28,8 +28,7 @@ angular.module( 'ngmReportHub' )
           // lists
 					units: ngmClusterLists.getUnits( project.admin0pcode ),
           indicators: ngmClusterLists.getIndicators( true ),
-          currencies: ngmClusterLists.getCurrencies(project.admin0pcode ),
-          delivery_types: ngmClusterLists.getDeliveryTypes(),
+          delivery_types: ngmClusterLists.getDeliveryTypes( project.admin0pcode ),
           mpc_purpose: ngmClusterLists.getMpcPurpose(),
           mpc_delivery_types: ngmClusterLists.getMpcDeliveryTypes(),
           mpc_mechanism_type: ngmClusterLists.getMpcMechanismTypes(),
@@ -273,14 +272,29 @@ angular.module( 'ngmReportHub' )
       },
 
       // delivery
-      getDeliveryTypes: function() {
-        return [{
-          delivery_type_id: 'population',
-          delivery_type_name: 'New Beneficiaries'
-        },{
-          delivery_type_id: 'service',
-          delivery_type_name: 'Existing Beneficiaries'
-        }];
+      getDeliveryTypes: function( admin0pcode ) {
+
+        var delivery = [];
+
+        if ( admin0pcode === 'AF' ) {
+          delivery = [{
+            delivery_type_id: 'population',
+            delivery_type_name: 'New Beneficiaries'
+          },{
+            delivery_type_id: 'service',
+            delivery_type_name: 'Existing Beneficiaries'
+          }];
+        } else {
+          delivery = [{
+            delivery_type_id: 'population',
+            delivery_type_name: 'New Beneficiaries'
+          },{
+            delivery_type_id: 'service',
+            delivery_type_name: 'Reccurent Beneficiaries'
+          }];
+        }
+
+        return delivery;
       },
 
       // mpc purpose
@@ -367,7 +381,7 @@ angular.module( 'ngmReportHub' )
 						// mpc_delivery_type_id: ['in-kind', 'distribution'],
 						mpc_delivery_type_id: 'in-kind',
 						mpc_delivery_type_name: 'In-kind'
-					},]
+					}]
 
         return types;
 			},
@@ -1696,16 +1710,16 @@ angular.module( 'ngmReportHub' )
           // default
           var beneficiaries = [{
             cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'fss', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
-            beneficiary_type_id: 'refuges_in_camps',
-            beneficiary_type_name: 'Refuges in Camps'
-          },{
-            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'fss', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
-            beneficiary_type_id: 'refuges_in_host_communities',
-            beneficiary_type_name: 'Refuges in Host Communities'
+            beneficiary_type_id: 'refuges',
+            beneficiary_type_name: 'Refuges'
           },{
             cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'fss', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'host_communities',
             beneficiary_type_name: 'Host Communities'
+          },{
+            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'fss', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
+            beneficiary_type_id: 'health_care_workers',
+            beneficiary_type_name: 'Health Care Workers'
           },{
             cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'fss', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'humanitarian_workers',

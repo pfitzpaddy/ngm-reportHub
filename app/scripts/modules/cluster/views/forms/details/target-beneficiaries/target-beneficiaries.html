@@ -81,7 +81,7 @@
 							      <td ng-if="project.definition.project_status !== 'complete'">Edit</td>
 
 							    </tr>
-							    <tr ng-repeat="beneficiary in project.definition.target_beneficiaries">
+							    <tr ng-repeat-start="beneficiary in project.definition.target_beneficiaries">
 							    	
 							    	<!-- icon -->
 							    	<td>
@@ -211,7 +211,7 @@
 														e-placeholder="Select..."
 														e-ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for b in project.lists.mpc_delivery_types"
 														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'mpc_delivery_type_id' ]">
-												{{ project.displayCashDelivery( $data, beneficiary ) }}
+												{{ ngmClusterBeneficiaries.displayCashDelivery( project.lists, $data, beneficiary ) }}
 											</span>											
 										</td>
 											
@@ -232,7 +232,7 @@
 																							mpc_delivery_type_id: beneficiary.mpc_delivery_type_id 
 																						}"
 														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'mpc_mechanism_type_id' ]">
-												{{ project.displayCashMechanism( $data, beneficiary ) }}
+												{{ ngmClusterBeneficiaries.displayCashMechanism( project.lists, $data, beneficiary ) }}
 											</span>											
 										</td>
 
@@ -256,7 +256,7 @@
 																							'package_type_name':'Non-standard'
 																						}]"
 														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'package_type_id' ]">
-												{{ project.displayPackageTypes( $data, beneficiary ) }}
+												{{ ngmClusterBeneficiaries.displayPackageTypes( project.lists, $data, beneficiary ) }}
 											</span>
 										</td>
 
@@ -302,7 +302,7 @@
 														e-placeholder="Select..."
 							        			e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units"
 														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'unit_type_id' ]">
-							          {{ project.displayUnitTypes( $data, beneficiary ) }}
+							          {{ ngmClusterBeneficiaries.displayUnitTypes( project.lists, $data, beneficiary ) }}
 							        </span>
 							      </td>
 										<td ng-show="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'unit_type_id' ] && !project.lists.units.length">
@@ -313,7 +313,7 @@
 							        			e-ng-options="a.unit_type_id as a.unit_type_name for a in 
 							        											ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'unit_type_id' ]"
 														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'unit_type_id' ]">
-							          {{ project.displayUnitTypes( $data, beneficiary ) }}
+							          {{ ngmClusterBeneficiaries.displayUnitTypes( { units: ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'unit_type_id' ] }, $data, beneficiary ) }}
 							        </span>
 							      </td>
 
@@ -342,7 +342,7 @@
 														e-placeholder="Select..."
 														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'transfer_type_id' ]"
 							        			e-ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers">
-							          {{ project.displayTransferTypes( $data, beneficiary ) }}
+							          {{ ngmClusterBeneficiaries.displayTransferTypes( project.lists, $data, beneficiary ) }}
 							        </span>
 							      </td>
 
@@ -522,6 +522,30 @@
 							      </td>
 
 							    </tr>
+
+							    <!-- remarks -->
+							    <tr ng-repeat-end ng-if="ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'remarks' ]">
+
+							      <!-- column -->
+							      <td colspan="100" style="padding-left:20px">
+
+							      <!-- remarks -->
+							        <div class="col s12 m2" style="text-align:right;">
+							          <p style="font-size:16px; padding-top:30px;">Remarks</p>
+							        </div>
+							        <div style="margin-top:20px;" class="input-field col s12 m10">
+							          <input id="ngm-beneficiary-remarks"
+							          				type="text"
+							          				class="validate"
+							                	ng-model="beneficiary.remarks"
+							                	ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'remarks' ] || !rowform.$visible">
+							          <label for="ngm-beneficiary-remarks" class="error">Remarks</label>
+							        </div> 
+
+							      </td>
+
+							    </tr>
+
 							  </table>
 
 							  <button class="btn" 

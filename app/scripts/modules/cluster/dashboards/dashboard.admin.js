@@ -62,6 +62,14 @@ angular.module('ngmReportHub')
 				// current report
 				report_file_name: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-',
 
+				// display names
+				activity_name_key:{
+					'cpie': 'CPiE',
+					'gbv': 'GBV',
+					'child_protection': 'CPSS',
+					'general_protection': 'Protection',
+				},
+
 				// hq / region
 
 				menu: [{
@@ -546,7 +554,7 @@ angular.module('ngmReportHub')
 
 					// activity
 					if ( $scope.dashboard.activity_type_id !== 'all' ) {
-						$scope.dashboard.title += ' | ' + $scope.dashboard.activity_type_id.toUpperCase();
+						$scope.dashboard.title += ' | ' + $scope.dashboard.activity_name_key[ $scope.dashboard.activity_type_id ].toUpperCase();
 					}
 
 					// org
@@ -637,8 +645,6 @@ angular.module('ngmReportHub')
 				setActivityMenu: function(){
 					// menu
 					if ($scope.dashboard.report_type === 'activity' && $scope.dashboard.cluster_id === 'protection' ) {
-
-						console.log($scope.dashboard.admin0pcode)
 							
 						// Afghanistan
 						if ( $scope.dashboard.admin0pcode === 'af' ) {
@@ -685,11 +691,11 @@ angular.module('ngmReportHub')
 									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 									'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'all', 'activity', $scope.dashboard.organization_tag )
 								},{
-									'title': 'CPiE',
+									'title': 'Child Protection',
 									'param': 'activity_type_id',
-									'active': 'cpie',
+									'active': 'child_protection',
 									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-									'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'cp', 'activity', $scope.dashboard.organization_tag )
+									'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'child_protection', 'activity', $scope.dashboard.organization_tag )
 								},{
 									'title': 'GBV',
 									'param': 'activity_type_id',
@@ -697,11 +703,11 @@ angular.module('ngmReportHub')
 									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 									'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'gbv', 'activity', $scope.dashboard.organization_tag )
 								},{
-									'title': 'GBV',
+									'title': 'Protection',
 									'param': 'activity_type_id',
-									'active': 'gbv',
+									'active': 'general_protection',
 									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-									'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'protection', 'activity', $scope.dashboard.organization_tag )
+									'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, 'general_protection', 'activity', $scope.dashboard.organization_tag )
 								}]
 							});
 						}

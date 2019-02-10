@@ -125,6 +125,7 @@ angular.module( 'ngmReportHub' )
           inserted = angular.merge( inserted, b, sadd, defaults );
           inserted.transfer_type_id = 0;
 					inserted.transfer_type_value = 0;
+          inserted.remarks=null;
 					if (inserted.mpc_delivery_type_id || inserted.mpc_mechanism_type_id || inserted.package_type_id || inserted.unit_type_id){
 						inserted.mpc_delivery_type_id= null;
 						inserted.mpc_delivery_type_name= null;
@@ -335,7 +336,7 @@ angular.module( 'ngmReportHub' )
         $beneficiary.activity_type_id = $data;
         if( $beneficiary.activity_type_id && project.activity_type.length ) {
           selected = $filter('filter')( project.activity_type, { activity_type_id: $beneficiary.activity_type_id }, true);
-          if ( selected.length ) {
+          if( selected && selected.length ) {
             // set activity_type_name
             $beneficiary.cluster_id = selected[0].cluster_id;
             $beneficiary.cluster = selected[0].cluster;
@@ -353,7 +354,7 @@ angular.module( 'ngmReportHub' )
           selected = $filter('filter')( lists.activity_descriptions, { 
                                             cluster_id: $beneficiary.cluster_id,
                                             activity_description_id: $beneficiary.activity_description_id }, true );
-          if ( selected.length ) {
+          if( selected && selected.length ) {
             
             // set activity_description_name
             $beneficiary.activity_description_name = selected[0].activity_description_name;
@@ -400,7 +401,7 @@ angular.module( 'ngmReportHub' )
         $beneficiary.indicator_id = $data;
         if( $beneficiary.indicator_id ) {
           selected = $filter('filter')( lists.activity_indicators, { indicator_id: $beneficiary.indicator_id }, true);
-          if( selected.length ) {
+          if( selected && selected.length ) {
             // $beneficiary.indicator_id = selected[0].indicator_id;
             $beneficiary.indicator_name = selected[0].indicator_name;
           }
@@ -414,7 +415,7 @@ angular.module( 'ngmReportHub' )
         $beneficiary.activity_cholera_response_id = $data;
         if( $beneficiary.activity_cholera_response_id ) {
           selected = $filter('filter')( lists.activity_cholera_response, { activity_cholera_response_id: $beneficiary.activity_cholera_response_id }, true);
-          if( selected.length ) {
+          if( selected && selected.length ) {
             $beneficiary.activity_cholera_response_name = selected[0].activity_cholera_response_name;
           }
         }
@@ -428,7 +429,7 @@ angular.module( 'ngmReportHub' )
         if( $beneficiary.beneficiary_type_id ) {
           selected = $filter('filter')( lists.beneficiary_types, { beneficiary_type_id: $beneficiary.beneficiary_type_id, cluster_id: $beneficiary.cluster_id }, true);
         }
-        if ( selected.length ) {
+        if( selected && selected.length ) {
           $beneficiary.beneficiary_type_name = selected[0].beneficiary_type_name;
         }
         return selected.length ? selected[0].beneficiary_type_name : '-';
@@ -449,11 +450,16 @@ angular.module( 'ngmReportHub' )
       displayUnitTypes: function( lists, $data, $beneficiary ){
         var selected = [];
         $beneficiary.unit_type_id = $data;
-        if($beneficiary.unit_type_id) {
+        if( $beneficiary.unit_type_id ) {
           selected = $filter('filter')( lists.units, { unit_type_id: $beneficiary.unit_type_id }, true);
-          if( selected.length ) {
+          if( selected && selected.length ) {
             $beneficiary.unit_type_name = selected[0].unit_type_name;
           }
+        }
+        // if only unit
+        if( !selected.length && lists.units && lists.units.length === 1 ){
+          $beneficiary.unit_type_id = lists.units[0].unit_type_id;
+          $beneficiary.unit_type_name = lists.units[0].unit_type_name;
         }
         return selected.length ? selected[0].unit_type_name : '-';
       },
@@ -478,8 +484,8 @@ angular.module( 'ngmReportHub' )
         $beneficiary.mpc_mechanism_type_id = $data;
         if ($beneficiary.mpc_mechanism_type_id) {
           // selection
-          selected = $filter('filter')(lists.mechanism_delivery, { mpc_mechanism_type_id: $beneficiary.mpc_mechanism_type_id }, true);
-          if (selected.length) {
+          selected = $filter('filter')( lists.mpc_mechanism_type, { mpc_mechanism_type_id: $beneficiary.mpc_mechanism_type_id }, true);
+          if( selected && selected.length ) {
             $beneficiary.mpc_mechanism_type_name = selected[0].mpc_mechanism_type_name;
           }
         }
@@ -499,7 +505,7 @@ angular.module( 'ngmReportHub' )
             'package_type_id': 'non-standard',
             'package_type_name': 'Non-standard'
           }], { package_type_id: $beneficiary.package_type_id }, true );
-          if ( selected.length ) {
+          if( selected && selected.length ) {
             $beneficiary.package_type_name = selected[0].package_type_name;
           }
         }
@@ -512,7 +518,7 @@ angular.module( 'ngmReportHub' )
         $beneficiary.category_type_id = $data;
         if($beneficiary.category_type_id) {
           selected = $filter('filter')( lists.category_types, { category_type_id: $beneficiary.category_type_id }, true);
-          if( selected.length ) {
+          if( selected && selected.length ) {
             $beneficiary.category_type_name = selected[0].category_type_name;
           }
         }
@@ -525,7 +531,7 @@ angular.module( 'ngmReportHub' )
         $beneficiary.transfer_type_id = $data;
         if($beneficiary.transfer_type_id) {
           selected = $filter('filter')( lists.transfers, { transfer_type_id: $beneficiary.transfer_type_id }, true);
-          if( selected.length ) {
+          if( selected && selected.length ) {
             $beneficiary.transfer_type_value = selected[0].transfer_type_value;
           }
         }else{

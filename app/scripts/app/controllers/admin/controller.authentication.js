@@ -78,6 +78,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           'cvwg': { cluster: 'MPC' },
           'agriculture': { cluster: 'Agriculture' },
           'cccm_esnfi': { cluster: 'CCCM - Shelter' },
+          'cwc': { cluster: 'Communication within Communities' },
           'coordination': { cluster: 'Coordination' },
           'education': { cluster: 'Education' },
           'eiewg': { cluster: 'EiEWG' },
