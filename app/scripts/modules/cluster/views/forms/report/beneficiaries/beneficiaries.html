@@ -179,7 +179,8 @@
               e-name="mpc_delivery_type_id"
               editable-select="beneficiary.mpc_delivery_type_id"
               e-placeholder="Select..."
-              e-ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for b in project.lists.mpc_delivery_types"
+              e-ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for b in 
+                                  ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'mpc_delivery_type_id' ]"
               e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'mpc_delivery_type_id' ]">
           {{ ngmClusterBeneficiaries.displayCashDelivery( project.lists, $data, beneficiary ) }}
         </span>                     
@@ -265,7 +266,7 @@
       <!-- UNITS, SADD -->
 
       <!-- unit type -->
-      <td ng-show="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'unit_type_id' ] && project.lists.units.length">
+<!--       <td ng-show="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'unit_type_id' ] && project.lists.units.length">
         <span e-form="rowform"
               e-name="unit_type_id"
               editable-select="beneficiary.unit_type_id"
@@ -274,8 +275,8 @@
               e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'unit_type_id' ]">
           {{ ngmClusterBeneficiaries.displayUnitTypes( project.lists, $data, beneficiary ) }}
         </span>
-      </td>
-      <td ng-show="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'unit_type_id' ]  && !project.lists.units.length">
+      </td> -->
+      <td ng-show="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'unit_type_id' ]">
         <span e-form="rowform"
               e-name="unit_type_id"
               editable-select="beneficiary.unit_type_id"
