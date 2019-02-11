@@ -210,9 +210,10 @@
 														editable-select="beneficiary.mpc_delivery_type_id"
 														e-placeholder="Select..."
 														e-ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for b in 
-																							ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'mpc_delivery_type_id' ]"
+																							ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'mpc_delivery_type_id' ]"
 														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'mpc_delivery_type_id' ]">
-												{{ ngmClusterBeneficiaries.displayCashDelivery( project.lists, $data, beneficiary ) }}
+												{{ ngmClusterBeneficiaries.displayCashDelivery( 
+																{ mpc_delivery_types: ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'mpc_delivery_type_id' ] }, $data, beneficiary ) }}
 											</span>											
 										</td>
 											
@@ -228,10 +229,7 @@
 														editable-select="beneficiary.mpc_mechanism_type_id"
 														e-placeholder="Select..."
 														e-ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for b in project.lists.mpc_mechanism_type | 
-																						filter: {
-																							activity_description_id: beneficiary.activity_description_id,
-																							mpc_delivery_type_id: beneficiary.mpc_delivery_type_id 
-																						}"
+																						filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id }"
 														e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'mpc_mechanism_type_id' ]">
 												{{ ngmClusterBeneficiaries.displayCashMechanism( project.lists, $data, beneficiary ) }}
 											</span>											

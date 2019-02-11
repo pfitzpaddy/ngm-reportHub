@@ -467,11 +467,12 @@ angular.module( 'ngmReportHub' )
       // display delivery ( cash )
       displayCashDelivery: function( lists, $data, $beneficiary ) {
         var selected = [];
+        console.log(lists)
         $beneficiary.mpc_delivery_type_id = $data;
         if( $beneficiary.mpc_delivery_type_id ) {
           // selection
           selected = $filter('filter')( lists.mpc_delivery_types, { mpc_delivery_type_id: $beneficiary.mpc_delivery_type_id }, true );
-          if ( selected.length ) {
+          if( selected && selected.length ) {
             $beneficiary.mpc_delivery_type_name = selected[0].mpc_delivery_type_name;
           }
         }
