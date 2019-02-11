@@ -182,7 +182,8 @@
               e-ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for b in 
                                   ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'mpc_delivery_type_id' ]"
               e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'mpc_delivery_type_id' ]">
-          {{ ngmClusterBeneficiaries.displayCashDelivery( project.lists, $data, beneficiary ) }}
+          {{ ngmClusterBeneficiaries.displayCashDelivery( 
+                  { mpc_delivery_types: ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'mpc_delivery_type_id' ] }, $data, beneficiary ) }}
         </span>                     
       </td>
         

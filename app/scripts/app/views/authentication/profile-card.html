@@ -51,8 +51,15 @@ form {
 	        <div class="card-content">
 	        	<div class="row">
 		        	<div class="col s12 m5">
-		          	<img src="https://www.gravatar.com/avatar/{{ panel.user.emailHash }}?s=188" title="{{ panel.user.name }}" class="circle">
-		          	<a href="https://en.gravatar.com/site/signup/" target="_blank" class="btn" style="bottom:30px;left:0px;position:absolute;">Update Photo</a>
+		        		<!--  some people, they dont like Richmond?-->
+		        		<div ng-if="panel.user.email === 'pfitzgerald@immap.org'">
+		          		<img src="images/immap/pfitzgerald.jpg" title="{{ panel.user.name }}" class="circle" height="188px" height="188px">
+		        		</div>
+		        		<div ng-if="panel.user.email !== 'pfitzgerald@immap.org'">
+		          		<img src="https://www.gravatar.com/avatar/{{ panel.user.emailHash }}?s=188" title="{{ panel.user.name }}" class="circle">
+		          	</div>
+		          	<a href="https://en.gravatar.com/site/signup/" target="_blank" class="btn" style="bottom:30px;left:0px;position:absolute;">
+		          	Update Photo</a>
 		        	</div>
 		        	<div class="col s12 m7" style="padding-left:0px;">
 						    <h4>{{ panel.user.name }}</h4>
