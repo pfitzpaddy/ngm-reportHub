@@ -440,6 +440,9 @@ angular.module( 'ngmReportHub' )
           }];
         } else if ( admin0pcode.toLowerCase() === 'cb' ) {
           clusters = [{
+            cluster_id: 'cwcwg',
+            cluster: 'CwCWG'
+          },{
             cluster_id: 'education',
             cluster: 'Education'
           },{
@@ -1605,10 +1608,6 @@ angular.module( 'ngmReportHub' )
             cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'fss', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'host_communities',
             beneficiary_type_name: 'Host Communities'
-          },{
-            cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'fss', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
-            beneficiary_type_id: 'health_care_workers',
-            beneficiary_type_name: 'Health Care Workers'
           },{
             cluster_id: [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'fss', 'health', 'nutrition', 'protection', 'smsd', 'gbv', 'rnr_chapter', 'wash' ],
             beneficiary_type_id: 'humanitarian_workers',
