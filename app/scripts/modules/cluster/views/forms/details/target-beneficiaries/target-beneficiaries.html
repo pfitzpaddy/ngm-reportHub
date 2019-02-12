@@ -65,12 +65,9 @@
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'delivery_type_id' ]">Type</td>
 
 							      <!-- inputs -->
-										<!-- <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'unit_type_id' ]">Units</td>
-							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'units' ]">Quantity</td> -->
-
-										<!-- SADD -->
-
-<!-- 										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'transfer_type_id' ]">Transfers</td>
+										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'unit_type_id' ]">Units</td>
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'units' ]">Quantity</td>
+										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'transfer_type_id' ]">Transfers</td>
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'households' ]">Households</td>
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'families' ]">Families</td>
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'boys' ]">Boys</td>
@@ -78,7 +75,7 @@
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'men' ]">Men</td>
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'women' ]">Women</td>
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'elderly_men' ]">Eld. Men</td>
-							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'elderly_women' ]">Eld. Women</td> -->
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'elderly_women' ]">Eld. Women</td>
 
 										<td ng-if="project.showFatpTreatmentSameProvince()">Treatment Same Province</td>
 							      <td ng-if="project.definition.project_status !== 'complete'">Edit</td>
@@ -293,8 +290,6 @@
 							      </td>
 
 
-</tr>
-<tr>
 
 							      <!-- UNITS, SADD -->
 
@@ -309,8 +304,6 @@
 							          {{ ngmClusterBeneficiaries.displayUnitTypes( project.lists, $data, beneficiary ) }}
 							        </span>
 							      </td> -->
-
-
 										<td ng-show="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'unit_type_id' ]">
 							        <span e-form="rowform"
 							        			e-name="unit_type_id"
@@ -335,10 +328,6 @@
 							          {{ beneficiary.units }}
 							        </span>
 							      </td>
-
-
-</tr>
-<tr>
 
 							      <!-- transfer_type_id -->
 							      <td ng-show="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'transfer_type_id' ] &&
