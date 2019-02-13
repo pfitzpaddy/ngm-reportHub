@@ -1,15 +1,28 @@
 /**
- * @name ngmReportHub.factory:ngmCbSectorLocations
+ * @name ngmReportHub.factory:ngmCbLocations
  * @description
- * # ngmCbSectorLocations
+ * # ngmCbLocations
  * Manages browser local storage
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmCbSectorLocations', [ '$http', '$filter', '$timeout', 'ngmAuth', function( $http, $filter, $timeout, ngmAuth ) {
+  .filter( 'admin2filter', [ '$filter', function ( $filter ) {
+    
+    // Host Communities of Reach data capture Teknaf, Ukhia
+    var host_community_filter = [ '202290', '202294' ];
 
-    // ngmCbSectorLocations
-		ngmCbSectorLocations = {
+    // filter 
+    return function ( item ) {
+      var list = item.filter(function( i ) {
+        return host_community_filter.indexOf( i.admin1pcode ) !== -1; 
+      });
+      return list;
+    };
+  }])
+  .factory( 'ngmCbLocations', [ '$http', '$filter', '$timeout', 'ngmAuth', function( $http, $filter, $timeout, ngmAuth ) {
+
+    // ngmCbLocations
+		ngmCbLocations = {
 
       // show the columns
       showUnion: function( target_location ){
@@ -28,6 +41,24 @@ angular.module( 'ngmReportHub' )
         // attr
         var selected;
 
+        // admin2
+        delete target_location.admin2pcode;
+        delete target_location.admin2name;
+        delete target_location.admin2lng;
+        delete target_location.admin2lat;
+        // admin3
+        delete target_location.admin2pcode;
+        delete target_location.admin2name;
+        delete target_location.admin2lng;
+        delete target_location.admin2lat;
+        // site
+        delete target_location.site_id;
+        delete target_location.site_name;
+        delete target_location.site_type_id;
+        delete target_location.site_type_name;
+        delete target_location.site_lng;
+        delete target_location.site_lat;
+
         // filter by site_type
         target_location.site_type_id = $data;
         if( target_location.site_type_id ) {
@@ -42,6 +73,14 @@ angular.module( 'ngmReportHub' )
 
         // return name
         return selected && selected.length ? selected[0].site_type_name : '-';
+      },
+
+      // get admin2 filtered list
+      getAdmin2List: function( admin2 ) {
+        var list = angular.copy( admin2 ).filter(function( item ) {
+          return ngmCbLocations.host_community_filter.includes( item.admin1pcode ); 
+        });
+        return list;
       },
 
       // admin2
@@ -115,6 +154,6 @@ angular.module( 'ngmReportHub' )
     }
 
     // return
-    return ngmCbSectorLocations;
+    return ngmCbLocations;
 
 	}]);

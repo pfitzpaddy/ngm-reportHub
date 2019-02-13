@@ -27,14 +27,14 @@
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'mpc_mechanism_type_id' ]">Mechanism</td>
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'package_type_id' ]">Package</td>
 
-      <!-- beneficiary -->
-      <td>Beneficiary</td>
-      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'delivery_type_id' ]">Type</td>
-
       <!-- inputs -->
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'unit_type_id' ]">Units</td>
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'units' ]">Quantity</td>
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'transfer_type_id' ]">Transfers</td>
+      
+      <!-- beneficiary -->
+      <td>Beneficiary</td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'delivery_type_id' ]">Type</td>
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'households' ]">Households</td>
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'families' ]">Families</td>
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'boys' ]">Boys</td>
@@ -230,50 +230,8 @@
       </td>
 
 
-      <!-- BENEFICIARIES -->
 
-      <!-- beneficiaries -->
-      <td>
-        <span e-form="rowform"
-              e-name="beneficiary_type_id"
-              editable-select="beneficiary.beneficiary_type_id"
-              e-placeholder="Select..."
-              e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types |
-                              filter: { 
-                                cluster_id: beneficiary.cluster_id
-                              } : true"
-              e-ng-disabled="!beneficiary.activity_description_id">
-          {{ ngmClusterBeneficiaries.displayBeneficiary( project.lists, $data, beneficiary ) }}
-        </span>
-      </td>
-
-      <!-- delivery_type_id -->
-      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'delivery_type_id' ]">
-        <span e-form="rowform"
-              e-name="delivery_type_id"
-              editable-select="beneficiary.delivery_type_id"
-              e-placeholder="Select..."
-              e-ng-options="b.delivery_type_id as b.delivery_type_name for b in project.lists.delivery_types"
-              e-ng-disabled="!beneficiary.beneficiary_type_id || !ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'delivery_type_id' ]">
-          {{ ngmClusterBeneficiaries.displayDelivery( project.lists, $data, beneficiary ) }}
-        </span>
-      </td>
-
-
-
-      <!-- UNITS, SADD -->
-
-      <!-- unit type -->
-<!--       <td ng-show="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'unit_type_id' ] && project.lists.units.length">
-        <span e-form="rowform"
-              e-name="unit_type_id"
-              editable-select="beneficiary.unit_type_id"
-              e-placeholder="Select..."
-              e-ng-options="a.unit_type_id as a.unit_type_name for a in project.lists.units"
-              e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'unit_type_id' ]">
-          {{ ngmClusterBeneficiaries.displayUnitTypes( project.lists, $data, beneficiary ) }}
-        </span>
-      </td> -->
+      <!-- UNITS -->
       <td ng-show="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'unit_type_id' ]">
         <span e-form="rowform"
               e-name="unit_type_id"
@@ -309,6 +267,41 @@
           {{ ngmClusterBeneficiaries.displayTransferTypes( project.lists, $data, beneficiary ) }}
         </span>
       </td>
+
+
+
+      <!-- BENEFICIARIES -->
+
+      <!-- beneficiaries -->
+      <td>
+        <span e-form="rowform"
+              e-name="beneficiary_type_id"
+              editable-select="beneficiary.beneficiary_type_id"
+              e-placeholder="Select..."
+              e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types |
+                              filter: { 
+                                cluster_id: beneficiary.cluster_id
+                              } : true"
+              e-ng-disabled="!beneficiary.activity_description_id">
+          {{ ngmClusterBeneficiaries.displayBeneficiary( project.lists, $data, beneficiary ) }}
+        </span>
+      </td>
+
+      <!-- new, existing? -->
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'delivery_type_id' ]">
+        <span e-form="rowform"
+              e-name="delivery_type_id"
+              editable-select="beneficiary.delivery_type_id"
+              e-placeholder="Select..."
+              e-ng-options="b.delivery_type_id as b.delivery_type_name for b in project.lists.delivery_types"
+              e-ng-disabled="!beneficiary.beneficiary_type_id || !ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'delivery_type_id' ]">
+          {{ ngmClusterBeneficiaries.displayDelivery( project.lists, $data, beneficiary ) }}
+        </span>
+      </td>
+
+      
+
+      <!-- SADD -->
 
       <!-- households -->
       <td ng-show="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'households' ]">

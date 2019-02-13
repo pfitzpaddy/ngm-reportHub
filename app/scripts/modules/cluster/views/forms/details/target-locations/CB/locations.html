@@ -29,7 +29,7 @@
 							    	<td></td>
 							    	<td>Reporter</td>
 							      <td>Location Type</td>
-							      <td ng-if="ngmCbSectorLocations.showUnion( project.definition.target_locations )">Union</td>
+							      <td ng-if="ngmCbLocations.showUnion( project.definition.target_locations )">Union</td>
 							      <td>Location Name</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
@@ -58,15 +58,18 @@
 							        				editable-select="location.site_type_id"
 							        				e-name="site_type_id"
 							        				e-form="locationform"
-							        				e-ng-options="item.site_type_id as item.site_type_name for item in project.lists.site_type"
+							        				e-ng-options="item.site_type_id as item.site_type_name for item in project.lists.site_type |
+							              								filter: { 
+							              									cluster_id: project.definition.cluster_id
+							              								} : true"
 							        				e-required>
-							          {{ ngmCbSectorLocations.displaySiteType( project.lists, $index, $data, location ) }}
+							          {{ ngmCbLocations.displaySiteType( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
 
 							      <!-- admin2 -->
 							      <td ng-if="location.site_type_id !== 'host_community' &&
-							      						ngmCbSectorLocations.showUnion( project.definition.target_locations )">
+							      						ngmCbLocations.showUnion( project.definition.target_locations )">
 							        -
 							      </td>
 							      <td ng-if="location.site_type_id === 'host_community'">
@@ -74,25 +77,41 @@
 							        				editable-select="location.admin2pcode"
 							        				e-name="admin2pcode"
 							        				e-form="locationform"
-							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2"
+							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | admin2filter"
 							        				e-ng-disabled="location.site_type_id !== 'host_community'"
 							        				e-required>
-							          {{ ngmCbSectorLocations.displayAdmin2( project.lists, $index, $data, location ) }}
+							          {{ ngmCbLocations.displayAdmin2( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
 
 							      <!-- select existing: drop down -->
-							      <td>
+							      <td ng-if="location.site_type_id === 'host_community'">
+							        <span e-placeholder="Select..."
+							        			editable-select="location.site_id"
+							        			e-name="site_id"
+							        			e-form="locationform"
+							        			e-ng-options="item.site_id as item.site_name for item in project.lists.adminSites | 
+							        											filter:{
+							        												admin2pcode: location.admin2pcode,
+							        												site_type_id: location.site_type_id
+							        											}"
+														e-ng-change="ngmCbLocations.updateSite( project.lists, $index, $data, location );">
+							          {{ ngmCbLocations.displaySites( project.lists, $index, $data, location ) }}
+							        </span>
+							      </td>
+							      <!-- select existing: drop down - no admin2pcode filter -->
+							      <td ng-if="location.site_type_id !== 'host_community'">
 							        <span e-placeholder="Select..."
 							        			editable-select="location.site_id"
 							        			e-name="site_id"
 							        			e-form="locationform"
 							        			e-ng-options="item.site_id as item.site_name for item in project.lists.adminSites | 
 							        											filter:{ site_type_id: location.site_type_id }"
-														e-ng-change="ngmCbSectorLocations.updateSite( project.lists, $index, $data, location );">
-							          {{ ngmCbSectorLocations.displaySites( project.lists, $index, $data, location ) }}
+														e-ng-change="ngmCbLocations.updateSite( project.lists, $index, $data, location );">
+							          {{ ngmCbLocations.displaySites( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
+
 
 							      <!-- edit -->
 							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >
