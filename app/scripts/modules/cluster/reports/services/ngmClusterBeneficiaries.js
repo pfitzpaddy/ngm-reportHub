@@ -457,7 +457,7 @@ angular.module( 'ngmReportHub' )
           }
         }
         // if only unit
-        if( !selected.length && lists.units && lists.units.length === 1 ){
+        if( !selected && !selected.length && lists.units && lists.units.length === 1 ){
           $beneficiary.unit_type_id = lists.units[0].unit_type_id;
           $beneficiary.unit_type_name = lists.units[0].unit_type_name;
         }

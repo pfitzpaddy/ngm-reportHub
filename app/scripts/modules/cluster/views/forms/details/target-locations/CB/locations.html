@@ -62,6 +62,7 @@
 							              								filter: { 
 							              									cluster_id: project.definition.cluster_id
 							              								} : true"
+							              	e-ng-change="ngmCbLocations.changeSiteType( location )"
 							        				e-required>
 							          {{ ngmCbLocations.displaySiteType( project.lists, $index, $data, location ) }}
 							        </span>
@@ -77,7 +78,7 @@
 							        				editable-select="location.admin2pcode"
 							        				e-name="admin2pcode"
 							        				e-form="locationform"
-							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | admin2filter"
+							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | admin2Cxbfilter"
 							        				e-ng-disabled="location.site_type_id !== 'host_community'"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin2( project.lists, $index, $data, location ) }}

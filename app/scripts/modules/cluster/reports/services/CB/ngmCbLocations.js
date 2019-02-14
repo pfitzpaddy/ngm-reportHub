@@ -6,7 +6,7 @@
  *
  */
 angular.module( 'ngmReportHub' )
-  .filter( 'admin2filter', [ '$filter', function ( $filter ) {
+  .filter( 'admin2Cxbfilter', [ '$filter', function ( $filter ) {
     
     // Host Communities of Reach data capture Teknaf, Ukhia
     var host_community_filter = [ '202290', '202294' ];
@@ -35,12 +35,8 @@ angular.module( 'ngmReportHub' )
         return display;
       },
 
-      // admin2
-      displaySiteType: function( lists, $index, $data, target_location ){
-        
-        // attr
-        var selected;
-
+      // clear the Union on site type change
+      changeSiteType: function( target_location ){
         // admin2
         delete target_location.admin2pcode;
         delete target_location.admin2name;
@@ -54,10 +50,15 @@ angular.module( 'ngmReportHub' )
         // site
         delete target_location.site_id;
         delete target_location.site_name;
-        delete target_location.site_type_id;
-        delete target_location.site_type_name;
         delete target_location.site_lng;
         delete target_location.site_lat;
+      },
+
+      // admin2
+      displaySiteType: function( lists, $index, $data, target_location ){
+        
+        // attr
+        var selected;
 
         // filter by site_type
         target_location.site_type_id = $data;
