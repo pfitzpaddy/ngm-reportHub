@@ -166,7 +166,7 @@ angular.module( 'ngmReportHub' )
 							'param': 'cluster_id',
 							'active': 'all',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/cluster/admin'
+							'href': ''
 						}]
 					}],
 					rows: [{
