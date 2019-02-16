@@ -25,9 +25,14 @@ angular.module( 'ngmReportHub' )
 			// form to add new project
 			newProjectUrl: '#/cluster/projects/details/new',
 
-			// placeholders
-			title: '',
-			subtitle: '',
+			// report download title
+			report_title: ngmUser.get().organization_tag  +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
+
+			// title
+			title: ngmUser.get().admin0name.toUpperCase().substring( 0, 3 ) + ' | ' + ngmUser.get().organization + ' | Projects',
+
+			// subtitle
+			subtitle: ngmUser.get().cluster + ' projects for ' + ngmUser.get().organization + ' ' + ngmUser.get().admin0name,
 
 			// organization
 			getOrganizationHref: function() {
@@ -40,166 +45,217 @@ angular.module( 'ngmReportHub' )
 			getOrganization: function( organization_id ){
 
 				// return http
-				return {
+				var request = {
 					method: 'POST',
 					url: ngmAuth.LOCATION + '/api/getOrganization',
 					data: {
 						'organization_id': organization_id
 					}
 				}
+
+				// return
+				return request;
+			},
+
+			// fetches request for project list
+			getProjectRequest: function( project_status ) {
+
+				console.log( $scope.report.organization_id )
+				console.log( project_status )
+
+				var filter;
+
+				if ( $scope.report.cluster_id !== 'all' ) {
+					filter = {
+						organization_id: $scope.report.organization_id,
+						cluster_id: $scope.report.cluster_id,
+						project_status: project_status
+					}
+				} else {
+					filter = {
+						organization_id: $scope.report.organization_id,
+						project_status: project_status
+					}
+				}
+
+				// get projects
+				var request = {
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/cluster/project/getProjectsList',
+							data: {
+								filter: filter
+							}
+						}
+				return request;
+
+			},
+
+			// init
+			init: function() {
+
+				// org id
+				$scope.report.organization_id =
+						$route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
+
+				// org tag
+				$scope.report.organization_tag =
+						$route.current.params.organization_tag ? $route.current.params.organization_tag : ngmUser.get().organization_tag;
+
+				// sector
+				$scope.report.cluster_id = 
+						$route.current.params.cluster_id ? $route.current.params.cluster_id : 'all';
+
+				// report dashboard model
+				$scope.model = {
+					name: 'cluster_project_list',
+					header: {
+						div: {
+							'class': 'col s12 m12 l12 report-header',
+							style: 'border-bottom: 3px ' + $scope.report.ngm.style.defaultPrimaryColor + ' solid;'
+						},
+						title: {
+							'class': 'col s12 m9 l9 report-title truncate',
+							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
+							title: $scope.report.title
+						},
+						subtitle: {
+							'class': 'col s12 m12 l12 report-subtitle hide-on-small-only',
+							title: $scope.report.subtitle
+						},
+						download: {
+							'class': 'col s12 m3 l3 hide-on-small-only',
+							downloads: [{
+								type: 'csv',
+								color: 'blue lighten-2',
+								icon: 'assignment',
+								hover: 'Download Project Summaries as CSV',
+								request: {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/cluster/project/getProjects',
+									data: {
+										details: 'projects',
+										report: $scope.report.report_title +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
+										query: { organization_id: $scope.report.organization_id },
+										csv:true
+									}
+								},
+								metrics: {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
+									data: {
+										organization: $scope.report.user.organization,
+										username: $scope.report.user.username,
+										email: $scope.report.user.email,
+										dashboard: 'projects list',
+										theme: 'organization_projects_details',
+										format: 'csv',
+										url: $location.$$path
+									}
+								}
+							}]
+
+						}
+					},
+					menu:[{
+						'id': 'search-sector',
+						'icon': 'camera',
+						'title': 'Sector',
+						'class': 'teal lighten-1 white-text',
+						'rows': [{
+							'title': 'All',
+							'param': 'cluster_id',
+							'active': 'all',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': '/desk/#/cluster/admin'
+						}]
+					}],
+					rows: [{
+						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'html',
+								card: 'white grey-text text-darken-2',
+								style: 'padding: 20px;',
+								config: {
+									html: '<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="' + $scope.report.getOrganizationHref() + '"><i class="material-icons left">keyboard_return</i>Back to Organization</a><a class="waves-effect waves-light btn right" href="' + $scope.report.newProjectUrl + '"><i class="material-icons left">add_circle_outline</i>Add New Project</a>'
+								}
+							}]
+						}]
+					},{
+						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'list',
+								card: 'white grey-text text-darken-2',
+								config: {
+									titleIcon: 'alarm_on',
+									// color: 'teal lighten-4',
+									color: 'blue lighten-4',
+									// textColor: 'white-text',
+									title: 'Active Projects',
+									icon: 'edit',
+									request: $scope.report.getProjectRequest( 'active' )
+								}
+							}]
+						}]
+					},{
+						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'list',
+								card: 'white grey-text text-darken-2',
+								config: {
+									titleIcon: 'done_all',
+									// color: 'lime lighten-4',
+									color: 'blue lighten-4',
+									title: 'Completed Projects',
+									icon: 'done',
+									request: $scope.report.getProjectRequest( 'complete' )
+								}
+							}]
+						}]
+					},{
+						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'html',
+								card: 'card-panel',
+								style: 'padding:0px; height: 90px; padding-top:10px;',
+								config: {
+									html: $scope.report.ngm.footer
+								}
+							}]
+						}]
+					}]
+				};
+
+				// assign to ngm app scope
+				$scope.report.ngm.dashboard.model = $scope.model;
+
+				// if org_id, get org data
+				if ( $route.current.params.organization_id ) {
+
+					// fetch org data
+					ngmData
+						.get( $scope.report.getOrganization( $scope.report.organization_id ) )
+						.then( function( organization ){
+
+							console.log( $route.current.params.organization_id );
+								
+							// set titles
+							$scope.model.header.download.downloads[0].request.data.report = organization.organization_tag  +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
+							$scope.model.header.title.title = organization.admin0name.toUpperCase().substring( 0, 3 ) + ' | ' + organization.organization + ' | Projects';
+							$scope.model.header.subtitle.title = organization.cluster + ' projects for ' + organization.organization + ' ' + organization.admin0name;
+
+						});
+
+				}
+
 			}
 
 		}
 
-		// org id
-		$scope.report.organization_id =
-				$route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
-
-		// org tag
-		$scope.report.organization_tag =
-		$route.current.params.organization_tag ? $route.current.params.organization_tag : ngmUser.get().organization_tag;
-
-		// get data
-		ngmData
-			.get( $scope.report.getOrganization( $scope.report.organization_id ) )
-			.then( function( organization ){
-			$scope.model.header.download.downloads[0].request.data.report = organization.organization_tag  +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
-			// set model titles
-			$scope.model.header.title.title = organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + organization.cluster.toUpperCase() + ' | ' + organization.organization + ' | Projects';
-			$scope.model.header.subtitle.title = organization.cluster + ' projects for ' + organization.organization + ' ' + organization.admin0name;
-
-		});
-
-		// report dashboard model
-		$scope.model = {
-			name: 'cluster_project_list',
-			header: {
-				div: {
-					'class': 'col s12 m12 l12 report-header',
-					style: 'border-bottom: 3px ' + $scope.report.ngm.style.defaultPrimaryColor + ' solid;'
-				},
-				title: {
-					'class': 'col s12 m9 l9 report-title truncate',
-					style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-					title: $scope.report.title
-				},
-				subtitle: {
-					'class': 'col s12 m12 l12 report-subtitle hide-on-small-only',
-					title: $scope.report.subtitle
-				},
-				download: {
-					'class': 'col s12 m3 l3 hide-on-small-only',
-					downloads: [{
-						type: 'csv',
-						color: 'blue lighten-2',
-						icon: 'assignment',
-						hover: 'Download Project Summaries as CSV',
-						request: {
-							method: 'POST',
-							url: ngmAuth.LOCATION + '/api/cluster/project/getProjects',
-							data: {
-								details: 'projects',
-								report: $scope.report.organization_tag +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
-								query: { organization_id: $scope.report.organization_id },
-								csv:true
-							}
-						},
-						metrics: {
-							method: 'POST',
-							url: ngmAuth.LOCATION + '/api/metrics/set',
-							data: {
-								organization: $scope.report.user.organization,
-								username: $scope.report.user.username,
-								email: $scope.report.user.email,
-								dashboard: 'projects list',
-								theme: 'organization_projects_details',
-								format: 'csv',
-								url: $location.$$path
-							}
-						}
-					}]
-
-				}
-			},
-			rows: [{
-				columns: [{
-					styleClass: 's12 m12 l12',
-					widgets: [{
-						type: 'html',
-						card: 'white grey-text text-darken-2',
-						style: 'padding: 20px;',
-						config: {
-							html: '<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="' + $scope.report.getOrganizationHref() + '"><i class="material-icons left">keyboard_return</i>Back to Organization</a><a class="waves-effect waves-light btn right" href="' + $scope.report.newProjectUrl + '"><i class="material-icons left">add_circle_outline</i>Add New Project</a>'
-						}
-					}]
-				}]
-			},{
-				columns: [{
-					styleClass: 's12 m12 l12',
-					widgets: [{
-						type: 'list',
-						card: 'white grey-text text-darken-2',
-						config: {
-							titleIcon: 'alarm_on',
-							// color: 'teal lighten-4',
-							color: 'blue lighten-4',
-							// textColor: 'white-text',
-							title: 'Active Projects',
-							icon: 'edit',
-							request: {
-								method: 'POST',
-								url: ngmAuth.LOCATION + '/api/cluster/project/getProjectsList',
-								data: {
-									filter: {
-										organization_id: $scope.report.organization_id,
-										project_status: 'active'
-									}
-								}
-							}
-						}
-					}]
-				}]
-			},{
-				columns: [{
-					styleClass: 's12 m12 l12',
-					widgets: [{
-						type: 'list',
-						card: 'white grey-text text-darken-2',
-						config: {
-							titleIcon: 'done_all',
-							// color: 'lime lighten-4',
-							color: 'blue lighten-4',
-							title: 'Completed Projects',
-							icon: 'done',
-							request: {
-								method: 'POST',
-								url: ngmAuth.LOCATION + '/api/cluster/project/getProjectsList',
-								data: {
-									filter: {
-										organization_id: $scope.report.organization_id,
-										project_status: 'complete'
-									}
-								}
-							}
-						}
-					}]
-				}]
-			},{
-				columns: [{
-					styleClass: 's12 m12 l12',
-					widgets: [{
-						type: 'html',
-						card: 'card-panel',
-						style: 'padding:0px; height: 90px; padding-top:10px;',
-						config: {
-							html: $scope.report.ngm.footer
-						}
-					}]
-				}]
-			}]
-		};
-
-		// assign to ngm app scope
-		$scope.report.ngm.dashboard.model = $scope.model;
+		// init
+		$scope.report.init();
 
 	}]);

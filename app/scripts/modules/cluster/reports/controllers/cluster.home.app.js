@@ -51,7 +51,7 @@ angular.module( 'ngmReportHub' )
 			init: function(){
 
 				// set model titles
-				$scope.report.title = $scope.report.organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.organization.cluster.toUpperCase() + ' | ' + $scope.report.organization.organization;
+				$scope.report.title = $scope.report.organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.organization.organization;
 				$scope.report.subtitle = $scope.report.organization.organization + ' overview for ' + $scope.report.organization.admin0name;
 
 				// report dashboard model
