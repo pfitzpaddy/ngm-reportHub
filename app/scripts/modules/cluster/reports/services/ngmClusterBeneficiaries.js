@@ -451,7 +451,9 @@ angular.module( 'ngmReportHub' )
         var selected = [];
         $beneficiary.unit_type_id = $data;
         if( $beneficiary.unit_type_id ) {
-          selected = $filter('filter')( lists.units, { unit_type_id: $beneficiary.unit_type_id }, true);
+          if ( lists && lists.units && lists.units.length  ) {
+            selected = $filter('filter')( lists.units, { unit_type_id: $beneficiary.unit_type_id }, true);
+          }
           if( selected && selected.length ) {
             $beneficiary.unit_type_name = selected[0].unit_type_name;
           }
@@ -467,7 +469,6 @@ angular.module( 'ngmReportHub' )
       // display delivery ( cash )
       displayCashDelivery: function( lists, $data, $beneficiary ) {
         var selected = [];
-        console.log(lists)
         $beneficiary.mpc_delivery_type_id = $data;
         if( $beneficiary.mpc_delivery_type_id ) {
           // selection

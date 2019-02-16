@@ -170,6 +170,10 @@ angular
 
 			// project list
 			.when( '/cluster/projects', {
+				redirectTo: '/cluster/projects/all'
+			})
+			// project list
+			.when( '/cluster/projects/:cluster_id', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterProjectProjectsCtrl',
 				resolve: {
@@ -178,8 +182,12 @@ angular
 					}],
 				}
 			})
-			// project list by organization
-			.when( '/cluster/projects/:organization_id', {
+			// project organization
+			.when( '/cluster/projects/organization/:organization_id', {
+				redirectTo: '/cluster/projects/organization/:organization_id/all'
+			})
+			// project organization
+			.when( '/cluster/projects/organization/:organization_id/:cluster_id', {				
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterProjectProjectsCtrl',
 				resolve: {
@@ -187,7 +195,7 @@ angular
 						return ngmAuth.hasRole( 'ADMIN' );
 					}],
 				}
-			})			
+			})
 			// project summary
 			.when( '/cluster/projects/summary/:project', {
 				templateUrl: '/views/app/dashboard.html',

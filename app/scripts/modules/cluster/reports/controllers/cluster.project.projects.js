@@ -34,6 +34,21 @@ angular.module( 'ngmReportHub' )
 			// subtitle
 			subtitle: ngmUser.get().cluster + ' projects for ' + ngmUser.get().organization + ' ' + ngmUser.get().admin0name,
 
+			// get url
+			getMenuUrl: function( cluster_id ){
+
+				// default
+				var url = '/desk/#/cluster/projects';
+				
+				// if org
+				if ( $route.current.params.organization_id ) {
+					url += '/organization/' + $route.current.params.organization_id;
+				}
+				url += '/' + cluster_id;
+				
+				return url;
+			},
+
 			// organization
 			getOrganizationHref: function() {
 				var href = '#/cluster/organization';
@@ -57,35 +72,73 @@ angular.module( 'ngmReportHub' )
 				return request;
 			},
 
+			// set the header titles
+			setTitles: function(){
+				
+				// if org_id, get org data
+				if ( $route.current.params.organization_id ) {
+
+					// fetch org data
+					ngmData
+						.get( $scope.report.getOrganization( $scope.report.organization_id ) )
+						.then( function( organization ){
+								
+							// set titles
+							$scope.model.header.download.downloads[0].request.data.report = organization.organization_tag  +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
+							$scope.model.header.title.title = organization.admin0name.toUpperCase().substring( 0, 3 ) + ' | ' + organization.organization + ' | Projects';
+							$scope.model.header.subtitle.title = organization.cluster + ' projects for ' + organization.organization + ' ' + organization.admin0name;
+
+						});
+
+				}
+			},
+
+			// set menu
+			setMenu: function(){
+				// get menu
+				ngmData
+					.get( request = {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/cluster/project/getProjectSectors',
+									data: { organization_id: $scope.report.organization_id }
+					} )
+					.then( function( sectors ){
+
+						// for each sector
+						angular.forEach( sectors, function( d, i ){
+							$scope.model.menu[ 0 ].rows.push({
+								'title': d.cluster,
+								'param': 'cluster_id',
+								'active': d.cluster,
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': $scope.report.getMenuUrl( d.cluster_id )
+							});
+						});
+					});		
+			},
+
 			// fetches request for project list
 			getProjectRequest: function( project_status ) {
 
-				console.log( $scope.report.organization_id )
-				console.log( project_status )
+				// filter
+				var filter = {
+						organization_id: $scope.report.organization_id,
+						project_status: project_status
+					}
 
-				var filter;
-
+				// add cluster
 				if ( $scope.report.cluster_id !== 'all' ) {
-					filter = {
-						organization_id: $scope.report.organization_id,
-						cluster_id: $scope.report.cluster_id,
-						project_status: project_status
-					}
-				} else {
-					filter = {
-						organization_id: $scope.report.organization_id,
-						project_status: project_status
-					}
+					filter = angular.merge( filter, { cluster_id: $scope.report.cluster_id } );
 				}
 
 				// get projects
 				var request = {
 							method: 'POST',
 							url: ngmAuth.LOCATION + '/api/cluster/project/getProjectsList',
-							data: {
-								filter: filter
-							}
+							data: { filter: filter }
 						}
+
+				// return
 				return request;
 
 			},
@@ -103,7 +156,7 @@ angular.module( 'ngmReportHub' )
 
 				// sector
 				$scope.report.cluster_id = 
-						$route.current.params.cluster_id ? $route.current.params.cluster_id : 'all';
+						$route.current.params.cluster_id ? $route.current.params.cluster_id : ngmUser.get().cluster_id;
 
 				// report dashboard model
 				$scope.model = {
@@ -157,6 +210,7 @@ angular.module( 'ngmReportHub' )
 						}
 					},
 					menu:[{
+						'search': true,
 						'id': 'search-sector',
 						'icon': 'camera',
 						'title': 'Sector',
@@ -166,7 +220,7 @@ angular.module( 'ngmReportHub' )
 							'param': 'cluster_id',
 							'active': 'all',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': ''
+							'href': $scope.report.getMenuUrl( 'all' )
 						}]
 					}],
 					rows: [{
@@ -232,24 +286,11 @@ angular.module( 'ngmReportHub' )
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;
 
-				// if org_id, get org data
-				if ( $route.current.params.organization_id ) {
-
-					// fetch org data
-					ngmData
-						.get( $scope.report.getOrganization( $scope.report.organization_id ) )
-						.then( function( organization ){
-
-							console.log( $route.current.params.organization_id );
-								
-							// set titles
-							$scope.model.header.download.downloads[0].request.data.report = organization.organization_tag  +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
-							$scope.model.header.title.title = organization.admin0name.toUpperCase().substring( 0, 3 ) + ' | ' + organization.organization + ' | Projects';
-							$scope.model.header.subtitle.title = organization.cluster + ' projects for ' + organization.organization + ' ' + organization.admin0name;
-
-						});
-
-				}
+				// set title
+				$scope.report.setTitles();
+				
+				// set menus
+				$scope.report.setMenu();
 
 			}
 

@@ -1,6 +1,10 @@
 
 <style>	
 
+	.collection .collection-item.avatar .title {
+    font-size: 22px;
+	}
+
 	.nav-list-search {
 		margin-top: 6px;
 		background-color: white;
@@ -71,35 +75,34 @@
 
     	<div class="row valign-wrapper">
 
-    		<div class="col s12 m7">
+    	<!-- row s12 -->
+			<div class="col s12">
 
-    			<div ng-if="!item.project_code">
-						<a href="#/cluster/projects/summary/{{ item.id }}" title="Update project {{ item.id }}">
-							<i class="material-icons circle white teal-text">{{ list.icon }}</i>
-							<span class="title truncate">{{ item.project_title }}</span>
-							<p align="justify" style="padding:10px 0px 10px 0px;">
-								{{ item.project_description }}
-							</p>
-						</a>
-					</div>
-
-					<div ng-if="item.project_code">
-						<a href="#/cluster/projects/summary/{{ item.id }}" title="Update project {{ item.id }}">
-							<i class="material-icons circle white teal-text">{{ list.icon }}</i>
-							<span class="title truncate">{{ item.project_title }}</span>
-							<p align="justify" style="padding:10px 0px 10px 0px;">
-								{{ item.project_code }} - {{ item.project_description }}
-							</p>
-						</a>
-					</div>
-
-				</div>
-
-				<div class="col s12 m5">
-					<a class="valign right" style="color:#616161;" href="#/cluster/projects/summary/{{ item.id }}" title="Update project {{ item.id }}" class="secondary-content">Updated: {{ list.updatedAt( item.updatedAt ) }}
-						<i class="material-icons valign right" style="color: teal">send</i>
+				<!-- no project code -->
+  			<div>
+					<a href="#/cluster/projects/summary/{{ item.id }}" title="Update project {{ item.id }}">
+						<i class="material-icons circle white teal-text">{{ list.icon }}</i>
+						<span class="title truncate">{{ item.project_title }}</span>
 					</a>
-
+					<a style="color:#616161; font-weight: 400;" 
+								href="#/cluster/projects/summary/{{ item.id }}" 
+								title="Update project {{ item.id }}">Updated: {{ list.updatedAt( item.updatedAt ) }}		
+					</a>
+					<br/>
+					<br/>
+					<a title="Update project {{ item.id }}"
+								href="#/cluster/projects/summary/{{ item.id }}"
+								style="color:#616161;">
+						<p align="justify">
+							<span ng-if="!item.project_code">
+								{{ item.project_description }}
+							</span>
+							<span ng-if="item.project_code">
+								<span style="font-weight: 400;">{{ item.project_code }}:</span> {{ item.project_description }}
+							</span>
+						</p>
+					</a>
+					<br/>
 				</div>
 
 			</div>
