@@ -210,7 +210,7 @@ angular.module( 'ngmReportHub' )
 						}
 					},
 					menu:[{
-						'search': true,
+						// 'search': true,
 						'id': 'search-sector',
 						'icon': 'camera',
 						'title': 'Sector',
@@ -244,8 +244,8 @@ angular.module( 'ngmReportHub' )
 								config: {
 									titleIcon: 'alarm_on',
 									// color: 'teal lighten-4',
-									color: 'blue lighten-4',
-									// textColor: 'white-text',
+									color: 'blue',
+									textColor: 'white-text',
 									title: 'Active Projects',
 									icon: 'edit',
 									request: $scope.report.getProjectRequest( 'active' )
@@ -261,7 +261,8 @@ angular.module( 'ngmReportHub' )
 								config: {
 									titleIcon: 'done_all',
 									// color: 'lime lighten-4',
-									color: 'blue lighten-4',
+									color: 'blue',
+									textColor: 'white-text',
 									title: 'Completed Projects',
 									icon: 'done',
 									request: $scope.report.getProjectRequest( 'complete' )

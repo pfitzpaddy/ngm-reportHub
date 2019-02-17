@@ -3188,18 +3188,18 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'host_community',
             site_type_name: 'Host Community'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_wash,
-            site_type_id: 'nutrition_feeding_center',
-            site_type_name: 'Nutrition Feeding Center'
-          },{
-            cluster_id: ngmClusterLists.all_sectors_minus_wash,
-            site_type_id: 'general_food_distribution_point',
-            site_type_name: 'General Food Distribution Point'
-          },{
-            cluster_id: ngmClusterLists.all_sectors_minus_wash,
-            site_type_id: 'e_voucher_store',
-            site_type_name: 'eVoucher Store'
-          },{
+          //   cluster_id: ngmClusterLists.all_sectors_minus_wash,
+          //   site_type_id: 'nutrition_feeding_center',
+          //   site_type_name: 'Nutrition Feeding Center'
+          // },{
+          //   cluster_id: ngmClusterLists.all_sectors_minus_wash,
+          //   site_type_id: 'general_food_distribution_point',
+          //   site_type_name: 'General Food Distribution Point'
+          // },{
+          //   cluster_id: ngmClusterLists.all_sectors_minus_wash,
+          //   site_type_id: 'e_voucher_store',
+          //   site_type_name: 'eVoucher Store'
+          // },{
             cluster_id: ngmClusterLists.all_sectors_minus_wash,
             site_type_id: 'refugee_block',
             site_type_name: 'Refugee Block'
