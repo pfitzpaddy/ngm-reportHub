@@ -44,7 +44,7 @@ angular.module('ngmReportHub')
 				var href = '#/cluster/projects';
 				if ( $scope.report.user.organization !== $scope.report.project.organization 
 							&& $scope.report.user.roles.indexOf( 'ADMIN' ) ) {
-					href += '/' + $scope.report.project.organization_id;
+					href += '/organization/' + $scope.report.project.organization_id;
 				}
 				return href;
 			},
