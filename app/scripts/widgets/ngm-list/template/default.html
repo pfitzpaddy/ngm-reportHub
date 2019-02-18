@@ -92,10 +92,10 @@
 					<br/>
 
 					<!-- updated / submiteed -->
-					<div ng-if="list.title.indexOf('Active') !== -1">
+					<div ng-if="list.title.indexOf('Active') !== -1" style="font-weight:400">
 						Updated: {{ list.updatedAt( item.updatedAt ) }}
 					</div>
-					<div ng-if="list.title.indexOf('Complete') !== -1">
+					<div ng-if="list.title.indexOf('Complete') !== -1" style="font-weight:400">
 						Submitted: {{ list.updatedAt( item.updatedAt ) }}
 					</div>
 						
