@@ -80,44 +80,38 @@
 			<div class="col s12">
 
 				<!-- no project code -->
-  			<div>
-					<a href="#/cluster/projects/summary/{{ item.id }}" title="Update project {{ item.id }}">
-						<i class="material-icons circle white teal-text">{{ list.icon }}</i>
-						<span class="title truncate">{{ item.project_title }}</span>
-					</a>
+				<a href="#/cluster/projects/summary/{{ item.id }}" title="Update project {{ item.id }}">
+				<div>
+
+					<!-- title -->
+					<div style="color:#039be5; font-weight: 400;">
+						{{ item.cluster }} Sector
+					</div>
+					<i class="material-icons circle white teal-text">{{ list.icon }}</i>
+					<span class="title truncate">{{ item.project_title }}</span>
+					<br/>
 
 					<!-- updated / submiteed -->
 					<div ng-if="list.title.indexOf('Active') !== -1">
-						<a style="color:#616161; font-weight: 400;" 
-									href="#/cluster/projects/summary/{{ item.id }}" 
-									title="Update project {{ item.id }}">Updated: {{ list.updatedAt( item.updatedAt ) }}		
-						</a>
+						Updated: {{ list.updatedAt( item.updatedAt ) }}
 					</div>
 					<div ng-if="list.title.indexOf('Complete') !== -1">
-						<a style="color:#616161; font-weight: 400;" 
-									href="#/cluster/projects/summary/{{ item.id }}" 
-									title="Update project {{ item.id }}">Submitted: {{ list.updatedAt( item.updatedAt ) }}		
-						</a>
+						Submitted: {{ list.updatedAt( item.updatedAt ) }}
 					</div>
-					
-					<br/>
-					<a title="Update project {{ item.id }}"
-								href="#/cluster/projects/summary/{{ item.id }}"
-								style="color:#616161;">
-						<div style="color:#039be5; font-weight: 400;">
-							{{ item.cluster }} Sector
-						</div>
-						<p align="justify" style="max-height:200px;">
-							<span ng-if="!item.project_code">
-								{{ item.project_description | limitTo:500 }}...
-							</span>
-							<span ng-if="item.project_code">
-								<span style="font-weight: 400;">{{ item.project_code }}:</span> {{ item.project_description | limitTo:500 }}...
-							</span>
-						</p>
-					</a>
+						
+					<!-- description -->
+					<p align="justify" style="max-height:200px;">
+						<span ng-if="!item.project_code">
+							{{ item.project_description | limitTo:500 }}...
+						</span>
+						<span ng-if="item.project_code">
+							<span style="font-weight: 400;">{{ item.project_code }}:</span> {{ item.project_description | limitTo:500 }}...
+						</span>
+					</p>
+
 					<br/>
 				</div>
+				</a>
 
 			</div>
 

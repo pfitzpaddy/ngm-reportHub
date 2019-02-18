@@ -141,7 +141,7 @@ angular.module('ngmReportHub')
 								card: 'white grey-text text-darken-2',
 								config: {
 									titleIcon: 'alarm_on',
-									color: 'teal lighten-1',
+									color: 'indigo lighten-1',
 									textColor: 'white-text',
 									title: 'Progress Update ToDo',
 									hoverTitle: 'Update',
@@ -168,7 +168,7 @@ angular.module('ngmReportHub')
 								card: 'white grey-text text-darken-2',
 								config: {
 									titleIcon: 'done_all',
-									color: 'teal lighten-1',
+									color: 'indigo lighten-1',
 									textColor: 'white-text',
 									title: 'Progress Update Complete',
 									hoverTitle: 'View',
