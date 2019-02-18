@@ -102,7 +102,7 @@ angular.module('ngmReportHub')
 							// 	}
 							// },{
 								type: 'csv',
-								color: 'blue lighten-2',
+								color: 'light-blue lighten-4',
 								icon: 'assignment',
 								hover: 'Download ' + $scope.report.project.project_title + ' as CSV',
 								request: {

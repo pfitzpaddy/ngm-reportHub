@@ -244,7 +244,7 @@ angular.module( 'ngmReportHub' )
 								config: {
 									titleIcon: 'alarm_on',
 									// color: 'teal lighten-4',
-									color: 'blue',
+									color: 'blue lighten-1',
 									textColor: 'white-text',
 									title: 'Active Projects',
 									icon: 'edit',
@@ -261,7 +261,7 @@ angular.module( 'ngmReportHub' )
 								config: {
 									titleIcon: 'done_all',
 									// color: 'lime lighten-4',
-									color: 'blue',
+									color: 'blue lighten-1',
 									textColor: 'white-text',
 									title: 'Completed Projects',
 									icon: 'done',
