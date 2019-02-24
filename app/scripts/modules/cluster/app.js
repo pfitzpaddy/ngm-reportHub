@@ -324,6 +324,9 @@ angular
 			.when( '/cluster/admin/emro/ur', {
 				redirectTo: '/cluster/admin/emro/ur/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
+			.when( '/cluster/admin/emro/ye', {
+				redirectTo: '/cluster/admin/emro/ye/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
+			})
 
 			// EURO
 			.when( '/cluster/admin/euro', {
@@ -471,6 +474,9 @@ angular
 			})
 			.when( '/cluster/5w/emro/ur', {
 				redirectTo: '/cluster/5w/emro/ur/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/5w/emro/ye', {
+				redirectTo: '/cluster/5w/emro/ye/all/all/all/all/all/all/2018-01-01/' + moment().format('YYYY-MM-DD')
 			})
 
 			// SEARO

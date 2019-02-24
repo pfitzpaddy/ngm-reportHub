@@ -402,6 +402,12 @@ angular.module('ngmReportHub')
 										'active': 'sy',
 										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 										'href': '/desk/#/cluster/5w/emro/sy'
+									},{
+										'title': 'Yemen',
+										'param': 'admin0pcode',
+										'active': 'ye',
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#/cluster/5w/emro/ye'
 									}]
 								},
 								'searo': {

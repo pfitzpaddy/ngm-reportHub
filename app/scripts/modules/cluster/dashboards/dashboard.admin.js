@@ -775,6 +775,12 @@ angular.module('ngmReportHub')
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 								'href': '/desk/#/cluster/admin/euro/ua'
 							}, {
+								'title': 'Yemen',
+								'param': 'admin0pcode',
+								'active': 'ye',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/emro/ye'
+							}, {
 								'title': 'Nigeria',
 								'param': 'admin0pcode',
 								'active': 'ng',
@@ -836,6 +842,12 @@ angular.module('ngmReportHub')
 								'active': 'sy',
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 								'href': '/desk/#/cluster/admin/emro/sy'
+							}, {
+								'title': 'Yemen',
+								'param': 'admin0pcode',
+								'active': 'ye',
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/cluster/admin/emro/ye'
 							}]
 						},
 						'searo': {
