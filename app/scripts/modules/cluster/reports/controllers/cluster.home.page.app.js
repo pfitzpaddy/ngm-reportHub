@@ -32,7 +32,7 @@ angular.module( 'ngmReportHub' )
 			user: ngmUser.get(),
 
 			// org id
-			organization_id: organization_id,			
+			organization_id: organization_id,
 
 			// get organization
 			getOrganization: function( organization_id ){
@@ -82,6 +82,57 @@ angular.module( 'ngmReportHub' )
 								config: {
 									user: $scope.report.user,
 									organization: $scope.report.organization,
+									// get team, sector, country, region panel title 
+									teamTitle: function() {	
+
+										// title, roles
+										var title;
+										var roles = $scope.report.user.roles;
+
+										// set title USER, ORG
+										if ( roles.indexOf( 'USER' ) >= 0 || roles.indexOf( 'ORG' ) >= 0 ) {
+											title = $scope.report.user.organization + ' Team';
+										}
+
+										// set title CLUSTER
+										if ( roles.indexOf( 'CLUSTER' ) >= 0 ) {
+											title = $scope.report.user.cluster + ' Sector Partners';
+										}
+
+										// set title COUNTRY
+										if ( roles.indexOf( 'COUNTRY' ) >= 0 ) {
+											title = $scope.report.user.admin0name + ' Partners';
+										}
+
+										// set title REGION_ORG
+										if ( roles.indexOf( 'REGION_ORG' ) >= 0 ) {
+											title = $scope.report.user.adminRname + ' Regional ' + $scope.report.user.organization + ' Team' ;
+										}
+
+										// set title REGION
+										if ( roles.indexOf( 'REGION' ) >= 0 ) {
+											title = $scope.report.user.adminRname + ' Regional Partners';
+										}
+
+										// set title HQ_ORG
+										if ( roles.indexOf( 'HQ_ORG' ) >= 0 ) {
+											title = $scope.report.user.organization + ' Global Team' ;
+										}
+
+										// set title HQ
+										if ( roles.indexOf( 'HQ' ) >= 0 ) {
+											title = 'HQ ReportHub Partners' ;
+										}
+
+										// set title SUPERADMIN
+										if ( roles.indexOf( 'SUPERADMIN' ) >= 0 ) {
+											title = 'ReportHub Users' ;
+										}
+
+										// return
+										return title;
+
+									},
 									// get project href
 									getProjectsHref: function() {
 										var href = '#/cluster/projects';
@@ -95,7 +146,7 @@ angular.module( 'ngmReportHub' )
 										return href;
 									},
 									report_date: moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD'),
-									templateUrl: '/scripts/modules/cluster/views/cluster.organization.html',
+									templateUrl: '/scripts/modules/cluster/views/cluster.home.page.html',
 					      }
 					    }]
 					  }]

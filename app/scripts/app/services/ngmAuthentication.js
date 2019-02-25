@@ -141,24 +141,6 @@ angular.module('ngmReportHub')
 			DESCRIPTION: 'The CLUSTER role is to manage the partners and projects of your Sector'
 		},
 		{ 
-			ROLE: 'ADMIN',
-			EDIT: true,
-			EDIT_RESTRICTED: ['cluster_id', 'admin0pcode', 'adminRpcode'],
-			EDIT_USER: true,
-			EDIT_USER_ROLES: [ 'USER', 'ORG', 'CLUSTER' ],
-			EDIT_USER_RESTRICTED: ['cluster_id', 'admin0pcode', 'adminRpcode'],
-			ADMIN_RESTRICTED: [ 'admin0pcode', 'cluster_id' ],
-			ADMIN_MENU: [ 'organization_tag', 'report_id' ],
-			DASHBOARD_RESTRICTED: [ 'adminRpcode', 'admin0pcode', 'cluster_id' ],
-			DASHBOARD_MENU: [ 'organization_tag' ],
-			DASHBOARD_DOWNLOAD: true,
-			DASHBOARD_DOWNLOAD_RESTRICTED: ['cluster_id', 'admin0pcode', 'adminRpcode'],
-			TEAM_RESTRICTED: [ 'admin0pcode', 'cluster_id' ],
-			TEAM_MENU: [ 'organization_tag' ],
-			LEVEL: 3,
-			DESCRIPTION: 'The ADMIN is to manage the partners and projects of your COUNTRY'
-		},
-		{ 
 			ROLE: 'COUNTRY',
 			EDIT: false,
 			EDIT_RESTRICTED: ['admin0pcode', 'adminRpcode'],
@@ -175,6 +157,24 @@ angular.module('ngmReportHub')
 			TEAM_MENU: [ 'cluster_id', 'organization_tag' ],
 			LEVEL: 4,
 			DESCRIPTION: 'The COUNTRY role acts as an observer and can view (but not edit) all Sectors'
+		},
+		{ 
+			ROLE: 'COUNTRY_ADMIN',
+			EDIT: true,
+			EDIT_RESTRICTED: [ 'admin0pcode', 'adminRpcode'],
+			EDIT_USER: true,
+			EDIT_USER_ROLES: [ 'USER', 'ORG', 'CLUSTER', 'COUNTRY' ],
+			EDIT_USER_RESTRICTED: ['admin0pcode', 'adminRpcode'],
+			ADMIN_RESTRICTED: [ 'admin0pcode' ],
+			ADMIN_MENU: [ 'cluster_id', 'report_id', 'organization_tag' ],
+			DASHBOARD_RESTRICTED: [ 'admin0pcode', 'adminRpcode' ],
+			DASHBOARD_MENU: [ 'cluster_id', 'organization_tag' ],
+			DASHBOARD_DOWNLOAD: true,
+			DASHBOARD_DOWNLOAD_RESTRICTED: ['admin0pcode', 'adminRpcode'],
+			TEAM_RESTRICTED: [ 'admin0pcode' ],
+			TEAM_MENU: [ 'cluster_id', 'organization_tag' ],
+			LEVEL: 4,
+			DESCRIPTION: 'The COUNTRY ADMIN manages the partners and projects of your COUNTRY'
 		},
 		{ 
 			ROLE: 'REGION_ORG',
