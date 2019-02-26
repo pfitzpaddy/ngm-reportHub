@@ -69,7 +69,7 @@
 							      </td>
 
 							      <!-- admin2 -->
-							      <td ng-if="location.site_type_id !== 'host_community' &&
+							      <td ng-if="( location.site_type_id !== 'host_community' && location.site_type_id !== 'cyclone_shelter' ) &&
 							      						ngmCbLocations.showUnion( project.definition.target_locations )">
 							        -
 							      </td>
@@ -78,15 +78,26 @@
 							        				editable-select="location.admin2pcode"
 							        				e-name="admin2pcode"
 							        				e-form="locationform"
-							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | admin2Cxbfilter"
-							        				e-ng-disabled="location.site_type_id !== 'host_community'"
+							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | admin2CxbHostCommunityfilter"
+							        				e-ng-disabled="location.site_type_id !== 'host_community' && location.site_type_id !== 'cyclone_shelter'"
+							        				e-required>
+							          {{ ngmCbLocations.displayAdmin2( project.lists, $index, $data, location ) }}
+							        </span>
+							      </td>
+							      <td ng-if="location.site_type_id === 'cyclone_shelter'">
+							        <span e-placeholder="Select..."
+							        				editable-select="location.admin2pcode"
+							        				e-name="admin2pcode"
+							        				e-form="locationform"
+							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | admin2CycloneShelterCxbfilter"
+							        				e-ng-disabled="location.site_type_id !== 'host_community' && location.site_type_id !== 'cyclone_shelter'"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin2( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
 
 							      <!-- select existing: drop down -->
-							      <td ng-if="location.site_type_id === 'host_community'">
+							      <td ng-if="( location.site_type_id === 'host_community' || location.site_type_id === 'cyclone_shelter' )">
 							        <span e-placeholder="Select..."
 							        			editable-select="location.site_id"
 							        			e-name="site_id"
@@ -101,7 +112,7 @@
 							        </span>
 							      </td>
 							      <!-- select existing: drop down - no admin2pcode filter -->
-							      <td ng-if="location.site_type_id !== 'host_community'">
+							      <td ng-if="location.site_type_id !== 'host_community' && location.site_type_id !== 'cyclone_shelter'">
 							        <span e-placeholder="Select..."
 							        			editable-select="location.site_id"
 							        			e-name="site_id"

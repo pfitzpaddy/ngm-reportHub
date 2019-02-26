@@ -6,7 +6,7 @@
  *
  */
 angular.module( 'ngmReportHub' )
-  .filter( 'admin2Cxbfilter', [ '$filter', function ( $filter ) {
+  .filter( 'admin2CxbHostCommunityfilter', [ '$filter', function ( $filter ) {
     
     // Host Communities of Reach data capture Teknaf, Ukhia
     var host_community_filter = [ '202290', '202294' ];
@@ -15,6 +15,19 @@ angular.module( 'ngmReportHub' )
     return function ( item ) {
       var list = item.filter(function( i ) {
         return host_community_filter.indexOf( i.admin1pcode ) !== -1; 
+      });
+      return list;
+    };
+  }])
+  .filter( 'admin2CycloneShelterCxbfilter', [ '$filter', function ( $filter ) {
+    
+    // Host Communities of Reach data capture Teknaf, Ukhia
+    var cyclone_shelter = [ '20229415', '20229431', '20229479', '20229463', '20229447', '20229079' ]
+
+    // filter 
+    return function ( item ) {
+      var list = item.filter(function( i ) {
+        return cyclone_shelter.indexOf( i.admin2pcode ) !== -1; 
       });
       return list;
     };
@@ -28,7 +41,7 @@ angular.module( 'ngmReportHub' )
       showUnion: function( target_location ){
         var display = false;
         angular.forEach( target_location, function( d, i ){
-          if ( d.site_type_id === 'host_community' ) {
+          if ( d.site_type_id === 'host_community' || d.site_type_id === 'cyclone_shelter' ) {
             display = true;
           }
         });
