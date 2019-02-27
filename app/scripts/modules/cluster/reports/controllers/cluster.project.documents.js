@@ -109,7 +109,7 @@ angular.module('ngmReportHub')
 							'title': $scope.report.subtitle
 						},
 						download: {
-							'class': 'col s12 m3 l3 hide',
+							'class': 'col s12 m3 l3',
 							downloads: [{
 								type: 'zip',
 								color: 'blue lighten-2',
@@ -127,8 +127,8 @@ angular.module('ngmReportHub')
 										username: $scope.report.user.username,
 										email: $scope.report.user.email,
 										dashboard: $scope.report.project.project_title,
-										theme: 'cluster_project_details',
-										format: 'csv',
+										theme: 'cluster_project_documents',
+										format: 'zip',
 										url: $location.$$path
 									}
 								}

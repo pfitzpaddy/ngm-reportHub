@@ -178,8 +178,8 @@
 						</div>
 					</div>
 				</li>
-				<li class="collection-item avatar" ng-if="!list.data" >
-					<span class="title text-darken-2" style="font-weight: 400;"> No Project Document Yet</span>
+				<li class="collection-item avatar" ng-if="!list.data.length" >
+					<p style="font-size: 17px; padding:10px 0px 10px 0px;">You have no project documents yet</p>
 				</li>
 				<li class="collection-item avatar" ng-if="list.data.length > list.itemsPerPage" style="padding:25px 10px 20px 10px;">
 					<dir-pagination-controls pagination-id="list.id"></dir-pagination-controls>
@@ -227,8 +227,8 @@
 						</div>
 					</div>
 				</li>
-				<li class="collection-item avatar" ng-if="!list.data">
-					<span class="title text-darken-2" style="font-weight: 400;"> No Project Document Yet</span>				
+				<li class="collection-item avatar" ng-if="!list.data.length">
+					<p style="font-size: 17px; padding:10px 0px 10px 0px;">You have no project documents yet</p>
 				</li>
 				<li class="collection-item avatar" ng-if="list.data.length > list.itemsPerPageGrid && grid" style="padding:25px 10px 20px 10px;">
 					<dir-pagination-controls pagination-id="list.id"></dir-pagination-controls>
