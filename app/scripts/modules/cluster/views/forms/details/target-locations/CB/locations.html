@@ -80,6 +80,7 @@
 							        				e-form="locationform"
 							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | admin2CxbHostCommunityfilter"
 							        				e-ng-disabled="location.site_type_id !== 'host_community' && location.site_type_id !== 'cyclone_shelter'"
+							        				e-ng-change="ngmCbLocations.updateAdmin2( project.lists, $index, $data, location );"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin2( project.lists, $index, $data, location ) }}
 							        </span>
@@ -91,6 +92,7 @@
 							        				e-form="locationform"
 							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | admin2CycloneShelterCxbfilter"
 							        				e-ng-disabled="location.site_type_id !== 'host_community' && location.site_type_id !== 'cyclone_shelter'"
+							        				e-ng-change="ngmCbLocations.updateAdmin2( project.lists, $index, $data, location );"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin2( project.lists, $index, $data, location ) }}
 							        </span>

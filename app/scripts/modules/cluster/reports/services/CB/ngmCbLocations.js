@@ -120,6 +120,31 @@ angular.module( 'ngmReportHub' )
         return selected && selected.length ? selected[0].admin2name : '-';
       },
 
+      // on change
+      updateAdmin2: function( lists, $index, $data, target_location ){
+
+        // attr
+        var selected = [];
+
+        // filter by site_type
+        target_location.admin2pcode = $data;
+
+        // if site_id
+        if( target_location.admin2pcode ) {
+          // select site type
+          selected = $filter('filter')( lists.adminSites, { admin2pcode: target_location.admin2pcode }, true );
+          if( selected && selected.length ){
+            delete selected[0].id;
+            selected[0].site_lng = selected[0].admin2lng;
+            selected[0].site_lat = selected[0].admin2lat;
+            selected[0].site_id = selected[0].admin2pcode;
+            selected[0].site_name = selected[0].admin2name + ' UNION';
+            angular.merge( target_location, selected[0] );
+          }
+        }
+
+      },
+
       // site
       displaySites: function( lists, $index, $data, target_location ){
 
