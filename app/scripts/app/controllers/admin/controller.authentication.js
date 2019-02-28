@@ -377,7 +377,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             // add defaults as admin
             // $scope.panel.user.app_home = '/immap/';
             $scope.panel.user.app_home = '/cluster/admin/' + $scope.panel.user.adminRpcode.toLowerCase() + '/' + $scope.panel.user.admin0pcode.toLowerCase();
-            $scope.panel.user.roles = [ 'ADMIN', 'USER' ];
+            $scope.panel.user.roles = [ 'COUNTRY_ADMIN', 'USER' ];
             
           } else {
             delete $scope.panel.user.app_home;
@@ -410,13 +410,25 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 					if (document.getElementById(id).checked){						
 						var values = document.getElementById(id).value;
 						if($scope.panel.user.roles.indexOf(values)=== -1){
-							$scope.panel.user.roles.push(values)
+							$scope.panel.user.roles.push(values);
+              // set landing page to admin
+              if ( user.roles.length > 1 ) {
+                user.app_home = '/cluster/admin/';
+              } 
+              // set landing page to org
+              if ( user.roles.length === 1 && user.roles.indexOf( 'USER' ) !== -1 ) {
+                user.app_home = '/cluster/organization/';
+              }
 						}						
 					} else{
 						var values = document.getElementById(id).value;
 						if ($scope.panel.user.roles.indexOf(values) > -1) {
 							var index =$scope.panel.user.roles.indexOf(values);
-							$scope.panel.user.roles.splice(index,1);							
+							$scope.panel.user.roles.splice(index,1);
+              // set landing page to org
+              if ( user.roles.length === 1 && user.roles.indexOf( 'USER' ) !== -1 ) {
+                user.app_home = '/cluster/organization/';
+              }
 						}
 					}
 				},

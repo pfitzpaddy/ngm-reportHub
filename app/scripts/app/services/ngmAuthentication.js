@@ -156,7 +156,7 @@ angular.module('ngmReportHub')
 			TEAM_RESTRICTED: [ 'admin0pcode' ],
 			TEAM_MENU: [ 'cluster_id', 'organization_tag' ],
 			LEVEL: 4,
-			DESCRIPTION: 'The COUNTRY role acts as an observer and can view (but not edit) all Sectors'
+			DESCRIPTION: 'The COUNTRY role acts as an observer and can view (but not edit) all Sectors of your COUNTRY'
 		},
 		{ 
 			ROLE: 'COUNTRY_ADMIN',
@@ -174,7 +174,7 @@ angular.module('ngmReportHub')
 			TEAM_RESTRICTED: [ 'admin0pcode' ],
 			TEAM_MENU: [ 'cluster_id', 'organization_tag' ],
 			LEVEL: 4,
-			DESCRIPTION: 'The COUNTRY ADMIN manages the partners and projects of your COUNTRY'
+			DESCRIPTION: 'The COUNTRY_ADMIN manages the partners and projects of your COUNTRY'
 		},
 		{ 
 			ROLE: 'REGION_ORG',
@@ -249,7 +249,7 @@ angular.module('ngmReportHub')
 			EDIT: true,
 			EDIT_RESTRICTED: [],
 			EDIT_USER: true,
-			EDIT_USER_ROLES: [ 'USER', 'ORG', 'CLUSTER', 'COUNTRY', 'REGION_ORG', 'REGION', 'HQ_ORG', 'HQ', 'SUPERADMIN'],
+			EDIT_USER_ROLES: [ 'USER', 'ORG', 'CLUSTER', 'COUNTRY', 'COUNTRY_ADMIN', 'REGION_ORG', 'REGION', 'HQ_ORG', 'HQ', 'SUPERADMIN'],
 			EDIT_USER_RESTRICTED: [],
 			ADMIN_RESTRICTED: [],
 			ADMIN_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'report_id', 'organization_tag' ],
