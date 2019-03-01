@@ -172,10 +172,26 @@ angular.module('ngmReportHub')
 																		</div>`,
 									completeMessage: '<i class="medium material-icons" style="color:#009688;">cloud_done</i><br/><h5 style="font-weight:300;">Complete!</h5><br/><h5 style="font-weight:100;"><div id="add_doc" class="btn"><i class="small material-icons">add_circle</i></div></h5></div>',
 									url: ngmAuth.LOCATION + '/api/uploadGDrive',
-									acceptedFiles: 'image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation',
+									acceptedFiles: 'image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/zip,.zip,text/plain,text/csv,video/mp4,application/mp4',
 									maxFiles: 3,
 									accept:function(file,done){
-										done(); 
+										var ext = file.name.split('.').pop();
+										if (file.type.indexOf('image') < 0 
+												&& file.type.indexOf('officedocument') < 0 	
+												&& file.type !== 'application/msword'
+												&& file.type !== 'application/vnd.ms-excel'
+												&& file.type !== 'application/vnd.ms-powerpoint' 
+												&& file.type !== 'application/pdf'
+												&& ext !== 'mp4' 
+												&& ext !== 'zip'
+												&& ext !== 'txt' 
+												&& ext !== 'csv'
+											){
+											this.removeFile(file);
+											$('#not-support-file').openModal({ dismissible: false });											
+										}else{
+											done(); 
+										}
 									},
 									addRemoveLinks: false,
 									autoProcessQueue:false,
@@ -219,7 +235,21 @@ angular.module('ngmReportHub')
 											if (ext == 'ppt' || ext == 'pptx') {
 												$(file.previewElement).find(".dz-image img").attr("src", "images/ppt.png");
 											}
-											if (ext !== 'doc' && ext !== 'docx' && ext !== 'doc' && ext !== 'xls' && ext !== 'xlsx' && ext !== 'ppt' && ext !== 'pptx' && ext !=='png'){
+											if(ext == 'zip'){
+												$(file.previewElement).find(".dz-image img").attr("src", "images/zipm.png");
+											}
+											if(ext == 'txt'){
+												$(file.previewElement).find(".dz-image img").attr("src", "images/txtm.png");
+											}
+											if (ext == 'mp4') {
+												$(file.previewElement).find(".dz-image img").attr("src", "images/mp4m.png");
+											}
+											if (ext !== 'pdf' && ext !== 'doc' 
+													&& ext !== 'docx' && ext !== 'doc' 
+													&& ext !== 'xls' && ext !== 'xlsx' 
+													&& ext !== 'ppt' && ext !== 'pptx' 
+													&& ext !=='png' && ext !== 'zip'
+													&& ext !== 'txt' && ext !== 'mp4'){
 												$(file.previewElement).find(".dz-image img").attr("src", "images/elsedoc.png");
 											}
 
@@ -308,7 +338,7 @@ angular.module('ngmReportHub')
 												Materialize.toast('Uploading...',3000, 'note');
 											}
 											$("#upload_doc").attr("disabled", true);
-											$("#delete_doc").attr("disabled", true);
+											// $("#delete_doc").attr("disabled", true);
 										})
 										
 										
@@ -330,15 +360,19 @@ angular.module('ngmReportHub')
 											$rootScope.$broadcast('refresh:doclist');
 										}
 									},
-									error:function(){
+									error:function(file,response){
 										document.querySelector(".percent-upload").style.display = 'none';									
 										document.querySelector(".dz-default.dz-message").style.display = 'block';
-										if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+
+										if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 ) {
 											myDropzone.removeAllFiles(true);
 											$timeout(function () {
-												msg = "Something went wrong! Please try again";
+
 												typ = 'error';
-												Materialize.toast(msg, 2000, typ);
+												Materialize.toast(response, 2000, typ);
+												if(response.indexOf('canceled')<0){
+													Materialize.toast('Upload canceled', 2000,typ);
+												}
 											}, 500);
 										}
 									}
@@ -376,6 +410,9 @@ angular.module('ngmReportHub')
 											if(text=='png'||text=='jpg'||text=='jpeg'){
 												return 'photo_size_select_actual'
 											}
+											if(text =='mp4'){
+												return 'play_arrow'
+											}
 											return 'attach_file'
 										},
 										extentionColor:function(text){
@@ -384,6 +421,9 @@ angular.module('ngmReportHub')
 												return '#2196f3 !important'
 											}
 											if (text == 'png' || text == 'jpg' || text == 'jpeg') {
+												return '#f44336 !important'
+											}
+											if (text == 'mp4') {
 												return '#f44336 !important'
 											}
 											return '#26a69a !important'

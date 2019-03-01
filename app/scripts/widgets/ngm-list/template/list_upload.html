@@ -166,16 +166,16 @@
 					<div class="secondary-content">
 
 						
-						<div data-position="bottom" data-tooltip="Preview" class="btn-floating  wave-effect blue tooltipped" 
-						ng-click="list.openModal('close-preview-file',item.fileid)">
+						<button data-position="bottom" data-tooltip="Preview" class="btn-floating  wave-effect blue tooltipped" 
+						ng-click="list.openModal('close-preview-file',item.fileid)" ng-disabled="item.filename_extension === '.csv'">
 							<i class="small material-icons">compare</i>
-						</div>
+						</button>
 						<a class="btn-floating  wave-effect tooltipped" data-position="bottom" data-tooltip="Download" ng-href="{{list.setDonwloadLink(item.fileid)}}">
 							<i class="small material-icons">cloud_download</i>
 						</a>
-						<div class="btn-floating  wave-effect red tooltipped" data-position="bottom" data-tooltip="Delete" ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
+						<button class="btn-floating  wave-effect red tooltipped" data-position="bottom" data-tooltip="Delete" ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
 							<i class="small material-icons">delete</i>
-						</div>
+						</button>
 					</div>
 				</li>
 				<li class="collection-item avatar" ng-if="!list.data.length" >
@@ -211,16 +211,16 @@
 									<div class="line">
 
 										<!-- use gdrive id file -->
-										<div class="btn-floating  wave-effect blue tooltipped" data-position="bottom" data-tooltip="Preview"
-										ng-click="list.openModal('close-preview-file',item.fileid)">
+										<button class="btn-floating  wave-effect blue tooltipped" data-position="bottom" data-tooltip="Preview"
+										ng-click="list.openModal('close-preview-file',item.fileid)" ng-disabled="item.filename_extension === '.csv'">
 											<i class="small material-icons">compare</i>
-										</div>
+										</button>
 										<a class="btn-floating  wave-effect space tooltipped" data-position="bottom" data-tooltip="Download" ng-href="{{list.setDonwloadLink(item.fileid)}}">
 											<i class="small material-icons">cloud_download</i>
 										</a>
-										<div class="btn-floating  wave-effect tooltipped red space tooltipped" data-position="bottom" data-tooltip="Delete"  ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
+										<button class="btn-floating  wave-effect tooltipped red space tooltipped" data-position="bottom" data-tooltip="Delete"  ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
 											<i class="small material-icons">delete</i>
-										</div>
+										</button>
 									</div>
 								</div>
 							</div>
