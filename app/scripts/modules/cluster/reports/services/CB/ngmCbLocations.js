@@ -22,7 +22,7 @@ angular.module( 'ngmReportHub' )
   .filter( 'admin2CycloneShelterCxbfilter', [ '$filter', function ( $filter ) {
     
     // Host Communities of Reach data capture Teknaf, Ukhia
-    var cyclone_shelter = [ '20229415', '20229431', '20229479', '20229463', '20229447', '20229079' ]
+    var cyclone_shelter = [ '20229479', '20229063', '20229099', '20229015', '20229031', '20229039', '20229047', '20229079', '20037357', '20229415', '20229431', '20229463', '20229447' ];
 
     // filter 
     return function ( item ) {
