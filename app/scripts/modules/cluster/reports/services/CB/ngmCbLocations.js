@@ -19,15 +19,28 @@ angular.module( 'ngmReportHub' )
       return list;
     };
   }])
-  .filter( 'admin2CycloneShelterCxbfilter', [ '$filter', function ( $filter ) {
+  .filter( 'admin2CxbRefugeeCampfilter', [ '$filter', function ( $filter ) {
     
     // Host Communities of Reach data capture Teknaf, Ukhia
-    var cyclone_shelter = [ '20229479', '20229063', '20229099', '20229015', '20229031', '20229039', '20229047', '20229079', '20037357', '20229415', '20229431', '20229463', '20229447' ];
+    var refugee_camp_filter = [ '20229015', '20229031', '20229479', '20229063', '2022907' ];
 
     // filter 
     return function ( item ) {
       var list = item.filter(function( i ) {
-        return cyclone_shelter.indexOf( i.admin2pcode ) !== -1; 
+        return refugee_camp_filter.indexOf( i.admin2pcode ) !== -1; 
+      });
+      return list;
+    };
+  }])
+  .filter( 'admin2CycloneShelterCxbfilter', [ '$filter', function ( $filter ) {
+    
+    // Host Communities of Reach data capture Teknaf, Ukhia
+    var cyclone_shelter_filter = [ '20229479', '20229063', '20229099', '20229015', '20229031', '20229039', '20229047', '20229079', '20037357', '20229415', '20229431', '20229463', '20229447' ];
+
+    // filter 
+    return function ( item ) {
+      var list = item.filter(function( i ) {
+        return cyclone_shelter_filter.indexOf( i.admin2pcode ) !== -1; 
       });
       return list;
     };
@@ -49,7 +62,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // clear the Union on site type change
-      changeSiteType: function( target_location ){
+      changeSiteType: function( target_location, site_type ){
         // admin2
         delete target_location.admin2pcode;
         delete target_location.admin2name;
@@ -87,6 +100,29 @@ angular.module( 'ngmReportHub' )
 
         // return name
         return selected && selected.length ? selected[0].site_type_name : '-';
+      },
+
+      // admin1
+      displayAdmin1: function( lists, $index, $data, target_location ){
+
+        // attr
+        var selected = [];
+
+        // filter by site_type
+        target_location.admin1pcode = $data;
+        // if admin1pcode
+        if( target_location.admin1pcode ) {
+          // select site type
+          selected = $filter('filter')( lists.adminSites, { admin1pcode: target_location.admin1pcode }, true );
+          if( selected && selected.length ){
+            delete selected[0].id;
+            target_location.admin1pcode = selected[0].admin1pcode;
+            target_location.admin1name = selected[0].admin1name;
+          }
+        }
+
+        // return name
+        return selected && selected.length ? selected[0].admin1name : '-';
       },
 
       // get admin2 filtered list
@@ -163,6 +199,14 @@ angular.module( 'ngmReportHub' )
             target_location.site_id = selected[0].site_id;
             target_location.site_name = selected[0].site_name;
           }
+        }
+
+        // for UNION display
+        if ( target_location.site_name && target_location.site_name.indexOf('UNION') !== -1  ) {
+          selected = [{ 
+            site_id: target_location.site_id,
+            site_name: target_location.site_name
+          }];
         }
 
         // return name

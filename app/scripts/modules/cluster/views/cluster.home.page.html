@@ -86,6 +86,23 @@
 <!-- CXB -->
 <div class="row" ng-if="panel.organization.admin0pcode === 'CB'">
   
+<!-- projects -->
+  <div class="col s12 m6">
+    <a href="{{ panel.getProjectsHref() }}">
+     <div class="card medium blue-grey darken-1 hoverable">
+      <div class="card-image" style="max-height:70%">
+        <img src="images/cluster/projects-{{ panel.organization.admin0pcode }}.jpg">
+      </div>
+      <div class="card-content white-text">
+        <p class="card-title">Projects</p>
+      </div>
+      <div class="card-action">
+        <a href="{{ panel.getProjectsHref() }}">Go to {{ panel.organization.organization }} Projects</a>
+      </div>
+    </div>
+    </a>
+  </div>
+
   <!-- team -->
   <div class="col s12 m6">
     <a href="#/team">
@@ -101,22 +118,6 @@
         </div>
       </div>
      </a>
-  </div>
-
-  <div class="col s12 m6">
-    <a href="{{ panel.getProjectsHref() }}">
-     <div class="card medium blue-grey darken-1 hoverable">
-      <div class="card-image" style="max-height:70%">
-        <img src="images/cluster/projects-{{ panel.organization.admin0pcode }}.jpg">
-      </div>
-      <div class="card-content white-text">
-        <p class="card-title">Projects</p>
-      </div>
-      <div class="card-action">
-        <a href="{{ panel.getProjectsHref() }}">Go to {{ panel.organization.organization }} Projects</a>
-      </div>
-    </div>
-    </a>
   </div>
 
 </div>
