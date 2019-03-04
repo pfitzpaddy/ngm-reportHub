@@ -23,6 +23,7 @@ angular.module( 'ngmReportHub' )
       // comphrensive list of all sectors - ever
       all_sectors: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter','wash' ],
       all_sectors_minus_wash: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
+      all_sectors_minus_wash_education: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
 
       // lists ( project, mpc transfers )
       setLists: function( project, transfers ) {
@@ -1606,18 +1607,18 @@ angular.module( 'ngmReportHub' )
           // default
           var beneficiaries = [{
             cluster_id: ngmClusterLists.all_sectors,
-            beneficiary_type_id: 'refugess',
-            beneficiary_type_name: 'Refugess'
+            beneficiary_type_id: 'refugees',
+            beneficiary_type_name: 'Refugees'
           },{
             cluster_id: ngmClusterLists.all_sectors,
             beneficiary_type_id: 'host_communities',
             beneficiary_type_name: 'Host Communities'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_wash,
+            cluster_id: ngmClusterLists.all_sectors_minus_wash_education,
             beneficiary_type_id: 'government_officials',
             beneficiary_type_name: 'Government Officials'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_wash,
+            cluster_id: ngmClusterLists.all_sectors_minus_wash_education,
             beneficiary_type_id: 'humanitarian_workers',
             beneficiary_type_name: 'Humanitarian Workers'
           }];

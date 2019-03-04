@@ -459,9 +459,15 @@ angular.module( 'ngmReportHub' )
           }
         }
         // if only unit
-        if( !selected && !selected.length && lists.units && lists.units.length === 1 ){
+        if( !$beneficiary.unit_type_id && lists.units && lists.units.length === 1 ){
+          // set beneficiary
           $beneficiary.unit_type_id = lists.units[0].unit_type_id;
           $beneficiary.unit_type_name = lists.units[0].unit_type_name;
+          // set selected
+          selected = [{
+            unit_type_id: $beneficiary.unit_type_id,
+            unit_type_name: $beneficiary.unit_type_name
+          }];
         }
         return selected.length ? selected[0].unit_type_name : '-';
       },
