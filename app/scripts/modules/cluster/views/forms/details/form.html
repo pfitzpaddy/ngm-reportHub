@@ -2,59 +2,59 @@
 <!-- cancel modal -->
 <div id="save-modal" class="modal">
   <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">done</i>Save Project</h4>
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">done</i>{{'save_project' | translate}}</h4>
     <!-- <p>'{{ project.definition.project_title }}' has been saved!</p> -->
-    <p>Do you want to Save this project?</p>
+    <p>{{'do_you_want_to_save_this_project' | translate}}?</p>
   </div>
   <div class="modal-footer">
-  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-    <a ng-click="project.save( true, false )" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'cancel_mayus' | translate}}</a>
+    <a ng-click="project.save( true, false )" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes' | translate}}</a>
   </div>
 </div>
 
 <!-- list modal -->
 <div id="list-modal" class="modal">
   <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Cancel New Project</h4>
-    <p>Are you sure you want to return to Projects?</p>
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>{{'cancel_new_project' | translate}}</h4>
+    <p>{{'are_you_sure_you_want_to_return_to_projects' | translate}}?</p>
   </div>
   <div class="modal-footer">
-  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-    <a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'cancel_mayus' | translate}}</a>
+    <a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes'|translate}}</a>
   </div>
 </div>
 
 <!-- list modal -->
 <div id="summary-modal" class="modal">
   <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Cancel Project Update</h4>
-    <p>Return to Project Summary</p>
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>{{'cancel_project_update' | translate}}</h4>
+    <p>{{'return_to_project_summary' | translate}}</p>
   </div>
   <div class="modal-footer">
   	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, Cancel Update!</a>
+    <a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes_cancel_update' | translate}}!</a>
   </div>
 </div>
 
 <div id="beneficiary-modal" class="modal">
   <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">group</i>Remove People in Need</h4>
-    <p>Remove People in Need from Project</p>
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">group</i>{{'remove_people_in_need' | translate}}</h4>
+    <p>{{'remove_people_in_need_from_project' | translate}}</p>
   </div>
   <div class="modal-footer">
   	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="project.removeTargetBeneficiary()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove People in Need!</a>
+    <a ng-click="project.removeTargetBeneficiary()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_people_in_need' | translate}}!</a>
   </div>
 </div>
 
 <div id="location-modal" class="modal">
   <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">location_on</i>Remove Project Location</h4>
-    <p>This will effect any existing monthly beneficiary reports</p>
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">location_on</i>{{'remove_project_location' | translate}}</h4>
+    <p>{{'this_will_affect_any_existing_monthly_beneficiary_reports' | translate}}</p>
   </div>
   <div class="modal-footer">
   	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="project.removeLocation()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove location!</a>
+    <a ng-click="project.removeLocation()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_location' | translate}}!</a>
   </div>
 </div>
 
@@ -65,7 +65,7 @@
 
 			<!--  -->
 			<button class="waves-effect waves-light btn" ng-click="project.modalConfirm('list-modal')">
-				<i class="material-icons left">keyboard_return</i>Back to Projects
+				<i class="material-icons left">keyboard_return</i>{{'back_to_projects' | translate}}
 			</button>
 
 		</div>
@@ -78,10 +78,10 @@
 
 			<!--  -->
 			<button class="waves-effect waves-light btn-flat" ng-click="project.modalConfirm('summary-modal')">
-				<i class="material-icons left">keyboard_return</i>Back to Project Summary
+				<i class="material-icons left">keyboard_return</i>{{'back_to_project_summary' | translate}}
 			</button>
 
-			<span class="right" style="padding-top:8px;">Last Updated: {{ project.updatedAt }}</span>
+			<span class="right" style="padding-top:8px;">{{'last_updated' | translate}}: {{ project.updatedAt }}</span>
 
 		</div>
 	</div>
@@ -118,16 +118,16 @@
 					<!-- submission -->
 					<div align="center">
 						<button data-target="save-modal" class="waves-effect waves-light btn" ng-click="project.validate()"
-							ng-cloak><i class="material-icons right">send</i>Save</button>
+							ng-cloak><i class="material-icons right">send</i>{{'save_mayus' | translate}}</button>
 
 						<!-- cancel new -->
 						<button data-target="list-modal" class="waves-effect waves-light btn modal-trigger grey"
-							ng-if="project.definition.project_status === 'new' ">Cancel
+							ng-if="project.definition.project_status === 'new' ">{{'cancel_mayus' | translate}}
 						</button>
 
 						<!-- cancel update -->
 						<button data-target="summary-modal" class="waves-effect waves-light btn modal-trigger grey"
-							ng-if="project.definition.project_status === 'active' ">Cancel
+							ng-if="project.definition.project_status === 'active' ">{{'cancel_mayus' | translate}}
 						</button>
 
 					</div>

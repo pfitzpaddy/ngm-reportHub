@@ -1,15 +1,15 @@
 <!-- bind html -->
 
-<span class="left" style="padding-left: 10px; padding-top:8px;">Last Updated: {{ panel.data.updatedAt }}</span>
+<span class="left" style="padding-left: 10px; padding-top:8px;">{{'last_updated' | translate}}: {{ panel.data.updatedAt }}</span>
 
 <div class="right">
 	<a class="waves-effect waves-light btn " href="{{panel.reset}}">
-		<i class="material-icons left">cached</i>Reset Dashboard
+		<i class="material-icons left">cached</i>{{'reset'|translate}} Dashboard
 	</a>
 	<a class="waves-effect waves-light btn blue darken-1" ng-click="panel.getPreviousMonth()" title="GoTo Previous Month">
-		<i class="material-icons left">skip_previous</i>Previous Month</a>
+		<i class="material-icons left">skip_previous</i>{{'previous_month' | translate}}</a>
 	<a class="waves-effect waves-light btn blue darken-1" href="{{panel.getCurrentMonth}}" style="padding-left:20px; margin-left: 0px"
 	 title="GoTo Current Month">
-		<i class="material-icons left">refresh</i>Current Reporting
+		<i class="material-icons left">refresh</i>{{'current_reporting' | translate}}
 	</a>
 </div>

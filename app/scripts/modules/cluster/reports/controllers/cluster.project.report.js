@@ -16,8 +16,8 @@ angular.module('ngmReportHub')
 			'$timeout', 
 			'ngmAuth',
 			'ngmData',
-			'ngmUser',
-	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser ) {
+			'ngmUser','$translate','$filter',
+	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -78,7 +78,7 @@ angular.module('ngmReportHub')
 				$scope.report.report = $scope.report.project.organization + '_' + $scope.report.project.cluster + '_' + $scope.report.project.project_title.replace(/\ /g, '_') + '_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 
 				// add project code to subtitle?
-				var text = 'Actual Monthly Beneficiaries Report for ' + moment.utc( $scope.report.definition.reporting_period ).format('MMMM, YYYY');
+				var text = $filter('translate')('actual_monthly_beneficiaries_report_for')+' ' + moment.utc( $scope.report.definition.reporting_period ).format('MMMM, YYYY');
 				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + text : text;
 
 				// report dashboard model
@@ -104,7 +104,7 @@ angular.module('ngmReportHub')
 								type: 'csv',
 								color: 'blue lighten-2',
 								icon: 'assignment',
-								hover: 'Download Monthly Acvitiy Report as CSV',
+								hover: $filter('translate')('download_monthly_activity_report_as_csv'),
 								request: {
 									method: 'POST',
 									url: ngmAuth.LOCATION + '/api/cluster/report/getReportCsv',

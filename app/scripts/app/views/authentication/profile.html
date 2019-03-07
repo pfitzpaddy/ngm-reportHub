@@ -47,37 +47,38 @@ form {
 <!-- deactivate -->
 <div id="deactivate-modal" class="modal">
   <div class="modal-content">
-    <h4 style="font-weight:100; padding-top: 20px;"><i class="material-icons medium left">assignment_late</i>Deactivate User</h4>
-    <p style="padding-left: 76px;">Deactivate {{ panel.user.username }}?</p>
+    <h4 style="font-weight:100; padding-top: 20px;"><i class="material-icons medium left">assignment_late</i>{{'desactive_user' | translate}}</h4>
+    <p style="padding-left: 76px;">{{'desactive' | translate
+    }} {{ panel.user.username }}?</p>
   </div>
   <div class="modal-footer">
   	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="panel.updateStatus( 'deactivated' )" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Deactivate User!</a>
+    <a ng-click="panel.updateStatus( 'deactivated' )" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_desactive_user' | translate}}!</a>
   </div>
 </div>
 
 <!-- activate -->
 <div id="activate-modal" class="modal">
   <div class="modal-content">
-    <h4 style="font-weight:100; padding-top: 20px;"><i class="material-icons medium left">assignment_turned_in</i>Activate User</h4>
-    <p style="padding-left: 76px;">Activate {{ panel.user.username }}?</p>
+    <h4 style="font-weight:100; padding-top: 20px;"><i class="material-icons medium left">assignment_turned_in</i>{{'activate_user' | translate}}</h4>
+    <p style="padding-left: 76px;">{{'activate' | translate}} {{ panel.user.username }}?</p>
   </div>
   <div class="modal-footer">
   	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="panel.updateStatus( 'active' )" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Activate User!</a>
+    <a ng-click="panel.updateStatus( 'active' )" class="modal-action modal-close waves-effect waves-green btn-flat">{{'Yes, Activate User'| translate}}!</a>
   </div>
 </div>
 
 <!-- delete -->
 <div id="delete-modal" class="modal">
   <div class="modal-content">
-    <h4 style="color: #E57373; font-weight:100; padding-top: 20px;"><i class="material-icons medium left">delete</i>Delete User</h4>
-    <p style="padding-left: 76px;">Delete {{ panel.user.username }}?</p>
-    <p style="padding-left: 76px;">WARNING! This action can not be undone!</p>
+    <h4 style="color: #E57373; font-weight:100; padding-top: 20px;"><i class="material-icons medium left">delete</i>{{'delete_user'| translate}}</h4>
+    <p style="padding-left: 76px;">{{'delete'|translate}} {{ panel.user.username }}?</p>
+    <p style="padding-left: 76px;">{{'warning_mayus'|translate}}! {{'this_action_can_not_be_undone'|translate}}!</p>
   </div>
   <div class="modal-footer">
   	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="panel.delete()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Delete User!</a>
+    <a ng-click="panel.delete()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_delete_user'|translate}}!</a>
   </div>
 </div>
 
@@ -93,11 +94,11 @@ form {
 						<div class="card">
 							<img title="Profile" src="images/registration.png" width="110%" style="margin-left:-20px;"/>
 						</div>
-						<h5 class="title">PROFILE</h5>
+						<h5 class="title">{{'profile_mayus' |translate}}</h5>
 					</div>
 
 		    	<!-- btn as title! -->
-		   	 	<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">Profile</a>
+		   	 	<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">{{'profile' | translate}}</a>
 					
 					<!-- 
 		      <div class="row">
@@ -133,7 +134,7 @@ form {
 								ng-model="panel.user.username"
 								ng-disabled="panel.formDisabled()"
 								required>
-		          <label for="ngm-username">Username</label>
+		          <label for="ngm-username">{{'username'|translate}}</label>
 		        </div>
 		      </div>
 
@@ -144,7 +145,7 @@ form {
 								ng-model="panel.user.name"
 								ng-disabled="panel.formDisabled()"
 								required>
-		          <label for="ngm-fullname">Full Name</label>
+		          <label for="ngm-fullname">{{'full_name' | translate}}</label>
 		        </div>
 		      </div>
 
@@ -155,7 +156,7 @@ form {
 								ng-model="panel.user.position"
 								ng-disabled="panel.formDisabled()"
 								required>
-		          <label for="ngm-position">Position</label>
+		          <label for="ngm-position">{{'position' | translate}}</label>
 		        </div>
 				  </div>
 
@@ -166,7 +167,7 @@ form {
 		    						( panel.user.admin0pcode === 'CD' || panel.user.admin0pcode === 'ET' )">
 
 		    	<!-- btn as title! -->
-		   	 	<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">Programme</a>
+		   	 	<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">{{'programme' | translate}}</a>
 
 					<!-- programme -->
 					<div class="row">
@@ -175,10 +176,10 @@ form {
 						    <select id="ngm-programme"
 	        					ng-options="list.programme_id as list.programme_name for list in panel.programme"
 	        					ng-model="panel.user.programme_id"
-	        					ng-disabled="panel.formDisabled()">Select Programme
-	        					<option value="" disabled selected>Select Programme</option>
+	        					ng-disabled="panel.formDisabled()">{{'select_programme' | translate}}
+	        					<option value="" disabled selected>{{'select_programme' | translate}}</option>
 	        					</select>
-						    <label for="ngm-programme">Programme</label>
+						    <label for="ngm-programme">{{'programme' | translate}}</label>
 		        </div>
 		      </div>
 
@@ -197,7 +198,7 @@ form {
 									    select-years="15"
 									    max="{{ panel.user.contract_end_date }}"
 									    ng-disabled="panel.formDisabled()"/>
-									<label for="ngm-contract-start-date">Contract Start Date</label>
+									<label for="ngm-contract-start-date">{{'contract_start_date' | translate}}</label>
 						</div>
 					</div>
 
@@ -216,7 +217,7 @@ form {
 									    select-years="15"
 									    min="{{ panel.user.contract_start_date }}"
 									    ng-disabled="panel.formDisabled()"/>
-									<label for="ngm-contract-end-date">Contract End Date</label>
+									<label for="ngm-contract-end-date">{{'contract_end_date' |translate}}</label>
 						</div>
 					</div>
 
@@ -226,10 +227,10 @@ form {
 		        	<select id="ngm-country" 
 		        					ng-options="location.admin0pcode as location.admin0name for location in panel.adminRegion"
 		        					ng-model="panel.user.admin0pcode"
-		        					ng-disabled="panel.formDisabled()">Select Country
-		        					<option value="">Select Country</option>
+		        					ng-disabled="panel.formDisabled()">{{'select_country'|translate}}
+		        					<option value="">{{'select_country'|translate}}</option>
 		        					</select>
-						    <label for="ngm-country">Country</label>
+						    <label for="ngm-country">{{'country' | translate}}</label>
 		        </div>
 		      </div>
 
@@ -239,10 +240,10 @@ form {
 						    <select id="ngm-duty-station"
 			        					ng-options="list.site_name as list.site_name for list in panel.dutyStations | filter: { admin0pcode: panel.user.admin0pcode } | orderBy:'site_name'"
 	        							ng-model="panel.user.site_name"
-	        							ng-disabled="panel.formDisabled()">Select Duty Station
-	        					<option value="" disabled selected>Select Station</option>
+	        							ng-disabled="panel.formDisabled()">{{'select_duty_station' | transltate}}
+	        					<option value="" disabled selected>{{'select_station' | translate}}</option>
 	        					</select>
-						    <label for="ngm-duty-station">Duty Station</label>
+						    <label for="ngm-duty-station">{{'duty_station' | translate}}</label>
 		        </div>
 		      </div>
 
@@ -254,7 +255,7 @@ form {
 		          				type="text"
 		          				class="validate"
 											ng-model="panel.user.profile">
-		          <label for="ngm-profile">Profile</label>
+		          <label for="ngm-profile">{{'profile' | translate}}</label>
 		        </div>
 		      </div>
 
@@ -275,7 +276,7 @@ form {
 		    <div class="card z-depth-1" style="padding:5% 20% 5% !important;">
 
 		    	<!-- btn as title! -->
-		   	 	<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">Contact</a>
+		   	 	<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">{{'contact'|translate}}</a>
 
 		   	 	<!-- contacts -->
 		      <div class="row">
@@ -285,7 +286,7 @@ form {
 								ng-model="panel.user.phone"
 								ng-disabled="panel.formDisabled()"
 								required>
-		          <label for="ngm-phone">Phone</label>
+		          <label for="ngm-phone">{{'phone' | translate}}</label>
 		        </div>
 		      </div>
 
@@ -306,7 +307,7 @@ form {
 								ng-model="panel.user.email"
 								ng-disabled="panel.formDisabled()"
 								required>
-		          <label for="ngm-email">Email</label>
+		          <label for="ngm-email">{{'email' | translate}}</label>
 		        </div>
 		      </div>
 
@@ -326,7 +327,7 @@ form {
 				type="submit"
 				ng-click="panel.update( false )"
 				ng-disabled="ngmProfileForm.$invalid || panel.btnDisabled">
-				<i class="material-icons left">edit</i>UPDATE
+				<i class="material-icons left">edit</i>{{'update_mayus' | translate}}
 		</button>
 		<button
 				ng-if="panel.activateUpdateVisible() && panel.btnDeactivate"
@@ -334,7 +335,7 @@ form {
 				class="btn btn-large blue waves-effect waves-blue"
 				ng-click="panel.openModal( 'deactivate-modal' )"
 				ng-disabled="panel.btnDisabled">
-				<i class="material-icons left">assignment_late</i>DEACTIVATE
+				<i class="material-icons left">assignment_late</i>{{'desactivate_mayus'|translate}}
 		</button>
 		<button
 				ng-if="panel.activateUpdateVisible() && panel.btnActivate"
@@ -342,7 +343,7 @@ form {
 				class="btn btn-large blue waves-effect waves-blue"
 				ng-click="panel.openModal( 'activate-modal' )"
 				ng-disabled="panel.btnDisabled">
-				<i class="material-icons left">assignment_turned_in</i>ACTIVATE
+				<i class="material-icons left">assignment_turned_in</i>{{'activate_mayus'|translate}}
 		</button>
 		<button
 				ng-if="panel.activateUpdateVisible()"
@@ -350,7 +351,7 @@ form {
 				class="btn btn-large red lighten-2 waves-effect waves-red"
 				ng-click="panel.openModal( 'delete-modal' )"
 				ng-disabled="panel.btnDisabled">
-				<i class="material-icons left">delete</i>DELETE
+				<i class="material-icons left">delete</i>{{'delete_mayus'|translate}}
 		</button>
 	</div>
 

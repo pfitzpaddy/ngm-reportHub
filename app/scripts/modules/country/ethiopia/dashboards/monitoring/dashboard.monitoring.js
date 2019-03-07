@@ -64,10 +64,10 @@ angular.module('ngmReportHub')
 					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
 
 					// title
-					$scope.dashboard.title = 'CTC Assessment';
+					$scope.dashboard.title = 'CTC'+' '+$filter('translate')('assessment');
 
 					// subtitle
-					$scope.dashboard.subTitle = 'CTC assessment dashboard';
+					$scope.dashboard.subTitle = 'CTC'+' '+$filter('translate')('assessment')+' dashboard';
 
 					// menus & title updates
 					ngmData
@@ -102,7 +102,7 @@ angular.module('ngmReportHub')
 												$scope.model.menu.push(woreda_menu.menu);
 												// set next
 												if( $scope.dashboard.woreda !== 'all' ) {
-													$scope.model.header.title.title = 'CTC Assessment | ' + region_title  + ' | ' + $filter( 'filter' )( woreda_menu.data, { admin3pcode: $scope.dashboard.woreda } )[0].admin3name;
+													$scope.model.header.title.title = 'CTC'+' '+$filter('translate')('assessment')+' | ' + region_title  + ' | ' + $filter( 'filter' )( woreda_menu.data, { admin3pcode: $scope.dashboard.woreda } )[0].admin3name;
 												}
 												
 											});
@@ -175,7 +175,7 @@ angular.module('ngmReportHub')
 								'class': 'col s12 m4 l3',
 								dates: [{
 									style: 'float:left;',
-									label: 'from',
+									label: $filter('translate')('from'),
 									format: 'd mmm, yyyy',
 									max: $scope.dashboard.endDate,
 									currentTime: $scope.dashboard.startDate,
@@ -199,7 +199,7 @@ angular.module('ngmReportHub')
 									}
 								},{
 									style: 'float:right',
-									label: 'to',
+									label: $filter('translate')('to'),
 									format: 'd mmm, yyyy',
 									min: $scope.dashboard.startDate,
 									currentTime: $scope.dashboard.endDate,
@@ -229,7 +229,7 @@ angular.module('ngmReportHub')
 									type: 'pdf',
 									color: 'blue',
 									icon: 'picture_as_pdf',
-									hover: 'Download CTC Assessments as PDF',
+									hover: $filter('translate')('download_ctc_assessments_as_pdf'),
 									request: {
 										method: 'POST',
 										url: ngmAuth.LOCATION + '/api/print',
@@ -247,14 +247,14 @@ angular.module('ngmReportHub')
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'assignment_turned_in',
-									hover: 'Download Assessments as CSV',
+									hover: $filter('translate')('download_assessments_as_csv'),
 									request: $scope.dashboard.getRequest( 'assessments/indicator', 'download', 'ctc_assessments_' ),
 									metrics: $scope.dashboard.getMetrics( 'ctc_assessments', 'download' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'assignment',
-									hover: 'Download Case Management Details as CSV',
+									hover: $filter('translate')('download_case_management_details_as_csv'),
 									request: $scope.dashboard.getRequest( 'case_management/indicator', 'download', 'case_management_' ),
 									metrics: $scope.dashboard.getMetrics( 'case_management', 'download' )
 								}]
@@ -307,7 +307,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Assessments',
+										title: $filter('translate')('assessments'),
 										request: $scope.dashboard.getRequest( 'assessments/indicator', 'total' )
 									}
 								}]
@@ -318,7 +318,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Patients',
+										title: $filter('translate')('patients'),
 										request: $scope.dashboard.getRequest( 'case_management/indicator', 'patients' )
 									}
 								}]
@@ -329,7 +329,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Beds',
+										title: $filter('translate')('beds'),
 										request: $scope.dashboard.getRequest( 'case_management/indicator', 'beds' )
 									}
 								}]
@@ -340,7 +340,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Doctors',
+										title: $filter('translate')('doctors'),
 										request: $scope.dashboard.getRequest( 'case_management/indicator', 'doctors' )
 									}
 								}]
@@ -355,9 +355,9 @@ angular.module('ngmReportHub')
 									config: {
 										title: {
 											style: 'padding-top: 10px;',
-											name: '2017 Assessments Timeline'
+											name: $filter('translate')('2017_assessments_timeline'),
 										},							
-										options: { itemName: 'Assessment(s)', start: new Date( $scope.dashboard.startDate ) },
+										options: { itemName: $filter('translate')('assessment(s)'), start: new Date( $scope.dashboard.startDate ) },
 										request: $scope.dashboard.getRequest( 'assessments/indicator', 'calendar' )
 									}
 								}]

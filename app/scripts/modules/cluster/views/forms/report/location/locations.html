@@ -20,18 +20,18 @@
 				<li class="collection-item avatar">
 						<div ng-if="project.report.admin0pcode === 'AF'">
 							<p style="color: #e57373;padding-top: 10px">
-								<b>Note:</b> To report
-								<b>DROUGHT</b> activities, please select from
-								<b>Beneficiary</b> drop down beneficiary types </br>
-								<b>Drought Affected Displaced</b> or
-								<b>Drought Affected Non Displaced</b>
+								<b>{{'note'|translate}}:</b> {{'to_report' | translate}}
+								<b>{{'drought' | translate}}</b> {{'activities_please_select_from' | translate}}
+								<b>{{'beneficiary' | translate}}</b> {{'drop_down_beneficiary_types' | translate}} </br>
+								<b>{{'drought_affected_displaced' | translate}}</b> {{'or'| translate}}
+								<b>{{'drought_affected_non_displaced' | translate}}</b>
 							</p>
 						</div>
 					<!-- form -->
 
 					 	<div class="row">
 
-							<h5 class="report-selected-locations">{{ project.report.locations.length }} Selected Locations</h5>
+							<h5 class="report-selected-locations">{{ project.report.locations.length }} {{'selected_locations' | translate}}</h5>
 							<!-- TODO DELETE project.report.organization === 'EMERGENCY' after 01062018  -->
 							<div class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
 	      					title="Edit {{ project.monthlyTitleFormat }}"
@@ -40,7 +40,7 @@
 	      										project.report.report_status === 'complete'"
 
 	      					ng-click="project.save( false, false)">
-	      					<i class="material-icons left">create</i>Edit Report
+	      					<i class="material-icons left">create</i>{{'edit_report' | translate}}
 	      			</div>
 
 						</div>
@@ -143,10 +143,10 @@
 							<div ng-if="location.admin0pcode !== 'NG'">
 								<div ng-if="project.showCash( $locationIndex ) && !project.showPackage( $locationIndex )" style="padding-left: 50px;">
 									<p style="color: #e57373">
-										<span style="font-weight:400">Amount:</span> Please enter the amount per <span style="font-weight:400">HOUSEHOLD ( HH )</span> per <span style="font-weight:400">TRANSFER</span>
+										<span style="font-weight:400">{{'amount' | translate}}:</span> {{'please_enter_the_amount_per' | translate}} <span style="font-weight:400">{{'household_hh'|translate}}</span> {{'per' |translate}} <span style="font-weight:400">{{'transfer_mayus' | translate}}</span>
 									</p>
 									<p style="color: #e57373">
-										<span style="font-weight:400">Transfers:</span> Please enter the <span style="font-weight:400">ACTUAL</span> number  of transfers made <span style="font-weight:400">THIS</span> month
+										<span style="font-weight:400">{{'transfers'|translate}}:</span> {{'please_enter_the' |translate}} <span style="font-weight:400">ACTUAL</span> {{'number_of_transfers_made' | translate}} <span style="font-weight:400">{{'this' | translate}}</span> {{'month' | translate}}
 									</p>
 								</div>
 							</div>
@@ -164,7 +164,7 @@
 								  					ng-click="ngmClusterTrainings.addTrainings( scope, project.lists, 
 								  																						project.definition,
 								  																						project.report.locations[ $locationIndex ], $locationIndex )">
-								    <i class="material-icons left">add</i>Add Trainings
+								    <i class="material-icons left">add</i>{{'add_trainings' | translate}}
 								  </button>
 								 </div>
 								<div ng-repeat="training in project.report.locations[ $locationIndex ].trainings" ng-init="$trainingIndex=$index">
@@ -181,7 +181,7 @@
 							<button class="btn"
 											style="background-color: #2196F3;"
 							 				ng-click="ngmClusterLocations.openNewLocation( project, project.report.locations );">
-								<i class="material-icons left">location_on</i>Add Location
+								<i class="material-icons left">location_on</i>{{'add_location' | translate}}
 							</button>
 							<div ng-if="ngmClusterLocations.openAddNewLocation" 
 										class="slide-animate" 

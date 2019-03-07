@@ -75,7 +75,7 @@ angular.module('ngm.widget.html', ['ngm.provider'])
 
         }
 
-      };
+      }; 
 
       // assign data
       $scope.panel.data = data ? data : false;

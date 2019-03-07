@@ -22,7 +22,7 @@
         <span e-form="participantsRowform"
               e-name="trainee_affiliation_id"
               editable-select="participant.trainee_affiliation_id"
-              e-placeholder="Select..."
+              e-placeholder="{{'select'|translate}}"
               e-ng-options="a_t.trainee_affiliation_id as a_t.trainee_affiliation_name for a_t in project.lists.trainee_affiliations"
               e-required>
           {{ ngmClusterTrainings.showAffiliation( project.lists, $data, participant ) }}
@@ -32,7 +32,7 @@
         <span e-form="participantsRowform"
               e-name="trainee_health_worker_id"
               editable-select="participant.trainee_health_worker_id"
-              e-placeholder="Select..."
+              e-placeholder="{{'select'|translate}}"
               e-ng-options="a_t.trainee_health_worker_id as a_t.trainee_health_worker_name for a_t in project.lists.trainee_health_workers"
               e-required>
           {{ ngmClusterTrainings.showHealthWorker( project.lists, $data, participant ) }}

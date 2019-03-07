@@ -1,19 +1,19 @@
-<script>
+<!--<script>
 
   // init modals
   $( '.modal-trigger' ).leanModal();
 
-</script>
+</script>-->
 
 
 <div id="warehouses-modal" class="modal">
   <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Remove Warehouse Location</h4>
-    <p>Are you sure you want to remove this Warehouse from your organization?</p>
+    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>{{'remove_warehouse_location'|translate}}</h4>
+    <p>{{'are_you_sure_you_want_to_remove_this_warehouse_from_your_organization'|translate}}?</p>
   </div>
   <div class="modal-footer">
   	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="report.removeLocation()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, remove location!</a>
+    <a ng-click="report.removeLocation()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_location'|translate}}!</a>
   </div>
 </div>
 
@@ -23,11 +23,11 @@
 		<div style="padding:20px;">
 			<!-- org href -->
 			<a class="btn-flat waves-effect waves-teal" href="{{ report.getOrganizationHref() }}">
-				<i class="material-icons left">keyboard_return</i>Back to Organization
+				<i class="material-icons left">keyboard_return</i>{{'back_to_organization'|translate}}
 			</a>
 
 
-			<span class="right" style="padding-top:8px;">Last Updated: {{ report.updatedAt }}</span>
+			<span class="right" style="padding-top:8px;">{{'last_updated'|translate}}: {{ report.updatedAt }}</span>
 
 		</div>
 	</div>

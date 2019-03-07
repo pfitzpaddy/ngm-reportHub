@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardProfileCtrl', ['$scope', '$route', 'ngmData', 'ngmAuth', function ($scope, $route, ngmData, ngmAuth) {
+	.controller('DashboardProfileCtrl', ['$scope', '$route', 'ngmData', 'ngmAuth','$translate','$filter', function ($scope, $route, ngmData, ngmAuth,$translate,$filter) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -48,7 +48,7 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m12 l12 report-title report-title',
 							style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
-							title: 'Profile'
+							title: $filter('translate')('profile')
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle',

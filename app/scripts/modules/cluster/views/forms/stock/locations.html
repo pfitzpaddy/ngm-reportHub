@@ -14,7 +14,7 @@
 			<ul class="collection with-header">
 				<li class="collection-header light-blue lighten-4">
 					<h5 class="report-panel-title">
-						<i class="material-icons left">location_on</i>Stock Report for {{ report.titleFormat }}
+						<i class="material-icons left">location_on</i>{{'stock_report_for'|translate}} {{ report.titleFormat }}
 					</h5>
 				</li>
 				<li class="collection-item avatar">
@@ -23,20 +23,20 @@
 
 					 	<div class="row">
 
-							<h5 class="report-selected-locations">{{ report.report.stocklocations.length }} Selected Locations<span style="color:#EE6E73; padding-left: 40px" ng-if="!report.formComplete()">Form Not Completed</span></h5>
+							<h5 class="report-selected-locations">{{ report.report.stocklocations.length }} {{'selected_locations'|translate}}<span style="color:#EE6E73; padding-left: 40px" ng-if="!report.formComplete()">{{'form_not_completed_min'|translate}}</span></h5>
 
 							<div class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
 	      					title="Edit {{ report.titleFormat }}"
 	      					ng-show="report.report.report_status === 'complete'"
 	      					ng-click="report.editReport()">
-	      					<i class="material-icons left">add</i>Edit Report
+	      					<i class="material-icons left">add</i>{{'edit_report'|translate}}
 	      			</div>
 
 							<div class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
 	      					title="Edit {{ report.titleFormat }}"
 	      					ng-show="report.report.report_status === 'todo'"
 	      					ng-click="report.copyPrevReport()">
-	      					<i class="material-icons left">content_copy</i>Copy Last Month
+	      					<i class="material-icons left">content_copy</i>{{'copy_last_month'|translate}}
 							</div>
 
 						</div>
@@ -53,7 +53,7 @@
 								<!-- location totals -->
 								<div class="col s12 m6 hide-on-med-and-down">
 									<div class="beneficiary-count right">
-			      				<span style="font-size:1.4rem;"><i class="material-icons" style="padding-right:20px; padding-top:10px;">group</i>Beneficiaries Covered</span>
+			      				<span style="font-size:1.4rem;"><i class="material-icons" style="padding-right:20px; padding-top:10px;">group</i>{{'beneficiaries_covered'|translate}}</span>
 											<!-- filter in app/services/ngmHelper.js -->
 											{{ report.report.stocklocations[$locationIndex].stocks | sumByKey:'beneficiaries_covered' | number }}
 									</div>

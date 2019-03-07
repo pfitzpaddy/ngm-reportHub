@@ -11,7 +11,7 @@
 	}
 
 	.pagination li.active {
-	  background-color: #009688;
+	  background-color: #009688; 
 	}
 	
 </style>
@@ -37,10 +37,10 @@
         						src="images/cluster/projects.jpg">
       </div>
       <div class="card-content white-text">
-      	<p class="card-title">Projects</p>
+      	<p class="card-title">{{'projects_mayus1' | translate}}</p>
       </div>
       <div class="card-action">
-        <a href="{{ panel.getProjectsHref() }}">Go to {{ panel.organization.organization }} Projects</a>
+        <a href="{{ panel.getProjectsHref() }}">{{'go_to' | translate}} {{ panel.organization.organization }} {{'projects_mayus1' | translate}}</a>
       </div>
     </div>
     </a>
@@ -55,7 +55,7 @@
 	        <p class="card-title">Stocks</p>
 	      </div>
 	      <div class="card-action">
-	        <a href="{{ panel.getStocksHref() }}">Go to {{ panel.organization.organization }} Stocks</a>
+	        <a href="{{ panel.getStocksHref() }}">{{'go_to' | translate}} {{ panel.organization.organization }} Stocks</a>
 	      </div>
 	    </div>
 	   </a>
@@ -88,10 +88,10 @@
           <img src="images/immap/team.jpg">
         </div>
         <div class="card-content white-text">
-          <p class="card-title">{{ panel.user.organization }} Team</p>
+          <p class="card-title">{{ panel.user.organization }} {{'team' | translate}}</p>
         </div>
         <div class="card-action">
-          <a class="left" href="#/team">View Team</a>
+          <a class="left" href="#/team">{{'view_team' | translate}}</a>
         </div>
       </div>
      </a>
@@ -117,10 +117,10 @@
         						src="images/cluster/projects.jpg">
       </div>
       <div class="card-content white-text">
-      	<p class="card-title">Projects</p>
+      	<p class="card-title">{{'projects_mayus1' | translate}}</p>
       </div>
       <div class="card-action">
-        <a href="{{ panel.getProjectsHref() }}">Go to {{ panel.organization.organization }} Projects</a>
+        <a href="{{ panel.getProjectsHref() }}">{{'go_to' | translate}} {{ panel.organization.organization }} {{'projects_mayus1' | translate}}</a>
       </div>
     </div>
     </a>
@@ -135,7 +135,7 @@
 	        <p class="card-title">Stocks</p>
 	      </div>
 	      <div class="card-action">
-	        <a href="{{ panel.getStocksHref() }}">Go to {{ panel.organization.organization }} Stocks</a>
+	        <a href="{{ panel.getStocksHref() }}">{{'go_to' | translate}} {{ panel.organization.organization }} Stocks</a>
 	      </div>
 	    </div>
 	   </a>

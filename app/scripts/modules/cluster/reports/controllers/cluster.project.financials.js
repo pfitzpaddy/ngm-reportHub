@@ -17,7 +17,8 @@ angular.module('ngmReportHub')
 			'ngmAuth',
 			'ngmData',
 			'ngmUser',
-	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser ) {
+			'$translate', '$filter',
+	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser, $translate ,$filter) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -66,7 +67,7 @@ angular.module('ngmReportHub')
 				$scope.report.report = $scope.report.project.organization + '_' + $scope.report.project.cluster + '_' + $scope.report.project.project_title.replace(/\ /g, '_') + '_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 
 				// add project code to subtitle?
-				var text = 'Financial Reports for ' + $scope.report.project.project_title;
+				var text = $filter('translate')('financial_reports_for')+ ' ' + $scope.report.project.project_title;
 				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + text : text;
 
 				// report dashboard model
@@ -92,7 +93,7 @@ angular.module('ngmReportHub')
 								type: 'csv',
 								color: 'blue lighten-2',
 								icon: 'assignment',
-								hover: 'Download Project Financial Report as CSV',
+								hover: $filter('translate')('download_project_financial_report_as_csv'),
 								request: {
 									method: 'POST',
 									url: ngmAuth.LOCATION + '/api/cluster/project/getFinancialDetails',

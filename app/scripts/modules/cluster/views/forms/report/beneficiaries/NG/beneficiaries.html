@@ -28,7 +28,7 @@
           <span e-form="rowform"
                 e-name="activity_type_id"
                 editable-select="beneficiary.activity_type_id"
-                e-placeholder="Select..."
+                e-placeholder="{{'select'|translate}}"
                 e-ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.lists.projectActivityTypes">
             {{ project.showActivity( $data, beneficiary ) }}
           </span>
@@ -37,7 +37,7 @@
           <span e-form="rowform"
                 e-name="activity_description_id"
                 editable-select="beneficiary.activity_description_id"
-                e-placeholder="Select..."
+                e-placeholder="{{'select'|translate}}"
                 e-ng-options="a_d.activity_description_id as a_d.activity_description_name for a_d in project.lists.activity_descriptions | filter: { cluster_id: beneficiary.cluster_id, activity_type_id: beneficiary.activity_type_id }"
                 e-ng-disabled="!beneficiary.activity_type_id">
             {{ project.showDescription( $data, beneficiary ) }}
@@ -47,7 +47,7 @@
           <span e-form="rowform"
                 e-name="activity_detail_id"
                 editable-select="beneficiary.activity_detail_id"
-                e-placeholder="Select..."
+                e-placeholder="{{'select'|translate}}"
                 e-ng-change="ngmClusterHelperNgWash.detailsChange( project.report.locations, location, beneficiary )"
                 e-ng-options="a_d.activity_detail_id as a_d.activity_detail_name 
                                 for a_d in project.lists.activity_details | 
@@ -62,7 +62,7 @@
           <span e-form="rowform"
                 e-name="activity_cholera_response_id"
                 editable-select="beneficiary.activity_cholera_response_id"
-                e-placeholder="Select..."
+                e-placeholder="{{'select'|translate}}"
                 e-ng-options="b.activity_cholera_response_id as 
                                 b.activity_cholera_response_name for 
                                 b in project.lists.activity_cholera_response"
@@ -74,7 +74,7 @@
           <span e-form="rowform"
                 e-name="beneficiary_type_id"
                 editable-select="beneficiary.beneficiary_type_id"
-                e-placeholder="Select..."
+                e-placeholder="{{'select'|translate}}"
                 e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types | filter: { cluster_id: beneficiary.cluster_id }"
                 e-ng-disabled="!beneficiary.activity_cholera_response_id">
             {{ project.showBeneficiary( $data, beneficiary ) }}

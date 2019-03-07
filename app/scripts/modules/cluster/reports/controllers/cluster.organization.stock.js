@@ -16,8 +16,8 @@ angular.module('ngmReportHub')
 			'$timeout',
 			'ngmAuth',
 			'ngmData',
-			'ngmUser',
-	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser ) {
+			'ngmUser','$translate','$filter',
+	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -69,7 +69,7 @@ angular.module('ngmReportHub')
 			init: function(){
 
 				// set report for downloads
-				$scope.report.title = $scope.report.definition.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.organization.cluster.toUpperCase() + ' | ' + $scope.report.organization.organization + ' | Stock Report';
+				$scope.report.title = $scope.report.definition.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.organization.cluster.toUpperCase() + ' | ' + $scope.report.organization.organization + ' | '+$filter('translate')('stock_report');
 				$scope.report.report = $scope.report.organization.organization + '_' + moment.utc( [ $scope.report.definition.report_year, $scope.report.definition.report_month, 1 ] ).format('MMMM, YYYY');
 				// set report for downloads
 				$scope.report.filename = $scope.report.definition.organization + '_' + $scope.report.definition.cluster + '_' + moment( $scope.report.definition.report_month ).format( 'MMMM' ) + '_Stocks_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
@@ -89,7 +89,7 @@ angular.module('ngmReportHub')
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
-							'title': 'Monthly Stock Report for ' + moment.utc( [ $scope.report.definition.report_year, $scope.report.definition.report_month, 1 ] ).format('MMMM, YYYY')
+							'title': $filter('translate')('monthly_stock_report_for')+ ' ' + moment.utc( [ $scope.report.definition.report_year, $scope.report.definition.report_month, 1 ] ).format('MMMM, YYYY')
 						},
 						download: {
 							'class': 'col s12 m3 l3 hide-on-small-only',
@@ -97,7 +97,7 @@ angular.module('ngmReportHub')
 								type: 'csv',
 								color: 'blue lighten-2',
 								icon: 'assignment',
-								hover: 'Download Monthly Stock Report as CSV',
+								hover: $filter('translate')('donwload_monthly_stock_report_as_csv'),
 								request: {
 									method: 'POST',
 									url: ngmAuth.LOCATION + '/api/cluster/report/getReportCsv',

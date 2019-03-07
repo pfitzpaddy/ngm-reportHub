@@ -29,8 +29,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
     'ngmData',
     'ngmClusterHelper',
     'ngmClusterLists',
-    'config',
-    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, config ){
+    'config','$translate',
+    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, config,$translate ){
 
       // project
       $scope.report = {
@@ -127,7 +127,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             selected = $filter('filter')( $scope.report.lists.clusters, { cluster_id: $stock.cluster_id }, true);
             $stock.cluster = selected[0].cluster;
           }
-          return selected.length ? selected[0].cluster : 'No Selection!';
+          return selected.length ? selected[0].cluster : $filter('translate')('no_selection')+'!';
         },
 
         // show stock type
@@ -138,7 +138,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             selected = $filter('filter')( $scope.report.lists.stocks, { stock_item_type: $stock.stock_item_type }, true);
             $stock.stock_item_name = selected[0].stock_item_name;
           }
-          return selected.length ? selected[0].stock_item_name : 'No Selection!';
+          return selected.length ? selected[0].stock_item_name : $filter('translate')('no_selection')+'!';
         },
 
         showStockUnits: function( $data, $stock ){
@@ -150,7 +150,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
               $stock.unit_type_name = selected[0].unit_type_name;
             }
           }
-          return selected.length ? selected[0].unit_type_name : 'No Selection!';
+          return selected.length ? selected[0].unit_type_name : $filter('translate')('no_selection')+'!';
         },
 
         showStockStatus: function( $data, $stock ){
@@ -162,7 +162,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
               $stock.stock_status_name = selected[0].stock_status_name;
             }
           }
-          return selected.length ? selected[0].stock_status_name : 'No Selection!';
+          return selected.length ? selected[0].stock_status_name : $filter('translate')('no_selection')+'!';
 				},
 
 				showStockPurpose: function( $data, $stock ){
@@ -174,7 +174,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
               $stock.stock_item_purpose_name = selected[0].stock_item_purpose_name;
             }
           }
-          return selected.length ? selected[0].stock_item_purpose_name : 'No Selection!';
+          return selected.length ? selected[0].stock_item_purpose_name : $filter('translate')('no_selection')+'!';
 				},
 				showStockTargetedGroup: function($data,$stock){
 					selected = [];
@@ -317,19 +317,19 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 						})
 						if (!nrows) {
 							if (Object.keys(prev_report).length) {
-								var msg = 'No data in previous report',
+								var msg = $filter('translate')('no_data_in_previous_report'),
 										typ = 'success';
 							} else {
-								var msg = 'No previous report',
+								var msg = $filter('translate')('no_previous_report'),
 										typ = 'success';
 							}
 						} else {
-								var msg = 'Copied ' + nrows + ' rows',
+								var msg = $filter('translate')('copied')+' ' + nrows + ' '+$filter('transalte')('rows'),
 										typ = 'success';
 						}
 						Materialize.toast(msg, 3000, typ);
 					}).catch(function (e) {
-						Materialize.toast('Error, Not copied', 3000, 'error');
+						Materialize.toast($filter('translate')('error_not_copied'), 3000, 'error');
 					});
 
 				},
@@ -349,7 +349,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           $scope.report.report.report_submitted = moment().format();
 
           // msg
-					Materialize.toast( 'Processing Stock Report...' , 3000, 'note');
+					Materialize.toast( $filter('translate')('processing_stock_report') , 3000, 'note');
 
           // setReportRequest
           var setReportRequest = {
@@ -371,8 +371,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             $scope.report.updatedAt = moment( report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' );
 
             // user msg
-            var msg = 'Stock Report for  ' + $scope.report.titleFormat + ' ';
-                msg += complete ? 'Submitted!' : 'Saved!';
+            var msg = $filter('translate')('stock_report_for')+' ' + $scope.report.titleFormat + ' ';
+                msg += complete ? $filter('translate')('submitted')+'!' : $filter('translate')('saved_mayus1')+'!';
 
             // msg
             Materialize.toast( msg , 3000, 'success');

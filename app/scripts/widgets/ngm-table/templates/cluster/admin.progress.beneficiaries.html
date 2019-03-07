@@ -63,25 +63,25 @@
 								<td data-title="'Cluster'" sortable="'cluster'" ng-if="table.cluster_id === 'all'">
 									{{ row.cluster }}
 								</td>
-								<td data-title="'Organization'" sortable="'organization'">
+								<td data-title="'organization'|translate" sortable="'organization'">
 									 {{ row.organization }}									
 								</td>					
 
-								<td data-title="'Title'" sortable="'project_title'" ng-if="table.showTitle">
+								<td data-title="'title'|translate" sortable="'project_title'" ng-if="table.showTitle">
 									<a target="_blank" href="#/cluster/projects/summary/{{ row.project_id }}" title="GoTo Project Summary">
 										{{ row.project_title }}
 									</a>
 								</td>								
-								<td data-title="'Target Beneficiaries'" sortable="'target_total_format'" >
+								<td data-title="'target_beneficiaries'|translate" sortable="'target_total_format'" >
 									{{ row.target_total_format }}
 								</td>
-								<td data-title="'Reported Beneficiaries'" sortable="'report_total_format'">
+								<td data-title="'reported_beneficiaries'|translate" sortable="'report_total_format'">
 									{{ row.report_total_format }}
 								</td>
-								<td data-title="'Progress'" sortable="'progress_percentage'" ng-if="row.progress_percentage ==='N/A'">
+								<td data-title="'progress'|translate" sortable="'progress_percentage'" ng-if="row.progress_percentage ==='N/A'">
 									{{ row.progress_percentage}}
 								</td>
-								<td width="15%" data-title="'Progress'" sortable="'progress_percentage'" ng-if="row.progress_percentage !=='N/A'">
+								<td width="15%" data-title="'progress'|translate" sortable="'progress_percentage'" ng-if="row.progress_percentage !=='N/A'">
 									<div class="percentage-wrapper">
 										<span>{{ row.progress_percentage| number : 1 }}%</span>
 										<span class="project-progress-bar-wrapper ">

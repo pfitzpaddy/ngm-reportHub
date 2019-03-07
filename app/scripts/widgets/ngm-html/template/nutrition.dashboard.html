@@ -1,10 +1,10 @@
 
 <!-- bind html -->
 <button id="dashboard-fetch-btn" class="waves-effect waves-light btn blue left" ng-click="panel.fetchData()">
-		<i class="material-icons left">cached</i>Refresh Data
+		<i class="material-icons left">cached</i>{{'refresh_data'|translate}}
 </button>
-<span class="left" style="padding-left: 10px; padding-top:8px;">Last Updated: {{ panel.data.updatedAt }}</span>
+<span class="left" style="padding-left: 10px; padding-top:8px;">{{'last_updated' | translate}}: {{ panel.data.updatedAt }}</span>
 
 <a class="waves-effect waves-light btn right" href="#/nutrition/afghanistan/dashboard">
-	<i class="material-icons left">cached</i>Reset Dashboard
+	<i class="material-icons left">cached</i>{{'reset'|translate}} Dashboard
 </a>

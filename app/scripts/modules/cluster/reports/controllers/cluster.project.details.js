@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterProjectDetailsCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper', function ( $scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser, ngmClusterHelper ) {
+	.controller('ClusterProjectDetailsCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper','$translate','$filter', function ( $scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser, ngmClusterHelper,$translate,$filter) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -40,13 +40,13 @@ angular.module('ngmReportHub')
 
 				// set model to null
 				if( $route.current.params.project === 'new' ){
-					title += 'New Project';
+					title += $filter('translate')('new_project');
 				} else {
 					title += $scope.report.project.project_title;
 				}
 
 				// add project code to subtitle?
-				var text = 'Actual Monthly Beneficiaries Report for ' + $scope.report.project.project_title;
+				var text = $filter('translate')('actual_monthly_beneficiaries_report_for')+ ' ' + $scope.report.project.project_title;
 				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + $scope.report.project.project_description : $scope.report.project.project_description;
 
 				// report dashboard model
@@ -104,7 +104,7 @@ angular.module('ngmReportHub')
 								type: 'csv',
 								color: 'blue lighten-2',
 								icon: 'assignment',
-								hover: 'Download ' + $scope.report.project.project_title + ' as CSV',
+								hover: $filter('translate')('download')+' ' + $scope.report.project.project_title + ' '+ $filter('translate')('as')+' CSV',
 								request: {
 									method: 'POST',
 									url: ngmAuth.LOCATION + '/api/cluster/project/getProjects',

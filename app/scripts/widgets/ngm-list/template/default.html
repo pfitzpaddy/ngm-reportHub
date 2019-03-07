@@ -74,7 +74,7 @@
     		<div class="col s12 m7">
 
     			<div ng-if="!item.project_code">
-						<a href="#/cluster/projects/summary/{{ item.id }}" title="Update project {{ item.id }}">
+						<a href="#/cluster/projects/summary/{{ item.id }}" title="{{'update_project' | translate}} {{ item.id }}">
 							<i class="material-icons circle white teal-text">{{ list.icon }}</i>
 							<span class="title truncate">{{ item.project_title }}</span>
 							<p align="justify" style="padding:10px 0px 10px 0px;">
@@ -84,7 +84,7 @@
 					</div>
 
 					<div ng-if="item.project_code">
-						<a href="#/cluster/projects/summary/{{ item.id }}" title="Update project {{ item.id }}">
+						<a href="#/cluster/projects/summary/{{ item.id }}" title="{{'update_project' | translate}} {{ item.id }}">
 							<i class="material-icons circle white teal-text">{{ list.icon }}</i>
 							<span class="title truncate">{{ item.project_title }}</span>
 							<p align="justify" style="padding:10px 0px 10px 0px;">
@@ -96,7 +96,7 @@
 				</div>
 
 				<div class="col s12 m5">
-					<a class="valign right" style="color:#616161;" href="#/cluster/projects/summary/{{ item.id }}" title="Update project {{ item.id }}" class="secondary-content">Updated: {{ list.updatedAt( item.updatedAt ) }}
+					<a class="valign right" style="color:#616161;" href="#/cluster/projects/summary/{{ item.id }}" title="Update project {{ item.id }}" class="secondary-content">{{'updated' | translate}}: {{ list.updatedAt( item.updatedAt ) }}
 						<i class="material-icons valign right" style="color: teal">send</i>
 					</a>
 
@@ -113,8 +113,8 @@
 		<li ng-if="!list.data.length" class="collection-item avatar">
 			<a>
 				<i class="material-icons circle white teal-text">{{ list.icon }}</i>
-				<span class="title">{{ list.title }} Projects</span>
-				<p>You have 0 {{ list.title }} Projects</p>
+				<span class="title">{{ list.title }} {{'projects' | translate}}</span>
+				<p>{{'you_have' |translate}} 0 {{ list.title }} {{'projects' | translate}}</p>
 				<a class="secondary-content"style="padding-right:40px;">
 					<i class="material-icons">check_circle</i>
 				</a>

@@ -7,7 +7,10 @@
  */
 
 angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
-  .config( function( dashboardProvider ){
+  .config( function( dashboardProvider){
+
+    
+
     dashboardProvider
       .widget( 'project.details', {
         title: 'Cluster Project Details Form',
@@ -33,7 +36,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
     'ngmClusterLocations',
     'ngmClusterValidation',
     'ngmClusterHelperAf',
-    'config',
+    'config', '$translate',
     function( 
         $scope, 
         $location, 
@@ -51,7 +54,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         ngmClusterLocations,
         ngmClusterValidation,
         ngmClusterHelperAf,
-        config ){
+        config,$translate){
 
       // project
       $scope.project = {
@@ -598,7 +601,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.project.definition.target_locations );
 
           // inform
-          Materialize.toast( 'Processing...', 6000, 'note' );
+          Materialize.toast( $filter('translate')('processing'), 6000, 'note' );
 
           // details update
           $http({
@@ -611,7 +614,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             $scope.project.submit = true;
 
             // error
-            if ( project.err ) { Materialize.toast( 'Save failed! The project contains errors!', 6000, 'error' ); }
+            if ( project.err ) { Materialize.toast( $filter('translate')('save_failed_the_project_contains_error')+'!', 6000, 'error' ); }
 
             // if success
             if ( !project.err ) {
@@ -630,7 +633,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 $('.modal-trigger').leanModal();
 
                 // save msg
-                var msg = $scope.project.newProject ? 'Project Created!' : 'Project Updated!';
+                var msg = $scope.project.newProject ? $filter('translate')('project_created')+'!' : 'Project Updated!';
 
                 // save, redirect + msg
                 $timeout(function(){

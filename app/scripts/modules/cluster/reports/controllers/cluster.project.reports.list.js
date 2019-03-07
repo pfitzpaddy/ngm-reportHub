@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterProjectReportsListCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser', function ($scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser) {
+	.controller('ClusterProjectReportsListCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser','$translate','$filter', function ($scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -36,9 +36,9 @@ angular.module('ngmReportHub')
 										+'<div class="col s12 m12 l12">'
 											+'<div style="padding:20px;">'
 												+'<a class="btn-flat waves-effect waves-teal" href="#/cluster/projects/summary/' + $scope.report.project.id +'">'
-													+'<i class="material-icons left">keyboard_return</i>Back to Project Summary'
+													+'<i class="material-icons left">keyboard_return</i>'+$filter('translate')('back_to_project_summary')
 												+'</a>'
-												+'<span class="right" style="padding-top:8px;">Last Updated: ' + moment( $scope.report.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) +'</span>'
+												+'<span class="right" style="padding-top:8px;">'+$filter('translate')('last_updated')+': ' + moment( $scope.report.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) +'</span>'
 											+'</div>'
 										+'</div>'
 									+'</div>';
@@ -53,7 +53,7 @@ angular.module('ngmReportHub')
 				$scope.report.project = data;
 
 				// add project code to subtitle?
-				var text = 'Actual Monthly Beneficiaries Report for ' + $scope.report.project.project_title
+				var text = $filter('translate')('actual_monthly_beneficiaries_report_for')+' ' + $scope.report.project.project_title
 				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + text : text;
 
 				// report dashboard model
@@ -79,7 +79,7 @@ angular.module('ngmReportHub')
 								type: 'csv',
 								color: 'blue lighten-2',
 								icon: 'assignment',
-								hover: 'Download Monthly Reports as CSV',
+								hover: $filter('translate')('download_monthly_reports_as_csv'),
 								request: {
 									method: 'POST',
 									url: ngmAuth.LOCATION + '/api/health/indicator',
@@ -125,8 +125,8 @@ angular.module('ngmReportHub')
 									titleIcon: 'alarm_on',
 									color: 'blue lighten-4',
 									// textColor: 'white-text',
-									title: 'Reports ToDo',
-									hoverTitle: 'Update',
+									title: $filter('translate')('reports_todo'),
+									hoverTitle: $filter('translate')('update'),
 									icon: 'edit',
 									rightIcon: 'watch_later',
 									templateUrl: '/scripts/widgets/ngm-list/template/report.html',
@@ -155,7 +155,7 @@ angular.module('ngmReportHub')
 								config: {
 									titleIcon: 'done_all',
 									color: 'blue lighten-4',
-									title: 'Reports Complete',
+									title: $filter('translate')('reports_complete'),
 									hoverTitle: 'View',
 									icon: 'done',
 									rightIcon: 'check_circle',

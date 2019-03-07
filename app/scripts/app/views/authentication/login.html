@@ -61,7 +61,7 @@ li {
 					<div class="card">
 						<img title="Check your ReportHub email account" src="images/invite-sent.png"/>
 					</div>
-					<h5 class="title">REMINDER SENT!</h5>
+					<h5 class="title">{{'reminder_sent' | translate}}!</h5>
 				</div>
 
 				<div class="col s10 offset-s2 grey-text text-darken-2">
@@ -70,7 +70,7 @@ li {
 							<i class="material-icons" style="color: teal">send</i>
 						</div>
 						<div class="col s9">
-							Please check your <span style="font-weight:400;">ReportHub</span> email account to reset your password!
+							{{'please_check_your_ReportHub_email_account_to_reset_your_password' | translate}}!
 						</div>
 					</div>
 					<div class="row" style="padding-top:20px;">
@@ -78,7 +78,7 @@ li {
 							<i class="material-icons" style="color: teal">send</i>
 						</div>
 						<div class="col s9">
-							The email will contain a secure link to reset your password, so you can close this window.
+							{{'the_email_will_contain_a_secure_link_to_reset_your_password_so_you_can_close_this_window.' | translate}}
 						</div>
 					</div>
 					<p>
@@ -98,13 +98,13 @@ li {
 					<div class="card">
 						<img title="Check your ReportHub email account" src="images/find-account.png"/>
 					</div>
-					<h5 class="title">RESET PASSWORD</h5>
+					<h5 class="title">{{'reset_password' | translate}}</h5>
 				</div>
 
 				<p class="center" style="font-weight:300;" ng-if="panel.err">
-					Having trouble finding your account? 
+					{{'having_trouble_finding_your_account' | translate}}? 
 					<br/>
-					Contact <a href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a>
+					{{'contact_mayus' | translate}} <a href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a>
 				</p>
 
 				<form name="ngmResetForm" class="col s12" novalidate>
@@ -116,12 +116,12 @@ li {
 								autofocus=""
 								ng-model="panel.user.email"
 								required>
-		          <label for="ngm-reset-email" class="left">EMAIL</label>
+		          <label for="ngm-reset-email" class="left">{{'email_mayus' | translate}}</label>
 		        </div>
 		      </div>
 
 					<p class="helpers right">
-						<a id="login">BACK TO LOGIN ></a>
+						<a id="login">{{'back_to_login' | translate}}></a>
 					</p>
 
 					<div class="action center">
@@ -130,7 +130,7 @@ li {
 							type="submit"
 							ng-disabled="!panel.user.email || ngmResetForm.$invalid"
 							ng-click="panel.passwordResetSend( ngmResetForm )">
-								Send Me a Reminder!
+								{{'send_me_a_reminder' | translate}}!
 						</button>
 					</div>
 
@@ -148,7 +148,7 @@ li {
 				<div class="card">
 					<img src="images/log-in.png" style="padding-top:12px;margin-left:-18px;"/>
 				</div>
-				<h5 class="title">LOGIN</h5>
+				<h5 class="title">{{'login_mayus' | translate}}</h5>
 			</div>
 
 			<form name="ngmLoginForm" class="col s12" novalidate>
@@ -160,7 +160,7 @@ li {
 							autofocus=""
 							ng-model="panel.user.username"
 							required>
-	          <label for="ngm-username" class="left">USERNAME</label>
+	          <label for="ngm-username" class="left">{{'username_mayus' | translate}}</label>
 	        </div>
 	      </div>
 
@@ -170,15 +170,15 @@ li {
 	          <input id="ngm-password" type="password" class="validate"
 							ng-model="panel.user.password"
 							required>
-	          <label for="ngm-password">PASSWORD</label>
+	          <label for="ngm-password">{{'password_mayus' | translate}} </label>
 	        </div>
 	      </div>
 
 				<p class="helpers left">
-					<a style="color: #ffab40;" id="forgot">FORGOT PASSWORD?</a>
+					<a style="color: #ffab40;" id="forgot"> {{'forgot_password' | translate}}?</a>
 				</p>
 				<p class="helpers right">
-					<a href="#/cluster/register">REGISTER!</a>
+					<a href="#/cluster/register" >{{'register_mayus' | translate}} </a>
 				</p>
 
 				<div class="action center">
@@ -187,7 +187,7 @@ li {
 						class="btn btn-large waves-effect waves-teal" 
 						ng-disabled="ngmLoginForm.$invalid"
 						ng-click="panel.login(ngmLoginForm)">
-							Sign in
+							{{'sign_in' | translate}}
 					</button>
 				</div>
 
@@ -231,6 +231,9 @@ li {
 	$( '#forgot' ).click( function(){
 		// set login page
 		$( '.carousel' ).carousel( 'prev' );
-	});
-
+	}); 
 </script>
+
+
+
+

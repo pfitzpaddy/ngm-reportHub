@@ -14,7 +14,7 @@
                 							ngmClusterLists.getDetailList( 'kit_details', $locationIndex, $beneficiaryIndex, $index, detail.detail_type_id, beneficiary.kit_details )"
                 ng-change="ngmClusterBeneficiaries.selectChange( project, detail, 'kit_details', 'detail_type_id', 'detail_type_name','ngm-beneficiary-kit-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}')"
                 ng-disabled="project.report.report_status === 'complete' || !rowform.$visible">
-					<option value="" selected>Select...</option>
+					<option value="" selected>{{'select'|translate}}</option>
 
 				</select>
 				<label for="ngm-beneficiary-kit-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" class="active" style="transform:translateY(-10%)">Kit Item</label>

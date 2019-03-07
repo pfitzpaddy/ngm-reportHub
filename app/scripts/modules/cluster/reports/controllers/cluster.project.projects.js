@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller( 'ClusterProjectProjectsCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser, ngmClusterHelper ) {
+	.controller( 'ClusterProjectProjectsCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper','$translate','$filter', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser, ngmClusterHelper,$translate, $filter ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -65,8 +65,8 @@ angular.module( 'ngmReportHub' )
 			.then( function( organization ){
 			$scope.model.header.download.downloads[0].request.data.report = organization.organization_tag  +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 			// set model titles
-			$scope.model.header.title.title = organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + organization.cluster.toUpperCase() + ' | ' + organization.organization + ' | Projects';
-			$scope.model.header.subtitle.title = organization.cluster + ' projects for ' + organization.organization + ' ' + organization.admin0name;
+			$scope.model.header.title.title = organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + organization.cluster.toUpperCase() + ' | ' + organization.organization + ' | '+$filter('translate')('projects_mayus1');
+			$scope.model.header.subtitle.title = organization.cluster +' '+$filter('translate')('projects_for') +' '+ organization.organization + ' ' + organization.admin0name;
 
 		});
 
@@ -93,7 +93,7 @@ angular.module( 'ngmReportHub' )
 						type: 'csv',
 						color: 'blue lighten-2',
 						icon: 'assignment',
-						hover: 'Download Project Summaries as CSV',
+						hover: $filter('translate')('download_project_summaries_as_CSV'),
 						request: {
 							method: 'POST',
 							url: ngmAuth.LOCATION + '/api/cluster/project/getProjects',
@@ -129,7 +129,7 @@ angular.module( 'ngmReportHub' )
 						card: 'white grey-text text-darken-2',
 						style: 'padding: 20px;',
 						config: {
-							html: '<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="' + $scope.report.getOrganizationHref() + '"><i class="material-icons left">keyboard_return</i>Back to Organization</a><a class="waves-effect waves-light btn right" href="' + $scope.report.newProjectUrl + '"><i class="material-icons left">add_circle_outline</i>Add New Project</a>'
+							html: '<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="' + $scope.report.getOrganizationHref() + '"><i class="material-icons left">keyboard_return</i>'+$filter('translate')('back_to_organization')+'</a><a class="waves-effect waves-light btn right" href="' + $scope.report.newProjectUrl + '"><i class="material-icons left">add_circle_outline</i>'+$filter('translate')('add_new_project')+'</a>'
 						}
 					}]
 				}]
@@ -144,7 +144,7 @@ angular.module( 'ngmReportHub' )
 							// color: 'teal lighten-4',
 							color: 'blue lighten-4',
 							// textColor: 'white-text',
-							title: 'Active',
+							title: $filter('translate')('active'),
 							icon: 'edit',
 							request: {
 								method: 'POST',
@@ -169,7 +169,7 @@ angular.module( 'ngmReportHub' )
 							titleIcon: 'done_all',
 							// color: 'lime lighten-4',
 							color: 'blue lighten-4',
-							title: 'Complete',
+							title: $filter('translate')('complete'),
 							icon: 'done',
 							request: {
 								method: 'POST',

@@ -3,45 +3,45 @@
   <table class="bordered responsive-table" style="margin-bottom:10px;" ng-show="report.report.stocklocations[$locationIndex].stocks.length">
     <tr style="font-weight: 400">
 			<td>Cluster</td>
-			<td>Stock Purpose</td>
-			<td>Targeted Groups</td>
-      <td>Stock Type</td>
-      <td>Status</td>
-      <td>No. in Stock</td>
-      <td>No. in Pipeline</td>
-      <td>Units</td>
-			<td>Beneficiary Coverage</td>
-      <td ng-show="report.report.report_status !== 'complete'">Edit</td>
+			<td>{{'stock_purpose'|translate}}</td>
+			<td>{{'targeted_groups'|translate}}</td>
+      <td>{{'stock_type' | translate}}</td>
+      <td>{{'status_mayus'|translate}}</td>
+      <td>No. {{'in'|translate}} Stock</td>
+      <td>No. {{'in'|translate}} {{'pipeline'|translate}}</td>
+      <td>{{'units'|translate}}</td>
+			<td>{{'beneficiary_coverage'|translate}}</td>
+      <td ng-show="report.report.report_status !== 'complete'">{{'edit'|translate}}</td>
     </tr>
     <tr ng-repeat="stock in report.report.stocklocations[$locationIndex].stocks">
       <td>
         <!-- editable activity_type from report -->
-        <span e-placeholder="Select..." editable-select="stock.cluster_id" e-name="cluster_id" e-form="rowform" e-ng-options="item.cluster_id as item.cluster for item in report.lists.clusters">
+        <span e-placeholder="{{'select'|translate}}" editable-select="stock.cluster_id" e-name="cluster_id" e-form="rowform" e-ng-options="item.cluster_id as item.cluster for item in report.lists.clusters">
           {{ report.showStockCluster($data, stock) }}
         </span>
 			</td>
       <td>
         <!-- editable stock_item_purpose from report -->
-        <span e-placeholder="Select..." editable-select="stock.stock_item_purpose_id" e-name="stock_item_purpose_id" e-form="rowform" e-ng-options="item.stock_item_purpose_id as item.stock_item_purpose_name for item in report.lists.stock_item_purpose">
+        <span e-placeholder="{{'select'|translate}}" editable-select="stock.stock_item_purpose_id" e-name="stock_item_purpose_id" e-form="rowform" e-ng-options="item.stock_item_purpose_id as item.stock_item_purpose_name for item in report.lists.stock_item_purpose">
           {{ report.showStockPurpose($data, stock) }}
         </span>
       </td>
 			<td>
-				<span e-placeholder="Select..." editable-select="stock.stock_targeted_groups_id" e-name="stock_targeted_groups_id" e-form="rowform" e-ng-options="item.stock_targeted_groups_id as item.stock_targeted_groups_name for item in report.lists.stock_targeted_groups "
+				<span e-placeholder="{{'select'|translate}}" editable-select="stock.stock_targeted_groups_id" e-name="stock_targeted_groups_id" e-form="rowform" e-ng-options="item.stock_targeted_groups_id as item.stock_targeted_groups_name for item in report.lists.stock_targeted_groups "
 				 e-required>
 					{{ report.showStockTargetedGroup($data, stock) }}
 				</span>
 			</td>
       <td>
         <!-- editable activity_type from report -->
-        <span e-placeholder="Select..." editable-select="stock.stock_item_type" e-name="stock_item_type" e-form="rowform" e-ng-options="item.stock_item_type as item.stock_item_name for item in report.lists.stocks | filter: { cluster_id: stock.cluster_id }"
+        <span e-placeholder="{{'select'|translate}}" editable-select="stock.stock_item_type" e-name="stock_item_type" e-form="rowform" e-ng-options="item.stock_item_type as item.stock_item_name for item in report.lists.stocks | filter: { cluster_id: stock.cluster_id }"
           e-ng-disabled="!stock.cluster_id">
           {{ report.showStockType($data, stock) }}
         </span>
       </td>
       <td>
         <!-- editable activity_type from report -->
-        <span e-placeholder="Select..." editable-select="stock.stock_status_id" e-name="stock_status_id" e-form="rowform" e-ng-options="item.stock_status_id as item.stock_status_name for item in report.lists.stock_status">
+        <span e-placeholder="{{'select'|translate}}" editable-select="stock.stock_status_id" e-name="stock_status_id" e-form="rowform" e-ng-options="item.stock_status_id as item.stock_status_name for item in report.lists.stock_status">
           {{ report.showStockStatus($data, stock) }}
         </span>
       </td>
@@ -59,7 +59,7 @@
       </td>
       <td>
         <!-- editable activity_type from report -->
-        <span e-placeholder="Select..." editable-select="stock.unit_type_id" e-name="unit_type_id" e-form="rowform" e-ng-options="item.unit_type_id as item.unit_type_name for item in report.lists.units | filter: { cluster_id: stock.cluster_id }"
+        <span e-placeholder="{{'select'|translate}}" editable-select="stock.unit_type_id" e-name="unit_type_id" e-form="rowform" e-ng-options="item.unit_type_id as item.unit_type_name for item in report.lists.units | filter: { cluster_id: stock.cluster_id }"
           e-required>
           {{ report.showStockUnits($data, stock) }}
         </span>
@@ -94,7 +94,7 @@
   </table>
 
   <button class="btn" ng-show="report.report.report_status !== 'complete'" ng-click="report.addStock( $locationIndex )">
-    <i class="material-icons left">add</i>Add Row
+    <i class="material-icons left">add</i>{{'add_row'|translate}}
   </button>
 
 </div>

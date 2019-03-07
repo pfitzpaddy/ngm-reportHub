@@ -43,11 +43,11 @@
 		<!-- ie modal -->
 		<div id="ngm-ie-modal" class="modal">
 			<div class="modal-content">
-	      <h4></img>Download Google Chome</h4>
-	      <p><img align="center" src="images/chrome.png" width="10%">Google Chrome is the required browser for ReportHub!</p>
+	      <h4></img>{{'download_google_chrome' | translate}}</h4>
+	      <p><img align="center" src="images/chrome.png" width="10%">{{'google_chrome_is_the_required_browser_for_reporthub' | translate}}!</p>
 			</div>
 	    <div class="modal-footer">
-	      <a class="waves-effect waves-teal btn-flat" href="https://www.google.com/chrome">Download</a>
+	      <a class="waves-effect waves-teal btn-flat" href="https://www.google.com/chrome">{{'download' | translate}}</a>
 	    </div>
 		</div>
 
@@ -110,32 +110,48 @@
 							<!-- profile menu dropdown list -->
 							<ul class="ngm-profile-menu-content dropdown-content z-depth-2">
 
+								<li align="center" class="teal z-depth-2" ng-show="ngm.getUsername() !== 'welcome'">
+										
+										<a class="white-text" >
+											
+											{{'language'|translate}}: <span class="white-text" ng-click="ngm.changeFunction('en');">EN</span> /
+											<span class="white-text" ng-click="ngm.changeFunction('es');">ES</span>
+										</a> 
+
+										<!--<ul>
+											<li><a class="white-text right" ng-click="ngm.changeFunction('en');">EN</a></li>
+											<li><a class="white-text right" ng-click="ngm.changeFunction('es');">ES</a></li>
+										</ul>-->
+
+									
+									</li>
+
 									<!-- user login -->
 									<li align="right" class="teal z-depth-2"
 											ng-show="ngm.getUserName() === 'welcome' && ngm.style.home === '#/immap'">
 										<a class="white-text right" href="#/immap/login" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">lock_outline</i>LOGIN</a>
+										<i class="material-icons smedium right">lock_outline</i>{{'login_mayus' | translate}}</a>
 									</li>
 
 									<!-- user login -->
 									<li align="right" class="teal z-depth-2"
 											ng-show="ngm.getUserName() === 'welcome' && ngm.style.home !== '#/immap'">
 										<a class="white-text right" href="#/cluster/login" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">lock_outline</i>LOGIN</a>
+										<i class="material-icons smedium right">lock_outline</i>{{'login_mayus' | translate}}</a>
 									</li>
 
 									<!-- user logout -->
 									<li class="teal z-depth-2"
 											ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" ng-click="ngm.logout();">
-										<i class="material-icons smedium right">lock_open</i>LOGOUT</a>
+										<i class="material-icons smedium right">lock_open</i>{{'logout_mayus' | translate}}</a>
 									</li>
 
 									<!-- home page -->
 									<li align="center" class="teal z-depth-2" 
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/organization" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">home</i>MY HOME</a>
+										<i class="material-icons smedium right">home</i>{{'my_home' | translate}}</a>
 									</li>
 
 									<!-- iMMAP HOME -->
@@ -143,14 +159,14 @@
 										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().organization === 'iMMAP'">
 										<a class="white-text right" href="#/immap" 
 												ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">important_devices</i>iMMAP HOME</a>
+										<i class="material-icons smedium right">important_devices</i>{{'immap_home' | translate}}</a>
 									</li>
 
 									<!-- ADMIN -->
 									<li align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/admin/{{ ngm.getUser().adminRpcode | lowercase }}/{{ ngm.getUser().admin0pcode | lowercase }}" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">move_to_inbox</i>MY ADMIN</a>
+										<i class="material-icons smedium right">move_to_inbox</i>{{'my_admin' | translate}}</a>
 									</li>
 
 									<!-- Dashboard -->
@@ -163,36 +179,32 @@
 									<li align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/team" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">group</i>MY TEAM</a>
+										<i class="material-icons smedium right">group</i>{{'my_team' | translate}}</a>
 									</li>
 
 									<!-- PROFILE -->
 									<li align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/profile/{{ ngm.getUserName() }}" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">person_pin</i>MY PROFILE</a>
+										<i class="material-icons smedium right">person_pin</i>{{'my_profile' | translate}}</a>
 									</li>
 
 									<!-- my projects -->
 									<li  align="center" class="teal z-depth-2" 
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/projects" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">zoom_in</i>MY PROJECTS</a>
+										<i class="material-icons smedium right">zoom_in</i>{{'my_projects' | translate}}</a>
 									</li>
 
 									<!-- my STOCKS -->
-									<li  align="center" class="teal z-depth-2" 
-										ng-show="ngm.getUserName() !== 'welcome'">
-										<a class="white-text right" href="#/cluster/stocks" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">assignment_turned_in</i>MY STOCKS</a>
-									</li>
+									
 
 									<!-- PRODUCTS -->
 									<li align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().organization === 'iMMAP'">
 										<a class="white-text right" href="#/immap/products" 
 												ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">crop_original</i>MY PRODUCTS</a>
+										<i class="material-icons smedium right">crop_original</i>{{'my_products' | translate}}</a>
 									</li>
 
 									<!-- assessments -->
@@ -201,13 +213,13 @@
 															ngm.getUser().admin0pcode.toLowerCase() === 'et' &&
 															ngm.getUser().organization.toLowerCase() === 'who'">
 										<a class="white-text right" href="#/who/ethiopia" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">assignment_late</i>ASSESSMENTS</a>
+										<i class="material-icons smedium right">assignment_late</i>{{'assessments_mayus' | translate}}</a>
 									</li>
 									<li  align="center" class="teal z-depth-2" 
 										ng-if="ngm.getUser().admin0pcode.toLowerCase() === 'af'"
 										ng-show="ngm.getUser().cluster_id.toLowerCase() === 'nutrition'">
 										<a class="white-text right" href="#/nutrition/afghanistan/" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">bubble_chart</i>NUTRITION WEEKLY</a>
+										<i class="material-icons smedium right">bubble_chart</i>{{'nutrition_weekly' | translate}}</a>
 									</li>
 
 									<!-- EPR -->
@@ -242,7 +254,7 @@
 									 ng-if="ngm.getUser().admin0pcode.toLowerCase() === 'af'"
 									>
 										<a class="white-text right" href="#/response/afghanistan/drought" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">bubble_chart</i>DROUGHT DASHBOARD</a>
+										<i class="material-icons smedium right">bubble_chart</i>{{'drought' | translate}} DASHBOARD</a>
 									</li>
 
 
@@ -252,11 +264,30 @@
 										<i class="material-icons smedium right">help_outline</i>USER GUIDES</a>
 									</li> -->
 
+									<li  align="center" class="teal z-depth-2" 
+										ng-show="ngm.getUserName() !== 'welcome'">
+										<a class="white-text right" href="#/cluster/stocks" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">assignment_turned_in</i>{{'my_stocks' | translate}}</a>
+									</li>
+
+									<li  align="center" class="teal z-depth-2" 
+										ng-if="ngm.getUser().admin0pcode === 'AF'"
+										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || ngm.getUser().organization.toLowerCase() === 'who' || ngm.getUser().organization.toLowerCase() === 'dews'">
+										<a class="white-text right" href="#/who/" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">bubble_chart</i>DEWS DASHBOARD</a>
+									</li>
+
 									<!-- contact modal -->
 									<li align="center" class="teal z-depth-2">
 										<a class="white-text right" ng-click="ngm.contact(); ngm.toggleNavigationMenu()">
-										<i class="material-icons smedium right">perm_phone_msg</i>CONTACT REPORTHUB</a>
+										<i class="material-icons smedium right">perm_phone_msg</i>{{'contact_mayus' | translate}} REPORTHUB</a>
 									</li>
+
+									
+
+									
+
+									
 
 							</ul>
 
@@ -385,6 +416,10 @@
 		<script src="bower_components/ng-csv/build/ng-csv.min.js"></script>
 		<script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
 		<script src="bower_components/jquery-animatescroll/dist/animatescroll.js"></script>
+
+		
+		<script src="bower_components/angular-translate/angular-translate.js"></script>
+		<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script> 
 		<!-- endbower -->
 		<!-- endbuild -->
 
@@ -540,6 +575,7 @@
 		<script src="scripts/widgets/ngm-modal/modal.js"></script>
 		<script src="scripts/widgets/ngm-stats/stats.js"></script>
 		<script src="scripts/widgets/ngm-table/table.js"></script>
+
 
 	</body>
 </html>
