@@ -30,7 +30,9 @@
 							    	<td>Reporter</td>
 							      <td>Location Type</td>
 							      <td>Upazila</td>
-							      <td ng-if="ngmCbLocations.showUnion( project.definition.target_locations )">Union</td>
+							      <td>Union</td>
+							      <!-- <td ng-if="ngmCbLocations.showUnion( project.definition.target_locations )">Union</td> -->      
+							      <td ng-if="ngmCbLocations.showCamps( project.definition.target_locations )">Camp</td>
 							      <td>Location Name</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
@@ -85,7 +87,20 @@
 
 
 							      <!-- admin2 OPTIONS WITH FILTERS! -->
-							      <td ng-if="location.site_type_id === 'refugee_camp' || location.site_type_id === 'refugee_block'">
+							      <td ng-if="!location.site_type_id">
+							        <span e-placeholder="Select..."
+							        				editable-select="location.admin2pcode"
+							        				e-name="admin2pcode"
+							        				e-form="locationform"
+							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | 
+							        											filter:{ admin1pcode: location.admin1pcode }"
+							        				e-required>
+							          {{ ngmCbLocations.displayAdmin2( project.lists, $index, $data, location ) }}
+							        </span>
+							      </td>
+							      <td ng-if="location.site_type_id === 'refugee_camp' || 
+							      							location.site_type_id === 'refugee_block' ||
+							      							location.site_type_id === 'nutrition_center'">
 							        <span e-placeholder="Select..."
 							        				editable-select="location.admin2pcode"
 							        				e-name="admin2pcode"
@@ -115,12 +130,36 @@
 							        				e-form="locationform"
 							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | 
 							        											filter:{ admin1pcode: location.admin1pcode } | admin2CycloneShelterCxbfilter"
-							        				e-ng-change="ngmCbLocations.updateAdmin2( project.lists, $index, $data, location );"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin2( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
 
+
+										<!-- !nutrition_center -->
+							      <td ng-if="ngmCbLocations.showCamps( project.definition.target_locations ) &&
+							      							location.site_type_id !== 'nutrition_center' &&
+							      							location.site_type_id !== 'refugee_block'">
+							        -
+							      </td>
+
+										<!-- nutrition_center -->
+							      <td ng-if="location.site_type_id === 'nutrition_center' ||
+							      						location.site_type_id === 'refugee_block'">
+							        <span e-placeholder="Select..."
+							        				editable-select="location.admin3pcode"
+							        				e-name="admin3pcode"
+							        				e-form="locationform"
+							        				e-ng-options="item.site_id as item.site_name for item in project.lists.adminSites | 
+							        											filter:{ 
+							        												admin1pcode: location.admin1pcode, 
+							        												admin2pcode: location.admin2pcode,
+							        												site_type_id: 'refugee_camp',
+							        											}"
+							        				e-required>
+							          {{ ngmCbLocations.displayAdmin3( project.lists, $index, $data, location ) }}
+							        </span>
+							      </td>
 
 							      <!-- select existing: drop down -->
 							      <!-- <td ng-if="( location.site_type_id === 'host_community' || location.site_type_id === 'cyclone_shelter' )"> -->
@@ -132,9 +171,11 @@
 							        			e-ng-options="item.site_id as item.site_name for item in project.lists.adminSites | 
 							        											filter:{ 
 							        												admin1pcode: location.admin1pcode, 
-							        												admin2pcode: location.admin2pcode, 
+							        												admin2pcode: location.admin2pcode,
+							        												admin3pcode: location.admin3pcode,
 							        												site_type_id: location.site_type_id
 							        											}"
+														e-ng-disabled="!location.site_type_id"
 														e-ng-change="ngmCbLocations.updateSite( project.lists, $index, $data, location );">
 							          {{ ngmCbLocations.displaySites( project.lists, $index, $data, location ) }}
 							        </span>

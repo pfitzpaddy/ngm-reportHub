@@ -3189,6 +3189,10 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'host_community',
             site_type_name: 'Host Community'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
+            site_type_id: 'nutrition_center',
+            site_type_name: 'Nutrition Center'
+          },{
             cluster_id: [ 'fss' ],
             site_type_id: 'cyclone_shelter',
             site_type_name: 'Cyclone Shelter'
