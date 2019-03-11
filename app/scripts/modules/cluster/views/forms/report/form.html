@@ -244,6 +244,9 @@
 		<!-- Project beneficiaries details -->
 		<div class="slide-animate" ng-include="project.templatesUrl + project.notesUrl"></div>
 
+		<!-- Upload documents -->
+		<div ng-if="project.definition.admin0pcode === 'AF'" class="slide-animate"  ng-include="project.templatesUrl + project.uploadUrl"></div>
+
 		<!-- form submission -->
 		<div class="row remove" ng-if="project.report.report_status !== 'complete'">
 			<div class="col s12 m12 l12">

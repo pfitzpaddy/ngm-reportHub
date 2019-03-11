@@ -363,7 +363,7 @@ angular.module('ngmReportHub')
 									error:function(file,response){
 										document.querySelector(".percent-upload").style.display = 'none';									
 										document.querySelector(".dz-default.dz-message").style.display = 'block';
-
+										
 										if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 ) {
 											myDropzone.removeAllFiles(true);
 											$timeout(function () {
