@@ -62,6 +62,19 @@ angular.module('ngmReportHub')
 					}
 				}
 			},
+			
+			//set param upload
+			setParamUpload:function(){
+				return{
+					project_id: $scope.report.project.id, 
+					username: $scope.report.user.username, 
+					organization_tag: $scope.report.project.organization_tag, 
+					admin0pcode: $scope.report.project.admin0pcode,
+					adminRpcode: $scope.report.project.adminRpcode,
+					project_start_date: $scope.report.project.project_start_date,
+					project_end_date: $scope.report.project.project_end_date,
+				}
+			},
 
 			// set project details
 			setUpload: function (data) {
@@ -151,7 +164,7 @@ angular.module('ngmReportHub')
 							widgets: [{
 								type: 'dropzone',
 								config:{
-									params: { project_id: $scope.report.project.id, username: $scope.report.user.username, organization_tag: $scope.report.user.organization_tag, admin0pcode: $scope.report.user.admin0pcode },
+									params: $scope.report.setParamUpload(),
 									templateUrl: '/scripts/widgets/ngm-dropzone/template/upload.html',
 									openModal: function (modal) {
 										$('#' + modal).openModal({ dismissible: false });
@@ -363,7 +376,7 @@ angular.module('ngmReportHub')
 									error:function(file,response){
 										document.querySelector(".percent-upload").style.display = 'none';									
 										document.querySelector(".dz-default.dz-message").style.display = 'block';
-
+										
 										if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 ) {
 											myDropzone.removeAllFiles(true);
 											$timeout(function () {

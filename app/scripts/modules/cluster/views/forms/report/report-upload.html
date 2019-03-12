@@ -1,0 +1,354 @@
+<style>
+	.dropzone {
+	border: 2px dashed #5c6bc0;
+	margin: 0 20px 0 20px;
+	
+}
+.modal{
+	max-height: unset;
+}
+.modal .modal-footer {
+    /* border-radius: 0 0 2px 2px; */
+    background-color: #ffffff;
+		height: 20px;}
+.close-button{
+	margin-top:4px;
+	color: #a0a4a6;
+}
+#close-preview-file.modal,#remove-modal.modal {
+		width: auto !important;
+		right: auto !important;
+		left: 50% !important;
+		transform: translateX(-50%) !important;
+	}
+
+.remove-upload.btn-floating{
+	position: absolute;
+	top: -14px;
+	right:-12px;
+	z-index: 20;
+	width: 30px;
+  height: 30px;
+  line-height: 30px;
+	cursor: pointer !important;
+}
+.remove-upload.btn-floating i{
+	  font-size: 20px;
+    line-height: 30px;
+}
+.dropzone .dz-preview .dz-details{
+	padding: 3em 1em;
+	color:#000000;
+	background: rgba(255,255,255, 0.2) !important;
+}
+.percent-upload{
+	display: none;
+}
+li .collection-item .avatar .coll .list-upload{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.ng-table th {
+	text-align: left;
+	padding-left: 20px;
+}
+.list-upload-item td{
+	padding-left: 20px;
+}
+	.line {
+		display: inline-block;
+	}
+.card-reveal	.line {
+		display: inline-block;
+		padding-left: 21%;
+		margin-top: 15%;
+	}
+	.collection .collection-item.avatar i.circle {
+    font-size: 15px;
+    line-height: 25px;
+	}
+	.collection .collection-item.avatar .circle {
+    width: 25px;
+    height: 25px;    
+    top: -11px;
+    left: -4px;
+	}
+	.pagination li.active {
+    background-color: #5c6bc0;
+	}
+	ul.pagination.ng-table-pagination{
+		margin-top:15px;
+	}
+	.edit-report-btn-left {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+.ng-table th.sortable.sort-desc, .ng-table th.sortable.sort-asc {
+    background-color: rgba(141,192,219,0);
+}
+	.grid-list {
+		display: inline-flex;
+		margin-top: 15px;
+		margin-left: 52%;
+	}
+		.color_teal {
+		color: #26a69a !important;
+	}
+
+	.color_white {
+		color: #ffffff !important;
+	}
+	.border-radius {
+		border-radius: 6px;
+		border: 1px solid #dadce0;
+		box-shadow: none;
+	}
+	.card .border-radius {
+		min-height: 200px;
+	}
+
+	.card .card-image {
+		height: 150px;
+	}
+
+	.card .card-image img {
+		/* height: 100%;
+		width: auto; */
+		width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+	}
+
+	.card .card-reveal {
+		padding: 0;
+	}
+
+	.card .card-content {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+		.material-tooltip {
+ padding: 10px 10px;
+ width:auto;
+ font-weight: 600;
+}
+	.close-uplod-btn{
+		background-color: red;
+    color: #fff;
+    font-size: 30px;
+	}
+
+</style>
+
+<!-- START-MODAL -->
+<div id="upload-file" class="modal">
+	<div class="modal-footer" style=" padding-top: 1px; padding-right: 1px; ">
+		<a class=" modal-action waves-effect waves-green right close-button" style="margin-top:0px"
+		ng-click="project.uploadDocument.closeModal('upload-file')">
+			<i class="material-icons close-uplod-btn">clear</i></a>
+	</div>
+	<div class="modal-content">
+
+	
+	<div class="row">						
+									<div id="dropzone">
+										<form ng-dropzone dropzone="dropzone" dropzone-config="project.uploadDocument" enctype="multipart/form-data" class="dropzone needsclick dz-clickable">
+											<div class="fallback">
+												<input name="file" type="file" multiple />
+											</div>
+											<div id="dropzone-message" class="center"></div>
+											<div class="percent-upload">
+												<div class=" percentage center" style="font-weight: 400;font-size: 48px; margin-top:30px;">
+												</div>
+												<div class="dz-progress progress">
+													<div class="indeterminate dz-upload" data-dz-uploadprogress>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="center" style="margin-top: 10px">
+										<button id="upload_doc" class="btn">Submit</button>
+										<div id="delete_doc" class="btn red">Cancel</div>
+									</div>
+						</div>
+	</div>
+</div>
+<div id="close-preview-file" class="modal ">
+	<div class="modal-content">
+		<div>
+			<iframe src={{project.manageDocument.setLink()}} style="width:600px; height:500px;" frameborder="0"></iframe>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+	</div>
+</div>
+<div id="remove-modal" class="modal">
+	<div class="modal-content">
+		<div class="center">
+			<i class="medium material-icons" style="color:#f44336">delete</i>
+			<h5 style="font-weight:300;"> Remove this File?</h5>
+		</div>
+
+	</div>
+	<div class="modal-footer">
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+		<a ng-click="project.manageDocument.removeFile()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove this file!</a>
+	</div>
+</div>
+<!-- END-MODAL -->
+<div class="row" ng-init="grid = true">
+	<div class="col s12 m12 l12">
+		<div class="card">
+
+			<ul class="collection with-header">
+				<li class="collection-header indigo lighten-1">
+					<h5 class="report-panel-title white-text">
+						<div>
+							<i class="material-icons left">attachment</i>Upload Documents for {{ project.monthlyTitleFormat }}
+						</div>
+					</h5>
+				</li>
+
+				<li class="collection-item avatar " style=" border-bottom-width: 0px;min-height: 60px; ">
+					<div class="right">
+						<button class=" btn waves-effect waves-light tooltipped-report-upload" data-position="bottom" data-tooltip="Upload Document" ng-click="project.uploadDocument.openModal('upload-file')">
+							<i class="material-icons left">cloud_upload</i>
+							Upload Document
+						</button>
+							
+						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="Grid View" ng-click="grid=true"
+						 ng-class="{white: !grid,teal:grid}">
+							<i class="material-icons " style="color: #ffffff" ng-class="{color_teal: !grid,color_white:grid}">
+								view_module
+							</i>
+						</div>							
+						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="List View" ng-click="grid=false"
+						 ng-class="{white: grid,teal:!grid}">
+							<i class="material-icons  " ng-class="{color_teal: grid,color_white:!grid}">
+								format_list_bulleted
+							</i>
+						</div>
+					</div>
+				</li>
+				<div ng-show="!grid">
+					<li class="collection-item avatar" ng-if="!listUpload.length">
+						<div class="label" style="text-align:center; padding-top:20px;padding-bottom:20px;">
+							<div>
+								<i class="material-icons" style="color: #5c6bc0">
+									error
+								</i>
+							</div>
+							<span>You have no report documents yet !</span>
+						</div>
+					</li>
+					<li ng-if="listUpload.length>0" class="collection-item avatar list-upload card" style="padding-left: 0px;padding-right: 0px;padding-bottom: 15px;">
+						<div>
+							<table class="highlight list-upload-item" ng-table="tableParams">
+								<tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;border-bottom: 0.99px solid #dce0e2;">
+								
+									<td data-title="'File Name'" sortable="'filename'" width="40%">
+										<div style="position: relative;">
+											<i class="material-icons circle" style="background-color:{{project.manageDocument.extentionColor(row.filename_extension)}}">
+												 {{project.manageDocument.extentionIcon(row.filename_extension)}}
+											</i>
+											<div style="position:absolute;left: 30px;top:-11px">{{row.filename}}</div>
+										</div>
+								
+									</td>
+									<td data-title="'Owner'" sortable="'fileowner'" width="20%">
+										{{row.fileowner}}
+									</td>
+								
+									<td data-title="'Uploaded'" sortable="'createdAt'" width="10%">
+										{{row.createdAt|date}}
+									</td>
+									<td data-title="'Action'" width="20%">
+										<div class="line">
+								
+											<!-- use gdrive id file -->
+											<button class="btn-floating  wave-effect blue tooltipped-report-upload" data-position="bottom" data-tooltip="Preview" ng-disabled="item.filename_extension === '.csv'"
+											 ng-click="project.manageDocument.openPreview('close-preview-file',row.fileid)">
+												<i class="small material-icons">compare</i>
+											</button>
+											<a class="btn-floating  wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="Download"
+											 ng-href="{{project.manageDocument.setDonwloadLink(row.fileid)}}">
+												<i class="small material-icons">cloud_download</i>
+											</a>
+											<button class="btn-floating  wave-effect tooltipped-report-upload red space" data-position="bottom" data-tooltip="Delete"
+											 ng-click="project.manageDocument.setRemoveId('remove-modal',row.fileid)">
+												<i class="small material-icons">delete</i>
+											</button>
+										</div>
+									</td>
+								</tr>							
+							</table>
+						</div>
+					</li>
+				</div>
+				<div ng-show="grid">
+							<li ng-if="listUpload.length>0" class="collection-item avatar" style="padding-left: 30px;padding-right: 30px">
+								<div class="row">
+									<div class="col s12 m2" dir-paginate="item in listUpload | orderBy: 'createdAt':true | itemsPerPage: listUpload.itemsPerPage"
+									 pagination-id="listUpload.id">
+										<div class="card border-radius">
+											<div class="card-image waves-effect waves-block waves-light">
+												<img class="activator" src={{project.manageDocument.setThumbnailfromGdrive(item.fileid)}}>
+											</div>
+											<div class="card-content">
+												<i class="material-icons left" style="color: {{project.manageDocument.extentionColor(item.filename_extension)}};margin-right: 5px;">
+													 {{project.manageDocument.extentionIcon(item.filename_extension)}}
+												</i>
+												<span class="grey-text activator text-darken-4 " style="font-size: 12px; font-weight: 400">{{item.filename| limitTo: 12}}{{item.filenamelength
+													< 12 ? '' : '...'}} <i class="material-icons right" style="cursor: pointer; margin-left: 5px;">more_vert</i>
+												</span>
+											</div>
+											<div class="card-reveal">
+												<div class=" card-title grey-text text-darken-4">
+													<i class="material-icons right" style="font-size: 18px; color: #e2e2e2;margin-top: 5px;margin-right: 5px;">close</i>
+												</div>
+												<div class="line">
+						
+													<!-- use gdrive id file -->
+													<button class="btn-floating  wave-effect blue tooltipped-report-upload" data-position="bottom" data-tooltip="Preview" ng-click="project.manageDocument.openPreview('close-preview-file',item.fileid)"
+													 ng-disabled="item.filename_extension === '.csv'">
+														<i class="small material-icons">compare</i>
+													</button>
+													<a class="btn-floating  wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="Download" ng-href="{{project.manageDocument.setDonwloadLink(item.fileid)}}">
+														<i class="small material-icons">cloud_download</i>
+													</a>
+													<button class="btn-floating  wave-effect tooltipped-report-upload red space " data-position="bottom" data-tooltip="Delete" ng-click="project.manageDocument.setRemoveId('remove-modal',item.fileid)">
+														<i class="small material-icons">delete</i>
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="collection-item avatar" ng-if="!listUpload.length">
+								<div class="label" style="text-align:center; padding-top:20px;padding-bottom:20px;">
+									<div>
+										<i class="material-icons" style="color: #5c6bc0">
+											error
+										</i>
+									</div>
+									<span>You have no report documents yet !</span>
+								</div>
+							</li>
+							<li class="collection-item avatar" ng-if="listUpload.length > listUpload.itemsPerPage" style="padding:15px 10px 15px 10px;min-height: 65px;">
+								<dir-pagination-controls pagination-id="listUpload.id"></dir-pagination-controls>
+							</li>
+				</div>
+			</ul>
+
+		</div>
+	</div>
+</div>
+<script>
+	setTimeout(function () {
+			$('.tooltipped-report-upload').tooltip();
+		}, 100);
+</script>
