@@ -214,18 +214,18 @@ li .collection-item .avatar .coll .list-upload{
 
 				<li class="collection-item avatar " style=" border-bottom-width: 0px;min-height: 60px; ">
 					<div class="right">
-						<button class=" btn waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Upload Document" ng-click="project.uploadDocument.openModal('upload-file')">
+						<button class=" btn waves-effect waves-light tooltipped-report-upload" data-position="bottom" data-tooltip="Upload Document" ng-click="project.uploadDocument.openModal('upload-file')">
 							<i class="material-icons left">cloud_upload</i>
 							Upload Document
 						</button>
 							
-						<div class="btn wave-effect space tooltipped" data-position="bottom" data-tooltip="Grid View" ng-click="grid=true"
+						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="Grid View" ng-click="grid=true"
 						 ng-class="{white: !grid,teal:grid}">
 							<i class="material-icons " style="color: #ffffff" ng-class="{color_teal: !grid,color_white:grid}">
 								view_module
 							</i>
 						</div>							
-						<div class="btn wave-effect space tooltipped" data-position="bottom" data-tooltip="List View" ng-click="grid=false"
+						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="List View" ng-click="grid=false"
 						 ng-class="{white: grid,teal:!grid}">
 							<i class="material-icons  " ng-class="{color_teal: grid,color_white:!grid}">
 								format_list_bulleted
@@ -269,15 +269,15 @@ li .collection-item .avatar .coll .list-upload{
 										<div class="line">
 								
 											<!-- use gdrive id file -->
-											<button class="btn-floating  wave-effect blue tooltipped" data-position="bottom" data-tooltip="Preview" ng-disabled="item.filename_extension === '.csv'"
+											<button class="btn-floating  wave-effect blue tooltipped-report-upload" data-position="bottom" data-tooltip="Preview" ng-disabled="item.filename_extension === '.csv'"
 											 ng-click="project.manageDocument.openPreview('close-preview-file',row.fileid)">
 												<i class="small material-icons">compare</i>
 											</button>
-											<a class="btn-floating  wave-effect space tooltipped" data-position="bottom" data-tooltip="Download"
+											<a class="btn-floating  wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="Download"
 											 ng-href="{{project.manageDocument.setDonwloadLink(row.fileid)}}">
 												<i class="small material-icons">cloud_download</i>
 											</a>
-											<button class="btn-floating  wave-effect tooltipped red space tooltipped" data-position="bottom" data-tooltip="Delete"
+											<button class="btn-floating  wave-effect tooltipped-report-upload red space" data-position="bottom" data-tooltip="Delete"
 											 ng-click="project.manageDocument.setRemoveId('remove-modal',row.fileid)">
 												<i class="small material-icons">delete</i>
 											</button>
@@ -312,14 +312,14 @@ li .collection-item .avatar .coll .list-upload{
 												<div class="line">
 						
 													<!-- use gdrive id file -->
-													<button class="btn-floating  wave-effect blue tooltipped" data-position="bottom" data-tooltip="Preview" ng-click="project.manageDocument.openPreview('close-preview-file',item.fileid)"
+													<button class="btn-floating  wave-effect blue tooltipped-report-upload" data-position="bottom" data-tooltip="Preview" ng-click="project.manageDocument.openPreview('close-preview-file',item.fileid)"
 													 ng-disabled="item.filename_extension === '.csv'">
 														<i class="small material-icons">compare</i>
 													</button>
-													<a class="btn-floating  wave-effect space tooltipped" data-position="bottom" data-tooltip="Download" ng-href="{{project.manageDocument.setDonwloadLink(item.fileid)}}">
+													<a class="btn-floating  wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="Download" ng-href="{{project.manageDocument.setDonwloadLink(item.fileid)}}">
 														<i class="small material-icons">cloud_download</i>
 													</a>
-													<button class="btn-floating  wave-effect tooltipped red space tooltipped" data-position="bottom" data-tooltip="Delete" ng-click="project.manageDocument.setRemoveId('remove-modal',item.fileid)">
+													<button class="btn-floating  wave-effect tooltipped-report-upload red space " data-position="bottom" data-tooltip="Delete" ng-click="project.manageDocument.setRemoveId('remove-modal',item.fileid)">
 														<i class="small material-icons">delete</i>
 													</button>
 												</div>
@@ -349,6 +349,6 @@ li .collection-item .avatar .coll .list-upload{
 </div>
 <script>
 	setTimeout(function () {
-			$('.tooltipped').tooltip();
+			$('.tooltipped-report-upload').tooltip();
 		}, 100);
 </script>

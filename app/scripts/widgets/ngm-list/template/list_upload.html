@@ -140,12 +140,12 @@
 				</div>
 				<div class="col s12 m2">
 					<div class="grid-list">
-						<div class="btn-floating wave-effect space tooltipped" data-position="bottom" data-tooltip="List View" ng-click="grid=false" ng-class="{white: !grid,teal:grid}">
+						<div class="btn-floating wave-effect space tooltipped-project-upload" data-position="bottom" data-tooltip="List View" ng-click="grid=false" ng-class="{white: !grid,teal:grid}">
 							<i class="material-icons  " ng-class="{color_teal: !grid,color_white:grid}">
 								format_list_bulleted
 							</i>
 						</div>
-						<div class="btn-floating wave-effect space tooltipped"  data-position="bottom" data-tooltip="Grid View" ng-click="grid=true" ng-class="{white: grid,teal:!grid}">
+						<div class="btn-floating wave-effect space tooltipped-project-upload"  data-position="bottom" data-tooltip="Grid View" ng-click="grid=true" ng-class="{white: grid,teal:!grid}">
 							<i class="material-icons " style="color: #ffffff" ng-class="{color_teal: grid,color_white:!grid}">
 								view_module
 							</i>
@@ -166,14 +166,14 @@
 					<div class="secondary-content">
 
 						
-						<button data-position="bottom" data-tooltip="Preview" class="btn-floating  wave-effect blue tooltipped" 
+						<button data-position="bottom" data-tooltip="Preview" class="btn-floating  wave-effect blue tooltipped-project-upload" 
 						ng-click="list.openModal('close-preview-file',item.fileid)" ng-disabled="item.filename_extension === '.csv'">
 							<i class="small material-icons">compare</i>
 						</button>
-						<a class="btn-floating  wave-effect tooltipped" data-position="bottom" data-tooltip="Download" ng-href="{{list.setDonwloadLink(item.fileid)}}">
+						<a class="btn-floating  wave-effect tooltipped-project-upload" data-position="bottom" data-tooltip="Download" ng-href="{{list.setDonwloadLink(item.fileid)}}">
 							<i class="small material-icons">cloud_download</i>
 						</a>
-						<button class="btn-floating  wave-effect red tooltipped" data-position="bottom" data-tooltip="Delete" ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
+						<button class="btn-floating  wave-effect red tooltipped-project-upload" data-position="bottom" data-tooltip="Delete" ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
 							<i class="small material-icons">delete</i>
 						</button>
 					</div>
@@ -211,14 +211,14 @@
 									<div class="line">
 
 										<!-- use gdrive id file -->
-										<button class="btn-floating  wave-effect blue tooltipped" data-position="bottom" data-tooltip="Preview"
+										<button class="btn-floating  wave-effect blue tooltipped-project-upload" data-position="bottom" data-tooltip="Preview"
 										ng-click="list.openModal('close-preview-file',item.fileid)" ng-disabled="item.filename_extension === '.csv'">
 											<i class="small material-icons">compare</i>
 										</button>
-										<a class="btn-floating  wave-effect space tooltipped" data-position="bottom" data-tooltip="Download" ng-href="{{list.setDonwloadLink(item.fileid)}}">
+										<a class="btn-floating  wave-effect space tooltipped-project-upload" data-position="bottom" data-tooltip="Download" ng-href="{{list.setDonwloadLink(item.fileid)}}">
 											<i class="small material-icons">cloud_download</i>
 										</a>
-										<button class="btn-floating  wave-effect tooltipped red space tooltipped" data-position="bottom" data-tooltip="Delete"  ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
+										<button class="btn-floating  wave-effect red space tooltipped-project-upload" data-position="bottom" data-tooltip="Delete"  ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
 											<i class="small material-icons">delete</i>
 										</button>
 									</div>
@@ -239,6 +239,6 @@
 </div>
 <script>
 	setTimeout(function(){
-		$('.tooltipped').tooltip();
+		$('.tooltipped-project-upload').tooltip();
 	}, 100 );	
 </script>

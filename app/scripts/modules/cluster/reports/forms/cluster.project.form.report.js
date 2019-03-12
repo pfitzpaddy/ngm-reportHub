@@ -560,7 +560,14 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						myDropzone.removeAllFiles(true);
 						Materialize.toast("Cancel to upload file", 2000, "note");
 					},
-					params: { report_id: config.report.id, username: ngmUser.get().username, organization_tag: ngmUser.get().organization_tag, admin0pcode: ngmUser.get().admin0pcode },
+					params: {
+						report_id: config.report.id,
+						username: ngmUser.get().username,
+						organization_tag: config.report.organization_tag,
+						admin0pcode: config.report.admin0pcode,
+						adminRpcode: config.report.adminRpcode,
+						reporting_period: config.report.reporting_period
+					},
 					previewTemplate: `	<div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
 																			<div class="dz-image">
 																				<img data-dz-thumbnail>
