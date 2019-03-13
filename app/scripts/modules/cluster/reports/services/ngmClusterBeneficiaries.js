@@ -678,7 +678,6 @@ angular.module( 'ngmReportHub' )
             if ( $data.activity_type_id && 
                   $data.activity_description_id &&
                   $data.beneficiary_type_id &&
-                  $data.delivery_type_id &&
                   $data.units >= 0 &&
                   $data.sessions >= 0 &&
                   $data.households >= 0 &&
@@ -689,8 +688,18 @@ angular.module( 'ngmReportHub' )
                   $data.women >= 0 &&
                   $data.elderly_men >= 0 &&
                   $data.elderly_women >= 0 ) {
-              disabled = false;
+              
+              // if report form
+              if ( $data.hasOwnProperty('delivery_type_id') ) {
+                if ( $data.delivery_type_id ) {
+                  disabled = false;
+                }
+              } else {
+                // if project form
+                disabled = false;
+              }
             }
+
             break;
 
           case 'ET':
