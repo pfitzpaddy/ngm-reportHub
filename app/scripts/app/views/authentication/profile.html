@@ -312,52 +312,8 @@ form {
 
 				</div>
 
-				<!-- ROLE -->
-				<div ng-if="!panel.formDisabled && panel.roles.length" class="card z-depth-1" style="padding:5% 20% 5% !important;">
-				
-					<!-- btn as title! -->
-					<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">ROLES</a>
+				<!-- CONTACT -->
 
-					<div class="row">
-						<div class="col s4" ng-repeat="role in panel.roles" >
-							<input type="checkbox"
-											class="filled-in"
-											id={{role}}
-											value={{role}}
-											ng-checked="panel.user.roles.indexOf(role) > -1"
-											ng-disabled="role === 'USER'"
-								 			ng-click="panel.manageUserAccess(role)" />
-							<label for="{{role}}" style="color: #000000; font-weight: 500;">{{role}}</label>
-						</div>
-					</div>
-					
-				</div>
-				<!-- ClUSTER -->
-				<div ng-if="!panel.formDisabled " class="card z-depth-1" style="padding:5% 5% 5% 20% !important;">				
-					<!-- btn as title! -->
-					<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">CLUSTER</a>
-				
-					<div class="row">
-						<div class="col s5" ng-repeat="(key,value) in panel.cluster">
-							<input type="checkbox" class="filled-in" id={{key}} value={{key}} ng-checked="panel.user.cluster_id === key"
-							 ng-click="panel.manageUserCluster(key)" />
-							<label for="{{key}}" style="color: #000000; font-weight: 500;">{{value['cluster']}}</label>
-						</div>
-					</div>				
-				</div>
-				<!-- COUNTRY -->
-				<div ng-if="!panel.formDisabled " class="card z-depth-1" style="padding:5% 5% 5% 20% !important;">				
-					<!-- btn as title! -->
-					<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">Country</a>
-				
-					<div class="row">
-						<div class="col s5" ng-repeat="(key,value) in panel.adminRegion">
-							<input type="checkbox" class="filled-in" id={{key}} value={{key}} ng-checked="panel.user.admin0name === value['admin0name']"
-							 ng-click="panel.manageUserCountry(key)" />
-							<label for="{{key}}" style="color: #000000; font-weight: 500;">{{value['admin0name']}}</label>
-						</div>
-					</div>				
-				</div>
 		    <div class="card z-depth-1" style="padding:5% 20% 5% !important;">
 
 		    	<!-- btn as title! -->
@@ -396,6 +352,59 @@ form {
 		        </div>
 		      </div>
 
+				</div>
+
+				<!-- ROLE -->
+				<div ng-if="!panel.formDisabled && panel.roles.length" class="card z-depth-1" style="padding:5% 20% 5% !important;">
+				
+					<!-- btn as title! -->
+					<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">ROLES</a>
+
+					<div class="row">
+						<div class="col s4" ng-repeat="role in panel.roles" >
+							<input type="checkbox"
+											class="filled-in"
+											id={{role}}
+											value={{role}}
+											ng-checked="panel.user.roles.indexOf(role) > -1"
+											ng-disabled="role === 'USER'"
+								 			ng-click="panel.manageUserAccess(role)" />
+							<label for="{{role}}" style="color: #000000; font-weight: 500;">{{role}}</label>
+						</div>
+					</div>
+					
+				</div>
+				
+				<!-- ClUSTER -->
+				<div ng-if="false">
+					<div ng-if="!panel.formDisabled " class="card z-depth-1" style="padding:5% 5% 5% 20% !important;">				
+						<!-- btn as title! -->
+						<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">SECTOR</a>
+					
+						<div class="row">
+							<div class="col s5" ng-repeat="(key,value) in panel.cluster">
+								<input type="radio" class="filled-in" id={{key}} value={{key}} ng-checked="panel.user.cluster_id === key"
+								 ng-click="panel.manageUserCluster(key)" />
+								<label for="{{key}}" style="color: #000000; font-weight: 500;">{{value['cluster']}}</label>
+							</div>
+						</div>				
+					</div>
+				</div>
+
+				<!-- COUNTRY -->
+				<div ng-if="false">
+					<div ng-if="!panel.formDisabled " class="card z-depth-1" style="padding:5% 5% 5% 20% !important;">				
+						<!-- btn as title! -->
+						<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">Country</a>
+					
+						<div class="row">
+							<div class="col s5" ng-repeat="(key,value) in panel.adminRegion">
+								<input type="radio" class="filled-in" id={{key}} value={{key}} ng-checked="panel.user.admin0name === value['admin0name']"
+								 ng-click="panel.manageUserCountry(key)" />
+								<label for="{{key}}" style="color: #000000; font-weight: 500;">{{value['admin0name']}}</label>
+							</div>
+						</div>				
+					</div>
 				</div>
 
 			</form>
