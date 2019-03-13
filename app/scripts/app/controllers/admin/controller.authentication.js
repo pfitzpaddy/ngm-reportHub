@@ -433,6 +433,28 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 					}
 				},
 
+				// manage user cluster
+				manageUserCluster:function(id) {
+					if (document.getElementById(id).checked) {
+						var values = document.getElementById(id).value;
+						$scope.panel.user.cluster_id= values;			
+						$scope.panel.user.cluster = $scope.panel.cluster[values].cluster;
+					}else{
+						document.getElementById(id).checked=true;
+					}		
+				},
+				// manage user country
+				manageUserCountry: function (id) {
+					if (document.getElementById(id).checked) {
+					var values = document.getElementById(id).value;
+					$scope.panel.user.admin0name=$scope.panel.adminRegion[values].admin0name
+					$scope.panel.user.admin0pcode=$scope.panel.adminRegion[values].admin0pcode
+					$scope.panel.user.adminRname=$scope.panel.adminRegion[values].adminRname
+					$scope.panel.user.adminRpcode=$scope.panel.adminRegion[values].adminRpcode
+					}else{
+						document.getElementById(id).checked = true;
+					}					
+				}
       }
 
       // fetch duty stations
