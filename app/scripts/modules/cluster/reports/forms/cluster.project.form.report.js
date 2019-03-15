@@ -561,12 +561,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						Materialize.toast("Cancel to upload file", 2000, "note");
 					},
 					params: {
+						project_id:config.project.id,
 						report_id: config.report.id,
 						username: ngmUser.get().username,
 						organization_tag: config.report.organization_tag,
 						admin0pcode: config.report.admin0pcode,
 						adminRpcode: config.report.adminRpcode,
-						reporting_period: config.report.reporting_period
+						reporting_period: config.report.reporting_period,
+						project_start_date: config.project.project_start_date,
+						project_end_date: config.project.project_end_date
 					},
 					previewTemplate: `	<div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
 																			<div class="dz-image">
@@ -985,7 +988,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			$scope.project.init();
 			$scope.project.activePrevReportButton();
 			$scope.project.getDocument();
-
   }
 
 ]);

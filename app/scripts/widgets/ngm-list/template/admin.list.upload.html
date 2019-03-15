@@ -1,0 +1,329 @@
+<style>
+	.collection .collection-item.avatar {
+		min-height: 0;
+	}
+
+	.modal {
+		width: auto !important;
+		right: auto !important;
+		left: 50% !important;
+		transform: translateX(-50%) !important;
+	}
+
+	.border-radius {
+		border-radius: 6px;
+		border: 1px solid #dadce0;
+		box-shadow: none;
+	}
+
+	.line {
+		display: inline-block;
+		padding-left: 12%;
+		margin-top: 15%;
+	}
+
+	.line-non-grid{
+		display: inline-block;
+	}
+
+	.space {
+		margin-left: 2px;
+		margin-right: 2px;
+	}
+
+	.card .border-radius {
+		min-height: 200px;
+	}
+
+	.card .card-image {
+		height: 150px;
+	}
+
+	.card .card-image img {
+		/* height: 100%;
+		width: auto; */
+		width: 99.8%;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+	}
+
+	.card .card-reveal {
+		padding: 0;
+	}
+
+	.card .card-content {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	.grid-list {
+		display: inline-flex;
+		margin-top: 15px;
+		margin-left: 52%;
+	}
+
+	.color_teal {
+		color: #26a69a !important;
+	}
+	.color_indigo{
+		color: #5c6bc0  !important;
+	}
+
+	.color_white {
+		color: #ffffff !important;
+	}
+
+	.collection .collection-item.avatar i.circle {
+		line-height: 30px;
+		width: 30px;
+		height: 30px;
+		margin-top: 10px;
+	}
+
+	.pagination li.active {
+		background-color: #009688;
+	}
+
+	.modal {
+		max-height: 100%;
+	}
+
+	.subtitute {
+		height: 100%;
+		background: rgba(33, 150, 243, 1);
+		border-top-left-radius: 4px;
+		border-top-right-radius: 4px;
+	}
+
+	.subtitute-icon {
+		position: absolute;
+		/* vertical-align: middle; */
+		top: 40%;
+		left: 45%;
+	}
+
+	.material-tooltip {
+		padding: 10px 10px;
+		width: auto;
+	}
+	li .collection-item .avatar .coll .list-upload{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.ng-table th {
+	text-align: left;
+	padding-left: 20px;
+}
+.list-upload-item td{
+	padding-left: 20px;
+}
+.imitate-circle{
+	border-radius: 50%;
+
+}
+.collection .collection-item.avatar i.imitate-circle{
+font-size: 18px;
+    line-height: 42px;
+    color: #fff;
+    /* background-color: #999; */
+    text-align: center;
+		line-height: 30px;
+    width: 30px;
+    height: 30px;
+}
+</style>
+<div id="close-preview-modal" class="modal ">
+	<div class="modal-content">
+		<img src={{list.setLink()}} id="imagepreview">
+	</div>
+	<div class="modal-footer">
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+	</div>
+</div>
+<div id="close-preview-file" class="modal ">
+	<div class="modal-content">
+		<div>
+			<iframe src={{list.setLink()}} style="width:600px; height:500px;" frameborder="0"></iframe>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+	</div>
+</div>
+<div id="remove-modal" class="modal">
+	<div class="modal-content">
+		<div class="center">
+			<i class="medium material-icons" style="color:#f44336">delete</i>
+			<h5 style="font-weight:300;"> Remove this File?</h5>
+		</div>
+
+	</div>
+	<div class="modal-footer">
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+		<a ng-click="list.removeFile()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove this file!</a>
+	</div>
+</div>
+<div class="row" >
+	<div class="col s12 m12 l12">
+		<div class="card" ng-init="grid = true">
+
+			<ul class="collection with-header">
+				<li class="collection-header indigo lighten-1" style="height:80px;">
+					<div class="col s12 m10">
+						<h5 class="report-panel-title white-text">
+							<i class="material-icons left">attachment</i>{{list.firstLetterUpperCase(list.typeDocument)}} | Upload Documents 
+						</h5>
+					</div>
+					<div class="col s12 m2">
+						<div class="grid-list">
+							<div class="btn-floating wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="Grid View" ng-click="grid=true"
+							 ng-class="{white: grid,indigo:!grid}">
+								<i class="material-icons " style="color: #ffffff" ng-class="{color_indigo: grid,color_white:!grid}">
+									view_module
+								</i>
+							</div>
+							<div class="btn-floating wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="List View" ng-click="grid=false"
+							 ng-class="{white: !grid,indigo:grid}">
+								<i class="material-icons  " ng-class="{color_indigo: !grid,color_white:grid}">
+									format_list_bulleted
+								</i>
+							</div>
+						</div>
+					</div>
+				</li>				
+					<div ng-show="grid">
+						<li ng-if="list.data.length>0" class="collection-item avatar" style="padding-left: 30px;padding-right: 30px">
+							<div class="row">
+								<div class="col s12 m2" dir-paginate="item in list.data | orderBy: 'createdAt':true | itemsPerPage: list.itemsPerPageGrid"
+								 pagination-id="list.id">
+									<div class="card border-radius">
+										<div class="card-image waves-effect waves-block waves-light">
+											<img class="activator" src={{list.setThumbnailfromGdrive(item.fileid)}}>
+										</div>
+										<div class="card-content">
+											<i class="material-icons left" style="color: {{list.extentionColor(item.filename_extension)}};margin-right: 5px;">
+												{{list.extentionIcon(item.filename_extension)}}
+											</i>
+											<span class="grey-text activator text-darken-4 " style="font-size: 12px; font-weight: 400">{{item.filename| limitTo: 12}}{{item.filenamelength
+												< 12 ? '' : '...'}} <i class="material-icons right" style="cursor: pointer; margin-left: 5px;">more_vert</i>
+											</span>
+										</div>
+										<div class="card-reveal">
+											<div class=" card-title grey-text text-darken-4">
+												<i class="material-icons right" style="font-size: 18px; color: #e2e2e2;margin-top: 5px;margin-right: 5px;">close</i>
+											</div>
+											<div class="line">
+					
+												<!-- use gdrive id file -->
+												<button class="btn-floating  wave-effect blue tooltipped-upload" data-position="bottom" data-tooltip="Preview" ng-click="list.openModal('close-preview-file',item.fileid)"
+												 ng-disabled="item.filename_extension === '.csv'">
+													<i class="small material-icons">compare</i>
+												</button>
+												<a class="btn-floating  wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="Download" ng-href="{{list.setDonwloadLink(item.fileid)}}">
+													<i class="small material-icons">cloud_download</i>
+												</a>
+												<button ng-if="false" class="btn-floating  wave-effect tooltipped-upload red space tooltipped-upload" data-position="bottom" data-tooltip="Delete" ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
+													<i class="small material-icons">delete</i>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="collection-item avatar" ng-if="!list.data.length">
+							<div class="label" style="text-align:center; padding-top:20px;padding-bottom:20px;">
+								<div>
+									<i class="material-icons" style="color: #5c6bc0">
+										error
+									</i>
+								</div>
+								<span>You don't have documents yet !</span>
+							</div>
+						</li>
+						<li class="collection-item avatar" ng-if="list.data.length > list.itemsPerPageGrid" style="padding:15px 10px 15px 10px;min-height: 65px;">
+							<dir-pagination-controls pagination-id="list.id"></dir-pagination-controls>
+						</li>
+					</div>
+					<div ng-show="!grid">
+							<li class="collection-item avatar" ng-if="!list.data.length" >
+								<div class="label" style="text-align:center; padding-top:20px;padding-bottom:20px;">
+									<div>
+										<i class="material-icons" style="color: #5c6bc0">
+											error
+										</i>
+									</div>
+									<span>You don't have documents yet !</span>
+								</div>
+							</li>
+							<li  ng-if="list.data.length>0" class="collection-item avatar list-upload card" style="padding-left: 0px;padding-right: 0px;padding-bottom: 0px;">
+								<div class="row" style="margin: 0 0; padding: 10px 0; border-bottom: 0.98px solid #dce0e2">
+									<div class="col s5">
+										<div style="margin-top:5px;font-weight: 400">Filename</div>
+									</div>
+									<div class="col s2">
+										<div style="margin-top:5px;font-weight: 400">
+										 Owner
+										</div>
+									</div>
+									<div class="col s2">
+										<div style="margin-top:5px;font-weight: 400">
+											Created at
+										</div>
+									</div>
+									<div class="col s3">
+										<div style="margin-top:5px;font-weight: 400">
+											Action
+										</div>
+									</div>
+								</div>
+								<div class="row" style="margin: 0 0; padding: 10px 0; border-bottom: 0.98px solid #dce0e2"
+								dir-paginate="item in list.data | orderBy: 'createdAt':true | itemsPerPage: list.itemsPerPage" pagination-id="list.id">
+									<div class="col s5">
+											<i class="material-icons left imitate-circle" style="background-color:{{list.extentionColor(item.filename_extension)}};margin-right: 5px;">
+												{{list.extentionIcon(item.filename_extension)}}
+											</i>
+											<div style="margin-top:5px;">{{item.filename}}</div>
+									</div>
+									<div class="col s2">
+										<div style="margin-top:5px;">
+											{{item.fileowner}}
+										</div>
+									</div>
+									<div class="col s2">
+										<div style="margin-top:5px;">
+											{{item.createdAt|date}}
+										</div>
+									</div>
+									<div class="col s3">
+										<div class="line-non-grid">
+										
+										
+											<button class="btn-floating  wave-effect blue tooltipped-upload" data-position="bottom" data-tooltip="Preview" ng-disabled="item.filename_extension === '.csv'"
+											 ng-click="list.openModal('close-preview-file',item.fileid)">
+												<i class="small material-icons">compare</i>
+											</button>
+											<a class="btn-floating  wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="Download" ng-href="{{list.setDonwloadLink(item.fileid)}}">
+												<i class="small material-icons">cloud_download</i>
+											</a>
+											<button ng-if="false" class="btn-floating  wave-effect tooltipped-upload red space tooltipped-upload" data-position="bottom" data-tooltip="Delete" ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
+												<i class="small material-icons">delete</i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="collection-item avatar" ng-if="list.data.length > list.itemsPerPage && !grid" style="padding:15px 10px 15px 10px;min-height: 65px;">
+								<dir-pagination-controls pagination-id="list.id"></dir-pagination-controls>
+							</li>
+					</div>
+
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	setTimeout(function () {
+		$('.tooltipped-upload').tooltip();
+	}, 100);	
+</script>
