@@ -295,6 +295,9 @@ angular.module( 'ngmReportHub' )
           },{
             delivery_type_id: 'service',
             delivery_type_name: 'Reccurent Beneficiaries'
+          },{
+            delivery_type_id: 'contingency',
+            delivery_type_name: 'Contingency'
           }];
         }
 
