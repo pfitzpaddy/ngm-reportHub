@@ -127,6 +127,28 @@ angular.module('ngmReportHub')
 										url: $location.$$path
 									}
 								}
+							},{
+								type: 'zip',
+								color: 'blue lighten-2',
+								icon: 'folder',
+								hover: 'Download All Report Documents',
+								request: {
+									method: 'GET',
+									url: ngmAuth.LOCATION + '/api/getReportDocuments/' + $scope.report.definition.id,
+								},
+								metrics: {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
+									data: {
+										organization: $scope.report.user.organization,
+										username: $scope.report.user.username,
+										email: $scope.report.user.email,
+										dashboard: $scope.report.project.project_title,
+										theme: 'cluster_report_documents',
+										format: 'zip',
+										url: $location.$$path
+									}
+								}
 							}]
 						}
 					},
