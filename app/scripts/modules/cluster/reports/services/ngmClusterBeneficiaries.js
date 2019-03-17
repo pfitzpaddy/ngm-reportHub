@@ -28,10 +28,10 @@ angular.module( 'ngmReportHub' )
             transfer_type_id: false,
             households: false,
             families: false,
-            boys: true,
-            girls: true,
-            men: true,
-            women: true,
+            boys: false,
+            girls: false,
+            men: false,
+            women: false,
             elderly_men: false,
             elderly_women: false
           },
@@ -554,7 +554,7 @@ angular.module( 'ngmReportHub' )
 
       // for each location ( monhtly report )
       setLocationsForm: function( lists, locations ) {
-
+        
         // set form
         angular.forEach( locations, function( location, location_index ){
           ngmClusterBeneficiaries.setBeneficiariesForm( lists, location_index, location.beneficiaries );
