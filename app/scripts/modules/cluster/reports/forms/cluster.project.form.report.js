@@ -79,7 +79,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       $scope.ngmClusterHelperNgWash = ngmClusterHelperNgWash;
       $scope.ngmClusterHelperNgWashLists = ngmClusterHelperNgWashLists;
 			$scope.ngmClusterHelperNgWashValidation = ngmClusterHelperNgWashValidation;
-			$scope.deactivedCopybutton =false;
+			$scope.deactivedCopybutton = false;
 
       // project
       $scope.project = {
@@ -503,6 +503,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 									var msg = 'Copied beneficiaries ' + brows + ' rows'+ " and " + 'trainings ' + trows + ' rows';
 										  typ = 'success';
 							}
+
+              // reset form UI layout
+              $timeout(function() {
+                ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
+              }, 10 );
 							
 							$scope.project.addPrevReport(prev_report);
 							$timeout(function () {
@@ -538,9 +543,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						 if(l.trainings){
 							 $scope.trainingsCount += l.trainings.length;
 						 }						 
-					})
+					});
 					
-					if($scope.project.report.report_status !== 'todo' || (($scope.beneficiariesCount>0) || ($scope.trainingsCount>0))){
+					if( $scope.project.report.report_status !== 'todo' || (( $scope.beneficiariesCount >0 ) || ( $scope.trainingsCount> 0 ) )){
 						$scope.deactivedCopybutton= true;						
 						return $scope.deactivedCopybutton
 					} else{
