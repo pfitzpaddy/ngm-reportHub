@@ -16,11 +16,12 @@ angular.module('ngmReportHub')
 			'$window',
 			'$timeout',
 			'$filter',
+			'$sce',
 			'ngmUser',
 			'ngmAuth',
 			'ngmData',
 			'ngmClusterLists',
-		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData, ngmClusterLists ) {
+		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, $sce, ngmUser, ngmAuth, ngmData, ngmClusterLists ) {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
 				'AngularJS',
@@ -259,6 +260,20 @@ angular.module('ngmReportHub')
 
 					return request;
 
+				},
+
+				getRequestDocUpload:function(){
+					var param = {
+						adminRpcode: $route.current.params.adminRpcode,
+						admin0pcode: $route.current.params.admin0pcode,
+						cluster_id: $route.current.params.cluster_id,
+						organization_tag: $route.current.params.organization_tag,
+						start_date: $route.current.params.start,
+						end_date: $route.current.params.end,
+						type: 'monthly'
+					}
+					request_query = $.param(param)
+					return request_query
 				},
 
 				// get downloads
@@ -1195,7 +1210,110 @@ angular.module('ngmReportHub')
 									}
 								}]
 							}]
-						},{
+							}, {
+								columns: [{
+									styleClass: 's12 m12 l12',
+									widgets: [{
+										type: 'list',
+										card: 'white grey-text text-darken-2',
+										config: {
+											refreshEvent: 'refresh:doclist',
+											titleIcon: 'alarm_on',
+											color: 'blue lighten-4',
+											itemsPerPage: 12,
+											itemsPerPageGrid: 18,
+											typeDocument: 'monthly',
+											firstLetterUpperCase: function (string) { return string.charAt(0).toUpperCase() + string.slice(1); },
+											openModal: function (modal, link) {
+												$('#' + modal).openModal({ dismissible: false });
+												if (link !== '') {
+													if (modal === 'close-preview-modal') {
+														$scope.linkPreview = link;
+													} else {
+														// if its from google drive; link in here is id of google drive  file
+														$scope.linkPreview = "https://drive.google.com/file/d/" + link + "/preview"
+													}
+												}
+											},
+											extentionIcon: function (text) {
+												text = text.toLowerCase().replace(/\./g, '')
+												if (text == 'pdf' || text == 'doc' || text == 'docx' || text == 'ppt' || text == 'pptx' || text == 'xls' || text == 'xlsx') {
+													return 'insert_drive_file'
+												}
+												if (text == 'png' || text == 'jpg' || text == 'jpeg') {
+													return 'photo_size_select_actual'
+												}
+												if (text == 'mp4') {
+													return 'play_arrow'
+												}
+												return 'attach_file'
+											},
+											extentionColor: function (text) {
+												text = text.toLowerCase().replace(/\./g, '')
+												if (text == 'pdf' || text == 'doc' || text == 'docx' || text == 'ppt' || text == 'pptx' || text == 'xls' || text == 'xlsx') {
+													return '#2196f3 !important'
+												}
+												if (text == 'png' || text == 'jpg' || text == 'jpeg') {
+													return '#f44336 !important'
+												}
+												if (text == 'mp4') {
+													return '#f44336 !important'
+												}
+												return '#26a69a !important'
+											},
+											removeFile: function () {
+												// IF API READY TO USE
+												Materialize.toast("Deleting...", 2000, 'note');
+												$http({
+													method: 'DELETE',
+													url: ngmAuth.LOCATION + '/api/deleteGDriveFile/' + $scope.fileId,
+													headers: { 'Authorization': 'Bearer ' + $scope.report.user.token },
+												})
+													.success(function (result) {
+														$timeout(function () {
+															msg = "File Deleted!";
+															typ = 'success';
+															Materialize.toast(msg, 2000, typ);
+															$rootScope.$broadcast('refresh:doclist');
+														}, 2000);
+													})
+													.error(function (err) {
+														$timeout(function () {
+															msg = "Error, File Not Deleted!";
+															typ = 'error';
+															Materialize.toast(msg, 2000, typ);
+														}, 2000);
+													})
+											},
+											setRemoveId: function (id) {
+												$scope.fileId = id;
+											},
+											setLink: function () {
+												return $sce.trustAsResourceUrl($scope.linkPreview);
+											},
+											setDonwloadLink: function (id) {
+												var donwloadLink = "https://drive.google.com/uc?export=download&id=" + id;
+												return donwloadLink;
+											},
+											setThumbnailfromGdrive: function (id, file_type) {
+												img = "https://drive.google.com/thumbnail?authuser=0&sz=w320&id=" + id;
+												return img
+
+											},
+											title: 'Upload',
+											hoverTitle: 'Update',
+											icon: 'edit',
+											rightIcon: 'watch_later',
+											templateUrl: 'scripts/widgets/ngm-list/template/admin.list.upload.html',
+											request: {
+												method: 'GET',
+												url: ngmAuth.LOCATION + '/api/listDocuments?'+$scope.dashboard.getRequestDocUpload() 
+											}
+										}
+									}]
+								}]
+
+							},{
 							columns: [{
 								styleClass: 's12 m12 l12',
 								widgets: [{
@@ -1225,6 +1343,7 @@ angular.module('ngmReportHub')
 
 			// assign to ngm app scope ( for menu )
 			$scope.dashboard.ngm.dashboard.model = $scope.model;
+
 
 		}
 
