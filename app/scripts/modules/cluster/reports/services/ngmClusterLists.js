@@ -1624,6 +1624,14 @@ angular.module( 'ngmReportHub' )
             cluster_id: ngmClusterLists.all_sectors_minus_wash_education,
             beneficiary_type_id: 'humanitarian_workers',
             beneficiary_type_name: 'Humanitarian Workers'
+          },{
+            cluster_id: [ 'fss' ],
+            beneficiary_type_id: 'private_sector',
+            beneficiary_type_name: 'Private Sector'
+          },{
+            cluster_id: [ 'fss' ],
+            beneficiary_type_id: 'service_provider',
+            beneficiary_type_name: 'Service Provider'
           }];
         }
 
