@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller( 'ImmapProductsNewCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser ) {
+	.controller( 'ImmapProductsNewCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', '$translate','$filter',function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser, $translate,$filter) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -36,11 +36,11 @@ angular.module( 'ngmReportHub' )
 						title: {
 							'class': 'col s12 m12 l12 report-title truncate',
 							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: 'iMMAP | Add New Product'
+							title: 'iMMAP | '+$filter('translate')('add_new_product')
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle hide-on-small-only',
-							title: 'Register a new product'
+							title: $filter('translate')('register_a_new_product')
 						}
 					},
 					rows: [{
@@ -51,7 +51,7 @@ angular.module( 'ngmReportHub' )
 								card: 'white grey-text text-darken-2',
 								style: 'padding: 20px;',
 								config: {
-									html: '<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="#/immap/products"><i class="material-icons left">keyboard_return</i>Back</a>'
+									html: '<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="#/immap/products"><i class="material-icons left">keyboard_return</i>'+$filter('translate')('back_mayus')+'</a>'
 								}
 							}]
 						}]

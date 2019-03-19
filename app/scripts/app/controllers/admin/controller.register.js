@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardRegisterCtrl', ['$scope', function ($scope) {
+	.controller('DashboardRegisterCtrl', ['$scope', '$translate','$filter', function ($scope, $translate,$filter) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -35,13 +35,14 @@ angular.module('ngmReportHub')
 				title: {
 					'class': 'col s12 m12 l12 report-title truncate',
 					style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
-					title: 'Register'
+					//title: '{{"Register" | translate}}'
+					title: $filter('translate')('register'),
 				},
 				subtitle: {
 					'class': 'col s12 m12 l12 report-subtitle',
 					html: true,
-					title: 'Welcome to ReportHub<span class="hide-on-small-only">, please register to continue</span>',
-				}
+					title: $filter('translate')('welcome_to')+' ReportHub<span class="hide-on-small-only">, '+$filter('translate')('please register to continue')+'</span>',
+				} 
 			},
 			rows: [{
 				columns: [{

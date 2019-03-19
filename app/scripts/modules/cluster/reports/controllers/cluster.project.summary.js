@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterProjectSummaryCtrl', ['$scope', '$route', '$http', '$location', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser', function ($scope, $route, $http, $location, $timeout, ngmAuth, ngmData, ngmUser) {
+	.controller('ClusterProjectSummaryCtrl', ['$scope', '$route', '$http', '$location', '$timeout', 'ngmAuth',  'ngmData', 'ngmUser','$translate','$filter', function ($scope, $route, $http, $location, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -85,7 +85,7 @@ angular.module('ngmReportHub')
 								card: 'white grey-text text-darken-2',
 								style: 'padding: 20px;',
 								config: {
-									html: '<a class="btn-flat waves-effect waves-teal left" href="' + $scope.report.getProjectsHref() + '"><i class="material-icons left">keyboard_return</i>Back to Projects</a><span class="right" style="padding-top:8px;">Last Updated: ' + moment( $scope.report.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) + '</span>'
+									html: '<a class="btn-flat waves-effect waves-teal left" href="' + $scope.report.getProjectsHref() + '"><i class="material-icons left">keyboard_return</i>'+$filter('translate')('back_to_projects')+'</a><span class="right" style="padding-top:8px;">'+$filter('translate')('last_updated')+': ' + moment( $scope.report.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) + '</span>'
 								}
 							}]
 						}]
@@ -109,7 +109,7 @@ angular.module('ngmReportHub')
 									  project.project_status = 'active';
 
 									  // timeout
-									  $timeout(function(){ Materialize.toast( 'Processing...', 3000, 'note'); }, 200 ); 
+									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 3000, 'note'); }, 200 ); 
 
 									  // Submit project for save
 									  ngmData.get({
@@ -121,7 +121,7 @@ angular.module('ngmReportHub')
 									  }).then(function(data){
 									    // redirect on success
 									    $location.path( '/cluster/projects' );
-									    Materialize.toast( 'Project moved to Active!', 4000, 'success');
+									    Materialize.toast( $filter('translate')('project_moved_to_active')+'!', 4000, 'success');
 									  });
 
 									},
@@ -133,7 +133,7 @@ angular.module('ngmReportHub')
 									  project.project_status = 'complete';
 
 									  // timeout
-									  $timeout(function(){ Materialize.toast( 'Processing...', 3000, 'note'); }, 200 );
+									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 3000, 'note'); }, 200 );
 
 									  // Submit project for save
 									  ngmData.get({
@@ -145,7 +145,7 @@ angular.module('ngmReportHub')
 									  }).then(function(data){
 									    // redirect on success
 									    $location.path( '/cluster/projects' );
-									    Materialize.toast( 'Project marked as Complete, Congratulations!', 4000, 'success');
+									    Materialize.toast( $filter('translate')('project_market_as_complete_congratulations')+'!', 4000, 'success');
 									  });
 
 									},
@@ -161,15 +161,15 @@ angular.module('ngmReportHub')
 									  }).success(function(data){
 									    // redirect on success
 									    if ( data.err ) {
-									    	Materialize.toast( 'Project delete error! Please try again', 4000, 'error');
+									    	Materialize.toast( $filter('translate')('project_delete_error_please_try_again'), 4000, 'error');
 									    }
 									    if ( !data.err ){
 										    $location.path( '/cluster/projects' );
-										    Materialize.toast( 'Project Deleted!', 3000, 'success');
+										    Materialize.toast( $filter('translate')('project_deleted')+'!', 3000, 'success');
 									    }
 									  }).error(function(err){
 									    // redirect on success
-									    Materialize.toast( 'Project delete error! Please try again', 4000, 'error');
+									    Materialize.toast( $filter('translate')('project_delete_error_please_try_again'), 4000, 'error');
 									  });
 									}
 

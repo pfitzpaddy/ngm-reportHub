@@ -1,16 +1,16 @@
 
 <!-- bind html -->
-<span class="left" style="padding-top:8px;">Lastest Report Update: {{ panel.data.updatedAt }} by {{ panel.data.organization }}</span>
+<span class="left" style="padding-top:8px;">{{'lastest_report_update' | translate}}: {{ panel.data.updatedAt }} {{'by' | translate}} {{ panel.data.organization }}</span>
 
 <!-- button months -->
 <div class="right">
 	<a class="waves-effect waves-light btn blue darken-1" 
 			ng-click="panel.getPreviousMonth()" 
 			title="GoTo Previous Month">
-		<i class="material-icons left">skip_previous</i>Previous Month</a>
+		<i class="material-icons left">skip_previous</i>{{'previous_month' | translate}}</a>
 	<a class="waves-effect waves-light btn blue darken-2" 
 			style="padding-left:20px;" 
 			ng-click="panel.getCurrentMonth()" 
 			title="GoTo Current Month">
-		<i class="material-icons left">refresh</i>Current Month</a>
+		<i class="material-icons left">refresh</i>{{'current_month' | translate}}</a>
 </div>

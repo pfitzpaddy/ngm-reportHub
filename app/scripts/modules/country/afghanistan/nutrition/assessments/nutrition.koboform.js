@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller( 'DashboardNutritionKoboFormCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser ) {
+	.controller( 'DashboardNutritionKoboFormCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', '$translate','$filter', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser,$translate,$filter ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -35,11 +35,11 @@ angular.module( 'ngmReportHub' )
 						title: {
 							'class': 'col s12 m12 l12 report-title truncate',
 							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: 'Nutrition Afghanistan | Assessment | Form' + ' | ' + ($route.current.params.mode==='i'||$route.current.params.mode==='x'?'New':'Edit')
+							title: $filter('translate')('nutrition') + ' Afghanistan | ' + $filter('translate')('assessment')+' | '+$filter('translate')('form') + ' | ' + ($route.current.params.mode==='i'||$route.current.params.mode==='x'?$filter('translate')('new_mayus1'):$filer('translate')('edit'))
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle hide-on-small-only',
-							title: 'Please complete an assessment in the form below'
+							title: $filter('translate')('please_complete_an_assessment_in_the_form_below')
 						}
 					},
 					rows: [{

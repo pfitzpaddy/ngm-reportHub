@@ -63,50 +63,51 @@
           <div ng-if="data.length">
             <table class="centered highlight responsive-table" ng-table="table.tableParams">
               <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
-                <td data-title="'Country'" sortable="'admin0name'" ng-click="table.onClick(row)">
+                <td data-title="'country_mayus'|translate" sortable="'admin0name'" ng-click="table.onClick(row)">
                     {{ row.admin0name }}
                 </td>
-                <td data-title="'Organization'" sortable="'organization'" ng-click="table.onClick(row)">
+                <td data-title="'organization' | translate" sortable="'organization'" ng-click="table.onClick(row)">
                     {{ row.organization }}
                 </td>
-                <td data-title="'Name'" sortable="'name'" ng-click="table.onClick(row)">
+                <td data-title="'name_mayus' | translate" sortable="'name'" ng-click="table.onClick(row)">
                     {{ row.name }}
                 </td>
-                <td data-title="'Position'" sortable="'position'" ng-click="table.onClick(row)">
+                <td data-title="'position'|translate" sortable="'position'" ng-click="table.onClick(row)">
+
                   {{ row.position }}
                 </td>
                 <td data-title="'Sector'" sortable="'cluster'" ng-click="table.onClick(row)">
                     {{ row.cluster }}
                 </td>
-                <td data-title="'Username'" sortable="'username'" ng-click="table.onClick(row)">
+                <td data-title="'username'|translate" sortable="'username'" ng-click="table.onClick(row)">
                     {{ row.username }}
                 </td>
-                <td data-title="'Phone'" sortable="'phone'" ng-click="table.onClick(row)">
+                <td data-title="'phone'|translate" sortable="'phone'" ng-click="table.onClick(row)">
                     {{ row.phone }}
                 </td>
-                <td data-title="'Updated'" sortable="'updatedAt'" ng-click="table.onClick(row)">
+                <td data-title="'updated'|translate" sortable="'updatedAt'" ng-click="table.onClick(row)">
                     {{ row.updatedAt | date:'medium' }}
                 </td>
-                <td data-title="'Edit'" sortable="'name'" ng-if="false">
-                  <div title="Delete">
+                <td data-title="'edit'|translate" sortable="'name'" ng-if="false">
+                  <div title="'delete'|translate">
                     <i class="material-icons">delete</i>
                   </div>
 								</td>
-								<td data-title="'Role'" sortable="'roles'" ng-if="!table.formDisabled && table.editableRole">
+								<td data-title="'role'|translate" sortable="'roles'" ng-if="!table.formDisabled && table.editableRole">
 									<p>
 										<span ng-repeat="shift in row.roles track by $index ">
 											{{shift}}{{$last ? '' : ', '}}
 										</span>
 									</p>
 								</td>
-								<td data-title="'Edit Role'" sortable="'name'" ng-if="!table.formDisabled && table.editableRole">
+								<td data-title="'edit_role'|translate'" sortable="'name'" ng-if="!table.formDisabled && table.editableRole">
 									<button
 									class="btn waves-effect waves-teal"
 									style="font-size: 12px;height: 30px; line-height: 30px"
 									ng-click="table.openModal('manage-modal');table.getUser(row)"
 									ng-disabled="table.btnDisabled()"
 									>											
-											MANAGE USER
+											{{'manage_user'|translate}}
 									</button>
 									<!-- <div title="Edit Role">
 										<i class="material-icons">edit</i>

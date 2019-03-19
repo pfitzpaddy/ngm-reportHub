@@ -3,12 +3,13 @@
 <div id="save-modal" class="modal">
 	<div class="modal-content">
 		<h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">done</i>Save Monthly Progress {{ project.monthlyTitleFormat }}</h4>
-		<p>Do you want to Save {{ project.monthlyTitleFormat }}?</p>
+		<p>{{'do_you_want_to_save'|translate}} {{ project.monthlyTitleFormat }}?</p>
+
 		<!-- <p>Project has been saved!</p> -->
 	</div>
 	<div class="modal-footer">
 		<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-		<a ng-click="project.save( false, true )" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+		<a ng-click="project.save( false, true )" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes'|translate}}</a>
 	</div>
 </div>
 
@@ -16,179 +17,189 @@
 <div id="list-modal" class="modal">
 	<div class="modal-content">
 		<h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Cancel Monthly Progress {{ project.monthlyTitleFormat }}</h4>
-		<p>Return to Monthly Progress List</p>
+		<p>{{'return_to_monthly_progress_list'|translate}}</p>
 	</div>
 	<div class="modal-footer">
 		<a class=" modal-action modal-close waves-effect waves-teal btn-flat">No</a>
-		<a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+		<a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes'|translate}}</a>
 	</div>
 </div>
 
 <div id="beneficiary-modal" class="modal">
 	<div class="modal-content">
 		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
-			<i class="material-icons medium left">delete</i>Remove Beneficiary</h4>
-		<p style="padding-left: 76px;">Remove this Beneficiary from your Monthly Progress?</p>
+			<i class="material-icons medium left">delete</i>{{'remove_beneficiary'|translate}}</h4>
+		<p style="padding-left: 76px;">{{'remove_this_beneficiary_from_your_monthly_progress'|translate}}?</p>
 	</div>
 	<div class="modal-footer">
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-		<a ng-click="project.removeBeneficiary()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Beneficiary!</a>
+		<a ng-click="project.removeBeneficiary()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_beneficiary'|translate}}!</a>
 	</div>
 </div>
 
 <div id="borehole-modal" class="modal">
 	<div class="modal-content">
 		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
-			<i class="material-icons medium left">delete</i>Remove Borehole</h4>
-		<p style="padding-left: 76px;">Remove this Borehole from your Monthly Progress?</p>
+			<i class="material-icons medium left">delete</i>{{'remove_borehole'|translate}}</h4>
+		<p style="padding-left: 76px;">{{'remove_this_borehole_from_your_monthly_progress'|translate}}?</p>
+
 	</div>
 	<div class="modal-footer">
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 		<a ng-click="ngmClusterHelperNgWash.remove()" 
-				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Borehole!</a>
+				class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_borehole'|translate}}!</a>
 	</div>
 </div>
 
 <div id="reticulation-modal" class="modal">
 	<div class="modal-content">
 		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
-			<i class="material-icons medium left">delete</i>Remove Reticulation</h4>
-		<p style="padding-left: 76px;">Remove this Reticulation from your Monthly Progress?</p>
+			<i class="material-icons medium left">delete</i>{{'remove_reticulation'|translate}}</h4>
+		<p style="padding-left: 76px;">{{'remove_this_reticulation_from_your_monthly_progress'|translate}}?</p>
+
 	</div>
 	<div class="modal-footer">
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 		<a ng-click="ngmClusterHelperNgWash.remove()" 
-				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Reticulation!</a>
+				class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_reticulation'|translate}}!</a>
 	</div>
 </div>
 
 <div id="service-modal" class="modal">
 	<div class="modal-content">
 		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
-			<i class="material-icons medium left">delete</i>Remove Service</h4>
-		<p style="padding-left: 76px;">Remove this Service from your Monthly Progress?</p>
+		<i class="material-icons medium left">delete</i>{{'remove_service'|translate' }}</h4>
+		<p style="padding-left: 76px;">        {{'remove_this_service_from_your_monthly_progress'|translate}}?</p>
+
 	</div>
 	<div class="modal-footer">
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 		<a ng-click="ngmClusterHelperNgWash.remove()" 
-				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Service!</a>
+				class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_service'|translate}}!</a>
 	</div>
 </div>
 
 <div id="maintenance-modal" class="modal">
 	<div class="modal-content">
 		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
-			<i class="material-icons medium left">delete</i>Remove Maintenance</h4>
-		<p style="padding-left: 76px;">Remove this Maintenance from your Monthly Progress?</p>
+		<i class="material-icons medium left">delete</i>{{'remove_maintenance' |translate}}</h4>
+		<p style="padding-left: 76px;">{{'remove_this_maintance_from_your_monthly_progress'|translate}}?</p>
+
 	</div>
 	<div class="modal-footer">
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 		<a ng-click="ngmClusterHelperNgWash.remove()" 
-				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Maintenance!</a>
+				class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_maintenance'|translate}}!</a>
 	</div>
 </div>
 
 <div id="latrine-modal" class="modal">
 	<div class="modal-content">
 		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
-			<i class="material-icons medium left">delete</i>Remove Latrine</h4>
-		<p style="padding-left: 76px;">Remove this Latrine from your Monthly Progress?</p>
+			<i class="material-icons medium left">delete</i>{{'remove_latrine' | translate}}</h4>
+		<p style="padding-left: 76px;">{{'remove_this_latrine_from_your_monthly_progress'|translate}}}?</p>
+
 	</div>
 	<div class="modal-footer">
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 		<a ng-click="ngmClusterHelperNgWash.remove()" 
-				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Latrine!</a>
+				class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_latrina'|translate}}!</a>
 	</div>
 </div>
 
 <div id="shower-modal" class="modal">
 	<div class="modal-content">
 		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
-			<i class="material-icons medium left">delete</i>Remove Shower</h4>
-		<p style="padding-left: 76px;">Remove this Shower from your Monthly Progress?</p>
+			<i class="material-icons medium left">delete</i>{{'remove_shower'|translate}}</h4>
+		<p style="padding-left: 76px;">{{'remove_this_shower_from_your_monthly_progress'|translate}}?</p>
+
 	</div>
 	<div class="modal-footer">
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 		<a ng-click="ngmClusterHelperNgWash.remove()" 
-				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Shower!</a>
+				class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_shower'|translate}}!</a>
 	</div>
 </div>
 
 <div id="waste-modal" class="modal">
 	<div class="modal-content">
 		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
-			<i class="material-icons medium left">delete</i>Remove Waste Management</h4>
-		<p style="padding-left: 76px;">Remove this Waste Management from your Monthly Progress?</p>
+			<i class="material-icons medium left">delete</i>{{'remove_waste_management'|translate}}</h4>
+		<p style="padding-left: 76px;">{{'remove_this_waste_managetent_from_your_monthly_progress'|translate}}?</p>
+
 	</div>
 	<div class="modal-footer">
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 		<a ng-click="ngmClusterHelperNgWash.remove()" 
-				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Waste Management!</a>
+				class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_waste_management'|translate}}!</a>
 	</div>
 </div>
 
 <div id="committee-modal" class="modal">
 	<div class="modal-content">
 		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
-			<i class="material-icons medium left">delete</i>Remove Committee</h4>
-		<p style="padding-left: 76px;">Remove this Committee from your Monthly Progress?</p>
+			<i class="material-icons medium left">delete</i>{{'remove_committee'|translate}}</h4>
+		<p style="padding-left: 76px;">{{'remove_this_committee_from_your_monthly_progress'|translate}}?</p>
+
 	</div>
 	<div class="modal-footer">
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 		<a ng-click="ngmClusterHelperNgWash.remove()" 
-				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Committee!</a>
+				class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_committee'|translate}}!</a>
 	</div>
 </div>
 
 <div id="hygiene-promotion-modal" class="modal">
 	<div class="modal-content">
 		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
-			<i class="material-icons medium left">delete</i>Remove Hygiene Promotion</h4>
-		<p style="padding-left: 76px;">Remove this Hygiene Promotion from your Monthly Progress?</p>
+			<i class="material-icons medium left">delete</i>{{'remove_hygiene_promotion'|tranlate}}</h4>
+		<p style="padding-left: 76px;">{{'remove_this_hygiene_promotion_from_your_monthly_progress'|translate}}?</p>
 	</div>
 	<div class="modal-footer">
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 		<a ng-click="ngmClusterHelperNgWash.remove()" 
-				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Hygiene Promotion!</a>
+				class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_hygiene_promotion'|translate}}!</a>
 	</div>
 </div>
 
 <div id="hygiene-kit-modal" class="modal">
 	<div class="modal-content">
 		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
-			<i class="material-icons medium left">delete</i>Remove Hygiene Distribution</h4>
-		<p style="padding-left: 76px;">Remove this Hygiene Distribution from your Monthly Progress?</p>
+			<i class="material-icons medium left">delete</i>{{'remove_hygiene_distribution'|translate}}</h4>
+		<p style="padding-left: 76px;">{{'remove_this_hygiene_distribution_from_your_monthly_progress'|translate}}?</p>
 	</div>
 	<div class="modal-footer">
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 		<a ng-click="ngmClusterHelperNgWash.remove()" 
-				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Hygiene Distribution!</a>
+				class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_hygiene_distribution'|translate}}!</a>
 	</div>
 </div>
 
 <div id="cash-modal" class="modal">
 	<div class="modal-content">
 		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
-			<i class="material-icons medium left">delete</i>Remove Cash Transfer</h4>
-		<p style="padding-left: 76px;">Remove this Cash Transfer from your Monthly Progress?</p>
+			<i class="material-icons medium left">delete</i>{{'remove_cash_transfer'|translate}}</h4>
+		<p style="padding-left: 76px;">{{'remove_this_cash_transfer_from_your_monthly_progress'|translate}}?</p>
+
 	</div>
 	<div class="modal-footer">
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 		<a ng-click="ngmClusterHelperNgWash.remove()" 
-				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Cash Transfer!</a>
+				class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_cash_transfer'|translate}}!</a>
 	</div>
 </div>
 
 <div id="accounts-modal" class="modal">
 	<div class="modal-content">
 		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
-			<i class="material-icons medium left">delete</i>Remove Accountability Activity</h4>
-		<p style="padding-left: 76px;">Remove this Accountability Activity from your Monthly Progress?</p>
+			<i class="material-icons medium left">delete</i>{{'remove_accountability_activity'|translate}}</h4>
+		<p style="padding-left: 76px;">{{'remove_this_accountability_activity_from_your_monthly_progress'|translate}}?</p>
+
 	</div>
 	<div class="modal-footer">
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 		<a ng-click="ngmClusterHelperNgWash.remove()" 
-				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Accountability Activity!</a>
+				class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_accountability_activity'|translate}}!</a>
 	</div>
 </div>
 
@@ -196,24 +207,25 @@
 <div id="training-modal" class="modal">
 	<div class="modal-content">
 		<h4 style="color: #E57373; font-weight:100; padding-top: 20px;">
-			<i class="material-icons medium left">delete</i>Remove Training</h4>
-		<p style="padding-left: 76px;">Remove this Training from your Monthly Progress?</p>
+			<i class="material-icons medium left">delete</i>{{'remove_training' |translate}}</h4>
+		<p style="padding-left: 76px;">{{'remove_this_training_from_your_monthly_progress'|translate}}?</p>
+
 	</div>
 	<div class="modal-footer">
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 		<a ng-click="ngmClusterTrainings.removeTraining()" 
-				class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove Training!</a>
+				class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_training'|translate}}!</a>
 	</div>
 </div>
 
 <div id="complete-modal" class="modal">
 	<div class="modal-content">
-		<h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Submit Monthly Progress for {{ project.monthlyTitleFormat }}</h4>
-		<p>Submit Monthly Progress for {{ project.monthlyTitleFormat }}?</p>
+	  <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>{{'submit_monthly_progress_for'|translate}} {{ project.monthlyTitleFormat }}</h4>
+	 <p>{{'submit_monthly_progress_for'|translate}} {{ project.monthlyTitleFormat }}?</p>
 	</div>
 	<div class="modal-footer">
 		<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-		<a ng-click="project.save( true )" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, Submit report!</a>
+		<a ng-click="project.save( true )" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes_submit_report'|translate}}!</a>
 	</div>
 </div>
 
@@ -224,10 +236,11 @@
 			
 			<!--  -->
 			<button class="waves-effect waves-teal btn-flat" ng-click="project.modalConfirm( 'list-modal' )">
-				<i class="material-icons left">keyboard_return</i>Back to Project Progress
+				<i class="material-icons left">keyboard_return</i>{{'back_to_project_progress'|translate}}
+
 			</button>
 
-			<span class="right" style="padding-top:8px;">Last Updated: {{ project.updatedAt }}</span>
+			<span class="right" style="padding-top:8px;">{{'last_updated'|translate}}: {{ project.updatedAt }}</span>
 
 		</div>
 	</div>
@@ -261,12 +274,12 @@
 											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
 																		!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
 											ng-cloak>
-										<i class="material-icons right">send</i>Save
+										<i class="material-icons right">send</i>{{'save_mayus'|translate}}
 						</button>
 
 						<!-- cancel new  -->
 						<button class="waves-effect waves-light btn grey modal-trigger" 
-											data-target="list-modal">Cancel
+											data-target="list-modal">{{'cancel_mayus' | translate}}
 						</button>
 
 						<br/>
@@ -278,7 +291,8 @@
 											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
 																		!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
 											ng-cloak>
-							<i class="material-icons left">assignment_turned_in</i>Submit Monthly Progress
+							<i class="material-icons left">assignment_turned_in</i>{{'submit_monthly_progress'|translate}}
+
 						</button>
 
 					</div>
@@ -291,12 +305,12 @@
 											ng-click="project.validateWashNgBeneficiariesForm( false, true )"
 											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations )"
 											ng-cloak>
-										<i class="material-icons right">send</i>Save
+										<i class="material-icons right">send</i>{{'save_mayus'|translate}}
 						</button>
 
 						<!-- cancel new  -->
 						<button class="waves-effect waves-light btn grey modal-trigger" 
-											data-target="list-modal">Cancel
+											data-target="list-modal">{{'cancel_mayus' | translate}}
 						</button>
 
 						<br/>
@@ -307,7 +321,8 @@
 											ng-click="project.validateWashNgBeneficiariesForm( true, false )"
 											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations )"
 											ng-cloak>
-							<i class="material-icons left">assignment_turned_in</i>Submit Monthly Progress
+							<i class="material-icons left">assignment_turned_in</i>{{'submit_monthly_progress'|translate}}
+
 						</button>
 
 					</div>					

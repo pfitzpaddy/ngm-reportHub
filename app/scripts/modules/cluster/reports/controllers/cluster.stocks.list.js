@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterOrganizationStocksListCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser', function ($scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser) {
+	.controller('ClusterOrganizationStocksListCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser','$translate','$filter', function ($scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -67,7 +67,7 @@ angular.module('ngmReportHub')
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
-							'title': 'Stock Reports for ' + $scope.report.organization.organization  + ', ' + $scope.report.organization.admin0name
+							'title': $filter('translate')('stock_reports_for')+ ' ' + $scope.report.organization.organization  + ', ' + $scope.report.organization.admin0name
 						}
 					},
 					rows: [{				
@@ -91,7 +91,7 @@ angular.module('ngmReportHub')
 									titleIcon: 'alarm_on',
 									color: 'light-blue lighten-4',
 									// textColor: 'white-text',
-									title: 'Stock Reports ToDo',
+									title: $filter('translate')('stock_reports_todo'),
 									hoverTitle: 'Update',
 									icon: 'edit',
 									rightIcon: 'watch_later',
@@ -121,7 +121,7 @@ angular.module('ngmReportHub')
 								config: {
 									titleIcon: 'done_all',
 									color: 'light-blue lighten-4',
-									title: 'Stock Reports Complete',
+									title: $filter('translate')('stock_reports_complete'),
 									hoverTitle: 'View',
 									icon: 'done',
 									rightIcon: 'check_circle',

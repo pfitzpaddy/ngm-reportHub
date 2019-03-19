@@ -7,11 +7,14 @@
  * Main module of the application.
  */
 angular
-	.module('ngmCluster', [])
-	.config([ '$routeProvider', '$compileProvider', function ( $routeProvider, $compileProvider ) {
+	.module('ngmCluster',[])
+	.config([ '$routeProvider', '$compileProvider', function ( $routeProvider, $compileProvider) {
 
 		// https://medium.com/swlh/improving-angular-performance-with-1-line-of-code-a1fb814a6476#.ufea9sjt1
 		$compileProvider.debugInfoEnabled( false );
+
+
+
 
 		this.page = {
 			start_date: function() {
@@ -362,6 +365,14 @@ angular
 			})
 			.when('/cluster/admin/amer/col',{
 				redirectTo: '/cluster/admin/amer/col/all/all/all/activity' + this.page.start_date() + '/' + this.page.end_date()
+			})
+
+			//AMER
+			.when('/cluster/admin/amer',{
+				redirectTo:'/cluster/admin/amer/all/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
+			})
+			.when('/cluster/admin/amer/col',{
+				redirectTo: '/cluster/admin/amer/col/all/all/all/activity/' + this.page.start_date() + '/' + this.page.end_date()
 			})
 
 			// ADMIN

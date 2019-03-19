@@ -7,14 +7,14 @@
 				<li class="collection-header blue lighten-1">
 					<h5 class="report-work-title white-text">
 						<i class="material-icons left">person_pin</i>
-							<span class="beneficiary-count">{{ project.definition.target_locations.length | number }}</span> Project Target Locations
+							<span class="beneficiary-count">{{ project.definition.target_locations.length | number }}</span> {{'project_target_locations' | translate}}
 						<!-- <i class="material-icons left">person_pin</i> Project Target Locations -->
 					</h5>
 				</li>
 				<li class="collection-item avatar">
 
 					<p id="ngm-target_locations" style="padding:10px;">
-						Enter the TARGET LOCATIONS of your PROJECT in the form below;
+						{{'enter_the_target_locations_of_your_project_in_the_form_below' | translate}};
 					</p>
 
 					<p>
@@ -27,17 +27,17 @@
 							  <table class="bordered responsive-table" ng-show="project.definition.target_locations.length">
 							    <tr style="font-weight: 400">
 							    	<td></td>
-							    	<td>Reporter</td>
-							    	<td>Implementation</td>
+							    	<td>{{'reporter' | translate}}</td>
+							    	<td>{{'implementation' | translate}}</td>
 							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
 							      <td ng-if="project.lists.admin3.length">{{ project.lists.admin3[0].admin3type_name }}</td>
 							      <td ng-if="project.lists.admin4.length">{{ project.lists.admin4[0].admin4type_name }}</td>
 							      <td ng-if="project.lists.admin5.length">{{ project.lists.admin5[0].admin5type_name }}</td>
-										<td>Type</td>
-										<td ng-if="project.definition.admin0pcode !== 'AF'">From List?</td>
-							      <td>Site Name *</td>
-							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
+										<td>{{'type' | translate}}</td>
+										<td ng-if="project.definition.admin0pcode !== 'AF'">{{'from_list'|translate}}?</td>
+							      <td>{{'site_name'|translate}} *</td>
+							      <td ng-show="project.definition.project_status !== 'complete'">{{'edit'|translate}}</td>
 							    </tr>
 							    <tr ng-repeat="location in project.definition.target_locations track by $index">
 							    	<td>
@@ -45,7 +45,7 @@
 							    	</td>
 							      <td>
 							        <!-- editable reporter -->
-							        <span e-placeholder="Select..." 
+							        <span e-placeholder="{{'select'|translate}}" 
 							        				editable-select="location.username" 
 							        				e-name="username" 
 							        				e-form="locationform" 
@@ -56,7 +56,7 @@
 							      </td>
 							      <td>
 							        <!-- editable site_implementation_id -->
-							        <span e-placeholder="Select..." 
+							        <span e-placeholder="{{'select'|translate}}" 
 							        				editable-select="location.site_implementation_id" 
 							        				e-name="site_implementation_id" 
 							        				e-form="locationform" 
@@ -67,7 +67,7 @@
 							      </td>
 							      <td>
 							      	<!-- admin1 -->
-							        <span e-placeholder="Select..."
+							        <span e-placeholder="{{'select'|translate}}"
 							        				editable-select="location.admin1pcode"
 							        				e-name="admin1pcode"
 							        				e-form="locationform"
@@ -79,7 +79,7 @@
 							      </td>
 							      <td>
 							      	<!-- admin2 -->
-							        <span e-placeholder="Select..."
+							        <span e-placeholder="{{'select'|translate}}"
 							        				editable-select="location.admin2pcode"
 							        				e-name="admin2pcode"
 							        				e-form="locationform"
@@ -98,7 +98,7 @@
 								        </span>
 								      </div>
 							        <div ng-show="project.lists.admin3Select[ $index ].length">
-								        <span e-placeholder="Select..."
+								        <span e-placeholder="{{'select'|translate}}"
 								        				editable-select="location.admin3pcode"
 								        				e-name="admin3pcode"
 								        				e-form="locationform"
@@ -118,7 +118,7 @@
 								        </span>
 								      </div>
 							        <div ng-show="project.lists.admin4Select[ $index ].length">
-								        <span e-placeholder="Select..."
+								        <span e-placeholder="{{'select'|translate}}"
 								        				editable-select="location.admin4pcode"
 								        				e-name="admin4pcode"
 								        				e-form="locationform"
@@ -138,7 +138,7 @@
 								        </span>
 								      </div>
 							        <div ng-show="project.lists.admin5Select[ $index ].length">
-								        <span e-placeholder="Select..."
+								        <span e-placeholder="{{'select'|translate}}"
 								        				editable-select="location.admin5pcode"
 								        				e-name="admin5pcode"
 								        				e-form="locationform"
@@ -152,7 +152,7 @@
 
 							      <td>
 							      	<!-- site type -->
-							        <span e-placeholder="Select..."
+							        <span e-placeholder="{{'select'|translate}}"
 							        				editable-select="location.site_type_id"
 							        				e-name="site_type_id"
 							        				e-form="locationform"
@@ -166,7 +166,7 @@
 
 							      <td ng-if="project.definition.admin0pcode !== 'AF'">
 							      	<!-- select from list -->	
-							        <span e-placeholder="Select..."
+							        <span e-placeholder="{{'select'|translate}}"
 							        				editable-select="location.site_list_select_id"
 							        				e-name="site_list_select_id"
 							        				e-form="locationform"
@@ -179,7 +179,7 @@
 
 							      <!-- select existing: drop down -->
 							      <td ng-if="location.site_list_select_id === 'yes'">
-							        <span e-placeholder="Select..."
+							        <span e-placeholder="{{'select'|translate}}"
 							        			editable-select="location.site_id"
 							        			e-name="site_id"
 							        			e-form="locationform"
@@ -255,7 +255,11 @@
 							  </table>							      
 
 							  <button class="btn" ng-show="project.definition.project_status !== 'complete'" ng-click="project.addLocation()" style="margin:20px 0px;">
+<<<<<<< HEAD
 							  	<i class="material-icons left">add</i>Add Location
+=======
+							  	<i class="material-icons left">add</i>{{'add_row' | translate}}
+>>>>>>> a4d9b0659d2469f9872593143003c1e41d3623f4
 							  </button>
 
 							</div>

@@ -39,7 +39,8 @@ angular.module('ngm.widget.dropzone', ['ngm.provider'])
     '$interval',
     'ngmData',
     'config',
-    function($scope, $sce, $element, $location, $interval, ngmData, config){
+    '$translate','$filter',
+    function($scope, $sce, $element, $location, $interval, ngmData, config,$translate,$filter){
     
       // statistics widget default config
       $scope.dropzoneConfig = {
@@ -52,13 +53,13 @@ angular.module('ngm.widget.dropzone', ['ngm.provider'])
         // interface display/user messages
         templateUrl: '/scripts/widgets/ngm-dropzone/template/default.html',
 
-        dictDefaultMessage: '<i class="medium material-icons" style="color:#009688;">cloud_upload</i><br/>Drag files here or click to upload',
+        dictDefaultMessage: '<i class="medium material-icons" style="color:#009688;">cloud_upload</i><br/>'+$filter('translate')('drag_files_here_or_click_to_upload'),
         
-        previewTemplate: '<div id="dropzone-message" align="center"><h5 style="font-weight:300;">Uploading...</h5><br/><h5 style="font-weight:100;"><div class="dz-filename"><span data-dz-name></span></div></h5><br/><div class="progress"><div class="determinate" data-dz-uploadprogress></div></div></div>',
+        previewTemplate: '<div id="dropzone-message" align="center"><h5 style="font-weight:300;">'+$filter('translate')('uploading')+''+'</h5><br/><h5 style="font-weight:100;"><div class="dz-filename"><span data-dz-name></span></div></h5><br/><div class="progress"><div class="determinate" data-dz-uploadprogress></div></div></div>',
         
-        processingMessage: '<h5 style="font-weight:300;">Processing...</h5><br/><h5 style="font-weight:100;"><div class="dz-filename"><span data-dz-name></span></div></h5><br/><div class="progress"><div class="indeterminate"></div></div>',
+        processingMessage: '<h5 style="font-weight:300;">'+$filter('translte')('processing')+'</h5><br/><h5 style="font-weight:100;"><div class="dz-filename"><span data-dz-name></span></div></h5><br/><div class="progress"><div class="indeterminate"></div></div>',
         
-        completeMessage: '<i class="medium material-icons" style="color:#009688;">cloud_done</i><br/><h5 style="font-weight:300;">Complete!</h5><br/><h5 style="font-weight:100;">Re-directing to dashboard...(<span id="counter"></span>)</h5></div>',
+        completeMessage: '<i class="medium material-icons" style="color:#009688;">cloud_done</i><br/><h5 style="font-weight:300;">'+$filter('translate')('complete')+'!</h5><br/><h5 style="font-weight:100;">'+$filter('translate')('re_directing_to_dashboard')+'(<span id="counter"></span>)</h5></div>',
         
         process: {
           redirect: '/who',
@@ -114,7 +115,7 @@ angular.module('ngm.widget.dropzone', ['ngm.provider'])
             },
             function(data) {
               //
-              $('#dropzone-message').html('<i class="medium material-icons" style="color:#009688">error_outline</i><br/><h5 style="font-weight:300;">Data processing error, please check the ' + $scope.dropzoneConfig.process.request.data.type.toUpperCase() + ' and try again!</h5></div>');
+              $('#dropzone-message').html('<i class="medium material-icons" style="color:#009688">error_outline</i><br/><h5 style="font-weight:300;">'+$filter('translate')('data_processing_error_please_check_the')+ $scope.dropzoneConfig.process.request.data.type.toUpperCase() + ' '+$filter('transalte')('and_try_again')+'!</h5></div>');
             });
           }
 

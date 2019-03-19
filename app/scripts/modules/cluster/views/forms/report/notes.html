@@ -18,15 +18,15 @@
 					<h5 class="report-panel-title white-text">
 						<!-- December 2018 -->
 						<div ng-if="project.report.admin0pcode === 'SO' && project.report.report_year === 2018 && project.report.report_month === 11">
-							<i class="material-icons left">location_on</i>Notes for 2018
+							<i class="material-icons left">location_on</i>{{'notes_for'|translate}} 2018
 						</div>
 						<!-- 2019 onwards -->
 						<div ng-if="project.report.admin0pcode === 'SO' && project.report.report_year > 2018">
-							<i class="material-icons left">location_on</i>Notes for {{ project.monthlyTitleFormat }}
+							<i class="material-icons left">location_on</i>{{'notes_for'|translate}} {{ project.monthlyTitleFormat }}
 						</div>
 						<!-- 2019 onwards -->
 						<div ng-if="project.report.admin0pcode !== 'SO'">
-							<i class="material-icons left">location_on</i>Notes for {{ project.monthlyTitleFormat }}
+							<i class="material-icons left">location_on</i>{{'notes_for'|translate}} {{ project.monthlyTitleFormat }}
 						</div>
 					</h5>
 				</li>
@@ -50,7 +50,7 @@
 										ng-model="project.report.notes"
 										ng-disabled="project.report.report_status === 'complete'">
 									</textarea>
-				          <label for="ngm-project-notes">Monthly Notes & Comments</label>
+				          <label for="ngm-project-notes">{{'monthly_notes_&_comments' | translate}}</label>
 				        </div>
 
 				        <button class="btn" 
@@ -59,7 +59,7 @@
 				        											!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
 				        												!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
 				        				ng-click="project.save( false )" style="margin:10px 10px;">
-				        	<i class="material-icons left">save</i>Save Notes
+				        	<i class="material-icons left">save</i>{{'save_notes' |translate}}
 				        </button>
 
 			      	</div>

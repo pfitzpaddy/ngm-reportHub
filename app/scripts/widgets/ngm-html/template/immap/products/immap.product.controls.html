@@ -1,19 +1,19 @@
 
 <!-- bind html -->
 <a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="#/immap">
-	<i class="material-icons left">keyboard_return</i>Back
+	<i class="material-icons left">keyboard_return</i>{{'back'|translate}}
 </a>
 
 <a title="Register New Product" class="waves-effect waves-light btn right" href="https://goo.gl/forms/NmyQ5aKsUdaIZrP73" target="_blank">
-	<i class="material-icons left">add_circle_outline</i>Add New Product
+	<i class="material-icons left">add_circle_outline</i>{{'add_new_product'|translate}}
 </a>
 
 <a title="Refresh Dashboard" style="margin-right:20px;" class="waves-effect waves-light btn blue right" href="#/immap/products">
-	<i class="material-icons left">refresh</i>Reset Dashboard
+	<i class="material-icons left">refresh</i>{{'reset'|translate}} Dashboard
 </a>
 
 <a id="dashboard-fetch-btn" title="Refresh to Fetch Latest" style="margin-right:20px;" class="waves-effect waves-light btn blue right" ng-click="panel.fetchData()">
-	<i class="material-icons left">cloud_download</i>Fetch Latest
+	<i class="material-icons left">cloud_download</i>{{'fetch_latest'|translate}}
 </a>
 
-<span class="right" style="padding-right: 10px; padding-top:8px;">Last Updated: {{ panel.data.timestamp_format }}</span>
+<span class="right" style="padding-right: 10px; padding-top:8px;">{{'last_updated'|translate}}: {{ panel.data.timestamp_format }}</span>

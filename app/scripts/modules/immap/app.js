@@ -7,8 +7,11 @@
  * Main module of the application.
  */
 angular
-	.module('ngmiMMAP', [])
-	.config([ '$routeProvider', '$compileProvider', function ( $routeProvider, $compileProvider ) {
+	.module('ngmiMMAP', [
+])
+	.config([ '$routeProvider', '$compileProvider', function ( $routeProvider, $compileProvider) {
+
+
 
 		// https://medium.com/swlh/improving-angular-performance-with-1-line-of-code-a1fb814a6476#.ufea9sjt1
 		$compileProvider.debugInfoEnabled( false )

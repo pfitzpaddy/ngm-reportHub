@@ -39,7 +39,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
     'ngmClusterHelperNgWashLists',
 		'ngmClusterHelperNgWashValidation',
 		'NgTableParams',
-    'config',
+    'config','$translate','$filter',
+
     function( 
       $scope,
       $location,
@@ -61,9 +62,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       ngmClusterHelperAf,
       ngmClusterHelperNgWash,
       ngmClusterHelperNgWashLists,
+
 			ngmClusterHelperNgWashValidation,
 			NgTableParams,
-      config ){
+      config,$translate,$filter ){
+
 
 
       /**** TRAINING SERVICE ****/
@@ -931,7 +934,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               ngmClusterHelper.getCleanReport( $scope.project.definition, $scope.project.report );
 
           // msg
-          Materialize.toast( 'Processing Report...' , 3000, 'note');
+          Materialize.toast( $filter('translate')('processing_report') , 3000, 'note');
 
           // setReportRequest
           var setReportRequest = {
@@ -945,7 +948,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
             if ( report.err ) {
               // update
-              Materialize.toast( 'Error! Please correct the ROW and try again', 6000, 'error' );
+              Materialize.toast( 'Error! '+$filter('translate')('please_correct_the_row_and_try_again'), 6000, 'error' );
             }
 
             if ( !report.err ) {
@@ -955,8 +958,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               $scope.project.report.submit = false;
 
               // user msg
-              var msg = 'Project Report for  ' + moment.utc( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
-                  msg += complete ? 'Submitted!' : 'Saved!';
+              var msg = $filter('translate')('project_report_for')+'  ' + moment.utc( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
+                  msg += complete ? $filter('translate')('submitted')+'!' : $filter('translate')('saved_mayus1')+'!';
 
               // msg
               $timeout(function() { Materialize.toast( msg , 3000, 'success'); }, 600 );

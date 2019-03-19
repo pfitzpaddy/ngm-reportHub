@@ -34,31 +34,31 @@
             <table class="centered highlight responsive-table" ng-table="table.tableParams">
               <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
                 <!-- columns -->
-                <td data-title="'Country'" sortable="'admin0name'">
+                <td data-title="'country'|translate" sortable="'admin0name'">
                     {{ row.admin0name }}
                 </td>
-                <td data-title="'Project'" sortable="'project'">
+                <td data-title="'project_mayus1'|translate" sortable="'project'">
                     {{ row.project }}
                 </td>
                 <td data-title="'Sector'" sortable="'product_sector'">
                     {{ row.product_sector }}
                 </td>
-                <td data-title="'Product Type'" sortable="'product_type'">
+                <td data-title="'product_type'|translate" sortable="'product_type'">
                     {{ row.product_type }}
                 </td>
-                <td data-title="'Product Month'" sortable="'product_month'">
+                <td data-title="'product_month'|translate" sortable="'product_month'">
                     {{ row.product_month + ' ' + row.product_year }}
                 </td>
-                <td data-title="'View'" sortable="'product_month'">
+                <td data-title="'view'|translate" sortable="'product_month'">
                   
                   <a target="_blank" 
                       href="{{ row.form_url }}" 
-                      title="View Product Form Registration">
+                      title="{{'view_product_from_registration'|translate}}">
                     <i class="material-icons center">edit</i>
                   </a>
                   <a target="_blank" 
                       href="{{ row.product_upload }}" 
-                      title="View Product">
+                      title="{{'view_product'|translate}}">
                     <i class="material-icons center">open_in_new</i>
                   </a>
 

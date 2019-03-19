@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller( 'ImmapProductsCtrl', [ '$scope', '$location', '$route', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser', function ( $scope, $location, $route, $timeout, ngmAuth, ngmData, ngmUser ) {
+	.controller( 'ImmapProductsCtrl', [ '$scope', '$location', '$route', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser', '$translate','$filter', function ( $scope, $location, $route, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -209,7 +209,7 @@ angular.module( 'ngmReportHub' )
 								config: {
 									title: {
 										style: 'padding-top: 0px;',
-										name: 'Product Submissions'
+										name: $filter('translate')('product_submissions')
 									},
 									options: { itemName: 'Product', start: new Date( $scope.report.start_date ) },
 									request: $scope.report.getRequest( 'calendar' )
@@ -227,7 +227,7 @@ angular.module( 'ngmReportHub' )
 								style: 'text-align: center;',
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
-									title: 'Total Products',
+									title: $filter('translate')('total_products'),
 									request: $scope.report.getRequest( 'products' )
 								}
 							}]
@@ -238,7 +238,7 @@ angular.module( 'ngmReportHub' )
 								style: 'text-align: center;',
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
-									title: 'Total Sectors',
+									title: $filter('translate')('total_sectors'),
 									request: $scope.report.getRequest( 'sectors' )
 								}
 							}]
@@ -249,7 +249,7 @@ angular.module( 'ngmReportHub' )
 								style: 'text-align: center;',
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
-									title: 'Team Contributors',
+									title: $filter('translate')('team_contributors'),
 									request: $scope.report.getRequest( 'team' )
 								}
 							}]
@@ -263,7 +263,7 @@ angular.module( 'ngmReportHub' )
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
 									title: {
-										text: 'by Type',
+										text: $filter('translate')('by_type'),
 									},
 									chartConfig: {
 										options: {
@@ -319,7 +319,7 @@ angular.module( 'ngmReportHub' )
 								card: 'card-panel stats-card white grey-text text-darken-2',
 								config: {
 									title: {
-										text: 'by Sector'
+										text: $filter('translate')('by_sector')
 									},
 									chartConfig: {
 										options: {
@@ -376,9 +376,9 @@ angular.module( 'ngmReportHub' )
 								config: {
 									title: {
 										style: 'padding-top: 0px;',
-										name: 'Product Submissions'
+										name: $filter('translate')('product_submissions')
 									},
-									options: { itemName: 'Product', start: new Date( $scope.report.start_date ) },
+									options: { itemName: $filter('translate')('products_mayus1'), start: new Date( $scope.report.start_date ) },
 									request: $scope.report.getRequest( 'calendar' )
 								}
 							}]
@@ -399,7 +399,7 @@ angular.module( 'ngmReportHub' )
 									headerStyle: 'background-color:' + $scope.report.ngm.style.defaultPrimaryColor,
 									headerText: 'white-text',
 									headerIcon: 'crop_original',
-									headerTitle: 'Products List',
+									headerTitle: $filter('translate')('products_list'),
 									templateUrl: '/scripts/widgets/ngm-table/templates/immap/products/immap.products.table.html',
 									tableOptions:{
 										count: 4
@@ -473,7 +473,7 @@ angular.module( 'ngmReportHub' )
 						title: {
 							'class': 'col s12 m8 l8 report-title truncate',
 							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: 'iMMAP | ' + $scope.report.admin0pcode.toUpperCase() + ' | Products'
+							title: 'iMMAP | ' + $scope.report.admin0pcode.toUpperCase() + ' | '+ $filter('translate')('products_mayus1')
 						},
 						subtitle: {
 							'class': 'col hide-on-small-only m8 l9 report-subtitle truncate',
@@ -483,7 +483,7 @@ angular.module( 'ngmReportHub' )
 							'class': 'col s12 m4 l3',
 							dates: [{
 								style: 'float:left;',
-								label: 'from',
+								label: $filter('translate')('from'),
 								format: 'd mmm, yyyy',
 								min: '2017-01-01',
 								max: $scope.report.end_date,
@@ -499,7 +499,7 @@ angular.module( 'ngmReportHub' )
 								}
 							},{
 								style: 'float:right',
-								label: 'to',
+								label: $filter('translate')('to'),
 								format: 'd mmm, yyyy',
 								min: $scope.report.start_date,
 								currentTime: $scope.report.end_date,
@@ -520,7 +520,7 @@ angular.module( 'ngmReportHub' )
 								type: 'csv',
 								color: 'blue lighten-2',
 								icon: 'assignment_turned_in',
-								hover: 'Download Products List as CSV',
+								hover: $filter('translate')('download_products_list_as_csv'),
 								request: $scope.report.getRequest( 'csv' ),
 								metrics: $scope.report.getMetrics( 'immap_products_list', 'csv' )
 							}]

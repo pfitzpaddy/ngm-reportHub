@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardTeamCtrl', ['$scope', '$route', '$location', 'ngmAuth', 'ngmData', function ($scope, $route, $location, ngmAuth, ngmData) {
+	.controller('DashboardTeamCtrl', ['$scope', '$route', '$location', 'ngmAuth', 'ngmData','$translate','$filter', function ($scope, $route, $location, ngmAuth, ngmData,$translate,$filter) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -139,8 +139,8 @@ angular.module('ngmReportHub')
 
 			// set title
 			setTitles: function () {
-				$scope.dashboard.ngm.dashboard.model.header.title.title = $scope.dashboard.organization + ' | ' +  $scope.dashboard.admin0name + ' | Team';
-				$scope.dashboard.ngm.dashboard.model.header.subtitle.title = $scope.dashboard.organization  + ' | ' +  $scope.dashboard.admin0name + ' | Team | ' + $scope.dashboard.user.username;
+				$scope.dashboard.ngm.dashboard.model.header.title.title = $scope.dashboard.organization + ' | ' +  $scope.dashboard.admin0name + ' | '+$filter('translate')('team');
+				$scope.dashboard.ngm.dashboard.model.header.subtitle.title = $scope.dashboard.organization  + ' | ' +  $scope.dashboard.admin0name + ' | '+$filter('translate')('team')+ ' | ' + $scope.dashboard.user.username;
 			},
 
 			// set stats
@@ -376,16 +376,17 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m12 l12 report-title truncate',
 							style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
-							title: $scope.dashboard.organization + ' | ' +  $scope.dashboard.admin0name + ' | Team'
+							title: $scope.dashboard.organization + ' | ' +  $scope.dashboard.admin0name + ' | '+$filter('translate')('team')
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle',
 							html: true,
-							title: $scope.dashboard.organization  + ' | ' +  $scope.dashboard.admin0name + ' | Team | ' + $scope.dashboard.user.username
+							title: $scope.dashboard.organization  + ' | ' +  $scope.dashboard.admin0name + ' | '+ $filter('translate')('team') +' | ' + $scope.dashboard.user.username
 						}
 					},
 					rows: [{
 						columns: $scope.dashboard.setStats()
+
 					},{
 						columns: [{
 							styleClass: 's12',
@@ -399,7 +400,7 @@ angular.module('ngmReportHub')
 									headerStyle: 'background-color:' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 									headerText: 'white-text',
 									headerIcon: 'group',
-									headerTitle: $scope.dashboard.user.organization + ' Active Users',
+									headerTitle: $scope.dashboard.user.organization + ' ' +$filter('translate')('active_users'),
 									templateUrl: '/scripts/app/views/authentication/team.html',
 									tableOptions:{
 										count: 10,
@@ -459,7 +460,7 @@ angular.module('ngmReportHub')
 									headerStyle: 'background-color: grey',
 									headerText: 'white-text',
 									headerIcon: 'group',
-									headerTitle: $scope.dashboard.user.organization + ' Deactivated Users',
+									headerTitle: $scope.dashboard.user.organization + ' '+$filter('translate')('desactivated_users'),
 									templateUrl: '/scripts/app/views/authentication/team.html',
 									tableOptions:{
 										count: 10,

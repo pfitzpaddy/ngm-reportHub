@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller( 'ImmapHomeCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser ) {
+	.controller( 'ImmapHomeCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser','$translate','$filter', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser,$translate,$filter ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -39,7 +39,7 @@ angular.module( 'ngmReportHub' )
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle hide-on-small-only',
-							title: 'Please select from the options below'
+							title: $filter('translate')('please_select_from_the_options_below')
 						}
 					},
 					rows: [{

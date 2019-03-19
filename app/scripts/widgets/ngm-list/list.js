@@ -49,7 +49,10 @@ angular.module('ngm.widget.list', ['ngm.provider'])
     'data', 
 		'config',
 		'ngmData',
-		function ($scope, $rootScope, $sce, $element, $location, $timeout, ngmAuth, data, config,ngmData){
+    '$translate',
+    '$filter',
+		function ($scope, $rootScope, $sce, $element, $location, $timeout, ngmAuth, data, config,ngmData, $translate,$filter){
+
     
       // statistics widget default config
       $scope.list = {
@@ -88,6 +91,7 @@ angular.module('ngm.widget.list', ['ngm.provider'])
         dueFormat: function( date ) {
           // return moment
           return moment.utc( date ).format('DD MMMM, YYYY');
+          //return $filter('date')(date,'DD MMMM, YYYY')
         },
 
         // description
@@ -95,9 +99,9 @@ angular.module('ngm.widget.list', ['ngm.provider'])
 
           // return list description
           if( report.report_status === 'complete' ) {
-            return 'Report Submitted: ' + $scope.list.dueFormat( report.report_submitted );
+            return $filter('translate')('report_submitted')+': ' + $scope.list.dueFormat( report.report_submitted );
           } else {
-            return 'Report Due Date: ' + $scope.list.dueFormat( report.reporting_due_date );
+            return $filter('translate')('report_due_date')+': ' + $scope.list.dueFormat( report.reporting_due_date );
           }
 
         },
