@@ -98,7 +98,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
               $budget.project_donor_name = selected[0].project_donor_name;
             }
           } 
-          return selected.length ? selected[0].project_donor_name : $filter('translate')('no_selection')('!');
+          return selected.length ? selected[0].project_donor_name : $filter('translate')('no_selection')+'!';
         },
 
         // activity
@@ -126,7 +126,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
               $budget.currency_name = selected[0].currency_name;
             }
           } 
-          return selected.length ? selected[0].currency_name : $filter('translate')('no_selection')+('!');
+          return selected.length ? selected[0].currency_name : $filter('translate')('no_selection')+'!';
         },
 
         // show in fts
