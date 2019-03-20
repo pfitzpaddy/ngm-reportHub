@@ -67,8 +67,8 @@
     "wash" : "WASH - Agua, Saneamiento e Higiene",
     "next" : "Siguiente",
     "role":"Rol",
-    "edit_role":"Editar Rol",
-    "manager_user":"GESTIONAR USUARIO",
+    "editrole":"Editar Rol",
+    "manage_user":"GESTIONAR USUARIO",
 
        "full_name" : "Nombre Completo",
        "position" : "Cargo",

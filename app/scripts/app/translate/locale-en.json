@@ -65,7 +65,7 @@
        "multi_purpose_cash" : "s Cash",
        "next" : "Next",
        "role":"Role",
-       "edit_role":"Edit Role",
+       "editrole":"Edit Role",
        "manage_user":"MANAGE USER",
       
        "full_name" : "Full Name",
