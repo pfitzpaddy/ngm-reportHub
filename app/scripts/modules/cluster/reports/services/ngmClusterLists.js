@@ -2624,12 +2624,20 @@ angular.module( 'ngmReportHub' )
               beneficiary_type_name: 'Pakistani Refugees'
             },{
               cluster_id: [ 'wash' ],
-              beneficiary_type_id: 'drought_affected_non_displaced',
-              beneficiary_type_name: 'Drought Affected Non Displaced'
+              beneficiary_type_id: 'drought_affected_non_displaced_response',
+              beneficiary_type_name: 'Drought Affected Non Displaced ( Response )'
             },{
               cluster_id: [ 'wash' ],
-              beneficiary_type_id: 'drought_affected_displaced',
-              beneficiary_type_name: 'Drought Affected Displaced'
+              beneficiary_type_id: 'drought_affected_displaced_response',
+              beneficiary_type_name: 'Drought Affected Displaced ( Response )'
+            },{
+              cluster_id: [ 'wash' ],
+              beneficiary_type_id: 'flood_affected_non_displaced_response',
+              beneficiary_type_name: 'Flood Affected Non Displaced ( Response )'
+            },{
+              cluster_id: [ 'wash' ],
+              beneficiary_type_id: 'flood_affected_displaced_response',
+              beneficiary_type_name: 'Flood Affected Displaced ( Response )'
             },{
 
               // FSAC
@@ -2639,12 +2647,12 @@ angular.module( 'ngmReportHub' )
               beneficiary_type_name: 'Conflict Affected IDPs'
             },{
               cluster_id: [ 'fsac' ],
-              beneficiary_type_id: 'drought_affected_non_displaced',
-              beneficiary_type_name: 'Drought Affected Non Displaced'
+              beneficiary_type_id: 'drought_affected_non_displaced_response',
+              beneficiary_type_name: 'Drought Affected Non Displaced ( Response )'
             },{
               cluster_id: [ 'fsac' ],
-              beneficiary_type_id: 'drought_affected_displaced',
-              beneficiary_type_name: 'Drought Affected Displaced'
+              beneficiary_type_id: 'drought_affected_displaced_response',
+              beneficiary_type_name: 'Drought Affected Displaced ( Response )'
             },{
               cluster_id: [ 'fsac' ],
               beneficiary_type_id: 'natural_disaster_affected_earthquake',
@@ -2702,6 +2710,14 @@ angular.module( 'ngmReportHub' )
               beneficiary_type_id: 'refugee_pakistani',
               beneficiary_type_name: 'Pakistani Refugees'
             },{
+              cluster_id: [ 'fsac' ],
+              beneficiary_type_id: 'flood_affected_non_displaced_response',
+              beneficiary_type_name: 'Flood Affected Non Displaced ( Response )'
+            },{
+              cluster_id: [ 'fsac' ],
+              beneficiary_type_id: 'flood_affected_displaced_response',
+              beneficiary_type_name: 'Flood Affected Displaced ( Response )'
+            },{
 
               // CASH
 
@@ -2744,6 +2760,14 @@ angular.module( 'ngmReportHub' )
               cluster_id: [ 'cvwg' ],
               beneficiary_type_id: 'refugee_pakistani',
               beneficiary_type_name: 'Pakistani Refugees'
+            },{
+              cluster_id: [ 'cvwg' ],
+              beneficiary_type_id: 'flood_affected_non_displaced_response',
+              beneficiary_type_name: 'Flood Affected Non Displaced ( Response )'
+            },{
+              cluster_id: [ 'cvwg' ],
+              beneficiary_type_id: 'flood_affected_displaced_response',
+              beneficiary_type_name: 'Flood Affected Displaced ( Response )'
             },{
 
               // HEALTH
@@ -2800,16 +2824,24 @@ angular.module( 'ngmReportHub' )
               beneficiary_type_name: 'Host Communities'
             },{
               cluster_id: [ 'health' ],
-              beneficiary_type_id: 'drought_affected_non_displaced',
-              beneficiary_type_name: 'Drought Affected Non Displaced'
+              beneficiary_type_id: 'drought_affected_non_displaced_response',
+              beneficiary_type_name: 'Drought Affected Non Displaced ( Response )'
             },{
               cluster_id: [ 'health' ],
-              beneficiary_type_id: 'drought_affected_displaced',
-              beneficiary_type_name: 'Drought Affected Displaced'
+              beneficiary_type_id: 'drought_affected_displaced_response',
+              beneficiary_type_name: 'Drought Affected Displaced ( Response )'
             },{
               cluster_id: [ 'health' ],
               beneficiary_type_id: 'chronic_emergency',
               beneficiary_type_name: 'Chronic Emergency'
+            },{
+              cluster_id: [ 'health' ],
+              beneficiary_type_id: 'flood_affected_non_displaced_response',
+              beneficiary_type_name: 'Flood Affected Non Displaced ( Response )'
+            },{
+              cluster_id: [ 'health' ],
+              beneficiary_type_id: 'flood_affected_displaced_response',
+              beneficiary_type_name: 'Flood Affected Displaced ( Response )'
             },{
 
               // NUTRITION
@@ -2854,12 +2886,20 @@ angular.module( 'ngmReportHub' )
               beneficiary_type_name: 'Host Communities'
             },{
               cluster_id: [ 'nutrition' ],
-              beneficiary_type_id: 'drought_affected_non_displaced',
-              beneficiary_type_name: 'Drought Affected Non Displaced'
+              beneficiary_type_id: 'drought_affected_non_displaced_response',
+              beneficiary_type_name: 'Drought Affected Non Displaced ( Response )'
             },{
               cluster_id: [ 'nutrition' ],
-              beneficiary_type_id: 'drought_affected_displaced',
-              beneficiary_type_name: 'Drought Affected Displaced'
+              beneficiary_type_id: 'drought_affected_displaced_response',
+              beneficiary_type_name: 'Drought Affected Displaced ( Response )'
+            },{
+              cluster_id: [ 'nutrition' ],
+              beneficiary_type_id: 'flood_affected_non_displaced_response',
+              beneficiary_type_name: 'Flood Affected Non Displaced ( Response )'
+            },{
+              cluster_id: [ 'nutrition' ],
+              beneficiary_type_id: 'flood_affected_displaced_response',
+              beneficiary_type_name: 'Flood Affected Displaced ( Response )'
             },{
 
               // ESNFI
@@ -2897,12 +2937,20 @@ angular.module( 'ngmReportHub' )
               beneficiary_type_name: 'Host Communities'
             },{
               cluster_id: [ 'esnfi' ],
-              beneficiary_type_id: 'drought_affected_non_displaced',
-              beneficiary_type_name: 'Drought Affected Non Displaced'
+              beneficiary_type_id: 'drought_affected_non_displaced_response',
+              beneficiary_type_name: 'Drought Affected Non Displaced ( Response )'
             },{
               cluster_id: [ 'esnfi' ],
-              beneficiary_type_id: 'drought_affected_displaced',
-              beneficiary_type_name: 'Drought Affected Displaced'
+              beneficiary_type_id: 'drought_affected_displaced_response',
+              beneficiary_type_name: 'Drought Affected Displaced ( Response )'
+            },{
+              cluster_id: [ 'esnfi' ],
+              beneficiary_type_id: 'flood_affected_non_displaced_response',
+              beneficiary_type_name: 'Flood Affected Non Displaced ( Response )'
+            },{
+              cluster_id: [ 'esnfi' ],
+              beneficiary_type_id: 'flood_affected_displaced_response',
+              beneficiary_type_name: 'Flood Affected Displaced ( Response )'
             },{
 
               // Protection
@@ -2944,12 +2992,20 @@ angular.module( 'ngmReportHub' )
               beneficiary_type_name: 'Protracted IDPs'
             },{
               cluster_id: [ 'protection' ],
-              beneficiary_type_id: 'drought_affected_non_displaced',
-              beneficiary_type_name: 'Drought Affected Non Displaced'
+              beneficiary_type_id: 'drought_affected_non_displaced_response',
+              beneficiary_type_name: 'Drought Affected Non Displaced ( Response )'
             },{
               cluster_id: [ 'protection' ],
-              beneficiary_type_id: 'drought_affected_displaced',
-              beneficiary_type_name: 'Drought Affected Displaced'
+              beneficiary_type_id: 'drought_affected_displaced_response',
+              beneficiary_type_name: 'Drought Affected Displaced ( Response )'
+            },{
+              cluster_id: [ 'protection' ],
+              beneficiary_type_id: 'flood_affected_non_displaced_response',
+              beneficiary_type_name: 'Flood Affected Non Displaced ( Response )'
+            },{
+              cluster_id: [ 'protection' ],
+              beneficiary_type_id: 'flood_affected_displaced_response',
+              beneficiary_type_name: 'Flood Affected Displaced ( Response )'
             },{
 
               // EIEWG
@@ -2981,7 +3037,15 @@ angular.module( 'ngmReportHub' )
               cluster_id: [ 'eiewg' ],
               beneficiary_type_id: 'returnee_children',
               beneficiary_type_name: 'Returnee Children'
-            }];
+            },{
+              cluster_id: [ 'eiewg' ],
+              beneficiary_type_id: 'flood_affected_non_displaced_response',
+              beneficiary_type_name: 'Flood Affected Non Displaced ( Response )'
+            },{
+              cluster_id: [ 'eiewg' ],
+              beneficiary_type_id: 'flood_affected_displaced_response',
+              beneficiary_type_name: 'Flood Affected Displaced ( Response )'
+            },];
           }
 
         }
