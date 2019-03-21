@@ -6,11 +6,11 @@
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller( 'ClusterAppCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser, ngmClusterHelper ) {
+	.controller( 'ClusterAppCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper','$translate','$filter', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser, ngmClusterHelper,$translate,$filter ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
-			'Karma'
+			'Karma' 
 		];
 
 		// org id
@@ -52,7 +52,8 @@ angular.module( 'ngmReportHub' )
 
 				// set model titles
 				$scope.report.title = $scope.report.organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.organization.organization;
-				$scope.report.subtitle = $scope.report.organization.organization + ' overview for ' + $scope.report.organization.admin0name;
+				$scope.report.subtitle = $scope.report.organization.organization + ' '+$filter('translate')('overview_for')+' ' + $scope.report.organization.admin0name;
+
 
 				// report dashboard model
 				$scope.model = {

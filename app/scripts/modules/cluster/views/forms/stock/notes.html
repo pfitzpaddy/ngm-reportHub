@@ -16,7 +16,7 @@
 			<ul class="collection with-header">
 				<li class="collection-header light-blue lighten-4">
 					<h5 class="report-panel-title">
-						<i class="material-icons left">location_on</i>Notes for {{ report.monthlyTitleFormat }}
+						<i class="material-icons left">location_on</i>{{'notes_for'|translate}} {{ report.monthlyTitleFormat }} 
 					</h5>
 				</li>
 
@@ -39,7 +39,7 @@
 										ng-model="report.report.notes"
 										ng-disabled="report.report.report_status === 'complete'">
 									</textarea>
-				          <label for="ngm-report-notes">Monthly Notes & Comments</label>
+				          <label for="ngm-report-notes">{{'monthly_notes_&_comments'|translate}}</label>
 				        </div>
 
 			      	</div>

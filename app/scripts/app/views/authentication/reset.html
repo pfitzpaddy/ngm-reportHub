@@ -65,12 +65,12 @@ li {
 						<img title="Reset you ReportHub password" 
 							src="images/password-reset.png"/>
 					</div>
-					<h5 class="title">RESET PASSWORD</h5>
+					<h5 class="title">{{'reset_password' | translate}}</h5>
 				</div>
 
 				<p ng-if="ngmResetPasswordForm.pwConfirm.$error.pwmatch"
 					style="text-align:center; color: #ef5350;">
-					Passwords do not match!
+					{{'passwords_do_not_match' | translate}}!
 				<p>				
 
 	    	<form name="ngmResetPasswordForm" class="col s12" novalidate>
@@ -81,7 +81,7 @@ li {
 		          <input id="ngm-password-new" type="password" class="validate"
 								ng-model="panel.user.newPassword"
 								required>
-		          <label for="ngm-password-new">NEW PASSWORD</label>
+		          <label for="ngm-password-new">{{'new_password' | translate}}</label>
 		        </div>
 		      </div>
 
@@ -93,7 +93,7 @@ li {
 								ng-model="panel.user.confirmPassword"
 								pw-check="ngm-password-new"
 								required>
-		          <label for="ngm-password-confirm">CONFIRM PASSWORD</label>
+		          <label for="ngm-password-confirm">{{'confirm_password' | translate}}</label>
 		        </div>
 		      </div>
 
@@ -103,7 +103,7 @@ li {
 							type="submit"
 							ng-disabled="ngmResetPasswordForm.$invalid"
 							ng-click="panel.passwordReset( ngmResetPasswordForm, panel.token )">
-								Update Password!
+								{{'update_password' | translate}}!
 						</button>
 					</div>
 		    

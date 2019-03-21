@@ -6,7 +6,7 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterHelperAf', [ '$http', '$filter', '$timeout', 'ngmAuth', function( $http, $filter, $timeout, ngmAuth ) {
+	.factory( 'ngmClusterHelperAf', [ '$http', '$filter', '$timeout', 'ngmAuth','$translate', function( $http, $filter, $timeout, ngmAuth,$translate ) {
 
 		var ngmClusterHelperAf = {
 
@@ -80,13 +80,13 @@ angular.module( 'ngmReportHub' )
         // will show if not selected
         } else if ( $data == null ) {
           delete $beneficiary.injury_treatment_same_province;
-          selected[0].text = 'Not Selected!'
+          selected[0].text = $filter('translate')('not_selected')+' !'
         // will show if selected
         } else {
           $beneficiary.injury_treatment_same_province = $data;
           var selected = $filter('filter')([{
             'choise': true,
-            'text': 'Yes'
+            'text': $filter('translate')('yes')
           }, {
             'choise': false,
             'text': 'No'

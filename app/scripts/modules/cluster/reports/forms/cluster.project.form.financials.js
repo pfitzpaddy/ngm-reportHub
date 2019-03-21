@@ -30,7 +30,8 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
     'ngmClusterHelper',
     'ngmClusterLists',
     'config',
-    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, config ){
+    '$translate',
+    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, config,$translate ){
 
       // project
       $scope.project = {
@@ -56,16 +57,16 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
         // placeholder bydget activity
         lists: {
-          reported_on_fts: [ { reported_on_fts_id: 'yes', reported_on_fts_name: 'Yes' }, { reported_on_fts_id: 'no', reported_on_fts_name: 'No' } ],
-          budget_funds: [ { budget_funds_id: 'financial', budget_funds_name: 'Financial' }, { budget_funds_id: 'inkind',budget_funds_name: 'InKind' } ],
+          reported_on_fts: [ { reported_on_fts_id: 'yes', reported_on_fts_name: $filter('translate')('yes') }, { reported_on_fts_id: 'no', reported_on_fts_name: 'No' } ],
+          budget_funds: [ { budget_funds_id: 'financial', budget_funds_name: $filter('translate')('financial') }, { budget_funds_id: 'inkind',budget_funds_name: $filter('translate')('inkind') } ],
           financial_programming: [{ 
-            financial_programming_id: 'non_cash', financial_programming_name: 'Non-Cash' 
+            financial_programming_id: 'non_cash', financial_programming_name: $filter('translate')('non_cash')
           },{ 
-            financial_programming_id: 'restricted_cash', financial_programming_name: 'Restricted Cash' 
+            financial_programming_id: 'restricted_cash', financial_programming_name: $filter('translate')('restricted_cash') 
           },{ 
-            financial_programming_id: 'unrestricted_cash', financial_programming_name: 'Unrestricted Cash' 
+            financial_programming_id: 'unrestricted_cash', financial_programming_name: $filter('translate')('unrestricted_cash')
           }],
-          multi_year_funding: [ { multi_year_funding_id: 'yes', multi_year_funding_name: 'Yes' }, { multi_year_funding_id: 'no', multi_year_funding_name: 'No' } ],
+          multi_year_funding: [ { multi_year_funding_id: 'yes', multi_year_funding_name: $filter('translate')('yes') }, { multi_year_funding_id: 'no', multi_year_funding_name: 'No' } ],
           activity_type: angular.copy( config.project.activity_type ),
           currencies: ngmClusterLists.getCurrencies( config.project.admin0pcode )
         },
@@ -97,7 +98,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
               $budget.project_donor_name = selected[0].project_donor_name;
             }
           } 
-          return selected.length ? selected[0].project_donor_name : 'No Selection!';
+          return selected.length ? selected[0].project_donor_name : $filter('translate')('no_selection')+'!';
         },
 
         // activity
@@ -112,7 +113,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
               $budget.activity_type_name = selected[0].activity_type_name;
             }
           } 
-          return selected.length ? selected[0].activity_type_name : 'No Selection!';
+          return selected.length ? selected[0].activity_type_name : $filter('translate')('no_selection')+'!';
         },
 
         // currency
@@ -125,7 +126,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
               $budget.currency_name = selected[0].currency_name;
             }
           } 
-          return selected.length ? selected[0].currency_name : 'No Selection!';
+          return selected.length ? selected[0].currency_name : $filter('translate')('no_selection')+'!';
         },
 
         // show in fts
@@ -136,7 +137,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           // default
           if( !$budget.reported_on_fts_id ){
             $budget.budget_funds_id = 'financial';
-            $budget.budget_funds_name = 'Financial';
+            $budget.budget_funds_name = $filter('translate')('financial');
           }
 
           // selection
@@ -170,7 +171,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           // default
           if( !$budget.reported_on_fts_id ){
             $budget.financial_programming_id = 'non_cash';
-            $budget.financial_programming_name = 'Non-Cash';
+            $budget.financial_programming_name = $filter('translate')('non_cash');
           }
 
           // selection
@@ -310,7 +311,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
             }
           }).success( function( project ){
             // on success
-            Materialize.toast( 'Project Budget Item Removed!', 3000, 'success');
+            Materialize.toast( $filter('translate')('project_budget_item_removed')+'!', 3000, 'success');
           }).error(function( err ) {
             // update
             Materialize.toast( 'Error!', 6000, 'error' );
@@ -331,7 +332,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
             $scope.project.definition = project;
 
             // on success
-            Materialize.toast( 'Project Budget Item Added!', 3000, 'success');
+            Materialize.toast( $filter('translate')('project_budget_item_added')+'!', 3000, 'success');
           });          
         }
 
@@ -345,7 +346,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           cluster_id: $scope.project.definition.cluster_id,
           cluster: $scope.project.definition.cluster,
           activity_type_id: 'all',
-          activity_type_name: 'All Activities'
+          activity_type_name: $filter('translate')('all_activities')
         });
 
       }, 0 );

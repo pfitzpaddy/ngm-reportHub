@@ -6,12 +6,13 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardLoginCtrl', ['$scope', function ($scope) {
+	.controller('DashboardLoginCtrl', ['$scope','$translate','$filter', function ($scope, $translate,$filter) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
 			'Karma'
 		];
+
 
 		// login object
 		$scope.dashboard = {
@@ -35,12 +36,13 @@ angular.module('ngmReportHub')
 				title: {
 					'class': 'col s12 m12 l12 report-title',
 					style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
-					title: 'Welcome'
+					//title: '{{"Welcome" | translate}}'
+					title: $filter('translate')('welcome'),
 				},
 				subtitle: {
 					'class': 'col s12 m12 l12 report-subtitle',
 					html: true,
-					title: 'Welcome to ReportHub<span class="hide-on-med-and-down">, please LOGIN or REGISTER to continue</span>',
+					title: $filter('translate')('welcome_to')+' ReportHub<span class="hide-on-med-and-down">, '+$filter('translate')('please_login_or_register_to_continue')+'</span>'
 				}
 			},
 			rows: [{

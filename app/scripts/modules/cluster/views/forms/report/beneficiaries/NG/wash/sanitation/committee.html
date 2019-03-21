@@ -105,7 +105,7 @@
 																								'ngm-committee_rotation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}' )"
 										ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 										required>
-					<option value="">Select...</option>
+					<option value="">{{'select'|translate}}</option>
 					</select>
 					<label for="ngm-committee_rotation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}" 
 									class="active" style="transform:translateY(-10%)">Committee Rotation</label>
@@ -145,7 +145,7 @@
 																								'ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}' )"
 										ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 										required>
-					<option value="">Select...</option>
+					<option value="">{{'select'|translate}}</option>
 					</select>
 					<label for="ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}" 
 									class="active" style="transform:translateY(-10%)">Stipends Provided</label>

@@ -31,7 +31,8 @@
 				
 				<li class="collection-header blue lighten-1">
 					<h5 class="report-work-title white-text">
-						<i class="material-icons left">border_color</i>Project Plan
+						<i class="material-icons left">border_color</i>{{'project_plan'|translate}}
+
 					</h5>
 				</li>
 
@@ -51,12 +52,12 @@
 												ng-model="project.definition.project_title"
 												ng-disabled="project.definition.project_status === 'complete'"
 												required>
-								  <label for="ngm-project-name" class="error">Project Title *</label>
+								  <label for="ngm-project-name" class="error">{{'project_title' | translate}} *</label>
 								</div>
 
 								<!-- input-date directive -->
 								<div class="input-field col s12 m3">
-											<label for="ngm-start-date">Start Date *</label>
+											<label for="ngm-start-date">{{'start_date' | translate}} *</label>
 											<input ngm-date
 											    type="text"
 											    name="created"
@@ -71,7 +72,7 @@
 
 								<!-- input-date directive -->
 								<div class="input-field col s12 m3">
-								  <label for="ngm-end-date">End Date *</label>
+								  <label for="ngm-end-date">{{'end_date' | translate}} *</label>
 											<input ngm-date
 											    type="text"
 											    name="created"
@@ -94,7 +95,7 @@
 								  <input id="ngm-project_code" type="text" class="validate"
 								  	ng-model="project.definition.project_code"
 								  	ng-disabled="project.definition.project_status === 'complete'">
-								  <label for="ngm-project_code">{{ project.definition.organization }} Project Code</label>
+								  <label for="ngm-project_code">{{ project.definition.organization }} {{'project_code' | translate}}</label>
 								</div>
 
 								<div class="input-field col s12 m3">
@@ -102,7 +103,7 @@
 								  	ng-model="project.definition.project_budget"
 								  	ng-disabled="project.definition.project_status === 'complete'"
 								  	required>
-								  <label for="ngm-project-budget">Project Budget ( {{ project.definition.project_budget_currency | uppercase }} ) *</label>
+								  <label for="ngm-project-budget">{{'project_budget' | translate}} ( {{ project.definition.project_budget_currency | uppercase }} ) *</label>
 								</div>
 
 								<div class="input-field col s12 m3"
@@ -113,9 +114,9 @@
 									    	ng-disabled="project.definition.project_status === 'complete'" 
 												ng-options="currency.currency_id as currency.currency_name for currency in project.lists.currencies"
 									    	required>
-									      <option value="" disabled selected>Select Project Budget Currency</option>
+									      <option value="" disabled selected>{{'select_project_budget_currency' | translate}}</option>
 									    </select>
-									    <label for="ngm-project_budget_currency">Project Budget Currency *</label>
+									    <label for="ngm-project_budget_currency">{{'project_budget_currency' | translate}} *</label>
 								</div>
 
 							</div>
@@ -125,11 +126,12 @@
 								<!-- switch -->
 								<div class="switch input-field col s12 m6">
 									<label>
-										Non-{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} Project
+										Non-{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} {{'project'|translate}}
 										<input ng-click="project.setHrpStatus();" 
 														ng-checked="project.definition.project_hrp_project" type="checkbox" class="filled-in">
 										<span class="lever"></span>
-										{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} Project
+										{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} {{'project'|translate}}
+
 									</label>
 								</div>
 								
@@ -142,7 +144,8 @@
 								<div ng-if="!project.definition.project_hrp_project" class="input-field col s12 m6">
 								  <input id="ngm-project_hrp_code" type="text" class="validate"
 								  	ng-model="project.definition.project_hrp_code" disabled="true">
-								  <label for="ngm-project_hrp_code">Non-{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} Project Code</label>
+								  <label for="ngm-project_hrp_code">Non-{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} {{'project_code' | translate}}</label>
+
 								</div>
 
 							</div>
@@ -151,13 +154,13 @@
 
 								<!-- budget currency -->
 								<div class="input-field col s12 m12">
-									<label>ACBAR Partner?</label>
+									<label>ACBAR {{'partner'|translate}}?</label>
 									<div style="padding-bottom:35px;"></div>
 							      <input type="checkbox" class="filled-in" id="project_acbar_partner" 
 							      ng-model="project.definition.project_acbar_partner"
 							      ng-click="project.updateAcbarOrganization()"
 							      ng-disabled="project.definition.project_status === 'complete'"/>
-							      <label class="checkbox-label" for="project_acbar_partner">Yes</label>
+							      <label class="checkbox-label" for="project_acbar_partner">{{'yes' | translate}}</label>
 								</div>
 
 							</div>
@@ -167,7 +170,7 @@
 
 								<div class="activity-field col s12 m6" style="padding-top:12px;padding-bottom:5px;">
 									
-									<label class="label" for="ngm-activity_type">Activity Type *</label>
+									<label class="label" for="ngm-activity_type">{{'activity_type' | translate}} *</label>
 									<div style="padding-bottom:5px;"></div>
 
 									<label class="label">{{ project.definition.cluster }}</label>
@@ -208,7 +211,7 @@
 								
 								<div class="input-field col s12 m6" style="padding-bottom:5px;">
 									
-									<label>Other activities in addition to {{ project.definition.cluster }}?</label>
+									<label>{{'other_activities_in_addition_to' | translate}} {{ project.definition.cluster }}?</label>
 									<div style="padding-bottom:35px;"></div>
 
 								    <p ng-repeat="a in project.lists.clusters | 
@@ -229,7 +232,7 @@
 
 								<div class="input-field col s12" style="padding-bottom:5px;">
 									
-									<label>Cash intended for (even if unrestricted)?</label>
+									<label>{{'cash_intented_for_even_if_unrestricted' | translate}}?</label>
 									<div style="padding-bottom:35px;"></div>
 
 								    <p ng-repeat="a in project.lists.mpc_purpose">
@@ -247,7 +250,7 @@
 							<div id="ngm-project_donor_label" class="row">
 
 								<div class="input-field col s12" style="padding-bottom:5px;">
-									<label for="ngm-project_donor">Project Donor *</label>
+									<label for="ngm-project_donor">{{'project_donor' | translate}} *</label>
 									<div style="padding-bottom:35px;"></div>
 
 									<p ng-repeat="donor in project.lists.donors">
@@ -273,7 +276,7 @@
 						          		id="ngm-project-project_donor_other" type="text"
 										ng-model="project.definition.project_donor_other"
 										ng-disabled="!project.definition.project_donor_check.other || project.definition.project_status === 'complete'">
-						          <label for="ngm-project-project_donor_other">List Other Donors</label>
+						          <label for="ngm-project-project_donor_other"> {{'list_other_donors' | translate}}</label>
 						       	</div>
 
 						    </div>
@@ -282,13 +285,13 @@
 							<div class="row">
 								
 						        <div class="input-field col s12 m6" style="padding-bottom:35px;">
-						        	<label>Project Partners</label>
+						        	<label>{{'project_partners' | translate}}</label>
 						        	<br/>
 						        	<p style="padding-top:10px;">
 							        	<input type="checkbox" class="filled-in" id="ngm-project-other_partbers"
 							        		ng-model="project.definition.implementing_partners_checked"
 							        		ng-disabled="project.definition.project_status === 'complete'"/>
-							          <label class="checkbox-label" for="ngm-project-other_partbers">Other Implementing Partners?</label>
+							          <label class="checkbox-label" for="ngm-project-other_partbers">{{'other_implementing_partners' | translate}}?</label>
 							        </p>
 						        </div>
 
@@ -302,7 +305,7 @@
 							          		class="validate"
 							          		name="implementing_partners_list"
 														ng-model="project.definition.implementing_partners">
-							          <label for="ngm-project-implementing_partners">List Project Partners</label>
+							          <label for="ngm-project-implementing_partners">{{'list_project_partners' | translate}}</label>
 							        </div>
 							    </div>
 
@@ -318,7 +321,7 @@
 												ng-disabled="project.definition.project_status === 'complete'"
 												required>
 											</textarea>
-						          <label for="ngm-project-description">Project Description & Objectives *</label>
+						          <label for="ngm-project-description">{{'project_description_objetives' | translate}} *</label>
 						        </div>
 				      		</div>
 

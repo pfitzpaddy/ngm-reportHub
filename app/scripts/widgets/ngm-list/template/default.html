@@ -1,11 +1,9 @@
 
 <style>	
-
 	.collection .collection-item.avatar .title {
     font-size: 20px;
     color: #616161;
 	}
-
 	.nav-list-search {
 		margin-top: 6px;
 		background-color: white;
@@ -25,18 +23,15 @@
 		-ms-transition: width 1s ease;
 		transition: width 1s ease;
 	}
-
 	.input-field input[type=search] {
 		font-weight: 300;
 		padding-top: 0px;
 	}	
-
   /* remove border bottom */
 	input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=text]:valid {
 		border-bottom: none !important;
 		box-shadow: none !important;
 	}
-
 	.pagination li.active {
 	  background-color: #009688;
 	}
@@ -80,7 +75,7 @@
 			<div class="col s12">
 
 				<!-- no project code -->
-				<a href="#/cluster/projects/summary/{{ item.id }}" title="Update project {{ item.id }}">
+				<a href="#/cluster/projects/summary/{{ item.id }}" title="{{'update_project' | translate}} {{ item.id }}">
 				<div>
 
 					<!-- title -->
@@ -93,10 +88,10 @@
 
 					<!-- updated / submiteed -->
 					<div ng-if="list.title.indexOf('Active') !== -1" style="font-weight:400">
-						Updated: {{ list.updatedAt( item.updatedAt ) }}
+						{{'updated'|translate}}: {{ list.updatedAt( item.updatedAt ) }}
 					</div>
 					<div ng-if="list.title.indexOf('Complete') !== -1" style="font-weight:400">
-						Submitted: {{ list.updatedAt( item.updatedAt ) }}
+						{{'submitted'|translate}}: {{ list.updatedAt( item.updatedAt ) }}
 					</div>
 						
 					<!-- description -->
@@ -124,8 +119,8 @@
 		<li ng-if="!list.data.length" class="collection-item avatar">
 			<a>
 				<i class="material-icons circle white teal-text">{{ list.icon }}</i>
-				<span class="title">{{ list.title }} Projects</span>
-				<p>You have 0 {{ list.title }} Projects</p>
+				<span class="title">{{ list.title }} {{'projects' | translate}}</span>
+				<p>{{'you_have' |translate}} 0 {{ list.title }} {{'projects' | translate}}</p>
 				<a class="secondary-content"style="padding-right:40px;">
 					<i class="material-icons">check_circle</i>
 				</a>

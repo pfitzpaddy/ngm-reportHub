@@ -19,8 +19,8 @@ angular.module('ngmReportHub')
 			'ngmUser',
 			'ngmAuth',
 			'ngmData',
-			'ngmNutritionHelper',
-		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData, ngmNutritionHelper ) {
+			'ngmNutritionHelper','$translate','$filter',
+		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData, ngmNutritionHelper, $translate, $filter ) {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
 				'AngularJS',
@@ -117,7 +117,7 @@ angular.module('ngmReportHub')
 								'class': 'col s12 m4 l3',
 								dates: [{
 									style: 'float:left;',
-									label: 'from',
+									label: $filter('translate')('from'),
 									format: 'd mmm, yyyy',
 									max: $scope.dashboard.endDate,
 									currentTime: $scope.dashboard.startDate,
@@ -143,7 +143,7 @@ angular.module('ngmReportHub')
 									}
 								},{
 									style: 'float:right',
-									label: 'to',
+									label: $filter('translate')('to'), 
 									format: 'd mmm, yyyy',
 									min: $scope.dashboard.startDate,
 									currentTime: $scope.dashboard.endDate,
@@ -175,7 +175,7 @@ angular.module('ngmReportHub')
 									type: 'pdf',
 									color: 'blue',
 									icon: 'picture_as_pdf',
-									hover: 'Download Dashboard as PDF',
+									hover: $filter('translate')('download_dashboard_as_pdf'),
 									request: {
 										method: 'POST',
 										url: ngmAuth.LOCATION + '/api/print',
@@ -193,14 +193,14 @@ angular.module('ngmReportHub')
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'assignment',
-									hover: 'Download Reports Data as CSV',
+									hover: $filter('translate')('download_reports_data_as_csv'),
 									request: angular.merge({}, ngmNutritionHelper.getRequest( 'nutrition/afghanistan/indicator', 'data', false ), { data: { report: $scope.dashboard.report } } ),
 									metrics: ngmNutritionHelper.getMetrics( 'nutrition_reports', 'csv' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'group',
-									hover: 'Download Beneficiaries as CSV',
+									hover: $filter('translate')('download_beneficiaries_as_csv'),
 									request: angular.merge({}, ngmNutritionHelper.getRequest( 'nutrition/afghanistan/beneficiaries/data', 'data', false ), { data: { report: 'beneficiaries_' + $scope.dashboard.report } } ),
 									metrics: ngmNutritionHelper.getMetrics( 'nutrition_beneficiaries', 'csv' )
 								}]
@@ -254,7 +254,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Submitted Reports',
+										title: $filter('translate')('submitted_reports'),
 										request: ngmNutritionHelper.getRequest( 'nutrition/afghanistan/beneficiaries/indicator', 'submitted_reports', false )
 									}
 								}]
@@ -265,7 +265,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Duplicate Reports',
+										title: $filter('translate')('duplicate_reports'),
 										request: ngmNutritionHelper.getRequest( 'nutrition/afghanistan/indicator', 'duplicate_reports', false )
 									}
 								}]
@@ -280,7 +280,7 @@ angular.module('ngmReportHub')
 									config: {
 										title: {
 											style: 'padding-top: 10px;',
-											name: 'Reports Timeline'
+											name: $filter('translate')('reports_timeline')
 										},							
 										options: { itemName: 'Reports(s)', start: new Date( $scope.dashboard.startDate ) },
 										request: ngmNutritionHelper.getRequest( 'nutrition/afghanistan/indicator', 'calendar' )
@@ -299,7 +299,7 @@ angular.module('ngmReportHub')
 										headerClass: 'collection-header red lighten-2',
 										headerText: 'white-text',
 										headerIcon: 'assignment_late',
-										headerTitle: 'Duplicate Reports',
+										headerTitle: $filter('translate')('duplicate_reports'),
 										templateUrl: '/scripts/widgets/ngm-table/templates/nutrition/nutrition.list.html',
 										tableOptions:{
 											count: 10
@@ -389,7 +389,7 @@ angular.module('ngmReportHub')
 										headerClass: 'collection-header teal lighten-2',
 										headerText: 'white-text',
 										headerIcon: 'assignment_turned_in',
-										headerTitle: 'Reports Submitted',
+										headerTitle: $filter('translate')('reports_submitted'),
 										templateUrl: '/scripts/widgets/ngm-table/templates/nutrition/nutrition.list.html',
 										tableOptions:{
 											count: 10

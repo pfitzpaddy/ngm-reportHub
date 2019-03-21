@@ -20,14 +20,15 @@
 
 					<li class="collection-header blue lighten-1">
 						<h5 class="report-work-title white-text">
-							<i class="material-icons left">loupe</i>{{ project.definition.cluster | uppercase }} OBJECTIVES
+							<i class="material-icons left">loupe</i>{{ project.definition.cluster | uppercase }} {{'objetives_mayus'|translate}}
+
 						</h5>
 					</li>
 
 					<li class="collection-item avatar">
 
 						<p style="padding:10px;">
-							Select the Objectives that your project will target;
+							{{'select_the_objetives_that_your_project_will_target'|translate}};
 						</p>
 
 						<!-- form -->
@@ -44,7 +45,7 @@
 								      <label for="{{ objective.objective_type_id + ':' + objective.objective_year }}" style="color:#757575;">{{ objective.objective_type_description }}</label>
 								    </p>
 								    <p ng-if="objective.objective_type_objectives.length" align="justify" style="padding:5px 0px 10px 35px; font-weight:400;">
-											Relates to <span ng-repeat="so in objective.objective_type_objectives">{{ so }} </span>
+											{{'relates_to'|translate}} <span ng-repeat="so in objective.objective_type_objectives">{{ so }} </span>
 								    </p>
 									</li>
 								</ul>
@@ -66,7 +67,8 @@
 
 					<li class="collection-header blue lighten-1">
 						<h5 class="report-work-title white-text">
-							<i class="material-icons left">loupe</i>{{ cluster.cluster | uppercase }} OBJECTIVES
+							<i class="material-icons left">loupe</i>{{ cluster.cluster | uppercase }} {{'objetives_mayus'|translate}}
+
 						</h5>
 					</li>
 
@@ -74,7 +76,7 @@
 
 						<div ng-if="cluster.cluster_id !== 'eiewg'">
 							<p style="padding:10px;">
-								Select the Objectives that your project will target;
+								{{'select_the_objetives_that_your_project_will_target'|translate}};
 							</p>
 						</div>
 
@@ -82,7 +84,7 @@
 							<div class="row">
 								<div class="card" style="padding:20px;">
 									<p style="padding:10px;">
-										There are no Strategic Objectives for {{ cluster.cluster }}!
+										{{'there_are_no_strategic_objetives_for' |translate}} {{ cluster.cluster }}!
 									</p>
 								</div>
 							</div>
@@ -102,7 +104,7 @@
 								      <label for="{{ objective.objective_type_id + ':' + objective.objective_year }}" style="color:#757575;">{{ objective.objective_type_description }}</label>
 								    </p>
 								    <p ng-if="objective.objective_type_objectives.length" align="justify" style="padding:5px 0px 10px 35px; font-weight:400;">
-											Relates to <span ng-repeat="so in objective.objective_type_objectives">{{ so }} </span>
+											{{'relates_to'|translate}} <span ng-repeat="so in objective.objective_type_objectives">{{ so }} </span>
 								    </p>
 									</li>
 								</ul>

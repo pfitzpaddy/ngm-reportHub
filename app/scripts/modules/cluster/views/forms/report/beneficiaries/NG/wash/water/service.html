@@ -74,7 +74,7 @@
 																							'ngm-free_residual_chlorine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 									required>
-				<option value="">Select...</option>
+				<option value="">{{'select'|translate}}</option>
 				</select>
 				<label for="ngm-free_residual_chlorine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
 								class="active" style="transform:translateY(-10%)">Free Residual Chlorine (FRC) Range</label>
@@ -95,7 +95,7 @@
 																							'ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
 									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 									required>
-				<option value="">Select...</option>
+				<option value="">{{'select'|translate}}</option>
 				</select>
 				<label for="ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
 								class="active" style="transform:translateY(-10%)">Water Turbidity Range (NTU)</label>

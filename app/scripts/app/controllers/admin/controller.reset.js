@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardResetCtrl', ['$scope', '$route', function ($scope, $route) {
+	.controller('DashboardResetCtrl', ['$scope', '$route','$translate', function ($scope, $route,$translate) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',

@@ -6,7 +6,7 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmHctHelper', [ '$location', '$q', '$http', '$filter', '$timeout', function( $location, $q, $http, $filter, $timeout ) {
+	.factory( 'ngmHctHelper', [ '$location', '$q', '$http', '$filter', '$timeout','$translate', function( $location, $q, $http, $filter, $timeout,$translate ) {
 
 		return {
       getData: function(){

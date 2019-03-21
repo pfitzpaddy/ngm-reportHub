@@ -19,8 +19,8 @@ angular.module('ngmReportHub')
 			'ngmUser',
 			'ngmAuth',
 			'ngmData',
-			'ngmNutritionHelper',
-		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData, ngmNutritionHelper ) {
+			'ngmNutritionHelper','$translate','$filter',
+		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData, ngmNutritionHelper,$translate,$filter ) {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
 				'AngularJS',
@@ -107,7 +107,7 @@ angular.module('ngmReportHub')
 							title: {
 								'class': 'col s12 m8 l8 report-title truncate',
 								'style': 'font-size: 3.4rem; color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
-								'title': 'Nutrition Weekly Reporting Dashboard',
+								'title': $filter('translate')('nutrition_weekly_reporting') + ' Dashboard',
 							},
 							subtitle: {
 								'class': 'col hide-on-small-only m8 l9 report-subtitle truncate',
@@ -117,7 +117,7 @@ angular.module('ngmReportHub')
 								'class': 'col s12 m4 l3',
 								dates: [{
 									style: 'float:left;',
-									label: 'from',
+									label: $filter('translate')('from'),
 									format: 'd mmm, yyyy',
 									max: $scope.dashboard.endDate,
 									currentTime: $scope.dashboard.startDate,
@@ -143,7 +143,7 @@ angular.module('ngmReportHub')
 									}
 								},{
 									style: 'float:right',
-									label: 'to',
+									label: $filter('translate')('to'),
 									format: 'd mmm, yyyy',
 									min: $scope.dashboard.startDate,
 									currentTime: $scope.dashboard.endDate,
@@ -175,7 +175,7 @@ angular.module('ngmReportHub')
 									type: 'pdf',
 									color: 'blue',
 									icon: 'picture_as_pdf',
-									hover: 'Download Dashboard as PDF',
+									hover: $filter('translate')('download_dashboard_as_pdf'),
 									request: {
 										method: 'POST',
 										url: ngmAuth.LOCATION + '/api/print',
@@ -193,14 +193,14 @@ angular.module('ngmReportHub')
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'assignment',
-									hover: 'Download Reports Data as CSV',
+									hover: $filter('translate')('download_reports_data_as_csv') ,
 									request: angular.merge({}, ngmNutritionHelper.getRequest( 'nutrition/afghanistan/indicator', 'data', false ), { data: { report: $scope.dashboard.report } } ),
 									metrics: ngmNutritionHelper.getMetrics( 'nutrition_reports', 'csv' )
 								},{
 									type: 'csv',
 									color: 'blue lighten-2',
 									icon: 'group',
-									hover: 'Download Beneficiaries as CSV',
+									hover: $filter('translate')('download_beneficiaries_as_csv'),
 									request: angular.merge({}, ngmNutritionHelper.getRequest( 'nutrition/afghanistan/beneficiaries/data', 'data', false ), { data: { report: 'beneficiaries_' + $scope.dashboard.report } } ),
 									metrics: ngmNutritionHelper.getMetrics( 'nutrition_beneficiaries', 'csv' )
 								}]
@@ -222,7 +222,7 @@ angular.module('ngmReportHub')
 											$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 
 											// toast
-											$timeout( function(){ Materialize.toast( 'Refreshing data...' , 6000, 'note' ); });
+											$timeout( function(){ Materialize.toast( $filter('translate')('refreshing_data')+'...' , 6000, 'note' ); });
 
 											// ngmData
 											ngmData
@@ -231,7 +231,7 @@ angular.module('ngmReportHub')
 
 													// toast
 													$timeout( function(){ 
-														Materialize.toast( 'Nutrition Reports data updated!' , 4000, 'success' );
+														Materialize.toast( $filter('translate')('nutrition_reports_data_updated')+'!' , 4000, 'success' );
 														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 														$timeout( function(){
 															$route.reload();
@@ -254,7 +254,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Beneficiaries',
+										title: $filter('translate')('beneficiaries'),
 										request: ngmNutritionHelper.getRequest( 'nutrition/afghanistan/beneficiaries/indicator', 'total', false )
 									}
 								}]
@@ -267,7 +267,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px;',
 									config: {
-										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">BENEFICIARIES</h2>'
+										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">'+$filter('translate')('beneficiaries_mayus')+'</h2>'
 									}
 								}]
 							}]
@@ -279,7 +279,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Organizations',
+										title: $filter('translate')('organizations'),
 										request: ngmNutritionHelper.getRequest( 'nutrition/afghanistan/beneficiaries/indicator', 'organizations', false )
 									}
 								}]
@@ -290,7 +290,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Reports',
+										title: $filter('translate')('reports'),
 										request: ngmNutritionHelper.getRequest( 'nutrition/afghanistan/beneficiaries/indicator', 'submitted_reports', false )
 									}
 								}]
@@ -301,7 +301,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Activities',
+										title: $filter('translate')('activities'),
 										request: ngmNutritionHelper.getRequest( 'nutrition/afghanistan/beneficiaries/indicator', 'activities', false )
 									}
 								}]
@@ -312,7 +312,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Locations',
+										title: $filter('translate')('locations'),
 										request: ngmNutritionHelper.getRequest( 'nutrition/afghanistan/beneficiaries/indicator', 'locations', false )
 									}
 								}]

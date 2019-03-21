@@ -17,7 +17,7 @@
 	      					ng-model="detail.detail_category_id"
 	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
 	      					required>
-				<option value="">Select...</option>
+				<option value="">{{'select'|translate}}</option>
 				</select>
 	      <label for="ngm-detail_category-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}-{{ $index }}" 
 	      				class="active" style="transform:translateY(-10%)">System</label>
@@ -39,7 +39,7 @@
 	      					ng-model="detail.detail_type_id"
 	      					ng-disabled="!detail.detail_category_id || !rowform.$visible || project.report.report_status === 'complete'"
 	      					required>
-				<option value="">Select... </option>
+				<option value="">{{'select'|translate}} </option>
 				</select>
 	      <label for="ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}-{{ $index }}" 
 	      				class="active" style="transform:translateY(-10%)">Parts</label>

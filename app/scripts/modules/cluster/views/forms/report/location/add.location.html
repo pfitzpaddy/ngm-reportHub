@@ -9,17 +9,17 @@
 								<table class="bordered responsive-table" >
 									<tr style="font-weight: 400">
 										<td></td>
-										<td>Reporter</td>
-							    	<td>Implementation</td>
+										<td>{{'reporter' | translate}}</td>
+							    	<td>{{'implementation' | translate}}</td>
 							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
 							      <td ng-if="project.lists.admin3.length">{{ project.lists.admin3[0].admin3type_name }}</td>
 							      <td ng-if="project.lists.admin4.length">{{ project.lists.admin4[0].admin4type_name }}</td>
 							      <td ng-if="project.lists.admin5.length">{{ project.lists.admin5[0].admin5type_name }}</td>
 										<td>Type</td>
-										<td ng-if="project.definition.admin0pcode !== 'AF'">From List?</td>
-							      <td>Site Name *</td>
-										<td>Save</td>
+										<td ng-if="project.definition.admin0pcode !== 'AF'">{{'from_list' | translate}}?</td>
+							      <td>{{'site_name' | translate}} *</td>
+										<td>{{'save_mayus' | translate}}</td>
 									</tr>
 									<tr ng-init="locationform.$show()">
 										<td>
@@ -27,7 +27,7 @@
 										</td>
 							      <td>
 							        <!-- editable reporter -->
-							        <span e-placeholder="Select..." 
+							        <span e-placeholder="{{'select'|translate}}" 
 							        				editable-select="ngmClusterLocations.new_location.username" 
 							        				e-name="username" 
 							        				e-form="locationform" 
@@ -38,7 +38,7 @@
 							      </td>
 							      <td>
 							        <!-- editable site_implementation_id -->
-							        <span e-placeholder="Select..." 
+							        <span e-placeholder="{{'select'|translate}}" 
 							        				editable-select="ngmClusterLocations.new_location.site_implementation_id" 
 							        				e-name="site_implementation_id" 
 							        				e-form="locationform" 
@@ -49,7 +49,7 @@
 							      </td>
 							      <td>
 							      	<!-- admin1 -->
-							        <span e-placeholder="Select..."
+							        <span e-placeholder="{{'select'|translate}}"
 							        				editable-select="ngmClusterLocations.new_location.admin1pcode"
 							        				e-name="admin1pcode"
 							        				e-form="locationform"
@@ -61,7 +61,7 @@
 							      </td>
 							      <td>
 							      	<!-- admin2 -->
-							        <span e-placeholder="Select..."
+							        <span e-placeholder="{{'select'|translate}}"
 							        				editable-select="ngmClusterLocations.new_location.admin2pcode"
 							        				e-name="admin2pcode"
 							        				e-form="locationform"
@@ -80,7 +80,7 @@
 								        </span>
 								      </div>
 							        <div ng-show="project.lists.admin3Select[ $index ].length">
-								        <span e-placeholder="Select..."
+								        <span e-placeholder="{{'select'|translate}}"
 								        				editable-select="ngmClusterLocations.new_location.admin3pcode"
 								        				e-name="admin3pcode"
 								        				e-form="locationform"
@@ -100,7 +100,7 @@
 								        </span>
 								      </div>
 							        <div ng-show="project.lists.admin4Select[ $index ].length">
-								        <span e-placeholder="Select..."
+								        <span e-placeholder="{{'select'|translate}}"
 								        				editable-select="ngmClusterLocations.new_location.admin4pcode"
 								        				e-name="admin4pcode"
 								        				e-form="locationform"
@@ -120,7 +120,7 @@
 								        </span>
 								      </div>
 							        <div ng-show="project.lists.admin5Select[ $index ].length">
-								        <span e-placeholder="Select..."
+								        <span e-placeholder="{{'select'|translate}}"
 								        				editable-select="ngmClusterLocations.new_location.admin5pcode"
 								        				e-name="admin5pcode"
 								        				e-form="locationform"
@@ -134,7 +134,7 @@
 
 							      <td>
 							      	<!-- site type -->
-							        <span e-placeholder="Select..."
+							        <span e-placeholder="{{'select'|translate}}"
 							        				editable-select="ngmClusterLocations.new_location.site_type_id"
 							        				e-name="site_type_id"
 							        				e-form="locationform"
@@ -148,7 +148,7 @@
 
 							      <td ng-if="project.definition.admin0pcode !== 'AF'">
 							      	<!-- select from list -->	
-							        <span e-placeholder="Select..."
+							        <span e-placeholder="{{'select'|translate}}"
 							        				editable-select="ngmClusterLocations.new_location.site_list_select_id"
 							        				e-name="site_list_select_id"
 							        				e-form="locationform"
@@ -161,7 +161,7 @@
 
 							      <!-- select existing: drop down -->
 							      <td ng-if="ngmClusterLocations.new_location.site_list_select_id === 'yes'">
-							        <span e-placeholder="Select..."
+							        <span e-placeholder="{{'select'|translate}}"
 							        			editable-select="ngmClusterLocations.new_location.site_id"
 							        			e-name="site_id"
 							        			e-form="locationform"

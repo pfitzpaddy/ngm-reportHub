@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardProfileCtrl', ['$scope', '$route', 'ngmData', 'ngmAuth', function ($scope, $route, ngmData, ngmAuth) {
+	.controller('DashboardProfileCtrl', ['$scope', '$route', 'ngmData', 'ngmAuth','$translate','$filter', function ($scope, $route, ngmData, ngmAuth,$translate,$filter) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -37,9 +37,9 @@ angular.module('ngmReportHub')
 										+'<div class="col s12 m12 l12">'
 											+'<div>'
 												+'<a class="btn-flat waves-effect waves-teal" href="#/team">'
-													+'<i class="material-icons left">keyboard_return</i>Back to Team'
+													+'<i class="material-icons left">keyboard_return</i>'+$filter('translate')('back_to_team')
 												+'</a>'
-												+'<span class="right" style="padding-top:8px;">Last Updated: ' + moment( $scope.dashboard.user.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) +'</span>'
+												+'<span class="right" style="padding-top:8px;">'+$filter('translate')('last_updated')+ ' ' + moment( $scope.dashboard.user.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) +'</span>'
 											+'</div>'
 										+'</div>'
 									+'</div>';
@@ -64,7 +64,8 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m12 l12 report-title report-title',
 							style: 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
-							title: 'Profile | ' + user.username
+							title: $filter('translate')('profile')+' | ' + user.username
+
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle',

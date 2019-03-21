@@ -9,6 +9,7 @@
 angular
 	.module('ngmReportHub', [
 		// vendor
+	    'pascalprecht.translate',
 		'ngAnimate',
 		'ngCookies',
 		'ngResource',
@@ -54,7 +55,29 @@ angular
 		'ngm.widget.stats',
 		'ngm.widget.table'
 	])
-	.config([ '$routeProvider', '$locationProvider', '$compileProvider', function ( $routeProvider, $locationProvider, $compileProvider ) {
+	.config([ '$routeProvider', '$locationProvider', '$compileProvider','$translateProvider', function ( $routeProvider, $locationProvider, $compileProvider,$translateProvider ) {
+      
+
+   
+
+
+    $translateProvider.useStaticFilesLoader({
+        prefix: 'scripts/app/translate/locale-',
+        suffix: '.json'
+      });
+
+          $translateProvider.preferredLanguage('en');
+
+
+
+
+  
+
+  $translateProvider.forceAsyncReload(true);
+  
+
+
+  
 
 		// from http://mysite.com/#/notes/1 to http://mysite.com/notes/1
 		// $locationProvider.html5Mode(true);
@@ -198,13 +221,29 @@ angular
 		});
 
 	}])
-	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', '$http', '$timeout', 'ngmAuth', 'ngmUser', function ($scope, $route, $location, $http, $timeout, ngmAuth, ngmUser) {
+	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', '$http', '$timeout', 'ngmAuth', 'ngmUser','$translate','$filter', function ($scope, $route, $location, $http, $timeout, ngmAuth, ngmUser,$translate,$filter) {
+   
 
+
+       changeFunction = function ($key) {
+			  	//console.log($key);
+			   $translate.use(key);
+
+         /* $translate.useStaticFilesLoader({
+            prefix: '../../translate/'+key,
+            sufix: '.json'
+          });*/
+			  };
+
+
+
+        
 		// ngm object
 		$scope.ngm = {
 
+
 			// app name
-			title: 'Welcome',
+			title: $filter('translate')('welcome'), 
 
 			// current route
 			route: $route,
@@ -229,6 +268,11 @@ angular
 
 			// dashboard footer
 			footer: false,
+
+			changeFunction : function ($key) {
+			  	console.log($key);
+			   $translate.use($key);
+			  },
 
 			// paint application
 			setApplication: function( app ) {
@@ -347,11 +391,15 @@ angular
 
 			},
 
+
+			  
+
 			// user
 			getUser: function() {
 				// ngmUser
 				return ngmUser.get();
 			},
+
 
 			// username
 			getUserName: function() {

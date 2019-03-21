@@ -67,7 +67,7 @@ angular.module( 'ngmReportHub' )
         return {
           'id': 'nutrition-dashboard-year',
           'icon': 'search',
-          'title': 'Year',
+          'title': $filter('translate')('year'),
           'class': 'teal lighten-1 white-text',
           'rows': [{
             'title': '2018',
@@ -92,7 +92,7 @@ angular.module( 'ngmReportHub' )
 
         // rows
         var rows = [{
-          'title': 'All',
+          'title': $filter('translate')('all_mayus'),
             'param': 'province',
           'active': 'all',
           'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
@@ -113,7 +113,7 @@ angular.module( 'ngmReportHub' )
         return {
           'id': 'nutrition-admin-province',
           'icon': 'location_on',
-          'title': 'Province',
+          'title': $filter('translate')('province'),
           'class': 'teal lighten-1 white-text',
           'rows': rows
         };
@@ -125,7 +125,7 @@ angular.module( 'ngmReportHub' )
 
         // rows
         var rows = [{
-          'title': 'All',
+          'title': $filter('translate')('all_mayus'),
             'param': 'district',
           'active': 'all',
           'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
@@ -148,7 +148,7 @@ angular.module( 'ngmReportHub' )
         return {
           'id': 'epr-admin-province',
           'icon': 'location_on',
-          'title': 'District',
+          'title': ('translate')('district'),
           'class': 'teal lighten-1 white-text',
           'rows': rows
         };
@@ -178,7 +178,7 @@ angular.module( 'ngmReportHub' )
 								'search': true,
 								'id': 'search-cluster-organization',
 								'icon': 'supervisor_account',
-								'title': 'Organization',
+								'title': $filter('translate')('organization'),
 								'class': 'teal lighten-1 white-text',
 								'rows': orgRows
 							}
@@ -189,7 +189,7 @@ angular.module( 'ngmReportHub' )
 
         // rows
         var rows = [{
-          'title': 'All',
+          'title': $filter('translate')('all_mayus'),
           'param': 'week',
           'active': 'all',
           'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
@@ -217,7 +217,7 @@ angular.module( 'ngmReportHub' )
         return {
           'id': 'epr-admin-week',
           'icon': 'date_range',
-          'title': 'Report Week',
+          'title': $filter('translate')('report_week'),
           'class': 'teal lighten-1 white-text',
           'rows': rows
         };
@@ -227,7 +227,7 @@ angular.module( 'ngmReportHub' )
       //
       getTitle: function( admin ){
         // title
-        var title = 'NUTRITION | ';
+        var title = $filter('translate')('nutrition_mayus')+ ' | ';
             title += admin ? 'ADMIN | ' : '';
             title += dashboard.year;
 
@@ -249,17 +249,17 @@ angular.module( 'ngmReportHub' )
       //
       getSubtitle: function(admin){
         // subtitle
-        var subtitle = 'NUTRITION ';
+        var subtitle = $filter('translate')('nutrition_mayus')+' ';
             subtitle += admin ? 'Admin ' : '';
             subtitle += 'Dashboard ' + dashboard.year;
 
         // if province
         if ( dashboard.province !== 'all' ) {
-          subtitle += ', ' + dashboard.admin1.filter(function(row){return row.admin1pcode === dashboard.province})[0].admin1name + ' Province';
+          subtitle += ', ' + dashboard.admin1.filter(function(row){return row.admin1pcode === dashboard.province})[0].admin1name + ' ' +$filter('translate')('province');
         }
         // if week
         if ( dashboard.week !== 'all' ) {
-          subtitle += ', NUTRITION ' + dashboard.week;
+          subtitle += ', '+$filter('translate')('nutrition_mayus')+' ' + dashboard.week;
         }
 
         // if organization

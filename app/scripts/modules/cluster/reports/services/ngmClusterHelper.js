@@ -14,7 +14,7 @@ angular.module( 'ngmReportHub' )
         '$timeout',
         'ngmAuth',
         'ngmClusterLists',
-        'ngmClusterLocations',
+        'ngmClusterLocations','$translate','$filter', 
     function( $location, 
                 $q, 
                 $http, 
@@ -22,7 +22,7 @@ angular.module( 'ngmReportHub' )
                 $timeout, 
                 ngmAuth, 
                 ngmClusterLists, 
-                ngmClusterLocations ) {
+                ngmClusterLocations,$translate,$filter ) {
 
 		var ngmClusterHelper = {
 
@@ -146,7 +146,8 @@ angular.module( 'ngmReportHub' )
         var project = {
           project_status: 'new',
           project_title: '',//'Enter New ' + user.organization + ' Project Title...',
-          project_description: 'Please complete a Project Plan and enter a summary description including objectives...',
+          project_description: $filter('translate')('please_complete_a_project_plan_and_enter_a_summary_description_including_objetives'),
+
           project_start_date: moment.utc().startOf( 'M' ).format('YYYY-MM-DD'),
           project_end_date: moment.utc().add( 8, 'M' ).endOf( 'M' ).format('YYYY-MM-DD'),
           // project_code: user.organization + '/' + moment().unix(),
