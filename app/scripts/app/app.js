@@ -226,9 +226,7 @@ angular
 
 
        changeFunction = function ($key) {
-			  	//console.log($key);
 			   $translate.use(key);
-
          /* $translate.useStaticFilesLoader({
             prefix: '../../translate/'+key,
             sufix: '.json'
@@ -270,7 +268,6 @@ angular
 			footer: false,
 
 			changeFunction : function ($key) {
-			  	console.log($key);
 			   $translate.use($key);
 			  },
 
