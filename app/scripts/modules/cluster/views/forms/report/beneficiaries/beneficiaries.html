@@ -11,7 +11,6 @@
   <table class="bordered responsive-table" style="margin-bottom:10px;"
           ng-show="project.report.locations[ $locationIndex ].beneficiaries.length">
     <tr style="font-weight: 400">
-<<<<<<< HEAD
       <td></td>
       <td>{{'activity' | translate}}</td>
 
@@ -43,7 +42,7 @@
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'men' ]">{{'men' | translate}}</td>
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'women' ]">{{'women' | translate}}</td>
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'elderly_men' ]">{{'eld_men'|translate}}</td>
-      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'elderly_women' ]">{{'eld_women | translate}}</td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'elderly_women' ]">{{'eld_women' | translate}}</td>
 
       <td ng-if="project.showFatpTreatmentSameProvince( $locationIndex )">{{'treatment_same_province'| translate}}</td>
       <td ng-if="project.definition.project_status !== 'complete'">{{'edit' | translate}}</td>
@@ -176,7 +175,6 @@
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'mpc_delivery_type_id' ] &&
                   ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'mpc_delivery_type_id' ]">
         <span e-form="rowform"
-<<<<<<< HEAD
               e-name="mpc_delivery_type_id"
               editable-select="beneficiary.mpc_delivery_type_id"
               e-placeholder="{{'select'|translate}}"
