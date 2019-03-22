@@ -106,6 +106,11 @@ gulp.task('bower', function () {
   .pipe(gulp.dest(yeoman.app + '/views'));
 });
 
+gulp.task('translate', function () {
+  return gulp.src(yeoman.app + '/translate/**/*')
+    .pipe(gulp.dest(yeoman.dist + '/translate'));
+});
+
 gulp.task('html', function () {
   return gulp.src(yeoman.app + '/views/**/*')
     .pipe(gulp.dest(yeoman.dist + '/views'));
@@ -149,7 +154,7 @@ gulp.task('clean:dist', function (cb) {
   rimraf('./dist', cb);
 });
 
-gulp.task('client:build', [ 'html', 'html:app', 'html:cluster', 'html:country', 'html:nutrition', 'html:immap','html:drought', 'styles' ], function () {
+gulp.task('client:build', [ 'translate', 'html', 'html:app', 'html:cluster', 'html:country', 'html:nutrition', 'html:immap','html:drought', 'styles' ], function () {
   var jsFilter = $.filter('**/*.js', {restore: true});
   var cssFilter = $.filter('**/*.css', {restore: true});
   var gulpUtil = require('gulp-util');
