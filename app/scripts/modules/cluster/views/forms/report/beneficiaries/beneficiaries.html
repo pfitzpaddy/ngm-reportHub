@@ -160,7 +160,7 @@
                                         }"
               e-ng-change="ngmClusterBeneficiaries.setBeneficiariesFormTargets( project.lists, $locationIndex, beneficiary, $index )"
               e-ng-disabled="!beneficiary.activity_description_id || !beneficiary.activity_detail_id || !ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'indicator' ]">
-          {{ ngmClusterBeneficiaries.displayIndicator( project.lists, $data, beneficiary ) 
+          {{ ngmClusterBeneficiaries.displayIndicator( project.lists, $data, beneficiary ) }}
         </span>
       </td>
 
