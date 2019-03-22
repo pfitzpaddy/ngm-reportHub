@@ -56,28 +56,16 @@ angular
 		'ngm.widget.table'
 	])
 	.config([ '$routeProvider', '$locationProvider', '$compileProvider','$translateProvider', function ( $routeProvider, $locationProvider, $compileProvider,$translateProvider ) {
-      
 
-   
-
-
+		// translate staic files
     $translateProvider.useStaticFilesLoader({
-        prefix: 'scripts/app/translate/locale-',
-        suffix: '.json'
-      });
+      prefix: 'scripts/app/translate/locale-',
+      suffix: '.json'
+    });
 
-          $translateProvider.preferredLanguage('en');
-
-
-
-
-  
-
-  $translateProvider.forceAsyncReload(true);
-  
-
-
-  
+    // get
+		$translateProvider.preferredLanguage('en');
+		$translateProvider.forceAsyncReload(true);
 
 		// from http://mysite.com/#/notes/1 to http://mysite.com/notes/1
 		// $locationProvider.html5Mode(true);

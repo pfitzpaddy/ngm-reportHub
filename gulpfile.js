@@ -107,8 +107,8 @@ gulp.task('bower', function () {
 });
 
 gulp.task('translate', function () {
-  return gulp.src(yeoman.app + '/translate/**/*')
-    .pipe(gulp.dest(yeoman.dist + '/translate'));
+  return gulp.src(yeoman.app + '/app/scripts/app/translate/**/*')
+    .pipe(gulp.dest(yeoman.dist + '/app/scripts/app/translate/'));
 });
 
 gulp.task('html', function () {
