@@ -209,24 +209,10 @@ angular
 		});
 
 	}])
-	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', '$http', '$timeout', 'ngmAuth', 'ngmUser','$translate','$filter', function ($scope, $route, $location, $http, $timeout, ngmAuth, ngmUser,$translate,$filter) {
-   
-
-
-       changeFunction = function ($key) {
-			   $translate.use(key);
-         /* $translate.useStaticFilesLoader({
-            prefix: '../../translate/'+key,
-            sufix: '.json'
-          });*/
-			  };
-
-
-
-        
+	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', '$http', '$timeout', 'ngmAuth', 'ngmUser','$window','$translate','$filter', function ($scope, $route, $location, $http, $timeout, ngmAuth, ngmUser,$window,$translate,$filter) {
+	     
 		// ngm object
 		$scope.ngm = {
-
 
 			// app name
 			title: $filter('translate')('welcome'), 
@@ -257,7 +243,8 @@ angular
 
 			changeFunction : function ($key) {
 			   $translate.use($key);
-			  },
+			   console.log($key)
+			 },
 
 			// paint application
 			setApplication: function( app ) {

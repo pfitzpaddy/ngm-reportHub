@@ -161,9 +161,27 @@
 							        </span>
 							      </td>
 
-							      <!-- select existing: drop down -->
-							      <!-- <td ng-if="( location.site_type_id === 'host_community' || location.site_type_id === 'cyclone_shelter' )"> -->
-							      <td>
+							      <!-- select existing: darop down (filter admin3pcode by type) -->
+							      <td ng-if="location.site_type_id === 'host_community' || 
+							      						location.site_type_id === 'cyclone_shelter' || 
+							      						location.site_type_id === 'refugee_camp'">
+							        <span e-placeholder="Select..."
+							        			editable-select="location.site_id"
+							        			e-name="site_id"
+							        			e-form="locationform"
+							        			e-ng-options="item.site_id as item.site_name for item in project.lists.adminSites | 
+							        											filter:{ 
+							        												admin1pcode: location.admin1pcode, 
+							        												admin2pcode: location.admin2pcode,
+							        												site_type_id: location.site_type_id
+							        											}"
+														e-ng-disabled="!location.site_type_id"
+														e-ng-change="ngmCbLocations.updateSite( project.lists, $index, $data, location );">
+							          {{ location.admin3name }} {{ ngmCbLocations.displaySites( project.lists, $index, $data, location ) }}
+							        </span>
+							      </td>
+							      <!-- select existing: drop down (filter by admin3pcode if exists) -->
+							      <td ng-if="location.site_type_id === 'refugee_block' || location.site_type_id === 'nutrition_center'">
 							        <span e-placeholder="Select..."
 							        			editable-select="location.site_id"
 							        			e-name="site_id"
@@ -177,7 +195,7 @@
 							        											}"
 														e-ng-disabled="!location.site_type_id"
 														e-ng-change="ngmCbLocations.updateSite( project.lists, $index, $data, location );">
-							          {{ ngmCbLocations.displaySites( project.lists, $index, $data, location ) }}
+							          {{ location.admin3name }} {{ ngmCbLocations.displaySites( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
 
