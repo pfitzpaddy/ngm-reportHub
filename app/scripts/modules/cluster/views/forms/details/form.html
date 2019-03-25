@@ -108,6 +108,9 @@
 		<!-- Project location details -->
 		<div class="slide-animate" ng-include="project.templatesUrl + project.locationsUrl"></div>
 
+		<!-- Project Document -->
+		<div ng-if="!project.newProject" class="slide-animate" ng-include="project.templatesUrl + project.uploadUrl"></div>
+
 		<!-- form submission -->
 		<div class="row remove" ng-if="project.definition.project_status !== 'complete'">
 			<div class="col s12 m12 l12">
