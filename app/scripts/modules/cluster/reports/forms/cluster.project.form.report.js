@@ -564,6 +564,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						report_id: config.report.id,
 						username: ngmUser.get().username,
 						organization_tag: config.report.organization_tag,
+						cluster_id: config.report.cluster_id,
 						admin0pcode: config.report.admin0pcode,
 						adminRpcode: config.report.adminRpcode,
 						reporting_period: config.report.reporting_period
