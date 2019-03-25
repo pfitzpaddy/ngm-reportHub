@@ -175,6 +175,22 @@
     </a>
   </div>
 
+  <div class="col s12 m4" ng-if="panel.organization.admin0pcode === 'COL' && panel.organization.organization === 'IOM'">
+    <a href="https://dtm-colombia.immap.org" target="_blank">
+      <div class="card small blue-grey darken-1 hoverable">
+        <div class="card-image">
+          <img src="images/cluster/stocks.jpg">
+        </div>
+        <div class="card-content white-text">
+          <p class="card-title">DTM</p>
+        </div>
+        <div class="card-action">
+          <a href="https://dtm-colombia.immap.org" target="_blank">{{'go_to' | translate}} DTM</a>
+        </div>
+      </div>
+     </a>
+  </div>
+
   <div class="col s12 m4">
   	<a href="{{ panel.getStocksHref() }}">
 	    <div class="card small blue-grey darken-1 hoverable">

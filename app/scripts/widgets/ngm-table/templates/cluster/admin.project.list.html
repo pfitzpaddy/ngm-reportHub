@@ -45,13 +45,15 @@
 
                     <a href="#/cluster/stocks"
                       title="{{'goto_organization_stocks_list'|translate}}"
-                      ng-if="!row.project_title">
+                      ng-if="!row.project_title"
+                      target="_blank">
                       {{ row.organization }}
                     </a>
                     
                     <a href="#/cluster/projects"
                       title="{{'goto_organization_projects_list'|translate}}"
-                      ng-if="row.project_title">
+                      ng-if="row.project_title"
+                      target="_blank">
                       {{ row.organization }}
                     </a>
 
@@ -59,15 +61,17 @@
 
                   <div ng-if="table.user.roles.indexOf( 'ADMIN' ) !== -1">
 
-                    <a target="_blank" href="#/cluster/stocks/{{ row.organization_id }}"
+                    <a href="#/cluster/stocks/{{ row.organization_id }}"
                       title="{{'goto_organization_stocks_list'|translate}}"
-                      ng-if="!row.project_title">
+                      ng-if="!row.project_title"
+                      target="_blank">
                       {{ row.organization }}
                     </a>
                     
-                    <a target="_blank" href="#/cluster/projects/organization/{{ row.organization_id }}/{{ row.cluster_id }}"
+                    <a href="#/cluster/projects/organization/{{ row.organization_id }}/{{ row.cluster_id }}"
                       title="{{'goto_organization_projects_list'|translate}}"
-                      ng-if="row.project_title">
+                      ng-if="row.project_title"
+                      target="_blank">
                       {{ row.organization }}
                     </a>
 
@@ -82,8 +86,9 @@
                 </td>
                 
                 <td data-title="'title'|translate" sortable="'project_title'" ng-if="table.showTitle">
-                  <a target="_blank" href="#/cluster/projects/summary/{{ row.project_id }}" 
-                    title="{{'goto_project_summary'|translate}}">
+                  <a href="#/cluster/projects/summary/{{ row.project_id }}" 
+                    title="{{'goto_project_summary'|translate}}"
+                    target="_blank">
                     {{ row.project_title }}
                   </a>
                 </td>
@@ -97,13 +102,15 @@
                   
                     <a href="#/cluster/stocks/report/{{ row.organization_id }}/{{ row.id }}" 
                       title="{{'goto'|translate}} {{ row.reporting_period | date: 'MMMM' }} Stock {{'report'|translate}}"
-                      ng-if="!row.project_title">
+                      ng-if="!row.project_title"
+                      target="_blank">
                       <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
                     </a>
 
                     <a href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" 
                       title="{{'goto'|translate}} {{ table.formatUtcDate( row.reporting_period ) }} {{'activity_report'|translate}}"
-                      ng-if="row.project_title">
+                      ng-if="row.project_title"
+                      target="_blank">
                       <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
                     </a>
 
@@ -111,15 +118,17 @@
 
                   <div ng-if="table.user.roles.indexOf( 'ADMIN' ) !== -1">
                   
-                    <a target="_blank" href="#/cluster/stocks/report/{{ row.organization_id }}/{{ row.id }}" 
+                    <a href="#/cluster/stocks/report/{{ row.organization_id }}/{{ row.id }}" 
                       title="{{'goto'|translate}} {{ row.reporting_period | date: 'MMMM' }} Stock {{'report'|translate}}"
-                      ng-if="!row.project_title">
+                      ng-if="!row.project_title"
+                      target="_blank" >
                       <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
                     </a>
 
-                    <a target="_blank" href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" 
+                    <a href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" 
                       title="{{'goto'|translate}} {{ row.reporting_period | date: 'MMMM' }} {{'activity_report'|translate}}"
-                      ng-if="row.project_title">
+                      ng-if="row.project_title"
+                      target="_blank" >
                       <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
                     </a>
 
@@ -132,13 +141,15 @@
 
                     <a href="#/cluster/stocks/report/{{ row.organization_id }}/{{ row.id }}" 
                       title="{{'goto'|translate}} {{ row.reporting_period | date: 'MMMM' }} Stock {{'report'|translate}}"
-                      ng-if="!row.project_title">
+                      ng-if="!row.project_title"
+                      target="_blank">
                       <i class="material-icons" style="color: {{ row.status }}">{{ row.icon }}</i>
                     </a>
 
                     <a href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" 
                       title="{{'goto'|translate}} {{ row.reporting_period | date: 'MMMM' }}  {{'activity_report'|translate}}"
-                      ng-if="row.project_title">
+                      ng-if="row.project_title"
+                      target="_blank">
                       <i class="material-icons" style="color: {{ row.status }}">{{ row.icon }}</i>
                     </a>
 
@@ -146,15 +157,17 @@
 
                   <div ng-if="table.user.roles.indexOf( 'ADMIN' ) !== -1">
 
-                    <a target="_blank" href="#/cluster/stocks/report/{{ row.organization_id }}/{{ row.id }}" 
+                    <a href="#/cluster/stocks/report/{{ row.organization_id }}/{{ row.id }}" 
                       title="{{'goto'|translate}} {{ row.reporting_period | date: 'MMMM' }} Stock {{'report'|translate}}"
-                      ng-if="!row.project_title">
+                      ng-if="!row.project_title"
+                      target="_blank">
                       <i class="material-icons" style="color: {{ row.status }}">{{ row.icon }}</i>
                     </a>
 
-                    <a target="_blank" href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" 
+                    <a href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" 
                       title="{{'goto'|translate}} {{ row.reporting_period | date: 'MMMM' }}  {{'activity_report'|translate}}"
-                      ng-if="row.project_title">
+                      ng-if="row.project_title"
+                      target="_blank">
                       <i class="material-icons" style="color: {{ row.status }}">{{ row.icon }}</i>
                     </a>
 
