@@ -68,7 +68,8 @@ angular.module('ngmReportHub')
 				return{
 					project_id: $scope.report.project.id, 
 					username: $scope.report.user.username, 
-					organization_tag: $scope.report.project.organization_tag, 
+					organization_tag: $scope.report.project.organization_tag,
+					cluster_id: $scope.report.project.cluster_id, 
 					admin0pcode: $scope.report.project.admin0pcode,
 					adminRpcode: $scope.report.project.adminRpcode,
 					project_start_date: $scope.report.project.project_start_date,
