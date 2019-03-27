@@ -1248,6 +1248,7 @@ angular.module('ngmReportHub')
 										type: 'list',
 										card: 'white grey-text text-darken-2',
 										config: {
+											country: $route.current.params.admin0pcode,
 											refreshEvent: 'refresh:doclist',
 											titleIcon: 'alarm_on',
 											color: 'blue lighten-4',
