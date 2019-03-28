@@ -387,7 +387,7 @@ angular
 			setLanguage:function(country){
 				var set_language = {
 					col:[{ language_id: 'en', language_name: 'English', flag:'en.png'},
-							{ language_id: 'es', language_name: 'Spanish', flag: 'spain.png' }]					
+							{ language_id: 'es', language_name: 'Español', flag: 'spain.png' }]					
 					}
 				$scope.ngm.getLanguage = set_language[country] ? set_language[country]:[];
 				if ($scope.ngm.getLanguage.length>0){

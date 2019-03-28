@@ -132,9 +132,9 @@
 									<div ng-if="open" style="margin-bottom: 5px; background-color: #fff">
 										<ul>
 											<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-repeat="lang in ngm.getLanguage">
-												<a class="" ng-click="ngm.changeFunction(lang.language_id);">{{lang.language_name}}</a>
+												<a class="" ng-click="ngm.changeFunction( lang.language_id);">{{ lang.language_name }}</a>
 											
-												<div style="position:absolute;top:9px;right: 20px">
+												<div style="position:absolute;top:9px;right: 20px" ng-click="ngm.changeFunction( lang.language_id );">
 													<img style="width: 32px;height: 32px;" src="images/{{lang.flag}}">
 												</div>
 											
