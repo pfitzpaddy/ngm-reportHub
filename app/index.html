@@ -110,22 +110,37 @@
 							<!-- profile menu dropdown list -->
 							<ul class="ngm-profile-menu-content dropdown-content z-depth-2">
 
-								<li align="center" class="teal z-depth-2" ng-show="ngm.getUsername() !== 'welcome'">
+								<li align="center" class="teal z-depth-2" 
+								ng-init="open = false;ngm.setLanguage('col')"
+								ng-show="ngm.getUsername() !== 'welcome' && (ngm.translate_version && ngm.getUser().admin0pcode === 'COL')" 
+								>
 										
-										<a class="white-text" >
+										<!-- <a class="white-text" >
 											
 											{{'language'|translate}}: <span class="white-text" ng-click="ngm.changeFunction('en');">EN</span> /
 											<span class="white-text" ng-click="ngm.changeFunction('es');">ES</span>
-										</a> 
+										</a>  -->
 
 										<!--<ul>
 											<li><a class="white-text right" ng-click="ngm.changeFunction('en');">EN</a></li>
 											<li><a class="white-text right" ng-click="ngm.changeFunction('es');">ES</a></li>
 										</ul>-->
-
-									
+										<a class="white-text right" ng-click="open= !open;"> 
+											<i class="material-icons smedium right">translate</i>{{'language'|translate}}</a>
+										</a>										
 									</li>
-
+									<div ng-if="open" style="margin-bottom: 5px; background-color: #fff">
+										<ul>
+											<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-repeat="lang in ngm.getLanguage">
+												<a class="" ng-click="ngm.changeFunction( lang.language_id);">{{ lang.language_name }}</a>
+											
+												<div style="position:absolute;top:9px;right: 20px" ng-click="ngm.changeFunction( lang.language_id );">
+													<img style="width: 32px;height: 32px;" src="images/{{lang.flag}}">
+												</div>
+											
+											</li>
+										</ul>
+									</div>
 									<!-- user login -->
 									<li align="right" class="teal z-depth-2"
 											ng-show="ngm.getUserName() === 'welcome' && ngm.style.home === '#/immap'">
