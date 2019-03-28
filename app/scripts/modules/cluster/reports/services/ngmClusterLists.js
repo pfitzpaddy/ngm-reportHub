@@ -1635,6 +1635,86 @@ angular.module( 'ngmReportHub' )
           }];
         }
 
+        // admin COL
+
+        if (  admin0pcode === 'COL' ) {
+          // default
+          var beneficiaries = [
+
+
+          {
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'mine_victims',
+            beneficiary_type_name: 'Víctimas de Minas'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'natural_disaster_victims',
+            beneficiary_type_name: 'Víctimas de Desastres Naturales'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'idps',
+            beneficiary_type_name: 'Población Desplazada Interna'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'massive_displacement_affected',
+            beneficiary_type_name: 'Afectados por Desplazamiento Masivo'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'host_communities',
+            beneficiary_type_name: 'Host Communities'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'sex_crimes_victims',
+            beneficiary_type_name: 'Víctimas de Delitos Sexuales'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'people_with_limitations_mobility_confinement',
+            beneficiary_type_name: 'Población con Limitaciones de Movilidad y Confinamiento'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'refugess_and_asylum_seekers',
+            beneficiary_type_name: 'Refugiados y Solicitantes de Asilo'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'migrants',
+            beneficiary_type_name: 'Migrantes'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'desmobilized_reinserted',
+            beneficiary_type_name: 'Desmovilizados / Reinsertados'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'colombian_afro',
+            beneficiary_type_name: 'Afro-colombianos'
+          }
+          ,{
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'indigenas',
+            beneficiary_type_name: 'Indígenas'
+          },{
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'mestizos',
+            beneficiary_type_name: 'Mestizos' 
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'others',
+            beneficiary_type_name: 'Otros'
+          }
+
+          ];
+        }
+
         // admin SS
         if ( admin0pcode === 'SS' ) {
           // beneficiaries
