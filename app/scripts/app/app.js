@@ -383,6 +383,21 @@ angular
 				}
 			},
 
+			// language
+			setLanguage:function(country){
+				var set_language = {
+					col:[{ language_id: 'en', language_name: 'English', flag:'en.png'},
+							{ language_id: 'es', language_name: 'Spanish', flag: 'spain.png' }]					
+					}
+				$scope.ngm.getLanguage = set_language[country] ? set_language[country]:[];
+				if ($scope.ngm.getLanguage.length>0){
+					$scope.ngm.translate_version = true;
+				}else{
+					$scope.ngm.translate_version = false;
+				}
+			},
+			getLanguage:[],
+			translate_version:false,
 			// app functions
 			logout: function() {
 				ngmAuth.logout();
