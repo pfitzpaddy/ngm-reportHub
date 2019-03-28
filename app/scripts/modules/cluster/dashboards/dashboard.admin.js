@@ -115,15 +115,7 @@ angular.module('ngmReportHub')
 						'active': 'euro',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/admin/euro'
-					},
-					{
-  						'title': 'AMER',
-   						'param': 'adminRpcode',
- 						'active': 'amer',
-    						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-  					'href': '/desk/#/cluster/admin/amer'
-    
-   					} 
+					}
 					]
 				}],
 
