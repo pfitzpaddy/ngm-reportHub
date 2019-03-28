@@ -66,6 +66,10 @@
 
 										<!-- beneficiary -->
 							      <td>{{'beneficiary' | translate}}</td>
+
+							      <td ng-if="project.definition.admin0pcode === 'COL'">{{'beneficiary_category' | translate}}</td>
+
+
 							      <!-- <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'delivery_type_id' ]">Type</td> -->
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'households' ]">{{'households'|translate}}</td>
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'families' ]">{{'families' | translate}}</td>
@@ -317,6 +321,19 @@
 							              								} : true"
 							              e-ng-disabled="!beneficiary.activity_description_id">
 							          {{ ngmClusterBeneficiaries.displayBeneficiary( project.lists, $data, beneficiary ) }}
+							        </span>
+							      </td>
+
+							      <!-- beneficiaries categories-->
+
+							      <td>
+							        <span e-form="rowform"
+							              e-name="beneficiary_category_id"
+							              editable-select="beneficiary.beneficiary_category_id"
+							              e-placeholder="Select..."
+							              e-ng-options="b.beneficiary_category_id as b.beneficiary_category_name for b in project.lists.beneficiary_categories"
+							              e-ng-disabled="!beneficiary.activity_description_id">
+							          {{ ngmClusterBeneficiaries.displayBeneficiaryCategories( project.lists, $data, beneficiary ) }}
 							        </span>
 							      </td>
 
