@@ -435,6 +435,18 @@ angular.module( 'ngmReportHub' )
         return selected.length ? selected[0].beneficiary_type_name : '-';
       },
 
+      displayBeneficiaryCategories:function( lists, $data, $beneficiary ) {
+        var selected = [];
+        $beneficiary.beneficiary_category_id = $data;
+        if( $beneficiary.beneficiary_category_id ) {
+          selected = $filter('filter')( lists.beneficiary_categories, { beneficiary_category_id: $beneficiary.beneficiary_category_id }, true);
+        }
+        if( selected && selected.length ) {
+          $beneficiary.beneficiary_category_name = selected[0].beneficiary_category_name;
+        }
+        return selected.length ? selected[0].beneficiary_category_name : '-';
+      },
+
       // display delivery
       displayDelivery: function( lists, $data, $beneficiary ) {
         var selected = [];

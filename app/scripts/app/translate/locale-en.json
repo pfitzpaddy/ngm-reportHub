@@ -402,6 +402,8 @@
         "package":"Package",
         "category":"Category",
         "beneficiary":"Beneficiary",
+         "beneficiary_category":"Category",
+
         "population":"Population",
         "amount":"Amount",
         "units":"Units",

@@ -46,6 +46,7 @@ angular.module( 'ngmReportHub' )
           strategic_objectives: ngmClusterLists.getStrategicObjectives( project.admin0pcode, moment( project.project_start_date ).year(), moment( project.project_end_date ).year() ),
           category_types: ngmClusterLists.getCategoryTypes(),
           beneficiary_types: ngmClusterLists.getBeneficiaries( moment( project.project_end_date ).year(), project.admin0pcode, project.cluster_id ),
+          beneficiary_categories: ngmClusterLists.getBeneficiariesCategories(),
           currencies: ngmClusterLists.getCurrencies( project.admin0pcode ),
           donors: ngmClusterLists.getDonors( project.admin0pcode, project.cluster_id ),
           partial_kits: ngmClusterLists.getPartialKits(),
@@ -1691,26 +1692,8 @@ angular.module( 'ngmReportHub' )
             cluster_id: ngmClusterLists.all_sectors,
             beneficiary_type_id: 'desmobilized_reinserted',
             beneficiary_type_name: 'Desmovilizados / Reinsertados'
-          },
-          {
-            cluster_id: ngmClusterLists.all_sectors,
-            beneficiary_type_id: 'colombian_afro',
-            beneficiary_type_name: 'Afro-colombianos'
           }
-          ,{
-            cluster_id: ngmClusterLists.all_sectors,
-            beneficiary_type_id: 'indigenas',
-            beneficiary_type_name: 'Indígenas'
-          },{
-            cluster_id: ngmClusterLists.all_sectors,
-            beneficiary_type_id: 'mestizos',
-            beneficiary_type_name: 'Mestizos' 
-          },
-          {
-            cluster_id: ngmClusterLists.all_sectors,
-            beneficiary_type_id: 'others',
-            beneficiary_type_name: 'Otros'
-          }
+          
 
           ];
         }
@@ -3132,6 +3115,28 @@ angular.module( 'ngmReportHub' )
 
         // filter by cluster beneficiaries here
         return beneficiaries;
+
+      },
+
+      getBeneficiariesCategories: function(){
+
+        var beneficiary_categories = [{
+            beneficiary_category_id: 'colombian_afro',
+            beneficiary_category_name: 'Afro-colombianos'
+          }
+          ,{
+            beneficiary_category_id: 'indigenas',
+            beneficiary_category_name: 'Indígenas'
+          },{
+            beneficiary_category_id: 'mestizos',
+            beneficiary_category_name: 'Mestizos' 
+          },
+          {
+            beneficiary_category_id: 'others',
+            beneficiary_category_name: 'Otros'
+          }];
+
+        return beneficiary_categories;
 
       },
 

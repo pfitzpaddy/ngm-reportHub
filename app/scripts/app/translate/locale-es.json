@@ -292,6 +292,7 @@
         "package":"Paquete",
         "category":"Categoría",
         "beneficiary":"Beneficiario",
+        "beneficiary_category":"Categoría",
         "population":"Población",
         "amount":"Monto",
         "units":"Unidades",
