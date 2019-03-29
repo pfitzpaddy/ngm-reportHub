@@ -325,8 +325,7 @@
 							      </td>
 
 							      <!-- beneficiaries categories-->
-
-							      <td>
+							      <td ng-if="project.definition.admin0pcode === 'COL'">
 							        <span e-form="rowform"
 							              e-name="beneficiary_category_id"
 							              editable-select="beneficiary.beneficiary_category_id"
