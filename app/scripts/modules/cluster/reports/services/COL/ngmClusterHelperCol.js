@@ -28,12 +28,12 @@ angular.module( 'ngmReportHub' )
 						var key = 'hrp';
 						
 						// if beneficiary_type
-						if( beneficiary.beneficiary_type_id === 'refugess_and_asylum_seekers'){
+						if( beneficiary.beneficiary_type_id === 'refugess_and_asylum_seekers' ){
 							key = 'rmrp';
 						}
 						
-						// merge correct strategic objetives by key
-						beneficiary = angular.merge( beneficiary, beneficiary.strategic_objective_descriptions[key] );
+						// merge correct strategic objetives by key from activites.csv
+						beneficiary = angular.merge( beneficiary, beneficiary.strategic_objective_descriptions[ key ] );
 
 					}, 100 );
 
