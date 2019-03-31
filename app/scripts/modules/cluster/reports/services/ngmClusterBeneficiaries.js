@@ -361,6 +361,7 @@ angular.module( 'ngmReportHub' )
 
             // add indicator ( if exists and no dropdown )
             if ( row && !row.indicator && row.indicator_id ) {
+              $beneficiary.strategic_objective_descriptions = selected[0].strategic_objective_descriptions;
               $beneficiary.indicator_id = selected[0].indicator_id;
               $beneficiary.indicator_name = selected[0].indicator_name;
             }
@@ -386,6 +387,7 @@ angular.module( 'ngmReportHub' )
             
             // add indicator ( if exists and no dropdown )
             if ( row && !row.indicator && row.indicator_id ) {
+              $beneficiary.strategic_objective_descriptions = selected[0].strategic_objective_descriptions;
               $beneficiary.indicator_id = selected[0].indicator_id;
               $beneficiary.indicator_name = selected[0].indicator_name;
             }
@@ -402,6 +404,7 @@ angular.module( 'ngmReportHub' )
         if( $beneficiary.indicator_id ) {
           selected = $filter('filter')( lists.activity_indicators, { indicator_id: $beneficiary.indicator_id }, true);
           if( selected && selected.length ) {
+            $beneficiary.strategic_objective_descriptions = selected[0].strategic_objective_descriptions;
             // $beneficiary.indicator_id = selected[0].indicator_id;
             $beneficiary.indicator_name = selected[0].indicator_name;
           }

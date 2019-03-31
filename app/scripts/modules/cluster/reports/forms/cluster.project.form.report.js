@@ -38,7 +38,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
     'ngmClusterHelperNgWash',
     'ngmClusterHelperNgWashLists',
 		'ngmClusterHelperNgWashValidation',
-    'ngmClusterHelperColKeys',
+    'ngmClusterHelperCol',
 		'NgTableParams',
     'config','$translate','$filter',
 
@@ -64,7 +64,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       ngmClusterHelperNgWash,
       ngmClusterHelperNgWashLists,
 			ngmClusterHelperNgWashValidation,
-      ngmClusterHelperColKeys,
+      ngmClusterHelperCol,
 			NgTableParams,
       config,$translate,$filter ){
 
@@ -83,8 +83,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       $scope.ngmClusterHelperNgWash = ngmClusterHelperNgWash;
       $scope.ngmClusterHelperNgWashLists = ngmClusterHelperNgWashLists;
 			$scope.ngmClusterHelperNgWashValidation = ngmClusterHelperNgWashValidation;
+      $scope.ngmClusterHelperCol = ngmClusterHelperCol;
 			$scope.deactivedCopybutton = false;
-      $scope.ngmClusterHelperColKeys = ngmClusterHelperColKeys;
 
       // project
       $scope.project = {
