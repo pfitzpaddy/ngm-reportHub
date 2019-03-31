@@ -18,26 +18,62 @@ angular.module( 'ngmReportHub' )
 			// activity keys
 			keys: {
 				
-				// WATER
-				// boreholes
+				// response body
 				'RMRP':{
-					'indicator': {
-						strategic_objective_id: '',
-						strategic_objective_name: '',
-						sector_objective_id: '',
-						sector_objective_name: ''
+					'número_de_nna_vacunados': {
+						strategic_objective_id: 'a',
+						strategic_objective_name: 'a',
+						sector_objective_id: 'a',
+						sector_objective_name: 'a'
 					}
 				},
 				'HRP':{
-					'indicator': {
-						strategic_objective_id: '',
-						strategic_objective_name: '',
-						sector_objective_id: '',
-						sector_objective_name: ''
+					'número_de_nna_vacunados': {
+						strategic_objective_id: 'b',
+						strategic_objective_name: 'b',
+						sector_objective_id: 'b',
+						sector_objective_name: 'b'
 					}
 				}
+			},
+
+			updateIndicatorObjective:function( admin0pcode, beneficiary ){
+
+				if (admin0pcode === 'COL'){
+
+				$timeout(function() {
+
+					var key = 'HRP';
+
+
+				if( beneficiary.beneficiary_type_id === 'refugess_and_asylum_seekers'){
+
+					key = 'RMRP';
+
+				}
+
+				
+				beneficiary = angular.merge(beneficiary, ngmClusterHelperColKeys.keys[key][beneficiary.indicator_id]);
+
+				
+
+
+
+				}, 100);
+				
+
+				
+
+					
+				}
+
 			}
+
+
+
 		}
+
+
 
 		// return 
 		return ngmClusterHelperColKeys;

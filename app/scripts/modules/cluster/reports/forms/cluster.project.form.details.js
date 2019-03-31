@@ -38,6 +38,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
     'ngmClusterValidation',
     'ngmClusterHelperAf',
     'ngmCbLocations',
+    'ngmClusterHelperColKeys',
     'config','$translate',
 
     function( 
@@ -59,6 +60,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         ngmClusterValidation,
         ngmClusterHelperAf,
         ngmCbLocations,
+        ngmClusterHelperColKeys,
         config,$translate ){
 
 
@@ -67,6 +69,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
       $scope.ngmClusterHelper = ngmClusterHelper;
       $scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
       $scope.ngmCbLocations = ngmCbLocations;
+      $scope.ngmClusterHelperColKeys = ngmClusterHelperColKeys;
 
       // project
       $scope.project = {

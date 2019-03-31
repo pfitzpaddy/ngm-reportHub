@@ -280,6 +280,7 @@
               e-name="beneficiary_type_id"
               editable-select="beneficiary.beneficiary_type_id"
               e-placeholder="Select..."
+              e-ng-change="ngmClusterHelperColKeys.updateIndicatorObjective( project.definition.admin0pcode, beneficiary )"
               e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types |
                               filter: { 
                                 cluster_id: beneficiary.cluster_id
