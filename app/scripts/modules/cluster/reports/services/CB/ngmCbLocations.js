@@ -77,6 +77,17 @@ angular.module( 'ngmReportHub' )
         return display;
       },
 
+      // show the columns
+      showAlternative: function( target_location ){
+        var display = false;
+        angular.forEach( target_location, function( d, i ){
+          if ( d.site_name && d.site_name.indexOf('UNION') !== -1 ) {
+            display = true;
+          }
+        });
+        return display;
+      },
+
       // clear the Union on site type change
       changeSiteType: function( target_location, site_type ){
         // admin2
@@ -248,6 +259,23 @@ angular.module( 'ngmReportHub' )
 
         // for UNION display
         if ( target_location.site_name && target_location.site_name.indexOf('UNION') !== -1  ) {
+
+          // add_union
+          var add_union = true;
+
+          // if lists.adminSites has no UNION (add)
+          lists.adminSites.forEach(function( d ){
+            if ( d.site_name.indexOf('UNION') !== -1 ) {
+              add_union = false;
+            }
+          });
+
+          // add to list
+          if ( add_union ) {
+            lists.adminSites.unshift( target_location );
+          }
+
+          // for display if union
           selected = [{ 
             site_id: target_location.site_id,
             site_name: target_location.site_name

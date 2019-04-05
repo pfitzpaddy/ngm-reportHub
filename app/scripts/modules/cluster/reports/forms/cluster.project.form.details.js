@@ -398,6 +398,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         showSiteName: function( $data, target_location ){
           return ngmClusterLocations.showSiteName( $data, target_location );
         },
+        
+        // site_name_alternative
+        showSiteNameAlternative: function( $data, target_location ){
+          return ngmClusterLocations.showSiteNameAlternative( $data, target_location );
+        },        
 
 
         

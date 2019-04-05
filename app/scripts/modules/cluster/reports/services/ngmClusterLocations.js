@@ -391,6 +391,12 @@ angular.module( 'ngmReportHub' )
         return target_location.site_name ? target_location.site_name : '';
       },
 
+      // site_name
+      showSiteNameAlternative: function( $data, target_location ){
+        if( $data ) { target_location.site_name_alternative = $data; }
+        return target_location.site_name_alternative ? target_location.site_name_alternative : '';
+      },
+
 		};
 
     return ngmClusterLocations;

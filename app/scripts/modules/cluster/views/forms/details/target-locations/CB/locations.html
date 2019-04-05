@@ -34,6 +34,7 @@
 							      <!-- <td ng-if="ngmCbLocations.showUnion( project.definition.target_locations )">Union</td> -->      
 							      <td ng-if="ngmCbLocations.showCamps( project.definition.target_locations )">Camp</td>
 							      <td>Location Name</td>
+							      <td ng-if="ngmCbLocations.showAlternative( project.definition.target_locations )">Alternative</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
 							    <tr ng-repeat="location in project.definition.target_locations track by $index">
@@ -177,7 +178,7 @@
 							        											}"
 														e-ng-disabled="!location.site_type_id"
 														e-ng-change="ngmCbLocations.updateSite( project.lists, $index, $data, location );">
-							          {{ location.admin3name }} {{ ngmCbLocations.displaySites( project.lists, $index, $data, location ) }}
+							          {{ ngmCbLocations.displaySites( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
 							      <!-- select existing: drop down (filter by admin3pcode if exists) -->
@@ -195,7 +196,22 @@
 							        											}"
 														e-ng-disabled="!location.site_type_id"
 														e-ng-change="ngmCbLocations.updateSite( project.lists, $index, $data, location );">
-							          {{ location.admin3name }} {{ ngmCbLocations.displaySites( project.lists, $index, $data, location ) }}
+							          {{ ngmCbLocations.displaySites( project.lists, $index, $data, location ) }}
+							        </span>
+							      </td>
+
+							      <!-- alternative name -->
+							      <td ng-if="ngmCbLocations.showAlternative( project.definition.target_locations ) && location.site_name.indexOf('UNION') === -1">
+							      	<!-- empty -->
+							      </td>
+
+							      <!-- alternative name -->
+							      <td ng-if="location.site_name.indexOf('UNION') !== -1">
+							        <span editable-text="location.site_name_alternative"
+							        				e-name="site_name_alternative"
+							        				e-form="locationform"
+							        				e-required>
+							        	{{ project.showSiteNameAlternative( $data, location ) }}
 							        </span>
 							      </td>
 
@@ -216,7 +232,7 @@
 					                    ( !project.submit ) )">
 							            <i class="material-icons">save</i>
 							          </button>
-							          <button type="button" ng-if="locationform.$visible" ng-disabled="locationform.$waiting" ng-click="locationform.$cancel(); project.cancelEdit( 'target_locations', $index )" class="btn blue lighten-1 waves-effect waves-light" title="Cancel Edit">
+							          <button type="button" ng-if="locationform.$visible" ng-disabled="locationform.$waiting" ng-click="locationform.$cancel();" class="btn blue lighten-1 waves-effect waves-light" title="Cancel Edit">
 													<i class="material-icons">clear</i>
 							          </button>
 							        </form>
