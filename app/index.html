@@ -94,8 +94,7 @@
 						<!-- profile menu -->
 						<!-- profile menu btn (implementing jQuery slideToggle() )-->
 						<div class="ngm-profile-menu">
-							<div class="ngm-profile-btn fixed-action-btn" 
-										align="right">
+							<div class="ngm-profile-btn fixed-action-btn" align="right">
 								<a class="btn-floating btn-large"
 										ng-class="{ 'waves-effect waves-teal waves-teal-lighten-4' : ngm.getUserName() !== 'welcome' }"
 										style="background: {{ ngm.style.defaultPrimaryColor }};" >
@@ -110,21 +109,9 @@
 							<!-- profile menu dropdown list -->
 							<ul class="ngm-profile-menu-content dropdown-content z-depth-2">
 
-								<li align="center" class="teal z-depth-2" 
-								ng-init="open = false;ngm.setLanguage('col')"
-								ng-show="ngm.getUsername() !== 'welcome' && (ngm.translate_version && ngm.getUser().admin0pcode === 'COL')" 
-								>
-										
-										<!-- <a class="white-text" >
-											
-											{{'language'|translate}}: <span class="white-text" ng-click="ngm.changeFunction('en');">EN</span> /
-											<span class="white-text" ng-click="ngm.changeFunction('es');">ES</span>
-										</a>  -->
-
-										<!--<ul>
-											<li><a class="white-text right" ng-click="ngm.changeFunction('en');">EN</a></li>
-											<li><a class="white-text right" ng-click="ngm.changeFunction('es');">ES</a></li>
-										</ul>-->
+									<li align="center" class="teal z-depth-2" 
+											ng-init="open = false;ngm.setLanguage('col')"
+											ng-show="ngm.getUsername() !== 'welcome' && (ngm.translate_version && ngm.getUser().admin0pcode === 'COL')">
 										<a class="white-text right" ng-click="open= !open;"> 
 											<i class="material-icons smedium right">translate</i>{{'language'|translate}}</a>
 										</a>										
@@ -268,8 +255,7 @@
 									</li>
 									<!-- DROUGHT -->
 									<li align="center" class="teal z-depth-2"
-									 ng-if="ngm.getUser().admin0pcode.toLowerCase() === 'af'"
-									>
+									 			ng-if="ngm.getUser().admin0pcode.toLowerCase() === 'af'">
 										<a class="white-text right" href="#/response/afghanistan/drought" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">bubble_chart</i>{{'drought' | translate}} DASHBOARD</a>
 									</li>

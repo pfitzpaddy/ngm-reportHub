@@ -18,9 +18,7 @@ angular.module('ngmReportHub')
 				$route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
 
 		// init empty model
-		$scope.model = {
-			rows: [{}]
-		}
+		$scope.model = $scope.$parent.ngm.dashboard.model;
 
 		// empty Project
 		$scope.report = {

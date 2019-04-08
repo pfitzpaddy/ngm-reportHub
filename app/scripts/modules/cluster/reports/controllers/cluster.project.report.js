@@ -25,10 +25,8 @@ angular.module('ngmReportHub')
 		];
 
 		// init empty model
-		$scope.model = {
-			rows: [{}]
-		}
-
+		$scope.model = $scope.$parent.ngm.dashboard.model;
+		
 		// empty Project
 		$scope.report = {
 			
@@ -186,6 +184,12 @@ angular.module('ngmReportHub')
 			}			
 
 		}
+
+		// assign to ngm app scope
+		$scope.report.ngm.dashboard.model = $scope.model;
+
+		// taost for user
+		$timeout( function() { Materialize.toast( 'Loading Monthly Progress Report...', 3000, 'success' ); }, 1000 );
 
 		// send request
 		$q.all([ $scope.report.getProject, $scope.report.getReport ]).then( function( results ){

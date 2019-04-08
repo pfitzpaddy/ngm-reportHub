@@ -50,43 +50,32 @@ angular.module( 'ngmReportHub' )
     // ngmCbLocations
 		ngmCbLocations = {
 
-      // show the columns
-      // showUnion: function( target_location ){
-      //   var display = false;
-      //   angular.forEach( target_location, function( d, i ){
-      //     if ( d.site_type_id === 'refugee_camp' ||
-      //           d.site_type_id === 'refugee_block' ||
-      //           d.site_type_id === 'host_community' || 
-      //           d.site_type_id === 'cyclone_shelter' ||
-      //           d.site_type_id === 'nutrition_center' ) {
-      //       display = true;
-      //     }
-      //   });
-      //   return display;
-      // },
+      // SHOW / HIDE COLUMNS
 
-      // show the columns
-      showCamps: function( target_location ){
+      // show the column
+      showAdmin3Column: function( target_location, type ){
         var display = false;
         angular.forEach( target_location, function( d, i ){
-          if ( d.site_type_id === 'nutrition_center' ||
-                d.site_type_id === 'refugee_block' ) {
-            display = true;
+          
+          // admin3 as ward
+          if ( type === 'ward' ) {
+            if ( d.site_type_id === 'ward' || 
+                  d.site_type_id === 'host_community' ) {
+              display = true;
+            }
+          }
+
+          // admin3 as camp
+          if ( type === 'camp' ) {
+            if ( d.site_type_id === 'nutrition_center' ||
+                  d.site_type_id === 'refugee_block' ) {
+              display = true;
+            }
           }
         });
         return display;
       },
 
-      // show the columns
-      showAlternative: function( target_location ){
-        var display = false;
-        angular.forEach( target_location, function( d, i ){
-          if ( d.site_name && d.site_name.indexOf('UNION') !== -1 ) {
-            display = true;
-          }
-        });
-        return display;
-      },
 
       // clear the Union on site type change
       changeSiteType: function( target_location, site_type ){
@@ -108,6 +97,7 @@ angular.module( 'ngmReportHub' )
         // site
         delete target_location.site_id;
         delete target_location.site_name;
+        delete target_location.site_name_alternative;
         delete target_location.site_lng;
         delete target_location.site_lat;
       },
@@ -147,22 +137,14 @@ angular.module( 'ngmReportHub' )
           // select site type
           selected = $filter('filter')( lists.admin1, { admin1pcode: target_location.admin1pcode }, true );
           if( selected && selected.length ){
+            // remove id
             delete selected[0].id;
-            target_location.admin1pcode = selected[0].admin1pcode;
-            target_location.admin1name = selected[0].admin1name;
+            angular.merge( target_location, selected[0] );
           }
         }
 
         // return name
         return selected && selected.length ? selected[0].admin1name : '-';
-      },
-
-      // get admin2 filtered list
-      getAdmin2List: function( admin2 ) {
-        var list = angular.copy( admin2 ).filter(function( item ) {
-          return ngmCbLocations.host_community_filter.includes( item.admin1pcode ); 
-        });
-        return list;
       },
 
       // admin2
@@ -178,9 +160,9 @@ angular.module( 'ngmReportHub' )
           // select site type
           selected = $filter('filter')( lists.admin2, { admin2pcode: target_location.admin2pcode }, true );
           if( selected && selected.length ){
+            // remove id
             delete selected[0].id;
-            target_location.admin2pcode = selected[0].admin2pcode;
-            target_location.admin2name = selected[0].admin2name;
+            angular.merge( target_location, selected[0] );
           }
         }
 
@@ -202,12 +184,8 @@ angular.module( 'ngmReportHub' )
           // select site type
           selected = $filter('filter')( lists.adminSites, { admin2pcode: target_location.admin2pcode, site_type_id: 'host_community' }, true );
           if( selected && selected.length ){
+            // remove id
             delete selected[0].id;
-            selected[0].site_id = selected[0].admin2pcode;
-            selected[0].site_class = 'Union';
-            selected[0].site_name = selected[0].admin2name + ' UNION';
-            selected[0].site_lng = selected[0].admin2lng;
-            selected[0].site_lat = selected[0].admin2lat;
             angular.merge( target_location, selected[0] );
           }
         }
@@ -225,16 +203,16 @@ angular.module( 'ngmReportHub' )
         // if admin2pcode
         if( target_location.admin3pcode ) {
           // select site type
-          selected = $filter('filter')( lists.adminSites, { site_id: target_location.admin3pcode }, true );
+          selected = $filter('filter')( lists.admin3, { admin3pcode: target_location.admin3pcode }, true );
           if( selected && selected.length ){
+            // remove id
             delete selected[0].id;
-            target_location.admin3pcode = selected[0].site_id;
-            target_location.admin3name = selected[0].site_name;
+            angular.merge( target_location, selected[0] );
           }
         }
 
         // return name
-        return selected && selected.length ? selected[0].site_name : '-';
+        return selected && selected.length ? selected[0].admin3name : '-';
       },
 
       // site
@@ -255,31 +233,6 @@ angular.module( 'ngmReportHub' )
             target_location.site_id = selected[0].site_id;
             target_location.site_name = selected[0].site_name;
           }
-        }
-
-        // for UNION display
-        if ( target_location.site_name && target_location.site_name.indexOf('UNION') !== -1  ) {
-
-          // add_union
-          var add_union = true;
-
-          // if lists.adminSites has no UNION (add)
-          lists.adminSites.forEach(function( d ){
-            if ( d.site_name.indexOf('UNION') !== -1 ) {
-              add_union = false;
-            }
-          });
-
-          // add to list
-          if ( add_union ) {
-            lists.adminSites.unshift( target_location );
-          }
-
-          // for display if union
-          selected = [{ 
-            site_id: target_location.site_id,
-            site_name: target_location.site_name
-          }];
         }
 
         // return name

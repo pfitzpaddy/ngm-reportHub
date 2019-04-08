@@ -125,7 +125,7 @@ angular
 				controller: 'ClusterAppCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function( ngmAuth ) {
-						return ngmAuth.hasRole( 'ADMIN' );
+						return ngmAuth.isAuthenticated();
 					}],
 				}
 			})
@@ -145,7 +145,7 @@ angular
 				controller: 'ClusterOrganizationStocksListCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function( ngmAuth ) {
-						return ngmAuth.hasRole( 'ADMIN' );
+						return ngmAuth.isAuthenticated();
 					}],
 				}
 			})
@@ -195,7 +195,7 @@ angular
 				controller: 'ClusterProjectProjectsCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function( ngmAuth ) {
-						return ngmAuth.hasRole( 'ADMIN' );
+						return ngmAuth.isAuthenticated();
 					}],
 				}
 			})
@@ -381,7 +381,6 @@ angular
 				controller: 'DashboardClusterAdminCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function( ngmAuth ) {
-						// return ngmAuth.hasRole( 'ADMIN' );
 						return ngmAuth.isAuthenticated();
 					}],
 				}

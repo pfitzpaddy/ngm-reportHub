@@ -30,11 +30,8 @@ angular.module('ngmReportHub')
 				'Karma'
 			];
 
-			// empty model
-			$scope.model = {
-				menu: [],
-				rows: []
-			};
+			// init empty model
+			$scope.model = $scope.$parent.ngm.dashboard.model;
 
 			// create dews object
 			$scope.dashboard = {

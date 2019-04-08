@@ -26,9 +26,7 @@ angular.module('ngmReportHub')
 		});
 
 		// init empty model
-		$scope.model = {
-			rows: [{}]
-		};
+		$scope.model = $scope.$parent.ngm.dashboard.model;
 
 		// report object
 		$scope.report = {

@@ -29,12 +29,11 @@
 							    	<td></td>
 							    	<td>Reporter</td>
 							      <td>Location Type</td>
-							      <td>Upazila</td>
-							      <td>Union</td>
-							      <!-- <td ng-if="ngmCbLocations.showUnion( project.definition.target_locations )">Union</td> -->      
-							      <td ng-if="ngmCbLocations.showCamps( project.definition.target_locations )">Camp</td>
+							      <td>{{ project.lists.admin1[0].admin1type_name }}</td>
+							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
+							      <td ng-if="ngmCbLocations.showAdmin3Column( project.definition.target_locations, 'ward' )">Ward</td>
+							      <td ng-if="ngmCbLocations.showAdmin3Column( project.definition.target_locations, 'camp' )">Camp</td>
 							      <td>Location Name</td>
-							      <td ng-if="ngmCbLocations.showAlternative( project.definition.target_locations )">Alternative</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
 							    <tr ng-repeat="location in project.definition.target_locations track by $index">
@@ -88,7 +87,9 @@
 
 
 							      <!-- admin2 OPTIONS WITH FILTERS! -->
-							      <td ng-if="!location.site_type_id">
+							      <td ng-if="!location.site_type_id ||
+							      						location.site_type_id === 'union' || 
+							      						location.site_type_id === 'ward'">
 							        <span e-placeholder="Select..."
 							        				editable-select="location.admin2pcode"
 							        				e-name="admin2pcode"
@@ -137,8 +138,36 @@
 							      </td>
 
 
-										<!-- !nutrition_center -->
-							      <td ng-if="ngmCbLocations.showCamps( project.definition.target_locations ) &&
+							      <!-- admin3 as ward -->
+							      <td ng-if="ngmCbLocations.showAdmin3Column( project.definition.target_locations, 'ward' ) &&
+							      							location.site_type_id !== 'host_community' &&
+							      							location.site_type_id !== 'ward'">
+							        -
+							      </td>
+
+										<!-- nutrition_center -->
+							      <td ng-if="location.site_type_id === 'host_community' || 
+							      						location.site_type_id === 'ward'">
+							        <span e-placeholder="Select..."
+							        				editable-select="location.admin3pcode"
+							        				e-name="admin3pcode"
+							        				e-form="locationform"
+							        				e-ng-options="item.admin3pcode as item.admin3name for item in project.lists.admin3 | 
+							        											filter:{ 
+							        												admin1pcode: location.admin1pcode, 
+							        												admin2pcode: location.admin2pcode,
+							        												admin3type_name: 'Ward',
+							        											}"
+							        				e-ng-disabled="!location.admin2pcode"
+							        				e-required>
+							          {{ ngmCbLocations.displayAdmin3( project.lists, $index, $data, location ) }}
+							        </span>
+							      </td>
+
+
+
+							      <!-- admin3 as camp -->
+							      <td ng-if="ngmCbLocations.showAdmin3Column( project.definition.target_locations, 'camp' ) &&
 							      							location.site_type_id !== 'nutrition_center' &&
 							      							location.site_type_id !== 'refugee_block'">
 							        -
@@ -151,20 +180,20 @@
 							        				editable-select="location.admin3pcode"
 							        				e-name="admin3pcode"
 							        				e-form="locationform"
-							        				e-ng-options="item.site_id as item.site_name for item in project.lists.adminSites | 
+							        				e-ng-options="item.admin3pcode as item.admin3name for item in project.lists.admin3 | 
 							        											filter:{ 
 							        												admin1pcode: location.admin1pcode, 
 							        												admin2pcode: location.admin2pcode,
-							        												site_type_id: 'refugee_camp',
+							        												admin3type_name: 'Camp',
 							        											}"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin3( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
 
+
 							      <!-- select existing: darop down (filter admin3pcode by type) -->
-							      <td ng-if="location.site_type_id === 'host_community' || 
-							      						location.site_type_id === 'cyclone_shelter' || 
+							      <td ng-if=" location.site_type_id === 'cyclone_shelter' || 
 							      						location.site_type_id === 'refugee_camp'">
 							        <span e-placeholder="Select..."
 							        			editable-select="location.site_id"
@@ -182,7 +211,9 @@
 							        </span>
 							      </td>
 							      <!-- select existing: drop down (filter by admin3pcode if exists) -->
-							      <td ng-if="location.site_type_id === 'refugee_block' || location.site_type_id === 'nutrition_center'">
+							      <td ng-if="location.site_type_id === 'host_community' || 
+							      						location.site_type_id === 'refugee_block' || 
+							      						location.site_type_id === 'nutrition_center'">
 							        <span e-placeholder="Select..."
 							        			editable-select="location.site_id"
 							        			e-name="site_id"
@@ -200,21 +231,17 @@
 							        </span>
 							      </td>
 
-							      <!-- alternative name -->
-							      <td ng-if="ngmCbLocations.showAlternative( project.definition.target_locations ) && location.site_name.indexOf('UNION') === -1">
-							      	<!-- empty -->
-							      </td>
-
-							      <!-- alternative name -->
-							      <td ng-if="location.site_name.indexOf('UNION') !== -1">
-							        <span editable-text="location.site_name_alternative"
-							        				e-name="site_name_alternative"
+							      <!-- select existing: free text  -->
+										 <td ng-if="!location.site_type_id ||
+										 							location.site_type_id === 'union' || 
+										 							location.site_type_id === 'ward'">
+							        <span editable-text="location.site_name"
+							        				e-name="site_name"
 							        				e-form="locationform"
 							        				e-required>
-							        	{{ project.showSiteNameAlternative( $data, location ) }}
+							        	{{ project.showSiteName( $data, location ) }}
 							        </span>
 							      </td>
-
 
 							      <!-- edit -->
 							      <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'" >

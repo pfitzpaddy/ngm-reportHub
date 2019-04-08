@@ -70,51 +70,11 @@
 								<!-- location title -->
 								<div class="col s12 m9 left">
 
-							  	<!-- no site && admin2 -->
-							  	<h5 class="report-location-title" ng-if="!location.site_type_name && !location.admin3pcode">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.site_name }}
-									</h5>
-							  	
-							  	<!-- no site && admin3 -->
-							  	<h5 class="report-location-title" ng-if="!location.site_type_name && location.admin3pcode">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.site_name }}
-									</h5>
-
-							  	<!-- site && admin2 -->
+							  	<!-- location title -->
 							  	<h5 class="report-location-title" 
-							  				ng-if="location.site_type_name && 
-							  								location.admin2pcode && 
-							  								!location.admin3pcode">
+							  				ng-if="project.definition.cluster_id !== 'eiewg'">
 												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.site_type_name }}, {{ location.site_name }}
-									</h5>
-							  	
-							  	<!-- site && admin3 -->
-							  	<h5 class="report-location-title" 
-							  				ng-if="location.site_type_name &&
-							  								location.admin2pcode && 
-							  								location.admin3pcode && 
-							  								!location.admin4pcode">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.site_type_name }}, {{ location.site_name }}
-									</h5>
-							  	
-							  	<!-- site && admin4 -->
-							  	<h5 class="report-location-title"
-							  				ng-if="location.site_type_name && 
-							  				location.admin4pcode && 
-							  				!location.admin5pcode">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.admin4name }}, {{ location.site_type_name }}, {{ location.site_name }}
-									</h5>
-
-							  	<!-- site && admin5 -->
-							  	<h5 class="report-location-title"
-							  				ng-if="location.site_type_name && location.admin5pcode">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.admin4name }}, , {{ location.admin5name }}, {{ location.site_type_name }}, {{ location.site_name }}
+												{{ project.getReportTitle( location ) }}
 									</h5>
 
 									<!-- eiewg formal location -->

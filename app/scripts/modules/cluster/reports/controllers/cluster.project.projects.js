@@ -13,6 +13,9 @@ angular.module( 'ngmReportHub' )
 			'Karma'
 		];
 
+		// init empty model
+		$scope.model = $scope.$parent.ngm.dashboard.model;
+
 		// report object
 		$scope.report = {
 
@@ -109,7 +112,7 @@ angular.module( 'ngmReportHub' )
 							$scope.model.menu[ 0 ].rows.push({
 								'title': d.cluster,
 								'param': 'cluster_id',
-								'active': d.cluster,
+								'active': d.cluster_id,
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 								'href': $scope.report.getMenuUrl( d.cluster_id )
 							});

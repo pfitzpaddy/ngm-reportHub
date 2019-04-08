@@ -13,14 +13,12 @@ angular.module( 'ngmReportHub' )
 			'Karma' 
 		];
 
+		// init empty model
+		$scope.model = $scope.$parent.ngm.dashboard.model;
+
 		// org id
 		var organization_id = 
 				$route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
-
-		// init empty model
-		$scope.model = {
-			rows: [{}]
-		};
 
 		// report object
 		$scope.report = {

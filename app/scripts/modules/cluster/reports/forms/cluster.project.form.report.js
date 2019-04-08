@@ -67,8 +67,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       ngmClusterHelperCol,
 			NgTableParams,
       config,$translate,$filter ){
-
-
+      
 
       /**** TRAINING SERVICE ****/
 
@@ -251,6 +250,39 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         
         /**** LOCATIONS ****/
+
+        // return monthly report title for location
+        getReportTitle: function( target_location ){
+
+          // default admin 1,2
+          var title = target_location.admin1name + ', ' + target_location.admin2name;
+
+          // admin levels 3,4,5
+          if ( target_location.admin3name ) {
+            title += ', ' + target_location.admin3name;
+          }
+          if ( target_location.admin4name ) {
+            title += ', ' + target_location.admin4name;
+          }
+          if ( target_location.admin5name ) {
+            title += ', ' + target_location.admin5name;
+          }
+
+          // site_type_name
+          if ( target_location.site_type_name ) {
+            title += ', ' + target_location.site_type_name;
+          }
+
+          // site_name
+          title += ', ' + target_location.site_name;
+
+          // site_name_alternative
+          if ( target_location.site_name_alternative ) {
+            title += ' (' + target_location.site_name_alternative + ')';
+          }
+
+          return title;
+        },
 
         // project focal point
         showReporter: function( $data, target_location ){

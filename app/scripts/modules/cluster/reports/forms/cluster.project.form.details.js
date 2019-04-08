@@ -8,9 +8,6 @@
 
 angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
   .config( function( dashboardProvider){
-
-    
-
     dashboardProvider
       .widget( 'project.details', {
         title: 'Cluster Project Details Form',
@@ -63,8 +60,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         ngmClusterHelperCol,
         config,$translate ){
 
-
-
       // set to $scope
       $scope.ngmClusterHelper = ngmClusterHelper;
       $scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
@@ -80,6 +75,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         style: config.style,
         submit: true,
         newProject: $route.current.params.project === 'new' ? true : false,
+        definition_original: angular.copy( config.project ),
         definition: config.project,
         updatedAt: moment( config.project.updatedAt ).format('DD MMMM, YYYY @ h:mm:ss a'),
         canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.project.adminRpcode, admin0pcode:config.project.admin0pcode, cluster_id: config.project.cluster_id, organization_tag:config.project.organization_tag } ),
@@ -161,6 +157,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
         // cofirm exit if changes
         modalConfirm: function( modal ){
+          if( modal === 'summary-modal' ) {
+            // check for project changes
+          }
           $scope.project.cancel();
         },
 
