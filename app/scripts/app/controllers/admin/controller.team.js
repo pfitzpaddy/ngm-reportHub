@@ -12,6 +12,9 @@ angular.module('ngmReportHub')
 			'AngularJS',
 			'Karma'
 		];
+
+		// assign to ngm app scope
+		$scope.model = $scope.$parent.ngm.dashboard.model;
 		
 		// login object
 		$scope.dashboard = {
