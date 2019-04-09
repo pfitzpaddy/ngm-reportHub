@@ -64,6 +64,7 @@ angular.module('ngmReportHub')
 				// display names
 				activity_name_key:{
 					'cpie': 'CPiE',
+					'cp': 'CPAOR',
 					'gbv': 'GBV',
 					'child_protection': 'CPSS',
 					'general_protection': 'Protection',
@@ -493,17 +494,22 @@ angular.module('ngmReportHub')
 							// for each
 							organizations.forEach(function( d, i ){
 
-								// admin URL
-								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.report_type, d.organization_tag );
+								// if exists
+								if ( d ) {
 
-								// menu rows
-								orgRows.push({
-									'title': d.organization,
-									'param': 'organization_tag',
-									'active': d.organization_tag,
-									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-									'href': '/desk/#' + path
-								});
+									// admin URL
+									var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.report_type, d.organization_tag );
+
+									// menu rows
+									orgRows.push({
+										'title': d.organization,
+										'param': 'organization_tag',
+										'active': d.organization_tag,
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#' + path
+									});
+
+								}
 
 							});
 

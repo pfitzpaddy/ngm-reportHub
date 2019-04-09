@@ -76,15 +76,31 @@ angular.module( 'ngmReportHub' )
         return display;
       },
 
+      // // clear the Union on site type change
+      // changeSiteType: function( target_location ){
+          
+      //   // by type
+      //   if ( target_location.site_type_id === 'refugee_camp' )  {
+      //     console.log('here');
+      //     // admin3
+      //     delete target_location.admin3pcode;
+      //     delete target_location.admin3name;
+      //     delete target_location.admin3lng;
+      //     delete target_location.admin3lat;
+      //   }
+
+      //   // site
+      //   delete target_location.site_id;
+      //   delete target_location.site_name;
+      //   delete target_location.site_name_alternative;
+      //   delete target_location.site_lng;
+      //   delete target_location.site_lat;
+      // },      
+
 
       // clear the Union on site type change
-      changeSiteType: function( target_location, site_type ){
+      changeSiteType: function( target_location ){
         // admin2
-        delete target_location.admin2pcode;
-        delete target_location.admin2name;
-        delete target_location.admin2lng;
-        delete target_location.admin2lat;
-        // admin3
         delete target_location.admin2pcode;
         delete target_location.admin2name;
         delete target_location.admin2lng;

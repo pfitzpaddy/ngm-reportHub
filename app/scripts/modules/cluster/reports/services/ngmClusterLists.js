@@ -472,6 +472,12 @@ angular.module( 'ngmReportHub' )
           },{
             cluster_id: 'protection',
             cluster: 'Protection'
+          // },{
+          //   cluster_id: 'gbv',
+          //   cluster: 'GBV'
+          // },{
+          //   cluster_id: 'child_protection',
+          //   cluster: 'Child Protection'
           },{
             cluster_id: 'wash',
             cluster: 'WASH'

@@ -60,6 +60,7 @@
        "health": "Health",
        "nutrition" : "Nutrition",
        "protection" : "Protection",
+       "gbv" : "GBV",
        "child_protection":"Child Protection",
        "wash" : "WASH",
        "multi_purpose_cash" : "Multi Purpose Cash",
