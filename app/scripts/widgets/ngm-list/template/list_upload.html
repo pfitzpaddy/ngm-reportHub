@@ -98,7 +98,7 @@
 </style>
 <div id="close-preview-modal" class="modal ">
 	<div class="modal-content">
-		<img src={{list.setLink()}} id="imagepreview">
+		<img ng-src={{list.setLink()}} id="imagepreview">
 	</div>
 	<div class="modal-footer">
 		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
@@ -107,7 +107,7 @@
 <div id="close-preview-file" class="modal ">
 	<div class="modal-content">
 		<div>
-			<iframe src={{list.setLink()}} style="width:600px; height:500px;"
+			<iframe ng-src={{list.setLink()}} style="width:600px; height:500px;"
 			 frameborder="0"></iframe>
 		</div>
 	</div>
