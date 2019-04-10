@@ -37,6 +37,8 @@ angular.module('ngmReportHub')
 			// current user
 			user: ngmUser.get(),
 
+			title: '',
+
 			// projects href
 			getProjectsHref: function(){
 				var href = '#/cluster/projects';
@@ -56,6 +58,11 @@ angular.module('ngmReportHub')
 				// add project code to subtitle?
 				var text = 'Actual Monthly Progress Report for ' + $scope.report.project.project_title
 				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + $scope.report.project.project_description : $scope.report.project.project_description;
+
+				// if admin0pcode
+				if ( $scope.report.project.admin0name ) {
+					$scope.report.title = $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.organization + ' | ' + $scope.report.project.project_title
+				}
 				
 				// report dashboard model
 				$scope.model = {
@@ -68,7 +75,7 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m12 l12 report-title truncate',
 							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.organization + ' | ' + $scope.report.project.project_title
+							title: $scope.report.title
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
