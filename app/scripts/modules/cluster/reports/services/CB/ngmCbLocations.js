@@ -76,44 +76,34 @@ angular.module( 'ngmReportHub' )
         return display;
       },
 
-      // // clear the Union on site type change
-      // changeSiteType: function( target_location ){
-          
-      //   // by type
-      //   if ( target_location.site_type_id === 'refugee_camp' )  {
-      //     console.log('here');
-      //     // admin3
-      //     delete target_location.admin3pcode;
-      //     delete target_location.admin3name;
-      //     delete target_location.admin3lng;
-      //     delete target_location.admin3lat;
-      //   }
-
-      //   // site
-      //   delete target_location.site_id;
-      //   delete target_location.site_name;
-      //   delete target_location.site_name_alternative;
-      //   delete target_location.site_lng;
-      //   delete target_location.site_lat;
-      // },      
-
-
       // clear the Union on site type change
-      changeSiteType: function( target_location ){
-        // admin2
-        delete target_location.admin2pcode;
-        delete target_location.admin2name;
-        delete target_location.admin2lng;
-        delete target_location.admin2lat;
-        // admin3
-        delete target_location.admin3pcode;
-        delete target_location.admin3name;
-        delete target_location.admin3lng;
-        delete target_location.admin3lat;
+      changeLocation: function( type, target_location) {
+          
+        // admin1
+        if ( type === 'admin1' ) {
+
+          // admin2
+          delete target_location.admin2pcode;
+          delete target_location.admin2name;
+          delete target_location.admin2lng;
+          delete target_location.admin2lat;
+
+        }
+
+        // admin1 || admin2
+        if ( type === 'admin1' || type === 'admin2' ) {
+
+          // admin3
+          delete target_location.admin3pcode;
+          delete target_location.admin3name;
+          delete target_location.admin3lng;
+          delete target_location.admin3lat;
+        }
+
         // site
         delete target_location.site_id;
-        delete target_location.site_name;
-        delete target_location.site_name_alternative;
+        // delete target_location.site_name;
+        // delete target_location.site_name_alternative;
         delete target_location.site_lng;
         delete target_location.site_lat;
       },
@@ -184,28 +174,6 @@ angular.module( 'ngmReportHub' )
 
         // return name
         return selected && selected.length ? selected[0].admin2name : '-';
-      },
-
-      // on change
-      updateAdmin2: function( lists, $index, $data, target_location ){
-
-        // attr
-        var selected = [];
-
-        // filter by site_type
-        target_location.admin2pcode = $data;
-
-        // if site_id
-        if( target_location.admin2pcode ) {
-          // select site type
-          selected = $filter('filter')( lists.adminSites, { admin2pcode: target_location.admin2pcode, site_type_id: 'host_community' }, true );
-          if( selected && selected.length ){
-            // remove id
-            delete selected[0].id;
-            angular.merge( target_location, selected[0] );
-          }
-        }
-
       },
 
       // admin3
