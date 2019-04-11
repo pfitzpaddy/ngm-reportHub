@@ -579,14 +579,19 @@ angular.module( 'ngmReportHub' )
       // show target columns
       setBeneficiariesForm: function ( lists, location_index, beneficiaries ) {
 
-        // set defaults
-        ngmClusterBeneficiaries.form.active[ location_index ] = angular.copy( ngmClusterBeneficiaries.form.defaults );
+        // beneficiaries
+        if( beneficiaries ) {
 
-        // check target_beneficiaries
-        if ( beneficiaries.length ) {
-          angular.forEach( beneficiaries, function( beneficiary, row_index ){
-            ngmClusterBeneficiaries.setBeneficiariesFormTargets( lists, location_index, beneficiary, row_index );
-          });
+          // set defaults
+          ngmClusterBeneficiaries.form.active[ location_index ] = angular.copy( ngmClusterBeneficiaries.form.defaults );
+
+          // check beneficiaries
+          if ( beneficiaries.length ) {
+            angular.forEach( beneficiaries, function( beneficiary, row_index ){
+              ngmClusterBeneficiaries.setBeneficiariesFormTargets( lists, location_index, beneficiary, row_index );
+            });
+          }
+
         }
       },
 

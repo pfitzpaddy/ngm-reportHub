@@ -825,9 +825,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // groups
           $scope.project.definition.category_type = [];
           $scope.project.definition.beneficiary_type = [];
-          $scope.project.definition.admin1pcode = [];
-          $scope.project.definition.admin2pcode = [];
-          $scope.project.definition.admin3pcode = [];
+          // $scope.project.definition.admin1pcode = [];
+          // $scope.project.definition.admin2pcode = [];
+          // $scope.project.definition.admin3pcode = [];
 
           // parse budget
           $scope.project.definition.project_budget += '';
@@ -854,35 +854,35 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           });
 
           // add target_locations to projects to ensure simple filters
-          angular.forEach( $scope.project.definition.target_locations, function( l, i ){
+          // angular.forEach( $scope.project.definition.target_locations, function( l, i ){
 
-            // push update activities
-            $scope.project.definition.target_locations[i] =
-                  ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_locations[i] );
+          //   // push update activities
+          //   $scope.project.definition.target_locations[i] =
+          //         ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_locations[i] );
 
-            // add distinct
-            var found = $filter('filter')( $scope.project.definition.admin1pcode, { admin1pcode: l.admin1pcode }, true);
-            if ( !found.length ){
-              $scope.project.definition.admin1pcode.push( { admin1pcode: l.admin1pcode, admin1name: l.admin1name } );
-            }
-            var found = $filter('filter')( $scope.project.definition.admin2pcode, { admin2pcode: l.admin2pcode }, true);
-            if ( !found.length ){
-              $scope.project.definition.admin2pcode.push( { admin2pcode: l.admin2pcode, admin2name: l.admin2name } );
-            }
-            if ( $scope.project.lists.admin3.length ) {
-              var found = $filter('filter')( $scope.project.definition.admin3pcode, { admin3pcode: l.admin3pcode }, true);
-              if ( !found.length ){
-                $scope.project.definition.admin3pcode.push( { admin3pcode: l.admin3pcode, admin3name: l.admin3name } );
-              }
-            }
-            if ( $scope.project.lists.admin4.length ) {
-              var found = $filter('filter')( $scope.project.definition.admin4pcode, { admin4pcode: l.admin4pcode }, true);
-              if ( !found.length ){
-                $scope.project.definition.admin4pcode.push( { admin4pcode: l.admin4pcode, admin4name: l.admin4name } );
-              }
-            }            
+          //   // add distinct
+          //   var found = $filter('filter')( $scope.project.definition.admin1pcode, { admin1pcode: l.admin1pcode }, true);
+          //   if ( !found.length ){
+          //     $scope.project.definition.admin1pcode.push( { admin1pcode: l.admin1pcode, admin1name: l.admin1name } );
+          //   }
+          //   var found = $filter('filter')( $scope.project.definition.admin2pcode, { admin2pcode: l.admin2pcode }, true);
+          //   if ( !found.length ){
+          //     $scope.project.definition.admin2pcode.push( { admin2pcode: l.admin2pcode, admin2name: l.admin2name } );
+          //   }
+          //   if ( $scope.project.lists.admin3.length ) {
+          //     var found = $filter('filter')( $scope.project.definition.admin3pcode, { admin3pcode: l.admin3pcode }, true);
+          //     if ( !found.length ){
+          //       $scope.project.definition.admin3pcode.push( { admin3pcode: l.admin3pcode, admin3name: l.admin3name } );
+          //     }
+          //   }
+          //   if ( $scope.project.lists.admin4.length ) {
+          //     var found = $filter('filter')( $scope.project.definition.admin4pcode, { admin4pcode: l.admin4pcode }, true);
+          //     if ( !found.length ){
+          //       $scope.project.definition.admin4pcode.push( { admin4pcode: l.admin4pcode, admin4name: l.admin4name } );
+          //     }
+          //   }
 
-          });
+          // });
 
 
           // update target_beneficiaries

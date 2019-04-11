@@ -36,7 +36,8 @@
 							      <td>Location Name</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
-							    <tr ng-repeat="location in project.definition.target_locations track by $index">
+							    <tr ng-repeat="location in project.definition.target_locations | 
+							    									filter: { admin3name: 'Ward 9' } : true track by $index">
 							    	
 							    	<!-- icon -->
 							    	<td>

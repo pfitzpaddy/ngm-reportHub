@@ -255,7 +255,14 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
         getReportTitle: function( target_location ){
 
           // default admin 1,2
-          var title = target_location.admin1name + ', ' + target_location.admin2name;
+          var title = '';
+
+          // site_type_name
+          if ( target_location.site_type_name ) {
+            title += target_location.site_type_name + ': ';
+          }
+
+          title += target_location.admin1name + ', ' + target_location.admin2name;
 
           // admin levels 3,4,5
           if ( target_location.admin3name ) {
@@ -268,18 +275,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             title += ', ' + target_location.admin5name;
           }
 
-          // site_type_name
-          if ( target_location.site_type_name ) {
-            title += ', ' + target_location.site_type_name;
-          }
-
           // site_name
           title += ', ' + target_location.site_name;
-
-          // site_name_alternative
-          if ( target_location.site_name_alternative ) {
-            title += ' (' + target_location.site_name_alternative + ')';
-          }
 
           return title;
         },
@@ -576,10 +573,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					$scope.beneficiariesCount= 0;
 					$scope.trainingsCount = 0;
 					$scope.project.report.locations.forEach(function(l){
-						 $scope.beneficiariesCount += l.beneficiaries.length;
-						 if(l.trainings){
-							 $scope.trainingsCount += l.trainings.length;
-						 }						 
+            if ( l.beneficiaries && l.beneficiaries.length ) {
+  						 $scope.beneficiariesCount += l.beneficiaries.length;
+  						 if(l.trainings){
+  							 $scope.trainingsCount += l.trainings.length;
+  						 }
+             }						 
 					});
 					
 					if( $scope.project.report.report_status !== 'todo' || (( $scope.beneficiariesCount >0 ) || ( $scope.trainingsCount> 0 ) )){
