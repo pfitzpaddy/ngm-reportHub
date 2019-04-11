@@ -98,10 +98,18 @@
 						<!-- profile menu btn (implementing jQuery slideToggle() )-->
 						<div class="ngm-profile-menu">
 							<div class="ngm-profile-btn fixed-action-btn" align="right">
-								<a class="btn-floating btn-large"
+								<!-- <a class="btn-floating btn-large"
 										ng-class="{ 'waves-effect waves-teal waves-teal-lighten-4' : ngm.getUserName() !== 'welcome' }"
 										style="background: {{ ngm.style.defaultPrimaryColor }};">
 									<i class="ngm-profile-icon material-icons right">menu</i>
+								</a> -->
+								<a class="btn-floating btn-large" ng-class="{ 'waves-effect waves-teal waves-teal-lighten-4' : ngm.getUserName() !== 'welcome' }"
+								 style="background: {{ ngm.style.defaultPrimaryColor }};">
+									<div id="xmenu" class="ngm-profile-icon">
+										<span></span>
+										<span></span>
+										<span></span>
+									</div>
 								</a>
 							</div>
 							<!-- profile menu dropdown -->
