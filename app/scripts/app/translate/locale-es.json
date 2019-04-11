@@ -5,6 +5,26 @@
     "language":"IDIOMA",
     "welcome":"Bienvenido",
     "welcome_to":"Bienvenido a",
+    "welcome_back":"Bienvenido de regreso",
+    "email_sent_please_check_your_inbox":"Correo Enviado! Por favor Revise Su Bandeja de Entrada",
+    "your_email_is_being_prepared":"Su Correo está siendo Preparado!",
+    "time_to_create_a_project":"tiempo de crear un Proyecto!",
+    "success":"Éxito!",
+    "profile_updated":"Perfil actualizado!",
+    "error_try_again":"Error! Inténtelo de Nuevo!",
+    "user_deleted":"Usuario Eliminado!",
+    "almost_complete":"Casi completo!",
+     "now_set_your_login_details":"ahora establezca sus detalles de INICIO DE SESIÓN",
+     "last_item":"Último item!",
+     "add_immap_programme_details":"Agregar detalles del PROGRAMA iMMAP",
+
+
+
+
+
+
+
+
     "welcome_to_reporthub": "Bienvenido a ReportHub",
     "register":"Registro",
     "food_security":"Seguridad Alimentaria",
@@ -13,7 +33,7 @@
     "please_login_or_register_to_continue":"por favor INICIE SESIÓN o REGISTRESE para continuar",
     "please register to continue":"por favor registrese para continuar",
     "login_mayus" : "INICIO DE SESIÓN",
-    "logout_mayus" : "CERRAR SESIÓN",
+    "logout_mayus" : "CERRAR SESIÓN", 
     "my_home" : "MI INICIO",
     "immap_home" : "iMMAP INICIO",
     "my_admin" : "MI ADMIN",
@@ -108,6 +128,7 @@
        "district":"Distrito",
        "active_organizations":"Organizaciones Activas",
        "active_projects":"Proyectos Activos",
+       "completed_projects":"Proyectos Completos",
        "active_locations":"Ubicaciones Activas",
        "services_to_beneficiaries":"Servicios a Beneficiarios",
        "reset":"Restaurar",
@@ -498,6 +519,8 @@
         "save_monthly_report":"Guardar Reporte Mensual",
         "do_you_want_to_save":"Quieres Guardar",
         "not_selected":"No Seleccionado",
+
+        "selected":"Seleccionado...",
         "no_selection":"Sin Selección",
         "no_data_in_previous_report":"No hay datos en el reporte previo",
         "no_previous_report":"No hay reporte previo",

@@ -250,7 +250,7 @@ angular.module( 'ngmReportHub' )
 									// color: 'teal lighten-4',
 									color: 'blue lighten-1',
 									textColor: 'white-text',
-									title: 'Active Projects',
+									title: $filter('translate')('active_projects'),
 									icon: 'edit',
 									request: $scope.report.getProjectRequest( 'active' )
 								}
@@ -267,7 +267,7 @@ angular.module( 'ngmReportHub' )
 									// color: 'lime lighten-4',
 									color: 'blue lighten-1',
 									textColor: 'white-text',
-									title: 'Completed Projects',
+									title: $filter('translate')('completed_projects'),
 									icon: 'done',
 									request: $scope.report.getProjectRequest( 'complete' )
 								}

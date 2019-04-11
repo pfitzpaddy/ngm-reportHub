@@ -21,13 +21,14 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
     '$http',
     '$location',
     '$timeout',
-    '$filter',
+     '$filter',
     '$q',
     'ngmAuth',
     'ngmUser',
     'ngmData',
     'config',
-    function( $scope, $http, $location, $timeout, $filter, $q, ngmAuth, ngmUser, ngmData, config){
+    '$translate',
+    function( $scope, $http, $location, $timeout, $filter , $q, ngmAuth, ngmUser, ngmData, config,$translate){
 
       // project
       $scope.panel = {
@@ -128,7 +129,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                 // go to default org page
                 $location.path( result.app_home );
                 $timeout( function(){
-                  Materialize.toast( 'Welcome back ' + result.username + '!', 3000, 'note' );
+                  Materialize.toast( $filter('translate')('welcome_back')+' ' + result.username + '!', 3000, 'note' );
                 }, 2000);
               }
 
@@ -167,13 +168,13 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             
             if ( data.success ) {
               // success message
-              Materialize.toast( 'Success! User Deleted!', 6000, 'success' );
+              Materialize.toast( $filter('translate')('success')+' '+$filter('translate')('user_deleted'), 6000, 'success' );
               $timeout( function(){
                 var path = ( ngmUser.get().organization === 'iMMAP' && ( ngmUser.get().admin0pcode === 'CD' || ngmUser.get().admin0pcode === 'ET' ) ) ? '/immap/team' : '/team';
                 $location.path( path );
               }, 1000 );
             } else {
-              Materialize.toast( 'Error! Try Again!', 6000, 'error' );
+              Materialize.toast( $filter('translate')('error_try_again'), 6000, 'error' );
             }
 
           });
@@ -216,7 +217,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                   ngmUser.set( $scope.panel.user );
                 }
                 // success message
-                Materialize.toast( 'Success! Profile updated!', 6000, 'success' );
+                Materialize.toast( $filter('translate')('success')+' '+$filter('translate')('profile_updated'), 6000, 'success' );
                 $timeout( function(){
                   
                   // activate btn
@@ -265,7 +266,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               // go to default org page
               $location.path( result.app_home );
               $timeout( function(){
-                Materialize.toast( 'Welcome ' + result.username + ', time to create a Project!', 3000, 'success' );
+                Materialize.toast( $filter('translate')('welcome')+' ' + result.username + ', '+$filter('translate')('time_to_create_a_project') , 3000, 'success' );
               }, 2000);
             }
 
@@ -284,7 +285,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
             // user toast msg
             $timeout(function(){
-              Materialize.toast('Your Email Is Being Prepared!', 3000, 'note');
+              Materialize.toast($filter('translate')('your_email_is_being_prepared'), 3000, 'note');
             }, 400);
 
             // resend password email
@@ -298,7 +299,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
                 // user toast msg
                 $timeout(function(){
-                  Materialize.toast('Email Sent! Please Check Your Inbox', 3000, 'success');
+                  Materialize.toast($filter('translate')('email_sent_please_check_your_inbox'), 3000, 'success');
                 }, 400);
 
               }).error(function( err ) {
@@ -333,7 +334,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
               // user toast msg
               $timeout(function(){
-                Materialize.toast( 'Welcome back ' + result.username + '!', 3000, 'note' );
+                Materialize.toast( $filter('translate')('welcome_back')+' ' + result.username + '!', 3000, 'note' );
               }, 2000);
 
 
@@ -393,13 +394,13 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               // update icon
               $( '.organization_symbol' ).css({ 'color': 'teal' });
               // toast
-              Materialize.toast( org.organization + '<br/>' + org.organization_name + ' Selected...', 4000, 'note' );
+              Materialize.toast( org.organization + '<br/>' + org.organization_name + ' '+$filter('translate')('selected'), 4000, 'note' ); 
             } else {
               if ( $scope.panel.user.organization === 'UNHCR' || $scope.panel.user.organization === 'IOM' ) {
                 // update icon
                 $( '.organization_symbol' ).css({ 'color': 'teal' });
                 // toast
-                Materialize.toast( org.organization + '<br/>' + org.organization_name + ' Selected...', 4000, 'note' );
+                Materialize.toast( org.organization + '<br/>' + org.organization_name + ' '+$filter('translate')('selected'), 4000, 'note' );
               } else {
                 Materialize.toast( 'Only UNHCR or IOM Can Register in R&R Chapter!', 6000, 'error' );
               }
