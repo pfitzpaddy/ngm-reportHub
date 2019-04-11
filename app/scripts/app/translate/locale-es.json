@@ -69,6 +69,14 @@
     "select_country" : "Seleccionar País",
     "select_organization" : "Seleccionar Organización",
     "sectors_mayus":"Sectores",
+    "sector_partners":"Socios del Sector",
+    "regional":"Regional",
+    "regional_partners":"Socios Regionales",
+    "global_team":"Equipo Global",
+    "hq_reporthub_partners":"Socios HQ ReportHub",
+    "partners":"Socios",
+
+
     "select_sector" : "Seleccionar Sector",
     "select_station":"Seleccionar Estación",
     "multi_purpose_cash" : "Dinero Multi-Propósito",
@@ -115,11 +123,14 @@
        "project":"proyecto",
        "go_to" : "Ir a",
        "team" : "Equipo",
+       "team_mayus1":"Equipo",
        "view_team" : "Ver Equipo",
        "back_to_organization":"Regresar a Organización",
+
        "add_new_project":"Agregar Nuevo Proyecto",
        "projects_for":"proyectos para",
-       "download_project_summaries_as_CSV":"Descargar Resúmenes de Proyectos como CSV",
+        "projects_for_mayus1":"Projectos para",
+
        "download_dashboard_as_pdf":"Descargar Dashboard como PDF",
        "download_cluster_contact_list_as_csv":"Descargar Lista de Contactos del Cluster como CSV",
        "for":"para",
@@ -135,6 +146,7 @@
        "back_to_team":"Regresar a Equipo",
 
        "all_mayus":"TODO",
+       "all_min1":"Todos",
        "update_project":"Actualización de proyecto",
        "updated":"Actualizado",
        "overview_for":"resumen para",
@@ -145,6 +157,7 @@
        "you_have":"Usted tiene",
        "active_staff":"Personal Activo",
        "active_users":"Usuarios Activos",
+       "users":"Usuarios",
        "desactivated_users":"Usuarios Desactivados",
        "name_mayus":"Nombre",
        "update_photo":"Actualizar Foto",
@@ -301,6 +314,12 @@
           "countries_mayus":"Países",
           "reports_completed":"Reportes Completos",
          "organizations":"Organizaciones",
+         "documents":"Documentos",
+          "download_all_document_project":"Descargar toda la documentación del proyecto",
+         "file_uploaded":"Archivo cargado!",
+
+
+
          "total_projects":"Total de Proyectos",
          "from":"desde",
          "to":"hasta",
@@ -354,12 +373,19 @@
         "from_list":"Lista de Origenes",
         "site_name":"Nombre del Sitio",
         "save":"Guardar",
+         "delete":"eliminar",
+        "deleting":"Eliminando...",
+
+
         "delete_mayus1":"Eliminar",
         "add_row":"Agregar fila",
         "save_mayus":"Guardar",
         "cancel_mayus":"Cancelar",
         "active":"Activo",
-        "complete":"Completo",
+        "complete":"Completo!",
+         "drag_files_here_or_click_button_to_upload":"Arrastre los archivos aquí ó haga click en el botón para cargar",
+        "upload_canceled":"Carga cancelada",
+
         "re_directing_to_dashboard":"Re-dirigiendo a dashboard...",
         "data_processing_error_please_check_the":"Error en procesamiento de Datos, por favor revise la ",
         "and_try_again":"e intente de nuevo",
@@ -368,7 +394,7 @@
 
 
         "mark_project_as_complete":"Marcar Proyecto como COMPLETO",
-        "are_you_sure_you_want_to_mark_this_project_as_complete":"Está seguro que quiere marcar este PROYECTO como 'COMPLETO'",
+        "are_you_sure_you_want_to_mark_this_project_as_complete":"Está seguro que quiere marcar este PROYECTO como 'COMPLETO'", 
         "yes_project_complete":"Si, proyecto completo",
         "delete_project":"Eliminar Proyecto",
         "are_you_sure_you_want_to_delete_this_project_and_all_its_associated_data":"Está seguro que quiere ELIMINAR este PROYECTO y todos los datos asociados",
@@ -531,8 +557,11 @@
 
         "processing_report":"Procesando Reporte...",
         "please_correct_the_row_and_try_again":"Por favor corrija la FILA y intenta de nuevo",
-        "drag_files_here_or_click_to_upload":"Arrastre los archivos aquí ó haga click para subir",
-        "uploading":"Subiendo...",
+        "drag_files_here_or_click_to_upload":"Arrastre los archivos aquí ó haga click para cargar",
+        "uploading":"Cargando...",
+        "error_file_not_deleted":"Error, Archivo no Eliminado!",
+        "upload":"cargar",
+
 
          "project_budget_item_removed":"Ítem de Presupuesto del Proyecto Eliminado",
          "project_budget_item_added":"Ítem de Presupuesto del Proyecto Agregado",
