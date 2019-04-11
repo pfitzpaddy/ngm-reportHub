@@ -411,7 +411,8 @@ angular.module('ngmReportHub')
 			logout: function() {
 
 				// rotate icon
-				$('.ngm-profile-icon').toggleClass('rotate');
+				// $('.ngm-profile-icon').toggleClass('rotate');
+				$('.ngm-profile-icon').toggleClass('open');
 				// set class
 				$('.ngm-profile').toggleClass('active');
 				$('.ngm-profile-menu-content').toggleClass('active');
