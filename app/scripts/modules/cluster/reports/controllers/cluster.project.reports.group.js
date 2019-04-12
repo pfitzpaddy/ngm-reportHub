@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterProjectReportGroupCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser','$translate','$filter', function ($scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter) {
+	.controller('ClusterProjectReportGroupCtrl', ['$scope', '$route', '$http', '$q', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser','$translate','$filter', function ($scope, $route, $http, $q, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -28,6 +28,24 @@ angular.module('ngmReportHub')
 			// current report
 			report: 'report' + $location.$$path.replace(/\//g, '_') + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
 
+			// get project
+			getProject: $http({
+				method: 'POST',
+				url: ngmAuth.LOCATION + '/api/cluster/project/getProject',
+				data: {
+					id: $route.current.params.project
+				}
+			}),
+
+			// get report
+			getReport: $http({
+				method: 'POST',
+				url: ngmAuth.LOCATION + '/api/cluster/report/getReportOnly',
+				data: {
+					id: $route.current.params.report
+				}
+			}),
+
 			// the header navigation settings
 			getHeaderHtml: function(){
 				var html = '<div class="row">'
@@ -47,8 +65,11 @@ angular.module('ngmReportHub')
 			// set project details
 			setProjectDetails: function(data){
 
-				// assign data
-				$scope.report.project = data;
+				// project
+				$scope.report.project = data[0].data;
+
+				// report
+				$scope.report.definition = data[1].data;
 
 				// add project code to subtitle?
 				var text = $filter('translate')('actual_monthly_beneficiaries_report_for')+' ' + $scope.report.project.project_title
@@ -120,32 +141,34 @@ angular.module('ngmReportHub')
 								type: 'html',
 								config: {
 									project: $scope.report.project,
-									report_id: $route.current.params.report,
-									report:{
+									report: $scope.report.definition,
+									// submit
+									submit_update:function( obj, redirect ){
 
-										// submit
-										submit_monthly:function(){
+										// materialize
+										$timeout(function(){ Materialize.toast( 'Processing...', 120000, 'note' ); }, 400 );
 
-											// materialize
-											$timeout(function(){ Materialize.toast( 'Processing...', 120000, 'note' ); }, 400 );
+										// Run page get project
+										ngmData.get({
+											method: 'POST',
+											url: ngmAuth.LOCATION + '/api/cluster/report/updateReportStatus',
+											data: {
+												report_id: $route.current.params.report,
+												update: obj
+											}
+										}).then(function(data){
 											
-											// Run page get project
-											ngmData.get({
-												method: 'POST',
-												url: ngmAuth.LOCATION + '/api/cluster/report/updateReportStatus',
-												data: {
-													report_id: $route.current.params.report,
-													report_status: 'complete'
-												}
-											}).then(function(data){
-												
-												// remove and redirect
-												$('.toast').remove();
-												$timeout(function(){ Materialize.toast( 'Repor', 6000, 'success' ); }, 400 );
+											// remove and redirect
+											$('.toast').remove();
+              				// user msg
+			              	var msg = $filter('translate')('project_report_for')+'  ' + moment.utc( $scope.report.definition.reporting_period ).format('MMMM, YYYY') + ' ';
+			                 		msg += redirect ? $filter('translate')('submitted')+'!' : $filter('translate')('saved_mayus1')+'!';
+											$timeout(function(){ Materialize.toast( msg, 6000, 'success' ); }, 400 );
+											if ( redirect ) {
 												$location.path( '/cluster/projects/report/' + $route.current.params.project );
-												
-											});
-										}
+											}
+											
+										});
 									},
 									templatesUrl: '/scripts/modules/cluster/views/forms/report/',
 									notesUrl: 'notes.html',
@@ -176,16 +199,21 @@ angular.module('ngmReportHub')
 
 		}
 
-		// Run page get project
-		ngmData.get({
-			method: 'POST',
-			url: ngmAuth.LOCATION + '/api/cluster/project/getProject',
-			data: {
-				id: $route.current.params.project
-			}
-		}).then(function(data){
-			// assign data
-			$scope.report.setProjectDetails(data);
+		// assign to ngm app scope
+		$scope.report.ngm.dashboard.model = $scope.model;
+
+		// taost for user
+		$timeout( function() { Materialize.toast( 'Loading Monthly Groups...', 120000, 'success' ); }, 400 );
+
+		// send request
+		$q.all([ $scope.report.getProject, $scope.report.getReport ]).then( function( results ){
+
+			// remove toast
+			$('.toast').remove();
+
+			// assign
+			$scope.report.setProjectDetails( results );
+
 		});
 		
 	}]);

@@ -5,7 +5,7 @@
 <!-- bind html -->
 <div class="row">
 	<div ng-repeat="location in panel.project.location_groups">
-		<a href="#/cluster/projects/report/{{ panel.project.id }}/{{ panel.report_id }}/{{ location.location_group_id }}">
+		<a href="#/cluster/projects/report/{{ panel.project.id }}/{{ panel.report.id }}/{{ location.location_group_id }}">
 	    <div class="col s12 m3">
 	      <div class="card blue-grey darken-1 hoverable">
 	        <div class="card-image">
@@ -22,42 +22,64 @@
 	</div>
 </div>
 
-<div class="row">
+<div class="row remove">
 
 	<div class="col s12">
-		
-		<!-- Project beneficiaries details -->
-		<div class="slide-animate" ng-include="panel.templatesUrl + panel.notesUrl"></div>
 
-		<!-- form submission -->
-		<div class="row remove" ng-if="true">
-			<div class="col s12 m12 l12">
-				<div class="widget card-panel white grey-text text-darken-2">			
-					
-					<!-- submission !== NG -->
-					<div align="center">
-						
-						<!-- validation -->
-						<!-- monthly report -->
-						<button ng-if="!project.location_group"
-											class="waves-effect waves-light btn blue"
-											ng-click="panel.report.submit_monthly()"
-											ng-cloak>
-							<i class="material-icons left">assignment_turned_in</i>{{'submit_monthly_progress'|translate}}
+		<div class="widget card-panel">
 
-						</button>
+	    <div class="input-field">
+	      <textarea 
+	      	id="ngm-project-notes" 
+	      	type="text" 
+	      	class="validate materialize-textarea"
+	      	name="notes"
+					ng-model="panel.report.notes"
+					ng-disabled="panel.report.report_status === 'complete'">
+				</textarea>
+	      <label for="ngm-project-notes">{{'monthly_notes_&_comments' | translate}}</label>
+	    </div>
 
-						<!-- cancel new  -->
-						<button class="waves-effect waves-light btn grey modal-trigger" 
-											data-target="list-modal">{{'cancel_mayus' | translate}}
-						</button>
+	    <button class="btn" 
+	    				ng-if="panel.report.report_status !== 'complete'"
+	    				ng-click="panel.submit_update( { notes: panel.report.notes }, false )"
+	    				style="margin:10px 10px;">
+	    	<i class="material-icons left">save</i>{{'save_notes' |translate}}
+	    </button>
 
-					</div>				
-
-				</div>
-			</div>
-		</div>
+	  </div>
 
 	</div>
 
 </div>
+
+<div class="row remove" ng-if="panel.report.report_status !== 'complete'">
+	
+	<div class="col s12">
+		<div class="widget card-panel">
+			
+			<!-- submission -->
+			<div align="center">
+				
+				<!-- validation -->
+				<!-- monthly report -->
+				<button ng-if="!project.location_group"
+									class="waves-effect waves-light btn blue"
+									ng-click="panel.submit_update( { report_status: 'complete' }, true )"
+									ng-cloak>
+					<i class="material-icons left">assignment_turned_in</i>{{'submit_monthly_progress'|translate}}
+
+				</button>
+
+				<!-- cancel new  -->
+				<button class="waves-effect waves-light btn grey modal-trigger" 
+									data-target="list-modal">{{'cancel_mayus' | translate}}
+				</button>
+
+			</div>				
+
+		</div>
+	</div>
+
+</div>
+
