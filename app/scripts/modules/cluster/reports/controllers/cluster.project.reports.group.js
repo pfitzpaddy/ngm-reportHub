@@ -1,12 +1,12 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:ClusterProjectReportsListCtrl
+ * @name ngmReportHubApp.controller:ClusterProjectReportGroupCtrl
  * @description
- * # ClusterProjectReportsListCtrl
+ * # ClusterProjectReportGroupCtrl
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterProjectReportsListCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser','$translate','$filter', function ($scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter) {
+	.controller('ClusterProjectReportGroupCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser','$translate','$filter', function ($scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -33,8 +33,8 @@ angular.module('ngmReportHub')
 				var html = '<div class="row">'
 										+'<div class="col s12 m12 l12">'
 											+'<div style="padding:20px;">'
-												+'<a class="btn-flat waves-effect waves-teal" href="#/cluster/projects/summary/' + $scope.report.project.id +'">'
-													+'<i class="material-icons left">keyboard_return</i>'+$filter('translate')('back_to_project_summary')
+												+'<a class="btn-flat waves-effect waves-teal" href="#/cluster/projects/report/' + $scope.report.project.id +'">'
+													+'<i class="material-icons left">keyboard_return</i>'+$filter('translate')('back_to_project_reports')
 												+'</a>'
 												+'<span class="right" style="padding-top:8px;">'+$filter('translate')('last_updated')+': ' + moment( $scope.report.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) +'</span>'
 											+'</div>'
@@ -42,34 +42,6 @@ angular.module('ngmReportHub')
 									+'</div>';
 
 				return html;
-			},
-
-			// return default template or Somalia template
-			getReportTemplate: function(){
-				var tmpl = '/scripts/widgets/ngm-list/template/report.html';
-				if ( $scope.report.project.admin0pcode === 'SO' ) {
-					tmpl = '/scripts/widgets/ngm-list/template/report_somalia.html';
-				}
-				return tmpl;
-			},
-
-			// return default template or Somalia template
-			getReportFilter: function( obj ){
-				if ( $scope.report.project.admin0pcode === 'SO' ) {
-					var so = { reporting_period: { '>=': '2018-12-01' } };
-					angular.merge(obj, so);
-				}
-				return obj;
-			},
-
-			// return url for report or summary page 
-			getReportUrl: function(){
-				// report
-				var report_url = '#/cluster/projects/report';
-				if ( $scope.report.project.location_groups_check ) {
-					report_url = '#/cluster/projects/group';
-				}
-				return report_url;
 			},
 
 			// set project details
@@ -145,58 +117,17 @@ angular.module('ngmReportHub')
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
-								type: 'list',
-								card: 'white grey-text text-darken-2',
+								type: 'html',
 								config: {
-									titleIcon: 'alarm_on',
-									color: 'indigo lighten-1',
-									textColor: 'white-text',
-									title: $filter('translate')('progress_update_todo'),
-									hoverTitle: $filter('translate')('update'),
-									icon: 'edit',
-									rightIcon: 'watch_later',
-									report_url: $scope.report.getReportUrl(),
-									templateUrl: $scope.report.getReportTemplate(),
-									orderBy: 'reporting_due_date',
-									format: true,
-									request: {
-										method: 'POST',
-										url: ngmAuth.LOCATION + '/api/cluster/report/getReportsList',
-										data: {
-											filter: $scope.report.getReportFilter({ project_id: $scope.report.project.id, report_active: true, report_status: 'todo' })
-										}
-									}
+									project: $scope.report.project,
+									report_id: $route.current.params.report,
+									templatesUrl: '/scripts/modules/cluster/views/forms/report/',
+									notesUrl: 'notes.html',
+									uploadUrl: 'report-upload.html',
+									templateUrl: '/scripts/modules/cluster/views/forms/report/report.group.html',
 								}
 							}]
 						}]
-					},{
-						columns: [{
-							styleClass: 's12 m12 l12',
-							widgets: [{
-								type: 'list',
-								card: 'white grey-text text-darken-2',
-								config: {
-									titleIcon: 'done_all',
-									color: 'indigo lighten-1',
-									textColor: 'white-text',
-									title: $filter('translate')('progress_update_complete'),
-									hoverTitle: 'View',
-									icon: 'done',
-									rightIcon: 'check_circle',
-									report_url: $scope.report.getReportUrl(),
-									templateUrl: $scope.report.getReportTemplate(),
-									orderBy: '-reporting_due_date',
-									format: true,
-									request: {
-										method: 'POST',
-										url: ngmAuth.LOCATION + '/api/cluster/report/getReportsList',
-										data: {
-											filter: $scope.report.getReportFilter({ project_id: $scope.report.project.id, report_active: true, report_status: 'complete' })
-										}
-									}
-								}
-							}]
-						}]						
 					},{
 						columns: [{
 							styleClass: 's12 m12 l12',
@@ -217,10 +148,9 @@ angular.module('ngmReportHub')
 
 			}			
 
-		}		
+		}
 
-		// Run page
-		// return project
+		// Run page get project
 		ngmData.get({
 			method: 'POST',
 			url: ngmAuth.LOCATION + '/api/cluster/project/getProject',

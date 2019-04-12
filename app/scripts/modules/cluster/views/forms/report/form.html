@@ -235,10 +235,13 @@
 		<div style="padding:20px;">
 			
 			<!--  -->
-			<button class="waves-effect waves-teal btn-flat" ng-click="project.modalConfirm( 'list-modal' )">
-				<i class="material-icons left">keyboard_return</i>{{'back_to_project_progress'|translate}}
-
+			<button ng-if="!project.location_group" class="waves-effect waves-teal btn-flat" ng-click="project.modalConfirm( 'list-modal' )">
+				<i class="material-icons left">keyboard_return</i>{{'back_to_reports'|translate}}
 			</button>
+
+			<button ng-if="project.location_group" class="waves-effect waves-teal btn-flat" ng-click="project.modalConfirm( 'list-modal' )">
+				<i class="material-icons left">keyboard_return</i>{{'back_to_location_groups'|translate}}
+			</button>			
 
 			<span class="right" style="padding-top:8px;">{{'last_updated'|translate}}: {{ project.updatedAt }}</span>
 
@@ -255,10 +258,10 @@
 		<div class="slide-animate" ng-include="project.templatesUrl + project.locationsUrl"></div>
 
 		<!-- Project beneficiaries details -->
-		<div class="slide-animate" ng-include="project.templatesUrl + project.notesUrl"></div>
+		<div class="slide-animate" ng-if="!project.location_group" ng-include="project.templatesUrl + project.notesUrl"></div>
 
 		<!-- Upload documents -->
-		<div class="slide-animate"  ng-include="project.templatesUrl + project.uploadUrl"></div>
+		<div class="slide-animate" ng-if="!project.location_group" ng-include="project.templatesUrl + project.uploadUrl"></div>
 
 		<!-- form submission -->
 		<div class="row remove" ng-if="project.report.report_status !== 'complete'">
@@ -286,7 +289,8 @@
 						<br/>
 
 						<!-- monthly report -->
-						<button class="waves-effect waves-light btn blue"
+						<button ng-if="!project.location_group"
+											class="waves-effect waves-light btn blue"
 											ng-click="project.validateBeneficiariesDetailsForm( false, true, false )"
 											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
 																		!ngmClusterTrainings.trainingFormComplete( project.report.locations )"

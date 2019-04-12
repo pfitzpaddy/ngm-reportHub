@@ -315,6 +315,62 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
 
+        /**** TARGET LOCATIONS GROUPING MODAL ****/
+
+        // show report groupings option
+        showLocationGroupingsOption: function() {
+         
+          var display = false;
+
+          if ( $scope.project.definition.admin0pcode === 'CB' &&
+                ( $scope.project.definition.organization === 'WFP' ||
+                  $scope.project.definition.organization === 'FAO' ||
+                  $scope.project.definition.organization === 'OXFAM' ||
+                  $scope.project.definition.organization === 'SCI' ) ) {
+            display = true;
+          }
+
+          return display;
+        },
+
+        // display the location group in the form
+        showLocationGroup: function( $data, target_location ){
+          return ngmClusterLocations.showLocationGroup( $scope.project.lists, $data, target_location )
+        },
+
+        // manage modal
+        showLocationGroupingsModal: function( $event ) {
+
+          // prevrnt defaults
+          $event.preventDefault();
+          $event.stopPropagation();
+
+          // show modal
+          if ( $scope.project.definition.location_groups_check ) {
+            $( '#location-group-remove-modal' ).openModal({ dismissible: false });
+          } else {
+            $( '#location-group-add-modal' ).openModal({ dismissible: false });
+          }
+        },
+
+        // set to true
+        addLocationGroupdings: function() {
+          // add to project
+          $scope.project.definition.location_groups_check = true;
+        },
+
+        // manage modal
+        removeLocationGroupings: function() {
+          // remove from project
+          $scope.project.definition.location_groups_check = false;
+          // remove from target_locations
+          angular.forEach( $scope.project.definition.target_locations, function( l, i ){
+            // location group
+            delete l.location_group_id;
+            delete l.location_group_name;
+          });
+        },
+
 
         /**** TARGET LOCATIONS ( ngmClusterLocations.js ) ****/
 
@@ -822,68 +878,26 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // disable btn
           $scope.project.submit = false;
 
-          // groups
-          $scope.project.definition.category_type = [];
-          $scope.project.definition.beneficiary_type = [];
-          // $scope.project.definition.admin1pcode = [];
-          // $scope.project.definition.admin2pcode = [];
-          // $scope.project.definition.admin3pcode = [];
-
           // parse budget
           $scope.project.definition.project_budget += '';
           $scope.project.definition.project_budget = $scope.project.definition.project_budget.replace(',', '');
           $scope.project.definition.project_budget = parseFloat( $scope.project.definition.project_budget );
 
-          // add target_beneficiaries to projects
-          angular.forEach( $scope.project.definition.target_beneficiaries, function( b, i ){
+          // groups
+          $scope.project.definition.location_groups = [];
 
-            // update target_beneficiaries
-            $scope.project.definition.target_beneficiaries[i] =
-                  ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_beneficiaries[i] );
+                    
 
-            // add categories
-            var found = $filter('filter')( $scope.project.definition.category_type, { category_type_id: b.category_type_id }, true);
-            if ( !found.length ){
-              $scope.project.definition.category_type.push( { category_type_id: b.category_type_id, category_type_name: b.category_type_name } );
+          // add location_groups
+          angular.forEach( $scope.project.definition.target_locations, function( l, i ){
+            // location group
+            if ( l.location_group_id ) {
+              var found = $filter('filter')( $scope.project.definition.location_groups, { location_group_id: l.location_group_id }, true );
+              if ( !found.length ){
+                $scope.project.definition.location_groups.push( { location_group_id: l.location_group_id, location_group_name: l.location_group_name } );
+              }
             }
-            var found = $filter('filter')( $scope.project.definition.beneficiary_type, { beneficiary_type_id: b.beneficiary_type_id }, true);
-            if ( !found.length ){
-              $scope.project.definition.beneficiary_type.push( { beneficiary_type_id: b.beneficiary_type_id, beneficiary_type_name: b.beneficiary_type_name } );
-            }
-
           });
-
-          // add target_locations to projects to ensure simple filters
-          // angular.forEach( $scope.project.definition.target_locations, function( l, i ){
-
-          //   // push update activities
-          //   $scope.project.definition.target_locations[i] =
-          //         ngmClusterHelper.updateActivities( $scope.project.definition, $scope.project.definition.target_locations[i] );
-
-          //   // add distinct
-          //   var found = $filter('filter')( $scope.project.definition.admin1pcode, { admin1pcode: l.admin1pcode }, true);
-          //   if ( !found.length ){
-          //     $scope.project.definition.admin1pcode.push( { admin1pcode: l.admin1pcode, admin1name: l.admin1name } );
-          //   }
-          //   var found = $filter('filter')( $scope.project.definition.admin2pcode, { admin2pcode: l.admin2pcode }, true);
-          //   if ( !found.length ){
-          //     $scope.project.definition.admin2pcode.push( { admin2pcode: l.admin2pcode, admin2name: l.admin2name } );
-          //   }
-          //   if ( $scope.project.lists.admin3.length ) {
-          //     var found = $filter('filter')( $scope.project.definition.admin3pcode, { admin3pcode: l.admin3pcode }, true);
-          //     if ( !found.length ){
-          //       $scope.project.definition.admin3pcode.push( { admin3pcode: l.admin3pcode, admin3name: l.admin3name } );
-          //     }
-          //   }
-          //   if ( $scope.project.lists.admin4.length ) {
-          //     var found = $filter('filter')( $scope.project.definition.admin4pcode, { admin4pcode: l.admin4pcode }, true);
-          //     if ( !found.length ){
-          //       $scope.project.definition.admin4pcode.push( { admin4pcode: l.admin4pcode, admin4name: l.admin4name } );
-          //     }
-          //   }
-
-          // });
-
 
           // update target_beneficiaries
           $scope.project.definition.target_beneficiaries =
@@ -893,8 +907,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $scope.project.definition.target_locations =
               ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.project.definition.target_locations );
 
+
           // inform
-          Materialize.toast( $filter('translate')('processing'), 6000, 'note' );
+          Materialize.toast( $filter('translate')('processing'), 60000, 'note' );
 
           // details update
           $http({
@@ -915,6 +930,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               // add id to client json
               $scope.project.definition = angular.merge( $scope.project.definition, project );
               $scope.project.definition.update_dates = false;
+
+              $('.toast').remove();
 
               // save
               if( save_msg ){ Materialize.toast( save_msg , 3000, 'success' ); }

@@ -7,18 +7,21 @@
 				<li class="collection-header blue lighten-1">
 					<h5 class="report-work-title white-text">
 						<i class="material-icons left">person_pin</i>
-							<span class="beneficiary-count">{{ project.definition.target_locations.length | number }}</span> Project Target Locations
-						<!-- <i class="material-icons left">person_pin</i> Project Target Locations -->
+							<span class="beneficiary-count">{{ project.definition.target_locations.length | number }}</span> {{'project_target_locations' | translate}}
 					</h5>
 				</li>
 				<li class="collection-item avatar">
 
 					<p id="ngm-target_locations" style="padding:10px;">
-						Enter the TARGET LOCATIONS of your PROJECT in the form below;
+						{{'enter_the_target_locations_of_your_project_in_the_form_below' | translate}};
 					</p>
 
-					<p>
-						
+					<p ng-if="project.showLocationGroupingsOption()" style="padding-left:40px;cursor:pointer;">
+				      <input type="checkbox" class="filled-in" id="show_location_groupings"
+				      				ng-checked="project.definition.location_groups_check"
+					      			ng-click="project.showLocationGroupingsModal( $event )"/>
+				      <label style="color:#26a69a; font-weight:bold;" for="show_location_groupings">Create Location Groupings?</label>
+				      <p style="padding-left:75px;">Recommended for Project Plans with over 30 Target Locations!</p>
 					</p>
 
 					<div class="row">
@@ -28,6 +31,7 @@
 							    <tr style="font-weight: 400">
 							    	<td></td>
 							    	<td>Reporter</td>
+							    	<td ng-if="project.definition.location_groups_check">Location Group</td>
 							      <td>Location Type</td>
 							      <td>{{ project.lists.admin1[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
@@ -36,8 +40,7 @@
 							      <td>Location Name</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
-							    <tr ng-repeat="location in project.definition.target_locations | 
-							    									filter: { admin3name: 'Ward 9' } : true track by $index">
+							    <tr ng-repeat="location in project.definition.target_locations track by $index">
 							    	
 							    	<!-- icon -->
 							    	<td>
@@ -54,6 +57,18 @@
 							        				e-ng-options="item.username as item.username for item in project.lists.users" 
 							        				e-required>
 							          {{ project.showReporter( $data, location ) }}
+							        </span>
+							      </td>
+
+							    	<!-- editable repoting group -->
+							      <td ng-if="project.definition.location_groups_check">
+							        <span e-placeholder="Select..." 
+							        				editable-select="location.location_group_id" 
+							        				e-name="location_group_name" 
+							        				e-form="locationform" 
+							        				e-ng-options="item.location_group_id as item.location_group_name for item in project.lists.location_groups" 
+							        				e-required>
+							          {{ project.showLocationGroup( $data, location ) }}
 							        </span>
 							      </td>
 

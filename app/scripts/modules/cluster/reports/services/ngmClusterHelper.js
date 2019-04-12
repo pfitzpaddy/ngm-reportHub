@@ -191,19 +191,6 @@ angular.module( 'ngmReportHub' )
         return tag;
       },
 
-      // update activities for an object ( update )
-      updateActivities: function( project, update ){
-
-        // update activity_type / activity_description
-        update.project_title = project.project_title;
-        update.activity_type = project.activity_type;
-        update.beneficiary_type = project.beneficiary_type;
-        update.activity_description = project.activity_description;
-
-        //
-        return update;
-      },
-
       // compile cluster activities
       compileInterClusterActivities: function( project, lists ){
 

@@ -38,6 +38,9 @@ angular.module('ngmReportHub')
 
 			// placeholder
 			definition: {},
+
+			// location_group
+			location_group: $route.current.params.location_group,
 			
 			// current user
 			user: ngmUser.get(),
@@ -59,7 +62,8 @@ angular.module('ngmReportHub')
 				method: 'POST',
 				url: ngmAuth.LOCATION + '/api/cluster/report/getReport',
 				data: {
-					id: $route.current.params.report
+					id: $route.current.params.report,
+					location_group_id: $route.current.params.location_group
 				}
 			}),
 
@@ -159,7 +163,8 @@ angular.module('ngmReportHub')
 								config: {
 									style: $scope.report.ngm.style,
 									project: $scope.report.project,
-									report: $scope.report.definition
+									report: $scope.report.definition,
+									location_group: $scope.report.location_group
 								}
 							}]
 						}]
@@ -189,13 +194,10 @@ angular.module('ngmReportHub')
 		$scope.report.ngm.dashboard.model = $scope.model;
 
 		// taost for user
-		$timeout( function() { Materialize.toast( 'Loading Monthly Progress Report...', 120000, 'success' ); }, 1000 );
+		$timeout( function() { Materialize.toast( 'Loading Monthly Progress Report...', 3000, 'success' ); }, 1000 );
 
 		// send request
 		$q.all([ $scope.report.getProject, $scope.report.getReport ]).then( function( results ){
-
-			// remove toast
-			$( '.toast' ).remove();
 
 			// assign
 			$scope.report.setProjectDetails( results );

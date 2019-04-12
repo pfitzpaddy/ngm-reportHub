@@ -64,7 +64,8 @@
 
 						</div>
 
-						<div class="row" ng-repeat="location in project.report.locations" ng-init="$locationIndex=$index">
+						<div class="row" ng-repeat="location in project.report.locations | 
+															filter:{ location_group_id: project.location_group }" ng-init="$locationIndex=$index">
 
 							<div class="row">
 								<!-- location title -->
