@@ -128,7 +128,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                 // go to default org page
                 $location.path( result.app_home );
                 $timeout( function(){
-                  Materialize.toast( 'Welcome back ' + result.username + '!', 3000, 'note' );
+                  Materialize.toast( 'Welcome back ' + result.username + '!', 6000, 'note' );
                 }, 2000);
               }
 
@@ -265,7 +265,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               // go to default org page
               $location.path( result.app_home );
               $timeout( function(){
-                Materialize.toast( 'Welcome ' + result.username + ', time to create a Project!', 3000, 'success' );
+                Materialize.toast( 'Welcome ' + result.username + ', time to create a Project!', 6000, 'success' );
               }, 2000);
             }
 
@@ -284,7 +284,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
             // user toast msg
             $timeout(function(){
-              Materialize.toast('Your Email Is Being Prepared!', 3000, 'note');
+              Materialize.toast('Your Email Is Being Prepared!', 6000, 'note');
             }, 400);
 
             // resend password email
@@ -298,7 +298,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
                 // user toast msg
                 $timeout(function(){
-                  Materialize.toast('Email Sent! Please Check Your Inbox', 3000, 'success');
+                  Materialize.toast('Email Sent! Please Check Your Inbox', 6000, 'success');
                 }, 400);
 
               }).error(function( err ) {
@@ -333,7 +333,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
               // user toast msg
               $timeout(function(){
-                Materialize.toast( 'Welcome back ' + result.username + '!', 3000, 'note' );
+                Materialize.toast( 'Welcome back ' + result.username + '!', 6000, 'note' );
               }, 2000);
 
 

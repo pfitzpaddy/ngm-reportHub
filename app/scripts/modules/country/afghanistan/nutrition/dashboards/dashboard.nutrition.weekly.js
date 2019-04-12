@@ -231,7 +231,7 @@ angular.module('ngmReportHub')
 
 													// toast
 													$timeout( function(){ 
-														Materialize.toast( $filter('translate')('nutrition_reports_data_updated')+'!' , 4000, 'success' );
+														Materialize.toast( $filter('translate')('nutrition_reports_data_updated')+'!' , 6000, 'success' );
 														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 														$timeout( function(){
 															$route.reload();

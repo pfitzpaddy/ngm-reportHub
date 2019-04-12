@@ -116,16 +116,16 @@ angular.module( 'ngmReportHub' )
       },
 
       // show location group name
-      showLocationGroup: function( lists, $data, target_location ){
-        var selected = [];
-        target_location.location_group_id = $data;
-        if( target_location.username ) {
-          // filter selection
-          selected = $filter('filter')( lists.location_groups, { location_group_id: target_location.location_group_id }, true );
-          target_location.location_group_name = selected[0].location_group_name;
-        }
-        return selected && selected.length ? selected[0].location_group_name : '-';
-      },
+      // showLocationGroup: function( lists, $data, target_location ){
+      //   var selected = [];
+      //   target_location.location_group_id = $data;
+      //   if( target_location.username ) {
+      //     // filter selection
+      //     selected = $filter('filter')( lists.location_groups, { location_group_id: target_location.location_group_id }, true );
+      //     target_location.location_group_name = selected[0].location_group_name;
+      //   }
+      //   return selected && selected.length ? selected[0].location_group_name : '-';
+      // },
 
       // site implementation
       showSiteImplementation: function( lists, $data, target_location ){

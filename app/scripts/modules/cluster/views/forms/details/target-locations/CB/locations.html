@@ -20,7 +20,7 @@
 				      <input type="checkbox" class="filled-in" id="show_location_groupings"
 				      				ng-checked="project.definition.location_groups_check"
 					      			ng-click="project.showLocationGroupingsModal( $event )"/>
-				      <label style="color:#26a69a; font-weight:bold;" for="show_location_groupings">Create Location Groupings?</label>
+				      <label style="color:#26a69a; font-weight:bold;" for="show_location_groupings">Group Target Locations by Union?</label>
 				      <p style="padding-left:75px;">Recommended for Project Plans with over 30 Target Locations!</p>
 					</p>
 
@@ -31,7 +31,7 @@
 							    <tr style="font-weight: 400">
 							    	<td></td>
 							    	<td>Reporter</td>
-							    	<td ng-if="project.definition.location_groups_check">Location Group</td>
+							    	<!-- <td ng-if="project.definition.location_groups_check">Location Group</td> -->
 							      <td>Location Type</td>
 							      <td>{{ project.lists.admin1[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
@@ -61,7 +61,7 @@
 							      </td>
 
 							    	<!-- editable repoting group -->
-							      <td ng-if="project.definition.location_groups_check">
+<!-- 							      <td ng-if="project.definition.location_groups_check">
 							        <span e-placeholder="Select..." 
 							        				editable-select="location.location_group_id" 
 							        				e-name="location_group_name" 
@@ -70,7 +70,7 @@
 							        				e-required>
 							          {{ project.showLocationGroup( $data, location ) }}
 							        </span>
-							      </td>
+							      </td> -->
 
 
 							      <!-- site type -->
@@ -95,7 +95,7 @@
 							        				e-name="admin1pcode"
 							        				e-form="locationform"
 							        				e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1 | admin2CxbHostCommunityfilter"
-							        				e-ng-change="ngmCbLocations.changeLocation( 'admin1', location )"
+							        				e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin1', location )"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin1( project.lists, $index, $data, location ) }}
 							        </span>
@@ -112,7 +112,7 @@
 							        				e-form="locationform"
 							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | 
 							        											filter:{ admin1pcode: location.admin1pcode }"
-															e-ng-change="ngmCbLocations.changeLocation( 'admin2', location )"
+															e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin2', location )"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin2( project.lists, $index, $data, location ) }}
 							        </span>
@@ -126,7 +126,7 @@
 							        				e-form="locationform"
 							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | 
 							        											filter:{ admin1pcode: location.admin1pcode } | admin2CxbRefugeeCampfilter"
-															e-ng-change="ngmCbLocations.changeLocation( 'admin2', location )"
+															e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin2', location )"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin2( project.lists, $index, $data, location ) }}
 							        </span>
@@ -138,7 +138,7 @@
 							        				e-form="locationform"
 							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | 
 							        											filter:{ admin1pcode: location.admin1pcode } | admin2CxbHostCommunityfilter"
-							        				e-ng-change="ngmCbLocations.changeLocation( 'admin2', location )"
+							        				e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin2', location )"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin2( project.lists, $index, $data, location ) }}
 							        </span>
@@ -150,7 +150,7 @@
 							        				e-form="locationform"
 							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | 
 							        											filter:{ admin1pcode: location.admin1pcode } | admin2CycloneShelterCxbfilter"
-															e-ng-change="ngmCbLocations.changeLocation( 'admin2', location )"
+															e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin2', location )"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin2( project.lists, $index, $data, location ) }}
 							        </span>
@@ -178,7 +178,7 @@
 							        												admin3type_name: 'Ward',
 							        											}"
 							        				e-ng-disabled="!location.admin2pcode"
-							        				e-ng-change="ngmCbLocations.changeLocation( 'admin3', location )"
+							        				e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin3', location )"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin3( project.lists, $index, $data, location ) }}
 							        </span>
@@ -206,7 +206,7 @@
 							        												admin2pcode: location.admin2pcode,
 							        												admin3type_name: 'Camp',
 							        											}"
-															e-ng-change="ngmCbLocations.changeLocation( 'admin3', location )"
+															e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin3', location )"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin3( project.lists, $index, $data, location ) }}
 							        </span>

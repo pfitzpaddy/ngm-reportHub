@@ -121,6 +121,32 @@ angular.module('ngmReportHub')
 								config: {
 									project: $scope.report.project,
 									report_id: $route.current.params.report,
+									report:{
+
+										// submit
+										submit_monthly:function(){
+
+											// materialize
+											$timeout(function(){ Materialize.toast( 'Processing...', 120000, 'note' ); }, 400 );
+											
+											// Run page get project
+											ngmData.get({
+												method: 'POST',
+												url: ngmAuth.LOCATION + '/api/cluster/report/updateReportStatus',
+												data: {
+													report_id: $route.current.params.report,
+													report_status: 'complete'
+												}
+											}).then(function(data){
+												
+												// remove and redirect
+												$('.toast').remove();
+												$timeout(function(){ Materialize.toast( 'Repor', 6000, 'success' ); }, 400 );
+												$location.path( '/cluster/projects/report/' + $route.current.params.project );
+												
+											});
+										}
+									},
 									templatesUrl: '/scripts/modules/cluster/views/forms/report/',
 									notesUrl: 'notes.html',
 									uploadUrl: 'report-upload.html',

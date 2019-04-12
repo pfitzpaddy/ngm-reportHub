@@ -476,7 +476,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				
 				// entry copy previous report
 				copyPrevReport: function(){
-					Materialize.toast('Getting Data...', 1500, 'note');
+					Materialize.toast('Fetching Data...', 4000, 'note');
 					$scope.deactivedCopybutton = true;
 					$scope.addBeneficiaryDisable = true;
 					var setParam ={}
@@ -526,10 +526,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							}
 							$scope.deactivedCopybutton = false;
 							
-								Materialize.toast(msg, 3000, typ);
+								Materialize.toast(msg, 6000, typ);
 							
 						} else{
-							Materialize.toast('Copying ...', 1500, 'note');
+							Materialize.toast('Copying ...', 6000, 'note');
 							if ( !brows && trows > 0 ){
 									var msg = 'Copied Trainings ' + trows + ' rows';
 									typ = 'success';
@@ -557,14 +557,14 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								if(countNewLocation>0){
 									msg += " and "+countNewLocation+" location"
 								}
-								Materialize.toast(msg, 4000, typ);
-								Materialize.toast(info, 4500, 'note');
+								Materialize.toast(msg, 5500, typ);
+								Materialize.toast(info, 6000, 'note');
 							}, 1500);
 						}						
 						$scope.addBeneficiaryDisable = false;						
 						
 					}).catch(function (e){
-						Materialize.toast("Error, Not copied", 3000, 'error');
+						Materialize.toast("Error, Not copied", 6000, 'error');
 						$scope.addBeneficiaryDisable = false;
 						$scope.deactivedCopybutton = false;
 					})
@@ -602,7 +602,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					closeModal: function (modal) {
 						$('#' + modal).closeModal({ dismissible: true });
 						myDropzone.removeAllFiles(true);
-						Materialize.toast("Cancel to upload file", 2000, "note");
+						Materialize.toast("Cancel to upload file", 6000, "note");
 					},
 					params: {
 						project_id:config.project.id,
@@ -777,7 +777,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							// $('#exceed-file').openModal({ dismissible: false });
 							$('.dz-default.dz-message').html($scope.project.uploadDocument.dictMaxFilesExceeded);
 							document.querySelector(".dz-default.dz-message").style.display = 'block'
-							Materialize.toast("Too many file to upload",3000,"error")
+							Materialize.toast("Too many file to upload",6000,"error")
 							$("#upload_doc").attr("disabled", true);
 							document.getElementById("upload_doc").style.pointerEvents = "none";
 							$("#delete_doc").attr("disabled", true);
@@ -810,7 +810,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						// when sending file
 						myDropzone.on('sending', function (file) {
 							if (this.getUploadingFiles().length == 1) {
-								Materialize.toast('Uploading...', 3000, 'note');
+								Materialize.toast('Uploading...', 6000, 'note');
 							}
 							$("#upload_doc").attr("disabled", true);
 						});
@@ -833,7 +833,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
 							msg = "File Uploaded!";
 							typ = 'success';
-							Materialize.toast(msg, 2000, typ);
+							Materialize.toast(msg, 6000, typ);
 
 							document.querySelector(".percent-upload").style.display = 'none';
 							document.querySelector(".dz-default.dz-message").style.display = 'block';
@@ -846,15 +846,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						document.querySelector(".percent-upload").style.display = 'none';
 						if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 && !response.err){
 							typ = 'error';
-							Materialize.toast(response, 2000, typ);
+							Materialize.toast(response, 6000, typ);
 						}
 						if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 && response.err) {
 							myDropzone.removeAllFiles(true);
 							$timeout(function () {
 								typ = 'error';
-								Materialize.toast(response.err, 2000, typ);
+								Materialize.toast(response.err, 6000, typ);
 								if (response.err.indexOf('canceled') < 0) {
-									Materialize.toast('Upload canceled', 2000, typ);
+									Materialize.toast('Upload canceled', 6000, typ);
 								}
 							}, 500);
 						}
@@ -871,7 +871,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					},
 					removeFile: function () {
 						// IF API READY TO USE
-						Materialize.toast("Deleting...", 2000, 'note');
+						Materialize.toast("Deleting...", 6000, 'note');
 						$http({
 							method: 'DELETE',
 							url: ngmAuth.LOCATION + '/api/deleteGDriveFile/' + $scope.fileId,
@@ -881,7 +881,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								$timeout(function () {
 									msg = "File Deleted!";
 									typ = 'success';
-									Materialize.toast(msg, 2000, typ);
+									Materialize.toast(msg, 6000, typ);
 									// $rootScope.$broadcast('refresh:doclist');
 									$scope.project.getDocument();
 								}, 2000);
@@ -890,7 +890,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								$timeout(function () {
 									msg = "Error, File Not Deleted!";
 									typ = 'error';
-									Materialize.toast(msg, 2000, typ);
+									Materialize.toast(msg, 6000, typ);
 								}, 2000);
 							})
 					},
@@ -971,7 +971,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               ngmClusterHelper.getCleanReport( $scope.project.definition, $scope.project.report );
 
           // msg
-          Materialize.toast( $filter('translate')('processing_report') , 3000, 'note');
+          Materialize.toast( $filter('translate')('processing_report') , 6000, 'note');
 
           // setReportRequest
           var setReportRequest = {
@@ -999,7 +999,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
                   msg += complete ? $filter('translate')('submitted')+'!' : $filter('translate')('saved_mayus1')+'!';
 
               // msg
-              $timeout(function() { Materialize.toast( msg , 3000, 'success'); }, 600 );
+              $timeout(function() { Materialize.toast( msg , 6000, 'success'); }, 400 );
 
               // set trigger
               $('.modal-trigger').leanModal();
@@ -1010,13 +1010,21 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
                 // notification modal
                 if( display_modal ){
                   $timeout(function() {
-                    $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
+                    if ( $scope.project.location_group ) {
+                      $location.path( '/cluster/projects/group/' + $scope.project.definition.id + '/' + $scope.project.report.id );
+                    } else {
+                      $location.path( '/cluster/projects/report/' + $scope.project.definition.id );  
+                    }
                   }, 400);
                 }
 
               } else {
                 $timeout(function() {
-                  $location.path( '/cluster/projects/report/' + $scope.project.definition.id );
+                  if ( $scope.project.location_group ) {
+                    $location.path( '/cluster/projects/group/' + $scope.project.definition.id + '/' + $scope.project.report.id );
+                  } else {
+                    $location.path( '/cluster/projects/report/' + $scope.project.definition.id );  
+                  }
                 }, 400);
               }
             }

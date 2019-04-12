@@ -324,9 +324,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           if ( $scope.project.definition.admin0pcode === 'CB' &&
                 ( $scope.project.definition.organization === 'WFP' ||
-                  $scope.project.definition.organization === 'FAO' ||
-                  $scope.project.definition.organization === 'OXFAM' ||
-                  $scope.project.definition.organization === 'SCI' ) ) {
+                  $scope.project.definition.organization === 'FAO' ) ) {
             display = true;
           }
 
@@ -367,6 +365,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           angular.forEach( $scope.project.definition.target_locations, function( l, i ){
             // location group
             delete l.location_group_id;
+            delete l.location_group_type;
             delete l.location_group_name;
           });
         },
@@ -378,6 +377,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         addLocation: function() {
           $scope.inserted = ngmClusterLocations.addLocation( $scope.project.definition, $scope.project.definition.target_locations );
           $scope.project.definition.target_locations.push( $scope.inserted );
+          // autoset location groupings
+          if (  $scope.project.showLocationGroupingsOption() && $scope.project.definition.target_locations.length > 30  ) {
+            $scope.project.definition.location_groups_check = true;
+          }
+
         },
 
         // location edit
@@ -711,7 +715,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							document.querySelector(".dz-default.dz-message").style.display = 'none';
 							$('.dz-default.dz-message').html($scope.project.uploadDocument.dictMaxFilesExceeded);
 							document.querySelector(".dz-default.dz-message").style.display = 'block'
-							Materialize.toast("Too many file to upload", 3000, "error")
+							Materialize.toast("Too many file to upload", 6000, "error")
 							$("#upload_doc").attr("disabled", true);
 							document.getElementById("upload_doc").style.pointerEvents = "none";
 							$("#delete_doc").attr("disabled", true);
@@ -734,7 +738,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						// when sending file
 						myDropzone.on('sending', function (file) {
 							if (this.getUploadingFiles().length == 1) {
-								Materialize.toast('Uploading...', 3000, 'note');
+								Materialize.toast('Uploading...', 6000, 'note');
 							}
 							$("#upload_doc").attr("disabled", true);
 						});
@@ -757,7 +761,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
 							msg = "File Uploaded!";
 							typ = 'success';
-							Materialize.toast(msg, 2000, typ);
+							Materialize.toast(msg, 6000, typ);
 
 							document.querySelector(".percent-upload").style.display = 'none';
 							document.querySelector(".dz-default.dz-message").style.display = 'block';
@@ -770,15 +774,15 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						document.querySelector(".percent-upload").style.display = 'none';
 						if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 && !response.err) {
 							typ = 'error';
-							Materialize.toast(response, 2000, typ);
+							Materialize.toast(response, 6000, typ);
 						}
 						if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 && response.err) {
 							myDropzone.removeAllFiles(true);
 							$timeout(function () {
 								typ = 'error';
-								Materialize.toast(response.err, 2000, typ);
+								Materialize.toast(response.err, 6000, typ);
 								if (response.err.indexOf('canceled') < 0) {
-									Materialize.toast('Upload canceled', 2000, typ);
+									Materialize.toast('Upload canceled', 6000, typ);
 								}
 							}, 500);
 						}
@@ -795,7 +799,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					},
 					removeFile: function () {
 						// IF API READY TO USE
-						Materialize.toast("Deleting...", 2000, 'note');
+						Materialize.toast("Deleting...", 6000, 'note');
 						$http({
 							method: 'DELETE',
 							url: ngmAuth.LOCATION + '/api/deleteGDriveFile/' + $scope.fileId,
@@ -805,7 +809,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								$timeout(function () {
 									msg = "File Deleted!";
 									typ = 'success';
-									Materialize.toast(msg, 2000, typ);
+									Materialize.toast(msg, 6000, typ);
 									// $rootScope.$broadcast('refresh:doclist');
 									$scope.project.getDocument();
 								}, 2000);
@@ -814,7 +818,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								$timeout(function () {
 									msg = "Error, File Not Deleted!";
 									typ = 'error';
-									Materialize.toast(msg, 2000, typ);
+									Materialize.toast(msg, 6000, typ);
 								}, 2000);
 							})
 					},
@@ -886,7 +890,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // groups
           $scope.project.definition.location_groups = [];
 
-                    
 
           // add location_groups
           angular.forEach( $scope.project.definition.target_locations, function( l, i ){
@@ -894,7 +897,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             if ( l.location_group_id ) {
               var found = $filter('filter')( $scope.project.definition.location_groups, { location_group_id: l.location_group_id }, true );
               if ( !found.length ){
-                $scope.project.definition.location_groups.push( { location_group_id: l.location_group_id, location_group_name: l.location_group_name } );
+                $scope.project.definition.location_groups.push( { location_group_id: l.location_group_id, location_group_type: l.location_group_type, location_group_name: l.location_group_name } );
               }
             }
           });
@@ -934,7 +937,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               $('.toast').remove();
 
               // save
-              if( save_msg ){ Materialize.toast( save_msg , 3000, 'success' ); }
+              if( save_msg ){ Materialize.toast( save_msg , 6000, 'success' ); }
 
               // notification modal
               if( display_modal ){
@@ -948,7 +951,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
                 // save, redirect + msg
                 $timeout(function(){
                   $location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
-                  $timeout(function(){ Materialize.toast( msg, 3000, 'success' ); }, 600 );
+                  $timeout(function(){ Materialize.toast( msg, 6000, 'success' ); }, 400 );
                 }, 400 );
               }
             }
