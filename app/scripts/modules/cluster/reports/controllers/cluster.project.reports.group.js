@@ -203,7 +203,7 @@ angular.module('ngmReportHub')
 		$scope.report.ngm.dashboard.model = $scope.model;
 
 		// taost for user
-		$timeout( function() { Materialize.toast( 'Loading Monthly Groups...', 120000, 'success' ); }, 400 );
+		$timeout( function() { Materialize.toast( 'Loading Monthly Groups...', 12000, 'success' ); }, 400 );
 
 		// send request
 		$q.all([ $scope.report.getProject, $scope.report.getReport ]).then( function( results ){

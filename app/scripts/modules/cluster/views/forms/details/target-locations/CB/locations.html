@@ -27,7 +27,7 @@
 					<div class="row">
 						<div class="col s12 card">
 							<div style="padding-top: 10px; padding-left: 40px;">
-							  <table class="bordered responsive-table" ng-show="project.definition.target_locations.length">
+							  <table class="bordered responsive-table" ng-show="project.definition.target_locations.length | orderBy:[ 'site_type_name','admin1name','admin2name','admin3name','site_name' ]">
 							    <tr style="font-weight: 400">
 							    	<td></td>
 							    	<td>Reporter</td>
