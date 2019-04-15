@@ -77,7 +77,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // clear the Union on site type change
-      changeLocation: function( project, type, target_location) {
+      changeLocation: function( project, type, target_location ) {
           
         // admin1
         if ( type === 'admin1' ) {

@@ -355,6 +355,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         addLocationGroupdings: function() {
           // add to project
           $scope.project.definition.location_groups_check = true;
+          // add to target_locations
+          angular.forEach( $scope.project.definition.target_locations, function( l, i ){
+            // location group
+            l.location_group_id = l.admin2pcode;
+            l.location_group_type = l.admin2type_name;
+            l.location_group_name = l.admin2name;
+          });
         },
 
         // manage modal
@@ -385,9 +392,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
         // location edit
-        locationEdit: function( $index ) {
-          $scope.project.definition.target_locations[ $index ].update_location = true;
-        },
+        // locationEdit: function( $index ) {
+        //   $scope.project.definition.target_locations[ $index ].update_location = true;
+        // },
 
         // save location
         saveLocation: function() {
@@ -890,14 +897,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // groups
           $scope.project.definition.location_groups = [];
 
-
           // add location_groups
           angular.forEach( $scope.project.definition.target_locations, function( l, i ){
             // location group
-            if ( l.location_group_id ) {
-              var found = $filter('filter')( $scope.project.definition.location_groups, { location_group_id: l.location_group_id }, true );
+            if ( $scope.project.definition.location_groups_check ) {
+              var found = $filter('filter')( $scope.project.definition.location_groups, { location_group_id: l.admin2pcode }, true );
               if ( !found.length ){
-                $scope.project.definition.location_groups.push( { location_group_id: l.location_group_id, location_group_type: l.location_group_type, location_group_name: l.location_group_name } );
+                $scope.project.definition.location_groups.push( { location_group_id: l.admin2pcode, location_group_type: l.admin2type_name, location_group_name: l.admin2name } );
               }
             }
           });
