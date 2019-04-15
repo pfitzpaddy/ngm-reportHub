@@ -530,7 +530,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								Materialize.toast(msg, 6000, typ);
 							
 						} else{
-							Materialize.toast($filter('transalte')('copying'), 6000, 'note');
+							Materialize.toast($filter('translate')('copying'), 6000, 'note');
 							if ( !brows && trows > 0 ){
 									var msg = 'Copied Trainings ' + trows + ' rows';
 									typ = 'success';

@@ -115,7 +115,7 @@ angular.module('ngm.widget.dropzone', ['ngm.provider'])
             },
             function(data) {
               //
-              $('#dropzone-message').html('<i class="medium material-icons" style="color:#009688">error_outline</i><br/><h5 style="font-weight:300;">'+$filter('translate')('data_processing_error_please_check_the')+ $scope.dropzoneConfig.process.request.data.type.toUpperCase() + ' '+$filter('transalte')('and_try_again')+'!</h5></div>');
+              $('#dropzone-message').html('<i class="medium material-icons" style="color:#009688">error_outline</i><br/><h5 style="font-weight:300;">'+$filter('translate')('data_processing_error_please_check_the')+ $scope.dropzoneConfig.process.request.data.type.toUpperCase() + ' '+$filter('translate')('and_try_again')+'!</h5></div>');
             });
           }
 
