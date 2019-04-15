@@ -182,6 +182,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         // update profile
         update: function( reload ) {
 
+          // message
+          $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); }, 200 );
+
           // disable btns
           $scope.panel.btnDisabled = true;
 
@@ -202,6 +205,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           ngmAuth
             .updateProfile({ user: $scope.panel.user }).success(function( result ) {
 
+              // remove toast
+              $('.toast').remove();
+
               // db error!
               if( result.err || result.summary ){
                 var msg = result.msg ? result.msg : 'error!';
@@ -216,8 +222,10 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                   ngmUser.set( $scope.panel.user );
                 }
                 // success message
-                Materialize.toast( 'Success! Profile updated!', 6000, 'success' );
                 $timeout( function(){
+
+                  // 
+                  Materialize.toast( 'Success! Profile updated!', 6000, 'success' );
                   
                   // activate btn
                   $scope.panel.btnDisabled = false;
@@ -227,7 +235,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                     var path = ( ngmUser.get().organization === 'iMMAP' && ( ngmUser.get().admin0pcode === 'CD' || ngmUser.get().admin0pcode === 'ET' ) ) ? '/immap/team' : '/team';
                     $location.path( path );
                   }
-                }, 1000 );
+                }, 200 );
               }
 
             });
