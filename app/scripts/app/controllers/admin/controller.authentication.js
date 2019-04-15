@@ -224,14 +224,11 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                   ngmUser.set( $scope.panel.user );
                 }
                 // success message
-<<<<<<< HEAD
-                Materialize.toast( $filter('translate')('success')+' '+$filter('translate')('profile_updated'), 6000, 'success' );
-=======
->>>>>>> b1f502f19d350cc92660ff472cb9c31faf48d572
+
                 $timeout( function(){
 
                   // 
-                  Materialize.toast( 'Success! Profile updated!', 6000, 'success' );
+                  Materialize.toast( $filter('translate')('success')+' '+$filter('translate')('profile_updated'), 6000, 'success' );
                   
                   // activate btn
                   $scope.panel.btnDisabled = false;
@@ -279,11 +276,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               // go to default org page
               $location.path( result.app_home );
               $timeout( function(){
-<<<<<<< HEAD
-                Materialize.toast( $filter('translate')('welcome')+' ' + result.username + ', '+$filter('translate')('time_to_create_a_project') , 3000, 'success' );
-=======
-                Materialize.toast( 'Welcome ' + result.username + ', time to create a Project!', 6000, 'success' );
->>>>>>> b1f502f19d350cc92660ff472cb9c31faf48d572
+
+                Materialize.toast( $filter('translate')('welcome')+' ' + result.username + ', '+$filter('translate')('time_to_create_a_project'), 6000, 'success' );
               }, 2000);
             }
 
@@ -302,11 +296,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
             // user toast msg
             $timeout(function(){
-<<<<<<< HEAD
-              Materialize.toast($filter('translate')('your_email_is_being_prepared'), 3000, 'note');
-=======
-              Materialize.toast('Your Email Is Being Prepared!', 6000, 'note');
->>>>>>> b1f502f19d350cc92660ff472cb9c31faf48d572
+
+              Materialize.toast($filter('translate')('your_email_is_being_prepared'), 6000, 'note');
             }, 400);
 
             // resend password email
@@ -320,12 +311,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
                 // user toast msg
                 $timeout(function(){
-<<<<<<< HEAD
-                  Materialize.toast($filter('translate')('email_sent_please_check_your_inbox'), 3000, 'success');
-=======
-                  Materialize.toast('Email Sent! Please Check Your Inbox', 6000, 'success');
->>>>>>> b1f502f19d350cc92660ff472cb9c31faf48d572
-                }, 400);
+
+                  Materialize.toast($filter('translate')('email_sent_please_check_your_inbox'), 6000, 'success');                }, 400);
 
               }).error(function( err ) {
 
@@ -359,11 +346,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
               // user toast msg
               $timeout(function(){
-<<<<<<< HEAD
-                Materialize.toast( $filter('translate')('welcome_back')+' ' + result.username + '!', 3000, 'note' );
-=======
-                Materialize.toast( 'Welcome back ' + result.username + '!', 6000, 'note' );
->>>>>>> b1f502f19d350cc92660ff472cb9c31faf48d572
+
+                Materialize.toast( $filter('translate')('welcome_back')+' ' + + result.username + '!', 6000, 'note' );
               }, 2000);
 
 

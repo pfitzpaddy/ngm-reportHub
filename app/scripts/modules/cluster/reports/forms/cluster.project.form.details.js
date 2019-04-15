@@ -809,7 +809,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					removeFile: function () {
 						// IF API READY TO USE
 
-						Materialize.toast($filter('translate')('deleting', 6000, 'note');
+						Materialize.toast($filter('translate')('deleting'), 6000, 'note');
 						$http({
 							method: 'DELETE',
 							url: ngmAuth.LOCATION + '/api/deleteGDriveFile/' + $scope.fileId,

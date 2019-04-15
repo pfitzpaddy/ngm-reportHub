@@ -530,11 +530,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								Materialize.toast(msg, 6000, typ);
 							
 						} else{
-<<<<<<< HEAD
-							Materialize.toast($filter('transalte')('copying'), 1500, 'note');
-=======
-							Materialize.toast('Copying ...', 6000, 'note');
->>>>>>> b1f502f19d350cc92660ff472cb9c31faf48d572
+							Materialize.toast($filter('transalte')('copying'), 6000, 'note');
 							if ( !brows && trows > 0 ){
 									var msg = 'Copied Trainings ' + trows + ' rows';
 									typ = 'success';
@@ -569,11 +565,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						$scope.addBeneficiaryDisable = false;						
 						
 					}).catch(function (e){
-<<<<<<< HEAD
-						Materialize.toast($filter('translate')('error_not_copied'), 3000, 'error');
-=======
-						Materialize.toast("Error, Not copied", 6000, 'error');
->>>>>>> b1f502f19d350cc92660ff472cb9c31faf48d572
+
+						Materialize.toast($filter('translate')('error_not_copied'), 6000, 'error');
 						$scope.addBeneficiaryDisable = false;
 						$scope.deactivedCopybutton = false;
 					})
@@ -611,11 +604,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					closeModal: function (modal) {
 						$('#' + modal).closeModal({ dismissible: true });
 						myDropzone.removeAllFiles(true);
-<<<<<<< HEAD
-						Materialize.toast($filter('translate')('cancel_to_upload_file'), 2000, "note");
-=======
-						Materialize.toast("Cancel to upload file", 6000, "note");
->>>>>>> b1f502f19d350cc92660ff472cb9c31faf48d572
+
+						Materialize.toast($filter('translate')('cancel_to_upload_file'), 6000, "note");
 					},
 					params: {
 						project_id:config.project.id,
@@ -823,11 +813,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						// when sending file
 						myDropzone.on('sending', function (file) {
 							if (this.getUploadingFiles().length == 1) {
-<<<<<<< HEAD
-								Materialize.toast($filter('translate')('uploading'), 3000, 'note');
-=======
-								Materialize.toast('Uploading...', 6000, 'note');
->>>>>>> b1f502f19d350cc92660ff472cb9c31faf48d572
+
+								Materialize.toast($filter('translate')('uploading'), 6000, 'note');
 							}
 							$("#upload_doc").attr("disabled", true);
 						});
@@ -871,11 +858,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								typ = 'error';
 								Materialize.toast(response.err, 6000, typ);
 								if (response.err.indexOf('canceled') < 0) {
-<<<<<<< HEAD
-									Materialize.toast($filter('translate')('upload_canceled'), 2000, typ);
-=======
-									Materialize.toast('Upload canceled', 6000, typ);
->>>>>>> b1f502f19d350cc92660ff472cb9c31faf48d572
+
+									Materialize.toast($filter('translate')('upload_canceled'), 6000, typ);
 								}
 							}, 500);
 						}
@@ -892,11 +876,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					},
 					removeFile: function () {
 						// IF API READY TO USE
-<<<<<<< HEAD
-						Materialize.toast($filter('translate')('deleting'), 2000, 'note');
-=======
-						Materialize.toast("Deleting...", 6000, 'note');
->>>>>>> b1f502f19d350cc92660ff472cb9c31faf48d572
+
+						Materialize.toast($filter('translate')('deleting'), 6000, 'note');
 						$http({
 							method: 'DELETE',
 							url: ngmAuth.LOCATION + '/api/deleteGDriveFile/' + $scope.fileId,
