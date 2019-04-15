@@ -114,7 +114,7 @@ angular.module('ngmReportHub')
 									  project.project_status = 'active';
 
 									  // timeout
-									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 3000, 'note'); }, 200 ); 
+									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); }, 200 ); 
 
 									  // Submit project for save
 									  ngmData.get({
@@ -126,7 +126,7 @@ angular.module('ngmReportHub')
 									  }).then(function(data){
 									    // redirect on success
 									    $location.path( '/cluster/projects' );
-									    Materialize.toast( $filter('translate')('project_moved_to_active')+'!', 4000, 'success');
+									    Materialize.toast( $filter('translate')('project_moved_to_active')+'!', 6000, 'success');
 									  });
 
 									},
@@ -138,7 +138,7 @@ angular.module('ngmReportHub')
 									  project.project_status = 'complete';
 
 									  // timeout
-									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 3000, 'note'); }, 200 );
+									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); }, 200 );
 
 									  // Submit project for save
 									  ngmData.get({
@@ -150,12 +150,16 @@ angular.module('ngmReportHub')
 									  }).then(function(data){
 									    // redirect on success
 									    $location.path( '/cluster/projects' );
-									    Materialize.toast( $filter('translate')('project_market_as_complete_congratulations')+'!', 4000, 'success');
+									    Materialize.toast( $filter('translate')('project_market_as_complete_congratulations')+'!', 6000, 'success');
 									  });
 
 									},
 
 									deleteProject: function(project){
+
+									  // timeout
+									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 120000, 'note'); }, 200 ); 
+
 									  // Submit project for save
 									  $http({
 									    method: 'POST',
@@ -164,17 +168,21 @@ angular.module('ngmReportHub')
 									      project_id: project.id
 									    }
 									  }).success(function(data){
+
+									  	// toast
+									  	$('.toast').remove();
+
 									    // redirect on success
 									    if ( data.err ) {
-									    	Materialize.toast( $filter('translate')('project_delete_error_please_try_again'), 4000, 'error');
+									    	Materialize.toast( $filter('translate')('project_delete_error_please_try_again'), 6000, 'error');
 									    }
 									    if ( !data.err ){
 										    $location.path( '/cluster/projects' );
-										    Materialize.toast( $filter('translate')('project_deleted')+'!', 3000, 'success');
+										    Materialize.toast( $filter('translate')('project_deleted')+'!', 6000, 'success');
 									    }
 									  }).error(function(err){
 									    // redirect on success
-									    Materialize.toast( $filter('translate')('project_delete_error_please_try_again'), 4000, 'error');
+									    Materialize.toast( $filter('translate')('project_delete_error_please_try_again'), 6000, 'error');
 									  });
 									}
 

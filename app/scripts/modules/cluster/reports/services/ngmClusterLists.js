@@ -47,6 +47,7 @@ angular.module( 'ngmReportHub' )
           category_types: ngmClusterLists.getCategoryTypes(),
           beneficiary_types: ngmClusterLists.getBeneficiaries( moment( project.project_end_date ).year(), project.admin0pcode, project.cluster_id ),
           beneficiary_categories: ngmClusterLists.getBeneficiariesCategories(),
+          // location_groups: ngmClusterLists.getLocationGroups(),
           currencies: ngmClusterLists.getCurrencies( project.admin0pcode ),
           donors: ngmClusterLists.getDonors( project.admin0pcode, project.cluster_id ),
           partial_kits: ngmClusterLists.getPartialKits(),
@@ -3459,6 +3460,27 @@ angular.module( 'ngmReportHub' )
 
       },
 
+      // get location groups
+      // getLocationGroups: function(){
+
+      //   var groups = 12;
+      //   var locations = 20;
+
+      //   var location_groups = []
+      //   for( var i=1; i<=groups; i++ ){
+      //     var id = i.toString();
+      //     if ( id.length === 1 ) {
+      //       id = '0' + id;
+      //     }
+      //     location_groups.push({
+      //       location_group_id: 'location_group_' + id,
+      //       location_group_name: 'Location Group ' + id
+      //     });
+      //   }
+      //   return location_groups;
+
+      // },
+
       // get site implementation
       getSiteImplementation: function( admin0pcode, cluster_id ){
         var site_implementation = [];
@@ -3679,6 +3701,14 @@ angular.module( 'ngmReportHub' )
             cluster_id: ngmClusterLists.all_sectors_minus_wash,
             site_type_id: 'refugee_block',
             site_type_name: 'Refugee Block'
+          },{
+            cluster_id: [ 'fss' ],
+            site_type_id: 'food_distribution_point',
+            site_type_name: 'Food Distribution Point'
+          },{
+            cluster_id: [ 'fss' ],
+            site_type_id: 'retail_store',
+            site_type_name: 'Retail Store'
           },{
             cluster_id: [ 'fss' ],
             site_type_id: 'cyclone_shelter',

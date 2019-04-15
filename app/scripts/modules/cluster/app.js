@@ -238,7 +238,27 @@ angular
 						return ngmAuth.isAuthenticated();
 					}],
 				}
-			})			
+			})	
+			// project reports
+			.when( '/cluster/projects/report/:project/:report/:location_group', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ClusterProjectReportCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function( ngmAuth ) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
+			// project reports groupings
+			.when( '/cluster/projects/group/:project/:report', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'ClusterProjectReportGroupCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function( ngmAuth ) { 
+						return ngmAuth.isAuthenticated();
+					}],
+				}
+			})
 			// project financials
 			.when( '/cluster/projects/financials/:project', {
 				templateUrl: '/views/app/dashboard.html',

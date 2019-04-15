@@ -60,15 +60,16 @@ form {
 		          	</div>
 		          	<a href="https://en.gravatar.com/site/signup/" target="_blank" class="btn" style="bottom:30px;left:0px;position:absolute;">
 		          	{{'update_photo'|translate}}</a>
-
 		        	</div>
-		        	<div class="col s12 m7" style="padding-left:0px;">
-						    <h4>{{ panel.user.name }}</h4>
-						    <h5>{{ panel.user.position }}</h5>
-						    <p>{{ panel.user.cluster }} Sector, {{ panel.user.admin0name }}</p>
-						    <p>{{ panel.user.email }}</p>
-						    <p>{{ panel.user.phone }}</p>
-		        	</div>
+		        	<a href="#{{ panel.profileHref }}/{{ panel.user.username }}" title="Go To Profile">
+			        	<div class="col s12 m7" style="padding-left:0px;">
+							    <h4>{{ panel.user.name }}</h4>
+							    <h5>{{ panel.user.position }}</h5>
+							    <p style="color:#616161">{{ panel.user.cluster }} Sector, {{ panel.user.admin0name }}</p>
+							    <p style="color:#616161">{{ panel.user.email }}</p>
+							    <p style="color:#616161">{{ panel.user.phone }}</p>
+			        	</div>
+			        </a>
 		        </div>
 	        </div>
         </a>

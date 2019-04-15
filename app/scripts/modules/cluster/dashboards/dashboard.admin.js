@@ -1290,7 +1290,7 @@ angular.module('ngmReportHub')
 											},
 											removeFile: function () {
 												// IF API READY TO USE
-												Materialize.toast("Deleting...", 2000, 'note');
+												Materialize.toast("Deleting...", 6000, 'note');
 												$http({
 													method: 'DELETE',
 													url: ngmAuth.LOCATION + '/api/deleteGDriveFile/' + $scope.fileId,
@@ -1300,7 +1300,7 @@ angular.module('ngmReportHub')
 														$timeout(function () {
 															msg = "File Deleted!";
 															typ = 'success';
-															Materialize.toast(msg, 2000, typ);
+															Materialize.toast(msg, 6000, typ);
 															$rootScope.$broadcast('refresh:doclist');
 														}, 2000);
 													})
@@ -1308,7 +1308,7 @@ angular.module('ngmReportHub')
 														$timeout(function () {
 															msg = "Error, File Not Deleted!";
 															typ = 'error';
-															Materialize.toast(msg, 2000, typ);
+															Materialize.toast(msg, 6000, typ);
 														}, 2000);
 													})
 											},

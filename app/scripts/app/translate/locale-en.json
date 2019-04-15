@@ -28,6 +28,7 @@
        "preview":"Preview",
        "you_dont_have_documents_yet":"You don't have documents yet !",
        "upload_documents_for":"Upload Documents for",
+       "fetching_data":"Fetching Data...",
 
        "now_set_your_login_details":"Now set your LOGIN details",
        "last_item":"Last item!",
@@ -229,6 +230,8 @@
         "yes_remove_location":"Yes, Remove location",
         "project_location_saved":"Project Location Saved!",
         "back_to_projects":"Back to Projects",
+        "back_to_reports":"Back to Reports",
+        "back_to_location_groups": "Back to Location Groups",
         "back_to_project_summary":"Back to Project Summary",
         "last_updated":"Last Updated",
         "refresh_data":"Refresh Data",
@@ -552,6 +555,10 @@
         "yes_remove":"Yes, remove",
         "financial_reports_for":"Financial Reports for",
         "download_project_financial_report_as_csv":"Download Project Financial Report as CSV",
+        "add_location_groups": "Add Location Groups",
+        "remove_location_groups": "Remove Location Groups",
+        "add_location_groups_message": "Split Target Locations into Location Groups to make monthly reporting easier",
+        "remove_location_groups_message": "Are you sure you want to remove Location Groups from your project?",
         
 
         

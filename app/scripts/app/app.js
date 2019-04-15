@@ -370,7 +370,8 @@ angular
 							title: {
 								'class': 'col s12 m9 l9 report-title truncate',
 								style: 'font-size: 3.4rem; color: ' + $scope.ngm.style.defaultPrimaryColor,
-								title: ''
+								title: '',
+								subtitle: '',
 							},
 							// download: {
 							// 	'class': 'col s12 m3 l3 hide-on-small-only',

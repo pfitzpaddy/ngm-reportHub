@@ -329,9 +329,9 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 								var msg = $filter('translate')('copied')+' ' + nrows + ' '+$filter('transalte')('rows'),
 										typ = 'success';
 						}
-						Materialize.toast(msg, 3000, typ);
+						Materialize.toast(msg, 6000, typ);
 					}).catch(function (e) {
-						Materialize.toast($filter('translate')('error_not_copied'), 3000, 'error');
+						Materialize.toast($filter('translate')('error_not_copied'), 6000, 'error');
 					});
 
 				},
@@ -351,7 +351,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           $scope.report.report.report_submitted = moment().format();
 
           // msg
-					Materialize.toast( $filter('translate')('processing_stock_report') , 3000, 'note');
+					Materialize.toast( $filter('translate')('processing_stock_report') , 6000, 'note');
 
           // setReportRequest
           var setReportRequest = {
@@ -377,7 +377,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                 msg += complete ? $filter('translate')('submitted')+'!' : $filter('translate')('saved_mayus1')+'!';
 
             // msg
-            Materialize.toast( msg , 3000, 'success');
+            Materialize.toast( msg , 6000, 'success');
 						$('.modal-trigger').leanModal();
 
             // Re-direct to summary

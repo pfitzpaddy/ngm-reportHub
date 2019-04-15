@@ -347,7 +347,8 @@ angular.module('ngmReportHub')
 
 										myDropzone.on('sending',function(file){
 											if (this.getUploadingFiles().length == 1){
-												Materialize.toast($filter('translate')('uploading'),3000, 'note');
+
+												Materialize.toast($filter('translate')('uploading'), 6000, 'note');
 											}
 											$("#upload_doc").attr("disabled", true);
 											// $("#delete_doc").attr("disabled", true);
@@ -365,7 +366,7 @@ angular.module('ngmReportHub')
 										if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
 												msg = $filter('translate')('file_uploaded');
 												typ = 'success';
-												Materialize.toast(msg, 2000, typ);
+												Materialize.toast(msg, 6000, typ);
 											
 											document.querySelector(".percent-upload").style.display = 'none';
 											document.querySelector(".dz-default.dz-message").style.display = 'block';
@@ -381,7 +382,7 @@ angular.module('ngmReportHub')
 											$timeout(function () {
 
 												typ = 'error';
-												Materialize.toast(response, 2000, typ);
+												Materialize.toast(response, 6000, typ);
 												if(response.indexOf('canceled')<0){
 													Materialize.toast($filter('translate')('upload_canceled'), 2000,typ);
 												}
@@ -452,7 +453,7 @@ angular.module('ngmReportHub')
 														$timeout(function () {															
 															msg= $filter('translate')('file_deleted');
 															typ = 'success';
-															Materialize.toast(msg, 2000, typ);
+															Materialize.toast(msg, 6000, typ);
 															$rootScope.$broadcast('refresh:doclist');
 														}, 2000);														
 											})
@@ -460,7 +461,7 @@ angular.module('ngmReportHub')
 												$timeout(function () {
 													msg = $filter('translate')('error_file_not_deleted');
 													typ = 'error';
-													Materialize.toast(msg, 2000, typ);
+													Materialize.toast(msg, 6000, typ);
 												}, 2000);
 											})
 										},

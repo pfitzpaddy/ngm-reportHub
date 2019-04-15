@@ -122,7 +122,8 @@
 
 									<li align="center" class="teal z-depth-2" 
 											ng-init="open = false;ngm.setLanguage('col')"
-											ng-show="ngm.getUsername() !== 'welcome' && (ngm.translate_version)">
+
+											ng-show="ngm.getUsername() === 'welcome' || (ngm.translate_version )">
 										<a class="white-text right" ng-click="open= !open;"> 
 											<i class="material-icons smedium right">translate</i>{{'language'|translate}}</a>
 										</a>										
@@ -480,6 +481,7 @@
 
 		<!-- MONTHLY -->
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.reports.list.js"></script>
+		<script src="scripts/modules/cluster/reports/controllers/cluster.project.reports.group.js"></script>
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.report.js"></script>		
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.details.js"></script>
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.financials.js"></script>

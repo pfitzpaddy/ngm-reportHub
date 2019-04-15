@@ -152,7 +152,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
             $scope.report.organization = organization;
 
             // on success
-            Materialize.toast( 'Warehouse Location Added!', 3000, 'success');
+            Materialize.toast( 'Warehouse Location Added!', 6000, 'success');
 
             // refresh to update empty reportlist
             $route.reload();
@@ -188,7 +188,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
             $scope.report.organization = results[0].data;
 
             // on success
-            Materialize.toast( 'Warehouse Location Removed!', 3000, 'success');
+            Materialize.toast( 'Warehouse Location Removed!', 6000, 'success');
 
             // refresh to update empty reportlist
             $route.reload();
