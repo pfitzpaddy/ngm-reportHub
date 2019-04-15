@@ -14,6 +14,31 @@
     "error_try_again":"Error! Inténtelo de Nuevo!",
     "user_deleted":"Usuario Eliminado!",
     "almost_complete":"Casi completo!",
+      "remove_this_file":"Eliminar este Archivo?",
+     "yes_remove_this_file":"Si, Eliminar este archivo!",
+     "click_upload_document_to_upload_document_of_your_project":"Click en CARGAR DOCUMENTO para cargar el documento de su PROYECTO",
+    "upload_document":"Cargar Documento",
+     "upload_documents":"Cargar Documentos",
+     "you_dont_have_documents_yet":"Aún no tienes documentos !",
+    "upload_documents_for":"Actualizar Documentos para",
+
+
+
+    "filename":"Nombre del Archivo",
+    "owner":"Propietario",
+    "created_at":"Creado en",
+     "grid_view":"Ver en Grilla",
+     "list_view":"Ver en Lista",
+     "preview":"Vista Previa",
+     "project_updated":"Proyecto Actualizado!",
+            "details_contains_errors":"Los detalles contienen errores!",
+
+
+
+
+
+
+
      "now_set_your_login_details":"ahora establezca sus detalles de INICIO DE SESIÓN",
      "last_item":"Último item!",
      "add_immap_programme_details":"Agregar detalles del PROGRAMA iMMAP",
@@ -172,6 +197,25 @@
         "project_documents":"Documentos del Proyecto",
         "go_to_project_documents":"Ir a Documentos del Proyecto",
         "go_to_monthly_progress":"Ir a Progreso Mensual",
+        "modified":"Modificado",
+        "you_have_no_project_documents_yet":"Aún no tienes ducumentos del proyecto",
+                "you_have_no_report_documents_yet":"Aún no tienes documentos del proyecto !",
+                        "getting_data":"Obteniendo Datos...",
+                                "save_to_apply_changes":"Guardar para aplicar cambios",
+        "no_data_in_previous_report":"No hay datos en el reporte anterior",
+        "no_previous_report":"No hay reporte anterior",
+        "copying":"Copiando ...",
+        "copied_trainings":"Capacitaciones Copiadas",
+                "copied_beneficiaries":"Beneficiarios Copiados",
+
+
+
+
+
+
+
+
+
 
 
 
@@ -218,6 +262,10 @@
          "last_updated":"Última Actualización",
          "refresh_data":"Refrescar Datos",
          "project_locations":"UBICACIONES DE PROYECTOS",
+                 "project_location_removed":"Ubicación de Proyecto Eliminada!"
+
+         "project_location_saved":"Ubicación de Proyecto Guardada!",
+
          "children":"Niños",
          "adult":"Adultos",
          "elderly":"Mayores",
@@ -235,6 +283,8 @@
          "actual_monthly_beneficiaries_report_for":"Actual Reporte Mensual de Beneficiarios para",
           
          "actual_monthly_progress_for":"Actual Progreso Mensual para",
+         "cancel_monthly_progress":"Cancelar Progreso Mensual",
+
 
 
           "cash_intented_for_even_if_unrestricted":"Cash intented for event if unrestricted",
@@ -251,10 +301,13 @@
          "back_to_project_reports":"Regresar a Reportes del Proyecto",
          "submit_monthly_report":"Enviar Reporte Mensual",
          "cancel_montly_report":"Cancelar Reporte Mensual",
+         "create_project_cancelled":"Creación de Proyecto Cancelado!",
          "return_to_monthly_report_list":"Regresar a Lista de Reportes Mensuales",
          "remove_beneficiary":"Eliminar Beneficiario",
          "remove_this_beneficiary_from_your_report":"Eliminar este Beneficiario de su Reporte",
          "yes_remove_beneficiary":"Si, Eliminar Beneficiario",
+         "people_in_need_saved":"Personas con Necesidades Guardadas!",
+
         
          "remove_borehole":"Eliminar Pozo",
          "remove_this_borehol_from_your_report":"Eliminar este Pozo de su Reporte",
@@ -277,8 +330,13 @@
          "download_admin_as_pdf":"Descargar Admin como PDF",
          "download_project_summaries_as_csv":"Descargar Resumen de Proyectos como CSV",
          "reports_todo":"Reportes para Realizar",
+         "download_all_report_documents":"Descargar Todos los Documentos del Reporte",
+         "loading_monhtly_progress_report":"Cargando Reporte de Progreso Mensual...",
+         "actual_monthly_progress_report_for":"Actual Reporte de Progreso Mensual para",
 
-         "progress_update_todo":"Actualización de Progresos pora Realizar",
+
+
+         "progress_update_todo":"Actualización de Progresos por Realizar",
          "progress_update_complete":"Actualización de Progresos Completos",
 
          "reports_complete":"Reportes Completos",
@@ -317,6 +375,10 @@
          "documents":"Documentos",
           "download_all_document_project":"Descargar toda la documentación del proyecto",
          "file_uploaded":"Archivo cargado!",
+         "cancel_to_upload_file":"Carga de archivo cancelada",
+
+         "submit":"Enviar",
+         "close_mayus1":"Cerrar",
 
 
 
@@ -385,6 +447,11 @@
         "complete":"Completo!",
          "drag_files_here_or_click_button_to_upload":"Arrastre los archivos aquí ó haga click en el botón para cargar",
         "upload_canceled":"Carga cancelada",
+        "file_deleted":"Archivo Eliminado!",
+        "exceed_file_upload_please_remove_one_of_your_file":"Carga de archivo excedida, Por favor, elimine uno de sus archivos",
+        "file_too_large_please_remove_the_file":"Archivo muy grande, Por favor elimine el archivo",
+        "not_supported_file_type":"Tipo de archivo no permitido !",
+ 
 
         "re_directing_to_dashboard":"Re-dirigiendo a dashboard...",
         "data_processing_error_please_check_the":"Error en procesamiento de Datos, por favor revise la ",
@@ -640,6 +707,8 @@
         "submitted":"Enviado",
         "saved_mayus1":"Guardado",
         "save_failed_the_project_contains_error":"Guardado fallido! El proyecto contiene errores",
+        "project_contains_errors":"El Proyecto contiene errores!",
+
         "project_created":"Projecto Creado",
         "has_been_saved":"ha sido guardado",
 

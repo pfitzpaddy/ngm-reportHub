@@ -101,7 +101,7 @@
 		<img ng-src={{list.setLink()}} id="imagepreview">
 	</div>
 	<div class="modal-footer">
-		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close_mayus1'|translate}}</a>
 	</div>
 </div>
 <div id="close-preview-file" class="modal ">
@@ -112,20 +112,20 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close_mayus1'|translate}}</a>
 	</div>
 </div>
 <div id="remove-modal" class="modal">
 		<div class="modal-content">
 			<div class="center">
 				<i class="medium material-icons" style="color:#f44336">delete</i>
-				<h5 style="font-weight:300;"> Remove this File?</h5>
+				<h5 style="font-weight:300;"> {{'remove_this_file'|translate}}</h5>
 			</div>
 		
 		</div>
 		<div class="modal-footer">
-			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-			<a ng-click="list.removeFile()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove this file!</a>
+			<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close_mayus1'|translate}}</a>
+			<a ng-click="list.removeFile()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_this_file'|translate}}</a>
 		</div>
 </div>
 <div class="card-panel" ng-init="grid = false">
@@ -135,7 +135,7 @@
 			<li class="collection-header teal" style="height:80px;">
 				<div class="col s12 m10">
 					<h4 style="font-size:2.1rem; color: #ffffff">
-						<i class="material-icons left" style="    margin-top: 5px;">perm_media</i>Project Documents
+						<i class="material-icons left" style="    margin-top: 5px;">perm_media</i>{{'project_documents'|translate}}
 					</h4>
 				</div>
 				<div class="col s12 m2">
@@ -161,7 +161,7 @@
 					<i class="material-icons circle " style="background-color: {{list.extentionColor(item.filename_extension)}}">{{list.extentionIcon(item.filename_extension)}}</i>
 					<span class="title text-darken-2" style="font-weight: 400;">{{item.filename}}</span>
 					<p style="font-weight: 400;font-size: 14px">
-						 Uploaded by : {{item.fileowner}} | Upload : {{item.createdAt|date}} | Modified : {{item.updatedAt | date}}
+						 Uploaded by : {{item.fileowner}} | {{'upload'|translate}} : {{item.createdAt|date}} | {{'modified'|translote}} : {{item.updatedAt | date}}
 					</p>
 					<div class="secondary-content">
 
@@ -179,7 +179,7 @@
 					</div>
 				</li>
 				<li class="collection-item avatar" ng-if="!list.data.length" >
-					<p style="font-size: 17px; padding:10px 0px 10px 0px;">You have no project documents yet</p>
+					<p style="font-size: 17px; padding:10px 0px 10px 0px;">{{'you_have_no_project_documents_yet'| translate}}</p>
 				</li>
 				<li class="collection-item avatar" ng-if="list.data.length > list.itemsPerPage" style="padding:25px 10px 20px 10px;">
 					<dir-pagination-controls pagination-id="list.id"></dir-pagination-controls>
@@ -228,7 +228,7 @@
 					</div>
 				</li>
 				<li class="collection-item avatar" ng-if="!list.data.length">
-					<p style="font-size: 17px; padding:10px 0px 10px 0px;">You have no project documents yet</p>
+					<p style="font-size: 17px; padding:10px 0px 10px 0px;">{{'you_have_no_project_documents_yet'|translate}}</p>
 				</li>
 				<li class="collection-item avatar" ng-if="list.data.length > list.itemsPerPageGrid && grid" style="padding:25px 10px 20px 10px;">
 					<dir-pagination-controls pagination-id="list.id"></dir-pagination-controls>

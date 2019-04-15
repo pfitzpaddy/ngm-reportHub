@@ -289,7 +289,19 @@ angular.module( 'ngmReportHub' )
             delivery_type_id: 'service',
             delivery_type_name: 'Existing Beneficiaries'
           }];
-        } else {
+        } else if( admin0pcode === 'COL'){
+
+          delivery = [{
+            delivery_type_id: 'population',
+            delivery_type_name: 'Nuevos Beneficiarios'
+          },{
+            delivery_type_id: 'service',
+            delivery_type_name: 'Beneficiarios Existentes'
+          }];
+
+        }
+          else
+         {
           delivery = [{
             delivery_type_id: 'population',
             delivery_type_name: 'New Beneficiaries'

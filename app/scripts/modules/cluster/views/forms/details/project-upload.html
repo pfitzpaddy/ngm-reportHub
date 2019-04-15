@@ -209,8 +209,8 @@ font-size: 18px;
 				</form>
 			</div>
 			<div class="center" style="margin-top: 10px">
-				<button id="upload_doc" class="btn">Submit</button>
-				<div id="delete_doc" class="btn red">Cancel</div>
+				<button id="upload_doc" class="btn">{{'submit' | translate}}</button>
+				<div id="delete_doc" class="btn red">{{'cancel_mayus' | translate}}</div>
 			</div>
 		</div>
 	</div>
@@ -222,20 +222,20 @@ font-size: 18px;
 		</div>
 	</div>
 	<div class="modal-footer">
-		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close'|translate}}</a>
 	</div>
 </div>
 <div id="remove-modal" class="modal">
 	<div class="modal-content">
 		<div class="center">
 			<i class="medium material-icons" style="color:#f44336">delete</i>
-			<h5 style="font-weight:300;"> Remove this File?</h5>
+			<h5 style="font-weight:300;"> {{'remove_this_file'|translate}}</h5>
 		</div>
 
 	</div>
 	<div class="modal-footer">
-		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-		<a ng-click="project.manageDocument.removeFile()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove this file!</a>
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close'|translate}}</a>
+		<a ng-click="project.manageDocument.removeFile()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_this_file'|translate}}</a>
 	</div>
 </div>
 <!-- END-MODAL -->
@@ -247,28 +247,28 @@ font-size: 18px;
 				<li class="collection-header blue lighten-1">
 					<h5 class="report-work-title white-text">
 						<i class="material-icons left">attach_file</i>
-						<span class="beneficiary-count">{{listUpload.length| number}}</span> Documents
+						<span class="beneficiary-count">{{listUpload.length| number}}</span> {{'documents' |translate}}
 					</h5>
 				</li>
 
 				<li class="collection-item avatar " style=" border-bottom-width: 0px;min-height: 60px; ">
 					<div class="left" >
-						<p style="font-weight: 300;margin-top:5px;color: #000">Click UPLOAD DOCUMENT  to upload document of your PROJECT </p>
+						<p style="font-weight: 300;margin-top:5px;color: #000">{{'click_upload_document_to_upload_document_of_your_project'|translate}} </p>
 					</div>
 					<div class="right">
-						<button class=" btn waves-effect waves-light tooltipped-report-upload" data-position="bottom" data-tooltip="Upload Document"
+						<button class=" btn waves-effect waves-light tooltipped-report-upload" data-position="bottom" data-tooltip="{{'upload_document'|translate}}"
 						 ng-click="project.uploadDocument.openModal('upload-file')">
 							<i class="material-icons left">publish</i>
-							Upload Document
+							{{'upload_document'|translate}}
 						</button>
 
-						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="Grid View" ng-click="grid=true"
+						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="{{'grid_view'|translate}}" ng-click="grid=true"
 						 ng-class="{white: !grid,teal:grid}">
 							<i class="material-icons " style="color: #ffffff" ng-class="{color_teal: !grid,color_white:grid}">
 								view_module
 							</i>
 						</div>
-						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="List View" ng-click="grid=false"
+						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="{{'list_view'|translate}}" ng-click="grid=false"
 						 ng-class="{white: grid,teal:!grid}">
 							<i class="material-icons  " ng-class="{color_teal: grid,color_white:!grid}">
 								format_list_bulleted
@@ -300,14 +300,14 @@ font-size: 18px;
 										<div class="line">
 				
 											<!-- use gdrive id file -->
-											<button class="btn-floating  wave-effect blue tooltipped-report-upload" data-position="bottom" data-tooltip="Preview" ng-click="project.manageDocument.openPreview('close-preview-file',item.fileid)"
+											<button class="btn-floating  wave-effect blue tooltipped-report-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}" ng-click="project.manageDocument.openPreview('close-preview-file',item.fileid)"
 											 ng-disabled="item.filename_extension === '.csv'">
 												<i class="small material-icons">compare</i>
 											</button>
-											<a class="btn-floating  wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="Download" ng-href="{{project.manageDocument.setDonwloadLink(item.fileid)}}">
+											<a class="btn-floating  wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="{{'download'|translate}}" ng-href="{{project.manageDocument.setDonwloadLink(item.fileid)}}">
 												<i class="small material-icons">cloud_download</i>
 											</a>
-											<button class="btn-floating  wave-effect tooltipped-report-upload red space " data-position="bottom" data-tooltip="Delete"
+											<button class="btn-floating  wave-effect tooltipped-report-upload red space " data-position="bottom" data-tooltip="{{'delete_mayus1'|translate}}"
 											 ng-click="project.manageDocument.setRemoveId('remove-modal',item.fileid)">
 												<i class="small material-icons">delete</i>
 											</button>
@@ -345,21 +345,21 @@ font-size: 18px;
 					<li ng-if="listUpload.length>0" class="collection-item avatar list-upload card" style="padding-left: 0px;padding-right: 0px;padding-bottom: 0px;">
 						<div class="row" style="margin: 0 0; padding: 10px 0; border-bottom: 0.98px solid #dce0e2">
 							<div class="col s5">
-								<div style="margin-top:5px;font-weight: 400">Filename</div>
+								<div style="margin-top:5px;font-weight: 400">{{'filename'|translate}}</div>
 							</div>
 							<div class="col s2">
 								<div style="margin-top:5px;font-weight: 400">
-									Owner
+									{{'owner'|translate}}
 								</div>
 							</div>
 							<div class="col s2">
 								<div style="margin-top:5px;font-weight: 400">
-									Created at
+									{{'created_at'|translate}}
 								</div>
 							</div>
 							<div class="col s3">
 								<div style="margin-top:5px;font-weight: 400">
-									Action
+									{{'action'|translate}}
 								</div>
 							</div>
 						</div>
@@ -385,15 +385,15 @@ font-size: 18px;
 								<div class="line-non-grid">
 				
 				
-									<button class="btn-floating  wave-effect blue tooltipped-upload" data-position="bottom" data-tooltip="Preview" ng-disabled="item.filename_extension === '.csv'"
+									<button class="btn-floating  wave-effect blue tooltipped-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}" ng-disabled="item.filename_extension === '.csv'"
 									 ng-click="project.manageDocument.openPreview('close-preview-file',item.fileid)">
 										<i class="small material-icons">compare</i>
 									</button>
-									<a class="btn-floating  wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="Download" ng-href="{{project.manageDocument.setDonwloadLink(item.fileid)}}">
+									<a class="btn-floating  wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="{{'donwload'|translate}}" ng-href="{{project.manageDocument.setDonwloadLink(item.fileid)}}">
 										<i class="small material-icons">cloud_download</i>
 									</a>
 									<button class="btn-floating  wave-effect tooltipped-upload red space tooltipped-upload" data-position="bottom"
-									 data-tooltip="Delete" ng-click="project.manageDocument.setRemoveId('remove-modal',item.fileid)">
+									 data-tooltip="{{'delete_mayus1'|translate}}" ng-click="project.manageDocument.setRemoveId('remove-modal',item.fileid)">
 										<i class="small material-icons">delete</i>
 									</button>
 								</div>

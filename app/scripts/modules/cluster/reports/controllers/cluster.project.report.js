@@ -130,7 +130,7 @@ angular.module('ngmReportHub')
 								type: 'zip',
 								color: 'blue lighten-2',
 								icon: 'folder',
-								hover: 'Download All Report Documents',
+								hover: $filter('translate')('download_all_report_documents'),
 								request: {
 									method: 'GET',
 									url: ngmAuth.LOCATION + '/api/getReportDocuments/' + $scope.report.definition.id,
@@ -189,7 +189,7 @@ angular.module('ngmReportHub')
 		$scope.report.ngm.dashboard.model = $scope.model;
 
 		// taost for user
-		$timeout( function() { Materialize.toast( 'Loading Monthly Progress Report...', 3000, 'success' ); }, 1000 );
+		$timeout( function() { Materialize.toast( $filter('translate')('loading_monhtly_progress_report'), 3000, 'success' ); }, 1000 );
 
 		// send request
 		$q.all([ $scope.report.getProject, $scope.report.getReport ]).then( function( results ){

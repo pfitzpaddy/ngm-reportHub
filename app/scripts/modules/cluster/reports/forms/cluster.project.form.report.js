@@ -476,7 +476,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				
 				// entry copy previous report
 				copyPrevReport: function(){
-					Materialize.toast('Getting Data...', 1500, 'note');
+					Materialize.toast($filter('translate')('getting_data'), 1500, 'note');
 					$scope.deactivedCopybutton = true;
 					$scope.addBeneficiaryDisable = true;
 					var setParam ={}
@@ -510,7 +510,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						
 						var brows = 0;
 						var trows =0;
-						var info = "Save to apply changes"
+						var info = $filter('translate')('save_to_apply_changes')
 						angular.forEach(prev_report.locations, function(l){
 							brows += l.beneficiaries.length;
 							trows += l.trainings.length;
@@ -518,10 +518,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 						if(!brows && !trows){
 							if(Object.keys(prev_report).length){
-								var msg = "No data in previous report";
+								var msg = $filter('translate')('no_data_in_previous_report');
 										typ = 'success';
 							}else{
-								var msg = "No previous report";
+								var msg = $filter('translate')('no_previous_report');
 										typ = 'success';
 							}
 							$scope.deactivedCopybutton = false;
@@ -529,7 +529,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								Materialize.toast(msg, 3000, typ);
 							
 						} else{
-							Materialize.toast('Copying ...', 1500, 'note');
+							Materialize.toast($filter('transalte')('copying'), 1500, 'note');
 							if ( !brows && trows > 0 ){
 									var msg = 'Copied Trainings ' + trows + ' rows';
 									typ = 'success';
@@ -564,7 +564,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						$scope.addBeneficiaryDisable = false;						
 						
 					}).catch(function (e){
-						Materialize.toast("Error, Not copied", 3000, 'error');
+						Materialize.toast($filter('translate')('error_not_copied'), 3000, 'error');
 						$scope.addBeneficiaryDisable = false;
 						$scope.deactivedCopybutton = false;
 					})
@@ -600,7 +600,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					closeModal: function (modal) {
 						$('#' + modal).closeModal({ dismissible: true });
 						myDropzone.removeAllFiles(true);
-						Materialize.toast("Cancel to upload file", 2000, "note");
+						Materialize.toast($filter('translate')('cancel_to_upload_file'), 2000, "note");
 					},
 					params: {
 						project_id:config.project.id,
@@ -628,7 +628,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 																			</div>
 																			<div data-dz-remove class=" remove-upload btn-floating red" style="margin-left:35%; "><i class="material-icons">clear</i></div> 
 																		</div>`,
-					completeMessage: '<i class="medium material-icons" style="color:#009688;">cloud_done</i><br/><h5 style="font-weight:300;">Complete!</h5><br/><h5 style="font-weight:100;"><div id="add_doc" class="btn"><i class="small material-icons">add_circle</i></div></h5></div>',
+					completeMessage: '<i class="medium material-icons" style="color:#009688;">cloud_done</i><br/><h5 style="font-weight:300;">'+$filter('translate')('complete')+'</h5><br/><h5 style="font-weight:100;"><div id="add_doc" class="btn"><i class="small material-icons">add_circle</i></div></h5></div>',
 					url: ngmAuth.LOCATION + '/api/uploadGDrive',
 					acceptedFiles: 'image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/zip,.zip,text/plain,text/csv,video/mp4,application/mp4',
 					maxFiles: 3,
@@ -662,10 +662,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						}
 					},
 					dictDefaultMessage:
-						`<i class="medium material-icons" style="color:#009688;">cloud_upload</i> <br/>Drag files here or click button to upload `,
-					dictMaxFilesExceeded:`<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>Exceed file upload, Please remove one of your file `,
-					tooLargeFilesSize: `<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>File too large, Please remove the file `,
-					notSupportedFile:`<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>Not supported file type ! `,
+						`<i class="medium material-icons" style="color:#009688;">cloud_upload</i> <br/>`+$filter('translate')('drag_files_here_or_click_button_to_upload')+' ',
+					dictMaxFilesExceeded:`<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>`+$filter('translate')('exceed_file_upload_please_remove_one_of_your_file')+' ',
+					tooLargeFilesSize: `<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>`+$filter('translate')('file_too_large_please_remove_the_file')+' ',
+					notSupportedFile:`<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>`+$filter('translate')('not_supported_file_type')+' ',
 					errorMessage: `<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>Error`,
 					addRemoveLinks: false,
 					autoProcessQueue: false,
@@ -792,7 +792,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 							document.querySelector(".dz-default.dz-message").style.display = 'none';
 							document.querySelector(".percent-upload").style.display = 'block';
-							$(".percentage").html('<div style="font-size:32px;">Uploading....! </div>');
+							$(".percentage").html('<div style="font-size:32px;">'+$filter('translate')('uploading')+' </div>');
 							// uncomment  this code below, if the write to server and gdrive is work well 
 							// progress = Math.round(progress)
 							// $(".percentage").text(progress + '%');											
@@ -808,7 +808,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						// when sending file
 						myDropzone.on('sending', function (file) {
 							if (this.getUploadingFiles().length == 1) {
-								Materialize.toast('Uploading...', 3000, 'note');
+								Materialize.toast($filter('translate')('uploading'), 3000, 'note');
 							}
 							$("#upload_doc").attr("disabled", true);
 						});
@@ -829,7 +829,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					},
 					success: function () {
 						if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
-							msg = "File Uploaded!";
+							msg = $filter('translate')('file_uploaded');
 							typ = 'success';
 							Materialize.toast(msg, 2000, typ);
 
@@ -852,7 +852,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								typ = 'error';
 								Materialize.toast(response.err, 2000, typ);
 								if (response.err.indexOf('canceled') < 0) {
-									Materialize.toast('Upload canceled', 2000, typ);
+									Materialize.toast($filter('translate')('upload_canceled'), 2000, typ);
 								}
 							}, 500);
 						}
@@ -869,7 +869,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					},
 					removeFile: function () {
 						// IF API READY TO USE
-						Materialize.toast("Deleting...", 2000, 'note');
+						Materialize.toast($filter('translate')('deleting'), 2000, 'note');
 						$http({
 							method: 'DELETE',
 							url: ngmAuth.LOCATION + '/api/deleteGDriveFile/' + $scope.fileId,
@@ -877,7 +877,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						})
 							.success(function (result) {
 								$timeout(function () {
-									msg = "File Deleted!";
+									msg = $filte('translate')('file_deleted');
 									typ = 'success';
 									Materialize.toast(msg, 2000, typ);
 									// $rootScope.$broadcast('refresh:doclist');
@@ -886,7 +886,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							})
 							.error(function (err) {
 								$timeout(function () {
-									msg = "Error, File Not Deleted!";
+									msg = $filter('translate')('error_file_not_deleted');
 									typ = 'error';
 									Materialize.toast(msg, 2000, typ);
 								}, 2000);

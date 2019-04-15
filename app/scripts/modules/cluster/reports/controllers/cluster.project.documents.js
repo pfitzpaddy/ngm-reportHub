@@ -332,7 +332,7 @@ angular.module('ngmReportHub')
 											
 											document.querySelector(".dz-default.dz-message").style.display = 'none';
 											document.querySelector(".percent-upload").style.display = 'block';
-											$(".percentage").html('<div style="font-size:32px;">Uploading....! </div>');
+											$(".percentage").html('<div style="font-size:32px;">'+$filter('translate')('uploading')+' </div>');
 											// uncomment  this code below, if the write to server and gdrive is work well 
 											// progress = Math.round(progress)
 											// $(".percentage").text(progress + '%');											
@@ -347,7 +347,7 @@ angular.module('ngmReportHub')
 
 										myDropzone.on('sending',function(file){
 											if (this.getUploadingFiles().length == 1){
-												Materialize.toast('Uploading...',3000, 'note');
+												Materialize.toast($filter('translate')('uploading'),3000, 'note');
 											}
 											$("#upload_doc").attr("disabled", true);
 											// $("#delete_doc").attr("disabled", true);
@@ -450,7 +450,7 @@ angular.module('ngmReportHub')
 											})
 											.success(function (result){
 														$timeout(function () {															
-															msg="File Deleted!";
+															msg= $filter('translate')('file_deleted');
 															typ = 'success';
 															Materialize.toast(msg, 2000, typ);
 															$rootScope.$broadcast('refresh:doclist');
