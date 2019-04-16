@@ -154,13 +154,13 @@ font-size: 18px;
 	<div class="modal-content">
 		<div class="center">
 			<i class="medium material-icons" style="color:#f44336">delete</i>
-			<h5 style="font-weight:300;"> Remove this File?</h5>
+			<h5 style="font-weight:300;"> {{'remove_this_file'|translate}}</h5>
 		</div>
 
 	</div>
 	<div class="modal-footer">
-		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-		<a ng-click="list.removeFile()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove this file!</a>
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close_mayus1'|translate}}</a>
+		<a ng-click="list.removeFile()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_this_file'|translate}}</a>
 	</div>
 </div>
 <div ng-if="list.country === 'af'"class="row" >
@@ -171,7 +171,7 @@ font-size: 18px;
 				<li class="collection-header indigo lighten-1" style="height:80px;">
 					<div class="col s12 m10">
 						<h5 class="report-panel-title white-text">
-							<i class="material-icons left">attachment</i>{{list.firstLetterUpperCase(list.typeDocument)}} | Upload Documents 
+							<i class="material-icons left">attachment</i>{{list.firstLetterUpperCase(list.typeDocument)}} | {{'upload_documents'|translate}}
 						</h5>
 					</div>
 					<div class="col s12 m2">
@@ -215,14 +215,14 @@ font-size: 18px;
 											<div class="line">
 					
 												<!-- use gdrive id file -->
-												<button class="btn-floating  wave-effect blue tooltipped-upload" data-position="bottom" data-tooltip="Preview" ng-click="list.openModal('close-preview-file',item.fileid)"
+												<button class="btn-floating  wave-effect blue tooltipped-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}" ng-click="list.openModal('close-preview-file',item.fileid)"
 												 ng-disabled="item.filename_extension === '.csv'">
 													<i class="small material-icons">compare</i>
 												</button>
-												<a class="btn-floating  wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="Download" ng-href="{{list.setDonwloadLink(item.fileid)}}">
+												<a class="btn-floating  wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="{{'download'|translate}}" ng-href="{{list.setDonwloadLink(item.fileid)}}">
 													<i class="small material-icons">cloud_download</i>
 												</a>
-												<button ng-if="false" class="btn-floating  wave-effect tooltipped-upload red space tooltipped-upload" data-position="bottom" data-tooltip="Delete" ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
+												<button ng-if="false" class="btn-floating  wave-effect tooltipped-upload red space tooltipped-upload" data-position="bottom" data-tooltip="{{'delete_mayus1'|translate}}" ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
 													<i class="small material-icons">delete</i>
 												</button>
 											</div>
@@ -238,7 +238,7 @@ font-size: 18px;
 										error
 									</i>
 								</div>
-								<span>You don't have documents yet !</span>
+								<span>{{'you_dont_have_documents_yet'|translate}} !</span>
 							</div>
 						</li>
 						<li class="collection-item avatar" ng-if="list.data.length > list.itemsPerPageGrid" style="padding:15px 10px 15px 10px;min-height: 65px;">
@@ -253,27 +253,27 @@ font-size: 18px;
 											error
 										</i>
 									</div>
-									<span>You don't have documents yet !</span>
+									<span>{{'you_dont_have_documents_yet'|translate}}</span>
 								</div>
 							</li>
 							<li  ng-if="list.data.length>0" class="collection-item avatar list-upload card" style="padding-left: 0px;padding-right: 0px;padding-bottom: 0px;">
 								<div class="row" style="margin: 0 0; padding: 10px 0; border-bottom: 0.98px solid #dce0e2">
 									<div class="col s5">
-										<div style="margin-top:5px;font-weight: 400">Filename</div>
+										<div style="margin-top:5px;font-weight: 400">{{'filename'|translate}}</div>
 									</div>
 									<div class="col s2">
 										<div style="margin-top:5px;font-weight: 400">
-										 Owner
+										 {{'owner'|translate}}
 										</div>
 									</div>
 									<div class="col s2">
 										<div style="margin-top:5px;font-weight: 400">
-											Created at
+											{{'created_at'|translate}}
 										</div>
 									</div>
 									<div class="col s3">
 										<div style="margin-top:5px;font-weight: 400">
-											Action
+											{{'action'|translate}}
 										</div>
 									</div>
 								</div>
@@ -299,14 +299,14 @@ font-size: 18px;
 										<div class="line-non-grid">
 										
 										
-											<button class="btn-floating  wave-effect blue tooltipped-upload" data-position="bottom" data-tooltip="Preview" ng-disabled="item.filename_extension === '.csv'"
+											<button class="btn-floating  wave-effect blue tooltipped-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}" ng-disabled="item.filename_extension === '.csv'"
 											 ng-click="list.openModal('close-preview-file',item.fileid)">
 												<i class="small material-icons">compare</i>
 											</button>
-											<a class="btn-floating  wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="Download" ng-href="{{list.setDonwloadLink(item.fileid)}}">
+											<a class="btn-floating  wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="{{'download'|translate}}" ng-href="{{list.setDonwloadLink(item.fileid)}}">
 												<i class="small material-icons">cloud_download</i>
 											</a>
-											<button ng-if="false" class="btn-floating  wave-effect tooltipped-upload red space tooltipped-upload" data-position="bottom" data-tooltip="Delete" ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
+											<button ng-if="false" class="btn-floating  wave-effect tooltipped-upload red space tooltipped-upload" data-position="bottom" data-tooltip="{{'delete_mayus1'|translate}}" ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
 												<i class="small material-icons">delete</i>
 											</button>
 										</div>

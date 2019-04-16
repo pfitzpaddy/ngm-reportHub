@@ -180,7 +180,9 @@ angular.module('ngmReportHub')
 									color: 'indigo lighten-1',
 									textColor: 'white-text',
 									title: $filter('translate')('progress_update_complete'),
-									hoverTitle: 'View',
+
+									hoverTitle: $filter('translate')('view'),
+
 									icon: 'done',
 									rightIcon: 'check_circle',
 									report_url: $scope.report.getReportUrl(),

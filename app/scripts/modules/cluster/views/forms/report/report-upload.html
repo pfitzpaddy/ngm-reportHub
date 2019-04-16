@@ -169,8 +169,8 @@ li .collection-item .avatar .coll .list-upload{
 										</form>
 									</div>
 									<div class="center" style="margin-top: 10px">
-										<button id="upload_doc" class="btn">Submit</button>
-										<div id="delete_doc" class="btn red">Cancel</div>
+										<button id="upload_doc" class="btn">{{'submit'|translate}}</button>
+										<div id="delete_doc" class="btn red">{{'cancel_mayus'|translate}}</div>
 									</div>
 						</div>
 	</div>
@@ -182,20 +182,20 @@ li .collection-item .avatar .coll .list-upload{
 		</div>
 	</div>
 	<div class="modal-footer">
-		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close_mayus1'|translate}}</a>
 	</div>
 </div>
 <div id="remove-modal" class="modal">
 	<div class="modal-content">
 		<div class="center">
 			<i class="medium material-icons" style="color:#f44336">delete</i>
-			<h5 style="font-weight:300;"> Remove this File?</h5>
+			<h5 style="font-weight:300;"> {{'remove_this_file'|translate}}</h5>
 		</div>
 
 	</div>
 	<div class="modal-footer">
-		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-		<a ng-click="project.manageDocument.removeFile()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove this file!</a>
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close_mayus1'|translate}}</a>
+		<a ng-click="project.manageDocument.removeFile()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_this_file'|translate}}</a>
 	</div>
 </div>
 <!-- END-MODAL -->
@@ -207,7 +207,7 @@ li .collection-item .avatar .coll .list-upload{
 				<li class="collection-header indigo lighten-1">
 					<h5 class="report-panel-title white-text">
 						<div>
-							<i class="material-icons left">attachment</i>Upload Documents for {{ project.monthlyTitleFormat }}
+							<i class="material-icons left">attachment</i>{{'upload_documents_for'|translate}} {{ project.monthlyTitleFormat }}
 						</div>
 					</h5>
 				</li>
@@ -216,7 +216,7 @@ li .collection-item .avatar .coll .list-upload{
 					<div class="right">
 						<button class=" btn waves-effect waves-light tooltipped-report-upload" data-position="bottom" data-tooltip="Upload Document" ng-click="project.uploadDocument.openModal('upload-file')">
 							<i class="material-icons left">cloud_upload</i>
-							Upload Document
+							{{'upload_document'|translate}}
 						</button>
 							
 						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="Grid View" ng-click="grid=true"
@@ -241,7 +241,7 @@ li .collection-item .avatar .coll .list-upload{
 									error
 								</i>
 							</div>
-							<span>You have no report documents yet !</span>
+							<span>{{'you_have_no_report_documents_yet'|translate}}</span>
 						</div>
 					</li>
 					<li ng-if="listUpload.length>0" class="collection-item avatar list-upload card" style="padding-left: 0px;padding-right: 0px;padding-bottom: 15px;">
@@ -335,7 +335,7 @@ li .collection-item .avatar .coll .list-upload{
 											error
 										</i>
 									</div>
-									<span>You have no report documents yet !</span>
+									<span>{{'you_have_no_report_documents_yet'|translate}}</span>
 								</div>
 							</li>
 							<li class="collection-item avatar" ng-if="listUpload.length > listUpload.itemsPerPage" style="padding:15px 10px 15px 10px;min-height: 65px;">

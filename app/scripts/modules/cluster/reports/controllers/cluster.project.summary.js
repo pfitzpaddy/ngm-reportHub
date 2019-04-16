@@ -56,7 +56,7 @@ angular.module('ngmReportHub')
 				$scope.report.project = data;
 				
 				// add project code to subtitle?
-				var text = 'Actual Monthly Progress Report for ' + $scope.report.project.project_title
+				var text = $filter('translate')('actual_monthly_progress_report_for')+' ' + $scope.report.project.project_title
 				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + $scope.report.project.project_description : $scope.report.project.project_description;
 
 				// if admin0pcode

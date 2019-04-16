@@ -326,7 +326,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 										typ = 'success';
 							}
 						} else {
-								var msg = $filter('translate')('copied')+' ' + nrows + ' '+$filter('transalte')('rows'),
+								var msg = $filter('translate')('copied')+' ' + nrows + ' '+$filter('translate')('rows'),
 										typ = 'success';
 						}
 						Materialize.toast(msg, 6000, typ);

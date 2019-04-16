@@ -90,45 +90,45 @@ angular.module( 'ngmReportHub' )
 
 										// set title USER, ORG
 										if ( roles.indexOf( 'USER' ) >= 0 || roles.indexOf( 'ORG' ) >= 0 ) {
-											title = $scope.report.user.organization + ' Team';
+											title = $scope.report.user.organization + ' '+$filter('translate')('team');
 										}
 
 										// set title CLUSTER
 										if ( roles.indexOf( 'CLUSTER' ) >= 0 ) {
-											title = $scope.report.user.cluster + ' Sector Partners';
+											title = $scope.report.user.cluster + ' '+$filter('translate')('sector_partners');
 										}
 
 										// set title COUNTRY
 										if ( roles.indexOf( 'COUNTRY' ) >= 0 ) {
-											title = $scope.report.user.admin0name + ' Partners';
+											title = $scope.report.user.admin0name + ' '+$filter('translate')('partners');
 										}
 
 										// set title REGION_ORG
 										if ( roles.indexOf( 'REGION_ORG' ) >= 0 ) {
-											title = $scope.report.user.adminRname + ' Regional ' + $scope.report.user.organization + ' Team' ;
+											title = $scope.report.user.adminRname + ' '+$filter('translate')('regional')+' ' + $scope.report.user.organization + ' '+$filter('translate')('team') ;
 										}
 
 										// set title REGION
 										if ( roles.indexOf( 'REGION' ) >= 0 ) {
-											title = $scope.report.user.adminRname + ' Regional Partners';
+											title = $scope.report.user.adminRname + ' '+$filter('translate')('regional_partners');
 										}
 
 										// set title HQ_ORG
 										if ( roles.indexOf( 'HQ_ORG' ) >= 0 ) {
-											title = $scope.report.user.organization + ' Global Team' ;
+											title = $scope.report.user.organization + ' '+$filter('translate')('global_team') ;
 										}
 
 										// set title HQ
 										if ( roles.indexOf( 'HQ' ) >= 0 ) {
-											title = 'HQ ReportHub Partners' ;
+											title = $filter('translate')('hq_reporthub_partners') ;
 										}
 
 										// set title SUPERADMIN
 										if ( roles.indexOf( 'SUPERADMIN' ) >= 0 ) {
-											title = 'ReportHub Users' ;
+											title = 'ReportHub'+' '+$filter('translate')('users') ;
 										}
 
-										// return
+										// return 
 										return title;
 
 									},
