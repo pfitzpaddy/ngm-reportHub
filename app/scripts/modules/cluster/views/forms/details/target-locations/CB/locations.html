@@ -120,7 +120,9 @@
 							      </td>
 							      <td ng-if="location.site_type_id === 'refugee_camp' || 
 							      							location.site_type_id === 'refugee_block' ||
-							      							location.site_type_id === 'nutrition_center'">
+							      							location.site_type_id === 'nutrition_center' ||
+							      							location.site_type_id === 'food_distribution_point' ||
+							      							location.site_type_id === 'retail_store'">
 							        <span e-placeholder="Select..."
 							        				editable-select="location.admin2pcode"
 							        				e-name="admin2pcode"
@@ -190,12 +192,16 @@
 							      <!-- admin3 as camp -->
 							      <td ng-if="ngmCbLocations.showAdmin3Column( project.definition.target_locations, 'camp' ) &&
 							      							location.site_type_id !== 'nutrition_center' &&
+							      							location.site_type_id !== 'food_distribution_point' &&
+							      							location.site_type_id !== 'retail_store' &&
 							      							location.site_type_id !== 'refugee_block'">
 							        -
 							      </td>
 
 										<!-- nutrition_center -->
 							      <td ng-if="location.site_type_id === 'nutrition_center' ||
+						      							location.site_type_id === 'food_distribution_point' ||
+						      							location.site_type_id === 'retail_store' ||
 							      						location.site_type_id === 'refugee_block'">
 							        <span e-placeholder="Select..."
 							        				editable-select="location.admin3pcode"
@@ -235,7 +241,9 @@
 							      <!-- select existing: drop down (filter by admin3pcode if exists) -->
 							      <td ng-if="location.site_type_id === 'host_community' || 
 							      						location.site_type_id === 'refugee_block' || 
-							      						location.site_type_id === 'nutrition_center'">
+							      						location.site_type_id === 'nutrition_center' ||
+							      						location.site_type_id === 'food_distribution_point' ||
+						      							location.site_type_id === 'retail_store'">
 							        <span e-placeholder="Select..."
 							        			editable-select="location.site_id"
 							        			e-name="site_id"

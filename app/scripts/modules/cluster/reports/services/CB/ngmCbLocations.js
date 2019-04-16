@@ -68,7 +68,9 @@ angular.module( 'ngmReportHub' )
           // admin3 as camp
           if ( type === 'camp' ) {
             if ( d.site_type_id === 'nutrition_center' ||
-                  d.site_type_id === 'refugee_block' ) {
+                  d.site_type_id === 'refugee_block' ||
+                  d.site_type_id === 'food_distribution_point' ||
+                  d.site_type_id === 'retail_store' ) {
               display = true;
             }
           }
