@@ -128,7 +128,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           // usd default currency
           if( !$scope.project.definition.project_budget_currency ){
             $scope.project.definition.project_budget_currency = 'usd';
-          }
+					}
+					// sort locations
+					$scope.project.report.locations = $filter('orderBy')($scope.project.report.locations, [ 'site_type_name','admin1name','admin2name','admin3name','site_name' ]);
           // set org users
           ngmClusterLists.setOrganizationUsersList( $scope.project.lists, config.project );
           // set form on page load
