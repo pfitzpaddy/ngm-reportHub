@@ -142,8 +142,10 @@ angular.module('ngmReportHub')
 
 			// set title
 			setTitles: function () {
-				$scope.dashboard.ngm.dashboard.model.header.title.title = $scope.dashboard.organization + ' | ' +  $scope.dashboard.admin0name + ' | '+$filter('translate')('team');
-				$scope.dashboard.ngm.dashboard.model.header.subtitle.title = $scope.dashboard.organization  + ' | ' +  $scope.dashboard.admin0name + ' | '+$filter('translate')('team')+ ' | ' + $scope.dashboard.user.username;
+				if ( $scope.dashboard.ngm.dashboard.model.header ) {
+					$scope.dashboard.ngm.dashboard.model.header.title.title = $scope.dashboard.organization + ' | ' +  $scope.dashboard.admin0name + ' | '+$filter('translate')('team');
+					$scope.dashboard.ngm.dashboard.model.header.subtitle.title = $scope.dashboard.organization  + ' | ' +  $scope.dashboard.admin0name + ' | '+$filter('translate')('team')+ ' | ' + $scope.dashboard.user.username;
+				}
 			},
 
 			// set stats

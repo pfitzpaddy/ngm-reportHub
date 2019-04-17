@@ -40,7 +40,7 @@ angular.module('ngmReportHub')
 			// get report
 			getReport: $http({
 				method: 'POST',
-				url: ngmAuth.LOCATION + '/api/cluster/report/getReportOnly',
+				url: ngmAuth.LOCATION + '/api/cluster/report/getReportDetailsById',
 				data: {
 					id: $route.current.params.report
 				}
