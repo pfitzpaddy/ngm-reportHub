@@ -214,18 +214,18 @@ li .collection-item .avatar .coll .list-upload{
 
 				<li class="collection-item avatar " style=" border-bottom-width: 0px;min-height: 60px; ">
 					<div class="right">
-						<button class=" btn waves-effect waves-light tooltipped-report-upload" data-position="bottom" data-tooltip="Upload Document" ng-click="project.uploadDocument.openModal('upload-file')">
+						<button class=" btn waves-effect waves-light tooltipped-report-upload" data-position="bottom" data-tooltip="{{'upload_document'|translate}}" ng-click="project.uploadDocument.openModal('upload-file')">
 							<i class="material-icons left">cloud_upload</i>
 							{{'upload_document'|translate}}
 						</button>
 							
-						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="Grid View" ng-click="grid=true"
+						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="{{'grid_view'|translate}}" ng-click="grid=true"
 						 ng-class="{white: !grid,teal:grid}">
 							<i class="material-icons " style="color: #ffffff" ng-class="{color_teal: !grid,color_white:grid}">
 								view_module
 							</i>
 						</div>							
-						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="List View" ng-click="grid=false"
+						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="{{'list_view'|translate}}" ng-click="grid=false"
 						 ng-class="{white: grid,teal:!grid}">
 							<i class="material-icons  " ng-class="{color_teal: grid,color_white:!grid}">
 								format_list_bulleted
@@ -249,7 +249,7 @@ li .collection-item .avatar .coll .list-upload{
 							<table class="highlight list-upload-item" ng-table="tableParams">
 								<tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;border-bottom: 0.99px solid #dce0e2;">
 								
-									<td data-title="'File Name'" sortable="'filename'" width="40%">
+									<td data-title="'file_name'|translate" sortable="'filename'" width="40%">
 										<div style="position: relative;">
 											<i class="material-icons circle" style="background-color:{{project.manageDocument.extentionColor(row.filename_extension)}}">
 												 {{project.manageDocument.extentionIcon(row.filename_extension)}}
@@ -258,26 +258,26 @@ li .collection-item .avatar .coll .list-upload{
 										</div>
 								
 									</td>
-									<td data-title="'Owner'" sortable="'fileowner'" width="20%">
+									<td data-title="'owner'|translate" sortable="'fileowner'" width="20%">
 										{{row.fileowner}}
 									</td>
 								
-									<td data-title="'Uploaded'" sortable="'createdAt'" width="10%">
+									<td data-title="'uploaded'|translate" sortable="'createdAt'" width="10%">
 										{{row.createdAt|date}}
 									</td>
-									<td data-title="'Action'" width="20%">
+									<td data-title="'action'|translate" width="20%">
 										<div class="line">
 								
 											<!-- use gdrive id file -->
-											<button class="btn-floating  wave-effect blue tooltipped-report-upload" data-position="bottom" data-tooltip="Preview" ng-disabled="item.filename_extension === '.csv'"
+											<button class="btn-floating  wave-effect blue tooltipped-report-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}" ng-disabled="item.filename_extension === '.csv'"
 											 ng-click="project.manageDocument.openPreview('close-preview-file',row.fileid)">
 												<i class="small material-icons">compare</i>
 											</button>
-											<a class="btn-floating  wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="Download"
+											<a class="btn-floating  wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="{{'download'|translate}}"
 											 ng-href="{{project.manageDocument.setDonwloadLink(row.fileid)}}">
 												<i class="small material-icons">cloud_download</i>
 											</a>
-											<button class="btn-floating  wave-effect tooltipped-report-upload red space" data-position="bottom" data-tooltip="Delete"
+											<button class="btn-floating  wave-effect tooltipped-report-upload red space" data-position="bottom" data-tooltip="{{'delete_mayus1'|translate}}"
 											 ng-click="project.manageDocument.setRemoveId('remove-modal',row.fileid)">
 												<i class="small material-icons">delete</i>
 											</button>
@@ -312,14 +312,14 @@ li .collection-item .avatar .coll .list-upload{
 												<div class="line">
 						
 													<!-- use gdrive id file -->
-													<button class="btn-floating  wave-effect blue tooltipped-report-upload" data-position="bottom" data-tooltip="Preview" ng-click="project.manageDocument.openPreview('close-preview-file',item.fileid)"
+													<button class="btn-floating  wave-effect blue tooltipped-report-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}" ng-click="project.manageDocument.openPreview('close-preview-file',item.fileid)"
 													 ng-disabled="item.filename_extension === '.csv'">
 														<i class="small material-icons">compare</i>
 													</button>
-													<a class="btn-floating  wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="Download" ng-href="{{project.manageDocument.setDonwloadLink(item.fileid)}}">
+													<a class="btn-floating  wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="{{'download'|translate}}" ng-href="{{project.manageDocument.setDonwloadLink(item.fileid)}}">
 														<i class="small material-icons">cloud_download</i>
 													</a>
-													<button class="btn-floating  wave-effect tooltipped-report-upload red space " data-position="bottom" data-tooltip="Delete" ng-click="project.manageDocument.setRemoveId('remove-modal',item.fileid)">
+													<button class="btn-floating  wave-effect tooltipped-report-upload red space " data-position="bottom" data-tooltip="{{'delete_mayus1'|translate}}" ng-click="project.manageDocument.setRemoveId('remove-modal',item.fileid)">
 														<i class="small material-icons">delete</i>
 													</button>
 												</div>

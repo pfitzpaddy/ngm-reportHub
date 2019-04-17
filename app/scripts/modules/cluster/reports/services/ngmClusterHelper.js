@@ -157,6 +157,8 @@ angular.module( 'ngmReportHub' )
           beneficiary_type: [],
           target_beneficiaries: [],
           target_locations: [],
+          project_donor:[]
+
         }
 
         // extend defaults with ngmUser details

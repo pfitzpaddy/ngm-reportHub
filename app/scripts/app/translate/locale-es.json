@@ -379,6 +379,13 @@
          "documents":"Documentos",
           "download_all_document_project":"Descargar toda la documentación del proyecto",
          "file_uploaded":"Archivo cargado!",
+                 "file_name":"Nombre del Archivo",
+
+                 "uploaded_by":"Actualizado por",
+                         "uploaded":"Actualizado",
+
+
+
          "cancel_to_upload_file":"Carga de archivo cancelada",
 
          "submit":"Enviar",
@@ -478,6 +485,9 @@
         "project_budget_progress":"Progreso Presupuesto del Proyecto",
         "add_new_row_of_financial_details_to_your_project_for_each_payment_recieved":"Agregar una NUEVA FILA de detalles financieros a su proyecto por CADA PAGO recibido",
         "donor":"Donante",
+        "type_donor_name":"Ingrese el nombre del Donante",
+        "add_another_donor":"Agregar otro donante",
+         "project_deleted":"Proyecto Eliminado",
         "activity":"Actividad",
         "grant":"Donante",
         "amount":"Monto",
