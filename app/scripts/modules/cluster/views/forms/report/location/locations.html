@@ -66,8 +66,7 @@
 						</div>
 
 						<div class="row" ng-repeat="location in project.report.locations | 
-															filter:{ location_group_id: project.location_group } | 
-															orderBy:[ 'site_type_name','admin1name','admin2name','admin3name','site_name' ]"
+															filter:{ location_group_id: project.location_group }"
 															ng-init="$locationIndex=$index">
 
 							<div class="row">
