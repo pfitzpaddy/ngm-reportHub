@@ -3197,6 +3197,14 @@ angular.module( 'ngmReportHub' )
               beneficiary_type_id: 'flood_affected_displaced_response',
               beneficiary_type_name: 'Flood Affected Displaced ( Response )'
             },{
+              cluster_id: [ 'cvwg' ],
+              beneficiary_type_id: 'drought_affected_non_displaced',
+              beneficiary_type_name: 'Drought Affected Non Displaced'
+            },{
+              cluster_id: [ 'cvwg' ],
+              beneficiary_type_id: 'drought_affected_displaced',
+              beneficiary_type_name: 'Drought Affected Displaced'
+            },{
 
               // HEALTH
               cluster_id: [ 'health' ],
