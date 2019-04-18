@@ -157,3 +157,24 @@ h1, h2, h3, h4, h5, p {
 	-webkit-box-shadow:0 -3px 3px rgba(0,0,0,.2);
 	box-shadow:0 -3px 3px rgba(0,0,0,.2);
 }
+
+.ngm-project_donor_select md-chip{
+	background-color: #26a69a;
+}
+
+.ngm-project_donor_select md-chip .md-contact-name{
+    font-size: 15px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    color: #ffffff;
+}
+
+.ngm-project_donor_select md-chips .md-default-theme md-chip md-icon, md-chips md-chip md-icon{
+
+	
+    min-height: 18px;
+    min-width: 18px;
+    color: #ffffff;
+
+
+}
+

@@ -121,7 +121,7 @@
 
 							</div>
 
-							<div class="row">
+							<div class="row" ng-if="project.definition.admin0pcode !== 'COL'">
 
 								<!-- switch -->
 								<div class="switch input-field col s12 m6">
@@ -247,7 +247,7 @@
 
 							</div>
 
-							<div id="ngm-project_donor_label" class="row">
+							<div class="row" ng-if="project.definition.admin0pcode !== 'COL'" id="ngm-project_donor_select" >
 
 								<div class="input-field col s12" style="padding-bottom:5px;">
 									<label for="ngm-project_donor">{{'project_donor' | translate}} *</label>
@@ -260,17 +260,38 @@
 									      ng-click="project.compileDonor()"/>
 								      <label class="checkbox-label" for="donor_{{ donor.project_donor_id }}">{{ donor.project_donor_name }}</label>
 									</p>
+								</div>
+							</div>
+
+							<div class="row" ng-if="project.definition.admin0pcode === 'COL'"  style="padding-bottom:5px;">
+
+									<div class="input-field col s12 m12" style="padding-bottom:5px;padding-left: 20px;">
+									<label for="ngm-project_donor">{{'project_donor' | translate}} *</label>
+									<div style="padding-top:35px;"></div>
+
+									<md-contact-chips
+									class="ngm-project_donor_select"
+									        ng-model="project.definition.project_donor"
+									        ng-change="project.afterSelectItem(project.definition.project_donor)"
+									        md-require-match="true"
+									        md-contacts="project.searchDonor($query)"
+									        md-contact-name="project_donor_name"
+									        md-require-match="true"
+									        placeholder="{{'type_donor_name'|translate}}"
+									        secondary-placeholder="{{'add_another_donor'|translate}}"
+									        input-aria-label="Intended Recipients">
+									    </md-contact-chips>
 
 								</div>
 
 							</div>
 							
-							<!-- other partners -->
+							<!-- other donors -->
 							<div class="row">
 
 								<br/>	
 
-						        <div class="input-field col s12" style="padding-left: 20px;"
+						        <div class="input-field col s6" style="padding-left: 20px;"
 						        		ng-show="project.definition.project_donor_check.other">
 						          <input 
 						          		id="ngm-project-project_donor_other" type="text"
@@ -282,7 +303,7 @@
 						    </div>
 
 							<!-- other partners -->
-							<div class="row">
+							<div class="row" >
 								
 						        <div class="input-field col s12 m6" style="padding-bottom:35px;">
 						        	<label>{{'project_partners' | translate}}</label>
@@ -294,6 +315,7 @@
 							          <label class="checkbox-label" for="ngm-project-other_partbers">{{'other_implementing_partners' | translate}}?</label>
 							        </p>
 						        </div>
+						        
 
 						        <div style="padding-top:25px;">
 							        <div class="input-field col s12 m6"

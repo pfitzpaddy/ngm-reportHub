@@ -65,6 +65,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
       $scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
       $scope.ngmCbLocations = ngmCbLocations;
       $scope.ngmClusterHelperCol = ngmClusterHelperCol;
+    
 
       // project
       $scope.project = {
@@ -81,6 +82,22 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.project.adminRpcode, admin0pcode:config.project.admin0pcode, cluster_id: config.project.cluster_id, organization_tag:config.project.organization_tag } ),
 
 
+       afterSelectItem : function(item){
+        //console.log(item);
+         $scope.project.definition.project_donor_check[item.project_donor_id] = true ;
+         //console.log("project_donor_check",$scope.project.definition.project_donor_check);
+         //console.log("$scope.project.definition.project_donor",$scope.project.definition.project_donor);
+         
+          
+       },
+
+       searchDonor:function(query){
+        return $scope.project.lists.donors.filter(function (el) {
+          return el.project_donor_name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+        });
+       },
+
+       
         // cluster
         displayIndicatorCluster: {
           'AF': [ 'agriculture', 'cvwg', 'eiewg', 'education', 'esnfi', 'fsac', 'health', 'nutrition', 'protection', 'gbv', 'rnr_chapter', 'wash' ],

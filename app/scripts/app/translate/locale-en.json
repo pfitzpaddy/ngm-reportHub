@@ -242,6 +242,7 @@
         "new_project":"New Project",
         "as":"as",
         "processing":"Processing...",
+        "project_deleted":"Project Deleted",
         "project_moved_to_active":"Project moved to Active!",
         "project_market_as_complete_congratulations":"Project marked as Complete, Congratulations!",
          "project_delete_error_please_try_again":"Project delete error! Please try again",
@@ -399,6 +400,7 @@
         "actual_monthly_progress_report_for":"Actual Monthly Progress Report for",
         "cancel_monthly_progress":"Cancel Monthly Progress",
 
+
         "remarks":"Remarks",
         "add_partial_kits": "Add Partial Kits",
         "add_kit_details":"Add Kit Details",
@@ -453,6 +455,10 @@
         "documents":"Documents",
         "download_all_document_project":"Download all document project",
         "file_uploaded":"File Uploaded!",
+         "file_name":"File Name",
+
+        "uploaded_by":"Uploaded by",
+        "uploaded":"Upluaded",
         "total_projects":"Total Projects",
         "lastest_report_update":"Lastest Report Update",
         "by":"by",
@@ -538,6 +544,8 @@
         "project_budget_progress":"Project Budget Progress",
         "add_new_row_of_financial_details_to_your_project_for_each_payment_recieved":"Add a NEW ROW of financial details to your project for EACH PAYMENT recieved",
         "donor":"Donor",
+        "add_another_donor":"Add another donor",
+        "type_donor_name":"Type donor name",
         "activity":"Activity",
         "grant":"Grant",
         "amount":"Amount",
