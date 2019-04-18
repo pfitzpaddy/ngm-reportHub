@@ -1106,12 +1106,12 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: $filter('translate')('total_projects'),
+										title: $scope.dashboard.report_type==='stock' ? $filter('translate')('warehouses_total') : $filter('translate')('total_projects'),
 										request: {
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
 											// indicator, list
-											data: $scope.dashboard.getRequest( 'projects_total', false )
+											data: $scope.dashboard.getRequest( $scope.dashboard.report_type==='stock' ? 'warehouses_total' : 'projects_total', false )
 										}
 									}
 								}]
