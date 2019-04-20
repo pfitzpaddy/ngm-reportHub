@@ -386,15 +386,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           $scope.project.definition.target_locations.push( $scope.inserted );
           // autoset location groupings
           if (  $scope.project.showLocationGroupingsOption() && $scope.project.definition.target_locations.length > 30  ) {
-            $scope.project.definition.location_groups_check = true;
+            $scope.project.addLocationGroupdings();
           }
 
         },
-
-        // location edit
-        // locationEdit: function( $index ) {
-        //   $scope.project.definition.target_locations[ $index ].update_location = true;
-        // },
 
         // save location
         saveLocation: function() {
@@ -892,6 +887,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // disable btn
           $scope.project.submit = false;
 
+          // project_status
+          if ( $scope.project.definition.project_status === 'new' ) {
+            $scope.project.definition.project_status = 'active';
+          }
+
           // parse budget
           $scope.project.definition.project_budget += '';
           $scope.project.definition.project_budget = $scope.project.definition.project_budget.replace(',', '');
@@ -921,7 +921,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 
           // inform
-          Materialize.toast( $filter('translate')('processing'), 60000, 'note' );
+          Materialize.toast( $filter('translate')('processing'), 6000, 'note' );
 
           // details update
           $http({
@@ -942,8 +942,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               // add id to client json
               $scope.project.definition = angular.merge( $scope.project.definition, project );
               $scope.project.definition.update_dates = false;
-
-              $('.toast').remove();
 
               // save
               if( save_msg ){ Materialize.toast( save_msg , 6000, 'success' ); }

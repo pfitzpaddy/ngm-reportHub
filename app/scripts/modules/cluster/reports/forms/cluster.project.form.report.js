@@ -130,7 +130,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             $scope.project.definition.project_budget_currency = 'usd';
 					}
 					// sort locations
-					$scope.project.report.locations = $filter('orderBy')($scope.project.report.locations, [ 'site_type_name','admin1name','admin2name','admin3name','site_name' ]);
+					$scope.project.report.locations = $filter('orderBy')( $scope.project.report.locations, [ 'site_type_name','admin1name','admin2name','admin3name','site_name' ]);
           // set org users
           ngmClusterLists.setOrganizationUsersList( $scope.project.lists, config.project );
           // set form on page load
@@ -1001,6 +1001,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               // updated report
               $scope.project.report = report;
               $scope.project.report.submit = false;
+
+              // sort locations
+              $scope.project.report.locations = $filter('orderBy')( $scope.project.report.locations, [ 'site_type_name','admin1name','admin2name','admin3name','admin4name','admin5name','site_name' ]);
 
               // user msg
               var msg = $filter('translate')('project_report_for')+'  ' + moment.utc( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';

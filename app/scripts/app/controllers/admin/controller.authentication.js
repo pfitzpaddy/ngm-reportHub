@@ -207,9 +207,6 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           ngmAuth
             .updateProfile({ user: $scope.panel.user }).success(function( result ) {
 
-              // remove toast
-              $('.toast').remove();
-
               // db error!
               if( result.err || result.summary ){
                 var msg = result.msg ? result.msg : 'error!';

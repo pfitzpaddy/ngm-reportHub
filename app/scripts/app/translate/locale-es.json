@@ -239,7 +239,7 @@
         "list_other_donors":"Lista de Otros Donantes",
         "list_project_partners":"Lista de Socios del Proyecto",
         "project_partners":"Socios del Proyecto",
-        "other_implementing_partners":"Otros Socios Implementadores",
+        "other_implementing_partners":"Socios Implementadores",
         "project_description_objetives":"Descripción y Objetivos del Proyecto",
         "project_focal_point":"Punto Focal del Proyecto",
         "target_population":"Población Objetivo",
@@ -387,6 +387,7 @@
 
 
          "total_projects":"Total de Proyectos",
+         "warehouses_total":"Warehouses",
          "from":"desde",
          "to":"hasta",
          "projects_progress":"Proyectos en Progreso",
