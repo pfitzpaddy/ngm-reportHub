@@ -443,39 +443,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           }
 				},
 
-				// process adding previous report data
-				addPrevReport: function(prev_report){
-					angular.forEach(prev_report.locations, function(l,i){
-
-						var project_id=l.project_id ;site_id = l.site_id; site_name = l.site_name; admin1pcode = l.admin1pcode; admin2pcode = l.admin2pcode;
-
-						var $loc = $scope.project.report.locations.find(function (l) {							
-							return (l.site_id === site_id) && (l.project_id===project_id) && (l.site_name === site_name ) &&(l.admin1pcode===admin1pcode) && (l.admin2pcode === admin2pcode);
-						})
-
-						if($loc !== undefined){
-
-							angular.forEach(l.beneficiaries, function (b,i) {					
-								$scope.insertedBeneficiary = ngmClusterHelper.getCleanBeneficiaryforCopy(b,$loc,$scope.project.report);														
-								$scope.project.report.locations.find(function (l) {		
-									return (l.site_id === site_id) && (l.project_id === project_id) && (l.site_name === site_name) && (l.admin1pcode === admin1pcode) && (l.admin2pcode === admin2pcode);
-								}).beneficiaries.push($scope.insertedBeneficiary);
-							})
-							
-							angular.forEach(l.trainings,function (t,j) {
-								$scope.insertedTraining = ngmClusterHelper.getCleanTrainingsforCopy(t,$loc,$scope.project.report);								
-								$scope.project.report.locations.find(function (l) {									
-									return (l.site_id === site_id) && (l.project_id === project_id) && (l.site_name === site_name) && (l.admin1pcode === admin1pcode) && (l.admin2pcode === admin2pcode);
-								}).trainings.push($scope.insertedTraining);								
-							})
-
-						} else{
-							new_location = ngmClusterHelper.getCleanCopyLocation(l,$scope.project.report);
-							$scope.project.report.locations.push(new_location);							
-						}
-					})					
-				},
-
         // copy previous month - backend
         copyPreviousMonth: function() {
 
@@ -536,7 +503,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               $scope.deactivedCopybutton = true;
                 
               // toast
-              Materialize.toast( msg, 6000, typ );
+              Materialize.toast( msg, 4000, typ );
               
             } else {
               
@@ -551,7 +518,47 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               } else{
                   var msg = 'Copied beneficiaries ' + brows + ' rows'+ " and " + 'trainings ' + trows + ' rows';
                       typ = 'success';
-              }  
+              }
+
+              // send message
+              Materialize.toast( msg, 4000, typ );
+
+              // set last month
+              angular.forEach( $scope.project.report.locations, function( location ){
+                
+                // get reference_id
+                var target_location_reference_id = location.target_location_reference_id
+                var previous_location = prev_report.locations.find( function ( l ) {
+                  return l.target_location_reference_id === target_location_reference_id
+                });
+
+                // set
+                location.beneficiaries = previous_location.beneficiaries
+                location.trainings = previous_location.trainings;
+
+                // forEach beneficiaries
+                angular.forEach( location.beneficiaries, function( b ){
+                  delete b.id;
+                });
+
+                // forEach beneficiaries
+                angular.forEach( location.trainings, function( t ){
+                  delete t.id;
+                  angular.forEach( t.training_participants, function( tp ){
+                    delete tp.id;
+                  });
+                });
+
+              });
+
+              // reset form UI layout
+              $timeout(function() {
+                ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
+              }, 10 );              
+
+              // final message
+              Materialize.toast( info, 8000, 'note' );
+              $scope.addBeneficiaryDisable = false;
 
             }
 
@@ -565,104 +572,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           })
 
         },
-				
-				// entry copy previous report
-				copyPrevReport: function(){
-
-					Materialize.toast($filter('translate')('fetching_data'), 4000, 'note');
-					$scope.deactivedCopybutton = true;
-					$scope.addBeneficiaryDisable = true;
-					var setParam ={}
-					if (config.report.report_month < 1) {
-						setParam ={
-							id: $route.current.params.report,
-							project_id: $route.current.params.project,
-							month: 11,
-							year: config.report.report_year-1,
-							previous: true
-						}
-					} else{
-						setParam = {
-							id: $route.current.params.report,
-							project_id: $route.current.params.project,
-							month: config.report.report_month - 1,
-							// month: config.report.report_month,							
-							year: config.report.report_year,
-							previous: true
-						}
-					}
-
-
-					var getPrevReport ={
-						method: 'POST',
-						url: ngmAuth.LOCATION + '/api/cluster/report/getReport',
-						data: setParam
-					}
-
-					ngmData.get(getPrevReport).then(function (prev_report) {
-						
-						var brows = 0;
-						var trows =0;
-						var info = $filter('translate')('save_to_apply_changes')
-						angular.forEach(prev_report.locations, function(l){
-							brows += l.beneficiaries.length;
-							trows += l.trainings.length;
-						})
-
-						if(!brows && !trows){
-							if(Object.keys(prev_report).length){
-								var msg = $filter('translate')('no_data_in_previous_report');
-										typ = 'success';
-							}else{
-								var msg = $filter('translate')('no_previous_report');
-										typ = 'success';
-							}
-							$scope.deactivedCopybutton = false;
-							
-								Materialize.toast(msg, 6000, typ);
-							
-						} else{
-							Materialize.toast($filter('translate')('copying'), 6000, 'note');
-							if ( !brows && trows > 0 ){
-									var msg = 'Copied Trainings ' + trows + ' rows';
-									typ = 'success';
-							} else if ( brows > 0 && !trows ){
-								var msg = "Copied Beneficiaries " + brows + ' rows';
-									  typ = 'success';
-							} else{
-									var msg = 'Copied beneficiaries ' + brows + ' rows'+ " and " + 'trainings ' + trows + ' rows';
-										  typ = 'success';
-							}
-
-              // reset form UI layout
-              $timeout(function() {
-                ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
-              }, 10 );
-							
-							$scope.project.addPrevReport(prev_report);
-							$timeout(function () {
-								countNewLocation=0;
-								angular.forEach($scope.project.report.locations,function(loc){
-									if(!loc.id){
-										countNewLocation+=1;
-									}
-								})
-								if(countNewLocation>0){
-									msg += " and "+countNewLocation+" location"
-								}
-								Materialize.toast(msg, 5500, typ);
-								Materialize.toast(info, 6000, 'note');
-							}, 1500);
-						}						
-						$scope.addBeneficiaryDisable = false;						
-						
-					}).catch(function (e){
-
-						Materialize.toast($filter('translate')('error_not_copied'), 6000, 'error');
-						$scope.addBeneficiaryDisable = false;
-						$scope.deactivedCopybutton = false;
-					})
-				},
 
 				// active deactivate copy previoust month
 				activePrevReportButton: function(){
