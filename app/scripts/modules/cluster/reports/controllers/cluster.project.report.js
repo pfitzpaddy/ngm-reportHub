@@ -62,7 +62,7 @@ angular.module('ngmReportHub')
 				method: 'POST',
 				url: ngmAuth.LOCATION + '/api/cluster/report/getReport',
 				data: {
-					id: $route.current.params.report,
+					report_id: $route.current.params.report,
 					location_group_id: $route.current.params.location_group
 				}
 			}),
