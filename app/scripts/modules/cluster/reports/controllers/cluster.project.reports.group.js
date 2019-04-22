@@ -146,7 +146,7 @@ angular.module('ngmReportHub')
 									submit_update:function( obj, redirect ){
 
 										// materialize
-										$timeout(function(){ Materialize.toast( 'Processing...', 120000, 'note' ); }, 400 );
+										$timeout(function(){ Materialize.toast( 'Processing...', 6000, 'note' ); }, 400 );
 
 										// Run page get project
 										ngmData.get({
@@ -158,8 +158,6 @@ angular.module('ngmReportHub')
 											}
 										}).then(function(data){
 											
-											// remove and redirect
-											$('.toast').remove();
               				// user msg
 			              	var msg = $filter('translate')('project_report_for')+'  ' + moment.utc( $scope.report.definition.reporting_period ).format('MMMM, YYYY') + ' ';
 			                 		msg += redirect ? $filter('translate')('submitted')+'!' : $filter('translate')('saved_mayus1')+'!';
@@ -203,13 +201,10 @@ angular.module('ngmReportHub')
 		$scope.report.ngm.dashboard.model = $scope.model;
 
 		// taost for user
-		$timeout( function() { Materialize.toast( 'Loading Monthly Groups...', 12000, 'success' ); }, 400 );
+		$timeout( function() { Materialize.toast( 'Loading Monthly Groups...', 6000, 'success' ); }, 400 );
 
 		// send request
 		$q.all([ $scope.report.getProject, $scope.report.getReport ]).then( function( results ){
-
-			// remove toast
-			$('.toast').remove();
 
 			// assign
 			$scope.report.setProjectDetails( results );

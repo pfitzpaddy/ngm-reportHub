@@ -80,17 +80,20 @@ angular.module( 'ngmReportHub' )
 
       // add participant
       addParticipant: function( $scope, training  ){
+        
         // trainings
         $scope.participantInserted = {
           trainee_men: 0,
           trainee_women: 0
         }
 
-        var length = training.training_participants.length;
-        if ( length ) {
+        // get previous
+        if ( training.training_participants && training.training_participants.length ) {
           var p = angular.copy( training.training_participants[ length - 1 ] );
           delete p.id;
           $scope.participantInserted = angular.merge( $scope.participantInserted, p );
+        } else {
+          training.training_participants = [];
         }
 
         // add to training participants
@@ -192,7 +195,7 @@ angular.module( 'ngmReportHub' )
                 if ( !ngmClusterTrainings.rowSaveDisabledTraining( t ) ) {
                   rowCompleteTrainings++;
                 }
-                if( t.training_participants.length ) {
+                if( t.training_participants && t.training_participants.length ) {
                   training_participants += t.training_participants.length;
                   angular.forEach( t.training_participants, function( p ){
                     if ( !ngmClusterTrainings.rowSaveDisabledTrainingParticipant( p ) ) {

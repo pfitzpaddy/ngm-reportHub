@@ -708,6 +708,7 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'usaid', project_donor_name: 'USAID' },
             { project_donor_id: 'unhcr', project_donor_name: 'UNHCR' },
             { project_donor_id: 'unicef', project_donor_name: 'UNICEF' },
+            { project_donor_id: 'unwomen', project_donor_name: 'UNWOMEN' },
             { project_donor_id: 'wfp', project_donor_name: 'WFP' },
             { project_donor_id: 'who', project_donor_name: 'WHO' },
             { project_donor_id: 'world_bank', project_donor_name: 'Worldbank' }
@@ -3196,6 +3197,14 @@ angular.module( 'ngmReportHub' )
               cluster_id: [ 'cvwg' ],
               beneficiary_type_id: 'flood_affected_displaced_response',
               beneficiary_type_name: 'Flood Affected Displaced ( Response )'
+            },{
+              cluster_id: [ 'cvwg' ],
+              beneficiary_type_id: 'drought_affected_non_displaced',
+              beneficiary_type_name: 'Drought Affected Non Displaced'
+            },{
+              cluster_id: [ 'cvwg' ],
+              beneficiary_type_id: 'drought_affected_displaced',
+              beneficiary_type_name: 'Drought Affected Displaced'
             },{
 
               // HEALTH

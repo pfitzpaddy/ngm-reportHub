@@ -158,7 +158,7 @@ angular.module('ngmReportHub')
 									deleteProject: function(project){
 
 									  // timeout
-									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 120000, 'note'); }, 200 ); 
+									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); }, 200 ); 
 
 									  // Submit project for save
 									  $http({
@@ -168,9 +168,6 @@ angular.module('ngmReportHub')
 									      project_id: project.id
 									    }
 									  }).success(function(data){
-
-									  	// toast
-									  	$('.toast').remove();
 
 									    // redirect on success
 									    if ( data.err ) {

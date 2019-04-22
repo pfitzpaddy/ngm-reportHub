@@ -62,7 +62,7 @@ angular.module('ngmReportHub')
 				method: 'POST',
 				url: ngmAuth.LOCATION + '/api/cluster/report/getReport',
 				data: {
-					id: $route.current.params.report,
+					report_id: $route.current.params.report,
 					location_group_id: $route.current.params.location_group
 				}
 			}),
@@ -195,7 +195,7 @@ angular.module('ngmReportHub')
 
 		// taost for user
 
-		$timeout( function() { Materialize.toast( $filter('translate')('loading_monhtly_progress_report'), 120000, 'success' ); }, 400 );
+		$timeout( function() { Materialize.toast( $filter('translate')('loading_monhtly_progress_report'), 6000, 'success' ); }, 400 );
 
 		// send request
 		$q.all([ $scope.report.getProject, $scope.report.getReport ]).then( function( results ){
