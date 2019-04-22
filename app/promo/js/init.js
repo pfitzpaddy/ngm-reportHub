@@ -10,14 +10,18 @@
   			
 
 
-  			/*if(href  === 'http://192.168.33.16/'){
+  			if(href  === 'http://4wplus.org/'){
   				title = "4w+";
   				humanitariandesicion = "Apoyo a Desiciones Humanitarias en Tiempo-Real";
   				getstarted ="Comenzar";
   				loginbuttontitle = "Inicio de Sesión o Registro para Empezar";
+  			
+  				
+
+
 
   			}else{
-  				*/
+  				
 
   				//original
   			title = "ReportHub";
@@ -27,7 +31,7 @@
 
 
 
-  			//};
+  			};
 
   			$('#title').html(title);
   				$('#promo-title').html(title);
@@ -35,6 +39,7 @@
   				$('#humanitariandesicion').html(humanitariandesicion);
   				$('#getstarted').html(getstarted);
   				//$('login-button').html(loginbuttontitle);
+ 
 
 
 		// materialize components

@@ -173,14 +173,14 @@ angular
 			ngmUser.unset();
 		}
 
-		/*if($location.$$host === '192.168.33.16'){
+		if($location.$$host === '4wplus.org'){
 			$('#title').html("4W+");
 		}else{
 			$('#title').html("ReportHub");
 
-		}*/
-		$('#title').html("ReportHub");
-		console.log($location.$$host);
+		}
+		//$('#title').html("ReportHub");
+		//console.log($location.$$host);
 
 		// check URL
 		if ( $location.$$host.search('dev') > -1 ) {
