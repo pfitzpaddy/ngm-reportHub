@@ -359,7 +359,7 @@
 							        			e-name="households"
 							        			editable-number="beneficiary.households"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput( $index, 'households', $data )"
+							        			e-ng-change="project.updateInput( $index, 'households', $data ); ngmCbBeneficiaries.setSadd( beneficiary );"
 							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'households' ]"
 							        			e-required>
 							          {{ beneficiary.households }}

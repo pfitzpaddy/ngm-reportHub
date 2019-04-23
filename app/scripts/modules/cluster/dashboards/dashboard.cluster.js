@@ -826,7 +826,7 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m4',
+								styleClass: 's12 m6',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
@@ -837,7 +837,7 @@ angular.module('ngmReportHub')
 									}
 								}]
 							},{
-								styleClass: 's12 m4',
+								styleClass: 's12 m6',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
@@ -847,21 +847,32 @@ angular.module('ngmReportHub')
 										request: $scope.dashboard.getRequest( { indicator: 'projects' } )
 									}
 								}]
-							},{
-								styleClass: 's12 m4',
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12 l4',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: $filter('translate')('active_locations'),
-										request: $scope.dashboard.getRequest( { indicator: 'locations' } )
+										title: $filter('translate')('individual_households'),
+										request: $scope.dashboard.getRequest( { indicator: 'households_population' } )
 									}
 								}]
-							}]
-						},{
-							columns: [{
-								styleClass: 's12 m12 l12',
+							},{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: $filter('translate')('individual_beneficiaries'),
+										request: $scope.dashboard.getRequest( { indicator: 'beneficiaries_population' } )
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l4',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
@@ -1039,6 +1050,19 @@ angular.module('ngmReportHub')
 									style: 'padding:0px;',
 									config: {
 										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">'+$filter('translate')('project_locations')+'</h2>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: $filter('translate')('active_locations'),
+										request: $scope.dashboard.getRequest( { indicator: 'locations' } )
 									}
 								}]
 							}]

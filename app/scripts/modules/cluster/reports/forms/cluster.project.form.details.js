@@ -36,7 +36,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
     'ngmClusterHelperAf',
     'ngmCbLocations',
     'ngmClusterHelperCol',
-    'config','$translate',
+    'ngmCbBeneficiaries',
+    'config',
+    '$translate',
 
     function( 
         $scope, 
@@ -58,13 +60,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         ngmClusterHelperAf,
         ngmCbLocations,
         ngmClusterHelperCol,
-        config,$translate ){
+        ngmCbBeneficiaries,
+        config,
+        $translate ){
 
       // set to $scope
       $scope.ngmClusterHelper = ngmClusterHelper;
       $scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
       $scope.ngmCbLocations = ngmCbLocations;
       $scope.ngmClusterHelperCol = ngmClusterHelperCol;
+      $scope.ngmCbBeneficiaries = ngmCbBeneficiaries;
 
       // project
       $scope.project = {
