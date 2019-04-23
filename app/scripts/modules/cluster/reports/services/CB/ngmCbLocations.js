@@ -53,9 +53,16 @@ angular.module( 'ngmReportHub' )
       // SHOW / HIDE COLUMNS
 
       // show the column
-      showAdmin3Column: function( target_location, type ){
+      showColumn: function( target_location, type ){
         var display = false;
         angular.forEach( target_location, function( d, i ){
+
+          // admin3 as ward
+          if ( type === 'food_distribution_point' ) {
+            if ( d.site_type_id === 'food_distribution_point' ) {
+              display = true;
+            }
+          }
           
           // admin3 as ward
           if ( type === 'ward' ) {

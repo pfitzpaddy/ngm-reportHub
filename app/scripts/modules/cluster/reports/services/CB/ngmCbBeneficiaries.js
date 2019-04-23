@@ -12,7 +12,7 @@ angular.module( 'ngmReportHub' )
 		ngmCbBeneficiaries = {
       
       // values
-      ratios:{
+      ratios: {
         households: 4.34,
         boys: 0.275,
         girls: 0.267,

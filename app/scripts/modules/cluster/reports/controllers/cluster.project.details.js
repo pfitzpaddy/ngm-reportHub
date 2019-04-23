@@ -34,7 +34,7 @@ angular.module('ngmReportHub')
 				// assign data
 				$scope.report.project = data;
 
-				var title = $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.organization + ' | ';
+				var title = $scope.report.project.organization + ' | ' + $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ';
 
 				// set model to null
 				if( $route.current.params.project === 'new' ){
@@ -185,7 +185,54 @@ angular.module('ngmReportHub')
 				}
 			}).then( function( data ){
 				// assign data
-				$scope.report.setProjectDetails( data );
+				if ( data.target_locations && data.target_locations.length && data.target_beneficiaries && data.target_beneficiaries.length  ){
+					$scope.report.setProjectDetails( data );
+				} else {
+					
+					// report dashboard model
+					$scope.model = {
+						name: 'cluster_project_details',
+						header: {
+							div: {
+								'class': 'col s12 report-header',
+								style: 'border-bottom: 3px ' + $scope.report.ngm.style.defaultPrimaryColor + ' solid;'
+							},
+							title: {
+								'class': 'col s12',
+								style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
+								title: 'Project Not Found!'
+							},
+							subtitle: {
+								'class': 'col s12 report-subtitle truncate hide-on-small-only',
+								'title': 'This project has not been found, please return to your list of projects and try again!'
+							}
+						},
+						rows: [{
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'form.authentication',
+									card: 'card-panel',
+									style: 'padding:0px; height: ' + $scope.report.ngm.style.height + 'px;',
+									config: {
+										style: $scope.report.ngm.style,
+										templateUrl: '/scripts/app/views/authentication/404.html'
+									}
+								}]
+							}]
+						}]
+					}
+
+					// assign to ngm app scope
+					$scope.report.ngm.dashboard.model = $scope.model;
+
+					// send them away
+					$timeout(function() {
+						$location.path( '/cluster/projects/all' );
+					}, 11500 );
+
+				}
+
 			});
 
 		}
