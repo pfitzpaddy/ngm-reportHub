@@ -119,7 +119,7 @@
        "contract_start_date" : "Contract Start Date",
        "contract_end_date" : "Contract End Date",
        "select_duty_station" : "Select Duty Station",
-       "duty_station" : "Estación de Servicio",
+       "duty_station" : "Duty Station",
        "profile" : "Profile",
        "go_to" : "Go to",
        "team" : "Team",
