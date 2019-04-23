@@ -53,9 +53,23 @@ angular.module( 'ngmReportHub' )
       // SHOW / HIDE COLUMNS
 
       // show the column
-      showAdmin3Column: function( target_location, type ){
+      showColumn: function( target_location, type ){
         var display = false;
         angular.forEach( target_location, function( d, i ){
+
+          // admin3 as ward
+          if ( type === '!food_distribution_point' ) {
+            if ( d.site_type_id !== 'food_distribution_point' ) {
+              display = true;
+            }
+          }
+
+          // admin3 as ward
+          if ( type === 'food_distribution_point' ) {
+            if ( d.site_type_id === 'food_distribution_point' ) {
+              display = true;
+            }
+          }
           
           // admin3 as ward
           if ( type === 'ward' ) {
@@ -101,24 +115,33 @@ angular.module( 'ngmReportHub' )
           delete target_location.admin3lng;
           delete target_location.admin3lat;
         }
-        
-        // location groups
-        if ( project.location_groups_check, target_location.admin2pcode ) {
+
+        // admin4
+        if ( type === 'food_distribution_point' ) {
+
+          // admin4
+          delete target_location.admin4pcode;
+          delete target_location.admin4name;
+          delete target_location.admin4lng;
+          delete target_location.admin4lat;
+        }
+
+        // admin1, admin2, admin3
+        if ( type === 'admin1' || type === 'admin2' || type === 'admin3' ) {
+
+          // site
+          delete target_location.site_id;
+          delete target_location.site_lng;
+          delete target_location.site_lat;
+        }
+
+        // add location groups
+        if ( project.location_groups_check && target_location.admin2pcode ) {
           target_location.location_group_id = target_location.admin2pcode;
           target_location.location_group_type = target_location.admin2type_name;
           target_location.location_group_name = target_location.admin2name;
-        } else {
-          delete target_location.location_group_id;
-          delete target_location.location_group_type;
-          delete target_location.location_group_name;
         }
 
-        // site
-        delete target_location.site_id;
-        // delete target_location.site_name;
-        // delete target_location.site_name_alternative;
-        delete target_location.site_lng;
-        delete target_location.site_lat;
       },
 
       // admin2

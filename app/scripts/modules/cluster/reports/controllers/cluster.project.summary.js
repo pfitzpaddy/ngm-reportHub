@@ -61,7 +61,7 @@ angular.module('ngmReportHub')
 
 				// if admin0pcode
 				if ( $scope.report.project.admin0name ) {
-					$scope.report.title = $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.organization + ' | ' + $scope.report.project.project_title
+					$scope.report.title = $scope.report.project.organization + ' | ' + $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.project_title
 				}
 				
 				// report dashboard model

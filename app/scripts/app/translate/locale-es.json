@@ -169,6 +169,7 @@
        "completed_projects":"Proyectos Completos",
        "active_locations":"Ubicaciones Activas",
        "services_to_beneficiaries":"Servicios a Beneficiarios",
+       "individual_beneficiaries":"Beneficiarios individuales",
        "reset":"Restaurar",
        "back_to_team":"Regresar a Equipo",
 
@@ -279,7 +280,7 @@
          "project_moved_to_active":"Proyecto movido a Activo!",
          "project_market_as_complete_congratulations":"Proyecto marcado como Completo, Felicitaciones!",
          "project_delete_error_please_try_again":"Error al Eliminar Proyecto! Por favor intente de nuevo",
-         "project_delete":"Proyecto Eliminado!",
+         "project_deleted":"Proyecto Eliminado!",
          "objetives_mayus":"OBJETIVOS",
          "select_the_objetives_that_your_project_will_target":"Seleccionar los Objetivos de su proyecto",
          "relates_to":"Relacionado con",
@@ -406,6 +407,7 @@
         "units":"Unidades",
         "quantity":"Cantidad",
         "households":"Hogares",
+        "individual_households":"Casas Individuales",
         "cholera_response":"Respuesta del Cólera",
 
 
