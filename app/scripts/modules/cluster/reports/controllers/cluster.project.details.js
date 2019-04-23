@@ -185,7 +185,7 @@ angular.module('ngmReportHub')
 				}
 			}).then( function( data ){
 				// assign data
-				if ( data.target_locations && data.target_locations.length && data.target_beneficiaries && data.target_beneficiaries.length  ){
+				if ( data.target_locations && data.target_beneficiaries ){
 					$scope.report.setProjectDetails( data );
 				} else {
 					
