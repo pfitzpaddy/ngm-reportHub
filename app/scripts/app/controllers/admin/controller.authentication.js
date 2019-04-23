@@ -29,11 +29,15 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
     'config',
     '$translate',
     function( $scope, $http, $location, $timeout, $filter , $q, ngmAuth, ngmUser, ngmData, config,$translate){
+       
 
+
+      
       // project
       $scope.panel = {
 
         err: false,
+
 
         date : new Date(),
 
@@ -78,8 +82,10 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         // duty stations
         dutyStations: localStorage.getObject( 'dutyStations'),
 
+
         // cluster
         cluster: {
+
           'cvwg': { cluster: 'MPC' },
           'agriculture': { cluster: 'Agriculture' },
           'cccm_esnfi': { cluster: 'CCCM - Shelter' },
@@ -97,8 +103,14 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           'nutrition': { cluster: 'Nutrition' },
           'protection': { cluster: 'Protection' },
           'rnr_chapter': { cluster: 'R&R Chapter' },
-          'wash': { cluster: 'WASH' }
+          'wash': { cluster: 'WASH' },
+          'undaf':{ cluster: 'UNDAF'}
 				},
+        //cluster:clus,
+
+
+        
+
 				
 				// editable role array:
 				
@@ -138,6 +150,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
           }
         },
+
+
 
         // open modal by id 
         openModal: function( modal ) {
@@ -415,8 +429,38 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                 Materialize.toast( 'Only UNHCR or IOM Can Register in R&R Chapter!', 6000, 'error' );
               }
             }
+
+            if($scope.panel.user.admin0pcode === 'COL'){
+                  $scope.panel.cluster ={
+                   'cvwg': { cluster: 'MPC' },
+          'agriculture': { cluster: 'Agricultura' },
+          'cccm_esnfi': { cluster: 'CCCM - Albergue' },
+          'cwcwg': { cluster: 'CwCWG' },
+          'coordination': { cluster: 'Coordinación' },
+          'education': { cluster: 'Educación' },
+          'eiewg': { cluster: 'EiEWG' },
+          'emergency_telecommunications': { cluster: 'Emergencia de Telecomunicaciones' },
+          'esnfi': { cluster: 'ESNFI' },
+          'fsac': { cluster: 'FSAC' },
+          'fss': { cluster: 'Seguridad Alimentaria' },
+          'health': { cluster: 'Salud' },
+          'logistics': { cluster: 'Logísticas' },
+          'smsd': { cluster: 'Sitio de Administración y Sitio de Desarrollo' },
+          'nutrition': { cluster: 'Nutrición' },
+          'protection': { cluster: 'Protección' },
+          'rnr_chapter': { cluster: 'R&R Chapter' },
+          'wash': { cluster: 'WASH' },
+          'undaf':{ cluster: 'UNDAF'}
+
+                 }
+
+              }
+
           }
+
 				},
+
+        
 				
 				//manage user access
 				manageUserAccess:function (id) {
@@ -539,8 +583,13 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
         }, 900 );
 
+
+
       });
 
+
+
     }
+
 
 ]);

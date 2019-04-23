@@ -11,8 +11,9 @@ angular.module( 'ngmReportHub' )
         '$http',
         '$filter',
         '$timeout',
-        'ngmAuth',
-    function( $q, $http, $filter, $timeout, ngmAuth ) {
+        'ngmAuth','$location',
+    function( $q, $http, $filter, $timeout, ngmAuth,$location ) {
+
 
 		var ngmClusterLists = {
 
@@ -396,10 +397,43 @@ angular.module( 'ngmReportHub' )
         return trasnfers;
       },
 
+
+
       // clusters
       getClusters: function( admin0pcode ){
         var clusters = [];
-        if ( admin0pcode.toLowerCase() === 'all') {
+        if ( $location.$$host === '4wplus.org' && admin0pcode.toLowerCase() === 'all') {
+          clusters = [{
+            cluster_id: 'agriculture',
+            cluster: 'Agricultura'
+          },{
+            cluster_id: 'education',
+            cluster: 'Educación'
+          },{
+            cluster_id: 'esnfi',
+            cluster: 'ESNFI'
+          },{
+            cluster_id: 'fsac',
+            cluster: 'FSAC'
+          },{
+            cluster_id: 'health',
+            cluster: 'Salud'
+          },{
+            cluster_id: 'nutrition',
+            cluster: 'Nutrición'
+          },{
+            cluster_id: 'protection',
+            cluster: 'Protección'
+          },{
+            cluster_id: 'wash',
+            cluster: 'WASH'
+          },
+          {
+            cluster_id: 'undaf',
+            cluster: 'UNDAF'
+          }];
+        } else if(admin0pcode.toLowerCase() === 'all'){
+
           clusters = [{
             cluster_id: 'acbar',
             cluster: 'ACBAR'
@@ -437,7 +471,7 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'wash',
             cluster: 'WASH'
           }];
-        } else if ( admin0pcode.toLowerCase() === 'af' ) {
+        }else if ( admin0pcode.toLowerCase() === 'af' ) {
           clusters = [{
             cluster_id: 'acbar',
             cluster: 'ACBAR'
@@ -530,7 +564,38 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'wash',
             cluster: 'WASH'
           }];
-        }else {
+        }
+        else if ( admin0pcode.toLowerCase() === 'col' ) {
+          clusters = [{
+            cluster_id: 'agriculture',
+            cluster: 'Agricultura'
+          },{
+            cluster_id: 'education',
+            cluster: 'Educación'
+          },{
+            cluster_id: 'esnfi',
+            cluster: 'ESNFI'
+          },{
+            cluster_id: 'fsac',
+            cluster: 'FSAC'
+          },{
+            cluster_id: 'health',
+            cluster: 'Salud'
+          },{
+            cluster_id: 'nutrition',
+            cluster: 'Nutrición'
+          },{
+            cluster_id: 'protection',
+            cluster: 'Protección'
+          },{
+            cluster_id: 'wash',
+            cluster: 'WASH'
+          },
+          {
+            cluster_id: 'undaf',
+            cluster: 'UNDAF'
+          }];
+        } else {
           clusters = [{
             cluster_id: 'agriculture',
             cluster: 'Agriculture'
