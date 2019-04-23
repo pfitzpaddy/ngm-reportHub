@@ -39,6 +39,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
     'ngmClusterHelperNgWashLists',
 		'ngmClusterHelperNgWashValidation',
     'ngmClusterHelperCol',
+    'ngmCbBeneficiaries',
 		'NgTableParams',
     'config','$translate','$filter',
 
@@ -65,6 +66,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       ngmClusterHelperNgWashLists,
 			ngmClusterHelperNgWashValidation,
       ngmClusterHelperCol,
+      ngmCbBeneficiaries,
 			NgTableParams,
       config,$translate,$filter ){
       
@@ -83,6 +85,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
       $scope.ngmClusterHelperNgWashLists = ngmClusterHelperNgWashLists;
 			$scope.ngmClusterHelperNgWashValidation = ngmClusterHelperNgWashValidation;
       $scope.ngmClusterHelperCol = ngmClusterHelperCol;
+      $scope.ngmCbBeneficiaries = ngmCbBeneficiaries;
 			$scope.deactivedCopybutton = false;
 
       // project
@@ -261,27 +264,48 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
           // default admin 1,2
           var title = '';
+          
+          // location_type_id
+          switch ( target_location.site_type_id ) {
 
-          // site_type_name
-          if ( target_location.site_type_name ) {
-            title += target_location.site_type_name + ': ';
-          }
+            // food_distribution_point
+            case 'food_distribution_point':
 
-          title += target_location.admin1name + ', ' + target_location.admin2name;
+              // type + title
+              title += target_location.site_type_name + ' ' + target_location.site_name + ': ';
 
-          // admin levels 3,4,5
-          if ( target_location.admin3name ) {
-            title += ', ' + target_location.admin3name;
-          }
-          if ( target_location.admin4name ) {
-            title += ', ' + target_location.admin4name;
-          }
-          if ( target_location.admin5name ) {
-            title += ', ' + target_location.admin5name;
-          }
+              // admin1, admin2
+              title += target_location.admin1name + ', ' + target_location.admin2name + ', ' + target_location.admin3name;
 
-          // site_name
-          title += ', ' + target_location.site_name;
+              break;
+
+            // default
+            default:
+              
+              // site_type_name
+              if ( target_location.site_type_name ) {
+                title += target_location.site_type_name + ': ';
+              }
+
+              // admin1, admin2
+              title += target_location.admin1name + ', ' + target_location.admin2name;
+
+              // admin levels 3,4,5
+              if ( target_location.admin3name ) {
+                title += ', ' + target_location.admin3name;
+              }
+              if ( target_location.admin4name ) {
+                title += ', ' + target_location.admin4name;
+              }
+              if ( target_location.admin5name ) {
+                title += ', ' + target_location.admin5name;
+              }
+
+              // site_name
+              title += ', ' + target_location.site_name;
+
+              break;
+          }
 
           return title;
         },

@@ -10,15 +10,34 @@ angular.module( 'ngmReportHub' )
 
     // ngmCbBeneficiaries
 		ngmCbBeneficiaries = {
-      demographics:{
-        households: 4.29,
-        boys: 27.5,
-        girls: 26.7,
-        men: 18.8,
-        women: 23.3,
-        elderly_men: 1.7,
-        elderly_women: 1.9
+      
+      // values
+      ratios: {
+        households: 4.34,
+        boys: 0.275,
+        girls: 0.267,
+        men: 0.188,
+        women: 0.233,
+        elderly_men: 0.017,
+        elderly_women: 0.019
+      },
+
+      // calculate SADD via HHs
+      setSadd: function ( beneficiary ) {
+
+        // if households
+        if ( beneficiary.households && beneficiary.cluster_id && beneficiary.cluster_id === 'fss' ) {
+          var popn = beneficiary.households * ngmCbBeneficiaries.ratios.households;
+          beneficiary.boys = Math.round( popn * ngmCbBeneficiaries.ratios.boys );
+          beneficiary.girls = Math.round( popn * ngmCbBeneficiaries.ratios.girls );
+          beneficiary.men = Math.round( popn * ngmCbBeneficiaries.ratios.men );
+          beneficiary.women = Math.round( popn * ngmCbBeneficiaries.ratios.women );
+          beneficiary.elderly_women = Math.round( popn * ngmCbBeneficiaries.ratios.elderly_men );
+          beneficiary.elderly_men = Math.round( popn * ngmCbBeneficiaries.ratios.elderly_women );
+        }
+
       }
+
     }
 
     // return

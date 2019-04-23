@@ -32,7 +32,7 @@ angular.module( 'ngmReportHub' )
 			report_title: ngmUser.get().organization_tag  +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
 
 			// title
-			title: ngmUser.get().admin0name.toUpperCase().substring( 0, 3 ) + ' | ' + ngmUser.get().organization + ' | '+$filter('translate')('projects_mayus1'),
+			title: ngmUser.get().organization + ' | ' + ngmUser.get().admin0name.toUpperCase().substring( 0, 3 ) + ' | '+$filter('translate')('projects_mayus1'),
 
 			// subtitle
 			subtitle: $filter('translate')('projects_for_mayus1')+' ' + ngmUser.get().organization + ' ' + ngmUser.get().admin0name,
@@ -88,7 +88,7 @@ angular.module( 'ngmReportHub' )
 								
 							// set titles
 							$scope.model.header.download.downloads[0].request.data.report = organization.organization_tag  +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
-							$scope.model.header.title.title = organization.admin0name.toUpperCase().substring( 0, 3 ) + ' | ' + organization.organization + ' | '+$filter('translate')('projects_mayus1');
+							$scope.model.header.title.c = organization.organization + ' | ' + organization.admin0name.toUpperCase().substring( 0, 3 ) + ' | '+$filter('translate')('projects_mayus1');
 							$scope.model.header.subtitle.title = $filter('translate')('projects_for_mayus1')+' ' + organization.organization + ' ' + organization.admin0name;
 
 						});

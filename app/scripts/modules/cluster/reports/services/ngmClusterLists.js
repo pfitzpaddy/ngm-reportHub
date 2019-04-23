@@ -1126,6 +1126,7 @@ angular.module( 'ngmReportHub' )
       // country currencies
       getCurrencies: function( admin0pcode ) {
 
+
         if(admin0pcode == 'COL'){
 
           var currencies = [{
@@ -1137,13 +1138,12 @@ angular.module( 'ngmReportHub' )
 
         }else{
 
-        var currencies = [
-        {
+        var currencies = [{
+
           admin0pcode: 'COL',
           currency_id: 'cop',
           currency_name: 'COP'
-        },
-        {
+        },{
           admin0pcode: 'AF',
           currency_id: 'afn',
           currency_name: 'AFN'
@@ -1159,6 +1159,10 @@ angular.module( 'ngmReportHub' )
           admin0pcode: admin0pcode,
           currency_id: 'cad',
           currency_name: 'CAD'
+        },{
+          admin0pcode: admin0pcode,
+          currency_id: 'chf',
+          currency_name: 'CHF'
         },{
           admin0pcode: admin0pcode,
           currency_id: 'ddk',

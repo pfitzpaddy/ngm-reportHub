@@ -146,6 +146,7 @@
 
        "active_locations":"Active Locations",
        "services_to_beneficiaries":"Services to Beneficiaries",
+       "individual_beneficiaries":"Individual Beneficiaries",
        "reset":"Reset",
        "back_to_team":"Back to Team",
 
@@ -245,8 +246,8 @@
         "project_deleted":"Project Deleted",
         "project_moved_to_active":"Project moved to Active!",
         "project_market_as_complete_congratulations":"Project marked as Complete, Congratulations!",
-         "project_delete_error_please_try_again":"Project delete error! Please try again",
-        "project_delete":"Project Deleted!",
+        "project_delete_error_please_try_again":"Project delete error! Please try again",
+        "project_deleted":"Project Deleted!",
         "objetives_mayus":"OBJETIVES",
         "select_the_objetives_that_your_project_will_target":"Select the Objectives that your project will",
         "relates_to":"Relates to",
@@ -488,6 +489,7 @@
         "transfers":"Transfers",
         "transfer":"Transfer",
         "households":"Households",
+        "individual_households":"Individual Households",
         "families":"Families",
         "boys":"Boys",
         "girls":"Girls",
