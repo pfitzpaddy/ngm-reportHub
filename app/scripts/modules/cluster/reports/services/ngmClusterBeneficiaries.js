@@ -146,18 +146,13 @@ angular.module( 'ngmReportHub' )
       /* ESNFI KITS */
 
       // show distribution date
-      showDistributionDate: function( beneficiary ){
-        var display = beneficiary.cluster_id === 'esnfi' && 
-                        ( beneficiary.activity_type_id === 'hardware_materials_distribution' || 
-                            beneficiary.activity_type_id ==='cash_vouchers' );
-
+      initDistributionDate: function( beneficiary ){
         // set values
-        if ( display && !beneficiary.distribution_start_date ) {
+        if ( !beneficiary.distribution_start_date ) {
           beneficiary.distribution_start_date = moment.utc( new Date() ).format( 'YYYY-MM-DD' );
           beneficiary.distribution_status = 'ongoing';
         }
 
-        return display;
       },
 
 
