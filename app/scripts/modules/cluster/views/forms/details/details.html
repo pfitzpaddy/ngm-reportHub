@@ -317,7 +317,7 @@
 						        </div>
 						        
 
-						        <div style="padding-top:25px;">
+						        <div ng-show="project.definition.implementing_partners_checked && project.definition.admin0pcode !== 'COL'" style="padding-top:35px;">
 							        <div class="input-field col s12 m6"
 							        		ng-class="{ 'has-error' : healthProjectForm.implementing_partners_list.$error.pattern }"
 							        		ng-show="project.definition.implementing_partners_checked">
@@ -330,6 +330,30 @@
 							          <label for="ngm-project-implementing_partners">{{'list_project_partners' | translate}}</label>
 							        </div>
 							    </div>
+
+							  
+							    
+
+                             <div  ng-show="project.definition.implementing_partners_checked && project.definition.admin0pcode === 'COL'"  style="padding-bottom:40px;">
+
+									<div class="input-field col s12 m6" style="padding-bottom:5px;padding-left: 20px;">
+									<label for="ngm-project-implementing_partners">{{'list_project_partners' | translate}} *</label>
+									<div style="padding-top:35px;"></div>
+
+									<md-contact-chips
+									class="ngm-project_donor_select"
+									        ng-model="project.definition.implementing_partners"
+									        ng-change="project.afterSelectPartner(project.definition.implementing_partners)"
+									        md-require-match="true"
+									        md-contacts="project.searchPartner($query)"
+									        md-contact-name="organization_name"
+									        md-require-match="true"
+									        placeholder="{{'type_partner_name'|translate}}"
+									        secondary-placeholder="{{'add_another_partner'|translate}}"
+									        input-aria-label="Intended Recipients" >
+									    </md-contact-chips>
+
+								</div>
 
 					     	</div>
 

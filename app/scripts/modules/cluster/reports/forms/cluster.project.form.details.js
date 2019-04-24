@@ -101,6 +101,17 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         });
        },
 
+       afterSelectPartner : function (item){
+
+       //
+       },
+
+       searchPartner:function(query){
+        return $scope.project.lists.organizations.filter(function (el) {
+          return el.organization_name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+        });
+       },
+
        
         // cluster
         displayIndicatorCluster: {

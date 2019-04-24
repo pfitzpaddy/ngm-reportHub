@@ -51,7 +51,7 @@ angular.module( 'ngmReportHub' )
           // location_groups: ngmClusterLists.getLocationGroups(),
           currencies: ngmClusterLists.getCurrencies( project.admin0pcode ),
           donors: ngmClusterLists.getDonors( project.admin0pcode, project.cluster_id ),
-          ///organizations: ngmClusterLists.getOrganizations (project.cluster_id),
+          organizations: ngmClusterLists.getOrganizations(project.admin0pcode),
           partial_kits: ngmClusterLists.getPartialKits(),
 					kit_details: ngmClusterLists.getKitDetails(),
 					
@@ -164,12 +164,6 @@ angular.module( 'ngmReportHub' )
             url: ngmAuth.LOCATION + '/api/cluster/list/donors'
           },
 
-         /* //organizations
-          getOrganizations:{
-            method: 'GET',
-            url: ngmAuth.LOCATION + '/api/cluster/list/organizations'
-          },*/
-
           // indicators list
           getIndicators: {
             method: 'GET',
@@ -180,7 +174,14 @@ angular.module( 'ngmReportHub' )
           getStockItems: {
             method: 'GET',
             url: ngmAuth.LOCATION + '/api/cluster/list/stockitems'
-          }
+          },
+
+
+          //organizations
+          getOrganizations:{
+            method: 'GET',
+            url: ngmAuth.LOCATION + '/api/list/organizations'
+          },
 
         }
 
@@ -197,9 +198,9 @@ angular.module( 'ngmReportHub' )
             adminSites: [],
             activitiesList: [],
             donorsList: [],
-            //organizationsList: [],
             indicatorsList: [],
-            stockItemsList: []
+            stockItemsList: [],
+            organizationsList: [],
           };
 
           // storage
@@ -216,7 +217,8 @@ angular.module( 'ngmReportHub' )
             $http( requests.getActivities ),
             $http( requests.getDonors ),
             $http( requests.getIndicators ),
-            $http( requests.getStockItems ) ] ).then( function( results ){
+            $http( requests.getStockItems ),
+            $http( requests.getOrganizations) ] ).then( function( results ){
 
               // admin1, admin2, activities object
               var lists = {
@@ -228,9 +230,9 @@ angular.module( 'ngmReportHub' )
                 adminSites: results[5].data,
                 activitiesList: results[6].data,
                 donorsList: results[7].data,
-               // organizationsList: results[7].data,
                 indicatorsList: results[8].data,
-                stockItemsList: results[9].data
+                stockItemsList: results[9].data,
+                organizationsList: results[10].data,
               };
 
               // storage
@@ -241,7 +243,7 @@ angular.module( 'ngmReportHub' )
 
       },
 
-      // set org users for a project
+        // set org users for a project
       setOrganizationUsersList: function( lists, project ) {
         // set org
         $http({
@@ -260,6 +262,8 @@ angular.module( 'ngmReportHub' )
           //
         });
       },
+
+    
 
       // monthly report indicators
       getIndicators: function( target ) {
@@ -695,28 +699,31 @@ angular.module( 'ngmReportHub' )
         return activity_types;
       },
 
-      /*getOrganizations: function(cluster_id){
+
+      getOrganizations: function(admin0pcode){
+
+
+
 
         var organizations;
 
-        //organizations = $filter( 'filter' )( localStorage.getObject( 'lists' ).organizationsList,
-                          { cluster_id: cluster_id }, true );
-                          
-            $http.get( ngmAuth.LOCATION + '/api/list/organizations' ).then(function( organizationslist ){
-          //localStorage.setObject( 'organizations', organizations.data );
-         //organizations =  localStorage.getObject( 'lists' ).organizationsList;
-         organizations = organizationslist.data;
-         console.log(organizations);
+        if(admin0pcode === 'COL'){
 
-        
-        });
-            return organizations;
+         organizations = $filter('filter')(localStorage.getObject( 'lists' ).organizationsList,
+                 {admin0pcode: 'COL'},true );
+
+        }else{
+          organizations = localStorage.getObject( 'lists' ).organizationsList
+      }
+
+          //console.log(organizations,"LAS ORGA");
 
 
+          return organizations;
 
 
+      },
 
-      },*/
 
       // get cluster donors
       getDonors: function( admin0pcode, cluster_id ) {
@@ -1192,7 +1199,7 @@ angular.module( 'ngmReportHub' )
       getCurrencies: function( admin0pcode ) {
 
 
-        if(admin0pcode == 'COL'){
+        if(admin0pcode === 'COL'){
 
           var currencies = [{
           // default is USD
