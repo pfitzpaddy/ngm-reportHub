@@ -8,6 +8,11 @@
 angular.module( 'ngmReportHub' )
   .factory( 'ngmCbBeneficiaries', [ '$http', '$filter', '$timeout', 'ngmAuth', function( $http, $filter, $timeout, ngmAuth ) {
 
+
+    // https://data2.unhcr.org/api/population/get?widget_id=114700&sv_id=34&population_group=4803
+
+    // https://data2.unhcr.org/api/population/get/demography?widget_id=114702&sv_id=34&population_group=4803
+
     // ngmCbBeneficiaries
 		ngmCbBeneficiaries = {
       
