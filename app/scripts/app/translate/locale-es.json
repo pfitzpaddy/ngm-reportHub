@@ -489,7 +489,10 @@
         "add_new_row_of_financial_details_to_your_project_for_each_payment_recieved":"Agregar una NUEVA FILA de detalles financieros a su proyecto por CADA PAGO recibido",
         "donor":"Donante",
         "type_donor_name":"Ingrese el nombre del Donante",
+         "type_partner_name":"Ingrese el nombre del Socio",
+
         "add_another_donor":"Agregar otro donante",
+        "add_another_partner":"Agregar otro socio",
          "project_deleted":"Proyecto Eliminado",
         "activity":"Actividad",
         "grant":"Donante",

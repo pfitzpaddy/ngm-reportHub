@@ -548,7 +548,10 @@
         "add_new_row_of_financial_details_to_your_project_for_each_payment_recieved":"Add a NEW ROW of financial details to your project for EACH PAYMENT recieved",
         "donor":"Donor",
         "add_another_donor":"Add another donor",
+         "add_another_partner":"Add another partner",
+
         "type_donor_name":"Type donor name",
+        "type_partner_name":"Type partner name",
         "activity":"Activity",
         "grant":"Grant",
         "amount":"Amount",
