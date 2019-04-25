@@ -53,6 +53,7 @@
 	    });
 		};
 
+		// register connector
 		tableau.registerConnector( myConnector );
 
 	}); // end of document ready

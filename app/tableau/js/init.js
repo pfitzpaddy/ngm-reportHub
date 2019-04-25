@@ -4,12 +4,7 @@
 	$('.sidenav').sidenav();
 
 	// set listeners
-	$( document ).ready(function () {
-		$( '#get-earthquake-data' ).click(function () {
-			tableau.connectionName = 'USGS Earthquake Feed';
-			tableau.submit();
-		});
-	});
+	$( document ).ready(function () {});
 
   }); // end of document ready
 })(jQuery); // end of jQuery name space
