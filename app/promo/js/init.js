@@ -11,7 +11,7 @@
 
 
   			if(href  === 'http://4wplus.org/'){
-  				title = "4w+";
+  				title = "4Wplus";
   				humanitariandesicion = "Apoyo a Desiciones Humanitarias en Tiempo-Real";
   				getstarted ="Comenzar";
   				loginbuttontitle = "Inicio de Sesión o Registro para Empezar";

@@ -174,7 +174,7 @@ angular
 		}
 
 		if($location.$$host === '4wplus.org'){
-			$('#title').html("4W+");
+			$('#title').html("4Wplus");
 		}else{
 			$('#title').html("ReportHub");
 

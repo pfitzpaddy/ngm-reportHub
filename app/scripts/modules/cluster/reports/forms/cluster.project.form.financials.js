@@ -34,6 +34,13 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
     function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, config,$translate ){
 
       // project
+
+      if($scope.config.project.admin0pcode === 'COL'){
+        financial_html = 'financials-COL.html';
+      }else{
+        financial_html = 'financials.html';
+      }
+
       $scope.project = {
         
         // user
@@ -50,7 +57,10 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
                 
         // templates
         templatesUrl: '/scripts/modules/cluster/views/forms/financials/',
-        financialsUrl: 'financials.html',
+
+        //financialsUrl: 'financials.html',
+        financialsUrl: financial_html,
+
         notesUrl: 'notes.html',
 
         canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.project.adminRpcode, admin0pcode:config.project.admin0pcode, cluster_id: config.project.cluster_id, organization_tag:config.project.organization_tag } ),
@@ -68,7 +78,10 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           }],
           multi_year_funding: [ { multi_year_funding_id: 'yes', multi_year_funding_name: $filter('translate')('yes') }, { multi_year_funding_id: 'no', multi_year_funding_name: 'No' } ],
           activity_type: angular.copy( config.project.activity_type ),
-          currencies: ngmClusterLists.getCurrencies( config.project.admin0pcode )
+          currencies: ngmClusterLists.getCurrencies( config.project.admin0pcode ),
+          activity_descriptions: angular.copy( config.project.target_beneficiaries),
+          activity_descriptions2: [],
+
         },
 
         // datepicker
@@ -104,7 +117,9 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
         // activity
         showActivity: function( $data, $budget ) {
           var selected = [];
+
           $budget.activity_type_id = $data;
+       
           if( $budget.activity_type_id ) {
             selected = $filter('filter')( $scope.project.lists.activity_type, { activity_type_id: $budget.activity_type_id }, true);
             if( selected.length ) {
@@ -112,8 +127,31 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
               $budget.cluster_id = selected[0].cluster_id;
               $budget.activity_type_name = selected[0].activity_type_name;
             }
+
+            $scope.project.lists.activity_descriptions2 = $filter('filter')( $scope.project.lists.activity_descriptions, { activity_type_id: $budget.activity_type_id }, true);
+            
           } 
           return selected.length ? selected[0].activity_type_name : $filter('translate')('no_selection')+'!';
+        },
+
+        //activitydesciption
+        showActivityDescription: function( $data, $budget ) {
+          
+          var selected = [];
+          $budget.activity_description_id = $data;
+
+          if( $budget.activity_description_id ) {
+
+            selected = $filter('filter')( $scope.project.lists.activity_descriptions, { activity_description_id: $budget.activity_description_id }, true);
+            if( selected.length ) {
+              
+              $budget.activity_description_name = selected[0].activity_description_name;
+            }
+            
+          } 
+
+
+          return selected.length ? selected[0].activity_description_name : $filter('translate')('no_selection')+'!';
         },
 
         // currency

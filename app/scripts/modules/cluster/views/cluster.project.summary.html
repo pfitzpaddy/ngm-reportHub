@@ -54,7 +54,7 @@
 </div>
 
 	<!-- panels -->
-	<div class="row" ng-if="panel.project.admin0pcode === 'AF'">
+	<div class="row" ng-if="panel.project.admin0pcode === 'AF' || panel.project.admin0pcode === 'COL'">
 	  <div class="col s12 m4">
 	  	<a href="#/cluster/projects/details/{{ panel.project.id }}">
 	   	 <div class="card small blue-grey darken-1 hoverable">
@@ -109,7 +109,7 @@
 	</div>
 
 	<!-- panels -->
-	<div class="row" ng-if="panel.project.admin0pcode !== 'AF'">
+	<div class="row" ng-if="panel.project.admin0pcode !== 'AF' && panel.project.admin0pcode !== 'COL'">
 	  <div class="col s12 m6">
 	  	<a href="#/cluster/projects/details/{{ panel.project.id }}">
 	   	 <div class="card small blue-grey darken-1 hoverable">
