@@ -344,8 +344,10 @@
          "progress_update_todo":"Actualización de Progresos por Realizar",
          "progress_update_complete":"Actualización de Progresos Completos",
 
-         "reports_complete":"Reportes Completos",
+         "reports_submitted":"Reportes Presentado",
          "reports_due":"Reportes Pendiente",
+         "reports_total":"Reports Total",
+         "reports_saved":"Reports Salvado",
          "download_projects_financials_as_csv":"Descargar Proyectos Financieros como CSV",
          "download_beneficiary_data_as_csv":"Descargar Datos de Beneficiarios como CSV",
          "download_stock_data_as_csv":"Descargar Datos de Stock como CSV",

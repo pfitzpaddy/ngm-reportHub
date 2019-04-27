@@ -415,7 +415,8 @@
         "progress_update_complete":"Progress Update Complete",
 
         "reports_due":"Reports Due",
-        "reports_complete":"Reports Complete",
+        "reports_total":"Reports Total",
+        "reports_submitted":"Reports Submitted",
         "download_projects_financials_as_csv":"Download Projects Financials as CSV",
         "download_beneficiary_data_as_csv":"Download Beneficiary Data as CSV",
         "download_stock_data_as_csv":"Download Stock Data as CSV",
@@ -449,6 +450,8 @@
         "country_mayus":"Country",
         "countries_mayus":"Countries",
          "reports_completed":"Reports Completed",
+         "reports_saved":"Reports Saved",
+         
 
         "organizations":"Organizations",
         "documents":"Documents",

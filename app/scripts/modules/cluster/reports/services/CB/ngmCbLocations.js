@@ -95,8 +95,19 @@ angular.module( 'ngmReportHub' )
       // clear the Union on site type change
       changeLocation: function( project, type, target_location ) {
           
+        // location
+        if ( type === 'location' ) {
+
+          // admin2
+          delete target_location.admin1pcode;
+          delete target_location.admin1name;
+          delete target_location.admin1lng;
+          delete target_location.admin1lat;
+
+        }
+
         // admin1
-        if ( type === 'admin1' ) {
+        if ( type === 'location' || type === 'admin1' ) {
 
           // admin2
           delete target_location.admin2pcode;
@@ -107,7 +118,7 @@ angular.module( 'ngmReportHub' )
         }
 
         // admin1 || admin2
-        if ( type === 'admin1' || type === 'admin2' ) {
+        if ( type === 'location' || type === 'admin1' || type === 'admin2' ) {
 
           // admin3
           delete target_location.admin3pcode;
@@ -117,7 +128,7 @@ angular.module( 'ngmReportHub' )
         }
 
         // admin4
-        if ( type === 'food_distribution_point' ) {
+        if ( type === 'location' || type === 'food_distribution_point' ) {
 
           // admin4
           delete target_location.admin4pcode;
@@ -127,7 +138,7 @@ angular.module( 'ngmReportHub' )
         }
 
         // admin1, admin2, admin3
-        if ( type === 'admin1' || type === 'admin2' || type === 'admin3' ) {
+        if ( type === 'location' || type === 'admin1' || type === 'admin2' || type === 'admin3' ) {
 
           // site
           delete target_location.site_id;

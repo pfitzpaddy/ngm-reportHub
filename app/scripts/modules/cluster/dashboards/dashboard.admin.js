@@ -1084,12 +1084,16 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m12 l3',
+								styleClass: 's12 m12 l6',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
+										// titleIcon: {
+										// 	color: '#616161',
+										// 	icon: 'supervisor_account'
+										// },										
 										title: $filter('translate')('organizations'),
 										request: {
 											method: 'POST',
@@ -1100,12 +1104,16 @@ angular.module('ngmReportHub')
 									}
 								}]
 							},{
-								styleClass: 's12 m12 l3',
+								styleClass: 's12 m12 l6',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
+										// titleIcon: {
+										// 	color: '#616161',
+										// 	icon: 'move_to_inbox'
+										// },
 										title: $scope.dashboard.report_type==='stock' ? $filter('translate')('warehouses_total') : $filter('translate')('total_projects'),
 										request: {
 											method: 'POST',
@@ -1115,19 +1123,27 @@ angular.module('ngmReportHub')
 										}
 									}
 								}]
-							},{
+							}]
+						},{
+							columns: [{
 								styleClass: 's12 m12 l3',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: $filter('translate')('reports_complete'),
+										titleIcon: {
+											style: 'color:#fff176; font-size:64px; bottom:-10;right:-10px;',
+											// style: 'color:#fff176; font-size:24px; bottom:0;',
+											// style: 'color:#fff176; font-size:142px; bottom:-40px; right:-50px;',
+											icon: 'watch_later'
+										},
+										title: $filter('translate')('reports_saved'),
 										request: {
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
 											// indicator, list
-											data: $scope.dashboard.getRequest( 'reports_complete', false )
+											data: $scope.dashboard.getRequest( 'reports_saved', false )
 										}
 									}
 								}]
@@ -1138,12 +1154,62 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
+										titleIcon: {
+											style: 'color:#4db6ac; font-size:64px; bottom:-10;right:-10px;',
+											// style: 'color:#4db6ac; font-size:24px; bottom:0;',
+											// style: 'color:#4db6ac; font-size:142px; bottom:-40px; right:-50px;',
+											icon: 'check_circle'
+										},
+										title: $filter('translate')('reports_submitted'),
+										request: {
+											method: 'POST',
+											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
+											// indicator, list
+											data: $scope.dashboard.getRequest( 'reports_submitted', false )
+										}
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										titleIcon: {
+											style: 'color:#e57373; font-size:64px; bottom:-10;right:-10px;',
+											// style: 'color:#e57373; font-size:24px; bottom:0;',
+											// style: 'color:#e57373; font-size:142px; bottom:-40px; right:-50px;',
+											icon: 'error'
+										},
 										title: $filter('translate')('reports_due'),
 										request: {
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
 											// indicator, list
 											data: $scope.dashboard.getRequest( 'reports_due', false )
+										}
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										titleIcon: {
+											style: 'color:#2196F3; font-size:64px; bottom:-10;right:-10px;',
+											// style: 'color:#2196F3; font-size:24px; bottom:0;',
+											// style: 'color:#2196F3; font-size:142px; bottom:-40px; right:-50px;',
+											icon: 'assignment_turned_in'
+										},
+										title: $filter('translate')('reports_total'),
+										request: {
+											method: 'POST',
+											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
+											// indicator, list
+											data: $scope.dashboard.getRequest( 'reports_total', false )
 										}
 									}
 								}]
@@ -1201,7 +1267,7 @@ angular.module('ngmReportHub')
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
 											// indicator, list
-											data: $scope.dashboard.getRequest( 'reports_complete', true )
+											data: $scope.dashboard.getRequest( 'reports_submitted', true )
 										}
 									}
 								}]

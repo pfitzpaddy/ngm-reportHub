@@ -71,7 +71,7 @@
 							        				e-form="locationform"
 							        				e-ng-options="item.site_type_id as item.site_type_name for item in project.lists.site_type |
 							              								filter: { cluster_id: project.definition.cluster_id } : true"
-							              	e-ng-change="ngmCbLocations.changeSiteType( location )"
+							              	e-ng-change="ngmCbLocations.changeLocation( project.definition, 'location', location )"
 							        				e-required>
 							          {{ ngmCbLocations.displaySiteType( project.lists, $index, $data, location ) }}
 							        </span>
@@ -99,7 +99,18 @@
 
 
 							      <!-- admin1 -->
-							      <td>
+							      <td ng-if="location.site_type_id === 'union'">
+							        <span e-placeholder="Select..."
+							        				editable-select="location.admin1pcode"
+							        				e-name="admin1pcode"
+							        				e-form="locationform"
+							        				e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1"
+							        				e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin1', location )"
+							        				e-required>
+							          {{ ngmCbLocations.displayAdmin1( project.lists, $index, $data, location ) }}
+							        </span>
+							      </td>
+							      <td ng-if="location.site_type_id !== 'union'">
 							        <span e-placeholder="Select..."
 							        				editable-select="location.admin1pcode"
 							        				e-name="admin1pcode"
