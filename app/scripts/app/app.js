@@ -20,6 +20,8 @@ angular
 		'ngCsv',
 		'ngDropzone',
 		'ngCountTo',
+		'ngAria',
+		'ngMaterial',
 		'highcharts-ng',
 		'leaflet-directive',
 		'xeditable',
@@ -170,6 +172,15 @@ angular
 		if ( ngmUser.get() && ngmUser.get().guest ) {
 			ngmUser.unset();
 		}
+
+		if($location.$$host === '4wplus.org'){
+			$('#title').html("4Wplus");
+		}else{
+			$('#title').html("ReportHub");
+
+		}
+		//$('#title').html("ReportHub");
+		//console.log($location.$$host);
 
 		// check URL
 		if ( $location.$$host.search('dev') > -1 ) {

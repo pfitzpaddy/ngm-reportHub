@@ -108,6 +108,13 @@ angular.module( 'ngmReportHub' )
               });
             }
 
+            //implementing_partners
+            if(!project.implementing_partners && project.admin0pcode === 'COL' ){
+
+              project.implementing_partners = [];
+
+            }
+
             // fetch lists for project details
             if ( project.id ) {
               angular.forEach( project.target_locations, function( t, i ){
@@ -157,6 +164,9 @@ angular.module( 'ngmReportHub' )
           beneficiary_type: [],
           target_beneficiaries: [],
           target_locations: [],
+          project_donor:[],
+          implementing_partners : []
+
         }
 
         // extend defaults with ngmUser details

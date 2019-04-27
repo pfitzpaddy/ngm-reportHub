@@ -7,6 +7,41 @@
   			reports = 0,
   			href = window.location.href; // http://reporthub.immap.org
 
+  			
+
+
+  			if(href  === 'http://4wplus.org/'){
+  				title = "4Wplus";
+  				humanitariandesicion = "Apoyo a Desiciones Humanitarias en Tiempo-Real";
+  				getstarted ="Comenzar";
+  				loginbuttontitle = "Inicio de Sesión o Registro para Empezar";
+  			
+  				
+
+
+
+  			}else{
+  				
+
+  				//original
+  			title = "ReportHub";
+  			humanitariandesicion = "Humanitarian Decision Support in Real-Time";
+  			 getstarted ="Get Started";
+  			 loginbuttontitle = "Login or Register to Get Started";
+
+
+
+  			};
+
+  			$('#title').html(title);
+  				$('#promo-title').html(title);
+  				$('.brand-logo').html(title);
+  				$('#humanitariandesicion').html(humanitariandesicion);
+  				$('#getstarted').html(getstarted);
+  				//$('login-button').html(loginbuttontitle);
+ 
+
+
 		// materialize components
   	$('.parallax').parallax();
 

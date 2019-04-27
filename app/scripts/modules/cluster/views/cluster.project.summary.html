@@ -24,7 +24,7 @@
   </div>
   <div class="modal-footer">
   	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="panel.markComplete({{ panel.project }})" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes_project_complete' | translate}}!</a>
+    <a ng-click="panel.markComplete( panel.project )" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes_project_complete' | translate}}!</a>
   </div>
 </div>
 
@@ -36,7 +36,7 @@
   </div>
   <div class="modal-footer">
   	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="panel.deleteProject({{ panel.project }})" class=" modal-action modal-close waves-effect waves-red btn-flat">{{'yes_delete_project' | translate}}!</a>
+    <a ng-click="panel.deleteProject( panel.project )" class=" modal-action modal-close waves-effect waves-red btn-flat">{{'yes_delete_project' | translate}}!</a>
   </div>
 </div>
 
@@ -49,12 +49,12 @@
   </div>
   <div class="modal-footer">
   	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="panel.markActive({{ panel.project }})" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes_move_project_to_active' | translate}}!</a>
+    <a ng-click="panel.markActive( panel.project )" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes_move_project_to_active' | translate}}!</a>
   </div>
 </div>
 
 	<!-- panels -->
-	<div class="row" ng-if="panel.project.admin0pcode === 'AF'">
+	<div class="row" ng-if="panel.project.admin0pcode === 'AF' || panel.project.admin0pcode === 'COL'">
 	  <div class="col s12 m4">
 	  	<a href="#/cluster/projects/details/{{ panel.project.id }}">
 	   	 <div class="card small blue-grey darken-1 hoverable">
@@ -109,7 +109,7 @@
 	</div>
 
 	<!-- panels -->
-	<div class="row" ng-if="panel.project.admin0pcode !== 'AF'">
+	<div class="row" ng-if="panel.project.admin0pcode !== 'AF' && panel.project.admin0pcode !== 'COL'">
 	  <div class="col s12 m6">
 	  	<a href="#/cluster/projects/details/{{ panel.project.id }}">
 	   	 <div class="card small blue-grey darken-1 hoverable">

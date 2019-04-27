@@ -11,8 +11,9 @@ angular.module( 'ngmReportHub' )
         '$http',
         '$filter',
         '$timeout',
-        'ngmAuth',
-    function( $q, $http, $filter, $timeout, ngmAuth ) {
+        'ngmAuth','$location',
+    function( $q, $http, $filter, $timeout, ngmAuth,$location ) {
+
 
 		var ngmClusterLists = {
 
@@ -50,6 +51,7 @@ angular.module( 'ngmReportHub' )
           // location_groups: ngmClusterLists.getLocationGroups(),
           currencies: ngmClusterLists.getCurrencies( project.admin0pcode ),
           donors: ngmClusterLists.getDonors( project.admin0pcode, project.cluster_id ),
+          organizations: ngmClusterLists.getOrganizations(project.admin0pcode),
           partial_kits: ngmClusterLists.getPartialKits(),
 					kit_details: ngmClusterLists.getKitDetails(),
 					
@@ -172,7 +174,14 @@ angular.module( 'ngmReportHub' )
           getStockItems: {
             method: 'GET',
             url: ngmAuth.LOCATION + '/api/cluster/list/stockitems'
-          }
+          },
+
+
+          //organizations
+          getOrganizations:{
+            method: 'GET',
+            url: ngmAuth.LOCATION + '/api/list/organizations'
+          },
 
         }
 
@@ -190,7 +199,8 @@ angular.module( 'ngmReportHub' )
             activitiesList: [],
             donorsList: [],
             indicatorsList: [],
-            stockItemsList: []
+            stockItemsList: [],
+            organizationsList: [],
           };
 
           // storage
@@ -207,7 +217,8 @@ angular.module( 'ngmReportHub' )
             $http( requests.getActivities ),
             $http( requests.getDonors ),
             $http( requests.getIndicators ),
-            $http( requests.getStockItems ) ] ).then( function( results ){
+            $http( requests.getStockItems ),
+            $http( requests.getOrganizations) ] ).then( function( results ){
 
               // admin1, admin2, activities object
               var lists = {
@@ -220,7 +231,8 @@ angular.module( 'ngmReportHub' )
                 activitiesList: results[6].data,
                 donorsList: results[7].data,
                 indicatorsList: results[8].data,
-                stockItemsList: results[9].data
+                stockItemsList: results[9].data,
+                organizationsList: results[10].data,
               };
 
               // storage
@@ -231,7 +243,7 @@ angular.module( 'ngmReportHub' )
 
       },
 
-      // set org users for a project
+        // set org users for a project
       setOrganizationUsersList: function( lists, project ) {
         // set org
         $http({
@@ -250,6 +262,8 @@ angular.module( 'ngmReportHub' )
           //
         });
       },
+
+    
 
       // monthly report indicators
       getIndicators: function( target ) {
@@ -387,10 +401,43 @@ angular.module( 'ngmReportHub' )
         return trasnfers;
       },
 
+
+
       // clusters
       getClusters: function( admin0pcode ){
         var clusters = [];
-        if ( admin0pcode.toLowerCase() === 'all') {
+        if ( $location.$$host === '4wplus.org' && admin0pcode.toLowerCase() === 'all') {
+          clusters = [{
+            cluster_id: 'agriculture',
+            cluster: 'Agricultura'
+          },{
+            cluster_id: 'education',
+            cluster: 'Educación'
+          },{
+            cluster_id: 'esnfi',
+            cluster: 'ESNFI'
+          },{
+            cluster_id: 'fsac',
+            cluster: 'FSAC'
+          },{
+            cluster_id: 'health',
+            cluster: 'Salud'
+          },{
+            cluster_id: 'nutrition',
+            cluster: 'Nutrición'
+          },{
+            cluster_id: 'protection',
+            cluster: 'Protección'
+          },{
+            cluster_id: 'wash',
+            cluster: 'WASH'
+          },
+          {
+            cluster_id: 'undaf',
+            cluster: 'UNDAF'
+          }];
+        } else if(admin0pcode.toLowerCase() === 'all'){
+
           clusters = [{
             cluster_id: 'acbar',
             cluster: 'ACBAR'
@@ -428,7 +475,7 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'wash',
             cluster: 'WASH'
           }];
-        } else if ( admin0pcode.toLowerCase() === 'af' ) {
+        }else if ( admin0pcode.toLowerCase() === 'af' ) {
           clusters = [{
             cluster_id: 'acbar',
             cluster: 'ACBAR'
@@ -521,7 +568,38 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'wash',
             cluster: 'WASH'
           }];
-        }else {
+        }
+        else if ( admin0pcode.toLowerCase() === 'col' ) {
+          clusters = [{
+            cluster_id: 'agriculture',
+            cluster: 'Agricultura'
+          },{
+            cluster_id: 'education',
+            cluster: 'Educación'
+          },{
+            cluster_id: 'esnfi',
+            cluster: 'ESNFI'
+          },{
+            cluster_id: 'fsac',
+            cluster: 'FSAC'
+          },{
+            cluster_id: 'health',
+            cluster: 'Salud'
+          },{
+            cluster_id: 'nutrition',
+            cluster: 'Nutrición'
+          },{
+            cluster_id: 'protection',
+            cluster: 'Protección'
+          },{
+            cluster_id: 'wash',
+            cluster: 'WASH'
+          },
+          {
+            cluster_id: 'undaf',
+            cluster: 'UNDAF'
+          }];
+        } else {
           clusters = [{
             cluster_id: 'agriculture',
             cluster: 'Agriculture'
@@ -620,6 +698,32 @@ angular.module( 'ngmReportHub' )
         }
         return activity_types;
       },
+
+
+      getOrganizations: function(admin0pcode){
+
+
+
+
+        var organizations;
+
+        if(admin0pcode === 'COL'){
+
+         organizations = $filter('filter')(localStorage.getObject( 'lists' ).organizationsList,
+                 {admin0pcode: 'COL'},true );
+
+        }else{
+          organizations = localStorage.getObject( 'lists' ).organizationsList
+      }
+
+          //console.log(organizations,"LAS ORGA");
+
+
+          return organizations;
+
+
+      },
+
 
       // get cluster donors
       getDonors: function( admin0pcode, cluster_id ) {
@@ -1093,7 +1197,21 @@ angular.module( 'ngmReportHub' )
 
       // country currencies
       getCurrencies: function( admin0pcode ) {
+
+
+        if(admin0pcode === 'COL'){
+
+          var currencies = [{
+          // default is USD
+          admin0pcode: admin0pcode,
+          currency_id: 'usd',
+          currency_name: 'USD'
+        }];
+
+        }else{
+
         var currencies = [{
+
           admin0pcode: 'COL',
           currency_id: 'cop',
           currency_name: 'COP'
@@ -1163,6 +1281,7 @@ angular.module( 'ngmReportHub' )
           currency_id: 'usd',
           currency_name: 'USD'
         }];
+        }
 
         // filter currency options list by admin0pcode
         return $filter( 'filter' )( currencies, { admin0pcode: admin0pcode } );
@@ -3452,8 +3571,8 @@ angular.module( 'ngmReportHub' )
       getBeneficiariesCategories: function(){
 
         var beneficiary_categories = [{
-            beneficiary_category_id: 'colombian_afro',
-            beneficiary_category_name: 'Afro-colombianos'
+            beneficiary_category_id: 'afrodescendientes',
+            beneficiary_category_name: 'Afrodescendientes'
           }
           ,{
             beneficiary_category_id: 'indigenas',
@@ -3538,7 +3657,64 @@ angular.module( 'ngmReportHub' )
             site_implementation_id: 'clinic',
             site_implementation_name: 'Clinic'
           }];
-        } else {
+        } 
+
+        else if(admin0pcode === 'COL'){
+          site_implementation = [
+
+            {
+            site_implementation_id: 'community_based',
+            site_implementation_name: 'Comunidad Base'
+            },
+
+            {site_implementation_id:  'provision_de_insumos',
+            site_implementation_name: 'Provisión de Insumos'
+            },
+
+            {
+            site_implementation_id: 'family_protection_center',
+            site_implementation_name: 'Centro de Protección Familiar'
+            },
+
+            {site_implementation_id: 'punto_de_vacunacion',
+            site_implementation_name: 'Punto de Vacunación'
+            },
+
+            {
+              site_implementation_id: 'health_center',
+            site_implementation_name: 'Centro de Salud'
+            },
+
+            {
+            site_implementation_id: 'feeding_center',
+            site_implementation_name: 'Centro de Alimentación'
+           },
+           {
+            site_implementation_id: 'food_distribution_point_gfd',
+            site_implementation_name: 'Punto de Distribución de Alimentos'
+          },
+           {
+            site_implementation_id: 'stabalization_center',
+            site_implementation_name: 'Centro de Estabilización'
+          },
+          {
+            site_implementation_id: 'centro_de_acopio',
+            site_implementation_name: 'Centro de Acopio'
+          },
+          {
+            site_implementation_id: 'punto_de_primeros_auxilios',
+            site_implementation_name: 'Punto de Primeros Auxilios'
+          },
+           {
+            site_implementation_id: 'others',
+            site_implementation_name: 'Otros'
+          }
+
+         ];
+
+        }
+
+        else {
           site_implementation = [{
             site_implementation_id: 'community_based',
             site_implementation_name: 'Community Based'
@@ -3879,6 +4055,52 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'other',
             site_type_name: 'Other'
           }];
+        }
+
+        if(admin0pcode === 'COL'){
+
+
+          site_types = [
+          {
+            site_type_id: 'multiple_sites',
+            site_type_name: 'Múltiples Sitios'
+          },{
+            site_type_id: 'settlement',
+            site_type_name: 'Asentamientos'
+          },{
+            site_type_id: 'hospital',
+            site_type_name: 'Hospital'
+          },{
+            site_type_id: 'health_center',
+            site_type_name: 'Centro de Salud'
+          },{
+            site_type_id: 'health_post',
+            site_type_name: 'Puesto de Salud'
+          },
+          {
+            site_type_id: 'schools',
+            site_type_name: 'Escuelas'
+          },{
+            site_type_id: 'host_community_families',
+            site_type_name: 'Comunidad/Familias Anfitrionas'
+          },{
+            site_type_id: 'idp_site',
+            site_type_name: 'Sitio IDP'
+          },
+          {
+            site_type_id: 'nutrition_center',
+            site_type_name: 'Centro de Nutrición'
+          },
+          {
+            site_type_id: 'refugee_camp',
+            site_type_name: 'Campo de Refugiados'
+          },
+          {
+            site_type_id: 'other',
+            site_type_name: 'Otro'
+          },
+
+           ]
         }
         
         // facilities

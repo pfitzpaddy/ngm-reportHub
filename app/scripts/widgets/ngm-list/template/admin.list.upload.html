@@ -137,7 +137,7 @@ font-size: 18px;
 		<img ng-src={{list.setLink()}} id="imagepreview">
 	</div>
 	<div class="modal-footer">
-		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close_mayus1'|translate}}</a>
 	</div>
 </div>
 <div id="close-preview-file" class="modal ">
@@ -147,7 +147,7 @@ font-size: 18px;
 		</div>
 	</div>
 	<div class="modal-footer">
-		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close_mayus1'|translate}}</a>
 	</div>
 </div>
 <div id="remove-modal" class="modal">
@@ -176,13 +176,13 @@ font-size: 18px;
 					</div>
 					<div class="col s12 m2">
 						<div class="grid-list">
-							<div class="btn-floating wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="Grid View" ng-click="grid=true"
+							<div class="btn-floating wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="{{'grid_view'|translate}}" ng-click="grid=true"
 							 ng-class="{white: grid,indigo:!grid}">
 								<i class="material-icons " style="color: #ffffff" ng-class="{color_indigo: grid,color_white:!grid}">
 									view_module
 								</i>
 							</div>
-							<div class="btn-floating wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="List View" ng-click="grid=false"
+							<div class="btn-floating wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="{{'list_view'|translate}}" ng-click="grid=false"
 							 ng-class="{white: !grid,indigo:grid}">
 								<i class="material-icons  " ng-class="{color_indigo: !grid,color_white:grid}">
 									format_list_bulleted
