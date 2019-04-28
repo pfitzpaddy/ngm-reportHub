@@ -434,10 +434,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // remove from array if no id
         cancelEdit: function( $parent, $index ) {
-          if ( !$scope.project.report.locations[ $parent ].beneficiaries[ $index ].id ) {
-						if (!$scope.project.report.locations[$parent].beneficiaries[$index].copy_prev_month){					
-							 $scope.project.report.locations[ $parent ].beneficiaries.splice( $index, 1 );
-						}
+          if ( !$scope.project.report.locations[ $parent ].beneficiaries[ $index ].id ) {		
+					 $scope.project.report.locations[ $parent ].beneficiaries.splice( $index, 1 );
           }
         },
 
@@ -508,7 +506,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             angular.forEach( prev_report.locations, function(l){
               brows += l.beneficiaries.length;
               trows += l.trainings.length;
-            })
+            });
 
             // if no data
             if( !brows && !trows ){
@@ -524,7 +522,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
               // deactive false
               $scope.addBeneficiaryDisable = false;
-              $scope.deactivedCopybutton = true;
+              $scope.deactivedCopybutton = false;
                 
               // toast
               Materialize.toast( msg, 4000, typ );
