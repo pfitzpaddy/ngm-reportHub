@@ -26,8 +26,11 @@ angular.module( 'ngmReportHub' )
 
 		var ngmClusterHelper = {
 
+
       // set form on load
       setForm: function( project, lists ) {
+
+
 
         // on page load
         angular.element( document ).ready(function () {
@@ -108,12 +111,6 @@ angular.module( 'ngmReportHub' )
               });
             }
 
-            //implementing_partners
-            if(!project.implementing_partners && project.admin0pcode === 'COL' ){
-
-              project.implementing_partners = [];
-
-            }
 
             // fetch lists for project details
             if ( project.id ) {
