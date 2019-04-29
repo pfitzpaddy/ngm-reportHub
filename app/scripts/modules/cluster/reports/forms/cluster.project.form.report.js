@@ -279,6 +279,22 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
               break;
 
+            // food_distribution_point
+            case 'refugee_block':
+
+              // site_type_name
+              if ( target_location.site_type_name ) {
+                title += target_location.site_type_name + ': ';
+              }
+
+              // admin1, admin2
+              title += target_location.admin1name + ', ' + target_location.admin2name;
+
+              // site_name
+              title += ', ' + target_location.site_name;
+
+              break;
+
             // default
             default:
               
