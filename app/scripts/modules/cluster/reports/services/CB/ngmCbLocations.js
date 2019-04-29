@@ -84,7 +84,8 @@ angular.module( 'ngmReportHub' )
             if ( d.site_type_id === 'nutrition_center' ||
                   d.site_type_id === 'refugee_block' ||
                   d.site_type_id === 'food_distribution_point' ||
-                  d.site_type_id === 'retail_store' ) {
+                  d.site_type_id === 'retail_store' ||
+                  d.site_type_id === 'health_facility_camp' ) {
               display = true;
             }
           }

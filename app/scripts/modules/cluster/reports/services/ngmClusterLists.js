@@ -23,7 +23,9 @@ angular.module( 'ngmReportHub' )
 
       // comphrensive list of all sectors - ever
       all_sectors: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter','wash' ],
+      all_sectors_minus_health: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','smsd','nutrition','protection','rnr_chapter','wash' ],
       all_sectors_minus_wash: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
+      all_sectors_minus_wash_health: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_minus_wash_education: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
 
       // lists ( project, mpc transfers )
@@ -3869,23 +3871,23 @@ angular.module( 'ngmReportHub' )
         // Cox bazar
         if ( admin0pcode === 'CB' ) {
           site_types = [{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
             site_type_id: 'union',
             site_type_name: 'Union'
           },{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
             site_type_id: 'ward',
             site_type_name: 'Ward'
           },{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
             site_type_id: 'host_community',
             site_type_name: 'Host Community'
           },{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
             site_type_id: 'refugee_camp',
             site_type_name: 'Refugee Camp'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_wash,
+            cluster_id: ngmClusterLists.all_sectors_minus_wash_health,
             site_type_id: 'refugee_block',
             site_type_name: 'Refugee Block'
           },{
@@ -3901,7 +3903,19 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'cyclone_shelter',
             site_type_name: 'Cyclone Shelter'
           },{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: [ 'health' ],
+            site_type_id: 'health_facility_camp',
+            site_type_name: 'Health Facility (Camp)'
+          },{
+            cluster_id: [ 'health' ],
+            site_type_id: 'health_facility_host_community',
+            site_type_name: 'Health Facility (Host Community)'
+          },{
+            cluster_id: [ 'health' ],
+            site_type_id: 'health_facility_tbc',
+            site_type_name: 'Health Facility (TBC)'
+          },{
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
             site_type_id: 'nutrition_center',
             site_type_name: 'Nutrition Center'
           }];

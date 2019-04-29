@@ -99,7 +99,8 @@
 
 
 							      <!-- admin1 -->
-							      <td ng-if="location.site_type_id === 'union'">
+							      <td ng-if="location.site_type_id === 'union' ||
+							      						location.site_type_id === 'health_facility_host_community'">
 							        <span e-placeholder="Select..."
 							        				editable-select="location.admin1pcode"
 							        				e-name="admin1pcode"
@@ -110,7 +111,8 @@
 							          {{ ngmCbLocations.displayAdmin1( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
-							      <td ng-if="location.site_type_id !== 'union'">
+							      <td ng-if="location.site_type_id !== 'union' &&
+							      						location.site_type_id !== 'health_facility_host_community'">
 							        <span e-placeholder="Select..."
 							        				editable-select="location.admin1pcode"
 							        				e-name="admin1pcode"
@@ -126,7 +128,9 @@
 							      <!-- admin2 OPTIONS WITH FILTERS! -->
 							      <td ng-if="!location.site_type_id ||
 							      						location.site_type_id === 'union' || 
-							      						location.site_type_id === 'ward'">
+							      						location.site_type_id === 'ward' || 
+							      						location.site_type_id === 'health_facility_host_community' ||
+							      						location.site_type_id === 'health_facility_tbc'">
 							        <span e-placeholder="Select..."
 							        				editable-select="location.admin2pcode"
 							        				e-name="admin2pcode"
@@ -140,7 +144,8 @@
 							      </td>
 							      <td ng-if="location.site_type_id === 'refugee_camp' || 
 							      							location.site_type_id === 'refugee_block' ||
-							      							location.site_type_id === 'nutrition_center' ||
+							      							location.site_type_id === 'health_facility_camp' ||
+							      							location.site_type_id === 'nutrition_center' ||							      							
 							      							location.site_type_id === 'food_distribution_point' ||
 							      							location.site_type_id === 'retail_store'">
 							        <span e-placeholder="Select..."
@@ -214,14 +219,16 @@
 							      							location.site_type_id !== 'nutrition_center' &&
 							      							location.site_type_id !== 'food_distribution_point' &&
 							      							location.site_type_id !== 'retail_store' &&
-							      							location.site_type_id !== 'refugee_block'">
+							      							location.site_type_id !== 'refugee_block' &&
+							      							location.site_type_id !== 'health_facility_camp'">
 							        -
 							      </td>
 
 										<!-- nutrition_center -->
 							      <td ng-if="location.site_type_id === 'nutrition_center' ||
 						      							location.site_type_id === 'retail_store' ||
-							      						location.site_type_id === 'refugee_block'">
+							      						location.site_type_id === 'refugee_block' ||
+							      						location.site_type_id === 'health_facility_camp'">
 							        <span e-placeholder="Select..."
 							        				editable-select="location.admin3pcode"
 							        				e-name="admin3pcode"
@@ -258,7 +265,9 @@
 
 							      <!-- select existing: darop down (filter admin3pcode by type) -->
 							      <td ng-if=" location.site_type_id === 'cyclone_shelter' || 
-							      						location.site_type_id === 'refugee_camp'">
+							      						location.site_type_id === 'refugee_camp' ||
+							      						location.site_type_id === 'health_facility_host_community' ||
+							      						location.site_type_id === 'health_facility_tbc'">
 							        <span e-placeholder="Select..."
 							        			editable-select="location.site_id"
 							        			e-name="site_id"
@@ -278,7 +287,8 @@
 							      <td ng-if="location.site_type_id === 'host_community' || 
 							      						location.site_type_id === 'refugee_block' || 
 							      						location.site_type_id === 'nutrition_center' ||
-						      							location.site_type_id === 'retail_store'">
+						      							location.site_type_id === 'retail_store' ||
+						      							location.site_type_id === 'health_facility_camp'">
 							        <span e-placeholder="Select..."
 							        			editable-select="location.site_id"
 							        			e-name="site_id"
