@@ -37,6 +37,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
     'ngmCbLocations',
     'ngmClusterHelperCol',
     'ngmCbBeneficiaries',
+		'ngmClusterDocument',
     'config',
     '$translate',
 
@@ -61,6 +62,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         ngmCbLocations,
         ngmClusterHelperCol,
         ngmCbBeneficiaries,
+				ngmClusterDocument,
         config,
         $translate ){
 
@@ -69,7 +71,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
       $scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
       $scope.ngmCbLocations = ngmCbLocations;
       $scope.ngmClusterHelperCol = ngmClusterHelperCol;
-      $scope.ngmCbBeneficiaries = ngmCbBeneficiaries;
+			$scope.ngmCbBeneficiaries = ngmCbBeneficiaries;
+			$scope.ngmClusterDocument = ngmClusterDocument;
 
       // project
       $scope.project = {
@@ -184,7 +187,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           // set form on page load
           ngmClusterHelper.setForm( $scope.project.definition, $scope.project.lists );          
           // set columns / rows (lists, location_index, beneficiaries )
-          ngmClusterBeneficiaries.setBeneficiariesForm( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries );
+					ngmClusterBeneficiaries.setBeneficiariesForm( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries );
+					$scope.project.setTokenUpload();
         },
 
         // cofirm exit if changes
@@ -570,334 +574,20 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         },
 
 				/**** UPLOAD ****/
-				uploadDocument: {
-					openModal: function (modal) {
-						$('#' + modal).openModal({ dismissible: false });
-					},
-					closeModal: function (modal) {
-						$('#' + modal).closeModal({ dismissible: true });
-						myDropzone.removeAllFiles(true);
-						Materialize.toast($filter('translate')('cancel_to_upload_file'), 2000, "note");
-					},
-					params: {
-						project_id: $route.current.params.project === 'new' ? null : $route.current.params.project,
-						username: config.project.username,
-						organization_tag: config.project.organization_tag,
-						cluster_id: config.project.cluster_id,
-						admin0pcode: config.project.admin0pcode,
-						adminRpcode: config.project.adminRpcode,
-						project_start_date: config.project.project_start_date,
-						project_end_date: config.project.project_end_date,
-					},
-					previewTemplate: `	<div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
-																			<div class="dz-image">
-																				<img data-dz-thumbnail>
-																			</div>
-																			<div class="dz-details">
-																				<div class="dz-size">
-																					<span data-dz-size>
-																				</div>
-																				<div class="dz-filename">
-																					<span data-dz-name></span>
-																				</div>
-																			</div>
-																			<div data-dz-remove class=" remove-upload btn-floating red" style="margin-left:35%; "><i class="material-icons">clear</i></div> 
-																		</div>`,
-					completeMessage: '<i class="medium material-icons" style="color:#009688;">cloud_done</i><br/><h5 style="font-weight:300;">'+$filter('translate')('complete')+'</h5><br/><h5 style="font-weight:100;"><div id="add_doc" class="btn"><i class="small material-icons">add_circle</i></div></h5></div>',
-					url: ngmAuth.LOCATION + '/api/uploadGDrive',
-					acceptedFiles: 'image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/zip,.zip,text/plain,text/csv,video/mp4,application/mp4',
-					maxFiles: 3,
-					parallelUploads: 3,
-					accept: function (file, done) {
-						var ext = file.name.split('.').pop();
-						if (file.type.indexOf('image') < 0
-							&& file.type.indexOf('officedocument') < 0
-							&& file.type !== 'application/msword'
-							&& file.type !== 'application/vnd.ms-excel'
-							&& file.type !== 'application/vnd.ms-powerpoint'
-							&& file.type !== 'application/pdf'
-							&& ext !== 'mp4'
-							&& ext !== 'zip'
-							&& ext !== 'txt'
-							&& ext !== 'csv'
-						) {
-							this.removeFile(file);
-							if (this.getQueuedFiles().length > 0) {
-								document.querySelector(".dz-default.dz-message").style.display = 'block';
-								$timeout(function () {
-									document.querySelector(".dz-default.dz-message").style.display = 'none';
-								}, 2000)
-							}
-							$('.dz-default.dz-message').html($scope.project.uploadDocument.notSupportedFile);
-							$timeout(function () {
-								$('.dz-default.dz-message').html($scope.project.uploadDocument.dictDefaultMessage);
-							}, 2000)
-						} else {
-							done();
-						}
-					},
-					dictDefaultMessage:
-						`<i class="medium material-icons" style="color:#009688;">cloud_upload</i> <br/>`+$filter('translate')('drag_files_here_or_click_button_to_upload')+' ',
-					dictMaxFilesExceeded: `<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>`+ $filter('translate')('exceed_file_upload_please_remove_one_of_your_file')+' ',
-					tooLargeFilesSize: `<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>`+ $filter('translate')('file_too_large_please_remove_the_file')+' ',
-					notSupportedFile: `<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>`+ $filter('translate')('not_supported_file_type')+' ',
-					errorMessage: `<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>Error`,
-					addRemoveLinks: false,
-					autoProcessQueue: false,
-					headers: { 'Authorization': 'Bearer ' + ngmUser.get().token },
-					init: function () {
-						myDropzone = this;
-						$("#upload_doc").attr("disabled", true);
-						$("#delete_doc").attr("disabled", true);
-
-						document.getElementById('upload_doc').addEventListener("click", function () {
-							// enable auto process queue after uploading started
-							myDropzone.autoProcessQueue = true;
-							myDropzone.processQueue(); // Tell Dropzone to process all queued files.																						
-						});
-
-						document.getElementById('delete_doc').addEventListener("click", function () {
-							myDropzone.removeAllFiles(true);
-						});
-
-						// when add file
-						myDropzone.on("addedfile", function (file) {
-							document.querySelector(".dz-default.dz-message").style.display = 'none';
-							var ext = file.name.split('.').pop();
-							//change preview if not image/* 
-							if (ext == 'pdf') {
-								$(file.previewElement).find(".dz-image img").attr("src", "images/pdfm.png");
-							}
-							if (ext == 'doc' || ext == 'docx') {
-								$(file.previewElement).find(".dz-image img").attr("src", "images/docm.png");
-							}
-							if (ext == 'xls' || ext == 'xlsx') {
-								$(file.previewElement).find(".dz-image img").attr("src", "images/xls.png");
-							}
-							if (ext == 'ppt' || ext == 'pptx') {
-								$(file.previewElement).find(".dz-image img").attr("src", "images/ppt.png");
-							}
-							if (ext == 'zip') {
-								$(file.previewElement).find(".dz-image img").attr("src", "images/zipm.png");
-							}
-							if (ext == 'txt') {
-								$(file.previewElement).find(".dz-image img").attr("src", "images/txtm.png");
-							}
-							if (ext == 'mp4') {
-								$(file.previewElement).find(".dz-image img").attr("src", "images/mp4m.png");
-							}
-							if (ext !== 'pdf' && ext !== 'doc'
-								&& ext !== 'docx' && ext !== 'doc'
-								&& ext !== 'xls' && ext !== 'xlsx'
-								&& ext !== 'ppt' && ext !== 'pptx'
-								&& ext !== 'png' && ext !== 'zip'
-								&& ext !== 'txt' && ext !== 'mp4') {
-								$(file.previewElement).find(".dz-image img").attr("src", "images/elsedoc.png");
-							}
-
-							// chek filesize if more than 15MB
-							if (file.size > 15000000) {
-								document.querySelector(".dz-default.dz-message").style.display = 'block'
-								$('.dz-default.dz-message').html($scope.project.uploadDocument.tooLargeFilesSize);
-								$("#upload_doc").attr("disabled", true);
-								document.getElementById("upload_doc").style.pointerEvents = "none";
-								$("#delete_doc").attr("disabled", true);
-								document.getElementById("delete_doc").style.pointerEvents = "none";
-							} else {
-								$("#upload_doc").attr("disabled", false);
-								$("#delete_doc").attr("disabled", false);
-							}
-						});
-
-						// when remove file
-						myDropzone.on("removedfile", function (file) {
-							var bigFile = 0
-							if (myDropzone.files.length < 1) {
-								$("#upload_doc").attr("disabled", true);
-								$("#delete_doc").attr("disabled", true);
-								bigFile = 0;
-								document.querySelector(".dz-default.dz-message").style.display = 'block';
-								$('.dz-default.dz-message').html($scope.project.uploadDocument.dictDefaultMessage);
-							}
-
-							if (myDropzone.files.length <= 3 && myDropzone.files.length > 0) {
-								document.querySelector(".dz-default.dz-message").style.display = 'none'
-								$('.dz-default.dz-message').html($scope.project.uploadDocument.dictDefaultMessage);
-								myDropzone.files.forEach((i) => {
-									if (i.size > 15000000) {
-										bigFile += 1
-									}
-								})
-								// check if in files there are file have more than 8MB after remove
-								if (bigFile > 0) {
-									$("#upload_doc").attr("disabled", true);
-									$("#delete_doc").attr("disabled", true);
-									document.querySelector(".dz-default.dz-message").style.display = 'block'
-									$('.dz-default.dz-message').html($scope.project.uploadDocument.tooLargeFilesSize);
-								} else {
-									document.getElementById("upload_doc").style.pointerEvents = 'auto';
-									document.getElementById("delete_doc").style.pointerEvents = 'auto';
-									$("#upload_doc").attr("disabled", false);
-									$("#delete_doc").attr("disabled", false);
-								}
-
-							}
-						});
-
-						// when max file exceed
-						myDropzone.on("maxfilesexceeded", function (file) {
-							document.querySelector(".dz-default.dz-message").style.display = 'none';
-							$('.dz-default.dz-message').html($scope.project.uploadDocument.dictMaxFilesExceeded);
-							document.querySelector(".dz-default.dz-message").style.display = 'block'
-							Materialize.toast("Too many file to upload", 6000, "error")
-							$("#upload_doc").attr("disabled", true);
-							document.getElementById("upload_doc").style.pointerEvents = "none";
-							$("#delete_doc").attr("disabled", true);
-							document.getElementById("delete_doc").style.pointerEvents = "none";
-						});
-
-						// when uploading
-						myDropzone.on("uploadprogress", function (file, progress, bytesSent) {
-							// hide preview file upload 
-							var previews = document.querySelectorAll(".dz-preview");
-							previews.forEach(function (preview) {
-								preview.style.display = 'none';
-							})
-
-							document.querySelector(".dz-default.dz-message").style.display = 'none';
-							document.querySelector(".percent-upload").style.display = 'block';
-							$(".percentage").html('<div style="font-size:32px;">'+$filter('translate')('uploading')+'</div>');
-						});
-
-						// when sending file
-						myDropzone.on('sending', function (file) {
-							if (this.getUploadingFiles().length == 1) {
-
-								Materialize.toast($filter('translate')('uploading'), 6000, 'note');
-							}
-							$("#upload_doc").attr("disabled", true);
-						});
-
-						// when complete
-						myDropzone.on("complete", function (file) {
-							if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
-								myDropzone.removeAllFiles(true);
-							}
-						});
-
-						// reset
-						this.on("reset", function () {
-
-							document.getElementById("upload_doc").style.pointerEvents = 'auto';
-							document.getElementById("delete_doc").style.pointerEvents = 'auto';
-						});
-					},
-					success: function () {
-						if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
-							msg = $filter('translate')('file_uploaded');
-							typ = 'success';
-							Materialize.toast(msg, 6000, typ);
-
-							document.querySelector(".percent-upload").style.display = 'none';
-							document.querySelector(".dz-default.dz-message").style.display = 'block';
-							$('#upload-file').closeModal({ dismissible: true });
-							// $rootScope.$broadcast('refresh:doclist');
-							$scope.project.getDocument();
-						}
-					},
-					error: function (file, response) {
-						document.querySelector(".percent-upload").style.display = 'none';
-						if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 && !response.err) {
-							typ = 'error';
-							Materialize.toast(response, 6000, typ);
-						}
-						if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 && response.err) {
-							myDropzone.removeAllFiles(true);
-							$timeout(function () {
-								typ = 'error';
-								Materialize.toast(response.err, 6000, typ);
-								if (response.err.indexOf('canceled') < 0) {
-
-									Materialize.toast($filter('translate')('upload_canceled'), 6000, typ);
-								}
-							}, 500);
-						}
-					}
+				setTokenUpload: function(){				
+					ngmClusterDocument.setParam($scope.project.user.token);
 				},
-				manageDocument: {
-					openPreview: function (modal, link) {
-						$('#' + modal).openModal({ dismissible: false });
-						$scope.linkPreview = "https://drive.google.com/file/d/" + link + "/preview";
-					},
-					setLink: function () {
-
-						return $sce.trustAsResourceUrl($scope.linkPreview);
-					},
-					removeFile: function () {
-						// IF API READY TO USE
-
-						Materialize.toast($filter('translate')('deleting'), 6000, 'note');
-						$http({
-							method: 'DELETE',
-							url: ngmAuth.LOCATION + '/api/deleteGDriveFile/' + $scope.fileId,
-							headers: { 'Authorization': 'Bearer ' + $scope.project.user.token },
-						})
-							.success(function (result) {
-								$timeout(function () {
-									msg = $filter('translate')('file_deleted');
-									typ = 'success';
-									Materialize.toast(msg, 6000, typ);
-									// $rootScope.$broadcast('refresh:doclist');
-									$scope.project.getDocument();
-								}, 2000);
-							})
-							.error(function (err) {
-								$timeout(function () {
-									msg = $filter('translate')('error_file_not_deleted');
-									typ = 'error';
-									Materialize.toast(msg, 6000, typ);
-								}, 2000);
-							})
-					},
-					setRemoveId: function (modal, id) {
-						$('#' + modal).openModal({ dismissible: false });
-						$scope.fileId = id;
-					},
-					setDonwloadLink: function (id) {
-						var donwloadLink = "https://drive.google.com/uc?export=download&id=" + id;
-						return donwloadLink;
-					},
-					extentionIcon: function (text) {
-						text = text.toLowerCase().replace(/\./g, '')
-						if (text == 'pdf' || text == 'doc' || text == 'docx' || text == 'ppt' || text == 'pptx' || text == 'xls' || text == 'xlsx') {
-							return 'insert_drive_file'
-						}
-						if (text == 'png' || text == 'jpg' || text == 'jpeg') {
-							return 'photo_size_select_actual'
-						}
-						if (text == 'mp4') {
-							return 'play_arrow'
-						}
-						return 'attach_file'
-					},
-					extentionColor: function (text) {
-						text = text.toLowerCase().replace(/\./g, '')
-						if (text == 'pdf' || text == 'doc' || text == 'docx' || text == 'ppt' || text == 'pptx' || text == 'xls' || text == 'xlsx') {
-							return '#2196f3 !important'
-						}
-						if (text == 'png' || text == 'jpg' || text == 'jpeg') {
-							return '#f44336 !important'
-						}
-						if (text == 'mp4') {
-							return '#f44336 !important'
-						}
-						return '#26a69a !important'
-					},
-					setThumbnailfromGdrive: function (id) {
-						img = "https://drive.google.com/thumbnail?authuser=0&sz=w320&id=" + id;
-						return img
-					},
-				},
+				// need paramter for upload for this function
+				uploadDocument: ngmClusterDocument.uploadDocument({
+					project_id: $route.current.params.project === 'new' ? null : $route.current.params.project,
+					username: config.project.username,
+					organization_tag: config.project.organization_tag,
+					cluster_id: config.project.cluster_id,
+					admin0pcode: config.project.admin0pcode,
+					adminRpcode: config.project.adminRpcode,
+					project_start_date: config.project.project_start_date,
+					project_end_date: config.project.project_end_date,
+				}),
 				getDocument: function () {
 					ngmData.get({
 						method: 'GET',
@@ -1007,6 +697,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
       // init project
 			$scope.project.init();
 			$scope.project.getDocument();
+			// update list  if there are upload file or remove file
+			$scope.$on('refresh:listUpload', function () {
+				$scope.project.getDocument();				
+			})
   }
 
 ]);

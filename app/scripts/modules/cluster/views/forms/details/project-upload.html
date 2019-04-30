@@ -218,7 +218,7 @@ font-size: 18px;
 <div id="close-preview-file" class="modal ">
 	<div class="modal-content">
 		<div>
-			<iframe ng-src={{project.manageDocument.setLink()}} style="width:600px; height:500px;" frameborder="0"></iframe>
+			<iframe ng-src={{ngmClusterDocument.setLink()}} style="width:600px; height:500px;" frameborder="0"></iframe>
 		</div>
 	</div>
 	<div class="modal-footer">
@@ -235,7 +235,7 @@ font-size: 18px;
 	</div>
 	<div class="modal-footer">
 		<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close'|translate}}</a>
-		<a ng-click="project.manageDocument.removeFile()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_this_file'|translate}}</a>
+		<a ng-click="ngmClusterDocument.removeFile()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_this_file'|translate}}</a>
 	</div>
 </div>
 <!-- END-MODAL -->
@@ -283,11 +283,11 @@ font-size: 18px;
 							 pagination-id="listUpload.id">
 								<div class="card border-radius">
 									<div class="card-image waves-effect waves-block waves-light">
-										<img class="activator" src={{project.manageDocument.setThumbnailfromGdrive(item.fileid)}}>
+										<img class="activator" src={{ngmClusterDocument.setThumbnailfromGdrive(item.fileid)}}>
 									</div>
 									<div class="card-content">
-										<i class="material-icons left" style="color: {{project.manageDocument.extentionColor(item.filename_extension)}};margin-right: 5px;">
-											{{project.manageDocument.extentionIcon(item.filename_extension)}}
+										<i class="material-icons left" style="color: {{ngmClusterDocument.extentionColor(item.filename_extension)}};margin-right: 5px;">
+											{{ngmClusterDocument.extentionIcon(item.filename_extension)}}
 										</i>
 										<span class="grey-text activator text-darken-4 " style="font-size: 12px; font-weight: 400">{{item.filename| limitTo: 12}}{{item.filenamelength
 											< 12 ? '' : '...'}} <i class="material-icons right" style="cursor: pointer; margin-left: 5px;">more_vert</i>
@@ -300,15 +300,15 @@ font-size: 18px;
 										<div class="line">
 				
 											<!-- use gdrive id file -->
-											<button class="btn-floating  wave-effect blue tooltipped-report-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}" ng-click="project.manageDocument.openPreview('close-preview-file',item.fileid)"
+											<button class="btn-floating  wave-effect blue tooltipped-report-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}" ng-click="ngmClusterDocument.openPreview('close-preview-file',item.fileid)"
 											 ng-disabled="item.filename_extension === '.csv'">
 												<i class="small material-icons">compare</i>
 											</button>
-											<a class="btn-floating  wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="{{'download'|translate}}" ng-href="{{project.manageDocument.setDonwloadLink(item.fileid)}}">
+											<a class="btn-floating  wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="{{'download'|translate}}" ng-href="{{ngmClusterDocument.setDownloadLink(item.fileid)}}">
 												<i class="small material-icons">cloud_download</i>
 											</a>
 											<button class="btn-floating  wave-effect tooltipped-report-upload red space " data-position="bottom" data-tooltip="{{'delete_mayus1'|translate}}"
-											 ng-click="project.manageDocument.setRemoveId('remove-modal',item.fileid)">
+											 ng-click="ngmClusterDocument.setRemoveId('remove-modal',item.fileid)">
 												<i class="small material-icons">delete</i>
 											</button>
 										</div>
@@ -366,8 +366,8 @@ font-size: 18px;
 						<div class="row" style="margin: 0 0; padding: 10px 0; border-bottom: 0.98px solid #dce0e2" dir-paginate="item in listUpload | orderBy: 'createdAt':true | itemsPerPage: listUpload.itemsPerListPage"
 						 pagination-id="listUpload.id">
 							<div class="col s5">
-								<i class="material-icons left imitate-circle" style="background-color:{{project.manageDocument.extentionColor(item.filename_extension)}};margin-right: 5px;">
-									 {{project.manageDocument.extentionIcon(item.filename_extension)}}
+								<i class="material-icons left imitate-circle" style="background-color:{{ngmClusterDocument.extentionColor(item.filename_extension)}};margin-right: 5px;">
+									 {{ngmClusterDocument.extentionIcon(item.filename_extension)}}
 								</i>
 								<div style="margin-top:5px;">{{item.filename}}</div>
 							</div>
@@ -386,14 +386,14 @@ font-size: 18px;
 				
 				
 									<button class="btn-floating  wave-effect blue tooltipped-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}" ng-disabled="item.filename_extension === '.csv'"
-									 ng-click="project.manageDocument.openPreview('close-preview-file',item.fileid)">
+									 ng-click="ngmClusterDocument.openPreview('close-preview-file',item.fileid)">
 										<i class="small material-icons">compare</i>
 									</button>
-									<a class="btn-floating  wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="{{'donwload'|translate}}" ng-href="{{project.manageDocument.setDonwloadLink(item.fileid)}}">
+									<a class="btn-floating  wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="{{'download'|translate}}" ng-href="{{ngmClusterDocument.setDownloadLink(item.fileid)}}">
 										<i class="small material-icons">cloud_download</i>
 									</a>
 									<button class="btn-floating  wave-effect tooltipped-upload red space tooltipped-upload" data-position="bottom"
-									 data-tooltip="{{'delete_mayus1'|translate}}" ng-click="project.manageDocument.setRemoveId('remove-modal',item.fileid)">
+									 data-tooltip="{{'delete_mayus1'|translate}}" ng-click="ngmClusterDocument.setRemoveId('remove-modal',item.fileid)">
 										<i class="small material-icons">delete</i>
 									</button>
 								</div>
