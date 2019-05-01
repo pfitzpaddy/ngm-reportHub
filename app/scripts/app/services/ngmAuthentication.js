@@ -92,7 +92,7 @@ angular.module('ngmReportHub')
 		},{ 
 			ROLE: 'USER',
 			EDIT: true,
-			EDIT_RESTRICTED: ['organization_tag', 'admin0pcode', 'adminRpcode'],
+			EDIT_RESTRICTED: ['organization_tag', 'admin0pcode', 'adminRpcode', 'cluster_id' ],
 			EDIT_USER: false,
 			EDIT_USER_RESTRICTED: ['organization_tag', 'admin0pcode', 'adminRpcode'],
 			ADMIN_RESTRICTED: [ 'admin0pcode', 'organization_tag' ],

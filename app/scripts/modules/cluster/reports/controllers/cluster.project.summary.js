@@ -54,7 +54,7 @@ angular.module('ngmReportHub')
 
 				// set project
 				$scope.report.project = data;
-				
+
 				// add project code to subtitle?
 				var text = $filter('translate')('actual_monthly_progress_report_for')+' ' + $scope.report.project.project_title
 				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + $scope.report.project.project_description : $scope.report.project.project_description;
@@ -106,6 +106,9 @@ angular.module('ngmReportHub')
 									user: $scope.report.user,
 									report_date: moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD'),
 									templateUrl: '/scripts/modules/cluster/views/cluster.project.summary.html',
+
+									// permissions
+									canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: $scope.report.project.adminRpcode, admin0pcode:$scope.report.project.admin0pcode, cluster_id: $scope.report.project.cluster_id, organization_tag:$scope.report.project.organization_tag } ),
 
 									// mark project active
 									markActive: function( project ){
