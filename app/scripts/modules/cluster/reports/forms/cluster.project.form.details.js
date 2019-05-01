@@ -633,10 +633,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
             }
           });
 
-          // update target_beneficiaries
-          $scope.project.definition.target_beneficiaries =
-              ngmClusterHelper.getCleanTargetBeneficiaries( $scope.project.definition, $scope.project.definition.target_beneficiaries );
-
           // update target_locations
           $scope.project.definition.target_locations =
               ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.project.definition.target_locations );

@@ -319,10 +319,6 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
             $scope.inserted = angular.merge( b, $scope.inserted );
           }
 
-          // merge
-          $scope.inserted = 
-              ngmClusterHelper.getCleanBudget( ngmUser.get(), $scope.project.definition, $scope.inserted );
-
           // push
           $scope.project.definition.project_budget_progress.push( $scope.inserted );
         },

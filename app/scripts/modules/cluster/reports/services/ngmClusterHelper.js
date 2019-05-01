@@ -330,9 +330,6 @@ angular.module( 'ngmReportHub' )
 
 
 
-
-
-
       // get processed warehouse location
       getCleanWarehouseLocation: function( user, organization, warehouse ){
 
@@ -375,113 +372,30 @@ angular.module( 'ngmReportHub' )
         return stock;
       },
 
-
-      // get processed target location
-      getCleanBudget: function( user, project, budget ){
-
-        // copy to p
-        var p = angular.copy( project );
-
-        // remove duplication from merge
-        delete p.id;
-        delete p.project_budget_progress;
-        delete p.target_beneficiaries;
-        delete p.target_locations;
-        delete p.updatedAt;
-        delete budget.updatedAt;
-
-        // merge
-        budget = angular.merge( {}, { username: user.username }, { email: user.email }, p, budget );
-
-        // return clean budget
-        return budget;
-
-      },
-
-      // get processed target location
-      getCleanTargetBeneficiaries: function( project, beneficiaries ){
-
-        // copy to p
-        var p = angular.copy( project );
-
-        // remove duplication from merge
-        delete p.id;
-        delete p.cluster_id;
-        delete p.cluster;
-        delete p.target_beneficiaries;
-        delete p.target_locations;
-        delete p.project_budget_progress;
-        delete p.beneficiary_type;
-
-        // needs to operate on an array
-        angular.forEach( beneficiaries, function( d, i ){
-          // merge beneficiaries + project
-          delete beneficiaries[i].project_donor;
-          delete beneficiaries[i].strategic_objectives;
-          delete beneficiaries[i].admin1pcode;
-          delete beneficiaries[i].admin2pcode;
-          delete beneficiaries[i].admin3pcode;
-          beneficiaries[i] = angular.merge( {}, p, d );
-          // add default
-          if( project.activity_type && project.activity_type.length === 1){
-            beneficiaries[i].activity_type_id = project.activity_type[0].activity_type_id;
-            beneficiaries[i].activity_type_name = project.activity_type[0].activity_type_name;
-          }
-        });
-
-        // return clean beneficiaries
-        return beneficiaries;
-
-      },
-
       // get processed target location
       getCleanTargetLocation: function( project, locations ){
 
-        // copy to p
-        var p = angular.copy( project );
-
-        // remove duplication from merge
-        delete p.id;
-        delete p.target_beneficiaries;
-        delete p.target_locations;
-        delete p.project_budget_progress;
-        delete p.admin1pcode;
-        delete p.admin2pcode;
-        delete p.admin3pcode;
-        // user
-        delete p.name;
-        delete p.position;
-        delete p.phone;
-        delete p.email;
-        delete p.username;
-
         // needs to operate on an array
-        angular.forEach( locations, function( d, i ){
-          // merge locations + project
-          delete locations[i].project_donor;
-          delete locations[i].strategic_objectives;
-          delete locations[i].activity_type;
-          delete locations[i].beneficiary_type;
-          locations[i] = angular.merge( {}, p, d );
+        angular.forEach( locations, function( location, i ){
           // set site_lng, site_lat
             // this is propigated through the entire datasets
-          if ( !locations[i].site_lng && !locations[i].site_lat ) {
+          if ( !location.site_lng && !location.site_lat ) {
             // set admin4, admin3 or admin2
-            if ( locations[i].admin2lng && locations[i].admin2lat ) {
-              locations[i].site_lng = locations[i].admin2lng;
-              locations[i].site_lat = locations[i].admin2lat;
+            if ( location.admin2lng && location.admin2lat ) {
+              location.site_lng = location.admin2lng;
+              location.site_lat = location.admin2lat;
             }
-            if ( locations[i].admin3lng && locations[i].admin3lat ) {
-              locations[i].site_lng = locations[i].admin3lng;
-              locations[i].site_lat = locations[i].admin3lat;
+            if ( location.admin3lng && location.admin3lat ) {
+              location.site_lng = location.admin3lng;
+              location.site_lat = location.admin3lat;
             }
-            if ( locations[i].admin4lng && locations[i].admin4lat ) {
-              locations[i].site_lng = locations[i].admin4lng;
-              locations[i].site_lat = locations[i].admin4lat;
+            if ( location.admin4lng && location.admin4lat ) {
+              location.site_lng = location.admin4lng;
+              location.site_lat = location.admin4lat;
             }
-            if ( locations[i].admin5lng && locations[i].admin5lat ) {
-              locations[i].site_lng = locations[i].admin5lng;
-              locations[i].site_lat = locations[i].admin5lat;
+            if ( location.admin5lng && location.admin5lat ) {
+              location.site_lng = location.admin5lng;
+              location.site_lat = location.admin5lat;
             }
           }
         });
@@ -494,159 +408,50 @@ angular.module( 'ngmReportHub' )
       // update entire report with project details (dont ask)
       getCleanReport: function( project, report ) {
 
-        // copy to p
-        var p = angular.copy( project );
-        var r = angular.copy( report );
-
-        // remove duplication from merge
-        delete p.id;
-        delete p.target_beneficiaries;
-        delete p.target_locations;
-				delete p.project_budget_progress;
-				delete p.createdAt;
-				delete p.updatedAt;
-
-        // remove arrays to update
-        delete r.activity_description;
-        delete r.activity_type;
-        delete r.admin1pcode;
-        delete r.admin2pcode;
-        delete r.admin3pcode;
-        delete r.beneficiary_type;
-        delete r.category_type;
-        delete r.project_donor;
-				delete r.strategic_objectives;
-				delete r.createdAt;
-				delete r.updatedAt;
-
-        // merge
-        report = angular.merge( {}, p, r );
-
         // locations
         angular.forEach( report.locations, function( location, i ){
 
-          // remove to ensure updated
-          var l = angular.copy( location );
-          delete r.id;
-          delete p.admin1pcode;
-          delete p.admin2pcode;
-          delete p.admin3pcode;
-          delete r.admin1pcode;
-          delete r.admin2pcode;
-          delete r.admin3pcode;
-          delete r.locations;
-          delete l.activity_description;
-          delete l.activity_type;
-          delete l.beneficiary_type;
-          delete l.category_type;
-          delete l.project_donor;
-					delete l.strategic_objectives;
-					delete l.createdAt;
-					delete l.updatedAt;
-          // ids
-          l.project_id = project.id;
-          l.report_id = report.id;
+          // report_status
+          location.report_status = report.report_status;
 
           // set site_lng, site_lat
             // this is propigated through the entire datasets
-          if ( !l.site_lng && !l.site_lat ) {
+          if ( !location.site_lng && !location.site_lat ) {
             // set admin4, admin3 or admin2
-            if ( l.admin2lng && l.admin2lat ) {
-              l.site_lng = l.admin2lng;
-              l.site_lat = l.admin2lat;
+            if ( location.admin2lng && location.admin2lat ) {
+              location.site_lng = location.admin2lng;
+              location.site_lat = location.admin2lat;
             }
-            if ( l.admin3lng && l.admin3lat ) {
-              l.site_lng = l.admin3lng;
-              l.site_lat = l.admin3lat;
+            if ( location.admin3lng && location.admin3lat ) {
+              location.site_lng = location.admin3lng;
+              location.site_lat = location.admin3lat;
             }
-            if ( l.admin4lng && l.admin4lat ) {
-              l.site_lng = l.admin4lng;
-              l.site_lat = l.admin4lat;
+            if ( location.admin4lng && location.admin4lat ) {
+              location.site_lng = location.admin4lng;
+              location.site_lat = location.admin4lat;
             }
-            if ( l.admin5lng && l.admin5lat ) {
-              l.site_lng = l.admin5lng;
-              l.site_lat = l.admin5lat;
+            if ( location.admin5lng && location.admin5lat ) {
+              location.site_lng = location.admin5lng;
+              location.site_lat = location.admin5lat;
             }
           }
 
-          // merge
-          report.locations[i] = angular.merge( {}, p, r, l );        
-
           // locations
           angular.forEach( report.locations[i].trainings, function( training, j ){
-            // rm
-            // delete p.cluster_id;
-            // delete p.cluster;
-            // report
-            // delete r.cluster_id;
-            // delete r.cluster;
-            // location
-            delete l.id;
-            delete l.report_id;
-            delete l.beneficiaries;
-            // delete l.cluster_id;
-            // delete l.cluster;
-            // remove to ensure updated
-            var t = angular.copy( training );
-            delete t.activity_description;
-            delete t.activity_type;
-            delete t.beneficiary_type;
-            delete t.category_type;
-            delete t.project_donor;
-						delete t.strategic_objectives;
-						delete t.createdAt;
-						delete t.updatedAt;
-            // ids
-            t.project_id = project.id;
-            t.report_id = report.id;
-            // merge
-            // report.locations[i].trainings[j] = angular.merge( {}, t, l, r, p );
-            report.locations[i].trainings[j] = angular.merge( {}, p, r, l, t );
-
+            // report_status
+            training.report_status = report.report_status;
             // trainees
             angular.forEach( training.training_participants, function( trainees, k ){
-              var trainings = angular.copy( report.locations[i].trainings[j] );
-							delete trainings.id;
-							delete trainings.createdAt;
-							delete trainings.updatedAt;
-              report.locations[i].trainings[j].training_participants[k] = angular.merge( {}, trainees, trainings);
-              delete report.locations[i].trainings[j].training_participants[k].trainings;
-              delete report.locations[i].trainings[j].training_participants[k].training_participants;
+              // report_status
+              trainees.report_status = report.report_status;
             });
 
           });
 
           // locations
           angular.forEach( report.locations[i].beneficiaries, function( beneficiary, j ){
-            // rm
-            delete p.cluster_id;
-            delete p.cluster;
-            // report
-            delete r.cluster_id;
-            delete r.cluster;
-            // location
-            delete l.id;
-            delete l.report_id;
-            delete l.beneficiaries;
-            delete l.cluster_id;
-            delete l.cluster;
-            // remove to ensure updated
-            var b = angular.copy( beneficiary );
-            delete b.activity_description;
-            delete b.activity_type;
-            delete b.beneficiary_type;
-            delete b.category_type;
-            delete b.project_donor;
-						delete b.strategic_objectives;
-						delete b.createdAt;
-						delete b.updatedAt;
-            // ids
-            b.project_id = project.id;
-            b.report_id = report.id;
-            // merge
-            // report.locations[i].beneficiaries[j] = angular.merge( {}, b, l, r, p );
-            report.locations[i].beneficiaries[j] = angular.merge( {}, p, r, l, b );
-
+            // report_status
+            beneficiary.report_status = report.report_status;
           });
 
         });
