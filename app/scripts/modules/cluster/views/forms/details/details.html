@@ -317,24 +317,7 @@
 						        </div>
 						        
 
-						        <div ng-show="project.definition.implementing_partners_checked && project.definition.admin0pcode !== 'COL'" style="padding-top:35px;">
-							        <div class="input-field col s12 m6"
-							        		ng-class="{ 'has-error' : healthProjectForm.implementing_partners_list.$error.pattern }"
-							        		ng-show="project.definition.implementing_partners_checked">
-							          <input 
-							          		id="ngm-project-implementing_partners" 
-							          		type="text" 
-							          		class="validate"
-							          		name="implementing_partners_list"
-														ng-model="project.definition.implementing_partners">
-							          <label for="ngm-project-implementing_partners">{{'list_project_partners' | translate}}</label>
-							        </div>
-							    </div>
-
-							  
-							    
-
-                             <div  ng-show="project.definition.implementing_partners_checked && project.definition.admin0pcode === 'COL'"  style="padding-bottom:40px;">
+                             <div  ng-show="project.definition.implementing_partners_checked"  style="padding-bottom:40px;">
 
 									<div class="input-field col s12 m6" style="padding-bottom:5px;padding-left: 20px;">
 									<label for="ngm-project-implementing_partners">{{'list_project_partners' | translate}} *</label>
