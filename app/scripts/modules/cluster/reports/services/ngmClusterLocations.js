@@ -72,8 +72,8 @@ angular.module( 'ngmReportHub' )
           }
           inserted = angular.merge( inserted, l );
 				}
-				if (project.implementing_partners_array.length > 0 && length < 1) {
-					inserted.partners = angular.copy(project.implementing_partners_array)
+				if (project.implementing_partners.length > 0 && length < 1) {
+					inserted.implementing_partners = angular.copy(project.implementing_partners)
 				}
         // set targets
         return inserted;
