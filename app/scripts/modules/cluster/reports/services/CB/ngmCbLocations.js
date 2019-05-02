@@ -147,12 +147,14 @@ angular.module( 'ngmReportHub' )
           delete target_location.site_lat;
         }
 
-        // add location groups
-        if ( project.location_groups_check && target_location.admin2pcode ) {
-          target_location.location_group_id = target_location.admin2pcode;
-          target_location.location_group_type = target_location.admin2type_name;
-          target_location.location_group_name = target_location.admin2name;
-        }
+        // add location groups (timeout to allow form to assign value)
+        $timeout(function() {
+          if ( project.location_groups_check && target_location.admin2pcode ) {
+            target_location.location_group_id = target_location.admin2pcode;
+            target_location.location_group_type = target_location.admin2type_name;
+            target_location.location_group_name = target_location.admin2name;
+          }
+        }, 10);
 
       },
 
