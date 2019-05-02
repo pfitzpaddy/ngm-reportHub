@@ -709,14 +709,14 @@ angular.module( 'ngmReportHub' )
 
         var organizations;
 
-       /* if(admin0pcode === 'COL'){
+        if(admin0pcode === 'COL'){
 
          organizations = $filter('filter')(localStorage.getObject( 'lists' ).organizationsList,
                  {admin0pcode: 'COL'},true );
 
-        }else{*/
+        }else{
           organizations = localStorage.getObject( 'lists' ).organizationsList
-      //}
+      }
 
 
 
