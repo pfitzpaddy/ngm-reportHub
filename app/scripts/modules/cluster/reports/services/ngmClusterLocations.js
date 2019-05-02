@@ -71,7 +71,10 @@ angular.module( 'ngmReportHub' )
             l.site_lng = null;
           }
           inserted = angular.merge( inserted, l );
-        }
+				}
+				if (project.implementing_partners.length > 0 && length < 1) {
+					inserted.implementing_partners = angular.copy(project.implementing_partners)
+				}
         // set targets
         return inserted;
       },
