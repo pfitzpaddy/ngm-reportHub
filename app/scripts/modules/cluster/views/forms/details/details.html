@@ -19,8 +19,29 @@
 	    position: relative;
 	    margin-top: 1rem;
 	}
+	
+	input.md-input{
+		margin-bottom: 0px;
+		outline: none;
+	}
 
-
+	input.md-input:not([type]):focus:not([readonly]){
+		border-bottom: none;
+		box-shadow: none;
+	}
+	md-chips md-chip {
+    background: #26a69a;
+    color: #fff;
+	}
+	md-chips md-chip md-icon{
+		color:#fff;
+	}
+	md-chips .md-chips.md-focused{
+		box-shadow: 0 2px  rgb(38,166,154)
+	}
+	md-chips .md-chips .md-chip-input-container input:disabled{
+		display: none;
+	} 
 </style>
 
 <!-- bind html -->
@@ -317,7 +338,20 @@
 						        </div>
 						        
 
-                             <div  ng-show="project.definition.implementing_partners_checked"  style="padding-bottom:40px;">
+                    <div  ng-show="project.definition.implementing_partners_checked"  style="padding-bottom:40px;">
+						        <!-- <div style="padding-top:25px;">
+							        <div class="input-field col s12 m6"
+							        		ng-class="{ 'has-error' : healthProjectForm.implementing_partners_list.$error.pattern }"
+							        		ng-show="project.definition.implementing_partners_checked">
+							          <input 
+							          		id="ngm-project-implementing_partners" 
+							          		type="text" 
+							          		class="validate"
+							          		name="implementing_partners_list"
+														ng-model="project.definition.implementing_partners">
+							          <label for="ngm-project-implementing_partners">{{'list_project_partners' | translate}}</label>
+							        </div>
+							    </div>
 
 									<div class="input-field col s12 m6" style="padding-bottom:5px;padding-left: 20px;">
 									<label for="ngm-project-implementing_partners">{{'list_project_partners' | translate}} *</label>
@@ -338,6 +372,37 @@
 
 								</div>
 
+							    </div> -->
+									<div class="input-field col s12 m6" ng-class="{ 'has-error' : healthProjectForm.implementing_partners_list.$error.pattern }"
+									 ng-show="project.definition.implementing_partners_checked">
+										<label for="ngm-project-implementing_partners">{{'list_project_partners' | translate}}</label>
+										<div style="padding-top:35px;"></div>
+										<md-chips ng-model="project.definition.implementing_partners_array" 
+											md-autocomplete-snap="width"											
+											md-require-match="true" 
+											input-aria-label="Partners" 
+											md-on-add="project.addNewImplementingPartner($chip)" 
+											md-on-remove="project.removeImplementingPartner($chip)">
+											<md-autocomplete 
+												md-selected-item="null" 	
+												md-search-text="project.searchOrgPartner" 	
+												md-items="item in project.searchImplementingPartner(project.searchOrgPartner)"
+												md-item-text="item.organization" 
+												input-aria-describedby="autocompleteTitle" 
+												placeholder="Add new partner" 
+												ng-disabled="project.definition.project_status === 'complete'">
+												<span md-highlight-text="searchText">{{item.organization}} </span>
+												<md-not-found>
+													Cannot add,not on the list
+												</md-not-found>
+											</md-autocomplete>
+											<md-chip-template>
+												<span>
+													<strong>{{$chip.organization}}</strong>
+												</span>
+											</md-chip-template>
+										</md-chips>
+									</div>
 					     	</div>
 
 					      	<!-- project description -->
