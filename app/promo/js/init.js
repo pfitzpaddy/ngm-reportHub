@@ -6,12 +6,14 @@
   			locations = 0,
   			reports = 0,
   			href = window.location.href; // http://reporthub.immap.org
+            
+            
 
-  			
 
-
-  			if(href  === 'http://4wplus.org/'){
-  				title = "4Wplus";
+  			if(href  === 'https://4wplus.org/'){ //https://4wplus.org/
+  				$( '.href' ).hide();
+  				$('.href2').show();
+  				title = "4wPlus";
   				humanitariandesicion = "Apoyo a Desiciones Humanitarias en Tiempo-Real";
   				getstarted ="Comenzar";
   				loginbuttontitle = "Inicio de Sesión o Registro para Empezar";
@@ -21,6 +23,8 @@
 
 
   			}else{
+  				$( '#href' ).hide();
+  				$('#href2').show();
   				
 
   				//original
@@ -34,6 +38,7 @@
   			};
 
   			$('#title').html(title);
+  			console.log($('#promo-title'),"titulo aparecerá");
   				$('#promo-title').html(title);
   				$('.brand-logo').html(title);
   				$('#humanitariandesicion').html(humanitariandesicion);

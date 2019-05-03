@@ -75,7 +75,7 @@ angular
 		// extend localstorage to set an object
 		Storage.prototype.setObject = function( key, value ) {
 			this.setItem( key, JSON.stringify( value ) );
-		}
+		} 
 
 		// extend localstorage to get an object
 		Storage.prototype.getObject = function( key ) {
@@ -173,14 +173,15 @@ angular
 			ngmUser.unset();
 		}
 
-		if($location.$$host === '4wplus.org'){
-			$('#title').html("4Wplus");
+		/*if($location.$$host === '192.168.33.16'){ //4wplus.org
+			$('#title').html("4wPlus");
+
 		}else{
 			$('#title').html("ReportHub");
 
-		}
-		//$('#title').html("ReportHub");
-		//console.log($location.$$host);
+		}*/ 
+
+		
 
 		// check URL
 		if ( $location.$$host.search('dev') > -1 ) {
@@ -222,12 +223,30 @@ angular
 	}])
 	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', '$http', '$timeout', 'ngmAuth', 'ngmUser','$window','$translate','$filter', function ($scope, $route, $location, $http, $timeout, ngmAuth, ngmUser,$window,$translate,$filter) {
 	     
+
+         var var4plusrhafter;
+
+	     if($location.$$host === '4wplus.org'){ //4wplus.org
+			$('#title').html("4wPlus");
+
+			var4plusrhafter = '4WPLUS';
+
+
+			
+		}else{
+			$('#title').html("ReportHub");
+			var4plusrhafter = 'REPORTHUB';
+
+		};
+
 		// ngm object
 		$scope.ngm = {
 
 			// app name
 			title: $filter('translate')('welcome'), 
 
+
+             var4wplusrh : var4plusrhafter,
 			// current route
 			route: $route,
 
@@ -408,9 +427,7 @@ angular
 				}
 			},
 
-
-			  
-
+            
 			// user
 			getUser: function() {
 				// ngmUser
@@ -480,7 +497,8 @@ angular
 	    	$( '.ngm-profile-menu-content' ).toggleClass( 'active' );
 	    	// toggle menu dropdown
 				$( '.ngm-profile-menu-content' ).slideToggle();
-			}		
+			},
+
 
 		};
 
@@ -494,6 +512,7 @@ angular
 				// on app load, toggle menu on click
 				$scope.ngm.toggleNavigationMenu();
 		});
+
 
 		// paint application
 		$scope.$on( '$routeChangeStart', function( next, current ) {
