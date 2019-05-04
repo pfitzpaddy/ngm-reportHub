@@ -718,7 +718,6 @@ angular.module( 'ngmReportHub' )
           organizations = localStorage.getObject( 'lists' ).organizationsList
       }
 
-          //console.log(organizations,"LAS ORGA");
 
 
           return organizations;

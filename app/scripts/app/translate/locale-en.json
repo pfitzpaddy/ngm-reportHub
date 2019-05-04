@@ -1,7 +1,7 @@
 {
 
   "download_google_chrome":"Download Google Chrome",
-       "google_chrome_is_the_required_browser_for_reporthub":"Google Chrome is the required browser for ReportHub",
+       "google_chrome_is_the_required_browser_for":"Google Chrome is the required browser",
        "language":"LANGUAGE",
        "download":"Download",
        "welcome":"Welcome",
@@ -34,7 +34,7 @@
        "last_item":"Last item!",
        "add_immap_programme_details":"Add iMMAP PROGRAMME details",
 
-       "welcome_to ReportHub":"Welcome to ReportHub",
+       "welcome_to":"Welcome to",
        "register":"Register",
        "food_security":"Food Security",
        "communication_with_communities_working_group":"Communication with Communities Working Group",

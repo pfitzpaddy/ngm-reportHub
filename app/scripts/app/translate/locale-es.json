@@ -1,6 +1,6 @@
 {
   "download_google_chrome":"Descargar Google Chrome",
-    "google_chrome_is_the_required_browser_for_reporthub":"Google Chrome es el navegador requerido para ReportHub",
+    "google_chrome_is_the_required_browser_for":"Google Chrome es el navegador requerido",
     "download":"Descargar",
     "language":"IDIOMA",
     "welcome":"Bienvenido",
@@ -52,7 +52,7 @@
 
 
 
-    "welcome_to_reporthub": "Bienvenido a ReportHub",
+    "welcome_to": "Bienvenido a",
     "register":"Registro",
     "food_security":"Seguridad Alimentaria",
     "communication_with_communities_working_group":"Comunicación con Grupo de Trabajo de Comunidades",
