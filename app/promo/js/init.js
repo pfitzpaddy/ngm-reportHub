@@ -14,7 +14,7 @@
   				$( '.href' ).hide();
   				$('.href2').show();
   				title = "4wPlus";
-  				humanitariandesicion = "Apoyo a Desiciones Humanitarias en Tiempo-Real";
+  				humanitariandesicion = "Apoyo a Decisiones Humanitarias en Tiempo-Real";
   				getstarted ="Comenzar";
   				loginbuttontitle = "Inicio de Sesión o Registro para Empezar";
   			
