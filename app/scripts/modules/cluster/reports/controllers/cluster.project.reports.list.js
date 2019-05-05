@@ -187,7 +187,7 @@ angular.module('ngmReportHub')
 									rightIcon: 'check_circle',
 									report_url: $scope.report.getReportUrl(),
 									templateUrl: $scope.report.getReportTemplate(),
-									orderBy: '-reporting_due_date',
+									orderBy: 'reporting_due_date',
 									format: true,
 									request: {
 										method: 'POST',
