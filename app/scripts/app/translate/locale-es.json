@@ -74,6 +74,17 @@
     "assessments_mayus" : "EVALUACIONES",
     "contact_mayus" : "CONTACTO",
     "contact":"Contacto",
+    "need_assistance":"Necesita Asistencia?",
+    "download_the":"Descarga la",
+    "user_guide":"Guía de Usuario",
+    "or_mayus":"O",
+    "view_the_online":"Ver en linea",
+    "youtube_user_video_guides":"Guía de Usuarios en Videos de Youtube",
+    "call":"Llama",
+    "on":"en",
+
+
+
     "username_mayus" : "NOMBRE DE USUARIO",
     "password_mayus" : "CONTRASEÑA",
     "register_mayus" : "REGISTRO",
@@ -495,6 +506,10 @@
 
         "add_another_donor":"Agregar otro donante",
         "add_another_partner":"Agregar otro socio",
+        "add_new_partner":"Agregar un nuevo socio",
+         "cannot_add_not_on_the_list":"No se puede agregar, no está en la lista",
+
+
          "project_deleted":"Proyecto Eliminado",
         "activity":"Actividad",
         "grant":"Donante",

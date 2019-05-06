@@ -1,25 +1,27 @@
 
 
   <div class="modal-content">
-    <h5 class="report-title" style="color: #2196F3; margin-top:20px;" align="left">Need Assistance?</h5>
+    <h5 class="report-title" style="color: #2196F3; margin-top:20px;" align="left">{{'need_assistance'|translate}}</h5>
       <div class="row">
         <div class="col l4 m4 s12">
-          <p align="left">Download the ReportHub <a href="/report/guide/ReportHub_User_Guide.pdf" title="ReportHub User Guide" target="_blank">User Guide</a></p>
-          <p align="left"> -OR- </p>
-          <p align="left">View the online ReportHub <a href="https://www.youtube.com/watch?v=-mqFobV06hY&list=PL2Hpi_A3YwWIHGzZv89EHH6_FBT58Nsg9" title="ReportHub Youtube User Video Guides" target="_blank">Youtube User Video Guides</a></p>
-          <p align="left"> -OR- </p>
-          <p align="left">View the online ReportHub <a class="modal-action modal-close" href="#/cluster/guides" title="ReportHub Online">User Guide</a></p>          
-          <p align="left"> -OR- </p>
-          <p align="left">Contact ReportHub @ <a href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a></p>
-          <p align="left"> -OR- </p>
-          <p align="left">Call ReportHub on <a href="tel:+93780763601">+93-780-763-601</a></p>
+          <p align="left">{{'download_the'|translate}} {{ngm.var4wplusrh}} <a href="/report/guide/ReportHub_User_Guide.pdf" title="ReportHub User Guide" target="_blank">{{'user_guide'|translate}}</a></p>
+          <p align="left"> -{{'or_mayus'|translate}}- </p>
+          <p align="left">{{'view_the_online'|translate}} {{ngm.var4wplusrh}} <a href="https://www.youtube.com/watch?v=-mqFobV06hY&list=PL2Hpi_A3YwWIHGzZv89EHH6_FBT58Nsg9" title="ReportHub Youtube User Video Guides" target="_blank">{{'youtube_user_video_guides'|translate}}</a></p>
+          <p align="left"> -{{'or_mayus'|translate}}- </p>
+          <p align="left">{{'view_the_online'|translate}} {{ngm.var4wplusrh}} <a class="modal-action modal-close" href="#/cluster/guides" title="ReportHub Online">{{'user_guide'|translate}}</a></p>          
+          <p align="left"> -{{'or_mayus'|translate}}- </p>
+          <p align="left">{{'contact'|translate}} {{ngm.var4wplusrh}} @ <a ng-if="ngm.var4wplusrh === 'REPORTHUB'" href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a>
+            <a ng-if="ngm.var4wplusrh === '4WPlus'" href="mailto:contacto@immap.org">contacto@immap.org</p>
+          <p align="left"> -{{'or_mayus'|translate}}- </p>
+          <p align="left">{{'call'|translate}} {{ngm.var4wplusrh}} {{'on'|translate}} <a ng-if="ngm.var4wplusrh === 'REPORTHUB'" href="tel:+93780763601">+93-780-763-601</a>
+            <a ng-if="ngm.var4wplusrh === '4WPlus'" href="tel:+571 6221100">+571 6221100 ext. 1304</a></p>
         </div>
         <div class="col l8 m8 hide-on-small-only"> 
           <div class="card center promo blue-grey darken-1">
-            <img title="Contact ReportHub with any questions!" src="images/contact.png" />
+            <img title="Contact {{ngm.var4wplusrh}} with any questions!" src="images/contact.png" />
           </div>
         </div>
   </div>
   <div class="modal-footer">
     <a class="modal-action modal-close waves-effect waves-green btn-flat ">Ok</a>
-  </div>
+  </div> 

@@ -55,6 +55,18 @@
        "drought" : "DROUGHT",
        "contact_mayus" : "CONTACT",
        "contact":"Contact",
+       "need_assistance":"Need Assistance?",
+       "download_the":"Download the",
+      "user_guide":"User Guide",
+      "or_mayus":"OR",
+      "view_the_online":"View the online",
+      "youtube_user_video_guides":"Youtube User Video Guides",
+      "call":"Call",
+      "on":"on",
+
+
+
+
        "username_mayus" : "USERNAME",
        "password_mayus" : "PASSWORD",
        "register_mayus" : "REGISTER",
@@ -552,6 +564,8 @@
         "donor":"Donor",
         "add_another_donor":"Add another donor",
          "add_another_partner":"Add another partner",
+         "add_new_partner":"Add new partner",
+         "cannot_add_not_on_the_list":"Cannot add, not on the list",
 
         "type_donor_name":"Type donor name",
         "type_partner_name":"Type partner name",
