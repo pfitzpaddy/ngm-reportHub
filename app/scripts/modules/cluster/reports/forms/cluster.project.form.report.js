@@ -272,6 +272,22 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           // location_type_id
           switch ( target_location.site_type_id ) {
 
+            // refugee_camp
+            case 'refugee_camp':
+
+              // site_type_name
+              if ( target_location.site_type_name ) {
+                title += target_location.site_type_name + ': ';
+              }
+
+              // admin1, admin2
+              title += target_location.admin1name + ', ' + target_location.admin2name;
+
+              // site_name
+              title += ', ' + target_location.site_name;
+
+              break;
+
             // food_distribution_point
             case 'food_distribution_point':
 
@@ -281,9 +297,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
               // admin1, admin2
               title += target_location.admin1name + ', ' + target_location.admin2name + ', ' + target_location.admin3name;
 
-              break;
+              break;              
 
-            // food_distribution_point
+            // refugee_block
             case 'refugee_block':
 
               // site_type_name
