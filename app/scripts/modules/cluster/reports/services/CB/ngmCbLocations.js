@@ -288,6 +288,12 @@ angular.module( 'ngmReportHub' )
           selected = $filter('filter')( lists.adminSites, { site_id: target_location.site_id }, true );
           if( selected && selected.length ){
             delete selected[0].id;
+            if ( target_location.site_type_id === 'refugee_camp' ) {
+              selected[0].admin3pcode = selected[0].site_id;
+              selected[0].admin3name = selected[0].site_name;
+              selected[0].admin3lng = selected[0].site_lng;
+              selected[0].admin3lat = selected[0].site_lat;
+            }
             angular.merge( target_location, selected[0] );
           }
         }

@@ -6,17 +6,41 @@
  *
  */
 angular.module( 'ngmReportHub' )
-  .factory( 'ngmCbBeneficiaries', [ '$http', '$filter', '$timeout', 'ngmAuth', function( $http, $filter, $timeout, ngmAuth ) {
-
-
-    // https://data2.unhcr.org/api/population/get?widget_id=114700&sv_id=34&population_group=4803
-
-    // https://data2.unhcr.org/api/population/get/demography?widget_id=114702&sv_id=34&population_group=4803
+  .factory( 'ngmCbBeneficiaries', [ '$http', '$filter', '$timeout', 'ngmAuth', 'ngmData', function( $http, $filter, $timeout, ngmAuth, ngmData ) {
 
     // ngmCbBeneficiaries
 		ngmCbBeneficiaries = {
+
+      // init
+      init: function() {
+
+        // // ratios
+        // ngmData
+        //   .get( { method: 'GET', url: 'https://data2.unhcr.org/api/population/get?widget_id=114700&sv_id=34&population_group=4803' } )
+        //   .then( function( population_4803_wid_114700 ){
+        //     // load with user profile
+        //     console.log( population_4803_wid_114700 );
+        // });
+
+        // // demographics
+        // ngmData
+        //   .get( { method: 'GET', url: 'https://data2.unhcr.org/api/population/get/demography?widget_id=114702&sv_id=34&population_group=4803' } )
+        //   .then( function( population_4803_wid_114702 ){
+        //     // load with user profile
+        //     console.log( population_4803_wid_114702 );
+        // });
+
+      },
       
       // values
+      defaults: {
+        boys: 0,
+        girls: 0,
+        men: 0,
+        women: 0,
+        elderly_men: 0,
+        elderly_women: 0
+      },
       ratios: {
         households: 4.34,
         boys: 0.275,
@@ -29,6 +53,11 @@ angular.module( 'ngmReportHub' )
 
       // calculate SADD via HHs
       setSadd: function ( beneficiary ) {
+
+        // beneficiary
+        if ( !beneficiary.households && beneficiary.cluster_id && beneficiary.cluster_id === 'fss' ) {
+          beneficiary = angular.merge( beneficiary, ngmCbBeneficiaries.defaults );
+        }
 
         // if households
         if ( beneficiary.households && beneficiary.cluster_id && beneficiary.cluster_id === 'fss' ) {
@@ -44,6 +73,9 @@ angular.module( 'ngmReportHub' )
       }
 
     }
+
+    // get data
+    ngmCbBeneficiaries.init()
 
     // return
     return ngmCbBeneficiaries;

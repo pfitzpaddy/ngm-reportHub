@@ -416,7 +416,7 @@
         "progress_update_todo":"Progress Update ToDo",
         "progress_update_complete":"Progress Update Complete",
 
-        "reports_due":"Reports Due",
+        "reports_due":"Reports Pending",
         "reports_total":"Reports Total",
         "reports_submitted":"Reports Submitted",
         "download_projects_financials_as_csv":"Download Projects Financials as CSV",
