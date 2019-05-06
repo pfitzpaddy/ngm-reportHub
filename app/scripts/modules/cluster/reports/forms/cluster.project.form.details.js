@@ -458,7 +458,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
           if ( $scope.project.definition.admin0pcode === 'CB' &&
                 ( $scope.project.definition.organization === 'WFP' ||
-                  $scope.project.definition.organization === 'FAO' ) ) {
+                  $scope.project.definition.organization === 'FAO' ||
+                  $scope.project.definition.organization === 'IOM' ||
+                  $scope.project.definition.organization === 'UNHCR' ) ) {
             display = true;
           }
 

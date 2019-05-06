@@ -33,6 +33,14 @@ angular.module( 'ngmReportHub' )
       },
       
       // values
+      defaults: {
+        boys: 0,
+        girls: 0,
+        men: 0,
+        women: 0,
+        elderly_men: 0,
+        elderly_women: 0
+      },
       ratios: {
         households: 4.34,
         boys: 0.275,
@@ -45,6 +53,11 @@ angular.module( 'ngmReportHub' )
 
       // calculate SADD via HHs
       setSadd: function ( beneficiary ) {
+
+        // beneficiary
+        if ( !beneficiary.households && beneficiary.cluster_id && beneficiary.cluster_id === 'fss' ) {
+          beneficiary = angular.merge( beneficiary, ngmCbBeneficiaries.defaults );
+        }
 
         // if households
         if ( beneficiary.households && beneficiary.cluster_id && beneficiary.cluster_id === 'fss' ) {
