@@ -398,6 +398,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           // merge org
           var org = angular.copy( $scope.select[0] );
           delete org.id;
+          delete org.admin0pcode;
           angular.merge( $scope.panel.user, org );
 
           // update home page for iMMAP Ethiopia
