@@ -21,7 +21,8 @@
 				      				ng-checked="project.definition.location_groups_check"
 					      			ng-click="project.showLocationGroupingsModal( $event )"/>
 				      <label style="color:#26a69a; font-weight:bold;" for="show_location_groupings">Group Target Locations by Union?</label>
-				      <p style="padding-left:75px;">Recommended for Project Plans with over 30 Target Locations!</p>
+				      <p ng-if="project.showLocationGroupingsOption()"  
+				      		style="padding-left:75px;">Recommended for Project Plans with over 30 Target Locations!</p>
 					</p>
 
 					<div class="row">

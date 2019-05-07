@@ -3910,10 +3910,6 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'health_facility_host_community',
             site_type_name: 'Health Facility (Host Community)'
           },{
-            cluster_id: [ 'health' ],
-            site_type_id: 'health_facility_tbc',
-            site_type_name: 'Health Facility (TBC)'
-          },{
             cluster_id: ngmClusterLists.all_sectors_minus_health,
             site_type_id: 'nutrition_center',
             site_type_name: 'Nutrition Center'

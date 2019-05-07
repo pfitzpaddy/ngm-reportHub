@@ -12,33 +12,31 @@
 
 				<li class="collection-item avatar">
 					<div class="row">
-						<div>
-							<div class="col s12 m9 l9 left">
-								<p id="ngm-target_beneficiaries" style="padding:10px;">
-									{{'enter_the_target_beneficiaries_of_your_project_in_the_form_below' | translate}};
-								</p>
+						<div class="col s12 left">
+							<p id="ngm-target_beneficiaries" style="padding:10px;">
+								{{'enter_the_target_beneficiaries_of_your_project_in_the_form_below' | translate}};
+							</p>
 
-								<div ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'mpc_delivery_type_id' ] &&
-															!ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'package_type_id' ]" style="padding-left: 40px;">
-									<p>
-										<i class="material-icons left" style="color: #e57373">info</i>
-									</p>
-									<p style="color: #e57373">
-										<span style="font-weight:400">{{'amount'|translate}}:</span> {{'please_enter_the_amount_per' | translate}} <span style="font-weight:400">{{'household_hh' | translate}}</span> per <span style="font-weight:400">{{'transfer' | translate}}</span>
-									</p>
-									<p style="color: #e57373">
-										<span style="font-weight:400">{{'transfers'|translate}}:</span> {{'please_enter_the' |translate}} <span style="font-weight:400">TOTAL</span> {{'number_of_planned_transfer_for_the'|translate}} <span style="font-weight:400">{{'entire' | translate}}</span> {{'project' | translate}}
-									</p>
-								</div>
+							<div ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'mpc_delivery_type_id' ] &&
+														!ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'package_type_id' ]" style="padding-left: 40px;">
+								<p>
+									<i class="material-icons left" style="color: #e57373">info</i>
+								</p>
+								<p style="color: #e57373">
+									<span style="font-weight:400">{{'amount'|translate}}:</span> {{'please_enter_the_amount_per' | translate}} <span style="font-weight:400">{{'household_hh' | translate}}</span> per <span style="font-weight:400">{{'transfer' | translate}}</span>
+								</p>
+								<p style="color: #e57373">
+									<span style="font-weight:400">{{'transfers'|translate}}:</span> {{'please_enter_the' |translate}} <span style="font-weight:400">TOTAL</span> {{'number_of_planned_transfer_for_the'|translate}} <span style="font-weight:400">{{'entire' | translate}}</span> {{'project' | translate}}
+								</p>
 							</div>
-							<div class="col s12 m3 l3 beneficiary-count">
-								<div class="right">
-									<span style="font-size:1.2rem;"><i class="material-icons" style="padding-right:10px;">group</i></span>
-									<!-- filter in app/services/ngmHelper.js -->
-									{{ project.definition | sumArrayByKeys:'target_beneficiaries':project.lists.indicators:project.lists.skip | number }}
-								</div>
-							</div>
-						</div>				
+						</div>
+						<!-- <div class="col s12 m3 l3 beneficiary-count"> -->
+							<!-- <div class="right"> -->
+								<!-- <span style="font-size:1.2rem;"><i class="material-icons" style="padding-right:10px;">group</i></span> -->
+								<!-- filter in app/services/ngmHelper.js -->
+								<!-- {{ project.definition | sumArrayByKeys:'target_beneficiaries':project.lists.indicators:project.lists.skip | number }} -->
+							<!-- </div> -->
+						<!-- </div> -->
 						<div class="col s12 card">
 							<div style="padding-top: 10px; padding-left: 40px;">
 							  <table class="bordered responsive-table" ng-show="project.definition.target_beneficiaries.length">

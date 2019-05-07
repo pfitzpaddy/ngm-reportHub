@@ -230,7 +230,8 @@
 								    
 								</div>
 								
-								<div class="input-field col s12 m6" style="padding-bottom:5px;">
+								<div ng-if="project.definition.admin0pcode !== 'COL' && project.definition.cluster_id !== 'health'" 
+											class="input-field col s12 m6" style="padding-bottom:5px;">
 									
 									<label>{{'other_activities_in_addition_to' | translate}} {{ project.definition.cluster }}?</label>
 									<div style="padding-bottom:35px;"></div>
