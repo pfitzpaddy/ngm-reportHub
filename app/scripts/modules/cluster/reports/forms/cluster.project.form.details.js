@@ -118,6 +118,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				searchOrgPartner: null,
 				searchImplementingPartner: function (query) {
 
+
 					// if (!$scope.project.definition.implementing_partners_array) {
 					// 	$scope.project.definition.implementing_partners_array = [];
 					// }
@@ -125,7 +126,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						$scope.project.definition.implementing_partners = [];
 					}
 					return $scope.project.lists.organizations.filter(function (el) {
-						return el.organization.toLowerCase().indexOf(query.toLowerCase()) > -1;
+						return (el.organization_name.toLowerCase().indexOf(query.toLowerCase()) > -1 || 
+              el.organization.toLowerCase().indexOf(query.toLowerCase()) > -1);
 					});
 				},
 				addNewImplementingPartner: function (chip) {
@@ -137,7 +139,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					// 		el.partners = [];
 					// 		el.partners.push(chip);
 					// 	} else {
-					// 		el.partners.push(chip);
+					// 		el.partners.push(chip); 
 					// 	}
 
 					// })
@@ -146,7 +148,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						$scope.project.definition.target_locations.forEach(function (el) {
 							delete chip.organization_type
 							delete chip.id
-							delete chip.organization_name
+							delete chip.organization
 							if (!el.implementing_partners) {
 								el.implementing_partners = [];
 								el.implementing_partners.push(chip);

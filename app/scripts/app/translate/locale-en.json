@@ -63,6 +63,10 @@
       "youtube_user_video_guides":"Youtube User Video Guides",
       "call":"Call",
       "on":"on",
+      "online":"Online",
+      "with_any_questions":"with any questions!",
+      "cannot_add_not_ont_the_list":"Cannot add, not on the list",
+      "add_new_partner":"Add new partner",
 
 
 
@@ -95,6 +99,8 @@
        "global_team":"Global Team",
        "hq_reporthub_partners":"HQ ReportHub Partners",
        "partners":"Partners",
+       "partner":"Partner",
+       "not_set":"Not Set",
        "select_sector" : "Select Sector",
        "select_station":"Select Station",
        "agriculture" : "Agriculture",

@@ -82,6 +82,13 @@
     "youtube_user_video_guides":"Guía de Usuarios en Videos de Youtube",
     "call":"Llama",
     "on":"en",
+   "online":"En linea",
+   "with_any_questions":"para cualquier pregunta!",
+    "cannot_add_not_ont_the_list":"No se puede agregar, no está en la lista",
+          "add_new_partner":"Agregar nuevo socio",
+
+
+
 
 
 
@@ -113,6 +120,8 @@
     "global_team":"Equipo Global",
     "hq_reporthub_partners":"Socios HQ ReportHub",
     "partners":"Socios",
+    "partner":"Socio",
+    "not_set":"No Establecido",
 
 
     "select_sector" : "Seleccionar Sector",
