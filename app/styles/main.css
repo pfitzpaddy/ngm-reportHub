@@ -20,6 +20,11 @@ header, main, footer {
     position:relative;
   }
 }
+
+.padding-top-35{
+	padding-top: 35px;
+}
+
 .container {
 	width: 90%;
 	/*background-image: url("../images/worldmap.svg");*/

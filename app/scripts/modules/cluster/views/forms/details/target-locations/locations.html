@@ -82,7 +82,7 @@
 										<td>{{'type' | translate}}</td>
 										<td ng-if="project.definition.admin0pcode !== 'AF'">{{'from_list'|translate}}?</td>
 										<td>{{'site_name'|translate}} *</td>
-										<td ng-if="project.definition.implementing_partners_checked">Partner</td>
+										<td ng-if="project.definition.implementing_partners_checked">{{'partner'|translate}}</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">{{'edit'|translate}}</td>
 							    </tr>
 							    <tr ng-repeat="location in project.definition.target_locations track by $index">
@@ -256,7 +256,7 @@
 										</td>
 										<td ng-if="project.definition.implementing_partners_checked">											
 											<md-select ng-model="location.implementing_partners" multiple ng-model-options="{trackBy: '$value.organization'}" ng-disabled="!locationform.$visible"
-											 placeholder="Not Set">
+											 placeholder="{{'not_set'|translate}}">
 												<md-option ng-value="partner" ng-repeat="partner in project.definition.implementing_partners">{{ partner.organization }}</md-option>
 											</md-select>
 										</td>

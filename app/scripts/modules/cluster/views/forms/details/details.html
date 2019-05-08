@@ -289,7 +289,7 @@
 
 									<div class="input-field col s12 m12" style="padding-bottom:5px;padding-left: 20px;">
 									<label for="ngm-project_donor">{{'project_donor' | translate}} *</label>
-									<div style="padding-top:35px;"></div>
+									<div class="padding-top-35"></div>
 
 									<md-contact-chips
 									class="ngm-project_donor_select"
@@ -356,7 +356,7 @@
 
 									<div class="input-field col s12 m6" style="padding-bottom:5px;padding-left: 20px;">
 									<label for="ngm-project-implementing_partners">{{'list_project_partners' | translate}} *</label>
-									<div style="padding-top:35px;"></div>
+									<div class="padding-top-35"></div>
 
 									<md-contact-chips
 									class="ngm-project_donor_select"
@@ -377,7 +377,7 @@
 									<div class="input-field col s12 m6" ng-class="{ 'has-error' : healthProjectForm.implementing_partners_list.$error.pattern }"
 									 ng-show="project.definition.implementing_partners_checked">
 										<label for="ngm-project-implementing_partners">{{'list_project_partners' | translate}}</label>
-										<div style="padding-top:35px;"></div>
+										<div class="padding-top-35"></div>
 										<md-chips ng-model="project.definition.implementing_partners" 
 											md-autocomplete-snap="width"											
 											md-require-match="true" 
@@ -390,16 +390,16 @@
 												md-items="item in project.searchImplementingPartner(project.searchOrgPartner)"
 												md-item-text="item.organization_name" 
 												input-aria-describedby="autocompleteTitle" 
-												placeholder="Add new partner" 
+												placeholder="{{'add_new_partner'|translate}}" 
 												ng-disabled="project.definition.project_status === 'complete'">
-												<span md-highlight-text="searchText">{{item.organization}} </span>
+												<span md-highlight-text="searchText">{{item.organization_name}} </span>
 												<md-not-found>
-													Cannot add,not on the list
+													{{'cannot_add_not_ont_the_list'|translate}}
 												</md-not-found>
 											</md-autocomplete>
 											<md-chip-template>
 												<span>
-													<strong>{{$chip.organization}}</strong>
+													<strong>{{$chip.organization_name}}</strong>
 												</span>
 											</md-chip-template>
 										</md-chips>
