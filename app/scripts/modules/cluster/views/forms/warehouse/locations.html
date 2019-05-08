@@ -36,7 +36,7 @@
 							    	ng-model="report.options.warehouse.admin1"
 							    	ng-model-options="{ trackBy: '$value.admin1pcode'}"
 							    	ng-change="report.updateLocationSelect( true, false )"
-			      				ng-options="item as item.admin1name for item in report.options.list.admin1">
+			      				ng-options="item as item.admin1name for item in report.options.list.admin1 | filter : { inactive: '!true' }">
 			      				<option value="" selected>{{'choose'|translate}} {{ report.options.list.admin1[0].admin1type_name }}</option>
 			      			</select>
 			      			<label>{{ report.options.list.admin1[0].admin1type_name }} *</label>
