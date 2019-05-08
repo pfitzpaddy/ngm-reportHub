@@ -40,13 +40,31 @@
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'delivery_type_id' ]">{{'type'|translate}}</td>
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'households' ]">{{'households'|translate}}</td>
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'families' ]">{{'families' | translate}}</td>
-      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'boys' ]">{{'boys' | translate}}</td>
-      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'girls' ]">{{'girls' | translate}}</td>
-      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'men' ]">{{'men' | translate}}</td>
-      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'women' ]">{{'women' | translate}}</td>
+
+      <!-- default -->
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'boys' ]
+                  && !ngmClusterBeneficiaries.cxbHealth( project )">{{'boys' | translate}}</td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'girls' ]
+                  && !ngmClusterBeneficiaries.cxbHealth( project )">{{'girls' | translate}}</td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'men' ]
+                  && !ngmClusterBeneficiaries.cxbHealth( project )">{{'men' | translate}}</td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'women' ]
+                  && !ngmClusterBeneficiaries.cxbHealth( project )">{{'women' | translate}}</td>
+      
+      <!-- CXB health -->
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'boys' ] 
+                  && ngmClusterBeneficiaries.cxbHealth( project )">Under 5 Male</td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'girls' ]
+                  && ngmClusterBeneficiaries.cxbHealth( project )">Under 5 Female</td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'men' ]
+                  && ngmClusterBeneficiaries.cxbHealth( project )">Over 5 Male</td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'women' ]
+                  && ngmClusterBeneficiaries.cxbHealth( project )">Over 5 Female</td>
+
+      <!-- continue -->
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'elderly_men' ]">{{'eld_men'|translate}}</td>
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'elderly_women' ]">{{'eld_women' | translate}}</td>
-
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'total_beneficiaries' ]">Total</td>
       <td ng-if="project.showFatpTreatmentSameProvince( $locationIndex )">{{'treatment_same_province'| translate}}</td>
       <td ng-if="project.definition.project_status !== 'complete'">{{'edit' | translate}}</td>
     </tr>
@@ -422,6 +440,19 @@
         </span>
       </td>
 
+      <!-- total_beneficiaries -->
+      <td ng-show="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'total_beneficiaries' ]">
+        <span e-form="rowform"
+              e-name="total_beneficiaries"
+              editable-number="beneficiary.total_beneficiaries"
+              e-min="0"
+              e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'total_beneficiaries', $data )"
+              e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'total_beneficiaries' ]"
+              e-required>
+          {{ beneficiary.total_beneficiaries }}
+        </span>
+      </td>
+
       <!-- afghanistan fatp same province -->
       <td ng-show="project.showFatpTreatmentSameProvince( $locationIndex )">
           <!-- editable select true/false -->
@@ -482,7 +513,7 @@
 
     <!-- remarks -->
     <tr ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'remarks' ] || 
-                ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'activity_date_entry' ] ||
+                ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'activity_date' ] ||
                 ngmClusterBeneficiaries.showPartialKits( $locationIndex, $beneficiaryIndex, $index, beneficiary ) ||
                 ngmClusterBeneficiaries.showKitDetails( $locationIndex, $beneficiaryIndex, $index, beneficiary )">
 
@@ -504,7 +535,7 @@
         </div>
 
         <!-- distribution -->
-        <div ng-show="ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'activity_date_entry' ];">
+        <div ng-show="ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'activity_date' ];">
           <!-- get template -->
           <div class="row"
                 ng-init="ngmClusterBeneficiaries.initDistributionDate( beneficiary )">

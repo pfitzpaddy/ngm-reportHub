@@ -325,6 +325,17 @@ angular.module( 'ngmReportHub' )
 
       /* BENEFICIARIES FORM */ 
 
+      // show cxb health label
+      cxbHealth: function( project ) {
+        console.log( project );
+        var display = false;
+        if ( project.definition.admin0pcode === 'CB' 
+              && project.definition.cluster_id === 'health' ) {
+          display = true;
+        }
+        return display;
+      },
+
       // show activity (generic)
       displayActivity: function( project, $data, $beneficiary ){
         var selected = [];

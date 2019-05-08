@@ -3870,15 +3870,15 @@ angular.module( 'ngmReportHub' )
         // Cox bazar
         if ( admin0pcode === 'CB' ) {
           site_types = [{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
             site_type_id: 'union',
             site_type_name: 'Union'
           },{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
             site_type_id: 'ward',
             site_type_name: 'Ward'
           },{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
             site_type_id: 'host_community',
             site_type_name: 'Host Community'
           },{
@@ -3904,11 +3904,19 @@ angular.module( 'ngmReportHub' )
           },{
             cluster_id: [ 'health' ],
             site_type_id: 'health_facility_camp',
-            site_type_name: 'Health Facility (Camp)'
+            site_type_name: 'Health Facility (Refugees)'
           },{
             cluster_id: [ 'health' ],
             site_type_id: 'health_facility_host_community',
             site_type_name: 'Health Facility (Host Community)'
+          },{
+            cluster_id: [ 'health' ],
+            site_type_id: 'refugee_camp',
+            site_type_name: 'Non-Facility Based (Refugees)'
+          },{
+            cluster_id: [ 'health' ],
+            site_type_id: 'host_community',
+            site_type_name: 'Non-Facility Based (Host Community)'
           },{
             cluster_id: ngmClusterLists.all_sectors_minus_health,
             site_type_id: 'nutrition_center',

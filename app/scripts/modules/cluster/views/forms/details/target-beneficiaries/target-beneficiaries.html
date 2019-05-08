@@ -71,12 +71,31 @@
 							      <!-- <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'delivery_type_id' ]">Type</td> -->
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'households' ]">{{'households'|translate}}</td>
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'families' ]">{{'families' | translate}}</td>
-							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'boys' ]">{{'boys' | translate}}</td>
-							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'girls' ]">{{'girls' | translate}}</td>
-							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'men' ]">{{'men' | translate}}</td>
-							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'women' ]">{{'women' | translate}}</td>
+							      
+							      <!-- default -->
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'boys' ]
+							      						&& !ngmClusterBeneficiaries.cxbHealth( project )">{{'boys' | translate}}</td>
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'girls' ]
+							      						&& !ngmClusterBeneficiaries.cxbHealth( project )">{{'girls' | translate}}</td>
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'men' ]
+							      						&& !ngmClusterBeneficiaries.cxbHealth( project )">{{'men' | translate}}</td>
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'women' ]
+							      						&& !ngmClusterBeneficiaries.cxbHealth( project )">{{'women' | translate}}</td>
+							      
+							      <!-- CXB health -->
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'boys' ] 
+							      						&& ngmClusterBeneficiaries.cxbHealth( project )">Under 5 Male</td>
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'girls' ]
+							      						&& ngmClusterBeneficiaries.cxbHealth( project )">Under 5 Female</td>
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'men' ]
+							      						&& ngmClusterBeneficiaries.cxbHealth( project )">Over 5 Male</td>
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'women' ]
+							      						&& ngmClusterBeneficiaries.cxbHealth( project )">Over 5 Female</td>
+
+							      <!-- continue -->
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'elderly_men' ]">{{'eld_men'|translate}}</td>
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'elderly_women' ]">{{'eld_women'|translate}}</td>
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'total_beneficiaries' ]">Total</td>
 										<td ng-if="project.showFatpTreatmentSameProvince()">{{'treatment_same_province'| translate}}</td>
 							      <td ng-if="project.definition.project_status !== 'complete'">{{'edit' | translate}}</td>
 
@@ -435,7 +454,7 @@
 							        			e-name="elderly_men"
 							        			editable-number="beneficiary.elderly_men"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput($index, 'elderly_men', $data )"
+							        			e-ng-change="project.updateInput( $index, 'elderly_men', $data )"
 							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'elderly_men' ]"
 							        			e-required>
 							          {{ beneficiary.elderly_men }}
@@ -448,10 +467,23 @@
 							        			e-name="elderly_women"
 							        			editable-number="beneficiary.elderly_women"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput($index, 'elderly_women', $data )"
+							        			e-ng-change="project.updateInput( $index, 'elderly_women', $data )"
 							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'elderly_women' ]"
 							        			e-required>
 							          {{ beneficiary.elderly_women }}
+							        </span>
+							      </td>
+
+							      <!-- total_beneficiaries -->
+							      <td ng-show="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'total_beneficiaries' ]">
+							        <span e-form="rowform"
+							        			e-name="total_beneficiaries"
+							        			editable-number="beneficiary.total_beneficiaries"
+							        			e-min="0"
+							        			e-ng-change="project.updateInput( $index, 'total_beneficiaries', $data )"
+							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'total_beneficiaries' ]"
+							        			e-required>
+							          {{ beneficiary.total_beneficiaries }}
 							        </span>
 							      </td>
 
