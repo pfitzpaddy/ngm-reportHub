@@ -226,10 +226,10 @@ angular
 
          var var4plusrhafter;
 
-	     if($location.$$host === '4wplus.org'){ //4wplus.org
+	     if($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63'){ //4wplus.org
 			$('#title').html("4wPlus");
 
-			var4plusrhafter = '4WPLUS';
+			var4plusrhafter = '4wPlus';
 
 
 			

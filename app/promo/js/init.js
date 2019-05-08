@@ -10,7 +10,7 @@
             
 
 
-  			if(href  === 'https://4wplus.org/'){ //https://4wplus.org/
+  			if(href  === 'https://4wplus.org/' || href ==='http://35.229.43.63/'){ //https://4wplus.org/
   				$( '.href' ).hide();
   				$('.href2').show();
   				title = "4wPlus";
@@ -38,7 +38,6 @@
   			};
 
   			$('#title').html(title);
-  			console.log($('#promo-title'),"titulo aparecerá");
   				$('#promo-title').html(title);
   				$('.brand-logo').html(title);
   				$('#humanitariandesicion').html(humanitariandesicion);
