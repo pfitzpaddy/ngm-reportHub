@@ -89,13 +89,21 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.project.adminRpcode, admin0pcode:config.project.admin0pcode, cluster_id: config.project.cluster_id, organization_tag:config.project.organization_tag } ),
 
        afterSelectItem : function(item){
-        //console.log(item);
          $scope.project.definition.project_donor_check[item.project_donor_id] = true ;
-         //console.log("project_donor_check",$scope.project.definition.project_donor_check);
-         //console.log("$scope.project.definition.project_donor",$scope.project.definition.project_donor);
+
+           if ($scope.project.definition.target_locations.length >0){
+            $scope.project.definition.target_locations.forEach(function (el) {
+
+              el.project_donor = item;
+              
+  
+            });
+
+          }
          
           
        },
+
 
        searchDonor:function(query){
         return $scope.project.lists.donors.filter(function (el) {
