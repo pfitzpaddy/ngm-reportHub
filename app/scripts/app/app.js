@@ -173,14 +173,6 @@ angular
 			ngmUser.unset();
 		}
 
-		/*if($location.$$host === '192.168.33.16'){ //4wplus.org
-			$('#title').html("4wPlus");
-
-		}else{
-			$('#title').html("ReportHub");
-
-		}*/ 
-
 		
 
 		// check URL
