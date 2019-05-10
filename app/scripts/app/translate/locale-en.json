@@ -80,6 +80,9 @@
        "sign_in" : "Sign in",
        "reminder_sent" : "REMINDER SENT",
        "please_check_your_ReportHub_email_account_to_reset_your_password":"Please check your ReportHub email account to reset your password",
+       "please_check_your":"Please check your",
+       "email_account_to_reset_your_password":"email account to reset your password",
+   
        "the_email_will_contain_a_secure_link_to_reset_your_password_so_you_can_close_this_window.":"The email will contain a secure link to reset your password, so you can close this window.",
        "reset_password":"RESET PASSWORD",
        "passwords_do_not_match":"Passwords do not match",
