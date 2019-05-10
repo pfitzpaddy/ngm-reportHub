@@ -25,22 +25,24 @@
 				      		style="padding-left:75px;">Recommended for Project Plans with over 30 Target Locations!</p>
 					</p>
 
-					<div class="row">
+					<div class="row" ng-init="ngmCbLocations.init( project.definition.target_locations )">
 						<div class="col s12 card">
 							<div style="padding-top: 10px; padding-left: 40px;">
-							  <!-- <table class="bordered responsive-table" ng-show="project.definition.target_locations.length | orderBy:[ 'site_type_name','admin1name','admin2name','admin3name','site_name' ]"> -->
 							  <table class="bordered responsive-table" ng-show="project.definition.target_locations.length">
 							    <tr style="font-weight: 400">
 							    	<td></td>
 							    	<td>Reporter</td>
 							    	<!-- <td ng-if="project.definition.location_groups_check">Location Group</td> -->
 							      <td>Location Type</td>
-							      <td ng-if="ngmCbLocations.showColumn( project.definition.target_locations, 'food_distribution_point' )">Point</td>
+							      <td ng-if="ngmCbLocations.showColumns.active[ 'food_distribution_point' ]">Point</td>
 							      <td>{{ project.lists.admin1[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
-							      <td ng-if="ngmCbLocations.showColumn( project.definition.target_locations, 'ward' )">Ward</td>
-							      <td ng-if="ngmCbLocations.showColumn( project.definition.target_locations, 'camp' )">Camp</td>
-							      <td ng-if="ngmCbLocations.showColumn( project.definition.target_locations, '!food_distribution_point' )">Location Name</td>
+							      <td ng-if="ngmCbLocations.showColumns.active[ 'ward' ]">Ward</td>
+							      <td ng-if="ngmCbLocations.showColumns.active[ 'camp' ] || ngmCbLocations.showColumns.active[ 'site' ]">Camp</td>
+							      <td ng-if="!ngmCbLocations.showColumns.active[ 'food_distribution_point' ]">Location Name</td>
+							      <!-- lat, lng -->
+							      <td ng-if="ngmCbLocations.showColumns.active[ 'site' ]">Site Longitude</td>
+							      <td ng-if="ngmCbLocations.showColumns.active[ 'site' ]">Site Latitude</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">Edit</td>
 							    </tr>
 							    <tr ng-repeat="location in project.definition.target_locations track by $index">
@@ -49,7 +51,6 @@
 							    	<td>
 							    		<i class="material-icons" style="color: teal;">person_pin</i>
 							    	</td>
-
 
 							    	<!-- editable reporter -->
 							      <td>
@@ -63,7 +64,6 @@
 							        </span>
 							      </td>
 
-
 							      <!-- site type -->
 							      <td>
 							        <span e-placeholder="Select..."
@@ -72,20 +72,20 @@
 							        				e-form="locationform"
 							        				e-ng-options="item.site_type_id as item.site_type_name for item in project.lists.site_type |
 							              								filter: { cluster_id: project.definition.cluster_id } : true"
-							              	e-ng-change="ngmCbLocations.changeLocation( project.definition, 'location', location )"
+							              	e-ng-change="ngmCbLocations.changeLocation( project.definition, 'location', location );
+							              									ngmCbLocations.setColumns( project.definition.target_locations );"
 							        				e-required>
 							          {{ ngmCbLocations.displaySiteType( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
 
-							      <!-- !food_distribution_point -->
-							      <td ng-if="ngmCbLocations.showColumn( project.definition.target_locations, 'food_distribution_point' ) &&
-							      						location.site_type_id !== 'food_distribution_point'">
+							      <!-- food_distribution_points && !location.food_distribution_point -->
+							      <td ng-if="ngmCbLocations.showColumns.active[ 'food_distribution_point' ] &&
+							      						ngmCbLocations.showColumns.active.columns[ $index ][ 'food_distribution_point' ]">
 							        -
 							      </td>
-
 							      <!-- food_distribution_point -->
-							      <td ng-if=" location.site_type_id === 'food_distribution_point'">
+							      <td ng-if="ngmCbLocations.showColumns.active.columns[ $index ][ 'food_distribution_point' ]">
 							        <span e-placeholder="Select..."
 							        			editable-select="location.site_id"
 							        			e-name="site_id"
@@ -93,109 +93,83 @@
 							        			e-ng-options="item.site_id as item.site_name for item in project.lists.adminSites | 
 							        											filter:{ site_type_id: location.site_type_id }"
 														e-ng-disabled="!location.site_type_id"
-														e-ng-change="ngmCbLocations.updateSite( project.lists, $index, $data, location );">
+														e-ng-change="ngmCbLocations.updateSite( project.lists, $index, $data, location ); 
+							        											ngmCbLocations.setColumns( project.definition.target_locations );">
 							          {{ ngmCbLocations.displaySites( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>							      
 
-
-							      <!-- admin1 -->
-							      <td ng-if="location.site_type_id === 'union' ||
-							      						location.site_type_id === 'health_facility_host_community'">
+							      <!-- ADMIN1 -->
+							      <!-- admin1 NO FILTER -->
+							      <td ng-if="!ngmCbLocations.showColumns.active.columns[ $index ][ 'camp' ] && 
+							      						!ngmCbLocations.showColumns.active.columns[ $index ][ 'site' ]">
 							        <span e-placeholder="Select..."
 							        				editable-select="location.admin1pcode"
 							        				e-name="admin1pcode"
 							        				e-form="locationform"
 							        				e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1"
-							        				e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin1', location )"
+							        				e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin1', location ); 
+							        											ngmCbLocations.setColumns( project.definition.target_locations );"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin1( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
-							      <td ng-if="location.site_type_id !== 'union' &&
-							      						location.site_type_id !== 'health_facility_host_community'">
+							      <!-- admin1 CAMP FILTER -->
+							      <td ng-if="ngmCbLocations.showColumns.active.columns[ $index ][ 'camp' ] || 
+							      						ngmCbLocations.showColumns.active.columns[ $index ][ 'site' ]">
 							        <span e-placeholder="Select..."
 							        				editable-select="location.admin1pcode"
 							        				e-name="admin1pcode"
 							        				e-form="locationform"
-							        				e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1 | admin2CxbHostCommunityfilter"
-							        				e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin1', location )"
+							        				e-ng-options="item.admin1pcode as item.admin1name for item in project.lists.admin1 | 
+							        												admin1CxbRefugeeCampfilter"
+							        				e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin1', location ); 
+							        											ngmCbLocations.setColumns( project.definition.target_locations );"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin1( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
 
-
-							      <!-- admin2 OPTIONS WITH FILTERS! -->
-							      <td ng-if="!location.site_type_id ||
-							      						location.site_type_id === 'union' || 
-							      						location.site_type_id === 'ward' || 
-							      						location.site_type_id === 'health_facility_host_community' ||
-							      						location.site_type_id === 'health_facility_tbc'">
+							      <!-- ADMIN2 -->
+							      <!-- admin2 NO FILTERS -->
+							      <td ng-if="!ngmCbLocations.showColumns.active.columns[ $index ][ 'camp' ] &&
+							      						!ngmCbLocations.showColumns.active.columns[ $index ][ 'site' ]">
 							        <span e-placeholder="Select..."
 							        				editable-select="location.admin2pcode"
 							        				e-name="admin2pcode"
 							        				e-form="locationform"
 							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | 
 							        											filter:{ admin1pcode: location.admin1pcode }"
-															e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin2', location )"
+															e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin2', location ); 
+							        											ngmCbLocations.setColumns( project.definition.target_locations );"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin2( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
-							      <td ng-if="location.site_type_id === 'refugee_camp' || 
-							      							location.site_type_id === 'refugee_block' ||
-							      							location.site_type_id === 'health_facility_camp' ||
-							      							location.site_type_id === 'nutrition_center' ||							      							
-							      							location.site_type_id === 'food_distribution_point' ||
-							      							location.site_type_id === 'retail_store'">
+							      <!-- admin2 CAMP FILTER -->
+							      <td ng-if="ngmCbLocations.showColumns.active.columns[ $index ][ 'camp' ] || 
+							      						ngmCbLocations.showColumns.active.columns[ $index ][ 'site' ]">
 							        <span e-placeholder="Select..."
 							        				editable-select="location.admin2pcode"
 							        				e-name="admin2pcode"
 							        				e-form="locationform"
 							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | 
 							        											filter:{ admin1pcode: location.admin1pcode } | admin2CxbRefugeeCampfilter"
-															e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin2', location )"
-							        				e-required>
-							          {{ ngmCbLocations.displayAdmin2( project.lists, $index, $data, location ) }}
-							        </span>
-							      </td>
-							      <td ng-if="location.site_type_id === 'host_community'">
-							        <span e-placeholder="Select..."
-							        				editable-select="location.admin2pcode"
-							        				e-name="admin2pcode"
-							        				e-form="locationform"
-							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | 
-							        											filter:{ admin1pcode: location.admin1pcode } | admin2CxbHostCommunityfilter"
-							        				e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin2', location )"
-							        				e-required>
-							          {{ ngmCbLocations.displayAdmin2( project.lists, $index, $data, location ) }}
-							        </span>
-							      </td>
-							      <td ng-if="location.site_type_id === 'cyclone_shelter'">
-							        <span e-placeholder="Select..."
-							        				editable-select="location.admin2pcode"
-							        				e-name="admin2pcode"
-							        				e-form="locationform"
-							        				e-ng-options="item.admin2pcode as item.admin2name for item in project.lists.admin2 | 
-							        											filter:{ admin1pcode: location.admin1pcode } | admin2CycloneShelterCxbfilter"
-															e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin2', location )"
+															e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin2', location ); 
+							        											ngmCbLocations.setColumns( project.definition.target_locations );"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin2( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
 
 
-							      <!-- admin3 as ward -->
-							      <td ng-if="ngmCbLocations.showColumn( project.definition.target_locations, 'ward' ) &&
-							      							location.site_type_id !== 'host_community' &&
-							      							location.site_type_id !== 'ward'">
+							      <!-- wards && !location.ward -->
+							      <td ng-if="ngmCbLocations.showColumn.active[ 'ward' ] &&
+							      							!ngmCbLocations.showColumns.active.columns[ $index ][ 'ward' ]">
 							        -
 							      </td>
-
-										<!-- nutrition_center -->
-							      <td ng-if="location.site_type_id === 'host_community' || 
-							      						location.site_type_id === 'ward'">
+										<!-- ward -->
+							      <td ng-if="ngmCbLocations.showColumns.active.columns[ $index ][ 'ward' ]">
 							        <span e-placeholder="Select..."
 							        				editable-select="location.admin3pcode"
 							        				e-name="admin3pcode"
@@ -207,29 +181,22 @@
 							        												admin3type_name: 'Ward',
 							        											}"
 							        				e-ng-disabled="!location.admin2pcode"
-							        				e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin3', location )"
+							        				e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin3', location ); 
+							        											ngmCbLocations.setColumns( project.definition.target_locations );"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin3( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
 
 
-
-							      <!-- admin3 as camp -->
-							      <td ng-if="ngmCbLocations.showColumn( project.definition.target_locations, 'camp' ) &&
-							      							location.site_type_id !== 'nutrition_center' &&
-							      							location.site_type_id !== 'food_distribution_point' &&
-							      							location.site_type_id !== 'retail_store' &&
-							      							location.site_type_id !== 'refugee_block' &&
-							      							location.site_type_id !== 'health_facility_camp'">
+							      <!-- camps && !location.camps -->
+							      <td ng-if="ngmCbLocations.showColumn.active[ 'camp' ] &&
+							      						!ngmCbLocations.showColumns.active.columns[ $index ][ 'camp' ]">
 							        -
 							      </td>
-
-										<!-- nutrition_center -->
-							      <td ng-if="location.site_type_id === 'nutrition_center' ||
-						      							location.site_type_id === 'retail_store' ||
-							      						location.site_type_id === 'refugee_block' ||
-							      						location.site_type_id === 'health_facility_camp'">
+										<!-- camp -->
+							      <td ng-if="ngmCbLocations.showColumns.active.columns[ $index ][ 'camp' ] ||
+							      						ngmCbLocations.showColumns.active.columns[ $index ][ 'site' ]">
 							        <span e-placeholder="Select..."
 							        				editable-select="location.admin3pcode"
 							        				e-name="admin3pcode"
@@ -240,24 +207,8 @@
 							        												admin2pcode: location.admin2pcode,
 							        												admin3type_name: 'Camp',
 							        											}"
-															e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin3', location )"
-							        				e-required>
-							          {{ ngmCbLocations.displayAdmin3( project.lists, $index, $data, location ) }}
-							        </span>
-							      </td>
-										<!-- food_distribution_point -->
-							      <td ng-if="location.site_type_id === 'food_distribution_point'">
-							        <span e-placeholder="Select..."
-							        				editable-select="location.admin3pcode"
-							        				e-name="admin3pcode"
-							        				e-form="locationform"
-							        				e-ng-options="item.admin3pcode as item.admin3name for item in project.lists.admin3 | 
-							        											filter:{ 
-							        												admin1pcode: location.admin1pcode, 
-							        												admin2pcode: location.admin2pcode,
-							        												admin3type_name: 'Camp',
-							        											}"
-															e-ng-change="ngmCbLocations.changeLocation( project.definition, 'food_distribution_point', location )"
+															e-ng-change="ngmCbLocations.changeLocation( project.definition, 'admin3', location ); 
+							        											ngmCbLocations.setColumns( project.definition.target_locations );"
 							        				e-required>
 							          {{ ngmCbLocations.displayAdmin3( project.lists, $index, $data, location ) }}
 							        </span>
@@ -265,9 +216,8 @@
 
 
 							      <!-- select existing: darop down (filter admin3pcode by type) -->
-							      <td ng-if=" location.site_type_id === 'cyclone_shelter' || 
-							      						location.site_type_id === 'refugee_camp' ||
-							      						location.site_type_id === 'health_facility_host_community'">
+							      <td ng-if="!ngmCbLocations.showColumns.active.columns[ $index ][ 'camp' ] && 
+							      						!ngmCbLocations.showColumns.active.columns[ $index ][ 'site' ]">
 							        <span e-placeholder="Select..."
 							        			editable-select="location.site_id"
 							        			e-name="site_id"
@@ -279,16 +229,14 @@
 							        												site_type_id: location.site_type_id
 							        											}"
 														e-ng-disabled="!location.site_type_id"
-														e-ng-change="ngmCbLocations.updateSite( project.lists, $index, $data, location );">
+														e-ng-change="ngmCbLocations.updateSite( project.lists, $index, $data, location ); 
+							        											ngmCbLocations.setColumns( project.definition.target_locations );">
 							          {{ ngmCbLocations.displaySites( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
-							      <!-- select existing: drop down (filter by admin3pcode if exists) -->
-							      <td ng-if="location.site_type_id === 'host_community' || 
-							      						location.site_type_id === 'refugee_block' || 
-							      						location.site_type_id === 'nutrition_center' ||
-						      							location.site_type_id === 'retail_store' ||
-						      							location.site_type_id === 'health_facility_camp'">
+							      <!-- location is in camp -->
+							      <td ng-if="ngmCbLocations.showColumns.active.columns[ $index ][ 'camp' ] &&
+							      						!ngmCbLocations.showColumns.active.columns[ $index ][ 'site' ]">
 							        <span e-placeholder="Select..."
 							        			editable-select="location.site_id"
 							        			e-name="site_id"
@@ -301,14 +249,17 @@
 							        												site_type_id: location.site_type_id
 							        											}"
 														e-ng-disabled="!location.site_type_id"
-														e-ng-change="ngmCbLocations.updateSite( project.lists, $index, $data, location );">
+														e-ng-change="ngmCbLocations.updateSite( project.lists, $index, $data, location ); 
+							        											ngmCbLocations.setColumns( project.definition.target_locations );">
 							          {{ ngmCbLocations.displaySites( project.lists, $index, $data, location ) }}
 							        </span>
 							      </td>
+
+
 							      <!-- select existing: free text  -->
-										 <td ng-if="!location.site_type_id ||
-										 							location.site_type_id === 'union' || 
-										 							location.site_type_id === 'ward'">
+										 <td ng-if="location.site_type_id === 'union' || 
+										 							location.site_type_id === 'ward' ||
+										 							ngmCbLocations.showColumns.active.columns[ $index ][ 'site' ]">
 							        <span editable-text="location.site_name"
 							        				e-name="site_name"
 							        				e-form="locationform"
@@ -316,10 +267,33 @@
 							        	{{ project.showSiteName( $data, location ) }}
 							        </span>
 							      </td>
+
+										
 										<!-- food_distribution_point spacer -->
-										<td ng-if="ngmCbLocations.showColumn( project.definition.target_locations, '!food_distribution_point' ) && 
-							      						location.site_type_id === 'food_distribution_point'">
+										<td ng-if="ngmCbLocations.showColumns.active[ 'food_distribution_point' ] && 
+							      						!ngmCbLocations.showColumns.active.columns[ $index ][ 'food_distribution_point' ]">
 												-
+							      </td>
+
+
+							      <!-- site_lng  -->
+										 <td ng-if="ngmCbLocations.showColumns.active.columns[ $index ][ 'site' ]">
+							        <span editable-number="location.site_lng"
+							        				e-name="site_lng"
+							        				e-form="locationform"
+							        				e-required>
+							        	{{ location.site_lng }}
+							        </span>
+							      </td>
+
+							      <!-- site_lat  -->
+										 <td ng-if="ngmCbLocations.showColumns.active.columns[ $index ][ 'site' ]">
+							        <span editable-number="location.site_lat"
+							        				e-name="site_lat"
+							        				e-form="locationform"
+							        				e-required>
+							        	{{ location.site_lat }}
+							        </span>
 							      </td>
 
 							      <!-- edit -->

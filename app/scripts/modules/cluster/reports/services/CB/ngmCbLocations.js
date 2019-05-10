@@ -6,15 +6,15 @@
  *
  */
 angular.module( 'ngmReportHub' )
-  .filter( 'admin2CxbHostCommunityfilter', [ '$filter', function ( $filter ) {
+  .filter( 'admin1CxbRefugeeCampfilter', [ '$filter', function ( $filter ) {
     
     // Host Communities of Reach data capture Teknaf, Ukhia
-    var host_community_filter = [ '202290', '202294' ];
+    var refugee_camp_filter = [ '202290', '202294' ];
 
     // filter 
     return function ( item ) {
       var list = item.filter(function( i ) {
-        return host_community_filter.indexOf( i.admin1pcode ) !== -1; 
+        return refugee_camp_filter.indexOf( i.admin1pcode ) !== -1; 
       });
       return list;
     };
@@ -50,47 +50,74 @@ angular.module( 'ngmReportHub' )
     // ngmCbLocations
 		ngmCbLocations = {
 
+      // init
+      init: function( target_locations ) {
+        ngmCbLocations.showColumns.active = ngmCbLocations.showColumns.defaults;
+        ngmCbLocations.setColumns( target_locations );
+      },
+
       // SHOW / HIDE COLUMNS
 
+      // columns
+      showColumns: {
+        defaults:{
+          'ward': false,
+          'camp': false,
+          'site': false,
+          'food_distribution_point': false,
+          'columns': []
+        }
+      },
+
       // show the column
-      showColumn: function( target_location, type ){
-        var display = false;
-        angular.forEach( target_location, function( d, i ){
+      setColumns: function( target_locations ){
 
-          // admin3 as ward
-          if ( type === '!food_distribution_point' ) {
-            if ( d.site_type_id !== 'food_distribution_point' ) {
-              display = true;
-            }
-          }
+        // let form catch up
+        $timeout(function() {
 
-          // admin3 as ward
-          if ( type === 'food_distribution_point' ) {
-            if ( d.site_type_id === 'food_distribution_point' ) {
-              display = true;
-            }
-          }
-          
-          // admin3 as ward
-          if ( type === 'ward' ) {
-            if ( d.site_type_id === 'ward' || 
-                  d.site_type_id === 'host_community' ) {
-              display = true;
-            }
-          }
+          // for each location
+          angular.forEach( target_locations, function( d, i ){
 
-          // admin3 as camp
-          if ( type === 'camp' ) {
-            if ( d.site_type_id === 'nutrition_center' ||
-                  d.site_type_id === 'refugee_block' ||
-                  d.site_type_id === 'food_distribution_point' ||
+            // set empty column
+            if ( !ngmCbLocations.showColumns.active.columns[ i ] ){
+              ngmCbLocations.showColumns.active.columns[ i ] = [];
+            }
+
+            // ward header, columns
+            if ( d.site_type_id === 'ward' || d.site_type_id === 'host_community' ) {
+              ngmCbLocations.showColumns.active[ 'ward' ] = true;
+              ngmCbLocations.showColumns.active.columns[ i ][ 'ward' ] = true;
+            }
+
+            // camp header, columns
+            if ( d.site_type_id === 'refugee_block' ||
+                  d.site_type_id === 'nutrition_center' ||
                   d.site_type_id === 'retail_store' ||
                   d.site_type_id === 'health_facility_camp' ) {
-              display = true;
+              ngmCbLocations.showColumns.active[ 'camp' ] = true;
+              ngmCbLocations.showColumns.active.columns[ i ][ 'camp' ] = true;
             }
-          }
-        });
-        return display;
+
+            // site header, columns
+            if ( d.site_type_id === 'bridge_camp' ||
+                  d.site_type_id === 'culvert_camp' ||
+                  d.site_type_id === 'drainage_camp' ) {
+              ngmCbLocations.showColumns.active[ 'site' ] = true;
+              ngmCbLocations.showColumns.active.columns[ i ][ 'site' ] = true;
+            }
+
+            // camp header, columns
+            if ( d.site_type_id === 'food_distribution_point' ) {
+              ngmCbLocations.showColumns.active[ 'food_distribution_point' ] = true;
+              ngmCbLocations.showColumns.active.columns[ i ][ 'food_distribution_point' ] = true;
+            }
+
+          });
+
+          console.log( ngmCbLocations.showColumns.active )
+
+        }, 0 );
+
       },
 
       // clear the Union on site type change
@@ -129,7 +156,7 @@ angular.module( 'ngmReportHub' )
         }
 
         // admin4
-        if ( type === 'location' || type === 'food_distribution_point' ) {
+        if ( type === 'location' || type === 'admin3' || type === 'food_distribution_point' ) {
 
           // admin4
           delete target_location.admin4pcode;
@@ -242,6 +269,16 @@ angular.module( 'ngmReportHub' )
             // remove id
             delete selected[0].id;
             angular.merge( target_location, selected[0] );
+            if ( ngmCbLocations.showColumns.active.columns[ $index ][ 'site' ] &&
+                  !target_location.site_lng && 
+                  !target_location.site_lat ) {
+              target_location.site_lng = selected[0].admin3lng;
+              target_location.site_lat = selected[0].admin3lat;
+            }
+            if ( ngmCbLocations.showColumns.active.columns[ $index ][ 'site' ] &&
+                  !target_location.site_id ) {
+              target_location.site_id = selected[0].admin3pcode + '_' + target_location.site_type_id.replace( '_camp', '' ).toUpperCase() + '_' + new Date().getTime();
+            }
           }
         }
 
