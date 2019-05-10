@@ -103,23 +103,30 @@ li {
 					    	required>
 					      <option value="" disabled selected>{{'select_sector' | translate}}</option>
 								<option value="cvwg">{{'multi_purpose_cash' | translate}}</option>
-								<option value="agriculture">{{'agriculture' | translate}}</option>
-								<option value="cccm_esnfi">CCCM - Shelter</option>
-								<option value="cwc">{{'communication_with_communities_working_group'|translate}}</option>
-								<option value="education">{{'education'|translate}}</option>
-					      <option value="eiewg">EiEWG</option>
-					      <option value="esnfi">ESNFI</option>
-					      <option value="fsac">FSAC</option>
-					      <option value="fss">{{'food_security'|translate}}</option>
+								<option ng-if="panel.var4wplusrh !== '4wPlus'" value="agriculture">{{'agriculture' | translate}} {{panel.var4wplusrh}}</option>
+								<option ng-if="panel.var4wplusrh !== '4wPlus'" value="cccm_esnfi">CCCM - Shelter</option>
+								<option ng-if="panel.var4wplusrh === '4wPlus'" value="albergue">{{'shelter'|translate}}</option>
+
+								<option ng-if="panel.var4wplusrh !== '4wPlus'" value="cwc">{{'communication_with_communities_working_group'|translate}}</option>
+								<option ng-if="panel.var4wplusrh !== '4wPlus'" value="education">{{'education'|translate}}</option>
+					      		<option ng-if="panel.var4wplusrh === '4wPlus'" value="education">{{'emergency_education'|translate}}</option>
+
+					      <option ng-if="panel.var4wplusrh !== '4wPlus'" value="eiewg">EiEWG</option>
+					      <option ng-if="panel.var4wplusrh !== '4wPlus'" value="esnfi">ESNFI</option>
+					      <option ng-if="panel.var4wplusrh !== '4wPlus'" value="fsac">FSAC</option>
+					      <option ng-if="panel.var4wplusrh !== '4wPlus'" value="fss">{{'food_security'|translate}}</option>
+					      <option ng-if="panel.var4wplusrh === '4wPlus'" value="san">{{'food_security_nutrition'|translate}}</option>
+
 					      <option value="health">{{'health' | translate}}</option>
-					      <option value="smsd">{{'site_management_and_site_development' | translate}}</option>
-					      <option value="nutrition">{{'nutrition' | translate}}</option>
+					      <option ng-if="panel.var4wplusrh !== '4wPlus'" value="smsd">{{'site_management_and_site_development' | translate}}</option>
+					      <option ng-if="panel.var4wplusrh !== '4wPlus'" value="nutrition">{{'nutrition' | translate}}</option>
 					      <option value="protection">{{'protection' | translate}}</option>
 <!-- 								<option value="protection">{{'gbv' | translate}}</option>
 								<option value="protection">{{'child_protection' | translate}}</option> -->
-					      <option value="rnr_chapter">R&R Chapter</option>
+					      <option ng-if="panel.var4wplusrh !== '4wPlus'" value="rnr_chapter">R&R Chapter</option>
 					      <option value="wash">{{'wash' | translate}}</option>
-					      <option value="undaf">UNDAF</option>
+					      <option ng-if="panel.var4wplusrh === '4wPlus'" value="recuperacion_temprana">{{'early_recovery'|translate}}</option>
+
 					    </select>
 					    <label for="ngm-cluster">Sector</label>
 	        </div>

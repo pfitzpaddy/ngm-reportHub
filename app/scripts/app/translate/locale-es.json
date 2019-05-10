@@ -55,6 +55,9 @@
     "welcome_to": "Bienvenido a",
     "register":"Registro",
     "food_security":"Seguridad Alimentaria",
+    "food_security_nutrition":"Seguridad Alimentaria y Nutrición (SAN)",
+    "shelter":"Albergues",
+
     "communication_with_communities_working_group":"Comunicación con Grupo de Trabajo de Comunidades",
 
     "please_login_or_register_to_continue":"por favor INICIE SESIÓN o REGISTRESE para continuar",
@@ -129,6 +132,9 @@
     "multi_purpose_cash" : "Dinero Multi-Propósito",
     "agriculture" : "Agricultura",
     "education" : "Educación",
+    "emergency_education":"Educación en Emergencias (EeE)",
+    "early_recovery":"Recuperación Temprana",
+
 
      "site_management_and_site_development":"Administración del Sitio y Desarrollo del Sitio",
      "supported_by":"Apoyado por",

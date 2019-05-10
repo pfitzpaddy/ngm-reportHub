@@ -37,6 +37,8 @@
        "welcome_to":"Welcome to",
        "register":"Register",
        "food_security":"Food Security",
+       "food_security_nutrition":"Food Security and Nutrition (SAN)",
+       "shelter":"Shelter",
        "communication_with_communities_working_group":"Communication with Communities Working Group",
        "please_login_or_register_to_continue":"please LOGIN or REGISTER to continue",
        "please register to continue":"please register to continue",
@@ -105,6 +107,8 @@
        "select_station":"Select Station",
        "agriculture" : "Agriculture",
        "education":"Education",
+       "emergency_education":"Emergency Education (EeE)",
+       "early_recovery":"Early Recovery",
 
        "site_management_and_site_development":"Site Management and Site Development",
        "supported_by":"Supported By",

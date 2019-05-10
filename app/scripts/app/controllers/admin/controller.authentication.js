@@ -31,13 +31,21 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
     function( $scope, $http, $location, $timeout, $filter , $q, ngmAuth, ngmUser, ngmData, config,$translate){
        
 
+      // if($location.$$host === "4wplus.org" || $location.$$host === "35.229.43.63" || $location.$$host === "192.168.33.16" ){
+       if($location.$$host === "4wplus.org" || $location.$$host === "35.229.43.63" ){
 
+      var4wplusrh = "4wPlus";
+
+    }else{
+      var4wplusrh = "ReportHub"
+    }
       
       // project
       $scope.panel = {
 
         err: false,
-
+        
+        var4wplusrh :var4wplusrh,
 
         date : new Date(),
 
@@ -431,26 +439,29 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               }
             }
 
-            if($scope.panel.user.admin0pcode === 'COL'){
+            //Colombia Clusters
+            if(var4wplusrh === "4wPlus"){
+
                   $scope.panel.cluster ={
-                   'cvwg': { cluster: 'MPC' },
-          'agriculture': { cluster: 'Agricultura' },
-          'cccm_esnfi': { cluster: 'CCCM - Albergue' },
-          'cwcwg': { cluster: 'CwCWG' },
-          'coordination': { cluster: 'Coordinación' },
-          'education': { cluster: 'Educación' },
-          'eiewg': { cluster: 'EiEWG' },
-          'emergency_telecommunications': { cluster: 'Emergencia de Telecomunicaciones' },
-          'esnfi': { cluster: 'ESNFI' },
-          'fsac': { cluster: 'FSAC' },
-          'fss': { cluster: 'Seguridad Alimentaria' },
+                  'cvwg': { cluster: 'MPC' },
+          //'agriculture': { cluster: 'Agricultura' },
+          'albergues': { cluster: 'Albergues' },
+          //'cwcwg': { cluster: 'CwCWG' },
+          //'coordination': { cluster: 'Coordinación' },
+          'education': { cluster: 'Educación en Emergencias (EeE)' },
+          //'eiewg': { cluster: 'EiEWG' },
+          //'emergency_telecommunications': { cluster: 'Emergencia de Telecomunicaciones' },
+          //'esnfi': { cluster: 'ESNFI' },
+          //'fsac': { cluster: 'FSAC' },
+          'san': { cluster: 'Seguridad Alimentaria y Nutrición (SAN)' },
           'health': { cluster: 'Salud' },
-          'logistics': { cluster: 'Logísticas' },
-          'smsd': { cluster: 'Sitio de Administración y Sitio de Desarrollo' },
-          'nutrition': { cluster: 'Nutrición' },
+          //'logistics': { cluster: 'Logísticas' },
+          //'smsd': { cluster: 'Sitio de Administración y Sitio de Desarrollo' },
+          //'nutrition': { cluster: 'Nutrición' },
           'protection': { cluster: 'Protección' },
-          'rnr_chapter': { cluster: 'R&R Chapter' },
+          //'rnr_chapter': { cluster: 'R&R Chapter' },
           'wash': { cluster: 'WASH' },
+          'recuperacion_temprana':{cluster:'Recuperación Temprana'},
           'undaf':{ cluster: 'UNDAF'}
 
                  }
@@ -536,6 +547,18 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 				$scope.panel.user = {};
 				$scope.panel.roles = ngmAuth.getEditableRoles();
       }
+
+      //adminRpcode only Colombia
+
+       if(var4wplusrh === "4wPlus"){
+                $scope.panel.adminRegion= [
+          
+          { adminRpcode: 'AMER', adminRname: 'AMER', admin0pcode: 'COL', admin0name: 'Colombia'},
+          
+
+        ];
+      }
+      
 			// merge defaults with config
 			$scope.panel = angular.merge( {}, $scope.panel, config );
 
@@ -546,10 +569,25 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         $http.get( ngmAuth.LOCATION + '/api/list/organizations' ).then(function( organizations ){
           localStorage.setObject( 'organizations', organizations.data );
           $scope.panel.organizations = organizations.data;
+
+          
+          if(var4wplusrh === "4wPlus"){
+         
+         $scope.panel.organizations = $filter('filter')( $scope.panel.organizations ,
+                 {admin0pcode: 'COL'}, true) ;
+
+
+
+         };
+
           $timeout(function() {
             $( 'select' ).material_select();
           }, 400);
         });
+        
+
+
+     
 
       // } else {
 

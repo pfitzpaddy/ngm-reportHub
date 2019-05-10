@@ -408,25 +408,25 @@ angular.module( 'ngmReportHub' )
       // clusters
       getClusters: function( admin0pcode ){
         var clusters = [];
-        if ( $location.$$host === '4wplus.org' && admin0pcode.toLowerCase() === 'all') {
+      //  if ( ($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63' || $location.$$host === '192.168.33.16') && admin0pcode.toLowerCase() === 'all') {
+       if ( ($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63') && admin0pcode.toLowerCase() === 'all') {
+
           clusters = [{
-            cluster_id: 'agriculture',
-            cluster: 'Agricultura'
-          },{
             cluster_id: 'education',
             cluster: 'Educación'
           },{
-            cluster_id: 'esnfi',
-            cluster: 'ESNFI'
-          },{
-            cluster_id: 'fsac',
-            cluster: 'FSAC'
-          },{
+            cluster_id: 'albergue',
+            cluster: 'Alberue'
+          },,{
+            cluster_id:'san',
+            cluster: 'Seguridad Alimentaria y Nutrición (SAN)'
+          },
+          {
             cluster_id: 'health',
             cluster: 'Salud'
           },{
-            cluster_id: 'nutrition',
-            cluster: 'Nutrición'
+            cluster_id: 'recuperacion_temprana',
+            cluster: 'Recuperación Temprana'
           },{
             cluster_id: 'protection',
             cluster: 'Protección'
@@ -573,23 +573,21 @@ angular.module( 'ngmReportHub' )
         }
         else if ( admin0pcode.toLowerCase() === 'col' ) {
           clusters = [{
-            cluster_id: 'agriculture',
-            cluster: 'Agricultura'
-          },{
             cluster_id: 'education',
-            cluster: 'Educación'
+            cluster: 'Educación en Emergencias (EeE)'
           },{
-            cluster_id: 'esnfi',
-            cluster: 'ESNFI'
-          },{
-            cluster_id: 'fsac',
-            cluster: 'FSAC'
-          },{
+            cluster_id: 'albergues',
+            cluster: 'Albergues'
+          },,{
+            cluster_id:'san',
+            cluster: 'Seguridad Alimentaria y Nutrición (SAN)'
+          },
+          {
             cluster_id: 'health',
             cluster: 'Salud'
           },{
-            cluster_id: 'nutrition',
-            cluster: 'Nutrición'
+            cluster_id: 'recuperacion_temprana',
+            cluster: 'Recuperación Temprana'
           },{
             cluster_id: 'protection',
             cluster: 'Protección'
@@ -683,6 +681,8 @@ angular.module( 'ngmReportHub' )
              });
           }
         }
+
+        
 
         // return
         return activities;
