@@ -750,6 +750,56 @@ angular.module('ngmReportHub')
 						$scope.dashboard.activity_filename = '';
 					}
 
+					$scope.dashboard.beneficiaries_row = [{
+						styleClass: 's12 m12 l4',
+						widgets: [{
+							type: 'stats',
+							style: 'text-align: center;',
+							card: 'card-panel stats-card white grey-text text-darken-2',
+							config: {
+								title: $filter('translate')('individual_households'),
+								request: $scope.dashboard.getRequest({ indicator: 'households_population' })
+							}
+						}]
+					}, {
+						styleClass: 's12 m12 l4',
+						widgets: [{
+							type: 'stats',
+							style: 'text-align: center;',
+							card: 'card-panel stats-card white grey-text text-darken-2',
+							config: {
+								title: $filter('translate')('individual_beneficiaries'),
+								request: $scope.dashboard.getRequest({ indicator: 'beneficiaries_population' })
+							}
+						}]
+					}, {
+						styleClass: 's12 m12 l4',
+						widgets: [{
+							type: 'stats',
+							style: 'text-align: center;',
+							card: 'card-panel stats-card white grey-text text-darken-2',
+							config: {
+								title: $filter('translate')('services_to_beneficiaries'),
+								request: $scope.dashboard.getRequest({ indicator: 'beneficiaries' })
+							}
+						}]
+					}];
+
+					if ($scope.dashboard.admin0pcode.toUpperCase() === 'AF') {
+						$scope.dashboard.beneficiaries_row = [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'stats',
+								style: 'text-align: center;',
+								card: 'card-panel stats-card white grey-text text-darken-2',
+								config: {
+									title: $filter('translate')('services_to_beneficiaries'),
+									request: $scope.dashboard.getRequest({ indicator: 'beneficiaries' })
+								}
+							}]
+						}]						
+					}
+
 					// model
 					$scope.model = {
 						name: 'cluster_dashboard',
@@ -849,40 +899,7 @@ angular.module('ngmReportHub')
 								}]
 							}]
 						},{
-							columns: [{
-								styleClass: 's12 m12 l4',
-								widgets: [{
-									type: 'stats',
-									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
-									config: {
-										title: $filter('translate')('individual_households'),
-										request: $scope.dashboard.getRequest( { indicator: 'households_population' } )
-									}
-								}]
-							},{
-								styleClass: 's12 m12 l4',
-								widgets: [{
-									type: 'stats',
-									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
-									config: {
-										title: $filter('translate')('individual_beneficiaries'),
-										request: $scope.dashboard.getRequest( { indicator: 'beneficiaries_population' } )
-									}
-								}]
-							},{
-								styleClass: 's12 m12 l4',
-								widgets: [{
-									type: 'stats',
-									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
-									config: {
-										title: $filter('translate')('services_to_beneficiaries'),
-										request: $scope.dashboard.getRequest( { indicator: 'beneficiaries' } )
-									}
-								}]
-							}]
+							columns: $scope.dashboard.beneficiaries_row
 						},{
 							columns: [{
 								styleClass: 's12 m12 l4',
