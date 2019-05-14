@@ -125,6 +125,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
        searchundaf_desarrollo_paz:null,
 
        searchUndafDesarrolloYPaz:function(query){
+
         if (!$scope.project.definition.undaf_desarrollo_paz) {
             $scope.project.definition.undaf_desarrollo_paz = [];
           }
@@ -132,26 +133,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
            return $scope.project.lists.projectsclasifications[0].children.filter(function (el) {
             return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
           });
-
-          /*$scope.project.lists.projectsclasifications.forEach(function(clasification){
-
-            if(clasification.project_clasification_id === 'undaf_desarrollo_paz'){
-                  return clasification.children.filter(function (el) {
-                console.log(el,"imprime el");
-                return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
-              });
-
-            }
-
-          });*/
-
-          
-       
+                
        },
 
        searchacuerdos_de_paz : null,
 
        searchAcuerdosDePaz:function(query){
+
          if (!$scope.project.definition.acuerdos_de_paz) {
             $scope.project.definition.acuerdos_de_paz = [];
           }
@@ -159,7 +147,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return $scope.project.lists.projectsclasifications[1].children.filter(function (el) {
             return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
           });
-
+        
        },
 
        searchdac_oecd_development_assistance_committee:null,
@@ -173,12 +161,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return $scope.project.lists.projectsclasifications[2].children.filter(function (el) {
             return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
           });
+        
 
        },
 
        searchods_objetivos_de_desarrollo_sostenible:null,
 
        searchODSObjetivosDeDesarrolloSostenible:function(query){
+
+
+
          if (!$scope.project.definition.ods_objetivos_de_desarrollo_sostenible) {
             $scope.project.definition.ods_objetivos_de_desarrollo_sostenible = [];
           }
@@ -186,6 +178,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
           return $scope.project.lists.projectsclasifications[3].children.filter(function (el) {
             return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
           });
+         
+
 
        },
 

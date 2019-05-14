@@ -42,9 +42,6 @@ angular.module( 'ngmReportHub' )
           transfers: ngmClusterLists.getTransfers( transfers ),
           clusters: ngmClusterLists.getClusters( project.admin0pcode ),
           projectsclasifications: ngmClusterLists.getProjectClasifications(project.admin0pcode),
-          //undaf_desarrollo_paz: ngmClusterLists.getUndafDesarrolloPazActivities(project.admin0pcode),
-          //acuerdos_de_paz: ngmClusterLists.getAcuerdosDePaz(project.admin0pcode),
-          //acuerdos_de_paz: ngmClusterLists.getAcuerdosDePaz(project.admin0pcode),
           activity_types: ngmClusterLists.getActivities( project, true, 'activity_type_id' ),
           activity_descriptions: ngmClusterLists.getActivities( project, true, 'activity_description_id' ),
           activity_details: ngmClusterLists.getActivities( project, true, 'activity_detail_id' ),
@@ -419,9 +416,9 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'education',
             cluster: 'Educación'
           },{
-            cluster_id: 'albergue',
-            cluster: 'Alberue'
-          },,{
+            cluster_id: 'albergues',
+            cluster: 'Albergues'
+          },{
             cluster_id:'san',
             cluster: 'Seguridad Alimentaria y Nutrición (SAN)'
           },
@@ -731,7 +728,7 @@ angular.module( 'ngmReportHub' )
 
       getProjectClasifications: function (admin0pcode){
 
-        var projectsclasifications;
+        var projectsclasifications = [];
 
         if(admin0pcode === 'COL'){
 
@@ -863,7 +860,6 @@ angular.module( 'ngmReportHub' )
 
        };
 
-       console.log(projectsclasifications,"projeclasif");
 
 
 
