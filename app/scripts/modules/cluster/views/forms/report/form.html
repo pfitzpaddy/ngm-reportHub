@@ -335,6 +335,41 @@
 			</div>
 		</div>
 		
+		<!-- validation report monthly -->
+		<div class="row remove" ng-if="project.report.report_status === 'complete' && ngmClusterValidation.verified_user()">
+			<div class="col s12 m12 l12">
+				<div class="widget card-panel white grey-text text-darken-2">					
+					<div align="center">		
+						<!-- validation -->
+						<button class="waves-effect waves-light btn" 
+							ng-click="project.validateReport('valid')"
+							ng-disabled="project.report.report_validation ==='valid'" 
+							ng-cloak>
+							<i class="material-icons right">assignment_turned_in</i>
+							Validate{{project.report.report_validation ==='valid'?'d':''}}
+						</button>
+						<button class="waves-effect waves-light btn grey" 
+							ng-click="project.validateReport('checked')"
+							ng-disabled="project.report.report_validation ==='checked'"  
+							ng-cloak>
+							<i class="material-icons right">search</i>to be checked
+						</button>		
+						<!-- cancel new  -->
+						<button class="waves-effect waves-light btn red " 
+							ng-click="project.validateReport('invalid')"
+							ng-disabled="project.report.report_validation ==='invalid'"> 
+							<i class="material-icons right">not_interested</i>
+							invalidate{{project.report.report_validation ==='invalid'?'d':''}}
+						</button>
+		
+						<br/>
+						<br/>
+		
+		
+					</div>
+				</div>
+			</div>
+		</div>
 	</fieldset>
 
 </div>
