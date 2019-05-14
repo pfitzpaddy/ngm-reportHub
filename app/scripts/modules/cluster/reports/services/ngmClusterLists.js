@@ -41,6 +41,10 @@ angular.module( 'ngmReportHub' )
           mpc_mechanism_type: ngmClusterLists.getMpcMechanismTypes(),
           transfers: ngmClusterLists.getTransfers( transfers ),
           clusters: ngmClusterLists.getClusters( project.admin0pcode ),
+          projectsclasifications: ngmClusterLists.getProjectClasifications(project.admin0pcode),
+          //undaf_desarrollo_paz: ngmClusterLists.getUndafDesarrolloPazActivities(project.admin0pcode),
+          //acuerdos_de_paz: ngmClusterLists.getAcuerdosDePaz(project.admin0pcode),
+          //acuerdos_de_paz: ngmClusterLists.getAcuerdosDePaz(project.admin0pcode),
           activity_types: ngmClusterLists.getActivities( project, true, 'activity_type_id' ),
           activity_descriptions: ngmClusterLists.getActivities( project, true, 'activity_description_id' ),
           activity_details: ngmClusterLists.getActivities( project, true, 'activity_detail_id' ),
@@ -724,6 +728,150 @@ angular.module( 'ngmReportHub' )
 
 
       },
+
+      getProjectClasifications: function (admin0pcode){
+
+        var projectsclasifications;
+
+        if(admin0pcode === 'COL'){
+
+          projectsclasifications = [
+          {
+            'project_clasification_id':'undaf_desarrollo_paz',
+            //'functionadd':'addUndafDesarrolloPaz',
+            //'functionremove':'removeUndafDesarrolloPaz',
+            //'search-text':'searchundaf_desarrollo_paz',
+           // 'functionsearch':'searchUndafDesarrolloYPaz',
+            'project_clasification_name':'UNDAF - Desarrollo y Paz',
+            'sidi_id':'4',
+            'children':[
+                {
+                 'sidi_id':'177',
+                 'name_tag':'Transformación de conflictos y cultura de paz',
+                 'description':'Colombia ha avanzado hacia la paz reduciendo la violencia, aumentando la resolución pacífica de conflictos y garantizando el derecho a  la justicia',
+                 'code':''
+                 },
+                 {
+                   'sidi_id':'178',
+                 'name_tag':'Democracia de base local para la garantía de derechos',
+                 'description':'Colombia habrá avanzado hacia la paz gracias a la consolidación del Estado Social de Derecho y la gobernabilidad inclusiva, mediante el fortalecimiento de la participación ciudadana, la eficacia de los gobiernos locales y la garantía de los derechos humanos en todo el territorio nacional',
+                 'code':''
+                 },
+                 {
+                   'sidi_id':'179',
+                 'name_tag':'Transición hacia la paz',
+                 'description':'Colombia habrá implementado los acuerdos de fin del conflicto armado  en los ámbitos nacional y territorial',
+                 'code':''
+                 }
+                 
+
+             ]
+          },
+          {
+            'project_clasification_id':'acuerdos_de_paz',
+            'project_clasification_name':'Acuerdos de Paz',
+            'sidi_id':'5',
+            //'functionadd':'addAcuerdosDePaz',
+            //'functionremove':'removeAcuerdosDePaz',
+            //'search-text':'searchacuerdos_de_paz',
+            //'functionsearch':'searchAcuerdosDePaz',
+            'children':[
+
+              {
+                 'sidi_id':'198',
+                 'name_tag':'Fondo de Tierras',
+                 'description':'',
+                 'code':'1.1.1'
+                 },
+                 {
+                 'sidi_id':'199',
+                 'name_tag':'Créditos y subsidios para promover el acceso a la tierra',
+                 'description':'',
+                 'code':'1.1.2'
+                 },
+                 {
+                 'sidi_id':'200',
+                 'name_tag':'Formalización masiva de pequeñas y medianas propiedades rurales',
+                 'description':'',
+                 'code':'1.1.3'
+                 },
+                 
+
+            ]
+          },
+          {
+            'project_clasification_id':'dac_oecd_development_assistance_committee',
+            'project_clasification_name':'DAC - OECD Development Assistance Committee',
+            'sidi_id':'6',
+            'children':[
+                {
+                 'sidi_id':'242',
+                 'name_tag':'EDUCACIÓN/Educación, nivel no especificado/Política educativa y gestión administrativa',
+                 'description':'',
+                 'code':'11110'
+                 },
+
+                  {
+                 'sidi_id':'243',
+                 'name_tag':'EDUCACIÓN/Educación, nivel no especificado/Servicios e instalaciones educativos y formación',
+                 'description':'',
+                 'code':'11120'
+                 },
+                  {
+                 'sidi_id':'244',
+                 'name_tag':'EDUCACIÓN/Educación, nivel no especificado/Formación de profesores',
+                 'description':'',
+                 'code':'11130'
+                 }
+
+            ]
+          },
+          {
+            'project_clasification_id':'ods_objetivos_de_desarrollo_sostenible',
+            'project_clasification_name':'ODS - Objetivos de Desarrollo Sostenible',
+            'sidi_id':'7',
+            'children':[
+                {
+                  'sidi_id':'542',
+                     'name_tag':'De aquí a 2030, erradicar para todas las personas y en todo el mundo la pobreza extrema(actualmente ',
+                     'description':'',
+                     'code':'1.1'
+
+                },
+                 {
+                  'sidi_id':'543',
+                     'name_tag':'De aquí a 2030, reducir al menos a la mitad la proporción de hombres, mujeres y niños de todas las e',
+                     'description':'',
+                     'code':'1.2'
+
+                }
+                ,
+                 {
+                  'sidi_id':'544',
+                     'name_tag':'Implementar a nivel nacional sistemas y medidas apropiados de protección social para todos, incluido',
+                     'description':'',
+                     'code':'1.3'
+
+                }
+                
+
+            ]
+          }
+
+         ]
+
+
+       };
+
+       console.log(projectsclasifications,"projeclasif");
+
+
+
+
+        return projectsclasifications;
+
+      },
+
 
 
       // get cluster donors

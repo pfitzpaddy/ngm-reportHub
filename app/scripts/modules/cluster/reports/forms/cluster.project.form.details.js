@@ -122,8 +122,98 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
         });
        },
 
+       searchundaf_desarrollo_paz:null,
+
+       searchUndafDesarrolloYPaz:function(query){
+        if (!$scope.project.definition.undaf_desarrollo_paz) {
+            $scope.project.definition.undaf_desarrollo_paz = [];
+          }
+
+           return $scope.project.lists.projectsclasifications[0].children.filter(function (el) {
+            return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
+          });
+
+          /*$scope.project.lists.projectsclasifications.forEach(function(clasification){
+
+            if(clasification.project_clasification_id === 'undaf_desarrollo_paz'){
+                  return clasification.children.filter(function (el) {
+                console.log(el,"imprime el");
+                return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
+              });
+
+            }
+
+          });*/
+
+          
+       
+       },
+
+       searchacuerdos_de_paz : null,
+
+       searchAcuerdosDePaz:function(query){
+         if (!$scope.project.definition.acuerdos_de_paz) {
+            $scope.project.definition.acuerdos_de_paz = [];
+          }
+
+          return $scope.project.lists.projectsclasifications[1].children.filter(function (el) {
+            return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
+          });
+
+       },
+
+       searchdac_oecd_development_assistance_committee:null,
+
+
+       searchDACOECDDevelopmentAssistanceCommittee:function(query){
+          if (!$scope.project.definition.dac_oecd_development_assistance_committee) {
+            $scope.project.definition.dac_oecd_development_assistance_committee = [];
+          }
+
+          return $scope.project.lists.projectsclasifications[2].children.filter(function (el) {
+            return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
+          });
+
+       },
+
+       searchods_objetivos_de_desarrollo_sostenible:null,
+
+       searchODSObjetivosDeDesarrolloSostenible:function(query){
+         if (!$scope.project.definition.ods_objetivos_de_desarrollo_sostenible) {
+            $scope.project.definition.ods_objetivos_de_desarrollo_sostenible = [];
+          }
+
+          return $scope.project.lists.projectsclasifications[3].children.filter(function (el) {
+            return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
+          });
+
+       },
+
+       addUndafDesarrolloYPaz:function(chip){
+
+       },
+       addAcuerdosDePaz:function(chip){
+       },
+       addDACOECDDevelopmentAssistanceCommittee:function(chip){},
+
+       addODSObjetivosDeDesarrolloSostenible:function(chip){},
+
+
+        removeUndafDesarrolloYPaz:function(chip){
+
+       },
+       removeAcuerdosDePaz:function(query){
+
+       },
+              removeDACOECDDevelopmentAssistanceCommittee:function(chip){},
+              removeODSObjetivosDeDesarrolloSostenible:function(chip){},
+
+
+
+
        
 				searchOrgPartner: null,
+
 				searchImplementingPartner: function (query) {
 
 
@@ -138,6 +228,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
               el.organization.toLowerCase().indexOf(query.toLowerCase()) > -1);
 					});
 				},
+
 				addNewImplementingPartner: function (chip) {
 					// $scope.project.definition.target_locations.forEach(function (el) {
 					// 	delete chip.organization_type
