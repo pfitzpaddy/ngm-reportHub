@@ -40,7 +40,7 @@ angular.module( 'ngmReportHub' )
           mpc_purpose: ngmClusterLists.getMpcPurpose(),
           mpc_mechanism_type: ngmClusterLists.getMpcMechanismTypes(),
           transfers: ngmClusterLists.getTransfers( transfers ),
-          clusters: ngmClusterLists.getClusters( project.admin0pcode ),
+          clusters: ngmClusterLists.getClusters( project.admin0pcode ).filter(cluster=>cluster.project!==false),
           activity_types: ngmClusterLists.getActivities( project, true, 'activity_type_id' ),
           activity_descriptions: ngmClusterLists.getActivities( project, true, 'activity_description_id' ),
           activity_details: ngmClusterLists.getActivities( project, true, 'activity_detail_id' ),
@@ -417,7 +417,7 @@ angular.module( 'ngmReportHub' )
           },{
             cluster_id: 'albergue',
             cluster: 'Alberue'
-          },,{
+          },{
             cluster_id:'san',
             cluster: 'Seguridad Alimentaria y Nutrición (SAN)'
           },
@@ -442,7 +442,8 @@ angular.module( 'ngmReportHub' )
 
           clusters = [{
             cluster_id: 'acbar',
-            cluster: 'ACBAR'
+            cluster: 'ACBAR',
+            registration: false
           },{
             cluster_id: 'agriculture',
             cluster: 'Agriculture'
@@ -480,7 +481,9 @@ angular.module( 'ngmReportHub' )
         }else if ( admin0pcode.toLowerCase() === 'af' ) {
           clusters = [{
             cluster_id: 'acbar',
-            cluster: 'ACBAR'
+            cluster: 'ACBAR',
+            registration: false,
+            project: false
           },{
             cluster_id: 'eiewg',
             cluster: 'EiEWG'
@@ -504,7 +507,10 @@ angular.module( 'ngmReportHub' )
             cluster: 'Protection'
           },{
             cluster_id: 'rnr_chapter',
-            cluster: 'R&R Chapter'
+            cluster: 'R&R Chapter',
+            registration: false,
+            filter: false,
+            project: false
           },{
             cluster_id: 'wash',
             cluster: 'WASH'
