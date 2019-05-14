@@ -578,7 +578,7 @@ angular.module( 'ngmReportHub' )
           },{
             cluster_id: 'albergues',
             cluster: 'Albergues'
-          },,{
+          },{
             cluster_id:'san',
             cluster: 'Seguridad Alimentaria y Nutrición (SAN)'
           },

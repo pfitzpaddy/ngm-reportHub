@@ -26,9 +26,10 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
     'ngmAuth',
     'ngmUser',
     'ngmData',
+		'ngmClusterLists',
     'config',
     '$translate',
-    function( $scope, $http, $location, $timeout, $filter , $q, ngmAuth, ngmUser, ngmData, config,$translate){
+		function ($scope, $http, $location, $timeout, $filter, $q, ngmAuth, ngmUser, ngmData, ngmClusterLists, config,$translate){
        
 
       // if($location.$$host === "4wplus.org" || $location.$$host === "35.229.43.63" || $location.$$host === "192.168.33.16" ){
@@ -113,6 +114,11 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           'rnr_chapter': { cluster: 'R&R Chapter' },
           'wash': { cluster: 'WASH' },
           'undaf':{ cluster: 'UNDAF'}
+				},
+				clusters: ngmClusterLists.getClusters('all'),
+				clusterByCountry: function() {					
+					country = $scope.panel.user.admin0pcode? $scope.panel.user.admin0pcode:'all';
+					$scope.panel.clusters = ngmClusterLists.getClusters(country);
 				},
         //cluster:clus,
 
