@@ -88,6 +88,10 @@
    "online":"En linea",
    "with_any_questions":"para cualquier pregunta!",
     "cannot_add_not_ont_the_list":"No se puede agregar, no está en la lista",
+          "add_new_project_classification":"Agregar Nueva Clasificación del Proyecto",
+                "project_classifications":"Clasificaciones del Proyecto",
+
+
           "add_new_partner":"Agregar nuevo socio",
 
 
@@ -101,7 +105,8 @@
     "forgot_password" : "OLVIDASTE LA CONTRASEÑA"  ,
     "sign_in" : "Iniciar sesión",
     "reminder_sent": "RECORDATORIO ENVIADO",
-    "please_check_your_ReportHub_email_account_to_reset_your_password":"Por favor revise su cuenta de email de ReportHub para reestablecer su contraseña",
+    "please_check_your":"Por favor revise su",
+    "email_account_to_reset_your_password":"cuenta de email para reestablecer su contraseña",
     "the_email_will_contain_a_secure_link_to_reset_your_password_so_you_can_close_this_window.":"El email contendrá un enlace seguro para restablecer su contraseña, puede cerrar esta ventana.",
     "reset_password":"REESTABLECER CONTRASEÑA",
     "passwords_do_not_match":"Los password no coinciden",
