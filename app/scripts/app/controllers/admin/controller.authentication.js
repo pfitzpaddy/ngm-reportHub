@@ -105,27 +105,6 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             'wash':{cluster:'Wash'},
             'undaf':{cluster:'UNDAF'},
             
-        },
-
-          'cvwg': { cluster: 'MPC' },
-          'agriculture': { cluster: 'Agriculture' },
-          'cccm_esnfi': { cluster: 'CCCM - Shelter' },
-          'education': { cluster: 'Education' },
-          'health': { cluster: 'Health' },
-          'logistics': { cluster: 'Logistics' },
-          'smsd': { cluster: 'Site Management and Site Development' },
-          'nutrition': { cluster: 'Nutrition' },
-          'protection': { cluster: 'Protection' },
-          'rnr_chapter': { cluster: 'R&R Chapter' },
-          'wash': { cluster: 'WASH' },
-          
-          'undaf':{ cluster: 'UNDAF'},
-          'san': { cluster: 'Seguridad Alimentaria y Nutrición (SAN)' }, 
-          'recuperacion_temprana':{cluster: 'Recuperación Temprana'},
-          'albergues':{cluster: 'Albergues'},
-          cluster_id: 'education',
-            cluster: 'Educación en Emergencias (EeE)'
-
         }, 
         'other': {
           'cvwg': { cluster: 'MPC' },
@@ -146,15 +125,10 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           'protection': { cluster: 'Protection' },
           'rnr_chapter': { cluster: 'R&R Chapter' },
           'wash': { cluster: 'WASH' },
-          
-          'undaf':{ cluster: 'UNDAF'},
-          'san': { cluster: 'Seguridad Alimentaria y Nutrición (SAN)' }, 
-          'recuperacion_temprana':{cluster: 'Recuperación Temprana'},
-          'albergues':{cluster: 'Albergues'},
-          cluster_id: 'education',
-            cluster: 'Educación en Emergencias (EeE)'
 
-				},
+				}
+      }
+      ,
 				clusters: ngmClusterLists.getClusters('all'),
 				clusterByCountry: function() {					
 					country = $scope.panel.user.admin0pcode? $scope.panel.user.admin0pcode:'all';
