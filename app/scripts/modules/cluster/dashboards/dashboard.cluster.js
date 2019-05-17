@@ -59,7 +59,7 @@ angular.module('ngmReportHub')
 
 				// lists
 				lists: {
-					clusters: ngmClusterLists.getClusters( $route.current.params.admin0pcode ),
+					clusters: ngmClusterLists.getClusters( $route.current.params.admin0pcode ).filter(cluster=>cluster.filter!==false),
 					admin1: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin1List : [],
 					admin2: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin2List : [],
 					admin3: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin3List : []

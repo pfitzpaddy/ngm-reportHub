@@ -91,11 +91,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         // duty stations
         dutyStations: localStorage.getObject( 'dutyStations'),
 
-
         // cluster
         cluster: {
           'col' : {
-
             'education':{cluster:'Educación en Emergencias (EeE)'},
             'albergues':{cluster:'Albergues'},
             'san':{cluster:'Seguridad Alimentaria y Nutrición (SAN'},
@@ -103,45 +101,36 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             'recuperacion_temprana':{cluster:'Recuperación Temprana'},
             'protection':{cluster:'Protección'},
             'wash':{cluster:'Wash'},
-            'undaf':{cluster:'UNDAF'},
-            
-        }, 
-        'other': {
-          'cvwg': { cluster: 'MPC' },
-          'agriculture': { cluster: 'Agriculture' },
-          'cccm_esnfi': { cluster: 'CCCM - Shelter' },
-          'cwcwg': { cluster: 'CwCWG' },
-          'coordination': { cluster: 'Coordination' },
-          'education': { cluster: 'Education' },
-          'eiewg': { cluster: 'EiEWG' },
-          'emergency_telecommunications': { cluster: 'Emergency Telecommunications' },
-          'esnfi': { cluster: 'ESNFI' },
-          'fsac': { cluster: 'FSAC' },
-          'fss': { cluster: 'Food Security' },
-          'health': { cluster: 'Health' },
-          'logistics': { cluster: 'Logistics' },
-          'smsd': { cluster: 'Site Management and Site Development' },
-          'nutrition': { cluster: 'Nutrition' },
-          'protection': { cluster: 'Protection' },
-          'rnr_chapter': { cluster: 'R&R Chapter' },
-          'wash': { cluster: 'WASH' },
-
-				}
-      }
-      ,
-				clusters: ngmClusterLists.getClusters('all'),
+            'undaf':{cluster:'UNDAF'}
+          }, 
+          'other': {
+            'cvwg': { cluster: 'MPC' },
+            'agriculture': { cluster: 'Agriculture' },
+            'cccm_esnfi': { cluster: 'CCCM - Shelter' },
+            'cwcwg': { cluster: 'CwCWG' },
+            'coordination': { cluster: 'Coordination' },
+            'education': { cluster: 'Education' },
+            'eiewg': { cluster: 'EiEWG' },
+            'emergency_telecommunications': { cluster: 'Emergency Telecommunications' },
+            'esnfi': { cluster: 'ESNFI' },
+            'fsac': { cluster: 'FSAC' },
+            'fss': { cluster: 'Food Security' },
+            'health': { cluster: 'Health' },
+            'logistics': { cluster: 'Logistics' },
+            'smsd': { cluster: 'Site Management and Site Development' },
+            'nutrition': { cluster: 'Nutrition' },
+            'protection': { cluster: 'Protection' },
+            'rnr_chapter': { cluster: 'R&R Chapter' },
+            'wash': { cluster: 'WASH' }
+  				}
+        },
+				clusters: ngmClusterLists.getClusters('all').filter(cluster=>cluster.registration!==false),
 				clusterByCountry: function() {					
 					country = $scope.panel.user.admin0pcode? $scope.panel.user.admin0pcode:'all';
-					$scope.panel.clusters = ngmClusterLists.getClusters(country);
+					$scope.panel.clusters = ngmClusterLists.getClusters(country).filter(cluster=>cluster.registration!==false);
 				},
-        //cluster:clus,
-
-
-        
-
 				
 				// editable role array:
-				
 				editRoleUrl: '/scripts/app/views/authentication/edit-role.html',
 
         // login fn

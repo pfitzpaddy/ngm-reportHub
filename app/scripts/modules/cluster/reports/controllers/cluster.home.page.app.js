@@ -81,6 +81,62 @@ angular.module( 'ngmReportHub' )
 								config: {
 									user: $scope.report.user,
 									organization: $scope.report.organization,
+									
+									// THESE REALLY SHOULD USE ngmAutherntication.js
+
+									// '/team/:admin0pcode/:organization_tag/:project/:cluster_id'
+
+									// get default team URL
+									getTeamUrl: function(){
+										
+										// title, roles
+										var url_base = '#/team/';
+										var roles = $scope.report.user.roles;
+
+										// set title USER, ORG
+										if ( roles.indexOf( 'USER' ) >= 0 || roles.indexOf( 'ORG' ) >= 0 ) {
+											url = url_base + $scope.report.user.admin0pcode + '/' + $scope.report.user.organization_tag + '/all/all';
+										}
+
+										// set title CLUSTER
+										if ( roles.indexOf( 'CLUSTER' ) >= 0 ) {
+											url = url_base + $scope.report.user.admin0pcode + '/all/all/' + $scope.report.user.cluster_id;
+										}
+
+										// set title COUNTRY
+										if ( roles.indexOf( 'COUNTRY' ) >= 0 ) {
+											url = url_base + $scope.report.user.admin0pcode + '/all/all/all';
+										}
+
+										// set title REGION_ORG
+										if ( roles.indexOf( 'REGION_ORG' ) >= 0 ) {
+											url = url_base + $scope.report.user.adminRpcode + '/' + $scope.report.user.organization_tag + '/all/all';
+										}
+
+										// set title REGION
+										if ( roles.indexOf( 'REGION' ) >= 0 ) {
+											url = url_base + $scope.report.user.adminRpcode + '/all/all/all';
+										}
+
+										// set title HQ_ORG
+										if ( roles.indexOf( 'HQ_ORG' ) >= 0 ) {
+											url = url_base + 'all/' + $scope.report.user.organization_tag + '/all/all';
+										}
+
+										// set title HQ
+										if ( roles.indexOf( 'HQ' ) >= 0 ) {
+											url = url_base + 'all/all/all/all';
+										}
+
+										// set title SUPERADMIN
+										if ( roles.indexOf( 'SUPERADMIN' ) >= 0 ) {
+											url = url_base + 'all/all/all/all';
+										}
+
+										// return
+										return url;
+									},
+
 									// get team, sector, country, region panel title 
 									teamTitle: function() {	
 
