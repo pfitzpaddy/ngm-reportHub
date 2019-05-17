@@ -115,10 +115,10 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           'wash': { cluster: 'WASH' },
           'undaf':{ cluster: 'UNDAF'}
 				},
-				clusters: ngmClusterLists.getClusters('all'),
+				clusters: ngmClusterLists.getClusters('all').filter(cluster=>cluster.registration!==false),
 				clusterByCountry: function() {					
 					country = $scope.panel.user.admin0pcode? $scope.panel.user.admin0pcode:'all';
-					$scope.panel.clusters = ngmClusterLists.getClusters(country);
+					$scope.panel.clusters = ngmClusterLists.getClusters(country).filter(cluster=>cluster.registration!==false);
 				},
         //cluster:clus,
 
