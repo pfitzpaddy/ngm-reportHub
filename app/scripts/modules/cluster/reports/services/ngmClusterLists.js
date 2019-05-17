@@ -412,9 +412,9 @@ angular.module( 'ngmReportHub' )
       //  if ( ($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63' || $location.$$host === '192.168.33.16') && admin0pcode.toLowerCase() === 'all') {
        if ( ($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63') && admin0pcode.toLowerCase() === 'all') {
 
-          clusters = [{
+          [{
             cluster_id: 'education',
-            cluster: 'Educación'
+            cluster: 'Educación en Emergencias (EeE)'
           },{
             cluster_id: 'albergues',
             cluster: 'Albergues'
