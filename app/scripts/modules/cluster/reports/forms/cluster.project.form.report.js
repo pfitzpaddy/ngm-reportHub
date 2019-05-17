@@ -683,6 +683,33 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						$scope.listUpload.itemsPerListPage = 6;
 					});
 				},
+				// validate report monthly by who incharge after report submitted
+				validateReport:function(status){				
+					
+					Materialize.toast('Validating ... ', 3000, 'note');
+					obj={report_validation:status}
+					var setRequest = {
+						method: 'POST',
+						url: ngmAuth.LOCATION + '/api/cluster/report/updateReportValidation',
+						data: { 
+							report_id: $scope.project.report.id, 
+							update: obj
+						}
+					};
+					$http(setRequest).success(function (report) {
+						if (report.err) {
+							// update
+							Materialize.toast('Error! something went wrong', 6000, 'error');
+						}
+						if (!report.err) {
+							$timeout(function () {
+								Materialize.toast('Submitted Monthly Report is ' + status, 4000, 'success');
+								$location.path('/cluster/projects/report/' + $scope.project.definition.id);
+							},3000)
+						}
+						
+					})
+				},
         // save
         save: function( complete, display_modal ){
 
@@ -693,8 +720,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           // report
           // $scope.project.report.submit = true;
           $scope.project.report.report_status = complete ? 'complete' : 'todo';
-          $scope.project.report.report_submitted = moment().format();
-
+					$scope.project.report.report_submitted = moment().format();
+					// set validation to null after click button edit report
+					if(!complete){
+						if ($scope.project.report.report_validation){
+							$scope.project.report.report_validation = null;
+						}
+					}
           // update project details of report + locations + beneficiaries
           $scope.project.report =
               ngmClusterHelper.getCleanReport( $scope.project.definition, $scope.project.report );

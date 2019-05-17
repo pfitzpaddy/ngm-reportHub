@@ -274,7 +274,25 @@ angular.module( 'ngmReportHub' )
           Materialize.toast( $filter('translate')('project_contains_errors'), 6000, 'error' );
         }
 
-      }
+      },
+
+			// check person has authority to validate the report
+			verified_user:function(){
+				verified= false;
+				permission = ngmAuth.userPermissions();
+				// find higer level user role if its more than one role
+				if(permission.length>1){
+					var level_permission = permission.map((item) => {
+						return item.LEVEL;
+					});
+					maxLevel = Math.max(...level_permission);
+					permission =permission.filter((obj) => { return obj.LEVEL === maxLevel })
+					verified = permission[0].VALIDATE;
+				}else{
+					verified = permission[0].VALIDATE;
+				}
+				return verified;
+			},
 
 		};
 

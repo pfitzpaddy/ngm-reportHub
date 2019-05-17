@@ -89,7 +89,7 @@ angular.module( 'ngmReportHub' )
                   project.mpc_delivery_type_check[ d.delivery_type_id ] = true;
                 }
               });
-            }
+            } 
 
             // add project donor check box list
             if ( project.project_donor ) {
@@ -162,7 +162,11 @@ angular.module( 'ngmReportHub' )
           target_beneficiaries: [],
           target_locations: [],
           project_donor:[],
-          implementing_partners : []
+          implementing_partners : [],
+          undaf_desarrollo_paz:[],
+          acuerdos_de_paz:[],
+          dac_oecd_development_assistance_committee:[],
+          ods_objetivos_de_desarrollo_sostenible:[]
 
         }
 

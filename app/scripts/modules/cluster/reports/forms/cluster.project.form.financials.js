@@ -233,6 +233,31 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           });
           return show;
         },
+				
+				//multi year funding
+				showMultiYearFunding:function(){
+					var show = false;
+					$scope.multiYearRange=[];
+					angular.forEach($scope.project.definition.project_budget_progress, function (d, i) {
+						if (d.multi_year_funding_id === 'yes') {
+              show = true;
+            }
+          });
+
+					// to set range multi year
+					if(show){
+						var start_year = moment($scope.project.definition.project_start_date).year(); 
+								end_year   = moment($scope.project.definition.project_end_date).year();
+						if(end_year % start_year > 0){
+							for (let index = start_year; index <= end_year; index++) {
+								$scope.multiYearRange.push(index)								
+							}
+						}else{
+							$scope.multiYearRange.push(end_year)
+						}
+					};
+          return show;
+        },
 
         // show in fts
         showMultiYear: function( $data, $budget ) {
@@ -256,7 +281,8 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
           // multi-year set 
           if ( $budget.multi_year_funding_id === 'no' ) {
-            $budget.funding_2017 = $budget.project_budget;
+						$budget.funding_2017 = $budget.project_budget;
+						delete $budget.funding_year ;
           }
 
           return selected.length ? selected[0].multi_year_funding_name : 'N/A';
@@ -353,7 +379,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
         },
 
         save: function(){
-          // Update Project
+					// Update Project
           ngmData.get({
             method: 'POST',
             url: ngmAuth.LOCATION + '/api/cluster/project/setProject',

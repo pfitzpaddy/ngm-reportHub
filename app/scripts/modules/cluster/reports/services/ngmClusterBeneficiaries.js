@@ -327,7 +327,7 @@ angular.module( 'ngmReportHub' )
 
       // show cxb health label
       cxbHealth: function( project ) {
-        console.log( project );
+        //console.log( project );
         var display = false;
         if ( project.definition.admin0pcode === 'CB' 
               && project.definition.cluster_id === 'health' ) {
