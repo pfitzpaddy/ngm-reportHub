@@ -143,6 +143,17 @@ angular.module('ngmReportHub')
 					}]
 				}
 
+				//hide download
+				const canDownload = ngmAuth.canDo('DASHBOARD_DOWNLOAD', {
+					adminRpcode: $scope.report.project.adminRpcode,
+					admin0pcode: $scope.report.project.admin0pcode,
+					cluster_id: $scope.report.project.cluster_id,
+					organization_tag: $scope.report.project.organization_tag
+				});
+				// remove download button
+				if (!canDownload) {
+					$scope.model.header.download.class += ' hide';
+				}
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;
 

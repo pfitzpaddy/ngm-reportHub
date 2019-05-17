@@ -406,6 +406,20 @@ angular.module('ngmReportHub')
 						downloads = downloads.concat ( ng_wash_dl );
 					}
 
+					// example of blocking download
+					const canDownload = ngmAuth.canDo('DASHBOARD_DOWNLOAD', {
+						adminRpcode: $scope.dashboard.adminRpcode.toUpperCase(),
+						admin0pcode: $scope.dashboard.admin0pcode.toUpperCase(),
+						cluster_id: $scope.dashboard.cluster_id,
+						organization_tag: $scope.dashboard.organization_tag
+					})
+					// remove download button
+					if (!canDownload) {
+						setTimeout(function () { 
+							$scope.model.header.download.class += ' hide';
+						},10)
+					}
+
 					// return
 					return downloads;	
 				},
