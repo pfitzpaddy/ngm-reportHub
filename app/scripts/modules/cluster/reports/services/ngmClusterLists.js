@@ -409,7 +409,8 @@ angular.module( 'ngmReportHub' )
       // clusters
       getClusters: function( admin0pcode ){
         var clusters = [];
-      //  if ( ($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63' || $location.$$host === '192.168.33.16') && admin0pcode.toLowerCase() === 'all') {
+
+      //  if ( ($location.$$host === '192.168.33.164' || $location.$$host === '35.229.43.63' || $location.$$host === '192.168.33.16') && admin0pcode.toLowerCase() === 'all') {
        if ( ($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63') && admin0pcode.toLowerCase() === 'all') {
 
           [{
@@ -636,6 +637,7 @@ angular.module( 'ngmReportHub' )
             cluster: 'WASH'
           }];
         }
+
 
           return clusters;
       },
