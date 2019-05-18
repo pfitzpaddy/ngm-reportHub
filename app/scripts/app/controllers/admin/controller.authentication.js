@@ -32,7 +32,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 		function ($scope, $http, $location, $timeout, $filter, $q, ngmAuth, ngmUser, ngmData, ngmClusterLists, config,$translate){
        
 
-      // if($location.$$host === "4wplus.org" || $location.$$host === "35.229.43.63" || $location.$$host === "192.168.33.16" ){
+      // if($location.$$host === "192.168.33.16" || $location.$$host === "35.229.43.63" || $location.$$host === "192.168.33.16" ){
        if($location.$$host === "4wplus.org" || $location.$$host === "35.229.43.63" ){
 
       var4wplusrh = "4wPlus";
@@ -275,13 +275,15 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         // register fn
         register: function( ngmRegisterForm ){
 
-          var country = ($scope.panel.user.admin0pcode == 'COL' ? 'col' : 'other');
-
+         // var country = ($scope.panel.user.admin0pcode == 'COL' ? 'col' : 'other');
+          
           // merge adminRegion
           $scope.panel.user = angular.merge( {}, $scope.panel.user,
                                                   $filter('filter')( $scope.panel.programme, { programme_id: $scope.panel.user.programme_id }, true)[0],
                                                   $filter('filter')( $scope.panel.adminRegion, { admin0pcode: $scope.panel.user.admin0pcode }, true)[0],
-                                                  $scope.panel.cluster[ country ][ $scope.panel.user.cluster_id ] );
+                                                  //$scope.panel.cluster[country][ $scope.panel.user.cluster_id ] );
+
+                                                  $scope.panel.cluster[ $scope.panel.user.cluster_id ] );
 
           // if immap and ET || CD
           if ( $scope.panel.user.site_name ) {
