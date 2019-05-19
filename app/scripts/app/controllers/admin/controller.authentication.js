@@ -276,14 +276,14 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         register: function( ngmRegisterForm ){
 
          // var country = ($scope.panel.user.admin0pcode == 'COL' ? 'col' : 'other');
-          
+          var cluster = $scope.panel.clusters.filter(c => c.cluster_id === $scope.panel.user.cluster_id)[0].cluster;
           // merge adminRegion
           $scope.panel.user = angular.merge( {}, $scope.panel.user,
                                                   $filter('filter')( $scope.panel.programme, { programme_id: $scope.panel.user.programme_id }, true)[0],
                                                   $filter('filter')( $scope.panel.adminRegion, { admin0pcode: $scope.panel.user.admin0pcode }, true)[0],
                                                   //$scope.panel.cluster[country][ $scope.panel.user.cluster_id ] );
-
-                                                  $scope.panel.cluster[ $scope.panel.user.cluster_id ] );
+                                                  // $scope.panel.cluster[ $scope.panel.user.cluster_id ],
+                                                  { cluster } );
 
           // if immap and ET || CD
           if ( $scope.panel.user.site_name ) {
