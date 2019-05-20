@@ -37,9 +37,15 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
       if($scope.config.project.admin0pcode === 'COL'){
         financial_html = 'financials-COL.html';
+        budget_funds= [ { budget_funds_id: 'cash', budget_funds_name: $filter('translate')('cash') }, { budget_funds_id: 'inkind',budget_funds_name: $filter('translate')('inkind') },{ budget_funds_id: 'bonuses',budget_funds_name: $filter('translate')('bonuses') } ];
+
       }else{
         financial_html = 'financials.html';
+         budget_funds= [ { budget_funds_id: 'financial', budget_funds_name: $filter('translate')('financial') }, { budget_funds_id: 'inkind',budget_funds_name: $filter('translate')('inkind') } ];
+
       }
+
+      
 
       $scope.project = {
         
@@ -68,7 +74,8 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
         // placeholder bydget activity
         lists: {
           reported_on_fts: [ { reported_on_fts_id: 'yes', reported_on_fts_name: $filter('translate')('yes') }, { reported_on_fts_id: 'no', reported_on_fts_name: 'No' } ],
-          budget_funds: [ { budget_funds_id: 'financial', budget_funds_name: $filter('translate')('financial') }, { budget_funds_id: 'inkind',budget_funds_name: $filter('translate')('inkind') } ],
+          //budget_funds: [ { budget_funds_id: 'financial', budget_funds_name: $filter('translate')('financial') }, { budget_funds_id: 'inkind',budget_funds_name: $filter('translate')('inkind') } ],
+          budget_funds: budget_funds,
           financial_programming: [{ 
             financial_programming_id: 'non_cash', financial_programming_name: $filter('translate')('non_cash')
           },{ 
@@ -170,7 +177,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
         // show in fts
         showFunds: function( $data, $budget ) {
           var selected = [];
-          $budget.budget_funds_id = $data;
+          $budget.budget_funds_id = $data; 
 
           // default
           if( !$budget.reported_on_fts_id ){
@@ -397,6 +404,10 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
         }
 
       }
+
+
+      
+
 
       // if one donor
       $timeout(function(){

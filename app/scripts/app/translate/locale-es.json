@@ -700,6 +700,8 @@
           "restricted_cash":"Dinero Restringido",
           "unrestricted_cash":"Dinero Sin Restrincción",
           "inkind":"En Especie",
+          "cash":"Efectivo",
+          "bonuses":"Bonos",
 
 
 

@@ -3858,6 +3858,12 @@ angular.module( 'ngmReportHub' )
             site_implementation_id: 'punto_de_primeros_auxilios',
             site_implementation_name: 'Punto de Primeros Auxilios'
           },
+          ,
+          {
+            site_implementation_id: 'secretaria_de_salud',
+            site_implementation_name: 'Secretaría de Salud'
+          }
+          ,
            {
             site_implementation_id: 'others',
             site_implementation_name: 'Otros'
@@ -4264,6 +4270,11 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'refugee_camp',
             site_type_name: 'Campo de Refugiados'
           },
+          {
+            site_type_id: 'secretarias_departamentales_distritales_y_municipales_de_salud',
+            site_type_name: 'Secretarías Departamentales Distritales y Municipales de Salud'
+          },
+          
           {
             site_type_id: 'other',
             site_type_name: 'Otro'
