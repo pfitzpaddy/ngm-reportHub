@@ -302,6 +302,8 @@
          "restricted_cash":"Restricted Cash",
          "unrestricted_cash":"Unrestricted Cash",
          "inkind":"InKind",
+         "cash":"Cash",
+         "bonuses":"Bonuses",
 
          
          "back_to_project_reports":"Back to Project Reports",

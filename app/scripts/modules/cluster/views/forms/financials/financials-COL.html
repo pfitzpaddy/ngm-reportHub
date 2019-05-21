@@ -30,10 +30,10 @@
                     <td>{{'funds' | translate}}*</td>
                     <!--<td ng-show="project.showProgrammingLabel()">{{'programming' | translate}}</td>-->
                     <td>{{'recieved' | translate}}*</td>
-                    <!--<td>{{'multi_year_funding' | translate}}</td>
-                    <td ng-show="project.showFunding2017()">2017 {{'funding' | translate}}</td>
-                    <td>{{'on' |translate}} FTS?</td>
-                    <td ng-show="project.showFtsIdLabel()">FTS ID</td>-->
+                   <!-- <td>{{'multi_year_funding' | translate}}</td>-->
+                    <!--<td ng-show="project.showFunding2017()">2017 {{'funding' | translate}}</td>
+                    <td>{{'on' |translate}} FTS?</td>-->
+                    <td ng-show="project.showFtsIdLabel()">FTS ID</td>
                     <td>{{'notes' | translate}}</td>
                     <td ng-if="project.definition.project_status !== 'complete'">{{'edit' | translate}}</td>
                   </tr>
@@ -129,8 +129,8 @@
                             e-ng-options="d.financial_programming_id as d.financial_programming_name for d in project.lists.financial_programming">
                         {{ project.showProgramming( $data, budget ) }}
                       </span>
-                    </td>
-                     -->
+                    </td>-->
+                     
 
                     <!-- input-date directive -->
                     <td>
@@ -147,6 +147,7 @@
 
                     <!-- multiyear -->
 
+                   
                    <!--
                     <td>
                       <span e-form="rowform"
@@ -156,8 +157,9 @@
                             e-ng-options="d.multi_year_funding_id as d.multi_year_funding_name for d in project.lists.multi_year_funding">
                         {{ project.showMultiYear( $data, budget ) }}
                       </span>
-                    </td>
+                    </td>-->
 
+                   <!--
                     <td ng-show="project.showFunding2017()">
                       
                       <span e-form="rowform" 
@@ -169,9 +171,8 @@
                       </span>
                     </td>-->
                     
-                    <!--
                     <td>
-                     < <span e-form="rowform"
+                     <span e-form="rowform"
                             e-name="reported_on_fts_id"
                             editable-select="budget.reported_on_fts_id"
                             e-placeholder="{{'select'|translate}}"
@@ -192,7 +193,6 @@
                       </span>
                     </td>
 
-                    -->
 
                     <td>
                       <!-- text -->
