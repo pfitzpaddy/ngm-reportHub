@@ -3810,66 +3810,44 @@ angular.module( 'ngmReportHub' )
             site_implementation_id: 'clinic',
             site_implementation_name: 'Clinic'
           }];
-        } 
-
-        else if(admin0pcode === 'COL'){
-          site_implementation = [
-
-            {
+        } else if( admin0pcode === 'COL' ){
+          site_implementation = [{
             site_implementation_id: 'community_based',
             site_implementation_name: 'Comunidad Base'
-            },
-
-            {site_implementation_id:  'provision_de_insumos',
+          },{
+            site_implementation_id:  'provision_de_insumos',
             site_implementation_name: 'Provisión de Insumos'
-            },
-
-            {
+          },{
             site_implementation_id: 'family_protection_center',
             site_implementation_name: 'Centro de Protección Familiar'
-            },
-
-            {site_implementation_id: 'punto_de_vacunacion',
+          },{
+            site_implementation_id: 'punto_de_vacunacion',
             site_implementation_name: 'Punto de Vacunación'
-            },
-
-            {
-              site_implementation_id: 'health_center',
+          },{
+            site_implementation_id: 'health_center',
             site_implementation_name: 'Centro de Salud'
-            },
-
-            {
+          },{
             site_implementation_id: 'feeding_center',
             site_implementation_name: 'Centro de Alimentación'
-           },
-           {
+          },{
             site_implementation_id: 'food_distribution_point_gfd',
             site_implementation_name: 'Punto de Distribución de Alimentos'
-          },
-           {
+          },{
             site_implementation_id: 'stabalization_center',
             site_implementation_name: 'Centro de Estabilización'
-          },
-          {
+          },{
             site_implementation_id: 'centro_de_acopio',
             site_implementation_name: 'Centro de Acopio'
-          },
-          {
+          },{
             site_implementation_id: 'punto_de_primeros_auxilios',
             site_implementation_name: 'Punto de Primeros Auxilios'
-          },
-          ,
-          {
+          },{
             site_implementation_id: 'secretaria_de_salud',
             site_implementation_name: 'Secretaría de Salud'
-          }
-          ,
-           {
+          },{
             site_implementation_id: 'others',
             site_implementation_name: 'Otros'
-          }
-
-         ];
+          }];
 
         }
 
