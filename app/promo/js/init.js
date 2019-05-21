@@ -9,8 +9,7 @@
             
             
 
-
-  			if(href  === 'https://4wplus.org/' || href ==='http://35.229.43.63/'){ //https://4wplus.org/
+  			if(href  === 'https://4wplus.org/' || href ==='http://35.229.43.63/' ){ //https://4wplus.org/
   				$( '.href' ).hide();
   				$('.href2').show();
   				title = "4wPlus";
@@ -23,8 +22,8 @@
 
 
   			}else{
-  				$( '#href' ).hide();
-  				$('#href2').show();
+  				$( '.href' ).show();
+  				$('.href2').hide();
   				
 
   				//original
