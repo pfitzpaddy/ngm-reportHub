@@ -598,7 +598,7 @@
   
   <button class="btn" 
             ng-if="project.definition.admin0pcode === 'ET' && project.definition.cluster_id === 'esnfi'"
-            ng-show="project.report.report_status !== 'complete'" 
+            ng-show="project.definition.project_status !== 'complete' && project.report.report_status !== 'complete'"
 						ng-click="project.addBeneficiary( $locationIndex, { households: 1 } ); project.activePrevReportButton()"
 						ng-disabled="addBeneficiaryDisable">
     <i class="material-icons left">add</i>{{'add_beneficiaries' | translate}}
@@ -608,7 +608,7 @@
   <!-- default -->
   <button class="btn"
             ng-if="project.definition.admin0pcode !== 'ET' || project.definition.cluster_id !== 'esnfi'" 
-            ng-show="project.report.report_status !== 'complete'" 
+            ng-show="project.definition.project_status !== 'complete' && project.report.report_status !== 'complete'"
 						ng-click="project.addBeneficiary( $locationIndex ); project.activePrevReportButton()"
 						ng-disabled="addBeneficiaryDisable">
     <i class="material-icons left">add</i>{{'add_beneficiaries' | translate}}

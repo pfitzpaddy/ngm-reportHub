@@ -224,28 +224,29 @@ font-size: 18px;
 						</div>
 					</h5>
 				</li>
-
-				<li class="collection-item avatar " style=" border-bottom-width: 0px;min-height: 60px; ">
-					<div class="right">
-						<button class=" btn waves-effect waves-light tooltipped-report-upload" data-position="bottom" data-tooltip="{{'upload_document'|translate}}" ng-click="project.uploadDocument.openModal('upload-file')">
-							<i class="material-icons left">cloud_upload</i>
-							{{'upload_document'|translate}}
-						</button>
-							
-						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="{{'grid_view'|translate}}" ng-click="grid=true"
-						 ng-class="{white: !grid,teal:grid}">
-							<i class="material-icons " style="color: #ffffff" ng-class="{color_teal: !grid,color_white:grid}">
-								view_module
-							</i>
-						</div>							
-						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="{{'list_view'|translate}}" ng-click="grid=false"
-						 ng-class="{white: grid,teal:!grid}">
-							<i class="material-icons  " ng-class="{color_teal: grid,color_white:!grid}">
-								format_list_bulleted
-							</i>
+				<div ng-if="project.definition.project_status !== 'complete' && project.report.report_status !== 'complete'">
+					<li class="collection-item avatar " style=" border-bottom-width: 0px;min-height: 60px; ">
+						<div class="right">
+							<button class=" btn waves-effect waves-light tooltipped-report-upload" data-position="bottom" data-tooltip="{{'upload_document'|translate}}" ng-click="project.uploadDocument.openModal('upload-file')">
+								<i class="material-icons left">cloud_upload</i>
+								{{'upload_document'|translate}}
+							</button>
+								
+							<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="{{'grid_view'|translate}}" ng-click="grid=true"
+							 ng-class="{white: !grid,teal:grid}">
+								<i class="material-icons " style="color: #ffffff" ng-class="{color_teal: !grid,color_white:grid}">
+									view_module
+								</i>
+							</div>							
+							<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="{{'list_view'|translate}}" ng-click="grid=false"
+							 ng-class="{white: grid,teal:!grid}">
+								<i class="material-icons  " ng-class="{color_teal: grid,color_white:!grid}">
+									format_list_bulleted
+								</i>
+							</div>
 						</div>
-					</div>
-				</li>
+					</li>
+				</div>
 				<div ng-show="!grid">
 					<li class="collection-item avatar" ng-if="!listUpload.length">
 						<div class="label" style="text-align:center; padding-top:20px;padding-bottom:20px;">
