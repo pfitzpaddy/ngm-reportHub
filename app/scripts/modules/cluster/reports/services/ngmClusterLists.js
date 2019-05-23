@@ -3979,6 +3979,9 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'MHT',
             site_type_name: 'MHT'
           },{
+            site_type_id: 'RRT',
+            site_type_name: 'RRT'
+          },{
             site_type_id: 'FATP',
             site_type_name: 'FATP'
           },{
