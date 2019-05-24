@@ -237,15 +237,20 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				templatesUrl: '/scripts/modules/cluster/views/forms/details/',
 				// details
 				detailsUrl: 'details.html',
+				// strategic objectives
 				strategicObjectivesUrl: 'strategic-objectives.html',
+				// contact details
 				contactDetailsUrl: 'contact-details.html',
-				uploadUrl:'project-upload.html',
-				// targets
+				// COL classificaitons
+				classificiationsUrl: 'COL/classifications.html',
+				// target beneficiaries
 				targetBeneficiariesDefaultUrl: 'target-beneficiaries/2016/target-beneficiaries-default.html',
 				targetBeneficiariesTrainingUrl: 'target-beneficiaries/2016/target-beneficiaries-training.html',
 				targetBeneficiariesUrl: moment( config.project.project_end_date ).year() === 2016 ? 'target-beneficiaries/2016/target-beneficiaries.html' : 'target-beneficiaries/target-beneficiaries.html',
+				// target locations
 				locationsUrl: config.project.admin0pcode === 'CB' ? 'target-locations/CB/locations.html' : 'target-locations/locations.html',
-				locationsAddUrl: 'target-locations/add.location.html',
+				// upload
+				uploadUrl:'project-upload.html',
 
 
 				// init lists

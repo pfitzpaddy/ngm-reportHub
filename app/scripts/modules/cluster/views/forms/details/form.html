@@ -128,6 +128,11 @@
     <!-- Project contact details -->
     <div class="slide-animate" ng-include="project.templatesUrl + project.contactDetailsUrl"></div>
 
+    <!-- Project beneficiaries details -->
+    <div ng-if="project.definition.admin0pcode === 'COL'">
+      <div class="slide-animate" ng-include="project.templatesUrl + project.classificiationsUrl"></div>
+    </div>
+
 		<!-- Project beneficiaries details -->
 		<div class="slide-animate" ng-include="project.templatesUrl + project.targetBeneficiariesUrl"></div>
 
