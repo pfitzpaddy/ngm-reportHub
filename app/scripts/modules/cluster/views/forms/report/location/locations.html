@@ -42,7 +42,7 @@
 
 					 	<div class="row">
 
-							<h5 class="report-selected-locations">{{ project.report.locations.length }} {{'selected_locations'|translate}}</h5>
+							<h3 class="report-selected-locations">{{ project.report.locations.length }} {{'selected_locations'|translate}}</h3>
 							<button class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
 
 	      					title="Edit {{ project.monthlyTitleFormat }}"
@@ -73,11 +73,11 @@
 								<div class="col s12 m9 left">
 
 							  	<!-- location title -->
-							  	<h5 class="report-location-title" 
+							  	<h4 class="report-location-title" 
 							  				ng-if="project.definition.cluster_id !== 'eiewg'">
 												<i class="material-icons left" style="color: teal;">location_on</i>
 												{{ project.getReportTitle( location ) }}
-									</h5>
+									</h4>
 
 									<!-- eiewg formal location -->
 							  	<h5 class="report-location-title" 

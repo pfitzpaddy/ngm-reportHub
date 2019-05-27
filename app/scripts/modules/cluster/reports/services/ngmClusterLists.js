@@ -2204,7 +2204,7 @@ angular.module( 'ngmReportHub' )
 
         if (  admin0pcode === 'CB' ) {
           // default
-          var beneficiaries = [{
+          beneficiaries = [{
             cluster_id: ngmClusterLists.all_sectors,
             beneficiary_type_id: 'refugees',
             beneficiary_type_name: 'Refugees'
@@ -2235,10 +2235,7 @@ angular.module( 'ngmReportHub' )
 
         if (  admin0pcode === 'COL' ) {
           // default
-          var beneficiaries = [
-
-
-          {
+          beneficiaries = [{
             cluster_id: ngmClusterLists.all_sectors,
             beneficiary_type_id: 'mine_victims',
             beneficiary_type_name: 'Víctimas de Minas'
@@ -2287,10 +2284,7 @@ angular.module( 'ngmReportHub' )
             cluster_id: ngmClusterLists.all_sectors,
             beneficiary_type_id: 'desmobilized_reinserted',
             beneficiary_type_name: 'Desmovilizados / Reinsertados'
-          }
-          
-
-          ];
+          }];
         }
 
         // admin SS

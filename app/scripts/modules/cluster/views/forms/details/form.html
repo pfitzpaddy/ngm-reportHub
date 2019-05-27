@@ -1,87 +1,87 @@
 
 <!-- cancel modal -->
 <div id="save-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">done</i>{{'save_project' | translate}}</h4>
-    <!-- <p>'{{ project.definition.project_title }}' has been saved!</p> -->
-    <p>{{'do_you_want_to_save_this_project' | translate}}?</p>
-  </div>
-  <div class="modal-footer">
-  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'cancel_mayus' | translate}}</a>
-    <a ng-click="project.save( true, false )" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes' | translate}}</a>
-  </div>
+	<div class="modal-content">
+		<h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">done</i>{{'save_project' | translate}}</h4>
+		<!-- <p>'{{ project.definition.project_title }}' has been saved!</p> -->
+		<p>{{'do_you_want_to_save_this_project' | translate}}?</p>
+	</div>
+	<div class="modal-footer">
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'cancel_mayus' | translate}}</a>
+		<a ng-click="project.save( true, false )" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes' | translate}}</a>
+	</div>
 </div>
 
 <!-- list modal -->
 <div id="list-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>{{'cancel_new_project' | translate}}</h4>
-    <p>{{'are_you_sure_you_want_to_return_to_projects' | translate}}?</p>
-  </div>
-  <div class="modal-footer">
-  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'cancel_mayus' | translate}}</a>
-    <a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes'|translate}}</a>
-  </div>
+	<div class="modal-content">
+		<h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>{{'cancel_new_project' | translate}}</h4>
+		<p>{{'are_you_sure_you_want_to_return_to_projects' | translate}}?</p>
+	</div>
+	<div class="modal-footer">
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'cancel_mayus' | translate}}</a>
+		<a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes'|translate}}</a>
+	</div>
 </div>
 
 <!-- list modal -->
 <div id="summary-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>{{'cancel_project_update' | translate}}</h4>
-    <p>{{'return_to_project_summary' | translate}}</p>
-  </div>
-  <div class="modal-footer">
-  	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes_cancel_update' | translate}}!</a>
-  </div>
+	<div class="modal-content">
+		<h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>{{'cancel_project_update' | translate}}</h4>
+		<p>{{'return_to_project_summary' | translate}}</p>
+	</div>
+	<div class="modal-footer">
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="project.cancel()" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes_cancel_update' | translate}}!</a>
+	</div>
 </div>
 
 <!-- remove beneficiaries -->
 <div id="beneficiary-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">group</i>{{'remove_people_in_need' | translate}}</h4>
-    <p>{{'remove_people_in_need_from_project' | translate}}</p>
-  </div>
-  <div class="modal-footer">
-  	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="project.removeTargetBeneficiary()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_people_in_need' | translate}}!</a>
-  </div>
+	<div class="modal-content">
+		<h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">group</i>{{'remove_people_in_need' | translate}}</h4>
+		<p>{{'remove_people_in_need_from_project' | translate}}</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="project.removeTargetBeneficiary()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_people_in_need' | translate}}!</a>
+	</div>
 </div>
 
 <!-- remove location -->
 <div id="location-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">location_on</i>{{'remove_project_location' | translate}}</h4>
-    <p>{{'this_will_affect_any_existing_monthly_beneficiary_reports' | translate}}</p>
-  </div>
-  <div class="modal-footer">
-  	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="project.removeLocation()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_location' | translate}}!</a>
-  </div>
+	<div class="modal-content">
+		<h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">location_on</i>{{'remove_project_location' | translate}}</h4>
+		<p>{{'this_will_affect_any_existing_monthly_beneficiary_reports' | translate}}</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+		<a ng-click="project.removeLocation()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_location' | translate}}!</a>
+	</div>
 </div>
 
 <!-- location groups add -->
 <div id="location-group-add-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>{{'add_location_groups' | translate}}</h4>
-    <p>{{'add_location_groups_message' | translate}}?</p>
-  </div>
-  <div class="modal-footer">
-  	<a class="modal-close waves-effect waves-green btn-flat">{{'cancel_mayus' | translate}}</a>
-    <a ng-click="project.addLocationGroupdings()" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes'|translate}}</a>
-  </div>
+	<div class="modal-content">
+		<h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>{{'add_location_groups' | translate}}</h4>
+		<p>{{'add_location_groups_message' | translate}}?</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-close waves-effect waves-green btn-flat">{{'cancel_mayus' | translate}}</a>
+		<a ng-click="project.addLocationGroupdings()" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes'|translate}}</a>
+	</div>
 </div>
 
 <!-- location groups add -->
 <div id="location-group-remove-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>{{'remove_location_groups' | translate}}</h4>
-    <p>{{'remove_location_groups_message' | translate}}?</p>
-  </div>
-  <div class="modal-footer">
-  	<a class="modal-close waves-effect waves-green btn-flat">{{'cancel_mayus' | translate}}</a>
-    <a ng-click="project.removeLocationGroupings()" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes'|translate}}</a>
-  </div>
+	<div class="modal-content">
+		<h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>{{'remove_location_groups' | translate}}</h4>
+		<p>{{'remove_location_groups_message' | translate}}?</p>
+	</div>
+	<div class="modal-footer">
+		<a class="modal-close waves-effect waves-green btn-flat">{{'cancel_mayus' | translate}}</a>
+		<a ng-click="project.removeLocationGroupings()" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes'|translate}}</a>
+	</div>
 </div>
 
 <!-- list/cancel btn -->
@@ -125,13 +125,13 @@
 		<!-- Project SO -->
 		<div class="slide-animate" ng-if="project.definition.admin0pcode === 'AF'" ng-include="project.templatesUrl + project.strategicObjectivesUrl"></div>
 
-    <!-- Project contact details -->
-    <div class="slide-animate" ng-include="project.templatesUrl + project.contactDetailsUrl"></div>
+		<!-- Project contact details -->
+		<div class="slide-animate" ng-include="project.templatesUrl + project.contactDetailsUrl"></div>
 
-    <!-- Project beneficiaries details -->
-    <div ng-if="project.definition.admin0pcode === 'COL'">
-      <div class="slide-animate" ng-include="project.templatesUrl + project.classificiationsUrl"></div>
-    </div>
+		<!-- Project beneficiaries details -->
+		<div ng-if="project.definition.admin0pcode === 'COL'">
+			<div class="slide-animate" ng-include="project.templatesUrl + project.classificiationsUrl"></div>
+		</div>
 
 		<!-- Project beneficiaries details -->
 		<div class="slide-animate" ng-include="project.templatesUrl + project.targetBeneficiariesUrl"></div>
@@ -174,9 +174,9 @@
 
 <script type="text/javascript">
 
-  // modals
-  setTimeout(function(){
-  	$('.modal-trigger').leanModal();
-  }, 200);
+	// modals
+	setTimeout(function(){
+		$('.modal-trigger').leanModal();
+	}, 200);
 
 </script>

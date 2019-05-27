@@ -224,6 +224,7 @@
         "project_plan":"Plan del Proyecto",
         "project_title":"Título del Proyecto",
         "project_code":"Código del Proyecto",
+        "no_project_activity_type": "Por favor seleccione las actividades del proyecto (Tipo de Actividad)!",
 
         "go_to_project_plan":"Ir a Plan del Proyecto",
         "go_to_monthly_progress":"Ir a Progreso Mensual",

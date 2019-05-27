@@ -30,8 +30,6 @@ angular.module( 'ngmReportHub' )
       // set form on load
       setForm: function( project, lists ) {
 
-
-
         // on page load
         angular.element( document ).ready(function () {
 

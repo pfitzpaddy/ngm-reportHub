@@ -42,7 +42,7 @@
 
 	/* report number of locations */
 	.report-selected-locations {
-		font-size:1.2rem;
+		font-size:1.6rem;
 		padding-left:20px;
 		margin-top: 20px;
 		font-weight: 100;
@@ -50,8 +50,16 @@
 
 	/* location title with icon */
 	.report-location-title {
+		font-size: 1.6rem;
+		font-weight: 300;
+		text-align: left;
+		padding: 10px 0px 10px 10px;
+	}
+
+	/* location title with icon */
+	.report-beneficiary-title {
 		font-size: 1.36rem;
-		color: #00796b; 
+		color: #00796b;
 		font-weight: 300;
 		text-align: left;
 		padding: 10px 0px 10px 10px;
@@ -84,6 +92,20 @@
 	  line-height:2.4rem;
 	  padding: 10px;
 	}
+
+
+	
+	/* darken inputs */
+	input, .input-field, .checkbox-label {
+		font-weight: 400;
+	}
+
+	.label {
+	  left: 0.75rem;
+	  color: #26a69a;
+	  top: 0.8rem;
+	  font-weight: 400;
+	}	
 
 	/* input label */
 	.input-field label,

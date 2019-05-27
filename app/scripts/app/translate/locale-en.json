@@ -197,6 +197,7 @@
         "project_plan":"Project Plan",
         "project_title":"Project Title",
         "project_code":"Project Code",
+        "no_project_activity_type": "Please select project activities (Activity Type)!",
 
         "go_to_project_plan":"Go to Project Plan",
         "go_to_monthly_progress":"Go to Monthly Progress",

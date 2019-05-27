@@ -143,6 +143,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           ngmClusterHelper.setForm( $scope.project.definition, $scope.project.lists );
           // set columns / rows
 					ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
+          // documents upload
 					$scope.project.setTokenUpload();
         },
         
@@ -225,10 +226,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
         // add beneficiary
         addBeneficiary: function( $parent, defaults ) {
-          $scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.report.locations[ $parent ].beneficiaries, defaults );
-          $scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
-          // set columns / rows display
-          ngmClusterBeneficiaries.setBeneficiariesFormTargets( $scope.project.lists, $parent, $scope.inserted, $scope.project.report.locations[ $parent ].beneficiaries.length-1 );
+          var beneficiary = ngmClusterBeneficiaries.addBeneficiary( $scope.project.report.locations[ $parent ].beneficiaries, defaults );
+          $scope.project.report.locations[ $parent ].beneficiaries.push( beneficiary );
+          // set form display for new rows
+          if ( $scope.project.report.locations[ $parent ].beneficiaries.length > 1) {
+            ngmClusterBeneficiaries.setBeneficiariesDescription( $scope.project.lists, $parent, $scope.project.report.locations[ $parent ].beneficiaries.length-1, beneficiary );
+          }
         },
 
         // add beneficiary
