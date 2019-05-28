@@ -218,18 +218,24 @@ angular
 
          var var4plusrhafter;
 
-	     if($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63'){ //4wplus.org
+	     if($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63' ){ //4wplus.org
 			$('#title').html("4wPlus");
 
 			var4plusrhafter = '4wPlus';
 
+			metadescription = "4wPlus, Dashboard, Reporte, Indicadores, Colombia";
 
 			
 		}else{
 			$('#title').html("ReportHub");
 			var4plusrhafter = 'REPORTHUB';
 
+			metadescription = "ReportHub, Dashboard, Reporting, Key Business Indicators";
+
 		};
+
+		document.getElementsByName('description')[0].content = metadescription;
+
 
 		// ngm object
 		$scope.ngm = {

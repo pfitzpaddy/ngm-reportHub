@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <meta name="description" content="ReportHub, Dashboard, Reporting, Key Business Indicators">
+  <meta  name="description">
   <title id="title"></title>
 
   <!-- CSS  -->
@@ -18,7 +18,7 @@
     <nav class="blue darken-2 z-depth-2" role="navigation">
       <div class="nav-wrapper container">
         <div class="logo">
-          <a><img src="imgs/logo-s.png" title="ReportHub" style="padding-top:10px;"/></a>
+          <a><img src="imgs/logo-s.png" name="logo" style="padding-top:10px;"/></a>
           <a class="brand-logo" style="padding-left:10px;"></a>
         </div>
       </div>
@@ -30,29 +30,25 @@
     <h2 id="humanitariandesicion"></h2>
     <a href="/desk/#/cluster"
       id="login-button" 
-      title="Login or Register to Get Started" 
-      class="btn-large waves-effect waves-light teal lighten-1"><i class="material-icons left">supervisor_account</i><span id="getstarted"></span></a>
-    <a href="/desk/#/cluster/5w"
+      class="btn-large waves-effect waves-light teal lighten-1" name="loginbuttontitle"><i class="material-icons left">supervisor_account</i><span id="getstarted"></span></a>
+     
+    <a 
       id="login-button" 
-      title="View the 5W Dashboard"
-      class="btn-large waves-effect waves-light teal lighten-1 href"><i class="material-icons left">bubble_chart</i>5W Dashboard</a>
-      <a href="/desk/#/cluster/5w/amer/col"
-      id="login-button" 
-      title="Ver el 5W Dashboard"
-      class="btn-large waves-effect waves-light teal lighten-1 href2"><i class="material-icons left">bubble_chart</i>5W Dashboard</a>
+      class="btn-large waves-effect waves-light teal lighten-1" name="link5wdashboard"><i class="material-icons left">bubble_chart</i>5W Dashboard</a>
+      
   </div>
 
 
-  <div class="feature href" >
+  <div class="feature" >
     <div class="container detail grey-text text-darken-2">
 
       <!--   detail   -->
       <div class="row" style="padding-bottom:90px;">
         <div class="col s12 m6" style="padding-top:20px;" >
       
-          <h1>ReportHub</h1>
-          <h2>Reporting Workflow. Decision Support. Real-Time.</h2>
-          <p>ReportHub provides an easy-to-use system that includes alerts and notifications for a daily reporting workflow, tailored to your needs. Once entered, the analytics engine processes key business indicators for decision support made available via interactive dashboards. All of this in real-time.</p>
+          <h1 id="h1feature"></h1>
+          <h2 id="h2feature"></h2>
+          <p id="pfeature"></p>
 <!--           <a href="/desk/#/reporthub/2016" target="_blank" 
             title="View a Sample Dashboard" 
             class="btn-large waves-effect waves-light teal lighten-1">View Dashboard</a> -->
@@ -60,7 +56,7 @@
 
         <div class="col s12 m6">
           <div class="dashboard" style="display: none;">
-            <img src="imgs/layout.jpeg" title="Business Indicators in Real-Time"
+            <img src="imgs/layout.jpeg" name="featureimage"
               class="animated slideInRight"
               style="padding-top:70px;"/>
           </div>
@@ -71,13 +67,13 @@
     </div>
   </div>
 
-  <div class="feature teal white-text href" id="disabled">
+  <div class="feature teal white-text" id="disabled">
     <div class="container detail">
       <div class="row">
         <div class="toolbox center">
-          <img src="imgs/toolbox-z1.png" title="ReportHub Toolbox"/>
+          <img src="imgs/toolbox-z1.png" name="imagetoolbox"/>
         </div>
-        <h1 class="center">TAILORED TO YOUR NEEDS</h1>
+        <h1 class="center" id="h1featureteal"></h1>
 
         <!--   Icon Section   -->
         <div class="row" id="feature-row-1">
@@ -86,24 +82,24 @@
           <div class="col s12 m4">
             <div class="icon-block">
               <h2 class="center white-text"><i class="medium material-icons">build</i></h2>
-              <h5 class="center">Reporting</h5>
-              <p class="light center">ReportHub enables customised reports to capture the required business indicators</p>
+              <h5 class="center" id="reportingh5"></h5>
+              <p class="light center" id="reportingp"></p>
             </div>
           </div>
 
           <div class="col s12 m4">
             <div class="icon-block">
               <h2 class="center white-text"><i class="medium material-icons">assignment_turned_in</i></h2>
-              <h5 class="center">Validation</h5>
-              <p class="light center">All reports are validated upon entry and can be reviewed to ensure reliability</p>
+              <h5 class="center" id="validationh5"></h5>
+              <p class="light center" id="validationp"></p>
             </div>
           </div>
 
           <div class="col s12 m4">
             <div class="icon-block">
               <h2 class="center white-text"><i class="medium material-icons">alarm</i></h2>
-              <h5 class="center">Notifications</h5>
-              <p class="light center">ReportHub schedules alerts and notifications to keep you up-to-date</p>
+              <h5 class="center" id="notificationsh5"></h5>
+              <p class="light center" id="notificationsp"></p>
             </div>
           </div>
 
@@ -113,8 +109,8 @@
           <div class="col s12 m4">
             <div class="icon-block">
               <h2 class="center white-text"><i class="medium material-icons">layers</i></h2>
-              <h5 class="center">Data Platform</h5>
-              <p class="light center">All data and key indicators are accessible via the analytics engine for in-depth analysis</p>
+              <h5 class="center" id="dataplatformh5"></h5>
+              <p class="light center" id="dataplatformp"></p>
             </div>
           </div>
 
@@ -122,7 +118,7 @@
             <div class="icon-block">
               <h2 class="center white-text"><i class="medium material-icons">bubble_chart</i></h2>
               <h5 class="center">Dashboards</h5>
-              <p class="light center">ReportHub offers a comprehensive data-visualisation and dashboard engine to explore your data</p>
+              <p class="light center" id="dashboardsp"></p>
             </div>
           </div>
 
@@ -130,7 +126,7 @@
             <div class="icon-block">
               <h2 class="center white-text"><i class="medium material-icons">person_pin</i></h2>
               <h5 class="center">Global</h5>
-              <p class="light center">ReportHub scales easily with the capability to cover all your global reporting requirements</p>
+              <p class="light center" id="globalp"></p>
             </div>
           </div>
         </div>
@@ -158,14 +154,14 @@
     </iframe>
   </div>
 
-  <div class="feature href" id="disabled">
+  <div class="feature" id="disabled">
     <div class="container detail">
 
       <div class="row" style="padding-bottom:0px;">
         <div class="col s12 center grey-text text-darken-2">
-          <h1>METRICS</h1>
-          <h2>Meeting the Requirements of Humanitarian Reporting</h2>
-          <p>Since its launch in April 2017, ReportHub has significantly contributed to the humanitarian response efforts in Afghanistan by providing decision support in real-time. Initially implemented by the Afghanistan Health Cluster in 2016, ReportHub has since been expanded at the request of the ICCT to cover the reporting needs of all Afghanistan Humanitarian Clusters and Working Groups. In doing so, ReportHub has become the official HRP reporting platform for Afghanistan and is now being expanded into the Horn of Africa. Once partners submit a report, cluster indicators are available in real-time for analysis via RESTful APIs, from the dashboard for decision support and with direct links to UNOCHA's HPC tools for HRP reporting. Currently, ReportHub has <span class="users">0</span> Users reporting on <span class="locations">0</span> Locations for which <span class="reports">0</span> beneficiary Reports have been submitted.</p>
+          <h1 id="metricsh1"></h1>
+          <h2 id="metricsh2"></h2>
+          <p id="metricsp"></p>
         </div>
       </div>
 
@@ -176,7 +172,7 @@
 
               <div class="card-panel circle center white grey-text text-darken-2 z-depth-2">
                 <div class="count"><span id="users">0</span></div>
-                <div class="name">Users</div>
+                <div class="name" id="metricsusers"></div>
               </div>
 
           </div>
@@ -187,7 +183,7 @@
 
             <div class="card-panel circle center white grey-text text-darken-2 z-depth-2">
               <div class="count"><span id="locations">0</span></div>
-              <div class="name">Locations</div>
+              <div class="name" id="metricslocations"></div>
             </div>
 
           </div>
@@ -198,7 +194,7 @@
               
             <div class="card-panel circle center white grey-text text-darken-2 z-depth-2">
               <div class="count"><span id="reports">0</span></div>
-              <div class="name">Reports</div>
+              <div class="name" id="metricsreports"></div>
             </div>
 
           </div>
@@ -213,224 +209,14 @@
     <div class="section no-pad-bot">
       <div class="container">
         <div class="row center">
-          <h5 class="header col s12 light">supporting the humanitarian community to save lives</h5>
+          <h5 class="header col s12 light" id="parallaxh5"></h5>
         </div>
       </div>
     </div>
     <div class="parallax"><img src="imgs/footer.jpeg"></div>
   </div>
 
-  <footer class="page-footer teal href">
-    <div class="container">
-      <div class="row">
-         <div class="col s12 center white-text">
-          <h1>iMMAP</h1>
-          <h2>Better Data. Better Decisions. Better Outcomes.</h2>
-            <a href="http://immap.org/" target="_blank"
-              class="btn-floating btn-large waves-effect waves-teal white z-depth-2">
-              <i class="material-icons" style="color:#009688">cloud</i></a>
-            <a href="https://www.facebook.com/immap.org" target="_blank"
-              class="btn-floating btn-large waves-effect waves-teal white z-depth-2">
-              <i class="icon-facebook" style="color:#009688"></i></a>
-            <a href="https://twitter.com/iMMAPer" target="_blank" 
-              class="btn-floating btn-large waves-effect waves-teal white z-depth-2">
-              <i class="icon-twitter" style="color:#009688"></i></a>
-            <a href="https://www.linkedin.com/company/immap" target="_blank" 
-              class="btn-floating btn-large waves-effect waves-teal white z-depth-2">
-              <i class="icon-linkedin" style="color:#009688"></i></a>
-         </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-      Supported by <a class="brown-text text-lighten-3" href="http://immap.org/">iMMAP</a>
-      </div>
-    </div>
-  </footer>
-
-
-
-  <!--spanish-->
-
-   <div class="feature href2" >
-    <div class="container detail grey-text text-darken-2">
-
-      <!--   detail   -->
-      <div class="row" style="padding-bottom:90px;">
-        <div class="col s12 m6" style="padding-top:20px;" >
-      
-          <h1>4wPlus</h1>
-          <h2>Informes de flujo de trabajo. Apoyo a las decisiones en Tiempo real.</h2>
-          <p>4wPlus ofrece un sistema fácil de usar que incluye alertas y notificaciones para un flujo de trabajo diario de informes, adaptado a sus necesidades. Una vez que se ingresa, el motor de análisis procesa los indicadores clave del negocio para que el soporte de decisiones esté disponible mediante paneles interactivos. Todo esto en tiempo real.</p>
-<!--           <a href="/desk/#/reporthub/2016" target="_blank" 
-            title="View a Sample Dashboard" 
-            class="btn-large waves-effect waves-light teal lighten-1">View Dashboard</a> -->
-        </div>
-
-        <div class="col s12 m6">
-          <div class="dashboard" style="display: none;">
-            <img src="imgs/layout.jpeg" title="Business Indicators in Real-Time"
-              class="animated slideInRight"
-              style="padding-top:70px;"/>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
-  <div class="feature teal white-text href2" id="disabled">
-    <div class="container detail">
-      <div class="row">
-        <div class="toolbox center">
-          <img src="imgs/toolbox-z1.png" title="ReportHub Toolbox"/>
-        </div>
-        <h1 class="center">A MEDIDA DE SUS NECESIDADES</h1>
-
-        <!--   Icon Section   -->
-        <div class="row" id="feature-row-1">
-
-
-          <div class="col s12 m4">
-            <div class="icon-block">
-              <h2 class="center white-text"><i class="medium material-icons">build</i></h2>
-              <h5 class="center">Reportando</h5>
-              <p class="light center">4wPlus permite informes personalizados para capturar los indicadores requeridos</p>
-            </div>
-          </div>
-
-          <div class="col s12 m4">
-            <div class="icon-block">
-              <h2 class="center white-text"><i class="medium material-icons">assignment_turned_in</i></h2>
-              <h5 class="center">Validación</h5>
-              <p class="light center">Todos los informes se validan al momento de la entrada y se pueden revisar para garantizar la confiabilidad</p>
-            </div>
-          </div>
-
-          <div class="col s12 m4">
-            <div class="icon-block">
-              <h2 class="center white-text"><i class="medium material-icons">alarm</i></h2>
-              <h5 class="center">Notificaciones</h5>
-              <p class="light center">4wPlus programa alertas y notificaciones para mantenerlo actualizado
-             </p>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="row" id="feature-row-2">
-          <div class="col s12 m4">
-            <div class="icon-block">
-              <h2 class="center white-text"><i class="medium material-icons">layers</i></h2>
-              <h5 class="center">Plataforma de Datos</h5>
-              <p class="light center">Se puede acceder a todos los datos e indicadores clave a través del motor de análisis para un análisis en profundidad</p>
-            </div>
-          </div>
-
-          <div class="col s12 m4">
-            <div class="icon-block">
-              <h2 class="center white-text"><i class="medium material-icons">bubble_chart</i></h2>
-              <h5 class="center">Dashboards</h5>
-              <p class="light center">4wPlus ofrece un completo motor de visualización de datos y paneles para explorar sus datos</p>
-            </div>
-          </div>
-
-          <div class="col s12 m4">
-            <div class="icon-block">
-              <h2 class="center white-text"><i class="medium material-icons">person_pin</i></h2>
-              <h5 class="center">Global</h5>
-              <p class="light center">4wPlus se escala fácilmente con la capacidad de cubrir todos sus requisitos de informes globales</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- 
-  <div class="feature">
-    <div id="prezi-player"></div>
-  </div> 
-  -->
-  
-  <!--<div class="feature prezi href2" id="disabled">
-    <div class="pointers"></div>
-    <iframe class="prezi_iframe"
-            width="100%" 
-            height=" 600"
-            frameborder="0" 
-            webkitallowfullscreen="" 
-            mozallowfullscreen="" 
-            allowfullscreen=""
-            src="https://prezi.com/embed/nsxxpzly2cb5/?bgcolor=ffffff&amp;lock_to_path=1&amp;autoplay=1&amp;autohide_ctrls=0&amp;landing_data=bHVZZmNaNDBIWnNjdEVENDRhZDFNZGNIUE43MHdLNWpsdFJLb2ZHanI5dVN6cUQvdmdpbDJ0SlBkcVdQZVZ4a2hnPT0&amp;landing_sign=_fUbmZ2E7ivav0kQshmmpNzgF5ur4ca02ATl1osJukg">
-    </iframe>
-  </div>-->
-
-  <div class="feature href2" id="disabled">
-    <div class="container detail">
-
-      <div class="row" style="padding-bottom:0px;">
-        <div class="col s12 center grey-text text-darken-2">
-          <h1>METRICAS</h1>
-          <h2>Cumplir con los Requisitos de los Informes Humanitarios</h2>
-          <!--<p>Since its launch in April 2017, ReportHub has significantly contributed to the humanitarian response efforts in Afghanistan by providing decision support in real-time. Initially implemented by the Afghanistan Health Cluster in 2016, ReportHub has since been expanded at the request of the ICCT to cover the reporting needs of all Afghanistan Humanitarian Clusters and Working Groups. In doing so, ReportHub has become the official HRP reporting platform for Afghanistan and is now being expanded into the Horn of Africa. Once partners submit a report, cluster indicators are available in real-time for analysis via RESTful APIs, from the dashboard for decision support and with direct links to UNOCHA's HPC tools for HRP reporting. Currently, ReportHub has <span class="users">0</span> Users reporting on <span class="locations">0</span> Locations for which <span class="reports">0</span> beneficiary Reports have been submitted.</p>-->
-        </div>
-      </div>
-
-      <div class="row" style="padding-bottom:50px;">
-
-        <div class="col s12 m4">
-          <div class="icon-block center">
-
-              <div class="card-panel circle center white grey-text text-darken-2 z-depth-2">
-                <div class="count"><span id="users">0</span></div>
-                <div class="name">Usuarios</div>
-              </div>
-
-          </div>
-        </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block center">
-
-            <div class="card-panel circle center white grey-text text-darken-2 z-depth-2">
-              <div class="count"><span id="locations">0</span></div>
-              <div class="name">Ubicaciones</div>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block center">
-              
-            <div class="card-panel circle center white grey-text text-darken-2 z-depth-2">
-              <div class="count"><span id="reports">0</span></div>
-              <div class="name">Reportes</div>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
-  <div class="parallax-container valign-wrapper href2">
-    <div class="section no-pad-bot">
-      <div class="container">
-        <div class="row center">
-          <h5 class="header col s12 light">apoyando a la comunidad humanitaria para salvar vidas.</h5>
-        </div>
-      </div>
-    </div>
-    <div class="parallax"><img src="imgs/footer.jpeg"></div>
-  </div>
-
-  <footer class="page-footer teal href2">
+  <footer class="page-footer teal">
     <div class="container">
       <div class="row">
          <div class="col s12 center white-text">
