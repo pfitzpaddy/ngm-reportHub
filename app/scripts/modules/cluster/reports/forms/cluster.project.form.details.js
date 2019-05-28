@@ -278,13 +278,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							})
 						}
 					}
-					// init
-					setTimeout( function(){
-						$( '#ngm-project-name' ).focus();
-						$( 'select' ).material_select();
-						$( 'textarea' ).height( $('textarea')[0].scrollHeight );
-					}, 600 );
-
 				},
 
 				// cofirm exit if changes

@@ -74,10 +74,15 @@
 								<i class="material-icons">delete</i>
 							</button> -->
 						</div>
+
+
+
 						
-						<!-- panel -->
+						<!-- CARD PANEL -->
 						<div class="card-panel">
 							
+							
+
 							<!-- DEFAULT -->
 							<div class="row">
 								
@@ -126,9 +131,12 @@
 
 
 
+
+							<!-- DETAILS, INDICATORS -->
+
 							<!-- DETAILS -->
 
-							<!-- detail only -->
+							<!-- detail -->
 							<div class="row" ng-if="beneficiary.activity_description_id && 
 																ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'detail' ]">
 
@@ -155,7 +163,7 @@
 								</div>
 							</div>
 
-							<!-- detail && indicator -->
+							<!-- indicator -->
 							<div class="row" ng-if="beneficiary.activity_description_id &&
 																ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'indicator' ]">
 
@@ -182,6 +190,7 @@
 													class="active" style="transform:translateY(-10%)">{{ 'indicator' | translate }}</label>
 								</div>
 							</div>
+
 
 
 
@@ -218,7 +227,8 @@
 														name="beneficiary_type_id-{{ $index }}"
 														class="validate"
 														ng-model="beneficiary.beneficiary_type_id"
-														ng-change="ngmClusterHelperCol.updateIndicatorObjective( project.definition.admin0pcode, beneficiary )"
+														ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_types, 'beneficiary_type_id', 'beneficiary_type_name', beneficiary );
+																				ngmClusterHelperCol.updateIndicatorObjective( project.definition.admin0pcode, beneficiary )"
 														ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types |
 																				filter: { 
 																					cluster_id: beneficiary.cluster_id
@@ -236,6 +246,7 @@
 														name="beneficiary_category_id-{{ $index }}"
 														class="validate"
 														ng-model="beneficiary.beneficiary_category_id"
+														ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_categories, 'beneficiary_category_id', 'beneficiary_category_name', beneficiary );"
 														ng-options="b.beneficiary_category_id as b.beneficiary_category_name for b in project.lists.beneficiary_categories"
 														ng-disabled="!beneficiary.beneficiary_type_id">
 										<option value="">{{ 'select' | translate }}</option>
@@ -248,9 +259,51 @@
 
 
 
-							<!-- HHs -->
+
+							<!-- UNITS -->
 							<div class="row"
-										ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'households' ]">
+										ng-if="( ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'unit_type_id' ] &&
+															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'units' ] ) &&
+														( !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ] &&
+															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_mechanism_type_id' ] &&
+															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'package_type_id' ] &&
+															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'transfer_type_id' ] )">
+								<!-- unit_type_id -->
+								<div class="input-field col s6">
+									<select id="ngm-unit_type_id-{{ $index }}" 
+														name="unit_type_id-{{ $index }}"
+														class="validate"
+														ng-model="beneficiary.unit_type_id"
+														ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'unit_type_id' ], 'unit_type_id', 'unit_type_name', beneficiary );"
+														ng-options="a.unit_type_id as a.unit_type_name for a in 
+																						ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'unit_type_id' ]"
+														ng-disabled="!beneficiary.beneficiary_type_id">
+										<option value="">{{ 'select' | translate }}</option>
+									</select>
+									<label for="ngm-unit_type_id-{{ $index }}" 
+													class="active" style="transform:translateY(-10%)">{{ 'units' | translate }}</label>
+								</div>
+								<!-- amount -->
+								<div class="input-field col s6">
+									<input id="ngm-units-{{ $index }}"
+													name="ngm-units-{{ $index }}"
+													type="number"
+													class="validate" 
+													min="0"
+													ng-model="beneficiary.units"
+													ng-disabled="project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'units' ]"
+													required />
+									<label for="ngm-households-{{ $index }}" class="active">{{ 'amount' | translate }}</label>
+								</div>
+							</div>
+
+
+							
+							
+							<!-- SADD-->
+						
+							<!-- HHs -->
+							<div class="row" ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'households' ]">
 
 								<!-- households -->
 								<div class="input-field col s12">
@@ -270,8 +323,7 @@
 							</div>
 
 							<!-- families -->
-							<div class="row"
-										ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'families' ]">
+							<div class="row" ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'families' ]">
 
 								<!-- families -->
 								<div class="input-field col s12">
@@ -292,10 +344,12 @@
 							
 							<!-- SADD (boys, girls) -->
 							<div class="row"
-										ng-if="( ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'boys' ] ||
+										ng-if="( ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'boys' ]  ||
 															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'girls' ] ) &&
-														( !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'men' ] ||
-															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'women' ] )">
+														( !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'men' ] &&
+															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'women' ] &&
+															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'elderly_men' ] &&
+															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'elderly_women' ] )">
 
 								<!-- boys -->
 								<div class="input-field col s12 m6">
@@ -324,6 +378,42 @@
 									<label for="ngm-girls-{{ $index }}" class="active">{{ 'girls' | translate }}</label>
 								</div>
 
+							</div>
+
+							<!-- SADD (men, women) -->
+							<div class="row"
+										ng-if="( ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'men' ]  ||
+															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'women' ] ) &&
+														( !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'boys' ] &&
+															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'girls' ] &&
+															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'elderly_men' ] &&
+															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'elderly_women' ] )">
+								<!-- men -->
+								<div class="input-field col s12 m6">
+									<input id="ngm-men-{{ $index }}" 
+													name="ngm-men-{{ $index }}"
+													type="number"
+													class="validate" 
+													min="0"
+													ng-model="beneficiary.men"
+													ng-disabled="project.report.report_status === 'complete' || 
+															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'men' ]"
+													required />
+									<label for="ngm-men-{{ $index }}" class="active">{{ 'men' | translate }}</label>
+								</div>
+								<!-- women -->
+								<div class="input-field col s12 m6">
+									<input id="ngm-women-{{ $index }}" 
+													name="ngm-women-{{ $index }}"
+													type="number"
+													class="validate" 
+													min="0"
+													ng-model="beneficiary.women"
+													ng-disabled="project.report.report_status === 'complete' || 
+															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'women' ]"
+													required />
+									<label for="ngm-women-{{ $index }}" class="active">{{ 'women' | translate }}</label>
+								</div>
 							</div>
 
 							
@@ -388,7 +478,6 @@
 													required />
 									<label for="ngm-women-{{ $index }}" class="active">{{ 'women' | translate }}</label>
 								</div>
-
 							</div>
 
 							
@@ -479,8 +568,8 @@
 													required />
 									<label for="ngm-elderly_women-{{ $index }}" class="active">{{ 'eld_women' | translate }}</label>
 								</div>
-
 							</div>
+	
 
 						</div>
 					</div>
@@ -511,3 +600,9 @@
 		</div>
 	</div>
 </div>
+
+<!-- material select -->
+<script type="text/javascript">
+	// init
+	setTimeout( function(){ $( 'select' ).material_select(); }, 600 );
+</script>
