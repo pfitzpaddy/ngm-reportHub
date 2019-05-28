@@ -63,7 +63,7 @@
             {{ ngmClusterBeneficiaries.displayDetails( project.lists, $data, beneficiary ) }}
           </span>
         </td>
-        <td>
+        <!--<td>
           <span e-form="rowform"
                 e-name="activity_cholera_response_id"
                 editable-select="beneficiary.activity_cholera_response_id"
@@ -74,6 +74,18 @@
                 e-ng-disabled="!beneficiary.activity_description_id">
             {{ ngmClusterBeneficiaries.displayCholera( project.lists, $data, beneficiary ) }}
           </span>
+        </td>-->
+        <td>
+          <span e-form="rowform"
+                e-name="delivery_type_id"
+                editable-select="beneficiary.delivery_type_id"
+                e-placeholder="{{'select'|translate}}"
+                e-ng-options="b.delivery_type_id as 
+                                b.delivery_type_name for 
+                                b in project.lists.activity_status_delivery_type"
+                e-ng-disabled="!beneficiary.activity_description_id">
+              {{ ngmClusterBeneficiaries.displayDelivery( project.lists, $data, beneficiary ) }}
+          </span>
         </td>
         <td>
           <span e-form="rowform"
@@ -81,7 +93,7 @@
                 editable-select="beneficiary.beneficiary_type_id"
                 e-placeholder="{{'select'|translate}}"
                 e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types | filter: { cluster_id: beneficiary.cluster_id }"
-                e-ng-disabled="!beneficiary.activity_cholera_response_id">
+                e-ng-disabled="!beneficiary.delivery_type_id">
             {{ ngmClusterBeneficiaries.displayBeneficiary( project.lists, $data, beneficiary ) }}
           </span>
         </td>
