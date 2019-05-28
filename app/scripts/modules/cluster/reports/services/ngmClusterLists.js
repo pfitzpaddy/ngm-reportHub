@@ -27,7 +27,10 @@ angular.module( 'ngmReportHub' )
       all_sectors_minus_wash: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_minus_wash_health: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_minus_wash_education: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
+      all_sectors_col: ['education','albergues','san','health','recuperacion_temprana','protection','wash','undaf'],
 
+
+       
       // lists ( project, mpc transfers )
       setLists: function( project, transfers ) {
 
@@ -60,7 +63,7 @@ angular.module( 'ngmReportHub' )
 					
           
           // keys to ignore when summing beneficiaries in template ( 2016 )
-          skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ],
+          skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ], 
 
           // NG cholera
           activity_cholera_response: [{ activity_cholera_response_id: 'yes', activity_cholera_response_name: 'Yes' },
@@ -2131,6 +2134,7 @@ angular.module( 'ngmReportHub' )
       // return ocha beneficiaries
       getBeneficiaries: function( year, admin0pcode, cluster_id ) {
 
+
         // default
         var beneficiaries = [{
             cluster_id: ngmClusterLists.all_sectors,
@@ -2239,52 +2243,52 @@ angular.module( 'ngmReportHub' )
 
 
           {
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_col,
             beneficiary_type_id: 'mine_victims',
             beneficiary_type_name: 'Víctimas de Minas'
           },
           {
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_col,
             beneficiary_type_id: 'natural_disaster_victims',
             beneficiary_type_name: 'Víctimas de Desastres Naturales'
           },
           {
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_col,
             beneficiary_type_id: 'idps',
             beneficiary_type_name: 'Población Desplazada Interna'
           },
           {
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_col,
             beneficiary_type_id: 'massive_displacement_affected',
             beneficiary_type_name: 'Afectados por Desplazamiento Masivo'
           },
           {
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_col,
             beneficiary_type_id: 'host_communities',
             beneficiary_type_name: 'Host Communities'
           },
           {
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_col,
             beneficiary_type_id: 'sex_crimes_victims',
             beneficiary_type_name: 'Víctimas de Delitos Sexuales'
           },
           {
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_col,
             beneficiary_type_id: 'people_with_limitations_mobility_confinement',
             beneficiary_type_name: 'Población con Limitaciones de Movilidad y Confinamiento'
           },
           {
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_col,
             beneficiary_type_id: 'refugess_and_asylum_seekers',
             beneficiary_type_name: 'Refugiados y Solicitantes de Asilo'
           },
           {
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_col,
             beneficiary_type_id: 'migrants',
             beneficiary_type_name: 'Migrantes'
           },
           {
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_col,
             beneficiary_type_id: 'desmobilized_reinserted',
             beneficiary_type_name: 'Desmovilizados / Reinsertados'
           }
