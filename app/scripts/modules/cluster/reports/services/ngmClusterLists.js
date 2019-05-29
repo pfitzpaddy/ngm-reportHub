@@ -68,6 +68,7 @@ angular.module( 'ngmReportHub' )
           // NG cholera
           activity_cholera_response: [{ activity_cholera_response_id: 'yes', activity_cholera_response_name: 'Yes' },
                               { activity_cholera_response_id: 'no', activity_cholera_response_name: 'No' }],
+          activity_status_delivery_type: [{delivery_type_id: 'completed',delivery_type_name: 'Completed'},{delivery_type_id: 'planned',delivery_type_name: 'Planned'}],
 
           // training
           trainee_affiliations: [{ trainee_affiliation_id: 'community', trainee_affiliation_name: 'Community' },
@@ -332,7 +333,11 @@ angular.module( 'ngmReportHub' )
           },{
             delivery_type_id: 'contingency',
             delivery_type_name: 'Contingency'
-          }];
+          },{delivery_type_id: 'completed',
+             delivery_type_name: 'Completed'
+          },{delivery_type_id: 'planned',
+            delivery_type_name: 'Planned'
+        }];
         }
 
         return delivery;

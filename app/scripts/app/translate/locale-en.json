@@ -533,6 +533,7 @@
         "region":"REGION",
 
         "cholera_response":"Cholera Response",
+        "activity_status":"Activity Status",
 
         "add_activities":"Add Activities",
 
