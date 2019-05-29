@@ -437,6 +437,10 @@ angular.module( 'ngmReportHub' )
        if ( ($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63') && admin0pcode.toLowerCase() === 'all') {
 
           [{
+             cluster_id: 'cvwg',
+            cluster: 'Dinero Multi Propósito'
+          },
+          {
             cluster_id: 'education',
             cluster: 'Educación en Emergencias (EeE)'
           },{
@@ -604,6 +608,9 @@ angular.module( 'ngmReportHub' )
         }
         else if ( admin0pcode.toLowerCase() === 'col' ) {
           clusters = [{
+             cluster_id: 'cvwg',
+            cluster: 'Dinero Multi Propósito'
+          },{
             cluster_id: 'education',
             cluster: 'Educación en Emergencias (EeE)'
           },{
