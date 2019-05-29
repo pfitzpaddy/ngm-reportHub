@@ -214,12 +214,16 @@ li {
 		$( '.carousel.carousel-slider' ).carousel({ full_width: true });
 		// goTo login page
 		$( '.carousel' ).carousel( 'set', 2 );
+		// focus
+		$('#ngm-password').focus();
 	}, 100 );	
 
 	// hidden to start
 	setTimeout( function(){
 		$('.one').css({display: 'block'});
 		$('.two').css({display: 'block'});
+		// focus
+		$('#ngm-username').focus();
 	}, 400);
 
 	// goto login

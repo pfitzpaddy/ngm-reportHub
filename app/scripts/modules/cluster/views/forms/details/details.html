@@ -157,18 +157,33 @@
 									</label>
 								</div>
 								
-								<!-- label -->
-								<div ng-if="project.definition.project_hrp_project" class="input-field col s12 m6">
-								  <input id="ngm-project_hrp_code" type="text" class="validate"
-								  	ng-model="project.definition.project_hrp_code" disabled="true">
-								  <label for="ngm-project-budget">{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} Project Code</label>
-								</div>
-								<div ng-if="!project.definition.project_hrp_project" class="input-field col s12 m6">
-								  <input id="ngm-project_hrp_code" type="text" class="validate"
-								  	ng-model="project.definition.project_hrp_code" disabled="true">
-								  <label for="ngm-project_hrp_code">Non-{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} {{'project_code' | translate}}</label>
+								<!-- project_hrp_code -->
 
+								<!-- default -->
+								<div ng-if="project.definition.admin0pcode !== 'SO'">
+									<div ng-if="project.definition.project_hrp_project" class="input-field col s12 m6">
+									  <input id="ngm-project_hrp_code" type="text" class="validate" ng-model="project.definition.project_hrp_code" disabled="true">
+									  <label for="ngm-project-budget">{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} Project Code</label>
+									</div>
+									<div ng-if="!project.definition.project_hrp_project" class="input-field col s12 m6">
+									  <input id="ngm-project_hrp_code" type="text" class="validate" ng-model="project.definition.project_hrp_code" disabled="true">
+									  <label for="ngm-project_hrp_code">Non-{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} {{'project_code' | translate}}</label>
+									</div>
 								</div>
+
+								<!-- NG project_hrp_code -->
+								<div ng-if="project.definition.admin0pcode === 'SO'">
+									<div ng-if="project.definition.project_hrp_project" class="input-field col s12 m6">
+									  <input id="ngm-project_hrp_code" type="text" class="validate" ng-model="project.definition.project_hrp_code">
+									  <label for="ngm-project-budget">{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} Project Code</label>
+									</div>
+									<div ng-if="!project.definition.project_hrp_project" class="input-field col s12 m6">
+									  <input id="ngm-project_hrp_code" type="text" class="validate" ng-model="project.definition.project_hrp_code">
+									  <label for="ngm-project_hrp_code">Non-{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} {{'project_code' | translate}}</label>
+									</div>
+								</div>
+
+
 
 							</div>
 
