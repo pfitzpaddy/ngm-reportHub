@@ -30,7 +30,8 @@
                     <td ng-show="project.showProgrammingLabel()">{{'programming' | translate}}</td>
                     <td>{{'recieved' | translate}}*</td>
                     <td>{{'multi_year_funding' | translate}}</td>
-                    <td ng-show="project.showFunding2017()">2017 {{'funding' | translate}}</td>
+										<!-- <td ng-show="project.showFunding2017()">2017 {{'funding' | translate}}</td> -->
+										<td ng-show="project.showMultiYearFunding()">For Year</td>
                     <td>{{'on' |translate}} FTS?</td>
                     <td ng-show="project.showFtsIdLabel()">FTS ID</td>
                     <td>{{'notes' | translate}}</td>
@@ -138,14 +139,25 @@
                       </span>
                     </td>
 
-                    <td ng-show="project.showFunding2017()">
-                      <!-- number -->
+                    <!-- <td ng-show="project.showFunding2017()">                      
                       <span e-form="rowform" 
                             e-name="funding_2017"
                             editable-number="budget.funding_2017"
                             e-min="0"
                             ng-disabled="budget.multi_year_funding_id === 'no'">
                         {{ budget.funding_2017 }}
+                      </span>
+                    </td> -->
+										
+										<td ng-show="project.showMultiYearFunding()">
+											<span e-form="rowform"
+                            e-name="funding_year"
+                            editable-select="budget.funding_year"
+                            e-placeholder="{{'select'|translate}}"
+														e-ng-options=" year for year in multiYearRange"
+														e-ng-disabled="budget.multi_year_funding_id=== 'no'"
+												>
+												{{budget.funding_year?budget.funding_year:'-'}}
                       </span>
                     </td>
 

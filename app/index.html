@@ -2,7 +2,10 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>ReportHub</title>
+		
+		<!-- title -->
+		<title id="title"></title>
+		
 		<!-- configured in webserver -->
 		<base href="/desk/">
 		<meta name="description" content="ReportHub, Dashboard, Reporting, Key Business Indicators">
@@ -15,22 +18,24 @@
 		<!-- vendor css -->
 		<!-- build:css(.) styles/vendor.css -->
 		<!-- bower:css -->
-		<link rel='stylesheet' href='bower_components/leaflet/dist/leaflet.css' />
-		<link rel='stylesheet' href='bower_components/cal-heatmap/cal-heatmap.css' />
-		<link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.css' />
-		<link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css' />
-		<link rel='stylesheet' href='bower_components/materialize/bin/materialize.css' />
-		<link rel='stylesheet' href='bower_components/ngm-leaflet-control-geocoder/Control.Geocoder.css' />
-		<link rel='stylesheet' href='bower_components/ngm-leaflet-fullscreen/dist/leaflet.fullscreen.css' />
-		<link rel='stylesheet' href='bower_components/dropzone/dist/min/dropzone.min.css' />
-		<link rel='stylesheet' href='bower_components/ng-table/dist/ng-table.min.css' />
-		<link rel='stylesheet' href='bower_components/angular-xeditable/dist/css/xeditable.min.css' />
+		<link rel='stylesheet' href='bower_components/leaflet/dist/leaflet.css'>
+		<link rel='stylesheet' href='bower_components/cal-heatmap/cal-heatmap.css'>
+		<link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.css'>
+		<link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css'>
+		<link rel='stylesheet' href='bower_components/materialize/bin/materialize.css'>
+		<link rel='stylesheet' href='bower_components/ngm-leaflet-control-geocoder/Control.Geocoder.css'>
+		<link rel='stylesheet' href='bower_components/ngm-leaflet-fullscreen/dist/leaflet.fullscreen.css'>
+		<link rel='stylesheet' href='bower_components/dropzone/dist/min/dropzone.min.css'>
+		<link rel='stylesheet' href='bower_components/ng-table/dist/ng-table.min.css'>
+		<link rel='stylesheet' href='bower_components/angular-xeditable/dist/css/xeditable.min.css'>
+		<link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
 		<!-- endbower -->
 		<!-- endbuild -->
 
+
 		<!-- ngm css -->
 		<!-- build:css(.tmp) styles/main.css -->
-		<link rel="stylesheet" href="styles/iconfont.css" />
+		<link rel="stylesheet" href="styles/iconfont.css">
 		<link rel="stylesheet" href="styles/main.css">	
 		<link rel="stylesheet" href="styles/ngm-menu.css">
 		<link rel="stylesheet" href="styles/ngm-form.css">
@@ -43,8 +48,8 @@
 		<!-- ie modal -->
 		<div id="ngm-ie-modal" class="modal">
 			<div class="modal-content">
-	      <h4></img>{{'download_google_chrome' | translate}}</h4>
-	      <p><img align="center" src="images/chrome.png" width="10%">{{'google_chrome_is_the_required_browser_for_reporthub' | translate}}!</p>
+	      <h4>{{'download_google_chrome' | translate}}</h4>
+	      <p><img align="center" src="images/chrome.png" width="10%">{{'google_chrome_is_the_required_browser_for' | translate}} {{ngm.var4wplusrh}}!</p>
 			</div>
 	    <div class="modal-footer">
 	      <a class="waves-effect waves-teal btn-flat" href="https://www.google.com/chrome">{{'download' | translate}}</a>
@@ -94,12 +99,19 @@
 						<!-- profile menu -->
 						<!-- profile menu btn (implementing jQuery slideToggle() )-->
 						<div class="ngm-profile-menu">
-							<div class="ngm-profile-btn fixed-action-btn" 
-										align="right">
-								<a class="btn-floating btn-large"
+							<div class="ngm-profile-btn fixed-action-btn" align="right">
+								<!-- <a class="btn-floating btn-large"
 										ng-class="{ 'waves-effect waves-teal waves-teal-lighten-4' : ngm.getUserName() !== 'welcome' }"
-										style="background: {{ ngm.style.defaultPrimaryColor }};" >
+										style="background: {{ ngm.style.defaultPrimaryColor }};">
 									<i class="ngm-profile-icon material-icons right">menu</i>
+								</a> -->
+								<a class="btn-floating btn-large" ng-class="{ 'waves-effect waves-teal waves-teal-lighten-4' : ngm.getUserName() !== 'welcome' }"
+								 style="background: {{ ngm.style.defaultPrimaryColor }};">
+									<div id="xmenu" class="ngm-profile-icon">
+										<span></span>
+										<span></span>
+										<span></span>
+									</div>
 								</a>
 							</div>
 							<!-- profile menu dropdown -->
@@ -110,22 +122,26 @@
 							<!-- profile menu dropdown list -->
 							<ul class="ngm-profile-menu-content dropdown-content z-depth-2">
 
-								<li align="center" class="teal z-depth-2" ng-show="ngm.getUsername() !== 'welcome'">
-										
-										<a class="white-text" >
-											
-											{{'language'|translate}}: <span class="white-text" ng-click="ngm.changeFunction('en');">EN</span> /
-											<span class="white-text" ng-click="ngm.changeFunction('es');">ES</span>
-										</a> 
+									<li align="center" class="teal z-depth-2" 
+											ng-init="open = false;ngm.setLanguage('col')"
 
-										<!--<ul>
-											<li><a class="white-text right" ng-click="ngm.changeFunction('en');">EN</a></li>
-											<li><a class="white-text right" ng-click="ngm.changeFunction('es');">ES</a></li>
-										</ul>-->
-
-									
+											ng-show="ngm.getUsername() === 'welcome' || (ngm.translate_version )">
+										<a class="white-text right" ng-click="open= !open;"> 
+											<i class="material-icons smedium right">translate</i>{{'language'|translate}}</a>
+										</a>										
 									</li>
-
+									<div ng-if="open" style="margin-bottom: 5px; background-color: #fff">
+										<ul>
+											<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-repeat="lang in ngm.getLanguage">
+												<a class="" ng-click="ngm.changeFunction( lang.language_id );">{{ lang.language_name }}</a>
+											
+												<div style="position:absolute;top:9px;right: 20px" ng-click="ngm.changeFunction( lang.language_id );">
+													<img style="width: 32px;height: 32px;" src="images/{{lang.flag}}">
+												</div>
+											
+											</li>
+										</ul>
+									</div>
 									<!-- user login -->
 									<li align="right" class="teal z-depth-2"
 											ng-show="ngm.getUserName() === 'welcome' && ngm.style.home === '#/immap'">
@@ -253,8 +269,7 @@
 									</li>
 									<!-- DROUGHT -->
 									<li align="center" class="teal z-depth-2"
-									 ng-if="ngm.getUser().admin0pcode.toLowerCase() === 'af'"
-									>
+									 			ng-if="ngm.getUser().admin0pcode.toLowerCase() === 'af'">
 										<a class="white-text right" href="#/response/afghanistan/drought" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">bubble_chart</i>{{'drought' | translate}} DASHBOARD</a>
 									</li>
@@ -282,7 +297,7 @@
 									<!-- contact modal -->
 									<li align="center" class="teal z-depth-2">
 										<a class="white-text right" ng-click="ngm.contact(); ngm.toggleNavigationMenu()">
-										<i class="material-icons smedium right">perm_phone_msg</i>{{'contact_mayus' | translate}} REPORTHUB</a>
+										<i class="material-icons smedium right">perm_phone_msg</i>{{'contact_mayus' | translate}} {{ngm.var4wplusrh}}</span></a>
 									</li>
 
 									
@@ -389,6 +404,9 @@
 		<!-- bower:js -->
 		<script src="bower_components/jquery/dist/jquery.js"></script>
 		<script src="bower_components/angular/angular.js"></script>
+		
+		<script src="bower_components/angular-aria/angular-aria.js"></script>
+		<script src="bower_components/angular-material/angular-material.js"></script>
 		<script src="bower_components/angular-animate/angular-animate.js"></script>
 		<script src="bower_components/angular-cookies/angular-cookies.js"></script>
 		<script src="bower_components/angular-filter-count-to/dist/angular-filter-count-to.min.js"></script>
@@ -468,6 +486,7 @@
 
 		<!-- MONTHLY -->
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.reports.list.js"></script>
+		<script src="scripts/modules/cluster/reports/controllers/cluster.project.reports.group.js"></script>
 		<script src="scripts/modules/cluster/reports/controllers/cluster.project.report.js"></script>		
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.details.js"></script>
 		<script src="scripts/modules/cluster/reports/forms/cluster.project.form.financials.js"></script>
@@ -480,11 +499,16 @@
 		<script src="scripts/modules/cluster/reports/services/ngmClusterLocations.js"></script>
 		<script src="scripts/modules/cluster/reports/services/ngmClusterTrainings.js"></script>
 		<script src="scripts/modules/cluster/reports/services/ngmClusterValidation.js"></script>
+		<script src="scripts/modules/cluster/reports/services/ngmClusterDocument.js"></script>
 		
 		<!-- AF -->
 		<script src="scripts/modules/cluster/reports/services/AF/ngmClusterHelperAf.js"></script>
 		<!-- CB -->
 		<script src="scripts/modules/cluster/reports/services/CB/ngmCbLocations.js"></script>
+		<script src="scripts/modules/cluster/reports/services/CB/ngmCbBeneficiaries.js"></script>
+		<!-- COL -->
+		<script src="scripts/modules/cluster/reports/services/COL/ngmClusterHelperCol.js"></script>
+
 		<!-- NG -->
 		<script src="scripts/modules/cluster/reports/services/NG/ngmClusterHelperNgWash.js"></script>
 		<script src="scripts/modules/cluster/reports/services/NG/ngmClusterHelperNgWashKeys.js"></script>

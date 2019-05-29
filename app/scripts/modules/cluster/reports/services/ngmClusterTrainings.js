@@ -80,17 +80,20 @@ angular.module( 'ngmReportHub' )
 
       // add participant
       addParticipant: function( $scope, training  ){
+        
         // trainings
         $scope.participantInserted = {
           trainee_men: 0,
           trainee_women: 0
         }
 
-        var length = training.training_participants.length;
-        if ( length ) {
+        // get previous
+        if ( training.training_participants && training.training_participants.length ) {
           var p = angular.copy( training.training_participants[ length - 1 ] );
           delete p.id;
           $scope.participantInserted = angular.merge( $scope.participantInserted, p );
+        } else {
+          training.training_participants = [];
         }
 
         // add to training participants
@@ -160,23 +163,23 @@ angular.module( 'ngmReportHub' )
         var t = project.report.locations[ $grandParent ].trainings[ $parent ].training_participants[ $index ];
         project.report.locations[ $grandParent ].trainings[ $parent ].training_participants.splice( $index, 1 );
 
-				if(!t.copy_prev_month){
-        // setReportRequest
-        var removeTrainingParticipantRequest = {
-          method: 'POST',
-          url: ngmAuth.LOCATION + '/api/cluster/report/removeTrainee',
-          data: { id: t.id }
+				if( t.id ){
+          // setReportRequest
+          var removeTrainingParticipantRequest = {
+            method: 'POST',
+            url: ngmAuth.LOCATION + '/api/cluster/report/removeTrainee',
+            data: { id: t.id }
+          }
+
+          // set report
+          $http( removeTrainingParticipantRequest ).success( function( result ){
+            if ( result.err ) { Materialize.toast( 'Error! Please try again', 6000, 'error' );}
+            if ( !result.err ) {  project.save( false, false ); }
+          }).error(function( err ) {
+            Materialize.toast( 'Error!', 6000, 'error' );
+          });
         }
-
-        // set report
-        $http( removeTrainingParticipantRequest ).success( function( result ){
-          if ( result.err ) { Materialize.toast( 'Error! Please try again', 6000, 'error' );}
-          if ( !result.err ) {  project.save( false, false ); }
-        }).error(function( err ) {
-          Materialize.toast( 'Error!', 6000, 'error' );
-        });
-
-      }},
+      },
 
       // ennsure all locations contain at least one complete beneficiaries
       trainingFormComplete: function( locations ) {
@@ -192,7 +195,7 @@ angular.module( 'ngmReportHub' )
                 if ( !ngmClusterTrainings.rowSaveDisabledTraining( t ) ) {
                   rowCompleteTrainings++;
                 }
-                if( t.training_participants.length ) {
+                if( t.training_participants && t.training_participants.length ) {
                   training_participants += t.training_participants.length;
                   angular.forEach( t.training_participants, function( p ){
                     if ( !ngmClusterTrainings.rowSaveDisabledTrainingParticipant( p ) ) {
@@ -322,22 +325,16 @@ angular.module( 'ngmReportHub' )
 
       // remove from array if no id
       cancelTrainingEdit: function( location, $index ) {			
-        if ( !location.trainings[ $index ].id ) {
-					if (!location.trainings[ $index ].copy_prev_month) {						
-						location.trainings.splice($index, 1);
-					}
-          // location.trainings.splice( $index, 1 );
+        if ( !location.trainings[ $index ].id ) {					
+					location.trainings.splice($index, 1);
         }
       },
 
       // remove from array if no id
       cancelTraineeEdit: function( training, $index ) {
         if ( !training.training_participants[ $index ].id ) {
-					if (!training.training_participants[$index].copy_prev_month) {
-						training.training_participants.splice($index, 1);
-					}
-          // training.training_participants.splice( $index, 1 );
-        }
+					training.training_participants.splice($index, 1);
+				}
       },
 
     };

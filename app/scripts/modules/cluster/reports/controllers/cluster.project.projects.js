@@ -13,6 +13,9 @@ angular.module( 'ngmReportHub' )
 			'Karma'
 		];
 
+		// init empty model
+		$scope.model = $scope.$parent.ngm.dashboard.model;
+
 		// report object
 		$scope.report = {
 
@@ -29,10 +32,10 @@ angular.module( 'ngmReportHub' )
 			report_title: ngmUser.get().organization_tag  +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
 
 			// title
-			title: ngmUser.get().admin0name.toUpperCase().substring( 0, 3 ) + ' | ' + ngmUser.get().organization + ' | Projects',
+			title: ngmUser.get().organization + ' | ' + ngmUser.get().admin0name.toUpperCase().substring( 0, 3 ) + ' | '+$filter('translate')('projects_mayus1'),
 
 			// subtitle
-			subtitle: 'Projects for ' + ngmUser.get().organization + ' ' + ngmUser.get().admin0name,
+			subtitle: $filter('translate')('projects_for_mayus1')+' ' + ngmUser.get().organization + ' ' + ngmUser.get().admin0name,
 
 			// get url
 			getMenuUrl: function( cluster_id ){
@@ -85,8 +88,8 @@ angular.module( 'ngmReportHub' )
 								
 							// set titles
 							$scope.model.header.download.downloads[0].request.data.report = organization.organization_tag  +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
-							$scope.model.header.title.title = organization.admin0name.toUpperCase().substring( 0, 3 ) + ' | ' + organization.organization + ' | Projects';
-							$scope.model.header.subtitle.title = 'Projects for ' + organization.organization + ' ' + organization.admin0name;
+							$scope.model.header.title.c = organization.organization + ' | ' + organization.admin0name.toUpperCase().substring( 0, 3 ) + ' | '+$filter('translate')('projects_mayus1');
+							$scope.model.header.subtitle.title = $filter('translate')('projects_for_mayus1')+' ' + organization.organization + ' ' + organization.admin0name;
 
 						});
 
@@ -109,7 +112,7 @@ angular.module( 'ngmReportHub' )
 							$scope.model.menu[ 0 ].rows.push({
 								'title': d.cluster,
 								'param': 'cluster_id',
-								'active': d.cluster,
+								'active': d.cluster_id,
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 								'href': $scope.report.getMenuUrl( d.cluster_id )
 							});
@@ -181,7 +184,7 @@ angular.module( 'ngmReportHub' )
 								type: 'csv',
 								color: 'blue lighten-2',
 								icon: 'assignment',
-								hover: 'Download Project Summaries as CSV',
+								hover: $filter('translate')('download_project_summaries_as_csv'),
 								request: {
 									method: 'POST',
 									url: ngmAuth.LOCATION + '/api/cluster/project/getProjects',
@@ -217,7 +220,7 @@ angular.module( 'ngmReportHub' )
 						'title': 'Sector',
 						'class': 'teal lighten-1 white-text',
 						'rows': [{
-							'title': 'All',
+							'title': $filter('translate')('all'),
 							'param': 'cluster_id',
 							'active': 'all',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
@@ -232,7 +235,7 @@ angular.module( 'ngmReportHub' )
 								card: 'white grey-text text-darken-2',
 								style: 'padding: 20px;',
 								config: {
-									html: '<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="' + $scope.report.getOrganizationHref() + '"><i class="material-icons left">keyboard_return</i>Back to Organization</a><a class="waves-effect waves-light btn right" href="' + $scope.report.newProjectUrl + '"><i class="material-icons left">add_circle_outline</i>Add New Project</a>'
+									html: '<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="' + $scope.report.getOrganizationHref() + '"><i class="material-icons left">keyboard_return</i>'+$filter('translate')('back_to_organization')+'</a><a class="waves-effect waves-light btn right" href="' + $scope.report.newProjectUrl + '"><i class="material-icons left">add_circle_outline</i>'+$filter('translate')('add_new_project')+'</a>'
 								}
 							}]
 						}]
@@ -247,7 +250,7 @@ angular.module( 'ngmReportHub' )
 									// color: 'teal lighten-4',
 									color: 'blue lighten-1',
 									textColor: 'white-text',
-									title: 'Active Projects',
+									title: $filter('translate')('active_projects'),
 									icon: 'edit',
 									request: $scope.report.getProjectRequest( 'active' )
 								}
@@ -264,7 +267,7 @@ angular.module( 'ngmReportHub' )
 									// color: 'lime lighten-4',
 									color: 'blue lighten-1',
 									textColor: 'white-text',
-									title: 'Completed Projects',
+									title: $filter('translate')('completed_projects'),
 									icon: 'done',
 									request: $scope.report.getProjectRequest( 'complete' )
 								}

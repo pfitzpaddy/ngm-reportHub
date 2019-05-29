@@ -21,18 +21,32 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
     '$http',
     '$location',
     '$timeout',
-    '$filter',
+     '$filter',
     '$q',
     'ngmAuth',
     'ngmUser',
     'ngmData',
+		'ngmClusterLists',
     'config',
-    function( $scope, $http, $location, $timeout, $filter, $q, ngmAuth, ngmUser, ngmData, config){
+    '$translate',
+		function ($scope, $http, $location, $timeout, $filter, $q, ngmAuth, ngmUser, ngmData, ngmClusterLists, config,$translate){
+       
 
+      // if($location.$$host === "192.168.33.16" || $location.$$host === "35.229.43.63" || $location.$$host === "192.168.33.16" ){
+       if($location.$$host === "4wplus.org" || $location.$$host === "35.229.43.63" ){
+
+      var4wplusrh = "4wPlus";
+
+    }else{
+      var4wplusrh = "ReportHub"
+    }
+      
       // project
       $scope.panel = {
 
         err: false,
+        
+        var4wplusrh :var4wplusrh,
 
         date : new Date(),
 
@@ -60,9 +74,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'SY', admin0name: 'Syria' },
           { adminRpcode: 'EURO', adminRname: 'EURO', admin0pcode: 'UA', admin0name: 'Ukraine' },
           { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'UR', admin0name: 'Uruk' },
-          { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'YE', admin0name: 'Yemen' },
-          { adminRpcode: 'AMER', adminRname: 'AMER', admin0pcode: 'COL', admin0name: 'Colombia'}
-
+          { adminRpcode: 'EMRO', adminRname: 'EMRO', admin0pcode: 'YE', admin0name: 'Yemen' }
 
         ],
 
@@ -81,28 +93,44 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
         // cluster
         cluster: {
-          'cvwg': { cluster: 'MPC' },
-          'agriculture': { cluster: 'Agriculture' },
-          'cccm_esnfi': { cluster: 'CCCM - Shelter' },
-          'cwcwg': { cluster: 'CwCWG' },
-          'coordination': { cluster: 'Coordination' },
-          'education': { cluster: 'Education' },
-          'eiewg': { cluster: 'EiEWG' },
-          'emergency_telecommunications': { cluster: 'Emergency Telecommunications' },
-          'esnfi': { cluster: 'ESNFI' },
-          'fsac': { cluster: 'FSAC' },
-          'fss': { cluster: 'Food Security' },
-          'health': { cluster: 'Health' },
-          'logistics': { cluster: 'Logistics' },
-          'smsd': { cluster: 'Site Management and Site Development' },
-          'nutrition': { cluster: 'Nutrition' },
-          'protection': { cluster: 'Protection' },
-          'rnr_chapter': { cluster: 'R&R Chapter' },
-          'wash': { cluster: 'WASH' }
+          'col' : {
+            'education':{cluster:'Educación en Emergencias (EeE)'},
+            'albergues':{cluster:'Albergues'},
+            'san':{cluster:'Seguridad Alimentaria y Nutrición (SAN'},
+            'health':{cluster:'Salud'},
+            'recuperacion_temprana':{cluster:'Recuperación Temprana'},
+            'protection':{cluster:'Protección'},
+            'wash':{cluster:'Wash'},
+            'undaf':{cluster:'UNDAF'}
+          }, 
+          'other': {
+            'cvwg': { cluster: 'MPC' },
+            'agriculture': { cluster: 'Agriculture' },
+            'cccm_esnfi': { cluster: 'CCCM - Shelter' },
+            'cwcwg': { cluster: 'CwCWG' },
+            'coordination': { cluster: 'Coordination' },
+            'education': { cluster: 'Education' },
+            'eiewg': { cluster: 'EiEWG' },
+            'emergency_telecommunications': { cluster: 'Emergency Telecommunications' },
+            'esnfi': { cluster: 'ESNFI' },
+            'fsac': { cluster: 'FSAC' },
+            'fss': { cluster: 'Food Security' },
+            'health': { cluster: 'Health' },
+            'logistics': { cluster: 'Logistics' },
+            'smsd': { cluster: 'Site Management and Site Development' },
+            'nutrition': { cluster: 'Nutrition' },
+            'protection': { cluster: 'Protection' },
+            'rnr_chapter': { cluster: 'R&R Chapter' },
+            'wash': { cluster: 'WASH' }
+  				}
+        },
+				clusters: ngmClusterLists.getClusters('all').filter(cluster=>cluster.registration!==false),
+				clusterByCountry: function() {					
+					country = $scope.panel.user.admin0pcode? $scope.panel.user.admin0pcode:'all';
+					$scope.panel.clusters = ngmClusterLists.getClusters(country).filter(cluster=>cluster.registration!==false);
 				},
 				
 				// editable role array:
-				
 				editRoleUrl: '/scripts/app/views/authentication/edit-role.html',
 
         // login fn
@@ -130,7 +158,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                 // go to default org page
                 $location.path( result.app_home );
                 $timeout( function(){
-                  Materialize.toast( 'Welcome back ' + result.username + '!', 3000, 'note' );
+
+                  Materialize.toast( $filter('translate')('welcome_back')+' ' + result.username + '!', 6000, 'note' );
                 }, 2000);
               }
 
@@ -138,6 +167,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
           }
         },
+
+
 
         // open modal by id 
         openModal: function( modal ) {
@@ -169,13 +200,13 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             
             if ( data.success ) {
               // success message
-              Materialize.toast( 'Success! User Deleted!', 6000, 'success' );
+              Materialize.toast( $filter('translate')('success')+' '+$filter('translate')('user_deleted'), 6000, 'success' );
               $timeout( function(){
                 var path = ( ngmUser.get().organization === 'iMMAP' && ( ngmUser.get().admin0pcode === 'CD' || ngmUser.get().admin0pcode === 'ET' ) ) ? '/immap/team' : '/team';
                 $location.path( path );
               }, 1000 );
             } else {
-              Materialize.toast( 'Error! Try Again!', 6000, 'error' );
+              Materialize.toast( $filter('translate')('error_try_again'), 6000, 'error' );
             }
 
           });
@@ -183,6 +214,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
         // update profile
         update: function( reload ) {
+
+          // message
+          $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); }, 200 );
 
           // disable btns
           $scope.panel.btnDisabled = true;
@@ -218,8 +252,11 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                   ngmUser.set( $scope.panel.user );
                 }
                 // success message
-                Materialize.toast( 'Success! Profile updated!', 6000, 'success' );
+
                 $timeout( function(){
+
+                  // 
+                  Materialize.toast( $filter('translate')('success')+' '+$filter('translate')('profile_updated'), 6000, 'success' );
                   
                   // activate btn
                   $scope.panel.btnDisabled = false;
@@ -229,7 +266,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
                     var path = ( ngmUser.get().organization === 'iMMAP' && ( ngmUser.get().admin0pcode === 'CD' || ngmUser.get().admin0pcode === 'ET' ) ) ? '/immap/team' : '/team';
                     $location.path( path );
                   }
-                }, 1000 );
+                }, 200 );
               }
 
             });
@@ -238,11 +275,15 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         // register fn
         register: function( ngmRegisterForm ){
 
+         // var country = ($scope.panel.user.admin0pcode == 'COL' ? 'col' : 'other');
+          var cluster = $scope.panel.clusters.filter(c => c.cluster_id === $scope.panel.user.cluster_id)[0].cluster;
           // merge adminRegion
           $scope.panel.user = angular.merge( {}, $scope.panel.user,
                                                   $filter('filter')( $scope.panel.programme, { programme_id: $scope.panel.user.programme_id }, true)[0],
                                                   $filter('filter')( $scope.panel.adminRegion, { admin0pcode: $scope.panel.user.admin0pcode }, true)[0],
-                                                  $scope.panel.cluster[ $scope.panel.user.cluster_id ] );
+                                                  //$scope.panel.cluster[country][ $scope.panel.user.cluster_id ] );
+                                                  // $scope.panel.cluster[ $scope.panel.user.cluster_id ],
+                                                  { cluster } );
 
           // if immap and ET || CD
           if ( $scope.panel.user.site_name ) {
@@ -267,7 +308,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               // go to default org page
               $location.path( result.app_home );
               $timeout( function(){
-                Materialize.toast( 'Welcome ' + result.username + ', time to create a Project!', 3000, 'success' );
+
+                Materialize.toast( $filter('translate')('welcome')+' ' + result.username + ', '+$filter('translate')('time_to_create_a_project'), 6000, 'success' );
               }, 2000);
             }
 
@@ -286,7 +328,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
             // user toast msg
             $timeout(function(){
-              Materialize.toast('Your Email Is Being Prepared!', 3000, 'note');
+
+              Materialize.toast($filter('translate')('your_email_is_being_prepared'), 6000, 'note');
             }, 400);
 
             // resend password email
@@ -300,8 +343,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
                 // user toast msg
                 $timeout(function(){
-                  Materialize.toast('Email Sent! Please Check Your Inbox', 3000, 'success');
-                }, 400);
+
+                  Materialize.toast($filter('translate')('email_sent_please_check_your_inbox'), 6000, 'success');                }, 400);
 
               }).error(function( err ) {
 
@@ -335,7 +378,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
               // user toast msg
               $timeout(function(){
-                Materialize.toast( 'Welcome back ' + result.username + '!', 3000, 'note' );
+
+                Materialize.toast( $filter('translate')('welcome_back')+' ' + + result.username + '!', 6000, 'note' );
               }, 2000);
 
 
@@ -375,6 +419,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           // merge org
           var org = angular.copy( $scope.select[0] );
           delete org.id;
+          delete org.admin0pcode;
           angular.merge( $scope.panel.user, org );
 
           // update home page for iMMAP Ethiopia
@@ -395,19 +440,52 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
               // update icon
               $( '.organization_symbol' ).css({ 'color': 'teal' });
               // toast
-              Materialize.toast( org.organization + '<br/>' + org.organization_name + ' Selected...', 4000, 'note' );
+              Materialize.toast( org.organization + '<br/>' + org.organization_name + ' '+$filter('translate')('selected'), 4000, 'note' ); 
             } else {
               if ( $scope.panel.user.organization === 'UNHCR' || $scope.panel.user.organization === 'IOM' ) {
                 // update icon
                 $( '.organization_symbol' ).css({ 'color': 'teal' });
                 // toast
-                Materialize.toast( org.organization + '<br/>' + org.organization_name + ' Selected...', 4000, 'note' );
+                Materialize.toast( org.organization + '<br/>' + org.organization_name + ' '+$filter('translate')('selected'), 4000, 'note' );
               } else {
                 Materialize.toast( 'Only UNHCR or IOM Can Register in R&R Chapter!', 6000, 'error' );
               }
             }
+
+            //Colombia Clusters
+            if(var4wplusrh === "4wPlus"){
+
+                  $scope.panel.cluster ={
+                  'cvwg': { cluster: 'MPC' },
+          //'agriculture': { cluster: 'Agricultura' },
+          'albergues': { cluster: 'Albergues' },
+          //'cwcwg': { cluster: 'CwCWG' },
+          //'coordination': { cluster: 'Coordinación' },
+          'education': { cluster: 'Educación en Emergencias (EeE)' },
+          //'eiewg': { cluster: 'EiEWG' },
+          //'emergency_telecommunications': { cluster: 'Emergencia de Telecomunicaciones' },
+          //'esnfi': { cluster: 'ESNFI' },
+          //'fsac': { cluster: 'FSAC' },
+          'san': { cluster: 'Seguridad Alimentaria y Nutrición (SAN)' },
+          'health': { cluster: 'Salud' },
+          //'logistics': { cluster: 'Logísticas' },
+          //'smsd': { cluster: 'Sitio de Administración y Sitio de Desarrollo' },
+          //'nutrition': { cluster: 'Nutrición' },
+          'protection': { cluster: 'Protección' },
+          //'rnr_chapter': { cluster: 'R&R Chapter' },
+          'wash': { cluster: 'WASH' },
+          'recuperacion_temprana':{cluster:'Recuperación Temprana'},
+          'undaf':{ cluster: 'UNDAF'}
+
+                 }
+
+              }
+
           }
+
 				},
+
+        
 				
 				//manage user access
 				manageUserAccess:function (id) {
@@ -482,6 +560,18 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 				$scope.panel.user = {};
 				$scope.panel.roles = ngmAuth.getEditableRoles();
       }
+
+      //adminRpcode only Colombia
+
+       if(var4wplusrh === "4wPlus"){
+                $scope.panel.adminRegion= [
+          
+          { adminRpcode: 'AMER', adminRname: 'AMER', admin0pcode: 'COL', admin0name: 'Colombia'},
+          
+
+        ];
+      }
+      
 			// merge defaults with config
 			$scope.panel = angular.merge( {}, $scope.panel, config );
 
@@ -492,10 +582,25 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         $http.get( ngmAuth.LOCATION + '/api/list/organizations' ).then(function( organizations ){
           localStorage.setObject( 'organizations', organizations.data );
           $scope.panel.organizations = organizations.data;
+
+          
+          if(var4wplusrh === "4wPlus"){
+         
+         $scope.panel.organizations = $filter('filter')( $scope.panel.organizations ,
+                 {admin0pcode: 'COL'}, true) ;
+
+
+
+         };
+
           $timeout(function() {
             $( 'select' ).material_select();
           }, 400);
         });
+        
+
+
+     
 
       // } else {
 
@@ -530,8 +635,13 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
         }, 900 );
 
+
+
       });
 
+
+
     }
+
 
 ]);

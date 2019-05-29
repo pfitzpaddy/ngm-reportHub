@@ -25,10 +25,8 @@ angular.module('ngmReportHub')
 		];
 
 		// init empty model
-		$scope.model = {
-			rows: [{}]
-		}
-
+		$scope.model = $scope.$parent.ngm.dashboard.model;
+		
 		// empty Project
 		$scope.report = {
 			
@@ -40,6 +38,9 @@ angular.module('ngmReportHub')
 
 			// placeholder
 			definition: {},
+
+			// location_group
+			location_group: $route.current.params.location_group,
 			
 			// current user
 			user: ngmUser.get(),
@@ -61,7 +62,8 @@ angular.module('ngmReportHub')
 				method: 'POST',
 				url: ngmAuth.LOCATION + '/api/cluster/report/getReport',
 				data: {
-					id: $route.current.params.report
+					report_id: $route.current.params.report,
+					location_group_id: $route.current.params.location_group
 				}
 			}),
 
@@ -78,7 +80,7 @@ angular.module('ngmReportHub')
 				$scope.report.report = $scope.report.project.organization + '_' + $scope.report.project.cluster + '_' + $scope.report.project.project_title.replace(/\ /g, '_') + '_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 
 				// add project code to subtitle?
-				var text = $filter('translate')('actual_monthly_progress_for') + moment.utc( $scope.report.definition.reporting_period ).format('MMMM, YYYY');
+				var text = $filter('translate')('actual_monthly_progress_for') + ' ' + moment.utc( $scope.report.definition.reporting_period ).format('MMMM, YYYY');
 
 				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + text : text;
 
@@ -93,7 +95,7 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m9 l9 report-title truncate',
 							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.organization + ' | ' + $scope.report.project.project_title
+							title: $scope.report.project.organization + ' | ' + $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.project_title
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
@@ -132,7 +134,7 @@ angular.module('ngmReportHub')
 								type: 'zip',
 								color: 'blue lighten-2',
 								icon: 'folder',
-								hover: 'Download All Report Documents',
+								hover: $filter('translate')('download_all_report_documents'),
 								request: {
 									method: 'GET',
 									url: ngmAuth.LOCATION + '/api/getReportDocuments/' + $scope.report.definition.id,
@@ -161,7 +163,8 @@ angular.module('ngmReportHub')
 								config: {
 									style: $scope.report.ngm.style,
 									project: $scope.report.project,
-									report: $scope.report.definition
+									report: $scope.report.definition,
+									location_group: $scope.report.location_group
 								}
 							}]
 						}]
@@ -180,6 +183,16 @@ angular.module('ngmReportHub')
 					}]
 				}
 
+				// hide download 
+				const canDownload = ngmAuth.canDo('DASHBOARD_DOWNLOAD',{ 
+					adminRpcode: $scope.report.project.adminRpcode, 
+					admin0pcode: $scope.report.project.admin0pcode, 
+					cluster_id: $scope.report.project.cluster_id, 
+					organization_tag: $scope.report.project.organization_tag });
+				// remove download button
+				if (!canDownload) {
+					$scope.model.header.download.class += ' hide';
+				}
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;
 
@@ -187,8 +200,18 @@ angular.module('ngmReportHub')
 
 		}
 
+		// assign to ngm app scope
+		$scope.report.ngm.dashboard.model = $scope.model;
+
+		// taost for user
+
+		$timeout( function() { Materialize.toast( $filter('translate')('loading_monhtly_progress_report'), 4000, 'success' ); }, 400 );
+
 		// send request
 		$q.all([ $scope.report.getProject, $scope.report.getReport ]).then( function( results ){
+
+			// remove toast
+			$('.toast').remove();
 
 			// assign
 			$scope.report.setProjectDetails( results );

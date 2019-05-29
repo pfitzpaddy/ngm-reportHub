@@ -70,14 +70,14 @@
 	    <li class="collection-item avatar"
 	    	dir-paginate="item in list.data | filter: list.search.filter | orderBy: list.orderBy : true | itemsPerPage: list.itemsPerPage" pagination-id="list.id"
 	    	style="padding-top:20px;">
-				<a href="#/cluster/projects/report/{{ item.project_id }}/{{ item.id }}" title="{{ list.hoverTitle }} {{ item.reporting_period_title }} Report">
+				<a href="{{ list.report_url }}/{{ item.project_id }}/{{ item.id }}" title="{{ list.hoverTitle }} {{ item.reporting_period_title }} Report">
 					<i class="material-icons circle white teal-text">{{ list.icon }}</i>
 					<span class="title">{{ item.reporting_period_title }}</span>
 					<span class="right" style="padding-top:20px; padding-right:40px; color:#616161;">{{ list.reportFormat( item ) }}</span>
 					<p align="justify" style="padding:10px 0px 10px 0px;">
 						{{'monthly_beneficiaries_report_for' | translate}} {{ item.reporting_period_title }}
 					</p>
-					<a href="#/cluster/projects/report/{{ item.project_id }}/{{ item.id }}" title="{{ list.hoverTitle }} {{ list.dueFormat( item.reporting_period ) }} Report" class="secondary-content">
+					<a href="{{ list.report_url }}/{{ item.project_id }}/{{ item.id }}" title="{{ list.hoverTitle }} {{ list.dueFormat( item.reporting_period ) }} Report" class="secondary-content">
 						<i class="material-icons right" style="padding-top:20px; padding-right:40px; color: {{ item.status }}">{{ item.icon }}</i>
 					</a>
 				</a>

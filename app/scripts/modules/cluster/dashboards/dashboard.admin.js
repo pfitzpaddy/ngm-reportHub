@@ -29,11 +29,8 @@ angular.module('ngmReportHub')
 				'Karma'
 			];
 
-			// empty model
-			$scope.model = {
-				menu: [],
-				rows: []
-			};
+			// init empty model
+			$scope.model = $scope.$parent.ngm.dashboard.model;
 
 			// create dews object
 			$scope.dashboard = {
@@ -67,6 +64,7 @@ angular.module('ngmReportHub')
 				// display names
 				activity_name_key:{
 					'cpie': 'CPiE',
+					'cp': 'CPAOR',
 					'gbv': 'GBV',
 					'child_protection': 'CPSS',
 					'general_protection': 'Protection',
@@ -115,21 +113,13 @@ angular.module('ngmReportHub')
 						'active': 'euro',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/admin/euro'
-					},
-					{
-  						'title': 'AMER',
-   						'param': 'adminRpcode',
- 						'active': 'amer',
-    						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-  					'href': '/desk/#/cluster/admin/amer'
-    
-   					} 
+					}
 					]
 				}],
 
 				// lists
 				lists: {
-					clusters: ngmClusterLists.getClusters( $route.current.params.admin0pcode ),
+					clusters: ngmClusterLists.getClusters( $route.current.params.admin0pcode ).filter(cluster=>cluster.filter!==false),
 				},
 
 				// filtered data
@@ -416,6 +406,20 @@ angular.module('ngmReportHub')
 						downloads = downloads.concat ( ng_wash_dl );
 					}
 
+					// example of blocking download
+					const canDownload = ngmAuth.canDo('DASHBOARD_DOWNLOAD', {
+						adminRpcode: $scope.dashboard.adminRpcode.toUpperCase(),
+						admin0pcode: $scope.dashboard.admin0pcode.toUpperCase(),
+						cluster_id: $scope.dashboard.cluster_id,
+						organization_tag: $scope.dashboard.organization_tag
+					})
+					// remove download button
+					if (!canDownload) {
+						setTimeout(function () { 
+							$scope.model.header.download.class += ' hide';
+						},10)
+					}
+
 					// return
 					return downloads;	
 				},
@@ -504,17 +508,22 @@ angular.module('ngmReportHub')
 							// for each
 							organizations.forEach(function( d, i ){
 
-								// admin URL
-								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.report_type, d.organization_tag );
+								// if exists
+								if ( d ) {
 
-								// menu rows
-								orgRows.push({
-									'title': d.organization,
-									'param': 'organization_tag',
-									'active': d.organization_tag,
-									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-									'href': '/desk/#' + path
-								});
+									// admin URL
+									var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.report_type, d.organization_tag );
+
+									// menu rows
+									orgRows.push({
+										'title': d.organization,
+										'param': 'organization_tag',
+										'active': d.organization_tag,
+										'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+										'href': '/desk/#' + path
+									});
+
+								}
 
 							});
 
@@ -1089,7 +1098,7 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m12 l3',
+								styleClass: 's12 m12 l6',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
@@ -1099,56 +1108,103 @@ angular.module('ngmReportHub')
 										request: {
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
-											// indicator, list
 											data: $scope.dashboard.getRequest( 'organizations', false )
 										}
 									}
 								}]
 							},{
-								styleClass: 's12 m12 l3',
+								styleClass: 's12 m12 l6',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: $filter('translate')('total_projects'),
+										title: $scope.dashboard.report_type==='stock' ? $filter('translate')('warehouses_total') : $filter('translate')('total_projects'),
 										request: {
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
-											// indicator, list
-											data: $scope.dashboard.getRequest( 'projects_total', false )
+											data: $scope.dashboard.getRequest( $scope.dashboard.report_type==='stock' ? 'warehouses_total' : 'projects_total', false )
 										}
 									}
 								}]
-							},{
+							}]
+						},{
+							columns: [{
 								styleClass: 's12 m12 l3',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: $filter('translate')('reports_complete'),
-										request: {
-											method: 'POST',
-											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
-											// indicator, list
-											data: $scope.dashboard.getRequest( 'reports_complete', false )
-										}
-									}
-								}]
-							},{
-								styleClass: 's12 m12 l3',
-								widgets: [{
-									type: 'stats',
-									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
-									config: {
+										titleIcon: {
+											style: 'color:#e57373; font-size:64px; bottom:-10;right:-10px;',
+											icon: 'error'
+										},
 										title: $filter('translate')('reports_due'),
 										request: {
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
-											// indicator, list
 											data: $scope.dashboard.getRequest( 'reports_due', false )
+										}
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										titleIcon: {
+											style: 'color:#fff176; font-size:64px; bottom:-10;right:-10px;',
+											icon: 'watch_later'
+										},
+										title: $filter('translate')('reports_saved'),
+										request: {
+											method: 'POST',
+											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
+											data: $scope.dashboard.getRequest( 'reports_saved', false )
+										}
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										titleIcon: {
+											style: 'color:#4db6ac; font-size:64px; bottom:-10;right:-10px;',
+											icon: 'check_circle'
+										},
+										title: $filter('translate')('reports_submitted'),
+										request: {
+											method: 'POST',
+											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
+											data: $scope.dashboard.getRequest( 'reports_submitted', false )
+										}
+									}
+								}]
+							},{
+								styleClass: 's12 m12 l3',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										titleIcon: {
+											style: 'color:#2196F3; font-size:64px; bottom:-10;right:-10px;',
+											// style: 'color:#2196F3; font-size:24px; bottom:0;',
+											// style: 'color:#2196F3; font-size:142px; bottom:-40px; right:-50px;',
+											icon: 'assignment_turned_in'
+										},
+										title: $filter('translate')('reports_total'),
+										request: {
+											method: 'POST',
+											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
+											// indicator, list
+											data: $scope.dashboard.getRequest( 'reports_total', false )
 										}
 									}
 								}]
@@ -1206,7 +1262,7 @@ angular.module('ngmReportHub')
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
 											// indicator, list
-											data: $scope.dashboard.getRequest( 'reports_complete', true )
+											data: $scope.dashboard.getRequest( 'reports_submitted', true )
 										}
 									}
 								}]
@@ -1248,6 +1304,7 @@ angular.module('ngmReportHub')
 										type: 'list',
 										card: 'white grey-text text-darken-2',
 										config: {
+											country: $route.current.params.admin0pcode,
 											refreshEvent: 'refresh:doclist',
 											titleIcon: 'alarm_on',
 											color: 'blue lighten-4',
@@ -1294,7 +1351,7 @@ angular.module('ngmReportHub')
 											},
 											removeFile: function () {
 												// IF API READY TO USE
-												Materialize.toast("Deleting...", 2000, 'note');
+												Materialize.toast("Deleting...", 6000, 'note');
 												$http({
 													method: 'DELETE',
 													url: ngmAuth.LOCATION + '/api/deleteGDriveFile/' + $scope.fileId,
@@ -1304,7 +1361,7 @@ angular.module('ngmReportHub')
 														$timeout(function () {
 															msg = "File Deleted!";
 															typ = 'success';
-															Materialize.toast(msg, 2000, typ);
+															Materialize.toast(msg, 6000, typ);
 															$rootScope.$broadcast('refresh:doclist');
 														}, 2000);
 													})
@@ -1312,7 +1369,7 @@ angular.module('ngmReportHub')
 														$timeout(function () {
 															msg = "Error, File Not Deleted!";
 															typ = 'error';
-															Materialize.toast(msg, 2000, typ);
+															Materialize.toast(msg, 6000, typ);
 														}, 2000);
 													})
 											},

@@ -26,11 +26,9 @@ angular.module('ngmReportHub')
 				'AngularJS',
 				'Karma'
 			];
-
-			// empty model
-			$scope.model = {
-				rows: [{}]
-			};
+		
+			// assign to ngm app scope
+			$scope.model = $scope.$parent.ngm.dashboard.model;
 
 			// create dews object
 			$scope.dashboard = {

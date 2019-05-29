@@ -284,7 +284,7 @@ angular.module('ngmReportHub')
 
 													// toast
 													$timeout( function(){ 
-														Materialize.toast( 'CTC Assessments data updated!' , 4000, 'success' );
+														Materialize.toast( 'CTC Assessments data updated!' , 6000, 'success' );
 														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 														$timeout( function(){
 															$route.reload();

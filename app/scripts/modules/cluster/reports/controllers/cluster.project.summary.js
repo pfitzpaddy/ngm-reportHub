@@ -26,9 +26,7 @@ angular.module('ngmReportHub')
 		});
 
 		// init empty model
-		$scope.model = {
-			rows: [{}]
-		};
+		$scope.model = $scope.$parent.ngm.dashboard.model;
 
 		// report object
 		$scope.report = {
@@ -38,6 +36,8 @@ angular.module('ngmReportHub')
 
 			// current user
 			user: ngmUser.get(),
+
+			title: '',
 
 			// projects href
 			getProjectsHref: function(){
@@ -54,10 +54,15 @@ angular.module('ngmReportHub')
 
 				// set project
 				$scope.report.project = data;
-				
+
 				// add project code to subtitle?
-				var text = 'Actual Monthly Progress Report for ' + $scope.report.project.project_title
+				var text = $filter('translate')('actual_monthly_progress_report_for')+' ' + $scope.report.project.project_title
 				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + $scope.report.project.project_description : $scope.report.project.project_description;
+
+				// if admin0pcode
+				if ( $scope.report.project.admin0name ) {
+					$scope.report.title = $scope.report.project.organization + ' | ' + $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.project_title
+				}
 				
 				// report dashboard model
 				$scope.model = {
@@ -70,7 +75,7 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m12 l12 report-title truncate',
 							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.organization + ' | ' + $scope.report.project.project_title
+							title: $scope.report.title
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
@@ -102,6 +107,9 @@ angular.module('ngmReportHub')
 									report_date: moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD'),
 									templateUrl: '/scripts/modules/cluster/views/cluster.project.summary.html',
 
+									// permissions
+									canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: $scope.report.project.adminRpcode, admin0pcode:$scope.report.project.admin0pcode, cluster_id: $scope.report.project.cluster_id, organization_tag:$scope.report.project.organization_tag } ),
+
 									// mark project active
 									markActive: function( project ){
 
@@ -109,7 +117,7 @@ angular.module('ngmReportHub')
 									  project.project_status = 'active';
 
 									  // timeout
-									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 3000, 'note'); }, 200 ); 
+									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); }, 200 ); 
 
 									  // Submit project for save
 									  ngmData.get({
@@ -121,7 +129,7 @@ angular.module('ngmReportHub')
 									  }).then(function(data){
 									    // redirect on success
 									    $location.path( '/cluster/projects' );
-									    Materialize.toast( $filter('translate')('project_moved_to_active')+'!', 4000, 'success');
+									    Materialize.toast( $filter('translate')('project_moved_to_active')+'!', 6000, 'success');
 									  });
 
 									},
@@ -133,7 +141,7 @@ angular.module('ngmReportHub')
 									  project.project_status = 'complete';
 
 									  // timeout
-									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 3000, 'note'); }, 200 );
+									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); }, 200 );
 
 									  // Submit project for save
 									  ngmData.get({
@@ -145,12 +153,16 @@ angular.module('ngmReportHub')
 									  }).then(function(data){
 									    // redirect on success
 									    $location.path( '/cluster/projects' );
-									    Materialize.toast( $filter('translate')('project_market_as_complete_congratulations')+'!', 4000, 'success');
+									    Materialize.toast( $filter('translate')('project_market_as_complete_congratulations')+'!', 6000, 'success');
 									  });
 
 									},
 
 									deleteProject: function(project){
+
+									  // timeout
+									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); }, 200 ); 
+
 									  // Submit project for save
 									  $http({
 									    method: 'POST',
@@ -159,17 +171,18 @@ angular.module('ngmReportHub')
 									      project_id: project.id
 									    }
 									  }).success(function(data){
+
 									    // redirect on success
 									    if ( data.err ) {
-									    	Materialize.toast( $filter('translate')('project_delete_error_please_try_again'), 4000, 'error');
+									    	Materialize.toast( $filter('translate')('project_delete_error_please_try_again'), 6000, 'error');
 									    }
 									    if ( !data.err ){
 										    $location.path( '/cluster/projects' );
-										    Materialize.toast( $filter('translate')('project_deleted')+'!', 3000, 'success');
+										    Materialize.toast( $filter('translate')('project_deleted')+'!', 6000, 'success');
 									    }
 									  }).error(function(err){
 									    // redirect on success
-									    Materialize.toast( $filter('translate')('project_delete_error_please_try_again'), 4000, 'error');
+									    Materialize.toast( $filter('translate')('project_delete_error_please_try_again'), 6000, 'error');
 									  });
 									}
 

@@ -12,6 +12,10 @@ angular.module('ngmReportHub')
 			'AngularJS',
 			'Karma'
 		];
+
+		// init empty model
+		$scope.model = $scope.$parent.ngm.dashboard.model;
+
 		// report object
 		$scope.report = {
 

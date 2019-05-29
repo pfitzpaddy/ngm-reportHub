@@ -11,8 +11,9 @@ angular.module( 'ngmReportHub' )
         '$http',
         '$filter',
         '$timeout',
-        'ngmAuth',
-    function( $q, $http, $filter, $timeout, ngmAuth ) {
+        'ngmAuth','$location',
+    function( $q, $http, $filter, $timeout, ngmAuth,$location ) {
+
 
 		var ngmClusterLists = {
 
@@ -22,9 +23,14 @@ angular.module( 'ngmReportHub' )
 
       // comphrensive list of all sectors - ever
       all_sectors: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter','wash' ],
+      all_sectors_minus_health: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','smsd','nutrition','protection','rnr_chapter','wash' ],
       all_sectors_minus_wash: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
+      all_sectors_minus_wash_health: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_minus_wash_education: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
+      all_sectors_col: ['education','albergues','san','health','recuperacion_temprana','protection','wash','undaf'],
 
+
+       
       // lists ( project, mpc transfers )
       setLists: function( project, transfers ) {
 
@@ -37,7 +43,8 @@ angular.module( 'ngmReportHub' )
           mpc_purpose: ngmClusterLists.getMpcPurpose(),
           mpc_mechanism_type: ngmClusterLists.getMpcMechanismTypes(),
           transfers: ngmClusterLists.getTransfers( transfers ),
-          clusters: ngmClusterLists.getClusters( project.admin0pcode ),
+          clusters: ngmClusterLists.getClusters( project.admin0pcode ).filter(cluster=>cluster.project!==false),
+          projectsclasifications: ngmClusterLists.getProjectClasifications(project.admin0pcode),
           activity_types: ngmClusterLists.getActivities( project, true, 'activity_type_id' ),
           activity_descriptions: ngmClusterLists.getActivities( project, true, 'activity_description_id' ),
           activity_details: ngmClusterLists.getActivities( project, true, 'activity_detail_id' ),
@@ -46,19 +53,21 @@ angular.module( 'ngmReportHub' )
           strategic_objectives: ngmClusterLists.getStrategicObjectives( project.admin0pcode, moment( project.project_start_date ).year(), moment( project.project_end_date ).year() ),
           category_types: ngmClusterLists.getCategoryTypes(),
           beneficiary_types: ngmClusterLists.getBeneficiaries( moment( project.project_end_date ).year(), project.admin0pcode, project.cluster_id ),
+          beneficiary_categories: ngmClusterLists.getBeneficiariesCategories(),
+          // location_groups: ngmClusterLists.getLocationGroups(),
           currencies: ngmClusterLists.getCurrencies( project.admin0pcode ),
           donors: ngmClusterLists.getDonors( project.admin0pcode, project.cluster_id ),
+          organizations: ngmClusterLists.getOrganizations(project.admin0pcode),
           partial_kits: ngmClusterLists.getPartialKits(),
 					kit_details: ngmClusterLists.getKitDetails(),
 					
           
           // keys to ignore when summing beneficiaries in template ( 2016 )
-          skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ],
+          skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ], 
 
           // NG cholera
           activity_cholera_response: [{ activity_cholera_response_id: 'yes', activity_cholera_response_name: 'Yes' },
                               { activity_cholera_response_id: 'no', activity_cholera_response_name: 'No' }],
-          activity_status_delivery_type: [{delivery_type_id: 'completed',delivery_type_name: 'Completed'},{delivery_type_id: 'planned',delivery_type_name: 'Planned'}],
 
           // training
           trainee_affiliations: [{ trainee_affiliation_id: 'community', trainee_affiliation_name: 'Community' },
@@ -171,7 +180,14 @@ angular.module( 'ngmReportHub' )
           getStockItems: {
             method: 'GET',
             url: ngmAuth.LOCATION + '/api/cluster/list/stockitems'
-          }
+          },
+
+
+          //organizations
+          getOrganizations:{
+            method: 'GET',
+            url: ngmAuth.LOCATION + '/api/list/organizations'
+          },
 
         }
 
@@ -189,7 +205,8 @@ angular.module( 'ngmReportHub' )
             activitiesList: [],
             donorsList: [],
             indicatorsList: [],
-            stockItemsList: []
+            stockItemsList: [],
+            organizationsList: [],
           };
 
           // storage
@@ -206,7 +223,8 @@ angular.module( 'ngmReportHub' )
             $http( requests.getActivities ),
             $http( requests.getDonors ),
             $http( requests.getIndicators ),
-            $http( requests.getStockItems ) ] ).then( function( results ){
+            $http( requests.getStockItems ),
+            $http( requests.getOrganizations) ] ).then( function( results ){
 
               // admin1, admin2, activities object
               var lists = {
@@ -219,7 +237,8 @@ angular.module( 'ngmReportHub' )
                 activitiesList: results[6].data,
                 donorsList: results[7].data,
                 indicatorsList: results[8].data,
-                stockItemsList: results[9].data
+                stockItemsList: results[9].data,
+                organizationsList: results[10].data,
               };
 
               // storage
@@ -230,7 +249,7 @@ angular.module( 'ngmReportHub' )
 
       },
 
-      // set org users for a project
+        // set org users for a project
       setOrganizationUsersList: function( lists, project ) {
         // set org
         $http({
@@ -249,6 +268,8 @@ angular.module( 'ngmReportHub' )
           //
         });
       },
+
+    
 
       // monthly report indicators
       getIndicators: function( target ) {
@@ -289,7 +310,8 @@ angular.module( 'ngmReportHub' )
             delivery_type_id: 'service',
             delivery_type_name: 'Existing Beneficiaries'
           }];
-        } else {
+        } else if ( admin0pcode === 'CB' ) {
+
           delivery = [{
             delivery_type_id: 'population',
             delivery_type_name: 'New Beneficiaries'
@@ -299,11 +321,38 @@ angular.module( 'ngmReportHub' )
           },{
             delivery_type_id: 'contingency',
             delivery_type_name: 'Contingency'
-          },{delivery_type_id: 'completed',
-             delivery_type_name: 'Completed'
-          },{delivery_type_id: 'planned',
+          }];
+
+        } else if ( admin0pcode === 'COL' ) {
+
+          delivery = [{
+            delivery_type_id: 'population',
+            delivery_type_name: 'Nuevos Beneficiarios'
+          },{
+            delivery_type_id: 'service',
+            delivery_type_name: 'Beneficiarios Existentes'
+          }];
+
+        } else if ( admin0pcode === 'NG' ) {
+
+          delivery = [{
+            delivery_type_id: 'completed',
+            delivery_type_name: 'Completed'
+          },{
+            delivery_type_id: 'planned',
             delivery_type_name: 'Planned'
-        }];
+          }];
+
+        } else {
+
+          delivery = [{
+            delivery_type_id: 'population',
+            delivery_type_name: 'New Beneficiaries'
+          },{
+            delivery_type_id: 'service',
+            delivery_type_name: 'Existing Beneficiaries'
+          }];
+
         }
 
         return delivery;
@@ -378,13 +427,48 @@ angular.module( 'ngmReportHub' )
         return trasnfers;
       },
 
+
+
       // clusters
       getClusters: function( admin0pcode ){
         var clusters = [];
-        if ( admin0pcode.toLowerCase() === 'all') {
+
+      //  if ( ($location.$$host === '192.168.33.164' || $location.$$host === '35.229.43.63' || $location.$$host === '192.168.33.16') && admin0pcode.toLowerCase() === 'all') {
+       if ( ($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63') && admin0pcode.toLowerCase() === 'all') {
+
+          [{
+            cluster_id: 'education',
+            cluster: 'Educación en Emergencias (EeE)'
+          },{
+            cluster_id: 'albergues',
+            cluster: 'Albergues'
+          },{
+            cluster_id:'san',
+            cluster: 'Seguridad Alimentaria y Nutrición (SAN)'
+          },
+          {
+            cluster_id: 'health',
+            cluster: 'Salud'
+          },{
+            cluster_id: 'recuperacion_temprana',
+            cluster: 'Recuperación Temprana'
+          },{
+            cluster_id: 'protection',
+            cluster: 'Protección'
+          },{
+            cluster_id: 'wash',
+            cluster: 'WASH'
+          },
+          {
+            cluster_id: 'undaf',
+            cluster: 'UNDAF'
+          }];
+        } else if(admin0pcode.toLowerCase() === 'all'){
+
           clusters = [{
             cluster_id: 'acbar',
-            cluster: 'ACBAR'
+            cluster: 'ACBAR',
+            registration: false
           },{
             cluster_id: 'agriculture',
             cluster: 'Agriculture'
@@ -419,10 +503,12 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'wash',
             cluster: 'WASH'
           }];
-        } else if ( admin0pcode.toLowerCase() === 'af' ) {
+        }else if ( admin0pcode.toLowerCase() === 'af' ) {
           clusters = [{
             cluster_id: 'acbar',
-            cluster: 'ACBAR'
+            cluster: 'ACBAR',
+            registration: false,
+            project: false
           },{
             cluster_id: 'eiewg',
             cluster: 'EiEWG'
@@ -446,7 +532,10 @@ angular.module( 'ngmReportHub' )
             cluster: 'Protection'
           },{
             cluster_id: 'rnr_chapter',
-            cluster: 'R&R Chapter'
+            cluster: 'R&R Chapter',
+            registration: false,
+            filter: false,
+            project: false
           },{
             cluster_id: 'wash',
             cluster: 'WASH'
@@ -476,6 +565,12 @@ angular.module( 'ngmReportHub' )
           },{
             cluster_id: 'protection',
             cluster: 'Protection'
+          // },{
+          //   cluster_id: 'gbv',
+          //   cluster: 'GBV'
+          // },{
+          //   cluster_id: 'child_protection',
+          //   cluster: 'Child Protection'
           },{
             cluster_id: 'wash',
             cluster: 'WASH'
@@ -506,7 +601,36 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'wash',
             cluster: 'WASH'
           }];
-        }else {
+        }
+        else if ( admin0pcode.toLowerCase() === 'col' ) {
+          clusters = [{
+            cluster_id: 'education',
+            cluster: 'Educación en Emergencias (EeE)'
+          },{
+            cluster_id: 'albergues',
+            cluster: 'Albergues'
+          },{
+            cluster_id:'san',
+            cluster: 'Seguridad Alimentaria y Nutrición (SAN)'
+          },
+          {
+            cluster_id: 'health',
+            cluster: 'Salud'
+          },{
+            cluster_id: 'recuperacion_temprana',
+            cluster: 'Recuperación Temprana'
+          },{
+            cluster_id: 'protection',
+            cluster: 'Protección'
+          },{
+            cluster_id: 'wash',
+            cluster: 'WASH'
+          },
+          {
+            cluster_id: 'undaf',
+            cluster: 'UNDAF'
+          }];
+        } else {
           clusters = [{
             cluster_id: 'agriculture',
             cluster: 'Agriculture'
@@ -536,6 +660,7 @@ angular.module( 'ngmReportHub' )
             cluster: 'WASH'
           }];
         }
+
 
           return clusters;
       },
@@ -589,6 +714,8 @@ angular.module( 'ngmReportHub' )
           }
         }
 
+        
+
         // return
         return activities;
 
@@ -605,6 +732,174 @@ angular.module( 'ngmReportHub' )
         }
         return activity_types;
       },
+
+
+      getOrganizations: function(admin0pcode){
+
+
+
+
+        var organizations;
+
+        if(admin0pcode === 'COL'){
+
+         organizations = $filter('filter')(localStorage.getObject( 'lists' ).organizationsList,
+                 {admin0pcode: 'COL'},true );
+
+        }else{
+          organizations = localStorage.getObject( 'lists' ).organizationsList
+      }
+
+
+
+          return organizations;
+
+
+      },
+
+      getProjectClasifications: function (admin0pcode){
+
+        var projectsclasifications = [];
+
+        if(admin0pcode === 'COL'){
+
+          projectsclasifications = [
+          {
+            'project_clasification_id':'undaf_desarrollo_paz',
+            //'functionadd':'addUndafDesarrolloPaz',
+            //'functionremove':'removeUndafDesarrolloPaz',
+            //'search-text':'searchundaf_desarrollo_paz',
+           // 'functionsearch':'searchUndafDesarrolloYPaz',
+            'project_clasification_name':'UNDAF - Desarrollo y Paz',
+            'sidi_id':'4',
+            'children':[
+                {
+                 'sidi_id':'177',
+                 'name_tag':'Transformación de conflictos y cultura de paz',
+                 'description':'Colombia ha avanzado hacia la paz reduciendo la violencia, aumentando la resolución pacífica de conflictos y garantizando el derecho a  la justicia',
+                 'code':''
+                 },
+                 {
+                   'sidi_id':'178',
+                 'name_tag':'Democracia de base local para la garantía de derechos',
+                 'description':'Colombia habrá avanzado hacia la paz gracias a la consolidación del Estado Social de Derecho y la gobernabilidad inclusiva, mediante el fortalecimiento de la participación ciudadana, la eficacia de los gobiernos locales y la garantía de los derechos humanos en todo el territorio nacional',
+                 'code':''
+                 },
+                 {
+                   'sidi_id':'179',
+                 'name_tag':'Transición hacia la paz',
+                 'description':'Colombia habrá implementado los acuerdos de fin del conflicto armado  en los ámbitos nacional y territorial',
+                 'code':''
+                 }
+                 
+
+             ]
+          },
+          {
+            'project_clasification_id':'acuerdos_de_paz',
+            'project_clasification_name':'Acuerdos de Paz',
+            'sidi_id':'5',
+            //'functionadd':'addAcuerdosDePaz',
+            //'functionremove':'removeAcuerdosDePaz',
+            //'search-text':'searchacuerdos_de_paz',
+            //'functionsearch':'searchAcuerdosDePaz',
+            'children':[
+
+              {
+                 'sidi_id':'198',
+                 'name_tag':'Fondo de Tierras',
+                 'description':'',
+                 'code':'1.1.1'
+                 },
+                 {
+                 'sidi_id':'199',
+                 'name_tag':'Créditos y subsidios para promover el acceso a la tierra',
+                 'description':'',
+                 'code':'1.1.2'
+                 },
+                 {
+                 'sidi_id':'200',
+                 'name_tag':'Formalización masiva de pequeñas y medianas propiedades rurales',
+                 'description':'',
+                 'code':'1.1.3'
+                 },
+                 
+
+            ]
+          },
+          {
+            'project_clasification_id':'dac_oecd_development_assistance_committee',
+            'project_clasification_name':'DAC - OECD Development Assistance Committee',
+            'sidi_id':'6',
+            'children':[
+                {
+                 'sidi_id':'242',
+                 'name_tag':'EDUCACIÓN/Educación, nivel no especificado/Política educativa y gestión administrativa',
+                 'description':'',
+                 'code':'11110'
+                 },
+
+                  {
+                 'sidi_id':'243',
+                 'name_tag':'EDUCACIÓN/Educación, nivel no especificado/Servicios e instalaciones educativos y formación',
+                 'description':'',
+                 'code':'11120'
+                 },
+                  {
+                 'sidi_id':'244',
+                 'name_tag':'EDUCACIÓN/Educación, nivel no especificado/Formación de profesores',
+                 'description':'',
+                 'code':'11130'
+                 }
+
+            ]
+          },
+          {
+            'project_clasification_id':'ods_objetivos_de_desarrollo_sostenible',
+            'project_clasification_name':'ODS - Objetivos de Desarrollo Sostenible',
+            'sidi_id':'7',
+            'children':[
+                {
+                  'sidi_id':'542',
+                     'name_tag':'De aquí a 2030, erradicar para todas las personas y en todo el mundo la pobreza extrema(actualmente ',
+                     'description':'',
+                     'code':'1.1'
+
+                },
+                 {
+                  'sidi_id':'543',
+                     'name_tag':'De aquí a 2030, reducir al menos a la mitad la proporción de hombres, mujeres y niños de todas las e',
+                     'description':'',
+                     'code':'1.2'
+
+                }
+                ,
+                 {
+                  'sidi_id':'544',
+                     'name_tag':'Implementar a nivel nacional sistemas y medidas apropiados de protección social para todos, incluido',
+                     'description':'',
+                     'code':'1.3'
+
+                }
+                
+
+            ]
+          }
+
+         ]
+
+
+       };
+
+
+
+
+
+        return projectsclasifications;
+
+      },
+
+
 
       // get cluster donors
       getDonors: function( admin0pcode, cluster_id ) {
@@ -661,6 +956,7 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'usaid', project_donor_name: 'USAID' },
             { project_donor_id: 'unhcr', project_donor_name: 'UNHCR' },
             { project_donor_id: 'unicef', project_donor_name: 'UNICEF' },
+            { project_donor_id: 'unwomen', project_donor_name: 'UNWOMEN' },
             { project_donor_id: 'wfp', project_donor_name: 'WFP' },
             { project_donor_id: 'who', project_donor_name: 'WHO' },
             { project_donor_id: 'world_bank', project_donor_name: 'Worldbank' }
@@ -768,21 +1064,334 @@ angular.module( 'ngmReportHub' )
           ];
         }
 
+        if(admin0pcode === 'COL'){
+
+          donors = [
+                     {
+                       project_donor_id: "asociación­_nacional_de_ayuda_solidaria",
+                       project_donor_name: "Asociación Nacional de Ayuda Solidaria"
+                     },
+                     {
+                       project_donor_id: "cruz_roja_colombiana",
+                       project_donor_name: "Cruz Roja Colombiana"
+                     },
+                     {
+                       project_donor_id: "diakonie_katastrophenhilfe_apoyo_en_emergencias",
+                       project_donor_name: "Diakonie Katastrophenhilfe Apoyo en Emergencias"
+                     },
+                     {
+                       project_donor_id: "médicos_sin_fronteras_españa",
+                       project_donor_name: "Médicos Sin Fronteras España"
+                     },
+                     {
+                       project_donor_id: "agencia_sueca_internacional_de_cooperación_al_desarrollo",
+                       project_donor_name: "Agencia Sueca Internacional de Cooperación Al Desarrollo"
+                     },
+                     {
+                       project_donor_id: "oficina_de_ayuda_humanitaria_de_la _comision_europea",
+                       project_donor_name: "Oficina de Ayuda Humanitaria de la Comision Europea"
+                     },
+                     {
+                       project_donor_id: "programa_conjunto_de_las_naciones_unidos_sobre_el_ vih/sida",
+                       project_donor_name: "Programa Conjunto de las Naciones Unidos Sobre el Vih/sida"
+                     },
+                     {
+                       project_donor_id: "corporación_andina_de_fomento",
+                       project_donor_name: "Corporación Andina de Fomento"
+                     },
+                     {
+                       project_donor_id: "banco_interamericano_de_desarrollo",
+                       project_donor_name: "Banco Interamericano de Desarrollo"
+                     },
+                     {
+                       project_donor_id: "agencia_de_estados_unidos_para_el_desarrollo_internacional",
+                       project_donor_name: "Agencia de Estados Unidos para el Desarrollo Internacional"
+                     },
+                     {
+                       project_donor_id: "instituto_colombiano_de_bienestar_familiar",
+                       project_donor_name: "Instituto Colombiano de Bienestar Familiar"
+                     },
+                     {
+                       project_donor_id: "cruz_roja_colombiana_seccional_antioquia",
+                       project_donor_name: "Cruz Roja Colombiana Seccional Antioquia"
+                     },
+                     {
+                       project_donor_id: "agencia_suiza_para_el_desarrollo_y_la_cooperación",
+                       project_donor_name: "Agencia Suiza para el Desarrollo y La Cooperación"
+                     },
+                     {
+                       project_donor_id: "comité_internacional_de_la_cruz_roja",
+                       project_donor_name: "Comité Internacional de la Cruz Roja"
+                     },
+                     {
+                       project_donor_id: "programa_mundial_de_alimentos",
+                       project_donor_name: "Programa Mundial de Alimentos"
+                     },
+                     {
+                       project_donor_id: "agencia_española_de_cooperación_internacional",
+                       project_donor_name: "Agencia Española de Cooperación Internacional"
+                     },
+                     {
+                       project_donor_id: "agencia_canadiense_para_el_desarrollo_internacional",
+                       project_donor_name: "Agencia Canadiense para el Desarrollo Internacional"
+                     },
+                     {
+                       project_donor_id: "fondo_de_las_naciones_unidas_para_la_infancia",
+                       project_donor_name: "Fondo de las Naciones Unidas para la Infancia"
+                     },
+                     {
+                       project_donor_id: "ministerio_de_protección_social",
+                       project_donor_name: "Ministerio de Protección Social"
+                     },
+                     {
+                       project_donor_id: "instituto_nacional_de_salud",
+                       project_donor_name: "Instituto Nacional de Salud"
+                     },
+                     {
+                       project_donor_id: "centro_nacional_de_referencia_sobre_la_violencia",
+                       project_donor_name: "Centro Nacional de Referencia Sobre La Violencia"
+                     },
+                     {
+                       project_donor_id: "gobernación_de_antioquia",
+                       project_donor_name: "Gobernación de Antioquia"
+                     },
+                     {
+                       project_donor_id: "plan_internacional",
+                       project_donor_name: "Plan Internacional"
+                     },
+                     {
+                       project_donor_id: "gobernación_de_cundinamarca",
+                       project_donor_name: "Gobernación de Cundinamarca"
+                     },
+                     {
+                       project_donor_id: "fondo_de_población_de_las_naciones_unidas",
+                       project_donor_name: "Fondo de Población de las Naciones Unidas"
+                     },
+                     {
+                       project_donor_id: "embajada_de_alemania_en_colombia",
+                       project_donor_name: "Embajada de Alemania en Colombia"
+                     },
+                     {
+                       project_donor_id: "embajada_de_canadá",
+                       project_donor_name: "Embajada de Canadá"
+                     },
+                     {
+                       project_donor_id: "embajada_de_españa_en_colombia",
+                       project_donor_name: "Embajada de España en Colombia"
+                     },
+                     {
+                       project_donor_id: "embajada_de_estados_unidos_en_colombia",
+                       project_donor_name: "Embajada de Estados Unidos en Colombia"
+                     },
+                     {
+                       project_donor_id: "embajada_de_holanda_/_del_reino_de_los_paises_bajos_en_colombia",
+                       project_donor_name: "Embajada de Holanda / del Reino de los Paises Bajos en Colombia"
+                     },
+                     {
+                       project_donor_id: "cruz_roja_ecuatoriana",
+                       project_donor_name: "Cruz Roja Ecuatoriana"
+                     },
+                     {
+                       project_donor_id: "gobernación_de_nariño",
+                       project_donor_name: "Gobernación de Nariño"
+                     },
+                     {
+                       project_donor_id: "ministerio_de_educación_nacional",
+                       project_donor_name: "Ministerio de Educación Nacional"
+                     },
+                     {
+                       project_donor_id: "organización_internacional_para_las_migraciones",
+                       project_donor_name: "Organización Internacional para las Migraciones"
+                     },
+                     {
+                       project_donor_id: "organización_panamericana_de_salud_/_organización_mundial_de_salud",
+                       project_donor_name: "Organización Panamericana de Salud / Organización Mundial de Salud"
+                     },
+                     {
+                       project_donor_id: "oficina_de_las_naciones_unidas_para_la_coordinación_de_asuntos_humanitarios",
+                       project_donor_name: "Oficina de las Naciones Unidas para la Coordinación de Asuntos Humanitarios"
+                     },
+                     {
+                       project_donor_id: "embajada_de_noruega_en_colombia",
+                       project_donor_name: "Embajada de Noruega en Colombia"
+                     },
+                     {
+                       project_donor_id: "gobierno_alemán",
+                       project_donor_name: "Gobierno Alemán"
+                     },
+                     {
+                       project_donor_id: "buró_de_población,_refugiados_y_migración",
+                       project_donor_name: "Buró de Población, Refugiados y Migración"
+                     },
+                     {
+                       project_donor_id: "instituto_nacional_de_vigilancia_de_medicamentos_y_alimentos",
+                       project_donor_name: "Instituto Nacional de Vigilancia de Medicamentos y Alimentos"
+                     },
+                     {
+                       project_donor_id: "panamerican_health_and_education_foundation",
+                       project_donor_name: "Panamerican Health And Education Foundation"
+                     },
+                     {
+                       project_donor_id: "central_emergency_respond_fund",
+                       project_donor_name: "Central Emergency Respond Fund"
+                     },
+                     {
+                       project_donor_id: "fundacion_plan",
+                       project_donor_name: "Fundacion Plan"
+                     },
+                     {
+                       project_donor_id: "programa_de_naciones_unidas_para_el_desarrollo",
+                       project_donor_name: "Programa de Naciones Unidas para el Desarrollo"
+                     },
+                     {
+                       project_donor_id: "country_based_pooled_funds",
+                       project_donor_name: "Country based Pooled Funds"
+                     },
+                     {
+                       project_donor_id: "departamento_para_la_prosperidad_social",
+                       project_donor_name: "Departamento para la Prosperidad Social"
+                     },
+                     {
+                       project_donor_id: "cruz_roja_noruega",
+                       project_donor_name: "Cruz Roja Noruega"
+                     },
+                     {
+                       project_donor_id: "cruz_roja_alemana",
+                       project_donor_name: "Cruz Roja Alemana"
+                     },
+                     {
+                       project_donor_id: "fundación_bolívar_davivienda",
+                       project_donor_name: "Fundación Bolívar Davivienda"
+                     },
+                     {
+                       project_donor_id: "glaxosmithkline",
+                       project_donor_name: "Glaxosmithkline"
+                     },
+                     {
+                       project_donor_id: "grand_challenges_canada",
+                       project_donor_name: "Grand Challenges Canada"
+                     },
+                     {
+                       project_donor_id: "united_nations_voluntary_fund_for_victims_of_torture",
+                       project_donor_name: "United Nations Voluntary Fund For Victims Of Torture"
+                     },
+                     {
+                       project_donor_id: "reckitt_benckiser",
+                       project_donor_name: "Reckitt Benckiser"
+                     },
+                     {
+                       project_donor_id: "ministerio_de_salud_y_protección_social",
+                       project_donor_name: "Ministerio de Salud y Protección Social"
+                     },
+                     {
+                       project_donor_id: "global_affairs_canada",
+                       project_donor_name: "Global Affairs Canada"
+                     },
+                     {
+                       project_donor_id: "departamento_de_estado_de_los_estados_unidos",
+                       project_donor_name: "Departamento de Estado de los Estados Unidos"
+                     },
+                     {
+                       project_donor_id: "management_systems_international",
+                       project_donor_name: "Management Systems International"
+                     },
+                     {
+                       project_donor_id: "fondo_fiduciario_de_asociados_multiples",
+                       project_donor_name: "Fondo Fiduciario de Asociados Multiples"
+                     },
+                     {
+                       project_donor_id: "agencia_noruega_de_cooperación_para_el_desarrollo",
+                       project_donor_name: "Agencia Noruega de Cooperación para el Desarrollo"
+                     },
+                     {
+                       project_donor_id: "secretaría_distrital_de_salud",
+                       project_donor_name: "Secretaría Distrital de Salud"
+                     },
+                     {
+                       project_donor_id: "global_links",
+                       project_donor_name: "Global Links"
+                     },
+                     {
+                       project_donor_id: "programa_de_transformación_productiva",
+                       project_donor_name: "Programa de Transformación Productiva"
+                     },
+                     {
+                       project_donor_id: "office_of_u.s._foreign_disaster_assistance",
+                       project_donor_name: "OFFICE OF U.S. FOREIGN DISASTER ASSISTANCE"
+                     },
+                     {
+                       project_donor_id: "patrulla_aérea_civil_colombiana",
+                       project_donor_name: "Patrulla Aérea Civil Colombiana"
+                     },
+                     {
+                       project_donor_id: "acción_contra_el_hambre",
+                       project_donor_name: "Acción contra el Hambre"
+                     },
+                     {
+                       project_donor_id: "united_nations_international_children's_emergency_fund",
+                       project_donor_name: "United Nations International Children's Emergency Fund"
+                     },
+                     {
+                       project_donor_id: "oficina_de_naciones_unidas_para_la_coordinación_de_asuntos_humanitarios",
+                       project_donor_name: "Oficina de Naciones Unidas para la Coordinación de Asuntos Humanitarios"
+                     },
+                     {
+                       project_donor_id: "embajada_de_hungría",
+                       project_donor_name: "Embajada de Hungría"
+                     },
+                     {
+                       project_donor_id: "fundación_éxito",
+                       project_donor_name: "Fundación Éxito"
+                     },
+                     {
+                       project_donor_id: "united_states_agency_international_development",
+                       project_donor_name: "United States Agency International Development"
+                     },
+                     {
+                       project_donor_id: "fondo_multidonante_de_las_naciones_unidas_para_el_posconflicto",
+                       project_donor_name: "Fondo Multidonante de las Naciones Unidas para el Posconflicto"
+                     },
+                     {
+                       project_donor_id: "german_federal_foreign_office",
+                       project_donor_name: "German Federal Foreign Office"
+                     },
+                     
+                    ];
+          
+
+        }
+
+
+
+
         // add other
         donors.push( { project_donor_id: 'other', project_donor_name: 'Other' } );
 
         return donors;
       },
 
+
       // country currencies
       getCurrencies: function( admin0pcode ) {
-        var currencies = [
-        {
+
+
+        if(admin0pcode === 'COL'){
+
+          var currencies = [{
+          // default is USD
+          admin0pcode: admin0pcode,
+          currency_id: 'usd',
+          currency_name: 'USD'
+        }];
+
+        }else{
+
+        var currencies = [{
+
           admin0pcode: 'COL',
           currency_id: 'cop',
           currency_name: 'COP'
-        },
-        {
+        },{
           admin0pcode: 'AF',
           currency_id: 'afn',
           currency_name: 'AFN'
@@ -798,6 +1407,10 @@ angular.module( 'ngmReportHub' )
           admin0pcode: admin0pcode,
           currency_id: 'cad',
           currency_name: 'CAD'
+        },{
+          admin0pcode: admin0pcode,
+          currency_id: 'chf',
+          currency_name: 'CHF'
         },{
           admin0pcode: admin0pcode,
           currency_id: 'ddk',
@@ -844,6 +1457,7 @@ angular.module( 'ngmReportHub' )
           currency_id: 'usd',
           currency_name: 'USD'
         }];
+        }
 
         // filter currency options list by admin0pcode
         return $filter( 'filter' )( currencies, { admin0pcode: admin0pcode } );
@@ -1540,6 +2154,7 @@ angular.module( 'ngmReportHub' )
       // return ocha beneficiaries
       getBeneficiaries: function( year, admin0pcode, cluster_id ) {
 
+
         // default
         var beneficiaries = [{
             cluster_id: ngmClusterLists.all_sectors,
@@ -1638,6 +2253,68 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_id: 'service_provider',
             beneficiary_type_name: 'Service Provider'
           }];
+        }
+
+        // admin COL
+
+        if (  admin0pcode === 'COL' ) {
+          // default
+          var beneficiaries = [
+
+
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'mine_victims',
+            beneficiary_type_name: 'Víctimas de Minas'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'natural_disaster_victims',
+            beneficiary_type_name: 'Víctimas de Desastres Naturales'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'idps',
+            beneficiary_type_name: 'Población Desplazada Interna'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'massive_displacement_affected',
+            beneficiary_type_name: 'Afectados por Desplazamiento Masivo'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'host_communities',
+            beneficiary_type_name: 'Host Communities'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'sex_crimes_victims',
+            beneficiary_type_name: 'Víctimas de Delitos Sexuales'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'people_with_limitations_mobility_confinement',
+            beneficiary_type_name: 'Población con Limitaciones de Movilidad y Confinamiento'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'refugess_and_asylum_seekers',
+            beneficiary_type_name: 'Refugiados y Solicitantes de Asilo'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'migrants',
+            beneficiary_type_name: 'Migrantes'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'desmobilized_reinserted',
+            beneficiary_type_name: 'Desmovilizados / Reinsertados'
+          }
+          
+
+          ];
         }
 
         // admin SS
@@ -2774,6 +3451,14 @@ angular.module( 'ngmReportHub' )
               beneficiary_type_id: 'flood_affected_displaced_response',
               beneficiary_type_name: 'Flood Affected Displaced ( Response )'
             },{
+              cluster_id: [ 'cvwg' ],
+              beneficiary_type_id: 'drought_affected_non_displaced',
+              beneficiary_type_name: 'Drought Affected Non Displaced'
+            },{
+              cluster_id: [ 'cvwg' ],
+              beneficiary_type_id: 'drought_affected_displaced',
+              beneficiary_type_name: 'Drought Affected Displaced'
+            },{
 
               // HEALTH
               cluster_id: [ 'health' ],
@@ -3060,6 +3745,49 @@ angular.module( 'ngmReportHub' )
 
       },
 
+      getBeneficiariesCategories: function(){
+
+        var beneficiary_categories = [{
+            beneficiary_category_id: 'afrodescendientes',
+            beneficiary_category_name: 'Afrodescendientes'
+          }
+          ,{
+            beneficiary_category_id: 'indigenas',
+            beneficiary_category_name: 'Indígenas'
+          },{
+            beneficiary_category_id: 'mestizos',
+            beneficiary_category_name: 'Mestizos' 
+          },
+          {
+            beneficiary_category_id: 'others',
+            beneficiary_category_name: 'Otros'
+          }];
+
+        return beneficiary_categories;
+
+      },
+
+      // get location groups
+      // getLocationGroups: function(){
+
+      //   var groups = 12;
+      //   var locations = 20;
+
+      //   var location_groups = []
+      //   for( var i=1; i<=groups; i++ ){
+      //     var id = i.toString();
+      //     if ( id.length === 1 ) {
+      //       id = '0' + id;
+      //     }
+      //     location_groups.push({
+      //       location_group_id: 'location_group_' + id,
+      //       location_group_name: 'Location Group ' + id
+      //     });
+      //   }
+      //   return location_groups;
+
+      // },
+
       // get site implementation
       getSiteImplementation: function( admin0pcode, cluster_id ){
         var site_implementation = [];
@@ -3106,7 +3834,48 @@ angular.module( 'ngmReportHub' )
             site_implementation_id: 'clinic',
             site_implementation_name: 'Clinic'
           }];
-        } else {
+        } else if( admin0pcode === 'COL' ){
+          site_implementation = [{
+            site_implementation_id: 'community_based',
+            site_implementation_name: 'Comunidad Base'
+          },{
+            site_implementation_id:  'provision_de_insumos',
+            site_implementation_name: 'Provisión de Insumos'
+          },{
+            site_implementation_id: 'family_protection_center',
+            site_implementation_name: 'Centro de Protección Familiar'
+          },{
+            site_implementation_id: 'punto_de_vacunacion',
+            site_implementation_name: 'Punto de Vacunación'
+          },{
+            site_implementation_id: 'health_center',
+            site_implementation_name: 'Centro de Salud'
+          },{
+            site_implementation_id: 'feeding_center',
+            site_implementation_name: 'Centro de Alimentación'
+          },{
+            site_implementation_id: 'food_distribution_point_gfd',
+            site_implementation_name: 'Punto de Distribución de Alimentos'
+          },{
+            site_implementation_id: 'stabalization_center',
+            site_implementation_name: 'Centro de Estabilización'
+          },{
+            site_implementation_id: 'centro_de_acopio',
+            site_implementation_name: 'Centro de Acopio'
+          },{
+            site_implementation_id: 'punto_de_primeros_auxilios',
+            site_implementation_name: 'Punto de Primeros Auxilios'
+          },{
+            site_implementation_id: 'secretaria_de_salud',
+            site_implementation_name: 'Secretaría de Salud'
+          },{
+            site_implementation_id: 'others',
+            site_implementation_name: 'Otros'
+          }];
+
+        }
+
+        else {
           site_implementation = [{
             site_implementation_id: 'community_based',
             site_implementation_name: 'Community Based'
@@ -3234,6 +4003,9 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'MHT',
             site_type_name: 'MHT'
           },{
+            site_type_id: 'RRT',
+            site_type_name: 'RRT'
+          },{
             site_type_id: 'FATP',
             site_type_name: 'FATP'
           },{
@@ -3261,37 +4033,57 @@ angular.module( 'ngmReportHub' )
         // Cox bazar
         if ( admin0pcode === 'CB' ) {
           site_types = [{
-            cluster_id: ngmClusterLists.all_sectors,
-            site_type_id: 'refugee_camp',
-            site_type_name: 'Refugee Camp'
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
+            site_type_id: 'union',
+            site_type_name: 'Union'
           },{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
+            site_type_id: 'ward',
+            site_type_name: 'Ward'
+          },{
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
             site_type_id: 'host_community',
             site_type_name: 'Host Community'
           },{
-            cluster_id: ngmClusterLists.all_sectors,
-            site_type_id: 'nutrition_center',
-            site_type_name: 'Nutrition Center'
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
+            site_type_id: 'refugee_camp',
+            site_type_name: 'Refugee Camp'
+          },{
+            cluster_id: ngmClusterLists.all_sectors_minus_wash_health,
+            site_type_id: 'refugee_block',
+            site_type_name: 'Refugee Block'
+          },{
+            cluster_id: [ 'fss' ],
+            site_type_id: 'food_distribution_point',
+            site_type_name: 'Food Distribution Point'
+          },{
+            cluster_id: [ 'fss' ],
+            site_type_id: 'retail_store',
+            site_type_name: 'Retail Store'
           },{
             cluster_id: [ 'fss' ],
             site_type_id: 'cyclone_shelter',
             site_type_name: 'Cyclone Shelter'
           },{
-          //   cluster_id: ngmClusterLists.all_sectors_minus_wash,
-          //   site_type_id: 'nutrition_feeding_center',
-          //   site_type_name: 'Nutrition Feeding Center'
-          // },{
-          //   cluster_id: ngmClusterLists.all_sectors_minus_wash,
-          //   site_type_id: 'general_food_distribution_point',
-          //   site_type_name: 'General Food Distribution Point'
-          // },{
-          //   cluster_id: ngmClusterLists.all_sectors_minus_wash,
-          //   site_type_id: 'e_voucher_store',
-          //   site_type_name: 'eVoucher Store'
-          // },{
-            cluster_id: ngmClusterLists.all_sectors_minus_wash,
-            site_type_id: 'refugee_block',
-            site_type_name: 'Refugee Block'
+            cluster_id: [ 'health' ],
+            site_type_id: 'health_facility_camp',
+            site_type_name: 'Health Facility (Refugees)'
+          },{
+            cluster_id: [ 'health' ],
+            site_type_id: 'health_facility_host_community',
+            site_type_name: 'Health Facility (Host Community)'
+          },{
+            cluster_id: [ 'health' ],
+            site_type_id: 'refugee_camp',
+            site_type_name: 'Non-Facility Based (Refugees)'
+          },{
+            cluster_id: [ 'health' ],
+            site_type_id: 'host_community',
+            site_type_name: 'Non-Facility Based (Host Community)'
+          },{
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
+            site_type_id: 'nutrition_center',
+            site_type_name: 'Nutrition Center'
           }];
         }
 
@@ -3443,6 +4235,57 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'other',
             site_type_name: 'Other'
           }];
+        }
+
+        if(admin0pcode === 'COL'){
+
+
+          site_types = [
+          {
+            site_type_id: 'multiple_sites',
+            site_type_name: 'Múltiples Sitios'
+          },{
+            site_type_id: 'settlement',
+            site_type_name: 'Asentamientos'
+          },{
+            site_type_id: 'hospital',
+            site_type_name: 'Hospital'
+          },{
+            site_type_id: 'health_center',
+            site_type_name: 'Centro de Salud'
+          },{
+            site_type_id: 'health_post',
+            site_type_name: 'Puesto de Salud'
+          },
+          {
+            site_type_id: 'schools',
+            site_type_name: 'Escuelas'
+          },{
+            site_type_id: 'host_community_families',
+            site_type_name: 'Comunidad/Familias Anfitrionas'
+          },{
+            site_type_id: 'idp_site',
+            site_type_name: 'Sitio IDP'
+          },
+          {
+            site_type_id: 'nutrition_center',
+            site_type_name: 'Centro de Nutrición'
+          },
+          {
+            site_type_id: 'refugee_camp',
+            site_type_name: 'Campo de Refugiados'
+          },
+          {
+            site_type_id: 'secretarias_departamentales_distritales_y_municipales_de_salud',
+            site_type_name: 'Secretarías Departamentales Distritales y Municipales de Salud'
+          },
+          
+          {
+            site_type_id: 'other',
+            site_type_name: 'Otro'
+          },
+
+           ]
         }
         
         // facilities

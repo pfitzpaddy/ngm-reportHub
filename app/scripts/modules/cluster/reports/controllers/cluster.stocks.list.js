@@ -18,9 +18,7 @@ angular.module('ngmReportHub')
 				$route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
 
 		// init empty model
-		$scope.model = {
-			rows: [{}]
-		}
+		$scope.model = $scope.$parent.ngm.dashboard.model;
 
 		// empty Project
 		$scope.report = {
@@ -51,7 +49,7 @@ angular.module('ngmReportHub')
 			init: function(){
 
 				// title
-				$scope.report.title = $scope.report.organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.organization.organization + ' | Stocks';
+				$scope.report.title = $scope.report.organization.organization + ' | ' + $scope.report.organization.admin0name.toUpperCase().substring(0, 3) + ' | Stocks';
 
 				// report dashboard model
 				$scope.model = {

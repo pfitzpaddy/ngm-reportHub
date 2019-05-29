@@ -14,9 +14,7 @@ angular.module('ngmReportHub')
 		];
 
 		// init empty model
-		$scope.model = {
-			rows: [{}]
-		}
+		$scope.model = $scope.$parent.ngm.dashboard.model;
 
 		// empty Project
 		$scope.report = {
@@ -64,6 +62,16 @@ angular.module('ngmReportHub')
 				return obj;
 			},
 
+			// return url for report or summary page 
+			getReportUrl: function(){
+				// report
+				var report_url = '#/cluster/projects/report';
+				if ( $scope.report.project.location_groups_check ) {
+					report_url = '#/cluster/projects/group';
+				}
+				return report_url;
+			},
+
 			// set project details
 			setProjectDetails: function(data){
 
@@ -85,7 +93,7 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m9 l9 report-title truncate',
 							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.organization + ' | ' + $scope.report.project.project_title
+							title: $scope.report.project.organization + ' | ' + $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.project_title
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
@@ -145,9 +153,9 @@ angular.module('ngmReportHub')
 									textColor: 'white-text',
 									title: $filter('translate')('progress_update_todo'),
 									hoverTitle: $filter('translate')('update'),
-
 									icon: 'edit',
 									rightIcon: 'watch_later',
+									report_url: $scope.report.getReportUrl(),
 									templateUrl: $scope.report.getReportTemplate(),
 									orderBy: 'reporting_due_date',
 									format: true,
@@ -173,11 +181,13 @@ angular.module('ngmReportHub')
 									textColor: 'white-text',
 									title: $filter('translate')('progress_update_complete'),
 
-									hoverTitle: 'View',
+									hoverTitle: $filter('translate')('view'),
+
 									icon: 'done',
 									rightIcon: 'check_circle',
+									report_url: $scope.report.getReportUrl(),
 									templateUrl: $scope.report.getReportTemplate(),
-									orderBy: '-reporting_due_date',
+									orderBy: 'reporting_due_date',
 									format: true,
 									request: {
 										method: 'POST',
@@ -202,6 +212,16 @@ angular.module('ngmReportHub')
 							}]
 						}]
 					}]
+				}
+				const canDownload = ngmAuth.canDo('DASHBOARD_DOWNLOAD', {
+					adminRpcode: $scope.report.project.adminRpcode,
+					admin0pcode: $scope.report.project.admin0pcode,
+					cluster_id: $scope.report.project.cluster_id,
+					organization_tag: $scope.report.project.organization_tag
+				});
+				// remove download button
+				if (!canDownload) {
+					$scope.model.header.download.class += ' hide';
 				}
 
 				// assign to ngm app scope

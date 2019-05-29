@@ -34,16 +34,37 @@
       
       <!-- beneficiary -->
       <td>{{'beneficiary'|translate}}</td>
+
+      <td ng-if="project.definition.admin0pcode === 'COL'">{{'beneficiary_category' | translate}}</td>
+
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'delivery_type_id' ]">{{'type'|translate}}</td>
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'households' ]">{{'households'|translate}}</td>
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'families' ]">{{'families' | translate}}</td>
-      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'boys' ]">{{'boys' | translate}}</td>
-      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'girls' ]">{{'girls' | translate}}</td>
-      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'men' ]">{{'men' | translate}}</td>
-      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'women' ]">{{'women' | translate}}</td>
+
+      <!-- default -->
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'boys' ]
+                  && !ngmClusterBeneficiaries.cxbHealth( project )">{{'boys' | translate}}</td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'girls' ]
+                  && !ngmClusterBeneficiaries.cxbHealth( project )">{{'girls' | translate}}</td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'men' ]
+                  && !ngmClusterBeneficiaries.cxbHealth( project )">{{'men' | translate}}</td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'women' ]
+                  && !ngmClusterBeneficiaries.cxbHealth( project )">{{'women' | translate}}</td>
+      
+      <!-- CXB health -->
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'boys' ] 
+                  && ngmClusterBeneficiaries.cxbHealth( project )">Under 5 Male</td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'girls' ]
+                  && ngmClusterBeneficiaries.cxbHealth( project )">Under 5 Female</td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'men' ]
+                  && ngmClusterBeneficiaries.cxbHealth( project )">Over 5 Male</td>
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'women' ]
+                  && ngmClusterBeneficiaries.cxbHealth( project )">Over 5 Female</td>
+
+      <!-- continue -->
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'elderly_men' ]">{{'eld_men'|translate}}</td>
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'elderly_women' ]">{{'eld_women' | translate}}</td>
-
+      <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'total_beneficiaries' ]">Total</td>
       <td ng-if="project.showFatpTreatmentSameProvince( $locationIndex )">{{'treatment_same_province'| translate}}</td>
       <td ng-if="project.definition.project_status !== 'complete'">{{'edit' | translate}}</td>
     </tr>
@@ -277,6 +298,7 @@
               e-name="beneficiary_type_id"
               editable-select="beneficiary.beneficiary_type_id"
               e-placeholder="Select..."
+              e-ng-change="ngmClusterHelperCol.updateIndicatorObjective( project.definition.admin0pcode, beneficiary )"
               e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types |
                               filter: { 
                                 cluster_id: beneficiary.cluster_id
@@ -285,6 +307,17 @@
           {{ ngmClusterBeneficiaries.displayBeneficiary( project.lists, $data, beneficiary ) }}
         </span>
       </td>
+
+      <!-- beneficiaries categories-->
+      <td ng-if="project.definition.admin0pcode === 'COL'">
+         <span e-form="rowform"  e-name="beneficiary_category_id"
+                          editable-select="beneficiary.beneficiary_category_id"
+                          e-placeholder="Select..."
+                          e-ng-options="b.beneficiary_category_id as b.beneficiary_category_name for b in project.lists.beneficiary_categories"
+                          e-ng-disabled="!beneficiary.activity_description_id">
+                      {{ ngmClusterBeneficiaries.displayBeneficiaryCategories( project.lists, $data, beneficiary ) }}
+         </span>
+       </td>
 
       <!-- new, existing? -->
       <td ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'delivery_type_id' ]">
@@ -309,7 +342,7 @@
               e-name="households"
               editable-number="beneficiary.households"
               e-min="0"
-              e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'households', $data )"
+              e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'households', $data ); ngmCbBeneficiaries.setSadd( beneficiary );"
               e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'households' ]"
               e-required>
           {{ beneficiary.households }}
@@ -407,6 +440,19 @@
         </span>
       </td>
 
+      <!-- total_beneficiaries -->
+      <td ng-show="ngmClusterBeneficiaries.form.active[ $locationIndex ].columns[ 'total_beneficiaries' ]">
+        <span e-form="rowform"
+              e-name="total_beneficiaries"
+              editable-number="beneficiary.total_beneficiaries"
+              e-min="0"
+              e-ng-change="project.updateInput( $locationIndex, $beneficiaryIndex, 'total_beneficiaries', $data )"
+              e-ng-disabled="!ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'total_beneficiaries' ]"
+              e-required>
+          {{ beneficiary.total_beneficiaries }}
+        </span>
+      </td>
+
       <!-- afghanistan fatp same province -->
       <td ng-show="project.showFatpTreatmentSameProvince( $locationIndex )">
           <!-- editable select true/false -->
@@ -466,73 +512,72 @@
 		</tr>
 
     <!-- remarks -->
-    <tr ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'remarks' ]">
+    <tr ng-if="ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'remarks' ] || 
+                ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'activity_date' ] ||
+                ngmClusterBeneficiaries.showPartialKits( $locationIndex, $beneficiaryIndex, $index, beneficiary ) ||
+                ngmClusterBeneficiaries.showKitDetails( $locationIndex, $beneficiaryIndex, $index, beneficiary )">
 
       <!-- column -->
       <td colspan="100" style="padding-left:20px">
 
-      <!-- remarks -->
-        <div class="col s12 m2" style="text-align:right;">
-          <p style="font-size:16px; padding-top:30px;">{{'remarks' | translate}}</p>
+        <!-- remarks -->
+        <div ng-show="ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'remarks' ]">
+          <div class="col s12 m2" style="text-align:right;">
+            <p style="font-size:16px; padding-top:30px;">{{'remarks' | translate}}</p>
+          </div>
+          <div style="margin-top:20px;" class="input-field col s12 m10">
+            <input id="ngm-beneficiary-remarks" type="text" class="validate"
+                  ng-model="beneficiary.remarks"
+                  ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+                  required>
+            <label for="ngm-beneficiary-remarks" class="error">{{'remarks' | translate}}</label>
+          </div>  
         </div>
-        <div style="margin-top:20px;" class="input-field col s12 m10">
-          <input id="ngm-beneficiary-remarks" type="text" class="validate"
-                ng-model="beneficiary.remarks"
-                ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
-                required>
-          <label for="ngm-beneficiary-remarks" class="error">{{'remarks' | translate}}</label>
-        </div>       
 
-        <!-- distribution / kit details -->
-        <div ng-show="ngmClusterBeneficiaries.showDistributionDate( beneficiary ) || 
-                                ngmClusterBeneficiaries.showPartialKits( $locationIndex, $beneficiaryIndex, $index, beneficiary ) ||
-                                ngmClusterBeneficiaries.showKitDetails( $locationIndex, $beneficiaryIndex, $index, beneficiary )">
-
-          <!-- Distribution Date -->
-          <div ng-show="ngmClusterBeneficiaries.showDistributionDate( beneficiary );">
-            <!-- get template -->
-            <div class="row">
-              <div ng-include="project.templatesUrl + project.template_distribution_date"></div>
-            </div>
+        <!-- distribution -->
+        <div ng-show="ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'activity_date' ];">
+          <!-- get template -->
+          <div class="row"
+                ng-init="ngmClusterBeneficiaries.initDistributionDate( beneficiary )">
+            <div ng-include="project.templatesUrl + project.template_distribution_date"></div>
           </div>
+        </div>
 
-          <!-- Kit Details -->
-          <div ng-show="ngmClusterBeneficiaries.showPartialKits( $locationIndex, $beneficiaryIndex, $index, beneficiary );">
-            <!-- get template -->
-            <div class="row" ng-repeat="detail in beneficiary.partial_kits">
-              <div ng-include="project.templatesUrl + project.template_partial_kits"></div>
-            </div>
-            <!-- add details -->
-            <div class="row" style="margin-left:20px;padding-top: 5px;">
-              <button class="btn blue lighten-2"
-                      ng-if="beneficiary.partial_kits.length !== project.lists.partial_kits.length"
-                      ng-show="project.report.report_status !== 'complete' && rowform.$visible"
-                      ng-click="ngmClusterBeneficiaries.addPartialKits( $locationIndex, $beneficiaryIndex, beneficiary );">
-                <i class="material-icons left">add</i>{{'add_partial_kits' | translate}}
-
-              </button>
-            </div>
+        <!-- Kit Details -->
+        <div ng-show="ngmClusterBeneficiaries.showPartialKits( $locationIndex, $beneficiaryIndex, $index, beneficiary )">
+          <!-- get template -->
+          <div class="row" ng-repeat="detail in beneficiary.partial_kits">
+            <div ng-include="project.templatesUrl + project.template_partial_kits"></div>
           </div>
+          <!-- add details -->
+          <div class="row" style="margin-left:20px;padding-top: 5px;">
+            <button class="btn blue lighten-2"
+                    ng-if="beneficiary.partial_kits.length !== project.lists.partial_kits.length"
+                    ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+                    ng-click="ngmClusterBeneficiaries.addPartialKits( $locationIndex, $beneficiaryIndex, beneficiary );">
+              <i class="material-icons left">add</i>{{'add_partial_kits' | translate}}
 
-      		<!-- Kit Details -->
-          <div ng-show="ngmClusterBeneficiaries.showKitDetails( $locationIndex, $beneficiaryIndex, $index, beneficiary );">
-            <!-- get template -->
-            <div class="row" ng-repeat="detail in beneficiary.kit_details">
-              <div ng-include="project.templatesUrl + project.template_kit_details"></div>
-            </div>
-            <!-- add details -->
-            <div class="row" style="margin-left:20px;padding-top: 5px;">
-              <button class="btn blue lighten-2"
-                      ng-if="beneficiary.kit_details.length !== project.lists.kit_details.length"
-                      ng-show="project.report.report_status !== 'complete' && rowform.$visible"
-                      ng-click="ngmClusterBeneficiaries.addKitDetail( $locationIndex, $beneficiaryIndex, beneficiary );">
-                <i class="material-icons left">add</i>{{'add_kit_details' | translate}}
+            </button>
+          </div>
+        </div>
 
-              </button>
-            </div>
-      		</div>
+    		<!-- Kit Details -->
+        <div ng-show="ngmClusterBeneficiaries.showKitDetails( $locationIndex, $beneficiaryIndex, $index, beneficiary );">
+          <!-- get template -->
+          <div class="row" ng-repeat="detail in beneficiary.kit_details">
+            <div ng-include="project.templatesUrl + project.template_kit_details"></div>
+          </div>
+          <!-- add details -->
+          <div class="row" style="margin-left:20px;padding-top: 5px;">
+            <button class="btn blue lighten-2"
+                    ng-if="beneficiary.kit_details.length !== project.lists.kit_details.length"
+                    ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+                    ng-click="ngmClusterBeneficiaries.addKitDetail( $locationIndex, $beneficiaryIndex, beneficiary );">
+              <i class="material-icons left">add</i>{{'add_kit_details' | translate}}
 
-        </div>       
+            </button>
+          </div>
+        </div>
 
       </td>
 
@@ -553,7 +598,7 @@
   
   <button class="btn" 
             ng-if="project.definition.admin0pcode === 'ET' && project.definition.cluster_id === 'esnfi'"
-            ng-show="project.report.report_status !== 'complete'" 
+            ng-show="project.definition.project_status !== 'complete' && project.report.report_status !== 'complete'"
 						ng-click="project.addBeneficiary( $locationIndex, { households: 1 } ); project.activePrevReportButton()"
 						ng-disabled="addBeneficiaryDisable">
     <i class="material-icons left">add</i>{{'add_beneficiaries' | translate}}
@@ -563,7 +608,7 @@
   <!-- default -->
   <button class="btn"
             ng-if="project.definition.admin0pcode !== 'ET' || project.definition.cluster_id !== 'esnfi'" 
-            ng-show="project.report.report_status !== 'complete'" 
+            ng-show="project.definition.project_status !== 'complete' && project.report.report_status !== 'complete'"
 						ng-click="project.addBeneficiary( $locationIndex ); project.activePrevReportButton()"
 						ng-disabled="addBeneficiaryDisable">
     <i class="material-icons left">add</i>{{'add_beneficiaries' | translate}}

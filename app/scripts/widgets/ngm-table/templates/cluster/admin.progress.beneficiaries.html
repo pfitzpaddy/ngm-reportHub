@@ -60,19 +60,23 @@
 					<div ng-if="data.length">
 						<table class="centered highlight responsive-table" ng-table="table.tableParams">
 							<tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
-								<td data-title="'Cluster'" sortable="'cluster'" ng-if="table.cluster_id === 'all'">
+								<td data-title="'Cluster'" sortable="'cluster'">
 									{{ row.cluster }}
 								</td>
 								<td data-title="'organization'|translate" sortable="'organization'">
 									 {{ row.organization }}									
 								</td>					
-
+								<td data-title="'Partners'" sortable="'implementing_partners'">
+									<p>
+										{{row.implementing_partners?row.implementing_partners:'-'}}
+									</p>
+								</td>
 								<td data-title="'title'|translate" sortable="'project_title'" ng-if="table.showTitle">
 									<a target="_blank" href="#/cluster/projects/summary/{{ row.project_id }}" title="GoTo Project Summary">
 										{{ row.project_title }}
 									</a>
 								</td>								
-								<td data-title="'target_beneficiaries'|translate" sortable="'target_total_format'" >
+								<td data-title="'target_beneficiaries'|translate" sortable="'target_total_format'">
 									{{ row.target_total_format }}
 								</td>
 								<td data-title="'reported_beneficiaries'|translate" sortable="'report_total_format'">

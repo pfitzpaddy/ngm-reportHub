@@ -1,4 +1,284 @@
 
+
+<div class="row" ng-if="project.definition.admin0pcode === 'COL'">
+	<div class="col s12 m12 l12">
+		<div class="card">
+			<ul class="collection with-header">
+				<li class="collection-header blue lighten-1">
+					<h5 class="report-work-title white-text">
+						<i class="material-icons left">list</i> {{'project_classifications'|translate}}
+
+					</h5>
+				</li>
+
+				<li class="collection-item avatar">
+
+					<div class="row">
+
+						<!--<div  class="col s12 m6 l6" ng-repeat="projclasification in project.lists.projectsclasifications">
+						<div class="card">
+							<ul class="collection with-header">
+								<li class="collection-header blue lighten-1">
+									<h5 class="report-work-title white-text">
+										<i class="material-icons left">add_box</i> {{projclasification.project_clasification_name}}
+
+									</h5>
+								</li>
+
+								<li class="collection-item avatar">
+									<md-chips ng-model="project.definition[projclasification.project_clasification_id]" 
+											md-autocomplete-snap="width"											
+											md-require-match="true" 
+											input-aria-label="Undaf Desarrollo y Paz" 
+											md-on-add="project[projclasification.functionadd]($chip)"   
+											md-on-remove="project[projclasification.functionremove]($chip)">
+											<md-autocomplete 
+												md-selected-item="null" 	
+												md-search-text="project[projclasification.search-text]" 	
+												md-items="item in project[projclasification.functionsearch](project[projclasification.search-text])"
+												md-item-text="item.name_tag" 
+												input-aria-describedby="autocompleteTitle" 
+												placeholder="{{'add_new_project_clasification'|translate}}" 
+												ng-disabled="project.definition.project_status === 'complete'">
+												<span md-highlight-text="searchText">{{item.name_tag}} </span>
+												<md-not-found>
+													{{'cannot_add_not_ont_the_list'|translate}}
+												</md-not-found>
+											</md-autocomplete>
+											<md-chip-template>
+												<span>
+													<strong>{{$chip.name_tag}}</strong>
+												</span>
+											</md-chip-template>
+										</md-chips>
+								
+									
+								</li>
+							</ul>
+						</div>
+					</div>-->
+
+					<div  class="col s12 m6 l6" >
+						<div class="card">
+							<ul class="collection with-header">
+								<!--<li class="collection-header blue lighten-1">
+									<h5 class="report-work-title white-text">
+										<i class="material-icons left">add_box</i> UNDAF - Desarrollo y Paz
+
+									</h5>
+								</li>-->
+								<li class="collection-header blue lighten-1">
+									<h6 class=" white-text">
+									 UNDAF - Desarrollo y Paz
+
+									</h6>
+								</li>
+
+								<li class="collection-item avatar">
+									<md-chips ng-model="project.definition.undaf_desarrollo_paz" 
+											md-autocomplete-snap="width"											
+											md-require-match="true" 
+											input-aria-label="Undaf Desarrollo y Paz" 
+											md-on-add="project.addUndafDesarrolloPaz($chip)"   
+											md-on-remove="project.removeUndafDesarrolloPaz($chip)">
+											<md-autocomplete 
+												md-selected-item="null" 	
+												md-search-text="project.searchundaf_desarrollo_paz" 
+												md-min-length="3"	
+												md-items="item in project.searchUndafDesarrolloYPaz(project.searchundaf_desarrollo_paz)"
+												md-item-text="item.name_tag" 
+												input-aria-describedby="autocompleteTitle" 
+												placeholder="{{'add_new_project_classification'|translate}}" 
+												ng-disabled="project.definition.project_status === 'complete'">
+												<span md-highlight-text="searchText">{{item.name_tag}} </span>
+												<md-not-found>
+													{{'cannot_add_not_ont_the_list'|translate}}
+												</md-not-found>
+											</md-autocomplete>
+											<md-chip-template>
+												<span title="{{$chip.name_tag}}">
+													{{$chip.name_tag}}
+												</span>
+											</md-chip-template>
+										</md-chips>
+								
+									
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div  class="col s12 m6 l6" >
+						<div class="card">
+							<ul class="collection with-header">
+								<!--<li class="collection-header blue lighten-1">
+									<h5 class="report-work-title white-text">
+										<i class="material-icons left">add_box</i> Acuerdos de Paz
+
+									</h5>
+								</li>-->
+								<li class="collection-header blue lighten-1">
+									<h6 class=" white-text">
+									 Acuerdos de Paz
+
+									</h6>
+								</li>
+
+								<li class="collection-item avatar">
+									<md-chips ng-model="project.definition.acuerdos_de_paz" 
+											md-autocomplete-snap="width"											
+											md-require-match="true" 
+											input-aria-label="Acuerdos de Paz" 
+											md-on-add="project.addAcuerdosDePaz($chip)"   
+											md-on-remove="project.removeAcuerdosDePaz($chip)">
+											<md-autocomplete 
+												md-selected-item="null" 	
+												md-search-text="project.searchacuerdos_de_paz" 
+												md-min-length="3"	
+												md-items="item in project.searchAcuerdosDePaz(project.searchacuerdos_de_paz)"
+												md-item-text="item.name_tag" 
+												input-aria-describedby="autocompleteTitle" 
+												placeholder="{{'add_new_project_classification'|translate}}" 
+												ng-disabled="project.definition.project_status === 'complete'">
+												<span md-highlight-text="searchText">{{item.name_tag}} </span>
+												<md-not-found>
+													{{'cannot_add_not_ont_the_list'|translate}}
+												</md-not-found>
+											</md-autocomplete>
+											<md-chip-template>
+												<span title="{{$chip.name_tag}}">
+													{{$chip.name_tag}}
+												</span>
+											</md-chip-template>
+										</md-chips>
+								
+									
+								</li>
+							</ul>
+						</div>
+					</div>
+
+
+				</div>
+
+				<div class="row">
+
+
+					<div  class="col s12 m6 l6" >
+						<div class="card">
+							<ul class="collection with-header">
+								<!--<li class="collection-header blue lighten-1">
+									<h5 class="report-work-title white-text">
+										<i class="material-icons left">add_box</i> DAC - OECD Development Assistance Committee
+
+									</h5>
+								</li>-->
+
+								<li class="collection-header blue lighten-1">
+									<h6 class=" white-text">
+									 DAC - OECD Development Assistance Committee
+
+									</h6>
+								</li>
+
+								<li class="collection-item avatar">
+									<md-chips ng-model="project.definition.dac_oecd_development_assistance_committee" 
+											md-autocomplete-snap="width"											
+											md-require-match="true" 
+											input-aria-label="DAC - OECD Development Assistance Committee" 
+											md-on-add="project.addDACOECDDevelopmentAssistanceCommittee($chip)"   
+											md-on-remove="project.removeDACOECDDevelopmentAssistanceCommittee($chip)">
+											<md-autocomplete 
+												md-selected-item="null" 	
+												md-search-text="project.searchdac_oecd_development_assistance_committee"
+												md-min-length="3"
+												md-items="item in project.searchDACOECDDevelopmentAssistanceCommittee(project.searchdac_oecd_development_assistance_committee)"
+												md-item-text="item.name_tag" 
+												input-aria-describedby="autocompleteTitle" 
+												placeholder="{{'add_new_project_classification'|translate}}" 
+												ng-disabled="project.definition.project_status === 'complete'">
+												<span md-highlight-text="searchText">{{item.name_tag}} </span>
+												<md-not-found>
+													{{'cannot_add_not_ont_the_list'|translate}}
+												</md-not-found>
+											</md-autocomplete>
+											<md-chip-template>
+												<span title="{{$chip.name_tag}}">
+													{{$chip.name_tag}}
+												</span>
+											</md-chip-template>
+										</md-chips>
+								
+									
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div  class="col s12 m6 l6" >
+						<div class="card">
+							<ul class="collection with-header">
+								<!--<li class="collection-header blue lighten-1">
+									<h5 class="report-work-title white-text">
+										<i class="material-icons left">add_box</i> ODS - Objetivos de Desarrollo Sostenible
+
+									</h5>
+								</li>-->
+
+								<li class="collection-header blue lighten-1">
+									<h6 class=" white-text">
+									 ODS - Objetivos de Desarrollo Sostenible
+
+									</h6>
+								</li>
+
+								<li class="collection-item avatar">
+									<md-chips ng-model="project.definition.ods_objetivos_de_desarrollo_sostenible" 
+											md-autocomplete-snap="width"											
+											md-require-match="true" 
+
+											input-aria-label="ODS - Objetivos de Desarrollo Sostenible" 
+											md-on-add="project.addODSObjetivosDeDesarrolloSostenible($chip)"   
+											md-on-remove="project.removeODSObjetivosDeDesarrolloSostenible($chip)">
+											<md-autocomplete 
+												md-selected-item="null" 	
+												md-search-text="
+												project.searchods_objetivos_de_desarrollo_sostenible" 	md-min-length="3"
+												md-items="item in project.searchODSObjetivosDeDesarrolloSostenible(project.searchods_objetivos_de_desarrollo_sostenible)"
+												md-item-text="item.name_tag" 
+												input-aria-describedby="autocompleteTitle" 
+												placeholder="{{'add_new_project_classification'|translate}}" 
+												ng-disabled="project.definition.project_status === 'complete'">
+												<span md-highlight-text="searchText">{{item.name_tag}} </span>
+												<md-not-found>
+													{{'cannot_add_not_ont_the_list'|translate}}
+												</md-not-found>
+											</md-autocomplete>
+											<md-chip-template>
+												<span title="{{$chip.name_tag}}">
+													{{$chip.name_tag}}
+												</span>
+											</md-chip-template>
+										</md-chips>
+								
+									
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+
+				</li>
+
+	
+
+
+			</ul>
+		</div>
+	</div>
+</div>
+
 <div class="row">
 	<div class="col s12 m12 l12">
 		<div class="card">
@@ -12,33 +292,31 @@
 
 				<li class="collection-item avatar">
 					<div class="row">
-						<div>
-							<div class="col s12 m9 l9 left">
-								<p id="ngm-target_beneficiaries" style="padding:10px;">
-									{{'enter_the_target_beneficiaries_of_your_project_in_the_form_below' | translate}};
-								</p>
+						<div class="col s12 left">
+							<p id="ngm-target_beneficiaries" style="padding:10px;">
+								{{'enter_the_target_beneficiaries_of_your_project_in_the_form_below' | translate}};
+							</p>
 
-								<div ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'mpc_delivery_type_id' ] &&
-															!ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'package_type_id' ]" style="padding-left: 40px;">
-									<p>
-										<i class="material-icons left" style="color: #e57373">info</i>
-									</p>
-									<p style="color: #e57373">
-										<span style="font-weight:400">{{'amount'|translate}}:</span> {{'please_enter_the_amount_per' | translate}} <span style="font-weight:400">{{'household_hh' | translate}}</span> per <span style="font-weight:400">{{'transfer' | translate}}</span>
-									</p>
-									<p style="color: #e57373">
-										<span style="font-weight:400">{{'transfers'|translate}}:</span> {{'please_enter_the' |translate}} <span style="font-weight:400">TOTAL</span> {{'number_of_planned_transfer_for_the'|translate}} <span style="font-weight:400">{{'entire' | translate}}</span> {{'project' | translate}}
-									</p>
-								</div>
+							<div ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'mpc_delivery_type_id' ] &&
+														!ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'package_type_id' ]" style="padding-left: 40px;">
+								<p>
+									<i class="material-icons left" style="color: #e57373">info</i>
+								</p>
+								<p style="color: #e57373">
+									<span style="font-weight:400">{{'amount'|translate}}:</span> {{'please_enter_the_amount_per' | translate}} <span style="font-weight:400">{{'household_hh' | translate}}</span> per <span style="font-weight:400">{{'transfer' | translate}}</span>
+								</p>
+								<p style="color: #e57373">
+									<span style="font-weight:400">{{'transfers'|translate}}:</span> {{'please_enter_the' |translate}} <span style="font-weight:400">TOTAL</span> {{'number_of_planned_transfer_for_the'|translate}} <span style="font-weight:400">{{'entire' | translate}}</span> {{'project' | translate}}
+								</p>
 							</div>
-							<div class="col s12 m3 l3 beneficiary-count">
-								<div class="right">
-									<span style="font-size:1.2rem;"><i class="material-icons" style="padding-right:10px;">group</i></span>
-									<!-- filter in app/services/ngmHelper.js -->
-									{{ project.definition | sumArrayByKeys:'target_beneficiaries':project.lists.indicators:project.lists.skip | number }}
-								</div>
-							</div>
-						</div>				
+						</div>
+						<!-- <div class="col s12 m3 l3 beneficiary-count"> -->
+							<!-- <div class="right"> -->
+								<!-- <span style="font-size:1.2rem;"><i class="material-icons" style="padding-right:10px;">group</i></span> -->
+								<!-- filter in app/services/ngmHelper.js -->
+								<!-- {{ project.definition | sumArrayByKeys:'target_beneficiaries':project.lists.indicators:project.lists.skip | number }} -->
+							<!-- </div> -->
+						<!-- </div> -->
 						<div class="col s12 card">
 							<div style="padding-top: 10px; padding-left: 40px;">
 							  <table class="bordered responsive-table" ng-show="project.definition.target_beneficiaries.length">
@@ -62,19 +340,42 @@
 							      <!-- inputs -->
 										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'unit_type_id' ]">{{'units' | translate}}</td>
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'units' ]">{{'quantity'|translate}}</td>
-										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'transfer_type_id' ]">project.showCash()"></td>
+										<td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'transfer_type_id' ]">{{'transfers' | translate}}</td>
 
 										<!-- beneficiary -->
 							      <td>{{'beneficiary' | translate}}</td>
+
+							      <td ng-if="project.definition.admin0pcode === 'COL'">{{'beneficiary_category' | translate}}</td>
+
+
 							      <!-- <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'delivery_type_id' ]">Type</td> -->
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'households' ]">{{'households'|translate}}</td>
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'families' ]">{{'families' | translate}}</td>
-							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'boys' ]">{{'boys' | translate}}</td>
-							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'girls' ]">{{'girls' | translate}}</td>
-							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'men' ]">{{'men' | translate}}</td>
-							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'women' ]">{{'women' | translate}}</td>
+							      
+							      <!-- default -->
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'boys' ]
+							      						&& !ngmClusterBeneficiaries.cxbHealth( project )">{{'boys' | translate}}</td>
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'girls' ]
+							      						&& !ngmClusterBeneficiaries.cxbHealth( project )">{{'girls' | translate}}</td>
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'men' ]
+							      						&& !ngmClusterBeneficiaries.cxbHealth( project )">{{'men' | translate}}</td>
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'women' ]
+							      						&& !ngmClusterBeneficiaries.cxbHealth( project )">{{'women' | translate}}</td>
+							      
+							      <!-- CXB health -->
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'boys' ] 
+							      						&& ngmClusterBeneficiaries.cxbHealth( project )">Under 5 Male</td>
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'girls' ]
+							      						&& ngmClusterBeneficiaries.cxbHealth( project )">Under 5 Female</td>
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'men' ]
+							      						&& ngmClusterBeneficiaries.cxbHealth( project )">Over 5 Male</td>
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'women' ]
+							      						&& ngmClusterBeneficiaries.cxbHealth( project )">Over 5 Female</td>
+
+							      <!-- continue -->
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'elderly_men' ]">{{'eld_men'|translate}}</td>
 							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'elderly_women' ]">{{'eld_women'|translate}}</td>
+							      <td ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'total_beneficiaries' ]">Total</td>
 										<td ng-if="project.showFatpTreatmentSameProvince()">{{'treatment_same_province'| translate}}</td>
 							      <td ng-if="project.definition.project_status !== 'complete'">{{'edit' | translate}}</td>
 
@@ -311,12 +612,25 @@
 							              e-name="beneficiary_type_id"
 							              editable-select="beneficiary.beneficiary_type_id"
 							              e-placeholder="Select..."
+							              e-ng-change="ngmClusterHelperCol.updateIndicatorObjective( project.definition.admin0pcode, beneficiary )"
 							              e-ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types |
 							              								filter: { 
 							              									cluster_id: beneficiary.cluster_id
 							              								} : true"
 							              e-ng-disabled="!beneficiary.activity_description_id">
 							          {{ ngmClusterBeneficiaries.displayBeneficiary( project.lists, $data, beneficiary ) }}
+							        </span>
+							      </td>
+
+							      <!-- beneficiaries categories-->
+							      <td ng-if="project.definition.admin0pcode === 'COL'">
+							        <span e-form="rowform"
+							              e-name="beneficiary_category_id"
+							              editable-select="beneficiary.beneficiary_category_id"
+							              e-placeholder="Select..."
+							              e-ng-options="b.beneficiary_category_id as b.beneficiary_category_name for b in project.lists.beneficiary_categories"
+							              e-ng-disabled="!beneficiary.activity_description_id">
+							          {{ ngmClusterBeneficiaries.displayBeneficiaryCategories( project.lists, $data, beneficiary ) }}
 							        </span>
 							      </td>
 
@@ -342,7 +656,7 @@
 							        			e-name="households"
 							        			editable-number="beneficiary.households"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput( $index, 'households', $data )"
+							        			e-ng-change="project.updateInput( $index, 'households', $data ); ngmCbBeneficiaries.setSadd( beneficiary );"
 							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'households' ]"
 							        			e-required>
 							          {{ beneficiary.households }}
@@ -368,7 +682,7 @@
 							        			e-name="boys"
 							        			editable-number="beneficiary.boys"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput($index, 'boys', $data )"
+							        			e-ng-change="project.updateInput($index, 'boys', $data ); ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'boys' ]"
 							        			e-required>
 							          {{ beneficiary.boys }}
@@ -381,7 +695,7 @@
 							        			e-name="girls"
 							        			editable-number="beneficiary.girls"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput($index, 'girls', $data )"
+							        			e-ng-change="project.updateInput($index, 'girls', $data ); ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'girls' ]"
 							        			e-required>
 							          {{ beneficiary.girls }}
@@ -394,7 +708,7 @@
 							        			e-name="men"
 							        			editable-number="beneficiary.men"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput($index, 'men', $data )"
+							        			e-ng-change="project.updateInput($index, 'men', $data ); ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'men' ]"
 							        			e-required>
 							          {{ beneficiary.men }}
@@ -407,7 +721,7 @@
 							        			e-name="women"
 							        			editable-number="beneficiary.women"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput($index, 'women', $data )"
+							        			e-ng-change="project.updateInput($index, 'women', $data ); ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'women' ]"
 							        			e-required>
 							          {{ beneficiary.women }}
@@ -420,7 +734,7 @@
 							        			e-name="elderly_men"
 							        			editable-number="beneficiary.elderly_men"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput($index, 'elderly_men', $data )"
+							        			e-ng-change="project.updateInput( $index, 'elderly_men', $data ); ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'elderly_men' ]"
 							        			e-required>
 							          {{ beneficiary.elderly_men }}
@@ -433,10 +747,23 @@
 							        			e-name="elderly_women"
 							        			editable-number="beneficiary.elderly_women"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput($index, 'elderly_women', $data )"
+							        			e-ng-change="project.updateInput( $index, 'elderly_women', $data ); ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'elderly_women' ]"
 							        			e-required>
 							          {{ beneficiary.elderly_women }}
+							        </span>
+							      </td>
+
+							      <!-- total_beneficiaries -->
+							      <td ng-show="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'total_beneficiaries' ]">
+							        <span e-form="rowform"
+							        			e-name="total_beneficiaries"
+							        			editable-number="beneficiary.total_beneficiaries"
+							        			e-min="0"
+							        			e-ng-change="project.updateInput( $index, 'total_beneficiaries', $data )"
+							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'total_beneficiaries' ]"
+							        			e-required>
+							          {{ beneficiary.total_beneficiaries }}
 							        </span>
 							      </td>
 

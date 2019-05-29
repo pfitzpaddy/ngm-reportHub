@@ -59,7 +59,7 @@ li {
 				<div class="icon center">
 					<!-- make it a circle -->
 					<div class="card">
-						<img title="Check your ReportHub email account" src="images/invite-sent.png"/>
+						<img title="{{'please_check_your'|translate}} {{panel.var4wplusrh}} {{'email_account_to_reset_your_password' | translate}}" src="images/invite-sent.png"/>
 					</div>
 					<h5 class="title">{{'reminder_sent' | translate}}!</h5>
 				</div>
@@ -70,7 +70,7 @@ li {
 							<i class="material-icons" style="color: teal">send</i>
 						</div>
 						<div class="col s9">
-							{{'please_check_your_ReportHub_email_account_to_reset_your_password' | translate}}!
+							{{'please_check_your'|translate}} {{panel.var4wplusrh}} {{'email_account_to_reset_your_password' | translate}}!
 						</div>
 					</div>
 					<div class="row" style="padding-top:20px;">
@@ -96,7 +96,7 @@ li {
 				<div class="icon center">
 					<!-- make it a circle -->
 					<div class="card">
-						<img title="Check your ReportHub email account" src="images/find-account.png"/>
+						<img title="{{'please_check_your'|translate}} {{panel.var4wplusrh}} {{'email_account_to_reset_your_password' | translate}}" src="images/find-account.png"/>
 					</div>
 					<h5 class="title">{{'reset_password' | translate}}</h5>
 				</div>
@@ -104,7 +104,8 @@ li {
 				<p class="center" style="font-weight:300;" ng-if="panel.err">
 					{{'having_trouble_finding_your_account' | translate}}? 
 					<br/>
-					{{'contact_mayus' | translate}} <a href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a>
+					{{'contact_mayus' | translate}} <a ng-if="panel.var4wplusrh === 'ReportHub'" href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a>
+					<a ng-if="panel.var4wplusrh === '4wPlus'" href="mailto:contacto@immap.org">contacto@immap.org</a>
 				</p>
 
 				<form name="ngmResetForm" class="col s12" novalidate>
@@ -213,12 +214,16 @@ li {
 		$( '.carousel.carousel-slider' ).carousel({ full_width: true });
 		// goTo login page
 		$( '.carousel' ).carousel( 'set', 2 );
+		// focus
+		$('#ngm-password').focus();
 	}, 100 );	
 
 	// hidden to start
 	setTimeout( function(){
 		$('.one').css({display: 'block'});
 		$('.two').css({display: 'block'});
+		// focus
+		$('#ngm-username').focus();
 	}, 400);
 
 	// goto login

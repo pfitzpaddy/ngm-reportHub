@@ -31,7 +31,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
     'ngmClusterLists',
     'config','$translate',
     function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, config,$translate ){
-
+      
       // project
       $scope.report = {
 
@@ -56,11 +56,11 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         stockUrl: 'stock.html',
         notesUrl: 'notes.html',
 
-        canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.organization.adminRpcode, admin0pcode:config.organization.admin0pcode, cluster_id: $scope.report.user.cluster_id, organization_tag:config.organization.organization_tag } ),
+        canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.organization.adminRpcode, admin0pcode:config.organization.admin0pcode, cluster_id: ngmUser.get().cluster_id, organization_tag:config.organization.organization_tag } ),
 
         // lists
         lists: {
-          clusters: ngmClusterLists.getClusters( config.organization.admin0pcode ),
+          clusters: ngmClusterLists.getClusters( config.organization.admin0pcode ).filter(cluster=>cluster.filter!==false),
           units: ngmClusterLists.getUnits( config.organization.admin0pcode ),
           stocks: localStorage.getObject( 'lists' ).stockItemsList,
           stock_status:[{
@@ -326,12 +326,12 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 										typ = 'success';
 							}
 						} else {
-								var msg = $filter('translate')('copied')+' ' + nrows + ' '+$filter('transalte')('rows'),
+								var msg = $filter('translate')('copied')+' ' + nrows + ' '+$filter('translate')('rows'),
 										typ = 'success';
 						}
-						Materialize.toast(msg, 3000, typ);
+						Materialize.toast(msg, 6000, typ);
 					}).catch(function (e) {
-						Materialize.toast($filter('translate')('error_not_copied'), 3000, 'error');
+						Materialize.toast($filter('translate')('error_not_copied'), 6000, 'error');
 					});
 
 				},
@@ -351,7 +351,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           $scope.report.report.report_submitted = moment().format();
 
           // msg
-					Materialize.toast( $filter('translate')('processing_stock_report') , 3000, 'note');
+					Materialize.toast( $filter('translate')('processing_stock_report') , 6000, 'note');
 
           // setReportRequest
           var setReportRequest = {
@@ -377,7 +377,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                 msg += complete ? $filter('translate')('submitted')+'!' : $filter('translate')('saved_mayus1')+'!';
 
             // msg
-            Materialize.toast( msg , 3000, 'success');
+            Materialize.toast( msg , 6000, 'success');
 						$('.modal-trigger').leanModal();
 
             // Re-direct to summary

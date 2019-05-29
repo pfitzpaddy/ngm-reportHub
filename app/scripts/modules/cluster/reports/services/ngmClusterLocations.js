@@ -6,7 +6,7 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterLocations', [ '$http', '$filter', '$timeout', 'ngmAuth', function( $http, $filter, $timeout, ngmAuth ) {
+	.factory( 'ngmClusterLocations', [ '$http', '$filter', '$timeout', 'ngmAuth','$translate', function( $http, $filter, $timeout, ngmAuth,$translate ) {
 
 		ngmClusterLocations = {
 
@@ -71,7 +71,10 @@ angular.module( 'ngmReportHub' )
             l.site_lng = null;
           }
           inserted = angular.merge( inserted, l );
-        }
+				}
+				if (project.implementing_partners.length > 0 && length < 1) {
+					inserted.implementing_partners = angular.copy(project.implementing_partners)
+				}
         // set targets
         return inserted;
       },
@@ -89,7 +92,7 @@ angular.module( 'ngmReportHub' )
           url: ngmAuth.LOCATION + '/api/cluster/project/removeLocation',
           data: { id: id }
         }).success( function( result ) {
-          Materialize.toast( 'Project Location Removed!' , 3000, 'success' )
+          Materialize.toast( $filter('translate')('project_location_removed') , 3000, 'success' )
         }).error( function( err ) {
           Materialize.toast( 'Error!', 6000, 'error' );
         });
@@ -114,6 +117,18 @@ angular.module( 'ngmReportHub' )
         }
         return selected && selected.length ? selected[0].username : '-';
       },
+
+      // show location group name
+      // showLocationGroup: function( lists, $data, target_location ){
+      //   var selected = [];
+      //   target_location.location_group_id = $data;
+      //   if( target_location.username ) {
+      //     // filter selection
+      //     selected = $filter('filter')( lists.location_groups, { location_group_id: target_location.location_group_id }, true );
+      //     target_location.location_group_name = selected[0].location_group_name;
+      //   }
+      //   return selected && selected.length ? selected[0].location_group_name : '-';
+      // },
 
       // site implementation
       showSiteImplementation: function( lists, $data, target_location ){
@@ -389,6 +404,12 @@ angular.module( 'ngmReportHub' )
       showSiteName: function( $data, target_location ){
         if( $data ) { target_location.site_name = $data; }
         return target_location.site_name ? target_location.site_name : '';
+      },
+
+      // site_name
+      showSiteNameAlternative: function( $data, target_location ){
+        if( $data ) { target_location.site_name_alternative = $data; }
+        return target_location.site_name_alternative ? target_location.site_name_alternative : '';
       },
 
 		};

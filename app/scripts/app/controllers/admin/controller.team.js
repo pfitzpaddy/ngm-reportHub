@@ -12,6 +12,9 @@ angular.module('ngmReportHub')
 			'AngularJS',
 			'Karma'
 		];
+
+		// assign to ngm app scope
+		$scope.model = $scope.$parent.ngm.dashboard.model;
 		
 		// login object
 		$scope.dashboard = {
@@ -139,8 +142,10 @@ angular.module('ngmReportHub')
 
 			// set title
 			setTitles: function () {
-				$scope.dashboard.ngm.dashboard.model.header.title.title = $scope.dashboard.organization + ' | ' +  $scope.dashboard.admin0name + ' | '+$filter('translate')('team');
-				$scope.dashboard.ngm.dashboard.model.header.subtitle.title = $scope.dashboard.organization  + ' | ' +  $scope.dashboard.admin0name + ' | '+$filter('translate')('team')+ ' | ' + $scope.dashboard.user.username;
+				if ( $scope.dashboard.ngm.dashboard.model.header ) {
+					$scope.dashboard.ngm.dashboard.model.header.title.title = $scope.dashboard.organization + ' | ' +  $scope.dashboard.admin0name + ' | '+$filter('translate')('team');
+					$scope.dashboard.ngm.dashboard.model.header.subtitle.title = $scope.dashboard.organization  + ' | ' +  $scope.dashboard.admin0name + ' | '+$filter('translate')('team')+ ' | ' + $scope.dashboard.user.username;
+				}
 			},
 
 			// set stats
@@ -400,7 +405,7 @@ angular.module('ngmReportHub')
 									headerStyle: 'background-color:' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 									headerText: 'white-text',
 									headerIcon: 'group',
-									headerTitle: $scope.dashboard.user.organization + ' ' +$filter('translate')('active_users'),
+									headerTitle: $filter('translate')('active_users'),
 									templateUrl: '/scripts/app/views/authentication/team.html',
 									tableOptions:{
 										count: 10,
@@ -460,7 +465,7 @@ angular.module('ngmReportHub')
 									headerStyle: 'background-color: grey',
 									headerText: 'white-text',
 									headerIcon: 'group',
-									headerTitle: $scope.dashboard.user.organization + ' '+$filter('translate')('desactivated_users'),
+									headerTitle: $filter('translate')('desactivated_users'),
 									templateUrl: '/scripts/app/views/authentication/team.html',
 									tableOptions:{
 										count: 10,

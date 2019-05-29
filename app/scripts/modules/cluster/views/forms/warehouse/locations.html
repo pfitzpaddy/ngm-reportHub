@@ -36,7 +36,7 @@
 							    	ng-model="report.options.warehouse.admin1"
 							    	ng-model-options="{ trackBy: '$value.admin1pcode'}"
 							    	ng-change="report.updateLocationSelect( true, false )"
-			      				ng-options="item as item.admin1name for item in report.options.list.admin1">
+			      				ng-options="item as item.admin1name for item in report.options.list.admin1 | filter : { inactive: '!true' }">
 			      				<option value="" selected>{{'choose'|translate}} {{ report.options.list.admin1[0].admin1type_name }}</option>
 			      			</select>
 			      			<label>{{ report.options.list.admin1[0].admin1type_name }} *</label>
@@ -163,10 +163,10 @@
 											</h5>
 										</div>
 										<div class="col s12 m1 right" style="padding-top:15px;padding-right:34px;">
-											<a class="waves-effect waves-light btn-floating red lighten-2 right"
-									      	title="Remove {{ warehouse.admin1name }} Warehouse {{ warehouse.site_name }}"
-									      	ng-click="report.removeLocationModal( $index )"><i class="material-icons">clear</i>
-									    </a>
+											<button class="waves-effect waves-light btn-floating red lighten-2 right"
+												title="Remove {{ warehouse.admin1name }} Warehouse {{ warehouse.site_name }}"
+												ng-click="report.removeLocationModal( $index )"><i class="material-icons">clear</i>
+									    	</button>
 										</div>
 									</div>
 

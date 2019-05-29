@@ -1,19 +1,69 @@
 {
   "download_google_chrome":"Descargar Google Chrome",
-    "google_chrome_is_the_required_browser_for_reporthub":"Google Chrome es el navegador requerido para ReportHub",
+    "google_chrome_is_the_required_browser_for":"Google Chrome es el navegador requerido",
     "download":"Descargar",
     "language":"IDIOMA",
     "welcome":"Bienvenido",
     "welcome_to":"Bienvenido a",
-    "welcome_to_reporthub": "Bienvenido a ReportHub",
+    "welcome_back":"Bienvenido de regreso",
+    "email_sent_please_check_your_inbox":"Correo Enviado! Por favor Revise Su Bandeja de Entrada",
+    "your_email_is_being_prepared":"Su Correo está siendo Preparado!",
+    "time_to_create_a_project":"tiempo de crear un Proyecto!",
+    "success":"Éxito!",
+    "profile_updated":"Perfil actualizado!",
+    "error_try_again":"Error! Inténtelo de Nuevo!",
+    "user_deleted":"Usuario Eliminado!",
+    "almost_complete":"Casi completo!",
+      "remove_this_file":"Eliminar este Archivo?",
+     "yes_remove_this_file":"Si, Eliminar este archivo!",
+     "click_upload_document_to_upload_document_of_your_project":"Click en CARGAR DOCUMENTO para cargar el documento de su PROYECTO",
+    "upload_document":"Cargar Documento",
+     "upload_documents":"Cargar Documentos",
+     "you_dont_have_documents_yet":"Aún no tienes documentos !",
+    "upload_documents_for":"Actualizar Documentos para",
+    "fetching_data":"Recuperando Datos...",
+
+
+
+
+    "filename":"Nombre del Archivo",
+    "owner":"Propietario",
+    "created_at":"Creado en",
+     "grid_view":"Ver en Grilla",
+     "list_view":"Ver en Lista",
+     "preview":"Vista Previa",
+     "project_updated":"Proyecto Actualizado!",
+            "details_contains_errors":"Los detalles contienen errores!",
+
+
+
+
+
+
+
+     "now_set_your_login_details":"ahora establezca sus detalles de INICIO DE SESIÓN",
+     "last_item":"Último item!",
+     "add_immap_programme_details":"Agregar detalles del PROGRAMA iMMAP",
+
+
+
+
+
+
+
+
+    "welcome_to": "Bienvenido a",
     "register":"Registro",
     "food_security":"Seguridad Alimentaria",
+    "food_security_nutrition":"Seguridad Alimentaria y Nutrición (SAN)",
+    "shelter":"Albergues",
+
     "communication_with_communities_working_group":"Comunicación con Grupo de Trabajo de Comunidades",
 
     "please_login_or_register_to_continue":"por favor INICIE SESIÓN o REGISTRESE para continuar",
     "please register to continue":"por favor registrese para continuar",
     "login_mayus" : "INICIO DE SESIÓN",
-    "logout_mayus" : "CERRAR SESIÓN",
+    "logout_mayus" : "CERRAR SESIÓN", 
     "my_home" : "MI INICIO",
     "immap_home" : "iMMAP INICIO",
     "my_admin" : "MI ADMIN",
@@ -27,13 +77,36 @@
     "assessments_mayus" : "EVALUACIONES",
     "contact_mayus" : "CONTACTO",
     "contact":"Contacto",
+    "need_assistance":"Necesita Asistencia?",
+    "download_the":"Descarga la",
+    "user_guide":"Guía de Usuario",
+    "or_mayus":"O",
+    "view_the_online":"Ver en linea",
+    "youtube_user_video_guides":"Guía de Usuarios en Videos de Youtube",
+    "call":"Llama",
+    "on":"en",
+   "online":"En linea",
+   "with_any_questions":"para cualquier pregunta!",
+    "cannot_add_not_ont_the_list":"No se puede agregar, no está en la lista",
+          "add_new_project_classification":"Agregar Nueva Clasificación del Proyecto",
+                "project_classifications":"Clasificaciones del Proyecto",
+
+
+          "add_new_partner":"Agregar nuevo socio",
+
+
+
+
+
+
     "username_mayus" : "NOMBRE DE USUARIO",
     "password_mayus" : "CONTRASEÑA",
     "register_mayus" : "REGISTRO",
     "forgot_password" : "OLVIDASTE LA CONTRASEÑA"  ,
     "sign_in" : "Iniciar sesión",
     "reminder_sent": "RECORDATORIO ENVIADO",
-    "please_check_your_ReportHub_email_account_to_reset_your_password":"Por favor revise su cuenta de email de ReportHub para reestablecer su contraseña",
+    "please_check_your":"Por favor revise su",
+    "email_account_to_reset_your_password":"cuenta de email para reestablecer su contraseña",
     "the_email_will_contain_a_secure_link_to_reset_your_password_so_you_can_close_this_window.":"El email contendrá un enlace seguro para restablecer su contraseña, puede cerrar esta ventana.",
     "reset_password":"REESTABLECER CONTRASEÑA",
     "passwords_do_not_match":"Los password no coinciden",
@@ -49,11 +122,24 @@
     "select_country" : "Seleccionar País",
     "select_organization" : "Seleccionar Organización",
     "sectors_mayus":"Sectores",
+    "sector_partners":"Socios del Sector",
+    "regional":"Regional",
+    "regional_partners":"Socios Regionales",
+    "global_team":"Equipo Global",
+    "hq_reporthub_partners":"Socios HQ ReportHub",
+    "partners":"Socios",
+    "partner":"Socio",
+    "not_set":"No Establecido",
+
+
     "select_sector" : "Seleccionar Sector",
     "select_station":"Seleccionar Estación",
     "multi_purpose_cash" : "Dinero Multi-Propósito",
     "agriculture" : "Agricultura",
     "education" : "Educación",
+    "emergency_education":"Educación en Emergencias (EeE)",
+    "early_recovery":"Recuperación Temprana",
+
 
      "site_management_and_site_development":"Administración del Sitio y Desarrollo del Sitio",
      "supported_by":"Apoyado por",
@@ -62,6 +148,7 @@
     "health" : "Salud",
     "nutrition" : "Nutrición",
     "protection" : "Protección",
+    "gbv" : "GBV",
     "child_protection":"Protección Infantil",
 
     "wash" : "WASH - Agua, Saneamiento e Higiene",
@@ -94,11 +181,14 @@
        "project":"proyecto",
        "go_to" : "Ir a",
        "team" : "Equipo",
+       "team_mayus1":"Equipo",
        "view_team" : "Ver Equipo",
        "back_to_organization":"Regresar a Organización",
+
        "add_new_project":"Agregar Nuevo Proyecto",
        "projects_for":"proyectos para",
-       "download_project_summaries_as_CSV":"Descargar Resúmenes de Proyectos como CSV",
+        "projects_for_mayus1":"Projectos para",
+
        "download_dashboard_as_pdf":"Descargar Dashboard como PDF",
        "download_cluster_contact_list_as_csv":"Descargar Lista de Contactos del Cluster como CSV",
        "for":"para",
@@ -107,12 +197,15 @@
        "district":"Distrito",
        "active_organizations":"Organizaciones Activas",
        "active_projects":"Proyectos Activos",
+       "completed_projects":"Proyectos Completos",
        "active_locations":"Ubicaciones Activas",
        "services_to_beneficiaries":"Servicios a Beneficiarios",
+       "individual_beneficiaries":"Beneficiarios individuales",
        "reset":"Restaurar",
        "back_to_team":"Regresar a Equipo",
 
        "all_mayus":"TODO",
+       "all_min1":"Todos",
        "update_project":"Actualización de proyecto",
        "updated":"Actualizado",
        "overview_for":"resumen para",
@@ -123,6 +216,7 @@
        "you_have":"Usted tiene",
        "active_staff":"Personal Activo",
        "active_users":"Usuarios Activos",
+       "users":"Usuarios",
        "desactivated_users":"Usuarios Desactivados",
        "name_mayus":"Nombre",
        "update_photo":"Actualizar Foto",
@@ -137,6 +231,25 @@
         "project_documents":"Documentos del Proyecto",
         "go_to_project_documents":"Ir a Documentos del Proyecto",
         "go_to_monthly_progress":"Ir a Progreso Mensual",
+        "modified":"Modificado",
+        "you_have_no_project_documents_yet":"Aún no tienes ducumentos del proyecto",
+                "you_have_no_report_documents_yet":"Aún no tienes documentos del proyecto !",
+                        "getting_data":"Obteniendo Datos...",
+                                "save_to_apply_changes":"Guardar para aplicar cambios",
+        "no_data_in_previous_report":"No hay datos en el reporte anterior",
+        "no_previous_report":"No hay reporte anterior",
+        "copying":"Copiando ...",
+        "copied_trainings":"Capacitaciones Copiadas",
+                "copied_beneficiaries":"Beneficiarios Copiados",
+
+
+
+
+
+
+
+
+
 
 
 
@@ -158,7 +271,7 @@
         "list_other_donors":"Lista de Otros Donantes",
         "list_project_partners":"Lista de Socios del Proyecto",
         "project_partners":"Socios del Proyecto",
-        "other_implementing_partners":"Otros Socios Implementadores",
+        "other_implementing_partners":"Socios Implementadores",
         "project_description_objetives":"Descripción y Objetivos del Proyecto",
         "project_focal_point":"Punto Focal del Proyecto",
         "target_population":"Población Objetivo",
@@ -180,9 +293,15 @@
          "this_will_affect_any_existing_monthly_beneficiary_reports":"Esto afectará cualquier informe mensual de beneficiarios existente",
          "yes_remove_location":"Si, Eliminar ubicación",
          "back_to_projects":"Volver a Proyectos",
+         "back_to_reports":"Back to Reports",
+         "back_to_location_groups": "Back to Location Groups",
          "last_updated":"Última Actualización",
          "refresh_data":"Refrescar Datos",
          "project_locations":"UBICACIONES DE PROYECTOS",
+                 "project_location_removed":"Ubicación de Proyecto Eliminada!",
+
+         "project_location_saved":"Ubicación de Proyecto Guardada!",
+
          "children":"Niños",
          "adult":"Adultos",
          "elderly":"Mayores",
@@ -192,7 +311,7 @@
          "project_moved_to_active":"Proyecto movido a Activo!",
          "project_market_as_complete_congratulations":"Proyecto marcado como Completo, Felicitaciones!",
          "project_delete_error_please_try_again":"Error al Eliminar Proyecto! Por favor intente de nuevo",
-         "project_delete":"Proyecto Eliminado!",
+         "project_deleted":"Proyecto Eliminado!",
          "objetives_mayus":"OBJETIVOS",
          "select_the_objetives_that_your_project_will_target":"Seleccionar los Objetivos de su proyecto",
          "relates_to":"Relacionado con",
@@ -200,6 +319,8 @@
          "actual_monthly_beneficiaries_report_for":"Actual Reporte Mensual de Beneficiarios para",
           
          "actual_monthly_progress_for":"Actual Progreso Mensual para",
+         "cancel_monthly_progress":"Cancelar Progreso Mensual",
+
 
 
           "cash_intented_for_even_if_unrestricted":"Cash intented for event if unrestricted",
@@ -216,10 +337,13 @@
          "back_to_project_reports":"Regresar a Reportes del Proyecto",
          "submit_monthly_report":"Enviar Reporte Mensual",
          "cancel_montly_report":"Cancelar Reporte Mensual",
+         "create_project_cancelled":"Creación de Proyecto Cancelado!",
          "return_to_monthly_report_list":"Regresar a Lista de Reportes Mensuales",
          "remove_beneficiary":"Eliminar Beneficiario",
          "remove_this_beneficiary_from_your_report":"Eliminar este Beneficiario de su Reporte",
          "yes_remove_beneficiary":"Si, Eliminar Beneficiario",
+         "people_in_need_saved":"Personas con Necesidades Guardadas!",
+
         
          "remove_borehole":"Eliminar Pozo",
          "remove_this_borehol_from_your_report":"Eliminar este Pozo de su Reporte",
@@ -242,12 +366,19 @@
          "download_admin_as_pdf":"Descargar Admin como PDF",
          "download_project_summaries_as_csv":"Descargar Resumen de Proyectos como CSV",
          "reports_todo":"Reportes para Realizar",
+         "download_all_report_documents":"Descargar Todos los Documentos del Reporte",
+         "loading_monhtly_progress_report":"Cargando Reporte de Progreso Mensual...",
+         "actual_monthly_progress_report_for":"Actual Reporte de Progreso Mensual para",
 
-         "progress_update_todo":"Actualización de Progresos pora Realizar",
+
+
+         "progress_update_todo":"Actualización de Progresos por Realizar",
          "progress_update_complete":"Actualización de Progresos Completos",
 
-         "reports_complete":"Reportes Completos",
+         "reports_submitted":"Reportes Presentado",
          "reports_due":"Reportes Pendiente",
+         "reports_total":"Reports Total",
+         "reports_saved":"Reports Salvado",
          "download_projects_financials_as_csv":"Descargar Proyectos Financieros como CSV",
          "download_beneficiary_data_as_csv":"Descargar Datos de Beneficiarios como CSV",
          "download_stock_data_as_csv":"Descargar Datos de Stock como CSV",
@@ -279,7 +410,25 @@
           "countries_mayus":"Países",
           "reports_completed":"Reportes Completos",
          "organizations":"Organizaciones",
+         "documents":"Documentos",
+          "download_all_document_project":"Descargar toda la documentación del proyecto",
+         "file_uploaded":"Archivo cargado!",
+                 "file_name":"Nombre del Archivo",
+
+                 "uploaded_by":"Actualizado por",
+                         "uploaded":"Actualizado",
+
+
+
+         "cancel_to_upload_file":"Carga de archivo cancelada",
+
+         "submit":"Enviar",
+         "close_mayus1":"Cerrar",
+
+
+
          "total_projects":"Total de Proyectos",
+         "warehouses_total":"Warehouses",
          "from":"desde",
          "to":"hasta",
          "projects_progress":"Proyectos en Progreso",
@@ -292,11 +441,13 @@
         "package":"Paquete",
         "category":"Categoría",
         "beneficiary":"Beneficiario",
+        "beneficiary_category":"Categoría",
         "population":"Población",
         "amount":"Monto",
         "units":"Unidades",
         "quantity":"Cantidad",
         "households":"Hogares",
+        "individual_households":"Casas Individuales",
         "cholera_response":"Respuesta del Cólera",
         "activity_status":"Estado de actividad",
 
@@ -332,12 +483,24 @@
         "from_list":"Lista de Origenes",
         "site_name":"Nombre del Sitio",
         "save":"Guardar",
+         "delete":"eliminar",
+        "deleting":"Eliminando...",
+
+
         "delete_mayus1":"Eliminar",
         "add_row":"Agregar fila",
         "save_mayus":"Guardar",
         "cancel_mayus":"Cancelar",
         "active":"Activo",
-        "complete":"Completo",
+        "complete":"Completo!",
+         "drag_files_here_or_click_button_to_upload":"Arrastre los archivos aquí ó haga click en el botón para cargar",
+        "upload_canceled":"Carga cancelada",
+        "file_deleted":"Archivo Eliminado!",
+        "exceed_file_upload_please_remove_one_of_your_file":"Carga de archivo excedida, Por favor, elimine uno de sus archivos",
+        "file_too_large_please_remove_the_file":"Archivo muy grande, Por favor elimine el archivo",
+        "not_supported_file_type":"Tipo de archivo no permitido !",
+ 
+
         "re_directing_to_dashboard":"Re-dirigiendo a dashboard...",
         "data_processing_error_please_check_the":"Error en procesamiento de Datos, por favor revise la ",
         "and_try_again":"e intente de nuevo",
@@ -346,7 +509,7 @@
 
 
         "mark_project_as_complete":"Marcar Proyecto como COMPLETO",
-        "are_you_sure_you_want_to_mark_this_project_as_complete":"Está seguro que quiere marcar este PROYECTO como 'COMPLETO'",
+        "are_you_sure_you_want_to_mark_this_project_as_complete":"Está seguro que quiere marcar este PROYECTO como 'COMPLETO'", 
         "yes_project_complete":"Si, proyecto completo",
         "delete_project":"Eliminar Proyecto",
         "are_you_sure_you_want_to_delete_this_project_and_all_its_associated_data":"Está seguro que quiere ELIMINAR este PROYECTO y todos los datos asociados",
@@ -359,6 +522,16 @@
         "project_budget_progress":"Progreso Presupuesto del Proyecto",
         "add_new_row_of_financial_details_to_your_project_for_each_payment_recieved":"Agregar una NUEVA FILA de detalles financieros a su proyecto por CADA PAGO recibido",
         "donor":"Donante",
+        "type_donor_name":"Ingrese el nombre del Donante",
+         "type_partner_name":"Ingrese el nombre del Socio",
+
+        "add_another_donor":"Agregar otro donante",
+        "add_another_partner":"Agregar otro socio",
+        "add_new_partner":"Agregar un nuevo socio",
+         "cannot_add_not_on_the_list":"No se puede agregar, no está en la lista",
+
+
+         "project_deleted":"Proyecto Eliminado",
         "activity":"Actividad",
         "grant":"Donante",
         "amount":"Monto",
@@ -376,6 +549,11 @@
         "yes_remove":"Si, eliminar",
         "financial_reports_for":"Reportes Financieros para",
         "download_project_financial_report_as_csv":"Descargar Reporte Financiero como CSV",
+        "add_location_groups": "Add Location Groups",
+        "remove_location_groups": "Remove Location Groups",
+        "add_location_groups_message": "Split Target Locations into Location Groups to make monthly reporting easier",
+        "remove_location_groups_message": "Are you sure you want to remove Location Groups from your project?",
+        
         "remarks":"Observaciones",
         "add_partial_kits": "Agregar Kits Parciales ",
         "add_kit_details":"Agregar Detalles del Kit",
@@ -497,6 +675,8 @@
         "save_monthly_report":"Guardar Reporte Mensual",
         "do_you_want_to_save":"Quieres Guardar",
         "not_selected":"No Seleccionado",
+
+        "selected":"Seleccionado...",
         "no_selection":"Sin Selección",
         "no_data_in_previous_report":"No hay datos en el reporte previo",
         "no_previous_report":"No hay reporte previo",
@@ -507,8 +687,11 @@
 
         "processing_report":"Procesando Reporte...",
         "please_correct_the_row_and_try_again":"Por favor corrija la FILA y intenta de nuevo",
-        "drag_files_here_or_click_to_upload":"Arrastre los archivos aquí ó haga click para subir",
-        "uploading":"Subiendo...",
+        "drag_files_here_or_click_to_upload":"Arrastre los archivos aquí ó haga click para cargar",
+        "uploading":"Cargando...",
+        "error_file_not_deleted":"Error, Archivo no Eliminado!",
+        "upload":"cargar",
+
 
          "project_budget_item_removed":"Ítem de Presupuesto del Proyecto Eliminado",
          "project_budget_item_added":"Ítem de Presupuesto del Proyecto Agregado",
@@ -518,6 +701,8 @@
           "restricted_cash":"Dinero Restringido",
           "unrestricted_cash":"Dinero Sin Restrincción",
           "inkind":"En Especie",
+          "cash":"Efectivo",
+          "bonuses":"Bonos",
 
 
 
@@ -587,6 +772,8 @@
         "submitted":"Enviado",
         "saved_mayus1":"Guardado",
         "save_failed_the_project_contains_error":"Guardado fallido! El proyecto contiene errores",
+        "project_contains_errors":"El Proyecto contiene errores!",
+
         "project_created":"Projecto Creado",
         "has_been_saved":"ha sido guardado",
 

@@ -24,7 +24,7 @@
   </div>
   <div class="modal-footer">
   	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="panel.markComplete({{ panel.project }})" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes_project_complete' | translate}}!</a>
+    <a ng-click="panel.markComplete( panel.project )" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes_project_complete' | translate}}!</a>
   </div>
 </div>
 
@@ -36,7 +36,7 @@
   </div>
   <div class="modal-footer">
   	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="panel.deleteProject({{ panel.project }})" class=" modal-action modal-close waves-effect waves-red btn-flat">{{'yes_delete_project' | translate}}!</a>
+    <a ng-click="panel.deleteProject( panel.project )" class=" modal-action modal-close waves-effect waves-red btn-flat">{{'yes_delete_project' | translate}}!</a>
   </div>
 </div>
 
@@ -49,12 +49,12 @@
   </div>
   <div class="modal-footer">
   	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="panel.markActive({{ panel.project }})" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes_move_project_to_active' | translate}}!</a>
+    <a ng-click="panel.markActive( panel.project )" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes_move_project_to_active' | translate}}!</a>
   </div>
 </div>
 
 	<!-- panels -->
-	<div class="row" ng-if="panel.project.admin0pcode === 'AF'">
+	<div class="row" ng-if="panel.project.admin0pcode === 'AF' || panel.project.admin0pcode === 'COL'">
 	  <div class="col s12 m4">
 	  	<a href="#/cluster/projects/details/{{ panel.project.id }}">
 	   	 <div class="card small blue-grey darken-1 hoverable">
@@ -105,26 +105,11 @@
 		   </a>
 		</div>
 
-		<div class="col s12 m4" ng-if="panel.project.admin0pcode === 'AF'">
-			<a href="#/cluster/projects/upload/{{ panel.project.id }}">
-				<div class="card small blue-grey darken-1 hoverable">
-					<div class="card-image">
-						<img src="images/cluster/monthly_report.jpg">
-					</div>
-					<div class="card-content white-text">
-						<p class="card-title">{{'project_documents'|translate}}</p>
-					</div>
-					<div class="card-action">
-						<a href="#/cluster/projects/upload/{{ panel.project.id }}">{{'go_to_project_documents'|translate}}</a>
-					</div>
-				</div>
-			</a>
-		</div>
-		
+				
 	</div>
 
 	<!-- panels -->
-	<div class="row" ng-if="panel.project.admin0pcode !== 'AF'">
+	<div class="row" ng-if="panel.project.admin0pcode !== 'AF' && panel.project.admin0pcode !== 'COL'">
 	  <div class="col s12 m6">
 	  	<a href="#/cluster/projects/details/{{ panel.project.id }}">
 	   	 <div class="card small blue-grey darken-1 hoverable">
@@ -160,38 +145,41 @@
 	</div>
 
 	<!-- project to complete -->
-	<div class="row" ng-if="panel.project.project_status === 'active'">
-		<div class="col s12 m12 l12">
-			<div class="widget card-panel white grey-text text-darken-2">
-				<!-- submission -->
-				<div align="center">
-					<button data-target="complete-modal" class="waves-effect waves-light btn modal-trigger blue" ng-cloak>
-						<i class="material-icons left">assignment_turned_in</i>{{'mark_project_as_complete' | translate}}
-					</button>
-					<br/>
-					<br/>
-					<button data-target="delete-modal" class="waves-effect waves-light btn modal-trigger red lighten-2" ng-cloak>
-						<i class="material-icons left">delete_forever</i>{{'delete_project' | translate}}
-					</button>
+	<!-- disabled -->
+	<fieldset ng-disabled="!panel.canEdit">	
+		<div class="row" ng-if="panel.project.project_status === 'active'">
+			<div class="col s12 m12 l12">
+				<div class="widget card-panel white grey-text text-darken-2">
+					<!-- submission -->
+					<div align="center">
+						<button data-target="complete-modal" class="waves-effect waves-light btn modal-trigger blue" ng-cloak>
+							<i class="material-icons left">assignment_turned_in</i>{{'mark_project_as_complete' | translate}}
+						</button>
+						<br/>
+						<br/>
+						<button data-target="delete-modal" class="waves-effect waves-light btn modal-trigger red lighten-2" ng-cloak>
+							<i class="material-icons left">delete_forever</i>{{'delete_project' | translate}}
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- project to active -->
-	<div class="row" ng-if="panel.project.project_status === 'complete'">
-		<div class="col s12 m12 l12">
-			<div class="widget white grey-text text-darken-2">
-				<!-- submission -->
-				<div align="center">
-					<button data-target="active-modal" class="waves-effect waves-light btn modal-trigger blue" ng-cloak>
-						<i class="material-icons left">assignment_turned_in</i>{{'mark_project_as_active' | translate}}
-					</button>
-					<br/>
-					<br/>
+		<!-- project to active -->
+		<div class="row" ng-if="panel.project.project_status === 'complete'">
+			<div class="col s12 m12 l12">
+				<div class="widget white grey-text text-darken-2">
+					<!-- submission -->
+					<div align="center">
+						<button data-target="active-modal" class="waves-effect waves-light btn modal-trigger blue" ng-cloak>
+							<i class="material-icons left">assignment_turned_in</i>{{'mark_project_as_active' | translate}}
+						</button>
+						<br/>
+						<br/>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</fieldset>
 
 <script type="text/javascript">
 

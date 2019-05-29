@@ -6,13 +6,16 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardRegisterCtrl', ['$scope', '$translate','$filter', function ($scope, $translate,$filter) {
+	.controller('DashboardRegisterCtrl', ['$scope', '$translate','$filter','$location', function ($scope, $translate,$filter,$location) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
 			'Karma'
 		];
 
+		// assign to ngm app scope
+		$scope.model = $scope.$parent.ngm.dashboard.model;
+				
 		// login object
 		$scope.dashboard = {
 
@@ -23,6 +26,17 @@ angular.module('ngmReportHub')
 
 		// 
 		$scope.dashboard.ngm.style.paddingHeight = 20;
+
+		var var4wplusrh;
+
+		
+		if($location.$$host === "4wplus.org" || $location.$$host === "35.229.43.63"){
+
+			var4wplusrh = "4wPlus";
+
+		}else{
+			var4wplusrh = "ReportHub"
+		}
 
 		// dews dashboard model
 		var model = {
@@ -41,7 +55,7 @@ angular.module('ngmReportHub')
 				subtitle: {
 					'class': 'col s12 m12 l12 report-subtitle',
 					html: true,
-					title: $filter('translate')('welcome_to')+' ReportHub<span class="hide-on-small-only">, '+$filter('translate')('please register to continue')+'</span>',
+					title: $filter('translate')('welcome_to')+' '+var4wplusrh+' <span class="hide-on-small-only">, '+$filter('translate')('please register to continue')+'</span>',
 				} 
 			},
 			rows: [{

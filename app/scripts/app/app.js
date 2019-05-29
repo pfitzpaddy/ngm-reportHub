@@ -20,6 +20,8 @@ angular
 		'ngCsv',
 		'ngDropzone',
 		'ngCountTo',
+		'ngAria',
+		'ngMaterial',
 		'highcharts-ng',
 		'leaflet-directive',
 		'xeditable',
@@ -57,6 +59,9 @@ angular
 	])
 	.config([ '$routeProvider', '$locationProvider', '$compileProvider','$translateProvider', function ( $routeProvider, $locationProvider, $compileProvider,$translateProvider ) {
 
+		// from http://mysite.com/#/notes/1 to http://mysite.com/notes/1
+		// $locationProvider.html5Mode(true);
+
 		// translate staic files
     $translateProvider.useStaticFilesLoader({
       prefix: 'scripts/app/translate/locale-',
@@ -67,13 +72,10 @@ angular
 		$translateProvider.preferredLanguage('en');
 		$translateProvider.forceAsyncReload(true);
 
-		// from http://mysite.com/#/notes/1 to http://mysite.com/notes/1
-		// $locationProvider.html5Mode(true);
-
 		// extend localstorage to set an object
 		Storage.prototype.setObject = function( key, value ) {
 			this.setItem( key, JSON.stringify( value ) );
-		}
+		} 
 
 		// extend localstorage to get an object
 		Storage.prototype.getObject = function( key ) {
@@ -171,6 +173,8 @@ angular
 			ngmUser.unset();
 		}
 
+		
+
 		// check URL
 		if ( $location.$$host.search('dev') > -1 ) {
 			// add DEV message if necissary
@@ -211,19 +215,41 @@ angular
 	}])
 	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', '$http', '$timeout', 'ngmAuth', 'ngmUser','$window','$translate','$filter', function ($scope, $route, $location, $http, $timeout, ngmAuth, ngmUser,$window,$translate,$filter) {
 	     
+
+         var var4plusrhafter;
+
+	     if($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63' ){ //4wplus.org
+			$('#title').html("4wPlus");
+
+			var4plusrhafter = '4wPlus';
+
+			metadescription = "4wPlus, Dashboard, Reporte, Indicadores, Colombia";
+
+			
+		}else{
+			$('#title').html("ReportHub");
+			var4plusrhafter = 'REPORTHUB';
+
+			metadescription = "ReportHub, Dashboard, Reporting, Key Business Indicators";
+
+		};
+
+		document.getElementsByName('description')[0].content = metadescription;
+
+
 		// ngm object
 		$scope.ngm = {
 
 			// app name
 			title: $filter('translate')('welcome'), 
 
+
+             var4wplusrh : var4plusrhafter,
 			// current route
 			route: $route,
 
-			// active dashboard placeholder
-			dashboard: {
-				model: {}
-			},
+			// dashboard placeholder
+			dashboard: {},
 
 			// top navigation page menu
 			navigationMenu: false,
@@ -241,9 +267,9 @@ angular
 			// dashboard footer
 			footer: false,
 
+			// change language
 			changeFunction : function ($key) {
 			   $translate.use($key);
-			   console.log($key)
 			 },
 
 			// paint application
@@ -361,11 +387,45 @@ angular
 														+	'</div>'
 													+	'</div>';
 
+				// set default load template
+				$scope.ngm.dashboard = 	{
+					model: {
+						header: {
+							div: {
+								'class': 'col s12 m12 l12 report-header',
+								style: 'border-bottom: 3px ' + $scope.ngm.style.defaultPrimaryColor + ' solid;'
+							},
+							title: {
+								'class': 'col s12 m9 l9 report-title truncate',
+								style: 'font-size: 3.4rem; color: ' + $scope.ngm.style.defaultPrimaryColor,
+								title: '',
+							},
+							subtitle: {
+								title: ''
+							},
+							// download: {
+							// 	'class': 'col s12 m3 l3 hide-on-small-only',
+							// 	downloads: []
+							// }
+						},
+						rows: [{
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px; height: 90px; padding-top:10px;',
+									config: {
+										html: $scope.ngm.footer
+									}
+								}]
+							}]
+						}]
+					}
+				}
 			},
 
-
-			  
-
+            
 			// user
 			getUser: function() {
 				// ngmUser
@@ -383,6 +443,21 @@ angular
 				}
 			},
 
+			// language
+			setLanguage:function(country){
+				var set_language = {
+					col:[{ language_id: 'en', language_name: 'English', flag:'en.png'},
+							{ language_id: 'es', language_name: 'Español', flag: 'spain.png' }]					
+					}
+				$scope.ngm.getLanguage = set_language[country] ? set_language[country]:[];
+				if ($scope.ngm.getLanguage.length>0){
+					$scope.ngm.translate_version = true;
+				}else{
+					$scope.ngm.translate_version = false;
+				}
+			},
+			getLanguage:[],
+			translate_version:false,
 			// app functions
 			logout: function() {
 				ngmAuth.logout();
@@ -413,13 +488,15 @@ angular
 			//
 			toggleNavigationMenu: function() {
 				// rotate icon
-				$( '.ngm-profile-icon' ).toggleClass( 'rotate' );
+				// $( '.ngm-profile-icon' ).toggleClass( 'rotate' );
+				$('.ngm-profile-icon').toggleClass('open');
 				// set class
 	    	$( '.ngm-profile' ).toggleClass( 'active' );
 	    	$( '.ngm-profile-menu-content' ).toggleClass( 'active' );
 	    	// toggle menu dropdown
 				$( '.ngm-profile-menu-content' ).slideToggle();
-			}		
+			},
+
 
 		};
 
@@ -433,6 +510,7 @@ angular
 				// on app load, toggle menu on click
 				$scope.ngm.toggleNavigationMenu();
 		});
+
 
 		// paint application
 		$scope.$on( '$routeChangeStart', function( next, current ) {

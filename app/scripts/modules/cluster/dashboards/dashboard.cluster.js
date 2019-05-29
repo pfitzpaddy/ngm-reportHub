@@ -30,11 +30,8 @@ angular.module('ngmReportHub')
 				'Karma'
 			];
 
-			// empty model
-			$scope.model = {
-				menu: [],
-				rows: []
-			};
+			// init empty model
+			$scope.model = $scope.$parent.ngm.dashboard.model;
 
 			// create dews object
 			$scope.dashboard = {
@@ -62,7 +59,7 @@ angular.module('ngmReportHub')
 
 				// lists
 				lists: {
-					clusters: ngmClusterLists.getClusters( $route.current.params.admin0pcode ),
+					clusters: ngmClusterLists.getClusters( $route.current.params.admin0pcode ).filter(cluster=>cluster.filter!==false),
 					admin1: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin1List : [],
 					admin2: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin2List : [],
 					admin3: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin3List : []
@@ -113,12 +110,6 @@ angular.module('ngmReportHub')
 						'active': 'searo',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 						'href': '/desk/#/cluster/5w/searo/all'
-					},{
-						'title': 'AMER',
-						'param': 'adminRpcode',
-						'active': 'amer',
-						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/5w/amer/all'
 					}
 					]
 				}],
@@ -326,16 +317,16 @@ angular.module('ngmReportHub')
 						downloads = downloads.concat ( ng_wash_dl );
 					}
 
-					// example of blocking download
-					// const canDownload = ngmAuth.canDo( 'DASHBOARD_DOWNLOAD', { 
-					// 										adminRpcode: $scope.dashboard.adminRpcode.toUpperCase(), 
-					// 										admin0pcode: $scope.dashboard.admin0pcode.toUpperCase(), 
-					// 										cluster_id: $scope.dashboard.cluster_id, 
-					// 										organization_tag: $scope.dashboard.organization_tag } )
+					// blocking download
+					const canDownload = ngmAuth.canDo( 'DASHBOARD_DOWNLOAD', { 
+															adminRpcode: $scope.dashboard.adminRpcode.toUpperCase(), 
+															admin0pcode: $scope.dashboard.admin0pcode.toUpperCase(), 
+															cluster_id: $scope.dashboard.cluster_id, 
+															organization_tag: $scope.dashboard.organization_tag } )
 					// filter downloads list
-					// if (!canDownload){
-					// 	downloads = downloads.filter(x => x.id === 'cluster_dashboard_pdf')
-					// }
+					if (!canDownload){
+						downloads = downloads.filter(x => x.id === 'cluster_dashboard_pdf')
+					}
 					return downloads;
 				},
 
@@ -759,6 +750,56 @@ angular.module('ngmReportHub')
 						$scope.dashboard.activity_filename = '';
 					}
 
+					$scope.dashboard.beneficiaries_row = [{
+						styleClass: 's12 m12 l4',
+						widgets: [{
+							type: 'stats',
+							style: 'text-align: center;',
+							card: 'card-panel stats-card white grey-text text-darken-2',
+							config: {
+								title: $filter('translate')('individual_households'),
+								request: $scope.dashboard.getRequest({ indicator: 'households_population' })
+							}
+						}]
+					}, {
+						styleClass: 's12 m12 l4',
+						widgets: [{
+							type: 'stats',
+							style: 'text-align: center;',
+							card: 'card-panel stats-card white grey-text text-darken-2',
+							config: {
+								title: $filter('translate')('individual_beneficiaries'),
+								request: $scope.dashboard.getRequest({ indicator: 'beneficiaries_population' })
+							}
+						}]
+					}, {
+						styleClass: 's12 m12 l4',
+						widgets: [{
+							type: 'stats',
+							style: 'text-align: center;',
+							card: 'card-panel stats-card white grey-text text-darken-2',
+							config: {
+								title: $filter('translate')('services_to_beneficiaries'),
+								request: $scope.dashboard.getRequest({ indicator: 'beneficiaries' })
+							}
+						}]
+					}];
+
+					if ($scope.dashboard.admin0pcode.toUpperCase() === 'AF') {
+						$scope.dashboard.beneficiaries_row = [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'stats',
+								style: 'text-align: center;',
+								card: 'card-panel stats-card white grey-text text-darken-2',
+								config: {
+									title: $filter('translate')('services_to_beneficiaries'),
+									request: $scope.dashboard.getRequest({ indicator: 'beneficiaries' })
+								}
+							}]
+						}]						
+					}
+
 					// model
 					$scope.model = {
 						name: 'cluster_dashboard',
@@ -835,7 +876,7 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m4',
+								styleClass: 's12 m6',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
@@ -846,7 +887,7 @@ angular.module('ngmReportHub')
 									}
 								}]
 							},{
-								styleClass: 's12 m4',
+								styleClass: 's12 m6',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
@@ -856,31 +897,9 @@ angular.module('ngmReportHub')
 										request: $scope.dashboard.getRequest( { indicator: 'projects' } )
 									}
 								}]
-							},{
-								styleClass: 's12 m4',
-								widgets: [{
-									type: 'stats',
-									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
-									config: {
-										title: $filter('translate')('active_locations'),
-										request: $scope.dashboard.getRequest( { indicator: 'locations' } )
-									}
-								}]
 							}]
 						},{
-							columns: [{
-								styleClass: 's12 m12 l12',
-								widgets: [{
-									type: 'stats',
-									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
-									config: {
-										title: $filter('translate')('services_to_beneficiaries'),
-										request: $scope.dashboard.getRequest( { indicator: 'beneficiaries' } )
-									}
-								}]
-							}]
+							columns: $scope.dashboard.beneficiaries_row
 						},{
 							columns: [{
 								styleClass: 's12 m12 l4',
@@ -1048,6 +1067,19 @@ angular.module('ngmReportHub')
 									style: 'padding:0px;',
 									config: {
 										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">'+$filter('translate')('project_locations')+'</h2>'
+									}
+								}]
+							}]
+						},{
+							columns: [{
+								styleClass: 's12 m12',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: $filter('translate')('active_locations'),
+										request: $scope.dashboard.getRequest( { indicator: 'locations' } )
 									}
 								}]
 							}]

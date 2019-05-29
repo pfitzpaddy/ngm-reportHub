@@ -52,69 +52,31 @@
 	      					ng-click="project.save( false, false)">
 	      					<i class="material-icons left">create</i>{{'edit_report' | translate}}
 	      			</button>
-							<button ng-hide="( project.report.admin0pcode ==='ET' && project.report.cluster_id === 'esnfi' ) ||
+							<button ng-hide="( project.report.admin0pcode === 'ET' && project.report.cluster_id === 'esnfi' ) ||
 																deactivedCopybutton ||
 																project.report.report_status === 'complete'" 
 												class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
 				      					title="Copy {{ project.previousMonth }}"	      					
-												ng-click="project.copyPrevReport()"
+												ng-click="project.copyPreviousMonth()"
 												ng-disabled="deactivedCopybutton">
 	      					<i class="material-icons left">content_copy</i>{{'copy_last_month' | translate}}
 							</button>
 
 						</div>
 
-						<div class="row" ng-repeat="location in project.report.locations" ng-init="$locationIndex=$index">
+						<div class="row" ng-repeat="location in project.report.locations | 
+															filter:{ location_group_id: project.location_group }"
+															ng-init="$locationIndex=$index">
 
 							<div class="row">
 								<!-- location title -->
 								<div class="col s12 m9 left">
 
-							  	<!-- no site && admin2 -->
-							  	<h5 class="report-location-title" ng-if="!location.site_type_name && !location.admin3pcode">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.site_name }}
-									</h5>
-							  	
-							  	<!-- no site && admin3 -->
-							  	<h5 class="report-location-title" ng-if="!location.site_type_name && location.admin3pcode">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.site_name }}
-									</h5>
-
-							  	<!-- site && admin2 -->
+							  	<!-- location title -->
 							  	<h5 class="report-location-title" 
-							  				ng-if="location.site_type_name && 
-							  								location.admin2pcode && 
-							  								!location.admin3pcode">
+							  				ng-if="project.definition.cluster_id !== 'eiewg'">
 												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.site_type_name }}, {{ location.site_name }}
-									</h5>
-							  	
-							  	<!-- site && admin3 -->
-							  	<h5 class="report-location-title" 
-							  				ng-if="location.site_type_name &&
-							  								location.admin2pcode && 
-							  								location.admin3pcode && 
-							  								!location.admin4pcode">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.site_type_name }}, {{ location.site_name }}
-									</h5>
-							  	
-							  	<!-- site && admin4 -->
-							  	<h5 class="report-location-title"
-							  				ng-if="location.site_type_name && 
-							  				location.admin4pcode && 
-							  				!location.admin5pcode">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.admin4name }}, {{ location.site_type_name }}, {{ location.site_name }}
-									</h5>
-
-							  	<!-- site && admin5 -->
-							  	<h5 class="report-location-title"
-							  				ng-if="location.site_type_name && location.admin5pcode">
-												<i class="material-icons left" style="color: teal;">location_on</i>
-												{{ location.admin1name }}, {{ location.admin2name }}, {{ location.admin3name }}, {{ location.admin4name }}, , {{ location.admin5name }}, {{ location.site_type_name }}, {{ location.site_name }}
+												{{ project.getReportTitle( location ) }}
 									</h5>
 
 									<!-- eiewg formal location -->
@@ -198,6 +160,7 @@
 						<div style="padding-left: 10px; margin-bottom: 10px;margin-top: 5px"
 									ng-if="project.definition.admin0pcode === 'ET' && 
 													project.definition.cluster_id === 'esnfi' &&
+													project.definition.project_status !== 'complete' &&
 													project.report.report_status !== 'complete'">
 							<button class="btn"
 								style="background-color: #2196F3;"

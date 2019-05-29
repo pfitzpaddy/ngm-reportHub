@@ -231,7 +231,7 @@ angular.module('ngmReportHub')
 
 													// toast
 													$timeout( function(){ 
-														Materialize.toast( 'Nutrition Reports data updated!' , 4000, 'success' );
+														Materialize.toast( 'Nutrition Reports data updated!' , 6000, 'success' );
 														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 														$timeout( function(){
 															$route.reload();

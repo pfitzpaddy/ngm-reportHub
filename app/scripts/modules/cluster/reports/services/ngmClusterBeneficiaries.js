@@ -66,6 +66,17 @@ angular.module( 'ngmReportHub' )
         },        
       },
 
+      // sum for totals
+      updateBeneficiaires: function( beneficiary ) {
+      	beneficiary.total_beneficiaries = 0;
+      	beneficiary.total_beneficiaries += beneficiary.boys + 
+      												beneficiary.girls + 
+      												beneficiary.men + 
+      												beneficiary.women + 
+      												beneficiary.elderly_men + 
+      												beneficiary.elderly_women;
+      },
+
       // update display name in object on select change
       selectChange: function( project, d, list, key, name, label ){
         if ( d[ key ] ) {
@@ -146,18 +157,13 @@ angular.module( 'ngmReportHub' )
       /* ESNFI KITS */
 
       // show distribution date
-      showDistributionDate: function( beneficiary ){
-        var display = beneficiary.cluster_id === 'esnfi' && 
-                        ( beneficiary.activity_type_id === 'hardware_materials_distribution' || 
-                            beneficiary.activity_type_id ==='cash_vouchers' );
-
+      initDistributionDate: function( beneficiary ){
         // set values
-        if ( display && !beneficiary.distribution_start_date ) {
+        if ( !beneficiary.distribution_start_date ) {
           beneficiary.distribution_start_date = moment.utc( new Date() ).format( 'YYYY-MM-DD' );
           beneficiary.distribution_status = 'ongoing';
         }
 
-        return display;
       },
 
 
@@ -266,9 +272,9 @@ angular.module( 'ngmReportHub' )
           angular.forEach( $beneficiary.partial_kits, function ( d, i ) {
             ngmClusterLists.setDetailList( 'partial_kits', $locationIndex, $beneficiaryIndex, i, d.detail_type_id, $beneficiary.partial_kits );
           });
-          Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
+          Materialize.toast( 'Please save to commit changes!' , 6000, 'note' );
         } else {
-          Materialize.toast( 'Minimum of 1 Kit Items required!' , 4000, 'note' );
+          Materialize.toast( 'Minimum of 1 Kit Items required!' , 6000, 'note' );
         }
       },
       
@@ -293,9 +299,9 @@ angular.module( 'ngmReportHub' )
           angular.forEach( $beneficiary.kit_details, function ( d, i ) {
             ngmClusterLists.setDetailList( 'kit_details', $locationIndex, $beneficiaryIndex, i, d.detail_type_id, $beneficiary.kit_details );
           });
-          Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
+          Materialize.toast( 'Please save to commit changes!' , 6000, 'note' );
         } else {
-          Materialize.toast( 'Minimum of 1 Kit Items required!' , 4000, 'note' );
+          Materialize.toast( 'Minimum of 1 Kit Items required!' , 6000, 'note' );
         }
       },
 
@@ -306,7 +312,7 @@ angular.module( 'ngmReportHub' )
           url: ngmAuth.LOCATION + '/api/cluster/project/removeBeneficiary',
           data: { id: id }
         }).success( function( result ) {
-          Materialize.toast( 'People in Need Removed!' , 4000, 'success' );
+          Materialize.toast( 'People in Need Removed!' , 6000, 'success' );
         }).error( function( err ) {
           Materialize.toast( 'Error!', 6000, 'error' );
         });
@@ -329,6 +335,17 @@ angular.module( 'ngmReportHub' )
 
 
       /* BENEFICIARIES FORM */ 
+
+      // show cxb health label
+      cxbHealth: function( project ) {
+        //console.log( project );
+        var display = false;
+        if ( project.definition.admin0pcode === 'CB' 
+              && project.definition.cluster_id === 'health' ) {
+          display = true;
+        }
+        return display;
+      },
 
       // show activity (generic)
       displayActivity: function( project, $data, $beneficiary ){
@@ -361,6 +378,7 @@ angular.module( 'ngmReportHub' )
 
             // add indicator ( if exists and no dropdown )
             if ( row && !row.indicator && row.indicator_id ) {
+              $beneficiary.strategic_objective_descriptions = selected[0].strategic_objective_descriptions;
               $beneficiary.indicator_id = selected[0].indicator_id;
               $beneficiary.indicator_name = selected[0].indicator_name;
             }
@@ -386,6 +404,7 @@ angular.module( 'ngmReportHub' )
             
             // add indicator ( if exists and no dropdown )
             if ( row && !row.indicator && row.indicator_id ) {
+              $beneficiary.strategic_objective_descriptions = selected[0].strategic_objective_descriptions;
               $beneficiary.indicator_id = selected[0].indicator_id;
               $beneficiary.indicator_name = selected[0].indicator_name;
             }
@@ -402,6 +421,7 @@ angular.module( 'ngmReportHub' )
         if( $beneficiary.indicator_id ) {
           selected = $filter('filter')( lists.activity_indicators, { indicator_id: $beneficiary.indicator_id }, true);
           if( selected && selected.length ) {
+            $beneficiary.strategic_objective_descriptions = selected[0].strategic_objective_descriptions;
             // $beneficiary.indicator_id = selected[0].indicator_id;
             $beneficiary.indicator_name = selected[0].indicator_name;
           }
@@ -433,6 +453,18 @@ angular.module( 'ngmReportHub' )
           $beneficiary.beneficiary_type_name = selected[0].beneficiary_type_name;
         }
         return selected.length ? selected[0].beneficiary_type_name : '-';
+      },
+
+      displayBeneficiaryCategories:function( lists, $data, $beneficiary ) {
+        var selected = [];
+        $beneficiary.beneficiary_category_id = $data;
+        if( $beneficiary.beneficiary_category_id ) {
+          selected = $filter('filter')( lists.beneficiary_categories, { beneficiary_category_id: $beneficiary.beneficiary_category_id }, true);
+        }
+        if( selected && selected.length ) {
+          $beneficiary.beneficiary_category_name = selected[0].beneficiary_category_name;
+        }
+        return selected.length ? selected[0].beneficiary_category_name : '-';
       },
 
       // display delivery
@@ -564,14 +596,19 @@ angular.module( 'ngmReportHub' )
       // show target columns
       setBeneficiariesForm: function ( lists, location_index, beneficiaries ) {
 
-        // set defaults
-        ngmClusterBeneficiaries.form.active[ location_index ] = angular.copy( ngmClusterBeneficiaries.form.defaults );
+        // beneficiaries
+        if( beneficiaries ) {
 
-        // check target_beneficiaries
-        if ( beneficiaries.length ) {
-          angular.forEach( beneficiaries, function( beneficiary, row_index ){
-            ngmClusterBeneficiaries.setBeneficiariesFormTargets( lists, location_index, beneficiary, row_index );
-          });
+          // set defaults
+          ngmClusterBeneficiaries.form.active[ location_index ] = angular.copy( ngmClusterBeneficiaries.form.defaults );
+
+          // check beneficiaries
+          if ( beneficiaries.length ) {
+            angular.forEach( beneficiaries, function( beneficiary, row_index ){
+              ngmClusterBeneficiaries.setBeneficiariesFormTargets( lists, location_index, beneficiary, row_index );
+            });
+          }
+
         }
       },
 

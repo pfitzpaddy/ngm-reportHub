@@ -82,7 +82,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
           }
         },
 
-        canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.organization.adminRpcode, admin0pcode:config.organization.admin0pcode, cluster_id: config.organization.cluster_id, organization_tag:config.organization.organization_tag } ),
+        canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.organization.adminRpcode, admin0pcode:config.organization.admin0pcode, cluster_id: ngmUser.get().cluster_id, organization_tag:config.organization.organization_tag } ),
 
         // organization
         getOrganizationHref: function() {
@@ -152,7 +152,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
             $scope.report.organization = organization;
 
             // on success
-            Materialize.toast( 'Warehouse Location Added!', 3000, 'success');
+            Materialize.toast( 'Warehouse Location Added!', 6000, 'success');
 
             // refresh to update empty reportlist
             $route.reload();
@@ -188,7 +188,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
             $scope.report.organization = results[0].data;
 
             // on success
-            Materialize.toast( 'Warehouse Location Removed!', 3000, 'success');
+            Materialize.toast( 'Warehouse Location Removed!', 6000, 'success');
 
             // refresh to update empty reportlist
             $route.reload();

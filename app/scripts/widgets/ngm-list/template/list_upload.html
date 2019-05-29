@@ -98,34 +98,34 @@
 </style>
 <div id="close-preview-modal" class="modal ">
 	<div class="modal-content">
-		<img src={{list.setLink()}} id="imagepreview">
+		<img ng-src={{list.setLink()}} id="imagepreview">
 	</div>
 	<div class="modal-footer">
-		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close_mayus1'|translate}}</a>
 	</div>
 </div>
 <div id="close-preview-file" class="modal ">
 	<div class="modal-content">
 		<div>
-			<iframe src={{list.setLink()}} style="width:600px; height:500px;"
+			<iframe ng-src={{list.setLink()}} style="width:600px; height:500px;"
 			 frameborder="0"></iframe>
 		</div>
 	</div>
 	<div class="modal-footer">
-		<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+		<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close_mayus1'|translate}}</a>
 	</div>
 </div>
 <div id="remove-modal" class="modal">
 		<div class="modal-content">
 			<div class="center">
 				<i class="medium material-icons" style="color:#f44336">delete</i>
-				<h5 style="font-weight:300;"> Remove this File?</h5>
+				<h5 style="font-weight:300;"> {{'remove_this_file'|translate}}</h5>
 			</div>
 		
 		</div>
 		<div class="modal-footer">
-			<a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-			<a ng-click="list.removeFile()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes, Remove this file!</a>
+			<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close_mayus1'|translate}}</a>
+			<a ng-click="list.removeFile()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_this_file'|translate}}</a>
 		</div>
 </div>
 <div class="card-panel" ng-init="grid = false">
@@ -135,17 +135,17 @@
 			<li class="collection-header teal" style="height:80px;">
 				<div class="col s12 m10">
 					<h4 style="font-size:2.1rem; color: #ffffff">
-						<i class="material-icons left" style="    margin-top: 5px;">perm_media</i>Project Documents
+						<i class="material-icons left" style="    margin-top: 5px;">perm_media</i>{{'project_documents'|translate}}
 					</h4>
 				</div>
 				<div class="col s12 m2">
 					<div class="grid-list">
-						<div class="btn-floating wave-effect space tooltipped-project-upload" data-position="bottom" data-tooltip="List View" ng-click="grid=false" ng-class="{white: !grid,teal:grid}">
+						<div class="btn-floating wave-effect space tooltipped-project-upload" data-position="bottom" data-tooltip="{{'list_view'|translate}}" ng-click="grid=false" ng-class="{white: !grid,teal:grid}">
 							<i class="material-icons  " ng-class="{color_teal: !grid,color_white:grid}">
 								format_list_bulleted
 							</i>
 						</div>
-						<div class="btn-floating wave-effect space tooltipped-project-upload"  data-position="bottom" data-tooltip="Grid View" ng-click="grid=true" ng-class="{white: grid,teal:!grid}">
+						<div class="btn-floating wave-effect space tooltipped-project-upload"  data-position="bottom" data-tooltip="{{'grid_view'|translate}}" ng-click="grid=true" ng-class="{white: grid,teal:!grid}">
 							<i class="material-icons " style="color: #ffffff" ng-class="{color_teal: grid,color_white:!grid}">
 								view_module
 							</i>
@@ -161,25 +161,25 @@
 					<i class="material-icons circle " style="background-color: {{list.extentionColor(item.filename_extension)}}">{{list.extentionIcon(item.filename_extension)}}</i>
 					<span class="title text-darken-2" style="font-weight: 400;">{{item.filename}}</span>
 					<p style="font-weight: 400;font-size: 14px">
-						 Uploaded by : {{item.fileowner}} | Upload : {{item.createdAt|date}} | Modified : {{item.updatedAt | date}}
+						 Uploaded by : {{item.fileowner}} | {{'upload'|translate}} : {{item.createdAt|date}} | {{'modified'|translote}} : {{item.updatedAt | date}}
 					</p>
 					<div class="secondary-content">
 
 						
-						<button data-position="bottom" data-tooltip="Preview" class="btn-floating  wave-effect blue tooltipped-project-upload" 
+						<button data-position="bottom" data-tooltip="{{'preview'|translate}}" class="btn-floating  wave-effect blue tooltipped-project-upload" 
 						ng-click="list.openModal('close-preview-file',item.fileid)" ng-disabled="item.filename_extension === '.csv'">
 							<i class="small material-icons">compare</i>
 						</button>
-						<a class="btn-floating  wave-effect tooltipped-project-upload" data-position="bottom" data-tooltip="Download" ng-href="{{list.setDonwloadLink(item.fileid)}}">
+						<a class="btn-floating  wave-effect tooltipped-project-upload" data-position="bottom" data-tooltip="{{'download'|translate}}" ng-href="{{list.setDonwloadLink(item.fileid)}}">
 							<i class="small material-icons">cloud_download</i>
 						</a>
-						<button class="btn-floating  wave-effect red tooltipped-project-upload" data-position="bottom" data-tooltip="Delete" ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
+						<button class="btn-floating  wave-effect red tooltipped-project-upload" data-position="bottom" data-tooltip="{{'delete_mayus1'|translate}}" ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
 							<i class="small material-icons">delete</i>
 						</button>
 					</div>
 				</li>
 				<li class="collection-item avatar" ng-if="!list.data.length" >
-					<p style="font-size: 17px; padding:10px 0px 10px 0px;">You have no project documents yet</p>
+					<p style="font-size: 17px; padding:10px 0px 10px 0px;">{{'you_have_no_project_documents_yet'| translate}}</p>
 				</li>
 				<li class="collection-item avatar" ng-if="list.data.length > list.itemsPerPage" style="padding:25px 10px 20px 10px;">
 					<dir-pagination-controls pagination-id="list.id"></dir-pagination-controls>
@@ -194,7 +194,7 @@
 						pagination-id="list.id">
 							<div class="card border-radius">
 								<div class="card-image waves-effect waves-block waves-light">
-									<img class="activator" src={{list.setThumbnailfromGdrive(item.fileid,item.filename_extension)}}>
+									<img class="activator" ng-src={{list.setThumbnailfromGdrive(item.fileid,item.filename_extension)}}>
 								</div>
 								<div class="card-content">
 									<i class="material-icons left" style="color: {{list.extentionColor(item.filename_extension)}};margin-right: 5px;">
@@ -211,14 +211,14 @@
 									<div class="line">
 
 										<!-- use gdrive id file -->
-										<button class="btn-floating  wave-effect blue tooltipped-project-upload" data-position="bottom" data-tooltip="Preview"
+										<button class="btn-floating  wave-effect blue tooltipped-project-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}"
 										ng-click="list.openModal('close-preview-file',item.fileid)" ng-disabled="item.filename_extension === '.csv'">
 											<i class="small material-icons">compare</i>
 										</button>
-										<a class="btn-floating  wave-effect space tooltipped-project-upload" data-position="bottom" data-tooltip="Download" ng-href="{{list.setDonwloadLink(item.fileid)}}">
+										<a class="btn-floating  wave-effect space tooltipped-project-upload" data-position="bottom" data-tooltip="{{'download'|translate}}" ng-href="{{list.setDonwloadLink(item.fileid)}}">
 											<i class="small material-icons">cloud_download</i>
 										</a>
-										<button class="btn-floating  wave-effect red space tooltipped-project-upload" data-position="bottom" data-tooltip="Delete"  ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
+										<button class="btn-floating  wave-effect red space tooltipped-project-upload" data-position="bottom" data-tooltip="{{'delete_mayus1'|translate}}"  ng-click="list.openModal('remove-modal','');list.setRemoveId(item.fileid)">
 											<i class="small material-icons">delete</i>
 										</button>
 									</div>
@@ -228,7 +228,7 @@
 					</div>
 				</li>
 				<li class="collection-item avatar" ng-if="!list.data.length">
-					<p style="font-size: 17px; padding:10px 0px 10px 0px;">You have no project documents yet</p>
+					<p style="font-size: 17px; padding:10px 0px 10px 0px;">{{'you_have_no_project_documents_yet'|translate}}</p>
 				</li>
 				<li class="collection-item avatar" ng-if="list.data.length > list.itemsPerPageGrid && grid" style="padding:25px 10px 20px 10px;">
 					<dir-pagination-controls pagination-id="list.id"></dir-pagination-controls>
