@@ -82,7 +82,7 @@
                 e-placeholder="{{'select'|translate}}"
                 e-ng-options="b.delivery_type_id as 
                                 b.delivery_type_name for 
-                                b in project.lists.activity_status_delivery_type"
+                                b in project.lists.delivery_types"
                 e-ng-disabled="!beneficiary.activity_description_id">
               {{ ngmClusterBeneficiaries.displayDelivery( project.lists, $data, beneficiary ) }}
           </span>

@@ -68,7 +68,6 @@ angular.module( 'ngmReportHub' )
           // NG cholera
           activity_cholera_response: [{ activity_cholera_response_id: 'yes', activity_cholera_response_name: 'Yes' },
                               { activity_cholera_response_id: 'no', activity_cholera_response_name: 'No' }],
-          activity_status_delivery_type: [{delivery_type_id: 'completed',delivery_type_name: 'Completed'},{delivery_type_id: 'planned',delivery_type_name: 'Planned'}],
 
           // training
           trainee_affiliations: [{ trainee_affiliation_id: 'community', trainee_affiliation_name: 'Community' },
@@ -311,19 +310,8 @@ angular.module( 'ngmReportHub' )
             delivery_type_id: 'service',
             delivery_type_name: 'Existing Beneficiaries'
           }];
-        } else if( admin0pcode === 'COL'){
+        } else if ( admin0pcode === 'CB' ) {
 
-          delivery = [{
-            delivery_type_id: 'population',
-            delivery_type_name: 'Nuevos Beneficiarios'
-          },{
-            delivery_type_id: 'service',
-            delivery_type_name: 'Beneficiarios Existentes'
-          }];
-
-        }
-          else
-         {
           delivery = [{
             delivery_type_id: 'population',
             delivery_type_name: 'New Beneficiaries'
@@ -333,11 +321,38 @@ angular.module( 'ngmReportHub' )
           },{
             delivery_type_id: 'contingency',
             delivery_type_name: 'Contingency'
-          },{delivery_type_id: 'completed',
-             delivery_type_name: 'Completed'
-          },{delivery_type_id: 'planned',
+          }];
+
+        } else if ( admin0pcode === 'COL' ) {
+
+          delivery = [{
+            delivery_type_id: 'population',
+            delivery_type_name: 'Nuevos Beneficiarios'
+          },{
+            delivery_type_id: 'service',
+            delivery_type_name: 'Beneficiarios Existentes'
+          }];
+
+        } else if ( admin0pcode === 'NG' ) {
+
+          delivery = [{
+            delivery_type_id: 'completed',
+            delivery_type_name: 'Completed'
+          },{
+            delivery_type_id: 'planned',
             delivery_type_name: 'Planned'
-        }];
+          }];
+
+        } else {
+
+          delivery = [{
+            delivery_type_id: 'population',
+            delivery_type_name: 'New Beneficiaries'
+          },{
+            delivery_type_id: 'service',
+            delivery_type_name: 'Existing Beneficiaries'
+          }];
+
         }
 
         return delivery;
