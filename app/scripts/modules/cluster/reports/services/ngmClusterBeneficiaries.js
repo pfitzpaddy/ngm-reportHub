@@ -66,6 +66,17 @@ angular.module( 'ngmReportHub' )
         },        
       },
 
+      // sum for totals
+      updateBeneficiaires: function( beneficiary ) {
+      	beneficiary.total_beneficiaries = 0;
+      	beneficiary.total_beneficiaries += beneficiary.boys + 
+      												beneficiary.girls + 
+      												beneficiary.men + 
+      												beneficiary.women + 
+      												beneficiary.elderly_men + 
+      												beneficiary.elderly_women;
+      },
+
       // update display name in object on select change
       selectChange: function( project, d, list, key, name, label ){
         if ( d[ key ] ) {

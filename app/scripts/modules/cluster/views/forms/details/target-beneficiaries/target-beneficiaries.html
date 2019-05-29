@@ -682,7 +682,7 @@
 							        			e-name="boys"
 							        			editable-number="beneficiary.boys"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput($index, 'boys', $data )"
+							        			e-ng-change="project.updateInput($index, 'boys', $data ); ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'boys' ]"
 							        			e-required>
 							          {{ beneficiary.boys }}
@@ -695,7 +695,7 @@
 							        			e-name="girls"
 							        			editable-number="beneficiary.girls"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput($index, 'girls', $data )"
+							        			e-ng-change="project.updateInput($index, 'girls', $data ); ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'girls' ]"
 							        			e-required>
 							          {{ beneficiary.girls }}
@@ -708,7 +708,7 @@
 							        			e-name="men"
 							        			editable-number="beneficiary.men"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput($index, 'men', $data )"
+							        			e-ng-change="project.updateInput($index, 'men', $data ); ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'men' ]"
 							        			e-required>
 							          {{ beneficiary.men }}
@@ -721,7 +721,7 @@
 							        			e-name="women"
 							        			editable-number="beneficiary.women"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput($index, 'women', $data )"
+							        			e-ng-change="project.updateInput($index, 'women', $data ); ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'women' ]"
 							        			e-required>
 							          {{ beneficiary.women }}
@@ -734,7 +734,7 @@
 							        			e-name="elderly_men"
 							        			editable-number="beneficiary.elderly_men"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput( $index, 'elderly_men', $data )"
+							        			e-ng-change="project.updateInput( $index, 'elderly_men', $data ); ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'elderly_men' ]"
 							        			e-required>
 							          {{ beneficiary.elderly_men }}
@@ -747,7 +747,7 @@
 							        			e-name="elderly_women"
 							        			editable-number="beneficiary.elderly_women"
 							        			e-min="0"
-							        			e-ng-change="project.updateInput( $index, 'elderly_women', $data )"
+							        			e-ng-change="project.updateInput( $index, 'elderly_women', $data ); ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 							        			e-ng-disabled="!ngmClusterBeneficiaries.form.active[ 0 ].rows[ $index ][ 'elderly_women' ]"
 							        			e-required>
 							          {{ beneficiary.elderly_women }}
