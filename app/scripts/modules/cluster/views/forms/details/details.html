@@ -278,14 +278,14 @@
 								<div class="row" id="ngm-activity_type_label">
 									<div class="activity-field col s12 m6" style="padding-top:12px;padding-bottom:5px;">
 										
-										<label class="label" for="ngm-activity_type">{{'activity_type' | translate}} *</label>
+										<label class="label" id="ngm-activity_type" for="ngm-activity_type">{{'activity_type' | translate}} *</label>
 										<div style="padding-bottom:0px;"></div>
 										<!-- for project cluster activity_type -->
 										<p style="padding-left:10px;" ng-repeat="a in project.lists.activity_types | filter: { cluster_id: project.definition.cluster_id } ">
 											<input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}" 
 															ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
 															ng-disabled="project.definition.project_status === 'complete'"
-															ng-click="project.compileInterClusterActivities()"/>
+															ng-click="project.compileInterClusterActivities(); ngmClusterBeneficiaries.updateSelect();"/>
 											<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label>
 										</p>
 									

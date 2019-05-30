@@ -50,8 +50,9 @@
 						<!-- btns -->
 						<div align="right" style="padding: 16px 10px 5px;">
 							<button class="btn-floating red lighten-2 waves-effect waves-light"
-												ng-click="project.removeTargetBeneficiaryModal( $index )" 
 												title="Remove"
+												ng-if="project.definition.project_status === 'active'"
+												ng-click="project.removeTargetBeneficiaryModal( $index )" 
 												ng-disabled="
 													( ( !project.project_details_valid() ) ||
 													( !project.activity_type_valid() ) ||
