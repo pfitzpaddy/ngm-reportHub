@@ -8,12 +8,13 @@
 angular.module( 'ngmReportHub' )
   .filter( 'admin2CxbHostCommunityfilter', [ '$filter', function ( $filter ) {
     
-    // Host Communities of Reach data capture Teknaf, Ukhia
-    var host_community_filter = [ '202290', '202294' ];
+    // Host Communities of Reach data capture Teknaf, Ukhia, Chittagong
+    var host_community_filter = [ '202290', '202294', '20' ];
 
     // filter 
     return function ( item ) {
       var list = item.filter(function( i ) {
+        console.log(i.admin1pcode)
         return host_community_filter.indexOf( i.admin1pcode ) !== -1; 
       });
       return list;
@@ -22,7 +23,7 @@ angular.module( 'ngmReportHub' )
   .filter( 'admin2CxbRefugeeCampfilter', [ '$filter', function ( $filter ) {
     
     // Refugee Camps admin2pcode
-    var refugee_camp_filter = [ '20229015', '20229031', '20229479', '20229063', '2022907', '20229079' ];
+    var refugee_camp_filter = [ '20229015', '20229031', '20229479', '20229063', '2022907', '20229079', '2003' ];
 
     // filter 
     return function ( item ) {
