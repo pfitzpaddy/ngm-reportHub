@@ -101,7 +101,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             'recuperacion_temprana':{cluster:'Recuperación Temprana'},
             'protection':{cluster:'Protección'},
             'wash':{cluster:'Wash'},
-            'undaf':{cluster:'UNDAF'}
+            'undaf':{cluster:'UNDAF'},
+             'cvwg': { cluster: 'MPC' },
+
           }, 
           'other': {
             'cvwg': { cluster: 'MPC' },
