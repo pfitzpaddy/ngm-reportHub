@@ -103,6 +103,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             'wash':{cluster:'Wash'},
             'undaf':{cluster:'UNDAF'},
              'cvwg': { cluster: 'MPC' },
+             'smsd':{cluster:'Sitio de Administración y Sitio de Desarrollo'}
 
           }, 
           'other': {
@@ -477,7 +478,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           //'rnr_chapter': { cluster: 'R&R Chapter' },
           'wash': { cluster: 'WASH' },
           'recuperacion_temprana':{cluster:'Recuperación Temprana'},
-          'undaf':{ cluster: 'UNDAF'}
+          'undaf':{ cluster: 'UNDAF'},
+             'smsd':{cluster:'Site Management and Site development'}
 
                  }
 
