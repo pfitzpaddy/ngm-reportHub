@@ -399,11 +399,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				
 				/**** TARGET BENEFICIARIES ( ngmClusterHelperBeneficiaries.js ) ****/
 
-				// update inidcators
-				// updateInput: function( $index, indicator, $data ){
-				// 	$scope.project.definition.target_beneficiaries[ $index ][ indicator ] = $data;
-				// },
-
 				// add beneficiary
 				addBeneficiary: function( defaults ) {
 
@@ -422,8 +417,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					
 					// set form display for new rows
 					if ( $scope.project.definition.target_beneficiaries.length > 1) {
-						// ngmClusterBeneficiaries.setBeneficiariesDescription( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries.length-1, beneficiary );
-						// ngmClusterBeneficiaries.setBeneficiariesForm( $scope.project.lists, 0, [ beneficiary ] );
+						ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries.length-1, beneficiary );
 					}
 				},
 
@@ -437,7 +431,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				removeTargetBeneficiary: function() {
 					var id = $scope.project.definition.target_beneficiaries[ $scope.project.beneficiaryIndex ].id;
 					$scope.project.definition.target_beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
-					ngmClusterBeneficiaries.form.active[ 0 ].rows.splice( $scope.project.beneficiaryIndex, 1 );
+					ngmClusterBeneficiaries.form[ 0 ].splice( $scope.project.beneficiaryIndex, 1 );
 					ngmClusterBeneficiaries.removeTargetBeneficiary( id );
 				},
 

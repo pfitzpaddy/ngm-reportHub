@@ -16,32 +16,36 @@ angular.module( 'ngmReportHub' )
 			form:[[]],
 
 			merge_keys: [ 
-				'activity_description_name',
 				'indicator_id',
 				'indicator_name',
 				'strategic_objective_id',
 				'strategic_objective_name',
 				'strategic_objective_description',
-				'strategic_objective_descriptions',
 				'sector_objective_id',
 				'sector_objective_name',
 				'sector_objective_description'
 			],
 
 			defaults: {
+				form: {
+					boys:1,
+					girls:1,
+					men:1,
+					women:1
+				},
 				units: {
-					units: 0,
-					sessions: 0,
-					cash_amount: 0,
-					households: 0,
-					families: 0,
-					boys: 0,
-					girls: 0,
+					units:0,
+					sessions:0,
+					cash_amount:0,
+					households:0,
+					families:0,
+					boys:0,
+					girls:0,
 					men:0,
 					women:0,
 					elderly_men:0,
 					elderly_women:0,
-					total_beneficiaries:0,
+					total_beneficiaries:0
 				},
 				activity_description: {
 					activity_description_id: '',
@@ -59,7 +63,9 @@ angular.module( 'ngmReportHub' )
 					beneficiary_type_id: '',
 					beneficiary_type_name: ''
 				},
-				cash_package: {
+				cash_package_units: {
+					unit_type_id: '',
+					unit_type_name: '',
 					mpc_delivery_type_id: '',
 					mpc_delivery_type_name: '',
 					mpc_mechanism_type_id: '',
@@ -67,9 +73,7 @@ angular.module( 'ngmReportHub' )
 					package_type_id: '',
 					package_type_name: '',
 					transfer_type_id: '',
-					transfer_type_id: '',
-					unit_type_id: '',
-					unit_type_name: '',
+					transfer_type_name: ''
 				}
 			},
 			
@@ -165,90 +169,70 @@ angular.module( 'ngmReportHub' )
 					angular.merge( inserted, b, defaults.units, form_defaults );
 				}
 
-				console.log( 'addBeneficiary' );
-				console.log( inserted );
-
 				// return new beneficiary
 				return inserted;
 			},
 
 			// show activity (generic)
 			setActivity: function( project, beneficiary ){
+				
+				// set activity
 				var selected = [];
 				var defaults = ngmClusterBeneficiaries.defaults;
-				if( beneficiary.activity_type_id && project.activity_type.length ) {
-					selected = $filter('filter')( project.activity_type, { activity_type_id: beneficiary.activity_type_id }, true);
+				if( beneficiary.activity_type_id && project.definition.activity_type.length ) {
+					selected = $filter('filter')( project.definition.activity_type, { activity_type_id: beneficiary.activity_type_id }, true );
 					if( selected && selected.length ) {
 						// set activity_type_name
 						beneficiary.cluster_id = selected[0].cluster_id;
 						beneficiary.cluster = selected[0].cluster;
 						beneficiary.activity_type_id = selected[0].activity_type_id;
 						beneficiary.activity_type_name = selected[0].activity_type_name; 
-						angular.merge( beneficiary, defaults.units, defaults.activity_description, defaults.activity_detail, defaults.indicator, defaults.beneficiary, defaults.cash_package  );
+						// merge defaults
+						angular.merge( beneficiary, defaults.units, defaults.activity_description, defaults.activity_detail, defaults.indicator, defaults.beneficiary, defaults.cash_package_units );
+						// set form
+						ngmClusterBeneficiaries.setBeneficiariesInputs( project.lists, 0, project.definition.target_beneficiaries.length-1, beneficiary );
 					}
 				}
+
 			},
 
 			// set description
-			setBeneficiariesDescription: function( lists, $parent, $index, beneficiary ) {
+			setBeneficiaries: function( lists, type, $parent, $index, beneficiary ) {
 
 				// defaults
 				var defaults = ngmClusterBeneficiaries.defaults;
 
-				// beneficiary.activity_description_id
-				if ( beneficiary.activity_description_id ) {
-					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter( 'filter' )( lists.activity_descriptions, { activity_description_id: beneficiary.activity_description_id }, true )[ 0 ];
-					angular.forEach( ngmClusterBeneficiaries.merge_keys, function ( key, i ) {
-						beneficiary[ key ] = ngmClusterBeneficiaries.form[ $parent ][ $index ][ key ];
-					});
-					// merge defaults
+				// merge defaults
+				if ( type === 'description' ) {
+					angular.merge( beneficiary, defaults.units, defaults.activity_detail, defaults.indicator );
+				}
+				if ( type === 'detail' ) {
+					angular.merge( beneficiary, defaults.units, defaults.indicator );
+				}
+				if ( type === 'indicator' ) {
 					angular.merge( beneficiary, defaults.units );
-					if ( !ngmClusterBeneficiaries.form[ $parent ][ $index ].detail ) {
-						angular.merge( beneficiary, defaults.units, defaults.activity_detail, defaults.cash_package );
+				}
+
+				// set form for beneficiary
+				ngmClusterBeneficiaries.setBeneficiariesInputs( lists, 0, $index, beneficiary );		
+
+				// merge defaults from form (activities.csv)
+				angular.forEach( ngmClusterBeneficiaries.merge_keys, function ( key, i ) {
+					beneficiary[ key ] = ngmClusterBeneficiaries.form[ $parent ][ $index ][ key ];
+				});
+
+				// clear cash / package / units
+				angular.forEach( defaults.cash_package_units, function ( i, key ) {
+					if ( !ngmClusterBeneficiaries.form[ $parent ][ $index ][ key ] && key.indexOf( '_name' ) === -1 ) {
+						var key_base = key.slice( 0, -2 );
+						delete beneficiary[ key ];
+						delete beneficiary[ key_base + 'name' ];
 					}
-					console.log('setBeneficiariesDescription');
-					console.log(beneficiary);
-				}
-
-			},
-
-			// set detail
-			setBeneficiariesDetail: function( lists, $parent, $index, beneficiary ) {
-
-				// defaults
-				var defaults = ngmClusterBeneficiaries.defaults;
-				
-				// beneficiary.activity_details
-				if ( beneficiary.activity_detail_id ) {
-					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter( 'filter' )( lists.activity_details, { activity_detail_id: beneficiary.activity_detail_id }, true )[ 0 ];
-					angular.forEach( ngmClusterBeneficiaries.merge_keys, function ( key, i ) {
-						beneficiary[ key ] = ngmClusterBeneficiaries.form[ $parent ][ $index ][ key ];
-					});
-					// merge defaults
-					angular.merge( beneficiary, defaults.units );
-					console.log('setBeneficiariesDetail');
-					console.log( beneficiary );
-				}
-
-			},
-
-			// set form row
-			setBeneficiariesIndicator: function( lists, $parent, $index, beneficiary ) {
-
-				// defaults
-				var defaults = ngmClusterBeneficiaries.defaults;
-				
-				// beneficiary.indicator_id
-				if ( beneficiary.indicator_id ) {
-					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter( 'filter' )( lists.activity_indicators, { indicator_id: beneficiary.indicator_id }, true )[ 0 ];
-					angular.forEach( ngmClusterBeneficiaries.merge_keys, function ( key, i ) {
-						beneficiary[ key ] = ngmClusterBeneficiaries.form[ $parent ][ $index ][ key ];
-					});
-					// merge defaults
-					angular.merge( beneficiary, defaults.units );
-					console.log('setBeneficiariesIndicator');
-					console.log( beneficiary );
-				}
+				});
+					
+				// console.log
+				console.log( 'setBeneficiaries' );
+				console.log( beneficiary );
 
 			},
 
@@ -260,13 +244,14 @@ angular.module( 'ngmReportHub' )
 				
 				// set form
 				angular.forEach( locations, function( location, location_index ){
+					// for each location
 					ngmClusterBeneficiaries.setBeneficiariesForm( lists, location_index, location.beneficiaries );
 				});
 
 				// select element to load
-				$( 'select' ).ready(function() {
-					setTimeout( function(){ $( 'select' ).material_select(); }, 1000 );
-				});
+				// $( 'select' ).ready(function() {
+				// 	setTimeout( function(){ $( 'select' ).material_select(); }, 1000 );
+				// });
 
 				// last element to load
 				// var el = '#ngm-activity_type_id-' + locations.length-1 + '-' + locations[ locations.length-1 ].beneficiaries.length-1;
@@ -277,36 +262,43 @@ angular.module( 'ngmReportHub' )
 
 			},
 
-			// show target columns
+			// for each location beneficiaries
 			setBeneficiariesForm: function ( lists, $parent, beneficiaries ) {
 
 				// beneficiaries
 				if( beneficiaries && beneficiaries.length ) {
-
 					// for each beneficiary
 					angular.forEach( beneficiaries, function( beneficiary, $index ){
-
-						if ( !ngmClusterBeneficiaries.form[ $parent ] ) {
-							ngmClusterBeneficiaries.form[ $parent ] = [];
-						}
-
-						// beneficiary.indicator_id
-						if ( beneficiary.indicator_id ) {
-							ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_indicators, { indicator_id: beneficiary.indicator_id }, true )[ 0 ];
-						}
-
-						// beneficiary.activity_detail_id
-						else if ( beneficiary.activity_detail_id ) {
-							ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_details, { activity_detail_id: beneficiary.activity_detail_id }, true )[ 0 ];
-						}
-						
-						// beneficiary.activity_description_id
-						else if ( beneficiary.activity_description_id ) {
-							ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_descriptions, { activity_description_id: beneficiary.activity_description_id }, true )[ 0 ];
-						}
-
+						ngmClusterBeneficiaries.setBeneficiariesInputs( lists, $parent, $index, beneficiary );
 					});
 				}
+
+			},
+
+			// show form inputs
+			setBeneficiariesInputs: function ( lists, $parent, $index, beneficiary ) {
+
+				// add form holder
+				if ( !ngmClusterBeneficiaries.form[ $parent ] ) {
+					ngmClusterBeneficiaries.form[ $parent ] = [];
+				}
+				// beneficiary.indicator_id
+				if ( beneficiary.indicator_id ) {
+					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_indicators, { indicator_id: beneficiary.indicator_id }, true )[ 0 ];
+				}
+				// beneficiary.activity_detail_id
+				else if ( beneficiary.activity_detail_id ) {
+					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_details, { activity_detail_id: beneficiary.activity_detail_id }, true )[ 0 ];
+				}
+				// beneficiary.activity_description_id
+				else if ( beneficiary.activity_description_id ) {
+					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_descriptions, { activity_description_id: beneficiary.activity_description_id }, true )[ 0 ];
+				}
+				// reset form
+				else if ( beneficiary.activity_type_id ) {
+					ngmClusterBeneficiaries.form[ $parent ][ $index ] = ngmClusterBeneficiaries.defaults.form;
+				}
+
 			},
 
 			
