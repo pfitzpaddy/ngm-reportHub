@@ -964,6 +964,7 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'start_network_global_humanitarian_assistance', project_donor_name: 'Start Network Global Humanitarian Assistance' },
             { project_donor_id: 'sweden', project_donor_name: 'Sweden' },
             { project_donor_id: 'switzerland', project_donor_name: 'Switzerland' },
+            { project_donor_id: 'turkish_red_crescent', project_donor_name: 'Turkish Red Crescent' },
             { project_donor_id: 'usaid', project_donor_name: 'USAID' },
             { project_donor_id: 'unhcr', project_donor_name: 'UNHCR' },
             { project_donor_id: 'unicef', project_donor_name: 'UNICEF' },
