@@ -510,17 +510,17 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           $scope.addBeneficiaryDisable = true;
 
           // set param
-          if (config.report.report_month < 1) {
-            var params ={
+          if ( $scope.project.report.report_month < 1) {
+            var params = {
               project_id: $route.current.params.project,
               report_month: 11,
-              report_year: config.report.report_year-1
+              report_year: $scope.project.report.report_year-1
             }
           } else {
             var params = {
               project_id: $route.current.params.project,
-              report_month: config.report.report_month - 1,            
-              report_year: config.report.report_year
+              report_month: $scope.project.report.report_month - 1,            
+              report_year: $scope.project.report.report_year
             }
           }
 
@@ -535,7 +535,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
           ngmData.get( get_prev_report ).then( function ( prev_report ) {
 
             var brows = 0;
-            var trows =0;
+            var trows = 0;
             var info = $filter('translate')('save_to_apply_changes');
 
             // data returned?
@@ -590,20 +590,35 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
                   return l.target_location_reference_id === target_location_reference_id
                 });
 
-                // set
-                location.beneficiaries = previous_location.beneficiaries
+                // current location (for report defaults)
+                var current_report = angular.copy( $scope.project.report );
+
+                // current month to last month
+                location.beneficiaries = previous_location.beneficiaries;
                 location.trainings = previous_location.trainings;
 
                 // forEach beneficiaries
                 angular.forEach( location.beneficiaries, function( b ){
+                  angular.merge( b, current_report );
                   delete b.id;
+                  delete b.createdAt;
+                  delete b.updatedAt;
+                  delete b.report_submitted;
                 });
 
                 // forEach beneficiaries
                 angular.forEach( location.trainings, function( t ){
+                  angular.merge( t, current_report );
                   delete t.id;
+                  delete t.createdAt;
+                  delete t.updatedAt;
+                  delete t.report_submitted;
                   angular.forEach( t.training_participants, function( tp ){
+                    angular.merge( tp, current_report );
                     delete tp.id;
+                    delete tp.createdAt;
+                    delete tp.updatedAt;
+                    delete tp.report_submitted;
                   });
                 });
 
