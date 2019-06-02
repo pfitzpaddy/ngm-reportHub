@@ -422,7 +422,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					
 					// set form display for new rows
 					if ( $scope.project.definition.target_beneficiaries.length > 1) {
-						ngmClusterBeneficiaries.setBeneficiariesDescription( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries.length-1, beneficiary );
+						// ngmClusterBeneficiaries.setBeneficiariesDescription( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries.length-1, beneficiary );
+						// ngmClusterBeneficiaries.setBeneficiariesForm( $scope.project.lists, 0, [ beneficiary ] );
 					}
 				},
 

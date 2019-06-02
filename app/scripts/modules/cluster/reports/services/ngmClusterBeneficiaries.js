@@ -58,6 +58,18 @@ angular.module( 'ngmReportHub' )
 				beneficiary: {
 					beneficiary_type_id: '',
 					beneficiary_type_name: ''
+				},
+				cash_package: {
+					mpc_delivery_type_id: '',
+					mpc_delivery_type_name: '',
+					mpc_mechanism_type_id: '',
+					mpc_mechanism_type_name: '',
+					package_type_id: '',
+					package_type_name: '',
+					transfer_type_id: '',
+					transfer_type_id: '',
+					unit_type_id: '',
+					unit_type_name: '',
 				}
 			},
 			
@@ -114,6 +126,8 @@ angular.module( 'ngmReportHub' )
 				var select = $filter('filter')( list, obj, true );
 				// set name
 				beneficiary[ name ] = select[0][ name ];
+				// update materialize select
+				ngmClusterBeneficiaries.updateSelect();
 			},
 
 			// update display name in object on select change
@@ -137,31 +151,22 @@ angular.module( 'ngmReportHub' )
 
 				// inserted
 				var inserted = {}
+				var defaults = ngmClusterBeneficiaries.defaults;
 
 				// merge
-				angular.merge( inserted, ngmClusterBeneficiaries.defaults.units, form_defaults );
+				angular.merge( inserted, defaults.units, form_defaults );
 
 				// clone
 				var length = beneficiaries.length;
 				if ( length ) {
 					var b = angular.copy( beneficiaries[ length - 1 ] );
 					delete b.id;
-					delete b.injury_treatment_same_province;
-					angular.merge( inserted, b, ngmClusterBeneficiaries.defaults.units, form_defaults );
-					inserted.transfer_type_id = 0;
-					inserted.transfer_type_value = 0;
-					inserted.remarks = null;
-					if ( inserted.mpc_delivery_type_id || inserted.mpc_mechanism_type_id || inserted.package_type_id || inserted.unit_type_id ){
-						inserted.mpc_delivery_type_id = null;
-						inserted.mpc_delivery_type_name = null;
-						inserted.mpc_mechanism_type_id = null;
-						inserted.mpc_mechanism_type_name = null 
-						inserted.package_type_id = null;
-						inserted.package_type_name = null;
-						inserted.unit_type_id = null;
-						inserted.unit_type_name = null;
-					}
+					delete b.remarks;
+					angular.merge( inserted, b, defaults.units, form_defaults );
 				}
+
+				console.log( 'addBeneficiary' );
+				console.log( inserted );
 
 				// return new beneficiary
 				return inserted;
@@ -179,7 +184,7 @@ angular.module( 'ngmReportHub' )
 						beneficiary.cluster = selected[0].cluster;
 						beneficiary.activity_type_id = selected[0].activity_type_id;
 						beneficiary.activity_type_name = selected[0].activity_type_name; 
-						angular.merge( beneficiary, defaults.units, defaults.activity_description, defaults.activity_detail, defaults.indicator, defaults.beneficiary  );
+						angular.merge( beneficiary, defaults.units, defaults.activity_description, defaults.activity_detail, defaults.indicator, defaults.beneficiary, defaults.cash_package  );
 					}
 				}
 			},
@@ -192,14 +197,14 @@ angular.module( 'ngmReportHub' )
 
 				// beneficiary.activity_description_id
 				if ( beneficiary.activity_description_id ) {
-					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_descriptions, { activity_description_id: beneficiary.activity_description_id }, true )[ 0 ];
+					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter( 'filter' )( lists.activity_descriptions, { activity_description_id: beneficiary.activity_description_id }, true )[ 0 ];
 					angular.forEach( ngmClusterBeneficiaries.merge_keys, function ( key, i ) {
 						beneficiary[ key ] = ngmClusterBeneficiaries.form[ $parent ][ $index ][ key ];
 					});
 					// merge defaults
 					angular.merge( beneficiary, defaults.units );
 					if ( !ngmClusterBeneficiaries.form[ $parent ][ $index ].detail ) {
-						angular.merge( beneficiary, defaults.activity_detail );
+						angular.merge( beneficiary, defaults.units, defaults.activity_detail, defaults.cash_package );
 					}
 					console.log('setBeneficiariesDescription');
 					console.log(beneficiary);
@@ -215,7 +220,7 @@ angular.module( 'ngmReportHub' )
 				
 				// beneficiary.activity_details
 				if ( beneficiary.activity_detail_id ) {
-					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_details, { activity_detail_id: beneficiary.activity_detail_id }, true )[ 0 ];
+					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter( 'filter' )( lists.activity_details, { activity_detail_id: beneficiary.activity_detail_id }, true )[ 0 ];
 					angular.forEach( ngmClusterBeneficiaries.merge_keys, function ( key, i ) {
 						beneficiary[ key ] = ngmClusterBeneficiaries.form[ $parent ][ $index ][ key ];
 					});
@@ -235,7 +240,7 @@ angular.module( 'ngmReportHub' )
 				
 				// beneficiary.indicator_id
 				if ( beneficiary.indicator_id ) {
-					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_indicators, { indicator_id: beneficiary.indicator_id }, true )[ 0 ];
+					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter( 'filter' )( lists.activity_indicators, { indicator_id: beneficiary.indicator_id }, true )[ 0 ];
 					angular.forEach( ngmClusterBeneficiaries.merge_keys, function ( key, i ) {
 						beneficiary[ key ] = ngmClusterBeneficiaries.form[ $parent ][ $index ][ key ];
 					});
