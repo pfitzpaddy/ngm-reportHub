@@ -17,22 +17,10 @@
 							<p id="ngm-target_beneficiaries" style="padding:10px;">
 								{{'enter_the_target_beneficiaries_of_your_project_in_the_form_below' | translate}};
 							</p>
-
-							<div ng-if="ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'mpc_delivery_type_id' ] &&
-														!ngmClusterBeneficiaries.form.active[ 0 ].columns[ 'package_type_id' ]" style="padding-left: 40px;">
-								<p>
-									<i class="material-icons left" style="color: #e57373">info</i>
-								</p>
-								<p style="color: #e57373">
-									<span style="font-weight:400">{{'amount'|translate}}:</span> {{'please_enter_the_amount_per' | translate}} <span style="font-weight:400">{{'household_hh' | translate}}</span> per <span style="font-weight:400">{{'transfer' | translate}}</span>
-								</p>
-								<p style="color: #e57373">
-									<span style="font-weight:400">{{'transfers'|translate}}:</span> {{'please_enter_the' |translate}} <span style="font-weight:400">TOTAL</span> {{'number_of_planned_transfer_for_the'|translate}} <span style="font-weight:400">{{'entire' | translate}}</span> {{'project' | translate}}
-								</p>
-							</div>
 						</div>
 					</div>
 
+					<!-- for target_beneficiaries -->
 					<div ng-repeat="beneficiary in project.definition.target_beneficiaries">
 
 						<!-- title -->
@@ -72,7 +60,19 @@
 							</button>
 						</div>
 
-
+						<!-- mpc_delivery_type_id -->
+						<div ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ] &&
+													!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'package_type_id' ]">
+							<div class="row" style="padding-left: 20px;">
+								<p><i class="material-icons left" style="color: #e57373">info</i></p>
+								<p style="color: #e57373">
+									<span style="font-weight:400">{{'amount'|translate}}:</span> {{'please_enter_the_amount_per' | translate}} <span style="font-weight:400">{{'household_hh' | translate}}</span> per <span style="font-weight:400">{{'transfer' | translate}}</span>
+								</p>
+								<p style="color: #e57373">
+									<span style="font-weight:400">{{'transfers'|translate}}:</span> {{'please_enter_the' |translate}} <span style="font-weight:400">TOTAL</span> {{'number_of_planned_transfer_for_the'|translate}} <span style="font-weight:400">{{'entire' | translate}}</span> {{'project' | translate}}
+								</p>
+							</div>
+						</div>
 
 						
 						<!-- CARD PANEL -->
@@ -849,8 +849,7 @@
 							</div>
 
 							<!-- TOTAL -->
-							<div class="row"
-										ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'total_beneficiaries' ]">
+							<div class="row" ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'total_beneficiaries' ]">
 
 								<!-- boys -->
 								<div class="input-field col s12">
@@ -896,9 +895,3 @@
 		</div>
 	</div>
 </div>
-
-<!-- material select -->
-<script type="text/javascript">
-	// init
-	setTimeout( function(){ $( 'select' ).material_select(); }, 600 );
-</script>

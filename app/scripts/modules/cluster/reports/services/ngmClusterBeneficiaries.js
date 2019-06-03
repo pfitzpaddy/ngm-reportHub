@@ -250,15 +250,17 @@ angular.module( 'ngmReportHub' )
 
 				// select element to load
 				// $( 'select' ).ready(function() {
-				// 	setTimeout( function(){ $( 'select' ).material_select(); }, 1000 );
+				// 	console.log('select');
+				// 	setTimeout( function(){ $( 'select' ).material_select(); }, 2000 );
 				// });
 
 				// last element to load
-				// var el = '#ngm-activity_type_id-' + locations.length-1 + '-' + locations[ locations.length-1 ].beneficiaries.length-1;
-				// $( el ).ready(function() {
-				// 	console.log('element')
-				// 	setTimeout( function(){ $( 'select' ).material_select(); }, 1000 );
-				// });
+				var el = '#ngm-activity_type_id-' + locations.length-1 + '-' + locations[ locations.length-1 ].beneficiaries.length-1;
+				$( el ).ready(function() {
+					console.log('element')
+					console.log( ngmClusterBeneficiaries.form )
+					setTimeout( function(){ $( 'select' ).material_select(); }, 1000 );
+				});
 
 			},
 
