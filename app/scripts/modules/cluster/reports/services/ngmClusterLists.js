@@ -565,7 +565,7 @@ angular.module( 'ngmReportHub' )
             cluster: 'Nutrition'
           },{
             cluster_id: 'smsd',
-            cluster: 'Site Management and Site Development'
+            cluster: 'Site Management, Site Development and DRR'
           },{
             cluster_id: 'protection',
             cluster: 'Protection'
