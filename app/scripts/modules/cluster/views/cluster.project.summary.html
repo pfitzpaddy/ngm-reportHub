@@ -1,16 +1,4 @@
 
-<style>
-
-	.card .card-content .card-title {
-		line-height: 24px;
-	}
-
-	.pagination li.active {
-	  background-color: #009688;
-	}
-
-</style>
-
 <!-- complete modal -->
 <div id="complete-modal" class="modal">
   <div class="modal-content">
@@ -60,8 +48,7 @@
 	      	<p class="card-title">{{'project_plan'|translate}}</p>
 	      </div>
 	      <div class="card-action">
-	        <a href="#/cluster/projects/details/{{ panel.project.id }}">{{'go_to_project_plan'|translate}}</a>
-
+	        <a class="left" href="#/cluster/projects/details/{{ panel.project.id }}">{{'go_to_project_plan'|translate}}</a>
 	      </div>
 	    </div>
 	    </a>
@@ -73,12 +60,10 @@
 		        <img src="images/cluster/reports.jpg">
 		      </div>
 		      <div class="card-content white-text">
-		        <p class="card-title">{{'financial_reports'|translate}}
-		        </p>
+		        <p class="card-title">{{'financial_reports'|translate}}</p>
 		      </div>
 		      <div class="card-action">
-		        <a href="#/cluster/projects/financials/{{ panel.project.id }}">{{'go_to' | translate}} {{'financial_reports' | translate}}
-		        </a>
+		        <a class="left" href="#/cluster/projects/financials/{{ panel.project.id }}">{{'go_to' | translate}} {{'financial_reports' | translate}}</a>
 		      </div>
 		    </div>
 		   </a>
@@ -93,8 +78,7 @@
 		        <p class="card-title">{{'monthly_progress'|translate}}</p>
 		      </div>
 		      <div class="card-action">
-		        <a href="#/cluster/projects/report/{{ panel.project.id }}">{{'go_to_monthly_progress'|translate}}</a>
-
+		        <a class="left" href="#/cluster/projects/report/{{ panel.project.id }}">{{'go_to_monthly_progress'|translate}}</a>
 		      </div>
 		    </div>
 		   </a>
@@ -115,8 +99,7 @@
 	      	<p class="card-title">{{'project_plan'|translate}}</p>
 	      </div>
 	      <div class="card-action">
-	        <a href="#/cluster/projects/details/{{ panel.project.id }}">{{'go_to_project_plan'|translate}}</a>
-
+	        <a class="left" href="#/cluster/projects/details/{{ panel.project.id }}">{{'go_to_project_plan'|translate}}</a>
 	      </div>
 	    </div>
 	    </a>
@@ -131,8 +114,7 @@
 		        <p class="card-title">{{'monthly_progress'|translate}}</p>
 		      </div>
 		      <div class="card-action">
-		        <a href="#/cluster/projects/report/{{ panel.project.id }}">{{'go_to_monthly_progress'|translate}}</a>
-
+		        <a class="left" href="#/cluster/projects/report/{{ panel.project.id }}">{{'go_to_monthly_progress'|translate}}</a>
 		      </div>
 		    </div>
 		   </a>
@@ -179,8 +161,6 @@
 <script type="text/javascript">
 
   // modals
-  setTimeout(function(){
-  	$('.modal-trigger').leanModal();
-  }, 200);
+  setTimeout(function(){ $('.modal-trigger').leanModal(); }, 200);
 
 </script>

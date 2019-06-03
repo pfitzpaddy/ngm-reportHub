@@ -167,6 +167,14 @@ h1, h2, h3, h4, h5, p {
 	font-weight: 300;
 }
 
+.card .card-content .card-title {
+	line-height: 24px;
+}
+
+.pagination li.active {
+  background-color: #009688; 
+}
+
 .ngm-project_donor_select md-chip{
 	background-color: #26a69a;
 }

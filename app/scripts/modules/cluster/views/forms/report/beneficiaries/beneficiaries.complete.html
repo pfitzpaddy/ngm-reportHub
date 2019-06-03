@@ -821,10 +821,9 @@
         </div>
 
         <!-- TOTAL -->
-        <div class="row"
-              ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $index ][ 'total_beneficiaries' ]">
+        <div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $index ][ 'total_beneficiaries' ]">
 
-          <!-- boys -->
+          <!-- total_beneficiaries -->
           <div class="input-field col s12">
             <input id="ngm-total_beneficiaries-{{ $locationIndex }}-{{ $index }}" 
                     name="ngm-total_beneficiaries-{{ $locationIndex }}-{{ $index }}"
@@ -839,6 +838,19 @@
         </div>
 
 
+        <!-- REMARKS -->
+        <div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $index ][ 'remarks' ]">
+
+          <!-- remarks -->
+          <div class="input-field col s12">
+            <input id="ngm-beneficiary-remarks-{{ $locationIndex }}-{{ $index }}" type="text" class="validate"
+                    ng-model="beneficiary.remarks"
+                    ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $index ][ 'remarks' ]"
+                    required>
+            <label for="ngm-beneficiary-remarks-{{ $locationIndex }}-{{ $index }}" class="active">{{'remarks' | translate}}</label>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -846,8 +858,7 @@
     <div class="row">
       <!-- Shelter ET -->
       <button class="btn" 
-                ng-if="project.definition.admin0pcode === 'ET' && project.definition.cluster_id === 'esnfi'"
-                ng-show="project.definition.project_status !== 'complete'" 
+                ng-if="project.definition.project_status !== 'complete' && ( project.definition.admin0pcode === 'ET' && project.definition.cluster_id === 'esnfi' )"
                 ng-click="project.addBeneficiary({ households: 1 }); ngmClusterBeneficiaries.updateSelect();"
                 style="margin:20px 10px;">
         <i class="material-icons left">add</i>{{ 'add_beneficiaries' | translate }}
@@ -855,8 +866,7 @@
 
       <!-- default -->
       <button class="btn"
-                ng-if="project.definition.admin0pcode !== 'ET' || project.definition.cluster_id !== 'esnfi'" 
-                ng-show="project.definition.project_status !== 'complete'" 
+                ng-if="project.definition.project_status !== 'complete' && ( project.definition.admin0pcode !== 'ET' || project.definition.cluster_id !== 'esnfi' )"
                 ng-click="project.addBeneficiary({}); ngmClusterBeneficiaries.updateSelect();"
                 style="margin:20px 10px;">
         <i class="material-icons left">add</i>{{'add_beneficiaries'|translate}}

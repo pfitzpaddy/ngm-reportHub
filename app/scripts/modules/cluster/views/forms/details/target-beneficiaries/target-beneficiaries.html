@@ -864,6 +864,20 @@
 									<label for="ngm-total_beneficiaries-{{ $index }}" class="active">{{ 'total_beneficiaries' | translate }}</label>
 								</div>
 							</div>
+
+
+			        <!-- REMARKS -->
+			        <div class="row" ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'remarks' ]">
+
+			          <!-- remarks -->
+			          <div class="input-field col s12">
+			            <input id="ngm-beneficiary-remarks-{{ $index }}" type="text" class="validate"
+			                  	ng-model="beneficiary.remarks"
+			                  	ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'remarks' ]"
+			                  	required>
+			            <label for="ngm-beneficiary-remarks-{{ $index }}" class="active">{{ 'remarks' | translate }}</label>
+			          </div>
+			        </div>
 	
 
 						</div>
@@ -873,8 +887,7 @@
 					<div class="row">
 						<!-- Shelter ET -->
 						<button class="btn" 
-											ng-if="project.definition.admin0pcode === 'ET' && project.definition.cluster_id === 'esnfi'"
-											ng-show="project.definition.project_status !== 'complete'" 
+											ng-if="project.definition.project_status !== 'complete' && ( project.definition.admin0pcode === 'ET' && project.definition.cluster_id === 'esnfi' )"
 											ng-click="project.addBeneficiary({ households: 1 }); ngmClusterBeneficiaries.updateSelect();"
 											style="margin:20px 10px;">
 							<i class="material-icons left">add</i>{{ 'add_beneficiaries' | translate }}
@@ -882,8 +895,7 @@
 
 						<!-- default -->
 						<button class="btn"
-											ng-if="project.definition.admin0pcode !== 'ET' || project.definition.cluster_id !== 'esnfi'" 
-											ng-show="project.definition.project_status !== 'complete'" 
+											ng-if="project.definition.project_status !== 'complete' && ( project.definition.admin0pcode !== 'ET' && project.definition.cluster_id != 'esnfi' )"
 											ng-click="project.addBeneficiary({}); ngmClusterBeneficiaries.updateSelect();"
 											style="margin:20px 10px;">
 							<i class="material-icons left">add</i>{{'add_beneficiaries'|translate}}
