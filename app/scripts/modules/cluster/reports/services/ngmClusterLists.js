@@ -940,6 +940,7 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'danida', project_donor_name:'Danida'},
             { project_donor_id: 'denmark', project_donor_name:'Denmark'},
             { project_donor_id: 'dfid', project_donor_name: 'DFID' },
+            { project_donor_id: 'disaster_emergency_committee_dec', project_donor_name: 'Disaster Emergency Committee (DEC)' },
             { project_donor_id: 'echo', project_donor_name: 'ECHO' },
             { project_donor_id: 'ehf', project_donor_name: 'EHF' },
             { project_donor_id: 'european_union', project_donor_name: 'European Union' },
