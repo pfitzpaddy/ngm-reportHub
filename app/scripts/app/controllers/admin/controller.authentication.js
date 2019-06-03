@@ -120,7 +120,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             'fss': { cluster: 'Food Security' },
             'health': { cluster: 'Health' },
             'logistics': { cluster: 'Logistics' },
-            'smsd': { cluster: 'Site Management and Site Development' },
+            'smsd': { cluster: 'Site Management, Site Development and DRR' },
             'nutrition': { cluster: 'Nutrition' },
             'protection': { cluster: 'Protection' },
             'rnr_chapter': { cluster: 'R&R Chapter' },
