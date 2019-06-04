@@ -31,9 +31,9 @@
                     <!--<td ng-show="project.showProgrammingLabel()">{{'programming' | translate}}</td>-->
                     <td>{{'recieved' | translate}}*</td>
                    <!-- <td>{{'multi_year_funding' | translate}}</td>-->
-                    <!--<td ng-show="project.showFunding2017()">2017 {{'funding' | translate}}</td>
-                    <td>{{'on' |translate}} FTS?</td>-->
-                    <td ng-show="project.showFtsIdLabel()">FTS ID</td>
+                    <!--<td ng-show="project.showFunding2017()">2017 {{'funding' | translate}}</td>-->
+                    <td>{{'on' |translate}} FTS?</td>
+                   <!-- <td ng-show="project.showFtsIdLabel()">FTS ID</td>-->
                     <td>{{'notes' | translate}}</td>
                     <td ng-if="project.definition.project_status !== 'complete'">{{'edit' | translate}}</td>
                   </tr>
@@ -183,7 +183,7 @@
 
                   
 
-                    <td ng-show="project.showFtsIdLabel()">
+                    <!--<td ng-show="project.showFtsIdLabel()">
                       <span e-form="rowform" 
                             e-name="fts_record_id"
                             editable-text="budget.fts_record_id"
@@ -191,7 +191,7 @@
                             e-ng-disabled="budget.reported_on_fts_id === 'no'">
                         {{ budget.fts_record_id }}
                       </span>
-                    </td>
+                    </td>-->
 
 
                     <td>
