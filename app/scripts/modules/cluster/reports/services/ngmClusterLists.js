@@ -2277,28 +2277,28 @@ angular.module( 'ngmReportHub' )
 
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'mine_victims',
-            beneficiary_type_name: 'Víctimas de Minas'
+            beneficiary_type_id: 'victimas_de_map',
+            beneficiary_type_name: 'Víctimas de MAP'
           },
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'natural_disaster_victims',
-            beneficiary_type_name: 'Víctimas de Desastres Naturales'
+            beneficiary_type_id: 'victimas_de_muse',
+            beneficiary_type_name: 'Víctimas de MUSE'
           },
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'idps',
-            beneficiary_type_name: 'Población Desplazada Interna'
+            beneficiary_type_id: 'victimas_de_aei',
+            beneficiary_type_name: 'Víctimas de AEI'
           },
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'massive_displacement_affected',
-            beneficiary_type_name: 'Afectados por Desplazamiento Masivo'
+            beneficiary_type_id: 'victimas_de_map_muse_aei_en_general',
+            beneficiary_type_name: 'Víctimas de MAP / MUSE / AEI en general'
           },
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'host_communities',
-            beneficiary_type_name: 'Host Communities'
+            beneficiary_type_id: 'afectados_por_inundaciones',
+            beneficiary_type_name: 'Afectados por inundaciones'
           },
           {
             cluster_id: ngmClusterLists.all_sectors_col,
@@ -2307,23 +2307,103 @@ angular.module( 'ngmReportHub' )
           },
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'people_with_limitations_mobility_confinement',
-            beneficiary_type_name: 'Población con Limitaciones de Movilidad y Confinamiento'
+            beneficiary_type_id: 'afectados_por_sequias',
+            beneficiary_type_name: 'Afectados por sequias'
           },
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'refugess_and_asylum_seekers',
-            beneficiary_type_name: 'Refugiados y Solicitantes de Asilo'
+            beneficiary_type_id: 'afectados_por_vendavales',
+            beneficiary_type_name: 'Afectados por vendavales'
           },
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'migrants',
-            beneficiary_type_name: 'Migrantes'
+            beneficiary_type_id: 'afectados_por_deslizamientos',
+            beneficiary_type_name: 'Afectados por deslizamientos'
           },
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'desmobilized_reinserted',
-            beneficiary_type_name: 'Desmovilizados / Reinsertados'
+            beneficiary_type_id: 'afectados_por_otro_tipo_de_desastres_naturales',
+            beneficiary_type_name: 'Afectados por otro tipo de desastres naturales'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'personas_desplazadas_internamente',
+            beneficiary_type_name: 'Personas desplazadas internamente (individual)'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'personas_desplazadas_internamente',
+            beneficiary_type_name: 'Personas desplazadas internamente (masivo)'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'host_communities',
+            beneficiary_type_name: 'Comunidades receptoras'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'sex_crimes_victims',
+            beneficiary_type_name: 'Víctimas de delitos sexuales'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'victimas_de_otras_violencias_basadas_en_genero',
+            beneficiary_type_name: 'Víctimas de otras violencias basadas en género'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'personas_confinadas',
+            beneficiary_type_name: 'Personas confinadas'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'victimas_del_conflicto_armado_en_general',
+            beneficiary_type_name: 'Víctimas del conflicto armado en general'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'victimas_de_reclutamiento_forzado',
+            beneficiary_type_name: 'Víctimas de reclutamiento forzado'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'lideres_lideresas_sociales_amenazados',
+            beneficiary_type_name: 'Líderes / lideresas sociales amenazados'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'poblacion_con_doble_afectacion_conflicto_y_desastres',
+            beneficiary_type_name: 'Población con doble afectación (conflicto y desastres)'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'poblacion_con_multiples_afectacion',
+            beneficiary_type_name: 'Población con múltiples afectación'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'mujeres_lactantes_gestantes',
+            beneficiary_type_name: 'Mujeres lactantes / gestantes'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'poblacion_vulnerable',
+            beneficiary_type_name: 'Población vulnerable'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'refugees',
+            beneficiary_type_name: 'Refugiados'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'solicitantes_de_asilo',
+            beneficiary_type_name: 'Solicitantes de asilo'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'returnees',
+            beneficiary_type_name: 'Retornados'
           }
           
 
@@ -3760,20 +3840,32 @@ angular.module( 'ngmReportHub' )
 
       getBeneficiariesCategories: function(){
 
-        var beneficiary_categories = [{
-            beneficiary_category_id: 'afrodescendientes',
-            beneficiary_category_name: 'Afrodescendientes'
-          }
-          ,{
+        var beneficiary_categories = [
+
+        {
             beneficiary_category_id: 'indigenas',
             beneficiary_category_name: 'Indígenas'
-          },{
-            beneficiary_category_id: 'mestizos',
-            beneficiary_category_name: 'Mestizos' 
+          },
+
+        {
+            beneficiary_category_id: 'afrocolombianos',
+            beneficiary_category_name: 'Afrocolombianos'
+          }
+          ,{
+            beneficiary_category_id: 'comunidades_negras_negro_palenquero_sanbasilio_raizal_archipielago_sanandres_providencia',
+            beneficiary_category_name: 'Comunidades negras (negro ó palenquero de San Basilio ó Raizal del archipiélago de San Andrés y Providencia)' 
           },
           {
-            beneficiary_category_id: 'others',
-            beneficiary_category_name: 'Otros'
+            beneficiary_category_id: 'rom_o_gitano',
+            beneficiary_category_name: 'ROM ó Gitano'
+          },
+          {
+            beneficiary_category_id: 'ninguna',
+            beneficiary_category_name: 'Ninguna'
+          },
+          {
+            beneficiary_category_id: 'sin_informacion',
+            beneficiary_category_name: 'Sin información'
           }];
 
         return beneficiary_categories;
