@@ -44,12 +44,11 @@
 
 							<h3 class="report-selected-locations">{{ project.report.locations.length }} {{'selected_locations'|translate}}</h3>
 							<button class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
-
 	      					title="Edit {{ project.monthlyTitleFormat }}"
 									ng-show="project.definition.project_status === 'active' &&
 														project.report.report_year >=  project.reportingYear() - 1  &&
 	      										project.report.report_status === 'complete'"
-	      					ng-click="project.save( false, false)">
+	      					ng-click="project.save( false, false )">
 	      					<i class="material-icons left">create</i>{{'edit_report' | translate}}
 	      			</button>
 							<button ng-hide="( project.report.admin0pcode === 'ET' && project.report.cluster_id === 'esnfi' ) ||
@@ -64,8 +63,10 @@
 
 						</div>
 
+						<!-- scroll -->
 						<div class="row" ng-repeat="location in project.report.locations | 
-															filter:{ location_group_id: project.location_group }"
+															filter:{ location_group_id: project.location_group } | 
+															limitTo: project.location_limit"
 															ng-init="$locationIndex=$index">
 
 							<div class="row">

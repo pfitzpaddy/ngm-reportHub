@@ -112,8 +112,7 @@
 																						activity_type_id: beneficiary.activity_type_id
 																					} : true"
 														ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );
-																				ngmClusterBeneficiaries.setBeneficiaries( project.lists, 'description', 0, $index, beneficiary );
-																				ngmClusterBeneficiaries.updateSelect();"
+																				ngmClusterBeneficiaries.setBeneficiaries( project.lists, 'description', 0, $index, beneficiary );"
 														ng-disabled="project.definition.project_status === 'complete' || !beneficiary.activity_type_id"
 														required>
 										<option value="">{{ 'select' | translate }}</option>
@@ -158,8 +157,7 @@
 																						activity_type_id: beneficiary.activity_type_id
 																					} : true"
 														ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );
-																				ngmClusterBeneficiaries.setBeneficiaries( project.lists, 'description', 0, $index, beneficiary );
-																				ngmClusterBeneficiaries.updateSelect();"
+																				ngmClusterBeneficiaries.setBeneficiaries( project.lists, 'description', 0, $index, beneficiary );"
 														ng-disabled="project.definition.project_status === 'complete' || !beneficiary.activity_type_id"
 														required>
 										<option value="">{{ 'select' | translate }}</option>
@@ -183,8 +181,7 @@
 																							activity_description_id: beneficiary.activity_description_id 
 																					} : true"
 														ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_detail_id', 'activity_detail_name', beneficiary );
-																				ngmClusterBeneficiaries.setBeneficiaries( project.lists, 'detail', 0, $index, beneficiary );
-																				ngmClusterBeneficiaries.updateSelect();"
+																				ngmClusterBeneficiaries.setBeneficiaries( project.lists, 'detail', 0, $index, beneficiary );"
 														ng-disabled="project.definition.project_status === 'complete' || !beneficiary.activity_type_id"
 														required>
 										<option value="">{{ 'select' | translate }}</option>
@@ -226,8 +223,7 @@
 																						activity_type_id: beneficiary.activity_type_id
 																					} : true"
 														ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );
-																				ngmClusterBeneficiaries.setBeneficiaries( project.lists, 'description', 0, $index, beneficiary );
-																				ngmClusterBeneficiaries.updateSelect();"
+																				ngmClusterBeneficiaries.setBeneficiaries( project.lists, 'description', 0, $index, beneficiary );"
 														ng-disabled="project.definition.project_status === 'complete' || !beneficiary.activity_type_id"
 														required>
 										<option value="">{{ 'select' | translate }}</option>
@@ -703,10 +699,10 @@
 							
 							<!-- SADD (boys, girls, men, women) -->
 							<div class="row"
-										ng-if="( ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'boys' ] &&
-														ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'girls' ] &&
-														ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'men' ] &&
-														ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'women' ] ) &&
+										ng-if="( ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'boys' ] ||
+															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'girls' ] ||
+															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'men' ] ||
+															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'women' ] ) &&
 														( !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'elderly_men' ] &&
 															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'elderly_women' ] )">
 
@@ -888,7 +884,7 @@
 						<!-- Shelter ET -->
 						<button class="btn" 
 											ng-if="project.definition.project_status !== 'complete' && ( project.definition.admin0pcode === 'ET' && project.definition.cluster_id === 'esnfi' )"
-											ng-click="project.addBeneficiary({ households: 1 }); ngmClusterBeneficiaries.updateSelect();"
+											ng-click="project.addBeneficiary({ households: 1 });"
 											style="margin:20px 10px;">
 							<i class="material-icons left">add</i>{{ 'add_beneficiaries' | translate }}
 						</button>
@@ -896,7 +892,7 @@
 						<!-- default -->
 						<button class="btn"
 											ng-if="project.definition.project_status !== 'complete' && ( project.definition.admin0pcode !== 'ET' && project.definition.cluster_id != 'esnfi' )"
-											ng-click="project.addBeneficiary({}); ngmClusterBeneficiaries.updateSelect();"
+											ng-click="project.addBeneficiary({});"
 											style="margin:20px 10px;">
 							<i class="material-icons left">add</i>{{'add_beneficiaries'|translate}}
 						</button>
