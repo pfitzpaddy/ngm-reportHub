@@ -28,9 +28,9 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
     'ngmAuth',
     'ngmData',
     'ngmClusterHelper',
-    'ngmClusterLists',
+    'ngmClusterLists', 'ngmLists',
     'config','$translate',
-    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, config,$translate ){
+    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, ngmLists, config,$translate ){
       
       // project
       $scope.report = {
@@ -62,7 +62,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         lists: {
           clusters: ngmClusterLists.getClusters( config.organization.admin0pcode ).filter(cluster=>cluster.filter!==false),
           units: ngmClusterLists.getUnits( config.organization.admin0pcode ),
-          stocks: localStorage.getObject( 'lists' ).stockItemsList,
+          stocks: ngmLists.getObject( 'lists' ).stockItemsList,
           stock_status:[{
             stock_status_id: 'available',
             stock_status_name: 'Available'

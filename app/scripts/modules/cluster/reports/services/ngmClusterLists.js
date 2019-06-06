@@ -11,8 +11,8 @@ angular.module( 'ngmReportHub' )
         '$http',
         '$filter',
         '$timeout',
-        'ngmAuth','$location',
-    function( $q, $http, $filter, $timeout, ngmAuth,$location ) {
+        'ngmAuth','$location', 'ngmLists',
+    function( $q, $http, $filter, $timeout, ngmAuth,$location, ngmLists ) {
 
 
 		var ngmClusterLists = {
@@ -87,12 +87,12 @@ angular.module( 'ngmReportHub' )
                                     { trainee_health_worker_id: 'environmental_health_workers', trainee_health_worker_name: 'Environmental Health Workers' }],
           
           // lists on load
-          admin1: localStorage.getObject( 'lists' ).admin1List,
-          admin2: localStorage.getObject( 'lists' ).admin2List,
-          admin3: localStorage.getObject( 'lists' ).admin3List,
-          admin4: localStorage.getObject( 'lists' ).admin4List,
-          admin5: localStorage.getObject( 'lists' ).admin5List,
-          adminSites: localStorage.getObject( 'lists' ).adminSites ? localStorage.getObject( 'lists' ).adminSites : [], // fetched on admin1 change
+          admin1: ngmLists.getObject( 'lists' ).admin1List,
+          admin2: ngmLists.getObject( 'lists' ).admin2List,
+          admin3: ngmLists.getObject( 'lists' ).admin3List,
+          admin4: ngmLists.getObject( 'lists' ).admin4List,
+          admin5: ngmLists.getObject( 'lists' ).admin5List,
+          adminSites: ngmLists.getObject( 'lists' ).adminSites ? ngmLists.getObject( 'lists' ).adminSites : [], // fetched on admin1 change
          
           // row by row filters
           admin1Select: [],
@@ -211,6 +211,7 @@ angular.module( 'ngmReportHub' )
 
           // storage
           localStorage.setObject( 'lists', lists );
+          ngmLists.setObject( 'lists', lists );
 
           // send request
           $q.all([
@@ -243,6 +244,7 @@ angular.module( 'ngmReportHub' )
 
               // storage
               localStorage.setObject( 'lists', lists );
+              ngmLists.setObject( 'lists', lists );
 
             });
         }
@@ -288,7 +290,7 @@ angular.module( 'ngmReportHub' )
           }
         } else {
           // get indicatorsList
-          var indicators = localStorage.getObject( 'lists' ).indicatorsList;
+          var indicators = ngmLists.getObject( 'lists' ).indicatorsList;
           angular.merge( indicators, { training_total_trainees: 0 } );
         }
 
@@ -681,7 +683,7 @@ angular.module( 'ngmReportHub' )
 
         // get activities list from storage
         var activities = [],
-            activitiesList = angular.copy( localStorage.getObject( 'lists' ).activitiesList );
+            activitiesList = angular.copy( ngmLists.getObject( 'lists' ).activitiesList );
 
         // no intercluster
         if ( !filterInterCluster ) {
@@ -754,11 +756,11 @@ angular.module( 'ngmReportHub' )
 
         if(admin0pcode === 'COL'){
 
-         organizations = $filter('filter')(localStorage.getObject( 'lists' ).organizationsList,
+         organizations = $filter('filter')(ngmLists.getObject( 'lists' ).organizationsList,
                  {admin0pcode: 'COL'},true );
 
         }else{
-          organizations = localStorage.getObject( 'lists' ).organizationsList
+          organizations = ngmLists.getObject( 'lists' ).organizationsList
       }
 
 
@@ -921,7 +923,7 @@ angular.module( 'ngmReportHub' )
         // get from list
           // this list needs to be updated at the db to iclude admin0pcode as string (like activities)
           // hack for NG has been put in place, so much to do, so little time (horrible, I know!)
-        donors = $filter( 'filter' )( localStorage.getObject( 'lists' ).donorsList,
+        donors = $filter( 'filter' )( ngmLists.getObject( 'lists' ).donorsList,
                           { cluster_id: cluster_id }, true );
 
         // if no list use default
