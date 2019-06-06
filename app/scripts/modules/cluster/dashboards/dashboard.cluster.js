@@ -21,9 +21,10 @@ angular.module('ngmReportHub')
 			'ngmData',
 			'ngmClusterHelper',
 			'ngmClusterLists',
+			'ngmLists',
 			'$translate',
 			'$filter',
-		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists,$translate, $filter ) {
+		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, ngmLists, $translate, $filter ) {
 			this.awesomeThings = [
 				'HTML5 Boilerplate',
 				'AngularJS',
@@ -60,9 +61,9 @@ angular.module('ngmReportHub')
 				// lists
 				lists: {
 					clusters: ngmClusterLists.getClusters( $route.current.params.admin0pcode ).filter(cluster=>cluster.filter!==false),
-					admin1: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin1List : [],
-					admin2: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin2List : [],
-					admin3: localStorage.getObject( 'lists' ) ? localStorage.getObject( 'lists' ).admin3List : []
+					admin1: ngmLists.getObject( 'lists' ) ? ngmLists.getObject( 'lists' ).admin1List : [],
+					admin2: ngmLists.getObject( 'lists' ) ? ngmLists.getObject( 'lists' ).admin2List : [],
+					admin3: ngmLists.getObject( 'lists' ) ? ngmLists.getObject( 'lists' ).admin3List : []
 				},
 
 				// filtered data
@@ -734,6 +735,7 @@ angular.module('ngmReportHub')
 					// plus dashboard_visits
 					$scope.dashboard.user.dashboard_visits++;
 					localStorage.setObject( 'auth_token', $scope.dashboard.user );
+					ngmLists.setObject( 'auth_token', $scope.dashboard.user );
 
 					// report name
 					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
@@ -1206,6 +1208,7 @@ angular.module('ngmReportHub')
 
 					// set in localstorage
 					localStorage.setObject( 'lists', { admin1List: results[0].data, admin2List: results[1].data } );
+					ngmLists.setObject( 'lists', { admin1List: results[0].data, admin2List: results[1].data } );
 
 					// set dashboard
 					$scope.dashboard.init();
