@@ -27,7 +27,7 @@ angular.module( 'ngmReportHub' )
       all_sectors_minus_wash: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_minus_wash_health: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_minus_wash_education: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
-      all_sectors_col: ['smsd','cvwg','education','albergues','san','health','recuperacion_temprana','protection','wash','undaf'],
+      all_sectors_col: ['smsd','education','albergues','san','health','recuperacion_temprana','protection','wash','undaf'],
 
 
        
@@ -438,10 +438,11 @@ angular.module( 'ngmReportHub' )
       //  if ( ($location.$$host === '192.168.33.164' || $location.$$host === '35.229.43.63' || $location.$$host === '192.168.33.16') && admin0pcode.toLowerCase() === 'all') {
        if ( ($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63') && admin0pcode.toLowerCase() === 'all') {
 
-          [{
-             cluster_id: 'cvwg',
-            cluster: 'Dinero Multi Propósito'
+          [
+           {cluster_id: 'smsd',
+            cluster: 'Site Management and Site development',
           },
+           
           {
             cluster_id: 'education',
             cluster: 'Educación en Emergencias (EeE)'
@@ -612,11 +613,8 @@ angular.module( 'ngmReportHub' )
           clusters = [{
              cluster_id: 'smsd',
             cluster: 'Site Management and Site development'
-          },
-          {
-             cluster_id: 'cvwg',
-            cluster: 'Dinero Multi Propósito'
-          },{
+          }
+          ,{
             cluster_id: 'education',
             cluster: 'Educación en Emergencias (EeE)'
           },{
@@ -779,12 +777,8 @@ angular.module( 'ngmReportHub' )
           projectsclasifications = [
           {
             'project_clasification_id':'undaf_desarrollo_paz',
-            //'functionadd':'addUndafDesarrolloPaz',
-            //'functionremove':'removeUndafDesarrolloPaz',
-            //'search-text':'searchundaf_desarrollo_paz',
-           // 'functionsearch':'searchUndafDesarrolloYPaz',
             'project_clasification_name':'UNDAF - Desarrollo y Paz',
-            'sidi_id':'4',
+            'sidi_id':'4', 
             'children':[
                 {
                  'sidi_id':'177',
@@ -803,7 +797,37 @@ angular.module( 'ngmReportHub' )
                  'name_tag':'Transición hacia la paz',
                  'description':'Colombia habrá implementado los acuerdos de fin del conflicto armado  en los ámbitos nacional y territorial',
                  'code':''
-                 }
+                 },
+                 {
+                   'sidi_id':'180',
+                 'name_tag':'Derechos de las víctimas',
+                 'description':'Colombia habrá avanzado hacia el restablecimiento sostenible de los derechos de las víctimas del conflicto armado',
+                 'code':''
+                 },
+                 {
+                   'sidi_id':'171',
+                 'name_tag':'Equidad y movilidad social',
+                 'description':'Colombia habrá logrado mayor equidad mediante el avance en los ODS y la reducción sostenible de brechas económicas, sociales y de género',
+                 'code':''
+                 },
+                 {
+                   'sidi_id':'172',
+                 'name_tag':'Equidad de género',
+                 'description':'Colombia habrá avanzado en la disminución de las brechas de género',
+                 'code':''
+                 },
+                  {
+                   'sidi_id':'173',
+                 'name_tag':'Inclusión y bienestar rural',
+                 'description':'Colombia habrá logrado mayor equidad mediante la inclusión social y económica de la población rural',
+                 'code':''
+                 },
+                 {
+                   'sidi_id':'174',
+                 'name_tag':'Sostenibilidad ambiental',
+                 'description':'Colombia habrá logrado mayor resiliencia y sostenibilidad socio-ambiental para hacer frente a los efectos del cambio climático, aprovechar sosteniblemente los recursos naturales y gestionar eficazmente los riesgos de desastre',
+                 'code':''
+                 },
                  
 
              ]
@@ -812,10 +836,6 @@ angular.module( 'ngmReportHub' )
             'project_clasification_id':'acuerdos_de_paz',
             'project_clasification_name':'Acuerdos de Paz',
             'sidi_id':'5',
-            //'functionadd':'addAcuerdosDePaz',
-            //'functionremove':'removeAcuerdosDePaz',
-            //'search-text':'searchacuerdos_de_paz',
-            //'functionsearch':'searchAcuerdosDePaz',
             'children':[
 
               {
@@ -845,6 +865,18 @@ angular.module( 'ngmReportHub' )
             'project_clasification_name':'DAC - OECD Development Assistance Committee',
             'sidi_id':'6',
             'children':[
+                 {
+                 'sidi_id':'240',
+                 'name_tag':'Seguridad Alimentaria y Nutrición',
+                 'description':'',
+                 'code':'1.2.2009'
+                 },
+                 {
+                 'sidi_id':'241',
+                 'name_tag':'EDUCACIÓN/Educación, nivel no especificado',
+                 'description':'',
+                 'code':'1111'
+                 },
                 {
                  'sidi_id':'242',
                  'name_tag':'EDUCACIÓN/Educación, nivel no especificado/Política educativa y gestión administrativa',
@@ -863,7 +895,1780 @@ angular.module( 'ngmReportHub' )
                  'name_tag':'EDUCACIÓN/Educación, nivel no especificado/Formación de profesores',
                  'description':'',
                  'code':'11130'
-                 }
+                 },
+                 {
+                 'sidi_id':'245',
+                 'name_tag':'EDUCACIÓN/Educación, nivel no especificado/Investigación educativa',
+                 'description':'',
+                 'code':'11182'
+                 },
+                 {
+                 'sidi_id':'246',
+                 'name_tag':'EDUCACIÓN/Educación básica',
+                 'description':'',
+                 'code':'112'
+                 },
+                  {
+                 'sidi_id':'247',
+                 'name_tag':'EDUCACIÓN/Educación básica/Educación primaria',
+                 'description':'',
+                 'code':'11220'
+                 },
+                 {
+                 'sidi_id':'248',
+                 'name_tag':'EDUCACIÓN/Educación básica/Capacitación básica de jóvenes y adultos',
+                 'description':'',
+                 'code':'11230'
+                 },
+                 {
+                 'sidi_id':'249',
+                 'name_tag':'EDUCACIÓN/Educación básica/Capacitación básica de jóvenes y adultos/Habilidades básicas para la vida',
+                 'description':'',
+                 'code':'11231'
+                 },
+                 {
+                 'sidi_id':'250',
+                 'name_tag':'EDUCACIÓN/Educación básica/Capacitación básica de jóvenes/Educación equivalente para adultos',
+                 'description':'',
+                 'code':'11232'
+                 },
+                 {
+                 'sidi_id':'251',
+                 'name_tag':'EDUCACIÓN/Educación básica/Educación primera infancia',
+                 'description':'',
+                 'code':'11240'
+                 },
+                 {
+                 'sidi_id':'252',
+                 'name_tag':'EDUCACIÓN/Educación secundaria',
+                 'description':'',
+                 'code':'113'
+                 },
+                 {
+                 'sidi_id':'253',
+                 'name_tag':'EDUCACIÓN/Educación secundaria/Educación secundaria',
+                 'description':'',
+                 'code':'11320'
+                 },
+                 {
+                 'sidi_id':'254',
+                 'name_tag':'EDUCACIÓN/Educación secundaria/Educación secundaria/Educación secundaria inferior',
+                 'description':'',
+                 'code':'11321'
+                 },
+                 {
+                 'sidi_id':'255',
+                 'name_tag':'EDUCACIÓN/Educación secundaria/Educación secundaria/Educación secundaria superior',
+                 'description':'',
+                 'code':'11322'
+                 },
+                 {
+                 'sidi_id':'256',
+                 'name_tag':'EDUCACIÓN/Educación secundaria/Formación vocacional',
+                 'description':'',
+                 'code':'11330'
+                 },
+                 {
+                 'sidi_id':'257',
+                 'name_tag':'EDUCACIÓN/Educación secundaria/Formación vocacional',
+                 'description':'',
+                 'code':'114'
+                 },
+                 {
+                 'sidi_id':'258',
+                 'name_tag':'EDUCACIÓN/Educación post-secundaria/Educación universitaria',
+                 'description':'',
+                 'code':'11420'
+                 },
+                 {
+                 'sidi_id':'259',
+                 'name_tag':'EDUCACIÓN/Educación post-secundaria/Formación superior técnica y de dirección.',
+                 'description':'',
+                 'code':'11430'
+                 },
+                 {
+                 'sidi_id':'260',
+                 'name_tag':'SALUD/Salud general',
+                 'description':'',
+                 'code':'121'
+                 },
+                 {
+                 'sidi_id':'261',
+                 'name_tag':'SALUD/Salud general/Política sanitaria y gestión administrativa.',
+                 'description':'',
+                 'code':'12110'
+                 },
+                 {
+                 'sidi_id':'262',
+                 'name_tag':'SALUD/Salud general/Enseñanza formación médicas.',
+                 'description':'',
+                 'code':'12181'
+                 },
+                  {
+                 'sidi_id':'263',
+                 'name_tag':'SALUD/Salud general/Investigación médica',
+                 'description':'',
+                 'code':'12182'
+                 },
+                 {
+                 'sidi_id':'264',
+                 'name_tag':'SALUD/Salud general/Servicios médicos',
+                 'description':'',
+                 'code':'12191'
+                 },
+                 {
+                 'sidi_id':'265',
+                 'name_tag':'SALUD/Salud básica',
+                 'description':'',
+                 'code':'122'
+                 },
+                 {
+                 'sidi_id':'266',
+                 'name_tag':'SALUD/Salud básica/Atención sanitaria básica',
+                 'description':'',
+                 'code':'12220'
+                 },
+                 {
+                 'sidi_id':'267',
+                 'name_tag':'SALUD/Salud básica/Infraestructura sanitaria básica',
+                 'description':'',
+                 'code':'12230'
+                 },
+                 {
+                 'sidi_id':'268',
+                 'name_tag':'SALUD/Salud básica/Nutrición básica',
+                 'description':'',
+                 'code':'12240'
+                 },
+                 {
+                 'sidi_id':'269',
+                 'name_tag':'SALUD/Salud básica/Control enfermedades infecciosas',
+                 'description':'',
+                 'code':'12250'
+                 },
+                 {
+                 'sidi_id':'270',
+                 'name_tag':'SALUD/Salud básica/Educación sanitaria',
+                 'description':'',
+                 'code':'12261'
+                 },
+                 {
+                 'sidi_id':'271',
+                 'name_tag':'SALUD/Salud básica/Control de la malaria',
+                 'description':'',
+                 'code':'12262'
+                 },
+                 {
+                 'sidi_id':'272',
+                 'name_tag':'SALUD/Salud básica/Control de la tuberculosis',
+                 'description':'',
+                 'code':'12263'
+                 },
+                 {
+                 'sidi_id':'273',
+                 'name_tag':'SALUD/Salud básica/Formación personal sanitario',
+                 'description':'',
+                 'code':'12281'
+                 },
+                 {
+                 'sidi_id':'274',
+                 'name_tag':'PROGRAMAS - POLÍTICAS SOBRE POBLACIÓN Y SALUD REPRODUCTIVA',
+                 'description':'',
+                 'code':'130'
+                 },
+                 {
+                 'sidi_id':'275',
+                 'name_tag':'PROGRAMAS - POLÍTICAS SOBRE POBLACIÓN Y SALUD REPRODUCTIVA/Política sobre población y gestión admini',
+                 'description':'',
+                 'code':'13010'
+                 },
+                 {
+                 'sidi_id':'276',
+                 'name_tag':'PROGRAMAS - POLÍTICAS SOBRE POBLACIÓN Y SALUD REPRODUCTIVA/Atención salud reproductiva',
+                 'description':'',
+                 'code':'13020'
+                 },
+                  {
+                 'sidi_id':'277',
+                 'name_tag':'PROGRAMAS - POLÍTICAS SOBRE POBLACIÓN Y SALUD REPRODUCTIVA/Planificación familiar',
+                 'description':'',
+                 'code':'13030'
+                 },
+                  {
+                 'sidi_id':'278',
+                 'name_tag':'PROGRAMAS - POLÍTICAS SOBRE POBLACIÓN Y SALUD REPRODUCTIVA/Lucha contra ETS (enfermedades de transmi',
+                 'description':'',
+                 'code':'13040'
+                 },
+                 {
+                 'sidi_id':'279',
+                 'name_tag':'PROGRAMAS - POLÍTICAS SOBRE POBLACIÓN Y SALUD REPRODUCTIVA/Formación de personal para población y sa',
+                 'description':'',
+                 'code':'13081'
+                 },
+                 {
+                 'sidi_id':'280',
+                 'name_tag':'AGUA Y SANEAMIENTO',
+                 'description':'',
+                 'code':'140'
+                 },
+                 {
+                 'sidi_id':'281',
+                 'name_tag':'AGUA Y SANEAMIENTO/Política de recursos hídricos y gestión administrativa',
+                 'description':'',
+                 'code':'14010'
+                 },
+                 {
+                 'sidi_id':'282',
+                 'name_tag':'AGUA Y SANEAMIENTO/Protección de recursos hídrico (incluida la recolección)',
+                 'description':'',
+                 'code':'14015'
+                 },
+                 {
+                 'sidi_id':'283',
+                 'name_tag':'AGUA Y SANEAMIENTO/Suministro de agua y saneamiento - Sistemas de envergadura',
+                 'description':'',
+                 'code':'14020'
+                 },
+                 {
+                 'sidi_id':'284',
+                 'name_tag':'AGUA Y SANEAMIENTO/Suministro de agua - Sistemas de envergadura',
+                 'description':'',
+                 'code':'14021'
+                 },
+                 {
+                 'sidi_id':'285',
+                 'name_tag':'AGUA Y SANEAMIENTO/Saneamiento - Sistemas de envergadura',
+                 'description':'',
+                 'code':'14022'
+                 },
+                 {
+                 'sidi_id':'286',
+                 'name_tag':'AGUA Y SANEAMIENTO/Abastecimiento básico de agua potable y saneamiento básico',
+                 'description':'',
+                 'code':'14030'
+                 },
+                 {
+                 'sidi_id':'287',
+                 'name_tag':'AGUA Y SANEAMIENTO/Abastecimiento básico de agua potable',
+                 'description':'',
+                 'code':'14031'
+                 },
+                 {
+                 'sidi_id':'288',
+                 'name_tag':'AGUA Y SANEAMIENTO/Saneamiento básico',
+                 'description':'',
+                 'code':'14032'
+                 },
+                 {
+                 'sidi_id':'289',
+                 'name_tag':'AGUA Y SANEAMIENTO/Desarrollo cuencas fluviales',
+                 'description':'',
+                 'code':'14040'
+                 },
+                 {
+                 'sidi_id':'290',
+                 'name_tag':'AGUA Y SANEAMIENTO/Manejo - eliminación de desechos',
+                 'description':'',
+                 'code':'14050'
+                 },
+                 {
+                 'sidi_id':'291',
+                 'name_tag':'AGUA Y SANEAMIENTO/Educación y formación en abastecimiento de agua y saneamiento',
+                 'description':'',
+                 'code':'14081'
+                 },
+                 {
+                 'sidi_id':'292',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general',
+                 'description':'',
+                 'code':'151'
+                 },
+                 {
+                 'sidi_id':'293',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Política de administración y gestión de',
+                 'description':'',
+                 'code':'15110'
+                 },
+                 {
+                 'sidi_id':'294',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Política de administración y gestión de',
+                 'description':'',
+                 'code':'15121'
+                 },
+                 {
+                 'sidi_id':'295',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Política de administración y gestión de',
+                 'description':'',
+                 'code':'15122'
+                 },
+                 {
+                 'sidi_id':'296',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Política de administración y gestión de',
+                 'description':'',
+                 'code':'15123'
+                 },
+                 {
+                 'sidi_id':'297',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Política de administración y gestión de',
+                 'description':'',
+                 'code':'15124'
+                 },
+                 {
+                 'sidi_id':'298',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Política de administración y gestión de',
+                 'description':'',
+                 'code':'15125'
+                 },
+                 {
+                 'sidi_id':'299',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Política de administración y gestión de',
+                 'description':'',
+                 'code':'15126'
+                 },
+                 {
+                 'sidi_id':'300',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Política de administración y gestión de',
+                 'description':'',
+                 'code':'15127'
+                 },
+                 {
+                 'sidi_id':'301',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Política de administración y gestión de',
+                 'description':'',
+                 'code':'15142'
+                 },
+                  {
+                 'sidi_id':'302',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Política de administración y gestión de',
+                 'description':'',
+                 'code':'15143'
+                 },
+                  {
+                 'sidi_id':'303',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Política de administración y gestión de',
+                 'description':'',
+                 'code':'15144'
+                 },
+                  {
+                 'sidi_id':'304',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Política de administración y gestión de',
+                 'description':'',
+                 'code':'15154'
+                 },
+                  {
+                 'sidi_id':'305',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Gestión financiera sector público',
+                 'description':'',
+                 'code':'15111'
+                 },
+                  {
+                 'sidi_id':'306',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Gestión financiera sector público/Plani',
+                 'description':'',
+                 'code':'15117'
+                 },
+                 {
+                 'sidi_id':'307',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Gestión financiera sector público/Audit',
+                 'description':'',
+                 'code':'15118'
+                 },
+                 {
+                 'sidi_id':'308',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Gestión financiera sector público/Gesti',
+                 'description':'',
+                 'code':'15119'
+                 },
+                 {
+                 'sidi_id':'309',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Descentralización y apoyo a los gobiern',
+                 'description':'',
+                 'code':'15112'
+                 },
+                 {
+                 'sidi_id':'310',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Descentralización y apoyo a los gobiern',
+                 'description':'',
+                 'code':'15128'
+                 },
+                 {
+                 'sidi_id':'311',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Descentralización y apoyo a los gobiern',
+                 'description':'',
+                 'code':'15129'
+                 },
+                 {
+                 'sidi_id':'312',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Descentralización y apoyo a los gobiern',
+                 'description':'',
+                 'code':'15185'
+                 },
+                 {
+                 'sidi_id':'313',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Organizaciones e instituciones anticorr',
+                 'description':'',
+                 'code':'15113'
+                 },
+                 {
+                 'sidi_id':'314',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Movilización de ingresos nacionales',
+                 'description':'',
+                 'code':'15114'
+                 },
+                 {
+                 'sidi_id':'315',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Movilización de ingresos nacionales/Rec',
+                 'description':'',
+                 'code':'15116'
+                 },
+                  {
+                 'sidi_id':'316',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Movilización de ingresos nacionales/Pol',
+                 'description':'',
+                 'code':'15155'
+                 },
+                  {
+                 'sidi_id':'317',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Movilización de ingresos nacionales/Otr,',
+                 'description':'',
+                 'code':'15156'
+                 },
+                 {
+                 'sidi_id':'318',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Desarrollo legal y judicial,',
+                 'description':'',
+                 'code':'15130'
+                 },
+                 {
+                 'sidi_id':'319',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Desarrollo legal y judicial/Política, p',
+                 'description':'',
+                 'code':'15131'
+                 },
+                 {
+                 'sidi_id':'320',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Desarrollo legal y judicial/Policía',
+                 'description':'',
+                 'code':'15132'
+                 },
+                 {
+                 'sidi_id':'321',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Desarrollo legal y judicial/Servicios d',
+                 'description':'',
+                 'code':'15133'
+                 },
+                 {
+                 'sidi_id':'322',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Desarrollo legal y judicial/Asuntos jud',
+                 'description':'',
+                 'code':'15134'
+                 },
+                 {
+                 'sidi_id':'323',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Desarrollo legal y judicial/Defensor de',
+                 'description':'',
+                 'code':'15135'
+                 },
+                 {
+                 'sidi_id':'324',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Desarrollo legal y judicial/Inmigración',
+                 'description':'',
+                 'code':'15136'
+                 },
+                 {
+                 'sidi_id':'325',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Desarrollo legal y judicial/Prisiones',
+                 'description':'',
+                 'code':'15137'
+                 },
+                 {
+                 'sidi_id':'326',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Participación democrática y sociedad ci',
+                 'description':'',
+                 'code':'15138'
+                 },
+                 {
+                 'sidi_id':'327',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Procesos electorales',
+                 'description':'',
+                 'code':'15151'
+                 },
+                 {
+                 'sidi_id':'328',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Legislaturas y partidos político',
+                 'description':'',
+                 'code':'15152'
+                 },
+                  {
+                 'sidi_id':'329',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Medios de comunicación y el libre flujo',
+                 'description':'',
+                 'code':'15153'
+                 },
+                 {
+                 'sidi_id':'330',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Derechos humanos',
+                 'description':'',
+                 'code':'15160'
+                 },
+                 {
+                 'sidi_id':'331',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Organizaciones e instituciones de la ig',
+                 'description':'',
+                 'code':'15170'
+                 },
+                 {
+                 'sidi_id':'332',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Gobierno y Sociedad Civil, general/Acabar la violencia contra mujeres y ni',
+                 'description':'',
+                 'code':'15180'
+                 },
+                 {
+                 'sidi_id':'333',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Prevención y resolución de conflictos, paz y seguridad',
+                 'description':'',
+                 'code':'152'
+                 },
+                 {
+                 'sidi_id':'334',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Prevención y resolución de conflictos, paz y seguridad/Gestión y reforma d',
+                 'description':'',
+                 'code':'15210'
+                 },
+                  {
+                 'sidi_id':'335',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Prevención y resolución de conflictos, paz y seguridad/Construcción de la',
+                 'description':'',
+                 'code':'15220'
+                 },
+                 {
+                 'sidi_id':'336',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Prevención y resolución de conflictos, paz y seguridad/Participación en op',
+                 'description':'',
+                 'code':'15230'
+                 },
+                 {
+                 'sidi_id':'337',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Prevención y resolución de conflictos, paz y seguridad/Control de la proli',
+                 'description':'',
+                 'code':'15240'
+                 },
+                 {
+                 'sidi_id':'338',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Prevención y resolución de conflictos, paz y seguridad/Desminado y elimina',
+                 'description':'',
+                 'code':'15250'
+                 },
+                  {
+                 'sidi_id':'339',
+                 'name_tag':'GOBIERNO Y SOCIEDAD CIVIL/Prevención y resolución de conflictos, paz y seguridad/Prevención y desmov',
+                 'description':'',
+                 'code':'15261'
+                 },
+                 {
+                 'sidi_id':'340',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES',
+                 'description':'',
+                 'code':'160'
+                 },
+                 {
+                 'sidi_id':'341',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES/Servicios sociales',
+                 'description':'',
+                 'code':'16010'
+                 },
+                 {
+                 'sidi_id':'342',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES/Servicios sociales/Política, planificación y administrac',
+                 'description':'',
+                 'code':'16011'
+                 },
+                 {
+                 'sidi_id':'343',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES/Servicios sociales/Seguridad social (sin incluir pension',
+                 'description':'',
+                 'code':'16012'
+                 },
+                 {
+                 'sidi_id':'344',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES/Servicios sociales/Pensiones generales',
+                 'description':'',
+                 'code':'16013'
+                 },
+                 {
+                 'sidi_id':'345',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES/Servicios sociales/Pensiones del servicio civil',
+                 'description':'',
+                 'code':'16014'
+                 },
+                 {
+                 'sidi_id':'346',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES/Servicios sociales/Servicios sociales (incluido el desa',
+                 'description':'',
+                 'code':'16015'
+                 },
+                 {
+                 'sidi_id':'347',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES/Política de empleo y gestión administrativa',
+                 'description':'',
+                 'code':'16020'
+                 },
+                 {
+                 'sidi_id':'348',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES/Política de vivienda y gestión administrativa',
+                 'description':'',
+                 'code':'16030'
+                 },
+                 {
+                 'sidi_id':'349',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES/Viviendas de bajo coste',
+                 'description':'',
+                 'code':'16040'
+                 },
+                 {
+                 'sidi_id':'350',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES/Ayuda multisectorial para servicios sociales básicos',
+                 'description':'',
+                 'code':'16050'
+                 },
+                 {
+                 'sidi_id':'351',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES/Cultura y recreación',
+                 'description':'',
+                 'code':'16061'
+                 },
+                 {
+                 'sidi_id':'352',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES/Cultura y recreación/Recreación y deporte',
+                 'description':'',
+                 'code':'16065'
+                 },
+                 {
+                 'sidi_id':'353',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES/Cultura y recreación/Cultura',
+                 'description':'',
+                 'code':'16066'
+                 },
+                 {
+                 'sidi_id':'354',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES/Capacitación estadística',
+                 'description':'',
+                 'code':'16062'
+                 },
+                 {
+                 'sidi_id':'355',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES/Control estupefacientes',
+                 'description':'',
+                 'code':'16063'
+                 },
+                 {
+                 'sidi_id':'356',
+                 'name_tag':'OTROS SERVICIOS E INFRAESTRUCTURAS SOCIALES/Mitigación social de VIH/SIDA',
+                 'description':'',
+                 'code':'16064'
+                 },
+                 {
+                 'sidi_id':'357',
+                 'name_tag':'TRANSPORTE Y ALMACENAMIENTO',
+                 'description':'',
+                 'code':'210'
+                 },
+                 {
+                 'sidi_id':'358',
+                 'name_tag':'TRANSPORTE Y ALMACENAMIENTO/Política transporte y gestión administrativa',
+                 'description':'',
+                 'code':'21010'
+                 },
+                  {
+                 'sidi_id':'359',
+                 'name_tag':'TRANSPORTE Y ALMACENAMIENTO/Política transporte y gestión administrativa/Política de transporte, pla',
+                 'description':'',
+                 'code':'21011'
+                 },
+                  {
+                 'sidi_id':'360',
+                 'name_tag':'TRANSPORTE Y ALMACENAMIENTO/Política transporte y gestión administrativa/Servicios de transporte púb',
+                 'description':'',
+                 'code':'21012'
+                 },
+                  {
+                 'sidi_id':'361',
+                 'name_tag':'TRANSPORTE Y ALMACENAMIENTO/Política transporte y gestión administrativa/Regulación en transporte',
+                 'description':'',
+                 'code':'21013'
+                 },
+                 {
+                 'sidi_id':'362',
+                 'name_tag':'TRANSPORTE Y ALMACENAMIENTO/Transporte por carretera',
+                 'description':'',
+                 'code':'21020'
+                 },
+                 {
+                 'sidi_id':'363',
+                 'name_tag':'TRANSPORTE Y ALMACENAMIENTO/Transporte por carretera/Construcción de carreteras alimentadoras',
+                 'description':'',
+                 'code':'21021'
+                 },
+                 {
+                 'sidi_id':'364',
+                 'name_tag':'TRANSPORTE Y ALMACENAMIENTO/Transporte por carretera/Mantenimiento de carreteras alimentadoras',
+                 'description':'',
+                 'code':'21022'
+                 },
+                 {
+                 'sidi_id':'365',
+                 'name_tag':'TRANSPORTE Y ALMACENAMIENTO/Transporte por carretera/Construcción de carreteras nacionales',
+                 'description':'',
+                 'code':'21023'
+                 },
+                 {
+                 'sidi_id':'366',
+                 'name_tag':'TRANSPORTE Y ALMACENAMIENTO/Transporte por carretera/Mantenimiento de carreteras nacionales',
+                 'description':'',
+                 'code':'21024'
+                 },
+                 {
+                 'sidi_id':'367',
+                 'name_tag':'TRANSPORTE Y ALMACENAMIENTO/Transporte por ferrocarril',
+                 'description':'',
+                 'code':'21030'
+                 },
+                 {
+                 'sidi_id':'368',
+                 'name_tag':'TRANSPORTE Y ALMACENAMIENTO/Transporte marítimo y fluvial',
+                 'description':'',
+                 'code':'21040'
+                 },
+                 {
+                 'sidi_id':'369',
+                 'name_tag':'TRANSPORTE Y ALMACENAMIENTO/Transporte aéreo',
+                 'description':'',
+                 'code':'21050'
+                 },
+                 {
+                 'sidi_id':'370',
+                 'name_tag':'TRANSPORTE Y ALMACENAMIENTO/Almacenamiento',
+                 'description':'',
+                 'code':'21061'
+                 },
+                 {
+                 'sidi_id':'371',
+                 'name_tag':'TRANSPORTE Y ALMACENAMIENTO/Enseñanza y formación en materia de transporte y almacenamiento',
+                 'description':'',
+                 'code':'21081'
+                 },
+                 {
+                 'sidi_id':'372',
+                 'name_tag':'COMUNICACIONES',
+                 'description':'',
+                 'code':'220'
+                 },
+                 {
+                 'sidi_id':'373',
+                 'name_tag':'COMUNICACIONES/Política de comunicaciones y gestión administrativa',
+                 'description':'',
+                 'code':'22010'
+                 },
+                 {
+                 'sidi_id':'374',
+                 'name_tag':'COMUNICACIONES/Política de comunicaciones y gestión administrativa/Política de comunicaciones, plani',
+                 'description':'',
+                 'code':'22011'
+                 },
+                 {
+                 'sidi_id':'375',
+                 'name_tag':'COMUNICACIONES/Política de comunicaciones y gestión administrativa/Servicio postal',
+                 'description':'',
+                 'code':'22012'
+                 },
+                 {
+                 'sidi_id':'376',
+                 'name_tag':'COMUNICACIONES/Política de comunicaciones y gestión administrativa/Servicios de información',
+                 'description':'',
+                 'code':'22013'
+                 },
+                  {
+                 'sidi_id':'377',
+                 'name_tag':'COMUNICACIONES/Telecomunicaciones',
+                 'description':'',
+                 'code':'22020'
+                 },
+                 {
+                 'sidi_id':'378',
+                 'name_tag':'COMUNICACIONES/Radio, televisión, prensa',
+                 'description':'',
+                 'code':'22030'
+                 },
+                 {
+                 'sidi_id':'379',
+                 'name_tag':'COMUNICACIONES/Tecnología de la información y de las comunicaciones (TIC)',
+                 'description':'',
+                 'code':'22040'
+                 },
+                 {
+                 'sidi_id':'380',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, distribución y eficiencia-ge',
+                 'description':'',
+                 'code':'231'
+                 },
+                  {
+                 'sidi_id':'381',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, distribución y eficiencia-ge',
+                 'description':'',
+                 'code':'23110'
+                 },
+                 {
+                 'sidi_id':'382',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, distribución y eficiencia-ge',
+                 'description':'',
+                 'code':'23111'
+                 },
+                  {
+                 'sidi_id':'383',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, distribución y eficiencia-ge',
+                 'description':'',
+                 'code':'23112'
+                 },
+                  {
+                 'sidi_id':'384',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, distribución y eficiencia-ge',
+                 'description':'',
+                 'code':'23181'
+                 },
+                 {
+                 'sidi_id':'385',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, distribución y eficiencia-ge',
+                 'description':'',
+                 'code':'23182'
+                 },
+                 {
+                 'sidi_id':'386',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, distribución y eficiencia-ge',
+                 'description':'',
+                 'code':'23183'
+                 },
+                 {
+                 'sidi_id':'387',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, fuentes renovables',
+                 'description':'',
+                 'code':'232'
+                 },
+                 {
+                 'sidi_id':'388',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, fuentes renovables/Generaci',
+                 'description':'',
+                 'code':'23210'
+                 },
+                 {
+                 'sidi_id':'389',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, fuentes renovables/Centrales',
+                 'description':'',
+                 'code':'23220'
+                 },
+                 {
+                 'sidi_id':'390',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, fuentes renovables/Energía s',
+                 'description':'',
+                 'code':'23230'
+                 },
+                 {
+                 'sidi_id':'391',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, fuentes renovables/Energía e',
+                 'description':'',
+                 'code':'23240'
+                 },
+                  {
+                 'sidi_id':'392',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, fuentes renovables/Energía m',
+                 'description':'',
+                 'code':'23250'
+                 },
+                 {
+                 'sidi_id':'393',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, fuentes renovables/Energía g',
+                 'description':'',
+                 'code':'23260'
+                 },
+                 {
+                 'sidi_id':'394',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, fuentes renovables/Centrales',
+                 'description':'',
+                 'code':'23270'
+                 },
+                 {
+                 'sidi_id':'395',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, fuentes no renovables',
+                 'description':'',
+                 'code':'233'
+                 },
+                 {
+                 'sidi_id':'396',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, fuentes no renovables/Genera',
+                 'description':'',
+                 'code':'233310'
+                 },
+                 {
+                 'sidi_id':'397',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, fuentes no renovables/Centra',
+                 'description':'',
+                 'code':'233320'
+                 },
+                 {
+                 'sidi_id':'398',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, fuentes no renovables/Centra',
+                 'description':'',
+                 'code':'233330'
+                 },
+                 {
+                 'sidi_id':'399',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, fuentes no renovables/Centra',
+                 'description':'',
+                 'code':'233340'
+                 },
+                 {
+                 'sidi_id':'400',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, fuentes no renovables/Centra',
+                 'description':'',
+                 'code':'233350'
+                 },
+                 {
+                 'sidi_id':'401',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Generación de energía, fuentes no renovables/Planta',
+                 'description':'',
+                 'code':'233360'
+                 },
+                 {
+                 'sidi_id':'402',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Plantas de energía eléctrica hibrida',
+                 'description':'',
+                 'code':'234'
+                 },
+                 {
+                 'sidi_id':'403',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Plantas de energía eléctrica hibrida/Plantas de ene',
+                 'description':'',
+                 'code':'23410'
+                 },
+                  {
+                 'sidi_id':'404',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Plantas de energía eléctrica nuclear',
+                 'description':'',
+                 'code':'235'
+                 },
+                 {
+                 'sidi_id':'405',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Plantas de energía eléctrica nuclear/Plantas de ene',
+                 'description':'',
+                 'code':'23510'
+                 },
+                 {
+                 'sidi_id':'406',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Calefacción, refrigeración y distribución de energí',
+                 'description':'',
+                 'code':'236'
+                 },
+                  {
+                 'sidi_id':'407',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Calefacción, refrigeración y distribución de energí',
+                 'description':'',
+                 'code':'23610'
+                 },
+                 {
+                 'sidi_id':'408',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Calefacción, refrigeración y distribución de energí',
+                 'description':'',
+                 'code':'23620'
+                 },
+                 {
+                 'sidi_id':'409',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Calefacción, refrigeración y distribución de energí',
+                 'description':'',
+                 'code':'23630'
+                 },
+                 {
+                 'sidi_id':'410',
+                 'name_tag':'GENERACIÓN DE ENERGÍA, DISTRIBUCIÓN Y EFICIENCIA/Calefacción, refrigeración y distribución de energí',
+                 'description':'',
+                 'code':'23640'
+                 },
+                  {
+                 'sidi_id':'411',
+                 'name_tag':'SERVICIOS BANCARIOS Y FINANCIEROS',
+                 'description':'',
+                 'code':'240'
+                 },
+                 {
+                 'sidi_id':'412',
+                 'name_tag':'SERVICIOS BANCARIOS Y FINANCIEROS/Política financiera y gestión administrativa',
+                 'description':'',
+                 'code':'24010'
+                 },
+                  {
+                 'sidi_id':'413',
+                 'name_tag':'SERVICIOS BANCARIOS Y FINANCIEROS/Instituciones monetarias',
+                 'description':'',
+                 'code':'24020'
+                 },
+                  {
+                 'sidi_id':'414',
+                 'name_tag':'SERVICIOS BANCARIOS Y FINANCIEROS/Intermediarios financieros del sector formal',
+                 'description':'',
+                 'code':'24030'
+                 },
+                 {
+                 'sidi_id':'415',
+                 'name_tag':'SERVICIOS BANCARIOS Y FINANCIEROS/Intermediarios financieros semi- formales, informales',
+                 'description':'',
+                 'code':'24040'
+                 },
+                 {
+                 'sidi_id':'416',
+                 'name_tag':'SERVICIOS BANCARIOS Y FINANCIEROS/Enseñanza-formación en banca y servicios financieros',
+                 'description':'',
+                 'code':'24081'
+                 },
+                  {
+                 'sidi_id':'417',
+                 'name_tag':'EMPRESAS Y OTROS SERVICIOS',
+                 'description':'',
+                 'code':'250'
+                 },
+                  {
+                 'sidi_id':'418',
+                 'name_tag':'EMPRESAS Y OTROS SERVICIOS/Servicios e instituciones de apoyo a la empresa',
+                 'description':'',
+                 'code':'25010'
+                 },
+                 {
+                 'sidi_id':'419',
+                 'name_tag':'EMPRESAS Y OTROS SERVICIOS/Privatizaciones',
+                 'description':'',
+                 'code':'25020'
+                 },
+                 {
+                 'sidi_id':'420',
+                 'name_tag':'AGRICULTURA',
+                 'description':'',
+                 'code':'311'
+                 },
+                  {
+                 'sidi_id':'421',
+                 'name_tag':'AGRICULTURA/Política agraria y gestión administrativa',
+                 'description':'',
+                 'code':'31110'
+                 },
+                 {
+                 'sidi_id':'422',
+                 'name_tag':'AGRICULTURA/Desarrollo agrario',
+                 'description':'',
+                 'code':'31120'
+                 },
+                 {
+                 'sidi_id':'423',
+                 'name_tag':'AGRICULTURA/Recursos terrestres para uso agrícola',
+                 'description':'',
+                 'code':'31130'
+                 },
+                 {
+                 'sidi_id':'424',
+                 'name_tag':'AGRICULTURA/Recursos hídricos para uso agrícola',
+                 'description':'',
+                 'code':'31140'
+                 },
+                 {
+                 'sidi_id':'425',
+                 'name_tag':'AGRICULTURA/Insumos agrícolas',
+                 'description':'',
+                 'code':'31150'
+                 },
+                 {
+                 'sidi_id':'426',
+                 'name_tag':'AGRICULTURA/Producción alimentos agrícolas',
+                 'description':'',
+                 'code':'31161'
+                 },
+                 {
+                 'sidi_id':'427',
+                 'name_tag':'AGRICULTURA/Cultivos industriales o para la exportación',
+                 'description':'',
+                 'code':'31162'
+                 },
+                 {
+                 'sidi_id':'428',
+                 'name_tag':'AGRICULTURA/Ganadería',
+                 'description':'',
+                 'code':'31163'
+                 },
+                 {
+                 'sidi_id':'429',
+                 'name_tag':'AGRICULTURA/Reforma agraria',
+                 'description':'',
+                 'code':'31164'
+                 },
+                 {
+                 'sidi_id':'430',
+                 'name_tag':'AGRICULTURA/Desarrollo agrario alternativo',
+                 'description':'',
+                 'code':'31165'
+                 },
+                 {
+                 'sidi_id':'431',
+                 'name_tag':'AGRICULTURA/Formación no académica en agricultura',
+                 'description':'',
+                 'code':'31166'
+                 },
+                 {
+                 'sidi_id':'432',
+                 'name_tag':'AGRICULTURA/Enseñanza-formación agraria',
+                 'description':'',
+                 'code':'31181'
+                 },
+                 {
+                 'sidi_id':'433',
+                 'name_tag':'AGRICULTURA/Investigación agraria',
+                 'description':'',
+                 'code':'31182'
+                 },
+                 {
+                 'sidi_id':'434',
+                 'name_tag':'AGRICULTURA/Servicios agrícolas',
+                 'description':'',
+                 'code':'31191'
+                 },
+                 {
+                 'sidi_id':'435',
+                 'name_tag':'AGRICULTURA/Protección plantas y poscosecha, y lucha contra plagas',
+                 'description':'',
+                 'code':'31192'
+                 },
+                 {
+                 'sidi_id':'436',
+                 'name_tag':'AGRICULTURA/Servicios financieros agrícolas',
+                 'description':'',
+                 'code':'31193'
+                 },
+                 {
+                 'sidi_id':'437',
+                 'name_tag':'AGRICULTURA/Cooperativas agrícolas',
+                 'description':'',
+                 'code':'31194'
+                 },
+                 {
+                 'sidi_id':'438',
+                 'name_tag':'AGRICULTURA/Servicios veterinarios',
+                 'description':'',
+                 'code':'31195'
+                 },
+                 {
+                 'sidi_id':'439',
+                 'name_tag':'SILVICULTURA',
+                 'description':'',
+                 'code':'312'
+                 },
+                 {
+                 'sidi_id':'440',
+                 'name_tag':'SILVICULTURA/Política forestal y gestión administrativa',
+                 'description':'',
+                 'code':'31210'
+                 },
+                 {
+                 'sidi_id':'441',
+                 'name_tag':'SILVICULTURA/Desarrollo forestal',
+                 'description':'',
+                 'code':'31220'
+                 },
+                 {
+                 'sidi_id':'442',
+                 'name_tag':'SILVICULTURA/Producción carbón vegetal o leña',
+                 'description':'',
+                 'code':'31261'
+                 },
+                 {
+                 'sidi_id':'443',
+                 'name_tag':'SILVICULTURA/Educación, formación forestal',
+                 'description':'',
+                 'code':'31281'
+                 },
+                 {
+                 'sidi_id':'444',
+                 'name_tag':'SILVICULTURA/Investigación en silvicultura',
+                 'description':'',
+                 'code':'31282'
+                 },
+                  {
+                 'sidi_id':'445',
+                 'name_tag':'SILVICULTURA/Servicios forestales',
+                 'description':'',
+                 'code':'31283'
+                 },
+                  {
+                 'sidi_id':'446',
+                 'name_tag':'PESCA',
+                 'description':'',
+                 'code':'313'
+                 },
+                  {
+                 'sidi_id':'447',
+                 'name_tag':'PESCA/Política pesquera y gestión administrativa',
+                 'description':'',
+                 'code':'31310'
+                 },
+                 {
+                 'sidi_id':'448',
+                 'name_tag':'PESCA/Desarrollo pesquero',
+                 'description':'',
+                 'code':'31320'
+                 },
+                  {
+                 'sidi_id':'449',
+                 'name_tag':'PESCA/Educación, formación pesquera',
+                 'description':'',
+                 'code':'31381'
+                 },
+                 {
+                 'sidi_id':'450',
+                 'name_tag':'PESCA/Investigación pesquera',
+                 'description':'',
+                 'code':'31382'
+                 },
+                 
+                 {
+                 'sidi_id':'452',
+                 'name_tag':'INDUSTRIA',
+                 'description':'',
+                 'code':'321'
+                 },
+                  {
+                 'sidi_id':'453',
+                 'name_tag':'INDUSTRIA/Política industrial y gestión administrativa',
+                 'description':'',
+                 'code':'32110'
+                 },
+                 {
+                 'sidi_id':'454',
+                 'name_tag':'INDUSTRIA/Desarrollo industrial',
+                 'description':'',
+                 'code':'32120'
+                 },
+                 {
+                 'sidi_id':'455',
+                 'name_tag':'INDUSTRIA/Desarrollo PYME',
+                 'description':'',
+                 'code':'32130'
+                 },
+                 {
+                 'sidi_id':'456',
+                 'name_tag':'INDUSTRIA/Industria artesanal',
+                 'description':'',
+                 'code':'32140'
+                 },
+                 {
+                 'sidi_id':'457',
+                 'name_tag':'INDUSTRIA/Agroindustrias',
+                 'description':'',
+                 'code':'32161'
+                 },
+                 {
+                 'sidi_id':'458',
+                 'name_tag':'INDUSTRIA/Industrias forestales',
+                 'description':'',
+                 'code':'32162'
+                 },
+                 {
+                 'sidi_id':'459',
+                 'name_tag':'INDUSTRIA/Textiles, cuero y sustitutos',
+                 'description':'',
+                 'code':'32163'
+                 },
+                 {
+                 'sidi_id':'460',
+                 'name_tag':'INDUSTRIA/Productos químicos',
+                 'description':'',
+                 'code':'32164'
+                 },
+                 {
+                 'sidi_id':'461',
+                 'name_tag':'INDUSTRIA/Plantas de producción de fertilizantes',
+                 'description':'',
+                 'code':'32165'
+                 },
+                  {
+                 'sidi_id':'462',
+                 'name_tag':'INDUSTRIA/Cemento, cal, yeso',
+                 'description':'',
+                 'code':'32166'
+                 },
+                 {
+                 'sidi_id':'463',
+                 'name_tag':'INDUSTRIA/Fabricación productos energéticos',
+                 'description':'',
+                 'code':'32167'
+                 },
+                 {
+                 'sidi_id':'464',
+                 'name_tag':'INDUSTRIA/Producción farmacéutica',
+                 'description':'',
+                 'code':'32168'
+                 },
+                  {
+                 'sidi_id':'465',
+                 'name_tag':'INDUSTRIA/Industria metalúrgica básica',
+                 'description':'',
+                 'code':'32169'
+                 },
+                 {
+                 'sidi_id':'466',
+                 'name_tag':'INDUSTRIA/Industrias metales no ferrosos',
+                 'description':'',
+                 'code':'32170'
+                 },
+                 {
+                 'sidi_id':'467',
+                 'name_tag':'INDUSTRIA/Construcción mecánica y eléctrica',
+                 'description':'',
+                 'code':'32171'
+                 },
+                 {
+                 'sidi_id':'468',
+                 'name_tag':'INDUSTRIA/Industria de equipos de transporte',
+                 'description':'',
+                 'code':'32172'
+                 },
+                 {
+                 'sidi_id':'469',
+                 'name_tag':'INDUSTRIA/Investigación y desarrollo tecnológico',
+                 'description':'',
+                 'code':'32182'
+                 },
+                  {
+                 'sidi_id':'470',
+                 'name_tag':'RECURSOS MINERALES Y MINERIA',
+                 'description':'',
+                 'code':'322'
+                 },
+                  {
+                 'sidi_id':'471',
+                 'name_tag':'RECURSOS MINERALES Y MINERIA/Política de las industrias extractivas y gestión administrativa',
+                 'description':'',
+                 'code':'32210'
+                 },
+                 {
+                 'sidi_id':'472',
+                 'name_tag':'RECURSOS MINERALES Y MINERIA/Prospección y exploración minera',
+                 'description':'',
+                 'code':'32220'
+                 },
+                  {
+                 'sidi_id':'473',
+                 'name_tag':'RECURSOS MINERALES Y MINERIA/Carbón',
+                 'description':'',
+                 'code':'32261'
+                 },
+                  {
+                 'sidi_id':'474',
+                 'name_tag':'RECURSOS MINERALES Y MINERIA/Petróleo y gas',
+                 'description':'',
+                 'code':'32262'
+                 },
+                  {
+                 'sidi_id':'475',
+                 'name_tag':'RECURSOS MINERALES Y MINERIA/Metales ferrosos',
+                 'description':'',
+                 'code':'32263'
+                 },
+                 {
+                 'sidi_id':'476',
+                 'name_tag':'RECURSOS MINERALES Y MINERIA/Metales no ferrosos',
+                 'description':'',
+                 'code':'32264'
+                 },
+                 {
+                 'sidi_id':'477',
+                 'name_tag':'RECURSOS MINERALES Y MINERIA/Metales-minerales preciosos',
+                 'description':'',
+                 'code':'32265'
+                 },
+                 {
+                 'sidi_id':'478',
+                 'name_tag':'RECURSOS MINERALES Y MINERIA/Minerales industriales',
+                 'description':'',
+                 'code':'32266'
+                 },
+                 {
+                 'sidi_id':'479',
+                 'name_tag':'RECURSOS MINERALES Y MINERIA/Fertilizantes minerales',
+                 'description':'',
+                 'code':'32267'
+                 },
+                 {
+                 'sidi_id':'480',
+                 'name_tag':'RECURSOS MINERALES Y MINERIA/Recursos minerales fondos marinos',
+                 'description':'',
+                 'code':'32268'
+                 },
+                  {
+                 'sidi_id':'481',
+                 'name_tag':'CONSTRUCCIÓN',
+                 'description':'',
+                 'code':'323'
+                 }, 
+                 {
+                 'sidi_id':'482',
+                 'name_tag':'CONSTRUCCIÓN/Política de construcción y gestión administrativa',
+                 'description':'',
+                 'code':'32310'
+                 }, 
+                 {
+                 'sidi_id':'483',
+                 'name_tag':'POLÍTICA Y REGULACIÓN COMERCIAL',
+                 'description':'',
+                 'code':'331'
+                 }, 
+                 {
+                 'sidi_id':'484',
+                 'name_tag':'POLÍTICA Y REGULACIÓN COMERCIAL/Política comercial y gestión administrativa',
+                 'description':'',
+                 'code':'33110'
+                 }, 
+                 {
+                 'sidi_id':'485',
+                 'name_tag':'POLÍTICA Y REGULACIÓN COMERCIAL/Fomento del comercio',
+                 'description':'',
+                 'code':'33120'
+                 }, 
+                 {
+                 'sidi_id':'486',
+                 'name_tag':'POLÍTICA Y REGULACIÓN COMERCIAL/Acuerdos comerciales regionales',
+                 'description':'',
+                 'code':'33130'
+                 }, 
+                 {
+                 'sidi_id':'487',
+                 'name_tag':'POLÍTICA Y REGULACIÓN COMERCIAL/Negociaciones comerciales multilaterales',
+                 'description':'',
+                 'code':'33140'
+                 }, 
+                 {
+                 'sidi_id':'488',
+                 'name_tag':'POLÍTICA Y REGULACIÓN COMERCIAL/Ajustes vinculados al comercio',
+                 'description':'',
+                 'code':'33150'
+                 }, 
+                 {
+                 'sidi_id':'489',
+                 'name_tag':'POLÍTICA Y REGULACIÓN COMERCIAL/Educación-formación comercial',
+                 'description':'',
+                 'code':'33181'
+                 },
+                 {
+                 'sidi_id':'490',
+                 'name_tag':'TURISMO',
+                 'description':'',
+                 'code':'332'
+                 },
+                  {
+                 'sidi_id':'491',
+                 'name_tag':'TURISMO/Política turística y gestión administrativa',
+                 'description':'',
+                 'code':'33210'
+                 },
+                  {
+                 'sidi_id':'492',
+                 'name_tag':'PROTECCION GENERAL DEL MEDIO AMBIENTE',
+                 'description':'',
+                 'code':'410'
+                 },
+                  {
+                 'sidi_id':'493',
+                 'name_tag':'PROTECCION GENERAL DEL MEDIO AMBIENTE/Política medioambiental y gestión administrativa',
+                 'description':'',
+                 'code':'41010'
+                 },
+                 {
+                 'sidi_id':'494',
+                 'name_tag':'PROTECCION GENERAL DEL MEDIO AMBIENTE/Protección de la biosfera',
+                 'description':'',
+                 'code':'41020'
+                 },
+                 {
+                 'sidi_id':'495',
+                 'name_tag':'PROTECCION GENERAL DEL MEDIO AMBIENTE/Biodiversidad',
+                 'description':'',
+                 'code':'41030'
+                 },
+                  {
+                 'sidi_id':'496',
+                 'name_tag':'PROTECCION GENERAL DEL MEDIO AMBIENTE/Protección del patrimonio',
+                 'description':'',
+                 'code':'41040'
+                 },
+                  {
+                 'sidi_id':'497',
+                 'name_tag':'PROTECCION GENERAL DEL MEDIO AMBIENTE/Control y prevención de inundaciones',
+                 'description':'',
+                 'code':'41050'
+                 },
+                 {
+                 'sidi_id':'498',
+                 'name_tag':'PROTECCION GENERAL DEL MEDIO AMBIENTE/Educación, formación medioambiental',
+                 'description':'',
+                 'code':'41081'
+                 },
+                 {
+                 'sidi_id':'499',
+                 'name_tag':'PROTECCION GENERAL DEL MEDIO AMBIENTE/Investigación medioambiental',
+                 'description':'',
+                 'code':'41082'
+                 },
+                 {
+                 'sidi_id':'500',
+                 'name_tag':'OTROS MULTISECTORIAL',
+                 'description':'',
+                 'code':'430'
+                 },
+                  {
+                 'sidi_id':'501',
+                 'name_tag':'OTROS MULTISECTORIAL/Ayuda multisectorial',
+                 'description':'',
+                 'code':'43010'
+                 },
+                  {
+                 'sidi_id':'502',
+                 'name_tag':'OTROS MULTISECTORIAL/Desarrollo y gestión urbanos',
+                 'description':'',
+                 'code':'43030'
+                 },
+                 {
+                 'sidi_id':'503',
+                 'name_tag':'OTROS MULTISECTORIAL/Desarrollo y gestión urbana/Política y gestión de tierras urbanas',
+                 'description':'',
+                 'code':'43031'
+                 },
+                 {
+                 'sidi_id':'504',
+                 'name_tag':'OTROS MULTISECTORIAL/Desarrollo y gestión urbanos/Desarrollo urbano',
+                 'description':'',
+                 'code':'43032'
+                 },
+                  {
+                 'sidi_id':'505',
+                 'name_tag':'OTROS MULTISECTORIAL/Desarrollo rural',
+                 'description':'',
+                 'code':'43040'
+                 },
+                 {
+                 'sidi_id':'506',
+                 'name_tag':'OTROS MULTISECTORIAL/Desarrollo rural/Política de gestión de tierras rurales',
+                 'description':'',
+                 'code':'43041'
+                 },
+                  {
+                 'sidi_id':'507',
+                 'name_tag':'OTROS MULTISECTORIAL/Desarrollo rural/Desarrollo rural',
+                 'description':'',
+                 'code':'43042'
+                 },
+                  {
+                 'sidi_id':'508',
+                 'name_tag':'OTROS MULTISECTORIAL/Desarrollo alternativo no agrario',
+                 'description':'',
+                 'code':'43050'
+                 },
+                  {
+                 'sidi_id':'509',
+                 'name_tag':'OTROS MULTISECTORIAL/Enseñanza, formación multisectorial',
+                 'description':'',
+                 'code':'43051'
+                 },
+                 {
+                 'sidi_id':'510',
+                 'name_tag':'OTROS MULTISECTORIAL/Instituciones científicas y de investigación',
+                 'description':'',
+                 'code':'43082'
+                 },
+                 {
+                 'sidi_id':'511',
+                 'name_tag':'APOYO PRESUPUESTARIO GENERAL',
+                 'description':'',
+                 'code':'510'
+                 },
+                 {
+                 'sidi_id':'512',
+                 'name_tag':'APOYO PRESUPUESTARIO GENERAL/Ayuda relacionada con el apoyo presupuestario general',
+                 'description':'',
+                 'code':'51010'
+                 },
+                 {
+                 'sidi_id':'513',
+                 'name_tag':'AYUDA ALIMENTARIA PAR EL DESARROLLO-ASISTENCIA DE SEGURIDAD ALIMENTARIA',
+                 'description':'',
+                 'code':'520'
+                 },
+                 {
+                 'sidi_id':'514',
+                 'name_tag':'AYUDA ALIMENTARIA PAR EL DESARROLLO-ASISTENCIA DE SEGURIDAD ALIMENTARIA/Ayuda alimentaria-Programas',
+                 'description':'',
+                 'code':'52010'
+                 },
+                 {
+                 'sidi_id':'515',
+                 'name_tag':'OTRAS AYUDAS EN FORMA DE SUMINISTRO DE BIENES',
+                 'description':'',
+                 'code':'530'
+                 },
+                 {
+                 'sidi_id':'516',
+                 'name_tag':'OTRAS AYUDAS EN FORMA DE SUMINISTRO DE BIENES/Apoyo importación (bienes de equipo)',
+                 'description':'',
+                 'code':'53030'
+                 },
+                  {
+                 'sidi_id':'517',
+                 'name_tag':'OTRAS AYUDAS EN FORMA DE SUMINISTRO DE BIENES/Apoyo importación (productos)',
+                 'description':'',
+                 'code':'53040'
+                 },
+                 {
+                 'sidi_id':'518',
+                 'name_tag':'ACTIVIDADES RELACIONADAS CON LA DEUDA',
+                 'description':'',
+                 'code':'600'
+                 },
+                 {
+                 'sidi_id':'519',
+                 'name_tag':'ACTIVIDADES RELACIONADAS CON LA DEUDA/Actividades relacionadas con la deuda',
+                 'description':'',
+                 'code':'60010'
+                 },
+                 {
+                 'sidi_id':'520',
+                 'name_tag':'ACTIVIDADES RELACIONADAS CON LA DEUDA/Condonación de la deuda',
+                 'description':'',
+                 'code':'60020'
+                 },
+                 {
+                 'sidi_id':'521',
+                 'name_tag':'ACTIVIDADES RELACIONADAS CON LA DEUDA/Alivio de la deuda multilateral',
+                 'description':'',
+                 'code':'60030'
+                 },
+                 {
+                 'sidi_id':'522',
+                 'name_tag':'ACTIVIDADES RELACIONADAS CON LA DEUDA/Reestructuración y refinanciación',
+                 'description':'',
+                 'code':'60040'
+                 },
+                 {
+                 'sidi_id':'523',
+                 'name_tag':'ACTIVIDADES RELACIONADAS CON LA DEUDA/Canje de deuda por desarrollo',
+                 'description':'',
+                 'code':'60061'
+                 },
+                 {
+                 'sidi_id':'524',
+                 'name_tag':'ACTIVIDADES RELACIONADAS CON LA DEUDA/Otros tipos de canje de deuda',
+                 'description':'',
+                 'code':'60062'
+                 },
+                 {
+                 'sidi_id':'525',
+                 'name_tag':'ACTIVIDADES RELACIONADAS CON LA DEUDA/Recompra de deuda',
+                 'description':'',
+                 'code':'60063'
+                 },
+                 {
+                 'sidi_id':'526',
+                 'name_tag':'AYUDAS DE EMERGENCIA',
+                 'description':'',
+                 'code':'720'
+                 },
+                 {
+                 'sidi_id':'527',
+                 'name_tag':'AYUDAS DE EMERGENCIA/Ayuda y servicios materiales de emergencia',
+                 'description':'',
+                 'code':'72010'
+                 },
+                  {
+                 'sidi_id':'528',
+                 'name_tag':'AYUDAS DE EMERGENCIA/Ayuda alimentaria de emergencia',
+                 'description':'',
+                 'code':'72040'
+                 },
+                 {
+                 'sidi_id':'529',
+                 'name_tag':'AYUDAS DE EMERGENCIA/Coordinación humanitaria, protección y servicios de apoyo',
+                 'description':'',
+                 'code':'72050'
+                 },
+                 {
+                 'sidi_id':'530',
+                 'name_tag':'AYUDA A LA RECONSTRUCCIÓN Y REHABILITACIÓN',
+                 'description':'',
+                 'code':'730'
+                 },
+                 {
+                 'sidi_id':'531',
+                 'name_tag':'AYUDA A LA RECONSTRUCCIÓN Y REHABILITACIÓN/Ayuda a la reconstrucción y rehabilitación',
+                 'description':'',
+                 'code':'73010'
+                 },
+                 {
+                 'sidi_id':'532',
+                 'name_tag':'PREVENCIÓN DE DESASTRES',
+                 'description':'',
+                 'code':'740'
+                 },
+                 {
+                 'sidi_id':'533',
+                 'name_tag':'PREVENCIÓN DE DESASTRES/Prevención de desastres',
+                 'description':'',
+                 'code':'74010'
+                 },
+                 {
+                 'sidi_id':'534',
+                 'name_tag':'COSTES ADMINISTRATIVOS DONANTES',
+                 'description':'',
+                 'code':'910'
+                 },
+                 {
+                 'sidi_id':'535',
+                 'name_tag':'COSTES ADMINISTRATIVOS DONANTES/Costos administrativos(no asignables)',
+                 'description':'',
+                 'code':'91010'
+                 },
+                 {
+                 'sidi_id':'536',
+                 'name_tag':'AYUDA A REFUGIADOS EN EL PAIS DONANTE',
+                 'description':'',
+                 'code':'930'
+                 },
+                 {
+                 'sidi_id':'537',
+                 'name_tag':'AYUDA A REFUGIADOS EN EL PAÍS DONANTE/Ayuda a refugiados en el país donante (no asignable por sector',
+                 'description':'',
+                 'code':'93010'
+                 },
+                 {
+                 'sidi_id':'538',
+                 'name_tag':'SIN ASIGNAR-SIN ESPECIFICAR',
+                 'description':'',
+                 'code':'998'
+                 },
+                 {
+                 'sidi_id':'539',
+                 'name_tag':'SIN ASIGNAR-SIN ESPECIFICAR/Sectores no especificados',
+                 'description':'',
+                 'code':'99810'
+                 },
+                 {
+                 'sidi_id':'540',
+                 'name_tag':'SIN ASIGNAR-SIN ESPECIFICAR/Sensibilización sobre los problemas relacionados con el desarrollo (no a',
+                 'description':'',
+                 'code':'99820'
+                 },
+
+                 
 
             ]
           },
@@ -872,6 +2677,13 @@ angular.module( 'ngmReportHub' )
             'project_clasification_name':'ODS - Objetivos de Desarrollo Sostenible',
             'sidi_id':'7',
             'children':[
+              {
+                  'sidi_id':'541',
+                     'name_tag':'Fin de la Pobreza',
+                     'description':'',
+                     'code':'1'
+
+                },
                 {
                   'sidi_id':'542',
                      'name_tag':'De aquí a 2030, erradicar para todas las personas y en todo el mundo la pobreza extrema(actualmente ',
@@ -893,8 +2705,1103 @@ angular.module( 'ngmReportHub' )
                      'description':'',
                      'code':'1.3'
 
-                }
-                
+                },
+                {
+                  'sidi_id':'545',
+                     'name_tag':'Implementar a nivel nacional sistemas y medidas apropiados de protección social para todos, incluido',
+                     'description':'',
+                     'code':'1.4'
+
+                },
+                {
+                  'sidi_id':'546',
+                     'name_tag':'De aquí a 2030, fomentar la resiliencia de los pobres y las personas que se encuentran en situacione',
+                     'description':'',
+                     'code':'1.5'
+
+                },
+                {
+                  'sidi_id':'547',
+                     'name_tag':'Garantizar una movilización significativa de recursos procedentes de diversas fuentes, incluso media',
+                     'description':'',
+                     'code':'1.a'
+                },
+                {
+                  'sidi_id':'548',
+                     'name_tag':'Crear marcos normativos sólidos en los planos nacional, regional e internacional, sobre la base de e',
+                     'description':'',
+                     'code':'1.b'
+                },
+                {
+                  'sidi_id':'549',
+                     'name_tag':'Hambre Cero',
+                     'description':'',
+                     'code':'2'
+                },
+                {
+                  'sidi_id':'550',
+                     'name_tag':'Para 2030 erradicar el hambre y asegurar el acceso de todas las personas, en particular de los pobre',
+                     'description':'',
+                     'code':'2.1'
+                },
+                {
+                  'sidi_id':'551',
+                     'name_tag':'De aquí a 2030, poner fin a todas las formas de malnutrición, incluso logrando, a más tardar en 2025',
+                     'description':'',
+                     'code':'2.2'
+                },
+                {
+                  'sidi_id':'552',
+                     'name_tag':'De aquí a 2030, duplicar la productividad agrícola y los ingresos de los productores de alimentos en',
+                     'description':'',
+                     'code':'2.3'
+                },
+                {
+                  'sidi_id':'553',
+                     'name_tag':'De aquí a 2030, asegurar la sostenibilidad de los sistemas de producción de alimentos y aplicar prác',
+                     'description':'',
+                     'code':'2.4'
+                },
+                {
+                  'sidi_id':'554',
+                     'name_tag':'De aquí a 2020, mantener la diversidad genética de las semillas, las plantas cultivadas y los animal',
+                     'description':'',
+                     'code':'2.5'
+                },
+                {
+                  'sidi_id':'555',
+                     'name_tag':'Aumentar, incluso mediante una mayor cooperación internacional, las inversiones en infraestructura r',
+                     'description':'',
+                     'code':'2.a'
+                },
+                {
+                  'sidi_id':'556',
+                     'name_tag':'Corregir y prevenir las restricciones y distorsiones comerciales en los mercados agropecuarios mundi',
+                     'description':'',
+                     'code':'2.b'
+                },
+                {
+                  'sidi_id':'557',
+                     'name_tag':'Adoptar medidas para asegurar el buen funcionamiento de los mercados de productos básicos alimentari',
+                     'description':'',
+                     'code':'2.c'
+                },
+                {
+                  'sidi_id':'558',
+                     'name_tag':'Salud y Bienestar',
+                     'description':'',
+                     'code':'3'
+                },
+                {
+                  'sidi_id':'559',
+                     'name_tag':'De aquí a 2030, reducir la tasa mundial de mortalidad materna a menos de 70 por cada 100.000 nacidos',
+                     'description':'',
+                     'code':'3.1'
+                },
+                {
+                  'sidi_id':'560',
+                     'name_tag':'De aquí a 2030, poner fin a las muertes evitables de recién nacidos y de niños menores de 5 años, lo',
+                     'description':'',
+                     'code':'3.2'
+                },
+                {
+                  'sidi_id':'561',
+                     'name_tag':'De aquí a 2030, poner fin a las epidemias del SIDA, la tuberculosis, la malaria y las enfermedades t',
+                     'description':'',
+                     'code':'3.3'
+                },
+                {
+                  'sidi_id':'562',
+                     'name_tag':'De aquí a 2030, reducir en un tercio la mortalidad prematura por enfermedades no transmisibles media',
+                     'description':'',
+                     'code':'3.4'
+                },
+                {
+                  'sidi_id':'563',
+                     'name_tag':'Fortalecer la prevención y el tratamiento del abuso de sustancias adictivas, incluido el uso indebid',
+                     'description':'',
+                     'code':'3.5'
+                },
+                {
+                  'sidi_id':'564',
+                     'name_tag':'De aquí a 2020, reducir a la mitad el número de muertes y lesiones causadas por accidentes de tráfic',
+                     'description':'',
+                     'code':'3.6'
+                },
+                {
+                  'sidi_id':'565',
+                     'name_tag':'De aquí a 2030, garantizar el acceso universal a los servicios de salud sexual y reproductiva, inclu',
+                     'description':'',
+                     'code':'3.7'
+                },
+                {
+                  'sidi_id':'566',
+                     'name_tag':'Lograr la cobertura sanitaria universal, incluida la protección contra los riesgos financieros, el a',
+                     'description':'',
+                     'code':'3.8'
+                },
+                {
+                  'sidi_id':'567',
+                     'name_tag':'De aquí a 2030, reducir considerablemente el número de muertes y enfermedades causadas por productos',
+                     'description':'',
+                     'code':'3.9'
+                },
+                {
+                  'sidi_id':'568',
+                     'name_tag':'Fortalecer la aplicación del Convenio Marco de la Organización Mundial de la Salud para el Control d',
+                     'description':'',
+                     'code':'3.a'
+                },
+                {
+                  'sidi_id':'569',
+                     'name_tag':'Apoyar las actividades de investigación y desarrollo de vacunas y medicamentos contra las enfermedad',
+                     'description':'',
+                     'code':'3.b'
+                },
+                {
+                  'sidi_id':'570',
+                     'name_tag':'Aumentar considerablemente la financiación de la salud y la contratación, el perfeccionamiento, la c',
+                     'description':'',
+                     'code':'3.c'
+                },
+                {
+                  'sidi_id':'571',
+                     'name_tag':'Reforzar la capacidad de todos los países, en particular los países en desarrollo, en materia de ale',
+                     'description':'',
+                     'code':'3.d'
+                },
+                {
+                  'sidi_id':'572',
+                     'name_tag':'Educación de Calidad',
+                     'description':'',
+                     'code':'4'
+                },
+                {
+                  'sidi_id':'573',
+                     'name_tag':'Para 2030, asegurar que todos los niños y niñas completen la educación primaria y secundaria gratuit',
+                     'description':'',
+                     'code':'4.1'
+                },
+                {
+                  'sidi_id':'574',
+                     'name_tag':'Para 2030 garantizar que todas las niñas y los niños tengan acceso a un desarrollo de calidad en la',
+                     'description':'',
+                     'code':'4.2'
+                },
+                {
+                  'sidi_id':'575',
+                     'name_tag':'En 2030 garantizar la igualdad de acceso de todas las mujeres y hombres a la educación técnica, prof',
+                     'description':'',
+                     'code':'4.3'
+                },
+                {
+                  'sidi_id':'576',
+                     'name_tag':'Para 2030, aumentar en un x% el número de jóvenes y adultos con habilidades relevantes incluidas las',
+                     'description':'',
+                     'code':'4.4'
+                },
+                {
+                  'sidi_id':'577',
+                     'name_tag':'En 2030, eliminar las disparidades de género en la educación y garantizar la igualdad de acceso a to',
+                     'description':'',
+                     'code':'4.5'
+                },
+                {
+                  'sidi_id':'578',
+                     'name_tag':'En 2030 asegurar que todos los jóvenes y al menos x% de los adultos, tanto hombres como mujeres, log',
+                     'description':'',
+                     'code':'4.6'
+                },
+                {
+                  'sidi_id':'579',
+                     'name_tag':'En 2030 asegurar que todos los alumnos adquieran el conocimiento y las habilidades necesarias para p',
+                     'description':'',
+                     'code':'4.7'
+                },
+                {
+                  'sidi_id':'580',
+                     'name_tag':'Construir y mejorar las instalaciones educativas para hacerlas sensibles a los niños, las personas c',
+                     'description':'',
+                     'code':'4.a'
+                },
+                {
+                  'sidi_id':'581',
+                     'name_tag':'En 2020 expandir a nivel mundial en un x% el número de becas para los países en desarrollo, en parti',
+                     'description':'',
+                     'code':'4.b'
+                },
+                {
+                  'sidi_id':'582',
+                     'name_tag':'En 2030 aumentar un x% la oferta de docentes calificados, en particular mediante la cooperación inte',
+                     'description':'',
+                     'code':'4.c'
+                },
+                {
+                  'sidi_id':'583',
+                     'name_tag':'Igualdad de Género',
+                     'description':'',
+                     'code':'5'
+                },
+                {
+                  'sidi_id':'584',
+                     'name_tag':'Acabar todas las formas de discriminación contra todas las mujeres y niñas en todas partes.',
+                     'description':'',
+                     'code':'5.1'
+                },
+                {
+                  'sidi_id':'585',
+                     'name_tag':'Eliminar todas las formas de violencia contra las mujeres y las niñas en las esferas públicas y priv',
+                     'description':'',
+                     'code':'5.2'
+                },
+                 {
+                  'sidi_id':'586',
+                     'name_tag':'Eliminar todas las prácticas perjudiciales, como los matrimonios precoces y forzados y la mutilación',
+                     'description':'',
+                     'code':'5.3'
+                },
+                 {
+                  'sidi_id':'587',
+                     'name_tag':'Reconocer y valorar el trabajo doméstico y de cuidado no remunerado a través de la provisión de serv',
+                     'description':'',
+                     'code':'5.4'
+                },
+                {
+                  'sidi_id':'588',
+                     'name_tag':'Garantizar la participación plena y efectiva de las mujeres y la igualdad de oportunidades para el l',
+                     'description':'',
+                     'code':'5.5'
+                },
+                {
+                  'sidi_id':'589',
+                     'name_tag':'Asegurar el acceso universal a la salud sexual y reproductiva y los derechos reproductivos según lo',
+                     'description':'',
+                     'code':'5.6'
+                },
+                {
+                  'sidi_id':'590',
+                     'name_tag':'Emprender reformas para dar a las mujeres la igualdad de derechos a los recursos económicos, así com',
+                     'description':'',
+                     'code':'5.a'
+                },
+                {
+                  'sidi_id':'591',
+                     'name_tag':'Mejorar el uso de tecnologías de apoyo, en particular las TIC, para promover el empoderamiento de la',
+                     'description':'',
+                     'code':'5.b'
+                },
+                {
+                  'sidi_id':'592',
+                     'name_tag':'Adoptar y reforzar políticas sólidas y una legislación aplicable para la promoción de la igualdad de',
+                     'description':'',
+                     'code':'5.c'
+                },
+                {
+                  'sidi_id':'593',
+                     'name_tag':'Agua Límpia y Saneamiento',
+                     'description':'',
+                     'code':'6'
+                },
+                {
+                  'sidi_id':'594',
+                     'name_tag':'En 2030, lograr el acceso universal y equitativo al agua potable segura y asequible para todos',
+                     'description':'',
+                     'code':'6.1'
+                },
+                {
+                  'sidi_id':'595',
+                     'name_tag':'En 2030, lograr el acceso a servicios de saneamiento y de higiene adecuados y equitativos para todos',
+                     'description':'',
+                     'code':'6.2'
+                },
+                {
+                  'sidi_id':'596',
+                     'name_tag':'Para 2030, mejorar la calidad del agua mediante la reducción de la contaminación, la eliminación de',
+                     'description':'',
+                     'code':'6.3'
+                },
+                {
+                  'sidi_id':'597',
+                     'name_tag':'Para 2030, aumentar sustancialmente la eficiencia del uso del agua en todos los sectores y garantiza',
+                     'description':'',
+                     'code':'6.4'
+                },
+                {
+                  'sidi_id':'598',
+                     'name_tag':'En 2030 aplicar la gestión integrada de los recursos hídricos en todos los niveles, incluso mediante',
+                     'description':'',
+                     'code':'6.5'
+                },
+                {
+                  'sidi_id':'599',
+                     'name_tag':'En 2020 a proteger y restaurar los ecosistemas relacionados con el agua, incluyendo montañas, bosque',
+                     'description':'',
+                     'code':'6.6'
+                },
+                {
+                  'sidi_id':'600',
+                     'name_tag':'En 2030, ampliar la cooperación internacional y el apoyo a la creación de capacidades para los paíse',
+                     'description':'',
+                     'code':'6.a'
+                },
+                {
+                  'sidi_id':'601',
+                     'name_tag':'Apoyar y fortalecer la participación de las comunidades locales para mejorar la gestión del agua y e',
+                     'description':'',
+                     'code':'6.b'
+                },
+                {
+                  'sidi_id':'602',
+                     'name_tag':'Energía Asequible y No-contaminante',
+                     'description':'',
+                     'code':'7'
+                },
+                {
+                  'sidi_id':'603',
+                     'name_tag':'En 2030 garantizar el acceso universal a servicios de energía asequibles, confiables y modernos',
+                     'description':'',
+                     'code':'7.1'
+                },
+                {
+                  'sidi_id':'604',
+                     'name_tag':'Aumentar sustancialmente el porcentaje de energías renovables en el mix energético mundial para 2030',
+                     'description':'',
+                     'code':'7.2'
+                },
+                {
+                  'sidi_id':'605',
+                     'name_tag':'Doblar la tasa mundial de mejora de la eficiencia energética de aquí a 2030.',
+                     'description':'',
+                     'code':'7.3'
+                },
+                {
+                  'sidi_id':'606',
+                     'name_tag':'En 2030 aumentar la cooperación internacional para facilitar el acceso a la investigación y tecnolog',
+                     'description':'',
+                     'code':'7.a'
+                },
+                {
+                  'sidi_id':'607',
+                     'name_tag':'En 2030 ampliar la infraestructura y mejorar la tecnología para el suministro de servicios energétic',
+                     'description':'',
+                     'code':'7.b'
+                },
+                {
+                  'sidi_id':'608',
+                     'name_tag':'Trabajo Decente y Crecimiento Económico',
+                     'description':'',
+                     'code':'8'
+                },
+                {
+                  'sidi_id':'609',
+                     'name_tag':'Sostener el crecimiento económico per cápita, de acuerdo con las circunstancias nacionales, y en par',
+                     'description':'',
+                     'code':'8.1'
+                },
+                {
+                  'sidi_id':'610',
+                     'name_tag':'Alcanzar mayores niveles de productividad de las economías a través de la diversificación, el mejora',
+                     'description':'',
+                     'code':'8.2'
+                },
+                {
+                  'sidi_id':'611',
+                     'name_tag':'Promover políticas orientadas al desarrollo para apoyar las actividades productivas, la creación de',
+                     'description':'',
+                     'code':'8.3'
+                },
+                {
+                  'sidi_id':'612',
+                     'name_tag':'Mejorar progresivamente hacia el año 2030 la eficiencia global de los recursos tanto en el consumo c',
+                     'description':'',
+                     'code':'8.4'
+                },
+                {
+                  'sidi_id':'613',
+                     'name_tag':'Para 2030 lograr el empleo pleno y productivo y el trabajo decente para todas las mujeres y hombres,',
+                     'description':'',
+                     'code':'8.5'
+                },
+                {
+                  'sidi_id':'614',
+                     'name_tag':'Para el 2020 reducir sustancialmente la proporción de jóvenes sin empleo, educación o formación.',
+                     'description':'',
+                     'code':'8.6'
+                },
+                {
+                  'sidi_id':'615',
+                     'name_tag':'Adoptar medidas inmediatas y eficaces para conseguir la prohibición y la eliminación de las peores f',
+                     'description':'',
+                     'code':'8.7'
+                },
+                {
+                  'sidi_id':'616',
+                     'name_tag':'Proteger los derechos laborales y promover entornos de trabajo seguros y protegidos para todos los t',
+                     'description':'',
+                     'code':'8.8'
+                },
+                {
+                  'sidi_id':'617',
+                     'name_tag':'Para 2030 diseñar e implementar políticas para promover el turismo sostenible que cree puestos de tr',
+                     'description':'',
+                     'code':'8.9'
+                },
+                {
+                  'sidi_id':'618',
+                     'name_tag':'Fortalecer la capacidad de las instituciones financieras locales para promover la expansión del acce',
+                     'description':'',
+                     'code':'8.10'
+                },
+                {
+                  'sidi_id':'619',
+                     'name_tag':'Aumentar la Ayuda para el Comercio para los países en desarrollo, especialmente los PMA, incluyendo',
+                     'description':'',
+                     'code':'8.a'
+                },
+                {
+                  'sidi_id':'620',
+                     'name_tag':'En 2020 desarrollar y poner en práctica una estrategia global para el empleo de los jóvenes y poner',
+                     'description':'',
+                     'code':'8.b'
+                },
+                {
+                  'sidi_id':'621',
+                     'name_tag':'Industria, Innovación e Infraestructura',
+                     'description':'',
+                     'code':'9'
+                },
+                {
+                  'sidi_id':'622',
+                     'name_tag':'Desarrollar infraestructura de calidad, fiable, sostenible y resistente, incluidas la infraestructur',
+                     'description':'',
+                     'code':'9.1'
+                },
+                 {
+                  'sidi_id':'623',
+                     'name_tag':'Promover la industrialización incluyente y sostenible, y en 2030 aumentar de manera significativa la',
+                     'description':'',
+                     'code':'9.2'
+                },
+                {
+                  'sidi_id':'624',
+                     'name_tag':'Aumentar el acceso de las pequeñas empresas industriales y de otro tipo, en particular en los países',
+                     'description':'',
+                     'code':'9.3'
+                },
+                {
+                  'sidi_id':'625',
+                     'name_tag':'Para 2030 mejorar y actualizar la infraestructura y retroadaptar la industria para hacerlas sostenib',
+                     'description':'',
+                     'code':'9.4'
+                },
+                {
+                  'sidi_id':'626',
+                     'name_tag':'Potenciar la investigación científica, mejorar la capacidad tecnológica de los sectores industriales',
+                     'description':'',
+                     'code':'9.5'
+                },
+                {
+                  'sidi_id':'627',
+                     'name_tag':'Facilitar el desarrollo de infraestructuras sostenibles y resilientes en los países en desarrollo a',
+                     'description':'',
+                     'code':'9.a'
+                },
+                {
+                  'sidi_id':'628',
+                     'name_tag':'Ayudar al desarrollo de la tecnología local, la investigación y la innovación en los países en desar',
+                     'description':'',
+                     'code':'9.b'
+                },
+                {
+                  'sidi_id':'629',
+                     'name_tag':'Aumentar significativamente el acceso a las TIC y luchar por ofrecer acceso universal y asequible a',
+                     'description':'',
+                     'code':'9.c'
+                },
+                {
+                  'sidi_id':'630',
+                     'name_tag':'Reducción de las Desigualdades',
+                     'description':'',
+                     'code':'10'
+                },
+                {
+                  'sidi_id':'631',
+                     'name_tag':'Para 2030 alcanzar progresivamente y mantener el crecimiento de los ingresos del 40% inferior de la',
+                     'description':'',
+                     'code':'10.1'
+                },
+                 {
+                  'sidi_id':'632',
+                     'name_tag':'Para 2030 potenciar y promover la inclusión social, económica y política de todos independientemente',
+                     'description':'',
+                     'code':'10.2'
+                },
+                {
+                  'sidi_id':'633',
+                     'name_tag':'Garantizar la igualdad de oportunidades y reducir las desigualdades de los resultados, en particular',
+                     'description':'',
+                     'code':'10.3'
+                },
+                {
+                  'sidi_id':'634',
+                     'name_tag':'Adoptar políticas, especialmente fiscales, salariales y de protección social y lograr progresivament',
+                     'description':'',
+                     'code':'10.4'
+                },
+                {
+                  'sidi_id':'635',
+                     'name_tag':'Mejorar la regulación y supervisión de los mercados e instituciones financieras globales y fortalece',
+                     'description':'',
+                     'code':'10.5'
+                },
+                {
+                  'sidi_id':'636',
+                     'name_tag':'Garantizar una mayor representación y voz de los países en desarrollo en la toma de decisiones en la',
+                     'description':'',
+                     'code':'10.6'
+                },
+                {
+                  'sidi_id':'637',
+                     'name_tag':'Facilitar una migración y movimiento de personas ordenada, segura, regular y responsable, a través d',
+                     'description':'',
+                     'code':'10.7'
+                },
+                {
+                  'sidi_id':'638',
+                     'name_tag':'Aplicar el principio de trato especial y diferenciado para los países en desarrollo, en particular l',
+                     'description':'',
+                     'code':'10.a'
+                },
+                {
+                  'sidi_id':'639',
+                     'name_tag':'Fomentar la AOD y los flujos financieros, incluida la inversión extranjera directa, en los estados e',
+                     'description':'',
+                     'code':'10.b'
+                },
+                 {
+                  'sidi_id':'640',
+                     'name_tag':'Para el año 2030, reducir a menos del 3% los costos de transacción de las remesas de migrantes y eli',
+                     'description':'',
+                     'code':'10.c'
+                },
+                 {
+                  'sidi_id':'641',
+                     'name_tag':'Ciudades y Comunidades Sostenibles',
+                     'description':'',
+                     'code':'11'
+                },
+                {
+                  'sidi_id':'642',
+                     'name_tag':'Para 2030, asegurar el acceso para todos a una vivienda adecuada, segura y asequible, y a los servic',
+                     'description':'',
+                     'code':'11.1'
+                },
+                {
+                  'sidi_id':'643',
+                     'name_tag':'Para 2030, proporcionar acceso a sistemas de transportes seguros, económicos y sostenibles para todo',
+                     'description':'',
+                     'code':'11.2'
+                },
+                {
+                  'sidi_id':'644',
+                     'name_tag':'Para 2030 mejorar la urbanización sostenible e inclusiva y las capacidades para la planificación y g',
+                     'description':'',
+                     'code':'11.3'
+                },
+                {
+                  'sidi_id':'645',
+                     'name_tag':'Fortalecer los esfuerzos para proteger y salvaguardar el patrimonio cultural y natural del mundo.',
+                     'description':'',
+                     'code':'11.4'
+                },
+                {
+                  'sidi_id':'646',
+                     'name_tag':'Para 2030 reducir significativamente el número de muertes y el número de personas afectadas y dismin',
+                     'description':'',
+                     'code':'11.5'
+                },
+                {
+                  'sidi_id':'647',
+                     'name_tag':'En el 2030, reducir el impacto ambiental per cápita adverso de las ciudades, prestando especial aten',
+                     'description':'',
+                     'code':'11.6'
+                },
+                {
+                  'sidi_id':'648',
+                     'name_tag':'Para 2030, Proveer acceso universal a espacios verdes y públicos seguros, incluyentes y accesibles,',
+                     'description':'',
+                     'code':'11.7'
+                },
+                {
+                  'sidi_id':'649',
+                     'name_tag':'Apoyar vínculos económicos, sociales y ambientales positivos entre las zonas urbanas, periurbanas y',
+                     'description':'',
+                     'code':'11.a'
+                },
+                {
+                  'sidi_id':'650',
+                     'name_tag':'En el año 2020, aumentar en un x% el número de ciudades y asentamientos humanos que adoptan y aplica',
+                     'description':'',
+                     'code':'11.b'
+                },
+                {
+                  'sidi_id':'651',
+                     'name_tag':'Apoyar a los PMA, mediante la asistencia financiera y técnica, en los edificios sostenibles y resist',
+                     'description':'',
+                     'code':'11.c'
+                },
+                 {
+                  'sidi_id':'652',
+                     'name_tag':'Producción y Consumo Responsables',
+                     'description':'',
+                     'code':'12'
+                },
+                {
+                  'sidi_id':'653',
+                     'name_tag':'Aplicar el Marco Decenal de Programas sobre Consumo y Producción Sostenibles (10 YFP), en que todos',
+                     'description':'',
+                     'code':'12.1'
+                },
+                {
+                  'sidi_id':'654',
+                     'name_tag':'En 2030 alcanzar la gestión sostenible y uso eficiente de los recursos naturales.',
+                     'description':'',
+                     'code':'12.2'
+                },
+                {
+                  'sidi_id':'655',
+                     'name_tag':'En el 2030 reducir a la mitad el desperdicio de alimentos per cápita mundial a nivel de punto de ven',
+                     'description':'',
+                     'code':'12.3'
+                },
+                {
+                  'sidi_id':'656',
+                     'name_tag':'Para 2020 lograr la gestión ambiental adecuada de químicos y todo tipo de desechos a lo largo de su',
+                     'description':'',
+                     'code':'12.4'
+                },
+                {
+                  'sidi_id':'657',
+                     'name_tag':'En el 2030, reducir sustancialmente la generación de residuos mediante la prevención, la reducción,',
+                     'description':'',
+                     'code':'12.5'
+                },
+                {
+                  'sidi_id':'658',
+                     'name_tag':'Alentar a las empresas, especialmente a las grandes empresas y transnacionales, en la adopción de pr',
+                     'description':'',
+                     'code':'12.6'
+                },
+                 {
+                  'sidi_id':'659',
+                     'name_tag':'Promover las prácticas de contratación pública que son sostenibles, de conformidad con las políticas',
+                     'description':'',
+                     'code':'12.7'
+                },
+                {
+                  'sidi_id':'660',
+                     'name_tag':'Para 2030 asegurar que todas las poblaciones tengan la información y el conocimiento relevante para',
+                     'description':'',
+                     'code':'12.8'
+                },
+                {
+                  'sidi_id':'661',
+                     'name_tag':'Apoyar a los países en desarrollo para fortalecer sus capacidades científicas y tecnológicas para av',
+                     'description':'',
+                     'code':'12.a'
+                },
+                {
+                  'sidi_id':'662',
+                     'name_tag':'Desarrollar e implementar herramientas para monitorear los impactos en materia de desarrollo sosteni',
+                     'description':'',
+                     'code':'12.b'
+                },
+                {
+                  'sidi_id':'663',
+                     'name_tag':'Racionalizar los subsidios ineficientes a los combustibles fósiles que fomentan el despilfarro, elim',
+                     'description':'',
+                     'code':'12.c'
+                },
+                {
+                  'sidi_id':'664',
+                     'name_tag':'Acción por el Clima',
+                     'description':'',
+                     'code':'13'
+                },
+                {
+                  'sidi_id':'665',
+                     'name_tag':'Fortalecer la resiliencia y capacidad de adaptación a los peligros relacionados con el clima y los d',
+                     'description':'',
+                     'code':'13.1'
+                },
+                 {
+                  'sidi_id':'666',
+                     'name_tag':'Integrar medidas de cambio climático en las políticas, estrategias y planificación nacional.',
+                     'description':'',
+                     'code':'13.2'
+                },
+                {
+                  'sidi_id':'667',
+                     'name_tag':'Mejorar la educación, la sensibilización y la capacidad humana e institucional en la mitigación del',
+                     'description':'',
+                     'code':'13.3'
+                },
+                {
+                  'sidi_id':'668',
+                     'name_tag':'Implementar el compromiso asumido por los países desarrollados Partes de la CMNUCC de movilizar conj',
+                     'description':'',
+                     'code':'13.a'
+                },
+                {
+                  'sidi_id':'669',
+                     'name_tag':'Promover mecanismos para aumentar las capacidades de planificación y gestión eficaz relacionadas con',
+                     'description':'',
+                     'code':'13.b'
+                },
+                {
+                  'sidi_id':'670',
+                     'name_tag':'Vida Submarina',
+                     'description':'',
+                     'code':'14'
+                },
+                {
+                  'sidi_id':'671',
+                     'name_tag':'Para 2015, prevenir y reducir significativamente la contaminación marina de todo tipo, en particular',
+                     'description':'',
+                     'code':'14.1'
+                },
+                {
+                  'sidi_id':'672',
+                     'name_tag':'En 2020, administrar y proteger de manera sostenible los ecosistemas marinos y costeros para evitar',
+                     'description':'',
+                     'code':'14.2'
+                },
+                {
+                  'sidi_id':'673',
+                     'name_tag':'Minimizar y atender los impactos de la acidificación del océano, mediante la intensificación de la c',
+                     'description':'',
+                     'code':'14.3'
+                },
+                 {
+                  'sidi_id':'674',
+                     'name_tag':'En 2020, regular de manera efectiva la cosecha, y acabar con la sobrepesca, la pesca ilegal, no decl',
+                     'description':'',
+                     'code':'14.4'
+                },
+                {
+                  'sidi_id':'675',
+                     'name_tag':'Para 2020, conservar al menos el 10% de las zonas marinas y costeras, en armonía con la legislación',
+                     'description':'',
+                     'code':'14.5'
+                },
+                {
+                  'sidi_id':'676',
+                     'name_tag':'Para 2020, prohibir ciertas formas de subsidios pesqueros quecontribuyen al exceso de capacidad y la',
+                     'description':'',
+                     'code':'14.6'
+                },
+                {
+                  'sidi_id':'677',
+                     'name_tag':'En 2030 aumentar los beneficios económicos para los pequeños Estados insulares y los países menos ad',
+                     'description':'',
+                     'code':'14.7'
+                },
+                {
+                  'sidi_id':'678',
+                     'name_tag':'Aumentar el conocimiento científico, el desarrollo de las capacidades de investigación y la transfer',
+                     'description':'',
+                     'code':'14.a'
+                },
+                {
+                  'sidi_id':'679',
+                     'name_tag':'Proporcionar acceso de los pescadores artesanales de pequeña escala a los recursos marinos y los mer',
+                     'description':'',
+                     'code':'14.b'
+                },
+                {
+                  'sidi_id':'680',
+                     'name_tag':'Garantizar la plena aplicación del derecho internacional, como se refleja en la CNUDM para los Estad',
+                     'description':'',
+                     'code':'14.c'
+                },
+                {
+                  'sidi_id':'681',
+                     'name_tag':'Vida de Ecosistemas Terrestres',
+                     'description':'',
+                     'code':'15'
+                },
+                 {
+                  'sidi_id':'682',
+                     'name_tag':'En 2020 asegurar la conservación, restauración y uso sostenible de los ecosistemas de agua dulce ter',
+                     'description':'',
+                     'code':'15.1'
+                },
+                {
+                  'sidi_id':'683',
+                     'name_tag':'Para 2020, promover la implementación de la gestión sostenible de todos los tipos de bosques, detene',
+                     'description':'',
+                     'code':'15.2'
+                },
+                {
+                  'sidi_id':'684',
+                     'name_tag':'Para el año 2020, luchar contra la desertificación, y la restauración de la tierra y los suelos degr',
+                     'description':'',
+                     'code':'15.3'
+                },
+                {
+                  'sidi_id':'685',
+                     'name_tag':'En 2030 asegurar la preservación de los ecosistemas de montaña, incluyendo su biodiversidad, para me',
+                     'description':'',
+                     'code':'15.4'
+                },
+                {
+                  'sidi_id':'686',
+                     'name_tag':'Tomar medidas urgentes y significativas para reducir la degradación del hábitat natural, detener la',
+                     'description':'',
+                     'code':'15.5'
+                },
+                {
+                  'sidi_id':'687',
+                     'name_tag':'Asegurar la participación justa y equitativa en los beneficios derivados de la utilización de los re',
+                     'description':'',
+                     'code':'15.6'
+                },
+                {
+                  'sidi_id':'688',
+                     'name_tag':'Tomar medidas urgentes para poner fin a la caza furtiva y el tráfico de especies protegidas de flora',
+                     'description':'',
+                     'code':'15.7'
+                },
+                {
+                  'sidi_id':'689',
+                     'name_tag':'En 2020 implementar medidas para prevenir la introducción y reducir significativamente el impacto de',
+                     'description':'',
+                     'code':'15.8'
+                },
+                {
+                  'sidi_id':'690',
+                     'name_tag':'En 2020, integrar los valores de los ecosistemas y la biodiversidad en la planificación nacional y l',
+                     'description':'',
+                     'code':'15.9'
+                },
+                {
+                  'sidi_id':'691',
+                     'name_tag':'Movilizar y aumentar significativamente los recursos financieros de todas las fuentes para conservar',
+                     'description':'',
+                     'code':'15.a'
+                },
+                {
+                  'sidi_id':'692',
+                     'name_tag':'Movilizar de manera significativa los recursos de todas las fuentes y en todos los niveles para fina',
+                     'description':'',
+                     'code':'15.b'
+                },
+                 {
+                  'sidi_id':'693',
+                     'name_tag':'Aumentar el apoyo mundial a la lucha contra la caza furtiva y el tráfico de especies protegidas, inc',
+                     'description':'',
+                     'code':'15.c'
+                },
+                 {
+                  'sidi_id':'694',
+                     'name_tag':'Paz, Justicia e Instituciones Sólidas',
+                     'description':'',
+                     'code':'16'
+                },
+                 {
+                  'sidi_id':'695',
+                     'name_tag':'Reducir significativamente todas las formas de violencia y las tasas de mortalidad relacionadas en t',
+                     'description':'',
+                     'code':'16.1'
+                },
+                {
+                  'sidi_id':'696',
+                     'name_tag':'Terminar con el abuso, la explotación, la trata y todas las formas de violencia y tortura contra los',
+                     'description':'',
+                     'code':'16.2'
+                },
+                {
+                  'sidi_id':'697',
+                     'name_tag':'Promover el estado de derecho en los planos nacional e internacional, y garantizar la igualdad en el',
+                     'description':'',
+                     'code':'16.3'
+                },
+                {
+                  'sidi_id':'698',
+                     'name_tag':'En 2030 reducir significativamente los flujos financieros y de armas ilícitas, fortalecer la recuper',
+                     'description':'',
+                     'code':'16.4'
+                },
+                {
+                  'sidi_id':'699',
+                     'name_tag':'Reducir sustancialmente la corrupción y el soborno en todas sus formas.',
+                     'description':'',
+                     'code':'16.5'
+                },
+                {
+                  'sidi_id':'700',
+                     'name_tag':'Desarrollar instituciones eficaces, responsables y transparentes a todos los niveles.',
+                     'description':'',
+                     'code':'16.6'
+                },
+                {
+                  'sidi_id':'701',
+                     'name_tag':'Garantizar la toma de decisiones receptiva, inclusiva, participativa y representativa en todos los n',
+                     'description':'',
+                     'code':'16.7'
+                },
+                {
+                  'sidi_id':'702',
+                     'name_tag':'Ampliar y fortalecer la participación de los países en desarrollo en las instituciones de gobernanza',
+                     'description':'',
+                     'code':'16.8'
+                },
+                {
+                  'sidi_id':'703',
+                     'name_tag':'Para 2030 proporcionar identidad legal para todos incluyendo el registro de nacimientos',
+                     'description':'',
+                     'code':'16.9'
+                },
+                 {
+                  'sidi_id':'704',
+                     'name_tag':'Garantizar el acceso público a la información y proteger las libertades fundamentales, de conformida',
+                     'description':'',
+                     'code':'16.10'
+                },
+                {
+                  'sidi_id':'705',
+                     'name_tag':'Fortalecer las instituciones nacionales pertinentes, incluyendo mediante la cooperación internaciona',
+                     'description':'',
+                     'code':'16.a'
+                },
+                 {
+                  'sidi_id':'706',
+                     'name_tag':'Promover y hacer cumplir leyes y políticas no discriminatorias para el desarrollo sostenible.',
+                     'description':'',
+                     'code':'16.b'
+                },
+                 {
+                  'sidi_id':'707',
+                     'name_tag':'Alianzas para Lograr Objetivos',
+                     'description':'',
+                     'code':'17'
+                },
+                {
+                  'sidi_id':'708',
+                     'name_tag':'Fortalecer la movilización de recursos internos, incluyendo a través del apoyo internacional a los p',
+                     'description':'',
+                     'code':'17.1'
+                },
+                {
+                  'sidi_id':'709',
+                     'name_tag':'Los países desarrollados deben cumplir plenamente sus compromisos de AOD, incluida la de destinar el',
+                     'description':'',
+                     'code':'17.2'
+                },
+                {
+                  'sidi_id':'710',
+                     'name_tag':'Movilizar recursos financieros adicionales para los países en desarrollo a partir de múltiples fuent',
+                     'description':'',
+                     'code':'17.3'
+                },
+                {
+                  'sidi_id':'711',
+                     'name_tag':'Ayudar a los países en desarrollo a alcanzar la sostenibilidad de la deuda de largo plazo a través d',
+                     'description':'',
+                     'code':'17.4'
+                },
+                {
+                  'sidi_id':'712',
+                     'name_tag':'Adoptar y aplicar regímenes de promoción de inversiones para los PMA.',
+                     'description':'',
+                     'code':'17.5'
+                },
+                {
+                  'sidi_id':'713',
+                     'name_tag':'Profundizar la cooperación triangular Norte-Sur, Sur-Sur, regional e internacional y el acceso a la',
+                     'description':'',
+                     'code':'17.6'
+                },
+                 {
+                  'sidi_id':'714',
+                     'name_tag':'Promover el desarrollo, la transferencia, la diseminación y la difusión de tecnologías amigables con',
+                     'description':'',
+                     'code':'17.7'
+                },
+                 {
+                  'sidi_id':'715',
+                     'name_tag':'Operacionalizar plenamente el Banco de Tecnología e CT&I, mecanismo de creación de capacidad para lo',
+                     'description':'',
+                     'code':'17.8'
+                },
+                {
+                  'sidi_id':'716',
+                     'name_tag':'Mejorar el apoyo internacional para la aplicación de creación de capacidad efectiva y focalizada en',
+                     'description':'',
+                     'code':'17.9'
+                },
+                {
+                  'sidi_id':'717',
+                     'name_tag':'Promover un sistema multilateral de comercio universal, abierto, no discriminatorio y equitativo en',
+                     'description':'',
+                     'code':'17.10'
+                },
+                {
+                  'sidi_id':'718',
+                     'name_tag':'Incrementar significativamente las exportaciones de los países en desarrollo, con miras a duplicar l',
+                     'description':'',
+                     'code':'17.11'
+                },
+                {
+                  'sidi_id':'719',
+                     'name_tag':'Alcanzar la implementación oportuna del acceso al mercado libre de cuotas y de impuestos, sobre una',
+                     'description':'',
+                     'code':'17.12'
+                },
+                {
+                  'sidi_id':'720',
+                     'name_tag':'Mejorar la estabilidad macroeconómica global, a través de la coordinación y la coherencia de las pol',
+                     'description':'',
+                     'code':'17.13'
+                },
+                {
+                  'sidi_id':'721    ',
+                     'name_tag':'Mejorar la coherencia de las políticas para el desarrollo sostenible.',
+                     'description':'',
+                     'code':'17.14'
+                },
+                {
+                  'sidi_id':'722    ',
+                     'name_tag':'Respetar el espacio político y el liderazgo de cada país para establecer y poner en práctica polític',
+                     'description':'',
+                     'code':'17.15'
+                },
+                {
+                  'sidi_id':'723    ',
+                     'name_tag':'Fortalecer la asociación mundial para el desarrollo sostenible complementada por asociaciones multip',
+                     'description':'',
+                     'code':'17.16'
+                },
+                {
+                  'sidi_id':'724    ',
+                     'name_tag':'Incentivar y promover asociaciones públicas, público-privado y de sociedad civil eficientes, basándo',
+                     'description':'',
+                     'code':'17.17'
+                },
+                {
+                  'sidi_id':'725    ',
+                     'name_tag':'Para 2020, aumentar el apoyo para la creación de capacidad a los países en desarrollo, incluidos los',
+                     'description':'',
+                     'code':'17.18'
+                },
+                 {
+                  'sidi_id':'726    ',
+                     'name_tag':'En 2030, construir sobre las iniciativas existentes para desarrollar medidas de progreso en el desar',
+                     'description':'',
+                     'code':'17.19'
+                },
+
+
 
             ]
           }
