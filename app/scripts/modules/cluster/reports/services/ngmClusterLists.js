@@ -27,7 +27,7 @@ angular.module( 'ngmReportHub' )
       all_sectors_minus_wash: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_minus_wash_health: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_minus_wash_education: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
-      all_sectors_col: ['smsd','education','albergues','san','health','recuperacion_temprana','protection','wash','undaf'],
+      all_sectors_col: ['smsd','education','alojamientos_asentamientos','san','health','recuperacion_temprana','protection','wash','undaf'],
 
 
        
@@ -447,8 +447,8 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'education',
             cluster: 'Educación en Emergencias (EeE)'
           },{
-            cluster_id: 'albergues',
-            cluster: 'Albergues'
+            cluster_id: 'alojamientos_asentamientos',
+            cluster: 'Alojamientos/Asentamientos'
           },{
             cluster_id:'san',
             cluster: 'Seguridad Alimentaria y Nutrición (SAN)'
@@ -618,8 +618,8 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'education',
             cluster: 'Educación en Emergencias (EeE)'
           },{
-            cluster_id: 'albergues',
-            cluster: 'Albergues'
+            cluster_id: 'alojamientos_asentamientos',
+            cluster: 'Alojamientos/Asentamientos'
           },{
             cluster_id:'san',
             cluster: 'Seguridad Alimentaria y Nutrición (SAN)'
