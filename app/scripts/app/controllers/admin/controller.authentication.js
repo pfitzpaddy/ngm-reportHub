@@ -96,7 +96,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         cluster: {
           'col' : {
             'education':{cluster:'Educación en Emergencias (EeE)'},
-            'albergues':{cluster:'Albergues'},
+            'alojamientos_asentamientos':{cluster:'Alojamientos/Asentamientos'},
             'san':{cluster:'Seguridad Alimentaria y Nutrición (SAN'},
             'health':{cluster:'Salud'},
             'recuperacion_temprana':{cluster:'Recuperación Temprana'},
