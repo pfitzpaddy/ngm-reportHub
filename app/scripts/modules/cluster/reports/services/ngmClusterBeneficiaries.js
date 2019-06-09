@@ -18,6 +18,7 @@ angular.module( 'ngmReportHub' )
 			merge_keys: [ 
 				'indicator_id',
 				'indicator_name',
+				'strategic_objective_descriptions',
 				'strategic_objective_id',
 				'strategic_objective_name',
 				'strategic_objective_description',
@@ -27,24 +28,27 @@ angular.module( 'ngmReportHub' )
 			],
 
 			defaults: {
-				form: {
-					boys:1,
-					girls:1,
-					men:1,
-					women:1
-				},
+				form: {},
 				units: {
 					units:0,
 					sessions:0,
 					cash_amount:0,
 					households:0,
 					families:0,
+					boys_0_5:0,
+					boys_6_11:0,
+					boys_12_17:0,
 					boys:0,
 					girls:0,
+					girls_0_5:0,
+					girls_6_11:0,
+					girls_12_17:0,
 					men:0,
 					women:0,
 					elderly_men:0,
 					elderly_women:0,
+					total_male:0,
+					total_female:0,
 					total_beneficiaries:0
 				},
 				activity_description: {

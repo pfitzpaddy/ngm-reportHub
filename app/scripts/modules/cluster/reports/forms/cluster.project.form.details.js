@@ -605,10 +605,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				cancelEdit: function( key, $index ) {
 					if ( !$scope.project.definition[ key ][ $index ].id ) {
 						$scope.project.definition[ key ].splice( $index, 1 );
-						ngmClusterBeneficiaries.form.active[ 0 ].rows.splice( $index, 1 );
+						ngmClusterBeneficiaries.form[ 0 ].splice( $index, 1 );
 					}
-					// set columns / rows
-					ngmClusterBeneficiaries.setBeneficiariesForm( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries );          
 				},
 
 

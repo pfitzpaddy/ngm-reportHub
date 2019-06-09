@@ -508,6 +508,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				cancelEdit: function( $parent, $index ) {
 					if ( !$scope.project.report.locations[ $parent ].beneficiaries[ $index ].id ) {		
 					 $scope.project.report.locations[ $parent ].beneficiaries.splice( $index, 1 );
+					 ngmClusterBeneficiaries.form[ $parent ].splice( $index, 1 );
 					}
 				},
 
