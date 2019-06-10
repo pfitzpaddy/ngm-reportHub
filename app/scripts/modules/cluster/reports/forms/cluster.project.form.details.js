@@ -410,11 +410,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							$timeout(function() { $('#ngm-activity_type').css({'font-weight':600}); }, 1000 );
 						}, 600 );
 					}
-					
 					// set beneficiaries
 					var beneficiary = ngmClusterBeneficiaries.addBeneficiary( $scope.project, $scope.project.definition.target_beneficiaries );
 					$scope.project.definition.target_beneficiaries.push( beneficiary );
-					
 					// set form display for new rows
 					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries.length-1, beneficiary );
 					ngmClusterBeneficiaries.updateSelect();

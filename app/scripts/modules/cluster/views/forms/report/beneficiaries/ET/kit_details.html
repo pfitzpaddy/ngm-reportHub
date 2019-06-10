@@ -37,8 +37,8 @@
 			<div class="input-field col s12 m1">
   			<div class="btn-floating waves-effect waves-light red lighten-2" 
 	  					title="Remove"
-	  					ng-show="project.definition.project_status !== 'complete' || project.report.report_status !== 'complete'"
-	  					ng-click="ngmClusterBeneficiaries.removeKitDetail( project, beneficiary, $locationIndex, $beneficiaryIndex, $index )"
+	  					ng-if="project.definition.project_status !== 'complete' || project.report.report_status !== 'complete'"
+	  					ng-click="ngmEtClusterBeneficiaries.removeKit( 'kit_details', project, $locationIndex, $beneficiaryIndex, $index, beneficiary )"
               ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
                             !ngmClusterTrainings.trainingFormComplete( project.report.locations )">
   				<i class="material-icons">clear</i>

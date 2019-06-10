@@ -273,7 +273,7 @@
 						
 						<!-- validation -->
 						<button class="waves-effect waves-light btn"
-											ng-click="project.validateBeneficiariesDetailsForm( false, false, true )"
+											ng-click="project.validateBeneficiariesDetailsForm( false, true )"
 											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
 																		!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
 											ng-cloak>
@@ -291,7 +291,7 @@
 						<!-- monthly report -->
 						<button ng-if="!project.location_group"
 											class="waves-effect waves-light btn blue"
-											ng-click="project.validateBeneficiariesDetailsForm( false, true, false )"
+											ng-click="project.validateBeneficiariesDetailsForm( true, false )"
 											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
 																		!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
 											ng-cloak>

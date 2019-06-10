@@ -6,7 +6,7 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterLocations', [ '$http', '$filter', '$timeout', 'ngmAuth','$translate', function( $http, $filter, $timeout, ngmAuth,$translate ) {
+	.factory( 'ngmClusterLocations', [ '$http', '$filter', '$timeout', 'ngmAuth','$translate', 'ngmClusterBeneficiaries', function( $http, $filter, $timeout, ngmAuth, $translate, ngmClusterBeneficiaries ) {
 
 		ngmClusterLocations = {
 
@@ -31,12 +31,16 @@ angular.module( 'ngmReportHub' )
 
       // add new_location
       addNewLocation: function( project, new_location ){
-        new_location.beneficiaries = [];
+        // create new beneficiaries holder
+        new_location.beneficiaries = [{}];
         project.report.locations.push( new_location );
+        // reset new_location
         ngmClusterLocations.new_location = {};
         ngmClusterLocations.openAddNewLocation = false;
+        // render form
+        ngmClusterBeneficiaries.updateSelect();
+        // send toast message
         $timeout(function(){ Materialize.toast( $filter('translate')('report_new_location') , 4000, 'success' ); }, 600 );
-        $( '#report_add_new_location' ).animatescroll();
       },
       
       // add location

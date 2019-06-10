@@ -4564,44 +4564,6 @@ angular.module( 'ngmReportHub' )
 
       },
 
-      // manages selections (removes selections from detials list for ET ESNFI partial_kits, kit_details)
-      setDetailList: function( detail_list, $locationIndex, $beneficiaryIndex, $index, detail_type_id, b_detail_list ) {
-
-        // list
-        var list;
-
-          // each beneficiary
-          if ( !ngmClusterLists[ detail_list ][ $locationIndex ] ) {
-            ngmClusterLists[ detail_list ][ $locationIndex ] = [];
-          }
-          if ( !ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ] ) {
-            ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ] = [];
-          }       
-
-          // get kit details
-          switch( detail_list ) {
-            case 'partial_kits':
-              list = ngmClusterLists.getPartialKits();
-              break;
-            default:
-              list = ngmClusterLists.getKitDetails();
-          }
-          
-          // set list at index
-            ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ] = angular.copy( list );
-
-          // remove current selection
-          b_detail_list = $filter( 'filter' )( b_detail_list, { detail_type_id: '!' + detail_type_id } );
-          
-          // filter partial_kits
-          angular.forEach( b_detail_list, function ( detail ) {
-            if ( detail.detail_type_id ) {
-              ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ] = $filter( 'filter' )( ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ], { detail_type_id: '!' + detail.detail_type_id } );
-            }
-          });
-
-      },
-
       // remove duplicates in item ( json array ) based on value ( filterOn )
       filterDuplicates: function( items, filterOn ){
 

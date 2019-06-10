@@ -85,7 +85,6 @@ angular.module( 'ngmReportHub' )
 					transfer_type_name: ''
 				}
 			},
-
 			
 
 			/* FORM UPDATES */
@@ -123,35 +122,38 @@ angular.module( 'ngmReportHub' )
 				$timeout(function() { $( 'select' ).material_select(); }, 10 );
 			},
 
+			// sum for totals (age groups)
+			updateBeneficiairesBreakdown: function( beneficiary ) {
+				// set
+				beneficiary.boys = 0;
+				beneficiary.girls = 0;
+
+				// calc
+				beneficiary.boys += beneficiary.boys_0_5 + 
+															beneficiary.boys_6_11 + 
+															beneficiary.boys_12_17;
+				beneficiary.girls += beneficiary.girls_0_5 + 
+															beneficiary.girls_6_11 + 
+															beneficiary.girls_12_17;
+				// calc totals	
+				ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );
+			},
+
 			// sum for totals
 			updateBeneficiaires: function( beneficiary ) {
+				// set
 				beneficiary.total_male = 0;
 				beneficiary.total_female = 0;
 				beneficiary.total_beneficiaries = 0;
-				beneficiary.total_male += beneficiary.boys + 
-															beneficiary.boys_0_5 + 
-															beneficiary.boys_6_11 + 
-															beneficiary.boys_12_17 +
+
+				// calc
+				beneficiary.total_male += beneficiary.boys +
 															beneficiary.men +
 															beneficiary.elderly_men;
 				beneficiary.total_female += beneficiary.girls + 
-															beneficiary.girls_0_5 + 
-															beneficiary.girls_6_11 + 
-															beneficiary.girls_12_17 + 
 															beneficiary.women + 
 															beneficiary.elderly_women;
-				beneficiary.total_beneficiaries += beneficiary.boys + 
-															beneficiary.boys_0_5 + 
-															beneficiary.boys_6_11 + 
-															beneficiary.boys_12_17 + 
-															beneficiary.girls + 
-															beneficiary.girls_0_5 + 
-															beneficiary.girls_6_11 + 
-															beneficiary.girls_12_17 + 
-															beneficiary.men + 
-															beneficiary.women + 
-															beneficiary.elderly_men + 
-															beneficiary.elderly_women;
+				beneficiary.total_beneficiaries += beneficiary.total_male + beneficiary.total_female;
 			},
 
 			// set the name for a selection
@@ -161,9 +163,12 @@ angular.module( 'ngmReportHub' )
 				obj[key] = beneficiary[key];
 				var select = $filter('filter')( list, obj, true );
 				// set name
-				beneficiary[ name ] = select[0][ name ];
-				// update materialize select
-				ngmClusterBeneficiaries.updateSelect();
+				if ( select.length ) {
+					// name
+					beneficiary[ name ] = select[0][ name ];
+					// update materialize select
+					ngmClusterBeneficiaries.updateSelect();
+				}
 			},
 
 			// update display name in object on select change
@@ -216,7 +221,11 @@ angular.module( 'ngmReportHub' )
 				if ( length ) {
 					var b = angular.copy( beneficiaries[ length - 1 ] );
 					delete b.id;
+					delete b.kit_details;
+					delete b.partial_kits;
 					delete b.remarks;
+					delete b.createdAt;
+					delete b.updatedAt;
 					context_defaults = ngmClusterBeneficiaries.defaults[ project.definition.admin0pcode ][ b.cluster_id ] ? ngmClusterBeneficiaries.defaults[ project.definition.admin0pcode ][ b.cluster_id ] : {}
 					angular.merge( inserted, b, defaults.inputs, context_defaults );
 				}
@@ -230,7 +239,7 @@ angular.module( 'ngmReportHub' )
 			/* BENEFICIARIES FORM */
 
 			// show activity (generic)
-			setActivity: function( project, beneficiary ){
+			setActivity: function( project, $parent, $index, beneficiary ){
 				
 				// set activity
 				var selected = [];
@@ -246,7 +255,7 @@ angular.module( 'ngmReportHub' )
 						// merge defaults
 						angular.merge( beneficiary, defaults.inputs, defaults.activity_description, defaults.activity_detail, defaults.indicator, defaults.beneficiary, defaults.cash_package_units );
 						// set form
-						ngmClusterBeneficiaries.setBeneficiariesInputs( project.lists, 0, project.definition.target_beneficiaries.length-1, beneficiary );
+						ngmClusterBeneficiaries.setBeneficiariesInputs( project.lists, $parent, $index, beneficiary );
 					}
 				}
 
@@ -379,18 +388,8 @@ angular.module( 'ngmReportHub' )
 			},
 
 
-			
 
-
-
-
-
-
-
-
-
-
-
+			/* RELICS */
 
 
 			// show activity (generic)
@@ -500,160 +499,6 @@ angular.module( 'ngmReportHub' )
 				}
 				return selected.length ? selected[0].beneficiary_type_name : '-';
 			},
-
-			displayBeneficiaryCategories:function( lists, $data, $beneficiary ) {
-				var selected = [];
-				$beneficiary.beneficiary_category_id = $data;
-				if( $beneficiary.beneficiary_category_id ) {
-					selected = $filter('filter')( lists.beneficiary_categories, { beneficiary_category_id: $beneficiary.beneficiary_category_id }, true);
-				}
-				if( selected && selected.length ) {
-					$beneficiary.beneficiary_category_name = selected[0].beneficiary_category_name;
-				}
-				return selected.length ? selected[0].beneficiary_category_name : '-';
-			},
-
-			// display delivery
-			displayDelivery: function( lists, $data, $beneficiary ) {
-				var selected = [];
-				$beneficiary.delivery_type_id = $data;
-				if( $beneficiary.delivery_type_id ) {
-					selected = $filter('filter')( lists.delivery_types, { delivery_type_id: $beneficiary.delivery_type_id }, true);
-					$beneficiary.delivery_type_name = selected[0].delivery_type_name;
-				}
-				return selected.length ? selected[0].delivery_type_name : '-';
-			},
-
-			// unit types
-			displayUnitTypes: function( lists, $data, $beneficiary ){
-				var selected = [];
-				$beneficiary.unit_type_id = $data;
-				if( $beneficiary.unit_type_id ) {
-					if ( lists && lists.units && lists.units.length  ) {
-						selected = $filter('filter')( lists.units, { unit_type_id: $beneficiary.unit_type_id }, true);
-					}
-					if( selected && selected.length ) {
-						$beneficiary.unit_type_name = selected[0].unit_type_name;
-					}
-				}
-				// if only unit
-				if( !$beneficiary.unit_type_id && lists.units && lists.units.length === 1 ){
-					// set beneficiary
-					$beneficiary.unit_type_id = lists.units[0].unit_type_id;
-					$beneficiary.unit_type_name = lists.units[0].unit_type_name;
-					// set selected
-					selected = [{
-						unit_type_id: $beneficiary.unit_type_id,
-						unit_type_name: $beneficiary.unit_type_name
-					}];
-				}
-				return selected.length ? selected[0].unit_type_name : '-';
-			},
-
-			// display delivery ( cash )
-			displayCashDelivery: function( lists, $data, $beneficiary ) {
-				var selected = [];
-				$beneficiary.mpc_delivery_type_id = $data;
-				if( $beneficiary.mpc_delivery_type_id ) {
-					// selection
-					selected = $filter('filter')( lists.mpc_delivery_types, { mpc_delivery_type_id: $beneficiary.mpc_delivery_type_id }, true );
-					if( selected && selected.length ) {
-						$beneficiary.mpc_delivery_type_name = selected[0].mpc_delivery_type_name;
-					}
-				}
-				return selected.length ? selected[0].mpc_delivery_type_name : '-';
-			},
-
-			// display mechanism ( cash )
-			displayCashMechanism: function ( lists, $data, $beneficiary ){
-				var selected = [];
-				$beneficiary.mpc_mechanism_type_id = $data;
-				if ($beneficiary.mpc_mechanism_type_id) {
-					// selection
-					selected = $filter('filter')( lists.mpc_mechanism_type, { mpc_mechanism_type_id: $beneficiary.mpc_mechanism_type_id }, true);
-					if( selected && selected.length ) {
-						$beneficiary.mpc_mechanism_type_name = selected[0].mpc_mechanism_type_name;
-					}
-				}
-				return selected.length ? selected[0].mpc_mechanism_type_name : '-';
-			},
-
-			// display package
-			displayPackageTypes: function( $data, $beneficiary ) {
-				var selected = [];
-				$beneficiary.package_type_id = $data;
-				if( $beneficiary.package_type_id ) {
-					// selection
-					selected = $filter('filter')( [{
-						'package_type_id': 'standard',
-						'package_type_name': 'Standard'
-					}, {
-						'package_type_id': 'non-standard',
-						'package_type_name': 'Non-standard'
-					}], { package_type_id: $beneficiary.package_type_id }, true );
-					if( selected && selected.length ) {
-						$beneficiary.package_type_name = selected[0].package_type_name;
-					}
-				}
-				return selected.length ? selected[0].package_type_name : '-';
-			},
-
-			// display category
-			displayCategory: function( lists, $data, $beneficiary ) {
-				var selected = [];
-				$beneficiary.category_type_id = $data;
-				if($beneficiary.category_type_id) {
-					selected = $filter('filter')( lists.category_types, { category_type_id: $beneficiary.category_type_id }, true);
-					if( selected && selected.length ) {
-						$beneficiary.category_type_name = selected[0].category_type_name;
-					}
-				}
-				return selected.length ? selected[0].category_type_name : '-';
-			},
-
-			// transfer_type_id
-			displayTransferTypes: function( lists, $data, $beneficiary ) {
-				var selected = [];
-				$beneficiary.transfer_type_id = $data;
-				if($beneficiary.transfer_type_id) {
-					selected = $filter('filter')( lists.transfers, { transfer_type_id: $beneficiary.transfer_type_id }, true);
-					if( selected && selected.length ) {
-						$beneficiary.transfer_type_value = selected[0].transfer_type_value;
-					}
-				}else{
-					$beneficiary.transfer_type_id = 0;
-					$beneficiary.transfer_type_value = 0;
-				}
-				return selected.length ? selected[0].transfer_type_value : 0;
-			},
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

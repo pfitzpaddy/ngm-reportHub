@@ -171,6 +171,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					ngmClusterHelper.setForm( $scope.project.definition, $scope.project.lists );
 					// set columns / rows
 					ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
+					// et esnfi set details
+					ngmEtClusterBeneficiaries.setForm( $scope.project.report.locations, 1350 );
 					// documents upload
 					$scope.project.setTokenUpload();
 				},
@@ -266,7 +268,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					var beneficiary = ngmClusterBeneficiaries.addBeneficiary( $scope.project, $scope.project.report.locations[ $parent ].beneficiaries );
 					$scope.project.report.locations[ $parent ].beneficiaries.push( beneficiary );
 					// set form display for new rows
-					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, $parent, $scope.project.definition.target_beneficiaries.length-1, beneficiary );
+					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, $parent, $scope.project.report.locations[ $parent ].beneficiaries.length-1, beneficiary );
 					ngmClusterBeneficiaries.updateSelect();
 				},
 
@@ -529,8 +531,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				},
 
 				// validate form ( ng wash )
-				validateBeneficiariesDetailsForm: function( rowform, complete, display_modal ){
-					if ( ngmClusterValidation.validateDetails( rowform, $scope.project.report.locations ) ){
+				validateBeneficiariesDetailsForm: function( complete, display_modal ){
+					if ( ngmClusterValidation.validateDetails( $scope.project.report.locations ) ){
 						if ( complete ) {
 							$( '#complete-modal' ).openModal( { dismissible: false } );
 						} else if ( display_modal ) {
