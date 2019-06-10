@@ -280,6 +280,7 @@
          "select_focal_point_of_your_project_in_the_form_below":"Seleccione el PUNTO FOCAL de su PROYECTO en el siguiente formulario",
          "enter_the_target_beneficiaries_of_your_project_in_the_form_below":"Ingrese los BENEFICIARIOS OBJETIVO de su PROYECTO en el siguiente formulario",
          "save_project":"Guardar Proyecto",
+         "target_beneficiary_removed":"Personas en necesidad objetivo eliminado!",
          "do_you_want_to_save_this_project":"Quieres Guardar este proyecto",
          "yes":"Si",
          "cancel_new_project":"Cancelar Nuevo Proyecto",
@@ -299,7 +300,8 @@
          "last_updated":"Última Actualización",
          "refresh_data":"Refrescar Datos",
          "project_locations":"UBICACIONES DE PROYECTOS",
-                 "project_location_removed":"Ubicación de Proyecto Eliminada!",
+         "project_location_removed":"Ubicación de Proyecto Eliminada!",
+         "report_new_location":"Guardar informe para guardar nueva ubicación!",
 
          "project_location_saved":"Ubicación de Proyecto Guardada!",
 

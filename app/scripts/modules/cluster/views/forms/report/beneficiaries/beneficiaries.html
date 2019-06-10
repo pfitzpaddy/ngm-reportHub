@@ -19,7 +19,7 @@
 			<div align="right" style="padding: 16px 10px 5px;">
 				<button class="btn-floating red lighten-2 waves-effect waves-light"
 									title="Remove"
-									ng-if="!project.newProject"
+									ng-if="beneficiary.id"
 									ng-click="project.removeBeneficiaryModal( $locationIndex, $beneficiaryIndex ); project.activePrevReportButton()" 
 									ng-disabled="project.definition.project_status === 'complete' || 
 																project.report.report_status === 'complete' ||
@@ -86,7 +86,7 @@
 																			cluster_id: beneficiary.cluster_id,
 																			activity_type_id: beneficiary.activity_type_id
 																		} : true"
-											ng-change="ngmClusterBeneficiaries.setBeneficiaries( project.lists, 'description', 0, $beneficiaryIndex, beneficiary );
+											ng-change="ngmClusterBeneficiaries.setBeneficiaries( project, 'description', 0, $beneficiaryIndex, beneficiary );
 																	ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
@@ -132,7 +132,7 @@
 																			activity_type_id: beneficiary.activity_type_id
 																		} : true"
 											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );
-																	ngmClusterBeneficiaries.setBeneficiaries( project.lists, 'description', 0, $beneficiaryIndex, beneficiary );"
+																	ngmClusterBeneficiaries.setBeneficiaries( project, 'description', 0, $beneficiaryIndex, beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
@@ -156,7 +156,7 @@
 																				activity_description_id: beneficiary.activity_description_id 
 																		} : true"
 											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_detail_id', 'activity_detail_name', beneficiary );
-																	ngmClusterBeneficiaries.setBeneficiaries( project.lists, 'detail', 0, $beneficiaryIndex, beneficiary );"
+																	ngmClusterBeneficiaries.setBeneficiaries( project, 'detail', 0, $beneficiaryIndex, beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
@@ -198,7 +198,7 @@
 																			activity_type_id: beneficiary.activity_type_id
 																		} : true"
 											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );
-																	ngmClusterBeneficiaries.setBeneficiaries( project.lists, 'description', 0, $beneficiaryIndex, beneficiary );"
+																	ngmClusterBeneficiaries.setBeneficiaries( project, 'description', 0, $beneficiaryIndex, beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
@@ -246,7 +246,7 @@
 																				activity_description_id: beneficiary.activity_description_id,
 																				activity_detail_id: beneficiary.activity_detail_id 
 																		} : true"
-											ng-change="ngmClusterBeneficiaries.setBeneficiaries( project.lists, 'indicator', 0, $beneficiaryIndex, beneficiary );
+											ng-change="ngmClusterBeneficiaries.setBeneficiaries( project, 'indicator', 0, $beneficiaryIndex, beneficiary );
 																	ngmClusterBeneficiaries.updateSelect();"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
@@ -260,8 +260,10 @@
 
 				<!-- BENEFICIARIES -->
 				
-				<!-- !COL -->
-				<div class="row" ng-if="project.definition.admin0pcode !== 'COL' && beneficiary.activity_description_id">
+				<!-- activity_description_id && !category_type_id && !delivery_type_id -->
+				<div class="row" ng-if="beneficiary.activity_description_id &&
+																!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'category_type_id' ] &&
+																!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'delivery_type_id' ]">
 
 					<!-- beneficiary_type -->
 					<div class="input-field col s12">
@@ -279,12 +281,54 @@
 						</select>
 						<label for="ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-10%)">{{ 'beneficiary' | translate }}</label>
 					</div>
+
 				</div>
 
-				<!-- COL -->
-				<div class="row" ng-if="project.definition.admin0pcode === 'COL' && beneficiary.activity_description_id">
+				<!-- activity_description_id && !category_type_id && delivery_type_id -->
+				<div class="row" ng-if="beneficiary.activity_description_id &&
+																!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'category_type_id' ] &&
+																ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'delivery_type_id' ]">
+
 					<!-- beneficiary_type -->
-					<div class="input-field col s12 m6">
+					<div class="input-field col s6">
+						<select id="ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+											name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+											class="validate"
+											ng-model="beneficiary.beneficiary_type_id"
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_types, 'beneficiary_type_id', 'beneficiary_type_name', beneficiary )"
+											ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types |
+																	filter: { 
+																		cluster_id: beneficiary.cluster_id
+																	} : true"
+											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_description_id">
+							<option value="">{{ 'select' | translate }}</option>
+						</select>
+						<label for="ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-10%)">{{ 'beneficiary' | translate }}</label>
+					</div>
+
+					<!-- delivery_type_id -->
+					<div class="input-field col s6">
+						<select id="ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+											name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+											class="validate"
+											ng-model="beneficiary.delivery_type_id"
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types, 'delivery_type_id', 'delivery_type_name', beneficiary )"
+											ng-options="b.delivery_type_id as b.delivery_type_name for b in project.lists.delivery_types"
+											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id">
+							<option value="">{{ 'select' | translate }}</option>
+						</select>
+						<label for="ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-10%)">{{ 'type' | translate }}</label>
+					</div>
+
+				</div>
+
+				<!-- activity_description_id && !category_type_id && !delivery_type_id -->
+				<div class="row" ng-if="beneficiary.activity_description_id &&
+																ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'category_type_id' ] &&
+																ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'delivery_type_id' ]">
+
+					<!-- beneficiary_type -->
+					<div class="input-field col s12 m4">
 						<select id="ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
@@ -302,7 +346,7 @@
 					</div>
 					
 					<!-- beneficiary_type -->
-					<div class="input-field col s12 m6">
+					<div class="input-field col s12 m4">
 						<select id="ngm-beneficiary_category_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="beneficiary_category_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
@@ -313,7 +357,21 @@
 							<option value="">{{ 'select' | translate }}</option>
 						</select>
 						<label for="ngm-beneficiary_category_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-10%)">{{ 'beneficiary_category' | translate }}</label>
-					</div>                
+					</div>
+
+					<!-- delivery_type_id -->
+					<div class="input-field col s4">
+						<select id="ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+											name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+											class="validate"
+											ng-model="beneficiary.delivery_type_id"
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types, 'delivery_type_id', 'delivery_type_name', beneficiary )"
+											ng-options="b.delivery_type_id as b.delivery_type_name for b in project.lists.delivery_types"
+											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id">
+							<option value="">{{ 'select' | translate }}</option>
+						</select>
+						<label for="ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-10%)">{{ 'type' | translate }}</label>
+					</div>
 
 				</div>
 
@@ -600,11 +658,11 @@
 				
 				<!-- SADD ( very SAD age breakdown - male ) -->
 				<div class="row"
-							ng-if="( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_0_5' ]  ||
-												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_6_11' ] ||
-												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_12_17' ] ||
-												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'men' ]  ||
-												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_men' ] ||
+							ng-if="( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_0_5' ] &&
+												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_6_11' ] &&
+												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_12_17' ] &&
+												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'men' ] &&
+												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_men' ] &&
 												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'total_men' ] )">
 
 					<!-- boys_0_5 -->
@@ -615,6 +673,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.boys_0_5"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_0_5' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-boys_0_5-{{ $index }}" class="active">{{ 'boys_0_5' | translate }}</label>
@@ -627,6 +686,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.boys_6_11"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_6_11' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-boys_6_11-{{ $index }}" class="active">{{ 'boys_6_11' | translate }}</label>
@@ -639,6 +699,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.boys_12_17"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_12_17' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-boys_12_17-{{ $index }}" class="active">{{ 'boys_12_17' | translate }}</label>
@@ -652,6 +713,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.men"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'men' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-men-{{ $index }}" class="active">{{ 'male_18_59' | translate }}</label>
@@ -664,6 +726,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.elderly_men"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_men' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-elderly_men-{{ $index }}" class="active">{{ 'male_60_plus' | translate }}</label>
@@ -685,11 +748,11 @@
 
 				<!-- SADD ( very SAD age breakdown - female ) -->
 				<div class="row"
-							ng-if="( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_0_5' ]  ||
-												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_6_11' ] ||
-												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_12_17' ] ||
-												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'women' ]  ||
-												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_women' ] ||
+							ng-if="( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_0_5' ] &&
+												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_6_11' ] &&
+												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_12_17' ] &&
+												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'women' ] &&
+												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_women' ] &&
 												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'total_female' ] )">
 
 					<!-- girls_0_5 -->
@@ -700,6 +763,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.girls_0_5"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_0_5' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-girls_0_5-{{ $index }}" class="active">{{ 'girls_0_5' | translate }}</label>
@@ -712,6 +776,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.girls_6_11"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_6_11' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-girls_6_11-{{ $index }}" class="active">{{ 'girls_6_11' | translate }}</label>
@@ -724,6 +789,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.girls_12_17"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_12_17' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-girls_12_17-{{ $index }}" class="active">{{ 'girls_12_17' | translate }}</label>
@@ -737,6 +803,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.women"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'women' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-women-{{ $index }}" class="active">{{ 'female_18_59' | translate }}</label>
@@ -749,6 +816,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.elderly_women"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_women' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-elderly_women-{{ $index }}" class="active">{{ 'female_60_plus' | translate }}</label>
@@ -795,6 +863,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.boys"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-boys-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'boys' | translate }}</label>
@@ -808,6 +877,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.girls"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-girls-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'girls' | translate }}</label>
@@ -838,6 +908,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.men"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'men' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'men' | translate }}</label>
@@ -851,6 +922,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.women"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'women' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'women' | translate }}</label>
@@ -882,6 +954,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.boys"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-boys-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'boys' | translate }}</label>
@@ -895,6 +968,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.girls"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-girls-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'girls' | translate }}</label>
@@ -908,6 +982,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.men"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'men' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'men' | translate }}</label>
@@ -921,6 +996,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.women"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'women' ]"
 										required />
 						<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'women' | translate }}</label>
@@ -952,6 +1028,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.boys"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys' ]"
 										required />
 						<label for="ngm-boys-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'boys' | translate }}</label>
@@ -964,6 +1041,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.girls"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls' ]"
 										required />
 						<label for="ngm-girls-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'girls' | translate }}</label>
@@ -976,6 +1054,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.men"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'men' ]"
 										required />
 						<label for="ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'men' | translate }}</label>
@@ -988,6 +1067,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.women"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'women' ]"
 										required />
 						<label for="ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'women' | translate }}</label>
@@ -1000,6 +1080,7 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.elderly_men"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_men' ]"
 										required />
 						<label for="ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'eld_men' | translate }}</label>
@@ -1012,11 +1093,13 @@
 										class="validate" 
 										min="0"
 										ng-model="beneficiary.elderly_women"
+										ng-change="ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );"
 										ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_women' ]"
 										required />
 						<label for="ngm-elderly_women-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'eld_women' | translate }}</label>
 					</div>
 				</div>
+
 
 				<!-- TOTAL -->
 				<div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'total_beneficiaries' ]">
@@ -1049,23 +1132,69 @@
 					</div>
 				</div>
 
+				<!-- ACTIVITY START DATE -->
+				<div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'activity_date' ]">
+					
+					<!-- get template -->
+					<div class="row" ng-init="ngmClusterBeneficiaries.initDistributionDate( beneficiary )">
+						<div ng-include="project.templatesUrl + project.template_distribution_date"></div>
+					</div>
+
+				</div>
+
+
+				<!-- PARTIAL KITS -->
+				<div class="row" ng-if="ngmEtClusterBeneficiaries.showPartialKits( $locationIndex, $beneficiaryIndex, $index, beneficiary )">
+
+					<!-- get template -->
+					<div class="row" ng-repeat="detail in beneficiary.partial_kits">
+						<div ng-include="project.templatesUrl + project.template_partial_kits"></div>
+					</div>
+					<!-- add details -->
+					<div class="row" style="margin-left:20px;padding-top: 5px;">
+						<button class="btn blue lighten-2"
+										ng-if="beneficiary.partial_kits.length !== project.lists.partial_kits.length && 
+														( project.definition.project_status !== 'complete' || project.report.report_status !== 'complete' )"
+										ng-click="ngmEtClusterBeneficiaries.addPartialKits( $locationIndex, $beneficiaryIndex, beneficiary );">
+							<i class="material-icons left">add</i>{{'add_partial_kits' | translate}}
+
+						</button>
+					</div>
+
+				</div>
+
+
+				<!-- KIT DETAILS -->
+				<div class="row" ng-if="ngmEtClusterBeneficiaries.showKitDetails( $locationIndex, $beneficiaryIndex, $index, beneficiary )">
+
+					<!-- get template -->
+					<div class="row" ng-repeat="detail in beneficiary.kit_details">
+						<div ng-include="project.templatesUrl + project.template_kit_details"></div>
+					</div>
+					<!-- add details -->
+					<div class="row" style="margin-left:20px;padding-top: 5px;">
+						<button class="btn blue lighten-2"
+										ng-if="beneficiary.kit_details.length !== project.lists.kit_details.length && 
+														( project.definition.project_status !== 'complete' || project.report.report_status !== 'complete' )"
+										ng-click="ngmEtClusterBeneficiaries.addKitDetail( $locationIndex, $beneficiaryIndex, beneficiary );">
+							<i class="material-icons left">add</i>{{'add_kit_details' | translate}}
+
+						</button>
+					</div>
+
+				</div>
+
+
 			</div>
 		</div>
 
 		<!-- buttons -->
 		<div class="row">
-			<!-- Shelter ET -->
-			<button class="btn" 
-								ng-if="( project.definition.project_status !== 'complete' && project.report.report_status !== 'complete' ) && ( project.definition.admin0pcode === 'ET' && project.definition.cluster_id === 'esnfi' )"
-								ng-click="project.addBeneficiary( $locationIndex, { households: 1 });"
-								style="margin:20px 10px;">
-				<i class="material-icons left">add</i>{{ 'add_beneficiaries' | translate }}
-			</button>
 
 			<!-- default -->
 			<button class="btn"
-								ng-if="( project.definition.project_status !== 'complete' && project.report.report_status !== 'complete' ) && ( project.definition.admin0pcode !== 'ET' || project.definition.cluster_id !== 'esnfi' )"
-								ng-click="project.addBeneficiary( $locationIndex, {});"
+								ng-if="( project.definition.project_status !== 'complete' && project.report.report_status !== 'complete' )"
+								ng-click="project.addBeneficiary( $locationIndex );"
 								style="margin:20px 10px;">
 				<i class="material-icons left">add</i>{{'add_beneficiaries'|translate}}
 			</button>

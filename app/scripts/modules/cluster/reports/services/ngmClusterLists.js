@@ -299,27 +299,8 @@ angular.module( 'ngmReportHub' )
 
         var delivery = [];
 
-        if ( admin0pcode === 'AF' ) {
-          delivery = [{
-            delivery_type_id: 'population',
-            delivery_type_name: 'New Beneficiaries'
-          },{
-            delivery_type_id: 'service',
-            delivery_type_name: 'Existing Beneficiaries'
-          }];
-        } else if( admin0pcode === 'COL'){
-
-          delivery = [{
-            delivery_type_id: 'population',
-            delivery_type_name: 'Nuevos Beneficiarios'
-          },{
-            delivery_type_id: 'service',
-            delivery_type_name: 'Beneficiarios Existentes'
-          }];
-
-        }
-          else
-         {
+        if ( admin0pcode === 'CB' ) {
+          
           delivery = [{
             delivery_type_id: 'population',
             delivery_type_name: 'New Beneficiaries'
@@ -330,6 +311,27 @@ angular.module( 'ngmReportHub' )
             delivery_type_id: 'contingency',
             delivery_type_name: 'Contingency'
           }];
+
+        } else if( admin0pcode === 'COL'){
+
+          delivery = [{
+            delivery_type_id: 'population',
+            delivery_type_name: 'Nuevos Beneficiarios'
+          },{
+            delivery_type_id: 'service',
+            delivery_type_name: 'Beneficiarios Existentes'
+          }];
+
+        } else {
+
+          delivery = [{
+            delivery_type_id: 'population',
+            delivery_type_name: 'New Beneficiaries'
+          },{
+            delivery_type_id: 'service',
+            delivery_type_name: 'Existing Beneficiaries'
+          }];
+
         }
 
         return delivery;

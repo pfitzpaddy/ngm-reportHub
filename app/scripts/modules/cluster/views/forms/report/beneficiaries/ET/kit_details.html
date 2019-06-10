@@ -13,7 +13,7 @@
                 ng-options="detail.detail_type_id as detail.detail_type_name for detail in 
                 							ngmClusterLists.kit_details[ $locationIndex ][ $beneficiaryIndex ][ $index ] | orderBy:'detail_type_name'"
                 ng-change="ngmClusterBeneficiaries.selectChange( project, detail, 'kit_details', 'detail_type_id', 'detail_type_name','ngm-beneficiary-kit-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}');"
-                ng-disabled="project.report.report_status === 'complete' || !rowform.$visible">
+                ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete'">
 					<option value="" selected>{{'select'|translate}}</option>
 
 				</select>
@@ -29,7 +29,7 @@
                   min="0" 
                   ng-model="detail.quantity"
                   ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-beneficiary-kit-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-                  ng-disabled="project.report.report_status === 'complete' || !rowform.$visible">
+                  ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete'">
                 <label for="ngm-beneficiary-kit-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" class="active">Amount (per HH)</label>
 			</div>
 
@@ -37,7 +37,7 @@
 			<div class="input-field col s12 m1">
   			<div class="btn-floating waves-effect waves-light red lighten-2" 
 	  					title="Remove"
-	  					ng-show="rowform.$visible"
+	  					ng-show="project.definition.project_status !== 'complete' || project.report.report_status !== 'complete'"
 	  					ng-click="ngmClusterBeneficiaries.removeKitDetail( project, beneficiary, $locationIndex, $beneficiaryIndex, $index )"
               ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
                             !ngmClusterTrainings.trainingFormComplete( project.report.locations )">

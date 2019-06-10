@@ -237,9 +237,11 @@
         "target_population":"Target Population",
         "project_target_locations":"Project Target Locations",
         "project_location_removed":"Project Location Removed!",
+        "report_new_location":"Save Report to Save New Location!",
         "select_focal_point_of_your_project_in_the_form_below":"Select FOCAL POINT of your PROJECT in the form below",
         "enter_the_target_beneficiaries_of_your_project_in_the_form_below":"Enter the TARGET BENEFICIARIES of your PROJECT in the form below",
         "save_project":"Save Project",
+        "target_beneficiary_removed":"People in Need Target Removed!",
 
         "do_you_want_to_save_this_project":"Do you want to Save this project",
         "yes":"Yes",
@@ -533,7 +535,7 @@
         "male_60_plus":"Male 60+",
         "eld_men":"Eld. Men",
         "total_male":"Total Male",
-        
+
         "girls":"Girls",
         "girls_0_5":"Female 0-5",
         "girls_6_11":"Female 6-11",

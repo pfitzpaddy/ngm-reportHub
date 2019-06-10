@@ -400,7 +400,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				/**** TARGET BENEFICIARIES ( ngmClusterHelperBeneficiaries.js ) ****/
 
 				// add beneficiary
-				addBeneficiary: function( defaults ) {
+				addBeneficiary: function() {
 
 					// scroll to activity_type when no beneficiaries
 					if ( !$scope.project.definition.activity_type || !$scope.project.definition.activity_type.length ) {
@@ -412,7 +412,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					}
 					
 					// set beneficiaries
-					var beneficiary = ngmClusterBeneficiaries.addBeneficiary( $scope.project.definition.target_beneficiaries, defaults );
+					var beneficiary = ngmClusterBeneficiaries.addBeneficiary( $scope.project, $scope.project.definition.target_beneficiaries );
 					$scope.project.definition.target_beneficiaries.push( beneficiary );
 					
 					// set form display for new rows
@@ -606,6 +606,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					if ( !$scope.project.definition[ key ][ $index ].id ) {
 						$scope.project.definition[ key ].splice( $index, 1 );
 						ngmClusterBeneficiaries.form[ 0 ].splice( $index, 1 );
+						$timeout(function(){ Materialize.toast( $filter('translate')('target_beneficiary_removed'), 4000, 'success' ); }, 400 );
 					}
 				},
 

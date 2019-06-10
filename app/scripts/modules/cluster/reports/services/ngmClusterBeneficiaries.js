@@ -29,7 +29,12 @@ angular.module( 'ngmReportHub' )
 
 			defaults: {
 				form: {},
-				units: {
+				ET: {
+					esnfi: {
+						households:1,
+					}
+				},
+				inputs: {
 					units:0,
 					sessions:0,
 					cash_amount:0,
@@ -80,12 +85,10 @@ angular.module( 'ngmReportHub' )
 					transfer_type_name: ''
 				}
 			},
+
 			
 
-
-
-
-
+			/* FORM UPDATES */
 
 			// datepicker ( NG )
 			datepicker: {
@@ -106,24 +109,49 @@ angular.module( 'ngmReportHub' )
 				},        
 			},
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			// show distribution date
+			initDistributionDate: function( beneficiary ){
+				// set values
+				if ( !beneficiary.distribution_start_date ) {
+					beneficiary.distribution_start_date = moment.utc( new Date() ).format( 'YYYY-MM-DD' );
+					beneficiary.distribution_status = 'ongoing';
+				}
+			},
 
 			// update material_select
 			updateSelect: function(){
 				$timeout(function() { $( 'select' ).material_select(); }, 10 );
+			},
+
+			// sum for totals
+			updateBeneficiaires: function( beneficiary ) {
+				beneficiary.total_male = 0;
+				beneficiary.total_female = 0;
+				beneficiary.total_beneficiaries = 0;
+				beneficiary.total_male += beneficiary.boys + 
+															beneficiary.boys_0_5 + 
+															beneficiary.boys_6_11 + 
+															beneficiary.boys_12_17 +
+															beneficiary.men +
+															beneficiary.elderly_men;
+				beneficiary.total_female += beneficiary.girls + 
+															beneficiary.girls_0_5 + 
+															beneficiary.girls_6_11 + 
+															beneficiary.girls_12_17 + 
+															beneficiary.women + 
+															beneficiary.elderly_women;
+				beneficiary.total_beneficiaries += beneficiary.boys + 
+															beneficiary.boys_0_5 + 
+															beneficiary.boys_6_11 + 
+															beneficiary.boys_12_17 + 
+															beneficiary.girls + 
+															beneficiary.girls_0_5 + 
+															beneficiary.girls_6_11 + 
+															beneficiary.girls_12_17 + 
+															beneficiary.men + 
+															beneficiary.women + 
+															beneficiary.elderly_men + 
+															beneficiary.elderly_women;
 			},
 
 			// set the name for a selection
@@ -154,15 +182,34 @@ angular.module( 'ngmReportHub' )
 				}
 			},
 
+			// show cxb health label
+			cxbHealth: function( project ) {
+				var display = false;
+				if ( project.definition.admin0pcode === 'CB' 
+							&& project.definition.cluster_id === 'health' ) {
+					display = true;
+				}
+				return display;
+			},
+
+
+
+			/* BENEFICIARIES */
+
 			// add beneficiary
-			addBeneficiary: function ( beneficiaries, form_defaults ) {
+			addBeneficiary: function ( project, beneficiaries ) {
 
 				// inserted
 				var inserted = {}
 				var defaults = ngmClusterBeneficiaries.defaults;
+				var context_defaults = {}
+				// default is first beneficiary
+				if ( beneficiaries && beneficiaries.length ) {
+					context_defaults = ngmClusterBeneficiaries.defaults[ project.definition.admin0pcode ][ beneficiaries[ 0 ].cluster_id ] ? ngmClusterBeneficiaries.defaults[ project.definition.admin0pcode ][ beneficiaries[ 0 ].cluster_id ] : {}
+				}
 
 				// merge
-				angular.merge( inserted, defaults.units, form_defaults );
+				angular.merge( inserted, defaults.inputs, context_defaults );
 
 				// clone
 				var length = beneficiaries.length;
@@ -170,12 +217,17 @@ angular.module( 'ngmReportHub' )
 					var b = angular.copy( beneficiaries[ length - 1 ] );
 					delete b.id;
 					delete b.remarks;
-					angular.merge( inserted, b, defaults.units, form_defaults );
+					context_defaults = ngmClusterBeneficiaries.defaults[ project.definition.admin0pcode ][ b.cluster_id ] ? ngmClusterBeneficiaries.defaults[ project.definition.admin0pcode ][ b.cluster_id ] : {}
+					angular.merge( inserted, b, defaults.inputs, context_defaults );
 				}
 
 				// return new beneficiary
 				return inserted;
 			},
+
+
+
+			/* BENEFICIARIES FORM */
 
 			// show activity (generic)
 			setActivity: function( project, beneficiary ){
@@ -192,7 +244,7 @@ angular.module( 'ngmReportHub' )
 						beneficiary.activity_type_id = selected[0].activity_type_id;
 						beneficiary.activity_type_name = selected[0].activity_type_name; 
 						// merge defaults
-						angular.merge( beneficiary, defaults.units, defaults.activity_description, defaults.activity_detail, defaults.indicator, defaults.beneficiary, defaults.cash_package_units );
+						angular.merge( beneficiary, defaults.inputs, defaults.activity_description, defaults.activity_detail, defaults.indicator, defaults.beneficiary, defaults.cash_package_units );
 						// set form
 						ngmClusterBeneficiaries.setBeneficiariesInputs( project.lists, 0, project.definition.target_beneficiaries.length-1, beneficiary );
 					}
@@ -201,24 +253,25 @@ angular.module( 'ngmReportHub' )
 			},
 
 			// set description
-			setBeneficiaries: function( lists, type, $parent, $index, beneficiary ) {
+			setBeneficiaries: function( project, type, $parent, $index, beneficiary ) {
 
 				// defaults
 				var defaults = ngmClusterBeneficiaries.defaults;
+				var context_defaults = ngmClusterBeneficiaries.defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] ? ngmClusterBeneficiaries.defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] : {}
 
 				// merge defaults
 				if ( type === 'description' ) {
-					angular.merge( beneficiary, defaults.units, defaults.activity_detail, defaults.indicator );
+					angular.merge( beneficiary, defaults.inputs, defaults.activity_detail, defaults.indicator, context_defaults );
 				}
 				if ( type === 'detail' ) {
-					angular.merge( beneficiary, defaults.units, defaults.indicator );
+					angular.merge( beneficiary, defaults.inputs, defaults.indicator, context_defaults);
 				}
 				if ( type === 'indicator' ) {
-					angular.merge( beneficiary, defaults.units );
+					angular.merge( beneficiary, defaults.inputs, context_defaults );
 				}
 
 				// set form for beneficiary
-				ngmClusterBeneficiaries.setBeneficiariesInputs( lists, 0, $index, beneficiary );		
+				ngmClusterBeneficiaries.setBeneficiariesInputs( project.lists, 0, $index, beneficiary );		
 
 				// merge defaults from form (activities.csv)
 				angular.forEach( ngmClusterBeneficiaries.merge_keys, function ( key, i ) {
@@ -233,15 +286,12 @@ angular.module( 'ngmReportHub' )
 						delete beneficiary[ key_base + 'name' ];
 					}
 				});
-					
-				// console.log
-				console.log( 'setBeneficiaries' );
-				console.log( beneficiary );
 
 			},
 
 
-			/* SHOW AND HIDE TARGETS */
+
+			/* SHOW AND HIDE FORM INPUTS */
 
 			// for each location ( monhtly report )
 			setLocationsForm: function( lists, locations ) {
@@ -254,12 +304,6 @@ angular.module( 'ngmReportHub' )
 
 				// select element to load
 				$( 'select' ).ready(function() { setTimeout( function(){ $( 'select' ).material_select(); }, 600 ); });
-
-				// last element to load
-				// var el = '#ngm-activity_type_id-' + locations.length-1 + '-' + locations[ locations.length-1 ].beneficiaries.length-1;
-				// $( el ).ready(function() {
-				// 	setTimeout( function(){ $( 'select' ).material_select(); }, 1000 );
-				// });
 
 			},
 
@@ -302,197 +346,9 @@ angular.module( 'ngmReportHub' )
 
 			},
 
-			
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			/* ESNFI KITS */
-
-			// show distribution date
-			initDistributionDate: function( beneficiary ){
-				// set values
-				if ( !beneficiary.distribution_start_date ) {
-					beneficiary.distribution_start_date = moment.utc( new Date() ).format( 'YYYY-MM-DD' );
-					beneficiary.distribution_status = 'ongoing';
-				}
-			},
-
-			// show add kit detials
-			showPartialKits: function( $locationIndex, $beneficiaryIndex, $index, beneficiary ){
-				var display = beneficiary.cluster_id === 'esnfi' && 
-												beneficiary.activity_description_id === 'partial_kits';
-
-				// defaults to 1 entry
-				if ( display && !beneficiary.partial_kits ) {
-					beneficiary.partial_kits = [{}];
-				}
-
-				// set kits
-				ngmClusterBeneficiaries.setKits( $locationIndex, $beneficiaryIndex, $index, 'partial_kits', ngmClusterLists.getPartialKits() );
-
-				return display;
-			},
-
-			// show add kit detials
-			showKitDetails: function( $locationIndex, $beneficiaryIndex, $index, beneficiary ){
-				var display = beneficiary.cluster_id === 'esnfi' &&
-												beneficiary.activity_description_id === 'loose_items';
-
-				// defaults to 1 entry
-				if ( display && !beneficiary.kit_details ) {
-					beneficiary.kit_details = [{}];
-				}
-
-				// set kits
-				ngmClusterBeneficiaries.setKits( $locationIndex, $beneficiaryIndex, $index, 'kit_details', ngmClusterLists.getKitDetails() );
-
-				return display;
-			},
-
-			// kits
-			setKits( $locationIndex, $beneficiaryIndex, $index, key, list ) {
-				// first list
-				if ( !ngmClusterLists[ key ][ $locationIndex ] ) {
-					ngmClusterLists[ key ][ $locationIndex ] = [];
-				}
-				if ( !ngmClusterLists[ key ][ $locationIndex ][ $beneficiaryIndex ] ) {
-					ngmClusterLists[ key ][ $locationIndex ][ $beneficiaryIndex ] = [];
-				}
-				if ( !ngmClusterLists[ key ][ $locationIndex ][ $beneficiaryIndex ][ $index ] ){
-					ngmClusterLists[ key ][ $locationIndex ][ $beneficiaryIndex ][ $index ] = list;
-				}
-			},
-
-			// ethiopia esnfi onchange
-			descriptionChange: function( $locationIndex, $beneficiaryIndex, lists, $beneficiary ) {
-
-				var kits;
-				if ( $beneficiary && $beneficiary.activity_type_id ) {
-
-					if ( $beneficiary.activity_type_id === 'hardware_materials_distribution' ) {
-
-						// set
-						$timeout(function() {
-
-							if ( $beneficiary.activity_description_id !== 'partial_kits' ) {
-								kits = 'kit_details';
-							} else {
-								kits = 'partial_kits';
-							}
-
-							$beneficiary[ kits ] = [{}];
-							$beneficiary = ngmClusterBeneficiaries.setKitDetails( lists.activity_descriptions, $beneficiary );
-							angular.forEach( $beneficiary[ kits ] , function ( d, i ) {
-								ngmClusterLists.setDetailList( kits, $locationIndex, $beneficiaryIndex, i, d.detail_type_id, $beneficiary.kit_details );
-							});
-
-						}, 100 );
-
-					}
-				}
-			},
-
-			// set kit details
-			setKitDetails: function( list, $beneficiary ){
-				var kit = $filter('filter')( list, { activity_description_id: $beneficiary.activity_description_id }, true );
-				if ( kit[0].kit_details.length ) {
-					$beneficiary.kit_details = kit[0].kit_details;
-				}
-				return $beneficiary;
-			},
-
-			// add kit-detail
-			addPartialKits: function ( $locationIndex, $beneficiaryIndex, $beneficiary ) {
-				delete $beneficiary.kit_details;
-				$beneficiary.partial_kits.push({});
-				// reset list
-				angular.forEach( $beneficiary.partial_kits, function ( d, i ) {
-					ngmClusterLists.setDetailList( 'partial_kits', $locationIndex, $beneficiaryIndex, i, d.detail_type_id, $beneficiary.partial_kits );
-				});
-				if ( $beneficiary.partial_kits.length < 1 ) {
-					Materialize.toast( 'Note: Please add at least 1 kit item to submit!' , 6000, 'note' );
-				}
-			},
-
-			// remove kit-details
-			removePartialKit: function( project, $beneficiary, $locationIndex, $beneficiaryIndex, $index ) {
-				if ( $beneficiary.partial_kits.length >= 2 ) {
-					$beneficiary.partial_kits.splice( $index, 1);
-					// reset list
-					angular.forEach( $beneficiary.partial_kits, function ( d, i ) {
-						ngmClusterLists.setDetailList( 'partial_kits', $locationIndex, $beneficiaryIndex, i, d.detail_type_id, $beneficiary.partial_kits );
-					});
-					Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
-				} else {
-					Materialize.toast( 'Minimum of 1 Kit Items required!' , 4000, 'note' );
-				}
-			},
-			
-			// add kit-detail
-			addKitDetail: function ( $locationIndex, $beneficiaryIndex, $beneficiary ) {
-				delete $beneficiary.partial_kits;
-				$beneficiary.kit_details.push({});
-				// reset list
-				angular.forEach( $beneficiary.kit_details, function ( d, i ) {
-					ngmClusterLists.setDetailList( 'kit_details', $locationIndex, $beneficiaryIndex, i, d.detail_type_id, $beneficiary.kit_details );
-				});
-				if ( $beneficiary.kit_details.length < 1 ) {
-					Materialize.toast( 'Note: Please add at least 1 kit item to submit!' , 4000, 'note' );
-				}
-			},
-
-			// remove kit-details
-			removeKitDetail: function( project, $beneficiary, $locationIndex, $beneficiaryIndex, $index ) {
-				if ( $beneficiary.kit_details.length >= 2 ) {
-					$beneficiary.kit_details.splice( $index, 1);
-					// reset list
-					angular.forEach( $beneficiary.kit_details, function ( d, i ) {
-						ngmClusterLists.setDetailList( 'kit_details', $locationIndex, $beneficiaryIndex, i, d.detail_type_id, $beneficiary.kit_details );
-					});
-					Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
-				} else {
-					Materialize.toast( 'Minimum of 1 Kit Items required!' , 4000, 'note' );
-				}
-			},
+			/* REMOVE BENEFICIARIES */
 
 			// remove target_beneficiary from db
 			removeTargetBeneficiary: function( id ) {
@@ -501,7 +357,7 @@ angular.module( 'ngmReportHub' )
 					url: ngmAuth.LOCATION + '/api/cluster/project/removeBeneficiary',
 					data: { id: id }
 				}).success( function( result ) {
-					Materialize.toast( 'People in Need Removed!' , 4000, 'success' );
+					Materialize.toast( $filter('translate')('target_beneficiary_removed'), 4000, 'success' );
 				}).error( function( err ) {
 					Materialize.toast( 'Error!', 4000, 'error' );
 				});
@@ -536,20 +392,6 @@ angular.module( 'ngmReportHub' )
 
 
 
-
-
-
-			/* BENEFICIARIES FORM */ 
-
-			// show cxb health label
-			cxbHealth: function( project ) {
-				var display = false;
-				if ( project.definition.admin0pcode === 'CB' 
-							&& project.definition.cluster_id === 'health' ) {
-					display = true;
-				}
-				return display;
-			},
 
 			// show activity (generic)
 			displayActivity: function( project, $data, $beneficiary ){
@@ -784,6 +626,16 @@ angular.module( 'ngmReportHub' )
 				}
 				return selected.length ? selected[0].transfer_type_value : 0;
 			},
+
+
+
+
+
+
+
+
+
+
 
 
 

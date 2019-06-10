@@ -40,6 +40,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 		'ngmClusterHelperNgWashLists',
 		'ngmClusterHelperNgWashValidation',
 		'ngmClusterHelperCol',
+		'ngmEtClusterBeneficiaries',
 		'ngmCbBeneficiaries',
 		'ngmClusterDocument',
 		// 'NgTableParams',
@@ -69,6 +70,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			ngmClusterHelperNgWashLists,
 			ngmClusterHelperNgWashValidation,
 			ngmClusterHelperCol,
+			ngmEtClusterBeneficiaries,
 			ngmCbBeneficiaries,
 			ngmClusterDocument,
 			// NgTableParams,
@@ -89,6 +91,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			$scope.ngmClusterHelperNgWashLists = ngmClusterHelperNgWashLists;
 			$scope.ngmClusterHelperNgWashValidation = ngmClusterHelperNgWashValidation;
 			$scope.ngmClusterHelperCol = ngmClusterHelperCol;
+			$scope.ngmEtClusterBeneficiaries = ngmEtClusterBeneficiaries;
 			$scope.ngmCbBeneficiaries = ngmCbBeneficiaries;
 			$scope.ngmClusterDocument = ngmClusterDocument;
 			$scope.deactivedCopybutton = false;
@@ -259,8 +262,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				/**** BENEFICIARIES ****/
 
 				// add beneficiary
-				addBeneficiary: function( $parent, defaults ) {
-					var beneficiary = ngmClusterBeneficiaries.addBeneficiary( $scope.project.report.locations[ $parent ].beneficiaries, defaults );
+				addBeneficiary: function( $parent ) {
+					var beneficiary = ngmClusterBeneficiaries.addBeneficiary( $scope.project, $scope.project.report.locations[ $parent ].beneficiaries );
 					$scope.project.report.locations[ $parent ].beneficiaries.push( beneficiary );
 					// set form display for new rows
 					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, $parent, $scope.project.definition.target_beneficiaries.length-1, beneficiary );
@@ -275,7 +278,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 				// remove beneficiary nodal
 				removeBeneficiaryModal: function( $parent, $index ) {					
-					if (!$scope.project.report.locations[$parent].beneficiaries[$index].id) {		
+					if (!$scope.project.report.locations[$parent].beneficiaries[$index].id) {
 						$scope.project.report.locations[$parent].beneficiaries.splice($index, 1);
 						$scope.project.activePrevReportButton();						
 					} else{

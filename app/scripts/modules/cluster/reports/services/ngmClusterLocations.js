@@ -35,6 +35,8 @@ angular.module( 'ngmReportHub' )
         project.report.locations.push( new_location );
         ngmClusterLocations.new_location = {};
         ngmClusterLocations.openAddNewLocation = false;
+        $timeout(function(){ Materialize.toast( $filter('translate')('report_new_location') , 4000, 'success' ); }, 600 );
+        $( '#report_add_new_location' ).animatescroll();
       },
       
       // add location
@@ -92,7 +94,7 @@ angular.module( 'ngmReportHub' )
           url: ngmAuth.LOCATION + '/api/cluster/project/removeLocation',
           data: { id: id }
         }).success( function( result ) {
-          Materialize.toast( $filter('translate')('project_location_removed') , 3000, 'success' )
+          Materialize.toast( $filter('translate')('project_location_removed') , 3000, 'success' );
         }).error( function( err ) {
           Materialize.toast( 'Error!', 6000, 'error' );
         });
