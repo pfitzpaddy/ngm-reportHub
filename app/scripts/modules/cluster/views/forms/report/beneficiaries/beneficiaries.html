@@ -1,6 +1,6 @@
 		
 		<!-- beneficiaries -->
-		<div ng-repeat="beneficiary in project.report.locations[ $locationIndex ].beneficiaries | orderBy:'createdAt'" ng-init="$beneficiaryIndex=$index">
+		<div ng-repeat="beneficiary in project.report.locations[ $locationIndex ].beneficiaries | limitTo: project.location_beneficiary_limit[ $locationIndex ].beneficiary_limit" | orderBy:'createdAt'" ng-init="$beneficiaryIndex=$index">
 
 			<!-- title -->
 			<div style="position: absolute;">

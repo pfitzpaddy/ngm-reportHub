@@ -312,7 +312,7 @@ angular.module( 'ngmReportHub' )
 				});
 
 				// select element to load
-				$( 'select' ).ready(function() { setTimeout( function(){ $( 'select' ).material_select(); }, 600 ); });
+				$( 'select' ).ready(function() { setTimeout( function(){ $( 'select' ).material_select(); }, 1260 ); });
 
 			},
 

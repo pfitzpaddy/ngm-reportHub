@@ -106,6 +106,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				report: config.report,
 				location_group: config.location_group,
 				location_limit: config.report.locations.length,
+				location_beneficiary_limit: [],
 				canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.project.adminRpcode, admin0pcode:config.project.admin0pcode, cluster_id: config.project.cluster_id, organization_tag:config.project.organization_tag } ),
 				updatedAt: moment( config.report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ),
 				monthlyTitleFormat: moment.utc( [ config.report.report_year, config.report.report_month, 1 ] ).format('MMMM, YYYY'),
@@ -144,9 +145,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					}
 					
 					// if beneficiaries, set init load limit to help rendering of elements on big forms
-					angular.forEach( $scope.project.report.locations, function( l ){
+					angular.forEach( $scope.project.report.locations, function( l, i ){
 						if( l.beneficiaries.length ){
-							$scope.project.location_limit = 3;
+							$scope.project.location_limit = 1;
+							for ( j=0; j<$scope.project.location_limit; j++ ){
+								$scope.project.location_beneficiary_limit[ j ] = {
+									beneficiary_limit:6,
+									beneficiary_count:$scope.project.report.locations[j].beneficiaries.length
+								}
+							}
 						}
 					});
 					
@@ -179,11 +186,33 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 				// incrementLocationLimit
 				incrementLocationLimit: function() {
-					if ( $scope.project.report.locations.length > $scope.project.location_limit ) {
-						$scope.project.location_limit += 1;
-						// required to update ng-repeat limitTo?
-						$scope.$apply();
-						ngmClusterBeneficiaries.updateSelect();
+
+					// scroll
+					for ( j=0; j<$scope.project.location_limit; j++ ){
+						if ( $scope.project.location_beneficiary_limit[ j ].beneficiary_count > $scope.project.location_beneficiary_limit[ j ].beneficiary_limit  ) {
+							// set holder
+							if ( !$scope.project.location_beneficiary_limit[ j ] ) {
+								$scope.project.location_beneficiary_limit[ j ] = {
+									beneficiary_limit:0,
+									beneficiary_count:$scope.project.report.locations[j].beneficiaries.length
+								}
+							}
+							// increment
+							$scope.project.location_beneficiary_limit[ j ].beneficiary_limit += 6;
+							// required to update ng-repeat limitTo?
+							$scope.$apply();
+							ngmClusterBeneficiaries.updateSelect();
+							console.log('beneficiary_limit')
+							console.log($scope.project.location_beneficiary_limit[ j ].beneficiary_limit);
+						}
+						else if ( $scope.project.report.locations.length > $scope.project.location_limit ) {
+							$scope.project.location_limit += 1;
+							// required to update ng-repeat limitTo?
+							$scope.$apply();
+							ngmClusterBeneficiaries.updateSelect();
+							console.log('location_limit')
+							console.log($scope.project.location_limit);
+						}
 					}
 				},
 				
@@ -269,6 +298,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					$scope.project.report.locations[ $parent ].beneficiaries.push( beneficiary );
 					// set form display for new rows
 					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, $parent, $scope.project.report.locations[ $parent ].beneficiaries.length-1, beneficiary );
+					// set scroll counter
+					$scope.project.location_beneficiary_limit[ $parent ].beneficiary_count++;
+					// update select
 					ngmClusterBeneficiaries.updateSelect();
 				},
 
