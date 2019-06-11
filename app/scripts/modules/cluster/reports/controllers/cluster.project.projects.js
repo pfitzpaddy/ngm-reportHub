@@ -5,13 +5,13 @@
  * # ClusterProjectProjectsCtrl
  * Controller of the ngmReportHub
  */
-angular.module( 'ngmReportHub' )
-	.controller( 'ClusterProjectProjectsCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper','$translate','$filter', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser, ngmClusterHelper,$translate, $filter ) {
-		this.awesomeThings = [
-			'HTML5 Boilerplate',
-			'AngularJS',
-			'Karma'
-		];
+ angular.module( 'ngmReportHub' )
+ .controller( 'ClusterProjectProjectsCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper','$translate','$filter', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser, ngmClusterHelper,$translate, $filter ) {
+ 	this.awesomeThings = [
+ 	'HTML5 Boilerplate',
+ 	'AngularJS',
+ 	'Karma'
+ 	];
 
 		// init empty model
 		$scope.model = $scope.$parent.ngm.dashboard.model;
@@ -56,7 +56,7 @@ angular.module( 'ngmReportHub' )
 			getOrganizationHref: function() {
 				var href = '#/cluster/organization';
 				if ( $route.current.params.organization_id ) { href += '/' + $route.current.params.organization_id }
-				return href;
+					return href;
 			},
 
 			// get organization
@@ -83,30 +83,26 @@ angular.module( 'ngmReportHub' )
 
 					// fetch org data
 					ngmData
-						.get( $scope.report.getOrganization( $scope.report.organization_id ) )
-						.then( function( organization ){
-								
+					.get( $scope.report.getOrganization( $scope.report.organization_id ) )
+					.then( function( organization ){
+
 							// set titles
 							$scope.model.header.download.downloads[0].request.data.report = organization.organization_tag  +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 							$scope.model.header.title.c = organization.organization + ' | ' + organization.admin0name.toUpperCase().substring( 0, 3 ) + ' | '+$filter('translate')('projects_mayus1');
 							$scope.model.header.subtitle.title = $filter('translate')('projects_for_mayus1')+' ' + organization.organization + ' ' + organization.admin0name;
-
 						});
-
 				}
 			},
-
 			// set menu
 			setMenu: function(){
 				// get menu
 				ngmData
-					.get( request = {
-									method: 'POST',
-									url: ngmAuth.LOCATION + '/api/cluster/project/getProjectSectors',
-									data: { organization_id: $scope.report.organization_id }
-					} )
-					.then( function( sectors ){
-
+				.get( request = {
+					method: 'POST',
+					url: ngmAuth.LOCATION + '/api/cluster/project/getProjectSectors',
+					data: { organization_id: $scope.report.organization_id }
+				} )
+				.then( function( sectors ){
 						// for each sector
 						angular.forEach( sectors, function( d, i ){
 							$scope.model.menu[ 0 ].rows.push({
@@ -122,28 +118,32 @@ angular.module( 'ngmReportHub' )
 
 			// fetches request for project list
 			getProjectRequest: function( project_status ) {
-
-				// filter
 				var filter = {
-						organization_id: $scope.report.organization_id,
-						project_status: project_status
+					organization_id: $scope.report.organization_id,
+					project_status: project_status
+				};
+				var admin_org = ["OCHA", "iMMAP"];
+				if( $scope.report.user.roles.find(rol => rol === "COUNTRY") && 
+						$scope.report.user.admin0pcode === "COL" && //delete to enable for all countries
+						admin_org.includes($scope.report.user.organization)){
+					filter = {
+							//organization_id: $scope.report.organization_id,
+							project_status: project_status,
+							admin0pcode: $scope.report.user.admin0pcode 
+						};
 					}
-
-				// add cluster
-				if ( $scope.report.cluster_id !== 'all' ) {
-					filter = angular.merge( filter, { cluster_id: $scope.report.cluster_id } );
-				}
-
+					// add cluster
+					else if ( $scope.report.cluster_id !== 'all' ) {
+						filter = angular.merge( filter, { cluster_id: $scope.report.cluster_id } );
+					}
 				// get projects
 				var request = {
-							method: 'POST',
-							url: ngmAuth.LOCATION + '/api/cluster/project/getProjectsList',
-							data: { filter: filter }
-						}
-
+					method: 'POST',
+					url: ngmAuth.LOCATION + '/api/cluster/project/getProjectsList',
+					data: { filter: filter }
+				}
 				// return
 				return request;
-
 			},
 
 			// init
@@ -151,15 +151,15 @@ angular.module( 'ngmReportHub' )
 
 				// org id
 				$scope.report.organization_id =
-						$route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
+				$route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
 
 				// org tag
 				$scope.report.organization_tag =
-						$route.current.params.organization_tag ? $route.current.params.organization_tag : ngmUser.get().organization_tag;
+				$route.current.params.organization_tag ? $route.current.params.organization_tag : ngmUser.get().organization_tag;
 
 				// sector
 				$scope.report.cluster_id = 
-						$route.current.params.cluster_id ? $route.current.params.cluster_id : ngmUser.get().cluster_id;
+				$route.current.params.cluster_id ? $route.current.params.cluster_id : ngmUser.get().cluster_id;
 
 				// report dashboard model
 				$scope.model = {
