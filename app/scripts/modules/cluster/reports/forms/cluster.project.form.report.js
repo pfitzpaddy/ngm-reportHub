@@ -146,6 +146,25 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					if( !$scope.project.definition.project_budget_currency ){
 						$scope.project.definition.project_budget_currency = 'usd';
 					}
+
+					// sort locations
+					$scope.project.report.locations = $filter('orderBy')( $scope.project.report.locations, [ 'site_type_name','admin1name','admin2name','admin3name','admin4name','admin5name','site_name' ]);
+					// set location / beneficiaries limits
+					$scope.project.setLocationsLimit( $scope.project.lists, $scope.project.report.locations );
+					// set org users
+					ngmClusterLists.setOrganizationUsersList( $scope.project.lists, config.project );
+					// set form on page load
+					ngmClusterHelper.setForm( $scope.project.definition, $scope.project.lists );
+					// set form inputs
+					ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
+					// et esnfi set details
+					ngmEtClusterBeneficiaries.setForm( $scope.project.report.locations, 1350 );
+					// documents upload
+					$scope.project.setTokenUpload();
+				},
+
+				// set location / beneficiaries limits
+				setLocationsLimit: function(){
 					
 					// if beneficiaries, set init load limit to help rendering of elements on big forms
 					var set_limit = true;
@@ -176,19 +195,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							$scope.project.incrementLocationLimit();
 						}
 					};
-
-					// sort locations
-					$scope.project.report.locations = $filter('orderBy')( $scope.project.report.locations, [ 'site_type_name','admin1name','admin2name','admin3name','admin4name','admin5name','site_name' ]);
-					// set org users
-					ngmClusterLists.setOrganizationUsersList( $scope.project.lists, config.project );
-					// set form on page load
-					ngmClusterHelper.setForm( $scope.project.definition, $scope.project.lists );
-					// set columns / rows
-					ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
-					// et esnfi set details
-					ngmEtClusterBeneficiaries.setForm( $scope.project.report.locations, 1350 );
-					// documents upload
-					$scope.project.setTokenUpload();
 				},
 
 				// incrementLocationLimit
@@ -280,17 +286,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						$scope.project.cancel();
 					}
 				},
-
-				// injury sustained same province as field hospital
-				showFatpTreatmentSameProvince: function( $locationIndex ){
-					return ngmClusterHelperAf.showFatpTreatmentSameProvince( $scope.project.report.locations[ $locationIndex ].beneficiaries )
-				},
-
-				// treatment same province
-				showTreatmentSameProvince: function ( $data, $beneficiary ) {
-					return ngmClusterHelperAf.showTreatmentSameProvince( $data, $beneficiary );
-				},
-
 
 
 				/**** BENEFICIARIES ****/

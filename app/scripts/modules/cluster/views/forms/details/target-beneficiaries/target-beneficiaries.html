@@ -206,7 +206,9 @@
 
 
 							<!-- FATP SAME PROVINCE -->
-							<div class="row" ng-if="beneficiary.activity_description_id && project.showFatpTreatmentSameProvince()">
+							<div class="row" ng-if="beneficiary.activity_description_id && 
+																				( beneficiary.activity_description_id === 'fatp_stabilization_referrals_conflict' || 
+																					beneficiary.activity_description_id === 'fatp_stabilization_referrals_civilian')">
 								
 								<!-- activity_type_id -->
 								<div class="input-field col s12 m4">

@@ -54,47 +54,6 @@ angular.module( 'ngmReportHub' )
 
         });
         return strategic_objectives;
-      },
-
-      // injury sustained same province field
-      showFatpTreatmentSameProvince: function( beneficiaries ){
-        var display = false;
-        if ( beneficiaries ) {
-          angular.forEach( beneficiaries, function(b){        
-            if( b.activity_description_id === 'fatp_stabilization_referrals_conflict' ||
-                  b.activity_description_id === 'fatp_stabilization_referrals_civilian' ) {
-              display = true;
-            }
-          });
-        }
-        return display;
-      },
-
-      showTreatmentSameProvince: function( $data, $beneficiary ) {
-        var selected = [{}];
-        // will show blank for all activities except
-        if ( $beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
-              $beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian' ) {
-          delete $beneficiary.injury_treatment_same_province;
-          selected[0].text = '-'
-        // will show if not selected
-        } else if ( $data == null ) {
-          delete $beneficiary.injury_treatment_same_province;
-          selected[0].text = $filter('translate')('not_selected')+' !'
-        // will show if selected
-        } else {
-          $beneficiary.injury_treatment_same_province = $data;
-          var selected = $filter('filter')([{
-            'choise': true,
-            'text': $filter('translate')('yes')
-          }, {
-            'choise': false,
-            'text': 'No'
-          }], {
-            choise: $beneficiary.injury_treatment_same_province
-          });
-        }
-        return selected[0].text;
       }
       
 		};

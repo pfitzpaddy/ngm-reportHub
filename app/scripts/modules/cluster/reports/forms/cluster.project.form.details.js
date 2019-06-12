@@ -356,16 +356,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					return Object.keys( $scope.project.lists.strategic_objectives );
 				},
 
-				// injury sustained same province as field hospital
-				showFatpTreatmentSameProvince: function(){
-					return ngmClusterHelperAf.showFatpTreatmentSameProvince( $scope.project.definition.target_beneficiaries );
-				},
-
-				// treatment same province
-				showTreatmentSameProvince: function ( $data, $beneficiary ) {
-					return ngmClusterHelperAf.showTreatmentSameProvince( $data, $beneficiary );
-				},
-
 
 			 
 
