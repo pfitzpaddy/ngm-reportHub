@@ -148,18 +148,22 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					}
 					
 					// if beneficiaries, set init load limit to help rendering of elements on big forms
+					var set_limit = true;
 					angular.forEach( $scope.project.report.locations, function( l, i ){
-						if( l.beneficiaries.length ){
-							$scope.project.location_limit = 1;
-							for ( j=0; j<$scope.project.location_limit; j++ ){
-								$scope.project.location_beneficiary_limit[ j ] = {
-									beneficiary_limit:6,
-									beneficiary_count:$scope.project.report.locations[j].beneficiaries.length
-								}
-							}
+						if( set_limit && l.beneficiaries.length ){
+							set_limit = false;
+							$scope.project.location_limit = i+1;
 						}
 					});
-					
+
+					// set beneficiaries limit on first location with beneficiaries
+					for ( j=0; j<$scope.project.location_limit; j++ ){
+						$scope.project.location_beneficiary_limit[ j ] = {
+							beneficiary_limit:6,
+							beneficiary_count:$scope.project.report.locations[j].beneficiaries.length
+						}
+					}
+
 					// onscroll, update incrementLocationLimit
 					$window.onscroll = function() {
 						// height, position
