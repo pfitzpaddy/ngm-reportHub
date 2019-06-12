@@ -121,7 +121,7 @@ h1, h2, h3, h4, h5, p {
 }
 .report-work-title {
 	margin-top: 20px;
-	font-weight: 100;
+	font-weight: 300;
 }
 .report-subtitle {
 	margin-top: 0px;
@@ -161,6 +161,18 @@ h1, h2, h3, h4, h5, p {
 	background-color:#FFF;
 	-webkit-box-shadow:0 -3px 3px rgba(0,0,0,.2);
 	box-shadow:0 -3px 3px rgba(0,0,0,.2);
+}
+
+.card .card-title {
+	font-weight: 300;
+}
+
+.card .card-content .card-title {
+	line-height: 24px;
+}
+
+.pagination li.active {
+  background-color: #009688; 
 }
 
 .ngm-project_donor_select md-chip{

@@ -128,7 +128,7 @@ angular.module('ngmReportHub')
 									    }
 									  }).then(function(data){
 									    // redirect on success
-									    $location.path( '/cluster/projects' );
+									    // $location.path( '/cluster/projects' );
 									    Materialize.toast( $filter('translate')('project_moved_to_active')+'!', 6000, 'success');
 									  });
 

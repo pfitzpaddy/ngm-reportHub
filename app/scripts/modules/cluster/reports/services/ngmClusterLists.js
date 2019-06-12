@@ -437,13 +437,11 @@ angular.module( 'ngmReportHub' )
 
       //  if ( ($location.$$host === '192.168.33.164' || $location.$$host === '35.229.43.63' || $location.$$host === '192.168.33.16') && admin0pcode.toLowerCase() === 'all') {
        if ( ($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63') && admin0pcode.toLowerCase() === 'all') {
-
-          [
-           {cluster_id: 'smsd',
-            cluster: 'Site Management and Site development',
-          },
-           
-          {
+          
+          [{
+            cluster_id: 'smsd',
+            cluster: 'Site Management and Site development'
+          },{
             cluster_id: 'education',
             cluster: 'Educación en Emergencias (EeE)'
           },{
@@ -452,8 +450,7 @@ angular.module( 'ngmReportHub' )
           },{
             cluster_id:'san',
             cluster: 'Seguridad Alimentaria y Nutrición (SAN)'
-          },
-          {
+          },{
             cluster_id: 'health',
             cluster: 'Salud'
           },{
@@ -465,8 +462,7 @@ angular.module( 'ngmReportHub' )
           },{
             cluster_id: 'wash',
             cluster: 'WASH'
-          },
-          {
+          },{
             cluster_id: 'undaf',
             cluster: 'UNDAF'
           }];
@@ -611,10 +607,9 @@ angular.module( 'ngmReportHub' )
         }
         else if ( admin0pcode.toLowerCase() === 'col' ) {
           clusters = [{
-             cluster_id: 'smsd',
+            cluster_id: 'smsd',
             cluster: 'Site Management and Site development'
-          }
-          ,{
+          },{
             cluster_id: 'education',
             cluster: 'Educación en Emergencias (EeE)'
           },{
@@ -5150,7 +5145,7 @@ angular.module( 'ngmReportHub' )
 
         if (  admin0pcode === 'CB' ) {
           // default
-          var beneficiaries = [{
+          beneficiaries = [{
             cluster_id: ngmClusterLists.all_sectors,
             beneficiary_type_id: 'refugees',
             beneficiary_type_name: 'Refugees'
@@ -7606,44 +7601,6 @@ angular.module( 'ngmReportHub' )
         }];
 
         return kit_details;
-
-      },
-
-      // manages selections (removes selections from detials list for ET ESNFI partial_kits, kit_details)
-      setDetailList: function( detail_list, $locationIndex, $beneficiaryIndex, $index, detail_type_id, b_detail_list ) {
-
-        // list
-        var list;
-
-          // each beneficiary
-          if ( !ngmClusterLists[ detail_list ][ $locationIndex ] ) {
-            ngmClusterLists[ detail_list ][ $locationIndex ] = [];
-          }
-          if ( !ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ] ) {
-            ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ] = [];
-          }       
-
-          // get kit details
-          switch( detail_list ) {
-            case 'partial_kits':
-              list = ngmClusterLists.getPartialKits();
-              break;
-            default:
-              list = ngmClusterLists.getKitDetails();
-          }
-          
-          // set list at index
-            ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ] = angular.copy( list );
-
-          // remove current selection
-          b_detail_list = $filter( 'filter' )( b_detail_list, { detail_type_id: '!' + detail_type_id } );
-          
-          // filter partial_kits
-          angular.forEach( b_detail_list, function ( detail ) {
-            if ( detail.detail_type_id ) {
-              ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ] = $filter( 'filter' )( ngmClusterLists[ detail_list ][ $locationIndex ][ $beneficiaryIndex ][ $index ], { detail_type_id: '!' + detail.detail_type_id } );
-            }
-          });
 
       },
 
