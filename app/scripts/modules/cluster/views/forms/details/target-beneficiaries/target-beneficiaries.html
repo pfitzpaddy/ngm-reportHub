@@ -72,8 +72,9 @@
 												title="Cancel Edit">
 								<i class="material-icons">clear</i>
 							</button>
+              
 						</div>
-
+            
 						<!-- mpc_delivery_type_id -->
 						<div ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ] &&
 													!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'package_type_id' ]">
@@ -86,13 +87,12 @@
 									<span style="font-weight:400">{{'transfers'|translate}}:</span> {{'please_enter_the' |translate}} <span style="font-weight:400">TOTAL</span> {{'number_of_planned_transfer_for_the'|translate}} <span style="font-weight:400">{{'entire' | translate}}</span> {{'project' | translate}}
 								</p>
 							</div>
+              
 						</div>
 
 						
 						<!-- CARD PANEL -->
 						<div class="card-panel">
-							
-
 							
 							<!-- DEFAULT -->
 							<div class="row" ng-if="!beneficiary.activity_description_id || 
@@ -137,7 +137,6 @@
 													for="ngm-activity_description_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'specific_indicator' | translate }}</label>		
 								</div>
 							</div>
-
 
 
 							<!-- DETAILS -->
@@ -299,8 +298,9 @@
 
 							<!-- BENEFICIARIES -->
 							
-							<!-- !COL -->
-							<div class="row" ng-if="project.definition.admin0pcode !== 'COL' && beneficiary.activity_description_id">
+							<!-- !category_type_id -->
+							<div class="row" ng-if="beneficiary.activity_description_id &&
+																			!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'category_type_id' ]">
 
 								<!-- beneficiary_type -->
 								<div class="input-field col s12">
@@ -320,9 +320,10 @@
 								</div>
 							</div>
 
-							<!-- COL -->
-							<div class="row" ng-if="project.definition.admin0pcode === 'COL' && 
-																				beneficiary.activity_description_id">
+							<!-- category_type_id -->
+							<div class="row" ng-if="beneficiary.activity_description_id &&
+																			ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'category_type_id' ]">
+
 								<!-- beneficiary_type -->
 								<div class="input-field col s12 m6">
 									<select id="ngm-beneficiary_type_id-{{ $index }}" 
@@ -341,7 +342,7 @@
 									<label for="ngm-beneficiary_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'beneficiary' | translate }}</label>
 								</div>
 								
-								<!-- beneficiary_type -->
+								<!-- beneficiary_category -->
 								<div class="input-field col s12 m6">
 									<select id="ngm-beneficiary_category_id-{{ $index }}" 
 														name="beneficiary_category_id-{{ $index }}"
@@ -982,6 +983,7 @@
 									<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-women-{{ $index }}" class="active">{{ 'women' | translate }}</label>
 									<label ng-if="ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-women-{{ $index }}" class="active">Over 5 Female</label>
 								</div>
+                
 							</div>
 
 							

@@ -29,6 +29,8 @@ angular.module( 'ngmReportHub' )
       all_sectors_minus_wash_education: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_col: ['smsd','education','alojamientos_asentamientos','san','health','recuperacion_temprana','protection','wash','undaf'],
 
+
+       
       // lists ( project, mpc transfers )
       setLists: function( project, transfers ) {
 
@@ -61,7 +63,7 @@ angular.module( 'ngmReportHub' )
 					
           
           // keys to ignore when summing beneficiaries in template ( 2016 )
-          skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ],
+          skip: [ 'education_sessions', 'training_sessions', 'sessions', 'families', 'notes' ], 
 
           // NG cholera
           activity_cholera_response: [{ activity_cholera_response_id: 'yes', activity_cholera_response_name: 'Yes' },
@@ -435,7 +437,7 @@ angular.module( 'ngmReportHub' )
 
       //  if ( ($location.$$host === '192.168.33.164' || $location.$$host === '35.229.43.63' || $location.$$host === '192.168.33.16') && admin0pcode.toLowerCase() === 'all') {
        if ( ($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63') && admin0pcode.toLowerCase() === 'all') {
-
+          
           [{
             cluster_id: 'smsd',
             cluster: 'Site Management and Site development'
@@ -5069,6 +5071,7 @@ angular.module( 'ngmReportHub' )
       // return ocha beneficiaries
       getBeneficiaries: function( year, admin0pcode, cluster_id ) {
 
+
         // default
         var beneficiaries = [{
             cluster_id: ngmClusterLists.all_sectors,
@@ -7008,6 +7011,9 @@ angular.module( 'ngmReportHub' )
           },{
             site_type_id: 'MHT',
             site_type_name: 'MHT'
+          },{
+            site_type_id: 'RRT',
+            site_type_name: 'RRT'
           },{
             site_type_id: 'FATP',
             site_type_name: 'FATP'

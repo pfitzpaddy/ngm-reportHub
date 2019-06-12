@@ -11,7 +11,7 @@ angular.module( 'ngmReportHub' )
 
 		// beneficairies
 		var ngmClusterBeneficiaries = {
-
+      
 			// form
 			form:[[]],
 

@@ -96,13 +96,16 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         cluster: {
           'col' : {
             'education':{cluster:'Educación en Emergencias (EeE)'},
-            'albergues':{cluster:'Albergues'},
+            'alojamientos_asentamientos':{cluster:'Alojamientos/Asentamientos'},
             'san':{cluster:'Seguridad Alimentaria y Nutrición (SAN'},
             'health':{cluster:'Salud'},
             'recuperacion_temprana':{cluster:'Recuperación Temprana'},
             'protection':{cluster:'Protección'},
             'wash':{cluster:'Wash'},
-            'undaf':{cluster:'UNDAF'}
+            'undaf':{cluster:'UNDAF'},
+             'cvwg': { cluster: 'MPC' },
+             'smsd':{cluster:'Sitio de Administración y Sitio de Desarrollo'}
+
           }, 
           'other': {
             'cvwg': { cluster: 'MPC' },
@@ -118,7 +121,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
             'fss': { cluster: 'Food Security' },
             'health': { cluster: 'Health' },
             'logistics': { cluster: 'Logistics' },
-            'smsd': { cluster: 'Site Management and Site Development' },
+            'smsd': { cluster: 'Site Management, Site Development and DRR' },
             'nutrition': { cluster: 'Nutrition' },
             'protection': { cluster: 'Protection' },
             'rnr_chapter': { cluster: 'R&R Chapter' },
@@ -476,7 +479,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
           //'rnr_chapter': { cluster: 'R&R Chapter' },
           'wash': { cluster: 'WASH' },
           'recuperacion_temprana':{cluster:'Recuperación Temprana'},
-          'undaf':{ cluster: 'UNDAF'}
+          'undaf':{ cluster: 'UNDAF'},
+             'smsd':{cluster:'Site Management and Site development'}
 
                  }
 
