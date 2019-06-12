@@ -27,9 +27,10 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
     'ngmUser',
     'ngmData',
 		'ngmClusterLists',
+    'ngmLists',
     'config',
     '$translate',
-		function ($scope, $http, $location, $timeout, $filter, $q, ngmAuth, ngmUser, ngmData, ngmClusterLists, config,$translate){
+		function ($scope, $http, $location, $timeout, $filter, $q, ngmAuth, ngmUser, ngmData, ngmClusterLists, ngmLists, config,$translate){
        
 
       // if($location.$$host === "192.168.33.16" || $location.$$host === "35.229.43.63" || $location.$$host === "192.168.33.16" ){
@@ -89,7 +90,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         ],
 
         // duty stations
-        dutyStations: localStorage.getObject( 'dutyStations'),
+        dutyStations: ngmLists.getObject( 'dutyStations'),
 
         // cluster
         cluster: {
@@ -550,6 +551,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         // send request
         $q.all([ $http( getDutyStations ) ] ).then( function( results ){
           localStorage.setObject( 'dutyStations', results[0].data );
+          ngmLists.setObject( 'dutyStations', results[0].data );
           $scope.panel.dutyStations = results[0].data;
         });
 
@@ -581,6 +583,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
         // set
         $http.get( ngmAuth.LOCATION + '/api/list/organizations' ).then(function( organizations ){
           localStorage.setObject( 'organizations', organizations.data );
+          ngmLists.setObject( 'organizations', organizations.data );
           $scope.panel.organizations = organizations.data;
 
           

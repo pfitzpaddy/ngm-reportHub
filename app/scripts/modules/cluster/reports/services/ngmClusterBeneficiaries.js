@@ -125,65 +125,73 @@ angular.module( 'ngmReportHub' )
 			// sum for totals (age groups)
 			updateBeneficiairesBreakdown: function( beneficiary ) {
 				// set
-				beneficiary.boys = 0;
-				beneficiary.girls = 0;
+				$timeout(function() {
+					beneficiary.boys = 0;
+					beneficiary.girls = 0;
 
-				// calc
-				beneficiary.boys += beneficiary.boys_0_5 + 
-															beneficiary.boys_6_11 + 
-															beneficiary.boys_12_17;
-				beneficiary.girls += beneficiary.girls_0_5 + 
-															beneficiary.girls_6_11 + 
-															beneficiary.girls_12_17;
-				// calc totals	
-				ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );
+					// calc
+					beneficiary.boys += beneficiary.boys_0_5 + 
+																beneficiary.boys_6_11 + 
+																beneficiary.boys_12_17;
+					beneficiary.girls += beneficiary.girls_0_5 + 
+																beneficiary.girls_6_11 + 
+																beneficiary.girls_12_17;
+					// calc totals	
+					ngmClusterBeneficiaries.updateBeneficiaires( beneficiary );
+				}, 100 );
 			},
 
 			// sum for totals
 			updateBeneficiaires: function( beneficiary ) {
 				// set
-				beneficiary.total_male = 0;
-				beneficiary.total_female = 0;
-				beneficiary.total_beneficiaries = 0;
+				$timeout(function() {
+					beneficiary.total_male = 0;
+					beneficiary.total_female = 0;
+					beneficiary.total_beneficiaries = 0;
 
-				// calc
-				beneficiary.total_male += beneficiary.boys +
-															beneficiary.men +
-															beneficiary.elderly_men;
-				beneficiary.total_female += beneficiary.girls + 
-															beneficiary.women + 
-															beneficiary.elderly_women;
-				beneficiary.total_beneficiaries += beneficiary.total_male + beneficiary.total_female;
+					// calc
+					beneficiary.total_male += beneficiary.boys +
+																beneficiary.men +
+																beneficiary.elderly_men;
+					beneficiary.total_female += beneficiary.girls + 
+																beneficiary.women + 
+																beneficiary.elderly_women;
+					beneficiary.total_beneficiaries += beneficiary.total_male + beneficiary.total_female;
+				}, 100 );
 			},
 
 			// set the name for a selection
 			updateName: function( list, key, name, beneficiary ){
 				// this approach does NOT break gulp!
-				var obj = {}
-				obj[key] = beneficiary[key];
-				var select = $filter('filter')( list, obj, true );
-				// set name
-				if ( select.length ) {
-					// name
-					beneficiary[ name ] = select[0][ name ];
-					// update materialize select
-					ngmClusterBeneficiaries.updateSelect();
-				}
+				$timeout(function() {
+					var obj = {}
+					obj[key] = beneficiary[key];
+					var select = $filter('filter')( list, obj, true );
+					// set name
+					if ( select.length ) {
+						// name
+						beneficiary[ name ] = select[0][ name ];
+						// update materialize select
+						ngmClusterBeneficiaries.updateSelect();
+					}
+				}, 100 );
 			},
 
 			// update display name in object on select change
 			selectChange: function( project, d, list, key, name, label ){
 				if ( d[ key ] ) {
-					var id = d[ key ];
-					var obj = {}
-					var search_list = project.lists[ list ];
-					// this approach does NOT break gulp!
-					obj[key] = id;
-					var filter = $filter('filter')( search_list, obj, true );
-					// set name
-					d[ name ] = filter[0][ name ];
-					$("label[for='" + label + "']").css({ 'color': '#26a69a', 'font-weight': 300 });
-					ngmClusterHelperNgWash.init_material_select();
+					$timeout(function() {
+						var id = d[ key ];
+						var obj = {}
+						var search_list = project.lists[ list ];
+						// this approach does NOT break gulp!
+						obj[key] = id;
+						var filter = $filter('filter')( search_list, obj, true );
+						// set name
+						d[ name ] = filter[0][ name ];
+						$("label[for='" + label + "']").css({ 'color': '#26a69a', 'font-weight': 300 });
+						ngmClusterHelperNgWash.init_material_select();
+					}, 100 );
 				}
 			},
 
@@ -204,14 +212,17 @@ angular.module( 'ngmReportHub' )
 			// add beneficiary
 			addBeneficiary: function ( project, beneficiaries ) {
 
+				console.log(project.definition.admin0pcode)
+				console.log(beneficiaries)
+
 				// inserted
 				var inserted = {}
 				var defaults = ngmClusterBeneficiaries.defaults;
 				var context_defaults = {}
 				// default is first beneficiary
 				if ( beneficiaries && beneficiaries.length ) {
-					context_defaults = ngmClusterBeneficiaries.defaults[ project.definition.admin0pcode ][ beneficiaries[ 0 ].cluster_id ] ? ngmClusterBeneficiaries.defaults[ project.definition.admin0pcode ][ beneficiaries[ 0 ].cluster_id ] : {}
-				}
+					context_defaults = defaults[ project.definition.admin0pcode ] && setBeneficiariesInputsdefaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] ? defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] : {}
+				}		
 
 				// merge
 				angular.merge( inserted, defaults.inputs, context_defaults );
@@ -226,7 +237,7 @@ angular.module( 'ngmReportHub' )
 					delete b.remarks;
 					delete b.createdAt;
 					delete b.updatedAt;
-					context_defaults = ngmClusterBeneficiaries.defaults[ project.definition.admin0pcode ][ b.cluster_id ] ? ngmClusterBeneficiaries.defaults[ project.definition.admin0pcode ][ b.cluster_id ] : {}
+					context_defaults = defaults[ project.definition.admin0pcode ] && defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] ? defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] : {}
 					angular.merge( inserted, b, defaults.inputs, context_defaults );
 				}
 
@@ -266,7 +277,7 @@ angular.module( 'ngmReportHub' )
 
 				// defaults
 				var defaults = ngmClusterBeneficiaries.defaults;
-				var context_defaults = ngmClusterBeneficiaries.defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] ? ngmClusterBeneficiaries.defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] : {}
+				var context_defaults = defaults[ project.definition.admin0pcode ] && defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] ? defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] : {}
 
 				// merge defaults
 				if ( type === 'description' ) {
@@ -280,7 +291,7 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// set form for beneficiary
-				ngmClusterBeneficiaries.setBeneficiariesInputs( project.lists, 0, $index, beneficiary );		
+				ngmClusterBeneficiaries.setBeneficiariesInputs( project.lists, $parent, $index, beneficiary );		
 
 				// merge defaults from form (activities.csv)
 				angular.forEach( ngmClusterBeneficiaries.merge_keys, function ( key, i ) {

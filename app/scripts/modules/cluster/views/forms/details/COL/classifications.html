@@ -41,14 +41,19 @@
 												input-aria-describedby="autocompleteTitle" 
 												placeholder="{{'add_new_project_classification'|translate}}" 
 												ng-disabled="project.definition.project_status === 'complete'">
-												<span md-highlight-text="searchText">{{item.name_tag}} </span>
+												<span ng-if="!item.code" md-highlight-text="searchText">{{item.name_tag}} </span>
+												<span ng-if="item.code" md-highlight-text="searchText"> {{item.code}} {{item.name_tag}} </span>
 												<md-not-found>
 													{{'cannot_add_not_ont_the_list'|translate}}
 												</md-not-found>
 											</md-autocomplete>
 											<md-chip-template>
-												<span title="{{$chip.name_tag}}">
-													{{$chip.name_tag}}
+												<span ng-if="$chip.code" title="{{$chip.code}} {{$chip.name_tag}}">
+												{{$chip.code}}	{{$chip.name_tag}}
+												</span>
+
+												<span ng-if="!$chip.code" title="{{$chip.name_tag}}">
+												{{$chip.name_tag}}
 												</span>
 											</md-chip-template>
 										</md-chips>
@@ -85,14 +90,19 @@
 												input-aria-describedby="autocompleteTitle" 
 												placeholder="{{'add_new_project_classification'|translate}}" 
 												ng-disabled="project.definition.project_status === 'complete'">
-												<span md-highlight-text="searchText">{{item.name_tag}} </span>
+												<span ng-if="!item.code" md-highlight-text="searchText">{{item.name_tag}} </span>
+												<span ng-if="item.code" md-highlight-text="searchText"> {{item.code}} {{item.name_tag}} </span>
 												<md-not-found>
 													{{'cannot_add_not_ont_the_list'|translate}}
 												</md-not-found>
 											</md-autocomplete>
 											<md-chip-template>
-												<span title="{{$chip.name_tag}}">
-													{{$chip.name_tag}}
+												<span ng-if="$chip.code" title="{{$chip.code}} {{$chip.name_tag}}">
+												{{$chip.code}}	{{$chip.name_tag}}
+												</span>
+
+												<span ng-if="!$chip.code" title="{{$chip.name_tag}}">
+												{{$chip.name_tag}}
 												</span>
 											</md-chip-template>
 										</md-chips>
@@ -132,14 +142,19 @@
 												input-aria-describedby="autocompleteTitle" 
 												placeholder="{{'add_new_project_classification'|translate}}" 
 												ng-disabled="project.definition.project_status === 'complete'">
-												<span md-highlight-text="searchText">{{item.name_tag}} </span>
+												<span ng-if="!item.code" md-highlight-text="searchText">{{item.name_tag}} </span>
+												<span ng-if="item.code" md-highlight-text="searchText"> {{item.code}} {{item.name_tag}} </span>
 												<md-not-found>
 													{{'cannot_add_not_ont_the_list'|translate}}
 												</md-not-found>
 											</md-autocomplete>
 											<md-chip-template>
-												<span title="{{$chip.name_tag}}">
-													{{$chip.name_tag}}
+												<span ng-if="$chip.code" title="{{$chip.code}} {{$chip.name_tag}}">
+												{{$chip.code}}	{{$chip.name_tag}}
+												</span>
+
+												<span ng-if="!$chip.code" title="{{$chip.name_tag}}">
+												{{$chip.name_tag}}
 												</span>
 											</md-chip-template>
 										</md-chips>
@@ -178,14 +193,19 @@
 												input-aria-describedby="autocompleteTitle" 
 												placeholder="{{'add_new_project_classification'|translate}}" 
 												ng-disabled="project.definition.project_status === 'complete'">
-												<span md-highlight-text="searchText">{{item.name_tag}} </span>
+												<span ng-if="!item.code" md-highlight-text="searchText">{{item.name_tag}} </span>
+												<span ng-if="item.code" md-highlight-text="searchText"> {{item.code}} {{item.name_tag}} </span>
 												<md-not-found>
 													{{'cannot_add_not_ont_the_list'|translate}}
 												</md-not-found>
 											</md-autocomplete>
 											<md-chip-template>
-												<span title="{{$chip.name_tag}}">
-													{{$chip.name_tag}}
+												<span ng-if="$chip.code" title="{{$chip.code}} {{$chip.name_tag}}">
+												{{$chip.code}}	{{$chip.name_tag}}
+												</span>
+
+												<span ng-if="!$chip.code" title="{{$chip.name_tag}}">
+												{{$chip.name_tag}}
 												</span>
 											</md-chip-template>
 										</md-chips>

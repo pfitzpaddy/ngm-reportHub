@@ -108,7 +108,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				location_limit: config.report.locations.length,
 				location_beneficiary_limit: [{
 					beneficiary_limit:6,
-					beneficiary_count:6					
+					beneficiary_count:0
 				}],
 				canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.project.adminRpcode, admin0pcode:config.project.admin0pcode, cluster_id: config.project.cluster_id, organization_tag:config.project.organization_tag } ),
 				updatedAt: moment( config.report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ),
@@ -168,8 +168,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 						// 0.50 of scrolling height, add location_limit
 						if ( ( scrollHeight - scrollPosition ) / scrollHeight < 0.50 ) {
-					    // when scroll to bottom of the page
-					    $scope.project.incrementLocationLimit();
+							// when scroll to bottom of the page
+							$scope.project.incrementLocationLimit();
 						}
 					};
 
@@ -195,7 +195,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						// set holder
 						if ( !$scope.project.location_beneficiary_limit[ j ] ) {
 							$scope.project.location_beneficiary_limit[ j ] = {
-								beneficiary_limit:0,
+								beneficiary_limit:6,
 								beneficiary_count:$scope.project.report.locations[j].beneficiaries.length
 							}
 						}
@@ -298,7 +298,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					// set form display for new rows
 					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, $parent, $scope.project.report.locations[ $parent ].beneficiaries.length-1, beneficiary );
 					// set scroll counter
-					$scope.project.location_beneficiary_limit[ $parent ].beneficiary_count++;
+					if ( !$scope.project.location_beneficiary_limit[ $parent ] ) {
+						$scope.project.location_beneficiary_limit[ $parent ] = {}
+					}
+					$scope.project.location_beneficiary_limit[ $parent ].beneficiary_limit = $scope.project.report.locations[ $parent ].beneficiaries.length;
+					$scope.project.location_beneficiary_limit[ $parent ].beneficiary_count = $scope.project.report.locations[ $parent ].beneficiaries.length;
+					console.log($scope.project.location_beneficiary_limit);
 					// update select
 					ngmClusterBeneficiaries.updateSelect();
 				},
@@ -583,17 +588,17 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					$scope.addBeneficiaryDisable = true;
 
 					// set param
-					if (config.report.report_month < 1) {
-						var params ={
+					if ( $scope.project.report.report_month < 1) {
+						var params = {
 							project_id: $route.current.params.project,
 							report_month: 11,
-							report_year: config.report.report_year-1
+							report_year: $scope.project.report.report_year-1
 						}
 					} else {
 						var params = {
 							project_id: $route.current.params.project,
-							report_month: config.report.report_month - 1,            
-							report_year: config.report.report_year
+							report_month: $scope.project.report.report_month - 1,            
+							report_year: $scope.project.report.report_year
 						}
 					}
 
@@ -654,6 +659,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							// send message
 							Materialize.toast( msg, 4000, typ );
 
+							var current_report = angular.copy( $scope.project.report );
+							if (current_report.locations) {
+								delete current_report.locations;
+							}
 							// set last month
 							angular.forEach( $scope.project.report.locations, function( location ){
 								
@@ -663,20 +672,34 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 									return l.target_location_reference_id === target_location_reference_id
 								});
 
-								// set
-								location.beneficiaries = previous_location.beneficiaries
+								// current location (for report defaults)
+
+								// current month to last month
+								location.beneficiaries = previous_location.beneficiaries;
 								location.trainings = previous_location.trainings;
 
 								// forEach beneficiaries
 								angular.forEach( location.beneficiaries, function( b ){
+									angular.merge( b, current_report );
 									delete b.id;
+									delete b.createdAt;
+									delete b.updatedAt;
+									delete b.report_submitted;
 								});
 
 								// forEach beneficiaries
 								angular.forEach( location.trainings, function( t ){
+									angular.merge( t, current_report );
 									delete t.id;
+									delete t.createdAt;
+									delete t.updatedAt;
+									delete t.report_submitted;
 									angular.forEach( t.training_participants, function( tp ){
+										angular.merge( tp, current_report );
 										delete tp.id;
+										delete tp.createdAt;
+										delete tp.updatedAt;
+										delete tp.report_submitted;
 									});
 								});
 

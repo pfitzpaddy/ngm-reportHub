@@ -11,13 +11,13 @@
  *
  */
 angular.module('ngmReportHub')
-	.factory( 'ngmUser', [ '$injector', function( $injector ) {	
+	.factory( 'ngmUser', [ '$injector', 'ngmLists', function( $injector, ngmLists ) {	
 
 		return {
 
 			// get user from storage
 			get: function() {
-				return localStorage.getObject( 'auth_token' );
+				return ngmLists.getObject( 'auth_token' );
 			},
 
 			// set user to storage
@@ -26,6 +26,7 @@ angular.module('ngmReportHub')
 				user.last_logged_in = moment();
 				user.dashboard_visits = 0;
 				localStorage.setObject( 'auth_token', user );
+				ngmLists.setObject('auth_token', user);
 				// set lists
 				if ( !user.guest ) {
 					$injector.get( 'ngmClusterLists' ).setClusterLists( user );
@@ -38,12 +39,15 @@ angular.module('ngmReportHub')
 				localStorage.removeItem( 'lists' );
 				localStorage.removeItem( 'dutyStations' );
 				localStorage.removeItem( 'auth_token' );
+				ngmLists.removeItem('lists')
+				ngmLists.removeItem('dutyStations')
+				ngmLists.removeItem('auth_token')
 			},			
 
 			// check user role
 			hasRole: function( role ) {
 				// get from storage
-				var user = localStorage.getObject( 'auth_token' );
+				var user = ngmLists.getObject( 'auth_token' );
 				// if no user
 				if ( !user ) return false; 
 				// else has role?
@@ -52,7 +56,7 @@ angular.module('ngmReportHub')
 
 			// match any role
 			hasAnyRole: function( roles ) {
-				var user = localStorage.getObject( 'auth_token' );
+				var user = ngmLists.getObject( 'auth_token' );
 				return !!user.roles.filter(function( role ) {
 					return angular.uppercase( roles ).indexOf( angular.uppercase( role ) ) >= 0;
 				}).length;

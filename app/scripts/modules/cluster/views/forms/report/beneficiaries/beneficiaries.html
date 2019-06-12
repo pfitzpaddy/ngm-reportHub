@@ -96,7 +96,7 @@
 																			cluster_id: beneficiary.cluster_id,
 																			activity_type_id: beneficiary.activity_type_id
 																		} : true"
-											ng-change="ngmClusterBeneficiaries.setBeneficiaries( project, 'description', 0, $beneficiaryIndex, beneficiary );
+											ng-change="ngmClusterBeneficiaries.setBeneficiaries( project, 'description', $locationIndex, $beneficiaryIndex, beneficiary );
 																	ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
@@ -142,7 +142,7 @@
 																			activity_type_id: beneficiary.activity_type_id
 																		} : true"
 											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );
-																	ngmClusterBeneficiaries.setBeneficiaries( project, 'description', 0, $beneficiaryIndex, beneficiary );"
+																	ngmClusterBeneficiaries.setBeneficiaries( project, 'description', $locationIndex, $beneficiaryIndex, beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
@@ -166,7 +166,7 @@
 																				activity_description_id: beneficiary.activity_description_id 
 																		} : true"
 											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_detail_id', 'activity_detail_name', beneficiary );
-																	ngmClusterBeneficiaries.setBeneficiaries( project, 'detail', 0, $beneficiaryIndex, beneficiary );"
+																	ngmClusterBeneficiaries.setBeneficiaries( project, 'detail', $locationIndex, $beneficiaryIndex, beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
@@ -208,7 +208,7 @@
 																			activity_type_id: beneficiary.activity_type_id
 																		} : true"
 											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );
-																	ngmClusterBeneficiaries.setBeneficiaries( project, 'description', 0, $beneficiaryIndex, beneficiary );"
+																	ngmClusterBeneficiaries.setBeneficiaries( project, 'description', $locationIndex, $beneficiaryIndex, beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
@@ -256,7 +256,7 @@
 																				activity_description_id: beneficiary.activity_description_id,
 																				activity_detail_id: beneficiary.activity_detail_id 
 																		} : true"
-											ng-change="ngmClusterBeneficiaries.setBeneficiaries( project, 'indicator', 0, $beneficiaryIndex, beneficiary );
+											ng-change="ngmClusterBeneficiaries.setBeneficiaries( project, 'indicator', $locationIndex, $beneficiaryIndex, beneficiary );
 																	ngmClusterBeneficiaries.updateSelect();"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>

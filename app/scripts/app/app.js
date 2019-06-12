@@ -524,4 +524,29 @@ angular
 			}, 1000 );
     });
 
-	}]);
+	}])
+	// service to store lists
+	.factory('ngmLists', function () {
+
+		// storage object
+		obj = {};
+
+		// on instantiation get values from local storage
+		if (localStorage.length) {
+			Object.keys(localStorage).forEach(function (key) {
+				obj[key] = localStorage.getObject(key)
+			});
+		}
+
+		return {
+			setObject: function (key, value) {
+				obj[key] = value;
+			},
+			getObject: function (key) {
+				return obj[key];
+			},
+			removeItem: function (key) {
+				obj[key] = undefined;
+			},
+		}
+	});
