@@ -16,7 +16,7 @@
           </p>
 
           <div class="row">
-            <div class="col s12 card">
+            <div class="col s12 card"> 
               <div style="padding-top: 10px; padding-left: 40px;">
 
                 <table class="bordered responsive-table" ng-show="project.definition.project_budget_progress.length">
@@ -24,6 +24,12 @@
                     <td>{{'donor'|translate}}*</td>
                     <td>{{'activity' | translate}}*</td>
                     <td>{{'description' | translate}}*</td>
+
+                    <!--<td>{{ project.lists.admin2[0].admin1type_name }}</td>
+                    <td>{{ project.lists.admin2[0].admin2type_name }}</td>-->
+                    <td>{{ 'department'|translate }}</td>
+                    <td>{{ ''}}
+
                     <td>{{'grant' | translate}} ID</td>
                     <td>{{'amount' | translate}}*</td>
                     <td>{{'currency' | translate}}*</td>
@@ -70,6 +76,19 @@
                             e-ng-options="d.activity_description_id as d.activity_description_name for d in project.lists.activity_descriptions2">
                         {{ project.showActivityDescription( $data, budget ) }}
                       </span>
+                    </td>
+
+                       <td>
+                      <!-- admin1 -->
+                      <span e-placeholder="{{'select'|translate}}"
+                              editable-select="budget.admin1pcode"
+                              e-name="admin1pcode"
+                              e-form="rowform"
+                              e-ng-options="item.admin1pcode as item.admin1name for item in project.definition.target_locations | filter : { inactive: '!true' }" 
+                              e-ng-change="project.getAdminSites( 'admin1pcode', $index, $data, location ); project.adminOnChange( 'admin1pcode', $index, $data, location )"
+                              e-required>
+                        {{ project.showAdmin( project, 'admin0pcode', 'admin1', 'admin1pcode', 'admin1name', $index, $data ) }}
+                      </span> 
                     </td>
 
 

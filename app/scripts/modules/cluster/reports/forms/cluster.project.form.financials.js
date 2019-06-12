@@ -16,7 +16,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
         templateUrl: '/scripts/modules/cluster/views/forms/financials/form.html'
       });
   })
-  .controller( 'ClusterProjectFormFinancialCtrl', [
+  .controller( 'ClusterProjectFormFinancialCtrl', [ 
     '$scope',
     '$location',
     '$timeout',
@@ -162,6 +162,77 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
           return selected.length ? selected[0].activity_description_name : $filter('translate')('no_selection')+'!';
         },
+
+      showAdmin: function( project, lists, admin0pcode, pcode, $index, $data, target_location ){
+          console.log($scope.project.definition);
+        angular.forEach( $scope.project.definition.target_locations, function( d, i ){
+             console.log(d);
+
+          });
+         
+
+
+          /*  $http({ method: 'GET', 
+                    url: ngmAuth.LOCATION + '/api/list/getAdminSites?admin0pcode=' 
+                                            + admin0pcode
+                                            + '&admin1pcode=' + target_location.admin1pcode
+            }).success( function( result ) {
+              var selected_sites = $filter('filter')( lists.adminSites, { admin1pcode: target_location.admin1pcode }, true );
+              if ( !selected_sites.length ){
+                lists.adminSites = lists.adminSites.concat( result );
+                ngmClusterLocations.adminOnChange( lists, pcode, $index, $data, target_location );
+              }
+            });*/
+
+          
+
+
+        /*// params
+        var selected = [];
+
+        // selection list
+        if( target_location[ parent_pcode ] ) {
+          
+          // filter parent list
+          var search_parent_admin = {}
+          search_parent_admin[ parent_pcode ] = target_location[ parent_pcode ];
+          lists[ list + 'Select' ][ $index ] = $filter('filter')( lists[ list ], search_parent_admin, true );
+
+          // other (for ET lists)
+          var o_index, o_other;
+          angular.forEach( lists[ list + 'Select' ][ $index ], function( d, i ) {
+            if ( d.admin3name === 'Other' ) { o_index = i; o_other = d; }
+          });
+          if ( o_other ) {
+            lists[ list + 'Select' ][ $index ].splice( o_index, 1 );
+            lists[ list + 'Select' ][ $index ].push( o_other );
+          }
+
+        } 
+
+        // list selection
+        target_location[ pcode ] = $data;
+        if( target_location[ pcode ] ) {
+
+          // filter
+          var search_admin = {}
+          search_admin[ pcode ] = target_location[ pcode ];
+
+          // get selection
+          selected = $filter( 'filter')( lists[ list + 'Select' ][ $index ], search_admin, true );
+          if ( selected && selected[0] && selected[0].id ) { 
+            delete selected[0].id;
+            angular.merge( target_location, selected[0] );
+          }
+
+          // filter sites
+          lists.adminSitesSelect[ $index ] = $filter('filter')( lists.adminSites, search_admin, true );
+ 
+        }
+
+        // return name
+        return selected && selected.length ? selected[0][ name ] : '-';*/
+      },
 
         // currency
         showCurrency: function( $data, $budget ) {
