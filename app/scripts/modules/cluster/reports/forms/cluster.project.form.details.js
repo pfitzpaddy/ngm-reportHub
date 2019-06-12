@@ -242,7 +242,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				// contact details
 				contactDetailsUrl: 'contact-details.html',
 				// COL classificaitons
-				classificiationsUrl: 'COL/classifications.html',
+				classificiationsUrl: 'project-classifications/classifications.html',
 				// target beneficiaries
 				targetBeneficiariesDefaultUrl: 'target-beneficiaries/2016/target-beneficiaries-default.html',
 				targetBeneficiariesTrainingUrl: 'target-beneficiaries/2016/target-beneficiaries-training.html',
