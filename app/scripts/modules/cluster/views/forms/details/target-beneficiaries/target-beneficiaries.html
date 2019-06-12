@@ -914,9 +914,9 @@
 							
 							<!-- SADD ( boys, girls, men, women ) -->
 							<div class="row"
-										ng-if="( ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'boys' ] &&
-															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'girls' ] &&
-															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'men' ] &&
+										ng-if="( ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'boys' ] ||
+															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'girls' ] ||
+															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'men' ] ||
 															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'women' ] ) &&
 														( !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'boys_0_5' ]  &&
 															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'boys_6_11' ] &&
