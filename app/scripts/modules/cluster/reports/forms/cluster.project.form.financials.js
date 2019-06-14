@@ -16,7 +16,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
         templateUrl: '/scripts/modules/cluster/views/forms/financials/form.html'
       });
   })
-  .controller( 'ClusterProjectFormFinancialCtrl', [ 
+  .controller( 'ClusterProjectFormFinancialCtrl', [
     '$scope',
     '$location',
     '$timeout',
@@ -34,21 +34,6 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
     function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, config,$translate ){
 
       // project
-
-      //budget_funds
-
-      if($scope.config.project.admin0pcode === 'COL'){
-        financial_html = 'financials-COL.html';
-        budget_funds= [ { budget_funds_id: 'cash', budget_funds_name: $filter('translate')('cash') }, { budget_funds_id: 'inkind',budget_funds_name: $filter('translate')('inkind') },{ budget_funds_id: 'bonuses',budget_funds_name: $filter('translate')('bonuses') } ];
-
-      }else{
-        financial_html = 'financials.html';
-         budget_funds= [ { budget_funds_id: 'financial', budget_funds_name: $filter('translate')('financial') }, { budget_funds_id: 'inkind',budget_funds_name: $filter('translate')('inkind') } ];
-
-      }
-
-      
-
       $scope.project = {
         
         // user
@@ -65,10 +50,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
                 
         // templates
         templatesUrl: '/scripts/modules/cluster/views/forms/financials/',
-
-        //financialsUrl: 'financials.html',
-        financialsUrl: financial_html,
-
+        financialsUrl: 'financials.html',
         notesUrl: 'notes.html',
 
         canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.project.adminRpcode, admin0pcode:config.project.admin0pcode, cluster_id: config.project.cluster_id, organization_tag:config.project.organization_tag } ),
@@ -76,8 +58,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
         // placeholder bydget activity
         lists: {
           reported_on_fts: [ { reported_on_fts_id: 'yes', reported_on_fts_name: $filter('translate')('yes') }, { reported_on_fts_id: 'no', reported_on_fts_name: 'No' } ],
-          //budget_funds: [ { budget_funds_id: 'financial', budget_funds_name: $filter('translate')('financial') }, { budget_funds_id: 'inkind',budget_funds_name: $filter('translate')('inkind') } ],
-          budget_funds: budget_funds,
+          budget_funds: [ { budget_funds_id: 'financial', budget_funds_name: $filter('translate')('financial') }, { budget_funds_id: 'inkind',budget_funds_name: $filter('translate')('inkind') } ],
           financial_programming: [{ 
             financial_programming_id: 'non_cash', financial_programming_name: $filter('translate')('non_cash')
           },{ 
@@ -87,10 +68,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           }],
           multi_year_funding: [ { multi_year_funding_id: 'yes', multi_year_funding_name: $filter('translate')('yes') }, { multi_year_funding_id: 'no', multi_year_funding_name: 'No' } ],
           activity_type: angular.copy( config.project.activity_type ),
-          currencies: ngmClusterLists.getCurrencies( config.project.admin0pcode ),
-          activity_descriptions: angular.copy( config.project.target_beneficiaries),
-          activity_descriptions2: [],
-
+          currencies: ngmClusterLists.getCurrencies( config.project.admin0pcode )
         },
 
         // datepicker
@@ -126,9 +104,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
         // activity
         showActivity: function( $data, $budget ) {
           var selected = [];
-
           $budget.activity_type_id = $data;
-       
           if( $budget.activity_type_id ) {
             selected = $filter('filter')( $scope.project.lists.activity_type, { activity_type_id: $budget.activity_type_id }, true);
             if( selected.length ) {
@@ -136,103 +112,9 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
               $budget.cluster_id = selected[0].cluster_id;
               $budget.activity_type_name = selected[0].activity_type_name;
             }
-
-            $scope.project.lists.activity_descriptions2 = $filter('filter')( $scope.project.lists.activity_descriptions, { activity_type_id: $budget.activity_type_id }, true);
-            
           } 
           return selected.length ? selected[0].activity_type_name : $filter('translate')('no_selection')+'!';
         },
-
-        //activitydesciption
-        showActivityDescription: function( $data, $budget ) {
-          
-          var selected = [];
-          $budget.activity_description_id = $data;
-
-          if( $budget.activity_description_id ) {
-
-            selected = $filter('filter')( $scope.project.lists.activity_descriptions, { activity_description_id: $budget.activity_description_id }, true);
-            if( selected.length ) {
-              
-              $budget.activity_description_name = selected[0].activity_description_name;
-            }
-            
-          } 
-
-
-          return selected.length ? selected[0].activity_description_name : $filter('translate')('no_selection')+'!';
-        },
-
-      showAdmin: function( project, lists, admin0pcode, pcode, $index, $data, target_location ){
-          console.log($scope.project.definition);
-        angular.forEach( $scope.project.definition.target_locations, function( d, i ){
-             console.log(d);
-
-          });
-         
-
-
-          /*  $http({ method: 'GET', 
-                    url: ngmAuth.LOCATION + '/api/list/getAdminSites?admin0pcode=' 
-                                            + admin0pcode
-                                            + '&admin1pcode=' + target_location.admin1pcode
-            }).success( function( result ) {
-              var selected_sites = $filter('filter')( lists.adminSites, { admin1pcode: target_location.admin1pcode }, true );
-              if ( !selected_sites.length ){
-                lists.adminSites = lists.adminSites.concat( result );
-                ngmClusterLocations.adminOnChange( lists, pcode, $index, $data, target_location );
-              }
-            });*/
-
-          
-
-
-        /*// params
-        var selected = [];
-
-        // selection list
-        if( target_location[ parent_pcode ] ) {
-          
-          // filter parent list
-          var search_parent_admin = {}
-          search_parent_admin[ parent_pcode ] = target_location[ parent_pcode ];
-          lists[ list + 'Select' ][ $index ] = $filter('filter')( lists[ list ], search_parent_admin, true );
-
-          // other (for ET lists)
-          var o_index, o_other;
-          angular.forEach( lists[ list + 'Select' ][ $index ], function( d, i ) {
-            if ( d.admin3name === 'Other' ) { o_index = i; o_other = d; }
-          });
-          if ( o_other ) {
-            lists[ list + 'Select' ][ $index ].splice( o_index, 1 );
-            lists[ list + 'Select' ][ $index ].push( o_other );
-          }
-
-        } 
-
-        // list selection
-        target_location[ pcode ] = $data;
-        if( target_location[ pcode ] ) {
-
-          // filter
-          var search_admin = {}
-          search_admin[ pcode ] = target_location[ pcode ];
-
-          // get selection
-          selected = $filter( 'filter')( lists[ list + 'Select' ][ $index ], search_admin, true );
-          if ( selected && selected[0] && selected[0].id ) { 
-            delete selected[0].id;
-            angular.merge( target_location, selected[0] );
-          }
-
-          // filter sites
-          lists.adminSitesSelect[ $index ] = $filter('filter')( lists.adminSites, search_admin, true );
- 
-        }
-
-        // return name
-        return selected && selected.length ? selected[0][ name ] : '-';*/
-      },
 
         // currency
         showCurrency: function( $data, $budget ) {
@@ -250,7 +132,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
         // show in fts
         showFunds: function( $data, $budget ) {
           var selected = [];
-          $budget.budget_funds_id = $data; 
+          $budget.budget_funds_id = $data;
 
           // default
           if( !$budget.reported_on_fts_id ){
@@ -313,31 +195,6 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           });
           return show;
         },
-				
-				//multi year funding
-				showMultiYearFunding:function(){
-					var show = false;
-					$scope.multiYearRange=[];
-					angular.forEach($scope.project.definition.project_budget_progress, function (d, i) {
-						if (d.multi_year_funding_id === 'yes') {
-              show = true;
-            }
-          });
-
-					// to set range multi year
-					if(show){
-						var start_year = moment($scope.project.definition.project_start_date).year(); 
-								end_year   = moment($scope.project.definition.project_end_date).year();
-						if(end_year % start_year > 0){
-							for (let index = start_year; index <= end_year; index++) {
-								$scope.multiYearRange.push(index)								
-							}
-						}else{
-							$scope.multiYearRange.push(end_year)
-						}
-					};
-          return show;
-        },
 
         // show in fts
         showMultiYear: function( $data, $budget ) {
@@ -361,8 +218,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
           // multi-year set 
           if ( $budget.multi_year_funding_id === 'no' ) {
-						$budget.funding_2017 = $budget.project_budget;
-						delete $budget.funding_year ;
+            $budget.funding_2017 = $budget.project_budget;
           }
 
           return selected.length ? selected[0].multi_year_funding_name : 'N/A';
@@ -425,6 +281,10 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
             $scope.inserted = angular.merge( b, $scope.inserted );
           }
 
+          // merge
+          $scope.inserted = 
+              ngmClusterHelper.getCleanBudget( ngmUser.get(), $scope.project.definition, $scope.inserted );
+
           // push
           $scope.project.definition.project_budget_progress.push( $scope.inserted );
         },
@@ -459,7 +319,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
         },
 
         save: function(){
-					// Update Project
+          // Update Project
           ngmData.get({
             method: 'POST',
             url: ngmAuth.LOCATION + '/api/cluster/project/setProject',
@@ -478,10 +338,6 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
       }
 
-
-      
-
-
       // if one donor
       $timeout(function(){
 
@@ -498,4 +354,3 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
   }
 
 ]);
-
