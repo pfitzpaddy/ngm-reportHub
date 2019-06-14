@@ -1,7 +1,7 @@
 
 		<!--  -->
 		<div class="col s12 m2" style="text-align:right;">
-			<p style="font-size:16px; padding-top:26px;">{{ ngmClusterBeneficiaries.form.active[ $locationIndex ].rows[ $index ][ 'activity_date' ] }}</p>
+			<p style="font-size:16px; padding-top:26px;">{{ ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'activity_date' ] }}</p>
 		</div>
 
 		<!-- input-date directive -->
@@ -16,7 +16,7 @@
 			 				select-years="15" 
 			 				max="{{ project.definition.project_end_date }}"
 			 				on-close="ngmClusterBeneficiaries.datepicker.distributionStartOnClose( project.report.locations[ $locationIndex ], $beneficiaryIndex, $index, beneficiary.distribution_start_date )"
-			 ng-disabled="!rowform.$visible || project.report.report_status === 'complete'" />
+			 ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete'" />
 		</div>
 
 		<!-- input-date directive -->
@@ -31,5 +31,5 @@
 							select-years="15"
 							min="{{ beneficiary.distribution_start_date }}"
 							on-close="ngmClusterBeneficiaries.datepicker.distributionEndOnClose( project.report.locations[ $locationIndex ], $beneficiaryIndex, $index, beneficiary.distribution_end_date )"
-			 ng-disabled="!rowform.$visible || project.report.report_status === 'complete'" />
+			 ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete'" />
 		</div>

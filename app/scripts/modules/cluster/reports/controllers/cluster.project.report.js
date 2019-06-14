@@ -204,14 +204,10 @@ angular.module('ngmReportHub')
 		$scope.report.ngm.dashboard.model = $scope.model;
 
 		// taost for user
-
 		$timeout( function() { Materialize.toast( $filter('translate')('loading_monhtly_progress_report'), 4000, 'success' ); }, 400 );
 
 		// send request
 		$q.all([ $scope.report.getProject, $scope.report.getReport ]).then( function( results ){
-
-			// remove toast
-			$('.toast').remove();
 
 			// assign
 			$scope.report.setProjectDetails( results );

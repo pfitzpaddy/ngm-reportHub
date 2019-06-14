@@ -198,9 +198,9 @@ angular.module('ngmReportHub')
 			var date = moment( $scope.dashboard.startDate );
 
 			// if the end dates differ from storage, 
-			if ( localStorage.getItem('dewsEndDate') && localStorage.getItem('dewsEndDate') !== $scope.dashboard.endDate ) {
-				date = moment( $scope.dashboard.endDate ).subtract( 11, 'M' );
-			}
+			// if ( localStorage.getItem('dewsEndDate') && localStorage.getItem('dewsEndDate') !== $scope.dashboard.endDate ) {
+			// 	date = moment( $scope.dashboard.endDate ).subtract( 11, 'M' );
+			// }
 			
 			// manipulate heatmap date
 			$scope.dashboard.heatmapStartDate = new Date( date.format('YYYY-MM-DD') );
@@ -219,8 +219,8 @@ angular.module('ngmReportHub')
 		}
 
 		// store for future use to determine user direction of query
-		localStorage.setItem( 'dewsStartDate', $scope.dashboard.startDate );
-		localStorage.setItem( 'dewsEndDate', $scope.dashboard.endDate );
+		// localStorage.setItem( 'dewsStartDate', $scope.dashboard.startDate );
+		// localStorage.setItem( 'dewsEndDate', $scope.dashboard.endDate );
 
 		// dews dashboard model
 		$scope.model = {

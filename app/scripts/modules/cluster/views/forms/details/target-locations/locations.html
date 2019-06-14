@@ -73,14 +73,14 @@
 							    <tr style="font-weight: 400">
 							    	<td></td>
 							    	<td>{{'reporter' | translate}}</td>
-							    	<td>{{'implementation' | translate}}</td>
+							    	<td ng-if="project.definition.admin0pcode !== 'COL'">{{'implementation' | translate}}</td>
 							      <td>{{ project.lists.admin2[0].admin1type_name }}</td>
 							      <td>{{ project.lists.admin2[0].admin2type_name }}</td>
 							      <td ng-if="project.lists.admin3.length">{{ project.lists.admin3[0].admin3type_name }}</td>
 							      <td ng-if="project.lists.admin4.length">{{ project.lists.admin4[0].admin4type_name }}</td>
 							      <td ng-if="project.lists.admin5.length">{{ project.lists.admin5[0].admin5type_name }}</td>
 										<td>{{'type' | translate}}</td>
-										<td ng-if="project.definition.admin0pcode !== 'AF'">{{'from_list'|translate}}?</td>
+										<td ng-if="project.definition.admin0pcode !== 'AF' && project.definition.admin0pcode !== 'COL'">{{'from_list'|translate}}?</td>
 										<td>{{'site_name'|translate}} *</td>
 										<td ng-if="project.definition.implementing_partners_checked">{{'partner'|translate}}</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">{{'edit'|translate}}</td>
@@ -100,7 +100,7 @@
 							          {{ project.showReporter( $data, location ) }}
 							        </span>
 							      </td>
-							      <td>
+							      <td ng-if="project.definition.admin0pcode !== 'COL'">
 							        <!-- editable site_implementation_id -->
 							        <span e-placeholder="{{'select'|translate}}" 
 							        				editable-select="location.site_implementation_id" 
@@ -210,7 +210,7 @@
 							        </span>
 							      </td>
 
-							      <td ng-if="project.definition.admin0pcode !== 'AF'">
+							      <td ng-if="project.definition.admin0pcode !== 'AF' && project.definition.admin0pcode !== 'COL' ">
 							      	<!-- select from list -->	
 							        <span e-placeholder="{{'select'|translate}}"
 							        				editable-select="location.site_list_select_id"

@@ -29,6 +29,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
     'ngmData',
     'ngmClusterHelper',
     'ngmClusterValidation',
+    'ngmLists',
     'config',
     function( $scope,
         $location,
@@ -42,6 +43,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
         ngmData,
         ngmClusterHelper,
         ngmClusterValidation,
+        ngmLists,
         config ){
 
       // project
@@ -74,11 +76,11 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
           warehouse: {},
           list: {
             // admin1 ( with admin0 filter at API )
-            admin1: localStorage.getObject( 'lists' ).admin1List,
+            admin1: ngmLists.getObject( 'lists' ).admin1List,
             // admin2 ( with admin0 filter at API )
-            admin2: localStorage.getObject( 'lists' ).admin2List,
+            admin2: ngmLists.getObject( 'lists' ).admin2List,
             // admin3 ( with admin0 filter at API )
-            admin3: localStorage.getObject( 'lists' ).admin3List,
+            admin3: ngmLists.getObject( 'lists' ).admin3List,
           }
         },
 
