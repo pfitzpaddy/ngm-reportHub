@@ -111,6 +111,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					});
 				},
 
+
+
+
+
+
 			 	searchundaf_desarrollo_paz:null,
 			 	searchUndafDesarrolloYPaz:function(query){
 					if (!$scope.project.definition.undaf_desarrollo_paz) {
@@ -160,6 +165,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				removeDACOECDDevelopmentAssistanceCommittee:function(chip){},
 				removeODSObjetivosDeDesarrolloSostenible:function(chip){},
 
+
+
+
+
 				searchOrgPartner: null,
 				searchImplementingPartner: function (query) {
 					if ( !$scope.project.definition.implementing_partners ) {
@@ -202,21 +211,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					'CB': [ 'wash', 'protection' ]
 				},
 
-				// activity details
-				showActivityDetailsColumn: false,
-				showActivityDetailsColumnRow: [],
-
-				// indicator
-				showIndicatorColumn: false,
-				showIndicatorColumnRow: [],
-
 				// lists ( project, mpc transfers )
 				lists: ngmClusterLists.setLists( config.project, 30 ),
 				
 				// datepicker
 				datepicker: {
 					onClose: function(){
-						$scope.project.definition.update_dates = true;
 						// set new start / end date
 						$scope.project.definition.project_start_date = 
 								moment( new Date( $scope.project.definition.project_start_date ) ).format('YYYY-MM-DD');
@@ -237,15 +237,20 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				templatesUrl: '/scripts/modules/cluster/views/forms/details/',
 				// details
 				detailsUrl: 'details.html',
+				// strategic objectives
 				strategicObjectivesUrl: 'strategic-objectives.html',
+				// contact details
 				contactDetailsUrl: 'contact-details.html',
-				uploadUrl:'project-upload.html',
-				// targets
+				// COL classificaitons
+				classificiationsUrl: 'project-classifications/classifications.html',
+				// target beneficiaries
 				targetBeneficiariesDefaultUrl: 'target-beneficiaries/2016/target-beneficiaries-default.html',
 				targetBeneficiariesTrainingUrl: 'target-beneficiaries/2016/target-beneficiaries-training.html',
 				targetBeneficiariesUrl: moment( config.project.project_end_date ).year() === 2016 ? 'target-beneficiaries/2016/target-beneficiaries.html' : 'target-beneficiaries/target-beneficiaries.html',
+				// target locations
 				locationsUrl: config.project.admin0pcode === 'CB' ? 'target-locations/CB/locations.html' : 'target-locations/locations.html',
-				locationsAddUrl: 'target-locations/add.location.html',
+				// upload
+				uploadUrl:'project-upload.html',
 
 
 				// init lists
@@ -255,31 +260,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						$scope.project.definition.project_budget_currency = 'usd';
 					}
 
-					// init
-					setTimeout( function(){
-						$( '#ngm-project-name' ).focus();
-						$( 'select' ).material_select();
-						$( 'textarea' ).height( $('textarea')[0].scrollHeight );
-					}, 600 );
-
 					// set org users
 					ngmClusterLists.setOrganizationUsersList( $scope.project.lists, config.project );
 					// set form on page load
 					ngmClusterHelper.setForm( $scope.project.definition, $scope.project.lists );          
-					// set columns / rows (lists, location_index, beneficiaries )
+					// set beneficiaries form
 					ngmClusterBeneficiaries.setBeneficiariesForm( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries );
+					// documents uploads
 					$scope.project.setTokenUpload();
-					// add partner to target location if  partner not added in target location adn implementing_partners array length > 0
-					// if ($scope.project.definition.implementing_partners_array){
-					// 	if ($scope.project.definition.target_locations.length > 0) {
-					// 		$scope.project.definition.target_locations.forEach(function (el) {
-					// 			if (!el.partners) {
-					// 				el.partners = angular.copy($scope.project.definition.implementing_partners_array);
-					// 			} 
-					// 		})
-					// 	}
-					// }	
-					if ($scope.project.definition.implementing_partners.length >0) {
+					// implementing partners
+					if ($scope.project.definition.implementing_partners.length > 0) {
 						if ($scope.project.definition.target_locations.length > 0) {
 							$scope.project.definition.target_locations.forEach(function (el) {
 								if (!el.implementing_partners) {
@@ -287,7 +277,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								}
 							})
 						}
-					}		
+					}
 				},
 
 				// cofirm exit if changes
@@ -366,16 +356,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					return Object.keys( $scope.project.lists.strategic_objectives );
 				},
 
-				// injury sustained same province as field hospital
-				showFatpTreatmentSameProvince: function(){
-					return ngmClusterHelperAf.showFatpTreatmentSameProvince( $scope.project.definition.target_beneficiaries );
-				},
-
-				// treatment same province
-				showTreatmentSameProvince: function ( $data, $beneficiary ) {
-					return ngmClusterHelperAf.showTreatmentSameProvince( $data, $beneficiary );
-				},
-
 
 			 
 
@@ -409,20 +389,23 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				
 				/**** TARGET BENEFICIARIES ( ngmClusterHelperBeneficiaries.js ) ****/
 
-				// update inidcators
-				updateInput: function( $index, indicator, $data ){
-					$scope.project.definition.target_beneficiaries[ $index ][ indicator ] = $data;
-				},
-
 				// add beneficiary
-				addBeneficiary: function( defaults ) {
-					
+				addBeneficiary: function() {
+
+					// scroll to activity_type when no beneficiaries
+					if ( !$scope.project.definition.activity_type || !$scope.project.definition.activity_type.length ) {
+						Materialize.toast( $filter('translate')('no_project_activity_type'), 4000, 'success' );
+						$timeout(function() {
+							$('#ngm-activity_type_label').animatescroll();
+							$timeout(function() { $('#ngm-activity_type').css({'font-weight':600}); }, 1000 );
+						}, 600 );
+					}
 					// set beneficiaries
-					$scope.inserted = ngmClusterBeneficiaries.addBeneficiary( $scope.project.definition.target_beneficiaries, defaults );
-					$scope.project.definition.target_beneficiaries.push( $scope.inserted );
-					
-					// set columns / rows display
-					ngmClusterBeneficiaries.setBeneficiariesFormTargets( $scope.project.lists, 0, $scope.inserted, $scope.project.definition.target_beneficiaries.length-1 );
+					var beneficiary = ngmClusterBeneficiaries.addBeneficiary( $scope.project, $scope.project.definition.target_beneficiaries );
+					$scope.project.definition.target_beneficiaries.push( beneficiary );
+					// set form display for new rows
+					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries.length-1, beneficiary );
+					ngmClusterBeneficiaries.updateSelect();
 				},
 
 				// remove beneficiary from list
@@ -435,7 +418,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				removeTargetBeneficiary: function() {
 					var id = $scope.project.definition.target_beneficiaries[ $scope.project.beneficiaryIndex ].id;
 					$scope.project.definition.target_beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
-					ngmClusterBeneficiaries.form.active[ 0 ].rows.splice( $scope.project.beneficiaryIndex, 1 );
+					ngmClusterBeneficiaries.form[ 0 ].splice( $scope.project.beneficiaryIndex, 1 );
 					ngmClusterBeneficiaries.removeTargetBeneficiary( id );
 				},
 
@@ -610,10 +593,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				cancelEdit: function( key, $index ) {
 					if ( !$scope.project.definition[ key ][ $index ].id ) {
 						$scope.project.definition[ key ].splice( $index, 1 );
-						ngmClusterBeneficiaries.form.active[ 0 ].rows.splice( $index, 1 );
+						ngmClusterBeneficiaries.form[ 0 ].splice( $index, 1 );
+						$timeout(function(){ Materialize.toast( $filter('translate')('target_beneficiary_removed'), 4000, 'success' ); }, 400 );
 					}
-					// set columns / rows
-					ngmClusterBeneficiaries.setBeneficiariesForm( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries );          
 				},
 
 
@@ -676,7 +658,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 				/**** UPLOAD ****/
 				setTokenUpload: function(){				
-					ngmClusterDocument.setParam($scope.project.user.token);
+					ngmClusterDocument.setParam( $scope.project.user.token );
 				},
 				// need paramter for upload for this function
 				uploadDocument: ngmClusterDocument.uploadDocument({
@@ -738,9 +720,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					$scope.project.definition.target_locations =
 							ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.project.definition.target_locations );
 
-
 					// inform
-					Materialize.toast( $filter('translate')('processing'), 6000, 'note' );
+					Materialize.toast( $filter('translate')('processing'), 4000, 'note' );
 
 					// details update
 					$http({
@@ -753,17 +734,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						$scope.project.submit = true;
 
 						// error
-						if ( project.err ) { Materialize.toast( $filter('translate')('save_failed_the_project_contains_error')+'!', 6000, 'error' ); }
+						if ( project.err ) { Materialize.toast( $filter('translate')('save_failed_the_project_contains_error')+'!', 4000, 'error' ); }
 
 						// if success
 						if ( !project.err ) {
 
 							// add id to client json
 							$scope.project.definition = angular.merge( $scope.project.definition, project );
-							$scope.project.definition.update_dates = false;
 
 							// save
-							if( save_msg ){ Materialize.toast( save_msg , 6000, 'success' ); }
+							if( save_msg ){ Materialize.toast( save_msg , 4000, 'success' ); }
 
 							// notification modal
 							if( display_modal ){
@@ -777,14 +757,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								// save, redirect + msg
 								$timeout(function(){
 									$location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
-									$timeout(function(){ Materialize.toast( msg, 6000, 'success' ); }, 400 );
+									$timeout(function(){ Materialize.toast( msg, 4000, 'success' ); }, 400 );
 								}, 400 );
 							}
 						}
 
 					}).error(function( err ) {
 						// error
-						Materialize.toast( 'Error!', 6000, 'error' );
+						Materialize.toast( 'Error!', 4000, 'error' );
 					});
 
 				}

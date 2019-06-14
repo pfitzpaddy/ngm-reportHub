@@ -1,21 +1,4 @@
 
-<style>
-
-	.card .card-title {
-		font-weight: 200;
-		font-size: 1.8rem;
-	}
-
-	.card .card-content .card-title {
-		line-height: 24px;
-	}
-
-	.pagination li.active {
-	  background-color: #009688; 
-	}
-	
-</style>
-
 <!-- Syria -->
 <div class="row" ng-if="panel.organization.admin0pcode === 'SY'">
 
@@ -46,7 +29,7 @@
       	<p class="card-title">{{'projects_mayus1' | translate}}</p>
       </div>
       <div class="card-action">
-        <a href="{{ panel.getProjectsHref() }}">{{'go_to' | translate}} {{ panel.organization.organization }} {{'projects_mayus1' | translate}}</a>
+        <a class="left" href="{{ panel.getProjectsHref() }}">{{'go_to' | translate}} {{ panel.organization.organization }} {{'projects_mayus1' | translate}}</a>
       </div>
     </div>
     </a>
@@ -61,7 +44,7 @@
 	        <p class="card-title">Stocks</p>
 	      </div>
 	      <div class="card-action">
-	        <a href="{{ panel.getStocksHref() }}">{{'go_to' | translate}} {{ panel.organization.organization }} Stocks</a>
+	        <a class="left" href="{{ panel.getStocksHref() }}">{{'go_to' | translate}} {{ panel.organization.organization }} Stocks</a>
 	      </div>
 	    </div>
 	   </a>
@@ -76,7 +59,7 @@
 	        <p class="card-title">Dashboard</p>
 	      </div>
 	      <div class="card-action">
-	        <a href="#/cluster/syria/fsac">{{'go_to'|translate}} Syria FSAC Dashboard</a>
+	        <a class="left" href="#/cluster/syria/fsac">{{'go_to'|translate}} Syria FSAC Dashboard</a>
 	      </div>
 	    </div>
 	   </a>
@@ -97,7 +80,7 @@
         <p class="card-title">{{ 'projects_mayus1'|translate }}</p>
       </div>
       <div class="card-action">
-        <a href="{{ panel.getProjectsHref() }}">{{ 'go_to'|translate }} {{ panel.organization.organization }} {{'projects_mayus1'|translate}}</a>
+        <a class="left" href="{{ panel.getProjectsHref() }}">{{ 'go_to'|translate }} {{ panel.organization.organization }} {{'projects_mayus1'|translate}}</a>
       </div>
     </div>
     </a>

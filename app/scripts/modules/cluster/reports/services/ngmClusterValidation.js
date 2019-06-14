@@ -113,7 +113,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // validate details
-      validateDetails: function( rowform, locations ) {
+      validateDetails: function( locations ) {
         
         // collect error divs
         var elements = [];
@@ -149,7 +149,6 @@ angular.module( 'ngmReportHub' )
         // valid
         if ( detailsLength !== detailsRowComplete ) {
           Materialize.toast( $filter('translate')('details_contains_errors') , 6000, 'error' );
-          $timeout(function() { rowform.$show(); }, 10);
           $( elements[0] ).animatescroll();
           return false;
         } else {

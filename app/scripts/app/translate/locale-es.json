@@ -224,6 +224,7 @@
         "project_plan":"Plan del Proyecto",
         "project_title":"Título del Proyecto",
         "project_code":"Código del Proyecto",
+        "no_project_activity_type": "Por favor seleccione las actividades del proyecto (Tipo de Actividad)!",
 
         "go_to_project_plan":"Ir a Plan del Proyecto",
         "go_to_monthly_progress":"Ir a Progreso Mensual",
@@ -279,6 +280,7 @@
          "select_focal_point_of_your_project_in_the_form_below":"Seleccione el PUNTO FOCAL de su PROYECTO en el siguiente formulario",
          "enter_the_target_beneficiaries_of_your_project_in_the_form_below":"Ingrese los BENEFICIARIOS OBJETIVO de su PROYECTO en el siguiente formulario",
          "save_project":"Guardar Proyecto",
+         "target_beneficiary_removed":"Personas en necesidad objetivo eliminado!",
          "do_you_want_to_save_this_project":"Quieres Guardar este proyecto",
          "yes":"Si",
          "cancel_new_project":"Cancelar Nuevo Proyecto",
@@ -298,7 +300,8 @@
          "last_updated":"Última Actualización",
          "refresh_data":"Refrescar Datos",
          "project_locations":"UBICACIONES DE PROYECTOS",
-                 "project_location_removed":"Ubicación de Proyecto Eliminada!",
+         "project_location_removed":"Ubicación de Proyecto Eliminada!",
+         "report_new_location":"Guardar informe para guardar nueva ubicación!",
 
          "project_location_saved":"Ubicación de Proyecto Guardada!",
 
@@ -458,12 +461,25 @@
 
         "families":"Familias",
         "boys":"Niños",
-        "girls":"Niñas",
+        "boys_0_5":"Hombres 0-5 años",
+        "boys_6_11":"Hombres 6-11 años",
+        "boys_12_17":"Hombres 12-17 años",
         "men":"Hombre",
+        "male_18_59":"Hombres 18–59 años",
+        "male_60_plus":"Hombres 60 años y más",
         "eld_men":"Hombres Mayores",
-        "eld_women":"Mujeres Mayores",
+        "total_male":"Total Hombres",
+        "total_beneficiaries":"Total Beneficiarios",
 
+        "girls":"Niñas",
+        "girls_0_5":"Mujeres 0-5 años",
+        "girls_6_11":"Mujeres 6-11 años",
+        "girls_12_17":"Mujeres 12-17 años",
         "women":"Mujer",
+        "female_18_59":"Mujeres 18-59 años",
+        "female_60_plus":"Mujeres 60 años y más",
+        "eld_women":"Mujeres Mayores",
+        
         "treatment_same_province":"Tratamiento en la Misma Provincia",
         "edit":"Editar",
         "region":"REGIÓN",
@@ -555,6 +571,7 @@
         "remove_location_groups_message": "Are you sure you want to remove Location Groups from your project?",
         
         "remarks":"Observaciones",
+        "remarks_go_here": "Los comentarios van aquí ...",
         "add_partial_kits": "Agregar Kits Parciales ",
         "add_kit_details":"Agregar Detalles del Kit",
         "add_beneficiaries":"Agregar Beneficiarios",
