@@ -129,6 +129,18 @@ angular.module( 'ngmReportHub' )
 						project_status: project_status
 					}
 
+
+					var admin_org = ["OCHA", "iMMAP"];
+				    if( $scope.report.user.roles.find(rol => rol === "COUNTRY") && 
+						$scope.report.user.admin0pcode === "COL" && //delete to enable for all countries
+						admin_org.includes($scope.report.user.organization)){
+					    
+					    filter = {
+							project_status: project_status,
+							admin0pcode: $scope.report.user.admin0pcode 
+						};
+					}
+
 				// add cluster
 				if ( $scope.report.cluster_id !== 'all' ) {
 					filter = angular.merge( filter, { cluster_id: $scope.report.cluster_id } );
