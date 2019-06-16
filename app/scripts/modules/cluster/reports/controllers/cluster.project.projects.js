@@ -232,7 +232,7 @@ angular.module( 'ngmReportHub' )
 						'title': 'Sector',
 						'class': 'teal lighten-1 white-text',
 						'rows': [{
-							'title': $filter('translate')('all'),
+							'title': $filter('translate')('all_min1'),
 							'param': 'cluster_id',
 							'active': 'all',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
