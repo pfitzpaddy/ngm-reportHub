@@ -67,7 +67,9 @@
 				
 				<!-- DEFAULT -->
 				<div class="row" ng-if="!beneficiary.activity_description_id || 
-																	( beneficiary.activity_description_id && !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'detail' ] )">
+																	( beneficiary.activity_description_id && !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'detail' ] ) && 
+                                  ( beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' && 
+                                    beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian')">
 					
 					<!-- activity_type_id -->
 					<div class="input-field col s12 m6">
@@ -112,7 +114,9 @@
 
 
 				<!-- DETAILS -->
-				<div class="row" ng-if="beneficiary.activity_description_id && ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'detail' ]">
+				<div class="row" ng-if="beneficiary.activity_description_id && ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'detail' ] && 
+                                                                  ( beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' && 
+                                                                    beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian')">
 					
 					<!-- activity_type_id -->
 					<div class="input-field col s12 m4">
