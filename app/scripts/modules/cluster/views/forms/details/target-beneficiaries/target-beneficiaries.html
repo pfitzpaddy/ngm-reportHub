@@ -1,12 +1,51 @@
-
+<style>
+	.nav-list-search {
+		margin-top: 6px;
+		background-color: white;
+		width:72px;
+		-webkit-transition: width 1s ease;
+		-moz-transition: width 1s ease;
+		-o-transition: width 1s ease;
+		-ms-transition: width 1s ease;
+		transition: width 1s ease;		
+	}
+	.nav-list-search.focused{
+		margin-top: 6px;
+		width: 100%;
+		-webkit-transition: width 1s ease;
+		-moz-transition: width 1s ease;
+		-o-transition: width 1s ease;
+		-ms-transition: width 1s ease;
+		transition: width 1s ease;
+	}
+</style>
 <div class="row">
 	<div class="col s12 m12 l12">
 		<div class="card">
 			<ul class="collection with-header">
-				<li class="collection-header blue lighten-1">
-					<h5 class="report-work-title white-text">
-						<i class="material-icons left">group</i>{{ 'target_population' | translate }}
-					</h5>
+				<li class="collection-header blue lighten-1" style="height:80px;">
+					<div class="col s12 m8">
+						<h5 class="report-work-title white-text">
+							<i class="material-icons left">group</i>{{ 'target_population' | translate }}
+						</h5>
+					</div>
+					<div class="col s12 m4 right" ng-if="project.definition.target_beneficiaries.length > 4">
+						<nav class="nav-list-search right" ng-class="{'focused':search_input=== true || project.filter }">
+							<div class="nav-wrapper" ng-click="searchToogle()">
+								<form>
+									<div class="input-field">
+										<input id="search_" type="search" 
+										ng-model="project.filter" 
+										ng-focus="search_input=true" 
+										ng-blur="search_input=false">
+										<label for="search_">
+											<i class="material-icons" style="color: teal; padding-left:5px;">search</i>
+										</label>
+									</div>
+								</form>
+							</div>
+						</nav>
+					</div>
 				</li>
 
 				<li class="collection-item avatar">
@@ -21,7 +60,7 @@
 					</div>
 
 					<!-- for target_beneficiaries -->
-					<div ng-repeat="beneficiary in project.definition.target_beneficiaries | orderBy:'createdAt'">
+					<div ng-repeat="beneficiary in project.definition.target_beneficiaries | orderBy:'createdAt' | filter: {activity_type_name:project.filter}">
 
 						<!-- title -->
 						<div style="position: absolute;">
@@ -40,7 +79,7 @@
 						<div align="right" style="padding: 16px 10px 5px;">
 							<button class="btn-floating waves-effect waves-light"
 												title="Save"
-												ng-if="!project.newProject"
+												ng-if="!project.newProject && (openDetailbeneficiary === $index)"
 												ng-click="project.saveBeneficiary()" 
 												ng-disabled="
 													( ( !project.project_details_valid() ) ||
@@ -54,7 +93,7 @@
 							</button>
 							<button class="btn-floating red lighten-2 waves-effect waves-light"
 												title="Remove"
-												ng-if="!project.newProject && beneficiary.id"
+												ng-if="!project.newProject && beneficiary.id && (openDetailbeneficiary === $index)"
 												ng-click="project.removeTargetBeneficiaryModal( $index )" 
 												ng-disabled="
 													( ( !project.project_details_valid() ) ||
@@ -67,10 +106,25 @@
 								<i class="material-icons">delete</i>
 							</button>
 							<button class="btn-floating blue lighten-1 waves-effect waves-light"
-												ng-if="project.newProject || !beneficiary.id"
+												ng-if="(project.newProject || !beneficiary.id) && (openDetailbeneficiary === $index)"
 												ng-click="project.cancelEdit( 'target_beneficiaries', $index )" 
 												title="Cancel Edit">
 								<i class="material-icons">clear</i>
+							</button>
+							<button
+								id="openDB-{{$index}}" 
+								 ng-if="openDetailbeneficiary !== $index"
+								class="btn-floating " 
+								title="min_max" 
+								ng-click="project.openDB($index)">
+								<i class="material-icons">keyboard_arrow_down</i>
+							</button>
+							<button id="closeDB-{{$index}}"
+								ng-if="openDetailbeneficiary === $index"
+								class="btn-floating " 
+								title="min_max" 
+								ng-click="project.closeDB($index)">
+								<i class="material-icons">keyboard_arrow_up</i>
 							</button>
               
 						</div>
@@ -92,7 +146,7 @@
 
 						
 						<!-- CARD PANEL -->
-						<div class="card-panel">
+						<div id="tb-detail-{{$index}}" class="card-panel" ng-show="openDetailbeneficiary==$index">
 							
 							<!-- DEFAULT -->
 							<div class="row" ng-if="!beneficiary.activity_description_id || 

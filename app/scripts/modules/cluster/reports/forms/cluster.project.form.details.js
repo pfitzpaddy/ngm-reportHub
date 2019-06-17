@@ -278,6 +278,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							})
 						}
 					}
+					$scope.openDetailbeneficiary=-1;
+					$scope.search_input = false;
+					$scope.project.filter='';
+					$scope.searchToogle=function(){
+						$('#search_').focus();
+						$scope.search_input = $scope.search_input ? false : true;;
+					}
 				},
 
 				// cofirm exit if changes
@@ -403,6 +410,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					// set beneficiaries
 					var beneficiary = ngmClusterBeneficiaries.addBeneficiary( $scope.project, $scope.project.definition.target_beneficiaries );
 					$scope.project.definition.target_beneficiaries.push( beneficiary );
+					// open card panel form of new add beneficiaries
+					$scope.project.openDB($scope.project.definition.target_beneficiaries.length-1);
+					setTimeout(function(){
+						$('#openDB-' + $scope.project.definition.target_beneficiaries.length - 1).hide();
+						$('#closeDB-' + $scope.project.definition.target_beneficiaries.length - 1).show();
+					},100)
 					// set form display for new rows
 					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries.length-1, beneficiary );
 					ngmClusterBeneficiaries.updateSelect();
@@ -683,6 +696,27 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						$scope.listUpload.itemsPerListPage = 6;
 					});
 				}, 
+
+				// open-close beneficiary target detail
+				openDB:function(index){
+					if($scope.openDetailbeneficiary !== -1){
+						$('#openDB-' + $scope.openDetailbeneficiary).show();
+						$('#closeDB-' + $scope.openDetailbeneficiary).hide();
+						$('#tb-detail-'+index).fadeOut();
+					}
+					$scope.openDetailbeneficiary = index;
+					$('#openDB-'+index).hide();
+					$('#closeDB-'+index).show();
+					$('#tb-detail-' + index).fadeIn();
+					
+				},
+				closeDB:function (index) {
+					$('#openDB-'+index).show();
+					$('#closeDB-'+index).hide();
+					$('#tb-detail-'+index).fadeOut();
+					$scope.openDetailbeneficiary = -1;
+					
+				},
 
 				/**** SAVE ****/
 				
