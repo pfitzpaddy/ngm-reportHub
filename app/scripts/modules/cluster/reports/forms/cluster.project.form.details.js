@@ -412,10 +412,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					$scope.project.definition.target_beneficiaries.push( beneficiary );
 					// open card panel form of new add beneficiaries
 					$scope.project.openDB($scope.project.definition.target_beneficiaries.length-1);
-					setTimeout(function(){
-						$('#openDB-' + $scope.project.definition.target_beneficiaries.length - 1).hide();
-						$('#closeDB-' + $scope.project.definition.target_beneficiaries.length - 1).show();
-					},100)
 					// set form display for new rows
 					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries.length-1, beneficiary );
 					ngmClusterBeneficiaries.updateSelect();
