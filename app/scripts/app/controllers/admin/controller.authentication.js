@@ -39,8 +39,6 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 			}else{
 				var4wplusrh = "ReportHub"
 			}
-
-			console.log(var4wplusrh);
 			
 			// project
 			$scope.panel = {
