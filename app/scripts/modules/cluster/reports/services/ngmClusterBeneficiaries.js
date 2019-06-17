@@ -122,6 +122,10 @@ angular.module( 'ngmReportHub' )
 				$timeout(function() { $( 'select' ).material_select(); }, 10 );
 			},
 
+			updateSelectById: function (id) {
+				$timeout(function () { $('#' + id + ' select').material_select(); }, 10);
+			},
+
 			// sum for totals (age groups)
 			updateBeneficiairesBreakdown: function( beneficiary ) {
 				// set
@@ -161,7 +165,7 @@ angular.module( 'ngmReportHub' )
 			},
 
 			// set the name for a selection
-			updateName: function( list, key, name, beneficiary ){
+			updateName: function( list, key, name, beneficiary, id ){
 				// this approach does NOT break gulp!
 				$timeout(function() {
 					var obj = {}
@@ -172,7 +176,11 @@ angular.module( 'ngmReportHub' )
 						// name
 						beneficiary[ name ] = select[0][ name ];
 						// update materialize select
-						ngmClusterBeneficiaries.updateSelect();
+						if (id) {
+							ngmClusterBeneficiaries.updateSelectById(id);
+						} else {
+							ngmClusterBeneficiaries.updateSelect();
+						}
 					}
 				}, 100 );
 			},
