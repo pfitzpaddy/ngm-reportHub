@@ -1,6 +1,6 @@
 		
 		<!-- beneficiaries -->
-		<div ng-repeat="beneficiary in project.report.locations[ $locationIndex ].beneficiaries | limitTo: project.location_beneficiary_limit[ $locationIndex ].beneficiary_limit" | orderBy:'createdAt'" ng-init="$beneficiaryIndex=$index">
+		<div id="{{ $beneficiaryIndex=$index; id = 'ngm-' + $locationIndex + '-' + $index }}" ng-repeat="beneficiary in project.report.locations[ $locationIndex ].beneficiaries | limitTo: project.location_beneficiary_limit[ $locationIndex ].beneficiary_limit | orderBy:'createdAt' track by $index">
 
 			<!-- title -->
 			<div style="position: absolute;">
@@ -77,7 +77,7 @@
 											ng-model="beneficiary.activity_type_id"
 											ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type"
 											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );
-																	ngmClusterBeneficiaries.updateSelect();"
+																	ngmClusterBeneficiaries.updateSelectById(id);"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !project.definition.activity_type"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
@@ -97,7 +97,7 @@
 																			activity_type_id: beneficiary.activity_type_id
 																		} : true"
 											ng-change="ngmClusterBeneficiaries.setBeneficiaries( project, 'description', $locationIndex, $beneficiaryIndex, beneficiary );
-																	ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );"
+																	ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary, id );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
@@ -122,7 +122,7 @@
 											ng-model="beneficiary.activity_type_id"
 											ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type"
 											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );
-																	ngmClusterBeneficiaries.updateSelect();"
+																	ngmClusterBeneficiaries.updateSelectById(id);"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !project.definition.activity_type"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
@@ -141,7 +141,7 @@
 																			cluster_id: beneficiary.cluster_id,
 																			activity_type_id: beneficiary.activity_type_id
 																		} : true"
-											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary, id );
 																	ngmClusterBeneficiaries.setBeneficiaries( project, 'description', $locationIndex, $beneficiaryIndex, beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
@@ -165,7 +165,7 @@
 																				activity_type_id: beneficiary.activity_type_id, 
 																				activity_description_id: beneficiary.activity_description_id 
 																		} : true"
-											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_detail_id', 'activity_detail_name', beneficiary );
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_detail_id', 'activity_detail_name', beneficiary, id );
 																	ngmClusterBeneficiaries.setBeneficiaries( project, 'detail', $locationIndex, $beneficiaryIndex, beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
@@ -190,7 +190,7 @@
 											ng-model="beneficiary.activity_type_id"
 											ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type"
 											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );
-																	ngmClusterBeneficiaries.updateSelect();"
+																	ngmClusterBeneficiaries.updateSelectById(id);"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !project.definition.activity_type"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
@@ -259,7 +259,7 @@
 																				activity_detail_id: beneficiary.activity_detail_id 
 																		} : true"
 											ng-change="ngmClusterBeneficiaries.setBeneficiaries( project, 'indicator', $locationIndex, $beneficiaryIndex, beneficiary );
-																	ngmClusterBeneficiaries.updateSelect();"
+																	ngmClusterBeneficiaries.updateSelectById(id);"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
@@ -283,7 +283,7 @@
 											name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.beneficiary_type_id"
-											ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_types, 'beneficiary_type_id', 'beneficiary_type_name', beneficiary )"
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_types, 'beneficiary_type_id', 'beneficiary_type_name', beneficiary, id )"
 											ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types |
 																	filter: { 
 																		cluster_id: beneficiary.cluster_id
@@ -307,7 +307,7 @@
 											name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.beneficiary_type_id"
-											ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_types, 'beneficiary_type_id', 'beneficiary_type_name', beneficiary )"
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_types, 'beneficiary_type_id', 'beneficiary_type_name', beneficiary, id )"
 											ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types |
 																	filter: { 
 																		cluster_id: beneficiary.cluster_id
@@ -324,7 +324,7 @@
 											name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.delivery_type_id"
-											ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types, 'delivery_type_id', 'delivery_type_name', beneficiary )"
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types, 'delivery_type_id', 'delivery_type_name', beneficiary, id )"
 											ng-options="b.delivery_type_id as b.delivery_type_name for b in project.lists.delivery_types"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id">
 							<option value="">{{ 'select' | translate }}</option>
@@ -345,7 +345,7 @@
 											name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.beneficiary_type_id"
-											ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_types, 'beneficiary_type_id', 'beneficiary_type_name', beneficiary );
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_types, 'beneficiary_type_id', 'beneficiary_type_name', beneficiary, id );
 																	ngmClusterHelperCol.updateIndicatorObjective( project.definition.admin0pcode, beneficiary )"
 											ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types |
 																	filter: { 
@@ -363,7 +363,7 @@
 											name="beneficiary_category_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.beneficiary_category_id"
-											ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_categories, 'beneficiary_category_id', 'beneficiary_category_name', beneficiary );"
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_categories, 'beneficiary_category_id', 'beneficiary_category_name', beneficiary, id );"
 											ng-options="b.beneficiary_category_id as b.beneficiary_category_name for b in project.lists.beneficiary_categories"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id">
 							<option value="">{{ 'select' | translate }}</option>
@@ -377,7 +377,7 @@
 											name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.delivery_type_id"
-											ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types, 'delivery_type_id', 'delivery_type_name', beneficiary )"
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types, 'delivery_type_id', 'delivery_type_name', beneficiary, id )"
 											ng-options="b.delivery_type_id as b.delivery_type_name for b in project.lists.delivery_types"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id">
 							<option value="">{{ 'select' | translate }}</option>
@@ -404,7 +404,7 @@
 											name="mpc_delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.mpc_delivery_type_id"
-											ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ], 'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary );"
+											ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ], 'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary, id );"
 											ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for 
 																		b in ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ]"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id">
@@ -419,7 +419,7 @@
 											name="mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.mpc_mechanism_type_id"
-											ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_mechanism_type, 'mpc_mechanism_type_id', 'mpc_mechanism_type_name', beneficiary );"
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_mechanism_type, 'mpc_mechanism_type_id', 'mpc_mechanism_type_name', beneficiary, id );"
 											ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for 
 																		b in project.lists.mpc_mechanism_type | filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id }"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.mpc_delivery_type_id">
@@ -434,7 +434,7 @@
 											name="transfer_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.transfer_type_id"
-											ng-change="ngmClusterBeneficiaries.updateName( project.lists.transfers, 'transfer_type_id', 'transfer_type_name', beneficiary );"
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.transfers, 'transfer_type_id', 'transfer_type_name', beneficiary, id );"
 											ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.mpc_mechanism_type_id">
 							<option value="">{{ 'select' | translate }}</option>
@@ -459,7 +459,7 @@
 											name="mpc_delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.mpc_delivery_type_id"
-											ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ], 'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary );"
+											ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ], 'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary, id );"
 											ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for 
 																		b in ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ]"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id">
@@ -474,7 +474,7 @@
 											name="mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.mpc_mechanism_type_id"
-											ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_mechanism_type, 'mpc_mechanism_type_id', 'mpc_mechanism_type_name', beneficiary );"
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_mechanism_type, 'mpc_mechanism_type_id', 'mpc_mechanism_type_name', beneficiary, id );"
 											ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for 
 																		b in project.lists.mpc_mechanism_type | filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id }"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.mpc_delivery_type_id">
@@ -489,7 +489,7 @@
 											name="package_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.package_type_id"
-											ng-change="ngmClusterBeneficiaries.updateName( [{ 'package_type_id':'standard', 'package_type_name':'Standard' },{ 'package_type_id':'non-standard', 'package_type_name':'Non-standard' }], 'package_type_id', 'package_type_name', beneficiary );"
+											ng-change="ngmClusterBeneficiaries.updateName( [{ 'package_type_id':'standard', 'package_type_name':'Standard' },{ 'package_type_id':'non-standard', 'package_type_name':'Non-standard' }], 'package_type_id', 'package_type_name', beneficiary, id );"
 											ng-options="s.package_type_id as s.package_type_name for 
 																				s in [{
 																					'package_type_id':'standard',
@@ -521,7 +521,7 @@
 											name="mpc_delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.mpc_delivery_type_id"
-											ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ], 'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary );"
+											ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ], 'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary, id );"
 											ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for 
 																		b in ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ]"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id">
@@ -536,7 +536,7 @@
 											name="mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.mpc_mechanism_type_id"
-											ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_mechanism_type, 'mpc_mechanism_type_id', 'mpc_mechanism_type_name', beneficiary );"
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_mechanism_type, 'mpc_mechanism_type_id', 'mpc_mechanism_type_name', beneficiary, id );"
 											ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for 
 																		b in project.lists.mpc_mechanism_type | filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id }"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.mpc_delivery_type_id">
@@ -551,7 +551,7 @@
 											name="transfer_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.transfer_type_id"
-											ng-change="ngmClusterBeneficiaries.updateName( project.lists.transfers, 'transfer_type_id', 'transfer_type_name', beneficiary );"
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.transfers, 'transfer_type_id', 'transfer_type_name', beneficiary, id );"
 											ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.mpc_mechanism_type_id">
 							<option value="">{{ 'select' | translate }}</option>
@@ -565,7 +565,7 @@
 											name="package_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.package_type_id"
-											ng-change="ngmClusterBeneficiaries.updateName( [{ 'package_type_id':'standard', 'package_type_name':'Standard' },{ 'package_type_id':'non-standard', 'package_type_name':'Non-standard' }], 'package_type_id', 'package_type_name', beneficiary );"
+											ng-change="ngmClusterBeneficiaries.updateName( [{ 'package_type_id':'standard', 'package_type_name':'Standard' },{ 'package_type_id':'non-standard', 'package_type_name':'Non-standard' }], 'package_type_id', 'package_type_name', beneficiary, id );"
 											ng-options="s.package_type_id as s.package_type_name for 
 																				s in [{
 																					'package_type_id':'standard',
@@ -600,7 +600,7 @@
 											name="unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.unit_type_id"
-											ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ], 'unit_type_id', 'unit_type_name', beneficiary );"
+											ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ], 'unit_type_id', 'unit_type_name', beneficiary, id );"
 											ng-options="a.unit_type_id as a.unit_type_name for a in 
 																			ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ]"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id">

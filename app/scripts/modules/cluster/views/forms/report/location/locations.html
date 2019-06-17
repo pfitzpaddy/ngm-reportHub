@@ -64,10 +64,9 @@
 						</div>
 
 						<!-- scroll -->
-						<div class="row" ng-repeat="location in project.report.locations | 
+						<div id = "{{ $locationIndex=$index; idl = 'ngm-' + $index }}" class="row" ng-repeat="location in project.report.locations | 
 															filter:{ location_group_id: project.location_group } | 
-															limitTo: project.location_limit"
-															ng-init="$locationIndex=$index">
+															limitTo: project.location_limit track by $index">
 
 							<div class="row">
 								<!-- location title -->
