@@ -213,7 +213,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
                   // 0.50 of scrolling height, add location_limit
                   if ( ( scrollHeight - scrollPosition ) / scrollHeight < 0.50 ) {
                     // when scroll to bottom of the page
-                    $scope.project.incrementLocationLimitByOne();
+                    $scope.project.incrementLocationLimitByOneAutoSelect();
                   }
                 } else {
                   // scroll up
@@ -307,7 +307,48 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
             for (var id of ids) {
               ngmClusterBeneficiaries.updateSelectById(id);
             }
+            // required to update ng-repeat limitTo?
+            $scope.$apply();  
+          }
+        }
 
+        // if all rendered
+        if ($scope.project.report.locations.length === $scope.project.location_limit) {
+          // and all last location beneficiaries rendered
+          if ($scope.project.location_beneficiary_limit[$scope.project.location_limit - 1].beneficiary_count <= $scope.project.location_beneficiary_limit[$scope.project.location_limit - 1].beneficiary_limit) {
+            $scope.project.allRendered = true;
+          }
+        }
+      },
+
+      // incrementLocationLimit by one location if using materializeSelect directive
+      incrementLocationLimitByOneAutoSelect: function() {
+
+        var location_index = $scope.project.location_limit;
+        var last_location_index = location_index - 1;
+
+        // if not all beneficiaries on last location rendered
+        if ( $scope.project.location_beneficiary_limit[ last_location_index ].beneficiary_count > $scope.project.location_beneficiary_limit[ last_location_index ].beneficiary_limit  ) {
+          // increment
+          start = $scope.project.location_beneficiary_limit[ last_location_index ].beneficiary_limit
+          $scope.project.location_beneficiary_limit[ last_location_index ].beneficiary_limit += 6;
+
+          // required to update ng-repeat limitTo?
+          $scope.$apply();
+
+        } else {
+          // add location to render
+          if ( !$scope.project.location_beneficiary_limit[ location_index ] ) {
+            $scope.project.location_beneficiary_limit[ location_index ] = {
+              beneficiary_limit:6,
+              beneficiary_count:$scope.project.report.locations[location_index].beneficiaries.length
+            }
+          }
+
+          if ( $scope.project.report.locations.length > $scope.project.location_limit ) {
+            
+            $scope.project.location_limit += 1;
+            
             // required to update ng-repeat limitTo?
             $scope.$apply();
             
@@ -404,7 +445,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					console.log($scope.project.location_beneficiary_limit);
 					// update select
           // ngmClusterBeneficiaries.updateSelect();
-          ngmClusterBeneficiaries.updateSelectById('ngm-' + $parent + '-' + ($scope.project.report.locations[$parent].beneficiaries.length - 1));
+          // ngmClusterBeneficiaries.updateSelectById('ngm-' + $parent + '-' + ($scope.project.report.locations[$parent].beneficiaries.length - 1));
 				},
 
 				// add beneficiary
@@ -431,7 +472,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				removeBeneficiary: function() {
 					var id = $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries[ $scope.project.beneficiaryIndex ].id;
           $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
-          ngmClusterBeneficiaries.updateSelectById('ngm-' + $scope.project.locationIndex);
+          // ngmClusterBeneficiaries.updateSelectById('ngm-' + $scope.project.locationIndex);
 					$scope.project.activePrevReportButton();
 					ngmClusterBeneficiaries.removeBeneficiary( $scope.project, id );
 				},
@@ -650,7 +691,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					if ( !$scope.project.report.locations[ $parent ].beneficiaries[ $index ].id ) {		
 					 $scope.project.report.locations[ $parent ].beneficiaries.splice( $index, 1 );
            ngmClusterBeneficiaries.form[ $parent ].splice( $index, 1 );
-           ngmClusterBeneficiaries.updateSelectById('ngm-' + $parent);
+          //  ngmClusterBeneficiaries.updateSelectById('ngm-' + $parent);
 					}
 				},
 
@@ -979,7 +1020,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 									}, 400);
 								} else {
 									// reset select when edit sved report
-									ngmClusterBeneficiaries.updateSelect();
+									// ngmClusterBeneficiaries.updateSelect();
 								}
 
 							} else {
