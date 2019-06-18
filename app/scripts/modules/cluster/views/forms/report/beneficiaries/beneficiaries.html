@@ -67,17 +67,18 @@
 				
 				<!-- DEFAULT -->
 				<div class="row" ng-if="!beneficiary.activity_description_id || 
-																	( beneficiary.activity_description_id && !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'detail' ] )">
+																	( beneficiary.activity_description_id && !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'detail' ] ) && 
+                                  ( beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' && 
+                                    beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian')">
 					
 					<!-- activity_type_id -->
 					<div class="input-field col s12 m6">
-						<select id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.activity_type_id"
 											ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type"
-											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );
-																	ngmClusterBeneficiaries.updateSelectById(id);"
+											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !project.definition.activity_type"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
@@ -87,7 +88,7 @@
 
 					<!-- activity_description_id -->
 					<div class="input-field col s12 m6">
-						<select id="ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.activity_description_id"
@@ -112,17 +113,18 @@
 
 
 				<!-- DETAILS -->
-				<div class="row" ng-if="beneficiary.activity_description_id && ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'detail' ]">
+				<div class="row" ng-if="beneficiary.activity_description_id && ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'detail' ] && 
+                                                                  ( beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' && 
+                                                                    beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian')">
 					
 					<!-- activity_type_id -->
 					<div class="input-field col s12 m4">
-						<select id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.activity_type_id"
 											ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type"
-											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );
-																	ngmClusterBeneficiaries.updateSelectById(id);"
+											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !project.definition.activity_type"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
@@ -132,7 +134,7 @@
 
 					<!-- activity_description_id -->
 					<div class="input-field col s12 m4">
-						<select id="ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.activity_description_id"
@@ -155,7 +157,7 @@
 
 					<!-- activity_detail_id -->
 					<div class="input-field col s4">
-						<select id="ngm-activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.activity_detail_id"
@@ -184,13 +186,12 @@
 					
 					<!-- activity_type_id -->
 					<div class="input-field col s12 m4">
-						<select id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.activity_type_id"
 											ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type"
-											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );
-																	ngmClusterBeneficiaries.updateSelectById(id);"
+											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !project.definition.activity_type"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
@@ -200,7 +201,7 @@
 
 					<!-- activity_description_id -->
 					<div class="input-field col s12 m4">
-						<select id="ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.activity_description_id"
@@ -223,7 +224,7 @@
 
 					<!-- injury_treatment_same_province -->
 					<div class="input-field col s4">
-						<select id="ngm-injury_treatment_same_province-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-injury_treatment_same_province-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="injury_treatment_same_province-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.injury_treatment_same_province"
@@ -247,7 +248,7 @@
 
 					<!-- indicator_id -->
 					<div class="input-field col s12">
-						<select id="ngm-indicator_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-indicator_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="indicator_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.indicator_id"
@@ -258,8 +259,7 @@
 																				activity_description_id: beneficiary.activity_description_id,
 																				activity_detail_id: beneficiary.activity_detail_id 
 																		} : true"
-											ng-change="ngmClusterBeneficiaries.setBeneficiaries( project, 'indicator', $locationIndex, $beneficiaryIndex, beneficiary );
-																	ngmClusterBeneficiaries.updateSelectById(id);"
+											ng-change="ngmClusterBeneficiaries.setBeneficiaries( project, 'indicator', $locationIndex, $beneficiaryIndex, beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
@@ -279,7 +279,7 @@
 
 					<!-- beneficiary_type -->
 					<div class="input-field col s12">
-						<select id="ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.beneficiary_type_id"
@@ -303,7 +303,7 @@
 
 					<!-- beneficiary_type -->
 					<div class="input-field col s6">
-						<select id="ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.beneficiary_type_id"
@@ -320,7 +320,7 @@
 
 					<!-- delivery_type_id -->
 					<div class="input-field col s6">
-						<select id="ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.delivery_type_id"
@@ -341,7 +341,7 @@
 
 					<!-- beneficiary_type -->
 					<div class="input-field col s12 m4">
-						<select id="ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.beneficiary_type_id"
@@ -359,7 +359,7 @@
 					
 					<!-- beneficiary_type -->
 					<div class="input-field col s12 m4">
-						<select id="ngm-beneficiary_category_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-beneficiary_category_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="beneficiary_category_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.beneficiary_category_id"
@@ -373,13 +373,13 @@
 
 					<!-- delivery_type_id -->
 					<div class="input-field col s4">
-						<select id="ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.delivery_type_id"
 											ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types, 'delivery_type_id', 'delivery_type_name', beneficiary, id )"
 											ng-options="b.delivery_type_id as b.delivery_type_name for b in project.lists.delivery_types"
-											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id">
+											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id" materialize-select>
 							<option value="">{{ 'select' | translate }}</option>
 						</select>
 						<label for="ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-10%)">{{ 'type' | translate }}</label>
@@ -400,7 +400,7 @@
 
 					<!-- mpc_delivery_type_id -->
 					<div class="input-field col s12 m4">
-						<select id="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="mpc_delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.mpc_delivery_type_id"
@@ -415,7 +415,7 @@
 
 					<!-- mpc_mechanism_type_id -->
 					<div class="input-field col s12 m4">
-						<select id="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.mpc_mechanism_type_id"
@@ -430,7 +430,7 @@
 
 					<!-- transfer_type_id -->
 					<div class="input-field col s12 m4">
-						<select id="ngm-transfer_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-transfer_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="transfer_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.transfer_type_id"
@@ -455,7 +455,7 @@
 
 					<!-- mpc_delivery_type_id -->
 					<div class="input-field col s12 m4">
-						<select id="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="mpc_delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.mpc_delivery_type_id"
@@ -470,7 +470,7 @@
 
 					<!-- mpc_mechanism_type_id -->
 					<div class="input-field col s12 m4">
-						<select id="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.mpc_mechanism_type_id"
@@ -485,7 +485,7 @@
 
 					<!-- package_type_id -->
 					<div class="input-field col s12 m4">
-						<select id="ngm-package_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-package_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="package_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.package_type_id"
@@ -517,7 +517,7 @@
 
 					<!-- mpc_delivery_type_id -->
 					<div class="input-field col s12 m3">
-						<select id="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="mpc_delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.mpc_delivery_type_id"
@@ -532,7 +532,7 @@
 
 					<!-- mpc_mechanism_type_id -->
 					<div class="input-field col s12 m3">
-						<select id="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.mpc_mechanism_type_id"
@@ -547,7 +547,7 @@
 
 					<!-- transfer_type_id -->
 					<div class="input-field col s12 m3">
-						<select id="ngm-transfer_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-transfer_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="transfer_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.transfer_type_id"
@@ -561,7 +561,7 @@
 
 					<!-- package_type_id -->
 					<div class="input-field col s12 m3">
-						<select id="ngm-package_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-package_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="package_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.package_type_id"
@@ -596,7 +596,7 @@
 												!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'transfer_type_id' ] )">
 					<!-- unit_type_id -->
 					<div class="input-field col s6">
-						<select id="ngm-unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+						<select materialize-select id="ngm-unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 											name="unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.unit_type_id"
