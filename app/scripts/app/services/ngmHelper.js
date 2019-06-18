@@ -123,7 +123,29 @@ angular.module( 'ngmReportHub' )
       });
     };
   })
+	.filter('filterBeneficiary',function(){		
+		return function (items, search) {
+			var filtered=[];
+			if(!search){
+				return items;
+			}
 
+			angular.forEach(items,function(item){
+				match=0;
+				angular.forEach(Object.keys(item),function(key){
+					value = item[key]
+					value= value.toString();
+					if(value.indexOf(search)>-1){
+						match+=1;
+					}
+				})
+				if(match>0){
+					filtered.push(item)
+				}
+			})
+			return filtered
+		}
+	})
   // checks 2 passwords are identical 
   .directive( 'pwCheck', [ function () {
     return {
