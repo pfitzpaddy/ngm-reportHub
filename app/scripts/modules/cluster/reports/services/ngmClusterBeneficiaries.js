@@ -175,12 +175,10 @@ angular.module( 'ngmReportHub' )
 					if ( select.length ) {
 						// name
 						beneficiary[ name ] = select[0][ name ];
-						// update materialize select
-						// if (id) {
-						// 	ngmClusterBeneficiaries.updateSelectById(id);
-						// } else {
-						// 	ngmClusterBeneficiaries.updateSelect();
-						// }
+						// update materialize select ( target-beneficiaries )
+						if ( !id ) {
+							ngmClusterBeneficiaries.updateSelect();
+						}
 					}
 				}, 100 );
 			},
@@ -220,17 +218,11 @@ angular.module( 'ngmReportHub' )
 			// add beneficiary
 			addBeneficiary: function ( project, beneficiaries ) {
 
-				console.log(project.definition.admin0pcode)
-				console.log(beneficiaries)
-
 				// inserted
 				var inserted = {}
-				var defaults = ngmClusterBeneficiaries.defaults;
 				var context_defaults = {}
-				// default is first beneficiary
-				if ( beneficiaries && beneficiaries.length ) {
-					context_defaults = defaults[ project.definition.admin0pcode ] && setBeneficiariesInputsdefaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] ? defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] : {}
-				}		
+				var length = beneficiaries.length;
+				var defaults = ngmClusterBeneficiaries.defaults;
 
 				// merge
 				angular.merge( inserted, defaults.inputs, context_defaults );
@@ -245,7 +237,7 @@ angular.module( 'ngmReportHub' )
 					delete b.remarks;
 					delete b.createdAt;
 					delete b.updatedAt;
-					context_defaults = defaults[ project.definition.admin0pcode ] && defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] ? defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] : {}
+					context_defaults = defaults[ project.definition.admin0pcode ] && defaults[ project.definition.admin0pcode ][ b.cluster_id ] ? defaults[ project.definition.admin0pcode ][ b.cluster_id ] : {}
 					angular.merge( inserted, b, defaults.inputs, context_defaults );
 				}
 

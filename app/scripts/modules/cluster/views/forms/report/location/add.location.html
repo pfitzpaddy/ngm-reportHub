@@ -197,7 +197,7 @@
 											<form editable-form 
 														name="locationform"
 														class="form-buttons form-inline"
-														onbeforesave="ngmClusterLocations.addNewLocation( project, ngmClusterLocations.new_location )"
+														onbeforesave="ngmClusterLocations.addNewLocation( project, ngmClusterLocations.new_location ); project.incrementLocationLimit();"
 														shown="true">
 												<button title="Save" 
 																type="submit"
