@@ -26,6 +26,17 @@
 	.rotate:hover{
 		box-shadow:0 -5px 11px 0 rgba(0, 0, 0, 0.18), 0 -4px 15px 0 rgba(0, 0, 0, 0.15);
 	}
+	.card-panel{
+		margin-top:1.5rem;
+	}
+	.report-beneficiary-second-title{
+		font-size: 1.36rem;
+    color: #00796b;
+    font-weight: 300;
+    text-align: left;
+		padding: 0px 0px 12px 49px;
+		margin-top:0px}
+
 </style>
 <div class="row">
 	<div class="col s12 m12 l12">
@@ -78,9 +89,15 @@
 							<h5 class="report-beneficiary-title" ng-if="beneficiary.activity_type_id && !beneficiary.activity_description_id">
 								<i class="material-icons left">accessibility</i>{{ beneficiary.activity_type_name }}
 							</h5>
-							<h5 class="report-beneficiary-title" ng-if="beneficiary.activity_type_id && beneficiary.activity_description_id">
-								<i class="material-icons left">accessibility</i>{{ beneficiary.activity_type_name }}, {{ beneficiary.activity_description_name }}, {{beneficiary.activity_detail_name?beneficiary.activity_detail_name+',':''}}
-								{{beneficiary.beneficiary_type_name?beneficiary.beneficiary_type_name:''}}
+							<h5 class="report-beneficiary-title" ng-if="beneficiary.activity_type_id && beneficiary.activity_description_id && beneficiary.activity_detail_name"
+							style="padding-bottom: 0px;padding-top:5px;">
+								<i class="material-icons left">accessibility</i>{{ beneficiary.activity_type_name }}, {{ beneficiary.activity_description_name }}, 
+							</h5>
+							<h5 ng-if="beneficiary.activity_detail_name" class="report-beneficiary-second-title">
+								{{beneficiary.activity_detail_name}}, {{beneficiary.beneficiary_type_name?beneficiary.beneficiary_type_name:''}}
+							</h5>
+							<h5 class="report-beneficiary-title" ng-if="beneficiary.activity_type_id && beneficiary.activity_description_id && !beneficiary.activity_detail_name">
+								<i class="material-icons left">accessibility</i>{{ beneficiary.activity_type_name }}, {{ beneficiary.activity_description_name }},{{beneficiary.beneficiary_type_name?beneficiary.beneficiary_type_name:''}}
 							</h5>
 						</div>
 							
