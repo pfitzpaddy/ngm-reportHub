@@ -280,6 +280,8 @@
          "select_focal_point_of_your_project_in_the_form_below":"Seleccione el PUNTO FOCAL de su PROYECTO en el siguiente formulario",
          "enter_the_target_beneficiaries_of_your_project_in_the_form_below":"Ingrese los BENEFICIARIOS OBJETIVO de su PROYECTO en el siguiente formulario",
          "save_project":"Guardar Proyecto",
+         "minimize":"Minimizar",
+         "click_expand":"Haga Clic Para Ampliar",
          "target_beneficiary_removed":"Personas en necesidad objetivo eliminado!",
          "do_you_want_to_save_this_project":"Quieres Guardar este proyecto",
          "yes":"Si",
