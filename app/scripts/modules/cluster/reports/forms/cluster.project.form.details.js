@@ -696,15 +696,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 				// open-close beneficiary target detail
 				openCloseDetailBeneficiaries:function(index){
-					if (!$scope.detailBeneficiaries[index]){
-						$('#openDB-' + index).hide();
-						$('#closeDB-' + index).show();
-						$scope.detailBeneficiaries[index] = !$scope.detailBeneficiaries[index];
-					}else{
-						$('#openDB-' + index).show();
-						$('#closeDB-' + index).hide();
-						$scope.detailBeneficiaries[index] = !$scope.detailBeneficiaries[index];
-					}
+					$scope.detailBeneficiaries[index] = !$scope.detailBeneficiaries[index];
 				},
 				totalBeneficiary:function(beneficiary){
 					total = 0;

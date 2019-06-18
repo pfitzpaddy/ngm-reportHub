@@ -18,6 +18,14 @@
 		-ms-transition: width 1s ease;
 		transition: width 1s ease;
 	}
+	.rotate{
+		transform:rotate(180deg);
+		box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.16), 0 -2px 10px 0 rgba(0, 0, 0, 0.12);
+		transition: .25s ease-in-out;
+	}
+	.rotate:hover{
+		box-shadow:0 -5px 11px 0 rgba(0, 0, 0, 0.18), 0 -4px 15px 0 rgba(0, 0, 0, 0.15);
+	}
 </style>
 <div class="row">
 	<div class="col s12 m12 l12">
@@ -114,22 +122,13 @@
 								<i class="material-icons">clear</i>
 							</button>
 							<button
-								id="openDB-{{$index}}" 
-								 ng-show="!detailBeneficiaries[$index]"
-								class="btn-floating "  
+								id="openDB-{{$index}}"								 
+								class="btn-floating "
+								ng-class="{'rotate': detailBeneficiaries[$index]}"  
 								ng-click="project.openCloseDetailBeneficiaries($index)">
 								<i class="material-icons">keyboard_arrow_down</i>
 								<md-tooltip md-direction="right">
-									Click to Expand
-								</md-tooltip>
-							</button>
-							<button id="closeDB-{{$index}}"
-								ng-show="detailBeneficiaries[$index]"
-								class="btn-floating "								 
-								ng-click="project.openCloseDetailBeneficiaries($index)">
-								<i class="material-icons">keyboard_arrow_up</i>
-								<md-tooltip md-direction="right">
-									Minimize
+									{{detailBeneficiaries[$index]?'Minimize':'Click to Expand'}}
 								</md-tooltip>
 							</button>
               
