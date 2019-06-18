@@ -191,7 +191,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					}
 
 					// if last location beneficiaries not completed
-					if ($scope.project.location_beneficiary_limit[ $scope.project.location_limit - 1 ].beneficiary_count>$scope.project.location_beneficiary_limit[ $scope.project.location_limit - 1 ].beneficiary_limit){
+					if ( $scope.project.location_beneficiary_limit[ $scope.project.location_limit - 1 ] && 
+								$scope.project.location_beneficiary_limit[ $scope.project.location_limit - 1 ].beneficiary_count > $scope.project.location_beneficiary_limit[ $scope.project.location_limit - 1 ].beneficiary_limit ){
 						$scope.project.allRendered = false;
 					}
 
