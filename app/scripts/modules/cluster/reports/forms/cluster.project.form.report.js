@@ -187,13 +187,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 					// if rendered all locations
 					if ($scope.project.report.locations.length === $scope.project.location_limit) {
-						$scope.project.allRendered = true;
-					}
-
-					// if last location beneficiaries not completed
-					if ( $scope.project.location_beneficiary_limit[ $scope.project.location_limit - 1 ] && 
-								$scope.project.location_beneficiary_limit[ $scope.project.location_limit - 1 ].beneficiary_count > $scope.project.location_beneficiary_limit[ $scope.project.location_limit - 1 ].beneficiary_limit ){
-						$scope.project.allRendered = false;
+                        $scope.project.allRendered = true;
+                        // if last location beneficiaries not completed
+                        if ($scope.project.location_beneficiary_limit[ $scope.project.location_limit - 1 ] && 
+                          $scope.project.location_beneficiary_limit[ $scope.project.location_limit - 1 ].beneficiary_count > $scope.project.location_beneficiary_limit[ $scope.project.location_limit - 1 ].beneficiary_limit) {
+                          $scope.project.allRendered = false;
+                        }
 					}
 
 					// onscroll, update incrementLocationLimit
