@@ -7,9 +7,12 @@
 	.rotate:hover{
 		box-shadow:0 -5px 11px 0 rgba(0, 0, 0, 0.18), 0 -4px 15px 0 rgba(0, 0, 0, 0.15);
 	}
+	.report-beneficiary-title{
+		margin-bottom: 0
+	}
 	.report-beneficiary-second-title{
 		font-size: 1.36rem;
-    color: #00796b;
+    color: #565656;
     font-weight: 300;
     text-align: left;
 		padding: 0px 0px 12px 49px;
@@ -17,9 +20,12 @@
 	.card-panel-expand{
 		margin-top:1.5rem;
 	}
+	.add-padding{
+			padding-bottom:30px;
+		}
 	</style>
 		<!-- beneficiaries -->
-		<div id="{{ $beneficiaryIndex=$index; id = 'ngm-' + $locationIndex + '-' + $index }}" ng-repeat="beneficiary in project.report.locations[ $locationIndex ].beneficiaries | limitTo: project.location_beneficiary_limit[ $locationIndex ].beneficiary_limit | orderBy:'createdAt' | filterBeneficiary:project.beneficiary_search track by $index">
+		<div id="{{ $beneficiaryIndex=$index; id = 'ngm-' + $locationIndex + '-' + $index }}" ng-repeat="beneficiary in project.report.locations[ $locationIndex ].beneficiaries | limitTo: project.location_beneficiary_limit[ $locationIndex ].beneficiary_limit | orderBy:'createdAt' | filterBeneficiary:project.beneficiary_search track by $index" ng-class="{'add-padding': !detailBeneficiaries[$locationIndex][$beneficiaryIndex]}">
 
 			<!-- title -->
 			<div style="position: absolute;">
@@ -31,13 +37,16 @@
 				</h5>
 				<h5 class="report-beneficiary-title" ng-if="beneficiary.activity_type_id && beneficiary.activity_description_id && beneficiary.activity_detail_name"
 				 style="padding-bottom: 0px;padding-top:5px;">
+					<i class="material-icons left">accessibility</i>{{ beneficiary.activity_type_name }}, {{ beneficiary.activity_description_name }}, {{beneficiary.activity_detail_name}}
+				</h5>
+				<!-- <h5 ng-if="beneficiary.activity_detail_name" class="report-beneficiary-second-title">
+					{{beneficiary.activity_detail_name}}, {{beneficiary.beneficiary_type_name?beneficiary.beneficiary_type_name:''}}
+				</h5> -->
+				<h5 class="report-beneficiary-title" ng-if="beneficiary.activity_type_id && beneficiary.activity_description_id && !beneficiary.activity_detail_name">
 					<i class="material-icons left">accessibility</i>{{ beneficiary.activity_type_name }}, {{ beneficiary.activity_description_name }},
 				</h5>
-				<h5 ng-if="beneficiary.activity_detail_name" class="report-beneficiary-second-title">
-					{{beneficiary.activity_detail_name}}, {{beneficiary.beneficiary_type_name?beneficiary.beneficiary_type_name:''}}
-				</h5>
-				<h5 class="report-beneficiary-title" ng-if="beneficiary.activity_type_id && beneficiary.activity_description_id && !beneficiary.activity_detail_name">
-					<i class="material-icons left">accessibility</i>{{ beneficiary.activity_type_name }}, {{ beneficiary.activity_description_name }}, {{beneficiary.beneficiary_type_name?beneficiary.beneficiary_type_name:''}}
+				<h5 class="report-beneficiary-second-title">
+					{{beneficiary.beneficiary_type_name?beneficiary.beneficiary_type_name:''}}
 				</h5>
 			</div>
 				
@@ -74,7 +83,8 @@
 				<button 
 					 class="btn-floating"
 					 ng-class="{'rotate': detailBeneficiaries[$locationIndex][$beneficiaryIndex]}"
-					 ng-click="project.openCloseDetailBeneficiaries($locationIndex,$beneficiaryIndex)">
+					 ng-click="project.openCloseDetailBeneficiaries($locationIndex,$beneficiaryIndex)"
+					 ng-disabled="unableDetailBeneficiaries">
 					<i class="material-icons">keyboard_arrow_down</i>
 					<md-tooltip md-direction="right" ng-if="detailBeneficiaries[$locationIndex][$beneficiaryIndex]">
 						{{ 'Minimize'|translate }}

@@ -171,11 +171,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						$('#search_').focus();
 						$scope.beneficiary_search_input = $scope.beneficiary_search_input ? false : true;;
 					}
+					$scope.unableDetailBeneficiaries = $scope.project.definition.project_status === 'complete' || $scope.project.report.report_status !== 'todo'? true:false;
 					angular.forEach($scope.project.report.locations,function(e,i){
 						$scope.detailBeneficiaries[i] = $scope.project.report.locations[i].beneficiaries.length ?
 																						new Array($scope.project.report.locations[i].beneficiaries.length).fill(false) : new Array(0).fill(false);
 						if ($scope.project.report.locations[i].beneficiaries.length){
 							$scope.detailBeneficiaries[i][0] = true;
+							if($scope.unableDetailBeneficiaries){
+								$scope.detailBeneficiaries[i][0] = false;
+							}
 						}
 					})
 				},
