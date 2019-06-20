@@ -206,7 +206,7 @@
 											<input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}" 
 															ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
 															ng-disabled="project.definition.project_status === 'complete'"
-															ng-click="project.compileInterClusterActivities(); ngmClusterBeneficiaries.updateSelect();"/>
+															ng-click="project.compileInterClusterActivities()"/>
 											<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label>
 										</p>
 
@@ -221,7 +221,7 @@
 														<input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}" 
 																		ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
 																		ng-disabled="project.definition.project_status === 'complete'"
-																		ng-click="project.compileInterClusterActivities(); ngmClusterBeneficiaries.updateSelect();"/>
+																		ng-click="project.compileInterClusterActivities()"/>
 														<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label>
 													</p>
 												</div>
@@ -239,7 +239,7 @@
 								      <input type="checkbox" class="filled-in" id="activity_{{ a.cluster_id }}" 
 								     					ng-model="project.definition.inter_cluster_check[ a.cluster_id ]"
 								      				ng-disabled="project.definition.project_status === 'complete'"
-								      				ng-click="project.compileInterClusterActivities(); ngmClusterBeneficiaries.updateSelect();"/>
+								      				ng-click="project.compileInterClusterActivities()"/>
 								      <label class="checkbox-label" for="activity_{{ a.cluster_id }}">{{ a.cluster }}</label>
 								    </p>
 									</div>
@@ -257,7 +257,7 @@
 									      <input type="checkbox" class="filled-in" id="activity_{{ a.mpc_purpose_type_id }}" 
 									      ng-model="project.definition.mpc_purpose_check[ a.mpc_purpose_type_id ]"
 									      ng-disabled="project.definition.project_status === 'complete'"
-									      ng-click="project.compileMpcPurpose(); ngmClusterBeneficiaries.updateSelect();"/>
+									      ng-click="project.compileMpcPurpose()"/>
 									      <label class="checkbox-label" for="activity_{{ a.mpc_purpose_type_id }}">{{ a.mpc_purpose_type_name }}</label>
 									    </p>
 
@@ -300,7 +300,7 @@
 											<input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}" 
 															ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
 															ng-disabled="project.definition.project_status === 'complete'"
-															ng-click="project.compileInterClusterActivities(); ngmClusterBeneficiaries.updateSelect();"/>
+															ng-click="project.compileInterClusterActivities()"/>
 											<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label>
 										</p>
 									

@@ -175,10 +175,6 @@ angular.module( 'ngmReportHub' )
 					if ( select.length ) {
 						// name
 						beneficiary[ name ] = select[0][ name ];
-						// update materialize select ( target-beneficiaries )
-						if ( !id ) {
-							ngmClusterBeneficiaries.updateSelect();
-						}
 					}
 				}, 100 );
 			},

@@ -415,7 +415,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					$scope.detailBeneficiaries[$scope.project.definition.target_beneficiaries.length - 1] = true;
 					// set form display for new rows
 					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries.length-1, beneficiary );
-					// ngmClusterBeneficiaries.updateSelect();
 				},
 
 				// remove beneficiary from list
