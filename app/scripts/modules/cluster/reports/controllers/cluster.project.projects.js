@@ -90,7 +90,7 @@ angular.module( 'ngmReportHub' )
 							$scope.model.header.download.downloads[0].request.data.report = organization.organization_tag  +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 							$scope.model.header.title.c = organization.organization + ' | ' + organization.admin0name.toUpperCase().substring( 0, 3 ) + ' | '+$filter('translate')('projects_mayus1');
 							$scope.model.header.subtitle.title = $filter('translate')('projects_for_mayus1')+' ' + organization.organization + ' ' + organization.admin0name;
-
+							$scope.report.title = organization.organization + ' | ' + organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + $filter('translate')('projects_mayus1');
 						});
 
 				}
@@ -315,5 +315,5 @@ angular.module( 'ngmReportHub' )
 
 		// init
 		$scope.report.init();
-
+		console.log("MAKAN", $route.current.params.organization_id)
 	}]);
