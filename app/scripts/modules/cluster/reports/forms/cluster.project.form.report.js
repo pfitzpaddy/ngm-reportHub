@@ -882,7 +882,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						 }						 
 					});
 					
-					if( $scope.project.report.report_status !== 'todo' || (( $scope.beneficiariesCount >0 ) || ( $scope.trainingsCount> 0 ) )){
+					if ($scope.project.definition.project_status === 'complete' || $scope.project.report.report_status !== 'todo' || (( $scope.beneficiariesCount >0 ) || ( $scope.trainingsCount> 0 ) )){
 						$scope.deactivedCopybutton = true;						
 						return $scope.deactivedCopybutton
 					} else{
