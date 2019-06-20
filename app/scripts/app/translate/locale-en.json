@@ -19,7 +19,7 @@
        "yes_remove_this_file":"Yes, Remove this file!",
        "click_upload_document_to_upload_document_of_your_project":"Click UPLOAD DOCUMENT  to upload document of your PROJECT",
        "upload_document":"Upload Document",
-       "upload_documents":"Upload Documents",
+       "upload_documents":"Upload Documents", 
        "filename":"Filename",
        "owner":"Owner",
        "created_at":"Created at",
@@ -163,9 +163,10 @@
        "download_dashboard_as_pdf":"Download Dashboard as PDF",
        "download_cluster_contact_list_as_csv":"Download Cluster Contact List as CSV",
        "for":"for",
-       "all_provinces":"ALL Provinces",
        "province":"Province",
+       "all_provinces":"All Provinces",
        "district":"District",
+       "all_districts":"All Districts",
        "active_organizations":"Active Organizations",
        "active_projects":"Active Projects",
        "completed_projects":"Completed Projects",
@@ -309,6 +310,7 @@
          "inkind":"InKind",
          "cash":"Cash",
          "bonuses":"Bonuses",
+         "technical_response":"Technical Response",
 
          
          "back_to_project_reports":"Back to Project Reports",
@@ -564,7 +566,10 @@
         "enter_the_target_locations_of_your_project_in_the_form_below":"Enter the TARGET LOCATIONS of your PROJECT in the form below",
         "reporter":"Reporter",
         "implementation":"Implementation",
+        "implementation_level":"Implementation Level",
+
         "type":"Type",
+        "site_type":"Site Type",
 
         "from_list":"From List",
         "site_name":"Site Name",
@@ -612,6 +617,7 @@
         "amount":"Amount",
         "currency":"Currency",
         "funds":"Funds",
+        "modality":"Modality",
         "programming":"Programming",
         "recieved":"Recieved",
         "multi_year_funding":"Multi-Year Funding",
