@@ -35,7 +35,7 @@ angular.module( 'ngmReportHub' )
 						title: {
 							'class': 'col s12 m12 l12 report-title truncate',
 							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: $filter('translate')('nutrition') + ' Afghanistan | ' + $filter('translate')('assessment')+' | '+$filter('translate')('form') + ' | ' + ($route.current.params.mode==='i'||$route.current.params.mode==='x'?$filter('translate')('new_mayus1'):$filer('translate')('edit'))
+							title: $filter('translate')('nutrition') + ' Afghanistan | ' + $filter('translate')('assessment')+' | '+$filter('translate')('form') + ' | ' + ($route.current.params.mode==='i'||$route.current.params.mode==='x'?$filter('translate')('new_mayus1'):$filter('translate')('edit'))
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle hide-on-small-only',
