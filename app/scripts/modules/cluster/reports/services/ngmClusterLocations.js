@@ -37,8 +37,6 @@ angular.module( 'ngmReportHub' )
         // reset new_location
         ngmClusterLocations.new_location = {};
         ngmClusterLocations.openAddNewLocation = false;
-        // render form
-        ngmClusterBeneficiaries.updateSelect();
         // send toast message
         $timeout(function(){ Materialize.toast( $filter('translate')('report_new_location') , 4000, 'success' ); }, 600 );
       },

@@ -87,16 +87,16 @@ angular.module("ngm.materialize.select", [])
 
                         }
 
-                        // already watching ngModel
-                        // if ("watch" in attrs) {
-                        //     // scope.$watch(function () {
-                        //     //     return element[0].innerHTML;
-                        //     // }, function (newValue, oldValue) {
-                        //     //     if (newValue !== oldValue) {
-                        //     //         $timeout(initSelect);
-                        //     //     }
-                        //     // });
-                        // }
+                        // if select values changed -- expensive
+                        if ("watch" in attrs) {
+                            scope.$watch(function () {
+                                return element[0].innerHTML;
+                            }, function (newValue, oldValue) {
+                                if (newValue !== oldValue) {
+                                    $timeout(initSelect);
+                                }
+                            });
+                        }
                         
                         if(attrs.ngDisabled) {
                             scope.$watch(attrs.ngDisabled, initSelect)
