@@ -163,6 +163,22 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					ngmEtClusterBeneficiaries.setForm( $scope.project.report.locations, 1350 );
 					// documents upload
 					$scope.project.setTokenUpload();
+					// for minimize-maximize beneficiary form
+					$scope.detailBeneficiaries = {};
+					$scope.project.beneficiary_search;
+					$scope.beneficiary_search_input = false;
+					$scope.searchToogle = function () {
+						$('#search_').focus();
+						$scope.beneficiary_search_input = $scope.beneficiary_search_input ? false : true;;
+					}
+
+					angular.forEach($scope.project.report.locations,function(e,i){
+						$scope.detailBeneficiaries[i] = $scope.project.report.locations[i].beneficiaries.length ?
+																						new Array($scope.project.report.locations[i].beneficiaries.length).fill(false) : new Array(0).fill(false);
+						if ($scope.project.report.locations[i].beneficiaries.length){
+							$scope.detailBeneficiaries[i][0] = true;
+						}
+					})
 				},
 
 				// set location / beneficiaries limits
@@ -170,10 +186,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					
 					// if beneficiaries, set init load limit to help rendering of elements on big forms
 					var set_limit = true;
+					$scope.project.limitToShowSearch=0
 					angular.forEach( $scope.project.report.locations, function( l, i ){
 						if( set_limit && l.beneficiaries.length ){
 							set_limit = false;
 							$scope.project.location_limit = i+1;
+							$scope.project.limitToShowSearch = l.beneficiaries.length;
 						}
 					});
 
@@ -435,6 +453,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				addBeneficiary: function( $parent ) {
 					var beneficiary = ngmClusterBeneficiaries.addBeneficiary( $scope.project, $scope.project.report.locations[ $parent ].beneficiaries );
 					$scope.project.report.locations[ $parent ].beneficiaries.push( beneficiary );
+					// Open card panel detail beneficiaries form
+					$scope.detailBeneficiaries[$parent][$scope.project.report.locations[$parent].beneficiaries.length-1] = true;
 					// set form display for new rows
 					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, $parent, $scope.project.report.locations[ $parent ].beneficiaries.length-1, beneficiary );
 					// set scroll counter
@@ -947,6 +967,19 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						}
 						
 					})
+				},
+				// openClose: true,
+				openCloseDetailBeneficiaries: function ($parent, $index) {
+					$scope.detailBeneficiaries[$parent][$index] = !$scope.detailBeneficiaries[$parent][$index];
+				},
+				totalBeneficiary: function (beneficiary) {
+					total = 0;
+					total += beneficiary.boys +
+						beneficiary.men +
+						beneficiary.elderly_men + beneficiary.girls +
+						beneficiary.women +
+						beneficiary.elderly_women;
+					return total
 				},
 				// save
 				save: function( complete, display_modal ){

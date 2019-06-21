@@ -129,14 +129,17 @@ angular.module( 'ngmReportHub' )
 			if(!search){
 				return items;
 			}
-
+			search = search.toLowerCase();
 			angular.forEach(items,function(item){
 				match=0;
 				angular.forEach(Object.keys(item),function(key){
 					value = item[key]
-					value= value.toString();
-					if(value.indexOf(search)>-1){
-						match+=1;
+					if(value !== null && value !== undefined){
+						value = value.toString();
+						value = value.toLowerCase()
+						if (value.indexOf(search) > -1) {
+							match += 1;
+						}
 					}
 				})
 				if(match>0){
