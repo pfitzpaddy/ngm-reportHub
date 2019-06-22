@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col s12 m12 l12">
     <div class="card">
-      <ul class="collection with-header">
+      <ul class="collection with-header"> 
         
         <li class="collection-header teal lighten-4">
           <h5 class="report-work-title">
@@ -15,7 +15,7 @@
             {{'add_new_row_of_financial_details_to_your_project_for_each_payment_recieved' | translate}};
           </p>
 
-          <div class="row">
+          <div class="row"> 
             <div class="col s12 card">
               <div style="padding-top: 10px; padding-left: 40px;">
 
@@ -23,16 +23,17 @@
                   <tr style="font-weight: 400">
                     <td>{{'donor'|translate}}*</td>
                     <td>{{'activity' | translate}}*</td>
-                    <td>{{'description' | translate}}*</td>
-                    <td>{{'grant' | translate}} ID</td>
+                    <td >{{'description' | translate}}</td>
+                     <td>{{'province'|translate}}*</td>
+                     <td>{{'district'|translate}}*</td>
                     <td>{{'amount' | translate}}*</td>
                     <td>{{'currency' | translate}}*</td>
-                    <td>{{'funds' | translate}}*</td>
+                    <td>{{'modality' | translate}}</td>
                     <!--<td ng-show="project.showProgrammingLabel()">{{'programming' | translate}}</td>-->
                     <td>{{'recieved' | translate}}*</td>
                    <!-- <td>{{'multi_year_funding' | translate}}</td>-->
                     <!--<td ng-show="project.showFunding2017()">2017 {{'funding' | translate}}</td>-->
-                    <td>{{'on' |translate}} FTS?</td>
+                    <!--<td>{{'on' |translate}} FTS?</td>-->
                    <!-- <td ng-show="project.showFtsIdLabel()">FTS ID</td>-->
                     <td>{{'notes' | translate}}</td>
                     <td ng-if="project.definition.project_status !== 'complete'">{{'edit' | translate}}</td>
@@ -61,9 +62,10 @@
                       </span>
                     </td>
 
+                   <!-- activity_description_id -->
+
                     <td>
-                      <!-- activity_description_id -->
-                      <span e-form="rowform"
+                          <span e-form="rowform"
                             e-name="activity_description_id"
                             editable-select="budget.activity_description_id"
                             e-placeholder="{{'select'|translate}}"
@@ -72,17 +74,41 @@
                       </span>
                     </td>
 
-
-
                     <td>
-                      <!-- number -->
-                      <span e-form="rowform" 
-                            e-name="grant_id"
-                            editable-text="budget.grant_id"
-                            e-min="0">
-                        {{ budget.grant_id }}
-                      </span>
-                    </td>
+                       <!-- Departamento -->
+                      
+                       <span 
+                       e-form="rowform"
+                       e-name="admin1name"
+                       editable-select="budget.admin1name"
+                       e-placeholder="{{'select'|translate}}"
+                               e-ng-options=" dep for dep in project.lists.target_locations_departamentos"
+                               >   
+
+                               {{ project.departamento( $data, budget ) }}                             
+
+                        
+                       </span> 
+                     </td>
+
+                     <!--Municipio-->
+
+                     <td>
+                       <span e-placeholder="{{'select'|translate}}"
+                               editable-select="budget.admin2name"
+                               e-ng-options="num for num in project.lists.target_locations_municipios "
+                               e-name="admin2name"
+                               e-form="rowform"
+                               >
+
+                               {{ project.municipio( $data, budget ) }} 
+
+                       </span>
+                     </td>
+
+
+
+                   
 
                     <td>
                       <!-- number -->
@@ -171,7 +197,7 @@
                       </span>
                     </td>-->
                     
-                    <td>
+                   <!-- <td>
                      <span e-form="rowform"
                             e-name="reported_on_fts_id"
                             editable-select="budget.reported_on_fts_id"
@@ -179,7 +205,7 @@
                             e-ng-options="d.reported_on_fts_id as d.reported_on_fts_name for d in project.lists.reported_on_fts">
                         {{ project.showOnFts( $data, budget ) }}
                       </span>
-                    </td>
+                    </td>-->
 
                   
 
@@ -208,9 +234,10 @@
                         <button type="submit" ng-if="rowform.$visible" class="btn btn-small waves-effect waves-light save" title="Save"
                                 ng-disabled="( !budget.project_donor_id ) ||
                                              ( !budget.activity_type_id ) ||
-                                             ( !budget.activity_description_id) ||
                                              ( !budget.currency_id ) ||
-                                             ( !budget.budget_funds_id ) ||
+                                             ( !budget.admin1name) ||
+                                             ( !budget.admin2name) ||
+                                            
                                              ( !budget.project_budget_date_recieved )">
                           <i class="material-icons">save</i>
                         </button>
@@ -225,9 +252,8 @@
                         <div class="btn btn-small red lighten-2 waves-effect waves-light" ng-click="project.removeBudgetModal( $index )" title="Remove"
                             ng-disabled="( !budget.project_donor_id ) || 
                                          ( !budget.activity_type_id ) ||
-                                         ( !budget.activity_description_id)||
                                          ( !budget.currency_id ) ||
-                                         ( !budget.budget_funds_id ) ||
+                                         
                                          ( !budget.project_budget_date_recieved )">
                           <i class="material-icons">delete</i>
                         </div>

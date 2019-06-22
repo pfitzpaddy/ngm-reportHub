@@ -44,7 +44,7 @@
 	        <p class="card-title">Stocks</p>
 	      </div>
 	      <div class="card-action">
-	        <a class="left" href="{{ panel.getStocksHref() }}">{{'go_to' | translate}} {{ panel.organization.organization }} Stocks</a>
+	        <a class="left" href="{{ panel.getStocksHref() }}">{{'go_to' | translate}} {{ panel.organization.organization }} Stocks nada</a>
 	      </div>
 	    </div>
 	   </a>
@@ -157,7 +157,7 @@
     </div>
     </a>
   </div>
-
+<!--
   <div class="col s12 m4" ng-if="panel.organization.admin0pcode === 'COL' && panel.organization.organization === 'IOM'">
     <a href="https://dtm-colombia.immap.org" target="_blank">
       <div class="card small blue-grey darken-1 hoverable">
@@ -172,9 +172,10 @@
         </div>
       </div>
      </a>
-  </div>
+  </div>-->
 
-  <div class="col s12 m4">
+  <div class="col s12 m4" ng-if="panel.organization.admin0pcode !== 'COL'">
+  
   	<a href="{{ panel.getStocksHref() }}">
 	    <div class="card small blue-grey darken-1 hoverable">
 	      <div class="card-image">
@@ -188,6 +189,7 @@
 	      </div>
 	    </div>
 	   </a>
+    }
   </div>
 
 </div>

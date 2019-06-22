@@ -27,7 +27,7 @@ angular.module( 'ngmReportHub' )
       all_sectors_minus_wash: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_minus_wash_health: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_minus_wash_education: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
-      all_sectors_col: ['smsd','education','alojamientos_asentamientos','san','health','recuperacion_temprana','protection','wash','undaf','n_a'],
+      all_sectors_col: ['smsd','education','alojamientos_asentamientos','san','health','recuperacion_temprana','protection','wash','undaf','ningún_cluster'],
 
 
        
@@ -467,9 +467,13 @@ angular.module( 'ngmReportHub' )
             cluster: 'UNDAF'
           },
           {
+            cluster_id:'ningún_cluster',
+            cluster: 'Ningún Cluster'
+          }
+          /*{
             cluster_id:'n_a',
             cluster: 'N/A'
-          }
+          }*/
           ];
         } else if(admin0pcode.toLowerCase() === 'all'){
 
@@ -640,11 +644,16 @@ angular.module( 'ngmReportHub' )
           {
             cluster_id: 'undaf',
             cluster: 'UNDAF'
-          },
+          }/*,
           {
             cluster_id:'n_a',
             cluster: 'N/A'
-          }];
+          }*/,
+          {
+            cluster_id:'ningún_cluster',
+            cluster: 'Ningún Cluster'
+          }
+          ];
         } else {
           clusters = [{
             cluster_id: 'agriculture',
@@ -5310,6 +5319,12 @@ angular.module( 'ngmReportHub' )
           },
           {
             cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'migrantes',
+            beneficiary_type_name: 'Migrantes'
+          },
+
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
             beneficiary_type_id: 'solicitantes_de_asilo',
             beneficiary_type_name: 'Solicitantes de asilo'
           },
@@ -5317,6 +5332,11 @@ angular.module( 'ngmReportHub' )
             cluster_id: ngmClusterLists.all_sectors_col,
             beneficiary_type_id: 'returnees',
             beneficiary_type_name: 'Retornados'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'otros',
+            beneficiary_type_name: 'Otros'
           }
           
 
@@ -6853,7 +6873,26 @@ angular.module( 'ngmReportHub' )
             site_implementation_name: 'Clinic'
           }];
         } else if( admin0pcode === 'COL' ){
-          site_implementation = [{
+          site_implementation = [
+          {
+            site_implementation_id: 'apoyo_comunitario',
+            site_implementation_name: 'Apoyo Comunitario'
+          },
+          {
+            site_implementation_id: 'apoyo_institucional',
+            site_implementation_name: 'Apoyo Institucional'
+          },
+          {
+            site_implementation_id: 'apoyo_individual_familiar',
+            site_implementation_name: 'Apoyo Individual/Familiar'
+          },
+          {
+            site_implementation_id: 'community_based',
+            site_implementation_name: 'Comunidad Base'
+          }
+          
+
+          /*{
             site_implementation_id: 'community_based',
             site_implementation_name: 'Comunidad Base'
           },{
@@ -6889,7 +6928,8 @@ angular.module( 'ngmReportHub' )
           },{
             site_implementation_id: 'others',
             site_implementation_name: 'Otros'
-          }];
+          }*/
+          ];
 
         }
 
@@ -7263,45 +7303,46 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'multiple_sites',
             site_type_name: 'Múltiples Sitios'
           },{
-            site_type_id: 'settlement',
-            site_type_name: 'Asentamientos'
+            site_type_id: 'puestos_centros_instituciones_de_salud',
+            site_type_name: 'Puestos/centros/instituciones de salud'
           },{
-            site_type_id: 'hospital',
-            site_type_name: 'Hospital'
+            site_type_id: 'espacios_instituciones_educativas',
+            site_type_name: 'Espacios/instituciones educativas'
           },{
-            site_type_id: 'health_center',
-            site_type_name: 'Centro de Salud'
+            site_type_id: 'asentamientos_alojamientos',
+            site_type_name: 'Asentamientos/alojamientos'
           },{
-            site_type_id: 'health_post',
-            site_type_name: 'Puesto de Salud'
+            site_type_id: 'espacios_protectores',
+            site_type_name: 'Espacios protectores'
           },
           {
-            site_type_id: 'schools',
-            site_type_name: 'Escuelas'
+            site_type_id: 'centros_logisticos',
+            site_type_name: 'Centros logísticos'
           },{
-            site_type_id: 'host_community_families',
-            site_type_name: 'Comunidad/Familias Anfitrionas'
+            site_type_id: 'comedores_comunitarios',
+            site_type_name: 'Comedores comunitarios'
           },{
-            site_type_id: 'idp_site',
-            site_type_name: 'Sitio IDP'
+            site_type_id: 'centros_de_desarrollo_infantil',
+            site_type_name: 'Centros de desarrollo infantil'
           },
           {
-            site_type_id: 'nutrition_center',
-            site_type_name: 'Centro de Nutrición'
+            site_type_id: 'instituciones_locales_departamentales_territoriales_nacionales',
+            site_type_name: 'Instituciones locales/departamentales/territoriales/nacionales'
           },
           {
-            site_type_id: 'refugee_camp',
-            site_type_name: 'Campo de Refugiados'
-          },
+            site_type_id: 'puntos_de_atencion_al_migrante',
+            site_type_name: 'Puntos de atención al migrante'
+          }
+          ,
           {
-            site_type_id: 'secretarias_departamentales_distritales_y_municipales_de_salud',
-            site_type_name: 'Secretarías Departamentales Distritales y Municipales de Salud'
+            site_type_id:'settlement',
+            site_type_name:'Asentamientos'
           },
           
           {
             site_type_id: 'other',
             site_type_name: 'Otro'
-          },
+          }
 
            ]
         }
