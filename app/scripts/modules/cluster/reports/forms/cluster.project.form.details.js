@@ -599,11 +599,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				/**** CANCEL EDIT ( beneficiaries or locations ) ****/
 
 				// remove from array if no id
-				cancelEdit: function( key, $index ) {
+				cancelEdit: function( key, $index, locationform ) {
 					if ( !$scope.project.definition[ key ][ $index ].id ) {
 						$scope.project.definition[ key ].splice( $index, 1 );
 						ngmClusterBeneficiaries.form[ 0 ].splice( $index, 1 );
 						$timeout(function(){ Materialize.toast( $filter('translate')('target_beneficiary_removed'), 4000, 'success' ); }, 400 );
+					} else {
+						locationform.$cancel();
 					}
 				},
 
