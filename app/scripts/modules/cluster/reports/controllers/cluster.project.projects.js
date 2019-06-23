@@ -315,5 +315,5 @@ angular.module( 'ngmReportHub' )
 
 		// init
 		$scope.report.init();
-		console.log("MAKAN", $route.current.params.organization_id)
+		
 	}]);

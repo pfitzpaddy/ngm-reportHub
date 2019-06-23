@@ -664,6 +664,7 @@
 											class="validate" 
 											min="0"
 											ng-model="beneficiary.units"
+											ng-change="ngmCbBeneficiaries.setBeneficiariesByUnits( beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'units' ]"
 											required />
 							<label for="ngm-households-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'amount' | translate }}</label>
