@@ -646,11 +646,11 @@
 							<!-- UNITS -->
 							<div class="row"
 										ng-if="( ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'unit_type_id' ] &&
-															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'units' ] ) &&
-														( !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ] &&
-															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_mechanism_type_id' ] &&
-															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'package_type_id' ] &&
-															!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'transfer_type_id' ] )">
+															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'units' ] ) ||
+														( ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ] ||
+															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_mechanism_type_id' ] ||
+															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'package_type_id' ] ||
+															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'transfer_type_id' ] )">
 								<!-- unit_type_id -->
 								<div class="input-field col s6">
 									<select materialize-select id="ngm-unit_type_id-{{ $index }}" 

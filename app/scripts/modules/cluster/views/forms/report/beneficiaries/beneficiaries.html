@@ -636,11 +636,11 @@
 					<!-- UNITS -->
 					<div class="row"
 								ng-if="( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ] &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'units' ] ) &&
-												( !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ] &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_mechanism_type_id' ] &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'package_type_id' ] &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'transfer_type_id' ] )">
+													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'units' ] ) ||
+												( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ] ||
+													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_mechanism_type_id' ] ||
+													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'package_type_id' ] ||
+													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'transfer_type_id' ] )">
 						<!-- unit_type_id -->
 						<div class="input-field col s6">
 							<select materialize-select id="ngm-unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
