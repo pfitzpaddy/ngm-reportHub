@@ -3,7 +3,7 @@
 		min-height: 0;
 	}
 
-	.modal {
+	.upload.modal {
 		width: auto !important;
 		right: auto !important;
 		left: 50% !important;
@@ -84,7 +84,7 @@
 		background-color: #009688;
 	}
 
-	.modal {
+	.upload.modal {
 		max-height: 100%;
 	}
 
@@ -132,7 +132,7 @@ font-size: 18px;
     height: 30px;
 }
 </style>
-<div id="close-preview-modal" class="modal ">
+<div id="close-preview-modal" class="upload modal ">
 	<div class="modal-content">
 		<img ng-src={{list.setLink()}} id="imagepreview">
 	</div>
@@ -140,7 +140,7 @@ font-size: 18px;
 		<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close_mayus1'|translate}}</a>
 	</div>
 </div>
-<div id="close-preview-file" class="modal ">
+<div id="close-preview-file" class="upload modal ">
 	<div class="modal-content">
 		<div>
 			<iframe ng-src={{list.setLink()}} style="width:600px; height:500px;" frameborder="0"></iframe>
@@ -150,7 +150,7 @@ font-size: 18px;
 		<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close_mayus1'|translate}}</a>
 	</div>
 </div>
-<div id="remove-modal" class="modal">
+<div id="remove-modal" class="upload modal">
 	<div class="modal-content">
 		<div class="center">
 			<i class="medium material-icons" style="color:#f44336">delete</i>

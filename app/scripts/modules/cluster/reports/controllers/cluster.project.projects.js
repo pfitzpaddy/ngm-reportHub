@@ -90,7 +90,7 @@ angular.module( 'ngmReportHub' )
 							$scope.model.header.download.downloads[0].request.data.report = organization.organization_tag  +'_projects-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 							$scope.model.header.title.c = organization.organization + ' | ' + organization.admin0name.toUpperCase().substring( 0, 3 ) + ' | '+$filter('translate')('projects_mayus1');
 							$scope.model.header.subtitle.title = $filter('translate')('projects_for_mayus1')+' ' + organization.organization + ' ' + organization.admin0name;
-
+							$scope.report.title = organization.organization + ' | ' + organization.admin0name.toUpperCase().substring(0, 3) + ' | ' + $filter('translate')('projects_mayus1');
 						});
 
 				}
@@ -127,6 +127,18 @@ angular.module( 'ngmReportHub' )
 				var filter = {
 						organization_id: $scope.report.organization_id,
 						project_status: project_status
+					}
+
+
+					var admin_org = ["OCHA", "iMMAP"];
+				    if( $scope.report.user.roles.find(rol => rol === "COUNTRY") && 
+						$scope.report.user.admin0pcode === "COL" && //delete to enable for all countries
+						admin_org.includes($scope.report.user.organization)){
+					    
+					    filter = {
+							project_status: project_status,
+							admin0pcode: $scope.report.user.admin0pcode 
+						};
 					}
 
 				// add cluster
@@ -220,7 +232,7 @@ angular.module( 'ngmReportHub' )
 						'title': 'Sector',
 						'class': 'teal lighten-1 white-text',
 						'rows': [{
-							'title': $filter('translate')('all'),
+							'title': $filter('translate')('all_min1'),
 							'param': 'cluster_id',
 							'active': 'all',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
@@ -303,5 +315,5 @@ angular.module( 'ngmReportHub' )
 
 		// init
 		$scope.report.init();
-
+		
 	}]);

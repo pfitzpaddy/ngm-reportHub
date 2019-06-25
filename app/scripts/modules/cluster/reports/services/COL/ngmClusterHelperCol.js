@@ -28,7 +28,9 @@ angular.module( 'ngmReportHub' )
 						var key = 'hrp';
 						
 						// if beneficiary_type
-						if( beneficiary.beneficiary_type_id === 'refugess_and_asylum_seekers' ){
+						//if( beneficiary.beneficiary_type_id === 'refugess_and_asylum_seekers' ){
+						if( beneficiary.beneficiary_type_id === 'migrantes' ){
+
 							key = 'rmrp';
 						}
 						

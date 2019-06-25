@@ -192,9 +192,13 @@
        "download_dashboard_as_pdf":"Descargar Dashboard como PDF",
        "download_cluster_contact_list_as_csv":"Descargar Lista de Contactos del Cluster como CSV",
        "for":"para",
-       "all_provinces":"TODAS las provincias",
-       "province":"Provincia",
-       "district":"Distrito",
+      
+       "province":"Departamento",
+       "all_provinces":"Todos los Departamentos",
+       "all_districts":"Todos los Municipios",
+
+
+       "district":"Municipio",
        "active_organizations":"Organizaciones Activas",
        "active_projects":"Proyectos Activos",
        "completed_projects":"Proyectos Completos",
@@ -280,6 +284,8 @@
          "select_focal_point_of_your_project_in_the_form_below":"Seleccione el PUNTO FOCAL de su PROYECTO en el siguiente formulario",
          "enter_the_target_beneficiaries_of_your_project_in_the_form_below":"Ingrese los BENEFICIARIOS OBJETIVO de su PROYECTO en el siguiente formulario",
          "save_project":"Guardar Proyecto",
+         "minimize":"Minimizar",
+         "click_expand":"Haga Clic Para Ampliar",
          "target_beneficiary_removed":"Personas en necesidad objetivo eliminado!",
          "do_you_want_to_save_this_project":"Quieres Guardar este proyecto",
          "yes":"Si",
@@ -495,7 +501,10 @@
         "enter_the_target_locations_of_your_project_in_the_form_below":"Ingrese la LOCACIÓN OBJETIVO de su PROYECTO en el siguiente formulario",
         "reporter":"Reportero",
         "implementation":"Implementación",
+        "implementation_level":"Nivel de Implementación",
         "type":"Tipo",
+         "site_type":"Tipo de Lugar",
+
         "from_list":"Lista de Origenes",
         "site_name":"Nombre del Sitio",
         "save":"Guardar",
@@ -553,6 +562,7 @@
         "amount":"Monto",
         "currency":"Moneda",
         "funds":"Fondos",
+        "modality":"Modalidad",
         "programming":"Programación",
         "recieved":"Recibido",
         "multi_year_funding":"Financiación Munti-anual",
@@ -720,21 +730,7 @@
           "inkind":"En Especie",
           "cash":"Efectivo",
           "bonuses":"Bonos",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          "technical_response":"Respuesta Técnica",
         "remove_beneficiary":"Eliminar Beneficiario",
         "please_enter_the_amount_per":"Por favor ingrese la cantidad por",
         "household_hh":"GRUPOFAMILIAR",

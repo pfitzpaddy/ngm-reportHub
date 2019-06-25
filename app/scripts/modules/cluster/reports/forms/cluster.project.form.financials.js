@@ -39,14 +39,16 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
       if($scope.config.project.admin0pcode === 'COL'){
         financial_html = 'financials-COL.html';
-        budget_funds= [ { budget_funds_id: 'cash', budget_funds_name: $filter('translate')('cash') }, { budget_funds_id: 'inkind',budget_funds_name: $filter('translate')('inkind') },{ budget_funds_id: 'bonuses',budget_funds_name: $filter('translate')('bonuses') } ];
+        budget_funds= [ { budget_funds_id: 'cash', budget_funds_name: $filter('translate')('cash') }, { budget_funds_id: 'inkind',budget_funds_name: $filter('translate')('inkind') },{ budget_funds_id: 'bonuses',budget_funds_name: $filter('translate')('bonuses') },{ budget_funds_id: 'technical_response', budget_funds_name: $filter('translate')('technical_response') },{ budget_funds_id: 'n_a', budget_funds_name: 'N/A' } ];
 
       }else{
         financial_html = 'financials.html';
          budget_funds= [ { budget_funds_id: 'financial', budget_funds_name: $filter('translate')('financial') }, { budget_funds_id: 'inkind',budget_funds_name: $filter('translate')('inkind') } ];
 
       }
+     
 
+ 
       
 
       $scope.project = {
@@ -91,6 +93,13 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           activity_descriptions: angular.copy( config.project.target_beneficiaries),
           activity_descriptions2: [],
 
+          //for Colombia
+           target_locations_departamentos : [... new Set(config.project.target_locations.map(data => data.admin1name))],
+           target_locations_departamentos2:  config.project.target_locations,
+         target_locations_municipios:  [... new Set(config.project.target_locations.map(data => data.admin2name))],
+         target_locations_municipios2: config.project.target_locations,
+
+
         },
 
         // datepicker
@@ -125,6 +134,8 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
         // activity
         showActivity: function( $data, $budget ) {
+
+          
           var selected = [];
 
           $budget.activity_type_id = $data;
@@ -143,9 +154,112 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           return selected.length ? selected[0].activity_type_name : $filter('translate')('no_selection')+'!';
         },
 
+        //Select Departamento FOR COLOMBIA
+
+        departamento: function( $data, $budget ) {
+
+          var selected = [];
+          $budget.admin1name = $data;
+
+
+           if( $budget.admin1name ) {
+
+              if($budget.admin1name == 'All' || $budget.admin1name == 'Todos'){
+
+             
+               $budget.admin1name = $filter('translate')('all_min1');
+              $budget.admin1pcode = $filter('translate')('all_min1');
+              $budget.admin1lat = 4.3200072;
+              $budget.admin1lng = -74.1519811;
+
+                // console.log(antes, "ANTES");
+                 $scope.project.lists.target_locations_municipios =  [... new Set($scope.project.lists.target_locations_municipios2.map(data => data.admin2name))];
+                  $scope.project.lists.target_locations_municipios.unshift($filter('translate')('all_min1'))
+
+                 
+
+               return $budget ? $budget.admin1name : $filter('translate')('no_selection')+'!';
+
+
+
+             }else{
+
+                 selected = $filter('filter')( $scope.project.lists.target_locations_departamentos2,  {admin1name: $budget.admin1name}, true);
+
+                 if( selected.length ) {
+
+
+                      $budget.admin1name = selected[0].admin1name;
+                      $budget.admin1pcode = selected[0].admin1pcode;
+                      $budget.admin1lat = selected[0].admin1lat;
+                      $budget.admin1lng = selected[0].admin1lng;
+
+                     var antes = $filter('filter')($scope.project.lists.target_locations_municipios2,{admin1name:$budget.admin1name},true);
+
+                      $scope.project.lists.target_locations_municipios = [... new Set(antes.map(data => data.admin2name))];
+
+                      $scope.project.lists.target_locations_municipios.unshift($filter('translate')('all_min1'))
+
+                }          
+
+                return selected.length ? selected[0].admin1name : $filter('translate')('no_selection')+'!';
+
+
+             }
+         }
+
+
+         
+        },
+
+        //select municipio FOR COLOMBIA
+
+        municipio: function( $data, $budget ) {
+
+
+          var selected = [];
+          $budget.admin2name = $data;
+
+          if( $budget.admin2name ) {
+
+            if($budget.admin2name == 'All' || $budget.admin2name == 'Todos'){
+
+               $budget.admin2name = $filter('translate')('all_min1');
+              $budget.admin2pcode = $filter('translate')('all_min1');
+              $budget.admin2lat = $budget.admin1lat;
+              $budget.admin2lng = $budget.admin1lng;
+
+              return $budget ? $budget.admin2name : $filter('translate')('no_selection')+'!';
+
+            }else{
+
+              selected = $filter('filter')( $scope.project.lists.target_locations_municipios2,  {admin2name: $budget.admin2name} , true);
+         
+            if( selected.length ) {
+
+              $budget.admin2name = selected[0].admin2name;
+              $budget.admin2pcode = selected[0].admin2pcode;
+              $budget.admin2lat = selected[0].admin2lat;
+              $budget.admin2lng = selected[0].admin2lng;
+
+
+            }
+            return selected.length ? selected[0].admin2name : $filter('translate')('no_selection')+'!';
+
+
+           }
+
+           
+          }
+
+
+        },
+
+        
+
         //activitydesciption
         showActivityDescription: function( $data, $budget ) {
-          
+
           var selected = [];
           $budget.activity_description_id = $data;
 
@@ -182,10 +296,18 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           $budget.budget_funds_id = $data; 
 
           // default
-          if( !$budget.reported_on_fts_id ){
-            $budget.budget_funds_id = 'financial';
-            $budget.budget_funds_name = $filter('translate')('financial');
+          if($scope.project.definition.admin0pcode == 'COL'){
+           
           }
+          else{
+            if( !$budget.reported_on_fts_id ){
+            
+              $budget.budget_funds_id = 'financial';
+              $budget.budget_funds_name = $filter('translate')('financial');
+              }
+
+          }
+          
 
           // selection
           if( $budget.budget_funds_id ) {
@@ -195,6 +317,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
               $budget.budget_funds_name = selected[0].budget_funds_name;
             }
           } 
+
           return selected.length ? selected[0].budget_funds_name : 'N/A';
         },
 
@@ -408,9 +531,6 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
       }
 
 
-      
-
-
       // if one donor
       $timeout(function(){
 
@@ -421,6 +541,19 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           activity_type_id: 'all',
           activity_type_name: $filter('translate')('all_activities')
         });
+
+        //add all to departamentos and municipios COL
+        $scope.project.lists.target_locations_departamentos.unshift(
+          $filter('translate')('all_min1')
+
+        );
+       
+        $scope.project.lists.target_locations_municipios.unshift(
+          $filter('translate')('all_min1')
+
+        );
+       
+
 
       }, 0 );
 

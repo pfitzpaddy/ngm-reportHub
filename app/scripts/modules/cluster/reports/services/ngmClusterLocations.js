@@ -37,8 +37,6 @@ angular.module( 'ngmReportHub' )
         // reset new_location
         ngmClusterLocations.new_location = {};
         ngmClusterLocations.openAddNewLocation = false;
-        // render form
-        ngmClusterBeneficiaries.updateSelect();
         // send toast message
         $timeout(function(){ Materialize.toast( $filter('translate')('report_new_location') , 4000, 'success' ); }, 600 );
       },
@@ -66,7 +64,9 @@ angular.module( 'ngmReportHub' )
         var length = locations.length;
         if ( length ) {
           var l = angular.copy( locations[ length - 1 ] );
-          delete l.id;
+					delete l.id;
+					delete l.createdAt;
+					delete l.updatedAt;
           // if not CXB
           if ( project.admin0pcode !== 'CB' ) {
             l.site_hub_id = null;

@@ -278,6 +278,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							})
 						}
 					}
+					$scope.detailBeneficiaries = $scope.project.definition.target_beneficiaries.length ? 
+																			new Array($scope.project.definition.target_beneficiaries.length).fill(true) : new Array(0).fill(true);					
+					$scope.search_input = false;
+					$scope.project.filter;
+					$scope.searchToogle=function(){
+						$('#search_').focus();
+						$scope.search_input = $scope.search_input ? false : true;;
+					}
 				},
 
 				// cofirm exit if changes
@@ -403,9 +411,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					// set beneficiaries
 					var beneficiary = ngmClusterBeneficiaries.addBeneficiary( $scope.project, $scope.project.definition.target_beneficiaries );
 					$scope.project.definition.target_beneficiaries.push( beneficiary );
+					// open card panel form of new add beneficiaries
+					$scope.detailBeneficiaries[$scope.project.definition.target_beneficiaries.length - 1] = true;
 					// set form display for new rows
 					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries.length-1, beneficiary );
-					ngmClusterBeneficiaries.updateSelect();
 				},
 
 				// remove beneficiary from list
@@ -590,11 +599,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				/**** CANCEL EDIT ( beneficiaries or locations ) ****/
 
 				// remove from array if no id
-				cancelEdit: function( key, $index ) {
+				cancelEdit: function( key, $index, locationform ) {
 					if ( !$scope.project.definition[ key ][ $index ].id ) {
 						$scope.project.definition[ key ].splice( $index, 1 );
 						ngmClusterBeneficiaries.form[ 0 ].splice( $index, 1 );
 						$timeout(function(){ Materialize.toast( $filter('translate')('target_beneficiary_removed'), 4000, 'success' ); }, 400 );
+					} else {
+						locationform.$cancel();
 					}
 				},
 
@@ -683,6 +694,20 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						$scope.listUpload.itemsPerListPage = 6;
 					});
 				}, 
+
+				// open-close beneficiary target detail
+				openCloseDetailBeneficiaries:function(index){
+					$scope.detailBeneficiaries[index] = !$scope.detailBeneficiaries[index];
+				},
+				totalBeneficiary:function(beneficiary){
+					total = 0;
+					total+=beneficiary.boys +
+						beneficiary.men +
+						beneficiary.elderly_men+beneficiary.girls +
+						beneficiary.women +
+						beneficiary.elderly_women;
+					return total
+				},
 
 				/**** SAVE ****/
 				

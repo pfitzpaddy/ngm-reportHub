@@ -51,6 +51,14 @@ angular.module( 'ngmReportHub' )
         elderly_women: 0.019
       },
 
+      // set total_beneficiaries equal to units
+      setBeneficiariesByUnits: function ( beneficiary ) {
+        // beneficiary
+        if ( beneficiary.units && beneficiary.activity_description_id && beneficiary.activity_description_id === 'employ_healthcare_workers_at_ngo_health_facilities' ) {
+          beneficiary.total_beneficiaries = beneficiary.units;
+        }
+      },
+
       // calculate SADD via HHs
       setSadd: function ( beneficiary ) {
 

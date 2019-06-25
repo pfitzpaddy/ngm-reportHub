@@ -4,6 +4,25 @@
 	.edit-report-btn {
 		position:absolute; right:20px; top:20px;
 	}
+	.nav-list-search {
+		margin-top: 6px;
+		background-color: white;
+		width:72px;
+		-webkit-transition: width 1s ease;
+		-moz-transition: width 1s ease;
+		-o-transition: width 1s ease;
+		-ms-transition: width 1s ease;
+		transition: width 1s ease;		
+	}
+	.nav-list-search.focused{
+		margin-top: 6px;
+		width: 100%;
+		-webkit-transition: width 1s ease;
+		-moz-transition: width 1s ease;
+		-o-transition: width 1s ease;
+		-ms-transition: width 1s ease;
+		transition: width 1s ease;
+	}
 
 </style>
 
@@ -12,21 +31,37 @@
 	<div class="col s12 m12 l12">
 		<div class="card">
 			<ul class="collection with-header">
-				<li class="collection-header indigo lighten-1">
-					<h5 class="report-panel-title white-text">
-						<!-- December 2018 -->
-						<div ng-if="project.report.admin0pcode === 'SO' && project.report.report_year === 2018 && project.report.report_month === 11">
-							<i class="material-icons left">group</i>2018 {{'year_end_totals'|translate}} 
-						</div>
-						<!-- 2019 onwards -->
-						<div ng-if="project.report.admin0pcode === 'SO' && project.report.report_year > 2018">
-							<i class="material-icons left">group</i>{{ project.monthlyTitleFormat }}
-						</div>
-						<!-- 2019 onwards -->
-						<div ng-if="project.report.admin0pcode !== 'SO'">
-							<i class="material-icons left">group</i>{{ project.monthlyTitleFormat }}
-						</div>
-					</h5>
+				<li class="collection-header indigo lighten-1" style="height:80px;">
+					<div class="col s12 m8">						
+						<h5 class="report-panel-title white-text">
+							<!-- December 2018 -->
+							<div ng-if="project.report.admin0pcode === 'SO' && project.report.report_year === 2018 && project.report.report_month === 11">
+								<i class="material-icons left">group</i>2018 {{'year_end_totals'|translate}} 
+							</div>
+							<!-- 2019 onwards -->
+							<div ng-if="project.report.admin0pcode === 'SO' && project.report.report_year > 2018">
+								<i class="material-icons left">group</i>{{ project.monthlyTitleFormat }}
+							</div>
+							<!-- 2019 onwards -->
+							<div ng-if="project.report.admin0pcode !== 'SO'">
+								<i class="material-icons left">group</i>{{ project.monthlyTitleFormat }}
+							</div>
+						</h5>
+					</div>
+					<div class="col s12 m4 right" ng-if="project.limitToShowSearch>6">
+						<nav class="nav-list-search right" ng-class="{'focused':beneficiary_search_input === true || project.beneficiary_search}">
+							<div class="nav-wrapper" ng-click="searchToogle()">
+								<form>
+									<div class="input-field">
+										<input id="search_" type="search" ng-model="project.beneficiary_search" ng-focus="beneficiary_search_input=true" ng-blur="beneficiary_search_input=false">
+										<label for="search_">
+											<i class="material-icons" style="color: teal; padding-left:5px;">search</i>
+										</label>
+									</div>
+								</form>
+							</div>
+						</nav>
+					</div>
 				</li>
 				<li class="collection-item avatar">
 						<div ng-if="project.report.admin0pcode === 'AF'">
@@ -64,10 +99,9 @@
 						</div>
 
 						<!-- scroll -->
-						<div class="row" ng-repeat="location in project.report.locations | 
+						<div id = "{{ $locationIndex=$index; idl = 'ngm-' + $index }}" class="row" ng-repeat="location in project.report.locations | 
 															filter:{ location_group_id: project.location_group } | 
-															limitTo: project.location_limit"
-															ng-init="$locationIndex=$index">
+															limitTo: project.location_limit track by $index">
 
 							<div class="row">
 								<!-- location title -->

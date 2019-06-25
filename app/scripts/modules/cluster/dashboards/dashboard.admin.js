@@ -448,7 +448,13 @@ angular.module('ngmReportHub')
 					}
 
 					if( userMenuItems.includes('cluster_id') ){
-						
+
+						if ($scope.dashboard.lists.clusters[0].cluster_id !== 'all') {
+							$scope.dashboard.lists.clusters.unshift({
+								cluster_id: 'all',
+								cluster: 'ALL',
+							});
+						}
 						// add cluster
 						angular.forEach( $scope.dashboard.lists.clusters, function( d, i ){
 
@@ -465,14 +471,6 @@ angular.module('ngmReportHub')
 							});
 
 						});
-
-						// add clusters
-						if ( $scope.dashboard.lists.clusters[ 0 ].cluster_id !== 'all' ){
-							$scope.dashboard.lists.clusters.unshift({
-								cluster_id: 'all',
-								cluster: 'ALL',
-							});
-						}
 
 						$scope.model.menu.push({
 							'search': true,
@@ -526,7 +524,7 @@ angular.module('ngmReportHub')
 								}
 
 							});
-
+							
 							// organization menu
 							if ( $scope.model.menu[ $scope.model.menu.length - 1 ].title !== 'Organization' ) {
 								$scope.model.menu.push({

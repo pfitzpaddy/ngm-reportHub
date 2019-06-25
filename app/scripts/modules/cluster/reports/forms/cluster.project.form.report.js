@@ -95,7 +95,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			$scope.ngmCbBeneficiaries = ngmCbBeneficiaries;
 			$scope.ngmClusterDocument = ngmClusterDocument;
 			$scope.deactivedCopybutton = false;
-
+			
+			// page scrolled
+			$scope._top_scrolled = 0
 			// project
 			$scope.project = {
 
@@ -161,6 +163,22 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					ngmEtClusterBeneficiaries.setForm( $scope.project.report.locations, 1350 );
 					// documents upload
 					$scope.project.setTokenUpload();
+					// for minimize-maximize beneficiary form
+					$scope.detailBeneficiaries = {};
+					$scope.project.beneficiary_search;
+					$scope.beneficiary_search_input = false;
+					$scope.searchToogle = function () {
+						$('#search_').focus();
+						$scope.beneficiary_search_input = $scope.beneficiary_search_input ? false : true;;
+					}
+
+					angular.forEach($scope.project.report.locations,function(e,i){
+						$scope.detailBeneficiaries[i] = $scope.project.report.locations[i].beneficiaries.length ?
+																						new Array($scope.project.report.locations[i].beneficiaries.length).fill(false) : new Array(0).fill(false);
+						if ($scope.project.report.locations[i].beneficiaries.length){
+							$scope.detailBeneficiaries[i][0] = true;
+						}
+					})
 				},
 
 				// set location / beneficiaries limits
@@ -168,10 +186,12 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					
 					// if beneficiaries, set init load limit to help rendering of elements on big forms
 					var set_limit = true;
+					$scope.project.limitToShowSearch=0
 					angular.forEach( $scope.project.report.locations, function( l, i ){
 						if( set_limit && l.beneficiaries.length ){
 							set_limit = false;
 							$scope.project.location_limit = i+1;
+							$scope.project.limitToShowSearch = l.beneficiaries.length;
 						}
 					});
 
@@ -183,18 +203,41 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						}
 					}
 
+					// if rendered all locations
+					if ($scope.project.report.locations.length === $scope.project.location_limit) {
+                        $scope.project.allRendered = true;
+                        // if last location beneficiaries not completed
+                        if ($scope.project.location_beneficiary_limit[ $scope.project.location_limit - 1 ] && 
+                          $scope.project.location_beneficiary_limit[ $scope.project.location_limit - 1 ].beneficiary_count > $scope.project.location_beneficiary_limit[ $scope.project.location_limit - 1 ].beneficiary_limit) {
+                          $scope.project.allRendered = false;
+                        }
+					}
+
 					// onscroll, update incrementLocationLimit
 					$window.onscroll = function() {
-						// height, position
-						var scrollHeight = $(document).height();
-						var scrollPosition = $(window).height() + $(window).scrollTop();
 
-						// 0.50 of scrolling height, add location_limit
-						if ( ( scrollHeight - scrollPosition ) / scrollHeight < 0.50 ) {
-							// when scroll to bottom of the page
-							$scope.project.incrementLocationLimit();
-						}
-					};
+							if (!$scope.project.allRendered){
+								// height, position
+								var top = $(window).scrollTop();
+								
+								if (top > $scope._top_scrolled) {
+									// scroll down
+									// save total traversed from top
+									$scope._top_scrolled = top;
+
+									var scrollHeight = $(document).height();
+									var scrollPosition = $(window).height() + top;
+
+									// 0.50 of scrolling height, add location_limit
+									if ( ( scrollHeight - scrollPosition ) / scrollHeight < 0.50 ) {
+										// when scroll to bottom of the page
+										$scope.project.incrementLocationLimitByOneAutoSelect();
+									}
+								} else {
+									// scroll up
+								}
+							};
+					}
 				},
 
 				// incrementLocationLimit
@@ -219,8 +262,123 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						else if ( $scope.project.report.locations.length > $scope.project.location_limit ) {
 							$scope.project.location_limit += 1;
 							// required to update ng-repeat limitTo?
-							$scope.$apply();
+							// $scope.$apply();
 							ngmClusterBeneficiaries.updateSelect();
+						}
+					}
+				},
+
+				// incrementLocationLimit by one location
+				incrementLocationLimitByOne: function() {
+
+					var location_index = $scope.project.location_limit;
+					var last_location_index = location_index - 1;
+
+					// if not all beneficiaries on last location rendered
+					if ( $scope.project.location_beneficiary_limit[ last_location_index ].beneficiary_count > $scope.project.location_beneficiary_limit[ last_location_index ].beneficiary_limit  ) {
+						// increment
+						start = $scope.project.location_beneficiary_limit[ last_location_index ].beneficiary_limit
+						$scope.project.location_beneficiary_limit[ last_location_index ].beneficiary_limit += 6;
+
+						// index to iterate to
+						var to_index = $scope.project.location_beneficiary_limit[last_location_index].beneficiary_count > $scope.project.location_beneficiary_limit[last_location_index].beneficiary_limit
+														? $scope.project.location_beneficiary_limit[last_location_index].beneficiary_limit : $scope.project.location_beneficiary_limit[last_location_index].beneficiary_count;
+
+						// el ids to init select
+						ids = []
+						for (step = start; step < to_index; step++) {
+							ids.push('ngm-' + last_location_index + '-' + step)
+						}
+
+						for (var id of ids) {
+							ngmClusterBeneficiaries.updateSelectById(id);
+						}
+
+						// required to update ng-repeat limitTo?
+						$scope.$apply();
+
+					} else {
+						// add location to render
+						if ( !$scope.project.location_beneficiary_limit[ location_index ] ) {
+							$scope.project.location_beneficiary_limit[ location_index ] = {
+								beneficiary_limit:6,
+								beneficiary_count:$scope.project.report.locations[location_index].beneficiaries.length
+							}
+						}
+
+						if ( $scope.project.report.locations.length > $scope.project.location_limit ) {
+							
+							$scope.project.location_limit += 1;
+							
+							// el ids to init select
+							var ids = [];
+
+							// construct beneficiary ids to update
+							// var bl = $scope.project.location_beneficiary_limit[ location_index ].beneficiary_limit;
+							// for (step = 0; step < bl; step++) {
+							//   ids.push('ngm-' + location_index + '-' + step)
+							// }
+
+							// construct location id
+							ids.push('ngm-' + location_index);
+
+							for (var id of ids) {
+								ngmClusterBeneficiaries.updateSelectById(id);
+							}
+							// required to update ng-repeat limitTo?
+							$scope.$apply();  
+						}
+					}
+
+					// if all rendered
+					if ($scope.project.report.locations.length === $scope.project.location_limit) {
+						// and all last location beneficiaries rendered
+						if ($scope.project.location_beneficiary_limit[$scope.project.location_limit - 1].beneficiary_count <= $scope.project.location_beneficiary_limit[$scope.project.location_limit - 1].beneficiary_limit) {
+							$scope.project.allRendered = true;
+						}
+					}
+				},
+
+				// incrementLocationLimit by one location if using materializeSelect directive
+				incrementLocationLimitByOneAutoSelect: function() {
+
+					var location_index = $scope.project.location_limit;
+					var last_location_index = location_index - 1;
+
+					// if not all beneficiaries on last location rendered
+					if ( $scope.project.location_beneficiary_limit[ last_location_index ].beneficiary_count > $scope.project.location_beneficiary_limit[ last_location_index ].beneficiary_limit  ) {
+						// increment
+						start = $scope.project.location_beneficiary_limit[ last_location_index ].beneficiary_limit
+						$scope.project.location_beneficiary_limit[ last_location_index ].beneficiary_limit += 6;
+
+						// required to update ng-repeat limitTo?
+						$scope.$apply();
+
+					} else {
+						// add location to render
+						if ( !$scope.project.location_beneficiary_limit[ location_index ] ) {
+							$scope.project.location_beneficiary_limit[ location_index ] = {
+								beneficiary_limit:6,
+								beneficiary_count:$scope.project.report.locations[location_index].beneficiaries.length
+							}
+						}
+
+						if ( $scope.project.report.locations.length > $scope.project.location_limit ) {
+							
+							$scope.project.location_limit += 1;
+							
+							// required to update ng-repeat limitTo?
+							$scope.$apply();
+							
+						}
+
+					}
+
+					// if all rendered
+					if ($scope.project.report.locations.length === $scope.project.location_limit) {
+						// and all last location beneficiaries rendered
+						if ($scope.project.location_beneficiary_limit[$scope.project.location_limit - 1].beneficiary_count <= $scope.project.location_beneficiary_limit[$scope.project.location_limit - 1].beneficiary_limit) {
+							$scope.project.allRendered = true;
 						}
 					}
 				},
@@ -294,6 +452,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				addBeneficiary: function( $parent ) {
 					var beneficiary = ngmClusterBeneficiaries.addBeneficiary( $scope.project, $scope.project.report.locations[ $parent ].beneficiaries );
 					$scope.project.report.locations[ $parent ].beneficiaries.push( beneficiary );
+					// Open card panel detail beneficiaries form
+					$scope.detailBeneficiaries[$parent][$scope.project.report.locations[$parent].beneficiaries.length-1] = true;
 					// set form display for new rows
 					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, $parent, $scope.project.report.locations[ $parent ].beneficiaries.length-1, beneficiary );
 					// set scroll counter
@@ -302,9 +462,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					}
 					$scope.project.location_beneficiary_limit[ $parent ].beneficiary_limit = $scope.project.report.locations[ $parent ].beneficiaries.length;
 					$scope.project.location_beneficiary_limit[ $parent ].beneficiary_count = $scope.project.report.locations[ $parent ].beneficiaries.length;
-					console.log($scope.project.location_beneficiary_limit);
 					// update select
-					ngmClusterBeneficiaries.updateSelect();
+					// ngmClusterBeneficiaries.updateSelect();
+					// ngmClusterBeneficiaries.updateSelectById('ngm-' + $parent + '-' + ($scope.project.report.locations[$parent].beneficiaries.length - 1));
 				},
 
 				// add beneficiary
@@ -331,6 +491,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				removeBeneficiary: function() {
 					var id = $scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries[ $scope.project.beneficiaryIndex ].id;
 					$scope.project.report.locations[ $scope.project.locationIndex ].beneficiaries.splice( $scope.project.beneficiaryIndex, 1 );
+					// ngmClusterBeneficiaries.updateSelectById('ngm-' + $scope.project.locationIndex);
 					$scope.project.activePrevReportButton();
 					ngmClusterBeneficiaries.removeBeneficiary( $scope.project, id );
 				},
@@ -549,6 +710,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					if ( !$scope.project.report.locations[ $parent ].beneficiaries[ $index ].id ) {		
 					 $scope.project.report.locations[ $parent ].beneficiaries.splice( $index, 1 );
 					 ngmClusterBeneficiaries.form[ $parent ].splice( $index, 1 );
+					//  ngmClusterBeneficiaries.updateSelectById('ngm-' + $parent);
 					}
 				},
 
@@ -740,7 +902,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						 }						 
 					});
 					
-					if( $scope.project.report.report_status !== 'todo' || (( $scope.beneficiariesCount >0 ) || ( $scope.trainingsCount> 0 ) )){
+					if ($scope.project.definition.project_status === 'complete' || $scope.project.report.report_status !== 'todo' || (( $scope.beneficiariesCount >0 ) || ( $scope.trainingsCount> 0 ) )){
 						$scope.deactivedCopybutton = true;						
 						return $scope.deactivedCopybutton
 					} else{
@@ -804,6 +966,19 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						}
 						
 					})
+				},
+				// openClose: true,
+				openCloseDetailBeneficiaries: function ($parent, $index) {
+					$scope.detailBeneficiaries[$parent][$index] = !$scope.detailBeneficiaries[$parent][$index];
+				},
+				totalBeneficiary: function (beneficiary) {
+					total = 0;
+					total += beneficiary.boys +
+						beneficiary.men +
+						beneficiary.elderly_men + beneficiary.girls +
+						beneficiary.women +
+						beneficiary.elderly_women;
+					return total
 				},
 				// save
 				save: function( complete, display_modal ){
@@ -877,7 +1052,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 									}, 400);
 								} else {
 									// reset select when edit sved report
-									ngmClusterBeneficiaries.updateSelect();
+									// ngmClusterBeneficiaries.updateSelect();
 								}
 
 							} else {
