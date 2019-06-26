@@ -145,7 +145,7 @@ form {
 		      -->
 
 
-		      <div class="row">
+		      <!-- <div class="row">
 		        <div class="input-field col s12">
 		        	<i class="material-icons prefix">supervisor_account</i>
 		          <input id="ngm-position" type="text" class="validate"
@@ -165,7 +165,27 @@ form {
 								required>
 		          <label for="ngm-position">Sector</label>
 		        </div>
-				  </div>
+					</div> -->
+					
+					<typeahead
+					label="{{'organization' | translate}} "
+					items="panel.organizations" 
+					prompt="" 
+					title="organization" 
+					subtitle="organization_name" 
+					model="panel.user.organization" on-select="panel.onOrganizationSelected()" disabled="panel.updateOrgUser">{{'select_organization' | translate}}</typeahead>
+					
+					<div class="row">
+						<div class="input-field col s12" ng-init="panel.clusterByCountry()">
+							<i class="material-icons prefix cluster">donut_large</i>
+							<select class="validate" id="ngm-cluster" ng-options="cluster.cluster_id as cluster.cluster for cluster in panel.clusters "
+							 ng-model="panel.user.cluster_id" ng-disabled="panel.updateClusterUser">
+								{{'select_sector'| translate}}
+								<option value="">{{'select_sector' | translate}}</option>
+							</select>
+							<label for="ngm-cluster">Sector</label>
+						</div>
+					</div>
 
 		      <div class="row">
 		        <div class="input-field col s12">
