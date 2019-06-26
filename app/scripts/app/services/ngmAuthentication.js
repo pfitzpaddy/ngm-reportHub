@@ -125,6 +125,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_MENU: [ 'cluster_id' ],
 			DASHBOARD_DOWNLOAD: true,
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['organization_tag', 'admin0pcode', 'adminRpcode'],
+			TEAM_RESTRICTED: [ 'admin0pcode', 'organization_tag' ],
+			TEAM_MENU: [ 'cluster_id' ],
 			VALIDATE: false,
 			LEVEL: 2,
 			DESCRIPTION: 'The ORG role is to manage the USERS of your Organization'
@@ -619,7 +621,7 @@ angular.module('ngmReportHub')
 				const dashboard_filter = dashboard+'_RESTRICTED'
 				const USER_PERMISSIONS = ngmAuth.userPermissions();
 				// for menu get role with highest priority if user has multiple roles 
-				return USER_PERMISSIONS.reduce(function(max, v){return v.LEVEL > max.LEVEL ? v : max })[dashboard_filter]
+				return USER_PERMISSIONS.reduce(function(max, v){return v.LEVEL > max.LEVEL ? v : max })[dashboard_filter] || []
 			},
 
 			/**
