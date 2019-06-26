@@ -230,11 +230,12 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
 					// disable btns
 					$scope.panel.btnDisabled = true;
-
+					var cluster = $scope.panel.clusters.filter(c => c.cluster_id === $scope.panel.user.cluster_id)[0].cluster;
 					// merge adminRegion
 					$scope.panel.user = angular.merge( {}, $scope.panel.user,
 																									$filter('filter')( $scope.panel.adminRegion, { admin0pcode: $scope.panel.user.admin0pcode }, true)[0],
-																									$filter('filter')( $scope.panel.programme, { programme_id: $scope.panel.user.programme_id }, true)[0] );
+																									$filter('filter')( $scope.panel.programme, { programme_id: $scope.panel.user.programme_id }, true)[0],
+																								{ cluster } );
 
 					// if immap and ET || CD
 					if ( $scope.panel.user.site_name ) {
@@ -243,7 +244,15 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 						// merge duty station
 						$scope.panel.user = angular.merge( {}, $scope.panel.user, dutyStation );
 					}
-
+					// if Update Organization OR Cluster
+					var orgUpdatedTo;
+					var clusterUpdatedTo;
+					if (config.user.organization_tag !== $scope.panel.user.organization_tag){
+						orgUpdatedTo = $scope.panel.user.organization;
+					}
+					if (config.user.cluster_id !== $scope.panel.user.cluster_id){
+						clusterUpdatedTo = $scope.panel.user.cluster;
+					}
 					// register
 					ngmAuth
 						.updateProfile({ user: $scope.panel.user }).success(function( result ) {
@@ -265,7 +274,13 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
 								$timeout( function(){
 
-									// 
+									//
+									if (config.user.organization_tag !== $scope.panel.user.organization_tag){
+										Materialize.toast('Organization changed to ' + orgUpdatedTo, 6000, 'success');
+									}
+									if (config.user.cluster_id !== $scope.panel.user.cluster_id){
+										Materialize.toast('Cluster changed to ' + clusterUpdatedTo, 6000, 'success'); 
+									}
 									Materialize.toast( $filter('translate')('success')+' '+$filter('translate')('profile_updated'), 6000, 'success' );
 									
 									// activate btn

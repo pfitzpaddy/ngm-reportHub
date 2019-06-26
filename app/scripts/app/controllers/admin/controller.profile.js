@@ -112,7 +112,26 @@ angular.module('ngmReportHub')
 						          visible = true;
 						        }
 						        return visible;
-						      })(),
+									})(),
+									updateOrgUser: (function () {
+										var clusterDisabled = true;
+										if ((ngmAuth.canDo('EDIT_USER_ORG', {
+
+											}))) {
+											clusterDisabled = false;
+										}
+										return clusterDisabled;
+									})(),
+									updateClusterUser:(function(){
+										var clusterDisabled = true;
+										if ($scope.dashboard.user.username === $scope.dashboard.username ||
+											(ngmAuth.canDo('EDIT_USER_CLUSTER', {
+												
+											}))) {
+											clusterDisabled = false;
+										}
+										return clusterDisabled;
+									})(),
 									templateUrl: '/scripts/app/views/authentication/profile.html'
 								}
 							}]
