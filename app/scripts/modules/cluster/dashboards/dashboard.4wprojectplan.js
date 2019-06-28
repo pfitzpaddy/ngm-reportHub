@@ -164,7 +164,7 @@ angular.module('ngmReportHub')
 				getRequest: function( obj ){
 					var request = {
 						method: 'POST',
-						url: ngmAuth.LOCATION + '/api/cluster/indicator',
+						url: ngmAuth.LOCATION + '/api/cluster/indicator4wprojectplan',
 						data: {
 							adminRpcode: $scope.dashboard.adminRpcode,
 							admin0pcode: $scope.dashboard.admin0pcode,
