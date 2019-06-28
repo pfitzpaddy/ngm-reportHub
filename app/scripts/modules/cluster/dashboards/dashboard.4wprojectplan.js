@@ -754,7 +754,8 @@ angular.module('ngmReportHub')
 						$scope.dashboard.activity_filename = '';
 					}
 
-					$scope.dashboard.beneficiaries_row = [{
+					$scope.dashboard.beneficiaries_row = [
+					/*{
 						styleClass: 's12 m12 l4',
 						widgets: [{
 							type: 'stats',
@@ -765,7 +766,19 @@ angular.module('ngmReportHub')
 								request: $scope.dashboard.getRequest({ indicator: 'households_population' })
 							}
 						}]
-					}, {
+					}*/
+					{
+						styleClass: 's12 m12 l4',
+						widgets: [{
+							type: 'stats',
+							style: 'text-align: center;',
+							card: 'card-panel stats-card white grey-text text-darken-2',
+							config: {
+								title: $filter('translate')('other_implementing_partners'),
+								//request: $scope.dashboard.getRequest({ indicator: 'total_implementing_partners' })
+							}
+						}]
+					}, /*{
 						styleClass: 's12 m12 l4',
 						widgets: [{
 							type: 'stats',
@@ -776,7 +789,19 @@ angular.module('ngmReportHub')
 								request: $scope.dashboard.getRequest({ indicator: 'beneficiaries_population' })
 							}
 						}]
-					}, {
+					}*/
+					{
+						styleClass: 's12 m12 l4',
+						widgets: [{
+							type: 'stats',
+							style: 'text-align: center;',
+							card: 'card-panel stats-card white grey-text text-darken-2',
+							config: {
+								title: $filter('translate')('donors'),
+								//request: $scope.dashboard.getRequest({ indicator: 'total_project_donors' })
+							}
+						}]
+					} /*, {
 						styleClass: 's12 m12 l4',
 						widgets: [{
 							type: 'stats',
@@ -787,8 +812,9 @@ angular.module('ngmReportHub')
 								request: $scope.dashboard.getRequest({ indicator: 'beneficiaries' })
 							}
 						}]
-					}];
+					}*/];
 
+					/*
 					if ($scope.dashboard.admin0pcode.toUpperCase() === 'AF') {
 						$scope.dashboard.beneficiaries_row = [{
 							styleClass: 's12 m12 l12',
@@ -802,7 +828,7 @@ angular.module('ngmReportHub')
 								}
 							}]
 						}]						
-					}
+					}*/
 
 					// model
 					$scope.model = {
@@ -874,7 +900,7 @@ angular.module('ngmReportHub')
 									config: {
 										id: 'dashboard-btn',
 										request: $scope.dashboard.getRequest( { indicator: 'latest_update' } ),
-										templateUrl: '/scripts/widgets/ngm-html/template/cluster.dashboard.html'
+										templateUrl: '/scripts/widgets/ngm-html/template/cluster.dashboard4wprojectplan.html'
 									}
 								}]
 							}]
@@ -890,7 +916,7 @@ angular.module('ngmReportHub')
 										request: $scope.dashboard.getRequest( { indicator: 'organizations' } )
 									}
 								}]
-							},{
+							},/*{
 								styleClass: 's12 m6',
 								widgets: [{
 									type: 'stats',
@@ -901,10 +927,23 @@ angular.module('ngmReportHub')
 										request: $scope.dashboard.getRequest( { indicator: 'projects' } )
 									}
 								}]
-							}]
+							}*/
+							{
+								styleClass: 's12 m6',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: $filter('translate')('projects'),
+										request: $scope.dashboard.getRequest( { indicator: 'projects_4wdashboard_projectplan' } )
+									}
+								}]
+							}
+							]
 						},{
 							columns: $scope.dashboard.beneficiaries_row
-						},{
+						}/*,{
 							columns: [{
 								styleClass: 's12 m12 l4',
 								widgets: [{
@@ -1062,7 +1101,7 @@ angular.module('ngmReportHub')
 									}
 								}]
 							}]
-						},{
+						}*/,{
 							columns: [{
 								styleClass: 's12 m12 l12',
 								widgets: [{
@@ -1070,7 +1109,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px;',
 									config: {
-										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">'+$filter('translate')('project_locations')+'</h2>'
+										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">'+$filter('translate')('project_target_locations')+'</h2>'
 									}
 								}]
 							}]
@@ -1082,7 +1121,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: $filter('translate')('active_locations'),
+										title: $filter('translate')('active_target_locations'),
 										request: $scope.dashboard.getRequest( { indicator: 'locations' } )
 									}
 								}]
@@ -1145,7 +1184,7 @@ angular.module('ngmReportHub')
 					}
 
 					// remove training participants for AF
-					if ($scope.dashboard.admin0pcode.toUpperCase() === 'AF'){
+					/**if ($scope.dashboard.admin0pcode.toUpperCase() === 'AF'){
 						$scope.model.header.download.downloads = $scope.model.header.download.downloads.filter(function( obj ) {
 							return obj.id !== 'training_participants';
 						  });
@@ -1156,7 +1195,7 @@ angular.module('ngmReportHub')
 						$scope.model.header.download.downloads = $scope.model.header.download.downloads.filter(function( obj ) {
 							return obj.id === 'cluster_dashboard_pdf';
 						  });
-					}
+					}*/
 
 					// set
 					$scope.dashboard.setUrl();

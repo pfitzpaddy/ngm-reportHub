@@ -203,6 +203,8 @@
        "active_projects":"Proyectos Activos",
        "completed_projects":"Proyectos Completos",
        "active_locations":"Ubicaciones Activas",
+       "active_target_locations":"Ubicaciones Objetivo Activas",
+
        "services_to_beneficiaries":"Servicios a Beneficiarios",
        "individual_beneficiaries":"Beneficiarios individuales",
        "reset":"Restaurar",
@@ -273,6 +275,8 @@
         "other_activities_in_addition_to":"Otras actividades además de",
         "cash_intended_for_even_if_unrestricted":"Efectivo destinado a (incluso si no está restringido)",
         "project_donor":"Donante del Proyecto",
+        "donors":"Donors",
+        "project_donors":"Donantes de Proyecto"
         "list_other_donors":"Lista de Otros Donantes",
         "list_project_partners":"Lista de Socios del Proyecto",
         "project_partners":"Socios del Proyecto",
@@ -306,6 +310,8 @@
          "last_updated":"Última Actualización",
          "refresh_data":"Refrescar Datos",
          "project_locations":"UBICACIONES DE PROYECTOS",
+         "project_target_locations":"UBICACIONES OBJETIVO DE PROYECTOS",
+
          "project_location_removed":"Ubicación de Proyecto Eliminada!",
          "report_new_location":"Guardar informe para guardar nueva ubicación!",
 
@@ -368,6 +374,8 @@
         "monthly_notes_&_comments":"Notas Mensuales y Comentarios",
         "save_notes":"Guardar Notas",
          "lastest_report_update":"Última Actualización de Reporte",
+         "lastest_project_plan_update":"Última Actualización de Plan de Proyecto",
+
          "by":"por",
          "previous_month":"Mes Anterior",
          "current_month":"Mes Actual",
