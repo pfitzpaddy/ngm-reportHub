@@ -4762,7 +4762,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'MPC OBJECTIVE 1',
                 objective_type_description: 'Save lives in the areas of highest need',
                 objective_type_objectives: ['S01'],
-                objective_year: 2018
+                objective_year: 2019
               }],
               'eiewg': [{
                 cluster_id: 'eiewg',
@@ -4771,7 +4771,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'EiEWG OBJECTIVE 1',
                 objective_type_description: 'No objectives related to HRP for 2017',
                 objective_type_objectives: [],
-                objective_year: 2018
+                objective_year: 2019
               }],
               'fsac': [{
                 cluster_id: 'fsac',
@@ -4780,7 +4780,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'FSAC OBJECTIVE 1',
                 objective_type_description: 'Ensure continued and regular access to food for the acute food insecure across the country',
                 objective_type_objectives: ['SO1'],
-                objective_year: 2018
+                objective_year: 2019
               }, {
                 cluster_id: 'fsac',
                 cluster: 'FSAC',
@@ -4788,7 +4788,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'FSAC OBJECTIVE 2',
                 objective_type_description: 'Protect and rehabilitate livelihoods for the vulnerable population at risk of hunger and malnutrition through appropriate response and linkages with development programme',
                 objective_type_objectives: ['SO1'],
-                objective_year: 2018
+                objective_year: 2019
               }, {
                 cluster_id: 'fsac',
                 cluster: 'FSAC',
@@ -4796,7 +4796,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'FSAC OBJECTIVE 3',
                 objective_type_description: 'Strengthen emergency preparedness and provide timely response in hard to reach areas through enhanced capacity of partners on assessment and contingency planning',
                 objective_type_objectives: ['SO3'],
-                objective_year: 2018
+                objective_year: 2019
               }],
               'esnfi': [{
                 cluster_id: 'esnfi',
@@ -4805,7 +4805,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'ESNFI OBJECTIVE 1',
                 objective_type_description: 'Ensure timely, adequate access to shelter and non-food items for internally displaced and returnees assessed in need',
                 objective_type_objectives: ['SO1'],
-                objective_year: 2018
+                objective_year: 2019
               }, {
                 cluster_id: 'esnfi',
                 cluster: 'ESNFI',
@@ -4813,7 +4813,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'ESNFI OBJECTIVE 1',
                 objective_type_description: 'Ensure that the living conditions of vulnerable people are improved',
                 objective_type_objectives: ['SO1'],
-                objective_year: 2018
+                objective_year: 2019
               }, {
                 cluster_id: 'esnfi',
                 cluster: 'ESNFI',
@@ -4821,7 +4821,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'ESNFI OBJECTIVE 1',
                 objective_type_description: 'Ensure adequate response capacity through preparedness measures and prepositioning of emergency shelters and Non-Food Items',
                 objective_type_objectives: ['SO3'],
-                objective_year: 2018
+                objective_year: 2019
               }],
               'health': [{
                 cluster_id: 'health',
@@ -4830,7 +4830,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'HEALTH OBJECTIVE 1',
                 objective_type_description: 'Save lives in the areas of highest need: People suffering trauma related injuries because of the conflict receive life-saving treatment within the province where the injury was sustained in either existing medical facilities or new First Aid Trauma Posts',
                 objective_type_objectives: ['SO1'],
-                objective_year: 2018
+                objective_year: 2019
               }, {
                 cluster_id: 'health',
                 cluster: 'Health',
@@ -4838,7 +4838,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'HEALTH OBJECTIVE 2',
                 objective_type_description: 'Reduce protection violations and increase respect for International Humanitarian Law',
                 objective_type_objectives: ['SO2'],
-                objective_year: 2018
+                objective_year: 2019
               }],
               'nutrition': [{
                 cluster_id: 'nutrition',
@@ -4847,7 +4847,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'NUTRITION OBJECTIVE 1',
                 objective_type_description: 'Save lives in the areas of highest need',
                 objective_type_objectives: ['SO1'],
-                objective_year: 2018
+                objective_year: 2019
               }],
               'protection': [{
                 cluster_id: 'protection',
@@ -4856,7 +4856,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'PROTECTION OBJECTIVE 1',
                 objective_type_description: 'Parties increase measures to protect civilians based upon further harmonized POC/IHL advocacy by protection actors',
                 objective_type_objectives: ['SO1','SO2'],
-                objective_year: 2018
+                objective_year: 2019
               }, {
                 cluster_id: 'protection',
                 cluster: 'Protection',
@@ -4864,7 +4864,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'PROTECTION OBJECTIVE 2',
                 objective_type_description: 'Child rights violations are monitored and verified to prevent and respond to the needs of children affected by emergencies',
                 objective_type_objectives: ['SO1','SO2'],
-                objective_year: 2018
+                objective_year: 2019
               }, {
                 cluster_id: 'protection',
                 cluster: 'Protection',
@@ -4872,7 +4872,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'PROTECTION OBJECTIVE 3',
                 objective_type_description: 'Gender Based Violence incidents in emergencies are identified and survivors’ multi-sectorial needs are adequately responded to',
                 objective_type_objectives: ['SO1','SO2'],
-                objective_year: 2018
+                objective_year: 2019
               }, {
                 cluster_id: 'protection',
                 cluster: 'Protection',
@@ -4880,7 +4880,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'PROTECTION OBJECTIVE 4',
                 objective_type_description: 'Vulnerable displaced persons are able to claim and exercise housing, land and property, as well as legal identity rights vital for achieving durable solutions',
                 objective_type_objectives: ['SO1','SO3'],
-                objective_year: 2018
+                objective_year: 2019
               }, {
                 cluster_id: 'protection',
                 cluster: 'Protection',
@@ -4888,7 +4888,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'PROTECTION OBJECTIVE 5',
                 objective_type_description: 'Reduce deaths and injuries from mines/ERW and promote inclusivity and rights of persons with disabilities, through education and clearance of high-impact mine/ERW and spot ERW contamination',
                 objective_type_objectives: ['SO1','SO2'],
-                objective_year: 2018
+                objective_year: 2019
               }],
               'wash': [{
                 cluster_id: 'wash',
@@ -4897,7 +4897,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'WASH OBJECTIVE 1',
                 objective_type_description: 'WASH related communicable diseases are reduced among IDP, returnee, refugee and non-displaced conflictaffected women, men and children of all ages through timely and adequate WASH assistance',
                 objective_type_objectives: ['SO1', 'SO3'],
-                objective_year: 2018
+                objective_year: 2019
               }, {
                 cluster_id: 'wash',
                 cluster: 'Wash',
@@ -4905,7 +4905,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'WASH OBJECTIVE 2',
                 objective_type_description: 'People affected by natural disasters –including severe weather conditions– are assessed and responded to in a timely manner preventing loss of life and risk of disease',
                 objective_type_objectives: ['SO1', 'SO3'],
-                objective_year: 2018
+                objective_year: 2019
               }],
               'rnr_chapter': [{
                 cluster_id: 'rnr_chapter',
@@ -4914,7 +4914,7 @@ angular.module( 'ngmReportHub' )
                 objective_type_name: 'REFUGEE & RETURNEE OBJECTIVE 1',
                 objective_type_description: 'Save lives in the areas of highest need',
                 objective_type_objectives: ['SO1'],
-                objective_year: 2018
+                objective_year: 2019
           }]
         }
           }
