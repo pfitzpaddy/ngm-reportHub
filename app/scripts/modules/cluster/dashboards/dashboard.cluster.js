@@ -232,6 +232,7 @@ angular.module('ngmReportHub')
 						type: 'csv',
 						color: 'blue lighten-2',
 						icon: 'assignment_turned_in',
+						not_show:['COL','ET','NG'],
 						hover: $filter('translate')('download_ocha_hrp_report_as_csv'),
 						request: $scope.dashboard.getRequest( { csv: true, indicator: 'ocha_report', report: $scope.dashboard.cluster_id_filename + '_ocha_hrp_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 						metrics: $scope.dashboard.getMetrics( 'cluster_ocha_report', 'csv' )
@@ -239,6 +240,7 @@ angular.module('ngmReportHub')
 						type: 'csv',
 						color: 'blue lighten-2',
 						icon: 'attach_money',
+						not_show:['CB','ET','NG'],
 						hover: $filter('translate')('download_ocha_financial_report_as_csv'),
 						request: $scope.dashboard.getRequest( { csv: true, indicator: 'financial_report', report: $scope.dashboard.cluster_id_filename + '_ocha_financial_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 						metrics: $scope.dashboard.getMetrics( 'cluster_financial_report', 'csv' )
@@ -247,6 +249,7 @@ angular.module('ngmReportHub')
 						type: 'csv',
 						color: 'blue lighten-2',
 						icon: 'wc',
+						not_show:['AF','CB','COL'],
 						hover: $filter('translate')('download_training_participants_as_csv'),
 						request: $scope.dashboard.getRequest( { csv: true, indicator: 'training_participants', report: $scope.dashboard.cluster_id_filename + '_training_participants_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 						metrics: $scope.dashboard.getMetrics( 'training_participants', 'csv' )
@@ -261,6 +264,7 @@ angular.module('ngmReportHub')
 						type: 'csv',
 						color: 'blue lighten-2',
 						icon: 'show_chart',
+						not_show:['CB','COL','ET','NG'],
 						hover: $filter('translate')('download_stock_data_as_csv'),
 						request: $scope.dashboard.getRequest( { csv: true, indicator: 'stocks', report: $scope.dashboard.cluster_id_filename + '_stock_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 						metrics: $scope.dashboard.getMetrics( 'stocks', 'csv' )
@@ -310,7 +314,7 @@ angular.module('ngmReportHub')
 						request: $scope.dashboard.getRequest( { csv: true, indicator: 'water', report: $scope.dashboard.cluster_id_filename + '_water_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 						metrics: $scope.dashboard.getMetrics( 'water_data', 'csv' )
 					}];
-
+					
 					// NG, wash and Admin
 					if ( $scope.dashboard.admin0pcode === 'ng' &&
 								$scope.dashboard.cluster_id === 'wash' &&
@@ -328,6 +332,12 @@ angular.module('ngmReportHub')
 					if (!canDownload){
 						downloads = downloads.filter(x => x.id === 'cluster_dashboard_pdf')
 					}
+					// remove download that not relate to country
+					angular.forEach(downloads,function(d,i){
+						if (d.not_show && (d.not_show.indexOf($scope.dashboard.admin0pcode.toUpperCase()) > -1)){
+							downloads.splice(i,1);
+						}
+					})
 					return downloads;
 				},
 
