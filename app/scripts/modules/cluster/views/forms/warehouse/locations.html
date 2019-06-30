@@ -22,7 +22,7 @@
 				<li class="collection-item avatar">
 
 					<div class="row">
-					
+
 						<div class="card" style="padding:20px;">
 
 							<!-- form -->
@@ -64,13 +64,13 @@
 							  </div>
 
 			      		<div class="col s12 m1" style="padding-top:15px;">
-			      			<button class="waves-effect waves-light btn-floating green lighten-2 right" 
+			      			<button class="waves-effect waves-light btn-floating green lighten-2 right"
 			      					title="Add Warehouse {{ report.options.warehouse.site_type.site_name }}"
 			      					ng-click="report.addLocation()"
 			      					ng-disabled="!report.options.warehouse.site_type.site_name">
 			      					<i class="material-icons">add</i>
 			      			</button>
-							  </div>					  
+							  </div>
 
 							 </div>
 
@@ -125,13 +125,13 @@
 							  </div>
 
 			      		<div class="col s12 m1" style="padding-top:15px;">
-			      			<button class="waves-effect waves-light btn-floating green lighten-2 right" 
+			      			<button class="waves-effect waves-light btn-floating green lighten-2 right"
 			      					title="Add Warehouse {{ report.options.warehouse.site_type.site_name }}"
 			      					ng-click="report.addLocation()"
 			      					ng-disabled="!report.options.warehouse.site_type.site_name">
 			      					<i class="material-icons">add</i>
 			      			</button>
-							  </div>					  
+							  </div>
 
 							 </div>
 
@@ -153,13 +153,13 @@
 								    	<!-- admin2 -->
 								    	<h5 class="report-location-title" ng-if="!report.options.list.admin3.length">
 														<i class="material-icons left" style="color: teal;">location_on</i>
-														{{ warehouse.admin1name }}, {{ warehouse.admin2name }}, {{ warehouse.site_name }}
+														{{ warehouse.admin1name }}, {{ warehouse.admin2name }}, {{ warehouse.site_name }} {{ warehouse.cluster }}
 											</h5>
 
 								    	<!-- admin3 -->
 								    	<h5 class="report-location-title" ng-if="report.options.list.admin3.length">
 														<i class="material-icons left" style="color: teal;">location_on</i>
-														{{ warehouse.admin1name }}, {{ warehouse.admin2name }}, {{ warehouse.admin3name }}, {{ warehouse.site_name }}
+														{{ warehouse.admin1name }}, {{ warehouse.admin2name }}, {{ warehouse.admin3name }}, {{ warehouse.site_name }} {{ warehouse.cluster }}
 											</h5>
 										</div>
 										<div class="col s12 m1 right" style="padding-top:15px;padding-right:34px;">
@@ -171,7 +171,7 @@
 									</div>
 
 								</div>
-								      	
+
 				      </div>
 
 			    	</div>

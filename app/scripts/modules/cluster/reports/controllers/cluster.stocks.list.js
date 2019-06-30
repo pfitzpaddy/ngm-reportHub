@@ -14,7 +14,7 @@ angular.module('ngmReportHub')
 		];
 
 		// org id
-		var organization_id = 
+		var organization_id =
 				$route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
 
 		// init empty model
@@ -22,10 +22,10 @@ angular.module('ngmReportHub')
 
 		// empty Project
 		$scope.report = {
-			
+
 			// parent
 			ngm: $scope.$parent.ngm,
-			
+
 			// current user
 			user: ngmUser.get(),
 
@@ -69,7 +69,7 @@ angular.module('ngmReportHub')
 							'title': $filter('translate')('stock_reports_for')+ ' ' + $scope.report.organization.organization  + ', ' + $scope.report.organization.admin0name
 						}
 					},
-					rows: [{				
+					rows: [{
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
@@ -101,7 +101,7 @@ angular.module('ngmReportHub')
 										method: 'POST',
 										url: ngmAuth.LOCATION + '/api/cluster/stock/getReportsList',
 										data: {
-											filter: { 
+											filter: {
 												organization_id: $scope.report.organization.id,
 												report_active: true,
 												report_status: 'todo'
@@ -125,13 +125,13 @@ angular.module('ngmReportHub')
 									icon: 'done',
 									rightIcon: 'check_circle',
 									templateUrl: '/scripts/widgets/ngm-list/template/stock.html',
-									orderBy: '-reporting_due_date',
+									orderBy: 'reporting_due_date',
 									format: true,
 									request: {
 										method: 'POST',
 										url: ngmAuth.LOCATION + '/api/cluster/stock/getReportsList',
 										data: {
-											filter: { 
+											filter: {
 												organization_id: $scope.report.organization.id,
 												report_active: true,
 												report_status: 'complete'
@@ -140,7 +140,7 @@ angular.module('ngmReportHub')
 									}
 								}
 							}]
-						}]						
+						}]
 					},{
 						columns: [{
 							styleClass: 's12 m12 l12',
@@ -159,7 +159,7 @@ angular.module('ngmReportHub')
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;
 
-			}			
+			}
 
 		}
 
@@ -167,7 +167,7 @@ angular.module('ngmReportHub')
 		ngmData
 			.get( $scope.report.getOrganization( organization_id ) )
 			.then( function( organization ){
-				
+
 				// set organization
 				$scope.report.organization = organization;
 
@@ -175,5 +175,5 @@ angular.module('ngmReportHub')
 				$scope.report.init();
 
 			});
-		
+
 	}]);

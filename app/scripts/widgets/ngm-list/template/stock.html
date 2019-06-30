@@ -75,7 +75,7 @@
 					<span class="title">{{ item.reporting_period_title }}</span>
 					<span class="right" style="padding-top:20px; padding-right:40px; color:#616161;">{{ list.reportFormat( item ) }}</span>
 					<p align="justify" style="padding:10px 0px 10px 0px;">
-						{{'monthly_stock_report_for'|translate}} {{ item.reporting_period_title }}
+						{{'monthly_stock_report_for'|translate}} {{ item.reporting_period_title }} {{ item.cluster }}
 					</p>
 					<a href="#/cluster/stocks/report/{{ item.organization_id }}/{{ item.id }}" title="{{ list.hoverTitle }} {{ list.dueFormat( item.reporting_period ) }} Report" class="secondary-content">
 						<i class="material-icons right" style="padding-top:20px; padding-right:40px; color: {{ item.status }}">{{ list.rightIcon }}</i>
