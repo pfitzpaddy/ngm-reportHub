@@ -211,6 +211,17 @@ angular.module( 'ngmReportHub' )
 
 			/* BENEFICIARIES */
 
+      // display delivery
+      displayDelivery: function( lists, $data, $beneficiary ) {
+        var selected = [];
+        $beneficiary.delivery_type_id = $data;
+        if( $beneficiary.delivery_type_id ) {
+          selected = $filter('filter')( lists.delivery_types, { delivery_type_id: $beneficiary.delivery_type_id }, true);
+          $beneficiary.delivery_type_name = selected[0].delivery_type_name;
+        }
+        return selected.length ? selected[0].delivery_type_name : '-';
+      },
+
 			// add beneficiary
 			addBeneficiary: function ( project, beneficiaries ) {
 

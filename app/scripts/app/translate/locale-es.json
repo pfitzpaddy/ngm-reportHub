@@ -358,6 +358,7 @@
          "remove_this_beneficiary_from_your_report":"Eliminar este Beneficiario de su Reporte",
          "yes_remove_beneficiary":"Si, Eliminar Beneficiario",
          "people_in_need_saved":"Personas con Necesidades Guardadas!",
+         "project_status_updated":"Estado del Proyecto Actualizado!",
 
         
          "remove_borehole":"Eliminar Pozo",
@@ -548,6 +549,8 @@
         "are_you_sure_you_want_to_delete_this_project_and_all_its_associated_data":"Está seguro que quiere ELIMINAR este PROYECTO y todos los datos asociados",
         "yes_delete_project":"Si, eliminar proyecto",
         "mark_project_as_active":"Marcar proyecto como Activo",
+        "mark_project_as_plan":"Marcar proyecto como Plano",
+        "mark_project_as_not_implemented":"Marcar proyecto como No se ha Implementado",
         "are_you_sure_you_want_to_move_this_project_to_active":"Está seguro que quiere mover este proyecto a 'Activo'",
         "yes_move_project_to_active":"Si, mover proyecto a activo",
         "financial_reports":"Reportes Financieros",

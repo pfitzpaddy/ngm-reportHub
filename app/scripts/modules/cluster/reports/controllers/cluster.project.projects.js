@@ -252,6 +252,24 @@ angular.module( 'ngmReportHub' )
 							}]
 						}]
 					},{
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'list',
+									card: 'white grey-text text-darken-2',
+									config: {
+										titleIcon: 'alarm_on',
+										// color: 'teal lighten-4',
+										color: 'orange lighten-1',
+										textColor: 'white-text',
+										title: 'Plan',
+										icon: 'edit',
+										request: $scope.report.getProjectRequest('plan'),
+										templateUrl: '/scripts/widgets/ngm-list/template/hide_list.html',
+									}
+								}]
+							}]
+						},{
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
@@ -286,6 +304,24 @@ angular.module( 'ngmReportHub' )
 							}]
 						}]
 					},{
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'list',
+									card: 'white grey-text text-darken-2',
+									config: {
+										titleIcon: 'alarm_on',
+										// color: 'teal lighten-4',
+										color: 'grey lighten-1',
+										textColor: 'white-text',
+										title: 'Not Implemented',
+										icon: 'edit',
+										request: $scope.report.getProjectRequest('not_implemented'),
+										templateUrl: '/scripts/widgets/ngm-list/template/hide_list.html',
+									}
+								}]
+							}]
+						},{
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
