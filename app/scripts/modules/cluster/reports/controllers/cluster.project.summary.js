@@ -157,7 +157,46 @@ angular.module('ngmReportHub')
 									  });
 
 									},
+									markPlan:function(project){
+										// mark project plan
+										project.project_status = 'plan';
+										project.project_start_date = moment(new Date()).format('YYYY-MM-DD');
+										// timeout
+										$timeout(function () { Materialize.toast($filter('translate')('processing') + '...', 6000, 'note'); }, 200);
 
+										// Submit project for save
+										ngmData.get({
+											method: 'POST',
+											url: ngmAuth.LOCATION + '/api/cluster/project/setProject',
+											data: {
+												project: project
+											}
+										}).then(function (data) {
+											// redirect on success
+											$location.path('/cluster/projects');
+											Materialize.toast('Project Moved to Plan!', 6000, 'success');
+										});
+									},
+									markNotImplemented: function (project) {
+										// mark project plan
+										project.project_status = 'not_implemented';
+
+										// timeout
+										$timeout(function () { Materialize.toast($filter('translate')('processing') + '...', 6000, 'note'); }, 200);
+
+										// Submit project for save
+										ngmData.get({
+											method: 'POST',
+											url: ngmAuth.LOCATION + '/api/cluster/project/setProject',
+											data: {
+												project: project
+											}
+										}).then(function (data) {
+											// redirect on success
+											$location.path('/cluster/projects');
+											Materialize.toast('Project Moved to Not Implemented!', 6000, 'success');
+										});
+									},
 									deleteProject: function(project){
 
 									  // timeout

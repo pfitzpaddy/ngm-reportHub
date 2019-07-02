@@ -708,6 +708,19 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						beneficiary.elderly_women;
 					return total
 				},
+				setProjectStatus: function (status) {
+					$scope.project.definition.project_status = status;
+					// $scope.setence = status;
+					if (status === 'not_implemented'){
+						Materialize.toast("Project Status is set to not implemented ", 3000, 'note');
+					}else{
+						if(status === 'plan'){
+							$scope.project.definition.project_start_date = moment(new Date()).format('YYYY-MM-DD');
+							// console.log(moment(new Date()).format('YYYY-MM-DD'), $scope.project.definition.project_start_date);
+						}
+						Materialize.toast("Project Status is set to " + status, 3000, 'note');
+					}
+				},
 
 				/**** SAVE ****/
 				
