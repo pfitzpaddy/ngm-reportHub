@@ -188,10 +188,10 @@
 						<button ng-if="panel.project.project_status !== 'active'" data-target="active-modal" class="waves-effect waves-light btn modal-trigger blue" ng-cloak>
 							<i class="material-icons left">assignment_turned_in</i>{{'mark_project_as_active' | translate}}
 						</button>
-						<button data-target="plan-modal" class="waves-effect waves-light btn modal-trigger orange" ng-cloak ng-disabled="panel.project.project_status === 'plan'">
+						<button ng-if="panel.project.admin0pcode !== 'COL'" data-target="plan-modal" class="waves-effect waves-light btn modal-trigger orange" ng-cloak ng-disabled="panel.project.project_status === 'plan'">
 							<i class="material-icons left">description</i>Mark Project as Plan
 						</button>
-						<button data-target="not-implemented-modal" class="waves-effect waves-light btn modal-trigger grey" ng-cloak ng-disabled="panel.project.project_status === 'not_implemented'">
+						<button ng-if="panel.project.admin0pcode !== 'COL'" data-target="not-implemented-modal" class="waves-effect waves-light btn modal-trigger grey" ng-cloak ng-disabled="panel.project.project_status === 'not_implemented'">
 							<i class="material-icons left">not_interested</i>Mark Project as Not Implemented
 						</button>						
 						<br/>
@@ -214,10 +214,10 @@
 						<button data-target="active-modal" class="waves-effect waves-light btn modal-trigger blue" ng-cloak>
 							<i class="material-icons left">assignment_turned_in</i>{{'mark_project_as_active' | translate}}
 						</button>
-						<button data-target="plan-modal" ng-if="panel.project.admin0pcode !== 'AF'" class="waves-effect waves-light btn modal-trigger orange" ng-cloak ng-disabled="panel.project.project_status === 'plan'">
+						<button data-target="plan-modal" ng-if="panel.project.admin0pcode !== 'AF' && panel.project.admin0pcode !== 'COL'" class="waves-effect waves-light btn modal-trigger orange" ng-cloak ng-disabled="panel.project.project_status === 'plan'">
 							<i class="material-icons left">description</i>Mark Project as Plan
 						</button>
-						<button data-target="not-implemented-modal"  ng-if="panel.project.admin0pcode !== 'AF'" class="waves-effect waves-light btn modal-trigger grey" ng-cloak ng-disabled="panel.project.project_status === 'not_implemented'">
+						<button data-target="not-implemented-modal"  ng-if="panel.project.admin0pcode !== 'AF' && panel.project.admin0pcode !== 'COL'" class="waves-effect waves-light btn modal-trigger grey" ng-cloak ng-disabled="panel.project.project_status === 'not_implemented'">
 							<i class="material-icons left">not_interested</i>Mark Project as Not Implemented
 						</button>
 						<br/>
