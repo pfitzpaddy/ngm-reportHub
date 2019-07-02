@@ -141,7 +141,35 @@
 
 		<!-- Project Document -->
 		<div ng-if="!project.newProject" class="slide-animate" ng-include="project.templatesUrl + project.uploadUrl"></div>
-
+		<div class="row remove">
+			<div class="col s12 m12 l12">
+				<div class="widget card-panel white grey-text text-darken-2" style="padding-top: 0;padding-left: 0;padding-right: 0">
+					<div style="height: 80px; margin-bottom: 20px; font-size: 25px;font-weight: 300;padding-top: 20px" class="blue lighten-1">
+						<div class="white-text" style="padding: 10px 20px"> 
+							<i class="material-icons left">
+								 bookmark_border
+							</i>Mark Project</div>
+					</div>
+					<!-- submission -->
+					<div align="center">
+						<button ng-if="project.definition.project_status === 'active'" ng-click="project.setProjectStatus('complete')" class="waves-effect waves-light btn blue" ng-cloak>
+							<i class="material-icons left">assignment_turned_in</i>{{ 'mark_project_as_complete' | translate }}
+						</button>
+						<button ng-if="project.definition.project_status !== 'active'" ng-click="project.setProjectStatus('active')" class="waves-effect waves-light btn blue" ng-cloak>
+							<i class="material-icons left">assignment_turned_in</i>{{ 'mark_project_as_active' | translate }}
+						</button>
+						<button class=" waves-light btn orange" ng-click="project.setProjectStatus('plan')" ng-disabled="project.definition.project_status === 'plan'" >
+							<i class="material-icons left">description</i>{{ 'mark_project_as_plan' | translate }}
+						</button>
+						<button class=" waves-light btn grey" ng-click="project.setProjectStatus('not_implemented')" ng-disabled="project.definition.project_status === 'not_implemented'">
+							<i class="material-icons left">not_interested</i>{{ 'mark_project_as_not_implemented' | translate }}
+						</button>
+		
+					</div>
+		
+				</div>
+			</div>
+		</div>
 		<!-- form submission -->
 		<div class="row remove" ng-if="project.definition.project_status !== 'complete'">
 			<div class="col s12 m12 l12">
@@ -159,7 +187,9 @@
 
 						<!-- cancel update -->
 						<button data-target="summary-modal" class="waves-effect waves-light btn modal-trigger grey"
-							ng-if="project.definition.project_status === 'active' ">{{'cancel_mayus' | translate}}
+							ng-if="project.definition.project_status === 'active' ||
+										 project.definition.project_status === 'plan' || 
+										 project.definition.project_status === 'not_implemented'">{{'cancel_mayus' | translate}}
 						</button>
 
 					</div>

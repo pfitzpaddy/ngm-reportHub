@@ -709,6 +709,40 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					return total
 				},
 
+				setProjectStatus: function ( status ) {
+					
+					// set project status
+					$scope.project.definition.project_status = status;
+					
+					// msg
+					var msg = 'Project Status is set to ';
+
+					console.log(status)
+
+					// actions
+					switch( status ) {
+						case 'not_implemented':
+							msg += 'Not Implemented';
+							break;
+						case 'plan':
+							msg +='Planned';
+							$scope.project.definition.project_start_date = moment(new Date()).format('YYYY-MM-DD');
+							break;
+						case 'complete':
+							msg += 'Completed';
+							break;
+						default:
+							msg += 'Active';
+					}
+
+					// toast
+					Materialize.toast( msg, 4000, 'success' );
+
+					// save project
+					$scope.project.save( false, $filter('translate')('people_in_need_saved') );
+
+				},
+
 				/**** SAVE ****/
 				
 				// save project
@@ -746,7 +780,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.project.definition.target_locations );
 
 					// inform
-					Materialize.toast( $filter('translate')('processing'), 4000, 'note' );
+					Materialize.toast( $filter('translate')('processing'), 6000, 'note' );
 
 					// details update
 					$http({
