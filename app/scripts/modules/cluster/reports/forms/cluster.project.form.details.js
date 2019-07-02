@@ -717,7 +717,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					// msg
 					var msg = 'Project Status is set to ';
 
-					console.log(status)
+					// console.log(status)
 
 					// actions
 					switch( status ) {
@@ -726,7 +726,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							break;
 						case 'plan':
 							msg +='Planned';
-							$scope.project.definition.project_start_date = moment(new Date()).format('YYYY-MM-DD');
+							// $scope.project.definition.project_start_date = moment(new Date()).format('YYYY-MM-DD');
 							break;
 						case 'complete':
 							msg += 'Completed';

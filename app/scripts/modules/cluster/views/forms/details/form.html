@@ -141,7 +141,7 @@
 
 		<!-- Project Document -->
 		<div ng-if="!project.newProject" class="slide-animate" ng-include="project.templatesUrl + project.uploadUrl"></div>
-		<div class="row remove">
+		<div class="row remove" ng-if="project.definition.admin0pcode !== 'AF'">
 			<div class="col s12 m12 l12">
 				<div class="widget card-panel white grey-text text-darken-2" style="padding-top: 0;padding-left: 0;padding-right: 0">
 					<div style="height: 80px; margin-bottom: 20px; font-size: 25px;font-weight: 300;padding-top: 20px" class="blue lighten-1">
