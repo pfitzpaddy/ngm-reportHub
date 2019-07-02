@@ -708,18 +708,39 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						beneficiary.elderly_women;
 					return total
 				},
-				setProjectStatus: function (status) {
+
+				setProjectStatus: function ( status ) {
+					
+					// set project status
 					$scope.project.definition.project_status = status;
-					// $scope.setence = status;
-					if (status === 'not_implemented'){
-						Materialize.toast("Project Status is set to not implemented ", 3000, 'note');
-					}else{
-						if(status === 'plan'){
+					
+					// msg
+					var msg = 'Project Status is set to ';
+
+					console.log(status)
+
+					// actions
+					switch( status ) {
+						case 'not_implemented':
+							msg += 'Not Implemented';
+							break;
+						case 'plan':
+							msg +='Planned';
 							$scope.project.definition.project_start_date = moment(new Date()).format('YYYY-MM-DD');
-							// console.log(moment(new Date()).format('YYYY-MM-DD'), $scope.project.definition.project_start_date);
-						}
-						Materialize.toast("Project Status is set to " + status, 3000, 'note');
+							break;
+						case 'complete':
+							msg += 'Completed';
+							break;
+						default:
+							msg += 'Active';
 					}
+
+					// toast
+					Materialize.toast( msg, 4000, 'success' );
+
+					// save project
+					$scope.project.save( false, $filter('translate')('people_in_need_saved') );
+
 				},
 
 				/**** SAVE ****/
@@ -759,7 +780,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.project.definition.target_locations );
 
 					// inform
-					Materialize.toast( $filter('translate')('processing'), 4000, 'note' );
+					Materialize.toast( $filter('translate')('processing'), 6000, 'note' );
 
 					// details update
 					$http({
