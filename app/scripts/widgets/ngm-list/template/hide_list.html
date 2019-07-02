@@ -1,0 +1,124 @@
+<style>
+	.collection .collection-item.avatar .title {
+		font-size: 20px;
+		color: #616161;
+	}
+
+	.nav-list-search {
+		margin-top: 6px;
+		background-color: white;
+		width: 72px;
+		-webkit-transition: width 1s ease;
+		-moz-transition: width 1s ease;
+		-o-transition: width 1s ease;
+		-ms-transition: width 1s ease;
+		transition: width 1s ease;
+	}
+
+	.nav-list-search.focused {
+		margin-top: 6px;
+		width: 100%;
+		-webkit-transition: width 1s ease;
+		-moz-transition: width 1s ease;
+		-o-transition: width 1s ease;
+		-ms-transition: width 1s ease;
+		transition: width 1s ease;
+	}
+
+	.input-field input[type=search] {
+		font-weight: 300;
+		padding-top: 0px;
+	}
+
+	/* remove border bottom */
+
+	input[type=text],
+	input[type=text]:disabled,
+	input[type=text]:focus,
+	input[type=text]:valid {
+		border-bottom: none !important;
+		box-shadow: none !important;
+	}
+
+	.pagination li.active {
+		background-color: #009688;
+	}
+</style>
+
+<!-- bind html -->
+<div ng-if="list.data.length">
+	<ul class="collection with-header z-depth-1">
+		<li class="collection-header {{ list.color }}" style="height:80px;">
+			<div class="col s12 m8">
+				<h4 class="report-work-title {{ list.textColor }}" style="font-size:1.8rem;">
+					<i class="material-icons left">{{ list.titleIcon }}</i>{{ list.title }}
+				</h4>
+			</div>
+			<div ng-if="list.data.length > list.itemsPerPage" class="col s12 m4 right">
+				<nav class="nav-list-search right" ng-class="{'focused':list.search.focused===true || list.search.filter }">
+					<div class="nav-wrapper" ng-click="list.toggleSearch()">
+						<form>
+							<div class="input-field">
+								<input id="search_{{ list.id }}" type="search" ng-model="list.search.filter" ng-focus="list.search.focused=true" ng-blur="list.search.focused=false">
+								<label for="search_{{ list.id }}">
+									<i class="material-icons" style="color: teal; padding-left:5px;">search</i>
+								</label>
+							</div>
+						</form>
+					</div>
+				</nav>
+			</div>
+		</li>
+
+		<!-- pagination ctrl ( updated to enable large descriptions) -->
+		<li class="collection-item avatar" dir-paginate="item in list.data | filter: list.search.filter | itemsPerPage: list.itemsPerPage"
+		 pagination-id="list.id" style="padding-top:20px;">
+
+			<div class="row valign-wrapper">
+
+				<!-- row s12 -->
+				<div class="col s12">
+
+					<!-- no project code -->
+					<a href="#/cluster/projects/summary/{{ item.id }}" title="{{'update_project' | translate}} {{ item.id }}">
+						<div>
+
+							<!-- title -->
+							<div style="color:#039be5; font-weight: 400;">
+								{{ item.cluster }} Sector
+							</div>
+							<i class="material-icons circle white teal-text">{{ list.icon }}</i>
+							<span class="title truncate">{{ item.project_title }}</span>
+							<br/>
+
+							<!-- updated / submiteed -->
+							<div ng-if="list.title.indexOf('Active') !== -1" style="font-weight:400">
+								{{'updated'|translate}}: {{ list.updatedAt( item.updatedAt ) }}
+							</div>
+							<div ng-if="list.title.indexOf('Complete') !== -1" style="font-weight:400">
+								{{'submitted'|translate}}: {{ list.updatedAt( item.updatedAt ) }}
+							</div>
+
+							<!-- description -->
+							<p align="justify" style="max-height:200px;">
+								<span ng-if="!item.project_code">
+									{{ item.project_description | limitTo:500 }}...
+								</span>
+								<span ng-if="item.project_code">
+									<span style="font-weight: 400;">{{ item.project_code }}:</span> {{ item.project_description | limitTo:500 }}...
+								</span>
+							</p>
+
+							<br/>
+						</div>
+					</a>
+
+				</div>
+
+		</li>
+		<li class="collection-item avatar" ng-if="list.data.length > list.itemsPerPage" style="padding:20px 20px 0px 50px;">
+			<dir-pagination-controls pagination-id="list.id"></dir-pagination-controls>
+		</li>
+	</ul>
+
+	</div>
