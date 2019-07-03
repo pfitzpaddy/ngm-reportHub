@@ -454,6 +454,19 @@ angular.module('ngmReportHub')
 					// get orgs
 					ngmData.get( request ).then( function( organizations  ){
 
+						console.log($scope.dashboard.user, "INFO USER");
+
+						//var countryadmin = $filter( 'filter' )( $scope.dashboard.user.roles , "COUNTRY_ADMIN"  );
+						if($scope.dashboard.user.roles.indexOf('COUNTRY_ADMIN')  !== -1  )  {
+						 						
+						 		console.log("SI TIENE ROL COUNTRYADMIN");
+						 		$scope.dashboard.organization_tag = 'all';
+						 		console.log($scope.dashboard.organization_tag);
+
+					       }else{
+                      	console.log("NO TIENE ROL");
+                      }
+
 						// set organization
 						if ( $scope.dashboard.organization_tag !== 'all' ) {
 							var org = $filter( 'filter' )( organizations, { organization_tag: $scope.dashboard.organization_tag } );
@@ -913,7 +926,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: $filter('translate')('active_organizations'),
-										request: $scope.dashboard.getRequest( { indicator: 'organizations' } )
+										request: $scope.dashboard.getRequest( { indicator: 'organizations_4wdashboard_projectplan' } )
 									}
 								}]
 							},/*{
