@@ -343,8 +343,27 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					}
 				},
 
+				setHrpPlanStatus:function(){
+
+					$scope.project.definition.hrp_plan= !$scope.project.definition.hrp_plan;
+					
+				},
+
+
+				setRmrpPlanStatus:function(){
+
+					$scope.project.definition.rmrp_plan= !$scope.project.definition.rmrp_plan;
+					
+				},
+
+				setInteragencialPlanStatus:function(){
+
+					$scope.project.definition.interagencial_plan= !$scope.project.definition.interagencial_plan;
+					
+				},
 
 				
+
 
 				/**** AFGHANISTAN ( ngmClusterHelperAf.js ) ****/
 
@@ -747,6 +766,20 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				
 				// save project
 				save: function( display_modal, save_msg ){
+
+					if($scope.project.definition.admin0pcode === 'COL'){
+
+					if($scope.project.definition.hrp_plan == undefined){
+						$scope.project.definition.hrp_plan = false;
+					}
+
+					if($scope.project.definition.rmrp_plan == undefined){
+						$scope.project.definition.rmrp_plan = false;
+					}
+					if($scope.project.definition.interagencial_plan == undefined){
+						$scope.project.definition.interagencial_plan = false;
+					}
+				}
 
 					// disable btn
 					$scope.project.submit = false;

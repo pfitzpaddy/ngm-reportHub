@@ -173,6 +173,47 @@
 
 							</div>
 
+							<!-- switch HRP/ RMRP/  UNDAF COLOMBIA-->
+
+								<div class="row" ng-if="project.definition.admin0pcode ==='COL'" style="margin-bottom:30px;">
+
+								
+
+								<div class="switch input-field col s12 m4">
+									<label>
+										HRP
+										<input ng-click="project.setHrpPlanStatus();" 
+														ng-checked="project.definition.hrp_plan" type="checkbox" class="filled-in">
+										<span class="lever"></span>
+										
+
+									</label>
+								</div>
+
+								<div class="switch input-field col s12 m4">
+									<label>
+										RMRP
+										<input ng-click="project.setRmrpPlanStatus();" 
+														ng-checked="project.definition.rmrp_plan" type="checkbox" class="filled-in">
+										<span class="lever"></span>
+										
+
+									</label>
+								</div>
+
+								<div class="switch input-field col s12 m4">
+									<label>
+										Interagencial
+										<input ng-click="project.setInteragencialPlanStatus();" 
+														ng-checked="project.definition.interagencial_plan" type="checkbox" class="filled-in">
+										<span class="lever"></span>
+										
+
+									</label>
+								</div>
+
+								</div>
+
 							<!-- ACBAR partners -->
 							<div class="row" ng-if="project.definition.admin0pcode === 'AF'">
 
