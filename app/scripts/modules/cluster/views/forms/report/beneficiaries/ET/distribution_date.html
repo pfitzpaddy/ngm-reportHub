@@ -6,11 +6,11 @@
 
 		<!-- input-date directive -->
 		<div class="input-field col s12 m5">
-			<label for="ngm-distirbution-start-date">Start Date</label>
+			<label for="ngm-distirbution-start-date-{{ $locationIndex }}-{{ $beneficiaryIndex }}">Start Date</label>
 			<input ngm-date
 							type="text"
 							name="ngm-distirbution-start-date"
-							id="ngm-distirbution-start-date"
+							id="ngm-distirbution-start-date-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 							ng-model="beneficiary.distribution_start_date"
 			 				format="dd mmm, yyyy"
 			 				select-years="15" 
@@ -21,11 +21,11 @@
 
 		<!-- input-date directive -->
 		<div class="input-field col s12 m5">
-			<label for="ngm-distribution-end-date">End Date</label>
+			<label for="ngm-distribution-end-date-{{ $locationIndex }}-{{ $beneficiaryIndex }}">End Date</label>
 			<input ngm-date
 							type="text"
 							name="ngm-distribution-end-date"
-							id="ngm-distribution-end-date"
+							id="ngm-distribution-end-date-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 							ng-model="beneficiary.distribution_end_date"
 							format="dd mmm, yyyy"
 							select-years="15"
