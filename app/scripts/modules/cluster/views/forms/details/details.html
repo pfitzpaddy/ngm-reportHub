@@ -175,23 +175,128 @@
 
 							<!-- switch HRP/ RMRP/  UNDAF COLOMBIA-->
 
-								<div class="row" ng-if="project.definition.admin0pcode ==='COL'" style="margin-bottom:30px;">
+								<div class="row" ng-if="project.definition.admin0pcode ==='COL'" style="margin-bottom:15px;">
+
+									<div class="input-field col s12 m12" style="margin-bottom:10px;margin-top:10px">
+
+										<label>
+										Componente de Respuesta:
+									   </label>
+
+									</div>
+
+									
+
+								<div class="switch input-field col s12 m3">
+
+									<div class="row switch input-field" style="margin-bottom:10px;margin-top:10px">
+
+										<label>
+											Humanitaria
+											<input ng-click="project.setHumanitarianComponent();" 
+															ng-checked="project.definition.humanitarian_component" type="checkbox" class="filled-in">
+											<span class="lever"></span>
+											
+
+										</label>
+									</div>
+
+									
+								</div>
 
 								
 
-								<div class="switch input-field col s12 m4">
-									<label>
-										HRP
-										<input ng-click="project.setHrpPlanStatus();" 
-														ng-checked="project.definition.hrp_plan" type="checkbox" class="filled-in">
-										<span class="lever"></span>
-										
+								<div class="switch input-field col s12 m3">
 
-									</label>
+
+									<div class="row switch input-field" style="margin-bottom:10px;margin-top:10px">
+
+										<label>
+											Construcción de Paz
+											<input ng-click="project.setConstruccionDePazComponent();" 
+															ng-checked="project.definition.construccion_de_paz_component" type="checkbox" class="filled-in">
+											<span class="lever"></span>
+											
+
+										</label>
+									</div>
+
+									
 								</div>
 
-								<div class="switch input-field col s12 m4">
-									<label>
+								<div class="switch input-field col s12 m3">
+
+
+									<div class="row switch input-field" style="margin-bottom:10px;margin-top:10px">
+
+										<label>
+											Desarrollo sostenible
+											<input ng-click="project.setDesarrolloSostenibleComponent();" 
+															ng-checked="project.definition.desarrollo_sostenible_component" type="checkbox" class="filled-in">
+											<span class="lever"></span>
+											
+
+										</label>
+									</div>
+
+									
+								</div>
+
+
+
+
+
+								<div class="switch input-field col s12 m3">
+
+
+									<div class="row switch input-field" style="margin-bottom:10px;margin-top:10px">
+
+										<label>
+											Flujos Migratorios
+											<input ng-click="project.setFlujosMigratoriosComponent();" 
+															ng-checked="project.definition.flujos_migratorios_component" type="checkbox" class="filled-in">
+											<span class="lever"></span>
+											
+
+										</label>
+									</div>
+
+
+
+								</div>
+
+								</div>
+								<div class="row" ng-if="project.definition.admin0pcode ==='COL'" style="margin-bottom:30px;">
+									
+
+									<div class="switch input-field col s12 m4" >
+
+
+										<label ng-if="project.definition.humanitarian_component == true">
+											HRP
+											<input ng-click="project.setHrpPlanStatus();" 
+															ng-checked="project.definition.hrp_plan" type="checkbox" class="filled-in">
+											<span class="lever"></span>
+											
+
+										</label>
+									</div>
+
+									<div class="switch input-field col s12 m5">
+
+										<label ng-if="project.definition.construccion_de_paz_component == true || project.definition.desarrollo_sostenible_component == true">
+											Interagencial
+											<input ng-click="project.setInteragencialPlanStatus();" 
+															ng-checked="project.definition.interagencial_plan" type="checkbox" class="filled-in">
+											<span class="lever"></span>
+											
+
+										</label>
+									</div>
+
+									<div class="switch input-field col s12 m3">
+
+									<label ng-if="project.definition.flujos_migratorios_component == true">
 										RMRP
 										<input ng-click="project.setRmrpPlanStatus();" 
 														ng-checked="project.definition.rmrp_plan" type="checkbox" class="filled-in">
@@ -199,19 +304,7 @@
 										
 
 									</label>
-								</div>
-
-								<div class="switch input-field col s12 m4">
-									<label>
-										Interagencial
-										<input ng-click="project.setInteragencialPlanStatus();" 
-														ng-checked="project.definition.interagencial_plan" type="checkbox" class="filled-in">
-										<span class="lever"></span>
-										
-
-									</label>
-								</div>
-
+									</div>
 								</div>
 
 							<!-- ACBAR partners -->
