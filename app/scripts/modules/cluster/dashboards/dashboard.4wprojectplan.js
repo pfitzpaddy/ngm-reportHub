@@ -33,8 +33,8 @@ angular.module('ngmReportHub')
 
 			// init empty model
 			$scope.model = $scope.$parent.ngm.dashboard.model;
-			console.log($scope.model , "MODEL");
-			console.log($route.current.params, "PARAMETROS");
+		//	console.log($scope.model , "MODEL");
+		//	console.log($route.current.params, "PARAMETROS");
 
 			// create dews object
 			$scope.dashboard = {
@@ -454,17 +454,17 @@ angular.module('ngmReportHub')
 					// get orgs
 					ngmData.get( request ).then( function( organizations  ){
 
-						console.log($scope.dashboard.user, "INFO USER");
+					//	console.log($scope.dashboard.user, "INFO USER");
 
 						//var countryadmin = $filter( 'filter' )( $scope.dashboard.user.roles , "COUNTRY_ADMIN"  );
 						if($scope.dashboard.user.roles.indexOf('COUNTRY_ADMIN')  !== -1  )  {
 						 						
-						 		console.log("SI TIENE ROL COUNTRYADMIN");
+						// 		console.log("SI TIENE ROL COUNTRYADMIN");
 						 		$scope.dashboard.organization_tag = 'all';
-						 		console.log($scope.dashboard.organization_tag);
+						 //		console.log($scope.dashboard.organization_tag);
 
 					       }else{
-                      	console.log("NO TIENE ROL");
+                      //	console.log("NO TIENE ROL");
                       }
 
 						// set organization
@@ -1134,7 +1134,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: $filter('translate')('active_target_locations'),
+										title: $filter('translate')('target_locations'),
 										request: $scope.dashboard.getRequest( { indicator: 'target_locations_4wdashboard_projectplan' } )
 									}
 								}]
@@ -1224,7 +1224,7 @@ angular.module('ngmReportHub')
 					$http( visit ).success( function( data ) {;
 		         // success
 		      }).error( function( data ) {;
-		         console.log('error!');
+		       //  console.log('error!');
 		      });
 
 				}

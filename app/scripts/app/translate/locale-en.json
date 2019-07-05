@@ -173,6 +173,7 @@
 
        "active_locations":"Active Locations",
        "active_target_locations":"Active Target Locations",
+       "target_locations":"Target Locations",
        "services_to_beneficiaries":"Services to Beneficiaries",
        "individual_beneficiaries":"Individual Beneficiaries",
        "reset":"Reset",
