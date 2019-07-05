@@ -811,7 +811,7 @@ angular.module('ngmReportHub')
 							card: 'card-panel stats-card white grey-text text-darken-2',
 							config: {
 								title: $filter('translate')('donors'),
-								//request: $scope.dashboard.getRequest({ indicator: 'total_project_donors' })
+								request: $scope.dashboard.getRequest({ indicator: 'total_donors_4wdashboard_projectplan' })
 							}
 						}]
 					} /*, {
