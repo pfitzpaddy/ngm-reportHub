@@ -273,7 +273,340 @@ angular.module( 'ngmReportHub' )
           Materialize.toast( $filter('translate')('project_contains_errors'), 6000, 'error' );
         }
 
-      },
+			},
+			
+			validateBeneficiaries:function(location){
+				var elements = [];
+				beneficiaryRow=0;
+				beneficiaryRowComplete =0;
+				angular.forEach(location, function (l, i) {
+					angular.forEach(l.beneficiaries, function (b, j) {
+						beneficiaryRow ++
+						result = ngmClusterValidation.validateBeneficiary(b,i,j);
+						angular.merge(elements, result.divs);
+						beneficiaryRowComplete += result.count;
+					});
+				})
+
+				if (beneficiaryRow !== beneficiaryRowComplete) {
+					Materialize.toast('Form Beneficiaries Contain Error', 6000, 'error');
+					console.log(elements[0]);
+					$(elements[0]).animatescroll();
+					return false;
+				} else {
+					return true;
+				}
+			},
+
+			validateBeneficiary:function(b,i,j){
+				// valid
+				var id;
+				var complete = true;
+				var validation = { count: 0, divs: [] };
+				
+						// default
+						if (!b.activity_type_id) {
+							id = "label[for='" + 'ngm-activity_type_id-' + i + '-' + j + "']";
+							$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+							validation.divs.push(id);
+							complete = false;
+						}
+						if (!b.activity_description_id){
+							id = "label[for='" + 'ngm-activity_description_id-' + i + '-' + j + "']";
+							$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+							validation.divs.push(id);
+							complete = false;
+						}					
+		
+						// DETAIL
+						if (ngmClusterBeneficiaries.form[i][j]['detail'] &&
+							(b.activity_description_id !== 'fatp_stabilization_referrals_conflict' &&
+							b.activity_description_id !== 'fatp_stabilization_referrals_civilian')){
+									if (!b.activity_detail_id) {
+										id = "label[for='" + 'ngm-activity_detail_id-' + i + '-' + j + "']";
+										$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+										validation.divs.push(id);
+										complete = false;
+									}
+						}
+
+						// FATP SAME PROVINCE
+						if ( b.activity_description_id && (b.activity_description_id === 'fatp_stabilization_referrals_conflict' ||
+							b.activity_description_id === 'fatp_stabilization_referrals_civilian')){
+								if(!b.injury_treatment_same_province){
+									id = "label[for='" + 'ngm-injury_treatment_same_province-' + i + '-' + j + "']";
+									$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+									validation.divs.push(id);
+									complete = false;
+								}
+							}
+						// INDICATOR
+						if(ngmClusterBeneficiaries.form[ i ][ j ][ 'indicator' ]){
+							if (!b.indicator_id) {
+								id = "label[for='" + 'ngm-indicator_id-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+						}
+						
+						if(!b.beneficiary_type_id ){
+							id = "label[for='" + 'ngm-beneficiary_type_id-' + i + '-' + j + "']";
+							$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+							validation.divs.push(id);
+							complete = false;
+						}
+						// cATEGORY
+						if (ngmClusterBeneficiaries.form[i][j]['category_type_id']){
+							if (!b.beneficiary_category_id){
+								id = "label[for='" + 'ngm-beneficiary_category_id-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+						}
+
+							// DELIVERY TYPE ID
+						if (ngmClusterBeneficiaries.form[i][j]['delivery_type_id']){
+							if(!b.delivery_type_id){
+								id = "label[for='" + 'ngm-delivery_type_id-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+						}
+
+						//CASH + PACKAGE
+						if(ngmClusterBeneficiaries.form[i][j]['mpc_delivery_type_id']){
+
+							if (!b.mpc_delivery_type_id){
+								id = "label[for='" + 'ngm-mpc_delivery_type_id-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+								}
+						}
+						if (ngmClusterBeneficiaries.form[i][j]['mpc_mechanism_type_id']) {
+								if (!b.mpc_mechanism_type_id) {
+									id = "label[for='" + 'ngm-mpc_mechanism_type_id-' + i + '-' + j + "']";
+									$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+									validation.divs.push(id);
+									complete = false;
+								}
+						}
+						if (ngmClusterBeneficiaries.form[i][j][ 'transfer_type_id' ]) {
+							if (!b.transfer_type_id) {
+								id = "label[for='" + 'ngm-transfer_type_id-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+
+						}
+						if(ngmClusterBeneficiaries.form[i][j]['package_type_id']){
+							if (!b.package_type_id){
+								id = "label[for='" + 'ngm-package_type_id-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+								}
+						}
+
+						// UNITS
+						if(ngmClusterBeneficiaries.form[i][j][ 'unit_type_id' ]){
+							if (!b.unit_type_id) {
+								id = "label[for='" + 'ngm-unit_type_id-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+						}
+						if(ngmClusterBeneficiaries.form[i][j][ 'units' ]){
+							if(b.units >= 2 ){
+							id = "label[for='" + 'ngm-units-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+							validation.divs.push(id);
+							complete = false;
+						}
+						}
+
+						if(b.sessions >= 2 ){
+							id = "label[for='" + 'ngm-beneficiary-kit-quantity-' + i + '-' + j + "']";
+							$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+							validation.divs.push(id);
+							complete = false;
+						}
+						// HH
+						if(ngmClusterBeneficiaries.form[i][j][ 'households' ]){
+							if(!b.households && b.households <0 ){
+							id = "label[for='" + 'ngm-households-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+							validation.divs.push(id);
+							complete = false;
+						}
+						}
+						// FAMILIES
+						if(ngmClusterBeneficiaries.form[i][j][ 'families' ]){
+							if (!b.families && b.families <0) {
+							id = "label[for='" + 'ngm-families-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+							validation.divs.push(id);
+							complete = false;
+						}
+						}
+						// SADD
+						if(ngmClusterBeneficiaries.form[i][j][ 'boys' ]){
+							if (!b.boys && b.boys <0 ){
+							id = "label[for='" + 'ngm-boys-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+						}
+						if(ngmClusterBeneficiaries.form[i][j][ 'boys_0_5' ]){
+							if (!b.boys_0_5 && b.boys_0_5 <0 ){
+								id = "label[for='" + 'ngm-boys_0_5-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+						}
+						if(ngmClusterBeneficiaries.form[i][j][ 'boys_6_11' ]){
+							if (!b.boys_6_11 && b.boys_6_11 <0 ){
+								id = "label[for='" + 'ngm-boys_6_11-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+						}
+						if(ngmClusterBeneficiaries.form[i][j][ 'boys_12_17' ]){
+							if (!b.boys_12_17 && b.boys_12_17 <0 ){
+								id = "label[for='" + 'ngm-boys_12_17-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+						}
+						if(ngmClusterBeneficiaries.form[i][j][ 'total_male' ]){
+							if (!b.total_male && b.total_male < 0) {
+								id = "label[for='" + 'ngm-total_male-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+							validation.divs.push(id);
+							complete = false;
+						}
+						}
+						if(ngmClusterBeneficiaries.form[i][j][ 'girls' ]){
+							if (b.girls && b.girls <0) {
+							id = "label[for='" + 'ngm-girls-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+						}
+						if(ngmClusterBeneficiaries.form[i][j][ 'girls_0_5' ]){
+							if (!b.girls_0_5 && b.girls_0_5 <0 ){
+								id = "label[for='" + 'ngm-girls_0_5-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+						}
+						if(ngmClusterBeneficiaries.form[i][j][ 'girls_6_11' ]){
+							if (!b.girls_6_11 && b.girls_6_11 <0 ){
+								id = "label[for='" + 'ngm-girls_6_11-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+						}
+						if(ngmClusterBeneficiaries.form[i][j][ 'girls_12_17' ]){
+							if (!b.girls_12_17 && b.girls_12_17 <0 ){
+								id = "label[for='" + 'ngm-girls_12_17-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+						}
+						if(ngmClusterBeneficiaries.form[i][j][ 'total_female' ]){
+							if (!b.total_female && b.total_female < 0) {
+								id = "label[for='" + 'ngm-total_female-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+							validation.divs.push(id);
+							complete = false;
+						}
+						}
+						if(ngmClusterBeneficiaries.form[i][j]['men'] ){
+							if (!b.men && b.men < 0) {
+							id = "label[for='" + 'ngm-men-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+							validation.divs.push(id);
+							complete = false;
+						}
+						}
+						if(ngmClusterBeneficiaries.form[i][j]['women'] ){
+							if (!b.women && b.women < 0) {
+							id = "label[for='" + 'ngm-women-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+							validation.divs.push(id);
+							complete = false;
+						}
+						}
+						if(ngmClusterBeneficiaries.form[i][j]['elderly_men'] ){
+							if (!b.elderly_men &&b.elderly_men <0) {
+							id = "label[for='" + 'ngm-elderly_men-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+							validation.divs.push(id);
+							complete = false;
+						}
+						}
+						if(ngmClusterBeneficiaries.form[i][j]['elderly_women']){
+							if (!b.elderly_women && b.elderly_women <0) {
+							id = "label[for='" + 'ngm-elderly_women-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+							validation.divs.push(id);
+							complete = false;
+						}
+					
+						}
+
+						// TOTAL
+						if(ngmClusterBeneficiaries.form[i][j]['total_beneficiaries']){
+							if (!b.total_beneficiaries && b.total_beneficiaries <0) {
+								id = "label[for='" + 'ngm-total_beneficiaries-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+						}
+						// REMARKS
+						if(ngmClusterBeneficiaries.form[i][j]['remarks']){
+							if (!b.remarks) {
+								id = "label[for='" + 'ngm-beneficiary-remarks-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+						}
+						if(ngmClusterBeneficiaries.form[i][j]['activity_date']){
+							if (!b.distribution_start_date) {
+								id = "label[for='" + 'ngm-distirbution-start-date-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+							if (!b.distribution_end_date || (b.distribution_end_date < b.distribution_start_date)) {
+								id = "label[for='" + 'ngm-distribution-end-date-' + i + '-' + j + "']";
+								$(id).css({ 'color': '#EE6E73', 'font-weight': 500 });
+								validation.divs.push(id);
+								complete = false;
+							}
+				}
+				if (complete) {
+					validation.count = 1;
+				}
+
+				return validation
+			},
 
 			// check person has authority to validate the report
 			verified_user:function(){
