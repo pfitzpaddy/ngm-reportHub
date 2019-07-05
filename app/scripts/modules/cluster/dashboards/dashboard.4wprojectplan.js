@@ -781,14 +781,14 @@ angular.module('ngmReportHub')
 						}]
 					}*/
 					{
-						styleClass: 's12 m12 l4',
+						styleClass: 's12 m12 l6',
 						widgets: [{
 							type: 'stats',
 							style: 'text-align: center;',
 							card: 'card-panel stats-card white grey-text text-darken-2',
 							config: {
 								title: $filter('translate')('other_implementing_partners'),
-								//request: $scope.dashboard.getRequest({ indicator: 'total_implementing_partners' })
+								request: $scope.dashboard.getRequest({ indicator: 'total_implementing_partners_4wdashboard_projectplan' })
 							}
 						}]
 					}, /*{
@@ -804,7 +804,7 @@ angular.module('ngmReportHub')
 						}]
 					}*/
 					{
-						styleClass: 's12 m12 l4',
+						styleClass: 's12 m12 l6',
 						widgets: [{
 							type: 'stats',
 							style: 'text-align: center;',
@@ -925,7 +925,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: $filter('translate')('active_organizations'),
+										title: $filter('translate')('organizations'),
 										request: $scope.dashboard.getRequest( { indicator: 'organizations_4wdashboard_projectplan' } )
 									}
 								}]
@@ -948,7 +948,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: $filter('translate')('projects'),
+										title: $filter('translate')('projects_mayus1'),
 										request: $scope.dashboard.getRequest( { indicator: 'projects_4wdashboard_projectplan' } )
 									}
 								}]
@@ -1135,7 +1135,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
 										title: $filter('translate')('active_target_locations'),
-										request: $scope.dashboard.getRequest( { indicator: 'locations' } )
+										request: $scope.dashboard.getRequest( { indicator: 'target_locations_4wdashboard_projectplan' } )
 									}
 								}]
 							}]
