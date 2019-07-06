@@ -729,7 +729,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 				// validate form ( ng wash )
 				validateBeneficiariesDetailsForm: function( complete, display_modal ){
-					if ( ngmClusterValidation.validateDetails( $scope.project.report.locations ) ){
+					if (ngmClusterValidation.validateDetails($scope.project.report.locations) && ngmClusterValidation.validateBeneficiaries($scope.project.report.locations) ){
 						if ( complete ) {
 							$( '#complete-modal' ).openModal( { dismissible: false } );
 						} else if ( display_modal ) {
@@ -825,7 +825,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								delete current_report.locations;
 							}
 							// set last month
-							angular.forEach( $scope.project.report.locations, function( location ){
+							angular.forEach($scope.project.report.locations, function (location, locationIndex ){
 								
 								// get reference_id
 								var target_location_reference_id = location.target_location_reference_id
@@ -836,7 +836,11 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								// current location (for report defaults)
 
 								// current month to last month
+								while ($scope.project.location_beneficiary_limit[locationIndex].beneficiary_limit < previous_location.beneficiaries.length) {
+									$scope.project.location_beneficiary_limit[locationIndex].beneficiary_limit += 6
+								}
 								location.beneficiaries = previous_location.beneficiaries;
+								$scope.detailBeneficiaries[locationIndex][0] = true;
 								location.trainings = previous_location.trainings;
 
 								// forEach beneficiaries

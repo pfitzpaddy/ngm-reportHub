@@ -54,7 +54,10 @@ angular.module( 'ngmReportHub' )
       // set total_beneficiaries equal to units
       setBeneficiariesByUnits: function ( beneficiary ) {
         // beneficiary
-        if ( beneficiary.units && beneficiary.activity_description_id && beneficiary.activity_description_id === 'employ_healthcare_workers_at_ngo_health_facilities' ) {
+        if ( beneficiary.units && beneficiary.activity_description_id && 
+              ( beneficiary.activity_description_id === 'live_deliveries_in_health_facilities' ||
+                beneficiary.activity_description_id === 'stillbirths_in_health_facilities' || 
+                beneficiary.activity_description_id === 'employ_healthcare_workers_at_ngo_health_facilities' ) ) {
           beneficiary.total_beneficiaries = beneficiary.units;
         }
       },

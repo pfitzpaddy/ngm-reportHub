@@ -160,7 +160,7 @@ angular.module('ngmReportHub')
 									markPlan:function(project){
 										// mark project plan
 										project.project_status = 'plan';
-										project.project_start_date = moment(new Date()).format('YYYY-MM-DD');
+										// project.project_start_date = moment(new Date()).format('YYYY-MM-DD');
 										// timeout
 										$timeout(function () { Materialize.toast($filter('translate')('processing') + '...', 6000, 'note'); }, 200);
 
