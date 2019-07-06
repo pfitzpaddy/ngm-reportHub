@@ -273,6 +273,9 @@
         "other_activities_in_addition_to":"Otras actividades además de",
         "cash_intended_for_even_if_unrestricted":"Efectivo destinado a (incluso si no está restringido)",
         "project_donor":"Donante del Proyecto",
+        "gender_marker":"Marcador de Género",
+        "budget_by_donor":"Presupuesto por Donante",
+        "budget_mayus1":"Presupuesto",
         "list_other_donors":"Lista de Otros Donantes",
         "list_project_partners":"Lista de Socios del Proyecto",
         "project_partners":"Socios del Proyecto",
@@ -550,6 +553,7 @@
         "project_budget_progress":"Progreso Presupuesto del Proyecto",
         "add_new_row_of_financial_details_to_your_project_for_each_payment_recieved":"Agregar una NUEVA FILA de detalles financieros a su proyecto por CADA PAGO recibido",
         "donor":"Donante",
+        "component_response":"Componente de Respuesta",
         "type_donor_name":"Ingrese el nombre del Donante",
          "type_partner_name":"Ingrese el nombre del Socio",
 

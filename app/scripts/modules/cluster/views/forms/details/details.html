@@ -128,6 +128,15 @@
 
 							</div>
 
+							<div class="row" ng-if="project.definition.admin0pcode === 'COL'">
+								<div class="input-field col s12 m3">
+								  <input type="text" class="validate"
+								  	ng-model="project.definition.project_gender_marker"
+								  	ng-disabled="project.definition.project_status === 'complete'">
+								  <label for="ngm-project_gender_marker"> {{'gender_marker' | translate}}</label>
+								</div>
+							</div>
+
 							<!-- HRP / JRP -->
 							<div class="row" ng-if="project.definition.admin0pcode !== 'COL'">
 
@@ -180,7 +189,7 @@
 									<div class="input-field col s12 m12" style="margin-bottom:10px;margin-top:10px">
 
 										<label>
-										Componente de Respuesta:
+										{{'component_response'|translate}}
 									   </label>
 
 									</div>
@@ -464,7 +473,7 @@
 
 
 							<!-- COL project donor  -->
-							<div class="row" ng-if="project.definition.admin0pcode === 'COL'"  style="padding-bottom:5px;">
+							<div class="row" ng-if="project.definition.admin0pcode === 'COL'" >
 								<div class="input-field col s12 m12" style="padding-bottom:5px;padding-left: 20px;">
 									<label for="ngm-project_donor">{{'project_donor' | translate}} *</label>
 									<div class="padding-top-35"></div>
@@ -480,6 +489,88 @@
 									        input-aria-label="Intended Recipients">
 									 </md-contact-chips>
 								</div>
+
+						<div class="input-field col s8"  ng-if="project.definition.project_donor.length>0">
+
+									 
+									 <div class="col s12">
+
+									<label >{{'budget_by_donor'|translate}}</label>
+								</div>
+							
+
+                         <div class="col s12 card" style="margin-top:50px;margin-left: 10px;">
+							<div style="padding-top: 10px; padding-left: 0px;">
+
+										<table class="bordered responsive-table">
+								            <tr style="font-weight: 400">
+								            <td></td>
+								         	<td>{{'donor'|translate}}</td>
+								    	    <td>{{'budget_mayus1'|translate}}</td>
+								    	   </tr>
+
+								    	   <tr ng-repeat="a in project.definition.project_donor">
+								    	   	<td>
+								    	   		<i class="material-icons" style="color: teal;">attach_money</i>
+								    	   	<td>
+								    	   	 <span>
+								               {{ a.project_donor_name }}
+								             </span>
+								            </td>
+
+								            <td>
+								    	   	 <input ng-model="a.project_donor_budget" type="number" name="">
+								            </td>
+								    	   </tr>
+							    	   </table>
+							    	</div>
+							    </div>
+
+											
+
+
+							           <!--<div style="padding-top: 10px; padding-left: 40px;">
+							    		<table class="bordered responsive-table">
+								            <tr style="font-weight: 400">
+								         	<td>Donante</td>
+								    	    <td>Presupuesto</td>
+								    	   </tr>
+
+								    	   <tr ng-repeat="a in project.definition.project_donor">
+
+								    	   	<td>
+								    	   	 <span>
+								               {{ a.project_donor_name }}
+								             </span>
+								            </td>
+
+								            <td>
+								    	   	 <input ng-model="a.project_donor_budget" type="number" name="">
+								            </td>
+								    	   </tr>
+							    	   </table>
+							         </div>-->
+						        	
+
+										
+
+						       			 <!--<div class="card">
+											<ul class="collection with-header">
+
+												<li class="collection-header blue lighten-1">
+													<h6 class=" white-text">
+													Presupuesto por donante
+
+													</h6>
+												</li>
+
+												<li class="collection-item avatar">
+												</li>
+											</ul>
+
+							        	</div>-->
+							    </div>
+
 							</div>
 							
 							<!-- other donors -->
