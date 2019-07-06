@@ -356,12 +356,14 @@ angular.module( 'ngmReportHub' )
 			// show form inputs
 			setBeneficiariesInputs: function ( lists, $parent, $index, beneficiary ) {
 
+				console.log( beneficiary );
+
 				// add form holder
 				if ( !ngmClusterBeneficiaries.form[ $parent ] ) {
 					ngmClusterBeneficiaries.form[ $parent ] = [];
 				}
 				// beneficiary.indicator_id
-				if ( beneficiary.indicator_id ) {
+				if ( beneficiary.indicator ) {
 					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_indicators, { indicator_id: beneficiary.indicator_id }, true )[ 0 ];
 				}
 				// beneficiary.activity_detail_id
