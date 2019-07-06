@@ -134,17 +134,7 @@
 								</div>
 
 								<!-- location totals -->
-								<div class="col s12 m3 hide-on-med-and-down" 
-											ng-if="project.definition.admin0pcode !== 'NG' ">
-									<div class="beneficiary-count right">
-										<span style="font-size:1.2rem;">
-											<i class="material-icons" style="padding-right:10px;">group</i></span>
-												<!-- filter in app/services/ngmHelper.js -->
-												{{ location | sumArrayofArraysByKeys:'beneficiaries':'trainings':project.lists.indicators:project.lists.skip | number }}
-									</div>
-								</div>
-								<div class="col s12 m3 hide-on-med-and-down"
-											ng-if="project.definition.admin0pcode === 'NG' ">
+								<div class="col s12 m3 hide-on-med-and-down">
 									<div class="beneficiary-count right">
 										<span style="font-size:1.2rem;">
 											<i class="material-icons" style="padding-right:10px;">group</i></span>

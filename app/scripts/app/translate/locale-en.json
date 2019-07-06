@@ -707,6 +707,8 @@
         "saved_mayus1":"Saved",
         "save_failed_the_project_contains_error":"Save failed! The project contains errors",
         "project_contains_errors":"Project contains errors!",
+        "beneficiaries_contains_errors":"Beneficiaries form contains errors!",
+
         "project_created":"Project Created",
         "create_project_cancelled":"Create Project Cancelled!",
 
