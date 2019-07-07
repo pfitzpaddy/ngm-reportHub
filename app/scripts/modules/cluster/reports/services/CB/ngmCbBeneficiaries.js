@@ -39,7 +39,8 @@ angular.module( 'ngmReportHub' )
         men: 0,
         women: 0,
         elderly_men: 0,
-        elderly_women: 0
+        elderly_women: 0,
+        total_beneficiaries: 0
       },
       ratios: {
         households: 4.34,
@@ -79,6 +80,7 @@ angular.module( 'ngmReportHub' )
           beneficiary.women = Math.round( popn * ngmCbBeneficiaries.ratios.women );
           beneficiary.elderly_women = Math.round( popn * ngmCbBeneficiaries.ratios.elderly_men );
           beneficiary.elderly_men = Math.round( popn * ngmCbBeneficiaries.ratios.elderly_women );
+          beneficiary.total_beneficiaries = Math.round( popn );
         }
 
       }
