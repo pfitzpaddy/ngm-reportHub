@@ -356,8 +356,6 @@ angular.module( 'ngmReportHub' )
 			// show form inputs
 			setBeneficiariesInputs: function ( lists, $parent, $index, beneficiary ) {
 
-				console.log( beneficiary );
-
 				// add form holder
 				if ( !ngmClusterBeneficiaries.form[ $parent ] ) {
 					ngmClusterBeneficiaries.form[ $parent ] = [];
