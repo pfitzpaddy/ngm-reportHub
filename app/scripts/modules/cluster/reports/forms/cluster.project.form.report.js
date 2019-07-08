@@ -35,6 +35,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 		'ngmClusterBeneficiaries',
 		'ngmClusterTrainings',
 		'ngmClusterValidation',
+		'ngmClusterDetails',
 		'ngmClusterHelperAf',
 		'ngmClusterHelperNgWash',
 		'ngmClusterHelperNgWashLists',
@@ -65,6 +66,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			ngmClusterBeneficiaries,
 			ngmClusterTrainings,
 			ngmClusterValidation,
+			ngmClusterDetails,
 			ngmClusterHelperAf,
 			ngmClusterHelperNgWash,
 			ngmClusterHelperNgWashLists,
@@ -87,6 +89,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			$scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
 			$scope.ngmClusterTrainings = ngmClusterTrainings;
 			$scope.ngmClusterValidation = ngmClusterValidation;
+			$scope.ngmClusterDetails = ngmClusterDetails;
 			$scope.ngmClusterHelperNgWash = ngmClusterHelperNgWash;
 			$scope.ngmClusterHelperNgWashLists = ngmClusterHelperNgWashLists;
 			$scope.ngmClusterHelperNgWashValidation = ngmClusterHelperNgWashValidation;
@@ -128,6 +131,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				beneficiariesTrainingUrl: 'beneficiaries/2016/beneficiaries-training.html',
 				beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health-2016.html',
 				template_distribution_date: 'beneficiaries/ET/distribution_date.html',
+				template_details: 'beneficiaries/details/details.html',
 				template_partial_kits: 'beneficiaries/ET/partial_kits.html',
 				template_kit_details: 'beneficiaries/ET/kit_details.html',
 				notesUrl: 'notes.html',
