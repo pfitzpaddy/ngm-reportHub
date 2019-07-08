@@ -274,8 +274,6 @@
 						<!-- validation -->
 						<button class="waves-effect waves-light btn"
 											ng-click="project.validateBeneficiariesDetailsForm( false, true )"
-											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
-																		!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
 											ng-cloak>
 										<i class="material-icons right">send</i>{{'save_mayus'|translate}}
 						</button>
@@ -292,8 +290,6 @@
 						<button ng-if="!project.location_group"
 											class="waves-effect waves-light btn blue"
 											ng-click="project.validateBeneficiariesDetailsForm( true, false )"
-											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
-																		!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
 											ng-cloak>
 							<i class="material-icons left">assignment_turned_in</i>{{'submit_monthly_progress'|translate}}
 
@@ -307,7 +303,6 @@
 						<!-- validation -->
 						<button class="waves-effect waves-light btn"
 											ng-click="project.validateWashNgBeneficiariesForm( false, true )"
-											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations )"
 											ng-cloak>
 										<i class="material-icons right">send</i>{{'save_mayus'|translate}}
 						</button>
@@ -323,7 +318,6 @@
 						<!-- monthly report -->
 						<button class="waves-effect waves-light btn blue"
 											ng-click="project.validateWashNgBeneficiariesForm( true, false )"
-											ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations )"
 											ng-cloak>
 							<i class="material-icons left">assignment_turned_in</i>{{'submit_monthly_progress'|translate}}
 

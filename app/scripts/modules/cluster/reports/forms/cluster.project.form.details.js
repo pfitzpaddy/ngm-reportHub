@@ -661,15 +661,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				openCloseDetailBeneficiaries:function(index){
 					$scope.detailBeneficiaries[index] = !$scope.detailBeneficiaries[index];
 				},
-				totalBeneficiary:function(beneficiary){
-					total = 0;
-					total+=beneficiary.boys +
-						beneficiary.men +
-						beneficiary.elderly_men+beneficiary.girls +
-						beneficiary.women +
-						beneficiary.elderly_women;
-					return total
-				},
 
 				setProjectStatus: function ( status ) {
 					

@@ -793,6 +793,7 @@
         "saved_mayus1":"Guardado",
         "save_failed_the_project_contains_error":"Guardado fallido! El proyecto contiene errores",
         "project_contains_errors":"El Proyecto contiene errores!",
+        "beneficiaries_contains_errors":"El formulario de beneficiarios contiene errores.!",
 
         "project_created":"Projecto Creado",
         "has_been_saved":"ha sido guardado",

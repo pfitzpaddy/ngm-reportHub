@@ -107,6 +107,16 @@
 	  font-weight: 400;
 	}	
 
+	.input-field label.active {
+	  color: #26a69a;
+	  font-weight: 400;
+	}
+
+	.input-field label.error {
+	  color: #EE6E73;
+	  font-weight: 500;
+	}
+
 	/* input label */
 	.input-field label,
 		.input-field input:disabled + label,
