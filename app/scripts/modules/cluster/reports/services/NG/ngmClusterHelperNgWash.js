@@ -115,7 +115,7 @@ angular.module( 'ngmReportHub' )
 
 			// reset form
 			init_material_select: function(){
-				setTimeout(function(){ 
+				$timeout(function(){
 					$( '.input-field input' ).removeClass( 'invalid' );
 					$( '.input-field input' ).removeClass( 'ng-touched' );
 					$( '.input-field select' ).material_select(); 
@@ -124,7 +124,8 @@ angular.module( 'ngmReportHub' )
 
 			// set input style 
 			inputChange: function( label ){
-				$("label[for='" + label + "']").css({ 'color': '#26a69a', 'font-weight': 300 });
+				$("label[for='" + label + "']").removeClass('error');
+				$("label[for='" + label + "']").addClass('active');
 			},
 
 			// update display name in object on select change
@@ -138,7 +139,8 @@ angular.module( 'ngmReportHub' )
 					var filter = $filter('filter')( search_list, obj, true );
 					// set name
 					d[ name ] = filter[0][ name ];
-					$("label[for='" + label + "']").css({ 'color': '#26a69a', 'font-weight': 300 });
+					$("label[for='" + label + "']").removeClass('error');
+					$("label[for='" + label + "']").addClass('active');
 					ngmClusterHelperNgWash.init_material_select();
 				}
 			},

@@ -117,6 +117,12 @@ angular.module( 'ngmReportHub' )
 				}
 			},
 
+			// set input style 
+			inputChange: function( label ){
+				$("label[for='" + label + "']").removeClass('error');
+				$("label[for='" + label + "']").addClass('active');
+			},
+
 			// update material_select
 			updateSelect: function(){
 				$timeout(function() { $( 'select' ).material_select(); }, 10 );
@@ -355,7 +361,7 @@ angular.module( 'ngmReportHub' )
 					ngmClusterBeneficiaries.form[ $parent ] = [];
 				}
 				// beneficiary.indicator_id
-				if ( beneficiary.indicator_id ) {
+				if ( beneficiary.indicator ) {
 					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_indicators, { indicator_id: beneficiary.indicator_id }, true )[ 0 ];
 				}
 				// beneficiary.activity_detail_id
@@ -635,6 +641,7 @@ angular.module( 'ngmReportHub' )
 				// return
 				return disabled;
 			},
+
 			setAssessmentAtribute:function (b) {
 				var b_copy =angular.copy(b);
 				if(!b_copy.id && !b_copy.hh_surveyed){
