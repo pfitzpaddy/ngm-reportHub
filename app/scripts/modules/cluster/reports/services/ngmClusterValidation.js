@@ -388,7 +388,8 @@ angular.module( 'ngmReportHub' )
 					}
 				}
 				if (ngmClusterBeneficiaries.form[i][j]['mpc_mechanism_type_id']) {
-					if (!b.mpc_mechanism_type_id) {
+					// QUICK FIX HARDCODE TODO: REFACTOR
+					if (!b.mpc_mechanism_type_id && b.mpc_delivery_type_id !== 'in-kind' ) {
 						id = "label[for='" + 'ngm-mpc_mechanism_type_id-' + i + '-' + j + "']";
 						$(id).toggleClass('error');
 						validation.divs.push(id);
