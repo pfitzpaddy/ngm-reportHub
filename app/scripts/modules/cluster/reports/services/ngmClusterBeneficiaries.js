@@ -99,6 +99,15 @@ angular.module( 'ngmReportHub' )
 					if (!value) { value =  moment( new Date() ).endOf( 'M' ); }
 					beneficiary.activity_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
 				},
+				// activity start date, end date
+				activityStartOnClose: function( location, $beneficiaryIndex, $index, value ) {
+					location.beneficiaries[ $beneficiaryIndex ].activity_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+				},
+				activityEndOnClose: function( location, $beneficiaryIndex, $index, value ) {
+					location.beneficiaries[ $beneficiaryIndex ].activity_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+					location.beneficiaries[ $beneficiaryIndex ].activity_status = 'complete';
+				},
+				// depreciated
 				distributionStartOnClose: function( location, $beneficiaryIndex, $index, value ) {
 					location.beneficiaries[ $beneficiaryIndex ].distribution_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
 				},
@@ -114,6 +123,15 @@ angular.module( 'ngmReportHub' )
 				if ( !beneficiary.distribution_start_date ) {
 					beneficiary.distribution_start_date = moment.utc( new Date() ).format( 'YYYY-MM-DD' );
 					beneficiary.distribution_status = 'ongoing';
+				}
+			},
+
+			// show distribution date
+			initActivityDate: function( beneficiary ){
+				// set values
+				if ( !beneficiary.activity_start_date ) {
+					beneficiary.activity_start_date = moment.utc( new Date() ).format( 'YYYY-MM-DD' );
+					beneficiary.activity_status = 'ongoing';
 				}
 			},
 

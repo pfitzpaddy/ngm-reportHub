@@ -1144,8 +1144,12 @@
 						</div>
 					</div>
 
-					<!-- ACTIVITY START DATE -->
-					<div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'activity_date' ]">
+
+
+
+					<!-- ACTIVITY START DATE (ETHIOPIA - TO BE REPLACED WITH BELOW GENERIC IMPLMENETATION) -->
+					<div class="row" ng-if="project.definition.admin0pcode === 'ET' &&
+																	ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'activity_date' ]">
 						
 						<!-- get template -->
 						<div class="row" ng-init="ngmClusterBeneficiaries.initDistributionDate( beneficiary )">
@@ -1154,12 +1158,27 @@
 
 					</div>
 
+					<!-- ACTIVITY START DATE -->
+					<div class="row" ng-if="project.definition.admin0pcode !== 'ET' &&
+																	ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'activity_date' ]">
+						
+						<!-- get template -->
+						<div class="row" ng-init="ngmClusterBeneficiaries.initActivityDate( beneficiary )">
+							<div ng-include="project.templatesUrl + project.template_activity_date"></div>
+						</div>
+
+					</div>
+
+
+
+
+
 					<!-- DETAILS -->
 					<div class="row" ng-if="beneficiary.cluster_id && beneficiary.cluster_id === 'smsd' &&
 																		ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ]">
 						<!-- get template -->
 						<div class="row" ng-repeat="detail in beneficiary.details">
-							<div ng-include="project.templatesUrl + project.template_details"></div>
+							<div ng-include="project.templatesUrl + project.template_activity_details"></div>
 						</div>
 						<!-- add details -->
 						<div class="row" style="margin-left:20px;padding-top: 5px;">

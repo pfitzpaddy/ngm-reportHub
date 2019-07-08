@@ -2,7 +2,7 @@
 	
 			<!-- label -->
 			<div class="col s12 m2" style="text-align:right;">
-				<p style="font-size:16px; padding-top:26px;">Kit Contents {{ $index+1 }} </p>
+				<p style="font-size:16px; padding-top:26px;">Item {{ $index+1 }} </p>
 			</div>
 
 			<!-- select -->
@@ -12,12 +12,16 @@
                 ng-model="detail.unit_type_id" 
                 ng-options="detail.unit_type_id as detail.unit_type_name for detail in 
                 							ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ] | orderBy:'unit_type_name'"
+                
+
                 ng-change="ngmClusterBeneficiaries.selectChange( project, detail, 'kit_details', 'unit_type_id', 'unit_type_name','ngm-beneficiary_detail-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}');"
+
+
                 ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete'">
 					<option value="" selected>{{'select'|translate}}</option>
 
 				</select>
-				<label for="ngm-beneficiary_detail-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" class="active" style="transform:translateY(-10%)">Kit Item</label>
+				<label for="ngm-beneficiary_detail-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ detail.unit_type_label }}</label>
 			</div>
 
 			<!-- unit_type_quantity -->
@@ -30,7 +34,7 @@
                   ng-model="detail.unit_type_quantity"
                   ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-beneficiary_detail_unit_quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
                   ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete'">
-                <label for="ngm-beneficiary_detail_unit_quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" class="active">{{ detail.unit_type_id }}</label>
+                <label for="ngm-beneficiary_detail_unit_quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" class="active">{{ detail.unit_type_name }}</label>
 			</div>
 
 			<!-- remove -->

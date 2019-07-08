@@ -130,8 +130,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				addLocationUrl: 'location/add.location.html',
 				beneficiariesTrainingUrl: 'beneficiaries/2016/beneficiaries-training.html',
 				beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health-2016.html',
+				template_activity_date: 'beneficiaries/activity-details/activity-date.html',
+				template_activity_details: 'beneficiaries/activity-details/activity-details.html',
+
 				template_distribution_date: 'beneficiaries/ET/distribution_date.html',
-				template_details: 'beneficiaries/details/details.html',
 				template_partial_kits: 'beneficiaries/ET/partial_kits.html',
 				template_kit_details: 'beneficiaries/ET/kit_details.html',
 				notesUrl: 'notes.html',
