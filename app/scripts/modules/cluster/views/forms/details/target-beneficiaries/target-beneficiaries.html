@@ -112,7 +112,7 @@
 							
 						<!-- btns -->
 						<div align="right" style="padding: 16px 10px 5px;">
-							<div style=" display: inline-block; font-size: 20px;font-weight: 400; color: #656565; margin-right:2%"> <i class="material-icons left">group</i>{{project.totalBeneficiary(beneficiary)}}</div>
+							<div style=" display: inline-block; font-size: 20px;font-weight: 400; color: #656565; margin-right:2%"> <i class="material-icons left">group</i>{{ beneficiary.total_beneficiaries ? beneficiary.total_beneficiaries : 0 }}</div>
 							<button class="btn-floating waves-effect waves-light"
 												title="Save"
 												ng-if="!project.newProject && detailBeneficiaries[$index]"
