@@ -75,8 +75,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 			//ngmClusterHelperCol
 			
 			$scope.ngmClusterHelperCol = function(funct, data){
-				console.log("imprimo");
-				console.log(funct,"funct");
+				
 				return ngmClusterHelperCol.run($scope, funct, data);
 			};
 
@@ -701,52 +700,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				// save project
 				save: function( display_modal, save_msg ){
 
-					if($scope.project.definition.admin0pcode === 'COL'){
-
-						//response components COL:
-
-						if($scope.project.definition.humanitarian_component == undefined){
-							$scope.project.definition.humanitarian_component = false;
-
-						}
-
-
-						if($scope.project.definition.construccion_de_paz_component == undefined){
-							$scope.project.definition.construccion_de_paz_component = false;
-
-						}
-
-
-						if($scope.project.definition.desarrollo_sostenible_component == undefined){
-							$scope.project.definition.desarrollo_sostenible_component = false;
-
-						}
-
-
-						if($scope.project.definition.flujos_migratorios_component == undefined){
-							$scope.project.definition.flujos_migratorios_component = false;
-
-						}
-
-						//plan hrp, rmrp, interagencial
-
-
-					if($scope.project.definition.hrp_plan == undefined){
-						$scope.project.definition.hrp_plan = false;
-					}
-
-
-					if($scope.project.definition.rmrp_plan == undefined){
-						$scope.project.definition.rmrp_plan = false;
-					}
-
-
-					if($scope.project.definition.interagencial_plan == undefined){
-						$scope.project.definition.interagencial_plan = false;
-					}
-
-
-				}
+					
 
 					// disable btn
 					$scope.project.submit = false;
