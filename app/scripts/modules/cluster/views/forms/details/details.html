@@ -182,139 +182,12 @@
 
 							</div>
 
-							<!-- switch HRP/ RMRP/  UNDAF COLOMBIA-->
+							<!--RESPONSE COMPONENTS COL-->
 
-								<div class="row" ng-if="project.definition.admin0pcode ==='COL'" style="margin-bottom:15px;">
-
-									<div class="input-field col s12 m12" style="margin-bottom:10px;margin-top:10px">
-
-										<label>
-										{{'component_response'|translate}}
-									   </label>
-
-									</div>
+								<div class="row" ng-if="project.definition.admin0pcode ==='COL'" style="margin-bottom:50px;" ng-include="project.responseComponentsCOL">
 
 									
-
-								<div class="switch input-field col s12 m3">
-
-									<div class="row switch input-field" style="margin-bottom:10px;margin-top:10px">
-
-										<label>
-											Humanitaria
-											<input ng-click="project.setHumanitarianComponent();" 
-															ng-checked="project.definition.humanitarian_component" type="checkbox" class="filled-in">
-											<span class="lever"></span>
-											
-
-										</label>
-									</div>
-
-									
-								</div>
-
-								
-
-								<div class="switch input-field col s12 m3">
-
-
-									<div class="row switch input-field" style="margin-bottom:10px;margin-top:10px">
-
-										<label>
-											Construcción de Paz
-											<input ng-click="project.setConstruccionDePazComponent();" 
-															ng-checked="project.definition.construccion_de_paz_component" type="checkbox" class="filled-in">
-											<span class="lever"></span>
-											
-
-										</label>
-									</div>
-
-									
-								</div>
-
-								<div class="switch input-field col s12 m3">
-
-
-									<div class="row switch input-field" style="margin-bottom:10px;margin-top:10px">
-
-										<label>
-											Desarrollo sostenible
-											<input ng-click="project.setDesarrolloSostenibleComponent();" 
-															ng-checked="project.definition.desarrollo_sostenible_component" type="checkbox" class="filled-in">
-											<span class="lever"></span>
-											
-
-										</label>
-									</div>
-
-									
-								</div>
-
-
-
-
-
-								<div class="switch input-field col s12 m3">
-
-
-									<div class="row switch input-field" style="margin-bottom:10px;margin-top:10px">
-
-										<label>
-											Flujos Migratorios
-											<input ng-click="project.setFlujosMigratoriosComponent();" 
-															ng-checked="project.definition.flujos_migratorios_component" type="checkbox" class="filled-in">
-											<span class="lever"></span>
-											
-
-										</label>
-									</div>
-
-
-
-								</div>
-
-								</div>
-								<div class="row" ng-if="project.definition.admin0pcode ==='COL'" style="margin-bottom:30px;">
-									
-
-									<div class="switch input-field col s12 m4" >
-
-
-										<label ng-if="project.definition.humanitarian_component == true">
-											HRP
-											<input ng-click="project.setHrpPlanStatus();" 
-															ng-checked="project.definition.hrp_plan" type="checkbox" class="filled-in">
-											<span class="lever"></span>
-											
-
-										</label>
-									</div>
-
-									<div class="switch input-field col s12 m5">
-
-										<label ng-if="project.definition.construccion_de_paz_component == true || project.definition.desarrollo_sostenible_component == true">
-											Interagencial
-											<input ng-click="project.setInteragencialPlanStatus();" 
-															ng-checked="project.definition.interagencial_plan" type="checkbox" class="filled-in">
-											<span class="lever"></span>
-											
-
-										</label>
-									</div>
-
-									<div class="switch input-field col s12 m3">
-
-									<label ng-if="project.definition.flujos_migratorios_component == true">
-										RMRP
-										<input ng-click="project.setRmrpPlanStatus();" 
-														ng-checked="project.definition.rmrp_plan" type="checkbox" class="filled-in">
-										<span class="lever"></span>
-										
-
-									</label>
-									</div>
-								</div>
+							</div>
 
 							<!-- ACBAR partners -->
 							<div class="row" ng-if="project.definition.admin0pcode === 'AF'">
@@ -473,110 +346,16 @@
 
 
 							<!-- COL project donor  -->
-							<div class="row" ng-if="project.definition.admin0pcode === 'COL'" >
-								<div class="input-field col s12 m12" style="padding-bottom:5px;padding-left: 20px;">
-									<label for="ngm-project_donor">{{'project_donor' | translate}} *</label>
-									<div class="padding-top-35"></div>
-									<md-contact-chips class="ngm-project_donor_select"
-									        ng-model="project.definition.project_donor"
-									        ng-change="project.afterSelectItem(project.definition.project_donor)"
-									        md-require-match="true"
-									        md-contacts="project.searchDonor($query)"
-									        md-contact-name="project_donor_name"
-									        md-require-match="true"
-									        placeholder="{{'type_donor_name'|translate}}"
-									        secondary-placeholder="{{'add_another_donor'|translate}}"
-									        input-aria-label="Intended Recipients">
-									 </md-contact-chips>
-								</div>
-
-						<div class="input-field col s8"  ng-if="project.definition.project_donor.length>0">
-
-									 
-									 <div class="col s12">
-
-									<label >{{'budget_by_donor'|translate}}</label>
-								</div>
 							
+						<div class="row" ng-if="project.definition.admin0pcode === 'COL'" ng-include="project.projectDonorCOL" style="margin-top:20px">
+						
+						</div>
 
-                         <div class="col s12 card" style="margin-top:50px;margin-left: 10px;">
-							<div style="padding-top: 10px; padding-left: 0px;">
-
-										<table class="bordered responsive-table">
-								            <tr style="font-weight: 400">
-								            <td></td>
-								         	<td>{{'donor'|translate}}</td>
-								    	    <td>{{'budget_mayus1'|translate}}</td>
-								    	   </tr>
-
-								    	   <tr ng-repeat="a in project.definition.project_donor">
-								    	   	<td>
-								    	   		<i class="material-icons" style="color: teal;">attach_money</i>
-								    	   	<td>
-								    	   	 <span>
-								               {{ a.project_donor_name }}
-								             </span>
-								            </td>
-
-								            <td>
-								    	   	 <input ng-model="a.project_donor_budget" type="number" name="">
-								            </td>
-								    	   </tr>
-							    	   </table>
-							    	</div>
-							    </div>
-
-											
-
-
-							           <!--<div style="padding-top: 10px; padding-left: 40px;">
-							    		<table class="bordered responsive-table">
-								            <tr style="font-weight: 400">
-								         	<td>Donante</td>
-								    	    <td>Presupuesto</td>
-								    	   </tr>
-
-								    	   <tr ng-repeat="a in project.definition.project_donor">
-
-								    	   	<td>
-								    	   	 <span>
-								               {{ a.project_donor_name }}
-								             </span>
-								            </td>
-
-								            <td>
-								    	   	 <input ng-model="a.project_donor_budget" type="number" name="">
-								            </td>
-								    	   </tr>
-							    	   </table>
-							         </div>-->
-						        	
-
-										
-
-						       			 <!--<div class="card">
-											<ul class="collection with-header">
-
-												<li class="collection-header blue lighten-1">
-													<h6 class=" white-text">
-													Presupuesto por donante
-
-													</h6>
-												</li>
-
-												<li class="collection-item avatar">
-												</li>
-											</ul>
-
-							        	</div>-->
-							    </div>
-
-							</div>
 							
 							<!-- other donors -->
-							<div class="row">
+						<div class="row">
 								<br/>
-				        <div class="input-field col s6" style="padding-left: 20px;"
+				         <div class="input-field col s6" style="padding-left: 20px;"
 				        			ng-show="project.definition.project_donor_check.other">
 				          <input id="ngm-project-project_donor_other" type="text"
 													ng-model="project.definition.project_donor_other"

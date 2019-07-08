@@ -65,14 +65,20 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				ngmClusterDocument,
 				config,
 				$translate ){
-
 			// set to $scope
 			$scope.ngmClusterHelper = ngmClusterHelper;
 			$scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
 			$scope.ngmCbLocations = ngmCbLocations;
-			$scope.ngmClusterHelperCol = ngmClusterHelperCol;
 			$scope.ngmCbBeneficiaries = ngmCbBeneficiaries;
 			$scope.ngmClusterDocument = ngmClusterDocument;
+
+			//ngmClusterHelperCol
+			
+			$scope.ngmClusterHelperCol = function(funct, data){
+				console.log("imprimo");
+				console.log(funct,"funct");
+				return ngmClusterHelperCol.run($scope, funct, data);
+			};
 
 			// project
 			$scope.project = {
@@ -110,63 +116,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						return el.organization_name.toLowerCase().indexOf(query.toLowerCase()) > -1;
 					});
 				},
-
-
-
-
-
+                
+                //COL classifications
 
 			 	searchundaf_desarrollo_paz:null,
-			 	searchUndafDesarrolloYPaz:function(query){
-					if (!$scope.project.definition.undaf_desarrollo_paz) {
-						$scope.project.definition.undaf_desarrollo_paz = [];
-					}
-					return $scope.project.lists.projectsclasifications[0].children.filter(function (el) {
-						return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
-					});
-			 	},
-
 			 	searchacuerdos_de_paz: null,
-			 	searchAcuerdosDePaz:function(query){
-					if (!$scope.project.definition.acuerdos_de_paz) {
-						$scope.project.definition.acuerdos_de_paz = [];
-					}
-					return $scope.project.lists.projectsclasifications[1].children.filter(function (el) {
-						return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
-					});
-			 	},
-
 			 	searchdac_oecd_development_assistance_committee: null,
-			 	searchDACOECDDevelopmentAssistanceCommittee:function(query){
-					if (!$scope.project.definition.dac_oecd_development_assistance_committee) {
-						$scope.project.definition.dac_oecd_development_assistance_committee = [];
-					}
-					return $scope.project.lists.projectsclasifications[2].children.filter(function (el) {
-						return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
-					});
-			 	},
-
 			 	searchods_objetivos_de_desarrollo_sostenible: null,
-			 	searchODSObjetivosDeDesarrolloSostenible:function(query){
-					if (!$scope.project.definition.ods_objetivos_de_desarrollo_sostenible) {
-						$scope.project.definition.ods_objetivos_de_desarrollo_sostenible = [];
-					}
-					return $scope.project.lists.projectsclasifications[3].children.filter(function (el) {
-						return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
-					});
-			 	},
-
-			 	addUndafDesarrolloYPaz:function(chip){},
-			 	addAcuerdosDePaz:function(chip){},
-			 	addDACOECDDevelopmentAssistanceCommittee:function(chip){},
-			 	addODSObjetivosDeDesarrolloSostenible:function(chip){},
-			 	removeUndafDesarrolloYPaz:function(chip){},
-			 	removeAcuerdosDePaz:function(query){},
-				removeDACOECDDevelopmentAssistanceCommittee:function(chip){},
-				removeODSObjetivosDeDesarrolloSostenible:function(chip){},
-
-
-
 
 
 				searchOrgPartner: null,
@@ -241,8 +197,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				strategicObjectivesUrl: 'strategic-objectives.html',
 				// contact details
 				contactDetailsUrl: 'contact-details.html',
-				// COL classificaitons
+				
+				// COL classificaitons 
 				classificiationsUrl: 'project-classifications/classifications.html',
+				//budgetbydonor COL
+				
+				projectDonorCOL: '/scripts/widgets/ngm-html/template/COL/projectdonor.html',
+
+				//responseComponents
+				responseComponentsCOL: '/scripts/widgets/ngm-html/template/COL/responsecomponents.html',
+
 				// target beneficiaries
 				targetBeneficiariesDefaultUrl: 'target-beneficiaries/2016/target-beneficiaries-default.html',
 				targetBeneficiariesTrainingUrl: 'target-beneficiaries/2016/target-beneficiaries-training.html',
@@ -341,66 +305,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						$scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'HRP', 'OTH' );
 						$scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'JRP', 'OTH' );
 					}
-				},
-
-				//Response Components COL
-
-				setHumanitarianComponent:function(){
-
-						$scope.project.definition.humanitarian_component= !$scope.project.definition.humanitarian_component;
-
-						if($scope.project.definition.humanitarian_component == false ){
-							$scope.project.definition.hrp_plan = false;
-						}
-
-				},
-
-				setConstruccionDePazComponent:function(){
-
-					$scope.project.definition.construccion_de_paz_component = !$scope.project.definition.construccion_de_paz_component;
-
-					if($scope.project.definition.construccion_de_paz_component == false && $scope.project.definition.desarrollo_sostenible_component == false){
-							$scope.project.definition.interagencial_plan = false;
-						}
-
-				},
-
-				setDesarrolloSostenibleComponent:function(){
-										$scope.project.definition.desarrollo_sostenible_component = !$scope.project.definition.desarrollo_sostenible_component;
-
-                      if($scope.project.definition.construccion_de_paz_component == false && $scope.project.definition.desarrollo_sostenible_component == false){
-							$scope.project.definition.interagencial_plan = false;
-						}
-									
-				},
-
-				setFlujosMigratoriosComponent:function(){
-					$scope.project.definition.flujos_migratorios_component = !$scope.project.definition.flujos_migratorios_component;
-						if($scope.project.definition.flujos_migratorios_component == false){
-							$scope.project.definition.rmrp_plan = false;
-						}
-				},
-
-				//Plan HRP, RMRP, Interagencial COL
-
-
-				setHrpPlanStatus:function(){
-
-					$scope.project.definition.hrp_plan= !$scope.project.definition.hrp_plan;
-					
-				},
-
-
-				setRmrpPlanStatus:function(){
-
-					$scope.project.definition.rmrp_plan= !$scope.project.definition.rmrp_plan;
-					
-				},
-
-				setInteragencialPlanStatus:function(){
-
-					$scope.project.definition.interagencial_plan= !$scope.project.definition.interagencial_plan;
-					
 				},
 
 
