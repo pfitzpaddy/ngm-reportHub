@@ -27,7 +27,7 @@ angular.module( 'ngmReportHub' )
       all_sectors_minus_wash: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_minus_wash_health: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_minus_wash_education: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
-      all_sectors_col: ['smsd','education','alojamientos_asentamientos','san','health','recuperacion_temprana','protection','wash','undaf','ningún_cluster'],
+      all_sectors_col: ['smsd','education','alojamientos_asentamientos','san','health','recuperacion_temprana','protection','wash','ningún_cluster'],
 
 
        
@@ -466,9 +466,6 @@ angular.module( 'ngmReportHub' )
           },{
             cluster_id: 'wash',
             cluster: 'WASH'
-          },{
-            cluster_id: 'undaf',
-            cluster: 'UNDAF'
           },
           {
             cluster_id:'ningún_cluster',
@@ -644,15 +641,11 @@ angular.module( 'ngmReportHub' )
           },{
             cluster_id: 'wash',
             cluster: 'WASH'
-          },
-          {
-            cluster_id: 'undaf',
-            cluster: 'UNDAF'
-          }/*,
+          },/*,
           {
             cluster_id:'n_a',
             cluster: 'N/A'
-          }*/,
+          },*/
           {
             cluster_id:'ningún_cluster',
             cluster: 'Ningún Cluster'
