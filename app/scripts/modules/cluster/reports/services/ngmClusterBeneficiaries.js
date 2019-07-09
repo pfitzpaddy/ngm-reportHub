@@ -262,8 +262,6 @@ angular.module( 'ngmReportHub' )
 				if ( length ) {
 					var b = angular.copy( beneficiaries[ length - 1 ] );
 					delete b.id;
-					delete b.kit_details;
-					delete b.partial_kits;
 					delete b.remarks;
 					delete b.createdAt;
 					delete b.updatedAt;
@@ -292,7 +290,7 @@ angular.module( 'ngmReportHub' )
 						beneficiary.cluster_id = selected[0].cluster_id;
 						beneficiary.cluster = selected[0].cluster;
 						beneficiary.activity_type_id = selected[0].activity_type_id;
-						beneficiary.activity_type_name = selected[0].activity_type_name; 
+						beneficiary.activity_type_name = selected[0].activity_type_name;
 						// merge defaults
 						angular.merge( beneficiary, defaults.inputs, defaults.activity_description, defaults.activity_detail, defaults.indicator, defaults.beneficiary, defaults.cash_package_units );
 						// set form
@@ -378,11 +376,11 @@ angular.module( 'ngmReportHub' )
 					ngmClusterBeneficiaries.form[ $parent ] = [];
 				}
 				// beneficiary.indicator_id
-				if ( beneficiary.indicator ) {
+				if ( beneficiary.indicator_id) {
 					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_indicators, { indicator_id: beneficiary.indicator_id }, true )[ 0 ];
 				}
 				// beneficiary.activity_detail_id
-				else if ( beneficiary.activity_detail_id ) {
+				else if ( beneficiary.activity_detail_id) {
 					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_details, { activity_detail_id: beneficiary.activity_detail_id }, true )[ 0 ];
 				}
 				// beneficiary.activity_description_id

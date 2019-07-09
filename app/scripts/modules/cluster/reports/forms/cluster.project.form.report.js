@@ -41,7 +41,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 		'ngmClusterHelperNgWashLists',
 		'ngmClusterHelperNgWashValidation',
 		'ngmClusterHelperCol',
-		'ngmEtClusterBeneficiaries',
 		'ngmCbBeneficiaries',
 		'ngmClusterDocument',
 		// 'NgTableParams',
@@ -72,7 +71,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			ngmClusterHelperNgWashLists,
 			ngmClusterHelperNgWashValidation,
 			ngmClusterHelperCol,
-			ngmEtClusterBeneficiaries,
 			ngmCbBeneficiaries,
 			ngmClusterDocument,
 			// NgTableParams,
@@ -94,7 +92,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			$scope.ngmClusterHelperNgWashLists = ngmClusterHelperNgWashLists;
 			$scope.ngmClusterHelperNgWashValidation = ngmClusterHelperNgWashValidation;
 			$scope.ngmClusterHelperCol = ngmClusterHelperCol;
-			$scope.ngmEtClusterBeneficiaries = ngmEtClusterBeneficiaries;
 			$scope.ngmCbBeneficiaries = ngmCbBeneficiaries;
 			$scope.ngmClusterDocument = ngmClusterDocument;
 			$scope.deactivedCopybutton = false;
@@ -158,9 +155,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					// set form inputs
 					ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
 					// set details
-					ngmClusterDetails.setForm( $scope.project.report.locations, 1350 );
-					// et esnfi set details
-					ngmEtClusterBeneficiaries.setForm( $scope.project.report.locations, 1350 );
+					ngmClusterDetails.setForm( $scope.project.report.locations, 600 );
 					// documents upload
 					$scope.project.setTokenUpload();
 					// for minimize-maximize beneficiary form

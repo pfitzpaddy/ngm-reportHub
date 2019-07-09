@@ -711,11 +711,10 @@ angular.module( 'ngmReportHub' )
 
         // filter duplications by tag
         if ( filterDuplicates ) {
-          activities = $filter( 'filter' )( activitiesList, { active: true } );
           activities = ngmClusterLists.filterDuplicates( activities, filterDuplicates );
         }
 
-        if ( filterDuplicates = 'activity_description_id' ) {
+        if ( filterDuplicates === 'activity_description_id' ) {
           // EMERGENCY need this for their internal donor reporting!
           // not sure why this is missing referrals?
           if ( project.organization === "EMERGENCY" ) {
@@ -737,8 +736,6 @@ angular.module( 'ngmReportHub' )
              });
           }
         }
-
-        
 
         // return
         return activities;

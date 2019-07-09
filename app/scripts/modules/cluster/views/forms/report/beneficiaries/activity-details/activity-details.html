@@ -12,7 +12,7 @@
                 ng-model="detail.unit_type_id" 
                 ng-options="detail.unit_type_id as detail.unit_type_name for detail in 
                 							ngmClusterLists.details[ $locationIndex ][ $beneficiaryIndex ][ $index ] | orderBy:'unit_type_name'"
-                ng-change="ngmClusterDetails.selectChange( detail, ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ], 'unit_type_id', 'unit_type_name', 'unit_type_label','ngm-beneficiary_detail-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}');"
+                ng-change="ngmClusterDetails.selectChange( detail, ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], 'unit_type_id', 'unit_type_name', 'unit_type_label','ngm-beneficiary_detail-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}');"
                 ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete'">
 					<option value="" selected>{{'select'|translate}}</option>
 
@@ -38,7 +38,7 @@
   			<div class="btn-floating waves-effect waves-light red lighten-2" 
 	  					title="Remove"
 	  					ng-if="$index > 0 && ( project.definition.project_status !== 'complete' || project.report.report_status !== 'complete' )"
-	  					ng-click="ngmClusterDetails.removeKit( $locationIndex, $beneficiaryIndex, $index, beneficiary )"
+	  					ng-click="ngmClusterDetails.removeDetail( $locationIndex, $beneficiaryIndex, $index, beneficiary )"
               ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
                             !ngmClusterTrainings.trainingFormComplete( project.report.locations )">
   				<i class="material-icons">clear</i>

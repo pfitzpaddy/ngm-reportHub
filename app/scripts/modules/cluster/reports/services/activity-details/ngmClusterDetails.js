@@ -53,7 +53,7 @@ angular.module( 'ngmReportHub' )
 
 			// manages selections (removes selections from detials list for ET ESNFI partial_kits, kit_details)
 			setList: function( $locationIndex, $beneficiaryIndex, $index, unit_type_id, d_list ) {
-
+				
 				// list
 				var list;
 
@@ -72,12 +72,12 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// get kit details
-				list = ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ];
+				list = ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ];
 				
 				// set list at index
 				ngmClusterLists.details[ $locationIndex ][ $beneficiaryIndex ][ $index ] = angular.copy( list );
 
-				// remove current item in selection
+				// remove current row from list filter
 				d_list = $filter( 'filter' )( d_list, { unit_type_id: '!' + unit_type_id } );
 				
 				// filter partial_kits
@@ -89,7 +89,7 @@ angular.module( 'ngmReportHub' )
 				});
 
 				// update select by id
-				ngmClusterBeneficiaries.updateSelectById( 'ngm-beneficiary_detail-' + $locationIndex + '-' + $beneficiaryIndex + '-' + $index  );
+				ngmClusterBeneficiaries.updateSelect();
 
 			},
 
@@ -106,12 +106,12 @@ angular.module( 'ngmReportHub' )
 				});
 			},
 
-			removeKit: function( $locationIndex, $beneficiaryIndex, $index, beneficiary ) {
+			removeDetail: function( $locationIndex, $beneficiaryIndex, $index, beneficiary ) {
 				if ( beneficiary.details.length >= 1 ) {
 					beneficiary.details.splice( $index, 1 );
 					// set details form
-					angular.forEach( b.details, function ( d, i ) {
-						ngmClusterDetails.setList( $locationIndex, $beneficiaryIndex, i, d.unit_type_id, b.details );
+					angular.forEach( beneficiary.details, function ( d, i ) {
+						ngmClusterDetails.setList( $locationIndex, $beneficiaryIndex, i, d.unit_type_id, beneficiary.details );
 					});
 					Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
 				}
