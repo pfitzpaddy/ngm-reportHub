@@ -167,14 +167,24 @@ form {
 		        </div>
 					</div> -->
 					
-					<typeahead
+					<!-- <typeahead
 					label="{{'organization' | translate}} "
 					items="panel.organizations" 
 					prompt="" 
 					title="organization" 
 					subtitle="organization_name" 
-					model="panel.user.organization" on-select="panel.onOrganizationSelected()" disabled="panel.updateOrgUser">{{'select_organization' | translate}}</typeahead>
-					
+					model="panel.user.organization" on-select="panel.onOrganizationSelected()" disabled="panel.updateOrgUser">{{'select_organization' | translate}}</typeahead> -->
+					<div class="row">
+						<div class="input-field col s12" ng-init="panel.clusterByCountry()">
+							<i class="material-icons prefix cluster">supervisor_account</i>
+							<select class="validate" id="ngm-organization" ng-options="org.organization as org.organization for org in panel.organizations"
+							 ng-model="panel.user.organization" ng-change="panel.onOrganizationSelected()" ng-disabled="panel.updateOrgUser">
+								 {{'select_organization' | translate}}
+								<option value="">{{'select_organization' | translate}}</option>
+							</select>
+							<label for="ngm-cluster">Organization</label>
+						</div>
+					</div>
 					<div class="row">
 						<div class="input-field col s12" ng-init="panel.clusterByCountry()">
 							<i class="material-icons prefix cluster">donut_large</i>
