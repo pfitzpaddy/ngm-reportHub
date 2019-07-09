@@ -229,7 +229,13 @@
         "other_implementing_partners":"Implementing Partners",
         "other_activities_in_addition_to":"Other activities in addition to",
         "cash_intended_for_even_if_unrestricted":"Cash intended for (even if unrestricted)",
+        "component_response":"Response Component",
+
         "project_donor":"Project Donor",
+        "gender_marker":"Project Gender Marker",
+        "budget_by_donor":"Budget by Donor",
+                "budget_mayus1":"Budget",
+
         "list_other_donors":"List Other Donors",
         "list_project_partners":"List Project Partners",
         "project_partners":"Project Partners",

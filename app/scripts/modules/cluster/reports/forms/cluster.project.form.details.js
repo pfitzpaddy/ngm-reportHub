@@ -65,14 +65,19 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				ngmClusterDocument,
 				config,
 				$translate ){
-
 			// set to $scope
 			$scope.ngmClusterHelper = ngmClusterHelper;
 			$scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
 			$scope.ngmCbLocations = ngmCbLocations;
-			$scope.ngmClusterHelperCol = ngmClusterHelperCol;
 			$scope.ngmCbBeneficiaries = ngmCbBeneficiaries;
 			$scope.ngmClusterDocument = ngmClusterDocument;
+
+			//ngmClusterHelperCol
+			
+			$scope.ngmClusterHelperCol = function(funct, data){
+				
+				return ngmClusterHelperCol.run($scope, funct, data);
+			};
 
 			// project
 			$scope.project = {
@@ -110,63 +115,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						return el.organization_name.toLowerCase().indexOf(query.toLowerCase()) > -1;
 					});
 				},
-
-
-
-
-
+                
+                //COL classifications
 
 			 	searchundaf_desarrollo_paz:null,
-			 	searchUndafDesarrolloYPaz:function(query){
-					if (!$scope.project.definition.undaf_desarrollo_paz) {
-						$scope.project.definition.undaf_desarrollo_paz = [];
-					}
-					return $scope.project.lists.projectsclasifications[0].children.filter(function (el) {
-						return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
-					});
-			 	},
-
 			 	searchacuerdos_de_paz: null,
-			 	searchAcuerdosDePaz:function(query){
-					if (!$scope.project.definition.acuerdos_de_paz) {
-						$scope.project.definition.acuerdos_de_paz = [];
-					}
-					return $scope.project.lists.projectsclasifications[1].children.filter(function (el) {
-						return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
-					});
-			 	},
-
 			 	searchdac_oecd_development_assistance_committee: null,
-			 	searchDACOECDDevelopmentAssistanceCommittee:function(query){
-					if (!$scope.project.definition.dac_oecd_development_assistance_committee) {
-						$scope.project.definition.dac_oecd_development_assistance_committee = [];
-					}
-					return $scope.project.lists.projectsclasifications[2].children.filter(function (el) {
-						return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
-					});
-			 	},
-
 			 	searchods_objetivos_de_desarrollo_sostenible: null,
-			 	searchODSObjetivosDeDesarrolloSostenible:function(query){
-					if (!$scope.project.definition.ods_objetivos_de_desarrollo_sostenible) {
-						$scope.project.definition.ods_objetivos_de_desarrollo_sostenible = [];
-					}
-					return $scope.project.lists.projectsclasifications[3].children.filter(function (el) {
-						return (el.name_tag.toLowerCase().indexOf(query.toLowerCase()) > -1);
-					});
-			 	},
-
-			 	addUndafDesarrolloYPaz:function(chip){},
-			 	addAcuerdosDePaz:function(chip){},
-			 	addDACOECDDevelopmentAssistanceCommittee:function(chip){},
-			 	addODSObjetivosDeDesarrolloSostenible:function(chip){},
-			 	removeUndafDesarrolloYPaz:function(chip){},
-			 	removeAcuerdosDePaz:function(query){},
-				removeDACOECDDevelopmentAssistanceCommittee:function(chip){},
-				removeODSObjetivosDeDesarrolloSostenible:function(chip){},
-
-
-
 
 
 				searchOrgPartner: null,
@@ -241,8 +196,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				strategicObjectivesUrl: 'strategic-objectives.html',
 				// contact details
 				contactDetailsUrl: 'contact-details.html',
-				// COL classificaitons
+				
+				// COL classificaitons 
 				classificiationsUrl: 'project-classifications/classifications.html',
+				//budgetbydonor COL
+				
+				projectDonorCOL: '/scripts/widgets/ngm-html/template/COL/projectdonor.html',
+
+				//responseComponents
+				responseComponentsCOL: '/scripts/widgets/ngm-html/template/COL/responsecomponents.html',
+
 				// target beneficiaries
 				targetBeneficiariesDefaultUrl: 'target-beneficiaries/2016/target-beneficiaries-default.html',
 				targetBeneficiariesTrainingUrl: 'target-beneficiaries/2016/target-beneficiaries-training.html',
@@ -343,8 +306,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					}
 				},
 
-
-				
 
 				/**** AFGHANISTAN ( ngmClusterHelperAf.js ) ****/
 
@@ -738,6 +699,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				
 				// save project
 				save: function( display_modal, save_msg ){
+
+					
 
 					// disable btn
 					$scope.project.submit = false;

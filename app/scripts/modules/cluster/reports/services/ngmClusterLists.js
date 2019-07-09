@@ -328,11 +328,15 @@ angular.module( 'ngmReportHub' )
         } else if ( admin0pcode === 'COL' ) {
 
           delivery = [{
-            delivery_type_id: 'population',
+            delivery_type_id: 'nuevos_beneficiarios',
             delivery_type_name: 'Nuevos Beneficiarios'
           },{
-            delivery_type_id: 'service',
+            delivery_type_id: 'beneficiaris_existentes',
             delivery_type_name: 'Beneficiarios Existentes'
+          },
+          {
+            delivery_type_id: 'beneficiarios_indirectos',
+            delivery_type_name: 'Beneficiarios Indirectos'
           }];
 
         } else if ( admin0pcode === 'NG' ) {
