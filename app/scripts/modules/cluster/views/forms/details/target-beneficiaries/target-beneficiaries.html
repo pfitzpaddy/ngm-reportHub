@@ -165,7 +165,7 @@
             
 						<!-- mpc_delivery_type_id -->
 						<div ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ] &&
-													!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'package_type_id' ]">
+													!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_package_type_id' ]">
 							<div class="row" style="padding-left: 20px;">
 								<p><i class="material-icons left" style="color: #e57373">info</i></p>
 								<p style="color: #e57373">
@@ -184,7 +184,7 @@
 							
 							<!-- DEFAULT -->
 							<div class="row" ng-if="!beneficiary.activity_description_id || 
-																				( beneficiary.activity_description_id && !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'detail' ] )">
+																				( beneficiary.activity_description_id && !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'display_activity_detail' ] )">
 								
 								<!-- activity_type_id -->
 								<div class="input-field col s12 m6">
@@ -227,7 +227,7 @@
 
 
 							<!-- DETAILS -->
-							<div class="row" ng-if="beneficiary.activity_description_id && ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'detail' ]">
+							<div class="row" ng-if="beneficiary.activity_description_id && ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'display_activity_detail' ]">
 								
 								<!-- activity_type_id -->
 								<div class="input-field col s12 m4">
@@ -356,7 +356,7 @@
 							<!-- INDICATORS -->
 
 							<!-- indicator -->
-							<div class="row" ng-if="beneficiary.activity_description_id && ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'indicator' ]">
+							<div class="row" ng-if="beneficiary.activity_description_id && ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'display_indicator' ]">
 
 								<!-- indicator_id -->
 								<div class="input-field col s12">
@@ -386,7 +386,7 @@
 							
 							<!-- !category_type_id -->
 							<div class="row" ng-if="beneficiary.activity_description_id &&
-																			!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'category_type_id' ]">
+																			!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'beneficiary_category_type_id' ]">
 
 								<!-- beneficiary_type -->
 								<div class="input-field col s12">
@@ -408,7 +408,7 @@
 
 							<!-- category_type_id -->
 							<div class="row" ng-if="beneficiary.activity_description_id &&
-																			ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'category_type_id' ]">
+																			ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'beneficiary_category_type_id' ]">
 
 								<!-- beneficiary_type -->
 								<div class="input-field col s12 m6">
@@ -452,8 +452,8 @@
 							<div class="row"
 										ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ] &&
 														ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_mechanism_type_id' ] &&
-														ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'transfer_type_id' ] &&
-														!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'package_type_id' ]">
+														ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_transfer_type_id' ] &&
+														!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_package_type_id' ]">
 
 								<!-- mpc_delivery_type_id -->
 								<div class="input-field col s12 m4">
@@ -507,8 +507,8 @@
 							<div class="row"
 										ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ] &&
 														ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_mechanism_type_id' ] &&
-														!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'transfer_type_id' ] &&
-														ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'package_type_id' ]">
+														!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_transfer_type_id' ] &&
+														ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_package_type_id' ]">
 
 								<!-- mpc_delivery_type_id -->
 								<div class="input-field col s12 m4">
@@ -569,8 +569,8 @@
 							<div class="row"
 										ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ] &&
 														ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_mechanism_type_id' ] &&
-														ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'transfer_type_id' ] &&
-														ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'package_type_id' ]">
+														ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_transfer_type_id' ] &&
+														ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_package_type_id' ]">
 
 								<!-- mpc_delivery_type_id -->
 								<div class="input-field col s12 m3">
@@ -649,8 +649,8 @@
 															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'units' ] ) ||
 														( ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ] ||
 															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_mechanism_type_id' ] ||
-															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'package_type_id' ] ||
-															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'transfer_type_id' ] )">
+															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_package_type_id' ] ||
+															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_transfer_type_id' ] )">
 								<!-- unit_type_id -->
 								<div class="input-field col s6">
 									<select materialize-select watch id="ngm-unit_type_id-{{ $index }}"

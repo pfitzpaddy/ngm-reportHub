@@ -132,10 +132,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health-2016.html',
 				template_activity_date: 'beneficiaries/activity-details/activity-date.html',
 				template_activity_details: 'beneficiaries/activity-details/activity-details.html',
-
-				template_distribution_date: 'beneficiaries/ET/distribution_date.html',
-				template_partial_kits: 'beneficiaries/ET/partial_kits.html',
-				template_kit_details: 'beneficiaries/ET/kit_details.html',
 				notesUrl: 'notes.html',
 				uploadUrl: 'report-upload.html',
 				
@@ -161,6 +157,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					ngmClusterHelper.setForm( $scope.project.definition, $scope.project.lists );
 					// set form inputs
 					ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
+					// set details
+					ngmClusterDetails.setForm( $scope.project.report.locations, 1350 );
 					// et esnfi set details
 					ngmEtClusterBeneficiaries.setForm( $scope.project.report.locations, 1350 );
 					// documents upload

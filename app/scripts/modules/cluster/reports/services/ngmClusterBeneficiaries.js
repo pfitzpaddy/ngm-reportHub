@@ -108,22 +108,13 @@ angular.module( 'ngmReportHub' )
 					location.beneficiaries[ $beneficiaryIndex ].activity_status = 'complete';
 				},
 				// depreciated
-				distributionStartOnClose: function( location, $beneficiaryIndex, $index, value ) {
-					location.beneficiaries[ $beneficiaryIndex ].distribution_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
-				},
-				distributionEndOnClose: function( location, $beneficiaryIndex, $index, value ) {
-					location.beneficiaries[ $beneficiaryIndex ].distribution_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
-					location.beneficiaries[ $beneficiaryIndex ].distribution_status = 'complete';
-				},        
-			},
-
-			// show distribution date
-			initDistributionDate: function( beneficiary ){
-				// set values
-				if ( !beneficiary.distribution_start_date ) {
-					beneficiary.distribution_start_date = moment.utc( new Date() ).format( 'YYYY-MM-DD' );
-					beneficiary.distribution_status = 'ongoing';
-				}
+				// distributionStartOnClose: function( location, $beneficiaryIndex, $index, value ) {
+				// 	location.beneficiaries[ $beneficiaryIndex ].distribution_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+				// },
+				// distributionEndOnClose: function( location, $beneficiaryIndex, $index, value ) {
+				// 	location.beneficiaries[ $beneficiaryIndex ].distribution_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+				// 	location.beneficiaries[ $beneficiaryIndex ].distribution_status = 'complete';
+				// },        
 			},
 
 			// show distribution date
@@ -135,10 +126,18 @@ angular.module( 'ngmReportHub' )
 				}
 			},
 
+			// show distribution date
+			// initDistributionDate: function( beneficiary ){
+			// 	// set values
+			// 	if ( !beneficiary.distribution_start_date ) {
+			// 		beneficiary.distribution_start_date = moment.utc( new Date() ).format( 'YYYY-MM-DD' );
+			// 		beneficiary.distribution_status = 'ongoing';
+			// 	}
+			// },
+
 			// set input style 
 			inputChange: function( label ){
-				$("label[for='" + label + "']").removeClass('error');
-				$("label[for='" + label + "']").addClass('active');
+				$("label[for='" + label + "']").removeClass('error').addClass('active');
 			},
 
 			// update material_select

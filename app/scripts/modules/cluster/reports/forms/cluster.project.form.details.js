@@ -305,7 +305,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						var msg = $scope.project.definition.project_status === 'new' ? $filter('translate')('create_project_cancelled') : $filter('translate')('create_project_cancelled');
 						// redirect + msg
 						$location.path( path );
-						$timeout( function() { Materialize.toast( msg, 3000, 'note' ); }, 400 );
+						$timeout( function() { Materialize.toast( msg, 4000, 'note' ); }, 400 );
 					}, 400 );
 				},
 

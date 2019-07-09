@@ -11,17 +11,13 @@
                 class="validate"
                 ng-model="detail.unit_type_id" 
                 ng-options="detail.unit_type_id as detail.unit_type_name for detail in 
-                							ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ] | orderBy:'unit_type_name'"
-                
-
-                ng-change="ngmClusterBeneficiaries.selectChange( project, detail, 'kit_details', 'unit_type_id', 'unit_type_name','ngm-beneficiary_detail-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}');"
-
-
+                							ngmClusterLists.details[ $locationIndex ][ $beneficiaryIndex ][ $index ] | orderBy:'unit_type_name'"
+                ng-change="ngmClusterDetails.selectChange( detail, ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ], 'unit_type_id', 'unit_type_name', 'unit_type_label','ngm-beneficiary_detail-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}');"
                 ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete'">
 					<option value="" selected>{{'select'|translate}}</option>
 
 				</select>
-				<label for="ngm-beneficiary_detail-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ detail.unit_type_label }}</label>
+				<label for="ngm-beneficiary_detail-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ detail.unit_type_label?detail.unit_type_label: 'Units' }}</label>
 			</div>
 
 			<!-- unit_type_quantity -->
@@ -32,17 +28,17 @@
                   class="validate"
                   min="0" 
                   ng-model="detail.unit_type_quantity"
-                  ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-beneficiary_detail_unit_quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+                  ng-change="ngmClusterBeneficiaries.inputChange( 'ngm-beneficiary_detail_unit_quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
                   ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete'">
-                <label for="ngm-beneficiary_detail_unit_quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" class="active">{{ detail.unit_type_name }}</label>
+                <label for="ngm-beneficiary_detail_unit_quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" class="active">{{ detail.unit_type_name?detail.unit_type_name: 'Amount' }}</label>
 			</div>
 
 			<!-- remove -->
 			<div class="input-field col s12 m1">
   			<div class="btn-floating waves-effect waves-light red lighten-2" 
 	  					title="Remove"
-	  					ng-if="project.definition.project_status !== 'complete' || project.report.report_status !== 'complete'"
-	  					ng-click="ngmEtClusterBeneficiaries.removeKit( 'kit_details', project, $locationIndex, $beneficiaryIndex, $index, beneficiary )"
+	  					ng-if="$index > 0 && ( project.definition.project_status !== 'complete' || project.report.report_status !== 'complete' )"
+	  					ng-click="ngmClusterDetails.removeKit( $locationIndex, $beneficiaryIndex, $index, beneficiary )"
               ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) || 
                             !ngmClusterTrainings.trainingFormComplete( project.report.locations )">
   				<i class="material-icons">clear</i>

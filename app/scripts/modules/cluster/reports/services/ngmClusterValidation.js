@@ -278,15 +278,19 @@ angular.module( 'ngmReportHub' )
 			validateBeneficiaries:function(location){
 				var elements = [];
 				beneficiaryRow=0;
-				beneficiaryRowComplete =0;
-				angular.forEach(location, function (l, i) {
-					angular.forEach(l.beneficiaries, function (b, j) {
+				beneficiaryRowComplete=0;
+				angular.forEach(location, function(l, i) {
+					angular.forEach(l.beneficiaries, function(b, j) {
 						beneficiaryRow ++;
 						result = ngmClusterValidation.validateBeneficiary(b,i,j);
 						angular.merge(elements, result.divs);
 						beneficiaryRowComplete += result.count;
 					});
-				})
+				});
+
+				console.log(beneficiaryRow)
+				console.log(beneficiaryRowComplete)
+				console.log(elements)
 
 				if (beneficiaryRow !== beneficiaryRowComplete) {
 					Materialize.toast($filter('translate')('beneficiaries_contains_errors'), 4000, 'error');
@@ -319,7 +323,7 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// DETAIL
-				if (ngmClusterBeneficiaries.form[i][j]['detail']){
+				if (ngmClusterBeneficiaries.form[i][j]['display_activity_detail']){
 					if (!b.activity_detail_id) {
 						id = "label[for='" + 'ngm-activity_detail_id-' + i + '-' + j + "']";
 						$(id).toggleClass('error');
@@ -341,7 +345,7 @@ angular.module( 'ngmReportHub' )
 				}
 				
 				// INDICATOR
-				if(ngmClusterBeneficiaries.form[i][j][ 'indicator' ]){
+				if(ngmClusterBeneficiaries.form[i][j][ 'display_indicator' ]){
 					if (!b.indicator_id) {
 						id = "label[for='" + 'ngm-indicator_id-' + i + '-' + j + "']";
 						$(id).toggleClass('error');
@@ -359,7 +363,7 @@ angular.module( 'ngmReportHub' )
 				}
 				
 				// CATEGORY
-				if (ngmClusterBeneficiaries.form[i][j]['category_type_id']){
+				if (ngmClusterBeneficiaries.form[i][j]['beneficiary_category_type_id']){
 					if (!b.beneficiary_category_id){
 						id = "label[for='" + 'ngm-beneficiary_category_id-' + i + '-' + j + "']";
 						$(id).toggleClass('error');
@@ -369,7 +373,7 @@ angular.module( 'ngmReportHub' )
 				}
 				
 				// DELIVERY TYPE ID
-				if (ngmClusterBeneficiaries.form[i][j]['delivery_type_id']){
+				if (ngmClusterBeneficiaries.form[i][j]['beneficiary_delivery_type_id']){
 					if(!b.delivery_type_id){
 						id = "label[for='" + 'ngm-delivery_type_id-' + i + '-' + j + "']";
 						$(id).toggleClass('error');
@@ -395,7 +399,7 @@ angular.module( 'ngmReportHub' )
 						complete = false;
 					}
 				}
-				if (ngmClusterBeneficiaries.form[i][j][ 'transfer_type_id' ]) {
+				if (ngmClusterBeneficiaries.form[i][j][ 'mpc_transfer_type_id' ]) {
 					if (!b.transfer_type_id) {
 						id = "label[for='" + 'ngm-transfer_type_id-' + i + '-' + j + "']";
 						$(id).toggleClass('error');
@@ -403,7 +407,7 @@ angular.module( 'ngmReportHub' )
 						complete = false;
 					}
 				}
-				if(ngmClusterBeneficiaries.form[i][j]['package_type_id']){
+				if(ngmClusterBeneficiaries.form[i][j]['mpc_package_type_id']){
 					if (!b.package_type_id){
 						id = "label[for='" + 'ngm-package_type_id-' + i + '-' + j + "']";
 						$(id).toggleClass('error');
@@ -412,15 +416,17 @@ angular.module( 'ngmReportHub' )
 					}
 				}
 				
-				// UNITS
-				if(ngmClusterBeneficiaries.form[i][j][ 'unit_type_id' ]){
-					if (!b.unit_type_id) {
-						id = "label[for='" + 'ngm-unit_type_id-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
-						validation.divs.push(id);
-						complete = false;
+				// UNITS 'smsd' a temp workaround 
+				// if ( b.cluster_id !== 'smsd' && b.activity_type_id !== 'hardware_materials_distribution' ) { 
+					if(ngmClusterBeneficiaries.form[i][j][ 'unit_type_id' ]){
+						if (!b.unit_type_id) {
+							id = "label[for='" + 'ngm-unit_type_id-' + i + '-' + j + "']";
+							$(id).toggleClass('error');
+							validation.divs.push(id);
+							complete = false;
+						}
 					}
-				}
+				// }
 				if(ngmClusterBeneficiaries.form[i][j][ 'units' ]){
 					if( b.units === null || b.units === undefined || b.units === NaN || b.units < 0 ){
 						id = "label[for='" + 'ngm-units-' + i + '-' + j + "']";
@@ -586,6 +592,42 @@ angular.module( 'ngmReportHub' )
 				// 		complete = false;
 				// 	}
 				// }
+				
+				// DETAILS
+				// if( ngmClusterBeneficiaries.form[i][j]['details'] ){
+				// 	if ( !b.details.length ) {
+				// 		id = "label[for='" + 'ngm-beneficiary_detail-' + i + '-' + j + "']";
+				// 		$(id).toggleClass('error');
+				// 		validation.divs.push(id);
+				// 		$timeout( function() { Materialize.toast( 'Must contain at least 1 details record', 4000, 'note' ); }, 400 );
+				// 		complete = false;
+				// 	}
+				// }
+
+				// DETAILS
+				if( ngmClusterBeneficiaries.form[i][j]['details'] ){
+					
+					// for each details
+					angular.forEach( b.details, function( d, k ){
+
+						// quantity
+						if ( d.unit_type_quantity === null || d.unit_type_quantity === undefined || d.unit_type_quantity < 0 ){ 
+							id = "label[for='" + 'ngm-beneficiary_detail_unit_quantity-'+i+'-'+j+'-'+k+"']";
+							$(id).toggleClass('error');
+							validation.divs.push( id );
+							complete = false;
+						}
+
+						// detail
+						if ( !d.unit_type_id && !d.unit_type_name ){
+							id = "label[for='" + 'ngm-beneficiary_detail-'+i+'-'+j+'-'+k+"']";
+							$(id).toggleClass('error');
+							validation.divs.push( id );
+							complete = false;
+						}
+
+					});
+				}
 				
 				// return 1 for complete, default 0 for error
 				if ( complete ) {
