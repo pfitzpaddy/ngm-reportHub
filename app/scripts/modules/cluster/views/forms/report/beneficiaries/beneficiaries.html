@@ -478,7 +478,7 @@
 													ngmClusterBeneficiaries.inputChange( 'ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for 
 																			b in project.lists.mpc_mechanism_type | filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id }"
-												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.mpc_delivery_type_id">
+												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.mpc_delivery_type_id || beneficiary.mpc_delivery_type_id === 'in-kind'">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
 							<label for="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
@@ -493,7 +493,7 @@
 												ng-change="ngmClusterBeneficiaries.updateName( project.lists.transfers, 'transfer_type_id', 'transfer_type_name', beneficiary, id );
 													ngmClusterBeneficiaries.inputChange( 'ngm-transfer_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers"
-												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.mpc_mechanism_type_id">
+												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || (beneficiary.mpc_delivery_type_id === 'in-kind'? false:!beneficiary.mpc_mechanism_type_id ) ">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
 							<label for="ngm-transfer_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-10%)">{{ 'transfers' | translate }}</label>
@@ -536,7 +536,7 @@
 													ngmClusterBeneficiaries.inputChange( 'ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for 
 																			b in project.lists.mpc_mechanism_type | filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id }"
-												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.mpc_delivery_type_id">
+												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.mpc_delivery_type_id || beneficiary.mpc_delivery_type_id === 'in-kind'">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
 							<label for="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
@@ -601,7 +601,7 @@
 													ngmClusterBeneficiaries.inputChange( 'ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for 
 																			b in project.lists.mpc_mechanism_type | filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id }"
-												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.mpc_delivery_type_id">
+												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.mpc_delivery_type_id || beneficiary.mpc_delivery_type_id === 'in-kind'">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
 							<label for="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
@@ -616,7 +616,7 @@
 												ng-change="ngmClusterBeneficiaries.updateName( project.lists.transfers, 'transfer_type_id', 'transfer_type_name', beneficiary, id );
 													ngmClusterBeneficiaries.inputChange( 'ngm-transfer_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers"
-												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.mpc_mechanism_type_id">
+												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || (beneficiary.mpc_delivery_type_id === 'in-kind'? false:!beneficiary.mpc_mechanism_type_id )">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
 							<label for="ngm-transfer_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-10%)">{{ 'transfers' | translate }}</label>
