@@ -14,7 +14,7 @@ angular.module( 'ngmReportHub' )
 		var ngmClusterDetails = {
 
 			// disabled add button
-			addDetailDisabled: true,
+			addDetailDisabled: false,
 
 			// init
 			init: function( locations, beneficiary, timer ){
@@ -136,6 +136,8 @@ angular.module( 'ngmReportHub' )
 						ngmClusterDetails.setList( $locationIndex, $beneficiaryIndex, i, d.unit_type_id, beneficiary.details );
 					});
 					Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
+					// set to default
+					ngmClusterDetails.addDetailDisabled = false;
 				}
 			},
 
