@@ -730,8 +730,6 @@ angular.module( 'ngmReportHub' )
           }
         }
 
-        console.log(activities);
-
         // return
         return activities;
 
