@@ -33,14 +33,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 		'ngmClusterLists',
 		'ngmClusterLocations',
 		'ngmClusterBeneficiaries',
-		'ngmClusterTrainings',
 		'ngmClusterValidation',
+		'ngmClusterDetails',
 		'ngmClusterHelperAf',
 		'ngmClusterHelperNgWash',
 		'ngmClusterHelperNgWashLists',
 		'ngmClusterHelperNgWashValidation',
 		'ngmClusterHelperCol',
-		'ngmEtClusterBeneficiaries',
 		'ngmCbBeneficiaries',
 		'ngmClusterDocument',
 		// 'NgTableParams',
@@ -63,35 +62,32 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			ngmClusterLists,
 			ngmClusterLocations,
 			ngmClusterBeneficiaries,
-			ngmClusterTrainings,
 			ngmClusterValidation,
+			ngmClusterDetails,
 			ngmClusterHelperAf,
 			ngmClusterHelperNgWash,
 			ngmClusterHelperNgWashLists,
 			ngmClusterHelperNgWashValidation,
 			ngmClusterHelperCol,
-			ngmEtClusterBeneficiaries,
 			ngmCbBeneficiaries,
 			ngmClusterDocument,
 			// NgTableParams,
 			config,$translate,$filter ){
 			
 
-			/**** TRAINING SERVICE ****/
+			/**** SERVICES ****/
 
-			// link for ngmClusterTrainings service directly into the template
-				// this should be a directive - sorry Steve Jobs!
+			// these should be a directive - sorry Steve Jobs!
 			$scope.scope = $scope;
 			$scope.ngmClusterLists = ngmClusterLists;
 			$scope.ngmClusterLocations = ngmClusterLocations;
 			$scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
-			$scope.ngmClusterTrainings = ngmClusterTrainings;
 			$scope.ngmClusterValidation = ngmClusterValidation;
+			$scope.ngmClusterDetails = ngmClusterDetails;
 			$scope.ngmClusterHelperNgWash = ngmClusterHelperNgWash;
 			$scope.ngmClusterHelperNgWashLists = ngmClusterHelperNgWashLists;
 			$scope.ngmClusterHelperNgWashValidation = ngmClusterHelperNgWashValidation;
 			$scope.ngmClusterHelperCol = ngmClusterHelperCol;
-			$scope.ngmEtClusterBeneficiaries = ngmEtClusterBeneficiaries;
 			$scope.ngmCbBeneficiaries = ngmCbBeneficiaries;
 			$scope.ngmClusterDocument = ngmClusterDocument;
 			$scope.deactivedCopybutton = false;
@@ -125,15 +121,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				// templates
 				locationsUrl: 'location/locations.html',
 				addLocationUrl: 'location/add.location.html',
-				beneficiariesTrainingUrl: 'beneficiaries/2016/beneficiaries-training.html',
 				beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health-2016.html',
-				template_distribution_date: 'beneficiaries/ET/distribution_date.html',
-				template_partial_kits: 'beneficiaries/ET/partial_kits.html',
-				template_kit_details: 'beneficiaries/ET/kit_details.html',
+				template_activity_date: 'beneficiaries/activity-details/activity-date.html',
+				template_activity_details: 'beneficiaries/activity-details/activity-details.html',
 				notesUrl: 'notes.html',
 				uploadUrl: 'report-upload.html',
 				
-				// #########FOR-TRAINING TEST
+				// ######### FOR-TRAINING TEST
 				// fsac_assessment: 'beneficiaries/AF/assessment_fsac_absnumber_v2.html',
 				//percentage
 				fsac_assessment: 'beneficiaries/AF/fsac_percentage.html',
@@ -155,8 +149,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					ngmClusterHelper.setForm( $scope.project.definition, $scope.project.lists );
 					// set form inputs
 					ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
-					// et esnfi set details
-					ngmEtClusterBeneficiaries.setForm( $scope.project.report.locations, 1350 );
 					// documents upload
 					$scope.project.setTokenUpload();
 					// for minimize-maximize beneficiary form
@@ -634,17 +626,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					ngmData.get( get_prev_report ).then( function ( prev_report ) {
 
 						var brows = 0;
-						var trows =0;
 						var info = $filter('translate')('save_to_apply_changes');
 
 						// data returned?
 						angular.forEach( prev_report.locations, function(l){
 							brows += l.beneficiaries.length;
-							trows += l.trainings.length;
 						});
 
 						// if no data
-						if( !brows && !trows ){
+						if( !brows ){
 
 							// no data
 							if ( Object.keys( prev_report ).length ){
@@ -666,15 +656,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							
 							// init message
 							Materialize.toast( $filter( 'translate' )( 'copying' ), 6000, 'note' );
-							if ( !brows && trows > 0 ){
-									var msg = 'Copied Trainings ' + trows + ' rows';
-									typ = 'success';
-							} else if ( brows > 0 && !trows ){
+							if ( brows > 0 ){
 								var msg = "Copied Beneficiaries " + brows + ' rows';
 										typ = 'success';
-							} else{
-									var msg = 'Copied beneficiaries ' + brows + ' rows'+ " and " + 'trainings ' + trows + ' rows';
-											typ = 'success';
 							}
 
 							// send message
@@ -701,7 +685,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								// }
 								location.beneficiaries = previous_location.beneficiaries;
 								$scope.detailBeneficiaries[locationIndex][0] = true;
-								location.trainings = previous_location.trainings;
 
 								// forEach beneficiaries
 								angular.forEach( location.beneficiaries, function( b ){
@@ -710,22 +693,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 									delete b.createdAt;
 									delete b.updatedAt;
 									delete b.report_submitted;
-								});
-
-								// forEach beneficiaries
-								angular.forEach( location.trainings, function( t ){
-									angular.merge( t, current_report );
-									delete t.id;
-									delete t.createdAt;
-									delete t.updatedAt;
-									delete t.report_submitted;
-									angular.forEach( t.training_participants, function( tp ){
-										angular.merge( tp, current_report );
-										delete tp.id;
-										delete tp.createdAt;
-										delete tp.updatedAt;
-										delete tp.report_submitted;
-									});
 								});
 
 							});
@@ -756,17 +723,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				activePrevReportButton: function(){
 					
 					$scope.beneficiariesCount= 0;
-					$scope.trainingsCount = 0;
 					$scope.project.report.locations.forEach(function(l){
 						if ( l.beneficiaries && l.beneficiaries.length ) {
 							 $scope.beneficiariesCount += l.beneficiaries.length;
-							 if(l.trainings){
-								 $scope.trainingsCount += l.trainings.length;
-							 }
-						 }						 
+						 }
 					});
 					
-					if ($scope.project.definition.project_status === 'complete' || $scope.project.report.report_status !== 'todo' || (( $scope.beneficiariesCount >0 ) || ( $scope.trainingsCount> 0 ) )){
+					if ($scope.project.definition.project_status === 'complete' || $scope.project.report.report_status !== 'todo' || (( $scope.beneficiariesCount >0 ) )){
 						$scope.deactivedCopybutton = true;						
 						return $scope.deactivedCopybutton
 					} else{
@@ -917,8 +880,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 										}
 									}, 400);
 								} else {
-									// reset select when edit sved report
-									// ngmClusterBeneficiaries.updateSelect();
+									// reset select when edit saved report
+									ngmClusterBeneficiaries.updateSelect();
 								}
 
 							} else {

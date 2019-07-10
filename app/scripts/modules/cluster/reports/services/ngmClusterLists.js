@@ -17,18 +17,16 @@ angular.module( 'ngmReportHub' )
 
 		var ngmClusterLists = {
 
-      // holders
-      partial_kits: [],
-      kit_details: [],
-
       // comphrensive list of all sectors - ever
       all_sectors: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter','wash' ],
+      all_sectors_minus_smsd: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','nutrition','protection','rnr_chapter','wash' ],
       all_sectors_minus_health: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','smsd','nutrition','protection','rnr_chapter','wash' ],
+      all_sectors_minus_health_smsd: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','nutrition','protection','rnr_chapter','wash' ],
       all_sectors_minus_wash: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_minus_wash_health: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','smsd','nutrition','protection','rnr_chapter' ],
+      all_sectors_minus_wash_health_smsd: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','nutrition','protection','rnr_chapter' ],
       all_sectors_minus_wash_education: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_col: ['smsd','education','alojamientos_asentamientos','san','health','recuperacion_temprana','protection','wash','ningún_cluster'],
-
 
        
       // lists ( project, mpc transfers )
@@ -58,8 +56,6 @@ angular.module( 'ngmReportHub' )
           currencies: ngmClusterLists.getCurrencies( project.admin0pcode ),
           donors: ngmClusterLists.getDonors( project.admin0pcode, project.cluster_id ),
           organizations: ngmClusterLists.getOrganizations(project.admin0pcode),
-          partial_kits: ngmClusterLists.getPartialKits(),
-					kit_details: ngmClusterLists.getKitDetails(),
 					
           
           // keys to ignore when summing beneficiaries in template ( 2016 )
@@ -708,11 +704,10 @@ angular.module( 'ngmReportHub' )
 
         // filter duplications by tag
         if ( filterDuplicates ) {
-          activities = $filter( 'filter' )( activitiesList, { active: true } );
           activities = ngmClusterLists.filterDuplicates( activities, filterDuplicates );
         }
 
-        if ( filterDuplicates = 'activity_description_id' ) {
+        if ( filterDuplicates === 'activity_description_id' ) {
           // EMERGENCY need this for their internal donor reporting!
           // not sure why this is missing referrals?
           if ( project.organization === "EMERGENCY" ) {
@@ -735,8 +730,6 @@ angular.module( 'ngmReportHub' )
           }
         }
 
-        
-
         // return
         return activities;
 
@@ -747,9 +740,6 @@ angular.module( 'ngmReportHub' )
         var activity_types = [];
         if ( project && project.activity_type && project.activity_type.length ) {
           activity_types = project.activity_type;
-          if ( project.admin0pcode === 'ET' ) {
-            activity_types = $filter('filter')( project.activity_type, { activity_type_id: '!training_capacity_building' }, true );
-          }
         }
         return activity_types;
       },
@@ -3891,7 +3881,7 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'unwomen', project_donor_name: 'UNWOMEN' },
             { project_donor_id: 'wfp', project_donor_name: 'WFP' },
             { project_donor_id: 'who', project_donor_name: 'WHO' },
-            { project_donor_id: 'world_bank', project_donor_name: 'Worldbank' }
+            { project_donor_id: 'world_bank', project_donor_name: 'World Bank' }
           ];
         }
 
@@ -7088,23 +7078,23 @@ angular.module( 'ngmReportHub' )
         // Cox bazar
         if ( admin0pcode === 'CB' ) {
           site_types = [{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_smsd,
             site_type_id: 'union',
             site_type_name: 'Union'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_health,
+            cluster_id: ngmClusterLists.all_sectors_minus_health_smsd,
             site_type_id: 'ward',
             site_type_name: 'Ward'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_health,
+            cluster_id: ngmClusterLists.all_sectors_minus_health_smsd,
             site_type_id: 'host_community',
             site_type_name: 'Host Community'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_health,
+            cluster_id: ngmClusterLists.all_sectors_minus_health_smsd,
             site_type_id: 'refugee_camp',
             site_type_name: 'Refugee Camp'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_wash_health,
+            cluster_id: ngmClusterLists.all_sectors_minus_wash_health_smsd,
             site_type_id: 'refugee_block',
             site_type_name: 'Refugee Block'
           },{
@@ -7136,7 +7126,79 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'host_community',
             site_type_name: 'Non-Facility Based (Host Community)'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_health,
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'access_road',
+            site_type_name: 'Access Road'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'access_road_and_drainage',
+            site_type_name: 'Access Road and Drainage'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'bamboo_bridge',
+            site_type_name: 'Bamboo Bridge'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'canal_re_excavation',
+            site_type_name: 'Canal Re-excavation'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'culvert',
+            site_type_name: 'Culvert'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'cyclone_shelter',
+            site_type_name: 'Cyclone Shelter'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'dam',
+            site_type_name: 'Dam'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'drainage',
+            site_type_name: 'Drainage'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'enbankment',
+            site_type_name: 'Enbankment'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'fencing',
+            site_type_name: 'Fencing'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'pathway',
+            site_type_name: 'Pathway'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'pathway_and_canal_pond_re_excavation',
+            site_type_name: 'Pathway and Canal/pond Re-Excavation'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'pathway_and_drainage',
+            site_type_name: 'Pathway and Drainage'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'rehabilitation_cyclone_shelters',
+            site_type_name: 'Rehabilitation of Cyclone Shelters'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'road_construction',
+            site_type_name: 'Road Construction'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'road_rehabilitation',
+            site_type_name: 'Road Rehabilitation'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'slope_protection',
+            site_type_name: 'Slope Protection'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'stair',
+            site_type_name: 'Stair'
+          },{
+            cluster_id: ngmClusterLists.all_sectors_minus_wash_health_smsd,
             site_type_id: 'nutrition_center',
             site_type_name: 'Nutrition Center'
           }];
@@ -7346,309 +7408,6 @@ angular.module( 'ngmReportHub' )
         
         // facilities
         return site_types;
-      },
-
-      // kit-details
-      getPartialKits: function(){
-        var kit_details = [{
-          detail_type_id: 'emergency_shelter_kit',
-          detail_type_name: 'Emergency Shelter Kit'
-        }, {
-          detail_type_id: 'bedding_set',
-          detail_type_name: 'Bedding Set'
-        }, {
-          detail_type_id: 'mosquito_net_set',
-          detail_type_name: 'Mosquito Net Set'
-        }, {
-          detail_type_id: 'kitchen_set',
-          detail_type_name: 'Kitchen Set'
-        }, {
-          detail_type_id: 'hygiene_kit',
-          detail_type_name: 'Hygiene Kit'
-        }];
-
-        return kit_details;
-
-      },
-
-      // kit-details
-      // getKitDetails: function(){
-      //   var kit_details = [{
-      //     detail_type_id: 'esnfi_axe',
-      //     detail_type_name: 'Axe (Iron with Wood handle)'
-      //   }, {
-      //     detail_type_id: 'esnfi_beam',
-      //     detail_type_name: 'Beam'
-      //   }, {
-      //     detail_type_id: 'esnfi_bed_net',
-      //     detail_type_name: 'Bed Net'
-      //   }, {
-      //     detail_type_id: 'esnfi_big_spoon',
-      //     detail_type_name: 'Big Spoon for Cooking'
-      //   }, {
-      //     detail_type_id: 'esnfi_cooking_ladel_aluminium_steel_125ml',
-      //     detail_type_name: 'Cooking Ladel Aluminium or Stainless Steel 125ml'
-      //   }, {
-      //     detail_type_id: 'esnfi_blankets',
-      //     detail_type_name: 'Blankets'
-      //   }, {
-      //     detail_type_id: 'esnfi_blankets_1.6x2.2m',
-      //     detail_type_name: 'Blankets, 1.6M x 2.2M'
-      //   }, {          
-      //     detail_type_id: 'esnfi_blankets_synthetic_1.5x2m',
-      //     detail_type_name: 'Blankets, Synthetic, 1.5 x 2m'
-      //   }, {
-      //     detail_type_id: 'esnfi_bowl',
-      //     detail_type_name: 'Bowl'
-      //   }, {
-      //     detail_type_id: 'esnfi_bucket',
-      //     detail_type_name: 'Mason Bucket (15 liters Reinforced)'
-      //   }, {
-      //     detail_type_id: 'esnfi_cash_nfis',
-      //     detail_type_name: 'Cash for NFIs'
-      //   }, {
-      //     detail_type_id: 'esnfi_cash_rent',
-      //     detail_type_name: 'Cash for Rent'
-      //   }, {
-      //     detail_type_id: 'esnfi_cash_shelter_repair',
-      //     detail_type_name: 'Cash for Shelter Repair'
-      //   }, {
-      //     detail_type_id: 'esnfi_cash_voucher',
-      //     detail_type_name: 'Cash for Gas'
-      //   }, {
-      //     detail_type_id: 'esnfi_clothes_children',
-      //     detail_type_name: 'Clothes for Children (e.g socks, gloves, sweaters, hats)'
-      //   }, {
-      //     detail_type_id: 'esnfi_clothes_men',
-      //     detail_type_name: 'Clothes for Men (e.g socks, gloves, sweaters, hats)'
-      //   }, {
-      //     detail_type_id: 'esnfi_clothes_women',
-      //     detail_type_name: 'Clothes for Women (e.g socks, gloves, sweaters, hats)'
-      //   }, {
-      //     detail_type_id: 'esnfi_cooking_pot',
-      //     detail_type_name: 'Cooking Pot'
-      //   }, {
-      //     detail_type_id: 'esnfi_cooking_pot_aluminium_7lt_lid_handle',
-      //     detail_type_name: 'Cooking Pot Aluminium 7lt Lid Handle'
-      //   }, {
-      //     detail_type_id: 'esnfi_cups',
-      //     detail_type_name: 'Cups'
-      //   }, {
-      //     detail_type_id: 'hessian_bags_100kg_polyethylene',
-      //     detail_type_name: 'Hessian Bags 100kg Polyethylene'
-      //   }, {
-      //     detail_type_id: 'nfi_bags_iom_logo',
-      //     detail_type_name: 'NFI Bags with IOM Logo'
-      //   }, {
-      //     detail_type_id: 'long_lasting_insecticide_treated_nets_llitns',
-      //     detail_type_name: 'Long Lasting Insecticide Treated Nets (LLITNs) - WHO Standard'
-      //   }, {
-      //     detail_type_id: 'esnfi_drinking_cup_handle_stainless_steel_aluminium',
-      //     detail_type_name: 'Drinking Cup with Handle, Stainless Steel or Aluminium'
-      //   }, {
-      //     detail_type_id: 'esnfi_digger',
-      //     detail_type_name: 'Pick Digger (with Wooden Handle)'
-      //   }, {
-      //     detail_type_id: 'esnfi_emergency_shelter_kit',
-      //     detail_type_name: 'Emergency Shelter Kit (2+1 items)'
-      //   }, {
-      //     detail_type_id: 'esnfi_emergency_shelter_repeair_toolkit',
-      //     detail_type_name: 'Emergency Shelter Repair Toolkit (11+2 items)'
-      //   }, {
-      //     detail_type_id: 'esnfi_family_sized_tent',
-      //     detail_type_name: 'Family Sized Tent'
-      //   }, {
-      //     detail_type_id: 'esnfi_fuel_gel',
-      //     detail_type_name: 'Fuel Gel'
-      //   }, {
-      //     detail_type_id: 'esnfi_gas',
-      //     detail_type_name: 'Gas Cylinder'
-      //   }, {
-      //     detail_type_id: 'esnfi_glass',
-      //     detail_type_name: 'Glass for Tea'
-      //   }, {
-      //     detail_type_id: 'esnfi_hammer',
-      //     detail_type_name: 'Claw Hammer (4 Steel Magnetic Head)'
-      //   }, {
-      //     detail_type_id: 'esnfi_hoe',
-      //     detail_type_name: 'Hoe (Iron with Wood Handle)'
-      //   }, {
-      //     detail_type_id: 'esnfi_jerrycan',
-      //     detail_type_name: 'Jerrycan'
-      //   }, {
-      //     detail_type_id: 'esnfi_jerrycan_20l_rigid',
-      //     detail_type_name: 'Jerrycan 20L Rigid'
-      //   }, {
-      //     detail_type_id: 'esnfi_jerrycan_10l_collapsible',
-      //     detail_type_name: 'Jerrycan 10L Collapsible'
-      //   }, {
-      //     detail_type_id: 'esnfi_kettle_jug',
-      //     detail_type_name: 'Kettle/Jug'
-      //   }, {
-      //     detail_type_id: 'esnfi_kindling',
-      //     detail_type_name: 'Kindling'
-      //   }, {
-      //     detail_type_id: 'esnfi_kitchen_set',
-      //     detail_type_name: 'Kitchen Set'
-      //   }, {
-      //     detail_type_id: 'esnfi_lights',
-      //     detail_type_name: 'Lights (Solar Lantern, Torch w/ Battery, Table Lamp)'
-      //   }, {
-      //     detail_type_id: 'esnfi_matchbox',
-      //     detail_type_name: 'Matchbox'
-      //   }, {
-      //     detail_type_id: 'mosquito_net_set',
-      //     detail_type_name: 'Mosquito Net Set'
-      //   }, {
-      //     detail_type_id: 'esnfi_multi_purpose_cash',
-      //     detail_type_name: 'Multi-Purpose Cash'
-      //   }, {
-      //     detail_type_id: 'esnfi_nails',
-      //     detail_type_name: 'Nails'
-      //   }, {
-      //     detail_type_id: 'esnfi_peeling_knife',
-      //     detail_type_name: 'Peeling Knife'
-      //   }, {
-      //     detail_type_id: 'esnfi_plastic_sheet',
-      //     detail_type_name: 'Plastic Sheet'
-      //   }, {
-      //     detail_type_id: 'esnfi_plates',
-      //     detail_type_name: 'Plates'
-      //   }, {
-      //     detail_type_id: 'esnfi_plates_individual_round_stainless_steel_30cm_cup_0.75l',
-      //     detail_type_name: 'Plates Individual Round Stainless Steel 30cm Cup 0.75l'
-      //   }, {
-      //     detail_type_id: 'esnfi_sleeping_mat',
-      //     detail_type_name: 'Sleeping Mat'
-      //   }, {
-      //     detail_type_id: 'esnfi_plastic_mat_2mx2.5m',
-      //     detail_type_name: 'Plastic Mat 2M x 2.5M'
-      //   }, {
-      //     detail_type_id: 'esnfi_plastic_rope',
-      //     detail_type_name: 'Plastic Rope (30m / 6-10 mm Diameter)'
-      //   }, {
-      //     detail_type_id: 'esnfi_pump_spares_pvc_pipe_63_mm',
-      //     detail_type_name: 'Pump Spares (PVC Pipe 63 MM Class E)'
-      //   }, {
-      //     detail_type_id: 'esnfi_pump_spares_pvc_pipe_67_inch',
-      //     detail_type_name: 'Pump Spares (PVC Filter Pipe 6 Class D(26.28 KG))'
-      //   }, {
-      //     detail_type_id: 'esnfi_rope',
-      //     detail_type_name: 'Rope'
-      //   }, {
-      //     detail_type_id: 'esnfi_plstic_rope_20m',
-      //     detail_type_name: 'Plastic Rope (20m)'
-      //   }, {
-      //     detail_type_id: 'esnfi_sanitry_napkins',
-      //     detail_type_name: 'Sanitry Napkins'
-      //   }, {
-      //     detail_type_id: 'esnfi_saw',
-      //     detail_type_name: 'Hand-held Saw'
-      //   }, {
-      //     detail_type_id: 'esnfi_shovel',
-      //     detail_type_name: 'Shovel (Iron with Wood Handle)'
-      //   }, {
-      //     detail_type_id: 'esnfi_sack',
-      //     detail_type_name: 'Sack'
-      //   }, {
-      //     detail_type_id: 'esnfi_sisal_rope',
-      //     detail_type_name: 'Sisal Rope (100m)'
-      //   }, {
-      //     detail_type_id: 'esnfi_soap_handwash',
-      //     detail_type_name: 'Soap (Handwash)'
-      //   }, {
-      //     detail_type_id: 'esnfi_soap_laundry_800g_bar',
-      //     detail_type_name: 'Soap (Laundry) 800g Bar'
-      //   }, {
-      //     detail_type_id: 'esnfi_spoon',
-      //     detail_type_name: 'Spoon'
-      //   }, {
-      //     detail_type_id: 'esnfi_tarapaulin',
-      //     detail_type_name: 'Tarpaulin'
-      //   }, {
-      //     detail_type_id: 'esnfi_tea_pot',
-      //     detail_type_name: 'Tea Pot'
-      //   }, {
-      //     detail_type_id: 'esnfi_trowel',
-      //     detail_type_name: 'Plastering Trowel (10 with Wood Handle)'
-      //   }, {
-      //     detail_type_id: 'esnfi_wheelbarrow',
-      //     detail_type_name: 'Wheelbarrow/Zambil'
-      //   }, {
-      //     detail_type_id: 'esnfi_washing_basin',
-      //     detail_type_name: 'Washing Basin'
-      //   }, {
-      //     detail_type_id: 'esnfi_washing_basin_60cm_diameter',
-      //     detail_type_name: 'Washing Basin 60CM Diameter'
-      //   }, {
-      //     detail_type_id: 'esnfi_window',
-      //     detail_type_name: 'Window'
-      //   }, {
-      //     detail_type_id: 'esnfi_wood',
-      //     detail_type_name: 'Wood'
-      //   }];
-
-      //   return kit_details;
-
-      // },
-
-      // kit-details
-      getKitDetails: function(){
-        var kit_details = [{
-          detail_type_id: 'esnfi_plastic_sheet',
-          detail_type_name: 'Plastic Sheets'
-        }, {
-          detail_type_id: 'esnfi_rope',
-          detail_type_name: 'Rope'
-        }, {
-          detail_type_id: 'esnfi_tent',
-          detail_type_name: 'Tents'
-        }, {
-          detail_type_id: 'esnfi_blanket',
-          detail_type_name: 'Blankets'
-        }, {
-          detail_type_id: 'esnfi_sleeping_mat',
-          detail_type_name: 'Sleeping Mats'
-        }, {
-          detail_type_id: 'mosquito_net',
-          detail_type_name: 'Mosquito Nets'
-        }, {
-          detail_type_id: 'esnfi_plates',
-          detail_type_name: 'Plates'
-        }, {
-          detail_type_id: 'esnfi_cups',
-          detail_type_name: 'Cups'
-        }, {
-          detail_type_id: 'esnfi_tea_pot',
-          detail_type_name: 'Tea Pots'
-        }, {
-          detail_type_id: 'esnfi_kettle_jug',
-          detail_type_name: 'Kettles/Jugs'
-        }, {
-          detail_type_id: 'esnfi_cooking_pot',
-          detail_type_name: 'Cooking Pot'
-        }, {
-          detail_type_id: 'esnfi_cooking_ladel',
-          detail_type_name: 'Cooking Ladel'
-        }, {
-          detail_type_id: 'esnfi_washing_basin',
-          detail_type_name: 'Washing Basins'
-        }, {
-          detail_type_id: 'esnfi_bucket',
-          detail_type_name: 'Buckets'
-        }, {
-          detail_type_id: 'esnfi_jerrycan',
-          detail_type_name: 'Jerrycans'
-        }, {
-          detail_type_id: 'esnfi_soap',
-          detail_type_name: 'Soap'
-        }, {
-          detail_type_id: 'esnfi_others',
-          detail_type_name: 'Others'
-        }];
-
-        return kit_details;
-
       },
 
       // remove duplicates in item ( json array ) based on value ( filterOn )

@@ -109,15 +109,14 @@ angular.module( 'ngmReportHub' )
               });
             }
 
-
             // fetch lists for project details
-            if ( project.id ) {
-              angular.forEach( project.target_locations, function( t, i ){
-                if ( t ){
-                  // ngmClusterLocations.getAdminSites( lists, project.admin0pcode, t );
-                }
-              });
-            }
+            // if ( project.id ) {
+            //   angular.forEach( project.target_locations, function( t, i ){
+            //     if ( t ){
+            //       // ngmClusterLocations.getAdminSites( lists, project.admin0pcode, t );
+            //     }
+            //   });
+            // }
 
           }, 1000 );
 
@@ -437,18 +436,6 @@ angular.module( 'ngmReportHub' )
               location.site_lat = location.admin5lat;
             }
           }
-
-          // locations
-          angular.forEach( report.locations[i].trainings, function( training, j ){
-            // report_status
-            training.report_status = report.report_status;
-            // trainees
-            angular.forEach( training.training_participants, function( trainees, k ){
-              // report_status
-              trainees.report_status = report.report_status;
-            });
-
-          });
 
           // locations
           angular.forEach( report.locations[i].beneficiaries, function( beneficiary, j ){

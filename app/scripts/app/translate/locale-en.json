@@ -490,8 +490,8 @@
         "admin_dashboard_for":"ADMIN Dashboard for",
         "all_clusters":"ALL clusters",
         "all_organizations":"ALL organizations",
-        "activity_mayus":"ACTIVITY",
-        "report_mayus":"REPORT",
+        "activity_mayus":"Activity",
+        "report_mayus":"Report",
         "country_mayus":"Country",
         "countries_mayus":"Countries",
          "reports_completed":"Reports Completed",
@@ -560,7 +560,7 @@
 
         "treatment_same_province":"Treatment Same Province",
         "edit":"Edit",
-        "region":"REGION",
+        "region":"Region",
 
         "cholera_response":"Cholera Response",
         "activity_status":"Activity Status",

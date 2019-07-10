@@ -1,28 +1,29 @@
 	<style>
-		.rotate{
+	.rotate {
 		transform:rotate(180deg);
 		box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.16), 0 -2px 10px 0 rgba(0, 0, 0, 0.12);
 		transition: .25s ease-in-out;
 	}
-	.rotate:hover{
+	.rotate:hover {
 		box-shadow:0 -5px 11px 0 rgba(0, 0, 0, 0.18), 0 -4px 15px 0 rgba(0, 0, 0, 0.15);
 	}
-	.report-beneficiary-title{
+	.report-beneficiary-title {
 		margin-bottom: 0
 	}
-	.report-beneficiary-second-title{
+	.report-beneficiary-second-title {
 		font-size: 1.36rem;
-    color: #565656;
-    font-weight: 300;
-    text-align: left;
+		color: #565656;
+		font-weight: 300;
+		text-align: left;
 		padding: 0px 0px 12px 49px;
-		margin-top:0px}
-	.card-panel-expand{
+		margin-top:0px
+	}
+	.card-panel-expand {
 		margin-top:1.9rem;
 	}
-	.add-padding{
-			padding-bottom:30px;
-		}
+	.add-padding {
+		padding-bottom:30px;
+	}
 	</style>
 		<!-- beneficiaries -->
 		<div id="{{ $beneficiaryIndex=$index; id = 'ngm-' + $locationIndex + '-' + $index }}" ng-repeat="beneficiary in project.report.locations[ $locationIndex ].beneficiaries | filterBeneficiary:project.beneficiary_search track by $index" ng-class="{'add-padding': !detailBeneficiaries[$locationIndex][$beneficiaryIndex]}">
@@ -89,7 +90,7 @@
 
 			<!-- mpc_delivery_type_id -->
 			<div ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ] &&
-										!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'package_type_id' ] && detailBeneficiaries[$locationIndex][$beneficiaryIndex]">
+										!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_package_type_id' ] && detailBeneficiaries[$locationIndex][$beneficiaryIndex]">
 				<div class="row" style="padding-left: 20px;">
 					<p><i class="material-icons left" style="color: #e57373">info</i></p>
 					<p style="color: #e57373">
@@ -109,9 +110,9 @@
 				
 				<!-- DEFAULT -->
 				<div class="row" ng-if="!beneficiary.activity_description_id || 
-																	( beneficiary.activity_description_id && !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'detail' ] ) && 
-                                  ( beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' && 
-                                    beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian')">
+																	( beneficiary.activity_description_id && !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'display_activity_detail' ] ) && 
+																	( beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' && 
+																		beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian')">
 					
 					<!-- activity_type_id -->
 					<div class="input-field col s12 m6">
@@ -158,9 +159,9 @@
 				<div ng-if="beneficiary.activity_description_id">
 
 					<!-- DETAILS -->
-					<div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'detail' ] && 
-	                                                                  ( beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' && 
-	                                                                    beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian')">
+					<div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'display_activity_detail' ] && 
+																																		( beneficiary.activity_description_id !== 'fatp_stabilization_referrals_conflict' && 
+																																			beneficiary.activity_description_id !== 'fatp_stabilization_referrals_civilian')">
 						
 						<!-- activity_type_id -->
 						<div class="input-field col s12 m4">
@@ -294,7 +295,7 @@
 					<!-- INDICATORS -->
 
 					<!-- indicator -->
-					<div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'indicator' ]">
+					<div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'display_indicator' ]">
 
 						<!-- indicator_id -->
 						<div class="input-field col s12">
@@ -324,8 +325,8 @@
 					<!-- BENEFICIARIES -->
 					
 					<!-- activity_description_id && !category_type_id && !delivery_type_id -->
-					<div class="row" ng-if="!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'category_type_id' ] &&
-																	!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'delivery_type_id' ]">
+					<div class="row" ng-if="!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'beneficiary_category_type_id' ] &&
+																	!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'beneficiary_delivery_type_id' ]">
 
 						<!-- beneficiary_type -->
 						<div class="input-field col s12">
@@ -348,8 +349,8 @@
 					</div>
 
 					<!-- activity_description_id && !category_type_id && delivery_type_id -->
-					<div class="row" ng-if="!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'category_type_id' ] &&
-																	ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'delivery_type_id' ]">
+					<div class="row" ng-if="!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'beneficiary_category_type_id' ] &&
+																	ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'beneficiary_delivery_type_id' ]">
 
 						<!-- beneficiary_type -->
 						<div class="input-field col s6">
@@ -375,7 +376,7 @@
 												name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
 												ng-model="beneficiary.delivery_type_id"
-												ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types, 'delivery_type_id', 'delivery_type_name', beneficiary, id );
+												ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types, 'beneficiary_delivery_type_id', 'delivery_type_name', beneficiary, id );
 													ngmClusterBeneficiaries.inputChange( 'ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-options="b.delivery_type_id as b.delivery_type_name for b in project.lists.delivery_types"
 												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id">
@@ -387,8 +388,8 @@
 					</div>
 
 					<!-- activity_description_id && !category_type_id && !delivery_type_id -->
-					<div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'category_type_id' ] &&
-																	ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'delivery_type_id' ]">
+					<div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'beneficiary_category_type_id' ] &&
+																	ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'beneficiary_delivery_type_id' ]">
 
 						<!-- beneficiary_type -->
 						<div class="input-field col s12 m4">
@@ -430,7 +431,7 @@
 												name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
 												ng-model="beneficiary.delivery_type_id"
-												ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types, 'delivery_type_id', 'delivery_type_name', beneficiary, id );
+												ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types, 'beneficiary_delivery_type_id', 'delivery_type_name', beneficiary, id );
 													ngmClusterBeneficiaries.inputChange( 'ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-options="b.delivery_type_id as b.delivery_type_name for b in project.lists.delivery_types"
 												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id" materialize-select>
@@ -449,8 +450,8 @@
 					<div class="row"
 								ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ] &&
 												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_mechanism_type_id' ] &&
-												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'transfer_type_id' ] &&
-												!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'package_type_id' ]">
+												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_transfer_type_id' ] &&
+												!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_package_type_id' ]">
 
 						<!-- mpc_delivery_type_id -->
 						<div class="input-field col s12 m4">
@@ -507,8 +508,8 @@
 					<div class="row"
 								ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ] &&
 												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_mechanism_type_id' ] &&
-												!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'transfer_type_id' ] &&
-												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'package_type_id' ]">
+												!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_transfer_type_id' ] &&
+												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_package_type_id' ]">
 
 						<!-- mpc_delivery_type_id -->
 						<div class="input-field col s12 m4">
@@ -572,8 +573,8 @@
 					<div class="row"
 								ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ] &&
 												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_mechanism_type_id' ] &&
-												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'transfer_type_id' ] &&
-												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'package_type_id' ]">
+												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_transfer_type_id' ] &&
+												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_package_type_id' ]">
 
 						<!-- mpc_delivery_type_id -->
 						<div class="input-field col s12 m3">
@@ -656,8 +657,8 @@
 													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'units' ] ) ||
 												( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ] ||
 													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_mechanism_type_id' ] ||
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'package_type_id' ] ||
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'transfer_type_id' ] )">
+													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_package_type_id' ] ||
+													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_transfer_type_id' ] )">
 						<!-- unit_type_id -->
 						<div class="input-field col s6">
 							<select materialize-select watch id="ngm-unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
@@ -1143,55 +1144,40 @@
 						</div>
 					</div>
 
+
 					<!-- ACTIVITY START DATE -->
 					<div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'activity_date' ]">
 						
 						<!-- get template -->
-						<div class="row" ng-init="ngmClusterBeneficiaries.initDistributionDate( beneficiary )">
-							<div ng-include="project.templatesUrl + project.template_distribution_date"></div>
+						<div class="row" ng-init="ngmClusterBeneficiaries.initActivityDate( beneficiary )">
+							<div ng-include="project.templatesUrl + project.template_activity_date"></div>
 						</div>
 
 					</div>
 
 
-					<!-- KIT DETAILS -->
-					<div class="row" ng-if="ngmEtClusterBeneficiaries.showKits( 'kit_details', $locationIndex, $beneficiaryIndex, beneficiary )">
-
+					<!-- DETAILS -->
+					<div class="row" ng-init="ngmClusterDetails.init( project.report.locations, beneficiary, 400 );" 
+															ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ]">
 						<!-- get template -->
-						<div class="row" ng-repeat="detail in beneficiary.kit_details">
-							<div ng-include="project.templatesUrl + project.template_kit_details"></div>
+						<div class="row" ng-repeat="detail in beneficiary.details">
+							<div ng-include="project.templatesUrl + project.template_activity_details"></div>
 						</div>
 						<!-- add details -->
 						<div class="row" style="margin-left:20px;padding-top: 5px;">
 							<button class="btn blue lighten-2"
-											ng-if="beneficiary.kit_details.length !== project.lists.kit_details.length && 
-															( project.definition.project_status !== 'complete' || project.report.report_status !== 'complete' )"
-											ng-click="ngmEtClusterBeneficiaries.addKits( 'kit_details', $locationIndex, $beneficiaryIndex, beneficiary );">
-								<i class="material-icons left">add</i>{{'add_kit_details' | translate}}
+											ng-if="beneficiary.details.length !== 
+															ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ].length &&
+															( project.definition.project_status !== 'complete' || 
+																	project.report.report_status !== 'complete' )"
+											ng-disabled="ngmClusterDetails.addDetailDisabled"
+											ng-click="ngmClusterDetails.addDetail( $locationIndex, $beneficiaryIndex, beneficiary );">
+								<i class="material-icons left">add</i>{{ 'add_kit_details' | translate }}
 							</button>
 						</div>
-
 					</div>
 
-
-					<!-- PARTIAL KITS -->
-					<div class="row" ng-if="ngmEtClusterBeneficiaries.showKits( 'partial_kits', $locationIndex, $beneficiaryIndex, beneficiary )">
-
-						<!-- get template -->
-						<div class="row" ng-repeat="detail in beneficiary.partial_kits">
-							<div ng-include="project.templatesUrl + project.template_partial_kits"></div>
-						</div>
-						<!-- add details -->
-						<div class="row" style="margin-left:20px;padding-top: 5px;">
-							<button class="btn blue lighten-2"
-											ng-if="beneficiary.partial_kits.length !== project.lists.partial_kits.length && 
-															( project.definition.project_status !== 'complete' || project.report.report_status !== 'complete' )"
-											ng-click="ngmEtClusterBeneficiaries.addKits( 'partial_kits', $locationIndex, $beneficiaryIndex, beneficiary );">
-								<i class="material-icons left">add</i>{{ 'add_partial_kits' | translate }}
-							</button>
-						</div>
-
-					</div>
+					
 
 				</div>
 

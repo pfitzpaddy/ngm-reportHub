@@ -99,28 +99,28 @@ angular.module( 'ngmReportHub' )
 					if (!value) { value =  moment( new Date() ).endOf( 'M' ); }
 					beneficiary.activity_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
 				},
-				distributionStartOnClose: function( location, $beneficiaryIndex, $index, value ) {
-					location.beneficiaries[ $beneficiaryIndex ].distribution_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+				// activity start date, end date
+				activityStartOnClose: function( location, $beneficiaryIndex, $index, value ) {
+					location.beneficiaries[ $beneficiaryIndex ].activity_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
 				},
-				distributionEndOnClose: function( location, $beneficiaryIndex, $index, value ) {
-					location.beneficiaries[ $beneficiaryIndex ].distribution_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
-					location.beneficiaries[ $beneficiaryIndex ].distribution_status = 'complete';
-				},        
+				activityEndOnClose: function( location, $beneficiaryIndex, $index, value ) {
+					location.beneficiaries[ $beneficiaryIndex ].activity_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+					location.beneficiaries[ $beneficiaryIndex ].activity_status = 'complete';
+				}      
 			},
 
 			// show distribution date
-			initDistributionDate: function( beneficiary ){
+			initActivityDate: function( beneficiary ){
 				// set values
-				if ( !beneficiary.distribution_start_date ) {
-					beneficiary.distribution_start_date = moment.utc( new Date() ).format( 'YYYY-MM-DD' );
-					beneficiary.distribution_status = 'ongoing';
+				if ( !beneficiary.activity_start_date ) {
+					beneficiary.activity_start_date = moment.utc( new Date() ).format( 'YYYY-MM-DD' );
+					beneficiary.activity_status = 'ongoing';
 				}
 			},
 
 			// set input style 
 			inputChange: function( label ){
-				$("label[for='" + label + "']").removeClass('error');
-				$("label[for='" + label + "']").addClass('active');
+				$("label[for='" + label + "']").removeClass('error').addClass('active');
 			},
 
 			// update material_select
@@ -245,8 +245,6 @@ angular.module( 'ngmReportHub' )
 				if ( length ) {
 					var b = angular.copy( beneficiaries[ length - 1 ] );
 					delete b.id;
-					delete b.kit_details;
-					delete b.partial_kits;
 					delete b.remarks;
 					delete b.createdAt;
 					delete b.updatedAt;
@@ -275,7 +273,7 @@ angular.module( 'ngmReportHub' )
 						beneficiary.cluster_id = selected[0].cluster_id;
 						beneficiary.cluster = selected[0].cluster;
 						beneficiary.activity_type_id = selected[0].activity_type_id;
-						beneficiary.activity_type_name = selected[0].activity_type_name; 
+						beneficiary.activity_type_name = selected[0].activity_type_name;
 						// merge defaults
 						angular.merge( beneficiary, defaults.inputs, defaults.activity_description, defaults.activity_detail, defaults.indicator, defaults.beneficiary, defaults.cash_package_units );
 						// set form
@@ -361,11 +359,11 @@ angular.module( 'ngmReportHub' )
 					ngmClusterBeneficiaries.form[ $parent ] = [];
 				}
 				// beneficiary.indicator_id
-				if ( beneficiary.indicator ) {
+				if ( beneficiary.indicator_id) {
 					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_indicators, { indicator_id: beneficiary.indicator_id }, true )[ 0 ];
 				}
 				// beneficiary.activity_detail_id
-				else if ( beneficiary.activity_detail_id ) {
+				else if ( beneficiary.activity_detail_id) {
 					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_details, { activity_detail_id: beneficiary.activity_detail_id }, true )[ 0 ];
 				}
 				// beneficiary.activity_description_id

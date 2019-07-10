@@ -208,7 +208,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 				// target beneficiaries
 				targetBeneficiariesDefaultUrl: 'target-beneficiaries/2016/target-beneficiaries-default.html',
-				targetBeneficiariesTrainingUrl: 'target-beneficiaries/2016/target-beneficiaries-training.html',
 				targetBeneficiariesUrl: moment( config.project.project_end_date ).year() === 2016 ? 'target-beneficiaries/2016/target-beneficiaries.html' : 'target-beneficiaries/target-beneficiaries.html',
 				// target locations
 				locationsUrl: config.project.admin0pcode === 'CB' ? 'target-locations/CB/locations.html' : 'target-locations/locations.html',
@@ -268,7 +267,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						var msg = $scope.project.definition.project_status === 'new' ? $filter('translate')('create_project_cancelled') : $filter('translate')('create_project_cancelled');
 						// redirect + msg
 						$location.path( path );
-						$timeout( function() { Materialize.toast( msg, 3000, 'note' ); }, 400 );
+						$timeout( function() { Materialize.toast( msg, 4000, 'note' ); }, 400 );
 					}, 400 );
 				},
 

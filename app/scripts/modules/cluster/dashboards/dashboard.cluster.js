@@ -245,15 +245,6 @@ angular.module('ngmReportHub')
 						request: $scope.dashboard.getRequest( { csv: true, indicator: 'financial_report', report: $scope.dashboard.cluster_id_filename + '_ocha_financial_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 						metrics: $scope.dashboard.getMetrics( 'cluster_financial_report', 'csv' )
 					},{
-						id: 'training_participants',
-						type: 'csv',
-						color: 'blue lighten-2',
-						icon: 'wc',
-						not_show:['AF','CB','COL'],
-						hover: $filter('translate')('download_training_participants_as_csv'),
-						request: $scope.dashboard.getRequest( { csv: true, indicator: 'training_participants', report: $scope.dashboard.cluster_id_filename + '_training_participants_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
-						metrics: $scope.dashboard.getMetrics( 'training_participants', 'csv' )
-					},{
 						type: 'csv',
 						color: 'blue lighten-2',
 						icon: 'group',
