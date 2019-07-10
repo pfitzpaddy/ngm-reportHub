@@ -114,8 +114,6 @@ angular.module( 'ngmReportHub' )
 
 					});
 
-					console.log( ngmCbLocations.showColumns.active )
-
 				}, 0 );
 
 			},

@@ -704,7 +704,7 @@ angular.module( 'ngmReportHub' )
 
         // filter duplications by tag
         if ( filterDuplicates ) {
-          activities = ngmClusterLists.filterDuplicates( activities, filterDuplicates );
+          activities = ngmClusterLists.filterDuplicates( activitiesList, filterDuplicates );
         }
 
         if ( filterDuplicates === 'activity_description_id' ) {
@@ -729,6 +729,8 @@ angular.module( 'ngmReportHub' )
              });
           }
         }
+
+        console.log(activities);
 
         // return
         return activities;
