@@ -7078,23 +7078,23 @@ angular.module( 'ngmReportHub' )
         // Cox bazar
         if ( admin0pcode === 'CB' ) {
           site_types = [{
-            cluster_id: ngmClusterLists.all_sectors_minus_smsd,
+            cluster_id: ngmClusterLists.all_sectors_minus,
             site_type_id: 'union',
             site_type_name: 'Union'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_health_smsd,
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
             site_type_id: 'ward',
             site_type_name: 'Ward'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_health_smsd,
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
             site_type_id: 'host_community',
             site_type_name: 'Host Community'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_health_smsd,
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
             site_type_id: 'refugee_camp',
             site_type_name: 'Refugee Camp'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_wash_health_smsd,
+            cluster_id: ngmClusterLists.all_sectors_minus_wash_health,
             site_type_id: 'refugee_block',
             site_type_name: 'Refugee Block'
           },{
