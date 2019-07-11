@@ -707,29 +707,6 @@ angular.module( 'ngmReportHub' )
           activities = ngmClusterLists.filterDuplicates( activitiesList, filterDuplicates );
         }
 
-        if ( filterDuplicates === 'activity_description_id' ) {
-          // EMERGENCY need this for their internal donor reporting!
-          // not sure why this is missing referrals?
-          if ( project.organization === "EMERGENCY" ) {
-           activities.unshift(
-               { activity_description_id : "fatp_stabilization",
-                 activity_description_name : "FATP - Stabilization ( Conflict )",
-                 activity_type_id :  "trauma_care",
-                 activity_type_name : "Trauma Care",
-                 admin0pcode : "AF",
-                 cluster : "Health",
-                 cluster_id : "health"
-             },{ activity_description_id : "fatp_stabilization_civilian",
-                 activity_description_name : "FATP - Stabilization ( Civilian )",
-                 activity_type_id :  "trauma_care",
-                 activity_type_name : "Trauma Care",
-                 admin0pcode : "AF",
-                 cluster : "Health",
-                 cluster_id : "health"
-             });
-          }
-        }
-
         // return
         return activities;
 
