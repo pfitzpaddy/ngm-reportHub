@@ -89,8 +89,10 @@
 			</div>
 
 			<!-- mpc_delivery_type_id -->
-			<div ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ] &&
-										!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_package_type_id' ] && detailBeneficiaries[$locationIndex][$beneficiaryIndex]">
+			<div ng-if="detailBeneficiaries[$locationIndex][$beneficiaryIndex] &&
+										project.definition.admin0pcode !== 'ET' &&
+										ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ] &&
+										!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_package_type_id' ]">
 				<div class="row" style="padding-left: 20px;">
 					<p><i class="material-icons left" style="color: #e57373">info</i></p>
 					<p style="color: #e57373">
