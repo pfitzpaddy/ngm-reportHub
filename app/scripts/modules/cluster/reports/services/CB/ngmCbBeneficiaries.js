@@ -57,7 +57,8 @@ angular.module( 'ngmReportHub' )
         
         // beneficiary 
         if ( beneficiary.units && beneficiary.activity_description_id && 
-              ( beneficiary.activity_description_id === 'live_deliveries_in_health_facilities' ||
+              ( beneficiary.activity_type_id === 'trainings_for_health_care_workers' ||
+                beneficiary.activity_description_id === 'live_deliveries_in_health_facilities' ||
                 beneficiary.activity_description_id === 'stillbirths_in_health_facilities' || 
                 beneficiary.activity_description_id === 'employ_healthcare_workers_at_ngo_health_facilities' ) ) {
           beneficiary.total_beneficiaries = beneficiary.units;
