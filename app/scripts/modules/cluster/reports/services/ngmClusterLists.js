@@ -7055,7 +7055,7 @@ angular.module( 'ngmReportHub' )
         // Cox bazar
         if ( admin0pcode === 'CB' ) {
           site_types = [{
-            cluster_id: ngmClusterLists.all_sectors_minus,
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'union',
             site_type_name: 'Union'
           },{
