@@ -164,9 +164,10 @@
 						</div>
             
 						<!-- mpc_delivery_type_id -->
-						<div ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ] &&
+						<div ng-if="project.definition.admin0pcode === 'AF' &&
+													ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ] &&
 													!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_package_type_id' ]">
-							<div class="row" style="padding-left: 20px;">
+							<div class="row" style="padding: 5px 0px 0px 20px;">
 								<p><i class="material-icons left" style="color: #e57373">info</i></p>
 								<p style="color: #e57373">
 									<span style="font-weight:400">{{'amount'|translate}}:</span> {{'please_enter_the_amount_per' | translate}} <span style="font-weight:400">{{'household_hh' | translate}}</span> per <span style="font-weight:400">{{'transfer' | translate}}</span>
@@ -575,7 +576,7 @@
 															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_transfer_type_id' ] &&
 															ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_package_type_id' ]">
 
-									<!-- mpc_delivery_type_id -->
+									<!-- mpc_delivery_type_id-->
 									<div class="input-field col s12 m3">
 										<select materialize-select id="ngm-mpc_delivery_type_id-{{ $index }}" 
 															name="mpc_delivery_type_id-{{ $index }}"
@@ -641,6 +642,47 @@
 									</div>
 									
 								</div>
+
+
+								<!--DELIVERY - MECHANISM FOR all COL Activities -->
+
+								<div class="row" ng-if="project.definition.admin0pcode === 'COL'">
+
+									<!-- mpc_delivery_type_id -->
+									<div class="input-field col s12 m3">
+										<select materialize-select id="ngm-mpc_delivery_type_id-{{ $index }}" 
+															name="mpc_delivery_type_id-{{ $index }}"
+															class="validate"
+															ng-model="beneficiary.mpc_delivery_type_id"
+															ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_delivery_type,
+																						  'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary);
+																						  "
+															ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for 
+																						b in project.lists.mpc_delivery_type"
+															ng-disabled="project.definition.project_status === 'complete' || !beneficiary.beneficiary_type_id">
+											<option value="">{{ 'select' | translate }}</option>
+										</select>
+										<label for="ngm-mpc_delivery_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
+									</div>
+
+									<!-- mpc_mechanism_type_id -->
+									<div class="input-field col s12 m3">
+										<select materialize-select watch id="ngm-mpc_mechanism_type_id-{{ $index }}"
+															name="mpc_mechanism_type_id-{{ $index }}"
+															class="validate"
+															ng-model="beneficiary.mpc_mechanism_type_id"
+															ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_mechanism_type, 'mpc_mechanism_type_id', 'mpc_mechanism_type_name', beneficiary );"
+															ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for 
+																						b in project.lists.mpc_mechanism_type | filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id }"
+															ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id">
+											<option value="">{{ 'select' | translate }}</option>
+										</select>
+										<label for="ngm-mpc_mechanism_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
+									</div>
+
+								</div>
+
+
 
 
 
@@ -908,6 +950,8 @@
 
 								</div>
 
+                           
+
 								
 								<!-- SADD ( boys, girls, men, women ) -->
 								<div class="row"
@@ -1078,6 +1122,7 @@
 										<label for="ngm-elderly_women-{{ $index }}" class="active">{{ 'eld_women' | translate }}</label>
 									</div>
 								</div>
+
 
 								
 								<!-- TOTAL -->

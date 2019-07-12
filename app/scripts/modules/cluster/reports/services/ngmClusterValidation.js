@@ -589,6 +589,8 @@ angular.module( 'ngmReportHub' )
 						complete = false;
 					}
 				}
+				
+
 				// TOTAL
 				if( b.total_beneficiaries === null || b.total_beneficiaries === undefined || b.total_beneficiaries === NaN || b.total_beneficiaries < 0 ){
 					id = "label[for='" + 'ngm-total_beneficiaries-' + i + '-' + j + "']";

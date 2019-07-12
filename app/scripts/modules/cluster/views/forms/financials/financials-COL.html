@@ -26,16 +26,17 @@
                     <td >{{'description' | translate}}</td>
                      <td>Departamento*</td>
                      <td>Municipio*</td>
+                     <td>{{'modality' | translate}}</td>
                     <td>{{'amount' | translate}}*</td>
                     <td>{{'currency' | translate}}*</td>
-                    <td>{{'modality' | translate}}</td>
+
                     <!--<td ng-show="project.showProgrammingLabel()">{{'programming' | translate}}</td>-->
-                    <td>{{'recieved' | translate}}*</td>
+                    <td>{{'date' | translate}}*</td>
                    <!-- <td>{{'multi_year_funding' | translate}}</td>-->
                     <!--<td ng-show="project.showFunding2017()">2017 {{'funding' | translate}}</td>-->
                     <!--<td>{{'on' |translate}} FTS?</td>-->
                    <!-- <td ng-show="project.showFtsIdLabel()">FTS ID</td>-->
-                    <td>{{'notes' | translate}}</td>
+                   <!-- <td>{{'notes' | translate}}</td>-->
                     <td ng-if="project.definition.project_status !== 'complete'">{{'edit' | translate}}</td>
                   </tr>
                   <tr ng-repeat="budget in project.definition.project_budget_progress track by $index">
@@ -109,6 +110,16 @@
 
 
                    
+                    <td>
+                      <!-- budget_funds_id -->
+                      <span e-form="rowform"
+                            e-name="budget_funds_id"
+                            editable-select="budget.budget_funds_id"
+                            e-placeholder="{{'select'|translate}}"
+                            e-ng-options="d.budget_funds_id as d.budget_funds_name for d in project.lists.budget_funds">
+                        {{ project.showFunds( $data, budget ) }}
+                      </span>
+                    </td>
 
                     <td>
                       <!-- number -->
@@ -120,6 +131,8 @@
                       </span>
                     </td> 
 
+                    
+
                     <td>
                       <!-- currency_id -->
                       <span e-form="rowform"
@@ -128,17 +141,6 @@
                             e-placeholder="{{'select'|translate}}"
                             e-ng-options="d.currency_id as d.currency_name for d in project.lists.currencies">
                         {{ project.showCurrency( $data, budget ) }}
-                      </span>
-                    </td>
-
-                    <td>
-                      <!-- budget_funds_id -->
-                      <span e-form="rowform"
-                            e-name="budget_funds_id"
-                            editable-select="budget.budget_funds_id"
-                            e-placeholder="{{'select'|translate}}"
-                            e-ng-options="d.budget_funds_id as d.budget_funds_name for d in project.lists.budget_funds">
-                        {{ project.showFunds( $data, budget ) }}
                       </span>
                     </td>
 
@@ -219,15 +221,15 @@
                       </span>
                     </td>-->
 
-
+                    <!--
                     <td>
-                      <!-- text -->
+                       text 
                       <span e-form="rowform" 
                             e-name="comments"
                             editable-text="budget.comments">
                         {{ budget.comments }}
                       </span>
-                    </td>
+                    </td>-->
                     <td style="white-space: nowrap" ng-show="project.definition.project_status !== 'complete'">
                       <!-- form -->
                       <form editable-form name="rowform" onshow="project.keydownSaveForm()" ng-show="rowform.$visible" onbeforesave="project.save()" class="form-buttons form-inline" shown="inserted === budget">
