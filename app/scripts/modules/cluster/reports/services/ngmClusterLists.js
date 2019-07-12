@@ -4364,7 +4364,18 @@ angular.module( 'ngmReportHub' )
           admin0pcode: admin0pcode,
           currency_id: 'usd',
           currency_name: 'USD'
-        }];
+        },
+        {
+          admin0pcode: admin0pcode,
+          currency_id: 'eur',
+          currency_name: 'EUR'
+        },
+        {
+
+          admin0pcode: 'COL',
+          currency_id: 'cop',
+          currency_name: 'COP'
+        },];
 
         }else{
 
