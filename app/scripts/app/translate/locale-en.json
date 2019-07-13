@@ -71,8 +71,7 @@
       "add_new_project_classification":"Add new Project Classification",
       "add_new_partner":"Add new partner",
       "project_classifications":"Project Classifications",
-
-
+      "mandatory_for_united_nations_system_agencies":"Mandatory for United Nations System agencies",
 
        "username_mayus" : "USERNAME",
        "password_mayus" : "PASSWORD",
@@ -232,8 +231,8 @@
         "component_response":"Response Component",
 
         "project_donor":"Project Donor",
-        "gender_marker":"Project Gender Marker",
-        "budget_by_donor":"Budget by Donor",
+        "gender_marker":"Gender Marker - GAM",
+        "amount_to_be_financed_by_donor":"Amount to be financed by donor",
                 "budget_mayus1":"Budget",
 
         "list_other_donors":"List Other Donors",
@@ -318,6 +317,10 @@
          "cash":"Cash",
          "bonuses":"Bonuses",
          "technical_response":"Technical Response",
+         "received":"Received",
+         "excecuted":"Excecuted",
+         "date":"Date",
+
 
          
          "back_to_project_reports":"Back to Project Reports",
@@ -555,6 +558,8 @@
         "female_18_59":"Female 18-59",
         "female_60_plus":"Female 60+",
         "eld_women":"Eld. Women",
+        "lgbttti_population":"LGBTTTI Population",
+        "population_in_disability":"Population in Disability",
         "total_female":"Total Female",
         "total_beneficiaries":"Total Beneficiaries",
 

@@ -581,7 +581,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 				// validate form ( ng wash )
 				validateBeneficiariesDetailsForm: function( complete, display_modal ){
-					if (ngmClusterValidation.validateDetails($scope.project.report.locations) && ngmClusterValidation.validateBeneficiaries($scope.project.report.locations, $scope.detailBeneficiaries) ){
+					if ( ngmClusterValidation.validateBeneficiaries($scope.project.report.locations, $scope.detailBeneficiaries) ){
 						if ( complete ) {
 							$( '#complete-modal' ).openModal( { dismissible: false } );
 						} else if ( display_modal ) {

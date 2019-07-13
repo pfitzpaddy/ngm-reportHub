@@ -166,21 +166,29 @@ angular.module( 'ngmReportHub' )
 					beneficiary.total_female += beneficiary.girls + 
 																beneficiary.women + 
 																beneficiary.elderly_women;
+					
 					beneficiary.total_beneficiaries += beneficiary.total_male + beneficiary.total_female;
 				}, 100 );
 			},
 
 			// set the name for a selection
 			updateName: function( list, key, name, beneficiary, id ){
+		
+				
 				// this approach does NOT break gulp!
 				$timeout(function() {
 					var obj = {}
 					obj[key] = beneficiary[key];
 					var select = $filter('filter')( list, obj, true );
+					
 					// set name
 					if ( select.length ) {
 						// name
-						beneficiary[ name ] = select[0][ name ];
+						beneficiary[ name ] = select[0][name]
+						//selection = select.find(type => type.delivery_type_id === beneficiary.delivery_type_id);
+
+					   // beneficiary[ name ] = delivery_selection.delivery_type_name;
+
 					}
 				}, 100 );
 			},

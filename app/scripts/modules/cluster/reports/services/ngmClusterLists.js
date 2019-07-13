@@ -33,13 +33,14 @@ angular.module( 'ngmReportHub' )
       setLists: function( project, transfers ) {
 
         return {
-
+ 
           // lists
 					units: ngmClusterLists.getUnits( project.admin0pcode ),
           indicators: ngmClusterLists.getIndicators( true ),
           delivery_types: ngmClusterLists.getDeliveryTypes( project.admin0pcode ),
           mpc_purpose: ngmClusterLists.getMpcPurpose(),
-          mpc_mechanism_type: ngmClusterLists.getMpcMechanismTypes(),
+          // mpc_delivery_type: ngmClusterLists.getMpcDeliveryTypes(project.admin0pcode),
+          mpc_mechanism_type: ngmClusterLists.getMpcMechanismTypes(project.admin0pcode),
           transfers: ngmClusterLists.getTransfers( transfers ),
           clusters: ngmClusterLists.getClusters( project.admin0pcode ).filter(cluster=>cluster.project!==false),
           projectsclasifications: ngmClusterLists.getProjectClasifications(project.admin0pcode),
@@ -327,7 +328,7 @@ angular.module( 'ngmReportHub' )
             delivery_type_id: 'nuevos_beneficiarios',
             delivery_type_name: 'Nuevos Beneficiarios'
           },{
-            delivery_type_id: 'beneficiaris_existentes',
+            delivery_type_id: 'beneficiarios_existentes',
             delivery_type_name: 'Beneficiarios Existentes'
           },
           {
@@ -374,47 +375,108 @@ angular.module( 'ngmReportHub' )
             { cluster_id: 'wash', cluster: 'WASH', mpc_purpose_type_id: 'wash', mpc_purpose_type_name: 'WASH' }
           ];
       },
+
+      //MPC DELIVERY TYPES
+        // lists defined in activities.csv
+
 			
-			getMpcMechanismTypes: function(){
-				var types = [{
-						mpc_delivery_type_id: 'cash',
-            mpc_mechanism_type_id: 'hawala',
-            mpc_mechanism_type_name: 'Hawala'
-          },{
-						mpc_delivery_type_id: 'cash',
-						mpc_mechanism_type_id: 'cash_in_envelope',
-            mpc_mechanism_type_name: 'Cash in Envelope'
-          },{
-						mpc_delivery_type_id: 'cash',
-						mpc_mechanism_type_id: 'bank',
-            mpc_mechanism_type_name: 'Bank'
-          },{
-						mpc_delivery_type_id: 'cash',
-						mpc_mechanism_type_id: 'mobile_cash',
-            mpc_mechanism_type_name: 'Mobile Cash'
-          },{
-						mpc_delivery_type_id: 'cash',
-						mpc_mechanism_type_id: 'e_cash',
-            mpc_mechanism_type_name: 'Electronic Card - Cash'
-          },{
-						mpc_delivery_type_id: 'voucher',
-            mpc_mechanism_type_id: 'paper_vouchers',
-            mpc_mechanism_type_name: 'Paper Vouchers'
-          },{
-						mpc_delivery_type_id: 'voucher',
-            mpc_mechanism_type_id: 'mobile_vouchers',
-            mpc_mechanism_type_name: 'Mobile Vouchers'
-          },{
-						mpc_delivery_type_id: 'voucher',
-            mpc_mechanism_type_id: 'e_vouchers',
-            mpc_mechanism_type_name: 'Electronic Card - Vouchers'
-          },{
-						mpc_delivery_type_id: 'distribution',
-            mpc_mechanism_type_id: 'distribution',
-            mpc_mechanism_type_name: 'Distribution'
-					}
-				];
-					return types
+      // delivery mechanism types
+			getMpcMechanismTypes: function(admin0pcode){
+
+        // COL
+        if(admin0pcode === 'COL'){
+
+          var types = [
+            {
+              mpc_delivery_type_id: 'efectivo',
+              mpc_mechanism_type_id: 'cuenta_bancaria',
+              mpc_mechanism_type_name: 'Cuenta Bancaria'
+            },
+            {
+              mpc_delivery_type_id: 'efectivo',
+              mpc_mechanism_type_id: 'dinero_entregado',
+              mpc_mechanism_type_name: 'Dinero Entregado'
+            },
+            {
+              mpc_delivery_type_id: 'efectivo',
+              mpc_mechanism_type_id: 'tarjeta_prepago',
+              mpc_mechanism_type_name: 'Tarjeta Pre-pago'
+            },
+            //bonos
+            {
+              mpc_delivery_type_id: 'bonos',
+              mpc_mechanism_type_id: 'e_voucher',
+              mpc_mechanism_type_name: 'E - Voucher'
+            },
+            
+            {
+              mpc_delivery_type_id: 'bonos',
+              mpc_mechanism_type_id: 'tarjeta_electronica',
+              mpc_mechanism_type_name: 'Tarjeta electrónica'
+            },
+            {
+              mpc_delivery_type_id: 'bonos',
+              mpc_mechanism_type_id: 'transferencia_electrónica',
+              mpc_mechanism_type_name: 'Transferencia electrónica'
+            },
+            //tecnica
+            {
+              mpc_delivery_type_id: 'tecnica',
+              mpc_mechanism_type_id: 'tecnica',
+              mpc_mechanism_type_name: 'Técnica'
+            },
+            // en especie
+            {
+              mpc_delivery_type_id: 'en_especie',
+              mpc_mechanism_type_id: 'en_especie',
+              mpc_mechanism_type_name: 'En Especie'
+            }];
+
+        } else {
+
+          // DEFAULT
+  				var types = [{
+  						mpc_delivery_type_id: 'cash',
+              mpc_mechanism_type_id: 'hawala',
+              mpc_mechanism_type_name: 'Hawala'
+            },{
+  						mpc_delivery_type_id: 'cash',
+  						mpc_mechanism_type_id: 'cash_in_envelope',
+              mpc_mechanism_type_name: 'Cash in Envelope'
+            },{
+  						mpc_delivery_type_id: 'cash',
+  						mpc_mechanism_type_id: 'bank',
+              mpc_mechanism_type_name: 'Bank'
+            },{
+  						mpc_delivery_type_id: 'cash',
+  						mpc_mechanism_type_id: 'mobile_cash',
+              mpc_mechanism_type_name: 'Mobile Cash'
+            },{
+  						mpc_delivery_type_id: 'cash',
+  						mpc_mechanism_type_id: 'e_cash',
+              mpc_mechanism_type_name: 'Electronic Card - Cash'
+            },{
+  						mpc_delivery_type_id: 'voucher',
+              mpc_mechanism_type_id: 'paper_vouchers',
+              mpc_mechanism_type_name: 'Paper Vouchers'
+            },{
+  						mpc_delivery_type_id: 'voucher',
+              mpc_mechanism_type_id: 'mobile_vouchers',
+              mpc_mechanism_type_name: 'Mobile Vouchers'
+            },{
+  						mpc_delivery_type_id: 'voucher',
+              mpc_mechanism_type_id: 'e_vouchers',
+              mpc_mechanism_type_name: 'Electronic Card - Vouchers'
+            },{
+  						mpc_delivery_type_id: 'distribution',
+              mpc_mechanism_type_id: 'distribution',
+              mpc_mechanism_type_name: 'Distribution'
+  					}
+  				];
+        };
+
+        return types
+
 			},
 
       // get list
@@ -4281,7 +4343,18 @@ angular.module( 'ngmReportHub' )
           admin0pcode: admin0pcode,
           currency_id: 'usd',
           currency_name: 'USD'
-        }];
+        },
+        {
+          admin0pcode: admin0pcode,
+          currency_id: 'eur',
+          currency_name: 'EUR'
+        },
+        {
+
+          admin0pcode: 'COL',
+          currency_id: 'cop',
+          currency_name: 'COP'
+        },];
 
         }else{
 
@@ -5160,26 +5233,10 @@ angular.module( 'ngmReportHub' )
           // default
           var beneficiaries = [
 
-
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'victimas_de_map',
-            beneficiary_type_name: 'Víctimas de MAP'
-          },
-          {
-            cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'victimas_de_muse',
-            beneficiary_type_name: 'Víctimas de MUSE'
-          },
-          {
-            cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'victimas_de_aei',
-            beneficiary_type_name: 'Víctimas de AEI'
-          },
-          {
-            cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'victimas_de_map_muse_aei_en_general',
-            beneficiary_type_name: 'Víctimas de MAP / MUSE / AEI en general'
+            beneficiary_type_id: 'afectados_por_deslizamientos',
+            beneficiary_type_name: 'Afectados por deslizamientos'
           },
           {
             cluster_id: ngmClusterLists.all_sectors_col,
@@ -5188,8 +5245,8 @@ angular.module( 'ngmReportHub' )
           },
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'sex_crimes_victims',
-            beneficiary_type_name: 'Víctimas de Delitos Sexuales'
+            beneficiary_type_id: 'afectados_por_otro_tipo_de_desastres_naturales',
+            beneficiary_type_name: 'Afectados por otro tipo de desastres naturales'
           },
           {
             cluster_id: ngmClusterLists.all_sectors_col,
@@ -5201,16 +5258,34 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_id: 'afectados_por_vendavales',
             beneficiary_type_name: 'Afectados por vendavales'
           },
+
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'afectados_por_deslizamientos',
-            beneficiary_type_name: 'Afectados por deslizamientos'
+            beneficiary_type_id: 'host_communities',
+            beneficiary_type_name: 'Comunidades receptoras'
           },
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'afectados_por_otro_tipo_de_desastres_naturales',
-            beneficiary_type_name: 'Afectados por otro tipo de desastres naturales'
+            beneficiary_type_id: 'lideres_lideresas_sociales_amenazados',
+            beneficiary_type_name: 'Líderes / lideresas sociales amenazados'
           },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'migrantes',
+            beneficiary_type_name: 'Migrantes'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'mujeres_lactantes_gestantes',
+            beneficiary_type_name: 'Mujeres lactantes / gestantes'
+          },
+          
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'personas_confinadas',
+            beneficiary_type_name: 'Personas confinadas'
+          }  
+          ,
           {
             cluster_id: ngmClusterLists.all_sectors_col,
             beneficiary_type_id: 'personas_desplazadas_internamente',
@@ -5221,56 +5296,33 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_id: 'personas_desplazadas_internamente',
             beneficiary_type_name: 'Personas desplazadas internamente (masivo)'
           },
-          {
-            cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'host_communities',
-            beneficiary_type_name: 'Comunidades receptoras'
-          },
-          {
-            cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'sex_crimes_victims',
-            beneficiary_type_name: 'Víctimas de delitos sexuales'
-          },
-          {
-            cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'victimas_de_otras_violencias_basadas_en_genero',
-            beneficiary_type_name: 'Víctimas de otras violencias basadas en género'
-          },
-          {
-            cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'personas_confinadas',
-            beneficiary_type_name: 'Personas confinadas'
-          },
-          {
-            cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'victimas_del_conflicto_armado_en_general',
-            beneficiary_type_name: 'Víctimas del conflicto armado en general'
-          },
-          {
-            cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'victimas_de_reclutamiento_forzado',
-            beneficiary_type_name: 'Víctimas de reclutamiento forzado'
-          },
-          {
-            cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'lideres_lideresas_sociales_amenazados',
-            beneficiary_type_name: 'Líderes / lideresas sociales amenazados'
-          },
-          {
+           
+          
+           {
             cluster_id: ngmClusterLists.all_sectors_col,
             beneficiary_type_id: 'poblacion_con_doble_afectacion_conflicto_y_desastres',
             beneficiary_type_name: 'Población con doble afectación (conflicto y desastres)'
+          },  
+
+
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'poblacion_con_multiples_afectaciones',
+            beneficiary_type_name: 'Población con múltiples afectaciones'
           },
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'poblacion_con_multiples_afectacion',
-            beneficiary_type_name: 'Población con múltiples afectación'
+            beneficiary_type_id: 'poblacion_en_situacion_de_discapacidad',
+            beneficiary_type_name: 'Población en situación de discapacidad'
+
           },
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'mujeres_lactantes_gestantes',
-            beneficiary_type_name: 'Mujeres lactantes / gestantes'
+            beneficiary_type_id: 'poblacion_lgbttti',
+            beneficiary_type_name: 'Población LGBTTTI'
+
           },
+
           {
             cluster_id: ngmClusterLists.all_sectors_col,
             beneficiary_type_id: 'poblacion_vulnerable',
@@ -5281,10 +5333,11 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_id: 'refugees',
             beneficiary_type_name: 'Refugiados'
           },
+
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'migrantes',
-            beneficiary_type_name: 'Migrantes'
+            beneficiary_type_id: 'returnees',
+            beneficiary_type_name: 'Retornados'
           },
 
           {
@@ -5292,11 +5345,54 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_id: 'solicitantes_de_asilo',
             beneficiary_type_name: 'Solicitantes de asilo'
           },
+
           {
             cluster_id: ngmClusterLists.all_sectors_col,
-            beneficiary_type_id: 'returnees',
-            beneficiary_type_name: 'Retornados'
+            beneficiary_type_id: 'victimas_de_aei',
+            beneficiary_type_name: 'Víctimas de AEI'
           },
+
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'sex_crimes_victims',
+            beneficiary_type_name: 'Víctimas de Delitos Sexuales'
+          },
+
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'victimas_del_conflicto_armado_en_general',
+            beneficiary_type_name: 'Víctimas del conflicto armado en general'
+          },
+
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'victimas_de_map',
+            beneficiary_type_name: 'Víctimas de MAP'
+          },
+
+           {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'victimas_de_map_muse_aei_en_general',
+            beneficiary_type_name: 'Víctimas de MAP / MUSE / AEI en general'
+          },
+
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'victimas_de_muse',
+            beneficiary_type_name: 'Víctimas de MUSE'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'victimas_de_otras_violencias_basadas_en_genero',
+            beneficiary_type_name: 'Víctimas de otras violencias basadas en género'
+          },
+          {
+            cluster_id: ngmClusterLists.all_sectors_col,
+            beneficiary_type_id: 'victimas_de_reclutamiento_forzado',
+            beneficiary_type_name: 'Víctimas de reclutamiento forzado'
+          },
+          
+
           {
             cluster_id: ngmClusterLists.all_sectors_col,
             beneficiary_type_id: 'otros',
@@ -5305,6 +5401,7 @@ angular.module( 'ngmReportHub' )
           
 
           ];
+
         }
 
         // admin SS
@@ -6851,48 +6948,11 @@ angular.module( 'ngmReportHub' )
             site_implementation_name: 'Apoyo Individual/Familiar'
           },
           {
-            site_implementation_id: 'community_based',
-            site_implementation_name: 'Comunidad Base'
+            site_implementation_id: 'otro',
+            site_implementation_name: 'Otro'
           }
           
 
-          /*{
-            site_implementation_id: 'community_based',
-            site_implementation_name: 'Comunidad Base'
-          },{
-            site_implementation_id:  'provision_de_insumos',
-            site_implementation_name: 'Provisión de Insumos'
-          },{
-            site_implementation_id: 'family_protection_center',
-            site_implementation_name: 'Centro de Protección Familiar'
-          },{
-            site_implementation_id: 'punto_de_vacunacion',
-            site_implementation_name: 'Punto de Vacunación'
-          },{
-            site_implementation_id: 'health_center',
-            site_implementation_name: 'Centro de Salud'
-          },{
-            site_implementation_id: 'feeding_center',
-            site_implementation_name: 'Centro de Alimentación'
-          },{
-            site_implementation_id: 'food_distribution_point_gfd',
-            site_implementation_name: 'Punto de Distribución de Alimentos'
-          },{
-            site_implementation_id: 'stabalization_center',
-            site_implementation_name: 'Centro de Estabilización'
-          },{
-            site_implementation_id: 'centro_de_acopio',
-            site_implementation_name: 'Centro de Acopio'
-          },{
-            site_implementation_id: 'punto_de_primeros_auxilios',
-            site_implementation_name: 'Punto de Primeros Auxilios'
-          },{
-            site_implementation_id: 'secretaria_de_salud',
-            site_implementation_name: 'Secretaría de Salud'
-          },{
-            site_implementation_id: 'others',
-            site_implementation_name: 'Otros'
-          }*/
           ];
 
         }
