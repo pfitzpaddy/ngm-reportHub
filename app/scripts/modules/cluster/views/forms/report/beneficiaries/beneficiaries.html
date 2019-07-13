@@ -378,7 +378,7 @@
 												name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
 												ng-model="beneficiary.delivery_type_id"
-												ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types, 'beneficiary_delivery_type_id', 'delivery_type_name', beneficiary, id );
+												ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types, 'delivery_type_id', 'delivery_type_name', beneficiary, id );
 													ngmClusterBeneficiaries.inputChange( 'ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-options="b.delivery_type_id as b.delivery_type_name for b in project.lists.delivery_types"
 												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id">
