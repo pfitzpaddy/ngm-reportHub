@@ -366,12 +366,15 @@ angular.module( 'ngmReportHub' )
 				if ( !ngmClusterBeneficiaries.form[ $parent ] ) {
 					ngmClusterBeneficiaries.form[ $parent ] = [];
 				}
-				// beneficiary.indicator_id
-				if ( beneficiary.indicator_id) {
+
+				// display_indicator, display_activity_detail stored from activities.csv
+
+				// beneficiary.display_indicator
+				if ( beneficiary.display_indicator ) {
 					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_indicators, { indicator_id: beneficiary.indicator_id }, true )[ 0 ];
 				}
-				// beneficiary.activity_detail_id
-				else if ( beneficiary.activity_detail_id) {
+				// beneficiary.display_activity_detail
+				else if ( beneficiary.display_activity_detail ) {
 					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_details, { activity_detail_id: beneficiary.activity_detail_id }, true )[ 0 ];
 				}
 				// beneficiary.activity_description_id
