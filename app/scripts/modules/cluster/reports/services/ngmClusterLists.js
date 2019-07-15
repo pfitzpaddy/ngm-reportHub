@@ -39,7 +39,8 @@ angular.module( 'ngmReportHub' )
           indicators: ngmClusterLists.getIndicators( true ),
           delivery_types: ngmClusterLists.getDeliveryTypes( project.admin0pcode ),
           mpc_purpose: ngmClusterLists.getMpcPurpose(),
-          mpc_delivery_type: ngmClusterLists.getMpcDeliveryTypes(project.admin0pcode),
+
+          // mpc_delivery_type: ngmClusterLists.getMpcDeliveryTypes(project.admin0pcode),
           mpc_mechanism_type: ngmClusterLists.getMpcMechanismTypes(project.admin0pcode),
           transfers: ngmClusterLists.getTransfers( transfers ),
           clusters: ngmClusterLists.getClusters( project.admin0pcode ).filter(cluster=>cluster.project!==false),
@@ -376,127 +377,107 @@ angular.module( 'ngmReportHub' )
           ];
       },
 
-      //MPC DELIVERY TYPES FOR COLOMBIA
 
-      getMpcDeliveryTypes:function(admin0pcode){
-        if(admin0pcode === 'COL'){
-          var mpc_delivery_types=[
+      //MPC DELIVERY TYPES
+        // lists defined in activities.csv
 
-          {mpc_delivery_type_id:'efectivo',
-          mpc_delivery_type_name : 'Efectivo'
-          }, 
-          {mpc_delivery_type_id : 'bonos',
-          mpc_delivery_type_name : 'Bonos'
-          }, 
-          {mpc_delivery_type_id : 'tecnica',
-          mpc_delivery_type_name : 'Técnica'
-           }, 
-          {mpc_delivery_type_id : 'en_especie',
-           mpc_delivery_type_name : 'En Especie'
-           }
-
-          ]
-        }
-        return mpc_delivery_types;
-      },
 			
+      // delivery mechanism types
 			getMpcMechanismTypes: function(admin0pcode){
 
+        // COL
         if(admin0pcode === 'COL'){
 
-        var types = [
-        {
-            mpc_delivery_type_id: 'efectivo',
-            mpc_mechanism_type_id: 'cuenta_bancaria',
-            mpc_mechanism_type_name: 'Cuenta Bancaria'
-          },
-          {
-            mpc_delivery_type_id: 'efectivo',
-            mpc_mechanism_type_id: 'dinero_entregado',
-            mpc_mechanism_type_name: 'Dinero Entregado'
-          },
-          {
-            mpc_delivery_type_id: 'efectivo',
-            mpc_mechanism_type_id: 'tarjeta_prepago',
-            mpc_mechanism_type_name: 'Tarjeta Pre-pago'
-          },
-          //bonos
-          {
-            mpc_delivery_type_id: 'bonos',
-            mpc_mechanism_type_id: 'e_voucher',
-            mpc_mechanism_type_name: 'E - Voucher'
-          },
-          
-          {
-            mpc_delivery_type_id: 'bonos',
-            mpc_mechanism_type_id: 'tarjeta_electronica',
-            mpc_mechanism_type_name: 'Tarjeta electrónica'
-          },
-          {
-            mpc_delivery_type_id: 'bonos',
-            mpc_mechanism_type_id: 'transferencia_electrónica',
-            mpc_mechanism_type_name: 'Transferencia electrónica'
-          },
-          //tecnica
-          {
-            mpc_delivery_type_id: 'tecnica',
-            mpc_mechanism_type_id: 'tecnica',
-            mpc_mechanism_type_name: 'Técnica'
-          },
-          // en especie
-          {
-            mpc_delivery_type_id: 'en_especie',
-            mpc_mechanism_type_id: 'en_especie',
-            mpc_mechanism_type_name: 'En Especie'
-          }
+          var types = [
+            {
+              mpc_delivery_type_id: 'efectivo',
+              mpc_mechanism_type_id: 'cuenta_bancaria',
+              mpc_mechanism_type_name: 'Cuenta Bancaria'
+            },
+            {
+              mpc_delivery_type_id: 'efectivo',
+              mpc_mechanism_type_id: 'dinero_entregado',
+              mpc_mechanism_type_name: 'Dinero Entregado'
+            },
+            {
+              mpc_delivery_type_id: 'efectivo',
+              mpc_mechanism_type_id: 'tarjeta_prepago',
+              mpc_mechanism_type_name: 'Tarjeta Pre-pago'
+            },
+            //bonos
+            {
+              mpc_delivery_type_id: 'bonos',
+              mpc_mechanism_type_id: 'e_voucher',
+              mpc_mechanism_type_name: 'E - Voucher'
+            },
+            
+            {
+              mpc_delivery_type_id: 'bonos',
+              mpc_mechanism_type_id: 'tarjeta_electronica',
+              mpc_mechanism_type_name: 'Tarjeta electrónica'
+            },
+            {
+              mpc_delivery_type_id: 'bonos',
+              mpc_mechanism_type_id: 'transferencia_electrónica',
+              mpc_mechanism_type_name: 'Transferencia electrónica'
+            },
+            //tecnica
+            {
+              mpc_delivery_type_id: 'tecnica',
+              mpc_mechanism_type_id: 'tecnica',
+              mpc_mechanism_type_name: 'Técnica'
+            },
+            // en especie
+            {
+              mpc_delivery_type_id: 'en_especie',
+              mpc_mechanism_type_id: 'en_especie',
+              mpc_mechanism_type_name: 'En Especie'
+            }];
 
-          ]
+        } else {
 
-        } else{
-				var types = [{
-						mpc_delivery_type_id: 'cash',
-            mpc_mechanism_type_id: 'hawala',
-            mpc_mechanism_type_name: 'Hawala'
-          },{
-						mpc_delivery_type_id: 'cash',
-						mpc_mechanism_type_id: 'cash_in_envelope',
-            mpc_mechanism_type_name: 'Cash in Envelope'
-          },{
-						mpc_delivery_type_id: 'cash',
-						mpc_mechanism_type_id: 'bank',
-            mpc_mechanism_type_name: 'Bank'
-          },{
-						mpc_delivery_type_id: 'cash',
-						mpc_mechanism_type_id: 'mobile_cash',
-            mpc_mechanism_type_name: 'Mobile Cash'
-          },{
-						mpc_delivery_type_id: 'cash',
-						mpc_mechanism_type_id: 'e_cash',
-            mpc_mechanism_type_name: 'Electronic Card - Cash'
-          },{
-						mpc_delivery_type_id: 'voucher',
-            mpc_mechanism_type_id: 'paper_vouchers',
-            mpc_mechanism_type_name: 'Paper Vouchers'
-          },{
-						mpc_delivery_type_id: 'voucher',
-            mpc_mechanism_type_id: 'mobile_vouchers',
-            mpc_mechanism_type_name: 'Mobile Vouchers'
-          },{
-						mpc_delivery_type_id: 'voucher',
-            mpc_mechanism_type_id: 'e_vouchers',
-            mpc_mechanism_type_name: 'Electronic Card - Vouchers'
-          },{
-						mpc_delivery_type_id: 'distribution',
-            mpc_mechanism_type_id: 'distribution',
-            mpc_mechanism_type_name: 'Distribution'
-					}
-				];
+          // DEFAULT
+  				var types = [{
+  						mpc_delivery_type_id: 'cash',
+              mpc_mechanism_type_id: 'hawala',
+              mpc_mechanism_type_name: 'Hawala'
+            },{
+  						mpc_delivery_type_id: 'cash',
+  						mpc_mechanism_type_id: 'cash_in_envelope',
+              mpc_mechanism_type_name: 'Cash in Envelope'
+            },{
+  						mpc_delivery_type_id: 'cash',
+  						mpc_mechanism_type_id: 'bank',
+              mpc_mechanism_type_name: 'Bank'
+            },{
+  						mpc_delivery_type_id: 'cash',
+  						mpc_mechanism_type_id: 'mobile_cash',
+              mpc_mechanism_type_name: 'Mobile Cash'
+            },{
+  						mpc_delivery_type_id: 'cash',
+  						mpc_mechanism_type_id: 'e_cash',
+              mpc_mechanism_type_name: 'Electronic Card - Cash'
+            },{
+  						mpc_delivery_type_id: 'voucher',
+              mpc_mechanism_type_id: 'paper_vouchers',
+              mpc_mechanism_type_name: 'Paper Vouchers'
+            },{
+  						mpc_delivery_type_id: 'voucher',
+              mpc_mechanism_type_id: 'mobile_vouchers',
+              mpc_mechanism_type_name: 'Mobile Vouchers'
+            },{
+  						mpc_delivery_type_id: 'voucher',
+              mpc_mechanism_type_id: 'e_vouchers',
+              mpc_mechanism_type_name: 'Electronic Card - Vouchers'
+            },{
+  						mpc_delivery_type_id: 'distribution',
+              mpc_mechanism_type_id: 'distribution',
+              mpc_mechanism_type_name: 'Distribution'
+  					}
+  				];
         };
 
-
-
-
-         return types
+        return types
 
 			},
 
