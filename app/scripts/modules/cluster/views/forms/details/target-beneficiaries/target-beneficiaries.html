@@ -716,7 +716,7 @@
 														class="validate" 
 														min="0"
 														ng-model="beneficiary.units"
-														ng-change="ngmCbBeneficiaries.setBeneficiariesByUnits( beneficiary );"
+														ng-change="ngmCbBeneficiaries.setBeneficiary( 'units', beneficiary );"
 														ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'units' ]"
 														required />
 										<label for="ngm-households-{{ $index }}" class="active">{{ 'amount' | translate }}</label>
@@ -740,7 +740,7 @@
 														class="validate" 
 														min="0"
 														ng-model="beneficiary.households"
-														ng-change="ngmCbBeneficiaries.setSadd( beneficiary );"
+														ng-change="ngmCbBeneficiaries.setBeneficiary( 'households', beneficiary );"
 														ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'households' ]"
 														required />
 										<label for="ngm-households-{{ $index }}" class="active">{{ 'households' | translate }}</label>
