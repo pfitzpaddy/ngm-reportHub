@@ -43,6 +43,7 @@ angular.module( 'ngmReportHub' )
         total_beneficiaries: 0
       },
       ratios: {
+        sessions: 10,
         households: 4.34,
         boys: 0.275,
         girls: 0.267,
@@ -59,8 +60,7 @@ angular.module( 'ngmReportHub' )
         if ( beneficiary.units && beneficiary.activity_description_id && 
               ( beneficiary.activity_type_id === 'trainings_for_health_care_workers' ||
                 beneficiary.activity_description_id === 'live_deliveries_in_health_facilities' ||
-                beneficiary.activity_description_id === 'stillbirths_in_health_facilities' || 
-                beneficiary.activity_description_id === 'employ_healthcare_workers_at_ngo_health_facilities' ) ) {
+                beneficiary.activity_description_id === 'stillbirths_in_health_facilities' ) ) {
           beneficiary.total_beneficiaries = beneficiary.units;
         }
         
@@ -68,6 +68,12 @@ angular.module( 'ngmReportHub' )
         if ( beneficiary.units && beneficiary.activity_description_id && 
               ( beneficiary.activity_description_id === 'chw_household_visits' ) ) {
           ngmCbBeneficiaries.setBeneficiarySadd( beneficiary.units, beneficiary );
+        }
+
+        // beneficiary SADD
+        if ( beneficiary.units && beneficiary.activity_description_id && 
+              ( beneficiary.activity_description_id === 'chw_community_sessions' ) ) {
+          beneficiary.total_beneficiaries = beneficiary.units * ngmCbBeneficiaries.ratios.sessions;
         }
 
       },
