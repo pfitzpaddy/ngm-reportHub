@@ -63,7 +63,7 @@
     "please_login_or_register_to_continue":"por favor INICIE SESIÓN o REGISTRESE para continuar",
     "please register to continue":"por favor registrese para continuar",
     "login_mayus" : "INICIO DE SESIÓN",
-    "logout_mayus" : "CERRAR SESIÓN", 
+    "logout_mayus" : "CERRAR SESIÓN",
     "my_home" : "MI INICIO",
     "immap_home" : "iMMAP INICIO",
     "my_admin" : "MI ADMIN",
@@ -114,7 +114,7 @@
     "new_password":"NUEVA CONTRASEÑA",
     "confirm_password":"CONFIRMAR CONTRASEÑA",
     "update_password":"Actualizar Contraseña",
-    "having_trouble_finding_your_account":"Tienes problema para encontrar tu cuenta ", 
+    "having_trouble_finding_your_account":"Tienes problema para encontrar tu cuenta ",
     "send_me_a_reminder":"Enviarme un Recordatorio",
     "back_to_login":"REGRESAR A INICIO DE SESIÓN",
     "organization_mayus" : "ORGANIZACIÓN",
@@ -193,7 +193,7 @@
        "download_dashboard_as_pdf":"Descargar Dashboard como PDF",
        "download_cluster_contact_list_as_csv":"Descargar Lista de Contactos del Cluster como CSV",
        "for":"para",
-      
+
        "province":"Departamento",
        "all_provinces":"Todos los Departamentos",
        "all_districts":"Todos los Municipios",
@@ -317,7 +317,7 @@
          "relates_to":"Relacionado con",
          "there_are_no_strategic_objetives_for":"No hay Objetivos Estratégicos para",
          "actual_monthly_beneficiaries_report_for":"Actual Monitoreo de Beneficiarios para",
-          
+
          "actual_monthly_progress_for":"Actual Monitoreo (Beneficiarios) para",
          "cancel_monthly_progress":"Cancelar Monitoreo (Beneficiarios)",
 
@@ -345,7 +345,7 @@
          "people_in_need_saved":"Personas con Necesidades Guardadas!",
          "project_status_updated":"Estado del Proyecto Actualizado!",
 
-        
+
          "remove_borehole":"Eliminar Pozo",
          "remove_this_borehol_from_your_report":"Eliminar este Pozo de su Reporte",
          "yes_remove_borehole":"Si, Eliminar Pozo",
@@ -353,9 +353,9 @@
          "remove_this_borehole_from_your_monthly_progress":"Eliminar este Pozo de su Progreso Mensual",
 
 
-         
 
-       
+
+
 
         "monthly_notes_&_comments":"Notas Mensuales y Comentarios",
         "save_notes":"Guardar Notas",
@@ -433,7 +433,7 @@
          "from":"desde",
          "to":"hasta",
          "projects_progress":"Proyectos en Progreso",
-        
+
         "activity":"Tipo de Actividad",
         "description":"Actividad",
         "details":"Detalles",
@@ -480,7 +480,7 @@
         "eld_women":"Mujeres Mayores",
         "lgbttti_population":"Población LGBTTTI",
         "population_in_disability":"Población en Discapacidad",
-        
+
         "treatment_same_province":"Tratamiento en la Misma Provincia",
         "edit":"Editar",
         "region":"REGIÓN",
@@ -519,7 +519,7 @@
         "exceed_file_upload_please_remove_one_of_your_file":"Carga de archivo excedida, Por favor, elimine uno de sus archivos",
         "file_too_large_please_remove_the_file":"Archivo muy grande, Por favor elimine el archivo",
         "not_supported_file_type":"Tipo de archivo no permitido !",
- 
+
 
         "re_directing_to_dashboard":"Re-dirigiendo a dashboard...",
         "data_processing_error_please_check_the":"Error en procesamiento de Datos, por favor revise la ",
@@ -529,7 +529,7 @@
 
 
         "mark_project_as_complete":"Marcar Proyecto como COMPLETO",
-        "are_you_sure_you_want_to_mark_this_project_as_complete":"Está seguro que quiere marcar este PROYECTO como 'COMPLETO'", 
+        "are_you_sure_you_want_to_mark_this_project_as_complete":"Está seguro que quiere marcar este PROYECTO como 'COMPLETO'",
         "yes_project_complete":"Si, proyecto completo",
         "delete_project":"Eliminar Proyecto",
         "are_you_sure_you_want_to_delete_this_project_and_all_its_associated_data":"Está seguro que quiere ELIMINAR este PROYECTO y todos los datos asociados",
@@ -577,7 +577,7 @@
         "remove_location_groups": "Remove Location Groups",
         "add_location_groups_message": "Split Target Locations into Location Groups to make monthly reporting easier",
         "remove_location_groups_message": "Are you sure you want to remove Location Groups from your project?",
-        
+
         "remarks":"Observaciones",
         "remarks_go_here": "Los comentarios van aquí ...",
         "add_partial_kits": "Agregar Kits Parciales ",
@@ -602,18 +602,21 @@
 
         "remove_beneficiary":"Eliminar Beneficiario",
         "remove_this_beneficiary_from_your_report":"Eliminar este Beneficiario de su Reporte",
-        "yes_remove_beneficiary":"Si, Eliminar Beneficiario",
+				"yes_remove_beneficiary":"Si, Eliminar Beneficiario",
+				"yes_remove_report":"Si, Eliminar Reporte",
+				"report_removed":"Reporte Eliminado!",
+
         "remove_borehole":"Eliminar Pozo",
         "remove_this_borehole_from_your_report":"Eliminar este Pozo de su Reporte",
         "yes_remove_borehole":"Si, Eliminar Pozo",
-       
+
         "remove_reticulation":"Eliminar Reticulación",
         "remove_this_reticulation_from_your_report":"Eliminar esta Reticulación de su Reporte",
 
         "remove_this_reticulation_from_your_monthly_progress":"Eliminar esta Reticulación de su Progreso Mensual",
 
         "yes_remove_reticulation":"Si, Eliminar Reticulación",
-       
+
         "remove_service":"Eliminar Servicio",
         "remove_this_Service_from_your_report":"Eliminar este Servicio de su Reporte",
         "yes_remove_service":"Si, Eliminar Servicio",
@@ -630,7 +633,7 @@
         "remove_latrine":"Eliminar Letrina",
         "remove_this_latrine_from_your_report":"Eliminar esta Letrina de su Reporte",
         "yes_remove_letrina":"Si, Eliminar Letrina",
-       
+
         "remove_this_latrine_from_your_monthly_progress":"Eliminar esta Letrina de su Progreso Mensual",
 
 
@@ -693,9 +696,11 @@
 
         "submit_monthly_progress_for":"Enviar Monitoreo (Beneficiarios) para ",
         "back_to_project_progress":"Volver a Progreso del Proyecto",
-        "submit_monthly_progress":"Enviar Monitoreo (Beneficiarios)",
+				"submit_monthly_progress":"Enviar Monitoreo (Beneficiarios)",
 
-
+				"remove_report":"Eliminar Reporte",
+				"remove_report_for":"Eliminar Reporte para",
+				"all_records_will_be_destroyed":"Todos los registros serán destruidos,",
 
         "save_monthly_report":"Guardar Reporte Mensual",
         "do_you_want_to_save":"Quieres Guardar",
@@ -720,7 +725,7 @@
 
          "project_budget_item_removed":"Ítem de Presupuesto del Proyecto Eliminado",
          "project_budget_item_added":"Ítem de Presupuesto del Proyecto Agregado",
-         "all_activities":"Todas las Actividades", 
+         "all_activities":"Todas las Actividades",
           "non_cash":"No-Efectivo",
           "financial":"Financiero",
           "restricted_cash":"Dinero Restringido",
