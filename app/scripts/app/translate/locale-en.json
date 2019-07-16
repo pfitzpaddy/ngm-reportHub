@@ -162,6 +162,10 @@
        "download_dashboard_as_pdf":"Download Dashboard as PDF",
        "download_cluster_contact_list_as_csv":"Download Cluster Contact List as CSV",
        "for":"for",
+              "5wdashboard":"5W Dashboard",
+              "5W":"5W",
+              "5WDASHBOARD_mayus":"5W DASHBOARD",
+
        "province":"Province",
        "all_provinces":"All Provinces",
        "district":"District",
@@ -540,6 +544,7 @@
 
         "population":"Population",
         "amount":"Amount",
+        "amount_col":"Amount",
         "units":"Units",
         "quantity":"Quantity/Amount",
         "transfers":"Transfers",

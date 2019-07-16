@@ -39,6 +39,7 @@ angular.module( 'ngmReportHub' )
           indicators: ngmClusterLists.getIndicators( true ),
           delivery_types: ngmClusterLists.getDeliveryTypes( project.admin0pcode ),
           mpc_purpose: ngmClusterLists.getMpcPurpose(),
+
           // mpc_delivery_type: ngmClusterLists.getMpcDeliveryTypes(project.admin0pcode),
           mpc_mechanism_type: ngmClusterLists.getMpcMechanismTypes(project.admin0pcode),
           transfers: ngmClusterLists.getTransfers( transfers ),
@@ -375,6 +376,7 @@ angular.module( 'ngmReportHub' )
             { cluster_id: 'wash', cluster: 'WASH', mpc_purpose_type_id: 'wash', mpc_purpose_type_name: 'WASH' }
           ];
       },
+
 
       //MPC DELIVERY TYPES
         // lists defined in activities.csv

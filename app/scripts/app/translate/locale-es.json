@@ -193,7 +193,9 @@
        "download_dashboard_as_pdf":"Descargar Dashboard como PDF",
        "download_cluster_contact_list_as_csv":"Descargar Lista de Contactos del Cluster como CSV",
        "for":"para",
-
+       "5wdashboard":"Dashboard de Actividades",
+       "5W":"Dashboard de Actividades",
+       "5WDASHBOARD_mayus":"Dashboard de Actividades",
        "province":"Departamento",
        "all_provinces":"Todos los Departamentos",
        "all_districts":"Todos los Municipios",
@@ -445,6 +447,7 @@
         "beneficiary_category":"Grupo Étnico",
         "population":"Población",
         "amount":"Cantidad",
+        "amount_col":"Monto",
         "units":"Unidades",
         "quantity":"Cantidad",
         "households":"Hogares",

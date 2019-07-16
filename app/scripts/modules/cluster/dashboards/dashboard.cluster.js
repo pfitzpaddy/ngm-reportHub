@@ -638,11 +638,12 @@ angular.module('ngmReportHub')
 				//
 				setTitle: function(){
 					// title
-					$scope.dashboard.title = '5W'
+					$scope.dashboard.title = $filter('translate')('5W');
+
 				
 					// admin0
 					if ( $scope.dashboard.admin0pcode === 'all' ) {
-						$scope.dashboard.title = '5W | ' + $scope.dashboard.adminRpcode.toUpperCase()
+						$scope.dashboard.title = $filter('translate')('5W')+' | ' + $scope.dashboard.adminRpcode.toUpperCase()
 					}
 
 					if ( $scope.dashboard.admin0pcode !== 'all' ) {
@@ -677,11 +678,13 @@ angular.module('ngmReportHub')
 
 				// subtitle
 				setSubtitle: function(){
+
+
 					// subtitle
-					$scope.dashboard.subtitle = '5W Dashboard '+ $filter('translate')('for')+' ';
+					$scope.dashboard.subtitle = $filter('translate')('5wdashboard')+' '+ $filter('translate')('for')+' ';
 					// admin0
 					if ( $scope.dashboard.admin0pcode === 'all' ) {
-						$scope.dashboard.subtitle = '5W Dashboard '+ $filter('translate')('for') + ' ' + $scope.dashboard.adminRpcode.toUpperCase();
+						$scope.dashboard.subtitle = $filter('translate')('5wdashboard')+' ' + $filter('translate')('for') + ' ' + $scope.dashboard.adminRpcode.toUpperCase();
 					}
 
 					if ( $scope.dashboard.admin0pcode !== 'all' ) {

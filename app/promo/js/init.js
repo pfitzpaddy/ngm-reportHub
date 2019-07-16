@@ -9,12 +9,13 @@
             
             
 
-  			if(href  === 'https://4wplus.org/' || href ==='http://35.229.43.63/'  ){ //https://4wplus.org/
+  			if(href  === 'https://4wplus.org/' || href ==='http://35.229.43.63/' ){ //https://4wplus.org/
   				$( '.href' ).hide();
   				$('.href2').show();
   				title = "4wPlus";
   				humanitariandesicion = "Apoyo a Decisiones Humanitarias en Tiempo-Real";
   				getstarted ="Comenzar";
+          dashboard5w = "Dashboard de Actividades",
   				loginbuttontitle = "Inicio de Sesión o Registro para Empezar";
   				meta1 = '4wPlus, Dashboard, Reporte, Indicadores, Colombia';
   			    logotitle= '4wPlus';
@@ -54,6 +55,7 @@
   			title = "ReportHub";
   			humanitariandesicion = "Humanitarian Decision Support in Real-Time";
   			 getstarted ="Get Started";
+         dashboard5w = "5W Dashboard",
   			 loginbuttontitle = "Login or Register to Get Started";
   			 meta1='ReportHub, Dashboard, Reporting, Key Business Indicators';
   			 logotitle= 'REPORTHUB';
@@ -102,6 +104,7 @@
   				$('.brand-logo').html(title);
   				$('#humanitariandesicion').html(humanitariandesicion);
   				$('#getstarted').html(getstarted);
+          $('#dashboard5w').html(dashboard5w);
   				$('#h1feature').html(h1feature);
   				$('#h2feature').html(h2feature);
   				$('#pfeature').html(pfeature);

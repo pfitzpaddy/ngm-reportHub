@@ -39,7 +39,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 
       if($scope.config.project.admin0pcode === 'COL'){
         financial_html = 'financials-COL.html';
-        budget_funds= [ { budget_funds_id: 'cash', budget_funds_name: $filter('translate')('cash') }, { budget_funds_id: 'inkind',budget_funds_name: $filter('translate')('inkind') },{ budget_funds_id: 'bonuses',budget_funds_name: $filter('translate')('bonuses') },{ budget_funds_id: 'technical_response', budget_funds_name: $filter('translate')('technical_response') },{ budget_funds_id: 'received', budget_funds_name: $filter('translate')('received') },{ budget_funds_id: 'excecuted', budget_funds_name: $filter('translate')('excecuted') },{ budget_funds_id: 'n_a', budget_funds_name: 'N/A' } ];
+        budget_funds= [ { budget_funds_id: 'received', budget_funds_name: $filter('translate')('received') },{ budget_funds_id: 'excecuted', budget_funds_name: $filter('translate')('excecuted') } ];
 
       }else{
         financial_html = 'financials.html';
