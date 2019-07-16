@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterProjectReportGroupCtrl', ['$scope', '$route', '$http', '$q', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser','$translate','$filter', function ($scope, $route, $http, $q, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter) {
+	.controller('ClusterProjectReportGroupCtrl', ['$scope', '$route', '$http', '$q', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser','$translate','$filter', 'ngmClusterBeneficiaries', function ($scope, $route, $http, $q, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser, $translate, $filter, ngmClusterBeneficiaries) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -74,7 +74,9 @@ angular.module('ngmReportHub')
 				// add project code to subtitle?
 				var text = $filter('translate')('actual_monthly_beneficiaries_report_for')+' ' + $scope.report.project.project_title
 				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + text : text;
-
+				var nonProjectDates = moment.utc($scope.report.project.project_start_date).startOf('month') > moment.utc($scope.report.definition.reporting_period).startOf('month')
+													 		|| moment.utc($scope.report.project.project_end_date).endOf('month')	< moment.utc($scope.report.definition.reporting_period).startOf('month');
+				var monthlyTitleFormat =  moment.utc( [ $scope.report.definition.report_year, $scope.report.definition.report_month, 1 ] ).format('MMMM, YYYY');
 				// report dashboard model
 				$scope.model = {
 					name: 'cluster_project_report_list',
@@ -142,6 +144,8 @@ angular.module('ngmReportHub')
 								config: {
 									project: $scope.report.project,
 									report: $scope.report.definition,
+									nonProjectDates: nonProjectDates,
+									monthlyTitleFormat: monthlyTitleFormat,
 									// submit
 									submit_update:function( obj, redirect ){
 
@@ -165,9 +169,26 @@ angular.module('ngmReportHub')
 											if ( redirect ) {
 												$location.path( '/cluster/projects/report/' + $route.current.params.project );
 											}
-											
+
 										});
 									},
+
+									// remove report modal
+									removeReportModal: function () {
+										$('#remove-report-modal').openModal({ dismissible: false });
+									},
+
+									// remove report
+									removeReport: function () {
+										ngmClusterBeneficiaries.removeReport($scope.report.project, $scope.report.definition.id, function (err) {
+											if (!err) {
+												$timeout(function () {
+													$location.path('/cluster/projects/report/' + $scope.report.project.id);
+												}, 400);
+											}
+										});
+									},
+
 									templatesUrl: '/scripts/modules/cluster/views/forms/report/',
 									notesUrl: 'notes.html',
 									uploadUrl: 'report-upload.html',

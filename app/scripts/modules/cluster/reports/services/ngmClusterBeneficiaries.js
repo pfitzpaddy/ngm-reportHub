@@ -420,6 +420,26 @@ angular.module( 'ngmReportHub' )
 				});
 			},
 
+			// remove report request
+			removeReport: function (project, report_id, cb) {
+				// update
+				$http({
+					method: 'POST',
+					url: ngmAuth.LOCATION + '/api/cluster/report/delete',
+					data: { id: report_id }
+				}).success(function (result) {
+					if (result.err) {
+						cb(true)
+						Materialize.toast('Error! Something went wrong', 4000, 'error');
+					} else {
+						cb(null)
+						Materialize.toast($filter('translate')('report_removed'), 4000, 'success');
+					}
+				}).error(function (err) {
+					cb(true)
+					Materialize.toast('Error!', 4000, 'error');
+				});
+			},
 
 
 			/* RELICS */
