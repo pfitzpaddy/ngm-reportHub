@@ -537,6 +537,7 @@
 
         "population":"Population",
         "amount":"Amount",
+        "amount_col":"Amount",
         "units":"Units",
         "quantity":"Quantity/Amount",
         "transfers":"Transfers",

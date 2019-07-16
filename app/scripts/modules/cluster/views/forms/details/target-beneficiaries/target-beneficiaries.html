@@ -687,47 +687,6 @@
 								</div>
 
 
-								<!--DELIVERY - MECHANISM FOR all COL Activities -->
-
-								<div class="row" ng-if="project.definition.admin0pcode === 'COL'">
-
-									<!-- mpc_delivery_type_id -->
-									<div class="input-field col s12 m3">
-										<select materialize-select id="ngm-mpc_delivery_type_id-{{ $index }}" 
-															name="mpc_delivery_type_id-{{ $index }}"
-															class="validate"
-															ng-model="beneficiary.mpc_delivery_type_id"
-															ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_delivery_type,
-																						  'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary);
-																						  "
-															ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for 
-																						b in project.lists.mpc_delivery_type"
-															ng-disabled="project.definition.project_status === 'complete' || !beneficiary.beneficiary_type_id">
-											<option value="">{{ 'select' | translate }}</option>
-										</select>
-										<label for="ngm-mpc_delivery_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
-									</div>
-
-									<!-- mpc_mechanism_type_id -->
-									<div class="input-field col s12 m3">
-										<select materialize-select watch id="ngm-mpc_mechanism_type_id-{{ $index }}"
-															name="mpc_mechanism_type_id-{{ $index }}"
-															class="validate"
-															ng-model="beneficiary.mpc_mechanism_type_id"
-															ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_mechanism_type, 'mpc_mechanism_type_id', 'mpc_mechanism_type_name', beneficiary );"
-															ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for 
-																						b in project.lists.mpc_mechanism_type | filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id }"
-															ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id">
-											<option value="">{{ 'select' | translate }}</option>
-										</select>
-										<label for="ngm-mpc_mechanism_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
-									</div>
-
-								</div>
-
-
-
-
 
 
 
