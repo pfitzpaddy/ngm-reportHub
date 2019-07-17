@@ -24,8 +24,7 @@ angular.module( 'ngmReportHub' )
 				'strategic_objective_description',
 				'sector_objective_id',
 				'sector_objective_name',
-				'sector_objective_description',
-				'templatesUrl'
+				'sector_objective_description'
 			],
 
 			defaults: {
@@ -248,7 +247,7 @@ angular.module( 'ngmReportHub' )
 					context_defaults = defaults[ project.definition.admin0pcode ] && defaults[ project.definition.admin0pcode ][ b.cluster_id ] ? defaults[ project.definition.admin0pcode ][ b.cluster_id ] : {}
 					angular.merge( inserted, b, defaults.inputs, context_defaults );
 				}
-				
+
 				// return new beneficiary
 				return inserted;
 			},
@@ -316,7 +315,7 @@ angular.module( 'ngmReportHub' )
 				});
 
 			},
-			
+
 
 
 			/* SHOW AND HIDE FORM INPUTS */
