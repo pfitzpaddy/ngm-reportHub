@@ -24,7 +24,8 @@ angular.module( 'ngmReportHub' )
 				'strategic_objective_description',
 				'sector_objective_id',
 				'sector_objective_name',
-				'sector_objective_description'
+				'sector_objective_description',
+				'templatesUrl'
 			],
 
 			defaults: {
