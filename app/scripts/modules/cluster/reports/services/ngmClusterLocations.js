@@ -81,6 +81,11 @@ angular.module( 'ngmReportHub' )
 				if (project.implementing_partners.length > 0 && length < 1) {
 					inserted.implementing_partners = angular.copy(project.implementing_partners)
 				}
+
+        // set createdAt
+        console.log(inserted.createdAt)
+        inserted.createdAt = new Date().toISOString();
+
         // set targets
         return inserted;
       },

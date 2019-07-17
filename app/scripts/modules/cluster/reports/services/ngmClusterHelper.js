@@ -109,15 +109,14 @@ angular.module( 'ngmReportHub' )
               });
             }
 
-
             // fetch lists for project details
-            if ( project.id ) {
-              angular.forEach( project.target_locations, function( t, i ){
-                if ( t ){
-                  // ngmClusterLocations.getAdminSites( lists, project.admin0pcode, t );
-                }
-              });
-            }
+            // if ( project.id ) {
+            //   angular.forEach( project.target_locations, function( t, i ){
+            //     if ( t ){
+            //       // ngmClusterLocations.getAdminSites( lists, project.admin0pcode, t );
+            //     }
+            //   });
+            // }
 
           }, 1000 );
 
@@ -439,18 +438,6 @@ angular.module( 'ngmReportHub' )
           }
 
           // locations
-          angular.forEach( report.locations[i].trainings, function( training, j ){
-            // report_status
-            training.report_status = report.report_status;
-            // trainees
-            angular.forEach( training.training_participants, function( trainees, k ){
-              // report_status
-              trainees.report_status = report.report_status;
-            });
-
-          });
-
-          // locations
           angular.forEach( report.locations[i].beneficiaries, function( beneficiary, j ){
             // report_status
             beneficiary.report_status = report.report_status;
@@ -459,7 +446,257 @@ angular.module( 'ngmReportHub' )
         });
 
         return report;
-      }
+      },
+
+			// get Menu Country
+			getCountryMenu:function(url){
+				var menu = {
+					'all': {
+            'search': true,
+						'id': 'search-all',
+						'icon': 'location_on',
+						'title': $filter('translate')('country_mayus'),
+						'class': 'teal lighten-1 white-text',
+						'rows': [{
+							'title': 'Afghanistan',
+							'param': 'admin0pcode',
+							'active': 'af',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'emro/af/all/all',
+						}, {
+							'title': 'Bangladesh',
+							'param': 'admin0pcode',
+							'active': 'bd',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'searo/bd/all/all',
+						}, {
+							'title': 'Cox Bazar',
+							'param': 'admin0pcode',
+							'active': 'cb',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'searo/cb/all/all',
+						}, {
+							'title': 'Democratic Republic of Congo',
+							'param': 'admin0pcode',
+							'active': 'cd',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'afro/cd/all/all'
+						}, {
+							'title': 'Ethiopia',
+							'param': 'admin0pcode',
+							'active': 'et',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'afro/et/all/all',
+						}, {
+							'title': 'Somalia',
+							'param': 'admin0pcode',
+							'active': 'so',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'emro/so/all/all',
+						}, {
+							'title': 'South Sudan',
+							'param': 'admin0pcode',
+							'active': 'ss',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'afro/ss/all/all',
+						}, {
+							'title': 'Syria',
+							'param': 'admin0pcode',
+							'active': 'so',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'emro/sy/all/all',
+						}, {
+							'title': 'Ukraine',
+							'param': 'admin0pcode',
+							'active': 'ua',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'euro/ua/all/all',
+						}, {
+							'title': 'Yemen',
+							'param': 'admin0pcode',
+							'active': 'ye',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'emro/ye/all/all',
+						}, {
+							'title': 'Nigeria',
+							'param': 'admin0pcode',
+							'active': 'ng',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'afro/ng/all/all',
+						},
+						{
+							'title': 'Colombia',
+							'param': 'admin0pcode',
+							'active': 'col',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'amer/col/all/all',
+						}]
+					},
+					'afro': {
+            'search': true,
+						'id': 'search-afro',
+						'icon': 'person_pin',
+						'title': $filter('translate')('country_mayus'),
+						'class': 'teal lighten-1 white-text',
+						'rows': [{
+							'title': 'Democratic Republic of Congo',
+							'param': 'admin0pcode',
+							'active': 'cd',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'afro/cd/all/all'
+						}, {
+							'title': 'Ethiopia',
+							'param': 'admin0pcode',
+							'active': 'et',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'afro/et/all/all',
+						}, {
+							'title': 'Nigeria',
+							'param': 'admin0pcode',
+							'active': 'ng',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'afro/ng/all/all',
+						}, {
+							'title': 'South Sudan',
+							'param': 'admin0pcode',
+							'active': 'ss',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'afro/ss/all/all',
+						}]
+					},
+					'emro': {
+            'search': true,
+						'id': 'search-emro',
+						'icon': 'person_pin',
+						'title': $filter('translate')('country_mayus'),
+						'class': 'teal lighten-1 white-text',
+						'rows': [{
+							'title': 'Afghanistan',
+							'param': 'admin0pcode',
+							'active': 'af',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'emro/af/all/all',
+						}, {
+							'title': 'Somalia',
+							'param': 'admin0pcode',
+							'active': 'so',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'emro/so/all/all',
+						}, {
+							'title': 'Syria',
+							'param': 'admin0pcode',
+							'active': 'sy',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'emro/sy/all/all',
+						}, {
+							'title': 'Yemen',
+							'param': 'admin0pcode',
+							'active': 'ye',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'emro/ye/all/all',
+						}]
+					},
+					'searo': {
+            'search': true,
+						'id': 'search-searo',
+						'icon': 'person_pin',
+						'title': $filter('translate')('country_mayus'),
+						'class': 'teal lighten-1 white-text',
+						'rows': [{
+							'title': 'Bangladesh',
+							'param': 'admin0pcode',
+							'active': 'bd',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'searo/bd/all/all',
+						}, {
+							'title': 'Cox Bazar',
+							'param': 'admin0pcode',
+							'active': 'cb',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'searo/cb/all/all',
+						}]
+					},
+					'euro': {
+            'search': true,
+						'id': 'search-euro',
+						'icon': 'person_pin',
+						'title': $filter('translate')('country_mayus'),
+						'class': 'teal lighten-1 white-text',
+						'rows': [{
+							'title': 'Ukraine',
+							'param': 'admin0pcode',
+							'active': 'ua',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'euro/ua/all/all'
+						},]
+					},
+					'amer': {
+            'search': true,
+						'id': 'search-amer',
+						'icon': 'person_pin',
+						'title': $filter('translate')('country_mayus'),
+						'class': 'teal lighten-1 white-text',
+						'rows': [{
+							'title': 'Colombia',
+							'param': 'admin0pcode',
+							'active': 'col',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': url + 'amer/col/all/all'
+						},]
+					}
+				}
+				return menu
+			},
+
+			// get Menu Region 
+			getRegionMenu: function(url){
+				var region = {
+          'search': true,
+					'id': 'search-region',
+					'icon': 'person_pin',
+					'title': $filter('translate')('region'),
+					'class': 'teal lighten-1 white-text',
+					'rows': [{
+						'title': 'HQ',
+						'param': 'adminRpcode',
+						'active': 'all',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': url + '/all/all/all/all',
+					}, {
+						'title': 'AFRO',
+						'param': 'adminRpcode',
+						'active': 'afro',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': url + '/afro/all/all/all'
+					}, {
+						'title': 'AMER',
+						'param': 'adminRpcode',
+						'active': 'amer',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': url + '/amer/all/all/all'
+					}, {
+						'title': 'EMRO',
+						'param': 'adminRpcode',
+						'active': 'emro',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': url + '/emro/all/all/all'
+					}, {
+						'title': 'SEARO',
+						'param': 'adminRpcode',
+						'active': 'searo',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': url + '/searo/all/all/all'
+					}, {
+						'title': 'EURO',
+						'param': 'adminRpcode',
+						'active': 'euro',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': url + '/euro/all/all/all'
+					}
+					]
+				};
+				return region
+			}
 
 		};
 

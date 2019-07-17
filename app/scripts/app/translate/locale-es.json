@@ -63,7 +63,7 @@
     "please_login_or_register_to_continue":"por favor INICIE SESIÓN o REGISTRESE para continuar",
     "please register to continue":"por favor registrese para continuar",
     "login_mayus" : "INICIO DE SESIÓN",
-    "logout_mayus" : "CERRAR SESIÓN", 
+    "logout_mayus" : "CERRAR SESIÓN",
     "my_home" : "MI INICIO",
     "immap_home" : "iMMAP INICIO",
     "my_admin" : "MI ADMIN",
@@ -90,6 +90,7 @@
     "cannot_add_not_ont_the_list":"No se puede agregar, no está en la lista",
           "add_new_project_classification":"Agregar Nueva Clasificación del Proyecto",
                 "project_classifications":"Clasificaciones del Proyecto",
+   "mandatory_for_united_nations_system_agencies":"Mandatorio para agencias del Sistema de Naciones Unidas",
 
 
           "add_new_partner":"Agregar nuevo socio",
@@ -113,7 +114,7 @@
     "new_password":"NUEVA CONTRASEÑA",
     "confirm_password":"CONFIRMAR CONTRASEÑA",
     "update_password":"Actualizar Contraseña",
-    "having_trouble_finding_your_account":"Tienes problema para encontrar tu cuenta ", 
+    "having_trouble_finding_your_account":"Tienes problema para encontrar tu cuenta ",
     "send_me_a_reminder":"Enviarme un Recordatorio",
     "back_to_login":"REGRESAR A INICIO DE SESIÓN",
     "organization_mayus" : "ORGANIZACIÓN",
@@ -192,7 +193,9 @@
        "download_dashboard_as_pdf":"Descargar Dashboard como PDF",
        "download_cluster_contact_list_as_csv":"Descargar Lista de Contactos del Cluster como CSV",
        "for":"para",
-      
+       "5wdashboard":"Dashboard de Actividades",
+       "5W":"Dashboard de Actividades",
+       "5WDASHBOARD_mayus":"Dashboard de Actividades",
        "province":"Departamento",
        "all_provinces":"Todos los Departamentos",
        "all_districts":"Todos los Municipios",
@@ -225,17 +228,16 @@
        "name_mayus":"Nombre",
        "update_photo":"Actualizar Foto",
         "project_details":"Detalles del Proyecto",
-        "project_plan":"Plan del Proyecto",
+        "project_plan":"Proyecto",
         "project_title":"Título del Proyecto",
         "project_code":"Código del Proyecto",
         "no_project_activity_type": "Por favor seleccione las actividades del proyecto (Tipo de Actividad)!",
 
-        "go_to_project_plan":"Ir a Plan del Proyecto",
-        "go_to_monthly_progress":"Ir a Progreso Mensual",
-        "monthly_progress":"Progreso Mensual",
-        "project_documents":"Documentos del Proyecto",
-        "go_to_project_documents":"Ir a Documentos del Proyecto",
-        "go_to_monthly_progress":"Ir a Progreso Mensual",
+        "go_to_project_plan":"Ir a Proyecto",
+        "monthly_progress":"Monitoreo (Beneficiarios)",
+        "project_documents":"Soportes del Proyecto",
+        "go_to_project_documents":"Ir a Soportes del Proyecto",
+        "go_to_monthly_progress":"Ir a Monitoreo (Beneficiarios)",
         "modified":"Modificado",
         "you_have_no_project_documents_yet":"Aún no tienes ducumentos del proyecto",
                 "you_have_no_report_documents_yet":"Aún no tienes documentos del proyecto !",
@@ -248,23 +250,10 @@
                 "copied_beneficiaries":"Beneficiarios Copiados",
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         "start_date":"Fecha de Inicio",
         "end_date":"Fecha de Finalización",
-        "project_budget":"Presupuesto del Proyecto",
-        "project_budget_currency":"Moneda Presupuesto del Proyecto",
+        "project_budget":"Financiamiento Total",
+        "project_budget_currency":"Moneda",
         "select_project_budget_currency":"Seleccionar Moneda del Presupuesto del Proyecto",
         "non_hrp_project":"No es un Proyecto HRP",
         "hrp_project":"Proyecto HRP",
@@ -273,6 +262,10 @@
         "other_activities_in_addition_to":"Otras actividades además de",
         "cash_intended_for_even_if_unrestricted":"Efectivo destinado a (incluso si no está restringido)",
         "project_donor":"Donante del Proyecto",
+        "gender_marker":"Marcador de Género - GAM",
+        "amount_to_be_financed_by_donor":"Monto a financiar por donante",
+
+        "budget_mayus1":"Monto a financiar",
         "list_other_donors":"Lista de Otros Donantes",
         "list_project_partners":"Lista de Socios del Proyecto",
         "project_partners":"Socios del Proyecto",
@@ -301,8 +294,8 @@
          "this_will_affect_any_existing_monthly_beneficiary_reports":"Esto afectará cualquier informe mensual de beneficiarios existente",
          "yes_remove_location":"Si, Eliminar ubicación",
          "back_to_projects":"Volver a Proyectos",
-         "back_to_reports":"Back to Reports",
-         "back_to_location_groups": "Back to Location Groups",
+         "back_to_reports":"Volver a Reportes",
+         "back_to_location_groups": "Volver a Grupo de Ubicaciones",
          "last_updated":"Última Actualización",
          "refresh_data":"Refrescar Datos",
          "project_locations":"UBICACIONES DE PROYECTOS",
@@ -325,10 +318,10 @@
          "select_the_objetives_that_your_project_will_target":"Seleccionar los Objetivos de su proyecto",
          "relates_to":"Relacionado con",
          "there_are_no_strategic_objetives_for":"No hay Objetivos Estratégicos para",
-         "actual_monthly_beneficiaries_report_for":"Actual Reporte Mensual de Beneficiarios para",
-          
-         "actual_monthly_progress_for":"Actual Progreso Mensual para",
-         "cancel_monthly_progress":"Cancelar Progreso Mensual",
+         "actual_monthly_beneficiaries_report_for":"Actual Monitoreo de Beneficiarios para",
+
+         "actual_monthly_progress_for":"Actual Monitoreo (Beneficiarios) para",
+         "cancel_monthly_progress":"Cancelar Monitoreo (Beneficiarios)",
 
 
 
@@ -354,7 +347,7 @@
          "people_in_need_saved":"Personas con Necesidades Guardadas!",
          "project_status_updated":"Estado del Proyecto Actualizado!",
 
-        
+
          "remove_borehole":"Eliminar Pozo",
          "remove_this_borehol_from_your_report":"Eliminar este Pozo de su Reporte",
          "yes_remove_borehole":"Si, Eliminar Pozo",
@@ -362,9 +355,9 @@
          "remove_this_borehole_from_your_monthly_progress":"Eliminar este Pozo de su Progreso Mensual",
 
 
-         
 
-       
+
+
 
         "monthly_notes_&_comments":"Notas Mensuales y Comentarios",
         "save_notes":"Guardar Notas",
@@ -377,18 +370,18 @@
          "download_project_summaries_as_csv":"Descargar Resumen de Proyectos como CSV",
          "reports_todo":"Reportes para Realizar",
          "download_all_report_documents":"Descargar Todos los Documentos del Reporte",
-         "loading_monhtly_progress_report":"Cargando Reporte de Progreso Mensual...",
-         "actual_monthly_progress_report_for":"Actual Reporte de Progreso Mensual para",
+         "loading_monhtly_progress_report":"Cargando Reporte de Monitoreo (Beneficiarios)...",
+         "actual_monthly_progress_report_for":"Actual Reporte de Monitoreo (Beneficiarios) para",
 
 
 
-         "progress_update_todo":"Actualización de Progresos por Realizar",
-         "progress_update_complete":"Actualización de Progresos Completos",
+         "progress_update_todo":"Actualización de Reportes por Realizar",
+         "progress_update_complete":"Actualización de Reportes Completos",
 
          "reports_submitted":"Reportes Presentado",
          "reports_due":"Reportes Pendiente",
-         "reports_total":"Reports Total",
-         "reports_saved":"Reports Salvado",
+         "reports_total":"Total Reportes",
+         "reports_saved":"Reportes Salvados",
          "download_projects_financials_as_csv":"Descargar Proyectos Financieros como CSV",
          "download_beneficiary_data_as_csv":"Descargar Datos de Beneficiarios como CSV",
          "download_stock_data_as_csv":"Descargar Datos de Stock como CSV",
@@ -420,7 +413,7 @@
           "countries_mayus":"Países",
           "reports_completed":"Reportes Completos",
          "organizations":"Organizaciones",
-         "documents":"Documentos",
+         "documents":"Soportes del Proyecto",
           "download_all_document_project":"Descargar toda la documentación del proyecto",
          "file_uploaded":"Archivo cargado!",
                  "file_name":"Nombre del Archivo",
@@ -442,18 +435,19 @@
          "from":"desde",
          "to":"hasta",
          "projects_progress":"Proyectos en Progreso",
-        
-        "activity":"Actividad",
-        "description":"Descripción",
+
+        "activity":"Tipo de Actividad",
+        "description":"Actividad",
         "details":"Detalles",
-        "delivery":"Entrega",
-        "mechanism":"Mecanismo",
+        "delivery":"Modalidad de Transferencia",
+        "mechanism":"Mecanismo de Entrega",
         "package":"Paquete",
         "category":"Categoría",
-        "beneficiary":"Beneficiario",
-        "beneficiary_category":"Categoría",
+        "beneficiary":"Población",
+        "beneficiary_category":"Grupo Étnico",
         "population":"Población",
-        "amount":"Monto",
+        "amount":"Cantidad",
+        "amount_col":"Monto",
         "units":"Unidades",
         "quantity":"Cantidad",
         "households":"Hogares",
@@ -476,6 +470,7 @@
         "male_60_plus":"Hombres 60 años y más",
         "eld_men":"Hombres Mayores",
         "total_male":"Total Hombres",
+        "total_female":"Total Mujeres",
         "total_beneficiaries":"Total Beneficiarios",
 
         "girls":"Niñas",
@@ -486,7 +481,9 @@
         "female_18_59":"Mujeres 18-59 años",
         "female_60_plus":"Mujeres 60 años y más",
         "eld_women":"Mujeres Mayores",
-        
+        "lgbttti_population":"Población LGBTTTI",
+        "population_in_disability":"Población en Discapacidad",
+
         "treatment_same_province":"Tratamiento en la Misma Provincia",
         "edit":"Editar",
         "region":"REGIÓN",
@@ -503,7 +500,7 @@
         "reporter":"Reportero",
         "implementation":"Implementación",
         "implementation_level":"Nivel de Implementación",
-        "type":"Tipo",
+        "type":"Tipo de beneficiario",
          "site_type":"Tipo de Lugar",
 
         "from_list":"Lista de Origenes",
@@ -525,7 +522,7 @@
         "exceed_file_upload_please_remove_one_of_your_file":"Carga de archivo excedida, Por favor, elimine uno de sus archivos",
         "file_too_large_please_remove_the_file":"Archivo muy grande, Por favor elimine el archivo",
         "not_supported_file_type":"Tipo de archivo no permitido !",
- 
+
 
         "re_directing_to_dashboard":"Re-dirigiendo a dashboard...",
         "data_processing_error_please_check_the":"Error en procesamiento de Datos, por favor revise la ",
@@ -535,7 +532,7 @@
 
 
         "mark_project_as_complete":"Marcar Proyecto como COMPLETO",
-        "are_you_sure_you_want_to_mark_this_project_as_complete":"Está seguro que quiere marcar este PROYECTO como 'COMPLETO'", 
+        "are_you_sure_you_want_to_mark_this_project_as_complete":"Está seguro que quiere marcar este PROYECTO como 'COMPLETO'",
         "yes_project_complete":"Si, proyecto completo",
         "delete_project":"Eliminar Proyecto",
         "are_you_sure_you_want_to_delete_this_project_and_all_its_associated_data":"Está seguro que quiere ELIMINAR este PROYECTO y todos los datos asociados",
@@ -547,9 +544,12 @@
         "yes_move_project_to_active":"Si, mover proyecto a activo",
         "financial_reports":"Reportes Financieros",
         "monthly_reports":"Reportes Mensuales",
-        "project_budget_progress":"Progreso Presupuesto del Proyecto",
-        "add_new_row_of_financial_details_to_your_project_for_each_payment_recieved":"Agregar una NUEVA FILA de detalles financieros a su proyecto por CADA PAGO recibido",
+        "project_budget_progress":"Reporte del Financiamiento",
+        "add_new_row_of_financial_details_to_your_project_for_each_payment_recieved_OLD":"Agregar una NUEVA FILA de detalles financieros a su proyecto por CADA PAGO recibido",
+         "add_new_row_of_financial_details_to_your_project_for_each_payment_recieved":"En esta sección usted podrá diligenciar el monto recibido y el monto ejecutado. El monto recibido sedebe reportar cada vez que la organización recibe una parte o la totalidad del financiamiento delproyecto. El monto ejecutado hace referencia al gasto del monto recibido, y está relacionado con laejecución de las actividades del proyecto. Agregue una nueva fila de detalles financieros a su proyecto,por cada TIPO DE MONTO.",
+
         "donor":"Donante",
+        "component_response":"Componente de Respuesta",
         "type_donor_name":"Ingrese el nombre del Donante",
          "type_partner_name":"Ingrese el nombre del Socio",
 
@@ -560,12 +560,10 @@
 
 
          "project_deleted":"Proyecto Eliminado",
-        "activity":"Actividad",
         "grant":"Donante",
-        "amount":"Monto",
         "currency":"Moneda",
         "funds":"Fondos",
-        "modality":"Modalidad",
+        "modality":"Tipo de Financiamiento",
         "programming":"Programación",
         "recieved":"Recibido",
         "multi_year_funding":"Financiación Munti-anual",
@@ -582,13 +580,13 @@
         "remove_location_groups": "Remove Location Groups",
         "add_location_groups_message": "Split Target Locations into Location Groups to make monthly reporting easier",
         "remove_location_groups_message": "Are you sure you want to remove Location Groups from your project?",
-        
+
         "remarks":"Observaciones",
         "remarks_go_here": "Los comentarios van aquí ...",
         "add_partial_kits": "Agregar Kits Parciales ",
         "add_kit_details":"Agregar Detalles del Kit",
         "add_beneficiaries":"Agregar Beneficiarios",
-        "monthly_beneficiaries_report_for":"Reporte Mensual para Beneficiarios",
+        "monthly_beneficiaries_report_for":"Monitoreo para Beneficiarios",
         "reports":"Reportes",
         "select":"Seleccionar...",
         "note":"Nota",
@@ -607,18 +605,21 @@
 
         "remove_beneficiary":"Eliminar Beneficiario",
         "remove_this_beneficiary_from_your_report":"Eliminar este Beneficiario de su Reporte",
-        "yes_remove_beneficiary":"Si, Eliminar Beneficiario",
+				"yes_remove_beneficiary":"Si, Eliminar Beneficiario",
+				"yes_remove_report":"Si, Eliminar Reporte",
+				"report_removed":"Reporte Eliminado!",
+
         "remove_borehole":"Eliminar Pozo",
         "remove_this_borehole_from_your_report":"Eliminar este Pozo de su Reporte",
         "yes_remove_borehole":"Si, Eliminar Pozo",
-       
+
         "remove_reticulation":"Eliminar Reticulación",
         "remove_this_reticulation_from_your_report":"Eliminar esta Reticulación de su Reporte",
 
         "remove_this_reticulation_from_your_monthly_progress":"Eliminar esta Reticulación de su Progreso Mensual",
 
         "yes_remove_reticulation":"Si, Eliminar Reticulación",
-       
+
         "remove_service":"Eliminar Servicio",
         "remove_this_Service_from_your_report":"Eliminar este Servicio de su Reporte",
         "yes_remove_service":"Si, Eliminar Servicio",
@@ -635,7 +636,7 @@
         "remove_latrine":"Eliminar Letrina",
         "remove_this_latrine_from_your_report":"Eliminar esta Letrina de su Reporte",
         "yes_remove_letrina":"Si, Eliminar Letrina",
-       
+
         "remove_this_latrine_from_your_monthly_progress":"Eliminar esta Letrina de su Progreso Mensual",
 
 
@@ -696,11 +697,13 @@
         "submit_monthly_report_for":"Enviar Reporte Mensual para",
         "submit_monthly_report_for":"Enviar Reporte Mensual para",
 
-        "submit_monthly_progress_for":"Enviar Progreso Mensual para ",
+        "submit_monthly_progress_for":"Enviar Monitoreo (Beneficiarios) para ",
         "back_to_project_progress":"Volver a Progreso del Proyecto",
-        "submit_monthly_progress":"Enviar Progreso Mensual",
+				"submit_monthly_progress":"Enviar Monitoreo (Beneficiarios)",
 
-
+				"remove_report":"Eliminar Reporte",
+				"remove_report_for":"Eliminar Reporte para",
+				"all_records_will_be_destroyed":"Todos los registros serán destruidos,",
 
         "save_monthly_report":"Guardar Reporte Mensual",
         "do_you_want_to_save":"Quieres Guardar",
@@ -725,7 +728,7 @@
 
          "project_budget_item_removed":"Ítem de Presupuesto del Proyecto Eliminado",
          "project_budget_item_added":"Ítem de Presupuesto del Proyecto Agregado",
-         "all_activities":"Todas las Actividades", 
+         "all_activities":"Todas las Actividades",
           "non_cash":"No-Efectivo",
           "financial":"Financiero",
           "restricted_cash":"Dinero Restringido",
@@ -734,6 +737,9 @@
           "cash":"Efectivo",
           "bonuses":"Bonos",
           "technical_response":"Respuesta Técnica",
+          "received":"Recibido",
+          "excecuted":"Ejecutado",
+          "date":"Fecha",
         "remove_beneficiary":"Eliminar Beneficiario",
         "please_enter_the_amount_per":"Por favor ingrese la cantidad por",
         "household_hh":"GRUPOFAMILIAR",
@@ -747,8 +753,8 @@
                 "month":"mes",
                 "add_trainings":"Agregar Practicantes",
                 "add_location":"Agregar Ubicación",
-        "return_to_monthly_progress_list":"Regresar a Lista de Progreso Mensual",
-        "remove_this_beneficiary_from_your_monthly_progress":"Eliminar este Beneficiario de su Progreso Mensual",
+        "return_to_monthly_progress_list":"Regresar a Lista de Monitoreo (Beneficiarios)",
+        "remove_this_beneficiary_from_your_monthly_progress":"Eliminar este Beneficiario de su Monitoreo ",
 
 
         "desactive_user":"Desactivar Usuario",
@@ -789,6 +795,7 @@
         "saved_mayus1":"Guardado",
         "save_failed_the_project_contains_error":"Guardado fallido! El proyecto contiene errores",
         "project_contains_errors":"El Proyecto contiene errores!",
+        "beneficiaries_contains_errors":"El formulario de beneficiarios contiene errores.!",
 
         "project_created":"Projecto Creado",
         "has_been_saved":"ha sido guardado",
@@ -877,7 +884,6 @@
          "details":"Detalles",
          "in_the_email_please_include_the_details_and_a_description_as_listed_below":"En el correo electrónico por favor incluya los detalles y una descripción que se enumeran a continuación",
          "field":"Campo",
-         "description":"Descripción",
          "the_name_of_the_new_feature_ie_new_dashboard_filter":"Elnombre de la nueva característica. Por ejemplo: 'Nuevo Filtro de Dashboard'",
          "the_purpose_of_the_new_feature_ie_to_filter_by_donor_organization":"El propósito de la nueva característica. Por ejemplo: 'Filtrar por donante-organización'",
          "a_description_of_the_new_feature_ie_have_a_filter_menu_on_the_dashboard":"Una descripción de la nueva característica. Por ejemplo: 'Tener un filtro de menu en el dashboard'",

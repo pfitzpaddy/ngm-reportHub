@@ -53,12 +53,9 @@
 				          <label for="ngm-project-notes">{{'monthly_notes_&_comments' | translate}}</label>
 				        </div>
 
-				        <button class="btn" 
+				        <button class="btn" style="margin:10px 10px;"
 				        				ng-if="project.report.report_status !== 'complete'"
-				        				ng-disabled="!project.report.notes ||
-				        											!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations ) ||
-				        												!ngmClusterTrainings.trainingFormComplete( project.report.locations )"
-				        				ng-click="project.save( false )" style="margin:10px 10px;">
+				        				ng-click="project.validateBeneficiariesDetailsForm( false, false )">
 				        	<i class="material-icons left">save</i>{{'save_notes' |translate}}
 				        </button>
 

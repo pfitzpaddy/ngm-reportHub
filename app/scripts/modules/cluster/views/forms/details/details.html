@@ -59,7 +59,7 @@
 												ng-model="project.definition.project_title"
 												ng-disabled="project.definition.project_status === 'complete'"
 												required>
-								  <label for="ngm-project-name" class="error">{{'project_title' | translate}} *</label>
+								  <label for="ngm-project-name">{{'project_title' | translate}} *</label>
 								</div>
 
 								<!-- input-date directive -->
@@ -128,6 +128,15 @@
 
 							</div>
 
+							<div class="row" ng-if="project.definition.admin0pcode === 'COL'">
+								<div class="input-field col s12 m3">
+								  <input type="text" class="validate"
+								  	ng-model="project.definition.project_gender_marker"
+								  	ng-disabled="project.definition.project_status === 'complete'">
+								  <label for="ngm-project_gender_marker"> {{'gender_marker' | translate}}</label>
+								</div>
+							</div>
+
 							<!-- HRP / JRP -->
 							<div class="row" ng-if="project.definition.admin0pcode !== 'COL'">
 
@@ -171,6 +180,13 @@
 
 
 
+							</div>
+
+							<!--RESPONSE COMPONENTS COL-->
+
+								<div class="row" ng-if="project.definition.admin0pcode ==='COL'" style="margin-bottom:50px;" ng-include="project.responseComponentsCOL">
+
+									
 							</div>
 
 							<!-- ACBAR partners -->
@@ -330,28 +346,16 @@
 
 
 							<!-- COL project donor  -->
-							<div class="row" ng-if="project.definition.admin0pcode === 'COL'"  style="padding-bottom:5px;">
-								<div class="input-field col s12 m12" style="padding-bottom:5px;padding-left: 20px;">
-									<label for="ngm-project_donor">{{'project_donor' | translate}} *</label>
-									<div class="padding-top-35"></div>
-									<md-contact-chips class="ngm-project_donor_select"
-									        ng-model="project.definition.project_donor"
-									        ng-change="project.afterSelectItem(project.definition.project_donor)"
-									        md-require-match="true"
-									        md-contacts="project.searchDonor($query)"
-									        md-contact-name="project_donor_name"
-									        md-require-match="true"
-									        placeholder="{{'type_donor_name'|translate}}"
-									        secondary-placeholder="{{'add_another_donor'|translate}}"
-									        input-aria-label="Intended Recipients">
-									 </md-contact-chips>
-								</div>
-							</div>
+							
+						<div class="row" ng-if="project.definition.admin0pcode === 'COL'" ng-include="project.projectDonorCOL" style="margin-top:20px">
+						
+						</div>
+
 							
 							<!-- other donors -->
-							<div class="row">
+						<div class="row">
 								<br/>
-				        <div class="input-field col s6" style="padding-left: 20px;"
+				         <div class="input-field col s6" style="padding-left: 20px;"
 				        			ng-show="project.definition.project_donor_check.other">
 				          <input id="ngm-project-project_donor_other" type="text"
 													ng-model="project.definition.project_donor_other"

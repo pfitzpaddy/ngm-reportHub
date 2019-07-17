@@ -39,9 +39,11 @@ angular.module( 'ngmReportHub' )
         men: 0,
         women: 0,
         elderly_men: 0,
-        elderly_women: 0
+        elderly_women: 0,
+        total_beneficiaries: 0
       },
       ratios: {
+        sessions: 10,
         households: 4.34,
         boys: 0.275,
         girls: 0.267,
@@ -51,36 +53,59 @@ angular.module( 'ngmReportHub' )
         elderly_women: 0.019
       },
 
-      // set total_beneficiaries equal to units
-      setBeneficiariesByUnits: function ( beneficiary ) {
-        // beneficiary
-        if ( beneficiary.units && beneficiary.activity_description_id && 
-              ( beneficiary.activity_description_id === 'live_deliveries_in_health_facilities' ||
-                beneficiary.activity_description_id === 'stillbirths_in_health_facilities' || 
-                beneficiary.activity_description_id === 'employ_healthcare_workers_at_ngo_health_facilities' ) ) {
-          beneficiary.total_beneficiaries = beneficiary.units;
+      // setBeneficiary
+      setBeneficiary: function( unit, beneficiary ) {
+
+        // fss
+        if ( beneficiary[ unit ] && beneficiary.cluster_id === 'fss' ) {
+          ngmCbBeneficiaries.setSadd( beneficiary[ unit ], beneficiary );
         }
+
+        // health
+        if ( beneficiary[ unit ] && beneficiary.cluster_id === 'health' ) {
+          
+          // beneficiary 
+          if ( beneficiary[ unit ] && beneficiary.activity_description_id && 
+                beneficiary.activity_type_id === 'trainings_for_health_care_workers' ) {
+            beneficiary.total_beneficiaries = beneficiary[ unit ];
+          }
+          
+          // beneficiary  >5 female
+          if ( beneficiary[ unit ] && beneficiary.activity_description_id && 
+                ( beneficiary.activity_description_id === 'live_deliveries_in_health_facilities' ||
+                  beneficiary.activity_description_id === 'stillbirths_in_health_facilities' ) ) {
+            beneficiary.women = beneficiary[ unit ];
+            beneficiary.total_beneficiaries = beneficiary[ unit ];
+          }
+          
+          // chw_household_visits SADD
+          if ( beneficiary[ unit ] && beneficiary.activity_description_id && 
+                ( beneficiary.activity_description_id === 'chw_household_visits' ) ) {
+            ngmCbBeneficiaries.setSadd( beneficiary[ unit ], beneficiary );
+          }
+
+          // chw_community_sessions sessions * ngmCbBeneficiaries.ratios
+          if ( beneficiary[ unit ] && beneficiary.activity_description_id && 
+                ( beneficiary.activity_description_id === 'chw_community_sessions' ) ) {
+            beneficiary.total_beneficiaries = beneficiary[ unit ] * ngmCbBeneficiaries.ratios.sessions;
+          }
+
+        }
+
+        console.log( beneficiary );
+
       },
 
-      // calculate SADD via HHs
-      setSadd: function ( beneficiary ) {
-
-        // beneficiary
-        if ( !beneficiary.households && beneficiary.cluster_id && beneficiary.cluster_id === 'fss' ) {
-          beneficiary = angular.merge( beneficiary, ngmCbBeneficiaries.defaults );
-        }
-
-        // if households
-        if ( beneficiary.households && beneficiary.cluster_id && beneficiary.cluster_id === 'fss' ) {
-          var popn = beneficiary.households * ngmCbBeneficiaries.ratios.households;
-          beneficiary.boys = Math.round( popn * ngmCbBeneficiaries.ratios.boys );
-          beneficiary.girls = Math.round( popn * ngmCbBeneficiaries.ratios.girls );
-          beneficiary.men = Math.round( popn * ngmCbBeneficiaries.ratios.men );
-          beneficiary.women = Math.round( popn * ngmCbBeneficiaries.ratios.women );
-          beneficiary.elderly_women = Math.round( popn * ngmCbBeneficiaries.ratios.elderly_men );
-          beneficiary.elderly_men = Math.round( popn * ngmCbBeneficiaries.ratios.elderly_women );
-        }
-
+      // SADD breakdown :'(
+      setSadd: function( multiplier, beneficiary ) {
+        var popn = multiplier * ngmCbBeneficiaries.ratios.households;
+        beneficiary.boys = Math.round( popn * ngmCbBeneficiaries.ratios.boys );
+        beneficiary.girls = Math.round( popn * ngmCbBeneficiaries.ratios.girls );
+        beneficiary.men = Math.round( popn * ngmCbBeneficiaries.ratios.men );
+        beneficiary.women = Math.round( popn * ngmCbBeneficiaries.ratios.women );
+        beneficiary.elderly_women = Math.round( popn * ngmCbBeneficiaries.ratios.elderly_men );
+        beneficiary.elderly_men = Math.round( popn * ngmCbBeneficiaries.ratios.elderly_women );
+        beneficiary.total_beneficiaries = Math.round( popn );
       }
 
     }

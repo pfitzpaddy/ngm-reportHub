@@ -116,7 +116,7 @@ angular.module('ngmReportHub')
 									updateOrgUser: (function () {
 										var clusterDisabled = true;
 										if ((ngmAuth.canDo('EDIT_USER_ORG', {
-
+																admin0pcode: user.admin0pcode
 											}))) {
 											clusterDisabled = false;
 										}
