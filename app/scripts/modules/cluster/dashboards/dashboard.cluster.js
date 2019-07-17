@@ -77,6 +77,7 @@ angular.module('ngmReportHub')
 				menu_items: ngmAuth.getMenuParams('DASHBOARD'),
 
 				menu: [{
+					'search': true,
 					'id': 'search-region',
 					'icon': 'person_pin',
 					'title': $filter('translate')('region'),
@@ -351,7 +352,8 @@ angular.module('ngmReportHub')
 
 							var menu = {
 								'afro': {
-									'id': 'search-country',
+									'search': true,
+									'id': 'search-afro',
 									'icon': 'person_pin',
 									'title': $filter('translate')('country'),
 									'class': 'teal lighten-1 white-text',
@@ -382,7 +384,8 @@ angular.module('ngmReportHub')
 									}]
 								},
 								'emro': {
-									'id': 'search-country',
+									'search': true,
+									'id': 'search-emro',
 									'icon': 'person_pin',
 									'title': $filter('translate')('country'),
 									'class': 'teal lighten-1 white-text',
@@ -413,7 +416,8 @@ angular.module('ngmReportHub')
 									}]
 								},
 								'searo': {
-									'id': 'search-country',
+									'search': true,
+									'id': 'search-searo',
 									'icon': 'person_pin',
 									'title': $filter('translate')('country'),
 									'class': 'teal lighten-1 white-text',
@@ -432,7 +436,8 @@ angular.module('ngmReportHub')
 									}]
 								},
 								'amer': {
-									'id': 'search-country',
+									'search': true,
+									'id': 'search-amer',
 									'icon': 'person_pin',
 									'title': $filter('translate')('country'),
 

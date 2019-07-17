@@ -225,7 +225,8 @@ angular.module( 'ngmReportHub' )
 						});
 					})
 					orgMenu = {
-						'id': 'search-sector',
+						'search': true,
+						'id': 'search-org',
 						'icon': 'people',
 						'title': 'Organization',
 						'class': 'teal lighten-1 white-text',
@@ -284,7 +285,7 @@ angular.module( 'ngmReportHub' )
 							});
 						});
 						var cluster = {
-							// 'search': true,
+							'search': true,
 							'id': 'search-sector',
 							'icon': 'camera',
 							'title': 'Sector',

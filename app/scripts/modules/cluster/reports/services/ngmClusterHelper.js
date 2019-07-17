@@ -452,7 +452,8 @@ angular.module( 'ngmReportHub' )
 			getCountryMenu:function(url){
 				var menu = {
 					'all': {
-						'id': 'search-country',
+            'search': true,
+						'id': 'search-all',
 						'icon': 'location_on',
 						'title': $filter('translate')('country_mayus'),
 						'class': 'teal lighten-1 white-text',
@@ -532,7 +533,8 @@ angular.module( 'ngmReportHub' )
 						}]
 					},
 					'afro': {
-						'id': 'search-country',
+            'search': true,
+						'id': 'search-afro',
 						'icon': 'person_pin',
 						'title': $filter('translate')('country_mayus'),
 						'class': 'teal lighten-1 white-text',
@@ -563,7 +565,8 @@ angular.module( 'ngmReportHub' )
 						}]
 					},
 					'emro': {
-						'id': 'search-country',
+            'search': true,
+						'id': 'search-emro',
 						'icon': 'person_pin',
 						'title': $filter('translate')('country_mayus'),
 						'class': 'teal lighten-1 white-text',
@@ -594,7 +597,8 @@ angular.module( 'ngmReportHub' )
 						}]
 					},
 					'searo': {
-						'id': 'search-country',
+            'search': true,
+						'id': 'search-searo',
 						'icon': 'person_pin',
 						'title': $filter('translate')('country_mayus'),
 						'class': 'teal lighten-1 white-text',
@@ -613,7 +617,8 @@ angular.module( 'ngmReportHub' )
 						}]
 					},
 					'euro': {
-						'id': 'search-country',
+            'search': true,
+						'id': 'search-euro',
 						'icon': 'person_pin',
 						'title': $filter('translate')('country_mayus'),
 						'class': 'teal lighten-1 white-text',
@@ -626,7 +631,8 @@ angular.module( 'ngmReportHub' )
 						},]
 					},
 					'amer': {
-						'id': 'search-country',
+            'search': true,
+						'id': 'search-amer',
 						'icon': 'person_pin',
 						'title': $filter('translate')('country_mayus'),
 						'class': 'teal lighten-1 white-text',
@@ -645,6 +651,7 @@ angular.module( 'ngmReportHub' )
 			// get Menu Region 
 			getRegionMenu: function(url){
 				var region = {
+          'search': true,
 					'id': 'search-region',
 					'icon': 'person_pin',
 					'title': $filter('translate')('region'),
