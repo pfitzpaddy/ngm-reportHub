@@ -116,6 +116,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['organization_tag', 'admin0pcode', 'adminRpcode'],
 			TEAM_RESTRICTED: [ 'admin0pcode', 'organization_tag' ],
 			TEAM_MENU: [ 'cluster_id', 'report_id' ],
+			PROJECT_RESTRICTED: ['adminRpcode','admin0pcode', 'organization_tag'],
+			PROJECT_MENU: ['cluster_id'],
 			VALIDATE: false,
 			LEVEL: 1,
 			DESCRIPTION: 'The USER can add, edit and update reports for your Organization'
@@ -139,6 +141,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['organization_tag', 'admin0pcode', 'adminRpcode'],
 			TEAM_RESTRICTED: [ 'admin0pcode', 'organization_tag' ],
 			TEAM_MENU: [ 'cluster_id' ],
+			PROJECT_RESTRICTED: ['adminRpcode','admin0pcode', 'organization_tag'],
+			PROJECT_MENU: ['cluster_id'],
 			VALIDATE: false,
 			LEVEL: 2,
 			DESCRIPTION: 'The ORG role is to manage the USERS of your Organization'
@@ -162,6 +166,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['cluster_id', 'admin0pcode', 'adminRpcode'],
 			TEAM_RESTRICTED: [ 'admin0pcode', 'cluster_id' ],
 			TEAM_MENU: [ 'organization_tag' ],
+			PROJECT_RESTRICTED: ['adminRpcode','admin0pcode', 'cluster_id' ],
+			PROJECT_MENU: ['organization_tag'],
 			VALIDATE: true,
 			LEVEL: 3,
 			DESCRIPTION: 'The CLUSTER role is to manage the partners and projects of your Sector'
@@ -185,6 +191,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['admin0pcode', 'adminRpcode'],
 			TEAM_RESTRICTED: [ 'admin0pcode' ],
 			TEAM_MENU: [ 'cluster_id', 'organization_tag' ],
+			PROJECT_RESTRICTED: ['adminRpcode','admin0pcode'],
+			PROJECT_MENU: ['cluster_id', 'organization_tag'],
 			VALIDATE: true,
 			LEVEL: 4,
 			DESCRIPTION: 'The COUNTRY role acts as an observer and can view (but not edit) all Sectors of your COUNTRY'
@@ -208,6 +216,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['admin0pcode', 'adminRpcode'],
 			TEAM_RESTRICTED: [ 'admin0pcode' ],
 			TEAM_MENU: [ 'cluster_id', 'organization_tag' ],
+			PROJECT_RESTRICTED: ['adminRpcode','admin0pcode'],
+			PROJECT_MENU: ['cluster_id', 'organization_tag'],
 			VALIDATE: false,
 			LEVEL: 4,
 			DESCRIPTION: 'The COUNTRY_ADMIN manages the partners and projects of your COUNTRY'
@@ -230,6 +240,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['organization_tag', 'adminRpcode'],
 			TEAM_RESTRICTED: [ 'adminRpcode', 'organization_tag' ],
 			TEAM_MENU: [ 'admin0pcode', 'cluster_id' ],
+			PROJECT_RESTRICTED: ['adminRpcode', 'organization_tag'],
+			PROJECT_MENU: ['admin0pcode', 'cluster_id'],
 			VALIDATE: false,
 			LEVEL: 5,
 			DESCRIPTION: 'The REGION_ORG role can view projects in your Region for your Organization'
@@ -252,6 +264,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['adminRpcode'],
 			TEAM_RESTRICTED: [ 'adminRpcode' ],
 			TEAM_MENU: [ 'admin0pcode', 'cluster_id', 'organization_tag' ],
+			PROJECT_RESTRICTED: ['adminRpcode'],
+			PROJECT_MENU: ['admin0pcode', 'cluster_id', 'organization_tag'],
 			VALIDATE: false,
 			LEVEL: 6,
 			DESCRIPTION: 'The REGION role can view projects in your Region for all Sectors'
@@ -274,6 +288,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: ['organization_tag'],
 			TEAM_RESTRICTED: [ 'organization_tag' ],
 			TEAM_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id' ],
+			PROJECT_RESTRICTED: ['organization_tag'],
+			PROJECT_MENU: ['adminRpcode', 'admin0pcode', 'cluster_id'],
 			VALIDATE: false,
 			LEVEL: 7,
 			DESCRIPTION: 'The HQ_ORG role can view projects Globally for your Organisation'
@@ -296,6 +312,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: [],
 			TEAM_RESTRICTED: [],
 			TEAM_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'organization_tag' ],
+			PROJECT_RESTRICTED: [],
+			PROJECT_MENU: ['adminRpcode', 'admin0pcode', 'cluster_id', 'organization_tag'],
 			VALIDATE: false,
 			LEVEL: 8,
 			DESCRIPTION: 'The HQ role can view projects Globally for your all Sectors'
@@ -319,6 +337,8 @@ angular.module('ngmReportHub')
 			DASHBOARD_DOWNLOAD_RESTRICTED: [],
 			TEAM_RESTRICTED: [],
 			TEAM_MENU: [ 'adminRpcode', 'admin0pcode', 'cluster_id', 'organization_tag' ],
+			PROJECT_RESTRICTED: [],
+			PROJECT_MENU: ['adminRpcode', 'admin0pcode', 'cluster_id', 'organization_tag'],
 			VALIDATE: true,
 			LEVEL: 9,
 			DESCRIPTION: 'Beware, here be dragons!'

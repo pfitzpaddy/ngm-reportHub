@@ -172,29 +172,54 @@ angular
 			})
 
 			// project list
-			.when( '/cluster/projects', {
-				redirectTo: '/cluster/projects/all'
+			// .when( '/cluster/projects', {
+			// 	redirectTo: '/cluster/projects/all'
+			// })
+			// // project list
+			// .when( '/cluster/projects/:cluster_id', {
+			// 	templateUrl: '/views/app/dashboard.html',
+			// 	controller: 'ClusterProjectProjectsCtrl',
+			// 	resolve: {
+			// 		access: [ 'ngmAuth', function(ngmAuth) { 
+			// 			return ngmAuth.isAuthenticated();
+			// 		}],
+			// 	}
+			// })
+			// // project organization
+			// .when( '/cluster/projects/organization/:organization_id', {
+			// 	redirectTo: '/cluster/projects/organization/:organization_id/all'
+			// })
+			// // project organization
+			// .when( '/cluster/projects/organization/:organization_id/:cluster_id', {				
+			// 	templateUrl: '/views/app/dashboard.html',
+			// 	controller: 'ClusterProjectProjectsCtrl',
+			// 	resolve: {
+			// 		access: [ 'ngmAuth', function( ngmAuth ) {
+			// 			return ngmAuth.isAuthenticated();
+			// 		}],
+			// 	}
+			// })
+			.when('/cluster/projects', {
+				resolve: {
+					access: ['$location', 'ngmUser', 'ngmAuth', function ($location, ngmUser, ngmAuth) {
+						
+						// redirect to user init route
+						const userInitRouteParams = ngmAuth.getRouteParams('PROJECT');						
+						const user = ngmUser.get();
+						const adminRpcode = userInitRouteParams.includes('adminRpcode') && user && user.adminRpcode ? user.adminRpcode.toLowerCase() : 'all';
+						const admin0pcode = userInitRouteParams.includes('admin0pcode') && user && user.admin0pcode ? user.admin0pcode.toLowerCase() : 'all';
+						const cluster_id = userInitRouteParams.includes('cluster_id') && user && user.cluster_id ? user.cluster_id.toLowerCase() : 'all';
+						const organization_tag = userInitRouteParams.includes('organization_tag') && user && user.organization_tag ? user.organization_tag.toLowerCase() : 'all';
+						const url = '/cluster/projects/' + adminRpcode + '/' + admin0pcode + '/' + organization_tag + '/' + cluster_id ;
+						$location.path(url);
+					}]
+				},
 			})
-			// project list
-			.when( '/cluster/projects/:cluster_id', {
+			.when('/cluster/projects/:adminRpcode/:admin0pcode/:organization_tag/:cluster_id', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterProjectProjectsCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
-						return ngmAuth.isAuthenticated();
-					}],
-				}
-			})
-			// project organization
-			.when( '/cluster/projects/organization/:organization_id', {
-				redirectTo: '/cluster/projects/organization/:organization_id/all'
-			})
-			// project organization
-			.when( '/cluster/projects/organization/:organization_id/:cluster_id', {				
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'ClusterProjectProjectsCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function( ngmAuth ) {
+					access: ['ngmAuth', function (ngmAuth) {
 						return ngmAuth.isAuthenticated();
 					}],
 				}
