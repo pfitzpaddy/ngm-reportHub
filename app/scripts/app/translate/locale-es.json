@@ -192,7 +192,9 @@
        "download_dashboard_as_pdf":"Descargar Dashboard como PDF",
        "download_cluster_contact_list_as_csv":"Descargar Lista de Contactos del Cluster como CSV",
        "for":"para",
-      
+        "4W":"Dashboard de Proyectos",
+        "4WDASHBOARD":"Dashboard de Proyectos",
+
        "province":"Departamento",
        "all_provinces":"Todos los Departamentos",
        "all_districts":"Todos los Municipios",
