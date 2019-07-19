@@ -731,7 +731,7 @@ angular.module('ngmReportHub')
 						$scope.dashboard.activity_filename = '';
 					}*/
 
-					$scope.dashboard.beneficiaries_row = [
+					$scope.dashboard.beneficiaries_row = [ 
 					
 					{
 						styleClass: 's12 m12 l6',
