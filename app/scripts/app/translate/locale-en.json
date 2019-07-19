@@ -19,7 +19,7 @@
        "yes_remove_this_file":"Yes, Remove this file!",
        "click_upload_document_to_upload_document_of_your_project":"Click UPLOAD DOCUMENT  to upload document of your PROJECT",
        "upload_document":"Upload Document",
-       "upload_documents":"Upload Documents", 
+       "upload_documents":"Upload Documents",
        "filename":"Filename",
        "owner":"Owner",
        "created_at":"Created at",
@@ -71,8 +71,7 @@
       "add_new_project_classification":"Add new Project Classification",
       "add_new_partner":"Add new partner",
       "project_classifications":"Project Classifications",
-
-
+      "mandatory_for_united_nations_system_agencies":"Mandatory for United Nations System agencies",
 
        "username_mayus" : "USERNAME",
        "password_mayus" : "PASSWORD",
@@ -83,7 +82,7 @@
        "please_check_your_ReportHub_email_account_to_reset_your_password":"Please check your ReportHub email account to reset your password",
        "please_check_your":"Please check your",
        "email_account_to_reset_your_password":"email account to reset your password",
-   
+
        "the_email_will_contain_a_secure_link_to_reset_your_password_so_you_can_close_this_window.":"The email will contain a secure link to reset your password, so you can close this window.",
        "reset_password":"RESET PASSWORD",
        "passwords_do_not_match":"Passwords do not match",
@@ -91,7 +90,7 @@
        "confirm_password":"CONFIRM PASSWORD",
        "update_password":"Update Password",
        "back_to_login":"BACK TO LOGIN",
-       "having_trouble_finding_your_account":"Having trouble finding your account", 
+       "having_trouble_finding_your_account":"Having trouble finding your account",
        "send_me_a_reminder":"Send Me a Reminder",
        "organization_mayus" : "ORGANIZATION",
        "organization" : "Organization",
@@ -128,7 +127,7 @@
        "role":"Role",
        "editrole":"Edit Role",
        "manage_user":"MANAGE USER",
-      
+
        "full_name" : "Full Name",
        "position" : "Position",
        "phone" : "Phone",
@@ -165,6 +164,10 @@
        "for":"for",
        "4W":"Projects Dashboard",
        "4WDASHBOARD":"PROJECTS DASHBOARD", 
+              "5wdashboard":"5W Dashboard",
+              "5W":"5W",
+              "5WDASHBOARD_mayus":"5W DASHBOARD",
+
        "province":"Province",
        "all_provinces":"All Provinces",
        "district":"District",
@@ -233,8 +236,14 @@
         "other_implementing_partners":"Implementing Partners",
         "other_activities_in_addition_to":"Other activities in addition to",
         "cash_intended_for_even_if_unrestricted":"Cash intended for (even if unrestricted)",
+        "component_response":"Response Component",
+
         "project_donor":"Project Donor",
         "donors":"Donors",
+        "gender_marker":"Gender Marker - GAM",
+        "amount_to_be_financed_by_donor":"Amount to be financed by donor",
+                "budget_mayus1":"Budget",
+
         "list_other_donors":"List Other Donors",
         "list_project_partners":"List Project Partners",
         "project_partners":"Project Partners",
@@ -291,7 +300,7 @@
         "select_the_objetives_that_your_project_will_target":"Select the Objectives that your project will",
         "relates_to":"Relates to",
         "there_are_no_strategic_objetives_for":"There are no Strategic Objectives for",
-       
+
         "actual_monthly_beneficiaries_report_for":"Actual Monthly Beneficiaries Report for",
 
         "actual_monthly_progress_for":"Actual Monthly Progress for",
@@ -318,8 +327,12 @@
          "cash":"Cash",
          "bonuses":"Bonuses",
          "technical_response":"Technical Response",
+         "received":"Received",
+         "excecuted":"Excecuted",
+         "date":"Date",
 
-         
+
+
          "back_to_project_reports":"Back to Project Reports",
          "submit_monthly_report":"Submit Monthly Report",
           "cancel_montly_report":"Cancel Monthly Report",
@@ -327,8 +340,11 @@
          "remove_beneficiary":"Remove Beneficiary",
          "remove_this_beneficiary_from_your_monthly_progress":"Remove this Beneficiary from your Monthly Progress",
           "remove_this_beneficiary_from_your_report":"Remove this Beneficiary from your Report",
-          "yes_remove_beneficiary":"Yes, Remove Beneficiary",
-         
+					"yes_remove_beneficiary":"Yes, Remove Beneficiary",
+
+					"yes_remove_report":"Yes, Remove Report",
+					"report_removed":"Report Removed!",
+
          "remove_borehole":"Remove Borehole",
           "remove_this_borehol_from_your_report":"Remove this Borehole from your Report",
          "yes_remove_borehole":"Yes, Remove Borehole",
@@ -340,7 +356,7 @@
         "yes_remove_reticulation":"Yes, Remove Reticulation",
 
           "remove_this_reticulation_from_your_monthly_progress":"Remove this Reticulation from your Monthly Progress",
-        
+
         "remove_service":"Remove Service",
         "remove_this_Service_from_your_report":"Remove this Service from your Report",
         "yes_remove_service":"Yes, Remove Service",
@@ -352,13 +368,13 @@
         "yes_remove_maintenance":"Yes, Remove Maintenance",
 
         "remove_this_maintance_from_your_monthly_progress":"Remove this Maintenance from your Monthly Progress",
-       
+
         "remove_latrine":"Remove Latrine",
         "remove_this_latrine_from_your_report":"Remove this Latrine from your Report",
         "yes_remove_letrina":"Yes, Remove Latrine",
 
         "remove_this_latrine_from_your_monthly_progress":"Remove this Latrine from your Monthly Progress",
-        
+
 
         "remove_shower":"Remove Shower",
         "remove_this_shower_from_your_report":"Remove this Shower from your Report",
@@ -371,7 +387,7 @@
         "yes_remove_waste_management":"Yes, Remove Waste Management",
 
         "remove_this_waste_managetent_from_your_monthly_progress":"Remove this Waste Management from your Monthly Progress",
-        
+
         "remove_committee":"Remove Committee",
         "yes_remove_committee":"Yes, Remove Committee",
 
@@ -415,12 +431,16 @@
 
         "submit_monthly_progress_for":"Submit Monthly Progress for ",
         "back_to_project_progress":"Back to Project Progress",
-        "submit_monthly_progress":"Submit Monthly Progress",
+				"submit_monthly_progress":"Submit Monthly Progress",
+
+				"remove_report":"Remove Report",
+				"remove_report_for":"Remove Report for ",
+				"all_records_will_be_destroyed":"All records will be destroyed,",
 
         "yes_submit_report":"Yes, Submit report",
         "save_monthly_report":"Save Monthly Report",
         "do_you_want_to_save":"Do you want to Save",
-        "not_selected":"Not Selected", 
+        "not_selected":"Not Selected",
         "selected":"Selected...",
         "no_selection":"No Selection",
         "no_data_in_previous_report":"No data in previous report",
@@ -490,13 +510,13 @@
         "admin_dashboard_for":"ADMIN Dashboard for",
         "all_clusters":"ALL clusters",
         "all_organizations":"ALL organizations",
-        "activity_mayus":"ACTIVITY",
-        "report_mayus":"REPORT",
+        "activity_mayus":"Activity",
+        "report_mayus":"Report",
         "country_mayus":"Country",
         "countries_mayus":"Countries",
          "reports_completed":"Reports Completed",
          "reports_saved":"Reports Saved",
-         
+
 
         "organizations":"Organizations",
         "documents":"Documents",
@@ -531,6 +551,7 @@
 
         "population":"Population",
         "amount":"Amount",
+        "amount_col":"Amount",
         "units":"Units",
         "quantity":"Quantity/Amount",
         "transfers":"Transfers",
@@ -556,12 +577,14 @@
         "female_18_59":"Female 18-59",
         "female_60_plus":"Female 60+",
         "eld_women":"Eld. Women",
+        "lgbttti_population":"LGBTTTI Population",
+        "population_in_disability":"Population in Disability",
         "total_female":"Total Female",
         "total_beneficiaries":"Total Beneficiaries",
 
         "treatment_same_province":"Treatment Same Province",
         "edit":"Edit",
-        "region":"REGION",
+        "region":"Region",
 
         "cholera_response":"Cholera Response",
         "activity_status":"Activity Status",
@@ -594,7 +617,7 @@
         "drag_files_here_or_click_button_to_upload":"Drag files here or click button to upload",
         "upload_canceled":"Upload canceled",
         "re_directing_to_dashboard":"Re-directing to dashboard...",
-        "data_processing_error_please_check_the":"Data processing error, please check the",   
+        "data_processing_error_please_check_the":"Data processing error, please check the",
         "and_try_again":"and try again",
         "exceed_file_upload_please_remove_one_of_your_file":"Exceed file upload, Please remove one of your file",
         "file_too_large_please_remove_the_file":"File too large, Please remove the file",
@@ -644,9 +667,9 @@
         "remove_location_groups": "Remove Location Groups",
         "add_location_groups_message": "Split Target Locations into Location Groups to make monthly reporting easier",
         "remove_location_groups_message": "Are you sure you want to remove Location Groups from your project?",
-        
 
-        
+
+
         "note":"Note",
         "to_report":"To Report",
         "drought":"DROUGHT",
@@ -739,7 +762,7 @@
 
 
 
-        
+
         "assessments":"Assessments",
         "assessment":"Assessment",
         "please_select_an_assessments_from_the_options_below":"Please select an assessments from the options below",
@@ -782,7 +805,7 @@
          "add_products":"Add Products",
          "please_select_from_the_options_below":"Please select from the options below",
 
-        
+
          "products_list":"Products List",
          "download_products_list_as_csv":"Download Products List as CSV",
          "add_new_product":"Add New Product",
@@ -802,13 +825,13 @@
 
 
 
-       
+
          "target_beneficiaries":"Target Beneficiaries",
           "reported_beneficiaries":"Reported Beneficiaries",
          "progress":"Progress",
 
 
-        
+
 
          "feature_request":"Feature Request",
          "purpose":"Purpose",
@@ -832,5 +855,5 @@
          "the_action_you_were_performing_at_the_time_ie_adding_a_new_beneficiary":"The action you were performing at the time. i.e. 'Adding a new Beneficiary'",
          "any_error_messages_that_the_reporthub_displayed":"Any error messages that the ReportHub displayed",
          "any_additional_description_of_the_error_that_will_prove_useful_ie_I_removed_a_location_and_then_added_a_new_location":"Any additional description of the error that will prove useful. i.e. 'I removed a location and then added a new location'"
-    
+
 }

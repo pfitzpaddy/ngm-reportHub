@@ -188,7 +188,7 @@
 									<!-- Dashboard -->
 									<li align="center" class="teal z-depth-2">
 										<a class="white-text right" href="#/cluster/5w" ng-click="ngm.toggleNavigationMenu();">
-										<i class="material-icons smedium right">bubble_chart</i>5W DASHBOARD</a>
+										<i class="material-icons smedium right">bubble_chart</i>{{'5WDASHBOARD_mayus' |translate}}</a>
 									</li>
 
 									<!-- 4w Dashboard -->
@@ -506,9 +506,11 @@
 		<script src="scripts/modules/cluster/reports/services/ngmClusterLists.js"></script>
 		<script src="scripts/modules/cluster/reports/services/ngmClusterBeneficiaries.js"></script>
 		<script src="scripts/modules/cluster/reports/services/ngmClusterLocations.js"></script>
-		<script src="scripts/modules/cluster/reports/services/ngmClusterTrainings.js"></script>
 		<script src="scripts/modules/cluster/reports/services/ngmClusterValidation.js"></script>
 		<script src="scripts/modules/cluster/reports/services/ngmClusterDocument.js"></script>
+
+		<!-- DETAILS -->
+		<script src="scripts/modules/cluster/reports/services/activity-details/ngmClusterDetails.js"></script>
 		
 		<!-- AF -->
 		<script src="scripts/modules/cluster/reports/services/AF/ngmClusterHelperAf.js"></script>
@@ -518,7 +520,7 @@
 		<!-- COL -->
 		<script src="scripts/modules/cluster/reports/services/COL/ngmClusterHelperCol.js"></script>
 		<!-- ET -->
-		<script src="scripts/modules/cluster/reports/services/ET/ngmEtClusterBeneficiaries.js"></script>
+		<!-- <script src="scripts/modules/cluster/reports/services/ET/ngmEtClusterBeneficiaries.js"></script> -->
 
 		<!-- NG -->
 		<script src="scripts/modules/cluster/reports/services/NG/ngmClusterHelperNgWash.js"></script>

@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardProfileCtrl', ['$scope', '$route', 'ngmData', 'ngmAuth','$translate','$filter', function ($scope, $route, ngmData, ngmAuth,$translate,$filter) {
+	.controller('DashboardProfileCtrl', ['$scope', '$route', 'ngmData', 'ngmAuth', '$translate', '$filter', '$rootScope', function ($scope, $route, ngmData, ngmAuth, $translate, $filter, $rootScope) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -30,10 +30,14 @@ angular.module('ngmReportHub')
 
 			// the header navigation settings
 			getHeaderHtml: function(){
+				var url ='#/team';
+				if ($rootScope.teamPreviouseUrl){
+					url = $rootScope.teamPreviouseUrl;
+				}
 				var html = '<div class="row hide-on-small-only">'
 										+'<div class="col s12 m12 l12">'
 											+'<div>'
-												+'<a class="btn-flat waves-effect waves-teal" href="#/team">'
+												+'<a class="btn-flat waves-effect waves-teal" href="'+url+'">'
 													+'<i class="material-icons left">keyboard_return</i>'+$filter('translate')('back_to_team')
 												+'</a>'
 												+'<span class="right" style="padding-top:8px;">'+$filter('translate')('last_updated')+ ' ' + moment( $scope.dashboard.user.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) +'</span>'
@@ -116,7 +120,7 @@ angular.module('ngmReportHub')
 									updateOrgUser: (function () {
 										var clusterDisabled = true;
 										if ((ngmAuth.canDo('EDIT_USER_ORG', {
-
+																admin0pcode: user.admin0pcode
 											}))) {
 											clusterDisabled = false;
 										}

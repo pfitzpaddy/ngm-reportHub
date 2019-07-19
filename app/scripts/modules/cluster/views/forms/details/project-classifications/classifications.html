@@ -5,7 +5,7 @@
 			<ul class="collection with-header">
 				<li class="collection-header blue lighten-1">
 					<h5 class="report-work-title white-text">
-						<i class="material-icons left">list</i> {{'project_classifications'|translate}}
+						<i class="material-icons left">list</i> {{'project_classifications'|translate}} ( {{'mandatory_for_united_nations_system_agencies'|translate}})
 
 					</h5>
 				</li>
@@ -36,7 +36,7 @@
 												md-selected-item="null" 	
 												md-search-text="project.searchundaf_desarrollo_paz" 
 												md-min-length="3"	
-												md-items="item in project.searchUndafDesarrolloYPaz(project.searchundaf_desarrollo_paz)"
+												md-items="item in ngmClusterHelperCol('searchUndafDesarrolloYPaz',project.searchundaf_desarrollo_paz)"
 												md-item-text="item.name_tag" 
 												input-aria-describedby="autocompleteTitle" 
 												placeholder="{{'add_new_project_classification'|translate}}" 
@@ -85,7 +85,10 @@
 												md-selected-item="null" 	
 												md-search-text="project.searchacuerdos_de_paz" 
 												md-min-length="3"	
-												md-items="item in project.searchAcuerdosDePaz(project.searchacuerdos_de_paz)"
+												md-items="item in ngmClusterHelperCol('searchAcuerdosDePaz',project.searchacuerdos_de_paz)"
+
+												
+
 												md-item-text="item.name_tag" 
 												input-aria-describedby="autocompleteTitle" 
 												placeholder="{{'add_new_project_classification'|translate}}" 
@@ -121,7 +124,7 @@
 
 								<li class="collection-header blue lighten-1">
 									<h6 class=" white-text">
-									 DAC - OECD Development Assistance Committee
+									CAD - Comité de Ayuda al Desarrollo
 
 									</h6>
 								</li>
@@ -137,7 +140,7 @@
 												md-selected-item="null" 	
 												md-search-text="project.searchdac_oecd_development_assistance_committee"
 												md-min-length="3"
-												md-items="item in project.searchDACOECDDevelopmentAssistanceCommittee(project.searchdac_oecd_development_assistance_committee)"
+												md-items="item in ngmClusterHelperCol('searchDACOECDDevelopmentAssistanceCommittee',project.searchdac_oecd_development_assistance_committee)"
 												md-item-text="item.name_tag" 
 												input-aria-describedby="autocompleteTitle" 
 												placeholder="{{'add_new_project_classification'|translate}}" 
@@ -188,7 +191,7 @@
 												md-selected-item="null" 	
 												md-search-text="
 												project.searchods_objetivos_de_desarrollo_sostenible" 	md-min-length="3"
-												md-items="item in project.searchODSObjetivosDeDesarrolloSostenible(project.searchods_objetivos_de_desarrollo_sostenible)"
+												md-items="item in ngmClusterHelperCol('searchODSObjetivosDeDesarrolloSostenible',project.searchods_objetivos_de_desarrollo_sostenible)"
 												md-item-text="item.name_tag" 
 												input-aria-describedby="autocompleteTitle" 
 												placeholder="{{'add_new_project_classification'|translate}}" 

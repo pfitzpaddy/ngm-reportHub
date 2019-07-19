@@ -77,6 +77,7 @@ angular.module('ngmReportHub')
 				menu_items: ngmAuth.getMenuParams('DASHBOARD'),
 
 				menu: [{
+					'search': true,
 					'id': 'search-region',
 					'icon': 'person_pin',
 					'title': $filter('translate')('region'),
@@ -245,15 +246,6 @@ angular.module('ngmReportHub')
 						request: $scope.dashboard.getRequest( { csv: true, indicator: 'financial_report', report: $scope.dashboard.cluster_id_filename + '_ocha_financial_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 						metrics: $scope.dashboard.getMetrics( 'cluster_financial_report', 'csv' )
 					},{
-						id: 'training_participants',
-						type: 'csv',
-						color: 'blue lighten-2',
-						icon: 'wc',
-						not_show:['AF','CB','COL'],
-						hover: $filter('translate')('download_training_participants_as_csv'),
-						request: $scope.dashboard.getRequest( { csv: true, indicator: 'training_participants', report: $scope.dashboard.cluster_id_filename + '_training_participants_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
-						metrics: $scope.dashboard.getMetrics( 'training_participants', 'csv' )
-					},{
 						type: 'csv',
 						color: 'blue lighten-2',
 						icon: 'group',
@@ -360,7 +352,8 @@ angular.module('ngmReportHub')
 
 							var menu = {
 								'afro': {
-									'id': 'search-country',
+									'search': true,
+									'id': 'search-afro',
 									'icon': 'person_pin',
 									'title': $filter('translate')('country'),
 									'class': 'teal lighten-1 white-text',
@@ -391,7 +384,8 @@ angular.module('ngmReportHub')
 									}]
 								},
 								'emro': {
-									'id': 'search-country',
+									'search': true,
+									'id': 'search-emro',
 									'icon': 'person_pin',
 									'title': $filter('translate')('country'),
 									'class': 'teal lighten-1 white-text',
@@ -422,7 +416,8 @@ angular.module('ngmReportHub')
 									}]
 								},
 								'searo': {
-									'id': 'search-country',
+									'search': true,
+									'id': 'search-searo',
 									'icon': 'person_pin',
 									'title': $filter('translate')('country'),
 									'class': 'teal lighten-1 white-text',
@@ -441,7 +436,8 @@ angular.module('ngmReportHub')
 									}]
 								},
 								'amer': {
-									'id': 'search-country',
+									'search': true,
+									'id': 'search-amer',
 									'icon': 'person_pin',
 									'title': $filter('translate')('country'),
 
@@ -647,11 +643,12 @@ angular.module('ngmReportHub')
 				//
 				setTitle: function(){
 					// title
-					$scope.dashboard.title = '5W'
+					$scope.dashboard.title = $filter('translate')('5W');
+
 				
 					// admin0
 					if ( $scope.dashboard.admin0pcode === 'all' ) {
-						$scope.dashboard.title = '5W | ' + $scope.dashboard.adminRpcode.toUpperCase()
+						$scope.dashboard.title = $filter('translate')('5W')+' | ' + $scope.dashboard.adminRpcode.toUpperCase()
 					}
 
 					if ( $scope.dashboard.admin0pcode !== 'all' ) {
@@ -686,11 +683,13 @@ angular.module('ngmReportHub')
 
 				// subtitle
 				setSubtitle: function(){
+
+
 					// subtitle
-					$scope.dashboard.subtitle = '5W Dashboard '+ $filter('translate')('for')+' ';
+					$scope.dashboard.subtitle = $filter('translate')('5wdashboard')+' '+ $filter('translate')('for')+' ';
 					// admin0
 					if ( $scope.dashboard.admin0pcode === 'all' ) {
-						$scope.dashboard.subtitle = '5W Dashboard '+ $filter('translate')('for') + ' ' + $scope.dashboard.adminRpcode.toUpperCase();
+						$scope.dashboard.subtitle = $filter('translate')('5wdashboard')+' ' + $filter('translate')('for') + ' ' + $scope.dashboard.adminRpcode.toUpperCase();
 					}
 
 					if ( $scope.dashboard.admin0pcode !== 'all' ) {

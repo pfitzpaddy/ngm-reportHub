@@ -664,7 +664,7 @@ angular.module('ngmReportHub')
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 							'href': '/desk/#' + $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, 'activity', $scope.dashboard.organization_tag )
 						},{
-							'title': 'STOCK',
+							'title': 'Stock',
 							'param': 'report_type',
 							'active': 'stock',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',

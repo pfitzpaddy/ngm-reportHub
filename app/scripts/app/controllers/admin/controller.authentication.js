@@ -137,7 +137,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 						$scope.panel.organizations = $filter('filter')( $scope.panel.organizations , { admin0pcode: $scope.panel.user.admin0pcode }, true );
 					} else {
 						// reset
-						$scope.panel.organizations = ngmLists.getObject( 'organizations' );
+						$scope.panel.organizations = $filter('filter')( $scope.panel.organizations , { admin0pcode: '!COL' }, true );
 					}
 				},
 				

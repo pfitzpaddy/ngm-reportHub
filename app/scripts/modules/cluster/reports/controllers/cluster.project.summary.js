@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterProjectSummaryCtrl', ['$scope', '$route', '$http', '$location', '$timeout', 'ngmAuth',  'ngmData', 'ngmUser','$translate','$filter', function ($scope, $route, $http, $location, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter) {
+	.controller('ClusterProjectSummaryCtrl', ['$scope', '$route', '$http', '$location', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser', '$translate', '$filter', '$rootScope', function ($scope, $route, $http, $location, $timeout, ngmAuth, ngmData, ngmUser, $translate, $filter, $rootScope) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -42,10 +42,15 @@ angular.module('ngmReportHub')
 			// projects href
 			getProjectsHref: function(){
 				var href = '#/cluster/projects';
-				if ( $scope.report.user.organization !== $scope.report.project.organization 
-							&& $scope.report.user.roles.indexOf( 'ADMIN' ) ) {
-					href += '/organization/' + $scope.report.project.organization_id;
+				// if ( $scope.report.user.organization !== $scope.report.project.organization 
+				// 			&& $scope.report.user.roles.indexOf( 'ADMIN' ) ) {
+				// 	href += '/organization/' + $scope.report.project.organization_id;
+				// }				
+
+				if ($rootScope.projecListPreviouseUrl){
+					href = $rootScope.projecListPreviouseUrl
 				}
+				
 				return href;
 			},
 

@@ -112,51 +112,6 @@ angular.module( 'ngmReportHub' )
 				}
 			},
 
-			// validate details
-			validateDetails: function( locations ) {
-				
-				// collect error divs
-				var elements = [];
-
-				// WATER
-				var detailsLength = 0;
-				var detailsRowComplete = 0;
-
-				// each location
-				angular.forEach( locations, function( l, i ){
-					angular.forEach( l.beneficiaries, function( d, j ){
-
-
-						// details
-						if ( d.partial_kits && d.partial_kits.length  ) {
-							detailsLength ++;
-							var result = ngmClusterValidation.validatePartial( d.partial_kits, i, j );
-							angular.merge( elements, result.divs );
-							detailsRowComplete +=  result.count;
-						}
-
-						// details
-						if ( d.kit_details && d.kit_details.length  ) {
-							detailsLength ++;
-							var result = ngmClusterValidation.validateDetail( d.kit_details, i, j );
-							angular.merge( elements, result.divs );
-							detailsRowComplete +=  result.count;
-						}
-
-					});
-				});
-
-				// valid
-				if ( detailsLength !== detailsRowComplete ) {
-					Materialize.toast( $filter('translate')('details_contains_errors') , 6000, 'error' );
-					$( elements[0] ).animatescroll();
-					return false;
-				} else {
-					return true;
-				}
-
-			},
-
 			// validate form
 			validatePartial: function( partial_kits, i, j ){
 				
@@ -171,7 +126,7 @@ angular.module( 'ngmReportHub' )
 					// detail
 					if ( !d.detail_type_id && !d.detail_type_name ){
 						id = "label[for='" + 'ngm-beneficiary-kit-'+i+'-'+j+'-'+k+"']";
-						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+						$( id ).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
@@ -200,7 +155,7 @@ angular.module( 'ngmReportHub' )
 					// quantity
 					if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){ 
 						id = "label[for='" + 'ngm-beneficiary-kit-quantity-'+i+'-'+j+'-'+k+"']";
-						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+						$( id ).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
@@ -208,7 +163,7 @@ angular.module( 'ngmReportHub' )
 					// detail
 					if ( !d.detail_type_id && !d.detail_type_name ){ 
 						id = "label[for='" + 'ngm-beneficiary-kit-'+i+'-'+j+'-'+k+"']";
-						$( id ).css({ 'color': '#EE6E73', 'font-weight': 400 });
+						$( id ).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
@@ -226,8 +181,9 @@ angular.module( 'ngmReportHub' )
 			validate: function( project ){
 
 				// run validation
-				$('label').css({ 'color': '#26a69a'});
-				$('#ngm-target_locations').css({ 'color': '#26a69a'});
+				$('label').removeClass( 'error' ).addClass( 'active' );
+				$('#ngm-target_beneficiaries').removeClass( 'error' ).addClass( 'active' );
+				$('#ngm-target_locations').removeClass( 'error' ).addClass( 'active' );
 				var scrollDiv;
 				var a = ngmClusterValidation.project_details_valid( project );
 				var b = ngmClusterValidation.activity_type_valid( project );
@@ -237,30 +193,30 @@ angular.module( 'ngmReportHub' )
 
 				// locations invalid!
 				if ( !e ) {
-					$('#ngm-target_locations').css({ 'color': '#EE6E73'});
+					$('#ngm-target_locations').addClass('error');
 					scrollDiv = $('#ngm-target_locations');
 				}
 
 				if ( !d ) {
-					$('#ngm-target_beneficiaries').css({ 'color': '#EE6E73'});
+					$('#ngm-target_beneficiaries').addClass('error');
 					scrollDiv = $('#ngm-target_beneficiaries');
 				}
 
 				// donor
 				angular.forEach( ngmClusterValidation.project_donor_valid_labels, function( l,i ){
-					$('label[for=' + l + ']').css({ 'color': '#EE6E73'});
+					$('label[for=' + l + ']').addClass('error');
 					scrollDiv = $('#ngm-project_donor_label');
 				});
 
 				// activity types
 				angular.forEach( ngmClusterValidation.activity_type_valid_labels, function( l,i ){
-					$('label[for=' + l + ']').css({ 'color': '#EE6E73'});
+					$('label[for=' + l + ']').addClass('error');
 					scrollDiv = $('#ngm-activity_type_label');
 				});
 
 				// project description
 				angular.forEach( ngmClusterValidation.project_details_valid_labels, function( l,i ){
-					$('label[for=' + l + ']').css({ 'color': '#EE6E73'});
+					$('label[for=' + l + ']').addClass('error');
 					scrollDiv = $('#project_details_form');
 				});
 
@@ -332,26 +288,32 @@ angular.module( 'ngmReportHub' )
 				// DEFAULT
 				if (!b.activity_type_id) {
 					id = "label[for='" + 'ngm-activity_type_id-' + i + '-' + j + "']";
-					$(id).toggleClass('error');
+					$(id).addClass('error');
 					validation.divs.push(id);
 					complete = false;
 				}
+				console.log( 'complete01' );
+				console.log( complete );
 				if (!b.activity_description_id){
 					id = "label[for='" + 'ngm-activity_description_id-' + i + '-' + j + "']";
-					$(id).toggleClass('error');
+					$(id).addClass('error');
 					validation.divs.push(id);
 					complete = false;
 				}
+				console.log( 'complete02' );
+				console.log( complete );
 
 				// DETAIL
-				if (ngmClusterBeneficiaries.form[i][j]['detail']){
+				if (ngmClusterBeneficiaries.form[i][j]['display_activity_detail']){
 					if (!b.activity_detail_id) {
 						id = "label[for='" + 'ngm-activity_detail_id-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete03' );
+				console.log( complete );
 				
 				// FATP SAME PROVINCE
 				if ( b.activity_description_id && ( 
@@ -359,260 +321,330 @@ angular.module( 'ngmReportHub' )
 							b.activity_description_id === 'fatp_stabilization_referrals_civilian' )){
 					if(!b.injury_treatment_same_province){
 						id = "label[for='" + 'ngm-injury_treatment_same_province-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
-				
+				console.log( 'complete04' );
+				console.log( complete );
+
 				// INDICATOR
-				if(ngmClusterBeneficiaries.form[i][j][ 'indicator' ]){
+				if(ngmClusterBeneficiaries.form[i][j][ 'display_indicator' ]){
 					if (!b.indicator_id) {
 						id = "label[for='" + 'ngm-indicator_id-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete05' );
+				console.log( complete );
 				
 				// BENEFICIARY
 				if(!b.beneficiary_type_id ){
 					id = "label[for='" + 'ngm-beneficiary_type_id-' + i + '-' + j + "']";
-					$(id).toggleClass('error');
+					$(id).addClass('error');
 					validation.divs.push(id);
 					complete = false;
 				}
+				console.log( 'complete06' );
+				console.log( complete );
 				
 				// CATEGORY
-				if (ngmClusterBeneficiaries.form[i][j]['category_type_id']){
+				if (ngmClusterBeneficiaries.form[i][j]['beneficiary_category_type_id']){
 					if (!b.beneficiary_category_id){
 						id = "label[for='" + 'ngm-beneficiary_category_id-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete07' );
+				console.log( complete );
 				
 				// DELIVERY TYPE ID
-				if (ngmClusterBeneficiaries.form[i][j]['delivery_type_id']){
+				if (ngmClusterBeneficiaries.form[i][j]['beneficiary_delivery_type_id']){
 					if(!b.delivery_type_id){
 						id = "label[for='" + 'ngm-delivery_type_id-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete08' );
+				console.log( complete );
 				
 				//CASH + PACKAGE
 				if(ngmClusterBeneficiaries.form[i][j]['mpc_delivery_type_id']){
 					if (!b.mpc_delivery_type_id){
 						id = "label[for='" + 'ngm-mpc_delivery_type_id-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete09' );
+				console.log( complete );
 				if (ngmClusterBeneficiaries.form[i][j]['mpc_mechanism_type_id']) {
 					// QUICK FIX HARDCODE TODO: REFACTOR
 					if (!b.mpc_mechanism_type_id && b.mpc_delivery_type_id !== 'in-kind' ) {
 						id = "label[for='" + 'ngm-mpc_mechanism_type_id-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
-				if (ngmClusterBeneficiaries.form[i][j][ 'transfer_type_id' ]) {
+				console.log( 'complete10' );
+				console.log( complete );
+				if (ngmClusterBeneficiaries.form[i][j][ 'mpc_transfer_type_id' ]) {
 					if (!b.transfer_type_id) {
 						id = "label[for='" + 'ngm-transfer_type_id-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
-				if(ngmClusterBeneficiaries.form[i][j]['package_type_id']){
+				console.log( 'complete11' );
+				console.log( complete );
+				if(ngmClusterBeneficiaries.form[i][j]['mpc_package_type_id']){
 					if (!b.package_type_id){
 						id = "label[for='" + 'ngm-package_type_id-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete12' );
+				console.log( complete );
 				
-				// UNITS
+				// UNIT TYPE
 				if(ngmClusterBeneficiaries.form[i][j][ 'unit_type_id' ]){
 					if (!b.unit_type_id) {
 						id = "label[for='" + 'ngm-unit_type_id-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete13' );
+				console.log( complete );
+
+				// UNITS
 				if(ngmClusterBeneficiaries.form[i][j][ 'units' ]){
 					if( b.units === null || b.units === undefined || b.units === NaN || b.units < 0 ){
 						id = "label[for='" + 'ngm-units-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete14' );
+				console.log( complete );
 
 				// HH
 				if(ngmClusterBeneficiaries.form[i][j][ 'households' ]){
 					if( b.households === null || b.households === undefined || b.households === NaN || b.households < 0 ){
 					id = "label[for='" + 'ngm-households-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete15' );
+				console.log( complete );
 
 				// FAMILIES
 				if(ngmClusterBeneficiaries.form[i][j][ 'families' ]){
 					if( b.families === null || b.families === undefined || b.families === NaN || b.families < 0 ){
 					id = "label[for='" + 'ngm-families-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
-					validation.divs.push(id);
-					complete = false;
+						$(id).addClass('error');
+						validation.divs.push(id);
+						complete = false;
+					}
 				}
-				}
+				console.log( 'complete16' );
+				console.log( complete );	
 				
 				// SADD
 				if(ngmClusterBeneficiaries.form[i][j][ 'boys' ]){
 					if( b.boys === null || b.boys === undefined || b.boys === NaN || b.boys < 0 ){
 					id = "label[for='" + 'ngm-boys-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete17' );
+				console.log( complete );
 				if(ngmClusterBeneficiaries.form[i][j][ 'boys_0_5' ]){
 					if( b.boys_0_5 === null || b.boys_0_5 === undefined || b.boys_0_5 === NaN || b.boys_0_5 < 0 ){
 						id = "label[for='" + 'ngm-boys_0_5-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete18' );
+				console.log( complete );	
 				if(ngmClusterBeneficiaries.form[i][j][ 'boys_6_11' ]){
 					if( b.boys_6_11 === null || b.boys_6_11 === undefined || b.boys_6_11 === NaN || b.boys_6_11 < 0 ){
 						id = "label[for='" + 'ngm-boys_6_11-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete19' );
+				console.log( complete );
 				if(ngmClusterBeneficiaries.form[i][j][ 'boys_12_17' ]){
 					if( b.boys_12_17 === null || b.boys_12_17 === undefined || b.boys_12_17 === NaN || b.boys_12_17 < 0 ){
 						id = "label[for='" + 'ngm-boys_12_17-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete20' );
+				console.log( complete );
 				if(ngmClusterBeneficiaries.form[i][j][ 'total_male' ]){
 					if( b.total_male === null || b.total_male === undefined || b.total_male === NaN || b.total_male < 0 ){
 						id = "label[for='" + 'ngm-total_male-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete21' );
+				console.log( complete );
 				if(ngmClusterBeneficiaries.form[i][j][ 'girls' ]){
 					if( b.girls === null || b.girls === undefined || b.girls === NaN || b.girls < 0 ){
 					id = "label[for='" + 'ngm-girls-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete22' );
+				console.log( complete );
 				if(ngmClusterBeneficiaries.form[i][j][ 'girls_0_5' ]){
 					if( b.girls_0_5 === null || b.girls_0_5 === undefined || b.girls_0_5 === NaN || b.girls_0_5 < 0 ){
 						id = "label[for='" + 'ngm-girls_0_5-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete23' );
+				console.log( complete );
 				if(ngmClusterBeneficiaries.form[i][j][ 'girls_6_11' ]){
 					if( b.girls_6_11 === null || b.girls_6_11 === undefined || b.girls_6_11 === NaN || b.girls_6_11 < 0 ){
 						id = "label[for='" + 'ngm-girls_6_11-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete24' );
+				console.log( complete );
 				if(ngmClusterBeneficiaries.form[i][j][ 'girls_12_17' ]){
 					if( b.girls_12_17 === null || b.girls_12_17 === undefined || b.girls_12_17 === NaN || b.girls_12_17 < 0 ){
 						id = "label[for='" + 'ngm-girls_12_17-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete25' );
+				console.log( complete );	
 				if(ngmClusterBeneficiaries.form[i][j][ 'total_female' ]){
 					if( b.total_female === null || b.total_female === undefined || b.total_female === NaN || b.total_female < 0 ){
 						id = "label[for='" + 'ngm-total_female-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete26' );
+				console.log( complete );
 				if(ngmClusterBeneficiaries.form[i][j]['men'] ){
 					if( b.men === null || b.men === undefined || b.men === NaN || b.men < 0 ){
 						id = "label[for='" + 'ngm-men-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete27' );
+				console.log( complete );
 				if(ngmClusterBeneficiaries.form[i][j]['women'] ){
 					if( b.women === null || b.women === undefined || b.women === NaN || b.women < 0 ){
 						id = "label[for='" + 'ngm-women-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete28' );
+				console.log( complete );
 				if(ngmClusterBeneficiaries.form[i][j]['elderly_men'] ){
 					if( b.elderly_men === null || b.elderly_men === undefined || b.elderly_men === NaN || b.elderly_men < 0 ){
 						id = "label[for='" + 'ngm-elderly_men-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+				console.log( 'complete29' );
+				console.log( complete );
 				if(ngmClusterBeneficiaries.form[i][j]['elderly_women']){
 					if( b.elderly_women === null || b.elderly_women === undefined || b.elderly_women === NaN || b.elderly_women < 0 ){
 						id = "label[for='" + 'ngm-elderly_women-' + i + '-' + j + "']";
-						$(id).toggleClass('error');
+						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
 					}
 				}
+
+				console.log( 'complete30' );
+				console.log( complete );
 				// TOTAL
 				if( b.total_beneficiaries === null || b.total_beneficiaries === undefined || b.total_beneficiaries === NaN || b.total_beneficiaries < 0 ){
 					id = "label[for='" + 'ngm-total_beneficiaries-' + i + '-' + j + "']";
-					$(id).toggleClass('error');
+					$(id).addClass('error');
 					validation.divs.push(id);
 					complete = false;
 				}
+				console.log( 'complete31' );
+				console.log( complete );
 
-				// ACTIVITY DATE
-				// if(ngmClusterBeneficiaries.form[i][j]['activity_date']){
-				// 	if (!b.distribution_start_date) {
-				// 		id = "label[for='" + 'ngm-distirbution-start-date-' + i + '-' + j + "']";
-				// 		$(id).toggleClass('error');
-				// 		validation.divs.push(id);
-				// 		complete = false;
-				// 	}
-				// 	if (!b.distribution_end_date || (b.distribution_end_date < b.distribution_start_date)) {
-				// 		id = "label[for='" + 'ngm-distribution-end-date-' + i + '-' + j + "']";
-				// 		$(id).toggleClass('error');
-				// 		validation.divs.push(id);
-				// 		complete = false;
-				// 	}
-				// }
+				// DETAILS
+				if( ngmClusterBeneficiaries.form[i][j]['details'] ){
+					
+					// for each details
+					angular.forEach( b.details, function( d, k ){
 
+						// quantity
+						if ( d.unit_type_quantity === null || d.unit_type_quantity === undefined || d.unit_type_quantity < 0 ){ 
+							id = "label[for='" + 'ngm-beneficiary_detail_unit_quantity-'+i+'-'+j+'-'+k+"']";
+							$(id).addClass('error');
+							validation.divs.push( id );
+							complete = false;
+						}
+
+						// detail
+						if ( !d.unit_type_id && !d.unit_type_name ){
+							id = "label[for='" + 'ngm-beneficiary_detail-'+i+'-'+j+'-'+k+"']";
+							$(id).addClass('error');
+							validation.divs.push( id );
+							complete = false;
+						}
+
+					});
+				}
+				console.log( 'complete32' );
+				console.log( complete );
+				
 				// return 1 for complete, default 0 for error
 				if (d[i][j]) {
 					validation.open = true;

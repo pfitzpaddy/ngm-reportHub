@@ -1,0 +1,126 @@
+<div class="input-field col s12 m12" style="margin-bottom:10px;margin-top:10px">
+
+										<label>
+										{{'component_response'|translate}}
+									   </label>
+
+									</div>
+
+									
+
+								<div class="switch input-field col s12 m3">
+
+									<div class="row switch input-field" style="margin-bottom:10px;margin-top:10px">
+
+										<label>
+											Humanitaria
+											<input ng-checked="project.definition.humanitarian_component"
+															ng-model="project.definition.humanitarian_component" type="checkbox" class="filled-in"
+															ng-change="project.definition.hrp_plan = false">
+											<span class="lever"></span>
+											
+
+										</label>
+									</div>
+
+									
+								</div>
+
+								
+
+								<div class="switch input-field col s12 m3">
+
+
+									<div class="row switch input-field" style="margin-bottom:10px;margin-top:10px">
+
+										<label>
+											Construcción de Paz
+											<input ng-checked="project.definition.construccion_de_paz_component"
+											ng-model="project.definition.construccion_de_paz_component" type="checkbox" ng-change="project.definition.desarrollo_sostenible_component == false && project.definition.construccion_de_paz_component == false ? project.definition.interagencial_plan =$event: false" class="filled-in">
+											<span class="lever"></span>
+											
+
+										</label>
+									</div>
+
+									
+								</div>
+
+								<div class="switch input-field col s12 m3">
+
+
+									<div class="row switch input-field" style="margin-bottom:10px;margin-top:10px">
+
+										<label>
+											Desarrollo sostenible
+											<input ng-checked="project.definition.desarrollo_sostenible_component"
+											ng-model="project.definition.desarrollo_sostenible_component" type="checkbox" ng-change="project.definition.desarrollo_sostenible_component == false && project.definition.construccion_de_paz_component == false ? project.definition.interagencial_plan =$event : false"  class="filled-in">
+											<span class="lever"></span>
+											
+
+										</label>
+									</div>
+
+
+									
+								</div>
+
+
+
+
+
+								<div class="switch input-field col s12 m3">
+
+
+									<div class="row switch input-field" style="margin-bottom:10px;margin-top:10px">
+
+										<label>
+											Flujos Migratorios
+											<input ng-checked="project.definition.flujos_migratorios_component" 
+											ng-model="project.definition.flujos_migratorios_component" ng-change="project.definition.rmrp_plan = false" type="checkbox" class="filled-in">
+											<span class="lever"></span>
+											
+
+										</label>
+									</div>
+
+
+
+								</div>
+									
+
+									<div class="switch input-field col s12 m4" >
+
+
+										<label ng-if="project.definition.humanitarian_component">
+											HRP
+											<input ng-checked="project.definition.hrp_plan" ng-model="project.definition.hrp_plan" type="checkbox" class="filled-in">
+											<span class="lever"></span>
+
+
+
+										</label>
+											
+									</div>
+
+									<div class="switch input-field col s12 m5">
+
+										<label ng-if="project.definition.construccion_de_paz_component || project.definition.desarrollo_sostenible_component ">
+											Interagencial
+											<input ng-checked="project.definition.interagencial_plan" ng-model="project.definition.interagencial_plan" type="checkbox" class="filled-in">
+											<span class="lever"></span>
+											
+
+										</label>
+									</div>
+
+									<div class="switch input-field col s12 m3">
+
+									<label ng-if="project.definition.flujos_migratorios_component">
+										RMRP
+										<input ng-checked="project.definition.rmrp_plan" ng-model="project.definition.rmrp_plan" type="checkbox" class="filled-in">
+										<span class="lever"></span>
+										
+
+									</label>
+									</div>

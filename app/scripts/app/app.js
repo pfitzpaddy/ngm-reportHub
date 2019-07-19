@@ -69,6 +69,7 @@ angular
       suffix: '.json'
     });
 
+
     // get
 		$translateProvider.preferredLanguage('en');
 		$translateProvider.forceAsyncReload(true);
@@ -217,25 +218,7 @@ angular
 	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', '$http', '$timeout', 'ngmAuth', 'ngmUser','$window','$translate','$filter', function ($scope, $route, $location, $http, $timeout, ngmAuth, ngmUser,$window,$translate,$filter) {
 	     
 
-         var var4plusrhafter;
-
-	     if($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63' ){ //4wplus.org
-			$('#title').html("4wPlus");
-
-			var4plusrhafter = '4wPlus';
-
-			metadescription = "4wPlus, Dashboard, Reporte, Indicadores, Colombia";
-
-			
-		}else{
-			$('#title').html("ReportHub");
-			var4plusrhafter = 'REPORTHUB';
-
-			metadescription = "ReportHub, Dashboard, Reporting, Key Business Indicators";
-
-		};
-
-		document.getElementsByName('description')[0].content = metadescription;
+         
 
 
 		// ngm object
@@ -500,6 +483,30 @@ angular
 
 
 		};
+
+		var var4plusrhafter;
+
+	     if($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63'){ //4wplus.org
+			$('#title').html("4wPlus");
+
+			var4plusrhafter = '4wPlus';
+
+			metadescription = "4wPlus, Dashboard, Reporte, Indicadores, Colombia";
+
+			//language spanish
+			$scope.ngm.changeFunction('es');
+
+			
+		}else{
+			$('#title').html("ReportHub");
+			var4plusrhafter = 'REPORTHUB';
+
+			metadescription = "ReportHub, Dashboard, Reporting, Key Business Indicators";
+			$scope.ngm.changeFunction('en');
+
+		};
+
+		document.getElementsByName('description')[0].content = metadescription;
 
 		// nav menu
 		if ( $scope.ngm.isTouchDevice() ) {

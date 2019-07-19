@@ -165,21 +165,6 @@
 							<!-- activities -->
 							<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesUrl()"></div>
 
-							<!-- trainings -->
-							<div class="row" ng-if="ngmClusterTrainings.displayTrainings( project.definition )">
-							  <!-- trainings -->
-							  <div>
-								  <button class="btn blue" ng-show="project.report.report_status !== 'complete'" style="margin: 10px;"
-								  	ng-click="ngmClusterTrainings.addTrainings( scope, project.lists, project.definition, project.report.locations[ $locationIndex ], $locationIndex );project.activePrevReportButton()"
-										ng-disabled="addBeneficiaryDisable">
-								    <i class="material-icons left">add</i>{{'add_trainings' | translate}}
-								  </button>
-								 </div>
-								<div ng-repeat="training in project.report.locations[ $locationIndex ].trainings | orderBy:'createdAt'" ng-init="$trainingIndex=$index">
-									<div class="slide-animate" ng-include="project.templatesUrl + ngmClusterTrainings.trainingsUrl"></div>
-								</div>
-							</div>
-
 						</div>
 
 						<div class="row" style="padding-bottom:10px;"
