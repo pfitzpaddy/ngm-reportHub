@@ -1,6 +1,6 @@
 /**
  * @ngdoc function
- * @name ngmReportHubApp.controller:DashboardClusterCtrl
+ * @name ngmReportHubApp.controller:Dashboard4wProjectPlanCtrl
  * @description
  * # LoginCtrl
  * Controller of the ngmReportHub
@@ -33,8 +33,7 @@ angular.module('ngmReportHub')
 
 			// init empty model
 			$scope.model = $scope.$parent.ngm.dashboard.model;
-		//	console.log($scope.model , "MODEL");
-		//	console.log($route.current.params, "PARAMETROS");
+		
 
 			// create dews object
 			$scope.dashboard = {
@@ -127,7 +126,7 @@ angular.module('ngmReportHub')
 																	'/' + admin2pcode +
 																	'/' + cluster_id +
 																	'/' + organization_tag +
-																	'/' + $scope.dashboard.beneficiaries.join('+') +
+																//	'/' + $scope.dashboard.beneficiaries.join('+') +
 																	'/' + $scope.dashboard.startDate +
 																	'/' + $scope.dashboard.endDate;
 					} else {
@@ -170,7 +169,7 @@ angular.module('ngmReportHub')
 							admin2pcode: $scope.dashboard.admin2pcode,
 							cluster_id: $scope.dashboard.cluster_id,
 							organization_tag: $scope.dashboard.organization_tag,
-							beneficiaries: $scope.dashboard.beneficiaries,
+							//beneficiaries: $scope.dashboard.beneficiaries,
 							start_date: $scope.dashboard.startDate,
 							end_date: $scope.dashboard.endDate
 						}
@@ -335,10 +334,12 @@ angular.module('ngmReportHub')
 
 					// rows
 					var orgRows = [],
-							clusterRows = [],
+							clusterRows = [], 
 							provinceRows = [],
 							districtRows = [],
-							request = $scope.dashboard.getRequest( { list: true, indicator: 'organizations' } );
+						//	request = $scope.dashboard.getRequest( { list: true, indicator: 'organizations' } );
+						request = $scope.dashboard.getRequest( { list: true, indicator: 'organizations_4wdashboard_projectplan' } );
+
 
 					if ($scope.dashboard.menu_items.includes('adminRpcode')){
 						$scope.model.menu = $scope.dashboard.menu;
@@ -451,17 +452,12 @@ angular.module('ngmReportHub')
 					// get orgs
 					ngmData.get( request ).then( function( organizations  ){
 
-					//	console.log($scope.dashboard.user, "INFO USER");
 
-						//var countryadmin = $filter( 'filter' )( $scope.dashboard.user.roles , "COUNTRY_ADMIN"  );
 						if($scope.dashboard.user.roles.indexOf('COUNTRY_ADMIN')  !== -1  )  {
 						 						
-						// 		console.log("SI TIENE ROL COUNTRYADMIN");
 						 		$scope.dashboard.organization_tag = 'all';
-						 //		console.log($scope.dashboard.organization_tag);
 
 					       }else{
-                      //	console.log("NO TIENE ROL");
                       }
 
 						// set organization
@@ -712,7 +708,7 @@ angular.module('ngmReportHub')
 					$scope.dashboard.admin2pcode = $route.current.params.admin2pcode;
 					$scope.dashboard.cluster_id = $route.current.params.cluster_id;
 					$scope.dashboard.organization_tag = $route.current.params.organization_tag;
-					$scope.dashboard.beneficiaries = $route.current.params.beneficiaries.split('+');
+				//	$scope.dashboard.beneficiaries = $route.current.params.beneficiaries.split('+');
 				//	$scope.dashboard.activity_type_id = $route.current.params.activity_type_id;
 
 					// plus dashboard_visits
@@ -736,18 +732,7 @@ angular.module('ngmReportHub')
 					}*/
 
 					$scope.dashboard.beneficiaries_row = [
-					/*{
-						styleClass: 's12 m12 l4',
-						widgets: [{
-							type: 'stats',
-							style: 'text-align: center;',
-							card: 'card-panel stats-card white grey-text text-darken-2',
-							config: {
-								title: $filter('translate')('individual_households'),
-								request: $scope.dashboard.getRequest({ indicator: 'households_population' })
-							}
-						}]
-					}*/
+					
 					{
 						styleClass: 's12 m12 l6',
 						widgets: [{
@@ -759,18 +744,7 @@ angular.module('ngmReportHub')
 								request: $scope.dashboard.getRequest({ indicator: 'total_implementing_partners_4wdashboard_projectplan' })
 							}
 						}]
-					}, /*{
-						styleClass: 's12 m12 l4',
-						widgets: [{
-							type: 'stats',
-							style: 'text-align: center;',
-							card: 'card-panel stats-card white grey-text text-darken-2',
-							config: {
-								title: $filter('translate')('individual_beneficiaries'),
-								request: $scope.dashboard.getRequest({ indicator: 'beneficiaries_population' })
-							}
-						}]
-					}*/
+					}, 
 					{
 						styleClass: 's12 m12 l6',
 						widgets: [{
@@ -782,34 +756,9 @@ angular.module('ngmReportHub')
 								request: $scope.dashboard.getRequest({ indicator: 'total_donors_4wdashboard_projectplan' })
 							}
 						}]
-					} /*, {
-						styleClass: 's12 m12 l4',
-						widgets: [{
-							type: 'stats',
-							style: 'text-align: center;',
-							card: 'card-panel stats-card white grey-text text-darken-2',
-							config: {
-								title: $filter('translate')('services_to_beneficiaries'),
-								request: $scope.dashboard.getRequest({ indicator: 'beneficiaries' })
-							}
-						}]
-					}*/];
+					} ];
 
-					/*
-					if ($scope.dashboard.admin0pcode.toUpperCase() === 'AF') {
-						$scope.dashboard.beneficiaries_row = [{
-							styleClass: 's12 m12 l12',
-							widgets: [{
-								type: 'stats',
-								style: 'text-align: center;',
-								card: 'card-panel stats-card white grey-text text-darken-2',
-								config: {
-									title: $filter('translate')('services_to_beneficiaries'),
-									request: $scope.dashboard.getRequest({ indicator: 'beneficiaries' })
-								}
-							}]
-						}]						
-					}*/
+					
 
 					// model
 					$scope.model = {
@@ -897,18 +846,7 @@ angular.module('ngmReportHub')
 										request: $scope.dashboard.getRequest( { indicator: 'organizations_4wdashboard_projectplan' } )
 									}
 								}]
-							},/*{
-								styleClass: 's12 m6',
-								widgets: [{
-									type: 'stats',
-									style: 'text-align: center;',
-									card: 'card-panel stats-card white grey-text text-darken-2',
-									config: {
-										title: $filter('translate')('active_projects'),
-										request: $scope.dashboard.getRequest( { indicator: 'projects' } )
-									}
-								}]
-							}*/
+							},
 							{
 								styleClass: 's12 m6',
 								widgets: [{
@@ -1145,7 +1083,9 @@ angular.module('ngmReportHub')
 												}
 											}
 										},
-										request: $scope.dashboard.getRequest( { indicator: 'markers' } )
+										//request: $scope.dashboard.getRequest( { indicator: 'markers' } )
+										request: $scope.dashboard.getRequest( { indicator: 'markers4wDasbhboardProjectPlan' } )
+
 									}
 								}]
 							}]
@@ -1163,20 +1103,6 @@ angular.module('ngmReportHub')
 							}]
 						}]
 					}
-
-					// remove training participants for AF
-					/**if ($scope.dashboard.admin0pcode.toUpperCase() === 'AF'){
-						$scope.model.header.download.downloads = $scope.model.header.download.downloads.filter(function( obj ) {
-							return obj.id !== 'training_participants';
-						  });
-					}
-					
-					// disallow public download
-					if ($scope.dashboard.user.username === 'welcome'){
-						$scope.model.header.download.downloads = $scope.model.header.download.downloads.filter(function( obj ) {
-							return obj.id === 'cluster_dashboard_pdf';
-						  });
-					}*/
 
 					// set
 					$scope.dashboard.setUrl();

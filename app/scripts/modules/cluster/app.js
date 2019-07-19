@@ -602,32 +602,32 @@ angular
 						const admin0pcode = userInitRouteParams.includes('admin0pcode') && user && user.admin0pcode ? user.admin0pcode.toLowerCase() : 'all';
 						const cluster_id = userInitRouteParams.includes('cluster_id') && user && user.cluster_id ? user.cluster_id.toLowerCase() : 'all';
 						const organization_tag = userInitRouteParams.includes('organization_tag') && user && user.organization_tag ? user.organization_tag.toLowerCase() : 'all';
-						const url = '/cluster/4wprojectplan/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/' + organization_tag + '/all/2019-01-01/' + moment().format('YYYY-MM-DD');
+						const url = '/cluster/4wprojectplan/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/' + organization_tag + '/2019-01-01/' + moment().format('YYYY-MM-DD');
 						$location.path( url );
 					}]
 				},
 			})
 			// cluster dashboard HQ
 			.when( '/cluster/4wprojectplan/hq', {
-				redirectTo: '/cluster/4wprojectplan/hq/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/4wprojectplan/hq/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/4wprojectplan/hq/all', {
-				redirectTo: '/cluster/4wprojectplan/hq/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/4wprojectplan/hq/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			
 			// cluster dashboard AMER
 			.when( '/cluster/4wprojectplan/amer', {
-				redirectTo: '/cluster/4wprojectplan/amer/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/4wprojectplan/amer/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/4wprojectplan/amer/all', {
-				redirectTo: '/cluster/4wprojectplan/amer/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/4wprojectplan/amer/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
 			})
 			.when( '/cluster/4wprojectplan/amer/col', {
-				redirectTo: '/cluster/4wprojectplan/amer/col/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/4wprojectplan/amer/col/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
 			})
 
 			// health dashboard
-			.when( '/cluster/4wprojectplan/:adminRpcode/:admin0pcode/:admin1pcode/:admin2pcode/:cluster_id/:organization_tag/:beneficiaries/:start/:end', {
+			.when( '/cluster/4wprojectplan/:adminRpcode/:admin0pcode/:admin1pcode/:admin2pcode/:cluster_id/:organization_tag/:start/:end', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'Dashboard4wProjectPlanCtrl',
 				resolve: {
