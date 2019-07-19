@@ -473,7 +473,7 @@ angular.module('ngmReportHub')
 						// clusters
 						$scope.dashboard.lists.clusters.unshift({ cluster_id: 'all', cluster: 'ALL' });
 						angular.forEach( $scope.dashboard.lists.clusters, function(d,i){
-							var path = $scope.dashboard.getPath( d.cluster_id, 'all', $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+							var path = $scope.dashboard.getPath( d.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
 							clusterRows.push({
 								'title': d.cluster,
 								'param': 'cluster_id',
@@ -639,6 +639,7 @@ angular.module('ngmReportHub')
 						var org = $scope.dashboard.organization ? ' | ' + $scope.dashboard.organization : '';
 						$scope.dashboard.title += org;
 					}
+
 					// admin1
 					if ( $scope.dashboard.admin1pcode !== 'all' ) {
 						$scope.dashboard.title += ' | ' + $scope.dashboard.data.admin1.admin1name;
