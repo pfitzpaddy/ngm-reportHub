@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller( 'ClusterProjectProjectsCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper','$translate','$filter', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser, ngmClusterHelper,$translate, $filter ) {
+	.controller('ClusterProjectProjectsCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper', '$translate', '$filter', '$rootScope', function ($scope, $location, $route, ngmAuth, ngmData, ngmUser, ngmClusterHelper, $translate, $filter, $rootScope ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -658,5 +658,10 @@ angular.module( 'ngmReportHub' )
 		}		
 		// init
 		$scope.report.init();
+		$scope.$on('$locationChangeSuccess', function (evt, absNewUrl, absOldUrl){
+			
+			var absOldUrl = absOldUrl.substring(absOldUrl.indexOf("/#") + 1);
+			$rootScope.projecListPreviouseUrl = absOldUrl;
+		}) 
 		
 	}]);

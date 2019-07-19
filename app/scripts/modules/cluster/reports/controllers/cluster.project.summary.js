@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterProjectSummaryCtrl', ['$scope', '$route', '$http', '$location', '$timeout', 'ngmAuth',  'ngmData', 'ngmUser','$translate','$filter', function ($scope, $route, $http, $location, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter) {
+	.controller('ClusterProjectSummaryCtrl', ['$scope', '$route', '$http', '$location', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser', '$translate', '$filter', '$rootScope', function ($scope, $route, $http, $location, $timeout, ngmAuth, ngmData, ngmUser, $translate, $filter, $rootScope) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -47,6 +47,10 @@ angular.module('ngmReportHub')
 				// 	href += '/organization/' + $scope.report.project.organization_id;
 				// }				
 
+				if ($rootScope.projecListPreviouseUrl){
+					href = $rootScope.projecListPreviouseUrl
+				}
+				
 				return href;
 			},
 
