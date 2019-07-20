@@ -590,6 +590,147 @@ angular
 					}],
 				}
 			})
+
+			// 4w project plan dashboard
+
+
+			// health dashboard
+				.when( '/cluster/4wprojectplan', {
+				// redirectTo: '/cluster/health/4w/hq/all/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/4wprojectplan'
+			})
+			.when( '/cluster/4wprojectplan/', {
+				// redirectTo: '/cluster/health/4w/hq/all/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/4wprojectplan'
+			})
+			// health dashboard
+			.when( '/cluster/4wprojectplan//', {
+				// redirectTo: '/cluster/health/4w/hq/all/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/4wprojectplan'
+			})
+			// health dashboard
+			.when( '/cluster/4wprojectplan', {
+				/*templateUrl: '/views/app/dashboard.html',
+				controller: 'Dashboard4wProjectPlanCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+						return ngmAuth.grantPublicAccess();
+					}],
+				}*/
+				resolve: {
+					access: [ '$location', 'ngmUser', 'ngmAuth', function( $location, ngmUser, ngmAuth ) {
+						ngmAuth.grantPublicAccess();
+						// redirect to user init route
+						const userInitRouteParams = ngmAuth.getRouteParams('DASHBOARD');
+						const user = ngmUser.get();
+						const adminRpcode = userInitRouteParams.includes('adminRpcode') && user && user.adminRpcode ? user.adminRpcode.toLowerCase() : 'hq';
+						const admin0pcode = userInitRouteParams.includes('admin0pcode') && user && user.admin0pcode ? user.admin0pcode.toLowerCase() : 'all';
+						const cluster_id = userInitRouteParams.includes('cluster_id') && user && user.cluster_id ? user.cluster_id.toLowerCase() : 'all';
+						const organization_tag = userInitRouteParams.includes('organization_tag') && user && user.organization_tag ? user.organization_tag.toLowerCase() : 'all';
+						const url = '/cluster/4wprojectplan/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/' + organization_tag + '/2019-01-01/' + moment().format('YYYY-MM-DD');
+						$location.path( url );
+					}]
+				},
+			})
+			// cluster dashboard HQ
+			.when( '/cluster/4wprojectplan/hq', {
+				redirectTo: '/cluster/4wprojectplan/hq/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/hq/all', {
+				redirectTo: '/cluster/4wprojectplan/hq/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			
+			// 4wdashboardprojectplan AMER
+			.when( '/cluster/4wprojectplan/amer', {
+				redirectTo: '/cluster/4wprojectplan/amer/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/amer/all', {
+				redirectTo: '/cluster/4wprojectplan/amer/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/amer/col', {
+				redirectTo: '/cluster/4wprojectplan/amer/col/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+
+			//4wdashboardprojectplan AFRO
+
+			.when( '/cluster/4wprojectplan/afro', {
+				redirectTo: '/cluster/4wprojectplan/afro/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/afro/all', {
+				redirectTo: '/cluster/4wprojectplan/afro/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/afro/cd', {
+				redirectTo: '/cluster/4wprojectplan/afro/cd/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/afro/et', {
+				redirectTo: '/cluster/4wprojectplan/afro/et/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/afro/ng', {
+				redirectTo: '/cluster/4wprojectplan/afro/ng/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/afro/ss', {
+				redirectTo: '/cluster/4wprojectplan/afro/ss/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+
+			// EURO
+			.when( '/cluster/4wprojectplan/euro', {
+				redirectTo: '/cluster/4wprojectplan/euro/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/euro/all', {
+				redirectTo: '/cluster/4wprojectplan/euro/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/euro/ua', {
+				redirectTo: '/cluster/4wprojectplan/euro/ua/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			
+			// cluster dashboard EMRO
+			.when( '/cluster/4wprojectplan/emro', {
+				redirectTo: '/cluster/4wprojectplan/emro/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/emro/all', {
+				redirectTo: '/cluster/4wprojectplan/emro/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/emro/af', {
+				redirectTo: '/cluster/4wprojectplan/emro/af/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/emro/so', {
+				redirectTo: '/cluster/4wprojectplan/emro/so/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/emro/sy', {
+				redirectTo: '/cluster/4wprojectplan/emro/sy/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/emro/ur', {
+				redirectTo: '/cluster/4wprojectplan/emro/ur/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/emro/ye', {
+				redirectTo: '/cluster/4wprojectplan/emro/ye/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+
+			// SEARO
+			.when( '/cluster/4wprojectplan/searo', {
+				redirectTo: '/cluster/4wprojectplan/searo/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/searo/all', {
+				redirectTo: '/cluster/4wprojectplan/searo/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/searo/bd', {
+				redirectTo: '/cluster/4wprojectplan/searo/bd/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/4wprojectplan/searo/cb', {
+				redirectTo: '/cluster/4wprojectplan/searo/cb/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+
+			// health dashboard
+			.when( '/cluster/4wprojectplan/:adminRpcode/:admin0pcode/:admin1pcode/:admin2pcode/:cluster_id/:organization_tag/:start/:end', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'Dashboard4wProjectPlanCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+							return ngmAuth.grantPublicAccess();
+					}],
+				}
+			})
+
 			// FORBIDDEN
 			.when( '/cluster/forbidden', {
 				templateUrl: '/views/app/dashboard.html',
