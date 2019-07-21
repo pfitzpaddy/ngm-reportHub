@@ -263,7 +263,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					// update
 					$timeout(function() {
 						// path / msg
-						var path = $scope.project.definition.project_status === 'new' ? '/cluster/projects' : '/cluster/projects/summary/' + $scope.project.definition.id;
+						var path = $scope.project.definition.project_status === 'new' ? '/cluster/projects/list' : '/cluster/projects/summary/' + $scope.project.definition.id;
 						var msg = $scope.project.definition.project_status === 'new' ? $filter('translate')('create_project_cancelled') : $filter('translate')('create_project_cancelled');
 						// redirect + msg
 						$location.path( path );

@@ -53,7 +53,7 @@
                       {{ row.organization }}
                     </a>
                     
-                    <a href="#/cluster/projects"
+                    <a href="#/cluster/projects/list/{{ row.adminRpcode }}/{{ row.admin0pcode }}/{{ row.organization_tag }}/{{ row.cluster_id }}"
                       title="{{'goto_organization_projects_list'|translate}}"
                       ng-if="row.project_title"
                       target="_blank">
@@ -71,8 +71,8 @@
                       target="_blank">
                       {{ row.organization }}
                     </a>
-                    
-                    <a href="#/cluster/projects/organization/{{ row.organization_id }}/{{ row.cluster_id }}"
+
+                    <a href="#/cluster/projects/list/{{ row.adminRpcode | lowercase }}/{{ row.admin0pcode | lowercase }}/{{ row.organization_tag }}/{{ row.cluster_id }}"
                       title="{{'goto_organization_projects_list'|translate}}"
                       ng-if="row.project_title"
                       target="_blank">
@@ -109,12 +109,21 @@
                     <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
                   </a>
 
+                  <!-- default -->
                   <a href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" 
                     title="{{'goto'|translate}} {{ table.formatUtcDate( row.reporting_period ) }} {{'activity_report'|translate}}"
-                    ng-if="row.project_title"
+                    ng-if="row.project_title && !row.location_groups"
                     target="_blank">
                     <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
                   </a>
+
+                  <!-- location_groups -->
+                  <a href="#/cluster/projects/group/{{ row.project_id }}/{{ row.id }}"
+                    title="{{'goto'|translate}} {{ table.formatUtcDate( row.reporting_period ) }} {{'activity_report'|translate}}"
+                    ng-if="row.project_title && row.location_groups"
+                    target="_blank">
+                    <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
+                  </a>                 
 
                 </td>
                 <td data-title="'status_mayus'|translate" sortable="'status'">
@@ -126,9 +135,18 @@
                     <i class="material-icons" style="color: {{ row.status }}">{{ row.icon }}</i>
                   </a>
 
+                  <!-- default -->
                   <a href="#/cluster/projects/report/{{ row.project_id }}/{{ row.id }}" 
                     title="{{'goto'|translate}} {{ row.reporting_period | date: 'MMMM' }}  {{'activity_report'|translate}}"
-                    ng-if="row.project_title"
+                    ng-if="row.project_title && !row.location_groups"
+                    target="_blank">
+                    <i class="material-icons" style="color: {{ row.status }}">{{ row.icon }}</i>
+                  </a>
+                  
+                  <!-- location_groups -->
+                  <a href="#/cluster/projects/group/{{ row.project_id }}/{{ row.id }}" 
+                    title="{{'goto'|translate}} {{ row.reporting_period | date: 'MMMM' }}  {{'activity_report'|translate}}"
+                    ng-if="row.project_title && row.location_groups"
                     target="_blank">
                     <i class="material-icons" style="color: {{ row.status }}">{{ row.icon }}</i>
                   </a>

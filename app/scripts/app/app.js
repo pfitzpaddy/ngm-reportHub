@@ -161,9 +161,9 @@ angular
 				}
 			})
 			// DEFAULT
-			.otherwise({
-				redirectTo: '/cluster/projects'
-			});
+			// .otherwise({
+			// 	redirectTo: '/cluster/projects'
+			// });
 	}])
 	.run([ '$rootScope', '$window', '$location', 'ngmAuth', 'ngmUser', function( $rootScope, $window, $location, ngmAuth, ngmUser ) {
 

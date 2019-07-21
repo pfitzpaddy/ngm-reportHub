@@ -239,7 +239,7 @@ angular.module('ngmReportHub')
 
 					// send them away
 					$timeout(function() {
-						$location.path( '/cluster/projects/all' );
+						$location.path( '/cluster/projects/list' );
 					}, 11500 );
 
 				}

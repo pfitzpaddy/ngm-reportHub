@@ -190,7 +190,7 @@ angular.module( 'ngmReportHub' )
 									},
 									// get project href
 									getProjectsHref: function() {
-										var href = '#/cluster/projects';
+										var href = '#/cluster/projects/list';
 										// if ( $route.current.params.organization_id ) { href += '/' + $route.current.params.organization_id }
 										
 										return href;

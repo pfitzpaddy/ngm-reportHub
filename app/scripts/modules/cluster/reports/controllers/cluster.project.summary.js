@@ -41,11 +41,7 @@ angular.module('ngmReportHub')
 
 			// projects href
 			getProjectsHref: function(){
-				var href = '#/cluster/projects';
-				// if ( $scope.report.user.organization !== $scope.report.project.organization 
-				// 			&& $scope.report.user.roles.indexOf( 'ADMIN' ) ) {
-				// 	href += '/organization/' + $scope.report.project.organization_id;
-				// }				
+				var href = '#/cluster/projects/list';
 
 				if ($rootScope.projecListPreviouseUrl){
 					href = $rootScope.projecListPreviouseUrl
@@ -133,7 +129,6 @@ angular.module('ngmReportHub')
 									    }
 									  }).then(function(data){
 									    // redirect on success
-									    // $location.path( '/cluster/projects' );
 									    Materialize.toast( $filter('translate')('project_moved_to_active')+'!', 6000, 'success');
 									  });
 
@@ -157,7 +152,7 @@ angular.module('ngmReportHub')
 									    }
 									  }).then(function(data){
 									    // redirect on success
-									    $location.path( '/cluster/projects' );
+									    $location.path( '/cluster/projects/list' );
 									    Materialize.toast( $filter('translate')('project_market_as_complete_congratulations')+'!', 6000, 'success');
 									  });
 
@@ -178,7 +173,7 @@ angular.module('ngmReportHub')
 											}
 										}).then(function (data) {
 											// redirect on success
-											$location.path('/cluster/projects');
+											$location.path('/cluster/projects/list');
 											Materialize.toast('Project Moved to Plan!', 6000, 'success');
 										});
 									},
@@ -198,7 +193,7 @@ angular.module('ngmReportHub')
 											}
 										}).then(function (data) {
 											// redirect on success
-											$location.path('/cluster/projects');
+											$location.path('/cluster/projects/list');
 											Materialize.toast('Project Moved to Not Implemented!', 6000, 'success');
 										});
 									},
@@ -221,7 +216,7 @@ angular.module('ngmReportHub')
 									    	Materialize.toast( $filter('translate')('project_delete_error_please_try_again'), 6000, 'error');
 									    }
 									    if ( !data.err ){
-										    $location.path( '/cluster/projects' );
+										    $location.path( '/cluster/projects/list' );
 										    Materialize.toast( $filter('translate')('project_deleted')+'!', 6000, 'success');
 									    }
 									  }).error(function(err){
