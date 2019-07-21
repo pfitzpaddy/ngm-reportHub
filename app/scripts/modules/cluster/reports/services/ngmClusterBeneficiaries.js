@@ -6,8 +6,8 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', '$timeout', 'ngmAuth', 'ngmClusterLists', 'ngmClusterHelperNgWash',
-							function( $http, $filter, $timeout, ngmAuth, ngmClusterLists, ngmClusterHelperNgWash ) {
+	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', '$timeout', 'ngmAuth', 'ngmClusterLists', 'ngmClusterDetails', 'ngmClusterHelperNgWash',
+							function( $http, $filter, $timeout, ngmAuth, ngmClusterLists, ngmClusterDetails, ngmClusterHelperNgWash ) {
 
 		// beneficairies
 		var ngmClusterBeneficiaries = {
@@ -314,7 +314,11 @@ angular.module( 'ngmReportHub' )
 					beneficiary[ key ] = ngmClusterBeneficiaries.form[ $parent ][ $index ][ key ];
 				});
 
-				// console.log( beneficiary['display_activity_detail'] );
+				// clear
+				if ( beneficiary.details && beneficiary.details.length ) {
+					beneficiary.details = [{}];
+					ngmClusterDetails.setList( ngmClusterBeneficiaries.form[ $parent ][ $index ].details, $parent, $index, 0, '', [{}] );
+				}
 
 				// clear cash / package / units
 				angular.forEach( defaults.cash_package_units, function ( i, key ) {

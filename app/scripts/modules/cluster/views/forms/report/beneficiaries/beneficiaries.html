@@ -1193,7 +1193,7 @@
 
 
 					<!-- DETAILS -->
-					<div class="row" ng-init="ngmClusterDetails.init( project.report.locations, beneficiary, 400 );" 
+					<div class="row" ng-init="ngmClusterDetails.init( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], project.report.locations, beneficiary, 400 );" 
 															ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ]">
 						<!-- get template -->
 						<div class="row" ng-repeat="detail in beneficiary.details">
@@ -1207,7 +1207,7 @@
 															( project.definition.project_status !== 'complete' || 
 																	project.report.report_status !== 'complete' )"
 											ng-disabled="ngmClusterDetails.addDetailDisabled"
-											ng-click="ngmClusterDetails.addDetail( $locationIndex, $beneficiaryIndex, beneficiary );">
+											ng-click="ngmClusterDetails.addDetail( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], $locationIndex, $beneficiaryIndex, beneficiary );">
 								<i class="material-icons left">add</i>{{ 'add_kit_details' | translate }}
 							</button>
 						</div>
