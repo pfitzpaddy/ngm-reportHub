@@ -398,8 +398,6 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 																									$filter('filter')( $scope.panel.adminRegion, { admin0pcode: $scope.panel.user.admin0pcode }, true)[0],
 																									{ cluster } );
 
-					console.log($scope.panel.user);
-
 					// if immap and ET || CD
 					if ( $scope.panel.user.site_name ) {
 						var dutyStation = $filter('filter')( $scope.panel.dutyStations, { site_name: $scope.panel.user.site_name }, true)[0];
@@ -409,26 +407,26 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 					}
 
 					// register
-					// ngmAuth
-					// 	.register({ user: $scope.panel.user }).success(function( result ) {
+					ngmAuth
+						.register({ user: $scope.panel.user }).success(function( result ) {
 
-					// 	// db error!
-					// 	if( result.err || result.summary ){
-					// 		var msg = result.summary ? result.summary : result.msg;
-					// 		Materialize.toast( msg, 6000, 'error' );
-					// 	}
+						// db error!
+						if( result.err || result.summary ){
+							var msg = result.summary ? result.summary : result.msg;
+							Materialize.toast( msg, 6000, 'error' );
+						}
 
-					// 	// success
-					// 	if ( !result.err && !result.summary ){
-					// 		// go to default org page
-					// 		$location.path( result.app_home );
-					// 		$timeout( function(){
+						// success
+						if ( !result.err && !result.summary ){
+							// go to default org page
+							$location.path( result.app_home );
+							$timeout( function(){
 
-					// 			Materialize.toast( $filter('translate')('welcome')+' ' + result.username + ', '+$filter('translate')('time_to_create_a_project'), 6000, 'success' );
-					// 		}, 2000);
-					// 	}
+								Materialize.toast( $filter('translate')('welcome')+' ' + result.username + ', '+$filter('translate')('time_to_create_a_project'), 6000, 'success' );
+							}, 2000);
+						}
 
-					// });
+					});
 
 				},
 
