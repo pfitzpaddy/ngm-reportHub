@@ -86,7 +86,7 @@ li {
 	        	<select id="ngm-country" 
 	        					ng-options="location.admin0pcode as location.admin0name for location in panel.adminRegion | orderBy:'admin0name'"
 										ng-model="panel.user.admin0pcode"
-										 ng-change="panel.clusterByCountry()">{{'select_country' | translate}}
+										ng-change="panel.clusterByCountry()">{{'select_country' | translate}}
 	        					<option value="">{{'select_country' | translate}}</option>
 
 	        					</select>
@@ -141,7 +141,7 @@ li {
 	        	<i class="material-icons prefix cluster">donut_large</i>
 							<select class="validate"
 							id="ngm-cluster"							
-							ng-options="cluster.cluster_id as cluster.cluster for cluster in panel.clusters " 
+							ng-options="cluster.cluster_id as cluster.cluster for cluster in panel.clusters.active" 
 							ng-model="panel.user.cluster_id">
 							{{'select_sector'| translate}}
 							<option value="">{{'select_sector' | translate}}</option>
