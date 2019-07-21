@@ -467,9 +467,9 @@
 												class="validate"
 												ng-model="beneficiary.mpc_delivery_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ], 'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary )"
-												ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for 
-																			b in ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ]"
-												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.beneficiary_type_id">
+												ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for
+																			b in filtered = (ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ])"
+												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.beneficiary_type_id || !filtered.length">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
 							<label for="ngm-mpc_delivery_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
@@ -482,9 +482,9 @@
 												class="validate"
 												ng-model="beneficiary.mpc_mechanism_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_mechanism_type, 'mpc_mechanism_type_id', 'mpc_mechanism_type_name', beneficiary );"
-												ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for 
-																			b in project.lists.mpc_mechanism_type | filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id }"
-												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id">
+												ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for
+																			b in filtered = (ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_mechanism_type_id' ] | filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id })"
+												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id || !filtered.length">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
 							<label for="ngm-mpc_mechanism_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
@@ -559,9 +559,9 @@
 												class="validate"
 												ng-model="beneficiary.mpc_mechanism_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_mechanism_type, 'mpc_mechanism_type_id', 'mpc_mechanism_type_name', beneficiary );"
-												ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for 
-																			b in project.lists.mpc_mechanism_type | filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id }"
-												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id">
+												ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for
+																			b in filtered = (ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_mechanism_type_id' ] | filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id })"
+												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id || !filtered.length">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
 							<label for="ngm-mpc_mechanism_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
@@ -599,9 +599,9 @@
 												class="validate"
 												ng-model="beneficiary.mpc_mechanism_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_mechanism_type, 'mpc_mechanism_type_id', 'mpc_mechanism_type_name', beneficiary )"
-												ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for 
-																			b in project.lists.mpc_mechanism_type | filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id }"
-												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id">
+												ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for
+																			b in filtered = (ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_mechanism_type_id' ] | filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id })"
+												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id || !filtered.length">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
 							<label for="ngm-mpc_mechanism_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
@@ -660,8 +660,8 @@
 												class="validate"
 												ng-model="beneficiary.mpc_mechanism_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_mechanism_type, 'mpc_mechanism_type_id', 'mpc_mechanism_type_name', beneficiary )"
-												ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for 
-																			b in project.lists.mpc_mechanism_type | filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id }"
+												ng-options="b.mpc_mechanism_type_id as b.mpc_mechanism_type_name for
+																			b in ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_mechanism_type_id' ] | filter: { mpc_delivery_type_id: beneficiary.mpc_delivery_type_id }"
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
