@@ -144,7 +144,7 @@
 																			activity_type_id: beneficiary.activity_type_id
 																		} : true"
 											ng-change="ngmClusterBeneficiaries.setBeneficiaries( project, 'description', $locationIndex, $beneficiaryIndex, beneficiary );
-																	ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary, id );
+																	ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );
 											ngmClusterBeneficiaries.inputChange( 'ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
@@ -192,7 +192,7 @@
 																				cluster_id: beneficiary.cluster_id,
 																				activity_type_id: beneficiary.activity_type_id
 																			} : true"
-												ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary, id );
+												ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );
 																		ngmClusterBeneficiaries.setBeneficiaries( project, 'description', $locationIndex, $beneficiaryIndex, beneficiary );
 													ngmClusterBeneficiaries.inputChange( 'ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
@@ -217,7 +217,7 @@
 																					activity_type_id: beneficiary.activity_type_id, 
 																					activity_description_id: beneficiary.activity_description_id 
 																			} : true"
-												ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_detail_id', 'activity_detail_name', beneficiary, id );
+												ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_detail_id', 'activity_detail_name', beneficiary );
 																		ngmClusterBeneficiaries.setBeneficiaries( project, 'detail', $locationIndex, $beneficiaryIndex, beneficiary );
 													ngmClusterBeneficiaries.inputChange( 'ngm-activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
@@ -336,7 +336,7 @@
 												name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
 												ng-model="beneficiary.beneficiary_type_id"
-												ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_types, 'beneficiary_type_id', 'beneficiary_type_name', beneficiary, id );
+												ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_types, 'beneficiary_type_id', 'beneficiary_type_name', beneficiary );
 													ngmClusterBeneficiaries.inputChange( 'ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types |
 																		filter: { 
@@ -360,7 +360,7 @@
 												name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
 												ng-model="beneficiary.beneficiary_type_id"
-												ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_types, 'beneficiary_type_id', 'beneficiary_type_name', beneficiary, id );
+												ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_types, 'beneficiary_type_id', 'beneficiary_type_name', beneficiary );
 													ngmClusterBeneficiaries.inputChange( 'ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types |
 																		filter: { 
@@ -378,7 +378,7 @@
 												name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
 												ng-model="beneficiary.delivery_type_id"
-												ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types, 'delivery_type_id', 'delivery_type_name', beneficiary, id );
+												ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types, 'delivery_type_id', 'delivery_type_name', beneficiary );
 													ngmClusterBeneficiaries.inputChange( 'ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-options="b.delivery_type_id as b.delivery_type_name for b in project.lists.delivery_types"
 												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id">
@@ -400,7 +400,7 @@
 												name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
 												ng-model="beneficiary.beneficiary_type_id"
-												ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_types, 'beneficiary_type_id', 'beneficiary_type_name', beneficiary, id );
+												ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_types, 'beneficiary_type_id', 'beneficiary_type_name', beneficiary );
 																		ngmClusterHelperCol.updateIndicatorObjective( project.definition.admin0pcode, beneficiary );
 													ngmClusterBeneficiaries.inputChange( 'ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-options="b.beneficiary_type_id as b.beneficiary_type_name for b in project.lists.beneficiary_types |
@@ -419,7 +419,7 @@
 												name="beneficiary_category_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
 												ng-model="beneficiary.beneficiary_category_id"
-												ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_categories, 'beneficiary_category_id', 'beneficiary_category_name', beneficiary, id );
+												ng-change="ngmClusterBeneficiaries.updateName( project.lists.beneficiary_categories, 'beneficiary_category_id', 'beneficiary_category_name', beneficiary );
 													ngmClusterBeneficiaries.inputChange( 'ngm-beneficiary_category_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-options="b.beneficiary_category_id as b.beneficiary_category_name for b in project.lists.beneficiary_categories"
 												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id">
@@ -434,7 +434,7 @@
 												name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
 												ng-model="beneficiary.delivery_type_id"
-												ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types,'delivery_type_id', 'delivery_type_name', beneficiary, id );
+												ng-change="ngmClusterBeneficiaries.updateName( project.lists.delivery_types,'delivery_type_id', 'delivery_type_name', beneficiary );
 													ngmClusterBeneficiaries.inputChange( 'ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-options="b.delivery_type_id as b.delivery_type_name for b in project.lists.delivery_types"
 												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id" materialize-select>
@@ -543,7 +543,7 @@
 												class="validate"
 												ng-model="beneficiary.mpc_delivery_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_delivery_type,
-																			  'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary);"
+																			  'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary );"
 												ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for 
 																			b in ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ]"
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.beneficiary_type_id">
@@ -700,7 +700,7 @@
 												name="unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
 												ng-model="beneficiary.unit_type_id"
-												ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ], 'unit_type_id', 'unit_type_name', beneficiary, id );
+												ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ], 'unit_type_id', 'unit_type_name', beneficiary );
 													ngmClusterBeneficiaries.inputChange( 'ngm-unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 												ng-options="a.unit_type_id as a.unit_type_name for a in 
 																				ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ]"
