@@ -316,8 +316,11 @@ angular.module( 'ngmReportHub' )
             delivery_type_id: 'population',
             delivery_type_name: 'New Beneficiaries'
           },{
-            delivery_type_id: 'service',
+            delivery_type_id: 'service_recurrent',
             delivery_type_name: 'Reccurent Beneficiaries'
+          },{
+            delivery_type_id: 'service_existing',
+            delivery_type_name: 'Existing Beneficiaries'
           },{
             delivery_type_id: 'contingency',
             delivery_type_name: 'Contingency'
