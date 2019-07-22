@@ -10,6 +10,9 @@
 	.dropdown-content {
 		max-height: 550px;
 	}
+	.dropdown-content.long{
+		max-height: 750px;
+	}
 
 	/* list padding right */
 	.collection-item.avatar {

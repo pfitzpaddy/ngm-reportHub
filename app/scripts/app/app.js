@@ -480,6 +480,8 @@ angular
 	    	// toggle menu dropdown
 				$( '.ngm-profile-menu-content' ).slideToggle();
 			},
+			openHome:false,
+			openDashboard:false,
 
 
 		};
