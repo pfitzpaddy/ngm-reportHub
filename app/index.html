@@ -417,7 +417,7 @@
 											<a href="#/nutrition/afghanistan/" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
 												<i class="material-icons small right">bubble_chart</i>{{'nutrition_weekly' | translate}}</a>
 										</li>
-										<li style="position: relative;border-bottom: 1px solid #f1f1f1">
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-show="ngm.getUserName() !== 'welcome'">
 											<a href="#/cluster/4wprojectplan" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
 												<i class="material-icons small right">bubble_chart</i>{{'4WDASHBOARD' | translate}}</a>
 										</li>
