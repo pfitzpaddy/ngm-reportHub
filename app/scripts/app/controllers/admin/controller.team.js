@@ -448,7 +448,8 @@ angular.module('ngmReportHub')
 											return false
 										}
 										return true;
-									})
+									}),
+									search_tool: true
 								}
 							}]
 						}]
