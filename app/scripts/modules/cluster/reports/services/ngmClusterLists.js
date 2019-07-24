@@ -4286,7 +4286,7 @@ angular.module( 'ngmReportHub' )
                      {
                        project_donor_id: "delegación_unión_europea_en_colombia",
                        project_donor_name: "DELEGACIÓN DE LA UNIÓN EUROPEA EN COLOMBIA"
-                     },
+                     }
                     ];
           
 
