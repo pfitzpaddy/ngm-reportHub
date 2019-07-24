@@ -42,10 +42,11 @@ angular.module('ngm.widget.table', ['ngm.provider'])
     '$scope',
     '$location',
     '$element',
+		'$filter',
     'data', 
     'config',
     'NgTableParams',
-    function($scope, $location, $element, data, config, NgTableParams){
+		function ($scope, $location, $element, $filter, data, config, NgTableParams){
     
       // table config
       $scope.table = {
@@ -85,6 +86,24 @@ angular.module('ngm.widget.table', ['ngm.provider'])
 				//just for team page
 				getUser: function(user){
 					$scope.editedUser = user;
+				},
+				// search
+				search: {
+					filter: '',
+					focused: false
+				},
+				toggleSearch: function ($event) {
+					// focus search
+					$('#search_' + $scope.table.id).focus();
+					$scope.table.search.focused = $scope.table.search.focused ? false : true;
+
+				},
+				searchLoadTable: function () {
+					var copy_data = angular.copy($scope.data);
+					data_filter = $scope.table.search.filter ? $filter('filter')(copy_data, $scope.table.search.filter) : copy_data;
+					$scope.table.tableSettings.total = config.total ? config.total : data_filter.length;
+					$scope.table.tableSettings.data = data_filter;
+					$scope.table.tableParams = new NgTableParams($scope.table.tableOptions, $scope.table.tableSettings);
 				}
 
       };
@@ -106,6 +125,7 @@ angular.module('ngm.widget.table', ['ngm.provider'])
 
       // ngTable
 			$scope.table.tableParams = new NgTableParams($scope.table.tableOptions, $scope.table.tableSettings);
+			$scope.showSearch = (($scope.data.length > 10) && config.search_tool) ? true : false;
 
   }
 ]);

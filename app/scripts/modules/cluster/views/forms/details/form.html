@@ -112,9 +112,16 @@
 		</div>
 	</div>
 </div>
-
+<!-- loading -->
+<div class="loading-bar" ng-show="loading">
+	<div class="bar1"></div>
+	<div class="bar2"></div>
+	<div class="bar3"></div>
+	<div class="bar4"></div>
+	<div class="bar5"></div>
+</div>
 <!-- Project form -->
-<div name="clusterProjectForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
+<div name="clusterProjectForm" class="col s12 m12 l12" style="padding:0px;" novalidate ng-hide="loading">
 
 	<!-- disabled -->
 	<fieldset ng-disabled="!project.canEdit">
