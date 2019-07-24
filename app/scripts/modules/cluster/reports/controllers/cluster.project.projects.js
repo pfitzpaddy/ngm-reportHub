@@ -155,7 +155,7 @@ angular.module( 'ngmReportHub' )
 			// set Country Menu
 			setCountryMenu: function (region) {
 				
-				var url = '/desk/#/cluster/projects/list';
+				var url = '/desk/#/cluster/projects/list/';
 				var menu = ngmClusterHelper.getCountryMenu(url);				
 				$scope.model.menu.push(menu[region]);
 			},

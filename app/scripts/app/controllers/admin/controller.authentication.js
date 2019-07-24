@@ -218,7 +218,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
 						// filter by country
 						angular.forEach( $scope.panel.organizations_list, function( item ) {
-							if ( item.admin0pcode.indexOf('ALL') !== -1 ) {
+							if (item.admin0pcode.indexOf('ALL') !== -1 || item.admin0pcode.indexOf('') !== -1) {
 								organizations.push(item);
 							}
 						});
