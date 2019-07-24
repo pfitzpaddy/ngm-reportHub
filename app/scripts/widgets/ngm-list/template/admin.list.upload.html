@@ -175,7 +175,7 @@ font-size: 18px;
 						</h5>
 					</div>
 					<div class="col s12 m2">
-						<div class="grid-list">
+						<div class="grid-list upload-view-switch">
 							<div class="btn-floating wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="{{'grid_view'|translate}}" ng-click="grid=true"
 							 ng-class="{white: grid,indigo:!grid}">
 								<i class="material-icons " style="color: #ffffff" ng-class="{color_indigo: grid,color_white:!grid}">
@@ -190,7 +190,7 @@ font-size: 18px;
 							</div>
 						</div>
 					</div>
-				</li>				
+				</li>
 					<div ng-show="grid">
 						<li ng-if="list.data.length>0" class="collection-item avatar" style="padding-left: 30px;padding-right: 30px">
 							<div class="row">
@@ -213,7 +213,7 @@ font-size: 18px;
 												<i class="material-icons right" style="font-size: 18px; color: #e2e2e2;margin-top: 5px;margin-right: 5px;">close</i>
 											</div>
 											<div class="line">
-					
+
 												<!-- use gdrive id file -->
 												<button class="btn-floating  wave-effect blue tooltipped-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}" ng-click="list.openModal('close-preview-file',item.fileid)"
 												 ng-disabled="item.filename_extension === '.csv'">
@@ -297,8 +297,8 @@ font-size: 18px;
 									</div>
 									<div class="col s3">
 										<div class="line-non-grid">
-										
-										
+
+
 											<button class="btn-floating  wave-effect blue tooltipped-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}" ng-disabled="item.filename_extension === '.csv'"
 											 ng-click="list.openModal('close-preview-file',item.fileid)">
 												<i class="small material-icons">compare</i>
@@ -325,5 +325,5 @@ font-size: 18px;
 <script>
 	setTimeout(function () {
 		$('.tooltipped-upload').tooltip();
-	}, 100);	
+	}, 100);
 </script>

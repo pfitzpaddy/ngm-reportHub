@@ -12,7 +12,7 @@ angular.module('ngmReportHub')
 			'$http',
 			'$location',
 			'$route',
-			'$rootScope', 
+			'$rootScope',
 			'$window',
 			'$timeout',
 			'$filter',
@@ -94,7 +94,7 @@ angular.module('ngmReportHub')
 						'param': 'adminRpcode',
 						'active': 'amer',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/cluster/admin/amer'						
+						'href': '/desk/#/cluster/admin/amer'
 					},{
 						'title': 'EMRO',
 						'param': 'adminRpcode',
@@ -137,7 +137,7 @@ angular.module('ngmReportHub')
 												 '/' + cluster_id +
 												 '/' + activity_type_id +
 												 '/' + organization_tag +
-												 '/' + report_type +												 
+												 '/' + report_type +
 												 '/' + $scope.dashboard.startDate +
 												 '/' + $scope.dashboard.endDate;
 
@@ -278,7 +278,7 @@ angular.module('ngmReportHub')
 
 				// get downloads
 				getDownloads: function(){
-					
+
 					// downloads
 					var downloads = [{
 							type: 'pdf',
@@ -293,8 +293,6 @@ angular.module('ngmReportHub')
 									printUrl: $location.absUrl(),
 									downloadUrl: ngmAuth.LOCATION + '/report/',
 									user: $scope.dashboard.user,
-									pageLoadTime: 6200,
-									viewportWidth: 1400
 								}
 							},
 							metrics: $scope.dashboard.getMetrics( 'print', 'pdf' )
@@ -415,13 +413,13 @@ angular.module('ngmReportHub')
 					})
 					// remove download button
 					if (!canDownload) {
-						setTimeout(function () { 
+						setTimeout(function () {
 							$scope.model.header.download.class += ' hide';
 						},10)
 					}
 
 					// return
-					return downloads;	
+					return downloads;
 				},
 
 				// menu
@@ -481,7 +479,7 @@ angular.module('ngmReportHub')
 							'rows': clusterRows
 						});
 					}
-	
+
 					// sub-sector
 					$scope.dashboard.setActivityMenu();
 					// reports
@@ -524,7 +522,7 @@ angular.module('ngmReportHub')
 								}
 
 							});
-							
+
 							// organization menu
 							if ( $scope.model.menu[ $scope.model.menu.length - 1 ].title !== 'Organization' ) {
 								$scope.model.menu.push({
@@ -535,7 +533,7 @@ angular.module('ngmReportHub')
 									'class': 'teal lighten-1 white-text',
 									'rows': orgRows
 								});
-							} 
+							}
 
 						});
 
@@ -594,7 +592,7 @@ angular.module('ngmReportHub')
 						var org = $scope.dashboard.organization ? ' | ' + $scope.dashboard.organization : '';
 						$scope.dashboard.title += org;
 					}
-					
+
 					// update of rendered title
 					if ( $scope.model.header && $scope.model.header.title ){
 						$scope.model.header.title.title = $scope.dashboard.title;
@@ -677,7 +675,7 @@ angular.module('ngmReportHub')
 				setActivityMenu: function(){
 					// menu
 					if ($scope.dashboard.report_type === 'activity' && $scope.dashboard.cluster_id === 'protection' ) {
-							
+
 						// Afghanistan
 						if ( $scope.dashboard.admin0pcode === 'af' ) {
 							$scope.model.menu.push({
@@ -949,7 +947,7 @@ angular.module('ngmReportHub')
 					$scope.dashboard.organization_tag = $route.current.params.organization_tag;
 					$scope.dashboard.report_type = $route.current.params.report_type;
 					$scope.dashboard.activity_type_id = $route.current.params.activity_type_id;
-					
+
 					// report name
 					$scope.dashboard.report_file_name += moment().format( 'YYYY-MM-DDTHHmm' );
 
@@ -1001,7 +999,7 @@ angular.module('ngmReportHub')
 								'title': $scope.dashboard.title,
 							},
 							subtitle: {
-								'class': 'col hide-on-small-only m8 l9 report-subtitle truncate',
+								'class': 'col hide-on-small-only report-subtitle truncate m8 l9',
 								'title': $scope.dashboard.subtitle,
 							},
 							datePicker: {
@@ -1393,7 +1391,7 @@ angular.module('ngmReportHub')
 											templateUrl: 'scripts/widgets/ngm-list/template/admin.list.upload.html',
 											request: {
 												method: 'GET',
-												url: ngmAuth.LOCATION + '/api/listDocuments?'+$scope.dashboard.getRequestDocUpload() 
+												url: ngmAuth.LOCATION + '/api/listDocuments?'+$scope.dashboard.getRequestDocUpload()
 											}
 										}
 									}]
@@ -1423,7 +1421,7 @@ angular.module('ngmReportHub')
 			// filters = ngmAuth.getFilterParams('ADMIN_FILTERS')
 			// console.log(filters)
 			// set menu
-			// 
+			//
 			$scope.model.menu = [];
 			$scope.dashboard.setMenu( $scope.dashboard.userMenuItems );
 
