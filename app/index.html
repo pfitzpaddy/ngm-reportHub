@@ -446,10 +446,6 @@
 												<i class="material-icons small right">bubble_chart</i>{{'drought' | translate}} DASHBOARD</a>
 										</li>
 							
-										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode === 'AF'" ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || ngm.getUser().organization.toLowerCase() === 'who' || ngm.getUser().organization.toLowerCase() === 'dews'">
-											<a href="#/who/" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
-												<i class="material-icons small right">bubble_chart</i>DEWS DASHBOARD</a>
-										</li>
 										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-show="ngm.getUserName() !== 'welcome' && 
 																																			ngm.getUser().admin0pcode.toLowerCase() === 'et' &&
 																																			ngm.getUser().organization.toLowerCase() === 'who'">
