@@ -217,8 +217,6 @@ angular.module('ngmReportHub')
 								printUrl: $location.absUrl(),
 								downloadUrl: ngmAuth.LOCATION + '/report/',
 								user: $scope.dashboard.user,
-								pageLoadTime: $scope.dashboard.pageLoadTime,
-								viewportWidth: 1400
 							}
 						},
 						metrics: $scope.dashboard.getMetrics( 'cluster_dashboard_pdf', 'pdf' )
@@ -825,7 +823,7 @@ angular.module('ngmReportHub')
 								'title': $scope.dashboard.title,
 							},
 							subtitle: {
-								'class': 'col hide-on-small-only m8 l9 report-subtitle truncate',
+								'class': 'col hide-on-small-only report-subtitle truncate m8 l9',
 								'title': $scope.dashboard.subtitle,
 							},
 							datePicker: {
@@ -1083,7 +1081,7 @@ angular.module('ngmReportHub')
 							}]
 						},{
 							columns: [{
-								styleClass: 's12 m12',
+								styleClass: 's12 m12 l12',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
