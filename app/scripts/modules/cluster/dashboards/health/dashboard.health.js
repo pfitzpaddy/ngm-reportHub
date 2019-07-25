@@ -839,7 +839,7 @@ angular.module( 'ngmReportHub' )
 									style: 'margin:15px; padding-bottom:30px;',
 									config: {
 										id: 'dashboard-btn',
-										html: '<a class="waves-effect waves-light btn left hide-on-small-only" href="#/cluster/projects"><i class="material-icons left">keyboard_return</i>Back to Projects</a><a class="waves-effect waves-light btn right" href="#/cluster/health/4w"><i class="material-icons left">cached</i>Reset Dashboard</a>'
+										html: '<a class="waves-effect waves-light btn left hide-on-small-only" href="#/cluster/projects/list"><i class="material-icons left">keyboard_return</i>Back to Projects</a><a class="waves-effect waves-light btn right" href="#/cluster/health/4w"><i class="material-icons left">cached</i>Reset Dashboard</a>'
 									}
 								}]
 							}]

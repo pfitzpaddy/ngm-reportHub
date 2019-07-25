@@ -199,5 +199,6 @@ h1, h2, h3, h4, h5, p {
 body.md-default-theme, body, html.md-default-theme, html {
 
 	background-color: white;
+	-webkit-print-color-adjust: exact;
 }
 

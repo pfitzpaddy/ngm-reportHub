@@ -135,6 +135,16 @@
   top: 33px;
   left: 22px;
 }
+.icon-arrow{
+		transition: .30s ease-in-out;
+}
+.rotate-icon{
+		transform:rotate(180deg);		
+		transition: .30s ease-in-out;
+}
+.sub-menu:hover{
+	background-color: #eee;
+}
 /* menu icon size */
 i.smedium {
   font-size: 3rem;

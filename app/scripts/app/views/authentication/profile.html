@@ -188,7 +188,7 @@ form {
 					<div class="row">
 						<div class="input-field col s12" ng-init="panel.clusterByCountry()">
 							<i class="material-icons prefix cluster">donut_large</i>
-							<select class="validate" id="ngm-cluster" ng-options="cluster.cluster_id as cluster.cluster for cluster in panel.clusters "
+							<select class="validate" id="ngm-cluster" ng-options="cluster.cluster_id as cluster.cluster for cluster in panel.clusters.active"
 							 ng-model="panel.user.cluster_id" ng-disabled="panel.updateClusterUser">
 								{{'select_sector'| translate}}
 								<option value="">{{'select_sector' | translate}}</option>

@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('DashboardTeamCtrl', ['$scope', '$route', '$location', 'ngmAuth', 'ngmData','$translate','$filter', function ($scope, $route, $location, ngmAuth, ngmData,$translate,$filter) {
+	.controller('DashboardTeamCtrl', ['$scope', '$route', '$location', 'ngmAuth', 'ngmData', '$translate', '$filter', '$rootScope', function ($scope, $route, $location, ngmAuth, ngmData, $translate, $filter, $rootScope) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -448,7 +448,8 @@ angular.module('ngmReportHub')
 											return false
 										}
 										return true;
-									})
+									}),
+									search_tool: true
 								}
 							}]
 						}]
@@ -556,5 +557,10 @@ angular.module('ngmReportHub')
 		$scope.dashboard.setPath( $scope.dashboard.getPath() );
 		$scope.dashboard.setMenu();
 		$scope.dashboard.init();
+		$scope.$on('$locationChangeSuccess', function (evt, absNewUrl, absOldUrl) {
+			var absOldUrl = absOldUrl.substring(absOldUrl.indexOf("/#") + 1);
+			$rootScope.teamPreviouseUrl = absOldUrl;
+		})
+		
 		
 	}]);

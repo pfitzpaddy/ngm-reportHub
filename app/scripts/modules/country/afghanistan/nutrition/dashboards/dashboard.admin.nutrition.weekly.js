@@ -7,15 +7,15 @@
  */
 angular.module('ngmReportHub')
 	.controller('DashboardNutritionWeeklyAdminCtrl', [
-			'$scope', 
-			'$q', 
-			'$http', 
-			'$location', 
+			'$scope',
+			'$q',
+			'$http',
+			'$location',
 			'$route',
 			'$rootScope',
-			'$window', 
-			'$timeout', 
-			'$filter', 
+			'$window',
+			'$timeout',
+			'$filter',
 			'ngmUser',
 			'ngmAuth',
 			'ngmData',
@@ -34,10 +34,10 @@ angular.module('ngmReportHub')
 
 			// create dews object
 			$scope.dashboard = {
-				
+
 				// parent
 				ngm: $scope.$parent.ngm,
-				
+
 				// current user
 				user: ngmUser.get(),
 
@@ -67,8 +67,8 @@ angular.module('ngmReportHub')
 							$scope.model.menu.push(ngmNutritionHelper.getDistrictRows());
 						}
 
-						// add organization to menu						
-						$scope.model.menu.push(ngmNutritionHelper.getOrganizationRows(organizations));				
+						// add organization to menu
+						$scope.model.menu.push(ngmNutritionHelper.getOrganizationRows(organizations));
 						// add weeks to menu
 						$scope.model.menu.push(ngmNutritionHelper.getWeekRows());
 						})
@@ -93,9 +93,9 @@ angular.module('ngmReportHub')
 						endDate: $scope.dashboard.endDate,
 						user: $scope.dashboard.user
 					});
-					
+
 					$scope.dashboard.setMenu();
-					
+
 					// model
 					$scope.model = {
 						name: 'nutrition_admin_dashboard',
@@ -128,12 +128,12 @@ angular.module('ngmReportHub')
 											// set new date
 											$scope.dashboard.startDate = moment(date).add(1, 'day').startOf('isoWeek').subtract(1, 'day').format( 'YYYY-MM-DD' );
 											// URL
-											var path = '/nutrition/afghanistan/admin/' + $route.current.params.year + 
-																					 '/' + $route.current.params.province + 
+											var path = '/nutrition/afghanistan/admin/' + $route.current.params.year +
+																					 '/' + $route.current.params.province +
 																					 '/' + $route.current.params.district +
 																					 '/' + $route.current.params.organization +
 																					 '/' + $route.current.params.week +
-																					 '/' + $scope.dashboard.startDate + 
+																					 '/' + $scope.dashboard.startDate +
 																					 '/' + $scope.dashboard.endDate;
 
 											// update new date
@@ -143,7 +143,7 @@ angular.module('ngmReportHub')
 									}
 								},{
 									style: 'float:right',
-									label: $filter('translate')('to'), 
+									label: $filter('translate')('to'),
 									format: 'd mmm, yyyy',
 									min: $scope.dashboard.startDate,
 									currentTime: $scope.dashboard.endDate,
@@ -154,12 +154,12 @@ angular.module('ngmReportHub')
 											// set new date
 											$scope.dashboard.endDate = moment(date).add(1, 'day').endOf('isoWeek').format( 'YYYY-MM-DD' );
 											// URL
-											var path = '/nutrition/afghanistan/admin/' + $route.current.params.year + 
-																					 '/' + $route.current.params.province + 
+											var path = '/nutrition/afghanistan/admin/' + $route.current.params.year +
+																					 '/' + $route.current.params.province +
 																					 '/' + $route.current.params.district +
 																					 '/' + $route.current.params.organization +
 																					 '/' + $route.current.params.week +
-																					 '/' + $scope.dashboard.startDate + 
+																					 '/' + $scope.dashboard.startDate +
 																					 '/' + $scope.dashboard.endDate;
 
 											// update new date
@@ -184,8 +184,6 @@ angular.module('ngmReportHub')
 											printUrl: $location.absUrl(),
 											downloadUrl: ngmAuth.LOCATION + '/report/',
 											user: $scope.dashboard.user,
-											pageLoadTime: 6200,
-											viewportWidth: 1400
 										}
 									},
 									metrics: ngmNutritionHelper.getMetrics( 'nutrition_print', 'pdf' )
@@ -230,16 +228,16 @@ angular.module('ngmReportHub')
 												.then( function( result  ){
 
 													// toast
-													$timeout( function(){ 
+													$timeout( function(){
 														Materialize.toast( 'Nutrition Reports data updated!' , 6000, 'success' );
 														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 														$timeout( function(){
 															$route.reload();
 														}, 400 );
 													}, 600 );
-													
+
 												});
-											
+
 										},
 										request: { method: 'GET', url: ngmAuth.LOCATION + '/api/nutrition/afghanistan/latestUpdate' },
 										templateUrl: '/scripts/widgets/ngm-html/template/nutrition.admin.html'
@@ -281,7 +279,7 @@ angular.module('ngmReportHub')
 										title: {
 											style: 'padding-top: 10px;',
 											name: $filter('translate')('reports_timeline')
-										},							
+										},
 										options: { itemName: 'Reports(s)', start: new Date( $scope.dashboard.startDate ) },
 										request: ngmNutritionHelper.getRequest( 'nutrition/afghanistan/indicator', 'calendar' )
 									}
@@ -317,9 +315,9 @@ angular.module('ngmReportHub')
 											ngmData
 												.get( { method: 'GET', url: ngmAuth.LOCATION + '/api/nutrition/afghanistan/reports/edit/' + pk + '/' + dataid } )
 												.then( function( result ){
-													
+
 													// toast
-													$timeout( function(){ 
+													$timeout( function(){
 														Materialize.toast( 'Opening Report...' , 1000, 'success' );
 														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 														$( '#nutrition-edit-btn'+dataid ).toggleClass( 'disabled' );
@@ -333,9 +331,9 @@ angular.module('ngmReportHub')
 															// $route.reload();
 														}, 400 );
 													}, 600 );
-													
+
 												});
-											
+
 										},
 
 										modalDelete: function( modal, pk, dataid ){
@@ -356,9 +354,9 @@ angular.module('ngmReportHub')
 											ngmData
 												.get( { method: 'DELETE', url: ngmAuth.LOCATION + '/api/nutrition/afghanistan/reports/delete/' + pk + '/' + dataid } )
 												.then( function( result  ){
-													
+
 													// toast
-													$timeout( function(){ 
+													$timeout( function(){
 														Materialize.toast( 'Deleting Report...' , 1000, 'success' );
 														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 														$( '#nutrition-delete-btn'+dataid ).toggleClass( 'disabled' );
@@ -366,7 +364,7 @@ angular.module('ngmReportHub')
 															$route.reload();
 														}, 400 );
 													}, 600 );
-													
+
 												});
 										},
 
@@ -407,9 +405,9 @@ angular.module('ngmReportHub')
 											ngmData
 												.get( { method: 'GET', url: ngmAuth.LOCATION + '/api/nutrition/afghanistan/reports/edit/' + pk + '/' + dataid } )
 												.then( function( result ){
-													
+
 													// toast
-													$timeout( function(){ 
+													$timeout( function(){
 														Materialize.toast( 'Opening Report...' , 4000, 'success' );
 														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 														$( '#nutrition-edit-btn'+dataid ).toggleClass( 'disabled' );
@@ -423,9 +421,9 @@ angular.module('ngmReportHub')
 															// $route.reload();
 														}, 400 );
 													}, 600 );
-													
+
 												});
-											
+
 										},
 
 										modalDelete: function( modal, pk, dataid ){
@@ -446,9 +444,9 @@ angular.module('ngmReportHub')
 											ngmData
 												.get( { method: 'DELETE', url: ngmAuth.LOCATION + '/api/nutrition/afghanistan/reports/delete/' + pk + '/' + dataid } )
 												.then( function( result  ){
-													
+
 													// toast
-													$timeout( function(){ 
+													$timeout( function(){
 														Materialize.toast( 'Deleting Report...' , 4000, 'success' );
 														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 														$( '#nutrition-delete-btn'+dataid ).toggleClass( 'disabled' );
@@ -456,7 +454,7 @@ angular.module('ngmReportHub')
 															$route.reload();
 														}, 400 );
 													}, 600 );
-													
+
 												});
 										},
 
@@ -479,7 +477,7 @@ angular.module('ngmReportHub')
 										html: $scope.dashboard.ngm.footer
 									}
 								}]
-							}]						
+							}]
 						}]
 					}
 

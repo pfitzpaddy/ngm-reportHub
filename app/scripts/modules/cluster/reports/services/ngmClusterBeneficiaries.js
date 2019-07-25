@@ -6,8 +6,8 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', '$timeout', 'ngmAuth', 'ngmClusterLists', 'ngmClusterHelperNgWash',
-							function( $http, $filter, $timeout, ngmAuth, ngmClusterLists, ngmClusterHelperNgWash ) {
+	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', '$timeout', 'ngmAuth', 'ngmClusterLists', 'ngmClusterDetails', 'ngmClusterHelperNgWash',
+							function( $http, $filter, $timeout, ngmAuth, ngmClusterLists, ngmClusterDetails, ngmClusterHelperNgWash ) {
 
 		// beneficairies
 		var ngmClusterBeneficiaries = {
@@ -15,7 +15,9 @@ angular.module( 'ngmReportHub' )
 			// form
 			form:[[]],
 
-			merge_keys: [ 
+			merge_keys: [
+				'display_activity_detail',
+				'display_indicator',
 				'indicator_id',
 				'indicator_name',
 				'strategic_objective_descriptions',
@@ -173,9 +175,8 @@ angular.module( 'ngmReportHub' )
 			},
 
 			// set the name for a selection
-			updateName: function( list, key, name, beneficiary, id ){
-		
-				
+			updateName: function( list, key, name, beneficiary ){
+
 				// this approach does NOT break gulp!
 				$timeout(function() {
 					var obj = {}
@@ -185,13 +186,9 @@ angular.module( 'ngmReportHub' )
 					// set name
 					if ( select.length ) {
 						// name
-						beneficiary[ name ] = select[0][name]
-						//selection = select.find(type => type.delivery_type_id === beneficiary.delivery_type_id);
-
-					   // beneficiary[ name ] = delivery_selection.delivery_type_name;
-
+						beneficiary[ name ] = select[0][name];
 					}
-				}, 100 );
+				}, 10 );
 			},
 
 			// update display name in object on select change
@@ -311,12 +308,18 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// set form for beneficiary
-				ngmClusterBeneficiaries.setBeneficiariesInputs( project.lists, $parent, $index, beneficiary );		
+				ngmClusterBeneficiaries.setBeneficiariesInputs( project.lists, $parent, $index, beneficiary );	
 
 				// merge defaults from form (activities.csv)
 				angular.forEach( ngmClusterBeneficiaries.merge_keys, function ( key, i ) {
 					beneficiary[ key ] = ngmClusterBeneficiaries.form[ $parent ][ $index ][ key ];
 				});
+
+				// clear
+				if ( beneficiary.details && beneficiary.details.length ) {
+					beneficiary.details = [{}];
+					ngmClusterDetails.setList( ngmClusterBeneficiaries.form[ $parent ][ $index ].details, $parent, $index, 0, '', [{}] );
+				}
 
 				// clear cash / package / units
 				angular.forEach( defaults.cash_package_units, function ( i, key ) {
@@ -368,14 +371,15 @@ angular.module( 'ngmReportHub' )
 					ngmClusterBeneficiaries.form[ $parent ] = [];
 				}
 
+				// DISPLAY
 				// display_indicator, display_activity_detail stored from activities.csv
 
 				// beneficiary.display_indicator
-				if ( beneficiary.display_indicator ) {
+				if ( beneficiary.display_indicator && beneficiary.indicator_id ) {
 					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_indicators, { indicator_id: beneficiary.indicator_id }, true )[ 0 ];
 				}
 				// beneficiary.display_activity_detail
-				else if ( beneficiary.display_activity_detail ) {
+				else if ( beneficiary.display_activity_detail && beneficiary.activity_detail_id ) {
 					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_details, { activity_detail_id: beneficiary.activity_detail_id }, true )[ 0 ];
 				}
 				// beneficiary.activity_description_id

@@ -7,18 +7,18 @@
  */
 angular.module('ngmReportHub')
 	.controller('DashboardReportHubCtrl', [
-			'$scope', 
-			'$q', 
-			'$http', 
-			'$location', 
+			'$scope',
+			'$q',
+			'$http',
+			'$location',
 			'$route',
 			'$rootScope',
-			'$window', 
-			'$timeout', 
-			'$filter', 
+			'$window',
+			'$timeout',
+			'$filter',
 			'ngmUser',
 			'ngmAuth',
-			'ngmData', 
+			'ngmData',
 			'$translate',
 		function ( $scope, $q, $http, $location, $route, $rootScope, $window, $timeout, $filter, ngmUser, ngmAuth, ngmData, $translate ) {
 			this.awesomeThings = [
@@ -32,10 +32,10 @@ angular.module('ngmReportHub')
 
 			// create dews object
 			$scope.dashboard = {
-				
+
 				// parent
 				ngm: $scope.$parent.ngm,
-				
+
 				// current user
 				user: ngmUser.get(),
 
@@ -61,7 +61,7 @@ angular.module('ngmReportHub')
 
 				// get request from health api
 				getHealthRequest: function( indicator ){
-					
+
 					return {
 						method: 'POST',
 						url: 'http://reporthub.immap.org/api/health/indicator',
@@ -78,7 +78,7 @@ angular.module('ngmReportHub')
 							activity_type: ['all'],
 							beneficiary_type: ['all']
 						}
-					}					
+					}
 				},
 
 				getAdminRequest: function( indicator ) {
@@ -99,7 +99,7 @@ angular.module('ngmReportHub')
 
 				// get total reports
 				setTotalReports: function() {
-					
+
 					// request
 					ngmData
 						.get( $scope.dashboard.getAdminRequest( 'reports_total' ) )
@@ -176,12 +176,10 @@ angular.module('ngmReportHub')
 											printUrl: $location.absUrl(),
 											downloadUrl: ngmAuth.LOCATION + '/report/',
 											user: $scope.dashboard.user,
-											pageLoadTime: 6200,
-											viewportWidth: 1400
 										}
 									}
 								}]
-							}							
+							}
 						},
 						menu: $scope.dashboard.menu,
 						rows: [{
@@ -209,7 +207,7 @@ angular.module('ngmReportHub')
 									}
 								}]
 							}]
-						},{							
+						},{
 							columns: [{
 								styleClass: 's12 m12 l4',
 								widgets: [{
@@ -350,11 +348,11 @@ angular.module('ngmReportHub')
 											fractionSize: 0,
 											simpleTitle: false,
 											subTitlePrefix: 'out of ',
-										},										
+										},
 										request: $scope.dashboard.getAdminRequest( 'reports_complete_total' )
 									}
 								}]
-							}]							
+							}]
 						},{
 							columns: [{
 								styleClass: 's12 m12 l12',
@@ -417,7 +415,7 @@ angular.module('ngmReportHub')
 													useHTML: true,
 													headerFormat: '<br/>',
 													pointFormatter: function(){
-														
+
 														// remove ugly tooltip
 														$('svg').find('.highcharts-tooltip').remove();
 
@@ -431,7 +429,7 @@ angular.module('ngmReportHub')
 																			+ '<p>' + this.description + '</p>'
 																			+ '</div>'
 																		+ '</div>';
-														
+
 													}
 												},
 												plotOptions: {
@@ -524,7 +522,7 @@ angular.module('ngmReportHub')
 														continuousWorld: true
 													}
 												}
-											},								
+											},
 											overlays: {
 												health: {
 													name: 'Health',

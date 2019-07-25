@@ -316,8 +316,11 @@ angular.module( 'ngmReportHub' )
             delivery_type_id: 'population',
             delivery_type_name: 'New Beneficiaries'
           },{
-            delivery_type_id: 'service',
+            delivery_type_id: 'service_recurrent',
             delivery_type_name: 'Reccurent Beneficiaries'
+          },{
+            delivery_type_id: 'service_existing',
+            delivery_type_name: 'Existing Beneficiaries'
           },{
             delivery_type_id: 'contingency',
             delivery_type_name: 'Contingency'
@@ -499,44 +502,7 @@ angular.module( 'ngmReportHub' )
       getClusters: function( admin0pcode ){
         var clusters = [];
 
-      //  if ( ($location.$$host === '192.168.33.164' || $location.$$host === '35.229.43.63' || $location.$$host === '192.168.33.16') && admin0pcode.toLowerCase() === 'all') {
-       if ( ($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63') && admin0pcode.toLowerCase() === 'all') {
-          
-          [{
-            cluster_id: 'smsd',
-            cluster: 'Site Management and Site development'
-          },{
-            cluster_id: 'education',
-            cluster: 'Educación en Emergencias (EeE)'
-          },{
-            cluster_id: 'alojamientos_asentamientos',
-            cluster: 'Alojamientos/Asentamientos'
-          },{
-            cluster_id:'san',
-            cluster: 'Seguridad Alimentaria y Nutrición (SAN)'
-          },{
-            cluster_id: 'health',
-            cluster: 'Salud'
-          },{
-            cluster_id: 'recuperacion_temprana',
-            cluster: 'Recuperación Temprana'
-          },{
-            cluster_id: 'protection',
-            cluster: 'Protección'
-          },{
-            cluster_id: 'wash',
-            cluster: 'WASH'
-          },
-          {
-            cluster_id:'ningún_cluster',
-            cluster: 'Ningún Cluster'
-          }
-          /*{
-            cluster_id:'n_a',
-            cluster: 'N/A'
-          }*/
-          ];
-        } else if(admin0pcode.toLowerCase() === 'all'){
+        if( admin0pcode.toLowerCase() === 'all' ){
 
           clusters = [{
             cluster_id: 'acbar',
@@ -576,7 +542,7 @@ angular.module( 'ngmReportHub' )
             cluster_id: 'wash',
             cluster: 'WASH'
           }];
-        }else if ( admin0pcode.toLowerCase() === 'af' ) {
+        } else if ( admin0pcode.toLowerCase() === 'af' ) {
           clusters = [{
             cluster_id: 'acbar',
             cluster: 'ACBAR',
@@ -688,8 +654,7 @@ angular.module( 'ngmReportHub' )
           },{
             cluster_id:'san',
             cluster: 'Seguridad Alimentaria y Nutrición (SAN)'
-          },
-          {
+          },{
             cluster_id: 'health',
             cluster: 'Salud'
           },{
@@ -4318,7 +4283,10 @@ angular.module( 'ngmReportHub' )
                        project_donor_id: "german_federal_foreign_office",
                        project_donor_name: "German Federal Foreign Office"
                      },
-                     
+                     {
+                       project_donor_id: "delegación_unión_europea_en_colombia",
+                       project_donor_name: "DELEGACIÓN DE LA UNIÓN EUROPEA EN COLOMBIA"
+                     }
                     ];
           
 

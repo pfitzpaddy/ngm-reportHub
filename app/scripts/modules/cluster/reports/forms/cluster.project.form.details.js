@@ -263,7 +263,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					// update
 					$timeout(function() {
 						// path / msg
-						var path = $scope.project.definition.project_status === 'new' ? '/cluster/projects' : '/cluster/projects/summary/' + $scope.project.definition.id;
+						var path = $scope.project.definition.project_status === 'new' ? '/cluster/projects/list' : '/cluster/projects/summary/' + $scope.project.definition.id;
 						var msg = $scope.project.definition.project_status === 'new' ? $filter('translate')('create_project_cancelled') : $filter('translate')('create_project_cancelled');
 						// redirect + msg
 						$location.path( path );
@@ -790,6 +790,21 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 			$scope.$on('refresh:listUpload', function () {
 				$scope.project.getDocument();				
 			})
+			// for loading mask			
+			$scope.loading = true;
+			$scope.$on('$includeContentLoaded', function (eve, htmlpath) {
+				// Emitted every time the ngInclude content is reloaded
+				// use this '/scripts/modules/cluster/views/forms/details/project-upload.html' because the last loaded
+				if ( $scope.project.definition.project_status === 'new' ) {
+					setTimeout(() => {
+						$scope.loading = false;
+					}, 100 );
+				} else if (htmlpath ==='/scripts/modules/cluster/views/forms/details/project-upload.html') {
+					setTimeout(() => {
+						$scope.loading = false;
+					}, 100 );
+				}					
+			});
 	}
 
 ]);

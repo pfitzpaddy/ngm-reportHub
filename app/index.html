@@ -120,7 +120,7 @@
 								{{ ngm.getUserName() }}
 							</a>
 							<!-- profile menu dropdown list -->
-							<ul class="ngm-profile-menu-content dropdown-content z-depth-2">
+							<!-- <ul class="ngm-profile-menu-content dropdown-content z-depth-2">
 
 									<li align="center" class="teal z-depth-2" 
 											ng-init="open = false;ngm.setLanguage('col')"
@@ -141,90 +141,96 @@
 											
 											</li>
 										</ul>
-									</div>
+									</div> -->
 									<!-- user login -->
-									<li align="right" class="teal z-depth-2"
+									<!-- <li align="right" class="teal z-depth-2"
 											ng-show="ngm.getUserName() === 'welcome' && ngm.style.home === '#/immap'">
 										<a class="white-text right" href="#/immap/login" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">lock_outline</i>{{'login_mayus' | translate}}</a>
-									</li>
+									</li> -->
 
 									<!-- user login -->
-									<li align="right" class="teal z-depth-2"
+									<!-- <li align="right" class="teal z-depth-2"
 											ng-show="ngm.getUserName() === 'welcome' && ngm.style.home !== '#/immap'">
 										<a class="white-text right" href="#/cluster/login" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">lock_outline</i>{{'login_mayus' | translate}}</a>
-									</li>
+									</li> -->
 
 									<!-- user logout -->
-									<li class="teal z-depth-2"
+									<!-- <li class="teal z-depth-2"
 											ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" ng-click="ngm.logout();">
 										<i class="material-icons smedium right">lock_open</i>{{'logout_mayus' | translate}}</a>
-									</li>
+									</li> -->
 
 									<!-- home page -->
-									<li align="center" class="teal z-depth-2" 
+									<!-- <li align="center" class="teal z-depth-2" 
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/organization" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">home</i>{{'my_home' | translate}}</a>
-									</li>
+									</li> -->
 
 									<!-- iMMAP HOME -->
-									<li align="center" class="teal z-depth-2"
+									<!-- <li align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().organization === 'iMMAP'">
 										<a class="white-text right" href="#/immap" 
 												ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">important_devices</i>{{'immap_home' | translate}}</a>
-									</li>
+									</li> -->
 
 									<!-- ADMIN -->
-									<li align="center" class="teal z-depth-2"
+									<!-- <li align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/admin/{{ ngm.getUser().adminRpcode | lowercase }}/{{ ngm.getUser().admin0pcode | lowercase }}" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">move_to_inbox</i>{{'my_admin' | translate}}</a>
-									</li>
+									</li> -->
 
 									<!-- Dashboard -->
-									<li align="center" class="teal z-depth-2">
+									<!-- <li align="center" class="teal z-depth-2">
 										<a class="white-text right" href="#/cluster/5w" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">bubble_chart</i>{{'5WDASHBOARD_mayus' |translate}}</a>
-									</li>
+									</li> -->
+
+									<!-- 4w Dashboard -->
+									<!-- <li align="center" class="teal z-depth-2">
+										<a class="white-text right" href="#/cluster/4wprojectplan" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">bubble_chart</i>{{'4WDASHBOARD' | translate}}</a> 
+									</li> -->
 
 									<!-- TEAM -->
-									<li align="center" class="teal z-depth-2"
+									<!-- <li align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/team" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">group</i>{{'my_team' | translate}}</a>
-									</li>
+									</li> -->
 
 									<!-- PROFILE -->
-									<li align="center" class="teal z-depth-2"
+									<!-- <li align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/profile/{{ ngm.getUserName() }}" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">person_pin</i>{{'my_profile' | translate}}</a>
-									</li>
+									</li> -->
 
 									<!-- my projects -->
-									<li  align="center" class="teal z-depth-2" 
+									<!-- <li  align="center" class="teal z-depth-2" 
 										ng-show="ngm.getUserName() !== 'welcome'">
-										<a class="white-text right" href="#/cluster/projects" ng-click="ngm.toggleNavigationMenu();">
+										<a class="white-text right" href="#/cluster/projects/list" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">zoom_in</i>{{'my_projects' | translate}}</a>
-									</li>
+									</li> -->
 
 									<!-- my STOCKS -->
 									
 
 									<!-- PRODUCTS -->
-									<li align="center" class="teal z-depth-2"
+									<!-- <li align="center" class="teal z-depth-2"
 										ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().organization === 'iMMAP'">
 										<a class="white-text right" href="#/immap/products" 
 												ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">crop_original</i>{{'my_products' | translate}}</a>
-									</li>
+									</li> -->
 
 									<!-- assessments -->
-									<li align="center" class="teal z-depth-2" 
+									<!-- <li align="center" class="teal z-depth-2" 
 										ng-show="ngm.getUserName() !== 'welcome' && 
 															ngm.getUser().admin0pcode.toLowerCase() === 'et' &&
 															ngm.getUser().organization.toLowerCase() === 'who'">
@@ -237,10 +243,10 @@
 														 ngm.getUser().organization.toLowerCase() === 'usaid'">
 										<a class="white-text right" href="#/nutrition/afghanistan/" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">bubble_chart</i>{{'nutrition_weekly' | translate}}</a>
-									</li>
+									</li> -->
 
 									<!-- EPR -->
-									<li  align="center" class="teal z-depth-2"
+									<!-- <li  align="center" class="teal z-depth-2"
 										ng-if="ngm.getUser().admin0pcode === 'AF'"
 										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
 															ngm.getUser().organization.toLowerCase() === 'moph' ||
@@ -266,13 +272,13 @@
 															ngm.getUser().organization.toLowerCase() === 'dews'">
 										<a class="white-text right" href="#/who/" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">bubble_chart</i>DEWS DASHBOARD</a>
-									</li>
+									</li> -->
 									<!-- DROUGHT -->
-									<li align="center" class="teal z-depth-2"
+									<!-- <li align="center" class="teal z-depth-2"
 									 			ng-if="ngm.getUser().admin0pcode.toLowerCase() === 'af'">
 										<a class="white-text right" href="#/response/afghanistan/drought" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">bubble_chart</i>{{'drought' | translate}} DASHBOARD</a>
-									</li>
+									</li> -->
 
 
 									<!-- contact modal -->
@@ -281,7 +287,7 @@
 										<i class="material-icons smedium right">help_outline</i>USER GUIDES</a>
 									</li> -->
 
-									<li  align="center" class="teal z-depth-2" 
+									<!-- <li  align="center" class="teal z-depth-2" 
 										ng-show="ngm.getUserName() !== 'welcome'">
 										<a class="white-text right" href="#/cluster/stocks" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">assignment_turned_in</i>{{'my_stocks' | translate}}</a>
@@ -292,10 +298,10 @@
 										ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || ngm.getUser().organization.toLowerCase() === 'who' || ngm.getUser().organization.toLowerCase() === 'dews'">
 										<a class="white-text right" href="#/who/" ng-click="ngm.toggleNavigationMenu();">
 										<i class="material-icons smedium right">bubble_chart</i>DEWS DASHBOARD</a>
-									</li>
+									</li> -->
 
 									<!-- contact modal -->
-									<li align="center" class="teal z-depth-2">
+									<!-- <li align="center" class="teal z-depth-2">
 										<a class="white-text right" ng-click="ngm.contact(); ngm.toggleNavigationMenu()">
 										<i class="material-icons smedium right">perm_phone_msg</i>{{'contact_mayus' | translate}} {{ngm.var4wplusrh}}</span></a>
 									</li>
@@ -306,8 +312,169 @@
 
 									
 
-							</ul>
+							</ul> -->
 
+							<ul class="ngm-profile-menu-content dropdown-content long z-depth-2">
+								<!-- user login -->
+								<li align="right" class="teal z-depth-2" ng-show="ngm.getUserName() === 'welcome' && ngm.style.home === '#/immap'">
+									<a class="white-text right" href="#/immap/login" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">lock_outline</i>{{'login_mayus' | translate}}</a>
+								</li>
+								
+								<!-- user login -->
+								<li align="right" class="teal z-depth-2" ng-show="ngm.getUserName() === 'welcome' && ngm.style.home !== '#/immap'">
+									<a class="white-text right" href="#/cluster/login" ng-click="ngm.toggleNavigationMenu();">
+										<i class="material-icons smedium right">lock_outline</i>{{'login_mayus' | translate}}</a>
+								</li>
+								
+								<!-- user logout -->
+								<li class="teal z-depth-2" ng-show="ngm.getUserName() !== 'welcome'">
+									<a class="white-text right" ng-click="ngm.logout();">
+										<i class="material-icons smedium right">lock_open</i>{{'logout_mayus' | translate}}</a>
+								</li>
+								<!-- language -->
+								<li align="center" class="teal z-depth-2" ng-init="open = false;ngm.setLanguage('col')" ng-show="ngm.getUsername() === 'welcome' || (ngm.translate_version )">
+									<a class="white-text right" ng-click="open= !open;">
+										<i class="material-icons smedium right">translate</i>
+										<i class="material-icons small left icon-arrow" ng-class="{'rotate-icon':open === true}">keyboard_arrow_down</i>{{'language'|translate}}</a>
+									</a>
+								</li>
+								<div ng-if="open" style="margin-bottom: 5px; background-color: #fff">
+									<ul>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-repeat="lang in ngm.getLanguage">
+											<a class="" ng-click="ngm.changeFunction( lang.language_id );">{{ lang.language_name }}</a>
+							
+											<div style="position:absolute;top:9px;right: 20px" ng-click="ngm.changeFunction( lang.language_id );">
+												<img style="width: 32px;height: 32px;" ng-src="images/{{lang.flag}}">
+											</div>
+							
+										</li>
+									</ul>
+								</div>								
+
+								<!-- home page -->
+								<li align="center" class="teal z-depth-2" ng-show="ngm.getUserName() !== 'welcome'" >
+									<a class="white-text right" ng-click="ngm.openHome= !ngm.openHome;">
+										<i class="material-icons smedium right">home</i>
+										<i class="material-icons small left icon-arrow" ng-class="{'rotate-icon':ngm.openHome === true}">keyboard_arrow_down</i>{{'my_home' | translate}}</a>
+									</a>
+								</li>
+								<div ng-if="ngm.openHome" style="margin-bottom: 5px; background-color: #fff">
+									<ul>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1">
+											<a href="#/cluster/organization" ng-click="ngm.toggleNavigationMenu();ngm.openHome= !ngm.openHome;">
+												<i class="material-icons small right">home</i>{{'my_home' | translate}}</a>
+										</li>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1">
+											<a href="#/team" ng-click="ngm.toggleNavigationMenu();ngm.openHome= !ngm.openHome;">
+												<i class="material-icons small right">group</i>{{'my_team' | translate}}</a>
+										</li>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1">
+											<a href="#/profile/{{ ngm.getUserName() }}" ng-click="ngm.toggleNavigationMenu();ngm.openHome= !ngm.openHome;">
+												<i class="material-icons small right">person_pin</i>{{'my_profile' | translate}}</a>
+										</li>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1">
+											<a href="#/cluster/admin/{{ ngm.getUser().adminRpcode | lowercase }}/{{ ngm.getUser().admin0pcode | lowercase }}" ng-click="ngm.toggleNavigationMenu();ngm.openHome= !ngm.openHome;">
+												<i class="material-icons small right">move_to_inbox</i>{{'my_admin' | translate}}</a>
+										</li>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1">
+											<a href="#/cluster/projects/list" ng-click="ngm.toggleNavigationMenu();ngm.openHome= !ngm.openHome;">
+												<i class="material-icons small right">zoom_in</i>{{'my_projects' | translate}}</a>
+										</li>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1">
+											<a href="#/cluster/stocks" ng-click="ngm.toggleNavigationMenu();ngm.openHome= !ngm.openHome;">
+												<i class="material-icons small right">assignment_turned_in</i>{{'my_stocks' | translate}}</a>
+										</li>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-show="ngm.getUser().organization === 'iMMAP'">
+											<a href="#/immap/products" ng-click="ngm.toggleNavigationMenu();ngm.openHome= !ngm.openHome;">
+												<i class="material-icons small right">crop_original</i>{{'my_products' | translate}}</a>
+										</li>
+									</ul>
+								</div>
+														
+								<!-- Dashboard -->
+								<li align="center" class="teal z-depth-2">
+									<a class="white-text right" ng-click="ngm.openDashboard= !ngm.openDashboard;">
+										<i class="material-icons smedium right">bubble_chart</i>
+										<i class="material-icons small left icon-arrow" ng-class="{'rotate-icon':ngm.openDashboard === true}">keyboard_arrow_down</i>DASHBOARD</a>
+									</a>
+								</li>
+								<div ng-if="ngm.openDashboard" style="margin-bottom: 5px; background-color: #fff">
+									<ul>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1"
+											 ng-show="ngm.getUserName() !== 'welcome'">
+											<a href="#/cluster/admin/{{ ngm.getUser().adminRpcode | lowercase }}/{{ ngm.getUser().admin0pcode | lowercase }}" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
+												<i class="material-icons small right">move_to_inbox</i>PROJECTS ADMIN</a>
+										</li>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode === 'AF'" ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
+																																			ngm.getUser().organization.toLowerCase() === 'moph' ||
+																																			ngm.getUser().organization.toLowerCase() === 'who' || 
+																																			ngm.getUser().organization.toLowerCase() === 'dews'">
+											<a href="#/epr/admin" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
+												<i class="material-icons small right">assignment_turned_in</i>EPR ADMIN</a>
+										</li>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode.toLowerCase() === 'af'"
+										 ng-show="ngm.getUser().cluster_id.toLowerCase() === 'nutrition'|| ngm.getUser().organization.toLowerCase() === 'usaid'">
+											<a href="#/nutrition/afghanistan/" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
+												<i class="material-icons small right">bubble_chart</i>{{'nutrition_weekly' | translate}}</a>
+										</li>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1">
+											<a href="#/cluster/4wprojectplan" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
+												<i class="material-icons small right">bubble_chart</i>{{'4WDASHBOARD' | translate}}</a>
+										</li>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1">
+											<a href="#/cluster/5w" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
+												<i class="material-icons small right">bubble_chart</i>{{'5WDASHBOARD_mayus' |translate}}</a>
+										</li>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode === 'AF'" ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
+																																												ngm.getUser().organization.toLowerCase() === 'moph' || 
+																																												ngm.getUser().organization.toLowerCase() === 'who' || 
+																																												ngm.getUser().organization.toLowerCase() === 'dews'||
+																																												ngm.getUser().organization.toLowerCase() === 'usaid'">
+											<a href="#/epr" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
+												<i class="material-icons small right">bubble_chart</i>EPR DASHBOARD</a>
+										</li>
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode === 'AF'" ng-show="ngm.getUser().organization.toLowerCase() === 'immap' || 
+																																												ngm.getUser().organization.toLowerCase() === 'who' || 
+																																												ngm.getUser().organization.toLowerCase() === 'dews'">
+											<a href="#/who/" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
+												<i class="material-icons small right">bubble_chart</i>DEWS DASHBOARD</a>
+										</li>
+										<!-- DROUGHT -->
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode.toLowerCase() === 'af'">
+											<a href="#/response/afghanistan/drought" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
+												<i class="material-icons small right">bubble_chart</i>{{'drought' | translate}} DASHBOARD</a>
+										</li>
+							
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-show="ngm.getUserName() !== 'welcome' && 
+																																			ngm.getUser().admin0pcode.toLowerCase() === 'et' &&
+																																			ngm.getUser().organization.toLowerCase() === 'who'">
+											<a href="#/who/ethiopia" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
+												<i class="material-icons small right">assignment_late</i>{{'assessments_mayus' | translate}}</a>
+										</li>
+										<!-- iMMAP HOME -->
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1"
+											ng-show="ngm.getUserName() !== 'welcome' && ngm.getUser().organization === 'iMMAP'">
+											<a href="#/immap" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
+											<i class="material-icons small right">important_devices</i>{{'immap_home' | translate}}</a>
+										</li>
+							
+									</ul>
+								</div>
+								<!-- contact modal -->
+								<li align="center" class="teal z-depth-2">
+									<a class="white-text right" ng-click="ngm.contact(); ngm.toggleNavigationMenu()">
+										<i class="material-icons smedium right">perm_phone_msg</i>{{'contact_mayus' | translate}} {{ngm.var4wplusrh}}</span>
+									</a>
+								</li>
+							
+							
+							
+							
+							
+							
+							
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -529,6 +696,10 @@
 		<!-- CLUSTER DASHBOARDS -->
 		<script src="scripts/modules/cluster/dashboards/dashboard.admin.js"></script>
 		<script src="scripts/modules/cluster/dashboards/dashboard.cluster.js"></script>
+		
+		<!--new 4w projectplan-->
+		<script src="scripts/modules/cluster/dashboards/dashboard.4wprojectplan.js"></script>
+
 		<script src="scripts/modules/cluster/dashboards/health/dashboard.hct.js"></script>
 		<script src="scripts/modules/cluster/dashboards/health/dashboard.health.js"></script>
 		<script src="scripts/modules/cluster/reports/controllers/cluster.syria.dashboard.js"></script>

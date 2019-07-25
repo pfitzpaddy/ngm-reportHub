@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller( 'ClusterProjectProjectsCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper','$translate','$filter', function ( $scope, $location, $route, ngmAuth, ngmData, ngmUser, ngmClusterHelper,$translate, $filter ) {
+	.controller('ClusterProjectProjectsCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper', '$translate', '$filter', '$rootScope', function ($scope, $location, $route, ngmAuth, ngmData, ngmUser, ngmClusterHelper, $translate, $filter, $rootScope ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -47,13 +47,9 @@ angular.module( 'ngmReportHub' )
 			getMenuUrl: function( cluster_id ){
 
 				// default
-				var url = '/desk/#/cluster/projects';
+				var url = '/desk/#/cluster/projects/list';
 				
-				// if org
-				// if ( $route.current.params.organization_id ) {
-				// 	url += '/organization/' + $route.current.params.organization_id;
-				// }
-				// url += '/' + cluster_id;
+				// url
 				url += '/' + $route.current.params.adminRpcode + '/' + $route.current.params.admin0pcode + '/' + $route.current.params.organization_tag + '/' + cluster_id;
 				
 				return url;
@@ -151,7 +147,7 @@ angular.module( 'ngmReportHub' )
 
 			// set Region Menu
 			setRegionMenu: function () {				
-				url = '/desk/#/cluster/projects';
+				url = '/desk/#/cluster/projects/list';
 				var region = ngmClusterHelper.getRegionMenu(url);
 				$scope.model.menu.push(region);
 			},
@@ -159,7 +155,7 @@ angular.module( 'ngmReportHub' )
 			// set Country Menu
 			setCountryMenu: function (region) {
 				
-				var url = '/desk/#/cluster/projects/';
+				var url = '/desk/#/cluster/projects/list/';
 				var menu = ngmClusterHelper.getCountryMenu(url);				
 				$scope.model.menu.push(menu[region]);
 			},
@@ -206,7 +202,7 @@ angular.module( 'ngmReportHub' )
 				};
 				ngmData.get(req).then(function (org) {
 					
-					var urlOrganization = '/desk/#/cluster/projects/' + $route.current.params.adminRpcode + '/' + $route.current.params.admin0pcode + '/';
+					var urlOrganization = '/desk/#/cluster/projects/list/' + $route.current.params.adminRpcode + '/' + $route.current.params.admin0pcode + '/';
 					// org = org.filter((value, index, self) => self.map(x => x.organization_tag).indexOf(value.organization_tag) == index)
 					listOrg = [{
 						'title': $filter('translate')('all_min1'),
@@ -444,7 +440,7 @@ angular.module( 'ngmReportHub' )
 						}
 					})
 					if(out_zone){
-						path = '/cluster/projects/' + $scope.report.adminRpcode + '/' + $scope.report.admin0pcode + '/' + $scope.report.organization_tag + '/' + $scope.report.cluster_id;
+						path = '/cluster/projects/list/' + $scope.report.adminRpcode + '/' + $scope.report.admin0pcode + '/' + $scope.report.organization_tag + '/' + $scope.report.cluster_id;
 						$location.path(path);
 					}
 				}
@@ -658,5 +654,10 @@ angular.module( 'ngmReportHub' )
 		}		
 		// init
 		$scope.report.init();
+		$scope.$on('$locationChangeSuccess', function (evt, absNewUrl, absOldUrl){
+			
+			var absOldUrl = absOldUrl.substring(absOldUrl.indexOf("/#") + 1);
+			$rootScope.projecListPreviouseUrl = absOldUrl;
+		}) 
 		
 	}]);
