@@ -1213,6 +1213,14 @@
 						</div>
 					</div>
 
+
+					<!-- TEMPLATEURL -->
+					<div ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'templateUrl' ]">
+						<!-- get template -->
+						<div>
+							<div ng-include="project.templatesUrl + ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'templateUrl' ]"></div>
+						</div>
+					</div>
 					
 
 				</div>
