@@ -93,7 +93,7 @@
 										project.definition.admin0pcode === 'AF' &&
 										ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ] &&
 										!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_package_type_id' ]">
-				<div class="row" style="padding: 5px 0px 0px 20px;">
+				<div class="row" style="padding: 20px 0px 0px 20px;">
 					<p><i class="material-icons left" style="color: #e57373">info</i></p>
 					<p style="color: #e57373">
 						<span style="font-weight:400">{{'amount'|translate}}:</span> {{'please_enter_the_amount_per' | translate}} <span style="font-weight:400">{{'household_hh' | translate}}</span> per <span style="font-weight:400">{{'transfer' | translate}}</span>
@@ -462,8 +462,8 @@
 
 						<!-- mpc_delivery_type_id-->
 						<div class="input-field col s12 m3">
-							<select materialize-select id="ngm-mpc_delivery_type_id-{{ $index }}" 
-												name="mpc_delivery_type_id-{{ $index }}"
+							<select materialize-select id="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" 
+												name="mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
 												ng-model="beneficiary.mpc_delivery_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ], 'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary )"
@@ -472,13 +472,13 @@
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.beneficiary_type_id || !filtered.length">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-mpc_delivery_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
+							<label for="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
 						</div>
 
 						<!-- mpc_mechanism_type_id -->
 						<div class="input-field col s12 m3">
-							<select materialize-select watch id="ngm-mpc_mechanism_type_id-{{ $index }}"
-												name="mpc_mechanism_type_id-{{ $index }}"
+							<select materialize-select watch id="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
+												name="mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
 												ng-model="beneficiary.mpc_mechanism_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_mechanism_type, 'mpc_mechanism_type_id', 'mpc_mechanism_type_name', beneficiary );"
@@ -487,13 +487,13 @@
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id || !filtered.length">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-mpc_mechanism_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
+							<label for="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
 						</div>
 
 						<!-- transfer_type_id -->
 						<div class="input-field col s12 m3">
-							<select materialize-select id="ngm-transfer_type_id-{{ $index }}" 
-												name="transfer_type_id-{{ $index }}"
+							<select materialize-select id="ngm-transfer_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" 
+												name="transfer_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
 												ng-model="beneficiary.transfer_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( project.lists.transfers, 'transfer_type_id', 'transfer_type_name', beneficiary );"
@@ -501,13 +501,13 @@
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_mechanism_type_id">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-transfer_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'transfers' | translate }}</label>
+							<label for="ngm-transfer_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'transfers' | translate }}</label>
 						</div>
 
 						<!-- package_type_id -->
 						<div class="input-field col s12 m3">
-							<select materialize-select id="ngm-package_type_id-{{ $index }}" 
-												name="package_type_id-{{ $index }}"
+							<select materialize-select id="ngm-package_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" 
+												name="package_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
 												ng-model="beneficiary.package_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( [{ 'package_type_id':'standard', 'package_type_name':'Standard' },{ 'package_type_id':'non-standard', 'package_type_name':'Non-standard' }], 'package_type_id', 'package_type_name', beneficiary );"
@@ -522,7 +522,7 @@
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.transfer_type_id">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-package_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'package' | translate }}</label>
+							<label for="ngm-package_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'package' | translate }}</label>
 						</div>
 						
 					</div>
@@ -538,24 +538,23 @@
 
 						<!-- mpc_delivery_type_id -->
 						<div class="input-field col s12 m6">
-							<select materialize-select id="ngm-mpc_delivery_type_id-{{ $index }}" 
-												name="mpc_delivery_type_id-{{ $index }}"
+							<select materialize-select id="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" 
+												name="mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
 												ng-model="beneficiary.mpc_delivery_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_delivery_type,
 																			  'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary );"
-												ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for 
-																			b in ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ]"
+												ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for b in ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ]"
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.beneficiary_type_id">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-mpc_delivery_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
+							<label for="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
 						</div>
 
 						<!-- mpc_mechanism_type_id -->
 						<div class="input-field col s12 m6">
 							<select materialize-select watch id="ngm-mpc_mechanism_type_id-{{ $index }}"
-												name="mpc_mechanism_type_id-{{ $index }}"
+												name="mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
 												ng-model="beneficiary.mpc_mechanism_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_mechanism_type, 'mpc_mechanism_type_id', 'mpc_mechanism_type_name', beneficiary );"
@@ -564,7 +563,7 @@
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id || !filtered.length">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-mpc_mechanism_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
+							<label for="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
 						</div>
 
 					</div>
@@ -579,8 +578,8 @@
 
 						<!-- mpc_delivery_type_id -->
 						<div class="input-field col s12 m4">
-							<select materialize-select id="ngm-mpc_delivery_type_id-{{ $index }}" 
-												name="mpc_delivery_type_id-{{ $index }}"
+							<select materialize-select id="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" 
+												name="mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
 												ng-model="beneficiary.mpc_delivery_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ], 'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary )"
@@ -589,13 +588,13 @@
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.beneficiary_type_id">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-mpc_delivery_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
+							<label for="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
 						</div>
 
 						<!-- mpc_mechanism_type_id -->
 						<div class="input-field col s12 m4">
-							<select materialize-select watch id="ngm-mpc_mechanism_type_id-{{ $index }}"
-												name="mpc_mechanism_type_id-{{ $index }}"
+							<select materialize-select watch id="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
+												name="mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
 												ng-model="beneficiary.mpc_mechanism_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_mechanism_type, 'mpc_mechanism_type_id', 'mpc_mechanism_type_name', beneficiary )"
@@ -604,13 +603,13 @@
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id || !filtered.length">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-mpc_mechanism_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
+							<label for="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
 						</div>
 
 						<!-- package_type_id -->
 						<div class="input-field col s12 m4">
-							<select materialize-select id="ngm-package_type_id-{{ $index }}" 
-												name="package_type_id-{{ $index }}"
+							<select materialize-select id="ngm-package_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" 
+												name="package_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
 												ng-model="beneficiary.package_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( [{ 'package_type_id':'standard', 'package_type_name':'Standard' },{ 'package_type_id':'non-standard', 'package_type_name':'Non-standard' }], 'package_type_id', 'package_type_name', beneficiary )"
@@ -625,7 +624,7 @@
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-package_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'package' | translate }}</label>
+							<label for="ngm-package_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'package' | translate }}</label>
 						</div>
 						
 					</div>
@@ -640,8 +639,8 @@
 
 						<!-- mpc_delivery_type_id -->
 						<div class="input-field col s12 m4">
-							<select materialize-select id="ngm-mpc_delivery_type_id-{{ $index }}" 
-												name="mpc_delivery_type_id-{{ $index }}"
+							<select materialize-select id="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" 
+												name="mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
 												ng-model="beneficiary.mpc_delivery_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ], 'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary )"
@@ -650,13 +649,13 @@
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.beneficiary_type_id">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-mpc_delivery_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
+							<label for="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
 						</div>
 
 						<!-- mpc_mechanism_type_id -->
 						<div class="input-field col s12 m4">
-							<select materialize-select watch id="ngm-mpc_mechanism_type_id-{{ $index }}"
-												name="mpc_mechanism_type_id-{{ $index }}"
+							<select materialize-select watch id="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
+												name="mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
 												ng-model="beneficiary.mpc_mechanism_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_mechanism_type, 'mpc_mechanism_type_id', 'mpc_mechanism_type_name', beneficiary )"
@@ -665,13 +664,13 @@
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-mpc_mechanism_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
+							<label for="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
 						</div>
 
 						<!-- transfer_type_id -->
 						<div class="input-field col s12 m4">
-							<select materialize-select id="ngm-transfer_type_id-{{ $index }}" 
-												name="transfer_type_id-{{ $index }}"
+							<select materialize-select id="ngm-transfer_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" 
+												name="transfer_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
 												ng-model="beneficiary.transfer_type_id"
 												ng-change="ngmClusterBeneficiaries.updateName( project.lists.transfers, 'transfer_type_id', 'transfer_type_name', beneficiary )"
@@ -679,7 +678,7 @@
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_mechanism_type_id">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-transfer_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'transfers' | translate }}</label>
+							<label for="ngm-transfer_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'transfers' | translate }}</label>
 						</div>
 						
 					</div>
@@ -690,15 +689,15 @@
 																	&& !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_package_type_id' ] 
 																	&& !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_transfer_type_id' ] ">
 						<div class="input-field col s12 m12">
-							<select materialize-select id="ngm-mpc_delivery_type_id-{{ $index }}" 
-												name="mpc_delivery_type_id-{{ $index }}" class="validate"
+							<select materialize-select id="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" 
+												name="mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="validate"
 												ng-model="beneficiary.mpc_delivery_type_id" 
 												ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ], 'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary )"
 												ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for 	b in ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ]" 
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.beneficiary_type_id">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-mpc_delivery_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
+							<label for="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
 						</div>
 					</div>
 
