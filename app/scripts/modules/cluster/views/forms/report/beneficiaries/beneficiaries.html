@@ -683,8 +683,24 @@
 						</div>
 						
 					</div>
-
-
+					<!-- MPC inkind -->
+					<!-- MPC mpc_delivery_type_id -->
+					<div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ]
+																	&& !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_mechanism_type_id' ] 
+																	&& !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_package_type_id' ] 
+																	&& !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_transfer_type_id' ] ">
+						<div class="input-field col s12 m12">
+							<select materialize-select id="ngm-mpc_delivery_type_id-{{ $index }}" 
+												name="mpc_delivery_type_id-{{ $index }}" class="validate"
+												ng-model="beneficiary.mpc_delivery_type_id" 
+												ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ], 'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary )"
+												ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for 	b in ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ]" 
+												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.beneficiary_type_id">
+								<option value="">{{ 'select' | translate }}</option>
+							</select>
+							<label for="ngm-mpc_delivery_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
+						</div>
+					</div>
 
 
 
