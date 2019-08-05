@@ -529,6 +529,8 @@
         "total_projects":"Total Projects",
         "warehouses_total":"Warehouses",
         "lastest_report_update":"Lastest Report Update",
+         "lastest_project_update":"Lastest Project Update",
+
         "lastest_project_plan_update":"Lastest Project Plan Update",
         "by":"by",
         "previous_month":"Previous Month",

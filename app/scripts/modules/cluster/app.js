@@ -724,6 +724,63 @@ angular
 				}
 			})
 
+
+			// 4wplus dashboard
+
+			.when( '/cluster/dashboard4wplus/', {
+				// redirectTo: '/cluster/health/4w/hq/all/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/dashboard4wplus'
+			})
+			// health dashboard
+			.when( '/cluster/dashboard4wplus//', {
+				// redirectTo: '/cluster/health/4w/hq/all/all/all/all/all/all/2016-01-01/' + moment().format('YYYY-MM-DD')
+				redirectTo: '/cluster/dashboard4wplus'
+			})
+			// health dashboard
+			.when( '/cluster/dashboard4wplus', {
+				resolve: {
+					access: [ '$location', 'ngmUser', 'ngmAuth', function( $location, ngmUser, ngmAuth ) {
+						ngmAuth.grantPublicAccess();
+						// redirect to user init route
+						const userInitRouteParams = ngmAuth.getRouteParams('DASHBOARD');
+						const user = ngmUser.get();
+						const adminRpcode = userInitRouteParams.includes('adminRpcode') && user && user.adminRpcode ? user.adminRpcode.toLowerCase() : 'hq';
+						const admin0pcode = userInitRouteParams.includes('admin0pcode') && user && user.admin0pcode ? user.admin0pcode.toLowerCase() : 'all';
+						const cluster_id = userInitRouteParams.includes('cluster_id') && user && user.cluster_id ? user.cluster_id.toLowerCase() : 'all';
+						const organization_tag = userInitRouteParams.includes('organization_tag') && user && user.organization_tag ? user.organization_tag.toLowerCase() : 'all';
+						const url = '/cluster/dashboard4wplus/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/' + organization_tag +'/all'+ '/2019-01-01/' + moment().format('YYYY-MM-DD');
+						$location.path( url );
+					}]
+				},
+			})
+			// cluster dashboard HQ
+			.when( '/cluster/dashboard4wplus/hq', {
+				redirectTo: '/cluster/dashboard4wplus/hq/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/dashboard4wplus/hq/all', {
+				redirectTo: '/cluster/dashboard4wplus/hq/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			
+			// 4wdashboardprojectplan AMER
+			.when( '/cluster/dashboard4wplus/amer', {
+				redirectTo: '/cluster/dashboard4wplus/amer/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/dashboard4wplus/amer/all', {
+				redirectTo: '/cluster/dashboard4wplus/amer/all/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/dashboard4wplus/amer/col', {
+				redirectTo: '/cluster/dashboard4wplus/amer/col/all/all/all/all/all/2019-01-01/' + moment().format('YYYY-MM-DD')
+			})
+			.when( '/cluster/dashboard4wplus/:adminRpcode/:admin0pcode/:admin1pcode/:admin2pcode/:cluster_id/:organization_tag/:hrpplan/:start/:end', {
+				templateUrl: '/views/app/dashboard.html',
+				controller: 'Dashboard4wPlusCtrl',
+				resolve: {
+					access: [ 'ngmAuth', function(ngmAuth) { 
+							return ngmAuth.grantPublicAccess();
+					}],
+				}
+			})
+
 			// FORBIDDEN
 			.when( '/cluster/forbidden', {
 				templateUrl: '/views/app/dashboard.html',

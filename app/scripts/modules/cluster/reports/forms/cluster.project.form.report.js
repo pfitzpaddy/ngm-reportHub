@@ -154,6 +154,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					// documents upload
 					$scope.project.setTokenUpload();
 					// for minimize-maximize beneficiary form
+
+					//hrp_plan
+					if(!$scope.project.report.hrp_plan){
+						//console.log("NO EXISTE: ",$scope.project.report);
+						//console.log("PROYECTO: ", $scope.project.definition);
+						$scope.project.report.hrp_plan = $scope.project.definition.hrp_plan;
+						//console.log("AHORA SI EXISTE: ",$scope.project.report);
+					}
+
 					$scope.detailBeneficiaries = {};
 					$scope.project.beneficiary_search;
 					$scope.beneficiary_search_input = false;
@@ -825,7 +834,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					return total
 				},
 				// save
-				save: function( complete, display_modal ){
+				save: function( complete, display_modal ){ 
 
 					// set labels to active (green)
 					$( 'label' ).removeClass( 'invalid' ).addClass( 'active' );
