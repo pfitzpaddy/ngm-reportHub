@@ -398,7 +398,7 @@ angular.module( 'ngmReportHub' )
 				console.log( 'complete10' );
 				console.log( complete );
 				if (ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j][ 'mpc_transfer_type_id' ]) {
-					if (!b.transfer_type_id) {
+					if (!b.transfer_type_id && b.mpc_delivery_type_id !== 'in-kind') {
 						id = "label[for='" + 'ngm-transfer_type_id-' + i + '-' + j + "']";
 						$(id).addClass('error');
 						validation.divs.push(id);
@@ -408,7 +408,7 @@ angular.module( 'ngmReportHub' )
 				console.log( 'complete11' );
 				console.log( complete );
 				if (ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['mpc_package_type_id']){
-					if (!b.package_type_id){
+					if (!b.package_type_id && b.mpc_delivery_type_id !== 'in-kind'){
 						id = "label[for='" + 'ngm-package_type_id-' + i + '-' + j + "']";
 						$(id).addClass('error');
 						validation.divs.push(id);
