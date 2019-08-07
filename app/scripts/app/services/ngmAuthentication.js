@@ -661,7 +661,7 @@ angular.module('ngmReportHub')
 						// roll over role restricted zones
 						for (const z of role[permission_restricted]){
 							// if not own zone
-							if(!z||!user[z]||!zones[z]||(user[z] !== zones[z])){
+							if(!z||!user[z]||!zones[z]||(user[z].toLowerCase() !== zones[z].toLowerCase())){
 								// disallow access
 								allowed = false;
 							}
