@@ -665,9 +665,6 @@ angular.module('ngmReportHub')
 								// disallow access
 								allowed = false;
 							}
-							// check CanDO;
-							console.log(z, user[z],zones[z])
-							console.log(allowed,z)
 						}
 						// fast return on match
 						if(allowed) return allowed

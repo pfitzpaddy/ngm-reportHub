@@ -54,9 +54,17 @@
 	/* location title with icon */
 	.report-location-title {
 		font-size: 1.6rem;
-		font-weight: 300;
+		font-weight: 400;
 		text-align: left;
 		padding: 10px 0px 10px 10px;
+	}
+	.report-beneficiary-second-title {
+		font-size: 1.36rem;
+    color: #565656;
+    font-weight: 400;
+    text-align: left;
+		padding: 2px 0px 5px 49px;
+		margin: 0px;
 	}
 
 	/* location title with icon */
@@ -65,7 +73,7 @@
 		color: #00796b;
 		font-weight: 300;
 		text-align: left;
-		padding: 10px 0px 10px 10px;
+		padding: 10px 0px 0px 10px;
 	}
 
 	/* location title with icon */
@@ -166,66 +174,12 @@
 		color: #e57373;
 		font-weight: 400;		
 	}
-	/* Loading bar vertical */
-	@keyframes rotate360 {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
 
-@-webkit-keyframes rotate360 {
-  from { -webkit-transform: rotate(0deg); }
-  to { -webkit-transform: rotate(360deg); }
-}
-
-.loading-bar {
-  margin: 100px auto;
-  width: 50px;
-  height: 40px;
-  text-align: center;
-  font-size: 10px;
-}
-
-.loading-bar > div {
-  background-color: #2491eb;
-  height: 100%;
-  width: 6px;
-  display: inline-block;
-  
-  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
-  animation: sk-stretchdelay 1.2s infinite ease-in-out;
-}
-
-.loading-bar .bar2 {
-  -webkit-animation-delay: -1.1s;
-  animation-delay: -1.1s;
-}
-
-.loading-bar .bar3 {
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
-}
-
-.loading-bar .bar4 {
-  -webkit-animation-delay: -0.9s;
-  animation-delay: -0.9s;
-}
-
-.loading-bar .bar5 {
-  -webkit-animation-delay: -0.8s;
-  animation-delay: -0.8s;
-}
-
-@-webkit-keyframes sk-stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
-  20% { -webkit-transform: scaleY(1.0) }
-}
-
-@keyframes sk-stretchdelay {
-  0%, 40%, 100% { 
-    transform: scaleY(0.4);
-    -webkit-transform: scaleY(0.4);
-  }  20% { 
-    transform: scaleY(1.0);
-    -webkit-transform: scaleY(1.0);
-  }
-}
+	/* LOADING*/
+	.preloader-wrapper.big {
+		width:96px;
+		height:96px;
+	}
+	.circle-clipper .circle {
+		border-width: 5px;
+	}

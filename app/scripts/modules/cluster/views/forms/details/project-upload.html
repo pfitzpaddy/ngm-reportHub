@@ -256,8 +256,11 @@ font-size: 18px;
 						<p style="font-weight: 300;margin-top:5px;color: #000">{{'click_upload_document_to_upload_document_of_your_project'|translate}} </p>
 					</div>
 					<div class="right">
-						<button class=" btn waves-effect waves-light tooltipped-report-upload" data-position="bottom" data-tooltip="{{'upload_document'|translate}}"
-						 ng-click="project.uploadDocument.openModal('upload-file')">
+						<button class="btn waves-effect waves-light tooltipped-report-upload"
+											data-position="bottom"
+											data-tooltip="{{'upload_document'|translate}}"
+											ng-click="project.uploadDocument.openModal('upload-file')"
+											ng-if="project.definition.project_status !== 'complete' && project.canEdit">
 							<i class="material-icons left">publish</i>
 							{{'upload_document'|translate}}
 						</button>

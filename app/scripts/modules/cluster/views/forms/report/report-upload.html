@@ -227,7 +227,11 @@ font-size: 18px;
 				<div ng-if="project.definition.project_status !== 'complete' && project.report.report_status !== 'complete'">
 					<li class="collection-item avatar " style=" border-bottom-width: 0px;min-height: 60px; ">
 						<div class="right">
-							<button class=" btn waves-effect waves-light tooltipped-report-upload" data-position="bottom" data-tooltip="{{'upload_document'|translate}}" ng-click="project.uploadDocument.openModal('upload-file')">
+							<button class=" btn waves-effect waves-light tooltipped-report-upload"
+												data-position="bottom"
+												data-tooltip="{{'upload_document'|translate}}"
+												ng-click="project.uploadDocument.openModal('upload-file')"
+												ng-if="project.definition.project_status !== 'complete' && project.report.report_status !== 'complete' && project.canEdit">
 								<i class="material-icons left">cloud_upload</i>
 								{{'upload_document'|translate}}
 							</button>

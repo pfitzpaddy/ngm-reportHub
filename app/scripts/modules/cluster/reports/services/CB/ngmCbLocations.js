@@ -6,304 +6,409 @@
  *
  */
 angular.module( 'ngmReportHub' )
-  .filter( 'admin2CxbHostCommunityfilter', [ '$filter', function ( $filter ) {
-    
-    // Host Communities of Reach data capture Teknaf, Ukhia, Chittagong
-    var host_community_filter = [ '202290', '202294', '20' ];
+	// .filter( 'admin2CxbHostCommunityfilter', [ '$filter', function ( $filter ) {
+	// 	// Host Communities of Reach data capture Teknaf, Ukhia, Chittagong
+	// 	var host_community[ $index ] = [ '202290', '202294', '20' ];
+	// 	// filter 
+	// 	return function ( item ) {
+	// 		var list = item.filter(function( i ) {
+	// 			return host_community[ $index ].indexOf( i.admin1pcode ) !== -1; 
+	// 		});
+	// 		return list;
+	// 	};
+	// }])
+	.factory( 'ngmCbLocations', [ '$http', '$filter', '$timeout', 'ngmAuth', 'ngmClusterBeneficiaries', function( $http, $filter, $timeout, ngmAuth, ngmClusterBeneficiaries ) {
 
-    // filter 
-    return function ( item ) {
-      var list = item.filter(function( i ) {
-        console.log(i.admin1pcode)
-        return host_community_filter.indexOf( i.admin1pcode ) !== -1; 
-      });
-      return list;
-    };
-  }])
-  .filter( 'admin2CxbRefugeeCampfilter', [ '$filter', function ( $filter ) {
-    
-    // Refugee Camps admin2pcode
-    var refugee_camp_filter = [ '20229015', '20229031', '20229479', '20229063', '2022907', '20229079', '2003' ];
-
-    // filter 
-    return function ( item ) {
-      var list = item.filter(function( i ) {
-        return refugee_camp_filter.indexOf( i.admin2pcode ) !== -1; 
-      });
-      return list;
-    };
-  }])
-  .filter( 'admin2CycloneShelterCxbfilter', [ '$filter', function ( $filter ) {
-    
-    // Host Communities of Reach data capture Teknaf, Ukhia
-    var cyclone_shelter_filter = [ '20229479', '20229063', '20229099', '20229015', '20229031', '20229039', '20229047', '20229079', '20037357', '20229415', '20229431', '20229463', '20229447' ];
-
-    // filter 
-    return function ( item ) {
-      var list = item.filter(function( i ) {
-        return cyclone_shelter_filter.indexOf( i.admin2pcode ) !== -1; 
-      });
-      return list;
-    };
-  }])
-  .factory( 'ngmCbLocations', [ '$http', '$filter', '$timeout', 'ngmAuth', function( $http, $filter, $timeout, ngmAuth ) {
-
-    // ngmCbLocations
+		// ngmCbLocations
 		ngmCbLocations = {
 
-      // SHOW / HIDE COLUMNS
+			admin1_filter:[],
+			admin2_filter:[],
+			admin3_filter:[],
+			adminSites_filter:[],
 
-      // show the column
-      showColumn: function( target_location, type ){
-        var display = false;
-        angular.forEach( target_location, function( d, i ){
+			// bb
+			bbox: {
+				'CB':{ xMin:20.9489082225001, yMin:91.8643348260071, xMax:22.5038276085, yMax:92.2352242316744 },
+				'NG':{ xMin:2.66853, yMin:4.27301, xMax:14.6788, yMax:13.8944 },
+			},
 
-          // admin3 as ward
-          if ( type === '!food_distribution_point' ) {
-            if ( d.site_type_id !== 'food_distribution_point' ) {
-              display = true;
-            }
-          }
+			// form loader
+			form:[{
+				'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1
+			}],
 
-          // admin3 as ward
-          if ( type === 'food_distribution_point' ) {
-            if ( d.site_type_id === 'food_distribution_point' ) {
-              display = true;
-            }
-          }
-          
-          // admin3 as ward
-          if ( type === 'ward' ) {
-            if ( d.site_type_id === 'ward' || 
-                  d.site_type_id === 'host_community' ) {
-              display = true;
-            }
-          }
+			// to be read from database
+			defaults:{
+				form:{
+					
+					// defaults
+					'union':{ 'reporter':1, 'admin1':1, 'admin2':1, 'site_name_text': true },
+					'ward':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Ward', 'site_name_text': true },
+					'host_community':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Ward' },
+					'refugee_camp':{ 'reporter':1, 'admin1':1, 'admin2':1 },
+					'refugee_block':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp' },
+					// fss
+					'retail_store':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp' },
+					'food_distribution_point':{ 'reporter':1, 'food_distribution_point':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp' },
+					'nutrition_center':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp'  },
+					// health
+					'health_facility_camp':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp' },
+					'health_facility_host_community':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Ward' },
+					// drr
+					'access_road':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+					'access_road_and_drainage':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+					'bamboo_bridge':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+					'canal_re_excavation':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+					'culvert':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+					'cyclone_shelter':{ 'reporter':1, 'admin1':1, 'admin2':1, 'site_lng': 1, 'site_lat': 1 },
+					'dam':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+					'drainage':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+					'enbankment':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+					'fencing':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+					'pathway':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+					'pathway_and_canal_pond_re_excavation':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+					'pathway_and_drainage':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+					'rehabilitation_cyclone_shelters':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+					'road_construction':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+					'road_rehabilitation':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+					'slope_protection':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+					'stair':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'site_lng': 1, 'site_lat': 1 },
+				}
+			},
 
-          // admin3 as camp
-          if ( type === 'camp' ) {
-            if ( d.site_type_id === 'nutrition_center' ||
-                  d.site_type_id === 'refugee_block' ||
-                  d.site_type_id === 'food_distribution_point' ||
-                  d.site_type_id === 'retail_store' ||
-                  d.site_type_id === 'health_facility_camp' ) {
-              display = true;
-            }
-          }
-        });
-        return display;
-      },
+			// set input style 
+			inputChange: function( label ){
+				$("label[for='" + label + "']").removeClass('error').addClass('active');
+			},
 
-      // clear the Union on site type change
-      changeLocation: function( project, type, target_location ) {
-          
-        // location
-        if ( type === 'location' ) {
+			// update material_select
+			updateSelect: function(){
+				$timeout(function() { $( 'select' ).material_select(); }, 100 );
+			},
 
-          // admin2
-          delete target_location.admin1pcode;
-          delete target_location.admin1name;
-          delete target_location.admin1lng;
-          delete target_location.admin1lat;
+			updateSelectById: function (id) {
+				$timeout(function () { $('#' + id + ' select').material_select(); }, 10 );
+			},
 
-        }
+			
+			
+			// **** SET LOCATIONS FORM / INPUTS ON LOAD
 
-        // admin1
-        if ( type === 'location' || type === 'admin1' ) {
+			// run setLocationsForm
+			setLocationsForm: function( project, target_locations ){
 
-          // admin2
-          delete target_location.admin2pcode;
-          delete target_location.admin2name;
-          delete target_location.admin2lng;
-          delete target_location.admin2lat;
+				// target_locations
+				if( target_locations && target_locations.length ) {
+					// for each target_location
+					angular.forEach( target_locations, function( target_location, $index ){
+						ngmCbLocations.setLocationsInputs( project, $index, target_location );
+					});
+				}
+			},
 
-        }
+			// show form inputs
+			setLocationsInputs: function ( project, $index, target_location ) {
 
-        // admin1 || admin2
-        if ( type === 'location' || type === 'admin1' || type === 'admin2' ) {
+				// add form holder
+				if ( !ngmCbLocations.form[ $index ] ) {
+					ngmCbLocations.form[ $index ] = [];
+				}
 
-          // admin3
-          delete target_location.admin3pcode;
-          delete target_location.admin3name;
-          delete target_location.admin3lng;
-          delete target_location.admin3lat;
-        }
+				// set lists
+				ngmCbLocations.filterLocations( project, $index, target_location );
 
-        // admin4
-        if ( type === 'location' || type === 'food_distribution_point' ) {
+				// form defaults from from ngmCbLocations.defaults.form_defaults
+				ngmCbLocations.form[ $index ] = ngmCbLocations.defaults.form[ target_location.site_type_id ];			
 
-          // admin4
-          delete target_location.admin4pcode;
-          delete target_location.admin4name;
-          delete target_location.admin4lng;
-          delete target_location.admin4lat;
-        }
+			},
 
-        // admin1, admin2, admin3
-        if ( type === 'location' || type === 'admin1' || type === 'admin2' || type === 'admin3' ) {
 
-          // site
-          delete target_location.site_id;
-          delete target_location.site_lng;
-          delete target_location.site_lat;
-        }
+			// **** SET LOCATIONS FORM / INPUTS ON LOAD
 
-        // add location groups (timeout to allow form to assign value)
-        $timeout(function() {
-          if ( project.location_groups_check && target_location.admin2pcode ) {
-            target_location.location_group_id = target_location.admin2pcode;
-            target_location.location_group_type = target_location.admin2type_name;
-            target_location.location_group_name = target_location.admin2name;
-          }
-        }, 10);
+			// set reporter
+			setReporter:function( project, $index, target_location ){
 
-      },
+				var selected = [];
+				if( target_location.username ) {
+					// filter selection
+					selected = $filter('filter')( lists.users, { username: target_location.username }, true );
+					if ( selected && selected.length ) {
+						var reporter = {
+							name: selected[0].name,
+							position: selected[0].position,
+							phone: selected[0].phone,
+							email: selected[0].email,
+							username: selected[0].username
+						}
+						target_location = angular.merge( target_location, reporter );
+						ngmCbLocations.setLocationsInputs( project, $index, target_location );
+					}
+				}				
 
-      // admin2
-      displaySiteType: function( lists, $index, $data, target_location ){
-        
-        // attr
-        var selected;
+			},
 
-        // filter by site_type
-        target_location.site_type_id = $data;
-        if( target_location.site_type_id ) {
-          // select site type
-          selected = $filter('filter')( lists.site_type, { site_type_id: target_location.site_type_id }, true );
-          if( selected && selected.length ){
-            delete selected[0].id;
-            target_location.site_type_id = selected[0].site_type_id;
-            target_location.site_type_name = selected[0].site_type_name;
-          }
-        }
+			// set site type
+			setLocationType:function( project, $index, target_location ){
 
-        // return name
-        return selected && selected.length ? selected[0].site_type_name : '-';
-      },
+				var selected = [];
+				if( target_location.site_type_id ) {
+					// filter selection
+					selected = $filter('filter')( project.lists.site_type, { site_type_id: target_location.site_type_id }, true );
+					if ( selected && selected.length ) {
+						
+						// target_location
+						var tl = {
+							// type
+							site_type_id: selected[0].site_type_id,
+							site_type_name: selected[0].site_type_name
+						}
 
-      // admin1
-      displayAdmin1: function( lists, $index, $data, target_location ){
+						// reset locations
+						target_location = ngmCbLocations.resetLocations( project, 'site_type_id', target_location );
 
-        // attr
-        var selected = [];
+						// merge object
+						target_location = angular.merge( target_location, tl );
 
-        // filter by site_type
-        target_location.admin1pcode = $data;
-        // if admin1pcode
-        if( target_location.admin1pcode ) {
-          // select site type
-          selected = $filter('filter')( lists.admin1, { admin1pcode: target_location.admin1pcode }, true );
-          if( selected && selected.length ){
-            // remove id
-            delete selected[0].id;
-            angular.merge( target_location, selected[0] );
-          }
-        }
+						// add filters 
+						ngmCbLocations.filterLocations( project, $index, target_location );
 
-        // return name
-        return selected && selected.length ? selected[0].admin1name : '-';
-      },
+						// set form inputs
+						ngmCbLocations.setLocationsInputs( project, $index, target_location );
+					}
+				}				
 
-      // admin2
-      displayAdmin2: function( lists, $index, $data, target_location ){
+			},
 
-        // attr
-        var selected = [];
+			// on change
+			updateLocation: function( project, $index, list, key, target_location ){
 
-        // filter by site_type
-        target_location.admin2pcode = $data;
-        // if admin2pcode
-        if( target_location.admin2pcode ) {
-          // select site type
-          selected = $filter('filter')( lists.admin2, { admin2pcode: target_location.admin2pcode }, true );
-          if( selected && selected.length ){
-            // remove id
-            delete selected[0].id;
-            angular.merge( target_location, selected[0] );
-          }
-        }
+				// selected
+				var selected = [];
 
-        // return name
-        return selected && selected.length ? selected[0].admin2name : '-';
-      },
+				// if site_id
+				if( target_location[ key ] ) {
+					var obj = {}
+					obj[ key ] = target_location[ key ];
+					var selected = $filter('filter')( list, obj, true );
+					
+					// set target_location
+					if( selected && selected.length ){
+						
+						// remove list id
+						delete selected[0].id;
+						
+						// reset locations
+						target_location = ngmCbLocations.resetLocations( project, key, target_location );
 
-      // admin3
-      displayAdmin3: function( lists, $index, $data, target_location ){
+						// merge object
+						target_location = angular.merge( target_location, selected[0] );
 
-        // attr
-        var selected = [];
+						// siteSite
+						target_location = ngmCbLocations.setSite( key, target_location );
 
-        // filter by site_type
-        target_location.admin3pcode = $data;
-        // if admin2pcode
-        if( target_location.admin3pcode ) {
-          // select site type
-          selected = $filter('filter')( lists.admin3, { admin3pcode: target_location.admin3pcode }, true );
-          if( selected && selected.length ){
-            // remove id
-            delete selected[0].id;
-            angular.merge( target_location, selected[0] );
-          }
-        }
+						// add filters 
+						ngmCbLocations.filterLocations( project, $index, target_location );
 
-        // return name
-        return selected && selected.length ? selected[0].admin3name : '-';
-      },
+					}
+				}
 
-      // site
-      displaySites: function( lists, $index, $data, target_location ){
+				// add location groups
+				if ( project.definition.location_groups_check && target_location.admin2pcode ) {
+					target_location.location_group_id = target_location.admin2pcode;
+					target_location.location_group_type = target_location.admin2type_name;
+					target_location.location_group_name = target_location.admin2name;
+				}
 
-        // attr
-        var selected = [];
+			},
 
-        // filter by site_type
-        target_location.site_id = $data;
+			resetLocations: function( project, type, target_location ){
 
-        // if site_id
-        if( target_location.site_id ) {
-          // select site type
-          selected = $filter('filter')( lists.adminSites, { site_id: target_location.site_id }, true );
-          if( selected && selected.length ){
-            delete selected[0].id;
-            target_location.site_id = selected[0].site_id;
-            target_location.site_name = selected[0].site_name;
-          }
-        }
+				// location
+				if ( type === 'site_type_id' ) {
 
-        // return name
-        return selected && selected.length ? selected[0].site_name : '-';
-      },
+					// admin2
+					delete target_location.admin1pcode;
+					delete target_location.admin1name;
+					delete target_location.admin1lng;
+					delete target_location.admin1lat;
 
-      // on change
-      updateSite: function( lists, $index, $data, target_location ){
+				}
 
-        // attr
-        var selected = [];
+				// admin1
+				if ( type === 'site_type_id' || type === 'admin1pcode' ) {
 
-        // filter by site_type
-        target_location.site_id = $data;
+					// admin2
+					delete target_location.admin2pcode;
+					delete target_location.admin2name;
+					delete target_location.admin2lng;
+					delete target_location.admin2lat;
 
-        // if site_id
-        if( target_location.site_id ) {
-          // select site type
-          selected = $filter('filter')( lists.adminSites, { site_id: target_location.site_id }, true );
-          if( selected && selected.length ){
-            delete selected[0].id;
-            if ( target_location.site_type_id === 'refugee_camp' ) {
-              selected[0].admin3pcode = selected[0].site_id;
-              selected[0].admin3name = selected[0].site_name;
-              selected[0].admin3lng = selected[0].site_lng;
-              selected[0].admin3lat = selected[0].site_lat;
-            }
-            angular.merge( target_location, selected[0] );
-          }
-        }
+				}
 
-      }
+				// admin1 || admin2
+				if ( type === 'site_type_id' || type === 'admin1pcode' || type === 'admin2pcode' ) {
 
-    }
+					// admin3
+					delete target_location.admin3pcode;
+					delete target_location.admin3name;
+					delete target_location.admin3lng;
+					delete target_location.admin3lat;
+				}
 
-    // return
-    return ngmCbLocations;
+				// admin4
+				if ( type === 'site_type_id' || type === 'admin1pcode' || type === 'admin2pcode' || type === 'admin3pcode' ) {
+
+					// admin4
+					delete target_location.admin4pcode;
+					delete target_location.admin4name;
+					delete target_location.admin4lng;
+					delete target_location.admin4lat;
+
+					// site
+					delete target_location.site_id;
+					delete target_location.site_name;
+					delete target_location.site_lng;
+					delete target_location.site_lat;
+				}
+				
+				return target_location;
+
+			},
+
+			// setSite
+			setSite:function( key, target_location ){
+				if ( key === 'admin1pcode' ) {
+					target_location.site_id = target_location.admin1pcode;
+					// target_location.site_name = target_location.admin1name;
+					target_location.site_lng = target_location.admin1lng;
+					target_location.site_lat = target_location.admin1lat;
+				}
+				if ( key === 'admin2pcode' ) {
+					target_location.site_id = target_location.admin2pcode;
+					// target_location.site_name = target_location.admin2name;
+					target_location.site_lng = target_location.admin2lng;
+					target_location.site_lat = target_location.admin2lat;
+				}
+				if ( key === 'admin3pcode' ) {
+					target_location.site_id = target_location.admin3pcode;
+					// target_location.site_name = target_location.admin3name;
+					target_location.site_lng = target_location.admin3lng;
+					target_location.site_lat = target_location.admin3lat;
+				}
+				return target_location;
+			},
+
+			// filterLocations
+			filterLocations: function( project, $index, target_location ){
+
+				// unique values
+				var admin1 = [];
+				var admin2 = [];
+				var admin3 = [];
+				var adminSites = [];
+
+				// form filters 
+				ngmCbLocations.admin1_filter[ $index ] = project.lists.admin1;
+				ngmCbLocations.admin2_filter[ $index ] = project.lists.admin2;
+				ngmCbLocations.admin3_filter[ $index ] = project.lists.admin3;
+				ngmCbLocations.adminSites_filter[ $index ] = project.lists.adminSites;
+
+
+				// run filter site_type_id
+				ngmCbLocations.adminSites_filter[ $index ] = project.lists.adminSites.filter(function( i ) {
+					// filter by site_type
+					if ( i.site_type_id === target_location.site_type_id ) {
+						// get unique admin 1, 2, 3
+						if ( admin1.indexOf( i.admin1pcode ) === -1 ) {
+							admin1.push( i.admin1pcode );
+						}
+						if ( admin2.indexOf( i.admin2pcode ) === -1 ) {
+							admin2.push( i.admin2pcode );
+						}
+						if ( admin3.indexOf( i.admin3pcode ) === -1 ) {
+							admin3.push( i.admin3pcode );
+						}
+						if ( adminSites.indexOf( i.site_id ) === -1 ) {
+							adminSites.push( i.site_id );
+						}
+					}
+					// return
+					return i.site_type_id === target_location.site_type_id;
+				});
+
+				// if not union, ward
+				if ( target_location.site_type_id !== 'union' && 
+							target_location.site_type_id !== 'ward' && 
+							target_location.site_type_id !== 'host_community' ) {
+					
+					// admin1
+					if ( admin1.length ) {
+						// run filter admin1
+						ngmCbLocations.admin1_filter[ $index ] = project.lists.admin1.filter(function( i ) {
+							return admin1.indexOf( i.admin1pcode ) !== -1;
+						});
+					}
+					// admin1
+					if ( admin2.length ) {
+						// run filter admin2
+						ngmCbLocations.admin2_filter[ $index ] = project.lists.admin2.filter(function( i ) {
+							return admin2.indexOf( i.admin2pcode ) !== -1;
+						});
+					}
+					// admin1
+					if ( admin3.length ) {
+						// run filter admin3
+						ngmCbLocations.admin3_filter[ $index ] = project.lists.admin3.filter(function( i ) {
+							return admin3.indexOf( i.admin3pcode ) !== -1;
+						});
+					}
+				}
+
+				// admin1pcode
+				if ( target_location.admin1pcode ) {
+					// run filter admin2
+					ngmCbLocations.admin2_filter[ $index ] = ngmCbLocations.admin2_filter[ $index ].filter(function( i ) {
+						return i.admin1pcode === target_location.admin1pcode;
+					});
+					// run filter admin3
+					ngmCbLocations.admin3_filter[ $index ] = ngmCbLocations.admin3_filter[ $index ].filter(function( i ) {
+						return i.admin1pcode === target_location.admin1pcode;
+					});
+					// run filter adminsites
+					ngmCbLocations.adminSites_filter[ $index ] = ngmCbLocations.adminSites_filter[ $index ].filter(function( i ) {
+						return i.admin1pcode === target_location.admin1pcode;
+					});					
+				}
+
+				// admin2pcode
+				if ( target_location.admin2pcode ) {
+					// run filter admin3
+					ngmCbLocations.admin3_filter[ $index ] = ngmCbLocations.admin3_filter[ $index ].filter(function( i ) {
+						return i.admin2pcode === target_location.admin2pcode;
+					});
+					// run filter adminsites
+					ngmCbLocations.adminSites_filter[ $index ] = ngmCbLocations.adminSites_filter[ $index ].filter(function( i ) {
+						return i.admin2pcode === target_location.admin2pcode;
+					});
+				}
+
+				// admin2pcode
+				if ( target_location.admin3pcode ) {
+					// run filter adminsites
+					ngmCbLocations.adminSites_filter[ $index ] = ngmCbLocations.adminSites_filter[ $index ].filter(function( i ) {
+						return i.admin3pcode === target_location.admin3pcode;
+					});					
+				}
+
+				// update select
+				ngmCbLocations.updateSelect();
+
+			}
+
+		}
+
+		// return
+		return ngmCbLocations;
 
 	}]);
