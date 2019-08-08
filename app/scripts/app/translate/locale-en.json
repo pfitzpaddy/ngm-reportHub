@@ -583,6 +583,11 @@
         "population_in_disability":"Population in Disability",
         "total_female":"Total Female",
         "total_beneficiaries":"Total Beneficiaries",
+        "total_financing":"Total Financing",
+        "projects_number":"Projects Number",
+        "population_beneficiaries":"Population Beneficiaries",
+        "number_executing_agencies":"Number of Executing Agencies",
+        "number_implementing_agencies":"Number of Implementing Agencies",
 
         "treatment_same_province":"Treatment Same Province",
         "edit":"Edit",

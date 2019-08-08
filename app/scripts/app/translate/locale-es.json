@@ -479,6 +479,13 @@
         "total_male":"Total Hombres",
         "total_female":"Total Mujeres",
         "total_beneficiaries":"Total Beneficiarios",
+        "total_financing":"Total Financiamiento",
+        "projects_number":"Número de Proyectos",
+        "population_beneficiaries":"Beneficiarios Poblacionales",
+        "number_executing_agencies":"Número Agencias Ejecutoras",
+        "number_implementing_agencies":"Número de Agencias Implementadoras",
+
+
 
         "girls":"Niñas",
         "girls_0_5":"Mujeres 0-5 años",
