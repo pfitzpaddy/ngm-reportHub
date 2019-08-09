@@ -145,11 +145,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					$scope.project.report.locations = $filter('orderBy')( $scope.project.report.locations, [ 'site_type_name','admin1name','admin2name','admin3name','admin4name','admin5name','site_name' ]);
 					// set location / beneficiaries limits
 					$scope.project.setLocationsLimit( $scope.project.lists, $scope.project.report.locations );
-					// set org users
-					ngmClusterLists.setOrganizationUsersList( $scope.project.lists, config.project );
-					// set form on page load
-					ngmClusterHelper.setForm( $scope.project.definition, $scope.project.lists );
-					// set form inputs
+					// set beneficiaries form
 					ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
 					// documents upload
 					$scope.project.setTokenUpload();
@@ -166,11 +162,14 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					$scope.detailBeneficiaries = {};
 					$scope.project.beneficiary_search;
 					$scope.beneficiary_search_input = false;
+					
+					// init search
 					$scope.searchToogle = function () {
 						$('#search_').focus();
 						$scope.beneficiary_search_input = $scope.beneficiary_search_input ? false : true;;
 					}
 
+					// page limits
 					angular.forEach($scope.project.report.locations,function(e,i){
 						$scope.detailBeneficiaries[i] = $scope.project.report.locations[i].beneficiaries.length ?
 																						new Array($scope.project.report.locations[i].beneficiaries.length).fill(false) : new Array(0).fill(false);
@@ -336,7 +335,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 				// remove beneficiary nodal
 				removeBeneficiaryModal: function( $parent, $index ) {
-					if ( ngmClusterValidation.validateBeneficiaries($scope.project.report.locations, $scope.detailBeneficiaries) ){
+					// if ( ngmClusterValidation.validateBeneficiaries($scope.project.report.locations, $scope.detailBeneficiaries) ){
 						if (!$scope.project.report.locations[$parent].beneficiaries[$index].id) {
 							$scope.project.report.locations[$parent].beneficiaries.splice($index, 1);
 							$scope.project.activePrevReportButton();
@@ -347,7 +346,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								$( '#beneficiary-modal' ).openModal({ dismissible: false });
 							}
 						}
-					}
+					// }
 				},
 
 				// remove beneficiary

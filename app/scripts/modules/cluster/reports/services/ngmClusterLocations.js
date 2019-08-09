@@ -83,25 +83,31 @@ angular.module( 'ngmReportHub' )
 				}
 
         // set createdAt
-        console.log(inserted.createdAt)
         inserted.createdAt = new Date().toISOString();
 
         // set targets
         return inserted;
       },
 
-      // remove beneficiary
-      removeLocation: function( project, locationIndex ) {
+      // remove location from location list
+      removeLocationModal: function( project, id ) {
+        ngmClusterLocations.project = project;
+        ngmClusterLocations.remove_id = id;
+        $( '#location-modal' ).openModal({ dismissible: false });
+      },      
 
-        // get id
-        var id = project.target_locations[ locationIndex ].id;
-        project.target_locations.splice( locationIndex, 1 );
+      // remove beneficiary
+      removeLocation: function() {
+
+        // remove from array
+        ngmClusterLocations.project.target_locations = 
+            $filter('filter')( ngmClusterLocations.project.target_locations, { id: '!'+ngmClusterLocations.remove_id }, true );
 
         // remove at db
         $http({
           method: 'POST',
           url: ngmAuth.LOCATION + '/api/cluster/project/removeLocation',
-          data: { id: id }
+          data: { id: ngmClusterLocations.remove_id }
         }).success( function( result ) {
           Materialize.toast( $filter('translate')('project_location_removed') , 3000, 'success' );
         }).error( function( err ) {

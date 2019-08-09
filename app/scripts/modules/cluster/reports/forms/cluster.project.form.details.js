@@ -68,6 +68,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 			// set to $scope
 			$scope.ngmClusterHelper = ngmClusterHelper;
 			$scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
+			$scope.ngmClusterLocations = ngmClusterLocations;
 			$scope.ngmCbLocations = ngmCbLocations;
 			$scope.ngmCbBeneficiaries = ngmCbBeneficiaries;
 			$scope.ngmClusterDocument = ngmClusterDocument;
@@ -228,6 +229,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					ngmClusterHelper.setForm( $scope.project.definition, $scope.project.lists );          
 					// set beneficiaries form
 					ngmClusterBeneficiaries.setBeneficiariesForm( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries );
+					// set form inputs
+					ngmCbLocations.setLocationsForm( $scope.project, $scope.project.definition.target_locations );					
 					// documents uploads
 					$scope.project.setTokenUpload();
 					// implementing partners
@@ -240,8 +243,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							})
 						}
 					}
+
+					// detailBeneficiaries
 					$scope.detailBeneficiaries = $scope.project.definition.target_beneficiaries.length ? 
-																			new Array($scope.project.definition.target_beneficiaries.length).fill(true) : new Array(0).fill(true);					
+																			new Array($scope.project.definition.target_beneficiaries.length).fill(true) : new Array(0).fill(true);
+					// detailLocation
+					$scope.detailLocation = $scope.project.definition.target_locations.length ? 
+																			new Array($scope.project.definition.target_locations.length).fill(true) : new Array(0).fill(true);
+
 					$scope.search_input = false;
 					$scope.project.filter;
 					$scope.searchToogle=function(){
@@ -441,7 +450,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				},
 
 				// set to true
-				addLocationGroupdings: function() {
+				addLocationGroupings: function() {
 					// add to project
 					$scope.project.definition.location_groups_check = true;
 					// add to target_locations
@@ -451,6 +460,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						l.location_group_type = l.admin2type_name;
 						l.location_group_name = l.admin2name;
 					});
+					// save if project id exists
+					if( $scope.project.definition.id ){
+						$scope.project.save( false, $filter('translate')('project_updated') );
+					}
 				},
 
 				// manage modal
@@ -464,6 +477,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						delete l.location_group_type;
 						delete l.location_group_name;
 					});
+					// save if project id exists
+					if( $scope.project.definition.id ){
+						$scope.project.save( false, $filter('translate')('project_updated') );
+					}
 				},
 
 
@@ -473,27 +490,21 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				addLocation: function() {
 					$scope.inserted = ngmClusterLocations.addLocation( $scope.project.definition, $scope.project.definition.target_locations );
 					$scope.project.definition.target_locations.push( $scope.inserted );
+					// open card panel form of new add beneficiaries
+					$scope.detailLocation[$scope.project.definition.target_locations.length - 1] = true;
 					// autoset location groupings
 					if (  $scope.project.showLocationGroupingsOption() && $scope.project.definition.target_locations.length > 30  ) {
-						$scope.project.addLocationGroupdings();
+						$scope.project.addLocationGroupings();
 					}
-
+					// CB, run form
+					if ( $scope.project.definition.admin0pcode === 'CB' ) {
+						ngmCbLocations.setLocationsForm( $scope.project, $scope.project.definition.target_locations );		
+					}
 				},
 
 				// save location
 				saveLocation: function() {
 					$scope.project.save( false, $filter('translate')('project_location_saved') );
-				},
-
-				// remove location from location list
-				removeLocationModal: function( $index ) {
-					$scope.project.locationIndex = $index;
-					$( '#location-modal' ).openModal({ dismissible: false });
-				},
-
-				// remove beneficiary
-				removeLocation: function() {
-					ngmClusterLocations.removeLocation( $scope.project.definition, $scope.project.locationIndex );
 				},
 
 				// project focal point
@@ -563,7 +574,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					if ( !$scope.project.definition[ key ][ $index ].id ) {
 						$scope.project.definition[ key ].splice( $index, 1 );
 						ngmClusterBeneficiaries.form[ 0 ].splice( $index, 1 );
-						$timeout(function(){ Materialize.toast( $filter('translate')('target_beneficiary_removed'), 4000, 'success' ); }, 400 );
+						if ( key === 'target_beneficiaries' ) {
+							$timeout(function(){ Materialize.toast( $filter('translate')('target_beneficiary_removed'), 4000, 'success' ); }, 400 );
+						} 
+						if (  key === 'target_locations'  ) {
+							$timeout(function(){ Materialize.toast( $filter('translate')('project_location_removed'), 4000, 'success' ); }, 400 );
+						}
 					} else {
 						locationform.$cancel();
 					}
@@ -660,6 +676,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					$scope.detailBeneficiaries[index] = !$scope.detailBeneficiaries[index];
 				},
 
+				// open-close location target detail
+				openCloseDetailLocation:function(index){
+					$scope.detailLocation[index] = !$scope.detailLocation[index];
+				},				
+
 				setProjectStatus: function ( status ) {
 					
 					// set project status
@@ -667,8 +688,6 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					
 					// msg
 					var msg = 'Project Status is set to ';
-
-					// console.log(status)
 
 					// actions
 					switch( status ) {

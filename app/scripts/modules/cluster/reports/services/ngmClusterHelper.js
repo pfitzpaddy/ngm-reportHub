@@ -383,18 +383,22 @@ angular.module( 'ngmReportHub' )
           if ( !location.site_lng && !location.site_lat ) {
             // set admin4, admin3 or admin2
             if ( location.admin2lng && location.admin2lat ) {
+              location.site_id = location.admin2pcode;
               location.site_lng = location.admin2lng;
               location.site_lat = location.admin2lat;
             }
             if ( location.admin3lng && location.admin3lat ) {
+              location.site_id = location.admin3pcode;
               location.site_lng = location.admin3lng;
               location.site_lat = location.admin3lat;
             }
             if ( location.admin4lng && location.admin4lat ) {
+              location.site_id = location.admin4pcode;
               location.site_lng = location.admin4lng;
               location.site_lat = location.admin4lat;
             }
             if ( location.admin5lng && location.admin5lat ) {
+              location.site_id = location.admin5pcode;
               location.site_lng = location.admin5lng;
               location.site_lat = location.admin5lat;
             }
