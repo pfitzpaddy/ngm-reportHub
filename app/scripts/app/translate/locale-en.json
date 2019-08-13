@@ -233,6 +233,7 @@
         "hrp_project":"HRP Project",
         "hrp_project_code":"HRP Project Code",
         "activity_type":"Activity Type",
+        "executor":"Executor",
         "other_implementing_partners":"Implementing Partners",
         "other_activities_in_addition_to":"Other activities in addition to",
         "cash_intended_for_even_if_unrestricted":"Cash intended for (even if unrestricted)",

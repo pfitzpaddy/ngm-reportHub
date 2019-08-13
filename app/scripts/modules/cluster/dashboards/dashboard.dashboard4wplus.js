@@ -67,6 +67,9 @@ angular.module('ngmReportHub')
 					admin3: ngmLists.getObject( 'lists' ) ? ngmLists.getObject( 'lists' ).admin3List : []
 				},
 
+
+                      
+
 				// filtered data
 				data: {
 					cluster: false,
@@ -117,14 +120,15 @@ angular.module('ngmReportHub')
 				}],
 
 				// admin
-				getPath: function( cluster_id, organization_tag, hrpplan, admin1pcode, admin2pcode ){
+				getPath: function( cluster_id, activity_type_id, organization_tag, hrpplan, admin1pcode, admin2pcode ){
 
 					if ( cluster_id !== 'rnr_chapter' ) {
 						var path = '/cluster/dashboard4wplus/' + $scope.dashboard.adminRpcode +
 																	'/' + $scope.dashboard.admin0pcode +
 																	'/' + admin1pcode +
 																	'/' + admin2pcode +
-																	'/' + cluster_id +
+																	'/' + cluster_id +	
+																	'/' + activity_type_id +
 																	'/' + organization_tag +
 																	'/' + hrpplan +
 																//	'/' + $scope.dashboard.beneficiaries.join('+') +
@@ -136,6 +140,7 @@ angular.module('ngmReportHub')
 																	'/' + admin1pcode +
 																	'/' + admin2pcode +
 																	'/' + cluster_id +
+																	'/' + activity_type_id +
 																	'/' + organization_tag +
 																	'/' + hrpplan +
 																	'/returnee_undocumented+returnee_documented+refugee_pakistani' +																	
@@ -150,7 +155,7 @@ angular.module('ngmReportHub')
 				setUrl: function(){
 
 					// get url
-					var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.hrpplan, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+					var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, $scope.dashboard.hrpplan, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
 
 					// if current location is not equal to path
 					if ( path !== $location.$$path ) {
@@ -161,6 +166,8 @@ angular.module('ngmReportHub')
 
 				//
 				getRequest: function( obj ){
+					//console.log("GET REQUEST",obj);
+					//console.log("ACTIVITY TYPE ID",$scope.dashboard.activity_type_id);
 					var request = {
 						method: 'POST',
 						url: ngmAuth.LOCATION + '/api/cluster/indicator4wplusdashboard',
@@ -172,16 +179,23 @@ angular.module('ngmReportHub')
 							cluster_id: $scope.dashboard.cluster_id,
 							organization_tag: $scope.dashboard.organization_tag,
 							hrpplan: $scope.dashboard.hrpplan,
+							activity_type_id: $scope.dashboard.activity_type_id,
+
 							//beneficiaries: $scope.dashboard.beneficiaries,
 							start_date: $scope.dashboard.startDate,
 							end_date: $scope.dashboard.endDate
 						}
 					}
+					
 
 					request.data = angular.merge(request.data, obj);
 
+
 					return request;
 				},
+
+				//activitiesActivityType = getRequest( { list: true, indicator: 'activities_activity_type'}),
+
 
 				// metrics
 				getMetrics: function( theme, format ){
@@ -341,9 +355,15 @@ angular.module('ngmReportHub')
 							ishrpoptions = [],
 							provinceRows = [],
 							districtRows = [],
+							activitiesRows = [],
+
+
+
 						//	request = $scope.dashboard.getRequest( { list: true, indicator: 'organizations' } );
 						request = $scope.dashboard.getRequest( { list: true, indicator: 'organizations_4wplusdashboard' } );
-
+						//console.log("REQUEST: ",request);
+                        
+                       
 
 					if ($scope.dashboard.menu_items.includes('adminRpcode')){
 						$scope.model.menu = $scope.dashboard.menu;
@@ -475,9 +495,9 @@ angular.module('ngmReportHub')
 						}
 
 						// clusters
-						$scope.dashboard.lists.clusters.unshift({ cluster_id: 'all', cluster: 'ALL' });
+						$scope.dashboard.lists.clusters.unshift({ cluster_id: 'all', cluster: $filter('translate')('all_mayus') });
 						angular.forEach( $scope.dashboard.lists.clusters, function(d,i){
-							var path = $scope.dashboard.getPath( d.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.hrpplan, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+							var path = $scope.dashboard.getPath( d.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, $scope.dashboard.hrpplan, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
 							clusterRows.push({
 								'title': d.cluster,
 								'param': 'cluster_id',
@@ -502,7 +522,7 @@ angular.module('ngmReportHub')
 						// organizations
 						organizations.forEach(function( d, i ){
 							if ( d ) {
-								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, d.organization_tag, $scope.dashboard.hrpplan, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, d.organization_tag, $scope.dashboard.hrpplan, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
 								orgRows.push({
 									'title': d.organization,
 									'param': 'organization_tag',
@@ -520,17 +540,75 @@ angular.module('ngmReportHub')
 								'search': true,
 								'id': 'search-cluster-organization',
 								'icon': 'supervisor_account',
-								'title': $filter('translate')('organization'),
+								'title': $filter('translate')('executor'),
 								'class': 'teal lighten-1 white-text',
 								'rows': orgRows
 							});
 
-					    }
+					    };
+
+					    //Activity Type
+
+					   activitiesActivityType = $scope.dashboard.getRequest( { list: true, indicator: 'activities_activity_type'});
+
+					   ngmData.get( activitiesActivityType ).then( function( activities  ){
+
+					   	activities.data.unshift({
+								activity_type_id: 'all',
+								activity_type_name: $filter('translate')('all_mayus')
+							});
+
+					   	//console.log("ACTIVIDADES", activities.data);
+
+
+					   	
+
+					   	angular.forEach(activities.data , function(d,i){
+
+
+					   if(d){
+					    		var path = $scope.dashboard.getPath($scope.dashboard.cluster_id, d.activity_type_id, $scope.dashboard.organization_tag, $scope.dashboard.hrpplan, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode )
+                                activitiesRows.push({
+                                	'title': d.activity_type_name,
+                                	'param': 'activity_type_id',
+                                	'active': d.activity_type_name,
+                                	'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+                                	'href': '/desk/#'+path
+
+                                });
+					    	}
+					    });
+
+
+
+				
+							$scope.model.menu.push({
+								'search': true,
+								'id': 'search-cluster-activitytype',
+								'icon': 'supervisor_account',
+								'title': $filter('translate')('activity_type'),
+								'class': 'teal lighten-1 white-text',
+								'rows': activitiesRows
+							});
+
+							if ( $scope.dashboard.activity_type_id !== 'all' ) {
+							var activity_type = $filter( 'filter' )( activities.data, { activity_type_id: $scope.dashboard.activity_type_id } );
+							if ( activity_type.length ) {
+								//$scope.dashboard.hrpplan = hrpoption[0].option_id;
+								$scope.dashboard.activity_type_title = activity_type[0].activity_type_name;
+								$scope.dashboard.setTitle();
+								$scope.dashboard.setSubtitle();
+							}
+						}
+
+					   });
+
+
 
 					    //is hrp ?
-					    ishrpoptionsList = [{'option_name':'ALL','option_id':'all'},{'option_name': 'Si','option_id':true},{'option_name': 'No','option_id':false}]
+					    ishrpoptionsList = [{'option_name':$filter('translate')('all_mayus'),'option_id':'all'},{'option_name': 'Si','option_id':true},{'option_name': 'No','option_id':false}]
 					    angular.forEach( ishrpoptionsList, function(d,i){
-							var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, d.option_id, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+							var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, d.option_id, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
 							ishrpoptions.push({
 								'title': d.option_name,
 								'param': d.option_id,
@@ -573,7 +651,7 @@ angular.module('ngmReportHub')
 								admin1name: $filter('translate')('all_mayus'),
 							});
 							angular.forEach( admin1List, function(d,i){
-								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.hrpplan, d.admin1pcode, 'all' );
+								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, $scope.dashboard.hrpplan, d.admin1pcode, 'all' );
 								provinceRows.push({
 									'title': d.inactive ? d.admin1name + ' (Old)' : d.admin1name,
 									'param': 'admin1pcode',
@@ -605,7 +683,7 @@ angular.module('ngmReportHub')
 								admin2name: $filter('translate')('all_mayus'),
 							});
 							angular.forEach( admin2List, function(d,i){
-								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id,  $scope.dashboard.organization_tag, $scope.dashboard.hrpplan, $scope.dashboard.admin1pcode, d.admin2pcode );
+								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id,  $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, $scope.dashboard.hrpplan, $scope.dashboard.admin1pcode, d.admin2pcode );
 								districtRows.push({
 									'title': d.admin2name,
 									'param': 'admin2pcode',
@@ -636,6 +714,9 @@ angular.module('ngmReportHub')
 					} else {
 						$scope.dashboard.cluster = $filter( 'filter' )( $scope.dashboard.lists.clusters,
 														{ cluster_id: $scope.dashboard.cluster_id }, true )[0];
+
+					//	$scope.dashboard.activitiesActivityType = $scope.dashboard.getRequest( { list: true, indicator: 'activities_activity_type'});
+
 					}
 				},
 
@@ -674,9 +755,10 @@ angular.module('ngmReportHub')
 						$scope.dashboard.title += ' | ' + $scope.dashboard.cluster.cluster.toUpperCase();
 					}
 					// activity
-					/*if ( $scope.dashboard.activity_type_id !== 'all' ) {
-						$scope.dashboard.title += ' | ' + $scope.dashboard.activity_type_id.toUpperCase();
-					}*/
+					if ( $scope.dashboard.activity_type_id !== 'all' ) {
+						$scope.dashboard.title += ' | ' + $scope.dashboard.activity_type_title;
+
+					}
 					// org
 					if ( $scope.dashboard.organization_tag !== 'all' ) {
 						var org = $scope.dashboard.organization ? ' | ' + $scope.dashboard.organization : '';
@@ -726,9 +808,11 @@ angular.module('ngmReportHub')
 						$scope.dashboard.subtitle += ', ' + $scope.dashboard.cluster.cluster.toUpperCase() + ' cluster';
 					}
 					// activity
-					/*if ( $scope.dashboard.activity_type_id !== 'all' ) {
-						$scope.dashboard.subtitle += ', ' + $scope.dashboard.activity_type_id.toUpperCase();
-					}*/
+					if ( $scope.dashboard.activity_type_id !== 'all' ) {
+						$scope.dashboard.subtitle += ' , ' +$filter('translate')('activity_type')+': '+ $scope.dashboard.activity_type_title;
+
+					}
+
 					// org
 					if ( $scope.dashboard.organization_tag === 'all' ) {
 						$scope.dashboard.subtitle += ', '+ $filter('translate')('all_organizations');
@@ -771,7 +855,7 @@ angular.module('ngmReportHub')
 					$scope.dashboard.organization_tag = $route.current.params.organization_tag;
 					$scope.dashboard.hrpplan = $route.current.params.hrpplan;
 				//	$scope.dashboard.beneficiaries = $route.current.params.beneficiaries.split('+');
-				//	$scope.dashboard.activity_type_id = $route.current.params.activity_type_id;
+					$scope.dashboard.activity_type_id = $route.current.params.activity_type_id;
 
 					// plus dashboard_visits
 					$scope.dashboard.user.dashboard_visits++;
@@ -854,7 +938,7 @@ angular.module('ngmReportHub')
 										if ( date !== $scope.dashboard.startDate ) {
 											// set new date
 											$scope.dashboard.startDate = date;
-											var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.hrpplan, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+											var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, $scope.dashboard.hrpplan, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
 											$location.path( path );
 										}
 									}
@@ -870,7 +954,7 @@ angular.module('ngmReportHub')
 										if ( date !== $scope.dashboard.endDate ) {
 											// set new date
 											$scope.dashboard.endDate = date;
-											var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id,  $scope.dashboard.organization_tag, $scope.dashboard.hrpplan, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+											var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id,  $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, $scope.dashboard.hrpplan, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
 											$location.path( path );
 										}
 									}
@@ -888,7 +972,7 @@ angular.module('ngmReportHub')
 								widgets: [{
 									type: 'html',
 									card: 'white grey-text text-darken-2',
-									style: 'margin:15px; padding-bottom:30px;',
+									style: 'margin:15px; padding-bottom:30px;', 
 									config: {
 										id: 'dashboard-btn',
 										request: $scope.dashboard.getRequest( { indicator: 'latest_update' } ),
