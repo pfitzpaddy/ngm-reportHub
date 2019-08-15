@@ -36,6 +36,30 @@ h1, h2, h3, h4, h5, p {
 	font-weight: 300;
 }
 
+/* FORMS DISABLED */
+.btn.disabled, 
+.disabled.btn-large,
+.btn-floating.disabled,
+.btn-large.disabled,
+.btn:disabled,
+.btn-large:disabled,
+.btn-large:disabled,
+.btn-floating:disabled,
+.btn[disabled],
+[disabled].btn-large,
+.btn-large[disabled],
+.btn-floating[disabled] {
+	background-color: #b2dfdb !important;
+}
+[type="checkbox"].filled-in:disabled:not(:checked) + label:after {
+  border-color: transparent;
+  background-color: #b2dfdb;
+}
+[type="checkbox"].filled-in:disabled:checked + label:after {
+  background-color: #81d4fa;
+  border-color: #81d4fa;
+}
+
 /* ROW SPACING */
 .row {
 	margin-bottom: 0px;
@@ -117,7 +141,7 @@ h1, h2, h3, h4, h5, p {
 }
 .report-panel-title {
 	font-size: 1.46rem;
-	font-weight: 200;
+	font-weight: 300;
 }
 .report-work-title {
 	margin-top: 20px;
@@ -180,24 +204,18 @@ h1, h2, h3, h4, h5, p {
 }
 
 .ngm-project_donor_select md-chip .md-contact-name{
-    font-size: 15px;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    color: #ffffff;
+  font-size: 15px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: #ffffff;
 }
 
 .ngm-project_donor_select md-chips .md-default-theme md-chip md-icon, md-chips md-chip md-icon{
-
-	
-    min-height: 18px;
-    min-width: 18px;
-    color: #ffffff;
-
-
+  min-height: 18px;
+  min-width: 18px;
+  color: #ffffff;
 }
 
-
 body.md-default-theme, body, html.md-default-theme, html {
-
 	background-color: white;
 	-webkit-print-color-adjust: exact;
 }

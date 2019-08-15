@@ -139,7 +139,7 @@ angular.module( 'ngmReportHub' )
 				ngmClusterDetails.addDetailDisabled = true;
 			},
 
-			removeDetail: function( $locationIndex, $beneficiaryIndex, $index, beneficiary ) {
+			removeDetail: function( list, $locationIndex, $beneficiaryIndex, $index, beneficiary ) {
 				if ( beneficiary.details.length >= 1 ) {
 					beneficiary.details.splice( $index, 1 );
 					// set details form
