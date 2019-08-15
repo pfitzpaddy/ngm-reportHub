@@ -7121,6 +7121,10 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'cyclone_shelter',
             site_type_name: 'Cyclone Shelter'
           },{
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
+            site_type_id: 'school',
+            site_type_name: 'School'
+          },{
             cluster_id: [ 'health' ],
             site_type_id: 'health_facility_camp',
             site_type_name: 'Health Facility (Refugees)'
