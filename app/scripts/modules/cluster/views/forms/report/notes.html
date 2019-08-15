@@ -54,7 +54,7 @@
 				        </div>
 
 				        <button class="btn" style="margin:10px 10px;"
-				        				ng-if="project.report.report_status !== 'complete'"
+				        				ng-if="project.report.report_status !== 'complete' && project.canEdit"
 				        				ng-click="project.validateBeneficiariesDetailsForm( false, false )">
 				        	<i class="material-icons left">save</i>{{'save_notes' |translate}}
 				        </button>

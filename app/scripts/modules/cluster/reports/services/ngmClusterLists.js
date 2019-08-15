@@ -316,7 +316,7 @@ angular.module( 'ngmReportHub' )
             delivery_type_id: 'population',
             delivery_type_name: 'New Beneficiaries'
           },{
-            delivery_type_id: 'service_recurrent',
+            delivery_type_id: 'service',
             delivery_type_name: 'Reccurent Beneficiaries'
           },{
             delivery_type_id: 'service_existing',
@@ -7155,6 +7155,10 @@ angular.module( 'ngmReportHub' )
             cluster_id: [ 'fss' ],
             site_type_id: 'cyclone_shelter',
             site_type_name: 'Cyclone Shelter'
+          },{
+            cluster_id: ngmClusterLists.all_sectors_minus_health,
+            site_type_id: 'school',
+            site_type_name: 'School'
           },{
             cluster_id: [ 'health' ],
             site_type_id: 'health_facility_camp',
