@@ -159,7 +159,7 @@
 
 	<!-- project to complete -->
 	<!-- disabled -->
-	<fieldset ng-disabled="!panel.canEdit">	
+	<fieldset ng-if="panel.canEdit" ng-disabled="!panel.canEdit">
 		<div class="row" ng-if="panel.project.project_status === 'active'">
 			<div class="col s12 m12 l12">
 				<div class="widget card-panel white grey-text text-darken-2">

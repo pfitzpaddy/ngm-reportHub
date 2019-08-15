@@ -127,11 +127,11 @@ angular.module( 'ngmReportHub' )
 
 			// update material_select
 			updateSelect: function(){
-				$timeout(function() { $( 'select' ).material_select(); }, 10 );
+				$timeout(function() { $( 'select' ).material_select(); }, 400 );
 			},
 
 			updateSelectById: function (id) {
-				$timeout(function () { $('#' + id + ' select').material_select(); }, 10);
+				$timeout(function () { $('#' + id + ' select').material_select(); }, 10 );
 			},
 
 			// sum for totals (age groups)
@@ -343,9 +343,6 @@ angular.module( 'ngmReportHub' )
 					// for each location
 					ngmClusterBeneficiaries.setBeneficiariesForm( lists, location_index, location.beneficiaries );
 				});
-
-				// select element to load
-				$( 'select' ).ready(function() { setTimeout( function(){ $( 'select' ).material_select(); }, 1260 ); });
 
 			},
 
