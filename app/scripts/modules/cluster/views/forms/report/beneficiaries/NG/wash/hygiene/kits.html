@@ -36,7 +36,7 @@
 								ng-model="kit.quantity"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, kit, 'kits' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $kitIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- kits -->
@@ -55,7 +55,7 @@
 								ng-model="kit.quantity"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, kit, 'monitoring' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $kitIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- monitoring  -->
@@ -78,7 +78,7 @@
 						format="dd mmm, yyyy"
 						max="{{ kit.activity_end_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( kit, kit.activity_start_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $kitIndex }}"
 								class="active">Activity Start Date</label>
@@ -93,7 +93,7 @@
 						format="dd mmm, yyyy"
 						min="{{ kit.activity_start_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( kit, kit.activity_end_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $kitIndex }}"
 								class="active">Activity End Date</label>            

@@ -240,11 +240,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					var template;
 					if ( $scope.project.report.report_year === 2016 ) {
 						template = 'beneficiaries/2016/beneficiaries.html';
-					} 
-					// else if ( $scope.project.report.admin0pcode === 'NG' ) {
+					// } else if ( $scope.project.report.admin0pcode === 'NG' ) {
 					// 	template ='beneficiaries/NG/beneficiaries.html';
-					// } 
-					else {
+					} else {
 						template ='beneficiaries/beneficiaries.html';
 					}
 					return template;

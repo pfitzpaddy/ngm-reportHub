@@ -31,7 +31,7 @@
 								min="0"
 								ng-model="accounts.quantity"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -58,7 +58,7 @@
 								ng-model="accounts.complaints_recieved"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, accounts, 'complaints' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-complaints_recieved-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -75,7 +75,7 @@
 								min="0"
 								ng-model="accounts.complaints_addressed"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-complaints_addressed-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -92,7 +92,7 @@
 								min="0"
 								ng-model="accounts.complaints_closed"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-complaints_closed-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -114,7 +114,7 @@
 						format="dd mmm, yyyy"
 						max="{{ accounts.activity_end_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( accounts, accounts.activity_start_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Activity Start Date</label>
@@ -129,7 +129,7 @@
 						format="dd mmm, yyyy"
 						min="{{ accounts.activity_start_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( accounts, accounts.activity_end_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Activity End Date</label>            

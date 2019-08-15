@@ -32,7 +32,7 @@
 								ng-model="ctp.households"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, ctp, 'cash' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-households-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -50,7 +50,7 @@
 								ng-change="ctp.cash_amount = ctp.quantity;
 														ngmClusterHelperNgWash.indicatorOutput( project.report.locations, ctp, 'cash' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -72,7 +72,7 @@
 						format="dd mmm, yyyy"
 						max="{{ ctp.activity_end_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( ctp, ctp.activity_start_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}"
 								class="active">Activity Start Date</label>
@@ -87,7 +87,7 @@
 						format="dd mmm, yyyy"
 						min="{{ ctp.activity_start_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( ctp, ctp.activity_end_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $ctpIndex }}"
 								class="active">Activity End Date</label>            

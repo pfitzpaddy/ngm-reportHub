@@ -33,7 +33,7 @@
 								ng-model="service.quantity"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, service, 'tablets' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 				<label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Quantity (m3/Per Month)</label>
@@ -53,7 +53,7 @@
 								ng-model="service.quantity"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, service, 'water' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 				<label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Quantity (m3/Per Month)</label>
@@ -72,7 +72,7 @@
 																							'free_residual_chlorine_range_id', 
 																							'free_residual_chlorine_range_name',
 																							'ngm-free_residual_chlorine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									ng-disabled="project.report.report_status === 'complete'"
 									required>
 				<option value="">{{'select'|translate}}</option>
 				</select>
@@ -93,7 +93,7 @@
 																							'water_turbidity_range_id', 
 																							'water_turbidity_range_name',
 																							'ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									ng-disabled="project.report.report_status === 'complete'"
 									required>
 				<option value="">{{'select'|translate}}</option>
 				</select>
@@ -114,7 +114,7 @@
 						format="dd mmm, yyyy"
 						max="{{ service.activity_end_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( service, service.activity_start_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Activity Start Date</label>
@@ -129,7 +129,7 @@
 						format="dd mmm, yyyy"
 						min="{{ service.activity_start_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( service, service.activity_end_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Activity End Date</label>            
