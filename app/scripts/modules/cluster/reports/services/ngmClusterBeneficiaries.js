@@ -291,7 +291,7 @@ angular.module( 'ngmReportHub' )
 
 			// set description
 			setBeneficiaries: function( project, type, $parent, $index, beneficiary ) {
-				console.log(project, beneficiary);
+				
 				// defaults
 				var defaults = ngmClusterBeneficiaries.defaults;
 				var context_defaults = defaults[ project.definition.admin0pcode ] && defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] ? defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] : {}
