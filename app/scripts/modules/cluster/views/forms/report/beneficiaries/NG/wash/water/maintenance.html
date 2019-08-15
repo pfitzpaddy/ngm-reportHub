@@ -40,7 +40,7 @@
 								ng-model="maintenance.quantity"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, maintenance, 'water' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -58,7 +58,7 @@
 								min="0"
 								ng-model="maintenance.quantity"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>								
 
 				<label ng-if="beneficiary.activity_detail_id === 'operation_maintenance_monitoring'"
@@ -86,7 +86,7 @@
 								class="validate" 
 								min="0"
 								ng-model="maintenance.quantity"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}' )"
 								required>
 				<!-- label based on activity_detail_id -->
@@ -101,7 +101,7 @@
 								min="0"
 								ng-model="maintenance.male"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 				<!-- label based on activity_detail_id -->
 				<label for="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
@@ -115,7 +115,7 @@
 								min="0"
 								ng-model="maintenance.female"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 				<!-- label based on activity_detail_id -->
 				<label for="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
@@ -136,7 +136,7 @@
 						format="dd mmm, yyyy"
 						max="{{ maintenance.activity_end_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( maintenance, maintenance.activity_start_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
 								class="active">Activity Start Date</label>
@@ -151,7 +151,7 @@
 						format="dd mmm, yyyy"
 						min="{{ maintenance.activity_start_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( maintenance, maintenance.activity_end_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}"
 								class="active">Activity End Date</label>            

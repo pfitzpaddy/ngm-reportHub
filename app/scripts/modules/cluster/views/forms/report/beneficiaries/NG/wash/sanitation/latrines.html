@@ -46,7 +46,7 @@
 								ng-model="latrine.quantity"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, latrine, 'households' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -68,7 +68,7 @@
 								ng-model="latrine.quantity"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, latrine, 'hand_washing' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<label ng-if="beneficiary.activity_detail_id === 'hand_washing_stations_installation'"
@@ -92,7 +92,7 @@
 								ng-model="latrine.quantity"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, latrine, 'desludged' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -113,7 +113,7 @@
 								min="0"
 								ng-model="latrine.quantity"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -151,7 +151,7 @@
 								ng-model="latrine.male"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, latrine, 'latrines' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 				<!-- label based on activity_detail_id -->
 				<label for="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
@@ -167,7 +167,7 @@
 								ng-model="latrine.female"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, latrine, 'latrines' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 				<!-- label based on activity_detail_id -->
 				<label for="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
@@ -183,7 +183,7 @@
 								ng-model="latrine.male_disabled"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, latrine, 'latrines' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 				<!-- label based on activity_detail_id -->
 				<label for="ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
@@ -199,7 +199,7 @@
 								ng-model="latrine.female_disabled"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, latrine, 'latrines' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 				<!-- label based on activity_detail_id -->
 				<label for="ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
@@ -227,7 +227,7 @@
 																							'gender_marking_id', 
 																							'gender_marking_name',
 																							'ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
-									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									ng-disabled="project.report.report_status === 'complete'"
 									required>
 				<option value="">{{'select'|translate}}</option>
 				</select>
@@ -248,7 +248,7 @@
 																							'lock_installation_id', 
 																							'lock_installation_name',
 																							'ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
-									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									ng-disabled="project.report.report_status === 'complete'"
 									required>
 				<option value="">{{'select'|translate}}</option>
 				</select>
@@ -277,7 +277,7 @@
 																							'facility_status_id', 
 																							'facility_status_name',
 																							'ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
-									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									ng-disabled="project.report.report_status === 'complete'"
 									required>
 				<option value="">{{'select'|translate}}</option>
 				</select>
@@ -303,7 +303,7 @@
 																							'stipend_id', 
 																							'stipend_name',
 																							'ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
-									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									ng-disabled="project.report.report_status === 'complete'"
 									required>
 				<option value="">{{'select'|translate}}</option>
 				</select>
@@ -319,7 +319,7 @@
 								min="0"
 								ng-model="latrine.stipend_amount"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}' )"
-								ng-disabled="latrine.stipend_id === 'no' || !rowform.$visible || project.report.report_status === 'complete'"
+								ng-disabled="latrine.stipend_id === 'no' || project.report.report_status === 'complete'"
 								required>
 				<label for="ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								class="active">Stipend Amount Total (Naira)</label>
@@ -339,7 +339,7 @@
 						format="dd mmm, yyyy"
 						max="{{ latrine.activity_end_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( latrine, latrine.activity_start_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								class="active">Activity Start Date</label>
@@ -354,7 +354,7 @@
 						format="dd mmm, yyyy"
 						min="{{ latrine.activity_start_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( latrine, latrine.activity_end_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $latrineIndex }}"
 								class="active">Activity End Date</label>            

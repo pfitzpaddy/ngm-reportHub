@@ -1165,12 +1165,26 @@
 					<div class="row">
 
 						<!-- default -->
-						<button class="btn"
+						<!--<button class="btn"
 											ng-if="project.definition.project_status !== 'complete'"
 											ng-click="project.addBeneficiary();"
 											style="margin:20px 10px;">
 							<i class="material-icons left">add</i>{{'add_beneficiaries'|translate}}
-						</button>
+						</button>-->
+
+				<button ng-if="!(beneficiary.admin0pcode==='NG'&&beneficiary.cluster_id==='wash')" class="btn"
+									ng-if="( project.definition.project_status !== 'complete' && project.report.report_status !== 'complete' )"
+									ng-click="project.addBeneficiary( $locationIndex );"
+									style="margin:20px 10px;">
+					<i class="material-icons left">add</i>{{'add_beneficiaries'|translate}}
+				</button>
+
+				<button ng-if="beneficiary.admin0pcode==='NG'&&beneficiary.cluster_id==='wash'" class="btn" 
+							ng-show="project.report.report_status !== 'complete'" 
+										ng-click="project.addNgWashBeneficiary( $locationIndex );project.activePrevReportButton()"
+										ng-disabled="addBeneficiaryDisable">
+					<i class="material-icons left">add</i>{{'add_activities'|translate}}
+				</button>
 					</div>
 
 				</li>

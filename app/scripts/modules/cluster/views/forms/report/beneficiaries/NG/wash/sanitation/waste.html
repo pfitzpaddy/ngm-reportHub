@@ -39,7 +39,7 @@
 									ng-model="waste.quantity"
 									ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, waste, 'kits' );
 															ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
-									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									ng-disabled="project.report.report_status === 'complete'"
 									required>
 
 					<!-- kits -->
@@ -59,7 +59,7 @@
 									min="0"
 									ng-model="waste.quantity"
 									ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
-									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									ng-disabled="project.report.report_status === 'complete'"
 									required>
 
 					<!-- label based on activity_detail_id -->
@@ -91,7 +91,7 @@
 									min="0"
 									ng-model="waste.male"
 									ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
-									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									ng-disabled="project.report.report_status === 'complete'"
 									required>
 					<!-- label based on activity_detail_id -->
 					<label for="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
@@ -106,7 +106,7 @@
 									min="0"
 									ng-model="waste.female"
 									ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
-									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									ng-disabled="project.report.report_status === 'complete'"
 									required>
 					<!-- label based on activity_detail_id -->
 					<label for="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
@@ -131,7 +131,7 @@
 																								'committee_rotation_id', 
 																								'committee_rotation_name',
 																								'ngm-waste_rotation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
-										ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+										ng-disabled="project.report.report_status === 'complete'"
 										required>
 					<option value="">{{'select'|translate}}</option>
 					</select>
@@ -147,7 +147,7 @@
 									min="0"
 									ng-model="waste.committee_rotation_per_month"
 									ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-committee_rotation_per_month-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
-									ng-disabled="waste.committee_rotation_id === 'no' || !rowform.$visible || project.report.report_status === 'complete'"
+									ng-disabled="waste.committee_rotation_id === 'no' || project.report.report_status === 'complete'"
 									required>
 					<label for="ngm-committee_rotation_per_month-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
 									class="active">Committee Rotations (Per Month)</label>
@@ -171,7 +171,7 @@
 																								'stipend_id', 
 																								'stipend_name',
 																								'ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
-										ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+										ng-disabled="project.report.report_status === 'complete'"
 										required>
 					<option value="">{{'select'|translate}}</option>
 					</select>
@@ -187,7 +187,7 @@
 									min="0"
 									ng-model="waste.stipend_amount"
 									ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}' )"
-									ng-disabled="waste.stipend_id === 'no' || !rowform.$visible || project.report.report_status === 'complete'"
+									ng-disabled="waste.stipend_id === 'no' || project.report.report_status === 'complete'"
 									required>
 					<label for="ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
 									class="active">Stipend Amount Per Member (Naira)</label>
@@ -211,7 +211,7 @@
 						format="dd mmm, yyyy"
 						max="{{ waste.activity_end_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( waste, waste.activity_start_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
 								class="active">Activity Start Date</label>
@@ -226,7 +226,7 @@
 						format="dd mmm, yyyy"
 						min="{{ waste.activity_start_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( waste, waste.activity_end_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $wasteIndex }}"
 								class="active">Activity End Date</label>            

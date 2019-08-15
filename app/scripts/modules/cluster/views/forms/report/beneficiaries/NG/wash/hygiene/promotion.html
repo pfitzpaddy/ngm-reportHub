@@ -36,7 +36,7 @@
 								ng-model="promotion.quantity"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, promotion, 'households' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $promotionIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 				<label ng-if="beneficiary.activity_detail_id === 'house_to_house_visit'"
 								for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $promotionIndex }}"
@@ -52,7 +52,7 @@
 								min="0"
 								ng-model="promotion.quantity"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $promotionIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -97,7 +97,7 @@
 								min="0"
 								ng-model="promotion.male"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $promotionIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 				<!-- label based on activity_detail_id -->
 				<label for="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $promotionIndex }}"
@@ -112,7 +112,7 @@
 								min="0"
 								ng-model="promotion.female"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $promotionIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 				<!-- label based on activity_detail_id -->
 				<label for="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $promotionIndex }}"
@@ -133,7 +133,7 @@
 						format="dd mmm, yyyy"
 						max="{{ promotion.activity_end_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( promotion, promotion.activity_start_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $promotionIndex }}"
 								class="active">Activity Start Date</label>
@@ -148,7 +148,7 @@
 						format="dd mmm, yyyy"
 						min="{{ promotion.activity_start_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( promotion, promotion.activity_end_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $promotionIndex }}"
 								class="active">Activity End Date</label>            

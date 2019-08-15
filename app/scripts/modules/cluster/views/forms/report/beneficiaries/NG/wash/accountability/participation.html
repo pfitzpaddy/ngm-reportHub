@@ -37,7 +37,7 @@
 								min="0"
 								ng-model="accounts.boys"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-boys-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -53,7 +53,7 @@
 								min="0"
 								ng-model="accounts.girls"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-girls-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -69,7 +69,7 @@
 								min="0"
 								ng-model="accounts.men"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -85,7 +85,7 @@
 								min="0"
 								ng-model="accounts.women"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -101,7 +101,7 @@
 								min="0"
 								ng-model="accounts.elderly_men"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -117,7 +117,7 @@
 								min="0"
 								ng-model="accounts.elderly_women"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-elderly_women-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete'"
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -139,7 +139,7 @@
 						format="dd mmm, yyyy"
 						max="{{ accounts.activity_end_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( accounts, accounts.activity_start_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								class="active">Activity Start Date</label>
@@ -154,7 +154,7 @@
 						format="dd mmm, yyyy"
 						min="{{ accounts.activity_start_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( accounts, accounts.activity_end_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete'"
 						e-required/>
 				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								class="active">Activity End Date</label>            
