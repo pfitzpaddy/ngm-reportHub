@@ -3869,6 +3869,7 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'german_foreign_ministry', project_donor_name: 'German Foreign Ministry' },
             { project_donor_id: 'icrc', project_donor_name: 'ICRC' },
             { project_donor_id: 'ifrc', project_donor_name: 'IFRC' },
+            { project_donor_id: 'iom', project_donor_name: 'IOM' },
             { project_donor_id: 'irish_aid', project_donor_name: 'IrishAid' },
             { project_donor_id: 'italy', project_donor_name: 'Italy' },
             { project_donor_id: 'jica', project_donor_name: 'JICA' },
