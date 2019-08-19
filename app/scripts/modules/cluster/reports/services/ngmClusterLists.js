@@ -322,6 +322,9 @@ angular.module( 'ngmReportHub' )
             delivery_type_id: 'service_existing',
             delivery_type_name: 'Existing Beneficiaries'
           },{
+            delivery_type_id: 'service_attendance',
+            delivery_type_name: 'Attendance'
+          },{
             delivery_type_id: 'contingency',
             delivery_type_name: 'Contingency'
           }];
