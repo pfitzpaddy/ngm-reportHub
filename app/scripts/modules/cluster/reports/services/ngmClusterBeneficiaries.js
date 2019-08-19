@@ -265,6 +265,20 @@ angular.module( 'ngmReportHub' )
 
 			/* BENEFICIARIES FORM */
 
+			// display full form
+			showFormInputs: function( beneficiary, form ) {
+				var display = false;
+				if ( beneficiary.activity_description_id ) {
+					if( !form.display_activity_detail  ) {
+						display = true;
+					}
+					if( beneficiary.activity_detail_id && form.display_activity_detail  ) {
+						display = true;
+					}
+				}
+				return display;
+			},
+
 			// show activity (generic)
 			setActivity: function( project, $parent, $index, beneficiary ){
 				
