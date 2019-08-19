@@ -896,8 +896,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 										}
 									}, 400);
 								} else {
-									// reset select when edit saved report
-									ngmClusterBeneficiaries.updateSelect();
+									// reset when edit saved report
+									ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
 								}
 
 							} else {
