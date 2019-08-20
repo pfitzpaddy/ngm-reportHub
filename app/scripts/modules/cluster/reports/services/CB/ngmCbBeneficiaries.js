@@ -97,8 +97,6 @@ angular.module( 'ngmReportHub' )
 
         }
 
-        console.log( beneficiary );
-
       },
 
       // SADD breakdown :'(
