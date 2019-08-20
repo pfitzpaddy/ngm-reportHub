@@ -326,9 +326,9 @@ angular.module('ngmReportHub')
 						request: {
 							method: 'POST',
 							url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',
-							data: angular.merge( $scope.dashboard.getRequest( 'reports_complete', true ), { report: $scope.dashboard.cluster_id_filename + '_' + $scope.dashboard.report_type + '_reports_complete_' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
+							data: angular.merge($scope.dashboard.getRequest( 'reports_submitted', true ), { report: $scope.dashboard.cluster_id_filename + '_' + $scope.dashboard.report_type + '_reports_complete_' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ), csv: true } )
 						},
-						metrics: $scope.dashboard.getMetrics( 'reports_complete', 'csv' )
+							metrics: $scope.dashboard.getMetrics( 'reports_complete', 'csv' )
 					},{
 						type: 'csv',
 						color: 'blue lighten-2',
