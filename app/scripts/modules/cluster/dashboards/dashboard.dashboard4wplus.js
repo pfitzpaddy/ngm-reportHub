@@ -1297,10 +1297,10 @@ angular.module('ngmReportHub')
 						{
 							columns: [
 							{
-								styleClass: 's12 m6 l6',
+								styleClass: 's12 m6 l4',
 								widgets: [{
 									type: 'highchart',
-									style: 'height: 350px;',
+									style: 'height: 300px;',
 									card: 'card-panel chart-stats-card white grey-text text-darken-2',
 									config: {
 										title: {
@@ -1313,13 +1313,13 @@ angular.module('ngmReportHub')
 											subLabelfractionSize: 0,
 											postfix: '%'
 										},
-										templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
-										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
+										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardpie.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 50px; left: 0;"',
 										chartConfig: {
 											options: {
 												chart: {
 													type: 'pie',
-													height: 140,
+													height: 150,
 													margin: [0,0,0,0],
 													spacing: [0,0,0,0]
 												},
@@ -1329,7 +1329,8 @@ angular.module('ngmReportHub')
 											},
 											title: {
 													text: '',
-													margin: 0
+													margin:0,
+
 											},
 											plotOptions: {
 													pie: {
@@ -1352,10 +1353,10 @@ angular.module('ngmReportHub')
 								}]
 							   },
 								{
-								styleClass: 's12 m6 l6',
+								styleClass: 's12 m6 l4',
 								widgets: [{
 									type: 'highchart',
-									style: 'height: 350px;',
+									style: 'height: 300px;',
 									card: 'card-panel chart-stats-card white grey-text text-darken-2',
 									config: {
 										title: {
@@ -1368,13 +1369,13 @@ angular.module('ngmReportHub')
 											subLabelfractionSize: 0,
 											postfix: '%'
 										},
-										templateUrl: '/scripts/widgets/ngm-highchart/template/newtemplate.html',
-										style: '"text-align:center; width: 60%; height: 60%; position: absolute; top: 20px; left: 10;"',
+										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardcolumns.html',
+										style: '"text-align:center; width: 80%; height: 80%; position: absolute; top: 0px; left: 0;"',
 										chartConfig: {
 											options: {
 												chart: {
 													type: 'column',
-													height: 260,
+													height: 230,
 													margin: [0,0,0,0],
 													spacing: [0,0,0,0]
 												},
@@ -1383,14 +1384,16 @@ angular.module('ngmReportHub')
 												}				
 											},
 											title: {
-													text: 'EDAD (# - %)',
+													text: '',
 													margin: 0
 											},
-											plotOptions: {
-													pie: {
+											
+											/*  plotOptions: {
+														column: {
 															shadow: false
-													}
-											},
+													}*/
+											
+											
 											series: [{
 												//name: $filter('translate')('children'),
 												name: "EDAD (# - %)",
@@ -1398,10 +1401,74 @@ angular.module('ngmReportHub')
 												size: '100%',
 												innerSize: '100%',
 												showInLegend:false,
-												dataLabels: {
-													enabled: true
+												 dataLabels: {
+										                enabled: true,
+										                //inside: true
+										            },
+
+												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
+											     request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'}),
+											}]
+										}
+									}
+								}]
+							},
+							{
+								styleClass: 's12 m6 l4',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 300px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											//text: $filter('translate')('children'),
+											text: "Beneficiario Cluster (# - %)"
+										},
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardcolumns.html',
+										style: '"text-align:center; width: 80%; height: 80%; position: absolute; top: 0px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'bar',
+													height: 230,
+													margin: [0,0,0,0],
+													spacing: [0,0,0,0]
 												},
-												request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})												
+												tooltip: {
+													enabled: true
+												}				
+											},
+											title: {
+													text: '',
+													margin: 0
+											},
+											
+											/*  plotOptions: {
+														column: {
+															shadow: false
+													}*/
+											
+											
+											series: [{
+												//name: $filter('translate')('children'),
+												name: "Beneficiario Cluster (# - %)",
+												//name: "EDAD (# - %)",
+												size: '100%',
+												innerSize: '100%',
+												showInLegend:false,
+												 dataLabels: {
+										                enabled: true,
+										                //inside: true
+										            },
+
+												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
+											     request: $scope.dashboard.getRequest({ indicator: 'BarChartCluster', chart_for:'beneficiarioCluster'}),
 											}]
 										}
 									}
@@ -1663,6 +1730,10 @@ angular.module('ngmReportHub')
 							}]
 						}]
 					}
+
+					$('#highcharts-13').css("height","280px");
+										$('div.highchart-container > svg').css({height:'280px'});
+
 
 					// set
 					$scope.dashboard.setUrl();

@@ -1,0 +1,164 @@
+  <style>
+
+  /*
+   stats card
+  */
+  .count, .label {
+    z-index: 1 !important;
+  }
+  .chart-stats-card {
+    display:block;
+    position:relative;
+    overflow:hidden;
+  }
+  .chart-stats-card i {
+    position:absolute;
+    font-size:6rem;
+    right:10;
+    bottom:-1rem;
+  }
+  .chart-stats-card .count {
+    position:relative;
+    font-weight:100;
+    font-size:2.4rem;
+    line-height:2.4rem;
+  }
+  .chart-stats-card .label {
+    position:relative;
+    font-weight:100;
+    font-size:1.2rem;
+    line-height:1.2rem;
+    color:#757575;
+  }  
+  .chart-stats-card .name {
+    position:relative;
+    font-weight:300;
+    font-size:1.1rem;
+    line-height:1.1rem;
+  }
+
+  #highcharts-10{
+  	height: 270px;
+  }
+
+  #highcharts-10 svg{
+  	height: 270px;
+  }
+
+
+
+</style>
+
+
+<div>
+  <div id="{{highchart.id}}" align="{{ highchart.align }}" ng-if="highchart.chartConfig">
+    <div ng-if="highchart.title.text" 
+        align="{{ highchart.title.align }}" 
+        style="{{ highchart.title.style }}">{{ highchart.title.text }}</div>
+
+    <!--<div class="row">-->
+
+      <!-- left -->
+      <!--<div class="col s4 m4">-->
+
+        <!-- label -->
+       <!-- <div id="label-left-{{highchart.id}}" class="count" style="text-align:center;padding-top:22px;font-size:1.7rem;">
+            <span style="font-weight:300;">{{ highchart.label.left.label.prefix }}</span><br/>
+          <span
+              value="{{ highchart.label.center.label.from }}"
+              ng-count-to="{{ highchart.label.left.label.label }}" 
+              duration="{{ highchart.label.left.label.duration }}"
+              filter="{{ highchart.label.left.label.filter }}"
+              params="{{ highchart.label.left.label.params }}"
+              fraction-size="{{ highchart.label.left.label.fractionSize }}">
+          </span>{{ highchart.label.left.label.postfix }}
+        </div>
+
+        <div id="subLabel-left-{{highchart.id}}" class="label" style="text-align:center;">
+          {{ highchart.label.left.subLabel.prefix }}
+          <span 
+              value="{{ highchart.label.center.label.from }}" 
+              ng-count-to="{{ highchart.label.left.subLabel.label }}" 
+              duration="{{ highchart.label.left.subLabel.duration }}"
+              filter="{{ highchart.label.left.subLabel.filter }}"
+              params="{{ highchart.label.left.subLabel.params }}"
+              fraction-size="{{ highchart.label.left.subLabel.fractionSize }}">
+          </span>{{ highchart.label.left.subLabel.postfix }}
+         </div>
+
+      </div>-->
+
+      <!-- center -->
+
+     <!-- <div class="col s4 m4">-->
+
+        <!-- 
+        <div id="label-center-{{highchart.id}}" class="count" style="text-align:center;padding-top:40px;">
+          {{ highchart.label.center.label.prefix }}
+          <span
+              value="{{ highchart.label.center.label.from }}" 
+              ng-count-to="{{ highchart.label.center.label.label }}" 
+              duration="{{ highchart.label.center.label.duration }}"
+              filter="{{ highchart.label.center.label.filter }}"
+              params="{{ highchart.label.center.label.params }}"
+              fraction-size="{{ highchart.label.center.label.fractionSize }}">
+          </span>{{ highchart.label.center.label.postfix }}
+        </div>
+
+        <div id="subLabel-center-{{highchart.id}}" class="label" style="text-align:center;">
+          {{ highchart.label.center.subLabel.prefix }}
+          <span
+              value="{{ highchart.label.center.label.from }}"
+              ng-count-to="{{ highchart.label.center.subLabel.label }}" 
+              duration="{{ highchart.label.center.subLabel.duration }}"
+              filter="{{ highchart.label.center.subLabel.filter }}"
+              params="{{ highchart.label.center.subLabel.params }}"
+              fraction-size="{{ highchart.label.center.subLabel.fractionSize }}">
+          </span>{{ highchart.label.center.subLabel.postfix }}
+         </div>-->
+
+         <highchart class="highchart-promo" config="highchart.chartConfig" 
+                    style="text-align:center; width:80%; height:80%; position:initial; top:10px; left:0;"></highchart>
+
+     <!-- </div>-->
+
+      <!-- right -->
+     <!-- <div class="col s4 m4">-->
+
+        <!-- ht-{{highchart.id}}" class="count" style="text-align:center;padding-top:22px;font-size:1.7rem;">
+          <span style="font-weight:300;">{{ highchart.label.right.label.prefix }}</span><br/>
+          <span
+              value="{{ highchart.label.center.label.from }}" 
+              ng-count-to="{{ highchart.label.right.label.label }}" 
+              duration="{{ highchart.label.right.label.duration }}"
+              filter="{{ highchart.label.right.label.filter }}"
+              params="{{ highchart.label.right.label.params }}"
+              fraction-size="{{ highchart.label.right.label.fractionSize }}">
+          </span>{{ highchart.label.right.label.postfix }}
+        </div>
+
+        <div id="subLabel-right-{{highchart.id}}" class="label" style="text-align:center;">
+          {{ highchart.label.right.subLabel.prefix }}
+          <span
+              value="{{ highchart.label.center.label.from }}" 
+              ng-count-to="{{ highchart.label.right.subLabel.label }}" 
+              duration="{{ highchart.label.right.subLabel.duration }}"
+              filter="{{ highchart.label.right.subLabel.filter }}"
+              params="{{ highchart.label.right.subLabel.params }}"
+              fraction-size="{{ highchart.label.right.subLabel.fractionSize }}">
+          </span>{{ highchart.label.right.subLabel.postfix }}
+         </div>-->
+
+      <!--</div>-->
+
+    <!--</div>-->
+
+  </div>
+
+</div>
+
+
+
+
+
+
