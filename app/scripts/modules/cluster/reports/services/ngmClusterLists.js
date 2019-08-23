@@ -768,10 +768,10 @@ angular.module( 'ngmReportHub' )
 
         var organizations;
 
-        if(admin0pcode === 'COL'){
+        if(admin0pcode === 'COL' ){
 
          organizations = $filter('filter')(ngmLists.getObject( 'lists' ).organizationsList,
-                 {admin0pcode: 'COL'},true );
+                 {admin0pcode: 'COL'} , {admin0pcode: 'ALL, COL'},true );
 
         }else{
           organizations = ngmLists.getObject( 'lists' ).organizationsList
