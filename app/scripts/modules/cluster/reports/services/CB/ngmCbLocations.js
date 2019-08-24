@@ -29,8 +29,26 @@ angular.module( 'ngmReportHub' )
 
 			// bb
 			bbox: {
-				'CB':{ xMin:20.9489082225001, yMin:91.8643348260071, xMax:22.5038276085, yMax:92.2352242316744 },
-				'NG':{ xMin:2.66853, yMin:4.27301, xMax:14.6788, yMax:13.8944 },
+				'CB':{ admin0name: "Cox's Bazar", xMin:20.9489082225001, yMin:91.8643348260071, xMax:22.5038276085, yMax:92.2352242316744 },
+				'NG':{ admin0name: "Nigeria", xMin:2.66853, yMin:4.27301, xMax:14.6788, yMax:13.8944 },
+			},
+
+			// very crude check that the borehole is in bbox of NG
+			// for now this will have to do, bbox of admin3 level would be better but for now out of scope
+			boreholeBboxCheck: function( b, label ){
+
+				// get bb
+				var id = $("label[for='" + label + "']");;
+				var bb = ngmCbLocations.bbox[ 'CB' ];
+
+				// bbox test
+				if ( bb.xMin <= b.site_lng && b.site_lng <= bb.xMax && bb.yMin <= b.site_lat && b.site_lat <= bb.yMax ) {
+					id.removeClass( 'error' ).addClass( 'active' );
+				} else {
+					id.addClass('error');
+ 					Materialize.toast( 'Location outside ' + bb.admin0name + '!' , 4000, 'error' );
+				}
+
 			},
 
 			// form loader
