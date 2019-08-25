@@ -281,7 +281,7 @@
 						</div>
 
 						<!-- injury_treatment_same_province -->
-						<div class="input-field col s4">
+						<div class="input-field col s12 m4">
 							<select materialize-select id="ngm-injury_treatment_same_province-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												name="injury_treatment_same_province-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
@@ -361,7 +361,7 @@
 																	ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'beneficiary_delivery_type_id' ]">
 
 						<!-- beneficiary_type -->
-						<div class="input-field col s6">
+						<div class="input-field col s12 m6">
 							<select materialize-select id="ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 												name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
@@ -379,7 +379,7 @@
 						</div>
 
 						<!-- delivery_type_id -->
-						<div class="input-field col s6">
+						<div class="input-field col s12 m6">
 							<select materialize-select id="ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 												name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
@@ -435,7 +435,7 @@
 						</div>
 
 						<!-- delivery_type_id -->
-						<div class="input-field col s4">
+						<div class="input-field col s12 m4">
 							<select materialize-select id="ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
 												name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
@@ -714,9 +714,10 @@
 					<!-- UNITS -->
 					<div class="row"
 								ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ] &&
-												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'units' ]">
+												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'units' ] &&
+												!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_transfer_type_id' ]">
 						<!-- unit_type_id -->
-						<div class="input-field col s6">
+						<div class="input-field col s12 m6">
 							<select materialize-select id="ngm-unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												name="unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
@@ -732,7 +733,7 @@
 											class="active" style="transform:translateY(-10%)">{{ 'units' | translate }}</label>
 						</div>
 						<!-- amount -->
-						<div class="input-field col s6">
+						<div class="input-field col s12 m6">
 							<input id="ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											type="number"
@@ -748,6 +749,56 @@
 					</div>
 
 
+					<!-- UNITS -->
+					<div class="row"
+								ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ] &&
+												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'units' ] &&
+												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_transfer_type_id' ]">
+						<!-- unit_type_id -->
+						<div class="input-field col s12 m4">
+							<select materialize-select id="ngm-unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+												name="unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+												class="validate"
+												ng-model="beneficiary.unit_type_id"
+												ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ], 'unit_type_id', 'unit_type_name', beneficiary );
+													ngmClusterBeneficiaries.inputChange( 'ngm-unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
+												ng-options="a.unit_type_id as a.unit_type_name for a in 
+																				ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'unit_type_id' ]"
+												ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.beneficiary_type_id">
+								<option value="">{{ 'select' | translate }}</option>
+							</select>
+							<label for="ngm-unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" 
+											class="active" style="transform:translateY(-10%)">{{ 'units' | translate }}</label>
+						</div>
+						<!-- amount -->
+						<div class="input-field col s12 m4">
+							<input id="ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+											name="ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+											type="number"
+											class="validate" 
+											min="0"
+											ng-model="beneficiary.units"
+											ng-change="ngmCbBeneficiaries.setBeneficiary( 'units', beneficiary );
+													ngmClusterBeneficiaries.inputChange( 'ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
+											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'units' ]"
+											required />
+							<label for="ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'amount' | translate }}</label>
+						</div>
+						<!-- transfer_type_id -->
+						<div class="input-field col s12 m4">
+							<select materialize-select id="ngm-transfer_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" 
+												name="transfer_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
+												class="validate"
+												ng-model="beneficiary.transfer_type_id"
+												ng-change="ngmClusterBeneficiaries.updateName( project.lists.transfers, 'transfer_type_id', 'transfer_type_name', beneficiary );"
+												ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers"
+												ng-disabled="project.definition.project_status === 'complete'">
+								<option value="">{{ 'select' | translate }}</option>
+							</select>
+							<label for="ngm-transfer_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'transfers' | translate }}</label>
+						</div>
+
+					</div>
 					
 					
 					<!-- HHs / FAMILIES-->
