@@ -172,7 +172,7 @@
 
 								<!-- activity_type_id -->
 								<div class="input-field col s12 m6">
-									<select materialize-select id="ngm-activity_type_id-{{ $index }}"
+									<select materialize-select watch id="ngm-activity_type_id-{{ $index }}"
 														name="activity_type_id-{{ $index }}"
 														class="validate"
 														ng-model="beneficiary.activity_type_id"
@@ -187,7 +187,7 @@
 
 								<!-- activity_description_id -->
 								<div class="input-field col s12 m6">
-									<select materialize-select id="ngm-activity_description_id-{{ $index }}"
+									<select materialize-select watch id="ngm-activity_description_id-{{ $index }}"
 														name="activity_description_id-{{ $index }}"
 														class="validate"
 														ng-model="beneficiary.activity_description_id"
@@ -212,12 +212,12 @@
 
 
 							<!-- DETAILS -->
-							<div class="row" ng-if="beneficiary.activity_description_id && 
+							<div class="row" ng-if="beneficiary.activity_description_id &&
 																				ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'display_activity_detail' ]">
 
 								<!-- activity_type_id -->
 								<div class="input-field col s12 m4">
-									<select materialize-select id="ngm-activity_type_id-{{ $index }}"
+									<select materialize-select watch id="ngm-activity_type_id-{{ $index }}"
 														name="activity_type_id-{{ $index }}"
 														class="validate"
 														ng-model="beneficiary.activity_type_id"
@@ -232,7 +232,7 @@
 
 								<!-- activity_description_id -->
 								<div class="input-field col s12 m4">
-									<select materialize-select id="ngm-activity_description_id-{{ $index }}"
+									<select materialize-select watch id="ngm-activity_description_id-{{ $index }}"
 														name="activity_description_id-{{ $index }}"
 														class="validate"
 														ng-model="beneficiary.activity_description_id"
@@ -255,7 +255,7 @@
 
 								<!-- activity_detail_id -->
 								<div class="input-field col s12 m4">
-									<select materialize-select id="ngm-activity_detail_id-{{ $index }}"
+									<select materialize-select watch id="ngm-activity_detail_id-{{ $index }}"
 														name="activity_detail_id-{{ $index }}"
 														class="validate"
 														ng-model="beneficiary.activity_detail_id"
@@ -288,7 +288,7 @@
 
 									<!-- activity_type_id -->
 									<div class="input-field col s12 m4">
-										<select materialize-select id="ngm-activity_type_id-{{ $index }}"
+										<select materialize-select watch id="ngm-activity_type_id-{{ $index }}"
 															name="activity_type_id-{{ $index }}"
 															class="validate"
 															ng-model="beneficiary.activity_type_id"
@@ -303,7 +303,7 @@
 
 									<!-- activity_description_id -->
 									<div class="input-field col s12 m4">
-										<select materialize-select id="ngm-activity_description_id-{{ $index }}"
+										<select materialize-select watch id="ngm-activity_description_id-{{ $index }}"
 															name="activity_description_id-{{ $index }}"
 															class="validate"
 															ng-model="beneficiary.activity_description_id"
@@ -350,7 +350,7 @@
 
 									<!-- indicator_id -->
 									<div class="input-field col s12">
-										<select materialize-select id="ngm-indicator_id-{{ $index }}"
+										<select materialize-select watch id="ngm-indicator_id-{{ $index }}"
 															name="indicator_id-{{ $index }}"
 															class="validate"
 															ng-model="beneficiary.indicator_id"
@@ -450,7 +450,7 @@
 
 									<!-- mpc_delivery_type_id-->
 									<div class="input-field col s12 m3">
-										<select materialize-select id="ngm-mpc_delivery_type_id-{{ $index }}"
+										<select materialize-select watch id="ngm-mpc_delivery_type_id-{{ $index }}"
 															name="mpc_delivery_type_id-{{ $index }}"
 															class="validate"
 															ng-model="beneficiary.mpc_delivery_type_id"
@@ -465,7 +465,7 @@
 
 									<!-- mpc_mechanism_type_id -->
 									<div class="input-field col s12 m3">
-										<select materialize-select id="ngm-mpc_mechanism_type_id-{{ $index }}"
+										<select materialize-select watch id="ngm-mpc_mechanism_type_id-{{ $index }}"
 															name="mpc_mechanism_type_id-{{ $index }}"
 															class="validate"
 															ng-model="beneficiary.mpc_mechanism_type_id"
@@ -526,7 +526,7 @@
 
 									<!-- mpc_delivery_type_id -->
 									<div class="input-field col s12 m6">
-										<select materialize-select id="ngm-mpc_delivery_type_id-{{ $index }}"
+										<select materialize-select watch id="ngm-mpc_delivery_type_id-{{ $index }}"
 															name="mpc_delivery_type_id-{{ $index }}"
 															class="validate"
 															ng-model="beneficiary.mpc_delivery_type_id"
@@ -542,7 +542,7 @@
 
 									<!-- mpc_mechanism_type_id -->
 									<div class="input-field col s12 m6">
-										<select materialize-select id="ngm-mpc_mechanism_type_id-{{ $index }}"
+										<select materialize-select watch id="ngm-mpc_mechanism_type_id-{{ $index }}"
 															name="mpc_mechanism_type_id-{{ $index }}"
 															class="validate"
 															ng-model="beneficiary.mpc_mechanism_type_id"
@@ -567,7 +567,7 @@
 
 									<!-- mpc_delivery_type_id -->
 									<div class="input-field col s12 m4">
-										<select materialize-select id="ngm-mpc_delivery_type_id-{{ $index }}"
+										<select materialize-select watch id="ngm-mpc_delivery_type_id-{{ $index }}"
 															name="mpc_delivery_type_id-{{ $index }}"
 															class="validate"
 															ng-model="beneficiary.mpc_delivery_type_id"
@@ -582,7 +582,7 @@
 
 									<!-- mpc_mechanism_type_id -->
 									<div class="input-field col s12 m4">
-										<select materialize-select id="ngm-mpc_mechanism_type_id-{{ $index }}"
+										<select materialize-select watch id="ngm-mpc_mechanism_type_id-{{ $index }}"
 															name="mpc_mechanism_type_id-{{ $index }}"
 															class="validate"
 															ng-model="beneficiary.mpc_mechanism_type_id"
@@ -628,7 +628,7 @@
 
 									<!-- mpc_delivery_type_id -->
 									<div class="input-field col s12 m4">
-										<select materialize-select id="ngm-mpc_delivery_type_id-{{ $index }}"
+										<select materialize-select watch id="ngm-mpc_delivery_type_id-{{ $index }}"
 															name="mpc_delivery_type_id-{{ $index }}"
 															class="validate"
 															ng-model="beneficiary.mpc_delivery_type_id"
@@ -643,7 +643,7 @@
 
 									<!-- mpc_mechanism_type_id -->
 									<div class="input-field col s12 m4">
-										<select materialize-select id="ngm-mpc_mechanism_type_id-{{ $index }}"
+										<select materialize-select watch id="ngm-mpc_mechanism_type_id-{{ $index }}"
 															name="mpc_mechanism_type_id-{{ $index }}"
 															class="validate"
 															ng-model="beneficiary.mpc_mechanism_type_id"
@@ -755,7 +755,7 @@
 										</select>
 										<label for="ngm-transfer_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'transfers' | translate }}</label>
 									</div>
-								</div>								
+								</div>
 
 
 
