@@ -190,8 +190,9 @@ angular.module( 'ngmReportHub' )
 						// merge object
 						target_location = angular.merge( target_location, tl );
 
-						// add filters 
-						ngmCbLocations.filterLocations( project, $index, target_location );
+						// ? Set in setLocationsInputs【ツ】
+						// add filters
+						// ngmCbLocations.filterLocations( project, $index, target_location );
 
 						// set form inputs
 						ngmCbLocations.setLocationsInputs( project, $index, target_location );
@@ -418,11 +419,8 @@ angular.module( 'ngmReportHub' )
 					// run filter adminsites
 					ngmCbLocations.adminSites_filter[ $index ] = ngmCbLocations.adminSites_filter[ $index ].filter(function( i ) {
 						return i.admin3pcode === target_location.admin3pcode;
-					});					
+					});
 				}
-
-				// update select
-				ngmCbLocations.updateSelect();
 
 			}
 
