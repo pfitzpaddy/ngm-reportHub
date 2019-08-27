@@ -120,6 +120,10 @@ angular.module( 'ngmReportHub' )
 
 				// target_locations
 				if( target_locations && target_locations.length ) {
+
+					// order to match view $index
+					target_locations = $filter('orderBy')( target_locations, 'createdAt' );
+
 					// for each target_location
 					angular.forEach( target_locations, function( target_location, $index ){
 						ngmCbLocations.setLocationsInputs( project, $index, target_location );
