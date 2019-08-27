@@ -152,7 +152,7 @@ angular.module( 'ngmReportHub' )
 				var selected = [];
 				if( target_location.username ) {
 					// filter selection
-					selected = $filter('filter')( lists.users, { username: target_location.username }, true );
+					selected = $filter('filter')( project.lists.users, { username: target_location.username }, true );
 					if ( selected && selected.length ) {
 						var reporter = {
 							name: selected[0].name,
