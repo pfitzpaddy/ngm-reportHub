@@ -302,7 +302,7 @@ angular.module( 'ngmReportHub' )
 				}
 				console.log( 'complete02' );
 				console.log( complete );
-
+				
 				// DETAIL
 				if (ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['display_activity_detail']){
 					if (!b.activity_detail_id) {
