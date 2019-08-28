@@ -120,6 +120,10 @@ angular.module( 'ngmReportHub' )
 
 				// target_locations
 				if( target_locations && target_locations.length ) {
+
+					// order to match view $index
+					target_locations = $filter('orderBy')( target_locations, 'createdAt' );
+
 					// for each target_location
 					angular.forEach( target_locations, function( target_location, $index ){
 						ngmCbLocations.setLocationsInputs( project, $index, target_location );
@@ -152,7 +156,7 @@ angular.module( 'ngmReportHub' )
 				var selected = [];
 				if( target_location.username ) {
 					// filter selection
-					selected = $filter('filter')( lists.users, { username: target_location.username }, true );
+					selected = $filter('filter')( project.lists.users, { username: target_location.username }, true );
 					if ( selected && selected.length ) {
 						var reporter = {
 							name: selected[0].name,
@@ -190,8 +194,9 @@ angular.module( 'ngmReportHub' )
 						// merge object
 						target_location = angular.merge( target_location, tl );
 
-						// add filters 
-						ngmCbLocations.filterLocations( project, $index, target_location );
+						// ? Set in setLocationsInputs【ツ】
+						// add filters
+						// ngmCbLocations.filterLocations( project, $index, target_location );
 
 						// set form inputs
 						ngmCbLocations.setLocationsInputs( project, $index, target_location );
@@ -418,11 +423,8 @@ angular.module( 'ngmReportHub' )
 					// run filter adminsites
 					ngmCbLocations.adminSites_filter[ $index ] = ngmCbLocations.adminSites_filter[ $index ].filter(function( i ) {
 						return i.admin3pcode === target_location.admin3pcode;
-					});					
+					});
 				}
-
-				// update select
-				ngmCbLocations.updateSelect();
 
 			}
 
