@@ -237,6 +237,12 @@
         "project_code":"Código del Proyecto",
         "no_project_activity_type": "Por favor seleccione las actividades del proyecto (Tipo de Actividad)!",
 
+        "information_in_project_data_is_incorrect_or_incomplete":"La información ingresada en los datos del Proyecto está incorrecta ó incompleta!",
+        "at_least_one_activity_type_must_be_selected":"Al menos un Tipo de Actividad debe ser seleccionado!",
+        "information_in_target_population_is_incorrect_or_incomplete" :"La información ingresada en la sección Población Objetivo es incorrecta ó incompleta!",
+        "information_in_project_target_locations_is_incorrect_or_incomplete":"La información ingresada en la sección Ubicaciones Objetivo del Proyecto es incorrecta ó incompleta!",
+
+
         "go_to_project_plan":"Ir a Proyecto",
         "monthly_progress":"Monitoreo (Beneficiarios)",
         "project_documents":"Soportes del Proyecto",

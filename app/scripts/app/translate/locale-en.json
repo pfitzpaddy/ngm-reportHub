@@ -207,6 +207,11 @@
         "project_code":"Project Code",
         "no_project_activity_type": "Please select project activities (Activity Type)!",
 
+        "information_in_project_data_is_incorrect_or_incomplete":"Information in Project data is incorrect or incomplete!",
+        "at_least_one_activity_type_must_be_selected":"At least one Activity Type must be selected!",
+        "information_in_target_population_is_incorrect_or_incomplete":"Information in Target Population is incorrect or incomplete!",
+        "information_in_project_target_locations_is_incorrect_or_incomplete":"Information in Target Locations is incorrect or incomplete!",
+
         "go_to_project_plan":"Go to Project Plan",
         "go_to_monthly_progress":"Go to Monthly Progress",
         "monthly_progress":"Monthly Progress",
