@@ -4047,7 +4047,7 @@ angular.module( 'ngmReportHub' )
                 "project_donor_name": "Banco Interamericano de Desarrollo"
               },
               {
-                "project_donor_id": "buró_de_población,_refugiados_y_migración",
+                "project_donor_id": "buró_de_población_refugiados_y_migración",
                 "project_donor_name": "Buró de Población, Refugiados y Migración"
               },
               {
@@ -4131,7 +4131,7 @@ angular.module( 'ngmReportHub' )
                 "project_donor_name": "Embajada de Estados Unidos en Colombia"
               },
               {
-                "project_donor_id": "embajada_de_holanda_/_del_reino_de_los_paises_bajos_en_colombia",
+                "project_donor_id": "embajada_de_holanda_del_reino_de_los_paises_bajos_en_colombia",
                 "project_donor_name": "Embajada de Holanda / del Reino de los Paises Bajos en Colombia"
               },
               {
@@ -4256,7 +4256,7 @@ angular.module( 'ngmReportHub' )
                 "project_donor_name": "Ministerio de Salud y Protección Social"
               },
               {
-                "project_donor_id": "office_of_u.s._foreign_disaster_assistance",
+                "project_donor_id": "office_of_us_foreign_disaster_assistance",
                 "project_donor_name": "OFFICE OF U.S. FOREIGN DISASTER ASSISTANCE"
               },
               {
@@ -4276,7 +4276,7 @@ angular.module( 'ngmReportHub' )
                 "project_donor_name": "Organización Internacional para las Migraciones"
               },
               {
-                "project_donor_id": "organización_panamericana_de_salud_/_organización_mundial_de_salud",
+                "project_donor_id": "organización_panamericana_de_salud_organización_mundial_de_salud",
                 "project_donor_name": "Organización Panamericana de Salud / Organización Mundial de Salud"
               },
               {
@@ -4320,7 +4320,7 @@ angular.module( 'ngmReportHub' )
                 "project_donor_name": "Unidad para la Atención y Reparación Integral a las Víctimas"
               },
               {
-                "project_donor_id": "united_nations_international_children's_emergency_fund",
+                "project_donor_id": "united_nations_international_childrens_emergency_fund",
                 "project_donor_name": "United Nations International Children's Emergency Fund"
               },
               {

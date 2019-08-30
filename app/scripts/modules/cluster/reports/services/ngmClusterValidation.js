@@ -31,6 +31,7 @@ angular.module( 'ngmReportHub' )
 				}
 				if( !project.project_start_date ){
 					ngmClusterValidation.project_details_valid_labels.push('ngm-start-date');
+					
 				}
 				if( !project.project_end_date ){
 					ngmClusterValidation.project_details_valid_labels.push('ngm-end-date');
@@ -55,6 +56,11 @@ angular.module( 'ngmReportHub' )
 				// activity types?
 				if( typeof project.activity_type_check === 'undefined' ){
 					ngmClusterValidation.activity_type_valid_labels.push('ngm-activity_type');
+					//$('#ngm-activity_type').removeClass('validate');
+
+				$('#ngm-activity_type').css({'color':'red'});
+				}else{
+					$('#ngm-activity_type').css({'color':'#26a69a'});
 				}
 
 				// if NO labels activities valid
@@ -85,8 +91,12 @@ angular.module( 'ngmReportHub' )
 					}
 				});
 				if( rowComplete === project.target_beneficiaries.length ){
+					$('#ngm-target_beneficiaries').css({'color':'#616161'});
+
 					return true;
 				} else {
+					$('#ngm-target_beneficiaries').css({'color':'red'});
+
 					return false;
 				}
 			},
@@ -105,11 +115,16 @@ angular.module( 'ngmReportHub' )
 						}
 					}
 				});
+				/*
 				if( project.target_locations.length && ( rowComplete === project.target_locations.length ) ){
+										$('#ngm-target_locations').css({'color':'#616161'});
+
 					return true;
 				} else {
+										$('#ngm-target_locations').css({'color':'red'});
+
 					return false;
-				}
+				}*/
 			},
 
 			// validate form
@@ -195,6 +210,9 @@ angular.module( 'ngmReportHub' )
 				if ( !e ) {
 					$('#ngm-target_locations').addClass('error');
 					scrollDiv = $('#ngm-target_locations');
+					$('#ngm-target_locations').css({'color':'red'});
+				}else{
+					$('#ngm-target_locations').css({'color':'#616161'});
 				}
 
 				if ( !d ) {

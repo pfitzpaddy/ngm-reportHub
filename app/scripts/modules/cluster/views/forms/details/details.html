@@ -64,7 +64,7 @@
 
 								<!-- input-date directive -->
 								<div class="input-field col s12 m3">
-											<label for="ngm-start-date">{{'start_date' | translate}} *</label>
+											<label id="ngm-start-date" for="ngm-start-date" class="validate">{{'start_date' | translate}} *</label>
 											<input ngm-date
 											    type="text"
 											    name="created"
@@ -74,7 +74,7 @@
 											    select-years="15"
 											    max="{{ project.definition.project_end_date }}"
 											    on-close="project.datepicker.onClose()"
-											    ng-disabled="project.definition.project_status === 'complete'"/>
+											    ng-disabled="project.definition.project_status === 'complete'" required/>
 								</div>
 
 								<!-- input-date directive -->
@@ -222,7 +222,7 @@
 							<!-- !CB && !health -->
 							<div ng-if="project.definition.admin0pcode !== 'CB' || ( project.definition.admin0pcode === 'CB' && project.definition.cluster_id !== 'health' )">
 								
-								<!-- activities -->
+								<!-- activities --> 
 								<div class="row" id="ngm-activity_type_label">
 									<div class="activity-field col s12 m6" style="padding-top:12px;padding-bottom:5px;">
 										
