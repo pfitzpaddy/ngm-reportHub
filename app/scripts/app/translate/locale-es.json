@@ -94,7 +94,9 @@
    "online":"En linea",
     "cannot_add_not_ont_the_list":"No se puede agregar, no está en la lista",
           "add_new_project_classification":"Agregar Nueva Clasificación del Proyecto",
-                "project_classifications":"Clasificaciones del Proyecto",
+     "project_classifications":"Clasificaciones del Proyecto",
+   "to_search_classification_type_a_key_word_related_to_the_indicator":"Para buscar la clasificación escriba una palabra clave relacionada con el indicador",
+
    "mandatory_for_united_nations_system_agencies":"Mandatorio para agencias del Sistema de Naciones Unidas",
 
 

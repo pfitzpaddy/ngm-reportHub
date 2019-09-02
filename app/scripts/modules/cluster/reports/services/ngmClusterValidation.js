@@ -206,10 +206,7 @@ angular.module( 'ngmReportHub' )
 				return validation;
 
 			},
-			quitardialogo:function(){
-				console.log("QUITAR DIALOGO");
-				//$('#toast-container').fadeOut();
-			},
+		
 
 			// validate form
 			validate: function( project ){
