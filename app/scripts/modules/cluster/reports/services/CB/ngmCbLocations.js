@@ -427,9 +427,6 @@ angular.module( 'ngmReportHub' )
 					});
 				}
 
-				// 
-				console.log( ngmCbLocations.adminSites_filter[ $index ] );
-
 			}
 
 		}
