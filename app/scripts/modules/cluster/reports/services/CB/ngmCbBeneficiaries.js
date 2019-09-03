@@ -60,7 +60,9 @@ angular.module( 'ngmReportHub' )
       setBeneficiary: function( unit, beneficiary ) {
 
         // fss
-        if ( beneficiary[ unit ] && beneficiary.cluster_id === 'fss' ) {
+        if ( beneficiary[ unit ] && 
+              beneficiary.cluster_id === 'fss' && 
+              beneficiary.activity_description_id !== 'school_feeding_rations_distributed' ) {
           ngmCbBeneficiaries.setSadd( beneficiary[ unit ], beneficiary );
         }
 
@@ -94,8 +96,6 @@ angular.module( 'ngmReportHub' )
           }
 
         }
-
-        console.log( beneficiary );
 
       },
 

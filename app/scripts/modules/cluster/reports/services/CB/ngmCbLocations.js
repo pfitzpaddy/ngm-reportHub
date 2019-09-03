@@ -29,8 +29,26 @@ angular.module( 'ngmReportHub' )
 
 			// bb
 			bbox: {
-				'CB':{ xMin:20.9489082225001, yMin:91.8643348260071, xMax:22.5038276085, yMax:92.2352242316744 },
-				'NG':{ xMin:2.66853, yMin:4.27301, xMax:14.6788, yMax:13.8944 },
+				'CB':{ admin0name: "Cox's Bazar", xMin:20.9489082225001, yMin:91.8643348260071, xMax:22.5038276085, yMax:92.2352242316744 },
+				'NG':{ admin0name: "Nigeria", xMin:2.66853, yMin:4.27301, xMax:14.6788, yMax:13.8944 },
+			},
+
+			// very crude check that the borehole is in bbox of NG
+			// for now this will have to do, bbox of admin3 level would be better but for now out of scope
+			boreholeBboxCheck: function( b, label ){
+
+				// get bb
+				var id = $("label[for='" + label + "']");;
+				var bb = ngmCbLocations.bbox[ 'CB' ];
+
+				// bbox test
+				if ( bb.xMin <= b.site_lng && b.site_lng <= bb.xMax && bb.yMin <= b.site_lat && b.site_lat <= bb.yMax ) {
+					id.removeClass( 'error' ).addClass( 'active' );
+				} else {
+					id.addClass('error');
+ 					Materialize.toast( 'Location outside ' + bb.admin0name + '!' , 4000, 'error' );
+				}
+
 			},
 
 			// form loader
@@ -52,6 +70,7 @@ angular.module( 'ngmReportHub' )
 					'retail_store':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp' },
 					'food_distribution_point':{ 'reporter':1, 'food_distribution_point':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp' },
 					'nutrition_center':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp'  },
+					'plantation':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp' },
 					// schools
 					'school':{ 'reporter':1, 'admin1':1, 'admin2':1 },
 					// health
@@ -102,6 +121,10 @@ angular.module( 'ngmReportHub' )
 
 				// target_locations
 				if( target_locations && target_locations.length ) {
+
+					// order to match view $index
+					target_locations = $filter('orderBy')( target_locations, 'createdAt' );
+
 					// for each target_location
 					angular.forEach( target_locations, function( target_location, $index ){
 						ngmCbLocations.setLocationsInputs( project, $index, target_location );
@@ -134,7 +157,7 @@ angular.module( 'ngmReportHub' )
 				var selected = [];
 				if( target_location.username ) {
 					// filter selection
-					selected = $filter('filter')( lists.users, { username: target_location.username }, true );
+					selected = $filter('filter')( project.lists.users, { username: target_location.username }, true );
 					if ( selected && selected.length ) {
 						var reporter = {
 							name: selected[0].name,
@@ -172,8 +195,9 @@ angular.module( 'ngmReportHub' )
 						// merge object
 						target_location = angular.merge( target_location, tl );
 
-						// add filters 
-						ngmCbLocations.filterLocations( project, $index, target_location );
+						// ? Set in setLocationsInputs【ツ】
+						// add filters
+						// ngmCbLocations.filterLocations( project, $index, target_location );
 
 						// set form inputs
 						ngmCbLocations.setLocationsInputs( project, $index, target_location );
@@ -396,15 +420,12 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// admin2pcode
-				if ( target_location.admin3pcode ) {
+				if ( target_location.admin3pcode && target_location.site_type_id !== 'refugee_camp' ) {
 					// run filter adminsites
 					ngmCbLocations.adminSites_filter[ $index ] = ngmCbLocations.adminSites_filter[ $index ].filter(function( i ) {
 						return i.admin3pcode === target_location.admin3pcode;
-					});					
+					});
 				}
-
-				// update select
-				ngmCbLocations.updateSelect();
 
 			}
 

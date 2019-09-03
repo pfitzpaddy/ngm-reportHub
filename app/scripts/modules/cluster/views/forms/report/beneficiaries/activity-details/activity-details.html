@@ -11,7 +11,7 @@
                 class="validate"
                 ng-model="detail.unit_type_id" 
                 ng-options="detail.unit_type_id as detail.unit_type_name for detail in 
-                							ngmClusterLists.details[ $locationIndex ][ $beneficiaryIndex ][ $index ] | orderBy:'unit_type_name'"
+                							ngmClusterLists.details[ $locationIndex ][ $beneficiaryIndex ][ $index ]"
                 ng-change="ngmClusterDetails.selectChange( detail, ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], 'unit_type_id', 'unit_type_name', 'unit_type_label','ngm-beneficiary_detail-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}');"
                 ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete'">
 					<option value="" selected>{{'select'|translate}}</option>

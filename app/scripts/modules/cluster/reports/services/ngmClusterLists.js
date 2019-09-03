@@ -322,6 +322,12 @@ angular.module( 'ngmReportHub' )
             delivery_type_id: 'service_existing',
             delivery_type_name: 'Existing Beneficiaries'
           },{
+            delivery_type_id: 'population_schools_enrolment',
+            delivery_type_name: 'Enrolment'
+          },{
+            delivery_type_id: 'service_schools_attendance',
+            delivery_type_name: 'Attendance'
+          },{
             delivery_type_id: 'contingency',
             delivery_type_name: 'Contingency'
           }];
@@ -762,10 +768,10 @@ angular.module( 'ngmReportHub' )
 
         var organizations;
 
-        if(admin0pcode === 'COL'){
+        if(admin0pcode === 'COL' ){
 
          organizations = $filter('filter')(ngmLists.getObject( 'lists' ).organizationsList,
-                 {admin0pcode: 'COL'},true );
+                 {admin0pcode: 'COL'} , {admin0pcode: 'ALL, COL'},true );
 
         }else{
           organizations = ngmLists.getObject( 'lists' ).organizationsList
@@ -3849,7 +3855,9 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'australia', project_donor_name:'Australia'},
             { project_donor_id: 'aus_aid', project_donor_name:'AusAid'},
             { project_donor_id: 'bmz', project_donor_name:'BMZ'},
+            { project_donor_id: 'brac', project_donor_name:'BRAC'},
             { project_donor_id: 'canada',  project_donor_name:'Canada'},
+            { project_donor_id: 'care',  project_donor_name:'Care'},
             { project_donor_id: 'caritas_germany', project_donor_name: 'Caritas Germany' },
             { project_donor_id: 'cerf', project_donor_name: 'CERF' },
             { project_donor_id: 'chf', project_donor_name: 'CHF' },
@@ -3863,29 +3871,35 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'echo', project_donor_name: 'ECHO' },
             { project_donor_id: 'ehf', project_donor_name: 'EHF' },
             { project_donor_id: 'european_union', project_donor_name: 'European Union' },
+            { project_donor_id: 'fao', project_donor_name:'FAO' },
             { project_donor_id: 'finland', project_donor_name:'Finland' },
             { project_donor_id: 'france', project_donor_name:'France' },
             { project_donor_id: 'global_fund', project_donor_name: 'Global Fund' },
             { project_donor_id: 'german_foreign_ministry', project_donor_name: 'German Foreign Ministry' },
             { project_donor_id: 'icrc', project_donor_name: 'ICRC' },
             { project_donor_id: 'ifrc', project_donor_name: 'IFRC' },
+            { project_donor_id: 'iom', project_donor_name: 'IOM' },
             { project_donor_id: 'irish_aid', project_donor_name: 'IrishAid' },
             { project_donor_id: 'italy', project_donor_name: 'Italy' },
             { project_donor_id: 'jica', project_donor_name: 'JICA' },
             { project_donor_id: 'johanniter', project_donor_name: 'Johanniter' },
             { project_donor_id: 'khalifa_bin_zayed_al_nahyan_charity_foundation', project_donor_name: 'Khalifa bin Zayed Al Nahyan Charity Foundation' },
+            { project_donor_id: 'mukti', project_donor_name: 'Mukti' },
             { project_donor_id: 'netherlands', project_donor_name: 'Netherlands' },
             { project_donor_id: 'norway', project_donor_name: 'Norway' },
             { project_donor_id: 'ocha', project_donor_name: 'OCHA' },
+            { project_donor_id: 'oxfam', project_donor_name: 'Oxfam' },
             { project_donor_id: 'qatar_red_crescent', project_donor_name: 'Qatar Red Crescent' },
             { project_donor_id: 'republic_of_korea', project_donor_name: 'Republic of Korea' },
             { project_donor_id: 'sdc', project_donor_name: 'SDC' },
             { project_donor_id: 'sida', project_donor_name: 'SIDA' },
+            { project_donor_id: 'solidar_suisse', project_donor_name: 'Solidar Suisse' },
             { project_donor_id: 'start_network_global_humanitarian_assistance', project_donor_name: 'Start Network Global Humanitarian Assistance' },
             { project_donor_id: 'sweden', project_donor_name: 'Sweden' },
             { project_donor_id: 'switzerland', project_donor_name: 'Switzerland' },
             { project_donor_id: 'turkish_red_crescent', project_donor_name: 'Turkish Red Crescent' },
             { project_donor_id: 'usaid', project_donor_name: 'USAID' },
+            { project_donor_id: 'unfpa', project_donor_name: 'UNFPA' },
             { project_donor_id: 'unhcr', project_donor_name: 'UNHCR' },
             { project_donor_id: 'unicef', project_donor_name: 'UNICEF' },
             { project_donor_id: 'unwomen', project_donor_name: 'UNWOMEN' },
@@ -7155,6 +7169,10 @@ angular.module( 'ngmReportHub' )
             cluster_id: [ 'fss' ],
             site_type_id: 'cyclone_shelter',
             site_type_name: 'Cyclone Shelter'
+          },{
+            cluster_id: [ 'fss' ],
+            site_type_id: 'plantation',
+            site_type_name: 'Plantation'
           },{
             cluster_id: ngmClusterLists.all_sectors_minus_health,
             site_type_id: 'school',

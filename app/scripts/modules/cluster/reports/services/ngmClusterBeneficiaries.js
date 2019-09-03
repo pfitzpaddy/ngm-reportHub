@@ -58,34 +58,34 @@ angular.module( 'ngmReportHub' )
 					total_female:0,
 					total_beneficiaries:0
 				},
-				activity_description: {
-					activity_description_id: '',
-					activity_description_name: ''
-				},
-				activity_detail: {
-					activity_detail_id: '',
-					activity_detail_name: ''
-				},
-				indicator: {
-					indicator_id: '',
-					indicator_name: ''
-				},
-				beneficiary: {
-					beneficiary_type_id: '',
-					beneficiary_type_name: ''
-				},
-				cash_package_units: {
-					unit_type_id: '',
-					unit_type_name: '',
-					mpc_delivery_type_id: '',
-					mpc_delivery_type_name: '',
-					mpc_mechanism_type_id: '',
-					mpc_mechanism_type_name: '',
-					package_type_id: '',
-					package_type_name: '',
-					transfer_type_id: '',
-					transfer_type_name: ''
-				}
+				// activity_description: {
+				// 	activity_description_id: '',
+				// 	activity_description_name: ''
+				// },
+				// activity_detail: {
+				// 	activity_detail_id: '',
+				// 	activity_detail_name: ''
+				// },
+				// indicator: {
+				// 	indicator_id: '',
+				// 	indicator_name: ''
+				// },
+				// beneficiary: {
+				// 	beneficiary_type_id: '',
+				// 	beneficiary_type_name: ''
+				// },
+				// cash_package_units: {
+				// 	unit_type_id: '',
+				// 	unit_type_name: '',
+				// 	mpc_delivery_type_id: '',
+				// 	mpc_delivery_type_name: '',
+				// 	mpc_mechanism_type_id: '',
+				// 	mpc_mechanism_type_name: '',
+				// 	package_type_id: '',
+				// 	package_type_name: '',
+				// 	transfer_type_id: '',
+				// 	transfer_type_name: ''
+				// }
 			},
 			
 
@@ -265,6 +265,20 @@ angular.module( 'ngmReportHub' )
 
 			/* BENEFICIARIES FORM */
 
+			// display full form
+			showFormInputs: function( beneficiary, form ) {
+				var display = false;
+				if ( beneficiary.activity_description_id ) {
+					if( !form.display_activity_detail  ) {
+						display = true;
+					}
+					if( beneficiary.activity_detail_id && form.display_activity_detail  ) {
+						display = true;
+					}
+				}
+				return display;
+			},
+
 			// show activity (generic)
 			setActivity: function( project, $parent, $index, beneficiary ){
 				
@@ -274,13 +288,35 @@ angular.module( 'ngmReportHub' )
 				if( beneficiary.activity_type_id && project.definition.activity_type.length ) {
 					selected = $filter('filter')( project.definition.activity_type, { activity_type_id: beneficiary.activity_type_id }, true );
 					if( selected && selected.length ) {
+						
 						// set activity_type_name
 						beneficiary.cluster_id = selected[0].cluster_id;
 						beneficiary.cluster = selected[0].cluster;
 						beneficiary.activity_type_id = selected[0].activity_type_id;
 						beneficiary.activity_type_name = selected[0].activity_type_name;
+						
 						// merge defaults
-						angular.merge( beneficiary, defaults.inputs, defaults.activity_description, defaults.activity_detail, defaults.indicator, defaults.beneficiary, defaults.cash_package_units );
+						// angular.merge( beneficiary, defaults.inputs, defaults.activity_description, defaults.activity_detail, defaults.indicator, defaults.beneficiary, defaults.cash_package_units );
+						angular.merge( beneficiary, defaults.inputs );
+						delete beneficiary.activity_description_id;
+						delete beneficiary.activity_description_name;
+						delete beneficiary.activity_detail_id;
+						delete beneficiary.activity_detail_name;
+						delete beneficiary.indicator_id;
+						delete beneficiary.indicator_name;
+						delete beneficiary.beneficiary_type_id;
+						delete beneficiary.beneficiary_type_name;
+						delete unit_type_id;
+						delete unit_type_name;
+						delete mpc_delivery_type_id;
+						delete mpc_delivery_type_name;
+						delete mpc_mechanism_type_id;
+						delete mpc_mechanism_type_name;
+						delete package_type_id;
+						delete package_type_name;
+						delete transfer_type_id;
+						delete transfer_type_name;
+
 						// set form
 						ngmClusterBeneficiaries.setBeneficiariesInputs( project.lists, $parent, $index, beneficiary );
 					}
@@ -296,14 +332,18 @@ angular.module( 'ngmReportHub' )
 				var context_defaults = defaults[ project.definition.admin0pcode ] && defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] ? defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] : {}
 
 				// merge defaults
+				angular.merge( beneficiary, defaults.inputs, context_defaults);
+
+				// cleaning
 				if ( type === 'description' ) {
-					angular.merge( beneficiary, defaults.inputs, defaults.activity_detail, defaults.indicator, context_defaults );
+					delete beneficiary.activity_detail_id;
+					delete beneficiary.activity_detail_name;
+					delete beneficiary.indicator_id;
+					delete beneficiary.indicator_name;
 				}
 				if ( type === 'detail' ) {
-					angular.merge( beneficiary, defaults.inputs, defaults.indicator, context_defaults);
-				}
-				if ( type === 'indicator' ) {
-					angular.merge( beneficiary, defaults.inputs, context_defaults );
+					delete beneficiary.indicator_id;
+					delete beneficiary.indicator_name;
 				}
 
 				// set form for beneficiary
