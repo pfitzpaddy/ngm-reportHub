@@ -122,9 +122,6 @@ angular.module( 'ngmReportHub' )
 				// target_locations
 				if( target_locations && target_locations.length ) {
 
-					console.log(project)
-					console.log(target_locations)
-
 					// order to match view $index
 					target_locations = $filter('orderBy')( target_locations, 'createdAt' );
 
