@@ -420,7 +420,7 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// admin2pcode
-				if ( target_location.admin3pcode ) {
+				if ( target_location.admin3pcode && target_location.site_type_id !== 'refugee_camp' ) {
 					// run filter adminsites
 					ngmCbLocations.adminSites_filter[ $index ] = ngmCbLocations.adminSites_filter[ $index ].filter(function( i ) {
 						return i.admin3pcode === target_location.admin3pcode;

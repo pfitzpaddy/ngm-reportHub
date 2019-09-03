@@ -6,7 +6,7 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterLocations', [ '$http', '$filter', '$timeout', 'ngmAuth','$translate', 'ngmClusterBeneficiaries', function( $http, $filter, $timeout, ngmAuth, $translate, ngmClusterBeneficiaries ) {
+	.factory( 'ngmClusterLocations', [ '$http', '$filter', '$timeout', 'ngmAuth','$translate', 'ngmClusterBeneficiaries', 'ngmCbLocations', function( $http, $filter, $timeout, ngmAuth, $translate, ngmClusterBeneficiaries, ngmCbLocations ) {
 
 		ngmClusterLocations = {
 
@@ -100,8 +100,11 @@ angular.module( 'ngmReportHub' )
       removeLocation: function() {
 
         // remove from array
-        ngmClusterLocations.project.target_locations = 
-            $filter('filter')( ngmClusterLocations.project.target_locations, { id: '!'+ngmClusterLocations.remove_id }, true );
+        ngmClusterLocations.project.definition.target_locations = 
+            $filter('filter')( ngmClusterLocations.project.definition.target_locations, { id: '!'+ngmClusterLocations.remove_id }, true );
+
+        // trigger ngmCbLocations set form 
+        ngmCbLocations.setLocationsForm( ngmClusterLocations.project, ngmClusterLocations.project.definition.target_locations );
 
         // remove at db
         $http({
