@@ -97,7 +97,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			// project
 			$scope.project = {
 
-				/**** DEFAULTS ****/
+				/**** DEFAULTS ****/ 
 				user: ngmUser.get(),
 				style: config.style,
 				definition: config.project,
@@ -150,14 +150,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					// documents upload
 					$scope.project.setTokenUpload();
 					// for minimize-maximize beneficiary form
-
-					//hrp_plan
-					if(!$scope.project.report.hrp_plan){
-						//console.log("NO EXISTE: ",$scope.project.report);
-						//console.log("PROYECTO: ", $scope.project.definition);
-						$scope.project.report.hrp_plan = $scope.project.definition.hrp_plan;
-						//console.log("AHORA SI EXISTE: ",$scope.project.report);
-					}
 
 					$scope.detailBeneficiaries = {};
 					$scope.project.beneficiary_search;
