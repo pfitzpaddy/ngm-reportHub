@@ -359,6 +359,16 @@ angular.module( 'ngmReportHub' )
         var search_site = {}
         search_site[ pcode ] = target_location[ pcode ];
 
+        // admin1,2,3,4,5 get names
+        if( target_location[ pcode ] && pcode !== 'site_type_id' ) {
+          var obj = {}
+          obj[ pcode ] = target_location[ pcode ];
+          var selected = $filter('filter')( lists[ pcode.slice( 0, -5 ) ], obj, true );
+          // merge object
+          delete selected[0].id;
+          target_location = angular.merge( target_location, selected[0] );
+        }
+
         // filter adminsites
         if( target_location.site_type_id ) {
           angular.merge( search_site, { site_type_id: target_location.site_type_id } );

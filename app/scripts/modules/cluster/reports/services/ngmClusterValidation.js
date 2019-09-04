@@ -42,6 +42,9 @@ angular.module( 'ngmReportHub' )
 					ngmClusterValidation.project_details_valid_labels.push('ngm-project-description');
 				}
 
+				// console.log('project_details_valid');
+				// console.log(ngmClusterValidation.project_details_valid_labels.length);
+
 				// if NO labels details valid
 				return !ngmClusterValidation.project_details_valid_labels.length;
 			},
@@ -57,6 +60,9 @@ angular.module( 'ngmReportHub' )
 					ngmClusterValidation.activity_type_valid_labels.push('ngm-activity_type');
 				}
 
+				// console.log('activity_type_valid_labels');
+				// console.log(ngmClusterValidation.activity_type_valid_labels.length);
+
 				// if NO labels activities valid
 				return !ngmClusterValidation.activity_type_valid_labels.length;
 			},
@@ -71,6 +77,9 @@ angular.module( 'ngmReportHub' )
 				if( !project.project_donor_check ){
 					ngmClusterValidation.project_donor_valid_labels.push('ngm-project_donor');
 				}
+
+				// console.log('project_donor_valid_labels');
+				// console.log(ngmClusterValidation.project_donor_valid_labels.length);
 
 				// if NO labels activities valid
 				return !ngmClusterValidation.project_donor_valid_labels.length;
@@ -99,11 +108,11 @@ angular.module( 'ngmReportHub' )
 						rowComplete++;
 					}
 					// hack for eiewg
-					if ( d.admin0pcode === 'AF' && d.cluster_id === 'eiewg' ) { 
-						if ( d.site_implementation_id && d.site_implementation_id === 'informal' && !d.site_hub_id ) {
-							rowComplete--;
-						}
-					}
+					// if ( d.admin0pcode === 'AF' && d.cluster_id === 'eiewg' ) {
+					// 	if ( d.site_implementation_id && d.site_implementation_id === 'informal' && !d.site_hub_id ) {
+					// 		rowComplete--;
+					// 	}
+					// }
 				});
 				if( project.target_locations.length && ( rowComplete === project.target_locations.length ) ){
 					return true;
