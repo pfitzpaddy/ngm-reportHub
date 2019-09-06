@@ -49,7 +49,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
 				date : new Date(),
 
-				user: ngmUser.get() ? ngmUser.get() : {},
+				user: config.user ? config.user : ngmUser.get(),//ngmUser.get() ? ngmUser.get() : {},
 
 				btnDisabled: false,
 

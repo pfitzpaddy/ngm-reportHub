@@ -264,6 +264,8 @@
         "hrp_project_code":"Código del Proyecto HRP",
         "activity_type":"Tipo de Actividad",
         "executor":"Ejecutor",
+        "implementer":"Implementador",
+
         "other_activities_in_addition_to":"Otras actividades además de",
         "cash_intended_for_even_if_unrestricted":"Efectivo destinado a (incluso si no está restringido)",
         "project_donor":"Donante del Proyecto",
