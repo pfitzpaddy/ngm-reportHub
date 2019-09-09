@@ -79,6 +79,21 @@ angular.module('ngmReportHub')
 				// set report for downloads
 				$scope.report.report = $scope.report.project.organization + '_' + $scope.report.project.cluster + '_' + $scope.report.project.project_title.replace(/\ /g, '_') + '_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 
+				
+				// project title
+				if ( $scope.report.project.admin0name ) {
+					$scope.report.title = $scope.report.project.organization + ' | ' + $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ';
+				}
+				// cluster
+				if( $scope.report.project.cluster.length < 31 ){
+					$scope.report.title += $scope.report.project.cluster.toUpperCase() + ' | ';
+				} else {
+					$scope.report.title += $scope.report.project.cluster_id.toUpperCase() + ' | ';
+				}
+				// title
+				$scope.report.title += $scope.report.project.project_title;
+
+
 				// add project code to subtitle?
 				var text = $filter('translate')('actual_monthly_progress_for') + ' ' + moment.utc( $scope.report.definition.reporting_period ).format('MMMM, YYYY');
 
@@ -95,7 +110,7 @@ angular.module('ngmReportHub')
 						title: {
 							'class': 'col s12 m9 l9 report-title truncate',
 							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
-							title: $scope.report.project.organization + ' | ' + $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ' + $scope.report.project.project_title
+							title: $scope.report.title
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
