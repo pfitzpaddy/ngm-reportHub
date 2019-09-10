@@ -175,6 +175,7 @@ angular.module('ngmReportHub')
 				getRequest: function( obj ){
 					//console.log("GET REQUEST",obj);
 					//console.log("ACTIVITY TYPE ID",$scope.dashboard.activity_type_id);
+
 					var request = {
 						method: 'POST',
 						url: ngmAuth.LOCATION + '/api/cluster/indicator4wplusdashboard',
@@ -198,6 +199,7 @@ angular.module('ngmReportHub')
 					
 
 					request.data = angular.merge(request.data, obj);
+					console.log("DATA: ", request.data);
 
 
 					return request;
@@ -717,7 +719,7 @@ angular.module('ngmReportHub')
 					   		$scope.model.menu.push({ 
 								'search': true,
 								'id': 'search-cluster-donors_project',
-								'icon': 'cash',
+								'icon': 'attach_money',
 								'title': $filter('translate')('donor'),
 								'class': 'teal lighten-1 white-text',
 								'rows': donorsRows
