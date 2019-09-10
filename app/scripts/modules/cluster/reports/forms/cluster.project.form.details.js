@@ -247,9 +247,21 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					// detailBeneficiaries
 					$scope.detailBeneficiaries = $scope.project.definition.target_beneficiaries.length ? 
 																			new Array($scope.project.definition.target_beneficiaries.length).fill(true) : new Array(0).fill(true);
+					// if  target beneficiaries more than 30;
+					if ($scope.project.definition.target_beneficiaries.length > 30) {
+						for (i = 1; i < $scope.detailBeneficiaries.length; i++) {
+							$scope.detailBeneficiaries[i] = false;
+						}
+					};
 					// detailLocation
 					$scope.detailLocation = $scope.project.definition.target_locations.length ? 
 																			new Array($scope.project.definition.target_locations.length).fill(true) : new Array(0).fill(true);
+					// if  target location more than 30;
+					if ($scope.project.definition.target_locations.length > 30) {
+						for (i = 1; i < $scope.detailLocation.length; i++) {
+							$scope.detailLocation[i] = false;
+						}
+					}
 
 					$scope.search_input = false;
 					$scope.project.filter;
