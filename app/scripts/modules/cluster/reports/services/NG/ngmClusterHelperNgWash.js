@@ -275,9 +275,9 @@ angular.module( 'ngmReportHub' )
 				ngmClusterHelperNgWash.setActivityBeneficiaries( locations );
 
 				// ensures page does not scroll to 5W activity input form
-				if ( btn_id ) { 
-					$( '#' + btn_id ).animatescroll();
-				}
+				// if ( btn_id ) { 
+				// 	$( '#' + btn_id ).animatescroll();
+				// }
 
 				// init
 				ngmClusterHelperNgWash.init_material_select();

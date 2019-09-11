@@ -239,8 +239,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					var template;
 					if ( $scope.project.report.report_year === 2016 ) {
 						template = 'beneficiaries/2016/beneficiaries.html';
-					} else if ( $scope.project.report.admin0pcode === 'NG' ) {
-						template ='beneficiaries/NG/beneficiaries.html';
+					// } else if ( $scope.project.report.admin0pcode === 'NG' ) {
+					// 	template ='beneficiaries/NG/beneficiaries.html';
 					} else {
 						template ='beneficiaries/beneficiaries.html';
 					}
@@ -302,26 +302,21 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				// add beneficiary
 				addBeneficiary: function( $parent ) {
 					var beneficiary = ngmClusterBeneficiaries.addBeneficiary( $scope.project, $scope.project.report.locations[ $parent ].beneficiaries );
+					$scope.project.setBeneficiary( $parent, beneficiary );
+				},
+
+				// add NG WASH beneficiary
+				addNgWashBeneficiary: function( $parent ) {
+					var beneficiary = ngmClusterHelperNgWash.addBeneficiary( $scope.project.report.locations[ $parent ].beneficiaries );
+					$scope.project.setBeneficiary( $parent, beneficiary );
+				},
+
+				setBeneficiary: function( $parent, beneficiary ){
 					$scope.project.report.locations[ $parent ].beneficiaries.push( beneficiary );
 					// Open card panel detail beneficiaries form
 					$scope.detailBeneficiaries[$parent][$scope.project.report.locations[$parent].beneficiaries.length-1] = true;
 					// set form display for new rows
-					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, $parent, $scope.project.report.locations[ $parent ].beneficiaries.length-1, beneficiary );
-					// set scroll counter
-					// if ( !$scope.project.location_beneficiary_limit[ $parent ] ) {
-					// 	$scope.project.location_beneficiary_limit[ $parent ] = {}
-					// }
-					// $scope.project.location_beneficiary_limit[ $parent ].beneficiary_limit = $scope.project.report.locations[ $parent ].beneficiaries.length;
-					// $scope.project.location_beneficiary_limit[ $parent ].beneficiary_count = $scope.project.report.locations[ $parent ].beneficiaries.length;
-					// update select
-					// ngmClusterBeneficiaries.updateSelect();
-					// ngmClusterBeneficiaries.updateSelectById('ngm-' + $parent + '-' + ($scope.project.report.locations[$parent].beneficiaries.length - 1));
-				},
-
-				// add beneficiary
-				addNgWashBeneficiary: function( $parent ) {
-					$scope.inserted = ngmClusterHelperNgWash.addBeneficiary( $scope.project.report.locations[ $parent ].beneficiaries );
-					$scope.project.report.locations[ $parent ].beneficiaries.push( $scope.inserted );
+					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, $parent, $scope.project.report.locations[ $parent ].beneficiaries.length-1, beneficiary );					
 				},
 
 				// remove beneficiary nodal

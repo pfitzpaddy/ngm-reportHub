@@ -1,5 +1,5 @@
 <!-- for each activity -->
-<h5 class="report-location-title" ng-if="beneficiary.sanitation.length" style="padding-top:0px;">Details</h5>
+<h5 class="report-beneficiary-second-title" ng-if="beneficiary.sanitation.length" style="padding-top:0px;">Details</h5>
 	
 	<!-- repeat -->
 	<div class="card-panel" ng-repeat="committee in beneficiary.sanitation" ng-init="$committeeIndex=$index">
@@ -7,12 +7,12 @@
 		<!-- committee title / btns -->
 		<div class="row">
 			<div class="col s12 m8">
-				<h5 style="font-size: 1.32rem; padding-bottom:10px;">{{ beneficiary.activity_detail_name }}</h5>
+				<h5 class="report-beneficiary-title-details">{{ beneficiary.activity_detail_name }}</h5>
 			</div>
 			<div class="col s12 m4">
 				<div class="btn-floating waves-effect waves-light red lighten-2 right" 
 							title="Remove Committee"
-							ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+							ng-show="project.report.report_status !== 'complete'"
 							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $committeeIndex, 'sanitation', '#committee-modal' )">
 					<i class="material-icons">clear</i>
 				</div>
@@ -36,7 +36,7 @@
 									ng-model="committee.quantity"
 									ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, committee, 'kits' );
 															ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}' )"
-									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									ng-disabled="project.report.report_status === 'complete' "
 									required>
 
 					<!-- kits -->
@@ -63,7 +63,7 @@
 									min="0"
 									ng-model="committee.male"
 									ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}' )"
-									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									ng-disabled="project.report.report_status === 'complete' "
 									required>
 					<!-- label based on activity_detail_id -->
 					<label for="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
@@ -78,7 +78,7 @@
 									min="0"
 									ng-model="committee.female"
 									ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}' )"
-									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									ng-disabled="project.report.report_status === 'complete' "
 									required>
 					<!-- label based on activity_detail_id -->
 					<label for="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
@@ -103,7 +103,7 @@
 																								'committee_rotation_id', 
 																								'committee_rotation_name',
 																								'ngm-committee_rotation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}' )"
-										ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+										ng-disabled="project.report.report_status === 'complete' "
 										required>
 					<option value="">{{'select'|translate}}</option>
 					</select>
@@ -119,7 +119,7 @@
 									min="0"
 									ng-model="committee.committee_rotation_per_month"
 									ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-committee_rotation_per_month-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}' )"
-									ng-disabled="committee.committee_rotation_id === 'no' || !rowform.$visible || project.report.report_status === 'complete'"
+									ng-disabled="committee.committee_rotation_id === 'no' || project.report.report_status === 'complete'"
 									required>
 					<label for="ngm-committee_rotation_per_month-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
 									class="active">Committee Rotations (Per Month)</label>
@@ -143,7 +143,7 @@
 																								'stipend_id', 
 																								'stipend_name',
 																								'ngm-stipend-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}' )"
-										ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+										ng-disabled="project.report.report_status === 'complete' "
 										required>
 					<option value="">{{'select'|translate}}</option>
 					</select>
@@ -159,7 +159,7 @@
 									min="0"
 									ng-model="committee.stipend_amount"
 									ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}' )"
-									ng-disabled="committee.stipend_id === 'no' || !rowform.$visible || project.report.report_status === 'complete'"
+									ng-disabled="committee.stipend_id === 'no' || project.report.report_status === 'complete'"
 									required>
 					<label for="ngm-stipend_amount-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
 									class="active">Stipend Amount Per Member (Naira)</label>
@@ -181,7 +181,7 @@
 						format="dd mmm, yyyy"
 						max="{{ committee.activity_end_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( committee, committee.activity_start_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete' "
 						e-required/>
 				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
 								class="active">Activity Start Date</label>
@@ -196,7 +196,7 @@
 						format="dd mmm, yyyy"
 						min="{{ committee.activity_start_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( committee, committee.activity_end_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete' "
 						e-required/>
 				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $committeeIndex }}"
 								class="active">Activity End Date</label>            
@@ -219,9 +219,9 @@
 					ng-if="beneficiary.activity_detail_id === 'sanitation_committee_kits_distribution'">
 			<!-- add details -->
 			<button class="btn blue lighten-2"
-							ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+							ng-show="project.report.report_status !== 'complete'"
 							ng-hide="committee.details.length === ngmClusterHelperNgWashLists.lists.sanitation_committee_kits.length"
-							ng-click="rowform.$show(); 
+							ng-click=" 
 										ngmClusterHelperNgWash.init_material_select();
 										ngmClusterHelperNgWash.addDetails( committee, { quantity: 0 } );">
 				<i class="material-icons left">add</i>Add Details
@@ -233,9 +233,9 @@
 					ng-if="beneficiary.activity_detail_id === 'establishment_training_rotational_sanitation_committee'">
 			<!-- add details -->
 			<button class="btn blue lighten-2"
-							ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+							ng-show="project.report.report_status !== 'complete'"
 							ng-hide="committee.details.length === ngmClusterHelperNgWashLists.lists.sanitation_committee_duties.length"
-							ng-click="rowform.$show(); 
+							ng-click=" 
 										ngmClusterHelperNgWash.init_material_select();
 										ngmClusterHelperNgWash.addDetails( committee, {} );">
 				<i class="material-icons left">add</i>Add Details
@@ -248,8 +248,7 @@
 	<button class="btn blue" 
 					ng-show="project.report.report_status !== 'complete'"
 					ng-hide="beneficiary.sanitation.length === 1" 
-					ng-click="rowform.$show(); 
-											ngmClusterHelperNgWash.init_material_select();
+					ng-click="ngmClusterHelperNgWash.init_material_select();
 											ngmClusterHelperNgWash.addActivity( project.report.locations, location, beneficiary, 'sanitation' )">
 		<i class="material-icons left">add</i>Add Committee Details
 	</button>

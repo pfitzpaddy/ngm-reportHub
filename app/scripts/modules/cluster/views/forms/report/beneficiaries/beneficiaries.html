@@ -7,17 +7,6 @@
 	.rotate:hover {
 		box-shadow:0 -5px 11px 0 rgba(0, 0, 0, 0.18), 0 -4px 15px 0 rgba(0, 0, 0, 0.15);
 	}
-	.report-beneficiary-title {
-		margin-bottom: 0
-	}
-	.report-beneficiary-second-title {
-		font-size: 1.36rem;
-		color: #565656;
-		font-weight: 300;
-		text-align: left;
-		padding: 0px 0px 12px 49px;
-		margin-top:0px
-	}
 	.card-panel-expand {
 		margin-top:1.9rem;
 	}
@@ -1149,7 +1138,13 @@
 						</div>
 					</div>
 
-
+					<!-- TEMPLATEURL -->
+					<div ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'templateUrl' ]">
+						<!-- get template -->
+						<div class="row">
+							<div ng-include="project.templatesUrl + ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'templateUrl' ]"></div>
+						</div>
+					</div>
 
 				</div>
 
@@ -1160,10 +1155,22 @@
 		<div class="row">
 
 			<!-- default -->
-			<button class="btn"
+			<div ng-if="project.definition.admin0pcode === 'NG' && project.definition.cluster_id === 'wash'">
+				<button class="btn"
+								ng-if="( project.canEdit && project.definition.project_status !== 'complete' && project.report.report_status !== 'complete' )"
+								ng-click="project.addNgWashBeneficiary( $locationIndex );"
+								style="margin:20px 10px;">
+					<i class="material-icons left">add</i>{{'add_activities'|translate}}
+				</button>
+			</div>
+
+			<!-- default -->
+			<div ng-if="project.definition.admin0pcode !== 'NG' && project.definition.cluster_id !== 'wash'">
+				<button class="btn"
 								ng-if="( project.canEdit && project.definition.project_status !== 'complete' && project.report.report_status !== 'complete' )"
 								ng-click="project.addBeneficiary( $locationIndex );"
 								style="margin:20px 10px;">
-				<i class="material-icons left">add</i>{{'add_beneficiaries'|translate}}
-			</button>
+					<i class="material-icons left">add</i>{{'add_activities'|translate}}
+				</button>
+			</div>
 		</div>

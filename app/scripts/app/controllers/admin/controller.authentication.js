@@ -186,7 +186,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 					var organizations = $scope.panel.organizations_list;
 
 					// selected coutry
-					var country = $scope.panel.user.admin0pcode ? $scope.panel.user.admin0pcode:'all';
+					var country = $scope.panel && $scope.panel.user && $scope.panel.user.admin0pcode ? $scope.panel.user.admin0pcode:'all';
 
 					// COL
 					if( ( !$scope.panel.user && var4wplusrh === '4wPlus' ) ||

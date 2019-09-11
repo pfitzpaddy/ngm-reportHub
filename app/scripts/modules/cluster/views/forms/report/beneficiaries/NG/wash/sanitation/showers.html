@@ -1,5 +1,5 @@
 <!-- for each activity -->
-<h5 class="report-location-title" ng-if="beneficiary.sanitation.length" style="padding-top:0px;">Details</h5>
+<h5 class="report-beneficiary-second-title" ng-if="beneficiary.sanitation.length" style="padding-top:0px;">Details</h5>
 	
 	<!-- repeat -->
 	<div class="card-panel" ng-repeat="shower in beneficiary.sanitation" ng-init="$showerIndex=$index">
@@ -7,12 +7,12 @@
 		<!-- shower title / btns -->
 		<div class="row">
 			<div class="col s12 m8">
-				<h5 style="font-size: 1.32rem; padding-bottom:10px;">{{ beneficiary.activity_detail_name }}</h5>
+				<h5 class="report-beneficiary-title-details">{{ beneficiary.activity_detail_name }}</h5>
 			</div>
 			<div class="col s12 m4">
 				<div class="btn-floating waves-effect waves-light red lighten-2 right" 
 							title="Remove Shower"
-							ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+							ng-show="project.report.report_status !== 'complete'"
 							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $showerIndex, 'sanitation', '#shower-modal' )">
 					<i class="material-icons">clear</i>
 				</div>
@@ -31,7 +31,7 @@
 								min="0"
 								ng-model="shower.quantity"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete' "
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -53,7 +53,7 @@
 								ng-model="shower.male"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, shower, 'showers' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete' "
 								required>
 				<!-- label based on activity_detail_id -->
 				<label for="ngm-male-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
@@ -69,7 +69,7 @@
 								ng-model="shower.female"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, shower, 'showers' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete' "
 								required>
 				<!-- label based on activity_detail_id -->
 				<label for="ngm-female-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
@@ -85,7 +85,7 @@
 								ng-model="shower.male_disabled"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, shower, 'showers' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete' "
 								required>
 				<!-- label based on activity_detail_id -->
 				<label for="ngm-male_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
@@ -101,7 +101,7 @@
 								ng-model="shower.female_disabled"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, shower, 'showers' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+								ng-disabled="project.report.report_status === 'complete' "
 								required>
 				<!-- label based on activity_detail_id -->
 				<label for="ngm-female_disabled-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
@@ -129,7 +129,7 @@
 	      																			'gender_marking_id', 
 	      																			'gender_marking_name',
 	      																			'ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
-	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+	      					ng-disabled="project.report.report_status === 'complete' "
 	      					required>
 				<option value="">{{'select'|translate}}</option>
 				</select>
@@ -150,7 +150,7 @@
 	      																			'lock_installation_id', 
 	      																			'lock_installation_name',
 	      																			'ngm-lock_installation-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
-	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+	      					ng-disabled="project.report.report_status === 'complete' "
 	      					required>
 				<option value="">{{'select'|translate}}</option>
 				</select>
@@ -179,7 +179,7 @@
 																							'facility_status_id', 
 																							'facility_status_name',
 																							'ngm-gender_marking-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}' )"
-									ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+									ng-disabled="project.report.report_status === 'complete' "
 									required>
 				<option value="">{{'select'|translate}}</option>
 				</select>
@@ -201,7 +201,7 @@
 						format="dd mmm, yyyy"
 						max="{{ shower.activity_end_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( shower, shower.activity_start_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete' "
 						e-required/>
 				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
 								class="active">Activity Start Date</label>
@@ -216,7 +216,7 @@
 						format="dd mmm, yyyy"
 						min="{{ shower.activity_start_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( shower, shower.activity_end_date )"
-						ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+						ng-disabled="project.definition.project_status === 'complete' "
 						e-required/>
 				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $showerIndex }}"
 								class="active">Activity End Date</label>            
@@ -239,9 +239,9 @@
 			<div class="row" style="margin-left:20px;">
 				<!-- add details -->
 				<button class="btn blue lighten-2"
-								ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+								ng-show="project.report.report_status !== 'complete'"
 								ng-hide="shower.details.length === ngmClusterHelperNgWashLists.lists.shower_monitoring_details.length"
-								ng-click="rowform.$show(); 
+								ng-click=" 
 											ngmClusterHelperNgWash.init_material_select();
 											ngmClusterHelperNgWash.addDetails( shower, { quantity: 0 } );">
 					<i class="material-icons left">add</i>Add Details
@@ -256,8 +256,7 @@
 	<button class="btn blue" 
 					ng-show="project.report.report_status !== 'complete'"
 					ng-hide="beneficiary.sanitation.length === 1" 
-					ng-click="rowform.$show(); 
-											ngmClusterHelperNgWash.init_material_select();
+					ng-click="ngmClusterHelperNgWash.init_material_select();
 											ngmClusterHelperNgWash.addActivity( project.report.locations, location, beneficiary, 'sanitation' )">
 		<i class="material-icons left">add</i>Add Shower Details
 	</button>

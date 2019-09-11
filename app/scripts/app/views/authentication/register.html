@@ -268,7 +268,7 @@ li {
 				<h5 class="title">{{'login_details' | translate}}</h5>
 			</div>
 
-			<form name="ngmLoginForm" class="col s12" novalidate>
+			<form name="ngmRegisterForm" class="col s12" novalidate>
 
 	      <div class="row">
 	        <div class="input-field col s12">
@@ -303,7 +303,7 @@ li {
 						ng-show="panel.user.organization === 'iMMAP' && 
 											( panel.user.admin0pcode === 'CD' || panel.user.admin0pcode === 'ET' )"
 						class="btn btn-large waves-effect waves-teal"
-						ng-disabled="ngmLoginForm.$invalid">
+						ng-disabled="ngmRegisterForm.$invalid">
 							<i class="material-icons right">keyboard_arrow_right</i>
 							{{'next' | translate}}
 					</div>
@@ -311,7 +311,7 @@ li {
 						id="login-register"
 						ng-show="panel.user.organization !== 'iMMAP'"
 						class="btn btn-large waves-effect waves-teal"
-						ng-disabled="ngmLoginForm.$invalid"
+						ng-disabled="ngmRegisterForm.$invalid"
 						ng-click="panel.register()">
 							<i class="material-icons right">keyboard_arrow_right</i>
 							{{'register' | translate}}!
@@ -323,7 +323,7 @@ li {
 								ng-show="panel.user.organization === 'iMMAP' && 
 													( panel.user.admin0pcode !== 'CD' && panel.user.admin0pcode !== 'ET' )"
 								class="btn btn-large waves-effect waves-teal"
-								ng-disabled="ngmLoginForm.$invalid"
+								ng-disabled="ngmRegisterForm.$invalid"
 								ng-click="panel.register()">
 							<i class="material-icons right">keyboard_arrow_right</i>
 							{{'register' | translate}}!
