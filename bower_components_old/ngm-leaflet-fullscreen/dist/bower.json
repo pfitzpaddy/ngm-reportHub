@@ -1,0 +1,16 @@
+{
+  "name": "ngm-leaflet-fullscreen",
+  "version": "1.0.1",
+  "main": [
+    "dist/leaflet.fullscreen.min.js",
+    "dist/leaflet.fullscreen.css"
+  ],
+  "location": "https://github.com/pfitzpaddy/ngm-leaflet-fullscreen",
+  "licence": "MIT",  
+  "keywords": [
+    "mapbox",
+    "leaflet",
+    "fullscreen",
+    "bower"
+  ]
+}

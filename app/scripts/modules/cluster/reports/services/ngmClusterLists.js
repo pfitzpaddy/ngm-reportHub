@@ -27,6 +27,7 @@ angular.module( 'ngmReportHub' )
       all_sectors_minus_wash_health_smsd: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','nutrition','protection','rnr_chapter' ],
       all_sectors_minus_wash_education: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_col: ['smsd','education','alojamientos_asentamientos','san','health','recuperacion_temprana','protection','wash','ningún_cluster','coordinación_información'],
+      all_sectors_minus_education: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter','wash' ],
 
        
       // lists ( project, mpc transfers )
@@ -5241,6 +5242,47 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_id: 'service_provider',
             beneficiary_type_name: 'Service Provider'
           }];
+        }
+
+        //admin NG
+        if( admin0pcode === 'NG' ){
+          beneficiaries = [{
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'idps',
+            beneficiary_type_name: 'IDPs'
+          },{
+            cluster_id: ngmClusterLists.all_sectors_minus_education,
+            beneficiary_type_id: 'drought_idps',
+            beneficiary_type_name: 'Drought IDPs'
+          },{
+            cluster_id: ngmClusterLists.all_sectors_minus_education,
+            beneficiary_type_id: 'flood_idps',
+            beneficiary_type_name: 'Flood IDPs'
+          },{
+            cluster_id: ngmClusterLists.all_sectors_minus_education,
+            beneficiary_type_id: 'natural_disaster_idps',
+            beneficiary_type_name: 'Natural Disaster IDPs'
+          },{
+            cluster_id: ngmClusterLists.all_sectors_minus_education,
+            beneficiary_type_id: 'conflict_idps',
+            beneficiary_type_name: 'Conflict IDPs'
+          },{
+            cluster_id: ngmClusterLists.all_sectors_minus_education,
+            beneficiary_type_id: 'refugees',
+            beneficiary_type_name: 'Refugees'
+          },{
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'returnees',
+            beneficiary_type_name: 'Returnees'
+          },{
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'host_communities',
+            beneficiary_type_name: 'Host Communities'
+          },{
+            cluster_id: ngmClusterLists.all_sectors_minus_education,
+            beneficiary_type_id: 'stakeholders',
+            beneficiary_type_name: 'Stakeholders'
+          }]
         }
 
         // admin COL

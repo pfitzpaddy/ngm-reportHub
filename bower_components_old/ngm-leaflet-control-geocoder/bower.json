@@ -1,0 +1,44 @@
+{
+  "name": "ngm-leaflet-control-geocoder",
+  "version": "v1.3.5",
+  "homepage": "https://github.com/pfitzpaddy/ngm-leaflet-control-geocoder",
+  "authors": [
+    "Per Liedman <per@liedman.net>",
+    "Patrick Fitzgerald"
+  ],
+  "description": "Extendable geocoder with builtin OSM/Nominatim support",
+  "main": [
+    "Control.Geocoder.js",
+    "Control.Geocoder.css",
+    "images/geocoder.png",
+    "images/throbber.gif"
+  ],
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "keywords": [
+    "leaflet",
+    "geocoder",
+    "locations",
+    "nominatim",
+    "bing",
+    "google",
+    "mapbox",
+    "photon",
+    "what3words",
+    "mapquest",
+    "mapzen"
+  ],
+  "license": "BSD-2-Clause",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "leaflet": "~0.7.2"
+  }
+}
