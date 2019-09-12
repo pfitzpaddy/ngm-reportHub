@@ -1154,7 +1154,7 @@
 		<!-- buttons -->
 		<div class="row">
 
-			<!-- default -->
+			<!-- NG WASH -->
 			<div ng-if="project.definition.admin0pcode === 'NG' && project.definition.cluster_id === 'wash'">
 				<button class="btn"
 								ng-if="( project.canEdit && project.definition.project_status !== 'complete' && project.report.report_status !== 'complete' )"
@@ -1164,8 +1164,8 @@
 				</button>
 			</div>
 
-			<!-- default -->
-			<div ng-if="project.definition.admin0pcode !== 'NG' && project.definition.cluster_id !== 'wash'">
+			<!-- NG not WASH -->
+			<div ng-if="project.definition.admin0pcode === 'NG' && project.definition.cluster_id !== 'wash'">
 				<button class="btn"
 								ng-if="( project.canEdit && project.definition.project_status !== 'complete' && project.report.report_status !== 'complete' )"
 								ng-click="project.addBeneficiary( $locationIndex );"
@@ -1173,4 +1173,14 @@
 					<i class="material-icons left">add</i>{{'add_activities'|translate}}
 				</button>
 			</div>
+
+			<!-- else -->
+			<div ng-if="project.definition.admin0pcode !== 'NG'">
+				<button class="btn"
+								ng-if="( project.canEdit && project.definition.project_status !== 'complete' && project.report.report_status !== 'complete' )"
+								ng-click="project.addBeneficiary( $locationIndex );"
+								style="margin:20px 10px;">
+					<i class="material-icons left">add</i>{{'add_activities'|translate}}
+				</button>
+			</div>			
 		</div>
