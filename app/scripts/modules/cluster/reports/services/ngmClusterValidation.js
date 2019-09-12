@@ -15,9 +15,7 @@ angular.module( 'ngmReportHub' )
 
 		var ngmClusterValidation = {
 
-		
-
-			// update material_select
+		    // update material_select
 			updateSelect: function(){
 				$timeout(function(){ $( 'select' ).material_select(); }, 0 );
 			},
@@ -25,35 +23,24 @@ angular.module( 'ngmReportHub' )
 			// validate project type
 			project_details_valid: function( project ) {
 
-
 				// valid
 				ngmClusterValidation.project_details_valid_labels = [];
 
 				if( !project.project_title ){
 					ngmClusterValidation.project_details_valid_labels.push('ngm-project-name');
-
 				}
 				if(!project.project_start_date || project.project_start_date === 'Invalid date'){
 					ngmClusterValidation.project_details_valid_labels.push('ngm-start-date');
-
 				}
-
 				if(!project.project_end_date ||  project.project_end_date === 'Invalid date'){
 					ngmClusterValidation.project_details_valid_labels.push('ngm-end-date');
-
 				}
-
 				/*if( !project.project_start_date ){
-
-					ngmClusterValidation.project_details_valid_labels.push('ngm-start-date');
-				
-					
+					ngmClusterValidation.project_details_valid_labels.push('ngm-start-date');	
 				}
 				if( !project.project_end_date ){
 					ngmClusterValidation.project_details_valid_labels.push('ngm-end-date');
-		
 				}*/
-
 				if( !project.project_budget_currency ){
 					ngmClusterValidation.project_details_valid_labels.push('ngm-project-budget');
 				}
@@ -61,6 +48,8 @@ angular.module( 'ngmReportHub' )
 					ngmClusterValidation.project_details_valid_labels.push('ngm-project-description');
 				}
 
+				// console.log('project_details_valid');
+				// console.log(ngmClusterValidation.project_details_valid_labels.length);
 
 				// if NO labels details valid
 				return !ngmClusterValidation.project_details_valid_labels.length;
