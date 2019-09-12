@@ -34,8 +34,14 @@ angular.module('ngmReportHub')
 				// assign data
 				$scope.report.project = data;
 
-				var title = $scope.report.project.organization + ' | ' + $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ' + $scope.report.project.cluster.toUpperCase() + ' | ';
-
+				// title
+				var title = $scope.report.project.organization + ' | ' + $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ';
+				// cluster
+				if( $scope.report.project.cluster.length < 31 ){
+					title += $scope.report.project.cluster.toUpperCase() + ' | ';
+				} else {
+					title += $scope.report.project.cluster_id.toUpperCase() + ' | ';
+				}
 				// set model to null
 				if( $route.current.params.project === 'new' ){
 					title += $filter('translate')('new_project');
@@ -43,9 +49,7 @@ angular.module('ngmReportHub')
 					title += $scope.report.project.project_title;
 				}
 
-				// add project code to subtitle?
-				var text = $filter('translate')('actual_monthly_progress_for')+' ' + $scope.report.project.project_title;
-
+				// subtitle
 				var subtitle = $scope.report.project.project_code ?  $scope.report.project.project_code + ' - ' + $scope.report.project.project_description : $scope.report.project.project_description;
 
 				// report dashboard model

@@ -210,7 +210,21 @@ angular.module( 'ngmReportHub' )
           // storage
           localStorage.setObject( 'lists', lists );
           ngmLists.setObject( 'lists', lists );
+					
+					// for ROLE REGIONAL above
+					if (user.roles.length > 1) {
+						const USER = ngmAuth.userPermissions();
+						var max_role = USER.reduce(function (max, v) { return v.LEVEL > max.LEVEL ? v : max })['ROLE'];
 
+						if (max_role === 'HQ' || max_role === 'HQ_ORG' || max_role === 'REGION_ORG' || max_role === 'REGION' || max_role === 'SUPERADMIN') {
+							var region = max_role.indexOf('REGION') > -1 ? user.adminRpcode : 'HQ';
+							var getActivitiesBasedOnRole = {
+								method: 'GET',
+								url: ngmAuth.LOCATION + '/api/cluster/list/activities?adminRpcode=' + region
+							}
+							requests.getActivities = getActivitiesBasedOnRole;
+						}
+					}
           // send request
           $q.all([
             $http( requests.getAdmin1List ),

@@ -201,6 +201,8 @@ angular.module( 'ngmReportHub' )
 					data: { filter: filterOrg }
 				};
 				ngmData.get(req).then(function (org) {
+
+					console.log(org)
 					
 					var urlOrganization = '/desk/#/cluster/projects/list/' + $route.current.params.adminRpcode + '/' + $route.current.params.admin0pcode + '/';
 					// org = org.filter((value, index, self) => self.map(x => x.organization_tag).indexOf(value.organization_tag) == index)
