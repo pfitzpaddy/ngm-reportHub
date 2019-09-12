@@ -44,7 +44,7 @@
 			<div class="input-field col s12 m4 percentInput">
 				<input id="ngm-assessment-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_surveyed" type="number" class="validate num_number"
 				 min="0"
-				 ng-model="beneficiary.hh_surveyed" ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+				 ng-model="beneficiary.hh_surveyed" ng-disabled="project.report.report_status === 'complete' "
 				 ng-change="project.fsacAssessmentPercentage(beneficiary)" required>
 				 <span> </span>
 				<!-- label based on activity_detail_id -->
@@ -67,7 +67,7 @@
 			<input id="ngm-acceptable-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_acceptable" type="number" class="validate num_percent"
 			 min="0" max="100"
 			 step="any"
-			 ng-model="beneficiary.hh_acceptable" ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+			 ng-model="beneficiary.hh_acceptable" ng-disabled="project.report.report_status === 'complete' "
 			 ng-change="project.fsacAssessmentPercentage(beneficiary);project.fsacToPercentage(beneficiary,'hh_acceptable')" required>
 			 <span>%</span>
 			<!-- label based on activity_detail_id -->
@@ -78,7 +78,7 @@
 			<input id="ngm-borderline-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_borderline" type="number" class="validate num_percent"
 			 min="0" max="100"
 			 step="any"
-			 ng-model="beneficiary.hh_borderline" ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+			 ng-model="beneficiary.hh_borderline" ng-disabled="project.report.report_status === 'complete' "
 			 ng-change="project.fsacAssessmentPercentage(beneficiary);project.fsacToPercentage(beneficiary,'hh_borderline')" required>
 			<span>%</span>
 			<!-- label based on activity_detail_id -->
@@ -90,7 +90,7 @@
 			 max="100"
 			 step="any"
 			 ng-model="beneficiary.hh_poor" ng-change="project.fsacAssessmentPercentage(beneficiary);project.fsacToPercentage(beneficiary,'hh_poor')"
-			 ng-disabled="project.report.report_status === 'complete' || !rowform.$visible" required>
+			 ng-disabled="project.report.report_status === 'complete' " required>
 			<span>%</span>
 			<!-- label based on activity_detail_id -->
 			<label style="display:block; widows: 100px;text-align:right;" for="ngm-poor-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active ">Poor</label>
@@ -99,7 +99,7 @@
 			<input id="ngm-acceptable_pmd-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_acceptable_pmd" type="number" class="validate num_percent"
 			 min="0" max="100"
 			 step="any"
-			 ng-model="beneficiary.hh_acceptable_pmd" ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+			 ng-model="beneficiary.hh_acceptable_pmd" ng-disabled="project.report.report_status === 'complete' "
 			 ng-change="project.fsacAssessmentPercentage(beneficiary);project.fsacToPercentage(beneficiary,'hh_acceptable_pmd')" required>
 			<span>%</span>
 			<!-- label based on activity_detail_id -->
@@ -110,7 +110,7 @@
 			<input id="ngm-borderline_pmd-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_borderline_pmd" type="number" class="validate num_percent"
 			 min="0" max="100"
 			 step="any"
-			 ng-model="beneficiary.hh_borderline_pmd" ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+			 ng-model="beneficiary.hh_borderline_pmd" ng-disabled="project.report.report_status === 'complete' "
 			 ng-change="project.fsacAssessmentPercentage(beneficiary);project.fsacToPercentage(beneficiary,'hh_borderline_pmd')" required>
 			<span>%</span>
 			<!-- label based on activity_detail_id -->
@@ -122,7 +122,7 @@
 			 max="100" 
 			 step="any"
 			 ng-model="beneficiary.hh_poor_pmd" ng-change="project.fsacAssessmentPercentage(beneficiary);project.fsacToPercentage(beneficiary,'hh_poor_pmd')"
-			 ng-disabled="project.report.report_status === 'complete' || !rowform.$visible" required>
+			 ng-disabled="project.report.report_status === 'complete' " required>
 			<span>%</span>
 			<!-- label based on activity_detail_id -->
 			<label style="display:block; widows: 100px;text-align:right;" for="ngm-poor_pmd-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">Poor PMD</label>

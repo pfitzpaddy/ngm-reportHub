@@ -17,7 +17,7 @@
 		      																			'detail_type_name',
 		      																			'ngm-detail_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $maintenanceIndex }}-{{ $index }}' )"
 			      					ng-model="detail.detail_type_id"
-			      					ng-disabled="!rowform.$visible || project.report.report_status === 'complete'"
+			      					ng-disabled="project.report.report_status === 'complete'"
 			      					required>
 						<option value="">{{'select'|translate}} </option>
 						</select>
@@ -29,7 +29,6 @@
 					<div class="input-field col s12 m1">
 		  			<div class="btn-floating waves-effect waves-light red lighten-2" 
 			  					title="Remove"
-			  					ng-show="rowform.$visible"
 			  					ng-click="ngmClusterHelperNgWash.removeDetail( maintenance, $locationIndex, $beneficiaryIndex, $index )"
 		              ng-disabled="!!ngmClusterBeneficiaries.rowSaveDisabled( project.definition, beneficiary )">
 		  				<i class="material-icons">clear</i>

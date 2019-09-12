@@ -1,6 +1,6 @@
 
 <!-- for each activity -->
-<h5 class="report-location-title" style="padding-top:0px;">{{ beneficiary.activity_detail_name }} Details</h5>
+<h5 class="report-beneficiary-second-title" style="padding-top:0px;">{{ beneficiary.activity_detail_name }} Details</h5>
 	
 	<!-- repeat -->
   <div class="card-panel" ng-repeat="borehole in beneficiary.boreholes">
@@ -8,12 +8,12 @@
 	  <!-- borehole title / btns -->
 	  <div class="row">
 	  	<div class="col s12 m6">
-				<h5 style="font-size: 1.32rem; padding-bottom:10px;">Borehole Site {{ $index+1 }}</h5>
+				<h5 class="report-beneficiary-title-details">Borehole Site {{ $index+1 }}</h5>
 			</div>
 			<div class="col s12 m6">
   			<div class="btn-floating waves-effect waves-light red lighten-2 right" 
 	  					title="Remove Borehole"
-	  					ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+	  					ng-show="project.report.report_status !== 'complete'"
 	  					ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $index, 'boreholes', '#borehole-modal' )">
   				<i class="material-icons">clear</i>
   			</div>
@@ -36,7 +36,7 @@
 	      																			'borehole_water_facility_type_id', 
 	      																			'borehole_water_facility_type_name',
 	      																			'ngm-borehole_water_facility_type-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+	      					ng-disabled="project.report.report_status === 'complete' "
 	      					required>
 				<option value="">{{'select'|translate}}</option>
 				</select>
@@ -57,7 +57,7 @@
 	      																			'borehole_water_facility_size_id', 
 	      																			'borehole_water_facility_size_name',
 	      																			'ngm-borehole_water_facility_size-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+	      					ng-disabled="project.report.report_status === 'complete' "
 	      					required>
 				<option value="">{{'select'|translate}}</option>
 				</select>
@@ -74,7 +74,7 @@
 				      	ng-model="borehole.borehole_yield_ltrs_second"
 				      	ng-change="ngmClusterHelperNgWash.boreholeOutput( project.report.locations, borehole );
 				      							 ngmClusterHelperNgWash.inputChange( 'ngm-borehole_yield_ltrs_second-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' );"
-				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+				      	ng-disabled="project.report.report_status === 'complete' "
 								required>
 	      <label for="ngm-borehole_yield_ltrs_second-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 	      				class="active">Borehole Yield (Ltrs/Sec)</label>
@@ -89,7 +89,7 @@
 				      	ng-model="borehole.borehole_pumping_ave_daily_hours"
 				      	ng-change="ngmClusterHelperNgWash.boreholeOutput( project.report.locations, borehole );
 				      							 ngmClusterHelperNgWash.inputChange( 'ngm-borehole_pumping_ave_daily_hours-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' );"
-				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+				      	ng-disabled="project.report.report_status === 'complete' "
 								required>
 	      <label for="ngm-borehole_pumping_ave_daily_hours-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 	      				class="active">Daily Pumping Hours (Average)</label>
@@ -112,7 +112,7 @@
 	      																			'water_turbidity_range_id', 
 	      																			'water_turbidity_range_name',
 	      																			'ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+	      					ng-disabled="project.report.report_status === 'complete' "
 	      					required>
 				<option value="">{{'select'|translate}}</option>
 				</select>
@@ -128,7 +128,7 @@
 				      	min="0"
 				      	ng-model="borehole.borehole_tanks_storage_ltrs"
 				      	ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-borehole_tanks_storage_ltrs-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+				      	ng-disabled="project.report.report_status === 'complete' "
 								required>
 	      <label for="ngm-borehole_tanks_storage_ltrs-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 	      				class="active">Storage Tanks (Ltrs)</label>
@@ -142,7 +142,7 @@
 				      	min="0"
 				      	ng-model="borehole.taps_number_connected"
 				      	ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-taps_number_connected-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+				      	ng-disabled="project.report.report_status === 'complete' "
 								required>
 	      <label for="ngm-taps_number_connected-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 	      				class="active">Taps Connected (Number)</label>
@@ -156,7 +156,7 @@
 				      	min="0"
 				      	ng-model="borehole.borehole_taps_ave_flow_rate_ltrs_minute"
 				      	ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-borehole_taps_ave_flow_rate_ltrs_minute-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+				      	ng-disabled="project.report.report_status === 'complete' "
 								required>
 	      <label for="ngm-borehole_taps_ave_flow_rate_ltrs_minute-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 	      				class="active">Average Flow Rate of Taps (Ltrs/Min)</label>
@@ -179,7 +179,7 @@
 	      																			'borehole_chlorination_plan_id', 
 	      																			'borehole_chlorination_plan_name',
 	      																			'ngm-borehole_chlorination_plan-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+	      					ng-disabled="project.report.report_status === 'complete' "
 	      					required>
 				<option value="">{{'select'|translate}}</option>
 				</select>
@@ -200,7 +200,7 @@
 	      																			'free_residual_chlorine_range_id', 
 	      																			'free_residual_chlorine_range_name',
 	      																			'ngm-free_residual_chlorine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-	      					ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+	      					ng-disabled="project.report.report_status === 'complete' "
 	      					required>
 				<option value="">{{'select'|translate}}</option>
 				</select>
@@ -215,7 +215,7 @@
 				      	class="validate"
 				      	ng-model="borehole.borehole_lng"
 				      	ng-change="ngmClusterHelperNgWashValidation.boreholeBboxCheck( borehole, 'ngm-borehole_lng-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+				      	ng-disabled="project.report.report_status === 'complete' "
 								required>
 	      <label for="ngm-borehole_lng-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 	      				class="active">Longitude</label>
@@ -228,7 +228,7 @@
 				      	class="validate"
 				      	ng-model="borehole.borehole_lat"
 				      	ng-change="ngmClusterHelperNgWashValidation.boreholeBboxCheck( borehole, 'ngm-borehole_lat-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-				      	ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+				      	ng-disabled="project.report.report_status === 'complete' "
 								required>
 	      <label for="ngm-borehole_lat-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 	      				class="active">Latitude</label>
@@ -247,7 +247,7 @@
             format="dd mmm, yyyy"
             max="{{ borehole.activity_end_date }}"
             on-close="ngmClusterBeneficiaries.datepicker.startOnClose( borehole, borehole.activity_start_date )"
-            ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+            ng-disabled="project.definition.project_status === 'complete' "
             e-required/>
 	      <label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 	      				class="active">Activity Start Date</label>
@@ -262,7 +262,7 @@
             format="dd mmm, yyyy"
             min="{{ borehole.activity_start_date }}"
             on-close="ngmClusterBeneficiaries.datepicker.endOnClose( borehole, borehole.activity_end_date )"
-            ng-disabled="project.definition.project_status === 'complete' || !rowform.$visible"
+            ng-disabled="project.definition.project_status === 'complete' "
             e-required/>
 	      <label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 	      				class="active">Activity End Date</label>            
@@ -276,8 +276,7 @@
   <button id="add_activitiy_btn-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
   				class="btn blue" 
           ng-show="project.report.report_status !== 'complete'"
-          ng-click="rowform.$show(); 
-          						ngmClusterHelperNgWash.init_material_select();
+          ng-click="ngmClusterHelperNgWash.init_material_select();
           						ngmClusterHelperNgWash.addActivity( project.report.locations, location, beneficiary, 'boreholes', 'add_activitiy_btn-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )">
     <i class="material-icons left">add</i>Add Borehole
   </button>

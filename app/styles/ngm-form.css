@@ -45,10 +45,10 @@
 
 	/* report number of locations */
 	.report-selected-locations {
-		font-size:1.6rem;
-		padding-left:20px;
+		font-size: 1.6rem;
+		padding-left: 20px;
 		margin-top: 20px;
-		font-weight: 100;
+		font-weight: 300;
 	}
 
 	/* location title with icon */
@@ -63,7 +63,7 @@
     color: #565656;
     font-weight: 400;
     text-align: left;
-		padding: 2px 0px 5px 49px;
+		padding: 2px 0px 5px 10px;
 		margin: 0px;
 	}
 
@@ -71,15 +71,21 @@
 	.report-beneficiary-title {
 		font-size: 1.36rem;
 		color: #00796b;
-		font-weight: 300;
+		font-weight: 400;
 		text-align: left;
 		padding: 10px 0px 0px 10px;
 	}
+	.report-beneficiary-title-details {
+		font-size: 1.32rem;
+		padding-bottom: 10px;
+		font-weight: 400;
+	}
+
 
 	/* location title with icon */
 	.report-budget-title {
 		font-size: 1.2rem;
-		font-weight: 300;
+		font-weight: 400;
 		text-align: left;
 		padding: 10px 0px 10px 10px;
 	}

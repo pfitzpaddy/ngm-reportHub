@@ -23,7 +23,7 @@
 			<!-- <h5 style="font-size: 1.32rem; padding-bottom:10px;">HH Surveyed</h5> -->
 			<div class="input-field " >
 				<input id="ngm-assessment-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_surveyed" type="number" class="validate" 
-				 min="0" ng-model="beneficiary.hh_surveyed" ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+				 min="0" ng-model="beneficiary.hh_surveyed" ng-disabled="project.report.report_status === 'complete' "
 				 ng-change="project.fsacAssessmentPercentage(beneficiary)" required>
 				<!-- label based on activity_detail_id -->
 				<label for="ngm-malengm-assessment-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">HH Surveyed</label>
@@ -44,7 +44,7 @@
 		<div class="input-field col s12 m4">
 			<span class="input-holder"></span>
 			<input id="ngm-acceptable-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_acceptable" type="number" class="validate " 
-			 min="0" max="beneficiary.hh_surveyed" ng-model="beneficiary.hh_acceptable" ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+			 min="0" max="beneficiary.hh_surveyed" ng-model="beneficiary.hh_acceptable" ng-disabled="project.report.report_status === 'complete' "
 			 ng-change="project.fsacAssessmentPercentage(beneficiary)" 
 			 required>
 			<!-- label based on activity_detail_id -->
@@ -53,7 +53,7 @@
 
 		<div class="input-field col s12 m4">
 			<input id="ngm-borderline-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_borderline" type="number" class="validate"  min="0"
-			 max="beneficiary.hh_surveyed" ng-model="beneficiary.hh_borderline" ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+			 max="beneficiary.hh_surveyed" ng-model="beneficiary.hh_borderline" ng-disabled="project.report.report_status === 'complete' "
 			 ng-change="project.fsacAssessmentPercentage(beneficiary)" required>
 			<!-- label based on activity_detail_id -->
 			<label for="ngm-borderline-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">Border Line</label>
@@ -62,13 +62,13 @@
 		<div class="input-field col s12 m4">
 			<input id="ngm-poor-after-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_poor" type="number" class="validate" 
 			 min="0" max="beneficiary.hh_surveyed" ng-model="beneficiary.hh_poor" ng-change="project.fsacAssessmentPercentage(beneficiary)"
-			 ng-disabled="project.report.report_status === 'complete' || !rowform.$visible" required>
+			 ng-disabled="project.report.report_status === 'complete' " required>
 			<!-- label based on activity_detail_id -->
 			<label for="ngm-poor-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" >Poor</label>
 		</div>
 		<div class="input-field col s12 m4">
 			<input id="ngm-acceptable_pmd-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_acceptable_pmd" type="number" class="validate" 
-			 min="0" ng-model="beneficiary.hh_acceptable_pmd" ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+			 min="0" ng-model="beneficiary.hh_acceptable_pmd" ng-disabled="project.report.report_status === 'complete' "
 			 ng-change="project.fsacAssessmentPercentage(beneficiary)" required>
 			<!-- label based on activity_detail_id -->
 			<label for="ngm-acceptable_pmd-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">Acceptable PMD</label>
@@ -76,7 +76,7 @@
 		
 		<div class="input-field col s12 m4">
 			<input id="ngm-borderline_pmd-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_borderline_pmd" type="number" class="validate"  min="0"
-			 max="beneficiary.hh_surveyed" ng-model="beneficiary.hh_borderline_pmd" ng-disabled="project.report.report_status === 'complete' || !rowform.$visible"
+			 max="beneficiary.hh_surveyed" ng-model="beneficiary.hh_borderline_pmd" ng-disabled="project.report.report_status === 'complete' "
 			 ng-change="project.fsacAssessmentPercentage(beneficiary)" required>
 			<!-- label based on activity_detail_id -->
 			<label for="ngm-borderline_pmd-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">Border Line PMD</label>
@@ -85,7 +85,7 @@
 		<div class="input-field col s12 m4">
 			<input id="ngm-poor_pmd-{{ $locationIndex }}-{{ $beneficiaryIndex }}" name="hh_poor_pmd" type="number" class="validate" 
 			 min="0" max="beneficiary.hh_surveyed" ng-model="beneficiary.hh_poor_pmd" ng-change="project.fsacAssessmentPercentage(beneficiary)"
-			 ng-disabled="project.report.report_status === 'complete' || !rowform.$visible" required>
+			 ng-disabled="project.report.report_status === 'complete' " required>
 			<!-- label based on activity_detail_id -->
 			<label for="ngm-poor_pmd-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">Poor PMD</label>
 		</div>

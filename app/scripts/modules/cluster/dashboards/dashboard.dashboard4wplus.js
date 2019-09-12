@@ -201,7 +201,7 @@ angular.module('ngmReportHub')
 					
 
 					request.data = angular.merge(request.data, obj);
-					console.log("DATA: ", request.data);
+					//console.log("DATA: ", request.data);
 
 
 					return request;
@@ -548,7 +548,7 @@ angular.module('ngmReportHub')
 							yearRows.push({
 								'title':d.year_name,
 								'param':'year_id',
-								'active':d.year_name,
+								'active':d.year_id,
 								'class':'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 								'href': '/desk/#' + path,
 							
@@ -633,7 +633,7 @@ angular.module('ngmReportHub')
 						   		admin0pcode:'COL',
 						   		organization_name : $filter('translate')('all_mayus')
 										});
-						  	console.log("ACTIVIDADES: ",partners.data);
+						  	///console.log("ACTIVIDADES: ",partners.data);
 
 
 						angular.forEach(partners.data,function(d,i){
@@ -642,7 +642,7 @@ angular.module('ngmReportHub')
 					   			implementingPartnersRows.push({
 					   				'title':d.organization,
 					   				'param':'organization_tag',
-					   				'active':d.organization,
+					   				'active':d.organization_tag,
 					   				'class':'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 					   				'href':'/desk/#'+path
 
@@ -653,7 +653,7 @@ angular.module('ngmReportHub')
 
 					   	});
 
-					   		console.log("PARTNERS ROWS: ",implementingPartnersRows);
+					   		//console.log("PARTNERS ROWS: ",implementingPartnersRows);
 
 
 					   		$scope.model.menu.push({ 
@@ -664,7 +664,7 @@ angular.module('ngmReportHub')
 								'class': 'teal lighten-1 white-text',
 								'rows': implementingPartnersRows
 							});
-							console.log("MENU: ",$scope.model.menu);
+							//console.log("MENU: ",$scope.model.menu);
 
 					   	if ( $scope.dashboard.implementer_tag !== 'all' ) {
 							var implementer_tag = $filter( 'filter' )( partners.data, { organization_tag: $scope.dashboard.implementer_tag } );
@@ -679,7 +679,7 @@ angular.module('ngmReportHub')
 					});
 
 
-					   	console.log("implementingPartners",implementingPartners);
+					   //	console.log("implementingPartners",implementingPartners);
 
 
 					   	//DONORS
@@ -689,7 +689,7 @@ angular.module('ngmReportHub')
 					 donorsProject = $scope.dashboard.getRequest({list:true, indicator: 'project_donors'});
 
 					ngmData.get( donorsProject ).then( function( donors  ){
-						console.log("DONANTES: ",donors.data);
+					//	console.log("DONANTES: ",donors.data);
 
 						 	donors.data.unshift({
 								project_donor_id : 'all',
@@ -714,7 +714,7 @@ angular.module('ngmReportHub')
 
 					   	});
 
-					   		console.log("DONORS ROWS: ",donorsRows);
+					   		//console.log("DONORS ROWS: ",donorsRows);
 
 
 					   		$scope.model.menu.push({ 
@@ -725,7 +725,7 @@ angular.module('ngmReportHub')
 								'class': 'teal lighten-1 white-text',
 								'rows': donorsRows
 							});
-							console.log("MENU: ",$scope.model.menu);
+						//	console.log("MENU: ",$scope.model.menu);
 
 					   	if ( $scope.dashboard.donor_tag !== 'all' ) {
 							var donor_tag = $filter( 'filter' )( donors.data, { project_donor_id: $scope.dashboard.donor_tag } );
@@ -740,7 +740,7 @@ angular.module('ngmReportHub')
 					});
 
 
-					   	console.log("Donors Project",donorsProject);
+					 //  	console.log("Donors Project",donorsProject);
 
 
 
@@ -765,7 +765,7 @@ angular.module('ngmReportHub')
                                 activitiesRows.push({
                                 	'title': d.activity_type_name,
                                 	'param': 'activity_type_id',
-                                	'active': d.activity_type_name,
+                                	'active': d.activity_type_id,
                                 	'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
                                 	'href': '/desk/#'+path
 
@@ -810,7 +810,7 @@ angular.module('ngmReportHub')
 							var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, d.project_type_component_id, $scope.dashboard.hrpplan , $scope.dashboard.implementer_tag, $scope.dashboard.donor_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
 							project_type_componentRows.push({
 								'title': d.project_type_component_name,
-								'param': d.project_type_component_id,
+								'param': 'project_type_component_id',
 								'active': d.project_type_component_id,
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 								'href': '/desk/#' + path
@@ -852,7 +852,7 @@ angular.module('ngmReportHub')
 							var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, $scope.dashboard.project_type_component, d.option_id, $scope.dashboard.implementer_tag, $scope.dashboard.donor_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
 							ishrpoptions.push({
 								'title': d.option_name,
-								'param': d.option_id,
+								'param': 'option_id',
 								'active': d.option_id,
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 								'href': '/desk/#' + path
