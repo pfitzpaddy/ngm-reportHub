@@ -228,7 +228,7 @@ angular
 			title: $filter('translate')('welcome'), 
 
 
-             var4wplusrh : var4plusrhafter,
+           // var4wplusrh : 'REPORTHUB',
 			// current route
 			route: $route,
 
@@ -488,7 +488,10 @@ angular
 
 		var var4plusrhafter;
 
-	     if($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63' || $location.$$host === '192.168.33.16'){ //4wplus.org
+	    // if($location.$$host === '4wplus.org' || $location.$$host === '192.168.33.16' ){ //'35.229.43.63'
+
+	    if($location.$$host === '4wplus.org'){ //'35.229.43.63'
+
 			$('#title').html("4wPlus");
 
 			var4plusrhafter = '4wPlus';
@@ -507,6 +510,8 @@ angular
 			$scope.ngm.changeFunction('en');
 
 		};
+		$scope.ngm.var4wplusrh = var4plusrhafter;
+
 
 		document.getElementsByName('description')[0].content = metadescription;
 
