@@ -1592,7 +1592,7 @@ angular.module('ngmReportHub')
 												},
 												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for:'children'})												
 																						}]
-										}
+										} 
 									}
 								}]
 							   },
@@ -1607,6 +1607,8 @@ angular.module('ngmReportHub')
 											//text: $filter('translate')('children'),
 											text: "EDAD (# - %)"
 										},
+										
+
 										display: {
 											label: true,
 											fractionSize: 1,
@@ -1614,39 +1616,52 @@ angular.module('ngmReportHub')
 											postfix: '%'
 										},
 										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardcolumns.html',
-										style: '"text-align:center; width: 80%; height: 80%; position: absolute; top: 0px; left: 0;"',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 0px; left: 0;"',
 										chartConfig: {
 											options: {
 												chart: {
 													type: 'column',
-													height: 230,
-													margin: [0,0,0,0],
-													spacing: [0,0,0,0]
+													height: 250,
+													//margin: [0,0,0,0],
+												//spacing: [0,0,0,0]
 												},
 												tooltip: {
-													enabled: true
-												}				
+													enabled: true,
+													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+
+												},
+												xAxis: {
+										        title: {
+										            text: $filter('translate')('ages_mayus1')
+										        }
+
+										    },
+												yAxis: {
+										        title: {
+										            text: $filter('translate')('total_by_age_and_percent_of_total')
+										        }
+
+										    }
+												
+
 											},
 											title: {
 													text: '',
 													margin: 0
 											},
-											
-											/*  plotOptions: {
-														column: {
-															shadow: false
-													}*/
-											
-											
 											series: [{
 												//name: $filter('translate')('children'),
-												name: "EDAD (# - %)",
+												name: $filter('translate')('age_mayus'),
 												//name: "EDAD (# - %)",
 												size: '100%',
 												innerSize: '100%',
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
+										               // format: '{point.y} - {point.label:.1f}%'
+										               format: '{point.y}'
 										                //inside: true
 										            },
 
