@@ -77,19 +77,26 @@
     "assessments_mayus" : "EVALUACIONES",
     "contact_mayus" : "CONTACTO",
     "contact":"Contacto",
+     "contact_to":"Contactar a",
+
+    "the":"la",
+    "of":"de",
+    "with_any_questions":"con cualquier pregunta",
+
     "need_assistance":"Necesita Asistencia?",
     "download_the":"Descarga la",
     "user_guide":"Guía de Usuario",
     "or_mayus":"O",
     "view_the_online":"Ver en linea",
     "youtube_user_video_guides":"Guía de Usuarios en Videos de Youtube",
-    "call":"Llama",
+    "call_to":"Llama al",
     "on":"en",
    "online":"En linea",
-   "with_any_questions":"para cualquier pregunta!",
     "cannot_add_not_ont_the_list":"No se puede agregar, no está en la lista",
           "add_new_project_classification":"Agregar Nueva Clasificación del Proyecto",
-                "project_classifications":"Clasificaciones del Proyecto",
+     "project_classifications":"Clasificaciones del Proyecto",
+   "to_search_classification_type_a_key_word_related_to_the_indicator":"Para buscar la clasificación escriba una palabra clave relacionada con el indicador",
+
    "mandatory_for_united_nations_system_agencies":"Mandatorio para agencias del Sistema de Naciones Unidas",
 
 
@@ -236,6 +243,12 @@
         "project_title":"Título del Proyecto",
         "project_code":"Código del Proyecto",
         "no_project_activity_type": "Por favor seleccione las actividades del proyecto (Tipo de Actividad)!",
+
+        "information_in_project_data_is_incorrect_or_incomplete":"La información ingresada en los datos del Proyecto está incorrecta ó incompleta!",
+        "at_least_one_activity_type_must_be_selected":"Al menos un Tipo de Actividad debe ser seleccionado!",
+        "information_in_target_population_is_incorrect_or_incomplete" :"La información ingresada en la sección Población Objetivo es incorrecta ó incompleta!",
+        "information_in_project_target_locations_is_incorrect_or_incomplete":"La información ingresada en la sección Ubicaciones Objetivo del Proyecto es incorrecta ó incompleta!",
+
 
         "go_to_project_plan":"Ir a Proyecto",
         "monthly_progress":"Monitoreo (Beneficiarios)",
