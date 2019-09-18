@@ -1908,7 +1908,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px;',
 									config: {
-										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">'+"FINANCIAMIENTO"+'</h2>'
+										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">'+"BENEFICIARIOS"+'</h2>'
 									}
 								}]
 							}]
@@ -1918,12 +1918,12 @@ angular.module('ngmReportHub')
 								styleClass: 's12 m12 l4',
 								widgets: [{
 									type: 'highchart',
-									style: 'height: 250px;',
+									style: 'height: 300px;',
 									card: 'card-panel chart-stats-card white grey-text text-darken-2',
 									config: {
 										title: {
 											//text: $filter('translate')('children'),
-											text: "AGENCIAS EJECUTORAS"
+											text: "AGENCIAS EJECUTORAS (# - %)"
 										},
 										display: {
 											label: true,
@@ -1931,28 +1931,44 @@ angular.module('ngmReportHub')
 											subLabelfractionSize: 0,
 											postfix: '%'
 										},
-										templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
-										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
+										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardcolumns.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 50px; left: 0;"',
 										chartConfig: {
 											options: {
 												chart: {
-													type: 'bar',
-													height: 140,
-													margin: [0,0,0,0],
-													spacing: [0,0,0,0]
+													type: 'column',
+													height: 250,
+													//margin: [0,0,0,0],
+												//spacing: [0,0,0,0]
 												},
 												tooltip: {
-													enabled: false
-												}				
+													enabled: true,
+													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+
+												},
+												xAxis: {
+										        title: {
+										            //text: $filter('translate')('ages_mayus1')
+										            text: 'Agencias Ejecutoras Top 5'
+										        }
+
+										    },
+												yAxis: {
+										        title: {
+										            //text: $filter('translate')('total_by_age_and_percent_of_total')
+										          text: 'Presupuesto por Agencia y % del total'
+
+										        }
+
+										    }
+												
+
 											},
 											title: {
 													text: '',
 													margin: 0
-											},
-											plotOptions: {
-													pie: {
-															shadow: false
-													}
 											},
 											series: [{
 												//name: $filter('translate')('children'),
