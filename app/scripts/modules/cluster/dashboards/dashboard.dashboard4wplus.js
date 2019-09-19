@@ -1522,7 +1522,7 @@ angular.module('ngmReportHub')
 								}]
 							}]
 						},
-						{
+						/*{
 							columns: $scope.dashboard.beneficiaries_row
 						},
 						{
@@ -1691,7 +1691,7 @@ angular.module('ngmReportHub')
 										},
 										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardcolumns.html',
 										style: '"text-align:center; width: 80%; height: 80%; position: absolute; top: 0px; left: 0;"',
-										chartConfig: {/*
+										chartConfig: {
 											options: {
 												chart: {
 													type: 'bar',
@@ -1724,11 +1724,11 @@ angular.module('ngmReportHub')
 
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartCluster', chart_for:'beneficiarioCluster'}),
-											}]*/
+											}]
 										}
 									}
 								}]
-							}/*,
+							}*//*,
 							{
 								styleClass: 's12 m6 l4',
 								widgets: [{
@@ -1893,7 +1893,7 @@ angular.module('ngmReportHub')
 										}
 									}
 								}]
-							}*/]
+							}]
 							},
 						
 						   
@@ -1914,7 +1914,8 @@ angular.module('ngmReportHub')
 							}]
 						},
 						{
-							columns: [{
+							columns: [
+							{
 								styleClass: 's12 m12 l4',
 								widgets: [{
 									type: 'highchart',
@@ -1986,7 +1987,7 @@ angular.module('ngmReportHub')
 									}
 								}]
 							}]
-						   },
+						   },*/
 						{
 							columns: [{
 								styleClass: 's12 m12 l12',
