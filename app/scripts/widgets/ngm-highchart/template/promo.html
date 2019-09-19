@@ -36,6 +36,9 @@
     font-size:1.1rem;
     line-height:1.1rem;
   }
+	[id^="subLabel-center"].label {
+		left: 0;
+	}
 
 </style>
 
@@ -99,7 +102,16 @@
         <!-- sublabel -->
         <div id="subLabel-center-{{highchart.id}}" class="label" style="text-align:center;">
           {{ highchart.label.center.subLabel.prefix }}
-          <span
+          <span ng-if ="highchart.label.center.subLabel.postfix !== 'M' && highchart.label.center.subLabel.postfix !== 'B'"
+              value="{{ highchart.label.center.label.from }}"
+              ng-count-to="{{ highchart.label.center.subLabel.label }}" 
+              duration="{{ highchart.label.center.subLabel.duration }}"
+              filter="{{ highchart.label.center.subLabel.filter }}"
+              params="{{ highchart.label.center.subLabel.params }}"
+              fraction-size="{{ highchart.label.center.subLabel.fractionSize }}">
+					</span>
+					<!-- above million -->
+					<span ng-if ="highchart.label.center.subLabel.postfix === 'M' || highchart.label.center.subLabel.postfix === 'B'"
               value="{{ highchart.label.center.label.from }}"
               ng-count-to="{{ highchart.label.center.subLabel.label }}" 
               duration="{{ highchart.label.center.subLabel.duration }}"
