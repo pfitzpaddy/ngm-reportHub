@@ -516,7 +516,7 @@ angular.module('ngmReportHub')
 								'search': true,
 								'id': 'search-cluster-organization',
 								'icon': 'supervisor_account',
-								'title': $filter('translate')('organization'),
+								'title': $filter('translate')('executor'),
 								'class': 'teal lighten-1 white-text',
 								'rows': orgRows
 							});
@@ -735,17 +735,29 @@ angular.module('ngmReportHub')
 					$scope.dashboard.beneficiaries_row = [ 
 					
 					{
-						styleClass: 's12 m12 l6',
+								styleClass: 's12 m6 l6',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: $filter('translate')('executing_organizations'),
+										request: $scope.dashboard.getRequest( { indicator: 'organizations_4wdashboard_projectplan' } )
+									}
+								}]
+						},
+						{
+						styleClass: 's12 m6 l6',
 						widgets: [{
 							type: 'stats',
 							style: 'text-align: center;',
 							card: 'card-panel stats-card white grey-text text-darken-2',
 							config: {
-								title: $filter('translate')('other_implementing_partners'),
+								title: $filter('translate')('implementing_organizations'),
 								request: $scope.dashboard.getRequest({ indicator: 'total_implementing_partners_4wdashboard_projectplan' })
 							}
 						}]
-					}, 
+					}/*, 
 					{
 						styleClass: 's12 m12 l6',
 						widgets: [{
@@ -757,7 +769,8 @@ angular.module('ngmReportHub')
 								request: $scope.dashboard.getRequest({ indicator: 'total_donors_4wdashboard_projectplan' })
 							}
 						}]
-					} ];
+					}*/
+					 ];
 
 					
 
@@ -836,30 +849,55 @@ angular.module('ngmReportHub')
 								}]
 							}]
 						},{
-							columns: [{
-								styleClass: 's12 m6',
+							columns: [
+							{
+								styleClass: 's12 m4',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: $filter('translate')('organizations'),
-										request: $scope.dashboard.getRequest( { indicator: 'organizations_4wdashboard_projectplan' } )
+										title: $filter('translate')('total_projects'),
+										request: $scope.dashboard.getRequest( { indicator: 'projects_4wdashboard_projectplan' } )
 									}
 								}]
 							},
 							{
-								styleClass: 's12 m6',
+								styleClass: 's12 m4',
 								widgets: [{
 									type: 'stats',
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: $filter('translate')('projects_mayus1'),
-										request: $scope.dashboard.getRequest( { indicator: 'projects_4wdashboard_projectplan' } )
+										title: $filter('translate')('total_beneficiaries_population'),
+										request: $scope.dashboard.getRequest( { indicator: 'total_beneficiariespopulation_4wdashboard_projectplan' } )
 									}
 								}]
-							}
+							},
+							{
+								styleClass: 's12 m4',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: $filter('translate')('total_financing')+' US$',
+										request: $scope.dashboard.getRequest( { indicator: 'total_financing_4wdashboard_projectplan' } )
+									}
+								}]
+							}/*,
+							{
+								styleClass: 's12 m4',
+								widgets: [{
+									type: 'stats',
+									style: 'text-align: center;',
+									card: 'card-panel stats-card white grey-text text-darken-2',
+									config: {
+										title: $filter('translate')('executing_organizations'),
+										request: $scope.dashboard.getRequest( { indicator: 'organizations_4wdashboard_projectplan' } )
+									}
+								}]
+							}*/
 							]
 						},{
 							columns: $scope.dashboard.beneficiaries_row

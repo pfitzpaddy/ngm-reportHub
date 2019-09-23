@@ -243,6 +243,8 @@
         "hrp_project_code":"HRP Project Code",
         "activity_type":"Activity Type",
         "other_implementing_partners":"Implementing Partners",
+         "implementing_organizations":"Implementing Organizations",
+
         "other_activities_in_addition_to":"Other activities in addition to",
         "cash_intended_for_even_if_unrestricted":"Cash intended for (even if unrestricted)",
         "component_response":"Response Component",
@@ -529,6 +531,7 @@
 
 
         "organizations":"Organizations",
+        "executing_organizations":"Executing Organizations",
         "documents":"Documents",
         "download_all_document_project":"Download all document project",
         "file_uploaded":"File Uploaded!",
@@ -537,6 +540,10 @@
         "uploaded_by":"Uploaded by",
         "uploaded":"Upluaded",
         "total_projects":"Total Projects",
+         "total_beneficiaries_population":"Total Population Beneficiaries",
+         "total_financing":"Total Financing",
+
+
         "warehouses_total":"Warehouses",
         "lastest_report_update":"Lastest Report Update",
         "lastest_project_plan_update":"Lastest Project Plan Update",
