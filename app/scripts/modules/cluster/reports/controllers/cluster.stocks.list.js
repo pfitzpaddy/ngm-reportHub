@@ -16,6 +16,8 @@ angular.module('ngmReportHub')
 		// org id
 		var organization_id =
 				$route.current.params.organization_id ? $route.current.params.organization_id : ngmUser.get().organization_id;
+		// year
+		var year = $route.current.params.year ? $route.current.params.year : moment().year();
 
 		// init empty model
 		$scope.model = $scope.$parent.ngm.dashboard.model;
@@ -44,12 +46,32 @@ angular.module('ngmReportHub')
 					}
 				}
 			},
-
+			setYearMenu: function () {
+				startYear = moment($scope.report.organization.createdAt).year();
+				var yearRow = [];
+				url = $route.current.params.organization_id ? '#/cluster/stocks/organization/' + $route.current.params.organization_id+'/':'#/cluster/stocks/'
+				for (year = startYear; year <= moment().year(); year++) {
+					year_obj = {
+						'title': year,
+						'param': 'year',
+						'active': year,
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': url + year
+					}
+					yearRow.push(year_obj)
+				}
+				$scope.model.menu.push({
+					'id': 'search-sector',
+					'icon': 'date_range',
+					'title': 'Year',
+					'class': 'teal lighten-1 white-text',
+					'rows':yearRow})
+			},
 			// set project details
 			init: function(){
 
 				// title
-				$scope.report.title = $scope.report.organization.organization + ' | ' + $scope.report.organization.admin0name.toUpperCase().substring(0, 3) + ' | Stocks';
+				$scope.report.title = $scope.report.organization.organization + ' | ' + $scope.report.organization.admin0name.toUpperCase().substring(0, 3) + ' | Stocks' + ' | ' + year;
 
 				// report dashboard model
 				$scope.model = {
@@ -66,9 +88,10 @@ angular.module('ngmReportHub')
 						},
 						subtitle: {
 							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
-							'title': $filter('translate')('stock_reports_for')+ ' ' + $scope.report.organization.organization  + ', ' + $scope.report.organization.admin0name
+							'title': $filter('translate')('stock_reports_for')+ ' ' + $scope.report.organization.organization  + ', ' + $scope.report.organization.admin0name+ ' '+year
 						}
 					},
+					menu: [],
 					rows: [{
 						columns: [{
 							styleClass: 's12 m12 l12',
@@ -104,7 +127,8 @@ angular.module('ngmReportHub')
 											filter: {
 												organization_id: $scope.report.organization.id,
 												report_active: true,
-												report_status: 'todo'
+												report_status: 'todo',
+												report_year: parseInt(year)
 											}
 										}
 									}
@@ -134,7 +158,8 @@ angular.module('ngmReportHub')
 											filter: {
 												organization_id: $scope.report.organization.id,
 												report_active: true,
-												report_status: 'complete'
+												report_status: 'complete',
+												report_year: parseInt(year)
 											}
 										}
 									}
@@ -173,7 +198,7 @@ angular.module('ngmReportHub')
 
 				// set page
 				$scope.report.init();
-
+				$scope.report.setYearMenu();
 			});
 
 	}]);
