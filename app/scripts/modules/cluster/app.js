@@ -130,21 +130,54 @@ angular
 				}
 			})
 			// stock reports
-			.when( '/cluster/stocks', {
+			// .when( '/cluster/stocks', {
+			// 	templateUrl: '/views/app/dashboard.html',
+			// 	controller: 'ClusterOrganizationStocksListCtrl',
+			// 	resolve: {
+			// 		access: [ 'ngmAuth', function(ngmAuth) { 
+			// 			return ngmAuth.isAuthenticated();
+			// 		}],
+			// 	}
+			// })
+			.when('/cluster/stocks', {
+				redirectTo: '/cluster/stocks/' + moment().format('YYYY')
+			})
+			.when('/cluster/stocks/:year', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterOrganizationStocksListCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function(ngmAuth) { 
+					access: ['ngmAuth', function (ngmAuth) {
 						return ngmAuth.isAuthenticated();
 					}],
 				}
 			})
 			// stock reports list by organization
-			.when( '/cluster/stocks/:organization_id', {
+			// .when( '/cluster/stocks/:organization_id', {
+			// 	templateUrl: '/views/app/dashboard.html',
+			// 	controller: 'ClusterOrganizationStocksListCtrl',
+			// 	resolve: {
+			// 		access: [ 'ngmAuth', function( ngmAuth ) {
+			// 			return ngmAuth.isAuthenticated();     
+			// 		}],
+			// 	}
+			// })
+			.when('/cluster/stocks/organization/:organization_id', {
+				redirectTo: '/cluster/stocks/organization/:organization_id/' + moment().format('YYYY')
+			})
+			// .when('/cluster/stocks/:organization_id/:year', {
+			// 	templateUrl: '/views/app/dashboard.html',
+			// 	controller: 'ClusterOrganizationStocksListCtrl',
+			// 	resolve: {
+			// 		access: ['ngmAuth', function (ngmAuth) {
+			// 			return ngmAuth.isAuthenticated();
+			// 		}],
+			// 	}
+			// })
+			.when('/cluster/stocks/organization/:organization_id/:year', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterOrganizationStocksListCtrl',
 				resolve: {
-					access: [ 'ngmAuth', function( ngmAuth ) {
+					access: ['ngmAuth', function (ngmAuth) {
 						return ngmAuth.isAuthenticated();
 					}],
 				}
