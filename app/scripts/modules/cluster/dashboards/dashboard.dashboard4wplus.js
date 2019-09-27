@@ -64,7 +64,9 @@ angular.module('ngmReportHub')
 					clusters: ngmClusterLists.getClusters( $route.current.params.admin0pcode ).filter(cluster=>cluster.filter!==false),
 					admin1: ngmLists.getObject( 'lists' ) ? ngmLists.getObject( 'lists' ).admin1List : [],
 					admin2: ngmLists.getObject( 'lists' ) ? ngmLists.getObject( 'lists' ).admin2List : [],
-					admin3: ngmLists.getObject( 'lists' ) ? ngmLists.getObject( 'lists' ).admin3List : []
+					admin3: ngmLists.getObject( 'lists' ) ? ngmLists.getObject( 'lists' ).admin3List : [],
+					//call to function in ngmClusterLists that return exchange rate from EURO to USD
+                    exchangeratescurrenciesCOL: ngmClusterLists.getExchangeRatesCurrenciesCOL()
 				},
 
 
@@ -195,7 +197,12 @@ angular.module('ngmReportHub')
 
 							//beneficiaries: $scope.dashboard.beneficiaries,
 							start_date: $scope.dashboard.startDate,
-							end_date: $scope.dashboard.endDate
+							end_date: $scope.dashboard.endDate,
+							
+							//exchange rate from COP to USD
+							cop: 3200,
+							//exchange rate from EUR to USD
+							eur: $scope.dashboard.eurotousd
 						}
 					}
 					
@@ -1109,9 +1116,12 @@ angular.module('ngmReportHub')
 					// report name
 					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
 
+					//set eurotousd with the value of rate from EURO to USD
+                    $scope.dashboard.eurotousd = $scope.dashboard.lists. exchangeratescurrenciesCOL[0];
+
 					// filename cluster needs to be mpc for cvwg
 					// TODO refactor/update cvwg
-					$scope.dashboard.cluster_id_filename = $scope.dashboard.cluster_id !== 'cvwg' ? $scope.dashboard.cluster_id : 'mpc'
+					$scope.dashboard.cluster_id_filename = $scope.dashboard.cluster_id !== 'cvwg' ? $scope.dashboard.cluster_id : 'mpc';
 
 					/*if ($route.current.params.activity_type_id!=='all'){
 						$scope.dashboard.activity_filename = $route.current.params.activity_type_id + '_';
