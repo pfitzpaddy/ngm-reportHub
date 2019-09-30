@@ -166,9 +166,10 @@
        "download_dashboard_as_pdf":"Download Dashboard as PDF",
        "download_cluster_contact_list_as_csv":"Download Cluster Contact List as CSV",
        "for":"for",
-       "4W":"Projects Dashboard",
-       "4WDASHBOARD":"PROJECTS DASHBOARD", 
-              "5wdashboard":"5W Dashboard",
+       "4W":"PROJECTS DASHBOARD",
+       "4WDASHBOARD":"PROJECTS DASHBOARD",
+       "activities_dashboard":"ACTIVITIES DASHBOARD", 
+              "5wdashboard":"5W DASHBOARD",
               "5W":"5W",
               "5WDASHBOARD_mayus":"5W DASHBOARD",
 
