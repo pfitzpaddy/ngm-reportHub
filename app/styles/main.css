@@ -13,6 +13,7 @@
 /* MAIN */
 header, main, footer {
   padding-left: 280px;
+	transition: .15s ease-in-out;
 }
 @media only screen and (max-width : 992px) {
   header, main, footer {
@@ -85,6 +86,13 @@ h1, h2, h3, h4, h5, p {
   position: fixed;
   bottom: 0;
   left:0px;
+}
+.ngm-menu-footer-left {
+	width: 280px;
+  position: fixed;
+  bottom: 0;
+	left:0px;
+	transition: .30s ease-in-out;
 }
 .ngm-menu-footer-body {
 	color:white;
