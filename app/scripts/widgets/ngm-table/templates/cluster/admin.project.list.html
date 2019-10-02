@@ -65,7 +65,7 @@
                   <!-- DIFFERENT ORG -->
                   <div ng-if="table.user.organization_id !== row.organization_id">
 
-                    <a href="#/cluster/stocks/{{ row.organization_id }}"
+                    <a href="#/cluster/stocks/organization/{{ row.organization_id }}"
                       title="{{'goto_organization_stocks_list'|translate}}"
                       ng-if="!row.project_title"
                       target="_blank">

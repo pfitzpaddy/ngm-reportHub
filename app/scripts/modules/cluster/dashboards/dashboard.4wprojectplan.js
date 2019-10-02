@@ -66,7 +66,7 @@ angular.module('ngmReportHub')
 					admin2: ngmLists.getObject( 'lists' ) ? ngmLists.getObject( 'lists' ).admin2List : [],
 					admin3: ngmLists.getObject( 'lists' ) ? ngmLists.getObject( 'lists' ).admin3List : [],
 					//call to function in ngmClusterLists that return exchange rate from EURO to USD
-					exchangeratescurrenciesCOL: ngmClusterLists.getExchangeRatesCurrenciesCOL(),
+					//exchangeratescurrenciesCOL: ngmClusterLists.getExchangeRatesCurrenciesCOL(),
 				},
 
 				// filtered data
@@ -119,7 +119,7 @@ angular.module('ngmReportHub')
 				}],
 
 				// admin
-				getPath: function( cluster_id, organization_tag, admin1pcode, admin2pcode ){
+				getPath: function( cluster_id, organization_tag, admin1pcode, admin2pcode, startDate, endDate ){
 
 					if ( cluster_id !== 'rnr_chapter' ) {
 						var path = '/cluster/4wprojectplan/' + $scope.dashboard.adminRpcode +
@@ -129,8 +129,8 @@ angular.module('ngmReportHub')
 																	'/' + cluster_id +
 																	'/' + organization_tag +
 																//	'/' + $scope.dashboard.beneficiaries.join('+') +
-																	'/' + $scope.dashboard.startDate +
-																	'/' + $scope.dashboard.endDate;
+																	'/' + startDate +
+																	'/' + endDate;
 					} else {
 						var path = '/cluster/4wprojectplan/' + $scope.dashboard.adminRpcode +
 																	'/' + $scope.dashboard.admin0pcode +
@@ -139,7 +139,7 @@ angular.module('ngmReportHub')
 																	'/' + cluster_id +
 																	'/' + organization_tag +
 																	'/returnee_undocumented+returnee_documented+refugee_pakistani' +																	
-																	'/' + $scope.dashboard.startDate +
+																	'/' + $scope.dashboard.startDate+
 																	'/' + $scope.dashboard.endDate;
 					}
 
@@ -150,7 +150,7 @@ angular.module('ngmReportHub')
 				setUrl: function(){
 
 					// get url
-					var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+					var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
 
 					// if current location is not equal to path
 					if ( path !== $location.$$path ) {
@@ -397,6 +397,7 @@ angular.module('ngmReportHub')
 							clusterRows = [], 
 							provinceRows = [],
 							districtRows = [],
+							yearRows = [],
 						//	request = $scope.dashboard.getRequest( { list: true, indicator: 'organizations' } );
 						request = $scope.dashboard.getRequest( { list: true, indicator: 'organizations_4wdashboard_projectplan' } );
 
@@ -520,6 +521,68 @@ angular.module('ngmReportHub')
 					       }else{
                       }
 
+
+                      //years
+						yearsList = [
+						{'year_id':'2010','year_name':'2010'},
+						{'year_id':'2011','year_name':'2011'},
+						{'year_id':'2012','year_name':'2012'},
+						{'year_id':'2013','year_name':'2013'},
+						{'year_id':'2014','year_name':'2014'},
+						{'year_id':'2015','year_name':'2015'},
+						{'year_id':'2016','year_name':'2016'},
+						{'year_id':'2017','year_name':'2017'},
+						{'year_id':'2018','year_name':'2018'},
+						{'year_id':'2019','year_name':'2019'},
+						{'year_id':'2020','year_name':'2020'},
+						{'year_id':'2021','year_name':'2021'},
+						{'year_id':'2022','year_name':'2022'},
+						{'year_id':'2023','year_name':'2023'},
+						{'year_id':'2024','year_name':'2024'},
+						{'year_id':'2025','year_name':'2025'},
+						{'year_id':'2026','year_name':'2026'},
+						{'year_id':'2027','year_name':'2027'},
+						{'year_id':'2028','year_name':'2028'},
+						{'year_id':'2029','year_name':'2029'},
+						{'year_id':'2030','year_name':'2030'}];
+
+						angular.forEach( yearsList, function(d,i){
+
+							//startDate = moment( d.year_id+'-01-01' ) .format( 'YYYY-MM-DD' );
+							startDate = moment(new Date(d.year_id+'-01-01')).format('YYYY-MM-DD')
+
+							endDate = moment( d.year_id+'-12-31' ) .format( 'YYYY-MM-DD' );
+							console.log("START: ", startDate);
+							console.log("END: ",endDate);
+
+							var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, startDate, endDate );
+
+
+		                     //nuevo path
+							//var path = $scope.dashboard.getPath($scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, $scope.dashboard.project_type_component, $scope.dashboard.hrpplan, $scope.dashboard.implementer_tag, $scope.dashboard.donor_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, startDate, endDate);
+
+
+							yearRows.push({
+								'title':d.year_name,
+								'param':'year_id',
+								'active':d.year_id,
+								'class':'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#' + path,
+							
+							});
+
+						});
+
+						$scope.model.menu.push({
+							'search': true,
+							'id': 'search-cluster-year',
+							'icon': 'date_range',
+							'title': $filter('translate')('year'),
+							'class': 'teal lighten-1 white-text',
+							'rows': yearRows
+						});
+
+
 						// set organization
 						if ( $scope.dashboard.organization_tag !== 'all' ) {
 							var org = $filter( 'filter' )( organizations, { organization_tag: $scope.dashboard.organization_tag } );
@@ -533,7 +596,7 @@ angular.module('ngmReportHub')
 						// clusters
 						$scope.dashboard.lists.clusters.unshift({ cluster_id: 'all', cluster: 'ALL' });
 						angular.forEach( $scope.dashboard.lists.clusters, function(d,i){
-							var path = $scope.dashboard.getPath( d.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+							var path = $scope.dashboard.getPath( d.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
 							clusterRows.push({
 								'title': d.cluster,
 								'param': 'cluster_id',
@@ -558,7 +621,7 @@ angular.module('ngmReportHub')
 						// organizations
 						organizations.forEach(function( d, i ){
 							if ( d ) {
-								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, d.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, d.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
 								orgRows.push({
 									'title': d.organization,
 									'param': 'organization_tag',
@@ -625,7 +688,7 @@ angular.module('ngmReportHub')
 								admin2name: $filter('translate')('all_mayus'),
 							});
 							angular.forEach( admin2List, function(d,i){
-								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id,  $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, d.admin2pcode );
+								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id,  $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, d.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
 								districtRows.push({
 									'title': d.admin2name,
 									'param': 'admin2pcode',
@@ -775,8 +838,9 @@ angular.module('ngmReportHub')
 
 					
 					//set eurotousd with the value of rate from EURO to USD
-					$scope.dashboard.eurotousd = $scope.dashboard.lists.exchangeratescurrenciesCOL[0];
-				
+					//$scope.dashboard.eurotousd = $scope.dashboard.lists.exchangeratescurrenciesCOL[0];
+					$scope.dashboard.eurotousd = 1.0925;
+
                 
 
 					// plus dashboard_visits
@@ -883,7 +947,7 @@ angular.module('ngmReportHub')
 										if ( date !== $scope.dashboard.startDate ) {
 											// set new date
 											$scope.dashboard.startDate = date;
-											var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+											var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
 											$location.path( path );
 										}
 									}
@@ -899,7 +963,7 @@ angular.module('ngmReportHub')
 										if ( date !== $scope.dashboard.endDate ) {
 											// set new date
 											$scope.dashboard.endDate = date;
-											var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id,  $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode );
+											var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id,  $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
 											$location.path( path );
 										}
 									}

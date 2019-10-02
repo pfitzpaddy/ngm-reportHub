@@ -83,14 +83,22 @@
 			<div class="ngm-menu z-depth-1 hide-on-med-and-down">
 				
 				<!-- profile menu -->
-				<div class="ngm-brand z-depth-1">
+				<!-- <div class="ngm-brand z-depth-1"> -->
+				<div class="ngm-brand">
+					<!-- <div style="background: {{ ngm.style.darkPrimaryColor }}; height:20px;"></div>
+					<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:140px;"> -->
 					
-					<div style="background: {{ ngm.style.darkPrimaryColor }}; height:20px;"></div>
+					<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:20px;"></div>
 					<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:140px;">
 		
 						<!-- logo -->
 						<!-- add logic here for homepage -->
-						<div class="right">
+						<!-- <div class="right">
+							<a href="{{ ngm.style.home }}" title="HOME">
+								<img class="ngm-logo" ng-src="images/{{ ngm.style.logo }}" height="97" align="right"></img>
+							</a>
+						</div> -->
+						<div ng-class="{'right':ngm.openMinimize,'left':!ngm.openMinimize}">
 							<a href="{{ ngm.style.home }}" title="HOME">
 								<img class="ngm-logo" ng-src="images/{{ ngm.style.logo }}" height="97" align="right"></img>
 							</a>
@@ -99,7 +107,8 @@
 						<!-- profile menu -->
 						<!-- profile menu btn (implementing jQuery slideToggle() )-->
 						<div class="ngm-profile-menu">
-							<div class="ngm-profile-btn fixed-action-btn" align="right">
+							<div class="ngm-profile-btn-rightoff fixed-action-btn" align="left">
+							<!-- <div class="ngm-profile-btn fixed-action-btn" align="right"> -->
 								<!-- <a class="btn-floating btn-large"
 										ng-class="{ 'waves-effect waves-teal waves-teal-lighten-4' : ngm.getUserName() !== 'welcome' }"
 										style="background: {{ ngm.style.defaultPrimaryColor }};">
@@ -107,14 +116,32 @@
 								</a> -->
 								<a class="btn-floating btn-large" ng-class="{ 'waves-effect waves-teal waves-teal-lighten-4' : ngm.getUserName() !== 'welcome' }"
 								 style="background: {{ ngm.style.defaultPrimaryColor }};">
-									<div id="xmenu" class="ngm-profile-icon">
+									<!-- <div id="xmenu" class="ngm-profile-icon">
 										<span></span>
 										<span></span>
 										<span></span>
-									</div>
+									</div> -->
+									<i class="ngm-profile-icon material-icons smedium right" style="line-height: 56px">keyboard_arrow_down</i>
 								</a>
 							</div>
+							<!-- FOR minimize -->
+							<div class="ngm-minimize-flat fixed-action-btn " style="padding-top: 8px" align="right" ng-class="{'change-position':ngm.openMinimize}">
+								
+								<a class="btn-floating btn-large btn-flat"
+								 style="background-color: {{ ngm.style.defaultPrimaryColor }};" ng-click="ngm.minimizeToggle()">
+									<!-- <div id="xmenu" class="minimize-menu">
+										<span></span>
+										<span></span>
+										<span></span>
+									</div> -->
+									<i class="minimize-menu material-icons right">menu</i>
+								</a>
+								<!-- <div class="textMenu"style="color: #fff !important;font-size: 12px;padding-right: 10px"> 
+									{{ngm.openMinimize ? 'CLOSE':'MENU'}} 
+								</div> -->
+							</div>
 							<!-- profile menu dropdown -->
+							<!-- <a class="ngm-profile white-text right" -->
 							<a class="ngm-profile white-text right"
 								ng-onclick="ngm.setNavMenu()">
 								{{ ngm.getUserName() }}
@@ -485,7 +512,7 @@
 		  		data-collapsible="expandable"
 		  		ng-show="ngm.dashboard.model.menu" ng-cloak>
 
-			  	<li ng-show="ngm.dashboard.model.menu" id="li-{{ list.id }}" ng-repeat="list in ngm.dashboard.model.menu" ng-cloak>
+			  	<li ng-show="ngm.dashboard.model.menu" id="li-{{ list.id }}" ng-repeat="list in ngm.dashboard.model.menu" ng-cloak ng-class="{'change-margin':!ngm.openMinimize}">
 			  		<div id="{{ list.id }}" class="collapsible-header {{ list.class }}" ng-click="ngm.toggleSearch(list.id)" ng-cloak>
 			  			<i class="material-icons" ng-cloak>{{ list.icon }}</i>{{ list.title }}
 			  		</div>
@@ -530,16 +557,20 @@
 			</div>
 
 			<!-- make footer visible when menu visibile  -->
-			<div class="ngm-menu-footer hide-on-med-and-down">
+			<!-- <div class="ngm-menu-footer hide-on-med-and-down">
 				<div style="background: {{ ngm.style.lightPrimaryColor }}; height:20px;"></div>
+				<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:40px;"></div>
+			</div> -->
+			<div class="ngm-menu-footer-left hide-on-med-and-down">
+				<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:20px;"></div>
 				<div style="background: {{ ngm.style.defaultPrimaryColor }}; height:40px;"></div>
 			</div>
 
 		</header>
 
-		<main id="ngm-report">
+		<main id="ngm-report" ng-class="{'minim':!ngm.openMinimize}">
 			<div class="container">
-				<div id="print" class="row row-centered"  style="height:100%">
+				<div id="print" class="expand row row-centered"  style="height:100%">
 					
 					<div ng-view autoscroll="false"></div>
 					
