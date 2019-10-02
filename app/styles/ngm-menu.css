@@ -222,9 +222,9 @@ i.smedium {
 	padding-left: 0 !important ;
 	transition: .15s ease-in-out;
 }
-.minim > .container{
+/* .minim > .container{
 	margin: 0 10%;
-}
+} */
 .minim > .container > .expand.row{
-	width: 125%;
+	width: 105%;
 }
