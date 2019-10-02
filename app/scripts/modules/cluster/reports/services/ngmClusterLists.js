@@ -7204,7 +7204,7 @@ angular.module( 'ngmReportHub' )
             site_type_id: 'cyclone_shelter',
             site_type_name: 'Cyclone Shelter'
           },{
-            cluster_id: [ 'fss' ],
+            cluster_id: [ 'smsd' ],
             site_type_id: 'plantation',
             site_type_name: 'Plantation'
           },{
