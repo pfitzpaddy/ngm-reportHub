@@ -483,7 +483,7 @@ angular
 			},
 			openHome:false,
 			openDashboard:false,
-			openMinimize:false,
+			openMinimize:true,
 			minimizeToggle:function () {
 				$scope.ngm.openMinimize = ! $scope.ngm.openMinimize;
 				$('.minimize-menu').toggleClass('open');
@@ -497,10 +497,14 @@ angular
 				$('.ngm-menu').toggleClass('shrink');
 				$('.ngm-menu-footer-left').toggleClass('shrink');
 				if ($scope.ngm.openMinimize){
-					$('g[class*="highcharts-series"]').css('transform', 'translate(-25px, 0)');
-					
+					// $('g[class*="highcharts-series"]').css('transform', 'translate(-25px, 0)');
+					$('g[class*="highcharts-series-group"]').css('transform', 'translate(0, 0)');
 				}else{
-					$('g[class*="highcharts-series"]').css('transform', 'translate(0, 0)');
+					// $('g[class*="highcharts-series"]').css('transform', 'translate(0, 0)');
+					$('g[class*="highcharts-series-group"]').css('transform', 'translate(50px, 0)');
+					if(screen.width > 1440){
+						$('g[class*="highcharts-series-group"]').css('transform', 'translate(1.5%, 0)');
+					}
 					// close menu dropdown
 					if($('.ngm-profile-icon').hasClass('rotate-icon')){
 						$('.ngm-profile-menu-content').slideToggle();
