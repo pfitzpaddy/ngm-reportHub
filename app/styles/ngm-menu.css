@@ -70,7 +70,7 @@ background-color: #2196f3;
 	transition: .30s ease-in-out;
 }
 .change-position{
-	right: 23px;
+	right: 202px;
 	transition: .30s ease-in-out;
 }
 .change-margin{
@@ -80,9 +80,12 @@ background-color: #2196f3;
 	height: 68px;
 	position:absolute; 
 	top:95px;
-	/* right: 50px; */
-	left: 23px;
 	z-index:9991;
+	visibility: visible;
+}
+.hide-position {
+	visibility: hidden;
+	transition: visibility 0.2s, ease-in-out;
 }
 .ngm-profile-icon {
 	-moz-transition: all 0.2s linear;
