@@ -72,7 +72,7 @@ angular.module('ngmReportHub')
 				// filtered data
 				data: {
 					cluster: false,
-					admin1: false,
+					admin1: false, 
 					admin2: false,
 					admin3: false
 				},
@@ -119,7 +119,7 @@ angular.module('ngmReportHub')
 				}],
 
 				// admin
-				getPath: function( cluster_id, organization_tag, admin1pcode, admin2pcode, startDate, endDate ){
+				getPath: function( cluster_id, organization_tag, donor, admin1pcode, admin2pcode, startDate, endDate ){
 
 					if ( cluster_id !== 'rnr_chapter' ) {
 						var path = '/cluster/4wprojectplan/' + $scope.dashboard.adminRpcode +
@@ -128,6 +128,7 @@ angular.module('ngmReportHub')
 																	'/' + admin2pcode +
 																	'/' + cluster_id +
 																	'/' + organization_tag +
+																	'/' + donor +
 																//	'/' + $scope.dashboard.beneficiaries.join('+') +
 																	'/' + startDate +
 																	'/' + endDate;
@@ -150,7 +151,8 @@ angular.module('ngmReportHub')
 				setUrl: function(){
 
 					// get url
-					var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
+					console.log("DONOR TAG: ",$scope.dashboard.donor_tag);
+					var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.donor_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
 
 					// if current location is not equal to path
 					if ( path !== $location.$$path ) {
@@ -161,6 +163,7 @@ angular.module('ngmReportHub')
 
 				//
 				getRequest: function( obj ){
+					console.log("LO QUE ENVIARE: ",$scope.dashboard);
 					var request = {
 						method: 'POST',
 						url: ngmAuth.LOCATION + '/api/cluster/indicator4wprojectplan',
@@ -171,6 +174,7 @@ angular.module('ngmReportHub')
 							admin2pcode: $scope.dashboard.admin2pcode,
 							cluster_id: $scope.dashboard.cluster_id,
 							organization_tag: $scope.dashboard.organization_tag,
+							donor_tag: $scope.dashboard.donor_tag,
 							//beneficiaries: $scope.dashboard.beneficiaries,
 							start_date: $scope.dashboard.startDate,
 							end_date: $scope.dashboard.endDate,
@@ -398,6 +402,7 @@ angular.module('ngmReportHub')
 							provinceRows = [],
 							districtRows = [],
 							yearRows = [],
+							donorsRows = [],
 						//	request = $scope.dashboard.getRequest( { list: true, indicator: 'organizations' } );
 						request = $scope.dashboard.getRequest( { list: true, indicator: 'organizations_4wdashboard_projectplan' } );
 
@@ -555,7 +560,7 @@ angular.module('ngmReportHub')
 							console.log("START: ", startDate);
 							console.log("END: ",endDate);
 
-							var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, startDate, endDate );
+							var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.donor_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, startDate, endDate );
 
 
 		                     //nuevo path
@@ -596,7 +601,7 @@ angular.module('ngmReportHub')
 						// clusters
 						$scope.dashboard.lists.clusters.unshift({ cluster_id: 'all', cluster: 'ALL' });
 						angular.forEach( $scope.dashboard.lists.clusters, function(d,i){
-							var path = $scope.dashboard.getPath( d.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
+							var path = $scope.dashboard.getPath( d.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.donor_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
 							clusterRows.push({
 								'title': d.cluster,
 								'param': 'cluster_id',
@@ -621,7 +626,7 @@ angular.module('ngmReportHub')
 						// organizations
 						organizations.forEach(function( d, i ){
 							if ( d ) {
-								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, d.organization_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
+								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, d.organization_tag, $scope.dashboard.donor_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
 								orgRows.push({
 									'title': d.organization,
 									'param': 'organization_tag',
@@ -645,6 +650,61 @@ angular.module('ngmReportHub')
 							});
 
 					    }
+
+					    //DONORS
+
+					    donorsProject = $scope.dashboard.getRequest({list:true, indicator:'project_donors'});
+					    console.log("DONORS: ",donorsProject);
+
+					    ngmData.get(donorsProject).then(function(donors){
+
+					    	donors.data.unshift({
+					    		project_donor_id :'all',
+					    		project_donor_name: $filter('translate')('all_mayus'),
+					    	});
+
+					    	angular.forEach(donors.data,function(d,i){
+					    		if(d){
+
+					    		var path = $scope.dashboard.getPath($scope.dashboard.cluster_id, $scope.dashboard.organization_tag,  d.project_donor_id, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate);
+					   		 donorsRows.push({
+					   				'title':d.project_donor_name,
+					   				'param':'project_donor_id',
+					   				'active':d.project_donor_id,
+					   				'class':'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+					   				'href':'/desk/#'+path
+
+					    	});
+					   	    }
+
+					    });
+					    		//console.log("DONORS ROWS: ",donorsRows);
+
+
+					   		$scope.model.menu.push({ 
+								'search': true,
+								'id': 'search-cluster-donorsproject',
+								'icon': 'attach_money',
+								'title': $filter('translate')('donor'),
+								'class': 'teal lighten-1 white-text',
+								'rows': donorsRows
+							});
+						//	console.log("MENU: ",$scope.model.menu);
+
+					   	if ( $scope.dashboard.donor_tag !== 'all' ) {
+							var donor_tag = $filter( 'filter' )( donors.data, { project_donor_id: $scope.dashboard.donor_tag } );
+							if ( donor_tag.length ) {
+								$scope.dashboard.donor_tag = donor_tag[0].project_donor_id;
+							
+							}
+						}
+					});
+
+
+
+
+
+
 						// if country selected
 						if ( $scope.dashboard.admin0pcode !== 'all' ) {
 
@@ -656,7 +716,7 @@ angular.module('ngmReportHub')
 								admin1name: $filter('translate')('all_mayus'),
 							});
 							angular.forEach( admin1List, function(d,i){
-								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, d.admin1pcode, 'all' );
+								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.organization_tag, $scope.dashboard.donor_tag, d.admin1pcode, 'all' );
 								provinceRows.push({
 									'title': d.inactive ? d.admin1name + ' (Old)' : d.admin1name,
 									'param': 'admin1pcode',
@@ -688,7 +748,7 @@ angular.module('ngmReportHub')
 								admin2name: $filter('translate')('all_mayus'),
 							});
 							angular.forEach( admin2List, function(d,i){
-								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id,  $scope.dashboard.organization_tag, $scope.dashboard.admin1pcode, d.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
+								var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id,  $scope.dashboard.organization_tag, $scope.dashboard.donor_tag, $scope.dashboard.admin1pcode, d.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
 								districtRows.push({
 									'title': d.admin2name,
 									'param': 'admin2pcode',
@@ -832,6 +892,7 @@ angular.module('ngmReportHub')
 					$scope.dashboard.admin2pcode = $route.current.params.admin2pcode;
 					$scope.dashboard.cluster_id = $route.current.params.cluster_id;
 					$scope.dashboard.organization_tag = $route.current.params.organization_tag;
+					$scope.dashboard.donor_tag = $route.current.params.donor_tag;
 				//	$scope.dashboard.beneficiaries = $route.current.params.beneficiaries.split('+');
 				//	$scope.dashboard.activity_type_id = $route.current.params.activity_type_id;
 
