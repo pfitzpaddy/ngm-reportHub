@@ -269,6 +269,28 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						$('#search_').focus();
 						$scope.search_input = $scope.search_input ? false : true;;
 					}
+
+					if ( $scope.project.definition.plan_component ) {
+						$scope.project.definition.hrp_plan = $scope.project.definition.plan_component.includes('hrp_plan');
+						$scope.project.definition.rmrp_plan = $scope.project.definition.plan_component.includes('rmrp_plan');
+						$scope.project.definition.interagencial_plan = $scope.project.definition.plan_component.includes('interagencial_plan');
+
+					 $scope.project.definition.humanitarian_component = $scope.project.definition.plan_component.includes('humanitarian_component');
+					$scope.project.definition.construccion_de_paz_component = $scope.project.definition.plan_component.includes('construccion_de_paz_component');
+					$scope.project.definition.desarrollo_sostenible_component = $scope.project.definition.plan_component.includes('desarrollo_sostenible_component');
+					$scope.project.definition.flujos_migratorios_component = $scope.project.definition.plan_component.includes('flujos_migratorios_component');
+
+					}/*else{
+						$scope.project.definition.hrp_plan = false;
+						$scope.project.definition.rmrp_plan = false;
+						$scope.project.definition.interagencial_plan = false;
+
+					 $scope.project.definition.humanitarian_component = false;
+					$scope.project.definition.construccion_de_paz_component = false;
+					$scope.project.definition.desarrollo_sostenible_component = false;
+					$scope.project.definition.flujos_migratorios_component = false;
+
+					}*/
 				},
 
 				// cofirm exit if changes
@@ -758,6 +780,43 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							}
 						}
 					});
+
+					//SAVE COMPONENT-PLANS
+					
+					 $scope.project.definition.plan_component = [];
+
+					 	if ($scope.project.definition.hrp_plan == true) {
+						  $scope.project.definition.plan_component.push('hrp_plan');
+						}
+
+						if ($scope.project.definition.rmrp_plan == true) {
+						  $scope.project.definition.plan_component.push('rmrp_plan');
+						}
+
+						if ($scope.project.definition.interagencial_plan == true) {
+						  $scope.project.definition.plan_component.push('interagencial_plan');
+						}
+
+						if ($scope.project.definition.humanitarian_component == true) {
+						  $scope.project.definition.plan_component.push('humanitarian_component');
+						}
+
+						if ($scope.project.definition.construccion_de_paz_component == true) {
+						  $scope.project.definition.plan_component.push('construccion_de_paz_component');
+						}
+
+						if ($scope.project.definition.desarrollo_sostenible_component == true) {
+						  $scope.project.definition.plan_component.push('desarrollo_sostenible_component');
+						}
+
+						if ($scope.project.definition.flujos_migratorios_component == true) {
+						  $scope.project.definition.plan_component.push('flujos_migratorios_component');
+						}
+
+
+					  
+					
+
 
 					// update target_locations
 					$scope.project.definition.target_locations =
