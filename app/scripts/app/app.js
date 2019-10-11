@@ -508,7 +508,7 @@ angular
 					// close menu dropdown
 					if($('.ngm-profile-icon').hasClass('rotate-icon')){
 						$('.ngm-profile-menu-content').slideToggle();
-						$('.ngm-profile-icon').toggleClass('rotate-icon');
+						$('.ngm-profile-icon').toggleClass('rotate-icon'); 
 					}
 				}
 			}
@@ -519,7 +519,7 @@ angular
 
 	    // if($location.$$host === '4wplus.org' || $location.$$host === '192.168.33.16' ){ //'35.229.43.63'
 
-	    if($location.$$host === '4wplus.org'){ //'35.229.43.63'
+	    if($location.$$host === '4wplus.org' ){ //'35.229.43.63'
 
 			$('#title').html("4wPlus");
 

@@ -65,8 +65,7 @@ angular.module('ngmReportHub')
 					admin1: ngmLists.getObject( 'lists' ) ? ngmLists.getObject( 'lists' ).admin1List : [],
 					admin2: ngmLists.getObject( 'lists' ) ? ngmLists.getObject( 'lists' ).admin2List : [],
 					admin3: ngmLists.getObject( 'lists' ) ? ngmLists.getObject( 'lists' ).admin3List : [],
-					//call to function in ngmClusterLists that return exchange rate from EURO to USD
-                    exchangeratescurrenciesCOL: ngmClusterLists.getExchangeRatesCurrenciesCOL()
+					
 				},
 
 
@@ -847,12 +846,24 @@ angular.module('ngmReportHub')
 
 					   //Project Type component
 
-					   project_type_components_list = [
-					   {project_type_component_id:'all',project_type_component_name:$filter('translate')('all_mayus')},
-					   {project_type_component_id:'hrp_plan',project_type_component_name:'Humanitario'},
-					   {project_type_component_id:'interagencial_plan',project_type_component_name:'Paz y Desarrollo'},
-					   {project_type_component_id:'rmrp_plan',project_type_component_name:'Flujos Migratorios Mixtos'}
-					   ];
+					  if($scope.dashboard.admin0pcode === 'col'){
+
+
+					  project_type_components_list = [
+					   {project_type_component_id:'all',project_type_component_name:$filter('translate')('all_mayus')},			
+					   {project_type_component_id:'hrp_plan',project_type_component_name:'Humanitario'},							   
+					   {project_type_component_id:'interagencial_plan',project_type_component_name:'Paz y Desarrollo'},						
+					   {project_type_component_id:'rmrp_plan',project_type_component_name:'Flujos Migratorios Mixtos'}							 
+					   ];							
+
+					   }else{
+					   	project_type_components_list = [
+						   {project_type_component_id:'all',project_type_component_name:$filter('translate')('all_mayus')}
+						   ]
+
+					   }
+
+
 
 					   angular.forEach( project_type_components_list, function(d,i){
 							var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, d.project_type_component_id, $scope.dashboard.hrpplan , $scope.dashboard.implementer_tag, $scope.dashboard.donor_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
@@ -869,7 +880,7 @@ angular.module('ngmReportHub')
 								'search': false,
 								'id': 'search-cluster-projecttypecomponent',
 								'icon': 'supervisor_account',
-								'title': 'Tipo de Proyecto',
+								'title': $filter('translate')('project_type'),
 								'class': 'teal lighten-1 white-text',
 								'rows': project_type_componentRows
 							});
@@ -894,7 +905,22 @@ angular.module('ngmReportHub')
        
 
 					    //is hrp ?
-					    ishrpoptionsList = [{'option_name':$filter('translate')('all_mayus'),'option_id':'all'},{'option_name': 'Si','option_id':true},{'option_name': 'No','option_id':false}]
+					    
+						if($scope.dashboard.admin0pcode === 'col'){
+					    	 ishrpoptionsList = [
+								    {'option_name':$filter('translate')('all_mayus'),'option_id':'all'}
+								    ,{'option_name': 'Si','option_id':true},
+								    {'option_name': 'No','option_id':false}
+								    ];
+					    }else{
+
+
+					    	ishrpoptionsList = [{'option_name':$filter('translate')('all_mayus'),'option_id':'all'}];
+
+
+       					 };
+
+
 					    //console.log("FECHA INICIO EN HRP OPTIONS: ",$scope.dashboard.startDate);
 					    angular.forEach( ishrpoptionsList, function(d,i){
 							var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type_id, $scope.dashboard.organization_tag, $scope.dashboard.project_type_component, d.option_id, $scope.dashboard.implementer_tag, $scope.dashboard.donor_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
@@ -1155,10 +1181,11 @@ angular.module('ngmReportHub')
 					ngmLists.setObject( 'auth_token', $scope.dashboard.user );
 
 					// report name
-					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' );
+					$scope.dashboard.report += moment().format( 'YYYY-MM-DDTHHmm' ); 
 
 					//set eurotousd with the value of rate from EURO to USD
-                    $scope.dashboard.eurotousd = $scope.dashboard.lists. exchangeratescurrenciesCOL[0];
+					
+					//$scope.dashboard.eurotousd = 1.0983; 
 
 					// filename cluster needs to be mpc for cvwg
 					// TODO refactor/update cvwg
@@ -2082,11 +2109,27 @@ angular.module('ngmReportHub')
 			// if lists
 			if ( $scope.dashboard.lists.admin1.length ) {
 
-				// set dashboard
-				$scope.dashboard.init();
+				var requests = {
 
-				// assign to ngm app scope ( for menu )
-				$scope.dashboard.ngm.dashboard.model = $scope.model;
+					//call to back and return exchange rate from EURO to USD
+					currenciees: ngmAuth.LOCATION + '/api/cluster/exchangeRatesCurrencies'
+
+
+				};
+
+				$q.all([
+					$http.get( requests.currenciees   )]).then(function(results){
+						//exchange rate from EURO to USD
+						$scope.dashboard.eurotousd = results[0].data[0];
+
+						// set dashboard
+						$scope.dashboard.init();
+
+						// assign to ngm app scope ( for menu )
+						$scope.dashboard.ngm.dashboard.model = $scope.model;
+					});
+
+				
 
 
 
@@ -2099,17 +2142,22 @@ angular.module('ngmReportHub')
 				// lists
 				var requests = {
 					getAdmin1List: ngmAuth.LOCATION + '/api/list/getAdmin1List',
-					getAdmin2List: ngmAuth.LOCATION + '/api/list/getAdmin2List'
-				}
+					getAdmin2List: ngmAuth.LOCATION + '/api/list/getAdmin2List',
+					currenciees: ngmAuth.LOCATION + '/api/cluster/exchangeRatesCurrencies'
+					//call to back and return exchange rate from EURO to USD
 
+				}
 				// send request
 				$q.all([
 					$http.get( requests.getAdmin1List ),
-					$http.get( requests.getAdmin2List ) ]).then( function( results ) {
+					$http.get( requests.getAdmin2List ),
+					$http.get( requests.currenciees   ) ]).then( function( results ) {
 
 					// set dashboard lists
 					$scope.dashboard.lists.admin1 = results[0].data;
 					$scope.dashboard.lists.admin2 = results[1].data;
+					//exchange rate from EURO to USD
+					$scope.dashboard.eurotousd = results[2].data[0];
 
 					// set in localstorage
 					localStorage.setObject( 'lists', { admin1List: results[0].data, admin2List: results[1].data } );

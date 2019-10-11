@@ -185,13 +185,7 @@ angular.module( 'ngmReportHub' )
           getOrganizations:{
             method: 'GET',
             url: ngmAuth.LOCATION + '/api/list/organizations'
-          },
-
-          //call to function in back to return exchange rate from EURO to USD
-          getExchangeRatesCurrenciesCOL:{
-            method: 'GET',
-            url: ngmAuth.LOCATION + '/api/cluster/exchangeRatesCurrencies'
-          },
+          }
 
         }
 
@@ -210,9 +204,7 @@ angular.module( 'ngmReportHub' )
             donorsList: [],
             indicatorsList: [],
             stockItemsList: [],
-            organizationsList: [],
-             //exchange rate eur to usd
-            exchangeratescurrenciesList:[]
+            organizationsList: []
           };
 
           // storage
@@ -246,7 +238,7 @@ angular.module( 'ngmReportHub' )
             $http( requests.getIndicators ),
             $http( requests.getStockItems ),
             $http( requests.getOrganizations),
-            $http( requests.getExchangeRatesCurrenciesCOL)
+           
              ] ).then( function( results ){
 
               // admin1, admin2, activities object
@@ -262,8 +254,7 @@ angular.module( 'ngmReportHub' )
                 indicatorsList: results[8].data,
                 stockItemsList: results[9].data,
                 organizationsList: results[10].data,
-                //exchange rate eur to usd
-                exchangeratescurrenciesList: results[11].data
+            
               };
 
               // storage
@@ -809,14 +800,6 @@ angular.module( 'ngmReportHub' )
 
 
       },
-
-      //function to return exchangeratescurrenciescol called by dashboards
-      getExchangeRatesCurrenciesCOL: function(){
-
-        return ngmLists.getObject('lists').exchangeratescurrenciesList;
-        
-        },
-
 
       getProjectClasifications: function (admin0pcode){
 

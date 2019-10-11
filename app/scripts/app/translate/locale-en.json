@@ -243,6 +243,7 @@
         "hrp_project":"HRP Project",
         "hrp_project_code":"HRP Project Code",
         "activity_type":"Activity Type",
+        "project_type":"Project Type",
         "executor":"Executor",
         "implementer":"Implementer",
         "other_implementing_partners":"Implementing Partners",

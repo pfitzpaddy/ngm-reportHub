@@ -278,6 +278,7 @@
         "hrp_project":"Proyecto HRP",
         "hrp_project_code":"Código del Proyecto HRP",
         "activity_type":"Tipo de Actividad",
+        "project_type":"Tipo de Proyecto", 
         "executor":"Ejecutor",
         "implementer":"Implementador",
 
