@@ -676,7 +676,7 @@ angular.module('ngmReportHub')
 
 
 						// organization & disable if public
-						if ($scope.dashboard.menu_items.includes('organization_tag') && $scope.dashboard.user.username !== 'welcome') {
+						//if ($scope.dashboard.menu_items.includes('organization_tag') && $scope.dashboard.user.username !== 'welcome') {
 				
 							$scope.model.menu.push({
 								'search': true,
@@ -687,7 +687,7 @@ angular.module('ngmReportHub')
 								'rows': orgRows
 							});
 
-					    };
+					   // };
 
 
 					     //implementing_partners
@@ -1161,12 +1161,6 @@ angular.module('ngmReportHub')
 					$scope.dashboard.donor_tag = $route.current.params.donor_tag;
 					$scope.dashboard.activity_type = $route.current.params.activity_type;
 
-					
-					//set eurotousd with the value of rate from EURO to USD
-					//$scope.dashboard.eurotousd = $scope.dashboard.lists.exchangeratescurrenciesCOL[0];
-					$scope.dashboard.eurotousd = 1.0925;
-
-                
 
 					// plus dashboard_visits
 					$scope.dashboard.user.dashboard_visits++;
@@ -1633,11 +1627,26 @@ angular.module('ngmReportHub')
 			// if lists
 			if ( $scope.dashboard.lists.admin1.length ) {
 
-				// set dashboard
-				$scope.dashboard.init();
+				var requests = {
 
-				// assign to ngm app scope ( for menu )
-				$scope.dashboard.ngm.dashboard.model = $scope.model;
+					//call to back and return exchange rate from EURO to USD
+					currenciees: ngmAuth.LOCATION + '/api/cluster/exchangeRatesCurrenciesProjectPlanDashboard'
+
+
+				};
+
+				$q.all([
+					$http.get( requests.currenciees   )]).then(function(results){
+						//exchange rate from EURO to USD
+						$scope.dashboard.eurotousd = results[0].data[0];
+
+						// set dashboard
+						$scope.dashboard.init();
+
+						// assign to ngm app scope ( for menu )
+						$scope.dashboard.ngm.dashboard.model = $scope.model;
+					});
+
 
 			}
 
@@ -1647,17 +1656,21 @@ angular.module('ngmReportHub')
 				// lists
 				var requests = {
 					getAdmin1List: ngmAuth.LOCATION + '/api/list/getAdmin1List',
-					getAdmin2List: ngmAuth.LOCATION + '/api/list/getAdmin2List'
+					getAdmin2List: ngmAuth.LOCATION + '/api/list/getAdmin2List',
+					currenciees: ngmAuth.LOCATION + '/api/cluster/exchangeRatesCurrenciesProjectPlanDashboard'
 				}
 
 				// send request
 				$q.all([
 					$http.get( requests.getAdmin1List ),
-					$http.get( requests.getAdmin2List ) ]).then( function( results ) {
+					$http.get( requests.getAdmin2List ),
+					$http.get( requests.currenciees) ]).then( function( results ) {
 
 					// set dashboard lists
 					$scope.dashboard.lists.admin1 = results[0].data;
 					$scope.dashboard.lists.admin2 = results[1].data;
+					//exchange rate from EURO to USD
+					$scope.dashboard.eurotousd = results[2].data[0];
 
 					// set in localstorage
 					localStorage.setObject( 'lists', { admin1List: results[0].data, admin2List: results[1].data } );
@@ -1676,3 +1689,5 @@ angular.module('ngmReportHub')
 		}
 
 	]);
+
+
