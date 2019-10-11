@@ -653,7 +653,7 @@ angular.module('ngmReportHub')
 						});
 
 						// organization & disable if public
-						if ($scope.dashboard.menu_items.includes('organization_tag') && $scope.dashboard.user.username !== 'welcome') {
+						//if ($scope.dashboard.menu_items.includes('organization_tag') && $scope.dashboard.user.username !== 'welcome') {
 				
 							$scope.model.menu.push({
 								'search': true,
@@ -664,7 +664,7 @@ angular.module('ngmReportHub')
 								'rows': orgRows
 							});
 
-					    };
+					   // };
 
 					    //implementing_partners
 
