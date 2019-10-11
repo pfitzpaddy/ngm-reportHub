@@ -861,15 +861,23 @@ angular.module('ngmReportHub')
 
 
 
+    				
 
-					   //Project Type component
+					   if($scope.dashboard.admin0pcode === 'col'){
 
-					   project_type_components_list = [
-					   {project_type_component_id:'all',project_type_component_name:$filter('translate')('all_mayus')},
-					   {project_type_component_id:'hrp_plan',project_type_component_name:'Humanitario'},
-					   {project_type_component_id:'interagencial_plan',project_type_component_name:'Paz y Desarrollo'},
-					   {project_type_component_id:'rmrp_plan',project_type_component_name:'Flujos Migratorios Mixtos'}
-					   ];
+						   	project_type_components_list = [
+						   {project_type_component_id:'all',project_type_component_name:$filter('translate')('all_mayus')},
+						   {project_type_component_id:'hrp_plan',project_type_component_name:'Humanitario'},
+						   {project_type_component_id:'interagencial_plan',project_type_component_name:'Paz y Desarrollo'},
+						   {project_type_component_id:'rmrp_plan',project_type_component_name:'Flujos Migratorios Mixtos'}
+						   ];
+
+					   }else{
+					   	project_type_components_list = [
+						   {project_type_component_id:'all',project_type_component_name:$filter('translate')('all_mayus')}
+						   ]
+
+					   }
 
 					   angular.forEach( project_type_components_list, function(d,i){
 							var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type, $scope.dashboard.organization_tag, d.project_type_component_id, $scope.dashboard.hrpplan , $scope.dashboard.implementer_tag, $scope.dashboard.donor_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
@@ -886,7 +894,7 @@ angular.module('ngmReportHub')
 								'search': false,
 								'id': 'search-cluster-projecttypecomponent',
 								'icon': 'supervisor_account',
-								'title': 'Tipo de Proyecto',
+								'title': $filter('translate')('project_type'),
 								'class': 'teal lighten-1 white-text',
 								'rows': project_type_componentRows
 							});
@@ -904,13 +912,21 @@ angular.module('ngmReportHub')
 						}
 
 
-
-
-
-       
-
 					    //is hrp ?
-					    ishrpoptionsList = [{'option_name':$filter('translate')('all_mayus'),'option_id':'all'},{'option_name': 'Si','option_id':true},{'option_name': 'No','option_id':false}]
+
+					    if($scope.dashboard.admin0pcode === 'col'){
+					    	 ishrpoptionsList = [
+								    {'option_name':$filter('translate')('all_mayus'),'option_id':'all'}
+								    ,{'option_name': 'Si','option_id':true},
+								    {'option_name': 'No','option_id':false}
+								    ];
+					    }else{
+
+					    	ishrpoptionsList = [{'option_name':$filter('translate')('all_mayus'),'option_id':'all'}];
+
+					    };
+
+					   
 					    //console.log("FECHA INICIO EN HRP OPTIONS: ",$scope.dashboard.startDate);
 					    angular.forEach( ishrpoptionsList, function(d,i){
 							var path = $scope.dashboard.getPath( $scope.dashboard.cluster_id, $scope.dashboard.activity_type, $scope.dashboard.organization_tag, $scope.dashboard.project_type_component, d.option_id, $scope.dashboard.implementer_tag, $scope.dashboard.donor_tag, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate );
@@ -943,6 +959,10 @@ angular.module('ngmReportHub')
 								//$scope.dashboard.setSubtitle();
 							}
 						}
+
+				
+
+					
 
 
 
