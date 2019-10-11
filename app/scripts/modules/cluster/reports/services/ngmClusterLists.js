@@ -18,7 +18,7 @@ angular.module( 'ngmReportHub' )
 		var ngmClusterLists = {
 
       // comphrensive list of all sectors - ever
-      all_sectors: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter','wash' ],
+      all_sectors: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter','wash','child_protection' ],
       all_sectors_minus_smsd: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','nutrition','protection','rnr_chapter','wash' ],
       all_sectors_minus_health: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','smsd','nutrition','protection','rnr_chapter','wash' ],
       all_sectors_minus_health_smsd: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','nutrition','protection','rnr_chapter','wash' ],
@@ -646,6 +646,9 @@ angular.module( 'ngmReportHub' )
           },{
             cluster_id: 'wash',
             cluster: 'WASH'
+          },{
+            cluster_id: 'child_protection',
+            cluster: 'Child Protection'
           }];
         }
         else if ( admin0pcode.toLowerCase() === 'col' ) {

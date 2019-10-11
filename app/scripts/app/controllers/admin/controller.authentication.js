@@ -127,7 +127,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 						'nutrition': { cluster: 'Nutrition' },
 						'protection': { cluster: 'Protection' },
 						'rnr_chapter': { cluster: 'R&R Chapter' },
-						'wash': { cluster: 'WASH' }
+						'wash': { cluster: 'WASH' },
+						'child_protection':{ cluster: 'Child Protection' }
 					}
 				},
 				
