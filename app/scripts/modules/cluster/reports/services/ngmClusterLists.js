@@ -4060,6 +4060,10 @@ angular.module( 'ngmReportHub' )
                 "project_donor_name": "Agencia de Estados Unidos para el Desarrollo Internacional"
               },
               {
+                "project_donor_id":"agencia_de_cooperacion_internacional_de_corea_koica",
+                "project_donor_name":"Agencia de Cooperación Internacional de Corea (KOICA)"
+              },
+              {
                 "project_donor_id": "agencia_española_de_cooperación_internacional",
                 "project_donor_name": "Agencia Española de Cooperación Internacional"
               },
@@ -4188,6 +4192,10 @@ angular.module( 'ngmReportHub' )
                 "project_donor_name": "Fondation Medicor"
               },
               {
+                "project_donor_id": "fondo_de_construccion_de_paz_de_naciones_unidas_pbf",
+                "project_donor_name": "Fondo de Construcción de Paz de Naciones Unidas (PBF)"
+              },
+              {
                 "project_donor_id": "fondo_de_las_naciones_unidas_para_la_infancia",
                 "project_donor_name": "Fondo de las Naciones Unidas para la Infancia"
               },
@@ -4198,6 +4206,10 @@ angular.module( 'ngmReportHub' )
               {
                 "project_donor_id": "fondo_fiduciario_de_asociados_multiples",
                 "project_donor_name": "Fondo Fiduciario de Asociados Multiples"
+              },
+              {
+                "project_donor_id": "fondo_fiduciario_de_la_union_europea_eu_trust_fond",
+                "project_donor_name": "Fondo Fiduciario de la Unión Europea (EU Trust fond)"
               },
               {
                 "project_donor_id": "fondo_multidonante_de_las_naciones_unidas_para_el_posconflicto",
@@ -4247,6 +4259,35 @@ angular.module( 'ngmReportHub' )
               {
                 "project_donor_id": "gobierno_alemán",
                 "project_donor_name": "Gobierno Alemán"
+              },
+              {
+                "project_donor_id": "gobierno_de_francia",
+                "project_donor_name": "Gobierno de Francia"
+              },
+               {
+                "project_donor_id": "gobierno_de_irlanda",
+                "project_donor_name": "Gobierno de Irlanda"
+              },
+              {
+                "project_donor_id": "gobierno_del_reino_de_dinamarca",
+                "project_donor_name": "Gobierno del Reino de Dinamarca"
+              },
+               {
+                "project_donor_id": "gobierno_del_reino_de_noruega",
+                "project_donor_name": "Gobierno del Reino de Noruega"
+              },
+
+               {
+                "project_donor_id": "gobierno_del_reino_de_suecia",
+                "project_donor_name": "Gobierno del Reino de Suecia"
+              },
+              {
+                "project_donor_id": "gobierno_del_reino_de_los_paises_bajos_holanda",
+                "project_donor_name": "Gobierno del Reino de los Países Bajos (Holanda)"
+              },
+              {
+                "project_donor_id": "gobierno_del_reino_unido",
+                "project_donor_name": "Gobierno del Reino Unido"
               },
               {
                 "project_donor_id": "gobierno_vasco",

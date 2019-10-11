@@ -76,11 +76,23 @@
 		<!--[if lte IE 8]>
 			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
-
+		<div id="splash-screen" ng-cloak>
+			<div class="progress-bar-wrapper">
+				<div class="progress-bar"></div>
+			</div>
+			<div class="center">
+				<div class="logo">
+					<img width="128" src="images/log-in.png">
+				</div>
+				<br/>
+				<h4 style="font-weight: 300;color:#000">ReportHub</h4>
+				<p style="font-weight: 500;color:#616161; font-size:1.2rem;">Decision Support in Real-Time</p>
+			</div>
+		</div>
 		<header>
 
 			<!-- side navigation -->
-			<div class="ngm-menu z-depth-1 hide-on-med-and-down">
+			<div class="ngm-menu z-depth-1 hide-on-med-and-down" ng-cloak>
 				
 				<!-- profile menu -->
 				<!-- <div class="ngm-brand z-depth-1"> -->
@@ -107,7 +119,7 @@
 						<!-- profile menu -->
 						<!-- profile menu btn (implementing jQuery slideToggle() )-->
 						<div class="ngm-profile-menu">
-							<div class="ngm-profile-btn-rightoff fixed-action-btn" align="left">
+							<div class="ngm-profile-btn-rightoff fixed-action-btn" align="left" ng-class="{ 'hide-position': !ngm.openMinimize }">
 							<!-- <div class="ngm-profile-btn fixed-action-btn" align="right"> -->
 								<!-- <a class="btn-floating btn-large"
 										ng-class="{ 'waves-effect waves-teal waves-teal-lighten-4' : ngm.getUserName() !== 'welcome' }"
@@ -125,10 +137,10 @@
 								</a>
 							</div>
 							<!-- FOR minimize -->
-							<div class="ngm-minimize-flat fixed-action-btn " style="padding-top: 8px" align="right" ng-class="{'change-position':ngm.openMinimize}">
-								
-								<a class="btn-floating btn-large btn-flat"
-								 style="background-color: {{ ngm.style.defaultPrimaryColor }};" ng-click="ngm.minimizeToggle()">
+							<div class="ngm-minimize-flat fixed-action-btn " align="right" ng-class="{ 'change-position':ngm.openMinimize }">
+								<a class="btn-floating btn-flat"
+											style="background-color: {{ ngm.style.defaultPrimaryColor }}; line-height:56px;margin:10px;"
+											ng-click="ngm.minimizeToggle()">
 									<!-- <div id="xmenu" class="minimize-menu">
 										<span></span>
 										<span></span>
