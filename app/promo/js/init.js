@@ -9,7 +9,7 @@
             
             
 
-  			if(href  === 'https://4wplus.org/' || href ==='http://35.229.43.63/' ){ //https://4wplus.org/
+  			if(href  === 'https://4wplus.org/'  ){ //href === 'http://192.168.33.16/'
   				$( '.href' ).hide();
   				$('.href2').show();
   				title = "4wPlus";
@@ -19,8 +19,8 @@
   				loginbuttontitle = "Inicio de Sesión o Registro para Empezar";
   				meta1 = '4wPlus, Dashboard, Reporte, Indicadores, Colombia';
   			    logotitle= '4wPlus';
-  			    link5wdashboardhref= '/desk/#/cluster/5w/amer/col';
-  			    link5wdashboardtitle = 'Ver el 5W Dashboard';
+  			    link5wdashboardhref= '/desk/#/cluster/dashboard4wplus/amer/col';
+  			    link5wdashboardtitle = 'Ver el Dashboard de Actividades';
   			    h1feature='4wPlus';
   			    h2feature= 'Informes de flujo de trabajo. Apoyo a las decisiones en Tiempo real.'
   			    pfeature='4wPlus ofrece un sistema fácil de usar que incluye alertas y notificaciones para un flujo de trabajo diario de informes, adaptado a sus necesidades. Una vez que se ingresa, el motor de análisis procesa los indicadores clave del negocio para que el soporte de decisiones esté disponible mediante paneles interactivos. Todo esto en tiempo real.';

@@ -97,7 +97,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			// project
 			$scope.project = {
 
-				/**** DEFAULTS ****/
+				/**** DEFAULTS ****/ 
 				user: ngmUser.get(),
 				style: config.style,
 				definition: config.project,
@@ -150,6 +150,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					// documents upload
 					$scope.project.setTokenUpload();
 					// for minimize-maximize beneficiary form
+
 					$scope.detailBeneficiaries = {};
 					$scope.project.beneficiary_search;
 					$scope.beneficiary_search_input = false;
@@ -819,7 +820,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					return total
 				},
 				// save
-				save: function( complete, display_modal ){
+				save: function( complete, display_modal ){ 
 
 					// set labels to active (green)
 					$( 'label' ).removeClass( 'invalid' ).addClass( 'active' );
