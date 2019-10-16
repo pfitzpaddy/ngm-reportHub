@@ -1298,7 +1298,7 @@ angular.module('ngmReportHub')
 									config: {
 										id: 'dashboard-btn',
 										request: $scope.dashboard.getRequest( { indicator: 'latest_update' } ),
-										templateUrl: '/scripts/widgets/ngm-html/template/cluster.dashboard.html'
+										templateUrl: '/scripts/widgets/ngm-html/template/cluster.4wplusdashboard.html'
 									}
 								}]
 							}]
