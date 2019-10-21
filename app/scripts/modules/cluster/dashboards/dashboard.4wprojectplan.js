@@ -668,7 +668,7 @@ angular.module('ngmReportHub')
 					    	angular.forEach(donors.data,function(d,i){
 					    		if(d){
 
-					    		var path = $scope.dashboard.getPath($scope.dashboard.cluster_id, $scope.dashboard.activity_type, $scope.dashboard.organization_tag,  $scope.dashboard.implementer_tag, d.project_donor_id, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate);
+					    		var path = $scope.dashboard.getPath($scope.dashboard.cluster_id, $scope.dashboard.organization_tag, d.project_donor_id, $scope.dashboard.admin1pcode, $scope.dashboard.admin2pcode, $scope.dashboard.startDate, $scope.dashboard.endDate);
 					   		 donorsRows.push({
 					   				'title':d.project_donor_name,
 					   				'param':'project_donor_id',
