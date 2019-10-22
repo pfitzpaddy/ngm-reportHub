@@ -294,6 +294,7 @@
         "list_project_partners":"Lista de Socios del Proyecto",
         "project_partners":"Socios del Proyecto",
         "other_implementing_partners":"Socios Implementadores",
+        "implementing_organizations":"Organizaciones Implementadoras",
         "project_description_objetives":"Descripción y Objetivos del Proyecto",
         "project_focal_point":"Punto Focal del Proyecto",
         "target_population":"Población Objetivo",
@@ -444,6 +445,7 @@
           "countries_mayus":"Países",
           "reports_completed":"Reportes Completos",
          "organizations":"Organizaciones",
+         "executing_organizations":"Organizaciones Ejecutoras",
          "documents":"Soportes del Proyecto",
           "download_all_document_project":"Descargar toda la documentación del proyecto",
          "file_uploaded":"Archivo cargado!",
@@ -461,7 +463,9 @@
 
 
 
-         "total_projects":"Total de Proyectos",
+         "total_projects":"Total Proyectos",
+         "total_beneficiaries_population":"Total Beneficiarios Poblacionales",
+         "total_financing":"Total Financiamiento",
          "warehouses_total":"Warehouses",
          "from":"desde",
          "to":"hasta",
