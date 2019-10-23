@@ -61,14 +61,24 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 		
 		<div class="row" style="margin-left: 10px;margin-right:10px;">
 			<div class="col s4" ng-repeat="role in table.editableRole">
-				<input type="checkbox"
+				<!-- <input type="checkbox"
                 class="filled-in"
                 id={{role}}
                 value={{role}}
                 ng-checked="editedUser.roles.indexOf(role) > -1"
                 ng-disabled="role === 'USER'"
                 ng-click="table.manageUser(role,editedUser)" />
-				<label for="{{role}}" style="color: #000000; font-weight: 500;">{{role}}</label>
+				<label for="{{role}}" style="color: #000000; font-weight: 500;">{{role}}</label> -->
+				<label>
+					<input type="checkbox"
+					class="filled-in"
+					id={{role}}
+					value={{role}}
+					ng-checked="editedUser.roles.indexOf(role) > -1"
+					ng-disabled="role === 'USER'"
+					ng-click="table.manageUser(role,editedUser)" />
+					<span style="color: #000000; font-weight: 500;" >{{role}}</span>
+				</label>
         <div class="teal-text" style="margin-left: 35px">{{ table.getUserRoleDescriptions( role ) }}</div>
 			</div>
 		</div>

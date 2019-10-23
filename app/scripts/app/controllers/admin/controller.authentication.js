@@ -172,7 +172,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 						$scope.panel.clusterByCountry();
 
 						$timeout( function() {
-							$( 'select' ).material_select();
+							// $( 'select' ).material_select();
+							$('select').formSelect();
 						}, 400 );
 					});
 
@@ -246,7 +247,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 							// db error!
 							if( result.err || result.summary ){
 								var msg = result.summary ? result.summary : result.msg;
-								Materialize.toast( msg, 6000, 'error' );
+								// Materialize.toast( msg, 6000, 'error' );
+								M.toast({ html: msg, displayLength: 6000, classes: 'error' });
 							}
 
 							// success
@@ -256,7 +258,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 								$location.path( result.app_home );
 								$timeout( function(){
 
-									Materialize.toast( $filter('translate')('welcome_back')+' ' + result.username + '!', 6000, 'note' );
+									// Materialize.toast( $filter('translate')('welcome_back')+' ' + result.username + '!', 6000, 'note' );
+									M.toast({ html: $filter('translate')('welcome_back') + ' ' + result.username + '!', displayLength: 6000, classes: 'note' });
 								}, 2000);
 							}
 
@@ -268,7 +271,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
 				// open modal by id 
 				openModal: function( modal ) {
-					$( '#' + modal ).openModal({ dismissible: false });
+					// $( '#' + modal ).openModal({ dismissible: false });
+					$('#' + modal).modal({ dismissible: false });
+					$('#' + modal).modal('open');
 				},
 
 				// deactivate 
@@ -296,13 +301,15 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 						
 						if ( data.success ) {
 							// success message
-							Materialize.toast( $filter('translate')('success')+' '+$filter('translate')('user_deleted'), 6000, 'success' );
+							// Materialize.toast( $filter('translate')('success')+' '+$filter('translate')('user_deleted'), 6000, 'success' );
+							M.toast({ html: $filter('translate')('success') + ' ' + $filter('translate')('user_deleted'), displayLength: 6000, classes: 'success' });
 							$timeout( function(){
 								var path = ( ngmUser.get().organization === 'iMMAP' && ( ngmUser.get().admin0pcode === 'CD' || ngmUser.get().admin0pcode === 'ET' ) ) ? '/immap/team' : '/team';
 								$location.path( path );
 							}, 1000 );
 						} else {
-							Materialize.toast( $filter('translate')('error_try_again'), 6000, 'error' );
+							// Materialize.toast( $filter('translate')('error_try_again'), 6000, 'error' );
+							M.toast({ html: $filter('translate')('error_try_again'), displayLength: 6000, classes: 'error' });
 						}
 
 					});
@@ -312,7 +319,10 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 				update: function( reload ) {
 
 					// message
-					$timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); }, 200 );
+					$timeout(function(){ 
+						// Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); 
+						M.toast({ html: $filter('translate')('processing') + '...', displayLength: 6000, classes: 'note' });
+					}, 200 );
 
 					// disable btns
 					$scope.panel.btnDisabled = true;
@@ -349,7 +359,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 							// db error!
 							if( result.err || result.summary ){
 								var msg = result.msg ? result.msg : 'error!';
-								Materialize.toast( msg, 6000, msg );
+								// Materialize.toast( msg, 6000, msg );
+								M.toast({ html: msg, displayLength: 6000, classes: 'error' });
 							}
 
 							// success
@@ -365,12 +376,15 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
 									//
 									if (config.user.organization_tag !== $scope.panel.user.organization_tag){
-										Materialize.toast('Organization changed to ' + orgUpdatedTo, 6000, 'success');
+										// Materialize.toast('Organization changed to ' + orgUpdatedTo, 6000, 'success');
+										M.toast({ html: 'Organization changed to ' + orgUpdatedTo, displayLength: 6000, classes: 'success' });
 									}
 									if (config.user.cluster_id !== $scope.panel.user.cluster_id){
-										Materialize.toast('Cluster changed to ' + clusterUpdatedTo, 6000, 'success'); 
+										// Materialize.toast('Cluster changed to ' + clusterUpdatedTo, 6000, 'success'); 
+										M.toast({ html: 'Cluster changed to ' + clusterUpdatedTo, displayLength: 6000, classes: 'success' });
 									}
-									Materialize.toast( $filter('translate')('success')+' '+$filter('translate')('profile_updated'), 6000, 'success' );
+									// Materialize.toast( $filter('translate')('success')+' '+$filter('translate')('profile_updated'), 6000, 'success' );
+									M.toast({ html: $filter('translate')('success') + ' ' + $filter('translate')('profile_updated'), displayLength: 6000, classes: 'success' });
 									
 									// activate btn
 									$scope.panel.btnDisabled = false;
@@ -413,7 +427,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 						// db error!
 						if( result.err || result.summary ){
 							var msg = result.summary ? result.summary : result.msg;
-							Materialize.toast( msg, 6000, 'error' );
+							// Materialize.toast( msg, 6000, 'error' );
+							M.toast({ html: msg, displayLength: 6000, classes: 'error' });
 						}
 
 						// success
@@ -422,7 +437,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 							$location.path( result.app_home );
 							$timeout( function(){
 
-								Materialize.toast( $filter('translate')('welcome')+' ' + result.username + ', '+$filter('translate')('time_to_create_a_project'), 6000, 'success' );
+								// Materialize.toast( $filter('translate')('welcome')+' ' + result.username + ', '+$filter('translate')('time_to_create_a_project'), 6000, 'success' );
+								M.toast({ html: $filter('translate')('welcome') + ' ' + result.username + ', ' + $filter('translate')('time_to_create_a_project'), displayLength: 6000, classes: 'success' });
+								
 							}, 2000);
 						}
 
@@ -442,7 +459,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 						// user toast msg
 						$timeout(function(){
 
-							Materialize.toast($filter('translate')('your_email_is_being_prepared'), 6000, 'note');
+							// Materialize.toast($filter('translate')('your_email_is_being_prepared'), 6000, 'note');
+							M.toast({ html: $filter('translate')('your_email_is_being_prepared'), displayLength: 6000, classes: 'note' });
+
 						}, 400);
 
 						// resend password email
@@ -457,7 +476,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 								// user toast msg
 								$timeout(function(){
 
-									Materialize.toast($filter('translate')('email_sent_please_check_your_inbox'), 6000, 'success'); }, 400);
+									// Materialize.toast($filter('translate')('email_sent_please_check_your_inbox'), 6000, 'success'); 
+									M.toast({ html: $filter('translate')('email_sent_please_check_your_inbox'), displayLength: 6000, classes: 'success' });
+								}, 400);
 
 							}).error(function( err ) {
 
@@ -466,7 +487,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
 								// update
 								$timeout(function(){
-									Materialize.toast( err.msg, 6000, 'error' );
+									// Materialize.toast( err.msg, 6000, 'error' );
+									M.toast({ html: err.msg, displayLength: 6000, classes: 'error' });
 								}, 400);
 							});
 					}
@@ -492,14 +514,16 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 							// user toast msg
 							$timeout(function(){
 
-								Materialize.toast( $filter('translate')('welcome_back')+' ' + + result.username + '!', 6000, 'note' );
+								// Materialize.toast( $filter('translate')('welcome_back')+' ' + + result.username + '!', 6000, 'note' );
+								M.toast({ html: $filter('translate')('welcome_back') + ' ' + + result.username + '!' , displayLength: 6000, classes: 'note' });
 							}, 2000);
 
 
 						}).error(function(err) {
 							// update
 							$timeout(function(){
-								Materialize.toast( err.msg, 6000, 'error' );
+								// Materialize.toast( err.msg, 6000, 'error' );
+								M.toast({ html: err.msg , displayLength: 6000, classes: 'error' });
 							}, 1000);
 						});
 					}
