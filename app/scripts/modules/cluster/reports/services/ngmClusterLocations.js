@@ -38,7 +38,10 @@ angular.module( 'ngmReportHub' )
         ngmClusterLocations.new_location = {};
         ngmClusterLocations.openAddNewLocation = false;
         // send toast message
-        $timeout(function(){ Materialize.toast( $filter('translate')('report_new_location') , 4000, 'success' ); }, 600 );
+        $timeout(function(){ 
+          // Materialize.toast( $filter('translate')('report_new_location') , 4000, 'success' ); 
+          M.toast({ html: $filter('translate')('report_new_location'), displayLength: 4000, classes: 'success' });
+        }, 600 );
       },
       
       // add location
@@ -112,9 +115,11 @@ angular.module( 'ngmReportHub' )
           url: ngmAuth.LOCATION + '/api/cluster/project/removeLocation',
           data: { id: ngmClusterLocations.remove_id }
         }).success( function( result ) {
-          Materialize.toast( $filter('translate')('project_location_removed') , 3000, 'success' );
+          // Materialize.toast( $filter('translate')('project_location_removed') , 3000, 'success' );
+          M.toast({ html: $filter('translate')('project_location_removed'), displayLength: 3000, classes: 'success' });
         }).error( function( err ) {
-          Materialize.toast( 'Error!', 6000, 'error' );
+          // Materialize.toast( 'Error!', 6000, 'error' );
+          M.toast({ html: 'Error!', displayLength: 6000, classes: 'error' });
         });
       },
 

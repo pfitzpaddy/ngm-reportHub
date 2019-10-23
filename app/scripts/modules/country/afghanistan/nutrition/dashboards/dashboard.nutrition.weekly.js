@@ -222,7 +222,10 @@ angular.module('ngmReportHub')
 											$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 
 											// toast
-											$timeout( function(){ Materialize.toast( $filter('translate')('refreshing_data')+'...' , 6000, 'note' ); });
+											$timeout( function(){ 
+												// Materialize.toast( $filter('translate')('refreshing_data')+'...' , 6000, 'note' ); 
+												M.toast({ html: $filter('translate')('refreshing_data') + '...', displayLength: 6000, classes: 'note' });
+											});
 
 											// ngmData
 											ngmData
@@ -231,7 +234,8 @@ angular.module('ngmReportHub')
 
 													// toast
 													$timeout( function(){ 
-														Materialize.toast( $filter('translate')('nutrition_reports_data_updated')+'!' , 6000, 'success' );
+														// Materialize.toast( $filter('translate')('nutrition_reports_data_updated')+'!' , 6000, 'success' );
+														M.toast({ html: $filter('translate')('nutrition_reports_data_updated') + '!', displayLength: 6000, classes: 'success' });
 														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 														$timeout( function(){
 															$route.reload();

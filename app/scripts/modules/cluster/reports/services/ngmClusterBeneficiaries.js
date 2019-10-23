@@ -453,9 +453,11 @@ angular.module( 'ngmReportHub' )
 					url: ngmAuth.LOCATION + '/api/cluster/project/removeBeneficiary',
 					data: { id: id }
 				}).success( function( result ) {
-					Materialize.toast( $filter('translate')('target_beneficiary_removed'), 4000, 'success' );
+					// Materialize.toast( $filter('translate')('target_beneficiary_removed'), 4000, 'success' );
+					M.toast({ html: $filter('translate')('target_beneficiary_removed'), displayLength: 4000, classes: 'success' }); 
 				}).error( function( err ) {
-					Materialize.toast( 'Error!', 4000, 'error' );
+					// Materialize.toast( 'Error!', 4000, 'error' );
+					M.toast({ html: 'Error!', displayLength: 4000, classes: 'error' }); 
 				});
 			},
 
@@ -467,10 +469,14 @@ angular.module( 'ngmReportHub' )
 						url: ngmAuth.LOCATION + '/api/cluster/report/removeBeneficiary',
 						data: { id: id }
 				}).success( function( result ){
-					if ( result.err ) { Materialize.toast( 'Error! Please correct the ROW and try again', 4000, 'error' ); }
+					if ( result.err ) { 
+						// Materialize.toast( 'Error! Please correct the ROW and try again', 4000, 'error' ); 
+						M.toast({ html: 'Error! Please correct the ROW and try again', displayLength: 4000, classes: 'error' });
+					}
 					if ( !result.err ) { project.save( false, false ); }
 				}).error(function( err ) {
-					Materialize.toast( 'Error!', 4000, 'error' );
+					// Materialize.toast( 'Error!', 4000, 'error' );
+					M.toast({ html: 'Error!', displayLength: 4000, classes: 'error' });
 				});
 			},
 
@@ -484,14 +490,17 @@ angular.module( 'ngmReportHub' )
 				}).success(function (result) {
 					if (result.err) {
 						cb(true)
-						Materialize.toast('Error! Something went wrong', 4000, 'error');
+						// Materialize.toast('Error! Something went wrong', 4000, 'error');
+						M.toast({ html: 'Error! Something went wrong', displayLength: 4000, classes: 'error' });
 					} else {
 						cb(null)
-						Materialize.toast($filter('translate')('report_removed'), 4000, 'success');
+						// Materialize.toast($filter('translate')('report_removed'), 4000, 'success');
+						M.toast({ html: $filter('translate')('report_removed'), displayLength: 4000, classes: 'success' });
 					}
 				}).error(function (err) {
 					cb(true)
-					Materialize.toast('Error!', 4000, 'error');
+					// Materialize.toast('Error!', 4000, 'error');
+					M.toast({ html: 'Error!', displayLength: 4000, classes: 'error' });
 				});
 			},
 

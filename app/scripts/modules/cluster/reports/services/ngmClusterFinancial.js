@@ -68,14 +68,16 @@ angular.module('ngmReportHub')
 								resultRelabel = ngmClusterFinancial.validateBudget(budget[y], y, detail);
 							});
 
-							Materialize.toast($filter('translate')('beneficiaries_contains_errors'), 4000, 'error');
+							// Materialize.toast($filter('translate')('beneficiaries_contains_errors'), 4000, 'error');
+							M.toast({ html: $filter('translate')('beneficiaries_contains_errors'), displayLength: 4000, classes: 'error' });
 							$timeout(function () { $(elements[0]).animatescroll() }, 100);
 						}, 200);
 						return false
 					}
 
 					if (budgetRow !== budgetRowComplete && notDetailOpen.length < 1) {
-						Materialize.toast($filter('translate')('Form_contains_errors'), 4000, 'error');
+						// Materialize.toast($filter('translate')('Form_contains_errors'), 4000, 'error');
+						M.toast({ html: $filter('translate')('Form_contains_errors'), displayLength: 4000, classes: 'error' });
 						$(elements[0]).animatescroll();
 						return false;
 					} else {

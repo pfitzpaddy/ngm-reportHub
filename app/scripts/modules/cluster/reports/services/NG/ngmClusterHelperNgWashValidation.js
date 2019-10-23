@@ -34,7 +34,8 @@ angular.module( 'ngmReportHub' )
 				} else {
 					id = $("label[for='" + label + "']");
 					id.addClass('error');
- 					Materialize.toast( 'Borehole location outside Nigeria!' , 6000, 'error' );
+					// Materialize.toast( 'Borehole location outside Nigeria!' , 6000, 'error' );
+					M.toast({ html: 'Borehole location outside Nigeria!', displayLength: 6000, classes: 'error' }); 
 				}
 
 			},

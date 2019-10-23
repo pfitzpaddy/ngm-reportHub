@@ -46,7 +46,8 @@ angular.module( 'ngmReportHub' )
 					id.removeClass( 'error' ).addClass( 'active' );
 				} else {
 					id.addClass('error');
- 					Materialize.toast( 'Location outside ' + bb.admin0name + '!' , 4000, 'error' );
+					// Materialize.toast( 'Location outside ' + bb.admin0name + '!' , 4000, 'error' );
+					M.toast({ html: 'Location outside ' + bb.admin0name + '!' , displayLength: 4000, classes: 'error' });
 				}
 
 			},

@@ -23,7 +23,8 @@ angular.module( 'ngmReportHub' )
         }).success( function( result ) {
           // success!
         }).error( function( err ) {
-          Materialize.toast( 'ACBAR Partner Organization Error!', 6000, 'error' );
+          // Materialize.toast( 'ACBAR Partner Organization Error!', 6000, 'error' );
+          M.toast({ html: 'ACBAR Partner Organization Error!', displayLength: 6000, classes: 'error' });
         });				
 			},
 

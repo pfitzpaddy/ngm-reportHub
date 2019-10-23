@@ -543,7 +543,8 @@ angular.module('ngmReportHub')
 						// db error!
 						if (result.err || result.summary) {
 							var msg = result.msg ? result.msg : 'error!';
-							Materialize.toast(msg, 6000, msg);
+							// Materialize.toast(msg, 6000, msg);
+							M.toast({ html: msg, displayLength: 6000, classes: 'error' });
 						}
 						// success
 						if (result.success) {							

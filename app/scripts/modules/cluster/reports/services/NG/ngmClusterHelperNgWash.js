@@ -301,7 +301,8 @@ angular.module( 'ngmReportHub' )
         if ( ngmClusterHelperNgWashLists.details[ $locationIndex ] && ngmClusterHelperNgWashLists.details[ $locationIndex ][ $beneficiaryIndex ] ) {
         	ngmClusterHelperNgWashLists.details[ $locationIndex ][ $beneficiaryIndex ].splice( $index, 1 );
         }
-        Materialize.toast( 'Please save to commit changes!' , 6000, 'note' );
+		// Materialize.toast( 'Please save to commit changes!' , 6000, 'note' );
+		  M.toast({ html: 'Please save to commit changes!', displayLength: 6000, classes: 'note' });
       },
 
 

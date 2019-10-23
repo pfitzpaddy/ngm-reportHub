@@ -625,7 +625,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				copyPreviousMonth: function() {
 
 					// set messages
-					Materialize.toast( $filter( 'translate' )( 'fetching_data' ), 4000, 'note' );
+					// Materialize.toast( $filter( 'translate' )( 'fetching_data' ), 4000, 'note' );
+					M.toast({ html: $filter('translate')('fetching_data'), displayLength: 4000, classes: 'note' });
 					$scope.deactivedCopybutton = true;
 					$scope.addBeneficiaryDisable = true;
 
@@ -679,19 +680,22 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							$scope.deactivedCopybutton = false;
 
 							// toast
-							Materialize.toast( msg, 4000, typ );
+							// Materialize.toast( msg, 4000, typ );
+							M.toast({ html: msg, displayLength: 4000, classes: typ });
 
 						} else {
 
 							// init message
-							Materialize.toast( $filter( 'translate' )( 'copying' ), 6000, 'note' );
+							// Materialize.toast( $filter( 'translate' )( 'copying' ), 6000, 'note' );
+							M.toast({ html: $filter('translate')('copying'), displayLength: 6000, classes: 'note' });
 							if ( brows > 0 ){
 								var msg = "Copied Beneficiaries " + brows + ' rows';
 										typ = 'success';
 							}
 
 							// send message
-							Materialize.toast( msg, 4000, typ );
+							// Materialize.toast( msg, 4000, typ );
+							M.toast({ html: msg, displayLength: 4000, classes: typ });
 
 							var current_report = angular.copy( $scope.project.report );
 							if (current_report.locations) {
@@ -732,7 +736,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							}, 10 );
 
 							// final message
-							Materialize.toast( info, 8000, 'note' );
+							// Materialize.toast( info, 8000, 'note' );
+							M.toast({ html: info, displayLength: 8000, classes: 'note' });
 							$scope.addBeneficiaryDisable = false;
 
 						}
@@ -740,7 +745,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					}).catch(function (e){
 
 						// error
-						Materialize.toast( $filter( 'translate' )( 'error_not_copied' ), 6000, 'error' );
+						// Materialize.toast( $filter( 'translate' )( 'error_not_copied' ), 6000, 'error' );
+						M.toast({ html: $filter('translate')('error_not_copied'), displayLength: 6000, classes: 'error' });
 						$scope.addBeneficiaryDisable = false;
 						$scope.deactivedCopybutton = false;
 
@@ -799,7 +805,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				// validate report monthly by who incharge after report submitted
 				validateReport:function(status){
 
-					Materialize.toast('Validating ... ', 3000, 'note');
+					// Materialize.toast('Validating ... ', 3000, 'note');
+					M.toast({ html: 'Validating... ', displayLength: 3000, classes: 'note' });
 					obj={report_validation:status}
 					var setRequest = {
 						method: 'POST',
@@ -812,11 +819,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					$http(setRequest).success(function (report) {
 						if (report.err) {
 							// update
-							Materialize.toast('Error! something went wrong', 6000, 'error');
+							// Materialize.toast('Error! something went wrong', 6000, 'error');
+							M.toast({ html: 'Error! something went wrong', displayLength: 6000, classes: 'error' });
 						}
 						if (!report.err) {
 							$timeout(function () {
-								Materialize.toast('Submitted Monthly Report is ' + status, 4000, 'success');
+								// Materialize.toast('Submitted Monthly Report is ' + status, 4000, 'success');
+								M.toast({ html: 'Submitted Monthly Report is', displayLength: 4000, classes: 'success' });
 								$location.path('/cluster/projects/report/' + $scope.project.definition.id);
 							},3000)
 						}
@@ -860,7 +869,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							ngmClusterHelper.getCleanReport( $scope.project.definition, $scope.project.report );
 
 					// msg
-					Materialize.toast( $filter('translate')('processing_report') , 6000, 'note');
+					// Materialize.toast( $filter('translate')('processing_report') , 6000, 'note');
+					M.toast({ html: $filter('translate')('processing_report'), displayLength: 6000, classes: 'note' });
 
 					// setReportRequest
 					var setReportRequest = {
@@ -874,7 +884,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 						if ( report.err ) {
 							// update
-							Materialize.toast( 'Error! '+$filter('translate')('please_correct_the_row_and_try_again'), 6000, 'error' );
+							// Materialize.toast( 'Error! '+$filter('translate')('please_correct_the_row_and_try_again'), 6000, 'error' );
+							M.toast({ html: 'Error! ' + $filter('translate')('please_correct_the_row_and_try_again'), displayLength: 6000, classes: 'error' });
 						}
 
 						if ( !report.err ) {
@@ -891,7 +902,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 									msg += complete ? $filter('translate')('submitted')+'!' : $filter('translate')('saved_mayus1')+'!';
 
 							// msg
-							$timeout(function() { Materialize.toast( msg , 6000, 'success'); }, 400 );
+							$timeout(function() { 
+								// Materialize.toast( msg , 6000, 'success'); 
+								M.toast({ html: msg, displayLength: 6000, classes: 'success' });
+							}, 400 );
 
 							// set trigger
 							$('.modal-trigger').leanModal();
@@ -925,7 +939,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						}
 					}).error(function( err ) {
 						// update
-						Materialize.toast( 'Error!', 6000, 'error' );
+						// Materialize.toast( 'Error!', 6000, 'error' );
+						M.toast({ html: 'Error', displayLength: 6000, classes: 'error' });
 					});;
 
 				}

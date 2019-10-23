@@ -310,7 +310,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						var msg = $scope.project.definition.project_status === 'new' ? $filter('translate')('create_project_cancelled') : $filter('translate')('create_project_cancelled');
 						// redirect + msg
 						$location.path( path );
-						$timeout( function() { Materialize.toast( msg, 4000, 'note' ); }, 400 );
+						$timeout( function() { 
+							// Materialize.toast( msg, 4000, 'note' ); 
+							M.toast({ html: msg, displayLength: 4000, classes: 'note' });
+						}, 400 );
 					}, 400 );
 				},
 
@@ -425,7 +428,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 					// scroll to activity_type when no beneficiaries
 					if ( !$scope.project.definition.activity_type || !$scope.project.definition.activity_type.length ) {
-						Materialize.toast( $filter('translate')('no_project_activity_type'), 4000, 'success' );
+						// Materialize.toast( $filter('translate')('no_project_activity_type'), 4000, 'success' );
+						M.toast({ html: $filter('translate')('no_project_activity_type'), displayLength: 4000, classes: 'success' });
 						$timeout(function() {
 							$('#ngm-activity_type_label').animatescroll();
 							$timeout(function() { $('#ngm-activity_type').css({'font-weight':600}); }, 1000 );
@@ -629,10 +633,16 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						$scope.project.definition[ key ].splice( $index, 1 );
 						ngmClusterBeneficiaries.form[ 0 ].splice( $index, 1 );
 						if ( key === 'target_beneficiaries' ) {
-							$timeout(function(){ Materialize.toast( $filter('translate')('target_beneficiary_removed'), 4000, 'success' ); }, 400 );
+							$timeout(function(){ 
+								// Materialize.toast( $filter('translate')('target_beneficiary_removed'), 4000, 'success' ); 
+								M.toast({ html: $filter('translate')('target_beneficiary_removed'), displayLength: 4000, classes: 'success' });
+							}, 400 );
 						} 
 						if (  key === 'target_locations'  ) {
-							$timeout(function(){ Materialize.toast( $filter('translate')('project_location_removed'), 4000, 'success' ); }, 400 );
+							$timeout(function(){ 
+								// Materialize.toast( $filter('translate')('project_location_removed'), 4000, 'success' ); 
+								M.toast({ html: $filter('translate')('project_location_removed'), displayLength: 4000, classes: 'success' });
+							}, 400 );
 						}
 					} else {
 						locationform.$cancel();
@@ -760,7 +770,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					}
 
 					// toast
-					Materialize.toast( msg, 4000, 'success' );
+					// Materialize.toast( msg, 4000, 'success' );
+					M.toast({ html: msg, displayLength: 4000, classes: 'success' });
 
 					// save project
 					$scope.project.save( false, $filter('translate')('people_in_need_saved') );
@@ -843,7 +854,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.project.definition.target_locations );
 
 					// inform
-					Materialize.toast( $filter('translate')('processing'), 6000, 'note' );
+					// Materialize.toast( $filter('translate')('processing'), 6000, 'note' );
+					M.toast({ html: $filter('translate')('processing'), displayLength: 6000, classes: 'note' });
 
 					// details update
 					$http({
@@ -856,7 +868,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						$scope.project.submit = true;
 
 						// error
-						if ( project.err ) { Materialize.toast( $filter('translate')('save_failed_the_project_contains_error')+'!', 4000, 'error' ); }
+						if ( project.err ) { 
+							// Materialize.toast( $filter('translate')('save_failed_the_project_contains_error')+'!', 4000, 'error' ); 
+							M.toast({ html: $filter('translate')('save_failed_the_project_contains_error') + '!', displayLength: 4000, classes: 'error' });
+						}
 
 						// if success
 						if ( !project.err ) {
@@ -865,7 +880,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							$scope.project.definition = angular.merge( $scope.project.definition, project );
 
 							// save
-							if( save_msg ){ Materialize.toast( save_msg , 4000, 'success' ); }
+							if( save_msg ){ 
+								// Materialize.toast( save_msg , 4000, 'success' ); 
+								M.toast({ html: save_msg, displayLength: 4000, classes: 'success' });
+							}
 
 							// notification modal
 							if( display_modal ){
@@ -879,19 +897,22 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								// save, redirect + msg
 								$timeout(function(){
 									$location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
-									$timeout(function(){ Materialize.toast( msg, 4000, 'success' ); }, 400 );
+									$timeout(function(){ 
+										// Materialize.toast( msg, 4000, 'success' ); 
+										M.toast({ html: msg, displayLength: 4000, classes: 'success' });
+									}, 400 );
 								}, 400 );
 							}
 						}
 
 					}).error(function( err ) {
 						// error
-						Materialize.toast( 'Error!', 4000, 'error' );
+						// Materialize.toast( 'Error!', 4000, 'error' );
+						M.toast({ html: 'Error', displayLength: 4000, classes: 'error' });
 						// unblock save button in case of any backend / no internet errors
 						$timeout(function () {
 							$scope.project.submit = true;
 						}, 4000);
-
 					});
 
 				}

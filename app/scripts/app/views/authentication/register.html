@@ -510,7 +510,8 @@ li {
 		$( '.carousel' ).carousel( 'next' );
 		$( '.carousel' ).css({ 'min-height': '840px' });
 		setTimeout(function(){
-			Materialize.toast( 'Last Item! Add iMMAP PROGRAMME details', 6000, 'success' );
+			// Materialize.toast( 'Last Item! Add iMMAP PROGRAMME details', 6000, 'success' );
+			M.toast({ html: 'Last Item! Add iMMAP PROGRAMME details', displayLength: 6000, classes: 'success' });
 		}, 400);
 	});
 	// login on enter

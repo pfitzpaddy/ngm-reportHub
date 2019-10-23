@@ -348,7 +348,8 @@ angular.module('ngmReportHub')
 										myDropzone.on('sending',function(file){
 											if (this.getUploadingFiles().length == 1){
 
-												Materialize.toast($filter('translate')('uploading'), 6000, 'note');
+												// Materialize.toast($filter('translate')('uploading'), 6000, 'note');
+												M.toast({ html: $filter('translate')('uploading'), displayLength: 6000, classes: 'note' });
 											}
 											$("#upload_doc").attr("disabled", true);
 											// $("#delete_doc").attr("disabled", true);
@@ -366,7 +367,8 @@ angular.module('ngmReportHub')
 										if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
 												msg = $filter('translate')('file_uploaded');
 												typ = 'success';
-												Materialize.toast(msg, 6000, typ);
+												// Materialize.toast(msg, 6000, typ);
+												M.toast({ html: msg, displayLength: 6000, classes: typ });
 											
 											document.querySelector(".percent-upload").style.display = 'none';
 											document.querySelector(".dz-default.dz-message").style.display = 'block';
@@ -382,9 +384,11 @@ angular.module('ngmReportHub')
 											$timeout(function () {
 
 												typ = 'error';
-												Materialize.toast(response, 6000, typ);
+												// Materialize.toast(response, 6000, typ);
+												M.toast({ html: response, displayLength: 6000, classes: typ });
 												if(response.indexOf('canceled')<0){
-													Materialize.toast($filter('translate')('upload_canceled'), 2000,typ);
+													// Materialize.toast($filter('translate')('upload_canceled'), 2000,typ);
+													M.toast({ html: $filter('translate')('upload_canceled'), displayLength: 2000, classes: typ });
 												}
 											}, 500);
 										}
@@ -443,7 +447,8 @@ angular.module('ngmReportHub')
 										},
 										removeFile:function(){
 											// IF API READY TO USE
-											Materialize.toast($filter('translate')('deleting'), 2000, 'note'); 
+											// Materialize.toast($filter('translate')('deleting'), 2000, 'note'); 
+											M.toast({ html: $filter('translate')('deleting'), displayLength: 2000, classes: note });
 											$http({
 												method: 'DELETE',
 												url: ngmAuth.LOCATION + '/api/deleteGDriveFile/' + $scope.fileId,
@@ -453,7 +458,8 @@ angular.module('ngmReportHub')
 														$timeout(function () {															
 															msg= $filter('translate')('file_deleted');
 															typ = 'success';
-															Materialize.toast(msg, 6000, typ);
+															// Materialize.toast(msg, 6000, typ);
+															M.toast({ html: msg, displayLength: 2000, classes: typ });
 															$rootScope.$broadcast('refresh:doclist');
 														}, 2000);														
 											})
@@ -461,7 +467,8 @@ angular.module('ngmReportHub')
 												$timeout(function () {
 													msg = $filter('translate')('error_file_not_deleted');
 													typ = 'error';
-													Materialize.toast(msg, 6000, typ);
+													// Materialize.toast(msg, 6000, typ);
+													M.toast({ html: msg, displayLength: 2000, classes: typ });
 												}, 2000);
 											})
 										},

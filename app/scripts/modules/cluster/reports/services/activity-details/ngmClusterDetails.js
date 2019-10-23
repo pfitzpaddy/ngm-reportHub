@@ -152,7 +152,8 @@ angular.module( 'ngmReportHub' )
 					angular.forEach( beneficiary.details, function ( d, i ) {
 						ngmClusterDetails.setList( list, $locationIndex, $beneficiaryIndex, i, d.unit_type_id, beneficiary.details );
 					});
-					Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
+					// Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
+					M.toast({ html: 'Please save to commit changes!', displayLength: 4000, classes: 'note' });
 					// set to default
 					ngmClusterDetails.addDetailDisabled = false;
 				}
