@@ -17,7 +17,10 @@ angular.module( 'ngmReportHub' )
 
 		    // update material_select
 			updateSelect: function(){
-				$timeout(function(){ $( 'select' ).material_select(); }, 0 );
+				$timeout(function(){ 
+					// $( 'select' ).material_select(); 
+					$('select').formSelect();
+				}, 0 );
 			},
 
 			// validate project type

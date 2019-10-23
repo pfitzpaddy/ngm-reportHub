@@ -118,7 +118,8 @@ angular.module( 'ngmReportHub' )
 				$timeout(function(){
 					$( '.input-field input' ).removeClass( 'invalid' );
 					$( '.input-field input' ).removeClass( 'ng-touched' );
-					$( '.input-field select' ).material_select(); 
+					// $( '.input-field select' ).material_select(); 
+					$('.input-field select').formSelect();
 				}, 10 );
 			},
 

@@ -641,7 +641,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 					$( '#ngm-country' ).on( 'change', function() {
 						if( $( this ).find( 'option:selected' ).text() ) {
 							$( '.country' ).css({ 'color': 'teal' });
-							$( 'select' ).material_select();
+							// $( 'select' ).material_select();
+							$('select').formSelect();
 						}
 					});
 

@@ -127,11 +127,17 @@ angular.module( 'ngmReportHub' )
 
 			// update material_select
 			updateSelect: function(){
-				$timeout(function() { $( 'select' ).material_select(); }, 400 );
+				$timeout(function() { 
+					// $( 'select' ).material_select(); 
+					$('select').formSelect();
+				}, 400 );
 			},
 
 			updateSelectById: function (id) {
-				$timeout(function () { $('#' + id + ' select').material_select(); }, 10 );
+				$timeout(function () { 
+					// $('#' + id + ' select').material_select();
+					$('#' + id + ' select').formSelect();
+				 }, 10 );
 			},
 
 			// sum for totals (age groups)
