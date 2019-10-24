@@ -1315,7 +1315,9 @@ angular.module('ngmReportHub')
 											typeDocument: 'monthly',
 											firstLetterUpperCase: function (string) { return string.charAt(0).toUpperCase() + string.slice(1); },
 											openModal: function (modal, link) {
-												$('#' + modal).openModal({ dismissible: false });
+												// $('#' + modal).openModal({ dismissible: false });
+												$('#' + modal).modal({ dismissible: false });
+												$('#' + modal).modal('open');
 												if (link !== '') {
 													if (modal === 'close-preview-modal') {
 														$scope.linkPreview = link;

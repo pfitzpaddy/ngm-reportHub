@@ -231,7 +231,9 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
           // if not pristine, confirm exit
           if ( modal === 'complete-modal' ) {
-            $( '#' + modal ).openModal( { dismissible: false } );
+            // $( '#' + modal ).openModal( { dismissible: false } );
+            $('#' + modal).modal({ dismissible: false });
+            $('#' + modal).modal('open');
           } else {
             $scope.report.cancel();
           }
@@ -382,7 +384,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             // msg
             // Materialize.toast( msg , 6000, 'success');
             M.toast({ html: msg, displayLength: 6000, classes: 'success' });
-						$('.modal-trigger').leanModal();
+            // $('.modal-trigger').leanModal();
+            $('.modal-trigger').modal();
 
             // Re-direct to summary
             if ( $scope.report.report.report_status !== 'complete' ) {

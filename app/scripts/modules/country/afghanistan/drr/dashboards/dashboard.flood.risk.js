@@ -14,7 +14,9 @@ angular.module('ngmReportHub')
 		];
 
 		// loading
-		$('#ngm-loading-modal').openModal({dismissible: false});
+		// $('#ngm-loading-modal').openModal({dismissible: false});
+		$('#ngm-loading-modal').modal({ dismissible: false });
+		$('#ngm-loading-modal').modal('open');
 
 		// hide left menu options
 		$('.ngm-profile').css('display', 'none');
@@ -152,7 +154,9 @@ angular.module('ngmReportHub')
 					$timeout(function() {
 						$('#ngm-report-title').css('font-size', '2.56rem');
 					}, 200);
-					$('#ngm-loading-modal').closeModal();
+					// $('#ngm-loading-modal').closeModal();
+					$('#ngm-loading-modal').modal();
+					$('#ngm-loading-modal').modal('close');
 				});			
 
 			},			

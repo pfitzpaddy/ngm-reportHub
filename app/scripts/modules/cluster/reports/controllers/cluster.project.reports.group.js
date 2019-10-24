@@ -194,7 +194,9 @@ angular.module('ngmReportHub')
 
 									// remove report modal
 									removeReportModal: function () {
-										$('#remove-report-modal').openModal({ dismissible: false });
+										// $('#remove-report-modal').openModal({ dismissible: false });
+										$('#remove-report-modal').modal({ dismissible: false });
+										$('#remove-report-modal').modal('open');
 									},
 
 									// remove report

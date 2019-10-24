@@ -171,7 +171,9 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
           $scope.report.locationIndex = $index;
 
           // open confirmation modal
-          $('#warehouses-modal').openModal({ dismissible: false });
+          // $('#warehouses-modal').openModal({ dismissible: false });
+          $('#warehouse-modal').modal({ dismissible: false });
+          $('#warehouse-modal').modal('open');
 
         },
 

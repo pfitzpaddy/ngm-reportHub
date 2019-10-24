@@ -96,7 +96,9 @@ angular.module( 'ngmReportHub' )
       removeLocationModal: function( project, id ) {
         ngmClusterLocations.project = project;
         ngmClusterLocations.remove_id = id;
-        $( '#location-modal' ).openModal({ dismissible: false });
+        // $( '#location-modal' ).openModal({ dismissible: false });
+        $('#location-modal').modal({ dismissible: false });
+        $('#location-modal').modal('open');
       },      
 
       // remove beneficiary

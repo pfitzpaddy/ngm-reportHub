@@ -348,7 +348,9 @@ angular.module('ngmReportHub')
 
 											this.pk = pk;
 											this.dataid = dataid;
-											$( '#' + modal ).openModal( { dismissible: false } );
+											// $( '#' + modal ).openModal( { dismissible: false } );
+											$('#' + modal).modal({ dismissible: false });
+											$('#' + modal).modal('open');
 
 										},
 
@@ -446,7 +448,9 @@ angular.module('ngmReportHub')
 
 											this.pk = pk;
 											this.dataid = dataid;
-											$( '#' + modal ).openModal( { dismissible: false } );
+											// $( '#' + modal ).openModal( { dismissible: false } );
+											$('#' + modal).modal({ dismissible: false });
+											$('#' + modal).modal('open');
 
 										},
 

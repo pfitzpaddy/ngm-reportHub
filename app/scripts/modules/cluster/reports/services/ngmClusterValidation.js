@@ -258,7 +258,9 @@ angular.module( 'ngmReportHub' )
 
 				// popup
 				if ( a && b && c && d && e ) {
-					$( '#save-modal' ).openModal( { dismissible: false } );
+					// $( '#save-modal' ).openModal( { dismissible: false } );
+					$('#save-modal').modal({ dismissible: false });
+					$('#save-modal').modal('open');
 				} else {
 					// scroll and error
 					scrollDiv.animatescroll();

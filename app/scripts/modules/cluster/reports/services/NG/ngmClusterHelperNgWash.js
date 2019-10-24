@@ -314,7 +314,9 @@ angular.module( 'ngmReportHub' )
 				ngmClusterHelperNgWash.beneficiary = beneficiary;
 				ngmClusterHelperNgWash.removeIndex = $index;
 				ngmClusterHelperNgWash.association = association;
-				$( modal ).openModal({ dismissible: false });
+				// $( modal ).openModal({ dismissible: false });
+				$( modal).modal({ dismissible: false });
+				$( modal).modal('open');
 			},
 
 			// remove borehole

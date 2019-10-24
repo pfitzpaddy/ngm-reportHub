@@ -166,7 +166,9 @@ angular.module('ngmReportHub')
 									params: $scope.report.setParamUpload(),
 									templateUrl: '/scripts/widgets/ngm-dropzone/template/upload.html',
 									openModal: function (modal) {
-										$('#' + modal).openModal({ dismissible: false });
+										// $('#' + modal).openModal({ dismissible: false });
+										$('#' + modal).modal({ dismissible: false });
+										$('#' + modal).modal('open');
 									},
 									previewTemplate: `	<div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
 																			<div class="dz-image">
@@ -200,7 +202,9 @@ angular.module('ngmReportHub')
 												&& ext !== 'csv'
 											){
 											this.removeFile(file);
-											$('#not-support-file').openModal({ dismissible: false });											
+											// $('#not-support-file').openModal({ dismissible: false });
+											$('#not-support-file').modal({ dismissible: false });
+											$('#not-support-file').modal('open');											
 										}else{
 											done(); 
 										}
@@ -271,7 +275,9 @@ angular.module('ngmReportHub')
 												document.getElementById("upload_doc").style.pointerEvents = "none";
 												$("#delete_doc").attr("disabled", true);
 												document.getElementById("delete_doc").style.pointerEvents = "none";
-												$('#too-large-file').openModal({ dismissible: false });											
+												// $('#too-large-file').openModal({ dismissible: false });	
+												$('#too-large-file').modal({ dismissible: false });
+												$('#too-large-file').modal('open');										
 											}else{
 												$("#upload_doc").attr("disabled", false);
 												$("#delete_doc").attr("disabled", false);
@@ -280,7 +286,9 @@ angular.module('ngmReportHub')
 
 										this.on("maxfilesexceeded", function (file) {
 											document.querySelector(".dz-default.dz-message").style.display = 'none';
-											$('#exceed-file').openModal({ dismissible: false });
+											// $('#exceed-file').openModal({ dismissible: false });
+											$('#exceed-file').modal({ dismissible: false });
+											$('#exceed-file').modal('open');
 											$("#upload_doc").attr("disabled", true);
 											document.getElementById("upload_doc").style.pointerEvents = "none";
 											$("#delete_doc").attr("disabled", true);
@@ -307,6 +315,8 @@ angular.module('ngmReportHub')
 													$("#upload_doc").attr("disabled", true);
 													$("#delete_doc").attr("disabled", true);
 													$('#too-large-file').openModal({ dismissible: false });
+													$('#too-large-file').modal({ dismissible: false });
+													$('#too-large-file').modal('open');
 												}else{
 													document.getElementById("upload_doc").style.pointerEvents = 'auto';
 													document.getElementById("delete_doc").style.pointerEvents = 'auto';
@@ -409,7 +419,9 @@ angular.module('ngmReportHub')
 										itemsPerPage: 6,
 										itemsPerPageGrid:18,
 										openModal: function (modal,link) {
-											$('#' + modal).openModal({ dismissible: false });
+											// $('#' + modal).openModal({ dismissible: false });
+											$('#' + modal).modal({ dismissible: false });
+											$('#' + modal).modal('open');
 											if(link!==''){
 												if(modal === 'close-preview-modal'){
 													$scope.linkPreview= link;

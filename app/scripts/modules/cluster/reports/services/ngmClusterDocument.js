@@ -35,7 +35,9 @@ angular.module('ngmReportHub')
 					// ****to manage shown file****
 					// open preview modal
 					openPreview: function (modal, link) {
-						$('#' + modal).openModal({ dismissible: false });
+						// $('#' + modal).openModal({ dismissible: false });
+						$('#' + modal).modal({ dismissible: false });
+						$('#' + modal).modal('open');
 						this.linkPreview = "https://drive.google.com/file/d/" + link + "/preview";
 						console.log(modal, link);
 					},
@@ -51,7 +53,9 @@ angular.module('ngmReportHub')
 					},
 					// set id to remove file
 					setRemoveId: function (modal, id) {
-						$('#' + modal).openModal({ dismissible: false });
+						// $('#' + modal).openModal({ dismissible: false });
+						$('#' + modal).modal({ dismissible: false });
+						$('#' + modal).modal('open');
 						this.removeFileId = id;
 					},
 					// remove file
@@ -122,10 +126,14 @@ angular.module('ngmReportHub')
 					uploadDocument: function (parameter) {
 						var upload = {
 							openModal: function (modal) {
-								$('#' + modal).openModal({ dismissible: false });
+								// $('#' + modal).openModal({ dismissible: false });
+								$('#' + modal).modal({ dismissible: false });
+								$('#' + modal).modal('open');
 							},
 							closeModal: function (modal) {
-								$('#' + modal).closeModal({ dismissible: true });
+								// $('#' + modal).closeModal({ dismissible: true });
+								$('#' + modal).modal({ dismissible: true });
+								$('#' + modal).modal('close');
 								myDropzone.removeAllFiles(true);
 								// Materialize.toast($filter('translate')('cancel_to_upload_file'), 2000, "note");
 								M.toast({ html: $filter('translate')('cancel_to_upload_file'), displayLength: 2000, classes: 'note'});
@@ -359,7 +367,9 @@ angular.module('ngmReportHub')
 									// percent-upload is a class use to show progress bar when upload file
 									document.querySelector(".percent-upload").style.display = 'none';
 									document.querySelector(".dz-default.dz-message").style.display = 'block';
-									$('#upload-file').closeModal({ dismissible: true });
+									// $('#upload-file').closeModal({ dismissible: true });
+									$('#upload-file').modal({ dismissible: true });
+									$('#upload-file').modal('close');
 									$rootScope.$broadcast('refresh:listUpload');									
 								}
 							},

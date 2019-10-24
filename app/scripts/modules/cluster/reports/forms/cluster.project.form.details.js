@@ -447,7 +447,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				// remove beneficiary from list
 				removeTargetBeneficiaryModal: function( $index ) {
 					$scope.project.beneficiaryIndex = $index;
-					$( '#beneficiary-modal' ).openModal({ dismissible: false });
+					// $( '#beneficiary-modal' ).openModal({ dismissible: false });
+					$('#beneficiary-modal').modal({ dismissible: false });
+					$('#beneficiary-modal').modal('open');
 				},
 
 				// remove beneficiary from db
@@ -501,9 +503,13 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 					// show modal
 					if ( $scope.project.definition.location_groups_check ) {
-						$( '#location-group-remove-modal' ).openModal({ dismissible: false });
+						// $( '#location-group-remove-modal' ).openModal({ dismissible: false });
+						$( '#location-group-remove-modal').modal({ dismissible: false });
+						$( '#location-group-remove-modal').modal('open');
 					} else {
-						$( '#location-group-add-modal' ).openModal({ dismissible: false });
+						// $( '#location-group-add-modal' ).openModal({ dismissible: false });
+						$( '#location-group-add-modal').modal({ dismissible: false });
+						$( '#location-group-add-modal').modal('open');
 					}
 				},
 
@@ -889,7 +895,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 							if( display_modal ){
 
 								// modal-trigger
-								$('.modal-trigger').leanModal();
+								// $('.modal-trigger').leanModal();
+								$('.modal-trigger').modal();
 
 								// save msg
 								var msg = $scope.project.newProject ? $filter('translate')('project_created')+'!' : $filter('translate')('project_updated');

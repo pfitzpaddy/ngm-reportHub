@@ -308,7 +308,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				modalConfirm: function( modal ){
 					// if not pristine, confirm exit
 					if ( modal === 'complete-modal' ) {
-						$( '#' + modal ).openModal( { dismissible: false } );
+						// $( '#' + modal ).openModal( { dismissible: false } );
+						$('#' + modal).modal({ dismissible: false });
+						$('#' + modal).modal('open');
 					} else {
 						$scope.project.cancel();
 					}
@@ -347,7 +349,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							if ( ngmClusterBeneficiaries.beneficiaryFormComplete( $scope.project.definition, $scope.project.report.locations ) ){
 									$scope.project.locationIndex = $parent;
 									$scope.project.beneficiaryIndex = $index;
-								$( '#beneficiary-modal' ).openModal({ dismissible: false });
+								// $( '#beneficiary-modal' ).openModal({ dismissible: false });
+								$('#beneficiary-modal').modal({ dismissible: false });
+								$('#beneficiary-modal').modal('open');
 							}
 						}
 					// }
@@ -366,6 +370,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				// remove report modal
 				removeReportModal: function() {
 					$( '#remove-report-modal' ).openModal({ dismissible: false });
+					$( '#remove-report-modal').modal({ dismissible: false });
+					$( '#remove-report-modal').modal('open');
 				},
 
 				// remove report
@@ -599,9 +605,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				validateWashNgBeneficiariesForm: function( complete, display_modal ){
 					if ( ngmClusterHelperNgWashValidation.validateActivities( $scope.project.report.locations ) ){
 						if ( complete ) {
-							$( '#complete-modal' ).openModal( { dismissible: false } );
+							// $( '#complete-modal' ).openModal( { dismissible: false } );
+							$('#complete-modal').modal({ dismissible: false });
+							$('#complete-modal').modal('open');
 						} else if ( display_modal ) {
-							$( '#save-modal' ).openModal( { dismissible: false } );
+							// $( '#save-modal' ).openModal( { dismissible: false } );
+							$('#save-modal').modal({ dismissible: false });
+							$('#save-modal').modal('open');
 						} else {
 							$scope.project.save( false, false );
 						}
@@ -612,9 +622,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				validateBeneficiariesDetailsForm: function( complete, display_modal ){
 					if ( ngmClusterValidation.validateBeneficiaries($scope.project.report.locations, $scope.detailBeneficiaries) ){
 						if ( complete ) {
-							$( '#complete-modal' ).openModal( { dismissible: false } );
+							// $( '#complete-modal' ).openModal( { dismissible: false } );
+							$('#complete-modal').modal({ dismissible: false });
+							$('#complete-modal').modal('open');
 						} else if ( display_modal ) {
-							$( '#save-modal' ).openModal( { dismissible: false } );
+							// $( '#save-modal' ).openModal( { dismissible: false } );
+							$('#save-modal').modal({ dismissible: false });
+							$('#save-modal').modal('open');
 						} else {
 							$scope.project.save( false, false );
 						}
@@ -908,7 +922,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							}, 400 );
 
 							// set trigger
-							$('.modal-trigger').leanModal();
+							// $('.modal-trigger').leanModal();
+							$('.modal-trigger').modal();
 
 							// Re-direct to summary
 							if ( $scope.project.report.report_status !== 'complete' ) {

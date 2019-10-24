@@ -533,7 +533,9 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
         removeBudgetModal: function( $index ) {
           $scope.project.budgetIndex = $index;
           // open confirmation modal
-          $( '#budget-modal' ).openModal({ dismissible: false });
+          // $( '#budget-modal' ).openModal({ dismissible: false });
+          $('#budget-modal').modal({ dismissible: false });
+          $('#budget-modal').modal('open');
         },
 
         // remove budget item
