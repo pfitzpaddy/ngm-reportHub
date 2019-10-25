@@ -398,14 +398,24 @@ form {
 
 					<div class="row">
 						<div class="col s4" ng-repeat="role in panel.roles" >
-							<input type="checkbox"
+							<!-- <input type="checkbox"
 											class="filled-in"
 											id={{role}}
 											value={{role}}
 											ng-checked="panel.user.roles.indexOf(role) > -1"
 											ng-disabled="role === 'USER'"
 								 			ng-click="panel.manageUserAccess(role)" />
-							<label for="{{role}}" style="color: #000000; font-weight: 500;">{{role}}</label>
+							<label for="{{role}}" style="color: #000000; font-weight: 500;">{{role}}</label> -->
+							<label>
+								<input type="checkbox"
+								class="filled-in"
+								id={{role}}
+								value={{role}}
+								ng-checked="panel.user.roles.indexOf(role) > -1"
+								ng-disabled="role === 'USER'"
+								ng-click="panel.manageUserAccess(role)" />
+								<span style="color: #000000; font-weight: 500;" >{{role}}</span>
+							</label>
 						</div>
 					</div>
 					
