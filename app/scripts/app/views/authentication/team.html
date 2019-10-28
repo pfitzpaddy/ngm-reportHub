@@ -109,8 +109,11 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 									<div class="input-field">
 										<input id="search_{{table.id}}" type="search" ng-model="table.search.filter" ng-focus="table.search.focused=true" ng-blur="table.search.focused=false"
 										 ng-change="table.searchLoadTable()">
-										<label for="search_{{table.id}}">
+										<!-- <label for="search_{{table.id}}">
 											<i class="material-icons" style="color: teal; padding-left:5px;">search</i>
+										</label> -->
+										<label for="search_{{table.id}}" style="top:-10px">
+											<i class="material-icons" style="color: teal; padding-left:25px;">search</i>
 										</label>
 									</div>
 								</form>

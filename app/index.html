@@ -538,13 +538,15 @@
 										type="search"
 										class="ngm-form-search"
 										ng-model="ngm.menu.query[list.id]">
-									<label for="search"><i class="material-icons teal-text">search</i></label>
+									<!-- <label for="search"><i class="material-icons teal-text">search</i></label> -->
+									<label for="search" style="top:-10px"><i class="material-icons teal-text" style="padding-left: 20px;">search</i></label>
 								</div>
 							</div>
 						</nav>
 
 						<!-- list options -->
-			  		<div class="collapsible-body">
+					<!-- <div class="collapsible-body"  style="padding: 0;"> -->
+					<div class="collapsible-body" style="padding: 0px !important;">
 				      <div class="collection" ng-repeat="row in list.rows | filter:ngm.menu.query[list.id] track by $index">
 				      	
 				      	<a ng-if="row.href" href="{{ row.href }}"
@@ -840,6 +842,11 @@
 		<script src="scripts/widgets/ngm-modal/modal.js"></script>
 		<script src="scripts/widgets/ngm-stats/stats.js"></script>
 		<script src="scripts/widgets/ngm-table/table.js"></script>
+		<script>
+			$(document).ready(function () {
+					$('.collapsible').collapsible();
+				});
+		</script>
 
 
 	</body>

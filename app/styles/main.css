@@ -197,6 +197,7 @@ h1, h2, h3, h4, h5, p {
 
 .card .card-title {
 	font-weight: 300;
+	color:#fff;
 }
 
 .card .card-content .card-title {
@@ -315,4 +316,6 @@ body.md-default-theme, body, html.md-default-theme, html {
 #splash-screen {
 	display: none;
 }
-
+.pagination.ng-table-pagination{
+	padding-top: 10px ;
+}

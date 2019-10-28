@@ -220,6 +220,7 @@ i.smedium {
 .collapsible-body{
 	overflow: auto;
 	max-height: 360px !important;
+	padding: 0px !important;
 }
 .minim{
 	padding-left: 0 !important ;
@@ -230,4 +231,8 @@ i.smedium {
 } */
 .minim > .container > .expand.row{
 	width: 105%;
+}
+.nav-wrapper > .input-field label.active{
+	transform: translateY(13px) scale(1);
+	transform-origin: 0 0;
 }
