@@ -319,3 +319,7 @@ body.md-default-theme, body, html.md-default-theme, html {
 .pagination.ng-table-pagination{
 	padding-top: 10px ;
 }
+
+.icon.center .card img {
+    width: 100%;
+}
