@@ -156,6 +156,9 @@ angular.module('ngmReportHub')
 				}
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;
+				setTimeout(() => {
+					$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+				}, 0);
 
 			}
 

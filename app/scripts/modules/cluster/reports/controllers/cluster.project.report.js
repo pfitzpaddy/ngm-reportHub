@@ -230,6 +230,9 @@ angular.module('ngmReportHub')
 			// assign
 			$scope.report.setProjectDetails( results );
 
+			setTimeout(() => {
+				$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+			}, 0);
 		});
 		
 	}]);

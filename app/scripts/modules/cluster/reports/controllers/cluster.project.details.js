@@ -251,5 +251,8 @@ angular.module('ngmReportHub')
 			});
 
 		}
+		setTimeout(() => {
+			$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+		}, 0);
 
 	}]);

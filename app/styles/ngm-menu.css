@@ -83,6 +83,12 @@ background-color: #2196f3;
 	z-index:9991;
 	visibility: visible;
 }
+.ngm-profile-btn-rightoff.direction-left{
+	top:110px;
+}
+.ngm-minimize-flat.direction-left{
+	top:110px;
+}
 .hide-position {
 	visibility: hidden;
 	transition: visibility 0.2s, ease-in-out;
