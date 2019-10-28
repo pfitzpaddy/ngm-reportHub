@@ -171,6 +171,23 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					})
 				},
 
+				// sets title for each location / activity
+				getBeneficiaryTitle: function( $locationIndex, $beneficiaryIndex ){
+					// beneficiary
+					var beneficiary = $scope.project.report.locations[ $locationIndex ].beneficiaries[ $beneficiaryIndex ];
+					// title
+					var title = beneficiary.activity_type_name;
+					// activity_description_id
+					if ( beneficiary.activity_description_id ) {
+						title += ', ' + beneficiary.activity_description_name;
+					}
+					// activity_detail_id
+					if ( beneficiary.activity_detail_id ) {
+						title += ', ' + beneficiary.activity_detail_name;
+					}
+					return title;
+				},
+
 				// set location / beneficiaries limits
 				setLocationsLimit: function(){
 
