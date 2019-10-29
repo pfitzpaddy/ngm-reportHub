@@ -22,11 +22,13 @@
 				<h5 class="report-beneficiary-title" ng-if="!beneficiary.activity_type_id">
 					<i class="material-icons left">accessibility</i>Target {{ $beneficiaryIndex+1 }}
 				</h5>
-				<h5 class="report-beneficiary-title" ng-if="beneficiary.activity_type_id">
+				<h5 class="report-beneficiary-title truncate col s12 m11" ng-if="beneficiary.activity_type_id">
 					<i class="material-icons left">accessibility</i>{{ project.getBeneficiaryTitle( $locationIndex, $beneficiaryIndex ) }}
-				<h5 class="report-beneficiary-second-title">
-					{{beneficiary.beneficiary_type_name?beneficiary.beneficiary_type_name:''}}
-				</h5>
+				<br/>
+				<br/>
+				<span class="report-beneficiary-second-title">
+					{{ beneficiary.beneficiary_type_name?beneficiary.beneficiary_type_name:'' }}
+				</span>
 			</div>
 
 			<!-- btns -->
