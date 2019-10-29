@@ -214,6 +214,12 @@ angular.module('ngmReportHub')
 						request.query.organization_tag = $route.current.params.organization_tag;
 					}
 
+					//start date and end date params to filter by project_start_date an project_end_date
+
+					request.query.project_start_date = $route.current.params.start;
+					request.query.project_end_date = $route.current.params.end;
+
+
 					// query depenging on role
 					switch ($scope.dashboard.role){
 						case 'ADMIN':
