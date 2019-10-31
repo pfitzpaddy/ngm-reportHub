@@ -219,7 +219,7 @@ angular.module('ngmReportHub')
 							cluster_id: $scope.dashboard.cluster_id,
 							organization_tag: $scope.dashboard.organization_tag,
 						
-							//donor: $scope.dashboard.donor_tag,
+							donor: $scope.dashboard.donor_tag,
 
 							beneficiaries: $scope.dashboard.beneficiaries,
 							start_date: $scope.dashboard.startDate,
@@ -525,12 +525,12 @@ angular.module('ngmReportHub')
 					ngmData.get( request ).then( function( organizations  ){
 
 
-						if($scope.dashboard.user.roles.indexOf('COUNTRY_ADMIN')  !== -1  )  {
+						/*if($scope.dashboard.user.roles.indexOf('COUNTRY_ADMIN')  !== -1  )  {
 						 						
 						 		$scope.dashboard.organization_tag = 'all';
 
 					       }else{
-                      }
+                      }*/
 
 						// set organization
 						if ( $scope.dashboard.organization_tag !== 'all' ) {
@@ -924,7 +924,9 @@ angular.module('ngmReportHub')
 					// TODO refactor/update cvwg
 					$scope.dashboard.cluster_id_filename = $scope.dashboard.cluster_id !== 'cvwg' ? $scope.dashboard.cluster_id : 'mpc';
 
-					
+					if ($route.current.params.organization_tag!=='all'){
+						$scope.dashboard.cluster_id_filename = $route.current.params.organization_tag + '_' + $scope.dashboard.cluster_id_filename;
+					}
 
 					/*$scope.dashboard.beneficiaries_row = [ 
 					
