@@ -867,6 +867,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					}).error(function( err ) {
 						// error
 						Materialize.toast( 'Error!', 4000, 'error' );
+						// unblock save button in case of any backend / no internet errors
+						$timeout(function () {
+							$scope.project.submit = true;
+						}, 4000);
+
 					});
 
 				}
