@@ -297,7 +297,16 @@ angular.module( 'ngmReportHub' )
 						
 						// merge defaults
 						// angular.merge( beneficiary, defaults.inputs, defaults.activity_description, defaults.activity_detail, defaults.indicator, defaults.beneficiary, defaults.cash_package_units );
-						angular.merge( beneficiary, defaults.inputs );
+						// angular.merge( beneficiary, defaults.inputs );
+
+						// defaults
+						var defaults = ngmClusterBeneficiaries.defaults;
+						var context_defaults = defaults[ project.definition.admin0pcode ] && defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] ? defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] : {}
+
+						// merge defaults
+						angular.merge( beneficiary, defaults.inputs, context_defaults );
+
+						// remove attributes (from previous selections of same record)
 						delete beneficiary.activity_description_id;
 						delete beneficiary.activity_description_name;
 						delete beneficiary.activity_detail_id;
@@ -327,13 +336,6 @@ angular.module( 'ngmReportHub' )
 			// set description
 			setBeneficiaries: function( project, type, $parent, $index, beneficiary ) {
 
-				// defaults
-				var defaults = ngmClusterBeneficiaries.defaults;
-				var context_defaults = defaults[ project.definition.admin0pcode ] && defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] ? defaults[ project.definition.admin0pcode ][ beneficiary.cluster_id ] : {}
-
-				// merge defaults
-				angular.merge( beneficiary, defaults.inputs, context_defaults);
-
 				// cleaning
 				if ( type === 'description' ) {
 					delete beneficiary.activity_detail_id;
@@ -361,13 +363,13 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// clear cash / package / units
-				angular.forEach( defaults.cash_package_units, function ( i, key ) {
-					if ( !ngmClusterBeneficiaries.form[ $parent ][ $index ][ key ] && key.indexOf( '_name' ) === -1 ) {
-						var key_base = key.slice( 0, -2 );
-						delete beneficiary[ key ];
-						delete beneficiary[ key_base + 'name' ];
-					}
-				});
+				// angular.forEach( defaults.cash_package_units, function ( i, key ) {
+				// 	if ( !ngmClusterBeneficiaries.form[ $parent ][ $index ][ key ] && key.indexOf( '_name' ) === -1 ) {
+				// 		var key_base = key.slice( 0, -2 );
+				// 		delete beneficiary[ key ];
+				// 		delete beneficiary[ key_base + 'name' ];
+				// 	}
+				// });
 
 			},
 

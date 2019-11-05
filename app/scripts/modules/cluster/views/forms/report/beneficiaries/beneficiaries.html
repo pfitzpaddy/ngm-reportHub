@@ -22,22 +22,13 @@
 				<h5 class="report-beneficiary-title" ng-if="!beneficiary.activity_type_id">
 					<i class="material-icons left">accessibility</i>Target {{ $beneficiaryIndex+1 }}
 				</h5>
-				<h5 class="report-beneficiary-title" ng-if="beneficiary.activity_type_id && !beneficiary.activity_description_id">
-					<i class="material-icons left">accessibility</i>{{ beneficiary.activity_type_name }}
-				</h5>
-				<h5 class="report-beneficiary-title" ng-if="beneficiary.activity_type_id && beneficiary.activity_description_id && beneficiary.activity_detail_name"
-				 style="padding-bottom: 0px;padding-top:5px;">
-					<i class="material-icons left">accessibility</i>{{ beneficiary.activity_type_name }}, {{ beneficiary.activity_description_name }}, {{beneficiary.activity_detail_name}}
-				</h5>
-				<!-- <h5 ng-if="beneficiary.activity_detail_name" class="report-beneficiary-second-title">
-					{{beneficiary.activity_detail_name}}, {{beneficiary.beneficiary_type_name?beneficiary.beneficiary_type_name:''}}
-				</h5> -->
-				<h5 class="report-beneficiary-title" ng-if="beneficiary.activity_type_id && beneficiary.activity_description_id && !beneficiary.activity_detail_name">
-					<i class="material-icons left">accessibility</i>{{ beneficiary.activity_type_name }}, {{ beneficiary.activity_description_name }},
-				</h5>
-				<h5 class="report-beneficiary-second-title">
-					{{beneficiary.beneficiary_type_name?beneficiary.beneficiary_type_name:''}}
-				</h5>
+				<h5 class="report-beneficiary-title truncate col s12 m11" ng-if="beneficiary.activity_type_id">
+					<i class="material-icons left">accessibility</i>{{ project.getBeneficiaryTitle( $locationIndex, $beneficiaryIndex ) }}
+				<br/>
+				<br/>
+				<span class="report-beneficiary-second-title">
+					{{ beneficiary.beneficiary_type_name?beneficiary.beneficiary_type_name:'' }}
+				</span>
 			</div>
 
 			<!-- btns -->
@@ -210,7 +201,7 @@
 																				activity_type_id: beneficiary.activity_type_id,
 																				activity_description_id: beneficiary.activity_description_id
 																		} : true"
-											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_detail_id', 'activity_detail_name', beneficiary );
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_details, 'activity_detail_id', 'activity_detail_name', beneficiary );
 																	ngmClusterBeneficiaries.setBeneficiaries( project, 'detail', $locationIndex, $beneficiaryIndex, beneficiary );
 												ngmClusterBeneficiaries.inputChange( 'ngm-activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
