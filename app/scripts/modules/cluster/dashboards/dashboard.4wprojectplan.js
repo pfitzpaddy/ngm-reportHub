@@ -232,6 +232,14 @@ angular.module('ngmReportHub')
 					request.query.project_end_date = $route.current.params.end;
 
 
+
+
+
+
+
+					if( $route.current.params.admin1pcode !== 'all'){
+						request.query.admin1pcode = $route.current.params.admin1pcode;
+					}
 					// query depenging on role
 					switch ($scope.dashboard.role){
 						case 'ADMIN':
