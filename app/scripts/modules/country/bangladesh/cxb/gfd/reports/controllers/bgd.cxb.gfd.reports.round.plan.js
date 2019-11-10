@@ -1380,6 +1380,21 @@ angular.module( 'ngmReportHub' )
 					// data for round
 					if ( data.length ) {
 
+						// report round / distribution
+						var form_filter = { report_round: $scope.report.report_round }
+
+						// site id
+						if ( $scope.report.organization_tag !== 'wfp' ) {
+							form_filter.organization_tag = $scope.report.organization_tag;
+						}
+
+						// site id
+						if ( $scope.report.site_id !== 'all' ) {
+							form_filter.site_id = $scope.report.site_id;
+						}
+
+						console.log( form_filter )
+
 						// form links
 						$scope.model.rows.push({
 							columns: [{
@@ -1389,7 +1404,7 @@ angular.module( 'ngmReportHub' )
 									card: 'card-panel',
 									style: 'padding:0px;',
 									config: {
-										forms: $scope.report.forms.list,
+										forms: $filter( 'filter' )( $scope.report.forms.list, form_filter ),
 										header: 'collection-header blue',
 										icon: 'inbox',
 										message: $scope.report.organization_tag !== 'wfp' ? $scope.report.organization_tag.toUpperCase() + ' Daily Reporting Forms' : 'Daily Reporting Forms',
