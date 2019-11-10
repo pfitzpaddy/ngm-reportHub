@@ -7,7 +7,7 @@
     <a href="{{ panel.getTeamUrl() }}">
       <div class="card small blue-grey darken-1 hoverable">
         <div class="card-image">
-          <img src="images/immap/team.jpg">
+          <img src="images/cluster/team.jpg">
         </div>
         <div class="card-content white-text">
           <p class="card-title">{{ panel.user.organization }} {{'team'|translate}}</p>
@@ -67,7 +67,7 @@
 </div>
 
 <!-- CXB -->
-<div class="row" ng-if="panel.organization.admin0pcode === 'CB'">
+<div class="row" ng-if="panel.organization.admin0pcode === 'CB' && panel.user.email !== 'pfitzgerald@immap.org'">
   
   <!-- projects -->
   <div class="col s12 m6">
@@ -91,7 +91,7 @@
     <a href="{{ panel.getTeamUrl() }}">
       <div class="card medium blue-grey darken-1 hoverable">
         <div class="card-image" style="max-height:70%">
-          <img src="images/immap/team.jpg">
+          <img src="images/cluster/team.jpg">
         </div>
         <div class="card-content white-text">
           <p class="card-title">{{ panel.teamTitle() }}</p>
@@ -105,6 +105,62 @@
 
 </div>
 
+<!-- CXB -->
+<div class="row" ng-if="panel.organization.admin0pcode === 'CB' && panel.user.email === 'pfitzgerald@immap.org'">
+  
+  <!-- projects -->
+  <div class="col s12 m4">
+    <a href="{{ panel.getProjectsHref() }}">
+     <div class="card medium blue-grey darken-1 hoverable">
+      <div class="card-image" style="max-height:70%">
+        <img src="images/cluster/projects-{{ panel.organization.admin0pcode }}.jpg">
+      </div>
+      <div class="card-content white-text">
+        <p class="card-title">{{ 'projects_mayus1'|translate }}</p>
+      </div>
+      <div class="card-action">
+        <a class="left" href="{{ panel.getProjectsHref() }}">{{ 'go_to'|translate }} {{ panel.organization.organization }} {{'projects_mayus1'|translate}}</a>
+      </div>
+    </div>
+    </a>
+  </div>
+
+  <!-- team -->
+  <div class="col s12 m4">
+    <a href="{{ panel.getTeamUrl() }}">
+      <div class="card medium blue-grey darken-1 hoverable">
+        <div class="card-image" style="max-height:70%">
+          <img src="images/cluster/team.jpg">
+        </div>
+        <div class="card-content white-text">
+          <p class="card-title">{{ panel.teamTitle() }}</p>
+        </div>
+        <div class="card-action">
+          <a class="left" href="{{ panel.getTeamUrl() }}">{{ 'view_team'|translate }}</a>
+        </div>
+      </div>
+     </a>
+  </div>
+
+  <!-- team -->
+  <div class="col s12 m4">
+    <a href="#/bgd/cxb/gfa/gfd">
+      <div class="card medium blue-grey darken-1 hoverable">
+        <div class="card-image" style="max-height:70%">
+          <img src="images/country/bangladesh/gfd.jpg">
+        </div>
+        <div class="card-content white-text">
+          <p class="card-title">General Food Distribution</p>
+        </div>
+        <div class="card-action">
+          <a class="left" href="#/bgd/cxb/gfa/gfd">GO TO GFD REPORTS</a>
+        </div>
+      </div>
+     </a>
+  </div>  
+
+</div>
+
 
 <!-- Not Syria && CXB -->
 <div class="row" ng-if="panel.organization.admin0pcode !== 'SY' && panel.organization.admin0pcode !== 'CB'">
@@ -114,7 +170,7 @@
     <a href="{{ panel.getTeamUrl() }}">
       <div class="card small blue-grey darken-1 hoverable">
         <div class="card-image">
-          <img src="images/immap/team.jpg">
+          <img src="images/cluster/team.jpg">
         </div>
         <div class="card-content white-text">
           <p class="card-title">{{ panel.teamTitle() }}</p>

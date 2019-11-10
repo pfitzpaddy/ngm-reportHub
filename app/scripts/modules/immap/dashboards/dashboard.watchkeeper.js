@@ -378,7 +378,7 @@ angular.module('ngmReportHub')
 										spacingRight: 100
 									},
 									tooltip: {
-										pointFormat: '<b>{point.y:,.0f} {series.name}</b>'
+										pointFormat: '<b>{series.name} {point.y:,.0f}</b>'
 									},
 									legend: {
 											enabled: false
