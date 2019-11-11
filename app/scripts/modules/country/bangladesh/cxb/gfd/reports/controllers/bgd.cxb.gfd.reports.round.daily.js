@@ -1800,7 +1800,7 @@ angular.module( 'ngmReportHub' )
 										organization_tag: $scope.report.organization_tag,
 
 										// home url
-										reset_url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/' +  $scope.report.organization_tag + '/all/all/' + moment().format( 'YYYY-MM-DD' ) + '/' + moment().format( 'YYYY-MM-DD' ),
+										reset_url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/' +  $scope.report.organization_tag + '/all/all/all/all/' + moment().format( 'YYYY-MM-DD' ) + '/' + moment().format( 'YYYY-MM-DD' ),
 
 										// fetch data from kobo
 										refreshData: function(){
