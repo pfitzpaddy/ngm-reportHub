@@ -75,7 +75,7 @@ angular.module('ngm.widget.dropzone', ['ngm.provider'])
 
 				dictDefaultMessage: '<div id="default-message" align="center"><img src="images/upload/icon-drag-drop.png" width="200px" title="Click or Drag & Drop to Upload"/><br/>',
 				
-				previewTemplate: '<div id="dropzone-message" align="center"><img src="images/upload/feature-icon-idea-photography.png" width="200px" title="Uploading..."/><br/><div style="font-weight:400;font-size:1.2rem;">Uploading...</div><br/><div class="dz-filename"><span data-dz-name></span></div></div><br/><div class="progress"><div class="determinate" data-dz-uploadprogress></div></div>',
+				previewTemplate: '<div id="dropzone-message" align="center"><img src="images/upload/feature-icon-idea-photography.png" width="200px" title="Uploading..."/><br/><div style="font-weight:400;font-size:1.2rem;">Uploading...</div><br/><div class="dz-filename"><span data-dz-name></span></div></div><br/> <div id="the-progress-div"><span class="the-progress-text"></span></div>',
 				
 				processingMessage: '<div id="processing-message" align="center"><img src="images/upload/services-technology.png" width="200px" title="Processing..."/><br/><div id="processing_message" style="font-weight:400;font-size:1.2rem;">Processing...</div><div class="dz-filename"><span data-dz-name></span></div></h5><br/><div class="progress"><div class="indeterminate"></div></div>',
 				
@@ -86,6 +86,12 @@ angular.module('ngm.widget.dropzone', ['ngm.provider'])
 				process: {
 					redirect: '/who',
 					interval: 4
+				},
+
+				// uploadprogress
+				uploadprogress: function( file, progress, bytesSent ) {
+					$( "#the-progress-div" ).width( Math.round( progress ) + '%');
+					$( ".the-progress-text" ).text( Math.round( progress ) + '%');
 				},
 
 				// toggle dropzone

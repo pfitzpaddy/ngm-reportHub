@@ -1261,6 +1261,7 @@ angular.module( 'ngmReportHub' )
 									style: 'padding: 0px;',
 									card: 'white grey-text text-darken-2',
 									config: {
+										parallelUploads: false,
 										cardTitle: $scope.report.organization_tag.toUpperCase() + ' Planned Beneficiaries',
 										header: 'collection-header blue',
 										dictMsg: '<div style="font-weight:400;font-size:1.2rem;">Round ' + $scope.report.report_round + ', Distribution ' + $scope.report.report_distribution + '<br/>Drag & Drop Planned Beneficiaries</div>',
@@ -1284,24 +1285,24 @@ angular.module( 'ngmReportHub' )
 													report_round: $scope.report.report_round,
 													report_distribution: $scope.report.report_distribution,
 												}
-											},{
-												method: 'POST',
-												url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setKoboXlsxForm',
-												data: {
-													admin0pcode: $scope.report.user.admin0pcode,
-													organization_tag: $scope.report.organization_tag,
-													report_round: $scope.report.report_round,
-													report_distribution: $scope.report.report_distribution,
-												}
-											},{
-												method: 'POST',
-												url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/deployKoboXlsxForm',
-												data: {
-													admin0pcode: $scope.report.user.admin0pcode,
-													organization_tag: $scope.report.organization_tag,
-													report_round: $scope.report.report_round,
-													report_distribution: $scope.report.report_distribution,
-												}
+											// },{
+											// 	method: 'POST',
+											// 	url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setKoboXlsxForm',
+											// 	data: {
+											// 		admin0pcode: $scope.report.user.admin0pcode,
+											// 		organization_tag: $scope.report.organization_tag,
+											// 		report_round: $scope.report.report_round,
+											// 		report_distribution: $scope.report.report_distribution,
+											// 	}
+											// },{
+											// 	method: 'POST',
+											// 	url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/deployKoboXlsxForm',
+											// 	data: {
+											// 		admin0pcode: $scope.report.user.admin0pcode,
+											// 		organization_tag: $scope.report.organization_tag,
+											// 		report_round: $scope.report.report_round,
+											// 		report_distribution: $scope.report.report_distribution,
+											// 	}
 											}]
 										}
 									}
@@ -1347,24 +1348,24 @@ angular.module( 'ngmReportHub' )
 													report_round: $scope.report.report_round,
 													report_distribution: $scope.report.report_distribution
 												}
-											},{
-												method: 'POST',
-												url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setKoboXlsxForm',
-												data: {
-													admin0pcode: $scope.report.user.admin0pcode,
-													organization_tag: $scope.report.organization_tag,
-													report_round: $scope.report.report_round,
-													report_distribution: $scope.report.report_distribution
-												}
-											},{
-												method: 'POST',
-												url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/deployKoboXlsxForm',
-												data: {
-													admin0pcode: $scope.report.user.admin0pcode,
-													organization_tag: $scope.report.organization_tag,
-													report_round: $scope.report.report_round,
-													report_distribution: $scope.report.report_distribution
-												}
+											// },{
+											// 	method: 'POST',
+											// 	url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setKoboXlsxForm',
+											// 	data: {
+											// 		admin0pcode: $scope.report.user.admin0pcode,
+											// 		organization_tag: $scope.report.organization_tag,
+											// 		report_round: $scope.report.report_round,
+											// 		report_distribution: $scope.report.report_distribution
+											// 	}
+											// },{
+											// 	method: 'POST',
+											// 	url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/deployKoboXlsxForm',
+											// 	data: {
+											// 		admin0pcode: $scope.report.user.admin0pcode,
+											// 		organization_tag: $scope.report.organization_tag,
+											// 		report_round: $scope.report.report_round,
+											// 		report_distribution: $scope.report.report_distribution
+											// 	}
 											}]
 										}
 									}
@@ -1392,8 +1393,6 @@ angular.module( 'ngmReportHub' )
 						if ( $scope.report.site_id !== 'all' ) {
 							form_filter.site_id = $scope.report.site_id;
 						}
-
-						console.log( form_filter )
 
 						// form links
 						$scope.model.rows.push({
