@@ -219,7 +219,7 @@ angular.module('ngmReportHub')
 							cluster_id: $scope.dashboard.cluster_id,
 							organization_tag: $scope.dashboard.organization_tag,
 						
-							//donor: $scope.dashboard.donor_tag,
+							donor: $scope.dashboard.donor_tag,
 
 							beneficiaries: $scope.dashboard.beneficiaries,
 							start_date: $scope.dashboard.startDate,
@@ -317,7 +317,7 @@ angular.module('ngmReportHub')
 						color: 'blue lighten-2',
 						icon: 'group',
 						hover: $filter('translate')('download_beneficiary_data_as_csv'),
-						request: $scope.dashboard.newgetRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.activity_filename + $scope.dashboard.cluster_id_filename + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						request: $scope.dashboard.newgetRequest( { csv: true, indicator: 'beneficiaries', report:  $scope.dashboard.cluster_id_filename + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 						metrics: $scope.dashboard.getMetrics( 'beneficiary_data', 'csv' )
 					}/*,{
 						type: 'csv',
@@ -525,12 +525,12 @@ angular.module('ngmReportHub')
 					ngmData.get( request ).then( function( organizations  ){
 
 
-						if($scope.dashboard.user.roles.indexOf('COUNTRY_ADMIN')  !== -1  )  {
+						/*if($scope.dashboard.user.roles.indexOf('COUNTRY_ADMIN')  !== -1  )  {
 						 						
 						 		$scope.dashboard.organization_tag = 'all';
 
 					       }else{
-                      }
+                      }*/
 
 						// set organization
 						if ( $scope.dashboard.organization_tag !== 'all' ) {
@@ -924,7 +924,9 @@ angular.module('ngmReportHub')
 					// TODO refactor/update cvwg
 					$scope.dashboard.cluster_id_filename = $scope.dashboard.cluster_id !== 'cvwg' ? $scope.dashboard.cluster_id : 'mpc';
 
-					
+					if ($route.current.params.organization_tag!=='all'){
+						$scope.dashboard.cluster_id_filename = $route.current.params.organization_tag + '_' + $scope.dashboard.cluster_id_filename;
+					}
 
 					/*$scope.dashboard.beneficiaries_row = [ 
 					

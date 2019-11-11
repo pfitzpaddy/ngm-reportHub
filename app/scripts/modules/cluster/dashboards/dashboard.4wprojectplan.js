@@ -219,6 +219,10 @@ angular.module('ngmReportHub')
 					request.query.project_start_date = $route.current.params.start;
 					request.query.project_end_date = $route.current.params.end;
 
+					if( $route.current.params.donor_tag !== 'all'){
+						request.query.donor_id = $route.current.params.donor_tag;
+					}
+
 
 					// query depenging on role
 					switch ($scope.dashboard.role){
@@ -525,13 +529,13 @@ angular.module('ngmReportHub')
 					// get orgs
 					ngmData.get( request ).then( function( organizations  ){
 
-
-						if($scope.dashboard.user.roles.indexOf('COUNTRY_ADMIN')  !== -1  )  {
+ 
+						/*if($scope.dashboard.user.roles.indexOf('COUNTRY_ADMIN')  !== -1  )  {
 						 						
 						 		$scope.dashboard.organization_tag = 'all';
 
 					       }else{
-                      }
+                      }*/
 
 
                       //years
