@@ -1582,6 +1582,542 @@ angular.module('ngmReportHub')
 								}]
 							}]
 						},
+						{
+							columns: $scope.dashboard.beneficiaries_row
+						},
+						{
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">'+$filter('translate')('beneficiaries_mayus')+'</h2>'
+									}
+								}]
+							}]
+						},
+						{
+							columns: [
+							{
+								styleClass: 's12 m6 l4',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 300px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											//text: $filter('translate')('children'),
+											text: $filter('translate')('sex_title_dashboard_graphic')+" (# - %)"
+										},
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardpie.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 50px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'pie',
+													height: 150,
+													margin: [0,0,0,0],
+													spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: false
+												}				
+											},
+											title: {
+													text: '',
+													margin:0,
+											},
+											plotOptions: {
+													pie: {
+															shadow: false
+													}
+											},
+											series: [{
+												name: $filter('translate')('children'),
+												//name: "SEX # - %",
+												size: '100%',
+												innerSize: '80%',
+												showInLegend:false,
+												dataLabels: {
+													enabled: false
+												},
+												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for:'children'})												
+																						}]
+										} 
+									}
+								}]
+							   },
+								{
+								styleClass: 's12 m6 l4',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 300px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											//text: $filter('translate')('children'),
+											text: $filter('translate')('age_title_dashboard_graphic')+" (# - %)"
+										},
+										
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardcolumns.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 0px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'column',
+													height: 250,
+													//margin: [0,0,0,0],
+												//spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: true,
+													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+												},
+												xAxis: {
+										        title: {
+										            text: $filter('translate')('ages_mayus1')
+										        }
+										    },
+												yAxis: {
+										        title: {
+										            text: $filter('translate')('total_by_age_and_percent_of_total')
+										        }
+										    }
+												
+											},
+											title: {
+													text: '',
+													margin: 0
+											},
+											series: [{
+												//name: $filter('translate')('children'),
+												name: $filter('translate')('age_mayus'),
+												//name: "EDAD (# - %)",
+												size: '100%',
+												innerSize: '100%',
+												showInLegend:false,
+												 dataLabels: {
+										                enabled: true,
+										               // format: '{point.y} - {point.label:.1f}%'
+										               format: '{point.y}'
+										                //inside: true
+										            },
+												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
+											     request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'}),
+											}]
+										}
+									}
+								}]
+							},
+							{
+								styleClass: 's12 m6 l6',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 300px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											//text: $filter('translate')('children'),
+											text: "TYPE (# - %)"
+										},
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardcolumns.html',
+										style: '"text-align:center; width: 80%; height: 80%; position: absolute; top: 0px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'column',
+													height: 230,
+													//margin: [0,0,0,0],
+													//spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: true,
+													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+												},
+												xAxis: {
+										        title: {
+										            text: $filter('translate')('beneficiary_type')
+										        }
+										    },
+												yAxis: {
+										        title: {
+										            text: $filter('translate')('total_by_type_and_percent_of_total')
+										        }
+										    }				
+											},
+
+											title: {
+													text: '',
+													margin: 0
+											},
+											
+										
+											
+											series: [{
+												name: $filter('translate')('beneficiary_type'),
+												//name: "EDAD (# - %)",
+												size: '100%',
+												innerSize: '100%',
+												showInLegend:false,
+												 dataLabels: {
+										                enabled: true,
+										                 format: '{point.y}'
+										                //inside: true
+										            },
+											     request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryType', chart_for:'beneficiaryType'}),
+											}]
+										}
+									}
+								}]
+							},
+							{
+								styleClass: 's12 m6 l6',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 300px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											//text: $filter('translate')('children'),
+											text: "CLUSTER (# - %)"
+										},
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardcolumns.html',
+										style: '"text-align:center; width: 80%; height: 80%; position: absolute; top: 0px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'column',
+													height: 230,
+													//margin: [0,0,0,0],
+													//spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: true,
+													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+												},
+												xAxis: {
+										        title: {
+										            text: 'Cluster'
+										        }
+										    },
+												yAxis: {
+										        title: {
+										            text: $filter('translate')('total_by_cluster_and_percent_of_total')
+										        }
+										    }				
+											},
+
+											title: {
+													text: '',
+													margin: 0
+											},
+											
+										
+											
+											series: [{
+												//name: $filter('translate')('children'),
+												name: "Cluster",
+												//name: "EDAD (# - %)",
+												size: '100%',
+												innerSize: '100%',
+												showInLegend:false,
+												 dataLabels: {
+										                enabled: true,
+										                 format: '{point.y}'
+										                //inside: true
+										            },
+											     request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryCluster', chart_for:'beneficiaryCluster'}),
+											}]
+										}
+									}
+								}]
+							}/*,
+							{
+								styleClass: 's12 m6 l4',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 180px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											//text: $filter('translate')('children'),
+											text: "Departamento (# - %)"
+										},
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'bar',
+													height: 140,
+													margin: [0,0,0,0],
+													spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: false
+												}				
+											},
+											title: {
+													text: '',
+													margin: 0
+											},
+											plotOptions: {
+													pie: {
+															shadow: false
+													}
+											},
+											series: [{
+												name: $filter('translate')('children'),
+												//name: "EDAD (# - %)",
+												size: '100%',
+												innerSize: '80%',
+												showInLegend:false,
+												dataLabels: {
+													enabled: false
+												},
+												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for:'children'})												
+																						}]
+										}
+									}
+								}]
+							},
+							{
+								styleClass: 's12 m6 l4',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 180px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											//text: $filter('translate')('children'),
+											text: "Categoría Beneficiario (# - %)"
+										},
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'bar',
+													height: 140,
+													margin: [0,0,0,0],
+													spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: false
+												}				
+											},
+											title: {
+													text: '',
+													margin: 0
+											},
+											plotOptions: {
+													pie: {
+															shadow: false
+													}
+											},
+											series: [{
+												name: $filter('translate')('children'),
+												//name: "EDAD (# - %)",
+												size: '100%',
+												innerSize: '80%',
+												showInLegend:false,
+												dataLabels: {
+													enabled: false
+												},
+												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for:'children'})												
+																						}]
+										}
+									}
+								}]
+							},
+							{
+								styleClass: 's12 m6 l4',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 180px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											//text: $filter('translate')('children'),
+											text: "Cluster (# - %)"
+										},
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/promo.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 40px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'bar',
+													height: 140,
+													margin: [0,0,0,0],
+													spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: false
+												}				
+											},
+											title: {
+													text: '',
+													margin: 0
+											},
+											plotOptions: {
+													pie: {
+															shadow: false
+													}
+											},
+											series: [{
+												name: $filter('translate')('children'),
+												//name: "EDAD (# - %)",
+												size: '100%',
+												innerSize: '80%',
+												showInLegend:false,
+												dataLabels: {
+													enabled: false
+												},
+												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for:'children'})												
+																						}]
+										}
+									}
+								}]
+							}*/]
+						 },
+
+						   
+						{
+							columns: $scope.dashboard.financial_row
+						},
+						{
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">'+$filter('translate')('financing_mayus')+'</h2>'
+									}
+								}]
+							}]
+						},
+						{
+							columns: [
+							{
+								styleClass: 's12 m12 l4',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 300px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											//text: $filter('translate')('children'),
+											text: "AGENCIAS EJECUTORAS (# - %)"
+										},
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardcolumns.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 50px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'column',
+													height: 250,
+													//margin: [0,0,0,0],
+												//spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: true,
+													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+												},
+												xAxis: {
+										        title: {
+										            //text: $filter('translate')('ages_mayus1')
+										            text: 'Agencias Ejecutoras Top 5'
+										        }
+										    },
+												yAxis: {
+										        title: {
+										            //text: $filter('translate')('total_by_age_and_percent_of_total')
+										          text: 'Presupuesto por Agencia y % del total'
+										        }
+										    }
+												
+											},
+											title: {
+													text: '',
+													margin: 0
+											},
+											series: [{
+												//name: $filter('translate')('children'),
+												name: "AGENCIAS EJECUTORAS",
+												//name: "SEX # - %",
+												size: '100%',
+												innerSize: '80%',
+												showInLegend:false,
+												dataLabels: {
+													enabled: false
+												},
+												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for:'children'})												
+																						}]
+										}
+									}
+								}]
+							}]
+						   },
 						
 						{
 							columns: [{
@@ -1596,7 +2132,9 @@ angular.module('ngmReportHub')
 								}]
 							}]
 						}]
-					}
+					},
+
+
 
 					$('#highcharts-13').css("height","280px");
 										$('div.highchart-container > svg').css({height:'280px'});

@@ -300,6 +300,10 @@
         "refresh_data":"Refresh Data",
         "project_locations":"PROJECT LOCATIONS",
         "project_target_locations":"PROJECT TARGET LOCATIONS",
+
+        "sex_title_dashboard_graphic":"SEX",
+        "age_title_dashboard_graphic":"AGE",
+
         "children":"Children",
         "adult":"Adult",
         "elderly":"Elderly",
@@ -309,6 +313,11 @@
         "age_mayus":"AGE",
         "ages_mayus1":"Ages",
         "total_by_age_and_percent_of_total":"Total by Age and % of total",
+        "total_by_cluster_and_percent_of_total":"Total by Cluster and % of total",
+        "total_by_type_and_percent_of_total":"Total by Type and % of total",
+
+         "beneficiary_type":"Beneficiary Type",
+
 
         "processing":"Processing...",
         "project_deleted":"Project Deleted",
@@ -551,6 +560,7 @@
         "total_projects":"Total Projects",
          "total_beneficiaries_population":"Total Population Beneficiaries",
          "total_financing":"Total Financing",
+         "financing_mayus":"FINANCING",
 
 
         "warehouses_total":"Warehouses",
@@ -609,7 +619,6 @@
         "population_in_disability":"Population in Disability",
         "total_female":"Total Female",
         "total_beneficiaries":"Total Beneficiaries",
-        "total_financing":"Total Financing",
         "projects_number":"Projects Number",
         "population_beneficiaries":"Population Beneficiaries",
         "number_executing_agencies":"Number of Executing Agencies",
@@ -633,6 +642,7 @@
         "implementation_level":"Implementation Level",
 
         "type":"Type",
+          "type_mayus":"TYPE",
         "site_type":"Site Type",
 
         "from_list":"From List",
