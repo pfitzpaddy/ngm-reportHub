@@ -1,0 +1,140 @@
+
+<style>
+
+.count, .label {
+	z-index: 1 !important;
+}
+
+.ng-table th.sortable .sort-indicator {
+	color: #2196F3;
+	font-weight: 400;
+}
+
+.collection .collection-item.avatar .title {
+	font-size: 20px;
+	color: #616161;
+}
+.nav-list-search {
+	margin-top: 6px;
+	background-color: white;
+	width:72px;
+	-webkit-transition: width 1s ease;
+	-moz-transition: width 1s ease;
+	-o-transition: width 1s ease;
+	-ms-transition: width 1s ease;
+	transition: width 1s ease;    
+}
+.nav-list-search.focused {
+	margin-top: 6px;
+	width: 100%;
+	-webkit-transition: width 1s ease;
+	-moz-transition: width 1s ease;
+	-o-transition: width 1s ease;
+	-ms-transition: width 1s ease;
+	transition: width 1s ease;
+}
+.input-field input[type=search] {
+	font-weight: 300;
+	padding-top: 0px;
+} 
+/* remove border bottom */
+input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=text]:valid {
+	border-bottom: none !important;
+	box-shadow: none !important;
+}
+
+.pagination li.active {
+		background-color: #009688;
+}
+
+</style>
+
+<!-- ngTable -->
+<div class="row">
+	<div class="col s12 m12 l12">
+		<div class="card">
+			<ul class="collection with-header">
+				
+				<li class="{{ table.headerClass }}">
+					<h5 class="report-work-title {{ table.headerText }}">
+
+						<!-- title -->
+						<i class="material-icons left">{{ table.headerIcon }}</i>{{ table.headerTitle }} ({{ data.length | number }}) 
+						
+						<!-- search -->
+						<div ng-if="data.length > table.tableOptions.count" class="col s12 m4 right" style="margin-top:-20px;">
+							<nav class="nav-list-search right" ng-class="{'focused':table.search.focused===true || table.search.filter }">
+								<div class="nav-wrapper" ng-click="table.toggleSearch()">
+									<form>
+										<div class="input-field">
+											<input id="search_{{ table.id }}" type="search"
+												ng-model="table.search.filter"
+												ng-focus="table.search.focused=true"  
+												ng-blur="table.search.focused=false"
+												ng-change="table.searchLoadTable()">
+											<label for="search_{{ table.id }}"><i class="material-icons" style="color: teal; padding-left:5px;">search</i></label>
+										</div>
+									</form>
+								</div>
+							</nav>
+						</div>
+						
+					</h5>
+				</li>
+
+				<li class="collection-item avatar" style="padding:10px;">
+					
+					<!-- if no data -->
+					<div ng-if="data.length === 0">
+						<div class="label"
+								style="text-align:center; padding-top:20px;">
+							<span>No {{ table.headerTitle }}!</span>
+						</div>
+					</div>
+
+					<!-- if data -->
+					<div ng-if="data.length">
+						<table class="centered highlight responsive-table" ng-table="table.tableParams">
+							<tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
+
+								<td data-title="'organization'|translate" sortable="'organization'">
+									{{ row.organization }}
+								</td>
+
+								<td data-title="'GFD Point'" sortable="table.site_name">
+									{{ row[ table.site_name ] }}
+								</td>
+
+								<td data-title="'FCN'" sortable="'fcn_id'">
+									{{ row.fcn_id }}
+								</td>
+
+								<td data-title="'Progres ID'" sortable="'unhcr_case_id'">
+									{{ row.unhcr_case_id }}
+								</td>
+
+								<td data-title="'Scope ID'" sortable="'scope_id'">
+									{{ row.scope_id }}
+								</td>
+
+								<td data-title="'GFD ID'" sortable="'gfd_id'">
+									{{ row.gfd_id }}
+								</td>
+
+								<td data-title="'MOHA ID'" sortable="'moha_id'">
+									{{ row.moha_id }}
+								</td>
+
+								<td data-title="'Family Size'" sortable="table.gfd_family_size">
+									{{ row[ table.gfd_family_size ] }}
+								</td>
+
+							</tr>
+						</table>
+					</div>
+
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

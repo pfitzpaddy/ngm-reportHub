@@ -62,6 +62,7 @@ angular.module('ngm.widget.leaflet', ['ngm.provider'])
             position: 'topright'
           }
         },
+        legend: {},
         defaults: {
           controls: {
             layers: {}

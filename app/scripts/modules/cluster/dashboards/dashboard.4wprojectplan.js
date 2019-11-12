@@ -231,6 +231,10 @@ angular.module('ngmReportHub')
 					request.query.project_start_date = $route.current.params.start;
 					request.query.project_end_date = $route.current.params.end;
 
+					if( $route.current.params.donor_tag !== 'all'){
+						request.query.donor_id = $route.current.params.donor_tag;
+					}
+
 
 					// query depenging on role
 					switch ($scope.dashboard.role){

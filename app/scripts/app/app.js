@@ -35,6 +35,7 @@ angular
 		'ngm.widget.organization.stocks.list',
 		'ngm.widget.organization.stock',
 		// modules
+		'ngmBangladesh',
 		'ngmCluster',
 		'ngmEthiopia',
 		'ngmDews',
@@ -58,7 +59,7 @@ angular
 		'ngm.widget.table',
 		'ngm.materialize.select',
 	])
-	.config([ '$routeProvider', '$locationProvider', '$compileProvider','$translateProvider', function ( $routeProvider, $locationProvider, $compileProvider,$translateProvider ) {
+	.config([ '$routeProvider', '$locationProvider', '$compileProvider', '$translateProvider', function ( $routeProvider, $locationProvider, $compileProvider, $translateProvider ) {
 
 		// from http://mysite.com/#/notes/1 to http://mysite.com/notes/1
 		// $locationProvider.html5Mode(true);

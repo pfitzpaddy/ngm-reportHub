@@ -1,0 +1,106 @@
+
+<style>
+
+	.nav-list-search {
+		margin-top: 6px;
+		background-color: white;
+		width:72px;
+		-webkit-transition: width 1s ease;
+		-moz-transition: width 1s ease;
+		-o-transition: width 1s ease;
+		-ms-transition: width 1s ease;
+		transition: width 1s ease;
+	}
+	.nav-list-search.focused {
+		margin-top: 6px;
+		width: 100%;
+		-webkit-transition: width 1s ease;
+		-moz-transition: width 1s ease;
+		-o-transition: width 1s ease;
+		-ms-transition: width 1s ease;
+		transition: width 1s ease;
+	}
+
+	.input-field input[type=search] {
+		font-weight: 300;
+		padding-top: 0px;
+	}
+
+  /* remove border bottom */
+	/*
+	input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=text]:valid {
+		border-bottom: none !important;
+		box-shadow: none !important;
+	}
+	*/
+	.pagination li.active {
+	  background-color: #009688;
+	}
+
+</style>
+
+<!-- bind html -->
+<div class="row">
+	<div class="col s12">
+		<ul class="collection with-header z-depth-1">
+			<li class="collection-header {{ list.color }}" style="height:80px;">
+				<div class="col s12 m8">
+					<h4 class="report-work-title {{ list.textColor }}" style="font-size:1.8rem;">
+						<i class="material-icons left">{{ list.titleIcon }}</i>{{ list.title }}
+					</h4>
+				</div>
+				<div ng-if="list.data.length > list.itemsPerPage" class="col s12 m4 right">
+				  <nav class="nav-list-search right" ng-class="{'focused':list.search.focused===true || list.search.filter }">
+				    <div class="nav-wrapper" ng-click="list.toggleSearch()">
+				      <form>
+				        <div class="input-field">
+				          <input id="search_{{ list.id }}" type="search"
+				          	ng-model="list.search.filter"
+				          	ng-focus="list.search.focused=true"
+			            	ng-blur="list.search.focused=false">
+				          <label for="search_{{ list.id }}"><i class="material-icons" style="color: teal; padding-left:5px;">search</i></label>
+				        </div>
+				      </form>
+				    </div>
+				  </nav>
+		    </div>
+			</li>
+
+			<!-- pagination ctrl -->
+	    <li class="collection-item avatar"
+	    	dir-paginate="item in list.data | filter: list.search.filter | orderBy: list.orderBy : true | itemsPerPage: list.itemsPerPage" pagination-id="list.id"
+	    	style="padding-top:20px;">
+				<a href="{{ list.report_url }}/round/{{ item.report_round }}/distribution/{{ item.report_distribution }}/{{ list.toDate( item.reporting_period ) }}" title="View Distribution Report {{ item.report_distribution }}">
+					<i class="material-icons circle white teal-text">{{ list.icon }}</i>
+					<span class="title">{{ item.reporting_period_title }}</span>
+					<span class="right" style="font-size:1.1rem;padding-top:20px; padding-right:40px; color:#616161;">{{ list.reportFormat( item ) }}</span>
+					<p align="justify" style="padding:10px 0px 5px 0px;">
+						<span style="font-size:1.7rem; padding-left: 10px;">Round {{ item.report_round }}</span>
+					</p>
+					<p align="justify" style="padding:5px 0px 10px 10px;">
+						<span style="font-size:1.2rem; color:#26a69a;font-weight:400;">Distribution {{ item.report_distribution }}</span>
+					</p>
+					<a href="{{ list.report_url }}/round/{{ item.report_round }}/distribution/{{ item.report_distribution }}/{{ list.toDate( item.reporting_period ) }}" title="View Distribution Report {{ item.report_distribution }}" class="secondary-content">
+						<i class="material-icons right" style="padding-top:20px; padding-right:40px; color: {{ list.status }}">{{ list.right_icon }}</i>
+					</a>
+				</a>
+	    </li>
+	    <li class="collection-item avatar" ng-if="list.data.length > list.itemsPerPage" style="padding:20px 20px 0px 50px;">
+	    	<dir-pagination-controls pagination-id="list.id"></dir-pagination-controls>
+	    </li>
+
+	 		<!-- no data -->
+			<li ng-if="!list.data.length" class="collection-item avatar">
+				<a>
+					<i class="material-icons circle white teal-text">{{ list.icon }}</i>
+					<span class="title">{{ list.title }} {{'reports' | translate}}</span>
+					<p>{{'you_have' | translate}} 0 {{ list.title }} {{'reports' |translate}}</p>
+					<a class="secondary-content" style="padding-right:40px;">
+						<i class="material-icons">check_circle</i>
+					</a>
+				</a>
+			</li>
+
+		</ul>
+	</div>
+</div>

@@ -185,8 +185,10 @@
 		<!-- Project location details -->
 		<div class="slide-animate" ng-include="project.templatesUrl + project.locationsUrl"></div>
 
-		<!-- Project Document -->
+		<!-- Project Document Upload -->
 		<div ng-if="!project.newProject" class="slide-animate" ng-include="project.templatesUrl + project.uploadUrl"></div>
+
+		<!-- Project Status (set to false) -->
 		<div class="row remove" ng-if="false">
 			<div class="col s12 m12 l12">
 				<div class="widget card-panel white grey-text text-darken-2" style="padding-top: 0;padding-left: 0;padding-right: 0">

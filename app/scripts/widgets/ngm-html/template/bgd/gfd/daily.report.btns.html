@@ -1,0 +1,12 @@
+	<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="{{ panel.helper.url }}">
+		<i class="material-icons left">keyboard_return</i>{{ panel.helper.title }}
+	</a>
+	<a ng-if="false" id="dashboard-fetch-btn" class="waves-effect waves-light btn blue right" ng-click="panel.helper.refreshData()">
+		<i class="material-icons left">cached</i>Refresh Data
+	</a>
+	<a class="waves-effect waves-light btn right" style="margin-right: 20px;" href="{{ panel.helper.reset_url }}">
+		<i class="material-icons left">cached</i>{{ 'reset' | translate }} Dashboard
+	</a>
+	<span ng-if="panel.data.updatedAt" class="right" style="padding-right: 20px; padding-top:8px;">
+		{{ 'last_updated' | translate }}: {{ panel.data.updatedAt }} by {{ panel.data.organization }}
+	</span>
