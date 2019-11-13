@@ -280,6 +280,8 @@
         "activity_type":"Tipo de Actividad",
         "project_type":"Tipo de Proyecto", 
         "executor":"Ejecutor",
+        "executor_organizations":"Organizaciones Ejecutoras",
+        "executor_organizations_mayus": "ORGANIZACIONES EJECUTORAS",
         "implementer":"Implementador",
 
         "other_activities_in_addition_to":"Otras actividades además de",
@@ -346,6 +348,7 @@
          "total_by_age_and_percent_of_total":"Total por Edad y % del total",
          "total_by_cluster_and_percent_of_total":"Total por Cluster y % del total",
          "total_by_type_and_percent_of_total":"Total por Tipo y % del total",
+         "total_by_organization_and_percent_of_total":"Total por Org. Ejec. y % del total",
          "beneficiary_type":"Tipo de Beneficiario",
 
          "processing":"Procesando...",

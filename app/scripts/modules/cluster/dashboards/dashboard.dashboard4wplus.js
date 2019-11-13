@@ -236,6 +236,9 @@ angular.module('ngmReportHub')
 							//donor: $scope.dashboard.donor_tag,
 							activity_type_id: $scope.dashboard.activity_type_id,
 
+							donor: $scope.dashboard.donor_tag,
+
+
 							beneficiaries: $scope.dashboard.beneficiaries,
 							start_date: $scope.dashboard.startDate,
 							end_date: $scope.dashboard.endDate,
@@ -332,7 +335,7 @@ angular.module('ngmReportHub')
 						color: 'blue lighten-2',
 						icon: 'group',
 						hover: $filter('translate')('download_beneficiary_data_as_csv'),
-						request: $scope.dashboard.newgetRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.activity_filename + $scope.dashboard.cluster_id_filename + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						request: $scope.dashboard.newgetRequest( { csv: true, indicator: 'beneficiaries', report:  $scope.dashboard.cluster_id_filename + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 						metrics: $scope.dashboard.getMetrics( 'beneficiary_data', 'csv' )
 					}/*,{
 						type: 'csv',
@@ -543,7 +546,8 @@ angular.module('ngmReportHub')
 					ngmData.get( request ).then( function( organizations  ){
 
 
-					/*	if($scope.dashboard.user.roles.indexOf('COUNTRY_ADMIN')  !== -1  )  {
+						/*if($scope.dashboard.user.roles.indexOf('COUNTRY_ADMIN')  !== -1  )  {
+
 						 						
 						 		$scope.dashboard.organization_tag = 'all';
 
@@ -1179,7 +1183,9 @@ angular.module('ngmReportHub')
 					// TODO refactor/update cvwg
 					$scope.dashboard.cluster_id_filename = $scope.dashboard.cluster_id !== 'cvwg' ? $scope.dashboard.cluster_id : 'mpc';
 
-					
+					if ($route.current.params.organization_tag!=='all'){
+						$scope.dashboard.cluster_id_filename = $route.current.params.organization_tag + '_' + $scope.dashboard.cluster_id_filename;
+					}
 
 					/*$scope.dashboard.beneficiaries_row = [ 
 					
@@ -2051,7 +2057,7 @@ angular.module('ngmReportHub')
 						{
 							columns: [
 							{
-								styleClass: 's12 m12 l4',
+								styleClass: 's12 m6 l6',
 								widgets: [{
 									type: 'highchart',
 									style: 'height: 300px;',
@@ -2059,7 +2065,7 @@ angular.module('ngmReportHub')
 									config: {
 										title: {
 											//text: $filter('translate')('children'),
-											text: "AGENCIAS EJECUTORAS (# - %)"
+											text: $filter('translate')('executor_organizations_mayus')+" TOP 5 (# - %)"
 										},
 										display: {
 											label: true,
@@ -2068,14 +2074,14 @@ angular.module('ngmReportHub')
 											postfix: '%'
 										},
 										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardcolumns.html',
-										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 50px; left: 0;"',
+										style: '"text-align:center; width: 80%; height: 80%; position: absolute; top: 0px; left: 0;"',
 										chartConfig: {
 											options: {
 												chart: {
 													type: 'column',
-													height: 250,
+													height: 230,
 													//margin: [0,0,0,0],
-												//spacing: [0,0,0,0]
+													//spacing: [0,0,0,0]
 												},
 												tooltip: {
 													enabled: true,
@@ -2085,34 +2091,108 @@ angular.module('ngmReportHub')
 												},
 												xAxis: {
 										        title: {
-										            //text: $filter('translate')('ages_mayus1')
-										            text: 'Agencias Ejecutoras Top 5'
+										            text: $filter('translate')('executor_organizations')
 										        }
 										    },
 												yAxis: {
 										        title: {
-										            //text: $filter('translate')('total_by_age_and_percent_of_total')
-										          text: 'Presupuesto por Agencia y % del total'
+										            text: $filter('translate')('total_by_organization_and_percent_of_total')
 										        }
-										    }
-												
+										    }				
 											},
+
 											title: {
 													text: '',
 													margin: 0
 											},
+											
+										
+											
 											series: [{
 												//name: $filter('translate')('children'),
-												name: "AGENCIAS EJECUTORAS",
-												//name: "SEX # - %",
+												name: "Organization",
+												//name: "EDAD (# - %)",
 												size: '100%',
-												innerSize: '80%',
+												innerSize: '100%',
 												showInLegend:false,
-												dataLabels: {
-													enabled: false
+												 dataLabels: {
+										                enabled: true,
+										                 format: '{point.y}'
+										                //inside: true
+										            },
+											     request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingTop5ExecutorOrganizations', chart_for:'FinancingExecutorOrganization'}),
+											}]
+										}
+									}
+								}]
+							},
+						  
+							{
+								styleClass: 's12 m6 l6',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 300px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											//text: $filter('translate')('children'),
+											text: "CLUSTER (# - %)"
+										},
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardcolumns.html',
+										style: '"text-align:center; width: 80%; height: 80%; position: absolute; top: 0px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'column',
+													height: 230,
+													//margin: [0,0,0,0],
+													//spacing: [0,0,0,0]
 												},
-												request: $scope.dashboard.getRequest({ indicator: 'pieChart', chart_for:'children'})												
-																						}]
+												tooltip: {
+													enabled: true,
+													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+												},
+												xAxis: {
+										        title: {
+										            text: 'Cluster'
+										        }
+										    },
+												yAxis: {
+										        title: {
+										            text: $filter('translate')('total_by_cluster_and_percent_of_total')
+										        }
+										    }				
+											},
+
+											title: {
+													text: '',
+													margin: 0
+											},
+											
+										
+											
+											series: [{
+												//name: $filter('translate')('children'),
+												name: "Cluster",
+												//name: "EDAD (# - %)",
+												size: '100%',
+												innerSize: '100%',
+												showInLegend:false,
+												 dataLabels: {
+										                enabled: true,
+										                 format: '{point.y}'
+										                //inside: true
+										            },
+											     request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingCluster', chart_for:'FinancingCluster'}),
+											}]
 										}
 									}
 								}]

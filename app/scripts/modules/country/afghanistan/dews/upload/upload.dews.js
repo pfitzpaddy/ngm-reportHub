@@ -55,7 +55,7 @@ angular.module('ngmReportHub')
 							headers: { 'Authorization': 'Bearer ' + ngmUser.get().token },
 							successMessage: false,
 							process: {
-								request: {
+								requests: [{
 									method: 'POST',
 									url: ngmAuth.LOCATION + '/api/process',
 									data: {
@@ -65,7 +65,7 @@ angular.module('ngmReportHub')
 										importScript: 'dewsxlsx2pgsql.py',
 										processScript: 'moph_afg_dews_outbreaks_upload.sh'
 									}
-								}
+								}]
 							}
 						}
 					}]

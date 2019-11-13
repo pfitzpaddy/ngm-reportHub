@@ -231,6 +231,10 @@ angular.module('ngmReportHub')
 					request.query.project_start_date = $route.current.params.start;
 					request.query.project_end_date = $route.current.params.end;
 
+					if( $route.current.params.donor_tag !== 'all'){
+						request.query.donor_id = $route.current.params.donor_tag;
+					}
+
 
 
 
@@ -548,7 +552,6 @@ angular.module('ngmReportHub')
 
 					// get orgs
 					ngmData.get( request ).then( function( organizations  ){
-
 
 						/*if($scope.dashboard.user.roles.indexOf('COUNTRY_ADMIN')  !== -1  )  {
 						 						
@@ -1576,7 +1579,7 @@ angular.module('ngmReportHub')
 									}
 								}]
 							}]
-						},
+						},/*
 						{
 							columns: [{
 								styleClass: 's12 m12 l12',
@@ -1717,80 +1720,7 @@ angular.module('ngmReportHub')
 									}
 								}]
 							}, 
-						/*	{
-								styleClass: 's12 m6 l4',
-								widgets: [{
-									type: 'highchart',
-									style: 'height: 300px;',
-									card: 'card-panel chart-stats-card white grey-text text-darken-2',
-									config: {
-										title: {
-											//text: $filter('translate')('children'),
-											//text: $filter('translate')('age_title_dashboard_graphic')+" (# - %)"
-											text: 'CLUSTER' + " (# - %)"
-										},
-										
-										display: {
-											label: true,
-											fractionSize: 1,
-											subLabelfractionSize: 0,
-											postfix: '%'
-										},
-										templateUrl: '/scripts/widgets/ngm-highchart/template/projectplandashboardcolumns.html',
-										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 0px; left: 0;"',
-										chartConfig: {
-											options: {
-												chart: {
-													type: 'column',
-													height: 250,
-													//margin: [0,0,0,0],
-												//spacing: [0,0,0,0]
-												},
-												tooltip: {
-													enabled: true,
-													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
-													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
-												},
-												xAxis: {
-										        title: {
-										            //text: $filter('translate')('ages_mayus1')
-										            text: 'Beneficiaries by Cluster'
-										        }
-										    },
-												yAxis: {
-										        title: {
-										            //text: $filter('translate')('total_by_age_and_percent_of_total')
-										            text: 'Total by Cluster and % of total'
-										        }
-										    }
-												
-											},
-											title: {
-													text: '',
-													margin: 0
-											},
-											series: [{
-												//name: $filter('translate')('children'),
-												//name: $filter('translate')('age_mayus'),
-												name: 'Tipe',
-												//name: "EDAD (# - %)",
-												size: '100%',
-												innerSize: '100%',
-												showInLegend:false,
-												 dataLabels: {
-										                enabled: true,
-										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.y}'
-										                //inside: true
-										            },
-												request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiariesByCluster', chart_for:'clusters'})	,											
-											    // request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'beneficary_types'}),
-											}]
-										}
-									}
-								}]
-							}*/]
+						]
 						},
 
 						{
@@ -1808,7 +1738,7 @@ angular.module('ngmReportHub')
 									}
 								}]
 							}]
-						},
+						},*/
 
 						{
 							columns: [{

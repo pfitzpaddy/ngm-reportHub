@@ -245,6 +245,9 @@
         "activity_type":"Activity Type",
         "project_type":"Project Type",
         "executor":"Executor",
+         "executor_organizations":"Executor Organizations",
+        "executor_organizations_mayus": "EXECUTOR ORGANIZATIONS",
+
         "implementer":"Implementer",
         "other_implementing_partners":"Implementing Partners",
          "implementing_organizations":"Implementing Organizations",
@@ -315,6 +318,8 @@
         "total_by_age_and_percent_of_total":"Total by Age and % of total",
         "total_by_cluster_and_percent_of_total":"Total by Cluster and % of total",
         "total_by_type_and_percent_of_total":"Total by Type and % of total",
+        "total_by_organization_and_percent_of_total":"Total by Exec.Org and % of total",
+
 
          "beneficiary_type":"Beneficiary Type",
 
