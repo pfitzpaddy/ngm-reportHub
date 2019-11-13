@@ -1558,7 +1558,7 @@ angular.module( 'ngmReportHub' )
 								headerClass: 'collection-header red lighten-2',
 								headerText: 'white-text',
 								headerIcon: 'group',
-								headerTitle: "Duplicate Beneficiaries (FCN's)",
+								headerTitle: "Duplicate FCN's",
 								site_name: 'actual_site_name',
 								gfd_family_size: 'actual_gfd_family_size',
 								templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.html',
