@@ -315,16 +315,17 @@ angular.module( 'ngmReportHub' )
 						delete beneficiary.indicator_name;
 						delete beneficiary.beneficiary_type_id;
 						delete beneficiary.beneficiary_type_name;
-						delete unit_type_id;
-						delete unit_type_name;
-						delete mpc_delivery_type_id;
-						delete mpc_delivery_type_name;
-						delete mpc_mechanism_type_id;
-						delete mpc_mechanism_type_name;
-						delete package_type_id;
-						delete package_type_name;
-						delete transfer_type_id;
-						delete transfer_type_name;
+						delete beneficiary.unit_type_id;
+						delete beneficiary.unit_type_name;
+						delete beneficiary.mpc_delivery_type_id;
+						delete beneficiary.mpc_delivery_type_name;
+						delete beneficiary.mpc_mechanism_type_id;
+						delete beneficiary.mpc_mechanism_type_name;
+						delete beneficiary.package_type_id;
+						delete beneficiary.package_type_name;
+						delete beneficiary.transfer_type_id;
+						delete beneficiary.transfer_type_value;
+						delete beneficiary.transfer_type_name;
 
 						// set form
 						ngmClusterBeneficiaries.setBeneficiariesInputs( project.lists, $parent, $index, beneficiary );
