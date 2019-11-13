@@ -632,7 +632,7 @@
 															name="transfer_type_id-{{ $index }}"
 															class="validate"
 															ng-model="beneficiary.transfer_type_id"
-															ng-change="ngmClusterBeneficiaries.updateName( project.lists.transfers, 'transfer_type_id', 'transfer_type_name', beneficiary );"
+															ng-change="ngmClusterBeneficiaries.updateName( project.lists.transfers, 'transfer_type_id', 'transfer_type_value', beneficiary );"
 															ng-options="a.transfer_type_id as a.transfer_type_value for a in project.lists.transfers"
 															ng-disabled="project.definition.project_status === 'complete'">
 											<option value="">{{ 'select' | translate }}</option>
