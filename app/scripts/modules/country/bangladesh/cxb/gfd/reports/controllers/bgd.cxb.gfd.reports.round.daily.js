@@ -1703,7 +1703,7 @@ angular.module( 'ngmReportHub' )
 								label: $filter('translate')('from'),
 								format: 'd mmm, yyyy',
 								min: $scope.report.reporting_period,
-								max: $scope.report.end_date,
+								max: moment.utc( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' ),
 								currentTime: $scope.report.start_date,
 								onClose: function(){
 									// set date
@@ -1730,7 +1730,8 @@ angular.module( 'ngmReportHub' )
 								style: 'float:right',
 								label: $filter('translate')('to'),
 								format: 'd mmm, yyyy',
-								min: $scope.report.start_date,
+								min: $scope.report.reporting_period,
+								max: moment.utc().format('YYYY-MM-DD') < moment.utc( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' ) ? moment.utc().format('YYYY-MM-DD') : moment.utc( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' ),
 								currentTime: $scope.report.end_date,
 								onClose: function(){
 									// set date
@@ -1795,6 +1796,7 @@ angular.module( 'ngmReportHub' )
 									helper: {
 
 										// details for btns
+										user: $scope.report.user,
 										title: 'Back to Distribution Round ' + $scope.report.report_distribution,
 										url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period,
 										organization_tag: $scope.report.organization_tag,
@@ -1803,7 +1805,7 @@ angular.module( 'ngmReportHub' )
 										reset_url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/' +  $scope.report.organization_tag + '/all/all/all/all/' + moment().format( 'YYYY-MM-DD' ) + '/' + moment().format( 'YYYY-MM-DD' ),
 
 										// fetch data from kobo
-										refreshData: function(){
+										getKoboDataRefresh: function(){
 
 											// disabled btn
 											$('#dashboard-fetch-btn').toggleClass('disabled');
@@ -1814,7 +1816,7 @@ angular.module( 'ngmReportHub' )
 											// get data
 											ngmData.get({
 												method: 'POST',
-												url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getLatestKoboData',
+												url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getKoboDataRefresh',
 												data: {
 													admin0pcode: $scope.report.user.admin0pcode,
 													organization_tag: $scope.report.organization_tag,

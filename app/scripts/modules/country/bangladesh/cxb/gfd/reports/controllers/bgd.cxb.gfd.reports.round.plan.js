@@ -1261,7 +1261,7 @@ angular.module( 'ngmReportHub' )
 									style: 'padding: 0px;',
 									card: 'white grey-text text-darken-2',
 									config: {
-										parallelUploads: false,
+										parallelUploads: 1,
 										cardTitle: $scope.report.organization_tag.toUpperCase() + ' Planned Beneficiaries',
 										header: 'collection-header blue',
 										dictMsg: '<div style="font-weight:400;font-size:1.2rem;">Round ' + $scope.report.report_round + ', Distribution ' + $scope.report.report_distribution + '<br/>Drag & Drop Planned Beneficiaries</div>',
@@ -1325,6 +1325,7 @@ angular.module( 'ngmReportHub' )
 									style: 'padding: 0px;',
 									card: 'white grey-text text-darken-2',
 									config: {
+										parallelUploads: 1,
 										cardTitle: $scope.report.organization_tag === 'wfp' ? 'Planned Beneficiaries' : $scope.report.organization_tag.toUpperCase() + ' Planned Beneficiaries',
 										header: 'collection-header blue',
 										dictMsg: '<div style="font-weight:400;font-size:1.2rem;">Round ' + $scope.report.report_round + ', Distribution ' + $scope.report.report_distribution + '<br/>Drag & Drop Planned Beneficiaries</div>',
