@@ -452,7 +452,7 @@
 															name="mpc_delivery_type_id-{{ $index }}"
 															class="validate"
 															ng-model="beneficiary.mpc_delivery_type_id"
-															ng-change="ngmClusterBeneficiaries.updateName( project.lists.mpc_delivery_type,
+															ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ],
 																						  'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary);"
 															ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for
 																						b in ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ]"
