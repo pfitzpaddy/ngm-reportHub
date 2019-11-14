@@ -322,7 +322,7 @@ angular.module('ngmReportHub')
 						type: 'csv',
 						color: 'blue lighten-2',
 						icon: 'assignment_turned_in',
-						hover: $filter('translate')('download')+ ' ' + $scope.dashboard.report_type.charAt(0).toUpperCase() + $scope.dashboard.report_type.slice(1) + ' ' +$filter('translate')('reports_complete'),
+						hover: $filter('translate')('download')+ ' ' + $scope.dashboard.report_type.charAt(0).toUpperCase() + $scope.dashboard.report_type.slice(1) + ' ' +$filter('translate')('reports_completed'),
 						request: {
 							method: 'POST',
 							url: ngmAuth.LOCATION + '/api/cluster/admin/indicator',

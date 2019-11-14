@@ -228,7 +228,7 @@ angular
 			title: $filter('translate')('welcome'), 
 
 
-             var4wplusrh : var4plusrhafter,
+           // var4wplusrh : 'REPORTHUB',
 			// current route
 			route: $route,
 
@@ -474,6 +474,7 @@ angular
 				// rotate icon
 				// $( '.ngm-profile-icon' ).toggleClass( 'rotate' );
 				$('.ngm-profile-icon').toggleClass('open');
+				$('.ngm-profile-icon').toggleClass('rotate-icon');
 				// set class
 	    	$( '.ngm-profile' ).toggleClass( 'active' );
 	    	$( '.ngm-profile-menu-content' ).toggleClass( 'active' );
@@ -482,13 +483,46 @@ angular
 			},
 			openHome:false,
 			openDashboard:false,
-
+			openMinimize:true,
+			minimizeToggle:function () {
+				$scope.ngm.openMinimize = ! $scope.ngm.openMinimize;
+				$('.minimize-menu').toggleClass('open');
+				// if ($scope.ngm.openMinimize){
+				// 	$('main').css('padding-left','280px');
+				// }else{
+				// 	$('main').css('padding-left', '0px');
+				// }
+				// $('.ngm-minimize-flat > a').toggleClass('btn-flat');
+				// $('.ngm-minimize-flat').toggleClass('change-position');
+				$('.ngm-menu').toggleClass('shrink');
+				$('.ngm-menu-footer-left').toggleClass('shrink');
+				if ($scope.ngm.openMinimize){
+					// $('g[class*="highcharts-series"]').css('transform', 'translate(-25px, 0)');
+					$('g[class*="highcharts-series-group"]').css('transform', 'translate(0, 0)');
+				}else{
+					// $('g[class*="highcharts-series"]').css('transform', 'translate(0, 0)');
+					$('g[class*="highcharts-series-group"]').css('transform', 'translate(50px, 0)');
+					if(screen.width > 1440){
+						$('g[class*="highcharts-series-group"]').css('transform', 'translate(1.5%, 0)');
+					}
+					// close menu dropdown
+					if($('.ngm-profile-icon').hasClass('rotate-icon')){
+						$('.ngm-profile-menu-content').slideToggle();
+						$('.ngm-profile-icon').toggleClass('rotate-icon');
+					}
+				}
+			}
 
 		};
 
 		var var4plusrhafter;
 
-	     if($location.$$host === '4wplus.org' || $location.$$host === '35.229.43.63'){ //4wplus.org
+
+
+	    // if($location.$$host === '4wplus.org' || $location.$$host === '192.168.33.16' ){ //'35.229.43.63'
+
+	    if($location.$$host === '4wplus.org'){ //'35.229.43.63'
+
 			$('#title').html("4wPlus");
 
 			var4plusrhafter = '4wPlus';
@@ -507,6 +541,8 @@ angular
 			$scope.ngm.changeFunction('en');
 
 		};
+		$scope.ngm.var4wplusrh = var4plusrhafter;
+
 
 		document.getElementsByName('description')[0].content = metadescription;
 

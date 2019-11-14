@@ -58,7 +58,7 @@
 
 									<div ng-if="table.user.roles.indexOf( 'ADMIN' ) !== -1">
 
-										<a target="_blank" href="#/cluster/stocks/{{ row.organization_id }}" title="GoTo Organizaiton Stocks List" ng-if="!row.project_title">
+										<a target="_blank" href="#/cluster/stocks/organization/{{ row.organization_id }}" title="GoTo Organizaiton Stocks List" ng-if="!row.project_title">
 											{{ row.organization }}
 										</a>
 

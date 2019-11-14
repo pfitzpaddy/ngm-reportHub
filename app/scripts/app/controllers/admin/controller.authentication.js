@@ -49,7 +49,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
 				date : new Date(),
 
-				user: ngmUser.get() ? ngmUser.get() : {},
+				user: config.user ? config.user : ngmUser.get(),//ngmUser.get() ? ngmUser.get() : {},
 
 				btnDisabled: false,
 
@@ -187,7 +187,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 					var organizations = $scope.panel.organizations_list;
 
 					// selected coutry
-					var country = $scope.panel.user.admin0pcode ? $scope.panel.user.admin0pcode:'all';
+					var country = $scope.panel && $scope.panel.user && $scope.panel.user.admin0pcode ? $scope.panel.user.admin0pcode:'all';
 
 					// COL
 					if( ( !$scope.panel.user && var4wplusrh === '4wPlus' ) ||

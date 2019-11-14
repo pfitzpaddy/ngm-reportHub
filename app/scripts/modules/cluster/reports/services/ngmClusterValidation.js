@@ -15,7 +15,7 @@ angular.module( 'ngmReportHub' )
 
 		var ngmClusterValidation = {
 
-			// update material_select
+		    // update material_select
 			updateSelect: function(){
 				$timeout(function(){ $( 'select' ).material_select(); }, 0 );
 			},
@@ -29,18 +29,27 @@ angular.module( 'ngmReportHub' )
 				if( !project.project_title ){
 					ngmClusterValidation.project_details_valid_labels.push('ngm-project-name');
 				}
-				if( !project.project_start_date ){
+				if(!project.project_start_date || project.project_start_date === 'Invalid date'){
 					ngmClusterValidation.project_details_valid_labels.push('ngm-start-date');
+				}
+				if(!project.project_end_date ||  project.project_end_date === 'Invalid date'){
+					ngmClusterValidation.project_details_valid_labels.push('ngm-end-date');
+				}
+				/*if( !project.project_start_date ){
+					ngmClusterValidation.project_details_valid_labels.push('ngm-start-date');	
 				}
 				if( !project.project_end_date ){
 					ngmClusterValidation.project_details_valid_labels.push('ngm-end-date');
-				}
+				}*/
 				if( !project.project_budget_currency ){
 					ngmClusterValidation.project_details_valid_labels.push('ngm-project-budget');
 				}
 				if( !project.project_description ){
 					ngmClusterValidation.project_details_valid_labels.push('ngm-project-description');
 				}
+
+				// console.log('project_details_valid');
+				// console.log(ngmClusterValidation.project_details_valid_labels.length);
 
 				// if NO labels details valid
 				return !ngmClusterValidation.project_details_valid_labels.length;
@@ -55,7 +64,15 @@ angular.module( 'ngmReportHub' )
 				// activity types?
 				if( typeof project.activity_type_check === 'undefined' ){
 					ngmClusterValidation.activity_type_valid_labels.push('ngm-activity_type');
+					//$('#ngm-activity_type').removeClass('validate');
+
+				$('#ngm-activity_type').css({'color':'#EE6E73'});
+				}else{
+					$('#ngm-activity_type').css({'color':'#26a69a'});
 				}
+
+				// console.log('activity_type_valid_labels');
+				// console.log(ngmClusterValidation.activity_type_valid_labels.length);
 
 				// if NO labels activities valid
 				return !ngmClusterValidation.activity_type_valid_labels.length;
@@ -72,6 +89,9 @@ angular.module( 'ngmReportHub' )
 					ngmClusterValidation.project_donor_valid_labels.push('ngm-project_donor');
 				}
 
+				// console.log('project_donor_valid_labels');
+				// console.log(ngmClusterValidation.project_donor_valid_labels.length);
+
 				// if NO labels activities valid
 				return !ngmClusterValidation.project_donor_valid_labels.length;
 			},
@@ -85,8 +105,10 @@ angular.module( 'ngmReportHub' )
 					}
 				});
 				if( rowComplete === project.target_beneficiaries.length ){
+
 					return true;
 				} else {
+
 					return false;
 				}
 			},
@@ -99,15 +121,18 @@ angular.module( 'ngmReportHub' )
 						rowComplete++;
 					}
 					// hack for eiewg
-					if ( d.admin0pcode === 'AF' && d.cluster_id === 'eiewg' ) { 
-						if ( d.site_implementation_id && d.site_implementation_id === 'informal' && !d.site_hub_id ) {
-							rowComplete--;
-						}
-					}
+					// if ( d.admin0pcode === 'AF' && d.cluster_id === 'eiewg' ) {
+					// 	if ( d.site_implementation_id && d.site_implementation_id === 'informal' && !d.site_hub_id ) {
+					// 		rowComplete--;
+					// 	}
+					// }
 				});
+				
 				if( project.target_locations.length && ( rowComplete === project.target_locations.length ) ){
+
 					return true;
 				} else {
+
 					return false;
 				}
 			},
@@ -176,9 +201,11 @@ angular.module( 'ngmReportHub' )
 				return validation;
 
 			},
+		
 
 			// validate form
 			validate: function( project ){
+
 
 				// run validation
 				$('label').removeClass( 'error' ).addClass( 'active' );
@@ -190,16 +217,22 @@ angular.module( 'ngmReportHub' )
 				var c = ngmClusterValidation.project_donor_valid( project );
 				var d = ngmClusterValidation.target_beneficiaries_valid( project );
 				var e = ngmClusterValidation.target_locations_valid( project );
-
 				// locations invalid!
 				if ( !e ) {
 					$('#ngm-target_locations').addClass('error');
 					scrollDiv = $('#ngm-target_locations');
+					$('#ngm-target_locations').css({'color':'red'});
+				}else{
+					$('#ngm-target_locations').css({'color':'#616161'});
 				}
 
 				if ( !d ) {
 					$('#ngm-target_beneficiaries').addClass('error');
 					scrollDiv = $('#ngm-target_beneficiaries');
+					$('#ngm-target_beneficiaries').css({'color':'red'});
+
+				}else{
+					$('#ngm-target_beneficiaries').css({'color':'#616161'});
 				}
 
 				// donor
@@ -226,7 +259,29 @@ angular.module( 'ngmReportHub' )
 				} else {
 					// scroll and error
 					scrollDiv.animatescroll();
-					Materialize.toast( $filter('translate')('project_contains_errors'), 6000, 'error' );
+					Materialize.toast( $filter('translate')('project_contains_errors'),10000, 'error' );
+
+					if(a === false){
+						Materialize.toast( $filter('translate')('information_in_project_data_is_incorrect_or_incomplete'),10000,'error' );
+					}
+
+					if(b === false){
+						Materialize.toast( $filter('translate')('at_least_one_activity_type_must_be_selected'),10000, 'error' );
+					}
+					if(d === false){
+						Materialize.toast( $filter('translate')('information_in_target_population_is_incorrect_or_incomplete'),10000,'error' );
+					
+					}
+
+					if(e === false){
+
+					Materialize.toast($filter('translate')('information_in_project_target_locations_is_incorrect_or_incomplete'),10000,'error');
+				    } 
+					/*Materialize.toast($('<a class="btn-flat waves-effect waves-teal" style=" color:white">'+'C<span style="text-transform: lowercase">lick aquí para cerrar mensajes de error</span> </a>').on('click', function (e) {
+					   $('.toast').hide(); 
+					}));*/
+
+					
 				}
 
 			},

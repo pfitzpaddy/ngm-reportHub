@@ -70,6 +70,7 @@ angular.module( 'ngmReportHub' )
 					'retail_store':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp' },
 					'food_distribution_point':{ 'reporter':1, 'food_distribution_point':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp' },
 					'nutrition_center':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp'  },
+					'plantation':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp' },
 					// schools
 					'school':{ 'reporter':1, 'admin1':1, 'admin2':1 },
 					// health
@@ -419,7 +420,7 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// admin2pcode
-				if ( target_location.admin3pcode ) {
+				if ( target_location.admin3pcode && target_location.site_type_id !== 'refugee_camp' ) {
 					// run filter adminsites
 					ngmCbLocations.adminSites_filter[ $index ] = ngmCbLocations.adminSites_filter[ $index ].filter(function( i ) {
 						return i.admin3pcode === target_location.admin3pcode;

@@ -111,7 +111,7 @@ li {
 				<form name="ngmResetForm" class="col s12" novalidate>
 
 		      <div class="row">
-		        <div class="input-field">
+		        <div class="input-field col s12">
 		        	<i class="material-icons prefix">email</i>
 		          <input id="ngm-reset-email" type="email" class="validate"
 								autofocus=""
@@ -155,23 +155,23 @@ li {
 			<form name="ngmLoginForm" class="col s12" novalidate>
 
 	      <div class="row">
-	        <div class="input-field">
+	        <div class="input-field col s12">
 	        	<i class="material-icons prefix">account_circle</i>
-	          <input id="ngm-username" type="text" class="validate"
+	          <input id="ngm-username-login" type="text" class="validate"
 							autofocus=""
 							ng-model="panel.user.username"
 							required>
-	          <label for="ngm-username" class="left">{{'username_mayus' | translate}}</label>
+	          <label for="ngm-username-login">{{'username' | translate}}</label>
 	        </div>
 	      </div>
 
 	      <div class="row">
-	        <div class="input-field">
+	        <div class="input-field col s12">
 	        	<i class="material-icons prefix">lock_outline</i>
-	          <input id="ngm-password" type="password" class="validate"
+	          <input id="ngm-password-login" type="password" class="validate"
 							ng-model="panel.user.password"
 							required>
-	          <label for="ngm-password">{{'password_mayus' | translate}} </label>
+	          <label for="ngm-password-login">{{'password' | translate}}</label>
 	        </div>
 	      </div>
 

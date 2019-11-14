@@ -122,7 +122,7 @@
 							<button class="btn-floating red lighten-2 waves-effect waves-light"
 												title="Remove {{ location.site_name }}"
 												ng-if="!project.newProject && location.id && detailLocation[$index]"
-												ng-click="ngmClusterLocations.removeLocationModal( project.definition, location.id )"
+												ng-click="ngmClusterLocations.removeLocationModal( project, location.id )"
 												ng-disabled="
 													( ( !project.project_details_valid() ) ||
 													( !project.activity_type_valid() ) ||

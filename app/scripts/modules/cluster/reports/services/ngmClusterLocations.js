@@ -6,7 +6,7 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterLocations', [ '$http', '$filter', '$timeout', 'ngmAuth','$translate', 'ngmClusterBeneficiaries', function( $http, $filter, $timeout, ngmAuth, $translate, ngmClusterBeneficiaries ) {
+	.factory( 'ngmClusterLocations', [ '$http', '$filter', '$timeout', 'ngmAuth','$translate', 'ngmClusterBeneficiaries', 'ngmCbLocations', function( $http, $filter, $timeout, ngmAuth, $translate, ngmClusterBeneficiaries, ngmCbLocations ) {
 
 		ngmClusterLocations = {
 
@@ -100,8 +100,11 @@ angular.module( 'ngmReportHub' )
       removeLocation: function() {
 
         // remove from array
-        ngmClusterLocations.project.target_locations = 
-            $filter('filter')( ngmClusterLocations.project.target_locations, { id: '!'+ngmClusterLocations.remove_id }, true );
+        ngmClusterLocations.project.definition.target_locations = 
+            $filter('filter')( ngmClusterLocations.project.definition.target_locations, { id: '!'+ngmClusterLocations.remove_id }, true );
+
+        // trigger ngmCbLocations set form 
+        ngmCbLocations.setLocationsForm( ngmClusterLocations.project, ngmClusterLocations.project.definition.target_locations );
 
         // remove at db
         $http({
@@ -355,6 +358,16 @@ angular.module( 'ngmReportHub' )
         // filter admin
         var search_site = {}
         search_site[ pcode ] = target_location[ pcode ];
+
+        // admin1,2,3,4,5 get names
+        if( target_location[ pcode ] && pcode !== 'site_type_id' ) {
+          var obj = {}
+          obj[ pcode ] = target_location[ pcode ];
+          var selected = $filter('filter')( lists[ pcode.slice( 0, -5 ) ], obj, true );
+          // merge object
+          delete selected[0].id;
+          target_location = angular.merge( target_location, selected[0] );
+        }
 
         // filter adminsites
         if( target_location.site_type_id ) {

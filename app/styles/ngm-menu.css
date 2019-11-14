@@ -12,7 +12,13 @@
 	position:fixed;
 	overflow: auto;
 	left: 0px;
-  top: 0px; 
+	top: 0px; 
+	transition: .30s ease-in-out;
+}
+.shrink{
+transform: translateX(-230px);
+transition: .30s ease-in-out;
+background-color: #2196f3;
 }
 .ngm-search {
 	height: 52px;
@@ -40,11 +46,46 @@
 	text-transform:lowercase;
 	pointer-events:none;
 }
+.ngm-profile-left{
+	width:100%;
+	height:52px;
+	padding-top:20px;
+	padding-left:15px;
+	text-align:left; 
+	text-transform:lowercase;
+	pointer-events:none;
+}
 .ngm-profile-btn {
 	height: 68px;
 	position:absolute; 
 	top:95px;
 	z-index:9991;
+}
+.ngm-minimize-flat {
+	height: 68px;
+	position:absolute; 
+	top:95px;
+	right: 0;
+	z-index:9991;
+	transition: .30s ease-in-out;
+}
+.change-position{
+	right: 202px;
+	transition: .30s ease-in-out;
+}
+.change-margin{
+	margin: 0 50px !important;
+}
+.ngm-profile-btn-rightoff {
+	height: 68px;
+	position:absolute; 
+	top:95px;
+	z-index:9991;
+	visibility: visible;
+}
+.hide-position {
+	visibility: hidden;
+	transition: visibility 0.2s, ease-in-out;
 }
 .ngm-profile-icon {
 	-moz-transition: all 0.2s linear;
@@ -179,4 +220,14 @@ i.smedium {
 .collapsible-body{
 	overflow: auto;
 	max-height: 360px !important;
+}
+.minim{
+	padding-left: 0 !important ;
+	transition: .15s ease-in-out;
+}
+/* .minim > .container{
+	margin: 0 10%;
+} */
+.minim > .container > .expand.row{
+	width: 105%;
 }

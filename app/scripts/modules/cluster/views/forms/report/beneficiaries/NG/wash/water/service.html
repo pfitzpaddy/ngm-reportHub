@@ -1,6 +1,6 @@
 
 <!-- for each activity -->
-<h5 class="report-location-title" style="padding-top:0px;">Details</h5>
+<h5 class="report-beneficiary-second-title" style="padding-top:0px;">Details</h5>
 	
 	<!-- repeat -->
 	<div class="card-panel" ng-repeat="service in beneficiary.water">
@@ -8,12 +8,12 @@
 		<!-- service title / btns -->
 		<div class="row">
 			<div class="col s12 m8">
-				<h5 style="font-size: 1.32rem; padding-bottom:10px;">{{ beneficiary.activity_detail_name }}</h5>
+				<h5 class="report-beneficiary-title-details">{{ beneficiary.activity_detail_name }}</h5>
 			</div>
 			<div class="col s12 m4">
 				<div class="btn-floating waves-effect waves-light red lighten-2 right" 
 							title="Remove Service"
-							ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+							ng-show="project.report.report_status !== 'complete'"
 							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $index, 'water', '#service-modal' )">
 					<i class="material-icons">clear</i>
 				</div>
@@ -33,7 +33,7 @@
 								ng-model="service.quantity"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, service, 'tablets' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-								ng-disabled="project.report.report_status === 'complete'"
+								ng-disabled="project.report.report_status === 'complete' "
 								required>
 				<label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Quantity (m3/Per Month)</label>
@@ -53,7 +53,7 @@
 								ng-model="service.quantity"
 								ng-change="ngmClusterHelperNgWash.indicatorOutput( project.report.locations, service, 'water' );
 														ngmClusterHelperNgWash.inputChange( 'ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-								ng-disabled="project.report.report_status === 'complete'"
+								ng-disabled="project.report.report_status === 'complete' "
 								required>
 				<label for="ngm-quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Quantity (m3/Per Month)</label>
@@ -72,7 +72,7 @@
 																							'free_residual_chlorine_range_id', 
 																							'free_residual_chlorine_range_name',
 																							'ngm-free_residual_chlorine_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-									ng-disabled="project.report.report_status === 'complete'"
+									ng-disabled="project.report.report_status === 'complete' "
 									required>
 				<option value="">{{'select'|translate}}</option>
 				</select>
@@ -93,7 +93,7 @@
 																							'water_turbidity_range_id', 
 																							'water_turbidity_range_name',
 																							'ngm-water_turbidity_range-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
-									ng-disabled="project.report.report_status === 'complete'"
+									ng-disabled="project.report.report_status === 'complete' "
 									required>
 				<option value="">{{'select'|translate}}</option>
 				</select>
@@ -114,7 +114,7 @@
 						format="dd mmm, yyyy"
 						max="{{ service.activity_end_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( service, service.activity_start_date )"
-						ng-disabled="project.definition.project_status === 'complete'"
+						ng-disabled="project.definition.project_status === 'complete' "
 						e-required/>
 				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Activity Start Date</label>
@@ -129,7 +129,7 @@
 						format="dd mmm, yyyy"
 						min="{{ service.activity_start_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( service, service.activity_end_date )"
-						ng-disabled="project.definition.project_status === 'complete'"
+						ng-disabled="project.definition.project_status === 'complete' "
 						e-required/>
 				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}"
 								class="active">Activity End Date</label>            
@@ -143,8 +143,7 @@
 	<button class="btn blue" 
 					ng-show="project.report.report_status !== 'complete'"
 					ng-hide="beneficiary.water.length === 1"
-					ng-click="rowform.$show(); 
-											ngmClusterHelperNgWash.init_material_select();
+					ng-click="ngmClusterHelperNgWash.init_material_select();
 											ngmClusterHelperNgWash.addActivity( project.report.locations, location, beneficiary, 'water' )">
 		<i class="material-icons left">add</i>Add Services
 	</button>

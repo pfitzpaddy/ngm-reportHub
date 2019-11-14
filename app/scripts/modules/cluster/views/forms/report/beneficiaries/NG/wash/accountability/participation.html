@@ -1,5 +1,5 @@
 <!-- for each activity -->
-<h5 class="report-location-title" ng-if="beneficiary.accountability.length" style="padding-top:0px;">Details</h5>
+<h5 class="report-beneficiary-second-title" ng-if="beneficiary.accountability.length" style="padding-top:0px;">Details</h5>
 	
 	<!-- repeat -->
 	<div class="card-panel" ng-repeat="accounts in beneficiary.accountability" ng-init="$accountabilityIndex=$index">
@@ -8,17 +8,17 @@
 		<div class="row">
 			<div class="col s12 m8">
 				<h5 ng-if="beneficiary.activity_detail_id === 'information_rights_entitlement'"
-							style="font-size: 1.32rem; padding-bottom:10px;">Information on Rights / Entitlements</h5>
+							class="report-beneficiary-title-details">Information on Rights / Entitlements</h5>
 				<h5 ng-if="beneficiary.activity_detail_id === 'information_roles_responsibilities'"
-							style="font-size: 1.32rem; padding-bottom:10px;">Information on Roles / Responsibilities</h5>
+							class="report-beneficiary-title-details">Information on Roles / Responsibilities</h5>
 				<h5 ng-if="beneficiary.activity_detail_id !== 'information_rights_entitlement' && 
 										beneficiary.activity_detail_id !== 'information_roles_responsibilities'"
-							style="font-size: 1.32rem; padding-bottom:10px;">{{ beneficiary.activity_detail_name }}</h5>
+							class="report-beneficiary-title-details">{{ beneficiary.activity_detail_name }}</h5>
 			</div>
 			<div class="col s12 m4">
 				<div class="btn-floating waves-effect waves-light red lighten-2 right" 
 							title="Remove Accountability Activity"
-							ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+							ng-show="project.report.report_status !== 'complete'"
 							ng-click="ngmClusterHelperNgWash.removeModal( project, beneficiary, $accountabilityIndex, 'accountability', '#accounts-modal' )">
 					<i class="material-icons">clear</i>
 				</div>
@@ -37,7 +37,7 @@
 								min="0"
 								ng-model="accounts.boys"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-boys-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete'"
+								ng-disabled="project.report.report_status === 'complete' "
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -53,7 +53,7 @@
 								min="0"
 								ng-model="accounts.girls"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-girls-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete'"
+								ng-disabled="project.report.report_status === 'complete' "
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -69,7 +69,7 @@
 								min="0"
 								ng-model="accounts.men"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete'"
+								ng-disabled="project.report.report_status === 'complete' "
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -85,7 +85,7 @@
 								min="0"
 								ng-model="accounts.women"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete'"
+								ng-disabled="project.report.report_status === 'complete' "
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -101,7 +101,7 @@
 								min="0"
 								ng-model="accounts.elderly_men"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete'"
+								ng-disabled="project.report.report_status === 'complete' "
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -117,7 +117,7 @@
 								min="0"
 								ng-model="accounts.elderly_women"
 								ng-change="ngmClusterHelperNgWash.inputChange( 'ngm-elderly_women-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}' )"
-								ng-disabled="project.report.report_status === 'complete'"
+								ng-disabled="project.report.report_status === 'complete' "
 								required>
 
 				<!-- label based on activity_detail_id -->
@@ -139,7 +139,7 @@
 						format="dd mmm, yyyy"
 						max="{{ accounts.activity_end_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.startOnClose( accounts, accounts.activity_start_date )"
-						ng-disabled="project.definition.project_status === 'complete'"
+						ng-disabled="project.definition.project_status === 'complete' "
 						e-required/>
 				<label for="ngm-activity_start_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								class="active">Activity Start Date</label>
@@ -154,7 +154,7 @@
 						format="dd mmm, yyyy"
 						min="{{ accounts.activity_start_date }}"
 						on-close="ngmClusterBeneficiaries.datepicker.endOnClose( accounts, accounts.activity_end_date )"
-						ng-disabled="project.definition.project_status === 'complete'"
+						ng-disabled="project.definition.project_status === 'complete' "
 						e-required/>
 				<label for="ngm-activity_end_date-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $accountabilityIndex }}"
 								class="active">Activity End Date</label>            
@@ -176,9 +176,9 @@
 			<div class="row" style="margin-left:20px;">
 				<!-- add details -->
 				<button class="btn blue lighten-2"
-								ng-show="project.report.report_status !== 'complete' && rowform.$visible"
+								ng-show="project.report.report_status !== 'complete'"
 								ng-hide="accounts.details.length === ngmClusterHelperNgWashLists.lists.information_community_languages"
-								ng-click="rowform.$show(); 
+								ng-click=" 
 											ngmClusterHelperNgWash.init_material_select();
 											ngmClusterHelperNgWash.addDetails( accounts, {} );">
 					<i class="material-icons left">add</i>Add Details
@@ -192,8 +192,7 @@
 	<button class="btn blue" 
 					ng-show="project.report.report_status !== 'complete'"
 					ng-hide="beneficiary.accountability.length === 1" 
-					ng-click="rowform.$show(); 
-											ngmClusterHelperNgWash.init_material_select();
+					ng-click="ngmClusterHelperNgWash.init_material_select();
 											ngmClusterHelperNgWash.addActivity( project.report.locations, location, beneficiary, 'accountability' )">
 		<i class="material-icons left">add</i>Add Accountability Details
 	</button>

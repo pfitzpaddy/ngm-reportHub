@@ -211,7 +211,21 @@ angular.module( 'ngmReportHub' )
           // storage
           localStorage.setObject( 'lists', lists );
           ngmLists.setObject( 'lists', lists );
+					
+					// for ROLE REGIONAL above
+					if (user.roles.length > 1) {
+						const USER = ngmAuth.userPermissions();
+						var max_role = USER.reduce(function (max, v) { return v.LEVEL > max.LEVEL ? v : max })['ROLE'];
 
+						if (max_role === 'HQ' || max_role === 'HQ_ORG' || max_role === 'REGION_ORG' || max_role === 'REGION' || max_role === 'SUPERADMIN') {
+							var region = max_role.indexOf('REGION') > -1 ? user.adminRpcode : 'HQ';
+							var getActivitiesBasedOnRole = {
+								method: 'GET',
+								url: ngmAuth.LOCATION + '/api/cluster/list/activities?adminRpcode=' + region
+							}
+							requests.getActivities = getActivitiesBasedOnRole;
+						}
+					}
           // send request
           $q.all([
             $http( requests.getAdmin1List ),
@@ -3859,7 +3873,9 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'australia', project_donor_name:'Australia'},
             { project_donor_id: 'aus_aid', project_donor_name:'AusAid'},
             { project_donor_id: 'bmz', project_donor_name:'BMZ'},
+            { project_donor_id: 'brac', project_donor_name:'BRAC'},
             { project_donor_id: 'canada',  project_donor_name:'Canada'},
+            { project_donor_id: 'care',  project_donor_name:'Care'},
             { project_donor_id: 'caritas_germany', project_donor_name: 'Caritas Germany' },
             { project_donor_id: 'cerf', project_donor_name: 'CERF' },
             { project_donor_id: 'chf', project_donor_name: 'CHF' },
@@ -3873,6 +3889,7 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'echo', project_donor_name: 'ECHO' },
             { project_donor_id: 'ehf', project_donor_name: 'EHF' },
             { project_donor_id: 'european_union', project_donor_name: 'European Union' },
+            { project_donor_id: 'fao', project_donor_name:'FAO' },
             { project_donor_id: 'finland', project_donor_name:'Finland' },
             { project_donor_id: 'france', project_donor_name:'France' },
             { project_donor_id: 'global_fund', project_donor_name: 'Global Fund' },
@@ -3885,18 +3902,22 @@ angular.module( 'ngmReportHub' )
             { project_donor_id: 'jica', project_donor_name: 'JICA' },
             { project_donor_id: 'johanniter', project_donor_name: 'Johanniter' },
             { project_donor_id: 'khalifa_bin_zayed_al_nahyan_charity_foundation', project_donor_name: 'Khalifa bin Zayed Al Nahyan Charity Foundation' },
+            { project_donor_id: 'mukti', project_donor_name: 'Mukti' },
             { project_donor_id: 'netherlands', project_donor_name: 'Netherlands' },
             { project_donor_id: 'norway', project_donor_name: 'Norway' },
             { project_donor_id: 'ocha', project_donor_name: 'OCHA' },
+            { project_donor_id: 'oxfam', project_donor_name: 'Oxfam' },
             { project_donor_id: 'qatar_red_crescent', project_donor_name: 'Qatar Red Crescent' },
             { project_donor_id: 'republic_of_korea', project_donor_name: 'Republic of Korea' },
             { project_donor_id: 'sdc', project_donor_name: 'SDC' },
             { project_donor_id: 'sida', project_donor_name: 'SIDA' },
+            { project_donor_id: 'solidar_suisse', project_donor_name: 'Solidar Suisse' },
             { project_donor_id: 'start_network_global_humanitarian_assistance', project_donor_name: 'Start Network Global Humanitarian Assistance' },
             { project_donor_id: 'sweden', project_donor_name: 'Sweden' },
             { project_donor_id: 'switzerland', project_donor_name: 'Switzerland' },
             { project_donor_id: 'turkish_red_crescent', project_donor_name: 'Turkish Red Crescent' },
             { project_donor_id: 'usaid', project_donor_name: 'USAID' },
+            { project_donor_id: 'unfpa', project_donor_name: 'UNFPA' },
             { project_donor_id: 'unhcr', project_donor_name: 'UNHCR' },
             { project_donor_id: 'unicef', project_donor_name: 'UNICEF' },
             { project_donor_id: 'unwomen', project_donor_name: 'UNWOMEN' },
@@ -4023,6 +4044,10 @@ angular.module( 'ngmReportHub' )
                 "project_donor_name": "Agencia de Estados Unidos para el Desarrollo Internacional"
               },
               {
+                "project_donor_id":"agencia_de_cooperacion_internacional_de_corea_koica",
+                "project_donor_name":"Agencia de Cooperación Internacional de Corea (KOICA)"
+              },
+              {
                 "project_donor_id": "agencia_española_de_cooperación_internacional",
                 "project_donor_name": "Agencia Española de Cooperación Internacional"
               },
@@ -4051,7 +4076,7 @@ angular.module( 'ngmReportHub' )
                 "project_donor_name": "Banco Interamericano de Desarrollo"
               },
               {
-                "project_donor_id": "buró_de_población,_refugiados_y_migración",
+                "project_donor_id": "buró_de_población_refugiados_y_migración",
                 "project_donor_name": "Buró de Población, Refugiados y Migración"
               },
               {
@@ -4135,7 +4160,7 @@ angular.module( 'ngmReportHub' )
                 "project_donor_name": "Embajada de Estados Unidos en Colombia"
               },
               {
-                "project_donor_id": "embajada_de_holanda_/_del_reino_de_los_paises_bajos_en_colombia",
+                "project_donor_id": "embajada_de_holanda_del_reino_de_los_paises_bajos_en_colombia",
                 "project_donor_name": "Embajada de Holanda / del Reino de los Paises Bajos en Colombia"
               },
               {
@@ -4151,6 +4176,10 @@ angular.module( 'ngmReportHub' )
                 "project_donor_name": "Fondation Medicor"
               },
               {
+                "project_donor_id": "fondo_de_construccion_de_paz_de_naciones_unidas_pbf",
+                "project_donor_name": "Fondo de Construcción de Paz de Naciones Unidas (PBF)"
+              },
+              {
                 "project_donor_id": "fondo_de_las_naciones_unidas_para_la_infancia",
                 "project_donor_name": "Fondo de las Naciones Unidas para la Infancia"
               },
@@ -4161,6 +4190,10 @@ angular.module( 'ngmReportHub' )
               {
                 "project_donor_id": "fondo_fiduciario_de_asociados_multiples",
                 "project_donor_name": "Fondo Fiduciario de Asociados Multiples"
+              },
+              {
+                "project_donor_id": "fondo_fiduciario_de_la_union_europea_eu_trust_fond",
+                "project_donor_name": "Fondo Fiduciario de la Unión Europea (EU Trust fond)"
               },
               {
                 "project_donor_id": "fondo_multidonante_de_las_naciones_unidas_para_el_posconflicto",
@@ -4212,6 +4245,35 @@ angular.module( 'ngmReportHub' )
                 "project_donor_name": "Gobierno Alemán"
               },
               {
+                "project_donor_id": "gobierno_de_francia",
+                "project_donor_name": "Gobierno de Francia"
+              },
+               {
+                "project_donor_id": "gobierno_de_irlanda",
+                "project_donor_name": "Gobierno de Irlanda"
+              },
+              {
+                "project_donor_id": "gobierno_del_reino_de_dinamarca",
+                "project_donor_name": "Gobierno del Reino de Dinamarca"
+              },
+               {
+                "project_donor_id": "gobierno_del_reino_de_noruega",
+                "project_donor_name": "Gobierno del Reino de Noruega"
+              },
+
+               {
+                "project_donor_id": "gobierno_del_reino_de_suecia",
+                "project_donor_name": "Gobierno del Reino de Suecia"
+              },
+              {
+                "project_donor_id": "gobierno_del_reino_de_los_paises_bajos_holanda",
+                "project_donor_name": "Gobierno del Reino de los Países Bajos (Holanda)"
+              },
+              {
+                "project_donor_id": "gobierno_del_reino_unido",
+                "project_donor_name": "Gobierno del Reino Unido"
+              },
+              {
                 "project_donor_id": "gobierno_vasco",
                 "project_donor_name": "Gobierno Vasco"
               },
@@ -4260,7 +4322,7 @@ angular.module( 'ngmReportHub' )
                 "project_donor_name": "Ministerio de Salud y Protección Social"
               },
               {
-                "project_donor_id": "office_of_u.s._foreign_disaster_assistance",
+                "project_donor_id": "office_of_us_foreign_disaster_assistance",
                 "project_donor_name": "OFFICE OF U.S. FOREIGN DISASTER ASSISTANCE"
               },
               {
@@ -4280,7 +4342,7 @@ angular.module( 'ngmReportHub' )
                 "project_donor_name": "Organización Internacional para las Migraciones"
               },
               {
-                "project_donor_id": "organización_panamericana_de_salud_/_organización_mundial_de_salud",
+                "project_donor_id": "organización_panamericana_de_salud_organización_mundial_de_salud",
                 "project_donor_name": "Organización Panamericana de Salud / Organización Mundial de Salud"
               },
               {
@@ -4324,7 +4386,7 @@ angular.module( 'ngmReportHub' )
                 "project_donor_name": "Unidad para la Atención y Reparación Integral a las Víctimas"
               },
               {
-                "project_donor_id": "united_nations_international_children's_emergency_fund",
+                "project_donor_id": "united_nations_international_childrens_emergency_fund",
                 "project_donor_name": "United Nations International Children's Emergency Fund"
               },
               {
@@ -7207,6 +7269,10 @@ angular.module( 'ngmReportHub' )
             cluster_id: [ 'fss' ],
             site_type_id: 'cyclone_shelter',
             site_type_name: 'Cyclone Shelter'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'plantation',
+            site_type_name: 'Plantation'
           },{
             cluster_id: ngmClusterLists.all_sectors_minus_health,
             site_type_id: 'school',
