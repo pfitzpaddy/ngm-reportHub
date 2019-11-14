@@ -35,6 +35,7 @@ angular
 		'ngm.widget.organization.stocks.list',
 		'ngm.widget.organization.stock',
 		// modules
+		'ngmBangladesh',
 		'ngmCluster',
 		'ngmEthiopia',
 		'ngmDews',
@@ -58,7 +59,7 @@ angular
 		'ngm.widget.table',
 		'ngm.materialize.select',
 	])
-	.config([ '$routeProvider', '$locationProvider', '$compileProvider','$translateProvider', function ( $routeProvider, $locationProvider, $compileProvider,$translateProvider ) {
+	.config([ '$routeProvider', '$locationProvider', '$compileProvider', '$translateProvider', function ( $routeProvider, $locationProvider, $compileProvider, $translateProvider ) {
 
 		// from http://mysite.com/#/notes/1 to http://mysite.com/notes/1
 		// $locationProvider.html5Mode(true);
@@ -508,7 +509,7 @@ angular
 					// close menu dropdown
 					if($('.ngm-profile-icon').hasClass('rotate-icon')){
 						$('.ngm-profile-menu-content').slideToggle();
-						$('.ngm-profile-icon').toggleClass('rotate-icon');
+						$('.ngm-profile-icon').toggleClass('rotate-icon'); 
 					}
 				}
 			}
@@ -517,11 +518,9 @@ angular
 
 		var var4plusrhafter;
 
-
-
 	    // if($location.$$host === '4wplus.org' || $location.$$host === '192.168.33.16' ){ //'35.229.43.63'
 
-	    if($location.$$host === '4wplus.org'){ //'35.229.43.63'
+	    if($location.$$host === '4wplus.org' ){ //'35.229.43.63'
 
 			$('#title').html("4wPlus");
 

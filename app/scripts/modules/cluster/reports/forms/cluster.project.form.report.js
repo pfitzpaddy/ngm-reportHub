@@ -97,7 +97,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			// project
 			$scope.project = {
 
-				/**** DEFAULTS ****/
+				/**** DEFAULTS ****/ 
 				user: ngmUser.get(),
 				style: config.style,
 				definition: config.project,
@@ -150,6 +150,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					// documents upload
 					$scope.project.setTokenUpload();
 					// for minimize-maximize beneficiary form
+
 					$scope.detailBeneficiaries = {};
 					$scope.project.beneficiary_search;
 					$scope.beneficiary_search_input = false;
@@ -168,6 +169,23 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							$scope.detailBeneficiaries[i][0] = true;
 						}
 					})
+				},
+
+				// sets title for each location / activity
+				getBeneficiaryTitle: function( $locationIndex, $beneficiaryIndex ){
+					// beneficiary
+					var beneficiary = $scope.project.report.locations[ $locationIndex ].beneficiaries[ $beneficiaryIndex ];
+					// title
+					var title = beneficiary.activity_type_name;
+					// activity_description_id
+					if ( beneficiary.activity_description_id ) {
+						title += ', ' + beneficiary.activity_description_name;
+					}
+					// activity_detail_id
+					if ( beneficiary.activity_detail_id ) {
+						title += ', ' + beneficiary.activity_detail_name;
+					}
+					return title;
 				},
 
 				// set location / beneficiaries limits
@@ -819,7 +837,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					return total
 				},
 				// save
-				save: function( complete, display_modal ){
+				save: function( complete, display_modal ){ 
 
 					// set labels to active (green)
 					$( 'label' ).removeClass( 'invalid' ).addClass( 'active' );

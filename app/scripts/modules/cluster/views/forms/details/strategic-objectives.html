@@ -33,7 +33,7 @@
 
 						<!-- form -->
 						<div class="row">
-							<div class="card" ng-repeat="year in project.getSOyears()">
+							<div class="card" ng-repeat="year in project.SOyears">
 								<ul class="collection with-header">
 									<li class="collection-item avatar" ng-repeat="objective in project.lists.strategic_objectives[year][ project.definition.cluster_id ]">
 								    <div class="strategic_objective_title" style="padding:5px 0px 10px 35px;">{{ year + " " + objective.objective_type_name }}</div>

@@ -1,13 +1,55 @@
 
+<style>
+
+	.dropzone {
+		border: 0px;
+		min-height: 210px;
+		padding-top: 0px;
+		padding: 20px;
+	}
+	.rotate{
+		transform:rotate(180deg);
+		box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.16), 0 -2px 10px 0 rgba(0, 0, 0, 0.12);
+		transition: .25s ease-in-out;
+	}
+	.rotate:hover{
+		box-shadow:0 -5px 11px 0 rgba(0, 0, 0, 0.18), 0 -4px 15px 0 rgba(0, 0, 0, 0.15);
+	}
+
+</style>
+
 <!-- bind html -->
-<div id="dropzone">
-	<form ng-dropzone 
-			dropzone="dropzone" 
-			dropzone-config="dropzoneConfig"
-			enctype="multipart/form-data"
-			class="dropzone needsclick dz-clickable">
-		<div class="fallback">
-			<input name="file" type="file" multiple />
-		</div>
-	</form>
-</div>
+<ul class="collection with-header">
+	<li ng-if="dropzoneConfig.cardTitle" class="{{ dropzoneConfig.header }}">
+		<h5 class="report-work-title white-text">
+			<i class="material-icons left">{{ dropzoneConfig.headerIcon }}</i>
+			{{ dropzoneConfig.cardTitle }}
+			<div ng-if="dropzoneConfig.minimize.toggle" class="right">
+				<button
+					class="btn-floating"
+					ng-class="{'rotate': dropzoneConfig.minimize.open }"
+					ng-click="dropzoneConfig.openCloseDropZone()"
+					ng-disabled="dropzoneConfig.minimize.disabled">
+					<i class="material-icons">keyboard_arrow_down</i>
+					<md-tooltip md-direction="right" ng-if="dropzoneConfig.minimize.open">
+						{{ 'Minimize'|translate }}
+					</md-tooltip>
+					<md-tooltip md-direction="right" ng-if="!dropzoneConfig.minimize.open">
+						{{ 'Click to Expand'|translate }}
+					</md-tooltip>
+				</button>
+			</div>
+		</h5>
+	</li>
+	<div id="dropzone" ng-if="dropzoneConfig.minimize.open">
+		<form ng-dropzone 
+				dropzone="dropzone" 
+				dropzone-config="dropzoneConfig"
+				enctype="multipart/form-data"
+				class="dropzone needsclick dz-clickable">
+			<div class="fallback">
+				<input name="file" type="file" multiple />
+			</div>
+		</form>
+	</div>
+</ul>

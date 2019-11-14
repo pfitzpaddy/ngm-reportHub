@@ -121,7 +121,7 @@ angular.module('ngm.widget.highchart', ['ngm.provider'])
                 // set data with options.foo to enable animation
                 $scope.highchart.chartConfig.series[key].data = data.data;
                 $scope.highchart.chartConfig.options.foo = Math.random();
-
+                
                 // set labels
                 $scope.highchart.label = angular.merge({}, $scope.highchart.label, data.label);
 

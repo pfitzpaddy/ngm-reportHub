@@ -186,7 +186,7 @@ angular.module( 'ngmReportHub' )
           getOrganizations:{
             method: 'GET',
             url: ngmAuth.LOCATION + '/api/list/organizations'
-          },
+          }
 
         }
 
@@ -205,7 +205,7 @@ angular.module( 'ngmReportHub' )
             donorsList: [],
             indicatorsList: [],
             stockItemsList: [],
-            organizationsList: [],
+            organizationsList: []
           };
 
           // storage
@@ -238,7 +238,9 @@ angular.module( 'ngmReportHub' )
             $http( requests.getDonors ),
             $http( requests.getIndicators ),
             $http( requests.getStockItems ),
-            $http( requests.getOrganizations) ] ).then( function( results ){
+            $http( requests.getOrganizations),
+           
+             ] ).then( function( results ){
 
               // admin1, admin2, activities object
               var lists = {
@@ -253,6 +255,7 @@ angular.module( 'ngmReportHub' )
                 indicatorsList: results[8].data,
                 stockItemsList: results[9].data,
                 organizationsList: results[10].data,
+            
               };
 
               // storage

@@ -178,11 +178,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								moment( new Date( $scope.project.definition.project_start_date ) ).format('YYYY-MM-DD');
 						$scope.project.definition.project_end_date = 
 								moment( new Date( $scope.project.definition.project_end_date ) ).format('YYYY-MM-DD');
+								
 						// get strategic objectives
-						$scope.project.lists.strategic_objectives =  
-									ngmClusterLists.getStrategicObjectives($scope.project.definition.admin0pcode,
-										moment( new Date( $scope.project.definition.project_start_date ) ).year(), 
-										moment( new Date( $scope.project.definition.project_end_date ) ).year() )
+							$scope.project.checkStrategicObjectiveYear()
 					}
 				},
 
@@ -269,6 +267,30 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						$('#search_').focus();
 						$scope.search_input = $scope.search_input ? false : true;;
 					}
+
+					if ( $scope.project.definition.plan_component ) {
+						$scope.project.definition.hrp_plan = $scope.project.definition.plan_component.includes('hrp_plan');
+						$scope.project.definition.rmrp_plan = $scope.project.definition.plan_component.includes('rmrp_plan');
+						$scope.project.definition.interagencial_plan = $scope.project.definition.plan_component.includes('interagencial_plan');
+
+					 $scope.project.definition.humanitarian_component = $scope.project.definition.plan_component.includes('humanitarian_component');
+					$scope.project.definition.construccion_de_paz_component = $scope.project.definition.plan_component.includes('construccion_de_paz_component');
+					$scope.project.definition.desarrollo_sostenible_component = $scope.project.definition.plan_component.includes('desarrollo_sostenible_component');
+					$scope.project.definition.flujos_migratorios_component = $scope.project.definition.plan_component.includes('flujos_migratorios_component');
+
+					}/*else{
+						$scope.project.definition.hrp_plan = false;
+						$scope.project.definition.rmrp_plan = false;
+						$scope.project.definition.interagencial_plan = false;
+
+					 $scope.project.definition.humanitarian_component = false;
+					$scope.project.definition.construccion_de_paz_component = false;
+					$scope.project.definition.desarrollo_sostenible_component = false;
+					$scope.project.definition.flujos_migratorios_component = false;
+
+					}*/
+					// init stategic objectic list
+					$scope.project.checkStrategicObjectiveYear()
 				},
 
 				// cofirm exit if changes
@@ -344,6 +366,26 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				getSOyears: function(){
 					return Object.keys( $scope.project.lists.strategic_objectives );
 				},
+
+				// strategic objective years check removal if year not in range
+				checkStrategicObjectiveYear: function(){
+					if ($scope.project.definition.strategic_objectives_check) {
+							listId = Object.keys($scope.project.definition.strategic_objectives_check)
+							listId.forEach(function (x, i) {
+								year = x.split(':')[1] === ""? 2017 :parseInt(x.split(':')[1]);
+								if (year < (moment(new Date($scope.project.definition.project_start_date)).year()) ||
+									year > moment(new Date($scope.project.definition.project_end_date)).year()) {
+									delete $scope.project.definition.strategic_objectives_check[x];
+								}
+							})
+						};
+					// set list strategic objective;
+					$scope.project.lists.strategic_objectives =
+						ngmClusterLists.getStrategicObjectives($scope.project.definition.admin0pcode,
+							moment(new Date($scope.project.definition.project_start_date)).year(),
+							moment(new Date($scope.project.definition.project_end_date)).year())
+					$scope.project.SOyears = Object.keys($scope.project.lists.strategic_objectives);
+				},			
 
 
 			 
@@ -602,7 +644,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				/**** CLUSTER HELPER ( ngmClusterHelper.js ) ****/
 
 				// compile cluster activities
-				compileInterClusterActivities: function(){
+				compileInterClusterActivities: function(){					
 					ngmClusterHelper.compileInterClusterActivities( $scope.project.definition, $scope.project.lists );
 				},
 
@@ -759,6 +801,43 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						}
 					});
 
+					//SAVE COMPONENT-PLANS
+					
+					 $scope.project.definition.plan_component = [];
+
+					 	if ($scope.project.definition.hrp_plan == true) {
+						  $scope.project.definition.plan_component.push('hrp_plan');
+						}
+
+						if ($scope.project.definition.rmrp_plan == true) {
+						  $scope.project.definition.plan_component.push('rmrp_plan');
+						}
+
+						if ($scope.project.definition.interagencial_plan == true) {
+						  $scope.project.definition.plan_component.push('interagencial_plan');
+						}
+
+						if ($scope.project.definition.humanitarian_component == true) {
+						  $scope.project.definition.plan_component.push('humanitarian_component');
+						}
+
+						if ($scope.project.definition.construccion_de_paz_component == true) {
+						  $scope.project.definition.plan_component.push('construccion_de_paz_component');
+						}
+
+						if ($scope.project.definition.desarrollo_sostenible_component == true) {
+						  $scope.project.definition.plan_component.push('desarrollo_sostenible_component');
+						}
+
+						if ($scope.project.definition.flujos_migratorios_component == true) {
+						  $scope.project.definition.plan_component.push('flujos_migratorios_component');
+						}
+
+
+					  
+					
+
+
 					// update target_locations
 					$scope.project.definition.target_locations =
 							ngmClusterHelper.getCleanTargetLocation( $scope.project.definition, $scope.project.definition.target_locations );
@@ -808,6 +887,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					}).error(function( err ) {
 						// error
 						Materialize.toast( 'Error!', 4000, 'error' );
+						// unblock save button in case of any backend / no internet errors
+						$timeout(function () {
+							$scope.project.submit = true;
+						}, 4000);
+
 					});
 
 				}

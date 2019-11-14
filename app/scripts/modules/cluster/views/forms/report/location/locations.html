@@ -164,7 +164,7 @@
 							<!-- Project beneficiaries details -->
 
 							<!-- activities -->
-							<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesUrl()"></div>
+							<div ng-include="project.templatesUrl + project.beneficiariesUrl()"></div>
 
 						</div>
 
@@ -181,8 +181,7 @@
 								<i class="material-icons left">location_on</i>{{'add_location'|translate}}
 
 							</button>
-							<div ng-if="ngmClusterLocations.openAddNewLocation" 
-										class="slide-animate" 
+							<div ng-if="ngmClusterLocations.openAddNewLocation"
 										ng-include="project.templatesUrl + project.addLocationUrl">
 							</div>
 						</div>

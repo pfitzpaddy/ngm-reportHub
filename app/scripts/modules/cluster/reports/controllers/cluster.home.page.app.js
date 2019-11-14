@@ -32,6 +32,9 @@ angular.module( 'ngmReportHub' )
 			// org id
 			organization_id: organization_id,
 
+			// base template
+			template: '/scripts/modules/cluster/views/home/cluster.home.page.',
+
 			// get organization
 			getOrganization: function( organization_id ){
 
@@ -52,6 +55,14 @@ angular.module( 'ngmReportHub' )
 				$scope.report.title = $scope.report.organization.organization + ' | ' + $scope.report.organization.admin0name.toUpperCase().substring(0, 3);
 				$scope.report.subtitle = $scope.report.organization.organization + ' '+$filter('translate')('overview_for')+' ' + $scope.report.organization.admin0name;
 
+				// set template
+					// SY, CB
+				if ( $scope.report.organization.admin0pcode === 'CB' || $scope.report.organization.admin0pcode === 'SY' ) {
+					$scope.report.template += $scope.report.organization.admin0pcode + '.';
+				}
+
+				// add html
+				$scope.report.template += 'html';
 
 				// report dashboard model
 				$scope.model = {
@@ -81,10 +92,9 @@ angular.module( 'ngmReportHub' )
 								config: {
 									user: $scope.report.user,
 									organization: $scope.report.organization,
+									template: $scope.report.template,
 									
 									// THESE REALLY SHOULD USE ngmAutherntication.js
-
-									// '/team/:admin0pcode/:organization_tag/:project/:cluster_id'
 
 									// get default team URL
 									getTeamUrl: function(){
@@ -188,6 +198,7 @@ angular.module( 'ngmReportHub' )
 										return title;
 
 									},
+									
 									// get project href
 									getProjectsHref: function() {
 										var href = '#/cluster/projects/list';
@@ -195,12 +206,14 @@ angular.module( 'ngmReportHub' )
 										
 										return href;
 									},
+									
 									// get project href
 									getStocksHref: function() {
 										var href = '#/cluster/stocks';
 										if ( $route.current.params.organization_id ) { href += '/' + $route.current.params.organization_id }
 										return href;
 									},
+
 									report_date: moment().subtract( 1, 'M').endOf( 'M' ).format('YYYY-MM-DD'),
 									templateUrl: '/scripts/modules/cluster/views/cluster.home.page.html',
 					      }

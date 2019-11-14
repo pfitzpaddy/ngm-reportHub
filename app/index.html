@@ -461,7 +461,13 @@
 											<a href="#/cluster/4wprojectplan" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
 												<i class="material-icons small right">bubble_chart</i>{{'4WDASHBOARD' | translate}}</a>
 										</li>
+
 										<li style="position: relative;border-bottom: 1px solid #f1f1f1">
+											<a href="#/cluster/dashboard4wplus" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
+												<i class="material-icons small right">bubble_chart</i>{{'activities_dashboard' | translate}}</a>
+										</li>
+
+										<li style="position: relative;border-bottom: 1px solid #f1f1f1" ng-if="ngm.getUser().admin0pcode !== 'COL'">
 											<a href="#/cluster/5w" ng-click="ngm.toggleNavigationMenu();ngm.openDashboard= !ngm.openDashboard;">
 												<i class="material-icons small right">bubble_chart</i>{{'5WDASHBOARD_mayus' |translate}}</a>
 										</li>
@@ -712,6 +718,7 @@
 		<script src="scripts/modules/cluster/reports/services/ngmClusterLocations.js"></script>
 		<script src="scripts/modules/cluster/reports/services/ngmClusterValidation.js"></script>
 		<script src="scripts/modules/cluster/reports/services/ngmClusterDocument.js"></script>
+		<script src="scripts/modules/cluster/reports/services/ngmClusterFinancial.js"></script>
 
 		<!-- DETAILS -->
 		<script src="scripts/modules/cluster/reports/services/activity-details/ngmClusterDetails.js"></script>
@@ -743,6 +750,10 @@
 		<!--new 4w projectplan-->
 		<script src="scripts/modules/cluster/dashboards/dashboard.4wprojectplan.js"></script>
 
+		<!-- new 4wplus dashboard -->
+				<script src="scripts/modules/cluster/dashboards/dashboard.dashboard4wplus.js"></script>
+
+
 		<script src="scripts/modules/cluster/dashboards/health/dashboard.hct.js"></script>
 		<script src="scripts/modules/cluster/dashboards/health/dashboard.health.js"></script>
 		<script src="scripts/modules/cluster/reports/controllers/cluster.syria.dashboard.js"></script>
@@ -766,6 +777,15 @@
 
 
 		<!-- COUNTRY -->
+
+		<!-- BANGLADESH -->
+		<script src="scripts/modules/country/bangladesh/cxb/gfd/app.js"></script>
+		<!-- controllers -->
+		<script src="scripts/modules/country/bangladesh/cxb/gfd/reports/controllers/bgd.cxb.gfd.reports.js"></script>
+		<script src="scripts/modules/country/bangladesh/cxb/gfd/reports/controllers/bgd.cxb.gfd.reports.round.js"></script>
+		<script src="scripts/modules/country/bangladesh/cxb/gfd/reports/controllers/bgd.cxb.gfd.reports.round.plan.js"></script>
+		<script src="scripts/modules/country/bangladesh/cxb/gfd/reports/controllers/bgd.cxb.gfd.reports.round.daily.js"></script>
+		<script src="scripts/modules/country/bangladesh/cxb/gfd/reports/controllers/bgd.cxb.gfd.reports.round.actual.js"></script>
 
 		<!-- ETHIOPIA -->
 		<script src="scripts/modules/country/ethiopia/app.js"></script>

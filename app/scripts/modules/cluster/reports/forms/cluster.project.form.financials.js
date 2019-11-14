@@ -28,25 +28,33 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
     'ngmAuth',
     'ngmData',
     'ngmClusterHelper',
-    'ngmClusterLists',
+		'ngmClusterLists',
+		'ngmClusterFinancial',
     'config',
     '$translate',
-    function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, config,$translate ){
+		function ($scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, ngmClusterFinancial, config,$translate ){
 
       // project
 
-      //budget_funds
-
+			//budget_funds
+			$scope.ngmClusterFinancial = ngmClusterFinancial;
       if($scope.config.project.admin0pcode === 'COL'){
         financial_html = 'financials-COL.html';
         budget_funds= [ { budget_funds_id: 'received', budget_funds_name: $filter('translate')('received') },{ budget_funds_id: 'excecuted', budget_funds_name: $filter('translate')('excecuted') } ];
 
       }else{
-        financial_html = 'financials.html';
+				// financial_html = 'financials.html';
+				financial_html = 'financial-reform.html';
          budget_funds= [ { budget_funds_id: 'financial', budget_funds_name: $filter('translate')('financial') }, { budget_funds_id: 'inkind',budget_funds_name: $filter('translate')('inkind') } ];
 
-      }
-     
+			}
+			$scope.detailFinancial = [];
+			$scope.detailFinancial = config.project.project_budget_progress.length ?
+			new Array(config.project.project_budget_progress.length).fill(false) : new Array(0).fill(false);
+			if (config.project.project_budget_progress.length) {
+				$scope.detailFinancial[0] = true;
+			}
+			// })
 
  
       
@@ -111,6 +119,12 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
                 moment( new Date( $budget.project_budget_date_recieved ) ).format('YYYY-MM-DD');
           }
         },
+
+				cancelEdit: function ($index) {
+					if (!$scope.project.definition.project_budget_progress[$index].id) {
+						$scope.project.definition.project_budget_progress.splice($index, 1);
+					}
+				},
 
         // cancel
         cancel: function() {
@@ -332,7 +346,12 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           });
           return show;
         },
-
+				showProgrammingField:function(budget){
+					if (budget.budget_funds_id === 'financial'){
+						return true;
+					}
+					return false;
+				},
         // show in fts
         showProgramming: function( $data, $budget ) {
           var selected = [];
@@ -389,7 +408,27 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 						}
 					};
           return show;
-        },
+				},
+				showMultiYearFundingField:function(budget){
+					if(budget.multi_year_funding_id === 'yes'){
+						var start_year = moment($scope.project.definition.project_start_date).year();
+						end_year = moment($scope.project.definition.project_end_date).year();
+						if (!budget.multi_year_array || budget.multi_year_array.length<1){
+							budget.multi_year_array =[];
+							if (end_year % start_year > 0) {
+								for (let index = start_year; index <= end_year; index++) {							
+									budget.multi_year_array.push({ year: index, budget: 0 })
+								}
+							} else {
+								budget.multi_year_array.push(end_year)
+							}
+						}
+						return true;
+					}else{
+						return false;
+					}
+
+				},
 
         // show in fts
         showMultiYear: function( $data, $budget ) {
@@ -430,7 +469,14 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
             }
           });
           return show;
-        },
+				},
+				showFtsIdLabelField: function (budget) {
+					if (budget.reported_on_fts_id === 'yes') {
+						return true;
+					}
+					return false;
+					
+				},
 
         // show in fts
         showOnFts: function( $data, $budget ) {
@@ -474,11 +520,13 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           if ( length ) {
             var b = angular.copy( $scope.project.definition.project_budget_progress[ length - 1 ] );
             delete b.id;
+						delete b.multi_year_array;
             $scope.inserted = angular.merge( b, $scope.inserted );
           }
 
           // push
-          $scope.project.definition.project_budget_progress.push( $scope.inserted );
+					$scope.project.definition.project_budget_progress.push( $scope.inserted );
+					$scope.detailFinancial[$scope.project.definition.project_budget_progress.length-1] = true;
         },
 
         // remove notification
@@ -521,12 +569,21 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
           }).then( function( project ){
             
             // set project definition
-            $scope.project.definition = project;
+						$scope.project.definition = project;
 
             // on success
             Materialize.toast( $filter('translate')('project_budget_item_added')+'!', 3000, 'success');
           });          
-        }
+				},
+				
+				openCloseDetailFinancial: function ($index) {
+					$scope.detailFinancial[$index] = !$scope.detailFinancial[$index];
+				},
+				validateFinancialDetailsForm:function(){
+					if(ngmClusterFinancial.validateBudgets($scope.project.definition.project_budget_progress, $scope.detailFinancial)){
+						$scope.project.save()
+					}
+				}
 
       }
 
