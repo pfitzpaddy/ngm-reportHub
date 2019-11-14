@@ -57,10 +57,10 @@
 	<fieldset ng-disabled="!report.canEdit">
 
 		<!-- report beneficiaries details -->
-		<div class="slide-animate" ng-include="report.templatesUrl + report.locationsUrl"></div>
+		<div ng-include="report.templatesUrl + report.locationsUrl"></div>
 
 		<!-- report beneficiaries details -->
-		<div class="slide-animate" ng-include="report.templatesUrl + report.notesUrl"></div>
+		<div ng-include="report.templatesUrl + report.notesUrl"></div>
 
 		<!-- form submission -->
 		<div class="row remove" ng-if="report.report.report_status !== 'complete'">
