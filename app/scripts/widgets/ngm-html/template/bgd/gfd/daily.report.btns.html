@@ -1,7 +1,7 @@
 	<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="{{ panel.helper.url }}">
 		<i class="material-icons left">keyboard_return</i>{{ panel.helper.title }}
 	</a>
-	<a ng-if="false" id="dashboard-fetch-btn" class="waves-effect waves-light btn blue right" ng-click="panel.helper.refreshData()">
+	<a ng-if="panel.helper.organization_tag !== 'wfp' && panel.helper.user.organization_tag === 'wfp'" id="dashboard-fetch-btn" class="waves-effect waves-light btn blue right" ng-click="panel.helper.getKoboDataRefresh()">
 		<i class="material-icons left">cached</i>Refresh Data
 	</a>
 	<a class="waves-effect waves-light btn right" style="margin-right: 20px;" href="{{ panel.helper.reset_url }}">

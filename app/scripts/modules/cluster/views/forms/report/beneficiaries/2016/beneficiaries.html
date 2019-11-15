@@ -48,14 +48,14 @@
 
 					      	<!-- Target beneficiaries default -->
 					      	<div ng-if="beneficiary.beneficiary_type !== 'education_training'">
-										<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesDefaultUrl"></div>								
+										<div ng-include="project.templatesUrl + project.beneficiariesDefaultUrl"></div>								
 									</div>
 
 
 					      	<!-- Target beneficiaries trainings -->
 					      	<div ng-if="project.definition.activity_type === 'education_training' ||
 					      								beneficiary.beneficiary_type === 'education_training'">
-										<div class="slide-animate" ng-include="project.templatesUrl + project.beneficiariesTrainingUrl"></div>
+										<div ng-include="project.templatesUrl + project.beneficiariesTrainingUrl"></div>
 									</div>
 
 				      	</div>

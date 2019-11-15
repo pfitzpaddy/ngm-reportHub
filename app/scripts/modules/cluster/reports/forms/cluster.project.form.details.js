@@ -178,11 +178,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								moment( new Date( $scope.project.definition.project_start_date ) ).format('YYYY-MM-DD');
 						$scope.project.definition.project_end_date = 
 								moment( new Date( $scope.project.definition.project_end_date ) ).format('YYYY-MM-DD');
+								
 						// get strategic objectives
-						$scope.project.lists.strategic_objectives =  
-									ngmClusterLists.getStrategicObjectives($scope.project.definition.admin0pcode,
-										moment( new Date( $scope.project.definition.project_start_date ) ).year(), 
-										moment( new Date( $scope.project.definition.project_end_date ) ).year() )
+							$scope.project.checkStrategicObjectiveYear()
 					}
 				},
 
@@ -291,6 +289,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					$scope.project.definition.flujos_migratorios_component = false;
 
 					}*/
+					// init stategic objectic list
+					$scope.project.checkStrategicObjectiveYear()
 				},
 
 				// cofirm exit if changes
@@ -366,6 +366,26 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				getSOyears: function(){
 					return Object.keys( $scope.project.lists.strategic_objectives );
 				},
+
+				// strategic objective years check removal if year not in range
+				checkStrategicObjectiveYear: function(){
+					if ($scope.project.definition.strategic_objectives_check) {
+							listId = Object.keys($scope.project.definition.strategic_objectives_check)
+							listId.forEach(function (x, i) {
+								year = x.split(':')[1] === ""? 2017 :parseInt(x.split(':')[1]);
+								if (year < (moment(new Date($scope.project.definition.project_start_date)).year()) ||
+									year > moment(new Date($scope.project.definition.project_end_date)).year()) {
+									delete $scope.project.definition.strategic_objectives_check[x];
+								}
+							})
+						};
+					// set list strategic objective;
+					$scope.project.lists.strategic_objectives =
+						ngmClusterLists.getStrategicObjectives($scope.project.definition.admin0pcode,
+							moment(new Date($scope.project.definition.project_start_date)).year(),
+							moment(new Date($scope.project.definition.project_end_date)).year())
+					$scope.project.SOyears = Object.keys($scope.project.lists.strategic_objectives);
+				},			
 
 
 			 
@@ -624,7 +644,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				/**** CLUSTER HELPER ( ngmClusterHelper.js ) ****/
 
 				// compile cluster activities
-				compileInterClusterActivities: function(){
+				compileInterClusterActivities: function(){					
 					ngmClusterHelper.compileInterClusterActivities( $scope.project.definition, $scope.project.lists );
 				},
 
@@ -867,6 +887,11 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					}).error(function( err ) {
 						// error
 						Materialize.toast( 'Error!', 4000, 'error' );
+						// unblock save button in case of any backend / no internet errors
+						$timeout(function () {
+							$scope.project.submit = true;
+						}, 4000);
+
 					});
 
 				}
