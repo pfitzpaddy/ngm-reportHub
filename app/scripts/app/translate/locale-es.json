@@ -208,6 +208,7 @@
        "5W":"5W",
        "5WDASHBOARD_mayus":"5w DASHBOARD",
        "province":"Departamento",
+       "province_mayus":"DEPARTAMENTO",
        "all_provinces":"Todos los Departamentos",
        "all_districts":"Todos los Municipios",
 
@@ -349,6 +350,7 @@
          "total_by_cluster_and_percent_of_total":"Total por Cluster y % del total",
          "total_by_type_and_percent_of_total":"Total por Tipo y % del total",
          "total_by_organization_and_percent_of_total":"Total por Org. Ejec. y % del total",
+         "total_by_province_and_percent_of_total":"Total por Departamento y % del total",
          "beneficiary_type":"Tipo de Beneficiario",
 
          "processing":"Procesando...",

@@ -236,14 +236,24 @@ angular.module('ngmReportHub')
 					}
 
 
-
-
-
-
-
 					if( $route.current.params.admin1pcode !== 'all'){
 						request.query.admin1pcode = $route.current.params.admin1pcode;
 					}
+
+					if( $route.current.params.admin2pcode !== 'all'){
+						request.query.admin2pcode = $route.current.params.admin2pcode;
+					}
+
+					if( $route.current.params.implementer_tag !== 'all'){
+						request.query.implementer_id = $route.current.params.implementer_tag;
+					}
+
+					if( $route.current.params.project_type_component !== 'all'){
+						request.query.project_type_component = $route.current.params.project_type_component;
+					}
+
+					
+
 					// query depenging on role
 					switch ($scope.dashboard.role){
 						case 'ADMIN':
@@ -552,6 +562,7 @@ angular.module('ngmReportHub')
 
 					// get orgs
 					ngmData.get( request ).then( function( organizations  ){
+
 
 						/*if($scope.dashboard.user.roles.indexOf('COUNTRY_ADMIN')  !== -1  )  {
 						 						
@@ -1579,7 +1590,7 @@ angular.module('ngmReportHub')
 									}
 								}]
 							}]
-						},/*
+						},
 						{
 							columns: [{
 								styleClass: 's12 m12 l12',
@@ -1719,9 +1730,149 @@ angular.module('ngmReportHub')
 										}
 									}
 								}]
-							}, 
+							},
+							{
+								styleClass: 's12 m6 l6',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 300px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											//text: $filter('translate')('children'),
+											text: $filter('translate')('type_mayus')+ " (# - %)"
+										},
+										
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/projectplandashboardcolumns.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 0px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'column',
+													height: 250,
+													//margin: [0,0,0,0],
+												//spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: true,
+													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+												},
+												xAxis: {
+										        title: {
+										            text: $filter('translate')('beneficiary_type')
+										        }
+										    },
+												yAxis: {
+										        title: {
+										            text: $filter('translate')('total_by_type_and_percent_of_total')
+										        }
+										    }
+												
+											},
+											title: {
+													text: '',
+													margin: 0
+											},
+											series: [{
+												//name: $filter('translate')('children'),
+												name: $filter('translate')('beneficiary_type'),
+												//name: "EDAD (# - %)",
+												size: '100%',
+												innerSize: '100%',
+												showInLegend:false,
+												 dataLabels: {
+										                enabled: true,
+										               // format: '{point.y} - {point.label:.1f}%'
+										               format: '{point.y}'
+										                //inside: true
+										            },
+												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
+											     request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryType', chart_for:'beneficiaryType'}),
+											}]
+										}
+									}
+								}]
+							} ,
+							{
+								styleClass: 's12 m6 l6',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 300px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											//text: $filter('translate')('children'),
+											text: "CLUSTER (# - %)"
+										},
+										
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/projectplandashboardcolumns.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 0px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'column',
+													height: 250,
+													//margin: [0,0,0,0],
+												//spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: true,
+													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+												},
+												xAxis: {
+										        title: {
+										            text: "Cluster"
+										        }
+										    },
+												yAxis: {
+										        title: {
+										            text: $filter('translate')('total_by_cluster_and_percent_of_total')
+										        }
+										    }
+												
+											},
+											title: {
+													text: '',
+													margin: 0
+											},
+											series: [{
+												//name: $filter('translate')('children'),
+												name: "Cluster",
+												//name: "EDAD (# - %)",
+												size: '100%',
+												innerSize: '100%',
+												showInLegend:false,
+												 dataLabels: {
+										                enabled: true,
+										               // format: '{point.y} - {point.label:.1f}%'
+										               format: '{point.y}'
+										                //inside: true
+										            },
+												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
+											     request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryCluster', chart_for:'beneficiaryCluster'}),
+											}]
+										}
+									}
+								}]
+							} 
 						]
-						},
+						},/*
 
 						{
 							columns: $scope.dashboard.financial_row
