@@ -1,12 +1,12 @@
-/**
+/**				
  * @ngdoc function
- * @name ngmReportHubApp.controller:DashboardBgdCxbGfdRoundDailyCtrl
+ * @name ngmReportHubApp.controller:DashboardBgdCxbGfdRoundActualCtrl
  * @description
  * # ClusterProjectProjectsCtrl
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller('DashboardBgdCxbGfdRoundDailyCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper', '$translate', '$filter', '$timeout', function ($scope, $location, $route, ngmAuth, ngmData, ngmUser, ngmClusterHelper, $translate, $filter, $timeout ) {
+	.controller('DashboardBgdCxbGfdRoundActualCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper', '$translate', '$filter', '$timeout', function ($scope, $location, $route, ngmAuth, ngmData, ngmUser, ngmClusterHelper, $translate, $filter, $timeout ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -56,10 +56,10 @@ angular.module( 'ngmReportHub' )
 			end_date: $route.current.params.end_date,
 
 			// title
-			title: "GFD | Daily Report | R" + $route.current.params.report_round + " | D" + $route.current.params.report_distribution,
+			title: "GFD | Actual Report",
 
 			// subtitle
-			subtitle: "Daily GFD Report for Cox's Bazar, Bangladesh, GFD Round " + $route.current.params.report_round + ", Distribution " + $route.current.params.report_distribution,
+			subtitle: "Actual GFD Report for Cox's Bazar, Bangladesh",
 
 			// kobo forms ( inside obbject so i can collapse )
 			forms: {
@@ -826,7 +826,6 @@ angular.module( 'ngmReportHub' )
 					$scope.model.header.title.title = 'ALL | ' + $scope.report.title;
 				} else {
 					$scope.model.header.title.title = $scope.report.organization_tag.toUpperCase() + ' | ' + $scope.report.title;
-					// $scope.model.header.subtitle.title =  $scope.report.organization_tag.toUpperCase() + ' | ' + $scope.report.subtitle;
 				}
 
 				// add GFD point to title
@@ -860,37 +859,37 @@ angular.module( 'ngmReportHub' )
 							'param': 'organization_tag',
 							'active': 'wfp',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/wfp/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/wfp/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						},{
 							'title': 'AAH',
 							'param': 'organization_tag',
 							'active': 'aah',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/aah/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/aah/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						},{
 							'title': 'BRAC',
 							'param': 'organization_tag',
 							'active': 'brac',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/brac/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/brac/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						},{
 							'title': 'RIC',
 							'param': 'organization_tag',
 							'active': 'ric',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/ric/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/ric/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						},{
 							'title': 'SCI',
 							'param': 'organization_tag',
 							'active': 'sci',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/sci/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/sci/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						},{
 							'title': 'WVI',
 							'param': 'organization_tag',
 							'active': 'wvi',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/wvi/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/wvi/all/all/all/all' + $scope.report.start_date + '/' + $scope.report.end_date
 						}]
 					}]
 				
@@ -907,6 +906,34 @@ angular.module( 'ngmReportHub' )
 
 				// add GFD menu
 				$scope.model.menu.push({
+					'id': 'search-location-round',
+					'search': true,
+					'icon': 'inbox',
+					'title': 'Report Round',
+					'class': 'teal lighten-1 white-text',
+					"rows": [{
+						'title': 'All',
+						'param': 'report_round',
+						'active': 'all',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/bgd/cxb/gfa/gfd/round/all/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' + $scope.report.organization_tag + '/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
+					},{
+						'title': '1',
+						'param': 'report_round',
+						'active': '1',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/bgd/cxb/gfa/gfd/round/1/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' + $scope.report.organization_tag + '/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
+					},{
+						'title': '2',
+						'param': 'report_round',
+						'active': '2',
+						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+						'href': '/desk/#/bgd/cxb/gfa/gfd/round/2/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' + $scope.report.organization_tag + '/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
+					}]
+				});
+
+				// add GFD menu
+				$scope.model.menu.push({
 					'id': 'search-location-organization',
 					'search': true,
 					'icon': 'location_on',
@@ -917,7 +944,7 @@ angular.module( 'ngmReportHub' )
 						'param': 'site_id',
 						'active': 'all',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/' + $scope.report.organization_tag + '/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
+						'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' + $scope.report.organization_tag + '/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 					}]
 				});
 
@@ -930,7 +957,6 @@ angular.module( 'ngmReportHub' )
 						admin0pcode: $scope.report.user.admin0pcode,
 						organization_tag: $scope.report.organization_tag,
 						report_round: $scope.report.report_round,
-						report_distribution: $scope.report.report_distribution,
 						site_id: $scope.report.site_id,
 						admin3pcode: $scope.report.admin3pcode,
 						admin4pcode: $scope.report.admin4pcode,
@@ -950,7 +976,7 @@ angular.module( 'ngmReportHub' )
 							'param': 'site_id',
 							'active': d.site_id,
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/' + d.organization_tag + '/' + d.site_id + '/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' + d.organization_tag + '/' + d.site_id + '/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						});
 					});
 
@@ -966,7 +992,7 @@ angular.module( 'ngmReportHub' )
 							'param': 'admin3pcode',
 							'active': 'all',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						}]
 					});
 	
@@ -980,7 +1006,7 @@ angular.module( 'ngmReportHub' )
 							'param': 'admin3pcode',
 							'active': d.admin3pcode,
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + d.admin3pcode + '/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + d.admin3pcode + '/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						});
 					});
 
@@ -997,7 +1023,7 @@ angular.module( 'ngmReportHub' )
 								'param': 'admin4pcode',
 								'active': 'all',
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
+								'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 							}]
 						});
 
@@ -1012,7 +1038,7 @@ angular.module( 'ngmReportHub' )
 								'param': 'admin4pcode',
 								'active': d.admin4pcode,
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + d.admin4pcode + '/all/' + $scope.report.start_date + '/' + $scope.report.end_date
+								'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + d.admin4pcode + '/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 							});
 						});
 
@@ -1029,7 +1055,7 @@ angular.module( 'ngmReportHub' )
 									'param': 'admin5pcode',
 									'active': 'all',
 									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-									'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/all/' + $scope.report.start_date + '/' + $scope.report.end_date
+									'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 								}]
 							});
 
@@ -1083,7 +1109,6 @@ angular.module( 'ngmReportHub' )
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
-							report_distribution: $scope.report.report_distribution,
 							site_id: $scope.report.site_id,
 							admin3pcode: $scope.report.admin3pcode,
 							admin4pcode: $scope.report.admin4pcode,
@@ -1120,7 +1145,6 @@ angular.module( 'ngmReportHub' )
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
-							report_distribution: $scope.report.report_distribution,
 							site_id: $scope.report.site_id,
 							admin3pcode: $scope.report.admin3pcode,
 							admin4pcode: $scope.report.admin4pcode,
@@ -1157,7 +1181,6 @@ angular.module( 'ngmReportHub' )
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
-							report_distribution: $scope.report.report_distribution,
 							site_id: $scope.report.site_id,
 							admin3pcode: $scope.report.admin3pcode,
 							admin4pcode: $scope.report.admin4pcode,
@@ -1194,7 +1217,6 @@ angular.module( 'ngmReportHub' )
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
-							report_distribution: $scope.report.report_distribution,
 							site_id: $scope.report.site_id,
 							admin3pcode: $scope.report.admin3pcode,
 							admin4pcode: $scope.report.admin4pcode,
@@ -1231,7 +1253,6 @@ angular.module( 'ngmReportHub' )
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
-							report_distribution: $scope.report.report_distribution,
 							site_id: $scope.report.site_id,
 							admin3pcode: $scope.report.admin3pcode,
 							admin4pcode: $scope.report.admin4pcode,
@@ -1284,7 +1305,6 @@ angular.module( 'ngmReportHub' )
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
-										report_distribution: $scope.report.report_distribution,
 										site_id: $scope.report.site_id,
 										admin3pcode: $scope.report.admin3pcode,
 										admin4pcode: $scope.report.admin4pcode,
@@ -1311,7 +1331,6 @@ angular.module( 'ngmReportHub' )
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
-										report_distribution: $scope.report.report_distribution,
 										site_id: $scope.report.site_id,
 										admin3pcode: $scope.report.admin3pcode,
 										admin4pcode: $scope.report.admin4pcode,
@@ -1338,7 +1357,6 @@ angular.module( 'ngmReportHub' )
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
-										report_distribution: $scope.report.report_distribution,
 										site_id: $scope.report.site_id,
 										admin3pcode: $scope.report.admin3pcode,
 										admin4pcode: $scope.report.admin4pcode,
@@ -1365,7 +1383,6 @@ angular.module( 'ngmReportHub' )
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
-										report_distribution: $scope.report.report_distribution,
 										site_id: $scope.report.site_id,
 										admin3pcode: $scope.report.admin3pcode,
 										admin4pcode: $scope.report.admin4pcode,
@@ -1392,7 +1409,6 @@ angular.module( 'ngmReportHub' )
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
-										report_distribution: $scope.report.report_distribution,
 										site_id: $scope.report.site_id,
 										admin3pcode: $scope.report.admin3pcode,
 										admin4pcode: $scope.report.admin4pcode,
@@ -1428,7 +1444,6 @@ angular.module( 'ngmReportHub' )
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
-										report_distribution: $scope.report.report_distribution,
 										site_id: $scope.report.site_id,
 										admin3pcode: $scope.report.admin3pcode,
 										admin4pcode: $scope.report.admin4pcode,
@@ -1458,7 +1473,6 @@ angular.module( 'ngmReportHub' )
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
-										report_distribution: $scope.report.report_distribution,
 										site_id: $scope.report.site_id,
 										admin3pcode: $scope.report.admin3pcode,
 										admin4pcode: $scope.report.admin4pcode,
@@ -1488,7 +1502,6 @@ angular.module( 'ngmReportHub' )
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
-										report_distribution: $scope.report.report_distribution,
 										site_id: $scope.report.site_id,
 										admin3pcode: $scope.report.admin3pcode,
 										admin4pcode: $scope.report.admin4pcode,
@@ -1518,7 +1531,6 @@ angular.module( 'ngmReportHub' )
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
-										report_distribution: $scope.report.report_distribution,
 										site_id: $scope.report.site_id,
 										admin3pcode: $scope.report.admin3pcode,
 										admin4pcode: $scope.report.admin4pcode,
@@ -1561,7 +1573,6 @@ angular.module( 'ngmReportHub' )
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
-										report_distribution: $scope.report.report_distribution,
 										site_id: $scope.report.site_id,
 										admin3pcode: $scope.report.admin3pcode,
 										admin4pcode: $scope.report.admin4pcode,
@@ -1602,7 +1613,6 @@ angular.module( 'ngmReportHub' )
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
-										report_distribution: $scope.report.report_distribution,
 										site_id: $scope.report.site_id,
 										admin3pcode: $scope.report.admin3pcode,
 										admin4pcode: $scope.report.admin4pcode,
@@ -1643,7 +1653,6 @@ angular.module( 'ngmReportHub' )
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
-										report_distribution: $scope.report.report_distribution,
 										site_id: $scope.report.site_id,
 										admin3pcode: $scope.report.admin3pcode,
 										admin4pcode: $scope.report.admin4pcode,
@@ -1715,7 +1724,7 @@ angular.module( 'ngmReportHub' )
 										var path = '/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round +
 																	'/distribution/' + $scope.report.report_distribution +
 																	'/' + $scope.report.reporting_period +
-																	'/daily/' + $scope.report.organization_tag +
+																	'/actual/' + $scope.report.organization_tag +
 																	'/' + $scope.report.site_id +
 																	'/' + $scope.report.admin3pcode +
 																	'/' + $scope.report.admin4pcode +
@@ -1731,7 +1740,7 @@ angular.module( 'ngmReportHub' )
 								label: $filter('translate')('to'),
 								format: 'd mmm, yyyy',
 								min: $scope.report.reporting_period,
-								max: moment.utc().format('YYYY-MM-DD') < moment.utc( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' ) ? moment.utc().format('YYYY-MM-DD') : moment.utc( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' ),
+								max: moment.utc( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' ),
 								currentTime: $scope.report.end_date,
 								onClose: function(){
 									// set date
@@ -1743,7 +1752,7 @@ angular.module( 'ngmReportHub' )
 										var path = '/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round +
 																	'/distribution/' + $scope.report.report_distribution +
 																	'/' + $scope.report.reporting_period +
-																	'/daily/' + $scope.report.organization_tag +
+																	'/actual/' + $scope.report.organization_tag +
 																	'/' + $scope.report.site_id +
 																	'/' + $scope.report.admin3pcode +
 																	'/' + $scope.report.admin4pcode +
@@ -1782,7 +1791,6 @@ angular.module( 'ngmReportHub' )
 											admin0pcode: $scope.report.user.admin0pcode,
 											organization_tag: $scope.report.organization_tag,
 											report_round: $scope.report.report_round,
-											report_distribution: $scope.report.report_distribution,
 											site_id: $scope.report.site_id,
 											admin3pcode: $scope.report.admin3pcode,
 											admin4pcode: $scope.report.admin4pcode,
@@ -1796,16 +1804,15 @@ angular.module( 'ngmReportHub' )
 									helper: {
 
 										// details for btns
-										user: $scope.report.user,
 										title: 'Back to Distribution Round ' + $scope.report.report_distribution,
 										url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period,
 										organization_tag: $scope.report.organization_tag,
 
 										// home url
-										reset_url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/daily/' +  $scope.report.organization_tag + '/all/all/all/all/' + moment().format( 'YYYY-MM-DD' ) + '/' + moment().format( 'YYYY-MM-DD' ),
+										reset_url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' +  $scope.report.organization_tag + '/all/all/' + moment().format( 'YYYY-MM-DD' ) + '/' + moment().format( 'YYYY-MM-DD' ),
 
 										// fetch data from kobo
-										getKoboDataRefresh: function(){
+										refreshData: function(){
 
 											// disabled btn
 											$('#dashboard-fetch-btn').toggleClass('disabled');
@@ -1816,7 +1823,7 @@ angular.module( 'ngmReportHub' )
 											// get data
 											ngmData.get({
 												method: 'POST',
-												url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getKoboDataRefresh',
+												url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getLatestKoboData',
 												data: {
 													admin0pcode: $scope.report.user.admin0pcode,
 													organization_tag: $scope.report.organization_tag,

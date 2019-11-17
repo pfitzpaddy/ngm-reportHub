@@ -43,18 +43,9 @@ angular
 					}],
 				}
 			})
-			.when( '/bgd/cxb/gfa/gfd/round/:report_round/distribution/:report_distribution/:reporting_period/plan/:organization_tag/:site_id/:admin3pcode/:admin4pcode/:admin5pcode', {
+			.when( '/bgd/cxb/gfa/gfd/round/:report_round/distribution/:report_distribution/:reporting_period/plan/:organization_tag/:site_id/:admin3pcode/:admin4pcode/:admin5pcode/:start_date/:end_date', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'DashboardBgdCxbGfdRoundPlanCtrl',
-				resolve: {
-					access: [ 'ngmAuth', function( ngmAuth ) { 
-						return ngmAuth.isAuthenticated();
-					}],
-				}
-			})
-			.when( '/bgd/cxb/gfa/gfd/round/:report_round/distribution/:report_distribution/:reporting_period/daily/:organization_tag/:site_id/:admin3pcode/:admin4pcode/:admin5pcode/:start_date/:end_date', {
-				templateUrl: '/views/app/dashboard.html',
-				controller: 'DashboardBgdCxbGfdRoundDailyCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function( ngmAuth ) { 
 						return ngmAuth.isAuthenticated();
