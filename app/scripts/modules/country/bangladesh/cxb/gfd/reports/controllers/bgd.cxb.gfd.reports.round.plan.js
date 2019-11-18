@@ -1064,7 +1064,7 @@ angular.module( 'ngmReportHub' )
 							'param': 'end_date',
 							'active': 'all',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/all/' + $scope.report.reporting_period + '/' + $scope.report.end_date
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/all/' + $scope.report.reporting_period + '/' + ( moment.utc().unix() < moment.utc( $scope.report.reporting_period ).endOf( 'month' ).unix() ? moment.utc().format( 'YYYY-MM-DD' ) : moment.utc( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' ) )
 						}]
 
 					});
@@ -1180,7 +1180,7 @@ angular.module( 'ngmReportHub' )
 				},{
 					type: 'csv',
 					color: 'teal lighten-3',
-					icon: 'people_outline',
+					icon: 'accessible',
 					hover: 'Download Vulnerable Populations',
 					request: {
 						method: 'POST',
@@ -1210,6 +1210,43 @@ angular.module( 'ngmReportHub' )
 							email: $scope.report.user.email,
 							dashboard: 'gfa_gfd_plan_vulnerable_popns_' + $scope.report.report_round + '_' + $scope.report.report_distribution,
 							theme: 'gfa_gfd_plan_vulnerable_popns',
+							format: 'csv',
+							url: $location.$$path
+						}
+					}
+				},{
+					type: 'csv',
+					color: 'teal lighten-3',
+					icon: 'person_add',
+					hover: 'Download Planned Beneficiaries',
+					request: {
+						method: 'POST',
+						url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
+						data: {
+							download: true,
+							indicator: 'downloads_planned_beneficiaries',
+							admin0pcode: $scope.report.user.admin0pcode,
+							organization_tag: $scope.report.organization_tag,
+							report_round: $scope.report.report_round,
+							report_distribution: $scope.report.report_distribution,
+							site_id: $scope.report.site_id,
+							admin3pcode: $scope.report.admin3pcode,
+							admin4pcode: $scope.report.admin4pcode,
+							admin5pcode: $scope.report.admin5pcode,
+							start_date: $scope.report.start_date,
+							end_date: $scope.report.end_date,
+							report: $scope.report.organization_tag +'_planned_beneficiaries_round_' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
+						}
+					},
+					metrics: {
+						method: 'POST',
+						url: ngmAuth.LOCATION + '/api/metrics/set',
+						data: {
+							organization: $scope.report.user.organization,
+							username: $scope.report.user.username,
+							email: $scope.report.user.email,
+							dashboard: 'gfa_gfd_plan_beneficiaries_' + $scope.report.report_round + '_' + $scope.report.report_distribution,
+							theme: 'gfa_gfd_plan_beneficiaries',
 							format: 'csv',
 							url: $location.$$path
 						}
@@ -1247,43 +1284,6 @@ angular.module( 'ngmReportHub' )
 							email: $scope.report.user.email,
 							dashboard: 'gfa_gfd_plan_food_distribution_' + $scope.report.report_round + '_' + $scope.report.report_distribution,
 							theme: 'gfa_gfd_plan_food_distribution',
-							format: 'csv',
-							url: $location.$$path
-						}
-					}
-				},{
-					type: 'csv',
-					color: 'teal lighten-3',
-					icon: 'person',
-					hover: 'Download Planned Beneficiaries',
-					request: {
-						method: 'POST',
-						url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
-						data: {
-							download: true,
-							indicator: 'downloads_planned_beneficiaries',
-							admin0pcode: $scope.report.user.admin0pcode,
-							organization_tag: $scope.report.organization_tag,
-							report_round: $scope.report.report_round,
-							report_distribution: $scope.report.report_distribution,
-							site_id: $scope.report.site_id,
-							admin3pcode: $scope.report.admin3pcode,
-							admin4pcode: $scope.report.admin4pcode,
-							admin5pcode: $scope.report.admin5pcode,
-							start_date: $scope.report.start_date,
-							end_date: $scope.report.end_date,
-							report: $scope.report.organization_tag +'_planned_beneficiaries_round_' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
-						}
-					},
-					metrics: {
-						method: 'POST',
-						url: ngmAuth.LOCATION + '/api/metrics/set',
-						data: {
-							organization: $scope.report.user.organization,
-							username: $scope.report.user.username,
-							email: $scope.report.user.email,
-							dashboard: 'gfa_gfd_plan_beneficiaries_' + $scope.report.report_round + '_' + $scope.report.report_distribution,
-							theme: 'gfa_gfd_plan_beneficiaries',
 							format: 'csv',
 							url: $location.$$path
 						}
@@ -1801,7 +1801,7 @@ angular.module( 'ngmReportHub' )
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 											data: {
-												indicator: 'duplicate_beneficiaries_list',
+												indicator: 'beneficiaries_duplicate_list',
 												admin0pcode: $scope.report.user.admin0pcode,
 												organization_tag: $scope.report.organization_tag,
 												report_round: $scope.report.report_round,
@@ -1925,7 +1925,7 @@ angular.module( 'ngmReportHub' )
 																	'/' + $scope.report.admin3pcode +
 																	'/' + $scope.report.admin4pcode +
 																	'/' + $scope.report.admin5pcode +
-																	'//' + $scope.report.start_date +
+																	'/' + $scope.report.start_date +
 																	'/' + $scope.report.end_date;
 										// set path
 										$location.path( path );
@@ -1953,7 +1953,7 @@ angular.module( 'ngmReportHub' )
 																	'/' + $scope.report.admin3pcode +
 																	'/' + $scope.report.admin4pcode +
 																	'/' + $scope.report.admin5pcode +
-																	'//' + $scope.report.start_date +
+																	'/' + $scope.report.start_date +
 																	'/' + $scope.report.end_date;
 										// set path
 										$location.path( path );
