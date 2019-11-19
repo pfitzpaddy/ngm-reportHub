@@ -1936,7 +1936,7 @@ angular.module( 'ngmReportHub' )
 								label: $filter('translate')('to'),
 								format: 'd mmm, yyyy',
 								min: $scope.report.reporting_period,
-								max: moment().format('YYYY-MM-DD') < moment( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' ) ? moment().format('YYYY-MM-DD') : moment( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' ),
+								max: moment( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' ),
 								currentTime: $scope.report.end_date,
 								onClose: function(){
 									// set date
