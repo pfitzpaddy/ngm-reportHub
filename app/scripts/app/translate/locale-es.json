@@ -289,6 +289,7 @@
         "cash_intended_for_even_if_unrestricted":"Efectivo destinado a (incluso si no está restringido)",
         "project_donor":"Donante del Proyecto",
         "donors":"Donantes",
+        "donors_mayus":"DONANTES",
         "gender_marker":"Marcador de Género - GAM",
         "amount_to_be_financed_by_donor":"Monto a financiar por donante",
 
@@ -297,7 +298,9 @@
         "list_project_partners":"Lista de Socios del Proyecto",
         "project_partners":"Socios del Proyecto",
         "other_implementing_partners":"Socios Implementadores",
+        "implementing_organization":"Organización Implementadora",
         "implementing_organizations":"Organizaciones Implementadoras",
+        "implementing_organizations_mayus":"ORGANIZACIONES IMPLEMENTADORAS",
         "project_description_objetives":"Descripción y Objetivos del Proyecto",
         "project_focal_point":"Punto Focal del Proyecto",
         "target_population":"Población Objetivo",
@@ -349,8 +352,12 @@
          "total_by_age_and_percent_of_total":"Total por Edad y % del total",
          "total_by_cluster_and_percent_of_total":"Total por Cluster y % del total",
          "total_by_type_and_percent_of_total":"Total por Tipo y % del total",
-         "total_by_organization_and_percent_of_total":"Total por Org. Ejec. y % del total",
+         "total_by_organization_and_percent_of_total":"Total por Org.Ejec. y % del total",
          "total_by_province_and_percent_of_total":"Total por Departamento y % del total",
+         "total_by_donor_and_percent_of_total":"Total por Donante y % del total",
+         "total_by_implementing_partner_and_percent_of_total":"Total por Org.Impl y % del total",
+
+
          "beneficiary_type":"Tipo de Beneficiario",
 
          "processing":"Procesando...",

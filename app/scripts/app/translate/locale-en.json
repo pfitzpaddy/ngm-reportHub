@@ -252,7 +252,9 @@
 
         "implementer":"Implementer",
         "other_implementing_partners":"Implementing Partners",
+        "implementing_organization":"Implementing Organization",
          "implementing_organizations":"Implementing Organizations",
+         "implementing_organizations_mayus":"IMPLEMENTING ORGANIZATIONS",
 
         "other_activities_in_addition_to":"Other activities in addition to",
         "cash_intended_for_even_if_unrestricted":"Cash intended for (even if unrestricted)",
@@ -260,6 +262,7 @@
 
         "project_donor":"Project Donor",
         "donors":"Donors",
+        "donors_mayus":"DONORS",
         "gender_marker":"Gender Marker - GAM",
         "amount_to_be_financed_by_donor":"Amount to be financed by donor",
                 "budget_mayus1":"Budget",
@@ -322,6 +325,8 @@
         "total_by_type_and_percent_of_total":"Total by Type and % of total",
         "total_by_organization_and_percent_of_total":"Total by Exec.Org and % of total",
         "total_by_province_and_percent_of_total":"Total by Province and % of total",
+        "total_by_donor_and_percent_of_total":"Total by Donor and % of total",
+        "total_by_implementing_partner_and_percent_of_total":"Total by Impl.Org and % of total",
 
 
 

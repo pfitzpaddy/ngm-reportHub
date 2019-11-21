@@ -252,6 +252,14 @@ angular.module('ngmReportHub')
 						request.query.project_type_component = $route.current.params.project_type_component;
 					}
 
+					if( $route.current.params.activity_type!== 'all'){
+						request.query.activity_type_id = $route.current.params.activity_type;
+					}
+
+					if( $route.current.params.hrpplan!== 'all'){
+						request.query.hrpplan = $route.current.params.hrpplan;
+					}
+
 					
 
 					// query depenging on role
@@ -1187,7 +1195,12 @@ angular.module('ngmReportHub')
 						$scope.dashboard.activity_filename = '';
 					} 
 
-
+					if($scope.dashboard.admin0pcode === 'col'){
+						$scope.dashboard.finalnote = 'Nota: Los valores que requieran cambio de moneda de Pesos Colombianos (COP) a Dólar Estadounidense (USD) se calculan actualmente con tasa de cambio de $3.200 COP por cada $1 USD. Y los valores que requieran cambio de moneda de Euros (EUR) a Dólar Estadounidense (USD) se basan en la tasa de cambio del día.' + '</p>'
+					}
+					else{
+						$scope.dashboard.finalnote = '';
+					}
 					
 
 
@@ -1607,7 +1620,7 @@ angular.module('ngmReportHub')
 						{
 							columns: [
 							{
-								styleClass: 's12 m6 l4',
+								styleClass: 's12 m6 l66',
 								widgets: [{
 									type: 'highchart',
 									style: 'height: 300px;',
@@ -1662,7 +1675,7 @@ angular.module('ngmReportHub')
 								}]
 							   },
 								{
-								styleClass: 's12 m6 l4',
+								styleClass: 's12 m6 l6',
 								widgets: [{
 									type: 'highchart',
 									style: 'height: 300px;',
@@ -1872,7 +1885,7 @@ angular.module('ngmReportHub')
 								}]
 							} 
 						]
-						},/*
+						},
 
 						{
 							columns: $scope.dashboard.financial_row
@@ -1889,8 +1902,166 @@ angular.module('ngmReportHub')
 									}
 								}]
 							}]
-						},*/
+						},
+						{
+							columns: [
 
+							{
+								styleClass: 's12 m6 l6',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 300px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											//text: $filter('translate')('children'),
+											text: $filter('translate')('executor_organizations_mayus')+" TOP 5 (# - %)"
+										},
+										
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/projectplandashboardcolumns.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 0px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'column',
+													height: 250,
+													//margin: [0,0,0,0],
+												//spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: true,
+													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+												},
+												xAxis: {
+										        title: {
+										           text: $filter('translate')('executor_organizations')
+										        }
+										    },
+												yAxis: {
+										        title: {
+										           text: $filter('translate')('total_by_organization_and_percent_of_total')
+										        }
+										    }
+												
+											},
+											title: {
+													text: '',
+													margin: 0
+											},
+											series: [{
+												//name: $filter('translate')('children'),
+												name: $filter('translate')('organization'),
+												//name: "EDAD (# - %)",
+												size: '100%',
+												innerSize: '100%',
+												showInLegend:false,
+												 dataLabels: {
+										                enabled: true,
+										               // format: '{point.y} - {point.label:.1f}%'
+										               format: '{point.y}'
+										                //inside: true
+										            },
+												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
+											     request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingExecutorOrg', chart_for:'financingExecutorOrg'}),
+											}]
+										}
+									}
+								}]
+							},
+							{
+								styleClass: 's12 m6 l6',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 300px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											//text: $filter('translate')('children'),
+											text: "CLUSTER (# - %)"
+										},
+										
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/projectplandashboardcolumns.html',
+										style: '"text-align:center; width: 100%; height: 100%; position: absolute; top: 0px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'column',
+													height: 250,
+													//margin: [0,0,0,0],
+												//spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: true,
+													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+												},
+												xAxis: {
+										        title: {
+										            text: "Cluster"
+										        }
+										    },
+												yAxis: {
+										        title: {
+										            text: $filter('translate')('total_by_cluster_and_percent_of_total')
+										        }
+										    }
+												
+											},
+											title: {
+													text: '',
+													margin: 0
+											},
+											series: [{
+												//name: $filter('translate')('children'),
+												name: "Cluster",
+												//name: "EDAD (# - %)",
+												size: '100%',
+												innerSize: '100%',
+												showInLegend:false,
+												 dataLabels: {
+										                enabled: true,
+										               // format: '{point.y} - {point.label:.1f}%'
+										               format: '{point.y}'
+										                //inside: true
+										            },
+												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
+											     request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingCluster', chart_for:'financingCluster'}),
+											}]
+										}
+									}
+								}]
+							}
+						  ]
+						},
+						{
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										html: '<p class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 1.4rem">'+
+										$scope.dashboard.finalnote+ '</p>'
+									}
+								}]
+							}]
+						},
 						{
 							columns: [{
 								styleClass: 's12 m12 l12',
