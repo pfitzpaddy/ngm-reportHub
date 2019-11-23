@@ -2142,7 +2142,7 @@ angular.module('ngmReportHub')
 						{
 							columns: [
 							{
-								styleClass: 's12 m6 l6',
+								styleClass: 's12 m6 l4',
 								widgets: [{
 									type: 'highchart',
 									style: 'height: 300px;',
@@ -2206,6 +2206,148 @@ angular.module('ngmReportHub')
 										                //inside: true
 										            },
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingTop5ExecutorOrganizations', chart_for:'FinancingExecutorOrganization'}),
+											}]
+										}
+									}
+								}]
+							},
+							{
+								styleClass: 's12 m6 l4',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 300px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											//text: $filter('translate')('children'),
+											text: $filter('translate')('province_mayus')+ " TOP 5 (# - %)",
+
+										},
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardcolumns.html',
+										style: '"text-align:center; width: 80%; height: 80%; position: absolute; top: 0px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'column',
+													height: 230,
+													//margin: [0,0,0,0],
+													//spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: true,
+													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+												},
+												xAxis: {
+										        title: {
+										            text: $filter('translate')('province')
+										        }
+										    },
+												yAxis: {
+										        title: {
+										            text: $filter('translate')('total_by_province_and_percent_of_total')
+										        }
+										    }				
+											},
+
+											title: {
+													text: '',
+													margin: 0
+											},
+											
+										
+											
+											series: [{
+												name: 	$filter('translate')('province_mayus'),
+												//name: "EDAD (# - %)",
+												size: '100%',
+												innerSize: '100%',
+												showInLegend:false,
+												 dataLabels: {
+										                enabled: true,
+										                 format: '{point.y}'
+										                //inside: true
+										            },
+											    // request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryAdmin1pcode', chart_for:'beneficiaryAdmin1pcode'}),
+												request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingAdmin1pcode', chart_for:'financingAdmin1pcode'}),
+
+											}]
+										}
+									}
+								}]
+							},
+							{
+								styleClass: 's12 m6 l4',
+								widgets: [{
+									type: 'highchart',
+									style: 'height: 300px;',
+									card: 'card-panel chart-stats-card white grey-text text-darken-2',
+									config: {
+										title: {
+											//text: $filter('translate')('children'),
+											text: "CLUSTER (# - %)"
+										},
+										display: {
+											label: true,
+											fractionSize: 1,
+											subLabelfractionSize: 0,
+											postfix: '%'
+										},
+										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardcolumns.html',
+										style: '"text-align:center; width: 80%; height: 80%; position: absolute; top: 0px; left: 0;"',
+										chartConfig: {
+											options: {
+												chart: {
+													type: 'column',
+													height: 230,
+													//margin: [0,0,0,0],
+													//spacing: [0,0,0,0]
+												},
+												tooltip: {
+													enabled: true,
+													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+												},
+												xAxis: {
+										        title: {
+										            text: 'Cluster'
+										        }
+										    },
+												yAxis: {
+										        title: {
+										            text: $filter('translate')('total_by_cluster_and_percent_of_total')
+										        }
+										    }				
+											},
+
+											title: {
+													text: '',
+													margin: 0
+											},
+											
+										
+											
+											series: [{
+												//name: $filter('translate')('children'),
+												name: "Cluster",
+												//name: "EDAD (# - %)",
+												size: '100%',
+												innerSize: '100%',
+												showInLegend:false,
+												 dataLabels: {
+										                enabled: true,
+										                 format: '{point.y}'
+										                //inside: true
+										            },
+											     request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingCluster', chart_for:'FinancingCluster'}),
 											}]
 										}
 									}
@@ -2280,9 +2422,9 @@ angular.module('ngmReportHub')
 										}
 									}
 								}]
-							},/*,
+							},
 							{
-								styleClass: 's12 m6 l4',
+								styleClass: 's12 m6 l6',
 								widgets: [{
 									type: 'highchart',
 									style: 'height: 300px;',
@@ -2317,7 +2459,7 @@ angular.module('ngmReportHub')
 												},
 												xAxis: {
 										        title: {
-										            text: $filter('translate')('organization')
+										            text: $filter('translate')('implementing_organization')
 										        }
 										    },
 												yAxis: {
@@ -2335,7 +2477,7 @@ angular.module('ngmReportHub')
 										
 											
 											series: [{
-												name: 	$filter('translate')('implementing_organizations_mayus'),
+												name: 	$filter('translate')('implementing_organization'),
 												//name: "EDAD (# - %)",
 												size: '100%',
 												innerSize: '100%',
@@ -2352,150 +2494,8 @@ angular.module('ngmReportHub')
 										}
 									}
 								}]
-							}*/
-							{
-								styleClass: 's12 m6 l4',
-								widgets: [{
-									type: 'highchart',
-									style: 'height: 300px;',
-									card: 'card-panel chart-stats-card white grey-text text-darken-2',
-									config: {
-										title: {
-											//text: $filter('translate')('children'),
-											text: $filter('translate')('province_mayus')+ " TOP 5 (# - %)",
-
-										},
-										display: {
-											label: true,
-											fractionSize: 1,
-											subLabelfractionSize: 0,
-											postfix: '%'
-										},
-										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardcolumns.html',
-										style: '"text-align:center; width: 80%; height: 80%; position: absolute; top: 0px; left: 0;"',
-										chartConfig: {
-											options: {
-												chart: {
-													type: 'column',
-													height: 230,
-													//margin: [0,0,0,0],
-													//spacing: [0,0,0,0]
-												},
-												tooltip: {
-													enabled: true,
-													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
-													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
-												},
-												xAxis: {
-										        title: {
-										            text: $filter('translate')('province')
-										        }
-										    },
-												yAxis: {
-										        title: {
-										            text: $filter('translate')('total_by_province_and_percent_of_total')
-										        }
-										    }				
-											},
-
-											title: {
-													text: '',
-													margin: 0
-											},
-											
-										
-											
-											series: [{
-												name: 	$filter('translate')('province_mayus'),
-												//name: "EDAD (# - %)",
-												size: '100%',
-												innerSize: '100%',
-												showInLegend:false,
-												 dataLabels: {
-										                enabled: true,
-										                 format: '{point.y}'
-										                //inside: true
-										            },
-											    // request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryAdmin1pcode', chart_for:'beneficiaryAdmin1pcode'}),
-												request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingAdmin1pcode', chart_for:'financingAdmin1pcode'}),
-
-											}]
-										}
-									}
-								}]
-							},
-						  
-							{
-								styleClass: 's12 m6 l4',
-								widgets: [{
-									type: 'highchart',
-									style: 'height: 300px;',
-									card: 'card-panel chart-stats-card white grey-text text-darken-2',
-									config: {
-										title: {
-											//text: $filter('translate')('children'),
-											text: "CLUSTER (# - %)"
-										},
-										display: {
-											label: true,
-											fractionSize: 1,
-											subLabelfractionSize: 0,
-											postfix: '%'
-										},
-										templateUrl: '/scripts/widgets/ngm-highchart/template/4wplusdashboardcolumns.html',
-										style: '"text-align:center; width: 80%; height: 80%; position: absolute; top: 0px; left: 0;"',
-										chartConfig: {
-											options: {
-												chart: {
-													type: 'column',
-													height: 230,
-													//margin: [0,0,0,0],
-													//spacing: [0,0,0,0]
-												},
-												tooltip: {
-													enabled: true,
-													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
-													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
-												},
-												xAxis: {
-										        title: {
-										            text: 'Cluster'
-										        }
-										    },
-												yAxis: {
-										        title: {
-										            text: $filter('translate')('total_by_cluster_and_percent_of_total')
-										        }
-										    }				
-											},
-
-											title: {
-													text: '',
-													margin: 0
-											},
-											
-										
-											
-											series: [{
-												//name: $filter('translate')('children'),
-												name: "Cluster",
-												//name: "EDAD (# - %)",
-												size: '100%',
-												innerSize: '100%',
-												showInLegend:false,
-												 dataLabels: {
-										                enabled: true,
-										                 format: '{point.y}'
-										                //inside: true
-										            },
-											     request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingCluster', chart_for:'FinancingCluster'}),
-											}]
-										}
-									}
-								}]
-							}]
+							}
+							]
 						   },
 						   {
 							columns: [{
