@@ -247,8 +247,9 @@ angular
 			footer: false,
 
 			// change language
-			changeFunction : function ($key) {
-			   $translate.use($key);
+			changeFunction: function( $key ) {
+			 	$translate.use( $key );
+	     	$timeout(function() { $translate.refresh(); }, 1000 );
 			 },
 
 			// paint application
@@ -511,10 +512,6 @@ angular
 		};
 
 		var var4plusrhafter;
-
-		// 
-		console.log( $location.$$host );
-		console.log( $location.$$host.search( '4wplus.org' ) );
 
 		// check host
 		if( $location.$$host === '4wplus.org' ){
