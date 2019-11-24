@@ -215,9 +215,6 @@ angular
 
 	}])
 	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', '$http', '$timeout', 'ngmAuth', 'ngmUser','$window','$translate','$filter', function ($scope, $route, $location, $http, $timeout, ngmAuth, ngmUser,$window,$translate,$filter) {
-	     
-		// set en
-    $scope.ngm.changeFunction('en');
 
 		// ngm object
 		$scope.ngm = {
@@ -512,6 +509,9 @@ angular
 			}
 
 		};
+		
+		// set en by default
+    $scope.ngm.changeFunction('en');
 
 		var var4plusrhafter;
 
