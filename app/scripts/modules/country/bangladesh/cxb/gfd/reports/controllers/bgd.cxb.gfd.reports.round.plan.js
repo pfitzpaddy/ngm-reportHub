@@ -1094,7 +1094,7 @@ angular.module( 'ngmReportHub' )
 				var downloads = [];
 
 				// distribution list
-				if ( $scope.report.organization_tag !== 'wfp' && $scope.report.site_id !== 'all' ) {
+				if ( $scope.report.organization_tag !== 'wfp' ) {
 					
 					// downloads
 					downloads.push({
@@ -1117,7 +1117,7 @@ angular.module( 'ngmReportHub' )
 								admin3pcode: $scope.report.admin3pcode,
 								admin4pcode: $scope.report.admin4pcode,
 								admin5pcode: $scope.report.admin5pcode,
-								start_date: $scope.report.end_date,
+								start_date: $scope.report.start_date,
 								end_date: $scope.report.end_date,
 								report: $scope.report.organization_tag +'_planned_distribution_list_round_' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
 							}
@@ -1135,6 +1135,7 @@ angular.module( 'ngmReportHub' )
 								url: $location.$$path
 							}
 						}
+					
 					});		
 				
 				}
