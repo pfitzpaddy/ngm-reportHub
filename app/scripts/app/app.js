@@ -74,6 +74,7 @@ angular
     // get
 		$translateProvider.preferredLanguage('en');
 		$translateProvider.forceAsyncReload(true);
+		$scope.ngm.changeFunction('en');
 
 		// extend localstorage to set an object
 		Storage.prototype.setObject = function( key, value ) {
@@ -175,8 +176,6 @@ angular
 		if ( ngmUser.get() && ngmUser.get().guest ) {
 			ngmUser.unset();
 		}
-
-		
 
 		// check URL
 		if ( $location.$$host.search('dev') > -1 ) {

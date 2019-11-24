@@ -56,7 +56,7 @@ angular.module( 'ngmReportHub' )
 			end_date: $route.current.params.end_date,
 
 			// title
-			title: "GFD | Actual Report | R" + $route.current.params.report_round + " | D" + $route.current.params.report_distribution,
+			title: "GFD | Achievement Report | R" + $route.current.params.report_round + " | D" + $route.current.params.report_distribution,
 
 			// subtitle
 			subtitle: "Actual GFD Report for Cox's Bazar, Bangladesh, GFD Round " + $route.current.params.report_round + ", Distribution " + $route.current.params.report_distribution,
@@ -1168,7 +1168,7 @@ angular.module( 'ngmReportHub' )
 				},{
 					type: 'csv',
 					color: 'teal lighten-3',
-					icon: 'people_outline',
+					icon: 'person_outline',
 					hover: 'Absent Beneficiaries',
 					request: {
 						method: 'POST',
@@ -1608,7 +1608,7 @@ angular.module( 'ngmReportHub' )
 								headerText: 'white-text',
 								headerIcon: 'person_add',
 								headerTitle: "Absent Beneficiaries",
-								templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.new.html',
+								templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.html',
 								tableOptions:{
 									count: 10
 								},
@@ -1712,7 +1712,7 @@ angular.module( 'ngmReportHub' )
 						},
 						subtitle: {
 							'class': 'col hide-on-small-only report-subtitle truncate m8 l9',
-							style: 'font-weight: 300;',
+							style: 'font-weight: 400;',
 							title: $scope.report.subtitle
 						},
 						datePicker: {
