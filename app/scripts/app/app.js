@@ -509,34 +509,29 @@ angular
 			}
 
 		};
-		
-		// set en by default
-    $scope.ngm.changeFunction('en');
 
 		var var4plusrhafter;
 
-	    // if($location.$$host === '4wplus.org' || $location.$$host === '192.168.33.16' ){ //'35.229.43.63'
+		// 
+		console.log( $location.$$host );
+		console.log( $location.$$host.search( '4wplus.org' ) );
 
-	    if($location.$$host === '4wplus.org' ){ //'35.229.43.63'
-
+		// check host
+		if( $location.$$host === '4wplus.org' ){
 			$('#title').html("4wPlus");
-
 			var4plusrhafter = '4wPlus';
-
 			metadescription = "4wPlus, Dashboard, Reporte, Indicadores, Colombia";
-
 			//language spanish
 			$scope.ngm.changeFunction('es');
 
-			
-		}else{
-			$('#title').html("ReportHub");
+		} else {
+			$('#title').html( "ReportHub" );
 			var4plusrhafter = 'REPORTHUB';
-
 			metadescription = "ReportHub, Dashboard, Reporting, Key Business Indicators";
 			$scope.ngm.changeFunction('en');
 
 		};
+
 		$scope.ngm.var4wplusrh = var4plusrhafter;
 
 
