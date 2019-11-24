@@ -74,7 +74,6 @@ angular
     // get
 		$translateProvider.preferredLanguage('en');
 		$translateProvider.forceAsyncReload(true);
-		$scope.ngm.changeFunction('en');
 
 		// extend localstorage to set an object
 		Storage.prototype.setObject = function( key, value ) {
@@ -217,9 +216,8 @@ angular
 	}])
 	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', '$http', '$timeout', 'ngmAuth', 'ngmUser','$window','$translate','$filter', function ($scope, $route, $location, $http, $timeout, ngmAuth, ngmUser,$window,$translate,$filter) {
 	     
-
-         
-
+		// set en
+    $scope.ngm.changeFunction('en');
 
 		// ngm object
 		$scope.ngm = {
