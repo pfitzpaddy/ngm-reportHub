@@ -1286,6 +1286,50 @@ angular.module( 'ngmReportHub' )
 			// config of page
 			setDashboardConfig: function () {
 
+				// FORMS
+
+				// report round / distribution
+				var form_filter = { report_round: $scope.report.report_round }
+
+				// site id
+				if ( $scope.report.organization_tag !== 'wfp' ) {
+					form_filter.organization_tag = $scope.report.organization_tag;
+				}
+
+				// site id
+				if ( $scope.report.site_id !== 'all' ) {
+					form_filter.site_id = $scope.report.site_id;
+				}
+
+				// form links
+				$scope.model.rows.push({
+					columns: [{
+						styleClass: 's12 m12 l12',
+						widgets: [{
+							type: 'html',
+							card: 'card-panel',
+							style: 'padding:0px;',
+							config: {
+								forms: $filter( 'filter' )( $scope.report.forms.list, form_filter ),
+								header: 'collection-header orange',
+								icon: 'inbox',
+								message: $scope.report.organization_tag !== 'wfp' ? $scope.report.organization_tag.toUpperCase() + ' Daily Reporting Forms' : 'Daily Reporting Forms',
+								minimize: {
+									open: false,
+									toggle: true,
+									disabled: false,
+									openCloseCard: function( panel ){
+										panel.minimize.open = !panel.minimize.open;
+									}
+								},
+								templateUrl: '/scripts/widgets/ngm-html/template/bgd/gfd/daily.report.forms.html',
+							}
+						}]
+					}]
+				
+				});
+
+
 				// ACTUAL BENEFICIARIES
 
 				// default indicators 
@@ -1851,6 +1895,7 @@ angular.module( 'ngmReportHub' )
 					    }]
 					  }]					
 					}]
+				
 				};
 
 				// set title

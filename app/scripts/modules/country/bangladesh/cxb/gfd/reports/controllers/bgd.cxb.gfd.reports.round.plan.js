@@ -1107,7 +1107,7 @@ angular.module( 'ngmReportHub' )
 							url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 							data: {
 								download: true,
-								indicator: 'print_distribution_pdf',
+								indicator: 'print_distribution_zip',
 								downloadUrl: ngmAuth.LOCATION + '/report/',
 								admin0pcode: $scope.report.user.admin0pcode,
 								organization_tag: $scope.report.organization_tag,
