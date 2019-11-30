@@ -1345,6 +1345,42 @@ angular.module( 'ngmReportHub' )
 
 					// NO PLANNED BENEFICIARIES
 
+					console.log( $scope.report.organization_tag );
+
+					// if report is active ( show upload )
+					if ( $scope.report.organization_tag === 'wfp' || $scope.report.report_status !== 'active' ) {
+
+						// message
+						var org = $scope.report.organization_tag === 'wfp' ? '' : $scope.report.organization_tag.toUpperCase();
+						var message = org + 'Distribution Plan R' + $scope.report.report_round + ' D' + $scope.report.report_distribution;
+						
+						// set default banner
+						$scope.model.rows.push({
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'html',
+									card: 'card-panel',
+									style: 'padding:0px;',
+									config: {
+										header: 'collection-header blue',
+										icon: 'check_circle',
+										minimize: {
+											open: false,
+											toggle: false,
+											disabled: true
+										},
+										message: message,
+										report_round: $scope.report.report_round,
+										report_distribution: $scope.report.report_distribution,
+										templateUrl: '/scripts/widgets/ngm-html/template/bgd/gfd/daily.report.forms.html',
+									}
+								}]
+							}]
+						});
+
+					}
+
 					// if report is active ( show upload )
 					if ( $scope.report.report_status === 'active' ) {
 
@@ -1372,7 +1408,7 @@ angular.module( 'ngmReportHub' )
 							
 							});
 						
-						} else if ( $scope.report.organization_tag !== 'wfp' && !data.length ) {
+						} else if ( $scope.report.organization_tag !== 'wfp' ) {
 							
 							// upload
 							$scope.model.rows.push({
@@ -1432,126 +1468,6 @@ angular.module( 'ngmReportHub' )
 								}]
 							
 							});
-						
-						}
-
-						// !wfp and data.length
-						if ( $scope.report.organization_tag !== 'wfp' && data.length ) {
-							
-							// upload
-							$scope.model.rows.push({
-								columns: [{
-									styleClass: 's12 m12 l12',
-									widgets: [{
-										type: 'dropzone',
-										style: 'padding: 0px;',
-										card: 'white grey-text text-darken-2',
-										config: {
-											parallelUploads: 1,
-											cardTitle: $scope.report.organization_tag === 'wfp' ? 'Planned Beneficiaries' : $scope.report.organization_tag.toUpperCase() + ' Planned Beneficiaries',
-											header: 'collection-header blue',
-											dictMsg: '<div style="font-weight:400;font-size:1.2rem;">Round ' + $scope.report.report_round + ', Distribution ' + $scope.report.report_distribution + '<br/>Drag & Drop Planned Beneficiaries</div>',
-											minimize: {
-												open: false,
-												toggle: true,
-												disabled: false
-											},
-											url: ngmAuth.LOCATION + '/api/upload-file',
-											acceptedFiles: '.xlsx',
-											headers: { 'Authorization': 'Bearer ' + ngmUser.get().token },
-											successMessage: false,
-											process: {
-												redirect: 'bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/all/all/all/all',
-												requests: [{
-													method: 'POST',
-													url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/processPlannedBeneficiaries',
-													data: {
-														admin0pcode: $scope.report.user.admin0pcode,
-														organization_tag: $scope.report.organization_tag,
-														report_round: $scope.report.report_round,
-														report_distribution: $scope.report.report_distribution
-													}
-												},{
-													method: 'POST',
-													url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setKoboXlsxForm',
-													data: {
-														admin0pcode: $scope.report.user.admin0pcode,
-														organization_tag: $scope.report.organization_tag,
-														report_round: $scope.report.report_round,
-														report_distribution: $scope.report.report_distribution
-													}
-												},{
-													method: 'POST',
-													url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/deployKoboXlsxForm',
-													data: {
-														admin0pcode: $scope.report.user.admin0pcode,
-														organization_tag: $scope.report.organization_tag,
-														report_round: $scope.report.report_round,
-														report_distribution: $scope.report.report_distribution
-													}
-												}]
-											}
-										}
-									}]
-								}]
-							
-							});
-						
-						}
-
-					} else {
-
-						// set default banner
-						$scope.model.rows.push({
-							columns: [{
-								styleClass: 's12 m12 l12',
-								widgets: [{
-									type: 'html',
-									card: 'card-panel',
-									style: 'padding:0px;',
-									config: {
-										header: 'collection-header blue',
-										icon: 'check_circle',
-										minimize: {
-											open: false,
-											toggle: false,
-											disabled: true
-										},
-										message: $scope.report.organization_tag.toUpperCase() + ' Plan R' + $scope.report.report_round + ' D' + $scope.report.report_distribution,
-										report_round: $scope.report.report_round,
-										report_distribution: $scope.report.report_distribution,
-										templateUrl: '/scripts/widgets/ngm-html/template/bgd/gfd/daily.report.forms.html',
-									}
-								}]
-							}]
-						});
-
-					}
-
-
-
-
-					// PLANNED BENEFICIARIES
-
-					// data for round
-					if ( data.length ) {
-
-						// report round / distribution
-						var form_filter = { report_round: $scope.report.report_round }
-
-						// site id
-						if ( $scope.report.organization_tag !== 'wfp' ) {
-							form_filter.organization_tag = $scope.report.organization_tag;
-						}
-
-						// site id
-						if ( $scope.report.site_id !== 'all' ) {
-							form_filter.site_id = $scope.report.site_id;
-						}
-
-
-						// if report is active ( show form links )
-						if ( $scope.report.report_status === 'active' ) {
 
 							// form links
 							$scope.model.rows.push({
@@ -1562,7 +1478,7 @@ angular.module( 'ngmReportHub' )
 										card: 'card-panel',
 										style: 'padding:0px;',
 										config: {
-											forms: $filter( 'filter' )( $scope.report.forms.list, form_filter ),
+											forms: $filter( 'filter' )( $scope.report.forms.list, { site_id: $scope.report.site_id, report_round: $scope.report.report_round } ),
 											header: 'collection-header blue',
 											icon: 'inbox',
 											message: $scope.report.organization_tag !== 'wfp' ? $scope.report.organization_tag.toUpperCase() + ' Daily Reporting Forms' : 'Daily Reporting Forms',
@@ -1580,8 +1496,25 @@ angular.module( 'ngmReportHub' )
 								}]
 							
 							});
-
+						
 						}
+						
+					}
+
+
+
+
+
+
+
+
+
+					// PLANNED BENEFICIARIES
+
+					// data for round
+					if ( data.length ) {
+
+						// INDICATORS
 
 						// default indicators 
 						$scope.model.rows.push({
