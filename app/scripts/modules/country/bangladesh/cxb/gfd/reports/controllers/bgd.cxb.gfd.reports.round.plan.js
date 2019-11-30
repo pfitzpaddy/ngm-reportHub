@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller('DashboardBgdCxbGfdRoundPlanCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper', '$translate', '$filter', function ($scope, $location, $route, ngmAuth, ngmData, ngmUser, ngmClusterHelper, $translate, $filter ) {
+	.controller('DashboardBgdCxbGfdRoundPlanCtrl', ['$scope', '$location', '$route', '$q', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper', '$translate', '$filter', function ($scope, $location, $route, $q, ngmAuth, ngmData, ngmUser, ngmClusterHelper, $translate, $filter ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -69,650 +69,7 @@ angular.module( 'ngmReportHub' )
 			subtitle: "Planned Beneficiaries for Cox's Bazar, Bangladesh, GFD Round " + $route.current.params.report_round + ", Distribution " + $route.current.params.report_distribution,
 
 			// kobo forms ( inside obbject so i can collapse )
-			forms: {
-				list: [{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Action Against Hunger",
-				  "organization_tag" : "aah",
-				  "organization" : "AAH",
-				  "organization_id" : "5c029988c7eb9d9a2410b095",
-					"report_round": '1',
-				  "site_id" : "jadimura",
-				  "site_name" : "Jadimura",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aWJgXQrLcSMMX4pYax4DkJ',
-				  "form_template": "wfp_cxb_gfd_report_aah_jadimura_rd_1",
-				  "form_title": "GFD Daily Report: AAH, Jadimura, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#BXtmpdNJ"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Action Against Hunger",
-				  "organization_tag" : "aah",
-				  "organization" : "AAH",
-				  "organization_id" : "5c029988c7eb9d9a2410b095",
-					"report_round": '2',
-				  "site_id" : "jadimura",
-				  "site_name" : "Jadimura",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'ay62hNEFBkGyxZ8Siq4SqH',
-				  "form_template": "wfp_cxb_gfd_report_aah_jadimura_rd_2",
-				  "form_title": "GFD Daily Report: AAH, Jadimura, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#hZ9Rh2b1"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Action Against Hunger",
-				  "organization_tag" : "aah",
-				  "organization" : "AAH",
-				  "organization_id" : "5c029988c7eb9d9a2410b095",
-					"report_round": '1',
-				  "site_id" : "leda_ms",
-				  "site_name" : "Leda MS",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aRzwhveXit6cwwhwE3Kyzc',
-				  "form_template": "wfp_cxb_gfd_report_aah_leda_ms_rd_1",
-				  "form_title": "GFD Daily Report: AAH, Leda MS, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#ROisDrb7"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Action Against Hunger",
-				  "organization_tag" : "aah",
-				  "organization" : "AAH",
-				  "organization_id" : "5c029988c7eb9d9a2410b095",
-					"report_round": '2',
-				  "site_id" : "leda_ms",
-				  "site_name" : "Leda MS",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aLbYK4kV3VkFsMGSFM85bj',
-				  "form_template": "wfp_cxb_gfd_report_aah_leda_ms_rd_2",
-				  "form_title": "GFD Daily Report: AAH, Leda MS, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#sO4Tqbw8"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Action Against Hunger",
-				  "organization_tag" : "aah",
-				  "organization" : "AAH",
-				  "organization_id" : "5c029988c7eb9d9a2410b095",
-					"report_round": '1',
-				  "site_id" : "shamlapur",
-				  "site_name" : "Shamlapur",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'a7h88ArTtBueCJehMtHFPR',
-				  "form_template": "wfp_cxb_gfd_report_aah_shamlapur_rd_1",
-				  "form_title": "GFD Daily Report: AAH, Shamlapur, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#b9lGbttX"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Action Against Hunger",
-				  "organization_tag" : "aah",
-				  "organization" : "AAH",
-				  "organization_id" : "5c029988c7eb9d9a2410b095",
-					"report_round": '2',
-				  "site_id" : "shamlapur",
-				  "site_name" : "Shamlapur",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'ac37M3peUwey9Hxtx8UBFY',
-				  "form_template": "wfp_cxb_gfd_report_aah_shamlapur_rd_2",
-				  "form_title": "GFD Daily Report: AAH, Shamlapur, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#gXF1VI55"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Building Resources Across Communities",
-				  "organization_tag" : "brac",
-				  "organization" : "BRAC",  
-				  "organization_id" : "5c029f3f3e7ee3a1245bce61",
-					"report_round": '1',
-				  "site_id" : "lambashia",
-				  "site_name" : "Lambashia",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aimfrsjrv8m7CErhFogupv',
-				  "form_template": "wfp_cxb_gfd_report_brac_lambashia_rd_1",
-				  "form_title": "GFD Daily Report: BRAC, Lambashia, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#pHGaW0wP"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Building Resources Across Communities",
-				  "organization_tag" : "brac",
-				  "organization" : "BRAC",  
-				  "organization_id" : "5c029f3f3e7ee3a1245bce61",
-					"report_round": '2',
-				  "site_id" : "lambashia",
-				  "site_name" : "Lambashia",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aRaDkAD5fGDRgMybqmdnyM',
-				  "form_template": "wfp_cxb_gfd_report_brac_lambashia_rd_2",
-				  "form_title": "GFD Daily Report: BRAC, Lambashia, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#Lbs4728E"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Building Resources Across Communities",
-				  "organization_tag" : "brac",
-				  "organization" : "BRAC",  
-				  "organization_id" : "5c029f3f3e7ee3a1245bce61",
-					"report_round": '1',
-				  "site_id" : "modhur_chara_1",
-				  "site_name" : "Modhur Chara 1",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aBh5rSmMhVBT5dL2mizvvf',
-				  "form_template": "wfp_cxb_gfd_report_brac_modhur_chara_1_rd_1",
-				  "form_title": "GFD Daily Report: BRAC, Modhur Chara 1, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#4j2hle8k"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Building Resources Across Communities",
-				  "organization_tag" : "brac",
-				  "organization" : "BRAC",  
-				  "organization_id" : "5c029f3f3e7ee3a1245bce61",
-					"report_round": '2',
-				  "site_id" : "modhur_chara_1",
-				  "site_name" : "Modhur Chara 1",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aY435WAFYnaidSdkndriJF',
-				  "form_template": "wfp_cxb_gfd_report_brac_modhur_chara_1_rd_2",
-				  "form_title": "GFD Daily Report: BRAC, Modhur Chara 1, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#mqFp5KzU"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Building Resources Across Communities",
-				  "organization_tag" : "brac",
-				  "organization" : "BRAC",  
-				  "organization_id" : "5c029f3f3e7ee3a1245bce61",
-					"report_round": '1',
-				  "site_id" : "tv_tower",
-				  "site_name" : "TV Tower",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aiSUuDK5X6ArbA6ierghw5',
-				  "form_template": "wfp_cxb_gfd_report_brac_tv_tower_rd_1",
-				  "form_title": "GFD Daily Report: BRAC, TV Tower, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#6yXhLHBK"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Building Resources Across Communities",
-				  "organization_tag" : "brac",
-				  "organization" : "BRAC",  
-				  "organization_id" : "5c029f3f3e7ee3a1245bce61",
-					"report_round": '2',
-				  "site_id" : "tv_tower",
-				  "site_name" : "TV Tower",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'a8k8u7tHLd75DoHqYPuNVZ',
-				  "form_template": "wfp_cxb_gfd_report_brac_tv_tower_rd_2",
-				  "form_title": "GFD Daily Report: BRAC, TV Tower, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#uAlxQQnX"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Resource Integration Centre",
-				  "organization_tag" : "ric",
-				  "organization" : "RIC",
-				  "organization_id" : "5c7e6aef5d8f0ad60bbe41b5",
-					"report_round": '1',
-				  "site_id" : "bagghona",
-				  "site_name" : "Bagghona",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aiVnuNVgbocrpCa3vroUA3',
-				  "form_template": "wfp_cxb_gfd_report_ric_bagghona_rd_1",
-				  "form_title": "GFD Daily Report: RIC, Bagghona, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#pchD8ObP"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Resource Integration Centre",
-				  "organization_tag" : "ric",
-				  "organization" : "RIC",
-				  "organization_id" : "5c7e6aef5d8f0ad60bbe41b5",
-					"report_round": '2',
-				  "site_id" : "bagghona",
-				  "site_name" : "Bagghona",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'a4aK7oKNiFc36N9k9GYE5u',
-				  "form_template": "wfp_cxb_gfd_report_ric_bagghona_rd_2",
-				  "form_title": "GFD Daily Report: RIC, Bagghona, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#ozQfPYB1"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Resource Integration Centre",
-				  "organization_tag" : "ric",
-				  "organization" : "RIC",
-				  "organization_id" : "5c7e6aef5d8f0ad60bbe41b5",
-					"report_round": '1',
-				  "site_id" : "hakimpara",
-				  "site_name" : "Hakimpara",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'apHLE7MVXEVkThvnW7mFaw',
-				  "form_template": "wfp_cxb_gfd_report_ric_hakimpara_rd_1",
-				  "form_title": "GFD Daily Report: RIC, Hakimpara, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#pknQuWtz"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Resource Integration Centre",
-				  "organization_tag" : "ric",
-				  "organization" : "RIC",
-				  "organization_id" : "5c7e6aef5d8f0ad60bbe41b5",
-					"report_round": '2',
-				  "site_id" : "hakimpara",
-				  "site_name" : "Hakimpara",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'agEdGJZ9BNBpZ7D9gijhtJ',
-				  "form_template": "wfp_cxb_gfd_report_ric_hakimpara_rd_2",
-				  "form_title": "GFD Daily Report: RIC, Hakimpara, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#9ywjP5gg"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Resource Integration Centre",
-				  "organization_tag" : "ric",
-				  "organization" : "RIC",
-				  "organization_id" : "5c7e6aef5d8f0ad60bbe41b5",
-					"report_round": '1',
-				  "site_id" : "jamtoli",
-				  "site_name" : "Jamtoli",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'ahJauwX7UUomH3fmHoqCGv',
-				  "form_template": "wfp_cxb_gfd_report_ric_jamtoli_rd_1",
-				  "form_title": "GFD Daily Report: RIC, Jamtoli, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#eSws5gkl"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Resource Integration Centre",
-				  "organization_tag" : "ric",
-				  "organization" : "RIC",
-				  "organization_id" : "5c7e6aef5d8f0ad60bbe41b5",
-					"report_round": '2',
-				  "site_id" : "jamtoli",
-				  "site_name" : "Jamtoli",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aaySJgBCwXEteBCwpzWJ7D',
-				  "form_template": "wfp_cxb_gfd_report_ric_jamtoli_rd_2",
-				  "form_title": "GFD Daily Report: RIC, Jamtoli, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#XLUswQff"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '1',
-				  "site_id" : "burma_para",
-				  "site_name" : "Burma Para",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aBt5a9motKDadVoZGLecss',
-				  "form_template": "wfp_cxb_gfd_report_sci_burma_para_rd_1",
-				  "form_title": "GFD Daily Report: SCI, Burma Para, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#XLUswQff"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '2',
-				  "site_id" : "burma_para",
-				  "site_name" : "Burma Para",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'adgtczSdb4CfBgsk2qiyMG',
-				  "form_template": "wfp_cxb_gfd_report_sci_burma_para_rd_2",
-				  "form_title": "GFD Daily Report: SCI, Burma Para, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#PBuVXji2"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '1',
-				  "site_id" : "camp_4_ext",
-				  "site_name" : "Camp 04 Ext",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'a7BiMZx87NetYF3yo9A2ae',
-				  "form_template": "wfp_cxb_gfd_report_sci_camp_04_ext_rd_1",
-				  "form_title": "GFD Daily Report: SCI, Camp 04 Ext, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#tr8tbkOD"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '2',
-				  "site_id" : "camp_4_ext",
-				  "site_name" : "Camp 04 Ext",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'axEHQwuYqpMRkawJXiUSGa',
-				  "form_template": "wfp_cxb_gfd_report_sci_camp_04_ext_rd_2",
-				  "form_title": "GFD Daily Report: SCI, Camp 04 Ext, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#Yu5XOdTl"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '1',
-				  "site_id" : "camp_17",
-				  "site_name" : "Camp 17",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aFBnRSYpDH26MBCiiE8fem',
-				  "form_template": "wfp_cxb_gfd_report_sci_camp_17_rd_1",
-				  "form_title": "GFD Daily Report: SCI, Camp 17, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#dxhyQcY6"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '2',
-				  "site_id" : "camp_17",
-				  "site_name" : "Camp 17",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aSSyHZUfPZMATWJVHqpC7V',
-				  "form_template": "wfp_cxb_gfd_report_sci_camp_17_rd_2",
-				  "form_title": "GFD Daily Report: SCI, Camp 17, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#b1blxGTq"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '1',
-				  "site_id" : "camp_19",
-				  "site_name" : "Camp 19",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'arS6aDKLK55ZCt2mBYM8kf',
-				  "form_template": "wfp_cxb_gfd_report_sci_camp_19_rd_1",
-				  "form_title": "GFD Daily Report: SCI, Camp 19, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#N3x1PaHm"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '2',
-				  "site_id" : "camp_19",
-				  "site_name" : "Camp 19",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aJidGM9Aa5bkKbwDXqzrZ8',
-				  "form_template": "wfp_cxb_gfd_report_sci_camp_19_rd_2",
-				  "form_title": "GFD Daily Report: SCI, Camp 19, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#WLmPehkH"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '1',
-				  "site_id" : "camp_20_ext",
-				  "site_name" : "Camp 20 Ext",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aYmbP3VndJhfSW38W7tHc7',
-				  "form_template": "wfp_cxb_gfd_report_sci_camp_20_ext_rd_1",
-				  "form_title": "GFD Daily Report: SCI, Camp 20 Ext, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#Q8AkBBSi"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '2',
-				  "site_id" : "camp_20_ext",
-				  "site_name" : "Camp 20 Ext",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aW2R4wzzt6JTWCughPkCfE',
-				  "form_template": "wfp_cxb_gfd_report_sci_camp_20_ext_rd_2",
-				  "form_title": "GFD Daily Report: SCI, Camp 20 Ext, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#3XiB0Wb5"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '1',
-				  "site_id" : "modhur_chara_2",
-				  "site_name" : "Modhur Chara 2",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aaVpBgKdjhgWBXbGw2z8fq',
-				  "form_template": "wfp_cxb_gfd_report_sci_modhur_chara_2_rd_1",
-				  "form_title": "GFD Daily Report: SCI, Modhur Chara 2, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#yormyyZw"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '2',
-				  "site_id" : "modhur_chara_2",
-				  "site_name" : "Modhur Chara 2",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aQYd5paqY8Cn2Fks42xaD6',
-				  "form_template": "wfp_cxb_gfd_report_sci_modhur_chara_2_rd_2",
-				  "form_title": "GFD Daily Report: SCI, Modhur Chara 2, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#M5fu0D2I"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '1',
-				  "site_id" : "modhur_chara_3",
-				  "site_name" : "Modhur Chara 3",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'atiE7eF5oDz35W8YAsnckN',
-				  "form_template": "wfp_cxb_gfd_report_sci_modhur_chara_3_rd_1",
-				  "form_title": "GFD Daily Report: SCI, Modhur Chara 3, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#yvZdnfq1"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '2',
-				  "site_id" : "modhur_chara_3",
-				  "site_name" : "Modhur Chara 3",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aXZsDPKoJXnKhdNtE6w5b3',
-				  "form_template": "wfp_cxb_gfd_report_sci_modhur_chara_3_rd_2",
-				  "form_title": "GFD Daily Report: SCI, Modhur Chara 3, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#L8aoaJSi"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '1',
-				  "site_id" : "modhur_chara_4",
-				  "site_name" : "Modhur Chara 4",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aiaoT6uiinorCBNw9wWC3w',
-				  "form_template": "wfp_cxb_gfd_report_sci_modhur_chara_4_rd_1",
-				  "form_title": "GFD Daily Report: SCI, Modhur Chara 4, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#7xopnHWt"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '2',
-				  "site_id" : "modhur_chara_4",
-				  "site_name" : "Modhur Chara 4",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aoAjvVobUei5uuADGS69kB',
-				  "form_template": "wfp_cxb_gfd_report_sci_modhur_chara_4_rd_2",
-				  "form_title": "GFD Daily Report: SCI, Modhur Chara 4, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#YsHzNFbI"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "World Vision International",
-				  "organization_tag" : "wvi",
-				  "organization" : "WVI",
-				  "organization_id" : "5c029c383e7ee3a1245bce55",	
-					"report_round": '1',
-				  "site_id" : "balukhali_1",
-				  "site_name" : "Balukhali 1",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aVv7aFzF3FwR469xjZL2Xz',
-				  "form_template": "wfp_cxb_gfd_report_wvi_balukhali_1_rd_1",
-				  "form_title": "GFD Daily Report: WVI, Balukhali 1, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#nKQP6bc6"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "World Vision International",
-				  "organization_tag" : "wvi",
-				  "organization" : "WVI",
-				  "organization_id" : "5c029c383e7ee3a1245bce55",	
-					"report_round": '2',
-				  "site_id" : "balukhali_1",
-				  "site_name" : "Balukhali 1",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'apq9jVuaJtYdXw9APccfTq',
-				  "form_template": "wfp_cxb_gfd_report_wvi_balukhali_1_rd_2",
-				  "form_title": "GFD Daily Report: WVI, Balukhali 1, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#sh02G2Vu"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "World Vision International",
-				  "organization_tag" : "wvi",
-				  "organization" : "WVI",
-				  "organization_id" : "5c029c383e7ee3a1245bce55",	
-					"report_round": '1',
-				  "site_id" : "balukhali_2",
-				  "site_name" : "Balukhali 2",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aadePx8BUP2zsu2PXDNvjM',
-				  "form_template": "wfp_cxb_gfd_report_wvi_balukhali_2_rd_1",
-				  "form_title": "GFD Daily Report: WVI, Balukhali 2, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#K8Czeog4"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "World Vision International",
-				  "organization_tag" : "wvi",
-				  "organization" : "WVI",
-				  "organization_id" : "5c029c383e7ee3a1245bce55",	
-					"report_round": '2',
-				  "site_id" : "balukhali_2",
-				  "site_name" : "Balukhali 2",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'apQgwroBCcS7gMei4urxn6',
-				  "form_template": "wfp_cxb_gfd_report_wvi_balukhali_2_rd_2",
-				  "form_title": "GFD Daily Report: WVI, Balukhali 2, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#66PI7xwR"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "World Vision International",
-				  "organization_tag" : "wvi",
-				  "organization" : "WVI",
-				  "organization_id" : "5c029c383e7ee3a1245bce55",	
-					"report_round": '1',
-				  "site_id" : "mainnergona_1",
-				  "site_name" : "Mainnergona 1",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aWkuQNi5KAuLFj7ePJMTCZ',
-				  "form_template": "wfp_cxb_gfd_report_wvi_mainnergona_1_rd_1",
-				  "form_title": "GFD Daily Report: WVI, Mainnergona 1, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#BzYWVGxg"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "World Vision International",
-				  "organization_tag" : "wvi",
-				  "organization" : "WVI",
-				  "organization_id" : "5c029c383e7ee3a1245bce55",	
-					"report_round": '2',
-				  "site_id" : "mainnergona_1",
-				  "site_name" : "Mainnergona 1",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aWBWL85oYmMHXLd3nPdTnB',
-				  "form_template": "wfp_cxb_gfd_report_wvi_mainnergona_1_rd_2",
-				  "form_title": "GFD Daily Report: WVI, Mainnergona 1, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#gbdri0SZ"
-				}]
-			
-			},
+			forms: { list:[] },
 
 			// camp list
 			camps: {
@@ -826,6 +183,24 @@ angular.module( 'ngmReportHub' )
 				    "admin3pcode" : "CXB-NML"
 				}]
 			
+			},
+
+			// set form list
+			setFormList: function(){
+				// get data
+				ngmData.get({
+					method: 'POST',
+					url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getForms',
+					data: {
+						admin0pcode: $scope.report.user.admin0pcode,
+						organization_tag: $scope.report.organization_tag,
+						report_round: $scope.report.report_round,
+						report_distribution: $scope.report.report_distribution,
+					}
+				}).then( function( forms ){
+					$scope.report.forms = forms;
+				});
+
 			},
 
 			// report complete?
@@ -1329,6 +704,39 @@ angular.module( 'ngmReportHub' )
 			// config of page
 			setDashboardConfig: function () {
 
+				// PLANNED BENEFICIARIES
+
+				// if report is active ( show upload )
+				if ( $scope.report.organization_tag === 'wfp' || $scope.report.report_status !== 'active' ) {
+					
+					// set default banner
+					$scope.model.rows.push({
+						columns: [{
+							styleClass: 's12 m12 l12',
+							widgets: [{
+								type: 'html',
+								card: 'card-panel',
+								style: 'padding:0px;',
+								config: {
+									header: 'collection-header blue',
+									icon: 'check_circle',
+									minimize: {
+										open: false,
+										toggle: false,
+										disabled: true
+									},
+									message: $scope.report.organization_tag === 'wfp' ? 'Planned Beneficiaries' : $scope.report.organization_tag.toUpperCase() + ' Planned Beneficiaries',
+									report_round: $scope.report.report_round,
+									report_distribution: $scope.report.report_distribution,
+									templateUrl: '/scripts/widgets/ngm-html/template/bgd/gfd/daily.report.forms.html',
+								}
+							}]
+						}]
+					
+					});
+
+				}
+
 				// get data
 				ngmData.get({
 					method: 'POST',
@@ -1342,38 +750,6 @@ angular.module( 'ngmReportHub' )
 					}
 				
 				}).then( function( data ){
-
-					// PLANNED BENEFICIARIES
-
-					// if report is active ( show upload )
-					if ( $scope.report.organization_tag === 'wfp' || $scope.report.report_status !== 'active' ) {
-						
-						// set default banner
-						$scope.model.rows.push({
-							columns: [{
-								styleClass: 's12 m12 l12',
-								widgets: [{
-									type: 'html',
-									card: 'card-panel',
-									style: 'padding:0px;',
-									config: {
-										header: 'collection-header blue',
-										icon: 'check_circle',
-										minimize: {
-											open: false,
-											toggle: false,
-											disabled: true
-										},
-										message: $scope.report.organization_tag === 'wfp' ? 'Planned Beneficiaries' : $scope.report.organization_tag.toUpperCase() + ' Planned Beneficiaries',
-										report_round: $scope.report.report_round,
-										report_distribution: $scope.report.report_distribution,
-										templateUrl: '/scripts/widgets/ngm-html/template/bgd/gfd/daily.report.forms.html',
-									}
-								}]
-							}]
-						});
-
-					}
 
 					// if report is active ( show upload )
 					if ( $scope.report.report_status === 'active' ) {
@@ -2026,7 +1402,10 @@ angular.module( 'ngmReportHub' )
 				
 				};
 
-				// set title
+				// set setFormList
+				$scope.report.setFormList();
+
+				// set status
 				$scope.report.setReportStatus();
 
 				// set title
