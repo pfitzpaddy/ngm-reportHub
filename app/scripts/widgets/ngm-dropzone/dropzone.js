@@ -115,6 +115,8 @@ angular.module('ngm.widget.dropzone', ['ngm.provider'])
 				error: function( file, errorMessage, xhr ) {
 					// set errormsg
 					$('#dropzone-message').html('<i class="medium material-icons" style="color:#009688">error_outline</i><br/><h5 style="font-weight:300;">' + errorMessage + '</h5></div>');
+					// redirect
+					$scope.dropzoneConfig.setRedirect();
 				},
 
 				//

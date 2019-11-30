@@ -1418,7 +1418,7 @@ angular.module( 'ngmReportHub' )
 													}
 												},{
 													method: 'POST',
-													url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/deployKoboXlsxForm',
+													url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/sendKoboManualDeployEmail',
 													data: {
 														admin0pcode: $scope.report.user.admin0pcode,
 														organization_tag: $scope.report.organization_tag,
