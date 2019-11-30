@@ -1343,16 +1343,10 @@ angular.module( 'ngmReportHub' )
 				
 				}).then( function( data ){
 
-					// NO PLANNED BENEFICIARIES
-
-					console.log( $scope.report.organization_tag );
+					// PLANNED BENEFICIARIES
 
 					// if report is active ( show upload )
 					if ( $scope.report.organization_tag === 'wfp' || $scope.report.report_status !== 'active' ) {
-
-						// message
-						var org = $scope.report.organization_tag === 'wfp' ? '' : $scope.report.organization_tag.toUpperCase();
-						var message = org + 'Distribution Plan R' + $scope.report.report_round + ' D' + $scope.report.report_distribution;
 						
 						// set default banner
 						$scope.model.rows.push({
@@ -1370,7 +1364,7 @@ angular.module( 'ngmReportHub' )
 											toggle: false,
 											disabled: true
 										},
-										message: message,
+										message: $scope.report.organization_tag === 'wfp' ? 'Planned Beneficiaries' : $scope.report.organization_tag.toUpperCase() + ' Planned Beneficiaries',
 										report_round: $scope.report.report_round,
 										report_distribution: $scope.report.report_distribution,
 										templateUrl: '/scripts/widgets/ngm-html/template/bgd/gfd/daily.report.forms.html',
@@ -1424,9 +1418,9 @@ angular.module( 'ngmReportHub' )
 											header: 'collection-header blue',
 											dictMsg: '<div style="font-weight:400;font-size:1.2rem;">Round ' + $scope.report.report_round + ', Distribution ' + $scope.report.report_distribution + '<br/>Drag & Drop Planned Beneficiaries</div>',
 											minimize: {
-												open: true,
+												open: !data.length,
 												toggle: true,
-												disabled: true
+												disabled: !data.length
 											},
 											url: ngmAuth.LOCATION + '/api/upload-file',
 											acceptedFiles: '.xlsx',
@@ -1469,6 +1463,14 @@ angular.module( 'ngmReportHub' )
 							
 							});
 
+							// report round / distribution
+							var form_filter = { report_round: $scope.report.report_round, organization_tag: $scope.report.organization_tag }
+
+							// site id
+							if ( $scope.report.site_id !== 'all' ) {
+								form_filter.site_id = $scope.report.site_id;
+							}
+
 							// form links
 							$scope.model.rows.push({
 								columns: [{
@@ -1478,7 +1480,7 @@ angular.module( 'ngmReportHub' )
 										card: 'card-panel',
 										style: 'padding:0px;',
 										config: {
-											forms: $filter( 'filter' )( $scope.report.forms.list, { site_id: $scope.report.site_id, report_round: $scope.report.report_round } ),
+											forms: $filter( 'filter' )( $scope.report.forms.list, form_filter ),
 											header: 'collection-header blue',
 											icon: 'inbox',
 											message: $scope.report.organization_tag !== 'wfp' ? $scope.report.organization_tag.toUpperCase() + ' Daily Reporting Forms' : 'Daily Reporting Forms',
