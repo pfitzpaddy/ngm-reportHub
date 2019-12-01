@@ -707,7 +707,7 @@ angular.module( 'ngmReportHub' )
 				// PLANNED BENEFICIARIES
 
 				// if report is active ( show upload )
-				if ( $scope.report.organization_tag === 'wfp' || $scope.report.report_status !== 'active' ) {
+				if ( $scope.report.organization_tag === 'wfp' && $scope.report.report_status !== 'active' ) {
 					
 					// set default banner
 					$scope.model.rows.push({
