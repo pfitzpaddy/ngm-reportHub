@@ -715,8 +715,6 @@ angular.module( 'ngmReportHub' )
 				
 				}).then( function( data ){
 
-					console.log( $scope.report.report_status )
-
 					// if report is active ( show upload )
 					if ( $scope.report.report_status === 'active' ) {
 
@@ -780,8 +778,6 @@ angular.module( 'ngmReportHub' )
 							}
 
 						}
-
-						console.log( $scope.report.organization_tag )
 
 						// if other orgs
 						if ( $scope.report.organization_tag !== 'wfp' && $scope.report.organization_tag !== 'immap' ){
