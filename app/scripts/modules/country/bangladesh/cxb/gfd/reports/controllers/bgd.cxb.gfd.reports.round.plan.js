@@ -191,7 +191,7 @@ angular.module( 'ngmReportHub' )
 				// active / complete
 				if ( $scope.report.report_round === '1' ) {
 					// set report status 2019-11-01
-					$scope.report.report_status = moment( $scope.report.reporting_period ).add( $scope.report.report_round_1, 'D' ).unix() > moment().unix() ? 'active' : 'complete';
+					$scope.report.report_status = moment( $scope.report.reporting_period ).add( $scope.report.report_round_1, 'd' ).unix() > moment().unix() ? 'active' : 'complete';
 					// testing
 					// $scope.report.report_status = moment( $scope.report.reporting_period ).add( $scope.report.report_round_1, 'D' ).unix() > moment().unix() ? 'active' : 'active';
 				}
@@ -715,6 +715,8 @@ angular.module( 'ngmReportHub' )
 				
 				}).then( function( data ){
 
+					console.log( $scope.report.report_status )
+
 					// if report is active ( show upload )
 					if ( $scope.report.report_status === 'active' ) {
 
@@ -748,6 +750,7 @@ angular.module( 'ngmReportHub' )
 
 							// show banner
 							if ( data.length ){
+
 								// set default banner
 								$scope.model.rows.push({
 									columns: [{
@@ -777,6 +780,8 @@ angular.module( 'ngmReportHub' )
 							}
 
 						}
+
+						console.log( $scope.report.organization_tag )
 
 						// if other orgs
 						if ( $scope.report.organization_tag !== 'wfp' && $scope.report.organization_tag !== 'immap' ){
