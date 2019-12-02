@@ -97,11 +97,15 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 						<table class="centered highlight responsive-table" ng-table="table.tableParams">
 							<tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
 
+								<td data-title="'Distribution Date'" sortable="'distribution_date'">
+									{{ row.distribution_date | date : 'mediumDate' }}
+								</td>
+
 								<td data-title="'organization'|translate" sortable="'organization'">
 									{{ row.organization }}
 								</td>
 
-								<td data-title="'GFD Point'" sortable="table.site_name">
+								<td data-title="'GFD Point'" sortable="'site_name'">
 									{{ row.site_name }}
 								</td>
 
@@ -131,19 +135,7 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 									{{ row.scope_id }}
 								</td>
 
-								<td data-title="'Disabled HH'" sortable="'disabled_hh'">
-									{{ row.disabled_hh }}
-								</td>
-
-								<td data-title="'Pregnant HH'" sortable="'pregnant_hh'">
-									{{ row.pregnant_hh }}
-								</td>
-
-								<td data-title="'Lactating HH'" sortable="'lactating_hh'">
-									{{ row.lactating_hh }}
-								</td>
-
-								<td data-title="'Family Size'" sortable="table.gfd_family_size">
+								<td data-title="'Family Size'" sortable="'gfd_family_size'">
 									{{ row.gfd_family_size }}
 								</td>
 

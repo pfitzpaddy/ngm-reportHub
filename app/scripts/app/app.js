@@ -176,8 +176,6 @@ angular
 			ngmUser.unset();
 		}
 
-		
-
 		// check URL
 		if ( $location.$$host.search('dev') > -1 ) {
 			// add DEV message if necissary
@@ -217,10 +215,6 @@ angular
 
 	}])
 	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', '$http', '$timeout', 'ngmAuth', 'ngmUser','$window','$translate','$filter', function ($scope, $route, $location, $http, $timeout, ngmAuth, ngmUser,$window,$translate,$filter) {
-	     
-
-         
-
 
 		// ngm object
 		$scope.ngm = {
@@ -253,8 +247,9 @@ angular
 			footer: false,
 
 			// change language
-			changeFunction : function ($key) {
-			   $translate.use($key);
+			changeFunction: function( $key ) {
+			 	$translate.use( $key );
+	     	$timeout(function() { $translate.refresh(); }, 1000 );
 			 },
 
 			// paint application
@@ -518,28 +513,22 @@ angular
 
 		var var4plusrhafter;
 
-	    // if($location.$$host === '4wplus.org' || $location.$$host === '192.168.33.16' ){ //'35.229.43.63'
-
-	    if($location.$$host === '4wplus.org' ){ //'35.229.43.63'
-
+		// check host
+		if( $location.$$host === '4wplus.org' ){
 			$('#title').html("4wPlus");
-
 			var4plusrhafter = '4wPlus';
-
 			metadescription = "4wPlus, Dashboard, Reporte, Indicadores, Colombia";
-
 			//language spanish
 			$scope.ngm.changeFunction('es');
 
-			
-		}else{
-			$('#title').html("ReportHub");
+		} else {
+			$('#title').html( "ReportHub" );
 			var4plusrhafter = 'REPORTHUB';
-
 			metadescription = "ReportHub, Dashboard, Reporting, Key Business Indicators";
 			$scope.ngm.changeFunction('en');
 
 		};
+
 		$scope.ngm.var4wplusrh = var4plusrhafter;
 
 
