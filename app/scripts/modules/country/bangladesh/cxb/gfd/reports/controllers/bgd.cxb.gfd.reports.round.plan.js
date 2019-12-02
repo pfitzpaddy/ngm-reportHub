@@ -546,7 +546,7 @@ angular.module( 'ngmReportHub' )
 				downloads.push({
 					type: 'csv',
 					color: 'teal lighten-3',
-					icon: 'person_add',
+					icon: 'group',
 					hover: 'Download Duplicates',
 					request: {
 						method: 'POST',
@@ -627,7 +627,7 @@ angular.module( 'ngmReportHub' )
 						url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 						data: {
 							download: true,
-							indicator: 'downloads_planned_beneficiaries',
+							indicator: 'downloads_beneficiaries',
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,

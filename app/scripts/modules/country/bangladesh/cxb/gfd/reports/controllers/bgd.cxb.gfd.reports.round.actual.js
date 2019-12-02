@@ -1094,7 +1094,7 @@ angular.module( 'ngmReportHub' )
 				var downloads = [{
 					type: 'csv',
 					color: 'teal lighten-3',
-					icon: 'person_add',
+					icon: 'group',
 					hover: 'Download Duplicates',
 					request: {
 						method: 'POST',
@@ -1172,10 +1172,10 @@ angular.module( 'ngmReportHub' )
 					hover: 'Absent Beneficiaries',
 					request: {
 						method: 'POST',
-						url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
+						url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getAbsentBeneficiariesIndicator',
 						data: {
 							download: true,
-							indicator: 'downloads_unplanned_new_beneficiary',
+							indicator: 'downloads_absent_beneficiaries',
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
@@ -1186,7 +1186,7 @@ angular.module( 'ngmReportHub' )
 							admin5pcode: $scope.report.admin5pcode,
 							start_date: $scope.report.start_date,
 							end_date: $scope.report.end_date,
-							report: $scope.report.organization_tag +'_actual_unplanned_new_beneficiaries_round' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
+							report: $scope.report.organization_tag +'_absent_beneficiaries_round' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
 						}
 					},
 					metrics: {
@@ -1212,7 +1212,7 @@ angular.module( 'ngmReportHub' )
 						url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 						data: {
 							download: true,
-							indicator: 'downloads_actual_beneficiaries',
+							indicator: 'downloads_beneficiaries',
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
