@@ -546,7 +546,7 @@ angular.module( 'ngmReportHub' )
 				downloads.push({
 					type: 'csv',
 					color: 'teal lighten-3',
-					icon: 'group',
+					icon: 'person_add',
 					hover: 'Download Duplicates',
 					request: {
 						method: 'POST',
@@ -620,7 +620,7 @@ angular.module( 'ngmReportHub' )
 				},{
 					type: 'csv',
 					color: 'teal lighten-3',
-					icon: 'person_add',
+					icon: 'person',
 					hover: 'Download Planned Beneficiaries',
 					request: {
 						method: 'POST',

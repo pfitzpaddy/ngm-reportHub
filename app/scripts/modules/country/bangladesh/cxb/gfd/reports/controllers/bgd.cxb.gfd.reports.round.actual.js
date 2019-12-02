@@ -1094,7 +1094,7 @@ angular.module( 'ngmReportHub' )
 				var downloads = [{
 					type: 'csv',
 					color: 'teal lighten-3',
-					icon: 'group',
+					icon: 'person_add',
 					hover: 'Download Duplicates',
 					request: {
 						method: 'POST',
