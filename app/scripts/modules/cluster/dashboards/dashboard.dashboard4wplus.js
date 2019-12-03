@@ -232,25 +232,10 @@ angular.module('ngmReportHub')
 							admin2pcode: $scope.dashboard.admin2pcode,
 							cluster_id: $scope.dashboard.cluster_id,
 							organization_tag: $scope.dashboard.organization_tag,
-						
-							//donor: $scope.dashboard.donor_tag,
-							activity_type_id: $scope.dashboard.activity_type_id,
-
 							donor: $scope.dashboard.donor_tag,
-							implementer: $scope.dashboard.implementer_tag,
-							project_type_component: $scope.dashboard.project_type_component,
-
-							hrpplan: $scope.dashboard.hrpplan,
-
-
 							beneficiaries: $scope.dashboard.beneficiaries,
 							start_date: $scope.dashboard.startDate,
 							end_date: $scope.dashboard.endDate,
-							
-							//exchange rate from COP to USD
-							//cop: 3200,
-							//exchange rate from EUR to USD
-							//eur: $scope.dashboard.eurotousd
 						}
 					}
 					
