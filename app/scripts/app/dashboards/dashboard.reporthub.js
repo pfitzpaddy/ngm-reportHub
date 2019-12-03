@@ -64,7 +64,7 @@ angular.module('ngmReportHub')
 
 					return {
 						method: 'POST',
-						url: 'http://reporthub.immap.org/api/health/indicator',
+						url: 'http://reporthub.org/api/health/indicator',
 						data: {
 							cluster_id: 'health',
 							indicator: indicator,
@@ -84,7 +84,7 @@ angular.module('ngmReportHub')
 				getAdminRequest: function( indicator ) {
 					return {
 						method: 'POST',
-						url: 'http://reporthub.immap.org/api/cluster/admin/indicator',
+						url: 'http://reporthub.org/api/cluster/admin/indicator',
 						data: {
 							cluster_id: 'health',
 							indicator: indicator,
