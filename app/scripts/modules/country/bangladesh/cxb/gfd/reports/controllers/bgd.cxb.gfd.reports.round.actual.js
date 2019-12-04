@@ -1656,6 +1656,48 @@ angular.module( 'ngmReportHub' )
 								tableOptions:{
 									count: 10
 								},
+
+								// table.modalDelete
+								modalDelete: function( modal, fcn_id, site_id, report_round, report_distribution, distribution_date ){
+									// set
+									this.fcn_id = fcn_id;
+									this.site_id = site_id;
+									this.report_round = report_round;
+									this.report_distribution = report_distribution;
+									this.distribution_date = distribution_date;
+									$( '#' + modal ).openModal( { dismissible: false } );
+
+								},
+
+								// delete
+								deleteAbsent: function( fcn_id, site_id, report_round, report_distribution, distribution_date ){
+
+									// disabled btn
+									$( '#gfd-delete-btn-'+ fcn_id ).toggleClass( 'disabled' );
+
+									// ngmData
+									ngmData.get({ 
+										method: 'POST', 
+										url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/removeAbsentBeneficiary',
+										data: {
+											fcn_id: fcn_id,
+											site_id: site_id,
+											report_round: report_round,
+											report_distribution: report_distribution,
+											distribution_date: distribution_date,
+										}
+									}).then( function( result ){
+
+										// reset
+										$timeout( function(){
+											Materialize.toast( result.msg , 4000, 'success' );
+											$timeout( function(){ $route.reload(); }, 1000 );
+										}, 1000 );
+
+									});
+								
+								},
+
 								request: {
 									method: 'POST',
 									url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getAbsentBeneficiariesIndicator',

@@ -95,6 +95,21 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 					<!-- if data -->
 					<div ng-if="data.length">
 						<table class="centered highlight responsive-table" ng-table="table.tableParams">
+
+							<!-- remove location -->
+							<div id="gfd-delete-modal" class="modal">
+								<div class="modal-content">
+							   	<h4 style="color: #E57373; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Remove</h4>
+									<p>This will remove the beneficiary FCN {{ table.fcn_id }} form the Absent lust and back into the Plan and Achievement</p>
+								</div>
+								<div class="modal-footer">
+									<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+							    <a ng-click="table.deleteAbsent( table.fcn_id, table.site_id, table.report_round, table.report_distribution, table.distribution_date )"
+							    		class="modal-action modal-close waves-effect waves-green btn-flat">Yes, remove beneficiary from Absent List</a>
+								</div>
+							</div>
+
+
 							<tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
 
 								<td data-title="'Distribution Date'" sortable="'distribution_date'">
@@ -138,6 +153,19 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 								<td data-title="'Family Size'" sortable="'gfd_family_size'">
 									{{ row.gfd_family_size }}
 								</td>
+
+                <td ng-if="table.request.data.indicator === 'beneficiaries_absent_list'" 
+                			data-title="'Remove'" sortable="'id'" style="white-space: nowrap;">
+                    <div class="buttons">
+                        <div id ='gfd-delete-btn-{{ row.fcn_id }}' 
+                        			class="btn btn-small red lighten-2 waves-effect waves-light"
+                        			ng-click="table.modalDelete( 'gfd-delete-modal', row.fcn_id, row.site_id, row.report_round, row.report_distribution, row.distribution_date );"
+                        			title="Remove"
+                        			ng-disabled="">
+                          <i class="material-icons">delete</i>
+                        </div>
+                      </div>
+                </td>
 
 							</tr>
 						</table>
