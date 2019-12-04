@@ -1038,7 +1038,7 @@ angular.module( 'ngmReportHub' )
 									'param': 'admin5pcode',
 									'active': d.admin5pcode,
 									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-									'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/' + d.admin5pcode + '//' + $scope.report.start_date + '/' + $scope.report.end_date
+									'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/' + d.admin5pcode + '/' + $scope.report.start_date + '/' + $scope.report.end_date
 								});
 							});
 
@@ -1077,7 +1077,7 @@ angular.module( 'ngmReportHub' )
 								'param': 'end_date',
 								'active': d.distribution_date,
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/' + d.admin5pcode + '/' + d.distribution_date + '/' + d.distribution_date
+								'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/' + $scope.report.admin5pcode + '/' + d.distribution_date + '/' + d.distribution_date
 							});
 						}
 					
