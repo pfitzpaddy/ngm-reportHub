@@ -36,6 +36,6 @@
 		</h5>
 	</li>
 	<div align="left" style="padding: 20px;" ng-if="panel.minimize.open">
-		<a style="margin:5px;" ng-repeat="form in panel.forms" href="{{ form.url }}" target="_blank" title="Go To {{ form.form_title }}" class="waves-effect waves-light btn"><i class="material-icons left">assignment_ind</i>FORM: {{ form.form_title | slice:18:100 }}</a>
+		<a style="margin:5px;" ng-repeat="form in panel.forms" href="{{ form.form_url }}" target="_blank" title="Go To {{ form.form_title }}" class="waves-effect waves-light btn"><i class="material-icons left">assignment_ind</i>FORM: {{ form.form_title | slice:18:100 }}</a>
 	</div>
 </ul>

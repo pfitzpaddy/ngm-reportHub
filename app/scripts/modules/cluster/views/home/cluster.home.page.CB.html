@@ -6,7 +6,9 @@
                           panel.organization.organization_tag !== 'ric' &&
                           panel.organization.organization_tag !== 'sci' &&
                           panel.organization.organization_tag !== 'wvi'"> -->
-<div class="row" ng-if="panel.organization.organization_tag !== 'wfp' && panel.organization.organization_tag !== 'ric'">
+<div class="row" ng-if="panel.organization.organization_tag !== 'wfp' && 
+                          panel.organization.organization_tag !== 'immap' && 
+                          panel.organization.organization_tag !== 'ric'">
   
   <!-- projects -->
   <div class="col s12 m6">
@@ -51,7 +53,9 @@
                           panel.organization.organization_tag === 'ric' ||
                           panel.organization.organization_tag === 'sci' ||
                           panel.organization.organization_tag === 'wvi'"> -->
-<div class="row" ng-if="panel.organization.organization_tag === 'wfp' || panel.organization.organization_tag === 'ric'">
+<div class="row" ng-if="panel.organization.organization_tag === 'wfp' ||
+                          panel.organization.organization_tag === 'immap' ||
+                          panel.organization.organization_tag === 'ric'">
   
   <!-- projects -->
   <div class="col s12 m4">

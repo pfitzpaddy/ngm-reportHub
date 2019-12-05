@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module( 'ngmReportHub' )
-	.controller('DashboardBgdCxbGfdRoundPlanCtrl', ['$scope', '$location', '$route', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper', '$translate', '$filter', function ($scope, $location, $route, ngmAuth, ngmData, ngmUser, ngmClusterHelper, $translate, $filter ) {
+	.controller('DashboardBgdCxbGfdRoundPlanCtrl', ['$scope', '$location', '$route', '$q', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper', '$translate', '$filter', function ($scope, $location, $route, $q, ngmAuth, ngmData, ngmUser, ngmClusterHelper, $translate, $filter ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -24,6 +24,13 @@ angular.module( 'ngmReportHub' )
 
 			// user
 			user: ngmUser.get(),
+
+			// report status
+			report_status: 'active',
+
+			// when rounds open / close
+			report_round_1: 26,
+			report_round_2: 8,
 
 			// report round
 			report_round: $route.current.params.report_round,
@@ -49,6 +56,12 @@ angular.module( 'ngmReportHub' )
 			// sub block
 			admin5pcode: $route.current.params.admin5pcode,
 
+			// start_date
+			start_date: $route.current.params.start_date,
+
+			// end_date
+			end_date: $route.current.params.end_date,
+
 			// title
 			title: "GFD | Plan | R" + $route.current.params.report_round + " | D" + $route.current.params.report_distribution,
 
@@ -56,649 +69,7 @@ angular.module( 'ngmReportHub' )
 			subtitle: "Planned Beneficiaries for Cox's Bazar, Bangladesh, GFD Round " + $route.current.params.report_round + ", Distribution " + $route.current.params.report_distribution,
 
 			// kobo forms ( inside obbject so i can collapse )
-			forms: {
-				list: [{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Action Against Hunger",
-				  "organization_tag" : "aah",
-				  "organization" : "AAH",
-				  "organization_id" : "5c029988c7eb9d9a2410b095",
-					"report_round": '1',
-				  "site_id" : "jadimura",
-				  "site_name" : "Jadimura",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aWJgXQrLcSMMX4pYax4DkJ',
-				  "form_template": "wfp_cxb_gfd_report_aah_jadimura_rd_1",
-				  "form_title": "GFD Daily Report: AAH, Jadimura, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#BXtmpdNJ"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Action Against Hunger",
-				  "organization_tag" : "aah",
-				  "organization" : "AAH",
-				  "organization_id" : "5c029988c7eb9d9a2410b095",
-					"report_round": '2',
-				  "site_id" : "jadimura",
-				  "site_name" : "Jadimura",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'ay62hNEFBkGyxZ8Siq4SqH',
-				  "form_template": "wfp_cxb_gfd_report_aah_jadimura_rd_2",
-				  "form_title": "GFD Daily Report: AAH, Jadimura, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#hZ9Rh2b1"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Action Against Hunger",
-				  "organization_tag" : "aah",
-				  "organization" : "AAH",
-				  "organization_id" : "5c029988c7eb9d9a2410b095",
-					"report_round": '1',
-				  "site_id" : "leda_ms",
-				  "site_name" : "Leda MS",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aRzwhveXit6cwwhwE3Kyzc',
-				  "form_template": "wfp_cxb_gfd_report_aah_leda_ms_rd_1",
-				  "form_title": "GFD Daily Report: AAH, Leda MS, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#ROisDrb7"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Action Against Hunger",
-				  "organization_tag" : "aah",
-				  "organization" : "AAH",
-				  "organization_id" : "5c029988c7eb9d9a2410b095",
-					"report_round": '2',
-				  "site_id" : "leda_ms",
-				  "site_name" : "Leda MS",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aLbYK4kV3VkFsMGSFM85bj',
-				  "form_template": "wfp_cxb_gfd_report_aah_leda_ms_rd_2",
-				  "form_title": "GFD Daily Report: AAH, Leda MS, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#sO4Tqbw8"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Action Against Hunger",
-				  "organization_tag" : "aah",
-				  "organization" : "AAH",
-				  "organization_id" : "5c029988c7eb9d9a2410b095",
-					"report_round": '1',
-				  "site_id" : "shamlapur",
-				  "site_name" : "Shamlapur",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'a7h88ArTtBueCJehMtHFPR',
-				  "form_template": "wfp_cxb_gfd_report_aah_shamlapur_rd_1",
-				  "form_title": "GFD Daily Report: AAH, Shamlapur, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#b9lGbttX"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Action Against Hunger",
-				  "organization_tag" : "aah",
-				  "organization" : "AAH",
-				  "organization_id" : "5c029988c7eb9d9a2410b095",
-					"report_round": '2',
-				  "site_id" : "shamlapur",
-				  "site_name" : "Shamlapur",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'ac37M3peUwey9Hxtx8UBFY',
-				  "form_template": "wfp_cxb_gfd_report_aah_shamlapur_rd_2",
-				  "form_title": "GFD Daily Report: AAH, Shamlapur, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#gXF1VI55"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Building Resources Across Communities",
-				  "organization_tag" : "brac",
-				  "organization" : "BRAC",  
-				  "organization_id" : "5c029f3f3e7ee3a1245bce61",
-					"report_round": '1',
-				  "site_id" : "lambashia",
-				  "site_name" : "Lambashia",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aimfrsjrv8m7CErhFogupv',
-				  "form_template": "wfp_cxb_gfd_report_brac_lambashia_rd_1",
-				  "form_title": "GFD Daily Report: BRAC, Lambashia, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#pHGaW0wP"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Building Resources Across Communities",
-				  "organization_tag" : "brac",
-				  "organization" : "BRAC",  
-				  "organization_id" : "5c029f3f3e7ee3a1245bce61",
-					"report_round": '2',
-				  "site_id" : "lambashia",
-				  "site_name" : "Lambashia",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aRaDkAD5fGDRgMybqmdnyM',
-				  "form_template": "wfp_cxb_gfd_report_brac_lambashia_rd_2",
-				  "form_title": "GFD Daily Report: BRAC, Lambashia, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#Lbs4728E"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Building Resources Across Communities",
-				  "organization_tag" : "brac",
-				  "organization" : "BRAC",  
-				  "organization_id" : "5c029f3f3e7ee3a1245bce61",
-					"report_round": '1',
-				  "site_id" : "modhur_chara_1",
-				  "site_name" : "Modhur Chara 1",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aBh5rSmMhVBT5dL2mizvvf',
-				  "form_template": "wfp_cxb_gfd_report_brac_modhur_chara_1_rd_1",
-				  "form_title": "GFD Daily Report: BRAC, Modhur Chara 1, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#4j2hle8k"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Building Resources Across Communities",
-				  "organization_tag" : "brac",
-				  "organization" : "BRAC",  
-				  "organization_id" : "5c029f3f3e7ee3a1245bce61",
-					"report_round": '2',
-				  "site_id" : "modhur_chara_1",
-				  "site_name" : "Modhur Chara 1",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aY435WAFYnaidSdkndriJF',
-				  "form_template": "wfp_cxb_gfd_report_brac_modhur_chara_1_rd_2",
-				  "form_title": "GFD Daily Report: BRAC, Modhur Chara 1, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#mqFp5KzU"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Building Resources Across Communities",
-				  "organization_tag" : "brac",
-				  "organization" : "BRAC",  
-				  "organization_id" : "5c029f3f3e7ee3a1245bce61",
-					"report_round": '1',
-				  "site_id" : "tv_tower",
-				  "site_name" : "TV Tower",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aiSUuDK5X6ArbA6ierghw5',
-				  "form_template": "wfp_cxb_gfd_report_brac_tv_tower_rd_1",
-				  "form_title": "GFD Daily Report: BRAC, TV Tower, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#6yXhLHBK"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Building Resources Across Communities",
-				  "organization_tag" : "brac",
-				  "organization" : "BRAC",  
-				  "organization_id" : "5c029f3f3e7ee3a1245bce61",
-					"report_round": '2',
-				  "site_id" : "tv_tower",
-				  "site_name" : "TV Tower",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'a8k8u7tHLd75DoHqYPuNVZ',
-				  "form_template": "wfp_cxb_gfd_report_brac_tv_tower_rd_2",
-				  "form_title": "GFD Daily Report: BRAC, TV Tower, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#uAlxQQnX"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Resource Integration Centre",
-				  "organization_tag" : "ric",
-				  "organization" : "RIC",
-				  "organization_id" : "5c7e6aef5d8f0ad60bbe41b5",
-					"report_round": '1',
-				  "site_id" : "bagghona",
-				  "site_name" : "Bagghona",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aiVnuNVgbocrpCa3vroUA3',
-				  "form_template": "wfp_cxb_gfd_report_ric_bagghona_rd_1",
-				  "form_title": "GFD Daily Report: RIC, Bagghona, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#pchD8ObP"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Resource Integration Centre",
-				  "organization_tag" : "ric",
-				  "organization" : "RIC",
-				  "organization_id" : "5c7e6aef5d8f0ad60bbe41b5",
-					"report_round": '2',
-				  "site_id" : "bagghona",
-				  "site_name" : "Bagghona",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'a4aK7oKNiFc36N9k9GYE5u',
-				  "form_template": "wfp_cxb_gfd_report_ric_bagghona_rd_2",
-				  "form_title": "GFD Daily Report: RIC, Bagghona, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#ozQfPYB1"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Resource Integration Centre",
-				  "organization_tag" : "ric",
-				  "organization" : "RIC",
-				  "organization_id" : "5c7e6aef5d8f0ad60bbe41b5",
-					"report_round": '1',
-				  "site_id" : "hakimpara",
-				  "site_name" : "Hakimpara",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'apHLE7MVXEVkThvnW7mFaw',
-				  "form_template": "wfp_cxb_gfd_report_ric_hakimpara_rd_1",
-				  "form_title": "GFD Daily Report: RIC, Hakimpara, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#pknQuWtz"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Resource Integration Centre",
-				  "organization_tag" : "ric",
-				  "organization" : "RIC",
-				  "organization_id" : "5c7e6aef5d8f0ad60bbe41b5",
-					"report_round": '2',
-				  "site_id" : "hakimpara",
-				  "site_name" : "Hakimpara",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'agEdGJZ9BNBpZ7D9gijhtJ',
-				  "form_template": "wfp_cxb_gfd_report_ric_hakimpara_rd_2",
-				  "form_title": "GFD Daily Report: RIC, Hakimpara, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#9ywjP5gg"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Resource Integration Centre",
-				  "organization_tag" : "ric",
-				  "organization" : "RIC",
-				  "organization_id" : "5c7e6aef5d8f0ad60bbe41b5",
-					"report_round": '1',
-				  "site_id" : "jamtoli",
-				  "site_name" : "Jamtoli",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'ahJauwX7UUomH3fmHoqCGv',
-				  "form_template": "wfp_cxb_gfd_report_ric_jamtoli_rd_1",
-				  "form_title": "GFD Daily Report: RIC, Jamtoli, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#eSws5gkl"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Resource Integration Centre",
-				  "organization_tag" : "ric",
-				  "organization" : "RIC",
-				  "organization_id" : "5c7e6aef5d8f0ad60bbe41b5",
-					"report_round": '2',
-				  "site_id" : "jamtoli",
-				  "site_name" : "Jamtoli",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aaySJgBCwXEteBCwpzWJ7D',
-				  "form_template": "wfp_cxb_gfd_report_ric_jamtoli_rd_2",
-				  "form_title": "GFD Daily Report: RIC, Jamtoli, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#XLUswQff"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '1',
-				  "site_id" : "burma_para",
-				  "site_name" : "Burma Para",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aBt5a9motKDadVoZGLecss',
-				  "form_template": "wfp_cxb_gfd_report_sci_burma_para_rd_1",
-				  "form_title": "GFD Daily Report: SCI, Burma Para, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#XLUswQff"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '2',
-				  "site_id" : "burma_para",
-				  "site_name" : "Burma Para",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'adgtczSdb4CfBgsk2qiyMG',
-				  "form_template": "wfp_cxb_gfd_report_sci_burma_para_rd_2",
-				  "form_title": "GFD Daily Report: SCI, Burma Para, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#PBuVXji2"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '1',
-				  "site_id" : "camp_4_ext",
-				  "site_name" : "Camp 04 Ext",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'a7BiMZx87NetYF3yo9A2ae',
-				  "form_template": "wfp_cxb_gfd_report_sci_camp_04_ext_rd_1",
-				  "form_title": "GFD Daily Report: SCI, Camp 04 Ext, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#tr8tbkOD"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '2',
-				  "site_id" : "camp_4_ext",
-				  "site_name" : "Camp 04 Ext",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'axEHQwuYqpMRkawJXiUSGa',
-				  "form_template": "wfp_cxb_gfd_report_sci_camp_04_ext_rd_2",
-				  "form_title": "GFD Daily Report: SCI, Camp 04 Ext, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#Yu5XOdTl"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '1',
-				  "site_id" : "camp_17",
-				  "site_name" : "Camp 17",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aFBnRSYpDH26MBCiiE8fem',
-				  "form_template": "wfp_cxb_gfd_report_sci_camp_17_rd_1",
-				  "form_title": "GFD Daily Report: SCI, Camp 17, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#dxhyQcY6"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '2',
-				  "site_id" : "camp_17",
-				  "site_name" : "Camp 17",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aSSyHZUfPZMATWJVHqpC7V',
-				  "form_template": "wfp_cxb_gfd_report_sci_camp_17_rd_2",
-				  "form_title": "GFD Daily Report: SCI, Camp 17, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#b1blxGTq"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '1',
-				  "site_id" : "camp_19",
-				  "site_name" : "Camp 19",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'arS6aDKLK55ZCt2mBYM8kf',
-				  "form_template": "wfp_cxb_gfd_report_sci_camp_19_rd_1",
-				  "form_title": "GFD Daily Report: SCI, Camp 19, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#N3x1PaHm"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '2',
-				  "site_id" : "camp_19",
-				  "site_name" : "Camp 19",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aJidGM9Aa5bkKbwDXqzrZ8',
-				  "form_template": "wfp_cxb_gfd_report_sci_camp_19_rd_2",
-				  "form_title": "GFD Daily Report: SCI, Camp 19, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#WLmPehkH"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '1',
-				  "site_id" : "camp_20_ext",
-				  "site_name" : "Camp 20 Ext",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aYmbP3VndJhfSW38W7tHc7',
-				  "form_template": "wfp_cxb_gfd_report_sci_camp_20_ext_rd_1",
-				  "form_title": "GFD Daily Report: SCI, Camp 20 Ext, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#Q8AkBBSi"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '2',
-				  "site_id" : "camp_20_ext",
-				  "site_name" : "Camp 20 Ext",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aW2R4wzzt6JTWCughPkCfE',
-				  "form_template": "wfp_cxb_gfd_report_sci_camp_20_ext_rd_2",
-				  "form_title": "GFD Daily Report: SCI, Camp 20 Ext, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#3XiB0Wb5"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '1',
-				  "site_id" : "modhur_chara_2",
-				  "site_name" : "Modhur Chara 2",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aaVpBgKdjhgWBXbGw2z8fq',
-				  "form_template": "wfp_cxb_gfd_report_sci_modhur_chara_2_rd_1",
-				  "form_title": "GFD Daily Report: SCI, Modhur Chara 2, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#yormyyZw"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '2',
-				  "site_id" : "modhur_chara_2",
-				  "site_name" : "Modhur Chara 2",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aQYd5paqY8Cn2Fks42xaD6',
-				  "form_template": "wfp_cxb_gfd_report_sci_modhur_chara_2_rd_2",
-				  "form_title": "GFD Daily Report: SCI, Modhur Chara 2, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#M5fu0D2I"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '1',
-				  "site_id" : "modhur_chara_3",
-				  "site_name" : "Modhur Chara 3",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'atiE7eF5oDz35W8YAsnckN',
-				  "form_template": "wfp_cxb_gfd_report_sci_modhur_chara_3_rd_1",
-				  "form_title": "GFD Daily Report: SCI, Modhur Chara 3, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#yvZdnfq1"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '2',
-				  "site_id" : "modhur_chara_3",
-				  "site_name" : "Modhur Chara 3",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aXZsDPKoJXnKhdNtE6w5b3',
-				  "form_template": "wfp_cxb_gfd_report_sci_modhur_chara_3_rd_2",
-				  "form_title": "GFD Daily Report: SCI, Modhur Chara 3, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#L8aoaJSi"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '1',
-				  "site_id" : "modhur_chara_4",
-				  "site_name" : "Modhur Chara 4",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aiaoT6uiinorCBNw9wWC3w',
-				  "form_template": "wfp_cxb_gfd_report_sci_modhur_chara_4_rd_1",
-				  "form_title": "GFD Daily Report: SCI, Modhur Chara 4, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#7xopnHWt"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "Save the Children Federation International",
-				  "organization_tag" : "sci",
-				  "organization" : "SCI",
-				  "organization_id" : "5c02990e3e7ee3a1245bc642",
-					"report_round": '2',
-				  "site_id" : "modhur_chara_4",
-				  "site_name" : "Modhur Chara 4",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aoAjvVobUei5uuADGS69kB',
-				  "form_template": "wfp_cxb_gfd_report_sci_modhur_chara_4_rd_2",
-				  "form_title": "GFD Daily Report: SCI, Modhur Chara 4, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#YsHzNFbI"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "World Vision International",
-				  "organization_tag" : "wvi",
-				  "organization" : "WVI",
-				  "organization_id" : "5c029c383e7ee3a1245bce55",	
-					"report_round": '1',
-				  "site_id" : "balukhali_1",
-				  "site_name" : "Balukhali 1",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aVv7aFzF3FwR469xjZL2Xz',
-				  "form_template": "wfp_cxb_gfd_report_wvi_balukhali_1_rd_1",
-				  "form_title": "GFD Daily Report: WVI, Balukhali 1, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#nKQP6bc6"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "World Vision International",
-				  "organization_tag" : "wvi",
-				  "organization" : "WVI",
-				  "organization_id" : "5c029c383e7ee3a1245bce55",	
-					"report_round": '2',
-				  "site_id" : "balukhali_1",
-				  "site_name" : "Balukhali 1",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'apq9jVuaJtYdXw9APccfTq',
-				  "form_template": "wfp_cxb_gfd_report_wvi_balukhali_1_rd_2",
-				  "form_title": "GFD Daily Report: WVI, Balukhali 1, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#sh02G2Vu"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "World Vision International",
-				  "organization_tag" : "wvi",
-				  "organization" : "WVI",
-				  "organization_id" : "5c029c383e7ee3a1245bce55",	
-					"report_round": '1',
-				  "site_id" : "balukhali_2",
-				  "site_name" : "Balukhali 2",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aadePx8BUP2zsu2PXDNvjM',
-				  "form_template": "wfp_cxb_gfd_report_wvi_balukhali_2_rd_1",
-				  "form_title": "GFD Daily Report: WVI, Balukhali 2, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#K8Czeog4"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "World Vision International",
-				  "organization_tag" : "wvi",
-				  "organization" : "WVI",
-				  "organization_id" : "5c029c383e7ee3a1245bce55",	
-					"report_round": '2',
-				  "site_id" : "balukhali_2",
-				  "site_name" : "Balukhali 2",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'apQgwroBCcS7gMei4urxn6',
-				  "form_template": "wfp_cxb_gfd_report_wvi_balukhali_2_rd_2",
-				  "form_title": "GFD Daily Report: WVI, Balukhali 2, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#66PI7xwR"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "World Vision International",
-				  "organization_tag" : "wvi",
-				  "organization" : "WVI",
-				  "organization_id" : "5c029c383e7ee3a1245bce55",	
-					"report_round": '1',
-				  "site_id" : "mainnergona_1",
-				  "site_name" : "Mainnergona 1",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aWkuQNi5KAuLFj7ePJMTCZ',
-				  "form_template": "wfp_cxb_gfd_report_wvi_mainnergona_1_rd_1",
-				  "form_title": "GFD Daily Report: WVI, Mainnergona 1, Round 1",
-				  "url":"https://ee.humanitarianresponse.info/x/#BzYWVGxg"
-				},{
-				  "admin0pcode" : "CB",
-				  "admin0name" : "Cox Bazar",
-				  "organization_name" : "World Vision International",
-				  "organization_tag" : "wvi",
-				  "organization" : "WVI",
-				  "organization_id" : "5c029c383e7ee3a1245bce55",	
-					"report_round": '2',
-				  "site_id" : "mainnergona_1",
-				  "site_name" : "Mainnergona 1",
-				  "site_type_id" : "food_distribution_point",
-				  "site_type_name" : "Food Distribution Point",
-				  "assetUid": 'aWBWL85oYmMHXLd3nPdTnB',
-				  "form_template": "wfp_cxb_gfd_report_wvi_mainnergona_1_rd_2",
-				  "form_title": "GFD Daily Report: WVI, Mainnergona 1, Round 2",
-				  "url":"https://ee.humanitarianresponse.info/x/#gbdri0SZ"
-				}]
-			},
+			forms: { list:[] },
 
 			// camp list
 			camps: {
@@ -811,6 +182,28 @@ angular.module( 'ngmReportHub' )
 				    "admin3name" : "No Mans Land",
 				    "admin3pcode" : "CXB-NML"
 				}]
+			
+			},
+
+			// report complete?
+			setReportStatus: function () {
+
+				// active / complete
+				if ( $scope.report.report_round === '1' ) {
+					// set report status 2019-11-01
+					$scope.report.report_status = moment( $scope.report.reporting_period ).add( $scope.report.report_round_1, 'd' ).unix() > moment().unix() ? 'active' : 'complete';
+					// testing
+					// $scope.report.report_status = moment( $scope.report.reporting_period ).add( $scope.report.report_round_1, 'D' ).unix() > moment().unix() ? 'active' : 'active';
+				}
+
+				// active / complete
+				if ( $scope.report.report_round === '2' ) {
+					// set report status 2019-11-01
+					$scope.report.report_status = moment( $scope.report.reporting_period ).add( 1, 'M' ).add( $scope.report.report_round_2, 'd' ).unix() > moment().unix() ? 'active' : 'complete';
+					// testing
+					// $scope.report.report_status = moment( $scope.report.reporting_period ).add( 1, 'M' ).add( $scope.report.report_round_2, 'D' ).unix() > moment().unix() ? 'active' : 'active';
+				}
+
 			},
 
 			// title
@@ -822,19 +215,34 @@ angular.module( 'ngmReportHub' )
 					$scope.model.header.title.title = $scope.report.organization_tag.toUpperCase() + ' | ' + $scope.report.title;
 				}
 
-				// add GFD point to title
-				if ( $scope.report.site_id !== 'all' ) {
-					var gfd = $filter( 'filter' )( $scope.report.forms.list, { report_round: $scope.report.report_round, site_id: $scope.report.site_id } )[ 0 ];
-					$scope.model.header.title.title += ' | ' + gfd.site_name;
-					$scope.model.header.subtitle.title += ', ' + gfd.site_name + ' GFD Point';
-				}
+				// get data
+				ngmData.get({
+					method: 'POST',
+					url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getForms',
+					data: {
+						admin0pcode: $scope.report.user.admin0pcode,
+						organization_tag: $scope.report.organization_tag,
+						report_round: $scope.report.report_round,
+						report_distribution: $scope.report.report_distribution,
+					}
+				}).then( function( forms ){
+					// set
+					$scope.report.forms = forms;
+					
+					// add GFD point to title
+					if ( $scope.report.site_id !== 'all' ) {
+						var gfd = $filter( 'filter' )( $scope.report.forms.list, { report_round: $scope.report.report_round, site_id: $scope.report.site_id } )[ 0 ];
+						$scope.model.header.title.title += ' | ' + gfd.site_name;
+						$scope.model.header.subtitle.title += ', ' + gfd.site_name + ' GFD Point';
+					}
 
-				// add camp to title
-				if ( $scope.report.admin3pcode !== 'all' ) {
-					var camp = $filter( 'filter' )( $scope.report.camps.list, { admin3pcode: $scope.report.admin3pcode } )[ 0 ];
-					$scope.model.header.title.title += ' | ' + camp.admin3name;
-					$scope.model.header.subtitle.title += ', ' + camp.admin3name;
-				}
+					// add camp to title
+					if ( $scope.report.admin3pcode !== 'all' ) {
+						var camp = $filter( 'filter' )( $scope.report.camps.list, { admin3pcode: $scope.report.admin3pcode } )[ 0 ];
+						$scope.model.header.title.title += ' | ' + camp.admin3name;
+						$scope.model.header.subtitle.title += ', ' + camp.admin3name;
+					}					
+				});
 
 			},
 
@@ -853,38 +261,39 @@ angular.module( 'ngmReportHub' )
 							'param': 'organization_tag',
 							'active': 'wfp',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/wfp/all/all/all/all'
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/wfp/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						},{
 							'title': 'AAH',
 							'param': 'organization_tag',
 							'active': 'aah',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/aah/all/all/all/all'
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/aah/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						},{
 							'title': 'BRAC',
 							'param': 'organization_tag',
 							'active': 'brac',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/brac/all/all/all/all'
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/brac/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						},{
 							'title': 'RIC',
 							'param': 'organization_tag',
 							'active': 'ric',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/ric/all/all/all/all'
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/ric/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						},{
 							'title': 'SCI',
 							'param': 'organization_tag',
 							'active': 'sci',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/sci/all/all/all/all'
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/sci/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						},{
 							'title': 'WVI',
 							'param': 'organization_tag',
 							'active': 'wvi',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/wvi/all/all/all/all'
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/wvi/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						}]
+					
 					}]
 				
 				}
@@ -910,8 +319,9 @@ angular.module( 'ngmReportHub' )
 						'param': 'site_id',
 						'active': 'all',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/all/all/all/all'
+						'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 					}]
+				
 				});
 
 				// get data
@@ -927,22 +337,23 @@ angular.module( 'ngmReportHub' )
 						site_id: $scope.report.site_id,
 						admin3pcode: $scope.report.admin3pcode,
 						admin4pcode: $scope.report.admin4pcode,
-						admin5pcode: $scope.report.admin5pcode
+						admin5pcode: $scope.report.admin5pcode,
+						start_date: $scope.report.start_date,
+						end_date: $scope.report.end_date
 					}
+				
 				}).then( function( menu ){
 
-					// sort camps
-					sitemenu = $filter( 'orderBy' )( menu, 'site_name' );
-
 					// add rows to GFD menu
-					angular.forEach( sitemenu, function( d ){
+					angular.forEach( menu.site_id, function( d ){
 						$scope.model.menu[ $scope.model.menu.length-1 ].rows.push({
 							'title': d.site_name,
 							'param': 'site_id',
 							'active': d.site_id,
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + d.organization_tag + '/' + d.site_id + '/all/all/all'
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + d.organization_tag + '/' + d.site_id + '/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						});
+					
 					});
 
 					// add camp menu
@@ -957,22 +368,21 @@ angular.module( 'ngmReportHub' )
 							'param': 'admin3pcode',
 							'active': 'all',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/all/all/all/all'
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						}]
+					
 					});
-	
-					// sort camps
-					admin3menu = $filter( 'orderBy' )( menu, 'admin3name' );
 
 					// add rows to GFD menu
-					angular.forEach( admin3menu, function( d ){
+					angular.forEach( menu.admin3, function( d ){
 						$scope.model.menu[ $scope.model.menu.length-1 ].rows.push({
 							'title': d.admin3name,
 							'param': 'admin3pcode',
 							'active': d.admin3pcode,
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + d.admin3pcode + '/all/all'
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + d.admin3pcode + '/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 						});
+					
 					});
 
 					// admin4pcode
@@ -988,22 +398,18 @@ angular.module( 'ngmReportHub' )
 								'param': 'admin4pcode',
 								'active': 'all',
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/all/all'
+								'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 							}]
 						});
 
-						// sort blocks
-						admin4menu = $filter( 'filter' )( admin3menu, { 'admin3pcode': $scope.report.admin3pcode } );
-						admin4menu = $filter( 'orderBy' )( admin4menu, 'admin4name' );
-
 						// add rows to GFD menu
-						angular.forEach( admin4menu, function( d ){
+						angular.forEach( menu.admin4, function( d ){
 							$scope.model.menu[ $scope.model.menu.length-1 ].rows.push({
 								'title': d.admin4name,
 								'param': 'admin4pcode',
 								'active': d.admin4pcode,
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + d.admin4pcode + '/all'
+								'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + d.admin4pcode + '/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 							});
 						});
 
@@ -1020,37 +426,64 @@ angular.module( 'ngmReportHub' )
 									'param': 'admin5pcode',
 									'active': 'all',
 									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-									'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/all'
+									'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 								}]
 							});
 
-							// sort blocks
-							admin5menu = $filter( 'filter' )( admin4menu, { 'admin4pcode': $scope.report.admin4pcode } );
-							admin5menu = $filter( 'orderBy' )( admin5menu, 'admin5name' );
-
 							// subtitle
-							$scope.model.header.subtitle.title += ', ' + admin5menu[ 0 ].admin4name;
+							$scope.model.header.subtitle.title += ', ' + menu.admin4[ 0 ].admin4name;
 
 							// add rows to GFD menu
-							angular.forEach( admin5menu, function( d ){
+							angular.forEach( menu.admin5, function( d ){
 								$scope.model.menu[ $scope.model.menu.length-1 ].rows.push({
 									'title': d.admin5name,
 									'param': 'admin5pcode',
 									'active': d.admin5pcode,
 									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-									'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/' + d.admin5pcode
+									'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/' + d.admin5pcode + '/' + $scope.report.start_date + '/' + $scope.report.end_date
 								});
 							});
 
 							// subtitle
 							if ( $scope.report.admin5pcode !== 'all' ) {
-								var subtitle = $filter( 'filter' )( admin5menu, { 'admin5pcode': $scope.report.admin5pcode } );
+								var subtitle = $filter( 'filter' )( menu.admin5, { 'admin5pcode': $scope.report.admin5pcode } );
 								$scope.model.header.subtitle.title += ', ' + subtitle[ 0 ].admin5name;
 							}
 
 						}
 
 					}
+
+					// DATE
+					$scope.model.menu.push({
+						'id': 'search-date-distribution',
+						'search': true,
+						'icon': 'date_range',
+						'title': 'Distribution Date',
+						'class': 'teal lighten-1 white-text',
+						"rows": [{
+							'title': 'All',
+							'param': 'end_date',
+							'active': 'all',
+							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/all/' + $scope.report.reporting_period + '/' + ( moment().unix() < moment( $scope.report.reporting_period ).endOf( 'month' ).unix() ? moment().format( 'YYYY-MM-DD' ) : moment( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' ) )
+						}]
+
+					});
+
+					// add rows to DATE menu
+					angular.forEach( menu.dates, function( d ){
+						if ( d.distribution_date ) {
+							$scope.model.menu[ $scope.model.menu.length-1 ].rows.push({
+								'title': d.distribution_date,
+								'param': 'end_date',
+								'active': d.distribution_date,
+								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
+								'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/' + $scope.report.admin5pcode + '/' + d.distribution_date + '/' + d.distribution_date
+							});
+						}
+					
+					});
 
 				});
 			
@@ -1059,8 +492,58 @@ angular.module( 'ngmReportHub' )
 			// set downloads
 			setDownloads: function() {
 
-				// downlaods
-				var downloads = [{
+				// downloads
+				var downloads = [];
+
+				// distribution list
+				if ( $scope.report.organization_tag !== 'wfp' ) {
+					
+					// downloads
+					downloads.push({
+						type: 'pdf',
+						color: 'blue',
+						icon: 'picture_as_pdf',
+						hover: 'Download Planned Distribution List',
+						request: {
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
+							data: {
+								download: true,
+								indicator: 'print_distribution_zip',
+								downloadUrl: ngmAuth.LOCATION + '/report/',
+								admin0pcode: $scope.report.user.admin0pcode,
+								organization_tag: $scope.report.organization_tag,
+								report_round: $scope.report.report_round,
+								report_distribution: $scope.report.report_distribution,
+								site_id: $scope.report.site_id,
+								admin3pcode: $scope.report.admin3pcode,
+								admin4pcode: $scope.report.admin4pcode,
+								admin5pcode: $scope.report.admin5pcode,
+								start_date: $scope.report.start_date,
+								end_date: $scope.report.end_date,
+								report: $scope.report.organization_tag +'_planned_distribution_list_round_' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
+							}
+						},
+						metrics: {
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/metrics/set',
+							data: {
+								organization: $scope.report.user.organization,
+								username: $scope.report.user.username,
+								email: $scope.report.user.email,
+								dashboard: 'gfa_gfd_plan_distribution_list_' + $scope.report.report_round + '_' + $scope.report.report_distribution,
+								theme: 'gfa_gfd_plan_distribution_list',
+								format: 'csv',
+								url: $location.$$path
+							}
+						}
+					
+					});		
+				
+				}
+
+				// default downlaods
+				downloads.push({
 					type: 'csv',
 					color: 'teal lighten-3',
 					icon: 'group',
@@ -1079,6 +562,8 @@ angular.module( 'ngmReportHub' )
 							admin3pcode: $scope.report.admin3pcode,
 							admin4pcode: $scope.report.admin4pcode,
 							admin5pcode: $scope.report.admin5pcode,
+							start_date: $scope.report.start_date,
+							end_date: $scope.report.end_date,
 							report: $scope.report.organization_tag +'_planned_duplicates_round' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
 						}
 					},
@@ -1098,7 +583,7 @@ angular.module( 'ngmReportHub' )
 				},{
 					type: 'csv',
 					color: 'teal lighten-3',
-					icon: 'people_outline',
+					icon: 'accessible',
 					hover: 'Download Vulnerable Populations',
 					request: {
 						method: 'POST',
@@ -1114,6 +599,8 @@ angular.module( 'ngmReportHub' )
 							admin3pcode: $scope.report.admin3pcode,
 							admin4pcode: $scope.report.admin4pcode,
 							admin5pcode: $scope.report.admin5pcode,
+							start_date: $scope.report.start_date,
+							end_date: $scope.report.end_date,
 							report: $scope.report.organization_tag +'_planned_vulnerable_popn_round' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
 						}
 					},
@@ -1126,6 +613,43 @@ angular.module( 'ngmReportHub' )
 							email: $scope.report.user.email,
 							dashboard: 'gfa_gfd_plan_vulnerable_popns_' + $scope.report.report_round + '_' + $scope.report.report_distribution,
 							theme: 'gfa_gfd_plan_vulnerable_popns',
+							format: 'csv',
+							url: $location.$$path
+						}
+					}
+				},{
+					type: 'csv',
+					color: 'teal lighten-3',
+					icon: 'person',
+					hover: 'Download Planned Beneficiaries',
+					request: {
+						method: 'POST',
+						url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
+						data: {
+							download: true,
+							indicator: 'downloads_beneficiaries',
+							admin0pcode: $scope.report.user.admin0pcode,
+							organization_tag: $scope.report.organization_tag,
+							report_round: $scope.report.report_round,
+							report_distribution: $scope.report.report_distribution,
+							site_id: $scope.report.site_id,
+							admin3pcode: $scope.report.admin3pcode,
+							admin4pcode: $scope.report.admin4pcode,
+							admin5pcode: $scope.report.admin5pcode,
+							start_date: $scope.report.start_date,
+							end_date: $scope.report.end_date,
+							report: $scope.report.organization_tag +'_planned_beneficiaries_round_' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
+						}
+					},
+					metrics: {
+						method: 'POST',
+						url: ngmAuth.LOCATION + '/api/metrics/set',
+						data: {
+							organization: $scope.report.user.organization,
+							username: $scope.report.user.username,
+							email: $scope.report.user.email,
+							dashboard: 'gfa_gfd_plan_beneficiaries_' + $scope.report.report_round + '_' + $scope.report.report_distribution,
+							theme: 'gfa_gfd_plan_beneficiaries',
 							format: 'csv',
 							url: $location.$$path
 						}
@@ -1149,6 +673,8 @@ angular.module( 'ngmReportHub' )
 							admin3pcode: $scope.report.admin3pcode,
 							admin4pcode: $scope.report.admin4pcode,
 							admin5pcode: $scope.report.admin5pcode,
+							start_date: $scope.report.start_date,
+							end_date: $scope.report.end_date,
 							report: $scope.report.organization_tag +'_planned_food_distribution_' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
 						}
 					},
@@ -1165,42 +691,7 @@ angular.module( 'ngmReportHub' )
 							url: $location.$$path
 						}
 					}
-				},{
-					type: 'csv',
-					color: 'teal lighten-3',
-					icon: 'person',
-					hover: 'Download Planned Beneficiaries',
-					request: {
-						method: 'POST',
-						url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
-						data: {
-							download: true,
-							indicator: 'downloads_planned_beneficiaries',
-							admin0pcode: $scope.report.user.admin0pcode,
-							organization_tag: $scope.report.organization_tag,
-							report_round: $scope.report.report_round,
-							report_distribution: $scope.report.report_distribution,
-							site_id: $scope.report.site_id,
-							admin3pcode: $scope.report.admin3pcode,
-							admin4pcode: $scope.report.admin4pcode,
-							admin5pcode: $scope.report.admin5pcode,
-							report: $scope.report.organization_tag +'_planned_beneficiaries_round_' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
-						}
-					},
-					metrics: {
-						method: 'POST',
-						url: ngmAuth.LOCATION + '/api/metrics/set',
-						data: {
-							organization: $scope.report.user.organization,
-							username: $scope.report.user.username,
-							email: $scope.report.user.email,
-							dashboard: 'gfa_gfd_plan_beneficiaries_' + $scope.report.report_round + '_' + $scope.report.report_distribution,
-							theme: 'gfa_gfd_plan_beneficiaries',
-							format: 'csv',
-							url: $location.$$path
-						}
-					}
-				}];
+				});
 
 				// set downloads
 				$scope.model.header.download.downloads = downloads;
@@ -1224,12 +715,179 @@ angular.module( 'ngmReportHub' )
 				
 				}).then( function( data ){
 
-					// NO PLANNED BENEFICIARIES
+					// if report is active ( show upload )
+					if ( $scope.report.report_status === 'active' ) {
 
-					// if !wfp and !data, show upload only
-					if ( $scope.report.organization_tag === 'wfp' && !data.length ) {
-						
-						// upload
+						// if wfp && immap
+						if ( $scope.report.organization_tag === 'wfp' || $scope.report.organization_tag === 'immap' ) {
+								
+							// show upload message
+							if ( !data.length ){
+								// upload
+								$scope.model.rows.push({
+									columns: [{
+										styleClass: 's12 m12 l12',
+										widgets: [{
+											type: 'html',
+											card: 'card-panel',
+											style: 'padding:0px;',
+											config: {
+												header: 'collection-header blue',
+												icon: 'announcement',
+												message: 'No Planned Beneficiaries!',
+												report_round: $scope.report.report_round,
+												report_distribution: $scope.report.report_distribution,
+												templateUrl: '/scripts/widgets/ngm-html/template/bgd/gfd/planned.beneficiaries.html',
+											}
+										}]
+									}]
+								
+								});
+
+							}
+
+							// show banner
+							if ( data.length ){
+
+								// set default banner
+								$scope.model.rows.push({
+									columns: [{
+										styleClass: 's12 m12 l12',
+										widgets: [{
+											type: 'html',
+											card: 'card-panel',
+											style: 'padding:0px;',
+											config: {
+												header: 'collection-header blue',
+												icon: 'check_circle',
+												minimize: {
+													open: false,
+													toggle: false,
+													disabled: true
+												},
+												message: $scope.report.organization_tag === 'wfp' || $scope.report.organization_tag === 'immap' ? 'Planned Beneficiaries' : $scope.report.organization_tag.toUpperCase() + ' Planned Beneficiaries',
+												report_round: $scope.report.report_round,
+												report_distribution: $scope.report.report_distribution,
+												templateUrl: '/scripts/widgets/ngm-html/template/bgd/gfd/daily.report.forms.html',
+											}
+										}]
+									}]
+								
+								});
+
+							}
+
+						}
+
+						// if other orgs
+						if ( $scope.report.organization_tag !== 'wfp' && $scope.report.organization_tag !== 'immap' ){
+								// upload
+								$scope.model.rows.push({
+									columns: [{
+										styleClass: 's12 m12 l12',
+										widgets: [{
+											type: 'dropzone',
+											style: 'padding: 0px;',
+											card: 'white grey-text text-darken-2',
+											config: {
+												parallelUploads: 1,
+												cardTitle: $scope.report.organization_tag.toUpperCase() + ' Planned Beneficiaries',
+												header: 'collection-header blue',
+												dictMsg: '<div style="font-weight:400;font-size:1.2rem;">Round ' + $scope.report.report_round + ', Distribution ' + $scope.report.report_distribution + '<br/>Drag & Drop Planned Beneficiaries</div>',
+												minimize: {
+													open: !data.length,
+													toggle: true,
+													disabled: !data.length
+												},
+												url: ngmAuth.LOCATION + '/api/upload-file',
+												acceptedFiles: '.xlsx',
+												headers: { 'Authorization': 'Bearer ' + ngmUser.get().token },
+												successMessage: false,
+												process: {
+													redirect: 'bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/all/all/all/all',
+													requests: [{
+														method: 'POST',
+														url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/processPlannedBeneficiaries',
+														data: {
+															admin0pcode: $scope.report.user.admin0pcode,
+															organization_tag: $scope.report.organization_tag,
+															report_round: $scope.report.report_round,
+															report_distribution: $scope.report.report_distribution,
+														}
+													},{
+														method: 'POST',
+														url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setKoboXlsxForm',
+														data: {
+															admin0pcode: $scope.report.user.admin0pcode,
+															organization_tag: $scope.report.organization_tag,
+															report_round: $scope.report.report_round,
+															report_distribution: $scope.report.report_distribution,
+														}
+													},{
+														method: 'POST',
+														url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/sendKoboManualDeployEmail',
+														data: {
+															admin0pcode: $scope.report.user.admin0pcode,
+															organization_tag: $scope.report.organization_tag,
+															report_round: $scope.report.report_round,
+															report_distribution: $scope.report.report_distribution,
+														}
+													}]
+												}
+											}
+										}]
+									}]
+								
+								});
+
+							// forms
+							if ( data.length ) {
+
+								// report round / distribution
+								var form_filter = { report_round: $scope.report.report_round, organization_tag: $scope.report.organization_tag }
+
+								// site id
+								if ( $scope.report.site_id !== 'all' ) {
+									form_filter.site_id = $scope.report.site_id;
+								}
+
+								// form links
+								$scope.model.rows.push({
+									columns: [{
+										styleClass: 's12 m12 l12',
+										widgets: [{
+											type: 'html',
+											card: 'card-panel',
+											style: 'padding:0px;',
+											config: {
+												forms: $filter( 'filter' )( $scope.report.forms.list, form_filter ),
+												header: 'collection-header blue',
+												icon: 'inbox',
+												message: $scope.report.organization_tag !== 'wfp' ? $scope.report.organization_tag.toUpperCase() + ' Daily Reporting Forms' : 'Daily Reporting Forms',
+												minimize: {
+													open: false,
+													toggle: true,
+													disabled: false,
+													openCloseCard: function( panel ){
+														panel.minimize.open = !panel.minimize.open;
+													}
+												},
+												templateUrl: '/scripts/widgets/ngm-html/template/bgd/gfd/daily.report.forms.html',
+											}
+										}]
+									}]
+								
+								});
+							
+							}
+
+						}
+
+					}
+
+					// show banner
+					if ( $scope.report.report_status !== 'active' ) {
+						// set default banner
 						$scope.model.rows.push({
 							columns: [{
 								styleClass: 's12 m12 l12',
@@ -1239,72 +897,16 @@ angular.module( 'ngmReportHub' )
 									style: 'padding:0px;',
 									config: {
 										header: 'collection-header blue',
-										icon: 'announcement',
-										message: 'No Planned Beneficiaries!',
-										report_round: $scope.report.report_round,
-										report_distribution: $scope.report.report_distribution,
-										templateUrl: '/scripts/widgets/ngm-html/template/bgd/gfd/planned.beneficiaries.html',
-									}
-								}]
-							}]
-						
-						});
-					
-					} else if ( $scope.report.organization_tag !== 'wfp' && !data.length ) {
-						
-						// upload
-						$scope.model.rows.push({
-							columns: [{
-								styleClass: 's12 m12 l12',
-								widgets: [{
-									type: 'dropzone',
-									style: 'padding: 0px;',
-									card: 'white grey-text text-darken-2',
-									config: {
-										parallelUploads: 1,
-										cardTitle: $scope.report.organization_tag.toUpperCase() + ' Planned Beneficiaries',
-										header: 'collection-header blue',
-										dictMsg: '<div style="font-weight:400;font-size:1.2rem;">Round ' + $scope.report.report_round + ', Distribution ' + $scope.report.report_distribution + '<br/>Drag & Drop Planned Beneficiaries</div>',
+										icon: 'check_circle',
 										minimize: {
-											open: true,
-											toggle: true,
+											open: false,
+											toggle: false,
 											disabled: true
 										},
-										url: ngmAuth.LOCATION + '/api/upload-file',
-										acceptedFiles: '.xlsx',
-										headers: { 'Authorization': 'Bearer ' + ngmUser.get().token },
-										successMessage: false,
-										process: {
-											redirect: 'bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/all/all/all/all',
-											requests: [{
-												method: 'POST',
-												url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/processPlannedBeneficiaries',
-												data: {
-													admin0pcode: $scope.report.user.admin0pcode,
-													organization_tag: $scope.report.organization_tag,
-													report_round: $scope.report.report_round,
-													report_distribution: $scope.report.report_distribution,
-												}
-											},{
-												method: 'POST',
-												url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setKoboXlsxForm',
-												data: {
-													admin0pcode: $scope.report.user.admin0pcode,
-													organization_tag: $scope.report.organization_tag,
-													report_round: $scope.report.report_round,
-													report_distribution: $scope.report.report_distribution,
-												}
-											},{
-												method: 'POST',
-												url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/deployKoboXlsxForm',
-												data: {
-													admin0pcode: $scope.report.user.admin0pcode,
-													organization_tag: $scope.report.organization_tag,
-													report_round: $scope.report.report_round,
-													report_distribution: $scope.report.report_distribution,
-												}
-											}]
-										}
+										message: $scope.report.organization_tag === 'wfp' || $scope.report.organization_tag === 'immap' ? 'Planned Beneficiaries' : $scope.report.organization_tag.toUpperCase() + ' Planned Beneficiaries',
+										report_round: $scope.report.report_round,
+										report_distribution: $scope.report.report_distribution,
+										templateUrl: '/scripts/widgets/ngm-html/template/bgd/gfd/daily.report.forms.html',
 									}
 								}]
 							}]
@@ -1313,115 +915,13 @@ angular.module( 'ngmReportHub' )
 					
 					}
 
-					// !wfp and data.length
-					if ( $scope.report.organization_tag !== 'wfp' && data.length ) {
-						
-						// upload
-						$scope.model.rows.push({
-							columns: [{
-								styleClass: 's12 m12 l12',
-								widgets: [{
-									type: 'dropzone',
-									style: 'padding: 0px;',
-									card: 'white grey-text text-darken-2',
-									config: {
-										parallelUploads: 1,
-										cardTitle: $scope.report.organization_tag === 'wfp' ? 'Planned Beneficiaries' : $scope.report.organization_tag.toUpperCase() + ' Planned Beneficiaries',
-										header: 'collection-header blue',
-										dictMsg: '<div style="font-weight:400;font-size:1.2rem;">Round ' + $scope.report.report_round + ', Distribution ' + $scope.report.report_distribution + '<br/>Drag & Drop Planned Beneficiaries</div>',
-										minimize: {
-											open: false,
-											toggle: true,
-											disabled: false
-										},
-										url: ngmAuth.LOCATION + '/api/upload-file',
-										acceptedFiles: '.xlsx',
-										headers: { 'Authorization': 'Bearer ' + ngmUser.get().token },
-										successMessage: false,
-										process: {
-											redirect: 'bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/all/all/all/all',
-											requests: [{
-												method: 'POST',
-												url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/processPlannedBeneficiaries',
-												data: {
-													admin0pcode: $scope.report.user.admin0pcode,
-													organization_tag: $scope.report.organization_tag,
-													report_round: $scope.report.report_round,
-													report_distribution: $scope.report.report_distribution
-												}
-											},{
-												method: 'POST',
-												url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setKoboXlsxForm',
-												data: {
-													admin0pcode: $scope.report.user.admin0pcode,
-													organization_tag: $scope.report.organization_tag,
-													report_round: $scope.report.report_round,
-													report_distribution: $scope.report.report_distribution
-												}
-											},{
-												method: 'POST',
-												url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/deployKoboXlsxForm',
-												data: {
-													admin0pcode: $scope.report.user.admin0pcode,
-													organization_tag: $scope.report.organization_tag,
-													report_round: $scope.report.report_round,
-													report_distribution: $scope.report.report_distribution
-												}
-											}]
-										}
-									}
-								}]
-							}]
-						
-						});
-					
-					}					
 
 					// PLANNED BENEFICIARIES
 
 					// data for round
 					if ( data.length ) {
 
-						// report round / distribution
-						var form_filter = { report_round: $scope.report.report_round }
-
-						// site id
-						if ( $scope.report.organization_tag !== 'wfp' ) {
-							form_filter.organization_tag = $scope.report.organization_tag;
-						}
-
-						// site id
-						if ( $scope.report.site_id !== 'all' ) {
-							form_filter.site_id = $scope.report.site_id;
-						}
-
-						// form links
-						$scope.model.rows.push({
-							columns: [{
-								styleClass: 's12 m12 l12',
-								widgets: [{
-									type: 'html',
-									card: 'card-panel',
-									style: 'padding:0px;',
-									config: {
-										forms: $filter( 'filter' )( $scope.report.forms.list, form_filter ),
-										header: 'collection-header blue',
-										icon: 'inbox',
-										message: $scope.report.organization_tag !== 'wfp' ? $scope.report.organization_tag.toUpperCase() + ' Daily Reporting Forms' : 'Daily Reporting Forms',
-										minimize: {
-											open: false,
-											toggle: true,
-											disabled: false,
-											openCloseCard: function( panel ){
-												panel.minimize.open = !panel.minimize.open;
-											}
-										},
-										templateUrl: '/scripts/widgets/ngm-html/template/bgd/gfd/daily.report.forms.html',
-									}
-								}]
-							}]
-						
-						});
+						// INDICATORS
 
 						// default indicators 
 						$scope.model.rows.push({
@@ -1445,7 +945,9 @@ angular.module( 'ngmReportHub' )
 												site_id: $scope.report.site_id,
 												admin3pcode: $scope.report.admin3pcode,
 												admin4pcode: $scope.report.admin4pcode,
-												admin5pcode: $scope.report.admin5pcode
+												admin5pcode: $scope.report.admin5pcode,
+												start_date: $scope.report.start_date,
+												end_date: $scope.report.end_date
 											}
 										}
 									}
@@ -1470,7 +972,9 @@ angular.module( 'ngmReportHub' )
 												site_id: $scope.report.site_id,
 												admin3pcode: $scope.report.admin3pcode,
 												admin4pcode: $scope.report.admin4pcode,
-												admin5pcode: $scope.report.admin5pcode
+												admin5pcode: $scope.report.admin5pcode,
+												start_date: $scope.report.start_date,
+												end_date: $scope.report.end_date
 											}
 										}
 									}
@@ -1495,7 +999,9 @@ angular.module( 'ngmReportHub' )
 												site_id: $scope.report.site_id,
 												admin3pcode: $scope.report.admin3pcode,
 												admin4pcode: $scope.report.admin4pcode,
-												admin5pcode: $scope.report.admin5pcode
+												admin5pcode: $scope.report.admin5pcode,
+												start_date: $scope.report.start_date,
+												end_date: $scope.report.end_date
 											}
 										}
 									}
@@ -1520,7 +1026,9 @@ angular.module( 'ngmReportHub' )
 												site_id: $scope.report.site_id,
 												admin3pcode: $scope.report.admin3pcode,
 												admin4pcode: $scope.report.admin4pcode,
-												admin5pcode: $scope.report.admin5pcode
+												admin5pcode: $scope.report.admin5pcode,
+												start_date: $scope.report.start_date,
+												end_date: $scope.report.end_date
 											}
 										}
 									}
@@ -1545,7 +1053,9 @@ angular.module( 'ngmReportHub' )
 												site_id: $scope.report.site_id,
 												admin3pcode: $scope.report.admin3pcode,
 												admin4pcode: $scope.report.admin4pcode,
-												admin5pcode: $scope.report.admin5pcode
+												admin5pcode: $scope.report.admin5pcode,
+												start_date: $scope.report.start_date,
+												end_date: $scope.report.end_date
 											}
 										}
 									}
@@ -1579,7 +1089,9 @@ angular.module( 'ngmReportHub' )
 												site_id: $scope.report.site_id,
 												admin3pcode: $scope.report.admin3pcode,
 												admin4pcode: $scope.report.admin4pcode,
-												admin5pcode: $scope.report.admin5pcode
+												admin5pcode: $scope.report.admin5pcode,
+												start_date: $scope.report.start_date,
+												end_date: $scope.report.end_date
 											}
 										}
 									}
@@ -1607,7 +1119,9 @@ angular.module( 'ngmReportHub' )
 												site_id: $scope.report.site_id,
 												admin3pcode: $scope.report.admin3pcode,
 												admin4pcode: $scope.report.admin4pcode,
-												admin5pcode: $scope.report.admin5pcode
+												admin5pcode: $scope.report.admin5pcode,
+												start_date: $scope.report.start_date,
+												end_date: $scope.report.end_date
 											}
 										}
 									}
@@ -1635,7 +1149,9 @@ angular.module( 'ngmReportHub' )
 												site_id: $scope.report.site_id,
 												admin3pcode: $scope.report.admin3pcode,
 												admin4pcode: $scope.report.admin4pcode,
-												admin5pcode: $scope.report.admin5pcode
+												admin5pcode: $scope.report.admin5pcode,
+												start_date: $scope.report.start_date,
+												end_date: $scope.report.end_date
 											}
 										}
 									}
@@ -1649,7 +1165,7 @@ angular.module( 'ngmReportHub' )
 									config: {
 										title: "Total Entitlements (Mt)",
 										display: {
-											fractionSize: 3
+											fractionSize: 2
 										},
 										request: {
 											method: 'POST',
@@ -1663,7 +1179,9 @@ angular.module( 'ngmReportHub' )
 												site_id: $scope.report.site_id,
 												admin3pcode: $scope.report.admin3pcode,
 												admin4pcode: $scope.report.admin4pcode,
-												admin5pcode: $scope.report.admin5pcode
+												admin5pcode: $scope.report.admin5pcode,
+												start_date: $scope.report.start_date,
+												end_date: $scope.report.end_date
 											}
 										}
 									}
@@ -1687,8 +1205,6 @@ angular.module( 'ngmReportHub' )
 										headerText: 'white-text',
 										headerIcon: 'group',
 										headerTitle: "Duplicate FCN's",
-										site_name: 'site_name',
-										gfd_family_size: 'gfd_family_size',
 										templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.html',
 										tableOptions:{
 											count: 10
@@ -1697,7 +1213,7 @@ angular.module( 'ngmReportHub' )
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 											data: {
-												indicator: 'duplicate_beneficiaries_list',
+												indicator: 'beneficiaries_duplicate_list',
 												admin0pcode: $scope.report.user.admin0pcode,
 												organization_tag: $scope.report.organization_tag,
 												report_round: $scope.report.report_round,
@@ -1705,7 +1221,9 @@ angular.module( 'ngmReportHub' )
 												site_id: $scope.report.site_id,
 												admin3pcode: $scope.report.admin3pcode,
 												admin4pcode: $scope.report.admin4pcode,
-												admin5pcode: $scope.report.admin5pcode
+												admin5pcode: $scope.report.admin5pcode,
+												start_date: $scope.report.start_date,
+												end_date: $scope.report.end_date
 											}
 										}
 									}
@@ -1726,8 +1244,6 @@ angular.module( 'ngmReportHub' )
 										headerText: 'white-text',
 										headerIcon: 'assignment_turned_in',
 										headerTitle: "Beneficiaries List",
-										site_name: 'site_name',
-										gfd_family_size: 'gfd_family_size',
 										templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.html',
 										tableOptions:{
 											count: 30
@@ -1744,7 +1260,9 @@ angular.module( 'ngmReportHub' )
 												site_id: $scope.report.site_id,
 												admin3pcode: $scope.report.admin3pcode,
 												admin4pcode: $scope.report.admin4pcode,
-												admin5pcode: $scope.report.admin5pcode
+												admin5pcode: $scope.report.admin5pcode,
+												start_date: $scope.report.start_date,
+												end_date: $scope.report.end_date
 											}
 										}
 									}
@@ -1788,12 +1306,73 @@ angular.module( 'ngmReportHub' )
 						},
 						title: {
 							'class': 'col s12 m12 l8 report-title truncate',
-							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
+							style: 'font-size: 2.3rem; font-weight: 300; padding-top: 20px; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
 							title: $scope.report.title
 						},
 						subtitle: {
-							'class': 'col s12 m12 l12 report-subtitle hide-on-small-only',
+							'class': 'col hide-on-small-only report-subtitle truncate m8 l9',
+							style: 'font-weight: 400;',
 							title: $scope.report.subtitle
+						},
+						datePicker: {
+							'class': 'col s12 m4 l3',
+							dates: [{
+								style: 'float:left;',
+								label: $filter('translate')('from'),
+								format: 'd mmm, yyyy',
+								min: $scope.report.reporting_period,
+								max: moment( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' ),
+								currentTime: $scope.report.start_date,
+								onClose: function(){
+									// set date
+									var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
+									if ( date !== $scope.report.start_date ) {
+										// set new date
+										$scope.report.start_date = date;
+										// path
+										var path = '/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round +
+																	'/distribution/' + $scope.report.report_distribution +
+																	'/' + $scope.report.reporting_period +
+																	'/plan/' + $scope.report.organization_tag +
+																	'/' + $scope.report.site_id +
+																	'/' + $scope.report.admin3pcode +
+																	'/' + $scope.report.admin4pcode +
+																	'/' + $scope.report.admin5pcode +
+																	'/' + $scope.report.start_date +
+																	'/' + $scope.report.end_date;
+										// set path
+										$location.path( path );
+									}
+								}
+							},{
+								style: 'float:right',
+								label: $filter('translate')('to'),
+								format: 'd mmm, yyyy',
+								min: $scope.report.reporting_period,
+								max: moment( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' ),
+								currentTime: $scope.report.end_date,
+								onClose: function(){
+									// set date
+									var date = moment(new Date(this.currentTime)).format('YYYY-MM-DD')
+									if ( date !== $scope.report.end_date ) {
+										// set new date
+										$scope.report.end_date = date;
+											// path
+										var path = '/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round +
+																	'/distribution/' + $scope.report.report_distribution +
+																	'/' + $scope.report.reporting_period +
+																	'/plan/' + $scope.report.organization_tag +
+																	'/' + $scope.report.site_id +
+																	'/' + $scope.report.admin3pcode +
+																	'/' + $scope.report.admin4pcode +
+																	'/' + $scope.report.admin5pcode +
+																	'/' + $scope.report.start_date +
+																	'/' + $scope.report.end_date;
+										// set path
+										$location.path( path );
+									}
+								}
+							}]
 						},
 						download: {
 							'class': 'col s12 m4 l4 hide-on-small-only'
@@ -1807,8 +1386,35 @@ angular.module( 'ngmReportHub' )
 								type: 'html',
 								card: 'white grey-text text-darken-2',
 								style: 'padding: 20px;',
-								config: {
-									html: '<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '"><i class="material-icons left">keyboard_return</i>Back to Distribution Round ' + $scope.report.report_distribution + '</a>'
+								config: {									
+									// html
+									templateUrl: '/scripts/widgets/ngm-html/template/bgd/gfd/dashboard.btns.html',
+									// send request
+									request: {
+										method: 'POST',
+										url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
+										data: {
+											indicator: 'latest',
+											admin0pcode: $scope.report.user.admin0pcode,
+											organization_tag: $scope.report.organization_tag,
+											report_round: $scope.report.report_round,
+											report_distribution: $scope.report.report_distribution,
+											site_id: $scope.report.site_id,
+											admin3pcode: $scope.report.admin3pcode,
+											admin4pcode: $scope.report.admin4pcode,
+											admin5pcode: $scope.report.admin5pcode,
+											start_date: $scope.report.start_date,
+											end_date: $scope.report.end_date
+										}
+									},
+									// config
+									helper: {
+										// details for btns
+										title: 'Back to Distribution Round ' + $scope.report.report_distribution,
+										url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period,
+										today_url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' +  $scope.report.organization_tag + '/all/all/all/all/' + moment().format( 'YYYY-MM-DD' ) + '/' + moment().format( 'YYYY-MM-DD' ),
+										distribution_period_url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' +  $scope.report.organization_tag + '/all/all/all/all/' + $scope.report.reporting_period + '/' + moment().format( 'YYYY-MM-DD' ),
+									}
 								}
 							}]
 						}]
@@ -1822,7 +1428,11 @@ angular.module( 'ngmReportHub' )
 					    }]
 					  }]					
 					}]
+				
 				};
+
+				// set status
+				$scope.report.setReportStatus();
 
 				// set title
 				$scope.report.setTitle();
