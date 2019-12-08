@@ -466,7 +466,7 @@ angular.module( 'ngmReportHub' )
 							'param': 'end_date',
 							'active': 'all',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/all/' + $scope.report.reporting_period + '/' + ( moment().unix() < moment( $scope.report.reporting_period ).endOf( 'month' ).unix() ? moment().format( 'YYYY-MM-DD' ) : moment( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' ) )
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/all/' + $scope.report.reporting_period + '/' + moment( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' )
 						}]
 
 					});
@@ -564,7 +564,7 @@ angular.module( 'ngmReportHub' )
 							admin5pcode: $scope.report.admin5pcode,
 							start_date: $scope.report.start_date,
 							end_date: $scope.report.end_date,
-							report: $scope.report.organization_tag +'_planned_duplicates_round' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
+							report: $scope.report.organization_tag +'_planned_duplicates_round_' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
 						}
 					},
 					metrics: {
@@ -601,7 +601,7 @@ angular.module( 'ngmReportHub' )
 							admin5pcode: $scope.report.admin5pcode,
 							start_date: $scope.report.start_date,
 							end_date: $scope.report.end_date,
-							report: $scope.report.organization_tag +'_planned_vulnerable_popn_round' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
+							report: $scope.report.organization_tag +'_planned_vulnerable_popn_round_' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
 						}
 					},
 					metrics: {
@@ -1413,7 +1413,7 @@ angular.module( 'ngmReportHub' )
 										title: 'Back to Distribution Round ' + $scope.report.report_distribution,
 										url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period,
 										today_url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' +  $scope.report.organization_tag + '/all/all/all/all/' + moment().format( 'YYYY-MM-DD' ) + '/' + moment().format( 'YYYY-MM-DD' ),
-										distribution_period_url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' +  $scope.report.organization_tag + '/all/all/all/all/' + $scope.report.reporting_period + '/' + moment().format( 'YYYY-MM-DD' ),
+										distribution_period_url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' +  $scope.report.organization_tag + '/all/all/all/all/' + $scope.report.reporting_period + '/' + moment( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' )
 									}
 								}
 							}]
