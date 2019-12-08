@@ -1669,7 +1669,7 @@ angular.module( 'ngmReportHub' )
 								deleteAbsent: function( row ){
 
 									// disabled btn
-									$( '#gfd-delete-btn-'+ fcn_id ).toggleClass( 'disabled' );
+									$( '#gfd-delete-btn-'+ row.fcn_id ).toggleClass( 'disabled' );
 
 									// ngmData
 									ngmData.get({ 
