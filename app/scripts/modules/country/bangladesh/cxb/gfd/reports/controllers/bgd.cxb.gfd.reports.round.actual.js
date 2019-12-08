@@ -1071,13 +1071,13 @@ angular.module( 'ngmReportHub' )
 
 					// add rows to DATE menu
 					angular.forEach( menu.dates, function( d ){
-						if ( d.distribution_date ) {
+						if ( d.distribution_date_plan ) {
 							$scope.model.menu[ $scope.model.menu.length-1 ].rows.push({
-								'title': d.distribution_date,
+								'title': d.distribution_date_plan,
 								'param': 'end_date',
-								'active': d.distribution_date,
+								'active': d.distribution_date_plan,
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/' + $scope.report.admin5pcode + '/' + d.distribution_date + '/' + d.distribution_date
+								'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/actual/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/' + $scope.report.admin5pcode + '/' + d.distribution_date_plan + '/' + d.distribution_date_plan
 							});
 						}
 					
