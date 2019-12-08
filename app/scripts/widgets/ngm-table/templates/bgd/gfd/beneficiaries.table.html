@@ -104,7 +104,7 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 								</div>
 								<div class="modal-footer">
 									<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-							    <a ng-click="table.deleteAbsent( table.gfd_id, table.fcn_id, table.site_id, table.report_round, table.report_distribution, table.distribution_date )"
+							    <a ng-click="table.deleteAbsent( table.gfd_id, table.fcn_id, table.site_id, table.report_round, table.report_distribution, table.distribution_date_actual )"
 							    		class="modal-action modal-close waves-effect waves-green btn-flat">Yes, remove beneficiary from Absent List</a>
 								</div>
 							</div>
@@ -112,8 +112,8 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 
 							<tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
 
-								<td data-title="'Distribution Date'" sortable="'distribution_date'">
-									{{ row.distribution_date | date : 'mediumDate' }}
+								<td data-title="'Distribution Date'" sortable="'distribution_date_actual'">
+									{{ row.distribution_date_actual | date : 'mediumDate' }}
 								</td>
 
 								<td data-title="'organization'|translate" sortable="'organization'">
@@ -159,7 +159,7 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
                     <div class="buttons">
                         <div id ='gfd-delete-btn-{{ row.fcn_id }}' 
                         			class="btn btn-small red lighten-2 waves-effect"
-                        			ng-click="table.modalDelete( 'gfd-delete-modal', row.gfd_id, row.fcn_id, row.site_id, row.report_round, row.report_distribution, row.distribution_date );"
+                        			ng-click="table.modalDelete( 'gfd-delete-modal', row.gfd_id, row.fcn_id, row.site_id, row.report_round, row.report_distribution, row.distribution_date_actual );"
                         			title="Remove"
                         			ng-disabled="">
                           <i class="material-icons">delete</i>
