@@ -664,7 +664,7 @@ angular.module( 'ngmReportHub' )
 						url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 						data: {
 							download: true,
-							indicator: 'downloads_food_distribution',
+							indicator: 'downloads_food_distribution_plan',
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,

@@ -1249,7 +1249,7 @@ angular.module( 'ngmReportHub' )
 						url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 						data: {
 							download: true,
-							indicator: 'downloads_food_distribution',
+							indicator: 'downloads_food_distribution_actual',
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
@@ -1658,8 +1658,9 @@ angular.module( 'ngmReportHub' )
 								},
 
 								// table.modalDelete
-								modalDelete: function( modal, fcn_id, site_id, report_round, report_distribution, distribution_date ){
+								modalDelete: function( modal, gfd_id, fcn_id, site_id, report_round, report_distribution, distribution_date ){
 									// set
+									this.gfd_id = gfd_id;
 									this.fcn_id = fcn_id;
 									this.site_id = site_id;
 									this.report_round = report_round;
@@ -1670,7 +1671,7 @@ angular.module( 'ngmReportHub' )
 								},
 
 								// delete
-								deleteAbsent: function( fcn_id, site_id, report_round, report_distribution, distribution_date ){
+								deleteAbsent: function( gfd_id, fcn_id, site_id, report_round, report_distribution, distribution_date ){
 
 									// disabled btn
 									$( '#gfd-delete-btn-'+ fcn_id ).toggleClass( 'disabled' );
@@ -1680,6 +1681,7 @@ angular.module( 'ngmReportHub' )
 										method: 'POST', 
 										url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/removeAbsentBeneficiary',
 										data: {
+											gfd_id: gfd_id,
 											fcn_id: fcn_id,
 											site_id: site_id,
 											report_round: report_round,
