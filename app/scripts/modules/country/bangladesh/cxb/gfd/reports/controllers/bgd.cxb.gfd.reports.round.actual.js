@@ -1658,20 +1658,15 @@ angular.module( 'ngmReportHub' )
 								},
 
 								// table.modalDelete
-								modalDelete: function( modal, gfd_id, fcn_id, site_id, report_round, report_distribution, distribution_date ){
+								modalDelete: function( modal, row ){
 									// set
-									this.gfd_id = gfd_id;
-									this.fcn_id = fcn_id;
-									this.site_id = site_id;
-									this.report_round = report_round;
-									this.report_distribution = report_distribution;
-									this.distribution_date = distribution_date;
+									this.row = row;
 									$( '#' + modal ).openModal( { dismissible: false } );
 
 								},
 
 								// delete
-								deleteAbsent: function( gfd_id, fcn_id, site_id, report_round, report_distribution, distribution_date ){
+								deleteAbsent: function( row ){
 
 									// disabled btn
 									$( '#gfd-delete-btn-'+ fcn_id ).toggleClass( 'disabled' );
@@ -1681,12 +1676,7 @@ angular.module( 'ngmReportHub' )
 										method: 'POST', 
 										url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/removeAbsentBeneficiary',
 										data: {
-											gfd_id: gfd_id,
-											fcn_id: fcn_id,
-											site_id: site_id,
-											report_round: report_round,
-											report_distribution: report_distribution,
-											distribution_date: distribution_date,
+											absent_beneficiary: row
 										}
 									}).then( function( result ){
 
