@@ -187,23 +187,16 @@ angular.module( 'ngmReportHub' )
 
 			// report complete?
 			setReportStatus: function () {
-
 				// active / complete
 				if ( $scope.report.report_round === '1' ) {
 					// set report status 2019-11-01
-					// $scope.report.report_status = moment( $scope.report.reporting_period ).add( $scope.report.report_round_1, 'd' ).unix() > moment().unix() ? 'active' : 'complete';
-					// testing
-					// $scope.report.report_status = moment( $scope.report.reporting_period ).add( $scope.report.report_round_1, 'D' ).unix() > moment().unix() ? 'active' : 'complete';
-					$scope.report.report_status = 'active';
+					$scope.report.report_status = moment( $scope.report.reporting_period ).add( $scope.report.report_round_1, 'days' ).unix() > moment().unix() ? 'active' : 'complete';
 				}
 
 				// active / complete
 				if ( $scope.report.report_round === '2' ) {
 					// set report status 2019-11-01
-					// $scope.report.report_status = moment( $scope.report.reporting_period ).add( 1, 'M' ).add( $scope.report.report_round_2, 'd' ).unix() > moment().unix() ? 'active' : 'complete';
-					// testing
-					// $scope.report.report_status = moment( $scope.report.reporting_period ).add( 1, 'M' ).add( $scope.report.report_round_2, 'D' ).unix() > moment().unix() ? 'active' : 'complete';
-					$scope.report.report_status = 'active';
+					$scope.report.report_status = moment( $scope.report.reporting_period ).add( 1, 'months' ).add( $scope.report.report_round_2, 'days' ).unix() > moment().unix() ? 'active' : 'complete';
 				}
 
 			},
@@ -717,10 +710,6 @@ angular.module( 'ngmReportHub' )
 				
 				}).then( function( data ){
 
-					console.log($scope.report.organization_tag)
-					console.log( $scope.report.report_status );
-					console.log( data.length );
-
 					// if report is active ( show upload )
 					if ( $scope.report.report_status === 'active' ) {
 
@@ -784,8 +773,6 @@ angular.module( 'ngmReportHub' )
 							}
 
 						}
-
-
 
 						// if other orgs
 						if ( $scope.report.organization_tag !== 'wfp' && $scope.report.organization_tag !== 'immap' ){
