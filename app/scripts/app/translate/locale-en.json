@@ -174,6 +174,8 @@
               "5WDASHBOARD_mayus":"5W DASHBOARD",
 
        "province":"Province",
+              "province_mayus":"PROVINCE",
+
        "all_provinces":"All Provinces",
        "district":"District",
        "all_districts":"All Districts",
@@ -245,9 +247,14 @@
         "activity_type":"Activity Type",
         "project_type":"Project Type",
         "executor":"Executor",
+         "executor_organizations":"Executor Organizations",
+        "executor_organizations_mayus": "EXECUTOR ORGANIZATIONS",
+
         "implementer":"Implementer",
         "other_implementing_partners":"Implementing Partners",
+        "implementing_organization":"Implementing Organization",
          "implementing_organizations":"Implementing Organizations",
+         "implementing_organizations_mayus":"IMPLEMENTING ORGANIZATIONS",
 
         "other_activities_in_addition_to":"Other activities in addition to",
         "cash_intended_for_even_if_unrestricted":"Cash intended for (even if unrestricted)",
@@ -255,6 +262,7 @@
 
         "project_donor":"Project Donor",
         "donors":"Donors",
+        "donors_mayus":"DONORS",
         "gender_marker":"Gender Marker - GAM",
         "amount_to_be_financed_by_donor":"Amount to be financed by donor",
                 "budget_mayus1":"Budget",
@@ -300,6 +308,10 @@
         "refresh_data":"Refresh Data",
         "project_locations":"PROJECT LOCATIONS",
         "project_target_locations":"PROJECT TARGET LOCATIONS",
+
+        "sex_title_dashboard_graphic":"SEX",
+        "age_title_dashboard_graphic":"AGE",
+
         "children":"Children",
         "adult":"Adult",
         "elderly":"Elderly",
@@ -309,6 +321,17 @@
         "age_mayus":"AGE",
         "ages_mayus1":"Ages",
         "total_by_age_and_percent_of_total":"Total by Age and % of total",
+        "total_by_cluster_and_percent_of_total":"Total by Cluster and % of total",
+        "total_by_type_and_percent_of_total":"Total by Type and % of total",
+        "total_by_organization_and_percent_of_total":"Total by Exec.Org and % of total",
+        "total_by_province_and_percent_of_total":"Total by Province and % of total",
+        "total_by_donor_and_percent_of_total":"Total by Donor and % of total",
+        "total_by_implementing_partner_and_percent_of_total":"Total by Impl.Org and % of total",
+
+
+
+         "beneficiary_type":"Beneficiary Type",
+
 
         "processing":"Processing...",
         "project_deleted":"Project Deleted",
@@ -551,6 +574,7 @@
         "total_projects":"Total Projects",
          "total_beneficiaries_population":"Total Population Beneficiaries",
          "total_financing":"Total Financing",
+         "financing_mayus":"FINANCING",
 
 
         "warehouses_total":"Warehouses",
@@ -609,7 +633,6 @@
         "population_in_disability":"Population in Disability",
         "total_female":"Total Female",
         "total_beneficiaries":"Total Beneficiaries",
-        "total_financing":"Total Financing",
         "projects_number":"Projects Number",
         "population_beneficiaries":"Population Beneficiaries",
         "number_executing_agencies":"Number of Executing Agencies",
@@ -633,6 +656,7 @@
         "implementation_level":"Implementation Level",
 
         "type":"Type",
+          "type_mayus":"TYPE",
         "site_type":"Site Type",
 
         "from_list":"From List",

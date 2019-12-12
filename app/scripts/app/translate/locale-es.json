@@ -208,6 +208,7 @@
        "5W":"5W",
        "5WDASHBOARD_mayus":"5w DASHBOARD",
        "province":"Departamento",
+       "province_mayus":"DEPARTAMENTO",
        "all_provinces":"Todos los Departamentos",
        "all_districts":"Todos los Municipios",
 
@@ -280,12 +281,15 @@
         "activity_type":"Tipo de Actividad",
         "project_type":"Tipo de Proyecto", 
         "executor":"Ejecutor",
+        "executor_organizations":"Organizaciones Ejecutoras",
+        "executor_organizations_mayus": "ORGANIZACIONES EJECUTORAS",
         "implementer":"Implementador",
 
         "other_activities_in_addition_to":"Otras actividades además de",
         "cash_intended_for_even_if_unrestricted":"Efectivo destinado a (incluso si no está restringido)",
         "project_donor":"Donante del Proyecto",
         "donors":"Donantes",
+        "donors_mayus":"DONANTES",
         "gender_marker":"Marcador de Género - GAM",
         "amount_to_be_financed_by_donor":"Monto a financiar por donante",
 
@@ -294,7 +298,9 @@
         "list_project_partners":"Lista de Socios del Proyecto",
         "project_partners":"Socios del Proyecto",
         "other_implementing_partners":"Socios Implementadores",
+        "implementing_organization":"Organización Implementadora",
         "implementing_organizations":"Organizaciones Implementadoras",
+        "implementing_organizations_mayus":"ORGANIZACIONES IMPLEMENTADORAS",
         "project_description_objetives":"Descripción y Objetivos del Proyecto",
         "project_focal_point":"Punto Focal del Proyecto",
         "target_population":"Población Objetivo",
@@ -324,10 +330,16 @@
          "last_updated":"Última Actualización",
          "refresh_data":"Refrescar Datos",
          "project_locations":"UBICACIONES DE PROYECTOS",
+
          "project_location_removed":"Ubicación de Proyecto Eliminada!",
          "report_new_location":"Guardar informe para guardar nueva ubicación!",
 
          "project_location_saved":"Ubicación de Proyecto Guardada!",
+
+         
+         "sex_title_dashboard_graphic":"SEXO",
+         "age_title_dashboard_graphic":"EDAD",
+
 
          "children":"Niños",
          "adult":"Adultos",
@@ -338,6 +350,15 @@
          "age_mayus":"EDAD",
          "ages_mayus1":"Edades",
          "total_by_age_and_percent_of_total":"Total por Edad y % del total",
+         "total_by_cluster_and_percent_of_total":"Total por Cluster y % del total",
+         "total_by_type_and_percent_of_total":"Total por Tipo y % del total",
+         "total_by_organization_and_percent_of_total":"Total por Org.Ejec. y % del total",
+         "total_by_province_and_percent_of_total":"Total por Departamento y % del total",
+         "total_by_donor_and_percent_of_total":"Total por Donante y % del total",
+         "total_by_implementing_partner_and_percent_of_total":"Total por Org.Impl y % del total",
+
+
+         "beneficiary_type":"Tipo de Beneficiario",
 
          "processing":"Procesando...",
          "project_moved_to_active":"Proyecto movido a Activo!",
@@ -466,6 +487,8 @@
          "total_projects":"Total Proyectos",
          "total_beneficiaries_population":"Total Beneficiarios Poblacionales",
          "total_financing":"Total Financiamiento",
+         "financing_mayus":"FINANCIAMIENTO",
+
          "warehouses_total":"Warehouses",
          "from":"desde",
          "to":"hasta",
@@ -507,7 +530,6 @@
         "total_male":"Total Hombres",
         "total_female":"Total Mujeres",
         "total_beneficiaries":"Total Beneficiarios",
-        "total_financing":"Total Financiamiento",
         "projects_number":"Número de Proyectos",
         "population_beneficiaries":"Beneficiarios Poblacionales",
         "number_executing_agencies":"Número Agencias Ejecutoras",
@@ -543,6 +565,7 @@
         "implementation":"Implementación",
         "implementation_level":"Nivel de Implementación",
         "type":"Tipo de beneficiario",
+        "type_mayus":"TIPO",
          "site_type":"Tipo de Lugar",
 
         "from_list":"Lista de Origenes",
