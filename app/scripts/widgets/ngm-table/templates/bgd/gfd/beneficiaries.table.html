@@ -99,18 +99,29 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 							<!-- remove location -->
 							<div id="gfd-delete-modal" class="modal">
 								<div class="modal-content">
-							   	<h4 style="color: #E57373; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Remove</h4>
+									<h4 style="color: #E57373; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Remove</h4>
 									<p>This will remove the beneficiary GFD:{{ table.row.gfd_id }}, FCN:{{ table.row.fcn_id }} form the Absent list and return them back into the Plan and Achievement Lists (as applicable)</p>
 								</div>
 								<div class="modal-footer">
 									<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-							    <a ng-click="table.deleteAbsent( table.row )"
-							    		class="modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+									<a ng-click="table.deleteAbsent( table.row )"
+											class="modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
 								</div>
 							</div>
 
-
+							<!-- row -->
 							<tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
+								
+<!-- 							<tr ng-repeat="row in $data"
+										style="cursor: pointer; cursor: hand;"
+										ng-click="table.updateDistributionDate( row.id )"> -->
+
+<!-- 								<td align="center" header="'ng-table/headers/checkbox.html'">
+									<input type="checkbox" id="checkbox-{{ row.id }}"
+													class="filled-in"
+													ng-click="table.updateDistributionDate( row.id )" />
+									<label for="checkbox-{{ row.id }}"></label>
+								</td> -->
 
 								<td data-title="'Distribution Date'" sortable="'distribution_date_actual'">
 									{{ row.distribution_date_actual | date : 'mediumDate' }}
@@ -154,21 +165,25 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 									{{ row.gfd_family_size }}
 								</td>
 
-                <td ng-if="table.request.data.indicator === 'beneficiaries_absent_list'" 
-                			data-title="'Remove'" sortable="'id'" style="white-space: nowrap;">
-                    <div class="buttons">
-                        <div id ='gfd-delete-btn-{{ row.fcn_id }}' 
-                        			class="btn btn-small red lighten-2 waves-effect"
-                        			ng-click="table.modalDelete( 'gfd-delete-modal', row );"
-                        			title="Remove"
-                        			ng-disabled="">
-                          <i class="material-icons">delete</i>
-                        </div>
-                      </div>
-                </td>
+								<td ng-if="table.request.data.indicator === 'beneficiaries_absent_list'" 
+											data-title="'Remove'" sortable="'id'" style="white-space: nowrap;">
+										<div class="buttons">
+												<div id ='gfd-delete-btn-{{ row.fcn_id }}' 
+															class="btn btn-small red lighten-2 waves-effect"
+															ng-click="table.modalDelete( 'gfd-delete-modal', row );"
+															title="Remove"
+															ng-disabled="">
+													<i class="material-icons">delete</i>
+												</div>
+											</div>
+								</td>
 
 							</tr>
 						</table>
+<!-- 				    <script type="text/ng-template" id="ng-table/headers/checkbox.html">
+								<input type="checkbox" class="filled-in" ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" value="" />
+								<label for="select_all"></label>
+						</script>		 -->				
 					</div>
 
 				</li>

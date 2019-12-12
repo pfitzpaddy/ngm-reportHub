@@ -204,7 +204,7 @@ angular.module( 'ngmReportHub' )
 			// title
 			setTitle: function () {
 				// title
-				if ( $scope.report.organization_tag === 'wfp' ) {
+				if ( $scope.report.organization_tag === 'wfp' || $scope.report.organization_tag === 'immap' ) {
 					$scope.model.header.title.title = 'ALL | ' + $scope.report.title;
 				} else {
 					$scope.model.header.title.title = $scope.report.organization_tag.toUpperCase() + ' | ' + $scope.report.title;
@@ -245,7 +245,7 @@ angular.module( 'ngmReportHub' )
 			setMenu: function () {
 				
 				// menu
-				if ( $scope.report.user.organization_tag === 'wfp' ) {
+				if ( $scope.report.organization_tag === 'wfp' || $scope.report.organization_tag === 'immap' ) {
 					$scope.model.menu = [{
 						'id': 'search-gfd-organization',
 						'icon': 'supervisor_account',
@@ -294,11 +294,11 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// filter by round if WFP
-				if ( $scope.report.organization_tag === 'wfp' ) {
+				if ( $scope.report.organization_tag === 'wfp' || $scope.report.organization_tag === 'immap' ) {
 					var filter = { report_round: $scope.report.report_round }
 				} 
 				// filter by round and org if !WFP
-				if ( $scope.report.organization_tag !== 'wfp' ) {
+				if ( $scope.report.organization_tag === 'wfp' || $scope.report.organization_tag === 'immap' ) {
 					var filter = { report_round: $scope.report.report_round, organization_tag: $scope.report.organization_tag }
 				}
 
@@ -491,7 +491,7 @@ angular.module( 'ngmReportHub' )
 				var downloads = [];
 
 				// distribution list
-				if ( $scope.report.organization_tag !== 'wfp' ) {
+				if ( $scope.report.organization_tag !== 'wfp' && $scope.report.organization_tag !== 'immap' ) {
 					
 					// downloads
 					downloads.push({

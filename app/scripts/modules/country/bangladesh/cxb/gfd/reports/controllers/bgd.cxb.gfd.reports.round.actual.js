@@ -56,7 +56,7 @@ angular.module( 'ngmReportHub' )
 			end_date: $route.current.params.end_date,
 
 			// title
-			title: "GFD | Achievement Report | R" + $route.current.params.report_round + " | D" + $route.current.params.report_distribution,
+			title: "GFD | Actual | R" + $route.current.params.report_round + " | D" + $route.current.params.report_distribution,
 
 			// subtitle
 			subtitle: "Actual GFD Report for Cox's Bazar, Bangladesh, GFD Round " + $route.current.params.report_round + ", Distribution " + $route.current.params.report_distribution,
@@ -822,7 +822,7 @@ angular.module( 'ngmReportHub' )
 			// title
 			setTitle: function () {
 				// title
-				if ( $scope.report.organization_tag === 'wfp' ) {
+				if ( $scope.report.organization_tag === 'wfp' ||  $scope.report.organization_tag === 'immap' ) {
 					$scope.model.header.title.title = 'ALL | ' + $scope.report.title;
 				} else {
 					$scope.model.header.title.title = $scope.report.organization_tag.toUpperCase() + ' | ' + $scope.report.title;
@@ -897,11 +897,11 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// filter by round if WFP
-				if ( $scope.report.organization_tag === 'wfp' ) {
+				if ( $scope.report.organization_tag === 'wfp' ||  $scope.report.organization_tag === 'immap' ) {
 					var filter = { report_round: $scope.report.report_round }
 				} 
 				// filter by round and org if !WFP
-				if ( $scope.report.organization_tag !== 'wfp' ) {
+				if ( $scope.report.organization_tag !== 'wfp' && $scope.report.organization_tag !== 'immap' ) {
 					var filter = { report_round: $scope.report.report_round, organization_tag: $scope.report.organization_tag }
 				}
 
@@ -1292,7 +1292,7 @@ angular.module( 'ngmReportHub' )
 				var form_filter = { report_round: $scope.report.report_round }
 
 				// site id
-				if ( $scope.report.organization_tag !== 'wfp' ) {
+				if ( $scope.report.organization_tag !== 'wfp' && $scope.report.organization_tag !== 'immap') {
 					form_filter.organization_tag = $scope.report.organization_tag;
 				}
 
@@ -1313,7 +1313,7 @@ angular.module( 'ngmReportHub' )
 								forms: $filter( 'filter' )( $scope.report.forms.list, form_filter ),
 								header: 'collection-header orange',
 								icon: 'inbox',
-								message: $scope.report.organization_tag !== 'wfp' ? $scope.report.organization_tag.toUpperCase() + ' Daily Reporting Forms' : 'Daily Reporting Forms',
+								message: $scope.report.organization_tag !== 'wfp' && $scope.report.organization_tag !== 'immap' ? $scope.report.organization_tag.toUpperCase() + ' Daily Reporting Forms' : 'Daily Reporting Forms',
 								minimize: {
 									open: false,
 									toggle: true,
@@ -1654,7 +1654,8 @@ angular.module( 'ngmReportHub' )
 								headerTitle: "Absent Beneficiaries",
 								templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.html',
 								tableOptions:{
-									count: 10
+									count: 10,
+									sorting: { distribution_date_actual: 'asc' },
 								},
 
 								// table.modalDelete
@@ -1663,6 +1664,11 @@ angular.module( 'ngmReportHub' )
 									this.row = row;
 									$( '#' + modal ).openModal( { dismissible: false } );
 
+								},
+
+								// update absent beneficiaries distribution date
+								updateDistributionDate: function( id ){
+									console.log(id);
 								},
 
 								// delete
