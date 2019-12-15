@@ -68,10 +68,11 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 									<form>
 										<div class="input-field">
 											<input id="search_{{ table.id }}" type="search"
-												ng-model="table.search.filter"
-												ng-focus="table.search.focused=true"  
-												ng-blur="table.search.focused=false"
-												ng-change="table.searchLoadTable()">
+															style="color:#000;"
+															ng-model="table.search.filter"
+															ng-focus="table.search.focused=true"
+															ng-blur="table.search.focused=false"
+															ng-change="table.searchLoadTable()">
 											<label for="search_{{ table.id }}"><i class="material-icons" style="color: teal; padding-left:5px;">search</i></label>
 										</div>
 									</form>
@@ -111,18 +112,8 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 
 							<!-- row -->
 							<tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
-								
-<!-- 							<tr ng-repeat="row in $data"
-										style="cursor: pointer; cursor: hand;"
-										ng-click="table.updateDistributionDate( row.id )"> -->
 
-<!-- 								<td align="center" header="'ng-table/headers/checkbox.html'">
-									<input type="checkbox" id="checkbox-{{ row.id }}"
-													class="filled-in"
-													ng-click="table.updateDistributionDate( row.id )" />
-									<label for="checkbox-{{ row.id }}"></label>
-								</td> -->
-
+								<!-- distribution date (actual) -->
 								<td data-title="'Distribution Date'" sortable="'distribution_date_actual'">
 									{{ row.distribution_date_actual | date : 'mediumDate' }}
 								</td>
@@ -165,25 +156,9 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 									{{ row.gfd_family_size }}
 								</td>
 
-								<td ng-if="table.request.data.indicator === 'beneficiaries_absent_list'" 
-											data-title="'Remove'" sortable="'id'" style="white-space: nowrap;">
-										<div class="buttons">
-												<div id ='gfd-delete-btn-{{ row.fcn_id }}' 
-															class="btn btn-small red lighten-2 waves-effect"
-															ng-click="table.modalDelete( 'gfd-delete-modal', row );"
-															title="Remove"
-															ng-disabled="">
-													<i class="material-icons">delete</i>
-												</div>
-											</div>
-								</td>
-
 							</tr>
 						</table>
-<!-- 				    <script type="text/ng-template" id="ng-table/headers/checkbox.html">
-								<input type="checkbox" class="filled-in" ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" value="" />
-								<label for="select_all"></label>
-						</script>		 -->				
+
 					</div>
 
 				</li>

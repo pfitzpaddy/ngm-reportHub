@@ -128,6 +128,7 @@ angular.module('ngm.widget.table', ['ngm.provider'])
 			$scope.showSearch = (($scope.data.length > 10) && config.search_tool) ? true : false;
 
   }
+  
 ]);
 
 

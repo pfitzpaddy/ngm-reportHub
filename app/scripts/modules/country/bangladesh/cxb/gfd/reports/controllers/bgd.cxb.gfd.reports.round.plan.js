@@ -1200,7 +1200,7 @@ angular.module( 'ngmReportHub' )
 										headerText: 'white-text',
 										headerIcon: 'group',
 										headerTitle: "Duplicate FCN's",
-										templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.html',
+										templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.plan.html',
 										tableOptions:{
 											count: 10
 										},
@@ -1239,7 +1239,7 @@ angular.module( 'ngmReportHub' )
 										headerText: 'white-text',
 										headerIcon: 'assignment_turned_in',
 										headerTitle: "Beneficiaries List",
-										templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.html',
+										templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.plan.html',
 										tableOptions:{
 											count: 30
 										},
