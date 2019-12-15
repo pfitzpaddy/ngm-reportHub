@@ -1174,7 +1174,7 @@ angular.module( 'ngmReportHub' )
 										}).then( function( result ){
 											// reset
 											$timeout( function(){
-												Materialize.toast( result.msg , 4000, 'success' );
+												Materialize.toast( result.msg + ' - Updated 1 Record', 4000, 'success' );
 											}, 1000 );
 										});             
 
@@ -1223,7 +1223,7 @@ angular.module( 'ngmReportHub' )
 											$timeout( function(){
 												// trigger check
 												$( '#select_all' ).click();												
-												Materialize.toast( result.msg , 4000, 'success' );
+												Materialize.toast( result.msg + ' Updated ' + update.length + ' Records!', 6000, 'success' );
 											}, 1000 );
 										});
 
