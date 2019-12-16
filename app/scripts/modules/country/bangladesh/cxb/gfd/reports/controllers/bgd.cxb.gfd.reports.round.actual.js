@@ -1058,18 +1058,16 @@ angular.module( 'ngmReportHub' )
 
 									// table.modalDelete
 									modalDelete: function( modal, row ){
-
 										// table
 										var table = this;
-
 										// set
 										table.row = row;
 										$( '#' + modal ).openModal( { dismissible: false } );
+
 									},
 
 									// delete
 									deleteAbsent: function( row ){
-
 										// disabled btn
 										$( '#gfd-delete-btn-'+ row.fcn_id ).toggleClass( 'disabled' );
 
@@ -1174,7 +1172,11 @@ angular.module( 'ngmReportHub' )
 										}).then( function( result ){
 											// reset
 											$timeout( function(){
-												Materialize.toast( result.msg + ' - Updated 1 Record', 4000, 'success' );
+												// refresh
+												if ( result.refresh ) {
+													$route.reload();
+												}
+												Materialize.toast( result.msg + ' Updated 1 Record', 4000, 'success' );
 											}, 1000 );
 										});             
 
@@ -1221,8 +1223,12 @@ angular.module( 'ngmReportHub' )
 
 											// reset
 											$timeout( function(){
+												// refresh
+												if ( result.refresh ) {
+													$route.reload();
+												}
 												// trigger check
-												$( '#select_all' ).click();												
+												$( '#select_all' ).click();
 												Materialize.toast( result.msg + ' Updated ' + update.length + ' Records!', 6000, 'success' );
 											}, 1000 );
 										});
