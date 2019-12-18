@@ -504,7 +504,7 @@ angular.module( 'ngmReportHub' )
 							url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 							data: {
 								download: true,
-								indicator: 'print_distribution_zip',
+								indicator: 'print_distribution_plan_zip',
 								downloadUrl: ngmAuth.LOCATION + '/report/',
 								admin0pcode: $scope.report.user.admin0pcode,
 								organization_tag: $scope.report.organization_tag,
@@ -1235,10 +1235,10 @@ angular.module( 'ngmReportHub' )
 									type: 'table',
 									card: 'panel',
 									config: {
-										headerClass: 'collection-header teal lighten-2',
+										headerClass: 'collection-header blue lighten-2',
 										headerText: 'white-text',
 										headerIcon: 'assignment_turned_in',
-										headerTitle: "Beneficiaries List",
+										headerTitle: "Planned Beneficiaries List",
 										templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.plan.html',
 										tableOptions:{
 											count: 30
