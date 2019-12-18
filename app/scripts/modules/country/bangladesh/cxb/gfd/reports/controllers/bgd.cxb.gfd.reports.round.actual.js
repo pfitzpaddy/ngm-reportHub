@@ -462,6 +462,7 @@ angular.module( 'ngmReportHub' )
 			// set downloads
 			setDownloads: function() {
 
+				// downloads
 				var downloads = []
 
 				// distribution list
@@ -1277,7 +1278,9 @@ angular.module( 'ngmReportHub' )
 													$route.reload();
 												}
 												// trigger check
-												$( '#select_all' ).click();
+												if ( $( '#select_all' ).is( ':checked' ) ) {
+													$( '#select_all' ).click();
+												}
 												Materialize.toast( result.msg + ' Updated ' + update.length + ' Records!', 6000, 'success' );
 											}, 1000 );
 										});
