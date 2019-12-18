@@ -475,7 +475,7 @@ angular.module( 'ngmReportHub' )
 						hover: 'Download Planned Distribution List',
 						request: {
 							method: 'POST',
-							url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
+							url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 							data: {
 								download: true,
 								indicator: 'print_distribution_actual_zip',
