@@ -235,6 +235,30 @@ angular.module('ngmReportHub')
 						request.query.donor_id = $route.current.params.donor_tag;
 					}
 
+					if( $route.current.params.admin1pcode !== 'all'){
+						request.query.admin1pcode = $route.current.params.admin1pcode;
+					}
+
+					if( $route.current.params.admin2pcode !== 'all'){
+						request.query.admin2pcode = $route.current.params.admin2pcode;
+					}
+
+					if( $route.current.params.implementer_tag !== 'all'){
+						request.query.implementer_id = $route.current.params.implementer_tag;
+					}
+
+					if( $route.current.params.project_type_component !== 'all'){
+						request.query.project_type_component = $route.current.params.project_type_component;
+					}
+
+					if( $route.current.params.activity_type!== 'all'){
+						request.query.activity_type_id = $route.current.params.activity_type;
+					}
+
+					if( $route.current.params.hrpplan!== 'all'){
+						request.query.hrpplan = $route.current.params.hrpplan;
+					}
+
 
 
 					
