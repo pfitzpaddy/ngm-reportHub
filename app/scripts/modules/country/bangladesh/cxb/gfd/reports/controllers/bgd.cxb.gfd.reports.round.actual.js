@@ -1100,7 +1100,7 @@ angular.module( 'ngmReportHub' )
 									templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.absent.html',
 									tableOptions:{
 										count: 10,
-										sorting: { distribution_date_actual: 'asc' },
+										sorting: { distribution_date_plan: 'asc' },
 									},
 
 
