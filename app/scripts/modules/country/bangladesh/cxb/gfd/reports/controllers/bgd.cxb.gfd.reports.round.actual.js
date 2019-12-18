@@ -667,7 +667,7 @@ angular.module( 'ngmReportHub' )
 					hover: 'Download Actual Food Distribution',
 					request: {
 						method: 'POST',
-						url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
+						url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 						data: {
 							download: true,
 							indicator: 'downloads_food_distribution_actual',
