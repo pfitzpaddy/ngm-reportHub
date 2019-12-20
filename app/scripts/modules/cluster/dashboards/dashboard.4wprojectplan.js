@@ -1712,13 +1712,14 @@ angular.module('ngmReportHub')
 												xAxis: {
 										        title: {
 										            text: $filter('translate')('ages_mayus1')
-										        }
-										    },
+										        }, 
+										        //categories: series.request[0].name
+										    	},
 												yAxis: {
 										        title: {
 										            text: $filter('translate')('total_by_age_and_percent_of_total')
 										        }
-										    }
+										    	}
 												
 											},
 											title: {
@@ -1735,7 +1736,7 @@ angular.module('ngmReportHub')
 												 dataLabels: {
 										                enabled: true,
 										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.y}'
+										               format: '{point.name} '+$filter('translate')('years')+'<br>#{point.y}<br>%{point.label:.1f}'
 										                //inside: true
 										            },
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
@@ -1804,8 +1805,9 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.y}'
+										               //format: '{point.name}<br>#{point.y}<br>{point.label:.1f}%'
+										               format: '{point.label:.1f}%'
+
 										                //inside: true
 										            },
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
@@ -1875,7 +1877,7 @@ angular.module('ngmReportHub')
 												 dataLabels: {
 										                enabled: true,
 										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.y}'
+										               format: '{point.name}<br>#{point.y}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
@@ -1967,7 +1969,7 @@ angular.module('ngmReportHub')
 												 dataLabels: {
 										                enabled: true,
 										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.y}'
+										               format: '{point.name}<br>${point.y}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
@@ -2037,7 +2039,7 @@ angular.module('ngmReportHub')
 												 dataLabels: {
 										                enabled: true,
 										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.y}'
+										               format: '{point.name}<br>${point.y}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
@@ -2107,7 +2109,7 @@ angular.module('ngmReportHub')
 												 dataLabels: {
 										                enabled: true,
 										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.y}'
+										               format: '${point.y}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
@@ -2177,7 +2179,7 @@ angular.module('ngmReportHub')
 												 dataLabels: {
 										                enabled: true,
 										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.y}'
+										               format: '{point.label:.1f}<br>%'
 										                //inside: true
 										            },
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											

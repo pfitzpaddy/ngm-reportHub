@@ -187,21 +187,16 @@ angular.module( 'ngmReportHub' )
 
 			// report complete?
 			setReportStatus: function () {
-
 				// active / complete
 				if ( $scope.report.report_round === '1' ) {
 					// set report status 2019-11-01
-					$scope.report.report_status = moment( $scope.report.reporting_period ).add( $scope.report.report_round_1, 'd' ).unix() > moment().unix() ? 'active' : 'complete';
-					// testing
-					// $scope.report.report_status = moment( $scope.report.reporting_period ).add( $scope.report.report_round_1, 'D' ).unix() > moment().unix() ? 'active' : 'active';
+					$scope.report.report_status = moment( $scope.report.reporting_period ).add( $scope.report.report_round_1, 'days' ).unix() > moment().unix() ? 'active' : 'complete';
 				}
 
 				// active / complete
 				if ( $scope.report.report_round === '2' ) {
 					// set report status 2019-11-01
-					$scope.report.report_status = moment( $scope.report.reporting_period ).add( 1, 'M' ).add( $scope.report.report_round_2, 'd' ).unix() > moment().unix() ? 'active' : 'complete';
-					// testing
-					// $scope.report.report_status = moment( $scope.report.reporting_period ).add( 1, 'M' ).add( $scope.report.report_round_2, 'D' ).unix() > moment().unix() ? 'active' : 'active';
+					$scope.report.report_status = moment( $scope.report.reporting_period ).add( 1, 'months' ).add( $scope.report.report_round_2, 'days' ).unix() > moment().unix() ? 'active' : 'complete';
 				}
 
 			},
@@ -209,7 +204,7 @@ angular.module( 'ngmReportHub' )
 			// title
 			setTitle: function () {
 				// title
-				if ( $scope.report.organization_tag === 'wfp' ) {
+				if ( $scope.report.organization_tag === 'wfp' || $scope.report.organization_tag === 'immap' ) {
 					$scope.model.header.title.title = 'ALL | ' + $scope.report.title;
 				} else {
 					$scope.model.header.title.title = $scope.report.organization_tag.toUpperCase() + ' | ' + $scope.report.title;
@@ -250,7 +245,7 @@ angular.module( 'ngmReportHub' )
 			setMenu: function () {
 				
 				// menu
-				if ( $scope.report.user.organization_tag === 'wfp' ) {
+				if ( $scope.report.organization_tag === 'wfp' || $scope.report.organization_tag === 'immap' ) {
 					$scope.model.menu = [{
 						'id': 'search-gfd-organization',
 						'icon': 'supervisor_account',
@@ -299,11 +294,11 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// filter by round if WFP
-				if ( $scope.report.organization_tag === 'wfp' ) {
+				if ( $scope.report.organization_tag === 'wfp' || $scope.report.organization_tag === 'immap' ) {
 					var filter = { report_round: $scope.report.report_round }
 				} 
 				// filter by round and org if !WFP
-				if ( $scope.report.organization_tag !== 'wfp' ) {
+				if ( $scope.report.organization_tag === 'wfp' || $scope.report.organization_tag === 'immap' ) {
 					var filter = { report_round: $scope.report.report_round, organization_tag: $scope.report.organization_tag }
 				}
 
@@ -319,7 +314,7 @@ angular.module( 'ngmReportHub' )
 						'param': 'site_id',
 						'active': 'all',
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/all/all/all/all//' + $scope.report.start_date + '/' + $scope.report.end_date
+						'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/all/all/all/all/' + $scope.report.start_date + '/' + $scope.report.end_date
 					}]
 				
 				});
@@ -440,7 +435,7 @@ angular.module( 'ngmReportHub' )
 									'param': 'admin5pcode',
 									'active': d.admin5pcode,
 									'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-									'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/' + d.admin5pcode + '//' + $scope.report.start_date + '/' + $scope.report.end_date
+									'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/' + d.admin5pcode + '/' + $scope.report.start_date + '/' + $scope.report.end_date
 								});
 							});
 
@@ -466,20 +461,20 @@ angular.module( 'ngmReportHub' )
 							'param': 'end_date',
 							'active': 'all',
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/all/' + $scope.report.reporting_period + '/' + ( moment().unix() < moment( $scope.report.reporting_period ).endOf( 'month' ).unix() ? moment().format( 'YYYY-MM-DD' ) : moment( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' ) )
+							'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/all/' + $scope.report.reporting_period + '/' + moment( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' )
 						}]
 
 					});
 
 					// add rows to DATE menu
 					angular.forEach( menu.dates, function( d ){
-						if ( d.distribution_date ) {
+						if ( d.distribution_date_plan ) {
 							$scope.model.menu[ $scope.model.menu.length-1 ].rows.push({
-								'title': d.distribution_date,
+								'title': d.distribution_date_plan,
 								'param': 'end_date',
-								'active': d.distribution_date,
+								'active': d.distribution_date_plan,
 								'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-								'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/' + d.admin5pcode + '/' + d.distribution_date + '/' + d.distribution_date
+								'href': '/desk/#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/' + $scope.report.site_id + '/' + $scope.report.admin3pcode + '/' + $scope.report.admin4pcode + '/' + $scope.report.admin5pcode + '/' + d.distribution_date_plan + '/' + d.distribution_date_plan
 							});
 						}
 					
@@ -496,7 +491,7 @@ angular.module( 'ngmReportHub' )
 				var downloads = [];
 
 				// distribution list
-				if ( $scope.report.organization_tag !== 'wfp' ) {
+				if ( $scope.report.organization_tag !== 'wfp' && $scope.report.organization_tag !== 'immap' ) {
 					
 					// downloads
 					downloads.push({
@@ -509,7 +504,7 @@ angular.module( 'ngmReportHub' )
 							url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 							data: {
 								download: true,
-								indicator: 'print_distribution_zip',
+								indicator: 'print_distribution_plan_zip',
 								downloadUrl: ngmAuth.LOCATION + '/report/',
 								admin0pcode: $scope.report.user.admin0pcode,
 								organization_tag: $scope.report.organization_tag,
@@ -564,7 +559,7 @@ angular.module( 'ngmReportHub' )
 							admin5pcode: $scope.report.admin5pcode,
 							start_date: $scope.report.start_date,
 							end_date: $scope.report.end_date,
-							report: $scope.report.organization_tag +'_planned_duplicates_round' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
+							report: $scope.report.organization_tag +'_planned_duplicates_round_' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
 						}
 					},
 					metrics: {
@@ -601,7 +596,7 @@ angular.module( 'ngmReportHub' )
 							admin5pcode: $scope.report.admin5pcode,
 							start_date: $scope.report.start_date,
 							end_date: $scope.report.end_date,
-							report: $scope.report.organization_tag +'_planned_vulnerable_popn_round' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
+							report: $scope.report.organization_tag +'_planned_vulnerable_popn_round_' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
 						}
 					},
 					metrics: {
@@ -664,7 +659,7 @@ angular.module( 'ngmReportHub' )
 						url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 						data: {
 							download: true,
-							indicator: 'downloads_food_distribution',
+							indicator: 'downloads_food_distribution_plan',
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
@@ -1205,7 +1200,7 @@ angular.module( 'ngmReportHub' )
 										headerText: 'white-text',
 										headerIcon: 'group',
 										headerTitle: "Duplicate FCN's",
-										templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.html',
+										templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.plan.html',
 										tableOptions:{
 											count: 10
 										},
@@ -1240,11 +1235,11 @@ angular.module( 'ngmReportHub' )
 									type: 'table',
 									card: 'panel',
 									config: {
-										headerClass: 'collection-header teal lighten-2',
+										headerClass: 'collection-header blue lighten-2',
 										headerText: 'white-text',
 										headerIcon: 'assignment_turned_in',
-										headerTitle: "Beneficiaries List",
-										templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.html',
+										headerTitle: "Planned Beneficiaries List",
+										templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.plan.html',
 										tableOptions:{
 											count: 30
 										},
@@ -1413,7 +1408,7 @@ angular.module( 'ngmReportHub' )
 										title: 'Back to Distribution Round ' + $scope.report.report_distribution,
 										url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period,
 										today_url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' +  $scope.report.organization_tag + '/all/all/all/all/' + moment().format( 'YYYY-MM-DD' ) + '/' + moment().format( 'YYYY-MM-DD' ),
-										distribution_period_url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' +  $scope.report.organization_tag + '/all/all/all/all/' + $scope.report.reporting_period + '/' + moment().format( 'YYYY-MM-DD' ),
+										distribution_period_url: '#/bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' +  $scope.report.organization_tag + '/all/all/all/all/' + $scope.report.reporting_period + '/' + moment( $scope.report.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' )
 									}
 								}
 							}]

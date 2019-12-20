@@ -75,10 +75,10 @@
 					<span class="title">{{ item.reporting_period_title }}</span>
 					<span class="right" style="font-size:1.1rem;padding-top:20px; padding-right:40px; color:#616161;">{{ list.reportFormat( item ) }}</span>
 					<p align="justify" style="padding:10px 0px 5px 0px;">
-						<span style="font-size:1.7rem; padding-left: 10px;">Round {{ item.report_round }}</span>
+						<span style="font-size:1.5rem; padding-left: 10px;">Distribution {{ item.report_distribution }}</span>
 					</p>
 					<p align="justify" style="padding:5px 0px 10px 10px;">
-						<span style="font-size:1.2rem; color:#26a69a;font-weight:400;">Distribution {{ item.report_distribution }}</span>
+						<span style="font-size:1.2rem; color:#26a69a;font-weight:400;">Round {{ item.report_round }}</span>
 					</p>
 					<a href="{{ list.report_url }}/round/{{ item.report_round }}/distribution/{{ item.report_distribution }}/{{ list.toDate( item.reporting_period ) }}" title="View Distribution Report {{ item.report_distribution }}" class="secondary-content">
 						<i class="material-icons right" style="padding-top:20px; padding-right:40px; color: {{ list.status }}">{{ list.right_icon }}</i>

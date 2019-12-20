@@ -68,10 +68,11 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 									<form>
 										<div class="input-field">
 											<input id="search_{{ table.id }}" type="search"
-												ng-model="table.search.filter"
-												ng-focus="table.search.focused=true"  
-												ng-blur="table.search.focused=false"
-												ng-change="table.searchLoadTable()">
+															style="color:#000;"
+															ng-model="table.search.filter"
+															ng-focus="table.search.focused=true"
+															ng-blur="table.search.focused=false"
+															ng-change="table.searchLoadTable()">
 											<label for="search_{{ table.id }}"><i class="material-icons" style="color: teal; padding-left:5px;">search</i></label>
 										</div>
 									</form>
@@ -95,10 +96,26 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 					<!-- if data -->
 					<div ng-if="data.length">
 						<table class="centered highlight responsive-table" ng-table="table.tableParams">
+
+							<!-- remove location -->
+							<div id="gfd-delete-modal" class="modal">
+								<div class="modal-content">
+									<h4 style="color: #E57373; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>Remove</h4>
+									<p>This will remove the beneficiary GFD:{{ table.row.gfd_id }}, FCN:{{ table.row.fcn_id }} form the Absent list and return them back into the Plan and Achievement Lists (as applicable)</p>
+								</div>
+								<div class="modal-footer">
+									<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+									<a ng-click="table.deleteAbsent( table.row )"
+											class="modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+								</div>
+							</div>
+
+							<!-- row -->
 							<tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
 
-								<td data-title="'Distribution Date'" sortable="'distribution_date'">
-									{{ row.distribution_date | date : 'mediumDate' }}
+								<!-- distribution date (actual) -->
+								<td data-title="'Distribution Date'" sortable="'distribution_date_actual'">
+									{{ row.distribution_date_actual | date : 'mediumDate' }}
 								</td>
 
 								<td data-title="'organization'|translate" sortable="'organization'">
@@ -141,6 +158,7 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 
 							</tr>
 						</table>
+
 					</div>
 
 				</li>
