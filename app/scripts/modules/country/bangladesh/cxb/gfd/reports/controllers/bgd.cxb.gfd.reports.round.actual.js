@@ -1261,7 +1261,7 @@ angular.module( 'ngmReportHub' )
 
 										// close modal
 										$( '#' + modal ).closeModal();
-										Materialize.toast( 'Updating Distribution Dates...', 4000, 'note' );
+										Materialize.toast( 'Updating Distribution Dates...', 6000, 'note' );
 
 										// ngmData
 										ngmData.get({ 
