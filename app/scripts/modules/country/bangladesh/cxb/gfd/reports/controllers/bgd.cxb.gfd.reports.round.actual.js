@@ -1216,7 +1216,9 @@ angular.module( 'ngmReportHub' )
 											method: 'POST', 
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setAbsentDistributionDateById',
 											data: {
-												id: $scope.report.selected_row._id,
+												gfd_id: $scope.report.selected_row.gfd_id,
+												fcn_id: $scope.report.selected_row.fcn_id,
+												report_distribution: $scope.report.selected_row.report_distribution,
 												distribution_date_actual: $scope.report.selected_row.distribution_date_actual
 											}
 										}).then( function( result ){
@@ -1248,7 +1250,7 @@ angular.module( 'ngmReportHub' )
 											if ( angular.isDefined( item._id ) ) {
 												if ( table.checkboxes.items[ item._id ] ) {
 													// update dates
-													update.push( item._id );
+													update.push({ gfd_id: item.gfd_id, fcn_id: item.fcn_id, report_distribution: item.report_distribution });
 													item.distribution_date_actual = date;
 												}
 											}
