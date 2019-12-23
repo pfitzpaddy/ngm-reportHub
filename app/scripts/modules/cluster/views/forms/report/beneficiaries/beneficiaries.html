@@ -203,7 +203,7 @@
 																		} : true"
 											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_details, 'activity_detail_id', 'activity_detail_name', beneficiary );
 																	ngmClusterBeneficiaries.setBeneficiaries( project, 'detail', $locationIndex, $beneficiaryIndex, beneficiary );
-												ngmClusterBeneficiaries.inputChange( 'ngm-activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
+												ngmClusterBeneficiaries.inputChange( 'ngm-activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' ); ngmClusterHelperNgWash.clearAssociations( beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
