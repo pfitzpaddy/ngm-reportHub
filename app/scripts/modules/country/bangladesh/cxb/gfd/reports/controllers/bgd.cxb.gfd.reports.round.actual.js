@@ -1209,7 +1209,7 @@ angular.module( 'ngmReportHub' )
 
 										// close modal
 										$( '#' + modal ).closeModal();
-										Materialize.toast( 'Updating Distribution Date...', 4000, 'note' );
+										Materialize.toast( 'Updating Distribution Date...', 6000, 'note' );
 
 										// ngmData
 										ngmData.get({ 
@@ -1261,7 +1261,7 @@ angular.module( 'ngmReportHub' )
 
 										// close modal
 										$( '#' + modal ).closeModal();
-										Materialize.toast( 'Updating Distribution Dates...', 6000, 'note' );
+										Materialize.toast( 'Updating Distribution Dates...', 18000, 'note' );
 
 										// ngmData
 										ngmData.get({ 
@@ -1272,6 +1272,9 @@ angular.module( 'ngmReportHub' )
 												distribution_date_actual: date
 											}
 										}).then( function( result ){
+
+											// remove toast
+											$( '.toast' ).remove();
 
 											// reset
 											$timeout( function(){
