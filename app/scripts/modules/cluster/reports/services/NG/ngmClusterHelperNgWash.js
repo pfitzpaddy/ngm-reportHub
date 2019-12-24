@@ -237,6 +237,10 @@ angular.module( 'ngmReportHub' )
 				}, 10 );
 			},
 
+			clearAssociations: function ( $beneficiary ) {
+				// clear
+				['water', 'boreholes', 'sanitation', 'hygiene', 'cash', 'accountability'].map(a => { if ($beneficiary && $beneficiary[a]) { $beneficiary[a] = [] } });
+			},
 
 			// ADD RECORDS
 

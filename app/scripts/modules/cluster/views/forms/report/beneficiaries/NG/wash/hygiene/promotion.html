@@ -179,7 +179,9 @@
 
 		</div>
 
-		<div class="row" style="margin-left:20px;">
+		<div ng-if="beneficiary.activity_detail_id === 'other_campaigns' ||
+								beneficiary.activity_detail_id === 'hygiene_promotion_volunteers_recruitment_training' ||
+								beneficiary.activity_detail_id === 'hygiene_promotion_monitoring_visits'" class="row" style="margin-left:20px;">
 			<!-- add details -->
 			<button class="btn blue lighten-2"
 							ng-show="project.report.report_status !== 'complete'"
