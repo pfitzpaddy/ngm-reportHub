@@ -27,7 +27,8 @@ angular.module( 'ngmReportHub' )
       all_sectors_minus_wash_health_smsd: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','nutrition','protection','rnr_chapter' ],
       all_sectors_minus_wash_education: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
       all_sectors_col: ['smsd','education','alojamientos_asentamientos','san','health','recuperacion_temprana','protection','wash','ningún_cluster','coordinación_información'],
-      all_sectors_minus_education: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter','wash' ],
+      all_sectors_minus_education: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter','wash','child_protection' ],
+
 
        
       // lists ( project, mpc transfers )
@@ -38,7 +39,7 @@ angular.module( 'ngmReportHub' )
           // lists
 					units: ngmClusterLists.getUnits( project.admin0pcode ),
           indicators: ngmClusterLists.getIndicators( true ),
-          delivery_types: ngmClusterLists.getDeliveryTypes( project.admin0pcode ),
+          delivery_types: ngmClusterLists.getDeliveryTypes( project.admin0pcode, project.cluster_id ),
           mpc_purpose: ngmClusterLists.getMpcPurpose(),
 
           // mpc_delivery_type: ngmClusterLists.getMpcDeliveryTypes(project.admin0pcode),
@@ -316,7 +317,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // delivery
-      getDeliveryTypes: function( admin0pcode ) {
+      getDeliveryTypes: function( admin0pcode, cluster_id ) {
 
         var delivery = [];
 
@@ -365,14 +366,26 @@ angular.module( 'ngmReportHub' )
           }];
 
         } else if ( admin0pcode === 'NG' ) {
+          if(cluster_id === 'child_protection'){
+            delivery = [{
+              delivery_type_id: 'disabled',
+              delivery_type_name: 'Disabled'
+            },{
+              delivery_type_id: 'not_disabled',
+              delivery_type_name: 'Not Disabled'
+            }];
+          }else{
+            delivery = [{
+              delivery_type_id: 'completed',
+              delivery_type_name: 'Completed'
+            },{
+              delivery_type_id: 'planned',
+              delivery_type_name: 'Planned'
+            }];
 
-          delivery = [{
-            delivery_type_id: 'completed',
-            delivery_type_name: 'Completed'
-          },{
-            delivery_type_id: 'planned',
-            delivery_type_name: 'Planned'
-          }];
+          }
+
+         
 
         } else {
 
@@ -5312,30 +5325,40 @@ angular.module( 'ngmReportHub' )
           }];
         }
 
+        function excludeSectors(exSectors){
+          var clone =  Object.assign([], ngmClusterLists.all_sectors);
+          exSectors.forEach(function(exSector){
+            var index = clone.indexOf(exSector);
+            if (index > -1) {
+              clone.splice(index, 1);
+            }
+          });
+          return clone;
+        }
         //admin NG
         if( admin0pcode === 'NG' ){
           beneficiaries = [{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: excludeSectors(['child_protection']),
             beneficiary_type_id: 'idps',
             beneficiary_type_name: 'IDPs'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_education,
+            cluster_id: excludeSectors(['education','child_protection']),
             beneficiary_type_id: 'drought_idps',
             beneficiary_type_name: 'Drought IDPs'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_education,
+            cluster_id: excludeSectors(['education','child_protection']),
             beneficiary_type_id: 'flood_idps',
             beneficiary_type_name: 'Flood IDPs'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_education,
+            cluster_id: excludeSectors(['education','child_protection']),
             beneficiary_type_id: 'natural_disaster_idps',
             beneficiary_type_name: 'Natural Disaster IDPs'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_education,
+            cluster_id: excludeSectors(['education','child_protection']),
             beneficiary_type_id: 'conflict_idps',
             beneficiary_type_name: 'Conflict IDPs'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_education,
+            cluster_id: excludeSectors(['education','child_protection']),
             beneficiary_type_id: 'refugees',
             beneficiary_type_name: 'Refugees'
           },{
@@ -5347,10 +5370,19 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_id: 'host_communities',
             beneficiary_type_name: 'Host Communities'
           },{
-            cluster_id: ngmClusterLists.all_sectors_minus_education,
+            cluster_id: excludeSectors(['education','child_protection']),
             beneficiary_type_id: 'stakeholders',
             beneficiary_type_name: 'Stakeholders'
-          }]
+          },{
+            cluster_id: excludeSectors(['education','wash']),
+            beneficiary_type_id: 'idps_in_host_communities',
+            beneficiary_type_name: 'IDPs in Host Communities'
+          },{
+            cluster_id: excludeSectors(['education','wash']),
+            beneficiary_type_id: 'idps_in_camps',
+            beneficiary_type_name: 'IDPs in Camps'
+          }
+        ]
         }
 
         // admin COL

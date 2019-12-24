@@ -57,7 +57,19 @@ angular.module( 'ngmReportHub' )
 					elderly_women:0,
 					total_male:0,
 					total_female:0,
-					total_beneficiaries:0
+					total_beneficiaries:0,
+
+					male_teachers:0,
+					female_teachers:0,
+					avg_attendance_boys:0,
+					avg_attendance_girls:0,
+
+					boys_6_12:0,
+					boys_13_17:0,
+					youth_male_18_24:0,
+					girls_6_12:0,
+					girls_13_17:0,
+					youth_female_18_24:0
 				},
 				// activity_description: {
 				// 	activity_description_id: '',
@@ -171,6 +183,21 @@ angular.module( 'ngmReportHub' )
 																beneficiary.elderly_women;
 
 					beneficiary.total_beneficiaries += beneficiary.total_male + beneficiary.total_female;
+					//Workaround for Nigeria Education Sector
+					if(beneficiary.hasOwnProperty('male_teachers')){beneficiary.total_beneficiaries +=beneficiary.male_teachers}
+					if(beneficiary.hasOwnProperty('female_teachers')){beneficiary.total_beneficiaries +=beneficiary.female_teachers}
+					if(beneficiary.hasOwnProperty('avg_attendance_boys')){beneficiary.total_beneficiaries +=beneficiary.avg_attendance_boys}
+					if(beneficiary.hasOwnProperty('avg_attendance_girls')){beneficiary.total_beneficiaries +=beneficiary.avg_attendance_girls}
+
+					//Workaround for Nigeria Child Protection Sector
+					if(beneficiary.hasOwnProperty('boys_6_12')){beneficiary.total_beneficiaries +=beneficiary.boys_6_12}
+					if(beneficiary.hasOwnProperty('boys_13_17')){beneficiary.total_beneficiaries +=beneficiary.boys_13_17}
+					if(beneficiary.hasOwnProperty('youth_male_18_24')){beneficiary.total_beneficiaries +=beneficiary.youth_male_18_24}
+					if(beneficiary.hasOwnProperty('girls_6_12')){beneficiary.total_beneficiaries +=beneficiary.girls_6_12}
+					if(beneficiary.hasOwnProperty('girls_13_17')){beneficiary.total_beneficiaries +=beneficiary.girls_13_17}
+					if(beneficiary.hasOwnProperty('youth_female_18_24')){beneficiary.total_beneficiaries +=beneficiary.youth_female_18_24}
+					
+					
 				}, 100 );
 			},
 
@@ -274,7 +301,7 @@ angular.module( 'ngmReportHub' )
 			showFormInputs: function( beneficiary, form ) {
 				var display = false;
 				if ( beneficiary.activity_description_id ) {
-					if( !form.display_activity_detail  ) {
+					if( !beneficiary.hasOwnProperty('display_activity_detail') || !form.display_activity_detail  ) {
 						display = true;
 					}
 					if( beneficiary.activity_detail_id && form.display_activity_detail  ) {
