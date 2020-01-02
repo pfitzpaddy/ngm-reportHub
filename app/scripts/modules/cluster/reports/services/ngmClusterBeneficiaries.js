@@ -11,6 +11,119 @@ angular.module( 'ngmReportHub' )
 
 		// beneficairies
 		var ngmClusterBeneficiaries = {
+			isPresent: function(locationIndex, beneficiaryIndex, key){
+				return ngmClusterBeneficiaries.form[ locationIndex ][ beneficiaryIndex ].hasOwnProperty(key);
+			},
+			isPositive: function(locationIndex, beneficiaryIndex, key){
+				return ngmClusterBeneficiaries.form[ locationIndex ][ beneficiaryIndex ][key];
+			},
+			isPresentandPositive: function(locationIndex, beneficiaryIndex, key){
+				return ngmClusterBeneficiaries.form[ locationIndex ][ beneficiaryIndex ].hasOwnProperty(key) &&ngmClusterBeneficiaries.form[ locationIndex ][ beneficiaryIndex ][key];
+			},
+			// ======================= SADDs skip logics ============================
+			sadd_b_5_11_17_m_em_t: function(locationIndex, beneficiaryIndex){
+				return ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_0_5' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_6_11') &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_12_17') &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'men' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'elderly_men' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'total_male' );
+			},
+			sadd_g_5_11_17_w_ew_t:function(locationIndex, beneficiaryIndex){
+				return ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_0_5' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_6_11' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_12_17' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'women' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'elderly_women' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'total_female' );
+			},
+			sadd_bgmw: function(locationIndex, beneficiaryIndex){
+				return ( ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys' ) ||
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls' ) ||
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'men' ) ||
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'women' ) ) &&
+			( !ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_0_5' )  &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_6_11' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_12_17' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_0_5' )  &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_6_11' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_12_17' ) ) &&
+			( !ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'elderly_men' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'elderly_women' ) )
+			&& (
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'male_teachers') &&
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'female_teachers') && 
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'avg_attendance_boys') &&
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'avg_attendance_girls') ) 
+
+				&& 
+				( !ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_0_5') &&
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_6_12') &&
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_13_17') &&
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'youth_male_18_24') )
+
+				&&
+				
+				( !ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_0_5') &&
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_6_12') &&
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_13_17') &&
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'youth_female_18_24') )
+			},
+			sadd_bgmw_em_ew: function(locationIndex, beneficiaryIndex){
+				return ( ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'men' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'women' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'elderly_men' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'elderly_women' ) ) &&
+			( !ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_0_5' )  &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_6_11' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_12_17' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_0_5' )  &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_6_11' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_12_17' ) )
+				&& (
+					!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'male_teachers') &&
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'female_teachers') && 
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'avg_attendance_boys') &&
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'avg_attendance_girls') ) 
+		&& 
+		( !ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_0_5') &&
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_6_12') &&
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_13_17') &&
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'youth_male_18_24') )
+
+		&&
+		
+		( !ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_0_5') &&
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_6_12') &&
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_13_17') &&
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'youth_female_18_24') );
+},
+			sadd_edu_ng: function(locationIndex, beneficiaryIndex){
+				return ( 
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'male_teachers') &&
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'female_teachers') && ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'avg_attendance_boys') &&
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'avg_attendance_girls') ) &&
+			( !ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_0_5' )  &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_6_11' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_12_17' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_0_5' )  &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_6_11' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_12_17' ) );
+			},
+			sadd_b_6_12_17_24: function(locationIndex, beneficiaryIndex){
+				return ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_0_5') &&
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_6_12' ) &&
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_13_17') &&
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'youth_male_18_24');
+			},
+			sadd_g_6_12_17_24: function(locationIndex, beneficiaryIndex){
+				return ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_0_5') &&
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_6_12' ) &&
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_13_17') &&
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'youth_female_18_24');
+			},
 
 			// form
 			form:[[]],

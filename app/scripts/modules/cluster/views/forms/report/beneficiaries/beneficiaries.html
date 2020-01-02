@@ -691,12 +691,7 @@
 
 					<!-- SADD ( very SAD age breakdown - male ) -->
 					<div class="row"
-								ng-if="( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_0_5' ] &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_6_11' ] &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_12_17' ] &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'men' ] &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_men' ] &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'total_male' ] )">
+								ng-if="ngmClusterBeneficiaries.sadd_b_5_11_17_m_em_t( $locationIndex, $beneficiaryIndex )">
 
 						<!-- boys_0_5 -->
 						<div class="input-field col s12 m2">
@@ -787,12 +782,7 @@
 
 					<!-- SADD ( very SAD age breakdown - female ) -->
 					<div class="row"
-								ng-if="( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_0_5' ] &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_6_11' ] &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_12_17' ] &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'women' ] &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_women' ] &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'total_female' ] )">
+								ng-if="ngmClusterBeneficiaries.sadd_g_5_11_17_w_ew_t( $locationIndex, $beneficiaryIndex )">
 
 						<!-- girls_0_5 -->
 						<div class="input-field col s12 m2">
@@ -884,37 +874,7 @@
 
 					<!-- SADD (boys, girls, men, women) -->
 					<div class="row"
-								ng-if="( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys' ] ||
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls' ] ||
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'men' ] ||
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'women' ] ) &&
-												( !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_0_5' ]  &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_6_11' ] &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_12_17' ] &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_0_5' ]  &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_6_11' ] &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_12_17' ] ) &&
-												( !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_men' ] &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_women' ] )
-												&& (
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('male_teachers') &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('female_teachers') && 
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('avg_attendance_boys') &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('avg_attendance_girls') ) 
-
-													&& 
-													( !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('boys_0_5') &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('boys_6_12') &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('boys_13_17') &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('youth_male_18_24') )
-		
-													&&
-													
-													( !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('girls_0_5') &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('girls_6_12') &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('girls_13_17') &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('youth_female_18_24') )
-													">
+								ng-if="ngmClusterBeneficiaries.sadd_bgmw( $locationIndex, $beneficiaryIndex )">
 
 						<!-- boys -->
 						<div class="input-field col s12 m3">
@@ -981,36 +941,7 @@
 
 					<!-- SADD (boys, girls, men, women, elderly_men, elderly_women) -->
 					<div class="row"
-								ng-if="( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys' ] &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls' ] &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'men' ] &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'women' ] &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_men' ] &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'elderly_women' ] ) &&
-												( !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_0_5' ]  &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_6_11' ] &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_12_17' ] &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_0_5' ]  &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_6_11' ] &&
-													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_12_17' ] )
-													&& (
-														!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('male_teachers') &&
-											!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('female_teachers') && 
-											!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('avg_attendance_boys') &&
-											!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('avg_attendance_girls') ) 
-											&& 
-											( !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('boys_0_5') &&
-											!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('boys_6_12') &&
-											!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('boys_13_17') &&
-											!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('youth_male_18_24') )
-
-											&&
-											
-											( !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('girls_0_5') &&
-											!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('girls_6_12') &&
-											!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('girls_13_17') &&
-											!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('youth_female_18_24') )
-													">
+								ng-if="ngmClusterBeneficiaries.sadd_bgmw_em_ew( $locationIndex, $beneficiaryIndex )">
 
 						<!-- boys -->
 						<div class="input-field col s12 m2">
@@ -1100,16 +1031,7 @@
 
 					<!-- SADD (boys, girls, men, women, male_teachers, female_teachers,avg_attendance_boys,avg_attendance_girls) -->
 						<div class="row"
-						ng-if="( 
-											ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('male_teachers') &&
-											ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('female_teachers') && ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('avg_attendance_boys') &&
-											ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('avg_attendance_girls') ) &&
-										( !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_0_5' ]  &&
-											!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_6_11' ] &&
-											!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'boys_12_17' ] &&
-											!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_0_5' ]  &&
-											!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_6_11' ] &&
-											!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_12_17' ] )">
+						ng-if="ngmClusterBeneficiaries.sadd_edu_ng($locationIndex, $beneficiaryIndex )">
 
 							<!-- boys -->
 							<div class="input-field col s12 m2">
@@ -1228,10 +1150,7 @@
 					
 						<!-- SADD ( very SAD age breakdown - male ) -->
 					<div class="row"
-					ng-if="( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('boys_0_5') &&
-										ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('boys_6_12' ) &&
-										ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('boys_13_17') &&
-										ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('youth_male_18_24'))">
+					ng-if="ngmClusterBeneficiaries.sadd_b_6_12_17_24($locationIndex, $beneficiaryIndex )">
 
 						<!-- boys_0_5 -->
 						<div class="input-field col s12 m2">
@@ -1324,10 +1243,7 @@
 
 					<!-- SADD ( very SAD age breakdown - female ) -->
 					<div class="row"
-								ng-if="( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('girls_0_5') &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('girls_6_12') &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('girls_13_17') &&
-													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ].hasOwnProperty('youth_female_18_24') )">
+								ng-if="ngmClusterBeneficiaries.sadd_g_6_12_17_24($locationIndex, $beneficiaryIndex)">
 
 						<!-- girls_0_5 -->
 						<div class="input-field col s12 m2">
