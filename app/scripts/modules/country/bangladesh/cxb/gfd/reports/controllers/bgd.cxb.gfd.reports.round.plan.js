@@ -245,7 +245,7 @@ angular.module( 'ngmReportHub' )
 			setMenu: function () {
 				
 				// menu
-				if ( $scope.report.organization_tag === 'wfp' || $scope.report.organization_tag === 'immap' ) {
+				if ( $scope.report.user.organization_tag === 'wfp' || $scope.report.user.organization_tag === 'immap' ) {
 					$scope.model.menu = [{
 						'id': 'search-gfd-organization',
 						'icon': 'supervisor_account',
@@ -294,11 +294,11 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// filter by round if WFP
-				if ( $scope.report.organization_tag === 'wfp' || $scope.report.organization_tag === 'immap' ) {
+				if ( $scope.report.organization_tag === 'wfp' ||  $scope.report.organization_tag === 'immap' ) {
 					var filter = { report_round: $scope.report.report_round }
 				} 
 				// filter by round and org if !WFP
-				if ( $scope.report.organization_tag === 'wfp' || $scope.report.organization_tag === 'immap' ) {
+				if ( $scope.report.organization_tag !== 'wfp' && $scope.report.organization_tag !== 'immap' ) {
 					var filter = { report_round: $scope.report.report_round, organization_tag: $scope.report.organization_tag }
 				}
 
@@ -818,15 +818,15 @@ angular.module( 'ngmReportHub' )
 															report_round: $scope.report.report_round,
 															report_distribution: $scope.report.report_distribution,
 														}
-													// },{
-													// 	method: 'POST',
-													// 	url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/sendKoboManualDeployEmail',
-													// 	data: {
-													// 		admin0pcode: $scope.report.user.admin0pcode,
-													// 		organization_tag: $scope.report.organization_tag,
-													// 		report_round: $scope.report.report_round,
-													// 		report_distribution: $scope.report.report_distribution,
-													// 	}
+													},{
+														method: 'POST',
+														url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/sendKoboManualDeployEmail',
+														data: {
+															admin0pcode: $scope.report.user.admin0pcode,
+															organization_tag: $scope.report.organization_tag,
+															report_round: $scope.report.report_round,
+															report_distribution: $scope.report.report_distribution,
+														}
 													}]
 												}
 											}
