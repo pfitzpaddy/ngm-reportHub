@@ -818,15 +818,15 @@ angular.module( 'ngmReportHub' )
 															report_round: $scope.report.report_round,
 															report_distribution: $scope.report.report_distribution,
 														}
-													},{
-														method: 'POST',
-														url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/sendKoboManualDeployEmail',
-														data: {
-															admin0pcode: $scope.report.user.admin0pcode,
-															organization_tag: $scope.report.organization_tag,
-															report_round: $scope.report.report_round,
-															report_distribution: $scope.report.report_distribution,
-														}
+													// },{
+													// 	method: 'POST',
+													// 	url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/sendKoboManualDeployEmail',
+													// 	data: {
+													// 		admin0pcode: $scope.report.user.admin0pcode,
+													// 		organization_tag: $scope.report.organization_tag,
+													// 		report_round: $scope.report.report_round,
+													// 		report_distribution: $scope.report.report_distribution,
+													// 	}
 													}]
 												}
 											}
