@@ -1112,7 +1112,9 @@ angular.module( 'ngmReportHub' )
 										var table = this;
 										// set
 										table.row = row;
-										$( '#' + modal ).openModal( { dismissible: false } );
+										// $( '#' + modal ).openModal( { dismissible: false } );
+										$('#' + modal).modal({ dismissible: false });
+										$('#' + modal).modal('open');
 
 									},
 
@@ -1131,7 +1133,8 @@ angular.module( 'ngmReportHub' )
 										}).then( function( result ){
 											// reset
 											$timeout( function(){
-												Materialize.toast( result.msg , 4000, 'success' );
+												// Materialize.toast( result.msg , 4000, 'success' );
+												M.toast({ html: result.msg, displayLength: 4000, classes: 'success' });
 												$timeout( function(){ $route.reload(); }, 1000 );
 											}, 1000 );
 										});
@@ -1188,7 +1191,9 @@ angular.module( 'ngmReportHub' )
 										
 										// open modal
 										if ( table.rows_checked ) {
-											$( '#' + modal ).openModal( { dismissible: true } );
+											// $( '#' + modal ).openModal( { dismissible: true } );
+											$('#' + modal).modal({ dismissible: false });
+											$('#' + modal).modal('open');
 										}
 									
 									},
@@ -1208,8 +1213,11 @@ angular.module( 'ngmReportHub' )
 										table.tableParams.reload();
 
 										// close modal
-										$( '#' + modal ).closeModal();
-										Materialize.toast( 'Updating Distribution Date...', 6000, 'note' );
+										// $( '#' + modal ).closeModal();
+										$('#' + modal).modal({ dismissible: true });
+										$('#' + modal).modal('close');
+										// Materialize.toast( 'Updating Distribution Date...', 6000, 'note' );
+										M.toast({ html: 'Updating Distribution Date...', displayLength: 6000, classes: 'note' });
 
 										// ngmData
 										ngmData.get({ 
@@ -1228,7 +1236,8 @@ angular.module( 'ngmReportHub' )
 												if ( result.refresh ) {
 													$route.reload();
 												}
-												Materialize.toast( result.msg + ' Updated 1 Record', 4000, 'success' );
+												// Materialize.toast( result.msg + ' Updated 1 Record', 4000, 'success' );
+												M.toast({ html: result.msg + ' Updated 1 Record', displayLength: 4000, classes: 'success' });
 											}, 1000 );
 										});             
 
@@ -1260,8 +1269,11 @@ angular.module( 'ngmReportHub' )
 										table.tableParams.reload();
 
 										// close modal
-										$( '#' + modal ).closeModal();
-										Materialize.toast( 'Updating Distribution Dates...', 18000, 'note' );
+										// $( '#' + modal ).closeModal();
+										$('#' + modal).modal({ dismissible: true });
+										$('#' + modal).modal('close');
+										// Materialize.toast( 'Updating Distribution Dates...', 18000, 'note' );
+										M.toast({ html: 'Updating Distribution Dates...', displayLength: 18000, classes: 'note' });
 
 										// ngmData
 										ngmData.get({ 
@@ -1286,7 +1298,8 @@ angular.module( 'ngmReportHub' )
 												if ( $( '#select_all' ).is( ':checked' ) ) {
 													$( '#select_all' ).click();
 												}
-												Materialize.toast( result.msg + ' Updated ' + update.length + ' Records!', 6000, 'success' );
+												// Materialize.toast( result.msg + ' Updated ' + update.length + ' Records!', 6000, 'success' );
+												M.toast({ html: result.msg + ' Updated ' + update.length + ' Records!', displayLength: 6000, classes: 'success' });
 											}, 1000 );
 										});
 
