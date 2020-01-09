@@ -232,7 +232,11 @@ angular.module('ngmReportHub')
 							admin2pcode: $scope.dashboard.admin2pcode,
 							cluster_id: $scope.dashboard.cluster_id,
 							organization_tag: $scope.dashboard.organization_tag,
+							activity_type_id: $scope.dashboard.activity_type_id,
 							donor: $scope.dashboard.donor_tag,
+							implementer: $scope.dashboard.implementer_tag,	
+							project_type_component: $scope.dashboard.project_type_component,
+							hrpplan: $scope.dashboard.hrpplan,
 							beneficiaries: $scope.dashboard.beneficiaries,
 							start_date: $scope.dashboard.startDate,
 							end_date: $scope.dashboard.endDate,
@@ -1719,7 +1723,7 @@ angular.module('ngmReportHub')
 												 dataLabels: {
 										                enabled: true,
 										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.y}'
+										               format: '{point.name}<br>#{point.y}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
@@ -1790,7 +1794,7 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										                 format: '{point.y}'
+										                 format: '{point.name}<br>#{point.y}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 											    // request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryAdmin1pcode', chart_for:'beneficiaryAdmin1pcode'}),
@@ -1861,7 +1865,7 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										                 format: '{point.y}'
+										                 format: '{point.y}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryType', chart_for:'beneficiaryType'}),
@@ -1931,7 +1935,7 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										                 format: '{point.y}'
+										                 format: '{point.name}<br>#{point.y}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryCluster', chart_for:'beneficiaryCluster'}),
@@ -2187,7 +2191,7 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										                 format: '{point.y}'
+										                 format: '{point.name}<br>#{point.y}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingTop5ExecutorOrganizations', chart_for:'FinancingExecutorOrganization'}),
@@ -2257,7 +2261,7 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										                 format: '{point.y}'
+										                 format: '{point.name}<br>#{point.y}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 											    // request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryAdmin1pcode', chart_for:'beneficiaryAdmin1pcode'}),
@@ -2329,7 +2333,7 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										                 format: '{point.y}'
+										                 format: '{point.label:.1f}<br>%'
 										                //inside: true
 										            },
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingCluster', chart_for:'FinancingCluster'}),
@@ -2399,7 +2403,7 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										                 format: '{point.y}'
+										                 format: '${point.y}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingTop5Donors', chart_for:'FinancingDonors'}),
@@ -2469,7 +2473,7 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										                 format: '{point.y}'
+										                 format: '{point.name}<br>#{point.y}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 											    // request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryAdmin1pcode', chart_for:'beneficiaryAdmin1pcode'}),

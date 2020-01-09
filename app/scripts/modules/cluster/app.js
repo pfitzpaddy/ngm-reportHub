@@ -652,7 +652,7 @@ angular
 						const admin0pcode = userInitRouteParams.includes('admin0pcode') && user && user.admin0pcode ? user.admin0pcode.toLowerCase() : 'all';
 						const cluster_id = userInitRouteParams.includes('cluster_id') && user && user.cluster_id ? user.cluster_id.toLowerCase() : 'all';
 						const organization_tag = userInitRouteParams.includes('organization_tag') && user && user.organization_tag ? user.organization_tag.toLowerCase() : 'all';
-						const url = '/cluster/4wprojectplan/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/' + organization_tag +'/all/all/all/all/all'+ '/2019-01-01/' + moment().format('YYYY-MM-DD');
+						const url = '/cluster/4wprojectplan/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/all/'+ organization_tag +'/all/all/all/all'+ '/2019-01-01/' + moment().format('YYYY-MM-DD');
 						$location.path( url );
 					}]
 				},
@@ -751,7 +751,7 @@ angular
 				controller: 'Dashboard4wProjectPlanCtrl',
 				resolve: {
 					access: [ 'ngmAuth', function(ngmAuth) { 
-							return ngmAuth.grantPublicAccess();
+							return ngmAuth.grantPublicAccess(); 
 					}],
 				}
 			})
@@ -778,7 +778,7 @@ angular
 						const admin0pcode = userInitRouteParams.includes('admin0pcode') && user && user.admin0pcode ? user.admin0pcode.toLowerCase() : 'all';
 						const cluster_id = userInitRouteParams.includes('cluster_id') && user && user.cluster_id ? user.cluster_id.toLowerCase() : 'all';
 						const organization_tag = userInitRouteParams.includes('organization_tag') && user && user.organization_tag ? user.organization_tag.toLowerCase() : 'all';
-						const url = '/cluster/dashboard4wplus/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/' + organization_tag +'/all'+'/all'+'/all'+'/all/all'+'/2019-01-01/' + moment().format('YYYY-MM-DD');
+						const url = '/cluster/dashboard4wplus/' + adminRpcode + '/' + admin0pcode + '/all/all/' + cluster_id + '/all/'+organization_tag +'/all/all/all/all'+'/2019-01-01/' + moment().format('YYYY-MM-DD');
 						$location.path( url );
 					}]
 				},

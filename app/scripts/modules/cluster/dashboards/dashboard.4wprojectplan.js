@@ -235,6 +235,30 @@ angular.module('ngmReportHub')
 						request.query.donor_id = $route.current.params.donor_tag;
 					}
 
+					if( $route.current.params.admin1pcode !== 'all'){
+						request.query.admin1pcode = $route.current.params.admin1pcode;
+					}
+
+					if( $route.current.params.admin2pcode !== 'all'){
+						request.query.admin2pcode = $route.current.params.admin2pcode;
+					}
+
+					if( $route.current.params.implementer_tag !== 'all'){
+						request.query.implementer_id = $route.current.params.implementer_tag;
+					}
+
+					if( $route.current.params.project_type_component !== 'all'){
+						request.query.project_type_component = $route.current.params.project_type_component;
+					}
+
+					if( $route.current.params.activity_type!== 'all'){
+						request.query.activity_type_id = $route.current.params.activity_type;
+					}
+
+					if( $route.current.params.hrpplan!== 'all'){
+						request.query.hrpplan = $route.current.params.hrpplan;
+					}
+
 
 
 					
@@ -1688,13 +1712,14 @@ angular.module('ngmReportHub')
 												xAxis: {
 										        title: {
 										            text: $filter('translate')('ages_mayus1')
-										        }
-										    },
+										        }, 
+										        //categories: series.request[0].name
+										    	},
 												yAxis: {
 										        title: {
 										            text: $filter('translate')('total_by_age_and_percent_of_total')
 										        }
-										    }
+										    	}
 												
 											},
 											title: {
@@ -1711,7 +1736,7 @@ angular.module('ngmReportHub')
 												 dataLabels: {
 										                enabled: true,
 										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.y}'
+										               format: '{point.name} '+$filter('translate')('years')+'<br>#{point.y}<br>%{point.label:.1f}'
 										                //inside: true
 										            },
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
@@ -1780,8 +1805,9 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.y}'
+										               //format: '{point.name}<br>#{point.y}<br>{point.label:.1f}%'
+										               format: '{point.label:.1f}%'
+
 										                //inside: true
 										            },
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
@@ -1851,7 +1877,7 @@ angular.module('ngmReportHub')
 												 dataLabels: {
 										                enabled: true,
 										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.y}'
+										               format: '{point.name}<br>#{point.y}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
@@ -1943,7 +1969,7 @@ angular.module('ngmReportHub')
 												 dataLabels: {
 										                enabled: true,
 										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.y}'
+										               format: '{point.name}<br>${point.y}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
@@ -2013,7 +2039,7 @@ angular.module('ngmReportHub')
 												 dataLabels: {
 										                enabled: true,
 										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.y}'
+										               format: '{point.name}<br>${point.y}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
@@ -2083,7 +2109,7 @@ angular.module('ngmReportHub')
 												 dataLabels: {
 										                enabled: true,
 										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.y}'
+										               format: '${point.y}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
@@ -2153,7 +2179,7 @@ angular.module('ngmReportHub')
 												 dataLabels: {
 										                enabled: true,
 										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.y}'
+										               format: '{point.label:.1f}<br>%'
 										                //inside: true
 										            },
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
