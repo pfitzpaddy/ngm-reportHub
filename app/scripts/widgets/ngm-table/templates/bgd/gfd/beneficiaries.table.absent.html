@@ -179,7 +179,7 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 								<td header="'ng-table/headers/date_range.html'">
 									
 									<!-- button -->
-									<div class="buttons">
+									<!-- <div class="buttons">
 										<div id="ngmDatePicker-btn-{{ row._id }}"
 													class="btn btn-small teal lighten-2 waves-effect"
 													title="Update Distribution Dates"
@@ -187,18 +187,35 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 													ng-click="table.setPicker( 'gfd-calendar-update-modal', row )">
 											<i class="material-icons">date_range</i>
 										</div>
+									</div> -->
+									<div>
+										<input type=text name="ngmDatePicker-btn-{{ row._id }}" id="ngmDatePicker-btn-{{ row._id }}" style="width:0px;height:0px;display:none">
+										<label class="btn btn-small teal lighten-2 waves-effect" for="ngmDatePicker-btn-{{ row._id }}"
+											ng-click="table.openDatePicker('ngmDatePicker-btn-{{ row._id }}',row)" 
+											ng-disabled="!table.checkboxes.items[ row._id ]">
+											<i class=" material-icons"> date_range</i>
+										</label>
 									</div>
 
 								</td>
 
 								<!-- check box -->
 								<td align="center" header="'ng-table/headers/checkbox.html'" style="padding-bottom: 0px;">
-									<input type="checkbox"
+									<!-- <input type="checkbox"
 													class="filled-in"
 													id="checkbox-{{ row._id }}"
 													ng-model="table.checkboxes.items[ row._id ]"
 													ng-click="table.setDateSelection( table.checkboxes.items[ row._id ] )"/>
-									<label for="checkbox-{{ row._id }}"></label>
+									<label for="checkbox-{{ row._id }}"></label> -->
+
+									<label for="checkbox-{{ row._id }}">
+										<input type="checkbox"
+										class="filled-in"
+										id="checkbox-{{row._id}}"
+										ng-model="table.checkboxes.items[ row._id ]"
+										ng-click="table.setDateSelection( table.checkboxes.items[ row._id ] )" />
+										<span style="color: #000000; font-weight: 500;" ></span>
+									</label>
 								</td>
 
 								<!-- distribution plan (plan, absent) -->
@@ -265,7 +282,7 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 							</tr>
 						</table>
 				    <script type="text/ng-template" id="ng-table/headers/date_range.html">
-							<div class="buttons">
+							<!-- <div class="buttons">
 								<div id ='gfd-update-date-btn' 
 											class="btn btn-small teal lighten-2 waves-effect"
 											title="Update Distribution Dates"
@@ -273,16 +290,36 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
 											ng-click="table.setPicker( 'gfd-calendar-update-modal', false )">
 									<i class="material-icons">date_range</i>
 								</div>
+							</div> -->
+
+							<div style="padding-top:5px">
+								<label class="btn btn-small teal lighten-2 waves-effect" for="gfd-update-date-btn" 
+								ng-click="table.openDatePicker('gfd-update-date-btn',alse)"
+								ng-disabled="!table.rows_checked">
+									<i class=" material-icons"> date_range</i>
+								</label>
+								<input type=text name="gfd-update-date-btn" id="gfd-update-date-btn" style="width:0px;height:0px;display:none">
 							</div>
 						</script>
 				    <script type="text/ng-template" id="ng-table/headers/checkbox.html">
-								<input type="checkbox"
+								<!-- <input type="checkbox"
 												id="select_all"
 												class="filled-in"
 												ng-click="table.checkDistributionDates()"
 												name="filter-checkbox"
 												value="" />
-								<label for="select_all"></label>
+								<label for="select_all"></label> -->
+								<div style="padding-top:15px">
+									<label for="select_all">
+										<input type="checkbox"
+										class="filled-in"
+										id="select_all"
+										value=""
+										name="filter-checkbox"
+										ng-click="table.checkDistributionDates()" />
+										<span style="color: #000000; font-weight: 500;" ></span>
+									</label>
+								</div>
 						</script>
 					</div>
 

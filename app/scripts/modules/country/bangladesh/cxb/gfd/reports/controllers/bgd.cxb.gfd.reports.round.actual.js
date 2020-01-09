@@ -1198,6 +1198,42 @@ angular.module( 'ngmReportHub' )
 									
 									},
 
+									//using materialize v 1.0.0 date picker
+									openDatePicker: function (id, row) {
+										var table = this;
+
+										var max = table.distribution_dates.sort().reverse()[0];
+										var min = table.distribution_dates.sort()[0]
+
+										if (row) {
+											table.update_row = true;
+											$scope.report.selected_row = row;
+										} else {
+											table.update_row = false;
+										}
+										// if (table.rows_checked) {
+										$('#' + id).datepicker({
+											minDate: new Date(min),
+											maxDate: new Date(max),
+											onSelect: function (date) {
+												table.date_selected = date;
+											},
+											onClose: function () {
+												if (table.date_selected) {
+													if (table.update_row) {
+														table.setAbsentDistributionDateByIdv2(table.date_selected);
+													} else {
+														table.setAbsentDistributionDatesv2(table.date_selected)
+													}
+													delete table.date_selected;
+												}
+											}
+
+										});
+										// }
+
+									},
+
 									// UPDATE BY ID
 
 									// set absent distribution by id ( individual )
@@ -1240,6 +1276,40 @@ angular.module( 'ngmReportHub' )
 												M.toast({ html: result.msg + ' Updated 1 Record', displayLength: 4000, classes: 'success' });
 											}, 1000 );
 										});             
+
+									},
+									//using materialize v 1.0.0 date picker
+									setAbsentDistributionDateByIdv2:function(date){
+										// table
+										var table = this;
+										$scope.report.selected_row.distribution_date_actual = date;
+
+										// how to reset table
+										// table.tableParams.reload();
+
+										M.toast({ html: 'Updating Distribution Date...', displayLength: 6000, classes: 'note' });
+
+										ngmData
+										ngmData.get({
+											method: 'POST',
+											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setAbsentDistributionDateById',
+											data: {
+												gfd_id: $scope.report.selected_row.gfd_id,
+												fcn_id: $scope.report.selected_row.fcn_id,
+												report_distribution: $scope.report.selected_row.report_distribution,
+												distribution_date_actual: $scope.report.selected_row.distribution_date_actual
+											}
+										}).then(function (result) {
+											// reset
+											$timeout(function () {
+												// refresh
+												if (result.refresh) {
+													$route.reload();
+												}
+												// Materialize.toast( result.msg + ' Updated 1 Record', 4000, 'success' );
+												M.toast({ html: result.msg + ' Updated 1 Record', displayLength: 4000, classes: 'success' });
+											}, 1000);
+										});
 
 									},
 
@@ -1301,6 +1371,60 @@ angular.module( 'ngmReportHub' )
 												// Materialize.toast( result.msg + ' Updated ' + update.length + ' Records!', 6000, 'success' );
 												M.toast({ html: result.msg + ' Updated ' + update.length + ' Records!', displayLength: 6000, classes: 'success' });
 											}, 1000 );
+										});
+
+									},
+									//using materialize v 1.0.0 date picker
+									setAbsentDistributionDatesv2: function (date) {
+
+										// table
+										var table = this;
+
+										// records to update
+										var update = [];
+
+										// for filtered data
+										angular.forEach(table.tableSettings.data, function (item) {
+											if (angular.isDefined(item._id)) {
+												if (table.checkboxes.items[item._id]) {
+													// update dates
+													update.push({ gfd_id: item.gfd_id, fcn_id: item.fcn_id, report_distribution: item.report_distribution });
+													item.distribution_date_actual = date;
+												}
+											}
+										});
+
+										// how to reset table
+										table.tableParams.reload();
+
+										M.toast({ html: 'Updating Distribution Dates...', displayLength: 18000, classes: 'note' });
+
+										// ngmData
+										ngmData.get({
+											method: 'POST',
+											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setAbsentDistributionDatesByArray',
+											data: {
+												ids: update,
+												distribution_date_actual: date
+											}
+										}).then(function (result) {
+
+											// remove toast
+											$('.toast').remove();
+
+											// reset
+											$timeout(function () {
+												// refresh
+												if (result.refresh) {
+													$route.reload();
+												}
+												// trigger check
+												if ($('#select_all').is(':checked')) {
+													$('#select_all').click();
+												}
+												// Materialize.toast( result.msg + ' Updated ' + update.length + ' Records!', 6000, 'success' );
+												M.toast({ html: result.msg + ' Updated ' + update.length + ' Records!', displayLength: 6000, classes: 'success' });
+											}, 1000);
 										});
 
 									},
@@ -1564,6 +1688,10 @@ angular.module( 'ngmReportHub' )
 
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;
+
+				setTimeout(() => {
+					$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+				}, 0);
 
 			}
 

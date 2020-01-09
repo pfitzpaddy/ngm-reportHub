@@ -608,7 +608,9 @@
 		<script>
 			// open contact modal from footer
 			function contact(){
-				$('#ngm-contact-modal').openModal({dismissible: false});
+				// $('#ngm-contact-modal').openModal({dismissible: false});
+				$('#ngm-contact-modal').modal({ dismissible: false });
+				$('#ngm-contact-modal').modal('open');
 			}
 		</script>
 
