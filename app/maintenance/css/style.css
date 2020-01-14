@@ -195,3 +195,41 @@ footer.page-footer .btn-floating {
 .icon-twitter:before { content: '\f099'; } /* '' */
 .icon-linkedin:before { content: '\f0e1'; } /* '' */
 
+#maintenance-page {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+  background-color: #2196f3;
+	z-index: 99999;
+	pointer-events: none;
+}
+		
+#maintenance-page .center {
+	display: block;
+	width: 100%;
+	position: absolute;
+	top: 40%;
+	transform: translateY(-50%);
+}
+#maintenance-page .logo {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  background-color: #ffffff;    
+  padding-top: 10px;
+  border-radius: 50%;
+	box-shadow: 1px 3px 7px 2px rgba(0,0,0,0.32);
+}
+	
+		
+#maintenance-page .logo img {
+	filter: drop-shadow(0px 10px 6px rgba(0, 0, 0, 0.2))
+}
+
+#maintenance-page {
+	display: block !important;
+}
+
