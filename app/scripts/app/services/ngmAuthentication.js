@@ -395,7 +395,8 @@ angular.module('ngmReportHub')
 
 				}).error(function( err ) {
 					// update
-					Materialize.toast( 'Error!', 6000, 'error' );
+					// Materialize.toast( 'Error!', 6000, 'error' );
+					M.toast({ html: 'Error!', displayLength: 6000, classes: 'error' });
 				});
 
 				return register;
@@ -416,7 +417,8 @@ angular.module('ngmReportHub')
 					//  success handles in controller.authentication.js
 				}).error(function( err ) {
 					// update
-					Materialize.toast( 'Error!', 6000, 'error' );
+					// Materialize.toast( 'Error!', 6000, 'error' );
+					M.toast({ html: 'Error!', displayLength: 6000, classes: 'error' });
 				});
 
 				return update;
@@ -447,7 +449,8 @@ angular.module('ngmReportHub')
 
 				}).error(function( err ) {
 					// update
-					Materialize.toast( 'Error!', 6000, 'error' );
+					// Materialize.toast( 'Error!', 6000, 'error' );
+					M.toast({ html: 'Error!', displayLength: 6000, classes: 'error' });
 				});
 
 				return login;
@@ -483,7 +486,8 @@ angular.module('ngmReportHub')
 					}
 				}).error(function( err ) {
 					// update
-					Materialize.toast( 'Error!', 6000, 'error' );
+					// Materialize.toast( 'Error!', 6000, 'error' );
+					M.toast({ html: 'Error!', displayLength: 6000, classes: 'error' });
 				});;
 
 				return reset;

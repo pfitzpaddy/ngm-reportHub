@@ -31,11 +31,17 @@ angular.module( 'ngmReportHub' )
 
 			// update material_select
 			updateSelect: function(){
-				$timeout(function() { $( 'select' ).material_select(); }, 10 );
+				$timeout(function() { 
+					// $( 'select' ).material_select();
+					$('select').formSelect();
+				}, 10 );
 			},
 
 			updateSelectById: function (id) {
-				$timeout(function () { $('#' + id + ' select').material_select(); }, 10);
+				$timeout(function () { 
+					$('#' + id + ' select').material_select(); 
+					$('#' + id + ' select').formSelect();
+				}, 10);
 			},
 
 			// update display name in object on select change
@@ -146,7 +152,8 @@ angular.module( 'ngmReportHub' )
 					angular.forEach( beneficiary.details, function ( d, i ) {
 						ngmClusterDetails.setList( list, $locationIndex, $beneficiaryIndex, i, d.unit_type_id, beneficiary.details );
 					});
-					Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
+					// Materialize.toast( 'Please save to commit changes!' , 4000, 'note' );
+					M.toast({ html: 'Please save to commit changes!', displayLength: 4000, classes: 'note' });
 					// set to default
 					ngmClusterDetails.addDetailDisabled = false;
 				}

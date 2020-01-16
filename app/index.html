@@ -22,7 +22,8 @@
 		<link rel='stylesheet' href='bower_components/cal-heatmap/cal-heatmap.css'>
 		<link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.css'>
 		<link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css'>
-		<link rel='stylesheet' href='bower_components/materialize/bin/materialize.css'>
+		<!-- <link rel='stylesheet' href='bower_components/materialize/bin/materialize.css'> -->
+		<link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
 		<link rel='stylesheet' href='bower_components/ngm-leaflet-control-geocoder/Control.Geocoder.css'>
 		<link rel='stylesheet' href='bower_components/ngm-leaflet-fullscreen/dist/leaflet.fullscreen.css'>
 		<link rel='stylesheet' href='bower_components/dropzone/dist/min/dropzone.min.css'>
@@ -537,13 +538,15 @@
 										type="search"
 										class="ngm-form-search"
 										ng-model="ngm.menu.query[list.id]">
-									<label for="search"><i class="material-icons teal-text">search</i></label>
+									<!-- <label for="search"><i class="material-icons teal-text">search</i></label> -->
+									<label for="search" style="top:-10px"><i class="material-icons teal-text" style="padding-left: 20px;">search</i></label>
 								</div>
 							</div>
 						</nav>
 
 						<!-- list options -->
-			  		<div class="collapsible-body">
+					<!-- <div class="collapsible-body"  style="padding: 0;"> -->
+					<div class="collapsible-body" style="padding: 0px !important;">
 				      <div class="collection" ng-repeat="row in list.rows | filter:ngm.menu.query[list.id] track by $index">
 				      	
 				      	<a ng-if="row.href" href="{{ row.href }}"
@@ -605,7 +608,9 @@
 		<script>
 			// open contact modal from footer
 			function contact(){
-				$('#ngm-contact-modal').openModal({dismissible: false});
+				// $('#ngm-contact-modal').openModal({dismissible: false});
+				$('#ngm-contact-modal').modal({ dismissible: false });
+				$('#ngm-contact-modal').modal('open');
 			}
 		</script>
 
@@ -635,7 +640,8 @@
 		<script src="bower_components/highcharts/modules/exporting.js"></script>
 		<script src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
 		<script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
-		<script src="bower_components/materialize/bin/materialize.js"></script>
+		<!-- <script src="bower_components/materialize/bin/materialize.js"></script> -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
 		<script src="bower_components/moment/moment.js"></script>
 		<script src="bower_components/ngm-dashboard-framework/dist/ngm-dashboard-framework.js"></script>
 		<script src="bower_components/ngm-leaflet-control-geocoder/Control.Geocoder.js"></script>
@@ -838,6 +844,11 @@
 		<script src="scripts/widgets/ngm-modal/modal.js"></script>
 		<script src="scripts/widgets/ngm-stats/stats.js"></script>
 		<script src="scripts/widgets/ngm-table/table.js"></script>
+		<script>
+			$(document).ready(function () {
+					$('.collapsible').collapsible();
+				});
+		</script>
 
 
 	</body>

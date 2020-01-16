@@ -231,7 +231,9 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
           // if not pristine, confirm exit
           if ( modal === 'complete-modal' ) {
-            $( '#' + modal ).openModal( { dismissible: false } );
+            // $( '#' + modal ).openModal( { dismissible: false } );
+            $('#' + modal).modal({ dismissible: false });
+            $('#' + modal).modal('open');
           } else {
             $scope.report.cancel();
           }
@@ -329,9 +331,11 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 								var msg = $filter('translate')('copied')+' ' + nrows + ' '+$filter('translate')('rows'),
 										typ = 'success';
 						}
-						Materialize.toast(msg, 6000, typ);
+            // Materialize.toast(msg, 6000, typ);
+            M.toast({ html: msg, displayLength: 6000, classes: typ });
 					}).catch(function (e) {
-						Materialize.toast($filter('translate')('error_not_copied'), 6000, 'error');
+            // Materialize.toast($filter('translate')('error_not_copied'), 6000, 'error');
+            M.toast({ html: $filter('translate')('error_not_copied'), displayLength: 6000, classes: 'error' });
 					});
 
 				},
@@ -351,7 +355,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           $scope.report.report.report_submitted = moment().format();
 
           // msg
-					Materialize.toast( $filter('translate')('processing_stock_report') , 6000, 'note');
+          // Materialize.toast( $filter('translate')('processing_stock_report') , 6000, 'note');
+          M.toast({ html: $filter('translate')('processing_stock_report'), displayLength: 6000, classes: 'note' });
 
           // setReportRequest
           var setReportRequest = {
@@ -377,8 +382,10 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                 msg += complete ? $filter('translate')('submitted')+'!' : $filter('translate')('saved_mayus1')+'!';
 
             // msg
-            Materialize.toast( msg , 6000, 'success');
-						$('.modal-trigger').leanModal();
+            // Materialize.toast( msg , 6000, 'success');
+            M.toast({ html: msg, displayLength: 6000, classes: 'success' });
+            // $('.modal-trigger').leanModal();
+            $('.modal-trigger').modal();
 
             // Re-direct to summary
             if ( $scope.report.report.report_status !== 'complete' ) {

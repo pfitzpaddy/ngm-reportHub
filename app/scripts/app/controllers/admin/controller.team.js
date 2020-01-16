@@ -500,7 +500,9 @@ angular.module('ngmReportHub')
 
 			},			
 			openModal: function (modal) {
-				$('#' + modal).openModal({ dismissible: false });
+				// $('#' + modal).openModal({ dismissible: false });
+				$('#' + modal).modal({ dismissible: false });
+				$('#' + modal).modal('open');
 			},
 			//manage user access
 			manageUserAccess: function (id,user) {
@@ -533,18 +535,21 @@ angular.module('ngmReportHub')
 				//set button to disable 
 				$scope.dashboard.btnManageAccessDisabled= true;
 				// toast to wait
-				Materialize.toast('Plesase! wait a moment...', 10000, 'note');
+				// Materialize.toast('Plesase! wait a moment...', 10000, 'note');
+				M.toast({ html: 'Plesase! wait a moment...', displayLength:10000, classes:'note'});
 				//save update
 				ngmAuth
 					.updateProfile({ user: user }).success(function (result) {
 						// db error!
 						if (result.err || result.summary) {
 							var msg = result.msg ? result.msg : 'error!';
-							Materialize.toast(msg, 6000, msg);
+							// Materialize.toast(msg, 6000, msg);
+							M.toast({ html: msg, displayLength: 6000, classes: 'error' });
 						}
 						// success
 						if (result.success) {							
-							Materialize.toast('Success! Role updated!', 3000, 'success');
+							// Materialize.toast('Success! Role updated!', 3000, 'success');
+							M.toast({ html: 'Success! Role updated!', displayLength: 3000, classes: 'success'});
 							$scope.dashboard.btnManageAccessDisabled=false;
 						}
 					});

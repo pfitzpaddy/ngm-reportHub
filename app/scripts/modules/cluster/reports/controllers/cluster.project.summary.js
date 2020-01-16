@@ -126,7 +126,10 @@ angular.module('ngmReportHub')
 									  project.project_status = 'active';
 
 									  // timeout
-									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); }, 200 ); 
+									  $timeout(function(){ 
+										//   Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); 
+										  M.toast({ html: $filter('translate')('processing') + '...', displayLength: 6000, classes: 'note' });
+										}, 200 ); 
 
 									  // Submit project for save
 									  ngmData.get({
@@ -137,7 +140,8 @@ angular.module('ngmReportHub')
 									    }
 									  }).then(function(data){
 									    // redirect on success
-									    Materialize.toast( $filter('translate')('project_moved_to_active')+'!', 6000, 'success');
+										// Materialize.toast( $filter('translate')('project_moved_to_active')+'!', 6000, 'success');
+										M.toast({ html: $filter('translate')('project_moved_to_active') + '!', displayLength: 6000, classes: 'success' });
 									  });
 
 									},
@@ -149,7 +153,10 @@ angular.module('ngmReportHub')
 									  project.project_status = 'complete';
 
 									  // timeout
-									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); }, 200 );
+									  $timeout(function(){ 
+										//   Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); 
+										M.toast({ html: $filter('translate')('processing') + '...', displayLength: 6000, classes: 'note' });
+										}, 200 );
 
 									  // Submit project for save
 									  ngmData.get({
@@ -161,7 +168,8 @@ angular.module('ngmReportHub')
 									  }).then(function(data){
 									    // redirect on success
 									    $location.path( '/cluster/projects/list' );
-									    Materialize.toast( $filter('translate')('project_market_as_complete_congratulations')+'!', 6000, 'success');
+										// Materialize.toast( $filter('translate')('project_market_as_complete_congratulations')+'!', 6000, 'success');
+										  M.toast({ html: $filter('translate')('project_market_as_complete_congratulations') + '!', displayLength: 6000, classes: 'success' });
 									  });
 
 									},
@@ -170,7 +178,10 @@ angular.module('ngmReportHub')
 										project.project_status = 'plan';
 										// project.project_start_date = moment(new Date()).format('YYYY-MM-DD');
 										// timeout
-										$timeout(function () { Materialize.toast($filter('translate')('processing') + '...', 6000, 'note'); }, 200);
+										$timeout(function () { 
+											// Materialize.toast($filter('translate')('processing') + '...', 6000, 'note'); 
+											M.toast({ html: $filter('translate')('processing') + '...', displayLength: 6000, classes: 'note' });
+										}, 200);
 
 										// Submit project for save
 										ngmData.get({
@@ -182,7 +193,8 @@ angular.module('ngmReportHub')
 										}).then(function (data) {
 											// redirect on success
 											$location.path('/cluster/projects/list');
-											Materialize.toast('Project Moved to Plan!', 6000, 'success');
+											// Materialize.toast('Project Moved to Plan!', 6000, 'success');
+											M.toast({ html: 'Project Moved to Plan!', displayLength: 6000, classes: 'success' });
 										});
 									},
 									markNotImplemented: function (project) {
@@ -190,7 +202,10 @@ angular.module('ngmReportHub')
 										project.project_status = 'not_implemented';
 
 										// timeout
-										$timeout(function () { Materialize.toast($filter('translate')('processing') + '...', 6000, 'note'); }, 200);
+										$timeout(function () { 
+											// Materialize.toast($filter('translate')('processing') + '...', 6000, 'note'); 
+											M.toast({ html: $filter('translate')('processing') + '...', displayLength: 6000, classes: 'note' });
+										}, 200);
 
 										// Submit project for save
 										ngmData.get({
@@ -202,13 +217,17 @@ angular.module('ngmReportHub')
 										}).then(function (data) {
 											// redirect on success
 											$location.path('/cluster/projects/list');
-											Materialize.toast('Project Moved to Not Implemented!', 6000, 'success');
+											// Materialize.toast('Project Moved to Not Implemented!', 6000, 'success');
+											M.toast({ html: 'Project Moved to Not Implemented!', displayLength: 6000, classes: 'success' });
 										});
 									},
 									deleteProject: function(project){
 
 									  // timeout
-									  $timeout(function(){ Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); }, 200 ); 
+									  $timeout(function(){ 
+										//   Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); 
+										  M.toast({ html: $filter('translate')('processing') + '...', displayLength: 6000, classes: 'note' });
+										}, 200 ); 
 
 									  // Submit project for save
 									  $http({
@@ -221,15 +240,18 @@ angular.module('ngmReportHub')
 
 									    // redirect on success
 									    if ( data.err ) {
-									    	Materialize.toast( $filter('translate')('project_delete_error_please_try_again'), 6000, 'error');
+											// Materialize.toast( $filter('translate')('project_delete_error_please_try_again'), 6000, 'error');
+											M.toast({ html: $filter('translate')('project_delete_error_please_try_again'), displayLength: 6000, classes: 'error' });
 									    }
 									    if ( !data.err ){
 										    $location.path( '/cluster/projects/list' );
-										    Materialize.toast( $filter('translate')('project_deleted')+'!', 6000, 'success');
+											// Materialize.toast( $filter('translate')('project_deleted')+'!', 6000, 'success');
+											M.toast({ html: $filter('translate')('project_deleted') + '!', displayLength: 6000, classes: 'success' });
 									    }
 									  }).error(function(err){
 									    // redirect on success
-									    Materialize.toast( $filter('translate')('project_delete_error_please_try_again'), 6000, 'error');
+										// Materialize.toast( $filter('translate')('project_delete_error_please_try_again'), 6000, 'error');
+										  M.toast({ html: $filter('translate')('project_delete_error_please_try_again'), displayLength: 6000, classes: 'error' });
 									  });
 									}
 

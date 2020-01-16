@@ -210,12 +210,17 @@ li {
 
 	// init
 	setTimeout(function(){
-		$( 'select' ).material_select();
-		$( '.carousel.carousel-slider' ).carousel({ full_width: true });
+		// $( 'select' ).material_select();
+		$('select').formSelect();
+		// $( '.carousel.carousel-slider' ).carousel({ full_width: true });
+		 $('.carousel.carousel-slider').carousel({
+			fullWidth: true,
+		});
 		// goTo login page
 		$( '.carousel' ).carousel( 'set', 2 );
 		// focus
 		$('#ngm-password').focus();
+		M.updateTextFields();
 	}, 100 );	
 
 	// hidden to start

@@ -57,10 +57,17 @@
 					<!-- location_group -->
 					<!-- <p ng-if="project.showLocationGroupingsOption()" style="padding-left:12px;cursor:pointer;"> -->
 					<p ng-if="true" style="padding-left:12px;cursor:pointer;">	
-							<input type="checkbox" class="filled-in" id="show_location_groupings"
+							<!-- <input type="checkbox" class="filled-in" id="show_location_groupings"
 											ng-checked="project.definition.location_groups_check"
 											ng-click="project.showLocationGroupingsModal( $event )"/>
-							<label style="color:#26a69a; font-weight:bold; font-size:1.2rem !important;" for="show_location_groupings">Group Target Locations by Union?</label>
+							<label style="color:#26a69a; font-weight:bold; font-size:1.2rem !important;" for="show_location_groupings">Group Target Locations by Union?</label> -->
+							<label class="checkbox-label" for="show_location_groupings">
+								<input type="checkbox" class="filled-in" id="show_location_groupings"
+									ng-checked="project.definition.location_groups_check"
+									ng-click="project.showLocationGroupingsModal( $event )"
+									/>
+								<span style="color:#757575">Group Target Locations by Union?</span>
+							</label>
 							<p ng-if="project.showLocationGroupingsOption()"
 									style="padding-left:50px; font-size:1.1rem;">Recommended for Project Plans with over 30 Target Locations!</p>
 					</p>
@@ -448,3 +455,8 @@
 		</div>
 	</div>
 </div>
+<script>
+	setTimeout(function () {
+		M.updateTextFields();
+	}, 100)
+</script>

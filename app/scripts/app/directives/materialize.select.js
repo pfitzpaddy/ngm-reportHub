@@ -36,7 +36,8 @@ angular.module("ngm.materialize.select", [])
                             scope.$evalAsync(function () {
 
                                 // TODO: test that no bugs
-                                element.material_select();
+                                // element.material_select();
+                                element.formSelect();
 
                                 // commented
                                 //Lines 301-311 fix Dogfalo/materialize/issues/901 and should be removed and the above uncommented whenever 901 is fixed

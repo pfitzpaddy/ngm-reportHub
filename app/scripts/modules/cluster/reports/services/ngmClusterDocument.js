@@ -35,7 +35,9 @@ angular.module('ngmReportHub')
 					// ****to manage shown file****
 					// open preview modal
 					openPreview: function (modal, link) {
-						$('#' + modal).openModal({ dismissible: false });
+						// $('#' + modal).openModal({ dismissible: false });
+						$('#' + modal).modal({ dismissible: false });
+						$('#' + modal).modal('open');
 						this.linkPreview = "https://drive.google.com/file/d/" + link + "/preview";
 						console.log(modal, link);
 					},
@@ -51,13 +53,16 @@ angular.module('ngmReportHub')
 					},
 					// set id to remove file
 					setRemoveId: function (modal, id) {
-						$('#' + modal).openModal({ dismissible: false });
+						// $('#' + modal).openModal({ dismissible: false });
+						$('#' + modal).modal({ dismissible: false });
+						$('#' + modal).modal('open');
 						this.removeFileId = id;
 					},
 					// remove file
 					removeFile: function () {
 
-						Materialize.toast($filter('translate')('deleting'), 6000, 'note');
+						// Materialize.toast($filter('translate')('deleting'), 6000, 'note');
+						M.toast({ html: $filter('translate')('deleting'), displayLength: 6000, classes: 'note' });
 						$http({
 							method: 'DELETE',
 							url: ngmAuth.LOCATION + '/api/deleteGDriveFile/' + this.removeFileId,
@@ -67,7 +72,8 @@ angular.module('ngmReportHub')
 								$timeout(function () {
 									msg = $filter('translate')('file_deleted');
 									typ = 'success';
-									Materialize.toast(msg, 6000, typ);
+									// Materialize.toast(msg, 6000, typ);
+									M.toast({ html: msg, displayLength: 6000, classes: typ });
 
 									$rootScope.$broadcast('refresh:listUpload');
 								}, 2000);
@@ -76,7 +82,8 @@ angular.module('ngmReportHub')
 								$timeout(function () {
 									msg = $filter('translate')('error_file_not_deleted');
 									typ = 'error';
-									Materialize.toast(msg, 6000, typ);
+									// Materialize.toast(msg, 6000, typ);
+									M.toast({ html: msg, displayLength: 6000, classes: typ });
 								}, 2000);
 							})
 					},
@@ -119,12 +126,17 @@ angular.module('ngmReportHub')
 					uploadDocument: function (parameter) {
 						var upload = {
 							openModal: function (modal) {
-								$('#' + modal).openModal({ dismissible: false });
+								// $('#' + modal).openModal({ dismissible: false });
+								$('#' + modal).modal({ dismissible: false });
+								$('#' + modal).modal('open');
 							},
 							closeModal: function (modal) {
-								$('#' + modal).closeModal({ dismissible: true });
+								// $('#' + modal).closeModal({ dismissible: true });
+								$('#' + modal).modal({ dismissible: true });
+								$('#' + modal).modal('close');
 								myDropzone.removeAllFiles(true);
-								Materialize.toast($filter('translate')('cancel_to_upload_file'), 2000, "note");
+								// Materialize.toast($filter('translate')('cancel_to_upload_file'), 2000, "note");
+								M.toast({ html: $filter('translate')('cancel_to_upload_file'), displayLength: 2000, classes: 'note'});
 							},
 							// params: {
 							// 	project_id: id === 'new' ? null : id,
@@ -301,7 +313,8 @@ angular.module('ngmReportHub')
 									document.querySelector(".dz-default.dz-message").style.display = 'none';
 									$('.dz-default.dz-message').html(upload.dictMaxFilesExceeded);
 									document.querySelector(".dz-default.dz-message").style.display = 'block'
-									Materialize.toast("Too many file to upload", 6000, "error")
+									// Materialize.toast("Too many file to upload", 6000, "error")
+									M.toast({ html: "Too many file to upload", displayLength: 6000, classes: 'error'});
 									$("#upload_doc").attr("disabled", true);
 									document.getElementById("upload_doc").style.pointerEvents = "none";
 									$("#delete_doc").attr("disabled", true);
@@ -325,7 +338,8 @@ angular.module('ngmReportHub')
 								myDropzone.on('sending', function (file) {
 									if (this.getUploadingFiles().length == 1) {
 
-										Materialize.toast($filter('translate')('uploading'), 6000, 'note');
+										// Materialize.toast($filter('translate')('uploading'), 6000, 'note');
+										M.toast({ html: $filter('translate')('uploading'), displayLength: 6000, classes: 'note' });
 									}
 									$("#upload_doc").attr("disabled", true);
 								});
@@ -348,11 +362,14 @@ angular.module('ngmReportHub')
 								if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
 									msg = $filter('translate')('file_uploaded');
 									typ = 'success';
-									Materialize.toast(msg, 6000, typ);
+									// Materialize.toast(msg, 6000, typ);
+									M.toast({ html: msg, displayLength: 6000, classes: typ });
 									// percent-upload is a class use to show progress bar when upload file
 									document.querySelector(".percent-upload").style.display = 'none';
 									document.querySelector(".dz-default.dz-message").style.display = 'block';
-									$('#upload-file').closeModal({ dismissible: true });
+									// $('#upload-file').closeModal({ dismissible: true });
+									$('#upload-file').modal({ dismissible: true });
+									$('#upload-file').modal('close');
 									$rootScope.$broadcast('refresh:listUpload');									
 								}
 							},
@@ -361,16 +378,19 @@ angular.module('ngmReportHub')
 								document.querySelector(".percent-upload").style.display = 'none';
 								if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 && !response.err) {
 									typ = 'error';
-									Materialize.toast(response, 6000, typ);
+									// Materialize.toast(response, 6000, typ);
+									M.toast({ html: response, displayLength: 6000, classes: typ });
 								}
 								if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0 && response.err) {
 									myDropzone.removeAllFiles(true);
 									$timeout(function () {
 										typ = 'error';
-										Materialize.toast(response.err, 6000, typ);
+										// Materialize.toast(response.err, 6000, typ);
+										M.toast({ html: response.err, displayLength: 6000, classes: typ });
 										if (response.err.indexOf('canceled') < 0) {
 
-											Materialize.toast($filter('translate')('upload_canceled'), 6000, typ);
+											// Materialize.toast($filter('translate')('upload_canceled'), 6000, typ);
+											M.toast({ html: $filter('translate')('upload_canceled'), displayLength: 6000, classes: typ });
 										}
 									}, 500);
 								}

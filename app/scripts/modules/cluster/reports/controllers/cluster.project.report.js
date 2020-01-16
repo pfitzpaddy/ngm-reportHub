@@ -219,7 +219,10 @@ angular.module('ngmReportHub')
 		$scope.report.ngm.dashboard.model = $scope.model;
 
 		// taost for user
-		$timeout( function() { Materialize.toast( $filter('translate')('loading_monhtly_progress_report'), 4000, 'success' ); }, 400 );
+		$timeout( function() { 
+			// Materialize.toast( $filter('translate')('loading_monhtly_progress_report'), 4000, 'success' ); 
+			M.toast({ html: $filter('translate')('loading_monhtly_progress_report'), displayLength: 4000, classes: 'success' });
+		}, 400 );
 
 		// send request
 		$q.all([ $scope.report.getProject, $scope.report.getReport ]).then( function( results ){
@@ -227,6 +230,9 @@ angular.module('ngmReportHub')
 			// assign
 			$scope.report.setProjectDetails( results );
 
+			setTimeout(() => {
+				$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+			}, 0);
 		});
 		
 	}]);

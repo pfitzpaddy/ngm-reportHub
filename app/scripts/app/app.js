@@ -197,7 +197,9 @@ angular
 		}
 		// open modal
 		function openIeModal() {
-			$('#ngm-ie-modal').openModal({dismissible: false});
+			// $('#ngm-ie-modal').openModal({dismissible: false});
+			$('#ngm-ie-modal').modal({ dismissible: false });
+			$('#ngm-ie-modal').modal('open');
 		}
 
 		// when error on route update redirect
@@ -446,7 +448,9 @@ angular
 			// open contact modal
 			contact: function() {
 				// open modal
-				$( '#ngm-contact-modal' ).openModal({ dismissible: false });
+				// $( '#ngm-contact-modal' ).openModal({ dismissible: false });
+				$('#ngm-contact-modal').modal({ dismissible: false });
+				$('#ngm-contact-modal').modal('open');
 			},
 
 			// Detect touch screen and enable scrollbar if necessary

@@ -275,7 +275,10 @@ angular.module('ngmReportHub')
 											$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 
 											// toast
-											$timeout( function(){ Materialize.toast( 'Refreshing data...' , 6000, 'note' ); });
+											$timeout( function(){ 
+												// Materialize.toast( 'Refreshing data...' , 6000, 'note' ); 
+												M.toast({ html: 'Refreshing data...', displayLength: 6000, classes: 'note' });
+											});
 
 											// ngmData
 											ngmData
@@ -284,7 +287,8 @@ angular.module('ngmReportHub')
 
 													// toast
 													$timeout( function(){ 
-														Materialize.toast( 'CTC Assessments data updated!' , 6000, 'success' );
+														// Materialize.toast( 'CTC Assessments data updated!' , 6000, 'success' );
+														M.toast({ html: 'CTC Assessments data updated!' + '!', displayLength: 6000, classes: 'success' });
 														$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 														$timeout( function(){
 															$route.reload();

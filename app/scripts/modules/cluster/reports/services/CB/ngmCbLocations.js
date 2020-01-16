@@ -46,7 +46,8 @@ angular.module( 'ngmReportHub' )
 					id.removeClass( 'error' ).addClass( 'active' );
 				} else {
 					id.addClass('error');
- 					Materialize.toast( 'Location outside ' + bb.admin0name + '!' , 4000, 'error' );
+					// Materialize.toast( 'Location outside ' + bb.admin0name + '!' , 4000, 'error' );
+					M.toast({ html: 'Location outside ' + bb.admin0name + '!' , displayLength: 4000, classes: 'error' });
 				}
 
 			},
@@ -105,11 +106,17 @@ angular.module( 'ngmReportHub' )
 
 			// update material_select
 			updateSelect: function(){
-				$timeout(function() { $( 'select' ).material_select(); }, 100 );
+				$timeout(function() { 
+					// $( 'select' ).material_select(); 
+					$('select').formSelect();
+				}, 100 );
 			},
 
 			updateSelectById: function (id) {
-				$timeout(function () { $('#' + id + ' select').material_select(); }, 10 );
+				$timeout(function () { 
+					$('#' + id + ' select').material_select(); 
+					$('#' + id + ' select').formSelect();
+				}, 10 );
 			},
 
 			

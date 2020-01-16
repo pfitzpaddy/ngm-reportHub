@@ -284,7 +284,12 @@
 <script>
   // init
   setTimeout(function(){ 
-  	$( '.input-field select' ).material_select(); 
-  	setTimeout(function(){ $( '.input-field select' ).material_select(); }, 460 );
+	//   $( '.input-field select' ).material_select(); 
+	  $('.input-field select').formSelect();
+  	setTimeout(function(){ 
+		//   $( '.input-field select' ).material_select(); 
+		$('.input-field select').formSelect();
+		}, 460 );
+		M.updateTextFields();
 	}, 200 );
 </script>

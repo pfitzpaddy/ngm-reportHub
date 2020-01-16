@@ -175,7 +175,10 @@ angular.module( 'ngmReportHub' )
 										$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 
 										// toast
-										$timeout( function(){ Materialize.toast( 'Refreshing data...' , 6000, 'note' ); }, 400 );
+										$timeout( function(){ 
+											// Materialize.toast( 'Refreshing data...' , 6000, 'note' ); 
+											M.toast({ html: 'Refreshing data...', displayLength: 6000, classes: 'note' });
+										}, 400 );
 
 										// ngmData
 										ngmData
@@ -183,7 +186,8 @@ angular.module( 'ngmReportHub' )
 											.then( function( result  ){
 												// toast
 												$timeout( function(){ 
-													Materialize.toast( 'iMMAP Products Updated!' , 6000, 'success' );
+													// Materialize.toast( 'iMMAP Products Updated!' , 6000, 'success' );
+													M.toast({ html: 'iMMAP Products Updated!', displayLength: 6000, classes: 'success' });
 													$( '#dashboard-fetch-btn' ).toggleClass( 'disabled' );
 													$timeout( function(){
 														$route.reload();

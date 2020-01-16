@@ -465,8 +465,13 @@ li {
 
 	// init
 	setTimeout(function(){
-		$( 'select' ).material_select();
-		$( '.carousel.carousel-slider' ).carousel({ full_width: true });
+		// $( 'select' ).material_select();
+		$('select').formSelect();
+		// $( '.carousel.carousel-slider' ).carousel({ full_width: true });
+		$('.carousel.carousel-slider').carousel({
+			fullWidth: true,
+		});
+		M.updateTextFields();
 	}, 100 );
 
 	// organization goto contact details
@@ -489,7 +494,8 @@ li {
 		// set login page
 		$( '.carousel' ).carousel( 'next' );
 		setTimeout(function(){
-			Materialize.toast( 'Almost Complete! Now set your LOGIN details', 6000, 'success' );
+			// Materialize.toast( 'Almost Complete! Now set your LOGIN details', 6000, 'success' );
+			M.toast({html:'Almost Complete! Now set your LOGIN details', displayLength:6000, classes:'success'});
 		}, 400);
 	});
 	// contact on enter
@@ -508,7 +514,8 @@ li {
 		$( '.carousel' ).carousel( 'next' );
 		$( '.carousel' ).css({ 'min-height': '840px' });
 		setTimeout(function(){
-			Materialize.toast( 'Last Item! Add iMMAP PROGRAMME details', 6000, 'success' );
+			// Materialize.toast( 'Last Item! Add iMMAP PROGRAMME details', 6000, 'success' );
+			M.toast({ html: 'Last Item! Add iMMAP PROGRAMME details', displayLength: 6000, classes: 'success' });
 		}, 400);
 	});
 	// login on enter

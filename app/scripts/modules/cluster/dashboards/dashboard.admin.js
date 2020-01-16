@@ -1315,7 +1315,9 @@ angular.module('ngmReportHub')
 											typeDocument: 'monthly',
 											firstLetterUpperCase: function (string) { return string.charAt(0).toUpperCase() + string.slice(1); },
 											openModal: function (modal, link) {
-												$('#' + modal).openModal({ dismissible: false });
+												// $('#' + modal).openModal({ dismissible: false });
+												$('#' + modal).modal({ dismissible: false });
+												$('#' + modal).modal('open');
 												if (link !== '') {
 													if (modal === 'close-preview-modal') {
 														$scope.linkPreview = link;
@@ -1353,7 +1355,8 @@ angular.module('ngmReportHub')
 											},
 											removeFile: function () {
 												// IF API READY TO USE
-												Materialize.toast("Deleting...", 6000, 'note');
+												// Materialize.toast("Deleting...", 6000, 'note');
+												M.toast({ html: 'Deleting...', displayLength: 6000, classes: 'note' });
 												$http({
 													method: 'DELETE',
 													url: ngmAuth.LOCATION + '/api/deleteGDriveFile/' + $scope.fileId,
@@ -1363,7 +1366,8 @@ angular.module('ngmReportHub')
 														$timeout(function () {
 															msg = "File Deleted!";
 															typ = 'success';
-															Materialize.toast(msg, 6000, typ);
+															// Materialize.toast(msg, 6000, typ);
+															M.toast({ html: msg, displayLength: 6000, classes: typ });
 															$rootScope.$broadcast('refresh:doclist');
 														}, 2000);
 													})
@@ -1371,7 +1375,8 @@ angular.module('ngmReportHub')
 														$timeout(function () {
 															msg = "Error, File Not Deleted!";
 															typ = 'error';
-															Materialize.toast(msg, 6000, typ);
+															// Materialize.toast(msg, 6000, typ);
+															M.toast({ html: 'Last Item! Add iMMAP PROGRAMME details', displayLength: 6000, classes: 'success' });
 														}, 2000);
 													})
 											},
@@ -1433,6 +1438,9 @@ angular.module('ngmReportHub')
 
 			// assign to ngm app scope ( for menu )
 			$scope.dashboard.ngm.dashboard.model = $scope.model;
+			setTimeout(() => {
+				$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+			}, 0);
 
 
 		}

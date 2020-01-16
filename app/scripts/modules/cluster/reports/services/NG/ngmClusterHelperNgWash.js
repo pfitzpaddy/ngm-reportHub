@@ -118,7 +118,8 @@ angular.module( 'ngmReportHub' )
 				$timeout(function(){
 					$( '.input-field input' ).removeClass( 'invalid' );
 					$( '.input-field input' ).removeClass( 'ng-touched' );
-					$( '.input-field select' ).material_select(); 
+					// $( '.input-field select' ).material_select(); 
+					$('.input-field select').formSelect();
 				}, 10 );
 			},
 
@@ -300,7 +301,8 @@ angular.module( 'ngmReportHub' )
         if ( ngmClusterHelperNgWashLists.details[ $locationIndex ] && ngmClusterHelperNgWashLists.details[ $locationIndex ][ $beneficiaryIndex ] ) {
         	ngmClusterHelperNgWashLists.details[ $locationIndex ][ $beneficiaryIndex ].splice( $index, 1 );
         }
-        Materialize.toast( 'Please save to commit changes!' , 6000, 'note' );
+		// Materialize.toast( 'Please save to commit changes!' , 6000, 'note' );
+		  M.toast({ html: 'Please save to commit changes!', displayLength: 6000, classes: 'note' });
       },
 
 
@@ -312,7 +314,9 @@ angular.module( 'ngmReportHub' )
 				ngmClusterHelperNgWash.beneficiary = beneficiary;
 				ngmClusterHelperNgWash.removeIndex = $index;
 				ngmClusterHelperNgWash.association = association;
-				$( modal ).openModal({ dismissible: false });
+				// $( modal ).openModal({ dismissible: false });
+				$( modal).modal({ dismissible: false });
+				$( modal).modal('open');
 			},
 
 			// remove borehole

@@ -532,7 +532,8 @@ angular.module('ngmReportHub')
 													var path = '/who/dews/' + $route.current.params.location + '/' + $route.current.params.disease + '/' + start + '/' + end;
 
 													// toast
-													Materialize.toast('Updating Dashboard!', 6000, 'success');
+													// Materialize.toast('Updating Dashboard!', 6000, 'success');
+													M.toast({ html: 'Updating Dashboard!', displayLength: 6000, classes: 'success' });
 													
 													// update
 													$timeout(function() {
@@ -658,5 +659,8 @@ angular.module('ngmReportHub')
 
 		// assign to ngm app scope (for menu)
 		$scope.dashboard.ngm.dashboard.model = $scope.model;
+		setTimeout(() => {
+			$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+		}, 0);
 		
 	}]);

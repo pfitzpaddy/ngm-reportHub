@@ -2262,6 +2262,9 @@ angular.module('ngmReportHub')
 
 						// assign to ngm app scope ( for menu )
 						$scope.dashboard.ngm.dashboard.model = $scope.model;
+						setTimeout(() => {
+							$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+						}, 0);
 					});
 
 
@@ -2298,6 +2301,9 @@ angular.module('ngmReportHub')
 
 					// assign to ngm app scope ( for menu )
 					$scope.dashboard.ngm.dashboard.model = $scope.model;
+					setTimeout(() => {
+						$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+					}, 0);
 
 				});
 

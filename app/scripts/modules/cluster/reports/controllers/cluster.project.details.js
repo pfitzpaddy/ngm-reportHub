@@ -188,6 +188,9 @@ angular.module('ngmReportHub')
 
 			// set summary
 			$scope.report.setProjectDetails( project );
+			setTimeout(() => {
+				$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+			}, 0);
 
 		} else {
 
@@ -202,6 +205,9 @@ angular.module('ngmReportHub')
 				// assign data
 				if ( data.target_locations && data.target_beneficiaries ){
 					$scope.report.setProjectDetails( data );
+					setTimeout(() => {
+						$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+					}, 0);
 				} else {
 					
 					// report dashboard model
@@ -240,6 +246,9 @@ angular.module('ngmReportHub')
 
 					// assign to ngm app scope
 					$scope.report.ngm.dashboard.model = $scope.model;
+					setTimeout(() => {
+						$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+					}, 0);
 
 					// send them away
 					$timeout(function() {

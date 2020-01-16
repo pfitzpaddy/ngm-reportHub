@@ -154,7 +154,8 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
             $scope.report.organization = organization;
 
             // on success
-            Materialize.toast( 'Warehouse Location Added!', 6000, 'success');
+            // Materialize.toast( 'Warehouse Location Added!', 6000, 'success');
+            M.toast({ html: 'Warehouse Location Added!', displayLength: 6000, classes: 'success' });
 
             // refresh to update empty reportlist
             $route.reload();
@@ -170,7 +171,9 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
           $scope.report.locationIndex = $index;
 
           // open confirmation modal
-          $('#warehouses-modal').openModal({ dismissible: false });
+          // $('#warehouses-modal').openModal({ dismissible: false });
+          $('#warehouse-modal').modal({ dismissible: false });
+          $('#warehouse-modal').modal('open');
 
         },
 
@@ -190,7 +193,8 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
             $scope.report.organization = results[0].data;
 
             // on success
-            Materialize.toast( 'Warehouse Location Removed!', 6000, 'success');
+            // Materialize.toast( 'Warehouse Location Removed!', 6000, 'success');
+            M.toast({ html: 'Warehouse Location Removed!', displayLength: 6000, classes: 'success' });
 
             // refresh to update empty reportlist
             $route.reload();

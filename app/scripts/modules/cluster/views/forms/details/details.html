@@ -133,13 +133,23 @@
 
 								<!-- budget currency -->
 								<div class="input-field col s12 m12">
-									<label>ACBAR {{'partner'|translate}}?</label>
-									<div style="padding-bottom:35px;"></div>
-							      <input type="checkbox" class="filled-in" id="project_acbar_partner" 
+									<label style="top:-35px">ACBAR {{'partner'|translate}}?</label>
+									<!-- <label>ACBAR {{'partner'|translate}}?</label>
+									<div style="padding-bottom:35px;"></div> -->
+							      <!-- <input type="checkbox" class="filled-in" id="project_acbar_partner" 
 											      ng-model="project.definition.project_acbar_partner"
 											      ng-click="project.updateAcbarOrganization()"
 											      ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-							      <label class="checkbox-label" for="project_acbar_partner">{{'yes' | translate}}</label>
+								  <label class="checkbox-label" for="project_acbar_partner">{{'yes' | translate}}</label> -->
+								  <label class="checkbox-label" for="project_acbar_partner">
+									<input type="checkbox"
+									class="filled-in"
+									id="project_acbar_partner"
+									ng-model="project.definition.project_acbar_partner"
+									ng-click="project.updateAcbarOrganization()" 
+									ng-disabled="project.definition.project_status === 'complete' || !project.canEdit"/>
+									<span style="left: .75rem;">{{'yes' | translate}}</span>
+								</label>
 								</div>
 
 							</div>
@@ -229,13 +239,23 @@
 										<label class="label" id="ngm-activity_type" for="ngm-activity_type">{{'activity_type' | translate}} *</label>
 										<div style="padding-bottom:5px;"></div>
 										<label class="label">{{ project.definition.cluster }}</label>
+										<div style="padding-bottom:15px;"></div>
 										<!-- for project cluster activity_type -->
 										<p style="padding-left:10px;" ng-repeat="a in project.lists.activity_types | filter: { cluster_id: project.definition.cluster_id } ">
-											<input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}" 
+											<!-- <input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}" 
 															ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
 															ng-click="project.compileInterClusterActivities()"
 															ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-											<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label>
+											<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label> -->
+											<label class="checkbox-label" for="activity_{{ a.activity_type_id }}">
+												<input type="checkbox"
+												class="filled-in"
+												id="activity_{{ a.activity_type_id }}"
+												ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
+												ng-click="project.compileInterClusterActivities()" 
+												ng-disabled="project.definition.project_status === 'complete' || !project.canEdit"/>
+												<span style="left: .75rem;">{{ a.activity_type_name }}</span>
+											</label>
 										</p>
 
 										<!-- for each intercluster ( NOT SO )-->
@@ -244,13 +264,21 @@
 												<div ng-show="project.definition.inter_cluster_check[ cluster.cluster_id ]">
 													<div style="padding-top:20px;"></div>
 													<label class="label">{{ cluster.cluster }}</label>
+													<div style="padding-bottom:15px;"></div>
 													<!-- for project cluster activity_type -->
 													<p style="padding-left:10px;"  ng-repeat="a in project.lists.activity_types | filter: { cluster_id: cluster.cluster_id } ">
-														<input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}" 
+														<!-- <input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}" 
 																		ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
 																		ng-click="project.compileInterClusterActivities()"
 																		ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-														<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label>
+														<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label> -->
+														<label class="checkbox-label" for="activity_{{ a.activity_type_id }}">
+															<input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}"
+																ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
+																ng-click="project.compileInterClusterActivities()"
+																ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+															<span style="left: .75rem;">{{ a.activity_type_name }}</span>
+														</label>
 													</p>
 												</div>
 											</div>
@@ -261,14 +289,21 @@
 									<!-- no other_activities_in_addition_to for CB && health -->
 									<div class="input-field col s12 m6" style="padding-bottom:5px;">
 										<label>{{'other_activities_in_addition_to' | translate}} {{ project.definition.cluster }}?</label>
-										<div style="padding-bottom:35px;"></div>
+										<div style="padding-bottom:50px;"></div>
 								    <p ng-repeat="a in project.lists.clusters | filter: { cluster_id: '!' + project.definition.cluster_id }"
 								    		ng-if="a.cluster_id !== 'acbar'">
-								      <input type="checkbox" class="filled-in" id="activity_{{ a.cluster_id }}" 
+								      <!-- <input type="checkbox" class="filled-in" id="activity_{{ a.cluster_id }}" 
 								     					ng-model="project.definition.inter_cluster_check[ a.cluster_id ]"
 								      				ng-click="project.compileInterClusterActivities()"
 								      				ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-								      <label class="checkbox-label" for="activity_{{ a.cluster_id }}">{{ a.cluster }}</label>
+									  <label class="checkbox-label" for="activity_{{ a.cluster_id }}">{{ a.cluster }}</label> -->
+										<label class="checkbox-label" for="activity_{{ a.cluster_id }}">
+											<input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}"
+												ng-model="project.definition.inter_cluster_check[ a.cluster_id ]"
+												ng-click="project.compileInterClusterActivities()"
+												ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+											<span style="left: .75rem;">{{ a.cluster }}</span>
+										</label>
 								    </p>
 									</div>
 								</div>
@@ -279,14 +314,21 @@
 									<div class="input-field col s12" style="padding-bottom:5px;">
 										
 										<label>{{'cash_intented_for_even_if_unrestricted' | translate}}?</label>
-										<div style="padding-bottom:35px;"></div>
+										<div style="padding-bottom:50px;"></div>
 
 									    <p ng-repeat="a in project.lists.mpc_purpose">
-									      <input type="checkbox" class="filled-in" id="activity_{{ a.mpc_purpose_type_id }}" 
+									      <!-- <input type="checkbox" class="filled-in" id="activity_{{ a.mpc_purpose_type_id }}" 
 									      ng-model="project.definition.mpc_purpose_check[ a.mpc_purpose_type_id ]"
 									      ng-click="project.compileMpcPurpose()"
 									      ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-									      <label class="checkbox-label" for="activity_{{ a.mpc_purpose_type_id }}">{{ a.mpc_purpose_type_name }}</label>
+										  <label class="checkbox-label" for="activity_{{ a.mpc_purpose_type_id }}">{{ a.mpc_purpose_type_name }}</label> -->
+										  <label class="checkbox-label" for="activity_{{ a.mpc_purpose_type_id }}">
+												<input type="checkbox" class="filled-in" id="activity_{{ a.mpc_purpose_type_id }}"
+													ng-model="project.definition.mpc_purpose_check[ a.mpc_purpose_type_id ]"
+													ng-click="project.compileMpcPurpose()"
+													ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+												<span style="left: .75rem;">{{ a.mpc_purpose_type_name }}</span>
+											</label>
 									    </p>
 
 									</div>
@@ -298,14 +340,21 @@
 
 									<div class="input-field col s12" style="padding-bottom:5px;">
 										<label for="ngm-project_donor">{{'project_donor' | translate}} *</label>
-										<div style="padding-bottom:35px;"></div>
+										<div style="padding-bottom:50px;"></div>
 
 										<p ng-repeat="donor in project.lists.donors">
-									      <input type="checkbox" class="filled-in" id="donor_{{ donor.project_donor_id }}" 
+									      <!-- <input type="checkbox" class="filled-in" id="donor_{{ donor.project_donor_id }}" 
 										      ng-model="project.definition.project_donor_check[ donor.project_donor_id ]"
 										      ng-click="project.compileDonor()"
 										      ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-									      <label class="checkbox-label" for="donor_{{ donor.project_donor_id }}">{{ donor.project_donor_name }}</label>
+										  <label class="checkbox-label" for="donor_{{ donor.project_donor_id }}">{{ donor.project_donor_name }}</label> -->
+										  <label class="checkbox-label" for="donor_{{ donor.project_donor_id }}">
+												<input type="checkbox" class="filled-in" id="donor_{{ donor.project_donor_id }}"
+													ng-model="project.definition.project_donor_check[ donor.project_donor_id ]"
+													ng-click="project.compileDonor()"
+													ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+												<span style="left: .75rem;">{{ donor.project_donor_name }}</span>
+											</label>
 										</p>
 									</div>
 								
@@ -322,14 +371,21 @@
 									<div class="activity-field col s12 m6" style="padding-top:12px;padding-bottom:5px;">
 										
 										<label class="label" id="ngm-activity_type" for="ngm-activity_type">{{'activity_type' | translate}} *</label>
-										<div style="padding-bottom:0px;"></div>
+										<div style="padding-bottom:15px;"></div>
 										<!-- for project cluster activity_type -->
 										<p style="padding-left:10px;" ng-repeat="a in project.lists.activity_types | filter: { cluster_id: project.definition.cluster_id } ">
-											<input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}" 
+											<!-- <input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}" 
 															ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
 															ng-click="project.compileInterClusterActivities()"
 															ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-											<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label>
+											<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label> -->
+											<label class="checkbox-label" for="activity_{{ a.activity_type_id }}">
+												<input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}"
+													ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
+													ng-click="project.compileInterClusterActivities()"
+													ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+												<span style="left: .75rem;">{{ a.activity_type_name }}</span>
+											</label>
 										</p>
 									
 									</div>
@@ -339,14 +395,21 @@
 
 										<div class="input-field col s12 m6" style="padding-top:12px;padding-bottom:5px;">
 											<label for="ngm-project_donor">{{'project_donor' | translate}} *</label>
-											<div style="padding-bottom:20px;"></div>
+											<div style="padding-bottom:45px;"></div>
 
 											<p ng-repeat="donor in project.lists.donors">
-										      <input type="checkbox" class="filled-in" id="donor_{{ donor.project_donor_id }}" 
+										      <!-- <input type="checkbox" class="filled-in" id="donor_{{ donor.project_donor_id }}" 
 											      ng-model="project.definition.project_donor_check[ donor.project_donor_id ]"
 											      ng-click="project.compileDonor()"
 											      ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-										      <label class="checkbox-label" for="donor_{{ donor.project_donor_id }}">{{ donor.project_donor_name }}</label>
+											  <label class="checkbox-label" for="donor_{{ donor.project_donor_id }}">{{ donor.project_donor_name }}</label> -->
+											  <label class="checkbox-label" for="donor_{{ donor.project_donor_id }}">
+												<input type="checkbox" class="filled-in" id="donor_{{ donor.project_donor_id }}"
+													ng-model="project.definition.project_donor_check[ donor.project_donor_id ]"
+													ng-click="project.compileDonor()"
+													ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+												<span style="left: .75rem;">{{ donor.project_donor_name }}</span>
+											</label>
 											</p>
 										</div>
 									
@@ -380,11 +443,17 @@
 				        <div class="input-field col s12 m6" style="padding-bottom:35px;">
 				        	<label>{{'project_partners' | translate}}</label>
 				        	<br/>
-				        	<p style="padding-top:10px;">
-					        	<input type="checkbox" class="filled-in" id="ngm-project-other_partbers"
+				        	<p style="padding-top:25px;">
+					        	<!-- <input type="checkbox" class="filled-in" id="ngm-project-other_partbers"
 					        		ng-model="project.definition.implementing_partners_checked"
 					        		ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-					          <label class="checkbox-label" for="ngm-project-other_partbers">{{'other_implementing_partners' | translate}}?</label>
+							  <label class="checkbox-label" for="ngm-project-other_partbers">{{'other_implementing_partners' | translate}}?</label> -->
+								<label class="checkbox-label" for="ngm-project-other_partbers">
+									<input type="checkbox" class="filled-in" id="ngm-project-other_partbers"
+										ng-model="project.definition.implementing_partners_checked"
+										ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+									<span style="left: .75rem;">{{'other_implementing_partners' | translate}}?</span>
+								</label>
 					        </p>
 				        </div>
 
@@ -454,7 +523,9 @@
 	setTimeout( function(){
 		$( '#ngm-project-budget' ).focus();
 		$( '#ngm-project-name' ).focus();
-		$( 'select' ).material_select();
+		// $( 'select' ).material_select();
+		$('select').formSelect();
 		$( 'textarea' ).height( $('textarea')[0].scrollHeight );
+		M.updateTextFields();
 	}, 600 );
 </script>

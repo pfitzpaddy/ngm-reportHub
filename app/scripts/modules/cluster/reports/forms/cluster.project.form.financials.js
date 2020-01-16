@@ -533,7 +533,9 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
         removeBudgetModal: function( $index ) {
           $scope.project.budgetIndex = $index;
           // open confirmation modal
-          $( '#budget-modal' ).openModal({ dismissible: false });
+          // $( '#budget-modal' ).openModal({ dismissible: false });
+          $('#budget-modal').modal({ dismissible: false });
+          $('#budget-modal').modal('open');
         },
 
         // remove budget item
@@ -551,10 +553,12 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
             }
           }).success( function( project ){
             // on success
-            Materialize.toast( $filter('translate')('project_budget_item_removed')+'!', 3000, 'success');
+            // Materialize.toast( $filter('translate')('project_budget_item_removed')+'!', 3000, 'success');
+            M.toast({ html: $filter('translate')('project_budget_item_removed') + '!', displayLength: 3000, classes: 'success' });
           }).error(function( err ) {
             // update
-            Materialize.toast( 'Error!', 6000, 'error' );
+            // Materialize.toast( 'Error!', 6000, 'error' );
+            M.toast({ html: 'Error', displayLength: 6000, classes: 'error' });
           });
         },
 
@@ -572,7 +576,8 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 						$scope.project.definition = project;
 
             // on success
-            Materialize.toast( $filter('translate')('project_budget_item_added')+'!', 3000, 'success');
+            // Materialize.toast( $filter('translate')('project_budget_item_added')+'!', 3000, 'success');
+            M.toast({ html: $filter('translate')('project_budget_item_added') + '!', displayLength: 3000, classes: 'success' });
           });          
 				},
 				
