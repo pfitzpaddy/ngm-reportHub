@@ -48,12 +48,12 @@
 		font-size: 1.6rem;
 		padding-left: 20px;
 		margin-top: 20px;
-		font-weight: 300;
+		font-weight: 400;
 	}
 
 	/* location title with icon */
 	.report-location-title {
-		font-size: 1.6rem;
+		font-size: 1.3rem;
 		font-weight: 400;
 		text-align: left;
 		padding: 10px 0px 10px 10px;
@@ -104,7 +104,7 @@
 	/* for displaying beneficiary numbers */
 	.beneficiary-count{
 	  position:relative;
-	  font-weight:100;
+	  font-weight:200;
 	  font-size:2.4rem;
 	  line-height:2.4rem;
 	  padding: 10px;
@@ -122,11 +122,23 @@
 	  color: #26a69a;
 	  top: 0.8rem;
 	  font-weight: 400;
-	}	
+	}
+
+
+
+
+
+
+
+
+
+	.input-field .validate {
+	  color: #26a69a !important;
+	}
 
 	.input-field label.active {
-	  color: #26a69a;
-	  font-weight: 400;
+	  color: #26a69a !important;
+	  font-weight: 500;
 	}
 
 	.input-field label.error {
@@ -144,7 +156,7 @@
 	.input-field input.valid,
 		textarea.materialize-textarea.valid, md-chips .md-chips.md-focused {
 		border-bottom: 1px solid #26a69a;
-		box-shadow: 0 1px 0 0 #26a69a;		
+		box-shadow: 0 1px 0 0 #26a69a;
 	}
 	/* valid input on focus */
 	.input-field input:focus.valid,

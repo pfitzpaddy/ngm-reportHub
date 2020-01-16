@@ -40,6 +40,7 @@ background-color: #2196f3;
 .ngm-profile {
 	width:100%;
 	height:52px;
+	font-weight:500;
 	padding-top:20px;
 	padding-right:90px;
 	text-align:right; 
@@ -214,11 +215,15 @@ i.smedium {
 	font-weight: 300;
 	/*border-bottom: none;*/
 }
+.collection a.collection-item:not(.active):hover {
+	font-weight: 400;
+}
 .collection .collection-item.active {
+	font-weight: 400;
   background-color: #b2dfdb;
 }
 .collapsible-header {
-	font-weight: 300;
+	font-weight: 400;
 	font-size: 1.1rem; 
 	margin-top: 5px;
 	border-bottom: none;

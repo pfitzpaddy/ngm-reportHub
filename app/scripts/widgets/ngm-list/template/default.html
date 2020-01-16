@@ -43,7 +43,7 @@
 	<ul class="collection with-header z-depth-1">
 		<li class="collection-header {{ list.color }}" style="height:80px;">
 			<div class="col s12 m8">
-				<h4 class="report-work-title {{ list.textColor }}" style="font-size:1.8rem;">
+				<h4 class="report-work-title {{ list.textColor }}">
 					<i class="material-icons left">{{ list.titleIcon }}</i>{{ list.title }}
 				</h4>
 			</div>
@@ -80,31 +80,33 @@
 				<div>
 
 					<!-- title -->
-					<div style="color:#039be5; font-weight: 400;">
+					<div style="color:#039be5; font-weight: 400; font-size: 1.2rem;">
 						{{ item.cluster }} Sector
 					</div>
-					<div style="color:#616161; font-weight: 500;">
+					<div style="color:#616161; font-weight: 500; font-size: 1.1rem;">
 						{{ item.organization_name }}
 					</div>
 					<i class="material-icons circle white teal-text">{{ list.icon }}</i>
-					<span class="title truncate">{{ item.project_title }}</span>
+						<span class="title truncate" style="color:#616161; font-weight: 400; font-size: 1.4rem;padding-bottom: 10px;">
+							{{ item.project_title }}
+						</span>
 					<br/>
 
 					<!-- updated / submiteed -->
-					<div ng-if="list.title.indexOf('Active') !== -1" style="font-weight:400">
+					<div ng-if="list.title.indexOf('Active') !== -1" style="font-weight:400; font-size:1.2rem;">
 						{{'updated'|translate}}: {{ list.updatedAt( item.updatedAt ) }}
 					</div>
-					<div ng-if="list.title.indexOf('Complete') !== -1" style="font-weight:400">
+					<div ng-if="list.title.indexOf('Complete') !== -1" style="font-weight:400; font-size:1.2rem;">
 						{{'submitted'|translate}}: {{ list.updatedAt( item.updatedAt ) }}
 					</div>
 						
 					<!-- description -->
-					<p align="justify" style="max-height:200px;">
+					<p align="justify" style="max-height:200px;color: #616161;">
 						<span ng-if="!item.project_code">
 							{{ item.project_description | limitTo:500 }}...
 						</span>
 						<span ng-if="item.project_code">
-							<span style="font-weight: 400;">{{ item.project_code }}:</span> {{ item.project_description | limitTo:500 }}...
+							<span style="font-weight: 500;">{{ item.project_code }}:</span> {{ item.project_description | limitTo:500 }}...
 						</span>
 					</p>
 

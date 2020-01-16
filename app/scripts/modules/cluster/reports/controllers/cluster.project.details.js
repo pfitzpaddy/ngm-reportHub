@@ -62,7 +62,7 @@ angular.module('ngmReportHub')
 						},
 						title: {
 							'class': 'col s12 m9 l9 report-title truncate',
-							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
+							style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
 							title: title
 						},
 						subtitle: {
@@ -220,7 +220,7 @@ angular.module('ngmReportHub')
 							},
 							title: {
 								'class': 'col s12',
-								style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
+								style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
 								title: 'Project Not Found!'
 							},
 							subtitle: {

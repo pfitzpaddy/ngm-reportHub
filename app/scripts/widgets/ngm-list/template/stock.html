@@ -45,7 +45,7 @@
 		<ul class="collection with-header z-depth-1">
 			<li class="collection-header {{ list.color }}" style="height:80px;">
 				<div class="col s12 m8">
-					<h4 class="report-work-title {{ list.textColor }}" style="font-size:1.8rem;">
+					<h4 class="report-work-title {{ list.textColor }}">
 						<i class="material-icons left">{{ list.titleIcon }}</i>{{ list.title }}
 					</h4>
 				</div>
@@ -74,7 +74,7 @@
 				<a href="#/cluster/stocks/report/{{ item.organization_id }}/{{ item.id }}" title="{{ list.hoverTitle }} {{ item.reporting_period_title }} Report">
 					<i class="material-icons circle white teal-text">{{ list.icon }}</i>
 					<span class="title">{{ item.reporting_period_title }}</span>
-					<span class="right" style="padding-top:20px; padding-right:40px; color:#616161;">{{ list.reportFormat( item ) }}</span>
+					<span class="right" style="padding-top:20px; padding-right:40px; color:#616161;font-weight: 400">{{ list.reportFormat( item ) }}</span>
 					<p align="justify" style="padding:10px 0px 10px 0px;">
 						{{'monthly_stock_report_for'|translate}} {{ item.reporting_period_title }} {{ item.cluster }}
 					</p>

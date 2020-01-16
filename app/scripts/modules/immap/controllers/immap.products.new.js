@@ -35,7 +35,7 @@ angular.module( 'ngmReportHub' )
 						},
 						title: {
 							'class': 'col s12 m12 l12 report-title truncate',
-							style: 'font-size: 3.4rem; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
+							style: 'color: ' + $scope.report.ngm.style.defaultPrimaryColor,
 							title: 'iMMAP | '+$filter('translate')('add_new_product')
 						},
 						subtitle: {

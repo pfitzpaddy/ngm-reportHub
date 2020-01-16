@@ -213,7 +213,7 @@ angular.module('ngmReportHub')
 							},
 							title: {
 								'class': 'col s12 m10 l10 report-title truncate',
-								'style': 'font-size: 3.4rem; color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
+								'style': 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 								'title': $route.current.params.year + ' ' + 'Drought Response' + ' | ' + ngmDroughtHelper.getTitle(),//+ $scope.dashboard.user.admin0pcode + ' | ' + $scope.dashboard.user.cluster + ' | ' + $scope.dashboard.user.organization,
 							},
 							subtitle: {

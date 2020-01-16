@@ -22,18 +22,19 @@
 				<h5 class="report-beneficiary-title" ng-if="!beneficiary.activity_type_id">
 					<i class="material-icons left">accessibility</i>Target {{ $beneficiaryIndex+1 }}
 				</h5>
-				<h5 class="report-beneficiary-title truncate col s12 m11" ng-if="beneficiary.activity_type_id">
+				<h5 class="report-beneficiary-title truncate" ng-if="beneficiary.activity_type_id">
 					<i class="material-icons left">accessibility</i>{{ project.getBeneficiaryTitle( $locationIndex, $beneficiaryIndex ) }}
-				<br/>
-				<br/>
-				<span class="report-beneficiary-second-title">
+				<div style="height:10px;">
+						<!-- spacer -->
+				</div>
+				<span class="report-beneficiary-second-title" style="margin-left:30px">
 					{{ beneficiary.beneficiary_type_name?beneficiary.beneficiary_type_name:'' }}
 				</span>
 			</div>
 
 			<!-- btns -->
 			<div align="right" style="padding: 16px 10px 5px;">
-				<div style=" display: inline-block; font-size: 20px;font-weight: 300; color: #656565; margin-right:2%">
+				<div style=" display: inline-block; font-size: 20px;font-weight: 400; color: #656565; margin-right:2%">
 					<i class="material-icons left">group</i>{{ beneficiary.total_beneficiaries ? beneficiary.total_beneficiaries : 0 | number }}</div>
 				<button class="btn-floating waves-effect waves-light"
 									title="Save"

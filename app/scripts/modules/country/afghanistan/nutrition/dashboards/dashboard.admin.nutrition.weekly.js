@@ -106,7 +106,7 @@ angular.module('ngmReportHub')
 							},
 							title: {
 								'class': 'col s12 m8 l8 report-title truncate',
-								'style': 'font-size: 3.4rem; color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
+								'style': 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 								'title': ngmNutritionHelper.getTitle(true),
 							},
 							subtitle: {

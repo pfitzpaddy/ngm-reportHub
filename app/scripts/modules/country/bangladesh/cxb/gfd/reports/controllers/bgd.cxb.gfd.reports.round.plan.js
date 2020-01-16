@@ -1305,7 +1305,7 @@ angular.module( 'ngmReportHub' )
 						},
 						title: {
 							'class': 'col s12 m12 l8 report-title truncate',
-							style: 'font-size: 2.3rem; font-weight: 300; padding-top: 20px; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
+							style: 'font-size: 2.3rem; font-weight: 300; color: ' + $scope.report.ngm.style.defaultPrimaryColor,
 							title: $scope.report.title
 						},
 						subtitle: {

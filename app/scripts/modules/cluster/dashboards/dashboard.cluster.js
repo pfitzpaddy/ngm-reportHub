@@ -880,7 +880,7 @@ angular.module('ngmReportHub')
 							},
 							title: {
 								'class': 'col s12 m8 l8 report-title truncate',
-								'style': 'font-size: 3.4rem; color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
+								'style': 'color: ' + $scope.dashboard.ngm.style.defaultPrimaryColor,
 								'title': $scope.dashboard.title,
 							},
 							subtitle: {
@@ -1136,7 +1136,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px;',
 									config: {
-										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">'+$filter('translate')('project_locations')+'</h2>'
+										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 2.2rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">'+$filter('translate')('project_locations')+'</h2>'
 									}
 								}]
 							}]
