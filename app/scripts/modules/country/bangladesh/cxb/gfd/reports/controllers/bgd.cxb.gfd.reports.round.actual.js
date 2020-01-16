@@ -34,6 +34,10 @@ angular.module( 'ngmReportHub' )
 			// report period
 			reporting_period: $route.current.params.reporting_period,
 
+			// menu for full range
+			reporting_menu_start: $route.current.params.reporting_period,
+			reporting_menu_end: moment( $route.current.params.reporting_period ).endOf( 'month' ).format( 'YYYY-MM-DD' ),
+
 			// org
 			organization_tag: $route.current.params.organization_tag,
 
@@ -308,8 +312,8 @@ angular.module( 'ngmReportHub' )
 						admin3pcode: $scope.report.admin3pcode,
 						admin4pcode: $scope.report.admin4pcode,
 						admin5pcode: $scope.report.admin5pcode,
-						start_date: $scope.report.start_date,
-						end_date: $scope.report.end_date
+						start_date: $scope.report.reporting_menu_start,
+						end_date: $scope.report.reporting_menu_end
 					}
 
 				}).then( function( menu ){
