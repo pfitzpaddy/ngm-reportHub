@@ -60,6 +60,16 @@ h1, h2, h3, h4, h5, p {
   background-color: #81d4fa;
   border-color: #81d4fa;
 }
+/* checkbox */
+[type="checkbox"].filled-in:disabled:not(:checked) + span:not(.lever):after {
+    border-color: transparent;
+    background-color: #b2dfdb;
+}
+
+[type="checkbox"].filled-in:disabled:checked + span:not(.lever):after {
+    background-color: #81d4fa;
+    border-color: #81d4fa;
+}
 
 /* ROW SPACING */
 .row {

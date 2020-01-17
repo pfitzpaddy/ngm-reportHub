@@ -126,7 +126,7 @@
 									    	required>
 									      <option value="" disabled selected>{{'select_project_budget_currency' | translate}}</option>
 									    </select>
-									    <label for="ngm-project_budget_currency">{{'project_budget_currency' | translate}} *</label>
+									    <label for="ngm-project_budget_currency" class="down">{{'project_budget_currency' | translate}} *</label>
 								</div>
 
 							</div>
@@ -136,7 +136,8 @@
 
 								<!-- budget currency -->
 								<div class="input-field col s12 m12">
-									<label style="top:-35px">ACBAR {{'partner'|translate}}?</label>
+									<label class="active">ACBAR {{'partner'|translate}}?</label>
+									<br>
 									<!-- <label>ACBAR {{'partner'|translate}}?</label>
 									<div style="padding-bottom:35px;"></div> -->
 							      <!-- <input type="checkbox" class="filled-in" id="project_acbar_partner" 
@@ -144,15 +145,18 @@
 											      ng-click="project.updateAcbarOrganization()"
 											      ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
 								  <label class="checkbox-label" for="project_acbar_partner">{{'yes' | translate}}</label> -->
-								  <label class="checkbox-label" for="project_acbar_partner">
-									<input type="checkbox"
-									class="filled-in"
-									id="project_acbar_partner"
-									ng-model="project.definition.project_acbar_partner"
-									ng-click="project.updateAcbarOrganization()" 
-									ng-disabled="project.definition.project_status === 'complete' || !project.canEdit"/>
-									<span style="left: .75rem;">{{'yes' | translate}}</span>
-								</label>
+								  <!-- <div style="padding-top:35px;"></div> -->
+								  <p>
+									<label class="checkbox-label" for="project_acbar_partner">
+										<input type="checkbox"
+										class="filled-in"
+										id="project_acbar_partner"
+										ng-model="project.definition.project_acbar_partner"
+										ng-click="project.updateAcbarOrganization()" 
+										ng-disabled="project.definition.project_status === 'complete' || !project.canEdit"/>
+										<span style="left: .75rem;">{{'yes' | translate}}</span>
+									</label>
+								  </p>
 								</div>
 
 							</div>

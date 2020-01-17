@@ -38,6 +38,16 @@
 	label {
 		font-size: 1rem !important;	
 	}
+	.input-field > label:not(.label-icon).active {
+		-webkit-transform: translateY(-14px) scale(1);
+		transform: translateY(-14px) scale(1);
+		-webkit-transform-origin: 0 0;
+		transform-origin: 0 0;
+		
+	}
+	.input-field > label:not(.label-icon).active.down {
+		transform: translateY(10px) scale(1);
+	}
 
 	.btn, .btn-small {
     padding: 0 1rem;
@@ -148,27 +158,49 @@
 
 	/* input label */
 	.input-field label,
-		.input-field input:disabled + label,
+		.input-field input:disabled + label, .input-field input[type=number] +label,
 		textarea.materialize-textarea label {
+		color: #26a69a;
+	}
+	.input-field label,.input-field input[type=text]:disabled + label{
 		color: #26a69a;
 	}
 	/* valid input */
 	.input-field input.valid,
-		textarea.materialize-textarea.valid, md-chips .md-chips.md-focused {
+		textarea.materialize-textarea.valid, md-chips .md-chips.md-focused , 
+		.input-field input.valid[type='text'], .input-field input.valid[type='number']{
 		border-bottom: 1px solid #26a69a;
 		box-shadow: 0 1px 0 0 #26a69a;
 	}
 	/* valid input on focus */
 	.input-field input:focus.valid,
-		textarea.materialize-textarea:focus.valid{
+		textarea.materialize-textarea:focus.valid, 
+		.input-field input[type='text']:focus.valid,
+		.input-field input.valid[type=number]:focus.valid {
 		border-bottom: 1px solid #4dd0e1;
 		box-shadow: 0 1px 0 0 #4dd0e1;
+	}
+	.input-field input[type=number]:focus.valid + label, .input-field input[type='text']:focus.valid + label, .input-field textarea:focus.valid + label{
+		color: #26a69a;
 	}
 	/* invalid input on focus */
 	.input-field input:focus.invalid,
 		textarea.materialize-textarea:focus.invalid {
 		border-bottom: 1px solid #e57373;
 		box-shadow: 0 1px 0 0 #e57373;
+	}
+	/* custom for invalid input */
+	.input-field input.invalid[type=text],
+		textarea.materialize-textarea.invalid {
+		border-bottom: 1px solid #9e9e9e;
+		box-shadow: 0 0 0 0 #9e9e9e;
+	}
+	.input-field input.invalid[type=text]:focus, textarea.materialize-textarea:focus.invalid{
+		border-bottom: 1px solid #26a69a;
+		box-shadow: 0 1px 0 0 #26a69a;
+	}
+	.input-field input.invalid[type=text]:focus + label, textarea.materialize-textarea:focus.invalid+label{
+		color:#26a69a;
 	}
 	/* border for disabled */
 	.input-field input:disabled, .select-wrapper input.select-dropdown:disabled,
