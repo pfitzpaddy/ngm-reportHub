@@ -1695,9 +1695,10 @@ angular.module('ngmReportHub')
 													enabled: true,
 													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
 													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
-													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>#{point.yformat} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
 												},
 												xAxis: {
+													type:'category',
 										        title: {
 										            text: $filter('translate')('ages_mayus1')
 										        }
@@ -1723,7 +1724,7 @@ angular.module('ngmReportHub')
 												 dataLabels: {
 										                enabled: true,
 										               // format: '{point.y} - {point.label:.1f}%'
-										               format: '{point.name}<br>#{point.y}<br>{point.label:.1f}%'
+										               format: '#{point.yformat}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 												//request: $scope.dashboard.getRequest({ indicator: 'BarChartAges', chart_for:'ages'})	,											
@@ -1765,9 +1766,10 @@ angular.module('ngmReportHub')
 													enabled: true,
 													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
 													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
-													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>#{point.yformat} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
 												},
 												xAxis: {
+													type:'category',
 										        title: {
 										            text: $filter('translate')('province')
 										        }
@@ -1794,7 +1796,7 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										                 format: '{point.name}<br>#{point.y}<br>{point.label:.1f}%'
+										                 format: '#{point.yformat}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 											    // request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryAdmin1pcode', chart_for:'beneficiaryAdmin1pcode'}),
@@ -1836,9 +1838,10 @@ angular.module('ngmReportHub')
 													enabled: true,
 													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
 													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
-													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>#{point.yformat} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
 												},
 												xAxis: {
+													type:'category',
 										        title: {
 										            text: $filter('translate')('beneficiary_type')
 										        }
@@ -1865,7 +1868,7 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										                 format: '{point.y}<br>{point.label:.1f}%'
+										                 format: '#{point.yformat}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryType', chart_for:'beneficiaryType'}),
@@ -1905,9 +1908,10 @@ angular.module('ngmReportHub')
 													enabled: true,
 													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
 													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
-													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>#{point.yformat} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
 												},
 												xAxis: {
+													type:'category',
 										        title: {
 										            text: 'Cluster'
 										        }
@@ -1935,7 +1939,7 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										                 format: '{point.name}<br>#{point.y}<br>{point.label:.1f}%'
+										                 format: '#{point.yformat}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryCluster', chart_for:'beneficiaryCluster'}),
@@ -2161,9 +2165,10 @@ angular.module('ngmReportHub')
 													enabled: true,
 													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
 													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
-													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>${point.yformat} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
 												},
 												xAxis: {
+													type: 'category',
 										        title: {
 										            text: $filter('translate')('executor_organizations')
 										        }
@@ -2191,7 +2196,7 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										                 format: '{point.name}<br>#{point.y}<br>{point.label:.1f}%'
+										                 format: '${point.yformat}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingTop5ExecutorOrganizations', chart_for:'FinancingExecutorOrganization'}),
@@ -2232,9 +2237,10 @@ angular.module('ngmReportHub')
 													enabled: true,
 													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
 													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
-													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>${point.yformat} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
 												},
 												xAxis: {
+													type: 'category',
 										        title: {
 										            text: $filter('translate')('province')
 										        }
@@ -2261,7 +2267,7 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										                 format: '{point.name}<br>#{point.y}<br>{point.label:.1f}%'
+										                 format: '${point.yformat}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 											    // request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryAdmin1pcode', chart_for:'beneficiaryAdmin1pcode'}),
@@ -2303,9 +2309,10 @@ angular.module('ngmReportHub')
 													enabled: true,
 													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
 													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
-													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>${point.yformat} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
 												},
 												xAxis: {
+													type: 'category',
 										        title: {
 										            text: 'Cluster'
 										        }
@@ -2373,9 +2380,10 @@ angular.module('ngmReportHub')
 													enabled: true,
 													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
 													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
-													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>${point.yformat} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
 												},
 												xAxis: {
+													type: 'category',
 										        title: {
 										            text: $filter('translate')('donor')
 										        }
@@ -2403,7 +2411,7 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										                 format: '${point.y}<br>{point.label:.1f}%'
+										                 format: '${point.yformat}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 											     request: $scope.dashboard.getRequest({ indicator: 'BarChartFinancingTop5Donors', chart_for:'FinancingDonors'}),
@@ -2444,9 +2452,10 @@ angular.module('ngmReportHub')
 													enabled: true,
 													  headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
 													  //pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - '+ $filter('translate')('{point.label:.1f}')+'%</b> '+$filter('translate')('of_total')+'<br/>'
-													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>{point.y} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
+													  pointFormat: '<span style="color:{point.color}">{point.name} (# - %): </span> <b>${point.yformat} - {point.label:.1f}%</b> '+$filter('translate')('of_total')+'<br/>'
 												},
 												xAxis: {
+													type: 'category',
 										        title: {
 										            text: $filter('translate')('implementing_organization')
 										        }
@@ -2473,7 +2482,7 @@ angular.module('ngmReportHub')
 												showInLegend:false,
 												 dataLabels: {
 										                enabled: true,
-										                 format: '{point.name}<br>#{point.y}<br>{point.label:.1f}%'
+										                 format: '${point.yformat}<br>{point.label:.1f}%'
 										                //inside: true
 										            },
 											    // request: $scope.dashboard.getRequest({ indicator: 'BarChartBeneficiaryAdmin1pcode', chart_for:'beneficiaryAdmin1pcode'}),
