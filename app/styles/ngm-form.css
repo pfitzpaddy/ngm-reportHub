@@ -49,6 +49,10 @@
 		transform: translateY(10px) scale(1);
 	}
 
+	.input-field > label:not(.label-icon).active.search {
+		transform: translateY(12px) scale(1);
+	}
+
 	.btn, .btn-small {
     padding: 0 1rem;
   }
@@ -147,7 +151,7 @@
 	}
 
 	.input-field label.active {
-	  color: #26a69a !important;
+	  color: #26a69a ;
 	  font-weight: 500;
 	}
 
