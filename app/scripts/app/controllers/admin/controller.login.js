@@ -26,11 +26,9 @@ angular.module('ngmReportHub')
 
 		var var4wplusrh;
 
-		
-		if($location.$$host === "4wplus.org" || $location.$$host === "35.229.43.63"){
-
+		// 
+		if( $location.$$host === "4wplus.org" || $location.$$host === "35.229.43.63" ){
 			var4wplusrh = "4wPlus";
-
 		}else{
 			var4wplusrh = "ReportHub"
 		}
