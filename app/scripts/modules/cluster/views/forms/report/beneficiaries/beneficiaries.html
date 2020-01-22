@@ -19,23 +19,30 @@
 
 			<!-- title -->
 			<div style="position: absolute;">
-				<h5 class="report-beneficiary-title" ng-if="!beneficiary.activity_type_id">
-					<i class="material-icons left">accessibility</i>Target {{ $beneficiaryIndex+1 }}
-				</h5>
-				<h5 class="report-beneficiary-title truncate" ng-if="beneficiary.activity_type_id">
-					<i class="material-icons left">accessibility</i>{{ project.getBeneficiaryTitle( $locationIndex, $beneficiaryIndex ) }}
-				<div style="height:10px;">
-						<!-- spacer -->
+				<div style="font-size: 20px; font-weight: 400; color: #656565; margin-left:10px">
+					<i class="material-icons left">group</i>{{ beneficiary.total_beneficiaries ? beneficiary.total_beneficiaries : 0 | number }} Beneficiaries
 				</div>
-				<span class="report-beneficiary-second-title" style="margin-left:30px">
+				<div class="row">
+					<div class="col s12">
+						<h5 class="report-beneficiary-title truncate" ng-if="!beneficiary.activity_type_id" style="padding-top: 0px;">
+							<i class="material-icons left">accessibility</i>Target {{ $beneficiaryIndex+1 }}
+						</h5>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<h5 class="report-beneficiary-title truncate" ng-if="beneficiary.activity_type_id" style="padding-top: 0px;">
+							<i class="material-icons left">accessibility</i>{{ project.getBeneficiaryTitle( $locationIndex, $beneficiaryIndex ) }}
+						</h5>
+					</div>
+				</div>
+				<span class="report-beneficiary-second-title" style="margin-left:40px; position:relative; top: -10px;font-size:1.32rem;">
 					{{ beneficiary.beneficiary_type_name?beneficiary.beneficiary_type_name:'' }}
 				</span>
 			</div>
 
 			<!-- btns -->
-			<div align="right" style="padding: 16px 10px 5px;">
-				<div style=" display: inline-block; font-size: 20px;font-weight: 400; color: #656565; margin-right:2%">
-					<i class="material-icons left">group</i>{{ beneficiary.total_beneficiaries ? beneficiary.total_beneficiaries : 0 | number }}</div>
+			<div align="right" style="position:relative; top:-15px; padding: 0px 5px 30px 0px;">
 				<button class="btn-floating waves-effect waves-light"
 									title="Save"
 									ng-if="!project.newProject && detailBeneficiaries[$locationIndex][$beneficiaryIndex] && project.canEdit"
