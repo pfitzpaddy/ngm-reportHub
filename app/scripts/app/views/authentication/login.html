@@ -175,21 +175,24 @@ li {
 	        </div>
 	      </div>
 
-				<p class="helpers left">
-					<a style="color: #ffab40;" id="forgot"> {{'forgot_password' | translate}}?</a>
-				</p>
-				<p class="helpers right">
-					<a href="#/cluster/register" >{{'register_mayus' | translate}} </a>
-				</p>
+	      <div class="row">
+					<p class="helpers left">
+						<a style="color: #ffab40;" id="forgot"> {{'forgot_password' | translate}}?</a>
+					</p>
+					<p class="helpers right">
+						<a href="#/cluster/register" >{{'register_mayus' | translate}} </a>
+					</p>
 
-				<div class="action center">
-					<button
-						type="submit"
-						class="btn btn-large waves-effect waves-teal" 
-						ng-disabled="ngmLoginForm.$invalid"
-						ng-click="panel.login(ngmLoginForm)">
-							{{'sign_in' | translate}}
-					</button>
+					<div class="action">
+						<button
+							type="submit"
+							class="btn btn-large waves-effect waves-teal" 
+							ng-disabled="ngmLoginForm.$invalid"
+							ng-click="panel.login(ngmLoginForm)">
+								{{'sign_in' | translate}}
+						</button>
+					</div>
+
 				</div>
 
 	    </form>
