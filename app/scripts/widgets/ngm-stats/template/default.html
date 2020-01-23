@@ -11,7 +11,7 @@
 			fraction-size="{{ stats.display.fractionSize }}">
 		</span>{{ stats.display.postfix }}</span>
 
-	<div ng-if="stats.display.simpleTitle" class="{{ stats.display.subTitleClass }}">
+	<div ng-if="stats.display.simpleTitle" class="{{ stats.display.subTitleClass }}" style="{{ stats.display.subTitleStyle }}">
 		<i ng-if="stats.titleIcon" class="material-icons" style="{{ stats.titleIcon.style }}">{{ stats.titleIcon.icon }}</i>
 		{{ stats.title }}</div>
 

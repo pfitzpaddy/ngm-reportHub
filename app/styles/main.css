@@ -200,6 +200,15 @@ h1, h2, h3, h4, h5, p {
 	width: 120%;
 }
 
+table, thead, th {
+	font-weight: 500 !important;
+}
+
+table, tbody, td {
+	font-weight: 400 !important;
+	color: rgba(0,0,0,0.67);
+}
+
 /* CARD PROFILE */
 .card .card-profile {
 	position:relative;
@@ -340,7 +349,8 @@ body.md-default-theme, body, html.md-default-theme, html {
 	display: none;
 }
 .pagination.ng-table-pagination{
-	padding-top: 10px ;
+	padding-top: 10px;
+	font-weight: 400;
 }
 
 .icon.center .card img {
