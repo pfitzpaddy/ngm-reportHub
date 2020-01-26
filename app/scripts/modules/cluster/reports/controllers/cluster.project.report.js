@@ -29,7 +29,7 @@ angular.module('ngmReportHub')
 		
 		// empty Project
 		$scope.report = {
-			
+			test: 'Hey yo',
 			// parent
 			ngm: $scope.$parent.ngm,
 

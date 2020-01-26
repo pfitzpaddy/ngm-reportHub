@@ -11,6 +11,119 @@ angular.module( 'ngmReportHub' )
 
 		// beneficairies
 		var ngmClusterBeneficiaries = {
+			isPresent: function(locationIndex, beneficiaryIndex, key){
+				return ngmClusterBeneficiaries.form[ locationIndex ][ beneficiaryIndex ].hasOwnProperty(key);
+			},
+			isPositive: function(locationIndex, beneficiaryIndex, key){
+				return ngmClusterBeneficiaries.form[ locationIndex ][ beneficiaryIndex ][key];
+			},
+			isPresentandPositive: function(locationIndex, beneficiaryIndex, key){
+				return ngmClusterBeneficiaries.form[ locationIndex ][ beneficiaryIndex ].hasOwnProperty(key) &&ngmClusterBeneficiaries.form[ locationIndex ][ beneficiaryIndex ][key];
+			},
+			// ======================= SADDs skip logics ============================
+			sadd_b_5_11_17_m_em_t: function(locationIndex, beneficiaryIndex){
+				return ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_0_5' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_6_11') &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_12_17') &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'men' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'elderly_men' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'total_male' );
+			},
+			sadd_g_5_11_17_w_ew_t:function(locationIndex, beneficiaryIndex){
+				return ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_0_5' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_6_11' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_12_17' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'women' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'elderly_women' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'total_female' );
+			},
+			sadd_bgmw: function(locationIndex, beneficiaryIndex){
+				return ( ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys' ) ||
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls' ) ||
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'men' ) ||
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'women' ) ) &&
+			( !ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_0_5' )  &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_6_11' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_12_17' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_0_5' )  &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_6_11' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_12_17' ) ) &&
+			( !ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'elderly_men' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'elderly_women' ) )
+			&& (
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'male_teachers') &&
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'female_teachers') && 
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'avg_attendance_boys') &&
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'avg_attendance_girls') ) 
+
+				&& 
+				( !ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_0_5') &&
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_6_12') &&
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_13_17') &&
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'youth_male_18_24') )
+
+				&&
+				
+				( !ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_0_5') &&
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_6_12') &&
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_13_17') &&
+				!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'youth_female_18_24') )
+			},
+			sadd_bgmw_em_ew: function(locationIndex, beneficiaryIndex){
+				return ( ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'men' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'women' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'elderly_men' ) &&
+				ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'elderly_women' ) ) &&
+			( !ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_0_5' )  &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_6_11' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_12_17' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_0_5' )  &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_6_11' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_12_17' ) )
+				&& (
+					!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'male_teachers') &&
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'female_teachers') && 
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'avg_attendance_boys') &&
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'avg_attendance_girls') ) 
+		&& 
+		( !ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_0_5') &&
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_6_12') &&
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_13_17') &&
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'youth_male_18_24') )
+
+		&&
+		
+		( !ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_0_5') &&
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_6_12') &&
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_13_17') &&
+		!ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'youth_female_18_24') );
+},
+			sadd_edu_ng: function(locationIndex, beneficiaryIndex){
+				return ( 
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'male_teachers') &&
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'female_teachers') && ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'avg_attendance_boys') &&
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'avg_attendance_girls') ) &&
+			( !ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_0_5' )  &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_6_11' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'boys_12_17' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_0_5' )  &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_6_11' ) &&
+				!ngmClusterBeneficiaries.isPositive(locationIndex, beneficiaryIndex, 'girls_12_17' ) );
+			},
+			sadd_b_6_12_17_24: function(locationIndex, beneficiaryIndex){
+				return ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_0_5') &&
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_6_12' ) &&
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'boys_13_17') &&
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'youth_male_18_24');
+			},
+			sadd_g_6_12_17_24: function(locationIndex, beneficiaryIndex){
+				return ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_0_5') &&
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_6_12' ) &&
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'girls_13_17') &&
+				ngmClusterBeneficiaries.isPresent(locationIndex, beneficiaryIndex, 'youth_female_18_24');
+			},
 
 			// form
 			form:[[]],
@@ -26,7 +139,8 @@ angular.module( 'ngmReportHub' )
 				'strategic_objective_description',
 				'sector_objective_id',
 				'sector_objective_name',
-				'sector_objective_description'
+				'sector_objective_description',
+				'templatesUrl'
 			],
 
 			defaults: {
@@ -56,7 +170,19 @@ angular.module( 'ngmReportHub' )
 					elderly_women:0,
 					total_male:0,
 					total_female:0,
-					total_beneficiaries:0
+					total_beneficiaries:0,
+
+					male_teachers:0,
+					female_teachers:0,
+					avg_attendance_boys:0,
+					avg_attendance_girls:0,
+
+					boys_6_12:0,
+					boys_13_17:0,
+					youth_male_18_24:0,
+					girls_6_12:0,
+					girls_13_17:0,
+					youth_female_18_24:0
 				},
 				// activity_description: {
 				// 	activity_description_id: '',
@@ -176,6 +302,21 @@ angular.module( 'ngmReportHub' )
 																beneficiary.elderly_women;
 
 					beneficiary.total_beneficiaries += beneficiary.total_male + beneficiary.total_female;
+					//Workaround for Nigeria Education Sector
+					if(beneficiary.hasOwnProperty('male_teachers')){beneficiary.total_beneficiaries +=beneficiary.male_teachers}
+					if(beneficiary.hasOwnProperty('female_teachers')){beneficiary.total_beneficiaries +=beneficiary.female_teachers}
+					if(beneficiary.hasOwnProperty('avg_attendance_boys')){beneficiary.total_beneficiaries +=beneficiary.avg_attendance_boys}
+					if(beneficiary.hasOwnProperty('avg_attendance_girls')){beneficiary.total_beneficiaries +=beneficiary.avg_attendance_girls}
+
+					//Workaround for Nigeria Child Protection Sector
+					if(beneficiary.hasOwnProperty('boys_6_12')){beneficiary.total_beneficiaries +=beneficiary.boys_6_12}
+					if(beneficiary.hasOwnProperty('boys_13_17')){beneficiary.total_beneficiaries +=beneficiary.boys_13_17}
+					if(beneficiary.hasOwnProperty('youth_male_18_24')){beneficiary.total_beneficiaries +=beneficiary.youth_male_18_24}
+					if(beneficiary.hasOwnProperty('girls_6_12')){beneficiary.total_beneficiaries +=beneficiary.girls_6_12}
+					if(beneficiary.hasOwnProperty('girls_13_17')){beneficiary.total_beneficiaries +=beneficiary.girls_13_17}
+					if(beneficiary.hasOwnProperty('youth_female_18_24')){beneficiary.total_beneficiaries +=beneficiary.youth_female_18_24}
+					
+					
 				}, 100 );
 			},
 
@@ -279,7 +420,7 @@ angular.module( 'ngmReportHub' )
 			showFormInputs: function( beneficiary, form ) {
 				var display = false;
 				if ( beneficiary.activity_description_id ) {
-					if( !form.display_activity_detail  ) {
+					if( !beneficiary.hasOwnProperty('display_activity_detail') || !form.display_activity_detail  ) {
 						display = true;
 					}
 					if( beneficiary.activity_detail_id && form.display_activity_detail  ) {
