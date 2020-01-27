@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="ReportHub, Dashboard, Reporting, Key Business Indicators">
+    <title>ReportHub</title>
+
+    <!-- CSS  -->
+    <link href="imgs/favicon.ico" sizes="32x32" rel="icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+
+<body>
+    <div id="fourothree-page">
+        <div class="center">
+            <p style="font-weight: 300;color:#fff; font-size:3.6rem;text-shadow:0px 3px 3px #333;">
+                ReportHub
+            </p>
+            
+
+                <div class="logo">
+                    <img width="150" src="imgs/404.gif" alt="animate" />
+                </div>
+
+            <br />
+            <div class="text">
+                <p style="font-weight: 400;color:#fff; font-size:1.8rem;">
+                    Bender is making some updates!
+                </p>
+            </div>
+            <p id="refresh" class="loading">
+                The page will refresh in</p>
+            <div>
+                <div id="countdown">...</div>
+                <span id="second"></span>
+            </div>
+            <p id="redirect" class="loading" >Redirecting</p>
+        </div>
+    </div>
+
+
+    <!--  Scripts-->
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script>
+        // materialize components
+        $('.parallax').parallax(); 
+        document.getElementById("countdown").innerHTML = '...';
+        var timeleft = 30;
+            var downloadTimer = setInterval(function () {
+                document.getElementById("countdown").innerHTML = timeleft;
+                document.getElementById("second").innerHTML = 'seconds';
+                if (timeleft <= 0) {
+                    clearInterval(downloadTimer);
+                    document.getElementById("redirect").style.display="block";
+                    document.getElementById("countdown").style.display = "none";
+                    document.getElementById("second").style.display = "none";
+                    document.getElementById("refresh").style.display = "none";
+                    setTimeout(function(){
+                        window.location.href = "https://reporthub.org/";
+                    },1000)
+                    
+                }
+                timeleft -= 1;
+            }, 1000);   
+    </script>
+
+</body>
+
+</html>
