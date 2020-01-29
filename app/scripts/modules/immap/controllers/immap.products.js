@@ -533,7 +533,9 @@ angular.module( 'ngmReportHub' )
 					menu: [],
 					rows: $scope.report.getRows()
 				}
-
+				setTimeout(() => {
+					$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+				}, 0);
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;				
 			}
