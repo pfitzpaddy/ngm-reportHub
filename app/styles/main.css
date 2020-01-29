@@ -159,7 +159,8 @@ h1, h2, h3, h4, h5, p {
 }
 .report-title {
 	font-size: 2.8rem; 
-	margin-top: 60px;
+	/* margin-top: 60px; */
+	margin-top: 45px;
 	font-weight: 200;
 }
 .report-panel-title {
