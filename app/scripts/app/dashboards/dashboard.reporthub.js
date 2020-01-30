@@ -131,8 +131,6 @@ angular.module('ngmReportHub')
 							'title': '2) Several copies of the same data exist, collected in multiple local files from multiple partners'
 						},{
 							'title': '3) Resulting calculations produce 3 different results across 2 different agencies ( Figures A, B & C )'
-						},{
-							'title': '<div class="center-align grey-text text-darken-2"><i>No surprise billions of dollars have been poured into Afghanistan by the international community and there is limited visibility of progress!</i>'
 						}]
 					}];
 
