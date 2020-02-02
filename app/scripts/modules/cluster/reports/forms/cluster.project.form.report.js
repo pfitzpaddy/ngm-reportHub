@@ -714,6 +714,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							var current_report = angular.copy( $scope.project.report );
 							if (current_report.locations) {
 								delete current_report.locations;
+								delete current_report.cluster_id;
+								delete current_report.cluster;
 							}
 							// set last month
 							angular.forEach($scope.project.report.locations, function (location, locationIndex ){
