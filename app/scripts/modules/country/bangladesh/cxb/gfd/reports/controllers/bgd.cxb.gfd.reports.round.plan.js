@@ -778,6 +778,65 @@ angular.module( 'ngmReportHub' )
 
 						}
 
+						// active / complete
+						if ( $scope.report.report_round === '1' ) {
+							// set report status 2019-11-01
+							var report_status = moment( $scope.report.reporting_period ).add( $scope.report.report_round_1, 'days' ).unix() > moment().unix() ? 'active' : 'complete';
+						}
+
+						// active / complete
+						if ( $scope.report.report_round === '2' ) {
+							// set report status 2019-11-01
+							var report_status = moment( $scope.report.reporting_period ).add( 1, 'months' ).add( $scope.report.report_round_2, 'days' ).unix() > moment().unix() ? 'active' : 'complete';
+						}
+
+						// default
+						var requests = [{
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/processPlannedBeneficiaries',
+							data: {
+								admin0pcode: $scope.report.user.admin0pcode,
+								organization_tag: $scope.report.organization_tag,
+								report_round: $scope.report.report_round,
+								report_distribution: $scope.report.report_distribution,
+							}
+						},{
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/processActualBeneficiaries',
+							data: {
+								admin0pcode: $scope.report.user.admin0pcode,
+								organization_tag: $scope.report.organization_tag,
+								report_round: $scope.report.report_round,
+								report_distribution: $scope.report.report_distribution,
+							}
+						},{
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setKoboXlsxForm',
+							data: {
+								admin0pcode: $scope.report.user.admin0pcode,
+								organization_tag: $scope.report.organization_tag,
+								report_round: $scope.report.report_round,
+								report_distribution: $scope.report.report_distribution,
+							}
+						}];
+
+						// 
+						if ( report_status ) {
+							// if active
+							var sendKoboManualDeployEmail = {
+								method: 'POST',
+								url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/sendKoboManualDeployEmail',
+								data: {
+									admin0pcode: $scope.report.user.admin0pcode,
+									organization_tag: $scope.report.organization_tag,
+									report_round: $scope.report.report_round,
+									report_distribution: $scope.report.report_distribution,
+								}
+							}
+							// add to requests
+							requests.push( sendKoboManualDeployEmail );
+						}
+
 						// if other orgs
 						if ( $scope.report.organization_tag !== 'wfp' && $scope.report.organization_tag !== 'immap' ){
 								// upload
@@ -804,43 +863,7 @@ angular.module( 'ngmReportHub' )
 												successMessage: false,
 												process: {
 													redirect: 'bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/all/all/all/all',
-													requests: [{
-														method: 'POST',
-														url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/processPlannedBeneficiaries',
-														data: {
-															admin0pcode: $scope.report.user.admin0pcode,
-															organization_tag: $scope.report.organization_tag,
-															report_round: $scope.report.report_round,
-															report_distribution: $scope.report.report_distribution,
-														}
-													},{
-														method: 'POST',
-														url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/processActualBeneficiaries',
-														data: {
-															admin0pcode: $scope.report.user.admin0pcode,
-															organization_tag: $scope.report.organization_tag,
-															report_round: $scope.report.report_round,
-															report_distribution: $scope.report.report_distribution,
-														}
-													},{
-														method: 'POST',
-														url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setKoboXlsxForm',
-														data: {
-															admin0pcode: $scope.report.user.admin0pcode,
-															organization_tag: $scope.report.organization_tag,
-															report_round: $scope.report.report_round,
-															report_distribution: $scope.report.report_distribution,
-														}
-													},{
-														method: 'POST',
-														url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/sendKoboManualDeployEmail',
-														data: {
-															admin0pcode: $scope.report.user.admin0pcode,
-															organization_tag: $scope.report.organization_tag,
-															report_round: $scope.report.report_round,
-															report_distribution: $scope.report.report_distribution,
-														}
-													}]
+													requests: requests
 												}
 											}
 										}]
