@@ -194,13 +194,13 @@ angular.module( 'ngmReportHub' )
 				// active / complete
 				if ( $scope.report.report_round === '1' ) {
 					// set report status 2019-11-01
-					$scope.report.report_status = moment( $scope.report.reporting_period ).add( $scope.report.report_round_1, 'days' ).unix() > moment().unix() ? 'active' : 'complete';
+					// $scope.report.report_status = moment( $scope.report.reporting_period ).add( $scope.report.report_round_1, 'days' ).unix() > moment().unix() ? 'active' : 'complete';
 				}
 
 				// active / complete
 				if ( $scope.report.report_round === '2' ) {
 					// set report status 2019-11-01
-					$scope.report.report_status = moment( $scope.report.reporting_period ).add( 1, 'months' ).add( $scope.report.report_round_2, 'days' ).unix() > moment().unix() ? 'active' : 'complete';
+					// $scope.report.report_status = moment( $scope.report.reporting_period ).add( 1, 'months' ).add( $scope.report.report_round_2, 'days' ).unix() > moment().unix() ? 'active' : 'complete';
 				}
 
 			},
