@@ -827,7 +827,7 @@ angular.module( 'ngmReportHub' )
 							}
 
 							// kobo email
-							var sendKoboManualDeployEmail = [{
+							var sendKoboManualDeployEmail = {
 								method: 'POST',
 								url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/sendKoboManualDeployEmail',
 								data: {
@@ -841,7 +841,7 @@ angular.module( 'ngmReportHub' )
 							// add to requests
 							requests.push( setKoboXlsxForm );
 							requests.push( sendKoboManualDeployEmail );
-							
+
 						}
 
 						// if other orgs
