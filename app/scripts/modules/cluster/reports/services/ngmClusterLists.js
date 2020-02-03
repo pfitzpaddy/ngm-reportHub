@@ -6981,36 +6981,47 @@ angular.module( 'ngmReportHub' )
           }];
         } else if ( admin0pcode === 'AF' ){
           site_implementation = [{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'community_based',
             site_implementation_name: 'Community Based'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'local_committee',
             site_implementation_name: 'Local Committee'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'family_protection_center',
             site_implementation_name: 'Family Protection Center'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'woman_friendly_health_space',
             site_implementation_name: 'Woman Friendly Health Space'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'mobile_outreach_team',
             site_implementation_name: 'Mobile Outreach Team ( MOT )'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'mhnt',
             site_implementation_name: 'MHNT'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'mpt',
             site_implementation_name: 'MPT'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'ctc',
             site_implementation_name: 'CTC'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'ctu',
             site_implementation_name: 'CTU'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'orp',
             site_implementation_name: 'ORP'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'clinic',
             site_implementation_name: 'Clinic'
           }];
@@ -7121,72 +7132,95 @@ angular.module( 'ngmReportHub' )
         // health and not ET
         if ( admin0pcode === 'AF' ) {
           site_types = [{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'multiple_sites',
             site_type_name: 'Multiple Sites'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'host_community',
             site_type_name: 'Host Community'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'collective_settlement',
             site_type_name: 'Settlement'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'village',
             site_type_name: 'Village'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'schools',
             site_type_name: 'School'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'RH',
             site_type_name: 'RH'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'PH',
             site_type_name: 'PH'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'DH',
             site_type_name: 'DH'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'CHC',
             site_type_name: 'CHC'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'CHC+FATP',
             site_type_name: 'CHC + FATP'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'BHC',
             site_type_name: 'BHC'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'BHC+FATP',
             site_type_name: 'BHC + FATP'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'FHH',
             site_type_name: 'FHH'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'SHC',
             site_type_name: 'SHC'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'MHT',
             site_type_name: 'MHT'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'RRT',
             site_type_name: 'RRT'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'FATP',
             site_type_name: 'FATP'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'DATC',
             site_type_name: 'DATC'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'special_hospital',
             site_type_name: 'Special Hospital'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'rehabilitation_center',
             site_type_name: 'Rehabilitation Center'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'nutrition_center',
             site_type_name: 'Nutrition Center'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'idp_site',
             site_type_name: 'IDP Site'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'refugee_site',
             site_type_name: 'Refugee Site' 
           }];
