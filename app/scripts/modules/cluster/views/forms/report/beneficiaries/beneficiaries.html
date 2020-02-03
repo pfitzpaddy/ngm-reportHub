@@ -1117,7 +1117,7 @@
 
 
 					<!-- DETAILS -->
-					<div class="row" ng-init="ngmClusterDetails.init( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], project.report.locations, beneficiary, 400 );"
+					<div class="row" ng-init="ngmClusterDetails.initDetails( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], $locationIndex, $beneficiaryIndex, beneficiary );"
 															ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ]">
 						<!-- get template -->
 						<div class="row" ng-repeat="detail in beneficiary.details">

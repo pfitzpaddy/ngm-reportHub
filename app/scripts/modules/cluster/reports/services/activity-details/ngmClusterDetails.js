@@ -67,7 +67,7 @@ angular.module( 'ngmReportHub' )
 						}
 						// update form
 						ngmClusterDetails.inputChange( input_label );
-						ngmClusterDetails.updateSelectById( input_label );
+						// ngmClusterDetails.updateSelectById( input_label );
 					}, 100 );
 				}
 			},
@@ -91,6 +91,23 @@ angular.module( 'ngmReportHub' )
 				}, timer );
 			},
 
+			// add details
+			initDetails: function( list, $locationIndex, $beneficiaryIndex, beneficiary ) {
+				// add empty 
+				if ( !beneficiary.details ) {
+					beneficiary.details = [];
+					beneficiary.details.push({ unit_type_quantity:0 });	
+				}
+				
+				// reset list
+				if ( beneficiary.details ) {
+					// set details form
+					angular.forEach( beneficiary.details, function ( d, i ) {
+						ngmClusterDetails.setList( list, $locationIndex, $beneficiaryIndex, i, d.unit_type_id, beneficiary.details );
+					});
+				}
+			},
+			
 			// manages selections (removes selections from detials list for ET ESNFI partial_kits, kit_details)
 			setList: function( list, $locationIndex, $beneficiaryIndex, $index, unit_type_id, d_list ) {
 				
@@ -126,7 +143,7 @@ angular.module( 'ngmReportHub' )
 				});
 
 				// update select by id
-				ngmClusterDetails.updateSelect();
+				// ngmClusterDetails.updateSelect();
 
 			},
 
