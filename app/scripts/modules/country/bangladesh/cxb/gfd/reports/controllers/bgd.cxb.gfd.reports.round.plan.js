@@ -809,21 +809,25 @@ angular.module( 'ngmReportHub' )
 								report_round: $scope.report.report_round,
 								report_distribution: $scope.report.report_distribution,
 							}
-						},{
-							method: 'POST',
-							url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setKoboXlsxForm',
-							data: {
-								admin0pcode: $scope.report.user.admin0pcode,
-								organization_tag: $scope.report.organization_tag,
-								report_round: $scope.report.report_round,
-								report_distribution: $scope.report.report_distribution,
-							}
 						}];
 
-						// 
-						if ( report_status ) {
-							// if active
-							var sendKoboManualDeployEmail = {
+						// add email
+						if ( report_status === 'active' ) {
+
+							// kobo form update
+							var setKoboXlsxForm = {
+								method: 'POST',
+								url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setKoboXlsxForm',
+								data: {
+									admin0pcode: $scope.report.user.admin0pcode,
+									organization_tag: $scope.report.organization_tag,
+									report_round: $scope.report.report_round,
+									report_distribution: $scope.report.report_distribution,
+								}
+							}
+
+							// kobo email
+							var sendKoboManualDeployEmail = [{
 								method: 'POST',
 								url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/sendKoboManualDeployEmail',
 								data: {
@@ -833,8 +837,11 @@ angular.module( 'ngmReportHub' )
 									report_distribution: $scope.report.report_distribution,
 								}
 							}
+							
 							// add to requests
+							requests.push( setKoboXlsxForm );
 							requests.push( sendKoboManualDeployEmail );
+							
 						}
 
 						// if other orgs
