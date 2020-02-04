@@ -7253,52 +7253,34 @@ angular.module( 'ngmReportHub' )
               // ESNFI
 
               cluster_id: [ 'esnfi' ],
-              beneficiary_type_id: 'idp_natural_disaster',
-              beneficiary_type_name: 'Natural Disaster IDPs'
+              beneficiary_type_id: 'idp',
+							beneficiary_type_name: 'Internally Displaced Persons (IDPs)',
+							description: 'People displaced in 2020'
             },{
               cluster_id: [ 'esnfi' ],
-              beneficiary_type_id: 'natural_disaster_affected',
-              beneficiary_type_name: 'Natural Disaster Affected'
+              beneficiary_type_id: 'shock_affected',
+              beneficiary_type_name: 'Shock Affected Persons ',
+							description: 'People affected by shocks in 2020 (natural disasters and conflict)'
             },{
               cluster_id: [ 'esnfi' ],
-              beneficiary_type_id: 'conflict_affected',
-              beneficiary_type_name: 'Conflict Affected'
+              beneficiary_type_id: 'acutely_vulnerable_persons',
+              beneficiary_type_name: 'Acutely Vulnerable People with Humanitarian Needs',
+							description: 'Acutely vulnerable people with humanitarian needs (protracted IDPs, host community, vulnerable populations at risk etc)'
             },{
               cluster_id: [ 'esnfi' ],
-              beneficiary_type_id: 'idp_conflict',
-              beneficiary_type_name: 'Conflict IDPs'
-            },{
-              cluster_id: [ 'esnfi' ],
-              beneficiary_type_id: 'idp_protracted',
-              beneficiary_type_name: 'Protracted IDPs'
+              beneficiary_type_id: 'returnee_idps',
+              beneficiary_type_name: 'Returnee IDPs',
+							description: 'IDP Returnees in 2020'
             },{
               cluster_id: [ 'esnfi' ],
               beneficiary_type_id: 'returnee_documented',
-              beneficiary_type_name: 'Afghan Refugee Returnees (Documented)'
+              beneficiary_type_name: 'Afghan Refugee Returnees (Documented)',
+							description: 'Afghan Refugee Returnees (Documented)'
             },{
               cluster_id: [ 'esnfi' ],
               beneficiary_type_id: 'returnee_undocumented',
-              beneficiary_type_name: 'Afghan Returnees (Undocumented)'
-            },{
-              cluster_id: [ 'esnfi' ],
-              beneficiary_type_id: 'host_communities',
-              beneficiary_type_name: 'Host Communities'
-            },{
-              cluster_id: [ 'esnfi' ],
-              beneficiary_type_id: 'drought_affected_non_displaced_response',
-              beneficiary_type_name: 'Drought Affected Non Displaced ( Response )'
-            },{
-              cluster_id: [ 'esnfi' ],
-              beneficiary_type_id: 'drought_affected_displaced_response',
-              beneficiary_type_name: 'Drought Affected Displaced ( Response )'
-            },{
-              cluster_id: [ 'esnfi' ],
-              beneficiary_type_id: 'flood_affected_non_displaced_response',
-              beneficiary_type_name: 'Flood Affected Non Displaced ( Response )'
-            },{
-              cluster_id: [ 'esnfi' ],
-              beneficiary_type_id: 'flood_affected_displaced_response',
-              beneficiary_type_name: 'Flood Affected Displaced ( Response )'
+              beneficiary_type_name: 'Afghan Returnees (Undocumented)',
+							description: 'Afghan Returnees (Undocumented)'
             },{
 
               // Protection
