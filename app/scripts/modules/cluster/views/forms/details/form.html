@@ -169,7 +169,7 @@
 		<div ng-include="project.templatesUrl + project.detailsUrl"></div>
 
 		<!-- Project SO -->
-		<div ng-if="project.definition.admin0pcode === 'AF'" ng-include="project.templatesUrl + project.strategicObjectivesUrl"></div>
+		<div ng-if="project.definition.admin0pcode === 'AF' && project.definition.strategic_objectives && project.definition.strategic_objectives.length" ng-include="project.templatesUrl + project.strategicObjectivesUrl"></div>
 
 		<!-- Project contact details -->
 		<div ng-include="project.templatesUrl + project.contactDetailsUrl"></div>
