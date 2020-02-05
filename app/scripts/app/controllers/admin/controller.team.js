@@ -429,6 +429,12 @@ angular.module('ngmReportHub')
 									getUserRoleDescriptions: function( role ){
 										return ngmAuth.getUserRoleDescriptions( role );
 									},
+									showOrgAdminTag: function (roles) {
+										if (roles.indexOf('ORG') > -1){
+											return true;
+										}
+										return false
+									},
 									formDisabled: (function () {
 										var disabled = true;
 										if ($scope.dashboard.user.status === 'active' &&

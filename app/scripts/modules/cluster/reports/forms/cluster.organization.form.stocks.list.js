@@ -172,8 +172,8 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
 
           // open confirmation modal
           // $('#warehouses-modal').openModal({ dismissible: false });
-          $('#warehouse-modal').modal({ dismissible: false });
-          $('#warehouse-modal').modal('open');
+          $('#warehouses-modal').modal({ dismissible: false });
+          $('#warehouses-modal').modal('open');
 
         },
 
