@@ -501,7 +501,7 @@ angular.module( 'ngmReportHub' )
 					downloads.push({
 						type: 'pdf',
 						color: 'blue',
-						icon: 'picture_as_pdf',
+						icon: 'move_to_inbox',
 						hover: 'Download Planned Distribution List',
 						request: {
 							method: 'POST',

@@ -704,6 +704,52 @@ angular.module( 'ngmReportHub' )
 					}
 				});
 
+				// closing balance
+				if ( $scope.report.organization_tag !== 'wfp' && $scope.report.organization_tag !== 'immap' ) {
+					
+					// downloads
+					downloads.push({
+						type: 'pdf',
+						color: 'teal',
+						icon: 'assignment_turned_in',
+						hover: 'Download Distribution ' + $scope.report.report_distribution + ' Closing Balance',
+						request: {
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
+							data: {
+								download: true,
+								indicator: 'downloads_distribution_closing_balance',
+								downloadUrl: ngmAuth.LOCATION + '/report/',
+								admin0pcode: $scope.report.user.admin0pcode,
+								organization_tag: $scope.report.organization_tag,
+								report_round: $scope.report.report_round,
+								report_distribution: $scope.report.report_distribution,
+								site_id: $scope.report.site_id,
+								admin3pcode: $scope.report.admin3pcode,
+								admin4pcode: $scope.report.admin4pcode,
+								admin5pcode: $scope.report.admin5pcode,
+								start_date: $scope.report.start_date,
+								end_date: $scope.report.end_date,
+								report: $scope.report.organization_tag +'_distribution_closing_balance_round_' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
+							}
+						},
+						metrics: {
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/metrics/set',
+							data: {
+								organization: $scope.report.user.organization,
+								username: $scope.report.user.username,
+								email: $scope.report.user.email,
+								dashboard: 'gfa_gfd_distribution_closing_balance_' + $scope.report.report_round + '_' + $scope.report.report_distribution,
+								theme: 'gfa_gfd_distribution_closing_balance',
+								format: 'pdf',
+								url: $location.$$path
+							}
+						}
+					});		
+				
+				}	
+
 				// set downloads
 				$scope.model.header.download.downloads = downloads;
 
