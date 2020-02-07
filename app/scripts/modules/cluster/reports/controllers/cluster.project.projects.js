@@ -226,7 +226,7 @@ angular.module( 'ngmReportHub' )
 						'search': true,
 						'id': 'search-org',
 						'icon': 'people',
-						'title': 'Organization',
+						'title': $filter('translate')('organization'),
 						'class': 'teal lighten-1 white-text',
 						'rows': listOrg
 					};
@@ -286,7 +286,7 @@ angular.module( 'ngmReportHub' )
 							'search': true,
 							'id': 'search-sector',
 							'icon': 'camera',
-							'title': 'Sector',
+							'title': $filter('translate')('sector_mayus'),
 							'class': 'teal lighten-1 white-text',
 							'rows': sectorRows
 						}
@@ -553,7 +553,10 @@ angular.module( 'ngmReportHub' )
 								card: 'white grey-text text-darken-2',
 								style: 'padding: 20px;',
 								config: {
-									html: '<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="' + $scope.report.getOrganizationHref() + '"><i class="material-icons left">keyboard_return</i>'+$filter('translate')('back_to_organization')+'</a><a class="waves-effect waves-light btn right" href="' + $scope.report.newProjectUrl + '"><i class="material-icons left">add_circle_outline</i>'+$filter('translate')('add_new_project')+'</a>'
+									// html: '<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="' + $scope.report.getOrganizationHref() + '"><i class="material-icons left">keyboard_return</i>'+$filter('translate')('back_to_organization')+'</a><a class="waves-effect waves-light btn right" href="' + $scope.report.newProjectUrl + '"><i class="material-icons left">add_circle_outline</i>'+$filter('translate')('add_new_project')+'</a>'
+									orgHref: $scope.report.getOrganizationHref(),
+									newProject: $scope.report.newProjectUrl,
+									templateUrl: '/scripts/widgets/ngm-html/template/cluster.project.project.btn.html'
 								}
 							}]
 						}]
@@ -635,7 +638,10 @@ angular.module( 'ngmReportHub' )
 								card: 'card-panel',
 								style: 'padding:0px; height: 90px; padding-top:10px;',
 								config: {
-									html: $scope.report.ngm.footer
+									// html: $scope.report.ngm.footer
+									templateUrl: '/scripts/widgets/ngm-html/template/footer.html',
+									lightPrimaryColor: $scope.ngm.style.lightPrimaryColor,
+									defaultPrimaryColor: $scope.ngm.style.defaultPrimaryColor,
 								}
 							}]
 						}]

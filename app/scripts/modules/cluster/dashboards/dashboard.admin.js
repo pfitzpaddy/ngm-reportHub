@@ -480,7 +480,7 @@ angular.module('ngmReportHub')
 							'search': true,
 							'id': 'search-cluster',
 							'icon': 'camera',
-							'title': 'Sector',
+							'title': $filter('translate')('sector_mayus'),
 							'class': 'teal lighten-1 white-text',
 							'rows': clusterRows
 						});
@@ -535,7 +535,7 @@ angular.module('ngmReportHub')
 									'search': true,
 									'id': 'search-cluster-organization',
 									'icon': 'supervisor_account',
-									'title': 'Organization',
+									'title': $filter('translate')('organization'),
 									'class': 'teal lighten-1 white-text',
 									'rows': orgRows
 								});
@@ -1011,7 +1011,7 @@ angular.module('ngmReportHub')
 							datePicker: {
 								'class': 'col s12 m4 l3',
 								dates: [{
-									style: 'float:left;',
+									style: $rootScope.rtl ? 'float:right;' : 'float:left;',
 									label: $filter('translate')('from'),
 									format: 'd mmm, yyyy',
 									min: '2017-01-01',
@@ -1031,7 +1031,7 @@ angular.module('ngmReportHub')
 										}
 									}
 								},{
-									style: 'float:right',
+									style: $rootScope.rtl ? 'float:left;' : 'float:right;',
 									label: $filter('translate')('to'),
 									format: 'd mmm, yyyy',
 									min: $scope.dashboard.startDate,
@@ -1416,7 +1416,10 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px; height: 90px; padding-top:10px;',
 									config: {
-										html: $scope.dashboard.ngm.footer
+										// html: $scope.dashboard.ngm.footer
+										templateUrl: '/scripts/widgets/ngm-html/template/footer.html',
+										lightPrimaryColor: $scope.ngm.style.lightPrimaryColor,
+										defaultPrimaryColor: $scope.ngm.style.defaultPrimaryColor,
 									}
 								}]
 							}]

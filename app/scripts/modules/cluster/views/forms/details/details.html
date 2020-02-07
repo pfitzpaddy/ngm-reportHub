@@ -248,7 +248,7 @@
 										<label class="label">{{ project.definition.cluster }}</label>
 										<div style="padding-bottom:15px;"></div>
 										<!-- for project cluster activity_type -->
-										<p style="padding-left:10px;" ng-repeat="a in project.lists.activity_types | filter: { cluster_id: project.definition.cluster_id } ">
+										<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }" ng-repeat="a in project.lists.activity_types | filter: { cluster_id: project.definition.cluster_id } ">
 											<!-- <input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}" 
 															ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
 															ng-click="project.compileInterClusterActivities()"
@@ -273,7 +273,7 @@
 													<label class="label">{{ cluster.cluster }}</label>
 													<div style="padding-bottom:15px;"></div>
 													<!-- for project cluster activity_type -->
-													<p style="padding-left:10px;"  ng-repeat="a in project.lists.activity_types | filter: { cluster_id: cluster.cluster_id } ">
+													<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }"  ng-repeat="a in project.lists.activity_types | filter: { cluster_id: cluster.cluster_id } ">
 														<!-- <input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}" 
 																		ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
 																		ng-click="project.compileInterClusterActivities()"
@@ -318,7 +318,7 @@
 								<!-- cash -->
 								<div class="row" ng-if="project.definition.cluster_id === 'cvwg'">
 
-									<div class="input-field col s12" style="padding-bottom:5px;">
+									<div class="input-field col s12" style="padding-bottom:5px;" ng-style="($root.rtl) && {'padding-right':'25px'}">
 										
 										<label>{{'cash_intented_for_even_if_unrestricted' | translate}}?</label>
 										<div style="padding-bottom:50px;"></div>
@@ -345,7 +345,7 @@
 								<!-- project donor -->
 								<div class="row" ng-if="project.definition.admin0pcode !== 'COL'" id="ngm-project_donor_select" >
 
-									<div class="input-field col s12" style="padding-bottom:5px;">
+									<div class="input-field col s12" style="padding-bottom:5px;"ng-style="($root.rtl) && {'padding-right':'25px'}">
 										<label for="ngm-project_donor">{{'project_donor' | translate}} *</label>
 										<div style="padding-bottom:50px;"></div>
 
@@ -380,7 +380,7 @@
 										<label class="label" id="ngm-activity_type" for="ngm-activity_type">{{'activity_type' | translate}} *</label>
 										<div style="padding-bottom:15px;"></div>
 										<!-- for project cluster activity_type -->
-										<p style="padding-left:10px;" ng-repeat="a in project.lists.activity_types | filter: { cluster_id: project.definition.cluster_id } ">
+										<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }" ng-repeat="a in project.lists.activity_types | filter: { cluster_id: project.definition.cluster_id } ">
 											<!-- <input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}" 
 															ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
 															ng-click="project.compileInterClusterActivities()"
@@ -447,7 +447,7 @@
 							<!-- other partners -->
 							<div class="row" >
 								
-				        <div class="input-field col s12 m6" style="padding-bottom:35px;">
+				        <div class="input-field col s12 m6" style="padding-bottom:35px;" ng-style="($root.rtl) && {'padding-right':'25px'}">
 				        	<label>{{'project_partners' | translate}}</label>
 				        	<br/>
 				        	<p style="padding-top:25px;">

@@ -1,0 +1,14 @@
+<div>
+    <div style="background: {{ panel.lightPrimaryColor  }}; height:20px;"></div>
+    <div style="background: {{ panel.defaultPrimaryColor }}; height:60px;">
+        <p class="ngm-menu-footer-body left" style="font-weight:300;">{{ 'supported_by' | translate }} <a
+                class="grey-text" href="http://immap.org"><b>iMMAP</b></a></p>
+        <p id="ngm-contact" class="remove right" style="display: block; padding-right:20px;">
+            <a class="waves-effect waves-teal btn-flat" style="color:white;" onclick="contact()"><i
+                    class="material-icons left"
+                    style="color:white;">perm_contact_calendar</i>{{'contact_mayus' | translate }}</a>
+        </p>
+        <p id="ngm-report-extracted" style="color:white; font-weight:100; float:right; padding-right:20px;">
+            {{ moment().format('DD MMM, YYYY @ h:mm a') }}</p>
+    </div>
+</div>

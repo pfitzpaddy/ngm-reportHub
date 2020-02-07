@@ -46,7 +46,9 @@
       	<p class="card-title">{{ 'projects_mayus1' | translate }}</p>
       </div>
       <div class="card-action">
-        <a href="{{ panel.getProjectsHref() }}">{{ 'go_to' | translate}} {{ panel.organization.organization }} {{'projects_mayus1' | translate}}</a>
+        <a ng-if="!$root.rtl" href="{{ panel.getProjectsHref() }}">{{ 'go_to' | translate}} {{ panel.organization.organization }} {{'projects_mayus1' | translate}}</a>
+        <a ng-if="$root.rtl" href="{{ panel.getProjectsHref() }}"> بروبه
+          پروژه های {{ panel.organization.organization }}</a>
       </div>
     </div>
     </a>
@@ -76,10 +78,12 @@
 	        <img src="images/cluster/stocks.jpg">
 	      </div>
 	      <div class="card-content white-text">
-	        <p class="card-title">Stocks</p>
+	        <p class="card-title">{{'stocks_mayus1' | translate}}</p>
 	      </div>
 	      <div class="card-action">
-	        <a href="{{ panel.getStocksHref() }}">{{ 'go_to' | translate}} {{ panel.organization.organization }} Stocks</a>
+          <a ng-if="!$root.rtl" href="{{ panel.getStocksHref() }}">{{ 'go_to' | translate}} {{ panel.organization.organization }} Stocks</a>
+          <a ng-if="$root.rtl" href="{{ panel.getStocksHref() }}"> بروبه
+            انبارهای {{ panel.organization.organization }}</a>
 	      </div>
 	    </div>
 	   </a>

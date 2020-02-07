@@ -370,12 +370,19 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px; height: 90px; padding-top:10px;',
 									config: {
-										html: $scope.dashboard.ngm.footer
+										// html: $scope.dashboard.ngm.footer
+										templateUrl: '/scripts/widgets/ngm-html/template/footer.html',
+										lightPrimaryColor: $scope.ngm.style.lightPrimaryColor,
+										defaultPrimaryColor: $scope.ngm.style.defaultPrimaryColor,
 									}
 								}]
 							}]
 						}]
 					}
+
+					setTimeout(() => {
+						$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+					}, 0);
 
 				}
 

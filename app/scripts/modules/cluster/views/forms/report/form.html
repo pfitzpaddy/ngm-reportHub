@@ -233,11 +233,11 @@
 			
 			<!--  -->
 			<button ng-if="!project.location_group" class="waves-effect waves-teal btn-flat" ng-click="project.modalConfirm( 'list-modal' )">
-				<i class="material-icons left">keyboard_return</i>{{'back_to_reports'|translate}}
+				<i class="material-icons mirror left">keyboard_return</i>{{'back_to_reports'|translate}}
 			</button>
 
 			<button ng-if="project.location_group" class="waves-effect waves-teal btn-flat" ng-click="project.modalConfirm( 'list-modal' )">
-				<i class="material-icons left">keyboard_return</i>{{'back_to_location_groups'|translate}}
+				<i class="material-icons mirror left">keyboard_return</i>{{'back_to_location_groups'|translate}}
 			</button>			
 
 			<span class="right" style="padding-top:8px;">{{'last_updated'|translate}}: {{ project.updatedAt }}</span>
@@ -274,7 +274,7 @@
 						<button class="waves-effect waves-light btn"
 											ng-click="project.validateBeneficiariesDetailsForm( false, true )"
 											ng-cloak>
-										<i class="material-icons right">send</i>{{'save_mayus'|translate}}
+										<i class="material-icons mirror right">send</i>{{'save_mayus'|translate}}
 						</button>
 
 						<!-- cancel new  -->
@@ -303,7 +303,7 @@
 						<button class="waves-effect waves-light btn"
 											ng-click="project.validateWashNgBeneficiariesForm( false, true )"
 											ng-cloak>
-										<i class="material-icons right">send</i>{{'save_mayus'|translate}}
+										<i class="material-icons mirror right">send</i>{{'save_mayus'|translate}}
 						</button>
 
 						<!-- cancel new  -->

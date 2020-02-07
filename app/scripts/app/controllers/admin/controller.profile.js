@@ -38,7 +38,7 @@ angular.module('ngmReportHub')
 										+'<div class="col s12 m12 l12">'
 											+'<div>'
 												+'<a class="btn-flat waves-effect waves-teal" href="'+url+'">'
-													+'<i class="material-icons left">keyboard_return</i>'+$filter('translate')('back_to_team')
+													+'<i class="material-icons mirror left">keyboard_return</i>'+$filter('translate')('back_to_team')
 												+'</a>'
 												+'<span class="right" style="padding-top:8px;">'+$filter('translate')('last_updated')+ ' ' + moment( $scope.dashboard.user.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) +'</span>'
 											+'</div>'

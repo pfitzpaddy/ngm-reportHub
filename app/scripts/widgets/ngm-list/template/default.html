@@ -103,10 +103,10 @@
 					<!-- description -->
 					<p align="justify" style="max-height:200px;color: #616161;">
 						<span ng-if="!item.project_code">
-							{{ item.project_description | limitTo:500 }}...
+							{{ item.project_description | limitTo:500 }}...&#8206;
 						</span>
 						<span ng-if="item.project_code">
-							<span style="font-weight: 500;">{{ item.project_code }}:</span> {{ item.project_description | limitTo:500 }}...
+							<span style="font-weight: 500;">{{ item.project_code }}:</span> {{ item.project_description | limitTo:500 }}...&#8206;
 						</span>
 					</p>
 

@@ -63,7 +63,7 @@ angular.module('ngmReportHub')
 				$scope.model.menu.push({
 					'id': 'search-sector',
 					'icon': 'date_range',
-					'title': 'Year',
+					'title': $filter('translate')('year'),
 					'class': 'teal lighten-1 white-text',
 					'rows':yearRow})
 			},
@@ -174,7 +174,10 @@ angular.module('ngmReportHub')
 								card: 'card-panel',
 								style: 'padding:0px; height: 90px; padding-top:10px;',
 								config: {
-									html: $scope.report.ngm.footer
+									// html: $scope.report.ngm.footer
+									templateUrl: '/scripts/widgets/ngm-html/template/footer.html',
+									lightPrimaryColor: $scope.ngm.style.lightPrimaryColor,
+									defaultPrimaryColor: $scope.ngm.style.defaultPrimaryColor,
 								}
 							}]
 						}]

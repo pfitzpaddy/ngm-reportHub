@@ -184,7 +184,7 @@ font-size: 18px;
 							</div>
 							<div class="btn-floating wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="{{'list_view'|translate}}" ng-click="grid=false"
 							 ng-class="{white: !grid,indigo:grid}">
-								<i class="material-icons  " ng-class="{color_indigo: !grid,color_white:grid}">
+								<i class="material-icons mirror " ng-class="{color_indigo: !grid,color_white:grid}">
 									format_list_bulleted
 								</i>
 							</div>
@@ -201,16 +201,16 @@ font-size: 18px;
 											<img class="activator" ng-src={{list.setThumbnailfromGdrive(item.fileid)}}>
 										</div>
 										<div class="card-content">
-											<i class="material-icons left" style="color: {{list.extentionColor(item.filename_extension)}};margin-right: 5px;">
+											<i class="material-icons left no-margin" style="color: {{list.extentionColor(item.filename_extension)}};margin-right: 5px;">
 												{{list.extentionIcon(item.filename_extension)}}
 											</i>
-											<span class="grey-text activator text-darken-4 " style="font-size: 12px; font-weight: 400">{{item.filename| limitTo: 12}}{{item.filenamelength
-												< 12 ? '' : '...'}} <i class="material-icons right" style="cursor: pointer; margin-left: 5px;">more_vert</i>
+											<span class="grey-text activator text-darken-4 " style="font-size: 12px; font-weight: 400">{{item.filename| limitTo: 12}}&#x202a;{{item.filenamelength
+												< 12 ? '' : '...'}}&#x202c; <i class="material-icons right" style="cursor: pointer;" ng-style="($root.rtl) && { 'margin-right': '5px' } || { 'margin-left': '5px' }">more_vert</i>
 											</span>
 										</div>
 										<div class="card-reveal">
 											<div class=" card-title grey-text text-darken-4">
-												<i class="material-icons right" style="font-size: 18px; color: #e2e2e2;margin-top: 5px;margin-right: 5px;">close</i>
+												<i class="material-icons right" style="font-size: 18px; color: #e2e2e2;margin-top: 5px;" ng-style="($root.rtl) && { 'margin-left':'5px' } || { 'margin-right':'5px' }">close</i>
 											</div>
 											<div class="line">
 
@@ -280,7 +280,7 @@ font-size: 18px;
 								<div class="row" style="margin: 0 0; padding: 10px 0; border-bottom: 0.98px solid #dce0e2"
 								dir-paginate="item in list.data | orderBy: 'createdAt':true | itemsPerPage: list.itemsPerPage" pagination-id="list.id">
 									<div class="col s5">
-											<i class="material-icons left imitate-circle" style="background-color:{{list.extentionColor(item.filename_extension)}};margin-right: 5px;">
+											<i class="material-icons left imitate-circle" style="background-color:{{list.extentionColor(item.filename_extension)}};" ng-style="($root.rtl) && { 'margin-left':'5px' } || { 'margin-right':'5px' }">
 												{{list.extentionIcon(item.filename_extension)}}
 											</i>
 											<div style="margin-top:5px;">{{item.filename}}</div>

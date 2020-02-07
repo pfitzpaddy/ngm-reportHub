@@ -708,7 +708,7 @@ angular.module( 'ngmReportHub' )
 								'class': 'col s12 m4 l3',
 								dates: [{
 									style: 'float:left;',
-									label: 'from',
+									label: $filter('translate')('from'),
 									format: 'd mmm, yyyy',
 									max: $scope.dashboard.endDate,
 									currentTime: $scope.dashboard.startDate,
@@ -736,7 +736,7 @@ angular.module( 'ngmReportHub' )
 									}
 								},{
 									style: 'float:right',
-									label: 'to',
+									label: $filter('translate')('to'),
 									format: 'd mmm, yyyy',
 									min: $scope.dashboard.startDate,
 									currentTime: $scope.dashboard.endDate,

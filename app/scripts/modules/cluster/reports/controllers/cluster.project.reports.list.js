@@ -34,7 +34,7 @@ angular.module('ngmReportHub')
 										+'<div class="col s12 m12 l12">'
 											+'<div style="padding:20px;">'
 												+'<a class="btn-flat waves-effect waves-teal" href="#/cluster/projects/summary/' + $scope.report.project.id +'">'
-													+'<i class="material-icons left">keyboard_return</i>'+$filter('translate')('back_to_project_summary')
+													+'<i class="material-icons mirror left">keyboard_return</i>'+$filter('translate')('back_to_project_summary')
 												+'</a>'
 												+'<span class="right" style="padding-top:8px;">'+$filter('translate')('last_updated')+': ' + moment( $scope.report.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) +'</span>'
 											+'</div>'
@@ -221,7 +221,10 @@ angular.module('ngmReportHub')
 								card: 'card-panel',
 								style: 'padding:0px; height: 90px; padding-top:10px;',
 								config: {
-									html: $scope.report.ngm.footer
+									// html: $scope.report.ngm.footer
+									templateUrl: '/scripts/widgets/ngm-html/template/footer.html',
+									lightPrimaryColor: $scope.ngm.style.lightPrimaryColor,
+									defaultPrimaryColor: $scope.ngm.style.defaultPrimaryColor,
 								}
 							}]
 						}]

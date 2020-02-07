@@ -669,7 +669,7 @@ angular.module('ngmReportHub')
 							'search': true,
 							'id': 'search-cluster-cluster',
 							'icon': 'camera',
-							'title': 'Cluster',
+							'title': $filter('translate')('cluster'),
 							'class': 'teal lighten-1 white-text',
 							'rows': clusterRows
 						});
@@ -1828,7 +1828,7 @@ angular.module('ngmReportHub')
 									config: {
 										title: {
 											//text: $filter('translate')('children'),
-											text: "CLUSTER (# - %)"
+											text: $filter('translate')('cluster') + " (# - %)"
 										},
 										
 										display: {
@@ -1856,7 +1856,7 @@ angular.module('ngmReportHub')
 												xAxis: {
 													type: 'category',
 										        title: {
-										            text: "Cluster"
+										            text: $filter('translate')('cluster')
 										        }
 										    },
 												yAxis: {
@@ -1872,7 +1872,7 @@ angular.module('ngmReportHub')
 											},
 											series: [{
 												//name: $filter('translate')('children'),
-												name: "Cluster",
+												name: $filter('translate')('cluster'),
 												//name: "EDAD (# - %)",
 												size: '100%',
 												innerSize: '100%',
@@ -2134,7 +2134,7 @@ angular.module('ngmReportHub')
 									config: {
 										title: {
 											//text: $filter('translate')('children'),
-											text: "CLUSTER (# - %)"
+											text: $filter('translate')('cluster')+" (# - %)"
 										},
 										
 										display: {
@@ -2162,7 +2162,7 @@ angular.module('ngmReportHub')
 												xAxis: {
 													type:'category',
 										        title: {
-										            text: "Cluster"
+										            text: $filter('translate')('cluster')
 										        }
 										    },
 												yAxis: {
@@ -2178,7 +2178,7 @@ angular.module('ngmReportHub')
 											},
 											series: [{
 												//name: $filter('translate')('children'),
-												name: "Cluster",
+												name: $filter('translate')('cluster'),
 												//name: "EDAD (# - %)",
 												size: '100%',
 												innerSize: '100%',

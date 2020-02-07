@@ -80,7 +80,7 @@ angular.module('ngmReportHub')
 				return {
 					'id': 'drought-dashboard-year',
 					'icon': 'search',
-					'title': 'Year',
+					'title': $filter('translate')('year'),//'Year',
 					'class': 'teal lighten-1 white-text',
 					'rows': [{
 						'title': '2018',
@@ -127,7 +127,7 @@ angular.module('ngmReportHub')
 				return {
 					'id': 'drought-admin-province',
 					'icon': 'location_on',
-					'title': 'Province',
+					'title': $filter('translate')('province'),
 					'class': 'teal lighten-1 white-text',
 					'rows': rows
 				};
@@ -164,7 +164,7 @@ angular.module('ngmReportHub')
 				return {
 					'id': 'drought-province',
 					'icon': 'location_on',
-					'title': 'District',
+					'title': $filter('translate')('district'),//'District',
 					'class': 'teal lighten-1 white-text',
 					'rows': rows
 				};
@@ -194,7 +194,7 @@ angular.module('ngmReportHub')
 					'search': true,
 					'id': 'search-cluster-organization',
 					'icon': 'supervisor_account',
-					'title': 'Organization',
+					'title': $filter('translate')('organization'),//'Organization',
 					'class': 'teal lighten-1 white-text',
 					'rows': orgRows
 				}
@@ -227,7 +227,7 @@ angular.module('ngmReportHub')
 				return {
 					'id': 'drought-admin-month',
 					'icon': 'date_range',
-					'title': 'Report Month',
+					'title': $filter('translate')('report_month'),//'Report Month',
 					'class': 'teal lighten-1 white-text',
 					'rows': rows
 				};
@@ -259,7 +259,7 @@ angular.module('ngmReportHub')
 				return {
 					'id': 'drought-cluster',
 					'icon': 'camera',
-					'title': 'Clusters',
+					'title': $filter('translate')('clusters'),//'Clusters',
 					'class': 'teal lighten-1 white-text',
 					'rows': rows
 				};
@@ -293,7 +293,7 @@ angular.module('ngmReportHub')
 				return {
 					'id': 'drought-response',
 					'icon': 'compare_arrows',
-					'title': 'Response Type',
+					'title': $filter('translate')('response_type'),//'Response Type',
 					'class': 'teal lighten-1 white-text',
 					'rows': rows
 				};
@@ -381,7 +381,7 @@ angular.module('ngmReportHub')
 				return {
 					'id': 'drought-plan',
 					'icon': 'recent_actors',
-					'title': 'Population Type',
+					'title': $filter('translate')('population_type'),//'Population Type',
 					'class': 'teal lighten-1 white-text',
 					'rows': rows
 				};
