@@ -81,7 +81,7 @@
 					<div ng-repeat="beneficiary in project.definition.target_beneficiaries | orderBy:'createdAt' | filterBeneficiary:project.filter" ng-class="{'add-padding': !detailBeneficiaries[$index]}">
 
 						<!-- title -->
-						<div style="position: absolute;">
+						<!-- <div style="position: absolute;">
 							<h5 class="report-beneficiary-title" ng-if="!beneficiary.activity_type_id">
 								<i class="material-icons left">accessibility</i>Beneficiary {{ $index+1 }}
 							</h5>
@@ -97,7 +97,27 @@
 							<h5 class="report-beneficiary-second-title">
 								{{beneficiary.beneficiary_type_name?beneficiary.beneficiary_type_name:''}}
 							</h5>
-						</div>
+						</div> -->
+
+						<div class="row">
+							<div class="col s12 m9 left-align" dir="ltr">
+								<h5 class="report-beneficiary-title" ng-if="!beneficiary.activity_type_id">
+									<i class="material-icons left">accessibility</i>Beneficiary {{ $index+1 }}
+								</h5>
+								<h5 class="report-beneficiary-title">
+									<i class="material-icons left">accessibility</i>
+									<span
+										ng-if="beneficiary.activity_type_id && !beneficiary.activity_description_id">{{ beneficiary.activity_type_name }}</span>
+									<span
+										ng-if="beneficiary.activity_type_id && beneficiary.activity_description_id && !beneficiary.activity_detail_name">{{ beneficiary.activity_type_name }},
+										{{ beneficiary.activity_description_name }}</span>
+									<span
+										ng-if="beneficiary.activity_type_id && beneficiary.activity_description_id && beneficiary.activity_detail_name">{{ beneficiary.activity_type_name }},
+										{{ beneficiary.activity_description_name }}, {{beneficiary.activity_detail_name}}</span>
+									<br /><span class="report-beneficiary-second-title"
+										ng-if="beneficiary.beneficiary_type_name">{{ beneficiary.beneficiary_type_name }}</span>
+								</h5>
+							</div>
 
 						<!-- btns -->
 						<div align="right" style="padding: 15px 10px;">
@@ -148,9 +168,10 @@
 								</md-tooltip>
 							</button>
 						</div>
+					</div>
 
 						<!-- mpc_delivery_type_id -->
-						<div ng-if="project.definition.admin0pcode === 'AF' &&
+						<div ng-if="detailBeneficiaries[$index] && project.definition.admin0pcode === 'AF' &&
 													ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ] &&
 													!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_package_type_id' ]">
 							<div class="row" style="padding: 15px 0px 0px 20px;">
@@ -167,7 +188,7 @@
 
 
 						<!-- CARD PANEL -->
-						<div id="tb-detail-{{$index}}" class="card-panel" ng-if="detailBeneficiaries[$index]">
+						<div id="tb-detail-{{$index}}" class="card-panel" ng-if="detailBeneficiaries[$index]" dir="ltr">
 
 							<!-- DEFAULT -->
 							<div class="row" ng-if="!beneficiary.activity_description_id ||

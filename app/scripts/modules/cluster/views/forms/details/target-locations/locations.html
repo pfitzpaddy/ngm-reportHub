@@ -88,7 +88,7 @@
 										<td ng-if="project.definition.implementing_partners_checked">{{'partner'|translate}}</td>
 							      <td ng-show="project.definition.project_status !== 'complete'">{{'edit'|translate}}</td>
 							    </tr>
-							    <tr ng-repeat="location in project.definition.target_locations | orderBy:'createdAt' track by $index">
+							    <tr ng-repeat="location in project.definition.target_locations | orderBy:'createdAt' track by $index" dir="ltr">
 							    	<td>
 							    		<i class="material-icons" style="color: teal;">person_pin</i>
 							    	</td>

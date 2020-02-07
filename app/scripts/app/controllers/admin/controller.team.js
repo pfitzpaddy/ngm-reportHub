@@ -174,7 +174,7 @@ angular.module('ngmReportHub')
 						style: 'text-align:center; height:235px; padding-top:90px;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Active Staff',
+							title: $filter('translate')('active_staff'),
 							request: $scope.dashboard.getRequest( 'total', 'active' )
 						}
 					}]
@@ -188,7 +188,7 @@ angular.module('ngmReportHub')
 						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Organizations',
+							title: $filter('translate')('organizations'),
 							request: $scope.dashboard.getRequest( 'organizations', 'active' )
 						}
 					}]
@@ -199,7 +199,7 @@ angular.module('ngmReportHub')
 						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Active Partners',
+							title: $filter('translate')('active_partners'),
 							request: $scope.dashboard.getRequest( 'total', 'active' )
 						}
 					}]
@@ -213,7 +213,7 @@ angular.module('ngmReportHub')
 						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Sectors',
+							title: $filter('translate')('sectors_mayus'),
 							request: $scope.dashboard.getRequest( 'sectors', 'active' )
 						}
 					}]
@@ -224,7 +224,7 @@ angular.module('ngmReportHub')
 						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Organizations',
+							title: $filter('translate')('organizations'),
 							request: $scope.dashboard.getRequest( 'organizations', 'active' )
 						}
 					}]
@@ -235,7 +235,7 @@ angular.module('ngmReportHub')
 						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Active Partners',
+							title: $filter('translate')('active_partners'),
 							request: $scope.dashboard.getRequest( 'total', 'active' )
 						}
 					}]
@@ -249,7 +249,7 @@ angular.module('ngmReportHub')
 						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Countries',
+							title: $filter('translate')('countries_mayus'),
 							request: $scope.dashboard.getRequest( 'countries', 'active' )
 						}
 					}]
@@ -260,7 +260,7 @@ angular.module('ngmReportHub')
 						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Sectors',
+							title: $filter('translate')('sectors_mayus'),
 							request: $scope.dashboard.getRequest( 'sectors', 'active' )
 						}
 					}]
@@ -271,7 +271,7 @@ angular.module('ngmReportHub')
 						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Active Partners',
+							title: $filter('translate')('active_partners'),
 							request: $scope.dashboard.getRequest( 'total', 'active' )
 						}
 					}]
@@ -285,7 +285,7 @@ angular.module('ngmReportHub')
 						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Countries',
+							title: $filter('translate')('countries_mayus'),
 							request: $scope.dashboard.getRequest( 'countries', 'active' )
 						}
 					}]
@@ -296,7 +296,7 @@ angular.module('ngmReportHub')
 						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Sectors',
+							title: $filter('translate')('sectors_mayus'),
 							request: $scope.dashboard.getRequest( 'sectors', 'active' )
 						}
 					}]
@@ -307,7 +307,7 @@ angular.module('ngmReportHub')
 						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Organizations',
+							title: $filter('translate')('organizations'),
 							request: $scope.dashboard.getRequest( 'organizations', 'active' )
 						}
 					}]
@@ -318,7 +318,7 @@ angular.module('ngmReportHub')
 						style: 'text-align: center;',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Active Partners',
+							title: $filter('translate')('active_partners'),
 							request: $scope.dashboard.getRequest( 'total', 'active' )
 						}
 					}]

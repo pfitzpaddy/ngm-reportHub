@@ -137,11 +137,11 @@
 
 							 </div>
 
-							 <div class="row" style="padding-left:40px;" ng-if="report.organization.warehouses.length">
+							 <div class="row" ng-style="($root.rtl) && { 'padding-right':'40px' } || { 'padding-left':'40px' }" ng-if="report.organization.warehouses.length">
 
 				      </div>
 
-							 <div class="row" style="padding-left:40px;" ng-if="report.organization.warehouses.length">
+							 <div class="row" ng-style="($root.rtl) && { 'padding-right':'40px' } || { 'padding-left':'40px' }" ng-if="report.organization.warehouses.length">
 
 							 	<div class="row">
 									<h5 class="report-selected-locations">{{ report.organization.warehouses.length }} {{'selected_warehouses'|translate}}</h5>
@@ -164,7 +164,7 @@
 														{{ warehouse.admin1name }}, {{ warehouse.admin2name }}, {{ warehouse.admin3name }}, {{ warehouse.site_name }} {{ warehouse.cluster }}
 											</h5>
 										</div>
-										<div class="col s12 m1 right" style="padding-top:15px;padding-right:34px;">
+										<div class="col s12 m1 right" style="padding-top:15px;" ng-style="($root.rtl) && { 'padding-left':'34px' } || { 'padding-right':'34px' }">
 											<button class="waves-effect waves-light btn-floating red lighten-2 right"
 												title="Remove {{ warehouse.admin1name }} Warehouse {{ warehouse.site_name }}"
 												ng-click="report.removeLocationModal( $index )"><i class="material-icons">clear</i>

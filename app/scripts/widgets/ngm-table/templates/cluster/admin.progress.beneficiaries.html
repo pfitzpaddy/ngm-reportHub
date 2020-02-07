@@ -60,13 +60,13 @@
 					<div ng-if="data.length">
 						<table class="centered striped responsive-table" ng-table="table.tableParams">
 							<tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
-								<td data-title="'Cluster'" sortable="'cluster'">
+								<td data-title="'cluster'|translate" sortable="'cluster'">
 									{{ row.cluster }}
 								</td>
 								<td data-title="'organization'|translate" sortable="'organization'">
 									 {{ row.organization }}									
 								</td>					
-								<td data-title="'Partners'" sortable="'implementing_partners'">
+								<td data-title="'partners'|translate" sortable="'implementing_partners'">
 									<p>
 										{{row.implementing_partners?row.implementing_partners:'-'}}
 									</p>

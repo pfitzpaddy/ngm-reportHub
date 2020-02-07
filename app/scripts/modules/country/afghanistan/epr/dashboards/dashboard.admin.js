@@ -101,7 +101,7 @@ angular.module('ngmReportHub')
 								'class': 'col s12 m4 l3',
 								dates: [{
 									style: 'float:left;',
-									label: 'from',
+									label: $filter('translate')('from'),
 									format: 'd mmm, yyyy',
 									max: $scope.dashboard.endDate,
 									currentTime: $scope.dashboard.startDate,
@@ -126,7 +126,7 @@ angular.module('ngmReportHub')
 									}
 								},{
 									style: 'float:right',
-									label: 'to',
+									label: $filter('translate')('to'),
 									format: 'd mmm, yyyy',
 									min: $scope.dashboard.startDate,
 									currentTime: $scope.dashboard.endDate,
@@ -218,7 +218,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Total Reports Due',
+										title: $filter('translate')('total_reports_due'),//'Total Reports Due',
 										request: ngmEprHelper.getRequest( 'epr/indicator', 'expected_reports', false )
 									}
 								}]
@@ -229,7 +229,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Submitted Reports',
+										title: $filter('translate')('submitted_reports'),//'Submitted Reports',
 										request: ngmEprHelper.getRequest( 'epr/indicator', 'submitted_reports', false )
 									}
 								}]
@@ -240,7 +240,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Outstanding Reports',
+										title: $filter('translate')('outstanding_reports'),//'Outstanding Reports',
 										request: ngmEprHelper.getRequest( 'epr/indicator', 'outstanding_reports', false )
 									}
 								}]
@@ -251,7 +251,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Duplicate Reports',
+										title: $filter('translate')('duplicate_reports'),//'Duplicate Reports',
 										request: ngmEprHelper.getRequest( 'epr/indicator', 'duplicate_reports', false )
 									}
 								}]
@@ -268,7 +268,7 @@ angular.module('ngmReportHub')
 										headerClass: 'collection-header red lighten-2',
 										headerText: 'white-text',
 										headerIcon: 'assignment_late',
-										headerTitle: 'Duplicate Reports',
+										headerTitle: $filter('translate')('duplicate_reports'),//'Duplicate Reports',
 										templateUrl: '/scripts/widgets/ngm-table/templates/epr/epr.list.html',
 										tableOptions:{
 											count: 10
@@ -289,7 +289,7 @@ angular.module('ngmReportHub')
 										headerClass: 'collection-header teal lighten-2',
 										headerText: 'white-text',
 										headerIcon: 'assignment_turned_in',
-										headerTitle: 'Reports Submitted',
+										headerTitle: $filter('translate')('reports_submitted'),//'Reports Submitted',
 										templateUrl: '/scripts/widgets/ngm-table/templates/epr/epr.list.html',
 										tableOptions:{
 											count: 10

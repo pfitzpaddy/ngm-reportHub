@@ -630,7 +630,7 @@ angular.module('ngmReportHub')
 							'search': true,
 							'id': 'search-cluster-cluster',
 							'icon': 'camera',
-							'title': 'Cluster',
+							'title': $filter('filter')('cluster'),
 							'class': 'teal lighten-1 white-text',
 							'rows': clusterRows
 						});

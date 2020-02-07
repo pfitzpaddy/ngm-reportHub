@@ -50,15 +50,15 @@ form {
       	<a href="#{{ panel.profileHref }}/{{ panel.user.username }}" title="Go To Profile">
 	        <div class="card-content">
 	        	<div class="row">
-		        	<div class="col s12 m5">
+		        	<div class="col s12 m5 profpict">
 		        		<!--  some people, they dont like Richmond?-->
 		        		<div ng-if="panel.user.email === 'pfitzgerald@immap.org'">
 		          		<img src="images/immap/pfitzgerald.jpg" title="{{ panel.user.name }}" class="circle" height="188px" height="188px">
 		        		</div>
 		        		<div ng-if="panel.user.email !== 'pfitzgerald@immap.org'">
-		          		<img src="https://www.gravatar.com/avatar/{{ panel.user.emailHash }}?s=188" title="{{ panel.user.name }}" class="circle">
+		          		<img src="https://www.gravatar.com/avatar/{{ panel.user.emailHash }}?s=188" title="{{ panel.user.name }}" class="circle profile-card">
 		          	</div>
-		          	<a href="https://en.gravatar.com/site/signup/" target="_blank" class="btn" style="bottom:30px;left:0px;position:absolute;">
+		          	<a href="https://en.gravatar.com/site/signup/" target="_blank" class="btn" style="bottom:30px;position:absolute;" ng-style="($root.rtl) && { 'right':'0px' } || {'left':'0px' }">
 		          	{{'update_photo'|translate}}</a>
 		        	</div>
 		        	<a href="#{{ panel.profileHref }}/{{ panel.user.username }}" title="Go To Profile">

@@ -18,7 +18,7 @@
 		<div id="{{ $beneficiaryIndex=$index; id = 'ngm-' + $locationIndex + '-' + $index }}" ng-repeat="beneficiary in project.report.locations[ $locationIndex ].beneficiaries | filterBeneficiary:project.beneficiary_search track by $index" ng-class="{'add-padding': !detailBeneficiaries[$locationIndex][$beneficiaryIndex]}">
 
 			<!-- title -->
-			<div style="position: absolute;">
+			<!-- <div style="position: absolute;">
 				<div style="font-size: 20px; font-weight: 400; color: #656565; margin-left:10px">
 					<i class="material-icons left">group</i>{{ beneficiary.total_beneficiaries ? beneficiary.total_beneficiaries : 0 | number }} Beneficiaries
 				</div>
@@ -39,10 +39,30 @@
 				<span class="report-beneficiary-second-title" style="margin-left:40px; position:relative; top: -10px;font-size:1.32rem;">
 					{{ beneficiary.beneficiary_type_name?beneficiary.beneficiary_type_name:'' }}
 				</span>
-			</div>
+			</div> -->
+			<div class="row">
+				<div class="col s12 m9 left-align" dir="ltr">
+					<h5 class="report-beneficiary-title truncate" ng-if="!beneficiary.activity_type_id">
+						<i class="material-icons left">accessibility</i>Target {{ $beneficiaryIndex+1 }}
+					</h5>
+					<h5 class="report-beneficiary-title truncate" ng-if="beneficiary.activity_type_id">
+						<i
+							class="material-icons left">accessibility</i>{{ project.getBeneficiaryTitle( $locationIndex, $beneficiaryIndex ) }}<br /><span
+							ng-if="beneficiary.beneficiary_type_name"
+							class="report-beneficiary-second-title">{{ beneficiary.beneficiary_type_name }}</span>
+					</h5>
+					<!-- <h5 class="report-beneficiary-second-title"  ng-if="beneficiary.beneficiary_type_name">
+									{{ beneficiary.beneficiary_type_name }}
+								</h5> -->
+				</div>
 
 			<!-- btns -->
-			<div align="right" style="position:relative; top:-15px; padding: 0px 5px 30px 0px;">
+			<div class="col s12 m3 right-align" style="padding: 15px 10px 15px;">
+				<div style="display: inline-block; vertical-align: middle; font-size: 20px;font-weight: 300; color: #656565;"
+					ng-style="($root.rtl) && { 'margin-left':'5%' } || { 'margin-right':'5%' }">
+					<i
+						class="material-icons left">group</i>{{ beneficiary.total_beneficiaries ? beneficiary.total_beneficiaries : 0 | number }}
+				</div>
 				<button class="btn-floating waves-effect waves-light"
 									title="Save"
 									ng-if="!project.newProject && detailBeneficiaries[$locationIndex][$beneficiaryIndex] && project.canEdit"
@@ -80,13 +100,13 @@
 					</md-tooltip>
 				</button>
 			</div>
-
+			</div>
 			<!-- mpc_delivery_type_id -->
 			<div ng-if="detailBeneficiaries[$locationIndex][$beneficiaryIndex] &&
 										project.definition.admin0pcode === 'AF' &&
 										ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ] &&
 										!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_package_type_id' ]">
-				<div class="row" style="padding: 30px 0px 0px 20px;">
+				<div class="row" ng-style="($root.rtl) && { 'padding':'5px 21px 20px 0px' } || { 'padding':'5px 0px 20px 21px' }">
 					<p><i class="material-icons left" style="color: #e57373">info</i></p>
 					<p style="color: #e57373">
 						<span style="font-weight:400">{{'amount'|translate}}:</span> {{'please_enter_the_amount_per' | translate}} <span style="font-weight:400">{{'household_hh' | translate}}</span> per <span style="font-weight:400">{{'transfer' | translate}}</span>
@@ -99,7 +119,7 @@
 
 
 			<!-- CARD PANEL -->
-			<div class="card-panel"
+			<div dir="ltr" class="card-panel"
 						ng-if="detailBeneficiaries[$locationIndex][$beneficiaryIndex]"
 						ng-class="{'card-panel-expand':detailBeneficiaries[$locationIndex][$beneficiaryIndex]}"
 						ng-disabled="!project.canEdit">

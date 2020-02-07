@@ -40,19 +40,19 @@
 
               <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;" ng-click="">
 
-                <td data-title="'Week'" sortable="'reporting_week'">
+                <td data-title="'week'|translate" sortable="'reporting_week'">
                     {{ row.reporting_start_date + ' (' + row.reporting_week + ')' }}
                 </td>
-                <td data-title="'Focal Point'" sortable="'focal_point_name'">
+                <td data-title="'focal_point'" sortable="'focal_point_name'">
                   {{ row.focal_point_name }}
                 </td>
-                <td data-title="'Email'" sortable="'focal_point_email'">
+                <td data-title="'email'|translate" sortable="'focal_point_email'">
                   {{ row.focal_point_email }}
                 </td>
-                <td data-title="'Organization'" sortable="'organization_name'">
+                <td data-title="'organization'|translate" sortable="'organization_name'">
                     {{ row.organization_name + ' (' + row.organization + ')' }}
                 </td>
-                <td data-title="'Submitted'" sortable="'_submission_time'">
+                <td data-title="'submitted'|translate" sortable="'_submission_time'">
                     {{ row._submission_time }}
                 </td>
                 <td style="white-space: nowrap">

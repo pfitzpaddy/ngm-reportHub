@@ -74,7 +74,7 @@
 				<a href="{{ list.report_url }}/{{ item.project_id }}/{{ item.id }}" title="{{ list.hoverTitle }} {{ item.reporting_period_title }} Report">
 					<i class="material-icons circle white teal-text">{{ list.icon }}</i>
 					<span class="title">{{ item.reporting_period_title }}</span>
-					<span class="right" style="padding-top:20px; padding-right:40px; color:#616161;font-weight:400;">{{ list.reportFormat( item ) }}</span>
+					<span class="right" style="padding-top:20px; color:#616161;font-weight:400;" ng-style="($root.rtl) && { 'padding-left':'40px' } || { 'padding-right':'40px' }">{{ list.reportFormat( item ) }}</span>
 					<p align="justify" style="padding:10px 0px 10px 0px;">
 						{{'monthly_beneficiaries_report_for' | translate}} {{ item.reporting_period_title }}
 					</p>

@@ -273,7 +273,7 @@ font-size: 18px;
 						</div>
 						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="{{'list_view'|translate}}" ng-click="grid=false"
 						 ng-class="{white: grid,teal:!grid}">
-							<i class="material-icons  " ng-class="{color_teal: grid,color_white:!grid}">
+							<i class="material-icons  mirror " ng-class="{color_teal: grid,color_white:!grid}">
 								format_list_bulleted
 							</i>
 						</div>
@@ -289,11 +289,11 @@ font-size: 18px;
 										<img class="activator" src={{ngmClusterDocument.setThumbnailfromGdrive(item.fileid)}}>
 									</div>
 									<div class="card-content">
-										<i class="material-icons left" style="color: {{ngmClusterDocument.extentionColor(item.filename_extension)}};margin-right: 5px;">
+										<i class="material-icons left no-margin" style="color: {{ngmClusterDocument.extentionColor(item.filename_extension)}};margin-right: 5px;">
 											{{ngmClusterDocument.extentionIcon(item.filename_extension)}}
 										</i>
-										<span class="grey-text activator text-darken-4 " style="font-size: 12px; font-weight: 400">{{item.filename| limitTo: 12}}{{item.filenamelength
-											< 12 ? '' : '...'}} <i class="material-icons right" style="cursor: pointer; margin-left: 5px;">more_vert</i>
+										<span class="grey-text activator text-darken-4 " style="font-size: 12px; font-weight: 400">{{item.filename| limitTo: 12}}&#x202a;{{item.filenamelength
+											< 12 ? '' : '...'}}&#x202c; <i class="material-icons right" style="cursor: pointer;" ng-style="($root.rtl) && { 'margin-right': '5px' } || { 'margin-left': '5px' }">more_vert</i>
 										</span>
 									</div>
 									<div class="card-reveal">

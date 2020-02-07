@@ -7,8 +7,8 @@
  */
 angular.module('ngmReportHub')
 	// modal controller
-	.controller('DashboardDewsCtrl', ['$rootScope', '$scope', '$http', '$location', '$route', '$window', '$timeout', 'ngmAuth', 'ngmUser', 
-		function ($rootScope, $scope, $http, $location, $route, $window, $timeout, ngmAuth, ngmUser) {
+	.controller('DashboardDewsCtrl', ['$rootScope', '$scope', '$http', '$location', '$route', '$window', '$filter', '$timeout', 'ngmAuth', 'ngmUser', 
+		function ($rootScope, $scope, $http, $location, $route, $window, $filter, $timeout, ngmAuth, ngmUser) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -157,7 +157,7 @@ angular.module('ngmReportHub')
 						//
 						rows.push({
 							'title': d.name,
-							'param': 'disease',
+							'param': $filter('translate')('disease'),
 							'active': key,
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 							'href': '#/who/dews/' + $route.current.params.location + '/' + key + '/' + $route.current.params.start + '/' + $route.current.params.end
@@ -170,7 +170,7 @@ angular.module('ngmReportHub')
 						//
 						rows.push({
 							'title': d.name,
-							'param': 'location',
+							'param': $filter('translate')('location'),//'location',
 							'active': key,
 							'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
 							'href': '#/who/dews/' + key + '/' + $route.current.params.disease + '/' + $route.current.params.start + '/' + $route.current.params.end
@@ -243,7 +243,7 @@ angular.module('ngmReportHub')
 					'class': 'col s12 m4 l3',
 					dates: [{
 						style: 'float:left;',
-						label: 'from',
+						label: $filter('translate')('from'),
 						format: 'd mmm, yyyy',
 						max: $scope.dashboard.endDate,
 						currentTime: $scope.dashboard.startDate,
@@ -260,7 +260,7 @@ angular.module('ngmReportHub')
 						}
 					},{
 						style: 'float:right',
-						label: 'to',
+						label: $filter('translate')('to'),
 						format: 'd mmm, yyyy',
 						min: $scope.dashboard.startDate,
 						currentTime: $scope.dashboard.endDate,
@@ -344,14 +344,14 @@ angular.module('ngmReportHub')
 				'id': 'search-dews-disease',
 				'search': true,
 				'icon': 'group_work',
-				'title': 'Disease',
+				'title': $filter('translate')('disease'),//'Disease',
 				'class': 'teal lighten-1 white-text',
 				'rows': $scope.dashboard.getRows('disease')
 			},{
 				'id': 'search-dews-province',
 				'search': true,
 				'icon': 'place',
-				'title': 'Province',
+				'title': $filter('translate')('province'),//'Province',
 				'class': 'teal lighten-1 white-text',
 				'rows': $scope.dashboard.getRows('province')
 			}],
@@ -388,7 +388,7 @@ angular.module('ngmReportHub')
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Outbreaks',
+							title: $filter('translate')('outbreaks'),//'Outbreaks',
 							request: {
 								method: 'POST',
 								url: ngmAuth.LOCATION + '/api/dews/indicator',
@@ -408,7 +408,7 @@ angular.module('ngmReportHub')
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Individual Cases',
+							title: $filter('translate')('individual_cases'),//'Individual Cases',
 							request: {
 								method: 'POST',
 								url: ngmAuth.LOCATION + '/api/dews/indicator',
@@ -429,7 +429,7 @@ angular.module('ngmReportHub')
 						type: 'stats',
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
-							title: 'Deaths',
+							title: $filter('translate')('deaths'),//'Deaths',
 							request: {
 								method: 'POST',
 								url: ngmAuth.LOCATION + '/api/dews/indicator',
@@ -511,7 +511,7 @@ angular.module('ngmReportHub')
 						card: 'card-panel stats-card white grey-text text-darken-2',
 						config: {
 							title: {
-								text: 'Outbreaks - Trend',
+								text: $filter('translate')('outbreaks_trends'),//'Outbreaks - Trend',
 							},
 							chartConfig: {
 								options: {
@@ -572,7 +572,7 @@ angular.module('ngmReportHub')
 									gridLineColor: '#fff'
 								},
 								series: [{
-									name: 'Incidents',
+									name: $filter('translate')('incidents'),//'Incidents',
 									color: '#7cb5ec',
 									turboThreshold: 0,
 									request: {
@@ -650,7 +650,10 @@ angular.module('ngmReportHub')
 						card: 'card-panel',
 						style: 'padding:0px; height: 90px; padding-top:10px;',
 						config: {
-							html: $scope.dashboard.ngm.footer
+							// html: $scope.dashboard.ngm.footer
+							templateUrl: '/scripts/widgets/ngm-html/template/footer.html',
+							lightPrimaryColor: $scope.ngm.style.lightPrimaryColor,
+							defaultPrimaryColor: $scope.ngm.style.defaultPrimaryColor,
 						}
 					}]
 				}]

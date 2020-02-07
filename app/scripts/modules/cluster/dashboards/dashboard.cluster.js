@@ -490,7 +490,7 @@ angular.module('ngmReportHub')
 							'search': true,
 							'id': 'search-cluster-cluster',
 							'icon': 'camera',
-							'title': 'Cluster',
+							'title': $filter('translate')('cluster'),
 							'class': 'teal lighten-1 white-text',
 							'rows': clusterRows
 						});
@@ -1203,7 +1203,10 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px; height: 90px; padding-top:10px;',
 									config: {
-										html: $scope.dashboard.ngm.footer
+										// html: $scope.dashboard.ngm.footer
+										templateUrl: '/scripts/widgets/ngm-html/template/footer.html',
+										lightPrimaryColor: $scope.ngm.style.lightPrimaryColor,
+										defaultPrimaryColor: $scope.ngm.style.defaultPrimaryColor,
 									}
 								}]
 							}]

@@ -308,7 +308,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Beneficiaries',
+										title: $filter('translate')('beneficiaries'),//'Beneficiaries',
 										request: $scope.beneficiaryStat
 									}
 								}]
@@ -321,7 +321,7 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px;',
 									config: {
-										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">ACTIVITY</h2>'
+										html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">' + $filter('translate')('activity_mayus')+'</h2>'
 									}
 								}]
 							}]
@@ -333,7 +333,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Clusters',
+										title: $filter('translate')('clusters'),//'Clusters',
 										request: $scope.clusterStat
 									}
 								}]
@@ -344,7 +344,7 @@ angular.module('ngmReportHub')
 										style: 'text-align: center;',
 										card: 'card-panel stats-card white grey-text text-darken-2',
 										config: {
-											title: 'Organizations',
+											title: $filter('translate')('organization'),//'Organizations',
 											request: $scope.organizationStat
 										}
 									}]
@@ -355,7 +355,7 @@ angular.module('ngmReportHub')
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: 'Locations',
+										title: $filter('translate')('locations'),//'Locations',
 										request: $scope.locationStat
 									}
 								}]
@@ -366,7 +366,7 @@ angular.module('ngmReportHub')
 										style: 'text-align: center;',
 										card: 'card-panel stats-card white grey-text text-darken-2',
 										config: {
-											title: 'Activities',
+											title: $filter('translate')('activities'),//'Activities',
 											request: $scope.activityStat
 										}
 									}]
@@ -420,7 +420,7 @@ angular.module('ngmReportHub')
 										card: 'card-panel',
 										style: 'padding:0px;',
 										config: {
-											html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">REPORTS</h2>'
+											html: '<h2 class="col s12 report-title" style="margin-top: 20px; padding-bottom: 5px; font-size: 3.0rem; color: #2196F3; border-bottom: 3px #2196F3 solid;">'+$filter('translate')('reports')+'</h2>'
 										}
 									}]
 								}]
@@ -458,7 +458,7 @@ angular.module('ngmReportHub')
 											headerClass: 'collection-header teal lighten-2',
 											headerText: 'white-text',
 											headerIcon: 'assignment_turned_in',
-											headerTitle: 'Reports Submitted',
+											headerTitle: $filter('translate')('reports_submitted'),//'Reports Submitted',
 											templateUrl: '/scripts/modules/country/afghanistan/drought/views/drought.admin.list.html',
 											tableOptions: {
 												count: 10
@@ -476,7 +476,10 @@ angular.module('ngmReportHub')
 									card: 'card-panel',
 									style: 'padding:0px; height: 90px; padding-top:10px;',
 									config: {
-										html: $scope.dashboard.ngm.footer
+										// html: $scope.dashboard.ngm.footer
+										templateUrl: '/scripts/widgets/ngm-html/template/footer.html',
+										lightPrimaryColor: $scope.ngm.style.lightPrimaryColor,
+										defaultPrimaryColor: $scope.ngm.style.defaultPrimaryColor,
 									}
 								}]
 							}]

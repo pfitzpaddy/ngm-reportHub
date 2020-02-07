@@ -39,10 +39,10 @@
 								<!-- <td data-title="'Cluster'" sortable="'cluster'" ng-if="table.cluster_id === 'all'">
 									{{ row.cluster }}
 								</td> -->
-								<td data-title="'Sector'" sortable="'cluster'" >
+								<td data-title="'sector_mayu'| translate" sortable="'cluster'" >
 									{{ row.cluster }}
 								</td>
-								<td data-title="'Organization'" sortable="'organization'">
+								<td data-title="'organization'| translate" sortable="'organization'">
 
 									<div ng-if="table.user.roles.indexOf( 'ADMIN' ) === -1">
 
@@ -69,22 +69,22 @@
 									</div>
 
 								</td>
-								<td data-title="'User'" sortable="'username'">
+								<td data-title="'user_mayus1'|translate" sortable="'username'">
 									{{ row.username }}
 								</td>
-								<td data-title="'Contact'" sortable="'email'">
+								<td data-title="'contact'|translate" sortable="'email'">
 									{{ row.email }}
 								</td>
-								<td data-title="'Title'" sortable="'project_title'" ng-if="table.showTitle">
+								<td data-title="'title'|translate" sortable="'project_title'" ng-if="table.showTitle">
 									<a target="_blank" href="#/cluster/projects/summary/{{ row.project_id }}" title="GoTo Project Summary">
 										{{ row.project_title }}
 									</a>
 								</td>
 
-								<td data-title="'Month'" sortable="'reporting_period'">
+								<td data-title="'month_mayus'|translate" sortable="'reporting_period'">
 									{{ table.formatUtcDate( row.reporting_period ) }}
 								</td>
-								<td data-title="'GoTo'" sortable="'reporting_period'">
+								<td data-title="'goto'|translate" sortable="'reporting_period'">
 
 									<div ng-if="table.user.roles.indexOf( 'ADMIN' ) === -1">
 
@@ -115,7 +115,7 @@
 									</div>
 
 								</td>
-								<td data-title="'Status'" sortable="'status'">
+								<td data-title="'status_mayus'|translate" sortable="'status'">
 
 									<div ng-if="table.user.roles.indexOf( 'ADMIN' ) === -1">										
 										<i class="material-icons" style="color: {{ row.status }}">{{ row.icon }}</i>

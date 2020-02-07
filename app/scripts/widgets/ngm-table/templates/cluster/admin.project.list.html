@@ -37,7 +37,7 @@
           <div ng-if="data.length">
             <table class="centered striped responsive-table" ng-table="table.tableParams">
               <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
-                <td data-title="'Sector'" sortable="'cluster'" >
+                <td data-title="'sector_mayus'|translate" sortable="'cluster'" >
                   {{ row.cluster }}
                 </td>
 
@@ -106,7 +106,7 @@
                     title="{{'goto'|translate}} {{ row.reporting_period | date: 'MMMM' }} Stock {{'report'|translate}}"
                     ng-if="!row.project_title"
                     target="_blank">
-                    <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
+                    <i class="material-icons mirror center" style="color:#616161; " ng-style="($root.rtl) && { 'margin-right':'-80px' } || { 'margin-left':'-80px' }">ic_launch</i>
                   </a>
 
                   <!-- default -->
@@ -114,7 +114,7 @@
                     title="{{'goto'|translate}} {{ table.formatUtcDate( row.reporting_period ) }} {{'activity_report'|translate}}"
                     ng-if="row.project_title && !row.location_groups"
                     target="_blank">
-                    <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
+                    <i class="material-icons mirror center" style="color:#616161; " ng-style="($root.rtl) && { 'margin-right':'-80px' } || { 'margin-left':'-80px' }">ic_launch</i>
                   </a>
 
                   <!-- location_groups -->
@@ -122,7 +122,7 @@
                     title="{{'goto'|translate}} {{ table.formatUtcDate( row.reporting_period ) }} {{'activity_report'|translate}}"
                     ng-if="row.project_title && row.location_groups"
                     target="_blank">
-                    <i class="material-icons center" style="color:#616161; margin-left:-80px;">ic_launch</i>
+                    <i class="material-icons mirror center" style="color:#616161; " ng-style="($root.rtl) && { 'margin-right':'-80px' } || { 'margin-left':'-80px' }">ic_launch</i>
                   </a>                 
 
                 </td>

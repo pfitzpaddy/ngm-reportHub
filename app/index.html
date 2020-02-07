@@ -41,10 +41,11 @@
 		<link rel="stylesheet" href="styles/ngm-menu.css">
 		<link rel="stylesheet" href="styles/ngm-form.css">
 		<link rel="stylesheet" href="styles/ngm-dropzone.css">
+		<link rel="stylesheet" href="styles/rtl-dir.css">
 		<!-- endbuild -->
 
 	</head>
-	<body ng-app="ngmReportHub" ng-controller="ngmReportHubCrtl" style="height:100%;">
+	<body ng-app="ngmReportHub" ng-controller="ngmReportHubCrtl" style="height:100%;" ng-class="{rtl: (rtl)}" dir="{{(rtl)?'rtl':'ltr'}}">
 
 		<!-- ie modal -->
 		<div id="ngm-ie-modal" class="modal">
@@ -111,13 +112,29 @@
 								<img class="ngm-logo" ng-src="images/{{ ngm.style.logo }}" height="97" align="right"></img>
 							</a>
 						</div> -->
-						<div ng-class="{'right':ngm.openMinimize,'left':!ngm.openMinimize}">
+						<div ng-hide="!ngm.openMinimize">
 							<a href="{{ ngm.style.home }}" title="HOME">
 								<img class="ngm-logo" ng-src="images/{{ ngm.style.logo }}" height="97" align="right"></img>
 							</a>
 						</div>
 
 						<!-- profile menu -->
+						<!-- FOR minimize -->
+						<div class="ngm-minimize-flat fixed-action-btn " align="right" ng-class="{ 'change-position':ngm.openMinimize }">
+							<a class="btn-floating btn-flat"
+								style="background-color: {{ ngm.style.defaultPrimaryColor }}; line-height:56px;margin:10px;"
+								ng-click="ngm.minimizeToggle()">
+								<!-- <div id="xmenu" class="minimize-menu">
+																<span></span>
+																<span></span>
+																<span></span>
+															</div> -->
+								<i class="minimize-menu material-icons right">menu</i>
+							</a>
+							<!-- <div class="textMenu"style="color: #fff !important;font-size: 12px;padding-right: 10px"> 
+															{{ngm.openMinimize ? 'CLOSE':'MENU'}} 
+														</div> -->
+						</div>
 						<!-- profile menu btn (implementing jQuery slideToggle() )-->
 						<div class="ngm-profile-menu">
 							<div class="ngm-profile-btn-rightoff fixed-action-btn" align="left" ng-class="{ 'hide-position': !ngm.openMinimize }">
@@ -137,22 +154,7 @@
 									<i class="ngm-profile-icon material-icons smedium right" style="line-height: 56px">keyboard_arrow_down</i>
 								</a>
 							</div>
-							<!-- FOR minimize -->
-							<div class="ngm-minimize-flat fixed-action-btn " align="right" ng-class="{ 'change-position':ngm.openMinimize }">
-								<a class="btn-floating btn-flat"
-											style="background-color: {{ ngm.style.defaultPrimaryColor }}; line-height:56px;margin:10px;"
-											ng-click="ngm.minimizeToggle()">
-									<!-- <div id="xmenu" class="minimize-menu">
-										<span></span>
-										<span></span>
-										<span></span>
-									</div> -->
-									<i class="minimize-menu material-icons right">menu</i>
-								</a>
-								<!-- <div class="textMenu"style="color: #fff !important;font-size: 12px;padding-right: 10px"> 
-									{{ngm.openMinimize ? 'CLOSE':'MENU'}} 
-								</div> -->
-							</div>
+							
 							<!-- profile menu dropdown -->
 							<!-- <a class="ngm-profile white-text right" -->
 							<a class="ngm-profile white-text right"
@@ -373,7 +375,7 @@
 										<i class="material-icons smedium right">lock_open</i>{{'logout_mayus' | translate}}</a>
 								</li>
 								<!-- language -->
-								<li align="center" class="teal z-depth-2" ng-init="open = false;ngm.setLanguage('col')" ng-show="ngm.getUsername() === 'welcome' || (ngm.translate_version )">
+								<li align="center" class="teal z-depth-2" ng-init="open = false;ngm.setLanguage(ngm.getUser().admin0pcode)" ng-show="ngm.getUsername() === 'welcome' || (ngm.translate_version )">
 									<a class="white-text right" ng-click="open= !open;">
 										<i class="material-icons smedium right">translate</i>
 										<i class="material-icons small right icon-arrow" ng-class="{'rotate-icon':open === true}">keyboard_arrow_down</i>{{'language'|translate}}</a>

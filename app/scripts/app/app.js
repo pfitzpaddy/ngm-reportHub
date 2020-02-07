@@ -216,7 +216,7 @@ angular
 		});
 
 	}])
-	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', '$http', '$timeout', 'ngmAuth', 'ngmUser','$window','$translate','$filter', function ($scope, $route, $location, $http, $timeout, ngmAuth, ngmUser,$window,$translate,$filter) {
+	.controller('ngmReportHubCrtl', ['$scope', '$route', '$location', '$http', '$timeout', 'ngmAuth', 'ngmUser', '$window', '$translate', '$filter', '$rootScope', function ($scope, $route, $location, $http, $timeout, ngmAuth, ngmUser, $window, $translate, $filter, $rootScope) {
 
 		// ngm object
 		$scope.ngm = {
@@ -250,8 +250,18 @@ angular
 
 			// change language
 			changeFunction: function( $key ) {
-			 	$translate.use( $key );
-	     	$timeout(function() { $translate.refresh(); }, 1000 );
+				$translate.use( $key );
+
+				if ($key !== 'en') {
+					$rootScope.rtl = false;
+					if ($key === 'prs' || $key === 'ar') {
+						$rootScope.rtl = true;
+					}
+				} else {
+					$rootScope.rtl = false;
+				}
+
+	     		$timeout(function() { $translate.refresh(); }, 1000 );
 			 },
 
 			// paint application
@@ -398,7 +408,10 @@ angular
 									card: 'card-panel',
 									style: 'padding:0px; height: 90px; padding-top:10px;',
 									config: {
-										html: $scope.ngm.footer
+										// html: $scope.ngm.footer
+										templateUrl: '/scripts/widgets/ngm-html/template/footer.html',
+										lightPrimaryColor: $scope.ngm.style.lightPrimaryColor,
+										defaultPrimaryColor: $scope.ngm.style.defaultPrimaryColor,
 									}
 								}]
 							}]
@@ -427,11 +440,27 @@ angular
 
 			// language
 			setLanguage:function(country){
+				// var set_language = {
+				// 	col:[{ language_id: 'en', language_name: 'English', flag:'en.png'},
+				// 			{ language_id: 'es', language_name: 'Español', flag: 'spain.png' }]					
+				// 	}
+				// $scope.ngm.getLanguage = set_language[country] ? set_language[country]:[];
+
+				if (!country) {
+					country = 'default';
+				} else { country = country.toLowerCase() }
+
 				var set_language = {
-					col:[{ language_id: 'en', language_name: 'English', flag:'en.png'},
-							{ language_id: 'es', language_name: 'Español', flag: 'spain.png' }]					
-					}
-				$scope.ngm.getLanguage = set_language[country] ? set_language[country]:[];
+					default: [{ language_id: 'en', language_name: 'English', flag: 'en.png' },
+							  { language_id: 'prs', language_name: 'Afghanistan', flag: 'afghanistan-flag-icon-64.png' },
+							  { language_id: 'es', language_name: 'Español', flag: 'spain.png' }],
+					col: [{ language_id: 'en', language_name: 'English', flag: 'en.png' },
+						{ language_id: 'es', language_name: 'Español', flag: 'spain.png' }],
+					af: [{ language_id: 'en', language_name: 'English', flag: 'en.png' },
+						{ language_id: 'prs', language_name: 'Afghanistan', flag: 'afghanistan-flag-icon-64.png' }]
+				}
+				$scope.ngm.getLanguage = set_language[country] ? set_language[country] : set_language['default'];
+
 				if ($scope.ngm.getLanguage.length>0){
 					$scope.ngm.translate_version = true;
 				}else{
