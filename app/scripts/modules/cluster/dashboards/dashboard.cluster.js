@@ -1241,6 +1241,9 @@ angular.module('ngmReportHub')
 		         console.log('error!');
 		      });
 
+					setTimeout(() => {
+						$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+					}, 0);
 				}
 
 			};
@@ -1287,9 +1290,9 @@ angular.module('ngmReportHub')
 				});
 
 			}
-			setTimeout(() => {
-				$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
-			}, 0);
+			// setTimeout(() => {
+			// 	$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+			// }, 0);
 
 		}
 
