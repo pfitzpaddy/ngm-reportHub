@@ -1081,6 +1081,7 @@ angular.module( 'ngmReportHub' )
 							type: 'table',
 							card: 'panel',
 							config: {
+								duplicate: true,
 								headerClass: 'collection-header red lighten-2',
 								headerText: 'white-text',
 								headerIcon: 'group',

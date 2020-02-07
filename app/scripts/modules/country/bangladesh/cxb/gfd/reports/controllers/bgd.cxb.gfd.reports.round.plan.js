@@ -882,12 +882,18 @@ angular.module( 'ngmReportHub' )
 							if ( data.length ) {
 
 								// report round / distribution
-								var form_filter = { report_round: $scope.report.report_round, organization_tag: $scope.report.organization_tag }
+								var form_filter = { report_round: $scope.report.report_round }
+
+								// site id
+								if ( $scope.report.organization_tag !== 'wfp' && $scope.report.organization_tag !== 'immap') {
+									form_filter.organization_tag = $scope.report.organization_tag;
+								}
 
 								// site id
 								if ( $scope.report.site_id !== 'all' ) {
 									form_filter.site_id = $scope.report.site_id;
 								}
+
 
 								// form links
 								$scope.model.rows.push({
@@ -1239,6 +1245,7 @@ angular.module( 'ngmReportHub' )
 									type: 'table',
 									card: 'panel',
 									config: {
+										duplicate: true,
 										headerClass: 'collection-header red lighten-2',
 										headerText: 'white-text',
 										headerIcon: 'group',
@@ -1278,6 +1285,7 @@ angular.module( 'ngmReportHub' )
 									type: 'table',
 									card: 'panel',
 									config: {
+										duplicate: false,
 										headerClass: 'collection-header blue lighten-2',
 										headerText: 'white-text',
 										headerIcon: 'assignment_turned_in',
