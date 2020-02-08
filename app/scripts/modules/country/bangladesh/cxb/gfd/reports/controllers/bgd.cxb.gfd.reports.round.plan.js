@@ -976,7 +976,7 @@ angular.module( 'ngmReportHub' )
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: "Family Size 1-3",
+										title: "Family 1-3",
 										request: {
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
@@ -1003,7 +1003,7 @@ angular.module( 'ngmReportHub' )
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: "Family Size 4-7",
+										title: "Family 4-7",
 										request: {
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
@@ -1030,7 +1030,7 @@ angular.module( 'ngmReportHub' )
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: "Family Size 8-10",
+										title: "Family 8-10",
 										request: {
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
@@ -1057,7 +1057,7 @@ angular.module( 'ngmReportHub' )
 									style: 'text-align: center;',
 									card: 'card-panel stats-card white grey-text text-darken-2',
 									config: {
-										title: "Family Size 11+",
+										title: "Family 11+",
 										request: {
 											method: 'POST',
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
