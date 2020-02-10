@@ -204,9 +204,9 @@ angular.module('ngmReportHub')
 				data: {
 					id: $route.current.params.project
 				}
-			}).then( function( data ){
+			}).then( function( data ) {
 				// assign data
-				if ( data.target_locations && data.target_beneficiaries ){
+				if ( data.id ){
 					$scope.report.setProjectDetails( data );
 					setTimeout(() => {
 						$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
@@ -236,7 +236,7 @@ angular.module('ngmReportHub')
 								styleClass: 's12 m12 l12',
 								widgets: [{
 									type: 'form.authentication',
-									card: 'card-panel',
+									// card: 'card-panel',
 									style: 'padding:0px; height: ' + $scope.report.ngm.style.height + 'px;',
 									config: {
 										style: $scope.report.ngm.style,
