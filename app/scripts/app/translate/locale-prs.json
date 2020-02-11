@@ -425,6 +425,7 @@
     "please_correct_the_row_and_try_again": "لطفا ردیف را درست نموده دوباره کوشش نمایید",
     "drag_files_here_or_click_to_upload": "فایل ها را اینجا بکشید و یابرای بارگیری کلیک کنید",
     "uploading": "...در حال بارگیری",
+    "loading": "بارگذاری...",
     "error_file_not_deleted": "!خطا،فایل حذف نشد",
     "upload": "بارگیری",
     "file_deleted": "!فایل حذف شد",
