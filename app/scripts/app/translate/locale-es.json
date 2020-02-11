@@ -786,6 +786,7 @@
         "please_correct_the_row_and_try_again":"Por favor corrija la FILA y intenta de nuevo",
         "drag_files_here_or_click_to_upload":"Arrastre los archivos aquí ó haga click para cargar",
         "uploading":"Cargando...",
+        "loading": "Cargando...",
         "error_file_not_deleted":"Error, Archivo no Eliminado!",
         "upload":"cargar",
 
