@@ -116,16 +116,16 @@
 	</div>
 </div>
 <div id="remove-modal" class="modal">
-		<div class="modal-content">
-			<div class="center">
+		<div class="modal-content dialog">
+			<div class="center" style="padding: 50px;">
 				<i class="medium material-icons" style="color:#f44336">delete</i>
-				<h5 style="font-weight:300;"> {{'remove_this_file'|translate}}</h5>
+				<h5 class="header-modal" style="color: #000000;font-weight:300;"> {{'remove_this_file'|translate}}</h5>
 			</div>
 		
 		</div>
 		<div class="modal-footer">
+			<a ng-click="list.removeFile()" class="modal-action modal-close waves-effect waves-green btn">{{'yes_remove_this_file'|translate}}</a>
 			<a class=" modal-action modal-close waves-effect waves-green btn-flat">{{'close_mayus1'|translate}}</a>
-			<a ng-click="list.removeFile()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_remove_this_file'|translate}}</a>
 		</div>
 </div>
 <div class="card-panel" ng-init="grid = false">

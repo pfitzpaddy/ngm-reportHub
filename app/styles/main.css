@@ -80,6 +80,25 @@ h1, h2, h3, h4, h5, p {
 .modal {
 	background-color: #fff;
 }
+.modal .modal-content.dialog{
+	padding: 0px;
+}
+.modal .modal-content.dialog .header-modal{
+	padding: 24px;
+	color: #ffffff;
+	font-weight: 100;
+}
+.modal .modal-content.dialog p{
+	padding: 10px 24px 10px 24px;
+}
+
+.modal .modal-content.dialog .header-modal i{
+	margin-top: 7px;
+}
+
+.modal .modal-footer {
+		background-color: #ffffff;
+	}
 .backdrop {
 	background-color: #fff;
 }
