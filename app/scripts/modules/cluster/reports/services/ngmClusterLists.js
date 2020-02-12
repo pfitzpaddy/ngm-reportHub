@@ -7031,16 +7031,18 @@ angular.module( 'ngmReportHub' )
               // WASH
 
               cluster_id: [ 'wash' ],
-              beneficiary_type_id: 'idp_conflict',
-              beneficiary_type_name: 'Conflict IDPs (Recent)'
+              beneficiary_type_id: 'idp_conflict_2020',
+							beneficiary_type_name: 'Conflict IDPs (2020)',
+							year: 2020
             },{
               cluster_id: [ 'wash' ],
               beneficiary_type_id: 'conflict_affected',
               beneficiary_type_name: 'Conflict Affected Community'
             },{
               cluster_id: [ 'wash' ],
-              beneficiary_type_id: 'idp_natural_disaster',
-              beneficiary_type_name: 'Natural Disaster IDPs'
+              beneficiary_type_id: 'idp_natural_disaster_2020',
+							beneficiary_type_name: 'Natural Disaster IDPs (2020)',
+							year: 2020
             },{
               cluster_id: [ 'wash' ],
               beneficiary_type_id: 'natural_disaster_affected',
@@ -7087,16 +7089,18 @@ angular.module( 'ngmReportHub' )
               beneficiary_type_name: 'Drought Affected Non Displaced ( Response )'
             },{
               cluster_id: [ 'wash' ],
-              beneficiary_type_id: 'drought_affected_displaced_response',
-              beneficiary_type_name: 'Drought Affected Displaced ( Response )'
+              beneficiary_type_id: 'drought_affected_displaced_2020',
+							beneficiary_type_name: 'Drought Affected Displaced (2020)',
+							year: 2020
             },{
               cluster_id: [ 'wash' ],
               beneficiary_type_id: 'flood_affected_non_displaced_response',
               beneficiary_type_name: 'Flood Affected Non Displaced ( Response )'
             },{
               cluster_id: [ 'wash' ],
-              beneficiary_type_id: 'flood_affected_displaced_response',
-              beneficiary_type_name: 'Flood Affected Displaced ( Response )'
+              beneficiary_type_id: 'flood_affected_displaced_2020',
+							beneficiary_type_name: 'Flood Affected Displaced (2020)',
+							year: 2020
             },{
 
               // FSAC
