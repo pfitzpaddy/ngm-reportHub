@@ -269,8 +269,6 @@ angular.module( 'ngmReportHub' )
 							// merge target_location, admin3, food_distribution_point site details
 							target_location = angular.merge( target_location, selected[0], site );
 
-							console.log( target_location.admin3pcode );
-
 						}
 
 					}
@@ -292,6 +290,7 @@ angular.module( 'ngmReportHub' )
 				if ( type === 'site_type_id' ) {
 
 					// admin2
+					delete target_location.admin1type_name;
 					delete target_location.admin1pcode;
 					delete target_location.admin1name;
 					delete target_location.admin1lng;
@@ -303,6 +302,7 @@ angular.module( 'ngmReportHub' )
 				if ( type === 'site_type_id' || type === 'admin1pcode' ) {
 
 					// admin2
+					delete target_location.admin2type_name;
 					delete target_location.admin2pcode;
 					delete target_location.admin2name;
 					delete target_location.admin2lng;
@@ -314,6 +314,7 @@ angular.module( 'ngmReportHub' )
 				if ( type === 'site_type_id' || type === 'admin1pcode' || type === 'admin2pcode' ) {
 
 					// admin3
+					delete target_location.admin3type_name;
 					delete target_location.admin3pcode;
 					delete target_location.admin3name;
 					delete target_location.admin3lng;
@@ -324,6 +325,7 @@ angular.module( 'ngmReportHub' )
 				if ( type === 'site_type_id' || type === 'admin1pcode' || type === 'admin2pcode' || type === 'admin3pcode' ) {
 
 					// admin4
+					delete target_location.admin4type_name;
 					delete target_location.admin4pcode;
 					delete target_location.admin4name;
 					delete target_location.admin4lng;
@@ -460,7 +462,7 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// admin2pcode
-				if ( target_location.admin3pcode && target_location.site_type_id !== 'refugee_camp' ) {
+				if ( target_location.admin3pcode && ( target_location.site_type_id !== 'refugee_camp' || target_location.site_type_id !== 'food_distribution_point' ) ) {
 					// run filter adminsites
 					ngmCbLocations.adminSites_filter[ $index ] = ngmCbLocations.adminSites_filter[ $index ].filter(function( i ) {
 						return i.admin3pcode === target_location.admin3pcode;
