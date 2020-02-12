@@ -53,39 +53,39 @@ form {
 
 <!-- deactivate -->
 <div id="deactivate-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="font-weight:100; padding-top: 20px;"><i class="material-icons medium left">assignment_late</i>{{'desactive_user' | translate}}</h4>
-    <p style="padding-left: 76px;">{{'desactive' | translate
+  <div class="modal-content dialog">
+    <h4 class="header-modal grey"><i class="material-icons small left">assignment_late</i>{{'desactive_user' | translate}}</h4>
+    <p >{{'desactive' | translate
     }} {{ panel.user.username }}?</p>
   </div>
   <div class="modal-footer">
+	<a ng-click="panel.updateStatus( 'deactivated' )" class="modal-action modal-close waves-effect waves-green btn">{{'yes_desactive_user' | translate}}!</a>
   	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="panel.updateStatus( 'deactivated' )" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_desactive_user' | translate}}!</a>
   </div>
 </div>
 
 <!-- activate -->
 <div id="activate-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="font-weight:100; padding-top: 20px;"><i class="material-icons medium left">assignment_turned_in</i>{{'activate_user' | translate}}</h4>
-    <p style="padding-left: 76px;">{{'activate' | translate}} {{ panel.user.username }}?</p>
+  <div class="modal-content dialog">
+    <h4 class="header-modal teal lighten-1"><i class="material-icons small left">assignment_turned_in</i>{{'activate_user' | translate}}</h4>
+    <p >{{'activate' | translate}} {{ panel.user.username }}?</p>
   </div>
   <div class="modal-footer">
+	<a ng-click="panel.updateStatus( 'active' )" class="modal-action modal-close waves-effect waves-green btn">{{'Yes, Activate User'| translate}}!</a>
   	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="panel.updateStatus( 'active' )" class="modal-action modal-close waves-effect waves-green btn-flat">{{'Yes, Activate User'| translate}}!</a>
   </div>
 </div>
 
 <!-- delete -->
 <div id="delete-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #E57373; font-weight:100; padding-top: 20px;"><i class="material-icons medium left">delete</i>{{'delete_user'| translate}}</h4>
-    <p style="padding-left: 76px;">{{'delete'|translate}} {{ panel.user.username }}?</p>
-    <p style="padding-left: 76px;">{{'warning_mayus'|translate}}! {{'this_action_can_not_be_undone'|translate}}!</p>
+  <div class="modal-content dialog">
+    <h4 class="header-modal red lighten-2"><i class="material-icons small left">delete</i>{{'delete_user'| translate}}</h4>
+    <p >{{'delete'|translate}} {{ panel.user.username }}?</p>
+    <p style="color: #f44336; font-weight: 700;">{{'warning_mayus'|translate}}! {{'this_action_can_not_be_undone'|translate}}!</p>
   </div>
   <div class="modal-footer">
+	<a ng-click="panel.delete()" class="modal-action modal-close waves-effect waves-green btn">{{'yes_delete_user'|translate}}!</a>
   	<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="panel.delete()" class="modal-action modal-close waves-effect waves-green btn-flat">{{'yes_delete_user'|translate}}!</a>
   </div>
 </div>
 

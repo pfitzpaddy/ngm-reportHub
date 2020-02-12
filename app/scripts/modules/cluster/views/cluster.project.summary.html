@@ -13,60 +13,60 @@
 </style>
 <!-- complete modal -->
 <div id="complete-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>{{'mark_project_as_complete' | translate}}</h4>
+  <div class="modal-content dialog">
+    <h4 class="header-modal blue"><i class="material-icons left small">info_outline</i>{{'mark_project_as_complete' | translate}}</h4>
     <p>{{'are_you_sure_you_want_to_mark_this_project_as_complete' | translate}}?</p>
   </div>
   <div class="modal-footer">
+	  <a ng-click="panel.markComplete( panel.project )" class=" modal-action modal-close waves-effect waves-green btn">{{'yes_project_complete' | translate}}!</a>
   	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="panel.markComplete( panel.project )" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes_project_complete' | translate}}!</a>
   </div>
 </div>
 
 <!-- complete modal -->
 <div id="delete-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #E57373; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>{{'delete_project' | translate}}</h4>
+  <div class="modal-content dialog">
+    <h4 class="header-modal red lighten-2"><i class="material-icons left small">info_outline</i>{{'delete_project' | translate}}</h4>
     <p>{{'are_you_sure_you_want_to_delete_this_project_and_all_its_associated_data' |translate}}?</p>
   </div>
   <div class="modal-footer">
+	  <a ng-click="panel.deleteProject( panel.project )" class=" modal-action modal-close waves-effect waves-red btn">{{'yes_delete_project' | translate}}!</a>
   	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="panel.deleteProject( panel.project )" class=" modal-action modal-close waves-effect waves-red btn-flat">{{'yes_delete_project' | translate}}!</a>
   </div>
 </div>
 
 
 <!-- active modal -->
 <div id="active-modal" class="modal">
-  <div class="modal-content">
-    <h4 style="color: #2196F3; font-weight:100; padding-bottom: 10px;"><i class="material-icons left">info_outline</i>{{'mark_project_as_active' | translate}}</h4>
+  <div class="modal-content dialog">
+    <h4 class="header-modal blue"><i class="material-icons left small">info_outline</i>{{'mark_project_as_active' | translate}}</h4>
     <p>{{'are_you_sure_you_want_to_move_this_project_to_active' | translate}}?</p>
   </div>
   <div class="modal-footer">
+	  <a ng-click="panel.markActive( panel.project )" class=" modal-action modal-close waves-effect waves-green btn">{{'yes_move_project_to_active' | translate}}!</a>
   	<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-    <a ng-click="panel.markActive( panel.project )" class=" modal-action modal-close waves-effect waves-green btn-flat">{{'yes_move_project_to_active' | translate}}!</a>
   </div>
 </div>
 <div id="plan-modal" class="modal">
-	<div class="modal-content">
-		<h4 style="color: #ff9800; font-weight:100; padding-bottom: 10px;">
-			<i class="material-icons left">info_outline</i>Mark Project as Plan</h4>
+	<div class="modal-content dialog">
+		<h4 class="header-modal orange">
+			<i class="material-icons left small">info_outline</i>Mark Project as Plan</h4>
 		<p> Are you seure want to move this project to Plan?</p>
 	</div>
 	<div class="modal-footer">
+		<a ng-click="panel.markPlan( panel.project )" class=" modal-action modal-close waves-effect waves-green btn">Yes, Move Project to Plan!</a>
 		<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-		<a ng-click="panel.markPlan( panel.project )" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, Move Project to Plan!</a>
 	</div>
 </div>
 <div id="not-implemented-modal" class="modal">
-	<div class="modal-content">
-		<h4 style="color: #9e9e9e ; font-weight:100; padding-bottom: 10px;">
-			<i class="material-icons left">info_outline</i>Mark Project as Not Implemented</h4>
+	<div class="modal-content dialog">
+		<h4 class="header-modal grey">
+			<i class="material-icons left small">info_outline</i>Mark Project as Not Implemented</h4>
 		<p>Are you seure want to move this project to Not Implemented?</p>
 	</div>
 	<div class="modal-footer">
+		<a ng-click="panel.markNotImplemented( panel.project )" class=" modal-action modal-close waves-effect waves-green btn">Yes, Move Project to Not Implemented!</a>
 		<a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-		<a ng-click="panel.markNotImplemented( panel.project )" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes, Move Project to Not Implemented!</a>
 	</div>
 </div>
 	<!-- panels -->
