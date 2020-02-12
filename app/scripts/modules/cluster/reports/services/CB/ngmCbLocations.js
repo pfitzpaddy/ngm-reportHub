@@ -69,7 +69,7 @@ angular.module( 'ngmReportHub' )
 					'refugee_block':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp' },
 					// fss
 					'retail_store':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp' },
-					'food_distribution_point':{ 'reporter':1, 'food_distribution_point':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp' },
+					'food_distribution_point':{ 'reporter':1, 'food_distribution_point':1, 'admin3type_name': 'Camp' },
 					'nutrition_center':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp'  },
 					'plantation':{ 'reporter':1, 'admin1':1, 'admin2':1, 'admin3':1, 'admin3type_name': 'Camp' },
 					// schools
@@ -196,11 +196,13 @@ angular.module( 'ngmReportHub' )
 							site_type_name: selected[0].site_type_name
 						}
 
-						// reset locations
-						target_location = ngmCbLocations.resetLocations( project, 'site_type_id', target_location );
-
-						// merge object
-						target_location = angular.merge( target_location, tl );
+						// not for gfd
+						if ( target_location.site_type_id !== 'food_distribution_point' ) {
+							// reset locations
+							target_location = ngmCbLocations.resetLocations( project, 'site_type_id', target_location );
+							// merge object
+							target_location = angular.merge( target_location, tl );
+						}
 
 						// ? Set in setLocationsInputs【ツ】
 						// add filters
@@ -221,6 +223,8 @@ angular.module( 'ngmReportHub' )
 
 				// if site_id
 				if( target_location[ key ] ) {
+					
+					// search
 					var obj = {}
 					obj[ key ] = target_location[ key ];
 					var selected = $filter('filter')( list, obj, true );
@@ -230,20 +234,47 @@ angular.module( 'ngmReportHub' )
 						
 						// remove list id
 						delete selected[0].id;
-						
+
 						// reset locations
 						target_location = ngmCbLocations.resetLocations( project, key, target_location );
-
+						
 						// merge object
 						target_location = angular.merge( target_location, selected[0] );
+						
+						// not gfd
+						if ( target_location.site_type_id !== 'food_distribution_point' ) {
 
-						// siteSite
-						target_location = ngmCbLocations.setSite( key, target_location );
+							// siteSite
+							target_location = ngmCbLocations.setSite( key, target_location );
+							
+							// add filters 
+							ngmCbLocations.filterLocations( project, $index, target_location );
 
-						// add filters 
-						ngmCbLocations.filterLocations( project, $index, target_location );
+						}
+
+						// 'food_distribution_point'
+						if ( target_location.site_type_id === 'food_distribution_point' ) {
+							
+							// site
+							var site = {
+								site_id: target_location.site_id,
+								site_name: target_location.site_name,
+								site_class: target_location.site_class,
+								site_type_id: target_location.site_type_id,
+								site_type_name: target_location.site_type_name,
+								site_lng: target_location.site_lng,
+								site_lat: target_location.site_lat,
+							}
+
+							// merge target_location, admin3, food_distribution_point site details
+							target_location = angular.merge( target_location, selected[0], site );
+
+							console.log( target_location.admin3pcode );
+
+						}
 
 					}
+
 				}
 
 				// add location groups
@@ -299,10 +330,12 @@ angular.module( 'ngmReportHub' )
 					delete target_location.admin4lat;
 
 					// site
-					delete target_location.site_id;
-					delete target_location.site_name;
-					delete target_location.site_lng;
-					delete target_location.site_lat;
+					if ( target_location.site_type_id !== 'food_distribution_point' ) {
+						delete target_location.site_id;
+						delete target_location.site_name;
+						delete target_location.site_lng;
+						delete target_location.site_lat;
+					}
 				}
 				
 				return target_location;

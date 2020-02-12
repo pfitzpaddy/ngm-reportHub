@@ -209,10 +209,11 @@
 
 							</div>
 
+							
 							<!-- FOOD DISTRIBUTION -->
 							<div class="row" ng-if="location.site_type_id && ngmCbLocations.form[ $index ][ 'food_distribution_point' ]">
 
-								<!-- site_name -->
+								<!-- food_distribution_point -->
 								<div class="input-field col s12">
 									<select materialize-select id="ngm-site_id-{{ $index }}"
 														name="ngm-site_id-{{ $index }}"
@@ -224,10 +225,25 @@
 														required>
 										<option value="">{{ 'select' | translate }}</option>
 									</select>
-									<label for="ngm-site_id-{{ $index }}" class="active" style="transform:translateY(-10%)">Point Name</label>
+									<label for="ngm-site_id-{{ $index }}" class="active" style="transform:translateY(-10%)">Distribution Point Name</label>
 								</div>
 
-							</div>							
+								<!-- site_name -->
+								<div class="input-field col s12">
+									<select materialize-select watch id="ngm-admin3-{{ $index }}"
+														name="ngm-admin3-{{ $index }}"
+														class="validate"
+														ng-model="location.admin3pcode"
+														ng-options="item.admin3pcode as item.admin3name for item in ngmCbLocations.admin3_filter[ $index ] | filter:{ admin3type_name: ngmCbLocations.form[ $index ].admin3type_name }"
+														ng-change="ngmCbLocations.updateLocation( project, $index, project.lists.admin3, 'admin3pcode', location );"
+														ng-disabled="project.definition.project_status === 'complete'"
+														required>
+										<option value="">{{ 'select' | translate }}</option>
+									</select>
+									<label for="ngm-admin3-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ ngmCbLocations.form[ $index ].admin3type_name ? ngmCbLocations.form[ $index ].admin3type_name : location.admin3type_name }}</label>
+								</div>
+
+							</div>
 
 							<!-- ADMIN 1,2 -->
 							<div class="row" ng-if="location.site_type_id && 
@@ -367,7 +383,7 @@
 									<label for="ngm-admin3-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ ngmCbLocations.form[ $index ].admin3type_name ? ngmCbLocations.form[ $index ].admin3type_name : location.admin3type_name }}</label>
 								</div>
 
-							</div>
+							</div>						
 
 							<!-- !food_distribution_point -->
 							<div ng-if="!ngmCbLocations.form[ $index ][ 'food_distribution_point' ]">
