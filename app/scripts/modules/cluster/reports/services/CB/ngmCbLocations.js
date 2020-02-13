@@ -427,9 +427,11 @@ angular.module( 'ngmReportHub' )
 					// admin1
 					if ( admin3.length ) {
 						// run filter admin3
-						ngmCbLocations.admin3_filter[ $index ] = project.lists.admin3.filter(function( i ) {
-							return admin3.indexOf( i.admin3pcode ) !== -1;
-						});
+						if ( target_location.site_type_id !== 'food_distribution_point' ) {
+							ngmCbLocations.admin3_filter[ $index ] = project.lists.admin3.filter(function( i ) {
+								return admin3.indexOf( i.admin3pcode ) !== -1;
+							});
+						}
 					}
 				}
 
@@ -440,9 +442,11 @@ angular.module( 'ngmReportHub' )
 						return i.admin1pcode === target_location.admin1pcode;
 					});
 					// run filter admin3
-					ngmCbLocations.admin3_filter[ $index ] = ngmCbLocations.admin3_filter[ $index ].filter(function( i ) {
-						return i.admin1pcode === target_location.admin1pcode;
-					});
+					if ( target_location.site_type_id !== 'food_distribution_point' ) {
+						ngmCbLocations.admin3_filter[ $index ] = ngmCbLocations.admin3_filter[ $index ].filter(function( i ) {
+							return i.admin1pcode === target_location.admin1pcode;
+						});
+					}
 					// run filter adminsites
 					ngmCbLocations.adminSites_filter[ $index ] = ngmCbLocations.adminSites_filter[ $index ].filter(function( i ) {
 						return i.admin1pcode === target_location.admin1pcode;
@@ -452,9 +456,11 @@ angular.module( 'ngmReportHub' )
 				// admin2pcode
 				if ( target_location.admin2pcode ) {
 					// run filter admin3
-					ngmCbLocations.admin3_filter[ $index ] = ngmCbLocations.admin3_filter[ $index ].filter(function( i ) {
-						return i.admin2pcode === target_location.admin2pcode;
-					});
+					if ( target_location.site_type_id !== 'food_distribution_point' ) {
+						ngmCbLocations.admin3_filter[ $index ] = ngmCbLocations.admin3_filter[ $index ].filter(function( i ) {
+							return i.admin2pcode === target_location.admin2pcode;
+						});
+					}
 					// run filter adminsites
 					ngmCbLocations.adminSites_filter[ $index ] = ngmCbLocations.adminSites_filter[ $index ].filter(function( i ) {
 						return i.admin2pcode === target_location.admin2pcode;
