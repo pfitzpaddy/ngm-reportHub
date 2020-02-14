@@ -147,6 +147,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					$scope.project.setLocationsLimit( $scope.project.lists, $scope.project.report.locations );
 					// set beneficiaries form
 					ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
+
+					
 					// documents upload
 					$scope.project.setTokenUpload();
 					// for minimize-maximize beneficiary form
@@ -972,6 +974,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			$scope.$on('refresh:listUpload', function () {
 				$scope.project.getDocument();
 			})
+			
 	}
 
 ]);

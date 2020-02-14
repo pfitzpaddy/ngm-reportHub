@@ -351,6 +351,14 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					} else {
 						$scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'HRP', 'OTH' );
 						$scope.project.definition.project_hrp_code = $scope.project.definition.project_hrp_code.replace( 'JRP', 'OTH' );
+						if ($scope.project.definition.target_beneficiaries.length>0 && $scope.project.definition.admin0pcode === 'AF'){
+							angular.forEach($scope.project.definition.target_beneficiaries,function(b){
+								if (b.hrp_beneficiary_type_id) {
+									b.hrp_beneficiary_type_id='';
+									b.hrp_beneficiary_type_name='';
+								}
+							})
+						}
 					}
 				},
 

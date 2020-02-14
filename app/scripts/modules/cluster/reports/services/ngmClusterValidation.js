@@ -419,6 +419,16 @@ angular.module( 'ngmReportHub' )
 				console.log( 'complete06' );
 				console.log( complete );
 				
+				if (ngmClusterBeneficiaries.form[i][j].hasOwnProperty('hrp_beneficiary_type_id')){
+					// if (!b.hrp_beneficiary_type_id){
+					// 	id = "label[for='" + 'ngm-hrp_beneficiary_type_id-' + i + '-' + j + "']";
+					// 	$(id).addClass('error');
+					// 	validation.divs.push(id);
+					// 	complete = false;
+					// }
+					// console.log('complete06(HRP)');
+					// console.log(complete);
+				}
 				// CATEGORY
 				if (ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['beneficiary_category_type_id']){
 					if (!b.beneficiary_category_id){

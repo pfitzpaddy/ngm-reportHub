@@ -445,6 +445,14 @@ angular.module( 'ngmReportHub' )
           angular.forEach( report.locations[i].beneficiaries, function( beneficiary, j ){
             // report_status
             beneficiary.report_status = report.report_status;
+             !beneficiary.hrp_beneficiary_type_id
+            if (!project.project_hrp_project){
+              if(beneficiary.hrp_beneficiary_type_id){
+                delete beneficiary.hrp_beneficiary_type_id;
+                beneficiary.hrp_beneficiary_type_id = '';
+                beneficiary.hrp_beneficiary_type_name ='';
+              }
+            }
           });
 
         });
