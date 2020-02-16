@@ -373,6 +373,7 @@ angular.module( 'ngmReportHub' )
 					ngmClusterDetails.setList( ngmClusterBeneficiaries.form[ $parent ][ $index ].details, $parent, $index, 0, '', [{}] );
 				}
 
+
 				// clear cash / package / units
 				// angular.forEach( defaults.cash_package_units, function ( i, key ) {
 				// 	if ( !ngmClusterBeneficiaries.form[ $parent ][ $index ][ key ] && key.indexOf( '_name' ) === -1 ) {
@@ -668,6 +669,15 @@ angular.module( 'ngmReportHub' )
 							} else {
 								// if project form
 								disabled = false;
+							}
+
+							if (project.project_hrp_project){
+								// if (!$data.hrp_beneficiary_type_id){
+								// 	disabled = true
+								// }else{
+								// 	disabled = false;
+								// }
+								
 							}
 						}
 
