@@ -382,19 +382,8 @@ angular.module( 'ngmReportHub' )
 				}
 				console.log( 'complete03' );
 				console.log( complete );
-				
-				// FATP SAME PROVINCE
-				if ( b.activity_description_id && ( 
-							b.activity_description_id === 'fatp_stabilization_referrals_conflict' ||
-							b.activity_description_id === 'fatp_stabilization_referrals_civilian' )){
-					if(!b.injury_treatment_same_province){
-						id = "label[for='" + 'ngm-injury_treatment_same_province-' + i + '-' + j + "']";
-						$(id).addClass('error');
-						validation.divs.push(id);
-						complete = false;
-					}
-				}
-				console.log( 'complete04' );
+
+				console.log( 'complete04_skip' );
 				console.log( complete );
 
 				// INDICATOR
