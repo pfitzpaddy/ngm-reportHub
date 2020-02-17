@@ -316,12 +316,12 @@
 								</div>
 
 								<!-- cash -->
-								<!-- <div class="row" ng-if="project.definition.cluster_id === 'cvwg'">
+								<div class="row" ng-if="project.definition.cluster_id === 'cvwg' && project.definition.admin0pcode !== 'AF'">
 
 									<div class="input-field col s12" style="padding-bottom:5px;" ng-style="($root.rtl) && {'padding-right':'25px'}">
 										
 										<label>{{'cash_intented_for_even_if_unrestricted' | translate}}?</label>
-										<div style="padding-bottom:50px;"></div> -->
+										<div style="padding-bottom:50px;"></div>
 
 									    <!-- <p ng-repeat="a in project.lists.mpc_purpose"> -->
 									      <!-- <input type="checkbox" class="filled-in" id="activity_{{ a.mpc_purpose_type_id }}" 
@@ -329,7 +329,7 @@
 									      ng-click="project.compileMpcPurpose()"
 									      ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
 										  <label class="checkbox-label" for="activity_{{ a.mpc_purpose_type_id }}">{{ a.mpc_purpose_type_name }}</label> -->
-										  <!-- <label class="checkbox-label" for="activity_{{ a.mpc_purpose_type_id }}">
+										  <label class="checkbox-label" for="activity_{{ a.mpc_purpose_type_id }}">
 												<input type="checkbox" class="filled-in" id="activity_{{ a.mpc_purpose_type_id }}"
 													ng-model="project.definition.mpc_purpose_check[ a.mpc_purpose_type_id ]"
 													ng-click="project.compileMpcPurpose()"
@@ -340,7 +340,7 @@
 
 									</div>
 
-								</div> -->
+								</div>
 
 								<!-- project donor -->
 								<div class="row" ng-if="project.definition.admin0pcode !== 'COL'" id="ngm-project_donor_select" >

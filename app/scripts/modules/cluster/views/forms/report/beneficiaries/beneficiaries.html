@@ -109,10 +109,10 @@
 				<div class="row" ng-style="($root.rtl) && { 'padding':'5px 21px 20px 0px' } || { 'padding':'5px 0px 20px 21px' }">
 					<p><i class="material-icons left" style="color: #e57373">info</i></p>
 					<p style="color: #e57373">
-						<span style="font-weight:400">{{'amount'|translate}}:</span> {{'please_enter_the_amount_per' | translate}} <span style="font-weight:400">{{'household_hh' | translate}}</span> per <span style="font-weight:400">{{'transfer' | translate}}</span>
+						<span style="font-weight:400">{{'transfer_amount_value'|translate}}:</span> {{'please_enter_the_amount_per' | translate}} <span style="font-weight:400">{{'household_hh' | translate}}</span> per <span style="font-weight:400">{{'transfer' | translate}}</span>
 					</p>
 					<p style="color: #e57373">
-						<span style="font-weight:400">{{'transfers'|translate}}:</span> {{'please_enter_the' |translate}} <span style="font-weight:400">TOTAL</span> {{'number_of_planned_transfer_for_the'|translate}} <span style="font-weight:400">{{'entire' | translate}}</span> {{'project' | translate}}
+						<span style="font-weight:400">{{'number_of_transfers'|translate}}:</span> {{'please_enter_the' |translate}} <span style="font-weight:400">TOTAL</span> {{'number_of_planned_transfer_for_the'|translate}} <span style="font-weight:400">{{'entire' | translate}}</span> {{'project' | translate}}
 					</p>
 				</div>
 			</div>
@@ -728,7 +728,7 @@
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.beneficiary_type_id">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
+							<label for="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'implementation_modality' | translate }}</label>
 						</div>
 
 						<!-- mpc_mechanism_type_id -->
@@ -743,7 +743,7 @@
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id || !filtered.length">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
+							<label for="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'transfer_mechanism' | translate }}</label>
 						</div>
 
 					</div>
@@ -767,7 +767,7 @@
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.beneficiary_type_id">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
+							<label for="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'implementation_modality' | translate }}</label>
 						</div>
 
 						<!-- mpc_mechanism_type_id -->
@@ -782,7 +782,7 @@
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id || !filtered.length">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'mechanism' | translate }}</label>
+							<label for="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'transfer_mechanism' | translate }}</label>
 						</div>
 
 						<!-- package_type_id -->
@@ -823,7 +823,7 @@
 												ng-disabled="project.definition.project_status === 'complete' || !beneficiary.beneficiary_type_id">
 								<option value="">{{ 'select' | translate }}</option>
 							</select>
-							<label for="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'delivery' | translate }}</label>
+							<label for="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active" style="transform:translateY(-10%)">{{ 'implementation_modality' | translate }}</label>
 						</div>
 					</div>
 

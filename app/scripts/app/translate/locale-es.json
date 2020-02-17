@@ -500,6 +500,8 @@
         "details":"Detalles",
         "delivery":"Modalidad de Transferencia",
         "mechanism":"Mecanismo de Entrega",
+        "implementation_modality": "Modalidad de implementación",
+        "transfer_mechanism": "Mecanismo de transferencia",
         "package":"Paquete",
         "category":"Categoría",
         "beneficiary":"Población",
@@ -507,6 +509,7 @@
         "population":"Población",
         "amount":"Cantidad",
         "amount_col":"Monto",
+        "transfer_amount_value": "Valor de transferencia / cantidad",
         "units":"Unidades",
         "quantity":"Cantidad",
         "households":"Hogares",
@@ -517,6 +520,7 @@
 
 
         "transfers":"Transferencias",
+        "number_of_transfers": "Numero de transferencias",
         "transfer":"Transferencia",
 
         "families":"Familias",
