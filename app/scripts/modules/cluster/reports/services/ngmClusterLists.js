@@ -7186,60 +7186,29 @@ angular.module( 'ngmReportHub' )
               // CASH
 
               cluster_id: [ 'cvwg' ],
-              beneficiary_type_id: 'idp_conflict',
-              beneficiary_type_name: 'Conflict IDPs'
+              beneficiary_type_id: 'new_idps_conflict_natural_disaster',
+							beneficiary_type_name: 'New IDPs (Conflict + Natural Disaster)',
+							year: 2020
             },{
               cluster_id: [ 'cvwg' ],
-              beneficiary_type_id: 'conflict_affected_non_displaced',
-              beneficiary_type_name: 'Conflict Affected Non Displaced'
+              beneficiary_type_id: 'newly_shock_affected_humanitarian_needs',
+              beneficiary_type_name: 'Newly Shock-Affected People with Humanitarian Needs',
+							year: 2020
             },{
               cluster_id: [ 'cvwg' ],
-              beneficiary_type_id: 'natural_disaster_affected',
-              beneficiary_type_name: 'Natural Disaster Affected'
+              beneficiary_type_id: 'new_cross_border_returnees_humanitarian_needs',
+              beneficiary_type_name: 'New Cross-Border Returnees with Humanitarian Needs',
+							year: 2020
             },{
               cluster_id: [ 'cvwg' ],
-              beneficiary_type_id: 'returnee_undocumented_border',
-              beneficiary_type_name: 'Undoc. returnee (border)'
+              beneficiary_type_id: 'refugees',
+              beneficiary_type_name: 'Refugees',
+							year: 2020
             },{
               cluster_id: [ 'cvwg' ],
-              beneficiary_type_id: 'returnee_undocumented_settlement',
-              beneficiary_type_name: 'Undoc. returnee (settlement)'
-            },{
-              cluster_id: [ 'cvwg' ],
-              beneficiary_type_id: 'returnee_documented_encashment_center',
-              beneficiary_type_name: 'Refugee returnee (documented) - encashment center'
-            },{
-              cluster_id: [ 'cvwg' ],
-              beneficiary_type_id: 'returnee_documented_settlement',
-              beneficiary_type_name: 'Refugee returnee (documented) - settlement'
-            },{
-              cluster_id: [ 'cvwg' ],
-              beneficiary_type_id: 'host_communities',
-              beneficiary_type_name: 'Host Communities'
-            },{
-              cluster_id: [ 'cvwg' ],
-              beneficiary_type_id: 'idp_protracted',
-              beneficiary_type_name: 'Protracted IDPs'
-            },{
-              cluster_id: [ 'cvwg' ],
-              beneficiary_type_id: 'refugee_pakistani',
-              beneficiary_type_name: 'Pakistani Refugees'
-            },{
-              cluster_id: [ 'cvwg' ],
-              beneficiary_type_id: 'flood_affected_non_displaced_response',
-              beneficiary_type_name: 'Flood Affected Non Displaced ( Response )'
-            },{
-              cluster_id: [ 'cvwg' ],
-              beneficiary_type_id: 'flood_affected_displaced_response',
-              beneficiary_type_name: 'Flood Affected Displaced ( Response )'
-            },{
-              cluster_id: [ 'cvwg' ],
-              beneficiary_type_id: 'drought_affected_non_displaced',
-              beneficiary_type_name: 'Drought Affected Non Displaced'
-            },{
-              cluster_id: [ 'cvwg' ],
-              beneficiary_type_id: 'drought_affected_displaced',
-              beneficiary_type_name: 'Drought Affected Displaced'
+              beneficiary_type_id: 'acutely_vulnerable_humanitarian needs',
+              beneficiary_type_name: 'Acutely Vulnerable People with Humanitarian Needs',
+							year: 2020
             },{
 
               // HEALTH
