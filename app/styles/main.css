@@ -233,6 +233,11 @@ table, tbody, td {
 	color: rgba(0,0,0,0.67);
 }
 
+/* COLLECTIN  */
+.collection .collection-item.avatar .title {
+	font-size: 18px;
+}
+
 /* CARD PROFILE */
 .card .card-profile {
 	position:relative;
