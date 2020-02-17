@@ -693,9 +693,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				},
 
 				// compile cluster activities
-				// compileMpcPurpose: function(){
-				// 	ngmClusterHelper.compileMpcPurpose( $scope.project.definition, $scope.project.lists );
-				// },
+				compileMpcPurpose: function(){
+					ngmClusterHelper.compileMpcPurpose( $scope.project.definition, $scope.project.lists );
+				},
 
 				// compile activity_type
 				compileActivityType: function(){
