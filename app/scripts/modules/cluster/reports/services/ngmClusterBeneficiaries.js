@@ -278,8 +278,10 @@ angular.module( 'ngmReportHub' )
 			// display full form
 			showFormInputs: function( beneficiary, form ) {
 				var display = false;
+
+				// kind of not sure whats going on here
 				if ( beneficiary.activity_description_id ) {
-					if( !form.display_activity_detail  ) {
+					if( !form.display_activity_detail ) {
 						display = true;
 					}
 					if( beneficiary.activity_detail_id && form.display_activity_detail  ) {
@@ -620,7 +622,7 @@ angular.module( 'ngmReportHub' )
 
 
 			/* VALIDATION */
-
+			
 			// ennsure all locations contain at least one complete beneficiaries
 			beneficiaryFormComplete: function( project, locations ) {
 				var beneficiaries = 0;

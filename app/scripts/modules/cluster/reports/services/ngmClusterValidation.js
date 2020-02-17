@@ -700,7 +700,7 @@ angular.module( 'ngmReportHub' )
 				if (ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['details'] ){
 					
 					// for each details
-					angular.forEach( b.details, function( d, k ){
+					angular.forEach( b.details, function( d, k ){ 
 
 						// quantity
 						if ( d.unit_type_quantity === null || d.unit_type_quantity === undefined || d.unit_type_quantity < 0 ){ 
@@ -710,12 +710,17 @@ angular.module( 'ngmReportHub' )
 							complete = false;
 						}
 
-						// detail
-						if ( !d.unit_type_id && !d.unit_type_name ){
+						// detail error
+						if ( !d.unit_type_id && !d.unit_type_name && ( d.details && d.details.length ) ) {
 							id = "label[for='" + 'ngm-beneficiary_detail-'+i+'-'+j+'-'+k+"']";
 							$(id).addClass('error');
 							validation.divs.push( id );
 							complete = false;
+						}
+
+						// remove empty detail
+						if ( !d.unit_type_id && !d.unit_type_name && !d.details ){
+							delete d.details;
 						}
 
 					});
