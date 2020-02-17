@@ -259,34 +259,34 @@ angular.module( 'ngmReportHub' )
       },
 
       // compile mpc cash purpose
-      compileMpcPurpose: function( project, lists ) {
+      // compileMpcPurpose: function( project, lists ) {
 
-        // db attributes
-        project.mpc_purpose = [];
-        project.mpc_purpose_cluster_id = '';
-        project.mpc_purpose_type_id = '';
-        project.mpc_purpose_type_name = '';
+      //   // db attributes
+      //   project.mpc_purpose = [];
+      //   project.mpc_purpose_cluster_id = '';
+      //   project.mpc_purpose_type_id = '';
+      //   project.mpc_purpose_type_name = '';
 
 
-        // mpc purpose
-        angular.forEach( project.mpc_purpose_check, function( t, key ){
-          if ( t ) {
-            var a_type = $filter( 'filter' )( lists.mpc_purpose, { mpc_purpose_type_id: key }, true)[0];
-            if ( a_type ) {
-              project.mpc_purpose.push( a_type );
-              project.mpc_purpose_cluster_id += a_type.cluster_id + ', ';
-              project.mpc_purpose_type_id += a_type.mpc_purpose_type_id + ', ';
-              project.mpc_purpose_type_name += a_type.mpc_purpose_type_name + ', ';
-            }
-          }
-        });
+      //   // mpc purpose
+      //   angular.forEach( project.mpc_purpose_check, function( t, key ){
+      //     if ( t ) {
+      //       var a_type = $filter( 'filter' )( lists.mpc_purpose, { mpc_purpose_type_id: key }, true)[0];
+      //       if ( a_type ) {
+      //         project.mpc_purpose.push( a_type );
+      //         project.mpc_purpose_cluster_id += a_type.cluster_id + ', ';
+      //         project.mpc_purpose_type_id += a_type.mpc_purpose_type_id + ', ';
+      //         project.mpc_purpose_type_name += a_type.mpc_purpose_type_name + ', ';
+      //       }
+      //     }
+      //   });
 
-        // trim last character of string
-        // refactor
-        project.mpc_purpose_cluster_id = project.mpc_purpose_cluster_id.slice( 0, -2 );
-        project.mpc_purpose_type_id = project.mpc_purpose_type_id.slice( 0, -2 );
-        project.mpc_purpose_type_name = project.mpc_purpose_type_name.slice( 0, -2 );
-      },
+      //   // trim last character of string
+      //   // refactor
+      //   project.mpc_purpose_cluster_id = project.mpc_purpose_cluster_id.slice( 0, -2 );
+      //   project.mpc_purpose_type_id = project.mpc_purpose_type_id.slice( 0, -2 );
+      //   project.mpc_purpose_type_name = project.mpc_purpose_type_name.slice( 0, -2 );
+      // },
 
       // compile activity_type
       compileActivityType: function( project, lists ){
