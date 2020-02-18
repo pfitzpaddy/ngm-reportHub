@@ -41,7 +41,7 @@
 				</span>
 			</div> -->
 			<div class="row">
-				<div class="col s12 m9 left-align" dir="ltr">
+				<div class="col s12 m12 left-align" dir="ltr">
 					<h5 class="report-beneficiary-title truncate" ng-if="!beneficiary.activity_type_id">
 						<i class="material-icons left">accessibility</i>Target {{ $beneficiaryIndex+1 }}
 					</h5>
@@ -55,14 +55,13 @@
 									{{ beneficiary.beneficiary_type_name }}
 								</h5> -->
 				</div>
+				<div style="font-size: 24px; font-weight: 400; color: #656565; padding-left: 20px;"
+							ng-style="($root.rtl) && { 'margin-left':'5%' } || { 'margin-right':'5%' }">
+					<i class="material-icons left">group</i>{{ beneficiary.total_beneficiaries ? beneficiary.total_beneficiaries : 0 | number }}
+				</div>
 
 			<!-- btns -->
-			<div class="col s12 m3 right-align" style="padding: 15px 10px 15px;">
-				<div style="display: inline-block; vertical-align: middle; font-size: 20px;font-weight: 300; color: #656565;"
-					ng-style="($root.rtl) && { 'margin-left':'5%' } || { 'margin-right':'5%' }">
-					<i
-						class="material-icons left">group</i>{{ beneficiary.total_beneficiaries ? beneficiary.total_beneficiaries : 0 | number }}
-				</div>
+			<div class="col s12 m12 right-align" style="margin-top: -90px">
 				<button class="btn-floating waves-effect waves-light"
 									title="Save"
 									ng-if="!project.newProject && detailBeneficiaries[$locationIndex][$beneficiaryIndex] && project.canEdit"
