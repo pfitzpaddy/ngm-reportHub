@@ -38,6 +38,10 @@
             <a ng-if="ngm.var4wplusrh === 'REPORTHUB'" href="tel:+93780763601">&lrm;+93-780-763-601</a>
 
             <a ng-if="ngm.var4wplusrh === '4wPlus'" href="tel:+571 6221100">+571 6221100 ext. 1304</a></p>
+          <p align="left" ng-if="ngm.getUser().admin0pcode === 'AF'">{{'contact'|translate}} {{ngm.var4wplusrh}} for Afghanistan:
+          </br>
+            <a ng-if="ngm.var4wplusrh === 'REPORTHUB' && ngm.getUser().admin0pcode === 'AF'" href="tel:+93799869533">&lrm;+93-799-869-533</a>
+          </p>
         </div>
         <div class="col l8 m8 hide-on-small-only"> 
           <div class="card center promo blue-grey darken-1">
