@@ -7041,8 +7041,8 @@ angular.module( 'ngmReportHub' )
               beneficiary_type_name: 'Conflict Affected Community'
             },{
               cluster_id: [ 'wash' ],
-              beneficiary_type_id: 'idp_natural_disaster_2020',
-							beneficiary_type_name: 'Natural Disaster IDPs (2020)',
+              beneficiary_type_id: 'idp_other_natural_disaster_2020',
+							beneficiary_type_name: 'Other Natural Disaster (Avalanche, Landslide, Earthquake, etc.) IDPs (2020)',
 							year: 2020
             },{
               cluster_id: [ 'wash' ],
