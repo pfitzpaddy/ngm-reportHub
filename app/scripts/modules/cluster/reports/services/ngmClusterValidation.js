@@ -297,7 +297,7 @@ angular.module( 'ngmReportHub' )
 
 			},
 			
-			validateBeneficiaries:function(location,detail){
+			validateBeneficiaries:function(location,detail,admin0pcode, hrp_project_status){
 				var elements = [];
 				var notDetailOpen =[];
 				beneficiaryRow=0;
@@ -305,7 +305,7 @@ angular.module( 'ngmReportHub' )
 				angular.forEach(location, function (l, i) {
 					angular.forEach(l.beneficiaries, function (b, j) {
 						beneficiaryRow ++;
-						result = ngmClusterValidation.validateBeneficiary(b,i,j,detail);
+						result = ngmClusterValidation.validateBeneficiary(b, i, j, detail, admin0pcode, hrp_project_status);
 						angular.merge(elements, result.divs);
 						
 						if (!result.open && result.count === 0){
@@ -327,7 +327,7 @@ angular.module( 'ngmReportHub' )
 						angular.forEach(notDetailOpen, function (indexbeneficiaries) {
 							x = indexbeneficiaries.locationIndex;
 							y = indexbeneficiaries.beneficiaryIndex;
-							resultRelabel = ngmClusterValidation.validateBeneficiary(location[x].beneficiaries[y], x, y, detail);
+							resultRelabel = ngmClusterValidation.validateBeneficiary(location[x].beneficiaries[y], x, y, detail, admin0pcode, hrp_project_status);
 						});
 
 						// Materialize.toast($filter('translate')('beneficiaries_contains_errors'), 4000, 'error');
@@ -347,7 +347,7 @@ angular.module( 'ngmReportHub' )
 				}
 			},
 
-			validateBeneficiary:function(b,i,j,d){
+			validateBeneficiary: function (b, i, j, d, admin0pcode, hrp_project_status){
 				// valid
 				var id;
 				var complete = true;
@@ -407,16 +407,17 @@ angular.module( 'ngmReportHub' )
 				}
 				console.log( 'complete06' );
 				console.log( complete );
-				
-				if (ngmClusterBeneficiaries.form[i][j].hasOwnProperty('hrp_beneficiary_type_id')){
-					// if (!b.hrp_beneficiary_type_id){
-					// 	id = "label[for='" + 'ngm-hrp_beneficiary_type_id-' + i + '-' + j + "']";
-					// 	$(id).addClass('error');
-					// 	validation.divs.push(id);
-					// 	complete = false;
-					// }
-					// console.log('complete06(HRP)');
-					// console.log(complete);
+				// remember to change this if in activities.csv  hrp_beneficiary_type_id set to 1 right now because not added it still like this
+				if (!ngmClusterBeneficiaries.form[i][j]['hrp_beneficiary_type_id'] && admin0pcode === 'AF' && hrp_project_status){
+					console.log(b.hrp_beneficiary_type_id)
+					if (!b.hrp_beneficiary_type_id){
+						id = "label[for='" + 'ngm-hrp_beneficiary_type_id-' + i + '-' + j + "']";
+						$(id).addClass('error');
+						validation.divs.push(id);
+						complete = false;
+					}
+					console.log('complete06(HRP)');
+					console.log(complete);
 				}
 				// CATEGORY
 				if (ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['beneficiary_category_type_id']){
