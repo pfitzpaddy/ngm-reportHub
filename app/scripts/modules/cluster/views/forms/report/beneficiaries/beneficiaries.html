@@ -336,7 +336,7 @@
 																																																			cluster_id: beneficiary.cluster_id
 																																																		} : true"
 								ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_description_id">
-								<option value="">{{ 'select' | translate }}</option>
+								<option value="" disabled>{{ 'select' | translate }}</option>
 							</select>
 							<label for="ngm-hrp_beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active"
 								style="transform:translateY(-10%)">HRP {{ 'beneficiary' | translate }}</label>
@@ -447,7 +447,7 @@
 																																																			cluster_id: beneficiary.cluster_id
 																																																		} : true"
 								ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_description_id">
-								<option value="">{{ 'select' | translate }}</option>
+								<option value="" disabled>{{ 'select' | translate }}</option>
 							</select>
 							<label for="ngm-hrp_beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active"
 								style="transform:translateY(-10%)">HRP {{ 'beneficiary' | translate }}</label>
@@ -621,7 +621,7 @@
 																																													cluster_id: beneficiary.cluster_id
 																																												} : true"
 								ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_description_id">
-								<option value="">{{ 'select' | translate }}</option>
+								<option value="" disabled>{{ 'select' | translate }}</option>
 							</select>
 							<label for="ngm-hrp_beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active"
 								style="transform:translateY(-10%)">HRP {{ 'beneficiary' | translate }}</label>
