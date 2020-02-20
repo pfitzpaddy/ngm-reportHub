@@ -334,6 +334,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				},
 
 				setBeneficiary: function( $parent, beneficiary ){
+					// set implementing if location has set implementing partner;
+					if($scope.project.report.locations[$parent].implementing_partners && $scope.project.report.locations[$parent].implementing_partners.length>0){
+						beneficiary.implementing_partners = $scope.project.report.locations[$parent].implementing_partners;
+					}
 					$scope.project.report.locations[ $parent ].beneficiaries.push( beneficiary );
 					// Open card panel detail beneficiaries form
 					$scope.detailBeneficiaries[$parent][$scope.project.report.locations[$parent].beneficiaries.length-1] = true;
