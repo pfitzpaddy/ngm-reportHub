@@ -13,6 +13,25 @@
 	.add-padding {
 		padding-bottom:30px;
 	}
+	
+	md-checkbox-enabled[selected] .md-icon {
+        background-color: rgb(38, 166, 154);
+
+    }
+
+    md-select .md-select-value {
+        border-bottom-color: rgba(0, 0, 0, 0.35);
+    }
+
+    md-select-menu md-content md-option[selected]:focus,
+    md-select-menu md-content md-option[selected] {
+        color: rgb(38, 166, 154);
+    }
+
+    md-select:not([disabled]):focus .md-select-value {
+        border-bottom-color: rgb(38, 166, 154);
+        color: rgba(0, 0, 0, 0.87);
+    }
 	</style>
 		<!-- beneficiaries -->
 		<div id="{{ $beneficiaryIndex=$index; id = 'ngm-' + $locationIndex + '-' + $index }}" ng-repeat="beneficiary in project.report.locations[ $locationIndex ].beneficiaries | filterBeneficiary:project.beneficiary_search track by $index" ng-class="{'add-padding': !detailBeneficiaries[$locationIndex][$beneficiaryIndex]}">
@@ -272,6 +291,20 @@
 					</div>
 
 
+
+					<div class="row" ng-if="(project.report.locations[ $locationIndex ].implementing_partners.length >0) && 
+						(project.definition.admin0pcode === 'AF')">
+					
+						<div class="input-field col s12">
+					
+							<md-select style="margin-top: 15px;" ng-model="beneficiary.implementing_partners" multiple
+								ng-model-options="{trackBy: '$value.organization'}" placeholder="{{'not_set'|translate}}">
+								<md-option ng-value="partner" ng-repeat="partner in project.report.locations[ $locationIndex ].implementing_partners">
+									{{ partner.organization }}</md-option>
+							</md-select>
+							<label class="active" style="transform:translateY(-100%)">Implementing Partners</label>
+						</div>
+					</div>
 
 					<!-- BENEFICIARIES -->
 

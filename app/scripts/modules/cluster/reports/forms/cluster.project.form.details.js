@@ -812,6 +812,22 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 				},
 
+				programmePartnersOrgStatus: function(){
+					if (!$scope.project.definition.programme_partners_checked){
+						// if supportive_org_checked false then remove all supportive organization
+						$scope.project.definition.programme_partners =[];
+					}
+				},
+				programmePartners:function(array){
+					angular.forEach(array,function(partner){
+						partner.adminRpcode = $scope.project.definition.adminRpcode;
+						partner.adminRname = $scope.project.definition.adminRname,
+						partner.admin0pcode=$scope.project.definition.admin0pcode;
+						partner.admin0name=$scope.project.definition.admin0name;
+						
+					})
+				},
+
 				/**** SAVE ****/
 				
 				// save project
@@ -890,6 +906,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					// inform
 					// Materialize.toast( $filter('translate')('processing'), 6000, 'note' );
 					M.toast({ html: $filter('translate')('processing'), displayLength: 6000, classes: 'note' });
+					
 
 					// details update
 					$http({
