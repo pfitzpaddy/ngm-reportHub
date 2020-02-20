@@ -8238,6 +8238,10 @@ angular.module( 'ngmReportHub' )
               cluster_id: ngmClusterLists.all_sectors,
               hrp_beneficiary_type_id: 'vulnerable_people_humanitarian_needs',
               hrp_beneficiary_type_name: 'Vulnerable people with humanitarian needs'
+            }, {
+              cluster_id: ngmClusterLists.all_sectors,
+              hrp_beneficiary_type_id: 'non_hrp',
+              hrp_beneficiary_type_name: 'Response activity outside of the HRP'
             }],
           2020:[{
             cluster_id: ngmClusterLists.all_sectors,
@@ -8267,7 +8271,11 @@ angular.module( 'ngmReportHub' )
             cluster_id: ngmClusterLists.all_sectors,
             hrp_beneficiary_type_id: 'vulnerable_people_humanitarian_needs',
             hrp_beneficiary_type_name: 'Vulnerable people with humanitarian needs'
-          }
+          },{
+              cluster_id: ngmClusterLists.all_sectors,
+              hrp_beneficiary_type_id: 'non_hrp',
+              hrp_beneficiary_type_name: 'Response activity outside of the HRP'
+            }
         ]};
         return beneficiaries[year] ? beneficiaries[year]: beneficiaries['all'];
       }

@@ -674,11 +674,11 @@ angular.module( 'ngmReportHub' )
 							}
 
 							if (project.project_hrp_project){
-								// if (!$data.hrp_beneficiary_type_id){
-								// 	disabled = true
-								// }else{
-								// 	disabled = false;
-								// }
+								if (!$data.hrp_beneficiary_type_id){
+									disabled = true
+								}else{
+									disabled = false;
+								}
 								
 							}
 						}
