@@ -125,41 +125,41 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 			 	searchods_objetivos_de_desarrollo_sostenible: null,
 
 
-				searchOrgPartner: null,
-				searchImplementingPartner: function (query) {
-					if ( !$scope.project.definition.implementing_partners ) {
-						$scope.project.definition.implementing_partners = [];
-					}
-					return $scope.project.lists.organizations.filter(function (el) {
-						return (el.organization_name.toLowerCase().indexOf(query.toLowerCase()) > -1 || 
-							el.organization.toLowerCase().indexOf(query.toLowerCase()) > -1);
-					});
-				},
+				// searchOrgPartner: null,
+				// searchImplementingPartner: function (query) {
+				// 	if ( !$scope.project.definition.implementing_partners ) {
+				// 		$scope.project.definition.implementing_partners = [];
+				// 	}
+				// 	return $scope.project.lists.organizations.filter(function (el) {
+				// 		return (el.organization_name.toLowerCase().indexOf(query.toLowerCase()) > -1 || 
+				// 			el.organization.toLowerCase().indexOf(query.toLowerCase()) > -1);
+				// 	});
+				// },
 
-				addNewImplementingPartner: function( chip ){
-					chip.organization_id = chip.id;
-					delete chip.id;
-					if ( $scope.project.definition.target_locations.length > 0 ){
-						$scope.project.definition.target_locations.forEach( function ( el ) {
-							if ( !el.implementing_partners) {
-								el.implementing_partners = [];
-							}
-							el.implementing_partners.push( chip );
-						});
-					}
-				},
-				removeImplementingPartner: function( chip ){
-					if ( $scope.project.definition.target_locations.length > 0 ){
-						$scope.project.definition.target_locations.forEach( function ( el, index ) {
-							if( el.implementing_partners.length ) {
-								el.implementing_partners.splice( index, 1 );
-							}
-							if ( el.implementing_partners.length === 0 ) {
-								delete el.implementing_partners;
-							}
-						});
-					}
-				},
+				// addNewImplementingPartner: function( chip ){
+				// 	chip.organization_id = chip.id;
+				// 	delete chip.id;
+				// 	if ( $scope.project.definition.target_locations.length > 0 ){
+				// 		$scope.project.definition.target_locations.forEach( function ( el ) {
+				// 			if ( !el.implementing_partners) {
+				// 				el.implementing_partners = [];
+				// 			}
+				// 			el.implementing_partners.push( chip );
+				// 		});
+				// 	}
+				// },
+				// removeImplementingPartner: function( chip ){
+				// 	if ( $scope.project.definition.target_locations.length > 0 ){
+				// 		$scope.project.definition.target_locations.forEach( function ( el, index ) {
+				// 			if( el.implementing_partners.length ) {
+				// 				el.implementing_partners.splice( index, 1 );
+				// 			}
+				// 			if ( el.implementing_partners.length === 0 ) {
+				// 				delete el.implementing_partners;
+				// 			}
+				// 		});
+				// 	}
+				// },
 
 				// cluster
 				displayIndicatorCluster: {
