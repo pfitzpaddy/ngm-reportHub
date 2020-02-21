@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "angular-mocks": "1.4.8",
-    "materialize": "0.97.7"
+    "materialize": "1.0.0"
   },
   "appPath": "app",
   "moduleName": "ngmReportHub",
