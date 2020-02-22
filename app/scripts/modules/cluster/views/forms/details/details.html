@@ -445,26 +445,26 @@
 							</div>
 
 							<!-- other partners -->
-							<div class="row" >
+							<!-- <div class="row" >
 								
 				        <div class="input-field col s12 m6" style="padding-bottom:35px;" ng-style="($root.rtl) && {'padding-right':'25px'}">
 				        	<label>{{'project_partners' | translate}}?</label>
 				        	<br/>
-				        	<p style="padding-top:25px;">
+				        	<p style="padding-top:25px;"> -->
 					        	<!-- <input type="checkbox" class="filled-in" id="ngm-project-other_partbers"
 					        		ng-model="project.definition.implementing_partners_checked"
 					        		ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
 							  <label class="checkbox-label" for="ngm-project-other_partbers">{{'other_implementing_partners' | translate}}?</label> -->
-								<label class="checkbox-label" for="ngm-project-other_partbers">
+								<!-- <label class="checkbox-label" for="ngm-project-other_partbers">
 									<input type="checkbox" class="filled-in" id="ngm-project-other_partbers"
 										ng-model="project.definition.implementing_partners_checked"
 										ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
 									<span style="left: .75rem;">{{'program_partners' | translate}}</span>
-								</label>
-					        </p>
-				        </div>
+								</label> -->
+					        <!-- </p>
+				        </div> -->
 
-	              <div ng-show="project.definition.implementing_partners_checked" style="padding-bottom:40px;">
+	              <!-- <div ng-show="project.definition.implementing_partners_checked" style="padding-bottom:40px;">
 									<div class="input-field col s12 m6" ng-class="{ 'has-error' : healthProjectForm.implementing_partners_list.$error.pattern }"
 									 ng-show="project.definition.implementing_partners_checked">
 										<label for="ngm-project-implementing_partners">{{'list_implementing_partners' | translate}}</label>
@@ -495,9 +495,37 @@
 											</md-chip-template>
 										</md-chips>
 									</div>
-					     	</div>
+					     	</div> 
 
-					    </div>
+						</div>-->
+						
+						<!-- Other Partner -->
+						<div class="row">
+							<div class="input-field col s12 m6" style="padding-bottom:35px;" ng-style="($root.rtl) && {'padding-right':'25px'}">
+								<label>{{'project_partners' | translate}}?</label>
+								<br />
+								<p style="padding-top:25px;">
+									<label class="checkbox-label" for="ngm-project-other_partbers2">
+										<input type="checkbox" class="filled-in" id="ngm-project-other_partbers2"
+											ng-model="project.definition.implementing_partners_checked"
+											ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+										<span style="left: .75rem;">{{'program_partners' | translate}}</span>
+									</label>
+								</p>
+							</div>
+							<div ng-show="project.definition.implementing_partners_checked">
+								<div class="input-field col s12 m6" style="margin-top:65px;">
+						
+									<md-select style="margin-top: 15px;" ng-model="project.definition.implementing_partners"
+										multiple
+										ng-model-options="{trackBy: '$value.organization'}" placeholder="{{'not_set'|translate}}">
+										<md-option ng-value="partner" ng-repeat="partner in project.lists.organizations">
+											{{ partner.organization }}</md-option>
+									</md-select>
+									<label class="active" style="transform:translateY(-50%)" for="ngm-project-implementing_partners">{{'list_implementing_partners' | translate}}</label>
+								</div>
+							</div>
+						</div>
 
 						<!-- Programme Partners/ Supporting Organizations -->
 						<div class="row">
@@ -513,7 +541,7 @@
 								</p>
 							</div>
 							<div ng-show="project.definition.programme_partners_checked">
-								<div class="input-field col s6" style="margin-top:10px;">
+								<div class="input-field col s12 m6" style="margin-top:40px;">
 						
 									<md-select style="margin-top: 15px;" ng-model="project.definition.programme_partners" ng-change="project.programmePartners(project.definition.programme_partners)" multiple
 										ng-model-options="{trackBy: '$value.organization'}" placeholder="{{'not_set'|translate}}">
