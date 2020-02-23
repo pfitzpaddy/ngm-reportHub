@@ -774,53 +774,54 @@ angular.module( 'ngmReportHub' )
 
 						}
 
-						// if other orgs
-						if ( $scope.report.organization_tag !== 'wfp' && $scope.report.organization_tag !== 'immap' ){
-								
-							// upload
-							$scope.model.rows.push({
+					}
 
-								// drag n' drop process
-								columns: [{
-									styleClass: 's12 m12 l12',
-									widgets: [{
-										type: 'dropzone',
-										style: 'padding: 0px;',
-										card: 'white grey-text text-darken-2',
-										config: {
-											parallelUploads: 1,
-											cardTitle: $scope.report.organization_tag.toUpperCase() + ' Planned Beneficiaries',
-											header: 'collection-header blue',
-											dictMsg: '<div style="font-weight:400;font-size:1.2rem;">Round ' + $scope.report.report_round + ', Distribution ' + $scope.report.report_distribution + '<br/>Drag & Drop Planned Beneficiaries</div>',
-											minimize: {
-												open: !data.length,
-												toggle: true,
-												disabled: !data.length
-											},
-											url: ngmAuth.LOCATION + '/api/upload-file',
-											acceptedFiles: '.xlsx',
-											headers: { 'Authorization': 'Bearer ' + ngmUser.get().token },
-											successMessage: false,
-											process: {
-												redirect: 'bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/all/all/all/all',
-												requests: [{
-													method: 'POST',
-													url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/processPlannedBeneficiaries',
-													data: {
-														admin0pcode: $scope.report.user.admin0pcode,
-														organization_tag: $scope.report.organization_tag,
-														report_round: $scope.report.report_round,
-														report_distribution: $scope.report.report_distribution,
-													}
-												}]
-											}
+					// if other orgs
+					if ( $scope.report.organization_tag !== 'wfp' && $scope.report.organization_tag !== 'immap' ){
+							
+						// upload
+						$scope.model.rows.push({
+
+							// drag n' drop process
+							columns: [{
+								styleClass: 's12 m12 l12',
+								widgets: [{
+									type: 'dropzone',
+									style: 'padding: 0px;',
+									card: 'white grey-text text-darken-2',
+									config: {
+										parallelUploads: 1,
+										cardTitle: $scope.report.organization_tag.toUpperCase() + ' Planned Beneficiaries',
+										header: 'collection-header blue',
+										dictMsg: '<div style="font-weight:400;font-size:1.2rem;">Round ' + $scope.report.report_round + ', Distribution ' + $scope.report.report_distribution + '<br/>Drag & Drop Planned Beneficiaries</div>',
+										minimize: {
+											open: !data.length,
+											toggle: true,
+											disabled: !data.length
+										},
+										url: ngmAuth.LOCATION + '/api/upload-file',
+										acceptedFiles: '.xlsx',
+										headers: { 'Authorization': 'Bearer ' + ngmUser.get().token },
+										successMessage: false,
+										process: {
+											redirect: 'bgd/cxb/gfa/gfd/round/' + $scope.report.report_round + '/distribution/' + $scope.report.report_distribution + '/' + $scope.report.reporting_period + '/plan/' + $scope.report.organization_tag + '/all/all/all/all',
+											requests: [{
+												method: 'POST',
+												url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/processPlannedBeneficiaries',
+												data: {
+													admin0pcode: $scope.report.user.admin0pcode,
+													organization_tag: $scope.report.organization_tag,
+													report_round: $scope.report.report_round,
+													report_distribution: $scope.report.report_distribution,
+												}
+											}]
 										}
-									}]
+									}
 								}]
 							
-							});
-
-						}
+							}]
+						
+						});
 
 					}
 
@@ -1099,8 +1100,7 @@ angular.module( 'ngmReportHub' )
 								}]
 							}]
 						
-						});					
-
+						});
 
 						// TABLE
 
@@ -1331,6 +1331,28 @@ angular.module( 'ngmReportHub' )
 								}
 							}]
 						}]
+					// },{
+					// 	columns: [{
+					// 		styleClass: 's12 m12 l12',
+					// 		widgets: [{
+					// 			type: 'html',
+					// 			card: 'card-panel',
+					// 			style: 'padding:0px;',
+					// 			config: {
+					// 				header: 'collection-header blue',
+					// 				icon: 'check_circle',
+					// 				minimize: {
+					// 					open: false,
+					// 					toggle: false,
+					// 					disabled: true
+					// 				},
+					// 				message: 'Distribution Plan',
+					// 				report_round: $scope.report.report_round,
+					// 				report_distribution: $scope.report.report_distribution,
+					// 				templateUrl: '/scripts/widgets/ngm-html/template/bgd/gfd/daily.report.forms.html',
+					// 			}
+					// 		}]
+					// 	}]
 					},{
 						columns: [{
 							styleClass: 's12 m12 l12',
