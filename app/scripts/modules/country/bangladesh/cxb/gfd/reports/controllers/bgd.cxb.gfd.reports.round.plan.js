@@ -503,7 +503,7 @@ angular.module( 'ngmReportHub' )
 						type: 'pdf',
 						color: 'blue darken-3',
 						icon: 'move_to_inbox',
-						hover: 'Download Planned Distribution List',
+						hover: 'Download Distribution Plan',
 						request: {
 							method: 'POST',
 							url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
@@ -546,7 +546,7 @@ angular.module( 'ngmReportHub' )
 						type: 'pdf',
 						color: 'blue darken-1',
 						icon: 'move_to_inbox',
-						hover: 'Download Planned Distribution Revision',
+						hover: 'Download Distribution Revision',
 						request: {
 							method: 'POST',
 							url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
