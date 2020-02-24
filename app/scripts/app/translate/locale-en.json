@@ -254,8 +254,10 @@
         "executor_organizations_mayus": "EXECUTOR ORGANIZATIONS",
 
         "implementer":"Implementer",
-        "other_implementing_partners":"Implementing Partner",
-        "program_partners":"Programme Partner",
+				"other_implementing_partners":"Implementing Partners",
+				"implementing_partner":"Implementing Partner",
+
+        "program_partner":"Programme Partner",
         "implementing_organization":"Implementing Organization",
          "implementing_organizations":"Implementing Organizations",
          "implementing_organizations_mayus":"IMPLEMENTING ORGANIZATIONS",
@@ -272,9 +274,12 @@
                 "budget_mayus1":"Budget",
 
         "list_other_donors":"List Other Donors",
-        "list_project_partners":"List Project Partners",
-        "list_implementing_partners":"List Implementing Partners",
-        "project_partners":"Project Partner",
+				"list_project_partners":"List Project Partners",
+				"list_programme_partners": "List Programme Partners",
+				"list_implementing_partners":"List Implementing Partners",
+				"search_partners": "Search Partners",
+				"project_partners":"Project Partners",
+				"project_partner":"Project Partner",
         "project_description_objetives":"Project Description & Objectives",
         "project_focal_point":"Project Focal Point",
         "target_population":"Target Population",
