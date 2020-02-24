@@ -341,12 +341,12 @@ angular.module( 'ngmReportHub' )
             delivery_type_id: 'service_existing',
             delivery_type_name: 'Existing Beneficiaries'
           },{
-            delivery_type_id: 'population_schools_enrolment',
-            delivery_type_name: 'Enrolment'
-          },{
-            delivery_type_id: 'service_schools_attendance',
-            delivery_type_name: 'Attendance'
-          },{
+          //   delivery_type_id: 'population_schools_enrolment',
+          //   delivery_type_name: 'Enrolment'
+          // },{
+          //   delivery_type_id: 'service_schools_attendance',
+          //   delivery_type_name: 'Attendance'
+          // },{
             delivery_type_id: 'contingency',
             delivery_type_name: 'Contingency'
           }];

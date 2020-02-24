@@ -329,6 +329,7 @@ angular.module( 'ngmReportHub' )
 					url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 					data: {
 						indicator: 'menu',
+						// distribution_status: 'plan',
 						admin0pcode: $scope.report.user.admin0pcode,
 						organization_tag: $scope.report.organization_tag,
 						report_round: $scope.report.report_round,
@@ -497,10 +498,10 @@ angular.module( 'ngmReportHub' )
 				// distribution list
 				if ( $scope.report.organization_tag !== 'wfp' && $scope.report.organization_tag !== 'immap' ) {
 					
-					// downloads
+					// downloads plan
 					downloads.push({
 						type: 'pdf',
-						color: 'blue',
+						color: 'blue darken-3',
 						icon: 'move_to_inbox',
 						hover: 'Download Planned Distribution List',
 						request: {
@@ -510,6 +511,7 @@ angular.module( 'ngmReportHub' )
 								download: true,
 								indicator: 'print_distribution_plan_zip',
 								downloadUrl: ngmAuth.LOCATION + '/report/',
+								// distribution_status: 'plan',
 								admin0pcode: $scope.report.user.admin0pcode,
 								organization_tag: $scope.report.organization_tag,
 								report_round: $scope.report.report_round,
@@ -537,14 +539,57 @@ angular.module( 'ngmReportHub' )
 							}
 						}
 					
-					});		
+					});	
+
+					// downloads revision
+					downloads.push({
+						type: 'pdf',
+						color: 'blue darken-1',
+						icon: 'move_to_inbox',
+						hover: 'Download Planned Distribution Revision',
+						request: {
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
+							data: {
+								download: true,
+								indicator: 'print_distribution_actual_zip',
+								downloadUrl: ngmAuth.LOCATION + '/report/',
+								// distribution_status: 'plan',
+								admin0pcode: $scope.report.user.admin0pcode,
+								organization_tag: $scope.report.organization_tag,
+								report_round: $scope.report.report_round,
+								report_distribution: $scope.report.report_distribution,
+								site_id: $scope.report.site_id,
+								admin3pcode: $scope.report.admin3pcode,
+								admin4pcode: $scope.report.admin4pcode,
+								admin5pcode: $scope.report.admin5pcode,
+								start_date: $scope.report.start_date,
+								end_date: $scope.report.end_date,
+								report: $scope.report.organization_tag +'_planned_distribution_revision_round_' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
+							}
+						},
+						metrics: {
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/metrics/set',
+							data: {
+								organization: $scope.report.user.organization,
+								username: $scope.report.user.username,
+								email: $scope.report.user.email,
+								dashboard: 'gfa_gfd_plan_distribution_list_' + $scope.report.report_round + '_' + $scope.report.report_distribution,
+								theme: 'gfa_gfd_plan_distribution_list',
+								format: 'csv',
+								url: $location.$$path
+							}
+						}
+					
+					});	
 				
 				}
 
 				// default downlaods
 				downloads.push({
 					type: 'csv',
-					color: 'teal lighten-3',
+					color: 'teal lighten-2',
 					icon: 'group',
 					hover: 'Download Duplicates',
 					request: {
@@ -553,6 +598,7 @@ angular.module( 'ngmReportHub' )
 						data: {
 							download: true,
 							indicator: 'downloads_duplicates',
+							// distribution_status: 'plan',
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
@@ -590,6 +636,7 @@ angular.module( 'ngmReportHub' )
 						data: {
 							download: true,
 							indicator: 'downloads_vulnerable',
+							// distribution_status: 'plan',
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
@@ -627,6 +674,7 @@ angular.module( 'ngmReportHub' )
 						data: {
 							download: true,
 							indicator: 'downloads_beneficiaries',
+							// distribution_status: 'plan',
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
@@ -664,6 +712,7 @@ angular.module( 'ngmReportHub' )
 						data: {
 							download: true,
 							indicator: 'downloads_food_distribution_plan',
+							// distribution_status: 'plan',
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
@@ -850,6 +899,7 @@ angular.module( 'ngmReportHub' )
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 											data: {
 												indicator: 'family_size_1_3',
+												// distribution_status: 'plan',
 												admin0pcode: $scope.report.user.admin0pcode,
 												organization_tag: $scope.report.organization_tag,
 												report_round: $scope.report.report_round,
@@ -877,6 +927,7 @@ angular.module( 'ngmReportHub' )
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 											data: {
 												indicator: 'family_size_4_7',
+												// distribution_status: 'plan',
 												admin0pcode: $scope.report.user.admin0pcode,
 												organization_tag: $scope.report.organization_tag,
 												report_round: $scope.report.report_round,
@@ -904,6 +955,7 @@ angular.module( 'ngmReportHub' )
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 											data: {
 												indicator: 'family_size_8_10',
+												// distribution_status: 'plan',
 												admin0pcode: $scope.report.user.admin0pcode,
 												organization_tag: $scope.report.organization_tag,
 												report_round: $scope.report.report_round,
@@ -931,6 +983,7 @@ angular.module( 'ngmReportHub' )
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 											data: {
 												indicator: 'family_size_11+',
+												// distribution_status: 'plan',
 												admin0pcode: $scope.report.user.admin0pcode,
 												organization_tag: $scope.report.organization_tag,
 												report_round: $scope.report.report_round,
@@ -958,6 +1011,7 @@ angular.module( 'ngmReportHub' )
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 											data: {
 												indicator: 'total',
+												// distribution_status: 'plan',
 												admin0pcode: $scope.report.user.admin0pcode,
 												organization_tag: $scope.report.organization_tag,
 												report_round: $scope.report.report_round,
@@ -994,6 +1048,7 @@ angular.module( 'ngmReportHub' )
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 											data: {
 												indicator: 'rice',
+												// distribution_status: 'plan',
 												admin0pcode: $scope.report.user.admin0pcode,
 												organization_tag: $scope.report.organization_tag,
 												report_round: $scope.report.report_round,
@@ -1024,6 +1079,7 @@ angular.module( 'ngmReportHub' )
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 											data: {
 												indicator: 'lentils',
+												// distribution_status: 'plan',
 												admin0pcode: $scope.report.user.admin0pcode,
 												organization_tag: $scope.report.organization_tag,
 												report_round: $scope.report.report_round,
@@ -1054,6 +1110,7 @@ angular.module( 'ngmReportHub' )
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 											data: {
 												indicator: 'oil',
+												// distribution_status: 'plan',
 												admin0pcode: $scope.report.user.admin0pcode,
 												organization_tag: $scope.report.organization_tag,
 												report_round: $scope.report.report_round,
@@ -1084,6 +1141,7 @@ angular.module( 'ngmReportHub' )
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 											data: {
 												indicator: 'entitlements',
+												// distribution_status: 'plan',
 												admin0pcode: $scope.report.user.admin0pcode,
 												organization_tag: $scope.report.organization_tag,
 												report_round: $scope.report.report_round,
@@ -1126,6 +1184,7 @@ angular.module( 'ngmReportHub' )
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 											data: {
 												indicator: 'beneficiaries_duplicate_list',
+												// distribution_status: 'plan',
 												admin0pcode: $scope.report.user.admin0pcode,
 												organization_tag: $scope.report.organization_tag,
 												report_round: $scope.report.report_round,
@@ -1166,6 +1225,7 @@ angular.module( 'ngmReportHub' )
 											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 											data: {
 												indicator: 'beneficiaries_list',
+												// distribution_status: 'plan',
 												admin0pcode: $scope.report.user.admin0pcode,
 												organization_tag: $scope.report.organization_tag,
 												report_round: $scope.report.report_round,
@@ -1308,6 +1368,7 @@ angular.module( 'ngmReportHub' )
 										url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
 										data: {
 											indicator: 'latest',
+											// distribution_status: 'plan',
 											admin0pcode: $scope.report.user.admin0pcode,
 											organization_tag: $scope.report.organization_tag,
 											report_round: $scope.report.report_round,

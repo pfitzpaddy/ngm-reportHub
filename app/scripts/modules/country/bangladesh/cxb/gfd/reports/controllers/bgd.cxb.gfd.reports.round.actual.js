@@ -304,6 +304,7 @@ angular.module( 'ngmReportHub' )
 					url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 					data: {
 						indicator: 'menu',
+						distribution_status: 'actual',
 						admin0pcode: $scope.report.user.admin0pcode,
 						organization_tag: $scope.report.organization_tag,
 						report_round: $scope.report.report_round,
@@ -477,14 +478,15 @@ angular.module( 'ngmReportHub' )
 						type: 'pdf',
 						color: 'blue',
 						icon: 'picture_as_pdf',
-						hover: 'Download Planned Distribution List',
+						hover: 'Download Planned Distribution Revision',
 						request: {
 							method: 'POST',
-							url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
+							url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 							data: {
 								download: true,
 								indicator: 'print_distribution_actual_zip',
 								downloadUrl: ngmAuth.LOCATION + '/report/',
+								distribution_status: 'actual',
 								admin0pcode: $scope.report.user.admin0pcode,
 								organization_tag: $scope.report.organization_tag,
 								report_round: $scope.report.report_round,
@@ -495,7 +497,7 @@ angular.module( 'ngmReportHub' )
 								admin5pcode: $scope.report.admin5pcode,
 								start_date: $scope.report.start_date,
 								end_date: $scope.report.end_date,
-								report: $scope.report.organization_tag +'_planned_distribution_list_round_' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
+								report: $scope.report.organization_tag +'_planned_distribution_revision_round_' + $scope.report.report_round + '_distribution_' + $scope.report.report_distribution + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ),
 							}
 						},
 						metrics: {
@@ -528,6 +530,7 @@ angular.module( 'ngmReportHub' )
 						data: {
 							download: true,
 							indicator: 'downloads_duplicates',
+							distribution_status: 'actual',
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
@@ -565,6 +568,7 @@ angular.module( 'ngmReportHub' )
 						data: {
 							download: true,
 							indicator: 'downloads_vulnerable',
+							distribution_status: 'actual',
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
@@ -598,10 +602,11 @@ angular.module( 'ngmReportHub' )
 					hover: 'Absent Beneficiaries',
 					request: {
 						method: 'POST',
-						url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getAbsentBeneficiariesIndicator',
+						url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 						data: {
 							download: true,
 							indicator: 'downloads_absent_beneficiaries',
+							distribution_status: 'actual',
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
@@ -639,6 +644,7 @@ angular.module( 'ngmReportHub' )
 						data: {
 							download: true,
 							indicator: 'downloads_beneficiaries',
+							distribution_status: 'actual',
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
@@ -676,6 +682,7 @@ angular.module( 'ngmReportHub' )
 						data: {
 							download: true,
 							indicator: 'downloads_food_distribution_actual',
+							distribution_status: 'actual',
 							admin0pcode: $scope.report.user.admin0pcode,
 							organization_tag: $scope.report.organization_tag,
 							report_round: $scope.report.report_round,
@@ -720,6 +727,7 @@ angular.module( 'ngmReportHub' )
 								download: true,
 								indicator: 'downloads_distribution_closing_balance',
 								downloadUrl: ngmAuth.LOCATION + '/report/',
+								distribution_status: 'actual',
 								admin0pcode: $scope.report.user.admin0pcode,
 								organization_tag: $scope.report.organization_tag,
 								report_round: $scope.report.report_round,
@@ -756,10 +764,11 @@ angular.module( 'ngmReportHub' )
 			},
 
 			// config of page
-			setDashboardConfig: function () {
-
+			setDashboardConfig: function () {		
 
 				// ACTUAL BENEFICIARIES
+
+				// INDICATORS
 
 				// default indicators 
 				$scope.model.rows.push({
@@ -776,6 +785,7 @@ angular.module( 'ngmReportHub' )
 									url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 									data: {
 										indicator: 'family_size_1_3',
+										distribution_status: 'actual',
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
@@ -803,6 +813,7 @@ angular.module( 'ngmReportHub' )
 									url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 									data: {
 										indicator: 'family_size_4_7',
+										distribution_status: 'actual',
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
@@ -830,6 +841,7 @@ angular.module( 'ngmReportHub' )
 									url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 									data: {
 										indicator: 'family_size_8_10',
+										distribution_status: 'actual',
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
@@ -857,6 +869,7 @@ angular.module( 'ngmReportHub' )
 									url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 									data: {
 										indicator: 'family_size_11+',
+										distribution_status: 'actual',
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
@@ -884,6 +897,7 @@ angular.module( 'ngmReportHub' )
 									url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 									data: {
 										indicator: 'total',
+										distribution_status: 'actual',
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
@@ -920,6 +934,7 @@ angular.module( 'ngmReportHub' )
 									url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 									data: {
 										indicator: 'rice',
+										distribution_status: 'actual',
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
@@ -950,6 +965,7 @@ angular.module( 'ngmReportHub' )
 									url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 									data: {
 										indicator: 'lentils',
+										distribution_status: 'actual',
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
@@ -980,6 +996,7 @@ angular.module( 'ngmReportHub' )
 									url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 									data: {
 										indicator: 'oil',
+										distribution_status: 'actual',
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
@@ -1010,6 +1027,7 @@ angular.module( 'ngmReportHub' )
 									url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 									data: {
 										indicator: 'entitlements',
+										distribution_status: 'actual',
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
@@ -1052,6 +1070,7 @@ angular.module( 'ngmReportHub' )
 									url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 									data: {
 										indicator: 'beneficiaries_duplicate_list',
+										distribution_status: 'actual',
 										admin0pcode: $scope.report.user.admin0pcode,
 										organization_tag: $scope.report.organization_tag,
 										report_round: $scope.report.report_round,
@@ -1070,455 +1089,103 @@ angular.module( 'ngmReportHub' )
 				
 				});
 
-				// get data
-				ngmData.get({
-					method: 'POST',
-					url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getDistributionDates',
-					data: {
-						admin0pcode: $scope.report.user.admin0pcode,
-						organization_tag: $scope.report.organization_tag,
-						report_round: $scope.report.report_round,
-						report_distribution: $scope.report.report_distribution,
-						site_id: $scope.report.site_id,
-						admin3pcode: $scope.report.admin3pcode,
-						admin4pcode: $scope.report.admin4pcode,
-						admin5pcode: $scope.report.admin5pcode
-					}
-
-				}).then( function( dates ){
-					
-					// dates
-					$scope.report.distribution_dates = dates;
-
-					// absent table
-					$scope.model.rows.push({
-						columns: [{
-							styleClass: 's12 m12 l12',
-							widgets: [{
-								type: 'table',
-								card: 'panel',
-								config: {
-									today: new Date(),
-									checkboxes: { 'checked': false, items: {} },
-									distribution_dates: $scope.report.distribution_dates,
-									headerClass: 'collection-header blue-grey lighten-2',
-									headerText: 'white-text',
-									headerIcon: 'person_add',
-									headerTitle: "Absent Beneficiaries",
-									templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.plan.html',
-									tableOptions:{
-										count: 10,
-										sorting: { distribution_date_plan: 'asc' },
-									},
-
-
-									// DELETE
-
-									// table.modalDelete
-									modalDelete: function( modal, row ){
-										// table
-										var table = this;
-										// set
-										table.row = row;
-										// $( '#' + modal ).openModal( { dismissible: false } );
-										$('#' + modal).modal({ dismissible: false });
-										$('#' + modal).modal('open');
-
-									},
-
-									// delete
-									deleteAbsent: function( row ){
-
-										// disabled btn
-										$( '#gfd-delete-btn-'+ row.fcn_id ).toggleClass( 'disabled' );
-
-										// ngmData
-										ngmData.get({ 
-											method: 'POST', 
-											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/removeAbsentBeneficiary',
-											data: {
-												absent_beneficiary: row
-											}
-										}).then( function( result ){
-											// reset
-											$timeout( function(){
-												// Materialize.toast( result.msg , 4000, 'success' );
-												M.toast({ html: result.msg, displayLength: 4000, classes: 'success' });
-												$timeout( function(){ $route.reload(); }, 1000 );
-											}, 1000 );
-										});
-									
-									},
-
-
-									// TABLE CHECKBOXES
-
-									// something checked?
-									setDateSelection: function( item ){
-
-										// table
-										var table = this;
-
-										// checked
-										table.rows_checked = $( '#select_all' ).is( ':checked' ) || item;
-
-									},
-
-									// update absent beneficiaries distribution date
-									checkDistributionDates: function(){
-										
-										// this table
-										var table = this;
-
-										// set picker
-										table.rows_checked = $( '#select_all' ).is( ':checked' );
-
-										// for filtered data
-										angular.forEach( table.tableSettings.data, function( item ) {
-											if ( angular.isDefined( item._id ) ) {
-												table.checkboxes.items[ item._id ] = $( '#select_all' ).is( ':checked' );
-											}
-										});
-
-									},
-
-
-									// DATE PICKER
-
-									// date picker by row
-									setPicker: function( modal, row ) {
-										// table
-										var table = this;
-
-										// set row
-										if ( row ) {
-											table.update_row = true;
-											$scope.report.selected_row = row;	
-										} else {
-											table.update_row = false;
-										}
-										
-										// open modal
-										if ( table.rows_checked ) {
-											// $( '#' + modal ).openModal( { dismissible: true } );
-											$('#' + modal).modal({ dismissible: false });
-											$('#' + modal).modal('open');
-										}
-									
-									},
-
-									//using materialize v 1.0.0 date picker
-									openDatePicker: function (id, row) {
-										var table = this;
-
-										var max = table.distribution_dates.sort().reverse()[0];
-										var min = table.distribution_dates.sort()[0]
-
-										if (row) {
-											table.update_row = true;
-											$scope.report.selected_row = row;
-										} else {
-											table.update_row = false;
-										}
-										// if (table.rows_checked) {
-										$('#' + id).datepicker({
-											minDate: new Date(min),
-											maxDate: new Date(max),
-											onSelect: function (date) {
-												table.date_selected = date;
-											},
-											onClose: function () {
-												if (table.date_selected) {
-													if (table.update_row) {
-														table.setAbsentDistributionDateByIdv2(table.date_selected);
-													} else {
-														table.setAbsentDistributionDatesv2(table.date_selected)
-													}
-													delete table.date_selected;
-												}
-											}
-
-										});
-										// }
-
-									},
-
-									// UPDATE BY ID
-
-									// set absent distribution by id ( individual )
-									setAbsentDistributionDateById: function( modal, date ) {
-
-										// table
-										var table = this;
-
-										// update date
-										$scope.report.selected_row.distribution_date_actual = date;
-
-										// how to reset table
-										table.tableParams.reload();
-
-										// close modal
-										// $( '#' + modal ).closeModal();
-										$('#' + modal).modal({ dismissible: true });
-										$('#' + modal).modal('close');
-										// Materialize.toast( 'Updating Distribution Date...', 6000, 'note' );
-										M.toast({ html: 'Updating Distribution Date...', displayLength: 6000, classes: 'note' });
-
-										// ngmData
-										ngmData.get({ 
-											method: 'POST', 
-											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setAbsentDistributionDateById',
-											data: {
-												gfd_id: $scope.report.selected_row.gfd_id,
-												fcn_id: $scope.report.selected_row.fcn_id,
-												report_distribution: $scope.report.selected_row.report_distribution,
-												distribution_date_actual: $scope.report.selected_row.distribution_date_actual
-											}
-										}).then( function( result ){
-											// reset
-											$timeout( function(){
-												// refresh
-												if ( result.refresh ) {
-													$route.reload();
-												}
-												// Materialize.toast( result.msg + ' Updated 1 Record', 4000, 'success' );
-												M.toast({ html: result.msg + ' Updated 1 Record', displayLength: 4000, classes: 'success' });
-											}, 1000 );
-										});             
-
-									},
-									//using materialize v 1.0.0 date picker
-									setAbsentDistributionDateByIdv2:function(date){
-										// table
-										var table = this;
-										$scope.report.selected_row.distribution_date_actual = date;
-
-										// how to reset table
-										// table.tableParams.reload();
-
-										M.toast({ html: 'Updating Distribution Date...', displayLength: 6000, classes: 'note' });
-
-										ngmData
-										ngmData.get({
-											method: 'POST',
-											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setAbsentDistributionDateById',
-											data: {
-												gfd_id: $scope.report.selected_row.gfd_id,
-												fcn_id: $scope.report.selected_row.fcn_id,
-												report_distribution: $scope.report.selected_row.report_distribution,
-												distribution_date_actual: $scope.report.selected_row.distribution_date_actual
-											}
-										}).then(function (result) {
-											// reset
-											$timeout(function () {
-												// refresh
-												if (result.refresh) {
-													$route.reload();
-												}
-												// Materialize.toast( result.msg + ' Updated 1 Record', 4000, 'success' );
-												M.toast({ html: result.msg + ' Updated 1 Record', displayLength: 4000, classes: 'success' });
-											}, 1000);
-										});
-
-									},
-
-									// UPDATE BY CHECKBOX
-
-									// set absent distribution
-									setAbsentDistributionDates: function( modal, date ) {
-
-										// table
-										var table = this;
-
-										// records to update
-										var update = [];
-
-										// for filtered data
-										angular.forEach( table.tableSettings.data, function( item ) {
-											if ( angular.isDefined( item._id ) ) {
-												if ( table.checkboxes.items[ item._id ] ) {
-													// update dates
-													update.push({ gfd_id: item.gfd_id, fcn_id: item.fcn_id, report_distribution: item.report_distribution });
-													item.distribution_date_actual = date;
-												}
-											}
-										});
-
-										// how to reset table
-										table.tableParams.reload();
-
-										// close modal
-										// $( '#' + modal ).closeModal();
-										$('#' + modal).modal({ dismissible: true });
-										$('#' + modal).modal('close');
-										// Materialize.toast( 'Updating Distribution Dates...', 18000, 'note' );
-										M.toast({ html: 'Updating Distribution Dates...', displayLength: 18000, classes: 'note' });
-
-										// ngmData
-										ngmData.get({ 
-											method: 'POST', 
-											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setAbsentDistributionDatesByArray',
-											data: {
-												ids: update,
-												distribution_date_actual: date
-											}
-										}).then( function( result ){
-
-											// remove toast
-											$( '.toast' ).remove();
-
-											// reset
-											$timeout( function(){
-												// refresh
-												if ( result.refresh ) {
-													$route.reload();
-												}
-												// trigger check
-												if ( $( '#select_all' ).is( ':checked' ) ) {
-													$( '#select_all' ).click();
-												}
-												// Materialize.toast( result.msg + ' Updated ' + update.length + ' Records!', 6000, 'success' );
-												M.toast({ html: result.msg + ' Updated ' + update.length + ' Records!', displayLength: 6000, classes: 'success' });
-											}, 1000 );
-										});
-
-									},
-									//using materialize v 1.0.0 date picker
-									setAbsentDistributionDatesv2: function (date) {
-
-										// table
-										var table = this;
-
-										// records to update
-										var update = [];
-
-										// for filtered data
-										angular.forEach(table.tableSettings.data, function (item) {
-											if (angular.isDefined(item._id)) {
-												if (table.checkboxes.items[item._id]) {
-													// update dates
-													update.push({ gfd_id: item.gfd_id, fcn_id: item.fcn_id, report_distribution: item.report_distribution });
-													item.distribution_date_actual = date;
-												}
-											}
-										});
-
-										// how to reset table
-										table.tableParams.reload();
-
-										M.toast({ html: 'Updating Distribution Dates...', displayLength: 18000, classes: 'note' });
-
-										// ngmData
-										ngmData.get({
-											method: 'POST',
-											url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/setAbsentDistributionDatesByArray',
-											data: {
-												ids: update,
-												distribution_date_actual: date
-											}
-										}).then(function (result) {
-
-											// remove toast
-											$('.toast').remove();
-
-											// reset
-											$timeout(function () {
-												// refresh
-												if (result.refresh) {
-													$route.reload();
-												}
-												// trigger check
-												if ($('#select_all').is(':checked')) {
-													$('#select_all').click();
-												}
-												// Materialize.toast( result.msg + ' Updated ' + update.length + ' Records!', 6000, 'success' );
-												M.toast({ html: result.msg + ' Updated ' + update.length + ' Records!', displayLength: 6000, classes: 'success' });
-											}, 1000);
-										});
-
-									},
-
-									// get table 
-									request: {
-										method: 'POST',
-										url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getAbsentBeneficiariesIndicator',
-										data: {
-											indicator: 'beneficiaries_absent_list',
-											admin0pcode: $scope.report.user.admin0pcode,
-											organization_tag: $scope.report.organization_tag,
-											report_round: $scope.report.report_round,
-											report_distribution: $scope.report.report_distribution,
-											site_id: $scope.report.site_id,
-											admin3pcode: $scope.report.admin3pcode,
-											admin4pcode: $scope.report.admin4pcode,
-											admin5pcode: $scope.report.admin5pcode,
-											start_date: $scope.report.start_date,
-											end_date: $scope.report.end_date
-										}
+				// absent table
+				$scope.model.rows.push({
+					columns: [{
+						styleClass: 's12 m12 l12',
+						widgets: [{
+							type: 'table',
+							card: 'panel',
+							config: {
+								duplicate: true,
+								headerClass: 'collection-header blue-grey lighten-2',
+								headerText: 'white-text',
+								headerIcon: 'group',
+								headerTitle: "Absent Beneficiaries",
+								templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.plan.html',
+								tableOptions:{
+									count: 10
+								},
+								request: {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getPlannedBeneficiariesIndicator',
+									data: {
+										indicator: 'beneficiaries_absent_list',
+										distribution_status: 'absent',
+										admin0pcode: $scope.report.user.admin0pcode,
+										organization_tag: $scope.report.organization_tag,
+										report_round: $scope.report.report_round,
+										report_distribution: $scope.report.report_distribution,
+										site_id: $scope.report.site_id,
+										admin3pcode: $scope.report.admin3pcode,
+										admin4pcode: $scope.report.admin4pcode,
+										admin5pcode: $scope.report.admin5pcode,
+										start_date: $scope.report.start_date,
+										end_date: $scope.report.end_date
 									}
 								}
-							}]
+							}
 						}]
-					
-					});
+					}]
+				
+				});
 
-					// data table
-					$scope.model.rows.push({
-						columns: [{
-							styleClass: 's12 m12 l12',
-							widgets: [{
-								type: 'table',
-								card: 'panel',
-								config: {
-									headerClass: 'collection-header teal lighten-2',
-									headerText: 'white-text',
-									headerIcon: 'assignment_turned_in',
-									headerTitle: "Actual Beneficiaries List",
-									site_name: 'actual_site_name',
-									gfd_family_size: 'actual_gfd_family_size',
-									templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.actual.html',
-									tableOptions:{
-										count: 30
-									},
-									request: {
-										method: 'POST',
-										url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
-										data: {
-											indicator: 'beneficiaries_list',
-											admin0pcode: $scope.report.user.admin0pcode,
-											organization_tag: $scope.report.organization_tag,
-											report_round: $scope.report.report_round,
-											report_distribution: $scope.report.report_distribution,
-											site_id: $scope.report.site_id,
-											admin3pcode: $scope.report.admin3pcode,
-											admin4pcode: $scope.report.admin4pcode,
-											admin5pcode: $scope.report.admin5pcode,
-											start_date: $scope.report.start_date,
-											end_date: $scope.report.end_date
-										}
+				// data table
+				$scope.model.rows.push({
+					columns: [{
+						styleClass: 's12 m12 l12',
+						widgets: [{
+							type: 'table',
+							card: 'panel',
+							config: {
+								headerClass: 'collection-header teal lighten-2',
+								headerText: 'white-text',
+								headerIcon: 'assignment_turned_in',
+								headerTitle: "Actual Beneficiaries List",
+								site_name: 'actual_site_name',
+								gfd_family_size: 'actual_gfd_family_size',
+								templateUrl: '/scripts/widgets/ngm-table/templates/bgd/gfd/beneficiaries.table.actual.html',
+								tableOptions:{
+									count: 30
+								},
+								request: {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
+									data: {
+										indicator: 'beneficiaries_list',
+										distribution_status: 'actual',
+										admin0pcode: $scope.report.user.admin0pcode,
+										organization_tag: $scope.report.organization_tag,
+										report_round: $scope.report.report_round,
+										report_distribution: $scope.report.report_distribution,
+										site_id: $scope.report.site_id,
+										admin3pcode: $scope.report.admin3pcode,
+										admin4pcode: $scope.report.admin4pcode,
+										admin5pcode: $scope.report.admin5pcode,
+										start_date: $scope.report.start_date,
+										end_date: $scope.report.end_date
 									}
 								}
-							}]
+							}
 						}]
-					
-					});       
+					}]
+				
+				});
 
-					// footer
-					$scope.model.rows.push({
-						columns: [{
-							styleClass: 's12 m12 l12',
-							widgets: [{
-								type: 'html',
-								card: 'card-panel',
-								style: 'padding:0px; height: 90px; padding-top:10px;',
-								config: {
-									html: $scope.report.ngm.footer
-								}
-							}]
+				// footer
+				$scope.model.rows.push({
+					columns: [{
+						styleClass: 's12 m12 l12',
+						widgets: [{
+							type: 'html',
+							card: 'card-panel',
+							style: 'padding:0px; height: 90px; padding-top:10px;',
+							config: {
+								html: $scope.report.ngm.footer
+							}
 						}]
-					
-					});
-
+					}]
+				
 				});
 
 			},
@@ -1625,6 +1292,7 @@ angular.module( 'ngmReportHub' )
 										url: ngmAuth.LOCATION + '/api/wfp/gfa/gfd/getActualBeneficiariesIndicator',
 										data: {
 											indicator: 'latest',
+											distribution_status: 'actual',
 											admin0pcode: $scope.report.user.admin0pcode,
 											organization_tag: $scope.report.organization_tag,
 											report_round: $scope.report.report_round,
