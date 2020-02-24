@@ -202,7 +202,7 @@
        "for":"para",
         "4W":"DASHBOARD DE PROYECTOS",
         "4WDASHBOARD":"DASHBOARD DE PROYECTOS",
-        "activities_dashboard":"DASHBOARD DE ACTIVIDADES", 
+        "activities_dashboard":"DASHBOARD DE ACTIVIDADES",
 
        "5wdashboard":"5W DASHBOARD",
        "5W":"5W",
@@ -279,7 +279,7 @@
         "hrp_project":"Proyecto HRP",
         "hrp_project_code":"Código del Proyecto HRP",
         "activity_type":"Tipo de Actividad",
-        "project_type":"Tipo de Proyecto", 
+        "project_type":"Tipo de Proyecto",
         "executor":"Ejecutor",
         "executor_organizations":"Organizaciones Ejecutoras",
         "executor_organizations_mayus": "ORGANIZACIONES EJECUTORAS",
@@ -295,11 +295,15 @@
 
         "budget_mayus1":"Monto a financiar",
         "list_other_donors":"Lista de Otros Donantes",
-        "list_project_partners":"Lista de Socios del Proyecto",
-        "list_implementing_partners": "Lista de socios implementadores",
-        "project_partners":"Socios del Proyecto",
-        "other_implementing_partners":"Socios Implementadores",
-        "program_partners": "Programme Partner",
+				"list_project_partners":"Lista de Socios del Proyecto",
+				"list_programme_partners": "Lista de Socios del Programa",
+				"list_implementing_partners":"Lista de Socios Implementadores",
+				"search_partners": "Socios de búsqueda",
+				"project_partners":"Socios del Proyecto",
+				"project_partner":"Socios del Proyecto",
+				"other_implementing_partners":"Socio Implementador",
+				"implementing_partner":"Socio implementador",
+				"program_partner": "Socio del Programa",
         "implementing_organization":"Organización Implementadora",
         "implementing_organizations":"Organizaciones Implementadoras",
         "implementing_organizations_mayus":"ORGANIZACIONES IMPLEMENTADORAS",
@@ -313,7 +317,7 @@
          "minimize":"Minimizar",
          "click_expand":"Haga Clic Para Ampliar",
          "target_beneficiary_removed":"Personas en necesidad objetivo eliminado!",
-         "do_you_want_to_save_this_project":"Quieres Guardar este proyecto", 
+         "do_you_want_to_save_this_project":"Quieres Guardar este proyecto",
          "yes":"Si",
          "cancel_new_project":"Cancelar Nuevo Proyecto",
          "are_you_sure_you_want_to_return_to_projects":"Seguro que quieres regresar a Proyectos",
@@ -338,7 +342,7 @@
 
          "project_location_saved":"Ubicación de Proyecto Guardada!",
 
-         
+
          "sex_title_dashboard_graphic":"SEXO",
          "age_title_dashboard_graphic":"EDAD",
 
