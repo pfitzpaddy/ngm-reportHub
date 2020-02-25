@@ -403,6 +403,10 @@ angular.module( 'ngmReportHub' )
               location.site_lat = location.admin5lat;
             }
           }
+          if (!project.implementing_partners_checked && (location.implementing_partners.length >0)){
+            // remove implementing partner in target location if implementing partner unchecked
+            location.implementing_partners =[];
+          }
         });
 
         // return clean location
