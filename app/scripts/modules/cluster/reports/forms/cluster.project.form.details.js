@@ -818,6 +818,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 						$scope.project.definition.programme_partners =[];
 					}
 				},
+				implementingPartnerStatus:function(){
+					if(!$scope.project.definition.implementing_partners_checked){
+						// remove org list if implemnting partner unchecked
+						$scope.project.definition.implementing_partners = [];
+					}
+				},
 				programmePartners:function(array){
 					angular.forEach(array,function(partner){
 						partner.adminRpcode = $scope.project.definition.adminRpcode;

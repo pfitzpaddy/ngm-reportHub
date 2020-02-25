@@ -521,6 +521,7 @@
 									<label class="checkbox-label" for="ngm-project-other_partbers2">
 										<input type="checkbox" class="filled-in" id="ngm-project-other_partbers2"
 											ng-model="project.definition.implementing_partners_checked"
+											ng-change="project.implementingPartnerStatus()"
 											ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
 										<span style="left: .75rem;">{{'program_partner' | translate}}</span>
 									</label>

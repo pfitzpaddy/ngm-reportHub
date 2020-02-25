@@ -18,7 +18,7 @@ angular.module( 'ngmReportHub' )
 		var ngmClusterLists = {
 
       // comphrensive list of all sectors - ever
-			all_sectors: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter','wash' ],
+			all_sectors: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter','wash','child_protection' ],
 			all_sectors_minus_protection: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','rnr_chapter','wash' ],
       all_sectors_minus_smsd: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','nutrition','protection','rnr_chapter','wash' ],
       all_sectors_minus_health: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','smsd','nutrition','protection','rnr_chapter','wash' ],
@@ -38,7 +38,7 @@ angular.module( 'ngmReportHub' )
           // lists
 					units: ngmClusterLists.getUnits( project.admin0pcode ),
           indicators: ngmClusterLists.getIndicators( true ),
-          delivery_types: ngmClusterLists.getDeliveryTypes( project.admin0pcode ),
+          delivery_types: ngmClusterLists.getDeliveryTypes( project.admin0pcode,  project.cluster_id),
           mpc_purpose: ngmClusterLists.getMpcPurpose(),
 
           // mpc_delivery_type: ngmClusterLists.getMpcDeliveryTypes(project.admin0pcode),
@@ -317,7 +317,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // delivery
-      getDeliveryTypes: function( admin0pcode ) {
+      getDeliveryTypes: function( admin0pcode, cluster_id ) {
 
         var delivery = [];
 
@@ -367,13 +367,23 @@ angular.module( 'ngmReportHub' )
 
         } else if ( admin0pcode === 'NG' ) {
 
-          delivery = [{
-            delivery_type_id: 'completed',
-            delivery_type_name: 'Completed'
-          },{
-            delivery_type_id: 'planned',
-            delivery_type_name: 'Planned'
-          }];
+          if(cluster_id === 'child_protection'){
+            delivery = [{
+              delivery_type_id: 'disabled',
+              delivery_type_name: 'Disabled'
+            },{
+              delivery_type_id: 'not_disabled',
+              delivery_type_name: 'Not Disabled'
+            }];
+          }else{
+            delivery = [{
+              delivery_type_id: 'completed',
+              delivery_type_name: 'Completed'
+            },{
+              delivery_type_id: 'planned',
+              delivery_type_name: 'Planned'
+            }];
+          }
 
         } else {
 
@@ -664,6 +674,9 @@ angular.module( 'ngmReportHub' )
           },{
             cluster_id: 'wash',
             cluster: 'WASH'
+          },{
+            cluster_id: 'child_protection',
+            cluster: 'Child Protection'
           }];
         }
         else if ( admin0pcode.toLowerCase() === 'col' ) {
