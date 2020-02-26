@@ -487,7 +487,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 				// save beneficiary
 				saveBeneficiary: function() {
-					$scope.project.save( false, $filter('translate')('people_in_need_saved') );
+					if ($scope.project.validate(false)) {
+						$scope.project.save(false, $filter('translate')('people_in_need_saved'));
+					}
 				},
 
 
@@ -594,7 +596,9 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 				// save location
 				saveLocation: function() {
-					$scope.project.save( false, $filter('translate')('project_location_saved') );
+					if($scope.project.validate(false)){
+						$scope.project.save(false, $filter('translate')('project_location_saved'));
+					}
 				},
 
 				// project focal point
@@ -737,8 +741,8 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				},
 
 				// validate form
-				validate: function(){
-					ngmClusterValidation.validate( $scope.project.definition );
+				validate: function(display_modal){
+					return ngmClusterValidation.validate($scope.project.definition, $scope.detailBeneficiaries, $scope.detailLocation,display_modal);
 				},
 
 				/**** UPLOAD ****/
