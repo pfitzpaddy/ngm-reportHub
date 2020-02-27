@@ -994,11 +994,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				// Emitted every time the ngInclude content is reloaded
 				// use this '/scripts/modules/cluster/views/forms/details/project-upload.html' because the last loaded
 				if ( $scope.project.definition.project_status === 'new' ) {
-					setTimeout(() => {
+					$timeout(() => {
 						$scope.loading = false;
 					}, 100 );
 				} else if (htmlpath ==='/scripts/modules/cluster/views/forms/details/project-upload.html') {
 					setTimeout(() => {
+					$timeout(() => {
 						$scope.loading = false;
 					}, 100 );
 				}					
