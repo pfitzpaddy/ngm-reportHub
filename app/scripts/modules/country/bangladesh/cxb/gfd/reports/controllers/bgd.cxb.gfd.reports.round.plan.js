@@ -554,7 +554,7 @@ angular.module( 'ngmReportHub' )
 								download: true,
 								indicator: 'print_distribution_actual_zip',
 								downloadUrl: ngmAuth.LOCATION + '/report/',
-								// distribution_status: 'plan',
+								distribution_status: 'plan',
 								admin0pcode: $scope.report.user.admin0pcode,
 								organization_tag: $scope.report.organization_tag,
 								report_round: $scope.report.report_round,
