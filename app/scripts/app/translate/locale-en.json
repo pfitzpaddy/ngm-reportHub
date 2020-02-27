@@ -256,8 +256,9 @@
         "implementer":"Implementer",
 				"other_implementing_partners":"Implementing Partners",
 				"implementing_partner":"Implementing Partner",
-
-        "program_partner":"Programme Partner",
+				"implementing_partners" : "Implementing Partners",
+				"programme_partner":"Programme Partner",
+				"programme_partners":"Programme Partners",
         "implementing_organization":"Implementing Organization",
          "implementing_organizations":"Implementing Organizations",
          "implementing_organizations_mayus":"IMPLEMENTING ORGANIZATIONS",

@@ -477,7 +477,7 @@
 									<input type="checkbox" class="filled-in" id="ngm-project-other_partbers"
 										ng-model="project.definition.implementing_partners_checked"
 										ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-									<span style="left: .75rem;">{{'program_partner' | translate}}</span>
+									<span style="left: .75rem;">{{'programme_partner' | translate}}</span>
 								</label> -->
 					        <!-- </p>
 				        </div> -->
@@ -520,7 +520,7 @@
 						<!-- Other Partner -->
 						<div class="row">
 							<div class="input-field col s12 m6" style="padding-bottom:35px;" ng-style="($root.rtl) && {'padding-right':'25px'}">
-								<label>{{'project_partner' | translate}}?</label>
+								<label>{{'project_partners' | translate}}</label>
 								<br />
 								<p style="padding-top:25px;">
 									<label class="checkbox-label" for="ngm-project-other_partbers2">
@@ -528,7 +528,7 @@
 											ng-model="project.definition.implementing_partners_checked"
 											ng-change="project.implementingPartnerStatus()"
 											ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-										<span style="left: .75rem;">{{'program_partner' | translate}}</span>
+										<span style="left: .75rem;">{{'implementing_partners' | translate}}?</span>
 									</label>
 								</p>
 							</div>
@@ -567,7 +567,7 @@
 											ng-model="project.definition.programme_partners_checked"
 											ng-change="project.programmePartnersOrgStatus()"
 											ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-										<span style="left: .75rem;">{{'implementing_partner' | translate}}</span>
+										<span style="left: .75rem;">{{'programme_partners' | translate}}?</span>
 									</label>
 								</p>
 							</div>
