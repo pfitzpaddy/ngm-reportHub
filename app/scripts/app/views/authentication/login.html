@@ -2,9 +2,7 @@
 <style>
 
 .carousel {
-	/* min-height: 520px; */
-	max-height: 640px;
-	min-height: 640px;
+	height: 420px;
 }
 
 .icon {
@@ -225,6 +223,7 @@ li {
 		$( '.carousel' ).carousel( 'set', 2 );
 		// focus
 		$('#ngm-password').focus();
+		$( '.carousel' ).css({ height: '520px' });
 		M.updateTextFields();
 	}, 100 );	
 
