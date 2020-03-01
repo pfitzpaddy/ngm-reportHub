@@ -362,10 +362,12 @@ angular.module( 'ngmReportHub' )
         // merge
         var stock = angular.merge( {}, stocks, report, location );
 
-        // // delete
+        // delete
         delete stock.id;
         delete stock.stocks;
-        delete stock.stocklocations;
+				delete stock.stocklocations;
+				delete stock.createdAt;
+				delete stock.updatedAt;
 
         return stock;
       },
