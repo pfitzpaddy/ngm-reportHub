@@ -31,7 +31,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
     'ngmClusterLists', 'ngmLists',
     'config','$translate',
     function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, ngmLists, config,$translate ){
-      
+
       // project
       $scope.report = {
 
@@ -108,12 +108,12 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 						stock_targeted_groups_id: null,
 						stock_targeted_groups_name: null,
 
-						
+
           };
           // process + clean location
           $scope.inserted =
 							ngmClusterHelper.getCleanStocks( $scope.report.report, $scope.report.report.stocklocations[ $parent ], $scope.inserted );
-				
+
           $scope.report.report.stocklocations[ $parent ].stocks.push( $scope.inserted );
         },
 
@@ -402,7 +402,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             $scope.report.updatedAt = moment( report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' );
 
             // user msg
-            var msg = $filter('translate')('stock_report_for')+' ' + $scope.report.titleFormat + ' ';
+            var msg = $filter('translate')('stock_report_for')+' ' + $scope.report.monthlyTitleFormat + ' ';
                 msg += complete ? $filter('translate')('submitted')+'!' : $filter('translate')('saved_mayus1')+'!';
 
             // msg
