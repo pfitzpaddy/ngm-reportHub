@@ -81,7 +81,10 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         },
 
         // init
-        init: function(){},
+        init: function(){
+					$scope.report.report.stocklocations = $filter('orderBy')( $scope.report.report.stocklocations, [ 'admin1name','admin2name','admin3name','admin4name','admin5name','site_name' ]);
+
+				},
 
         // cancel and delete empty project
         cancel: function() {
