@@ -221,10 +221,29 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
         // remove stocks
         removeStock: function( $parent, $index ) {
-          $scope.report.report.stocklocations[ $parent ].stocks.splice( $index, 1 );
-					// save
-          $scope.report.save( false );
-        },
+					var id = $scope.report.report.stocklocations[ $parent ].stocks[$index].id;
+					$scope.report.report.stocklocations[ $parent ].stocks.splice( $index, 1 );
+					if (id) $scope.report.removeStockRequest(id);
+				},
+
+				// remove beneficiary
+				removeStockRequest: function( id ) {
+					// update
+					$http({
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/cluster/stock/removeStock',
+							data: { id: id }
+					}).success( function( result ){
+						if ( result.err ) {
+							// Materialize.toast( 'Error! Please correct the ROW and try again', 4000, 'error' );
+							M.toast({ html: 'Error! Please correct the ROW and try again', displayLength: 4000, classes: 'error' });
+						}
+						if ( !result.err ) { $scope.report.save( false ); }
+					}).error(function( err ) {
+						// Materialize.toast( 'Error!', 4000, 'error' );
+						M.toast({ html: 'Error!', displayLength: 4000, classes: 'error' });
+					});
+				},
 
         // cofirm exit if changes
         modalConfirm: function( modal ){
