@@ -367,9 +367,6 @@ angular.module( 'ngmReportHub' )
         delete stock.stocks;
         delete stock.stocklocations;
 
-        // default stock
-        stock.report_id = stock.report_id.id;
-
         return stock;
       },
 
