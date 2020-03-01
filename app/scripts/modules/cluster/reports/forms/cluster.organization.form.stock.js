@@ -309,13 +309,15 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 								var $loc = $scope.report.report.stocklocations.find(function (l) {
 									return l.stock_warehouse_id === id
 								});
-								var copy_report = $scope.report.report;
-								$scope.inserted =
-									ngmClusterHelper.getCleanStocks($scope.report.report, $loc, $scope.inserted);
+								if ($loc){
+									var copy_report = $scope.report.report;
+									$scope.inserted =
+										ngmClusterHelper.getCleanStocks($scope.report.report, $loc, $scope.inserted);
 
-								$scope.report.report.stocklocations.find(function (l) {
-									return l.stock_warehouse_id === id
-								}).stocks.push($scope.inserted);
+									$scope.report.report.stocklocations.find(function (l) {
+										return l.stock_warehouse_id === id
+									}).stocks.push($scope.inserted);
+								}
 							});
 						});
 				},
