@@ -156,6 +156,7 @@
        "view_team" : "View Team",
        "projects_mayus1":"Projects",
        "activty_plans_mayus1":"Activities",
+       "planned_activities":"Planned Activities",
        "project_mayus1":"Project",
        "project":"project",
        "projects":"projects",
@@ -184,9 +185,9 @@
        "all_districts":"All Districts",
        "active_organizations":"Active Organizations",
        "active_projects":"Active Projects",
-       "active_activty_plans":"Active Activity",
+       "active_activty_plans":"Ongoing Activities",
        "completed_projects":"Completed Projects",
-       "completed_activty_plans": "Completed Activity",
+       "completed_activty_plans": "Completed Activities",
 
         "active_partners": "Active Partners",
 
@@ -218,6 +219,7 @@
         "active_staff":"Active Staff",
         "project_details":"Project Details",
         "project_plan":"Project Plan",
+        "activity_plan_detail": "Activities Plan",
         "activity_plan": "Activities",
         "project_title":"Project Title",
         "project_code":"Project Code",

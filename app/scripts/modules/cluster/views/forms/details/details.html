@@ -53,9 +53,13 @@
 			<ul id="project_details_form" class="collection with-header">
 
 				<li class="collection-header blue lighten-1">
-					<h5 class="report-work-title white-text">
+					<h5 ng-if="project.definition.admin0pcode !== 'AF'" class="report-work-title white-text">
 						<i class="material-icons left">border_color</i>{{'project_plan'|translate}}
 
+					</h5>
+					<h5 ng-if="project.definition.admin0pcode === 'AF'" class="report-work-title white-text">
+						<i class="material-icons left">border_color</i>{{'activity_plan_detail'|translate}}
+					
 					</h5>
 				</li>
 
