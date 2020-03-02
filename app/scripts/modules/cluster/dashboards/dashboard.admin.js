@@ -1285,7 +1285,7 @@ angular.module('ngmReportHub')
 										headerClass: 'collection-header teal lighten-2',
 										headerText: 'white-text',
 										headerIcon: 'assignment_turned_in',
-										headerTitle: $filter('translate')('projects_progress'),
+										headerTitle: $scope.dashboard.admin0pcode === 'af' ? $filter('translate')('activity_plans_progress') :$filter('translate')('projects_progress'),
 										templateUrl: '/scripts/widgets/ngm-table/templates/cluster/admin.progress.beneficiaries.html',
 										tableOptions:{
 											count: 10

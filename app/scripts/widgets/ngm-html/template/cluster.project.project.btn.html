@@ -2,7 +2,11 @@
     <i class="material-icons mirror left">keyboard_return</i>
     {{'back_to_organization'| translate}}
 </a>
-<a class="waves-effect waves-light btn right" href="{{panel.newProject}}">
+<a ng-if="!panel.forAF" class="waves-effect waves-light btn right" href="{{panel.newProject}}">
     <i class="material-icons left">add_circle_outline</i>
     {{'add_new_project' | translate}}
+</a>
+<a ng-if="panel.forAF" class="waves-effect waves-light btn right" href="{{panel.newProject}}">
+    <i class="material-icons left">add_circle_outline</i>
+    {{'add_new_plan' | translate}}
 </a>
