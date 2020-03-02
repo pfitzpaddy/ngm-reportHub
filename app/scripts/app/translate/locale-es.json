@@ -184,6 +184,7 @@
        "duty_station" : "Estación de servicio",
        "profile" : "Perfil",
        "projects_mayus1" : "Proyectos",
+       "activty_plans_mayus1": "Activity Plans",
        "projects" : "proyectos",
        "project_mayus1":"Proyecto",
        "project":"proyecto",
@@ -194,8 +195,10 @@
        "back_to_organization":"Regresar a Organización",
 
        "add_new_project":"Agregar Nuevo Proyecto",
+       "add_new_plan": "Add New Plan",
        "projects_for":"proyectos para",
         "projects_for_mayus1":"Projectos para",
+        "activty_for_plans_mayus1": "Activity Plans for",
 
        "download_dashboard_as_pdf":"Descargar Dashboard como PDF",
        "download_cluster_contact_list_as_csv":"Descargar Lista de Contactos del Cluster como CSV",
@@ -243,6 +246,7 @@
        "update_photo":"Actualizar Foto",
         "project_details":"Detalles del Proyecto",
         "project_plan":"Proyecto",
+        "activity_plan": "Activity Plan",
         "project_title":"Título del Proyecto",
         "project_code":"Código del Proyecto",
         "no_project_activity_type": "Por favor seleccione las actividades del proyecto (Tipo de Actividad)!",
@@ -254,6 +258,7 @@
 
 
         "go_to_project_plan":"Ir a Proyecto",
+        "go_to_activity_plan": "Go to Activity Plan",
         "monthly_progress":"Monitoreo (Beneficiarios)",
         "project_documents":"Soportes del Proyecto",
         "go_to_project_documents":"Ir a Soportes del Proyecto",
@@ -333,6 +338,7 @@
          "this_will_affect_any_existing_monthly_beneficiary_reports":"Esto afectará cualquier informe mensual de beneficiarios existente",
          "yes_remove_location":"Si, Eliminar ubicación",
          "back_to_projects":"Volver a Proyectos",
+         "back_to_activity_plans": "Back to Activity Plans",
          "back_to_reports":"Volver a Reportes",
          "back_to_location_groups": "Volver a Grupo de Ubicaciones",
          "last_updated":"Última Actualización",
@@ -502,6 +508,7 @@
          "from":"desde",
          "to":"hasta",
          "projects_progress":"Proyectos en Progreso",
+         "activity_plans_progress": "Activity Plans Progress",
 
         "activity":"Tipo de Actividad",
         "description":"Actividad",
@@ -610,12 +617,15 @@
 
 
         "mark_project_as_complete":"Marcar Proyecto como COMPLETO",
+        "mark_activity_plan_as_complete": "Mark Activity Plan as Complete",
         "are_you_sure_you_want_to_mark_this_project_as_complete":"Está seguro que quiere marcar este PROYECTO como 'COMPLETO'",
         "yes_project_complete":"Si, proyecto completo",
         "delete_project":"Eliminar Proyecto",
+        "delete_activity_plan": "Delete Activity",
         "are_you_sure_you_want_to_delete_this_project_and_all_its_associated_data":"Está seguro que quiere ELIMINAR este PROYECTO y todos los datos asociados",
         "yes_delete_project":"Si, eliminar proyecto",
         "mark_project_as_active":"Marcar proyecto como Activo",
+        "mark_activity_plan_as_active": "Mark Activity Plan as Active",
         "mark_project_as_plan":"Marcar proyecto como Plano",
         "mark_project_as_not_implemented":"Marcar proyecto como No se ha Implementado",
         "are_you_sure_you_want_to_move_this_project_to_active":"Está seguro que quiere mover este proyecto a 'Activo'",

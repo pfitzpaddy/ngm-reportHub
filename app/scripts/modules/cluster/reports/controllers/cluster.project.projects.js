@@ -124,7 +124,7 @@ angular.module( 'ngmReportHub' )
 					if ($route.current.params.admin0pcode !== 'all') {
 						$scope.model.header.download.downloads[0].request.data.report = (countrylist[$scope.report.admin0pcode]).toLowerCase()
 						$scope.model.header.title.title = (countrylist[$scope.report.admin0pcode]).toUpperCase().substring(0, 3)
-						$scope.model.header.subtitle.title = 'All ' + $filter('translate')('projects_for_mayus1') + ' ' + (countrylist[$scope.report.admin0pcode])
+						$scope.model.header.subtitle.title = 'All ' + ($route.current.params.admin0pcode === 'af' ? $filter('translate')('activty_for_plans_mayus1') : $filter('translate')('projects_for_mayus1')) + ' ' + (countrylist[$scope.report.admin0pcode])
 						$scope.report.title = (countrylist[$scope.report.admin0pcode]).toUpperCase().substring(0, 3)
 					}
 					if($route.current.params.organization_tag !== 'all'){
@@ -141,7 +141,7 @@ angular.module( 'ngmReportHub' )
 						$scope.report.title = $scope.report.title + " | " + $scope.report.cluster_id.toUpperCase()
 					}
 					$scope.model.header.download.downloads[0].request.data.report = $scope.model.header.download.downloads[0].request.data.report + '_projects-extracted-' + moment().format('YYYY-MM-DDTHHmm');
-					$scope.model.header.title.title = $scope.model.header.title.title + ' | ' + $filter('translate')('projects_mayus1');
+					$scope.model.header.title.title = $scope.model.header.title.title + ' | ' + ($route.current.params.admin0pcode === 'af' ? $filter('translate')('activty_plans_mayus1'):$filter('translate')('projects_mayus1'));
 					$scope.report.title = $scope.report.title + " | " + $scope.report.cluster_id.toUpperCase() + ' | ' + $filter('translate')('projects_mayus1');
 			},
 
@@ -556,6 +556,7 @@ angular.module( 'ngmReportHub' )
 									// html: '<a class="btn-flat waves-effect waves-teal left hide-on-small-only" href="' + $scope.report.getOrganizationHref() + '"><i class="material-icons left">keyboard_return</i>'+$filter('translate')('back_to_organization')+'</a><a class="waves-effect waves-light btn right" href="' + $scope.report.newProjectUrl + '"><i class="material-icons left">add_circle_outline</i>'+$filter('translate')('add_new_project')+'</a>'
 									orgHref: $scope.report.getOrganizationHref(),
 									newProject: $scope.report.newProjectUrl,
+									forAF:$route.current.params.admin0pcode === 'af',
 									templateUrl: '/scripts/widgets/ngm-html/template/cluster.project.project.btn.html'
 								}
 							}]
@@ -589,7 +590,7 @@ angular.module( 'ngmReportHub' )
 									// color: 'teal lighten-4',
 									color: 'blue lighten-1',
 									textColor: 'white-text',
-									title: $filter('translate')('active_projects'),
+									title: $route.current.params.admin0pcode === 'af' ? $filter('translate')('active_activty_plans'):$filter('translate')('active_projects'),
 									icon: 'edit',
 									request: $scope.report.getProjectRequest( 'active' )
 								}
@@ -606,7 +607,7 @@ angular.module( 'ngmReportHub' )
 									// color: 'lime lighten-4',
 									color: 'blue lighten-1',
 									textColor: 'white-text',
-									title: $filter('translate')('completed_projects'),
+									title: $route.current.params.admin0pcode === 'af'?$filter('translate')('completed_activty_plans'):$filter('translate')('completed_projects'),
 									icon: 'done',
 									request: $scope.report.getProjectRequest( 'complete' )
 								}
