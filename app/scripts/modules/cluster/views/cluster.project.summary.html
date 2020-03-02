@@ -194,10 +194,10 @@
 				<div class="widget card-panel white grey-text text-darken-2">
 					<!-- submission -->
 					<div align="center">
-						<button g-if="panel.project.admin0pcode !== 'AF'"data-target="active-modal" class="waves-effect waves-light btn modal-trigger blue" ng-cloak>
+						<button ng-if="panel.project.admin0pcode !== 'AF'"data-target="active-modal" class="waves-effect waves-light btn modal-trigger blue" ng-cloak>
 							<i class="material-icons left">assignment_turned_in</i>{{'mark_project_as_active' | translate}}
 						</button>
-						<button g-if="panel.project.admin0pcode === 'AF'" data-target="active-modal"
+						<button ng-if="panel.project.admin0pcode === 'AF'" data-target="active-modal"
 							class="waves-effect waves-light btn modal-trigger blue" ng-cloak>
 							<i class="material-icons left">assignment_turned_in</i>{{'mark_activity_plan_as_active' | translate}}
 						</button>
