@@ -44,12 +44,12 @@
       </div>
       <div class="card-content white-text">
         <p class="card-title" ng-if="panel.organization.admin0pcode !== 'AF'">{{ 'projects_mayus1' | translate }}</p>
-          <p class="card-title" ng-if="panel.organization.admin0pcode === 'AF'">{{'activty_plans_mayus1' | translate}}</p>
+          <p class="card-title" ng-if="panel.organization.admin0pcode === 'AF'">{{'activity_plan' | translate}}</p>
       </div>
       <div class="card-action">
         <a ng-if="!$root.rtl && panel.organization.admin0pcode !== 'AF'" href="{{ panel.getProjectsHref() }}">{{ 'go_to' | translate}} {{ panel.organization.organization }} {{'projects_mayus1' | translate}}</a>
         <a ng-if="!$root.rtl && panel.organization.admin0pcode === 'AF' " href="{{ panel.getProjectsHref() }}">{{ 'go_to' | translate}}
-          {{ panel.organization.organization }} {{'activty_plans_mayus1' | translate}}</a>
+          {{ panel.organization.organization }} {{'activity_plan' | translate}}</a>
         <a ng-if="$root.rtl" href="{{ panel.getProjectsHref() }}"> بروبه
           برنامه های فعالیت{{ panel.organization.organization }}</a>
       </div>
