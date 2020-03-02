@@ -243,7 +243,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					if ( $scope.project.report.locations.length > $scope.project.location_limit ) {
 						$scope.project.location_limit += 1;
 						// required to update ng-repeat limitTo?
-						$scope.$apply();
+						$timeout(function(){
+							$scope.$apply();
+						},0)
 					}
 
 					// if all rendered
@@ -340,6 +342,9 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					}
 					$scope.project.report.locations[ $parent ].beneficiaries.push( beneficiary );
 					// Open card panel detail beneficiaries form
+					if(!$scope.detailBeneficiaries[$parent]){
+						$scope.detailBeneficiaries[$parent]=[];
+					}
 					$scope.detailBeneficiaries[$parent][$scope.project.report.locations[$parent].beneficiaries.length-1] = true;
 					// set form display for new rows
 					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, $parent, $scope.project.report.locations[ $parent ].beneficiaries.length-1, beneficiary );					
