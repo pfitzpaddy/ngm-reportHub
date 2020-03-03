@@ -133,6 +133,11 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
 
         },
 
+				refreshWidgets: function(){
+					$rootScope.$broadcast('refresh:warehouses');
+					$rootScope.$broadcast('refresh:stockreports');
+				},
+
         // add location
         addLocation: function(){
 
@@ -153,7 +158,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
           ngmData.get($scope.report.setOrganization()).then( function( organization ){
 
             // set org
-            $scope.report.organization = organization;
+						$scope.report.organization = organization[0];
 
             // on success
             // Materialize.toast( 'Warehouse Location Added!', 6000, 'success');
@@ -161,7 +166,7 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
 
 						// refresh to update empty reportlist
 						// $scope.reload()
-						$rootScope.$broadcast('widgetReload');
+						$scope.report.refreshWidgets();
 
           });
 
@@ -190,25 +195,29 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
           $scope.report.organization.warehouses.splice( $scope.report.locationIndex, 1 );
 
           // send request
-          $q.all([ $http($scope.report.setOrganization()), $http($scope.report.removeStockLocation(stock_warehouse_id)) ]).then( function( results ){
-
-            // set org
-            $scope.report.organization = results[0].data;
+          $q.all([ $http($scope.report.removeStockLocation(stock_warehouse_id)) ]).then( function( results ){
 
             // on success
-            // Materialize.toast( 'Warehouse Location Removed!', 6000, 'success');
             M.toast({ html: 'Warehouse Location Removed!', displayLength: 6000, classes: 'success' });
 
             // refresh to update empty reportlist
 						// $route.reload();
-						$rootScope.$broadcast('widgetReload');
-
+						$scope.report.refreshWidgets();
 
           });
 
         }
 
-      }
+			};
+
+			// set event listener to update data
+			if (config.refreshEvent) {
+				$scope.$on(config.refreshEvent, function () {
+					// update organization object coming from config
+					if(config.organization) config.organization = $scope.report.organization;
+					$timeout(function () { $scope.$emit('widgetReload'); }, 0);
+				})
+			}
   }
 
 ]);

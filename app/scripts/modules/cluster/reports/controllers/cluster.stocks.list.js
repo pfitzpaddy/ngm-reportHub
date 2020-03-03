@@ -50,13 +50,13 @@ angular.module('ngmReportHub')
 				startYear = moment($scope.report.organization.createdAt).year();
 				var yearRow = [];
 				url = $route.current.params.organization_id ? '#/cluster/stocks/organization/' + $route.current.params.organization_id+'/':'#/cluster/stocks/'
-				for (year = startYear; year <= moment().year(); year++) {
+				for (eyear = startYear; eyear <= moment().year(); eyear++) {
 					year_obj = {
-						'title': year,
+						'title': eyear,
 						'param': 'year',
-						'active': year,
+						'active': eyear,
 						'class': 'grey-text text-darken-2 waves-effect waves-teal waves-teal-lighten-4',
-						'href': url + year
+						'href': url + eyear
 					}
 					yearRow.push(year_obj)
 				}
@@ -99,7 +99,9 @@ angular.module('ngmReportHub')
 								type: 'organization.stocks.list',
 								config: {
 									style: $scope.report.ngm.style,
-									organization: $scope.report.organization
+									organization: $scope.report.organization,
+									refreshEvent: 'refresh:warehouses'
+									// request: $scope.report.getOrganization( $scope.report.organization.id )
 								}
 							}]
 						}]
@@ -120,6 +122,7 @@ angular.module('ngmReportHub')
 									templateUrl: '/scripts/widgets/ngm-list/template/stock.html',
 									orderBy: 'reporting_due_date',
 									format: true,
+									refreshEvent: 'refresh:stockreports',
 									request: {
 										method: 'POST',
 										url: ngmAuth.LOCATION + '/api/cluster/stock/getReportsList',
@@ -151,6 +154,7 @@ angular.module('ngmReportHub')
 									templateUrl: '/scripts/widgets/ngm-list/template/stock.html',
 									orderBy: 'reporting_due_date',
 									format: true,
+									refreshEvent: 'refresh:stockreports',
 									request: {
 										method: 'POST',
 										url: ngmAuth.LOCATION + '/api/cluster/stock/getReportsList',
