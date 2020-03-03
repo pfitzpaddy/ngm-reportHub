@@ -17,7 +17,8 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
       });
   })
   .controller( 'ClusterOrganizationStocksFormList', [
-    '$scope',
+		'$scope',
+		'$rootScope',
     '$location',
     '$timeout',
     '$filter',
@@ -31,7 +32,8 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
     'ngmClusterValidation',
     'ngmLists',
     'config',
-    function( $scope,
+		function( $scope,
+				$rootScope,
         $location,
         $timeout,
         $filter,
@@ -157,8 +159,9 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
             // Materialize.toast( 'Warehouse Location Added!', 6000, 'success');
             M.toast({ html: 'Warehouse Location Added!', displayLength: 6000, classes: 'success' });
 
-            // refresh to update empty reportlist
-            $route.reload();
+						// refresh to update empty reportlist
+						// $scope.reload()
+						$rootScope.$broadcast('widgetReload');
 
           });
 
@@ -197,7 +200,9 @@ angular.module( 'ngm.widget.organization.stocks.list', [ 'ngm.provider' ])
             M.toast({ html: 'Warehouse Location Removed!', displayLength: 6000, classes: 'success' });
 
             // refresh to update empty reportlist
-            $route.reload();
+						// $route.reload();
+						$rootScope.$broadcast('widgetReload');
+
 
           });
 
