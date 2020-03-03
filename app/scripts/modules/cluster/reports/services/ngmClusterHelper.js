@@ -6,22 +6,22 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterHelper', 
-      [ '$location', 
+	.factory( 'ngmClusterHelper',
+      [ '$location',
         '$q',
         '$http',
         '$filter',
         '$timeout',
         'ngmAuth',
         'ngmClusterLists',
-        'ngmClusterLocations','$translate','$filter', 
-    function( $location, 
-                $q, 
-                $http, 
-                $filter, 
-                $timeout, 
-                ngmAuth, 
-                ngmClusterLists, 
+        'ngmClusterLocations','$translate','$filter',
+    function( $location,
+                $q,
+                $http,
+                $filter,
+                $timeout,
+                ngmAuth,
+                ngmClusterLists,
                 ngmClusterLocations,$translate,$filter ) {
 
 		var ngmClusterHelper = {
@@ -87,7 +87,7 @@ angular.module( 'ngmReportHub' )
                   project.mpc_delivery_type_check[ d.delivery_type_id ] = true;
                 }
               });
-            } 
+            }
 
             // add project donor check box list
             if ( project.project_donor ) {
@@ -345,6 +345,7 @@ angular.module( 'ngmReportHub' )
         delete warehouse.site_type;
 				delete warehouse.createdAt;
 				delete warehouse.updatedAt;
+				delete warehouse.warehouses
 
         // add params
         // warehouse.warehouse_status = 'new';
@@ -663,7 +664,7 @@ angular.module( 'ngmReportHub' )
 				return menu
 			},
 
-			// get Menu Region 
+			// get Menu Region
 			getRegionMenu: function(url){
 				var region = {
           'search': true,
