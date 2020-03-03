@@ -4277,6 +4277,10 @@ angular.module( 'ngmReportHub' )
                 "project_donor_name": "Diakonie Katastrophenhilfe Apoyo en Emergencias"
               },
               {
+                "project_donor_id": "el_fondo_mundial",
+                "project_donor_name": "El Fondo Mundial"
+              },
+              {
                 "project_donor_id": "embajada_de_alemania_en_colombia",
                 "project_donor_name": "Embajada de Alemania en Colombia"
               },
