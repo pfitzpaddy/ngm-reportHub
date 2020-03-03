@@ -31,7 +31,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
     'ngmClusterLists', 'ngmLists',
     'config','$translate',
     function( $scope, $location, $timeout, $filter, $q, $http, $route, ngmUser, ngmAuth, ngmData, ngmClusterHelper, ngmClusterLists, ngmLists, config,$translate ){
-      
+
       // project
       $scope.report = {
 
@@ -81,7 +81,10 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         },
 
         // init
-        init: function(){},
+        init: function(){
+					$scope.report.report.stocklocations = $filter('orderBy')( $scope.report.report.stocklocations, [ 'admin1name','admin2name','admin3name','admin4name','admin5name','site_name' ]);
+
+				},
 
         // cancel and delete empty project
         cancel: function() {
@@ -105,12 +108,12 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 						stock_targeted_groups_id: null,
 						stock_targeted_groups_name: null,
 
-						
+
           };
           // process + clean location
           $scope.inserted =
 							ngmClusterHelper.getCleanStocks( $scope.report.report, $scope.report.report.stocklocations[ $parent ], $scope.inserted );
-				
+
           $scope.report.report.stocklocations[ $parent ].stocks.push( $scope.inserted );
         },
 
@@ -221,10 +224,29 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
         // remove stocks
         removeStock: function( $parent, $index ) {
-          $scope.report.report.stocklocations[ $parent ].stocks.splice( $index, 1 );
-					// save
-          $scope.report.save( false );
-        },
+					var id = $scope.report.report.stocklocations[ $parent ].stocks[$index].id;
+					$scope.report.report.stocklocations[ $parent ].stocks.splice( $index, 1 );
+					if (id) $scope.report.removeStockRequest(id);
+				},
+
+				// remove beneficiary
+				removeStockRequest: function( id ) {
+					// update
+					$http({
+							method: 'POST',
+							url: ngmAuth.LOCATION + '/api/cluster/stock/removeStock',
+							data: { id: id }
+					}).success( function( result ){
+						if ( result.err ) {
+							// Materialize.toast( 'Error! Please correct the ROW and try again', 4000, 'error' );
+							M.toast({ html: 'Error! Please correct the ROW and try again', displayLength: 4000, classes: 'error' });
+						}
+						if ( !result.err ) { $scope.report.save( false ); }
+					}).error(function( err ) {
+						// Materialize.toast( 'Error!', 4000, 'error' );
+						M.toast({ html: 'Error!', displayLength: 4000, classes: 'error' });
+					});
+				},
 
         // cofirm exit if changes
         modalConfirm: function( modal ){
@@ -287,13 +309,15 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 								var $loc = $scope.report.report.stocklocations.find(function (l) {
 									return l.stock_warehouse_id === id
 								});
-								var copy_report = $scope.report.report;
-								$scope.inserted =
-									ngmClusterHelper.getCleanStocks($scope.report.report, $loc, $scope.inserted);
+								if ($loc){
+									var copy_report = $scope.report.report;
+									$scope.inserted =
+										ngmClusterHelper.getCleanStocks($scope.report.report, $loc, $scope.inserted);
 
-								$scope.report.report.stocklocations.find(function (l) {
-									return l.stock_warehouse_id === id
-								}).stocks.push($scope.inserted);
+									$scope.report.report.stocklocations.find(function (l) {
+										return l.stock_warehouse_id === id
+									}).stocks.push($scope.inserted);
+								}
 							});
 						});
 				},
@@ -378,7 +402,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             $scope.report.updatedAt = moment( report.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' );
 
             // user msg
-            var msg = $filter('translate')('stock_report_for')+' ' + $scope.report.titleFormat + ' ';
+            var msg = $filter('translate')('stock_report_for')+' ' + $scope.report.monthlyTitleFormat + ' ';
                 msg += complete ? $filter('translate')('submitted')+'!' : $filter('translate')('saved_mayus1')+'!';
 
             // msg
