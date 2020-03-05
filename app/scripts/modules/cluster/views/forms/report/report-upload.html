@@ -2,7 +2,7 @@
 	.dropzone {
 	border: 2px dashed #5c6bc0;
 	margin: 0 20px 0 20px;
-	
+
 }
 .modal{
 	max-height: unset;
@@ -70,7 +70,7 @@ li .collection-item .avatar .coll .list-upload{
 	}
 	.collection .collection-item.avatar .circle {
     width: 25px;
-    height: 25px;    
+    height: 25px;
     top: -11px;
     left: -4px;
 	}
@@ -160,12 +160,12 @@ font-size: 18px;
 	<div class="modal-footer" style=" padding-top: 1px; padding-right: 1px; ">
 		<a class=" modal-action waves-effect waves-green right close-button" style="margin-top:0px"
 		ng-click="project.uploadDocument.closeModal('upload-file')">
-			<i class="material-icons close-uplod-btn">clear</i></a>
+			<i class="material-icons modal-action modal-close close-uplod-btn">clear</i></a>
 	</div>
 	<div class="modal-content">
 
-	
-	<div class="row">						
+
+	<div class="row">
 									<div id="dropzone">
 										<form ng-dropzone dropzone="dropzone" dropzone-config="project.uploadDocument" enctype="multipart/form-data" class="dropzone needsclick dz-clickable">
 											<div class="fallback">
@@ -304,8 +304,8 @@ font-size: 18px;
 							</div>
 							<div class="col s3">
 								<div class="line-non-grid">
-					
-					
+
+
 									<button class="btn-floating  wave-effect blue tooltipped-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}"
 									 ng-disabled="item.filename_extension === '.csv'" ng-click="ngmClusterDocument.openPreview('close-preview-file',item.fileid)">
 										<i class="small material-icons">compare</i>
@@ -348,7 +348,7 @@ font-size: 18px;
 													<i class="material-icons right" style="font-size: 18px; color: #e2e2e2;margin-top: 5px;margin-right: 5px;">close</i>
 												</div>
 												<div class="line">
-						
+
 													<!-- use gdrive id file -->
 													<button class="btn-floating  wave-effect blue tooltipped-report-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}" ng-click="ngmClusterDocument.openPreview('close-preview-file',item.fileid)"
 													 ng-disabled="item.filename_extension === '.csv'">
