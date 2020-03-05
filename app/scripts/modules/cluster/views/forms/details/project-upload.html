@@ -185,7 +185,7 @@ font-size: 18px;
 <div id="upload-file" class="modal">
 	<div class="modal-footer" style=" padding-top: 1px; padding-right: 1px; ">
 		<a class=" modal-action waves-effect waves-green right close-button" style="margin-top:0px" ng-click="project.uploadDocument.closeModal('upload-file')">
-			<i class="material-icons close-uplod-btn">clear</i>
+			<i class="material-icons modal-action modal-close close-uplod-btn">clear</i>
 		</a>
 	</div>
 	<div class="modal-content">
@@ -301,7 +301,7 @@ font-size: 18px;
 											<i class="material-icons right" style="font-size: 18px; color: #e2e2e2;margin-top: 5px;margin-right: 5px;">close</i>
 										</div>
 										<div class="line">
-				
+
 											<!-- use gdrive id file -->
 											<button class="btn-floating  wave-effect blue tooltipped-report-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}" ng-click="ngmClusterDocument.openPreview('close-preview-file',item.fileid)"
 											 ng-disabled="item.filename_extension === '.csv'">
@@ -386,8 +386,8 @@ font-size: 18px;
 							</div>
 							<div class="col s3">
 								<div class="line-non-grid">
-				
-				
+
+
 									<button class="btn-floating  wave-effect blue tooltipped-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}" ng-disabled="item.filename_extension === '.csv'"
 									 ng-click="ngmClusterDocument.openPreview('close-preview-file',item.fileid)">
 										<i class="small material-icons">compare</i>
@@ -407,8 +407,8 @@ font-size: 18px;
 						<dir-pagination-controls pagination-id="listUpload.id"></dir-pagination-controls>
 					</li>
 				</div>
-				
-				
+
+
 			</ul>
 
 		</div>
