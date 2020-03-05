@@ -594,6 +594,30 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					}
 				},
 
+				// add location
+				addLocationByIndex: function( $index ) {
+
+					$scope.project.definition.target_locations[ $index ] = {
+            site_type_id: $scope.project.definition.target_locations[ $index ].site_type_id,
+            site_type_name: $scope.project.definition.target_locations[ $index ].site_type_name
+					}
+
+					// re-set location
+					$scope.inserted = ngmClusterLocations.addLocation( $scope.project.definition, $scope.project.definition.target_locations );
+					$scope.project.definition.target_locations[ $index ] = $scope.inserted;
+					
+					// open card panel form of new add beneficiaries
+					$scope.detailLocation[ $index ] = true;
+					
+					// autoset location groupings
+					if (  $scope.project.showLocationGroupingsOption() && $scope.project.definition.target_locations.length > 30  ) {
+						$scope.project.addLocationGroupings();
+					}
+
+					// CB, run form
+					ngmCbLocations.setLocationsForm( $scope.project, $scope.project.definition.target_locations );
+				},
+
 				// save location
 				saveLocation: function() {
 					if($scope.project.validate(false)){

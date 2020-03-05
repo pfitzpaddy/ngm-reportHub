@@ -7978,6 +7978,14 @@ angular.module( 'ngmReportHub' )
             site_type_name: 'Fencing'
           },{
             cluster_id: [ 'smsd' ],
+            site_type_id: 'guide_wall',
+            site_type_name: 'Guide Wall'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'pedestrian_pathway',
+            site_type_name: 'Pedestrian Pathway'
+          },{
+            cluster_id: [ 'smsd' ],
             site_type_id: 'pathway',
             site_type_name: 'Pathway'
           },{
@@ -8000,10 +8008,14 @@ angular.module( 'ngmReportHub' )
             cluster_id: [ 'smsd' ],
             site_type_id: 'road_rehabilitation',
             site_type_name: 'Road Rehabilitation'
-          },{
+          },{            
             cluster_id: [ 'smsd' ],
             site_type_id: 'slope_protection',
             site_type_name: 'Slope Protection'
+          },{
+            cluster_id: [ 'smsd' ],
+            site_type_id: 'slope_stabilization',
+            site_type_name: 'Slope Stabilization'
           },{
             cluster_id: [ 'smsd' ],
             site_type_id: 'stair',

@@ -140,10 +140,16 @@
 													( project.definition.project_status === 'complete' ) )">
 								<i class="material-icons">delete</i>
 							</button>
-							<button class="btn-floating blue lighten-1 waves-effect waves-light"
-												ng-if="(project.newProject || !location.id) && detailLocation[$index]"
+							<button class="btn-floating red lighten-2 waves-effect waves-light"
+												ng-if="( project.newProject || !location.id ) && detailLocation[$index]"
 												ng-click="project.cancelEdit( 'target_locations', $index )" 
-												title="Cancel Edit">
+												title="Remove {{ location.site_name }}">
+								<i class="material-icons">delete</i>
+							</button>
+							<button class="btn-floating blue lighten-1 waves-effect waves-light"
+												ng-if="( project.newProject || !location.id ) && detailLocation[$index]"
+												ng-click="project.addLocationByIndex( $index )" 
+												title="Clear Location">
 								<i class="material-icons">clear</i>
 							</button>
 							<button
