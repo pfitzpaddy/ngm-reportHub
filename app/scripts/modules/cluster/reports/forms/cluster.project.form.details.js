@@ -597,6 +597,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				// add location
 				addLocationByIndex: function( $index ) {
 
+					// keep site_type
 					$scope.project.definition.target_locations[ $index ] = {
             site_type_id: $scope.project.definition.target_locations[ $index ].site_type_id,
             site_type_name: $scope.project.definition.target_locations[ $index ].site_type_name
@@ -616,6 +617,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 					// CB, run form
 					ngmCbLocations.setLocationsForm( $scope.project, $scope.project.definition.target_locations );
+					
 				},
 
 				// save location
