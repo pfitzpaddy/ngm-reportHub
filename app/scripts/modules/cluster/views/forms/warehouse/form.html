@@ -22,12 +22,14 @@
 	<div class="col s12 m12 l12">
 		<div style="padding:20px;">
 			<!-- org href -->
+			<span class="left show-on-small hide-on-med-and-up"
+				style="padding-top:8px;padding-left: 17px;padding-bottom: 15px;">{{'last_updated'|translate}}: {{ report.updatedAt }}</span>
 			<a class="btn-flat waves-effect waves-teal" href="{{ report.getOrganizationHref() }}">
 				<i class="material-icons mirror left">keyboard_return</i>{{'back_to_organization'|translate}}
 			</a>
 
 
-			<span class="right" style="padding-top:8px;">{{'last_updated'|translate}}: {{ report.updatedAt }}</span>
+			<span class="right hide-on-small-only" style="padding-top:8px;">{{'last_updated'|translate}}: {{ report.updatedAt }}</span>
 
 		</div>
 	</div>
@@ -37,11 +39,13 @@
 <form name="clusterStockReportsForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
 
 	<!-- disabled -->
-	<fieldset ng-disabled="!report.canEdit">
+	<!-- <fieldset ng-disabled="!report.canEdit"> -->
+	<div ng-disabled="!report.canEdit">
 		<!-- Project budget details -->
 		<div ng-include="report.warehouseUrl"></div>
+	</div>
 		
-	</fieldset>
+	<!-- </fieldset> -->
 
 </form>
 

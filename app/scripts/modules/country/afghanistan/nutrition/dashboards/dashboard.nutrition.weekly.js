@@ -110,11 +110,11 @@ angular.module('ngmReportHub')
 								'title': $filter('translate')('nutrition_weekly_reporting') + ' Dashboard',
 							},
 							subtitle: {
-								'class': 'col hide-on-small-only m8 l9 report-subtitle truncate',
+								'class': 'col hide-on-small-only m7 l9 report-subtitle truncate',
 								'title': ngmNutritionHelper.getSubtitle(),
 							},
 							datePicker: {
-								'class': 'col s12 m4 l3',
+								'class': 'col s12 m5 l3',
 								dates: [{
 									style: 'float:left;',
 									label: $filter('translate')('from'),

@@ -385,3 +385,17 @@ body.md-default-theme, body, html.md-default-theme, html {
 .icon.center .card img {
     width: 100%;
 }
+
+@media only screen and (max-width: 992px){
+	table.responsive-table thead tr th::before {
+		content: "";
+	}
+}
+
+@media only screen and (max-width: 500px){
+	.btn.button-label{
+		height: 28.4px;
+    line-height: 28.4px;
+    font-size: 9px;
+	}
+}

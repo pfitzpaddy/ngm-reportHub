@@ -232,6 +232,9 @@
 		<div style="padding:20px;">
 			
 			<!--  -->
+			<span class="left show-on-small hide-on-med-and-up"
+				style="padding-top:8px;padding-left: 17px;padding-bottom: 15px;">{{'last_updated' | translate}}:
+				{{ project.updatedAt }}</span>
 			<button ng-if="!project.location_group" class="waves-effect waves-teal btn-flat" ng-click="project.modalConfirm( 'list-modal' )">
 				<i class="material-icons mirror left">keyboard_return</i>{{'back_to_reports'|translate}}
 			</button>
@@ -240,7 +243,7 @@
 				<i class="material-icons mirror left">keyboard_return</i>{{'back_to_location_groups'|translate}}
 			</button>			
 
-			<span class="right" style="padding-top:8px;">{{'last_updated'|translate}}: {{ project.updatedAt }}</span>
+			<span class="right hide-on-small-only" style="padding-top:8px;">{{'last_updated'|translate}}: {{ project.updatedAt }}</span>
 
 		</div>
 	</div>
@@ -250,7 +253,7 @@
 <div name="clusterReportForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
 
 	<!-- <fieldset ng-disabled="!project.canEdit"> -->
-	<fieldset>
+	<div>
 		
 		<!-- Project beneficiaries details -->
 		<div ng-include="project.templatesUrl + project.locationsUrl"></div>
@@ -371,7 +374,7 @@
 				</div>
 			</div>
 		</div>
-	</fieldset>
+	</div>
 
 </div>
 

@@ -86,7 +86,7 @@ angular.module('ngmReportHub')
 							title: $scope.report.title
 						},
 						subtitle: {
-							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
+							'class': 'col s12 m12 l12 report-subtitle truncate',
 							'title': $filter('translate')('monthly_stock_report_for')+ ' ' + moment.utc( [ $scope.report.definition.report_year, $scope.report.definition.report_month, 1 ] ).format('MMMM, YYYY')
 						},
 						download: {

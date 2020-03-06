@@ -57,7 +57,7 @@
 					</div>
 
 					<!-- if data -->
-					<div ng-if="data.length">
+					<div ng-if="data.length" window-size>
 						<table class="centered striped responsive-table" ng-table="table.tableParams">
 							<tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
 								<td data-title="'cluster'|translate" sortable="'cluster'">
@@ -72,7 +72,7 @@
 									</p>
 								</td>
 								<td data-title="'title'|translate" sortable="'project_title'" ng-if="table.showTitle">
-									<a target="_blank" href="#/cluster/projects/summary/{{ row.project_id }}" title="GoTo Project Summary">
+									<a target="_blank" href="#/cluster/projects/summary/{{ row.project_id }}" title="GoTo Project Summary" ng-class="{'truncate':windowWidth < 992}">
 										{{ row.project_title }}
 									</a>
 								</td>								

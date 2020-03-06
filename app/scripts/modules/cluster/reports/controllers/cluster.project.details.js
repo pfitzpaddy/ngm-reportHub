@@ -66,7 +66,7 @@ angular.module('ngmReportHub')
 							title: title
 						},
 						subtitle: {
-							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
+							'class': 'col s12 m12 l12 report-subtitle truncate',
 							'title': subtitle
 						},
 						download: {

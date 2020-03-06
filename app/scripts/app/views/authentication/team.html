@@ -137,13 +137,13 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
     <div class="card">
       <ul class="collection with-header">
         <li class="{{ table.headerClass }}" style="{{ table.headerStyle }};height:80px;">
-					<div class="col s12 m8">
+					<div class="col s9 m7 l8">
 						<h5 class="report-work-title {{ table.headerText }}">
 							<i class="material-icons left">{{ table.headerIcon }}</i>
 							{{ table.headerTitle }}
 						</h5>
 					</div>
-					<div class="col s12 m4 right" ng-if="showSearch">
+					<div class="col s3 m5 l4 right" ng-if="showSearch">
 						<nav class="nav-list-search right" ng-class="{'focused':table.search.focused===true || table.search.filter }">
 							<div class="nav-wrapper" ng-click="table.toggleSearch()">
 								<form style="padding: 0px">

@@ -34,7 +34,7 @@
     }
 	</style>
 		<!-- beneficiaries -->
-		<div id="{{ $beneficiaryIndex=$index; id = 'ngm-' + $locationIndex + '-' + $index }}" ng-repeat="beneficiary in project.report.locations[ $locationIndex ].beneficiaries | filterBeneficiary:project.beneficiary_search track by $index" ng-class="{'add-padding': !detailBeneficiaries[$locationIndex][$beneficiaryIndex]}">
+		<div id="{{ $beneficiaryIndex=$index; id = 'ngm-' + $locationIndex + '-' + $index }}" ng-repeat="beneficiary in project.report.locations[ $locationIndex ].beneficiaries | filterBeneficiary:project.beneficiary_search track by $index" ng-class="{'add-padding': !detailBeneficiaries[$locationIndex][$beneficiaryIndex]}" window-size>
 
 			<!-- title -->
 			<!-- <div style="position: absolute;">
@@ -80,7 +80,7 @@
 				</div>
 
 			<!-- btns -->
-			<div class="col s12 m12 right-align" style="margin-top: -90px">
+			<div class="col s12 m12 " ng-class="{'right-align': windowWidth > 600}" ng-style="(windowWidth < 600) && { 'margin-top': '10px' } || { 'margin-top': '-68px' }">
 				<button class="btn-floating waves-effect waves-light"
 									title="Save"
 									ng-if="!project.newProject && detailBeneficiaries[$locationIndex][$beneficiaryIndex] && project.canEdit"
@@ -147,7 +147,7 @@
 																	( beneficiary.activity_description_id && !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'display_activity_detail' ] ) ">
 
 					<!-- activity_type_id -->
-					<div class="input-field col s12 m6">
+					<div class="input-field col s12 m12 l6">
 						<select materialize-select id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
@@ -163,7 +163,7 @@
 					</div>
 
 					<!-- activity_description_id -->
-					<div class="input-field col s12 m6">
+					<div class="input-field col s12 m12 l6">
 						<select materialize-select watch id="ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
@@ -192,7 +192,7 @@
 							ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'display_activity_detail' ]">
 
 					<!-- activity_type_id -->
-					<div class="input-field col s12 m4">
+					<div class="input-field col s12 m12 l4">
 						<select materialize-select id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
@@ -208,7 +208,7 @@
 					</div>
 
 					<!-- activity_description_id -->
-					<div class="input-field col s12 m4">
+					<div class="input-field col s12 m12 l4">
 						<select materialize-select watch id="ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
@@ -232,7 +232,7 @@
 					</div>
 
 					<!-- activity_detail_id -->
-					<div class="input-field col s12 m4">
+					<div class="input-field col s12 m12 l4">
 						<select materialize-select watch id="ngm-activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
@@ -358,7 +358,7 @@
 						</div>
 					
 						<!-- HRP beneficiary_type -->
-						<div class="input-field col s12 m6">
+						<div class="input-field col s12 m12 l6">
 							<select materialize-select id="ngm-hrp_beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 								name="hrp_beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="validate"
 								ng-model="beneficiary.hrp_beneficiary_type_id"
@@ -408,7 +408,7 @@
 																	ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'beneficiary_delivery_type_id' ] && !project.definition.project_hrp_project">
 
 						<!-- beneficiary_type -->
-						<div class="input-field col s12 m6">
+						<div class="input-field col s12 m12 l6">
 							<select materialize-select id="ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
@@ -426,7 +426,7 @@
 						</div>
 
 						<!-- delivery_type_id -->
-						<div class="input-field col s12 m6">
+						<div class="input-field col s12 m12 l6">
 							<select materialize-select id="ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
@@ -452,7 +452,7 @@
 
 
 						<!-- beneficiary_type -->
-						<div class="input-field col s12 m4">
+						<div class="input-field col s12 m12 l4">
 							<select materialize-select id="ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 								name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="validate"
 								ng-model="beneficiary.beneficiary_type_id"
@@ -469,7 +469,7 @@
 						</div>
 
 						<!-- HRP beneficiary_type -->
-						<div class="input-field col s12 m4">
+						<div class="input-field col s12 m12 l4">
 							<select materialize-select id="ngm-hrp_beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 								name="hrp_beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="validate"
 								ng-model="beneficiary.hrp_beneficiary_type_id"
@@ -487,7 +487,7 @@
 						</div>
 					
 						<!-- delivery_type_id -->
-						<div class="input-field col s12 m4">
+						<div class="input-field col s12 m12 l4">
 							<select materialize-select id="ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 								name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="validate"
 								ng-model="beneficiary.delivery_type_id"
@@ -511,7 +511,7 @@
 								project.definition.project_hrp_project && 
 								(ngmClusterBeneficiaries.form[ $locationIndex ][ $index ][ 'hrp_beneficiary_type_id' ] || project.definition.admin0pcode !=='AF')">
 					<!-- beneficiary_type -->
-					<div class="input-field col s12 m6">
+					<div class="input-field col s12 m12 l6">
 						<select materialize-select id="ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 							name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="validate"
 							ng-model="beneficiary.beneficiary_type_id"
@@ -528,7 +528,7 @@
 					</div>
 					
 					<!-- delivery_type_id -->
-					<div class="input-field col s12 m6">
+					<div class="input-field col s12 m12 l6">
 						<select materialize-select id="ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 							name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="validate"
 							ng-model="beneficiary.delivery_type_id"
@@ -550,7 +550,7 @@
 																	ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'beneficiary_delivery_type_id' ] && !project.definition.project_hrp_project">
 
 						<!-- beneficiary_type -->
-						<div class="input-field col s12 m4">
+						<div class="input-field col s12 m12 l4">
 							<select materialize-select id="ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
@@ -569,7 +569,7 @@
 						</div>
 
 						<!-- beneficiary_type -->
-						<div class="input-field col s12 m4">
+						<div class="input-field col s12 m12 l4">
 							<select materialize-select id="ngm-beneficiary_category_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												name="beneficiary_category_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
@@ -584,7 +584,7 @@
 						</div>
 
 						<!-- delivery_type_id -->
-						<div class="input-field col s12 m4">
+						<div class="input-field col s12 m12 l4">
 							<select materialize-select id="ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
@@ -686,7 +686,7 @@
 								(ngmClusterBeneficiaries.form[ $locationIndex ][ $index ][ 'hrp_beneficiary_type_id' ] || project.definition.admin0pcode !=='AF')">
 					
 					<!-- beneficiary_type -->
-					<div class="input-field col s12 m4">
+					<div class="input-field col s12 m12 l4">
 						<select materialize-select id="ngm-beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 							name="beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="validate"
 							ng-model="beneficiary.beneficiary_type_id"
@@ -704,7 +704,7 @@
 					</div>
 					
 					<!-- beneficiary_type -->
-					<div class="input-field col s12 m4">
+					<div class="input-field col s12 m12 l4">
 						<select materialize-select id="ngm-beneficiary_category_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 							name="beneficiary_category_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="validate"
 							ng-model="beneficiary.beneficiary_category_id"
@@ -719,7 +719,7 @@
 					</div>
 					
 					<!-- delivery_type_id -->
-					<div class="input-field col s12 m4">
+					<div class="input-field col s12 m12 l4">
 						<select materialize-select id="ngm-delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 							name="delivery_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="validate"
 							ng-model="beneficiary.delivery_type_id"
@@ -750,7 +750,7 @@
 																		!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_package_type_id' ]">
 
 						<!-- mpc_delivery_type_id -->
-						<div class="input-field col s12 m6">
+						<div class="input-field col s12 m12 l6">
 							<select materialize-select watch id="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												name="mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
@@ -765,7 +765,7 @@
 						</div>
 
 						<!-- mpc_mechanism_type_id -->
-						<div class="input-field col s12 m6">
+						<div class="input-field col s12 m12 l6">
 							<select materialize-select watch id="ngm-mpc_mechanism_type_id-{{ $index }}"
 												name="mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
@@ -789,7 +789,7 @@
 																		ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_package_type_id' ]">
 
 						<!-- mpc_delivery_type_id -->
-						<div class="input-field col s12 m4">
+						<div class="input-field col s12 m12 l4">
 							<select materialize-select watch id="ngm-mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												name="mpc_delivery_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
@@ -804,7 +804,7 @@
 						</div>
 
 						<!-- mpc_mechanism_type_id -->
-						<div class="input-field col s12 m4">
+						<div class="input-field col s12 m12 l4">
 							<select materialize-select watch id="ngm-mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												name="mpc_mechanism_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
@@ -819,7 +819,7 @@
 						</div>
 
 						<!-- package_type_id -->
-						<div class="input-field col s12 m4">
+						<div class="input-field col s12 m12 l4">
 							<select materialize-select id="ngm-package_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												name="package_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
@@ -866,7 +866,7 @@
 												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'units' ] &&
 												!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_transfer_type_id' ]">
 						<!-- unit_type_id -->
-						<div class="input-field col s12 m6">
+						<div class="input-field col s12 m12 l6">
 							<select materialize-select watch id="ngm-unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												name="unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
@@ -882,7 +882,7 @@
 											class="active" style="transform:translateY(-10%)">{{ 'units' | translate }}</label>
 						</div>
 						<!-- amount -->
-						<div class="input-field col s12 m6">
+						<div class="input-field col s12 m12 l6">
 							<input id="ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											type="number"
@@ -904,7 +904,7 @@
 												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'units' ] &&
 												ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_transfer_type_id' ]">
 						<!-- unit_type_id -->
-						<div class="input-field col s12 m4">
+						<div class="input-field col s12 m12 l4">
 							<select materialize-select watch id="ngm-unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												name="unit_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 												class="validate"
@@ -920,7 +920,7 @@
 											class="active" style="transform:translateY(-10%)">{{ 'units' | translate }}</label>
 						</div>
 						<!-- amount -->
-						<div class="input-field col s12 m4">
+						<div class="input-field col s12 m12 l4">
 							<input id="ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											type="number"
@@ -934,7 +934,7 @@
 							<label for="ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'amount' | translate }}</label>
 						</div>
 						<!-- transfer_type_id -->
-						<div class="input-field col s12 m4">
+						<div class="input-field col s12 m12 l4">
 							<select materialize-select id="ngm-transfer_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												name="transfer_type_id-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 												class="validate"
@@ -1004,7 +1004,7 @@
 													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'total_male' ] )">
 
 						<!-- boys_0_5 -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-boys_0_5-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											name="ngm-boys_0_5-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											type="number"
@@ -1018,7 +1018,7 @@
 							<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-boys_0_5-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active">{{ 'boys_0_5' | translate }}</label>
 						</div>
 						<!-- boys_6_11 -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-boys_6_11-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											name="ngm-boys_6_11-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											type="number"
@@ -1032,7 +1032,7 @@
 							<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-boys_6_11-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active">{{ 'boys_6_11' | translate }}</label>
 						</div>
 						<!-- boys_12_17 -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-boys_12_17-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											name="ngm-boys_12_17-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											type="number"
@@ -1047,7 +1047,7 @@
 						</div>
 
 						<!-- men -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-men-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											name="ngm-men-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											type="number"
@@ -1061,7 +1061,7 @@
 							<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-men-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active">{{ 'male_18_59' | translate }}</label>
 						</div>
 						<!-- elderly_men -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-elderly_men-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											name="ngm-elderly_men-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											type="number"
@@ -1075,7 +1075,7 @@
 							<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-elderly_men-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active">{{ 'male_60_plus' | translate }}</label>
 						</div>
 						<!-- total_male -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-total_male-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											name="ngm-total_male-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											type="number"
@@ -1100,7 +1100,7 @@
 													ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'total_female' ] )">
 
 						<!-- girls_0_5 -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-girls_0_5-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											name="ngm-girls_0_5-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											type="number"
@@ -1114,7 +1114,7 @@
 							<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-girls_0_5-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active">{{ 'girls_0_5' | translate }}</label>
 						</div>
 						<!-- girls_6_11 -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-girls_6_11-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											name="ngm-girls_6_11-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											type="number"
@@ -1128,7 +1128,7 @@
 							<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-girls_6_11-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active">{{ 'girls_6_11' | translate }}</label>
 						</div>
 						<!-- girls_12_17 -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-girls_12_17-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											name="ngm-girls_12_17-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											type="number"
@@ -1143,7 +1143,7 @@
 						</div>
 
 						<!-- women -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-women-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											name="ngm-women-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											type="number"
@@ -1157,7 +1157,7 @@
 							<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-women-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active">{{ 'female_18_59' | translate }}</label>
 						</div>
 						<!-- elderly_women -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-elderly_women-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											name="ngm-elderly_women-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											type="number"
@@ -1171,7 +1171,7 @@
 							<label ng-if="!ngmClusterBeneficiaries.cxbHealth( project )" for="ngm-elderly_women-{{ $locationIndex }}-{{$beneficiaryIndex}}" class="active">{{ 'female_60_plus' | translate }}</label>
 						</div>
 						<!-- total_female -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-total_female-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											name="ngm-total_female-{{ $locationIndex }}-{{$beneficiaryIndex}}"
 											type="number"
@@ -1417,7 +1417,7 @@
 													!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'girls_12_17' ] )">
 
 						<!-- boys -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-boys-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="ngm-boys-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											type="number"
@@ -1431,7 +1431,7 @@
 							<label for="ngm-boys-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'boys' | translate }}</label>
 						</div>
 						<!-- girls -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-girls-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="ngm-girls-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											type="number"
@@ -1445,7 +1445,7 @@
 							<label for="ngm-girls-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'girls' | translate }}</label>
 						</div>
 						<!-- men -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											type="number"
@@ -1459,7 +1459,7 @@
 							<label for="ngm-men-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'men' | translate }}</label>
 						</div>
 						<!-- women -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											type="number"
@@ -1473,7 +1473,7 @@
 							<label for="ngm-women-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'women' | translate }}</label>
 						</div>
 						<!-- elderly_men -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											type="number"
@@ -1487,7 +1487,7 @@
 							<label for="ngm-elderly_men-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'eld_men' | translate }}</label>
 						</div>
 						<!-- elderly_women -->
-						<div class="input-field col s12 m2">
+						<div class="input-field col s12 m4 l2">
 							<input id="ngm-elderly_women-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="ngm-elderly_women-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											type="number"

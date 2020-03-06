@@ -39,15 +39,15 @@
 </style>
 
 <!-- bind html -->
-<div>
+<div window-size>
 	<ul class="collection with-header z-depth-1">
 		<li class="collection-header {{ list.color }}" style="height:80px;">
-			<div class="col s12 m8">
+			<div class="col m7 l8" ng-class="{'s9':list.data.length > list.itemsPerPage,'s12':list.data.length <= list.itemsPerPage}">
 				<h4 class="report-work-title {{ list.textColor }}">
 					<i class="material-icons left">{{ list.titleIcon }}</i>{{ list.title }}
 				</h4>
 			</div>
-			<div ng-if="list.data.length > list.itemsPerPage" class="col s12 m4 right">
+			<div ng-if="list.data.length > list.itemsPerPage" class="col s3 m5 l4 right">
 			  <nav class="nav-list-search right" ng-class="{'focused':list.search.focused===true || list.search.filter }">
 			    <div class="nav-wrapper" ng-click="list.toggleSearch()">
 			      <form>
@@ -102,10 +102,10 @@
 						
 					<!-- description -->
 					<p align="justify" style="max-height:200px;color: #616161;">
-						<span ng-if="!item.project_code">
+						<span ng-if="!item.project_code" ng-class="{'truncate': windowWidth < 550}">
 							{{ item.project_description | limitTo:500 }}...&#8206;
 						</span>
-						<span ng-if="item.project_code">
+						<span ng-if="item.project_code" ng-class="{'truncate': windowWidth < 550}">
 							<span style="font-weight: 500;">{{ item.project_code }}:</span> {{ item.project_description | limitTo:500 }}...&#8206;
 						</span>
 					</p>

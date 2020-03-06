@@ -4,7 +4,7 @@
 <div class="row" ng-if="panel.organization.admin0pcode !== 'SY' && panel.organization.admin0pcode !== 'CB'">
   
   <!-- team -->
-  <div class="col s12 m4">
+  <div class="col s12 m12 l4">
     <a href="{{ panel.getTeamUrl() }}">
       <div class="card small blue-grey darken-1 hoverable">
         <div class="card-image">
@@ -21,7 +21,7 @@
      </a>
   </div>
 
-  <div class="col s12 m4">
+  <div class="col s12 m12 l4">
   	<a href="{{ panel.getProjectsHref() }}">
    	 <div class="card small blue-grey darken-1 hoverable">
       <div class="card-image">
@@ -73,7 +73,7 @@
      </a>
   </div>-->
 
-  <div class="col s12 m4" ng-if="panel.organization.admin0pcode !== 'COL'">
+  <div class="col s12 m12 l4" ng-if="panel.organization.admin0pcode !== 'COL'">
   
   	<a href="{{ panel.getStocksHref() }}">
 	    <div class="card small blue-grey darken-1 hoverable">

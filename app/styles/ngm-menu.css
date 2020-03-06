@@ -247,3 +247,17 @@ i.smedium {
 	transform: translateY(13px) scale(1);
 	transform-origin: 0 0;
 }
+
+/* mobile */
+.sidenav li.mobile > a > i{
+	color: #fff;
+}
+
+.sidenav li.mobile > a{
+	width: 100%;
+}
+
+.mobile-btn{
+	opacity: 1 !important; 
+	transform: scale(1) translateY(0px) translateX(0px) !important;
+}
