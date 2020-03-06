@@ -115,7 +115,7 @@ form {
 					</div>
 
 		    	<!-- btn as title! -->
-		   	 	<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">{{'profile' | translate}}</a>
+		   	 	<a class="btn button-label" style="left:-1px;position:absolute;pointer-events:none;">{{'profile' | translate}}</a>
 					
 					<!-- 
 		      <div class="row">
@@ -237,7 +237,7 @@ form {
 		    						( panel.user.admin0pcode === 'CD' || panel.user.admin0pcode === 'ET' )">
 
 		    	<!-- btn as title! -->
-		   	 	<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">{{'programme' | translate}}</a>
+		   	 	<a class="btn button-label" style="left:-1px;position:absolute;pointer-events:none;">{{'programme' | translate}}</a>
 
 					<!-- programme -->
 					<div class="row">
@@ -353,7 +353,7 @@ form {
 		    <div class="card z-depth-1" style="padding:5% 20% 5% !important;">
 
 		    	<!-- btn as title! -->
-		   	 	<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">{{'contact'|translate}}</a>
+		   	 	<a class="btn button-label" style="left:-1px;position:absolute;pointer-events:none;">{{'contact'|translate}}</a>
 
 		   	 	<!-- contacts -->
 		      <div class="row">
@@ -394,10 +394,10 @@ form {
 				<div ng-if="!panel.formDisabled && panel.roles.length" class="card z-depth-1" style="padding:5% 20% 5% !important;">
 				
 					<!-- btn as title! -->
-					<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">ROLES</a>
+					<a class="btn button-label" style="left:-1px;position:absolute;pointer-events:none;">ROLES</a>
 
 					<div class="row">
-						<div class="col s4" ng-repeat="role in panel.roles" >
+						<div class="col s12 m6 l6" ng-repeat="role in panel.roles" >
 							<!-- <input type="checkbox"
 											class="filled-in"
 											id={{role}}
@@ -425,7 +425,7 @@ form {
 				<div ng-if="false">
 					<div ng-if="!panel.formDisabled " class="card z-depth-1" style="padding:5% 5% 5% 20% !important;">				
 						<!-- btn as title! -->
-						<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">SECTOR</a>
+						<a class="btn button-label" style="left:-1px;position:absolute;pointer-events:none;">SECTOR</a>
 					
 						<div class="row">
 							<div class="col s5" ng-repeat="(key,value) in panel.cluster">
@@ -441,7 +441,7 @@ form {
 				<div ng-if="false">
 					<div ng-if="!panel.formDisabled " class="card z-depth-1" style="padding:5% 5% 5% 20% !important;">				
 						<!-- btn as title! -->
-						<a class="btn" style="left:-1px;position:absolute;pointer-events:none;">Country</a>
+						<a class="btn button-label" style="left:-1px;position:absolute;pointer-events:none;">Country</a>
 					
 						<div class="row">
 							<div class="col s5" ng-repeat="(key,value) in panel.adminRegion">

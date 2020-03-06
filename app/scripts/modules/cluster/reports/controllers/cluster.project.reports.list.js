@@ -33,10 +33,11 @@ angular.module('ngmReportHub')
 				var html = '<div class="row">'
 										+'<div class="col s12 m12 l12">'
 											+'<div style="padding:20px;">'
+												+ '<span class="left show-on-small hide-on-med-and-up" style="padding-top:8px;padding-bottom: 15px;">' + $filter('translate')('last_updated') + ': ' + moment($scope.report.project.updatedAt).format('DD MMMM, YYYY @ h:mm:ss a') + '</span>'
 												+'<a class="btn-flat waves-effect waves-teal" href="#/cluster/projects/summary/' + $scope.report.project.id +'">'
 													+'<i class="material-icons mirror left">keyboard_return</i>'+$filter('translate')('back_to_project_summary')
 												+'</a>'
-												+'<span class="right" style="padding-top:8px;">'+$filter('translate')('last_updated')+': ' + moment( $scope.report.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) +'</span>'
+												+'<span class="right hide-on-small-only" style="padding-top:8px;">'+$filter('translate')('last_updated')+': ' + moment( $scope.report.project.updatedAt ).format( 'DD MMMM, YYYY @ h:mm:ss a' ) +'</span>'
 											+'</div>'
 										+'</div>'
 									+'</div>';
@@ -110,7 +111,7 @@ angular.module('ngmReportHub')
 							title: $scope.report.title
 						},
 						subtitle: {
-							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
+							'class': 'col s12 m12 l12 report-subtitle truncate',
 							'title': subtitle
 						},
 						download: {

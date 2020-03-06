@@ -21,7 +21,7 @@
 		margin-bottom: 20px;
 	}
 </style>
-<div class="row">
+<div class="row" window-size>
 	<div class="col s12 m12 l12">
 		<div class="card">
 			<ul class="collection with-header">
@@ -40,7 +40,7 @@
 
 					<div id="financial-id-{{$index}}" ng-repeat="budget in project.definition.project_budget_progress track by $index">
 						<!-- title -->
-						<div style="position: absolute;">
+						<!-- <div style="position: absolute;">
 							<h5 class="report-beneficiary-title" ng-if="!budget.project_donor_id">
 								<i class="material-icons left">group</i>Financial 1
 							</h5>
@@ -51,10 +51,10 @@
 								<i class="material-icons left">group</i>{{budget.project_donor_name}}, {{budget.activity_type_name}}
 							</h5>
 							
-						</div>
+						</div> -->
 						<!-- Button -->
-						<div align="right" style="padding: 16px 10px 5px;">
-							<div style=" display: inline-block; font-size: 20px;font-weight: 300; color: #656565; margin-right:2%">
+						<!-- <div align="right" style="padding: 16px 10px 5px;">
+							<div style=" display: inline-block; font-size: 20px;font-weight: 300; color: #656565; margin-right:2%" class="hide-on-med-and-down">
 								<i class="material-icons left">attach_money</i>{{ budget.project_budget_amount_recieved > 0 ? budget.project_budget_amount_recieved : 0 | number }}
 							</div>
 							<button class="btn-floating waves-effect waves-light" title="Save"
@@ -88,6 +88,55 @@
 									{{ 'Click to Expand'|translate }}
 								</md-tooltip>
 							</button>
+						</div> -->
+
+						<!-- new button and title -->
+						<div class="row" style="margin-bottom: 15px;">
+							<div class="col s12 m12 left-align" dir="ltr">
+								<h5 class="report-beneficiary-title" ng-if="!budget.project_donor_id">
+									<i class="material-icons left">group</i>Financial 1
+								</h5>
+								<h5 class="report-beneficiary-title" ng-if="budget.project_donor_id && !budget.activity_type_id">
+									<i class="material-icons left">group</i>{{budget.project_donor_name}}
+								</h5>
+								<h5 class="report-beneficiary-title" ng-if="budget.project_donor_id && budget.activity_type_id">
+									<i class="material-icons left">group</i>{{budget.project_donor_name}}, {{budget.activity_type_name}}
+								</h5>
+							</div>
+						
+							<!-- btns -->
+							<div class="col s12 m12" ng-style="(windowWidth > 600) && { 'margin-top': '-40px' }" ng-class="{'right-align':windowWidth > 600 }">
+								<div style=" display: inline-block; font-size: 20px;font-weight: 300; color: #656565; margin-right:2%"
+									class="hide-on-med-and-down">
+									<i
+										class="material-icons left">attach_money</i>{{ budget.project_budget_amount_recieved > 0 ? budget.project_budget_amount_recieved : 0 | number }}
+								</div>
+								<button class="btn-floating waves-effect waves-light" title="Save"
+									ng-if="detailFinancial[$index] && project.canEdit && project.definition.project_status !== 'complete'"
+									ng-click="project.validateFinancialDetailsForm()" ng-disabled="!project.canEdit">
+									<i class="material-icons">save</i>
+								</button>
+								<button class="btn-floating red lighten-2 waves-effect waves-light" title="Remove"
+									ng-if="budget.id && detailFinancial[$index] && project.canEdit && project.definition.project_status !== 'complete'"
+									ng-click="project.removeBudgetModal( $index )" ng-disabled="!project.canEdit">
+									<i class="material-icons">delete</i>
+								</button>
+								<button class="btn-floating blue lighten-1 waves-effect waves-light"
+									ng-if="!budget.id && detailFinancial[$index] && project.canEdit" ng-click="project.cancelEdit($index)"
+									ng-disabled="!project.canEdit">
+									<i class="material-icons">clear</i>
+								</button>
+								<button id="toggle" class="btn-floating" ng-class="{'rotate': detailFinancial[$index]}"
+									ng-click="project.openCloseDetailFinancial($index)" ng-disabled="false">
+									<i class="material-icons">keyboard_arrow_down</i>
+									<md-tooltip md-direction="right">
+										{{ 'Minimize'|translate }}
+									</md-tooltip>
+									<md-tooltip md-direction="right">
+										{{ 'Click to Expand'|translate }}
+									</md-tooltip>
+								</button>
+							</div>
 						</div>
 						<!-- detail form-->
 						<div class="card-panel" ng-if="detailFinancial[$index]"
@@ -95,7 +144,7 @@
 
 							<div class="row">
 								<!-- DONOR -->
-								<div class="input-field col s12 m4">
+								<div class="input-field col s12 m6 l4">
 										<select materialize-select id="ngm-project_donor_id-{{$index}}"
 											name="ngm-project_donor_id-{{$index}}" class="validate"
 											ng-options="d.project_donor_id as d.project_donor_name for d in project.definition.project_donor"								
@@ -111,7 +160,7 @@
 								</div>
 
 								<!-- Activity -->
-								<div class="input-field col s12 m4">
+								<div class="input-field col s12 m6 l4">
 									<select materialize-select id="ngm-activity_type_id-{{$index}}" name="ngm-activity_type_id-{{$index}}"
 										class="validate" 
 										ng-options="d.activity_type_id as d.activity_type_name for d in project.lists.activity_type"
@@ -127,7 +176,7 @@
 								</div>
 
 								<!-- Grant Id -->
-								<div class="input-field col s12 m4">
+								<div class="input-field col s12 m6 l4">
 									<input id="ngm-grant_id-{{ $ndex }}" 
 										type="text" 
 										placeholder="Put your {{'grant' | translate}} ID" 
@@ -140,7 +189,7 @@
 								</div>
 
 								<!-- Amount -->
-								<div class="input-field col s12 m4">
+								<div class="input-field col s12 m6 l4">
 									<input id="ngm-project_budget_amount_recieved-{{$index }}"
 											name="ngm-project_budget_amount_recieved-{{$index }}"
 											type="number"
@@ -155,7 +204,7 @@
 								</div>
 
 								<!-- Currency -->
-								<div class="input-field col s12 m4">
+								<div class="input-field col s12 m6 l4">
 									<select materialize-select id="ngm-currency_id-{{$index}}" 
 										name="ngm-currency_id-{{$index}}"
 										class="validate" 
@@ -171,7 +220,7 @@
 								</div>
 
 								<!-- Received -->
-								<div class="input-field col s12 m4">
+								<div class="input-field col s12 m6 l4">
 									<label id="ngm-project_budget_date_recieved-{{$index}}" for="ngm-project_budget_date_recieved-{{$index}}"
 										class="active">{{'recieved' | translate}}*</label>
 									<input ngm-date type="text" style="color:rgba(0, 0, 0, 0.87);margin-bottom:0px;"
@@ -184,7 +233,7 @@
 							
 							<div class="row" ng-if="project.showProgrammingField(budget)">
 								<!-- Fund -->
-								<div class="input-field col s12 m4">
+								<div class="input-field col s12 m6 l4">
 									<select materialize-select id="ngm-budget_funds_id-{{$index}}" name="ngm-budget_funds_id-{{$index}}" class="validate"
 										ng-options="d.budget_funds_id as d.budget_funds_name for d in project.lists.budget_funds"
 										ng-model="budget.budget_funds_id" ng-change="ngmClusterFinancial.updateName( project.lists.budget_funds, 'budget_funds_id', 'budget_funds_name', budget,project );
@@ -196,7 +245,7 @@
 								</div>
 
 								<!-- Programing -->
-								<div ng-show="project.showProgrammingField(budget)" class="input-field col s12 m4">
+								<div ng-show="project.showProgrammingField(budget)" class="input-field col s12 m6 l4">
 									<select materialize-select id="ngm-financial_programming_id-{{$index}}" name="ngm-financial_programming_id-{{$index}}"
 										class="validate" ng-options="d.financial_programming_id as d.financial_programming_name for d in project.lists.financial_programming"
 										ng-model="budget.financial_programming_id" ng-change="ngmClusterFinancial.updateName( project.lists.financial_programming, 'financial_programming_id', 'financial_programming_name', budget,project );
@@ -210,7 +259,7 @@
 								
 							
 								<!-- Multi year -->
-								<div class="input-field col s12 m4">
+								<div class="input-field col s12 m6 l4">
 									<select materialize-select id="ngm-multi_year_funding_id-{{$index}}" name="ngm-multi_year_funding_id-{{$index}}" class="validate"
 										ng-options="d.multi_year_funding_id as d.multi_year_funding_name for d in project.lists.multi_year_funding" ng-model="budget.multi_year_funding_id"
 										ng-change="ngmClusterFinancial.updateName( project.lists.multi_year_funding, 'multi_year_funding_id', 'multi_year_funding_name', budget,project );
@@ -224,7 +273,7 @@
 							</div>
 							<div class="row" ng-if="!project.showProgrammingField(budget)">
 								<!-- Fund -->
-								<div class="input-field col s12 m6">
+								<div class="input-field col s12 m6 l6">
 									<select materialize-select id="ngm-budget_funds_id-{{$index}}" name="ngm-budget_funds_id-{{$index}}"
 										class="validate" ng-options="d.budget_funds_id as d.budget_funds_name for d in project.lists.budget_funds"
 										ng-model="budget.budget_funds_id" ng-change="ngmClusterFinancial.updateName( project.lists.budget_funds, 'budget_funds_id', 'budget_funds_name', budget,project );
@@ -237,7 +286,7 @@
 								</div>					
 														
 								<!-- Multi year -->
-								<div class="input-field col s12 m6">
+								<div class="input-field col s12 m6 l6">
 									<select materialize-select id="ngm-multi_year_funding_id-{{$index}}" name="ngm-multi_year_funding_id-{{$index}}"
 										class="validate"
 										ng-options="d.multi_year_funding_id as d.multi_year_funding_name for d in project.lists.multi_year_funding"
@@ -252,7 +301,7 @@
 							
 							</div>
 							<div class="row" ng-if="project.showMultiYearFundingField(budget)">
-								<div class="col s12 m6">
+								<div class="col s12 m6 l6">
 									<h5 class="report-beneficiary-title-details">Funding Per Year</h5>
 								</div>
 							</div>
@@ -274,7 +323,7 @@
 
 							<div class="row" ng-if="project.showFtsIdLabelField(budget)">
 								<!-- Fts -->
-								<div class="input-field col s12 m6">
+								<div class="input-field col s12 m6 l6">
 									<select materialize-select id="ngm-reported_on_fts_id-{{$index}}" name="ngm-reported_on_fts_id-{{$index}}"
 										class="validate" ng-options="d.reported_on_fts_id as d.reported_on_fts_name for d in project.lists.reported_on_fts"
 										ng-model="budget.reported_on_fts_id" ng-change="ngmClusterFinancial.updateName( project.lists.reported_on_fts, 'reported_on_fts_id', 'reported_on_fts_name', budget,project );
@@ -289,7 +338,7 @@
 								</div>
 								
 								<!-- Fts ID -->
-								<div ng-show="project.showFtsIdLabelField(budget)" class="input-field col s12 m6">
+								<div ng-show="project.showFtsIdLabelField(budget)" class="input-field col s12 m6 l6">
 									<input id="ngm-fts_record_id-{{ $ndex }}" type="text" placeholder="put fts ID" ng-model="budget.fts_record_id"
 									ng-disabled="project.definition.project_status === 'complete'"
 										class="validate" required>

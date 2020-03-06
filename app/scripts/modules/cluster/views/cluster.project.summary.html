@@ -71,7 +71,7 @@
 </div>
 	<!-- panels -->
 	<div class="row" ng-if="panel.project.admin0pcode === 'AF' || panel.project.admin0pcode === 'COL'">
-	  <div class="col s12 m4">
+	  <div class="col s12 m12 l4">
 	  	<a href="#/cluster/projects/details/{{ panel.project.id }}">
 	   	 <div class="card small blue-grey darken-1 hoverable">
 	      <div class="card-image">
@@ -89,7 +89,7 @@
 	    </div>
 	    </a>
 	  </div>
-	  <div class="col s12 m4">
+	  <div class="col s12 m12 l4">
 			<a href="#/cluster/projects/financials/{{ panel.project.id }}" 
 				ng-class="{'disabled-link':panel.project.project_status === 'new'
 										|| panel.project.project_status === 'plan'
@@ -107,7 +107,7 @@
 		    </div>
 		   </a>
 	  </div>
-	  <div class="col s12 m4">
+	  <div class="col s12 m12 l4">
 	  	<a href="#/cluster/projects/report/{{ panel.project.id }}" ng-class="{'disabled-link':panel.project.project_status === 'new' || panel.project.project_status === 'plan' || panel.project.project_status === 'not_implemented'}">
 		    <div class="card small blue-grey darken-1 hoverable" ng-class="{'disabled-link':panel.project.project_status === 'new' || panel.project.project_status === 'plan' || panel.project.project_status === 'not_implemented'}">
 		      <div class="card-image" ng-class="{'no-active':panel.project.project_status === 'new' || panel.project.project_status === 'plan' || panel.project.project_status === 'not_implemented'}" >
@@ -128,7 +128,7 @@
 
 	<!-- panels -->
 	<div class="row" ng-if="panel.project.admin0pcode !== 'AF' && panel.project.admin0pcode !== 'COL'">
-	  <div class="col s12 m6">
+	  <div class="col s12 m12 l6">
 	  	<a href="#/cluster/projects/details/{{ panel.project.id }}">
 	   	 <div class="card small blue-grey darken-1 hoverable">
 	      <div class="card-image">
@@ -143,7 +143,7 @@
 	    </div>
 	    </a>
 	  </div>
-	  <div class="col s12 m6">
+	  <div class="col s12 m12 l6">
 	  	<a href="#/cluster/projects/report/{{ panel.project.id }}">
 		    <div class="card small blue-grey darken-1 hoverable">
 		      <div class="card-image">

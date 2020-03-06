@@ -41,11 +41,13 @@
 		<div style="padding:20px;">
 
 			<!--  -->
+			<span class="left show-on-small hide-on-med-and-up"
+				style="padding-top:8px;padding-left: 17px;padding-bottom: 15px;">{{'last_updated' | translate}}: {{ report.updatedAt }}</span>
 			<button class="btn-flat waves-effect waves-teal" ng-click="report.modalConfirm( 'list-modal' )">
 				<i class="material-icons mirror left">keyboard_return</i>{{'back_to_stock_reports'|translate}}
 			</button>
 
-			<span class="right" style="padding-top:8px;">{{'last_updated' | translate}}: {{ report.updatedAt }}</span>
+			<span class="right hide-on-small-only" style="padding-top:8px;">{{'last_updated' | translate}}: {{ report.updatedAt }}</span>
 
 		</div>
 	</div>
@@ -54,8 +56,8 @@
 <!-- report form -->
 <div name="clusterStockForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
 
-	<fieldset ng-disabled="!report.canEdit">
-
+	<!-- <fieldset ng-disabled="!report.canEdit"> -->
+	<div ng-disabled="!report.canEdit">
 		<!-- report beneficiaries details -->
 		<div ng-include="report.templatesUrl + report.locationsUrl"></div>
 
@@ -112,8 +114,8 @@
 				</div>
 			</div>
 		</div>
-
-	</fieldset>
+	</div>
+	<!-- </fieldset> -->
 
 </div>
 

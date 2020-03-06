@@ -44,12 +44,12 @@
 	<div class="col s12">
 		<ul class="collection with-header z-depth-1">
 			<li class="collection-header {{ list.color }}" style="height:80px;">
-				<div class="col s12 m8">
+				<div class="col s12 m7 l8">
 					<h4 class="report-work-title {{ list.textColor }}">
 						<i class="material-icons left">{{ list.titleIcon }}</i>{{ list.title }}
 					</h4>
 				</div>
-				<div ng-if="list.data.length > list.itemsPerPage" class="col s12 m4 right">
+				<div ng-if="list.data.length > list.itemsPerPage" class="col s12 m5 l4 right">
 				  <nav class="nav-list-search right" ng-class="{'focused':list.search.focused===true || list.search.filter }">
 				    <div class="nav-wrapper" ng-click="list.toggleSearch()">
 				      <form>

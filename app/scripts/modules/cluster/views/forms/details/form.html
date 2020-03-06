@@ -103,11 +103,14 @@
 		<div style="padding:20px;">
 
 			<!--  -->
+			<span class="left show-on-small hide-on-med-and-up"
+				style="padding-top:8px;padding-left: 17px;padding-bottom: 15px;">{{'last_updated' | translate}}: {{ project.updatedAt }}</span>
 			<button class="waves-effect waves-light btn-flat" ng-click="project.modalConfirm('summary-modal')">
 				<i class="material-icons mirror left">keyboard_return</i>{{'back_to_project_summary' | translate}}
 			</button>
 
-			<span class="right" style="padding-top:8px;">{{'last_updated' | translate}}: {{ project.updatedAt }}</span>
+			<span class="right hide-on-small-only" style="padding-top:8px;">{{'last_updated' | translate}}: {{ project.updatedAt }}</span>
+			
 
 		</div>
 	</div>
@@ -163,7 +166,7 @@
 <div name="clusterProjectForm" class="col s12 m12 l12" style="padding:0px;" novalidate ng-hide="loading">
 
 	<!-- disabled -->
-	<fieldset ng-disabled="!project.canEdit">
+	<div ng-disabled="!project.canEdit">
 
 		<!-- Project details -->
 		<div ng-include="project.templatesUrl + project.detailsUrl"></div>
@@ -246,7 +249,7 @@
 			</div>
 		</div>
 
-	</fieldset>
+	</div>
 
 </div>
 

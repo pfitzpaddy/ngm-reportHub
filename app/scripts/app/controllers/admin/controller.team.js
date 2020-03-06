@@ -154,7 +154,7 @@ angular.module('ngmReportHub')
 				// 235
 
 				var stats = [{
-					styleClass: 's12 m6',
+					styleClass: 's12 m12 l6',
 					widgets: [{
 						type: 'html',
 						config: {
@@ -168,7 +168,7 @@ angular.module('ngmReportHub')
 
 				// stats USER, ORG ( active staff )
 				var stats_org_level = [{
-					styleClass: 's12 m6',
+					styleClass: 's12 m12 l6',
 					widgets: [{
 						type: 'stats',
 						style: 'text-align:center; height:235px; padding-top:90px;',
@@ -182,7 +182,7 @@ angular.module('ngmReportHub')
 
 				// stats CLUSTER, ADMIN ( orgs, active staff )
 				var stats_cluster_level = [{
-					styleClass: 's12 m6',
+					styleClass: 's12 m12 l6',
 					widgets: [{
 						type: 'stats',
 						style: 'text-align: center;',
@@ -193,7 +193,7 @@ angular.module('ngmReportHub')
 						}
 					}]
 				},{
-					styleClass: 's12 m6',
+					styleClass: 's12 m12 l6',
 					widgets: [{
 						type: 'stats',
 						style: 'text-align: center;',
@@ -207,7 +207,7 @@ angular.module('ngmReportHub')
 
 				// country level
 				var stats_country_level = [{
-					styleClass: 's12 m3',
+					styleClass: 's12 m6 l3',
 					widgets: [{
 						type: 'stats',
 						style: 'text-align: center;',
@@ -218,7 +218,7 @@ angular.module('ngmReportHub')
 						}
 					}]
 				},{
-					styleClass: 's12 m3',
+					styleClass: 's12 m6 l3',
 					widgets: [{
 						type: 'stats',
 						style: 'text-align: center;',
@@ -229,7 +229,7 @@ angular.module('ngmReportHub')
 						}
 					}]
 				},{
-					styleClass: 's12 m6',
+					styleClass: 's12 m12 l6',
 					widgets: [{
 						type: 'stats',
 						style: 'text-align: center;',
@@ -243,7 +243,7 @@ angular.module('ngmReportHub')
 
 				// above county level ORG
 				var stats_country_level_above_org = [{
-					styleClass: 's12 m3',
+					styleClass: 's12 m6 l3',
 					widgets: [{
 						type: 'stats',
 						style: 'text-align: center;',
@@ -254,7 +254,7 @@ angular.module('ngmReportHub')
 						}
 					}]
 				},{
-					styleClass: 's12 m3',
+					styleClass: 's12 m6 l3',
 					widgets: [{
 						type: 'stats',
 						style: 'text-align: center;',
@@ -265,7 +265,7 @@ angular.module('ngmReportHub')
 						}
 					}]
 				},{
-					styleClass: 's12 m6',
+					styleClass: 's12 m12 l6',
 					widgets: [{
 						type: 'stats',
 						style: 'text-align: center;',
@@ -279,7 +279,7 @@ angular.module('ngmReportHub')
 
 				// above county level above
 				var stats_country_level_above = [{
-					styleClass: 's12 m3',
+					styleClass: 's12 m6 l3',
 					widgets: [{
 						type: 'stats',
 						style: 'text-align: center;',
@@ -290,7 +290,7 @@ angular.module('ngmReportHub')
 						}
 					}]
 				},{
-					styleClass: 's12 m3',
+					styleClass: 's12 m6 l3',
 					widgets: [{
 						type: 'stats',
 						style: 'text-align: center;',
@@ -301,7 +301,7 @@ angular.module('ngmReportHub')
 						}
 					}]
 				},{
-					styleClass: 's12 m3',
+					styleClass: 's12 m6 l3',
 					widgets: [{
 						type: 'stats',
 						style: 'text-align: center;',
@@ -312,7 +312,7 @@ angular.module('ngmReportHub')
 						}
 					}]
 				},{
-					styleClass: 's12 m3',
+					styleClass: 's12 m6 l3',
 					widgets: [{
 						type: 'stats',
 						style: 'text-align: center;',

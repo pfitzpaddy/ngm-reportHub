@@ -169,13 +169,13 @@ font-size: 18px;
 
 			<ul class="collection with-header">
 				<li class="collection-header indigo lighten-1" style="height:80px;">
-					<div class="col s12 m10">
+					<div class="col s12 m9 l10">
 						<h5 class="report-panel-title white-text">
 							<i class="material-icons left">attachment</i>{{list.firstLetterUpperCase(list.typeDocument)}} | {{'upload_documents'|translate}}
 						</h5>
 					</div>
-					<div class="col s12 m2">
-						<div class="grid-list upload-view-switch">
+					<div class="col s12 m2 l2">
+						<div class="grid-list upload-view-switch hide-on-small-only">
 							<div class="btn-floating wave-effect space tooltipped-upload" data-position="bottom" data-tooltip="{{'grid_view'|translate}}" ng-click="grid=true"
 							 ng-class="{white: grid,indigo:!grid}">
 								<i class="material-icons " style="color: #ffffff" ng-class="{color_indigo: grid,color_white:!grid}">
