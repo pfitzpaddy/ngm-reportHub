@@ -298,7 +298,7 @@ li {
 							<i class="material-icons left">keyboard_arrow_left</i>
 							{{'back' | translate}}
 					</div>
-					<div
+<!-- 					<div
 						id="login-next"
 						ng-show="panel.user.organization === 'iMMAP' && 
 											( panel.user.admin0pcode === 'CD' || panel.user.admin0pcode === 'ET' )"
@@ -328,7 +328,15 @@ li {
 							<i class="material-icons right">keyboard_arrow_right</i>
 							{{'register' | translate}}!
 						</button>
-					</div>
+					</div> -->
+					<div
+						id="login-register"
+						class="btn btn-large waves-effect waves-teal"
+						ng-disabled="ngmRegisterForm.$invalid"
+						ng-click="panel.register()">
+							<i class="material-icons right">keyboard_arrow_right</i>
+							{{'register' | translate}}!
+					</div>					
 				</div>
 
 	    </form>
@@ -512,7 +520,7 @@ li {
 	// login details go next (if iMMAP)
 	$( '#login-next' ).click( function( e ){
 		$( '.carousel' ).carousel( 'next' );
-		$( '.carousel' ).css({ 'min-height': '840px' });
+		// $( '.carousel' ).css({ 'min-height': '840px' });
 		setTimeout(function(){
 			// Materialize.toast( 'Last Item! Add iMMAP PROGRAMME details', 6000, 'success' );
 			M.toast({ html: 'Last Item! Add iMMAP PROGRAMME details', displayLength: 6000, classes: 'success' });
@@ -535,7 +543,7 @@ li {
 	// iMMAP details go back to login
 	$( '#programme-back' ).click( function( e ){
 		$( '.carousel' ).carousel( 'prev' );
-		$( '.carousel' ).css({ 'min-height': '640px' });
+		// $( '.carousel' ).css({ 'min-height': '640px' });
 	});
 
 </script>
