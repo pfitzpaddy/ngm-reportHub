@@ -7184,79 +7184,83 @@ angular.module( 'ngmReportHub' )
 
               cluster_id: [ 'fsac' ],
               beneficiary_type_id: 'idp_conflict',
-              beneficiary_type_name: 'Conflict Affected IDPs'
+							beneficiary_type_name: 'People Displaced Due to Conflict',
+							year: 2020
             },{
               cluster_id: [ 'fsac' ],
-              beneficiary_type_id: 'drought_affected_non_displaced_response',
-              beneficiary_type_name: 'Drought Affected Non Displaced ( Response )'
-            },{
-              cluster_id: [ 'fsac' ],
-              beneficiary_type_id: 'drought_affected_displaced_response',
-              beneficiary_type_name: 'Drought Affected Displaced ( Response )'
+              beneficiary_type_id: 'idp_natural_disaster',
+              beneficiary_type_name: 'People Displaced Due to Natural Disaster',
+							year: 2020
             },{
               cluster_id: [ 'fsac' ],
               beneficiary_type_id: 'natural_disaster_affected_earthquake',
-              beneficiary_type_name: 'Natural Disaster Affected (Earthquake)'
+              beneficiary_type_name: 'Natural Disaster Affected (Earthquake)',
+							year: 2020
             },{
               cluster_id: [ 'fsac' ],
               beneficiary_type_id: 'natural_disaster_affected_flood',
-              beneficiary_type_name: 'Natural Disaster Affected (Flood)'
+              beneficiary_type_name: 'Natural Disaster Affected (Flood)',
+							year: 2020
             },{
               cluster_id: [ 'fsac' ],
               beneficiary_type_id: 'natural_disaster_affected_avalanche',
-              beneficiary_type_name: 'Natural Disaster Affected (Avalanche)'
+              beneficiary_type_name: 'Natural Disaster Affected (Avalanche)',
+							year: 2020
             },{
               cluster_id: [ 'fsac' ],
               beneficiary_type_id: 'natural_disaster_affected_wls',
-              beneficiary_type_name: 'Natural Disaster Affected (Winter / Lean Season)'
+              beneficiary_type_name: 'Natural Disaster Affected (Winter / Lean Season)',
+							year: 2020
             },{
               cluster_id: [ 'fsac' ],
-              beneficiary_type_id: 'natural_disaster_affected_locust',
-              beneficiary_type_name: 'Natural Disaster Affected (Locust)'
+              beneficiary_type_id: 'multiple_shocks_ipc_3_4_affected',
+              beneficiary_type_name: 'Multiple shocks (IPC phase 3 & 4) affected population',
+							year: 2020
             },{
               cluster_id: [ 'fsac' ],
               beneficiary_type_id: 'afghan_refugee_returnees_documented_border_pakistan',
-              beneficiary_type_name: 'Afghan Refugee Returnees from Pakistan (Documented) - Border'
+              beneficiary_type_name: 'Afghan Refugee Returnees from Pakistan (Documented) - Border',
+							year: 2020
             },{
               cluster_id: [ 'fsac' ],
               beneficiary_type_id: 'afghan_refugee_returnees_documented_border_iran',
-              beneficiary_type_name: 'Afghan Refugee Returnees from Iran (Documented) - Border'
+              beneficiary_type_name: 'Afghan Refugee Returnees from Iran (Documented) - Border',
+							year: 2020
             },{
               cluster_id: [ 'fsac' ],
               beneficiary_type_id: 'afghan_refugee_returnees_documented_settlement_pakistan',
-              beneficiary_type_name: 'Afghan Refugee Returnees from Pakistan (Documented) - Settlement'
+              beneficiary_type_name: 'Afghan Refugee Returnees from Pakistan (Documented) - Settlement',
+							year: 2020
             },{
               cluster_id: [ 'fsac' ],
               beneficiary_type_id: 'afghan_refugee_returnees_documented_settlement_iran',
-              beneficiary_type_name: 'Afghan Refugee Returnees from Iran (Documented) - Settlement'
+              beneficiary_type_name: 'Afghan Refugee Returnees from Iran (Documented) - Settlement',
+							year: 2020
             },{
               cluster_id: [ 'fsac' ],
               beneficiary_type_id: 'afghan_refugee_returnees_undocumented_border_pakistan',
-              beneficiary_type_name: 'Afghan Returnees from Pakistan (Undocumented) - Border'
+              beneficiary_type_name: 'Afghan Returnees from Pakistan (Undocumented) - Border',
+							year: 2020
             },{
               cluster_id: [ 'fsac' ],
               beneficiary_type_id: 'afghan_refugee_returnees_undocumented_border_iran',
-              beneficiary_type_name: 'Afghan Returnees from Iran (Undocumented) - Border'
+              beneficiary_type_name: 'Afghan Returnees from Iran (Undocumented) - Border',
+							year: 2020
             },{
               cluster_id: [ 'fsac' ],
               beneficiary_type_id: 'afghan_refugee_returnees_undocumented_settlement_pakistan',
-              beneficiary_type_name: 'Afghan Returnees from Pakistan (Undocumented) - Settlement'
+              beneficiary_type_name: 'Afghan Returnees from Pakistan (Undocumented) - Settlement',
+							year: 2020
             },{
               cluster_id: [ 'fsac' ],
               beneficiary_type_id: 'afghan_refugee_returnees_undocumented_settlement_iran',
-              beneficiary_type_name: 'Afghan Returnees from Iran (Undocumented) - Settlement'
+							beneficiary_type_name: 'Afghan Returnees from Iran (Undocumented) - Settlement',
+							year: 2020
             },{
               cluster_id: [ 'fsac' ],
               beneficiary_type_id: 'refugee_pakistani',
-              beneficiary_type_name: 'Pakistani Refugees'
-            },{
-              cluster_id: [ 'fsac' ],
-              beneficiary_type_id: 'flood_affected_non_displaced_response',
-              beneficiary_type_name: 'Flood Affected Non Displaced ( Response )'
-            },{
-              cluster_id: [ 'fsac' ],
-              beneficiary_type_id: 'flood_affected_displaced_response',
-              beneficiary_type_name: 'Flood Affected Displaced ( Response )'
+							beneficiary_type_name: 'Pakistani Refugees',
+							year: 2020
             },{
 
               // CASH
