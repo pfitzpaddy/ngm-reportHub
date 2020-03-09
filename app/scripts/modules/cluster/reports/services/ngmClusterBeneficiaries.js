@@ -46,14 +46,20 @@ angular.module( 'ngmReportHub' )
 					boys_6_11:0,
 					boys_12_17:0,
 					boys:0,
+					boys_disabled:0,
 					girls:0,
+					girls_disabled:0,
 					girls_0_5:0,
 					girls_6_11:0,
 					girls_12_17:0,
 					men:0,
+					men_disabled:0,
 					women:0,
+					women_disabled:0,
 					elderly_men:0,
+					elderly_men_disabled:0,
 					elderly_women:0,
+					elderly_women_disabled:0,
 					total_male:0,
 					total_female:0,
 					total_beneficiaries:0
@@ -170,10 +176,16 @@ angular.module( 'ngmReportHub' )
 					// calc
 					beneficiary.total_male += beneficiary.boys +
 																beneficiary.men +
-																beneficiary.elderly_men;
+																beneficiary.elderly_men +
+																beneficiary.boys_disabled +
+																beneficiary.men_disabled +
+																beneficiary.elderly_men_disabled;
 					beneficiary.total_female += beneficiary.girls +
 																beneficiary.women +
-																beneficiary.elderly_women;
+																beneficiary.elderly_women +
+																beneficiary.girls_disabled +
+																beneficiary.women_disabled +
+																beneficiary.elderly_women_disabled;
 
 					beneficiary.total_beneficiaries += beneficiary.total_male + beneficiary.total_female;
 				}, 100 );
