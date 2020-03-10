@@ -15,23 +15,80 @@
 	}
 	
 	md-checkbox-enabled[selected] .md-icon {
-        background-color: rgb(38, 166, 154);
+		background-color: rgb(38, 166, 154);
+	}
 
-    }
+	md-select .md-select-value {
+		border-bottom-color: rgba(0, 0, 0, 0.35);
+	}
 
-    md-select .md-select-value {
-        border-bottom-color: rgba(0, 0, 0, 0.35);
-    }
+	md-select-menu md-content md-option[selected]:focus,
+		md-select-menu md-content md-option[selected] {
+		color: rgb(38, 166, 154);
+	}
 
-    md-select-menu md-content md-option[selected]:focus,
-    md-select-menu md-content md-option[selected] {
-        color: rgb(38, 166, 154);
-    }
+	md-select:not([disabled]):focus .md-select-value {
+		border-bottom-color: rgb(38, 166, 154);
+		color: rgba(0, 0, 0, 0.87);
+	}
 
-    md-select:not([disabled]):focus .md-select-value {
-        border-bottom-color: rgb(38, 166, 154);
-        color: rgba(0, 0, 0, 0.87);
-    }
+	.tag {
+	  background:#2196F3;
+	  border-radius: 3px 0 0 3px;
+	  color: #ffffff;
+	  display: inline-block;
+	  height: 26px;
+	  line-height: 26px;
+	  padding: 0 20px 0 23px;
+	  position: relative;
+	  margin: 0 10px 10px 0;
+	  text-decoration: none;
+	  -webkit-transition: color 0.2s;
+	  font-weight: 500;
+	}
+
+	.tag::before {
+	  background: #ffffff;
+	  border-radius: 10px;
+	  box-shadow: inset 0 1px rgba(0, 0, 0, 0.25);
+	  content: '';
+	  height: 6px;
+	  left: 10px;
+	  position: absolute;
+	  width: 6px;
+	  top: 10px;
+	}
+
+	.tag::after {
+	  background: #ffffff;
+	  border-bottom: 13px solid transparent;
+	  border-left: 10px solid #2196F3;
+	  border-top: 13px solid transparent;
+	  content: '';
+	  position: absolute;
+	  right: 0;
+	  top: 0;
+	}
+
+	.tag.planned {
+		background:#2196F3 !important;
+	}
+	.tag.planned::after {
+		border-left: 10px solid #2196F3;
+	}
+	.tag.ongoing {
+		background:#ffb300 !important;
+	}
+	.tag.ongoing::after {
+		border-left: 10px solid #ffb300;
+	}
+	.tag.complete {
+		background:#00897b !important;
+	}
+	.tag.complete::after {
+		border-left: 10px solid #00897b;
+	}
+
 	</style>
 		<!-- beneficiaries -->
 		<div id="{{ $beneficiaryIndex=$index; id = 'ngm-' + $locationIndex + '-' + $index }}" ng-repeat="beneficiary in project.report.locations[ $locationIndex ].beneficiaries | filterBeneficiary:project.beneficiary_search track by $index" ng-class="{'add-padding': !detailBeneficiaries[$locationIndex][$beneficiaryIndex]}" window-size>
@@ -1541,8 +1598,13 @@
 					<!-- ACTIVITY START DATE -->
 					<div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'activity_date' ]">
 
+						<a class="tag {{ beneficiary.activity_status }}" ng-if="beneficiary.activity_status === 'complete' ">{{ beneficiary.activity_status | uppercase }} DATE: {{ beneficiary.activity_end_date | date : 'EEEE d MMM, y' }}</a>			
+
+						<!-- tag -->
+						<a class="tag {{ beneficiary.activity_status }}" ng-if="beneficiary.activity_status !== 'complete' ">{{ beneficiary.activity_status | uppercase }}</a>
+
 						<!-- get template -->
-						<div class="row" ng-init="ngmClusterBeneficiaries.initActivityDate( beneficiary )">
+						<div class="row" ng-init="ngmClusterBeneficiaries.datepicker.initActivityDate( project.report, beneficiary )">
 							<div ng-include="project.templatesUrl + project.template_activity_date"></div>
 						</div>
 
@@ -1646,8 +1708,8 @@
 			</div>
 		</div>
 
-<script>
-	setTimeout(function () {
-		M.updateTextFields();
-	}, 100)
-</script>
+	<script>
+		setTimeout(function () {
+			M.updateTextFields();
+		}, 100)
+	</script>

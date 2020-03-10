@@ -169,8 +169,8 @@ input[type=text], input[type=text]:disabled, input[type=text]:focus, input[type=
             <table class="centered highlight responsive-table" ng-table="table.tableParams">
               <tr ng-repeat="row in $data" style="cursor: pointer; cursor: hand;">
                 <td data-title="'country_mayus'|translate" sortable="'admin0name'" ng-click="table.onClick(row)" >
-					<a class="tag" ng-if="table.showOrgAdminTag(row.roles)">ADMIN</a>
-					{{ row.admin0name }}
+									<a class="tag" ng-if="table.showOrgAdminTag(row.roles)">ADMIN</a>
+									{{ row.admin0name }}
                 </td>
                 <td data-title="'organization' | translate" sortable="'organization'" ng-click="table.onClick(row)">
                     {{ row.organization }}

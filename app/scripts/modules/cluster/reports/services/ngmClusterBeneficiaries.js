@@ -91,32 +91,41 @@ angular.module( 'ngmReportHub' )
 
 			/* FORM UPDATES */
 
-			// datepicker ( NG )
+			// datepicker
 			datepicker: {
+				
+				// show distribution date
+				initActivityDate: function( report, beneficiary ){
+					// set values
+					if ( !beneficiary.activity_start_date ) {
+						beneficiary.activity_status = 'ongoing';
+						beneficiary.activity_start_date = moment( report.reporting_period ).startOf( 'M' ).format( 'YYYY-MM-DD' );
+						beneficiary.activity_end_date = '';
+					}
+				},
+				// 
 				startOnClose: function( beneficiary, value ) {
-					if (!value) { value =  moment( new Date() ).startOf( 'M' ); }
-					beneficiary.activity_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+					if (!value) { value =  moment().startOf( 'M' ); }
+					beneficiary.activity_start_date = moment( value ).format( 'YYYY-MM-DD' );
 				},
 				endOnClose: function( beneficiary, value ) {
-					if (!value) { value =  moment( new Date() ).endOf( 'M' ); }
-					beneficiary.activity_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+					if (!value) { value =  moment().endOf( 'M' ); }
+					beneficiary.activity_end_date = moment( value ).format( 'YYYY-MM-DD' );
 				},
 				// activity start date, end date
 				activityStartOnClose: function( location, $beneficiaryIndex, $index, value ) {
-					location.beneficiaries[ $beneficiaryIndex ].activity_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+					location.beneficiaries[ $beneficiaryIndex ].activity_start_date = moment( new Date( value ) ).format( 'YYYY-MM-DD' );
+					if ( moment().format( 'YYYY-MM-DD' ) >= moment( location.beneficiaries[ $beneficiaryIndex ].activity_start_date ).format( 'YYYY-MM-DD' ) ) {
+						location.beneficiaries[ $beneficiaryIndex ].activity_status = 'ongoing';
+					} else {
+						location.beneficiaries[ $beneficiaryIndex ].activity_status = 'planned';
+					}
 				},
 				activityEndOnClose: function( location, $beneficiaryIndex, $index, value ) {
-					location.beneficiaries[ $beneficiaryIndex ].activity_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
-					location.beneficiaries[ $beneficiaryIndex ].activity_status = 'complete';
-				}
-			},
-
-			// show distribution date
-			initActivityDate: function( beneficiary ){
-				// set values
-				if ( !beneficiary.activity_start_date ) {
-					beneficiary.activity_start_date = moment.utc( new Date() ).format( 'YYYY-MM-DD' );
-					beneficiary.activity_status = 'ongoing';
+					if ( value ) {
+						location.beneficiaries[ $beneficiaryIndex ].activity_end_date = moment( new Date ( value ) ).format( 'YYYY-MM-DD' );
+						location.beneficiaries[ $beneficiaryIndex ].activity_status = 'complete';
+					}
 				}
 			},
 

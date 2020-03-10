@@ -58,6 +58,7 @@ angular
 		'ngm.widget.stats',
 		'ngm.widget.table',
 		'ngm.materialize.select',
+		'ngm.materialize.datepicker',
 	])
 	.config([ '$routeProvider', '$locationProvider', '$compileProvider', '$translateProvider', function ( $routeProvider, $locationProvider, $compileProvider, $translateProvider ) {
 
