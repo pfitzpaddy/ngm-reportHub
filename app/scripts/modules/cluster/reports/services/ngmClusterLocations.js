@@ -32,6 +32,7 @@ angular.module( 'ngmReportHub' )
       // add new_location
       addNewLocation: function( project, new_location ){
         // create new beneficiaries holder
+        console.log( new_location );
         new_location.beneficiaries = [{}];
         project.report.locations.push( new_location );
         // reset new_location

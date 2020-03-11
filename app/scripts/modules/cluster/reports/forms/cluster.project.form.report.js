@@ -251,10 +251,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					// increment
 					if ( $scope.project.report.locations.length > $scope.project.location_limit ) {
 						$scope.project.location_limit += 1;
-						// required to update ng-repeat limitTo?
-						$timeout(function(){
+						// timeout
+						$timeout( function(){
 							$scope.$apply();
-						},0)
+							// expand beneficiaries form
+							$scope.detailBeneficiaries[ $scope.project.report.locations.length-1 ] = [];
+							$scope.detailBeneficiaries[ $scope.project.report.locations.length-1 ][ 0 ] = true;
+						}, 0 );
 					}
 
 					// if all rendered
