@@ -624,7 +624,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							$('#save-modal').modal({ dismissible: false });
 							$('#save-modal').modal('open');
 						} else {
-							$scope.project.save( false, false );
+							// arg1: set report status from 'todo' to 'complete' & re-direct
+							// arg2: save & re-direct 
+							// arg3: alert admin via email of user edit of 'complete' report
+							$scope.project.save( false, false, false );
 						}
 					}
 				},
@@ -641,7 +644,10 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							$('#save-modal').modal({ dismissible: false });
 							$('#save-modal').modal('open');
 						} else {
-							$scope.project.save( false, false );
+							// arg1: set report status from 'todo' to 'complete' & re-direct
+							// arg2: save & re-direct
+							// arg3: alert admin via email of user edit of 'complete' report
+							$scope.project.save( false, false, false );
 						}
 					}
 				},
@@ -873,7 +879,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					return total
 				},
 				// save
-				save: function( complete, display_modal ){ 
+				save: function( complete, display_modal, email_alert ){ 
 
 					// set labels to active (green)
 					$( 'label' ).removeClass( 'invalid' ).addClass( 'active' );
@@ -899,11 +905,13 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					// Materialize.toast( $filter('translate')('processing_report') , 6000, 'note');
 					M.toast({ html: $filter('translate')('processing_report'), displayLength: 6000, classes: 'note' });
 
+					console.log( email_alert );
+
 					// setReportRequest
 					var setReportRequest = {
 						method: 'POST',
 						url: ngmAuth.LOCATION + '/api/cluster/report/setReport',
-						data: { report: $scope.project.report }
+						data: { email_alert: email_alert, report: $scope.project.report }
 					}
 
 					// set report

@@ -78,13 +78,20 @@
 					 	<div class="row">
 
 							<h3 class="report-selected-locations">{{ project.report.locations.length }} {{'selected_locations'|translate}}</h3>
+							<!-- 
+								params
+									arg1: set report status from 'todo' to 'complete' & re-direct
+									arg2: save & re-direct 
+									arg3: alert admin via email of user edit of 'complete' report
+								project.save( arg1, arg2, arg3 )
+							 -->
 							<button class="btn waves-effect waves-light hide-on-small-only edit-report-btn"
 	      					title="Edit {{ project.monthlyTitleFormat }}"
 									ng-show="project.definition.project_status === 'active' &&
 														project.report.report_year >=  project.reportingYear() - 1  &&
 	      										project.report.report_status === 'complete' &&
 	      										project.canEdit"
-	      					ng-click="project.save( false, false )">
+	      					ng-click="project.save( false, false, true )">
 	      					<i class="material-icons left">create</i>{{'edit_report' | translate}}
 	      			</button>
 							<button ng-hide="( project.report.admin0pcode === 'ET' && project.report.cluster_id === 'esnfi' ) ||

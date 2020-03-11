@@ -274,6 +274,12 @@
 					<div align="center" ng-if="project.definition.admin0pcode !== 'NG'">
 						
 						<!-- validation -->
+							<!-- 
+								params
+									arg1: set report status from 'todo' to 'complete' & re-direct
+									arg2: save & re-direct 
+								project.validateBeneficiariesDetailsForm( arg1, arg2 )
+							 -->
 						<button class="waves-effect waves-light btn"
 											ng-click="project.validateBeneficiariesDetailsForm( false, true )"
 											ng-cloak>
@@ -289,6 +295,12 @@
 						<br/>
 
 						<!-- monthly report -->
+							<!-- 
+								params
+									arg1: set report status from 'todo' to 'complete' & re-direct
+									arg2: save & re-direct 
+								project.validateBeneficiariesDetailsForm( arg1, arg2 )
+							 -->
 						<button ng-if="!project.location_group"
 											class="waves-effect waves-light btn blue"
 											ng-click="project.validateBeneficiariesDetailsForm( true, false )"
@@ -303,6 +315,12 @@
 					<div align="center" ng-if="project.definition.admin0pcode === 'NG'">
 						
 						<!-- validation -->
+							<!-- 
+								params
+									arg1: set report status from 'todo' to 'complete' & re-direct
+									arg2: save & re-direct 
+								project.validateBeneficiariesDetailsForm( arg1, arg2 )
+							 -->
 						<button class="waves-effect waves-light btn"
 											ng-click="project.validateWashNgBeneficiariesForm( false, true )"
 											ng-cloak>
@@ -318,6 +336,12 @@
 						<br/>
 
 						<!-- monthly report -->
+							<!-- 
+								params
+									arg1: set report status from 'todo' to 'complete' & re-direct
+									arg2: save & re-direct 
+								project.validateBeneficiariesDetailsForm( arg1, arg2 )
+							 -->
 						<button class="waves-effect waves-light btn blue"
 											ng-click="project.validateWashNgBeneficiariesForm( true, false )"
 											ng-cloak>
