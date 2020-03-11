@@ -364,7 +364,9 @@
 		</div>
 		
 		<!-- validation report monthly -->
-		<div class="row remove" ng-if="project.report.report_status === 'complete' && ngmClusterValidation.verified_user()">
+		<div class="row remove" ng-if="project.report.admin0pcode === 'AF'  && 
+																		project.report.report_status === 'complete' && 
+																		ngmClusterValidation.verified_user()">
 			<div class="col s12 m12 l12">
 				<div class="widget card-panel white grey-text text-darken-2">					
 					<div align="center">		
@@ -393,11 +395,11 @@
 						<br/>
 						<br/>
 		
-		
 					</div>
 				</div>
 			</div>
 		</div>
+
 	</div>
 
 </div>

@@ -905,8 +905,6 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					// Materialize.toast( $filter('translate')('processing_report') , 6000, 'note');
 					M.toast({ html: $filter('translate')('processing_report'), displayLength: 6000, classes: 'note' });
 
-					console.log( email_alert );
-
 					// setReportRequest
 					var setReportRequest = {
 						method: 'POST',
