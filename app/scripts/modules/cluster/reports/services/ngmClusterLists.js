@@ -54,7 +54,7 @@ angular.module( 'ngmReportHub' )
           strategic_objectives: ngmClusterLists.getStrategicObjectives( project.admin0pcode, moment( project.project_start_date ).year(), moment( project.project_end_date ).year() ),
           category_types: ngmClusterLists.getCategoryTypes(),
           beneficiary_types: ngmClusterLists.getBeneficiaries( moment( project.project_end_date ).year(), project.admin0pcode, project.cluster_id ),
-          beneficiary_categories: ngmClusterLists.getBeneficiariesCategories(),
+          beneficiary_categories: ngmClusterLists.getBeneficiariesCategories(project.admin0pcode),
           hrp_beneficiary_types: ngmClusterLists.getHrpBeneficiaries(moment(project.project_end_date).year()),
           // location_groups: ngmClusterLists.getLocationGroups(),
           currencies: ngmClusterLists.getCurrencies( project.admin0pcode ),
@@ -7536,36 +7536,52 @@ angular.module( 'ngmReportHub' )
 
       },
 
-      getBeneficiariesCategories: function(){
+      getBeneficiariesCategories: function(admin0pcode){
+        var beneficiary_categories = [];
 
-        var beneficiary_categories = [
-
-        {
-            beneficiary_category_id: 'indigenas',
-            beneficiary_category_name: 'Indígenas'
-          },
-
-        {
-            beneficiary_category_id: 'afrocolombianos',
-            beneficiary_category_name: 'Afrocolombianos'
-          }
-          ,{
-            beneficiary_category_id: 'comunidades_negras_negro_palenquero_sanbasilio_raizal_archipielago_sanandres_providencia',
-            beneficiary_category_name: 'Comunidades negras (negro ó palenquero de San Basilio ó Raizal del archipiélago de San Andrés y Providencia)'
-          },
+        if(admin0pcode === 'COL'){
+          var beneficiary_categories = [
+  
           {
-            beneficiary_category_id: 'rom_o_gitano',
-            beneficiary_category_name: 'ROM ó Gitano'
-          },
+              beneficiary_category_id: 'indigenas',
+              beneficiary_category_name: 'Indígenas'
+            },
+  
           {
-            beneficiary_category_id: 'ninguna',
-            beneficiary_category_name: 'Ninguna'
-          },
-          {
-            beneficiary_category_id: 'sin_informacion',
-            beneficiary_category_name: 'Sin información'
-          }];
+              beneficiary_category_id: 'afrocolombianos',
+              beneficiary_category_name: 'Afrocolombianos'
+            }
+            ,{
+              beneficiary_category_id: 'comunidades_negras_negro_palenquero_sanbasilio_raizal_archipielago_sanandres_providencia',
+              beneficiary_category_name: 'Comunidades negras (negro ó palenquero de San Basilio ó Raizal del archipiélago de San Andrés y Providencia)'
+            },
+            {
+              beneficiary_category_id: 'rom_o_gitano',
+              beneficiary_category_name: 'ROM ó Gitano'
+            },
+            {
+              beneficiary_category_id: 'ninguna',
+              beneficiary_category_name: 'Ninguna'
+            },
+            {
+              beneficiary_category_id: 'sin_informacion',
+              beneficiary_category_name: 'Sin información'
+            }];
+        }
 
+        if(admin0pcode === 'AF'){
+          var beneficiary_categories=[ 
+            {
+              beneficiary_category_id: 'general',
+              beneficiary_category_name: 'General'
+            },
+            {
+              beneficiary_category_id: 'disabled',
+              beneficiary_category_name: 'Disabled'
+            }
+          ];
+
+        }
         return beneficiary_categories;
 
       },
