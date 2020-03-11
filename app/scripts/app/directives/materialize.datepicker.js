@@ -22,9 +22,9 @@ angular
 					close: '@',
 					cancel: '@',
 					yearRange: '@',
-          minDate: "=",
-          maxDate: "=",
-          defaultDate: '=',
+					minDate: "=",
+					maxDate: "=",
+					defaultDate: '=',
 					// open, close, draw
 					autoClose: '=',
 					onOpen: '=',
@@ -125,14 +125,23 @@ angular
 
 					// init datepicker
 					var instance = M.Datepicker.init( element, options );
+					var picker = M.Datepicker.getInstance( element );
 
 					// format date
-        	ngModelCtrl.$formatters.unshift(function ( modelValue ) {
+					ngModelCtrl.$formatters.unshift(function ( modelValue ) {
 						if ( modelValue && modelValue !== 'Invalid date' ) {
 							var date = new Date( modelValue );
-              return (angular.isDefined($scope.format)) ? date.format($scope.format) : date.format( 'dd mmm, yyyy' );
+							return (angular.isDefined($scope.format)) ? date.format($scope.format) : date.format( 'dd mmm, yyyy' );
 						}
-        	});
+					});
+
+					// max / min $watch date
+					$scope.$watch('maxDate', function (newMax) {
+						picker.options.maxDate = newMax ? new Date(newMax) : false;
+					});
+					$scope.$watch('minDate', function (newMin) {
+						picker.options.minDate = newMin ? new Date(newMin) : false;
+					});
 
 				}
 			}
