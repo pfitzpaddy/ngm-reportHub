@@ -294,6 +294,18 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					}*/
 					// init stategic objectic list
 					$scope.project.checkStrategicObjectiveYear()
+
+					// AF set disabled to general
+					if ($scope.project.definition.target_beneficiaries.length > 0 && $scope.project.definition.admin0pcode === 'AF'){
+						angular.forEach($scope.project.definition.target_beneficiaries,function(e,i){
+							if (ngmClusterBeneficiaries.form[0][i]['beneficiary_category_type_id'] && !e.beneficiary_category_id){
+								e.beneficiary_category_id = $scope.project.lists.beneficiary_categories[0].beneficiary_category_id;
+								e.beneficiary_category_name = $scope.project.lists.beneficiary_categories[0].beneficiary_category_name;
+							}
+						})						
+					}
+					
+
 				},
 
 				// cofirm exit if changes
@@ -462,6 +474,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					$scope.detailBeneficiaries[$scope.project.definition.target_beneficiaries.length - 1] = true;
 					// set form display for new rows
 					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, 0, $scope.project.definition.target_beneficiaries.length-1, beneficiary );
+					
 				},
 
 				// remove beneficiary from list
