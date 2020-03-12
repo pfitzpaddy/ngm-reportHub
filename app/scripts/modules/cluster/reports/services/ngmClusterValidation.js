@@ -7,7 +7,7 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterValidation', 
+	.factory( 'ngmClusterValidation',
 			[ '$http',
 				'$filter',
 				'$timeout',
@@ -18,8 +18,8 @@ angular.module( 'ngmReportHub' )
 
 		    // update material_select
 			updateSelect: function(){
-				$timeout(function(){ 
-					// $( 'select' ).material_select(); 
+				$timeout(function(){
+					// $( 'select' ).material_select();
 					$('select').formSelect();
 				}, 0 );
 			},
@@ -40,7 +40,7 @@ angular.module( 'ngmReportHub' )
 					ngmClusterValidation.project_details_valid_labels.push('ngm-end-date');
 				}
 				/*if( !project.project_start_date ){
-					ngmClusterValidation.project_details_valid_labels.push('ngm-start-date');	
+					ngmClusterValidation.project_details_valid_labels.push('ngm-start-date');
 				}
 				if( !project.project_end_date ){
 					ngmClusterValidation.project_details_valid_labels.push('ngm-end-date');
@@ -77,7 +77,7 @@ angular.module( 'ngmReportHub' )
 
 			// validate if ONE activity type
 			activity_type_valid: function( project ) {
-				
+
 				// valid
 				ngmClusterValidation.activity_type_valid_labels = [];
 
@@ -147,7 +147,7 @@ angular.module( 'ngmReportHub' )
 					// 	}
 					// }
 				});
-				
+
 				if( project.target_locations.length && ( rowComplete === project.target_locations.length ) ){
 
 					return true;
@@ -183,7 +183,7 @@ angular.module( 'ngmReportHub' )
 				if (locationRow !== locationRowComplete && notDetailOpen.length > 0) {
 					// openall
 					angular.forEach(notDetailOpen, function (indexLocation) {
-						l = indexLocation;						
+						l = indexLocation;
 						detail[l] = true;
 					})
 					ngmClusterValidation.targetLocationsValidatelabel.push(elements[0])
@@ -249,7 +249,7 @@ angular.module( 'ngmReportHub' )
 					validation.count = 1;
 				}
 				if (detail[i]) {
-					validation.open = true;					
+					validation.open = true;
 					validation.locationIndex = i;
 				} else {
 					validation.open = false;
@@ -312,11 +312,11 @@ angular.module( 'ngmReportHub' )
 			targetBeneficiaryValidate(b, i, detail,project){
 
 				// for AF need to add delivery_type_id and hrp_beneficiary_type_id
-				// for 
+				// for
 
 				var id;
 				var complete = true;
-				var validation = { count: 0, divs: [] }; 
+				var validation = { count: 0, divs: [] };
 
 				if (!b.activity_type_id) {
 					id = "label[for='" + 'ngm-activity_type_id-' + i + "']";
@@ -352,7 +352,7 @@ angular.module( 'ngmReportHub' )
 				console.log(complete);
 
 				// INDICATOR
-				if (ngmClusterBeneficiaries.form[0][i] && ngmClusterBeneficiaries.form[0][0]['display_indicator']) {
+				if (ngmClusterBeneficiaries.form[0][i] && ngmClusterBeneficiaries.form[0][i]['display_indicator']) {
 					if (!b.indicator_id) {
 						id = "label[for='" + 'ngm-indicator_id-' + i + "']";
 						$(id).addClass('error');
@@ -383,7 +383,7 @@ angular.module( 'ngmReportHub' )
 				// }
 
 				if (ngmClusterBeneficiaries.form[0][i] && !ngmClusterBeneficiaries.form[0][i]['hrp_beneficiary_type_id'] && (project.admin0pcode === 'AF') && project.project_hrp_project) {
-					
+
 					if (!b.hrp_beneficiary_type_id) {
 						id = "label[for='" + 'ngm-hrp-beneficiary_type_id-' + i + "']";
 						$(id).addClass('error');
@@ -699,7 +699,7 @@ angular.module( 'ngmReportHub' )
 
 			// validate form
 			validatePartial: function( partial_kits, i, j ){
-				
+
 				// valid
 				var id;
 				var complete = true;
@@ -728,7 +728,7 @@ angular.module( 'ngmReportHub' )
 
 			// validate form
 			validateDetail: function( kit_details, i, j ){
-				
+
 				// valid
 				var id;
 				var complete = true;
@@ -738,7 +738,7 @@ angular.module( 'ngmReportHub' )
 				angular.forEach( kit_details, function( d, k ){
 
 					// quantity
-					if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){ 
+					if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){
 						id = "label[for='" + 'ngm-beneficiary-kit-quantity-'+i+'-'+j+'-'+k+"']";
 						$( id ).addClass('error');
 						validation.divs.push( id );
@@ -746,7 +746,7 @@ angular.module( 'ngmReportHub' )
 					}
 
 					// detail
-					if ( !d.detail_type_id && !d.detail_type_name ){ 
+					if ( !d.detail_type_id && !d.detail_type_name ){
 						id = "label[for='" + 'ngm-beneficiary-kit-'+i+'-'+j+'-'+k+"']";
 						$( id ).addClass('error');
 						validation.divs.push( id );
@@ -761,7 +761,7 @@ angular.module( 'ngmReportHub' )
 				return validation;
 
 			},
-		
+
 
 			// validate form
 			validate: function( project,detailBeneficiaries,detailLocations,display_modal){
@@ -850,29 +850,29 @@ angular.module( 'ngmReportHub' )
 					if(desc === false){
 						M.toast({ html: 'Please Fill the Project Description & Objective', displayLength: 10000, classes: 'error' });
 					}
-					
+
 					if(d === false){
 						// Materialize.toast( $filter('translate')('information_in_target_population_is_incorrect_or_incomplete'),10000,'error' );
 						M.toast({ html: $filter('translate')('information_in_target_population_is_incorrect_or_incomplete'), displayLength: 10000, classes: 'error' });
-					
+
 					}
 
 					if(e === false){
 
 					// Materialize.toast($filter('translate')('information_in_project_target_locations_is_incorrect_or_incomplete'),10000,'error');
 					M.toast({ html: $filter('translate')('information_in_project_target_locations_is_incorrect_or_incomplete'), displayLength: 10000, classes: 'error' });
-				    } 
+				    }
 					/*Materialize.toast($('<a class="btn-flat waves-effect waves-teal" style=" color:white">'+'C<span style="text-transform: lowercase">lick aquí para cerrar mensajes de error</span> </a>').on('click', function (e) {
-					   $('.toast').hide(); 
+					   $('.toast').hide();
 					}));*/
 
 					return false;
 
-					
+
 				}
 
 			},
-			
+
 			// validateProjectPlan
 			validateProjectPlan: function (project, detailBeneficiaries, detailLocations){
 				var scrollDiv;
@@ -900,23 +900,23 @@ angular.module( 'ngmReportHub' )
 						beneficiaryRow ++;
 						result = ngmClusterValidation.validateBeneficiary(b, i, j, detail, admin0pcode, hrp_project_status);
 						angular.merge(elements, result.divs);
-						
+
 						if (!result.open && result.count === 0){
 							notDetailOpen.push(result.index)
 						}
 						beneficiaryRowComplete += result.count;
 					});
 				})
-				
-				if (beneficiaryRow !== beneficiaryRowComplete && notDetailOpen.length>0){					
+
+				if (beneficiaryRow !== beneficiaryRowComplete && notDetailOpen.length>0){
 					// openall
 					angular.forEach(notDetailOpen,function(indexbeneficiaries){
 						l= indexbeneficiaries.locationIndex;
-						b=indexbeneficiaries.beneficiaryIndex;						
-						detail[l][b] =true;						
+						b=indexbeneficiaries.beneficiaryIndex;
+						detail[l][b] =true;
 					})
 
-					$timeout(function () {						
+					$timeout(function () {
 						angular.forEach(notDetailOpen, function (indexbeneficiaries) {
 							x = indexbeneficiaries.locationIndex;
 							y = indexbeneficiaries.beneficiaryIndex;
@@ -945,7 +945,7 @@ angular.module( 'ngmReportHub' )
 				var id;
 				var complete = true;
 				var validation = { count: 0, divs: [] };
-				
+
 				// DEFAULT
 				if (!b.activity_type_id) {
 					id = "label[for='" + 'ngm-activity_type_id-' + i + '-' + j + "']";
@@ -963,7 +963,7 @@ angular.module( 'ngmReportHub' )
 				}
 				console.log( 'complete02' );
 				console.log( complete );
-				
+
 				// DETAIL
 				if ( ngmClusterBeneficiaries.form[i] && ( ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['display_activity_detail'] ) ) {
 					if (!b.activity_detail_id) {
@@ -990,7 +990,7 @@ angular.module( 'ngmReportHub' )
 				}
 				console.log( 'complete05' );
 				console.log( complete );
-				
+
 				// BENEFICIARY
 				if(!b.beneficiary_type_id ){
 					id = "label[for='" + 'ngm-beneficiary_type_id-' + i + '-' + j + "']";
@@ -1023,7 +1023,7 @@ angular.module( 'ngmReportHub' )
 				}
 				console.log( 'complete07' );
 				console.log( complete );
-				
+
 				// DELIVERY TYPE ID
 				if ( ngmClusterBeneficiaries.form[i] && ( ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['beneficiary_delivery_type_id'] ) ) {
 					if(!b.delivery_type_id){
@@ -1035,7 +1035,7 @@ angular.module( 'ngmReportHub' )
 				}
 				console.log( 'complete08' );
 				console.log( complete );
-				
+
 				//CASH + PACKAGE
 				if (ngmClusterBeneficiaries.form[i] && ( ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['mpc_delivery_type_id'] ) ){
 					if (!b.mpc_delivery_type_id){
@@ -1078,7 +1078,7 @@ angular.module( 'ngmReportHub' )
 				}
 				console.log( 'complete12' );
 				console.log( complete );
-				
+
 				// UNIT TYPE
 				if (ngmClusterBeneficiaries.form[i] && ( ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j][ 'unit_type_id' ] ) ) {
 					if (!b.unit_type_id) {
@@ -1125,8 +1125,8 @@ angular.module( 'ngmReportHub' )
 					}
 				}
 				console.log( 'complete16' );
-				console.log( complete );	
-				
+				console.log( complete );
+
 				// SADD
 				if (ngmClusterBeneficiaries.form[i] && ( ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j][ 'boys' ] ) ) {
 					if( b.boys === null || b.boys === undefined || b.boys === NaN || b.boys < 0 ){
@@ -1147,7 +1147,7 @@ angular.module( 'ngmReportHub' )
 					}
 				}
 				console.log( 'complete18' );
-				console.log( complete );	
+				console.log( complete );
 				if ( ngmClusterBeneficiaries.form[i] && ( ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j][ 'boys_6_11' ] ) ) {
 					if( b.boys_6_11 === null || b.boys_6_11 === undefined || b.boys_6_11 === NaN || b.boys_6_11 < 0 ){
 						id = "label[for='" + 'ngm-boys_6_11-' + i + '-' + j + "']";
@@ -1217,7 +1217,7 @@ angular.module( 'ngmReportHub' )
 					}
 				}
 				console.log( 'complete25' );
-				console.log( complete );	
+				console.log( complete );
 				if ( ngmClusterBeneficiaries.form[i] && ( ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j][ 'total_female' ] ) ) {
 					if( b.total_female === null || b.total_female === undefined || b.total_female === NaN || b.total_female < 0 ){
 						id = "label[for='" + 'ngm-total_female-' + i + '-' + j + "']";
@@ -1281,12 +1281,12 @@ angular.module( 'ngmReportHub' )
 
 				// DETAILS
 				if ( ngmClusterBeneficiaries.form[i] && ( ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['details'] ) ) {
-					
+
 					// for each details
-					angular.forEach( b.details, function( d, k ){ 
+					angular.forEach( b.details, function( d, k ){
 
 						// quantity
-						if ( d.unit_type_quantity === null || d.unit_type_quantity === undefined || d.unit_type_quantity < 0 ){ 
+						if ( d.unit_type_quantity === null || d.unit_type_quantity === undefined || d.unit_type_quantity < 0 ){
 							id = "label[for='" + 'ngm-beneficiary_detail_unit_quantity-'+i+'-'+j+'-'+k+"']";
 							$(id).addClass('error');
 							validation.divs.push( id );
@@ -1310,7 +1310,7 @@ angular.module( 'ngmReportHub' )
 				}
 				console.log( 'complete32' );
 				console.log( complete );
-				
+
 				// return 1 for complete, default 0 for error
 				if (d[i][j]) {
 					validation.open = true;
@@ -1350,7 +1350,7 @@ angular.module( 'ngmReportHub' )
 
 		};
 
-		// return 
+		// return
 		return ngmClusterValidation;
 
 	}]);
