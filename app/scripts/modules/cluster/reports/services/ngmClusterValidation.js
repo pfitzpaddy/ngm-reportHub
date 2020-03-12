@@ -1282,6 +1282,22 @@ angular.module( 'ngmReportHub' )
 				// DETAILS
 				if ( ngmClusterBeneficiaries.form[i] && ( ngmClusterBeneficiaries.form[i][j] && ngmClusterBeneficiaries.form[i][j]['details'] ) ) {
 
+					// check for empty details
+					var remove_details = false;
+					angular.forEach( b.details, function( d, k ){
+
+						// remove empty detail
+						if ( !d.unit_type_id && !d.unit_type_name && !d.details ){
+							remove_details = true;
+						}
+
+					});
+					
+					// no entry
+					if( remove_details ){
+						delete b.details;
+					}
+
 					// for each details
 					angular.forEach( b.details, function( d, k ){
 
@@ -1299,11 +1315,6 @@ angular.module( 'ngmReportHub' )
 							$(id).addClass('error');
 							validation.divs.push( id );
 							complete = false;
-						}
-
-						// remove empty detail
-						if ( !d.unit_type_id && !d.unit_type_name && !d.details ){
-							delete d.details;
 						}
 
 					});

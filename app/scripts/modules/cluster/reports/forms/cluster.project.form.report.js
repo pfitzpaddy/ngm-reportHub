@@ -931,7 +931,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							// update
 							// Materialize.toast( 'Error! '+$filter('translate')('please_correct_the_row_and_try_again'), 6000, 'error' );
 							M.toast({ html: 'Error! ' + $filter('translate')('please_correct_the_row_and_try_again'), displayLength: 6000, classes: 'error' });
-						}
+						}						
 
 						if ( !report.err ) {
 
@@ -950,6 +950,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							$timeout(function() { 
 								// Materialize.toast( msg , 6000, 'success'); 
 								M.toast({ html: msg, displayLength: 6000, classes: 'success' });
+								$scope.$digest();
 							}, 400 );
 
 							// set trigger
@@ -983,6 +984,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 								}, 400);
 							}
 						}
+
 					}).error(function( err ) {
 						// update
 						// Materialize.toast( 'Error!', 6000, 'error' );
