@@ -272,7 +272,11 @@
 										<!-- for project cluster activity_type -->
 										<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }"
 													ng-repeat="a in project.lists.activity_types | 
-																			filter: { cluster_id: project.definition.cluster_id, active: 1 } ">
+																			filter: { 
+																							admin0pcode: project.definition.admin0pcode, 
+																							cluster_id: project.definition.cluster_id, 
+																							active: 1
+																						}">
 											<!-- checkboxes -->
 											<label class="checkbox-label" for="activity_{{ a.activity_type_id }}">
 												<input type="checkbox"
@@ -295,7 +299,9 @@
 													<!-- for project cluster activity_type -->
 													<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }"
 																ng-repeat="a in project.lists.activity_types | 
-																						filter: { cluster_id: cluster.cluster_id, active: 1 } ">
+																						filter: { admin0pcode: project.definition.admin0pcode,
+																											cluster_id: cluster.cluster_id,
+																											active: 1 } ">
 														<!-- checkboxes -->																						
 														<label class="checkbox-label" for="activity_{{ a.activity_type_id }}">
 															<input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}"
@@ -400,7 +406,11 @@
 										<!-- for project cluster activity_type -->
 										<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }"
 													ng-repeat="a in project.lists.activity_types | 
-														filter: { cluster_id: project.definition.cluster_id, active: 1 } ">
+														filter: { 
+																			admin0pcode: project.definition.admin0pcode, 
+																			cluster_id: project.definition.cluster_id,
+																			active: 1
+																		}">
 											<!-- checkbox -->
 											<label class="checkbox-label" for="activity_{{ a.activity_type_id }}">
 												<input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}"
