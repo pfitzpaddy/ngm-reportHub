@@ -837,7 +837,8 @@
 														ng-change="ngmCbBeneficiaries.setBeneficiary( 'units', beneficiary );"
 														ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'units' ]"
 														required />
-										<label for="ngm-households-{{ $index }}" class="active">{{ 'amount' | translate }}</label>
+										<label ng-if="!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ]"for="ngm-households-{{ $index }}" class="active" style="transform:translateY(-128%)">{{ 'amount' | translate }}</label>
+										<label ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ]" for="ngm-households-{{ $index }}" class="active" style="transform:translateY(-128%)">{{ 'transfer_value' | translate }}</label>
 									</div>
 								</div>
 
@@ -872,7 +873,8 @@
 														ng-change="ngmCbBeneficiaries.setBeneficiary( 'units', beneficiary );"
 														ng-disabled="project.definition.project_status === 'complete' || !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'units' ]"
 														required />
-										<label for="ngm-households-{{ $index }}" class="active">{{ 'amount' | translate }}</label>
+										<label ng-if="!ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ]"for="ngm-households-{{ $index }}" class="active" style="transform:translateY(-128%)">{{ 'amount' | translate }}</label>
+										<label ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ]" for="ngm-households-{{ $index }}" class="active" style="transform:translateY(-128%)">{{ 'transfer_value' | translate }}</label>
 									</div>
 									<!-- transfer_type_id -->
 									<div class="input-field col s12 m4">
