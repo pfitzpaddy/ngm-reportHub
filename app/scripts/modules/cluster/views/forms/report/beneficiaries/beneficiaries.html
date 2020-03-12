@@ -213,7 +213,7 @@
 					<div class="input-field col s12 m12 l6">
 
 						<!-- new beneficiaries -->
-						<select materialize-select
+						<select materialize-select watch
 											ng-if="!beneficiary.id"
 											id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
@@ -230,7 +230,7 @@
 						</select>
 
 						<!-- existing beneficiaries -->
-						<select materialize-select
+						<select materialize-select watch
 											ng-if="beneficiary.id"
 											id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
@@ -311,7 +311,7 @@
 					<div class="input-field col s12 m12 l4">
 
 						<!-- new existing -->
-						<select materialize-select
+						<select materialize-select watch
 											ng-if="!beneficiary.id"
 											id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
@@ -330,7 +330,7 @@
 						</select>
 
 						<!-- new existing -->
-						<select materialize-select
+						<select materialize-select watch
 											ng-if="beneficiary.id"
 											id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
