@@ -395,10 +395,10 @@ angular.module( 'ngmReportHub' )
 				// });
 
 				// set beneficary category id for AF 
-				if (project.definition.admin0pcode === 'AF' && ngmClusterBeneficiaries.form[$parent][$index]['beneficiary_category_type_id'] && !beneficiary.beneficiary_category_id){
-					beneficiary.beneficiary_category_id = project.lists.beneficiary_categories[0].beneficiary_category_id;
-					beneficiary.beneficiary_category_name = project.lists.beneficiary_categories[0].beneficiary_category_name;
-				}
+				// if (project.definition.admin0pcode === 'AF' && ngmClusterBeneficiaries.form[$parent][$index]['beneficiary_category_type_id'] && !beneficiary.beneficiary_category_id){
+				// 	beneficiary.beneficiary_category_id = project.lists.beneficiary_categories[0].beneficiary_category_id;
+				// 	beneficiary.beneficiary_category_name = project.lists.beneficiary_categories[0].beneficiary_category_name;
+				// }
 
 			},
 
