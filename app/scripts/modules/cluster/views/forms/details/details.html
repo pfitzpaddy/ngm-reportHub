@@ -270,12 +270,10 @@
 										<label class="label">{{ project.definition.cluster }}</label>
 										<div style="padding-bottom:15px;"></div>
 										<!-- for project cluster activity_type -->
-										<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }" ng-repeat="a in project.lists.activity_types | filter: { cluster_id: project.definition.cluster_id } ">
-											<!-- <input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}"
-															ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
-															ng-click="project.compileInterClusterActivities()"
-															ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-											<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label> -->
+										<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }"
+													ng-repeat="a in project.lists.activity_types | 
+																			filter: { cluster_id: project.definition.cluster_id, active: 1 } ">
+											<!-- checkboxes -->
 											<label class="checkbox-label" for="activity_{{ a.activity_type_id }}">
 												<input type="checkbox"
 												class="filled-in"
@@ -295,12 +293,10 @@
 													<label class="label">{{ cluster.cluster }}</label>
 													<div style="padding-bottom:15px;"></div>
 													<!-- for project cluster activity_type -->
-													<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }"  ng-repeat="a in project.lists.activity_types | filter: { cluster_id: cluster.cluster_id } ">
-														<!-- <input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}"
-																		ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
-																		ng-click="project.compileInterClusterActivities()"
-																		ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-														<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label> -->
+													<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }"
+																ng-repeat="a in project.lists.activity_types | 
+																						filter: { cluster_id: cluster.cluster_id, active: 1 } ">
+														<!-- checkboxes -->																						
 														<label class="checkbox-label" for="activity_{{ a.activity_type_id }}">
 															<input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}"
 																ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
@@ -402,12 +398,10 @@
 										<label class="label" id="ngm-activity_type" for="ngm-activity_type">{{'activity_type' | translate}} *</label>
 										<div style="padding-bottom:15px;"></div>
 										<!-- for project cluster activity_type -->
-										<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }" ng-repeat="a in project.lists.activity_types | filter: { cluster_id: project.definition.cluster_id } ">
-											<!-- <input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}"
-															ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
-															ng-click="project.compileInterClusterActivities()"
-															ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-											<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label> -->
+										<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }"
+													ng-repeat="a in project.lists.activity_types | 
+														filter: { cluster_id: project.definition.cluster_id, active: 1 } ">
+											<!-- checkbox -->
 											<label class="checkbox-label" for="activity_{{ a.activity_type_id }}">
 												<input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}"
 													ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
