@@ -527,6 +527,7 @@
         "amount":"Cantidad",
         "amount_col":"Monto",
         "transfer_amount_value": "Valor de transferencia / cantidad",
+        "transfer_value": "Valor de transferencia",
         "units":"Unidades",
         "quantity":"Cantidad",
         "households":"Hogares",

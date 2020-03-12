@@ -637,6 +637,7 @@
         "amount":"Amount",
         "amount_col":"Amount",
         "transfer_amount_value": "Transfer Value/amount",
+        "transfer_value": "Transfer Value",
         "units":"Units",
         "quantity":"Quantity/Amount",
         "transfers":"Transfers",

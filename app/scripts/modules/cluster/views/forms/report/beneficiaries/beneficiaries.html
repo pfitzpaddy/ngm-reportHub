@@ -959,7 +959,8 @@
 													ngmClusterBeneficiaries.inputChange( 'ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'units' ]"
 											required />
-							<label for="ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'amount' | translate }}</label>
+							<label ng-if="!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ]" for="ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-128%)">{{ 'amount' | translate }}</label>
+							<label ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ]" for="ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-128%)">{{ 'transfer_value' | translate }}</label>
 						</div>
 					</div>
 
@@ -997,7 +998,8 @@
 													ngmClusterBeneficiaries.inputChange( 'ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'units' ]"
 											required />
-							<label for="ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{ 'amount' | translate }}</label>
+							<label ng-if="!ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ]" for="ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-128%)">{{ 'amount' | translate }}</label>
+							<label ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'mpc_delivery_type_id' ]" for="ngm-units-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-128%)">{{ 'transfer_value' | translate }}</label>
 						</div>
 						<!-- transfer_type_id -->
 						<div class="input-field col s12 m12 l4">

@@ -420,7 +420,7 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 									budget.multi_year_array.push({ year: index, budget: 0 })
 								}
 							} else {
-								budget.multi_year_array.push(end_year)
+								budget.multi_year_array.push({year:end_year, budget:0})
 							}
 						}
 						return true;
