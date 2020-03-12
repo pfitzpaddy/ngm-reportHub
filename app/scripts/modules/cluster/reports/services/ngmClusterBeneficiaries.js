@@ -6,6 +6,53 @@
  *
  */
 angular.module( 'ngmReportHub' )
+	// filter active type
+	.filter('filterActiveTypes', [ '$filter', function ( $filter ) {
+		return function( data, beneficiary ) {
+			var list = data.filter(function( d ) {
+				if ( !beneficiary.id ) {
+					return !d.disabled
+				} else {
+					return true;
+				}
+			});
+			return list;
+		}
+	}])
+	// filter active descriptions
+	.filter('filterActiveDescriptions', [ '$filter', function ( $filter ) {
+		return function( data, beneficiary ) {
+			var list = data.filter(function( d ) {
+				if ( !beneficiary.id ) {
+					return d.active && 
+									d.cluster_id === beneficiary.cluster_id &&
+									d.activity_type_id === beneficiary.activity_type_id;
+				} else {
+					return d.cluster_id === beneficiary.cluster_id &&
+									d.activity_type_id === beneficiary.activity_type_id;
+				}
+			});
+			return list;
+		}
+	}])
+	// filter active details
+	.filter('filterActiveDetails', [ '$filter', function ( $filter ) {
+		return function( data, beneficiary ) {
+			var list = data.filter(function( d ) {
+				if ( !beneficiary.id ) {
+					return d.active && 
+									d.cluster_id === beneficiary.cluster_id &&
+									d.activity_type_id === beneficiary.activity_type_id &&
+									d.activity_description_id === beneficiary.activity_description_id;
+				} else {
+					return d.cluster_id === beneficiary.cluster_id &&
+									d.activity_type_id === beneficiary.activity_type_id &&
+									d.activity_description_id === beneficiary.activity_description_id;
+				}
+			});
+			return list;
+		}
+	}])
 	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', '$timeout', 'ngmAuth', 'ngmClusterLists', 'ngmClusterDetails', 'ngmClusterHelperNgWash',
 							function( $http, $filter, $timeout, ngmAuth, ngmClusterLists, ngmClusterDetails, ngmClusterHelperNgWash ) {
 
