@@ -760,6 +760,9 @@ angular.module( 'ngmReportHub' )
         var activities = [],
             activitiesList = angular.copy( ngmLists.getObject( 'lists' ).activitiesList );
 
+        // inital filter - admin0pcode
+        activitiesList = $filter('filter')( activitiesList, { admin0pcode: project.admin0pcode } );
+
         // no intercluster
         if ( !filterInterCluster ) {
           activities = activitiesList;

@@ -211,23 +211,72 @@
 
 					<!-- activity_type_id -->
 					<div class="input-field col s12 m12 l6">
-						<select materialize-select id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+
+						<!-- new beneficiaries -->
+						<select materialize-select
+											ng-if="!beneficiary.id"
+											id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.activity_type_id"
-											ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type"
+											ng-options="a_t.activity_type_id as a_t.activity_type_name 
+																		for a_t in project.definition.activity_type | 
+																		filter: { disabled: '!' + a_t.disabled }"
 											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );
 											ngmClusterBeneficiaries.inputChange( 'ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !project.definition.activity_type"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
 						</select>
+
+						<!-- existing beneficiaries -->
+						<select materialize-select
+											ng-if="beneficiary.id"
+											id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+											name="activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+											class="validate"
+											ng-model="beneficiary.activity_type_id"
+											ng-options="a_t.activity_type_id as a_t.activity_type_name
+																		for a_t in project.definition.activity_type"
+											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );
+											ngmClusterBeneficiaries.inputChange( 'ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
+											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !project.definition.activity_type"
+											required>
+							<option value="">{{ 'select' | translate }}</option>
+						</select>
+
+						<!-- label -->
 						<label for="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-10%)">{{ 'activity' | translate }}</label>
 					</div>
 
 					<!-- activity_description_id -->
 					<div class="input-field col s12 m12 l6">
-						<select materialize-select watch id="ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+
+						<!-- new beneficiaries -->
+						<select materialize-select watch
+											ng-if="!beneficiary.id"
+											id="ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+											name="activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+											class="validate"
+											ng-model="beneficiary.activity_description_id"
+											ng-options="a_d.activity_description_id as a_d.activity_description_name for
+																		a_d in project.lists.activity_descriptions | filter: {
+																			cluster_id: beneficiary.cluster_id,
+																			activity_type_id: beneficiary.activity_type_id,
+																			active: 1
+																		} : true"
+											ng-change="ngmClusterBeneficiaries.setBeneficiaries( project, 'description', $locationIndex, $beneficiaryIndex, beneficiary );
+																	ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );
+																	ngmClusterBeneficiaries.inputChange( 'ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
+											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
+											required>
+							<option value="">{{ 'select' | translate }}</option>
+						</select>
+
+						<!-- existing beneficiaries -->
+						<select materialize-select watch
+											ng-if="beneficiary.id"
+											id="ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.activity_description_id"
@@ -238,11 +287,15 @@
 																		} : true"
 											ng-change="ngmClusterBeneficiaries.setBeneficiaries( project, 'description', $locationIndex, $beneficiaryIndex, beneficiary );
 																	ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );
-											ngmClusterBeneficiaries.inputChange( 'ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
-											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
+																	ngmClusterBeneficiaries.inputChange( 'ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
+											ng-disabled="project.definition.project_status === 'complete' ||
+																		 project.report.report_status === 'complete' || 
+																		 !beneficiary.activity_type_id"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
 						</select>
+
+						<!-- label -->
 						<label ng-if="project.definition.admin0pcode !== 'SO'"
 										for="ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-10%)">{{ 'description' | translate }}</label>
 						<label ng-if="project.definition.admin0pcode === 'SO'"
@@ -256,23 +309,76 @@
 
 					<!-- activity_type_id -->
 					<div class="input-field col s12 m12 l4">
-						<select materialize-select id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+
+						<!-- new existing -->
+						<select materialize-select
+											ng-if="!beneficiary.id"
+											id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.activity_type_id"
-											ng-options="a_t.activity_type_id as a_t.activity_type_name for a_t in project.definition.activity_type"
+											ng-options="a_t.activity_type_id as a_t.activity_type_name 
+																		for a_t in project.definition.activity_type | 
+																		filter: { disabled: '!' + a_t.disabled }"
 											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );
 												ngmClusterBeneficiaries.inputChange( 'ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
-											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !project.definition.activity_type"
+											ng-disabled="project.definition.project_status === 'complete' || 
+																		project.report.report_status === 'complete' || 
+																		!project.definition.activity_type"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
 						</select>
+
+						<!-- new existing -->
+						<select materialize-select
+											ng-if="beneficiary.id"
+											id="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+											name="activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+											class="validate"
+											ng-model="beneficiary.activity_type_id"
+											ng-options="a_t.activity_type_id as a_t.activity_type_name 
+																		for a_t in project.definition.activity_type"
+											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );
+												ngmClusterBeneficiaries.inputChange( 'ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
+											ng-disabled="project.definition.project_status === 'complete' || 
+																		project.report.report_status === 'complete' || 
+																		!project.definition.activity_type"
+											required>
+							<option value="">{{ 'select' | translate }}</option>
+						</select>
+
+						<!-- label -->
 						<label for="ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-10%)">{{ 'activity' | translate }}</label>
 					</div>
 
 					<!-- activity_description_id -->
 					<div class="input-field col s12 m12 l4">
-						<select materialize-select watch id="ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+
+						<!-- new beneficiary -->
+						<select materialize-select watch
+											ng-if="!beneficiary.id"
+											id="ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+											name="activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+											class="validate"
+											ng-model="beneficiary.activity_description_id"
+											ng-options="a_d.activity_description_id as a_d.activity_description_name for
+																		a_d in project.lists.activity_descriptions | filter: {
+																			cluster_id: beneficiary.cluster_id,
+																			activity_type_id: beneficiary.activity_type_id,
+																			active: 1
+																		} : true"
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );
+																	ngmClusterBeneficiaries.setBeneficiaries( project, 'description', $locationIndex, $beneficiaryIndex, beneficiary );
+																	ngmClusterBeneficiaries.inputChange( 'ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
+											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
+											required>
+							<option value="">{{ 'select' | translate }}</option>
+						</select>
+
+						<!-- existing beneficiary -->
+						<select materialize-select watch
+											ng-if="beneficiary.id"
+											id="ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.activity_description_id"
@@ -283,11 +389,13 @@
 																		} : true"
 											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_descriptions, 'activity_description_id', 'activity_description_name', beneficiary );
 																	ngmClusterBeneficiaries.setBeneficiaries( project, 'description', $locationIndex, $beneficiaryIndex, beneficiary );
-												ngmClusterBeneficiaries.inputChange( 'ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
+																	ngmClusterBeneficiaries.inputChange( 'ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
 						</select>
+
+						<!-- label -->
 						<label ng-if="project.definition.admin0pcode !== 'SO'"
 										for="ngm-activity_description_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-10%)">{{ 'description' | translate }}</label>
 						<label ng-if="project.definition.admin0pcode === 'SO'"
@@ -296,7 +404,34 @@
 
 					<!-- activity_detail_id -->
 					<div class="input-field col s12 m12 l4">
-						<select materialize-select watch id="ngm-activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+
+						<!-- new beneficiaries -->
+						<select materialize-select watch
+											ng-if="!beneficiary.id"
+											id="ngm-activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+											name="activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
+											class="validate"
+											ng-model="beneficiary.activity_detail_id"
+											ng-options="a_d.activity_detail_id as a_d.activity_detail_name for
+																		a_d in project.lists.activity_details | filter: {
+																				cluster_id: beneficiary.cluster_id,
+																				activity_type_id: beneficiary.activity_type_id,
+																				activity_description_id: beneficiary.activity_description_id,
+																				active: 1
+																		} : true"
+											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_details, 'activity_detail_id', 'activity_detail_name', beneficiary );
+																	ngmClusterBeneficiaries.setBeneficiaries( project, 'detail', $locationIndex, $beneficiaryIndex, beneficiary );
+																	ngmClusterBeneficiaries.inputChange( 'ngm-activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );
+																	ngmClusterHelperNgWash.clearAssociations( beneficiary );"
+											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
+											required>
+							<option value="">{{ 'select' | translate }}</option>
+						</select>
+
+						<!-- existing beneficiaries -->
+						<select materialize-select watch
+											ng-if="beneficiary.id"
+											id="ngm-activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											name="activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}"
 											class="validate"
 											ng-model="beneficiary.activity_detail_id"
@@ -308,11 +443,14 @@
 																		} : true"
 											ng-change="ngmClusterBeneficiaries.updateName( project.lists.activity_details, 'activity_detail_id', 'activity_detail_name', beneficiary );
 																	ngmClusterBeneficiaries.setBeneficiaries( project, 'detail', $locationIndex, $beneficiaryIndex, beneficiary );
-												ngmClusterBeneficiaries.inputChange( 'ngm-activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' ); ngmClusterHelperNgWash.clearAssociations( beneficiary );"
+																	ngmClusterBeneficiaries.inputChange( 'ngm-activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );
+																	ngmClusterHelperNgWash.clearAssociations( beneficiary );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_type_id"
 											required>
 							<option value="">{{ 'select' | translate }}</option>
 						</select>
+
+						<!-- label -->
 						<label for="ngm-activity_detail_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active" style="transform:translateY(-10%)">{{ 'details' | translate }}</label>
 					</div>
 
@@ -321,8 +459,6 @@
 
 				<!-- hide inputs until form is template is updated -->
 				<div ng-if="ngmClusterBeneficiaries.showFormInputs( beneficiary, ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ] )">
-
-
 
 
 					<!-- INDICATORS -->
@@ -1625,7 +1761,7 @@
 					<!-- ACTIVITY START DATE -->
 					<div class="row" ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'activity_date' ]">
 
-						<a class="tag {{ beneficiary.activity_status }}" ng-if="beneficiary.activity_status === 'complete' ">{{ beneficiary.activity_status | uppercase }} DATE: {{ beneficiary.activity_end_date | date : 'EEEE d MMM, y' }}</a>			
+						<a class="tag {{ beneficiary.activity_status }}" ng-if="beneficiary.activity_status === 'complete' ">COMPLETION DATE: {{ beneficiary.activity_end_date | date : 'EEEE d MMM, y' }}</a>			
 
 						<!-- tag -->
 						<a class="tag {{ beneficiary.activity_status }}" ng-if="beneficiary.activity_status !== 'complete' ">{{ beneficiary.activity_status | uppercase }}</a>
