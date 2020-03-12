@@ -171,14 +171,14 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							$scope.detailBeneficiaries[i][0] = true;
 						}
 						// AF set disabled to general for beneficiary category id
-						if ($scope.project.report.locations[i].beneficiaries.length > 0 && $scope.project.definition.admin0pcode === 'AF') {
-							angular.forEach($scope.project.report.locations[i].beneficiaries, function (e, j) {
-								if (!ngmClusterBeneficiaries.form[i][j]['beneficiary_category_type_id'] && !e.beneficiary_category_id) {
-									e.beneficiary_category_id = $scope.project.lists.beneficiary_categories[0].beneficiary_category_id;
-									e.beneficiary_category_name = $scope.project.lists.beneficiary_categories[0].beneficiary_category_name;
-								}
-							})
-						}
+						// if ($scope.project.report.locations[i].beneficiaries.length > 0 && $scope.project.definition.admin0pcode === 'AF') {
+						// 	angular.forEach($scope.project.report.locations[i].beneficiaries, function (e, j) {
+						// 		if (!ngmClusterBeneficiaries.form[i][j]['beneficiary_category_type_id'] && !e.beneficiary_category_id) {
+						// 			e.beneficiary_category_id = $scope.project.lists.beneficiary_categories[0].beneficiary_category_id;
+						// 			e.beneficiary_category_name = $scope.project.lists.beneficiary_categories[0].beneficiary_category_name;
+						// 		}
+						// 	})
+						// }
 					})
 				},
 
