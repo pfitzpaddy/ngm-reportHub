@@ -210,7 +210,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				targetBeneficiariesUrl: moment( config.project.project_end_date ).year() === 2016 ? 'target-beneficiaries/2016/target-beneficiaries.html' : 'target-beneficiaries/target-beneficiaries.html',
 				// target locations
 				// locationsUrl: config.project.admin0pcode === 'CB' ? 'target-locations/CB/locations.html' : 'target-locations/locations.html',
-				locationsUrl: config.project.admin0pcode === 'CB' ? 'target-locations/CB/locations.html' : (config.project.admin0pcode === 'AF' ? 'target-locations/locations-reform.html' : 'target-locations/locations.html'),
+				locationsUrl: config.project.admin0pcode === 'CB' ? 'target-locations/CB/locations.html' : ( config.project.admin0pcode === 'AF' || config.project.admin0pcode === 'ET' ? 'target-locations/locations-reform.html' : 'target-locations/locations.html'),
 				// upload
 				uploadUrl:'project-upload.html',
 

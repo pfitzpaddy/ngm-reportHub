@@ -7713,42 +7713,55 @@ angular.module( 'ngmReportHub' )
 
         else {
           site_implementation = [{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'community_based',
             site_implementation_name: 'Community Based'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'child_friendly_sapce',
             site_implementation_name: 'Child Friendly Sapce'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'women_friendly_sapce',
             site_implementation_name: 'Women Friendly Sapce'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'feeding_center',
             site_implementation_name: 'Feeding Center'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'stabalization_center',
             site_implementation_name: 'Stabalization Center'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'food_distribution_point_gfd',
             site_implementation_name: 'Food Distribution Point (GFD)'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'e_voucher_outlet_food',
             site_implementation_name: 'E-Voucher Outlet (Food)'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'mhnt',
             site_implementation_name: 'MHNT'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'mpt',
             site_implementation_name: 'MPT'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'ctc',
             site_implementation_name: 'CTC'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'ctu',
             site_implementation_name: 'CTU'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'orp',
             site_implementation_name: 'ORP'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_implementation_id: 'clinic',
             site_implementation_name: 'Clinic'
           }];
@@ -8106,48 +8119,63 @@ angular.module( 'ngmReportHub' )
         // et
         if ( admin0pcode === 'ET' ) {
           site_types = [{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'multiple_sites',
             site_type_name: 'Multiple Sites'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'settlement',
             site_type_name: 'Settlement'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'hospital',
             site_type_name: 'Hospital'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'health_center',
             site_type_name: 'Health Center'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'health_post',
             site_type_name: 'Health Post'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'clinic',
             site_type_name: 'Clinic'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'schools',
             site_type_name: 'School'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'host_community_families',
             site_type_name: 'Host Community/Families'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'collective_center',
             site_type_name: 'Collective Center'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'dispersed_settlement',
             site_type_name: 'Dispersed Settlement'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'planned_site',
             site_type_name: 'Planned Site'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'spontaneous_site',
             site_type_name: 'Spontaneous Site'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'transit_site',
             site_type_name: 'Transit Site'
           },{
+            cluster_id: ngmClusterLists.all_sectors,
             site_type_id: 'other',
             site_type_name: 'Other'
           }];
+
         }
 
         // ng
