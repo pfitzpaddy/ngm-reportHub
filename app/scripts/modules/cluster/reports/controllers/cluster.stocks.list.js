@@ -113,8 +113,8 @@ angular.module('ngmReportHub')
 								card: 'white grey-text text-darken-2',
 								config: {
 									titleIcon: 'alarm_on',
-									color: 'light-blue lighten-4',
-									// textColor: 'white-text',
+									style: "height:80px; background-color:#ee6e73",
+									textColor: 'white-text',
 									title: $filter('translate')('stock_reports_todo'),
 									hoverTitle: 'Update',
 									icon: 'edit',
@@ -146,7 +146,8 @@ angular.module('ngmReportHub')
 								card: 'white grey-text text-darken-2',
 								config: {
 									titleIcon: 'done_all',
-									color: 'light-blue lighten-4',
+									style: "height:80px; background-color:#ee6e73",
+									textColor: 'white-text',
 									title: $filter('translate')('stock_reports_complete'),
 									hoverTitle: 'View',
 									icon: 'done',

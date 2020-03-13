@@ -43,7 +43,7 @@
 <div class="row" window-size>
 	<div class="col s12">
 		<ul class="collection with-header z-depth-1">
-			<li class="collection-header {{ list.color }}" style="height:80px;">
+			<li class="collection-header {{ list.color }}" style="{{ list.style }}">
 				<div class="col m7 l8" ng-class="{'s9':list.data.length > list.itemsPerPage,'s12':list.data.length <= list.itemsPerPage}">
 					<h4 class="report-work-title {{ list.textColor }}">
 						<i class="material-icons left">{{ list.titleIcon }}</i>{{ list.title }}
