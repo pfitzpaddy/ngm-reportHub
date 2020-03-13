@@ -5754,7 +5754,7 @@ angular.module( 'ngmReportHub' )
 
           // beneficiaries
           beneficiaries = [{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_esnfi,
             beneficiary_type_id: 'idps',
             beneficiary_type_name: 'IDPs'
           },{
@@ -5778,9 +5778,13 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_id: 'idp_returnee',
             beneficiary_type_name: 'Returnee IDPs'
           },{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_esnfi,
             beneficiary_type_id: 'returnees',
             beneficiary_type_name: 'Returnees'
+          },{
+            cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'returnees_not_home',
+            beneficiary_type_name: 'Returnees (not home)'
           },{
             cluster_id: ngmClusterLists.all_sectors,
             beneficiary_type_id: 'returnees_home',
