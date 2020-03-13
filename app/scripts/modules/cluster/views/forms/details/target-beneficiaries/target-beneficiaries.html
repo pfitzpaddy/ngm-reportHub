@@ -1241,9 +1241,12 @@
 
 						<!-- default -->
 						<button class="btn"
-											ng-if="project.definition.project_status !== 'complete' && project.canEdit"
+											style="margin:20px 10px;"
+											ng-if="project.canEdit &&
+															project.definition.project_status !== 'complete'"
 											ng-click="project.addBeneficiary();"
-											style="margin:20px 10px;">
+											ng-disabled="!project.definition.activity_type && 
+																		!project.definition.activity_type.length">
 							<i class="material-icons left">add</i>{{'add_beneficiaries'|translate}}
 						</button>
 					</div>

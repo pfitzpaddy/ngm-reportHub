@@ -21,6 +21,7 @@ angular.module( 'ngmReportHub' )
 			all_sectors: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter','wash','child_protection' ],
 			all_sectors_minus_protection: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','rnr_chapter','wash' ],
       all_sectors_minus_smsd: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','nutrition','protection','rnr_chapter','wash' ],
+      all_sectors_minus_esnfi: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter','wash','child_protection' ],
       all_sectors_minus_health: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','smsd','nutrition','protection','rnr_chapter','wash' ],
       all_sectors_minus_health_smsd: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','logistics','nutrition','protection','rnr_chapter','wash' ],
       all_sectors_minus_wash: [ 'cvwg','agriculture','cccm_esnfi','cwcwg','coordination','education','eiewg','emergency_telecommunications','esnfi','fsac','fss','health','logistics','smsd','nutrition','protection','rnr_chapter' ],
@@ -5749,6 +5750,8 @@ angular.module( 'ngmReportHub' )
         // admin ET
         if ( admin0pcode === 'ET' ) {
 
+          // all_sectors_minus_esnfi
+
           // beneficiaries
           beneficiaries = [{
             cluster_id: ngmClusterLists.all_sectors,
@@ -5771,7 +5774,7 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_id: 'idp_natural_disaster',
             beneficiary_type_name: 'Natural Disaster IDPs'
           },{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_esnfi,
             beneficiary_type_id: 'idp_returnee',
             beneficiary_type_name: 'Returnee IDPs'
           },{
@@ -5780,30 +5783,34 @@ angular.module( 'ngmReportHub' )
             beneficiary_type_name: 'Returnees'
           },{
             cluster_id: ngmClusterLists.all_sectors,
+            beneficiary_type_id: 'returnees_home',
+            beneficiary_type_name: 'Returnees (who went home)'
+          },{
+            cluster_id: ngmClusterLists.all_sectors,
             beneficiary_type_id: 'refugees',
             beneficiary_type_name: 'Refugees'
           },{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_esnfi,
             beneficiary_type_id: 'health_workers',
             beneficiary_type_name: 'Health Workers'
           },{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_esnfi,
             beneficiary_type_id: 'social_workers',
             beneficiary_type_name: 'Social Workers'
           },{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_esnfi,
             beneficiary_type_id: 'host_communities',
             beneficiary_type_name: 'Host Communities'
           },{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_esnfi,
             beneficiary_type_id: 'conflict_affected',
             beneficiary_type_name: 'Conflict Affected'
           },{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_esnfi,
             beneficiary_type_id: 'idp_natural_affected',
             beneficiary_type_name: 'Natural Disaster Affected'
           },{
-            cluster_id: ngmClusterLists.all_sectors,
+            cluster_id: ngmClusterLists.all_sectors_minus_esnfi,
             beneficiary_type_id: 'vulnerable_groups',
             beneficiary_type_name: 'Vulnerable Groups'
           }];
@@ -7572,18 +7579,14 @@ angular.module( 'ngmReportHub' )
             }];
         }
 
-        if(admin0pcode === 'AF'){
-          var beneficiary_categories=[ 
-            {
-              beneficiary_category_id: 'general',
-              beneficiary_category_name: 'General'
-            },
-            {
-              beneficiary_category_id: 'disabled',
-              beneficiary_category_name: 'Disabled'
-            }
-          ];
-
+        if ( admin0pcode === 'AF' || admin0pcode === 'ET' ){
+          beneficiary_categories = [{
+            beneficiary_category_id: 'general',
+            beneficiary_category_name: 'General'
+          },{
+            beneficiary_category_id: 'disabled',
+            beneficiary_category_name: 'Disabled'
+          }];
         }
         return beneficiary_categories;
 
