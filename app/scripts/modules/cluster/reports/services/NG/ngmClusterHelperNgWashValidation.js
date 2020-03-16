@@ -6,7 +6,7 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterHelperNgWashValidation', 
+	.factory( 'ngmClusterHelperNgWashValidation',
 			[ '$http',
 				'$filter',
 				'$timeout',
@@ -35,75 +35,75 @@ angular.module( 'ngmReportHub' )
 					id = $("label[for='" + label + "']");
 					id.addClass('error');
 					// Materialize.toast( 'Borehole location outside Nigeria!' , 6000, 'error' );
-					M.toast({ html: 'Borehole location outside Nigeria!', displayLength: 6000, classes: 'error' }); 
+					M.toast({ html: 'Borehole location outside Nigeria!', displayLength: 6000, classes: 'error' });
 				}
 
 			},
 
 			// validate borehole form
 			validateBorehole: function( d, i, j, k ){
-					
+
 				// valid
 				var id;
 				var complete = true;
 				var validation = { count: 0, divs: [] };
 
 				// boreholes
-				if ( !d.borehole_water_facility_type_id && !d.borehole_water_facility_type_name ){ 
+				if ( !d.borehole_water_facility_type_id && !d.borehole_water_facility_type_name ){
 					id = "label[for='" + 'ngm-borehole_water_facility_type-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( !d.borehole_water_facility_size_id && !d.borehole_water_facility_size_name ){ 
+				if ( !d.borehole_water_facility_size_id && !d.borehole_water_facility_size_name ){
 					id = "label[for='" + 'ngm-borehole_water_facility_size-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( !d.borehole_chlorination_plan_id && !d.borehole_chlorination_plan_name ){ 
+				if ( !d.borehole_chlorination_plan_id && !d.borehole_chlorination_plan_name ){
 					id = "label[for='" + 'ngm-borehole_chlorination_plan-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( !d.free_residual_chlorine_range_id && !d.free_residual_chlorine_range_name ){ 
+				if ( !d.free_residual_chlorine_range_id && !d.free_residual_chlorine_range_name ){
 					id = "label[for='" + 'ngm-free_residual_chlorine_range-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( !d.water_turbidity_range_id && !d.water_turbidity_range_name ){ 
+				if ( !d.water_turbidity_range_id && !d.water_turbidity_range_name ){
 					id = "label[for='" + 'ngm-water_turbidity_range-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.borehole_tanks_storage_ltrs === undefined || d.borehole_tanks_storage_ltrs < 0 ){ 
+				if ( d.borehole_tanks_storage_ltrs === undefined || d.borehole_tanks_storage_ltrs < 0 ){
 					id = "label[for='" + 'ngm-borehole_tanks_storage_ltrs-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.taps_number_connected === undefined || d.taps_number_connected < 0 ){ 
+				if ( d.taps_number_connected === undefined || d.taps_number_connected < 0 ){
 					id = "label[for='" + 'ngm-taps_number_connected-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.borehole_taps_ave_flow_rate_ltrs_minute === undefined || d.borehole_taps_ave_flow_rate_ltrs_minute < 0 ){ 
+				if ( d.borehole_taps_ave_flow_rate_ltrs_minute === undefined || d.borehole_taps_ave_flow_rate_ltrs_minute < 0 ){
 					id = "label[for='" + 'ngm-borehole_taps_ave_flow_rate_ltrs_minute-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.borehole_yield_ltrs_second === undefined || d.borehole_yield_ltrs_second < 0 ){ 
+				if ( d.borehole_yield_ltrs_second === undefined || d.borehole_yield_ltrs_second < 0 ){
 					id = "label[for='" + 'ngm-borehole_yield_ltrs_second-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.borehole_pumping_ave_daily_hours === undefined || d.borehole_pumping_ave_daily_hours < 0 ){ 
+				if ( d.borehole_pumping_ave_daily_hours === undefined || d.borehole_pumping_ave_daily_hours < 0 ){
 					id = "label[for='" + 'ngm-borehole_pumping_ave_daily_hours-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
@@ -120,7 +120,7 @@ angular.module( 'ngmReportHub' )
 
 			// validate reticulation form
 			validateReticulation: function( d, i, j, k ){
-					
+
 				// valid
 				var id;
 				var complete = true;
@@ -133,13 +133,13 @@ angular.module( 'ngmReportHub' )
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( !d.from_chlorinated_system_id && !d.from_chlorinated_system_name ){ 
+				if ( !d.from_chlorinated_system_id && !d.from_chlorinated_system_name ){
 					id = "label[for='" + 'ngm-from_chlorinated_system-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( !d.water_turbidity_range_id && !d.water_turbidity_range_name ){ 
+				if ( !d.water_turbidity_range_id && !d.water_turbidity_range_name ){
 					id = "label[for='" + 'ngm-water_turbidity_range-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
@@ -156,7 +156,7 @@ angular.module( 'ngmReportHub' )
 
 			// validate service form
 			validateService: function( beneficiary, d, i, j, k ){
-					
+
 				// valid
 				var id;
 				var complete = true;
@@ -172,13 +172,13 @@ angular.module( 'ngmReportHub' )
 
 				// tablets service has no dropdowns
 				if ( beneficiary.activity_detail_id !== 'distribution_treatment_tablets' ) {
-					if ( !d.free_residual_chlorine_range_id && !d.free_residual_chlorine_range_name ){ 
+					if ( !d.free_residual_chlorine_range_id && !d.free_residual_chlorine_range_name ){
 						id = "label[for='" + 'ngm-free_residual_chlorine_range-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( !d.water_turbidity_range_id && !d.water_turbidity_range_name ){ 
+					if ( !d.water_turbidity_range_id && !d.water_turbidity_range_name ){
 						id = "label[for='" + 'ngm-water_turbidity_range-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
@@ -196,7 +196,7 @@ angular.module( 'ngmReportHub' )
 
 			// validate maintenance form
 			validateMaintenance: function( beneficiary, d, i, j, k ){
-					
+
 				// valid
 				var id;
 				var complete = true;
@@ -212,13 +212,13 @@ angular.module( 'ngmReportHub' )
 
 				// washcoms_establishment_training has male / female
 				if ( beneficiary.activity_detail_id === 'washcoms_establishment_training' ) {
-					if ( d.male === null ||  d.male === undefined || d.male < 0 ){ 
+					if ( d.male === null ||  d.male === undefined || d.male < 0 ){
 						id = "label[for='" + 'ngm-male-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.female === null ||  d.female === undefined || d.female < 0 ){ 
+					if ( d.female === null ||  d.female === undefined || d.female < 0 ){
 						id = "label[for='" + 'ngm-female-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
@@ -228,14 +228,14 @@ angular.module( 'ngmReportHub' )
 
 				// for each details
 				angular.forEach( d.details, function( d, l ){
-					if ( !d.detail_type_id && !d.detail_type_name ){ 
+					if ( !d.detail_type_id && !d.detail_type_name ){
 						id = "label[for='" + 'ngm-detail_type-'+i+'-'+j+'-'+k+'-'+l+"']";
 						$(id).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
 					if ( beneficiary.activity_detail_id === 'maintenance_repair_replacement_water_systems' ) {
-						if ( !d.detail_category_id && !d.detail_category_name ){ 
+						if ( !d.detail_category_id && !d.detail_category_name ){
 							id = "label[for='" + 'ngm-detail_category-'+i+'-'+j+'-'+k+'-'+l+"']";
 							$(id).addClass('error');
 							validation.divs.push( id );
@@ -254,7 +254,7 @@ angular.module( 'ngmReportHub' )
 
 			// validate  form
 			validateLatrines: function( beneficiary, d, i, j, k ){
-				
+
 				// valid
 				var id;
 				var complete = true;
@@ -269,7 +269,7 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// male, female + disabled
-				if ( beneficiary.activity_detail_id === 'latrine_construction_vip' || 
+				if ( beneficiary.activity_detail_id === 'latrine_construction_vip' ||
 							beneficiary.activity_detail_id === 'latrine_construction_emergency' ||
 							beneficiary.activity_detail_id === 'latrine_rehabilitation_vip' ||
 							beneficiary.activity_detail_id === 'latrine_rehabilitation_emergency' ||
@@ -291,13 +291,13 @@ angular.module( 'ngmReportHub' )
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.male_disabled === null || d.male_disabled === undefined || d.male_disabled < 0 ){ 
+					if ( d.male_disabled === null || d.male_disabled === undefined || d.male_disabled < 0 ){
 						id = "label[for='" + 'ngm-male_disabled-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.female_disabled === null || d.female_disabled === undefined || d.female_disabled < 0 ){ 
+					if ( d.female_disabled === null || d.female_disabled === undefined || d.female_disabled < 0 ){
 						id = "label[for='" + 'ngm-female_disabled-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
@@ -306,17 +306,17 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// contstruction / rehabilitation gender marking
-				if ( beneficiary.activity_detail_id === 'latrine_construction_vip' || 
+				if ( beneficiary.activity_detail_id === 'latrine_construction_vip' ||
 							beneficiary.activity_detail_id === 'latrine_construction_emergency' ||
 							beneficiary.activity_detail_id === 'latrine_rehabilitation_vip' ||
 							beneficiary.activity_detail_id === 'latrine_rehabilitation_emergency' ){
-					if ( !d.gender_marking_id && !d.gender_marking_name ){ 					
+					if ( !d.gender_marking_id && !d.gender_marking_name ){
 						id = "label[for='" + 'ngm-gender_marking-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( !d.lock_installation_id && !d.lock_installation_name ){ 					
+					if ( !d.lock_installation_id && !d.lock_installation_name ){
 						id = "label[for='" + 'ngm-lock_installation-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
@@ -325,11 +325,11 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// gender marking
-				if ( beneficiary.activity_detail_id === 'latrine_gender_marking_vip' || 
+				if ( beneficiary.activity_detail_id === 'latrine_gender_marking_vip' ||
 							beneficiary.activity_detail_id === 'latrine_gender_marking_emergency' ||
 							beneficiary.activity_detail_id === 'latrine_lock_installation_vip' ||
 							beneficiary.activity_detail_id === 'latrine_lock_installation_emergency' ){
-					if ( !d.facility_status_id && !d.facility_status_name ){ 					
+					if ( !d.facility_status_id && !d.facility_status_name ){
 						id = "label[for='" + 'ngm-facility_status-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
@@ -337,25 +337,25 @@ angular.module( 'ngmReportHub' )
 					}
 				}
 
-				// desludging stipend 
+				// desludging stipend
 				if ( beneficiary.activity_detail_id === 'latrine_desludging_manual' ){
-					if ( !d.stipend_id && !d.stipend_name ){ 					
+					if ( !d.stipend_id && !d.stipend_name ){
 						id = "label[for='" + 'ngm-stipend-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.stipend_amount === undefined || d.stipend_amount < 0 ){ 
+					if ( d.stipend_amount === undefined || d.stipend_amount < 0 ){
 						id = "label[for='" + 'ngm-stipend_amount-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
-				}			
+				}
 
 				// for each details
 				angular.forEach( d.details, function( d, l ){
-					if ( !d.detail_type_id && !d.detail_type_name ){ 
+					if ( !d.detail_type_id && !d.detail_type_name ){
 						id = "label[for='" + 'ngm-detail_type-'+i+'-'+j+'-'+k+'-'+l+"']";
 						$(id).addClass('error');
 						validation.divs.push( id );
@@ -381,7 +381,7 @@ angular.module( 'ngmReportHub' )
 
 			// validate form
 			validateShowers: function( beneficiary, d, i, j, k ){
-				
+
 				// valid
 				var id;
 				var complete = true;
@@ -397,25 +397,25 @@ angular.module( 'ngmReportHub' )
 
 				// male, female + disabled
 				if ( beneficiary.activity_detail_id !== 'shower_cleaning_disinfection_monitoring' ){
-					if ( d.male === null || d.male === undefined || d.male < 0 ){ 
+					if ( d.male === null || d.male === undefined || d.male < 0 ){
 						id = "label[for='" + 'ngm-male-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.female === null || d.female === undefined || d.female < 0 ){ 
+					if ( d.female === null || d.female === undefined || d.female < 0 ){
 						id = "label[for='" + 'ngm-female-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.male_disabled === null || d.male_disabled === undefined || d.male_disabled < 0 ){ 
+					if ( d.male_disabled === null || d.male_disabled === undefined || d.male_disabled < 0 ){
 						id = "label[for='" + 'ngm-male_disabled-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.female_disabled === null || d.female_disabled === undefined || d.female_disabled < 0 ){ 
+					if ( d.female_disabled === null || d.female_disabled === undefined || d.female_disabled < 0 ){
 						id = "label[for='" + 'ngm-female_disabled-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
@@ -424,17 +424,17 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// construction / rehabilitation gender marking
-				if ( beneficiary.activity_detail_id === 'shower_construction_emergency' || 
+				if ( beneficiary.activity_detail_id === 'shower_construction_emergency' ||
 							beneficiary.activity_detail_id === 'shower_construction_mid_term' ||
 							beneficiary.activity_detail_id === 'shower_rehabilitation_emergency' ||
 							beneficiary.activity_detail_id === 'shower_rehabilitation_mid_term' ){
-					if ( !d.gender_marking_id && !d.gender_marking_name ){ 					
+					if ( !d.gender_marking_id && !d.gender_marking_name ){
 						id = "label[for='" + 'ngm-gender_marking-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( !d.lock_installation_id && !d.lock_installation_name ){ 					
+					if ( !d.lock_installation_id && !d.lock_installation_name ){
 						id = "label[for='" + 'ngm-lock_installation-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
@@ -443,11 +443,11 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// gender marking
-				if ( beneficiary.activity_detail_id === 'shower_gender_marking_emergency' || 
+				if ( beneficiary.activity_detail_id === 'shower_gender_marking_emergency' ||
 							beneficiary.activity_detail_id === 'shower_gender_marking_mid_term' ||
 							beneficiary.activity_detail_id === 'shower_lock_installation_emergency' ||
 							beneficiary.activity_detail_id === 'shower_lock_installation_mid_term' ){
-					if ( !d.facility_status_id && !d.facility_status_name ){ 					
+					if ( !d.facility_status_id && !d.facility_status_name ){
 						id = "label[for='" + 'ngm-facility_status-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
@@ -457,13 +457,13 @@ angular.module( 'ngmReportHub' )
 
 				// for each details
 				angular.forEach( d.details, function( d, l ){
-					if ( !d.detail_type_id && !d.detail_type_name ){ 
+					if ( !d.detail_type_id && !d.detail_type_name ){
 						id = "label[for='" + 'ngm-detail_type-'+i+'-'+j+'-'+k+'-'+l+"']";
 						$(id).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){ 
+					if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){
 						id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k+'-'+l+"']";
 						$(id).addClass('error');
 						validation.divs.push( id );
@@ -481,7 +481,7 @@ angular.module( 'ngmReportHub' )
 
 			// validate form
 			validateWaste: function( beneficiary, d, i, j, k ){
-				
+
 				// valid
 				var id;
 				var complete = true;
@@ -504,13 +504,13 @@ angular.module( 'ngmReportHub' )
 
 				// for each details
 				angular.forEach( d.details, function( d, l ){
-					if ( !d.detail_type_id && !d.detail_type_name ){ 
+					if ( !d.detail_type_id && !d.detail_type_name ){
 						id = "label[for='" + 'ngm-detail_type-'+i+'-'+j+'-'+k+'-'+l+"']";
 						$(id).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.quantity === undefined || d.quantity < 0 ){ 
+					if ( d.quantity === undefined || d.quantity < 0 ){
 						id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k+'-'+l+"']";
 						$(id).addClass('error');
 						validation.divs.push( id );
@@ -528,7 +528,7 @@ angular.module( 'ngmReportHub' )
 
 			// validate form
 			validateCommittee: function( beneficiary, d, i, j, k ){
-				
+
 				// valid
 				var id;
 				var complete = true;
@@ -540,13 +540,13 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// male / female
-				if ( d.male === undefined || d.male < 0 ){ 
+				if ( d.male === undefined || d.male < 0 ){
 					id = "label[for='" + 'ngm-male-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.female === undefined || d.female < 0 ){ 
+				if ( d.female === undefined || d.female < 0 ){
 					id = "label[for='" + 'ngm-female-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
@@ -554,13 +554,13 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// rotation
-				if ( !d.committee_rotation_id && !d.committee_rotation_name ){ 					
+				if ( !d.committee_rotation_id && !d.committee_rotation_name ){
 					id = "label[for='" + 'ngm-committee_rotation-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.committee_rotation_per_month === undefined || d.committee_rotation_per_month < 0 ){ 
+				if ( d.committee_rotation_per_month === undefined || d.committee_rotation_per_month < 0 ){
 					id = "label[for='" + 'ngm-committee_rotation_per_month-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
@@ -568,13 +568,13 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// stipend
-				if ( !d.stipend_id && !d.stipend_name ){ 					
+				if ( !d.stipend_id && !d.stipend_name ){
 					id = "label[for='" + 'ngm-stipend-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.stipend_amount === null || d.stipend_amount === undefined || d.stipend_amount < 0 ){ 
+				if ( d.stipend_amount === null || d.stipend_amount === undefined || d.stipend_amount < 0 ){
 					id = "label[for='" + 'ngm-stipend_amount-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
@@ -583,7 +583,7 @@ angular.module( 'ngmReportHub' )
 
 				// for each details
 				angular.forEach( d.details, function( d, l ){
-					if ( !d.detail_type_id && !d.detail_type_name ){ 
+					if ( !d.detail_type_id && !d.detail_type_name ){
 						id = "label[for='" + 'ngm-detail_type-'+i+'-'+j+'-'+k+'-'+l+"']";
 						$(id).addClass('error');
 						validation.divs.push( id );
@@ -601,7 +601,7 @@ angular.module( 'ngmReportHub' )
 
 			// validate form
 			validateHygiene: function( beneficiary, d, i, j, k ){
-				
+
 				// valid
 				var id;
 				var complete = true;
@@ -617,13 +617,13 @@ angular.module( 'ngmReportHub' )
 
 				// male / female
 				if ( beneficiary.activity_detail_id === 'hygiene_promotion_volunteers_recruitment_training' ){
-					if ( d.male === null || d.male === undefined || d.male < 0 ){ 
+					if ( d.male === null || d.male === undefined || d.male < 0 ){
 						id = "label[for='" + 'ngm-male-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
 						complete = false;
 					}
-					if ( d.female === null || d.female === undefined || d.female < 0 ){ 
+					if ( d.female === null || d.female === undefined || d.female < 0 ){
 						id = "label[for='" + 'ngm-female-'+i+'-'+j+'-'+k + "']";
 						$(id).addClass('error');
 						validation.divs.push( id );
@@ -633,7 +633,7 @@ angular.module( 'ngmReportHub' )
 
 				// for each details
 				angular.forEach( d.details, function( d, l ){
-					if ( !d.detail_type_id && !d.detail_type_name ){ 
+					if ( !d.detail_type_id && !d.detail_type_name ){
 						id = "label[for='" + 'ngm-detail_type-'+i+'-'+j+'-'+k+'-'+l+"']";
 						$(id).addClass('error');
 						validation.divs.push( id );
@@ -643,7 +643,7 @@ angular.module( 'ngmReportHub' )
 								beneficiary.activity_detail_id !== 'hygiene_promotion_monitoring_visits' &&
 								beneficiary.activity_detail_id !== 'other_campaigns' &&
 								beneficiary.activity_detail_id !== 'hygiene_promotion_volunteers_recruitment_training' ) {
-						if ( d.quantity === undefined || d.quantity < 0 ){ 
+						if ( d.quantity === undefined || d.quantity < 0 ){
 							id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k+'-'+l+"']";
 							$(id).addClass('error');
 							validation.divs.push( id );
@@ -662,14 +662,14 @@ angular.module( 'ngmReportHub' )
 
 			// validate form
 			validateCash: function( beneficiary, d, i, j, k ){
-				
+
 				// valid
 				var id;
 				var complete = true;
 				var validation = { count: 0, divs: [] };
 
 				// naira
-				if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){ 
+				if ( d.quantity === null || d.quantity === undefined || d.quantity < 0 ){
 					id = "label[for='" + 'ngm-quantity-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
@@ -677,7 +677,7 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// households
-				if ( d.households === null || d.households === undefined || d.households < 0 ){ 
+				if ( d.households === null || d.households === undefined || d.households < 0 ){
 					id = "label[for='" + 'ngm-households-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
@@ -686,7 +686,7 @@ angular.module( 'ngmReportHub' )
 
 				// for each details
 				angular.forEach( d.details, function( d, l ){
-					if ( !d.detail_type_id && !d.detail_type_name ){ 
+					if ( !d.detail_type_id && !d.detail_type_name ){
 						id = "label[for='" + 'ngm-detail_type-'+i+'-'+j+'-'+k+'-'+l+"']";
 						$(id).addClass('error');
 						validation.divs.push( id );
@@ -704,7 +704,7 @@ angular.module( 'ngmReportHub' )
 
 			// validate form
 			validateComplaints: function( beneficiary, d, i, j, k ){
-				
+
 				// valid
 				var id;
 				var complete = true;
@@ -719,7 +719,7 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// recieved
-				if ( d.complaints_recieved === undefined || d.complaints_recieved < 0 ){ 
+				if ( d.complaints_recieved === undefined || d.complaints_recieved < 0 ){
 					id = "label[for='" + 'ngm-complaints_recieved-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
@@ -727,7 +727,7 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// addressed
-				if ( d.complaints_addressed === undefined || d.complaints_addressed < 0 ){ 
+				if ( d.complaints_addressed === undefined || d.complaints_addressed < 0 ){
 					id = "label[for='" + 'ngm-complaints_addressed-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
@@ -735,7 +735,7 @@ angular.module( 'ngmReportHub' )
 				}
 
 				// closed
-				if ( d.complaints_closed === undefined || d.complaints_closed < 0 ){ 
+				if ( d.complaints_closed === undefined || d.complaints_closed < 0 ){
 					id = "label[for='" + 'ngm-complaints_closed-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
@@ -752,44 +752,44 @@ angular.module( 'ngmReportHub' )
 
 			// validate form
 			validateParticipation: function( beneficiary, d, i, j, k ){
-				
+
 				// valid
 				var id;
 				var complete = true;
 				var validation = { count: 0, divs: [] };
 
 				// participation
-				if ( d.boys === null || d.boys === undefined || d.boys < 0 ){ 
+				if ( d.boys === null || d.boys === undefined || d.boys < 0 ){
 					id = "label[for='" + 'ngm-boys-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.girls === null || d.girls === undefined || d.girls < 0 ){ 
+				if ( d.girls === null || d.girls === undefined || d.girls < 0 ){
 					id = "label[for='" + 'ngm-girls-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.men === null || d.men === undefined || d.men < 0 ){ 
+				if ( d.men === null || d.men === undefined || d.men < 0 ){
 					id = "label[for='" + 'ngm-men-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.women === null || d.women === undefined || d.women < 0 ){ 
+				if ( d.women === null || d.women === undefined || d.women < 0 ){
 					id = "label[for='" + 'ngm-women-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.elderly_men === null || d.elderly_men === undefined || d.elderly_men < 0 ){ 
+				if ( d.elderly_men === null || d.elderly_men === undefined || d.elderly_men < 0 ){
 					id = "label[for='" + 'ngm-elderly_men-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
 					complete = false;
 				}
-				if ( d.elderly_women === null || d.elderly_women === undefined || d.elderly_women < 0 ){ 
+				if ( d.elderly_women === null || d.elderly_women === undefined || d.elderly_women < 0 ){
 					id = "label[for='" + 'ngm-elderly_women-'+i+'-'+j+'-'+k + "']";
 					$(id).addClass('error');
 					validation.divs.push( id );
@@ -798,7 +798,7 @@ angular.module( 'ngmReportHub' )
 
 				// for each details
 				angular.forEach( d.details, function( d, l ){
-					if ( !d.detail_type_id && !d.detail_type_name ){ 
+					if ( !d.detail_type_id && !d.detail_type_name ){
 						id = "label[for='" + 'ngm-detail_type-'+i+'-'+j+'-'+k+'-'+l+"']";
 						$(id).addClass('error');
 						validation.divs.push( id );
@@ -873,7 +873,7 @@ angular.module( 'ngmReportHub' )
 							});
 						}
 
-						// boreholes 
+						// boreholes
 						if ( d.boreholes && d.boreholes.length ) {
 							waterLength += d.boreholes.length;
 							angular.forEach( d.boreholes, function( borehole, k ){
@@ -965,18 +965,18 @@ angular.module( 'ngmReportHub' )
 							hygieneLength !== hygieneRowComplete ||
 							cashLength !== cashRowComplete  ||
 							accountabilityLength !== accountabilityRowComplete ) {
-					Materialize.toast( 'Form contains errors!' , 6000, 'error' );
+					M.toast({ html: 'Form contains errors!', displayLength: 6000, classes: 'error' });
 					$( elements[0] ).animatescroll();
 					return false;
 				} else {
 					return true;
 				}
-				
+
 			}
 
 		}
 
-		// return 
+		// return
 		return ngmClusterHelperNgWashValidation;
 
 	}]);
