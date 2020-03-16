@@ -406,7 +406,7 @@ angular.module( 'ngmReportHub' )
 				// CATEGORY
 				if (ngmClusterBeneficiaries.form[0][i] && ngmClusterBeneficiaries.form[0][i]['beneficiary_category_type_id']) {
 					if (!b.beneficiary_category_id) {
-						id = "label[for='" + 'ngm-beneficiary_category_id-' + i + '-' + j + "']";
+						id = "label[for='" + 'ngm-beneficiary_category_id-' + i + "']";
 						$(id).addClass('error');
 						validation.divs.push(id);
 						complete = false;
@@ -1292,7 +1292,7 @@ angular.module( 'ngmReportHub' )
 						}
 
 					});
-					
+
 					// no entry
 					if( remove_details ){
 						delete b.details;
