@@ -555,6 +555,7 @@
         "reports_submitted":"Reports Submitted",
         "download_projects_financials_as_csv":"Download Projects Financials as CSV",
         "download_beneficiary_data_as_csv":"Download Beneficiary Data as CSV",
+        "download_sector_iscg_as_excel":"Download ISCG Template as Excel",
         "download_stock_data_as_csv":"Download Stock Data as CSV",
         "download_accountabiliry_data_as_csv":"Download Accountability Data as CSV",
          "download_borehol_data_as_csv":"Download Borehole Data as CSV",

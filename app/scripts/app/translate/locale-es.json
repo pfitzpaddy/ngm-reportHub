@@ -454,6 +454,7 @@
          "reports_saved":"Reportes Salvados",
          "download_projects_financials_as_csv":"Descargar Proyectos Financieros como CSV",
          "download_beneficiary_data_as_csv":"Descargar Datos de Beneficiarios como CSV",
+         "download_sector_iscg_as_excel":"Descargar de ISCG Modelo como Excel",
          "download_stock_data_as_csv":"Descargar Datos de Stock como CSV",
          "download_accuntabiliry_data_as_csv":"Descargar Datos de Responsabilidad como CSV",
          "download_borehol_data_as_csv":"Descargar Datos de Pozos como CSV",
