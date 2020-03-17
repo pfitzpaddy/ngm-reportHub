@@ -72,7 +72,7 @@
 		</div>	
 
 		<!-- contact modal -->
-		<div id="ngm-contact-modal" class="modal" style="width: 100%;">
+		<div id="ngm-contact-modal" class="modal" style="width: 55%;">
 			<div align="center" ng-include src="'views/modals/contact.html'"></div>
 		</div>
 
@@ -142,7 +142,7 @@
 				
 					<!-- user login -->
 					<li align="right" class="teal z-depth-2 mobile" ng-show="ngm.getUserName() === 'welcome' && ngm.style.home !== '#/immap'">
-						<a class="white-text right" href="#/cluster/login" ng-click="ngm.toggleNavigationMenu();">
+						<a class="white-text right" href="#/cluster/login">
 							<i class="material-icons smedium right">lock_outline</i>{{'login_mayus' | translate}}</a>
 					</li>
 				
@@ -304,7 +304,7 @@
 					</div>
 					<!-- contact modal -->
 					<li align="center" class="teal z-depth-2 mobile">
-						<a class="white-text right" >
+						<a class="white-text right" ng-click="ngm.contact();">
 							<i class="material-icons smedium right">perm_phone_msg</i>{{'contact_mayus' | translate}}
 							{{ngm.var4wplusrh}}</span>
 						</a>
