@@ -514,7 +514,17 @@ angular.module( 'ngmReportHub' )
 				}
 				// reset form
 				else if ( beneficiary.activity_type_id ) {
-					ngmClusterBeneficiaries.form[ $parent ][ $index ] = ngmClusterBeneficiaries.defaults.form;
+					ngmClusterBeneficiaries.form[ $parent ][ $index ] = angular.copy( ngmClusterBeneficiaries.defaults.form );
+				}
+
+				// set default form on activity missing
+				if ( typeof ngmClusterBeneficiaries.form[$parent][$index] === 'undefined' ) {
+					ngmClusterBeneficiaries.form[$parent][$index] = angular.copy( ngmClusterBeneficiaries.defaults.form );
+				}
+
+				// should form be displayed
+				if ( ngmClusterBeneficiaries.form[$parent][$index] ) {
+ 							ngmClusterBeneficiaries.form[$parent][$index].display = ngmClusterBeneficiaries.showFormInputs( beneficiary, ngmClusterBeneficiaries.form[$parent][$index] );
 				}
 
 			},
