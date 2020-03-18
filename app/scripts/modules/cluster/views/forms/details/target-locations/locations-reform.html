@@ -584,31 +584,7 @@
 
                             <!-- site name -->
                             <div class="row" ng-if="ngmClusterLocations.adminSitesSelect[ $index ].length < 1">
-
-                                <div class="input-field col s12 m12" ng-if="location.site_list_select_id === 'yes'">
-                                    <select materialize-select watch id="ngm-site_name-{{ $index }}"
-                                        name="site_name-{{ $index }}" class="validate"
-                                        ng-model="location.site_id"
-                                        ng-options="item.site_id as item.site_name for item in ngmClusterLocations.adminSitesSelect[ $index ] | 
-                                                                                                                                            filter:{ site_type_id: location.site_type_id }"
-                                        ng-change="ngmClusterLocations.updateAdminSite(project.lists,location,$index);ngmClusterBeneficiaries.inputChange( 'ngm-site_name-{{ $index }}' )"
-                                        ng-disabled="!location.site_type_id">
-                                        <option value="" disabled>{{ 'select' | translate }}</option>
-                                    </select>
-                                    <label for="ngm-site_name-{{ $index }}" class="active"
-                                        style="transform:translateY(-10%)">{{'site_name'|translate}}*</label>
-                                </div>
-
-                                <div class="input-field col s12 m12" ng-if="location.site_list_select_id === 'no'">
-                                    <input id="ngm-site_name-{{ $index }}" type="text" placeholder="Site Name"
-                                        ng-model="location.site_name" class="validate" 
-                                        ng-change="ngmClusterBeneficiaries.inputChange( 'ngm-site_name-{{ $index }}' )"
-                                        required>
-                                    <label for="ngm-site_name-{{ $index }}" class="active"
-                                        style="">{{'site_name'|translate}}*</label>
-                                </div>
-                                <div class="input-field col s12 m12"
-                                    ng-if="location.site_list_select_id !== 'no' && location.site_list_select_id !== 'yes'">
+                                <div class="input-field col s12 m12">
                                     <input id="ngm-site_name-{{ $index }}" type="text" placeholder="Site Name"
                                         ng-model="location.site_name" class="validate" 
                                         ng-change="ngmClusterBeneficiaries.inputChange( 'ngm-site_name-{{ $index }}' )"
@@ -617,6 +593,7 @@
                                         style="">{{'site_name'|translate}}*</label>
                                 </div>
                             </div>
+                            
                         </div>
 
                     </div>
