@@ -35,6 +35,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 		'ngmClusterBeneficiaries',
 		'ngmClusterValidation',
 		'ngmClusterDetails',
+		'ngmClusterVulnerablePopulations',
 		'ngmClusterHelperAf',
 		'ngmClusterHelperNgWash',
 		'ngmClusterHelperNgWashLists',
@@ -64,6 +65,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			ngmClusterBeneficiaries,
 			ngmClusterValidation,
 			ngmClusterDetails,
+			ngmClusterVulnerablePopulations,
 			ngmClusterHelperAf,
 			ngmClusterHelperNgWash,
 			ngmClusterHelperNgWashLists,
@@ -83,6 +85,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			$scope.ngmClusterLocations = ngmClusterLocations;
 			$scope.ngmClusterBeneficiaries = ngmClusterBeneficiaries;
 			$scope.ngmClusterValidation = ngmClusterValidation;
+			$scope.ngmClusterVulnerablePopulations = ngmClusterVulnerablePopulations;
 			$scope.ngmClusterDetails = ngmClusterDetails;
 			$scope.ngmClusterHelperNgWash = ngmClusterHelperNgWash;
 			$scope.ngmClusterHelperNgWashLists = ngmClusterHelperNgWashLists;
@@ -125,6 +128,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 				addLocationUrl: 'location/add.location.html',
 				beneficiariesDefaultUrl: 'beneficiaries/2016/beneficiaries-health-2016.html',
 				template_activity_date: 'beneficiaries/activity-details/activity-date.html',
+				template_vulnerable_populations: 'beneficiaries/vulnerable-populations/vulnerable-populations.html',
 				template_activity_details: 'beneficiaries/activity-details/activity-details.html',
 				notesUrl: 'notes.html',
 				uploadUrl: 'report-upload.html',

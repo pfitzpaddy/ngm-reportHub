@@ -1,0 +1,46 @@
+				
+			<!-- label -->
+			<div class="col s12 m2" style="text-align:right;">
+				<p style="font-size:16px; padding-top:26px;">{{ 'group' | translate }} {{ $index+1 }} </p>
+			</div>
+
+			<!-- select -->
+			<div class="input-field col s12 m5">
+				<select materialize-select watch id="ngm-beneficiary_vulnerable_populations-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
+                class="validate"
+                ng-model="detail.vuln_pop_id" 
+                ng-options="detail.vuln_pop_id as detail.vuln_pop_name for detail in 
+                							ngmClusterLists.vulnerable_populations[ $locationIndex ][ $beneficiaryIndex ][ $index ]"
+                ng-change="ngmClusterVulnerablePopulations.selectChange( detail, ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'vulnerable_populations' ], 'vuln_pop_id', 'vuln_pop_name', 'vuln_pop_label','ngm-beneficiary_vulnerable_populations-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}');
+                						ngmClusterVulnerablePopulations.initVulnerablePopulations( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'vulnerable_populations' ], $locationIndex, $beneficiaryIndex, beneficiary );"
+                ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete'">
+					<option value="" selected>{{'select'|translate}}</option>
+
+				</select>
+				<label for="ngm-beneficiary_vulnerable_populations-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'popualation_group' | translate }}</label>
+			</div>
+
+			<!-- vuln_pop_quantity -->
+			<div class="input-field col s12 m4">
+				<input id="ngm-beneficiary_vulnerable_populations_quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" 
+                  name="vuln_pop_quantity" 
+                  type="number" 
+                  class="validate"
+                  min="0" 
+                  ng-model="detail.vuln_pop_quantity"
+                  ng-change="ngmClusterBeneficiaries.inputChange( 'ngm-beneficiary_vulnerable_populations_quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}' )"
+                  ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete'">
+                <label for="ngm-beneficiary_vulnerable_populations_quantity-{{ $locationIndex }}-{{ $beneficiaryIndex }}-{{ $index }}" class="active">{{ detail.vuln_pop_label?detail.vuln_pop_label: 'Total' }}</label>
+			</div>
+
+			<!-- remove -->
+			<div class="input-field col s12 m1">
+  			<div class="btn-floating waves-effect waves-light red lighten-2" 
+	  					title="Remove"
+	  					ng-if="project.definition.project_status !== 'complete' || 
+	  									project.report.report_status !== 'complete'"
+	  					ng-click="
+	  								ngmClusterVulnerablePopulations.removeDetail( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'vulnerable_populations' ], $locationIndex, $beneficiaryIndex, $index, beneficiary )">
+  				<i class="material-icons">clear</i>
+  			</div>
+			</div>

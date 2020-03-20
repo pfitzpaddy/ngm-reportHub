@@ -59,8 +59,8 @@ angular.module( 'ngmReportHub' )
 			}
 		}
 	}])
-	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', '$timeout', 'ngmAuth', 'ngmClusterLists', 'ngmClusterDetails', 'ngmClusterHelperNgWash',
-							function( $http, $filter, $timeout, ngmAuth, ngmClusterLists, ngmClusterDetails, ngmClusterHelperNgWash ) {
+	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', '$timeout', 'ngmAuth', 'ngmClusterLists', 'ngmClusterVulnerablePopulations', 'ngmClusterDetails', 'ngmClusterHelperNgWash',
+							function( $http, $filter, $timeout, ngmAuth, ngmClusterLists, ngmClusterVulnerablePopulations, ngmClusterDetails, ngmClusterHelperNgWash ) {
 
 		// beneficairies
 		var ngmClusterBeneficiaries = {
@@ -430,6 +430,12 @@ angular.module( 'ngmReportHub' )
 				angular.forEach( ngmClusterBeneficiaries.merge_keys, function ( key, i ) {
 					beneficiary[ key ] = ngmClusterBeneficiaries.form[ $parent ][ $index ][ key ];
 				});
+
+				// clear
+				if ( beneficiary.vulnerable_populations && beneficiary.vulnerable_populations.length ) {
+					beneficiary.vulnerable_populations = [{}];
+					ngmClusterVulnerablePopulations.setList( ngmClusterBeneficiaries.form[ $parent ][ $index ].vulnerable_populations, $parent, $index, 0, '', [{}] );
+				}
 
 				// clear
 				if ( beneficiary.details && beneficiary.details.length ) {

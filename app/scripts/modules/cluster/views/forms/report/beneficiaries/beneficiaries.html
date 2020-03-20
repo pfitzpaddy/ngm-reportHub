@@ -1067,6 +1067,62 @@
 					</div>
 
 
+					
+
+					<!-- VULNERABLE POPNs ( display if todo and in activities.csv ) -->
+					<div class="row"
+								style="padding: 10px 0px 40px 0px;"
+								ng-init="ngmClusterVulnerablePopulations.initVulnerablePopulations( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'vulnerable_populations' ], $locationIndex, $beneficiaryIndex, beneficiary );"
+								ng-if="project.report.report_status === 'todo' && ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'vulnerable_populations' ]">
+
+						<!-- get template -->
+						<div class="row" ng-repeat="detail in beneficiary.vulnerable_populations">
+							<div ng-include="project.templatesUrl + project.template_vulnerable_populations"></div>
+						</div>
+						
+						<!-- add vulnerable_populations -->
+						<div class="row" style="margin-left:20px;padding-top: 5px;">
+							<button class="btn blue lighten-2"
+											ng-if="beneficiary.vulnerable_populations.length !==
+															ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'vulnerable_populations' ].length &&
+															( project.definition.project_status !== 'complete' ||
+																	project.report.report_status !== 'complete' )"
+											ng-disabled="ngmClusterVulnerablePopulations.addDetailDisabled"
+											ng-click="ngmClusterVulnerablePopulations.addDetail( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'vulnerable_populations' ], $locationIndex, $beneficiaryIndex, beneficiary );">
+								<i class="material-icons left">add</i>{{ 'add_vulnerable_populations' | translate }}
+							</button>
+						</div>
+
+					</div>
+
+					<!-- VULNERABLE POPNs ( display if complete and length )  -->
+					<div class="row"
+								style="padding: 10px 0px 40px 0px;"
+								ng-init="ngmClusterVulnerablePopulations.initVulnerablePopulations( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'vulnerable_populations' ], $locationIndex, $beneficiaryIndex, beneficiary );"
+								ng-if="project.report.report_status === 'complete' && beneficiary.vulnerable_populations.length">
+
+						<!-- get template -->
+						<div class="row" ng-repeat="detail in beneficiary.vulnerable_populations">
+							<div ng-include="project.templatesUrl + project.template_vulnerable_populations"></div>
+						</div>
+						
+						<!-- add vulnerable_populations -->
+						<div class="row" style="margin-left:20px;padding-top: 5px;">
+							<button class="btn blue lighten-2"
+											ng-if="beneficiary.vulnerable_populations.length !==
+															ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'vulnerable_populations' ].length &&
+															( project.definition.project_status !== 'complete' ||
+																	project.report.report_status !== 'complete' )"
+											ng-disabled="ngmClusterVulnerablePopulations.addDetailDisabled"
+											ng-click="ngmClusterVulnerablePopulations.addDetail( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'vulnerable_populations' ], $locationIndex, $beneficiaryIndex, beneficiary );">
+								<i class="material-icons left">add</i>{{ 'add_vulnerable_populations' | translate }}
+							</button>
+						</div>
+
+					</div>
+
+
+
 
 
 					<!-- SADD ( very SAD age breakdown - male ) -->
@@ -1395,6 +1451,8 @@
 						</div>
 
 					</div>
+					
+
 					<!--==============================  NG CP =============================-->
 
 
