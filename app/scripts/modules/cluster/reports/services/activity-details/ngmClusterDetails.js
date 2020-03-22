@@ -106,6 +106,8 @@ angular.module( 'ngmReportHub' )
 						ngmClusterDetails.setList( list, $locationIndex, $beneficiaryIndex, i, d.unit_type_id, beneficiary.details );
 					});
 				}
+
+				console.log( list );
 			},
 			
 			// manages selections (removes selections from detials list for ET ESNFI partial_kits, kit_details)
