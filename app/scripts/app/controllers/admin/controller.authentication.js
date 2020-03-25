@@ -30,7 +30,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 		'ngmLists',
 		'config',
 		'$translate',
-		function ($scope, $http, $location, $timeout, $filter, $q, ngmAuth, ngmUser, ngmData, ngmClusterLists, ngmLists, config,$translate){
+		'$rootScope',
+		function ($scope, $http, $location, $timeout, $filter, $q, ngmAuth, ngmUser, ngmData, ngmClusterLists, ngmLists, config, $translate,$rootScope){
 			 
 
 			// 4wPlus
@@ -306,6 +307,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 							M.toast({ html: $filter('translate')('success') + ' ' + $filter('translate')('user_deleted'), displayLength: 6000, classes: 'success' });
 							$timeout( function(){
 								var path = ( ngmUser.get().organization === 'iMMAP' && ( ngmUser.get().admin0pcode === 'CD' || ngmUser.get().admin0pcode === 'ET' ) ) ? '/immap/team' : '/team';
+								if ($rootScope.teamPreviouseUrl) {
+									path = path = $rootScope.teamPreviouseUrl.split('#')[1];
+								}
 								$location.path( path );
 							}, 1000 );
 						} else {
@@ -393,6 +397,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 									// redirect to team view and page refresh
 									if ( reload ) {
 										var path = ( ngmUser.get().organization === 'iMMAP' && ( ngmUser.get().admin0pcode === 'CD' || ngmUser.get().admin0pcode === 'ET' ) ) ? '/immap/team' : '/team';
+										if ($rootScope.teamPreviouseUrl) {
+											  path = $rootScope.teamPreviouseUrl.split('#')[1];
+										}
 										$location.path( path );
 									}
 								}, 200 );
