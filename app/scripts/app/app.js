@@ -590,6 +590,13 @@ angular
 
 		});
 
+		// on location change
+		$scope.$on( '$locationChangeStart', function( event ) {
+			// remove materializecss tooltips from DOM
+			$(".material-tooltip").remove();
+
+		});
+
 		// annoying loading artifacts of left menu
     angular.element(document).ready(function () {
       // give a few seconds to render
