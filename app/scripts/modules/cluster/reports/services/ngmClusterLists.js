@@ -47,10 +47,10 @@ angular.module( 'ngmReportHub' )
           transfers: ngmClusterLists.getTransfers( transfers ),
           clusters: ngmClusterLists.getClusters( project.admin0pcode ).filter(cluster=>cluster.project!==false),
           projectsclasifications: ngmClusterLists.getProjectClasifications(project.admin0pcode),
-          activity_types: ngmClusterLists.getActivities( project, true, 'activity_type_id' ),
-          activity_descriptions: ngmClusterLists.getActivities( project, true, 'activity_description_id' ),
-          activity_details: ngmClusterLists.getActivities( project, true, 'activity_detail_id' ),
-          activity_indicators: ngmClusterLists.getActivities( project, true, 'indicator_id' ),
+          activity_types: ngmClusterLists.getActivities( project, true, ['activity_type_id'] ),
+          activity_descriptions: ngmClusterLists.getActivities( project, true, ['activity_description_id', 'activity_type_id'] ),
+          activity_details: ngmClusterLists.getActivities( project, true, ['activity_detail_id', 'activity_description_id', 'activity_type_id'] ),
+          activity_indicators: ngmClusterLists.getActivities( project, true, ['indicator_id', 'activity_detail_id', 'activity_description_id', 'activity_type_id'] ),
           projectActivityTypes: ngmClusterLists.getProjectActivityTypes( project ),
           strategic_objectives: ngmClusterLists.getStrategicObjectives( project.admin0pcode, moment( project.project_start_date ).year(), moment( project.project_end_date ).year() ),
           category_types: ngmClusterLists.getCategoryTypes(),
@@ -7555,12 +7555,12 @@ angular.module( 'ngmReportHub' )
 
         if(admin0pcode === 'COL'){
           var beneficiary_categories = [
-  
+
           {
               beneficiary_category_id: 'indigenas',
               beneficiary_category_name: 'Indígenas'
             },
-  
+
           {
               beneficiary_category_id: 'afrocolombianos',
               beneficiary_category_name: 'Afrocolombianos'
@@ -8311,39 +8311,19 @@ angular.module( 'ngmReportHub' )
         return site_types;
       },
 
-      // remove duplicates in item ( json array ) based on value ( filterOn )
-      filterDuplicates: function( items, filterOn ){
+      // remove duplicates in list ( json array ) based on array of keys
+      filterDuplicates: function( list, keys ){
 
-        // vars
-        var hashCheck = {},
-            newItems = [];
-
-        // comparison fn
-        var extractValueToCompare = function ( item ) {
-          if ( angular.isObject( item ) && angular.isString( filterOn ) ) {
-            return item[ filterOn ];
-          } else {
-            return item;
-          }
-        };
-
-        // filter unique
-        angular.forEach( items, function ( item ) {
-          var valueToCheck, isDuplicate = false;
-
-          for ( var i = 0; i < newItems.length; i++ ) {
-            if ( angular.equals( extractValueToCompare( newItems[i] ), extractValueToCompare( item ) ) ) {
-              isDuplicate = true;
-              break;
-            }
-          }
-          if ( !isDuplicate ) {
-            newItems.push( item );
-          }
-        });
+				const lookup = new Set();
+				const newList = list.filter(el => {
+					const activity = keys.map(key => el[key]).join("");
+					const isDuplicate = lookup.has(activity);
+					if (!isDuplicate) lookup.add(activity);
+					return !isDuplicate;
+				});
 
         // duplicates filtered
-        return newItems;
+        return newList;
 			},
 
 			//stock-targeted-groups
