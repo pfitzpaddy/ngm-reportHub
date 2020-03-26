@@ -85,7 +85,11 @@
 								<td data-title="'progress'|translate" sortable="'progress_percentage'" ng-if="row.progress_percentage ==='N/A'">
 									{{ row.progress_percentage}}
 								</td>
-								<td width="15%" data-title="'progress'|translate" sortable="'progress_percentage'" ng-if="row.progress_percentage !=='N/A'">
+								<td data-title="'progress'|translate" sortable="'progress_percentage'"
+									ng-if="row.progress_percentage !=='N/A' && windowWidth <=992">
+									{{ row.progress_percentage| number : 1 }}%
+								</td>
+								<td width="15%" data-title="'progress'|translate" sortable="'progress_percentage'" ng-if="row.progress_percentage !=='N/A' && windowWidth >992">
 									<div class="percentage-wrapper">
 										<span>{{ row.progress_percentage| number : 1 }}%</span>
 										<span class="project-progress-bar-wrapper ">
