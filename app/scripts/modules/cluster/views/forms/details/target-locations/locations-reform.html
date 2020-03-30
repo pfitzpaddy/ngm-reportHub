@@ -96,7 +96,7 @@
                             </div>
                         
                             <!-- btns -->
-                            <div class="col s12 m12" ng-style="(windowWidth > 600) && { 'margin-top': '-72px' }"
+                            <div class="col s12 m12" ng-style="(windowWidth > 600 && location.site_type_name) && { 'margin-top': '-72px' } || (windowWidth > 600 && !location.site_type_name) && {'margin-top': '-40px'} "
                                 ng-class="{'right-align':windowWidth > 600 }">
                         
                                 <button class="btn-floating waves-effect waves-light" title="Save"
