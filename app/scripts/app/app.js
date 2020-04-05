@@ -593,7 +593,7 @@ angular
 		// on location change
 		$scope.$on( '$locationChangeStart', function( event ) {
 			// remove materializecss tooltips from DOM
-			$(".material-tooltip").remove();
+			// $(".material-tooltip").remove();
 
 		});
 
