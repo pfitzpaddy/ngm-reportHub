@@ -436,10 +436,8 @@
 								ng-model="beneficiary.hrp_beneficiary_type_id"
 								ng-change="ngmClusterBeneficiaries.updateName( project.lists.hrp_beneficiary_types, 'hrp_beneficiary_type_id', 'hrp_beneficiary_type_name', beneficiary );
 																																									ngmClusterHelperCol.updateIndicatorObjective( project.definition.admin0pcode, beneficiary );
-																																				ngmClusterBeneficiaries.inputChange( 'ngm-hrp_beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );" ng-options="b.hrp_beneficiary_type_id as b.hrp_beneficiary_type_name for b in project.lists.hrp_beneficiary_types |
-																																																		filter: {
-																																																			cluster_id: beneficiary.cluster_id
-																																																		} : true"
+																																				ngmClusterBeneficiaries.inputChange( 'ngm-hrp_beneficiary_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );" ng-options="b.hrp_beneficiary_type_id as b.hrp_beneficiary_type_name for b in project.lists.hrp_beneficiary_types
+																																																		: true"
 								ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !beneficiary.activity_description_id">
 								<option value="" disabled>{{ 'select' | translate }}</option>
 							</select>
@@ -1068,7 +1066,7 @@
 					</div>
 
 
-					
+
 
 					<!-- VULNERABLE POPNs ( display if todo and in activities.csv ) -->
 					<div class="row"
@@ -1080,7 +1078,7 @@
 						<div class="row" ng-repeat="detail in beneficiary.vulnerable_populations">
 							<div ng-include="project.templatesUrl + project.template_vulnerable_populations"></div>
 						</div>
-						
+
 						<!-- add vulnerable_populations -->
 						<div class="row" style="margin-left:20px;padding-top: 5px;">
 							<button class="btn blue lighten-2"
@@ -1106,7 +1104,7 @@
 						<div class="row" ng-repeat="detail in beneficiary.vulnerable_populations">
 							<div ng-include="project.templatesUrl + project.template_vulnerable_populations"></div>
 						</div>
-						
+
 						<!-- add vulnerable_populations -->
 						<div class="row" style="margin-left:20px;padding-top: 5px;">
 							<button class="btn blue lighten-2"
@@ -1452,7 +1450,7 @@
 						</div>
 
 					</div>
-					
+
 
 					<!--==============================  NG CP =============================-->
 

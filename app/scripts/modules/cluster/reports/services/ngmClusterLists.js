@@ -8374,7 +8374,7 @@ angular.module( 'ngmReportHub' )
               hrp_beneficiary_type_name: 'Natural disaster-affected in 2020 (non-displaced)'
             }, {
               cluster_id: ngmClusterLists.all_sectors,
-              hrp_beneficiary_type_id: 'confict_affected_2020 ',
+              hrp_beneficiary_type_id: 'confict_affected_2020',
               hrp_beneficiary_type_name: 'Conflict-affected in 2020 (non-displaced)'
             }, {
               cluster_id: ngmClusterLists.all_sectors,
@@ -8407,7 +8407,7 @@ angular.module( 'ngmReportHub' )
               hrp_beneficiary_type_name: 'Natural disaster-affected in 2020 (non-displaced)'
           }, {
             cluster_id: ngmClusterLists.all_sectors,
-            hrp_beneficiary_type_id: 'confict_affected_2020 ',
+            hrp_beneficiary_type_id: 'confict_affected_2020',
               hrp_beneficiary_type_name: 'Conflict-affected in 2020 (non-displaced)'
           }, {
             cluster_id: ngmClusterLists.all_sectors,
