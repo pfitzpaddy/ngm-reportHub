@@ -686,6 +686,48 @@
 									</div>
 								</div>
 
+								<!-- MPC mpc_delivery_type_id, mpc_package_type_id -->
+								<div class="row" ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ]
+																				&& !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_mechanism_type_id' ]
+																				&& ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_package_type_id' ]
+																				&& !ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_transfer_type_id' ] ">
+									<div class="input-field col s12 m6">
+										<select materialize-select watch id="ngm-mpc_delivery_type_id-{{ $index }}"
+															name="mpc_delivery_type_id-{{ $index }}"
+															class="validate"
+															ng-model="beneficiary.mpc_delivery_type_id"
+															ng-change="ngmClusterBeneficiaries.updateName( ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ], 'mpc_delivery_type_id', 'mpc_delivery_type_name', beneficiary );
+															ngmClusterBeneficiaries.inputChange( 'ngm-mpc_delivery_type_id-{{ $index }}' )"
+															ng-options="b.mpc_delivery_type_id as b.mpc_delivery_type_name for
+																						b in ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'mpc_delivery_type_id' ]"
+															ng-disabled="project.definition.project_status === 'complete' || !beneficiary.beneficiary_type_id">
+											<option value="">{{ 'select' | translate }}</option>
+										</select>
+										<label for="ngm-mpc_delivery_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'implementation_modality' | translate }}</label>
+									</div>
+									<!-- package_type_id -->
+									<div class="input-field col s12 m6">
+										<select materialize-select id="ngm-package_type_id-{{ $index }}"
+															name="package_type_id-{{ $index }}"
+															class="validate"
+															ng-model="beneficiary.package_type_id"
+															ng-change="ngmClusterBeneficiaries.updateName( [{ 'package_type_id':'standard', 'package_type_name':'Standard' },{ 'package_type_id':'non-standard', 'package_type_name':'Non-standard' }], 'package_type_id', 'package_type_name', beneficiary );
+															ngmClusterBeneficiaries.inputChange( 'ngm-package_type_id-{{ $index }}' )"
+															ng-options="s.package_type_id as s.package_type_name for
+																								s in [{
+																									'package_type_id':'standard',
+																									'package_type_name':'Standard'
+																								},{
+																									'package_type_id':'non-standard',
+																									'package_type_name':'Non-standard'
+																								}]"
+															ng-disabled="project.definition.project_status === 'complete' || !beneficiary.mpc_delivery_type_id">
+											<option value="">{{ 'select' | translate }}</option>
+										</select>
+										<label for="ngm-package_type_id-{{ $index }}" class="active" style="transform:translateY(-10%)">{{ 'package' | translate }}</label>
+									</div>
+								</div>
+
 								<!-- UNITS -->
 								<div class="row" ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'unit_type_id' ] &&
 																					ngmClusterBeneficiaries.form[ 0 ][ $index ][ 'units' ] &&
