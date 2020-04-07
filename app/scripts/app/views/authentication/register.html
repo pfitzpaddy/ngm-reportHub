@@ -6,7 +6,7 @@
 }
 
 typeahead .dropdown-content {
-	max-height: 185px;	
+	max-height: 185px;
 }
 
 .carousel {
@@ -30,7 +30,7 @@ typeahead .dropdown-content {
   height: 150px;
   padding: 30px 0px 0px;
   border-radius: 50% !important;
-  margin: 10px auto;	
+  margin: 10px auto;
 }
 
 .title {
@@ -83,7 +83,7 @@ li {
 	      <div class="row">
 	        <div class="input-field col s12">
 	        	<i class="material-icons prefix country">person_pin</i>
-	        	<select id="ngm-country" 
+	        	<select id="ngm-country"
 	        					ng-options="location.admin0pcode as location.admin0name for location in panel.adminRegion | orderBy:'admin0name'"
 										ng-model="panel.user.admin0pcode"
 										ng-change="panel.clusterByCountry()">{{'select_country' | translate}}
@@ -135,13 +135,13 @@ li {
 					    <label for="ngm-cluster">Sector</label>
 	        </div>
 				</div> -->
-				
+
 				<div class="row">
 	        <div class="input-field col s12">
 	        	<i class="material-icons prefix cluster">donut_large</i>
 							<select class="validate"
-							id="ngm-cluster"							
-							ng-options="cluster.cluster_id as cluster.cluster for cluster in panel.clusters.active" 
+							id="ngm-cluster"
+							ng-options="cluster.cluster_id as cluster.cluster for cluster in panel.clusters.active"
 							ng-model="panel.user.cluster_id">
 							{{'select_sector'| translate}}
 							<option value="">{{'select_sector' | translate}}</option>
@@ -150,7 +150,7 @@ li {
 	        </div>
 	      </div>
 
-				<!-- 
+				<!--
 	      <div class="row">
 	        <div class="input-field col s12">
 	        	<i class="material-icons prefix">supervisor_account</i>
@@ -164,16 +164,16 @@ li {
 
 				<typeahead
 					label="{{'organization' | translate}} "
-					items="panel.organizations" 
-					prompt="" 
-					title="organization" 
-					subtitle="organization_name" 
+					items="panel.organizations"
+					prompt=""
+					title="organization"
+					subtitle="organization_name"
 					model="panel.user.organization" on-select="panel.onOrganizationSelected()">{{'select_organization' | translate}}</typeahead>
 
  				<div class="action center">
 					<button
 						id="organization-next"
-						class="btn btn-large waves-effect waves-teal" 
+						class="btn btn-large waves-effect waves-teal"
 						ng-disabled="panel.organizationDisabled()">
 							<i class="material-icons right">keyboard_arrow_right</i>
 							{{'next' | translate}}
@@ -280,7 +280,7 @@ li {
 	          <label for="ngm-username">{{'username' | translate}}</label>
 	        </div>
 	      </div>
-	      
+
 	      <div class="row">
 	        <div class="input-field col s12">
 	        	<i class="material-icons prefix">lock_outline</i>
@@ -300,7 +300,7 @@ li {
 					</div>
 <!-- 					<div
 						id="login-next"
-						ng-show="panel.user.organization === 'iMMAP' && 
+						ng-show="panel.user.organization === 'iMMAP' &&
 											( panel.user.admin0pcode === 'CD' || panel.user.admin0pcode === 'ET' )"
 						class="btn btn-large waves-effect waves-teal"
 						ng-disabled="ngmRegisterForm.$invalid">
@@ -320,7 +320,7 @@ li {
 						<button
 							type="submit"
 								id="login-register"
-								ng-show="panel.user.organization === 'iMMAP' && 
+								ng-show="panel.user.organization === 'iMMAP' &&
 													( panel.user.admin0pcode !== 'CD' && panel.user.admin0pcode !== 'ET' )"
 								class="btn btn-large waves-effect waves-teal"
 								ng-disabled="ngmRegisterForm.$invalid"
@@ -332,11 +332,11 @@ li {
 					<div
 						id="login-register"
 						class="btn btn-large waves-effect waves-teal"
-						ng-disabled="ngmRegisterForm.$invalid"
+						ng-disabled="ngmRegisterForm.$invalid || panel.isRegistering"
 						ng-click="panel.register()">
 							<i class="material-icons right">keyboard_arrow_right</i>
 							{{'register' | translate}}!
-					</div>					
+					</div>
 				</div>
 
 	    </form>
@@ -515,7 +515,7 @@ li {
 
 	// login details go back
 	$( '#login-back' ).click( function( e ){
-		$( '.carousel' ).carousel( 'prev' );		
+		$( '.carousel' ).carousel( 'prev' );
 	});
 	// login details go next (if iMMAP)
 	$( '#login-next' ).click( function( e ){
@@ -539,7 +539,7 @@ li {
 			$( '.carousel' ).carousel( 'next' );
 		}
 	});
-	
+
 	// iMMAP details go back to login
 	$( '#programme-back' ).click( function( e ){
 		$( '.carousel' ).carousel( 'prev' );

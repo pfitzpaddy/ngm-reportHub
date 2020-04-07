@@ -138,16 +138,16 @@
 			<div class="col s12 m12 " ng-class="{'right-align': windowWidth > 600}" ng-style="(windowWidth < 600) && { 'margin-top': '10px' } || { 'margin-top': '-68px' }">
 				<button class="btn-floating waves-effect waves-light"
 									title="Save"
-									ng-if="!project.newProject && detailBeneficiaries[$locationIndex][$beneficiaryIndex] && project.canEdit"
+									ng-if="!project.newProject && detailBeneficiaries[$locationIndex][$beneficiaryIndex] && project.canEdit && project.definition.project_status !== 'complete' &&	project.report.report_status !== 'complete'"
 									ng-click="project.validateBeneficiariesDetailsForm( false, false )"
-									ng-disabled="!project.canEdit">
+									ng-disabled="!project.canEdit || project.isSaving">
 					<i class="material-icons">save</i>
 				</button>
 				<button class="btn-floating red lighten-2 waves-effect waves-light"
 									title="Remove"
-									ng-if="beneficiary.id && detailBeneficiaries[$locationIndex][$beneficiaryIndex] && project.canEdit"
+									ng-if="beneficiary.id && detailBeneficiaries[$locationIndex][$beneficiaryIndex] && project.canEdit && project.definition.project_status !== 'complete' &&	project.report.report_status !== 'complete'"
 									ng-click="project.removeBeneficiaryModal( $locationIndex, $beneficiaryIndex ); project.activePrevReportButton()"
-									ng-disabled="!project.canEdit">
+									ng-disabled="!project.canEdit || project.isSaving">
 					<i class="material-icons">delete</i>
 				</button>
 				<button class="btn-floating blue lighten-1 waves-effect waves-light"

@@ -100,7 +100,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			// project
 			$scope.project = {
 
-				/**** DEFAULTS ****/ 
+				/**** DEFAULTS ****/
 				user: ngmUser.get(),
 				style: config.style,
 				definition: config.project,
@@ -152,7 +152,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					// set beneficiaries form
 					ngmClusterBeneficiaries.setLocationsForm( $scope.project.lists, $scope.project.report.locations );
 
-					
+
 					// documents upload
 					$scope.project.setTokenUpload();
 					// for minimize-maximize beneficiary form
@@ -160,7 +160,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					$scope.detailBeneficiaries = {};
 					$scope.project.beneficiary_search;
 					$scope.beneficiary_search_input = false;
-					
+
 					// init search
 					$scope.searchToogle = function () {
 						$('#search_').focus();
@@ -363,7 +363,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					}
 					$scope.detailBeneficiaries[$parent][$scope.project.report.locations[$parent].beneficiaries.length-1] = true;
 					// set form display for new rows
-					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, $parent, $scope.project.report.locations[ $parent ].beneficiaries.length-1, beneficiary );					
+					ngmClusterBeneficiaries.setBeneficiariesInputs( $scope.project.lists, $parent, $scope.project.report.locations[ $parent ].beneficiaries.length-1, beneficiary );
 				},
 
 				// remove beneficiary nodal
@@ -641,7 +641,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							$('#save-modal').modal('open');
 						} else {
 							// arg1: set report status from 'todo' to 'complete' & re-direct
-							// arg2: save & re-direct 
+							// arg2: save & re-direct
 							// arg3: alert admin via email of user edit of 'complete' report
 							$scope.project.save( false, false, false );
 						}
@@ -895,8 +895,8 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					return total
 				},
 				// save
-				save: function( complete, display_modal, email_alert ){ 
-
+				save: function( complete, display_modal, email_alert ){
+					$scope.project.isSaving = true;
 					// set labels to active (green)
 					$( 'label' ).removeClass( 'invalid' ).addClass( 'active' );
 					$( 'input' ).removeClass( 'invalid' ).addClass( 'active' );
@@ -917,6 +917,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 					$scope.project.report =
 							ngmClusterHelper.getCleanReport( $scope.project.definition, $scope.project.report );
 
+
 					// msg
 					// Materialize.toast( $filter('translate')('processing_report') , 6000, 'note');
 					M.toast({ html: $filter('translate')('processing_report'), displayLength: 6000, classes: 'note' });
@@ -933,7 +934,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 
 						if ( report.err ) {
 							// update
-							// Materialize.toast( 'Error! '+$filter('translate')('please_correct_the_row_and_try_again'), 6000, 'error' );
+							$scope.project.isSaving = false;
 							M.toast({ html: 'Error! ' + $filter('translate')('please_correct_the_row_and_try_again'), displayLength: 6000, classes: 'error' });
 						}
 
@@ -946,13 +947,15 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 							// sort locations
 							$scope.project.report.locations = $filter('orderBy')( $scope.project.report.locations, [ 'site_type_name','admin1name','admin2name','admin3name','admin4name','admin5name','site_name' ]);
 
+							$scope.project.isSaving = false;
+
 							// user msg
 							var msg = $filter('translate')('project_report_for')+'  ' + moment.utc( $scope.project.report.reporting_period ).format('MMMM, YYYY') + ' ';
 									msg += complete ? $filter('translate')('submitted')+'!' : $filter('translate')('saved_mayus1')+'!';
 
 							// msg
-							$timeout(function() { 
-								// Materialize.toast( msg , 6000, 'success'); 
+							$timeout(function() {
+								// Materialize.toast( msg , 6000, 'success');
 								M.toast({ html: msg, displayLength: 6000, classes: 'success' });
 							}, 400 );
 
@@ -989,7 +992,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 						}
 					}).error(function( err ) {
 						// update
-						// Materialize.toast( 'Error!', 6000, 'error' );
+						$scope.project.isSaving = false;
 						M.toast({ html: 'Error', displayLength: 6000, classes: 'error' });
 					});;
 
@@ -1005,7 +1008,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 			$scope.$on('refresh:listUpload', function () {
 				$scope.project.getDocument();
 			})
-			
+
 	}
 
 ]);
