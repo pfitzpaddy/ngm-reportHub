@@ -241,14 +241,14 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 						// set submitted for validation
 						ngmLoginForm.$setSubmitted();
 					} else {
-
+						$scope.panel.isLogging = true;
 						// login
 						ngmAuth
 							.login({ user: $scope.panel.user }).success( function( result ) {
-
-							// db error!
-							if( result.err || result.summary ){
-								var msg = result.summary ? result.summary : result.msg;
+								$scope.panel.isLogging = false;
+								// db error!
+								if( result.err || result.summary ){
+									var msg = result.summary ? result.summary : result.msg;
 								// Materialize.toast( msg, 6000, 'error' );
 								M.toast({ html: msg, displayLength: 6000, classes: 'error' });
 							}
@@ -262,10 +262,13 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
 									// Materialize.toast( $filter('translate')('welcome_back')+' ' + result.username + '!', 6000, 'note' );
 									M.toast({ html: $filter('translate')('welcome_back') + ' ' + result.username + '!', displayLength: 6000, classes: 'note' });
-								}, 2000);
-							}
+									}, 2000);
+								}
 
-						});
+							})
+							.error(function(err) {
+								$scope.panel.isLogging = false;
+							});
 
 					}
 				},

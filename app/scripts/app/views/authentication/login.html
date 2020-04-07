@@ -14,7 +14,7 @@
   height: 150px;
   padding: 30px 0px 30px 20px;
   border-radius: 50% !important;
-  margin: 10px auto;	
+  margin: 10px auto;
 }
 
 .title {
@@ -102,7 +102,7 @@ li {
 				</div>
 
 				<p class="center" style="font-weight:300;" ng-if="panel.err">
-					{{'having_trouble_finding_your_account' | translate}}? 
+					{{'having_trouble_finding_your_account' | translate}}?
 					<br/>
 					{{'contact_mayus' | translate}} <a ng-if="panel.var4wplusrh === 'ReportHub'" href="mailto:ngmreporthub@gmail.com">ngmReportHub@gmail.com</a>
 					<a ng-if="panel.var4wplusrh === '4wPlus'" href="mailto:contacto@immap.org">contacto@immap.org</a>
@@ -127,7 +127,7 @@ li {
 
 					<div class="action center">
 						<button
-							class="btn btn-large waves-effect waves-teal" 
+							class="btn btn-large waves-effect waves-teal"
 							type="submit"
 							ng-disabled="!panel.user.email || ngmResetForm.$invalid"
 							ng-click="panel.passwordResetSend( ngmResetForm )">
@@ -186,8 +186,8 @@ li {
 					<div class="action">
 						<button
 							type="submit"
-							class="btn btn-large waves-effect waves-teal" 
-							ng-disabled="ngmLoginForm.$invalid"
+							class="btn btn-large waves-effect waves-teal"
+							ng-disabled="ngmLoginForm.$invalid || panel.isLogging"
 							ng-click="panel.login(ngmLoginForm)">
 								{{'sign_in' | translate}}
 						</button>
@@ -224,7 +224,7 @@ li {
 		// focus
 		$('#ngm-password').focus();
 		M.updateTextFields();
-	}, 100 );	
+	}, 100 );
 
 	// hidden to start
 	setTimeout( function(){
@@ -244,7 +244,7 @@ li {
 	$( '#forgot' ).click( function(){
 		// set login page
 		$( '.carousel' ).carousel( 'prev' );
-	}); 
+	});
 </script>
 
 
