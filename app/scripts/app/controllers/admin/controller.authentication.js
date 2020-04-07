@@ -32,7 +32,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 		'$translate',
 		'$rootScope',
 		function ($scope, $http, $location, $timeout, $filter, $q, ngmAuth, ngmUser, ngmData, ngmClusterLists, ngmLists, config, $translate,$rootScope){
-			 
+
 
 			// 4wPlus
 			if( $location.$$host === "4wplus.org" || $location.$$host === "35.229.43.63" ){
@@ -40,12 +40,12 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 			}else{
 				var4wplusrh = "ReportHub"
 			}
-			
+
 			// project
 			$scope.panel = {
 
 				err: false,
-				
+
 				var4wplusrh :var4wplusrh,
 
 				date : new Date(),
@@ -109,7 +109,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 						'cvwg': { cluster: 'MPC' },
 						'smsd':{cluster:'Sitio de Administración y Sitio de Desarrollo'}
 
-					}, 
+					},
 					'all': {
 						'cvwg': { cluster: 'MPC' },
 						'agriculture': { cluster: 'Agriculture' },
@@ -132,7 +132,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 						'child_protection':{ cluster: 'Child Protection' }
 					}
 				},
-				
+
 
 				// initialize page
 				init: function(){
@@ -181,7 +181,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
 				},
 
-				
+
 				// filter cluster / org by country
 				clusterByCountry: function() {
 
@@ -249,19 +249,19 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 								// db error!
 								if( result.err || result.summary ){
 									var msg = result.summary ? result.summary : result.msg;
-								// Materialize.toast( msg, 6000, 'error' );
-								M.toast({ html: msg, displayLength: 6000, classes: 'error' });
-							}
+									// Materialize.toast( msg, 6000, 'error' );
+									M.toast({ html: msg, displayLength: 6000, classes: 'error' });
+								}
 
-							// success
-							if ( !result.err && !result.summary ){
+								// success
+								if ( !result.err && !result.summary ){
 
-								// go to default org page
-								$location.path( result.app_home );
-								$timeout( function(){
+									// go to default org page
+									$location.path( result.app_home );
+									$timeout( function(){
 
-									// Materialize.toast( $filter('translate')('welcome_back')+' ' + result.username + '!', 6000, 'note' );
-									M.toast({ html: $filter('translate')('welcome_back') + ' ' + result.username + '!', displayLength: 6000, classes: 'note' });
+										// Materialize.toast( $filter('translate')('welcome_back')+' ' + result.username + '!', 6000, 'note' );
+										M.toast({ html: $filter('translate')('welcome_back') + ' ' + result.username + '!', displayLength: 6000, classes: 'note' });
 									}, 2000);
 								}
 
@@ -274,24 +274,24 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 				},
 
 
-				// open modal by id 
+				// open modal by id
 				openModal: function( modal ) {
 					// $( '#' + modal ).openModal({ dismissible: false });
 					$('#' + modal).modal({ dismissible: false });
 					$('#' + modal).modal('open');
 				},
 
-				// deactivate 
+				// deactivate
 				updateStatus: function ( status ) {
 					// set status
 					$scope.panel.user.status = status;
 					$scope.panel.update( true );
-					
+
 				},
 
 				// delete user!
 				delete: function () {
-					
+
 					// disable btns
 					$scope.panel.btnDisabled = true;
 
@@ -303,7 +303,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 							user: $scope.panel.user
 						}
 					}).then( function( data ){
-						
+
 						if ( data.success ) {
 							// success message
 							// Materialize.toast( $filter('translate')('success')+' '+$filter('translate')('user_deleted'), 6000, 'success' );
@@ -327,14 +327,14 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 				update: function( reload ) {
 
 					// message
-					$timeout(function(){ 
-						// Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note'); 
+					$timeout(function(){
+						// Materialize.toast( $filter('translate')('processing')+'...', 6000, 'note');
 						M.toast({ html: $filter('translate')('processing') + '...', displayLength: 6000, classes: 'note' });
 					}, 200 );
 
 					// disable btns
 					$scope.panel.btnDisabled = true;
-					
+
 					// cluster
 					var cluster = $filter('filter')( $scope.panel.clusters.active, { cluster_id: $scope.panel.user.cluster_id } )[0].cluster;
 
@@ -388,12 +388,12 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 										M.toast({ html: 'Organization changed to ' + orgUpdatedTo, displayLength: 6000, classes: 'success' });
 									}
 									if (config.user.cluster_id !== $scope.panel.user.cluster_id){
-										// Materialize.toast('Cluster changed to ' + clusterUpdatedTo, 6000, 'success'); 
+										// Materialize.toast('Cluster changed to ' + clusterUpdatedTo, 6000, 'success');
 										M.toast({ html: 'Cluster changed to ' + clusterUpdatedTo, displayLength: 6000, classes: 'success' });
 									}
 									// Materialize.toast( $filter('translate')('success')+' '+$filter('translate')('profile_updated'), 6000, 'success' );
 									M.toast({ html: $filter('translate')('success') + ' ' + $filter('translate')('profile_updated'), displayLength: 6000, classes: 'success' });
-									
+
 									// activate btn
 									$scope.panel.btnDisabled = false;
 
@@ -413,6 +413,8 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
 				// register fn
 				register: function( ngmRegisterForm ){
+
+					$scope.panel.isRegistering = true;
 
 					// cluster
 					var cluster = $filter('filter')( $scope.panel.clusters.active, { cluster_id: $scope.panel.user.cluster_id } )[0].cluster;
@@ -435,6 +437,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 					ngmAuth
 						.register({ user: $scope.panel.user }).success(function( result ) {
 
+						$scope.panel.isRegistering = false;
 						// db error!
 						if( result.err || result.summary ){
 							var msg = result.summary ? result.summary : result.msg;
@@ -450,10 +453,13 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 
 								// Materialize.toast( $filter('translate')('welcome')+' ' + result.username + ', '+$filter('translate')('time_to_create_a_project'), 6000, 'success' );
 								M.toast({ html: $filter('translate')('welcome') + ' ' + result.username + ', ' + $filter('translate')('time_to_create_a_project'), displayLength: 6000, classes: 'success' });
-								
+
 							}, 2000);
 						}
 
+					})
+					.error(function(err) {
+						$scope.panel.isRegistering = false;
 					});
 
 				},
@@ -487,7 +493,7 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 								// user toast msg
 								$timeout(function(){
 
-									// Materialize.toast($filter('translate')('email_sent_please_check_your_inbox'), 6000, 'success'); 
+									// Materialize.toast($filter('translate')('email_sent_please_check_your_inbox'), 6000, 'success');
 									M.toast({ html: $filter('translate')('email_sent_please_check_your_inbox'), displayLength: 6000, classes: 'success' });
 								}, 400);
 
@@ -576,30 +582,30 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 						// $scope.panel.user.app_home = '/immap/';
 						$scope.panel.user.app_home = '/cluster/admin/' + $scope.panel.user.adminRpcode.toLowerCase() + '/' + $scope.panel.user.admin0pcode.toLowerCase();
 						$scope.panel.user.roles = [ 'COUNTRY_ADMIN', 'USER' ];
-						
+
 					} else {
 						delete $scope.panel.user.app_home;
 					}
 
 				},
-				
-				
+
+
 				//manage user access
 				manageUserAccess:function (id) {
 
-					if (document.getElementById(id).checked){						
+					if (document.getElementById(id).checked){
 						var values = document.getElementById(id).value;
 						if($scope.panel.user.roles.indexOf(values)=== -1){
 							$scope.panel.user.roles.push(values);
 							// set landing page to admin
 							if ( user.roles.length > 1 ) {
 								user.app_home = '/cluster/admin/';
-							} 
+							}
 							// set landing page to org
 							if ( user.roles.length === 1 && user.roles.indexOf( 'USER' ) !== -1 ) {
 								user.app_home = '/cluster/organization/';
 							}
-						}						
+						}
 					} else{
 						var values = document.getElementById(id).value;
 						if ($scope.panel.user.roles.indexOf(values) > -1) {
@@ -617,13 +623,13 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 				manageUserCluster:function(id) {
 					if (document.getElementById(id).checked) {
 						var values = document.getElementById(id).value;
-						$scope.panel.user.cluster_id= values;			
+						$scope.panel.user.cluster_id= values;
 						$scope.panel.user.cluster = $scope.panel.cluster[values].cluster;
 					}else{
 						document.getElementById(id).checked=true;
-					}		
+					}
 				},
-				
+
 				// manage user country
 				manageUserCountry: function (id) {
 					if (document.getElementById(id).checked) {
@@ -634,9 +640,9 @@ angular.module('ngm.widget.form.authentication', ['ngm.provider'])
 					$scope.panel.user.adminRpcode=$scope.panel.adminRegion[values].adminRpcode
 					}else{
 						document.getElementById(id).checked = true;
-					}					
+					}
 				}
-			
+
 			}
 
 			// init page
