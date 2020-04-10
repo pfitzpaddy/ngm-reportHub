@@ -7,13 +7,13 @@
  */
 angular.module('ngmReportHub')
 	.controller('ClusterProjectReportCtrl', [
-			'$scope', 
-			'$route', 
-			'$q', 
-			'$http', 
-			'$location', 
+			'$scope',
+			'$route',
+			'$q',
+			'$http',
+			'$location',
 			'$anchorScroll',
-			'$timeout', 
+			'$timeout',
 			'ngmAuth',
 			'ngmData',
 			'ngmUser','$translate','$filter',
@@ -26,10 +26,10 @@ angular.module('ngmReportHub')
 
 		// init empty model
 		$scope.model = $scope.$parent.ngm.dashboard.model;
-		
+
 		// empty Project
 		$scope.report = {
-			
+
 			// parent
 			ngm: $scope.$parent.ngm,
 
@@ -41,7 +41,7 @@ angular.module('ngmReportHub')
 
 			// location_group
 			location_group: $route.current.params.location_group,
-			
+
 			// current user
 			user: ngmUser.get(),
 
@@ -79,7 +79,7 @@ angular.module('ngmReportHub')
 				// set report for downloads
 				$scope.report.report = $scope.report.project.organization + '_' + $scope.report.project.cluster + '_' + $scope.report.project.project_title.replace(/\ /g, '_') + '_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 
-				
+
 				// project title
 				if ( $scope.report.project.admin0name ) {
 					$scope.report.title = $scope.report.project.organization + ' | ' + $scope.report.project.admin0name.toUpperCase().substring(0, 3) + ' | ';
@@ -167,10 +167,36 @@ angular.module('ngmReportHub')
 										url: $location.$$path
 									}
 								}
+							},{
+								type: 'xlsx',
+								color: 'blue lighten-2',
+								icon: 'description',
+								hover: $filter('translate')('download_project_lists'),
+								request: {
+									method: 'GET',
+									url: ngmAuth.LOCATION + '/api/cluster/report/getProjectLists',
+									params: {
+										report_id: $scope.report.definition.id,
+										project_id: $scope.report.project.id
+									},
+								},
+								metrics: {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
+									data: {
+										organization: $scope.report.user.organization,
+										username: $scope.report.user.username,
+										email: $scope.report.user.email,
+										dashboard: $scope.report.project.project_title,
+										theme: 'cluster_report_lists_' + $scope.report.user.cluster_id,
+										format: 'xlsx',
+										url: $location.$$path
+									}
+								}
 							}]
 						}
 					},
-					rows: [{		
+					rows: [{
 						columns: [{
 							styleClass: 's12 m12 l12',
 							widgets: [{
@@ -201,11 +227,11 @@ angular.module('ngmReportHub')
 					}]
 				}
 
-				// hide download 
-				const canDownload = ngmAuth.canDo('DASHBOARD_DOWNLOAD',{ 
-					adminRpcode: $scope.report.project.adminRpcode, 
-					admin0pcode: $scope.report.project.admin0pcode, 
-					cluster_id: $scope.report.project.cluster_id, 
+				// hide download
+				const canDownload = ngmAuth.canDo('DASHBOARD_DOWNLOAD',{
+					adminRpcode: $scope.report.project.adminRpcode,
+					admin0pcode: $scope.report.project.admin0pcode,
+					cluster_id: $scope.report.project.cluster_id,
 					organization_tag: $scope.report.project.organization_tag });
 				// remove download button
 				if (!canDownload) {
@@ -214,7 +240,7 @@ angular.module('ngmReportHub')
 				// assign to ngm app scope
 				$scope.report.ngm.dashboard.model = $scope.model;
 
-			}			
+			}
 
 		}
 
@@ -222,8 +248,8 @@ angular.module('ngmReportHub')
 		$scope.report.ngm.dashboard.model = $scope.model;
 
 		// taost for user
-		$timeout( function() { 
-			// Materialize.toast( $filter('translate')('loading_monhtly_progress_report'), 4000, 'success' ); 
+		$timeout( function() {
+			// Materialize.toast( $filter('translate')('loading_monhtly_progress_report'), 4000, 'success' );
 			M.toast({ html: $filter('translate')('loading_monhtly_progress_report'), displayLength: 4000, classes: 'success' });
 		}, 400 );
 
@@ -237,5 +263,5 @@ angular.module('ngmReportHub')
 				$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
 			}, 0);
 		});
-		
+
 	}]);
