@@ -230,12 +230,20 @@ angular.module( 'ngmReportHub' )
 					beneficiary.total_beneficiaries = 0;
 
 					// calc
-					beneficiary.total_male += beneficiary.boys +
-																beneficiary.men +
-																beneficiary.elderly_men;
-					beneficiary.total_female += beneficiary.girls +
-																beneficiary.women +
-																beneficiary.elderly_women;
+					// beneficiary.total_male += beneficiary.boys +
+					// 											beneficiary.men +
+					// 											beneficiary.elderly_men;
+					// beneficiary.total_female += beneficiary.girls +
+					// 											beneficiary.women +
+					// 											beneficiary.elderly_women;
+
+					beneficiary.total_male += ((beneficiary.boys === null || beneficiary.boys === undefined || beneficiary.boys === NaN || beneficiary.boys < 0 || beneficiary.boys === '') ? 0 : beneficiary.boys) +
+						((beneficiary.men === null || beneficiary.men === undefined || beneficiary.men === NaN || beneficiary.men < 0 || beneficiary.men === '') ? 0 : beneficiary.men) +
+						((beneficiary.elderly_men === null || beneficiary.elderly_men === undefined || beneficiary.elderly_men === NaN || beneficiary.elderly_men < 0 || beneficiary.elderly_men === '') ? 0 : beneficiary.elderly_men);
+					
+					beneficiary.total_female += ((beneficiary.girls === null || beneficiary.girls === undefined || beneficiary.girls === NaN || beneficiary.girls < 0 || beneficiary.girls === '') ? 0 : beneficiary.girls) +
+						((beneficiary.women === null || beneficiary.women === undefined || beneficiary.women === NaN || beneficiary.women < 0 || beneficiary.women === '') ? 0 : beneficiary.women) +
+						((beneficiary.elderly_women === null || beneficiary.elderly_women === undefined || beneficiary.elderly_women === NaN || beneficiary.elderly_women < 0 || beneficiary.elderly_women === '') ? 0 : beneficiary.elderly_women);
 
 					beneficiary.total_beneficiaries += beneficiary.total_male + beneficiary.total_female;
 				}, 100 );

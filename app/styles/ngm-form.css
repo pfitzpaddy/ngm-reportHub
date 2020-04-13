@@ -169,6 +169,9 @@
 		textarea.materialize-textarea label {
 		color: #26a69a;
 	}
+	.input-field input[type=number] +label.error{
+		color: #EE6E73;
+	}
 	.input-field label,.input-field input[type=text]:disabled + label{
 		color: #26a69a;
 	}
