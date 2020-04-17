@@ -55,7 +55,7 @@
 								<!-- location totals -->
 								<div class="col s12 m12 l6 hide-on-med-and-down">
 									<div class="beneficiary-count right">
-			      				<span style="font-size:1.4rem;"><i class="material-icons" style="padding-right:20px; padding-top:10px;">group</i>{{'beneficiaries_covered'|translate}}</span>
+			      				<span style="font-size:1.4rem;"><i class="material-icons" style="padding-right:20px; padding-top:10px;">group</i>{{(report.organization.admin0pcode === 'ET'?'Households Covered':'beneficiaries_covered')|translate}}</span>
 											<!-- filter in app/services/ngmHelper.js -->
 											{{ report.report.stocklocations[$locationIndex].stocks | sumByKey:'beneficiaries_covered' | number }}
 									</div>

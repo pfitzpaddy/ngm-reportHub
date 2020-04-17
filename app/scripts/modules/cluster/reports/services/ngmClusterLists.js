@@ -8330,21 +8330,60 @@ angular.module( 'ngmReportHub' )
 			getStockTargetedGroups: function(){
 				var stock_targeted_groups= [
 					{
+            admin0pcode:'AF',
 						stock_targeted_groups_id: 'all_population',
 						stock_targeted_groups_name: 'All Population'
 					},
 					{
+            admin0pcode: 'AF',
 						stock_targeted_groups_id: 'conflict_affected',
 						stock_targeted_groups_name: 'Conflict Affected'
 					},
 					{
+            admin0pcode: 'AF',
 						stock_targeted_groups_id: 'natural_disaster',
 						stock_targeted_groups_name: 'Natural Disaster'
 					},
 					{
+            admin0pcode: 'AF',
 						stock_targeted_groups_id: 'returnees',
 						stock_targeted_groups_name: 'Returnees'
-					},
+          },
+          {
+            admin0pcode: 'ET',
+            stock_targeted_groups_id: 'conflict_idps',
+            stock_targeted_groups_name: 'Conflict IDPs'
+          },
+          {
+            admin0pcode: 'ET',
+            stock_targeted_groups_id: 'flood_idps',
+            stock_targeted_groups_name: 'Flood IDPs'
+          },
+          {
+            admin0pcode: 'ET',
+            stock_targeted_groups_id: 'drought_idps',
+            stock_targeted_groups_name: 'Drought IDPs'
+          },
+          {
+            admin0pcode: 'ET',
+            stock_targeted_groups_id: 'other_idps',
+            stock_targeted_groups_name: 'Other IDPs'
+          },
+          {
+            admin0pcode: 'ET',
+            stock_targeted_groups_id: 'retrunee_not_home',
+            stock_targeted_groups_name: 'Retrunee not Home'
+          },
+          {
+            admin0pcode: 'ET',
+            stock_targeted_groups_id: 'retrunee_home',
+            stock_targeted_groups_name: 'Retrunee Home'
+          },
+          {
+            admin0pcode: 'ET',
+            stock_targeted_groups_id: 'host_community',
+            stock_targeted_groups_name: 'Host Community'
+          },
 
 				]
 
