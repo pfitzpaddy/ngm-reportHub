@@ -3,46 +3,71 @@
   <table class="bordered responsive-table" style="margin-bottom:10px;" ng-show="report.report.stocklocations[$locationIndex].stocks.length">
     <tr style="font-weight: 400">
 			<td>Cluster</td>
-			<td>{{'stock_purpose'|translate}}</td>
+			<td ng-if="report.organization.admin0pcode !== 'ET'">{{'stock_purpose'|translate}}</td>
 			<td>{{'targeted_groups'|translate}}</td>
       <td>{{'stock_type' | translate}}</td>
+      <td ng-if="report.organization.admin0pcode === 'ET'">Type</td>
       <td>{{'status_mayus'|translate}}</td>
+      <td ng-if="report.organization.admin0pcode === 'ET'">Implementing Partner</td>
+      <td ng-if="report.organization.admin0pcode === 'ET'">Donor</td>
       <td>No. {{'in'|translate}} Stock</td>
       <td>No. {{'in'|translate}} {{'pipeline'|translate}}</td>
       <td>{{'units'|translate}}</td>
-			<td>{{'beneficiary_coverage'|translate}}</td>
+      <td ng-if="report.organization.admin0pcode !== 'ET'">{{'beneficiary_coverage'|translate}}</td>
+      <td ng-if="report.organization.admin0pcode === 'ET'">Households</td>
       <td ng-show="report.report.report_status !== 'complete'">{{'edit'|translate}}</td>
     </tr>
-    <tr ng-repeat="stock in report.report.stocklocations[$locationIndex].stocks">
+    <tr ng-repeat-start="stock in report.report.stocklocations[$locationIndex].stocks track by $index" ng-init="$stockIndex = $index">
       <td>
         <!-- editable activity_type from report -->
         <span e-placeholder="{{'select'|translate}}" editable-select="stock.cluster_id" e-name="cluster_id" e-form="rowform" e-ng-options="item.cluster_id as item.cluster for item in report.lists.clusters">
           {{ report.showStockCluster($data, stock) }}
         </span>
 			</td>
-      <td>
+      <td ng-if="report.organization.admin0pcode !== 'ET'">
         <!-- editable stock_item_purpose from report -->
         <span e-placeholder="{{'select'|translate}}" editable-select="stock.stock_item_purpose_id" e-name="stock_item_purpose_id" e-form="rowform" e-ng-options="item.stock_item_purpose_id as item.stock_item_purpose_name for item in report.lists.stock_item_purpose">
           {{ report.showStockPurpose($data, stock) }}
         </span>
       </td>
 			<td>
-				<span e-placeholder="{{'select'|translate}}" editable-select="stock.stock_targeted_groups_id" e-name="stock_targeted_groups_id" e-form="rowform" e-ng-options="item.stock_targeted_groups_id as item.stock_targeted_groups_name for item in report.lists.stock_targeted_groups "
+				<span e-placeholder="{{'select'|translate}}" editable-select="stock.stock_targeted_groups_id" e-name="stock_targeted_groups_id" e-form="rowform" e-ng-options="item.stock_targeted_groups_id as item.stock_targeted_groups_name for item in report.lists.stock_targeted_groups | filter:{admin0pcode: report.organization.admin0pcode} "
 				 e-required>
 					{{ report.showStockTargetedGroup($data, stock) }}
 				</span>
 			</td>
       <td>
         <!-- editable activity_type from report -->
-        <span e-placeholder="{{'select'|translate}}" editable-select="stock.stock_item_type" e-name="stock_item_type" e-form="rowform" e-ng-options="item.stock_item_type as item.stock_item_name for item in report.lists.stocks | filter: { cluster_id: stock.cluster_id }"
+        <span e-placeholder="{{'select'|translate}}" editable-select="stock.stock_item_type" e-name="stock_item_type" e-form="rowform" e-ng-options="item.stock_item_type as item.stock_item_name for item in report.lists.stocks | filter: { cluster_id: stock.cluster_id, admin0pcode: report.organization.admin0pcode}"
           e-ng-disabled="!stock.cluster_id">
-          {{ report.showStockType($data, stock) }}
+          {{ report.showStockType($data, stock,$locationIndex,$stockIndex) }}
+        </span>
+      </td>
+      <!-- Type -->
+      <td ng-if="report.organization.admin0pcode === 'ET'">
+        <span e-placeholder="{{'select'|translate}}" editable-select="stock.stock_type_id" e-name="stock_type_id"
+          e-form="rowform" e-ng-options="item.stock_type_id as item.stock_type_name for item in report.lists.types">
+          {{ report.showTypes($data, stock) }}
         </span>
       </td>
       <td>
         <!-- editable activity_type from report -->
-        <span e-placeholder="{{'select'|translate}}" editable-select="stock.stock_status_id" e-name="stock_status_id" e-form="rowform" e-ng-options="item.stock_status_id as item.stock_status_name for item in report.lists.stock_status">
+        <span e-placeholder="{{'select'|translate}}" editable-select="stock.stock_status_id" e-name="stock_status_id" e-form="rowform" e-ng-options="item.stock_status_id as item.stock_status_name for item in report.lists.stock_status| filter: (!stock.stock_type_id ?{admin0pcode: report.organization.admin0pcode}:{stock_type_id:stock.stock_type_id,admin0pcode: report.organization.admin0pcode})">
           {{ report.showStockStatus($data, stock) }}
+        </span>
+      </td>
+      <!-- Implementing Partner -->
+      <td ng-if="report.organization.admin0pcode === 'ET'">
+        <span e-placeholder="{{'select'|translate}}" editable-select="stock.implementing_partners[0].organization_tag" e-name="organization_tag"
+          e-form="rowform" e-ng-options="item.organization_tag as item.organization for item in report.lists.organizations">
+          {{ report.showImplementingPartner($data, stock) }}
+        </span>
+      </td>
+      <!-- Donor -->
+      <td ng-if="report.organization.admin0pcode === 'ET'">
+        <span e-placeholder="{{'select'|translate}}" editable-select="stock.donors[0].donor_id" e-name="project_donor_id"
+          e-form="rowform" e-ng-options="item.project_donor_id as item.project_donor_name for item in report.lists.donors">
+          {{ report.showDonor($data, stock) }}
         </span>
       </td>
       <td>
@@ -69,7 +94,15 @@
         <span editable-number="stock.beneficiaries_covered" e-name="beneficiaries_covered" e-form="rowform" e-min="0" e-ng-change="report.updateInput($locationIndex, $index, 'beneficiaries_covered', $data )" e-ng-disabled="report.rowSessionsDisabled( beneficiary )" e-required>
           {{ stock.beneficiaries_covered }}
         </span>
-			</td>
+      </td>
+      
+      <!-- Remark -->
+      <!-- <td ng-if="report.showRemark(stock)"> -->
+        <!-- text -->
+        <!-- <span e-form="rowform" e-name="remarks" editable-text="stock.remarks">
+          {{ stock.remarks }}
+        </span>
+      </td> -->
 
       <td style="white-space: nowrap" ng-show="report.report.report_status !== 'complete'">
         <!-- form -->
@@ -88,6 +121,89 @@
           <button class="btn red lighten-2 waves-effect waves-light" ng-disabled="!report.formComplete()" ng-click="report.removeStock( $locationIndex, $index )" title="Remove">
             <i class="material-icons">delete</i>
           </button>
+        </div>
+      </td>
+    </tr>
+   
+    <tr ng-if="report.detailItem[$locationIndex][$stockIndex]">
+      <td colspan="100" >
+        <h6>
+          Item Details
+        </h6>
+      </td>
+    </tr>
+    <tr >
+      <td colspan="100" class=" card" style="padding: 30px 10px" ng-if="report.detailItem[$locationIndex][$stockIndex]">
+       
+        <div class="row" ng-repeat=" detail in stock.stock_details track by $index ">
+          <div class="col s12 m1" style="text-align:right;">
+            <p style="font-size:16px; padding-top:26px;">Item {{ $index+1 }} </p>
+          </div>
+          
+          <!-- select -->
+          <div class="input-field col s12 m6">
+            <select materialize-select watch id="ngm-stock_detail-{{ $locationIndex }}-{{$stockIndex}}-{{$index}}"
+              class="validate" 
+              ng-model="detail.unit_type_id" 
+              ng-options="detail.unit_type_id as detail.unit_type_name for detail in report.lists.detail_list[$locationIndex][$stockIndex][$index]"
+              ng-change="report.selectChangeStockDetail(stock,report.lists.detail_list[$locationIndex][$stockIndex][$index], detail, 'unit_type_id','unit_type_name', $locationIndex,$stockIndex)"
+              ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete'">
+              <option value="" selected>{{'select'|translate}}</option>
+          
+            </select>
+            <label for="ngm-stock_detail-{{ $locationIndex }}-{{$stockIndex}}-{{$index}}" class="active"
+              style="transform:translateY(-10%)">Item</label>
+          </div>
+          
+          <!-- unit_type_quantity -->
+          <div class="input-field col s12 m4">
+            <input id="ngm-stock_detail_unit_quantity-{{ $locationIndex }}-{{$stockIndex}}-{{$index}}"
+              name="unit_type_quantity" 
+              type="number" 
+              class="validate" 
+              min="0" 
+              ng-model="detail.unit_type_quantity"
+              ng-change=""
+              ng-disabled="">
+            <label for="ngm-stock_detail_unit_quantity-{{ $locationIndex }}-{{$stockIndex}}-{{$index}}"
+              class="active" style="transform:translateY(-128%)">Amount</label>
+          </div>
+          
+          <!-- remove -->
+          <div class="input-field col s12 m1">
+            <div class="btn-floating waves-effect waves-light red lighten-2" 
+              title="Remove" 
+              ng-if="report.report.report_status !== 'complete'"
+              ng-click="report.removeStockDetail(report.lists.detail_list[$locationIndex][$stockIndex][$index],stock,$locationIndex,$stockIndex,$index)">
+              <i class="material-icons">clear</i>
+            </div>
+          </div>
+        </div>
+       
+          <div class="row" style="margin-left:20px;padding-top: 5px;">
+            <button class="btn blue lighten-2" ng-disabled="report.addDetailDisabled[$locationIndex][$stockIndex]"
+            ng-if="report.report.report_status !== 'complete'"
+              ng-click="report.addDetailStock(stock,$locationIndex,$stockIndex)">
+              <i class="material-icons left">add</i>{{ 'add_details' | translate }}
+            </button>
+          </div>
+      </td>
+    </tr>
+   
+    <tr>
+      <td style="padding-bottom: 0px;padding-top: 0px;">
+        &nbsp;
+      </td>
+    </tr>
+    <tr ng-repeat-end>
+      <td colspan="100" class="card" style="padding: 10px 10px" ng-if="report.showRemark(stock)">
+        <div class="row">
+          <div class="input-field col s12" style="margin-bottom:0px;">
+            <input id="ngm-stock_remarks-{{ $locationIndex }}-{{$stockIndex}}-{{$index}}" type="text" class="validate"
+              placeholder="{{ 'remarks_go_here' | translate }}" ng-model="stock.remarks">
+            <label for="ngm-stock_remarks-{{ $locationIndex }}-{{$stockIndex}}-{{$index}}"
+              class="active">{{ 'remarks' | translate }}</label>
+          </div>
         </div>
       </td>
     </tr>
