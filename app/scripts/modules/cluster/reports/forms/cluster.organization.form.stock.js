@@ -550,8 +550,13 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
 				// process adding previous stock report data
 				addPrevStocks: function (prev_report) {
-
+          // remove cluster id from report
+          delete prev_report.cluster_id
+          delete prev_report.cluster
 						angular.forEach(prev_report.stocklocations, function (l, i) {
+              // remove cluster from location
+              delete l.cluster_id
+              delete l.cluster
 							var id = l.stock_warehouse_id;
 
 							// uncoment if rewriting all data, comment if adding rows every time on copy
@@ -571,8 +576,23 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 									unit_type_name: s.unit_type_name,
 									number_in_stock: s.number_in_stock,
 									number_in_pipeline: s.number_in_pipeline,
-									beneficiaries_covered: s.beneficiaries_covered
+                  beneficiaries_covered: s.beneficiaries_covered,
+                  stock_targeted_groups_id: s.stock_targeted_groups_id,
+                  stock_targeted_groups_name: s.stock_targeted_groups_name
 								};
+                //donor exist
+                if (s.donors.length) {
+                  $scope.inserted.donors = s.donors;
+                }
+                //implementing partner exist
+                if (s.implementing_partners.length) {
+                  $scope.inserted.implementing_partners = s.implementing_partners;
+                }
+                 //stock details exist
+                if (s.stock_details) {
+                  $scope.inserted.stock_details = s.stock_details;
+                }
+                
 								var $loc = $scope.report.report.stocklocations.find(function (l) {
 									return l.stock_warehouse_id === id
 								});
