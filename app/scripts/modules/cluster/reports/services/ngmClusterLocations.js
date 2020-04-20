@@ -32,6 +32,7 @@ angular.module( 'ngmReportHub' )
       // add new_location
       addNewLocation: function( project, new_location ){
         // create new beneficiaries holder
+        console.log( new_location );
         new_location.beneficiaries = [{}];
         project.report.locations.push( new_location );
         // reset new_location
@@ -508,16 +509,23 @@ angular.module( 'ngmReportHub' )
         }, 10)
       },
       // to Update sit name
-      updateAdminSites: function (lists, location, $index) {
+      updateAdminSite: function ( location, $index ) {
         $timeout(function () {
           // display
           var selected = [];
           if (location.site_id) {
 
+            console.log( $index );
+            console.log( location.site_id );            
+            console.log( ngmClusterLocations.adminSitesSelect[ $index ].length );
+
             // filter selection
-            selected = $filter('filter')(lists.adminSitesSelect[$index], { site_id: location.site_id }, true);
+            selected = $filter('filter')( ngmClusterLocations.adminSitesSelect[ $index ], { site_id: location.site_id }, true );
             if (selected[0] && selected[0].id) {
               delete selected[0].id;
+
+              console.log( selected[0].site_name )
+
               angular.merge(location, selected[0]);
             }
           }

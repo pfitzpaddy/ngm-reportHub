@@ -12,12 +12,12 @@
 </script>
 
 <!-- bind html -->
-<div class="row">
+<div class="row" window-size>
 	<div class="col s12 m12 l12">
 		<div class="card">
 			<ul class="collection with-header">
-				<li class="collection-header teal lighten-4">
-					<h5 class="report-work-title">
+				<li class="collection-header pink lighten-1">
+					<h5 class="report-work-title white-text">
 						<i class="material-icons left">location_on</i>{{'warehouse_locations'|translate}}
 					</h5>
 				</li>
@@ -31,7 +31,7 @@
 
 				      <div class="row remove" ng-if="!report.options.list.admin3.length">
 
-			      		<div class="input-field col s12 m4"
+			      		<div class="input-field col s12 m12 l4"
 			      			ng-class="{ 'error-label': clusterStockReportsForm.$submitted
 							  								&& report.organization.warehouses.length === 0 }">
 			      			<select id="ngm-project-admin1" class="validate"
@@ -44,7 +44,7 @@
 			      			<label>{{ report.options.list.admin1[0].admin1type_name }} *</label>
 			      		</div>
 
-			      		<div class="input-field col s12 m4"
+			      		<div class="input-field col s12 m12 l4"
 			      			ng-class="{ 'error-label': clusterStockReportsForm.$submitted
 							  								&& report.organization.warehouses.length === 0 }">
 			      			<select id="ngm-project-admin2" class="validate"
@@ -58,14 +58,14 @@
 			      			<label>{{ report.options.list.admin2[0].admin2type_name }} *</label>
 			      		</div>
 
-							  <div class="input-field col s12 m3">
+							  <div class="input-field col s12 m9 l3">
 							    <input id="ngm-project-hf_name" type="text" class="validate"
 							    	ng-model="report.options.warehouse.site_type.site_name"
 							    	ng-disabled="!report.options.warehouse.admin2">
 							    <label for="ngm-project-hf_name">{{'warehouse_name'|translate}} *</label>
 							  </div>
 
-			      		<div class="col s12 m1" style="padding-top:15px;">
+			      		<div class="col s12 m3 l1" style="padding-top:15px;">
 			      			<button class="waves-effect waves-light btn-floating green lighten-2 right"
 			      					title="Add Warehouse {{ report.options.warehouse.site_type.site_name }}"
 			      					ng-click="report.addLocation()"
@@ -150,21 +150,21 @@
 								<div class="row" ng-repeat="warehouse in report.organization.warehouses">
 
 									<div class="row" id="ngm-health-warehouse-{{ $index }}">
-										<div class="col s12 m11 left">
+										<div class="col s9 m10 l11 left">
 
 								    	<!-- admin2 -->
-								    	<h5 class="report-location-title" ng-if="!report.options.list.admin3.length">
+								    	<h5 class="report-location-title" ng-class="{'truncate':windowWidth < 450 }" ng-if="!report.options.list.admin3.length">
 														<i class="material-icons left" style="color: teal;">location_on</i>
 														{{ warehouse.admin1name }}, {{ warehouse.admin2name }}, {{ warehouse.site_name }} {{ warehouse.cluster }}
 											</h5>
 
 								    	<!-- admin3 -->
-								    	<h5 class="report-location-title" ng-if="report.options.list.admin3.length">
+								    	<h5 class="report-location-title" ng-class="{'truncate':windowWidth < 450 }" ng-if="report.options.list.admin3.length">
 														<i class="material-icons left" style="color: teal;">location_on</i>
 														{{ warehouse.admin1name }}, {{ warehouse.admin2name }}, {{ warehouse.admin3name }}, {{ warehouse.site_name }} {{ warehouse.cluster }}
 											</h5>
 										</div>
-										<div class="col s12 m1 right" style="padding-top:15px;" ng-style="($root.rtl) && { 'padding-left':'34px' } || { 'padding-right':'34px' }">
+										<div class="col s3 m2 l1 right" style="padding-top:15px;" ng-style="($root.rtl) && { 'padding-left':'34px' } || { 'padding-right':'34px' }">
 											<button class="waves-effect waves-light btn-floating red lighten-2 right"
 												title="Remove {{ warehouse.admin1name }} Warehouse {{ warehouse.site_name }}"
 												ng-click="report.removeLocationModal( $index )"><i class="material-icons">clear</i>

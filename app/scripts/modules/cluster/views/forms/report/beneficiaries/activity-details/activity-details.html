@@ -1,5 +1,4 @@
 
-	
 			<!-- label -->
 			<div class="col s12 m2" style="text-align:right;">
 				<p style="font-size:16px; padding-top:26px;">Item {{ $index+1 }} </p>
@@ -37,9 +36,9 @@
 			<div class="input-field col s12 m1">
   			<div class="btn-floating waves-effect waves-light red lighten-2" 
 	  					title="Remove"
-	  					ng-if="$index > 0 && ( project.definition.project_status !== 'complete' || project.report.report_status !== 'complete' )"
-	  					ng-click="ngmClusterDetails.removeDetail( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], $locationIndex, $beneficiaryIndex, $index, beneficiary )"
-              ng-disabled="!ngmClusterBeneficiaries.beneficiaryFormComplete( project.definition, project.report.locations )">
+	  					ng-if="project.definition.project_status !== 'complete' || 
+	  									project.report.report_status !== 'complete'"
+	  					ng-click="ngmClusterDetails.removeDetail( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], $locationIndex, $beneficiaryIndex, $index, beneficiary )">
   				<i class="material-icons">clear</i>
   			</div>
 			</div>

@@ -185,7 +185,7 @@ font-size: 18px;
 <div id="upload-file" class="modal">
 	<div class="modal-footer" style=" padding-top: 1px; padding-right: 1px; ">
 		<a class=" modal-action waves-effect waves-green right close-button" style="margin-top:0px" ng-click="project.uploadDocument.closeModal('upload-file')">
-			<i class="material-icons close-uplod-btn">clear</i>
+			<i class="material-icons modal-action modal-close close-uplod-btn">clear</i>
 		</a>
 	</div>
 	<div class="modal-content">
@@ -239,7 +239,7 @@ font-size: 18px;
 	</div>
 </div>
 <!-- END-MODAL -->
-<div class="row" ng-init="grid = true">
+<div class="row" ng-init="grid = true" window-size>
 	<div class="col s12 m12 l12">
 		<div class="card">
 
@@ -252,10 +252,10 @@ font-size: 18px;
 				</li>
 
 				<li class="collection-item avatar " style=" border-bottom-width: 0px;min-height: 60px; ">
-					<div class="left" >
+					<div class="left" ng-class="{'hide': windowWidth < 950 }">
 						<p style="font-weight: 300;margin-top:5px;color: #000">{{'click_upload_document_to_upload_document_of_your_project'|translate}} </p>
 					</div>
-					<div class="right">
+					<div class="right" ng-class="{'right': windowWidth > 600 }">
 						<button class="btn waves-effect waves-light tooltipped-report-upload"
 											data-position="bottom"
 											data-tooltip="{{'upload_document'|translate}}"
@@ -265,13 +265,13 @@ font-size: 18px;
 							{{'upload_document'|translate}}
 						</button>
 
-						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="{{'grid_view'|translate}}" ng-click="grid=true"
+						<div class="btn wave-effect space tooltipped-report-upload hide-on-small-only " data-position="bottom" data-tooltip="{{'grid_view'|translate}}" ng-click="grid=true"
 						 ng-class="{white: !grid,teal:grid}">
 							<i class="material-icons " style="color: #ffffff" ng-class="{color_teal: !grid,color_white:grid}">
 								view_module
 							</i>
 						</div>
-						<div class="btn wave-effect space tooltipped-report-upload" data-position="bottom" data-tooltip="{{'list_view'|translate}}" ng-click="grid=false"
+						<div class="btn wave-effect space tooltipped-report-upload hide-on-small-only " data-position="bottom" data-tooltip="{{'list_view'|translate}}" ng-click="grid=false"
 						 ng-class="{white: grid,teal:!grid}">
 							<i class="material-icons  mirror " ng-class="{color_teal: grid,color_white:!grid}">
 								format_list_bulleted
@@ -282,7 +282,7 @@ font-size: 18px;
 				<div ng-show="grid">
 					<li ng-if="listUpload.length>0" class="collection-item avatar" style="padding-left: 30px;padding-right: 30px">
 						<div class="row">
-							<div class="col s12 m2" dir-paginate="item in listUpload | orderBy: 'createdAt':true | itemsPerPage: listUpload.itemsPerPage"
+							<div class="col s12 m6 l2" dir-paginate="item in listUpload | orderBy: 'createdAt':true | itemsPerPage: listUpload.itemsPerPage"
 							 pagination-id="listUpload.id">
 								<div class="card border-radius">
 									<div class="card-image waves-effect waves-block waves-light">
@@ -301,7 +301,7 @@ font-size: 18px;
 											<i class="material-icons right" style="font-size: 18px; color: #e2e2e2;margin-top: 5px;margin-right: 5px;">close</i>
 										</div>
 										<div class="line">
-				
+
 											<!-- use gdrive id file -->
 											<button class="btn-floating  wave-effect blue tooltipped-report-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}" ng-click="ngmClusterDocument.openPreview('close-preview-file',item.fileid)"
 											 ng-disabled="item.filename_extension === '.csv'">
@@ -386,8 +386,8 @@ font-size: 18px;
 							</div>
 							<div class="col s3">
 								<div class="line-non-grid">
-				
-				
+
+
 									<button class="btn-floating  wave-effect blue tooltipped-upload" data-position="bottom" data-tooltip="{{'preview'|translate}}" ng-disabled="item.filename_extension === '.csv'"
 									 ng-click="ngmClusterDocument.openPreview('close-preview-file',item.fileid)">
 										<i class="small material-icons">compare</i>
@@ -407,8 +407,8 @@ font-size: 18px;
 						<dir-pagination-controls pagination-id="listUpload.id"></dir-pagination-controls>
 					</li>
 				</div>
-				
-				
+
+
 			</ul>
 
 		</div>

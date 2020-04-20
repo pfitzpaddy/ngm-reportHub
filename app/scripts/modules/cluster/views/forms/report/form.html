@@ -45,7 +45,7 @@
 
 	</div>
 	<div class="modal-footer">
-		<a ng-click="ngmClusterHelperNgWash.remove()" 
+		<a ng-click="ngmClusterHelperNgWash.remove()"
 				class="modal-action modal-close waves-effect waves-green btn-">{{'yes_remove_borehole'|translate}}!</a>
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 	</div>
@@ -59,7 +59,7 @@
 
 	</div>
 	<div class="modal-footer">
-		<a ng-click="ngmClusterHelperNgWash.remove()" 
+		<a ng-click="ngmClusterHelperNgWash.remove()"
 				class="modal-action modal-close waves-effect waves-green btn">{{'yes_remove_reticulation'|translate}}!</a>
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 	</div>
@@ -73,7 +73,7 @@
 
 	</div>
 	<div class="modal-footer">
-		<a ng-click="ngmClusterHelperNgWash.remove()" 
+		<a ng-click="ngmClusterHelperNgWash.remove()"
 				class="modal-action modal-close waves-effect waves-green btn">{{'yes_remove_service'|translate}}!</a>
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 	</div>
@@ -87,7 +87,7 @@
 
 	</div>
 	<div class="modal-footer">
-		<a ng-click="ngmClusterHelperNgWash.remove()" 
+		<a ng-click="ngmClusterHelperNgWash.remove()"
 				class="modal-action modal-close waves-effect waves-green btn">{{'yes_remove_maintenance'|translate}}!</a>
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 	</div>
@@ -101,7 +101,7 @@
 
 	</div>
 	<div class="modal-footer">
-		<a ng-click="ngmClusterHelperNgWash.remove()" 
+		<a ng-click="ngmClusterHelperNgWash.remove()"
 				class="modal-action modal-close waves-effect waves-green btn">{{'yes_remove_latrina'|translate}}!</a>
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 	</div>
@@ -115,7 +115,7 @@
 
 	</div>
 	<div class="modal-footer">
-		<a ng-click="ngmClusterHelperNgWash.remove()" 
+		<a ng-click="ngmClusterHelperNgWash.remove()"
 				class="modal-action modal-close waves-effect waves-green btn">{{'yes_remove_shower'|translate}}!</a>
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 	</div>
@@ -129,7 +129,7 @@
 
 	</div>
 	<div class="modal-footer">
-		<a ng-click="ngmClusterHelperNgWash.remove()" 
+		<a ng-click="ngmClusterHelperNgWash.remove()"
 				class="modal-action modal-close waves-effect waves-green btn">{{'yes_remove_waste_management'|translate}}!</a>
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 	</div>
@@ -143,7 +143,7 @@
 
 	</div>
 	<div class="modal-footer">
-		<a ng-click="ngmClusterHelperNgWash.remove()" 
+		<a ng-click="ngmClusterHelperNgWash.remove()"
 				class="modal-action modal-close waves-effect waves-green btn">{{'yes_remove_committee'|translate}}!</a>
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 	</div>
@@ -156,7 +156,7 @@
 		<p >{{'remove_this_hygiene_promotion_from_your_monthly_progress'|translate}}?</p>
 	</div>
 	<div class="modal-footer">
-		<a ng-click="ngmClusterHelperNgWash.remove()" 
+		<a ng-click="ngmClusterHelperNgWash.remove()"
 				class="modal-action modal-close waves-effect waves-green btn">{{'yes_remove_hygiene_promotion'|translate}}!</a>
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 	</div>
@@ -169,7 +169,7 @@
 		<p >{{'remove_this_hygiene_distribution_from_your_monthly_progress'|translate}}?</p>
 	</div>
 	<div class="modal-footer">
-		<a ng-click="ngmClusterHelperNgWash.remove()" 
+		<a ng-click="ngmClusterHelperNgWash.remove()"
 				class="modal-action modal-close waves-effect waves-green btn">{{'yes_remove_hygiene_distribution'|translate}}!</a>
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 	</div>
@@ -183,7 +183,7 @@
 
 	</div>
 	<div class="modal-footer">
-		<a ng-click="ngmClusterHelperNgWash.remove()" 
+		<a ng-click="ngmClusterHelperNgWash.remove()"
 				class="modal-action modal-close waves-effect waves-green btn">{{'yes_remove_cash_transfer'|translate}}!</a>
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 	</div>
@@ -197,7 +197,7 @@
 
 	</div>
 	<div class="modal-footer">
-		<a ng-click="ngmClusterHelperNgWash.remove()" 
+		<a ng-click="ngmClusterHelperNgWash.remove()"
 				class="modal-action modal-close waves-effect waves-green btn">{{'yes_remove_accountability_activity'|translate}}!</a>
 		<a class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
 	</div>
@@ -230,17 +230,20 @@
 <div class="row">
 	<div class="col s12 m12 l12">
 		<div style="padding:20px;">
-			
+
 			<!--  -->
+			<span class="left show-on-small hide-on-med-and-up"
+				style="padding-top:8px;padding-left: 17px;padding-bottom: 15px;">{{'last_updated' | translate}}:
+				{{ project.updatedAt }}</span>
 			<button ng-if="!project.location_group" class="waves-effect waves-teal btn-flat" ng-click="project.modalConfirm( 'list-modal' )">
 				<i class="material-icons mirror left">keyboard_return</i>{{'back_to_reports'|translate}}
 			</button>
 
 			<button ng-if="project.location_group" class="waves-effect waves-teal btn-flat" ng-click="project.modalConfirm( 'list-modal' )">
 				<i class="material-icons mirror left">keyboard_return</i>{{'back_to_location_groups'|translate}}
-			</button>			
+			</button>
 
-			<span class="right" style="padding-top:8px;">{{'last_updated'|translate}}: {{ project.updatedAt }}</span>
+			<span class="right hide-on-small-only" style="padding-top:8px;">{{'last_updated'|translate}}: {{ project.updatedAt }}</span>
 
 		</div>
 	</div>
@@ -250,8 +253,8 @@
 <div name="clusterReportForm" class="col s12 m12 l12" style="padding:0px;" novalidate>
 
 	<!-- <fieldset ng-disabled="!project.canEdit"> -->
-	<fieldset>
-		
+	<div>
+
 		<!-- Project beneficiaries details -->
 		<div ng-include="project.templatesUrl + project.locationsUrl"></div>
 
@@ -262,33 +265,48 @@
 		<div ng-if="!project.location_group" ng-include="project.templatesUrl + project.uploadUrl"></div>
 
 		<!-- form submission -->
-		<div class="row remove" ng-if="project.canEdit && project.definition.project_status !== 'complete' && 
+		<div class="row remove" ng-if="project.canEdit && project.definition.project_status !== 'complete' &&
 																		project.report.report_status !== 'complete'">
 			<div class="col s12 m12 l12">
-				<div class="widget card-panel white grey-text text-darken-2">			
-					
+				<div class="widget card-panel white grey-text text-darken-2">
+
 					<!-- submission !== NG -->
 					<div align="center" ng-if="project.definition.admin0pcode !== 'NG'">
-						
+
 						<!-- validation -->
+							<!--
+								params
+									arg1: set report status from 'todo' to 'complete' & re-direct
+									arg2: save & re-direct
+								project.validateBeneficiariesDetailsForm( arg1, arg2 )
+							 -->
 						<button class="waves-effect waves-light btn"
 											ng-click="project.validateBeneficiariesDetailsForm( false, true )"
+											ng-disabled="project.isSaving"
 											ng-cloak>
 										<i class="material-icons mirror right">send</i>{{'save_mayus'|translate}}
 						</button>
 
 						<!-- cancel new  -->
-						<button class="waves-effect waves-light btn grey modal-trigger" 
-											data-target="list-modal">{{'cancel_mayus' | translate}}
+						<button class="waves-effect waves-light btn grey modal-trigger"
+										ng-disabled="project.isSaving"
+										data-target="list-modal">{{'cancel_mayus' | translate}}
 						</button>
 
 						<br/>
 						<br/>
 
 						<!-- monthly report -->
+							<!--
+								params
+									arg1: set report status from 'todo' to 'complete' & re-direct
+									arg2: save & re-direct
+								project.validateBeneficiariesDetailsForm( arg1, arg2 )
+							 -->
 						<button ng-if="!project.location_group"
 											class="waves-effect waves-light btn blue"
 											ng-click="project.validateBeneficiariesDetailsForm( true, false )"
+											ng-disabled="project.isSaving"
 											ng-cloak>
 							<i class="material-icons left">assignment_turned_in</i>{{'submit_monthly_progress'|translate}}
 
@@ -298,8 +316,14 @@
 
 					<!-- submission === NG -->
 					<div align="center" ng-if="project.definition.admin0pcode === 'NG'">
-						
+
 						<!-- validation -->
+							<!--
+								params
+									arg1: set report status from 'todo' to 'complete' & re-direct
+									arg2: save & re-direct
+								project.validateBeneficiariesDetailsForm( arg1, arg2 )
+							 -->
 						<button class="waves-effect waves-light btn"
 											ng-click="project.validateWashNgBeneficiariesForm( false, true )"
 											ng-cloak>
@@ -307,7 +331,7 @@
 						</button>
 
 						<!-- cancel new  -->
-						<button class="waves-effect waves-light btn grey modal-trigger" 
+						<button class="waves-effect waves-light btn grey modal-trigger"
 											data-target="list-modal">{{'cancel_mayus' | translate}}
 						</button>
 
@@ -315,6 +339,12 @@
 						<br/>
 
 						<!-- monthly report -->
+							<!--
+								params
+									arg1: set report status from 'todo' to 'complete' & re-direct
+									arg2: save & re-direct
+								project.validateBeneficiariesDetailsForm( arg1, arg2 )
+							 -->
 						<button class="waves-effect waves-light btn blue"
 											ng-click="project.validateWashNgBeneficiariesForm( true, false )"
 											ng-cloak>
@@ -335,43 +365,45 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- validation report monthly -->
-		<div class="row remove" ng-if="project.report.report_status === 'complete' && ngmClusterValidation.verified_user()">
+		<div class="row remove" ng-if="project.report.admin0pcode === 'AF'  &&
+																		project.report.report_status === 'complete' &&
+																		ngmClusterValidation.verified_user()">
 			<div class="col s12 m12 l12">
-				<div class="widget card-panel white grey-text text-darken-2">					
-					<div align="center">		
+				<div class="widget card-panel white grey-text text-darken-2">
+					<div align="center">
 						<!-- validation -->
-						<button class="waves-effect waves-light btn" 
+						<button class="waves-effect waves-light btn"
 							ng-click="project.validateReport('valid')"
-							ng-disabled="project.report.report_validation ==='valid'" 
+							ng-disabled="project.report.report_validation ==='valid'"
 							ng-cloak>
 							<i class="material-icons right">assignment_turned_in</i>
 							Validate{{project.report.report_validation ==='valid'?'d':''}}
 						</button>
-						<button class="waves-effect waves-light btn grey" 
+						<button class="waves-effect waves-light btn grey"
 							ng-click="project.validateReport('checked')"
-							ng-disabled="project.report.report_validation ==='checked'"  
+							ng-disabled="project.report.report_validation ==='checked'"
 							ng-cloak>
 							<i class="material-icons right">search</i>to be checked
-						</button>		
+						</button>
 						<!-- cancel new  -->
-						<button class="waves-effect waves-light btn red " 
+						<button class="waves-effect waves-light btn red "
 							ng-click="project.validateReport('invalid')"
-							ng-disabled="project.report.report_validation ==='invalid'"> 
+							ng-disabled="project.report.report_validation ==='invalid'">
 							<i class="material-icons right">not_interested</i>
 							invalidate{{project.report.report_validation ==='invalid'?'d':''}}
 						</button>
-		
+
 						<br/>
 						<br/>
-		
-		
+
 					</div>
 				</div>
 			</div>
 		</div>
-	</fieldset>
+
+	</div>
 
 </div>
 

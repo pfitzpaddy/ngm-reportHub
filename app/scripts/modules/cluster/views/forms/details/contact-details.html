@@ -1,6 +1,6 @@
 <div>
 	<!-- bind html -->
-	<div class="row">
+	<div class="row" window-size>
 		<div class="col s12 m12 l12">
 			<div class="card">
 				<ul class="collection with-header">
@@ -20,7 +20,7 @@
 						<div class="row">
 							<div class="col s12 card">
 								<div style="padding-top: 10px; padding-bottom: 25px; padding-left: 40px; ">
-									<table class="bordered responsive-table" ng-show="project.definition">
+									<table class="bordered " ng-class="{'responsive-table': windowWidth > 992 ||windowWidth < 450 }" ng-show="project.definition">
 										<thead>
 										<tr style="font-weight: 400">
 											<td></td>

@@ -1010,11 +1010,11 @@ angular.module('ngmReportHub')
 								'title': $scope.dashboard.title,
 							},
 							subtitle: {
-								'class': 'col hide-on-small-only report-subtitle truncate m8 l9',
+								'class': 'col hide-on-small-only report-subtitle truncate m7 l9',
 								'title': $scope.dashboard.subtitle,
 							},
 							datePicker: {
-								'class': 'col s12 m4 l3',
+								'class': 'col s12 m5 l3',
 								dates: [{
 									style: $rootScope.rtl ? 'float:right;' : 'float:left;',
 									label: $filter('translate')('from'),
@@ -1290,7 +1290,7 @@ angular.module('ngmReportHub')
 										headerClass: 'collection-header teal lighten-2',
 										headerText: 'white-text',
 										headerIcon: 'assignment_turned_in',
-										headerTitle: $filter('translate')('projects_progress'),
+										headerTitle: $scope.dashboard.admin0pcode === 'af' ? $filter('translate')('activity_plans_progress') :$filter('translate')('projects_progress'),
 										templateUrl: '/scripts/widgets/ngm-table/templates/cluster/admin.progress.beneficiaries.html',
 										tableOptions:{
 											count: 10

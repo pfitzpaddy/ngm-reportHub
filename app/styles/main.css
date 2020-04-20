@@ -385,3 +385,27 @@ body.md-default-theme, body, html.md-default-theme, html {
 .icon.center .card img {
     width: 100%;
 }
+
+/* for rotate button when hide and show detail of form */
+.rotate{
+	transform:rotate(180deg);
+	box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.16), 0 -2px 10px 0 rgba(0, 0, 0, 0.12);
+	transition: .25s ease-in-out;
+}
+.rotate:hover{
+	box-shadow:0 -5px 11px 0 rgba(0, 0, 0, 0.18), 0 -4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+@media only screen and (max-width: 992px){
+	table.responsive-table thead tr th::before {
+		content: "";
+	}
+}
+
+@media only screen and (max-width: 500px){
+	.btn.button-label{
+		height: 28.4px;
+    line-height: 28.4px;
+    font-size: 9px;
+	}
+}

@@ -58,6 +58,7 @@ angular
 		'ngm.widget.stats',
 		'ngm.widget.table',
 		'ngm.materialize.select',
+		'ngm.materialize.datepicker',
 	])
 	.config([ '$routeProvider', '$locationProvider', '$compileProvider', '$translateProvider', function ( $routeProvider, $locationProvider, $compileProvider, $translateProvider ) {
 
@@ -586,6 +587,13 @@ angular
 			var app = $location.$$path.split('/')[1];
 			// set application
 			$scope.ngm.setApplication( app );
+
+		});
+
+		// on location change
+		$scope.$on( '$locationChangeStart', function( event ) {
+			// remove materializecss tooltips from DOM
+			$(".material-tooltip").remove();
 
 		});
 

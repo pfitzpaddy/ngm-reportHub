@@ -234,7 +234,7 @@ angular.module('ngmReportHub')
 						type: 'csv',
 						color: 'blue lighten-2',
 						icon: 'assignment_turned_in',
-						not_show:['COL','ET','NG'],
+						not_show:['COL','ET','NG', 'CB'],
 						hover: $filter('translate')('download_ocha_hrp_report_as_csv'),
 						request: $scope.dashboard.getRequest( { csv: true, indicator: 'ocha_report', report: $scope.dashboard.cluster_id_filename + '_ocha_hrp_report-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 						metrics: $scope.dashboard.getMetrics( 'cluster_ocha_report', 'csv' )
@@ -253,6 +253,14 @@ angular.module('ngmReportHub')
 						hover: $filter('translate')('download_beneficiary_data_as_csv'),
 						request: $scope.dashboard.getRequest( { csv: true, indicator: 'beneficiaries', report: $scope.dashboard.activity_filename + $scope.dashboard.cluster_id_filename + '_beneficiary_data-extracted-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
 						metrics: $scope.dashboard.getMetrics( 'beneficiary_data', 'csv' )
+					},{
+						type: 'pdf',
+						color: 'teal darken-3',
+						icon: 'library_books',
+						not_show:[ 'ALL','HQ','AF','COL','ET','NG','SO' ],
+						hover: $filter('translate')('download_sector_iscg_as_excel'),
+						request: $scope.dashboard.getRequest( { indicator: 'sector_iscg_excel', downloadUrl: ngmAuth.LOCATION + '/report/', report: '-' + $scope.dashboard.cluster_id + '-from-' + $scope.dashboard.startDate + '-to-' + $scope.dashboard.endDate + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) } ),
+						metrics: $scope.dashboard.getMetrics( 'sector_iscg_excel', 'excel' )
 					},{
 						type: 'csv',
 						color: 'blue lighten-2',
@@ -889,11 +897,11 @@ angular.module('ngmReportHub')
 								'title': $scope.dashboard.title,
 							},
 							subtitle: {
-								'class': 'col hide-on-small-only report-subtitle truncate m8 l9',
+								'class': 'col hide-on-small-only report-subtitle truncate m7 l9',
 								'title': $scope.dashboard.subtitle,
 							},
 							datePicker: {
-								'class': 'col s12 m4 l3',
+								'class': 'col s12 m5 l3',
 								dates: [{
 									style: 'float:left;',
 									label: $filter('translate')('from'),

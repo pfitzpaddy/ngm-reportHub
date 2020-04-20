@@ -6,8 +6,61 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', '$timeout', 'ngmAuth', 'ngmClusterLists', 'ngmClusterDetails', 'ngmClusterHelperNgWash',
-							function( $http, $filter, $timeout, ngmAuth, ngmClusterLists, ngmClusterDetails, ngmClusterHelperNgWash ) {
+	// filter active type
+	.filter('filterActiveTypes', [ '$filter', function ( $filter ) {
+		return function( data, beneficiary ) {
+			if ( data ) {
+				var list = data.filter(function( d ) {
+					if ( !beneficiary.id ) {
+						return !d.disabled
+					} else {
+						return true;
+					}
+				});
+				return list;
+			}
+		}
+	}])
+	// filter active descriptions
+	.filter('filterActiveDescriptions', [ '$filter', function ( $filter ) {
+		return function( data, beneficiary ) {
+			if ( data ) {
+				var list = data.filter(function( d ) {
+					if ( !beneficiary.id ) {
+						return d.active && 
+										d.cluster_id === beneficiary.cluster_id &&
+										d.activity_type_id === beneficiary.activity_type_id;
+					} else {
+						return d.cluster_id === beneficiary.cluster_id &&
+										d.activity_type_id === beneficiary.activity_type_id;
+					}
+				});
+				return list;
+			}
+		}
+	}])
+	// filter active details
+	.filter('filterActiveDetails', [ '$filter', function ( $filter ) {
+		return function( data, beneficiary ) {
+			if ( data ) {
+				var list = data.filter(function( d ) {
+					if ( !beneficiary.id ) {
+						return d.active && 
+										d.cluster_id === beneficiary.cluster_id &&
+										d.activity_type_id === beneficiary.activity_type_id &&
+										d.activity_description_id === beneficiary.activity_description_id;
+					} else {
+						return d.cluster_id === beneficiary.cluster_id &&
+										d.activity_type_id === beneficiary.activity_type_id &&
+										d.activity_description_id === beneficiary.activity_description_id;
+					}
+				});
+				return list;
+			}
+		}
+	}])
+	.factory( 'ngmClusterBeneficiaries', [ '$http', '$filter', '$timeout', 'ngmAuth', 'ngmClusterLists', 'ngmClusterVulnerablePopulations', 'ngmClusterDetails', 'ngmClusterHelperNgWash',
+							function( $http, $filter, $timeout, ngmAuth, ngmClusterLists, ngmClusterVulnerablePopulations, ngmClusterDetails, ngmClusterHelperNgWash ) {
 
 		// beneficairies
 		var ngmClusterBeneficiaries = {
@@ -91,32 +144,41 @@ angular.module( 'ngmReportHub' )
 
 			/* FORM UPDATES */
 
-			// datepicker ( NG )
+			// datepicker
 			datepicker: {
+
+				// show distribution date
+				initActivityDate: function( report, beneficiary ){
+					// set values
+					if ( !beneficiary.activity_start_date ) {
+						beneficiary.activity_status = 'ongoing';
+						beneficiary.activity_start_date = moment( report.reporting_period ).startOf( 'M' ).format( 'YYYY-MM-DD' );
+						beneficiary.activity_end_date = '';
+					}
+				},
+				//
 				startOnClose: function( beneficiary, value ) {
-					if (!value) { value =  moment( new Date() ).startOf( 'M' ); }
-					beneficiary.activity_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+					if (!value) { value =  moment().startOf( 'M' ); }
+					beneficiary.activity_start_date = moment( value ).format( 'YYYY-MM-DD' );
 				},
 				endOnClose: function( beneficiary, value ) {
-					if (!value) { value =  moment( new Date() ).endOf( 'M' ); }
-					beneficiary.activity_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+					if (!value) { value =  moment().endOf( 'M' ); }
+					beneficiary.activity_end_date = moment( value ).format( 'YYYY-MM-DD' );
 				},
 				// activity start date, end date
 				activityStartOnClose: function( location, $beneficiaryIndex, $index, value ) {
-					location.beneficiaries[ $beneficiaryIndex ].activity_start_date = moment.utc( value ).format( 'YYYY-MM-DD' );
+					location.beneficiaries[ $beneficiaryIndex ].activity_start_date = moment( new Date( value ) ).format( 'YYYY-MM-DD' );
+					if ( moment().format( 'YYYY-MM-DD' ) >= moment( location.beneficiaries[ $beneficiaryIndex ].activity_start_date ).format( 'YYYY-MM-DD' ) ) {
+						location.beneficiaries[ $beneficiaryIndex ].activity_status = 'ongoing';
+					} else {
+						location.beneficiaries[ $beneficiaryIndex ].activity_status = 'planned';
+					}
 				},
 				activityEndOnClose: function( location, $beneficiaryIndex, $index, value ) {
-					location.beneficiaries[ $beneficiaryIndex ].activity_end_date = moment.utc( value ).format( 'YYYY-MM-DD' );
-					location.beneficiaries[ $beneficiaryIndex ].activity_status = 'complete';
-				}
-			},
-
-			// show distribution date
-			initActivityDate: function( beneficiary ){
-				// set values
-				if ( !beneficiary.activity_start_date ) {
-					beneficiary.activity_start_date = moment.utc( new Date() ).format( 'YYYY-MM-DD' );
-					beneficiary.activity_status = 'ongoing';
+					if ( value ) {
+						location.beneficiaries[ $beneficiaryIndex ].activity_end_date = moment( new Date ( value ) ).format( 'YYYY-MM-DD' );
+						location.beneficiaries[ $beneficiaryIndex ].activity_status = 'complete';
+					}
 				}
 			},
 
@@ -127,14 +189,14 @@ angular.module( 'ngmReportHub' )
 
 			// update material_select
 			updateSelect: function(){
-				$timeout(function() { 
-					// $( 'select' ).material_select(); 
+				$timeout(function() {
+					// $( 'select' ).material_select();
 					$('select').formSelect();
 				}, 400 );
 			},
 
 			updateSelectById: function (id) {
-				$timeout(function () { 
+				$timeout(function () {
 					// $('#' + id + ' select').material_select();
 					$('#' + id + ' select').formSelect();
 				 }, 10 );
@@ -168,12 +230,20 @@ angular.module( 'ngmReportHub' )
 					beneficiary.total_beneficiaries = 0;
 
 					// calc
-					beneficiary.total_male += beneficiary.boys +
-																beneficiary.men +
-																beneficiary.elderly_men;
-					beneficiary.total_female += beneficiary.girls +
-																beneficiary.women +
-																beneficiary.elderly_women;
+					// beneficiary.total_male += beneficiary.boys +
+					// 											beneficiary.men +
+					// 											beneficiary.elderly_men;
+					// beneficiary.total_female += beneficiary.girls +
+					// 											beneficiary.women +
+					// 											beneficiary.elderly_women;
+
+					beneficiary.total_male += ((beneficiary.boys === null || beneficiary.boys === undefined || beneficiary.boys === NaN || beneficiary.boys < 0 || beneficiary.boys === '') ? 0 : beneficiary.boys) +
+						((beneficiary.men === null || beneficiary.men === undefined || beneficiary.men === NaN || beneficiary.men < 0 || beneficiary.men === '') ? 0 : beneficiary.men) +
+						((beneficiary.elderly_men === null || beneficiary.elderly_men === undefined || beneficiary.elderly_men === NaN || beneficiary.elderly_men < 0 || beneficiary.elderly_men === '') ? 0 : beneficiary.elderly_men);
+					
+					beneficiary.total_female += ((beneficiary.girls === null || beneficiary.girls === undefined || beneficiary.girls === NaN || beneficiary.girls < 0 || beneficiary.girls === '') ? 0 : beneficiary.girls) +
+						((beneficiary.women === null || beneficiary.women === undefined || beneficiary.women === NaN || beneficiary.women < 0 || beneficiary.women === '') ? 0 : beneficiary.women) +
+						((beneficiary.elderly_women === null || beneficiary.elderly_women === undefined || beneficiary.elderly_women === NaN || beneficiary.elderly_women < 0 || beneficiary.elderly_women === '') ? 0 : beneficiary.elderly_women);
 
 					beneficiary.total_beneficiaries += beneficiary.total_male + beneficiary.total_female;
 				}, 100 );
@@ -370,6 +440,12 @@ angular.module( 'ngmReportHub' )
 				});
 
 				// clear
+				if ( beneficiary.vulnerable_populations && beneficiary.vulnerable_populations.length ) {
+					beneficiary.vulnerable_populations = [{}];
+					ngmClusterVulnerablePopulations.setList( ngmClusterBeneficiaries.form[ $parent ][ $index ].vulnerable_populations, $parent, $index, 0, '', [{}] );
+				}
+
+				// clear
 				if ( beneficiary.details && beneficiary.details.length ) {
 					beneficiary.details = [{}];
 					ngmClusterDetails.setList( ngmClusterBeneficiaries.form[ $parent ][ $index ].details, $parent, $index, 0, '', [{}] );
@@ -384,6 +460,12 @@ angular.module( 'ngmReportHub' )
 				// 		delete beneficiary[ key_base + 'name' ];
 				// 	}
 				// });
+
+				// set beneficary category id for AF
+				// if (project.definition.admin0pcode === 'AF' && ngmClusterBeneficiaries.form[$parent][$index]['beneficiary_category_type_id'] && !beneficiary.beneficiary_category_id){
+				// 	beneficiary.beneficiary_category_id = project.lists.beneficiary_categories[0].beneficiary_category_id;
+				// 	beneficiary.beneficiary_category_name = project.lists.beneficiary_categories[0].beneficiary_category_name;
+				// }
 
 			},
 
@@ -428,19 +510,29 @@ angular.module( 'ngmReportHub' )
 
 				// beneficiary.display_indicator
 				if ( beneficiary.display_indicator && beneficiary.indicator_id ) {
-					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_indicators, { indicator_id: beneficiary.indicator_id }, true )[ 0 ];
+					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_indicators, { indicator_id: beneficiary.indicator_id, activity_detail_id: beneficiary.activity_detail_id, activity_description_id: beneficiary.activity_description_id, activity_type_id: beneficiary.activity_type_id, cluster_id: beneficiary.cluster_id }, true )[ 0 ];
 				}
 				// beneficiary.display_activity_detail
 				else if ( beneficiary.display_activity_detail && beneficiary.activity_detail_id ) {
-					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_details, { activity_detail_id: beneficiary.activity_detail_id }, true )[ 0 ];
+					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_details, { activity_detail_id: beneficiary.activity_detail_id, activity_description_id: beneficiary.activity_description_id, activity_type_id: beneficiary.activity_type_id, cluster_id: beneficiary.cluster_id }, true )[ 0 ];
 				}
 				// beneficiary.activity_description_id
 				else if ( beneficiary.activity_description_id ) {
-					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_descriptions, { activity_description_id: beneficiary.activity_description_id }, true )[ 0 ];
+					ngmClusterBeneficiaries.form[ $parent ][ $index ] = $filter('filter')( lists.activity_descriptions, { activity_description_id: beneficiary.activity_description_id, activity_type_id: beneficiary.activity_type_id, cluster_id: beneficiary.cluster_id }, true )[ 0 ];
 				}
 				// reset form
 				else if ( beneficiary.activity_type_id ) {
-					ngmClusterBeneficiaries.form[ $parent ][ $index ] = ngmClusterBeneficiaries.defaults.form;
+					ngmClusterBeneficiaries.form[ $parent ][ $index ] = angular.copy( ngmClusterBeneficiaries.defaults.form );
+				}
+
+				// set default form on activity missing
+				if ( typeof ngmClusterBeneficiaries.form[$parent][$index] === 'undefined' ) {
+					ngmClusterBeneficiaries.form[$parent][$index] = angular.copy( ngmClusterBeneficiaries.defaults.form );
+				}
+
+				// should form be displayed
+				if ( ngmClusterBeneficiaries.form[$parent][$index] ) {
+ 							ngmClusterBeneficiaries.form[$parent][$index].display = ngmClusterBeneficiaries.showFormInputs( beneficiary, ngmClusterBeneficiaries.form[$parent][$index] );
 				}
 
 			},
@@ -457,10 +549,10 @@ angular.module( 'ngmReportHub' )
 					data: { id: id }
 				}).success( function( result ) {
 					// Materialize.toast( $filter('translate')('target_beneficiary_removed'), 4000, 'success' );
-					M.toast({ html: $filter('translate')('target_beneficiary_removed'), displayLength: 4000, classes: 'success' }); 
+					M.toast({ html: $filter('translate')('target_beneficiary_removed'), displayLength: 4000, classes: 'success' });
 				}).error( function( err ) {
 					// Materialize.toast( 'Error!', 4000, 'error' );
-					M.toast({ html: 'Error!', displayLength: 4000, classes: 'error' }); 
+					M.toast({ html: 'Error!', displayLength: 4000, classes: 'error' });
 				});
 			},
 
@@ -472,8 +564,8 @@ angular.module( 'ngmReportHub' )
 						url: ngmAuth.LOCATION + '/api/cluster/report/removeBeneficiary',
 						data: { id: id }
 				}).success( function( result ){
-					if ( result.err ) { 
-						// Materialize.toast( 'Error! Please correct the ROW and try again', 4000, 'error' ); 
+					if ( result.err ) {
+						// Materialize.toast( 'Error! Please correct the ROW and try again', 4000, 'error' );
 						M.toast({ html: 'Error! Please correct the ROW and try again', displayLength: 4000, classes: 'error' });
 					}
 					if ( !result.err ) { project.save( false, false ); }
@@ -622,7 +714,7 @@ angular.module( 'ngmReportHub' )
 
 
 			/* VALIDATION */
-			
+
 			// ennsure all locations contain at least one complete beneficiaries
 			beneficiaryFormComplete: function( project, locations ) {
 				var beneficiaries = 0;
@@ -679,7 +771,7 @@ angular.module( 'ngmReportHub' )
 								}else{
 									disabled = false;
 								}
-								
+
 							}
 						}
 

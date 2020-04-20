@@ -1283,12 +1283,12 @@ angular.module( 'ngmReportHub' )
 							title: $scope.report.title
 						},
 						subtitle: {
-							'class': 'col hide-on-small-only report-subtitle truncate m8 l9',
+							'class': 'col hide-on-small-only report-subtitle truncate m7 l9',
 							style: 'font-weight: 400;',
 							title: $scope.report.subtitle
 						},
 						datePicker: {
-							'class': 'col s12 m4 l3',
+							'class': 'col s12 m5 l3',
 							dates: [{
 								style: 'float:left;',
 								label: $filter('translate')('from'),

@@ -144,11 +144,11 @@ angular.module('ngmReportHub')
 					'title': $scope.dashboard.title,
 				},
 				subtitle: {
-					'class': 'col hide-on-small-only m8 l9 report-subtitle',
+					'class': 'col hide-on-small-only m7 l9 report-subtitle',
 					title: $scope.dashboard.subtitle,
 				},
 				datePicker: {
-					'class': 'col s12 m4 l3',
+					'class': 'col s12 m5 l3',
 					dates: [{
 						'class': 'ngm-date',
 						style: 'float:left;',

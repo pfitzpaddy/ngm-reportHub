@@ -480,11 +480,11 @@ angular.module( 'ngmReportHub' )
 							title: 'iMMAP | ' + $scope.report.admin0pcode.toUpperCase() + ' | '+ $filter('translate')('products_mayus1')
 						},
 						subtitle: {
-							'class': 'col hide-on-small-only m8 l9 report-subtitle truncate',
+							'class': 'col hide-on-small-only m7 l9 report-subtitle truncate',
 							title: $scope.report.getSubTitle()
 						},
 						datePicker: {
-							'class': 'col s12 m4 l3',
+							'class': 'col s12 m5 l3',
 							dates: [{
 								style: 'float:left;',
 								label: $filter('translate')('from'),

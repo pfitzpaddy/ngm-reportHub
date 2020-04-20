@@ -71,22 +71,25 @@
 </div>
 	<!-- panels -->
 	<div class="row" ng-if="panel.project.admin0pcode === 'AF' || panel.project.admin0pcode === 'COL'">
-	  <div class="col s12 m4">
+	  <div class="col s12 m12 l4">
 	  	<a href="#/cluster/projects/details/{{ panel.project.id }}">
 	   	 <div class="card small blue-grey darken-1 hoverable">
 	      <div class="card-image">
 	        <img src="images/cluster/details-1.jpg">
 	      </div>
 	      <div class="card-content white-text">
-	      	<p class="card-title">{{'project_plan'|translate}}</p>
+			<p ng-if="panel.project.admin0pcode !== 'AF'" class="card-title">{{'project_plan'|translate}}</p>
+			<p ng-if="panel.project.admin0pcode === 'AF'" class="card-title">{{'planned_activities'|translate}}</p>
 	      </div>
 	      <div class="card-action">
-	        <a class="left" href="#/cluster/projects/details/{{ panel.project.id }}">{{'go_to_project_plan'|translate}}</a>
+			<a ng-if="panel.project.admin0pcode !== 'AF'" class="left" href="#/cluster/projects/details/{{ panel.project.id }}">{{'go_to_project_plan'|translate}}</a>
+			<a ng-if="panel.project.admin0pcode === 'AF'" class="left"
+				href="#/cluster/projects/details/{{ panel.project.id }}">{{'go_to_activity_plan'|translate}}</a>
 	      </div>
 	    </div>
 	    </a>
 	  </div>
-	  <div class="col s12 m4">
+	  <div class="col s12 m12 l4">
 			<a href="#/cluster/projects/financials/{{ panel.project.id }}" 
 				ng-class="{'disabled-link':panel.project.project_status === 'new'
 										|| panel.project.project_status === 'plan'
@@ -104,7 +107,7 @@
 		    </div>
 		   </a>
 	  </div>
-	  <div class="col s12 m4">
+	  <div class="col s12 m12 l4">
 	  	<a href="#/cluster/projects/report/{{ panel.project.id }}" ng-class="{'disabled-link':panel.project.project_status === 'new' || panel.project.project_status === 'plan' || panel.project.project_status === 'not_implemented'}">
 		    <div class="card small blue-grey darken-1 hoverable" ng-class="{'disabled-link':panel.project.project_status === 'new' || panel.project.project_status === 'plan' || panel.project.project_status === 'not_implemented'}">
 		      <div class="card-image" ng-class="{'no-active':panel.project.project_status === 'new' || panel.project.project_status === 'plan' || panel.project.project_status === 'not_implemented'}" >
@@ -125,7 +128,7 @@
 
 	<!-- panels -->
 	<div class="row" ng-if="panel.project.admin0pcode !== 'AF' && panel.project.admin0pcode !== 'COL'">
-	  <div class="col s12 m6">
+	  <div class="col s12 m12 l6">
 	  	<a href="#/cluster/projects/details/{{ panel.project.id }}">
 	   	 <div class="card small blue-grey darken-1 hoverable">
 	      <div class="card-image">
@@ -140,7 +143,7 @@
 	    </div>
 	    </a>
 	  </div>
-	  <div class="col s12 m6">
+	  <div class="col s12 m12 l6">
 	  	<a href="#/cluster/projects/report/{{ panel.project.id }}">
 		    <div class="card small blue-grey darken-1 hoverable">
 		      <div class="card-image">
@@ -165,13 +168,21 @@
 				<div class="widget card-panel white grey-text text-darken-2">
 					<!-- submission -->
 					<div align="center">
-						<button data-target="complete-modal" class="waves-effect waves-light btn modal-trigger blue" ng-cloak>
+						<button ng-if="panel.project.admin0pcode !== 'AF'" data-target="complete-modal" class="waves-effect waves-light btn modal-trigger blue" ng-cloak>
 							<i class="material-icons left">assignment_turned_in</i>{{'mark_project_as_complete' | translate}}
+						</button>
+						<button ng-if="panel.project.admin0pcode === 'AF'" data-target="complete-modal"
+							class="waves-effect waves-light btn modal-trigger blue" ng-cloak>
+							<i class="material-icons left">assignment_turned_in</i>{{'mark_activity_plan_as_complete' | translate}}
 						</button>
 						<br/>
 						<br/>
-						<button data-target="delete-modal" class="waves-effect waves-light btn modal-trigger red lighten-2" ng-cloak>
+						<button ng-if="panel.project.admin0pcode !== 'AF'" data-target="delete-modal" class="waves-effect waves-light btn modal-trigger red lighten-2" ng-cloak>
 							<i class="material-icons left">delete_forever</i>{{'delete_project' | translate}}
+						</button>
+						<button ng-if="panel.project.admin0pcode === 'AF'" data-target="delete-modal"
+							class="waves-effect waves-light btn modal-trigger red lighten-2" ng-cloak>
+							<i class="material-icons left">delete_forever</i>{{'delete_activity_plan' | translate}}
 						</button>
 					</div>
 				</div>
@@ -183,8 +194,12 @@
 				<div class="widget card-panel white grey-text text-darken-2">
 					<!-- submission -->
 					<div align="center">
-						<button data-target="active-modal" class="waves-effect waves-light btn modal-trigger blue" ng-cloak>
+						<button ng-if="panel.project.admin0pcode !== 'AF'"data-target="active-modal" class="waves-effect waves-light btn modal-trigger blue" ng-cloak>
 							<i class="material-icons left">assignment_turned_in</i>{{'mark_project_as_active' | translate}}
+						</button>
+						<button ng-if="panel.project.admin0pcode === 'AF'" data-target="active-modal"
+							class="waves-effect waves-light btn modal-trigger blue" ng-cloak>
+							<i class="material-icons left">assignment_turned_in</i>{{'mark_activity_plan_as_active' | translate}}
 						</button>
 						<br/>
 						<br/>

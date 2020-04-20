@@ -47,15 +47,19 @@
 </style>
 
 <!-- bind html -->
-<div class="row">
+<div class="row" window-size>
 	<div class="col s12 m12 l12">
 		<div class="card">
 			<ul id="project_details_form" class="collection with-header">
 
 				<li class="collection-header blue lighten-1">
-					<h5 class="report-work-title white-text">
+					<h5 ng-if="project.definition.admin0pcode !== 'AF'" class="report-work-title white-text">
 						<i class="material-icons left">border_color</i>{{'project_plan'|translate}}
 
+					</h5>
+					<h5 ng-if="project.definition.admin0pcode === 'AF'" class="report-work-title white-text">
+						<i class="material-icons left">border_color</i>{{'activity_plan_detail'|translate}}
+					
 					</h5>
 				</li>
 
@@ -70,7 +74,7 @@
 							<!-- project details -->
 							<div class="row">
 
-								<div class="input-field col s12 m6">
+								<div class="input-field col s12 m12 l6">
 								  <input id="ngm-project-name" type="text" class="validate"
 												ng-model="project.definition.project_title"
 												ng-change="ngmClusterBeneficiaries.inputChange('ngm-project-name')"
@@ -80,7 +84,7 @@
 								</div>
 
 								<!-- input-date directive -->
-								<div class="input-field col s12 m3">
+								<div class="input-field col s12 m6 l3">
 											<label id="ngm-start-date" for="ngm-start-date" class="validate">{{'start_date' | translate}} *</label>
 											<input ngm-date
 											    type="text"
@@ -96,7 +100,7 @@
 								</div>
 
 								<!-- input-date directive -->
-								<div class="input-field col s12 m3">
+								<div class="input-field col s12 m6 l3">
 								  <label for="ngm-end-date">{{'end_date' | translate}} *</label>
 											<input ngm-date
 											    type="text"
@@ -117,14 +121,14 @@
 							<div class="row">
 
 								<!-- org project code  -->
-								<div class="input-field col s12 m6">
+								<div class="input-field col s12 m12 l6">
 								  <input id="ngm-project_code" type="text" class="validate"
 								  	ng-model="project.definition.project_code"
 								  	ng-disabled="project.definition.project_status === 'complete'">
 								  <label for="ngm-project_code">{{ project.definition.organization }} {{'project_code' | translate}}</label>
 								</div>
 
-								<div class="input-field col s12 m3">
+								<div class="input-field col s12 m6 l3">
 								  <input id="ngm-project-budget" type="text" class="validate"
 									ng-model="project.definition.project_budget"
 									ng-change="ngmClusterBeneficiaries.inputChange('ngm-project-budget')"
@@ -133,7 +137,7 @@
 								  <label for="ngm-project-budget">{{'project_budget' | translate}} ( {{ project.definition.project_budget_currency | uppercase }} ) *</label>
 								</div>
 
-								<div class="input-field col s12 m3"
+								<div class="input-field col s12 m6 l3"
 									ng-class="{ 'error-label': healthProjectForm.$submitted && !project.definition.project_budget_currency }">
 									    <select class="validate"
 									    	id="ngm-project_budget_currency"
@@ -183,7 +187,7 @@
 							<div class="row" ng-if="project.definition.admin0pcode !== 'COL'">
 
 								<!-- switch -->
-								<div class="switch input-field col s12 m6">
+								<div class="switch input-field col s12 m6 l6">
 									<label>
 										Non-{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} {{'project'|translate}}
 										<input ng-click="project.setHrpStatus();"
@@ -198,15 +202,15 @@
 
 								<!-- default -->
 								<div ng-if="project.definition.admin0pcode !== 'SO'">
-									<div ng-if="project.definition.project_hrp_project" class="input-field col s12 m6">
+									<div ng-if="project.definition.project_hrp_project" class="input-field col s12 m6 l6" ng-style="(windowWidth <= 600) && {'margin-top':'40px'}">
 									  <input id="ngm-project_hrp_code" type="text" class="validate"
 									  				ng-model="project.definition.project_hrp_code"
 									  				disabled="true"/>
-									  <label for="ngm-project-budget">
+									  <label for="ngm-project-budget" ng-style="(windowWidth <= 600) && {'transform':'translateY(-30%)'}">
 									  	{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} Project Code
 									  </label>
 									</div>
-									<div ng-if="!project.definition.project_hrp_project" class="input-field col s12 m6">
+									<div ng-if="!project.definition.project_hrp_project" class="input-field col s12 m6 l6">
 									  <input id="ngm-project_hrp_code" type="text" class="validate"
 									  				ng-model="project.definition.project_hrp_code"
 									  				disabled="true">
@@ -218,14 +222,14 @@
 
 								<!-- SO project_hrp_code -->
 								<div ng-if="project.definition.admin0pcode === 'SO'">
-									<div ng-if="project.definition.project_hrp_project" class="input-field col s12 m6">
+									<div ng-if="project.definition.project_hrp_project" class="input-field col s12 m6 l6" ng-style="(windowWidth <= 600) && {'margin-top':'40px'}">
 									  <input id="ngm-project_hrp_code"
 									  				type="text" class="validate"
 									  				ng-model="project.definition.project_hrp_code"
 									  				ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-									  <label for="ngm-project-budget">{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} Project Code</label>
+									  <label for="ngm-project-budget" ng-style="(windowWidth <= 600) && {'transform':'translateY(-30%)'}">{{ ngmClusterHelper.getProjectHrpName( project.definition ) }} Project Code</label>
 									</div>
-									<div ng-if="!project.definition.project_hrp_project" class="input-field col s12 m6">
+									<div ng-if="!project.definition.project_hrp_project" class="input-field col s12 12 l6">
 									  <input id="ngm-project_hrp_code"
 									  				type="text" class="validate"
 									  				ng-model="project.definition.project_hrp_code"
@@ -259,19 +263,21 @@
 
 								<!-- activities -->
 								<div class="row" id="ngm-activity_type_label">
-									<div class="activity-field col s12 m6" style="padding-top:12px;padding-bottom:5px;">
+									<div class="activity-field col s12 m6 l6" style="padding-top:12px;padding-bottom:5px;">
 
 										<label class="label" id="ngm-activity_type" for="ngm-activity_type">{{'activity_type' | translate}} *</label>
 										<div style="padding-bottom:5px;"></div>
 										<label class="label">{{ project.definition.cluster }}</label>
 										<div style="padding-bottom:15px;"></div>
 										<!-- for project cluster activity_type -->
-										<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }" ng-repeat="a in project.lists.activity_types | filter: { cluster_id: project.definition.cluster_id } ">
-											<!-- <input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}"
-															ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
-															ng-click="project.compileInterClusterActivities()"
-															ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-											<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label> -->
+										<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }"
+													ng-repeat="a in project.lists.activity_types | 
+																			filter: { 
+																							admin0pcode: project.definition.admin0pcode, 
+																							cluster_id: project.definition.cluster_id, 
+																							active: 1
+																						}">
+											<!-- checkboxes -->
 											<label class="checkbox-label" for="activity_{{ a.activity_type_id }}">
 												<input type="checkbox"
 												class="filled-in"
@@ -291,12 +297,12 @@
 													<label class="label">{{ cluster.cluster }}</label>
 													<div style="padding-bottom:15px;"></div>
 													<!-- for project cluster activity_type -->
-													<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }"  ng-repeat="a in project.lists.activity_types | filter: { cluster_id: cluster.cluster_id } ">
-														<!-- <input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}"
-																		ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
-																		ng-click="project.compileInterClusterActivities()"
-																		ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-														<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label> -->
+													<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }"
+																ng-repeat="a in project.lists.activity_types | 
+																						filter: { admin0pcode: project.definition.admin0pcode,
+																											cluster_id: cluster.cluster_id,
+																											active: 1 } ">
+														<!-- checkboxes -->																						
 														<label class="checkbox-label" for="activity_{{ a.activity_type_id }}">
 															<input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}"
 																ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
@@ -312,7 +318,7 @@
 									</div>
 
 									<!-- no other_activities_in_addition_to for CB && health -->
-									<div class="input-field col s12 m6" style="padding-bottom:5px;">
+									<div class="input-field col s12 m6 l6" style="padding-bottom:5px;">
 										<label>{{'other_activities_in_addition_to' | translate}} {{ project.definition.cluster }}?</label>
 										<div style="padding-bottom:50px;"></div>
 								    <p ng-repeat="a in project.lists.clusters | filter: { cluster_id: '!' + project.definition.cluster_id }"
@@ -398,12 +404,14 @@
 										<label class="label" id="ngm-activity_type" for="ngm-activity_type">{{'activity_type' | translate}} *</label>
 										<div style="padding-bottom:15px;"></div>
 										<!-- for project cluster activity_type -->
-										<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }" ng-repeat="a in project.lists.activity_types | filter: { cluster_id: project.definition.cluster_id } ">
-											<!-- <input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}"
-															ng-model="project.definition.activity_type_check[ a.activity_type_id ]"
-															ng-click="project.compileInterClusterActivities()"
-															ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-											<label class="label checkbox-label" for="activity_{{ a.activity_type_id }}">{{ a.activity_type_name }}</label> -->
+										<p  ng-style="($root.rtl) && { 'padding-right':'10px' } || { 'padding-left':'10px' }"
+													ng-repeat="a in project.lists.activity_types | 
+														filter: { 
+																			admin0pcode: project.definition.admin0pcode, 
+																			cluster_id: project.definition.cluster_id,
+																			active: 1
+																		}">
+											<!-- checkbox -->
 											<label class="checkbox-label" for="activity_{{ a.activity_type_id }}">
 												<input type="checkbox" class="filled-in" id="activity_{{ a.activity_type_id }}"
 													ng-model="project.definition.activity_type_check[ a.activity_type_id ]"

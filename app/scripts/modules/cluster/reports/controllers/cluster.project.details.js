@@ -66,7 +66,7 @@ angular.module('ngmReportHub')
 							title: title
 						},
 						subtitle: {
-							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
+							'class': 'col s12 m12 l12 report-subtitle truncate',
 							'title': subtitle
 						},
 						download: {
@@ -128,6 +128,31 @@ angular.module('ngmReportHub')
 										dashboard: $scope.report.project.project_title,
 										theme: 'cluster_project_details',
 										format: 'csv',
+										url: $location.$$path
+									}
+								}
+							},{
+								type: 'xlsx',
+								color: 'blue lighten-2',
+								icon: 'description',
+								hover: $filter('translate')('download_project_lists'),
+								request: {
+									method: 'GET',
+									url: ngmAuth.LOCATION + '/api/cluster/report/getProjectLists',
+									params: {
+										project_id : $scope.report.project.id
+									},
+								},
+								metrics: {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
+									data: {
+										organization: $scope.report.user.organization,
+										username: $scope.report.user.username,
+										email: $scope.report.user.email,
+										dashboard: $scope.report.project.project_title,
+										theme: 'cluster_project_lists',
+										format: 'xlsx',
 										url: $location.$$path
 									}
 								}
@@ -212,7 +237,7 @@ angular.module('ngmReportHub')
 						$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
 					}, 0);
 				} else {
-					
+
 					// report dashboard model
 					$scope.model = {
 						name: 'cluster_project_details',

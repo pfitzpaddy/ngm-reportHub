@@ -70,7 +70,7 @@ angular.module('ngmReportHub')
 				$scope.report.title = $scope.report.organization.organization + ' | ' + $scope.report.definition.admin0name.toUpperCase().substring(0, 3) + ' | '+$filter('translate')('stock_report');
 				$scope.report.report = $scope.report.organization.organization + '_' + moment.utc( [ $scope.report.definition.report_year, $scope.report.definition.report_month, 1 ] ).format('MMMM, YYYY');
 				// set report for downloads
-				$scope.report.filename = $scope.report.definition.organization + '_' + $scope.report.definition.cluster + '_' + moment( $scope.report.definition.report_month ).format( 'MMMM' ) + '_Stocks_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
+				$scope.report.filename = $scope.report.definition.organization  + '_' + moment( $scope.report.definition.report_month ).format( 'MMMM' ) + '_Stocks_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 
 				// report dashboard model
 				$scope.model = {
@@ -86,7 +86,7 @@ angular.module('ngmReportHub')
 							title: $scope.report.title
 						},
 						subtitle: {
-							'class': 'col s12 m12 l12 report-subtitle truncate hide-on-small-only',
+							'class': 'col s12 m12 l12 report-subtitle truncate',
 							'title': $filter('translate')('monthly_stock_report_for')+ ' ' + moment.utc( [ $scope.report.definition.report_year, $scope.report.definition.report_month, 1 ] ).format('MMMM, YYYY')
 						},
 						download: {

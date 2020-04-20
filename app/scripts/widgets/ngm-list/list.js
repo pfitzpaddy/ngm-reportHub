@@ -46,14 +46,14 @@ angular.module('ngm.widget.list', ['ngm.provider'])
     '$location',
     '$timeout',
     'ngmAuth',
-    'data', 
+    'data',
 		'config',
 		'ngmData',
     '$translate',
     '$filter',
 		function ($scope, $rootScope, $sce, $element, $location, $timeout, ngmAuth, data, config,ngmData, $translate,$filter){
 
-    
+
       // statistics widget default config
       $scope.list = {
 
@@ -71,7 +71,7 @@ angular.module('ngm.widget.list', ['ngm.provider'])
 
         // default params
         itemsPerPage: 5,
-        
+
         // src template
         templateUrl: '/scripts/widgets/ngm-list/template/default.html',
 
@@ -133,11 +133,11 @@ angular.module('ngm.widget.list', ['ngm.provider'])
 			// set event listener to update data
 			if ($scope.list.refreshEvent) {
 				$scope.$on($scope.list.refreshEvent, function () {
-					ngmData.get(config.request).then(function (data) {
-						$scope.list.data = data ? data : false;
-					});
-					// reloads entire widget
-					// $scope.$emit('widgetReload');
+					// ngmData.get(config.request).then(function (data) {
+					// 	$scope.list.data = data ? data : false;
+							// reloads entire widget
+							$timeout(function () { $scope.$emit('widgetReload'); }, 0)
+					// });
 				})
 			}
 

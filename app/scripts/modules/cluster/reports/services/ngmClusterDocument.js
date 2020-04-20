@@ -15,21 +15,21 @@ angular.module('ngmReportHub')
 						// upload.params = params;
 						upload.token = token;
 					},
-					getDocument: function (id, api_url, grid_page, list_page, nameOfList) {						
+					getDocument: function (id, api_url, grid_page, list_page, nameOfList) {
 						ngmData.get({
 							method: 'GET',
 							async:false,
 							url: ngmAuth.LOCATION + api_url + id
 						}).then(function (data) {
 							// assign data
-							// set for grid view							
+							// set for grid view
 							// var listUpload;
 							// $rootScope[nameOfList] = data;
 							// $rootScope[nameOfList].id = 'ngm-paginate-' + Math.floor((Math.random() * 1000000))
 							// $rootScope[nameOfList].itemsPerPage = 12;
 							// $rootScope[nameOfList].itemsPerListPage = 6;
-								
-								
+
+
 						});
 					},
 					// ****to manage shown file****
@@ -131,11 +131,7 @@ angular.module('ngmReportHub')
 								$('#' + modal).modal('open');
 							},
 							closeModal: function (modal) {
-								// $('#' + modal).closeModal({ dismissible: true });
-								$('#' + modal).modal({ dismissible: true });
-								$('#' + modal).modal('close');
 								myDropzone.removeAllFiles(true);
-								// Materialize.toast($filter('translate')('cancel_to_upload_file'), 2000, "note");
 								M.toast({ html: $filter('translate')('cancel_to_upload_file'), displayLength: 2000, classes: 'note'});
 							},
 							// params: {
@@ -161,7 +157,7 @@ angular.module('ngmReportHub')
 																					<span data-dz-name></span>
 																				</div>
 																			</div>
-																			<div data-dz-remove class=" remove-upload btn-floating red" style="margin-left:35%; "><i class="material-icons">clear</i></div> 
+																			<div data-dz-remove class=" remove-upload btn-floating red" style="margin-left:35%; "><i class="material-icons">clear</i></div>
 																		</div>`,
 							completeMessage: '<i class="medium material-icons" style="color:#009688;">cloud_done</i><br/><h5 style="font-weight:300;">' + $filter('translate')('complete') + '</h5><br/><h5 style="font-weight:100;"><div id="add_doc" class="btn"><i class="small material-icons">add_circle</i></div></h5></div>',
 							url: ngmAuth.LOCATION + '/api/uploadGDrive',
@@ -214,7 +210,7 @@ angular.module('ngmReportHub')
 								document.getElementById('upload_doc').addEventListener("click", function () {
 									// enable auto process queue after uploading started
 									myDropzone.autoProcessQueue = true;
-									myDropzone.processQueue(); // Tell Dropzone to process all queued files.																						
+									myDropzone.processQueue(); // Tell Dropzone to process all queued files.
 								});
 
 								document.getElementById('delete_doc').addEventListener("click", function () {
@@ -225,7 +221,7 @@ angular.module('ngmReportHub')
 								myDropzone.on("addedfile", function (file) {
 									document.querySelector(".dz-default.dz-message").style.display = 'none';
 									var ext = file.name.split('.').pop();
-									//change preview if not image/* 
+									//change preview if not image/*
 									if (ext == 'pdf') {
 										$(file.previewElement).find(".dz-image img").attr("src", "images/pdfm.png");
 									}
@@ -323,7 +319,7 @@ angular.module('ngmReportHub')
 
 								// when uploading
 								myDropzone.on("uploadprogress", function (file, progress, bytesSent) {
-									// hide preview file upload 
+									// hide preview file upload
 									var previews = document.querySelectorAll(".dz-preview");
 									previews.forEach(function (preview) {
 										preview.style.display = 'none';
@@ -370,7 +366,7 @@ angular.module('ngmReportHub')
 									// $('#upload-file').closeModal({ dismissible: true });
 									$('#upload-file').modal({ dismissible: true });
 									$('#upload-file').modal('close');
-									$rootScope.$broadcast('refresh:listUpload');									
+									$rootScope.$broadcast('refresh:listUpload');
 								}
 							},
 							error: function (file, response) {
