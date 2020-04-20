@@ -387,7 +387,12 @@ angular.module('ngmReportHub')
 					// NG, wash and Admin
 					if ( $scope.dashboard.admin0pcode === 'ng' &&
 								$scope.dashboard.cluster_id === 'wash' &&
-								$scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1  ) {
+							(	$scope.dashboard.user.roles.indexOf( 'ADMIN' ) !== -1 ||
+								$scope.dashboard.user.roles.indexOf( 'COUNTRY_ADMIN' ) !== -1 ||
+								$scope.dashboard.user.roles.indexOf( 'CLUSTER' ) !== -1 ||
+								$scope.dashboard.user.roles.indexOf( 'SUPERADMIN' ) !== -1
+							)  
+						) {
 						downloads = downloads.concat ( ng_wash_dl );
 					}
 
