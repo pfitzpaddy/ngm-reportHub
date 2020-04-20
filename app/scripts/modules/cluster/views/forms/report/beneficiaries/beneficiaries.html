@@ -1119,7 +1119,7 @@
 						</div>
 
 						<!-- add vulnerable_populations -->
-						<div class="row" style="margin-left:20px;padding-top: 5px;">
+						<div class="row" style="margin-left:110px;padding-top: 5px;">
 							<button class="btn blue lighten-2"
 											ng-if="beneficiary.vulnerable_populations.length !==
 															ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'vulnerable_populations' ].length &&
@@ -1745,8 +1745,8 @@
 
 					<!-- DETAILS ( display if todo and in activities.csv ) -->
 					<div class="row"
-								ng-init="ngmClusterDetails.initDetails( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], $locationIndex, $beneficiaryIndex, beneficiary );"
-								ng-if="project.report.report_status === 'todo' && ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ]">
+								ng-if="project.report.report_status === 'todo' && ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'display_details' ]"
+								ng-init="ngmClusterDetails.initDetails( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], $locationIndex, $beneficiaryIndex, beneficiary );">
 
 						<!-- get template -->
 						<div class="row" ng-repeat="detail in beneficiary.details">
@@ -1770,8 +1770,10 @@
 
 					<!-- DETAILS ( display if complete and length )  -->
 					<div class="row"
-								ng-init="ngmClusterDetails.initDetails( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], $locationIndex, $beneficiaryIndex, beneficiary );"
-								ng-if="project.report.report_status === 'complete' && beneficiary.details.length">
+					ng-if="project.report.report_status === 'complete' &&
+									beneficiary.details.length &&
+									ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'display_details' ]"
+								ng-init="ngmClusterDetails.initDetails( ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ][ 'details' ], $locationIndex, $beneficiaryIndex, beneficiary );">
 
 						<!-- get template -->
 						<div class="row" ng-repeat="detail in beneficiary.details">

@@ -27,7 +27,7 @@ angular.module( 'ngmReportHub' )
 			if ( data ) {
 				var list = data.filter(function( d ) {
 					if ( !beneficiary.id ) {
-						return d.active && 
+						return d.active &&
 										d.cluster_id === beneficiary.cluster_id &&
 										d.activity_type_id === beneficiary.activity_type_id;
 					} else {
@@ -45,7 +45,7 @@ angular.module( 'ngmReportHub' )
 			if ( data ) {
 				var list = data.filter(function( d ) {
 					if ( !beneficiary.id ) {
-						return d.active && 
+						return d.active &&
 										d.cluster_id === beneficiary.cluster_id &&
 										d.activity_type_id === beneficiary.activity_type_id &&
 										d.activity_description_id === beneficiary.activity_description_id;
@@ -240,7 +240,7 @@ angular.module( 'ngmReportHub' )
 					beneficiary.total_male += ((beneficiary.boys === null || beneficiary.boys === undefined || beneficiary.boys === NaN || beneficiary.boys < 0 || beneficiary.boys === '') ? 0 : beneficiary.boys) +
 						((beneficiary.men === null || beneficiary.men === undefined || beneficiary.men === NaN || beneficiary.men < 0 || beneficiary.men === '') ? 0 : beneficiary.men) +
 						((beneficiary.elderly_men === null || beneficiary.elderly_men === undefined || beneficiary.elderly_men === NaN || beneficiary.elderly_men < 0 || beneficiary.elderly_men === '') ? 0 : beneficiary.elderly_men);
-					
+
 					beneficiary.total_female += ((beneficiary.girls === null || beneficiary.girls === undefined || beneficiary.girls === NaN || beneficiary.girls < 0 || beneficiary.girls === '') ? 0 : beneficiary.girls) +
 						((beneficiary.women === null || beneficiary.women === undefined || beneficiary.women === NaN || beneficiary.women < 0 || beneficiary.women === '') ? 0 : beneficiary.women) +
 						((beneficiary.elderly_women === null || beneficiary.elderly_women === undefined || beneficiary.elderly_women === NaN || beneficiary.elderly_women < 0 || beneficiary.elderly_women === '') ? 0 : beneficiary.elderly_women);
@@ -525,6 +525,20 @@ angular.module( 'ngmReportHub' )
 					ngmClusterBeneficiaries.form[ $parent ][ $index ] = angular.copy( ngmClusterBeneficiaries.defaults.form );
 				}
 
+
+				// set details
+				if ( !ngmClusterBeneficiaries.form[ $parent ][ $index ][ 'display_details' ] &&
+							ngmClusterBeneficiaries.form[ $parent ][ $index ][ 'details' ] &&
+							ngmClusterBeneficiaries.form[ $parent ][ $index ][ 'details' ].length ) {
+					// set details from activities.csv
+					beneficiary.details = ngmClusterBeneficiaries.form[ $parent ][ $index ].details;
+				} else {
+					// remove if exists
+					if ( beneficiary.details ) {
+						beneficiary.details = [];
+					}
+				}
+
 				// set default form on activity missing
 				if ( typeof ngmClusterBeneficiaries.form[$parent][$index] === 'undefined' ) {
 					ngmClusterBeneficiaries.form[$parent][$index] = angular.copy( ngmClusterBeneficiaries.defaults.form );
@@ -532,7 +546,7 @@ angular.module( 'ngmReportHub' )
 
 				// should form be displayed
 				if ( ngmClusterBeneficiaries.form[$parent][$index] ) {
- 							ngmClusterBeneficiaries.form[$parent][$index].display = ngmClusterBeneficiaries.showFormInputs( beneficiary, ngmClusterBeneficiaries.form[$parent][$index] );
+ 					ngmClusterBeneficiaries.form[$parent][$index].display = ngmClusterBeneficiaries.showFormInputs( beneficiary, ngmClusterBeneficiaries.form[$parent][$index] );
 				}
 
 			},
@@ -791,21 +805,7 @@ angular.module( 'ngmReportHub' )
 									$data.women >= 0 &&
 									$data.elderly_men >= 0 &&
 									$data.elderly_women >= 0 ) {
-
-							if ( $data.cluster_id === 'esnfi' ) {
-								if ( $data.activity_description_id === 'loose_items' ) {
-									if ( $data.partial_kits && $data.partial_kits.length >= 1 && $data.households >= 1 ) {
-										disabled = false;
-									}
-									if ( $data.kit_details && $data.kit_details.length >= 1 && $data.households >= 1 ) {
-										disabled = false;
-									}
-								} else if ( $data.households >= 1 ) {
-									disabled = false;
-								}
-							} else {
-								disabled = false;
-							}
+							disabled = false;
 						}
 						break;
 
