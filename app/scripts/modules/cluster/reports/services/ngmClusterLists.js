@@ -61,6 +61,7 @@ angular.module( 'ngmReportHub' )
           currencies: ngmClusterLists.getCurrencies( project.admin0pcode ),
           donors: ngmClusterLists.getDonors( project.admin0pcode, project.cluster_id ),
           organizations: ngmClusterLists.getOrganizations(project.admin0pcode),
+          project_details: ngmClusterLists.getProjectDetails(project.admin0pcode),
 
 
           // keys to ignore when summing beneficiaries in template ( 2016 )
@@ -8471,6 +8472,17 @@ angular.module( 'ngmReportHub' )
           }
         ]};
         return beneficiaries[year] ? beneficiaries[year]: beneficiaries['all'];
+      },
+      // Project Details
+      getProjectDetails: function(admin0pcode){
+        var project_details =[];
+        if(admin0pcode === 'AF'){
+          project_details = [
+            { project_detail_id: 'acbar_partner', project_detail_name: 'ACBAR Partner' },
+            { project_detail_id: 'covid19_response', project_detail_name: 'COVID-19 Response' }
+          ];
+        }
+        return project_details
       }
 		};
 

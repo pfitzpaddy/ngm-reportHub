@@ -154,12 +154,12 @@
 							</div>
 
 							<!-- ACBAR partners -->
-							<div class="row" ng-if="project.definition.admin0pcode === 'AF'">
+							<!-- <div class="row" ng-if="project.definition.admin0pcode === 'AF'"> -->
 
 								<!-- budget currency -->
-								<div class="input-field col s12 m12">
+								<!-- <div class="input-field col s12 m12">
 									<label class="active">ACBAR {{'partner'|translate}}?</label>
-									<br>
+									<br> -->
 									<!-- <label>ACBAR {{'partner'|translate}}?</label>
 									<div style="padding-bottom:35px;"></div> -->
 							      <!-- <input type="checkbox" class="filled-in" id="project_acbar_partner"
@@ -168,7 +168,7 @@
 											      ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
 								  <label class="checkbox-label" for="project_acbar_partner">{{'yes' | translate}}</label> -->
 								  <!-- <div style="padding-top:35px;"></div> -->
-								  <p>
+								  <!-- <p>
 									<label class="checkbox-label" for="project_acbar_partner">
 										<input type="checkbox"
 										class="filled-in"
@@ -181,6 +181,53 @@
 								  </p>
 								</div>
 
+							</div> -->
+
+							<!-- Project Details -->
+							<div class="row" ng-if="project.lists.project_details.length">
+							
+								
+								<!-- <div class="input-field col s12 m6 l6">
+									<label class="active">ACBAR {{'partner'|translate}}?</label>
+									<br>
+									<p>
+										<label class="checkbox-label" for="acbar_partner">
+											<input type="checkbox" class="filled-in" id="acbar_partner"
+												ng-checked="project.checkProjectDetail('acbar_partner')" ng-click="project.updateProjectDetails('acbar_partner')"
+												ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+											<span style="left: .75rem;">{{'yes' | translate}}</span>
+										</label>
+									</p>
+								</div>
+								
+								<div class="input-field col s12 m6 l6">
+									<label class="active">COVID-19 Response?</label>
+									<br>
+									<p>
+										<label class="checkbox-label" for="covid19_response">
+											<input type="checkbox" class="filled-in" id="covid19_response"
+												ng-checked="project.checkProjectDetail('covid19_response')" ng-click="project.updateProjectDetails('covid19_response')"
+												ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+											<span style="left: .75rem;">{{'yes' | translate}}</span>
+										</label>
+									</p>
+								</div> -->
+								
+								<div class="input-field col s12 m6 l6" ng-repeat="p in project.lists.project_details">
+									<label class="active">{{p.project_detail_name}}?</label>
+									<br>
+									<p>
+										<label class="checkbox-label" for="{{p.project_detail_id}}">
+											<input type="checkbox" class="filled-in" id="{{p.project_detail_id}}"
+												ng-checked="project.checkProjectDetail(p.project_detail_id)"
+												ng-click="project.updateProjectDetails(p.project_detail_id)"
+												ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+											<span style="left: .75rem;">{{'yes' | translate}}</span>
+										</label>
+									</p>
+								</div>
+								
+							
 							</div>
 
 							<!-- HRP / JRP -->
