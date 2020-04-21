@@ -306,9 +306,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					// 	})
 					// }
 
-					// set the project.lists.project_details same as project.definition.project_details  
+					// set the project.lists.project_details same as project.definition.project_details
 					// if project.definition.project_details exist and project.lists.project_details is empty
-					if($scope.project.definition.project_details.length && $scope.project.lists.project_details.length<1){
+					if ($scope.project.definition.project_details && $scope.project.definition.project_details.length
+									&& $scope.project.lists.project_details && $scope.project.lists.project_details.length < 1) {
 						$scope.project.lists.project_details = angular.copy($scope.project.definition.project_details);
 					}
 
