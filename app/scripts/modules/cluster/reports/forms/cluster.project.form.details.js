@@ -306,6 +306,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					// 	})
 					// }
 
+					// set the project.lists.project_details same as project.definition.project_details  
+					// if project.definition.project_details exist and project.lists.project_details is empty
+					if($scope.project.definition.project_details.length && $scope.project.lists.project_details.length<1){
+						$scope.project.lists.project_details = angular.copy($scope.project.definition.project_details);
+					}
+
 
 				},
 
@@ -390,6 +396,65 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				// update organization if acbar partner
 				updateAcbarOrganization: function(){
 					ngmClusterHelperAf.updateAcbarOrganization( $scope.project.definition );
+				},
+
+				updateProjectDetails:function(id){
+					var list_project = $scope.project.lists.project_details;
+
+					if(!$scope.project.definition.project_details){
+						$scope.project.definition.project_details =[];
+					}
+					if(document.getElementById(id).checked){
+						selected = $filter('filter')(list_project,{project_detail_id : id},true);
+						$scope.project.definition.project_details.push(selected[0]);
+
+						if (id === 'acbar_partner'){
+							$scope.project.updateAcbarOrganization();
+						}
+
+					}else{
+						if ($scope.project.definition.project_details.length>0){
+							index = $scope.project.definition.project_details.findIndex(value => value.project_detail_id === id);
+							if(index>-1){
+								$scope.project.definition.project_details.splice(index,1);
+							}
+						}else{
+							$scope.project.definition.project_details = [];
+							
+						}
+					}
+
+				},
+				checkProjectDetail:function(id){
+					if (!$scope.project.definition.project_details){
+						return false
+					}else{
+						// check if project_detail_id in details is exist on the list
+						if ($scope.project.definition.project_details.length) {
+								var temp_list = $scope.project.lists.project_details;
+								var count_missing =0;
+								angular.forEach($scope.project.definition.project_details, (e) => {
+									missing_index = temp_list.findIndex(value => value.project_detail_id === e.project_detail_id);
+									// if project_detail_id is not in the temp list then push missing project_detail_id to temp list
+									if (missing_index < 0) {
+										temp_list.push(e);
+										count_missing += 1;
+									}
+								});
+								
+								if(count_missing>0){
+									// set project.lists.project_details same as temp list if some of project_detail_id is missing
+									$scope.project.lists.project_details = temp_list;
+								}
+						};
+
+						index = $scope.project.definition.project_details.findIndex(value => value.project_detail_id === id);
+						if(index >-1){
+							return true
+						}else{
+							return false
+						}
+					}
 				},
 
 				// strategic objectives
