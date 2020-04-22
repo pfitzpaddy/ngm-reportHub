@@ -190,6 +190,15 @@
 				</div>
 			</div>
 
+			
+			<div ng-if="beneficiary.cluster_id === 'wash' && project.definition.admin0pcode === 'AF'" class="row"
+				ng-style="($root.rtl) && { 'padding':'5px 21px 5px 0px' } || { 'padding':'5px 0px 5px 21px' }">
+				<p><i class="material-icons left" style="color: #e57373">info</i></p>
+				<p style="color: #e57373;font-weight:500">
+					If Covid-19 Response, Please select in Details!
+				</p>
+			</div>
+
 
 			<!-- CARD PANEL -->
 			<div dir="ltr" class="card-panel"
