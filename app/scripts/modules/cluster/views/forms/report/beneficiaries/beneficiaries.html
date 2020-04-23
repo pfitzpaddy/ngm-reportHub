@@ -817,6 +817,29 @@
 
 					</div>
 
+					<div ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['specifics'] && ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['specifics'].length">
+						<div class="row">
+							<div class="input-field col s12 m6 l6">
+								<label class="active">Activity Specific for?</label>
+							</div>
+						</div>
+						<div class="row" style="margin-bottom: 20px; margin-left:0px;margin-right:0px;
+		border: 1px dotted rgb(158, 158, 158);">
+							<div class="input-field col s12 m6 l6" ng-repeat="s in ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['specifics']">
+								<p>
+									<label class="checkbox-label" for="{{s.specific_id}}">
+										<input type="checkbox" 
+										class="filled-in" 
+										id="{{s.specific_id}}" 
+										ng-checked="ngmClusterBeneficiaries.checkSpecific(s.specific_id,beneficiary,ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['specifics'])" 
+										ng-click="ngmClusterBeneficiaries.setSpecific(s.specific_id,beneficiary,ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['specifics'])"
+											ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+										<span style="left: .75rem;">{{s.specific_name}}</span>
+									</label>
+								</p>
+							</div>
+						</div>
+					</div>
 
 
 
@@ -1734,6 +1757,28 @@
 							<label for="ngm-beneficiary-remarks-{{ $locationIndex }}-{{ $beneficiaryIndex }}" class="active">{{'remarks' | translate}}</label>
 						</div>
 					</div>
+
+					<!-- model1 meta checkbox COvid19 -->
+					<!-- <div class="row">
+						<div class="input-field col s12 m6 l6">
+							<p>
+								<label class="checkbox-label" for="regular">
+									<input type="checkbox" class="filled-in" id="regular" ng-checked="" ng-click=""
+										ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+									<span style="left: .75rem;">Regular</span>
+								</label>
+							</p>
+						</div>
+						<div class="input-field col s12 m6 l6">
+							<p>
+								<label class="checkbox-label" for="covid19">
+									<input type="checkbox" class="filled-in" id="covid19" ng-checked="" ng-click=""
+										ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+									<span style="left: .75rem;">Covid-19 Response</span>
+								</label>
+							</p>
+						</div>
+					</div> -->
 
 
 					<!-- ACTIVITY START DATE -->

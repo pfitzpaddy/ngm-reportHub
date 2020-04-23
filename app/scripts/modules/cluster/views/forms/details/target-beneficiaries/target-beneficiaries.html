@@ -564,6 +564,30 @@
 								</div>
 
 
+
+								<div ng-if="ngmClusterBeneficiaries.form[ 0 ][ $index ]['specifics'] && ngmClusterBeneficiaries.form[ 0 ][ $index ]['specifics'].length">
+									<div class="row">
+										<div class="input-field col s12 m6 l6">
+											<label class="active">Activity Specific for?</label>
+										</div>
+									</div>
+									<div class="row" style="margin-bottom: 20px; margin-left:0px;margin-right:0px;
+										border: 1px dotted rgb(158, 158, 158);">
+										<div class="input-field col s12 m6 l6"
+											ng-repeat="s in ngmClusterBeneficiaries.form[ 0 ][ $index ]['specifics']">
+											<p>
+												<label class="checkbox-label" for="{{s.specific_id}}">
+													<input type="checkbox" class="filled-in" id="{{s.specific_id}}"
+														ng-checked="ngmClusterBeneficiaries.checkSpecific(s.specific_id,beneficiary,ngmClusterBeneficiaries.form[ 0 ][ $index ]['specifics'])"
+														ng-click="ngmClusterBeneficiaries.setSpecific(s.specific_id,beneficiary,ngmClusterBeneficiaries.form[ 0 ][ $index ]['specifics'])"
+														ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+													<span style="left: .75rem;">{{s.specific_name}}</span>
+												</label>
+											</p>
+										</div>
+									</div>
+								</div>
+
 								<!-- MPC -->
 								<!-- mpc_delivery_type_id, mpc_mechanism_type_id, mpc_package_type_id, mpc_transfer_type_id -->
 
