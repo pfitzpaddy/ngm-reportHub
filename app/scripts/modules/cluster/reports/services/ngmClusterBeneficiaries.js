@@ -866,7 +866,41 @@ angular.module( 'ngmReportHub' )
 					disabled = false
 				}
 				return disabled;
-			}
+			},
+			setSpecific: function(id,beneficary,list){
+				var list_project = list;
+
+				if (!beneficary.specifics) {
+					beneficary.specifics = [];
+				}
+				if (document.getElementById(id).checked) {
+					selected = $filter('filter')(list_project, { specific_id: id }, true);
+					beneficary.specifics.push(selected[0]);
+
+				} else {
+					if (beneficary.specifics.length > 0) {
+						index = beneficary.specifics.findIndex(value => value.specific_id === id);
+						if (index > -1) {
+							beneficary.specifics.splice(index, 1);
+						}
+					} else {
+						beneficary.specifics = [];
+
+					}
+				}
+			},
+			checkSpecific: function (id,beneficary,list) {
+				if (!beneficary.specifics) {
+					return false
+				} else {
+					index = beneficary.specifics.findIndex(value => value.specific_id === id);
+					if (index > -1) {
+						return true
+					} else {
+						return false
+					}
+				}
+			},
 
 		};
 
