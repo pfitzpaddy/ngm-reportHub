@@ -549,6 +549,28 @@ angular.module( 'ngmReportHub' )
  					ngmClusterBeneficiaries.form[$parent][$index].display = ngmClusterBeneficiaries.showFormInputs( beneficiary, ngmClusterBeneficiaries.form[$parent][$index] );
 				}
 
+				// if beneficiary.specifics exist then check ngmClusterBeneficiaries.form[$parent][$index]['exist'] 
+				if (beneficiary.specifics && beneficiary.specifics.length>0){
+					
+					if (!ngmClusterBeneficiaries.form[$parent][$index]['specifics']){
+						temp_list = []
+					}else{
+						var temp_list = ngmClusterBeneficiaries.form[$parent][$index]['specifics'];
+					}
+					var count_missing = 0;
+					angular.forEach(beneficiary.specifics,(e) => {
+						missing_index = temp_list.findIndex( value => value.specific_id === e.specific_id);
+						// if specific_id is not in the temp list then push missing specific_id to temp list
+						if (missing_index < 0) {
+							temp_list.push(e);
+							count_missing += 1;
+						}
+					});
+					if (count_missing > 0) {
+						// set ngmClusterBeneficiaries.form[$parent][$index]['specifics'] same as temp list if some of specific_id is missing
+						ngmClusterBeneficiaries.form[$parent][$index]['specifics'] = temp_list;
+					}
+				}
 			},
 
 
