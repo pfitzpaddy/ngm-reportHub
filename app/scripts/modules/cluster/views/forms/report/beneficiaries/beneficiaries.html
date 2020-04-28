@@ -817,24 +817,24 @@
 
 					</div>
 
-					<div ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['specifics'] && ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['specifics'].length">
+					<div ng-if="ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response'] && ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response'].length">
 						<div class="row">
 							<div class="input-field col s12 m6 l6">
-								<label class="active">Activity Specifics</label>
+								<label class="active">Activity Response</label>
 							</div>
 						</div>
 						<div class="row" style="margin-bottom: 20px; margin-left:0px;margin-right:0px;
 		border: 1px dotted rgb(158, 158, 158);">
-							<div class="input-field col s12 m6 l6" ng-repeat="s in ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['specifics']">
+							<div class="input-field col s12 m6 l6" ng-repeat="s in ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response']">
 								<p>
-									<label class="checkbox-label" for="{{s.specific_id}}">
+									<label class="checkbox-label" for="{{s.response_id}}">
 										<input type="checkbox" 
 										class="filled-in" 
-										id="{{s.specific_id}}" 
-										ng-checked="ngmClusterBeneficiaries.checkSpecific(s.specific_id,beneficiary,ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['specifics'])" 
-										ng-click="ngmClusterBeneficiaries.setSpecific(s.specific_id,beneficiary,ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['specifics'])"
+										id="{{s.response_id}}" 
+										ng-checked="ngmClusterBeneficiaries.checkSpecific(s.response_id,beneficiary,ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response'])" 
+										ng-click="ngmClusterBeneficiaries.setSpecific(s.response_id,beneficiary,ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response'])"
 											ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
-										<span style="left: .75rem;">{{s.specific_name}}</span>
+										<span style="left: .75rem;">{{s.response_name}}</span>
 									</label>
 								</p>
 							</div>

@@ -549,26 +549,26 @@ angular.module( 'ngmReportHub' )
  					ngmClusterBeneficiaries.form[$parent][$index].display = ngmClusterBeneficiaries.showFormInputs( beneficiary, ngmClusterBeneficiaries.form[$parent][$index] );
 				}
 
-				// if beneficiary.specifics exist then check ngmClusterBeneficiaries.form[$parent][$index]['exist'] 
-				if (beneficiary.specifics && beneficiary.specifics.length>0){
+				// if beneficiary.response exist then check ngmClusterBeneficiaries.form[$parent][$index]['exist'] 
+				if (beneficiary.response && beneficiary.response.length>0){
 					
-					if (!ngmClusterBeneficiaries.form[$parent][$index]['specifics']){
+					if (!ngmClusterBeneficiaries.form[$parent][$index]['response']){
 						temp_list = []
 					}else{
-						var temp_list = ngmClusterBeneficiaries.form[$parent][$index]['specifics'];
+						var temp_list = ngmClusterBeneficiaries.form[$parent][$index]['response'];
 					}
 					var count_missing = 0;
-					angular.forEach(beneficiary.specifics,(e) => {
-						missing_index = temp_list.findIndex( value => value.specific_id === e.specific_id);
-						// if specific_id is not in the temp list then push missing specific_id to temp list
+					angular.forEach(beneficiary.response,(e) => {
+						missing_index = temp_list.findIndex( value => value.response_id === e.response_id);
+						// if response_id is not in the temp list then push missing response_id to temp list
 						if (missing_index < 0) {
 							temp_list.push(e);
 							count_missing += 1;
 						}
 					});
 					if (count_missing > 0) {
-						// set ngmClusterBeneficiaries.form[$parent][$index]['specifics'] same as temp list if some of specific_id is missing
-						ngmClusterBeneficiaries.form[$parent][$index]['specifics'] = temp_list;
+						// set ngmClusterBeneficiaries.form[$parent][$index]['response'] same as temp list if some of response_id is missing
+						ngmClusterBeneficiaries.form[$parent][$index]['response'] = temp_list;
 					}
 				}
 			},
@@ -889,33 +889,35 @@ angular.module( 'ngmReportHub' )
 				}
 				return disabled;
 			},
-			setSpecific: function(id,beneficary,list){
+			setSpecific: function(id,beneficiary,list){
 				var list_project = list;
 
-				if (!beneficary.specifics) {
-					beneficary.specifics = [];
+				if (!beneficiary.response) {
+					beneficiary.response = [];
 				}
 				if (document.getElementById(id).checked) {
-					selected = $filter('filter')(list_project, { specific_id: id }, true);
-					beneficary.specifics.push(selected[0]);
+					selected = $filter('filter')(list_project, { response_id: id }, true);
+					if(selected.length){
+						beneficiary.response.push(selected[0]);
+					}
 
 				} else {
-					if (beneficary.specifics.length > 0) {
-						index = beneficary.specifics.findIndex(value => value.specific_id === id);
+					if (beneficiary.response.length > 0) {
+						index = beneficiary.response.findIndex(value => value.response_id === id);
 						if (index > -1) {
-							beneficary.specifics.splice(index, 1);
+							beneficiary.response.splice(index, 1);
 						}
 					} else {
-						beneficary.specifics = [];
+						beneficiary.response = [];
 
 					}
 				}
 			},
-			checkSpecific: function (id,beneficary,list) {
-				if (!beneficary.specifics) {
+			checkSpecific: function (id,beneficiary,list) {
+				if (!beneficiary.response) {
 					return false
 				} else {
-					index = beneficary.specifics.findIndex(value => value.specific_id === id);
+					index = beneficiary.response.findIndex(value => value.response_id === id);
 					if (index > -1) {
 						return true
 					} else {
