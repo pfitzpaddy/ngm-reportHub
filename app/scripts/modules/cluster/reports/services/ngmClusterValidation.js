@@ -2002,6 +2002,121 @@ angular.module( 'ngmReportHub' )
 
 				return validation
 
+			},
+			fieldNameStock:function(){
+				field = {
+					 'organization_id':'Organization ID',
+					 'report_id':'Report ID',
+					 'organization':'Organization',
+					 'username':'Username',
+					 'email':'Email',
+					 'admin0name':'Country',
+					 'admin1pcode':'Admin1 Pcode',
+					 'admin1name':'Admin1 Name',
+					 'admin2pcode':'Admin2 Pcode',
+					 'admin2name':'Admin2 Name',
+					 'admin3pcode':'Admin3 Pcode',
+					 'admin3name':'Admin3 Name',
+					 'site_name':'Warehouse Name',
+					 'report_month':'Stock Month',
+					 'report_year':'Stock Year',
+					 'cluster':'Cluster',
+					 'stock_item_name':'Stock Type',
+					 'stock_item_type': 'Stock Type',
+					 'stock_details':'Stock Details',
+					 'stock_status_name':'Status',
+					 'stock_status_id': 'Status',
+					 'number_in_stock':'No. in Stock',
+					 'number_in_pipeline':'No. in Pipeline',
+					 'unit_type_name':'Units',
+					 'unit_type_id':'Units',
+					 'beneficiaries_covered':'Beneficiary Coverage',
+					 'stock_targeted_groups_name':'Targeted Group',
+					 'remarks':'Remarks',
+					 'createdAt':'Created',
+					 'updatedAt':'Last Update',
+					 'location': 'Location',
+					'stock_item_purpose_name': 'Purpose',
+					'stock_item_purpose_id': 'Purpose',
+
+				}
+
+				return field;
+			},
+			validationStockInputFromFile:function(s,admin0pcode ){
+				validation =[]
+				if(!s.stock_item_type ){
+					var obj = { label: false, property: 'stock_item_type', reason: 'missing value' };
+					if (s.stock_item_name) {
+						obj.reason = 'not in the list'
+					}
+					validation.push(obj);
+				}
+				if(!s.unit_type_id){
+					var obj = { label: false, property: 'unit_type_id', reason: 'missing value' };
+					if (s.unit_type_name) {
+						obj.reason = 'not in the list'
+					}
+					validation.push(obj);
+				} 
+				if(!s.stock_status_id){
+					var obj = { label: false, property: 'stock_status_id', reason: 'missing value' };
+					if (s.stock_status_name) {
+						obj.reason = 'not in the list'
+					}
+					validation.push(obj);
+				}
+				if(admin0pcode ==='AF'){
+					console.log('s')
+					if (!s.stock_item_purpose_id){
+						var obj = { label: false, property: 'stock_item_purpose_id', reason: 'missing value' };
+						if (s.stock_status_name) {
+							obj.reason = 'not in the list'
+						}
+						validation.push(obj);
+					}
+				}
+				if (admin0pcode === 'ET'){
+					if (!s.stock_type_id){
+						var obj = { label: false, property: 'stock_type_id', reason: 'missing value' };
+						if (s.stock_type_name) {
+							obj.reason = 'not in the list'
+						}
+						validation.push(obj);
+					}
+
+					if (s.stock_details && s.stock_details.length){
+						var obj = { label: false, property: 'stock_details', reason: 'missing value' };
+						details_reason = "";
+						count_details_error =0;
+						angular.forEach(s.stock_details, function (e) {
+							if (!e.unit_type_id) {
+								if(e.unit_type_name){
+									details_reason += e.unit_type_name +',';
+								}
+								count_details_error +=1;
+							}
+						})
+						if(count_details_error >0){
+							obj.reason += details_reason;
+							validation.push(obj);
+						}
+					}
+				} 
+				if (s.number_in_stock === null || s.number_in_stock === undefined || s.number_in_stock === NaN || s.number_in_stock < 0){
+					var obj = { label: false, property: 'number_in_stock', reason: 'should be >=0' };
+					validation.push(obj);
+				}
+				if (s.number_in_pipeline === null || s.number_in_pipeline === undefined || s.number_in_pipeline === NaN || s.number_in_pipeline < 0){
+					var obj = { label: false, property: 'number_in_pipeline', reason: 'should be >=0' };
+					validation.push(obj);
+				}
+				if( s.beneficiaries_covered === null || s.beneficiaries_covered === undefined || s.beneficiaries_covered === NaN || s.beneficiaries_covered < 0){
+					var obj = { label: false, property: 'beneficiaries_covered', reason: 'should be >=0' };
+					validation.push(obj);
+				}
+
+				return validation;
 			}
 
 		};
