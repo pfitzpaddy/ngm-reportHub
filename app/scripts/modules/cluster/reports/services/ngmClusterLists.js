@@ -32,7 +32,7 @@ angular.module( 'ngmReportHub' )
 
 
       // lists ( project, mpc transfers )
-      setLists: function( project, transfers ) {
+      setLists: function( project, start_date, end_date, transfers ) {
 
         return {
 
@@ -47,10 +47,10 @@ angular.module( 'ngmReportHub' )
           transfers: ngmClusterLists.getTransfers( transfers ),
           clusters: ngmClusterLists.getClusters( project.admin0pcode ).filter(cluster=>cluster.project!==false),
           projectsclasifications: ngmClusterLists.getProjectClasifications(project.admin0pcode),
-          activity_types: ngmClusterLists.getActivities( project, true, ['activity_type_id'] ),
-          activity_descriptions: ngmClusterLists.getActivities( project, true, ['activity_description_id', 'activity_type_id'] ),
-          activity_details: ngmClusterLists.getActivities( project, true, ['activity_detail_id', 'activity_description_id', 'activity_type_id'] ),
-          activity_indicators: ngmClusterLists.getActivities( project, true, ['indicator_id', 'activity_detail_id', 'activity_description_id', 'activity_type_id'] ),
+          activity_types: ngmClusterLists.getActivities( project, true, ['activity_type_id'], true, start_date, end_date ),
+          activity_descriptions: ngmClusterLists.getActivities( project, true, ['activity_description_id', 'activity_type_id'], true, start_date, end_date ),
+          activity_details: ngmClusterLists.getActivities( project, true, ['activity_detail_id', 'activity_description_id', 'activity_type_id'], true, start_date, end_date ),
+          activity_indicators: ngmClusterLists.getActivities( project, true, ['indicator_id', 'activity_detail_id', 'activity_description_id', 'activity_type_id'], true, start_date, end_date ),
           projectActivityTypes: ngmClusterLists.getProjectActivityTypes( project ),
           strategic_objectives: ngmClusterLists.getStrategicObjectives( project.admin0pcode, moment( project.project_start_date ).year(), moment( project.project_end_date ).year() ),
           category_types: ngmClusterLists.getCategoryTypes(),
@@ -756,7 +756,7 @@ angular.module( 'ngmReportHub' )
       },
 
       // return activity type by cluster
-      getActivities: function( project, filterInterCluster, filterDuplicates ){
+      getActivities: function( project, filterInterCluster, filterDuplicates, filterActiveDate, start_date, end_date ){
 
         // get activities list from storage
         var activities = [],
@@ -778,6 +778,11 @@ angular.module( 'ngmReportHub' )
           });
         }
 
+				// filter by start/end date
+				if ( filterActiveDate ) {
+					activitiesList = ngmClusterLists.filterActiveDate(activitiesList, start_date, end_date);
+				}
+
         // filter duplications by tag
         if ( filterDuplicates ) {
           activities = ngmClusterLists.filterDuplicates( activitiesList, filterDuplicates );
@@ -786,7 +791,32 @@ angular.module( 'ngmReportHub' )
         // return
         return activities;
 
-      },
+			},
+
+			filterActiveDate: function(activitiesList, start_date, end_date){
+				const report_start_date = moment( start_date );
+				const report_end_date =  moment( end_date );
+
+				activitiesList = activitiesList.filter(function(d){
+
+					let isActiveStartDate = isActiveEndDate = true;
+
+					if (d.start_date) {
+						let start_date = new Date(d.start_date);
+						isActiveStartDate = start_date <= report_end_date;
+					}
+					if (d.end_date) {
+						let end_date = new Date(d.end_date);
+						isActiveEndDate = end_date >= report_start_date;
+					}
+
+					let isActiveDate = isActiveStartDate & isActiveEndDate;
+
+					return isActiveDate;
+				});
+
+				return activitiesList;
+			},
 
       // get activities
       getProjectActivityTypes: function( project ){

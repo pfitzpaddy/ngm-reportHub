@@ -6,6 +6,20 @@
  *
  */
 angular.module( 'ngmReportHub' )
+	// filter activity by active date
+	.filter('filterActiveDate', [ '$filter', function ( $filter ) {
+		return function (data, list) {
+			if (data) {
+				let newData = data.filter(function (d) {
+					let isActive = list.filter(function (a) {
+						return a.cluster_id === d.cluster_id && a.activity_type_id === d.activity_type_id;
+					});
+					return isActive.length;
+				})
+				return newData;
+			}
+		}
+	}])
 	// filter active type
 	.filter('filterActiveTypes', [ '$filter', function ( $filter ) {
 		return function( data, beneficiary ) {
@@ -549,9 +563,9 @@ angular.module( 'ngmReportHub' )
  					ngmClusterBeneficiaries.form[$parent][$index].display = ngmClusterBeneficiaries.showFormInputs( beneficiary, ngmClusterBeneficiaries.form[$parent][$index] );
 				}
 
-				// if beneficiary.response exist then check ngmClusterBeneficiaries.form[$parent][$index]['exist'] 
+				// if beneficiary.response exist then check ngmClusterBeneficiaries.form[$parent][$index]['exist']
 				if (beneficiary.response && beneficiary.response.length>0){
-					
+
 					if (!ngmClusterBeneficiaries.form[$parent][$index]['response']){
 						temp_list = []
 					}else{

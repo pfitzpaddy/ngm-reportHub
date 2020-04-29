@@ -220,7 +220,7 @@
 											ng-model="beneficiary.activity_type_id"
 											ng-options="a_t.activity_type_id as a_t.activity_type_name
 																		for a_t in project.definition.activity_type |
-																		filterActiveTypes:beneficiary"
+																		filterActiveTypes:beneficiary | filterActiveDate: project.lists.activity_types"
 											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );
 											ngmClusterBeneficiaries.inputChange( 'ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 											ng-disabled="project.definition.project_status === 'complete' || project.report.report_status === 'complete' || !project.definition.activity_type"
@@ -272,7 +272,7 @@
 											ng-model="beneficiary.activity_type_id"
 											ng-options="a_t.activity_type_id as a_t.activity_type_name
 																		for a_t in project.definition.activity_type |
-																		filterActiveTypes:beneficiary"
+																		filterActiveTypes:beneficiary | filterActiveDate: project.lists.activity_types"
 											ng-change="ngmClusterBeneficiaries.setActivity( project, $locationIndex, $beneficiaryIndex, beneficiary );
 												ngmClusterBeneficiaries.inputChange( 'ngm-activity_type_id-{{ $locationIndex }}-{{ $beneficiaryIndex }}' );"
 											ng-disabled="project.definition.project_status === 'complete' ||
