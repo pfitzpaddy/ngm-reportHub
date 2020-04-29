@@ -118,6 +118,68 @@ angular.module( 'ngmReportHub' )
         }
       },
 
+			getStockLists: function (admin0pcode) {
+				return {
+					clusters: ngmClusterLists.getClusters(admin0pcode).filter(cluster => cluster.filter !== false && cluster.registration !== false),
+					units: ngmClusterLists.getUnits(admin0pcode),
+					stocks: ngmLists.getObject('lists').stockItemsList.filter(e => e.admin0pcode.includes(admin0pcode)),
+					stock_status: [{
+						admin0pcode: 'AF',
+						stock_type_id: 'stock',
+						stock_type_name: 'Stock',
+						stock_status_id: 'available',
+						stock_status_name: 'Available'
+					}, {
+						admin0pcode: 'AF',
+						stock_type_id: 'stock',
+						stock_type_name: 'Stock',
+						stock_status_id: 'reserved',
+						stock_status_name: 'Reserved'
+					}, {
+						admin0pcode: 'ET',
+						stock_type_id: 'stock',
+						stock_type_name: 'Stock',
+						stock_status_id: 'safety_stock',
+						stock_status_name: 'Safety Stock'
+					}, {
+						admin0pcode: 'ET',
+						stock_type_id: 'stock',
+						stock_type_name: 'Stock',
+						stock_status_id: 'in_stock',
+						stock_status_name: 'In Stock'
+					}, {
+						admin0pcode: 'ET',
+						stock_type_id: 'pipeline',
+						stock_type_name: 'Pipeline',
+						stock_status_id: 'under_procurement',
+						stock_status_name: 'Under Procurement'
+					}, {
+						admin0pcode: 'ET',
+						stock_type_id: 'pipeline',
+						stock_type_name: 'Pipeline',
+						stock_status_id: 'proposal_approved',
+						stock_status_name: 'Proposal Approved'
+					}, {
+						admin0pcode: 'ET',
+						stock_type_id: 'pipeline',
+						stock_type_name: 'Pipeline',
+						stock_status_id: 'pipeline',
+						stock_status_name: 'Pipeline'
+					}].filter(e => e.admin0pcode.includes(admin0pcode)),
+					stock_item_purpose: [{
+						stock_item_purpose_id: 'prepositioned',
+						stock_item_purpose_name: 'Prepositioned',
+					}, {
+						stock_item_purpose_id: 'operational',
+						stock_item_purpose_name: 'Operational',
+					}],
+					stock_targeted_groups: ngmClusterLists.getStockTargetedGroups(),
+					donors: ngmClusterLists.getDonors(admin0pcode, ''),
+					organizations: ngmClusterLists.getOrganizations(admin0pcode),
+					types: [{ stock_type_id: 'stock', stock_type_name: 'Stock' }, { stock_type_id: 'pipeline', stock_type_name: 'Pipeline' }]
+				};
+			},
+
       // get lists for cluster reporting
       setClusterLists: function( user ) {
 
