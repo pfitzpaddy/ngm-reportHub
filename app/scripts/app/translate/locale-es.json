@@ -401,6 +401,7 @@
          "report_due_date":"Fecha de Vencimiento del Reporte",
 				 "download_monthly_activity_report_as_csv":"Descargar Reporte de Actividad Mensual como CSV",
 				 "download_project_lists":"Download Project Lists as Excel",
+				 "download_stock_lists":"Download Stock Lists as Excel",
          "submitted_reports":"Reportes Enviados",
          "duplicate_reports":"Reportes Duplicados",
          "reports_timeline":"Línea de Tiempo de Reportes",
