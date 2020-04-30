@@ -337,6 +337,8 @@
     "report_due_date": "گزارش موعد معیین",
 		"download_monthly_activity_report_as_csv": "دریافت نمایید csv گزارش فعالیت های ماهانه را به فارمت ",
 		"download_project_lists":"Download Project Lists as Excel",
+		"download_populations_lists":"Download Population Groups Lists as Excel",
+		"download_stock_lists":"Download Stock Lists as Excel",
     "submitted_reports": "گزارش ارسال شد",
     "duplicate_reports": "گزارش تکراری",
     "reports_timeline": "جدول زمانی گزارش ها",
