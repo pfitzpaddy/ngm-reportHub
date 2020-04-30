@@ -172,6 +172,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           stock_default = ngmClusterHelper.getCleanStocks($scope.report.report, $scope.report.report.stocklocations[$parent], insert);
           // merge
           stock = angular.merge({}, stock_default, stock);
+          delete stock.report_month;
+          delete stock.report_year;
           $scope.report.report.stocklocations[$parent].stocks.push(stock);
           if (!$scope.report.detailItem[$parent]) {
             $scope.report.detailItem[$parent] = [];
@@ -1389,6 +1391,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
               obj.stock_item_purpose_id = selected_purpose[0].stock_item_purpose_id;
             }
           }
+          
           return obj
         },
         copyToClipBoard: function () {
