@@ -642,11 +642,11 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                   stock_targeted_groups_name: s.stock_targeted_groups_name
 								};
                 //donor exist
-                if (s.donors.length) {
+                if (s.donors && s.donors.length) {
                   $scope.inserted.donors = s.donors;
                 }
                 //implementing partner exist
-                if (s.implementing_partners.length) {
+                if (s.implementing_partners && s.implementing_partners.length) {
                   $scope.inserted.implementing_partners = s.implementing_partners;
                 }
                  //stock details exist

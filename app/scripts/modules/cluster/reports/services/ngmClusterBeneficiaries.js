@@ -525,6 +525,10 @@ angular.module( 'ngmReportHub' )
 					ngmClusterBeneficiaries.form[ $parent ][ $index ] = angular.copy( ngmClusterBeneficiaries.defaults.form );
 				}
 
+				// set default form on activity missing
+				if ( typeof ngmClusterBeneficiaries.form[$parent][$index] === 'undefined' ) {
+					ngmClusterBeneficiaries.form[$parent][$index] = angular.copy( ngmClusterBeneficiaries.defaults.form );
+				}
 
 				// set details
 				if ( !ngmClusterBeneficiaries.form[ $parent ][ $index ][ 'display_details' ] &&
@@ -539,19 +543,9 @@ angular.module( 'ngmReportHub' )
 					}
 				}
 
-				// set default form on activity missing
-				if ( typeof ngmClusterBeneficiaries.form[$parent][$index] === 'undefined' ) {
-					ngmClusterBeneficiaries.form[$parent][$index] = angular.copy( ngmClusterBeneficiaries.defaults.form );
-				}
-
-				// should form be displayed
-				if ( ngmClusterBeneficiaries.form[$parent][$index] ) {
- 					ngmClusterBeneficiaries.form[$parent][$index].display = ngmClusterBeneficiaries.showFormInputs( beneficiary, ngmClusterBeneficiaries.form[$parent][$index] );
-				}
-
-				// if beneficiary.response exist then check ngmClusterBeneficiaries.form[$parent][$index]['exist'] 
+				// if beneficiary.response exist then check ngmClusterBeneficiaries.form[$parent][$index]['exist']
 				if (beneficiary.response && beneficiary.response.length>0){
-					
+
 					if (!ngmClusterBeneficiaries.form[$parent][$index]['response']){
 						temp_list = []
 					}else{
@@ -571,6 +565,12 @@ angular.module( 'ngmReportHub' )
 						ngmClusterBeneficiaries.form[$parent][$index]['response'] = temp_list;
 					}
 				}
+
+				// should form be displayed
+				if ( ngmClusterBeneficiaries.form[$parent][$index] ) {
+ 					ngmClusterBeneficiaries.form[$parent][$index].display = ngmClusterBeneficiaries.showFormInputs( beneficiary, ngmClusterBeneficiaries.form[$parent][$index] );
+				}
+
 			},
 
 
