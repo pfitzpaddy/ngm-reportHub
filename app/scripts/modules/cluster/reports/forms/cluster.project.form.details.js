@@ -168,7 +168,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				},
 
 				// lists ( project, mpc transfers )
-				lists: ngmClusterLists.setLists( config.project, 30 ),
+				lists: ngmClusterLists.setLists( config.project, config.project.project_start_date, config.project.project_end_date, 30 ),
 
 				// datepicker
 				datepicker: {
@@ -180,7 +180,12 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 								moment( new Date( $scope.project.definition.project_end_date ) ).format('YYYY-MM-DD');
 
 						// get strategic objectives
-							$scope.project.checkStrategicObjectiveYear()
+						$scope.project.checkStrategicObjectiveYear();
+
+						// update lists
+						$timeout(function () {
+							$scope.project.lists = ngmClusterLists.setLists(config.project, $scope.project.definition.project_start_date, $scope.project.definition.project_end_date, 30);
+						}, 0)
 					}
 				},
 

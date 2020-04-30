@@ -118,7 +118,7 @@ angular.module( 'ngm.widget.project.report', [ 'ngm.provider' ])
 													|| moment.utc(config.project.project_end_date).endOf('month') < moment.utc(config.report.reporting_period).startOf('month'),
 
 				// lists ( project, mpc transfers )
-				lists: ngmClusterLists.setLists( config.project, 10 ),
+				lists: ngmClusterLists.setLists( config.project, moment(config.report.reporting_period).startOf('month'), moment(config.report.reporting_period).endOf('month'), 10 ),
 
 
 				/**** TEMPLATES ****/
