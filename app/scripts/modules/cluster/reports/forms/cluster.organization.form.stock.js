@@ -61,61 +61,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         canEdit: ngmAuth.canDo( 'EDIT', { adminRpcode: config.organization.adminRpcode, admin0pcode:config.organization.admin0pcode, cluster_id: ngmUser.get().cluster_id, organization_tag:config.organization.organization_tag } ),
 
         // lists
-        lists: {
-          clusters: ngmClusterLists.getClusters( config.organization.admin0pcode ).filter(cluster=>cluster.filter!==false),
-          units: ngmClusterLists.getUnits( config.organization.admin0pcode ),
-          stocks: ngmLists.getObject( 'lists' ).stockItemsList,
-          stock_status:[{
-            admin0pcode: 'AF',
-            stock_status_id: 'available',
-            stock_status_name: 'Available'
-          },{
-            admin0pcode: 'AF',
-            stock_status_id: 'reserved',
-            stock_status_name: 'Reserved'
-					},{
-            admin0pcode: 'ET',
-            stock_type_id:'stock',
-            stock_type_name:'Stock',
-            stock_status_id: 'safety_stock',
-            stock_status_name: 'Safety Stock'
-					},{
-            admin0pcode: 'ET',
-            stock_type_id:'stock',
-            stock_type_name:'Stock',
-            stock_status_id: 'in_stock',
-            stock_status_name: 'In Stock'
-					},{
-            admin0pcode: 'ET',
-            stock_type_id:'pipeline',
-            stock_type_name:'Pipeline',
-            stock_status_id: 'under_procurement',
-            stock_status_name: 'Under Procurement'
-					},{
-            admin0pcode: 'ET',
-            stock_type_id:'pipeline',
-            stock_type_name:'Pipeline',
-            stock_status_id: 'proposal_approved',
-            stock_status_name: 'Proposal Approved'
-					},{
-              admin0pcode: 'ET',
-              stock_type_id: 'pipeline',
-              stock_type_name: 'Pipeline',
-              stock_status_id: 'pipeline',
-              stock_status_name: 'Pipeline'
-					}],
-					stock_item_purpose:[{
-						stock_item_purpose_id: 'prepositioned',
-						stock_item_purpose_name: 'Prepositioned',
-					},{
-						stock_item_purpose_id: 'operational',
-						stock_item_purpose_name: 'Operational',
-					}],
-          stock_targeted_groups: ngmClusterLists.getStockTargetedGroups(),
-          donors: ngmClusterLists.getDonors(config.organization.admin0pcode,''),
-          organizations: ngmClusterLists.getOrganizations(config.organization.admin0pcode),
-          types:[{stock_type_id:'stock',stock_type_name:'Stock'},{stock_type_id:'pipeline',stock_type_name:'Pipeline'}]
-        },
+        lists: ngmClusterLists.getStockLists(config.organization.admin0pcode),
 
         text_input: '',
         messageWarning: '',
@@ -133,7 +79,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
               new Array($scope.report.report.stocklocations[i].stocks.length).fill(false) : new Array(0).fill(false);
             $scope.report.addDetailDisabled[i] = $scope.report.report.stocklocations[i].stocks.length ?
               new Array($scope.report.report.stocklocations[i].stocks.length).fill(false) : new Array(0).fill(false);
-            
+
               // set list for stock_details
             if ($scope.report.report.stocklocations[i].stocks.length){
               angular.forEach($scope.report.report.stocklocations[i].stocks,function(stock,j){
@@ -142,7 +88,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                 var filter = $filter('filter')($scope.report.lists.stocks, { stock_item_type: stock.stock_item_type }, true);
                 if (filter[0].details) {
                   list_details_item = typeof filter[0].details === 'string' ? JSON.parse(filter[0].details) : filter[0].details;
-                }     
+                }
                   angular.forEach(stock.stock_details, function (e, k) {
                     if (!$scope.report.lists.detail_list) {
                       $scope.report.lists.detail_list = []
@@ -197,13 +143,13 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           // process + clean location
           $scope.inserted =
               ngmClusterHelper.getCleanStocks( $scope.report.report, $scope.report.report.stocklocations[ $parent ], $scope.inserted );
-              
+
           if($scope.inserted.stock_details){
             $scope.inserted.stock_details=[];
           }
 
           $scope.report.report.stocklocations[ $parent ].stocks.push( $scope.inserted );
-         
+
           if (!$scope.report.detailItem[$parent]) {
              $scope.report.detailItem[$parent] = [];
           }
@@ -226,6 +172,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           stock_default = ngmClusterHelper.getCleanStocks($scope.report.report, $scope.report.report.stocklocations[$parent], insert);
           // merge
           stock = angular.merge({}, stock_default, stock);
+          delete stock.report_month;
+          delete stock.report_year;
           $scope.report.report.stocklocations[$parent].stocks.push(stock);
           if (!$scope.report.detailItem[$parent]) {
             $scope.report.detailItem[$parent] = [];
@@ -361,9 +309,9 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           //       $stock.donors =[]
           //       $stock.donors.push(obj_donor);
           //     }
-             
+
           //   }
-           
+
           // }
           $stock.donors[0].donor_id = $data;
           if ($stock.donors[0].donor_id) {
@@ -381,7 +329,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             $stock.implementing_partners = [{ organization_tag:''}]
           }
           // $stock.organization_tag = $data;
-          
+
           // if ($stock.organization_tag) {
           //   selected = $filter('filter')($scope.report.lists.organizations, { organization_tag: $stock.organization_tag }, true);
           //   if (selected.length) {
@@ -434,14 +382,14 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         },
         // add details
         addDetailStock: function (stock, $locationIndex, $stockIndex) {
-          // add empty 
+          // add empty
           if (!stock.stock_details) {
             stock.stock_details = [];
           }
           stock.stock_details.push({ unit_type_quantity: 0 });
           var list_details_item =[]
           var filter= $filter('filter')($scope.report.lists.stocks, { stock_item_type: stock.stock_item_type }, true);
-         
+
           if(filter[0].details){
             list_details_item = typeof filter[0].details === 'string' ? JSON.parse(filter[0].details):filter[0].details;
           }
@@ -466,7 +414,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
         },
         selectChangeStockDetail: function (stock, search_list, detail, key, name, $locationIndex, $stockIndex){
           $scope.report.addDetailDisabled[$locationIndex][$stockIndex] = true;
-           
+
           if(detail[key]){
             $timeout(function () {
             id = detail[key];
@@ -518,7 +466,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
           }
           if (config.organization.admin0pcode === 'ET'){
             var detailRowDisabled = false;
-            
+
             if ($data.stock_details && $data.stock_details.length){
               var count_error_detail =0;
               angular.forEach($data.stock_details,function(e){
@@ -642,18 +590,18 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                   stock_targeted_groups_name: s.stock_targeted_groups_name
 								};
                 //donor exist
-                if (s.donors.length) {
+                if (s.donors && s.donors.length) {
                   $scope.inserted.donors = s.donors;
                 }
                 //implementing partner exist
-                if (s.implementing_partners.length) {
+                if (s.implementing_partners && s.implementing_partners.length) {
                   $scope.inserted.implementing_partners = s.implementing_partners;
                 }
                  //stock details exist
                 if (s.stock_details) {
                   $scope.inserted.stock_details = s.stock_details;
                 }
-                
+
 								var $loc = $scope.report.report.stocklocations.find(function (l) {
 									return l.stock_warehouse_id === id
 								});
@@ -802,7 +750,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                   read.onloadend = function () {
                     var csv_string = read.result
                     csv_array = Papa.parse(csv_string).data;
-                    
+
                     if (csv_array[0].indexOf('Stock Type') < 0) {
                       var previews = document.querySelectorAll(".dz-preview");
                       previews.forEach(function (preview) {
@@ -850,7 +798,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                       obj_true = $scope.report.addMissingAttributeFromFile(obj_true);
                       values.push(obj_true);
                     }
-                    
+
                     if (values.length > 0) {
                       var previews = document.querySelectorAll(".dz-preview");
                       previews.forEach(function (preview) {
@@ -859,14 +807,14 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                       document.querySelector(".dz-default.dz-message").style.display = 'none';
                       document.querySelector(".percent-upload").style.display = 'block';
                       var count_error = 0;
-                      
+
                       for (var x = 0; x < values.length; x++) {
                         index = $scope.report.report.stocklocations.findIndex(j =>
                           (j.site_name === values[x].site_name) &&
                           (j.admin1name === values[x].admin1name) &&
                           (j.admin2name === values[x].admin2name) &&
                           (j.admin3name ? (j.admin3name === values[x].admin3name) : true));
-                        
+
                         if (index < 0 || !values[x].stock_item_type) {
                           if (!$scope.messageFromfile[x]) {
                             $scope.messageFromfile[x] = []
@@ -902,7 +850,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                       document.querySelector(".percent-upload").style.display = 'none';
                       $('#upload-monthly-file-stock').modal('close');
                       drop_zone.removeAllFiles(true);
-                      
+
 
                       var message_temp = '';
 
@@ -932,7 +880,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                       }
 
                       if (message_temp !== '') {
-                        
+
                         $scope.report.report.messageWarning = message_temp;
                         $timeout(function () {
                           $('#message-monthly-file-stock').modal({ dismissible: false });
@@ -985,7 +933,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                           book.push(sh);
                         }
                       });
-                      
+
                       if (book[0][0].indexOf('Stock Type') < 0) {
                         var previews = document.querySelectorAll(".dz-preview");
                         previews.forEach(function (preview) {
@@ -1036,11 +984,11 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                       document.querySelector(".dz-default.dz-message").style.display = 'none';
                       document.querySelector(".percent-upload").style.display = 'block';
                       // $scope.answer = result;
-                      
+
                       if (result.length > 0 || (!result[x].stock_item_type)) {
                         var count_error = 0
                         for (var x = 0; x < result.length; x++) {
-                          index = $scope.report.report.stocklocations.findIndex(j => 
+                          index = $scope.report.report.stocklocations.findIndex(j =>
                             (j.site_name.toString() === result[x].site_name.toString()) &&
                             (j.admin1name === result[x].admin1name) &&
                             (j.admin2name === result[x].admin2name) &&
@@ -1067,7 +1015,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                               obj.reason = result[x].stock_item_type;
                               $scope.messageFromfile[x].push(obj)
                             }
-                            
+
                             count_error += 1;
                           } else {
                             $scope.report.addStockFromFile(index, result[x], x)
@@ -1078,7 +1026,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                         document.querySelector(".percent-upload").style.display = 'none';
                         $('#upload-monthly-file-stock').modal('close');
                         drop_zone.removeAllFiles(true);
-                        
+
 
                         var message_temp = '';
 
@@ -1283,7 +1231,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                       if (values[x].site_name) {
                         obj.reason += ', ' + values[x].site_name
                       }
-                      
+
 
                       $scope.messageFromfile[x].push(obj)
                     }
@@ -1292,7 +1240,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                       obj.reason = values[x].stock_item_type;
                       $scope.messageFromfile[x].push(obj)
                     }
-                    
+
                     count_error += 1;
 
                   } else {
@@ -1357,7 +1305,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                   var info = $filter('translate')('save_to_apply_changes');
                   M.toast({ html: 'Import File Success!', displayLength: 2000, classes: 'success' });
                   M.toast({ html: info, displayLength: 4000, classes: 'note' });
-                  
+
                 }
 
 
@@ -1443,6 +1391,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
               obj.stock_item_purpose_id = selected_purpose[0].stock_item_purpose_id;
             }
           }
+          
           return obj
         },
         copyToClipBoard: function () {

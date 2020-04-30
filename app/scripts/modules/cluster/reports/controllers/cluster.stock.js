@@ -16,8 +16,8 @@ angular.module('ngmReportHub')
 			'$timeout',
 			'ngmAuth',
 			'ngmData',
-			'ngmUser','$translate','$filter',
-	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter ) {
+			'ngmUser','$translate','$filter', 'ngmClusterLists',
+	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser, $translate, $filter, ngmClusterLists ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -116,6 +116,91 @@ angular.module('ngmReportHub')
 										theme: 'monthly_stock_report' + $scope.report.user.cluster_id,
 										format: 'csv',
 										url: $location.$$path
+									}
+								}
+							},{
+								type: 'client',
+								color: 'blue lighten-2',
+								icon: 'description',
+								hover: $filter('translate')('download_stock_lists'),
+								request: {
+									filename: 'stock_lists' + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) + '.xlsx',
+									mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+									function: function () {
+										let lists = ngmClusterLists.getStockLists($scope.report.organization.admin0pcode);
+
+										// XLSX processing
+										const workbook = new ExcelJS.Workbook();
+
+										let worksheetStockItems = workbook.addWorksheet('Stock Items');
+										let worksheetLocations = workbook.addWorksheet('Locations');
+										let worksheetUnits = workbook.addWorksheet('Units');
+										let worksheetStatus = workbook.addWorksheet('Status');
+										let worksheetPurpose = workbook.addWorksheet('Purpose');
+										let worksheetPopulationGroups = workbook.addWorksheet('Targeted Groups');
+
+										// xlsx headers
+										worksheetStockItems.columns = [
+											{ header: 'Cluster', key: 'cluster', width: 10 },
+											{ header: 'Stock Type', key: 'stock_item_name', width: 30 },
+											{ header: 'Details', key: 'details', width: 30 }
+										];
+
+										worksheetLocations.columns = [
+											{ header: 'Country', key: 'admin0name', width: 30 },
+											{ header: 'Admin1 Pcode', key: 'admin1pcode', width: 30 },
+											{ header: 'Admin1 Name', key: 'admin1name', width: 30 },
+											{ header: 'Admin2 Pcode', key: 'admin2pcode', width: 30 },
+											{ header: 'Admin2 Name', key: 'admin2name', width: 30 },
+											{ header: 'Admin3 Pcode', key: 'admin3pcode', width: 30 },
+											{ header: 'Admin3 Name', key: 'admin3name', width: 30 },
+											{ header: 'Location Name', key: 'site_name', width: 30 }
+										];
+
+										worksheetUnits.columns = [
+											{ header: 'Units', key: 'unit_type_name', width: 10 }
+										];
+
+										worksheetStatus.columns = [
+											{ header: 'Type', key: 'stock_type_name', width: 10 },
+											{ header: 'Status', key: 'stock_status_name', width: 10 }
+										];
+
+										worksheetPurpose.columns = [
+											{ header: 'Purpose', key: 'stock_item_purpose_name', width: 10 }
+										];
+
+										worksheetPopulationGroups.columns = [
+											{ header: 'Targeted Group', key: 'stock_targeted_groups_name', width: 10 }
+										];
+
+										// add rows
+										worksheetStockItems.addRows(lists.stocks);
+
+										let locations = $scope.report.organization.warehouses	? $scope.report.organization.warehouses : [];
+
+										worksheetLocations.addRows(locations);
+										worksheetUnits.addRows(lists.units);
+										worksheetStatus.addRows(lists.stock_status);
+										worksheetPurpose.addRows(lists.stock_item_purpose);
+										worksheetPopulationGroups.addRows(lists.stock_targeted_groups);
+
+										// return buffer
+										return workbook.xlsx.writeBuffer();
+
+									},
+									metrics: {
+										method: 'POST',
+										url: ngmAuth.LOCATION + '/api/metrics/set',
+										data: {
+											organization: $scope.report.user.organization,
+											username: $scope.report.user.username,
+											email: $scope.report.user.email,
+											dashboard: $scope.report.title,
+											theme: 'monthly_stock_report_lists_' + $scope.report.user.cluster_id,
+											format: 'xlsx',
+											url: $location.$$path
+										}
 									}
 								}
 							}]
