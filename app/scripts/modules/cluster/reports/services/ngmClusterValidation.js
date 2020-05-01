@@ -2021,6 +2021,7 @@ angular.module( 'ngmReportHub' )
 					 'report_month':'Stock Month',
 					 'report_year':'Stock Year',
 					 'cluster':'Cluster',
+					 'cluster_id': 'Cluster',
 					 'stock_item_name':'Stock Type',
 					 'stock_item_type': 'Stock Type',
 					 'stock_details':'Stock Details',

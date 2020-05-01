@@ -814,8 +814,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                           (j.admin1name === values[x].admin1name) &&
                           (j.admin2name === values[x].admin2name) &&
                           (j.admin3name ? (j.admin3name === values[x].admin3name) : true));
-
-                        if (index < 0 || !values[x].stock_item_type) {
+                        
+                        if (index < 0 || (!values[x].cluster_id)|| !values[x].stock_item_type) {
                           if (!$scope.messageFromfile[x]) {
                             $scope.messageFromfile[x] = []
                           }
@@ -832,9 +832,14 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
                             $scope.messageFromfile[x].push(obj)
                           }
+                          if (!values[x].cluster_id) {
+                            obj = { label: false, property: 'cluster_id', reason: '' }
+                            obj.reason = values[x].cluster;
+                            $scope.messageFromfile[x].push(obj)
+                          }
                           if (!values[x].stock_item_type){
                             obj = { label: false, property:'stock_item_type', reason:''}
-                            obj.reason = values[x].stock_item_type;
+                            obj.reason = values[x].stock_item_name;
                             $scope.messageFromfile[x].push(obj)
                           }
                           count_error += 1;
@@ -866,8 +871,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                             }
                             if (field === 'location') {
                               message_temp += 'For Incorrect Location please check admin1 Name, admin2 Name, site name ! \n'
-                            } else if (field === 'stock_item_type') {
-                              message_temp += 'For Incorrect Stock Type \nPlease check spelling, or verify that this is a correct value for this report! \n'
+                            } else if (field === 'stock_item_type' || field ==='cluster_id') {
+                              message_temp += 'For Incorrect Stock Type or Cluster \nPlease check spelling, or verify that this is a correct value for this report! \n'
                             }
                             else {
                               message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
@@ -984,8 +989,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                       document.querySelector(".dz-default.dz-message").style.display = 'none';
                       document.querySelector(".percent-upload").style.display = 'block';
                       // $scope.answer = result;
-
-                      if (result.length > 0 || (!result[x].stock_item_type)) {
+                      
+                      if (result.length > 0 || (!result[x].cluster_id)|| (!result[x].stock_item_type)) {
                         var count_error = 0
                         for (var x = 0; x < result.length; x++) {
                           index = $scope.report.report.stocklocations.findIndex(j =>
@@ -994,7 +999,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                             (j.admin2name === result[x].admin2name) &&
                             (j.admin3name ? (j.admin3name === result[x].admin3name) : true))
 
-                          if (index < 0 || (!result[x].stock_item_type)) {
+                          if (index < 0 || (!result[x].cluster_id)|| (!result[x].stock_item_type)) {
                             if (!$scope.messageFromfile[x]) {
                               $scope.messageFromfile[x] = []
                             }
@@ -1010,9 +1015,14 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                               }
                               $scope.messageFromfile[x].push(obj)
                             }
+                            if (!result[x].cluster_id) {
+                              obj = { label: false, property: 'cluster_id', reason: '' }
+                              obj.reason = result[x].cluster;
+                              $scope.messageFromfile[x].push(obj)
+                            }
                             if (!result[x].stock_item_type) {
                               obj = { label: false, property: 'stock_item_type', reason: '' }
-                              obj.reason = result[x].stock_item_type;
+                              obj.reason = result[x].stock_item_name;
                               $scope.messageFromfile[x].push(obj)
                             }
 
@@ -1043,8 +1053,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                               }
                               if (field === 'location') {
                                 message_temp += 'For Incorrect Location please check admin1 Name, admin2 name, site type, site implementation, site name ! \n'
-                              } else if (field === ('stock_item_type')) {
-                                message_temp += 'For Incorrect Stock Type \nPlease check spelling, or verify that this is a correct value for this report! \n'
+                              } else if (field === 'stock_item_type' || field === 'cluster_id') {
+                                message_temp += 'For Incorrect Stock Type or Cluster \nPlease check spelling, or verify that this is a correct value for this report! \n'
                               }
                               else {
                                 message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
@@ -1216,12 +1226,12 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                     (j.admin1name === values[x].admin1name) &&
                     (j.admin2name === values[x].admin2name) &&
                     (j.admin3name ? (j.admin3name === values[x].admin3name) : true));
-                  if (index < 0 || (!values[x].stock_item_type)) {
+                  if (index < 0 || (!values[x].cluster_id)|| (!values[x].stock_item_type)) {
                     if (!$scope.messageFromfile[x]) {
                       $scope.messageFromfile[x] = []
                     }
                     obj = {}
-                    index = -1
+                    
                     if (index < 0) {
                       obj = { label: false, property: 'location', reason: '' }
                       obj.reason = 'Location not Found : ' + values[x].admin1name + ', ' + values[x].admin2name;
@@ -1235,9 +1245,14 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
                       $scope.messageFromfile[x].push(obj)
                     }
+                    if(!values[x].cluster_id){
+                      obj = { label: false, property: 'cluster_id', reason: '' }
+                      obj.reason = values[x].cluster;
+                      $scope.messageFromfile[x].push(obj)
+                    }
                     if (!values[x].stock_item_type) {
                       obj = { label: false, property: 'stock_item_type', reason: '' }
-                      obj.reason = values[x].stock_item_type;
+                      obj.reason = values[x].stock_item_name;
                       $scope.messageFromfile[x].push(obj)
                     }
 
@@ -1263,8 +1278,8 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
                     }
                     if (field === 'location') {
                       message_temp += 'For Incorrect Location please check admin1 Name, admin2 Name, site type, site implementation, site name ! \n'
-                    } else if (field === 'stock_item_type') {
-                      message_temp += 'For Stock Type \nPlease check spelling, or verify that this is a correct value for this report! \n'
+                    } else if (field === 'stock_item_type' || field === 'cluster_id') {
+                      message_temp += 'For Stock Type or Cluster \nPlease check spelling, or verify that this is a correct value for this report! \n'
                     }
                     else {
                       message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
@@ -1339,7 +1354,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
             }
           }
           if (obj.stock_item_name){
-            selected_stock_item = $filter('filter')($scope.report.lists.stocks, { stock_item_name: obj.stock_item_name }, true);
+            selected_stock_item = $filter('filter')($scope.report.lists.stocks, { stock_item_name: obj.stock_item_name ,cluster_id: obj.cluster_id }, true);
             if (selected_stock_item.length) {
               obj.stock_item_type = selected_stock_item[0].stock_item_type;
             };
@@ -1352,7 +1367,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
           }
           if (obj.unit_type_name){
-            selected_unit = $filter('filter')($scope.report.lists.units, { unit_type_name: obj.unit_type_name }, true);
+            selected_unit = $filter('filter')($scope.report.lists.units, { unit_type_name: obj.unit_type_name, cluster_id: obj.cluster_id}, true);
             if (selected_unit.length) {
               obj.unit_type_id = selected_unit[0].unit_type_id;
             }
