@@ -29,6 +29,12 @@
 						{{'add_new_row_of_financial_details_to_your_project_for_each_payment_recieved' | translate}};
 					</p>
 
+					<button
+						class="btn waves-effect waves-light hide-on-small-only file-report-btn" title=" Import From File"
+						ng-click="project.uploadFileReport.openModal('upload-monthly-file-financial')" ng-disabled="">
+						<i class="material-icons left">publish</i>Import Form File
+					</button>
+
 					<div id="financial-id-{{$index}}" ng-repeat="budget in project.definition.project_budget_progress track by $index">
 						<!-- new button and title -->
 						<div class="row" style="margin-bottom: 15px;">
@@ -101,7 +107,7 @@
 
 								<!-- Activity -->
 								<div class="input-field col s12 m6 l4">
-									<select materialize-select id="ngm-activity_type_id-{{$index}}" name="ngm-activity_type_id-{{$index}}"
+									<select materialize-select watch id="ngm-activity_type_id-{{$index}}" name="ngm-activity_type_id-{{$index}}"
 										class="validate" 
 										ng-options="d.activity_type_id as d.activity_type_name for d in project.lists.activity_type"
 										ng-model="budget.activity_type_id"
@@ -124,7 +130,7 @@
 										class="validate"
 										ng-disabled="project.definition.project_status === 'complete'"
 										required>
-									<label for="ngm-grant_id-{{ $ndex }}" class="active"
+									<label for="ngm-grant_id-{{ $index }}" class="active"
 										>{{'grant' | translate}} ID</label>
 								</div>
 

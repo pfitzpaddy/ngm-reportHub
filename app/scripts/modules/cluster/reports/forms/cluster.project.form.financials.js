@@ -56,7 +56,8 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 			}
 			// })
 
- 
+      $scope.messageFromfile = [];
+      $scope.inputString = false;
       
 
       $scope.project = {
@@ -132,6 +133,9 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
             $location.path( '/cluster/projects/summary/' + $scope.project.definition.id );
           }, 400);
         },
+
+        text_input: '',
+        messageWarning: '',
 
         // donor
         showDonor: function( $data, $budget ) {
@@ -529,6 +533,44 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 					$scope.detailFinancial[$scope.project.definition.project_budget_progress.length-1] = true;
         },
 
+        addBudgetItemFromFile:function(budget,index){
+         
+          $scope.project.definition.project_budget_progress.push(budget);
+          $scope.detailFinancial[$scope.project.definition.project_budget_progress.length - 1] = true;
+
+          $scope.messageFromfile[index] = ngmClusterFinancial.validateBudgetFromFile(budget, ($scope.project.definition.project_budget_progress.length - 1), $scope.detailFinancial);
+
+          if (budget.multi_year_array && budget.multi_year_array.length && budget.multi_year_funding_id === 'yes'){
+            
+            var start_year = moment($scope.project.definition.project_start_date).year();
+            end_year = moment($scope.project.definition.project_end_date).year();
+            var years = []
+            if (end_year % start_year > 0) {
+              for (let index = start_year; index <= end_year; index++) {
+                years.push(index)
+              }
+            } else {
+              years.push(end_year)
+            }
+            var temp_array = [] 
+            angular.forEach(budget.multi_year_array,function(e,i){
+              indexYear = years.findIndex(x => x=== e.year);
+              if(indexYear >0){
+                temp_array.push(e)
+              }else{
+                $scope.messageFromfile[index].push({ label: false, property: 'multi_year_array', reason: 'Year(' + e.year + ') not  match with  this project year(start:' + start_year + ', end: ' + end_year+')'})
+              }
+            })
+            budget.multi_year_array = temp_array;
+          }
+
+          if (!budget.multi_year_array && budget.multi_year_funding_id === 'yes'){
+            $scope.messageFromfile[index].push({ label: false, property: 'multi_year_array', reason: 'Missing value '})
+          }
+          
+
+        },
+
         // remove notification
         removeBudgetModal: function( $index ) {
           $scope.project.budgetIndex = $index;
@@ -588,7 +630,744 @@ angular.module( 'ngm.widget.project.financials', [ 'ngm.provider' ])
 					if(ngmClusterFinancial.validateBudgets($scope.project.definition.project_budget_progress, $scope.detailFinancial)){
 						$scope.project.save()
 					}
-				}
+        },
+        // upload file monthly report
+        uploadFileReport: {
+          openModal: function (modal) {
+            // $('#' + modal).openModal({ dismissible: false });
+            $('#' + modal).modal({ dismissible: false });
+            $('#' + modal).modal('open');
+          },
+          closeModal: function (modal) {
+            drop_zone.removeAllFiles(true);
+            M.toast({ html: $filter('translate')('cancel_to_upload_file'), displayLength: 2000, classes: 'note' });
+          },
+          obj_header: {
+            'Cluster':'cluster',
+            'Organization':'organization',
+            'Country':'admin0name',
+            'Project Title':'project_title',
+            'Project Description':'project_description',
+            'HRP Project Code':'project_hrp_code',
+            'Project Budget':'project_budget',
+            'Project Budget Currency':'project_budget_currency',
+            'Project Donor':'project_donor_name',
+            'Donor Grant ID':'grant_id',
+            'Currency Recieved':'currency_id',
+            'Ammount Received':'project_budget_amount_recieved',
+            'Contribution Status':'contribution_status',
+            'Date of Payment':'project_budget_date_recieved',
+            'Incoming Funds':'budget_funds_name',
+            'Financial Programming':'financial_programming_name',
+            'Multi-Year Funding':'multi_year_funding_name',
+            'Funding Per Year':'multi_year_array',
+            'Reported on FTS':'reported_on_fts_name',
+            'FTS ID':'fts_record_id',
+            'Email':'email',
+            'createdAt':'createdAt',
+            'Comments':'comments',
+            'Activity Type': 'activity_type_name',
+            'Funding Per Year': 'multi_year_array',
+            'Activity Description':'activity_description_name'
+          },
+          uploadFileConfig: {
+            previewTemplate: `	<div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
+																			<div class="dz-image">
+																				<img data-dz-thumbnail>
+																			</div>
+																			<div class="dz-details">
+																				<div class="dz-size">
+																					<span data-dz-size>
+																				</div>
+																				<div class="dz-filename">
+																					<span data-dz-name></span>
+																				</div>
+																			</div>
+																			<div data-dz-remove class=" remove-upload btn-floating red" style="margin-left:35%; "><i class="material-icons">clear</i></div>
+																		</div>`,
+            completeMessage: '<i class="medium material-icons" style="color:#009688;">cloud_done</i><br/><h5 style="font-weight:300;">' + $filter('translate')('complete') + '</h5><br/><h5 style="font-weight:100;"><div id="add_doc" class="btn"><i class="small material-icons">add_circle</i></div></h5></div>',
+            acceptedFiles: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv',
+            maxFiles: 1,
+            parallelUploads: 1,
+            url: ngmAuth.LOCATION + '/api/uploadGDrive',
+            dictDefaultMessage:
+              `<i class="medium material-icons" style="color:#009688;">publish</i> <br/>` + $filter('translate')('drag_files_here_or_click_button_to_upload') + ' <br/> Please upload file with extention .csv or xlxs !',
+            notSupportedFile: `<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>` + $filter('translate')('not_supported_file_type') + ' ',
+            errorMessage: `<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>Error`,
+            addRemoveLinks: false,
+            autoProcessQueue: false,
+            init: function () {
+              drop_zone = this;
+              // upload_file and delete_file is ID for button upload and cancel
+              $("#upload_file").attr("disabled", true);
+              $("#delete_file").attr("disabled", true);
+
+              document.getElementById('upload_file').addEventListener("click", function () {
+                $("#upload_file").attr("disabled", true);
+                $("#delete_file").attr("disabled", true);
+                $("#switch_btn_file").attr("disabled", true);
+                var ext = drop_zone.getAcceptedFiles()[0].name.split('.').pop();
+                attribute_headers_obj = $scope.project.uploadFileReport.obj_header;
+                if (ext === 'csv') {
+                  var file = drop_zone.getAcceptedFiles()[0],
+                    read = new FileReader();
+
+                  read.readAsBinaryString(file);
+
+                  read.onloadend = function () {
+                    var csv_string = read.result
+                    csv_array = Papa.parse(csv_string).data;
+                    if (csv_array[0].indexOf('Activity Type') < 0) {
+                      var previews = document.querySelectorAll(".dz-preview");
+                      previews.forEach(function (preview) {
+                        preview.style.display = 'none';
+                      })
+                      document.querySelector(".dz-default.dz-message").style.display = 'none';
+                      document.querySelector(".percent-upload").style.display = 'block';
+                      $scope.project.messageWarning = 'Incorect Input! \n' + 'Header is Not Found';
+                      $timeout(function () {
+                        $('#upload-monthly-file-financial').modal('close');
+                        document.querySelector(".dz-default.dz-message").style.display = 'block';
+                        document.querySelector(".percent-upload").style.display = 'none';
+                        $('#message-monthly-file-financial').modal({ dismissible: false });
+                        $('#message-monthly-file-financial').modal('open');
+                        $("#switch_btn_file").attr("disabled", false);
+                      }, 1000)
+                      return
+                    };
+                    var values = [];
+                    values_obj = [];
+                    // get value and change to object
+                    for (var y = 1; y < csv_array.length; y++) {
+                      var obj = {}
+                      for (var z = 0; z < csv_array[y].length; z++) {
+                        if (csv_array[0][z] === 'Project Budget' ||
+                          csv_array[0][z] === 'Ammount Received'
+                          ) {
+                          csv_array[y][z] = parseInt(csv_array[y][z]);
+                        }
+
+                        obj[csv_array[0][z]] = csv_array[y][z];
+                      }
+                      values_obj.push(obj)
+                    }
+                    // map the header to the attribute name
+                    for (var index = 0; index < values_obj.length; index++) {
+                      obj_true = {};
+                      angular.forEach(values_obj[index], function (value, key) {
+
+                        atribute_name = attribute_headers_obj[key];
+                        obj_true[atribute_name] = value;
+
+                      })
+                      obj_true = $scope.project.addMissingAttributeFromFile(obj_true);
+                      values.push(obj_true);
+                    }
+                    
+                    if (values.length > 0) {
+                      var previews = document.querySelectorAll(".dz-preview");
+                      previews.forEach(function (preview) {
+                        preview.style.display = 'none';
+                      })
+                      document.querySelector(".dz-default.dz-message").style.display = 'none';
+                      document.querySelector(".percent-upload").style.display = 'block';
+                      var count_error = 0;
+                      for (var x = 0; x < values.length; x++) {
+                        
+                        if ((!values[x].project_donor_id) || (!values[x].activity_type_id)) {
+                          
+                          if (!$scope.messageFromfile[x]) {
+                            $scope.messageFromfile[x] = []
+                          }
+                          obj = {}
+                          if (!values[x].project_donor_id) {
+                            obj = { label: false, property: 'project_donor_id', reason: 'Missing Value' }
+                            if (values[x].project_donor_name){
+                              obj.reason = values[x].project_donor_name + ' (Not In List)';
+                            }
+                            $scope.messageFromfile[x].push(obj)
+                          }
+                          if (!values[x].activity_type_id) {
+                            obj = { label: false, property: 'activity_type_id', reason: 'Missing Value' }
+                            if (values[x].activity_type_name){
+                              obj.reason = values[x].activity_type_name +' (Not In List)'
+                            }
+                            $scope.messageFromfile[x].push(obj)
+                          }
+                          count_error += 1;
+
+                        } else {
+                          $scope.project.addBudgetItemFromFile( values[x], x);
+                        }
+                      }
+
+                    }
+
+                    $timeout(function () {
+                      document.querySelector(".percent-upload").style.display = 'none';
+                      $('#upload-monthly-file-financial').modal('close');
+                      drop_zone.removeAllFiles(true);
+                      
+
+                      var message_temp = '';
+
+                      for (var z = 0; z < $scope.messageFromfile.length; z++) {
+                        if ($scope.messageFromfile[z].length) {
+                          for (var y = 0; y < $scope.messageFromfile[z].length; y++) {
+
+                            var field = $scope.messageFromfile[z][y].property;
+                            var reason = $scope.messageFromfile[z][y].reason;
+                            var error_label = $scope.messageFromfile[z][y].label;
+                            if (error_label) {
+                              $timeout(function () {
+                                $(error_label).addClass('error');
+                              }, 0)
+                            }
+                            if (field === 'activity_type_id' || field === 'project_donor_id') {
+                              message_temp += 'For Incorrect Activity Type or Project Donor \nPlease check spelling, or verify that this is a correct value for this report! \n'
+                            }
+                            else {
+                              message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
+                            }
+                            message_temp += 'Incorrect value at: row ' + (z + 2) + ', ' + ngmClusterFinancial.fieldBudget()[field] + ' : ' + reason + '\n';
+
+                          }
+                        }
+
+                      }
+
+                      if (message_temp !== '') {
+
+                        $scope.project.messageWarning = message_temp;
+                        $timeout(function () {
+                          $('#message-monthly-file-financial').modal({ dismissible: false });
+                          $('#message-monthly-file-financial').modal('open');
+                        })
+
+                      }
+                      // perlu diperbaiki
+                      if (count_error > 0 || values.length < 1) {
+                        if ((count_error === values.length) || (values.length < 1)) {
+                          M.toast({ html: 'Import Fail!', displayLength: 2000, classes: 'error' });
+                        } else {
+                          var info = $filter('translate')('save_to_apply_changes');
+                          M.toast({ html: 'Some Row Succeccfully added !', displayLength: 2000, classes: 'success' });
+                          M.toast({ html: info, displayLength: 4000, classes: 'note' });
+                        }
+
+                      } else {
+                        var info = $filter('translate')('save_to_apply_changes');
+                        M.toast({ html: 'Import File Success!', displayLength: 2000, classes: 'success' });
+                        M.toast({ html: info, displayLength: 4000, classes: 'note' });
+                      }
+
+
+                      // reset error message
+                      $scope.messageFromfile = [];
+                      $("#upload_file").attr("disabled", true);
+                      $("#delete_file").attr("disabled", true);
+                      $("#switch_btn_file").attr("disabled", false);
+                    }, 2000)
+                  }
+
+
+                } else {
+                  file = drop_zone.getAcceptedFiles()[0]
+                  const wb = new ExcelJS.Workbook();
+                  drop_zone.getAcceptedFiles()[0].arrayBuffer().then((data) => {
+                    var result = []
+                    wb.xlsx.load(data).then(workbook => {
+                      const book = [];
+                      const book_obj = [];
+
+                      workbook.eachSheet((sheet, index) => {
+                        // get only the first sheet
+                        if (index === 1) {
+                          const sh = [];
+                          sheet.eachRow(row => {
+                            sh.push(row.values);
+                          });
+                          book.push(sh);
+                        }
+                      });
+
+                      if (book[0][0].indexOf('Activity Type') < 0) {
+                        var previews = document.querySelectorAll(".dz-preview");
+                        previews.forEach(function (preview) {
+                          preview.style.display = 'none';
+                        })
+                        document.querySelector(".dz-default.dz-message").style.display = 'none';
+                        document.querySelector(".percent-upload").style.display = 'block';
+                        $scope.project.messageWarning = 'Incorect Input! \n' + 'Header is Not Found';
+                        $timeout(function () {
+                          $('#upload-monthly-file-financial').modal('close');
+                          document.querySelector(".dz-default.dz-message").style.display = 'block';
+                          document.querySelector(".percent-upload").style.display = 'none';
+                          $('#message-monthly-file-financial').modal({ dismissible: false });
+                          $('#message-monthly-file-financial').modal('open');
+                        }, 1000)
+                        return
+                      };
+                      // get value and change to object
+                      for (var x = 0; x < book.length; x++) {
+                        for (var y = 1; y < book[x].length; y++) {
+                          var obj = {}
+                          for (var z = 1; z < book[x][y].length; z++) {
+                            if (book[x][y][z] === undefined) {
+                              book[x][y][z] = "";
+                            }
+                            obj[book[x][0][z]] = book[x][y][z];
+                          }
+                          book_obj.push(obj)
+                        }
+                      }
+                      // map the header to the attribute name
+                      for (var index = 0; index < book_obj.length; index++) {
+                        obj_true = {};
+                        angular.forEach(book_obj[index], function (value, key) {
+
+                          atribute_name = attribute_headers_obj[key];
+                          obj_true[atribute_name] = value;
+
+                        })
+                        obj_true = $scope.project.addMissingAttributeFromFile(obj_true);
+                        result.push(obj_true);
+                      }
+
+                      var previews = document.querySelectorAll(".dz-preview");
+                      previews.forEach(function (preview) {
+                        preview.style.display = 'none';
+                      })
+                      document.querySelector(".dz-default.dz-message").style.display = 'none';
+                      document.querySelector(".percent-upload").style.display = 'block';
+                      // $scope.answer = result;
+                      if (result.length > 0) {
+                        var count_error = 0
+                        for (var x = 0; x < result.length; x++) {
+
+                          if ((!result[x].project_donor_id) || (!result[x].activity_type_id)) {
+
+                            if (!$scope.messageFromfile[x]) {
+                              $scope.messageFromfile[x] = []
+                            }
+                            obj = {}
+                            if (!result[x].project_donor_id) {
+                              obj = { label: false, property: 'project_donor_id', reason: 'Missing Value' }
+                              if (result[x].project_donor_name) {
+                                obj.reason = result[x].project_donor_name + ' (Not In List)';
+                              }
+                              $scope.messageFromfile[x].push(obj)
+                            }
+                            if (!result[x].activity_type_id) {
+                              obj = { label: false, property: 'activity_type_id', reason: 'Missing Value' }
+                              if (result[x].activity_type_name) {
+                                obj.reason = result[x].activity_type_name + ' (Not In List)'
+                              }
+                              $scope.messageFromfile[x].push(obj)
+                            }
+                            count_error += 1;
+
+                          } else {
+                            $scope.project.addBudgetItemFromFile(result[x], x);
+                          }
+                        }
+                      }
+                      $timeout(function () {
+                        document.querySelector(".percent-upload").style.display = 'none';
+                        $('#upload-monthly-file-financial').modal('close');
+                        drop_zone.removeAllFiles(true);
+                        
+
+                        var message_temp = '';
+
+                        for (var z = 0; z < $scope.messageFromfile.length; z++) {
+
+                          if ($scope.messageFromfile[z].length) {
+                            for (var y = 0; y < $scope.messageFromfile[z].length; y++) {
+
+                              var field = $scope.messageFromfile[z][y].property;
+                              var reason = $scope.messageFromfile[z][y].reason;
+                              var error_label = $scope.messageFromfile[z][y].label;
+                              if (error_label) {
+                                $timeout(function(){
+                                  $(error_label).addClass('error');
+                                },0)
+                                
+                              }
+                              if (field === 'activity_type_id' || field === 'project_donor_id') {
+                                message_temp += 'For Incorrect Activity Type or Project Donor \nPlease check spelling, or verify that this is a correct value for this report! \n'
+                              }
+                              else {
+                                message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
+                              }
+                              message_temp += 'Incorrect value at: row ' + (z + 2) + ', ' + ngmClusterFinancial.fieldBudget()[field] + ' : ' + reason + '\n';
+
+                            }
+                          }
+
+                        }
+
+                        if (message_temp !== '') {
+
+                          $scope.project.messageWarning = message_temp;
+
+                          $timeout(function () {
+                            $('#message-monthly-file-financial').modal({ dismissible: false });
+                            $('#message-monthly-file-financial').modal('open');
+                          })
+
+                        }
+                        // perlu diperbaiki
+                        if (count_error > 0 || result.length < 1) {
+                          if ((count_error === result.length) || (result.length < 1)) {
+                            M.toast({ html: 'Import Fail!', displayLength: 2000, classes: 'error' });
+                          } else {
+                            var info = $filter('translate')('save_to_apply_changes');
+                            M.toast({ html: 'Some Row Succeccfully added !', displayLength: 2000, classes: 'success' });
+                            M.toast({ html: info, displayLength: 4000, classes: 'note' });
+                          }
+
+                        } else {
+                          var info = $filter('translate')('save_to_apply_changes');
+                          M.toast({ html: 'Import File Success!', displayLength: 2000, classes: 'success' });
+                          M.toast({ html: info, displayLength: 4000, classes: 'note' });
+                        }
+                        // reset error message
+                        $scope.messageFromfile = [];
+                        $("#upload_file").attr("disabled", true);
+                        $("#delete_file").attr("disabled", true);
+                        $("#switch_btn_file").attr("disabled", false);
+                      }, 2000)
+
+                    })
+                  })
+                }
+              });
+
+              document.getElementById('delete_file').addEventListener("click", function () {
+                drop_zone.removeAllFiles(true);
+              });
+
+              // when add file
+              drop_zone.on("addedfile", function (file) {
+
+                document.querySelector(".dz-default.dz-message").style.display = 'none';
+                var ext = file.name.split('.').pop();
+                //change preview if not image/*
+                $(file.previewElement).find(".dz-image img").attr("src", "images/elsedoc.png");
+                $("#upload_file").attr("disabled", false);
+                $("#delete_file").attr("disabled", false);
+
+              });
+
+              // when remove file
+              drop_zone.on("removedfile", function (file) {
+
+                if (drop_zone.files.length < 1) {
+                  // upload_file and delete_file is ID for button upload and cancel
+                  $("#upload_file").attr("disabled", true);
+                  $("#delete_file").attr("disabled", true);
+
+                  document.querySelector(".dz-default.dz-message").style.display = 'block';
+                  $('.dz-default.dz-message').html(`<i class="medium material-icons" style="color:#009688;">publish</i> <br/>` + $filter('translate')('drag_files_here_or_click_button_to_upload') + ' <br/> Please upload file with extention .csv or xlxs !');
+                }
+
+                if ((drop_zone.files.length < 2) && (drop_zone.files.length > 0)) {
+                  document.querySelector(".dz-default.dz-message").style.display = 'none';
+                  $("#upload_file").attr("disabled", false);
+                  $("#delete_file").attr("disabled", false);
+                  document.getElementById("upload_file").style.pointerEvents = "auto";
+                  document.getElementById("delete_file").style.pointerEvents = "auto";
+
+                }
+              });
+
+              drop_zone.on("maxfilesexceeded", function (file) {
+                document.querySelector(".dz-default.dz-message").style.display = 'none';
+                $('.dz-default.dz-message').html(`<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>` + 'Please, import just one file at the time and remove exceeded file');
+                document.querySelector(".dz-default.dz-message").style.display = 'block'
+                // Materialize.toast("Too many file to upload", 6000, "error")
+                M.toast({ html: "Too many file to upload", displayLength: 2000, classes: 'error' });
+                $("#upload_file").attr("disabled", true);
+                document.getElementById("upload_file").style.pointerEvents = "none";
+                $("#delete_file").attr("disabled", true);
+                document.getElementById("delete_file").style.pointerEvents = "none";
+              });
+
+              // reset
+              this.on("reset", function () {
+                // upload_file and delete_file is ID for button upload and cancel
+                document.getElementById("upload_file").style.pointerEvents = 'auto';
+                document.getElementById("delete_file").style.pointerEvents = 'auto';
+              });
+            },
+
+          },
+          uploadText: function () {
+
+            document.querySelector("#ngm-input-string").style.display = 'none';
+            document.querySelector(".percent-upload").style.display = 'block';
+            $("#input_string").attr("disabled", true);
+            $("#close_input_string").attr("disabled", true);
+            $("#switch_btn_text").attr("disabled", true);
+            attribute_headers_obj = $scope.project.uploadFileReport.obj_header;
+            if ($scope.project.text_input) {
+              csv_array = Papa.parse($scope.project.text_input).data;
+              if (csv_array[0].indexOf('Activity Type') < 0) {
+
+
+                $timeout(function () {
+                  $scope.project.messageWarning = 'Incorect Input! \n' + 'Header is Not Found';
+                  $('#upload-monthly-file-financial').modal('close');
+                  document.querySelector("#ngm-input-string").style.display = 'block';
+                  document.querySelector(".percent-upload").style.display = 'none';
+                  $('#message-monthly-file-financial').modal({ dismissible: false });
+                  $('#message-monthly-file-financial').modal('open');
+                  $scope.project.text_input = '';
+                  document.querySelector("#input-string-area").style.display = 'block';
+                  $scope.inputString = false;
+                }, 1000)
+                return
+              };
+              var values = [];
+              values_obj = [];
+              // get value and change to object
+              for (var y = 1; y < csv_array.length; y++) {
+                var obj = {}
+                for (var z = 0; z < csv_array[y].length; z++) {
+                  if (csv_array[0][z] === 'Project Budget' ||
+                    csv_array[0][z] === 'Ammount Received') {
+                    csv_array[y][z] = parseInt(csv_array[y][z]);
+                  }
+
+                  obj[csv_array[0][z]] = csv_array[y][z];
+                }
+                values_obj.push(obj)
+              }
+              // map the header to the attribute name
+              for (var index = 0; index < values_obj.length; index++) {
+                obj_true = {};
+                angular.forEach(values_obj[index], function (value, key) {
+
+                  atribute_name = attribute_headers_obj[key];
+                  obj_true[atribute_name] = value;
+
+                })
+                obj_true = $scope.project.addMissingAttributeFromFile(obj_true);
+                values.push(obj_true);
+              }
+
+              if (values.length > 0) {
+
+                var count_error = 0;
+                for (var x = 0; x < values.length; x++) {
+                  if ((!values[x].project_donor_id) || (!values[x].activity_type_id) ) {
+                    if (!$scope.messageFromfile[x]) {
+                      $scope.messageFromfile[x] = []
+                    }
+                    obj = {}
+                    if (!values[x].project_donor_id) {
+                      obj = { label: false, property: 'project_donor_id', reason: 'Missing Value' }
+                      if (values[x].project_donor_name) {
+                        obj.reason = values[x].project_donor_name + ' (Not In List)';
+                      }
+                      $scope.messageFromfile[x].push(obj)
+                    }
+                    if (!values[x].activity_type_id) {
+                      obj = { label: false, property: 'activity_type_id', reason: 'Missing Value' }
+                      if (values[x].activity_type_name) {
+                        obj.reason = values[x].activity_type_name + ' (Not In List)'
+                      }
+                      $scope.messageFromfile[x].push(obj)
+                    }
+                    count_error += 1;
+
+                  } else {
+                    $scope.project.addBudgetItemFromFile(values[x], x);
+                  }
+                }
+
+              }
+
+              var message_temp = '';
+
+              for (var z = 0; z < $scope.messageFromfile.length; z++) {
+                if ($scope.messageFromfile[z].length) {
+                  for (var y = 0; y < $scope.messageFromfile[z].length; y++) {
+
+                    var field = $scope.messageFromfile[z][y].property;
+                    var reason = $scope.messageFromfile[z][y].reason;
+                    var error_label = $scope.messageFromfile[z][y].label;
+                    if (error_label) {
+                      $timeout(function () {
+                        $(error_label).addClass('error');
+                      }, 0)
+                    }
+                    if (field === 'activity_type_id' || field === 'project_donor_id') {
+                      message_temp += 'For Incorrect Activity Type or Project Donor \nPlease check spelling, or verify that this is a correct value for this report! \n'
+                    }
+                    else {
+                      message_temp += 'For incorrect values please check spelling, or verify that this is a correct value for this report! \n'
+                    }
+                    message_temp += 'Incorrect value at: row ' + (z + 2) + ', ' + ngmClusterFinancial.fieldBudget()[field] + ' : ' + reason + '\n';
+
+                  }
+                }
+
+              }
+
+              $timeout(function () {
+                document.querySelector("#ngm-input-string").style.display = 'block';
+                document.querySelector(".percent-upload").style.display = 'none';
+                $('#upload-monthly-file-financial').modal('close');
+                $scope.project.text_input = '';
+
+                
+
+               
+
+                if (message_temp !== '') {
+
+                  $scope.project.messageWarning = message_temp;
+                  $timeout(function () {
+                    $('#message-monthly-file-financial').modal({ dismissible: false });
+                    $('#message-monthly-file-financial').modal('open');
+                  })
+
+                }
+                // perlu diperbaiki
+                if (count_error > 0 || values.length < 1) {
+                  if ((count_error === values.length) || (values.length < 1)) {
+                    M.toast({ html: 'Import Fail!', displayLength: 2000, classes: 'error' });
+                  } else {
+                    var info = $filter('translate')('save_to_apply_changes');
+                    M.toast({ html: 'Some Row Succeccfully added !', displayLength: 2000, classes: 'success' });
+                    M.toast({ html: info, displayLength: 4000, classes: 'note' });
+                  }
+
+                } else {
+                  var info = $filter('translate')('save_to_apply_changes');
+                  M.toast({ html: 'Import File Success!', displayLength: 2000, classes: 'success' });
+                  M.toast({ html: info, displayLength: 4000, classes: 'note' });
+                }
+
+
+                document.querySelector("#input-string-area").style.display = 'block';
+              }, 2000)
+
+
+
+            } else {
+              $timeout(function () {
+                document.querySelector("#ngm-input-string").style.display = 'block';
+                document.querySelector(".percent-upload").style.display = 'none';
+                $("#close_input_string").attr("disabled", false);
+                $("#input_string").attr("disabled", false);
+                $("#switch_btn_text").attr("disabled", false);
+                M.toast({ html: 'Please Type something!', displayLength: 2000, classes: 'success' });
+              }, 2000)
+
+            }
+            // reset error message
+            $scope.messageFromfile = [];
+          }
+
+        },
+        addMissingAttributeFromFile: function (obj) {
+          // donor
+          if (obj.project_donor_name){
+            selected_donor = $filter('filter')($scope.project.definition.project_donor, { project_donor_name: obj.project_donor_name},true);
+            if(selected_donor.length){
+              obj.project_donor_id = selected_donor[0].project_donor_id;
+            }
+          }
+          // activity type
+          if (obj.activity_type_name){
+            selected_act = $filter('filter')($scope.project.lists.activity_type,{ activity_type_name: obj.activity_type_name},true);
+            if(selected_act.length){
+              obj.activity_type_id = selected_act[0].activity_type_id;
+              obj.cluster_id = selected_act[0].cluster_id;
+            }
+          }
+
+          if(obj.activity_description_name){
+            selected_desc = $filter('filter')($scope.project.lists.activity_descriptions, { activity_description_name: $budget.activity_description_name }, true);
+            if (selected_desc.length) {
+              $budget.activity_description_id = selected[0].activity_description_id;
+            }
+          }
+
+          if (obj.currency_id){
+            selected_currency = $filter('filter')($scope.project.lists.currencies, { currency_id: obj.currency_id},true);
+            if(selected_currency.length){
+              obj.currency_name = selected_currency[0].currency_name;
+            }
+          }
+
+          if (obj.budget_funds_name){
+            selected_budget = $filter('filter')($scope.project.lists.budget_funds, { budget_funds_name: obj.budget_funds_name }, true);
+            if(selected_budget.length){
+              obj.budget_funds_id = selected_budget[0].budget_funds_id;
+            }
+          }
+
+          if (obj.multi_year_funding_name){
+            selected_multiyear = $filter('filter')($scope.project.lists.multi_year_funding, { multi_year_funding_name: obj.multi_year_funding_name }, true);
+            if(selected_multiyear.length){
+              obj.multi_year_funding_id = selected_multiyear[0].multi_year_funding_id;
+            }
+
+            if (obj.multi_year_array && obj.multi_year_funding_id === 'yes') {
+              
+              obj.multi_year_array = obj.multi_year_array.split(',').map(function (y_a) {
+                y_a.trim();
+                y_a = y_a.split(':')
+                var year_value = y_a[0].trim() === 'n/a' ? 0 : parseInt(y_a[0].trim());
+                var budget_value = y_a[1].trim() === 'n/a' ? 0 : parseInt(y_a[1].trim());
+                year_budget = {
+                  year:year_value,
+                  budget:budget_value
+                }
+                return year_budget;
+
+              });
+            }
+          }
+
+          if (obj.reported_on_fts_name){
+            selected_ftsname = $filter('filter')($scope.project.lists.reported_on_fts, { reported_on_fts_name: obj.reported_on_fts_name }, true);
+            if(selected_ftsname){
+              obj.reported_on_fts_id = selected_ftsname[0].reported_on_fts_id;
+            }
+          }
+
+          if (obj.financial_programming_name){
+            selected_programing_name = $filter('filter')($scope.project.lists.financial_programming, { financial_programming_name: obj.financial_programming_name }, true);
+            if (selected_programing_name.length){
+              obj.financial_programming_id = selected_programing_name[0].financial_programming_id;
+            }
+          }
+
+          return obj
+
+        },
+        copyToClipBoard: function () {
+          /* Get the text field */
+          var copyText = document.getElementById("ngm-missing-value");
+
+          /* Select the text field */
+          copyText.select();
+          copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+          /* Copy the text inside the text field */
+          document.execCommand("copy");
+
+          M.toast({ html: 'Copy too Clipboard', displayLength: 1000, classes: 'note' });
+        },
+        switchInputFile: function () {
+          $scope.inputString = !$scope.inputString;
+          $scope.project.messageWarning = '';
+        },
 
       }
 
