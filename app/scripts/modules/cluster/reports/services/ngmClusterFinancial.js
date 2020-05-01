@@ -158,7 +158,109 @@ angular.module('ngmReportHub')
 					}
 					console.log(validation)
 					return validation;
+				},
+				validateBudgetFromFile: function(b,i,d){
+					validation =[];
+					if (!b.project_donor_id) {
+						id = "label[for='" + 'ngm-project_donor_id-' + i + "']";
+						var obj = { label: id, property: 'project_donor_id', reason: 'missing value' };
+						validation.push(obj);
+						
+					}
+					if (!b.activity_type_id) {
+						id = "label[for='" + 'ngm-activity_type_id-' + i + "']";
+						var obj = { label: id, property: 'activity_type_id', reason: 'missing value' };
+						validation.push(obj);
+						
+						
+					}
+					
+					// AMOUNT
+					if (b.project_budget_amount_recieved < 0) {
+						id = "label[for='" + 'ngm-project_budget_amount_recieved-' + i + "']";
+						var obj = { label: id, property: 'project_budget_amount_recieved', reason: ' should >=0' };
+						validation.push(obj);
+						
+						
+					}
+										
+					// currency
+					if (!b.currency_id) {
+						id = "label[for='" + 'ngm-currency_id-' + i + "']";
+						var obj = { label: id, property: 'currency_id', reason: 'missing value' };
+						validation.push(obj);
+						
+						
+					}
+										
+					if (!b.project_budget_date_recieved) {
+						id = "label[for='" + 'ngm-project_budget_date_recieved' + i + "']";
+						var obj = { label: id, property: 'project_budget_date_recieved', reason: 'missing value' };
+						validation.push(obj);
+						
+						
+					}
+					
+					// AMOUNT
+					if (!b.budget_funds_id) {
+						id = "label[for='" + 'ngm-budget_funds_id-' + i + "']";
+						var obj = { label: id, property: 'budget_funds_id', reason: 'missing value' };
+						validation.push(obj);
+					}
+
+					if (b.budget_funds_id && b.budget_funds_id === 'financial'){
+						if (!b.financial_programming_id){
+							id = "label[for='" + 'ngm-financial_programming_id-' + i + "']";
+							var obj = { label: id, property: 'financial_programming_id', reason: 'missing value' };
+							validation.push(obj);
+							
+						}
+					}
+
+					return validation 
+					
+					
+
+				},
+				fieldBudget:function(){
+					field =  {
+						'cluster':'Cluster',
+						'organization':'Organization',
+						'admin0name':'Country',
+						'project_title':'Project Title',
+						'project_description':'Project Description',
+						'project_hrp_code':'HRP Project Code',
+						'project_budget':'Project Budget',
+						'project_budget_currency':'Project Budget Currency',
+						'project_donor_name':'Project Donor',
+						'project_donor_id': 'Project Donor',
+						'grant_id':'Donor Grant ID',
+						'currency_id':'Currency Recieved',
+						'project_budget_amount_recieved':'Ammount Received',
+						'contribution_status':'Contribution Status',
+						'project_budget_date_recieved':'Date of Payment',
+						'budget_funds_name':'Incoming Funds',
+						'budget_funds_id': 'Incoming Funds',
+						'financial_programming_name':'Financial Programming',
+						'financial_programming_id': 'Financial Programming',
+						'multi_year_funding_name':'Multi-Year Funding',
+						'multi_year_funding_id': 'Multi-Year Funding',
+						'multi_year_array':'Funding Per Year',
+						'reported_on_fts_name':'Reported on FTS',
+						'reported_on_fts_id': 'Reported on FTS',
+						'fts_record_id':'FTS ID',
+						'email':'Email',
+						'createdAt':'createdAt',
+						'comments':'Comments',
+						'activity_type_name':'Activity Type',
+						'activity_type_id': 'Activity Type',
+						'multi_year_array': 'Funding Per Year',
+						'activity_description_name': 'Activity Description',
+						'activity_description_id': 'Activity Description',
+					}
+					return field
 				}
+
 				
 
 			};

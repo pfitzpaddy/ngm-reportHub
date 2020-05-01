@@ -1390,7 +1390,7 @@ angular.module( 'ngm.widget.organization.stock', [ 'ngm.provider' ])
 
               org.trim();
               org = org.split(':')
-             var quantitiy = org[1].trim() === 'n/a' ? 0 : parseInt(org[1].trim);
+             var quantitiy = org[1].trim() === 'n/a' ? 0 : parseInt(org[1].trim());
               detail_obj ={
                 unit_type_name: org[0].trim(),
                 unit_type_quantity: quantitiy
