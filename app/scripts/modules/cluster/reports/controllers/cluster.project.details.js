@@ -6,7 +6,7 @@
  * Controller of the ngmReportHub
  */
 angular.module('ngmReportHub')
-	.controller('ClusterProjectDetailsCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper','$translate','$filter', function ( $scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser, ngmClusterHelper,$translate,$filter) {
+	.controller('ClusterProjectDetailsCtrl', ['$scope', '$route', '$location', '$anchorScroll', '$timeout', 'ngmAuth', 'ngmData', 'ngmUser', 'ngmClusterHelper','$translate','$filter', 'ngmClusterDownloads', function ( $scope, $route, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser, ngmClusterHelper, $translate, $filter, ngmClusterDownloads) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -154,6 +154,29 @@ angular.module('ngmReportHub')
 										theme: 'cluster_project_lists',
 										format: 'xlsx',
 										url: $location.$$path
+									}
+								}
+							},{
+								type: 'client',
+								color: 'blue lighten-2',
+								icon: 'description',
+								hover: $filter('translate')('download_populations_lists'),
+								request: {
+									filename: 'population_groups_lists' + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) + '.xlsx',
+									mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+									function: () => ngmClusterDownloads.downloadPopulationsLists($scope.report.project, $scope.report.project.project_start_date, $scope.report.project.project_end_date),
+									metrics: {
+										method: 'POST',
+										url: ngmAuth.LOCATION + '/api/metrics/set',
+										data: {
+											organization: $scope.report.user.organization,
+											username: $scope.report.user.username,
+											email: $scope.report.user.email,
+											dashboard: $scope.report.project.project_title,
+											theme: 'population_groups_lists_' + $scope.report.user.cluster_id,
+											format: 'xlsx',
+											url: $location.$$path
+										}
 									}
 								}
 							}]

@@ -16,8 +16,8 @@ angular.module('ngmReportHub')
 			'$timeout',
 			'ngmAuth',
 			'ngmData',
-			'ngmUser','$translate','$filter', 'ngmClusterLists',
-	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate,$filter, ngmClusterLists ) {
+			'ngmUser', '$translate', '$filter', 'ngmClusterDownloads',
+	function ( $scope, $route, $q, $http, $location, $anchorScroll, $timeout, ngmAuth, ngmData, ngmUser,$translate, $filter, ngmClusterDownloads ) {
 		this.awesomeThings = [
 			'HTML5 Boilerplate',
 			'AngularJS',
@@ -201,87 +201,7 @@ angular.module('ngmReportHub')
 								request: {
 									filename: 'population_groups_lists' + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) + '.xlsx',
 									mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-									function: function () {
-										let lists = ngmClusterLists.setLists( $scope.report.project, 10 );
-
-										// XLSX processing
-										const workbook = new ExcelJS.Workbook();
-
-										let worksheetPopulationGroups = workbook.addWorksheet('Beneficiary Types');
-										let worksheetHrpPopulationGroups = workbook.addWorksheet('HRP Beneficiary Types');
-										let worksheetCategories = workbook.addWorksheet('Beneficiary Categories');
-										let worksheetPopulation = workbook.addWorksheet('Population');
-
-										// xlsx headers
-										const boldHeader = sheet => sheet.getRow(1).font = { bold: true };
-
-										worksheetPopulationGroups.columns = [
-											{ header: 'Year', key: 'year', width: 10 },
-											{ header: 'Cluster', key: 'cluster', width: 20 },
-											{ header: 'Beneficiary Type', key: 'beneficiary_type_name', width: 60 }
-										];
-										boldHeader(worksheetPopulationGroups);
-
-										worksheetHrpPopulationGroups.columns = [
-											{ header: 'Year', key: 'year', width: 10 },
-											{ header: 'Cluster', key: 'cluster', width: 20 },
-											{ header: 'Beneficiary Type', key: 'hrp_beneficiary_type_name', width: 60 }
-										];
-										boldHeader(worksheetHrpPopulationGroups);
-
-										worksheetCategories.columns = [
-											{ header: 'Beneficiary Category', key: 'beneficiary_category_name', width: 20 }
-										];
-										boldHeader(worksheetCategories);
-
-										worksheetPopulation.columns = [
-											{ header: 'Population', key: 'delivery_type_name', width: 20 }
-										];
-										boldHeader(worksheetPopulation);
-
-										// add rows
-
-										// transform array of cluster_ids to comma separated clusters
-										let beneficiary_types = lists.beneficiary_types.map(function (b) {
-											cluster = b.cluster_id.map(function (cid) {
-												cluster = lists.clusters.filter(c => c.cluster_id === cid)[0];
-												if (cluster) return cluster.cluster;
-												return false;
-											}).filter(c => c).sort().join(', ');
-											beneficiary_type_name = b.beneficiary_type_name;
-											year = b.year ? b.year : "";
-											return {
-												year,
-												cluster,
-												beneficiary_type_name
-											};
-										});
-
-										// transform array of cluster_ids to comma separated clusters
-										let hrp_beneficiary_types = lists.hrp_beneficiary_types.map(function (b) {
-											cluster = b.cluster_id.map(function (cid) {
-												cluster = lists.clusters.filter(c => c.cluster_id === cid)[0];
-												if (cluster) return cluster.cluster;
-												return false;
-											}).filter(c => c).sort().join(', ');
-											hrp_beneficiary_type_name = b.hrp_beneficiary_type_name;
-											year = b.year ? b.year : "";
-											return {
-												year,
-												cluster,
-												hrp_beneficiary_type_name,
-											};
-										});
-
-										worksheetPopulationGroups.addRows(beneficiary_types);
-										worksheetHrpPopulationGroups.addRows(hrp_beneficiary_types);
-										worksheetCategories.addRows(lists.beneficiary_categories);
-										worksheetPopulation.addRows(lists.delivery_types);
-
-										// return buffer
-										return workbook.xlsx.writeBuffer();
-
-									},
+									function: () => ngmClusterDownloads.downloadPopulationsLists($scope.report.project, moment($scope.report.definition.reporting_period).startOf('month'), moment($scope.report.definition.reporting_period).endOf('month')),
 									metrics: {
 										method: 'POST',
 										url: ngmAuth.LOCATION + '/api/metrics/set',
