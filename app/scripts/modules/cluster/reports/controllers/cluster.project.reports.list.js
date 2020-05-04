@@ -123,10 +123,9 @@ angular.module('ngmReportHub')
 								hover: $filter('translate')('download_monthly_reports_as_csv'),
 								request: {
 									method: 'POST',
-									url: ngmAuth.LOCATION + '/api/health/indicator',
+									url: ngmAuth.LOCATION + '/api/cluster/project/getProjectCsv',
 									data: {
-										report: 'projects_' + $scope.report.report,
-										details: 'projects',
+										report: $filter('limitTo')($scope.report.project.project_title, 180) + '-extracted-' + moment().format('YYYY-MM-DDTHHmm'),
 										project_id: $scope.report.project.id
 									}
 								},
