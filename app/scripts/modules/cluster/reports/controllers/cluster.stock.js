@@ -26,7 +26,7 @@ angular.module('ngmReportHub')
 
 		// init empty model
 		$scope.model = $scope.$parent.ngm.dashboard.model;
-		
+
 		// empty Project
 		$scope.report = {
 
@@ -70,7 +70,7 @@ angular.module('ngmReportHub')
 				$scope.report.title = $scope.report.organization.organization + ' | ' + $scope.report.definition.admin0name.toUpperCase().substring(0, 3) + ' | '+$filter('translate')('stock_report');
 				$scope.report.report = $scope.report.organization.organization + '_' + moment.utc( [ $scope.report.definition.report_year, $scope.report.definition.report_month, 1 ] ).format('MMMM, YYYY');
 				// set report for downloads
-				$scope.report.filename = $scope.report.definition.organization  + '_' + moment( $scope.report.definition.report_month ).format( 'MMMM' ) + '_Stocks_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
+				$scope.report.filename = $scope.report.definition.organization  + '_' + moment( $scope.report.definition.reporting_period ).format( 'MMMM' ) + '_Stocks_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 
 				// report dashboard model
 				$scope.model = {
@@ -126,19 +126,19 @@ angular.module('ngmReportHub')
 								request: {
 									filename: 'stock_lists' + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) + '.xlsx',
 									mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-									function: () => ngmClusterDownloads.downloadStockLists($scope.report.organization.admin0pcode, $scope.report.organization.warehouses),
-									metrics: {
-										method: 'POST',
-										url: ngmAuth.LOCATION + '/api/metrics/set',
-										data: {
-											organization: $scope.report.user.organization,
-											username: $scope.report.user.username,
-											email: $scope.report.user.email,
-											dashboard: $scope.report.title,
-											theme: 'monthly_stock_report_lists_' + $scope.report.user.cluster_id,
-											format: 'xlsx',
-											url: $location.$$path
-										}
+									function: () => ngmClusterDownloads.downloadStockLists($scope.report.organization.admin0pcode, $scope.report.organization.warehouses)
+								},
+								metrics: {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
+									data: {
+										organization: $scope.report.user.organization,
+										username: $scope.report.user.username,
+										email: $scope.report.user.email,
+										dashboard: $scope.report.title,
+										theme: 'monthly_stock_report_lists_' + $scope.report.user.cluster_id,
+										format: 'xlsx',
+										url: $location.$$path
 									}
 								}
 							}]

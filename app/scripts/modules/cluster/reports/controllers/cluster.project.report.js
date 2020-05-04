@@ -201,19 +201,19 @@ angular.module('ngmReportHub')
 								request: {
 									filename: 'population_groups_lists' + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) + '.xlsx',
 									mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-									function: () => ngmClusterDownloads.downloadPopulationsLists($scope.report.project, moment($scope.report.definition.reporting_period).startOf('month'), moment($scope.report.definition.reporting_period).endOf('month')),
-									metrics: {
-										method: 'POST',
-										url: ngmAuth.LOCATION + '/api/metrics/set',
-										data: {
-											organization: $scope.report.user.organization,
-											username: $scope.report.user.username,
-											email: $scope.report.user.email,
-											dashboard: $scope.report.project.project_title,
-											theme: 'population_groups_lists_' + $scope.report.user.cluster_id,
-											format: 'xlsx',
-											url: $location.$$path
-										}
+									function: () => ngmClusterDownloads.downloadPopulationsLists($scope.report.project, moment($scope.report.definition.reporting_period).startOf('month'), moment($scope.report.definition.reporting_period).endOf('month'))
+								},
+								metrics: {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
+									data: {
+										organization: $scope.report.user.organization,
+										username: $scope.report.user.username,
+										email: $scope.report.user.email,
+										dashboard: $scope.report.project.project_title,
+										theme: 'population_groups_lists_' + $scope.report.user.cluster_id,
+										format: 'xlsx',
+										url: $location.$$path
 									}
 								}
 							}]

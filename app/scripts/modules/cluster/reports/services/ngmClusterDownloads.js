@@ -6,8 +6,8 @@
  *
  */
 angular.module( 'ngmReportHub' )
-	.factory( 'ngmClusterDownloads', [ '$http', '$filter', '$timeout', 'ngmAuth', 'ngmClusterLists',
-							function( $http, $filter, $timeout, ngmAuth, ngmClusterLists ) {
+	.factory( 'ngmClusterDownloads', [ '$http', '$location', '$filter', '$timeout', 'ngmAuth', 'ngmClusterLists',
+							function( $http, $location, $filter, $timeout, ngmAuth, ngmClusterLists ) {
 
 		var ngmClusterDownloads = {
 
@@ -88,6 +88,110 @@ angular.module( 'ngmReportHub' )
 				worksheetHrpPopulationGroups.addRows(hrp_beneficiary_types);
 				worksheetCategories.addRows(lists.beneficiary_categories);
 				worksheetPopulation.addRows(lists.delivery_types);
+
+				// return buffer
+				return workbook.xlsx.writeBuffer();
+
+			},
+
+			downloadProjectPlan: function( project ) {
+
+				let project_copy = angular.copy( project );
+
+				// XLSX processing
+				const workbook = new ExcelJS.Workbook();
+
+				let worksheetProjectDetails = workbook.addWorksheet('Project Details');
+				let worksheetTargetBeneficiaries = workbook.addWorksheet('Target Beneficiaries');
+				let worksheetTargetLocations = workbook.addWorksheet('Target Locations');
+
+				// xlsx headers
+				const boldHeader = sheet => sheet.getRow(1).font = { bold: true };
+
+				worksheetProjectDetails.columns = [
+					{ header: 'Project ID', key: 'id', width: 10 },
+					{ header: 'Project Status', key: 'project_status', width: 20 },
+					{ header: 'Project Details', key: 'project_details', width: 20 },
+					{ header: 'Focal Point', key: 'name', width: 20 },
+					{ header: 'Email', key: 'email', width: 20 },
+					{ header: 'Phone', key: 'phone', width: 20 },
+					{ header: 'Project Title', key: 'project_title', width: 20 },
+					{ header: 'Project Description', key: 'project_description', width: 20 },
+					{ header: 'HRP Project Code', key: 'project_hrp_code', width: 20 },
+					{ header: 'Project Start Date', key: 'project_start_date', width: 20 },
+					{ header: 'Project Start Date', key: 'project_end_date', width: 20 },
+					{ header: 'Project Budget', key: 'project_budget', width: 20 },
+					{ header: 'Project Budget Currency', key: 'project_budget_currency', width: 20 },
+					{ header: 'Project Donors', key: 'project_donor', width: 20 },
+					{ header: 'Implementing Partners', key: 'implementing_partners', width: 50 },
+					{ header: 'URL', key: 'url', width: 50 },
+				];
+				boldHeader(worksheetProjectDetails);
+
+				worksheetTargetBeneficiaries.columns = [
+					{ header: 'Cluster', key: 'cluster', width: 10 },
+					{ header: 'Activity Type', key: 'activity_type_name', width: 30 },
+					{ header: 'Activity Description', key: 'activity_description_name', width: 30 },
+					{ header: 'Activity Details', key: 'activity_detail_name', width: 30 },
+					{ header: 'Indicator', key: 'indicator_name', width: 60 },
+					{ header: 'Beneficiary Type', key: 'beneficiary_type_name', width: 50 },
+					{ header: 'HRP Beneficiary Type', key: 'hrp_beneficiary_type_name', width: 50 },
+					{ header: 'Beneficiary Category', key: 'beneficiary_category_name', width: 50 },
+					{ header: 'Amount', key: 'units', width: 20 },
+					{ header: 'Unit Types', key: 'unit_type_name', width: 20 },
+					{ header: 'Cash Transfers', key: 'transfer_type_value', width: 20 },
+					{ header: 'Cash Delivery Types', key: 'mpc_delivery_type_name', width: 20 },
+					{ header: 'Cash Mechanism Types', key: 'mpc_mechanism_type_name', width: 20 },
+					{ header: 'Package Type', key: 'package_type_name', width: 20 },
+					{ header: 'Households', key: 'households', width: 20 },
+					{ header: 'Families', key: 'families', width: 20 },
+					{ header: 'Boys', key: 'boys', width: 20 },
+					{ header: 'Girls', key: 'girls', width: 20 },
+					{ header: 'Men', key: 'men', width: 20 },
+					{ header: 'Women', key: 'women', width: 20 },
+					{ header: 'Elderly Men', key: 'elderly_men', width: 20 },
+					{ header: 'Elderly Women', key: 'elderly_women', width: 20 },
+					{ header: 'Total', key: 'total_beneficiaries', width: 20 },
+				];
+				boldHeader(worksheetTargetBeneficiaries);
+
+				worksheetTargetLocations.columns = [
+					{ header: 'Country', key: 'admin0name', width: 20 },
+					{ header: 'Admin1 Pcode', key: 'admin1pcode', width: 20 },
+					{ header: 'Admin1 Name', key: 'admin1name', width: 20 },
+					{ header: 'Admin2 Pcode', key: 'admin2pcode', width: 20 },
+					{ header: 'Admin2 Name', key: 'admin2name', width: 20 },
+					{ header: 'Admin3 Pcode', key: 'admin3pcode', width: 20 },
+					{ header: 'Admin3 Name', key: 'admin3name', width: 20 },
+					{ header: 'Site Implementation', key: 'site_implementation_name', width: 20 },
+					{ header: 'Site Type', key: 'site_type_name', width: 20 },
+					{ header: 'Location Name', key: 'site_name', width: 20 },
+					{ header: 'Implementing Partners', key: 'implementing_partners', width: 30 },
+					{ header: 'Reporter', key: 'username', width: 30 },
+				];
+				boldHeader(worksheetTargetLocations);
+
+				// add rows
+
+				project_copy.project_start_date = moment(project_copy.project_start_date).format( 'YYYY-MM-DD' );
+				project_copy.project_end_date = moment(project_copy.project_end_date).format( 'YYYY-MM-DD' );
+
+				propToString = (array, prop) => Array.isArray(array) && array.map(d => d[prop]).filter(e => e).sort().join(', ') || "";
+
+				project_copy.project_details = propToString(project_copy.project_details, 'project_detail_name');
+				project_copy.project_donor = propToString(project_copy.project_donor, 'project_donor_name');
+				project_copy.implementing_partners = propToString(project_copy.implementing_partners, 'organization');
+				project_copy.programme_partners = propToString(project_copy.programme_partners, 'organization');
+
+				Array.isArray(project_copy.target_locations) && project_copy.target_locations.forEach(function (tl) {
+					tl.implementing_partners = propToString(tl.implementing_partners, 'organization');
+				});
+
+				project_copy.url = $location.absUrl();
+
+				worksheetProjectDetails.addRow(project_copy);
+				worksheetTargetBeneficiaries.addRows(project_copy.target_beneficiaries);
+				worksheetTargetLocations.addRows(project_copy.target_locations);
 
 				// return buffer
 				return workbook.xlsx.writeBuffer();

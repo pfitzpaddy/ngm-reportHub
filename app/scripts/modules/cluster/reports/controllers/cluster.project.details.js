@@ -104,19 +104,25 @@ angular.module('ngmReportHub')
 							// 		}
 							// 	}
 							// },{
-								type: 'csv',
-								color: 'light-blue lighten-4',
+								// type: 'csv',
+								type: 'client',
+								color: 'blue lighten-1',
 								icon: 'assignment',
-								hover: $filter('translate')('download')+' ' + $scope.report.project.project_title + ' '+ $filter('translate')('as')+' CSV',
+								hover: $filter('translate')('download') + ' ' + $scope.report.project.project_title + ' '+ $filter('translate')('as')+' Excel',
+								// request: {
+								// 	method: 'POST',
+								// 	url: ngmAuth.LOCATION + '/api/cluster/project/getProjects',
+								// 	data: {
+								// 		report:  $scope.report.report,
+								// 		details: 'projects',
+								// 		query : { project_id : $scope.report.project.id },
+								// 		csv : true
+								// 	}
+								// },
 								request: {
-									method: 'POST',
-									url: ngmAuth.LOCATION + '/api/cluster/project/getProjects',
-									data: {
-										report:  $scope.report.report,
-										details: 'projects',
-										query : { project_id : $scope.report.project.id },
-										csv : true
-									}
+									filename: $filter('limitTo')($scope.report.project.project_title, 180) + '_plan-extracted-' + moment().format('YYYY-MM-DDTHHmm') + '.xlsx',
+									mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+									function: () => ngmClusterDownloads.downloadProjectPlan($scope.report.project),
 								},
 								metrics: {
 									method: 'POST',
@@ -127,7 +133,7 @@ angular.module('ngmReportHub')
 										email: $scope.report.user.email,
 										dashboard: $scope.report.project.project_title,
 										theme: 'cluster_project_details',
-										format: 'csv',
+										format: 'xlsx',
 										url: $location.$$path
 									}
 								}
@@ -164,19 +170,19 @@ angular.module('ngmReportHub')
 								request: {
 									filename: 'population_groups_lists' + '-extracted-' + moment().format( 'YYYY-MM-DDTHHmm' ) + '.xlsx',
 									mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-									function: () => ngmClusterDownloads.downloadPopulationsLists($scope.report.project, $scope.report.project.project_start_date, $scope.report.project.project_end_date),
-									metrics: {
-										method: 'POST',
-										url: ngmAuth.LOCATION + '/api/metrics/set',
-										data: {
-											organization: $scope.report.user.organization,
-											username: $scope.report.user.username,
-											email: $scope.report.user.email,
-											dashboard: $scope.report.project.project_title,
-											theme: 'population_groups_lists_' + $scope.report.user.cluster_id,
-											format: 'xlsx',
-											url: $location.$$path
-										}
+									function: () => ngmClusterDownloads.downloadPopulationsLists($scope.report.project, $scope.report.project.project_start_date, $scope.report.project.project_end_date)
+								},
+								metrics: {
+									method: 'POST',
+									url: ngmAuth.LOCATION + '/api/metrics/set',
+									data: {
+										organization: $scope.report.user.organization,
+										username: $scope.report.user.username,
+										email: $scope.report.user.email,
+										dashboard: $scope.report.project.project_title,
+										theme: 'population_groups_lists_' + $scope.report.user.cluster_id,
+										format: 'xlsx',
+										url: $location.$$path
 									}
 								}
 							}]
