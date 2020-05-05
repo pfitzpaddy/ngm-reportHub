@@ -102,6 +102,7 @@ angular.module( 'ngmReportHub' )
 				const workbook = new ExcelJS.Workbook();
 
 				let worksheetProjectDetails = workbook.addWorksheet('Project Details');
+				let worksheetActivityTypes = workbook.addWorksheet('Activity Types');
 				let worksheetTargetBeneficiaries = workbook.addWorksheet('Target Beneficiaries');
 				let worksheetTargetLocations = workbook.addWorksheet('Target Locations');
 
@@ -127,6 +128,12 @@ angular.module( 'ngmReportHub' )
 					{ header: 'URL', key: 'url', width: 50 },
 				];
 				boldHeader(worksheetProjectDetails);
+
+				worksheetActivityTypes.columns = [
+					{ header: 'Cluster', key: 'cluster', width: 10 },
+					{ header: 'Activity Type', key: 'activity_type_name', width: 50 }
+				];
+				boldHeader(worksheetActivityTypes);
 
 				worksheetTargetBeneficiaries.columns = [
 					{ header: 'Cluster', key: 'cluster', width: 10 },
@@ -190,6 +197,7 @@ angular.module( 'ngmReportHub' )
 				project_copy.url = $location.absUrl();
 
 				worksheetProjectDetails.addRow(project_copy);
+				worksheetActivityTypes.addRows(project_copy.activity_type);
 				worksheetTargetBeneficiaries.addRows(project_copy.target_beneficiaries);
 				worksheetTargetLocations.addRows(project_copy.target_locations);
 
