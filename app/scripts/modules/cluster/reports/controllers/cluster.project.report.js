@@ -77,7 +77,7 @@ angular.module('ngmReportHub')
 				$scope.report.definition = data[1].data;
 
 				// set report for downloads
-				$scope.report.report = $scope.report.project.organization + '_' + $scope.report.project.cluster + '_' + $scope.report.project.project_title.replace(/\ /g, '_') + '_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
+				$scope.report.report = moment($scope.report.reporting_period).format('MMMM YYYY').replace(/\ /g, '_').toLowerCase() + '_' + $filter('limitTo')($scope.report.project.project_title.replace(/\ /g, '_'), 180) + '_extracted-' + moment().format( 'YYYY-MM-DDTHHmm' );
 
 
 				// project title
