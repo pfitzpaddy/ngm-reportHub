@@ -120,7 +120,7 @@ angular.module( 'ngmReportHub' )
 					{ header: 'Project Description', key: 'project_description', width: 20 },
 					{ header: 'HRP Project Code', key: 'project_hrp_code', width: 20 },
 					{ header: 'Project Start Date', key: 'project_start_date', width: 20 },
-					{ header: 'Project Start Date', key: 'project_end_date', width: 20 },
+					{ header: 'Project End Date', key: 'project_end_date', width: 20 },
 					{ header: 'Project Budget', key: 'project_budget', width: 20 },
 					{ header: 'Project Budget Currency', key: 'project_budget_currency', width: 20 },
 					{ header: 'Project Donors', key: 'project_donor', width: 20 },
