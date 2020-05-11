@@ -278,6 +278,38 @@ angular.module( 'ngmReportHub' )
 				return workbook.xlsx.writeBuffer();
 
 			},
+
+			downloadStockWarehouses: function(warehouses) {
+
+				// XLSX processing
+				const workbook = new ExcelJS.Workbook();
+
+				let worksheetWarehouses = workbook.addWorksheet('Warehouses');
+
+				// xlsx headers
+				const boldHeader = sheet => sheet.getRow(1).font = { bold: true };
+
+				worksheetWarehouses.columns = [
+					{ header: 'Country', key: 'admin0name', width: 30 },
+					{ header: 'Admin1 Pcode', key: 'admin1pcode', width: 30 },
+					{ header: 'Admin1 Name', key: 'admin1name', width: 30 },
+					{ header: 'Admin2 Pcode', key: 'admin2pcode', width: 30 },
+					{ header: 'Admin2 Name', key: 'admin2name', width: 30 },
+					{ header: 'Admin3 Pcode', key: 'admin3pcode', width: 30 },
+					{ header: 'Admin3 Name', key: 'admin3name', width: 30 },
+					{ header: 'Location Name', key: 'site_name', width: 30 }
+				];
+				boldHeader(worksheetWarehouses);
+
+				// add rows
+				let locations = warehouses ? warehouses : [];
+				worksheetWarehouses.addRows(locations);
+
+				// return buffer
+				return workbook.xlsx.writeBuffer();
+
+			},
+
 		}
 
 		// return
