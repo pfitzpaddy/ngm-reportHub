@@ -50,7 +50,8 @@ angular.module('ngmReportHub')
 				method: 'POST',
 				url: ngmAuth.LOCATION + '/api/getOrganization',
 				data: {
-					'organization_id': $route.current.params.organization_id
+					'organization_id': $route.current.params.organization_id,
+					'warehouses': true
 				}
 			},
 

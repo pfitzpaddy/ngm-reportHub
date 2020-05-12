@@ -42,7 +42,8 @@ angular.module('ngmReportHub')
 					method: 'POST',
 					url: ngmAuth.LOCATION + '/api/getOrganization',
 					data: {
-						'organization_id': organization_id
+						'organization_id': organization_id,
+						'warehouses': true
 					}
 				}
 			},
