@@ -80,6 +80,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				return ngmClusterHelperCol.run($scope, funct, data);
 			};
 
+			// var for import File 
+			$scope.messageFromfile = {project_detail_message :[],target_beneficiaries_message:[],target_locations_message:[]};
+			$scope.inputString = false;
+
 			// project
 			$scope.project = {
 
@@ -219,6 +223,10 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 				// upload
 				uploadUrl:'project-upload.html',
 
+				// for import from file
+				text_input: '',
+				messageWarning: '',
+				category_file: '',
 
 				// init lists
 				init: function() {
@@ -549,6 +557,86 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 
 				},
 
+				addBeneficiaryFromFile: function (beneficiary, $indexFile) {
+					// set implementing if location has set implementing partner;
+					var beneficiary_default = ngmClusterBeneficiaries.addBeneficiary($scope.project, $scope.project.definition.target_beneficiaries);
+					
+					delete beneficiary_default.cluster_id;
+					delete beneficiary_default.cluster;
+					delete beneficiary_default.activity_type_id;
+					delete beneficiary_default.activity_type_name;
+					delete beneficiary_default.activity_description_id;
+					delete beneficiary_default.activity_description_name;
+					delete beneficiary_default.activity_detail_id;
+					delete beneficiary_default.activity_detail_name;
+					delete beneficiary_default.indicator_id;
+					delete beneficiary_default.indicator_name;
+					delete beneficiary_default.beneficiary_type_id;
+					delete beneficiary_default.beneficiary_type_name;
+					delete beneficiary_default.beneficiary_category_id;
+					delete beneficiary_default.beneficiary_category_name;
+					delete beneficiary_default.delivery_type_id;
+					delete beneficiary_default.delivery_type_name;
+					delete beneficiary_default.hrp_beneficiary_type_id;
+					delete beneficiary_default.hrp_beneficiary_type_name;
+					delete beneficiary_default.site_type_id
+					delete beneficiary_default.site_type_name
+					delete beneficiary_default.site_implementation_id;
+					delete beneficiary_default.site_implementation_name;
+					delete beneficiary_default.transfer_type_id;
+					delete beneficiary_default.transfer_type_value;
+					delete beneficiary_default.package_type_id;
+					delete beneficiary_default.package_type_name;
+					delete beneficiary_default.unit_type_name;
+					delete beneficiary_default.mpc_delivery_type_name;
+					delete beneficiary_default.mpc_delivery_type_id;
+					delete beneficiary_default.mpc_mechanism_type_id;
+					
+					beneficiary = angular.merge({}, beneficiary_default, beneficiary)
+
+					$scope.project.definition.target_beneficiaries.push(beneficiary);
+					// Open card panel detail beneficiaries form
+					$scope.detailBeneficiaries[$scope.project.definition.target_beneficiaries.length - 1] = true;
+					// set form display for new rows
+					ngmClusterBeneficiaries.setBeneficiariesInputs($scope.project.lists, 0, $scope.project.definition.target_beneficiaries.length - 1, beneficiary );
+
+
+					// unit
+					if (beneficiary.unit_type_name && ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['unit_type_id']) {
+						selected_unit = $filter('filter')(ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['unit_type_id'], { unit_type_name: beneficiary.unit_type_name }, true);
+						if (selected_unit.length) {
+							beneficiary.unit_type_id = selected_unit[0].unit_type_id;
+						}
+					}
+					
+					if (beneficiary.mpc_delivery_type_name && ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['mpc_delivery_type_id']) {
+						selected_mpc_delivery = $filter('filter')(ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['mpc_delivery_type_id'], { mpc_delivery_type_name: beneficiary.mpc_delivery_type_name }, true);
+						if (selected_mpc_delivery.length) {
+							beneficiary.mpc_delivery_type_id = selected_mpc_delivery[0].mpc_delivery_type_id;
+						}
+					}
+					
+					if (beneficiary.mpc_mechanism_type_name && ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['mpc_mechanism_type_id']) {
+						selected_mpc_mechanism = $filter('filter')(ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]['mpc_mechanism_type_id'], { mpc_mechanism_type_name: beneficiary.mpc_mechanism_type_name, mpc_delivery_type_id: beneficiary.mpc_delivery_type_id }, true);
+						if (selected_mpc_mechanism.length) {
+							beneficiary.mpc_mechanism_type_id = selected_mpc_mechanism[0].mpc_mechanism_type_id;
+						}
+					}
+					// validation for input from file
+					if (ngmClusterBeneficiaries.form[0][$scope.project.definition.target_beneficiaries.length - 1]) {
+
+						if ($scope.messageFromfile.target_beneficiaries_message[$indexFile]) {
+							$scope.messageFromfile.target_beneficiaries_message[$indexFile] = $scope.messageFromfile.target_beneficiaries_message[$indexFile].concat(ngmClusterValidation.validationTargetBeneficiariesFromFile(beneficiary, 0, $scope.project.definition.target_beneficiaries.length - 1, $scope.project.definition.admin0pcode, $scope.project.definition.project_hrp_project));
+						} else {
+							$scope.messageFromfile.target_beneficiaries_message[$indexFile] = ngmClusterValidation.validationTargetBeneficiariesFromFile(beneficiary, 0, $scope.project.definition.target_beneficiaries.length - 1, $scope.project.definition.admin0pcode, $scope.project.definition.project_hrp_project);
+						}
+						
+
+					}
+
+					ngmClusterBeneficiaries.updateBeneficiaires(beneficiary)
+				},
+
 				// remove beneficiary from list
 				removeTargetBeneficiaryModal: function( $index ) {
 					$scope.project.beneficiaryIndex = $index;
@@ -703,6 +791,51 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					// CB, run form
 					ngmCbLocations.setLocationsForm( $scope.project, $scope.project.definition.target_locations );
 
+				},
+
+				addLocationFormFile: function (location,index) {
+					$scope.inserted = ngmClusterLocations.addLocation($scope.project.definition, []);
+					location = angular.merge({},$scope.inserted,location);
+					$scope.project.definition.target_locations.push(location);
+					// open card panel form of new add beneficiaries
+					$scope.detailLocation[$scope.project.definition.target_locations.length - 1] = true;
+					// autoset location groupings
+					if ($scope.project.showLocationGroupingsOption() && $scope.project.definition.target_locations.length > 30) {
+						$scope.project.addLocationGroupings();
+					}
+					// CB, run form
+					if ($scope.project.definition.admin0pcode === 'CB') {
+						ngmCbLocations.setLocationsForm($scope.project, $scope.project.definition.target_locations);
+					}
+
+					if ($scope.project.definition.admin0pcode !== 'CB') {
+						var newLocationIndex = $scope.project.definition.target_locations.length - 1;
+						
+						// set admin1,2,3 etc for new location added
+						ngmClusterLocations.filterLocations($scope.project, newLocationIndex, $scope.project.definition.target_locations[newLocationIndex]);
+
+						if ($scope.project.definition.target_locations[newLocationIndex].admin5pcode) {
+							selected_loc = $filter('filter')(ngmClusterLocations.admin5Select[newLocationIndex], { admin5name: $scope.project.definition.target_locations[newLocationIndex].admin5name, admin5pcode: $scope.project.definition.target_locations[newLocationIndex].admin5pcode })
+						} else if ($scope.project.definition.target_locations[newLocationIndex].admin4pcode) {
+							selected_loc = $filter('filter')(ngmClusterLocations.admin4Select[newLocationIndex], { admin4name: $scope.project.definition.target_locations[newLocationIndex].admin4name, admin4pcode: $scope.project.definition.target_locations[newLocationIndex].admin4pcode })
+						} else if ($scope.project.definition.target_locations[newLocationIndex].admin3pcode) {
+							selected_loc = $filter('filter')(ngmClusterLocations.admin3Select[newLocationIndex], { admin3name: $scope.project.definition.target_locations[newLocationIndex].admin3name, admin3pcode: $scope.project.definition.target_locations[newLocationIndex].admin3pcode })
+						} else {
+							selected_loc = $filter('filter')(ngmClusterLocations.admin2Select[newLocationIndex], { admin2name: $scope.project.definition.target_locations[newLocationIndex].admin2name, admin2pcode: $scope.project.definition.target_locations[newLocationIndex].admin2pcode })
+						}
+						if (selected_loc.length) {
+							delete selected_loc[0].id ;
+							$scope.project.definition.target_locations[newLocationIndex] = angular.merge($scope.project.definition.target_locations[newLocationIndex], selected_loc[0]);
+						}
+						
+						
+						
+					}
+					if ($scope.messageFromfile.target_locations_message[index]) {
+						$scope.messageFromfile.target_locations_message[index] = $scope.messageFromfile.target_locations_message[$index].concat(ngmClusterValidation.validationTargetLocationFromFile($scope.project.definition.target_locations[newLocationIndex], $scope.project.definition.target_locations.length - 1, $scope.detailLocation));
+					} else {
+						$scope.messageFromfile.target_locations_message[index] = ngmClusterValidation.validationTargetLocationFromFile($scope.project.definition.target_locations[newLocationIndex], $scope.project.definition.target_locations.length - 1, $scope.detailLocation);
+					}
 				},
 
 				// save location
@@ -949,6 +1082,866 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					})
 				},
 
+				// Input From file
+				uploadFileReport: {
+					openModal: function (modal) {
+						// $('#' + modal).openModal({ dismissible: false });
+						$('#' + modal).modal({ dismissible: false });
+						$('#' + modal).modal('open');
+					},
+					closeModal: function (modal) {
+						drop_zone.removeAllFiles(true);
+						M.toast({ html: $filter('translate')('cancel_to_upload_file'), displayLength: 2000, classes: 'note' });
+					},
+					obj_header_detail_new:{
+						'Project ID': 'id',
+						'Project Status': 'project_status',
+						'Project Details': 'project_details',
+						'Focal Point': 'name',
+						'Email': 'email',
+						'Phone': 'phone',
+						'Project Title': 'project_title',
+						'Project Description': 'project_description',
+						'HRP Project Code': 'project_hrp_code',
+						'Project Start Date': 'project_start_date',
+						'Project End Date': 'project_end_date',
+						'Project Budget': 'project_budget',
+						'Project Budget Currency': 'project_budget_currency',
+						'Project Donors': 'project_donor',
+						'Implementing Partners': 'implementing_partners',
+						'URL': 'url'
+					},
+					obj_header_activity_type:{
+						'Cluster':'cluster',
+						'Activity Type':'activity_type_name',
+					},
+					obj_header_location:{
+						'Country': 'admin0name',
+						'Admin1 Pcode': 'admin1pcode',
+						'Admin1 Name': 'admin1name',
+						'Admin2 Pcode': 'admin2pcode',
+						'Admin2 Name': 'admin2name',
+						'Admin3 Pcode': 'admin3pcode',
+						'Admin3 Name': 'admin3name',
+						'Site Implementation': 'site_implementation_name',
+						'Site Type': 'site_type_name',
+						'Location Name': 'site_name',
+						'Implementing Partners': 'implementing_partners',
+						'Reporter': 'username',
+					},
+					obj_header_beneficiary:{
+						'Cluster': 'cluster',
+						'Activity Type': 'activity_type_name',
+						'Activity Description': 'activity_description_name',
+						'Activity Details': 'activity_detail_name',
+						'Indicator': 'indicator_name',
+						'Beneficiary Type': 'beneficiary_type_name',
+						'HRP Beneficiary Type': 'hrp_beneficiary_type_name',
+						'Beneficiary Category': 'beneficiary_category_name',
+						'Amount': 'units',
+						'Unit Types': 'unit_type_name',
+						'Cash Transfers': 'transfer_type_value',
+						'Cash Delivery Types': 'mpc_delivery_type_name',
+						'Cash Mechanism Types': 'mpc_mechanism_type_name',
+						'Package Type': 'package_type_name',
+						'Households': 'households',
+						'Families': 'families',
+						'Boys': 'boys',
+						'Girls': 'girls',
+						'Men': 'men',
+						'Women': 'women',
+						'Elderly Men': 'elderly_men',
+						'Elderly Women': 'elderly_women',
+						'Total': 'total_beneficiaries',
+					},
+					uploadFileConfig: {
+						previewTemplate: `	<div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
+																			<div class="dz-image">
+																				<img data-dz-thumbnail>
+																			</div>
+																			<div class="dz-details">
+																				<div class="dz-size">
+																					<span data-dz-size>
+																				</div>
+																				<div class="dz-filename">
+																					<span data-dz-name></span>
+																				</div>
+																			</div>
+																			<div data-dz-remove class=" remove-upload btn-floating red" style="margin-left:35%; "><i class="material-icons">clear</i></div>
+																		</div>`,
+						completeMessage: '<i class="medium material-icons" style="color:#009688;">cloud_done</i><br/><h5 style="font-weight:300;">' + $filter('translate')('complete') + '</h5><br/><h5 style="font-weight:100;"><div id="add_doc" class="btn"><i class="small material-icons">add_circle</i></div></h5></div>',
+						acceptedFiles: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+						maxFiles: 1,
+						parallelUploads: 1,
+						url: ngmAuth.LOCATION + '/api/uploadGDrive',
+						dictDefaultMessage:
+							`<i class="medium material-icons" style="color:#009688;">publish</i> <br/>` + $filter('translate')('drag_files_here_or_click_button_to_upload') + ' <br/> Please do not forget to put required sheets! <br/>with extention xlsx as per template in project downloads',
+						notSupportedFile: `<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>` + $filter('translate')('not_supported_file_type') + ' ',
+						errorMessage: `<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>Error`,
+						addRemoveLinks: false,
+						autoProcessQueue: false,
+						init: function () {
+							drop_zone = this;
+							// upload_file and delete_file is ID for button upload and cancel
+							$("#upload_file").attr("disabled", true);
+							$("#delete_file").attr("disabled", true);
+
+							document.getElementById('upload_file').addEventListener("click", function () {
+								$("#upload_file").attr("disabled", true);
+								$("#delete_file").attr("disabled", true);
+								$("#switch_btn_file").attr("disabled", true);
+								var ext = drop_zone.getAcceptedFiles()[0].name.split('.').pop();
+								
+								
+								
+								if (ext === 'csv') {
+								} else {
+									file = drop_zone.getAcceptedFiles()[0]
+									const wb = new ExcelJS.Workbook();
+									drop_zone.getAcceptedFiles()[0].arrayBuffer().then((data) => {
+										var result = []
+										wb.xlsx.load(data).then(workbook => {
+											const book = [];
+											const book_obj = [];
+											var project_detail=[];
+											var activity_types =[];
+											var target_beneficiaries =[]
+											var target_locations=[];
+											check_sheet = { 'Project Details': false, 'Activity Types': false, 'Target Beneficiaries': false, 'Target Locations':false};
+											var sheet_missing = 0;
+											var sheet_missing_msg =''
+											workbook.eachSheet((sheet, index) => {
+													const sh = [];
+													sheet.eachRow(row => {
+														sh.push(row.values);
+													});
+													if(sheet.name === 'Project Details'){
+														book[0] = sh;
+														check_sheet['Project Details']= true;
+													};
+													if(sheet.name === 'Activity Types'){
+														book[1] = sh;
+														check_sheet['Activity Types']=true;
+													};
+													if(sheet.name === 'Target Beneficiaries'){
+														book[2] = sh;
+														check_sheet['Target Beneficiaries'] = true;
+													};
+													if(sheet.name ==='Target Locations'){
+														book[3] = sh;
+														check_sheet['Target Locations'] = true;
+													};
+													// book.push(sh);
+											});
+											// check if all sheet all in there;
+											for(c in check_sheet){	 											
+												if(!check_sheet[c]){	
+													sheet_missing +=1
+													sheet_missing_msg += 'Sheet ' + c + ' Not Found \n'
+												}
+											}
+											if (sheet_missing >0){
+												if(sheet_missing_msg !== ''){
+													sheet_missing_msg = 'Missing Sheet \n' + sheet_missing_msg + '\n' + 'Please do not forget to put required sheets!\n with extention xlsx as per template in project downloads \n( Project Details, Activity Types, Target Beneficiaries,Target Locations )';
+													$scope.project.messageWarning = sheet_missing_msg;
+												}
+												var previews = document.querySelectorAll(".dz-preview");
+												previews.forEach(function (preview) {
+													preview.style.display = 'none';
+												})
+												document.querySelector(".dz-default.dz-message").style.display = 'none';
+												document.querySelector(".percent-upload").style.display = 'block';
+												$timeout(function () {
+													document.querySelector(".percent-upload").style.display = 'none';
+													$('#upload-monthly-file-project').modal('close');
+													drop_zone.removeAllFiles(true);
+
+													$('#message-file-project').modal({ dismissible: false });
+													$('#message-file-project').modal('open');
+												},2000)
+
+												return;
+											}
+
+											function transform_to_obj(array,header) {
+												var transform_array = [];
+												for (var y = 1; y < array.length; y++) {
+													var obj = {}
+													for (var z = 1; z < array[y].length; z++) {
+														if (array[y][z] === undefined) {
+															array[y][z] = "";
+														}
+														// obj[array[0][z]] = array[y][z];
+														attribute = header[array[0][z]]
+														obj[attribute] = array[y][z];
+													}
+													transform_array.push(obj)
+												}
+
+												
+
+												return transform_array;
+											}
+
+											for (var x = 0; x < book.length; x++) {
+												
+												header = {};
+												if(x === 0){
+													header = $scope.project.uploadFileReport.obj_header_detail_new;
+												}
+												if(x === 1){
+													header = $scope.project.uploadFileReport.obj_header_activity_type;
+												}
+												if (x === 2) {
+													header = $scope.project.uploadFileReport.obj_header_beneficiary;
+												}
+												if (x === 3) {
+													header = $scope.project.uploadFileReport.obj_header_location;
+												}
+												book[x] = transform_to_obj(book[x],header);
+
+											}
+											
+
+											// ######## Separete into Project Detail, Target beneficiaries and Target Location
+											// project detail
+											project_detail = book[0];
+											project_detail[0]['activity_type'] = book[1];
+											project_detail[0] =$scope.project.addMissingAttributeProjectDetailFromFile(project_detail[0]);
+											project_detail[0] = angular.merge({}, $scope.project.definition, project_detail[0]);
+											var count_error_project_detail = 0;
+
+											if ($scope.messageFromfile.project_detail_message && !$scope.messageFromfile.project_detail_message[0]) { $scope.messageFromfile.project_detail_message[0]=[]}
+											
+											$scope.messageFromfile.project_detail_message[0] = ngmClusterValidation.validatiOnprojectDetailsFromFile(project_detail[0]);
+											if ((typeof project_detail[0].activity_type_check !== 'undefined') && (project_detail[0].activity_type.length > 0) && (project_detail[0].project_donor_check) && (project_detail[0].project_donor.length >0 )  )
+											{
+												delete project_detail[0].id;
+												delete project_detail[0].url;
+												$scope.project.definition = project_detail[0];
+											} else {
+												count_error_project_detail +=1;
+											}
+											// target beneficiaries
+											var count_error_target_beneficiaries = 0;
+											if(book[2].length){
+												angular.forEach(book[2],function(t_b){
+													target_beneficiaries.push($scope.project.addMissingTargetbeneficiaryFromFile(t_b));
+												})
+												for (var b = 0; b < target_beneficiaries.length; b++) {
+													if ((!target_beneficiaries[b].cluster_id) || (!target_beneficiaries[b].activity_type_id) || (!target_beneficiaries[b].activity_description_id)) {
+														if(!target_beneficiaries[b].cluster_id){
+															obj = { label: false, property: 'cluster_id', reason: 'Missing value' }
+														}
+														if(!target_beneficiaries[b].activity_type_id){
+															var obj = { label: false, property: 'activity_type_id', reason: 'missing value' };
+															if (target_beneficiaries[b].activity_type_name) {
+																obj.reason = 'not in the list'
+															}
+														}
+														if(!target_beneficiaries[b].activity_description_id){
+															var obj = { label: false, property: 'activity_description_id', reason: 'missing value' };
+															if (target_beneficiaries[b].activity_description_name) {
+																obj.reason = 'not in the list'
+															}
+														}
+														count_error_target_beneficiaries +=1
+													}else{
+														$scope.project.addBeneficiaryFromFile(target_beneficiaries[b],b)
+													}
+												}
+												
+											};
+											count_error_target_locations=0;
+											if (book[3].length){
+												angular.forEach(book[3], function (t_l) {
+													target_locations.push($scope.project.addMissingTargetlocationsFormFile(t_l))
+												})
+
+												for(var i=0;i<target_locations.length;i++){
+													
+													if((!target_locations[i].admin1name) || (!target_locations[i].admin1pcode)||
+													(!target_locations[i].admin2name) || (!target_locations[i].admin2pcode )){
+														if (!$scope.messageFromfile.target_locations_message[i]){$scope.messageFromfile.target_locations_message[i] = []}
+														if (!target_locations[i].admin1pcode) {
+															obj = { label: false, property: 'admin1pcode', reason: 'missing value' }
+															$scope.messageFromfile.target_locations_message[i].push(obj);
+														}
+														if (!target_locations[i].admin1name){
+															obj = { label: false, property: 'admin1name', reason: 'missing value' }
+															$scope.messageFromfile.target_locations_message[i].push(obj);
+														}
+														if (!target_locations[i].admin2pcode) {
+															obj = { label: false, property: 'admin2pcode', reason: 'missing value' }
+															$scope.messageFromfile.target_locations_message[i].push(obj);
+														}
+														if (!target_locations[i].admin2name) {
+															obj = { label: false, property: 'admin2name', reason: 'missing value' }
+															$scope.messageFromfile.target_locations_message[i].push(obj);
+														}
+
+														count_error_target_locations +=1
+
+													}else{
+														$scope.project.addLocationFormFile(target_locations[i],i)
+													}
+												}
+											}
+
+											var previews = document.querySelectorAll(".dz-preview");
+											previews.forEach(function (preview) {
+												preview.style.display = 'none';
+											})
+											document.querySelector(".dz-default.dz-message").style.display = 'none';
+											document.querySelector(".percent-upload").style.display = 'block';
+											$timeout(function () {
+												document.querySelector(".percent-upload").style.display = 'none';
+												$('#upload-monthly-file-project').modal('close');
+												drop_zone.removeAllFiles(true);
+
+
+												$scope.project.setMessageForImportFile($scope.messageFromfile, ngmClusterValidation.fieldProject())
+												
+												if ((count_error_project_detail > 0) || (count_error_target_beneficiaries > 0) || (count_error_target_locations>0)){
+													if (count_error_project_detail > 0){
+														M.toast({ html: 'Import Project Detail Fail!', displayLength: 4000, classes: 'error' });
+													}
+													if(count_error_target_beneficiaries >0){
+														if (count_error_target_beneficiaries === target_beneficiaries.length){
+															M.toast({ html: 'Import Target Beneficiaries Fail!', displayLength: 4000, classes: 'error' });
+														}else{
+															M.toast({ html: 'Some Row Target Beneficiaries Succeccfully added !', displayLength: 4000, classes: 'success' });
+														}
+													} 
+													
+													if (count_error_target_locations > 0){
+														if (count_error_target_locations === target_locations.length) {
+															M.toast({ html: 'Import Target Location Fail!', displayLength: 4000, classes: 'error' });
+														} else {
+															M.toast({ html: 'Some Row Target Location Succeccfully added !', displayLength: 4000, classes: 'success' });
+														}
+													}
+												}
+												if ((count_error_project_detail < 1) || (count_error_target_beneficiaries < 1) || (count_error_target_locations < 1)){
+													if (count_error_project_detail < 1){
+														M.toast({ html: 'Import Project Detail Success!', displayLength: 4000, classes: 'success' });
+													}
+													if (count_error_target_beneficiaries < 1) { 
+														if (target_beneficiaries.length) {
+															M.toast({ html: 'Import Target Beneficiaries Success!', displayLength: 4000, classes: 'success' });
+														}
+													}
+													if (count_error_target_locations < 1) {
+														if (target_locations.length) {
+															M.toast({ html: 'Import Target Location Success!', displayLength: 4000, classes: 'success' });
+														}
+													 }
+												} 
+												// reset error message
+												$scope.messageFromfile = { project_detail_message: [], target_beneficiaries_message: [], target_locations_message: [] };
+												$("#upload_file").attr("disabled", true);
+												$("#delete_file").attr("disabled", true);
+												$("#switch_btn_file").attr("disabled", false);
+											}, 2000)
+
+										})
+									})
+								}
+							});
+
+							document.getElementById('delete_file').addEventListener("click", function () {
+								drop_zone.removeAllFiles(true);
+							});
+
+							// when add file
+							drop_zone.on("addedfile", function (file) {
+
+								document.querySelector(".dz-default.dz-message").style.display = 'none';
+								var ext = file.name.split('.').pop();
+								//change preview if not image/*
+								$(file.previewElement).find(".dz-image img").attr("src", "images/elsedoc.png");
+								$("#upload_file").attr("disabled", false);
+								$("#delete_file").attr("disabled", false);
+
+							});
+
+							// when remove file
+							drop_zone.on("removedfile", function (file) {
+
+								if (drop_zone.files.length < 1) {
+									// upload_file and delete_file is ID for button upload and cancel
+									$("#upload_file").attr("disabled", true);
+									$("#delete_file").attr("disabled", true);
+
+									document.querySelector(".dz-default.dz-message").style.display = 'block';
+									$('.dz-default.dz-message').html(`<i class="medium material-icons" style="color:#009688;">publish</i> <br/>` + $filter('translate')('drag_files_here_or_click_button_to_upload') + ' <br/> Please upload file with extention .csv or xlxs !');
+								}
+
+								if ((drop_zone.files.length < 2) && (drop_zone.files.length > 0)) {
+									document.querySelector(".dz-default.dz-message").style.display = 'none';
+									$("#upload_file").attr("disabled", false);
+									$("#delete_file").attr("disabled", false);
+									document.getElementById("upload_file").style.pointerEvents = "auto";
+									document.getElementById("delete_file").style.pointerEvents = "auto";
+
+								}
+							});
+
+							drop_zone.on("maxfilesexceeded", function (file) {
+								document.querySelector(".dz-default.dz-message").style.display = 'none';
+								$('.dz-default.dz-message').html(`<i class="medium material-icons" style="color:#009688;">error_outline</i> <br/>` + 'Please, import just one file at the time and remove exceeded file');
+								document.querySelector(".dz-default.dz-message").style.display = 'block'
+								// Materialize.toast("Too many file to upload", 6000, "error")
+								M.toast({ html: "Too many file to upload", displayLength: 2000, classes: 'error' });
+								$("#upload_file").attr("disabled", true);
+								document.getElementById("upload_file").style.pointerEvents = "none";
+								$("#delete_file").attr("disabled", true);
+								document.getElementById("delete_file").style.pointerEvents = "none";
+							});
+
+							// reset
+							this.on("reset", function () {
+								// upload_file and delete_file is ID for button upload and cancel
+								document.getElementById("upload_file").style.pointerEvents = 'auto';
+								document.getElementById("delete_file").style.pointerEvents = 'auto';
+							});
+						},
+
+					},
+				},
+				addMissingAttributeFromFile: function (obj) {
+					if(obj.cluster){
+						selected_cluster = $filter('filter')($scope.project.lists.clusters,{cluster:obj.cluster});
+						if(selected_cluster.length){
+							obj.cluster_id = selected_cluster[0].cluster_id;
+						}
+						if( obj.cluster === 'MPC'){
+							obj.cluster_id = "cvwg";
+							obj.cluster = "Multi-Purpose Cash"
+						}
+					}
+					if (obj.admin0name){
+						obj.admin0name = $scope.project.user.admin0name === obj.admin0name ? obj.admin0name : $scope.project.user.admin0name;
+						obj.admin0pcode = $scope.project.user.admin0pcode
+					}
+					// activity_type
+					if (obj.activity_type_list){
+						
+						// map list to array of object
+						temp = obj.activity_type_list.split(';').map((x)=> {
+							x = x.split(',');
+							x[0]=x[0].trim();
+							x[1]=x[1].trim();
+							var obj ={
+								cluster : x[0],
+								activity_type_name : x[1]
+							}
+							return obj
+						});
+
+						temp_check ={};
+						temp_intercheck ={}
+						temp_inter_act = []
+
+						// add missing atribute for activity_type
+						angular.forEach(temp,function(e){
+							selected_act_list = $filter('filter')($scope.project.lists.activity_types, { cluster: e.cluster, activity_type_name: e.activity_type_name});
+							if(selected_act_list.length){
+								e.cluster_id = selected_act_list[0].cluster_id;
+								e.activity_type_id = selected_act_list[0].activity_type_id;
+								temp_check[selected_act_list[0].activity_type_id] = true;
+								if ($scope.project.user.cluster_id !== selected_act_list[0].cluster_id){
+									temp_intercheck[selected_act_list[0].cluster_id] = true;
+									temp_inter_act.push({ cluster_id: selected_act_list[0].cluster_id, cluster: selected_act_list[0].cluster})
+								}
+								
+							}
+						})
+						
+						obj.activity_type = temp;
+						obj.inter_cluster_check = temp_intercheck;
+						obj.activity_type_check = temp_check;
+						obj.inter_cluster_activities = temp_inter_act.filter((thing, index, self) => self.findIndex(t => t.cluster_id === thing.cluster_id) === index);
+					
+					}
+
+					// implementing partner list
+					if (obj.implementing_partners_list){
+						obj.implementing_partners_checked = true;
+						var impl_array =[]
+						temp = obj.implementing_partners_list.split(';').map((x)=>{return x.trim();});
+
+						angular.forEach(temp, function(e){
+							
+							selected_impl = $filter('filter')($scope.project.lists.organizations, { organization_name: e});
+							
+							if (selected_impl.length){
+								impl_array.push(selected_impl[0]);
+							}
+						})
+						obj.implementing_partners = impl_array;
+					}
+					// project donor
+					if (obj.project_donor_list){
+						
+						temp_donor = [];
+						temp_donor_check={};
+
+						temp = obj.project_donor_list.split(';').map((x)=> x.trim());
+						 angular.forEach(temp,function(e){
+							 
+							selected_donor = $filter('filter')($scope.project.lists.donors,{project_donor_name:e});
+							if(selected_donor.length){
+								temp_donor.push(selected_donor[0]);
+								temp_donor_check[selected_donor[0].project_donor_id]= true; 
+							}
+
+						 })
+
+						obj.project_donor = temp_donor;
+						obj.project_donor_check = temp_donor_check;
+
+						
+					}
+					
+					if(obj.project_details_list){
+						temp_project_details =[];
+						temp = obj.project_details_list.split(';').map(x=>x.trim());
+
+						angular.forEach(temp,function(e){
+							selected_p_details = $filter('filter')($scope.project.lists.project_details, { project_detail_name:e});
+							if(selected_p_details.length){
+								temp_project_details.push(selected_p_details[0]);
+							}
+						})
+
+						obj.project_details = temp_project_details;
+					}
+
+
+					// remove list 
+					delete obj.activity_type_list;
+					delete obj.implementing_partners_list;
+					delete obj.project_donor_list
+					
+					return obj
+
+				},
+				addMissingAttributeProjectDetailFromFile:function(obj){
+					
+					if (obj.implementing_partners) {
+						obj.implementing_partners_checked = true;
+						var impl_array = []
+						temp = obj.implementing_partners.split(';').map((x) => { return x.trim(); });
+
+						angular.forEach(temp, function (e) {
+
+							selected_impl = $filter('filter')($scope.project.lists.organizations, { organization: e });
+
+							if (selected_impl.length) {
+								impl_array.push(selected_impl[0]);
+							}
+						})
+						obj.implementing_partners = impl_array;
+					}
+					
+					if (obj.project_details) {
+						temp_project_details = [];
+						temp = obj.project_details.split(';').map(x => x.trim());
+
+						angular.forEach(temp, function (e) {
+							selected_p_details = $filter('filter')($scope.project.lists.project_details, { project_detail_name: e });
+							if (selected_p_details.length) {
+								temp_project_details.push(selected_p_details[0]);
+							}
+						})
+
+						obj.project_details = temp_project_details;
+					}
+					if (obj.project_details === "") {
+						obj.project_details = [];
+					}
+					if (obj.project_donor) {
+
+						temp_donor = [];
+						temp_donor_check = {};
+
+						temp = obj.project_donor.split(';').map((x) => x.trim());
+						angular.forEach(temp, function (e) {
+
+							selected_donor = $filter('filter')($scope.project.lists.donors, { project_donor_name: e });
+							if (selected_donor.length) {
+								temp_donor.push(selected_donor[0]);
+								temp_donor_check[selected_donor[0].project_donor_id] = true;
+							}
+
+						})
+						obj.project_donor = temp_donor;
+						obj.project_donor_check = temp_donor_check;
+
+
+					}
+					if (obj.activity_type && obj.activity_type.length){
+						temp_check = {};
+						temp_intercheck = {}
+						temp_inter_act = []
+						temp_activity_type =[]
+						// add missing atribute for activity_type
+						angular.forEach(obj.activity_type, function (e) {
+							selected_act_list = $filter('filter')($scope.project.lists.activity_types, { cluster: e.cluster, activity_type_name: e.activity_type_name, active: 1});
+							if (selected_act_list.length) {
+								e.cluster_id = selected_act_list[0].cluster_id;
+								e.activity_type_id = selected_act_list[0].activity_type_id;
+								temp_activity_type.push(e);
+								temp_check[selected_act_list[0].activity_type_id] = true;
+								if ($scope.project.user.cluster_id !== selected_act_list[0].cluster_id) {
+									temp_intercheck[selected_act_list[0].cluster_id] = true;
+									temp_inter_act.push({ cluster_id: selected_act_list[0].cluster_id, cluster: selected_act_list[0].cluster })
+								}
+
+							}
+						})
+
+						obj.activity_type = temp_activity_type;
+						obj.inter_cluster_check = temp_intercheck;
+						obj.activity_type_check = temp_check;
+						obj.inter_cluster_activities = temp_inter_act.filter((thing, index, self) => self.findIndex(t => t.cluster_id === thing.cluster_id) === index);
+					}
+					return obj
+				},
+				addMissingTargetlocationsFormFile:function(obj){
+					if (obj.implementing_partners) {
+						var impl_array = []
+						temp = obj.implementing_partners.split(';').map((x) => { return x.trim(); });
+
+						angular.forEach(temp, function (e) {
+
+							selected_impl = $filter('filter')($scope.project.lists.organizations, { organization: e });
+
+							if (selected_impl.length) {
+								impl_array.push(selected_impl[0]);
+							}
+						})
+						obj.implementing_partners = impl_array;
+					}
+
+					if (obj.site_type_name){
+						selected_type = $filter('filter')($scope.project.lists.site_type, { site_type_name:obj.site_type_name});
+						if(selected_type.length){
+							obj.site_type_id = selected_type[0].site_type_id;
+						}
+					}
+
+					if (obj.site_implementation_name){
+						selected_site_impl = $filter('filter')($scope.project.lists.site_implementation, { site_implementation_name: obj.site_implementation_name }, true);
+						if(selected_site_impl.length){
+							obj.site_implementation_id = selected_site_impl[0].site_implementation_id;
+						}
+					}
+
+					return obj
+				},
+				addMissingTargetbeneficiaryFromFile:function(obj){
+					// cluster
+					if (obj.cluster) {
+						selected_cluster = $filter('filter')($scope.project.lists.clusters, { cluster: obj.cluster }, true)
+						if (obj.cluster === 'MPC' && !selected_cluster.length) { obj.cluster_id = 'cvwg' };
+						if (selected_cluster.length) {
+							obj.cluster_id = selected_cluster[0].cluster_id;
+						}
+					}
+
+					// activity
+					if (obj.activity_type_name) {
+						selected_act = $filter('filter')($scope.project.definition.activity_type, { activity_type_name: obj.activity_type_name }, true);
+						if (selected_act.length) {
+							obj.activity_type_id = selected_act[0].activity_type_id;
+						}
+					}
+					// activity description
+					if (obj.activity_description_name) {
+						selected_desc = $filter('filter')($scope.project.lists.activity_descriptions, {
+							cluster_id: obj.cluster_id,
+							activity_description_name: obj.activity_description_name,
+							activity_type_id: obj.activity_type_id
+						}, true);
+						if (selected_desc.length) {
+							obj.activity_description_id = selected_desc[0].activity_description_id;
+						}
+					}
+					// activity_detail
+					if (obj.activity_detail_name) {
+						selected_activity_detail = $filter('filter')(project.lists.activity_details, {
+							cluster_id: obj.cluster_id,
+							activity_type_id: obj.activity_type_id,
+							activity_description_id: obj.activity_description_id,
+							activity_detail_name: obj.activity_detail_name
+						}, true);
+						if (selected_activity_detail.length) {
+							obj.activity_detail_id = selected_activity_detail[0].activity_detail_id
+						}
+					}
+					// indicator
+					if (obj.indicator_name) {
+						selected_indicator = $filter('filter')($scope.project.lists.activity_indicators, { indicator_name: obj.indicator_name }, true);
+						if (selected_indicator.length) {
+							obj.indicator_id = selected_indicator[0].indicator_id;
+						}
+					}
+
+					// beneficiary_type_name
+					if (obj.beneficiary_type_name) {
+						selected_beneficiary = $filter('filter')($scope.project.lists.beneficiary_types, { beneficiary_type_name: obj.beneficiary_type_name }, true);
+						if (selected_beneficiary.length) {
+							obj.beneficiary_type_id = selected_beneficiary[0].beneficiary_type_id;
+						}
+					}
+
+					// beneficiary_category_id
+					if (obj.beneficiary_category_name) {
+						selected_beneficiary_category = $filter('filter')($scope.project.lists.beneficiary_categories, { beneficiary_category_name: obj.beneficiary_category_name })
+						if (selected_beneficiary_category.length) {
+							obj.beneficiary_category_id = selected_beneficiary_category[0].beneficiary_category_id;
+						}
+					}
+
+					// delivery type
+					if (obj.delivery_type_name) {
+						selected_delivery = $filter('filter')($scope.project.lists.delivery_types, { delivery_type_name: obj.delivery_type_name }, true)
+						if (selected_delivery.length) {
+							obj.delivery_type_id = selected_delivery[0].delivery_type_id
+						}
+					}
+					// hrp beneficiary
+					if (obj.hrp_beneficiary_type_name) {
+						selected_hrp = $filter('filter')($scope.project.lists.hrp_beneficiary_types, { hrp_beneficiary_type_name: obj.hrp_beneficiary_type_name }, true)
+						if (selected_hrp.length) {
+							obj.hrp_beneficiary_type_id = selected_hrp[0].hrp_beneficiary_type_id;
+						}
+					}
+					// site_type
+					if (obj.site_type_name) {
+						selected_site = $filter('filter')($scope.project.lists.site_type, { site_type_name: obj.site_type_name }, true)
+						if (selected_site.length) {
+							obj.site_type_id = selected_site[0].site_type_id
+						}
+					}
+					if (obj.site_implementation_name) {
+						selected_site_implementation = $filter('filter')($scope.project.lists.site_implementation, { site_implementation_name: obj.site_implementation_name }, true);
+						if (selected_site_implementation[0]) {
+							obj.site_implementation_id = selected_site_implementation[0].site_implementation_id;
+						}
+					}
+
+
+					// transfer value
+					if (obj.transfer_type_value) {
+						selected_transfer = $filter('filter')($scope.project.lists.transfers, { transfer_type_value: obj.transfer_type_value }, true)
+
+						if (selected_transfer.length) {
+							obj.transfer_type_id = selected_transfer[0].transfer_type_id;
+						}
+					}
+
+					if (obj.package_type_name) {
+						var package_list = [{
+							'package_type_id': 'standard',
+							'package_type_name': 'Standard'
+						}, {
+							'package_type_id': 'non-standard',
+							'package_type_name': 'Non-standard'
+						}];
+						selected_package = $filter('filter')(package_list, { package_type_name: obj.package_type_name }, true);
+						if (selected_package.length) {
+							obj.package_type_id = selected_package[0].package_type_id;
+						}
+					}
+					
+					return obj
+				},
+				copyToClipBoard: function () {
+					/* Get the text field */
+					var copyText = document.getElementById("ngm-missing-value");
+
+					/* Select the text field */
+					copyText.select();
+					copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+					/* Copy the text inside the text field */
+					document.execCommand("copy");
+
+					M.toast({ html: 'Copy too Clipboard', displayLength: 1000, classes: 'note' });
+				},
+				switchInputFile: function () {
+					$scope.inputString = !$scope.inputString;
+					$scope.project.messageWarning = '';
+				},
+				// set type upload
+				setCategoryFile:function(type){
+					$scope.project.category_file = type;	
+				},
+				setMessageForImportFile:function(messageList,list_field){
+					var message_temp = ''
+					for(x in messageList){
+						if(messageList[x].length){
+							if (x ==='project_detail_message'){
+								sheetName = 'Project Detail';
+							}else if (x === 'target_locations_message'){
+								sheetName = 'Target Locations'
+							}else {
+								sheetName = 'Target Beneficiaries';
+							}
+							// message_temp += 'Missing Value on Sheet '+ sheetName +'\n';
+							for (var y = 0; y < messageList[x].length; y++) {
+								if(messageList[x][y].length){
+									message_temp += 'Missing Value on Sheet ' + sheetName + '\n';
+									for (var z = 0; z < messageList[x][y].length; z++){
+										var field = messageList[x][y][z].property;
+										var reason = messageList[x][y][z].reason;
+										var error_label = messageList[x][y][z].label;
+										if (error_label) {
+											// $timeout(function () {
+												$(error_label).addClass('error');
+											// }, 0)
+
+										}
+										if (field === 'activity_type_check' || field === 'project_donor_check') {
+											message_temp += 'Missing Activity Type or Project Donor \nPlease check spelling, or verify that this is a correct value for this Project! \n'
+										}
+										message_temp += 'Incorrect value at row ' + (y + 2) + ', ' + list_field[field] + ' : ' + reason + '\n';
+
+										if (field === 'activity_type_check' || field === 'project_donor' || 
+											field === 'admin1pcode' || field ==='admin1name'|| field ==='admin2pcode'||field ==='admin2name'||
+											field === 'cluster_id' || field === 'activity_type_id' || field === 'activity_description_id'){
+											message_temp += 'Row ' + (y + 2) + ' From Sheet ' + sheetName +' will be not added\n'
+										}
+									}
+									message_temp += '\n'
+								}
+
+							}
+							
+						}
+					}
+					if (message_temp !== '') {
+
+						$scope.project.messageWarning = message_temp;
+
+						$timeout(function () {
+							$('#message-file-project').modal({ dismissible: false });
+							$('#message-file-project').modal('open');
+						})
+
+					}
+					return message_temp;
+				},
+
+
+				copyProject:function(){
+					$location.path('/cluster/projects/details/new/' + $scope.project.definition.id);
+				},
+
+
 				/**** SAVE ****/
 
 				// save project
@@ -1028,7 +2021,7 @@ angular.module( 'ngm.widget.project.details', [ 'ngm.provider' ])
 					// Materialize.toast( $filter('translate')('processing'), 6000, 'note' );
 					M.toast({ html: $filter('translate')('processing'), displayLength: 6000, classes: 'note' });
 
-
+					
 					// details update
 					$http({
 						method: 'POST',

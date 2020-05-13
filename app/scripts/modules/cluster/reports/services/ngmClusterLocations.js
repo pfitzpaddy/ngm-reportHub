@@ -638,7 +638,7 @@ angular.module( 'ngmReportHub' )
           obj[key] = location[key];
           var selected = $filter('filter')(list, obj, true);
           if (selected && selected.length) {
-
+            
             // remove list id
             delete selected[0].id;
 

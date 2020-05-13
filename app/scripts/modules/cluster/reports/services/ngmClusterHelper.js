@@ -712,7 +712,42 @@ angular.module( 'ngmReportHub' )
 					]
 				};
 				return region
-			}
+      },
+      cleanCopyProject:function(project,template){
+        delete project.id;
+        delete project.updatedAt;
+        delete project.createdAt;
+        delete project.project_end_date;
+        delete project.project_start_date;
+        delete project.project_status
+        // delete target_locations id
+        if(project.target_locations.length){
+          angular.forEach(project.target_locations, function (e) {
+            delete e.id;
+            delete e.project_id;
+          })
+        }
+         // delete target_beneficiaries id
+        if (project.target_beneficiaries.length) {
+          angular.forEach(project.target_beneficiaries, function (e) {
+            delete e.id;
+            delete e.project_id;
+          })
+        }
+        if(project.inter_cluster_activities.length){
+          _index = project.inter_cluster_activities.findIndex(x =>  (x.cluster_id === template.cluster_id) && (x.cluster === template.cluster_id));
+          if(_index>-1){
+            project.inter_cluster_activities.splice(_index,1);
+          }
+          if((project.cluster_id !== template.cluster_id) && (project.cluster !==  template.cluster)){
+
+            project.inter_cluster_activities.push({cluster_id:project.cluster_id,cluster:project.cluster});
+          }
+        }
+       
+       template = angular.merge({},template,project);
+       return template;
+      }
 
 		};
 

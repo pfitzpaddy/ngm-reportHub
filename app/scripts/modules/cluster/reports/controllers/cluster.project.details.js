@@ -239,16 +239,46 @@ angular.module('ngmReportHub')
 
 		// if 'new' create empty project
 		if( $route.current.params.project === 'new' ) {
-
-			// get new project
-			var project = ngmClusterHelper.getNewProject( ngmUser.get() );
-
-			// set summary
-			$scope.report.setProjectDetails( project );
-			setTimeout(() => {
-				$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
-			}, 0);
-
+			if ($route.current.params.copy_project_id){
+				M.toast({ html: 'Copying Project....', displayLength: 6000, classes: 'note' });
+				$timeout(function () {
+					ngmData.get({
+						method: 'POST',
+						url: ngmAuth.LOCATION + '/api/cluster/project/getProject',
+						data: {
+							id: $route.current.params.copy_project_id
+						}
+					}).then(function (data) {
+						if (!data.id) {
+							M.toast({ html: 'Project Copy Fail!', displayLength: 4000, classes: 'error' });
+							M.toast({ html: ' Set to New Blank Project!', displayLength: 4000, classes: 'note' });
+							var project = ngmClusterHelper.getNewProject(ngmUser.get());
+							// set summary
+							$scope.report.setProjectDetails(project);
+							setTimeout(() => {
+								$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+							}, 0);
+						}else{
+							var newProject_default = ngmClusterHelper.getNewProject(ngmUser.get());
+							var project = ngmClusterHelper.cleanCopyProject(data, newProject_default);
+							$scope.report.setProjectDetails(project);
+							setTimeout(() => {
+								$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+							}, 0);
+							M.toast({ html: 'Copy Project Successs!', displayLength: 4000, classes: 'success' });
+						}
+					})
+				},4000)
+				
+			}else{
+				// get new project
+				var project = ngmClusterHelper.getNewProject( ngmUser.get() );
+				// set summary
+				$scope.report.setProjectDetails( project );
+				setTimeout(() => {
+					$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
+				}, 0);
+			}
 		} else {
 
 			// return project
@@ -262,6 +292,7 @@ angular.module('ngmReportHub')
 				// assign data
 				if ( data.id ){
 					$scope.report.setProjectDetails( data );
+					
 					setTimeout(() => {
 						$('.fixed-action-btn').floatingActionButton({ direction: 'left' });
 					}, 0);
