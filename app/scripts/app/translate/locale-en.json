@@ -380,6 +380,7 @@
 				 "download_project_lists":"Download Project Lists as Excel",
 				 "download_populations_lists":"Download Population Groups Lists as Excel",
 				 "download_stock_lists":"Download Stock Lists as Excel",
+				 "download_warehouses":"Download Warehouses as Excel",
          "submitted_reports":"Submitted Reports",
          "duplicate_reports":"Duplicate Reports",
          "reports_timeline":"Reports Timeline",
