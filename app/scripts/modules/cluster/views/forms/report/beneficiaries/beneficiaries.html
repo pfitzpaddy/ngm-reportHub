@@ -833,7 +833,7 @@
 										id="{{s.response_id}}" 
 										ng-checked="ngmClusterBeneficiaries.checkSpecific(s.response_id,beneficiary,ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response'])" 
 										ng-click="ngmClusterBeneficiaries.setSpecific(s.response_id,beneficiary,ngmClusterBeneficiaries.form[ $locationIndex ][ $beneficiaryIndex ]['response'])"
-											ng-disabled="project.definition.project_status === 'complete' || !project.canEdit" />
+										ng-disabled="project.definition.project_status === 'complete' || !project.canEdit || project.report.report_status === 'complete'" />
 										<span style="left: .75rem;">{{s.response_name}}</span>
 									</label>
 								</p>
