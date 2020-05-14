@@ -2806,6 +2806,19 @@ angular.module( 'ngmReportHub' )
 
 			},
 
+			fieldWarehouse: function () {
+				field = {
+					'admin1pcode': 'Admin1 Pcode',
+					'admin1name': 'Admin1 Name',
+					'admin2pcode': 'Admin2 Pcode',
+					'admin2name': 'Admin2 Name',
+					'site_name': 'Location Name',
+					'admin1': 'Admin1 Pcode or Admin1 Name',
+					'admin2': 'Admin2 Pcode or Admin2 Name'
+				}
+				return field;
+			}
+
 		};
 
 		// return
