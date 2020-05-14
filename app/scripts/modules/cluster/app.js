@@ -272,7 +272,7 @@ angular
 				}
 			})
 			// project details
-			.when( '/cluster/projects/details/:project', {
+			.when( '/cluster/projects/details/:project/:copy_project_id?', {
 				templateUrl: '/views/app/dashboard.html',
 				controller: 'ClusterProjectDetailsCtrl',
 				resolve: {

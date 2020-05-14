@@ -594,6 +594,8 @@ angular.module( 'ngmReportHub' )
  					ngmClusterBeneficiaries.form[$parent][$index].display = ngmClusterBeneficiaries.showFormInputs( beneficiary, ngmClusterBeneficiaries.form[$parent][$index] );
 				}
 
+
+
 			},
 
 
